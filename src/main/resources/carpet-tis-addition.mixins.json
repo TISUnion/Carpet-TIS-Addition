@@ -10,7 +10,9 @@
     "StructureBlockBlockEntity_structureBlockLimitMixin",
     "UpdateStructureBlockC2SPacket_structureBlockLimitMixin",
 
-    "ExperienceOrbEntity_xpTrackingDistanceMixin"
+    "ExperienceOrbEntity_xpTrackingDistanceMixin",
+
+    "ChunkTicketManager_ticketLoggerMixin"
   ],
   "client": [
     "MinecraftClient_noopMixin"

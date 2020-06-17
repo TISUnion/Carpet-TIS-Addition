@@ -37,3 +37,16 @@ Change it to 0 to disable tracking
 - Suggested options: `0`, `1`, `8`, `32`
 - Categories: `TIS`, `CREATIVE` 
   
+
+# Carpet TIS Addition loggers
+
+## ticket
+
+Info when a ticket is created
+
+Use csv format, like `portal,dragon` for logging multiple types of ticket
+
+**Warning:** Logging `unknown` ticket may make you get spammed
+
+- Default value: `portal`
+- Suggested options: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`

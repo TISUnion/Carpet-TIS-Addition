@@ -2,6 +2,7 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
+import carpettisaddition.logging.LoggerExtensionRegistry;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -65,5 +66,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void onPlayerLoggedOut(ServerPlayerEntity player)
     {
         // will need that for client features
+    }
+
+    @Override
+    public void registerLoggers()
+    {
+        LoggerExtensionRegistry.registerLoggers();
     }
 }
