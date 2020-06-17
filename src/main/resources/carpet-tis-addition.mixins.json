@@ -4,7 +4,13 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "MinecraftServer_noopMixin",
-    "ServerWorld_blockActionBroadcastRangeMixin"
+
+    "ServerWorld_blockEventPacketRangeMixin",
+
+    "StructureBlockBlockEntity_structureBlockLimitMixin",
+    "UpdateStructureBlockC2SPacket_structureBlockLimitMixin",
+
+    "ExperienceOrbEntity_xpTrackingDistanceMixin"
   ],
   "client": [
     "MinecraftClient_noopMixin"

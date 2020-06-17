@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 
 @Mixin(ServerWorld.class)
-public class ServerWorld_blockActionBroadcastRangeMixin
+public abstract class ServerWorld_blockEventPacketRangeMixin
 {
 	// blockEventPacketRange
 	@Redirect(method = "sendBlockActions", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;sendToAround(Lnet/minecraft/entity/player/PlayerEntity;DDDDLnet/minecraft/world/dimension/DimensionType;Lnet/minecraft/network/Packet;)V"))
