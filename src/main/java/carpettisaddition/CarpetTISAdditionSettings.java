@@ -30,7 +30,7 @@ public class CarpetTISAdditionSettings
             desc = "Set the range where player will receive a block event packet after a block event fires successfully",
             extra = "For piston the packet is used to render the piston movement animation. Decrease it to reduce client's lag",
             validate = ValidatorBlockEventPacketRange.class,
-            options = {"0", "16", "64", "128", "512"},
+            options = {"0", "16", "64", "128"},
             strict = false,
             category = {TIS, OPTIMIZATION}
     )
