@@ -1,33 +1,32 @@
-package carpetextra;
+package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import carpetextra.commands.PingCommand;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public class CarpetExtraServer implements CarpetExtension
+public class CarpetTISAdditionServer implements CarpetExtension
 {
     @Override
     public String version()
     {
-        return "carpet-extra";
+        return "carpet-tis-addition";
     }
 
     public static void noop() { }
 
     static
     {
-        CarpetServer.manageExtension(new CarpetExtraServer());
+        CarpetServer.manageExtension(new CarpetTISAdditionServer());
     }
 
     @Override
     public void onGameStarted()
     {
         // let's /carpet handle our few simple settings
-        CarpetServer.settingsManager.parseSettingsClass(CarpetExtraSettings.class);
+        CarpetServer.settingsManager.parseSettingsClass(CarpetTISAdditionSettings.class);
 
         // set-up a snooper to observe how rules are changing in carpet
         CarpetServer.settingsManager.addRuleObserver( (serverCommandSource, currentRuleState, originalUserTest) ->
@@ -54,7 +53,6 @@ public class CarpetExtraServer implements CarpetExtension
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         // here goes extra stuff
-        PingCommand.register(dispatcher);
     }
 
     @Override

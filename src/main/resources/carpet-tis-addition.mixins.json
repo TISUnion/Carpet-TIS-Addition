@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "carpettisaddition.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MinecraftServer_noopMixin",
+    "ServerWorld_blockActionBroadcastRangeMixin"
+  ],
+  "client": [
+    "MinecraftClient_noopMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

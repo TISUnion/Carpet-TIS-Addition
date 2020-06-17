@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "carpet-extra",
+  "id": "carpet-tis-addition",
   "version": "1.3.28",
 
-  "name": "Carpet Extra",
+  "name": "Carpet TIS Addition",
   "description": "Additional, less vanilla additions to the carpet mod",
   "authors": [
     "gnembon, DeadlyMC, ImUrX, 2No2Name, ..."
@@ -21,7 +21,7 @@
     ]
   },
   "mixins": [
-    "carpet-extra.mixins.json"
+    "carpet-tis-addition.mixins.json"
   ],
 
   "depends": {
