@@ -40,6 +40,8 @@ Change it to 0 to disable tracking
 
 # Carpet TIS Addition loggers
 
+**DO NOT works in 1.14.4 version due to carpet not supported loggers from extensions**
+
 ## ticket
 
 Info when a ticket is created
