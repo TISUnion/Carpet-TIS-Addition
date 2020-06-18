@@ -1,7 +1,7 @@
 package carpettisaddition.mixins;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.server.network.packet.UpdateStructureBlockC2SPacket;
+import net.minecraft.network.packet.c2s.play.UpdateStructureBlockC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;

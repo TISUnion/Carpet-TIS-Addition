@@ -66,4 +66,12 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         // will need that for client features
     }
+
+    /*  not available in carpet 1.14.4
+    @Override
+    public void registerLoggers()
+    {
+        LoggerExtensionRegistry.registerLoggers();
+    }
+    */
 }
