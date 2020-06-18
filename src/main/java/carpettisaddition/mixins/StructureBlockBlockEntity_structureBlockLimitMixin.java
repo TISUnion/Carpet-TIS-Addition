@@ -10,13 +10,13 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(StructureBlockBlockEntity.class)
 public abstract class StructureBlockBlockEntity_structureBlockLimitMixin
 {
-	@ModifyConstant(method = "fromTag", require = 3, constant = @Constant(intValue = -32))
+	@ModifyConstant(method = "fromTag", require = 3, constant = @Constant(intValue = -48))
 	private int structureBlockLimitNegative(int value)
 	{
 		return -CarpetTISAdditionSettings.structureBlockLimit;
 	}
 
-	@ModifyConstant(method = "fromTag", require = 6, constant = @Constant(intValue = 32))
+	@ModifyConstant(method = "fromTag", require = 6, constant = @Constant(intValue = 48))
 	private int structureBlockLimitPositive(int value)
 	{
 		return CarpetTISAdditionSettings.structureBlockLimit;
