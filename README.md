@@ -59,7 +59,7 @@ Add a name prefix for fake players spawned with `/player` command
 
 Which can prevent summoning fake player with illegal names and make player list look nicer
 
-Set it to `#none` to not add a prefix
+Set it to `#none` to stop adding a prefix
  
 - Type: `String`  
 - Default value: `#none`  

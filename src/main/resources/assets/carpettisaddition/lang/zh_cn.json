@@ -1,0 +1,25 @@
+{
+  "category.TIS": "TIS",
+
+  "rule.blockEventPacketRange.name": "方块事件广播范围",
+  "rule.blockEventPacketRange.desc": "设置会在方块事件成功执行后收到数据包的玩家范围",
+  "rule.blockEventPacketRange.extra.0": "对于活塞而言，这一个数据包是用于显示活塞移动的话。把这个值调小以减小客户端卡顿",
+
+  "rule.structureBlockLimit.name": "结构方块范围限制",
+  "rule.structureBlockLimit.desc": "覆写结构方块的范围限制",
+  "rule.structureBlockLimit.extra.0": "当相对位置的值大于32时客户端里结构的位置可能会错误地显示",
+
+  "rule.xpTrackingDistance.name": "经验球追踪距离",
+  "rule.xpTrackingDistance.desc": "修改经验球检测并追踪玩家的距离",
+  "rule.xpTrackingDistance.extra.0": "将其调至0以禁用追踪",
+
+  "rule.tntDupingFix.name": "TNT复制修复",
+  "rule.tntDupingFix.desc": "禁用TNT、地毯以及铁轨的复制",
+  "rule.tntDupingFix.extra.0": "基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块",
+  "rule.tntDupingFix.extra.1": "Dupe bad dig good",
+
+  "rule.fakePlayerNamePrefix.name": "假人名称前缀",
+  "rule.fakePlayerNamePrefix.desc": "为/player指令召唤出来的假人名称添加指定前缀",
+  "rule.fakePlayerNamePrefix.extra.0": "将其设置为#none以阻止添加前缀",
+  "rule.fakePlayerNamePrefix.extra.1": "这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁"
+}

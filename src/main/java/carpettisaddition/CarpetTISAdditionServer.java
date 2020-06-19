@@ -3,10 +3,14 @@ package carpettisaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+
+import java.util.Map;
+
 
 public class CarpetTISAdditionServer implements CarpetExtension
 {
@@ -72,5 +76,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void registerLoggers()
     {
         ExtensionLoggerRegistry.registerLoggers();
+    }
+
+    @Override
+    public Map<String, String> canHasTranslations(String lang)
+    {
+        return ExtensionTranslations.getTranslationFromResourcePath(lang);
     }
 }

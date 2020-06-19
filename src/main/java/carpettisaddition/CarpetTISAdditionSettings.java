@@ -97,7 +97,7 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			desc = "Add a name prefix for fake players spawned with /player command",
 			extra = {
-					"Set it to " + fakePlayerNameNone + " to not add a prefix",
+					"Set it to " + fakePlayerNameNone + " to stop adding a prefix",
 					"Which can prevent summoning fake player with illegal names and make player list look nicer"
 			},
 			options = {fakePlayerNameNone, "bot_"},

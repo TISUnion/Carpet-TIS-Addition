@@ -13,7 +13,7 @@
     "sources": "https://github.com/TISUnion/Carpet-TIS-Addition"
   },
 
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/carpettisaddition/icon.png",
 
   "environment": "*",
   "entrypoints": {
