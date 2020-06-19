@@ -81,4 +81,14 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
+	@Rule(
+			desc = "Disable TNT, carpet and rail duping",
+			extra = {
+					"Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block",
+					"Dupe bad dig good"
+			},
+			category = {TIS, BUGFIX}
+	)
+	public static boolean tntDupingFix = false;
+
 }

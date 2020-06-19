@@ -12,7 +12,9 @@
 
     "ExperienceOrbEntity_xpTrackingDistanceMixin",
 
-    "ChunkTicketManager_ticketLoggerMixin"
+    "ChunkTicketManager_ticketLoggerMixin",
+
+    "PistonBlock_tntDupingFixMixin"
   ],
   "client": [
     "MinecraftClient_noopMixin"
