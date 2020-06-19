@@ -26,6 +26,7 @@ Relative position might display wrongly on client side if it's larger than 32
 - Suggested options: `32`, `64`, `96`, `127`
 - Categories: `TIS`, `CREATIVE` 
 
+
 ## xpTrackingDistance
 
 Overwrite the tracking distance of xp orb
@@ -36,7 +37,35 @@ Change it to 0 to disable tracking
 - Default value: `8`  
 - Suggested options: `0`, `1`, `8`, `32`
 - Categories: `TIS`, `CREATIVE` 
-  
+
+
+## tntDupingFix
+
+Disable TNT, carpet and rail duping
+
+Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block
+
+~~Dupe bad dig good~~
+ 
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`, `EXPERIMENTAL` 
+
+
+## fakePlayerNamePrefix
+
+Add a name prefix for fake players spawned with `/player` command
+
+Which can prevent summoning fake player with illegal names and make player list look nicer
+
+Set it to `#none` to not add a prefix
+ 
+- Type: `String`  
+- Default value: `#none`  
+- Suggested options: `#none`, `bot_`
+- Categories: `TIS` 
+
 
 # Carpet TIS Addition loggers
 
@@ -52,3 +81,14 @@ Use csv format, like `portal,dragon` for logging multiple types of ticket
 
 - Default value: `portal`
 - Suggested options: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
+
+
+## Memory
+
+Display current consumed and total memory of the server in HUD
+
+
+
+# Other Stuffs
+
+- Set the maximum length of fake player's name to 16 to prevent kicking out player

@@ -5,6 +5,9 @@
   "mixins": [
     "MinecraftServer_noopMixin",
 
+    "CarpetHUDControllerMixin",
+    "CarpetPlayerCommandMixin",
+
     "ServerWorld_blockEventPacketRangeMixin",
 
     "StructureBlockBlockEntity_structureBlockLimitMixin",

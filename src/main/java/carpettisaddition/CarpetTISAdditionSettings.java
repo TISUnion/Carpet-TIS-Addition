@@ -5,6 +5,8 @@ import carpet.settings.Rule;
 import carpet.settings.Validator;
 import net.minecraft.server.command.ServerCommandSource;
 
+import java.util.regex.Pattern;
+
 import static carpet.settings.RuleCategory.*;
 
 /**
@@ -87,8 +89,34 @@ public class CarpetTISAdditionSettings
 					"Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block",
 					"Dupe bad dig good"
 			},
-			category = {TIS, BUGFIX}
+			category = {TIS, BUGFIX, EXPERIMENTAL}
 	)
 	public static boolean tntDupingFix = false;
+
+	public static final String fakePlayerNameNone = "#none";
+	@Rule(
+			desc = "Add a name prefix for fake players spawned with /player command",
+			extra = {
+					"Set it to " + fakePlayerNameNone + " to not add a prefix",
+					"Which can prevent summoning fake player with illegal names and make player list look nicer"
+			},
+			options = {fakePlayerNameNone, "bot_"},
+			validate = ValidateFakePlayerNamePrefix.class,
+			strict = false,
+			category = {TIS}
+	)
+	public static String fakePlayerNamePrefix = fakePlayerNameNone;
+	private static class ValidateFakePlayerNamePrefix extends Validator<String>
+	{
+		@Override
+		public String validate(ServerCommandSource source, ParsedRule<String> currentRule, String newValue, String string)
+		{
+			return (newValue.equals(fakePlayerNameNone) || Pattern.matches("[a-zA-Z_0-9]{1,15}", newValue)) ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must give a string without special characters and with a length from 1 to 16";
+		}
+	}
 
 }

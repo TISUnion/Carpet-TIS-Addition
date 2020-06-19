@@ -2,7 +2,7 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import carpettisaddition.logging.LoggerExtensionRegistry;
+import carpettisaddition.logging.ExtensionLoggerRegistry;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -71,6 +71,6 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void registerLoggers()
     {
-        LoggerExtensionRegistry.registerLoggers();
+        ExtensionLoggerRegistry.registerLoggers();
     }
 }
