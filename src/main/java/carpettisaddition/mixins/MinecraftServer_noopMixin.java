@@ -14,7 +14,10 @@ public class MinecraftServer_noopMixin
     // if you have already you own mixins that use your extension class in any shape or form
     // you don't need this one
     // You need this one to run a server properly
-    @Inject(method = "<init>", at = @At("RETURN"))
+    @Inject(
+            method = "<init>",
+            at = @At("RETURN")
+    )
     private void loadMe(CallbackInfo ci)
     {
         CarpetTISAdditionServer.noop();

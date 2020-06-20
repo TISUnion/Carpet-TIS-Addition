@@ -14,15 +14,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(PlayerCommand.class)
 public class CarpetPlayerCommandMixin
 {
-	@Redirect(
-			method = {"spawn", "cantSpawn"},
-			at = @At(
-					value = "INVOKE",
-					target = "Lcom/mojang/brigadier/arguments/StringArgumentType;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
-			),
-			require = 2,
-			remap = false
-	)
 	private static String getStringWithPrefix(final CommandContext<?> context, final String name)
 	{
 		String playerName = StringArgumentType.getString(context, name);
@@ -31,6 +22,34 @@ public class CarpetPlayerCommandMixin
 			playerName = CarpetTISAdditionSettings.fakePlayerNamePrefix + playerName;
 		}
 		return playerName;
+	}
+
+	@Redirect(
+			method = "spawn",
+			at = @At(
+					value = "INVOKE",
+					target = "Lcom/mojang/brigadier/arguments/StringArgumentType;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
+			),
+			require = 2,
+			remap = false
+	)
+	private static String getStringWithPrefixAtSpawn(final CommandContext<?> context, final String name)
+	{
+		return getStringWithPrefix(context, name);
+	}
+
+	@Redirect(
+			method = "cantSpawn",
+			at = @At(
+					value = "INVOKE",
+					target = "Lcom/mojang/brigadier/arguments/StringArgumentType;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
+			),
+			require = 1,
+			remap = false
+	)
+	private static String getStringWithPrefixAtCantSpawn(final CommandContext<?> context, final String name)
+	{
+		return getStringWithPrefix(context, name);
 	}
 
 	@ModifyConstant(
