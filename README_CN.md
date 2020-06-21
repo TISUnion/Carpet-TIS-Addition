@@ -103,6 +103,8 @@ Carpet-TIS-Addition
 
 ## 加载票 (ticket)
 
+`/log ticket <监视类型>`
+
 记录加载票的创建
 
 用 csv 格式，例如 `portal,dragon` 来监视多种类型的加载票
@@ -114,6 +116,8 @@ Carpet-TIS-Addition
 
 
 ## 内存 (memory)
+
+`/log memory`
 
 于 tab 栏中显示服务端当前消耗的内存以及占用的最大内存
 

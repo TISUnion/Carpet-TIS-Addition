@@ -103,6 +103,8 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 
 ## ticket
 
+`/log ticket <types>`
+
 Info when a ticket is created
 
 Use csv format, like `portal,dragon` for logging multiple types of ticket
@@ -114,6 +116,8 @@ Use csv format, like `portal,dragon` for logging multiple types of ticket
 
 
 ## memory
+
+`/log memory`
 
 Display current consumed and total memory of the server in HUD
 
