@@ -5,6 +5,9 @@
   "mixins": [
     "MinecraftServer_noopMixin",
 
+    "CarpetHUDControllerMixin",
+    "CarpetPlayerCommandMixin",
+
     "ServerWorld_blockEventPacketRangeMixin",
 
     "StructureBlockBlockEntity_structureBlockLimitMixin",
@@ -12,7 +15,13 @@
 
     "ExperienceOrbEntity_xpTrackingDistanceMixin",
 
-    "ChunkTicketManager_ticketLoggerMixin"
+    "ChunkTicketManager_ticketLoggerMixin",
+
+    "PistonBlock_tntDupingFixMixin",
+
+    "DragonEggBlock_renewableDragonEggMixin",
+
+    "DispenserBlock_dispensersFireDragonBreathMixin"
   ],
   "client": [
     "MinecraftClient_noopMixin"

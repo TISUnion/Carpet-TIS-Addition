@@ -20,7 +20,10 @@ import java.util.Arrays;
 @Mixin(ChunkTicketManager.class)
 public abstract class ChunkTicketManager_ticketLoggerMixin
 {
-	@Inject(method = "addTicket", at = @At(value = "HEAD"))
+	@Inject(
+			method = "Lnet/minecraft/server/world/ChunkTicketManager;addTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
+			at = @At(value = "HEAD")
+	)
 	private void onAddTicket(long position, ChunkTicket<?> chunkTicket, CallbackInfo ci)
 	{
 		LoggerRegistry.getLogger("ticket").log((option) ->

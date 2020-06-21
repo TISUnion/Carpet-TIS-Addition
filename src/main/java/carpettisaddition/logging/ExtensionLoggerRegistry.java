@@ -4,9 +4,11 @@ import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 
-public class LoggerExtensionRegistry
+
+public class ExtensionLoggerRegistry
 {
     public static boolean __ticket;
+    public static boolean __memory;
 
     public static void registerLoggers()
     {
@@ -14,13 +16,14 @@ public class LoggerExtensionRegistry
                 "ticket", standardLogger("ticket", "portal", new String[]{
                 "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
         }));
+        LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
     }
 
     private static Logger standardLogger(String logName, String def, String[] options)
 	{
         try
         {
-            return new Logger(LoggerExtensionRegistry.class.getField("__" + logName), logName, def, options);
+            return new Logger(ExtensionLoggerRegistry.class.getField("__" + logName), logName, def, options);
         }
         catch (NoSuchFieldException e)
         {
@@ -32,7 +35,7 @@ public class LoggerExtensionRegistry
     {
         try
         {
-            return new HUDLogger(LoggerExtensionRegistry.class.getField("__"+logName), logName, def, options);
+            return new HUDLogger(ExtensionLoggerRegistry.class.getField("__" + logName), logName, def, options);
         }
         catch (NoSuchFieldException e)
         {
