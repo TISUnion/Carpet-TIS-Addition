@@ -78,7 +78,7 @@ Make dragon egg renewable
 
 When a dragon egg is in dragon breath effect cloud it has a possibility to take in the effect cloud and "summon" a new dragon egg
 
-Use with rule `dispensersFireDragonBreath` for more ease
+Use with rule [dispensersFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition#dispensersfiredragonbreath) for more ease
  
 - Type: `boolean`  
 - Default value: `false`  
