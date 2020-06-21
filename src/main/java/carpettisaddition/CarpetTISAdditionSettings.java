@@ -130,7 +130,7 @@ public class CarpetTISAdditionSettings
 	public static boolean renewableDragonEgg = false;
 
 	@Rule(
-			desc = "Dispenser can fire dragon breath bottle and create a dragon breath effect cloud",
+			desc = "Dispenser can fire dragon breath bottle to create a dragon breath effect cloud",
 			category = {TIS, FEATURE, DISPENSER}
 	)
 	public static boolean dispensersFireDragonBreath = false;

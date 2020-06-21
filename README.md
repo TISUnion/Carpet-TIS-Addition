@@ -1,6 +1,8 @@
 Carpet-TIS-Addition
 -----------
 
+[中文](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README.md)
+
 A [Carpet mod](https://github.com/gnembon/fabric-carpet) extension, a collection of specific needs of TIS and interesting features
 
 -----------
@@ -86,7 +88,7 @@ Use with rule `dispensersFireDragonBreath` for more ease
 
 ## dispensersFireDragonBreath
 
-Dispenser can fire dragon breath bottle and create a dragon breath effect cloud
+Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
  
 - Type: `boolean`  
 - Default value: `false`  
@@ -111,7 +113,7 @@ Use csv format, like `portal,dragon` for logging multiple types of ticket
 - Suggested options: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
 
 
-## Memory
+## memory
 
 Display current consumed and total memory of the server in HUD
 
