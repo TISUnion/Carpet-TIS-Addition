@@ -13,7 +13,7 @@ public abstract class StructureBlockBlockEntity_structureBlockLimitMixin
 	@ModifyConstant(
 			method = "fromTag",
 			require = 3,
-			constant = @Constant(intValue = -48)
+			constant = @Constant(intValue = -32)
 	)
 	private int structureBlockLimitNegative(int value)
 	{
@@ -23,7 +23,7 @@ public abstract class StructureBlockBlockEntity_structureBlockLimitMixin
 	@ModifyConstant(
 			method = "fromTag",
 			require = 6,
-			constant = @Constant(intValue = 48)
+			constant = @Constant(intValue = 32)
 	)
 	private int structureBlockLimitPositive(int value)
 	{
