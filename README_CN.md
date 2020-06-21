@@ -1,7 +1,7 @@
 Carpet-TIS-Addition
 -----------
 
-[English](https://github.com/TISUnion/Carpet-TIS-Addition)
+[>>> English <<<](https://github.com/TISUnion/Carpet-TIS-Addition)
 
 这是一个 [Carpet mod](https://github.com/gnembon/fabric-carpet) 的扩展 mod，包含了不少~~NotVanilla的~~有意思的功能以及特性
 

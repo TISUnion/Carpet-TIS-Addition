@@ -1,7 +1,7 @@
 Carpet-TIS-Addition
 -----------
 
-[中文](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README.md)
+[>>> 中文 <<<](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md)
 
 A [Carpet mod](https://github.com/gnembon/fabric-carpet) extension, a collection of specific needs of TIS and interesting features
 
