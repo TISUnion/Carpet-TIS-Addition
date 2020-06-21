@@ -17,7 +17,11 @@
 
     "ChunkTicketManager_ticketLoggerMixin",
 
-    "PistonBlock_tntDupingFixMixin"
+    "PistonBlock_tntDupingFixMixin",
+
+    "DragonEggBlock_renewableDragonEggMixin",
+
+    "DispenserBlock_dispensersFireDragonBreathMixin"
   ],
   "client": [
     "MinecraftClient_noopMixin"

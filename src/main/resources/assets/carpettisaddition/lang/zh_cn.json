@@ -21,5 +21,13 @@
   "rule.fakePlayerNamePrefix.name": "假人名称前缀",
   "rule.fakePlayerNamePrefix.desc": "为/player指令召唤出来的假人名称添加指定前缀",
   "rule.fakePlayerNamePrefix.extra.0": "将其设置为#none以阻止添加前缀",
-  "rule.fakePlayerNamePrefix.extra.1": "这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁"
+  "rule.fakePlayerNamePrefix.extra.1": "这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁",
+
+  "rule.renewableDragonEgg.name": "可再生龙蛋",
+  "rule.renewableDragonEgg.desc": "让龙蛋变得可再生",
+  "rule.renewableDragonEgg.extra.0": "当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋",
+  "rule.renewableDragonEgg.extra.1": "可与选项 “dispenserFireDragonBreath”联动",
+
+  "rule.dispensersFireDragonBreath.name": "发射器发射龙息",
+  "rule.dispensersFireDragonBreath.desc": "发射器可发射龙息瓶，并创造出龙息效果云"
 }

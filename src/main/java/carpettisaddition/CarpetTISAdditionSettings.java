@@ -119,4 +119,19 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
+	@Rule(
+			desc = "Make dragon egg renewable",
+			extra = {
+					"When a dragon egg is in dragon breath effect cloud it has a possibility to take in the effect cloud and \"summon\" a new dragon egg",
+					"Use with rule \"dispensersFireDragonBreath\" for more ease"
+			},
+			category = {TIS, FEATURE}
+	)
+	public static boolean renewableDragonEgg = false;
+
+	@Rule(
+			desc = "Dispenser can fire dragon breath bottle and create a dragon breath effect cloud",
+			category = {TIS, FEATURE, DISPENSER}
+	)
+	public static boolean dispensersFireDragonBreath = false;
 }

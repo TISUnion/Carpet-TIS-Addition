@@ -1,8 +1,11 @@
-# Carpet-TIS-Addition
+Carpet-TIS-Addition
+-----------
 
-Carpet TIS Addition
+A [Carpet mod](https://github.com/gnembon/fabric-carpet) extension, a collection of specific needs of TIS and interesting features
 
-# Carpet TIS Addition features
+-----------
+
+# Features
 
 ## blockEventPacketRange
 
@@ -67,7 +70,32 @@ Set it to `#none` to stop adding a prefix
 - Categories: `TIS` 
 
 
-# Carpet TIS Addition loggers
+## renewableDragonEgg
+
+Make dragon egg renewable
+
+When a dragon egg is in dragon breath effect cloud it has a possibility to take in the effect cloud and "summon" a new dragon egg
+
+Use with rule `dispensersFireDragonBreath` for more ease
+ 
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
+
+
+## dispensersFireDragonBreath
+
+Dispenser can fire dragon breath bottle and create a dragon breath effect cloud
+ 
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `DISPENSER`
+
+-----------
+
+# Loggers
 
 **DO NOT works in 1.14.4 version due to carpet not supported loggers from extensions**
 
@@ -87,7 +115,7 @@ Use csv format, like `portal,dragon` for logging multiple types of ticket
 
 Display current consumed and total memory of the server in HUD
 
-
+-----------
 
 # Other Stuffs
 
