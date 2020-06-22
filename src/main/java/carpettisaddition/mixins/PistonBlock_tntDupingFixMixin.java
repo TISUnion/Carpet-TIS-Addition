@@ -35,7 +35,7 @@ public abstract class PistonBlock_tntDupingFixMixin
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void setAllToBeMovedBlockToAirFirst(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState blockStates[], Direction direction)
+	private void setAllToBeMovedBlockToAirFirst(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState blockStates[], Direction direction, int j)
 	{
 		if (CarpetTISAdditionSettings.tntDupingFix)
 		{
@@ -56,7 +56,7 @@ public abstract class PistonBlock_tntDupingFixMixin
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void useTheStateInList2Please(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState blockStates[], Direction direction, int l, BlockPos blockPos4, BlockState blockState3)
+	private void useTheStateInList2Please(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState blockStates[], Direction direction, int j, int l, BlockPos blockPos4, BlockState blockState3)
 	{
 		if (CarpetTISAdditionSettings.tntDupingFix)
 		{

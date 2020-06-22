@@ -35,7 +35,7 @@ public class DispenserHelper
 				areaEffectCloudEntity.setDuration(600);
 				areaEffectCloudEntity.setRadiusGrowth((7.0F - areaEffectCloudEntity.getRadius()) / (float)areaEffectCloudEntity.getDuration());
 				areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1, 1));
-				world.playLevelEvent(2007, blockpos, areaEffectCloudEntity.getColor());
+				world.syncGlobalEvent(2007, blockpos, areaEffectCloudEntity.getColor());
 				world.spawnEntity(areaEffectCloudEntity);
 
 				stack.decrement(1);
