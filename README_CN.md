@@ -95,6 +95,15 @@ Carpet-TIS-Addition
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
 
+## 可再生龙首 (renewableDragonHead)
+
+被高压爬行者杀死的末影龙将会掉落一个龙首
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
+
 -----------
 
 # 监视器
@@ -123,6 +132,18 @@ Carpet-TIS-Addition
 
 -----------
 
+# 统计信息
+
+为了兼容原版客户端，这些自定义的统计信息均无法在客户端的统计信息页面查看
+
+
+## 破基岩 (break_bedrock)
+
+当一个基岩被活塞或者是粘性活塞删除时，这块基岩五米范围内最近的玩家将会将此统计信息数值 +1
+
+准则: `minecraft.custom:minecraft.break_bedrock`
+
+-----------
 # 其他
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出

@@ -95,6 +95,15 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `FEATURE`, `DISPENSER`
 
+## renewableDragonHead
+
+Ender dragon killed by charged creeper will drops dragon head
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
+
 -----------
 
 # Loggers
@@ -120,6 +129,19 @@ Use csv format, like `portal,dragon` for logging multiple types of ticket
 `/log memory`
 
 Display current consumed and total memory of the server in HUD
+
+-----------
+
+# Statistics
+
+All these custom stats can't be found in the statistic page in the client for vanilla compatibility
+
+
+## break_bedrock
+
+When a bedrock is deleted by a piston or a sticky piston, the nearest player to the bedrock within 5m will increase this stat by 1
+
+Criteria: `minecraft.custom:minecraft.break_bedrock`
 
 -----------
 
