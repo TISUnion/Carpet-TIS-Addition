@@ -36,12 +36,10 @@ public class CustomStatsHelper
 	{
 		stats = Sets.newHashSet();
 		addStat(BREAK_BEDROCK = Registry.CUSTOM_STAT.getId(new Identifier("break_bedrock")));
-
 	}
 
 	public static void addStatsToNearestPlayers(World world, BlockPos pos, double radius, Identifier stat, int amount)
 	{
-
 		Comparator<Pair<Double, ServerPlayerEntity>> comparator = (a, b) ->
 		{
 			if (a.getFirst() < b.getFirst())
