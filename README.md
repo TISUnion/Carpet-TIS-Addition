@@ -39,7 +39,7 @@ Overwrite the tracking distance of xp orb
 Change it to 0 to disable tracking
  
 - Type: `double`  
-- Default value: `8`  
+- Default value: `8`
 - Suggested options: `0`, `1`, `8`, `32`
 - Categories: `TIS`, `CREATIVE` 
 
@@ -69,7 +69,7 @@ Set it to `#none` to stop adding a prefix
 - Type: `String`  
 - Default value: `#none`  
 - Suggested options: `#none`, `bot_`
-- Categories: `TIS` 
+- Categories: `TIS`, `CARPET`
 
 
 ## renewableDragonEgg
@@ -95,14 +95,25 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `FEATURE`, `DISPENSER`
 
+
 ## renewableDragonHead
 
-Ender dragon killed by charged creeper will drops dragon head
+Ender dragon killed by charged creeper will drop dragon head
 
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `FEATURE`
+
+
+## HUDLoggerUpdateInterval
+
+Overwrite HUD loggers update interval (gametick)
+ 
+- Type: `int`  
+- Default value: `20`
+- Suggested options: `1`, `5`, `20`, `100`
+- Categories: `TIS`, `CARPET`
 
 -----------
 
