@@ -15,7 +15,7 @@ import static carpet.settings.RuleCategory.*;
 public class CarpetTISAdditionSettings
 {
     public static final String TIS = "TIS";
-    public static final String CARPET = "carpet";
+    public static final String CARPET_MOD = "carpet_mod";
 
     @Rule(
             desc = "Set the range where player will receive a block event packet after a block event fires successfully",
@@ -104,7 +104,7 @@ public class CarpetTISAdditionSettings
 			options = {fakePlayerNameNone, "bot_"},
 			validate = ValidateFakePlayerNamePrefix.class,
 			strict = false,
-			category = {TIS, CARPET}
+			category = {TIS, CARPET_MOD}
 	)
 	public static String fakePlayerNamePrefix = fakePlayerNameNone;
 	private static class ValidateFakePlayerNamePrefix extends Validator<String>
@@ -147,7 +147,7 @@ public class CarpetTISAdditionSettings
 			options = {"1", "5", "20", "100"},
 			validate = ValidateHUDLoggerUpdateInterval.class,
 			strict = false,
-			category = {TIS, CARPET}
+			category = {TIS, CARPET_MOD}
 	)
 	public static int HUDLoggerUpdateInterval = 20;
 	private static class ValidateHUDLoggerUpdateInterval extends Validator<Integer>

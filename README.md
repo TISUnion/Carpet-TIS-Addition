@@ -69,7 +69,7 @@ Set it to `#none` to stop adding a prefix
 - Type: `String`  
 - Default value: `#none`  
 - Suggested options: `#none`, `bot_`
-- Categories: `TIS`, `CARPET`
+- Categories: `TIS`, `CARPET_MOD`
 
 
 ## renewableDragonEgg
@@ -113,7 +113,7 @@ Overwrite HUD loggers update interval (gametick)
 - Type: `int`  
 - Default value: `20`
 - Suggested options: `1`, `5`, `20`, `100`
-- Categories: `TIS`, `CARPET`
+- Categories: `TIS`, `CARPET_MOD`
 
 -----------
 

@@ -39,7 +39,7 @@ Carpet-TIS-Addition
 将其调至0以禁用追踪"
  
 - 类型: `double`  
-- 默认值: `8`  
+- 默认值: `8`
 - 参考选项: `0`, `1`, `8`, `32`
 - 分类: `TIS`, `CREATIVE` 
 
@@ -69,7 +69,7 @@ Carpet-TIS-Addition
 - 类型: `String`  
 - 默认值: `#none`  
 - 参考选项: `#none`, `bot_`
-- 分类: `TIS` 
+- 分类: `TIS`, `CARPET_MOD`
 
 
 ## 可再生龙蛋 (renewableDragonEgg)
@@ -103,6 +103,16 @@ Carpet-TIS-Addition
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `FEATURE`
+
+
+## HUD监视器更新间隔 (HUDLoggerUpdateInterval)
+
+覆写Carpet Mod HUD监视器的更新间隔，单位为gametick
+ 
+- 类型: `int`  
+- 默认值: `20`
+- 参考选项: `1`, `5`, `20`, `100`
+- 分类: `TIS`, `CARPET_MOD`
 
 -----------
 
