@@ -9,6 +9,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stat;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
@@ -38,38 +39,21 @@ public class CustomStatsHelper
 		addStat(BREAK_BEDROCK = Registry.CUSTOM_STAT.getId(new Identifier("break_bedrock")));
 	}
 
-	public static void addStatsToNearestPlayers(World world, BlockPos pos, double radius, Identifier stat, int amount)
+	public static void addStatsToNearestPlayers(World world, BlockPos blockPos, double radius, Identifier stat, int amount)
 	{
-		Comparator<Pair<Double, ServerPlayerEntity>> comparator = (a, b) ->
-		{
-			if (a.getFirst() < b.getFirst())
-			{
-				return -1;
-			}
-			else if (a.getFirst() > b.getFirst())
-			{
-				return 1;
-			}
-			return 0;
-		};
 		if (world.getServer() != null)
 		{
-			List<Pair<Double, ServerPlayerEntity>> list = Lists.newArrayList();
-			for (ServerPlayerEntity player : world.getServer().getPlayerManager().getPlayerList())
-				if (player.dimension == world.getDimension().getType() && !player.isSpectator())
-				{
-					double distance = player.squaredDistanceTo((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
-					if (distance < radius * radius)
-					{
-						list.add(new Pair<>(distance, player));
-					}
-				}
-			if (list.size() > 0)
-			{
-				list.sort(comparator);
-				PlayerEntity player = list.get(0).getSecond();
-				player.increaseStat(stat, amount);
-			}
+			Vec3d pos = new Vec3d(blockPos).add(0.5D, 0.5D, 0.5D);
+			world.getServer().getPlayerManager().getPlayerList().stream()
+					.filter(
+							player -> player.squaredDistanceTo(pos) <= radius * radius
+					)
+					.min(Comparator.comparingDouble(
+							player -> player.squaredDistanceTo(pos)
+					))
+					.ifPresent(
+							player -> player.increaseStat(stat, amount)
+					);
 		}
 	}
 
