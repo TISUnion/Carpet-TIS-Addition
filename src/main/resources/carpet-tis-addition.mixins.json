@@ -21,7 +21,9 @@
 
     "DragonEggBlock_renewableDragonEggMixin",
 
-    "DispenserBlock_dispensersFireDragonBreathMixin"
+    "DispenserBlock_dispensersFireDragonBreathMixin",
+
+    "EnderDragonEntity_chargedCreeperDecapitateEnderDragonMixin"
   ],
   "client": [
     "MinecraftClient_noopMixin"

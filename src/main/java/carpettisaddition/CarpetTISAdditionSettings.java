@@ -134,4 +134,10 @@ public class CarpetTISAdditionSettings
 			category = {TIS, FEATURE, DISPENSER}
 	)
 	public static boolean dispensersFireDragonBreath = false;
+
+	@Rule(
+			desc = "Ender dragon killed by charged creeper will drops dragon head",
+			category = {TIS, FEATURE}
+	)
+	public static boolean renewableDragonHead = false;
 }
