@@ -23,7 +23,11 @@
 
     "DispenserBlock_dispensersFireDragonBreathMixin",
 
-    "EnderDragonEntity_chargedCreeperDecapitateEnderDragonMixin"
+    "EnderDragonEntity_chargedCreeperDecapitateEnderDragonMixin",
+
+    "PistonBlock_breakBedrockStatMixin",
+    "ServerStatHandlerMixin",
+    "StatsMixin"
   ],
   "client": [
     "MinecraftClient_noopMixin"
