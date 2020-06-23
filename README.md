@@ -154,6 +154,13 @@ When a bedrock is deleted by a piston or a sticky piston, the nearest player to 
 
 Criteria: `minecraft.custom:minecraft.break_bedrock`
 
+
+## firework_boost
+
+Increases when a player uses a firework rocket to speed up in elytra flight
+
+Criteria: `minecraft.custom:minecraft.firework_boost`
+
 -----------
 
 # Other Stuffs

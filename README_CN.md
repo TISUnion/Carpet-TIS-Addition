@@ -153,6 +153,13 @@ Carpet-TIS-Addition
 
 准则: `minecraft.custom:minecraft.break_bedrock`
 
+
+## 烟花加速 (firework_boost)
+
+当玩家使用烟花加速鞘翅飞行时，此统计信息会+1
+
+准则: `minecraft.custom:minecraft.firework_boost`
+
 -----------
 # 其他
 

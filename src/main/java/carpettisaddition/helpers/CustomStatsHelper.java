@@ -22,21 +22,24 @@ import java.util.Set;
 
 public class CustomStatsHelper
 {
+	// Don't forget to mixin Stats class with StatsMixin
 	public static final Identifier BREAK_BEDROCK;
-	private static final Set<String> stats;
+	public static final Identifier FIREWORK_BOOST;
+	private static final Set<String> customStats;
 
 	private static void addStat(Identifier stat)
 	{
 		if (stat != null)
 		{
-			stats.add(stat.toString());
+			customStats.add(stat.toString());
 		}
 	}
 
 	static
 	{
-		stats = Sets.newHashSet();
+		customStats = Sets.newHashSet();
 		addStat(BREAK_BEDROCK = Registry.CUSTOM_STAT.getId(new Identifier("break_bedrock")));
+		addStat(FIREWORK_BOOST = Registry.CUSTOM_STAT.getId(new Identifier("firework_boost")));
 	}
 
 	public static void addStatsToNearestPlayers(World world, BlockPos blockPos, double radius, Identifier stat, int amount)
@@ -59,6 +62,6 @@ public class CustomStatsHelper
 
 	public static boolean isCustomStat(Stat<?> stat)
 	{
-		return stats.contains(stat.getValue().toString());
+		return customStats.contains(stat.getValue().toString());
 	}
 }
