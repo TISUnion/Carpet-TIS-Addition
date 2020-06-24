@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(HUDController.class)
-public class CarpetHUDControllerMixin
+public class Carpet_HUDControllerMixin
 {
 	@Inject(
 			method = "update_hud",
