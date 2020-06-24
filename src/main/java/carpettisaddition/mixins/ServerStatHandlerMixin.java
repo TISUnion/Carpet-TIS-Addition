@@ -18,9 +18,9 @@ public class ServerStatHandlerMixin
 			method = "sendStats",
 			at = @At(
 					value = "INVOKE",
-					target = "Lit/unimi/dsi/fastutil/objects/Object2IntMap;put(Ljava/lang/Object;I)I"
-			),
-			remap = false
+					target = "Lit/unimi/dsi/fastutil/objects/Object2IntMap;put(Ljava/lang/Object;I)I",
+					remap = false
+			)
 	)
 	private int dontPutNotVanillaStat(Object2IntMap<Stat<?>> map, Object obj, int value)
 	{
