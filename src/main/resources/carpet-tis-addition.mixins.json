@@ -3,11 +3,11 @@
   "package": "carpettisaddition.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MinecraftServer_noopMixin",
+    "Carpet_CarpetServerMixin",
 
-    "CarpetHUDControllerMixin",
-    "CarpetPlayerCommandMixin",
-    "CarpetHUDController_HUDLoggerUpdateIntervalMixin",
+    "Carpet_HUDControllerMixin",
+    "Carpet_PlayerCommandMixin",
+    "Carpet_HUDController_HUDLoggerUpdateIntervalMixin",
 
     "ServerWorld_blockEventPacketRangeMixin",
 
@@ -30,9 +30,6 @@
     "FireworkItem_fireworkBoostStat",
     "ServerStatHandlerMixin",
     "StatsMixin"
-  ],
-  "client": [
-    "MinecraftClient_noopMixin"
   ],
   "injectors": {
     "defaultRequire": 1

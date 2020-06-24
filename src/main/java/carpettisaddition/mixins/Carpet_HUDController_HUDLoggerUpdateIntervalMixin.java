@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 
 @Mixin(HUDController.class)
-public class CarpetHUDController_HUDLoggerUpdateIntervalMixin
+public class Carpet_HUDController_HUDLoggerUpdateIntervalMixin
 {
 	@ModifyConstant(
 			method = "update_hud",
