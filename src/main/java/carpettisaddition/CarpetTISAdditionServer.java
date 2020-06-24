@@ -18,7 +18,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public static final String name = "carpet-tis-addition";
     public static final String fancyName = "Carpet TIS Addition";
     public static final String compactName = name.replace("-","");  // carpettisaddition
-    public static final String version = "1.0.2+v200622";  // should be the same as the version in gradlew.properties
+    public static final String version = "1.0.3+v200624";  // should be the same as the version in gradlew.properties
 
     @Override
     public String version()
