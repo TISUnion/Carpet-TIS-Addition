@@ -30,6 +30,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 
     static
     {
+        System.out.print("GODO");
         CarpetServer.manageExtension(new CarpetTISAdditionServer());
     }
 
@@ -37,6 +38,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void onGameStarted()
     {
         // let's /carpet handle our few simple settings
+        System.out.print("RUEE");
         CarpetServer.settingsManager.parseSettingsClass(CarpetTISAdditionSettings.class);
 
         // set-up a snooper to observe how rules are changing in carpet
