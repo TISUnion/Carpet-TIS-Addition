@@ -15,6 +15,7 @@ import static carpet.settings.RuleCategory.*;
 public class CarpetTISAdditionSettings
 {
     public static final String TIS = "TIS";
+    public static final String CARPET_MOD = "carpet_mod";
 
     @Rule(
             desc = "Set the range where player will receive a block event packet after a block event fires successfully",
@@ -103,7 +104,7 @@ public class CarpetTISAdditionSettings
 			options = {fakePlayerNameNone, "bot_"},
 			validate = ValidateFakePlayerNamePrefix.class,
 			strict = false,
-			category = {TIS}
+			category = {TIS, CARPET_MOD}
 	)
 	public static String fakePlayerNamePrefix = fakePlayerNameNone;
 	private static class ValidateFakePlayerNamePrefix extends Validator<String>
@@ -134,4 +135,31 @@ public class CarpetTISAdditionSettings
 			category = {TIS, FEATURE, DISPENSER}
 	)
 	public static boolean dispensersFireDragonBreath = false;
+
+	@Rule(
+			desc = "Ender dragon killed by charged creeper will drop dragon head",
+			category = {TIS, FEATURE}
+	)
+	public static boolean renewableDragonHead = false;
+
+	@Rule(
+			desc = "Overwrite HUD loggers update interval (gametick)",
+			options = {"1", "5", "20", "100"},
+			validate = ValidateHUDLoggerUpdateInterval.class,
+			strict = false,
+			category = {TIS, CARPET_MOD}
+	)
+	public static int HUDLoggerUpdateInterval = 20;
+	private static class ValidateHUDLoggerUpdateInterval extends Validator<Integer>
+	{
+		@Override
+		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		{
+			return (1 <= newValue && newValue <= 1000) ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must give a integer from 1 to 1000";
+		}
+	}
 }

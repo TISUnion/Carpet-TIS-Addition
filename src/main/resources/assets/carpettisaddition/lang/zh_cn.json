@@ -29,5 +29,11 @@
   "rule.renewableDragonEgg.extra.1": "可与选项 “dispenserFireDragonBreath”联动",
 
   "rule.dispensersFireDragonBreath.name": "发射器发射龙息",
-  "rule.dispensersFireDragonBreath.desc": "发射器可使用龙息瓶创造出龙息效果云"
+  "rule.dispensersFireDragonBreath.desc": "发射器可使用龙息瓶创造出龙息效果云",
+
+  "rule.renewableDragonHead.name": "可再生龙首",
+  "rule.renewableDragonHead.desc": "被高压爬行者杀死的末影龙将会掉落一个龙首",
+
+  "rule.HUDLoggerUpdateInterval.name": "HUD监视器更新间隔",
+  "rule.HUDLoggerUpdateInterval.desc": "覆写Carpet Mod HUD监视器的更新间隔，单位为gametick"
 }

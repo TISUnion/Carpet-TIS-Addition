@@ -39,7 +39,7 @@ Carpet-TIS-Addition
 将其调至0以禁用追踪"
  
 - 类型: `double`  
-- 默认值: `8`  
+- 默认值: `8`
 - 参考选项: `0`, `1`, `8`, `32`
 - 分类: `TIS`, `CREATIVE` 
 
@@ -69,7 +69,7 @@ Carpet-TIS-Addition
 - 类型: `String`  
 - 默认值: `#none`  
 - 参考选项: `#none`, `bot_`
-- 分类: `TIS` 
+- 分类: `TIS`, `CARPET_MOD`
 
 
 ## 可再生龙蛋 (renewableDragonEgg)
@@ -94,6 +94,25 @@ Carpet-TIS-Addition
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
+
+## 可再生龙首 (renewableDragonHead)
+
+被高压爬行者杀死的末影龙将会掉落一个龙首
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
+
+
+## HUD监视器更新间隔 (HUDLoggerUpdateInterval)
+
+覆写Carpet Mod HUD监视器的更新间隔，单位为gametick
+ 
+- 类型: `int`  
+- 默认值: `20`
+- 参考选项: `1`, `5`, `20`, `100`
+- 分类: `TIS`, `CARPET_MOD`
 
 -----------
 
@@ -123,6 +142,25 @@ Carpet-TIS-Addition
 
 -----------
 
+# 统计信息
+
+为了兼容原版客户端，这些自定义的统计信息均无法在客户端的统计信息页面查看
+
+
+## 破基岩 (break_bedrock)
+
+当一个基岩被活塞或者是粘性活塞删除时，这块基岩五米范围内最近的玩家将会将此统计信息数值 +1
+
+准则: `minecraft.custom:minecraft.break_bedrock`
+
+
+## 烟花加速 (firework_boost)
+
+当玩家使用烟花加速鞘翅飞行时，此统计信息会+1
+
+准则: `minecraft.custom:minecraft.firework_boost`
+
+-----------
 # 其他
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出

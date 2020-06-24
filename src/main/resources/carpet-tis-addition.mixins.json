@@ -7,6 +7,7 @@
 
     "CarpetHUDControllerMixin",
     "CarpetPlayerCommandMixin",
+    "CarpetHUDController_HUDLoggerUpdateIntervalMixin",
 
     "ServerWorld_blockEventPacketRangeMixin",
 
@@ -21,7 +22,14 @@
 
     "DragonEggBlock_renewableDragonEggMixin",
 
-    "DispenserBlock_dispensersFireDragonBreathMixin"
+    "DispenserBlock_dispensersFireDragonBreathMixin",
+
+    "EnderDragonEntity_chargedCreeperDecapitateEnderDragonMixin",
+
+    "PistonBlock_breakBedrockStatMixin",
+    "FireworkItem_fireworkBoostStat",
+    "ServerStatHandlerMixin",
+    "StatsMixin"
   ],
   "client": [
     "MinecraftClient_noopMixin"

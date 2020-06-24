@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "carpet-tis-addition",
-  "version": "1.0.1",
+  "version": "1.0.3",
 
   "name": "Carpet TIS Addition",
   "description": "More features and custom modifications",
@@ -27,7 +27,7 @@
   "depends": {
     "fabricloader": ">=0.7.1",
     "carpet": "*",
-    "minecraft": "1.16.x"
+    "minecraft": "1.15.x"
   },
   "suggests": {
     "flamingo": "*"

@@ -39,7 +39,7 @@ Overwrite the tracking distance of xp orb
 Change it to 0 to disable tracking
  
 - Type: `double`  
-- Default value: `8`  
+- Default value: `8`
 - Suggested options: `0`, `1`, `8`, `32`
 - Categories: `TIS`, `CREATIVE` 
 
@@ -69,7 +69,7 @@ Set it to `#none` to stop adding a prefix
 - Type: `String`  
 - Default value: `#none`  
 - Suggested options: `#none`, `bot_`
-- Categories: `TIS` 
+- Categories: `TIS`, `CARPET_MOD`
 
 
 ## renewableDragonEgg
@@ -94,6 +94,26 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 - Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `FEATURE`, `DISPENSER`
+
+
+## renewableDragonHead
+
+Ender dragon killed by charged creeper will drop dragon head
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
+
+
+## HUDLoggerUpdateInterval
+
+Overwrite HUD loggers update interval (gametick)
+ 
+- Type: `int`  
+- Default value: `20`
+- Suggested options: `1`, `5`, `20`, `100`
+- Categories: `TIS`, `CARPET_MOD`
 
 -----------
 
@@ -120,6 +140,26 @@ Use csv format, like `portal,dragon` for logging multiple types of ticket
 `/log memory`
 
 Display current consumed and total memory of the server in HUD
+
+-----------
+
+# Statistics
+
+All these custom stats can't be found in the statistic page in the client for vanilla compatibility
+
+
+## break_bedrock
+
+When a bedrock is deleted by a piston or a sticky piston, the nearest player to the bedrock within 5m will increase this stat by 1
+
+Criteria: `minecraft.custom:minecraft.break_bedrock`
+
+
+## firework_boost
+
+Increases when a player uses a firework rocket to speed up in elytra flight
+
+Criteria: `minecraft.custom:minecraft.firework_boost`
 
 -----------
 
