@@ -1,4 +1,4 @@
-package carpettisaddition.Commands;
+package carpettisaddition.commands;
 
 import carpet.utils.Messenger;
 import com.mojang.brigadier.CommandDispatcher;

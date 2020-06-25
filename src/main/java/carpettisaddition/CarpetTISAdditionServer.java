@@ -2,7 +2,7 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import carpettisaddition.Commands.CarpetTisAdditionCommand;
+import carpettisaddition.commands.CarpetTisAdditionCommand;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;

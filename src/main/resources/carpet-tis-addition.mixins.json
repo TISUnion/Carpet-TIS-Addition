@@ -17,6 +17,7 @@
     "ExperienceOrbEntity_xpTrackingDistanceMixin",
 
     "ChunkTicketManager_ticketLoggerMixin",
+    "ServerChunkManager_ticketLoggerMixin",
 
     "PistonBlock_tntDupingFixMixin",
 

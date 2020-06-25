@@ -24,6 +24,7 @@
     "carpet-tis-addition.mixins.json"
   ],
 
+  "accessWidener" : "carpet-tis-addition.accesswidener",
   "depends": {
     "fabricloader": ">=0.7.1",
     "carpet": "*",
