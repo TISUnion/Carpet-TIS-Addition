@@ -57,7 +57,7 @@ public abstract class HopperBlockEntity_hopperCountersUnlimitedSpeedMixin extend
 			while (true)
 			{
 				boolean flag = false;
-				if (!this.isInvEmpty())
+				if (!this.isEmpty())
 				{
 					flag = this.insert();
 				}

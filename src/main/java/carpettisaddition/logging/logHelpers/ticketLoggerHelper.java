@@ -37,7 +37,7 @@ public class ticketLoggerHelper
 				BlockPos centerPos = pos.toBlockPos(8, 0, 8);
 				long expiryTicks = chunkTicket.getType().getExpiryTicks();
 				int level = chunkTicket.getLevel();
-				String dimensionName = world.dimension.getType().toString();
+				String dimensionName = world.getDimensionRegistryKey().getValue().toString();
 				return new BaseText[]{Messenger.c(
 						String.format("g [%s] ", world.getTime()),
 						String.format(String.format("^w %s", tr("timeDetail", "World: %s\nGameTime: %d")), dimensionName, world.getTime()),
