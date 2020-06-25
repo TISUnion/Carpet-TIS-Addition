@@ -114,6 +114,18 @@ Carpet-TIS-Addition
 - 参考选项: `1`, `5`, `20`, `100`
 - 分类: `TIS`, `CARPET_MOD`
 
+
+## 漏斗计数器无限速度 (hopperCountersUnlimitedSpeed)
+
+当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度
+
+仅当Carpet Mod中的hopperCounters开启时有效
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`, `CARPET_MOD`
+
 -----------
 
 # 监视器
@@ -124,7 +136,7 @@ Carpet-TIS-Addition
 
 `/log ticket <监视类型>`
 
-记录加载票的创建
+记录加载票的添加以及移除
 
 用 csv 格式，例如 `portal,dragon` 来监视多种类型的加载票
 
