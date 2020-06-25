@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "carpet-tis-addition",
-  "version": "1.0.0",
+  "version": "1.0.4",
 
   "name": "Carpet TIS Addition",
   "description": "More features and custom modifications",
@@ -13,7 +13,7 @@
     "sources": "https://github.com/TISUnion/Carpet-TIS-Addition"
   },
 
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/carpettisaddition/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -24,6 +24,7 @@
     "carpet-tis-addition.mixins.json"
   ],
 
+  "accessWidener" : "carpet-tis-addition.accesswidener",
   "depends": {
     "fabricloader": ">=0.7.1",
     "carpet": "*",

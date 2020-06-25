@@ -3,17 +3,36 @@
   "package": "carpettisaddition.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MinecraftServer_noopMixin",
+    "Carpet_CarpetServerMixin",
+
+    "Carpet_HUDControllerMixin",
+    "Carpet_PlayerCommandMixin",
+    "Carpet_HUDController_HUDLoggerUpdateIntervalMixin",
 
     "ServerWorld_blockEventPacketRangeMixin",
 
     "StructureBlockBlockEntity_structureBlockLimitMixin",
     "UpdateStructureBlockC2SPacket_structureBlockLimitMixin",
 
-    "ExperienceOrbEntity_xpTrackingDistanceMixin"
-  ],
-  "client": [
-    "MinecraftClient_noopMixin"
+    "ExperienceOrbEntity_xpTrackingDistanceMixin",
+
+    "ChunkTicketManager_ticketLoggerMixin",
+    "ServerChunkManager_ticketLoggerMixin",
+
+    "PistonBlock_tntDupingFixMixin",
+
+    "DragonEggBlock_renewableDragonEggMixin",
+
+    "DispenserBlock_dispensersFireDragonBreathMixin",
+
+    "EnderDragonEntity_chargedCreeperDecapitateEnderDragonMixin",
+
+    "HopperBlockEntity_hopperCountersUnlimitedSpeedMixin",
+
+    "PistonBlock_breakBedrockStatMixin",
+    "FireworkItem_fireworkBoostStat",
+    "ServerStatHandlerMixin",
+    "StatsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

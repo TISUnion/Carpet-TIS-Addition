@@ -2,17 +2,28 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
+import carpettisaddition.commands.CarpetTisAdditionCommand;
+import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+import java.util.Map;
+
+
 public class CarpetTISAdditionServer implements CarpetExtension
 {
+    public static final String name = "carpet-tis-addition";
+    public static final String fancyName = "Carpet TIS Addition";
+    public static final String compactName = name.replace("-","");  // carpettisaddition
+    public static final String version = "1.0.4+v200625";  // should be the same as the version in gradlew.properties
+
     @Override
     public String version()
     {
-        return "carpet-tis-addition";
+        return name;
     }
 
     public static void noop() { }
@@ -53,6 +64,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         // here goes extra stuff
+        CarpetTisAdditionCommand.registerCommand(dispatcher);
     }
 
     @Override
@@ -67,6 +79,18 @@ public class CarpetTISAdditionServer implements CarpetExtension
         // will need that for client features
     }
 
+    @Override
+    public void registerLoggers()
+    {
+        ExtensionLoggerRegistry.registerLoggers();
+    }
+
+    @Override
+    public Map<String, String> canHasTranslations(String lang)
+    {
+        return ExtensionTranslations.getTranslationFromResourcePath(lang);
+    }
+    
     /*  not available in carpet 1.14.4
     @Override
     public void registerLoggers()

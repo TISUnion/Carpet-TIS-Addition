@@ -10,13 +10,21 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(UpdateStructureBlockC2SPacket.class)
 public abstract class UpdateStructureBlockC2SPacket_structureBlockLimitMixin
 {
-	@ModifyConstant(method = "read", require = 3, constant = @Constant(intValue = -32))
+	@ModifyConstant(
+			method = "read",
+			require = 3,
+			constant = @Constant(intValue = -32)
+	)
 	private int structureBlockLimitNegative(int value)
 	{
 		return -CarpetTISAdditionSettings.structureBlockLimit;
 	}
 
-	@ModifyConstant(method = "read", require = 6, constant = @Constant(intValue = 32))
+	@ModifyConstant(
+			method = "read",
+			require = 6,
+			constant = @Constant(intValue = 32)
+	)
 	private int structureBlockLimitPositive(int value)
 	{
 		return CarpetTISAdditionSettings.structureBlockLimit;
