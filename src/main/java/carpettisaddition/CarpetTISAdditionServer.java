@@ -79,6 +79,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
         // will need that for client features
     }
 
+    /*  not available in carpet 1.14.4
     @Override
     public void registerLoggers()
     {
@@ -89,13 +90,6 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public Map<String, String> canHasTranslations(String lang)
     {
         return ExtensionTranslations.getTranslationFromResourcePath(lang);
-    }
-    
-    /*  not available in carpet 1.14.4
-    @Override
-    public void registerLoggers()
-    {
-        LoggerExtensionRegistry.registerLoggers();
     }
     */
 }

@@ -2,7 +2,6 @@ package carpettisaddition.logging.logHelpers;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpet.utils.Translations;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
@@ -17,7 +16,7 @@ public class ticketLoggerHelper
 {
 	public static String tr(String key, String text)
 	{
-		return Translations.tr("logger.ticketLogger." + key, text);
+		return text;
 	}
 
 	private static String formatSize(int range)
@@ -29,13 +28,14 @@ public class ticketLoggerHelper
 
 	private static void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
 	{
+		if (true) return;  // rip carpet 1.14.4 no logger
 		LoggerRegistry.getLogger("ticket").log((option) ->
 		{
 			if (Arrays.asList(option.split(",")).contains(chunkTicket.getType().toString()))
 			{
 				ChunkPos pos = new ChunkPos(position);
 				BlockPos centerPos = pos.toBlockPos(8, 0, 8);
-				long expiryTicks = chunkTicket.getType().getExpiryTicks();
+				long expiryTicks = chunkTicket.getType().method_20629();
 				int level = chunkTicket.getLevel();
 				String dimensionName = world.dimension.getType().toString();
 				return new BaseText[]{Messenger.c(

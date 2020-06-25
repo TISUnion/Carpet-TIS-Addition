@@ -6,7 +6,6 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 
-import static carpet.utils.Translations.tr;
 import static carpettisaddition.CarpetTISAdditionServer.*;
 
 public class CarpetTisAdditionCommand
@@ -23,7 +22,7 @@ public class CarpetTisAdditionCommand
 	{
 		Messenger.m(source,
 				String.format("wb %s ", fancyName),
-				String.format("w %s: ", tr("ui.version",  "version")),
+				String.format("w %s: ", "version"),
 				String.format("d %s", version)
 		);
 		return 1;

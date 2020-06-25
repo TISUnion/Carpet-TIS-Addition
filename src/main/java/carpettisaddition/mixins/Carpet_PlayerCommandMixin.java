@@ -1,14 +1,19 @@
 package carpettisaddition.mixins;
 
 import carpet.commands.PlayerCommand;
+import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameMode;
+import net.minecraft.world.dimension.DimensionType;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 
 @Mixin(PlayerCommand.class)
@@ -52,14 +57,24 @@ public class Carpet_PlayerCommandMixin
 		return getStringWithPrefix(context, name);
 	}
 
-	@ModifyConstant(
+	@Inject(
 			method = "spawn",
-			constant = @Constant(intValue = 40),
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/server/command/ServerCommandSource;getMinecraftServer()Lnet/minecraft/server/MinecraftServer;"
+			),
 			require = 1,
-			remap = false
+			locals = LocalCapture.CAPTURE_FAILHARD,
+			remap = false,
+			cancellable = true
 	)
-	private static int nameLengthLimit(int value)
+	private static void checkNameLengthLimit(CommandContext context, CallbackInfoReturnable<Integer> cir, ServerCommandSource source, Vec3d pos, Vec2f facing, DimensionType dim, GameMode mode, String playerName, String var10)
 	{
-		return 16;
+		if (playerName.length() > 16)
+		{
+			Messenger.m((ServerCommandSource)context.getSource(), "rb Player name: " + playerName + " is too long");
+			cir.setReturnValue(1);
+			cir.cancel();
+		}
 	}
 }

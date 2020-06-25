@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 @Mixin(PistonBlock.class)
@@ -35,7 +36,7 @@ public abstract class PistonBlock_tntDupingFixMixin
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void setAllToBeMovedBlockToAirFirst(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState blockStates[], Direction direction)
+	private void setAllToBeMovedBlockToAirFirst(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, List<BlockPos> list, List<BlockState> list2, List list3, int j, BlockState blockStates[], Direction direction, Set set)
 	{
 		if (CarpetTISAdditionSettings.tntDupingFix)
 		{
@@ -51,16 +52,16 @@ public abstract class PistonBlock_tntDupingFixMixin
 			method = "move",
 			at = @At(
 					value = "INVOKE",
-					target = "Ljava/util/Map;remove(Ljava/lang/Object;)Ljava/lang/Object;",
+					target = "Ljava/util/Set;remove(Ljava/lang/Object;)Z",
 					ordinal = 0
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void useTheStateInList2Please(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState blockStates[], Direction direction, int l, BlockPos blockPos4, BlockState blockState3)
+	private void useTheStateInList2Please(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, List list, List<BlockState> list2, List list3, int j, BlockState blockStates[], Direction direction, Set set, int l, BlockPos blockPos4, BlockState blockState2)
 	{
 		if (CarpetTISAdditionSettings.tntDupingFix)
 		{
-			blockState3 = list2.get(l);
+			blockState2 = list2.get(l);
 		}
 	}
 }

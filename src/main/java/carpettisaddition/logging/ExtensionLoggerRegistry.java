@@ -9,7 +9,7 @@ public class ExtensionLoggerRegistry
 {
     public static boolean __ticket;
     public static boolean __memory;
-
+    /*
     public static void registerLoggers()
     {
         LoggerRegistry.registerLogger(
@@ -43,4 +43,5 @@ public class ExtensionLoggerRegistry
             throw new RuntimeException(String.format("Failed to create standard HUD logger %s carpet TIS addition", logName));
         }
     }
+    */
 }
