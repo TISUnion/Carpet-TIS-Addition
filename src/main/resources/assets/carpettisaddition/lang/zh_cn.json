@@ -1,6 +1,6 @@
 {
   "category.TIS": "TIS",
-  "category.CARPET_MOD": "Carpet Mod",
+  "category.CARPET_MOD": "carpet_mod",
 
   "rule.blockEventPacketRange.name": "方块事件广播范围",
   "rule.blockEventPacketRange.desc": "设置会在方块事件成功执行后收到数据包的玩家范围",
