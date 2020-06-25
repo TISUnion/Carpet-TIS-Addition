@@ -15,7 +15,7 @@ import static carpet.settings.RuleCategory.*;
 public class CarpetTISAdditionSettings
 {
     public static final String TIS = "TIS";
-    public static final String CARPET_MOD = "Carpet Mod";
+    public static final String CARPET_MOD = "carpet_mod";
 
     @Rule(
             desc = "Set the range where player will receive a block event packet after a block event fires successfully",
