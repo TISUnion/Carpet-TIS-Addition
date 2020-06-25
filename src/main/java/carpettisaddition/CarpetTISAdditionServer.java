@@ -90,4 +90,12 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         return ExtensionTranslations.getTranslationFromResourcePath(lang);
     }
+    
+    /*  not available in carpet 1.14.4
+    @Override
+    public void registerLoggers()
+    {
+        LoggerExtensionRegistry.registerLoggers();
+    }
+    */
 }
