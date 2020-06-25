@@ -15,7 +15,7 @@ import static carpet.settings.RuleCategory.*;
 public class CarpetTISAdditionSettings
 {
     public static final String TIS = "TIS";
-    public static final String CARPET_MOD = "carpet_mod";
+    public static final String CARPET_MOD = "Carpet Mod";
 
     @Rule(
             desc = "Set the range where player will receive a block event packet after a block event fires successfully",
@@ -162,4 +162,13 @@ public class CarpetTISAdditionSettings
 			return "You must give a integer from 1 to 1000";
 		}
 	}
+
+	@Rule(
+			desc = "Make hopper pointing towards wool has infinity speed to suck in or transfer items",
+			extra = {
+					"Only works when hopperCounters option in Carpet Mod is on"
+			},
+			category = {TIS, CREATIVE, CARPET_MOD}
+	)
+	public static boolean hopperCountersUnlimitedSpeed = false;
 }

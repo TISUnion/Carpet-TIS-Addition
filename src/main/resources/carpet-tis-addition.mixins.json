@@ -27,6 +27,8 @@
 
     "EnderDragonEntity_chargedCreeperDecapitateEnderDragonMixin",
 
+    "HopperBlockEntity_hopperCountersUnlimitedSpeedMixin",
+
     "PistonBlock_breakBedrockStatMixin",
     "FireworkItem_fireworkBoostStat",
     "ServerStatHandlerMixin",
