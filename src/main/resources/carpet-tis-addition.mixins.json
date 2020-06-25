@@ -17,6 +17,7 @@
     "ExperienceOrbEntity_xpTrackingDistanceMixin",
 
     "ChunkTicketManager_ticketLoggerMixin",
+    "ServerChunkManager_ticketLoggerMixin",
 
     "PistonBlock_tntDupingFixMixin",
 
@@ -25,6 +26,8 @@
     "DispenserBlock_dispensersFireDragonBreathMixin",
 
     "EnderDragonEntity_chargedCreeperDecapitateEnderDragonMixin",
+
+    "HopperBlockEntity_hopperCountersUnlimitedSpeedMixin",
 
     "PistonBlock_breakBedrockStatMixin",
     "FireworkItem_fireworkBoostStat",

@@ -1,5 +1,6 @@
 {
   "category.TIS": "TIS",
+  "category.CARPET_MOD": "Carpet Mod",
 
   "rule.blockEventPacketRange.name": "方块事件广播范围",
   "rule.blockEventPacketRange.desc": "设置会在方块事件成功执行后收到数据包的玩家范围",
@@ -35,5 +36,19 @@
   "rule.renewableDragonHead.desc": "被高压爬行者杀死的末影龙将会掉落一个龙首",
 
   "rule.HUDLoggerUpdateInterval.name": "HUD监视器更新间隔",
-  "rule.HUDLoggerUpdateInterval.desc": "覆写Carpet Mod HUD监视器的更新间隔，单位为gametick"
+  "rule.HUDLoggerUpdateInterval.desc": "覆写Carpet Mod HUD监视器的更新间隔，单位为gametick",
+
+  "rule.hopperCountersUnlimitedSpeed.name": "漏斗计数器无限速度",
+  "rule.hopperCountersUnlimitedSpeed.desc": "当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度",
+  "rule.hopperCountersUnlimitedSpeed.extra.0": "仅当Carpet Mod中的hopperCounters开启时有效",
+
+
+  "logger.ticketLogger.add": "被添加",
+  "logger.ticketLogger.remove": "被移除",
+  "logger.ticketLogger.at": "于",
+  "logger.ticketLogger.timeDetail": "世界: %s\n游戏刻: %d",
+  "logger.ticketLogger.ticket": "加载票",
+  "logger.ticketLogger.ticketDetail": "等级 = %d\n持续时间 = %s\n强加载区块: %s\n弱加载区块: %s\n边界区块: %s",
+  "logger.ticketLogger.permanent": "永久",
+  "logger.ticketLogger.teleportHint": "点击以传送至区块 [%d, %d]"
 }

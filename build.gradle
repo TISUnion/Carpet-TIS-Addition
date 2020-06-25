@@ -33,6 +33,10 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 }
 
+minecraft {
+	accessWidener = file("src/main/resources/carpet-tis-addition.accesswidener")
+}
+
 processResources {
 	inputs.property "version", project.version
 

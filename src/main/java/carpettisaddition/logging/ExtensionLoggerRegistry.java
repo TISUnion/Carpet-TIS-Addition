@@ -14,8 +14,9 @@ public class ExtensionLoggerRegistry
     {
         LoggerRegistry.registerLogger(
                 "ticket", standardLogger("ticket", "portal", new String[]{
-                "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
-        }));
+                        "portal,player", "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
+                }
+        ));
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
     }
 

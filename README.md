@@ -115,6 +115,18 @@ Overwrite HUD loggers update interval (gametick)
 - Suggested options: `1`, `5`, `20`, `100`
 - Categories: `TIS`, `CARPET_MOD`
 
+
+## hopperCountersUnlimitedSpeed
+
+Make hopper pointing towards wool has infinity speed to suck in or transfer items
+
+Only works when hopperCounters option in Carpet Mod is on
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `CARPET_MOD`
+
 -----------
 
 # Loggers
@@ -125,7 +137,7 @@ Overwrite HUD loggers update interval (gametick)
 
 `/log ticket <types>`
 
-Info when a ticket is created
+Info when a ticket is created or removed
 
 Use csv format, like `portal,dragon` for logging multiple types of ticket
 
