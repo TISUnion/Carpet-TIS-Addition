@@ -50,7 +50,7 @@ public class ticketLoggerHelper
 						actionText + " ",
 						String.format("g %s ", tr("at", "at")),
 						String.format("w [%d, %d]", pos.x, pos.z),
-						String.format(String.format("^w %s", tr("teleportHit", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
+						String.format(String.format("^w %s", tr("teleportHint", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
 						String.format("?/execute in %s run tp %d ~ %d", dimensionName, centerPos.getX(), centerPos.getZ())
 				)};
 			}
