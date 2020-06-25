@@ -2,6 +2,7 @@ package carpettisaddition.logging.logHelpers;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
+import carpet.utils.Translations;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
@@ -14,6 +15,10 @@ import static java.lang.Math.max;
 
 public class ticketLoggerHelper
 {
+	public static String tr(String key, String text)
+	{
+		return Translations.tr("logger.ticketLogger." + key, text);
+	}
 
 	private static String formatSize(int range)
 	{
@@ -35,17 +40,17 @@ public class ticketLoggerHelper
 				String dimensionName = world.dimension.getType().toString();
 				return new BaseText[]{Messenger.c(
 						String.format("g [%s] ", world.getTime()),
-						String.format("^w World: %s\nGameTime: %d", dimensionName, world.getTime()),
-						"w Ticket ",
+						String.format(String.format("^w %s", tr("timeDetail", "World: %s\nGameTime: %d")), dimensionName, world.getTime()),
+						String.format("w %s ", tr("ticket", "Ticket")),
 						String.format("d %s ", chunkTicket.getType()),
-						actionText + " ",
-						String.format("^w Level = %d\nDuration = %s\nEntity processing: %s\nLazy processing: %s\nBorder: %s",
-								chunkTicket.getLevel(), expiryTicks > 0 ? expiryTicks + " gt" : "Permanent",
+						String.format(String.format("^w %s", tr("ticketDetail", "Level = %d\nDuration = %s\nEntity processing chunks: %s\nLazy processing chunks: %s\nBorder chunks: %s")),
+								chunkTicket.getLevel(), expiryTicks > 0 ? expiryTicks + " gt" : tr("permanent", "Permanent"),
 								formatSize(32 - level), formatSize(33 - level), formatSize(34 - level)
 						),
-						"g @ ",
+						actionText + " ",
+						String.format("g %s ", tr("at", "at")),
 						String.format("w [%d, %d]", pos.x, pos.z),
-						String.format("^w Click to teleport to chunk pos [%d, %d]", pos.x, pos.z),
+						String.format(String.format("^w %s", tr("teleportHit", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
 						String.format("?/execute in %s run tp %d ~ %d", dimensionName, centerPos.getX(), centerPos.getZ())
 				)};
 			}
@@ -58,11 +63,11 @@ public class ticketLoggerHelper
 
 	public static void onAddTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		onManipulateTicket(world, position, chunkTicket, "l Added");
+		onManipulateTicket(world, position, chunkTicket, "l " + tr("add", "added"));
 	}
 
 	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		onManipulateTicket(world, position, chunkTicket, "r Removed");
+		onManipulateTicket(world, position, chunkTicket, "r " + tr("remove", "removed"));
 	}
 }
