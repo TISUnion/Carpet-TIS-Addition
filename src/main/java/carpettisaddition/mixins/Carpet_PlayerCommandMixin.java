@@ -59,17 +59,13 @@ public class Carpet_PlayerCommandMixin
 
 	@Inject(
 			method = "spawn",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/server/command/ServerCommandSource;getMinecraftServer()Lnet/minecraft/server/MinecraftServer;"
-			),
-			require = 1,
-			locals = LocalCapture.CAPTURE_FAILHARD,
+			at = @At(value = "HEAD"),
 			remap = false,
 			cancellable = true
 	)
-	private static void checkNameLengthLimit(CommandContext context, CallbackInfoReturnable<Integer> cir, ServerCommandSource source, Vec3d pos, Vec2f facing, DimensionType dim, GameMode mode, String playerName, String var10)
+	private static void checkNameLengthLimit(CommandContext context, CallbackInfoReturnable<Integer> cir)
 	{
+		String playerName = getStringWithPrefix(context, "player");
 		if (playerName.length() > 16)
 		{
 			Messenger.m((ServerCommandSource)context.getSource(), "rb Player name: " + playerName + " is too long");
