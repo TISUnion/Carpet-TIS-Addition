@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(CarpetServer.class)
-public class Carpet_CarpetServerMixin
+public abstract class Carpet_CarpetServerMixin
 {
 	@Inject(
 			method = "onGameStarted",

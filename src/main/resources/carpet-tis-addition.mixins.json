@@ -15,7 +15,6 @@
     "UpdateStructureBlockC2SPacket_structureBlockLimitMixin",
 
     "ExperienceOrbEntity_xpTrackingDistanceMixin",
-
     "ChunkTicketManager_ticketLoggerMixin",
     "ServerChunkManager_ticketLoggerMixin",
 
