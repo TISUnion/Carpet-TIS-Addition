@@ -4,34 +4,22 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "Carpet_CarpetServerMixin",
-
+    "Carpet_HUDController_HUDLoggerUpdateIntervalMixin",
     "Carpet_HUDControllerMixin",
     "Carpet_PlayerCommandMixin",
-    "Carpet_HUDController_HUDLoggerUpdateIntervalMixin",
-
-    "ServerWorld_blockEventPacketRangeMixin",
-
-    "StructureBlockBlockEntity_structureBlockLimitMixin",
-    "UpdateStructureBlockC2SPacket_structureBlockLimitMixin",
-
-    "ExperienceOrbEntity_xpTrackingDistanceMixin",
     "ChunkTicketManager_ticketLoggerMixin",
-    "ServerChunkManager_ticketLoggerMixin",
-
-    "PistonBlock_tntDupingFixMixin",
-
-    "DragonEggBlock_renewableDragonEggMixin",
-
     "DispenserBlock_dispensersFireDragonBreathMixin",
-
+    "DragonEggBlock_renewableDragonEggMixin",
     "EnderDragonEntity_chargedCreeperDecapitateEnderDragonMixin",
-
+    "ExperienceOrbEntity_xpTrackingDistanceMixin",
+    "FallingBlockEntityMixin",
     "HopperBlockEntity_hopperCountersUnlimitedSpeedMixin",
-
-    "PistonBlock_breakBedrockStatMixin",
-    "FireworkItem_fireworkBoostStat",
-    "ServerStatHandlerMixin",
-    "StatsMixin"
+    "PhantomEntity_renewableElytraMixin",
+    "PistonBlock_tntDupingFixMixin",
+    "ServerChunkManager_ticketLoggerMixin",
+    "ServerWorld_blockEventPacketRangeMixin",
+    "StructureBlockBlockEntity_structureBlockLimitMixin",
+    "UpdateStructureBlockC2SPacket_structureBlockLimitMixin"
   ],
   "injectors": {
     "defaultRequire": 1
