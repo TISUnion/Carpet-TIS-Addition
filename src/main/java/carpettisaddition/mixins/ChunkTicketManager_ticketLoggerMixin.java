@@ -1,6 +1,6 @@
 package carpettisaddition.mixins;
 
-import carpettisaddition.interfaces.ChunkTicketManagerInterface;
+import carpettisaddition.interfaces.IChunkTicketManager;
 import carpettisaddition.logging.logHelpers.ticketLoggerHelper;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ChunkTicketManager;
@@ -14,7 +14,7 @@ import static java.lang.Math.max;
 
 
 @Mixin(ChunkTicketManager.class)
-public abstract class ChunkTicketManager_ticketLoggerMixin implements ChunkTicketManagerInterface
+public abstract class ChunkTicketManager_ticketLoggerMixin implements IChunkTicketManager
 {
 	private ServerWorld world;
 

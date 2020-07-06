@@ -127,6 +127,32 @@ Only works when hopperCounters option in Carpet Mod is on
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`, `CARPET_MOD`
 
+
+## renewableElytra
+
+Phathom killed by shulker will drops an elytra with given possibility
+
+Set it to 0 to disable
+
+- Type: `double`  
+- Default value: `0`  
+- Suggested options: `0`, `0.2`, `1`
+- Categories: `TIS`, `FEATURE`
+
+
+## sandDupingFix
+
+Disable sand and other gravity block duping using end portal
+
+Gravity block includes sand, anvil, dragon egg and so on
+
+In sand dupers sand will only get teleported to the other dimension
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
 -----------
 
 # Loggers
@@ -157,21 +183,7 @@ Display current consumed and total memory of the server in HUD
 
 # Statistics
 
-All these custom stats can't be found in the statistic page in the client for vanilla compatibility
-
-
-## break_bedrock
-
-When a bedrock is deleted by a piston or a sticky piston, the nearest player to the bedrock within 5m will increase this stat by 1
-
-Criteria: `minecraft.custom:minecraft.break_bedrock`
-
-
-## firework_boost
-
-Increases when a player uses a firework rocket to speed up in elytra flight
-
-Criteria: `minecraft.custom:minecraft.firework_boost`
+Custom statistics have been removed. If you want to use them check this [more-statistics](https://github.com/Fallen-Breath/more-statistics) mod
 
 -----------
 

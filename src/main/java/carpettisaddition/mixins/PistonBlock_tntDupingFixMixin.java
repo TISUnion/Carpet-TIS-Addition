@@ -31,6 +31,7 @@ public abstract class PistonBlock_tntDupingFixMixin
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/List;size()I",
+					shift = At.Shift.AFTER,  // to make sure this will beinject after onMove in PistonBlock_movableTEMixin in fabric-carpet
 					ordinal = 0
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD

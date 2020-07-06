@@ -126,6 +126,32 @@ Carpet-TIS-Addition
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`, `CARPET_MOD`
 
+
+## 可再生鞘翅 (renewableElytra)
+
+当幻翼被潜影贝杀死时有给定概率掉落鞘翅
+
+设置为0以禁用
+
+- 类型: `double`  
+- 默认值: `0`  
+- 参考选项: `0`, `0.2`, `1`
+- 分类: `TIS`, `FEATURE`
+
+
+## 刷沙机修复 (sandDupingFix)
+
+禁用使用末地门的刷沙机以及刷重力方块机
+
+重力方块包括沙子、铁砧、龙蛋等
+
+在开启后刷沙机的沙子将会仅被传送至另一个纬度
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
 -----------
 
 # 监视器
@@ -156,21 +182,7 @@ Carpet-TIS-Addition
 
 # 统计信息
 
-为了兼容原版客户端，这些自定义的统计信息均无法在客户端的统计信息页面查看
-
-
-## 破基岩 (break_bedrock)
-
-当一个基岩被活塞或者是粘性活塞删除时，这块基岩五米范围内最近的玩家将会将此统计信息数值 +1
-
-准则: `minecraft.custom:minecraft.break_bedrock`
-
-
-## 烟花加速 (firework_boost)
-
-当玩家使用烟花加速鞘翅飞行时，此统计信息会+1
-
-准则: `minecraft.custom:minecraft.firework_boost`
+自定义统计信息功能已被移除。如果你想继续使用，可使用 [more-statistics](https://github.com/Fallen-Breath/more-statistics) mod
 
 -----------
 # 其他
