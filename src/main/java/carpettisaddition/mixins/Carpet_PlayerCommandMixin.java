@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 
 @Mixin(PlayerCommand.class)
-public class Carpet_PlayerCommandMixin
+public abstract class Carpet_PlayerCommandMixin
 {
 	private static String getStringWithPrefix(final CommandContext<?> context, final String name)
 	{

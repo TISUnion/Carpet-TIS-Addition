@@ -61,7 +61,6 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
-
 	@Rule(
 			desc = "Overwrite the tracking distance of xp orb",
 			extra = "Change it to 0 to disable tracking",
@@ -70,7 +69,7 @@ public class CarpetTISAdditionSettings
 			strict = false,
 			category = {TIS, CREATIVE}
 	)
-	public static double xpTrackingDistance = 8;
+	public static double xpTrackingDistance = 8.0F;
 	private static class ValidateXPTrackingDistance extends Validator<Double>
 	{
 		@Override
@@ -171,4 +170,41 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE, CARPET_MOD}
 	)
 	public static boolean hopperCountersUnlimitedSpeed = false;
+
+
+	@Rule(
+			desc = "Phathom killed by shulker will drops an elytra with given possibility",
+			extra = "Set it to 0 to disable",
+			options = {"0", "0.2", "1"},
+			validate = ValidatePossibility.class,
+			strict = false,
+			category = {TIS, FEATURE}
+	)
+	public static double renewableElytra = 0.0D;
+
+	@Rule(
+			desc = "Disable sand and other gravity block duping using end portal",
+			extra = {
+					"Gravity block includes sand, anvil, dragon egg and so on",
+					"In sand dupers sand will only get teleported to the other dimension"
+			},
+			category = {TIS, BUGFIX}
+	)
+	public static boolean sandDupingFix = false;
+
+
+
+
+	private static class ValidatePossibility extends Validator<Double>
+	{
+		@Override
+		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
+		{
+			return (newValue >= 0.0D && newValue <= 1.0D) ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a value from 0 to 1";
+		}
+	}
 }

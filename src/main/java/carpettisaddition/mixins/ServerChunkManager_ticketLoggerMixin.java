@@ -1,6 +1,6 @@
 package carpettisaddition.mixins;
 
-import carpettisaddition.interfaces.ChunkTicketManagerInterface;
+import carpettisaddition.interfaces.IChunkTicketManager;
 import com.mojang.datafixers.DataFixer;
 import net.minecraft.server.WorldGenerationProgressListener;
 import net.minecraft.server.world.ChunkTicketManager;
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 
 
 @Mixin(ServerChunkManager.class)
-public class ServerChunkManager_ticketLoggerMixin
+public abstract class ServerChunkManager_ticketLoggerMixin
 {
 	@Shadow @Final private ChunkTicketManager ticketManager;
 
@@ -32,6 +32,6 @@ public class ServerChunkManager_ticketLoggerMixin
 	)
 	private void onConstructed(ServerWorld serverWorld, File file, DataFixer dataFixer, StructureManager structureManager, Executor workerExecutor, ChunkGenerator<?> chunkGenerator, int i, WorldGenerationProgressListener worldGenerationProgressListener, Supplier<PersistentStateManager> supplier, CallbackInfo ci)
 	{
-		((ChunkTicketManagerInterface)this.ticketManager).setServerWorld(serverWorld);
+		((IChunkTicketManager)this.ticketManager).setServerWorld(serverWorld);
 	}
 }

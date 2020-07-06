@@ -2,6 +2,7 @@
   "category.TIS": "TIS",
   "category.CARPET_MOD": "carpet_mod",
 
+
   "rule.blockEventPacketRange.name": "方块事件广播范围",
   "rule.blockEventPacketRange.desc": "设置会在方块事件成功执行后收到数据包的玩家范围",
   "rule.blockEventPacketRange.extra.0": "对于活塞而言，这一个数据包是用于显示活塞移动的话。把这个值调小以减小客户端卡顿",
@@ -41,6 +42,15 @@
   "rule.hopperCountersUnlimitedSpeed.name": "漏斗计数器无限速度",
   "rule.hopperCountersUnlimitedSpeed.desc": "当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度",
   "rule.hopperCountersUnlimitedSpeed.extra.0": "仅当Carpet Mod中的hopperCounters开启时有效",
+
+  "rule.renewableElytra.name": "可再生鞘翅",
+  "rule.renewableElytra.desc": "当幻翼被潜影贝杀死时有给定概率掉落鞘翅",
+  "rule.renewableElytra.extra.0": "设置为0以禁用",
+
+  "rule.sandDupingFix.name": "刷沙机修复",
+  "rule.sandDupingFix.desc": "禁用使用末地门的刷沙机以及刷重力方块机",
+  "rule.sandDupingFix.extra.0": "重力方块包括沙子、铁砧、龙蛋等",
+  "rule.sandDupingFix.extra.1": "在开启后刷沙机的沙子将会仅被传送至另一个纬度",
 
 
   "logger.ticketLogger.add": "被添加",
