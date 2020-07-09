@@ -1,5 +1,6 @@
 package carpettisaddition.logging.logHelpers;
 
+import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
@@ -29,7 +30,12 @@ public class ticketLoggerHelper
 
 	private static void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
 	{
-		LoggerRegistry.getLogger("ticket").log((option) ->
+		Logger logger = LoggerRegistry.getLogger("ticket");
+		if (logger == null)
+		{
+			return;
+		}
+		logger.log((option) ->
 		{
 			if (Arrays.asList(option.split(",")).contains(chunkTicket.getType().toString()))
 			{
