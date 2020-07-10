@@ -207,3 +207,4 @@ Custom statistics have been removed. If you want to use them check this [more-st
 # Other Stuffs
 
 - Set the maximum length of fake player's name to 16 to prevent kicking out player
+- set the maximum tick warp maximum duration to `Integer.MAX_VALUE`

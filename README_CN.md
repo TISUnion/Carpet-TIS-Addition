@@ -205,3 +205,4 @@ Carpet-TIS-Addition
 # 其他
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出
+- 将 tick warp 最大时长限制调整为 `Integer.MAX_VALUE`

@@ -7,6 +7,7 @@
     "Carpet_HUDController_HUDLoggerUpdateIntervalMixin",
     "Carpet_HUDControllerMixin",
     "Carpet_PlayerCommandMixin",
+    "Carpet_TickCommand_tickWarpMaximumDurationMixin",
     "ChunkTicketManager_ticketLoggerMixin",
     "DispenserBlock_dispensersFireDragonBreathMixin",
     "DragonEggBlock_renewableDragonEggMixin",

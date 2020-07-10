@@ -65,6 +65,7 @@
   "logger.itemLogger.despawned": "消失了",
   "logger.itemLogger.damage_amount": "伤害值",
 
+  
   "util.teleportHint": "点击以传送至 %s",
   "util.teleportHintDimension": "维度: "
 }
