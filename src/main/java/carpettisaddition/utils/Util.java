@@ -14,7 +14,7 @@ public class Util
 	public static BaseText getCoordinateText(String style, Vec3d pos, RegistryKey<DimensionType> dim)
 	{
 		String posText = String.format("[%.1f, %.1f, %.1f]", pos.getX(), pos.getY(), pos.getZ());
-		String command = String.format("/execute in %s run tp %f %f %f", dim.toString(), pos.getX(), pos.getY(), pos.getZ());
+		String command = String.format("/execute in %s run tp %f %f %f", dim.getValue(), pos.getX(), pos.getY(), pos.getZ());
 		LiteralText hoverText = new LiteralText("");
 		hoverText.append(String.format(Translations.tr("util.teleportHint", "Click to teleport to %s"), posText));
 		hoverText.append("\n");
