@@ -1,6 +1,5 @@
 package carpettisaddition.logging.logHelpers;
 
-import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.utils.Util;
@@ -14,7 +13,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,13 +32,13 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 			{
 				return null;
 			}
-			String dimensionName = item.world.dimension.getType().toString();
+			String dimensionName = item.world.getDimension().toString();
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", item.world.getTime()),
 					Util.getTranslatedName(item.getStack().getItem().getTranslationKey()),
 					String.format("r  %s", tr("despawned", "despawned")),
 					"g  @ ",
-					Util.getCoordinateText("w", item.getPos(), item.world.getDimension())
+					Util.getCoordinateText("w", item.getPos(), item.world.getDimensionRegistryKey())
 			)};
 		});
 	}
@@ -53,16 +51,15 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 				return null;
 			}
 			TranslatableText itemName = Util.getTranslatedName(item.getStack().getItem().getTranslationKey());
-			itemName.getStyle().setColor(Formatting.WHITE);
+			itemName.setStyle(itemName.getStyle().withColor(Formatting.WHITE));
 			TranslatableText deathMessage = Util.getTranslatedName("death.attack." + source.name, itemName);
-			deathMessage.getStyle()
-					.setColor(Formatting.RED)
-					.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", tr("damage_amount", "Damage amount"), amount))));
+			deathMessage.setStyle(deathMessage.getStyle().withColor(Formatting.RED));
+			deathMessage.setStyle(deathMessage.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", tr("damage_amount", "Damage amount"), amount)))));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", item.world.getTime()),
 					deathMessage,
 					"g  @ ",
-					Util.getCoordinateText("w", item.getPos(), item.world.getDimension())
+					Util.getCoordinateText("w", item.getPos(), item.world.getDimensionRegistryKey())
 			)};
 		});
 	}
