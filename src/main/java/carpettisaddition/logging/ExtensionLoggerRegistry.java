@@ -3,12 +3,14 @@ package carpettisaddition.logging;
 import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
+import carpettisaddition.logging.logHelpers.itemLoggerHelper;
 
 
 public class ExtensionLoggerRegistry
 {
     public static boolean __ticket;
     public static boolean __memory;
+    public static boolean __item;
 
     public static void registerLoggers()
     {
@@ -16,6 +18,9 @@ public class ExtensionLoggerRegistry
                 "ticket", standardLogger("ticket", "portal", new String[]{
                         "portal,player", "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
                 }
+        ));
+        LoggerRegistry.registerLogger(
+                "item", standardLogger("item", itemLoggerHelper.LoggingType.DESPAWN, itemLoggerHelper.LoggingType.loggingSuggest
         ));
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
     }

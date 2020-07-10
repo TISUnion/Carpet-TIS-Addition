@@ -14,6 +14,7 @@
     "ExperienceOrbEntity_xpTrackingDistanceMixin",
     "FallingBlockEntityMixin",
     "HopperBlockEntity_hopperCountersUnlimitedSpeedMixin",
+    "ItemEntity_itemLoggerMixin",
     "PhantomEntity_renewableElytraMixin",
     "PistonBlock_tntDupingFixMixin",
     "ServerChunkManager_ticketLoggerMixin",

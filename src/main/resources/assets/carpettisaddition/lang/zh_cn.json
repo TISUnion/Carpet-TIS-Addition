@@ -60,5 +60,11 @@
   "logger.ticketLogger.ticket": "加载票",
   "logger.ticketLogger.ticketDetail": "等级 = %d\n持续时间 = %s\n强加载区块: %s\n弱加载区块: %s\n边界区块: %s",
   "logger.ticketLogger.permanent": "永久",
-  "logger.ticketLogger.teleportHint": "点击以传送至区块 [%d, %d]"
+  "logger.ticketLogger.teleportHint": "点击以传送至区块 [%d, %d]",
+
+  "logger.itemLogger.despawned": "消失了",
+  "logger.itemLogger.damage_amount": "伤害值",
+
+  "util.teleportHint": "点击以传送至 %s",
+  "util.teleportHintDimension": "维度: "
 }

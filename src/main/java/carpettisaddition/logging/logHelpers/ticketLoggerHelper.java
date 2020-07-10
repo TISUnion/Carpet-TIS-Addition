@@ -14,11 +14,11 @@ import java.util.Arrays;
 
 import static java.lang.Math.max;
 
-public class ticketLoggerHelper
+public class ticketLoggerHelper extends AbstractLoggerHelper
 {
-	public static String tr(String key, String text)
+	static
 	{
-		return Translations.tr("logger.ticketLogger." + key, text);
+		loggerName = "ticketLogger";
 	}
 
 	private static String formatSize(int range)
