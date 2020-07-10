@@ -178,6 +178,23 @@ Carpet-TIS-Addition
 
 于 tab 栏中显示服务端当前消耗的内存以及占用的最大内存
 
+
+## 掉落物 (item)
+
+`/log item <事件>`
+
+记录某些事件在掉落物实体身上的发生，如物品闲置五分钟后自然消失
+
+可用的事件类型:
+- `die`: 当物品死亡
+- `despawn`: 当物品自然消失
+
+用 csv 格式，例如 `despawn,die` 来监视多种事件
+
+- 默认值: `despawn`
+- 参考选项: `despawn`, `die`, `despawn,die`
+
+
 -----------
 
 # 统计信息
