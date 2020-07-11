@@ -38,7 +38,7 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", item.world.getTime()),
 					Util.getTranslatedName(item.getStack().getItem().getTranslationKey()),
-					String.format("r  %s", tr("despawned", "despawned")),
+					String.format("r  %s", tr("despawned")),
 					"g  @ ",
 					Util.getCoordinateText("w", item.getPos(), item.world.getDimension())
 			)};

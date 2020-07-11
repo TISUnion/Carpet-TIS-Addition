@@ -54,7 +54,7 @@ public class ticketLoggerHelper extends AbstractLoggerHelper
 								formatSize(32 - level), formatSize(33 - level), formatSize(34 - level)
 						),
 						actionText + " ",
-						String.format("g %s ", tr("at", "at")),
+						String.format("g %s ", tr("at")),
 						String.format("w [%d, %d]", pos.x, pos.z),
 						String.format(String.format("^w %s", tr("teleportHint", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
 						String.format("?/execute in %s run tp %d ~ %d", dimensionName, centerPos.getX(), centerPos.getZ())
@@ -69,11 +69,11 @@ public class ticketLoggerHelper extends AbstractLoggerHelper
 
 	public static void onAddTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		onManipulateTicket(world, position, chunkTicket, "l " + tr("add", "added"));
+		onManipulateTicket(world, position, chunkTicket, "l " + tr("added"));
 	}
 
 	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		onManipulateTicket(world, position, chunkTicket, "r " + tr("remove", "removed"));
+		onManipulateTicket(world, position, chunkTicket, "r " + tr("removed"));
 	}
 }

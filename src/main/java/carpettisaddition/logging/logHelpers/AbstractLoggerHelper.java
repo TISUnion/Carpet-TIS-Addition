@@ -10,4 +10,9 @@ public abstract class AbstractLoggerHelper
 	{
 		return Translations.tr(String.format("logger.%s.%s", loggerName, key), text);
 	}
+
+	protected static String tr(String key)
+	{
+		return Translations.tr(String.format("logger.%s.%s", loggerName, key), key);
+	}
 }
