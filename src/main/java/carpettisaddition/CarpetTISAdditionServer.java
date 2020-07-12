@@ -9,6 +9,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
@@ -19,6 +21,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public static final String fancyName = "Carpet TIS Addition";
     public static final String compactName = name.replace("-","");  // carpettisaddition
     public static final String version = "1.0.6+v200710";  // should be the same as the version in gradlew.properties
+    public static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public String version()

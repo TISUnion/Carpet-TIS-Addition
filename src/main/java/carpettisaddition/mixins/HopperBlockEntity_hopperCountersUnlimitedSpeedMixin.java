@@ -2,11 +2,14 @@ package carpettisaddition.mixins;
 
 import carpet.CarpetSettings;
 import carpet.utils.WoolTool;
+import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,6 +25,8 @@ import java.util.function.Supplier;
 @Mixin(HopperBlockEntity.class)
 public abstract class HopperBlockEntity_hopperCountersUnlimitedSpeedMixin extends LootableContainerBlockEntity
 {
+	private static final int OPERATION_LIMIT = Short.MAX_VALUE;
+
 	@Shadow protected abstract boolean insert();
 	@Shadow protected abstract boolean isFull();
 	@Shadow public abstract double getHopperX();
@@ -54,7 +59,7 @@ public abstract class HopperBlockEntity_hopperCountersUnlimitedSpeedMixin extend
 			{
 				return;
 			}
-			for (int i = 0; i < Short.MAX_VALUE; i++)
+			for (int i = OPERATION_LIMIT - 1; i >= 0; i--)
 			{
 				boolean flag = false;
 				if (!this.isInvEmpty())
@@ -69,7 +74,26 @@ public abstract class HopperBlockEntity_hopperCountersUnlimitedSpeedMixin extend
 				{
 					break;
 				}
+				if (i == 0)
+				{
+					CarpetTISAdditionServer.LOGGER.warn(String.format("Hopper in %s exceeded hopperCountersUnlimitedSpeed operation limit %d", new BlockPos(getHopperX(), getHopperY(), getHopperZ()), OPERATION_LIMIT));
+				}
 			}
+		}
+	}
+
+	// to avoid repeatedly extraction an item entity in onEntityCollided
+	@Inject(
+			method = "extract(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/ItemEntity;)Z",
+			at = @At(value = "HEAD"),
+			cancellable = true
+	)
+	private static void dontExtractEmptyItem(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
+	{
+		if (itemEntity.getStack().isEmpty())
+		{
+			cir.setReturnValue(false);
+			cir.cancel();
 		}
 	}
 }
