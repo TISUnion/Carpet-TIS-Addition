@@ -180,6 +180,23 @@ Use csv format, like `portal,dragon` for logging multiple types of ticket
 
 Display current consumed and total memory of the server in HUD
 
+
+## item
+
+`/log item <events>`
+
+Info when something happens to an item entity, for example item despawned after 5min
+
+Available events:
+- `die`: An item entity died
+- `despawn`: An item entity despawned
+
+Use csv format, like `despawn,die` for logging multiple events
+
+- Default value: `despawn`
+- Suggested options: `despawn`, `die`, `despawn,die`
+
+
 -----------
 
 # Statistics
@@ -191,3 +208,4 @@ Custom statistics have been removed. If you want to use them check this [more-st
 # Other Stuffs
 
 - Set the maximum length of fake player's name to 16 to prevent kicking out player
+- set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
