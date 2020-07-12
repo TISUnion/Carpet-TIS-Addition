@@ -88,9 +88,9 @@ public abstract class HopperBlockEntity_hopperCountersUnlimitedSpeedMixin extend
 			at = @At(value = "HEAD"),
 			cancellable = true
 	)
-	private static void dontExtractEmptyItem(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
+	private static void dontExtractRemovedItem(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
 	{
-		if (itemEntity.getStack().isEmpty())
+		if (itemEntity.removed)
 		{
 			cir.setReturnValue(false);
 			cir.cancel();
