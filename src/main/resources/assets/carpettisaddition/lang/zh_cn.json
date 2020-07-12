@@ -53,8 +53,8 @@
   "rule.sandDupingFix.extra.1": "在开启后刷沙机的沙子将会仅被传送至另一个纬度",
 
 
-  "logger.ticketLogger.add": "被添加",
-  "logger.ticketLogger.remove": "被移除",
+  "logger.ticketLogger.added": "被添加",
+  "logger.ticketLogger.removed": "被移除",
   "logger.ticketLogger.at": "于",
   "logger.ticketLogger.timeDetail": "世界: %s\n游戏刻: %d",
   "logger.ticketLogger.ticket": "加载票",
