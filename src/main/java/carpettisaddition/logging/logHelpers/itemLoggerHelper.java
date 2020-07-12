@@ -21,6 +21,7 @@ import java.util.List;
 
 public class itemLoggerHelper extends AbstractLoggerHelper
 {
+	/*
 	static
 	{
 		loggerName = "itemLogger";
@@ -28,6 +29,8 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 
 	public static void onItemDespawn(ItemEntity item)
 	{
+		if (true) return;  // rip carpet 1.14.4 no logger
+
 		LoggerRegistry.getLogger("item").log((option) ->
 		{
 			if (!Arrays.asList(option.split(",")).contains(LoggingType.DESPAWN))
@@ -46,6 +49,8 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 	}
 	public static void onItemDie(ItemEntity item, DamageSource source, float amount)
 	{
+		if (true) return;  // rip carpet 1.14.4 no logger
+
 		LoggerRegistry.getLogger("item").log((option) ->
 		{
 			if (!Arrays.asList(option.split(",")).contains(LoggingType.DIE))
@@ -96,4 +101,6 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 			loggingSuggest = list.toArray(new String[0]);
 		}
 	}
+
+	 */
 }

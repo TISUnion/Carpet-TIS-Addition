@@ -42,7 +42,7 @@ public abstract class ItemEntity_itemLoggerMixin extends Entity
 	{
 		if (!this.world.isClient && !this.flagDespawned)
 		{
-			itemLoggerHelper.onItemDespawn((ItemEntity)(Object)this);
+		//	itemLoggerHelper.onItemDespawn((ItemEntity)(Object)this);
 			this.flagDespawned = true;
 		}
 	}
@@ -58,7 +58,7 @@ public abstract class ItemEntity_itemLoggerMixin extends Entity
 	{
 		if (!this.world.isClient && !this.flagDied)
 		{
-			itemLoggerHelper.onItemDie((ItemEntity)(Object)this, source, amount);
+		//	itemLoggerHelper.onItemDie((ItemEntity)(Object)this, source, amount);
 			this.flagDied = true;
 		}
 	}

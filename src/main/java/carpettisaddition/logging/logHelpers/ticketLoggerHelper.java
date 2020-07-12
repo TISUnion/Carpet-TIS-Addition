@@ -14,6 +14,7 @@ import static java.lang.Math.max;
 
 public class ticketLoggerHelper
 {
+	/*
 	public static String tr(String key, String text)
 	{
 		return text;
@@ -28,7 +29,6 @@ public class ticketLoggerHelper
 
 	private static void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
 	{
-		if (true) return;  // rip carpet 1.14.4 no logger
 		LoggerRegistry.getLogger("ticket").log((option) ->
 		{
 			if (Arrays.asList(option.split(",")).contains(chunkTicket.getType().toString()))
@@ -70,4 +70,5 @@ public class ticketLoggerHelper
 	{
 		onManipulateTicket(world, position, chunkTicket, "r " + tr("remove", "removed"));
 	}
+	 */
 }

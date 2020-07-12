@@ -1,7 +1,6 @@
 package carpettisaddition.utils;
 
 import carpet.utils.Messenger;
-import carpet.utils.Translations;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
@@ -11,6 +10,7 @@ import net.minecraft.world.dimension.DimensionType;
 
 public class Util
 {
+	/*
 	public static BaseText getCoordinateText(String style, Vec3d pos, Dimension dim)
 	{
 		String posText = String.format("[%.1f, %.1f, %.1f]", pos.getX(), pos.getY(), pos.getZ());
@@ -57,4 +57,5 @@ public class Util
 	{
 		return getTranslatedName(key, null, args);
 	}
+	 */
 }

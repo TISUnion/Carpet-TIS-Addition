@@ -1,9 +1,8 @@
 package carpettisaddition.logging.logHelpers;
 
-import carpet.utils.Translations;
-
 public abstract class AbstractLoggerHelper
 {
+	/*
 	protected static String loggerName = null;
 
 	protected static String tr(String key, String text)
@@ -15,4 +14,5 @@ public abstract class AbstractLoggerHelper
 	{
 		return Translations.tr(String.format("logger.%s.%s", loggerName, key), key);
 	}
+	 */
 }
