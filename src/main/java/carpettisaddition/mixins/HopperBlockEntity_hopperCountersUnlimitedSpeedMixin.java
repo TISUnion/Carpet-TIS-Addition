@@ -54,7 +54,7 @@ public abstract class HopperBlockEntity_hopperCountersUnlimitedSpeedMixin extend
 			{
 				return;
 			}
-			while (true)
+			for (int i = 0; i < Short.MAX_VALUE; i++)
 			{
 				boolean flag = false;
 				if (!this.isInvEmpty())
