@@ -25,7 +25,7 @@ public abstract class ChunkTicketManager_ticketLoggerMixin implements IChunkTick
 	}
 
 	@Inject(
-			method = "Lnet/minecraft/server/world/ChunkTicketManager;addTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
+			method = "addTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
 			at = @At(value = "HEAD")
 	)
 	private void onAddTicket(long position, ChunkTicket<?> chunkTicket, CallbackInfo ci)
@@ -34,7 +34,7 @@ public abstract class ChunkTicketManager_ticketLoggerMixin implements IChunkTick
 	}
 
 	@Inject(
-			method = "Lnet/minecraft/server/world/ChunkTicketManager;removeTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
+			method = "removeTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
 			at = @At(value = "HEAD")
 	)
 	private void onRemoveTicket(long position, ChunkTicket<?> chunkTicket, CallbackInfo ci)
