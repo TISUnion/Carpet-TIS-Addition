@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.carpet;
 
 import carpet.utils.HUDController;
 import carpettisaddition.utils.ExtensionHUDController;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(HUDController.class)
-public abstract class Carpet_HUDControllerMixin
+public abstract class HUDControllerMixin
 {
 	@Inject(
 			method = "update_hud",

@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.option;
 
 import carpettisaddition.helpers.DispenserHelper;
 import net.minecraft.block.DispenserBlock;
