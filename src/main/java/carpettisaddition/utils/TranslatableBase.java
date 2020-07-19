@@ -14,18 +14,31 @@ public abstract class TranslatableBase
 		this.name = name;
 	}
 
-	private String getPath(String key)
+	private String getPath(String key, boolean autoConvert)
 	{
-		return String.format("%s.%s.%s", type, name, key.toLowerCase());
+		String path = "";
+		if (type != null)
+		{
+			path += type + ".";
+		}
+		if (name != null)
+		{
+			path += name + ".";
+		}
+		if (autoConvert)
+		{
+			key = key.toLowerCase().replace(" ", "_");
+		}
+		return path + key;
 	}
 
-	protected String tr(String key, String text)
+	public String tr(String key, String text)
 	{
-		return Translations.tr(getPath(key), text);
+		return Translations.tr(getPath(key, false), text);
 	}
 
-	protected String tr(String key)
+	public String tr(String key)
 	{
-		return tr(key, key);
+		return Translations.tr(getPath(key, true), key);
 	}
 }

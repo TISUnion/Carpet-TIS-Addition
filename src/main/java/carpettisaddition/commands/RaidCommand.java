@@ -34,29 +34,36 @@ public class RaidCommand extends CommandBase
 		super("raid");
 	}
 
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	private void __registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal("raid")
 			.requires((player) -> SettingsManager.canUseCommand(player, CarpetTISAdditionSettings.commandRaid))
 			.then(literal("list")
-				.executes((c) -> listRaid(c.getSource(), false))
-				.then(literal("full")
-					.executes((c) -> listRaid(c.getSource(), true))
-				)
+					.executes((c) -> listRaid(c.getSource(), false))
+					.then(literal("full")
+							.executes((c) -> listRaid(c.getSource(), true))
+					)
 			)
 			.then(literal("tracking")
-				.executes((c) -> RaidTracker.printTrackingResult(c.getSource()))
-				.then(literal("start")
-					.executes((c) -> RaidTracker.startTracking(c.getSource()))
-				)
-				.then(literal("stop")
-					.executes((c) -> RaidTracker.stopTracking(c.getSource()))
-				)
-				.then(literal("restart")
-					.executes((c) -> RaidTracker.restartTracking(c.getSource()))
-				)
+					.executes((c) -> RaidTracker.printTrackingResult(c.getSource()))
+					.then(literal("start")
+							.executes((c) -> RaidTracker.startTracking(c.getSource()))
+					)
+					.then(literal("stop")
+							.executes((c) -> RaidTracker.stopTracking(c.getSource()))
+					)
+					.then(literal("restart")
+							.executes((c) -> RaidTracker.restartTracking(c.getSource()))
+					)
+					.then(literal("realtime")
+							.executes((c) -> RaidTracker.printTrackingResult(c.getSource()))
+					)
 			);
 		dispatcher.register(builder);
+	}
+	public static void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	{
+		inst.__registerCommand(dispatcher);
 	}
 
 	public int listRaid(ServerCommandSource source, boolean fullMode)
@@ -77,7 +84,7 @@ public class RaidCommand extends CommandBase
 				}
 				List<Object> result = new ArrayList<>();
 				result.add(Util.getDimensionNameText(world.getDimension().getType()));
-				result.add(Messenger.c(String.format("w  %s: %d", tr("raid_count", "raid count"), raids.size())));
+				result.add(Messenger.c(String.format("w  %s: %d", tr("raid count"), raids.size())));
 				hasRaid |= raids.size() > 0;
 
 				for (Map.Entry<Integer, Raid> entry : raids.entrySet())
@@ -85,17 +92,17 @@ public class RaidCommand extends CommandBase
 					Raid raid = entry.getValue();
 					RaidAccessor raidAccessor = (RaidAccessor) raid;
 					int currentWave = raidAccessor.getWavesSpawned();
-					String status = raidAccessor.getStatus().name();
-					result.add(Messenger.c("g \n- ", Util.getTranslatedName("event.minecraft.raid"), String.format("w %d", raid.getRaidId())));
-					result.add(Messenger.c("g \n  ", String.format("w %s: %s", tr("Status"), tr("status_" + status, status))));
+					String status = raidAccessor.getStatus().getName();
+					result.add(Messenger.c("g \n- ", Util.getTranslatedName("event.minecraft.raid"), String.format("w  #%d", raid.getRaidId())));
+					result.add(Messenger.c("g \n  ", String.format("w %s: %s", tr("Status"), tr("status." + status, status))));
 					result.add(Messenger.c("g \n  ", String.format("w %s: ", tr("Center")), Util.getCoordinateText("w", raid.getCenter(), world.getDimension())));
-					result.add(Messenger.c("g \n  ", String.format("w %s: %d", tr("bad_omen_level", "Bad Omen Level"), raid.getBadOmenLevel())));
+					result.add(Messenger.c("g \n  ", String.format("w %s: %d", tr("Bad Omen Level"), raid.getBadOmenLevel())));
 					result.add(Messenger.c("g \n  ", String.format("w %s: %d/%d", tr("Waves"), raidAccessor.getWavesSpawned(), raidAccessor.getWaveCount())));
 					result.add(Messenger.c("g \n  ", String.format("w %s: ", tr("Raiders"))));
 					Set<RaiderEntity> raiders = raidAccessor.getWaveToRaiders().get(currentWave);
 					if (raiders == null || raiders.isEmpty())
 					{
-						result.add(tr("None"));
+						result.add(Messenger.s(tr("None")));
 					}
 					else
 					{

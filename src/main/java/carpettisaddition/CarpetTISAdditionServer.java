@@ -64,7 +64,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void onServerClosed(MinecraftServer server)
     {
-        RaidTracker.stopTracking(null);
+        RaidTracker.stop();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         // here goes extra stuff
         CarpetTisAdditionCommand.registerCommand(dispatcher);
-        RaidCommand.inst.registerCommand(dispatcher);
+        RaidCommand.registerCommand(dispatcher);
     }
 
     @Override

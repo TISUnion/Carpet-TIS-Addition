@@ -34,26 +34,6 @@ public abstract class RaidManager_raidLoggerMixin
 	)
 	private void onInvalidatedByGamerule(CallbackInfo ci, Iterator<Raid> iterator, Raid raid)
 	{
-		if (((IRaid)raid).getRaidLogHelper() != null)
-		{
-			((IRaid)raid).getRaidLogHelper().onRaidInvalidated(RaidLogHelper.InvalidateReason.GAMERULE_DISABLE);
-		}
-	}
-
-	@Inject(
-			method = "tick",
-			at = @At(
-					value = "INVOKE",
-					target = "Ljava/util/Iterator;remove()V",
-					ordinal = 0
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
-	)
-	private void onRaidRemoved(CallbackInfo ci, Iterator<Raid> iterator, Raid raid)
-	{
-		if (((IRaid)raid).getRaidLogHelper() != null)
-		{
-			((IRaid)raid).getRaidLogHelper().onRaidRemoved();
-		}
+		((IRaid)raid).onRaidInvalidated(RaidLogHelper.InvalidateReason.GAMERULE_DISABLE);
 	}
 }

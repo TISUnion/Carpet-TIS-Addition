@@ -59,22 +59,34 @@
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
   "logger.ticket.at": "于",
-  "logger.ticket.timeDetail": "世界: %s\n游戏刻: %d",
+  "logger.ticket.time_detail": "世界: %s\n游戏刻: %d",
   "logger.ticket.ticket": "加载票",
-  "logger.ticket.ticketDetail": "等级 = %d\n持续时间 = %s\n强加载区块: %s\n弱加载区块: %s\n边界区块: %s",
+  "logger.ticket.ticket_detail": "等级 = %d\n持续时间 = %s\n强加载区块: %s\n弱加载区块: %s\n边界区块: %s",
   "logger.ticket.permanent": "永久",
-  "logger.ticket.teleportHint": "点击以传送至区块 [%d, %d]",
+  "logger.ticket.teleport_hint": "点击以传送至区块 [%d, %d]",
 
   "logger.item.despawned": "消失了",
   "logger.item.damage_amount": "伤害值",
 
+  "logger.raid.raid_created": "袭击(id: %d)被创建",
+  "logger.raid.raid_invalidated": "袭击(id: %d)结束，原因为：%s",
+  "logger.raid.raid_bad_omen_level_increased": "袭击(id: %d)不祥之兆等级提升为%d",
+
+
+  "invalidate_reason.difficulty_peaceful": "难度被设为和平",
+  "invalidate_reason.gamerule_disable": "被游戏规则禁用",
+  "invalidate_reason.poi_cleared": "全部POI已被清除",
+  "invalidate_reason.time_out": "超时",
+  "invalidate_reason.raider_cannot_spawn": "无法生成袭击者",
+  "invalidate_reason.raid_finished": "袭击结束",
+
 
   "command.raid.raid_count": "袭击数量",
   "command.raid.status": "状态",
-  "command.raid.status_ongoing": "进行中",
-  "command.raid.status_victory": "胜利",
-  "command.raid.status_loss": "失败",
-  "command.raid.status_stopped": "终止",
+  "command.raid.status.ongoing": "进行中",
+  "command.raid.status.victory": "胜利",
+  "command.raid.status.loss": "失败",
+  "command.raid.status.stopped": "终止",
   "command.raid.center": "中心点",
   "command.raid.bad_omen_level": "不祥之兆等级",
   "command.raid.waves": "波数",
@@ -83,6 +95,16 @@
   "command.raid.no_raid": "不存在袭击",
 
 
-  "util.teleportHint": "点击以传送至 %s",
-  "util.teleportHintDimension": "维度: "
+  "raid_tracker.tracking_started": "袭击追踪器已开始",
+  "raid_tracker.tracking_stopped": "袭击追踪器已停止",
+  "raid_tracker.tracking_not_started": "袭击追踪器未开启",
+  "raid_tracker.tracking_restarted": "袭击追踪器已重新开始",
+  "raid_tracker.tracked": "已追踪",
+  "raid_tracker.raid_generated": "袭击生成统计",
+  "raid_tracker.invalidate_reasons_statistics": "结束原因统计",
+  "raid_tracker.none": "暂无",
+
+
+  "util.teleport_hint": "点击以传送至 %s",
+  "util.teleport_hint_dimension": "维度: "
 }

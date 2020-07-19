@@ -1,10 +1,12 @@
 package carpettisaddition.mixins.logger;
 
+import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.interfaces.IRaid;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.logHelpers.RaidLogHelper;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.Raid;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -14,13 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Raid.class)
 public abstract class Raid_raidLoggerMixin implements IRaid
 {
-	private RaidLogHelper logHelper;
-
-	@Override
-	public RaidLogHelper getRaidLogHelper()
-	{
-		return this.logHelper;
-	}
+	@Shadow private int badOmenLevel;
 
 	@Inject(
 			method = "<init>(ILnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)V",
@@ -28,9 +24,29 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onConstruct(CallbackInfo ci)
 	{
-		if (ExtensionLoggerRegistry.__raid)
+		RaidLogHelper.onRaidCreated((Raid)(Object)this);
+	}
+
+	@Override
+	public void onRaidInvalidated(RaidLogHelper.InvalidateReason reason)
+	{
+		RaidLogHelper.onRaidInvalidated((Raid)(Object)this, reason);
+		RaidTracker.trackRaidInvalidated(reason);
+	}
+
+	@Inject(
+			method = "start",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/raid/Raid;getMaxAcceptableBadOmenLevel()I",
+					shift = At.Shift.AFTER
+			)
+	)
+	private void onStarted(PlayerEntity player, CallbackInfo ci)
+	{
+		if (this.badOmenLevel > 1)
 		{
-			logHelper = new RaidLogHelper((Raid) (Object) this);
+			RaidLogHelper.onBadOmenLevelIncreased((Raid)(Object)this);
 		}
 	}
 
@@ -56,10 +72,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByDifficulty(CallbackInfo ci)
 	{
-		if (logHelper != null)
-		{
-			logHelper.onRaidInvalidated(RaidLogHelper.InvalidateReason.DIFFICULTY_PEACEFUL);
-		}
+		onRaidInvalidated(RaidLogHelper.InvalidateReason.DIFFICULTY_PEACEFUL);
 	}
 
 	@Inject(
@@ -78,10 +91,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByPOINotFound(CallbackInfo ci)
 	{
-		if (logHelper != null)
-		{
-			logHelper.onRaidInvalidated(RaidLogHelper.InvalidateReason.POI_NOT_FOUND);
-		}
+		onRaidInvalidated(RaidLogHelper.InvalidateReason.POI_CLEARED);
 	}
 
 	@Inject(
@@ -89,7 +99,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 			slice = @Slice(
 					from = @At(
 							value = "CONSTANT",
-							args = "intValue=48000",
+							args = "longValue=48000",
 							ordinal = 0
 					)
 			),
@@ -101,10 +111,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByTimeOut(CallbackInfo ci)
 	{
-		if (logHelper != null)
-		{
-			logHelper.onRaidInvalidated(RaidLogHelper.InvalidateReason.TIME_OUT);
-		}
+		onRaidInvalidated(RaidLogHelper.InvalidateReason.TIME_OUT);
 	}
 
 	@Inject(
@@ -123,10 +130,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByRaiderCannotSpawn(CallbackInfo ci)
 	{
-		if (logHelper != null)
-		{
-			logHelper.onRaidInvalidated(RaidLogHelper.InvalidateReason.RAIDER_CANNOT_SPAWN);
-		}
+		onRaidInvalidated(RaidLogHelper.InvalidateReason.RAIDER_CANNOT_SPAWN);
 	}
 
 	@Inject(
@@ -145,10 +149,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByFinished(CallbackInfo ci)
 	{
-		if (logHelper != null)
-		{
-			logHelper.onRaidInvalidated(RaidLogHelper.InvalidateReason.FINISHED);
-		}
+		onRaidInvalidated(RaidLogHelper.InvalidateReason.RAID_FINISHED);
 	}
 
 	/*

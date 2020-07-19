@@ -2,6 +2,7 @@ package carpettisaddition.utils;
 
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
+import carpettisaddition.CarpetTISAdditionServer;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
@@ -24,9 +25,9 @@ public class Util
 	private static BaseText __getCoordinateText(String style, Dimension dim, String posText, String command)
 	{
 		LiteralText hoverText = new LiteralText("");
-		hoverText.append(String.format(Translations.tr("util.teleportHint", "Click to teleport to %s"), posText));
+		hoverText.append(String.format(Translations.tr("util.teleport_hint", "Click to teleport to %s"), posText));
 		hoverText.append("\n");
-		hoverText.append(String.format(Translations.tr("util.teleportHintDimension", "Dimension: "), posText));
+		hoverText.append(String.format(Translations.tr("util.teleport_hint_dimension", "Dimension: "), posText));
 		hoverText.append(getDimensionNameText(dim.getType()));
 		LiteralText text = new LiteralText(posText);
 		text.setStyle(Messenger.parseStyle(style));
@@ -74,5 +75,15 @@ public class Util
 	public static TranslatableText getTranslatedName(String key, Object... args)
 	{
 		return getTranslatedName(key, null, args);
+	}
+
+	public static long getGameTime()
+	{
+		return CarpetTISAdditionServer.minecraft_server.getWorld(DimensionType.OVERWORLD).getTime();
+	}
+
+	public static String ratePerHour(int rate, long ticks)
+	{
+		return String.format("%d, (%.1f/h)", rate, (double)rate / ticks * (20 * 60 * 60));
 	}
 }

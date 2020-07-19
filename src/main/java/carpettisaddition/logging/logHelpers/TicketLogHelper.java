@@ -51,17 +51,17 @@ public class TicketLogHelper extends AbstractLogHelper
 				String dimensionName = world.dimension.getType().toString();
 				return new BaseText[]{Messenger.c(
 						String.format("g [%s] ", world.getTime()),
-						String.format(String.format("^w %s", tr("timeDetail", "World: %s\nGameTime: %d")), dimensionName, world.getTime()),
+						String.format(String.format("^w %s", tr("time_detail", "World: %s\nGameTime: %d")), dimensionName, world.getTime()),
 						String.format("w %s ", tr("Ticket")),
 						String.format("d %s ", chunkTicket.getType()),
-						String.format(String.format("^w %s", tr("ticketDetail", "Level = %d\nDuration = %s\nEntity processing chunks: %s\nLazy processing chunks: %s\nBorder chunks: %s")),
+						String.format(String.format("^w %s", tr("ticket_detail", "Level = %d\nDuration = %s\nEntity processing chunks: %s\nLazy processing chunks: %s\nBorder chunks: %s")),
 								chunkTicket.getLevel(), expiryTicks > 0 ? expiryTicks + " gt" : tr("Permanent"),
 								formatSize(32 - level), formatSize(33 - level), formatSize(34 - level)
 						),
 						actionText + " ",
 						String.format("g %s ", tr("at")),
 						String.format("w [%d, %d]", pos.x, pos.z),
-						String.format(String.format("^w %s", tr("teleportHint", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
+						String.format(String.format("^w %s", tr("teleport_hint", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
 						String.format("?/execute in %s run tp %d ~ %d", dimensionName, centerPos.getX(), centerPos.getZ())
 				)};
 			}
@@ -72,13 +72,13 @@ public class TicketLogHelper extends AbstractLogHelper
 		});
 	}
 
-	public void onAddTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
+	public static void onAddTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		onManipulateTicket(world, position, chunkTicket, addedActionText);
+		inst.onManipulateTicket(world, position, chunkTicket, inst.addedActionText);
 	}
 
-	public void onRemoveTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
+	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		onManipulateTicket(world, position, chunkTicket, removedActionText);
+		inst.onManipulateTicket(world, position, chunkTicket, inst.removedActionText);
 	}
 }

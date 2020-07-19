@@ -26,7 +26,7 @@ public class ItemLogHelper extends AbstractLogHelper
 		super("item");
 	}
 
-	public void onItemDespawn(ItemEntity item)
+	private void __onItemDespawn(ItemEntity item)
 	{
 		LoggerRegistry.getLogger("item").log((option) ->
 		{
@@ -44,7 +44,12 @@ public class ItemLogHelper extends AbstractLogHelper
 			)};
 		});
 	}
-	public void onItemDie(ItemEntity item, DamageSource source, float amount)
+	public static void onItemDespawn(ItemEntity item)
+	{
+		inst.__onItemDespawn(item);
+	}
+
+	private void __onItemDie(ItemEntity item, DamageSource source, float amount)
 	{
 		LoggerRegistry.getLogger("item").log((option) ->
 		{
@@ -57,7 +62,7 @@ public class ItemLogHelper extends AbstractLogHelper
 			TranslatableText deathMessage = Util.getTranslatedName("death.attack." + source.name, itemName);
 			deathMessage.getStyle()
 					.setColor(Formatting.RED)
-					.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", tr("damage_amount", "Damage amount"), amount))));
+					.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", tr("Damage amount"), amount))));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", item.world.getTime()),
 					deathMessage,
@@ -65,6 +70,10 @@ public class ItemLogHelper extends AbstractLogHelper
 					Util.getCoordinateText("w", item.getPos(), item.world.getDimension())
 			)};
 		});
+	}
+	public static void onItemDie(ItemEntity item, DamageSource source, float amount)
+	{
+		inst.__onItemDie(item, source, amount);
 	}
 
 	public static class LoggingType

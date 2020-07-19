@@ -30,7 +30,7 @@ public abstract class ChunkTicketManager_ticketLoggerMixin implements IChunkTick
 	)
 	private void onAddTicket(long position, ChunkTicket<?> chunkTicket, CallbackInfo ci)
 	{
-		TicketLogHelper.inst.onAddTicket(this.world, position, chunkTicket);
+		TicketLogHelper.onAddTicket(this.world, position, chunkTicket);
 	}
 
 	@Inject(
@@ -39,6 +39,6 @@ public abstract class ChunkTicketManager_ticketLoggerMixin implements IChunkTick
 	)
 	private void onRemoveTicket(long position, ChunkTicket<?> chunkTicket, CallbackInfo ci)
 	{
-		TicketLogHelper.inst.onRemoveTicket(this.world, position, chunkTicket);
+		TicketLogHelper.onRemoveTicket(this.world, position, chunkTicket);
 	}
 }

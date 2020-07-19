@@ -1,45 +1,80 @@
 package carpettisaddition.logging.logHelpers;
 
+import carpet.logging.LoggerRegistry;
+import carpet.utils.Messenger;
+import carpet.utils.Translations;
+import carpettisaddition.utils.Util;
 import net.minecraft.entity.raid.Raid;
+import net.minecraft.text.BaseText;
+
 
 public class RaidLogHelper extends AbstractLogHelper
 {
-	private Raid raid;
-	private InvalidateReason invalidateReason = null;
+	public static RaidLogHelper inst = new RaidLogHelper();
 
-	public RaidLogHelper(Raid raid)
+	public RaidLogHelper()
 	{
 		super("raid");
-		this.raid = raid;
 	}
 
-	public void onRaidCreated()
+	private void __onRaidCreated(Raid raid)
 	{
-
+		LoggerRegistry.getLogger("raid").log(() -> {
+			return new BaseText[]{Messenger.c(
+					String.format("w %s", String.format(tr("raid_created", "Raid created with id %d"), raid.getRaidId())),
+					"g  @ ",
+					Util.getCoordinateText("w", raid.getCenter(), raid.getWorld().getDimension())
+			)};
+		});
 	}
-
-	public void onRaiderSpawned()
+	public static void onRaidCreated(Raid raid)
 	{
-
+		inst.__onRaidCreated(raid);
 	}
 
-	public void onRaidInvalidated(InvalidateReason reason)
+	private void __onRaidInvalidated(Raid raid, InvalidateReason reason)
 	{
-		this.invalidateReason = reason;
+		LoggerRegistry.getLogger("raid").log(() -> {
+			return new BaseText[]{Messenger.c(
+					String.format("w %s", String.format(tr("raid_invalidated", "Raid (id: %d) invalidated, reason: %s"), raid.getRaidId(), reason.tr()))
+			)};
+		});
 	}
-
-	public void onRaidRemoved()
+	public static void onRaidInvalidated(Raid raid, InvalidateReason reason)
 	{
-
+		inst.__onRaidInvalidated(raid, reason);
 	}
 
-	public static enum InvalidateReason
+	private void __onBadOmenLevelIncreased(Raid raid)
+	{
+		LoggerRegistry.getLogger("raid").log(() -> {
+			return new BaseText[]{Messenger.c(
+					String.format("w %s", String.format(tr("raid_bad_omen_level_increased", "Raid (id: %d) increased its bad omen level to %d"), raid.getRaidId(), raid.getBadOmenLevel()))
+			)};
+		});
+	}
+	public static void onBadOmenLevelIncreased(Raid raid)
+	{
+		inst.__onBadOmenLevelIncreased(raid);
+	}
+
+	public enum InvalidateReason
 	{
 		DIFFICULTY_PEACEFUL,
 		GAMERULE_DISABLE,
-		POI_NOT_FOUND,
+		POI_CLEARED,
 		TIME_OUT,
 		RAIDER_CANNOT_SPAWN,
-		FINISHED
+		RAID_FINISHED;
+
+		public String getName()
+		{
+			return this.name().toLowerCase();
+		}
+
+		public String tr()
+		{
+			return Translations.tr("invalidate_reason." + getName(), getName().replace("_", " "));
+		}
 	}
 }

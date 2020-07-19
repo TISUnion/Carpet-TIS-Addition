@@ -5,5 +5,5 @@ import carpettisaddition.logging.logHelpers.RaidLogHelper;
 
 public interface IRaid
 {
-	public RaidLogHelper getRaidLogHelper();
+	public void onRaidInvalidated(RaidLogHelper.InvalidateReason reason);
 }
