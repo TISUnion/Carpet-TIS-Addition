@@ -3,6 +3,8 @@ package carpettisaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpettisaddition.commands.CarpetTisAdditionCommand;
+import carpettisaddition.commands.RaidCommand;
+import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
@@ -22,6 +24,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public static final String compactName = name.replace("-","");  // carpettisaddition
     public static final String version = "1.0.7+v200712";  // should be the same as the version in gradlew.properties
     public static final Logger LOGGER = LogManager.getLogger();
+    public static MinecraftServer minecraft_server;
 
     @Override
     public String version()
@@ -55,6 +58,13 @@ public class CarpetTISAdditionServer implements CarpetExtension
         // reloading of /carpet settings is handled by carpet
         // reloading of own settings is handled as an extension, since we claim own settings manager
         // in case something else falls into
+        minecraft_server = server;
+    }
+
+    @Override
+    public void onServerClosed(MinecraftServer server)
+    {
+        RaidTracker.stopTracking(null);
     }
 
     @Override
@@ -68,6 +78,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         // here goes extra stuff
         CarpetTisAdditionCommand.registerCommand(dispatcher);
+        RaidCommand.inst.registerCommand(dispatcher);
     }
 
     @Override

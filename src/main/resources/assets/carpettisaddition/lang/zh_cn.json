@@ -52,18 +52,35 @@
   "rule.sandDupingFix.extra.0": "重力方块包括沙子、铁砧、龙蛋等",
   "rule.sandDupingFix.extra.1": "在开启后刷沙机的沙子将会仅被传送至另一个纬度",
 
+  "rule.commandRaid.name": "袭击追踪器",
+  "rule.commandRaid.desc": "启用/raid命令用于追踪袭击信息",
 
-  "logger.ticketLogger.added": "被添加",
-  "logger.ticketLogger.removed": "被移除",
-  "logger.ticketLogger.at": "于",
-  "logger.ticketLogger.timeDetail": "世界: %s\n游戏刻: %d",
-  "logger.ticketLogger.ticket": "加载票",
-  "logger.ticketLogger.ticketDetail": "等级 = %d\n持续时间 = %s\n强加载区块: %s\n弱加载区块: %s\n边界区块: %s",
-  "logger.ticketLogger.permanent": "永久",
-  "logger.ticketLogger.teleportHint": "点击以传送至区块 [%d, %d]",
 
-  "logger.itemLogger.despawned": "消失了",
-  "logger.itemLogger.damage_amount": "伤害值",
+  "logger.ticket.added": "被添加",
+  "logger.ticket.removed": "被移除",
+  "logger.ticket.at": "于",
+  "logger.ticket.timeDetail": "世界: %s\n游戏刻: %d",
+  "logger.ticket.ticket": "加载票",
+  "logger.ticket.ticketDetail": "等级 = %d\n持续时间 = %s\n强加载区块: %s\n弱加载区块: %s\n边界区块: %s",
+  "logger.ticket.permanent": "永久",
+  "logger.ticket.teleportHint": "点击以传送至区块 [%d, %d]",
+
+  "logger.item.despawned": "消失了",
+  "logger.item.damage_amount": "伤害值",
+
+
+  "command.raid.raid_count": "袭击数量",
+  "command.raid.status": "状态",
+  "command.raid.status_ongoing": "进行中",
+  "command.raid.status_victory": "胜利",
+  "command.raid.status_loss": "失败",
+  "command.raid.status_stopped": "终止",
+  "command.raid.center": "中心点",
+  "command.raid.bad_omen_level": "不祥之兆等级",
+  "command.raid.waves": "波数",
+  "command.raid.raiders": "袭击者",
+  "command.raid.none": "无",
+  "command.raid.no_raid": "不存在袭击",
 
 
   "util.teleportHint": "点击以传送至 %s",

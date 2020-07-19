@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.logger;
 
-import carpettisaddition.logging.logHelpers.itemLoggerHelper;
+import carpettisaddition.logging.logHelpers.ItemLogHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -42,7 +42,7 @@ public abstract class ItemEntity_itemLoggerMixin extends Entity
 	{
 		if (!this.world.isClient && !this.flagDespawned)
 		{
-			itemLoggerHelper.onItemDespawn((ItemEntity)(Object)this);
+			ItemLogHelper.inst.onItemDespawn((ItemEntity)(Object)this);
 			this.flagDespawned = true;
 		}
 	}
@@ -58,7 +58,7 @@ public abstract class ItemEntity_itemLoggerMixin extends Entity
 	{
 		if (!this.world.isClient && !this.flagDied)
 		{
-			itemLoggerHelper.onItemDie((ItemEntity)(Object)this, source, amount);
+			ItemLogHelper.inst.onItemDie((ItemEntity)(Object)this, source, amount);
 			this.flagDied = true;
 		}
 	}

@@ -1,6 +1,5 @@
 package carpettisaddition.logging.logHelpers;
 
-import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.utils.Util;
@@ -14,19 +13,20 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-public class itemLoggerHelper extends AbstractLoggerHelper
+public class ItemLogHelper extends AbstractLogHelper
 {
-	static
+	public static ItemLogHelper inst = new ItemLogHelper();
+
+	public ItemLogHelper()
 	{
-		loggerName = "itemLogger";
+		super("item");
 	}
 
-	public static void onItemDespawn(ItemEntity item)
+	public void onItemDespawn(ItemEntity item)
 	{
 		LoggerRegistry.getLogger("item").log((option) ->
 		{
@@ -44,7 +44,7 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 			)};
 		});
 	}
-	public static void onItemDie(ItemEntity item, DamageSource source, float amount)
+	public void onItemDie(ItemEntity item, DamageSource source, float amount)
 	{
 		LoggerRegistry.getLogger("item").log((option) ->
 		{
