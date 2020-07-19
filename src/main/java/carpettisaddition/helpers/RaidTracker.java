@@ -159,8 +159,7 @@ public class RaidTracker extends TranslatableBase
 		{
 			raidInvalidateCounter.forEach((reason, count) ->
 					result.add(Messenger.c(
-							"w \n- ",
-							reason.tr(),
+							String.format("w \n- %s", reason.tr()),
 							String.format("w : %s", Util.ratePerHour(count, ticks))
 					))
 			);
