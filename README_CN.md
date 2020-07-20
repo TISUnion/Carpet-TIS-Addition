@@ -20,6 +20,7 @@ Carpet-TIS-Addition
 - 参考选项: `0`, `16`, `64`, `128`
 - 分类: `TIS`, `OPTIMIZATION` 
 
+
 ## 结构方块范围限制 (structureBlockLimit)
 
 覆写结构方块的范围限制
@@ -193,6 +194,13 @@ Carpet-TIS-Addition
 
 - 默认值: `despawn`
 - 参考选项: `despawn`, `die`, `despawn,die`
+
+
+## 经验球 (xporb)
+
+`/log xporb <events>`
+
+基本上与 [掉落物监视器](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md#掉落物-item) 相同，只不过监视的是经验球实体
 
 
 ## 袭击 (raid)
