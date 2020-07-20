@@ -196,6 +196,29 @@ Use csv format, like `despawn,die` for logging multiple events
 - Suggested options: `despawn`, `die`, `despawn,die`
 
 
+## raid
+
+`/log raid`
+
+Info when a raid gets created, invalidated, or its bad omen level has been increased
+
+
+# Commands
+
+## raid
+
+### list
+
+`/raid list [<full>]`
+
+List information of all current raids
+
+### tracking
+
+`raid tracking [<start|stop|restart>]`
+
+Start a raid tracking to gather statistics from ongoing raids
+
 -----------
 
 # Statistics
