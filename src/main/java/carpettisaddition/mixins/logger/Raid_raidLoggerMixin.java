@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class Raid_raidLoggerMixin implements IRaid
 {
 	@Shadow private int badOmenLevel;
+	private int previousBadOmenLevel;
 
 	@Inject(
 			method = "<init>(ILnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)V",
@@ -39,13 +40,24 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 			method = "start",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/village/raid/Raid;getMaxAcceptableBadOmenLevel()I",
-					shift = At.Shift.AFTER
+					target = "Lnet/minecraft/entity/player/PlayerEntity;getStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Lnet/minecraft/entity/effect/StatusEffectInstance;"
+			)
+	)
+	private void onStartBeforeCalculated(PlayerEntity player, CallbackInfo ci)
+	{
+		this.previousBadOmenLevel = this.badOmenLevel;
+	}
+
+	@Inject(
+			method = "start",
+			at = @At(
+					value = "INVOKE_ASSIGN",
+					target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"
 			)
 	)
 	private void onStarted(PlayerEntity player, CallbackInfo ci)
 	{
-		if (this.badOmenLevel > 1)
+		if (this.badOmenLevel > 1 && this.badOmenLevel > this.previousBadOmenLevel)
 		{
 			RaidLogHelper.onBadOmenLevelIncreased((Raid)(Object)this, this.badOmenLevel);
 		}
@@ -92,7 +104,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByPOINotFound(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogHelper.InvalidateReason.POI_CLEARED);
+		onRaidInvalidated(RaidLogHelper.InvalidateReason.POI_REMOVED_BEFORE_SPAWN);
 	}
 
 	@Inject(

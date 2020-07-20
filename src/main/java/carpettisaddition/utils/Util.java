@@ -3,6 +3,9 @@ package carpettisaddition.utils;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionServer;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
@@ -16,6 +19,7 @@ import java.util.Objects;
 
 public class Util
 {
+	private static final String teleportHint = Translations.tr("util.teleport_hint", "Click to teleport to");
 	public static String getTeleportCommand(Vec3d pos, RegistryKey<DimensionType> dim)
 	{
 		return String.format("/execute in %s run tp %f %f %f", dim.getValue(), pos.getX(), pos.getY(), pos.getZ());
@@ -24,19 +28,26 @@ public class Util
 	{
 		return String.format("/execute in %s run tp %d %d %d", dim.getValue(), pos.getX(), pos.getY(), pos.getZ());
 	}
-
+	public static String getTeleportCommand(Entity entity)
+	{
+		String uuid = entity.getUuid().toString();
+		return String.format("/execute at %1$s run tp %1$s", uuid);
+	}
+	private static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
+	{
+		BaseText text = (BaseText)displayText.copy();
+		text.setStyle(Messenger.parseStyle(style));
+		text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+		text.getStyle().withClickEvent(clickEvent);
+		return text;
+	}
 	private static BaseText __getCoordinateText(String style, RegistryKey<DimensionType> dim, String posText, String command)
 	{
 		LiteralText hoverText = new LiteralText("");
-		hoverText.append(String.format(Translations.tr("util.teleport_hint", "Click to teleport to %s"), posText));
-		hoverText.append("\n");
-		hoverText.append(String.format(Translations.tr("util.teleportHintDimension", "Dimension: "), posText));
+		hoverText.append(String.format("%s %s\n", teleportHint, posText));
+		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
 		hoverText.append(getDimensionNameText(dim));
-		LiteralText text = new LiteralText(posText);
-		text.setStyle(Messenger.parseStyle(style));
-		text.setStyle(text.getStyle().withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command)));
-		text.setStyle(text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText)));
-		return text;
+		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
 	}
 	public static BaseText getCoordinateText(String style, Vec3d pos, RegistryKey<DimensionType> dim)
 	{
@@ -47,6 +58,12 @@ public class Util
 	{
 		String posText = String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());
 		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim));
+	}
+	public static BaseText getEntityText(String style, Entity entity)
+	{
+		BaseText entityName = (BaseText)entity.getType().getName().copy();
+		BaseText hoverText = Messenger.c(String.format("w %s ", teleportHint), entityName);
+		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.RUN_COMMAND, getTeleportCommand(entity)));
 	}
 
 	public static BaseText getDimensionNameText(RegistryKey<DimensionType> dim)

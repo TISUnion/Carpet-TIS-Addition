@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.village.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.BaseText;
 
 import java.util.List;
 import java.util.Map;
@@ -141,40 +142,28 @@ public class RaidTracker extends TranslatableBase
 			Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_not_started", "Raid tracking is not started"))));
 			return 1;
 		}
-		List<Object> result = Lists.newArrayList();
+		List<BaseText> result = Lists.newArrayList();
 		long ticks = Math.max(1, Util.getGameTime() - startTick);
 		int raiderCountSum = raiderCounter.values().stream().mapToInt(Integer::intValue).sum();
 		int invalidateCounterSum = raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
 
-		result.add(Messenger.c("bg --------------------\n"));
-		result.add(Messenger.c(String.format("w %s %.2f min\n", tr("Tracked"), (double)ticks / (20 * 60))));
-		result.add(Messenger.c(String.format("w %s: %s\n", tr("Raid generated"), Util.ratePerHour(raidGeneratedCount, ticks))));
-		result.add(Messenger.c(String.format("w %s: %s\n", RaidCommand.inst.tr("Raiders"), Util.ratePerHour(raiderCountSum, ticks))));
-		raiderCounter.forEach((raiderType, count) ->
-				result.add(Messenger.c(
-						"g - ",
-						raiderType.getName(),
-						String.format("w : %s, %.1f%%", Util.ratePerHour(count, ticks), (double)count / raiderCountSum * 100),
-						"w \n"
-				))
-		);
-		result.add(Messenger.c(String.format("w %s: ", tr("Invalidate reasons statistics"))));
-		if (raidInvalidateCounter.isEmpty())
-		{
-			result.add(Messenger.s(tr("None")));
-		}
-		else
-		{
-			raidInvalidateCounter.forEach((reason, count) ->
-					result.add(Messenger.c(
-							"g \n- ",
-							String.format("w %s", reason.tr()),
-							String.format("w : %s, %.1f%%", Util.ratePerHour(count, ticks), (double)count / invalidateCounterSum * 100)
-					))
-			);
-		}
+		result.add(Messenger.c("bg --------------------"));
+		result.add(Messenger.c(String.format("w %s %.2f min", tr("Tracked"), (double)ticks / (20 * 60))));
+		result.add(Messenger.c(String.format("w %s: %s", tr("Raid generated"), Util.ratePerHour(raidGeneratedCount, ticks))));
+		result.add(Messenger.c(String.format("w %s: %s", RaidCommand.inst.tr("Raiders"), Util.ratePerHour(raiderCountSum, ticks))));
+		raiderCounter.forEach((raiderType, count) -> result.add(Messenger.c(
+				"g - ",
+				raiderType.getName(),
+				String.format("w : %s, %.1f%%", Util.ratePerHour(count, ticks), (double) count / raiderCountSum * 100))
+		));
 
-		source.sendFeedback(Messenger.c(result.toArray(new Object[0])), false);
+		result.add(Messenger.c(String.format("w %s: ", tr("Invalidate reasons statistics")), String.format("w %s", raidInvalidateCounter.isEmpty() ? tr("None") : "")));
+		raidInvalidateCounter.forEach((reason, count) -> result.add(Messenger.c(
+				"g - ",
+				String.format("w %s", reason.tr()),
+				String.format("w : %s, %.1f%%", Util.ratePerHour(count, ticks), (double)count / invalidateCounterSum * 100))
+		));
+		Messenger.send(source, result);
 		return 1;
 	}
 	public static int printTrackingResult(ServerCommandSource source)
