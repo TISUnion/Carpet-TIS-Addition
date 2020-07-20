@@ -18,11 +18,11 @@ public class Util
 {
 	public static String getTeleportCommand(Vec3d pos, RegistryKey<DimensionType> dim)
 	{
-		return String.format("/execute in %s run tp %f %f %f", dim.toString(), pos.getX(), pos.getY(), pos.getZ());
+		return String.format("/execute in %s run tp %f %f %f", dim.getValue(), pos.getX(), pos.getY(), pos.getZ());
 	}
 	public static String getTeleportCommand(Vec3i pos, RegistryKey<DimensionType> dim)
 	{
-		return String.format("/execute in %s run tp %d %d %d", dim.toString(), pos.getX(), pos.getY(), pos.getZ());
+		return String.format("/execute in %s run tp %d %d %d", dim.getValue(), pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	private static BaseText __getCoordinateText(String style, RegistryKey<DimensionType> dim, String posText, String command)
