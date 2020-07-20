@@ -27,7 +27,7 @@ public class Util
 		LiteralText hoverText = new LiteralText("");
 		hoverText.append(String.format(Translations.tr("util.teleport_hint", "Click to teleport to %s"), posText));
 		hoverText.append("\n");
-		hoverText.append(String.format(Translations.tr("util.teleport_hint_dimension", "Dimension: %s"), posText));
+		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
 		hoverText.append(getDimensionNameText(dim.getType()));
 		LiteralText text = new LiteralText(posText);
 		text.setStyle(Messenger.parseStyle(style));
