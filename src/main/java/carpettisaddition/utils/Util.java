@@ -34,7 +34,7 @@ public class Util
 		hoverText.append(getDimensionNameText(dim));
 		LiteralText text = new LiteralText(posText);
 		text.setStyle(Messenger.parseStyle(style));
-		text.setStyle(text.getStyle().withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command)));
+		text.setStyle(text.getStyle().withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command)));
 		text.setStyle(text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText)));
 		return text;
 	}
