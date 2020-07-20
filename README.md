@@ -197,6 +197,13 @@ Use csv format, like `despawn,die` for logging multiple events
 - Suggested options: `despawn`, `die`, `despawn,die`
 
 
+## xporb
+
+`/log xporb <events>`
+
+Basically the same as [item logger](https://github.com/TISUnion/Carpet-TIS-Addition#item) but logs experience orb entities
+
+
 ## raid
 
 `/log raid`

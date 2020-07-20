@@ -13,6 +13,7 @@
     "command.RaidManager_raidTrackerMixin",
     "command.RaidManagerAccessor",
     "logger.ChunkTicketManager_ticketLoggerMixin",
+    "logger.ExperienceOrbEntity_xpOrbLoggerMixin",
     "logger.ItemEntity_itemLoggerMixin",
     "logger.Raid_raidLoggerMixin",
     "logger.RaidManager_raidLoggerMixin",

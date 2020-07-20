@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 import static java.lang.Math.max;
 
-public class TicketLogHelper extends AbstractLogHelper
+public class TicketLogHelper extends TranslatableLogHelper
 {
 	private final String addedActionText;
 	private final String removedActionText;
