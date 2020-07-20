@@ -2,9 +2,9 @@ package carpettisaddition.logging.logHelpers;
 
 import carpettisaddition.utils.TranslatableBase;
 
-public abstract class AbstractLogHelper extends TranslatableBase
+public abstract class TranslatableLogHelper extends TranslatableBase
 {
-	public AbstractLogHelper(String name)
+	public TranslatableLogHelper(String name)
 	{
 		super("logger", name);
 	}

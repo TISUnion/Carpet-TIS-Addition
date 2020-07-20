@@ -3,9 +3,9 @@ package carpettisaddition.commands;
 import carpettisaddition.utils.TranslatableBase;
 
 
-public abstract class AbstractCommand extends TranslatableBase
+public abstract class TranslatableCommand extends TranslatableBase
 {
-	public AbstractCommand(String name)
+	public TranslatableCommand(String name)
 	{
 		super("command", name);
 	}

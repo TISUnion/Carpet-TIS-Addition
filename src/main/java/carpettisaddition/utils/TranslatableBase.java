@@ -5,8 +5,8 @@ import carpet.utils.Translations;
 
 public abstract class TranslatableBase
 {
-	protected String type;
-	protected String name;
+	private final String type;
+	private final String name;
 
 	public TranslatableBase(String type, String name)
 	{

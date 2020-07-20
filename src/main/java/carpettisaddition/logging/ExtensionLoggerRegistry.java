@@ -3,7 +3,9 @@ package carpettisaddition.logging;
 import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
+import carpettisaddition.logging.logHelpers.EntityLogHelper;
 import carpettisaddition.logging.logHelpers.ItemLogHelper;
+import carpettisaddition.logging.logHelpers.XPOrbLogHelper;
 
 
 public class ExtensionLoggerRegistry
@@ -11,6 +13,7 @@ public class ExtensionLoggerRegistry
     public static boolean __ticket;
     public static boolean __memory;
     public static boolean __item;
+    public static boolean __xporb;
     public static boolean __raid;
 
     public static void registerLoggers()
@@ -20,14 +23,13 @@ public class ExtensionLoggerRegistry
                         "portal,player", "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
                 }
         ));
-        LoggerRegistry.registerLogger(
-                "item", standardLogger("item", ItemLogHelper.LoggingType.DESPAWN, ItemLogHelper.LoggingType.loggingSuggest
-        ));
+        LoggerRegistry.registerLogger("item", ItemLogHelper.inst.getStandardLogger());
+        LoggerRegistry.registerLogger("xporb", XPOrbLogHelper.inst.getStandardLogger());
         LoggerRegistry.registerLogger("raid", standardLogger("raid", null, null));
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
     }
 
-    private static Logger standardLogger(String logName, String def, String[] options)
+    public static Logger standardLogger(String logName, String def, String[] options)
 	{
         try
         {
@@ -35,7 +37,7 @@ public class ExtensionLoggerRegistry
         }
         catch (NoSuchFieldException e)
         {
-            throw new RuntimeException(String.format("Failed to create standard logger %s carpet TIS addition", logName));
+            throw new RuntimeException(String.format("Failed to create standard logger \"%s\" @ carpet TIS addition", logName));
         }
     }
 
@@ -47,7 +49,7 @@ public class ExtensionLoggerRegistry
         }
         catch (NoSuchFieldException e)
         {
-            throw new RuntimeException(String.format("Failed to create standard HUD logger %s carpet TIS addition", logName));
+            throw new RuntimeException(String.format("Failed to create standard HUD logger \"%s\" @ carpet TIS addition", logName));
         }
     }
 }

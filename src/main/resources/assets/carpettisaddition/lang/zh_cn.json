@@ -65,8 +65,11 @@
   "logger.ticket.permanent": "永久",
   "logger.ticket.teleport_hint": "点击以传送至区块 [%d, %d]",
 
-  "logger.item.despawned": "消失了",
-  "logger.item.damage_amount": "伤害值",
+  "logger.entity.despawned": "消失了",
+  "logger.entity.damage_amount": "伤害值",
+
+  "logger.xporb.xp_amount": "经验值",
+  "logger.item.item_stack_size": "物品数",
 
   "logger.raid.created": "袭击(id: %d)被创建",
   "logger.raid.invalidated": "袭击(id: %d)结束，原因为：%s",
