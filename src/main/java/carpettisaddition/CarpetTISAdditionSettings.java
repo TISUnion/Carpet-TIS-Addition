@@ -192,6 +192,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean sandDupingFix = false;
 
+	@Rule(
+			desc = "Enables /raid command for raid tracking",
+			category = {TIS, COMMAND}
+	)
+	public static String commandRaid = "true";
+
 
 
 

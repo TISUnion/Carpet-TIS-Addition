@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.option;
 
 import carpet.CarpetSettings;
 import carpet.utils.WoolTool;

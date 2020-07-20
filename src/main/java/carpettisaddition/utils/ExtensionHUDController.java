@@ -13,7 +13,7 @@ public class ExtensionHUDController
     {
         if (ExtensionLoggerRegistry.__memory)
         {
-            LoggerRegistry.getLogger("memory").log(() -> send_mem_usage());
+            LoggerRegistry.getLogger("memory").log(ExtensionHUDController::send_mem_usage);
         }
     }
 

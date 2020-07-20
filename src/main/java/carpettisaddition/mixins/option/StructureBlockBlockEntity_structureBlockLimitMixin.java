@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.option;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.entity.StructureBlockBlockEntity;

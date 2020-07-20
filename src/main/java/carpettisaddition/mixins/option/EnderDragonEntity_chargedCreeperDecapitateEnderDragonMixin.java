@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.option;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.entity.Entity;
@@ -12,13 +12,11 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 
 @Mixin(EnderDragonEntity.class)

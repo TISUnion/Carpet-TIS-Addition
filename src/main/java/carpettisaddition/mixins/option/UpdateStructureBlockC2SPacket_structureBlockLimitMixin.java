@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.option;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.network.packet.c2s.play.UpdateStructureBlockC2SPacket;

@@ -195,6 +195,34 @@ Carpet-TIS-Addition
 - 参考选项: `despawn`, `die`, `despawn,die`
 
 
+## 袭击 (raid)
+
+`/log raid`
+
+记录以下袭击相关的事件：
+
+- 袭击被创建
+- 袭击被移除
+- 袭击的不祥之兆等级被提升
+- 袭击的中心点被移动
+
+
+# 指令
+
+## 袭击 (raid)
+
+### 列表 (list)
+
+`/raid list [<full>]`
+
+列出目前所有袭击的信息
+
+### 追踪 (tracking)
+
+`raid tracking [<start|stop|restart|realtime>]`
+
+开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
+
 -----------
 
 # 统计信息
