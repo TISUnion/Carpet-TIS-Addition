@@ -104,7 +104,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByPOINotFound(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogHelper.InvalidateReason.POI_CLEARED);
+		onRaidInvalidated(RaidLogHelper.InvalidateReason.POI_REMOVED_BEFORE_SPAWN);
 	}
 
 	@Inject(
