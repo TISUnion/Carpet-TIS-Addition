@@ -46,7 +46,7 @@ public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
 		BaseText hoverText = getNameTextHoverText(entity);
 		if (hoverText != null)
 		{
-			text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+			text.setStyle(text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText)));
 		}
 		return text;
 	}
@@ -64,7 +64,7 @@ public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
 					getNameTextRich(entity),
 					String.format("r  %s", inst.tr("despawned")),
 					"g  @ ",
-					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
+					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimensionRegistryKey())
 			)};
 		});
 	}
@@ -78,15 +78,15 @@ public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
 				return null;
 			}
 			BaseText itemName = getNameTextRich(entity);
-			itemName.setStyle(itemName.getStyle().setColor(Formatting.WHITE));
+			itemName.setStyle(itemName.getStyle().withColor(Formatting.WHITE));
 			TranslatableText deathMessage = Util.getTranslatedName("death.attack." + source.name, itemName);
-			deathMessage.setStyle(deathMessage.getStyle().setColor(Formatting.RED));
+			deathMessage.setStyle(deathMessage.getStyle().withColor(Formatting.RED));
 			deathMessage.setStyle(deathMessage.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", inst.tr("damage_amount", "Damage amount"), amount)))));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", entity.world.getTime()),
 					deathMessage,
 					"g  @ ",
-					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
+					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimensionRegistryKey())
 			)};
 		});
 	}
