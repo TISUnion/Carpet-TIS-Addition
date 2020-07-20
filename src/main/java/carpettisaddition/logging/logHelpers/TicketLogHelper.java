@@ -35,18 +35,18 @@ public class TicketLogHelper extends AbstractLogHelper
 
 	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
 	{
-		Logger logger = LoggerRegistry.getLogger("ticket");
-		if (logger == null)
+		if (true)
 		{
 			return;
 		}
+		Logger logger = LoggerRegistry.getLogger("ticket");
 		logger.log((option) ->
 		{
 			if (Arrays.asList(option.split(",")).contains(chunkTicket.getType().toString()))
 			{
 				ChunkPos pos = new ChunkPos(position);
 				BlockPos centerPos = pos.toBlockPos(8, 0, 8);
-				long expiryTicks = chunkTicket.getType().getExpiryTicks();
+				long expiryTicks = chunkTicket.getType().method_20629();
 				int level = chunkTicket.getLevel();
 				String dimensionName = world.dimension.getType().toString();
 				return new BaseText[]{Messenger.c(

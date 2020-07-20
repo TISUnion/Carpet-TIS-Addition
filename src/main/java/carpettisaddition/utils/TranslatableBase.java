@@ -1,7 +1,5 @@
 package carpettisaddition.utils;
 
-import carpet.utils.Translations;
-
 
 public abstract class TranslatableBase
 {
@@ -34,11 +32,11 @@ public abstract class TranslatableBase
 
 	public String tr(String key, String text)
 	{
-		return Translations.tr(getPath(key, false), text);
+		return text;
 	}
 
 	public String tr(String key)
 	{
-		return Translations.tr(getPath(key, true), key);
+		return key;
 	}
 }

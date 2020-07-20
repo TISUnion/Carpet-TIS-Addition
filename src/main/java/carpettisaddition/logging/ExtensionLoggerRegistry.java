@@ -12,6 +12,7 @@ public class ExtensionLoggerRegistry
     public static boolean __memory;
     public static boolean __item;
     public static boolean __raid;
+    /*
 
     public static void registerLoggers()
     {
@@ -50,4 +51,5 @@ public class ExtensionLoggerRegistry
             throw new RuntimeException(String.format("Failed to create standard HUD logger %s carpet TIS addition", logName));
         }
     }
+     */
 }

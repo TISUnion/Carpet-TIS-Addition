@@ -2,7 +2,7 @@ package carpettisaddition.logging.logHelpers;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpet.utils.Translations;
+// import carpet.utils.Translations;
 import carpettisaddition.utils.Util;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.text.BaseText;
@@ -17,6 +17,8 @@ public class RaidLogHelper extends AbstractLogHelper
 	{
 		super("raid");
 	}
+
+	/*
 
 	private void __onRaidCreated(Raid raid)
 	{
@@ -73,6 +75,7 @@ public class RaidLogHelper extends AbstractLogHelper
 	{
 		inst.__onCenterMoved(raid, pos);
 	}
+	 */
 
 	public enum InvalidateReason
 	{
@@ -90,7 +93,7 @@ public class RaidLogHelper extends AbstractLogHelper
 
 		public String tr()
 		{
-			return Translations.tr("invalidate_reason." + getName(), getName().replace("_", " "));
+			return getName().replace("_", " ");
 		}
 	}
 }

@@ -25,6 +25,7 @@ public class ItemLogHelper extends AbstractLogHelper
 	{
 		super("item");
 	}
+	/*
 
 	private void __onItemDespawn(ItemEntity item)
 	{
@@ -105,4 +106,5 @@ public class ItemLogHelper extends AbstractLogHelper
 			loggingSuggest = list.toArray(new String[0]);
 		}
 	}
+	 */
 }

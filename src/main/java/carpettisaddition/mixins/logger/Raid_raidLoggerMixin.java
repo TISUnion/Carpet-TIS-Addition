@@ -25,13 +25,13 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onConstruct(CallbackInfo ci)
 	{
-		RaidLogHelper.onRaidCreated((Raid)(Object)this);
+	//	RaidLogHelper.onRaidCreated((Raid)(Object)this);
 	}
 
 	@Override
 	public void onRaidInvalidated(RaidLogHelper.InvalidateReason reason)
 	{
-		RaidLogHelper.onRaidInvalidated((Raid)(Object)this, reason);
+	//	RaidLogHelper.onRaidInvalidated((Raid)(Object)this, reason);
 		RaidTracker.trackRaidInvalidated(reason);
 	}
 
@@ -47,7 +47,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	{
 		if (this.badOmenLevel > 1)
 		{
-			RaidLogHelper.onBadOmenLevelIncreased((Raid)(Object)this, this.badOmenLevel);
+		//	RaidLogHelper.onBadOmenLevelIncreased((Raid)(Object)this, this.badOmenLevel);
 		}
 	}
 
@@ -165,6 +165,6 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	void onCenterMoved(BlockPos blockPos, CallbackInfo ci)
 	{
-		RaidLogHelper.onCenterMoved((Raid)(Object)this, blockPos);
+	//	RaidLogHelper.onCenterMoved((Raid)(Object)this, blockPos);
 	}
 }
