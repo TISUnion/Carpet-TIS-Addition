@@ -65,7 +65,8 @@ public class RaidTracker extends TranslatableBase
 				{
 					Messenger.m(source, Messenger.s(tr("tracking_stopped", "Raid tracking stopped")));
 				}
-			} else if (info)
+			}
+			else if (info)
 			{
 				Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_not_started", "Raid tracking is not started"))));
 			}
