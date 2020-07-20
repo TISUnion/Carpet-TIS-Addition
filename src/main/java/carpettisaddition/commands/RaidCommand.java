@@ -108,7 +108,7 @@ public class RaidCommand extends AbstractCommand
 					for (RaiderEntity raider : raiders)
 					{
 						Text raiderName = raider.getType().getName().copy();
-						Style nameStyle = Messenger.c(raider == raidAccessor.getWaveToCaptain().get(currentWave) ? "r  " : "w  ").getStyle();
+						Style nameStyle = Messenger.c(raider.equals(raidAccessor.getWaveToCaptain().get(currentWave)) ? "r  " : "w  ").getStyle();
 						if (fullMode)
 						{
 							raiderName.setStyle(nameStyle);

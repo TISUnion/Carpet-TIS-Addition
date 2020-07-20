@@ -1,7 +1,7 @@
 package carpettisaddition.utils;
 
 import carpet.utils.Messenger;
-import carpet.utils.Translations;
+// import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionServer;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
@@ -25,12 +25,12 @@ public class Util
 	private static BaseText __getCoordinateText(String style, Dimension dim, String posText, String command)
 	{
 		LiteralText hoverText = new LiteralText("");
-		hoverText.append(String.format(Translations.tr("util.teleport_hint", "Click to teleport to %s"), posText));
+		hoverText.append(String.format("Click to teleport to %s", posText));
 		hoverText.append("\n");
-		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
+		hoverText.append("Dimension: ");
 		hoverText.append(getDimensionNameText(dim.getType()));
 		LiteralText text = new LiteralText(posText);
-		text.setStyle(Messenger.parseStyle(style));
+		text.setStyle(Messenger.c(style + "  ").getStyle());
 		text.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
 		text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
 		return text;
