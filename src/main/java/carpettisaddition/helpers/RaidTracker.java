@@ -33,6 +33,11 @@ public class RaidTracker extends TranslatableBase
 
 	private int __startTracking(ServerCommandSource source, boolean info)
 	{
+		if (isTracking)
+		{
+			Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_already_started", "Raid tracker has already been running"))));
+			return 1;
+		}
 		isTracking = true;
 		startTick = Util.getGameTime();
 		raidGeneratedCount = 0;
@@ -62,7 +67,7 @@ public class RaidTracker extends TranslatableBase
 				}
 			} else if (info)
 			{
-				Messenger.m(source, Messenger.s(tr("tracking_not_started", "Raid tracking is not started")));
+				Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_not_started", "Raid tracking is not started"))));
 			}
 		}
 		isTracking = false;
@@ -132,7 +137,7 @@ public class RaidTracker extends TranslatableBase
 	{
 		if (!isTracking)
 		{
-			Messenger.m(source, Messenger.s(tr("tracking_not_started", "Raid tracking is not started")));
+			Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_not_started", "Raid tracking is not started"))));
 			return 1;
 		}
 		List<Object> result = Lists.newArrayList();

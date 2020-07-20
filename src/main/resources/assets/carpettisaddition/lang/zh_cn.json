@@ -96,6 +96,7 @@
   "command.raid.no_raid": "不存在袭击",
 
 
+  "raid_tracker.tracking_already_started": "袭击追踪器正在运行中",
   "raid_tracker.tracking_started": "袭击追踪器已开始",
   "raid_tracker.tracking_stopped": "袭击追踪器已停止",
   "raid_tracker.tracking_not_started": "袭击追踪器未开启",
