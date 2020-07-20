@@ -3,13 +3,16 @@ package carpettisaddition.logging;
 import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
+import carpettisaddition.logging.logHelpers.ItemLogHelper;
 
 
 public class ExtensionLoggerRegistry
 {
     public static boolean __ticket;
     public static boolean __memory;
-    /*
+    public static boolean __item;
+    public static boolean __raid;
+
     public static void registerLoggers()
     {
         LoggerRegistry.registerLogger(
@@ -17,6 +20,10 @@ public class ExtensionLoggerRegistry
                         "portal,player", "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
                 }
         ));
+        LoggerRegistry.registerLogger(
+                "item", standardLogger("item", ItemLogHelper.LoggingType.DESPAWN, ItemLogHelper.LoggingType.loggingSuggest
+        ));
+        LoggerRegistry.registerLogger("raid", standardLogger("raid", null, null));
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
     }
 
@@ -43,5 +50,4 @@ public class ExtensionLoggerRegistry
             throw new RuntimeException(String.format("Failed to create standard HUD logger %s carpet TIS addition", logName));
         }
     }
-    */
 }

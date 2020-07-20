@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.carpet;
 
 import carpet.commands.PlayerCommand;
 import carpet.utils.Messenger;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 
 @Mixin(PlayerCommand.class)
-public abstract class Carpet_PlayerCommandMixin
+public abstract class PlayerCommandMixin
 {
 	private static String getStringWithPrefix(final CommandContext<?> context, final String name)
 	{

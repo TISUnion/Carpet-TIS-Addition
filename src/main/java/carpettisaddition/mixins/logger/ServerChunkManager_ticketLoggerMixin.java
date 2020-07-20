@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.logger;
 
 import carpettisaddition.interfaces.IChunkTicketManager;
 import com.mojang.datafixers.DataFixer;

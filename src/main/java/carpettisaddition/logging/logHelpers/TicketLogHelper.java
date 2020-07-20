@@ -1,5 +1,6 @@
 package carpettisaddition.logging.logHelpers;
 
+import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import net.minecraft.server.world.ChunkTicket;
@@ -12,45 +13,55 @@ import java.util.Arrays;
 
 import static java.lang.Math.max;
 
-public class ticketLoggerHelper
+public class TicketLogHelper extends AbstractLogHelper
 {
-	/*
-	public static String tr(String key, String text)
+	private final String addedActionText;
+	private final String removedActionText;
+	public static TicketLogHelper inst = new TicketLogHelper();
+
+	public TicketLogHelper()
 	{
-		return text;
+		super("ticket");
+		addedActionText = "l " + tr("added");
+		removedActionText = "r " + tr("removed");
 	}
 
-	private static String formatSize(int range)
+	private String formatSize(int range)
 	{
 		range = max(range, 0);
 		int length = range * 2 - 1;
 		return String.format("%d * %d", length, length);
 	}
 
-	private static void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
+	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
 	{
-		LoggerRegistry.getLogger("ticket").log((option) ->
+		Logger logger = LoggerRegistry.getLogger("ticket");
+		if (logger == null)
+		{
+			return;
+		}
+		logger.log((option) ->
 		{
 			if (Arrays.asList(option.split(",")).contains(chunkTicket.getType().toString()))
 			{
 				ChunkPos pos = new ChunkPos(position);
 				BlockPos centerPos = pos.toBlockPos(8, 0, 8);
-				long expiryTicks = chunkTicket.getType().method_20629();
+				long expiryTicks = chunkTicket.getType().getExpiryTicks();
 				int level = chunkTicket.getLevel();
 				String dimensionName = world.dimension.getType().toString();
 				return new BaseText[]{Messenger.c(
 						String.format("g [%s] ", world.getTime()),
-						String.format(String.format("^w %s", tr("timeDetail", "World: %s\nGameTime: %d")), dimensionName, world.getTime()),
-						String.format("w %s ", tr("ticket", "Ticket")),
+						String.format(String.format("^w %s", tr("time_detail", "World: %s\nGameTime: %d")), dimensionName, world.getTime()),
+						String.format("w %s ", tr("Ticket")),
 						String.format("d %s ", chunkTicket.getType()),
-						String.format(String.format("^w %s", tr("ticketDetail", "Level = %d\nDuration = %s\nEntity processing chunks: %s\nLazy processing chunks: %s\nBorder chunks: %s")),
-								chunkTicket.getLevel(), expiryTicks > 0 ? expiryTicks + " gt" : tr("permanent", "Permanent"),
+						String.format(String.format("^w %s", tr("ticket_detail", "Level = %d\nDuration = %s\nEntity processing chunks: %s\nLazy processing chunks: %s\nBorder chunks: %s")),
+								chunkTicket.getLevel(), expiryTicks > 0 ? expiryTicks + " gt" : tr("Permanent"),
 								formatSize(32 - level), formatSize(33 - level), formatSize(34 - level)
 						),
 						actionText + " ",
-						String.format("g %s ", tr("at", "at")),
+						String.format("g %s ", tr("at")),
 						String.format("w [%d, %d]", pos.x, pos.z),
-						String.format(String.format("^w %s", tr("teleportHint", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
+						String.format(String.format("^w %s", tr("teleport_hint", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
 						String.format("?/execute in %s run tp %d ~ %d", dimensionName, centerPos.getX(), centerPos.getZ())
 				)};
 			}
@@ -63,12 +74,11 @@ public class ticketLoggerHelper
 
 	public static void onAddTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		onManipulateTicket(world, position, chunkTicket, "l " + tr("add", "added"));
+		inst.onManipulateTicket(world, position, chunkTicket, inst.addedActionText);
 	}
 
 	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		onManipulateTicket(world, position, chunkTicket, "r " + tr("remove", "removed"));
+		inst.onManipulateTicket(world, position, chunkTicket, inst.removedActionText);
 	}
-	 */
 }

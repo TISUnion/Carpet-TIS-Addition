@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.option;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.BlockState;
@@ -41,7 +41,8 @@ public abstract class PistonBlock_tntDupingFixMixin
 	{
 		if (CarpetTISAdditionSettings.tntDupingFix)
 		{
-			for(int l = list.size() - 1; l >= 0; --l) {
+			for(int l = list.size() - 1; l >= 0; --l)
+			{
 				BlockPos toBeMovedBlockPos = list.get(l);
 				list2.set(l, world.getBlockState(toBeMovedBlockPos));
 				world.setBlockState(toBeMovedBlockPos, Blocks.AIR.getDefaultState(), 18);

@@ -1,6 +1,5 @@
 package carpettisaddition.logging.logHelpers;
 
-import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.utils.Util;
@@ -14,23 +13,21 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-public class itemLoggerHelper extends AbstractLoggerHelper
+public class ItemLogHelper extends AbstractLogHelper
 {
-	/*
-	static
+	public static ItemLogHelper inst = new ItemLogHelper();
+
+	public ItemLogHelper()
 	{
-		loggerName = "itemLogger";
+		super("item");
 	}
 
-	public static void onItemDespawn(ItemEntity item)
+	private void __onItemDespawn(ItemEntity item)
 	{
-		if (true) return;  // rip carpet 1.14.4 no logger
-
 		LoggerRegistry.getLogger("item").log((option) ->
 		{
 			if (!Arrays.asList(option.split(",")).contains(LoggingType.DESPAWN))
@@ -47,10 +44,13 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 			)};
 		});
 	}
-	public static void onItemDie(ItemEntity item, DamageSource source, float amount)
+	public static void onItemDespawn(ItemEntity item)
 	{
-		if (true) return;  // rip carpet 1.14.4 no logger
+		inst.__onItemDespawn(item);
+	}
 
+	private void __onItemDie(ItemEntity item, DamageSource source, float amount)
+	{
 		LoggerRegistry.getLogger("item").log((option) ->
 		{
 			if (!Arrays.asList(option.split(",")).contains(LoggingType.DIE))
@@ -62,7 +62,7 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 			TranslatableText deathMessage = Util.getTranslatedName("death.attack." + source.name, itemName);
 			deathMessage.getStyle()
 					.setColor(Formatting.RED)
-					.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", tr("damage_amount", "Damage amount"), amount))));
+					.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", tr("Damage amount"), amount))));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", item.world.getTime()),
 					deathMessage,
@@ -70,6 +70,10 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 					Util.getCoordinateText("w", item.getPos(), item.world.getDimension())
 			)};
 		});
+	}
+	public static void onItemDie(ItemEntity item, DamageSource source, float amount)
+	{
+		inst.__onItemDie(item, source, amount);
 	}
 
 	public static class LoggingType
@@ -101,6 +105,4 @@ public class itemLoggerHelper extends AbstractLoggerHelper
 			loggingSuggest = list.toArray(new String[0]);
 		}
 	}
-
-	 */
 }

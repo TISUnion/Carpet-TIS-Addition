@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.carpet;
 
 import carpet.CarpetServer;
 import carpettisaddition.CarpetTISAdditionServer;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(CarpetServer.class)
-public abstract class Carpet_CarpetServerMixin
+public abstract class CarpetServerMixin
 {
 	@Inject(
 			method = "onGameStarted",

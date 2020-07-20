@@ -1,4 +1,4 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.carpet;
 
 import carpet.utils.HUDController;
 import carpettisaddition.CarpetTISAdditionSettings;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 
 @Mixin(HUDController.class)
-public abstract class Carpet_HUDController_HUDLoggerUpdateIntervalMixin
+public abstract class HUDController_HUDLoggerUpdateIntervalMixin
 {
 	@ModifyConstant(
 			method = "update_hud",

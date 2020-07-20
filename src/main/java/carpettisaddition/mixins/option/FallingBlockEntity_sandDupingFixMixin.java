@@ -1,7 +1,6 @@
-package carpettisaddition.mixins;
+package carpettisaddition.mixins.option;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FallingBlockEntity;
@@ -13,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(FallingBlockEntity.class)
-public abstract class FallingBlockEntityMixin extends Entity
+public abstract class FallingBlockEntity_sandDupingFixMixin extends Entity
 {
-	public FallingBlockEntityMixin(EntityType<? extends FallingBlockEntity> entityType, World world)
+	public FallingBlockEntity_sandDupingFixMixin(EntityType<? extends FallingBlockEntity> entityType, World world)
 	{
 		super(entityType, world);
 	}
