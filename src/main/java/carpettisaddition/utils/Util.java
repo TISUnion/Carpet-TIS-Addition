@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Util
 {
-	private static final String teleportHint = Translations.tr("util.teleport_hint", "Click to teleport to");
+	private static final String teleportHint = "Click to teleport to";
 
 	public static String getTeleportCommand(Vec3d pos, Dimension dim)
 	{
