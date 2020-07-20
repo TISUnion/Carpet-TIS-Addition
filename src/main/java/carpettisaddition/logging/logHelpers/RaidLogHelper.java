@@ -84,7 +84,8 @@ public class RaidLogHelper extends TranslatableLogHelper
 		POI_REMOVED_BEFORE_SPAWN,
 		TIME_OUT,
 		RAIDER_CANNOT_SPAWN,
-		RAID_FINISHED;
+		RAID_VICTORY,
+		RAID_DEFEAT;
 
 		public String getName()
 		{

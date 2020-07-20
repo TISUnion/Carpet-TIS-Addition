@@ -18,6 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class Raid_raidLoggerMixin implements IRaid
 {
 	@Shadow private int badOmenLevel;
+
+	@Shadow public abstract boolean hasWon();
+
 	private int previousBadOmenLevel;
 
 	@Inject(
@@ -162,7 +165,14 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByFinished(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogHelper.InvalidateReason.RAID_FINISHED);
+		if (this.hasWon())
+		{
+			onRaidInvalidated(RaidLogHelper.InvalidateReason.RAID_VICTORY);
+		}
+		else
+		{
+			onRaidInvalidated(RaidLogHelper.InvalidateReason.RAID_DEFEAT);
+		}
 	}
 
 	/*

@@ -82,7 +82,8 @@
   "invalidate_reason.poi_removed_before_spawn": "生成袭击者前POI全被移除",
   "invalidate_reason.time_out": "超过时长限制",
   "invalidate_reason.raider_cannot_spawn": "无法生成袭击者",
-  "invalidate_reason.raid_finished": "袭击结束",
+  "invalidate_reason.raid_victory": "袭击胜利",
+  "invalidate_reason.raid_defeat": "袭击失败",
 
 
   "command.raid.raid_count": "袭击数量",
