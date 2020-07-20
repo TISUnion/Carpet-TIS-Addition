@@ -9,7 +9,7 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 
 
-public class RaidLogHelper extends AbstractLogHelper
+public class RaidLogHelper extends TranslatableLogHelper
 {
 	public static RaidLogHelper inst = new RaidLogHelper();
 

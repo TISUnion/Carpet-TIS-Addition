@@ -23,7 +23,7 @@ import java.util.*;
 import static net.minecraft.server.command.CommandManager.literal;
 
 
-public class RaidCommand extends AbstractCommand
+public class RaidCommand extends TranslatableCommand
 {
 	public static RaidCommand inst = new RaidCommand();
 
