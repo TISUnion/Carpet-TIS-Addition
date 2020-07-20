@@ -22,7 +22,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public static final String name = "carpet-tis-addition";
     public static final String fancyName = "Carpet TIS Addition";
     public static final String compactName = name.replace("-","");  // carpettisaddition
-    public static final String version = "1.0.9-b14";  // should be the same as the version in gradlew.properties
+    public static final String version = "1.0.9-b15";  // should be the same as the version in gradlew.properties
     public static final Logger LOGGER = LogManager.getLogger();
     public static MinecraftServer minecraft_server;
 

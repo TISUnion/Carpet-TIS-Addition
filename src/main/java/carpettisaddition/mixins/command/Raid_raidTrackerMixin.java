@@ -14,6 +14,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class Raid_raidTrackerMixin
 {
 	@Inject(
+			method = "<init>(ILnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)V",
+			at = @At(value = "RETURN")
+	)
+	private void onConstruct(CallbackInfo ci)
+	{
+		RaidTracker.trackRaidGenerated((Raid)(Object)this);
+	}
+
+	@Inject(
 			method = "addRaider",
 			at = @At(value = "RETURN")
 	)

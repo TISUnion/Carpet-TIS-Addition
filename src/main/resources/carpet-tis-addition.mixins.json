@@ -10,7 +10,6 @@
     "carpet.TickCommand_tickWarpMaximumDurationMixin",
     "command.Raid_raidTrackerMixin",
     "command.RaidAccessor",
-    "command.RaidManager_raidTrackerMixin",
     "command.RaidManagerAccessor",
     "logger.ChunkTicketManager_ticketLoggerMixin",
     "logger.ExperienceOrbEntity_xpOrbLoggerMixin",
