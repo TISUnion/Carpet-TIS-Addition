@@ -90,13 +90,16 @@ public class RaidCommand extends AbstractCommand
 				String status = raidAccessor.getStatus().getName();
 				result.add(Messenger.c("g - ", Util.getTranslatedName("event.minecraft.raid"), String.format("w  #%d", raid.getRaidId())));
 				result.add(Messenger.c("g   ", String.format("w %s: %s", tr("Status"), tr("status." + status, status))));
-				result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), Util.getCoordinateText("w", raid.getCenter(), world.getDimension())));
-				result.add(Messenger.c("g   ", String.format("w %s: %d", tr("Bad Omen Level"), raid.getBadOmenLevel())));
+				if (fullMode)
+				{
+					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), Util.getCoordinateText("w", raid.getCenter(), world.getDimension())));
+					result.add(Messenger.c("g   ", String.format("w %s: %d", tr("Bad Omen Level"), raid.getBadOmenLevel())));
+				}
 				result.add(Messenger.c("g   ", String.format("w %s: %d/%d", tr("Waves"), raidAccessor.getWavesSpawned(), raidAccessor.getWaveCount())));
 
 				Set<RaiderEntity> raiders = raidAccessor.getWaveToRaiders().get(currentWave);
 				boolean hasRaiders = raiders != null && !raiders.isEmpty();
-				result.add(Messenger.c("g   ", String.format("w %s: %s", tr("Raiders"), hasRaiders ? "" : tr("None"))));
+				result.add(Messenger.c("g   ", String.format("w %s: %s", tr("Raiders"), hasRaiders ? String.format("x%d", raiders.size()) : tr("None"))));
 				if (hasRaiders)
 				{
 					int counter = 0;
@@ -104,12 +107,7 @@ public class RaidCommand extends AbstractCommand
 					for (Iterator<RaiderEntity> iter = raiders.iterator(); iter.hasNext(); )
 					{
 						RaiderEntity raider = iter.next();
-						BaseText raiderName = (BaseText)raider.getType().getName().copy();
-						Style nameStyle = Messenger.parseStyle(raider.equals(raidAccessor.getWaveToCaptain().get(currentWave)) ? "r" : "w");
-						if (fullMode)
-						{
-							raiderName.setStyle(nameStyle);
-						}
+						BaseText raiderName = Util.getEntityText(raider.equals(raidAccessor.getWaveToCaptain().get(currentWave)) ? "r" : "w", raider);
 						BaseText raiderMessage = Messenger.c(
 								raiderName,
 								"g  @ ",
@@ -122,9 +120,9 @@ public class RaidCommand extends AbstractCommand
 						else
 						{
 							BaseText x = Messenger.s(String.format("[%s] ", Registry.ENTITY_TYPE.getId(raider.getType()).getPath().substring(0, 1).toUpperCase()));
-							x.setStyle(nameStyle);
+							x.setStyle(raiderName.getStyle().copy());
 							x.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, raiderMessage));
-							x.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Util.getTeleportCommand(raider.getPos(), world.getDimension())));
+							x.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Util.getTeleportCommand(raider)));
 							line.add(x);
 							counter++;
 							if (counter == 10 || !iter.hasNext())

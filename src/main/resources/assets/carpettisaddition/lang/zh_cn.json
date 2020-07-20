@@ -107,6 +107,6 @@
   "raid_tracker.none": "暂无",
 
 
-  "util.teleport_hint": "点击以传送至 %s",
+  "util.teleport_hint": "点击以传送至",
   "util.teleport_hint_dimension": "维度: "
 }
