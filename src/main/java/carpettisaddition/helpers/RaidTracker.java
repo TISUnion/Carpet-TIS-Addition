@@ -137,16 +137,18 @@ public class RaidTracker extends TranslatableBase
 		}
 		List<Object> result = Lists.newArrayList();
 		long ticks = Math.max(1, Util.getGameTime() - startTick);
+		int raiderCountSum = raiderCounter.values().stream().mapToInt(Integer::intValue).sum();
+		int invalidateCounterSum = raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
 
-		result.add(Messenger.c("bw --------------------\n"));
+		result.add(Messenger.c("bg --------------------\n"));
 		result.add(Messenger.c(String.format("w %s %.2f min\n", tr("Tracked"), (double)ticks / (20 * 60))));
 		result.add(Messenger.c(String.format("w %s: %s\n", tr("Raid generated"), Util.ratePerHour(raidGeneratedCount, ticks))));
-		result.add(Messenger.c(String.format("w %s: %s\n", RaidCommand.inst.tr("Raiders"), Util.ratePerHour(raiderCounter.values().stream().mapToInt(Integer::intValue).sum(), ticks))));
+		result.add(Messenger.c(String.format("w %s: %s\n", RaidCommand.inst.tr("Raiders"), Util.ratePerHour(raiderCountSum, ticks))));
 		raiderCounter.forEach((raiderType, count) ->
 				result.add(Messenger.c(
-						"w - ",
+						"g - ",
 						raiderType.getName(),
-						String.format("w : %s", Util.ratePerHour(count, ticks)),
+						String.format("w : %s, %.1f%%", Util.ratePerHour(count, ticks), (double)count / raiderCountSum * 100),
 						"w \n"
 				))
 		);
@@ -159,8 +161,9 @@ public class RaidTracker extends TranslatableBase
 		{
 			raidInvalidateCounter.forEach((reason, count) ->
 					result.add(Messenger.c(
-							String.format("w \n- %s", reason.tr()),
-							String.format("w : %s", Util.ratePerHour(count, ticks))
+							"g \n- ",
+							String.format("w %s", reason.tr()),
+							String.format("w : %s, %.1f%%", Util.ratePerHour(count, ticks), (double)count / invalidateCounterSum * 100)
 					))
 			);
 		}

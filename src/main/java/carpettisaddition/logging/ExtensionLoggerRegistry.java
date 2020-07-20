@@ -23,9 +23,7 @@ public class ExtensionLoggerRegistry
         LoggerRegistry.registerLogger(
                 "item", standardLogger("item", ItemLogHelper.LoggingType.DESPAWN, ItemLogHelper.LoggingType.loggingSuggest
         ));
-        LoggerRegistry.registerLogger("raid", standardLogger("raid", "brief", new String[]{
-                "brief", "full"
-        }));
+        LoggerRegistry.registerLogger("raid", standardLogger("raid", null, null));
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
     }
 

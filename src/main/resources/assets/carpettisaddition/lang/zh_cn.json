@@ -75,7 +75,7 @@
 
   "invalidate_reason.difficulty_peaceful": "难度被设为和平",
   "invalidate_reason.gamerule_disable": "被游戏规则禁用",
-  "invalidate_reason.poi_cleared": "全部POI已被清除",
+  "invalidate_reason.poi_cleared": "全部POI均被清除",
   "invalidate_reason.time_out": "超时",
   "invalidate_reason.raider_cannot_spawn": "无法生成袭击者",
   "invalidate_reason.raid_finished": "袭击结束",
