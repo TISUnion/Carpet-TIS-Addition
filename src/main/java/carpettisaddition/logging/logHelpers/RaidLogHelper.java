@@ -4,7 +4,7 @@ import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
 import carpettisaddition.utils.Util;
-import net.minecraft.entity.raid.Raid;
+import net.minecraft.village.raid.Raid;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 
@@ -24,7 +24,7 @@ public class RaidLogHelper extends AbstractLogHelper
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("created", "Raid created with id %d"), raid.getRaidId())),
 					"g  @ ",
-					Util.getCoordinateText("w", raid.getCenter(), raid.getWorld().getDimension())
+					Util.getCoordinateText("w", raid.getCenter(), raid.getWorld().getDimensionRegistryKey())
 			)};
 		});
 	}
@@ -65,7 +65,7 @@ public class RaidLogHelper extends AbstractLogHelper
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("center_moved", "Raid (id: %d) moves its center to"), raid.getRaidId())),
 					"w  ",
-					Util.getCoordinateText("w", pos, raid.getWorld().getDimension())
+					Util.getCoordinateText("w", pos, raid.getWorld().getDimensionRegistryKey())
 			)};
 		});
 	}

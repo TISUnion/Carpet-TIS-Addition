@@ -8,7 +8,10 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+
+import java.util.Objects;
 
 
 public class Util
@@ -79,7 +82,7 @@ public class Util
 
 	public static long getGameTime()
 	{
-		return CarpetTISAdditionServer.minecraft_server.getWorld().getTime();
+		return Objects.requireNonNull(CarpetTISAdditionServer.minecraft_server.getWorld(World.OVERWORLD)).getTime();
 	}
 
 	public static String ratePerHour(int rate, long ticks)

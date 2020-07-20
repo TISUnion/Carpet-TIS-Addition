@@ -1,8 +1,8 @@
 package carpettisaddition.mixins.command;
 
 import carpettisaddition.helpers.RaidTracker;
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.entity.raid.RaidManager;
+import net.minecraft.village.raid.Raid;
+import net.minecraft.village.raid.RaidManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
