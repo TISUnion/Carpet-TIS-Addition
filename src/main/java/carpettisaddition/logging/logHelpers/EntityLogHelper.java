@@ -53,6 +53,7 @@ public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
 
 	protected void __onEntityDespawn(T entity)
 	{
+		if (true) return;
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
 		{
 			if (!Arrays.asList(option.split(",")).contains(LoggingType.DESPAWN))
@@ -71,6 +72,7 @@ public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
 
 	protected void __onEntityDie(T entity, DamageSource source, float amount)
 	{
+		if (true) return;
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
 		{
 			if (!Arrays.asList(option.split(",")).contains(LoggingType.DIE))
@@ -93,7 +95,8 @@ public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
 
 	public Logger getStandardLogger()
 	{
-		return ExtensionLoggerRegistry.standardLogger(this.loggerName, EntityLogHelper.LoggingType.DIE, EntityLogHelper.LoggingType.loggingSuggest);
+		return null;
+	//	return ExtensionLoggerRegistry.standardLogger(this.loggerName, EntityLogHelper.LoggingType.DIE, EntityLogHelper.LoggingType.loggingSuggest);
 	}
 
 	public static class LoggingType

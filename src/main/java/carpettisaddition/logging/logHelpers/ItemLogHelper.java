@@ -16,7 +16,6 @@ public class ItemLogHelper extends EntityLogHelper<ItemEntity>
 	{
 		super("item");
 	}
-	/*
 
 	public static void onItemDie(ItemEntity item, DamageSource source, float amount)
 	{
@@ -40,5 +39,4 @@ public class ItemLogHelper extends EntityLogHelper<ItemEntity>
 	{
 		return Messenger.s(String.format("%s: %d", tr("Item stack size"), item.getStack().getCount()));
 	}
-	 */
 }
