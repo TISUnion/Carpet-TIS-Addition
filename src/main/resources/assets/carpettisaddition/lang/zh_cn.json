@@ -108,5 +108,5 @@
 
 
   "util.teleport_hint": "点击以传送至 %s",
-  "util.teleport_hint_dimension": "维度: "
+  "util.teleport_hint_dimension": "维度: %s"
 }
