@@ -68,9 +68,10 @@
   "logger.item.despawned": "消失了",
   "logger.item.damage_amount": "伤害值",
 
-  "logger.raid.raid_created": "袭击(id: %d)被创建",
-  "logger.raid.raid_invalidated": "袭击(id: %d)结束，原因为：%s",
-  "logger.raid.raid_bad_omen_level_increased": "袭击(id: %d)不祥之兆等级提升为%d",
+  "logger.raid.created": "袭击(id: %d)被创建",
+  "logger.raid.invalidated": "袭击(id: %d)结束，原因为：%s",
+  "logger.raid.bad_omen_level_increased": "袭击(id: %d)不祥之兆等级提升为%d",
+  "logger.raid.center_moved": "袭击(id: %d)的中心点移动至",
 
 
   "invalidate_reason.difficulty_peaceful": "难度被设为和平",

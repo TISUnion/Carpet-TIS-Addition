@@ -5,6 +5,7 @@ import carpettisaddition.interfaces.IRaid;
 import carpettisaddition.logging.logHelpers.RaidLogHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.Raid;
+import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -46,7 +47,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	{
 		if (this.badOmenLevel > 1)
 		{
-			RaidLogHelper.onBadOmenLevelIncreased((Raid)(Object)this);
+			RaidLogHelper.onBadOmenLevelIncreased((Raid)(Object)this, this.badOmenLevel);
 		}
 	}
 
@@ -158,5 +159,12 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	 * -----------------------
 	 */
 
-
+	@Inject(
+			method = "method_20509",
+			at = @At(value = "HEAD")
+	)
+	void onCenterMoved(BlockPos blockPos, CallbackInfo ci)
+	{
+		RaidLogHelper.onCenterMoved((Raid)(Object)this, blockPos);
+	}
 }

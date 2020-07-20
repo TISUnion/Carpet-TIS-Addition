@@ -200,7 +200,12 @@ Use csv format, like `despawn,die` for logging multiple events
 
 `/log raid`
 
-Info when a raid gets created, invalidated, or its bad omen level has been increased
+Info when these raid related events happen:
+
+- A raid has been created
+- A raid has been invalidated;
+- The bad omen level of a raid has been increased
+- The center Position of a raid has been moved
 
 
 # Commands
@@ -215,7 +220,7 @@ List information of all current raids
 
 ### tracking
 
-`raid tracking [<start|stop|restart>]`
+`raid tracking [<start|stop|restart|realtime>]`
 
 Start a raid tracking to gather statistics from ongoing raids
 

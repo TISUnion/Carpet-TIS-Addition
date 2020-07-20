@@ -199,7 +199,13 @@ Carpet-TIS-Addition
 
 `/log raid`
 
-记录袭击的创建、移除以及其不祥之兆等级的提升
+记录以下袭击相关的事件：
+
+- 袭击被创建
+- 袭击被移除
+- 袭击的不祥之兆等级被提升
+- 袭击的中心点被移动
+
 
 # 指令
 
@@ -213,7 +219,7 @@ Carpet-TIS-Addition
 
 ### 追踪 (tracking)
 
-`raid tracking [<start|stop|restart>]`
+`raid tracking [<start|stop|restart|realtime>]`
 
 开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
 

@@ -6,6 +6,7 @@ import carpet.utils.Translations;
 import carpettisaddition.utils.Util;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.math.BlockPos;
 
 
 public class RaidLogHelper extends AbstractLogHelper
@@ -21,7 +22,7 @@ public class RaidLogHelper extends AbstractLogHelper
 	{
 		LoggerRegistry.getLogger("raid").log(() -> {
 			return new BaseText[]{Messenger.c(
-					String.format("w %s", String.format(tr("raid_created", "Raid created with id %d"), raid.getRaidId())),
+					String.format("w %s", String.format(tr("created", "Raid created with id %d"), raid.getRaidId())),
 					"g  @ ",
 					Util.getCoordinateText("w", raid.getCenter(), raid.getWorld().getDimension())
 			)};
@@ -36,7 +37,7 @@ public class RaidLogHelper extends AbstractLogHelper
 	{
 		LoggerRegistry.getLogger("raid").log(() -> {
 			return new BaseText[]{Messenger.c(
-					String.format("w %s", String.format(tr("raid_invalidated", "Raid (id: %d) invalidated, reason: %s"), raid.getRaidId(), reason.tr()))
+					String.format("w %s", String.format(tr("invalidated", "Raid (id: %d) invalidated, reason: %s"), raid.getRaidId(), reason.tr()))
 			)};
 		});
 	}
@@ -45,17 +46,32 @@ public class RaidLogHelper extends AbstractLogHelper
 		inst.__onRaidInvalidated(raid, reason);
 	}
 
-	private void __onBadOmenLevelIncreased(Raid raid)
+	private void __onBadOmenLevelIncreased(Raid raid, int badOmenLevel)
 	{
 		LoggerRegistry.getLogger("raid").log(() -> {
 			return new BaseText[]{Messenger.c(
-					String.format("w %s", String.format(tr("raid_bad_omen_level_increased", "Raid (id: %d) increased its bad omen level to %d"), raid.getRaidId(), raid.getBadOmenLevel()))
+					String.format("w %s", String.format(tr("bad_omen_level_increased", "Raid (id: %d) increased its bad omen level to %d"), raid.getRaidId(), badOmenLevel))
 			)};
 		});
 	}
-	public static void onBadOmenLevelIncreased(Raid raid)
+	public static void onBadOmenLevelIncreased(Raid raid, int badOmenLevel)
 	{
-		inst.__onBadOmenLevelIncreased(raid);
+		inst.__onBadOmenLevelIncreased(raid, badOmenLevel);
+	}
+
+	private void __onCenterMoved(Raid raid, BlockPos pos)
+	{
+		LoggerRegistry.getLogger("raid").log(() -> {
+			return new BaseText[]{Messenger.c(
+					String.format("w %s", String.format(tr("center_moved", "Raid (id: %d) moves its center to"), raid.getRaidId())),
+					"w  ",
+					Util.getCoordinateText("w", pos, raid.getWorld().getDimension())
+			)};
+		});
+	}
+	public static void onCenterMoved(Raid raid, BlockPos pos)
+	{
+		inst.__onCenterMoved(raid, pos);
 	}
 
 	public enum InvalidateReason
