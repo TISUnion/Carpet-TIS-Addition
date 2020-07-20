@@ -133,7 +133,7 @@ public class RaidCommand extends AbstractCommand
 							Text x = Messenger.s(String.format("[%s] ", Registry.ENTITY_TYPE.getId(raider.getType()).getPath().substring(0, 1).toUpperCase()));
 							x.setStyle(nameStyle);
 							x.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, raiderMessage));
-							x.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, Util.getTeleportCommand(raider.getPos(), world.getDimension())));
+							x.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Util.getTeleportCommand(raider.getPos(), world.getDimension())));
 							result.add(x);
 						}
 					}
