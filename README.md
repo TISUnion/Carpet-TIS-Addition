@@ -1,9 +1,11 @@
-Carpet-TIS-Addition
+Carpet TIS Addition
 -----------
 
 [>>> 中文 <<<](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md)
 
-A [Carpet mod](https://github.com/gnembon/fabric-carpet) extension, a collection of specific needs of TIS and interesting features
+A [Carpet mod](https://github.com/gnembon/fabric-carpet) extension, a collection of carpet mod style useful tools and interesting features
+
+Use alongside base fabric-carpet mod for the same Minecraft version
 
 -----------
 
