@@ -3,9 +3,11 @@ Carpet TIS Addition
 
 [>>> 中文 <<<](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md)
 
-A [Carpet mod](https://github.com/gnembon/fabric-carpet) extension, a collection of carpet mod style useful tools and interesting features
+A [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) extension, a collection of carpet mod style useful tools and interesting features
 
-Use alongside base fabric-carpet mod for the same Minecraft version
+Use with carpet mod in the same Minecraft version. Use newer carpet mod versions whenever possible
+
+CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 
 -----------
 
@@ -244,4 +246,4 @@ Custom statistics have been removed. If you want to use them check this [more-st
 # Other Stuffs
 
 - Set the maximum length of fake player's name to 16 to prevent kicking out player
-- set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
+- Set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
