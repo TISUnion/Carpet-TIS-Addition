@@ -24,6 +24,9 @@
   "rule.fakePlayerNamePrefix.desc": "为/player指令召唤出来的假人名称添加指定前缀",
   "rule.fakePlayerNamePrefix.extra.0": "将其设置为#none以阻止添加前缀",
   "rule.fakePlayerNamePrefix.extra.1": "这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁",
+  "rule.fakePlayerNameSuffix.name": "假人名称后缀",
+  "rule.fakePlayerNameSuffix.desc": "为/player指令召唤出来的假人名称添加指定后缀",
+  "rule.fakePlayerNameSuffix.extra.0": "将其设置为#none以阻止添加后缀",
 
   "rule.renewableDragonEgg.name": "可再生龙蛋",
   "rule.renewableDragonEgg.desc": "让龙蛋变得可再生",

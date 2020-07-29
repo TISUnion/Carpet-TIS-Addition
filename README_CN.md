@@ -78,6 +78,18 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 - 分类: `TIS`, `CARPET_MOD`
 
 
+## 假人名称前缀 (fakePlayerNameSuffix)
+
+为 `/player` 指令召唤出来的假人名称添加指定后缀
+
+将其设置为 `#none` 以阻止添加后缀
+
+- 类型: `String`  
+- 默认值: `#none`  
+- 参考选项: `#none`, `_fake`
+- 分类: `TIS`, `CARPET_MOD`
+
+
 ## 可再生龙蛋 (renewableDragonEgg)
 
 让龙蛋变得可再生

@@ -73,6 +73,18 @@ Set it to `#none` to stop adding a prefix
 - Type: `String`  
 - Default value: `#none`  
 - Suggested options: `#none`, `bot_`
+- Categories: `TIS`, `CARPET_MOD` 
+
+
+## fakePlayerNameSuffix
+
+Add a name suffix for fake players spawned with `/player` command
+
+Set it to `#none` to stop adding a suffix
+ 
+- Type: `String`  
+- Default value: `#none`  
+- Suggested options: `#none`, `_fake`
 - Categories: `TIS`, `CARPET_MOD`
 
 

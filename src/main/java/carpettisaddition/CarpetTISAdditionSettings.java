@@ -93,25 +93,38 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean tntDupingFix = false;
 
-	public static final String fakePlayerNameNone = "#none";
+	public static final String fakePlayerNameNoExtra = "#none";
 	@Rule(
 			desc = "Add a name prefix for fake players spawned with /player command",
 			extra = {
-					"Set it to " + fakePlayerNameNone + " to stop adding a prefix",
+					"Set it to " + fakePlayerNameNoExtra + " to stop adding a prefix",
 					"Which can prevent summoning fake player with illegal names and make player list look nicer"
 			},
-			options = {fakePlayerNameNone, "bot_"},
-			validate = ValidateFakePlayerNamePrefix.class,
+			options = {fakePlayerNameNoExtra, "bot_"},
+			validate = ValidateFakePlayerNameExtra.class,
 			strict = false,
 			category = {TIS, CARPET_MOD}
 	)
-	public static String fakePlayerNamePrefix = fakePlayerNameNone;
-	private static class ValidateFakePlayerNamePrefix extends Validator<String>
+	public static String fakePlayerNamePrefix = fakePlayerNameNoExtra;
+
+	@Rule(
+			desc = "Add a name suffix for fake players spawned with /player command",
+			extra = {
+					"Set it to " + fakePlayerNameNoExtra + " to stop adding a suffix"
+			},
+			options = {fakePlayerNameNoExtra, "_fake"},
+			validate = ValidateFakePlayerNameExtra.class,
+			strict = false,
+			category = {TIS, CARPET_MOD}
+	)
+	public static String fakePlayerNameSuffix = fakePlayerNameNoExtra;
+
+	private static class ValidateFakePlayerNameExtra extends Validator<String>
 	{
 		@Override
 		public String validate(ServerCommandSource source, ParsedRule<String> currentRule, String newValue, String string)
 		{
-			return (newValue.equals(fakePlayerNameNone) || Pattern.matches("[a-zA-Z_0-9]{1,15}", newValue)) ? newValue : null;
+			return (newValue.equals(fakePlayerNameNoExtra) || Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue)) ? newValue : null;
 		}
 		public String description()
 		{
