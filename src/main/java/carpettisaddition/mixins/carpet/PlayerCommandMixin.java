@@ -19,12 +19,16 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
 {
-	private static String getStringWithPrefix(final CommandContext<?> context, final String name)
+	private static String getDecoratedString(final CommandContext<?> context, final String name)
 	{
 		String playerName = StringArgumentType.getString(context, name);
-		if (!CarpetTISAdditionSettings.fakePlayerNamePrefix.equals(CarpetTISAdditionSettings.fakePlayerNameNone))
+		if (!CarpetTISAdditionSettings.fakePlayerNamePrefix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra))
 		{
 			playerName = CarpetTISAdditionSettings.fakePlayerNamePrefix + playerName;
+		}
+		if (!CarpetTISAdditionSettings.fakePlayerNameSuffix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra))
+		{
+			playerName = playerName + CarpetTISAdditionSettings.fakePlayerNameSuffix;
 		}
 		return playerName;
 	}
@@ -40,7 +44,7 @@ public abstract class PlayerCommandMixin
 	)
 	private static String getStringWithPrefixAtSpawn(final CommandContext<?> context, final String name)
 	{
-		return getStringWithPrefix(context, name);
+		return getDecoratedString(context, name);
 	}
 
 	@Redirect(
@@ -54,7 +58,7 @@ public abstract class PlayerCommandMixin
 	)
 	private static String getStringWithPrefixAtCantSpawn(final CommandContext<?> context, final String name)
 	{
-		return getStringWithPrefix(context, name);
+		return getDecoratedString(context, name);
 	}
 
 	@Inject(

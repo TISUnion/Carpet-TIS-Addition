@@ -1,9 +1,13 @@
-Carpet-TIS-Addition
+Carpet TIS Addition
 -----------
 
 [>>> 中文 <<<](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md)
 
-A [Carpet mod](https://github.com/gnembon/fabric-carpet) extension, a collection of specific needs of TIS and interesting features
+A [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) extension, a collection of carpet mod style useful tools and interesting features
+
+Use with carpet mod in the same Minecraft version. Use newer carpet mod versions whenever possible
+
+CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 
 -----------
 
@@ -69,6 +73,18 @@ Set it to `#none` to stop adding a prefix
 - Type: `String`  
 - Default value: `#none`  
 - Suggested options: `#none`, `bot_`
+- Categories: `TIS`, `CARPET_MOD` 
+
+
+## fakePlayerNameSuffix
+
+Add a name suffix for fake players spawned with `/player` command
+
+Set it to `#none` to stop adding a suffix
+ 
+- Type: `String`  
+- Default value: `#none`  
+- Suggested options: `#none`, `_fake`
 - Categories: `TIS`, `CARPET_MOD`
 
 
@@ -243,4 +259,4 @@ Custom statistics have been removed. If you want to use them check this [more-st
 # Other Stuffs
 
 - Set the maximum length of fake player's name to 16 to prevent kicking out player
-- set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
+- Set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
