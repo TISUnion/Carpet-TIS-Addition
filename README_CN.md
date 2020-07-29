@@ -1,9 +1,14 @@
-Carpet-TIS-Addition
+Carpet TIS Addition
 -----------
 
 [>>> English <<<](https://github.com/TISUnion/Carpet-TIS-Addition)
 
-这是一个 [Carpet mod](https://github.com/gnembon/fabric-carpet) 的扩展 mod，包含了不少~~NotVanilla的~~有意思的功能以及特性
+这是一个 [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) 的扩展 mod，包含了不少~~NotVanilla的~~有意思的功能以及特性
+
+跟同 Minecraft 版本的 carpet mod 一起使用即可。尽可能地使用较新的 carpet mod
+
+CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
+
 
 -----------
 
@@ -70,6 +75,18 @@ Carpet-TIS-Addition
 - 类型: `String`  
 - 默认值: `#none`  
 - 参考选项: `#none`, `bot_`
+- 分类: `TIS`, `CARPET_MOD`
+
+
+## 假人名称前缀 (fakePlayerNameSuffix)
+
+为 `/player` 指令召唤出来的假人名称添加指定后缀
+
+将其设置为 `#none` 以阻止添加后缀
+
+- 类型: `String`  
+- 默认值: `#none`  
+- 参考选项: `#none`, `_fake`
 - 分类: `TIS`, `CARPET_MOD`
 
 
