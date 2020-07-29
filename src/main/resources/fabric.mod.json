@@ -4,12 +4,12 @@
   "version": "1.0.10",
 
   "name": "Carpet TIS Addition",
-  "description": "More features and custom modifications",
+  "description": "More useful tools and interesting features",
   "authors": [
-    "gnembon, Fallen_Breath, ..."
+    "Fallen_Breath"
   ],
   "contact": {
-    "homepage": "https://github.com/TISUnion/Carpet-TIS-Addition",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition",
     "sources": "https://github.com/TISUnion/Carpet-TIS-Addition"
   },
 
