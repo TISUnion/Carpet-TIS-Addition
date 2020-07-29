@@ -67,9 +67,9 @@ public abstract class PlayerCommandMixin
 			remap = false,
 			cancellable = true
 	)
-	private static void checkNameLengthLimit(CommandContext context, CallbackInfoReturnable<Integer> cir)
+	private static void checkNameLengthLimit(CommandContext<ServerCommandSource> context, CallbackInfoReturnable<Integer> cir)
 	{
-		String playerName = getStringWithPrefix(context, "player");
+		String playerName = getDecoratedString(context, "player");
 		if (playerName.length() > 16)
 		{
 			Messenger.m((ServerCommandSource)context.getSource(), "rb Player name: " + playerName + " is too long");
