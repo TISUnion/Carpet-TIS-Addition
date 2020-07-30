@@ -122,8 +122,8 @@ public class RaidCommand extends TranslatableCommand
 						{
 							BaseText x = Messenger.s(String.format("[%s] ", Registry.ENTITY_TYPE.getId(raider.getType()).getPath().substring(0, 1).toUpperCase()));
 							x.setStyle(raiderName.getStyle());
-							x.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, raiderMessage));
-							x.getStyle().withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Util.getTeleportCommand(raider)));
+							x.setStyle(x.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, raiderMessage)));
+							x.setStyle(x.getStyle().withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Util.getTeleportCommand(raider))));
 							line.add(x);
 							counter++;
 							if (counter == 10 || !iter.hasNext())

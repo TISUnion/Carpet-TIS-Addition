@@ -45,7 +45,7 @@ public class TicketLogHelper extends TranslatableLogHelper
 			if (Arrays.asList(option.split(",")).contains(chunkTicket.getType().toString()))
 			{
 				ChunkPos pos = new ChunkPos(position);
-				BlockPos centerPos = pos.toBlockPos(8, 0, 8);
+				BlockPos centerPos = pos.getCenterBlockPos().add(8, 0, 8);
 				long expiryTicks = chunkTicket.getType().getExpiryTicks();
 				int level = chunkTicket.getLevel();
 				String dimensionName = world.getDimensionRegistryKey().getValue().toString();

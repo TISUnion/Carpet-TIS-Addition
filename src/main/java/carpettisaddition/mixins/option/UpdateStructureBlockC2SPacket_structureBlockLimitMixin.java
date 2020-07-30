@@ -13,7 +13,7 @@ public abstract class UpdateStructureBlockC2SPacket_structureBlockLimitMixin
 	@ModifyConstant(
 			method = "read",
 			require = 3,
-			constant = @Constant(intValue = -32)
+			constant = @Constant(intValue = -48)
 	)
 	private int structureBlockLimitNegative(int value)
 	{
@@ -23,7 +23,7 @@ public abstract class UpdateStructureBlockC2SPacket_structureBlockLimitMixin
 	@ModifyConstant(
 			method = "read",
 			require = 6,
-			constant = @Constant(intValue = 32)
+			constant = @Constant(intValue = 48)
 	)
 	private int structureBlockLimitPositive(int value)
 	{

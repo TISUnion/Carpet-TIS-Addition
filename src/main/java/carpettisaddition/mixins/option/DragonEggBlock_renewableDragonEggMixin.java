@@ -38,7 +38,7 @@ public abstract class DragonEggBlock_renewableDragonEggMixin extends Block
 	{
 		if (CarpetTISAdditionSettings.renewableDragonEgg && random.nextInt(64) == 0)
 		{
-			List<AreaEffectCloudEntity> list = world.getWorld().getEntities(AreaEffectCloudEntity.class, new Box(pos, pos.add(1, 1, 1)), (entity) -> {return entity != null && entity.isAlive();});
+			List<AreaEffectCloudEntity> list = world.getEntitiesByClass(AreaEffectCloudEntity.class, new Box(pos, pos.add(1, 1, 1)), (entity) -> {return entity != null && entity.isAlive();});
 			List<AreaEffectCloudEntity> dragonBreath = Lists.newArrayList();
 			for (AreaEffectCloudEntity areaEffectCloudEntity : list)
 				if (areaEffectCloudEntity.getParticleType() == ParticleTypes.DRAGON_BREATH)

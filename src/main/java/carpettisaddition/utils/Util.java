@@ -37,7 +37,7 @@ public class Util
 	{
 		BaseText text = (BaseText)displayText.copy();
 		text.setStyle(Messenger.parseStyle(style));
-		text.setStyle(text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText)));
+		text.setStyle(text.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText)));
 		text.setStyle(text.getStyle().withClickEvent(clickEvent));
 		return text;
 	}
