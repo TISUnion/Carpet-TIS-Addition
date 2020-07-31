@@ -78,7 +78,7 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 - 分类: `TIS`, `CARPET_MOD`
 
 
-## 假人名称前缀 (fakePlayerNameSuffix)
+## 假人名称后缀 (fakePlayerNameSuffix)
 
 为 `/player` 指令召唤出来的假人名称添加指定后缀
 
