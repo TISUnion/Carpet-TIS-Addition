@@ -169,6 +169,28 @@ In sand dupers sand will only get teleported to the other dimension
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `BUGFIX`
 
+
+## railDupingFix
+
+Disable rail duping using old school pushing lit powered or activator rail method
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
+
+## commandRaid
+
+Enables `/raid` command for raid tracking
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`
+
+
+
 -----------
 
 # Loggers
