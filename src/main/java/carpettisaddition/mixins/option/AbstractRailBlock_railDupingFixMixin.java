@@ -28,7 +28,7 @@ public class AbstractRailBlock_railDupingFixMixin
 	{
 		if (CarpetTISAdditionSettings.railDupingFix)
 		{
-			if (world.getBlockState(pos).getBlock() instanceof AbstractRailBlock)
+			if (!(world.getBlockState(pos).getBlock() instanceof AbstractRailBlock))
 			{
 				ci.cancel();
 			}
