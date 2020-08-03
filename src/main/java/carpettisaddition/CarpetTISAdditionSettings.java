@@ -15,7 +15,7 @@ import static carpet.settings.RuleCategory.*;
 public class CarpetTISAdditionSettings
 {
     public static final String TIS = "TIS";
-    public static final String CARPET_MOD = "carpet_mod";
+    public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space or you can't /carpet list this
 
     @Rule(
             desc = "Set the range where player will receive a block event packet after a block event fires successfully",
@@ -84,7 +84,7 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(
-			desc = "Disable TNT, carpet and rail duping",
+			desc = "Disable TNT, carpet and part of rail dupers",
 			extra = {
 					"Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block",
 					"Dupe bad dig good"
@@ -204,6 +204,12 @@ public class CarpetTISAdditionSettings
 			category = {TIS, BUGFIX}
 	)
 	public static boolean sandDupingFix = false;
+
+	@Rule(
+			desc = "Disable rail duping using old school pushing lit powered or activator rail method",
+			category = {TIS, BUGFIX}
+	)
+	public static boolean railDupingFix = false;
 
 	@Rule(
 			desc = "Enables /raid command for raid tracking",

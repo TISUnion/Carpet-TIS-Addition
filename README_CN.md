@@ -52,7 +52,7 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 
 ## TNT复制修复 (tntDupingFix)
 
-禁用TNT、地毯以及铁轨的复制
+禁用TNT、地毯以及部分铁轨的复制机
 
 基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块
 
@@ -169,6 +169,26 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `BUGFIX`
+
+
+## 刷铁轨机修复 (railDupingFix)
+
+禁用老式的移动点亮的充能或激活铁轨的刷铁轨机
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
+## 袭击追踪器 (commandRaid)
+
+启用 `/raid` 命令用于追踪袭击信息
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `COMMAND`
 
 -----------
 

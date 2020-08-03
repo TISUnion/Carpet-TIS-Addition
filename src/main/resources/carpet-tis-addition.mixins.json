@@ -17,6 +17,7 @@
     "logger.Raid_raidLoggerMixin",
     "logger.RaidManager_raidLoggerMixin",
     "logger.ServerChunkManager_ticketLoggerMixin",
+    "option.AbstractRailBlock_railDupingFixMixin",
     "option.DispenserBlock_dispensersFireDragonBreathMixin",
     "option.DragonEggBlock_renewableDragonEggMixin",
     "option.EnderDragonEntity_chargedCreeperDecapitateEnderDragonMixin",
