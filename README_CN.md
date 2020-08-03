@@ -52,7 +52,7 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 
 ## TNT复制修复 (tntDupingFix)
 
-禁用TNT、地毯以及铁轨的复制
+禁用TNT、地毯以及部分铁轨的复制机
 
 基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块
 

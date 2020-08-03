@@ -16,7 +16,7 @@
   "rule.xpTrackingDistance.extra.0": "将其调至0以禁用追踪",
 
   "rule.tntDupingFix.name": "TNT复制修复",
-  "rule.tntDupingFix.desc": "禁用TNT、地毯以及铁轨的复制",
+  "rule.tntDupingFix.desc": "禁用TNT、地毯以及部分铁轨的复制机",
   "rule.tntDupingFix.extra.0": "基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块",
   "rule.tntDupingFix.extra.1": "Dupe bad dig good",
 

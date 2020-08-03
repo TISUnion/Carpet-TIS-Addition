@@ -50,7 +50,7 @@ Change it to 0 to disable tracking
 
 ## tntDupingFix
 
-Disable TNT, carpet and rail duping
+Disable TNT, carpet and part of rail dupers
 
 Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block
 
