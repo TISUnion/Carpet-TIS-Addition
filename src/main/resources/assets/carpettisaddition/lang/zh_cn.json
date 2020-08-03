@@ -16,7 +16,7 @@
   "rule.xpTrackingDistance.extra.0": "将其调至0以禁用追踪",
 
   "rule.tntDupingFix.name": "TNT复制修复",
-  "rule.tntDupingFix.desc": "禁用TNT、地毯以及铁轨的复制",
+  "rule.tntDupingFix.desc": "禁用TNT、地毯以及部分铁轨的复制机",
   "rule.tntDupingFix.extra.0": "基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块",
   "rule.tntDupingFix.extra.1": "Dupe bad dig good",
 
@@ -54,6 +54,9 @@
   "rule.sandDupingFix.desc": "禁用使用末地门的刷沙机以及刷重力方块机",
   "rule.sandDupingFix.extra.0": "重力方块包括沙子、铁砧、龙蛋等",
   "rule.sandDupingFix.extra.1": "在开启后刷沙机的沙子将会仅被传送至另一个纬度",
+
+  "rule.railDupingFix.name": "刷铁轨机修复",
+  "rule.railDupingFix.desc": "禁用老式的移动点亮的充能或激活铁轨的刷铁轨机",
 
   "rule.commandRaid.name": "袭击追踪器",
   "rule.commandRaid.desc": "启用/raid命令用于追踪袭击信息",
