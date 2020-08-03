@@ -206,6 +206,12 @@ public class CarpetTISAdditionSettings
 	public static boolean sandDupingFix = false;
 
 	@Rule(
+			desc = "Disable rail duping using old school pushing lit powered or activator rail method",
+			category = {TIS, BUGFIX}
+	)
+	public static boolean railDupingFix = false;
+
+	@Rule(
 			desc = "Enables /raid command for raid tracking",
 			category = {TIS, COMMAND}
 	)

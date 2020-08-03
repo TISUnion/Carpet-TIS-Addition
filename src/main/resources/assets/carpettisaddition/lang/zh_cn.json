@@ -55,6 +55,9 @@
   "rule.sandDupingFix.extra.0": "重力方块包括沙子、铁砧、龙蛋等",
   "rule.sandDupingFix.extra.1": "在开启后刷沙机的沙子将会仅被传送至另一个纬度",
 
+  "rule.railDupingFix.name": "刷铁轨机修复",
+  "rule.railDupingFix.desc": "禁用老式的移动点亮的充能或激活铁轨的刷铁轨机",
+
   "rule.commandRaid.name": "袭击追踪器",
   "rule.commandRaid.desc": "启用/raid命令用于追踪袭击信息",
 
