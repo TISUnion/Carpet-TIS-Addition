@@ -25,12 +25,14 @@ public abstract class MobEntity_keepMobInLazyChunksMixin extends LivingEntity {
         super(entityType_1, world_1);
     }
 
-    @Inject(method = "tickNewAi", at = @At("HEAD"))
+    @Inject(method = "tickNewAi", at = @At(
+        value = "INVOKE_STRING",
+        target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V",
+        args = "ldc=sensing"
+    ))
     private void mixin(CallbackInfo ci){
         if(CarpetTISAdditionSettings.keepMobInLazyChunks){
-            ++super.despawnCounter;
             this.checkDespawn();
-            --super.despawnCounter;
         }
     }
 }
