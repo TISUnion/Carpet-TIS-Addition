@@ -235,7 +235,7 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 		desc="The mobs in lazy chunks will not despawn",
-		category = {EXPERIMENTAL, FEATURE}
+		category = {TIS, EXPERIMENTAL, FEATURE}
 	)
 	public static boolean keepMobInLazyChunks = false;
 }
