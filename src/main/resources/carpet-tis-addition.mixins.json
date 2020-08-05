@@ -24,6 +24,7 @@
     "option.ExperienceOrbEntity_xpTrackingDistanceMixin",
     "option.FallingBlockEntity_sandDupingFixMixin",
     "option.HopperBlockEntity_hopperCountersUnlimitedSpeedMixin",
+    "option.ItemDispenserBehavior_noCostMixin",
     "option.PhantomEntity_renewableElytraMixin",
     "option.PistonBlock_tntDupingFixMixin",
     "option.ServerWorld_blockEventPacketRangeMixin",

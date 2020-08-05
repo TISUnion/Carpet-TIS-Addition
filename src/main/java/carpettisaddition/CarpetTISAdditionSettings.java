@@ -217,6 +217,11 @@ public class CarpetTISAdditionSettings
 	)
 	public static String commandRaid = "true";
 
+	@Rule(
+			desc = "Dispensers do not cost when dispensing",
+			category = {TIS, DISPENSER, CREATIVE}
+	)
+	public static boolean dispenserNoItemCost = false;
 
 
 
