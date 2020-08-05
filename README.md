@@ -190,6 +190,15 @@ Enables `/raid` command for raid tracking
 - Categories: `TIS`, `COMMAND`
 
 
+## keepMobInLazyChunks
+
+The mobs in lazy chunks will not despawn, like the behavior before 1.15
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `FEATURE`, `EXPERIMENTAL` 
+
 
 -----------
 

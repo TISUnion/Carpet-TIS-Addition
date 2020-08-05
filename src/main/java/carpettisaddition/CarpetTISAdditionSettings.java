@@ -237,4 +237,10 @@ public class CarpetTISAdditionSettings
 			return "You must choose a value from 0 to 1";
 		}
 	}
+
+	@Rule(
+		desc="The mobs in lazy chunks will not despawn",
+		category = {TIS, EXPERIMENTAL, FEATURE}
+	)
+	public static boolean keepMobInLazyChunks = false;
 }
