@@ -218,12 +218,23 @@ public class CarpetTISAdditionSettings
 	public static String commandRaid = "true";
 
 	@Rule(
+			desc = "The mobs in lazy chunks will not despawn",
+			extra = "This option has no effect in version before 1.15",
+			category = {TIS, EXPERIMENTAL, FEATURE}
+	)
+	public static boolean keepMobInLazyChunks = false;
+
+	@Rule(
 			desc = "Dispensers do not cost when dispensing",
 			category = {TIS, DISPENSER, CREATIVE}
 	)
 	public static boolean dispenserNoItemCost = false;
 
 
+	/*
+	 *   Declare rules above this
+	 *   General validators down below
+	 */
 
 	private static class ValidatePossibility extends Validator<Double>
 	{
@@ -237,10 +248,4 @@ public class CarpetTISAdditionSettings
 			return "You must choose a value from 0 to 1";
 		}
 	}
-
-	@Rule(
-		desc="The mobs in lazy chunks will not despawn",
-		category = {TIS, EXPERIMENTAL, FEATURE}
-	)
-	public static boolean keepMobInLazyChunks = false;
 }

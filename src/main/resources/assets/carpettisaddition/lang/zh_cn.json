@@ -63,6 +63,7 @@
 
   "rule.keepMobInLazyChunks.name": "保持弱加载区块的怪物",
   "rule.keepMobInLazyChunks.desc": "弱加载区块的怪物不再会被刷新掉",
+  "rule.keepMobInLazyChunks.extra.0": "此选项对1.15以前的版本无效",
 
 
   "logger.ticket.added": "被添加",

@@ -194,6 +194,8 @@ Enables `/raid` command for raid tracking
 
 The mobs in lazy chunks will not despawn, like the behavior before 1.15
 
+This option has no effect in version before 1.15
+
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`
