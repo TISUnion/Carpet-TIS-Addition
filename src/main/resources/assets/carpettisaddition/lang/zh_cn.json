@@ -61,6 +61,9 @@
   "rule.commandRaid.name": "袭击追踪器",
   "rule.commandRaid.desc": "启用/raid命令用于追踪袭击信息",
 
+  "rule.keepMobInLazyChunks.name": "保持弱加载区块的怪物",
+  "rule.keepMobInLazyChunks.desc": "弱加载区块的怪物不再会被刷新掉",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
