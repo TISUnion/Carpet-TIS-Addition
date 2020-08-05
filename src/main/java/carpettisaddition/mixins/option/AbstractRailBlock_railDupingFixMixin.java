@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(AbstractRailBlock.class)
-public class AbstractRailBlock_railDupingFixMixin
+public abstract class AbstractRailBlock_railDupingFixMixin
 {
 	@Inject(
 			method = "neighborUpdate",

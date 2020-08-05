@@ -190,6 +190,30 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `COMMAND`
 
+
+## 保持弱加载区块的怪物 (keepMobInLazyChunks)
+
+弱加载区块的怪物不再会被刷新掉，就像 1.15 之前版本似的
+
+此选项对1.15以前的版本无效
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `EXPERIMENTAL` 
+
+
+## 发射器不消耗物品 (dispenserNoItemCost)
+
+开启后，发射器发射不再消耗物品
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `DISPENSER`, `CREATIVE`
+
+
+
 -----------
 
 # 监视器

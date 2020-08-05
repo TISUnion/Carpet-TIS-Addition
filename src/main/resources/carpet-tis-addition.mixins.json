@@ -24,11 +24,14 @@
     "option.ExperienceOrbEntity_xpTrackingDistanceMixin",
     "option.FallingBlockEntity_sandDupingFixMixin",
     "option.HopperBlockEntity_hopperCountersUnlimitedSpeedMixin",
+    "option.ItemDispenserBehavior_noCostMixin",
     "option.PhantomEntity_renewableElytraMixin",
     "option.PistonBlock_tntDupingFixMixin",
     "option.ServerWorld_blockEventPacketRangeMixin",
     "option.StructureBlockBlockEntity_structureBlockLimitMixin",
-    "option.UpdateStructureBlockC2SPacket_structureBlockLimitMixin"
+    "option.UpdateStructureBlockC2SPacket_structureBlockLimitMixin",
+    "option.MobEntity_keepMobInLazyChunksMixin",
+    "option.ServerWorld_keepMobInLazyChunksMixin"
   ],
   "injectors": {
     "defaultRequire": 1
