@@ -65,6 +65,9 @@
   "rule.keepMobInLazyChunks.desc": "弱加载区块的怪物不再会被刷新掉",
   "rule.keepMobInLazyChunks.extra.0": "此选项对1.15以前的版本无效",
 
+  "rule.dispenserNoItemCost.name": "发射器不消耗物品",
+  "rule.dispenserNoItemCost.desc": "开启后，发射器发射不再消耗物品",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
