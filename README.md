@@ -197,7 +197,17 @@ The mobs in lazy chunks will not despawn, like the behavior before 1.15
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`
-- Categories: `FEATURE`, `EXPERIMENTAL` 
+- Categories: `TIS`, `FEATURE`, `EXPERIMENTAL` 
+
+
+## dispenserNoItemCost
+
+Dispensers execute without having the itemstack inside decreased
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `DISPENSER`, `CREATIVE`
 
 
 -----------
