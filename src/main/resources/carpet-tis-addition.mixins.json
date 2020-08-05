@@ -7,6 +7,7 @@
     "carpet.HUDController_HUDLoggerUpdateIntervalMixin",
     "carpet.HUDControllerMixin",
     "carpet.PlayerCommandMixin",
+    "carpet.SettingsManagerMixin",
     "carpet.TickCommand_tickWarpMaximumDurationMixin",
     "command.Raid_raidTrackerMixin",
     "command.RaidAccessor",
