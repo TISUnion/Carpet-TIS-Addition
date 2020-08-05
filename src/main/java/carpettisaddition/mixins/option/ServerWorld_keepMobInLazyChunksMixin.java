@@ -10,7 +10,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ServerWorld.class)
 public abstract class ServerWorld_keepMobInLazyChunksMixin {
-
+    /*
+    No need in 1.14
+    
     @Redirect(method = "tick", at = @At(
         value = "INVOKE",
         target = "Lnet/minecraft/entity/Entity;checkDespawn()V"
@@ -19,4 +21,5 @@ public abstract class ServerWorld_keepMobInLazyChunksMixin {
         if(!CarpetTISAdditionSettings.keepMobInLazyChunks)
             entity.checkDespawn();
     }
+     */
 }

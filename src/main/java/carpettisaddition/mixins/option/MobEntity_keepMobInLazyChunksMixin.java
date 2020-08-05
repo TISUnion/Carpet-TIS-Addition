@@ -24,6 +24,9 @@ public abstract class MobEntity_keepMobInLazyChunksMixin extends LivingEntity {
     {
         super(entityType_1, world_1);
     }
+    /*
+
+    No need in 1.14
 
     @Inject(method = "tickNewAi", at = @At(
         value = "INVOKE_STRING",
@@ -35,4 +38,6 @@ public abstract class MobEntity_keepMobInLazyChunksMixin extends LivingEntity {
             this.checkDespawn();
         }
     }
+
+     */
 }
