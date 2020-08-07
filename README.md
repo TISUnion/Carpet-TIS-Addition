@@ -206,6 +206,10 @@ This option has no effect in version before 1.15
 
 Dispensers execute without having the itemstack inside decreased
 
+Both dispensers' dropping and using items do not cost
+
+Droppers won't be affected
+
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`

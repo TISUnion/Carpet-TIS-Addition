@@ -207,6 +207,10 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 
 开启后，发射器发射不再消耗物品
 
+无论发射物品还是使用物品都如此
+
+投掷器不受到影响
+
 - 类型: `boolean`  
 - 默认值: `false`  
 - 参考选项: `false`, `true`
