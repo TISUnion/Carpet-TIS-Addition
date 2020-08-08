@@ -225,11 +225,8 @@ public class CarpetTISAdditionSettings
 	public static boolean keepMobInLazyChunks = false;
 
 	@Rule(
-	        desc = "Dispensers execute without having the itemstack inside decreased",
-			extra = {
-			        "Both dispensers' dropping and using items do not cost.",
-                    "Droppers won't be affected"
-            },
+	        desc = "Dispensers and droppers execute without having the itemstack inside decreased\n",
+			extra = "Both dropping and using items do not cost.",
 			category = {TIS, DISPENSER, CREATIVE}
 	)
 	public static boolean dispenserNoItemCost = false;

@@ -205,11 +205,9 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 
 ## 发射器不消耗物品 (dispenserNoItemCost)
 
-开启后，发射器发射不再消耗物品
+开启后，发射器和投掷器使用被激活时不再消耗物品
 
-无论发射物品还是使用物品都如此
-
-投掷器不受到影响
+无论投掷物品还是使用物品都如此
 
 - 类型: `boolean`  
 - 默认值: `false`  

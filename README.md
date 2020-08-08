@@ -204,11 +204,9 @@ This option has no effect in version before 1.15
 
 ## dispenserNoItemCost
 
-Dispensers execute without having the itemstack inside decreased
+Dispensers and droppers execute without having the itemstack inside decreased
 
-Both dispensers' dropping and using items do not cost
-
-Droppers won't be affected
+Both dropping and using items do not cost
 
 - Type: `boolean`  
 - Default value: `false`  
