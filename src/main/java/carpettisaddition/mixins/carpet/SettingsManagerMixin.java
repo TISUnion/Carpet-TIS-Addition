@@ -18,7 +18,7 @@ public class SettingsManagerMixin {
             value = "INVOKE",
             target = "Lcarpet/settings/SettingsManager;listSettings(Lnet/minecraft/server/command/ServerCommandSource;Ljava/lang/String;Ljava/util/Collection;)I",
             shift = At.Shift.AFTER
-    ))
+    ), remap = false)
     private void printAddonVersion(ServerCommandSource source, CallbackInfoReturnable<Integer> cir) {
         Messenger.m(source,
                 String.format("g %s ", fancyName),
