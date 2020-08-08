@@ -206,7 +206,7 @@ This option has no effect in version before 1.15
 
 Dispensers and droppers execute without having the itemstack inside decreased
 
-Both dropping and using items do not cost
+Either dropping and using items do not cost
 
 - Type: `boolean`  
 - Default value: `false`  
