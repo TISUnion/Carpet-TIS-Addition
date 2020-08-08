@@ -26,13 +26,13 @@
     "option.FallingBlockEntity_sandDupingFixMixin",
     "option.HopperBlockEntity_hopperCountersUnlimitedSpeedMixin",
     "option.ItemDispenserBehavior_noCostMixin",
+    "option.MobEntity_keepMobInLazyChunksMixin",
     "option.PhantomEntity_renewableElytraMixin",
     "option.PistonBlock_tntDupingFixMixin",
     "option.ServerWorld_blockEventPacketRangeMixin",
+    "option.ServerWorld_keepMobInLazyChunksMixin",
     "option.StructureBlockBlockEntity_structureBlockLimitMixin",
-    "option.UpdateStructureBlockC2SPacket_structureBlockLimitMixin",
-    "option.MobEntity_keepMobInLazyChunksMixin",
-    "option.ServerWorld_keepMobInLazyChunksMixin"
+    "option.UpdateStructureBlockC2SPacket_structureBlockLimitMixin"
   ],
   "injectors": {
     "defaultRequire": 1
