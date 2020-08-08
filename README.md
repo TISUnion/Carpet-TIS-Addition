@@ -24,42 +24,37 @@ For piston the packet is used to render the piston movement animation. Decrease 
 - Suggested options: `0`, `16`, `64`, `128`
 - Categories: `TIS`, `OPTIMIZATION` 
 
-## structureBlockLimit
 
-Overwrite the size limit of structure block
+## commandRaid
 
-Relative position might display wrongly on client side if it's larger than 32
-  
-- Type: `int`  
-- Default value: `32`  
-- Suggested options: `32`, `64`, `96`, `127`
-- Categories: `TIS`, `CREATIVE` 
+Enables `/raid` command for raid tracking
 
-
-## xpTrackingDistance
-
-Overwrite the tracking distance of xp orb
-
-Change it to 0 to disable tracking
- 
-- Type: `double`  
-- Default value: `8`
-- Suggested options: `0`, `1`, `8`, `32`
-- Categories: `TIS`, `CREATIVE` 
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`
 
 
-## tntDupingFix
+## dispensersFireDragonBreath
 
-Disable TNT, carpet and part of rail dupers
-
-Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block
-
-~~Dupe bad dig good~~
+Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
  
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `BUGFIX`, `EXPERIMENTAL` 
+- Categories: `TIS`, `FEATURE`, `DISPENSER`
+
+
+## dispenserNoItemCost
+
+Dispensers and droppers execute without having the itemstack inside decreased
+
+Either dropping and using items do not cost
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `DISPENSER`, `CREATIVE`
 
 
 ## fakePlayerNamePrefix
@@ -88,6 +83,50 @@ Set it to `#none` to stop adding a suffix
 - Categories: `TIS`, `CARPET_MOD`
 
 
+## hopperCountersUnlimitedSpeed
+
+Make hopper pointing towards wool has infinity speed to suck in or transfer items
+
+Only works when hopperCounters option in Carpet Mod is on
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `CARPET_MOD`
+
+
+## HUDLoggerUpdateInterval
+
+Overwrite HUD loggers update interval (gametick)
+ 
+- Type: `int`  
+- Default value: `20`
+- Suggested options: `1`, `5`, `20`, `100`
+- Categories: `TIS`, `CARPET_MOD`
+
+
+## keepMobInLazyChunks
+
+The mobs in lazy chunks will not despawn, like the behavior before 1.15
+
+This option has no effect in version before 1.15
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `EXPERIMENTAL` 
+
+
+## railDupingFix
+
+Disable rail duping using old school pushing lit powered or activator rail method
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
+
 ## renewableDragonEgg
 
 Make dragon egg renewable
@@ -102,16 +141,6 @@ Use with rule [dispensersFireDragonBreath](https://github.com/TISUnion/Carpet-TI
 - Categories: `TIS`, `FEATURE`
 
 
-## dispensersFireDragonBreath
-
-Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
- 
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `FEATURE`, `DISPENSER`
-
-
 ## renewableDragonHead
 
 Ender dragon killed by charged creeper will drop dragon head
@@ -120,28 +149,6 @@ Ender dragon killed by charged creeper will drop dragon head
 - Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `FEATURE`
-
-
-## HUDLoggerUpdateInterval
-
-Overwrite HUD loggers update interval (gametick)
- 
-- Type: `int`  
-- Default value: `20`
-- Suggested options: `1`, `5`, `20`, `100`
-- Categories: `TIS`, `CARPET_MOD`
-
-
-## hopperCountersUnlimitedSpeed
-
-Make hopper pointing towards wool has infinity speed to suck in or transfer items
-
-Only works when hopperCounters option in Carpet Mod is on
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`, `CARPET_MOD`
 
 
 ## renewableElytra
@@ -170,48 +177,42 @@ In sand dupers sand will only get teleported to the other dimension
 - Categories: `TIS`, `BUGFIX`
 
 
-## railDupingFix
+## structureBlockLimit
 
-Disable rail duping using old school pushing lit powered or activator rail method
+Overwrite the size limit of structure block
 
+Relative position might display wrongly on client side if it's larger than 32
+  
+- Type: `int`  
+- Default value: `32`  
+- Suggested options: `32`, `64`, `96`, `127`
+- Categories: `TIS`, `CREATIVE` 
+
+
+## tntDupingFix
+
+Disable TNT, carpet and part of rail dupers
+
+Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block
+
+~~Dupe bad dig good~~
+ 
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `BUGFIX`
+- Categories: `TIS`, `BUGFIX`, `EXPERIMENTAL` 
 
 
-## commandRaid
+## xpTrackingDistance
 
-Enables `/raid` command for raid tracking
+Overwrite the tracking distance of xp orb
 
-- Type: `boolean`  
-- Default value: `true`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `COMMAND`
-
-
-## keepMobInLazyChunks
-
-The mobs in lazy chunks will not despawn, like the behavior before 1.15
-
-This option has no effect in version before 1.15
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `FEATURE`, `EXPERIMENTAL` 
-
-
-## dispenserNoItemCost
-
-Dispensers and droppers execute without having the itemstack inside decreased
-
-Either dropping and using items do not cost
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `DISPENSER`, `CREATIVE`
+Change it to 0 to disable tracking
+ 
+- Type: `double`  
+- Default value: `8`
+- Suggested options: `0`, `1`, `8`, `32`
+- Categories: `TIS`, `CREATIVE` 
 
 
 -----------
@@ -280,13 +281,13 @@ Info when these raid related events happen:
 
 ## raid
 
-### list
+#### list
 
 `/raid list [<full>]`
 
 List information of all current raids
 
-### tracking
+#### tracking
 
 `raid tracking [<start|stop|restart|realtime>]`
 
@@ -294,7 +295,7 @@ Start a raid tracking to gather statistics from ongoing raids
 
 -----------
 
-# Statistics
+# ~~Statistics~~
 
 Custom statistics have been removed. If you want to use them check this [more-statistics](https://github.com/Fallen-Breath/more-statistics) mod
 
