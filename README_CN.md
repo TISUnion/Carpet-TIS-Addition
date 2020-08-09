@@ -207,7 +207,7 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 
 开启后，发射器和投掷器使用被激活时不再消耗物品
 
-无论投掷物品还是使用物品都如此
+无论投掷物品还是使用物品都如此，但是投掷器传输物品仍会消耗物品
 
 - 类型: `boolean`  
 - 默认值: `false`  

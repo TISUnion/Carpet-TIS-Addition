@@ -226,7 +226,7 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 	        desc = "Dispensers and droppers execute without having the itemstack inside decreased",
-			extra = "Either dropping and using items do not cost.",
+			extra = "Either dropping and using items do not cost, but dropper transferring item still costs",
 			category = {TIS, DISPENSER, CREATIVE}
 	)
 	public static boolean dispenserNoItemCost = false;
