@@ -34,6 +34,7 @@ CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-a
 - [dispenserNoItemCost](#dispenserNoItemCost)
 - [opPlayerNoCheat](#opPlayerNoCheat)
 
+
 ## blockEventPacketRange
 
 Set the range where player will receive a block event packet after a block event fires successfully
