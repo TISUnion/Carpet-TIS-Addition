@@ -64,7 +64,7 @@ public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
 					getNameTextRich(entity),
 					String.format("r  %s", inst.tr("despawned")),
 					"g  @ ",
-					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimensionRegistryKey())
+					Util.getCoordinateText("w", entity.getPos(), entity.world.getRegistryKey())
 			)};
 		});
 	}
@@ -86,7 +86,7 @@ public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
 					String.format("g [%s] ", entity.world.getTime()),
 					deathMessage,
 					"g  @ ",
-					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimensionRegistryKey())
+					Util.getCoordinateText("w", entity.getPos(), entity.world.getRegistryKey())
 			)};
 		});
 	}

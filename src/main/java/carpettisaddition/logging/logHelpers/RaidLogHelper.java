@@ -24,7 +24,7 @@ public class RaidLogHelper extends TranslatableLogHelper
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("created", "Raid created with id %d"), raid.getRaidId())),
 					"g  @ ",
-					Util.getCoordinateText("w", raid.getCenter(), raid.getWorld().getDimensionRegistryKey())
+					Util.getCoordinateText("w", raid.getCenter(), raid.getWorld().getRegistryKey())
 			)};
 		});
 	}
@@ -65,7 +65,7 @@ public class RaidLogHelper extends TranslatableLogHelper
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("center_moved", "Raid (id: %d) moves its center to"), raid.getRaidId())),
 					"w  ",
-					Util.getCoordinateText("w", pos, raid.getWorld().getDimensionRegistryKey())
+					Util.getCoordinateText("w", pos, raid.getWorld().getRegistryKey())
 			)};
 		});
 	}

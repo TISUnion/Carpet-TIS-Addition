@@ -20,11 +20,11 @@ import java.util.Objects;
 public class Util
 {
 	private static final String teleportHint = Translations.tr("util.teleport_hint", "Click to teleport to");
-	public static String getTeleportCommand(Vec3d pos, RegistryKey<DimensionType> dim)
+	public static String getTeleportCommand(Vec3d pos, RegistryKey<World> dim)
 	{
 		return String.format("/execute in %s run tp %f %f %f", dim.getValue(), pos.getX(), pos.getY(), pos.getZ());
 	}
-	public static String getTeleportCommand(Vec3i pos, RegistryKey<DimensionType> dim)
+	public static String getTeleportCommand(Vec3i pos, RegistryKey<World> dim)
 	{
 		return String.format("/execute in %s run tp %d %d %d", dim.getValue(), pos.getX(), pos.getY(), pos.getZ());
 	}
@@ -41,7 +41,7 @@ public class Util
 		text.setStyle(text.getStyle().withClickEvent(clickEvent));
 		return text;
 	}
-	private static BaseText __getCoordinateText(String style, RegistryKey<DimensionType> dim, String posText, String command)
+	private static BaseText __getCoordinateText(String style, RegistryKey<World> dim, String posText, String command)
 	{
 		LiteralText hoverText = new LiteralText("");
 		hoverText.append(String.format("%s %s\n", teleportHint, posText));
@@ -49,12 +49,12 @@ public class Util
 		hoverText.append(getDimensionNameText(dim));
 		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
 	}
-	public static BaseText getCoordinateText(String style, Vec3d pos, RegistryKey<DimensionType> dim)
+	public static BaseText getCoordinateText(String style, Vec3d pos, RegistryKey<World> dim)
 	{
 		String posText = String.format("[%.1f, %.1f, %.1f]", pos.getX(), pos.getY(), pos.getZ());
 		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim));
 	}
-	public static BaseText getCoordinateText(String style, Vec3i pos, RegistryKey<DimensionType> dim)
+	public static BaseText getCoordinateText(String style, Vec3i pos, RegistryKey<World> dim)
 	{
 		String posText = String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());
 		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim));
@@ -66,17 +66,17 @@ public class Util
 		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.RUN_COMMAND, getTeleportCommand(entity)));
 	}
 
-	public static BaseText getDimensionNameText(RegistryKey<DimensionType> dim)
+	public static BaseText getDimensionNameText(RegistryKey<World> dim)
 	{
-		if (dim == DimensionType.OVERWORLD_REGISTRY_KEY)
+		if (dim == World.OVERWORLD)
 		{
 			return getTranslatedName("createWorld.customize.preset.overworld");
 		}
-		else if (dim == DimensionType.THE_NETHER_REGISTRY_KEY)
+		else if (dim == World.NETHER)
 		{
 			return getTranslatedName("advancements.nether.root.title");
 		}
-		else if (dim == DimensionType.THE_END_REGISTRY_KEY)
+		else if (dim == World.END)
 		{
 			return getTranslatedName("advancements.end.root.title");
 		}

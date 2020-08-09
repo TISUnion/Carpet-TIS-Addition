@@ -48,7 +48,7 @@ public class TicketLogHelper extends TranslatableLogHelper
 				BlockPos centerPos = pos.getCenterBlockPos().add(8, 0, 8);
 				long expiryTicks = chunkTicket.getType().getExpiryTicks();
 				int level = chunkTicket.getLevel();
-				String dimensionName = world.getDimensionRegistryKey().getValue().toString();
+				String dimensionName = world.getRegistryKey().getValue().toString();
 				return new BaseText[]{Messenger.c(
 						String.format("g [%s] ", world.getTime()),
 						String.format(String.format("^w %s", tr("time_detail", "World: %s\nGameTime: %d")), dimensionName, world.getTime()),

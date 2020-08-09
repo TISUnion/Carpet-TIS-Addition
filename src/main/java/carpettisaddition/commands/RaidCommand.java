@@ -80,7 +80,7 @@ public class RaidCommand extends TranslatableCommand
 			}
 
 			List<BaseText> result = new ArrayList<>();
-			result.add(Messenger.c(Util.getDimensionNameText(world.getDimensionRegistryKey()), String.format("w  %s: %d", tr("raid count"), raids.size())));
+			result.add(Messenger.c(Util.getDimensionNameText(world.getRegistryKey()), String.format("w  %s: %d", tr("raid count"), raids.size())));
 			hasRaid |= raids.size() > 0;
 
 			for (Map.Entry<Integer, Raid> entry : raids.entrySet())
@@ -93,7 +93,7 @@ public class RaidCommand extends TranslatableCommand
 				result.add(Messenger.c("g   ", String.format("w %s: %s", tr("Status"), tr("status." + status, status))));
 				if (fullMode)
 				{
-					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), Util.getCoordinateText("w", raid.getCenter(), world.getDimensionRegistryKey())));
+					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), Util.getCoordinateText("w", raid.getCenter(), world.getRegistryKey())));
 					result.add(Messenger.c("g   ", String.format("w %s: %d", tr("Bad Omen Level"), raid.getBadOmenLevel())));
 				}
 				result.add(Messenger.c("g   ", String.format("w %s: %d/%d", tr("Waves"), raidAccessor.getWavesSpawned(), raidAccessor.getWaveCount())));
@@ -112,7 +112,7 @@ public class RaidCommand extends TranslatableCommand
 						BaseText raiderMessage = Messenger.c(
 								raiderName,
 								"g  @ ",
-								Util.getCoordinateText("w", raider.getPos(), raider.world.getDimensionRegistryKey())
+								Util.getCoordinateText("w", raider.getPos(), raider.world.getRegistryKey())
 						);
 						if (fullMode)
 						{
