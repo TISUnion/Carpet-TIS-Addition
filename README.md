@@ -214,6 +214,18 @@ Either dropping and using items do not cost, but dropper transferring item still
 - Categories: `TIS`, `DISPENSER`, `CREATIVE`
 
 
+## opPlayerNoCheat
+
+Disable some command to prevent accidentally cheating
+
+Affects command list: `/gamemode`, `/tp`, `/teleport`, `/give`, `/setblock`, `/summon`
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `SURVIVAL`
+
+
 -----------
 
 # Loggers

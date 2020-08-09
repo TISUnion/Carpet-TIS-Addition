@@ -215,6 +215,17 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 - 分类: `TIS`, `DISPENSER`, `CREATIVE`
 
 
+## op玩家不准作弊 (opPlayerNoCheat)
+
+禁用部分指令以避免op玩家意外地作弊
+
+影响的指令列表：`/gamemode`, `/tp`, `/teleport`, `/give`, `/setblock`, `/summon`
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `SURVIVAL`
+
 
 -----------
 
