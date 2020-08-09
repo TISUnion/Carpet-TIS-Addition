@@ -15,7 +15,7 @@ CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-a
 
 ## Index
 
-- [blockEventPacketRange](#blockeventpacketrange)
+- [blockEventPacketRange](#blockEventPacketRange)
 - [structureBlockLimit](#structureBlockLimit)
 - [xpTrackingDistance](#xpTrackingDistance)
 - [tntDupingFix](#tntDupingFix)
