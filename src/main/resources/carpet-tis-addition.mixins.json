@@ -32,7 +32,12 @@
     "option.ServerWorld_blockEventPacketRangeMixin",
     "option.ServerWorld_keepMobInLazyChunksMixin",
     "option.StructureBlockBlockEntity_structureBlockLimitMixin",
-    "option.UpdateStructureBlockC2SPacket_structureBlockLimitMixin"
+    "option.UpdateStructureBlockC2SPacket_structureBlockLimitMixin",
+    "option.opPlayerNoCheat.GameModeCommandMixin",
+    "option.opPlayerNoCheat.GiveCommandMixin",
+    "option.opPlayerNoCheat.SetBlockCommandMixin",
+    "option.opPlayerNoCheat.SummonCommandMixin",
+    "option.opPlayerNoCheat.TeleportCommandMixin"
   ],
   "injectors": {
     "defaultRequire": 1

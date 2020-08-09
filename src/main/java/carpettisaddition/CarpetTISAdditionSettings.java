@@ -231,6 +231,13 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean dispenserNoItemCost = false;
 
+	@Rule(
+			desc = "Disable some command to prevent accidentally cheating",
+			extra = "Affects command list: /gamemode, /tp, /teleport, /give, /setblock, /summon",
+			category = {TIS, SURVIVAL}
+	)
+	public static boolean opPlayerNoCheat = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
