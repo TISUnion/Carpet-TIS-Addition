@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-
+// Click and teleport in VoxelMap or whatever Minimap mod
 @Mixin(TeleportCommand.class)
 public abstract class TeleportCommandMixin
 {
