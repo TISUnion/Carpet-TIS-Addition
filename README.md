@@ -13,6 +13,27 @@ CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-a
 
 # Features
 
+## Index
+
+- [blockEventPacketRange](#blockeventpacketrange)
+- [structureBlockLimit](#structureBlockLimit)
+- [xpTrackingDistance](#xpTrackingDistance)
+- [tntDupingFix](#tntDupingFix)
+- [fakePlayerNamePrefix](#fakePlayerNamePrefix)
+- [fakePlayerNameSuffix](#fakePlayerNameSuffix)
+- [renewableDragonEgg](#renewableDragonEgg)
+- [dispensersFireDragonBreath](#dispensersFireDragonBreath)
+- [renewableDragonHead](#renewableDragonHead)
+- [HUDLoggerUpdateInterval](#HUDLoggerUpdateInterval)
+- [hopperCountersUnlimitedSpeed](#hopperCountersUnlimitedSpeed)
+- [renewableElytra](#renewableElytra)
+- [sandDupingFix](#sandDupingFix)
+- [railDupingFix](#railDupingFix)
+- [commandRaid](#commandRaid)
+- [keepMobInLazyChunks](#keepMobInLazyChunks)
+- [dispenserNoItemCost](#dispenserNoItemCost)
+- [opPlayerNoCheat](#opPlayerNoCheat)
+
 ## blockEventPacketRange
 
 Set the range where player will receive a block event packet after a block event fires successfully
@@ -94,7 +115,7 @@ Make dragon egg renewable
 
 When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and "summon" a new dragon egg
 
-Use with rule [dispensersFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition#dispensersfiredragonbreath) for more ease
+Use with rule [dispensersFireDragonBreath](#dispensersfiredragonbreath) for more ease
  
 - Type: `boolean`  
 - Default value: `false`  
@@ -204,12 +225,26 @@ This option has no effect in version before 1.15
 
 ## dispenserNoItemCost
 
-Dispensers execute without having the itemstack inside decreased
+Dispensers and droppers execute without having the itemstack inside decreased
+
+Either dropping and using items do not cost, but dropper transferring item still costs
 
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `DISPENSER`, `CREATIVE`
+
+
+## opPlayerNoCheat
+
+Disable some command to prevent accidentally cheating
+
+Affects command list: `/gamemode`, `/tp`, `/teleport`, `/give`, `/setblock`, `/summon`
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `SURVIVAL`
 
 
 -----------
@@ -259,7 +294,7 @@ Use csv format, like `despawn,die` for logging multiple events
 
 `/log xporb <events>`
 
-Basically the same as [item logger](https://github.com/TISUnion/Carpet-TIS-Addition#item) but logs experience orb entities
+Basically the same as [item logger](#item) but logs experience orb entities
 
 
 ## raid

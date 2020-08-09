@@ -2,7 +2,6 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import carpettisaddition.commands.CarpetTisAdditionCommand;
 import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
@@ -22,7 +21,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public static final String name = "carpet-tis-addition";
     public static final String fancyName = "Carpet TIS Addition";
     public static final String compactName = name.replace("-","");  // carpettisaddition
-    public static final String version = "1.0.12-b20";  // should be the same as the version in gradlew.properties
+    public static final String version = "1.0.12-b21";  // should be the same as the version in gradlew.properties
     public static final Logger LOGGER = LogManager.getLogger();
     public static MinecraftServer minecraft_server;
 
@@ -77,7 +76,6 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         // here goes extra stuff
-        CarpetTisAdditionCommand.registerCommand(dispatcher);
         RaidCommand.registerCommand(dispatcher);
     }
 
