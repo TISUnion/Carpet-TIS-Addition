@@ -11,7 +11,7 @@ import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.village.raid.Raid;
+import net.minecraft.entity.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -78,9 +78,8 @@ public class RaidCommand extends TranslatableCommand
 			{
 				continue;
 			}
-
 			List<BaseText> result = new ArrayList<>();
-			result.add(Messenger.c(Util.getDimensionNameText(world.getRegistryKey()), String.format("w  %s: %d", tr("raid count"), raids.size())));
+			result.add(Messenger.c(Util.getDimensionNameText(world.getDimension().getType()), String.format("w  %s: %d", tr("raid count"), raids.size())));
 			hasRaid |= raids.size() > 0;
 
 			for (Map.Entry<Integer, Raid> entry : raids.entrySet())
@@ -93,7 +92,7 @@ public class RaidCommand extends TranslatableCommand
 				result.add(Messenger.c("g   ", String.format("w %s: %s", tr("Status"), tr("status." + status, status))));
 				if (fullMode)
 				{
-					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), Util.getCoordinateText("w", raid.getCenter(), world.getRegistryKey())));
+					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), Util.getCoordinateText("w", raid.getCenter(), world.getDimension())));
 					result.add(Messenger.c("g   ", String.format("w %s: %d", tr("Bad Omen Level"), raid.getBadOmenLevel())));
 				}
 				result.add(Messenger.c("g   ", String.format("w %s: %d/%d", tr("Waves"), raidAccessor.getWavesSpawned(), raidAccessor.getWaveCount())));
@@ -112,7 +111,7 @@ public class RaidCommand extends TranslatableCommand
 						BaseText raiderMessage = Messenger.c(
 								raiderName,
 								"g  @ ",
-								Util.getCoordinateText("w", raider.getPos(), raider.world.getRegistryKey())
+								Util.getCoordinateText("w", raider.getPos(), raider.world.getDimension())
 						);
 						if (fullMode)
 						{
@@ -121,9 +120,9 @@ public class RaidCommand extends TranslatableCommand
 						else
 						{
 							BaseText x = Messenger.s(String.format("[%s] ", Registry.ENTITY_TYPE.getId(raider.getType()).getPath().substring(0, 1).toUpperCase()));
-							x.setStyle(raiderName.getStyle());
-							x.setStyle(x.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, raiderMessage)));
-							x.setStyle(x.getStyle().withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Util.getTeleportCommand(raider))));
+							x.setStyle(raiderName.getStyle().copy());
+							x.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, raiderMessage));
+							x.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, Util.getTeleportCommand(raider)));
 							line.add(x);
 							counter++;
 							if (counter == 10 || !iter.hasNext())

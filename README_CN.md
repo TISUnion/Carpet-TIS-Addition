@@ -14,6 +14,27 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 
 # 特性列表
 
+## 索引
+
+- [blockEventPacketRange](#blockeventpacketrange)
+- [structureBlockLimit](#structureBlockLimit)
+- [xpTrackingDistance](#xpTrackingDistance)
+- [tntDupingFix](#tntDupingFix)
+- [fakePlayerNamePrefix](#fakePlayerNamePrefix)
+- [fakePlayerNameSuffix](#fakePlayerNameSuffix)
+- [renewableDragonEgg](#renewableDragonEgg)
+- [dispensersFireDragonBreath](#dispensersFireDragonBreath)
+- [renewableDragonHead](#renewableDragonHead)
+- [HUDLoggerUpdateInterval](#HUDLoggerUpdateInterval)
+- [hopperCountersUnlimitedSpeed](#hopperCountersUnlimitedSpeed)
+- [renewableElytra](#renewableElytra)
+- [sandDupingFix](#sandDupingFix)
+- [railDupingFix](#railDupingFix)
+- [commandRaid](#commandRaid)
+- [keepMobInLazyChunks](#keepMobInLazyChunks)
+- [dispenserNoItemCost](#dispenserNoItemCost)
+- [opPlayerNoCheat](#opPlayerNoCheat)
+
 ## 方块事件广播范围 (blockEventPacketRange)
 
 设置会在方块事件成功执行后收到数据包的玩家范围 
