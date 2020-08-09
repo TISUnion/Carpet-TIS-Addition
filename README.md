@@ -13,6 +13,27 @@ CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-a
 
 # Features
 
+## Index
+
+- [blockEventPacketRange](#blockeventpacketrange)
+- [structureBlockLimit](https://github.com/TISUnion/Carpet-TIS-Addition#structureBlockLimit)
+- [xpTrackingDistance](https://github.com/TISUnion/Carpet-TIS-Addition#xpTrackingDistance)
+- [tntDupingFix](https://github.com/TISUnion/Carpet-TIS-Addition#tntDupingFix)
+- [fakePlayerNamePrefix](https://github.com/TISUnion/Carpet-TIS-Addition#fakePlayerNamePrefix)
+- [fakePlayerNameSuffix](https://github.com/TISUnion/Carpet-TIS-Addition#fakePlayerNameSuffix)
+- [renewableDragonEgg](https://github.com/TISUnion/Carpet-TIS-Addition#renewableDragonEgg)
+- [dispensersFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition#dispensersFireDragonBreath)
+- [renewableDragonHead](https://github.com/TISUnion/Carpet-TIS-Addition#renewableDragonHead)
+- [HUDLoggerUpdateInterval](https://github.com/TISUnion/Carpet-TIS-Addition#HUDLoggerUpdateInterval)
+- [hopperCountersUnlimitedSpeed](https://github.com/TISUnion/Carpet-TIS-Addition#hopperCountersUnlimitedSpeed)
+- [renewableElytra](https://github.com/TISUnion/Carpet-TIS-Addition#renewableElytra)
+- [sandDupingFix](https://github.com/TISUnion/Carpet-TIS-Addition#sandDupingFix)
+- [railDupingFix](https://github.com/TISUnion/Carpet-TIS-Addition#railDupingFix)
+- [commandRaid](https://github.com/TISUnion/Carpet-TIS-Addition#commandRaid)
+- [keepMobInLazyChunks](https://github.com/TISUnion/Carpet-TIS-Addition#keepMobInLazyChunks)
+- [dispenserNoItemCost](https://github.com/TISUnion/Carpet-TIS-Addition#dispenserNoItemCost)
+- [opPlayerNoCheat](https://github.com/TISUnion/Carpet-TIS-Addition#opPlayerNoCheat)
+
 ## blockEventPacketRange
 
 Set the range where player will receive a block event packet after a block event fires successfully
