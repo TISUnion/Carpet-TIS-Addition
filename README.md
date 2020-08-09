@@ -16,23 +16,23 @@ CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-a
 ## Index
 
 - [blockEventPacketRange](#blockeventpacketrange)
-- [structureBlockLimit](https://github.com/TISUnion/Carpet-TIS-Addition#structureBlockLimit)
-- [xpTrackingDistance](https://github.com/TISUnion/Carpet-TIS-Addition#xpTrackingDistance)
-- [tntDupingFix](https://github.com/TISUnion/Carpet-TIS-Addition#tntDupingFix)
-- [fakePlayerNamePrefix](https://github.com/TISUnion/Carpet-TIS-Addition#fakePlayerNamePrefix)
-- [fakePlayerNameSuffix](https://github.com/TISUnion/Carpet-TIS-Addition#fakePlayerNameSuffix)
-- [renewableDragonEgg](https://github.com/TISUnion/Carpet-TIS-Addition#renewableDragonEgg)
-- [dispensersFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition#dispensersFireDragonBreath)
-- [renewableDragonHead](https://github.com/TISUnion/Carpet-TIS-Addition#renewableDragonHead)
-- [HUDLoggerUpdateInterval](https://github.com/TISUnion/Carpet-TIS-Addition#HUDLoggerUpdateInterval)
-- [hopperCountersUnlimitedSpeed](https://github.com/TISUnion/Carpet-TIS-Addition#hopperCountersUnlimitedSpeed)
-- [renewableElytra](https://github.com/TISUnion/Carpet-TIS-Addition#renewableElytra)
-- [sandDupingFix](https://github.com/TISUnion/Carpet-TIS-Addition#sandDupingFix)
-- [railDupingFix](https://github.com/TISUnion/Carpet-TIS-Addition#railDupingFix)
-- [commandRaid](https://github.com/TISUnion/Carpet-TIS-Addition#commandRaid)
-- [keepMobInLazyChunks](https://github.com/TISUnion/Carpet-TIS-Addition#keepMobInLazyChunks)
-- [dispenserNoItemCost](https://github.com/TISUnion/Carpet-TIS-Addition#dispenserNoItemCost)
-- [opPlayerNoCheat](https://github.com/TISUnion/Carpet-TIS-Addition#opPlayerNoCheat)
+- [structureBlockLimit](#structureBlockLimit)
+- [xpTrackingDistance](#xpTrackingDistance)
+- [tntDupingFix](#tntDupingFix)
+- [fakePlayerNamePrefix](#fakePlayerNamePrefix)
+- [fakePlayerNameSuffix](#fakePlayerNameSuffix)
+- [renewableDragonEgg](#renewableDragonEgg)
+- [dispensersFireDragonBreath](#dispensersFireDragonBreath)
+- [renewableDragonHead](#renewableDragonHead)
+- [HUDLoggerUpdateInterval](#HUDLoggerUpdateInterval)
+- [hopperCountersUnlimitedSpeed](#hopperCountersUnlimitedSpeed)
+- [renewableElytra](#renewableElytra)
+- [sandDupingFix](#sandDupingFix)
+- [railDupingFix](#railDupingFix)
+- [commandRaid](#commandRaid)
+- [keepMobInLazyChunks](#keepMobInLazyChunks)
+- [dispenserNoItemCost](#dispenserNoItemCost)
+- [opPlayerNoCheat](#opPlayerNoCheat)
 
 ## blockEventPacketRange
 
@@ -115,7 +115,7 @@ Make dragon egg renewable
 
 When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and "summon" a new dragon egg
 
-Use with rule [dispensersFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition#dispensersfiredragonbreath) for more ease
+Use with rule [dispensersFireDragonBreath](#dispensersfiredragonbreath) for more ease
  
 - Type: `boolean`  
 - Default value: `false`  
@@ -294,7 +294,7 @@ Use csv format, like `despawn,die` for logging multiple events
 
 `/log xporb <events>`
 
-Basically the same as [item logger](https://github.com/TISUnion/Carpet-TIS-Addition#item) but logs experience orb entities
+Basically the same as [item logger](#item) but logs experience orb entities
 
 
 ## raid
