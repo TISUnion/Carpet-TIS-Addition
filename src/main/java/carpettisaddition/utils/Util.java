@@ -48,7 +48,7 @@ public class Util
 		hoverText.append(String.format("%s %s\n", teleportHint, posText));
 		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
 		hoverText.append(getDimensionNameText(dim.getType()));
-		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
+		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
 	}
 	public static BaseText getCoordinateText(String style, Vec3d pos, Dimension dim)
 	{
@@ -64,7 +64,7 @@ public class Util
 	{
 		BaseText entityName = (BaseText)entity.getType().getName().copy();
 		BaseText hoverText = Messenger.c(String.format("w %s ", teleportHint), entityName);
-		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.RUN_COMMAND, getTeleportCommand(entity)));
+		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
 	}
 
 	public static BaseText getDimensionNameText(DimensionType dim)
