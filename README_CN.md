@@ -1,13 +1,15 @@
-Carpet TIS Addition
------------
+# Carpet TIS Addition
+
+[![License](https://img.shields.io/github/license/TISUnion/Carpet-TIS-Addition.svg)](http://www.gnu.org/licenses/lgpl-3.0.html)
+[![Issues](https://img.shields.io/github/issues/TISUnion/Carpet-TIS-Addition.svg)](https://github.com/TISUnion/Carpet-TIS-Addition/issues)
+[![MC Versions](http://cf.way2muchnoise.eu/versions/For%20MC_carpet-tis-addition_all.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
+[![CurseForge](http://cf.way2muchnoise.eu/full_carpet-tis-addition_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 
 [>>> English <<<](https://github.com/TISUnion/Carpet-TIS-Addition)
 
 这是一个 [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) 的扩展 mod，包含了不少~~NotVanilla的~~有意思的功能以及特性
 
 跟同 Minecraft 版本的 carpet mod 一起使用即可。尽可能地使用较新的 carpet mod
-
-CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 
 
 -----------
@@ -16,24 +18,25 @@ CurseForge 主页[传送门](https://www.curseforge.com/minecraft/mc-mods/carpet
 
 ## 索引
 
-- [blockEventPacketRange](#blockeventpacketrange)
-- [structureBlockLimit](#structureBlockLimit)
-- [xpTrackingDistance](#xpTrackingDistance)
-- [tntDupingFix](#tntDupingFix)
-- [fakePlayerNamePrefix](#fakePlayerNamePrefix)
-- [fakePlayerNameSuffix](#fakePlayerNameSuffix)
-- [renewableDragonEgg](#renewableDragonEgg)
-- [dispensersFireDragonBreath](#dispensersFireDragonBreath)
-- [renewableDragonHead](#renewableDragonHead)
-- [HUDLoggerUpdateInterval](#HUDLoggerUpdateInterval)
-- [hopperCountersUnlimitedSpeed](#hopperCountersUnlimitedSpeed)
-- [renewableElytra](#renewableElytra)
-- [sandDupingFix](#sandDupingFix)
-- [railDupingFix](#railDupingFix)
-- [commandRaid](#commandRaid)
-- [keepMobInLazyChunks](#keepMobInLazyChunks)
-- [dispenserNoItemCost](#dispenserNoItemCost)
-- [opPlayerNoCheat](#opPlayerNoCheat)
+- [方块事件广播范围](#方块事件广播范围-blockEventPacketRange)
+- [结构方块范围限制](#结构方块范围限制-structureBlockLimit)
+- [经验球追踪距离](#经验球追踪距离-xpTrackingDistance)
+- [tnt复制修复](#tnt复制修复-tntDupingFix)
+- [假人名称前缀](#假人名称前缀-fakePlayerNamePrefix)
+- [假人名称后缀](#假人名称后缀-fakePlayerNameSuffix)
+- [可再生龙蛋](#可再生龙蛋-renewableDragonEgg)
+- [发射器发射龙息](#发射器发射龙息-dispensersFireDragonBreath)
+- [可再生龙首](#可再生龙首-renewableDragonHead)
+- [hud监视器更新间隔](#hud监视器更新间隔-HUDLoggerUpdateInterval)
+- [漏斗计数器无限速度](#漏斗计数器无限速度-hopperCountersUnlimitedSpeed)
+- [可再生鞘翅](#可再生鞘翅-renewableElytra)
+- [刷沙机修复](#刷沙机修复-sandDupingFix)
+- [刷铁轨机修复](#刷铁轨机修复-railDupingFix)
+- [袭击追踪器](#袭击追踪器-commandRaid)
+- [保持弱加载区块的怪物](#保持弱加载区块的怪物-keepMobInLazyChunks)
+- [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
+- [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
+
 
 ## 方块事件广播范围 (blockEventPacketRange)
 
