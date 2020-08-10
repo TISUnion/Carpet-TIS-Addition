@@ -1,5 +1,9 @@
-Carpet TIS Addition
------------
+# Carpet TIS Addition
+
+[![License](https://img.shields.io/github/license/TISUnion/Carpet-TIS-Addition.svg)](http://www.gnu.org/licenses/lgpl-3.0.html)
+[![Issues](https://img.shields.io/github/issues/TISUnion/Carpet-TIS-Addition.svg)](https://github.com/TISUnion/Carpet-TIS-Addition/issues)
+[![MC Versions](http://cf.way2muchnoise.eu/versions/For%20MC_carpet-tis-addition_all.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
+[![CurseForge](http://cf.way2muchnoise.eu/full_carpet-tis-addition_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 
 [>>> 中文 <<<](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md)
 
@@ -7,7 +11,6 @@ A [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) extensi
 
 Use with carpet mod in the same Minecraft version. Use newer carpet mod versions whenever possible
 
-CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 
 -----------
 
@@ -15,7 +18,7 @@ CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-a
 
 ## Index
 
-- [blockEventPacketRange](#blockeventpacketrange)
+- [blockEventPacketRange](#blockEventPacketRange)
 - [structureBlockLimit](#structureBlockLimit)
 - [xpTrackingDistance](#xpTrackingDistance)
 - [tntDupingFix](#tntDupingFix)
