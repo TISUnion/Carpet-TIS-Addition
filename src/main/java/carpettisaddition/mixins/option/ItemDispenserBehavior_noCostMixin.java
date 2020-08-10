@@ -14,12 +14,11 @@ public abstract class ItemDispenserBehavior_noCostMixin {
     @Redirect(method = "dispense", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/dispenser/ItemDispenserBehavior;dispenseSilently(Lnet/minecraft/util/math/BlockPointer;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack injectNoCostBehavior(ItemDispenserBehavior itemDispenserBehavior, BlockPointer pointer, ItemStack stack) {
         if (CarpetTISAdditionSettings.dispenserNoItemCost) {
-            ItemStack copied = stack.copy();
-            this.dispenseSilently(pointer, copied);
+            this.dispenseSilently(pointer, stack.copy());
+            return stack;
         } else {
-            this.dispenseSilently(pointer, stack);
+            return this.dispenseSilently(pointer, stack);
         }
-        return stack;
     }
 
     @Shadow
