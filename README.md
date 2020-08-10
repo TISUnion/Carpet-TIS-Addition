@@ -1,13 +1,16 @@
 Carpet TIS Addition
 -----------
 
+![License](https://img.shields.io/github/license/TISUnion/Carpet-TIS-Addition.svg)
+![Issues](https://img.shields.io/github/issues/TISUnion/Carpet-TIS-Addition.svg)
+[![CurseForge](https://cf.way2muchnoise.eu/full_carpet-tis-addition_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
+
 [>>> 中文 <<<](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md)
 
 A [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) extension, a collection of carpet mod style useful tools and interesting features
 
 Use with carpet mod in the same Minecraft version. Use newer carpet mod versions whenever possible
 
-CurseForge page [here](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 
 -----------
 
