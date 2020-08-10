@@ -3,7 +3,8 @@ Carpet TIS Addition
 
 ![License](https://img.shields.io/github/license/TISUnion/Carpet-TIS-Addition.svg)
 ![Issues](https://img.shields.io/github/issues/TISUnion/Carpet-TIS-Addition.svg)
-[![CurseForge](https://cf.way2muchnoise.eu/full_carpet-tis-addition_下载.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
+[![CurseForge](https://cf.way2muchnoise.eu/full_carpet-tis-addition_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
+![MC Versions](https://cf.way2muchnoise.eu/versions/For%20MC_carpet-tis-addition_all.svg)
 
 [>>> English <<<](https://github.com/TISUnion/Carpet-TIS-Addition)
 
