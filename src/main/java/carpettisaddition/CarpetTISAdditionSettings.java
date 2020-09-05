@@ -238,6 +238,13 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean opPlayerNoCheat = false;
 
+	@Rule(
+			desc = "Randomize the order for redstone dust to emit block updates",
+			extra = "It's useful to test if your contraption is locational or not",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean redstoneDustRandomUpdateOrder = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

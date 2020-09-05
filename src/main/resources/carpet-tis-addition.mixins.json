@@ -29,6 +29,7 @@
     "option.MobEntity_keepMobInLazyChunksMixin",
     "option.PhantomEntity_renewableElytraMixin",
     "option.PistonBlock_tntDupingFixMixin",
+    "option.RedstoneWireBlock_redstoneDustRandomUpdateOrderMixin",
     "option.ServerWorld_blockEventPacketRangeMixin",
     "option.ServerWorld_keepMobInLazyChunksMixin",
     "option.StructureBlockBlockEntity_structureBlockLimitMixin",
