@@ -11,7 +11,7 @@
 
 跟同 Minecraft 版本的 carpet mod 一起使用即可。尽可能地使用较新的 carpet mod
 
-所需的 carpet mod 版本:
+所需的 fabric carpet 版本:
 
 | Minecraft 版本 | fabric carpet 版本 |
 | -------------- | ------------------ |
