@@ -73,6 +73,10 @@
   "rule.opPlayerNoCheat.desc": "禁用部分指令以避免op玩家意外地作弊",
   "rule.opPlayerNoCheat.extra.0": "影响的指令列表：/gamemode, /tp, /teleport, /give, /setblock, /summon",
 
+  "rule.redstoneDustRandomUpdateOrder.name": "红石粉随机更新顺序",
+  "rule.redstoneDustRandomUpdateOrder.desc": "随机化红石粉发出方块更新的顺序",
+  "rule.redstoneDustRandomUpdateOrder.extra.0": "有助于测试你的装置是否依赖于位置",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

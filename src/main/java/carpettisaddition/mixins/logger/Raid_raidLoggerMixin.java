@@ -55,6 +55,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 			method = "start",
 			at = @At(
 					value = "INVOKE_ASSIGN",
+					shift = At.Shift.AFTER,
 					target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"
 			)
 	)

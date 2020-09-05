@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(GiveCommand.class)
 public abstract class GiveCommandMixin
 {
+	@SuppressWarnings("UnresolvedMixinReference")
 	@Redirect(
 			method = "method_13404",  // lambda method
 			at = @At(
