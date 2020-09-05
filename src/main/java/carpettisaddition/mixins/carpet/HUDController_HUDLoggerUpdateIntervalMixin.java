@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.carpet;
 
-import carpet.logging.HUDController;
+import carpet.utils.HUDController;
 import carpettisaddition.CarpetTISAdditionSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
