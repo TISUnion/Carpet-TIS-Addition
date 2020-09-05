@@ -1,6 +1,8 @@
 package carpettisaddition.mixins.option;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.google.common.collect.Lists;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RedstoneWireBlock;
 import net.minecraft.util.math.BlockPos;
@@ -8,32 +10,42 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 @Mixin(RedstoneWireBlock.class)
-public abstract class RedstoneWireBlock_redstoneDustRandomUpdateOrderMixin
+public abstract class RedstoneWireBlock_redstoneDustRandomUpdateOrderMixin extends Block
 {
 	private final Random random = new Random();
+
+	public RedstoneWireBlock_redstoneDustRandomUpdateOrderMixin(Settings settings)
+	{
+		super(settings);
+	}
 
 	@Inject(
 			method = "update",
 			at = @At(
-					value = "INVOKE",
-					target = "Ljava/util/Set;clear()V"
+					value = "INVOKE_ASSIGN",
+					target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			locals = LocalCapture.CAPTURE_FAILHARD,
+			cancellable = true
 	)
-	private void letsMakeTheOrderUnpredictable(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir, List<BlockPos> list)
+	private void letsMakeTheOrderUnpredictable(World world, BlockPos pos, BlockState state, CallbackInfo ci, Set<BlockPos> set)
 	{
 		if (CarpetTISAdditionSettings.redstoneDustRandomUpdateOrder)
 		{
+			List<BlockPos> list = Lists.newArrayList(set);
 			Collections.shuffle(list, random);
+			for (BlockPos blockPos: list)
+			{
+				world.updateNeighborsAlways(blockPos, this);
+			}
+			ci.cancel();
 		}
 	}
 }
