@@ -13,12 +13,12 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 
 Require fabric carpet versions:
 
-| Minecraft version | fabric carpet version |
-| ----------------- | --------------------- |
-| 1.14.4            | \>=1.3.7              |
-| 1.15.2            | \>=1.4.8              |
-| 1.16, 1.16.1      | \>=1.4.0              |
-| 1.16.2            | \>=1.4.8              |
+| Minecraft    | fabric carpet |
+| ------------ | ------------- |
+| 1.14.4       | \>=1.3.7      |
+| 1.15.2       | \>=1.4.8      |
+| 1.16, 1.16.1 | \>=1.4.0      |
+| 1.16.2       | \>=1.4.8      |
 
 # Features
 
