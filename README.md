@@ -42,6 +42,7 @@ Require fabric carpet versions:
 - [keepMobInLazyChunks](#keepMobInLazyChunks)
 - [dispenserNoItemCost](#dispenserNoItemCost)
 - [opPlayerNoCheat](#opPlayerNoCheat)
+- [redstoneDustRandomUpdateOrder](#redstoneDustRandomUpdateOrder)
 
 
 ## blockEventPacketRange
@@ -54,6 +55,7 @@ For piston the packet is used to render the piston movement animation. Decrease 
 - Default value: `64`  
 - Suggested options: `0`, `16`, `64`, `128`
 - Categories: `TIS`, `OPTIMIZATION` 
+
 
 ## structureBlockLimit
 
@@ -255,6 +257,18 @@ Affects command list: `/gamemode`, `/tp`, `/teleport`, `/give`, `/setblock`, `/s
 - Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `SURVIVAL`
+
+
+## redstoneDustRandomUpdateOrder
+
+Randomize the order for redstone dust to emit block updates
+
+It's useful to test if your contraption is locational or not
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 
 -----------

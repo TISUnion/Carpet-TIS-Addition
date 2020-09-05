@@ -20,8 +20,6 @@
 | 1.16, 1.16.1 | \>=1.4.0      |
 | 1.16.2       | \>=1.4.8      |
 
------------
-
 # 特性列表
 
 ## 索引
@@ -44,6 +42,7 @@
 - [保持弱加载区块的怪物](#保持弱加载区块的怪物-keepMobInLazyChunks)
 - [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
 - [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
+- [红石粉随机更新顺序](#红石粉随机更新顺序-redstoneDustRandomUpdateOrder)
 
 
 ## 方块事件广播范围 (blockEventPacketRange)
@@ -144,6 +143,7 @@
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
+
 
 ## 可再生龙首 (renewableDragonHead)
 
@@ -257,6 +257,18 @@
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `SURVIVAL`
+
+
+## 红石粉随机更新顺序 (redstoneDustRandomUpdateOrder)
+
+随机化红石粉发出方块更新的顺序
+
+有助于测试你的装置是否依赖于位置
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 
 -----------
