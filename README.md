@@ -227,7 +227,7 @@ Enables `/raid` command for raid tracking
 
 The mobs in lazy chunks will not despawn, like the behavior before 1.15
 
-This option has no effect in version before 1.15
+This option has no effect in versions before 1.15
 
 - Type: `boolean`  
 - Default value: `false`  
@@ -328,7 +328,7 @@ Basically the same as [item logger](#item) but logs experience orb entities
 Info when these raid related events happen:
 
 - A raid has been created
-- A raid has been invalidated;
+- A raid has been invalidated
 - The bad omen level of a raid has been increased
 - The center Position of a raid has been moved
 
@@ -359,5 +359,5 @@ Custom statistics have been removed. If you want to use them check this [more-st
 
 # Other Stuffs
 
-- Set the maximum length of fake player's name to 16 to prevent kicking out player
+- Set the maximum length of fake player's name to 16 to prevent kicking out other players
 - Set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
