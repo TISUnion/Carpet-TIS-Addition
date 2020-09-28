@@ -370,12 +370,6 @@
 
 -----------
 
-# 统计信息
-
-自定义统计信息功能已被移除。如果你想继续使用，可使用 [more-statistics](https://github.com/Fallen-Breath/more-statistics) mod
-
------------
-
 # 其他
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出

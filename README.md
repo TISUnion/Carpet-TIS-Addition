@@ -370,12 +370,6 @@ Start a raid tracking to gather statistics from ongoing raids
 
 -----------
 
-# Statistics
-
-Custom statistics have been removed. If you want to use them check this [more-statistics](https://github.com/Fallen-Breath/more-statistics) mod
-
------------
-
 # Other Stuffs
 
 - Set the maximum length of fake player's name to 16 to prevent kicking out other players
