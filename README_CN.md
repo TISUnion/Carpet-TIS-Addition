@@ -20,9 +20,10 @@
 | 1.16, 1.16.1   | \>=1.4.0      |
 | 1.16.2, 1.16.3 | \>=1.4.8      |
 
-# 特性列表
 
-## 索引
+# 索引
+
+## 特性
 
 - [方块事件广播范围](#方块事件广播范围-blockEventPacketRange)
 - [结构方块范围限制](#结构方块范围限制-structureBlockLimit)
@@ -44,6 +45,24 @@
 - [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
 - [红石粉随机更新顺序](#红石粉随机更新顺序-redstoneDustRandomUpdateOrder)
 
+## 监视器
+
+- [加载票](#加载票-ticket)
+- [内存](#内存-memory)
+- [掉落物](#掉落物-item)
+- [经验球](#经验球-xporb)
+- [袭击](#袭击-raid)
+
+## 指令
+
+- [袭击](#袭击-raid-1)
+
+## 其它
+
+- [其他](#其他)
+
+
+# 特性列表
 
 ## 方块事件广播范围 (blockEventPacketRange)
 
@@ -356,7 +375,9 @@
 自定义统计信息功能已被移除。如果你想继续使用，可使用 [more-statistics](https://github.com/Fallen-Breath/more-statistics) mod
 
 -----------
+
 # 其他
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出
 - 将 tick warp 最大时长限制调整为 `Integer.MAX_VALUE`
+- 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
