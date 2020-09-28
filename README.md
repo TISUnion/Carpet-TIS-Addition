@@ -55,7 +55,11 @@ Require fabric carpet versions:
 
 ## Commands
 
+- [raid](#raid-1)
+
 ## Others
+
+- [other stuffs](#other-stuffs)
 
 
 # Features
@@ -376,3 +380,4 @@ Custom statistics have been removed. If you want to use them check this [more-st
 
 - Set the maximum length of fake player's name to 16 to prevent kicking out other players
 - Set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
+- Display the version of TIS Carpet Addition inside `/carpet` command
