@@ -20,9 +20,10 @@ Require fabric carpet versions:
 | 1.16, 1.16.1   | \>=1.4.0      |
 | 1.16.2, 1.16.3 | \>=1.4.8      |
 
-# Features
 
-## Index
+# Index
+
+## Features
 
 - [blockEventPacketRange](#blockEventPacketRange)
 - [structureBlockLimit](#structureBlockLimit)
@@ -44,6 +45,20 @@ Require fabric carpet versions:
 - [opPlayerNoCheat](#opPlayerNoCheat)
 - [redstoneDustRandomUpdateOrder](#redstoneDustRandomUpdateOrder)
 
+## Loggers
+
+- [ticket](#ticket)
+- [memory](#memory)
+- [item](#item)
+- [xporb](#xporb)
+- [raid](#raid)
+
+## Commands
+
+## Others
+
+
+# Features
 
 ## blockEventPacketRange
 
