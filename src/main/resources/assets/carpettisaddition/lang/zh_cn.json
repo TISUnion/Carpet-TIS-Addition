@@ -122,6 +122,9 @@
   "command.raid.no_raid": "不存在袭击",
 
 
+  "command.info.ticking_order": "游戏中%d个维度的运算顺序：",
+
+
   "raid_tracker.tracking_already_started": "袭击追踪器正在运行中",
   "raid_tracker.tracking_started": "袭击追踪器已开始",
   "raid_tracker.tracking_stopped": "袭击追踪器已停止",
