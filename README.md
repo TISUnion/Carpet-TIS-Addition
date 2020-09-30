@@ -56,6 +56,7 @@ Require fabric carpet versions:
 ## Commands
 
 - [raid](#raid-1)
+- [info](#info)
 
 ## Others
 
@@ -367,6 +368,15 @@ List information of all current raids
 `raid tracking [<start|stop|restart|realtime>]`
 
 Start a raid tracking to gather statistics from ongoing raids
+
+
+## info
+
+### world tickorder
+
+`/info world tickorder`
+
+Show the ticking order of current dimensions in the game
 
 -----------
 

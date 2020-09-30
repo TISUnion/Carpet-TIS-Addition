@@ -56,6 +56,7 @@
 ## 指令
 
 - [袭击](#袭击-raid-1)
+- [信息](#信息-info)
 
 ## 其它
 
@@ -367,6 +368,14 @@
 `raid tracking [<start|stop|restart|realtime>]`
 
 开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
+
+## 信息 (info)
+
+### world tickorder
+
+`/info world tickorder`
+
+显示游戏中所有维度运算的顺序
 
 -----------
 
