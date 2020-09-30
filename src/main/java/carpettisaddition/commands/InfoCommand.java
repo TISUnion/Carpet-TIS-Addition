@@ -1,6 +1,5 @@
 package carpettisaddition.commands;
 
-
 import carpet.CarpetServer;
 import carpet.CarpetSettings;
 import carpet.settings.SettingsManager;
