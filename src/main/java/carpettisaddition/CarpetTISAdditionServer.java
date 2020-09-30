@@ -2,6 +2,7 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
+import carpettisaddition.commands.InfoCommand;
 import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
@@ -77,6 +78,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         // here goes extra stuff
         RaidCommand.registerCommand(dispatcher);
+        InfoCommand.registerCommand(dispatcher);
     }
 
     @Override

@@ -11,12 +11,19 @@
 
 跟同 Minecraft 版本的 carpet mod 一起使用即可。尽可能地使用较新的 carpet mod
 
+所需的 fabric carpet 版本:
 
------------
+| Minecraft      | fabric carpet |
+| -------------- | ------------- |
+| 1.14.4         | \>=1.3.7      |
+| 1.15.2         | \>=1.4.8      |
+| 1.16, 1.16.1   | \>=1.4.0      |
+| 1.16.2, 1.16.3 | \>=1.4.8      |
 
-# 特性列表
 
-## 索引
+# 索引
+
+## 特性
 
 - [方块事件广播范围](#方块事件广播范围-blockEventPacketRange)
 - [结构方块范围限制](#结构方块范围限制-structureBlockLimit)
@@ -36,12 +43,32 @@
 - [保持弱加载区块的怪物](#保持弱加载区块的怪物-keepMobInLazyChunks)
 - [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
 - [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
+- [红石粉随机更新顺序](#红石粉随机更新顺序-redstoneDustRandomUpdateOrder)
 
+## 监视器
+
+- [加载票](#加载票-ticket)
+- [内存](#内存-memory)
+- [掉落物](#掉落物-item)
+- [经验球](#经验球-xporb)
+- [袭击](#袭击-raid)
+
+## 指令
+
+- [袭击](#袭击-raid-1)
+- [信息](#信息-info)
+
+## 其它
+
+- [其他](#其他)
+
+
+# 特性列表
 
 ## 方块事件广播范围 (blockEventPacketRange)
 
 设置会在方块事件成功执行后收到数据包的玩家范围 
- 
+
 对于活塞而言，这一个数据包是用于显示活塞移动的话。把这个值调小以减小客户端卡顿
 
 - 类型: `double`  
@@ -55,7 +82,7 @@
 覆写结构方块的范围限制
 
 当相对位置的值大于32时客户端里结构的位置可能会错误地显示
- 
+
 - 类型: `int`  
 - 默认值: `32`  
 - 参考选项: `32`, `64`, `96`, `127`
@@ -67,7 +94,7 @@
 修改经验球检测并追踪玩家的距离
 
 将其调至0以禁用追踪"
- 
+
 - 类型: `double`  
 - 默认值: `8`
 - 参考选项: `0`, `1`, `8`, `32`
@@ -81,7 +108,7 @@
 基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块
 
 ~~Dupe bad dig good~~
- 
+
 - 类型: `boolean`  
 - 默认值: `false`  
 - 参考选项: `false`, `true`
@@ -93,7 +120,7 @@
 为 `/player` 指令召唤出来的假人名称添加指定前缀
 
 将其设置为 `#none` 以阻止添加前缀
- 
+
 这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁
 
 - 类型: `String`  
@@ -121,7 +148,7 @@
 当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋
 
 可与选项 [dispenserFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md#发射器发射龙息-dispensersfiredragonbreath) 联动
- 
+
 - 类型: `boolean`  
 - 默认值: `false`  
 - 参考选项: `false`, `true`
@@ -137,6 +164,7 @@
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
 
+
 ## 可再生龙首 (renewableDragonHead)
 
 被高压爬行者杀死的末影龙将会掉落一个龙首
@@ -150,7 +178,7 @@
 ## HUD监视器更新间隔 (HUDLoggerUpdateInterval)
 
 覆写Carpet Mod HUD监视器的更新间隔，单位为gametick
- 
+
 - 类型: `int`  
 - 默认值: `20`
 - 参考选项: `1`, `5`, `20`, `100`
@@ -251,6 +279,18 @@
 - 分类: `TIS`, `SURVIVAL`
 
 
+## 红石粉随机更新顺序 (redstoneDustRandomUpdateOrder)
+
+随机化红石粉发出方块更新的顺序
+
+有助于测试你的装置是否依赖于位置
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 -----------
 
 # 监视器
@@ -329,14 +369,18 @@
 
 开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
 
+## 信息 (info)
+
+### world tickorder
+
+`/info world tickorder`
+
+显示游戏中所有维度运算的顺序
+
 -----------
 
-# 统计信息
-
-自定义统计信息功能已被移除。如果你想继续使用，可使用 [more-statistics](https://github.com/Fallen-Breath/more-statistics) mod
-
------------
 # 其他
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出
 - 将 tick warp 最大时长限制调整为 `Integer.MAX_VALUE`
+- 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
