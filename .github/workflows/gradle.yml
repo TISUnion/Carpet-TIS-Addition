@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +22,7 @@ jobs:
       
     - name: Display build number
       run: echo Carpet TIS Addition Build \#$GITHUB_RUN_NUMBER
-    - name: Set build number in code
+    - name: Set build number in codes
       run: sed -i "s/build.undefined/build.$GITHUB_RUN_NUMBER/g" src/main/java/carpettisaddition/CarpetTISAdditionServer.java gradle.properties
       
     - name: Grant execute permission for gradlew
