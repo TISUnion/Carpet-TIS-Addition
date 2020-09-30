@@ -371,9 +371,9 @@
 
 ## 信息 (info)
 
-### world tickorder
+### world ticking_order
 
-`/info world tickorder`
+`/info world ticking_order`
 
 显示游戏中所有维度运算的顺序
 

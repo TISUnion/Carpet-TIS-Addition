@@ -28,7 +28,7 @@ public class InfoCommand extends TranslatableCommand
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal("info").
 				requires((player) -> SettingsManager.canUseCommand(player, CarpetSettings.commandInfo)).
 				then(literal("world").
-						then(literal("tickorder").
+						then(literal("ticking_order").
 								executes((c) -> showWorldTickOrder(c.getSource()))));
 		dispatcher.register(builder);
 	}

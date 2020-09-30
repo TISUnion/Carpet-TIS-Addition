@@ -373,9 +373,9 @@ Start a raid tracking to gather statistics from ongoing raids
 
 ## info
 
-### world tickorder
+### world ticking_order
 
-`/info world tickorder`
+`/info world ticking_order`
 
 Show the ticking order of current dimensions in the game
 
