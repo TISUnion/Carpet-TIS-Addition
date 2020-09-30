@@ -49,7 +49,7 @@ public class InfoCommand extends TranslatableCommand
 			order++;
 			Messenger.m(source, Messenger.c(
 					"g " + order + ". ",
-					Util.getDimensionNameText(world.getDimension().getType())
+					Util.getDimensionNameText(world.getRegistryKey())
 			));
 		}
 		return 1;
