@@ -44,6 +44,7 @@
 - [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
 - [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
 - [红石粉随机更新顺序](#红石粉随机更新顺序-redstoneDustRandomUpdateOrder)
+- [瞬时命令方块](#瞬时命令方块-instantCommandBlock)
 
 ## 监视器
 
@@ -284,6 +285,18 @@
 随机化红石粉发出方块更新的顺序
 
 有助于测试你的装置是否依赖于位置
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 瞬时命令方块 (instantCommandBlock)
+
+令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行
+
+仅影响普通命令方块
 
 - 类型: `boolean`  
 - 默认值: `false`  

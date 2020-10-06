@@ -44,6 +44,7 @@ Require fabric carpet versions:
 - [dispenserNoItemCost](#dispenserNoItemCost)
 - [opPlayerNoCheat](#opPlayerNoCheat)
 - [redstoneDustRandomUpdateOrder](#redstoneDustRandomUpdateOrder)
+- [instantCommandBlock](#instantCommandBlock)
 
 ## Loggers
 
@@ -284,6 +285,18 @@ Affects command list: `/gamemode`, `/tp`, `/teleport`, `/give`, `/setblock`, `/s
 Randomize the order for redstone dust to emit block updates
 
 It's useful to test if your contraption is locational or not
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## instantCommandBlock
+
+Make command blocks on redstone ores execute command instantly instead of scheduling a 1gt delay TileTick event for execution
+
+Only affects normal command blocks
 
 - Type: `boolean`  
 - Default value: `false`  

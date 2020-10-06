@@ -22,6 +22,7 @@
     "option.fakePlayerName.PlayerCommandMixin",
     "option.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
     "option.HUDLoggerUpdateInterval.HUDControllerMixin",
+    "option.instantCommandBlock.CommandBlockMixin",
     "option.keepMobInLazyChunks.MobEntityMixin",
     "option.keepMobInLazyChunks.ServerWorldMixin",
     "option.opPlayerNoCheat.GameModeCommandMixin",

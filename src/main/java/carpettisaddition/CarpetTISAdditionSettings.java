@@ -245,6 +245,13 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean redstoneDustRandomUpdateOrder = false;
 
+	@Rule(
+			desc = "Make command blocks on redstone ores execute command instantly instead of scheduling a 1gt delay TileTick event for execution",
+			extra = "Only affects normal command blocks",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean instantCommandBlock = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
