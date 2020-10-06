@@ -1,9 +1,9 @@
 package carpettisaddition.commands;
 
-import carpet.CarpetServer;
 import carpet.CarpetSettings;
 import carpet.settings.SettingsManager;
 import carpet.utils.Messenger;
+import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
@@ -39,7 +39,7 @@ public class InfoCommand extends TranslatableCommand
 
 	private int showWorldTickOrder(ServerCommandSource source)
 	{
-		List<World> worlds = Lists.newArrayList(CarpetServer.minecraft_server.getWorlds());
+		List<World> worlds = Lists.newArrayList(CarpetTISAdditionServer.minecraft_server.getWorlds());
 		Messenger.m(source, Messenger.c(
 				String.format("w %s", String.format(tr("ticking_order", "Ticking order of %d dimensions in the game:"), worlds.size()))
 		));
