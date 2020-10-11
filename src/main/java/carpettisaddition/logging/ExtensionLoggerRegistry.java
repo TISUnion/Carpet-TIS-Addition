@@ -3,7 +3,7 @@ package carpettisaddition.logging;
 import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
-import carpettisaddition.logging.logHelpers.EntityLogHelper;
+import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.logHelpers.ItemLogHelper;
 import carpettisaddition.logging.logHelpers.XPOrbLogHelper;
 
@@ -37,7 +37,7 @@ public class ExtensionLoggerRegistry
         }
         catch (NoSuchFieldException e)
         {
-            throw new RuntimeException(String.format("Failed to create standard logger \"%s\" @ carpet TIS addition", logName));
+            throw new RuntimeException(String.format("Failed to create standard logger \"%s\" @ %s", logName, CarpetTISAdditionServer.fancyName));
         }
     }
 
@@ -49,7 +49,7 @@ public class ExtensionLoggerRegistry
         }
         catch (NoSuchFieldException e)
         {
-            throw new RuntimeException(String.format("Failed to create standard HUD logger \"%s\" @ carpet TIS addition", logName));
+            throw new RuntimeException(String.format("Failed to create standard HUD logger \"%s\" @ %s", logName, CarpetTISAdditionServer.fancyName));
         }
     }
 }

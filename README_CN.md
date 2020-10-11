@@ -44,6 +44,7 @@
 - [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
 - [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
 - [红石粉随机更新顺序](#红石粉随机更新顺序-redstoneDustRandomUpdateOrder)
+- [瞬时命令方块](#瞬时命令方块-instantCommandBlock)
 
 ## 监视器
 
@@ -289,6 +290,34 @@
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
+
+
+## 瞬时命令方块 (instantCommandBlock)
+
+令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行
+
+仅影响普通命令方块
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 光照更新 (lightUpdates)
+
+暂停或者禁止光照更新
+
+若被设为抑制(suppressed)，光照更新不会被执行
+
+若被设为关闭(off)，光照更新不会被计划或被执行
+
+**【警告】**若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环
+
+- 类型: `enum`  
+- 默认值: `on`  
+- 参考选项: `on`, `suppressed`, `off`
+- 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
 -----------

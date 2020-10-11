@@ -44,6 +44,7 @@ Require fabric carpet versions:
 - [dispenserNoItemCost](#dispenserNoItemCost)
 - [opPlayerNoCheat](#opPlayerNoCheat)
 - [redstoneDustRandomUpdateOrder](#redstoneDustRandomUpdateOrder)
+- [instantCommandBlock](#instantCommandBlock)
 
 ## Loggers
 
@@ -289,6 +290,34 @@ It's useful to test if your contraption is locational or not
 - Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
+
+
+## instantCommandBlock
+
+Make command blocks on redstone ores execute command instantly instead of scheduling a 1gt delay TileTick event for execution
+
+Only affects normal command blocks
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## lightUpdates
+
+Pause or disable light updates
+
+If set to suppressed, no light update can be executed
+
+If set to off, no light update can be scheduled or executed
+
+**\[WARNING\]** If set to suppressed or off, new chunks cannot be loaded. Then if the server tries to load chunk for player movement or whatever reason the server will be stuck forever
+
+- Type: `enum`  
+- Default value: `on`  
+- Suggested options: `on`, `suppressed`, `off`
+- Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
 -----------
