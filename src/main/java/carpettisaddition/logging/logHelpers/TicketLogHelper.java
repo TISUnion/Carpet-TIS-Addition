@@ -35,6 +35,10 @@ public class TicketLogHelper extends TranslatableLogHelper
 
 	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
 	{
+		if (true)
+		{
+			return;
+		}
 		if (!ExtensionLoggerRegistry.__ticket)
 		{
 			return;
@@ -45,7 +49,7 @@ public class TicketLogHelper extends TranslatableLogHelper
 			{
 				ChunkPos pos = new ChunkPos(position);
 				BlockPos centerPos = pos.toBlockPos(8, 0, 8);
-				long expiryTicks = chunkTicket.getType().getExpiryTicks();
+				long expiryTicks = chunkTicket.getType().method_20629();
 				int level = chunkTicket.getLevel();
 				String dimensionName = world.dimension.getType().toString();
 				return new BaseText[]{Messenger.c(

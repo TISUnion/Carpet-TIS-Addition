@@ -23,7 +23,8 @@ import java.util.Random;
 @Mixin(CommandBlock.class)
 public abstract class CommandBlockMixin
 {
-	@Shadow public abstract void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
+
+	@Shadow public abstract void onScheduledTick(BlockState state, World world, BlockPos pos, Random random);
 
 	@Inject(
 			method = "neighborUpdate",
@@ -44,7 +45,7 @@ public abstract class CommandBlockMixin
 				Block blockBelow = world.getBlockState(pos.down()).getBlock();
 				if (blockBelow == Blocks.REDSTONE_ORE)
 				{
-					this.scheduledTick(state, serverWorld, pos, serverWorld.getRandom());
+					this.onScheduledTick(state, serverWorld, pos, serverWorld.getRandom());
 					ci.cancel();
 				}
 			}
