@@ -77,6 +77,16 @@
   "rule.redstoneDustRandomUpdateOrder.desc": "随机化红石粉发出方块更新的顺序",
   "rule.redstoneDustRandomUpdateOrder.extra.0": "有助于测试你的装置是否依赖于位置",
 
+  "rule.instantCommandBlock.name": "瞬时命令方块",
+  "rule.instantCommandBlock.desc": "令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行",
+  "rule.instantCommandBlock.extra.0": "仅影响普通命令方块",
+
+  "rule.lightUpdates.name": "光照更新",
+  "rule.lightUpdates.desc": "暂停或者禁止光照更新",
+  "rule.lightUpdates.extra.0": "若被设为抑制(suppressed)，光照更新不会被执行",
+  "rule.lightUpdates.extra.1": "若被设为关闭(off)，光照更新不会被计划或被执行",
+  "rule.lightUpdates.extra.2": "【警告】若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

@@ -245,6 +245,30 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean redstoneDustRandomUpdateOrder = false;
 
+	@Rule(
+			desc = "Make command blocks on redstone ores execute command instantly instead of scheduling a 1gt delay TileTick event for execution",
+			extra = "Only affects normal command blocks",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean instantCommandBlock = false;
+
+	@Rule(
+			desc = "Pause or disable light updates",
+			extra = {
+					"If set to suppressed, no light update can be executed",
+					"If set to off, no light update can be scheduled or executed",
+					"[WARNING] If set to suppressed or off, new chunks cannot be loaded. Then if the server tries to load chunk for player movement or whatever reason the server will be stuck forever"
+			},
+			category = {TIS, CREATIVE, EXPERIMENTAL}
+	)
+	public static LightUpdateOptions lightUpdates = LightUpdateOptions.ON;
+	public enum LightUpdateOptions
+	{
+		ON,
+		SUPPRESSED,
+		OFF
+	}
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

@@ -26,7 +26,7 @@ public class SettingsManagerMixin {
             ),
             at = @At(
                     value = "INVOKE",
-                    target = "Lcarpet/settings/SettingsManager;getCategories()Ljava/lang/Iterable;",
+                    target = "Lnet/minecraft/server/command/ServerCommandSource;getPlayer()Lnet/minecraft/server/network/ServerPlayerEntity;",
                     ordinal = 0
             ),
             remap = false
