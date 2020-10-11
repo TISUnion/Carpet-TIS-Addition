@@ -85,6 +85,7 @@
   "rule.lightUpdates.desc": "暂停或者禁止光照更新",
   "rule.lightUpdates.extra.0": "若被设为抑制(suppressed)，光照更新不会被执行",
   "rule.lightUpdates.extra.1": "若被设为关闭(off)，光照更新不会被计划或被执行",
+  "rule.lightUpdates.extra.2": "【警告】若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环",
 
 
   "logger.ticket.added": "被添加",
