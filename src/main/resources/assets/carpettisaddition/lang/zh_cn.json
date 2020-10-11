@@ -81,6 +81,11 @@
   "rule.instantCommandBlock.desc": "令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行",
   "rule.instantCommandBlock.extra.0": "仅影响普通命令方块",
 
+  "rule.lightUpdates.name": "光照更新",
+  "rule.lightUpdates.desc": "暂停或者禁止光照更新",
+  "rule.lightUpdates.extra.0": "若被设为抑制(suppressed)，光照更新不会被执行",
+  "rule.lightUpdates.extra.1": "若被设为关闭(off)，光照更新不会被计划或被执行",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

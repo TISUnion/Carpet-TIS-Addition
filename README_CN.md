@@ -304,6 +304,20 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 光照更新 (lightUpdates)
+
+暂停或者禁止光照更新
+
+若被设为抑制(suppressed)，光照更新不会被执行
+
+若被设为关闭(off)，光照更新不会被计划或被执行
+
+- 类型: `enum`  
+- 默认值: `on`  
+- 参考选项: `on`, `suppressed`, `off`
+- 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
 -----------
 
 # 监视器

@@ -252,6 +252,22 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean instantCommandBlock = false;
 
+	@Rule(
+			desc = "Pause or disable light updates",
+			extra = {
+					"If set to suppressed, no light update can be executed",
+					"If set to off, no light update can be scheduled or executed"
+			},
+			category = {TIS, CREATIVE, EXPERIMENTAL}
+	)
+	public static LightUpdateOptions lightUpdates = LightUpdateOptions.ON;
+	public enum LightUpdateOptions
+	{
+		ON,
+		SUPPRESSED,
+		OFF
+	}
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

@@ -304,6 +304,20 @@ Only affects normal command blocks
 - Categories: `TIS`, `CREATIVE`
 
 
+## lightUpdates
+
+Pause or disable light updates
+
+If set to suppressed, no light update can be executed
+
+If set to off, no light update can be scheduled or executed
+
+- Type: `enum`  
+- Default value: `on`  
+- Suggested options: `on`, `suppressed`, `off`
+- Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
 -----------
 
 # Loggers

@@ -25,6 +25,7 @@
     "option.instantCommandBlock.CommandBlockMixin",
     "option.keepMobInLazyChunks.MobEntityMixin",
     "option.keepMobInLazyChunks.ServerWorldMixin",
+    "option.lightUpdates.ServerLightingProviderMixin",
     "option.opPlayerNoCheat.GameModeCommandMixin",
     "option.opPlayerNoCheat.GiveCommandMixin",
     "option.opPlayerNoCheat.SetBlockCommandMixin",
