@@ -45,6 +45,7 @@
 - [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
 - [红石粉随机更新顺序](#红石粉随机更新顺序-redstoneDustRandomUpdateOrder)
 - [瞬时命令方块](#瞬时命令方块-instantCommandBlock)
+- [光照更新](#光照更新-lightUpdates)
 
 ## 监视器
 

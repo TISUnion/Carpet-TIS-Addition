@@ -45,6 +45,7 @@ Require fabric carpet versions:
 - [opPlayerNoCheat](#opPlayerNoCheat)
 - [redstoneDustRandomUpdateOrder](#redstoneDustRandomUpdateOrder)
 - [instantCommandBlock](#instantCommandBlock)
+- [lightUpdates](#lightUpdates)
 
 ## Loggers
 
