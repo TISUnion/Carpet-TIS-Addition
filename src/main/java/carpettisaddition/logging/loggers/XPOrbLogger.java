@@ -1,4 +1,4 @@
-package carpettisaddition.logging.logHelpers;
+package carpettisaddition.logging.loggers;
 
 import carpet.utils.Messenger;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -6,11 +6,11 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
 
 
-public class XPOrbLogHelper extends EntityLogHelper<ExperienceOrbEntity>
+public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 {
-	public static XPOrbLogHelper inst = new XPOrbLogHelper();
+	public static XPOrbLogger inst = new XPOrbLogger();
 
-	public XPOrbLogHelper()
+	public XPOrbLogger()
 	{
 		super("xporb");
 	}

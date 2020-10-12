@@ -1,18 +1,17 @@
-package carpettisaddition.logging.logHelpers;
+package carpettisaddition.logging.loggers;
 
 import carpet.utils.Messenger;
 import carpettisaddition.utils.Util;
-import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
 
 
-public class ItemLogHelper extends EntityLogHelper<ItemEntity>
+public class ItemLogger extends EntityLogger<ItemEntity>
 {
-	public static ItemLogHelper inst = new ItemLogHelper();
+	public static ItemLogger inst = new ItemLogger();
 
-	public ItemLogHelper()
+	public ItemLogger()
 	{
 		super("item");
 	}

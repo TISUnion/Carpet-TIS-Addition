@@ -1,7 +1,7 @@
-package carpettisaddition.microtick;
+package carpettisaddition.logging.loggers.microtick;
 
 import carpet.utils.Messenger;
-import carpettisaddition.microtick.tickstages.TickStage;
+import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
 import com.google.common.collect.Lists;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;

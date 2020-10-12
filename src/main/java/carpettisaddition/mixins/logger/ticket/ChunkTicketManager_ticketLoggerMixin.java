@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.ticket;
 
 import carpettisaddition.interfaces.IChunkTicketManager;
-import carpettisaddition.logging.logHelpers.TicketLogHelper;
+import carpettisaddition.logging.loggers.TicketLogger;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ChunkTicketManager;
 import net.minecraft.server.world.ServerWorld;
@@ -28,7 +28,7 @@ public abstract class ChunkTicketManager_ticketLoggerMixin implements IChunkTick
 	)
 	private void onAddTicket(long position, ChunkTicket<?> chunkTicket, CallbackInfo ci)
 	{
-		TicketLogHelper.onAddTicket(this.world, position, chunkTicket);
+		TicketLogger.onAddTicket(this.world, position, chunkTicket);
 	}
 
 	@Inject(
@@ -37,6 +37,6 @@ public abstract class ChunkTicketManager_ticketLoggerMixin implements IChunkTick
 	)
 	private void onRemoveTicket(long position, ChunkTicket<?> chunkTicket, CallbackInfo ci)
 	{
-		TicketLogHelper.onRemoveTicket(this.world, position, chunkTicket);
+		TicketLogger.onRemoveTicket(this.world, position, chunkTicket);
 	}
 }

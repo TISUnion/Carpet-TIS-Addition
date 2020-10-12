@@ -1,9 +1,9 @@
 package carpettisaddition.interfaces;
 
 
-import carpettisaddition.logging.logHelpers.RaidLogHelper;
+import carpettisaddition.logging.loggers.RaidLogger;
 
 public interface IRaid
 {
-	public void onRaidInvalidated(RaidLogHelper.InvalidateReason reason);
+	public void onRaidInvalidated(RaidLogger.InvalidateReason reason);
 }

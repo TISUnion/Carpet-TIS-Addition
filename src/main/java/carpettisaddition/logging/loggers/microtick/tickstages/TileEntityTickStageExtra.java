@@ -1,7 +1,7 @@
-package carpettisaddition.microtick.tickstages;
+package carpettisaddition.logging.loggers.microtick.tickstages;
 
 import carpet.utils.Messenger;
-import carpettisaddition.microtick.MicroTickUtil;
+import carpettisaddition.logging.loggers.microtick.MicroTickUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.text.Text;

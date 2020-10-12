@@ -1,8 +1,8 @@
-package carpettisaddition.microtick;
+package carpettisaddition.logging.loggers.microtick;
 
 import carpet.CarpetServer;
 import carpet.utils.WoolTool;
-import carpettisaddition.microtick.enums.PistonBlockEventType;
+import carpettisaddition.logging.loggers.microtick.enums.PistonBlockEventType;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;

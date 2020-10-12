@@ -1,4 +1,4 @@
-package carpettisaddition.logging.logHelpers;
+package carpettisaddition.logging.loggers;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
@@ -9,11 +9,11 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 
 
-public class RaidLogHelper extends TranslatableLogHelper
+public class RaidLogger extends TranslatableLogger
 {
-	public static RaidLogHelper inst = new RaidLogHelper();
+	public static RaidLogger inst = new RaidLogger();
 
-	public RaidLogHelper()
+	public RaidLogger()
 	{
 		super("raid");
 	}

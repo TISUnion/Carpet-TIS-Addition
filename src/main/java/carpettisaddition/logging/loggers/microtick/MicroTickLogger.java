@@ -1,12 +1,12 @@
-package carpettisaddition.microtick;
+package carpettisaddition.logging.loggers.microtick;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.logHelpers.TranslatableLogHelper;
-import carpettisaddition.microtick.enums.ActionRelation;
-import carpettisaddition.microtick.enums.BlockUpdateType;
-import carpettisaddition.microtick.enums.PistonBlockEventType;
-import carpettisaddition.microtick.tickstages.TickStage;
+import carpettisaddition.logging.loggers.microtick.enums.ActionRelation;
+import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.enums.PistonBlockEventType;
+import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;

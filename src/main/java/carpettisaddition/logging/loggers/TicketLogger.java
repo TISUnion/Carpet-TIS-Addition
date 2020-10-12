@@ -1,4 +1,4 @@
-package carpettisaddition.logging.logHelpers;
+package carpettisaddition.logging.loggers;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
@@ -13,13 +13,13 @@ import java.util.Arrays;
 
 import static java.lang.Math.max;
 
-public class TicketLogHelper extends TranslatableLogHelper
+public class TicketLogger extends TranslatableLogger
 {
 	private final String addedActionText;
 	private final String removedActionText;
-	public static TicketLogHelper inst = new TicketLogHelper();
+	public static TicketLogger inst = new TicketLogger();
 
-	public TicketLogHelper()
+	public TicketLogger()
 	{
 		super("ticket");
 		addedActionText = "l " + tr("added");

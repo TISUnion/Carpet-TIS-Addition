@@ -1,4 +1,4 @@
-package carpettisaddition.microtick.enums;
+package carpettisaddition.logging.loggers.microtick.enums;
 
 public enum ActionRelation
 {

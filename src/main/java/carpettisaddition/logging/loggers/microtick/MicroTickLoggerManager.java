@@ -1,11 +1,11 @@
-package carpettisaddition.microtick;
+package carpettisaddition.logging.loggers.microtick;
 
 import carpet.CarpetServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
-import carpettisaddition.microtick.enums.ActionRelation;
-import carpettisaddition.microtick.enums.BlockUpdateType;
-import carpettisaddition.microtick.tickstages.TickStage;
+import carpettisaddition.logging.loggers.microtick.enums.ActionRelation;
+import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.server.MinecraftServer;

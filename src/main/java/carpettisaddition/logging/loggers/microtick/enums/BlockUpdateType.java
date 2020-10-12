@@ -1,4 +1,4 @@
-package carpettisaddition.microtick.enums;
+package carpettisaddition.logging.loggers.microtick.enums;
 
 import com.google.common.collect.Maps;
 import net.minecraft.util.math.Direction;
