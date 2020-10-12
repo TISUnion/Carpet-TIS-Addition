@@ -1,4 +1,4 @@
-package carpettisaddition.logging.logHelpers;
+package carpettisaddition.logging.loggers;
 
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
@@ -19,12 +19,12 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
+public class EntityLogger<T extends Entity> extends TranslatableLogger
 {
-	private static final EntityLogHelper<Entity> inst = new EntityLogHelper<>(null);
+	private static final EntityLogger<Entity> inst = new EntityLogger<>(null);
 	protected final String loggerName;
 
-	public EntityLogHelper(String loggerName)
+	public EntityLogger(String loggerName)
 	{
 		super(loggerName == null ? "entity" : loggerName);
 		this.loggerName = loggerName;
@@ -93,7 +93,7 @@ public class EntityLogHelper<T extends Entity> extends TranslatableLogHelper
 
 	public Logger getStandardLogger()
 	{
-		return ExtensionLoggerRegistry.standardLogger(this.loggerName, EntityLogHelper.LoggingType.DIE, EntityLogHelper.LoggingType.loggingSuggest);
+		return ExtensionLoggerRegistry.standardLogger(this.loggerName, EntityLogger.LoggingType.DIE, EntityLogger.LoggingType.loggingSuggest);
 	}
 
 	public static class LoggingType

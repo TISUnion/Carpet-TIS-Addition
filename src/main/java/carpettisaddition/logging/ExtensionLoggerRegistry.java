@@ -4,8 +4,8 @@ import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.logging.logHelpers.ItemLogHelper;
-import carpettisaddition.logging.logHelpers.XPOrbLogHelper;
+import carpettisaddition.logging.loggers.ItemLogger;
+import carpettisaddition.logging.loggers.XPOrbLogger;
 
 
 public class ExtensionLoggerRegistry
@@ -23,8 +23,8 @@ public class ExtensionLoggerRegistry
                         "portal,player", "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
                 }
         ));
-        LoggerRegistry.registerLogger("item", ItemLogHelper.inst.getStandardLogger());
-        LoggerRegistry.registerLogger("xporb", XPOrbLogHelper.inst.getStandardLogger());
+        LoggerRegistry.registerLogger("item", ItemLogger.inst.getStandardLogger());
+        LoggerRegistry.registerLogger("xporb", XPOrbLogger.inst.getStandardLogger());
         LoggerRegistry.registerLogger("raid", standardLogger("raid", null, null));
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
     }

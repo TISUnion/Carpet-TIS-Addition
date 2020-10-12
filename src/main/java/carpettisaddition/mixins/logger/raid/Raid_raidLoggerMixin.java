@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.raid;
 
 import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.interfaces.IRaid;
-import carpettisaddition.logging.logHelpers.RaidLogHelper;
+import carpettisaddition.logging.loggers.RaidLogger;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.util.math.BlockPos;
@@ -29,13 +29,13 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onConstruct(CallbackInfo ci)
 	{
-		RaidLogHelper.onRaidCreated((Raid)(Object)this);
+		RaidLogger.onRaidCreated((Raid)(Object)this);
 	}
 
 	@Override
-	public void onRaidInvalidated(RaidLogHelper.InvalidateReason reason)
+	public void onRaidInvalidated(RaidLogger.InvalidateReason reason)
 	{
-		RaidLogHelper.onRaidInvalidated((Raid)(Object)this, reason);
+		RaidLogger.onRaidInvalidated((Raid)(Object)this, reason);
 		RaidTracker.trackRaidInvalidated(reason);
 	}
 
@@ -63,7 +63,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	{
 		if (this.badOmenLevel > 1 && this.badOmenLevel > this.previousBadOmenLevel)
 		{
-			RaidLogHelper.onBadOmenLevelIncreased((Raid)(Object)this, this.badOmenLevel);
+			RaidLogger.onBadOmenLevelIncreased((Raid)(Object)this, this.badOmenLevel);
 		}
 	}
 
@@ -89,7 +89,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByDifficulty(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogHelper.InvalidateReason.DIFFICULTY_PEACEFUL);
+		onRaidInvalidated(RaidLogger.InvalidateReason.DIFFICULTY_PEACEFUL);
 	}
 
 	@Inject(
@@ -108,7 +108,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByPOINotFound(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogHelper.InvalidateReason.POI_REMOVED_BEFORE_SPAWN);
+		onRaidInvalidated(RaidLogger.InvalidateReason.POI_REMOVED_BEFORE_SPAWN);
 	}
 
 	@Inject(
@@ -128,7 +128,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByTimeOut(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogHelper.InvalidateReason.TIME_OUT);
+		onRaidInvalidated(RaidLogger.InvalidateReason.TIME_OUT);
 	}
 
 	@Inject(
@@ -147,7 +147,7 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	private void onInvalidatedByRaiderCannotSpawn(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogHelper.InvalidateReason.RAIDER_CANNOT_SPAWN);
+		onRaidInvalidated(RaidLogger.InvalidateReason.RAIDER_CANNOT_SPAWN);
 	}
 
 	@Inject(
@@ -168,11 +168,11 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	{
 		if (this.hasWon())
 		{
-			onRaidInvalidated(RaidLogHelper.InvalidateReason.RAID_VICTORY);
+			onRaidInvalidated(RaidLogger.InvalidateReason.RAID_VICTORY);
 		}
 		else
 		{
-			onRaidInvalidated(RaidLogHelper.InvalidateReason.RAID_DEFEAT);
+			onRaidInvalidated(RaidLogger.InvalidateReason.RAID_DEFEAT);
 		}
 	}
 
@@ -188,6 +188,6 @@ public abstract class Raid_raidLoggerMixin implements IRaid
 	)
 	void onCenterMoved(BlockPos blockPos, CallbackInfo ci)
 	{
-		RaidLogHelper.onCenterMoved((Raid)(Object)this, blockPos);
+		RaidLogger.onCenterMoved((Raid)(Object)this, blockPos);
 	}
 }
