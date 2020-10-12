@@ -11,6 +11,7 @@
     "command.RaidAccessor",
     "command.RaidManagerAccessor",
     "logger.item.ItemEntity_itemLoggerMixin",
+    "logger.microtick.BlockMixin",
     "logger.microtick.WorldMixin",
     "logger.raid.RaidManagerMixin",
     "logger.raid.RaidMixin",
