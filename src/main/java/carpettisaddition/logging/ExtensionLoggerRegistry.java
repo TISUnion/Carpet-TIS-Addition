@@ -15,6 +15,7 @@ public class ExtensionLoggerRegistry
     public static boolean __item;
     public static boolean __xporb;
     public static boolean __raid;
+    public static boolean __microtick;
 
     public static void registerLoggers()
     {
@@ -27,6 +28,7 @@ public class ExtensionLoggerRegistry
         LoggerRegistry.registerLogger("xporb", XPOrbLogHelper.inst.getStandardLogger());
         LoggerRegistry.registerLogger("raid", standardLogger("raid", null, null));
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
+        LoggerRegistry.registerLogger("microtick", standardLogger("microtick", "all", new String[]{"all", "unique"}));
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)

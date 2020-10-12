@@ -269,6 +269,20 @@ public class CarpetTISAdditionSettings
 		OFF
 	}
 
+	@Rule(
+			desc = "Enable the function of /log microtick",
+			extra = {
+					"Display actions of redstone components and blockupdates with wool block",
+					"Use /log microtick to start logging",
+					"Might increase server mspt for up to 30% in redstone contraptions when it's on",
+					"endrods will detect block updates and redstone components will show their actions",
+					"observer, piston, endrod: pointing towards wool",
+					"repeater, comparator, rail, button, etc.: placed on wool"
+			},
+			category = {COMMAND, CREATIVE}
+	)
+	public static boolean microTick = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
