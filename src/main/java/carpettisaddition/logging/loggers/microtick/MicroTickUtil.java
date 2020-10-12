@@ -14,20 +14,14 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 
 import java.util.Map;
 
 public class MicroTickUtil
 {
-	private static final Map<DimensionType, Text> DIMENSION_NAME = Maps.newHashMap();
 	private static final Map<DyeColor, String> COLOR_STYLE = Maps.newHashMap();
 	static
 	{
-		DIMENSION_NAME.put(DimensionType.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"));
-		DIMENSION_NAME.put(DimensionType.THE_NETHER, new TranslatableText("advancements.nether.root.title"));
-		DIMENSION_NAME.put(DimensionType.THE_END, new TranslatableText("advancements.end.root.title"));
-
 		COLOR_STYLE.put(DyeColor.WHITE, "w");
 		COLOR_STYLE.put(DyeColor.ORANGE, "d");
 		COLOR_STYLE.put(DyeColor.MAGENTA, "m");
@@ -44,11 +38,6 @@ public class MicroTickUtil
 		COLOR_STYLE.put(DyeColor.GREEN, "e");
 		COLOR_STYLE.put(DyeColor.RED, "r");
 		COLOR_STYLE.put(DyeColor.BLACK, "k");
-	}
-
-	public static Text getDimensionNameText(DimensionType dim)
-	{
-		return DIMENSION_NAME.getOrDefault(dim, null);
 	}
 
 	static String getColorStyle(DyeColor color)

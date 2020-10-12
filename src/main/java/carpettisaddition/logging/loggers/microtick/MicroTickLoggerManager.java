@@ -1,7 +1,8 @@
 package carpettisaddition.logging.loggers.microtick;
 
-import carpet.CarpetServer;
+import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.interfaces.IWorld_MicroTickLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtick.enums.ActionRelation;
 import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
@@ -18,14 +19,14 @@ import java.util.Map;
 
 public class MicroTickLoggerManager
 {
-    public static MicroTickLoggerManager instance = new MicroTickLoggerManager(CarpetServer.minecraft_server);
+    public static MicroTickLoggerManager instance = new MicroTickLoggerManager(CarpetTISAdditionServer.minecraft_server);
     private final Map<World, MicroTickLogger> loggers = Maps.newHashMap();
 
     public MicroTickLoggerManager(MinecraftServer mcServer)
     {
         for (World world : mcServer.getWorlds())
         {
-            this.loggers.put(world, new MicroTickLogger(world));
+            this.loggers.put(world, ((IWorld_MicroTickLogger)world).getMicroTickLogger());
         }
     }
 

@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.logger.ticket;
 
-import carpettisaddition.interfaces.IChunkTicketManager;
+import carpettisaddition.interfaces.IChunkTicketManager_TicketLogger;
 import carpettisaddition.logging.loggers.TicketLogger;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ChunkTicketManager;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(ChunkTicketManager.class)
-public abstract class ChunkTicketManager_ticketLoggerMixin implements IChunkTicketManager
+public abstract class ChunkTicketManagerMixin implements IChunkTicketManager_TicketLogger
 {
 	private ServerWorld world;
 

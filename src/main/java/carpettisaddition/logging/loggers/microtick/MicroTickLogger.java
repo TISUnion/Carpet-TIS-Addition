@@ -2,11 +2,12 @@ package carpettisaddition.logging.loggers.microtick;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.logHelpers.TranslatableLogHelper;
+import carpettisaddition.logging.loggers.TranslatableLogger;
 import carpettisaddition.logging.loggers.microtick.enums.ActionRelation;
 import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
+import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
@@ -28,7 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class MicroTickLogger extends TranslatableLogHelper
+public class MicroTickLogger extends TranslatableLogger
 {
 	private static final Direction[] DIRECTION_VALUES = Direction.values();
 	private String stage;
@@ -43,7 +44,7 @@ public class MicroTickLogger extends TranslatableLogHelper
 	{
 		super("microtick");
 		this.world = world;
-		this.dimensionDisplayTextGray = MicroTickUtil.getDimensionNameText(this.world.getDimension().getType()).deepCopy();
+		this.dimensionDisplayTextGray = Util.getDimensionNameText(this.world.getDimension().getType()).deepCopy();
 		this.dimensionDisplayTextGray.getStyle().setColor(Formatting.GRAY);
 	}
 	

@@ -2,6 +2,7 @@ package carpettisaddition.logging.loggers.microtick;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
+import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
@@ -99,7 +100,7 @@ public class MicroTickMessage
 						Messenger.c(
 								tickStageExtraText,
 								"w World: ",
-								MicroTickUtil.getDimensionNameText(this.dimensionType)
+								Util.getDimensionNameText(this.dimensionType)
 						)
 				)
 		);

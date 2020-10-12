@@ -3,7 +3,7 @@ package carpettisaddition.interfaces;
 
 import carpettisaddition.logging.loggers.RaidLogger;
 
-public interface IRaid
+public interface IRaid_RaidLogger
 {
-	public void onRaidInvalidated(RaidLogger.InvalidateReason reason);
+	void onRaidInvalidated(RaidLogger.InvalidateReason reason);
 }

@@ -3,9 +3,8 @@ package carpettisaddition.utils;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionServer;
-import net.minecraft.client.network.ClientPlayerEntity;
+import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
@@ -13,12 +12,19 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 
-import java.util.List;
+import java.util.Map;
 
 
 public class Util
 {
 	private static final String teleportHint = Translations.tr("util.teleport_hint", "Click to teleport to");
+	private static final Map<DimensionType, BaseText> DIMENSION_NAME = Maps.newHashMap();
+	static
+	{
+		DIMENSION_NAME.put(DimensionType.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"));
+		DIMENSION_NAME.put(DimensionType.THE_NETHER, new TranslatableText("advancements.nether.root.title"));
+		DIMENSION_NAME.put(DimensionType.THE_END, new TranslatableText("advancements.end.root.title"));
+	}
 
 	public static String getTeleportCommand(Vec3d pos, Dimension dim)
 	{
@@ -69,19 +75,7 @@ public class Util
 
 	public static BaseText getDimensionNameText(DimensionType dim)
 	{
-		if (dim == DimensionType.OVERWORLD)
-		{
-			return getTranslatedName("createWorld.customize.preset.overworld");
-		}
-		else if (dim == DimensionType.THE_NETHER)
-		{
-			return getTranslatedName("advancements.nether.root.title");
-		}
-		else if (dim == DimensionType.THE_END)
-		{
-			return getTranslatedName("advancements.end.root.title");
-		}
-		return null;
+		return DIMENSION_NAME.getOrDefault(dim, null);
 	}
 
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)

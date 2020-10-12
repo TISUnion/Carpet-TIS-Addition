@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.logger.raid;
 
-import carpettisaddition.interfaces.IRaid;
+import carpettisaddition.interfaces.IRaid_RaidLogger;
 import carpettisaddition.logging.loggers.RaidLogger;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.entity.raid.RaidManager;
@@ -15,7 +15,7 @@ import java.util.Iterator;
 
 
 @Mixin(RaidManager.class)
-public abstract class RaidManager_raidLoggerMixin
+public abstract class RaidManagerMixin
 {
 	@Inject(
 			method = "tick",
@@ -34,6 +34,6 @@ public abstract class RaidManager_raidLoggerMixin
 	)
 	private void onInvalidatedByGamerule(CallbackInfo ci, Iterator<Raid> iterator, Raid raid)
 	{
-		((IRaid)raid).onRaidInvalidated(RaidLogger.InvalidateReason.GAMERULE_DISABLE);
+		((IRaid_RaidLogger)raid).onRaidInvalidated(RaidLogger.InvalidateReason.GAMERULE_DISABLE);
 	}
 }
