@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.microtick;
 
-import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.interfaces.IWorld_MicroTickLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
@@ -16,15 +15,17 @@ import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class MicroTickLoggerManager
 {
-    public static MicroTickLoggerManager instance = new MicroTickLoggerManager(CarpetTISAdditionServer.minecraft_server);
+    private static MicroTickLoggerManager instance;
+
     private final Map<World, MicroTickLogger> loggers = Maps.newHashMap();
 
-    public MicroTickLoggerManager(MinecraftServer mcServer)
+    public MicroTickLoggerManager(MinecraftServer minecraftServer)
     {
-        for (World world : mcServer.getWorlds())
+        for (World world : minecraftServer.getWorlds())
         {
             this.loggers.put(world, ((IWorld_MicroTickLogger)world).getMicroTickLogger());
         }
@@ -32,15 +33,20 @@ public class MicroTickLoggerManager
 
     public static boolean isLoggerActivated()
     {
-        return CarpetTISAdditionSettings.microTick  && ExtensionLoggerRegistry.__microtick;
+        return CarpetTISAdditionSettings.microTick && ExtensionLoggerRegistry.__microtick && instance != null;
+    }
+
+    public static void attachServer(MinecraftServer minecraftServer)
+    {
+        instance = new MicroTickLoggerManager(minecraftServer);
     }
 
     // called before action is done
     // [stage][detail]^[extra]
 
-    public static MicroTickLogger getWorldLogger(World world)
-    {
-        return instance.loggers.get(world);
+    private static Optional<MicroTickLogger> getWorldLogger(World world)
+    {            
+        return instance == null ? Optional.empty() : Optional.of(instance.loggers.get(world));
     }
 
     // called before an action is executed or done
@@ -49,7 +55,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).onBlockUpdate(world, pos, fromBlock, actionType, updateType, updateType.getUpdateOrderList(exceptSide));
+            getWorldLogger(world).ifPresent(logger -> logger.onBlockUpdate(world, pos, fromBlock, actionType, updateType, updateType.getUpdateOrderList(exceptSide)));
         }
     }
     public static void onBlockUpdate(World world, BlockPos pos, Block fromBlock, ActionRelation actionType, BlockUpdateType updateType)
@@ -63,7 +69,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).onComponentAddToTileTickList(world, pos, delay, priority);
+            getWorldLogger(world).ifPresent(logger -> logger.onComponentAddToTileTickList(world, pos, delay, priority));
         }
     }
     public static void onComponentAddToTileTickList(World world, BlockPos pos, int delay)
@@ -75,7 +81,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated() && 0 <= eventID && eventID <= 2)
         {
-            getWorldLogger(world).onPistonAddBlockEvent(world, pos, eventID, eventParam);
+            getWorldLogger(world).ifPresent(logger -> logger.onPistonAddBlockEvent(world, pos, eventID, eventParam));
         }
     }
 
@@ -83,7 +89,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).onPistonExecuteBlockEvent(world, pos, block, eventID, eventParam, success);
+            getWorldLogger(world).ifPresent(logger -> logger.onPistonExecuteBlockEvent(world, pos, block, eventID, eventParam, success));
         }
     }
 
@@ -91,7 +97,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).onComponentPowered(world, pos, poweredState);
+            getWorldLogger(world).ifPresent(logger -> logger.onComponentPowered(world, pos, poweredState));
         }
     }
 
@@ -99,7 +105,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).onRedstoneTorchLit(world, pos, litState);
+            getWorldLogger(world).ifPresent(logger -> logger.onRedstoneTorchLit(world, pos, litState));
         }
     }
 
@@ -113,12 +119,12 @@ public class MicroTickLoggerManager
 
     public static void setTickStage(World world, String stage)
     {
-        MicroTickLogger logger = getWorldLogger(world);
-        logger.setTickStage(stage);
-        logger.setTickStageDetail(null);
-        logger.setTickStageExtra(null);
+        getWorldLogger(world).ifPresent(logger -> {
+            logger.setTickStage(stage);
+            logger.setTickStageDetail(null);
+            logger.setTickStageExtra(null);
+        });
     }
-
     public static void setTickStage(String stage)
     {
         for (MicroTickLogger logger : instance.loggers.values())
@@ -129,16 +135,16 @@ public class MicroTickLoggerManager
 
     public static void setTickStageDetail(World world, String detail)
     {
-        getWorldLogger(world).setTickStageDetail(detail);
+        getWorldLogger(world).ifPresent(logger -> logger.setTickStageDetail(detail));
     }
 
     public static void setTickStageExtra(World world, TickStage stage)
     {
-        getWorldLogger(world).setTickStageExtra(stage);
+        getWorldLogger(world).ifPresent(logger -> logger.setTickStageExtra(stage));
     }
 
-    public static String getTickStage(World world)
+    public static Optional<String> getTickStage(World world)
     {
-        return getWorldLogger(world).getTickStage();
+        return getWorldLogger(world).map(MicroTickLogger::getTickStage);
     }
 }

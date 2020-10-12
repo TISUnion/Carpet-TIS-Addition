@@ -6,6 +6,7 @@ import carpettisaddition.commands.InfoCommand;
 import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -61,6 +62,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
         // reloading of own settings is handled as an extension, since we claim own settings manager
         // in case something else falls into
         minecraft_server = server;
+        MicroTickLoggerManager.attachServer(server);
     }
 
     @Override
