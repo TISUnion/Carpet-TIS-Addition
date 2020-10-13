@@ -73,7 +73,7 @@ public class StackTraceDeobfuscator
 		{
 			return className;
 		}
-		return className.substring(className.lastIndexOf('.') + 1);
+		return className.substring(className.lastIndexOf('.') + 1).split("\\$",2)[0] + ".java";
 	}
 
 	private static class MappingVisitor implements TinyVisitor
