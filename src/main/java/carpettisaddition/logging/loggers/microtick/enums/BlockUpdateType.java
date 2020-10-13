@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.microtick.enums;
 
-import com.google.common.collect.Maps;
+import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.util.math.Direction;
 
 import java.util.Map;
@@ -13,7 +13,7 @@ public enum BlockUpdateType
 
 	private final String name, aka;
 	private final Direction[] updateOrder;
-	private final Map<Direction, String> updateOrderListCache = Maps.newHashMap();
+	private final Map<Direction, String> updateOrderListCache = new Reference2ObjectArrayMap<>();
 	private final String updateOrderListCacheNoSkip;
 
 	BlockUpdateType(String name, String aka, Direction[] updateOrder)

@@ -1,11 +1,11 @@
 package carpettisaddition.logging.loggers.microtick;
 
-import carpet.CarpetServer;
 import carpet.utils.WoolTool;
 import carpettisaddition.logging.loggers.microtick.enums.PistonBlockEventType;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
+import net.minecraft.server.world.BlockAction;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -106,19 +106,11 @@ public class MicroTickUtil
 		return name;
 	}
 
-	static String getBlockEventMessageExtra(int eventID, int eventParam)
+	static String getBlockEventMessageExtra(BlockAction blockAction)
 	{
+		int eventID = blockAction.getType();
+		int eventParam = blockAction.getData();
 		return String.format("^w eventID: %d (%s)\neventParam: %d (%s)",
 				eventID, PistonBlockEventType.getById(eventID), eventParam, Direction.byId(eventParam));
-	}
-
-	// Debug things
-
-	public static void printAllDimensionGameTime()
-	{
-		for (World world : CarpetServer.minecraft_server.getWorlds())
-		{
-			System.err.println("    " + world.getDimension().getType() + " " + world.getTime() + " " + world.getLevelProperties());
-		}
 	}
 }

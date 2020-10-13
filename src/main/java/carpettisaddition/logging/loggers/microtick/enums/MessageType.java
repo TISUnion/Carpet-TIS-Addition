@@ -1,13 +1,14 @@
 package carpettisaddition.logging.loggers.microtick.enums;
 
-public enum ActionRelation
+public enum MessageType
 {
-	PRE_ACTION("Starting"),
-	POST_ACTION("Finished");
+	ACTION_START("Begin"),
+	ACTION_END("End"),
+	EVENT("Event");
 
 	private final String name;
 
-	ActionRelation(String name)
+	MessageType(String name)
 	{
 		this.name = name;
 	}

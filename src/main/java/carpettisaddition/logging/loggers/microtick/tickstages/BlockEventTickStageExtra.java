@@ -27,7 +27,7 @@ public class BlockEventTickStageExtra implements TickStage
 				"w Block: ",
 				MicroTickUtil.getTranslatedName(this.blockEventData.getBlock()),
 				String.format("w \nOrder: %d", this.order),
-				String.format("w \nOrder: %d", this.depth),
+				String.format("w \nDepth: %d", this.depth),
 				String.format("w \nPosition: [%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ())
 		);
 	}

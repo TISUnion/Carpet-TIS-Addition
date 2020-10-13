@@ -7,6 +7,7 @@ import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
+import carpettisaddition.logging.loggers.microtick.StackTraceDeobfuscator;
 import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -40,6 +41,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     static
     {
         CarpetServer.manageExtension(new CarpetTISAdditionServer());
+        StackTraceDeobfuscator.loadMappings();
     }
 
     @Override
@@ -62,6 +64,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
         // reloading of own settings is handled as an extension, since we claim own settings manager
         // in case something else falls into
         minecraft_server = server;
+    }
+
+    @Override
+    public void onServerLoadedWorlds(MinecraftServer server)
+    {
         MicroTickLoggerManager.attachServer(server);
     }
 
@@ -69,6 +76,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void onServerClosed(MinecraftServer server)
     {
         RaidTracker.stop();
+        MicroTickLoggerManager.detachServer();
     }
 
     @Override

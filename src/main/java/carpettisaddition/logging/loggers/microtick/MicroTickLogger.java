@@ -3,38 +3,41 @@ package carpettisaddition.logging.loggers.microtick;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.TranslatableLogger;
-import carpettisaddition.logging.loggers.microtick.enums.ActionRelation;
 import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.enums.MessageType;
 import carpettisaddition.logging.loggers.microtick.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FacingBlock;
+import net.minecraft.block.*;
+import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.Integer.max;
+
 public class MicroTickLogger extends TranslatableLogger
 {
+	// [stage][detail]^[extra]
+
 	private static final Direction[] DIRECTION_VALUES = Direction.values();
 	private String stage;
 	private String stageDetail;
 	private TickStage stageExtra;
+	private int indentation;
 	private final World world;
 	public final List<MicroTickMessage> messages = Lists.newLinkedList();
 	private final LongOpenHashSet pistonBlockEventSuccessPosition = new LongOpenHashSet();
@@ -44,8 +47,28 @@ public class MicroTickLogger extends TranslatableLogger
 	{
 		super("microtick");
 		this.world = world;
+		this.indentation = 0;
 		this.dimensionDisplayTextGray = Util.getDimensionNameText(this.world.getDimension().getType()).deepCopy();
 		this.dimensionDisplayTextGray.getStyle().setColor(Formatting.GRAY);
+	}
+
+	public void doIndent(MessageType messageType)
+	{
+		if (messageType == MessageType.ACTION_START)
+		{
+			this.indentation++;
+		}
+	}
+	public void unIndent(MessageType messageType)
+	{
+		if (messageType == MessageType.ACTION_END)
+		{
+			this.indentation = max(this.indentation - 1, 0);
+		}
+	}
+	public int getIndent()
+	{
+		return this.indentation;
 	}
 	
 	public void setTickStage(String stage)
@@ -73,7 +96,7 @@ public class MicroTickLogger extends TranslatableLogger
 		return this.stageExtra;
 	}
 
-	public void onBlockUpdate(World world, BlockPos pos, Block fromBlock, ActionRelation actionType, BlockUpdateType updateType, String updateTypeExtra)
+	public void onBlockUpdate(World world, BlockPos pos, Block fromBlock, BlockUpdateType updateType, String updateTypeExtra, MessageType messageType)
 	{
 		for (Direction facing: DIRECTION_VALUES)
 		{
@@ -84,24 +107,49 @@ public class MicroTickLogger extends TranslatableLogger
 				DyeColor color = MicroTickUtil.getWoolColor(world, blockEndRodPos);
 				if (color != null)
 				{
-					this.addMessage(color, pos, world, new Object[]{
+					this.addMessage(color, pos, world, messageType, new Object[]{
 							MicroTickUtil.getTranslatedName(fromBlock),
-							String.format("q  %s", actionType),
+							String.format("q  %s", messageType),
 							String.format("c  %s", updateType),
 							String.format("^w %s", updateTypeExtra)
 					});
+					break;
 				}
 			}
 		}
 	}
-	public void onComponentAddToTileTickList(World world, BlockPos pos, int delay, TickPriority priority)
+
+	/*
+	 * -----------
+	 *  Tile Tick
+	 * -----------
+	 */
+
+	public void onExecuteTileTickEvent(World world, ScheduledTick<Block> event, MessageType messageType)
+	{
+		DyeColor color = MicroTickUtil.getWoolColor(world, event.pos);
+		if (color != null)
+		{
+			List<Object> list = Lists.newLinkedList();
+			list.add(MicroTickUtil.getTranslatedName(event.getObject()));
+			list.add("q  Execute");
+			list.add("c  TileTick");
+			if (messageType == MessageType.ACTION_END)
+			{
+				list.add(String.format("q  %s", messageType));
+			}
+			list.add(String.format("^w Priority: %d (%s)", event.priority.getIndex(), event.priority));
+			this.addMessage(color, event.pos, world, messageType, list.toArray(new Object[0]));
+		}
+	}
+
+	public void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority)
 	{
 		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
 		if (color != null)
 		{
-			System.err.println(world.getTime() + " " + delay);
-			this.addMessage(color, pos, world, new Object[]{
-					MicroTickUtil.getTranslatedName(world.getBlockState(pos).getBlock()),
+			this.addMessage(color, pos, world, MessageType.EVENT, new Object[]{
+					MicroTickUtil.getTranslatedName(block),
 					"q  Scheduled",
 					"c  TileTick",
 					String.format("^w Delay: %dgt\nPriority: %d (%s)", delay, priority.getIndex(), priority)
@@ -109,40 +157,52 @@ public class MicroTickLogger extends TranslatableLogger
 		}
 	}
 
-	public void onPistonAddBlockEvent(World world, BlockPos pos, int eventID, int eventParam)
+	/*
+	 * -------------
+	 *  Block Event
+	 * -------------
+	 */
+
+	public void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, MessageType messageType)
 	{
-		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
+		DyeColor color = MicroTickUtil.getWoolColor(world, blockAction.getPos());
 		if (color != null)
 		{
-			this.addMessage(color, pos, world, new Object[]{
-					MicroTickUtil.getTranslatedName(world.getBlockState(pos).getBlock()),
-					"q  Scheduled",
-					"c  BlockEvent",
-					MicroTickUtil.getBlockEventMessageExtra(eventID, eventParam)
-			});
+			if (blockAction.getBlock() instanceof PistonBlock)
+			{
+				// ignore failure after a success block event of piston in the same gt
+				if (pistonBlockEventSuccessPosition.contains(blockAction.getPos().asLong()))
+				{
+					return;
+				}
+				if (returnValue != null && returnValue)
+				{
+					this.pistonBlockEventSuccessPosition.add(blockAction.getPos().asLong());
+				}
+			}
+			List<Object> list = Lists.newLinkedList();
+			list.add(MicroTickUtil.getTranslatedName(blockAction.getBlock()));
+			list.add("q  Executed");
+			list.add(String.format("c  %s", PistonBlockEventType.getById(blockAction.getType())));
+			list.add(MicroTickUtil.getBlockEventMessageExtra(blockAction));
+			if (returnValue != null)
+			{
+				list.add(String.format("%s  %s", MicroTickUtil.getBooleanColor(returnValue), returnValue ? "Succeed" : "Failed"));
+			}
+			this.addMessage(color, blockAction.getPos(), world, messageType, list.toArray(new Object[0]));
 		}
 	}
 
-	// "block" only overwrites displayed name
-	public void onPistonExecuteBlockEvent(World world, BlockPos pos, Block block, int eventID, int eventParam, boolean success)
+	public void onScheduleBlockEvent(World world, BlockAction blockAction)
 	{
-		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
+		DyeColor color = MicroTickUtil.getWoolColor(world, blockAction.getPos());
 		if (color != null)
 		{
-			if (success)
-			{
-				this.pistonBlockEventSuccessPosition.add(pos.asLong());
-			}
-			else if (pistonBlockEventSuccessPosition.contains(pos.asLong())) // ignore failure after a success blockevent of piston in the same gt
-			{
-				return;
-			}
-			addMessage(color, pos, world, new Object[]{
-					MicroTickUtil.getTranslatedName(block),
-					"q  Executed",
-					String.format("c  %s", PistonBlockEventType.getById(eventID)),
-					MicroTickUtil.getBlockEventMessageExtra(eventID, eventParam),
-					String.format("%s  %s", MicroTickUtil.getBooleanColor(success), success ? "Succeed" : "Failed")
+			this.addMessage(color, blockAction.getPos(), world, MessageType.EVENT, new Object[]{
+					MicroTickUtil.getTranslatedName(blockAction.getBlock()),
+					"q  Scheduled",
+					"c  BlockEvent",
+					MicroTickUtil.getBlockEventMessageExtra(blockAction)
 			});
 		}
 	}
@@ -152,7 +212,7 @@ public class MicroTickLogger extends TranslatableLogger
 		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
 		if (color != null)
 		{
-			this.addMessage(color, pos, world, new Object[]{
+			this.addMessage(color, pos, world, MessageType.EVENT, new Object[]{
 					MicroTickUtil.getTranslatedName(world.getBlockState(pos).getBlock()),
 					String.format("c  %s", poweredState ? "Powered" : "Depowered")
 			});
@@ -164,7 +224,7 @@ public class MicroTickLogger extends TranslatableLogger
 		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
 		if (color != null)
 		{
-			this.addMessage(color, pos, world, new Object[]{
+			this.addMessage(color, pos, world, MessageType.EVENT, new Object[]{
 					MicroTickUtil.getTranslatedName(world.getBlockState(pos).getBlock()),
 					String.format("c  %s", litState ? "Lit" : "Unlit")
 			});
@@ -172,14 +232,12 @@ public class MicroTickLogger extends TranslatableLogger
 	}
 
 	// #(color, pos) texts[] at stage(detail, extra, dimension)
-	public void addMessage(DyeColor color, BlockPos pos, DimensionType dim, Object [] texts)
+	public void addMessage(DyeColor color, BlockPos pos, World world, MessageType messageType, Object [] texts)
 	{
-		MicroTickMessage message = new MicroTickMessage(this, dim, pos, color, texts);
+		this.unIndent(messageType);
+		MicroTickMessage message = new MicroTickMessage(this, world.getDimension().getType(), pos, color, messageType, texts);
 		this.messages.add(message);
-	}
-	public void addMessage(DyeColor color, BlockPos pos, World world, Object [] texts)
-	{
-		this.addMessage(color, pos, world.getDimension().getType(), texts);
+		this.doIndent(messageType);
 	}
 
 	void flushMessages()
@@ -214,20 +272,7 @@ public class MicroTickLogger extends TranslatableLogger
 				}
 				if (flag)
 				{
-					List<Object> line = Lists.newLinkedList();
-					line.add(message.getHashTag());
-					for (Object text: message.texts)
-					{
-						if (text instanceof Text || text instanceof String)
-						{
-							line.add(text);
-						}
-					}
-					line.add("w  ");
-					line.add(message.getStage());
-					line.add("w  ");
-					line.add(message.getStackTrace());
-					msg.add(Messenger.c(line.toArray(new Object[0])));
+					msg.add(message.toText());
 				}
 			}
 			return msg.toArray(new BaseText[0]);

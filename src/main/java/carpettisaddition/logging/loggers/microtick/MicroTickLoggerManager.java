@@ -3,14 +3,16 @@ package carpettisaddition.logging.loggers.microtick;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.interfaces.IWorld_MicroTickLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
-import carpettisaddition.logging.loggers.microtick.enums.ActionRelation;
 import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.enums.MessageType;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
-import com.google.common.collect.Maps;
+import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.BlockAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
@@ -21,7 +23,7 @@ public class MicroTickLoggerManager
 {
     private static MicroTickLoggerManager instance;
 
-    private final Map<World, MicroTickLogger> loggers = Maps.newHashMap();
+    private final Map<World, MicroTickLogger> loggers = new Reference2ObjectArrayMap<>();
 
     public MicroTickLoggerManager(MinecraftServer minecraftServer)
     {
@@ -41,59 +43,86 @@ public class MicroTickLoggerManager
         instance = new MicroTickLoggerManager(minecraftServer);
     }
 
-    // called before action is done
-    // [stage][detail]^[extra]
+    public static void detachServer()
+    {
+        instance = null;
+    }
 
     private static Optional<MicroTickLogger> getWorldLogger(World world)
-    {            
-        return instance == null ? Optional.empty() : Optional.of(instance.loggers.get(world));
+    {
+        return instance == null ? Optional.empty() : Optional.ofNullable(instance.loggers.get(world));
     }
 
-    // called before an action is executed or done
+    /*
+     * --------------
+     *  Block Update
+     * --------------
+     */
 
-    public static void onBlockUpdate(World world, BlockPos pos, Block fromBlock, ActionRelation actionType, BlockUpdateType updateType, Direction exceptSide)
+    public static void onBlockUpdate(World world, BlockPos pos, Block fromBlock, BlockUpdateType updateType, Direction exceptSide, MessageType messageType)
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onBlockUpdate(world, pos, fromBlock, actionType, updateType, updateType.getUpdateOrderList(exceptSide)));
+            getWorldLogger(world).ifPresent(logger -> logger.onBlockUpdate(world, pos, fromBlock, updateType, updateType.getUpdateOrderList(exceptSide), messageType));
         }
     }
-    public static void onBlockUpdate(World world, BlockPos pos, Block fromBlock, ActionRelation actionType, BlockUpdateType updateType)
-    {
-        onBlockUpdate(world, pos, fromBlock, actionType, updateType, null);
-    }
 
-    // called after an action is done
+    /*
+     * -----------
+     *  Tile Tick
+     * -----------
+     */
 
-    public static void onComponentAddToTileTickList(World world, BlockPos pos, int delay, TickPriority priority)
+    public static void onExecuteTileTickEvent(World world, ScheduledTick<Block> event, MessageType messageType)
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onComponentAddToTileTickList(world, pos, delay, priority));
-        }
-    }
-    public static void onComponentAddToTileTickList(World world, BlockPos pos, int delay)
-    {
-        onComponentAddToTileTickList(world, pos, delay, TickPriority.NORMAL);
-    }
-
-    public static void onPistonAddBlockEvent(World world, BlockPos pos, int eventID, int eventParam)
-    {
-        if (isLoggerActivated() && 0 <= eventID && eventID <= 2)
-        {
-            getWorldLogger(world).ifPresent(logger -> logger.onPistonAddBlockEvent(world, pos, eventID, eventParam));
+            getWorldLogger(world).ifPresent(logger -> logger.onExecuteTileTickEvent(world, event, messageType));
         }
     }
 
-    public static void onPistonExecuteBlockEvent(World world, BlockPos pos, Block block, int eventID, int eventParam, boolean success) // "block" only overwrites displayed name
+    public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority)
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onPistonExecuteBlockEvent(world, pos, block, eventID, eventParam, success));
+            getWorldLogger(world).ifPresent(logger -> logger.onScheduleTileTickEvent(world, block, pos, delay, priority));
+        }
+    }
+    public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay)
+    {
+        onScheduleTileTickEvent(world, block, pos, delay, TickPriority.NORMAL);
+    }
+
+    /*
+     * -------------
+     *  Block Event
+     * -------------
+     */
+
+    public static void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, MessageType messageType)
+    {
+        if (isLoggerActivated())
+        {
+            getWorldLogger(world).ifPresent(logger -> logger.onExecuteBlockEvent(world, blockAction, returnValue, messageType));
         }
     }
 
-    public static void onComponentPowered(World world, BlockPos pos, boolean poweredState)
+    public static void onScheduleBlockEvent(World world, BlockAction blockAction)
+    {
+        if (isLoggerActivated())
+        {
+            getWorldLogger(world).ifPresent(logger -> logger.onScheduleBlockEvent(world, blockAction));
+        }
+    }
+
+
+    /*
+     * ------------------------
+     *  Component state change
+     * ------------------------
+     */
+
+    public static void onComponentPowered(World world, BlockPos pos, boolean poweredState)  // TODO: do more injection
     {
         if (isLoggerActivated())
         {
@@ -101,7 +130,7 @@ public class MicroTickLoggerManager
         }
     }
 
-    public static void onRedstoneTorchLit(World world, BlockPos pos, boolean litState)
+    public static void onRedstoneTorchLit(World world, BlockPos pos, boolean litState)  // TODO: do more injection
     {
         if (isLoggerActivated())
         {
@@ -111,9 +140,12 @@ public class MicroTickLoggerManager
 
     public static void flushMessages() // needs to call at the end of a gt
     {
-        for (MicroTickLogger logger : instance.loggers.values())
+        if (instance != null)
         {
-            logger.flushMessages();
+            for (MicroTickLogger logger : instance.loggers.values())
+            {
+                logger.flushMessages();
+            }
         }
     }
 
@@ -127,9 +159,12 @@ public class MicroTickLoggerManager
     }
     public static void setTickStage(String stage)
     {
-        for (MicroTickLogger logger : instance.loggers.values())
+        if (instance != null)
         {
-            logger.setTickStage(stage);
+            for (MicroTickLogger logger : instance.loggers.values())
+            {
+                logger.setTickStage(stage);
+            }
         }
     }
 
@@ -141,6 +176,16 @@ public class MicroTickLoggerManager
     public static void setTickStageExtra(World world, TickStage stage)
     {
         getWorldLogger(world).ifPresent(logger -> logger.setTickStageExtra(stage));
+    }
+    public static void setTickStageExtra(TickStage stage)
+    {
+        if (instance != null)
+        {
+            for (MicroTickLogger logger : instance.loggers.values())
+            {
+                logger.setTickStageExtra(stage);
+            }
+        }
     }
 
     public static Optional<String> getTickStage(World world)
