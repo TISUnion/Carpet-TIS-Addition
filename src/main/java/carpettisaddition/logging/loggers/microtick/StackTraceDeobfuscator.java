@@ -9,7 +9,6 @@ import net.fabricmc.mapping.reader.v2.TinyV2Factory;
 import net.fabricmc.mapping.reader.v2.TinyVisitor;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -23,7 +22,7 @@ public class StackTraceDeobfuscator
 
 	public static void loadMappings()
 	{
-		InputStream inputStream = StackTraceDeobfuscator.class.getClassLoader().getResourceAsStream("assets/" + MAPPING_FILE_NAME);
+		InputStream inputStream = StackTraceDeobfuscator.class.getClassLoader().getResourceAsStream("assets/carpettisaddition/" + MAPPING_FILE_NAME);
 		if (inputStream != null)
 		{
 			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -31,7 +30,7 @@ public class StackTraceDeobfuscator
 			{
 				TinyV2Factory.visit(mappingReader, new MappingVisitor(mappings));
 			}
-			catch (IOException e)
+			catch (Exception e)
 			{
 				e.printStackTrace();
 			}
@@ -44,6 +43,10 @@ public class StackTraceDeobfuscator
 
 	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements)
 	{
+		if (mappings.isEmpty())
+		{
+			return stackTraceElements;
+		}
 		List<StackTraceElement> list = Lists.newLinkedList();
 		list.add(new StackTraceElement("Deobfuscated stack trace", "", MAPPING_FILE_NAME, -1));
 		for (StackTraceElement element : stackTraceElements)
@@ -94,8 +97,8 @@ public class StackTraceDeobfuscator
 		@Override
 		public void start(TinyMetadata metadata)
 		{
-			this.intermediaryIndex = metadata.index("intermediaryIndex");
-			this.namedIndex = metadata.index("namedIndex");
+			this.intermediaryIndex = metadata.index("intermediary");
+			this.namedIndex = metadata.index("named");
 		}
 
 		@Override

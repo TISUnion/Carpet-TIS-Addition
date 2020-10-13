@@ -21,6 +21,7 @@ import java.util.Map;
 
 public class CarpetTISAdditionServer implements CarpetExtension
 {
+    public static final CarpetTISAdditionServer instance = new CarpetTISAdditionServer();
     public static final String name = "carpet-tis-addition";
     public static final String fancyName = "Carpet TIS Addition";
     public static final String compactName = name.replace("-","");  // carpettisaddition
@@ -40,7 +41,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 
     static
     {
-        CarpetServer.manageExtension(new CarpetTISAdditionServer());
+        CarpetServer.manageExtension(instance);
         StackTraceDeobfuscator.loadMappings();
     }
 
@@ -66,8 +67,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
         minecraft_server = server;
     }
 
-    @Override
-    public void onServerLoadedWorlds(MinecraftServer server)
+    // carpet has issue (bug) to call onServerLoadedWorlds in IntegratedServer, so just do it myself to make sure it works properly
+    public void onServerLoadedWorldsCTA(MinecraftServer server)
     {
         MicroTickLoggerManager.attachServer(server);
     }

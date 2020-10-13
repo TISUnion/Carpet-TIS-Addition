@@ -1,5 +1,6 @@
 package carpettisaddition.logging.loggers.microtick;
 
+import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.interfaces.IWorld_MicroTickLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
@@ -41,11 +42,13 @@ public class MicroTickLoggerManager
     public static void attachServer(MinecraftServer minecraftServer)
     {
         instance = new MicroTickLoggerManager(minecraftServer);
+        CarpetTISAdditionServer.LOGGER.info("Attached MicroTick loggers to " + instance.loggers.size() + " worlds");
     }
 
     public static void detachServer()
     {
         instance = null;
+        CarpetTISAdditionServer.LOGGER.info("Detached MicroTick loggers");
     }
 
     private static Optional<MicroTickLogger> getWorldLogger(World world)
