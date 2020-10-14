@@ -1,5 +1,6 @@
 package carpettisaddition.logging.loggers.microtick.types;
 
+import com.google.common.base.Joiner;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.util.math.Direction;
 
@@ -7,16 +8,17 @@ import java.util.Map;
 
 public enum BlockUpdateType
 {
-	NEIGHBOR_CHANGED("NeighborChanged", "Block Update", Constants.NC_UPDATE_ORDER),
-	NEIGHBOR_CHANGED_EXCEPT("NeighborChanged Except", "Block Update Except", Constants.NC_UPDATE_ORDER),
-	POST_PLACEMENT("PostPlacement", "State Update", Constants.PP_UPDATE_ORDER);
+	BLOCK_UPDATE("BlockUpdate", new String[]{"Neighbor Changed", "Neighbor Update"}, Constants.BLOCK_UPDATE_ORDER),
+	BLOCK_UPDATE_EXCEPT("BlockUpdate Except", new String[]{"Neighbor Changed Except", "Neighbor Update Except"}, Constants.BLOCK_UPDATE_ORDER),
+	STATE_UPDATE("StateUpdate", new String[]{"Post Placement", "Update Shape"}, Constants.STATE_UPDATE_ORDER);
 
-	private final String name, aka;
+	private final String name;
+	private final String[] aka;
 	private final Direction[] updateOrder;
 	private final Map<Direction, String> updateOrderListCache = new Reference2ObjectArrayMap<>();
 	private final String updateOrderListCacheNoSkip;
 
-	BlockUpdateType(String name, String aka, Direction[] updateOrder)
+	BlockUpdateType(String name, String[] aka, Direction[] updateOrder)
 	{
 		this.name = name;
 		this.aka = aka;
@@ -39,7 +41,7 @@ public enum BlockUpdateType
 	{
 		int counter = 0;
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(String.format("aka %s\n", this.aka));
+		stringBuilder.append(String.format("aka %s\n", Joiner.on('\n').join(this.aka)));
 		for (Direction Direction : this.updateOrder)
 		{
 			if (skipSide != Direction)
@@ -65,7 +67,7 @@ public enum BlockUpdateType
 
 	static class Constants
 	{
-		static final Direction[] NC_UPDATE_ORDER = new Direction[]{Direction.WEST, Direction.EAST, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH};
-		static final Direction[] PP_UPDATE_ORDER = new Direction[]{Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH, Direction.DOWN, Direction.UP};  // the same as Block.FACINGS
+		static final Direction[] BLOCK_UPDATE_ORDER = new Direction[]{Direction.WEST, Direction.EAST, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH};
+		static final Direction[] STATE_UPDATE_ORDER = new Direction[]{Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH, Direction.DOWN, Direction.UP};  // the same as Block.FACINGS
 	}
 }

@@ -45,24 +45,24 @@ public abstract class WorldMixin
 	@Inject(method = "updateNeighborsAlways", at = @At("HEAD"))
 	private void startUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.NEIGHBOR_CHANGED, null, EventType.ACTION_START);
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_START);
 	}
 	@Inject(method = "updateNeighborsAlways", at = @At("RETURN"))
 
 	private void endUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.NEIGHBOR_CHANGED, null, EventType.ACTION_END);
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_END);
 	}
 
 	@Inject(method = "updateNeighborsExcept", at = @At("RETURN"))
 	private void startUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.NEIGHBOR_CHANGED_EXCEPT, direction, EventType.ACTION_START);
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_START);
 	}
 
 	@Inject(method = "updateNeighborsExcept", at = @At("TAIL"))
 	private void endUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.NEIGHBOR_CHANGED_EXCEPT, direction, EventType.ACTION_END);
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_END);
 	}
 }
