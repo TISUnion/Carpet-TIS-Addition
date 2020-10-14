@@ -28,6 +28,7 @@
     "logger.microtick.events.ScheduleTileTickEventMixins$RedstoneTorchBlockMixin",
     "logger.microtick.events.ScheduleTileTickEventMixins$TripwireHookBlockMixin",
     "logger.microtick.events.ServerWorldMixin",
+    "logger.microtick.events.WorldMixin",
     "logger.microtick.eventstages.BlockMixin",
     "logger.microtick.eventstages.ServerWorldMixin",
     "logger.microtick.eventstages.WorldMixin",

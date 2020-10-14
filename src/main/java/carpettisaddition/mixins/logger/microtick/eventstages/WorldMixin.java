@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.microtick.eventstages;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
-import carpettisaddition.logging.loggers.microtick.types.MessageType;
+import carpettisaddition.logging.loggers.microtick.types.EventType;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -21,7 +21,7 @@ public abstract class WorldMixin
 	)
 	private void startUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.NEIGHBOR_CHANGED, null, MessageType.ACTION_START);
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.NEIGHBOR_CHANGED, null, EventType.ACTION_START);
 	}
 	@Inject(
 			method = "updateNeighborsAlways",
@@ -30,7 +30,7 @@ public abstract class WorldMixin
 
 	private void endUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.NEIGHBOR_CHANGED, null, MessageType.ACTION_END);
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.NEIGHBOR_CHANGED, null, EventType.ACTION_END);
 	}
 
 	@Inject(
@@ -39,7 +39,7 @@ public abstract class WorldMixin
 	)
 	private void startUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.NEIGHBOR_CHANGED_EXCEPT, direction, MessageType.ACTION_START);
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.NEIGHBOR_CHANGED_EXCEPT, direction, EventType.ACTION_START);
 	}
 
 	@Inject(
@@ -48,6 +48,6 @@ public abstract class WorldMixin
 	)
 	private void endUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.NEIGHBOR_CHANGED_EXCEPT, direction, MessageType.ACTION_END);
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.NEIGHBOR_CHANGED_EXCEPT, direction, EventType.ACTION_END);
 	}
 }

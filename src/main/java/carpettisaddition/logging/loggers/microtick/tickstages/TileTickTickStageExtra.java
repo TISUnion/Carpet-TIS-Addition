@@ -2,13 +2,14 @@ package carpettisaddition.logging.loggers.microtick.tickstages;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.MicroTickUtil;
+import carpettisaddition.logging.loggers.microtick.ToTextAble;
 import net.minecraft.block.Block;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 
-public class TileTickTickStageExtra implements TickStage
+public class TileTickTickStageExtra implements ToTextAble
 {
 	private final ScheduledTick<?> nextTickListEntry;
 	private final int order;

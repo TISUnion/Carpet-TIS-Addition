@@ -2,11 +2,12 @@ package carpettisaddition.logging.loggers.microtick.tickstages;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.MicroTickUtil;
+import carpettisaddition.logging.loggers.microtick.ToTextAble;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
-public class BlockEventTickStageExtra implements TickStage
+public class BlockEventTickStageExtra implements ToTextAble
 {
 	private final BlockAction blockEventData;
 	private final int order;

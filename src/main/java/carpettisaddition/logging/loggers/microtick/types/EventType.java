@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.microtick.types;
 
-public enum MessageType
+public enum EventType
 {
 	ACTION_START("Begin"),
 	ACTION_END("End"),
@@ -8,7 +8,7 @@ public enum MessageType
 
 	private final String name;
 
-	MessageType(String name)
+	EventType(String name)
 	{
 		this.name = name;
 	}

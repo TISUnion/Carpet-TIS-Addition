@@ -1,12 +1,11 @@
 package carpettisaddition.logging.loggers.microtick;
 
 import carpet.utils.WoolTool;
-import carpettisaddition.logging.loggers.microtick.types.PistonBlockEventType;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
-import net.minecraft.server.world.BlockAction;
 import net.minecraft.state.property.Properties;
+import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
@@ -16,6 +15,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class MicroTickUtil
 {
@@ -40,11 +40,11 @@ public class MicroTickUtil
 		COLOR_STYLE.put(DyeColor.BLACK, "k");
 	}
 
-	static String getColorStyle(DyeColor color)
+	public static String getColorStyle(DyeColor color)
 	{
 		return COLOR_STYLE.getOrDefault(color, "w");
 	}
-	static String getBooleanColor(boolean bool)
+	public static String getBooleanColor(boolean bool)
 	{
 		return bool ? "e" : "r";
 	}
@@ -106,11 +106,15 @@ public class MicroTickUtil
 		return name;
 	}
 
-	static String getBlockEventMessageExtra(BlockAction blockAction)
+	public static Optional<?> getBlockStateProperty(BlockState blockState, Property<?> property)
 	{
-		int eventID = blockAction.getType();
-		int eventParam = blockAction.getData();
-		return String.format("^w eventID: %d (%s)\neventParam: %d (%s)",
-				eventID, PistonBlockEventType.getById(eventID), eventParam, Direction.byId(eventParam));
+		try
+		{
+			return Optional.of(blockState.get(property));
+		}
+		catch (IllegalArgumentException ignored)
+		{
+			return Optional.empty();
+		}
 	}
 }

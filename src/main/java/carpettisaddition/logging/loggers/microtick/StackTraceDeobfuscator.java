@@ -47,7 +47,7 @@ public class StackTraceDeobfuscator
 		{
 			return stackTraceElements;
 		}
-		List<StackTraceElement> list = Lists.newLinkedList();
+		List<StackTraceElement> list = Lists.newArrayList();
 		list.add(new StackTraceElement("Deobfuscated stack trace", "", MAPPING_FILE_NAME, -1));
 		for (StackTraceElement element : stackTraceElements)
 		{

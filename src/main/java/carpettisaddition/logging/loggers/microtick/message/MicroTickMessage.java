@@ -1,8 +1,12 @@
-package carpettisaddition.logging.loggers.microtick;
+package carpettisaddition.logging.loggers.microtick.message;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
-import carpettisaddition.logging.loggers.microtick.types.MessageType;
+import carpettisaddition.logging.loggers.microtick.MicroTickLogger;
+import carpettisaddition.logging.loggers.microtick.MicroTickUtil;
+import carpettisaddition.logging.loggers.microtick.StackTraceDeobfuscator;
+import carpettisaddition.logging.loggers.microtick.ToTextAble;
+import carpettisaddition.logging.loggers.microtick.events.BaseEvent;
+import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.utils.Util;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
@@ -38,21 +42,19 @@ public class MicroTickMessage
 	public final DimensionType dimensionType;
 	public final BlockPos pos;
 	public final DyeColor color;
-	public final MessageType messageType;
 	public final String stage, stageDetail;
-	public final TickStage stageExtra;
+	public final ToTextAble stageExtra;
 	public final StackTraceElement[] stackTrace;
-	public final Object [] texts;
-	public final int indentation;
+	public final BaseEvent event;
+	public final MessageType messageType;
 
-	public MicroTickMessage(MicroTickLogger logger, DimensionType dimensionType, BlockPos pos, DyeColor color, MessageType messageType, Object[] texts)
+	public MicroTickMessage(MicroTickLogger logger, DimensionType dimensionType, BlockPos pos, DyeColor color, BaseEvent event)
 	{
 		this.dimensionType = dimensionType;
 		this.pos = pos.toImmutable();
 		this.color = color;
-		this.texts = texts;
-		this.messageType = messageType;
-		this.indentation = logger.getIndent();
+		this.event = event;
+		this.messageType = MessageType.fromEventType(event.getEventType());
 		this.stage = logger.getTickStage();
 		this.stageDetail = logger.getTickStageDetail();
 		this.stageExtra = logger.getTickStageExtra();
@@ -71,16 +73,7 @@ public class MicroTickMessage
 		}
 
 		MicroTickMessage o = (MicroTickMessage) obj;
-		boolean ret = this.dimensionType.equals(o.dimensionType) && this.pos.equals(o.pos) && this.color.equals(o.color) && this.stage.equals(o.stage) && this.messageType.equals(o.messageType) && this.texts.length == o.texts.length;
-		if (!ret)
-		{
-			return ret;
-		}
-		// this.texts.length == o.texts.length
-		for (int i = 0; i < this.texts.length; i++)
-			if (this.texts[i] instanceof String && !this.texts[i].equals(o.texts[i]))
-				return false;
-		return ret;
+		return this.dimensionType.equals(o.dimensionType) && this.pos.equals(o.pos) && this.color.equals(o.color) && this.stage.equals(o.stage) && this.event.equals(o.event);
 	}
 
 	@Override
@@ -110,7 +103,7 @@ public class MicroTickMessage
 
 	private Text getStage()
 	{
-		List<Object> comps = Lists.newLinkedList();
+		List<Object> comps = Lists.newArrayList();
 		comps.add("g at ");
 		comps.add("y " + this.stage);
 		if (this.stageDetail != null)
@@ -140,22 +133,16 @@ public class MicroTickMessage
 		);
 	}
 
-	public BaseText toText()
+	public BaseText toText(int indentation)
 	{
-		List<Object> line = Lists.newLinkedList();
+		List<Object> line = Lists.newArrayList();
 		line.add(this.getHashTag());
-		if (this.indentation > 0)
+		if (indentation > 0)
 		{
-			line.add("w " + INDENTATIONS.get(min(this.indentation, MAX_INDENT)));
+			line.add("w " + INDENTATIONS.get(min(indentation, MAX_INDENT)));
 		}
-		for (Object text: this.texts)
-		{
-			if (text instanceof Text || text instanceof String)
-			{
-				line.add(text);
-			}
-		}
-		if (this.messageType != MessageType.ACTION_END)
+		line.add(event.toText());
+		if (this.event.getEventType() != EventType.ACTION_END)
 		{
 			line.add("w  ");
 			line.add(this.getStage());

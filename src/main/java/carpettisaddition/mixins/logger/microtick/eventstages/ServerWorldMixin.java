@@ -3,7 +3,7 @@ package carpettisaddition.mixins.logger.microtick.eventstages;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.tickstages.BlockEventTickStageExtra;
 import carpettisaddition.logging.loggers.microtick.tickstages.TileTickTickStageExtra;
-import carpettisaddition.logging.loggers.microtick.types.MessageType;
+import carpettisaddition.logging.loggers.microtick.types.EventType;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.server.world.BlockAction;
@@ -45,7 +45,7 @@ public abstract class ServerWorldMixin
 	{
 		MicroTickLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(event.priority.getIndex()));
 		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new TileTickTickStageExtra(event, this.tileTickOrderCounter++));
-		MicroTickLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, MessageType.ACTION_START);
+		MicroTickLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, EventType.ACTION_START);
 	}
 
 	@Inject(method = "tickBlock", at = @At("TAIL"))
@@ -53,7 +53,7 @@ public abstract class ServerWorldMixin
 	{
 		MicroTickLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
 		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, null);
-		MicroTickLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, MessageType.ACTION_END);
+		MicroTickLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, EventType.ACTION_END);
 	}
 
 	/*
@@ -90,7 +90,7 @@ public abstract class ServerWorldMixin
 	{
 		MicroTickLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(this.blockEventDepth));
 		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new BlockEventTickStageExtra(blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
-		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, MessageType.ACTION_START);
+		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, EventType.ACTION_START);
 	}
 
 	@Inject(method = "method_14174", at = @At("RETURN"))
@@ -98,7 +98,7 @@ public abstract class ServerWorldMixin
 	{
 		MicroTickLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
 		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, null);
-		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), MessageType.ACTION_END);
+		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), EventType.ACTION_END);
 		this.blockEventCurrentDepthCounter++;
 		if (this.blockEventCurrentDepthCounter == this.blockEventCurrentDepthSize)
 		{
