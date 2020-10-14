@@ -21,7 +21,7 @@ import static java.lang.Integer.min;
 
 public class MicroTickMessage
 {
-	private static final int MAX_INDENT = 4;
+	private static final int MAX_INDENT = 8;
 	private static final int SPACE_PER_INDENT = 2;
 	private static final List<String> INDENTATIONS = Lists.newArrayList();
 	static
