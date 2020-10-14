@@ -40,12 +40,18 @@ public class Util
 		return String.format("/execute at %1$s run tp %1$s", uuid);
 	}
 
-	private static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
+	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
 	{
 		BaseText text = (BaseText)displayText.copy();
-		text.setStyle(Messenger.parseStyle(style));
+		if (style != null)
+		{
+			text.setStyle(Messenger.parseStyle(style));
+		}
 		text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
-		text.getStyle().setClickEvent(clickEvent);
+		if (clickEvent != null)
+		{
+			text.getStyle().setClickEvent(clickEvent);
+		}
 		return text;
 	}
 	private static BaseText __getCoordinateText(String style, Dimension dim, String posText, String command)

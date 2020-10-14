@@ -104,7 +104,7 @@ public class MicroTickLogger extends TranslatableLogger
 				DyeColor color = MicroTickUtil.getWoolColor(world, blockEndRodPos);
 				if (color != null)
 				{
-					this.addMessage(color, pos, world, new BlockUpdateEmitEvent(eventType, fromBlock, updateType, updateTypeExtra));
+					this.addMessage(color, pos, world, new DetectBlockUpdateEvent(eventType, fromBlock, updateType, updateTypeExtra));
 					break;
 				}
 			}
@@ -113,49 +113,32 @@ public class MicroTickLogger extends TranslatableLogger
 
 	private final static List<Property<?>> INTEREST_PROPERTIES = Lists.newArrayList(Properties.POWERED, Properties.LIT);
 
-	public void onSetBlockState(World world, BlockPos pos, BlockState newState, Boolean returnValue, EventType eventType)
+	public void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, EventType eventType)
 	{
 		// lazy loading
-		BlockState oldState = null;
 		DyeColor color = null;
 		BlockStateChangeEvent event = new BlockStateChangeEvent(eventType, returnValue, newState.getBlock());
 
-		if (eventType != EventType.ACTION_END)
+		for (Property<?> property: INTEREST_PROPERTIES)
 		{
-			for (Property<?> property: INTEREST_PROPERTIES)
+			Optional<?> newValue = MicroTickUtil.getBlockStateProperty(newState, property);
+			if (newValue.isPresent())
 			{
-				Optional<?> newValue = MicroTickUtil.getBlockStateProperty(newState, property);
-				if (newValue.isPresent())
+				if (color == null)
 				{
-					if (oldState == null)
+					color = MicroTickUtil.getWoolColor(world, pos);
+					if (color == null)
 					{
-						oldState = world.getBlockState(pos);
-						if (oldState.getBlock() != newState.getBlock())
-						{
-							break;
-						}
-						color = MicroTickUtil.getWoolColor(world, pos);
-						if (color == null)
-						{
-							break;
-						}
+						break;
 					}
-					Optional<?> oldValue = MicroTickUtil.getBlockStateProperty(oldState, property);
-					oldValue.ifPresent(ov -> event.addChanges(property.getName(), ov, newValue.get()));
 				}
-			}
-			if (event.hasChanges())
-			{
-				this.addMessage(color, pos, world, event);
+				Optional<?> oldValue = MicroTickUtil.getBlockStateProperty(oldState, property);
+				oldValue.ifPresent(ov -> event.addChanges(property.getName(), ov, newValue.get()));
 			}
 		}
-		else
+		if (event.hasChanges())
 		{
-			color = MicroTickUtil.getWoolColor(world, pos);
-			if (color != null)
-			{
-				this.addMessage(color, pos, world, event);
-			}
+			this.addMessage(color, pos, world, event);
 		}
 	}
 

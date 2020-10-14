@@ -11,15 +11,15 @@ import net.minecraft.text.BaseText;
 import java.util.List;
 import java.util.Objects;
 
-public class BlockUpdateEmitEvent extends BaseEvent
+public class DetectBlockUpdateEvent extends BaseEvent
 {
 	private final BlockUpdateType updateType;
 	private final String updateTypeExtraMessage;
 	private final Block fromBlock;
 
-	public BlockUpdateEmitEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, String updateTypeExtraMessage)
+	public DetectBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, String updateTypeExtraMessage)
 	{
-		super(eventType, "block_update_emit");
+		super(eventType, "detect_block_update");
 		this.fromBlock = fromBlock;
 		this.updateType = blockUpdateType;
 		this.updateTypeExtraMessage = updateTypeExtraMessage;
@@ -30,6 +30,7 @@ public class BlockUpdateEmitEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(this.fromBlock));
+		list.add(String.format("w  %s", "Emit"));
 		list.add(String.format("c  %s", this.updateType));
 		list.add(String.format("^w %s", this.updateTypeExtraMessage));
 		if (this.getEventType() == EventType.ACTION_END)
@@ -43,9 +44,9 @@ public class BlockUpdateEmitEvent extends BaseEvent
 	public boolean equals(Object o)
 	{
 		if (this == o) return true;
-		if (!(o instanceof BlockUpdateEmitEvent)) return false;
+		if (!(o instanceof DetectBlockUpdateEvent)) return false;
 		if (!super.equals(o)) return false;
-		BlockUpdateEmitEvent that = (BlockUpdateEmitEvent) o;
+		DetectBlockUpdateEvent that = (DetectBlockUpdateEvent) o;
 		return updateType == that.updateType &&
 				Objects.equals(updateTypeExtraMessage, that.updateTypeExtraMessage) &&
 				Objects.equals(fromBlock, that.fromBlock);

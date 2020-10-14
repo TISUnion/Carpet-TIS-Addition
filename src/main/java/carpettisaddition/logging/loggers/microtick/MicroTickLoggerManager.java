@@ -69,9 +69,9 @@ public class MicroTickLoggerManager
     }
 
     /*
-     * --------------
-     *  Block Update
-     * --------------
+     * ----------------------------------
+     *  Block Update and Block Operation
+     * ----------------------------------
      */
 
     public static void onBlockUpdate(World world, BlockPos pos, Block fromBlock, BlockUpdateType updateType, Direction exceptSide, EventType eventType)
@@ -82,11 +82,14 @@ public class MicroTickLoggerManager
         }
     }
 
-    public static void onSetBlockState(World world, BlockPos pos, BlockState state, Boolean returnValue, EventType eventType)
+    public static void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, EventType eventType)
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onSetBlockState(world, pos, state, returnValue, eventType));
+            if (oldState.getBlock() == newState.getBlock())
+            {
+                getWorldLogger(world).ifPresent(logger -> logger.onSetBlockState(world, pos, oldState, newState, returnValue, eventType));
+            }
         }
     }
 

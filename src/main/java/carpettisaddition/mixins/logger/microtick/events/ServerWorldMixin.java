@@ -31,7 +31,7 @@ public abstract class ServerWorldMixin
 		MicroTickLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, EventType.ACTION_START);
 	}
 
-	@Inject(method = "tickBlock", at = @At(value = "RETURN", shift = At.Shift.AFTER))
+	@Inject(method = "tickBlock", at = @At("RETURN"))
 	private void afterExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
 	{
 		MicroTickLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, EventType.ACTION_END);
@@ -55,7 +55,7 @@ public abstract class ServerWorldMixin
 		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, EventType.ACTION_START);
 	}
 
-	@Inject(method = "method_14174", at = @At(value = "RETURN", shift = At.Shift.AFTER))
+	@Inject(method = "method_14174", at = @At("RETURN"))
 	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), EventType.ACTION_END);

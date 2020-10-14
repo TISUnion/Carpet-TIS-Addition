@@ -11,7 +11,6 @@ import carpettisaddition.utils.Util;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.HoverEvent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
@@ -110,18 +109,15 @@ public class MicroTickMessage
 			comps.add("y ." + this.stageDetail);
 		}
 		BaseText tickStageExtraText = this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s("");
-		BaseText text = Messenger.c(comps.toArray(new Object[0]));
-		text.getStyle().setHoverEvent(
-				new HoverEvent(
-						HoverEvent.Action.SHOW_TEXT,
-						Messenger.c(
-								tickStageExtraText,
-								"w World: ",
-								Util.getDimensionNameText(this.dimensionType)
-						)
-				)
-		);
-		return text;
+		return Util.getFancyText(
+				null,
+				Messenger.c(comps.toArray(new Object[0])),
+				Messenger.c(
+						tickStageExtraText,
+						"w World: ",
+						Util.getDimensionNameText(this.dimensionType)
+				),
+				null);
 	}
 
 	private BaseText getStackTrace()
@@ -148,9 +144,9 @@ public class MicroTickMessage
 				line.add("w  ");
 				line.add(this.getStage());
 			}
-			line.add("w  ");
-			line.add(this.getStackTrace());
 		}
+		line.add("w  ");
+		line.add(this.getStackTrace());
 		return Messenger.c(line.toArray(new Object[0]));
 	}
 

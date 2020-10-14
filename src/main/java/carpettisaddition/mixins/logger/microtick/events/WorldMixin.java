@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -16,18 +17,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(World.class)
-public class WorldMixin
+public abstract class WorldMixin
 {
+	@Shadow public abstract BlockState getBlockState(BlockPos pos);
+
+	private final ThreadLocal<BlockState> previousBlockState = new ThreadLocal<BlockState>();
+
 	@Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At("HEAD"))
-	void startSetBlockState(BlockPos pos, BlockState state, int flags, CallbackInfoReturnable<Boolean> cir)
+	void startSetBlockState(BlockPos pos, BlockState newState, int flags, CallbackInfoReturnable<Boolean> cir)
 	{
-		MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, state, null, EventType.ACTION_START);
+		if (MicroTickLoggerManager.isLoggerActivated())
+		{
+			this.previousBlockState.set(this.getBlockState(pos));
+			MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, this.previousBlockState.get(), newState, cir.getReturnValue(), EventType.ACTION_START);
+		}
 	}
 
 	@Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At("RETURN"))
-	void endSetBlockState(BlockPos pos, BlockState state, int flags, CallbackInfoReturnable<Boolean> cir)
+	void endSetBlockState(BlockPos pos, BlockState newState, int flags, CallbackInfoReturnable<Boolean> cir)
 	{
-		MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, state, cir.getReturnValue(), EventType.ACTION_END);
+		if (MicroTickLoggerManager.isLoggerActivated())
+		{
+			MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, this.previousBlockState.get(), newState, cir.getReturnValue(), EventType.ACTION_END);
+		}
 	}
 
 	@Inject(method = "updateNeighborsAlways", at = @At("HEAD"))

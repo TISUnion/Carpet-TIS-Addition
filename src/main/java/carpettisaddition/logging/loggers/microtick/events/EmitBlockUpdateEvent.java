@@ -25,7 +25,7 @@ public class EmitBlockUpdateEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(this.block));
-		list.add(String.format("q  %s", "Emit block updates"));
+		list.add(String.format("q  %s", "Emit "));
 		list.add(String.format("c  %s", "BlockUpdates"));
 		if (this.methodName != null)
 		{

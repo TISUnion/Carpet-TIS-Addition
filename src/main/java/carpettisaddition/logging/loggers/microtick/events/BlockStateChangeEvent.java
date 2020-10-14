@@ -3,6 +3,7 @@ package carpettisaddition.logging.loggers.microtick.events;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
+import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -42,21 +43,24 @@ public class BlockStateChangeEvent extends BaseEvent
 	@Override
 	public BaseText toText()
 	{
+		List<Object> changes = Lists.newArrayList();
+		for (PropertyChanges change : this.changes)
+		{
+			changes.add(String.format("w  %s: ", change.name));
+			changes.add(this.getColoredValue(change.oldValue));
+			changes.add("g ->");
+			changes.add(this.getColoredValue(change.newValue));
+		}
+		BaseText changesText = Messenger.c(changes.toArray(new Object[0]));
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(block));
 		if (this.getEventType() != EventType.ACTION_END)
 		{
-			for (PropertyChanges change : this.changes)
-			{
-				list.add(String.format("w  %s: ", change.name));
-				list.add(this.getColoredValue(change.oldValue));
-				list.add("g ->");
-				list.add(this.getColoredValue(change.newValue));
-			}
+			list.add(changesText);
 		}
 		else
 		{
-			list.add("w  BlockState Change");
+			list.add(Util.getFancyText("w", new LiteralText("BlockState Change"), changesText, null));
 			list.add(String.format("%s  %s", MicroTickUtil.getBooleanColor(returnValue), returnValue ? "Succeed" : "Failed"));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
