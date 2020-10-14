@@ -15,30 +15,35 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 
 @Mixin(World.class)
 public abstract class WorldMixin
 {
 	@Shadow public abstract BlockState getBlockState(BlockPos pos);
 
-	private final ThreadLocal<BlockState> previousBlockState = new ThreadLocal<BlockState>();
+	private final ThreadLocal<Deque<BlockState>> previousBlockState = ThreadLocal.withInitial(ArrayDeque::new);
 
 	@Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At("HEAD"))
 	void startSetBlockState(BlockPos pos, BlockState newState, int flags, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (MicroTickLoggerManager.isLoggerActivated())
 		{
-			this.previousBlockState.set(this.getBlockState(pos));
-			MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, this.previousBlockState.get(), newState, cir.getReturnValue(), EventType.ACTION_START);
+			BlockState oldState = this.getBlockState(pos);
+			this.previousBlockState.get().push(oldState);
+			MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, oldState, newState, cir.getReturnValue(), EventType.ACTION_START);
 		}
 	}
 
 	@Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At("RETURN"))
 	void endSetBlockState(BlockPos pos, BlockState newState, int flags, CallbackInfoReturnable<Boolean> cir)
 	{
-		if (MicroTickLoggerManager.isLoggerActivated())
+		if (MicroTickLoggerManager.isLoggerActivated() && !this.previousBlockState.get().isEmpty())
 		{
-			MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, this.previousBlockState.get(), newState, cir.getReturnValue(), EventType.ACTION_END);
+			BlockState oldState = this.previousBlockState.get().pop();
+			MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, oldState, newState, cir.getReturnValue(), EventType.ACTION_END);
 		}
 	}
 
