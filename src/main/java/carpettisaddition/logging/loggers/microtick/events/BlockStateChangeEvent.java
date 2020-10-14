@@ -5,8 +5,8 @@ import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
@@ -25,9 +25,9 @@ public class BlockStateChangeEvent extends BaseEvent
 		this.returnValue = returnValue;
 	}
 
-	private Text getColoredValue(Object value)
+	private BaseText getColoredValue(Object value)
 	{
-		Text text = new LiteralText(value.toString());
+		BaseText text = new LiteralText(value.toString());
 		if (Boolean.TRUE.equals(value))
 		{
 			text.getStyle().setColor(Formatting.GREEN);
@@ -40,7 +40,7 @@ public class BlockStateChangeEvent extends BaseEvent
 	}
 
 	@Override
-	public Text toText()
+	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(block));

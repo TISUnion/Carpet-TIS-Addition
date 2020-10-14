@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.microtick.tickstages;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
-import net.minecraft.text.Text;
+import net.minecraft.text.BaseText;
 
 public class StringTickStage implements ToTextAble
 {
@@ -14,7 +14,7 @@ public class StringTickStage implements ToTextAble
 	}
 
 	@Override
-	public Text toText()
+	public BaseText toText()
 	{
 		return Messenger.s(this.info);
 	}

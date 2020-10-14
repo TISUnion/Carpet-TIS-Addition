@@ -21,7 +21,6 @@ import net.minecraft.server.world.BlockAction;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +45,7 @@ public class MicroTickLogger extends TranslatableLogger
 	private final World world;
 	public final MessageList messages = new MessageList();
 	private final LongOpenHashSet pistonBlockEventSuccessPosition = new LongOpenHashSet();
-	private final Text dimensionDisplayTextGray;
+	private final BaseText dimensionDisplayTextGray;
 
 	public MicroTickLogger(World world)
 	{

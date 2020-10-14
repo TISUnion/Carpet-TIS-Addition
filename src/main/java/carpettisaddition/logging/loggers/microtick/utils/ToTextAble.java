@@ -1,8 +1,8 @@
 package carpettisaddition.logging.loggers.microtick.utils;
 
-import net.minecraft.text.Text;
+import net.minecraft.text.BaseText;
 
 public interface ToTextAble
 {
-	Text toText();
+	BaseText toText();
 }

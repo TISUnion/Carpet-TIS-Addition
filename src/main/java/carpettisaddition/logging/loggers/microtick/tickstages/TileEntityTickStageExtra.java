@@ -5,7 +5,7 @@ import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.text.Text;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 
 public class TileEntityTickStageExtra implements ToTextAble
@@ -22,7 +22,7 @@ public class TileEntityTickStageExtra implements ToTextAble
 	}
 
 	@Override
-	public Text toText()
+	public BaseText toText()
 	{
 		return Messenger.c(
 				"w Block: ",

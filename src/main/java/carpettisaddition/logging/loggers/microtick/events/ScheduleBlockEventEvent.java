@@ -4,7 +4,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import net.minecraft.server.world.BlockAction;
-import net.minecraft.text.Text;
+import net.minecraft.text.BaseText;
 
 import java.util.Objects;
 
@@ -19,7 +19,7 @@ public class ScheduleBlockEventEvent extends BaseEvent
 	}
 
 	@Override
-	public Text toText()
+	public BaseText toText()
 	{
 		return Messenger.c(
 				MicroTickUtil.getTranslatedName(blockAction.getBlock()),

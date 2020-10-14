@@ -12,7 +12,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.HoverEvent;
-import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
@@ -82,10 +81,10 @@ public class MicroTickMessage
 		return this.dimensionType.hashCode() ^ (this.pos.hashCode() << 4) ^ (this.color.hashCode() << 8) ^ (this.stage.hashCode() << 12);
 	}
 
-	private Text getHashTag()
+	private BaseText getHashTag()
 	{
 		String text = MicroTickUtil.getColorStyle(this.color) + " # ";
-		Text ret;
+		BaseText ret;
 		if (this.pos != null)
 		{
 			ret = Messenger.c(
@@ -101,7 +100,7 @@ public class MicroTickMessage
 		return ret;
 	}
 
-	private Text getStage()
+	private BaseText getStage()
 	{
 		List<Object> comps = Lists.newArrayList();
 		comps.add("g at ");
@@ -110,8 +109,8 @@ public class MicroTickMessage
 		{
 			comps.add("y ." + this.stageDetail);
 		}
-		Text tickStageExtraText = this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s("");
-		Text text = Messenger.c(comps.toArray(new Object[0]));
+		BaseText tickStageExtraText = this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s("");
+		BaseText text = Messenger.c(comps.toArray(new Object[0]));
 		text.getStyle().setHoverEvent(
 				new HoverEvent(
 						HoverEvent.Action.SHOW_TEXT,
@@ -125,7 +124,7 @@ public class MicroTickMessage
 		return text;
 	}
 
-	private Text getStackTrace()
+	private BaseText getStackTrace()
 	{
 		return Messenger.c(
 				"f $",

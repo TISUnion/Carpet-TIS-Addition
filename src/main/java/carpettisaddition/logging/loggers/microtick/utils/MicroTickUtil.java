@@ -7,7 +7,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
-import net.minecraft.text.Text;
+import net.minecraft.text.BaseText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
@@ -101,9 +101,9 @@ public class MicroTickUtil
 		return WoolTool.getWoolColorAtPosition(world.getWorld(), woolPos);
 	}
 
-	public static Text getTranslatedName(Block block)
+	public static BaseText getTranslatedName(Block block)
 	{
-		Text name = new TranslatableText(block.getTranslationKey());
+		BaseText name = new TranslatableText(block.getTranslationKey());
 		name.getStyle().setColor(Formatting.WHITE);
 		return name;
 	}

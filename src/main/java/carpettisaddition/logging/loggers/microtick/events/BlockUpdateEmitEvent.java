@@ -6,7 +6,7 @@ import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.text.Text;
+import net.minecraft.text.BaseText;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +26,7 @@ public class BlockUpdateEmitEvent extends BaseEvent
 	}
 
 	@Override
-	public Text toText()
+	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(this.fromBlock));

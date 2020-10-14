@@ -6,7 +6,7 @@ import carpettisaddition.logging.loggers.microtick.types.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.server.world.BlockAction;
-import net.minecraft.text.Text;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.math.Direction;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 	}
 
 	@Override
-	public Text toText()
+	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(blockAction.getBlock()));

@@ -4,7 +4,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import net.minecraft.block.Block;
-import net.minecraft.text.Text;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.TickPriority;
 
@@ -27,7 +27,7 @@ public class ScheduleTileTickEvent extends BaseEvent
 	}
 
 	@Override
-	public Text toText()
+	public BaseText toText()
 	{
 		return Messenger.c(
 				MicroTickUtil.getTranslatedName(block),

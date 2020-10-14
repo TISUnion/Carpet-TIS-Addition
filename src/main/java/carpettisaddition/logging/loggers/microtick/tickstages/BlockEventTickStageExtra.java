@@ -4,7 +4,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import net.minecraft.server.world.BlockAction;
-import net.minecraft.text.Text;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 
 public class BlockEventTickStageExtra implements ToTextAble
@@ -21,7 +21,7 @@ public class BlockEventTickStageExtra implements ToTextAble
 	}
 
 	@Override
-	public Text toText()
+	public BaseText toText()
 	{
 		BlockPos pos = this.blockEventData.getPos();
 		return Messenger.c(
