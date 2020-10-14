@@ -21,6 +21,12 @@ public class EmitBlockUpdateEvent extends BaseEvent
 	}
 
 	@Override
+	public boolean isImportant()
+	{
+		return false;
+	}
+
+	@Override
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();

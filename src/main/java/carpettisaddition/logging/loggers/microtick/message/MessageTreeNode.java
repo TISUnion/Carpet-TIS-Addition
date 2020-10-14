@@ -45,8 +45,12 @@ public class MessageTreeNode
 	public List<ArrangedMessage> toList()
 	{
 		List<ArrangedMessage> list = Lists.newArrayList();
-		list.add(new ArrangedMessage(this.message, this.depth));
-		if (!this.children.isEmpty())
+		boolean isLeaf = this.children.isEmpty();
+		if (this.message.event.isImportant() || !isLeaf)
+		{
+			list.add(new ArrangedMessage(this.message, this.depth));
+		}
+		if (!isLeaf)
 		{
 			for (MessageTreeNode child : this.children)
 			{

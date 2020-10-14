@@ -16,6 +16,12 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 		this.eventType = eventType;
 	}
 
+	// if it's not important, it can be ignore if it's on a leaf node
+	public boolean isImportant()
+	{
+		return true;
+	}
+
 	public EventType getEventType()
 	{
 		return this.eventType;
