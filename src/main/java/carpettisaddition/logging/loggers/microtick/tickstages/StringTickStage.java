@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.microtick.tickstages;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtick.ToTextAble;
+import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import net.minecraft.text.Text;
 
 public class StringTickStage implements ToTextAble

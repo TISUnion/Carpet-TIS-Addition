@@ -73,9 +73,9 @@ public class Util
 		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
 	}
 
-	public static BaseText getDimensionNameText(DimensionType dim)
+	public static Text getDimensionNameText(DimensionType dim)
 	{
-		return DIMENSION_NAME.getOrDefault(dim, null);
+		return DIMENSION_NAME.getOrDefault(dim, new LiteralText(dim.toString())).deepCopy();
 	}
 
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)

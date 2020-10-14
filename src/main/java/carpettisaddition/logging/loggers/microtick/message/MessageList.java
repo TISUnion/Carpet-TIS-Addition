@@ -20,9 +20,9 @@ public class MessageList
 		return this.messageTrees.isEmpty();
 	}
 
-	public List<MessageTreeNode> toList()
+	public List<ArrangedMessage> toList()
 	{
-		List<MessageTreeNode> list = Lists.newArrayList();
+		List<ArrangedMessage> list = Lists.newArrayList();
 		for (MessageTreeNode tree : this.messageTrees)
 		{
 			list.addAll(tree.toList());
@@ -33,16 +33,21 @@ public class MessageList
 	public void addMessageAndIndent(MicroTickMessage message)
 	{
 		this.currentNode = new MessageTreeNode(this.currentNode, message);
+		if (currentNode.getParent() == null)
+		{
+			this.messageTrees.add(currentNode);
+		}
 		if (message.messageType == MessageType.ATOM)
 		{
 			this.currentNode = this.currentNode.getParent();
 		}
 	}
 
-	public void unIndent()
+	public void addMessageAndUnIndent(MicroTickMessage message)
 	{
 		if (this.currentNode != null)
 		{
+			this.currentNode.setQuitMessage(message);
 			this.currentNode = this.currentNode.getParent();
 		}
 	}

@@ -1,8 +1,8 @@
 package carpettisaddition.logging.loggers.microtick.tickstages;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtick.MicroTickUtil;
-import carpettisaddition.logging.loggers.microtick.ToTextAble;
+import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
+import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import net.minecraft.block.Block;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;

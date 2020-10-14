@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtick;
+package carpettisaddition.logging.loggers.microtick.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import com.google.common.collect.Lists;

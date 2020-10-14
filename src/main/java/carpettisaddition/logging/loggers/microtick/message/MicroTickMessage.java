@@ -2,11 +2,11 @@ package carpettisaddition.logging.loggers.microtick.message;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.MicroTickLogger;
-import carpettisaddition.logging.loggers.microtick.MicroTickUtil;
-import carpettisaddition.logging.loggers.microtick.StackTraceDeobfuscator;
-import carpettisaddition.logging.loggers.microtick.ToTextAble;
 import carpettisaddition.logging.loggers.microtick.events.BaseEvent;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
+import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
+import carpettisaddition.logging.loggers.microtick.utils.StackTraceDeobfuscator;
+import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import carpettisaddition.utils.Util;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
@@ -79,7 +79,7 @@ public class MicroTickMessage
 	@Override
 	public int hashCode()
 	{
-		return this.dimensionType.hashCode() + this.pos.hashCode() * 2 + this.color.hashCode();
+		return this.dimensionType.hashCode() ^ (this.pos.hashCode() << 4) ^ (this.color.hashCode() << 8) ^ (this.stage.hashCode() << 12);
 	}
 
 	private Text getHashTag()
@@ -133,7 +133,7 @@ public class MicroTickMessage
 		);
 	}
 
-	public BaseText toText(int indentation)
+	public BaseText toText(int indentation, boolean showStage)
 	{
 		List<Object> line = Lists.newArrayList();
 		line.add(this.getHashTag());
@@ -144,11 +144,29 @@ public class MicroTickMessage
 		line.add(event.toText());
 		if (this.event.getEventType() != EventType.ACTION_END)
 		{
-			line.add("w  ");
-			line.add(this.getStage());
+			if (showStage)
+			{
+				line.add("w  ");
+				line.add(this.getStage());
+			}
 			line.add("w  ");
 			line.add(this.getStackTrace());
 		}
 		return Messenger.c(line.toArray(new Object[0]));
+	}
+
+	@Override
+	public String toString()
+	{
+		return "MicroTickMessage{" +
+				"dimensionType=" + dimensionType +
+				", pos=" + pos +
+				", color=" + color +
+				", stage='" + stage + '\'' +
+				", stageDetail='" + stageDetail + '\'' +
+				", stageExtra=" + stageExtra +
+				", event=" + event +
+				", messageType=" + messageType +
+				'}';
 	}
 }

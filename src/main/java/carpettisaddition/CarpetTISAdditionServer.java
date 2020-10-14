@@ -7,7 +7,7 @@ import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
-import carpettisaddition.logging.loggers.microtick.StackTraceDeobfuscator;
+import carpettisaddition.logging.loggers.microtick.utils.StackTraceDeobfuscator;
 import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;

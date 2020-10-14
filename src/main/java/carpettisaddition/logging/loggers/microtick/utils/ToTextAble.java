@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtick;
+package carpettisaddition.logging.loggers.microtick.utils;
 
 import net.minecraft.text.Text;
 

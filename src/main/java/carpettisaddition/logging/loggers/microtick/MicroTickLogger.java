@@ -4,15 +4,18 @@ import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.TranslatableLogger;
 import carpettisaddition.logging.loggers.microtick.events.*;
+import carpettisaddition.logging.loggers.microtick.message.ArrangedMessage;
 import carpettisaddition.logging.loggers.microtick.message.MessageList;
-import carpettisaddition.logging.loggers.microtick.message.MessageTreeNode;
 import carpettisaddition.logging.loggers.microtick.message.MicroTickMessage;
 import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
+import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
+import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
+import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.*;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.state.property.Properties;
@@ -28,6 +31,7 @@ import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -48,8 +52,15 @@ public class MicroTickLogger extends TranslatableLogger
 	{
 		super("microtick");
 		this.world = world;
-		this.dimensionDisplayTextGray = Util.getDimensionNameText(this.world.getDimension().getType()).deepCopy();
-		this.dimensionDisplayTextGray.getStyle().setColor(Formatting.GRAY);
+		if (world != null)
+		{
+			this.dimensionDisplayTextGray = Util.getDimensionNameText(this.world.getDimension().getType());
+			this.dimensionDisplayTextGray.getStyle().setColor(Formatting.GRAY);
+		}
+		else
+		{
+			this.dimensionDisplayTextGray = null;
+		}
 	}
 	
 	public void setTickStage(String stage)
@@ -77,6 +88,12 @@ public class MicroTickLogger extends TranslatableLogger
 		return this.stageExtra;
 	}
 
+	/*
+	 * --------------
+	 *  Block Update
+	 * --------------
+	 */
+
 	public void onBlockUpdate(World world, BlockPos pos, Block fromBlock, BlockUpdateType updateType, String updateTypeExtra, EventType eventType)
 	{
 		for (Direction facing: DIRECTION_VALUES)
@@ -88,7 +105,7 @@ public class MicroTickLogger extends TranslatableLogger
 				DyeColor color = MicroTickUtil.getWoolColor(world, blockEndRodPos);
 				if (color != null)
 				{
-					this.processNewMessage(color, pos, world, new BlockUpdateEmitEvent(world, eventType, fromBlock, updateType, updateTypeExtra));
+					this.addMessage(color, pos, world, new BlockUpdateEmitEvent(eventType, fromBlock, updateType, updateTypeExtra));
 					break;
 				}
 			}
@@ -102,32 +119,43 @@ public class MicroTickLogger extends TranslatableLogger
 		// lazy loading
 		BlockState oldState = null;
 		DyeColor color = null;
-		BlockStateChangeEvent event = new BlockStateChangeEvent(world, eventType, newState.getBlock());
+		BlockStateChangeEvent event = new BlockStateChangeEvent(eventType, returnValue, newState.getBlock());
 
-		for (Property<?> property: INTEREST_PROPERTIES)
+		if (eventType != EventType.ACTION_END)
 		{
-			Optional<?> newValue = MicroTickUtil.getBlockStateProperty(newState, property);
-			if (newValue.isPresent())
+			for (Property<?> property: INTEREST_PROPERTIES)
 			{
-				if (oldState == null)
+				Optional<?> newValue = MicroTickUtil.getBlockStateProperty(newState, property);
+				if (newValue.isPresent())
 				{
-					oldState = world.getBlockState(pos);
-					if (oldState.getBlock() != newState.getBlock())
+					if (oldState == null)
 					{
-						break;
+						oldState = world.getBlockState(pos);
+						if (oldState.getBlock() != newState.getBlock())
+						{
+							break;
+						}
+						color = MicroTickUtil.getWoolColor(world, pos);
+						if (color == null)
+						{
+							break;
+						}
 					}
-					color = MicroTickUtil.getWoolColor(world, pos);
-					if (color == null)
-					{
-						break;
-					}
+					Optional<?> oldValue = MicroTickUtil.getBlockStateProperty(oldState, property);
+					oldValue.ifPresent(ov -> event.addChanges(property.getName(), ov, newValue.get()));
 				}
-				Optional<?> oldValue = MicroTickUtil.getBlockStateProperty(oldState, property);
-				oldValue.ifPresent(ov -> event.addChanges(property.getName(), ov, newValue.get()));
 			}
 			if (event.hasChanges())
 			{
-				this.processNewMessage(color, pos, world, event);
+				this.addMessage(color, pos, world, event);
+			}
+		}
+		else
+		{
+			color = MicroTickUtil.getWoolColor(world, pos);
+			if (color != null)
+			{
+				this.addMessage(color, pos, world, event);
 			}
 		}
 	}
@@ -143,7 +171,7 @@ public class MicroTickLogger extends TranslatableLogger
 		DyeColor color = MicroTickUtil.getWoolColor(world, event.pos);
 		if (color != null)
 		{
-			this.processNewMessage(color, event.pos, world, new ExecuteTileTickEvent(world, eventType, event));
+			this.addMessage(color, event.pos, world, new ExecuteTileTickEvent(eventType, event));
 		}
 	}
 
@@ -152,7 +180,7 @@ public class MicroTickLogger extends TranslatableLogger
 		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
 		if (color != null)
 		{
-			this.processNewMessage(color, pos, world, new ScheduleTileTickEvent(world, block, pos, delay, priority));
+			this.addMessage(color, pos, world, new ScheduleTileTickEvent(block, pos, delay, priority));
 		}
 	}
 
@@ -179,7 +207,7 @@ public class MicroTickLogger extends TranslatableLogger
 					this.pistonBlockEventSuccessPosition.add(blockAction.getPos().asLong());
 				}
 			}
-			this.processNewMessage(color, blockAction.getPos(), world, new ExecuteBlockEventEvent(world, eventType, blockAction, returnValue));
+			this.addMessage(color, blockAction.getPos(), world, new ExecuteBlockEventEvent(eventType, blockAction, returnValue));
 		}
 	}
 
@@ -188,58 +216,59 @@ public class MicroTickLogger extends TranslatableLogger
 		DyeColor color = MicroTickUtil.getWoolColor(world, blockAction.getPos());
 		if (color != null)
 		{
-			this.processNewMessage(color, blockAction.getPos(), world, new ScheduleBlockEventEvent(world, blockAction));
+			this.addMessage(color, blockAction.getPos(), world, new ScheduleBlockEventEvent(blockAction));
 		}
 	}
 
-	// #(color, pos) texts[] at stage(detail, extra, dimension)
-	public void processNewMessage(DyeColor color, BlockPos pos, World world, BaseEvent event)
+	public void addMessage(DyeColor color, BlockPos pos, World world, BaseEvent event)
 	{
 		MicroTickMessage message = new MicroTickMessage(this, world.getDimension().getType(), pos, color, event);
-		if (message.event.getEventType() == EventType.ACTION_END)
-		{
-			this.messages.unIndent();
-		}
-		else
+		if (message.event.getEventType() != EventType.ACTION_END)
 		{
 			this.messages.addMessageAndIndent(message);
 		}
+		else
+		{
+			this.messages.addMessageAndUnIndent(message);
+		}
 	}
 
-	void flushMessages()
+	private BaseText[] getMessages(boolean uniqueOnly)
 	{
-		if (this.messages.isEmpty())
+		List<BaseText> msg = Lists.newArrayList();
+		Set<MicroTickMessage> messageHashSet = Sets.newHashSet();
+		msg.add(Messenger.s(" "));
+		msg.add(Messenger.c(
+				"f [GameTime ",
+				"g " + this.world.getTime(),
+				"f  @ ",
+				this.dimensionDisplayTextGray,
+				"f ] ------------"
+		));
+		for (ArrangedMessage message : this.messages.toList())
 		{
-			return;
-		}
-		LoggerRegistry.getLogger("microtick").log( (option) ->
-		{
-			boolean uniqueOnly = option.equals("unique");
-			List<BaseText> msg = Lists.newArrayList();
-			Set<MicroTickMessage> messageHashSet = Sets.newHashSet();
-			msg.add(Messenger.s(" "));
-			msg.add(Messenger.c(
-					"f [GameTime ",
-					"g " + this.world.getTime(),
-					"f  @ ",
-					this.dimensionDisplayTextGray,
-					"f ] ------------"
-			));
-			for (MessageTreeNode messageTreeNode : this.messages.toList())
+			boolean showThisMessage = !uniqueOnly || messageHashSet.add(message.getMessage());
+			if (showThisMessage)
 			{
-				boolean flag = !uniqueOnly;
-				if (!messageHashSet.contains(messageTreeNode.getMessage()))
-				{
-					messageHashSet.add(messageTreeNode.getMessage());
-					flag = true;
-				}
-				if (flag)
-				{
-					msg.add(messageTreeNode.getMessageText());
-				}
+				msg.add(message.toText());
 			}
-			return msg.toArray(new BaseText[0]);
-		});
+		}
+		return msg.toArray(new BaseText[0]);
+	}
+
+	public void flushMessages()
+	{
+		if (!this.messages.isEmpty())
+		{
+			Map<Boolean, BaseText[]> flushedMessages = new Reference2ObjectArrayMap<>();
+			flushedMessages.put(false, getMessages(false));
+			flushedMessages.put(true, getMessages(true));
+			LoggerRegistry.getLogger("microtick").log((option) ->
+			{
+				boolean uniqueOnly = option.equals("unique");
+				return flushedMessages.get(uniqueOnly);
+			});
+		}
 		this.messages.clear();
 		this.pistonBlockEventSuccessPosition.clear();
 	}

@@ -6,7 +6,7 @@ import carpettisaddition.interfaces.IWorld_MicroTickLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
-import carpettisaddition.logging.loggers.microtick.types.PowerState;
+import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -26,6 +26,7 @@ public class MicroTickLoggerManager
     private static MicroTickLoggerManager instance;
 
     private final Map<World, MicroTickLogger> loggers = new Reference2ObjectArrayMap<>();
+    private final MicroTickLogger dummyLoggerForTranslate = new MicroTickLogger(null);
 
     public MicroTickLoggerManager(MinecraftServer minecraftServer)
     {
@@ -55,6 +56,16 @@ public class MicroTickLoggerManager
     private static Optional<MicroTickLogger> getWorldLogger(World world)
     {
         return instance == null ? Optional.empty() : Optional.ofNullable(instance.loggers.get(world));
+    }
+
+    public static String tr(String key, String text)
+    {
+        return instance.dummyLoggerForTranslate.tr(key, text);
+    }
+
+    public static String tr(String key)
+    {
+        return instance.dummyLoggerForTranslate.tr(key);
     }
 
     /*
@@ -127,38 +138,9 @@ public class MicroTickLoggerManager
         }
     }
 
-
-    /*
-     * ------------------------
-     *  Component state change
-     * ------------------------
-     */
-
-    public static void onComponentPowered(World world, BlockPos pos, PowerState poweredState)  // TODO: do more injection
-    {
-        if (isLoggerActivated())
-        {
-        }
-    }
-    public static void onComponentPowered(World world, BlockPos pos, boolean powered)
-    {
-        onComponentPowered(world, pos, PowerState.of(powered));
-    }
-    public static void onComponentPowered(World world, BlockPos pos, int signalStrength)
-    {
-        onComponentPowered(world, pos, PowerState.of(signalStrength));
-    }
-
-    public static void onRedstoneTorchLit(World world, BlockPos pos, boolean litState)  // TODO: do more injection
-    {
-        if (isLoggerActivated())
-        {
-        }
-    }
-
     public static void flushMessages() // needs to call at the end of a gt
     {
-        if (instance != null)
+        if (instance != null && isLoggerActivated())
         {
             for (MicroTickLogger logger : instance.loggers.values())
             {

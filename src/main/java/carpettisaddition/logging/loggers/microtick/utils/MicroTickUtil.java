@@ -1,6 +1,7 @@
-package carpettisaddition.logging.loggers.microtick;
+package carpettisaddition.logging.loggers.microtick.utils;
 
 import carpet.utils.WoolTool;
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
@@ -49,7 +50,7 @@ public class MicroTickUtil
 		return bool ? "e" : "r";
 	}
 
-	static DyeColor getWoolColor(World world, BlockPos pos)
+	public static DyeColor getWoolColor(World world, BlockPos pos)
 	{
 		if (!MicroTickLoggerManager.isLoggerActivated())
 		{

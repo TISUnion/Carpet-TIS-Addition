@@ -1,7 +1,6 @@
 package carpettisaddition.logging.loggers.microtick.message;
 
 import com.google.common.collect.Lists;
-import net.minecraft.text.BaseText;
 
 import java.util.List;
 
@@ -10,6 +9,7 @@ public class MessageTreeNode
 	private final List<MessageTreeNode> children = Lists.newArrayList();
 	private final MessageTreeNode parent;
 	private final MicroTickMessage message;
+	private MicroTickMessage quitMessage;
 	private final int depth;
 
 	public MessageTreeNode(MessageTreeNode parent, MicroTickMessage message)
@@ -32,14 +32,9 @@ public class MessageTreeNode
 		return this.parent;
 	}
 
-	public MicroTickMessage getMessage()
+	public void setQuitMessage(MicroTickMessage message)
 	{
-		return this.message;
-	}
-
-	public BaseText getMessageText()
-	{
-		return this.message.toText(this.depth);
+		this.quitMessage = message;
 	}
 
 	private void addChild(MessageTreeNode child)
@@ -47,17 +42,20 @@ public class MessageTreeNode
 		this.children.add(child);
 	}
 
-	public void trim()
+	public List<ArrangedMessage> toList()
 	{
-		// TODO
-	}
-
-	public List<MessageTreeNode> toList()
-	{
-		List<MessageTreeNode> list = Lists.newArrayList(this);
-		for (MessageTreeNode child : this.children)
+		List<ArrangedMessage> list = Lists.newArrayList();
+		list.add(new ArrangedMessage(this.message, this.depth));
+		if (!this.children.isEmpty())
 		{
-			list.addAll(child.toList());
+			for (MessageTreeNode child : this.children)
+			{
+				list.addAll(child.toList());
+			}
+			if (this.quitMessage != null)
+			{
+				list.add(new ArrangedMessage(this.quitMessage, this.depth));
+			}
 		}
 		return list;
 	}
