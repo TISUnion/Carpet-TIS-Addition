@@ -5,17 +5,21 @@
   "mixins": [
     "carpet.CarpetServerMixin",
     "carpet.HUDControllerMixin",
-    "carpet.OnServerLoadedWorldsMixins$IntegratedServerMixins",
-    "carpet.OnServerLoadedWorldsMixins$MinecraftServerMixins",
     "carpet.SettingsManagerMixin",
     "carpet.TickCommand_tickWarpMaximumDurationMixin",
+    "carpet.onServerLoadedWorlds.MinecraftServerMixin",
     "command.Raid_raidTrackerMixin",
     "command.RaidAccessor",
     "command.RaidManagerAccessor",
     "logger.item.ItemEntity_itemLoggerMixin",
     "logger.microtick.WorldMixin",
+    "logger.microtick.events.ComponentPoweredMixins$AbstractButtonBlockMixin",
+    "logger.microtick.events.ComponentPoweredMixins$AbstractPressurePlateBlockMixin",
     "logger.microtick.events.ComponentPoweredMixins$AbstractRedstoneGateBlockAndObserverBlockMixin",
     "logger.microtick.events.ComponentPoweredMixins$ComparatorBlockMixin",
+    "logger.microtick.events.ComponentPoweredMixins$LeverBlockMixin",
+    "logger.microtick.events.ComponentPoweredMixins$PoweredRailBlockMixin",
+    "logger.microtick.events.ComponentPoweredMixins$TripwireHookBlockMixin",
     "logger.microtick.events.ScheduleTileTickEventMixins$AbstractButtonBlockMixin",
     "logger.microtick.events.ScheduleTileTickEventMixins$AbstractPressurePlateBlockMixin",
     "logger.microtick.events.ScheduleTileTickEventMixins$AbstractRedstoneGateBlockMixin",
@@ -61,6 +65,9 @@
     "rule.structureBlockLimit.UpdateStructureBlockC2SPacketMixin",
     "rule.tntDupingFix.PistonBlockMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
+  ],
+  "client": [
+    "carpet.onServerLoadedWorlds.IntegratedServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

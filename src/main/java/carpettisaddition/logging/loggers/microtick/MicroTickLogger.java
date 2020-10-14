@@ -3,10 +3,11 @@ package carpettisaddition.logging.loggers.microtick;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.TranslatableLogger;
-import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
-import carpettisaddition.logging.loggers.microtick.enums.MessageType;
-import carpettisaddition.logging.loggers.microtick.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
+import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.types.MessageType;
+import carpettisaddition.logging.loggers.microtick.types.PistonBlockEventType;
+import carpettisaddition.logging.loggers.microtick.types.PowerState;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -207,14 +208,14 @@ public class MicroTickLogger extends TranslatableLogger
 		}
 	}
 
-	public void onComponentPowered(World world, BlockPos pos, boolean poweredState)
+	public void onComponentPowered(World world, BlockPos pos, PowerState poweredState)
 	{
 		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
 		if (color != null)
 		{
 			this.addMessage(color, pos, world, MessageType.EVENT, new Object[]{
 					MicroTickUtil.getTranslatedName(world.getBlockState(pos).getBlock()),
-					String.format("c  %s", poweredState ? "Powered" : "Depowered")
+					String.format("c  %s", poweredState)
 			});
 		}
 	}

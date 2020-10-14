@@ -153,10 +153,7 @@ public abstract class ScheduleTileTickEventMixins
 		@Shadow public abstract int getTickRate(WorldView worldView);
 
 		@Inject(
-				method = {
-						"method_21845",
-						"tryPowerWithProjectiles"
-				},
+				method = {"method_21845", "tryPowerWithProjectiles"},
 				at = @At(
 						value = "INVOKE",
 						shift = At.Shift.AFTER,

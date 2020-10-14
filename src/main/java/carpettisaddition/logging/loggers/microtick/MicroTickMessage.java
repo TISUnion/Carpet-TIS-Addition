@@ -1,8 +1,8 @@
 package carpettisaddition.logging.loggers.microtick;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtick.enums.MessageType;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
+import carpettisaddition.logging.loggers.microtick.types.MessageType;
 import carpettisaddition.utils.Util;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;

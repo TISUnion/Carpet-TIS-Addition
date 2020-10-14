@@ -1,8 +1,8 @@
 package carpettisaddition.mixins.logger.microtick.eventstages;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
-import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
-import carpettisaddition.logging.loggers.microtick.enums.MessageType;
+import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.types.MessageType;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

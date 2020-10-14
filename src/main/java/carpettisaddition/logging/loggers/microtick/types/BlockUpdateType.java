@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtick.enums;
+package carpettisaddition.logging.loggers.microtick.types;
 
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.util.math.Direction;

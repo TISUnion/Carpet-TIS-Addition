@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtick.enums;
+package carpettisaddition.logging.loggers.microtick.types;
 
 public enum PistonBlockEventType
 {

@@ -1,9 +1,9 @@
 package carpettisaddition.mixins.logger.microtick.eventstages;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
-import carpettisaddition.logging.loggers.microtick.enums.MessageType;
 import carpettisaddition.logging.loggers.microtick.tickstages.BlockEventTickStageExtra;
 import carpettisaddition.logging.loggers.microtick.tickstages.TileTickTickStageExtra;
+import carpettisaddition.logging.loggers.microtick.types.MessageType;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.server.world.BlockAction;

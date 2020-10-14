@@ -4,9 +4,10 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.interfaces.IWorld_MicroTickLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
-import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
-import carpettisaddition.logging.loggers.microtick.enums.MessageType;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStage;
+import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.types.MessageType;
+import carpettisaddition.logging.loggers.microtick.types.PowerState;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.server.MinecraftServer;
@@ -125,12 +126,20 @@ public class MicroTickLoggerManager
      * ------------------------
      */
 
-    public static void onComponentPowered(World world, BlockPos pos, boolean poweredState)  // TODO: do more injection
+    public static void onComponentPowered(World world, BlockPos pos, PowerState poweredState)  // TODO: do more injection
     {
         if (isLoggerActivated())
         {
             getWorldLogger(world).ifPresent(logger -> logger.onComponentPowered(world, pos, poweredState));
         }
+    }
+    public static void onComponentPowered(World world, BlockPos pos, boolean powered)
+    {
+        onComponentPowered(world, pos, PowerState.of(powered));
+    }
+    public static void onComponentPowered(World world, BlockPos pos, int signalStrength)
+    {
+        onComponentPowered(world, pos, PowerState.of(signalStrength));
     }
 
     public static void onRedstoneTorchLit(World world, BlockPos pos, boolean litState)  // TODO: do more injection
