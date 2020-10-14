@@ -86,8 +86,9 @@ public class MicroTickUtil
 		{
 			woolPos = pos.offset(state.get(HorizontalFacingBlock.FACING).getOpposite());
 		}
-		else if (block instanceof PoweredRailBlock ||
-				block == Blocks.REPEATER || block == Blocks.COMPARATOR || block == Blocks.REDSTONE_TORCH ||
+		else if (block instanceof AbstractRailBlock ||
+				block instanceof AbstractRedstoneGateBlock ||
+				block == Blocks.REDSTONE_TORCH ||
 				block instanceof AbstractPressurePlateBlock)  // on block
 		{
 			woolPos = pos.down();

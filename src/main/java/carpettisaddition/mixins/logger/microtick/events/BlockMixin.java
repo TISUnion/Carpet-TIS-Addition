@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.microtick.eventstages;
+package carpettisaddition.mixins.logger.microtick.events;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
@@ -21,7 +21,7 @@ public abstract class BlockMixin
 		MicroTickLoggerManager.onBlockUpdate(world.getWorld(), pos, world.getBlockState(pos).getBlock(), BlockUpdateType.POST_PLACEMENT, null, EventType.ACTION_START);
 	}
 
-	@Inject(method = "updateNeighborStates", at = @At("TAIL"))
+	@Inject(method = "updateNeighborStates", at = @At("RETURN"))
 	private void endStateUpdate(BlockState state, IWorld world, BlockPos pos, int flags, CallbackInfo ci)
 	{
 		MicroTickLoggerManager.onBlockUpdate(world.getWorld(), pos, world.getBlockState(pos).getBlock(), BlockUpdateType.POST_PLACEMENT, null, EventType.ACTION_END);

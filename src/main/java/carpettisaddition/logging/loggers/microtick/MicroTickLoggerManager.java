@@ -138,6 +138,21 @@ public class MicroTickLoggerManager
         }
     }
 
+
+    /*
+     * ------------------
+     *  Component things
+     * ------------------
+     */
+
+    public static void onEmitBlockUpdate(World world, Block block, BlockPos pos, EventType eventType, String methodName)
+    {
+        if (isLoggerActivated())
+        {
+            getWorldLogger(world).ifPresent(logger -> logger.onEmitBlockUpdate(world, block, pos, eventType, methodName));
+        }
+    }
+
     public static void flushMessages() // needs to call at the end of a gt
     {
         if (instance != null && isLoggerActivated())

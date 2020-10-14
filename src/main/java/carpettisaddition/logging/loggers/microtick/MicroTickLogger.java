@@ -220,6 +220,21 @@ public class MicroTickLogger extends TranslatableLogger
 		}
 	}
 
+	/*
+	 * ------------------
+	 *  Component things
+	 * ------------------
+	 */
+
+	public void onEmitBlockUpdate(World world, Block block, BlockPos pos, EventType eventType, String methodName)
+	{
+		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
+		if (color != null)
+		{
+			this.addMessage(color, pos, world, new EmitBlockUpdateEvent(eventType, block, methodName));
+		}
+	}
+
 	public void addMessage(DyeColor color, BlockPos pos, World world, BaseEvent event)
 	{
 		MicroTickMessage message = new MicroTickMessage(this, world.getDimension().getType(), pos, color, event);

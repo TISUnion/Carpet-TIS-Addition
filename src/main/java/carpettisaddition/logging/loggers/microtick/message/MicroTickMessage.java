@@ -136,11 +136,11 @@ public class MicroTickMessage
 	public BaseText toText(int indentation, boolean showStage)
 	{
 		List<Object> line = Lists.newArrayList();
-		line.add(this.getHashTag());
 		if (indentation > 0)
 		{
 			line.add("w " + INDENTATIONS.get(min(indentation, MAX_INDENT)));
 		}
+		line.add(this.getHashTag());
 		line.add(event.toText());
 		if (this.event.getEventType() != EventType.ACTION_END)
 		{

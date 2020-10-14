@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.microtick.generaltickstages;
+package carpettisaddition.mixins.logger.microtick.tickstages;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import net.minecraft.server.world.ServerChunkManager;
