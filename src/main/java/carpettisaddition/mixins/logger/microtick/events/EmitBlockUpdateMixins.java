@@ -46,34 +46,6 @@ public abstract class EmitBlockUpdateMixins
 		}
 	}
 
-	@Mixin({RedstoneTorchBlock.class, AbstractRailBlock.class})
-	public static abstract class OnBlockAddedAndRemoveMixin
-	{
-		@Inject(method = "onBlockAdded", at = @At("HEAD"))
-		private void startEmitBlockUpdateOnBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean moved, CallbackInfo ci)
-		{
-			MicroTickLoggerManager.onEmitBlockUpdate(world, state.getBlock(), pos, EventType.ACTION_START, "onBlockAdded");
-		}
-
-		@Inject(method = "onBlockRemoved", at = @At("HEAD"))
-		private void startEmitBlockUpdateOnBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved, CallbackInfo ci)
-		{
-			MicroTickLoggerManager.onEmitBlockUpdate(world, state.getBlock(), pos, EventType.ACTION_START, "onBlockRemoved");
-		}
-
-		@Inject(method = "onBlockAdded", at = @At("RETURN"))
-		private void endEmitBlockUpdateOnBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean moved, CallbackInfo ci)
-		{
-			MicroTickLoggerManager.onEmitBlockUpdate(world, state.getBlock(), pos, EventType.ACTION_END, "onBlockAdded");
-		}
-
-		@Inject(method = "onBlockRemoved", at = @At("RETURN"))
-		private void endEmitBlockUpdateOnBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved, CallbackInfo ci)
-		{
-			MicroTickLoggerManager.onEmitBlockUpdate(world, state.getBlock(), pos, EventType.ACTION_END, "onBlockRemoved");
-		}
-	}
-
 	@Mixin(PoweredRailBlock.class)
 	public static abstract class PoweredRailBlockMixin
 	{
