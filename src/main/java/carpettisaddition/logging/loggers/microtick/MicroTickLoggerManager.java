@@ -44,13 +44,13 @@ public class MicroTickLoggerManager
     public static void attachServer(MinecraftServer minecraftServer)
     {
         instance = new MicroTickLoggerManager(minecraftServer);
-        CarpetTISAdditionServer.LOGGER.info("Attached MicroTick loggers to " + instance.loggers.size() + " worlds");
+        CarpetTISAdditionServer.LOGGER.debug("Attached MicroTick loggers to " + instance.loggers.size() + " worlds");
     }
 
     public static void detachServer()
     {
         instance = null;
-        CarpetTISAdditionServer.LOGGER.info("Detached MicroTick loggers");
+        CarpetTISAdditionServer.LOGGER.debug("Detached MicroTick loggers");
     }
 
     private static Optional<MicroTickLogger> getWorldLogger(World world)

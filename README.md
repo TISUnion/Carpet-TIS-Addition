@@ -46,6 +46,7 @@ Require fabric carpet versions:
 - [redstoneDustRandomUpdateOrder](#redstoneDustRandomUpdateOrder)
 - [instantCommandBlock](#instantCommandBlock)
 - [lightUpdates](#lightUpdates)
+- [microTick](#microTick)
 
 ## Loggers
 
@@ -54,6 +55,7 @@ Require fabric carpet versions:
 - [item](#item)
 - [xporb](#xporb)
 - [raid](#raid)
+- [microTick](#microTick-1)
 
 ## Commands
 
@@ -319,6 +321,29 @@ If set to off, no light update can be scheduled or executed
 - Default value: `on`  
 - Suggested options: `on`, `suppressed`, `off`
 - Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
+## microTick
+
+Enable the function of `/log micirotick`
+
+Display actions of redstone components and blockupdates with wool block
+
+Use `/log microtick` to start logging
+
+Might increase server mspt for up to 30% in redstone contraptions when it's on
+
+Endrods will detect block updates and redstone components will show their actions
+
+| Block Type                               | How to log actions    |
+| ---------------------------------------- | --------------------- |
+| observer, piston, endrod                 | pointing towards wool |
+| repeater, comparator, rail, button, etc. | placed on wool        |
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`, `CREATIVE`
 
 
 -----------

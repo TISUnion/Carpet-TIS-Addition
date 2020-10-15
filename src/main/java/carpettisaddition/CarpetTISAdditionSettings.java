@@ -276,10 +276,10 @@ public class CarpetTISAdditionSettings
 					"Use /log microtick to start logging",
 					"Might increase server mspt for up to 30% in redstone contraptions when it's on",
 					"endrods will detect block updates and redstone components will show their actions",
-					"observer, piston, endrod: pointing towards wool",
-					"repeater, comparator, rail, button, etc.: placed on wool"
+					"- observer, piston, endrod: pointing towards wool",
+					"- repeater, comparator, rail, button, etc.: placed on wool"
 			},
-			category = {COMMAND, CREATIVE}
+			category = {TIS, COMMAND, CREATIVE}
 	)
 	public static boolean microTick = false;
 
