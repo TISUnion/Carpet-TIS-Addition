@@ -115,11 +115,7 @@ public class MicroTickLogger extends TranslatableLogger
 			{
 				if (color == null)
 				{
-					Optional<DyeColor> optionalDyeColor = MicroTickUtil.getWoolColor(world, pos);
-					if (!optionalDyeColor.isPresent())
-					{
-						optionalDyeColor = MicroTickUtil.getEndrodWoolColor(world, pos);
-					}
+					Optional<DyeColor> optionalDyeColor = MicroTickUtil.getWoolOrEndrodWoolColor(world, pos);
 					if (!optionalDyeColor.isPresent())
 					{
 						break;
@@ -144,13 +140,13 @@ public class MicroTickLogger extends TranslatableLogger
 
 	public void onExecuteTileTick(World world, ScheduledTick<Block> event, EventType eventType)
 	{
-		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, event.pos);
+		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndrodWoolColor(world, event.pos);
 		color.ifPresent(dyeColor -> this.addMessage(dyeColor, event.pos, world, new ExecuteTileTickEvent(eventType, event)));
 	}
 
 	public void onScheduleTileTick(World world, Block block, BlockPos pos, int delay, TickPriority priority)
 	{
-		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, pos);
+		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndrodWoolColor(world, pos);
 		color.ifPresent(dyeColor -> this.addMessage(dyeColor, pos, world, new ScheduleTileTickEvent(block, pos, delay, priority)));
 	}
 
@@ -162,7 +158,7 @@ public class MicroTickLogger extends TranslatableLogger
 
 	public void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, EventType eventType)
 	{
-		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, blockAction.getPos());
+		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndrodWoolColor(world, blockAction.getPos());
 		if (color.isPresent())
 		{
 			if (blockAction.getBlock() instanceof PistonBlock)
@@ -183,7 +179,7 @@ public class MicroTickLogger extends TranslatableLogger
 
 	public void onScheduleBlockEvent(World world, BlockAction blockAction)
 	{
-		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, blockAction.getPos());
+		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndrodWoolColor(world, blockAction.getPos());
 		color.ifPresent(dyeColor -> this.addMessage(dyeColor, blockAction.getPos(), world, new ScheduleBlockEventEvent(blockAction)));
 	}
 
@@ -195,9 +191,15 @@ public class MicroTickLogger extends TranslatableLogger
 
 	public void onEmitBlockUpdate(World world, Block block, BlockPos pos, EventType eventType, String methodName)
 	{
-		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, pos);
+		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndrodWoolColor(world, pos);
 		color.ifPresent(dyeColor -> this.addMessage(dyeColor, pos, world, new EmitBlockUpdateEvent(eventType, block, methodName)));
 	}
+
+	/*
+	 * -----------------------
+	 *  Component things ends
+	 * -----------------------
+	 */
 
 	public void addMessage(DyeColor color, BlockPos pos, World world, BaseEvent event)
 	{

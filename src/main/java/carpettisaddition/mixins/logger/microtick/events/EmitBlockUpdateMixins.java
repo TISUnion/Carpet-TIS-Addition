@@ -76,6 +76,22 @@ public abstract class EmitBlockUpdateMixins
 		}
 	}
 
+	@Mixin(LeverBlock.class)
+	public static abstract class LeverBlockMixin
+	{
+		@Inject(method = "updateNeighbors", at = @At("HEAD"))
+		private void startEmitBlockUpdate(BlockState state, World world, BlockPos pos, CallbackInfo ci)
+		{
+			MicroTickLoggerManager.onEmitBlockUpdate(world, (LeverBlock)(Object)this, pos, EventType.ACTION_START, "updateNeighbors");
+		}
+
+		@Inject(method = "updateNeighbors", at = @At("RETURN"))
+		private void endEmitBlockUpdate(BlockState state, World world, BlockPos pos, CallbackInfo ci)
+		{
+			MicroTickLoggerManager.onEmitBlockUpdate(world, (LeverBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighbors");
+		}
+	}
+
 	@Mixin(AbstractButtonBlock.class)
 	public static abstract class AbstractButtonBlockMixin
 	{

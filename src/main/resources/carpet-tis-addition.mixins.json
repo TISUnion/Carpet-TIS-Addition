@@ -17,6 +17,7 @@
     "logger.microtick.events.EmitBlockUpdateMixins$AbstractButtonBlockMixin",
     "logger.microtick.events.EmitBlockUpdateMixins$AbstractPressurePlateBlockMixin",
     "logger.microtick.events.EmitBlockUpdateMixins$AbstractRedstoneGateBlockMixin",
+    "logger.microtick.events.EmitBlockUpdateMixins$LeverBlockMixin",
     "logger.microtick.events.EmitBlockUpdateMixins$ObserverBlockMixin",
     "logger.microtick.events.EmitBlockUpdateMixins$PoweredRailBlockMixin",
     "logger.microtick.events.EmitBlockUpdateMixins$TripwireHookBlockMixin",

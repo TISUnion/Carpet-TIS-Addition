@@ -87,7 +87,7 @@ public class MicroTickUtil
 		if (block == Blocks.OBSERVER || block == Blocks.END_ROD ||
 				block instanceof PistonBlock || block instanceof PistonExtensionBlock)
 		{
-			woolPos = pos.offset(state.get(FacingBlock.FACING).getOpposite());
+			woolPos = pos.offset(state.get(Properties.FACING).getOpposite());
 		}
 		else if (block instanceof AbstractButtonBlock || block instanceof LeverBlock)
 		{
@@ -108,7 +108,7 @@ public class MicroTickUtil
 		}
 		else if (block == Blocks.REDSTONE_WALL_TORCH || block == Blocks.TRIPWIRE_HOOK)
 		{
-			woolPos = pos.offset(state.get(HorizontalFacingBlock.FACING).getOpposite());
+			woolPos = pos.offset(state.get(Properties.HORIZONTAL_FACING).getOpposite());
 		}
 		else if (block instanceof AbstractRailBlock ||
 				block instanceof AbstractRedstoneGateBlock ||
@@ -123,6 +123,34 @@ public class MicroTickUtil
 		}
 
 		return Optional.ofNullable(WoolTool.getWoolColorAtPosition(world.getWorld(), woolPos));
+	}
+
+	public static Optional<DyeColor> getEndrodWoolColor(World world, BlockPos pos)
+	{
+		for (Direction facing: DIRECTION_VALUES)
+		{
+			BlockPos blockEndRodPos = pos.offset(facing);
+			BlockState iBlockState = world.getBlockState(blockEndRodPos);
+			if (iBlockState.getBlock() == Blocks.END_ROD && iBlockState.get(FacingBlock.FACING).getOpposite() == facing)
+			{
+				Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, blockEndRodPos);
+				if (color.isPresent())
+				{
+					return color;
+				}
+			}
+		}
+		return Optional.empty();
+	}
+
+	public static Optional<DyeColor> getWoolOrEndrodWoolColor(World world, BlockPos pos)
+	{
+		Optional<DyeColor> optionalDyeColor = getWoolColor(world, pos);
+		if (!optionalDyeColor.isPresent())
+		{
+			optionalDyeColor = getEndrodWoolColor(world, pos);
+		}
+		return optionalDyeColor;
 	}
 
 	public static BaseText getTranslatedText(Block block)
@@ -142,23 +170,5 @@ public class MicroTickUtil
 		{
 			return Optional.empty();
 		}
-	}
-
-	public static Optional<DyeColor> getEndrodWoolColor(World world, BlockPos pos)
-	{
-		for (Direction facing: DIRECTION_VALUES)
-		{
-			BlockPos blockEndRodPos = pos.offset(facing);
-			BlockState iBlockState = world.getBlockState(blockEndRodPos);
-			if (iBlockState.getBlock() == Blocks.END_ROD && iBlockState.get(FacingBlock.FACING).getOpposite() == facing)
-			{
-				Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, blockEndRodPos);
-				if (color.isPresent())
-				{
-					return color;
-				}
-			}
-		}
-		return Optional.empty();
 	}
 }
