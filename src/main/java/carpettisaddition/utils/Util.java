@@ -45,7 +45,7 @@ public class Util
 
 	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
 	{
-		BaseText text = (BaseText)displayText.copy();
+		BaseText text = (BaseText)displayText.deepCopy();
 		if (style != null)
 		{
 			text.setStyle(Messenger.parseStyle(style));

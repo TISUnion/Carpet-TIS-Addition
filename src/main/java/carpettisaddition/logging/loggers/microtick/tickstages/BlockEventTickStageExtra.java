@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.microtick.tickstages;
 
 import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import net.minecraft.server.world.BlockAction;
@@ -25,11 +26,11 @@ public class BlockEventTickStageExtra implements ToTextAble
 	{
 		BlockPos pos = this.blockEventData.getPos();
 		return Messenger.c(
-				"w Block: ",
+				String.format("w %s: ", MicroTickLoggerManager.tr("Block")),
 				MicroTickUtil.getTranslatedName(this.blockEventData.getBlock()),
-				String.format("w \nOrder: %d", this.order),
-				String.format("w \nDepth: %d", this.depth),
-				String.format("w \nPosition: [%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ())
+				String.format("w \n%s: %d", MicroTickLoggerManager.tr("Order"), this.order),
+				String.format("w \n%s: %d", MicroTickLoggerManager.tr("Depth"), this.depth),
+				String.format("w \n%s: [%d, %d, %d]", MicroTickLoggerManager.tr("Position"), pos.getX(), pos.getY(), pos.getZ())
 		);
 	}
 }

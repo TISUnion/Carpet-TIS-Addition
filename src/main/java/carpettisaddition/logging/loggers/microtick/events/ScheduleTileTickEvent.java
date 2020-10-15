@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import net.minecraft.block.Block;
@@ -31,9 +32,9 @@ public class ScheduleTileTickEvent extends BaseEvent
 	{
 		return Messenger.c(
 				MicroTickUtil.getTranslatedName(block),
-				"q  Scheduled",
-				"c  TileTick",
-				String.format("^w Delay: %dgt\nPriority: %d (%s)", delay, priority.getIndex(), priority)
+				"q  " + this.tr("Scheduled"),
+				"c  " + this.tr("TileTick Event"),
+				String.format("^w %s: %dgt\n%s: %d (%s)", MicroTickLoggerManager.tr("Delay"), delay, MicroTickLoggerManager.tr("Priority"), priority.getIndex(), priority)
 		);
 	}
 

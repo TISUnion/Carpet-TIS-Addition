@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import com.google.common.collect.Lists;
@@ -25,13 +26,13 @@ public class ExecuteTileTickEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(this.tileTickEntry.getObject()));
-		list.add("q  Execute");
-		list.add("c  TileTick");
+		list.add("q  " + this.tr("Execute"));
+		list.add("c  " + this.tr("TileTick Event"));
 		if (this.getEventType() == EventType.ACTION_END)
 		{
-			list.add("q  ended");
+			list.add("q  " + MicroTickLoggerManager.tr("ended"));
 		}
-		list.add(String.format("^w Priority: %d (%s)", this.tileTickEntry.priority.getIndex(), this.tileTickEntry.priority));
+		list.add(String.format("^w %s: %d (%s)", MicroTickLoggerManager.tr("Priority"), this.tileTickEntry.priority.getIndex(), this.tileTickEntry.priority));
 		return Messenger.c(list.toArray(new Object[0]));
 	}
 

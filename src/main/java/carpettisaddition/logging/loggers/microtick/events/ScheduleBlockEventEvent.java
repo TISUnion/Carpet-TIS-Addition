@@ -23,8 +23,8 @@ public class ScheduleBlockEventEvent extends BaseEvent
 	{
 		return Messenger.c(
 				MicroTickUtil.getTranslatedName(blockAction.getBlock()),
-				"q  Scheduled",
-				"c  BlockEvent",
+				"q  " + this.tr("Scheduled"),
+				"c  " + this.tr("BlockEvent"),
 				ExecuteBlockEventEvent.getMessageExtra(blockAction)
 		);
 	}

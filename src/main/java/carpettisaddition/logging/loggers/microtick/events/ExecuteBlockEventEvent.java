@@ -5,6 +5,7 @@ import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.types.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import com.google.common.collect.Lists;
+import net.minecraft.block.PistonBlock;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.Direction;
@@ -28,8 +29,18 @@ public class ExecuteBlockEventEvent extends BaseEvent
 	{
 		int eventID = blockAction.getType();
 		int eventParam = blockAction.getData();
-		return String.format("^w eventID: %d (%s)\neventParam: %d (%s)",
-				eventID, PistonBlockEventType.getById(eventID), eventParam, Direction.byId(eventParam));
+		StringBuilder builder = new StringBuilder();
+		builder.append(String.format("^w eventID: %d", eventID));
+		if (blockAction.getBlock() instanceof PistonBlock)
+		{
+			builder.append(String.format(" (%s)", PistonBlockEventType.byId(eventID)));
+		}
+		builder.append(String.format("\neventParam: %d", eventParam));
+		if (blockAction.getBlock() instanceof PistonBlock)
+		{
+			builder.append(String.format(" (%s)", Direction.byId(eventParam)));
+		}
+		return builder.toString();
 	}
 
 	@Override
@@ -37,12 +48,19 @@ public class ExecuteBlockEventEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(blockAction.getBlock()));
-		list.add("q  Executed");
-		list.add(String.format("c  %s", PistonBlockEventType.getById(blockAction.getType())));
+		list.add("q  " + this.tr("Execute"));
+		if (this.blockAction.getBlock() instanceof PistonBlock)
+		{
+			list.add("c  " + PistonBlockEventType.byId(blockAction.getType()));
+		}
+		else
+		{
+			list.add("c  " + this.tr("BlockEvent"));
+		}
 		list.add(getMessageExtra(blockAction));
 		if (returnValue != null)
 		{
-			list.add(String.format("%s  %s", MicroTickUtil.getBooleanColor(returnValue), returnValue ? "Succeed" : "Failed"));
+			list.add(MicroTickUtil.getSuccessText(this.returnValue));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}

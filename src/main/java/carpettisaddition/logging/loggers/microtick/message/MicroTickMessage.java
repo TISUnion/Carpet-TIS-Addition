@@ -2,6 +2,7 @@ package carpettisaddition.logging.loggers.microtick.message;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.MicroTickLogger;
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.events.BaseEvent;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
@@ -16,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
 
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Integer.min;
 
@@ -89,10 +91,10 @@ public class MicroTickMessage
 	@Override
 	public int hashCode()
 	{
-		return this.dimensionType.hashCode() ^ (this.pos.hashCode() << 4) ^ (this.color.hashCode() << 8) ^ (this.stage.hashCode() << 12);
+		return Objects.hash(dimensionType, pos, color, stage, stageDetail, stageExtra, event);
 	}
 
-	private BaseText getHashTag()
+	private BaseText getHashTagText()
 	{
 		String text = MicroTickUtil.getColorStyle(this.color) + " # ";
 		BaseText ret;
@@ -111,11 +113,11 @@ public class MicroTickMessage
 		return ret;
 	}
 
-	private BaseText getStage()
+	private BaseText getStageText()
 	{
 		List<Object> comps = Lists.newArrayList();
-		comps.add("g  at ");
-		comps.add("y " + this.stage);
+		comps.add("g  " + MicroTickLoggerManager.tr("at"));
+		comps.add("y  " + this.stage);
 		if (this.stageDetail != null)
 		{
 			comps.add("y ." + this.stageDetail);
@@ -126,13 +128,13 @@ public class MicroTickMessage
 				Messenger.c(comps.toArray(new Object[0])),
 				Messenger.c(
 						tickStageExtraText,
-						"w World: ",
+						String.format("w %s: ", MicroTickLoggerManager.tr("Dimension")),
 						Util.getDimensionNameText(this.dimensionType)
 				),
 				null);
 	}
 
-	private BaseText getStackTrace()
+	private BaseText getStackTraceText()
 	{
 		return Messenger.c(
 				"f  $",
@@ -147,31 +149,17 @@ public class MicroTickMessage
 		{
 			line.add("w " + INDENTATIONS.get(min(indentation, MAX_INDENT)));
 		}
-		line.add(this.getHashTag());
+		line.add(this.getHashTagText());
 		line.add(event.toText());
 		if (this.event.getEventType() != EventType.ACTION_END)
 		{
 			if (showStage)
 			{
-				line.add(this.getStage());
+				line.add(this.getStageText());
 			}
 		}
-		line.add(this.getStackTrace());
+		line.add(this.getStackTraceText());
 		return Messenger.c(line.toArray(new Object[0]));
-	}
-
-	@Override
-	public String toString()
-	{
-		return "MicroTickMessage{" +
-				"dimensionType=" + dimensionType +
-				", pos=" + pos +
-				", color=" + color +
-				", stage='" + stage + '\'' +
-				", stageDetail='" + stageDetail + '\'' +
-				", stageExtra=" + stageExtra +
-				", event=" + event +
-				'}';
 	}
 
 	public void mergeQuiteMessage(MicroTickMessage quiteMessage)

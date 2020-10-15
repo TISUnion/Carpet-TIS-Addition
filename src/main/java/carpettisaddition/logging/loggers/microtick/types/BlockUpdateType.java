@@ -1,10 +1,8 @@
 package carpettisaddition.logging.loggers.microtick.types;
 
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import com.google.common.base.Joiner;
-import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.util.math.Direction;
-
-import java.util.Map;
 
 public enum BlockUpdateType
 {
@@ -15,54 +13,47 @@ public enum BlockUpdateType
 	private final String name;
 	private final String[] aka;
 	private final Direction[] updateOrder;
-	private final Map<Direction, String> updateOrderListCache = new Reference2ObjectArrayMap<>();
-	private final String updateOrderListCacheNoSkip;
 
 	BlockUpdateType(String name, String[] aka, Direction[] updateOrder)
 	{
 		this.name = name;
 		this.aka = aka;
 		this.updateOrder = updateOrder;
-		for (Direction Direction : Direction.values())
-		{
-			this.updateOrderListCache.put(Direction, this._getUpdateOrderList(Direction));
-		}
-		this.updateOrderListCacheNoSkip = this._getUpdateOrderList(null);
 
+	}
+
+	private String tr(String text)
+	{
+		return MicroTickLoggerManager.tr("block_update_type." + text, text);
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.name;
+		return tr(this.name);
 	}
 
-	private String _getUpdateOrderList(Direction skipSide)
+	public String getUpdateOrderList(Direction skipSide)
 	{
 		int counter = 0;
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(String.format("aka %s\n", Joiner.on('\n').join(this.aka)));
-		for (Direction Direction : this.updateOrder)
+		stringBuilder.append(String.format("%s %s\n", tr("aka"), Joiner.on('\n').join(this.aka)));
+		for (Direction direction : this.updateOrder)
 		{
-			if (skipSide != Direction)
+			if (skipSide != direction)
 			{
 				if (counter > 0)
 				{
 					stringBuilder.append('\n');
 				}
-				stringBuilder.append(String.format("%d. %s", (++counter), Direction));
+				stringBuilder.append(String.format("%d. %s", (++counter), tr(direction.toString())));
 			}
 		}
 		if (skipSide != null)
 		{
-			stringBuilder.append(String.format("Except: %s\n", skipSide));
+			stringBuilder.append(String.format("%s: %s\n", tr("Except"), skipSide));
 		}
 		return stringBuilder.toString();
-	}
-
-	public String getUpdateOrderList(Direction skipSide)
-	{
-		return skipSide == null ? this.updateOrderListCacheNoSkip : this.updateOrderListCache.get(skipSide);
 	}
 
 	static class Constants

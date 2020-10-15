@@ -1,5 +1,6 @@
 package carpettisaddition.logging.loggers.microtick.utils;
 
+import carpet.utils.Messenger;
 import carpet.utils.WoolTool;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import com.google.common.collect.Maps;
@@ -45,9 +46,9 @@ public class MicroTickUtil
 	{
 		return COLOR_STYLE.getOrDefault(color, "w");
 	}
-	public static String getBooleanColor(boolean bool)
+	public static BaseText getSuccessText(boolean success)
 	{
-		return bool ? "e" : "r";
+		return Messenger.c(success ? "e " + MicroTickLoggerManager.tr("Succeeded") : "r " + MicroTickLoggerManager.tr("Failed"));
 	}
 
 	public static DyeColor getWoolColor(World world, BlockPos pos)

@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
@@ -30,13 +31,13 @@ public class DetectBlockUpdateEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(this.fromBlock));
-		list.add(String.format("w  %s", "Emit"));
-		list.add(String.format("c  %s", this.updateType));
-		list.add(String.format("^w %s", this.updateTypeExtraMessage));
-		list.add("w  Detected");
+		list.add("w  " + MicroTickLoggerManager.tr("Emit"));
+		list.add("c  " + this.updateType);
+		list.add("^w " + this.updateTypeExtraMessage);
+		list.add("w  " + this.tr("Detected"));
 		if (this.getEventType() == EventType.ACTION_END)
 		{
-			list.add("q  ended");
+			list.add("q  " + MicroTickLoggerManager.tr("ended"));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}

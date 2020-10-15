@@ -78,7 +78,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onBlockUpdate(world, pos, fromBlock, updateType, updateType.getUpdateOrderList(exceptSide), eventType));
+            getWorldLogger(world).ifPresent(logger -> logger.onBlockUpdate(world, pos, fromBlock, updateType, () -> updateType.getUpdateOrderList(exceptSide), eventType));
         }
     }
 

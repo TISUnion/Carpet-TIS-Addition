@@ -183,7 +183,7 @@ public abstract class ServerWorldMixin
 	private void onStageEntitiesWeather(CallbackInfo ci)
 	{
 		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "Entity");
-		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new StringTickStage("Ticking weather effects")); // TISCM Micro
+		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStage.ENTITY_WEATHER_EFFECT);
 	}
 
 	@Inject(
@@ -195,7 +195,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageEntitiesRegular(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new StringTickStage("Ticking regular entities")); // TISCM Micro
+		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStage.ENTITY_REGULAR);
 	}
 
 	@Inject(

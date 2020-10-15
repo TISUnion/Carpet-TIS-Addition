@@ -59,8 +59,11 @@ public class BlockStateChangeEvent extends BaseEvent
 		}
 		else
 		{
-			list.add(Util.getFancyText("w", Messenger.s(" BlockState Change"), changesText, null));
-			list.add(String.format("%s  %s", MicroTickUtil.getBooleanColor(returnValue), returnValue ? "Succeed" : "Failed"));
+			list.add(Util.getFancyText("w", Messenger.s(" " + this.tr("BlockState Change")), changesText, null));
+		}
+		if (this.returnValue != null)
+		{
+			list.add(MicroTickUtil.getSuccessText(this.returnValue));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}

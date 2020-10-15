@@ -31,7 +31,7 @@ public abstract class MinecraftServerMixin
 	private void onStagePlayerAction(CallbackInfo ci)
 	{
 		MicroTickLoggerManager.setTickStage("PlayerAction");
-		MicroTickLoggerManager.setTickStageExtra(new StringTickStage("SyncTasks including player actions"));
+		MicroTickLoggerManager.setTickStageExtra(StringTickStage.SYNC_TASKS);
 	}
 
 	@Inject(

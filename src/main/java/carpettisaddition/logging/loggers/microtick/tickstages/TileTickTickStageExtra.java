@@ -1,13 +1,17 @@
 package carpettisaddition.logging.loggers.microtick.tickstages;
 
 import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
+
+import java.util.List;
 
 public class TileTickTickStageExtra implements ToTextAble
 {
@@ -26,20 +30,16 @@ public class TileTickTickStageExtra implements ToTextAble
 		BlockPos pos = this.nextTickListEntry.pos;
 		TickPriority priority = this.nextTickListEntry.priority;
 		Object target = this.nextTickListEntry.getObject();
-		BaseText text = Messenger.c(
-				String.format("w Order: %d\n", this.order),
-				String.format("w Priority: %d (%s)\n", priority.getIndex(), priority),
-				String.format("w Position: [%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ())
-		);
+		List<Object> list = Lists.newArrayList();
 		if (target instanceof Block)
 		{
-			text = Messenger.c(
-					"w Block: ",
-					MicroTickUtil.getTranslatedName((Block)target),
-					"w \n",
-					text
-			);
+			list.add(String.format("w %s: ", MicroTickLoggerManager.tr("Block")));
+			list.add(MicroTickUtil.getTranslatedName((Block)target));
+			list.add("w \n");
 		}
-		return text;
+		list.add(String.format("w %s: %d\n", MicroTickLoggerManager.tr("Order"), this.order));
+		list.add(String.format("w %s: %d (%s)\n", MicroTickLoggerManager.tr("Priority"), priority.getIndex(), priority));
+		list.add(String.format("w %s: [%d, %d, %d]", MicroTickLoggerManager.tr("Position"), pos.getX(), pos.getY(), pos.getZ()));
+		return Messenger.c(list.toArray(new Object[0]));
 	}
 }

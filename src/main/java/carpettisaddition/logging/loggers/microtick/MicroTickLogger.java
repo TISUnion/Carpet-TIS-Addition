@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class MicroTickLogger extends TranslatableLogger
 {
@@ -64,15 +65,15 @@ public class MicroTickLogger extends TranslatableLogger
 	
 	public void setTickStage(String stage)
 	{
-		this.stage = stage;
+		this.stage = this.tr("stage." + stage, stage);
 	}
 	public String getTickStage()
 	{
 		return this.stage;
 	}
-	public void setTickStageDetail(String stage)
+	public void setTickStageDetail(String stageDetail)
 	{
-		this.stageDetail = stage;
+		this.stageDetail = this.tr("stage_detail." + stageDetail, stageDetail);
 	}
 	public String getTickStageDetail()
 	{
@@ -93,7 +94,7 @@ public class MicroTickLogger extends TranslatableLogger
 	 * --------------
 	 */
 
-	public void onBlockUpdate(World world, BlockPos pos, Block fromBlock, BlockUpdateType updateType, String updateTypeExtra, EventType eventType)
+	public void onBlockUpdate(World world, BlockPos pos, Block fromBlock, BlockUpdateType updateType, Supplier<String> updateTypeExtra, EventType eventType)
 	{
 		for (Direction facing: DIRECTION_VALUES)
 		{
@@ -104,7 +105,7 @@ public class MicroTickLogger extends TranslatableLogger
 				DyeColor color = MicroTickUtil.getWoolColor(world, blockEndRodPos);
 				if (color != null)
 				{
-					this.addMessage(color, pos, world, new DetectBlockUpdateEvent(eventType, fromBlock, updateType, updateTypeExtra));
+					this.addMessage(color, pos, world, new DetectBlockUpdateEvent(eventType, fromBlock, updateType, updateTypeExtra.get()));
 					break;
 				}
 			}
@@ -236,7 +237,7 @@ public class MicroTickLogger extends TranslatableLogger
 		Set<MicroTickMessage> messageHashSet = Sets.newHashSet();
 		msg.add(Messenger.s(" "));
 		msg.add(Messenger.c(
-				"f [GameTime ",
+				String.format("f [%s ", this.tr("GameTime")),
 				"g " + this.world.getTime(),
 				"f  @ ",
 				this.dimensionDisplayTextGray,
