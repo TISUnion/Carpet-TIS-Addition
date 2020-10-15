@@ -15,7 +15,7 @@ import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class InfoCommand extends TranslatableCommand
+public class InfoCommand extends BaseCommand
 {
 	public static InfoCommand inst = new InfoCommand();
 

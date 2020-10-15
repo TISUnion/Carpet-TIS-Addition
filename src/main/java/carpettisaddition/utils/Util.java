@@ -3,8 +3,12 @@ package carpettisaddition.utils;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionServer;
+import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
-import net.minecraft.text.*;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -12,11 +16,19 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
 import java.util.Objects;
+import java.util.Map;
 
 
 public class Util
 {
 	private static final String teleportHint = Translations.tr("util.teleport_hint", "Click to teleport to");
+	private static final Map<DimensionType, BaseText> DIMENSION_NAME = Maps.newHashMap();
+	static
+	{
+		DIMENSION_NAME.put(DimensionType.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"));
+		DIMENSION_NAME.put(DimensionType.THE_NETHER, new TranslatableText("advancements.nether.root.title"));
+		DIMENSION_NAME.put(DimensionType.THE_END, new TranslatableText("advancements.end.root.title"));
+	}
 
 	public static String getTeleportCommand(Vec3d pos, RegistryKey<World> dim)
 	{
@@ -32,17 +44,23 @@ public class Util
 		return String.format("/execute at %1$s run tp %1$s", uuid);
 	}
 
-	private static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
+	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
 	{
 		BaseText text = (BaseText)displayText.copy();
-		text.setStyle(Messenger.parseStyle(style));
+		if (style != null)
+		{
+			text.setStyle(Messenger.parseStyle(style));
+		}
 		text.setStyle(text.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText)));
-		text.setStyle(text.getStyle().withClickEvent(clickEvent));
+		if (clickEvent != null)
+		{
+			text.setStyle(text.getStyle().withClickEvent(clickEvent));
+		}
 		return text;
 	}
 	private static BaseText __getCoordinateText(String style, RegistryKey<World> dim, String posText, String command)
 	{
-		LiteralText hoverText = new LiteralText("");
+		BaseText hoverText = Messenger.s("");
 		hoverText.append(String.format("%s %s\n", teleportHint, posText));
 		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
 		hoverText.append(getDimensionNameText(dim));
@@ -67,19 +85,7 @@ public class Util
 
 	public static BaseText getDimensionNameText(RegistryKey<World> dim)
 	{
-		if (dim == World.OVERWORLD)
-		{
-			return getTranslatedName("createWorld.customize.preset.overworld");
-		}
-		else if (dim == World.NETHER)
-		{
-			return getTranslatedName("advancements.nether.root.title");
-		}
-		else if (dim == World.END)
-		{
-			return getTranslatedName("advancements.end.root.title");
-		}
-		return null;
+		return (BaseText)DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())).deepCopy();
 	}
 
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)
@@ -104,5 +110,16 @@ public class Util
 	public static String ratePerHour(int rate, long ticks)
 	{
 		return String.format("%d, (%.1f/h)", rate, (double)rate / ticks * (20 * 60 * 60));
+	}
+
+	// some language doesn't use space char to divide word
+	// so here comes the compatibility
+	public static String getSpace()
+	{
+		return Translations.tr("language_tool.space", " ");
+	}
+	public static BaseText getSpaceText()
+	{
+		return Messenger.s(getSpace());
 	}
 }

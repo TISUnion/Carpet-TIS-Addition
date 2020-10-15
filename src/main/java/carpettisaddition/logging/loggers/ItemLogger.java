@@ -1,29 +1,40 @@
-package carpettisaddition.logging.logHelpers;
+package carpettisaddition.logging.loggers;
 
 import carpet.utils.Messenger;
+import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.utils.Util;
-import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
 
 
-public class ItemLogHelper extends EntityLogHelper<ItemEntity>
+public class ItemLogger extends EntityLogger<ItemEntity>
 {
-	public static ItemLogHelper inst = new ItemLogHelper();
+	private static final ItemLogger instance = new ItemLogger();
 
-	public ItemLogHelper()
+	public ItemLogger()
 	{
 		super("item");
 	}
 
+	public static ItemLogger getInstance()
+	{
+		return instance;
+	}
+
 	public static void onItemDie(ItemEntity item, DamageSource source, float amount)
 	{
-		inst.__onEntityDie(item, source, amount);
+		if (ExtensionLoggerRegistry.__item)
+		{
+			instance.__onEntityDie(item, source, amount);
+		}
 	}
 	public static void onItemDespawn(ItemEntity item)
 	{
-		inst.__onEntityDespawn(item);
+		if (ExtensionLoggerRegistry.__item)
+		{
+			instance.__onEntityDespawn(item);
+		}
 	}
 
 	@Override

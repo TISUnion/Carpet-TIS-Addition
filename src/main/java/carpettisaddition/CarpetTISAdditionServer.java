@@ -6,6 +6,8 @@ import carpettisaddition.commands.InfoCommand;
 import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
+import carpettisaddition.logging.loggers.microtick.utils.StackTraceDeobfuscator;
 import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -19,12 +21,13 @@ import java.util.Map;
 
 public class CarpetTISAdditionServer implements CarpetExtension
 {
+    public static final CarpetTISAdditionServer instance = new CarpetTISAdditionServer();
     public static final String name = "carpet-tis-addition";
     public static final String fancyName = "Carpet TIS Addition";
     public static final String compactName = name.replace("-","");  // carpettisaddition
     // should be the same as the version in gradlew.properties
     // "undefined" will be replaced with build number during github action
-    public static final String version = "1.1.0+build.undefined";
+    public static final String version = "1.2.0+build.undefined";
     public static final Logger LOGGER = LogManager.getLogger();
     public static MinecraftServer minecraft_server;
 
@@ -38,7 +41,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
 
     static
     {
-        CarpetServer.manageExtension(new CarpetTISAdditionServer());
+        CarpetServer.manageExtension(instance);
+        StackTraceDeobfuscator.loadMappings();
     }
 
     @Override
@@ -63,10 +67,17 @@ public class CarpetTISAdditionServer implements CarpetExtension
         minecraft_server = server;
     }
 
+    // carpet has issue (bug) to call onServerLoadedWorlds in IntegratedServer, so just do it myself to make sure it works properly
+    public void onServerLoadedWorldsCTA(MinecraftServer server)
+    {
+        MicroTickLoggerManager.attachServer(server);
+    }
+
     @Override
     public void onServerClosed(MinecraftServer server)
     {
         RaidTracker.stop();
+        MicroTickLoggerManager.detachServer();
     }
 
     @Override
