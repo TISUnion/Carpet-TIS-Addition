@@ -354,9 +354,6 @@ If [lithium mod](https://github.com/jellysquid3/lithium-fabric) is installed, si
 
 # Loggers
 
-
-**DO NOT works in 1.14.4 version due to carpet not supported loggers from extensions**
-
 ## ticket
 
 `/log ticket <types>`
