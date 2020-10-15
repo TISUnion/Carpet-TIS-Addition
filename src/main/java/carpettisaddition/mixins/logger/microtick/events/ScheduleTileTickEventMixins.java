@@ -3,18 +3,21 @@ package carpettisaddition.mixins.logger.microtick.events;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.CollisionView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Random;
@@ -47,14 +50,14 @@ public abstract class ScheduleTileTickEventMixins
 		@Shadow protected abstract int getUpdateDelayInternal(BlockState state);
 
 		@Inject(
-				method = "scheduledTick",
+				method = "onScheduledTick",
 				at = @At(
 						value = "INVOKE",
 						shift = At.Shift.AFTER,
 						target = "Lnet/minecraft/server/world/ServerTickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;ILnet/minecraft/world/TickPriority;)V"
 				)
 		)
-		private void onScheduleTileTickEvent(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci)
+		private void onScheduleTileTickEvent(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci)
 		{
 			MicroTickLoggerManager.onScheduleTileTickEvent(world, (AbstractRedstoneGateBlock)(Object)this, pos, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
 		}
@@ -91,14 +94,14 @@ public abstract class ScheduleTileTickEventMixins
 	public static abstract class ObserverBlockMixin
 	{
 		@Inject(
-				method = "scheduledTick(Lnet/minecraft/block/BlockState;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V",
+				method = "onScheduledTick",
 				at = @At(
 						value = "INVOKE",
 						shift = At.Shift.AFTER,
 						target = "Lnet/minecraft/server/world/ServerTickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"
 				)
 		)
-		private void onScheduleTileTickEvent(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci)
+		private void onScheduleTileTickEvent(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci)
 		{
 			MicroTickLoggerManager.onScheduleTileTickEvent(world, (ObserverBlock)(Object)this, pos, 2);
 		}
@@ -120,7 +123,7 @@ public abstract class ScheduleTileTickEventMixins
 	@Mixin(RedstoneTorchBlock.class)
 	public static abstract class RedstoneTorchBlockMixin
 	{
-		@Shadow public abstract int getTickRate(WorldView worldView);
+		@Shadow public abstract int getTickRate(CollisionView world);
 
 		@Inject(
 				method = "update",
@@ -152,10 +155,10 @@ public abstract class ScheduleTileTickEventMixins
 	@Mixin(AbstractButtonBlock.class)
 	public static abstract class AbstractButtonBlockMixin
 	{
-		@Shadow public abstract int getTickRate(WorldView worldView);
+		@Shadow public abstract int getTickRate(CollisionView world);
 
 		@Inject(
-				method = {"method_21845", "tryPowerWithProjectiles"},
+				method = "tryPowerWithProjectiles",
 				at = @At(
 						value = "INVOKE",
 						shift = At.Shift.AFTER,
@@ -166,12 +169,24 @@ public abstract class ScheduleTileTickEventMixins
 		{
 			MicroTickLoggerManager.onScheduleTileTickEvent(world, (AbstractButtonBlock)(Object)this, pos, this.getTickRate(world));
 		}
+		@Inject(
+				method = "activate",
+				at = @At(
+						value = "INVOKE",
+						shift = At.Shift.AFTER,
+						target = "Lnet/minecraft/world/TickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"
+				)
+		)
+		private void onScheduleTileTickEvent(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<Boolean> cir)
+		{
+			MicroTickLoggerManager.onScheduleTileTickEvent(world, (AbstractButtonBlock)(Object)this, pos, this.getTickRate(world));
+		}
 	}
 
 	@Mixin(AbstractPressurePlateBlock.class)
 	public static abstract class AbstractPressurePlateBlockMixin
 	{
-		@Shadow public abstract int getTickRate(WorldView worldView);
+		@Shadow public abstract int getTickRate(CollisionView world);
 
 		@Inject(
 				method = "updatePlateState",
