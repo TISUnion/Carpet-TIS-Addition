@@ -47,14 +47,13 @@ public class Util
 		BaseText text = (BaseText)displayText.deepCopy();
 		if (style != null)
 		{
-			text.setStyle(Messenger.c(style + "  ").getStyle());
+			text.setStyle(Messenger.c(style + "  ").getStyle().deepCopy());
 		}
 		text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
 		if (clickEvent != null)
 		{
 			text.getStyle().setClickEvent(clickEvent);
 		}
-		System.err.println(text);
 		return text;
 	}
 	private static BaseText __getCoordinateText(String style, Dimension dim, String posText, String command)
