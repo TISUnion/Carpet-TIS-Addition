@@ -23,8 +23,6 @@ import java.util.Optional;
 
 public class MicroTickLoggerManager
 {
-    public static final String ON_SCHEDULE_TILE_TICK_EVENT_MAIN_MIXIN = "ServerTickSchedulerMixin";
-    public static final String ON_SCHEDULE_TILE_TICK_EVENT_BACKUP_MIXIN = "ScheduleTileTickEventMixins";
     private static MicroTickLoggerManager instance;
 
     private final Map<World, MicroTickLogger> loggers = new Reference2ObjectArrayMap<>();

@@ -1,7 +1,8 @@
 package carpettisaddition;
 
-import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import net.fabricmc.loader.api.FabricLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -11,7 +12,10 @@ import java.util.Set;
 
 public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 {
+	private final Logger LOGGER = LogManager.getLogger();
 	private static final String LITHIUM_MOD_ID = "lithium";
+	public static final String ON_SCHEDULE_TILE_TICK_EVENT_MAIN_MIXIN = "ServerTickSchedulerMixin";
+	public static final String ON_SCHEDULE_TILE_TICK_EVENT_BACKUP_MIXIN = "ScheduleTileTickEventMixins";
 
 	@Override
 	public void onLoad(String mixinPackage)
@@ -29,16 +33,16 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName)
 	{
 		boolean isLithiumLoaded = FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
-		if (mixinClassName.contains(MicroTickLoggerManager.ON_SCHEDULE_TILE_TICK_EVENT_BACKUP_MIXIN))
+		if (mixinClassName.contains(ON_SCHEDULE_TILE_TICK_EVENT_BACKUP_MIXIN))
 		{
 			return isLithiumLoaded;
 		}
-		if (mixinClassName.contains(MicroTickLoggerManager.ON_SCHEDULE_TILE_TICK_EVENT_MAIN_MIXIN))
+		if (mixinClassName.contains(ON_SCHEDULE_TILE_TICK_EVENT_MAIN_MIXIN))
 		{
 			if (isLithiumLoaded)
 			{
-				CarpetTISAdditionServer.LOGGER.info("Detected Lithium mod, loading backup mixin for onScheduleTileTick event");
-				CarpetTISAdditionServer.LOGGER.info("ScheduleTileTick events might not be fully listened");
+				LOGGER.info("Detected Lithium mod, loading backup mixin for onScheduleTileTick event");
+				LOGGER.info("ScheduleTileTick events might not be fully listened");
 				return false;
 			}
 			else
