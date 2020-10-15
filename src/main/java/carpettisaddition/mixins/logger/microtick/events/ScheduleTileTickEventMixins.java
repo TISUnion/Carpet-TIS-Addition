@@ -6,10 +6,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -104,33 +103,34 @@ public abstract class ScheduleTileTickEventMixins
 		}
 
 		@Inject(
-				method = "scheduleTick(Lnet/minecraft/world/IWorld;Lnet/minecraft/util/math/BlockPos;)V",
+				method = "Lnet/minecraft/block/ObserverBlock;scheduleTick(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;)V",
 				at = @At(
 						value = "INVOKE",
 						shift = At.Shift.AFTER,
 						target = "Lnet/minecraft/world/TickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"
 				)
 		)
-		private void onScheduleTileTickEvent(IWorld world, BlockPos pos, CallbackInfo ci)
+		private void onScheduleTileTickEvent(WorldAccess worldAccess, BlockPos pos, CallbackInfo ci)
 		{
-			MicroTickLoggerManager.onScheduleTileTickEvent(world.getWorld(), (ObserverBlock)(Object)this, pos, 2);
+			if (worldAccess instanceof World)
+			{
+				MicroTickLoggerManager.onScheduleTileTickEvent((World)worldAccess, (ObserverBlock) (Object) this, pos, 2);
+			}
 		}
 	}
 
 	@Mixin(RedstoneTorchBlock.class)
 	public static abstract class RedstoneTorchBlockMixin
 	{
-		@Shadow public abstract int getTickRate(WorldView worldView);
-
 		@Inject(
-				method = "update",
+				method = "scheduledTick",
 				at = @At(
 						value = "INVOKE",
 						shift = At.Shift.AFTER,
-						target = "Lnet/minecraft/world/TickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"
+						target = "Lnet/minecraft/server/world/ServerTickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"
 				)
 		)
-		private static void onScheduleTileTickEvent(BlockState state, World world, BlockPos pos, Random random, boolean unpower, CallbackInfo ci)
+		private void onScheduleTileTickEvent(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci)
 		{
 			MicroTickLoggerManager.onScheduleTileTickEvent(world, world.getBlockState(pos).getBlock(), pos, 160);
 		}
@@ -145,17 +145,17 @@ public abstract class ScheduleTileTickEventMixins
 		)
 		private void onScheduleTileTickEvent(BlockState state, World world, BlockPos pos, Block block, BlockPos neighborPos, boolean moved, CallbackInfo ci)
 		{
-			MicroTickLoggerManager.onScheduleTileTickEvent(world, (RedstoneTorchBlock)(Object)this, pos, this.getTickRate(world));
+			MicroTickLoggerManager.onScheduleTileTickEvent(world, (RedstoneTorchBlock)(Object)this, pos, 2);
 		}
 	}
 
 	@Mixin(AbstractButtonBlock.class)
 	public static abstract class AbstractButtonBlockMixin
 	{
-		@Shadow public abstract int getTickRate(WorldView worldView);
+		@Shadow protected abstract int getPressTicks();
 
 		@Inject(
-				method = {"method_21845", "tryPowerWithProjectiles"},
+				method = {"powerOn", "tryPowerWithProjectiles"},
 				at = @At(
 						value = "INVOKE",
 						shift = At.Shift.AFTER,
@@ -164,14 +164,14 @@ public abstract class ScheduleTileTickEventMixins
 		)
 		private void onScheduleTileTickEvent(BlockState state, World world, BlockPos pos, CallbackInfo ci)
 		{
-			MicroTickLoggerManager.onScheduleTileTickEvent(world, (AbstractButtonBlock)(Object)this, pos, this.getTickRate(world));
+			MicroTickLoggerManager.onScheduleTileTickEvent(world, (AbstractButtonBlock)(Object)this, pos, this.getPressTicks());
 		}
 	}
 
 	@Mixin(AbstractPressurePlateBlock.class)
 	public static abstract class AbstractPressurePlateBlockMixin
 	{
-		@Shadow public abstract int getTickRate(WorldView worldView);
+		@Shadow protected abstract int getTickRate();
 
 		@Inject(
 				method = "updatePlateState",
@@ -183,7 +183,7 @@ public abstract class ScheduleTileTickEventMixins
 		)
 		private void onScheduleTileTickEvent(World world, BlockPos pos, BlockState blockState, int rsOut, CallbackInfo ci)
 		{
-			MicroTickLoggerManager.onScheduleTileTickEvent(world, (AbstractPressurePlateBlock)(Object)this, pos, this.getTickRate(world));
+			MicroTickLoggerManager.onScheduleTileTickEvent(world, (AbstractPressurePlateBlock)(Object)this, pos, this.getTickRate());
 		}
 	}
 
@@ -205,7 +205,7 @@ public abstract class ScheduleTileTickEventMixins
 		)
 		private void onScheduleTileTickEvent(World world, BlockPos pos, BlockState state, boolean beingRemoved, boolean bl, int i, BlockState blockState, CallbackInfo ci)
 		{
-			MicroTickLoggerManager.onScheduleTileTickEvent(world, (TripwireHookBlock)(Object)this, pos, this.getTickRate(world));
+			MicroTickLoggerManager.onScheduleTileTickEvent(world, (TripwireHookBlock)(Object)this, pos, 10);
 		}
 	}
 }

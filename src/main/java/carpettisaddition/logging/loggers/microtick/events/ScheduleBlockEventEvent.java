@@ -3,16 +3,16 @@ package carpettisaddition.logging.loggers.microtick.events;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.utils.Util;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.text.BaseText;
 
 import java.util.Objects;
 
 public class ScheduleBlockEventEvent extends BaseEvent
 {
-	private final BlockAction blockAction;
+	private final BlockEvent blockAction;
 
-	public ScheduleBlockEventEvent(BlockAction blockAction)
+	public ScheduleBlockEventEvent(BlockEvent blockAction)
 	{
 		super(EventType.EVENT, "schedule_block_event");
 		this.blockAction = blockAction;

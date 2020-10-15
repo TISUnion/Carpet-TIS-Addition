@@ -2,11 +2,10 @@ package carpettisaddition.mixins.logger.microtick.tickstages;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.tickstages.BlockEventTickStageExtra;
-import carpettisaddition.logging.loggers.microtick.tickstages.StringTickStage;
 import carpettisaddition.logging.loggers.microtick.tickstages.TileTickTickStageExtra;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.ScheduledTick;
 import org.spongepowered.asm.mixin.Final;
@@ -21,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
+
+	@Shadow @Final private ObjectLinkedOpenHashSet<BlockEvent> syncedBlockEventQueue;
 
 	@Inject(
 			method = "tick",
@@ -90,24 +91,12 @@ public abstract class ServerWorldMixin
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/raid/RaidManager;tick()V"
+					target = "Lnet/minecraft/village/raid/RaidManager;tick()V"
 			)
 	)
 	private void onStageRaid(CallbackInfo ci)
 	{
 		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "Raid");
-	}
-
-	@Inject(
-			method = "tick",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/world/WanderingTraderManager;tick()V"
-			)
-	)
-	void onStageWanderingTrader(CallbackInfo ci)
-	{
-		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "WanderingTrader");
 	}
 
 	/*
@@ -117,7 +106,7 @@ public abstract class ServerWorldMixin
 	 */
 
 	@Inject(
-			method = "sendBlockActions",
+			method = "processSyncedBlockEvents",
 			at = @At("HEAD")
 	)
 	private void onStageBlockEvent(CallbackInfo ci)
@@ -125,17 +114,13 @@ public abstract class ServerWorldMixin
 		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "BlockEvent");
 	}
 
-	@Shadow
-	@Final
-	private ObjectLinkedOpenHashSet<BlockAction> pendingBlockActions;
-
 	private int blockEventOrderCounter;
 	private int blockEventDepth;
 	private int blockEventCurrentDepthCounter;
 	private int blockEventCurrentDepthSize;
 
 	@Inject(
-			method = "sendBlockActions",
+			method = "processSyncedBlockEvents",
 			at = @At("HEAD")
 	)
 	private void onEnterBlockEventStage(CallbackInfo ci)
@@ -143,18 +128,18 @@ public abstract class ServerWorldMixin
 		this.blockEventOrderCounter = 0;
 		this.blockEventCurrentDepthCounter = 0;
 		this.blockEventDepth = 0;
-		this.blockEventCurrentDepthSize = this.pendingBlockActions.size();
+		this.blockEventCurrentDepthSize = this.syncedBlockEventQueue.size();
 	}
 
-	@Inject(method = "method_14174", at = @At("HEAD"))
-	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "processBlockEvent", at = @At("HEAD"))
+	private void beforeBlockEventExecuted(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTickLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(this.blockEventDepth));
 		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new BlockEventTickStageExtra((ServerWorld)(Object)this, blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
 	}
 
-	@Inject(method = "method_14174", at = @At("RETURN"))
-	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "processBlockEvent", at = @At("RETURN"))
+	private void afterBlockEventExecuted(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTickLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
 		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, null);
@@ -162,7 +147,7 @@ public abstract class ServerWorldMixin
 		if (this.blockEventCurrentDepthCounter == this.blockEventCurrentDepthSize)
 		{
 			this.blockEventDepth++;
-			this.blockEventCurrentDepthSize = this.pendingBlockActions.size();
+			this.blockEventCurrentDepthSize = this.syncedBlockEventQueue.size();
 			this.blockEventCurrentDepthCounter = 0;
 		}
 	}
@@ -180,22 +165,9 @@ public abstract class ServerWorldMixin
 					args = "stringValue=entities"
 			)
 	)
-	private void onStageEntitiesWeather(CallbackInfo ci)
+	private void onStageEntities(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "Entity");
-		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStage.ENTITY_WEATHER_EFFECT);
-	}
-
-	@Inject(
-			method = "tick",
-			at = @At(
-					value = "CONSTANT",
-					args = "stringValue=regular"
-			)
-	)
-	private void onStageEntitiesRegular(CallbackInfo ci)
-	{
-		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStage.ENTITY_REGULAR);
+		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "Entity");;
 	}
 
 	@Inject(

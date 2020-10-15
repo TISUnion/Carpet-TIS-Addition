@@ -4,7 +4,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.utils.Util;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.BlockPos;
@@ -13,11 +13,11 @@ import net.minecraft.world.World;
 public class BlockEventTickStageExtra extends TickStageExtraBase
 {
 	private final World world;
-	private final BlockAction blockEventData;
+	private final BlockEvent blockEventData;
 	private final int order;
 	private final int depth;
 
-	public BlockEventTickStageExtra(World world, BlockAction blockEventData, int order, int depth)
+	public BlockEventTickStageExtra(World world, BlockEvent blockEventData, int order, int depth)
 	{
 		this.world = world;
 		this.blockEventData = blockEventData;
@@ -41,6 +41,6 @@ public class BlockEventTickStageExtra extends TickStageExtraBase
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, Util.getTeleportCommand(this.blockEventData.getPos(), this.world.getDimension().getType()));
+		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, Util.getTeleportCommand(this.blockEventData.getPos(), this.world.getRegistryKey()));
 	}
 }

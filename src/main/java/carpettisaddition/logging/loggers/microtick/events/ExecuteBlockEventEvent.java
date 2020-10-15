@@ -7,7 +7,7 @@ import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.PistonBlock;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.Direction;
 
@@ -16,17 +16,17 @@ import java.util.Objects;
 
 public class ExecuteBlockEventEvent extends BaseEvent
 {
-	private final BlockAction blockAction;
+	private final BlockEvent blockAction;
 	private Boolean returnValue;
 
-	public ExecuteBlockEventEvent(EventType eventType, BlockAction blockAction, Boolean returnValue)
+	public ExecuteBlockEventEvent(EventType eventType, BlockEvent blockAction, Boolean returnValue)
 	{
 		super(eventType, "execute_block_event");
 		this.blockAction = blockAction;
 		this.returnValue = returnValue;
 	}
 
-	public static String getMessageExtraMessengerHoverText(BlockAction blockAction)
+	public static String getMessageExtraMessengerHoverText(BlockEvent blockAction)
 	{
 		int eventID = blockAction.getType();
 		int eventParam = blockAction.getData();

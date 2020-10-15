@@ -15,7 +15,8 @@ import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,7 +41,7 @@ public class MicroTickMessage
 		}
 	}
 
-	private final DimensionType dimensionType;
+	private final RegistryKey<World> dimensionType;
 	private final BlockPos pos;
 	private final DyeColor color;
 	private final String stage, stageDetail;
@@ -48,7 +49,7 @@ public class MicroTickMessage
 	private final StackTraceElement[] stackTrace;
 	private final BaseEvent event;
 
-	public MicroTickMessage(DimensionType dimensionType, BlockPos pos, DyeColor color, BaseEvent event, String stage, String stageDetail, TickStageExtraBase stageExtra, StackTraceElement[] stackTrace)
+	public MicroTickMessage(RegistryKey<World> dimensionType, BlockPos pos, DyeColor color, BaseEvent event, String stage, String stageDetail, TickStageExtraBase stageExtra, StackTraceElement[] stackTrace)
 	{
 		this.dimensionType = dimensionType;
 		this.pos = pos.toImmutable();
@@ -59,7 +60,7 @@ public class MicroTickMessage
 		this.stageExtra = stageExtra;
 		this.stackTrace = stackTrace;
 	}
-	public MicroTickMessage(MicroTickLogger logger, DimensionType dimensionType, BlockPos pos, DyeColor color, BaseEvent event)
+	public MicroTickMessage(MicroTickLogger logger, RegistryKey<World> dimensionType, BlockPos pos, DyeColor color, BaseEvent event)
 	{
 		this(dimensionType, pos, color, event, logger.getTickStage(), logger.getTickStageDetail(), logger.getTickStageExtra(), StackTraceDeobfuscator.deobfuscateStackTrace((new Exception(logger.getClass().getName())).getStackTrace()));
 	}

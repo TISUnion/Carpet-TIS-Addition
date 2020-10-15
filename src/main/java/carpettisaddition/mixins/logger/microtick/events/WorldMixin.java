@@ -32,19 +32,19 @@ public abstract class WorldMixin
 
 	private final ThreadLocal<Deque<BlockState>> previousBlockState = ThreadLocal.withInitial(ArrayDeque::new);
 
-	@Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At("HEAD"))
-	void startSetBlockState(BlockPos pos, BlockState newState, int flags, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z", at = @At("HEAD"))
+	void startSetBlockState(BlockPos pos, BlockState newState, int flags, int maxUpdateDepth, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (MicroTickLoggerManager.isLoggerActivated())
 		{
 			BlockState oldState = this.getBlockState(pos);
 			this.previousBlockState.get().push(oldState);
-			MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, oldState, newState, cir.getReturnValue(), EventType.ACTION_START);
+			MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, oldState, newState, null, EventType.ACTION_START);
 		}
 	}
 
-	@Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At("RETURN"))
-	void endSetBlockState(BlockPos pos, BlockState newState, int flags, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z", at = @At("RETURN"))
+	void endSetBlockState(BlockPos pos, BlockState newState, int flags, int maxUpdateDepth, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (MicroTickLoggerManager.isLoggerActivated() && !this.previousBlockState.get().isEmpty())
 		{
@@ -54,7 +54,7 @@ public abstract class WorldMixin
 	}
 
 	// To avoid leaking memory after update suppression or whatever thing
-	@Inject(method = "tickTime", at = @At("HEAD"))
+	@Inject(method = "tickBlockEntities", at = @At("HEAD"))
 	void cleanStack(CallbackInfo ci)
 	{
 		this.previousBlockState.get().clear();

@@ -20,8 +20,8 @@ public abstract class ServerChunkManagerMixin
 	@Inject(
 			method = "method_20801",  // lambda method
 			at = @At(
-					value = "CONSTANT",
-					args = "stringValue=spawner"
+					value = "INVOKE",
+					args = "Lnet/minecraft/server/world/ThreadedAnvilChunkStorage;isTooFarFromPlayersToSpawnMobs(Lnet/minecraft/util/math/ChunkPos;)Z"
 			)
 	)
 	private void onStageSpawn(CallbackInfo ci)
@@ -32,7 +32,7 @@ public abstract class ServerChunkManagerMixin
 			method = "tickChunks",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/gen/chunk/ChunkGenerator;spawnEntities(Lnet/minecraft/server/world/ServerWorld;ZZ)V"
+					target = "Lnet/minecraft/server/world/ServerWorld;tickSpawners(ZZ)V"
 			)
 	)
 	private void onStageSpawnSpecial(CallbackInfo ci)

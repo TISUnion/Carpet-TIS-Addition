@@ -3,7 +3,7 @@ package carpettisaddition.mixins.logger.microtick.events;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import net.minecraft.block.Block;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ScheduledTick;
@@ -43,20 +43,20 @@ public abstract class ServerWorldMixin
 	 * -------------
 	 */
 
-	@Inject(method = "addBlockAction", at = @At("HEAD"))
+	@Inject(method = "addSyncedBlockEvent", at = @At("HEAD"))
 	private void onScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data));
+		MicroTickLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockEvent(pos, block, type, data));
 	}
 
-	@Inject(method = "method_14174", at = @At(value = "HEAD", shift = At.Shift.AFTER))
-	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "processBlockEvent", at = @At(value = "HEAD", shift = At.Shift.AFTER))
+	private void beforeBlockEventExecuted(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, EventType.ACTION_START);
 	}
 
-	@Inject(method = "method_14174", at = @At("RETURN"))
-	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "processBlockEvent", at = @At("RETURN"))
+	private void afterBlockEventExecuted(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), EventType.ACTION_END);
 	}

@@ -20,7 +20,7 @@ import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PistonBlock;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.BaseText;
@@ -55,8 +55,8 @@ public class MicroTickLogger extends BaseLogger
 		this.world = world;
 		if (world != null)
 		{
-			this.dimensionDisplayTextGray = Util.getDimensionNameText(this.world.getDimension().getType());
-			this.dimensionDisplayTextGray.getStyle().setColor(Formatting.GRAY);
+			this.dimensionDisplayTextGray = Util.getDimensionNameText(this.world.getRegistryKey());
+			this.dimensionDisplayTextGray.setStyle(this.dimensionDisplayTextGray.getStyle().withColor(Formatting.GRAY));
 		}
 		else
 		{
@@ -160,7 +160,7 @@ public class MicroTickLogger extends BaseLogger
 	 * -------------
 	 */
 
-	public void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, EventType eventType)
+	public void onExecuteBlockEvent(World world, BlockEvent blockAction, Boolean returnValue, EventType eventType)
 	{
 		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndRodWoolColor(world, blockAction.getPos());
 		if (color.isPresent())
@@ -181,7 +181,7 @@ public class MicroTickLogger extends BaseLogger
 		}
 	}
 
-	public void onScheduleBlockEvent(World world, BlockAction blockAction)
+	public void onScheduleBlockEvent(World world, BlockEvent blockAction)
 	{
 		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndRodWoolColor(world, blockAction.getPos());
 		color.ifPresent(dyeColor -> this.addMessage(dyeColor, blockAction.getPos(), world, new ScheduleBlockEventEvent(blockAction)));
@@ -207,7 +207,7 @@ public class MicroTickLogger extends BaseLogger
 
 	public void addMessage(DyeColor color, BlockPos pos, World world, BaseEvent event)
 	{
-		MicroTickMessage message = new MicroTickMessage(this, world.getDimension().getType(), pos, color, event);
+		MicroTickMessage message = new MicroTickMessage(this, world.getRegistryKey(), pos, color, event);
 		if (message.getEvent().getEventType() != EventType.ACTION_END)
 		{
 			this.messageList.addMessageAndIndent(message);

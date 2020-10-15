@@ -54,11 +54,11 @@ public class MicroTickUtil
 		BaseText text = Messenger.s(value.toString());
 		if (Boolean.TRUE.equals(value))
 		{
-			text.getStyle().setColor(Formatting.GREEN);
+			text.setStyle(text.getStyle().withColor(Formatting.GREEN));
 		}
 		else if (Boolean.FALSE.equals(value))
 		{
-			text.getStyle().setColor(Formatting.RED);
+			text.setStyle(text.getStyle().withColor(Formatting.RED));
 		}
 		return text;
 	}
@@ -133,7 +133,7 @@ public class MicroTickUtil
 			return Optional.empty();
 		}
 
-		return Optional.ofNullable(WoolTool.getWoolColorAtPosition(world.getWorld(), woolPos));
+		return Optional.ofNullable(WoolTool.getWoolColorAtPosition(world, woolPos));
 	}
 
 	public static Optional<DyeColor> getEndRodWoolColor(World world, BlockPos pos)
@@ -171,7 +171,7 @@ public class MicroTickUtil
 	public static BaseText getTranslatedText(Block block)
 	{
 		BaseText name = new TranslatableText(block.getTranslationKey());
-		name.getStyle().setColor(Formatting.WHITE);
+		name.setStyle(name.getStyle().withColor(Formatting.WHITE));
 		return name;
 	}
 

@@ -11,7 +11,7 @@ import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.ScheduledTick;
@@ -129,7 +129,7 @@ public class MicroTickLoggerManager
      * -------------
      */
 
-    public static void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, EventType eventType)
+    public static void onExecuteBlockEvent(World world, BlockEvent blockAction, Boolean returnValue, EventType eventType)
     {
         if (isLoggerActivated())
         {
@@ -137,7 +137,7 @@ public class MicroTickLoggerManager
         }
     }
 
-    public static void onScheduleBlockEvent(World world, BlockAction blockAction)
+    public static void onScheduleBlockEvent(World world, BlockEvent blockAction)
     {
         if (isLoggerActivated())
         {

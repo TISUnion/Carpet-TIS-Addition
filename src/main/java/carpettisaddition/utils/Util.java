@@ -15,19 +15,19 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
-import java.util.Objects;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class Util
 {
 	private static final String teleportHint = Translations.tr("util.teleport_hint", "Click to teleport to");
-	private static final Map<DimensionType, BaseText> DIMENSION_NAME = Maps.newHashMap();
+	private static final Map<RegistryKey<World>, BaseText> DIMENSION_NAME = Maps.newHashMap();
 	static
 	{
-		DIMENSION_NAME.put(DimensionType.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"));
-		DIMENSION_NAME.put(DimensionType.THE_NETHER, new TranslatableText("advancements.nether.root.title"));
-		DIMENSION_NAME.put(DimensionType.THE_END, new TranslatableText("advancements.end.root.title"));
+		DIMENSION_NAME.put(World.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"));
+		DIMENSION_NAME.put(World.NETHER, new TranslatableText("advancements.nether.root.title"));
+		DIMENSION_NAME.put(World.END, new TranslatableText("advancements.end.root.title"));
 	}
 
 	public static String getTeleportCommand(Vec3d pos, RegistryKey<World> dim)
@@ -46,7 +46,7 @@ public class Util
 
 	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
 	{
-		BaseText text = (BaseText)displayText.copy();
+		BaseText text = (BaseText)displayText.shallowCopy();
 		if (style != null)
 		{
 			text.setStyle(Messenger.parseStyle(style));
@@ -85,7 +85,7 @@ public class Util
 
 	public static BaseText getDimensionNameText(RegistryKey<World> dim)
 	{
-		return (BaseText)DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())).deepCopy();
+		return DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.getValue().toString())).copy();
 	}
 
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)
