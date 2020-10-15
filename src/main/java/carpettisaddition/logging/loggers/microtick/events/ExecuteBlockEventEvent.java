@@ -63,7 +63,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		list.add(getMessageExtraMessengerHoverText(blockAction));
 		if (returnValue != null)
 		{
-			list.add(Util.getSpaceText());
+			list.add("w  ");
 			list.add(MicroTickUtil.getSuccessText(this.returnValue));
 		}
 		return Messenger.c(list.toArray(new Object[0]));

@@ -24,6 +24,12 @@ public abstract class WorldMixin
 {
 	@Shadow public abstract BlockState getBlockState(BlockPos pos);
 
+	/*
+	 * --------------------------
+	 *  BlockState Change starts
+	 * --------------------------
+	 */
+
 	private final ThreadLocal<Deque<BlockState>> previousBlockState = ThreadLocal.withInitial(ArrayDeque::new);
 
 	@Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At("HEAD"))
@@ -46,6 +52,19 @@ public abstract class WorldMixin
 			MicroTickLoggerManager.onSetBlockState((World)(Object)this, pos, oldState, newState, cir.getReturnValue(), EventType.ACTION_END);
 		}
 	}
+
+	// To avoid leaking memory after update suppression or whatever thing
+	@Inject(method = "tickTime", at = @At("HEAD"))
+	void cleanStack(CallbackInfo ci)
+	{
+		this.previousBlockState.get().clear();
+	}
+
+	/*
+	 * ------------------------
+	 *  BlockState Change ends
+	 * ------------------------
+	 */
 
 	@Inject(method = "updateNeighborsAlways", at = @At("HEAD"))
 	private void startUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)

@@ -48,7 +48,6 @@ public class StackTraceDeobfuscator
 			return stackTraceElements;
 		}
 		List<StackTraceElement> list = Lists.newArrayList();
-		list.add(new StackTraceElement("Deobfuscated stack trace", "", MAPPING_FILE_NAME, -1));
 		for (StackTraceElement element : stackTraceElements)
 		{
 			String remappedClass = mappings.get(element.getClassName());
@@ -59,11 +58,13 @@ public class StackTraceDeobfuscator
 					remappedClass != null ? getFileName(remappedClass) : element.getFileName(),
 					element.getLineNumber()
 			);
-			if (!newElement.getClassName().startsWith(IGNORE_CLASS_PATH))
+			list.add(newElement);
+			if (newElement.getClassName().startsWith(IGNORE_CLASS_PATH))
 			{
-				list.add(newElement);
+				list.clear();
 			}
 		}
+		list.add(0, new StackTraceElement("Deobfuscated stack trace", "", MAPPING_FILE_NAME, -1));
 		return list.toArray(new StackTraceElement[0]);
 	}
 

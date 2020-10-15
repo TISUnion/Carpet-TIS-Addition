@@ -125,7 +125,7 @@ public class MicroTickMessage
 		BaseText tickStageExtraText = this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s("");
 		ClickEvent tickStageExtraClickEvent = this.stageExtra != null ? this.stageExtra.getClickEvent() : null;
 		return Messenger.c(
-				"g " + MicroTickLoggerManager.tr(" at"),
+				"g " + MicroTickLoggerManager.tr(" @"),
 				Util.getFancyText(
 						null,
 						Messenger.c(stageText.toArray(new Object[0])),

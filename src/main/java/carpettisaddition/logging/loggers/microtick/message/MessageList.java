@@ -27,14 +27,14 @@ public class MessageList
 		return this.messageTrees.isEmpty();
 	}
 
-	public List<ArrangedMessage> flush()
+	public List<IndentedMessage> flush()
 	{
 		if (this.flushed)
 		{
 			throw new IllegalStateException(this.getClass().getName() + " can only flush once");
 		}
 		this.flushed = true;
-		List<ArrangedMessage> list = Lists.newArrayList();
+		List<IndentedMessage> list = Lists.newArrayList();
 		for (MessageTreeNode tree : this.messageTrees)
 		{
 			list.addAll(tree.flush());

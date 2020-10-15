@@ -32,9 +32,7 @@ public class EmitBlockUpdateEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
-		list.add("c " + MicroTickLoggerManager.tr("Emit"));
-		list.add(Util.getSpaceText());
-		list.add("c " + this.tr("BlockUpdates"));
+		list.add("c " + this.tr("Emit Updates"));
 		if (this.methodName != null)
 		{
 			list.add(String.format("^w %s: %s", this.tr("method_name", "Method name (yarn)"), this.methodName));

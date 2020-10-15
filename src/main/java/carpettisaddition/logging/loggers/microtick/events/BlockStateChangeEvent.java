@@ -7,7 +7,6 @@ import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,35 +24,29 @@ public class BlockStateChangeEvent extends BaseEvent
 		this.returnValue = returnValue;
 	}
 
-	private BaseText getColoredValue(Object value)
-	{
-		BaseText text = Messenger.s(value.toString());
-		if (Boolean.TRUE.equals(value))
-		{
-			text.getStyle().setColor(Formatting.GREEN);
-		}
-		else if (Boolean.FALSE.equals(value))
-		{
-			text.getStyle().setColor(Formatting.RED);
-		}
-		return text;
-	}
-
 	private BaseText getChangesText(char header)
 	{
 		List<Object> changes = Lists.newArrayList();
 		boolean isFirst = true;
 		for (PropertyChanges change : this.changes)
 		{
-			if (isFirst)
+			if (!isFirst)
 			{
 				changes.add("w " + header);
 			}
 			isFirst = false;
-			changes.add(String.format("w %s: ", change.name));
-			changes.add(this.getColoredValue(change.oldValue));
-			changes.add("g ->");
-			changes.add(this.getColoredValue(change.newValue));
+			BaseText displayText = Messenger.c(
+					String.format("w %s", change.name),
+					"g =",
+					MicroTickUtil.getColoredValue(change.newValue)
+			);
+			BaseText floatText = Messenger.c(
+					String.format("w %s: ", change.name),
+					MicroTickUtil.getColoredValue(change.oldValue),
+					"g ->",
+					MicroTickUtil.getColoredValue(change.newValue)
+			);
+			changes.add(Util.getFancyText(null, displayText, floatText, null));
 		}
 		return Messenger.c(changes.toArray(new Object[0]));
 	}
@@ -63,10 +56,12 @@ public class BlockStateChangeEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
-		BaseText titleText = Messenger.c("c " + this.tr("BlockState Change"));
+		BaseText titleText = Messenger.c("c " + this.tr("State Change"));
 		if (this.getEventType() != EventType.ACTION_END)
 		{
-			list.add(Util.getFancyText(null, this.getChangesText(' '), titleText, null));
+			list.add(titleText);
+			list.add("w : ");
+			list.add(this.getChangesText(' '));
 		}
 		else
 		{
@@ -75,14 +70,15 @@ public class BlockStateChangeEvent extends BaseEvent
 					titleText,
 					Messenger.c(
 							String.format("w %s:\n", this.tr("Changed BlockStates")),
-							this.getChangesText('\n')
+							this.getChangesText('\n'),
+							"w  "
 					),
 					null
 			));
 		}
 		if (this.returnValue != null)
 		{
-			list.add(Util.getSpaceText());
+			list.add("w  ");
 			list.add(MicroTickUtil.getSuccessText(this.returnValue));
 		}
 		return Messenger.c(list.toArray(new Object[0]));

@@ -4,7 +4,7 @@ import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.TranslatableLogger;
 import carpettisaddition.logging.loggers.microtick.events.*;
-import carpettisaddition.logging.loggers.microtick.message.ArrangedMessage;
+import carpettisaddition.logging.loggers.microtick.message.IndentedMessage;
 import carpettisaddition.logging.loggers.microtick.message.MessageList;
 import carpettisaddition.logging.loggers.microtick.message.MicroTickMessage;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStageExtraBase;
@@ -16,7 +16,9 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.PistonBlock;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
@@ -24,7 +26,6 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
@@ -39,7 +40,6 @@ public class MicroTickLogger extends TranslatableLogger
 {
 	// [stage][detail]^[extra]
 
-	private static final Direction[] DIRECTION_VALUES = Direction.values();
 	private String stage;
 	private String stageDetail;
 	private TickStageExtraBase stageExtra;
@@ -96,20 +96,8 @@ public class MicroTickLogger extends TranslatableLogger
 
 	public void onBlockUpdate(World world, BlockPos pos, Block fromBlock, BlockUpdateType updateType, Supplier<String> updateTypeExtra, EventType eventType)
 	{
-		for (Direction facing: DIRECTION_VALUES)
-		{
-			BlockPos blockEndRodPos = pos.offset(facing);
-			BlockState iBlockState = world.getBlockState(blockEndRodPos);
-			if (iBlockState.getBlock() == Blocks.END_ROD && iBlockState.get(FacingBlock.FACING).getOpposite() == facing)
-			{
-				DyeColor color = MicroTickUtil.getWoolColor(world, blockEndRodPos);
-				if (color != null)
-				{
-					this.addMessage(color, pos, world, new DetectBlockUpdateEvent(eventType, fromBlock, updateType, updateTypeExtra.get()));
-					break;
-				}
-			}
-		}
+		Optional<DyeColor> color = MicroTickUtil.getEndrodWoolColor(world, pos);
+		color.ifPresent(dyeColor -> this.addMessage(dyeColor, pos, world, new DetectBlockUpdateEvent(eventType, fromBlock, updateType, updateTypeExtra.get())));
 	}
 
 	private final static List<Property<?>> INTEREST_PROPERTIES = Lists.newArrayList(Properties.POWERED, Properties.LIT);
@@ -127,11 +115,16 @@ public class MicroTickLogger extends TranslatableLogger
 			{
 				if (color == null)
 				{
-					color = MicroTickUtil.getWoolColor(world, pos);
-					if (color == null)
+					Optional<DyeColor> optionalDyeColor = MicroTickUtil.getWoolColor(world, pos);
+					if (!optionalDyeColor.isPresent())
+					{
+						optionalDyeColor = MicroTickUtil.getEndrodWoolColor(world, pos);
+					}
+					if (!optionalDyeColor.isPresent())
 					{
 						break;
 					}
+					color = optionalDyeColor.get();
 				}
 				Optional<?> oldValue = MicroTickUtil.getBlockStateProperty(oldState, property);
 				oldValue.ifPresent(ov -> event.addChanges(property.getName(), ov, newValue.get()));
@@ -151,20 +144,14 @@ public class MicroTickLogger extends TranslatableLogger
 
 	public void onExecuteTileTick(World world, ScheduledTick<Block> event, EventType eventType)
 	{
-		DyeColor color = MicroTickUtil.getWoolColor(world, event.pos);
-		if (color != null)
-		{
-			this.addMessage(color, event.pos, world, new ExecuteTileTickEvent(eventType, event));
-		}
+		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, event.pos);
+		color.ifPresent(dyeColor -> this.addMessage(dyeColor, event.pos, world, new ExecuteTileTickEvent(eventType, event)));
 	}
 
 	public void onScheduleTileTick(World world, Block block, BlockPos pos, int delay, TickPriority priority)
 	{
-		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
-		if (color != null)
-		{
-			this.addMessage(color, pos, world, new ScheduleTileTickEvent(block, pos, delay, priority));
-		}
+		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, pos);
+		color.ifPresent(dyeColor -> this.addMessage(dyeColor, pos, world, new ScheduleTileTickEvent(block, pos, delay, priority)));
 	}
 
 	/*
@@ -175,8 +162,8 @@ public class MicroTickLogger extends TranslatableLogger
 
 	public void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, EventType eventType)
 	{
-		DyeColor color = MicroTickUtil.getWoolColor(world, blockAction.getPos());
-		if (color != null)
+		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, blockAction.getPos());
+		if (color.isPresent())
 		{
 			if (blockAction.getBlock() instanceof PistonBlock)
 			{
@@ -190,17 +177,14 @@ public class MicroTickLogger extends TranslatableLogger
 					this.pistonBlockEventSuccessPosition.add(blockAction.getPos().asLong());
 				}
 			}
-			this.addMessage(color, blockAction.getPos(), world, new ExecuteBlockEventEvent(eventType, blockAction, returnValue));
+			this.addMessage(color.get(), blockAction.getPos(), world, new ExecuteBlockEventEvent(eventType, blockAction, returnValue));
 		}
 	}
 
 	public void onScheduleBlockEvent(World world, BlockAction blockAction)
 	{
-		DyeColor color = MicroTickUtil.getWoolColor(world, blockAction.getPos());
-		if (color != null)
-		{
-			this.addMessage(color, blockAction.getPos(), world, new ScheduleBlockEventEvent(blockAction));
-		}
+		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, blockAction.getPos());
+		color.ifPresent(dyeColor -> this.addMessage(dyeColor, blockAction.getPos(), world, new ScheduleBlockEventEvent(blockAction)));
 	}
 
 	/*
@@ -211,11 +195,8 @@ public class MicroTickLogger extends TranslatableLogger
 
 	public void onEmitBlockUpdate(World world, Block block, BlockPos pos, EventType eventType, String methodName)
 	{
-		DyeColor color = MicroTickUtil.getWoolColor(world, pos);
-		if (color != null)
-		{
-			this.addMessage(color, pos, world, new EmitBlockUpdateEvent(eventType, block, methodName));
-		}
+		Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, pos);
+		color.ifPresent(dyeColor -> this.addMessage(dyeColor, pos, world, new EmitBlockUpdateEvent(eventType, block, methodName)));
 	}
 
 	public void addMessage(DyeColor color, BlockPos pos, World world, BaseEvent event)
@@ -231,7 +212,7 @@ public class MicroTickLogger extends TranslatableLogger
 		}
 	}
 
-	private BaseText[] getTrimmedMessages(List<ArrangedMessage> flushedMessages, boolean uniqueOnly)
+	private BaseText[] getTrimmedMessages(List<IndentedMessage> flushedMessages, boolean uniqueOnly)
 	{
 		List<BaseText> msg = Lists.newArrayList();
 		Set<MicroTickMessage> messageHashSet = Sets.newHashSet();
@@ -243,7 +224,7 @@ public class MicroTickLogger extends TranslatableLogger
 				this.dimensionDisplayTextGray,
 				"f ] ------------"
 		));
-		for (ArrangedMessage message : flushedMessages)
+		for (IndentedMessage message : flushedMessages)
 		{
 			boolean showThisMessage = !uniqueOnly || messageHashSet.add(message.getMessage());
 			if (showThisMessage)
@@ -258,7 +239,7 @@ public class MicroTickLogger extends TranslatableLogger
 	{
 		if (!this.messageList.isEmpty())
 		{
-			List<ArrangedMessage> flushedMessages = this.messageList.flush();
+			List<IndentedMessage> flushedMessages = this.messageList.flush();
 			Map<Boolean, BaseText[]> flushedTrimmedMessages = new Reference2ObjectArrayMap<>();
 			flushedTrimmedMessages.put(false, getTrimmedMessages(flushedMessages, false));
 			flushedTrimmedMessages.put(true, getTrimmedMessages(flushedMessages, true));

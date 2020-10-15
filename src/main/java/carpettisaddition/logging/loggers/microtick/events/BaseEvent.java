@@ -66,9 +66,9 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 	protected BaseText getEnclosedTranslatedBlockNameHeaderText(Block block)
 	{
 		return Messenger.c(
-				"w [",
+				"g [",
 				MicroTickUtil.getTranslatedText(block),
-				"w ] "
+				"g ] "
 		);
 	}
 }

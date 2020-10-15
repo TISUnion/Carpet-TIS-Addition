@@ -38,7 +38,7 @@ public class MessageTreeNode
 		this.children.add(child);
 	}
 
-	private List<ArrangedMessage> flush(int depth)
+	private List<IndentedMessage> flush(int depth)
 	{
 		if (this.flushed)
 		{
@@ -46,11 +46,11 @@ public class MessageTreeNode
 		}
 		this.flushed = true;
 
-		List<ArrangedMessage> childrenMessageList = Lists.newArrayList();
+		List<IndentedMessage> childrenMessageList = Lists.newArrayList();
 		int childWithMessageCount = 0;
 		for (MessageTreeNode child : this.children)
 		{
-			List<ArrangedMessage> childMessage = child.flush(depth + 1);
+			List<IndentedMessage> childMessage = child.flush(depth + 1);
 			childrenMessageList.addAll(childMessage);
 			if (!childMessage.isEmpty())
 			{
@@ -61,7 +61,7 @@ public class MessageTreeNode
 		boolean showEntryMessage = this.entryMessage.getEvent().isImportant() || childWithMessageCount > 0;
 		boolean mergeMessage = showEntryMessage && this.quitMessage != null && childWithMessageCount <= 1;
 		boolean showQuitMessage = this.quitMessage != null && showEntryMessage && !mergeMessage;
-		List<ArrangedMessage> list = Lists.newArrayList();
+		List<IndentedMessage> list = Lists.newArrayList();
 
 		if (mergeMessage)
 		{
@@ -69,17 +69,17 @@ public class MessageTreeNode
 		}
 		if (showEntryMessage)
 		{
-			list.add(new ArrangedMessage(this.entryMessage, depth));
+			list.add(new IndentedMessage(this.entryMessage, depth));
 		}
 		list.addAll(childrenMessageList);
 		if (showQuitMessage)
 		{
-			list.add(new ArrangedMessage(this.quitMessage, depth));
+			list.add(new IndentedMessage(this.quitMessage, depth));
 		}
 		return list;
 	}
 
-	public List<ArrangedMessage> flush()
+	public List<IndentedMessage> flush()
 	{
 		return this.flush(0);
 	}

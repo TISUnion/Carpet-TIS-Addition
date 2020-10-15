@@ -36,7 +36,7 @@ public class DetectBlockUpdateEvent extends BaseEvent
 		list.add("c " + this.updateType);
 		list.add("^w " + this.updateTypeExtraMessage);
 		list.add(Util.getSpaceText());
-		list.add("w " + this.tr("Detected"));
+		list.add("e " + this.tr("Detected"));
 		if (this.getEventType() == EventType.ACTION_END)
 		{
 			list.add(Util.getSpaceText());

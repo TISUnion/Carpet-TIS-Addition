@@ -3,6 +3,7 @@ package carpettisaddition.logging.loggers.microtick.utils;
 import carpet.utils.Messenger;
 import carpet.utils.WoolTool;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
+import carpettisaddition.utils.Util;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 public class MicroTickUtil
 {
+	public static final Direction[] DIRECTION_VALUES = Direction.values();
 	private static final Map<DyeColor, String> COLOR_STYLE = Maps.newHashMap();
 	static
 	{
@@ -46,16 +48,37 @@ public class MicroTickUtil
 	{
 		return COLOR_STYLE.getOrDefault(color, "w");
 	}
-	public static BaseText getSuccessText(boolean success)
+
+	public static BaseText getColoredValue(Object value)
 	{
-		return Messenger.c(success ? "e " + MicroTickLoggerManager.tr("Succeeded") : "r " + MicroTickLoggerManager.tr("Failed"));
+		BaseText text = Messenger.s(value.toString());
+		if (Boolean.TRUE.equals(value))
+		{
+			text.getStyle().setColor(Formatting.GREEN);
+		}
+		else if (Boolean.FALSE.equals(value))
+		{
+			text.getStyle().setColor(Formatting.RED);
+		}
+		return text;
 	}
 
-	public static DyeColor getWoolColor(World world, BlockPos pos)
+	public static BaseText getSuccessText(boolean bool)
+	{
+		BaseText returnValueHint = Messenger.c(
+				String.format("w \n%s: ", MicroTickLoggerManager.tr("Return value")),
+				getColoredValue(bool)
+		);
+		return bool ?
+				Util.getFancyText("e", Messenger.s("√"), (BaseText)Messenger.c("e " + MicroTickLoggerManager.tr("Succeeded")).append(returnValueHint), null) :
+				Util.getFancyText("r", Messenger.s("×"), (BaseText)Messenger.c("r " + MicroTickLoggerManager.tr("Failed")).append(returnValueHint), null);
+	}
+
+	public static Optional<DyeColor> getWoolColor(World world, BlockPos pos)
 	{
 		if (!MicroTickLoggerManager.isLoggerActivated())
 		{
-			return null;
+			return Optional.empty();
 		}
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
@@ -96,10 +119,10 @@ public class MicroTickUtil
 		}
 		else
 		{
-			return null;
+			return Optional.empty();
 		}
 
-		return WoolTool.getWoolColorAtPosition(world.getWorld(), woolPos);
+		return Optional.ofNullable(WoolTool.getWoolColorAtPosition(world.getWorld(), woolPos));
 	}
 
 	public static BaseText getTranslatedText(Block block)
@@ -119,5 +142,23 @@ public class MicroTickUtil
 		{
 			return Optional.empty();
 		}
+	}
+
+	public static Optional<DyeColor> getEndrodWoolColor(World world, BlockPos pos)
+	{
+		for (Direction facing: DIRECTION_VALUES)
+		{
+			BlockPos blockEndRodPos = pos.offset(facing);
+			BlockState iBlockState = world.getBlockState(blockEndRodPos);
+			if (iBlockState.getBlock() == Blocks.END_ROD && iBlockState.get(FacingBlock.FACING).getOpposite() == facing)
+			{
+				Optional<DyeColor> color = MicroTickUtil.getWoolColor(world, blockEndRodPos);
+				if (color.isPresent())
+				{
+					return color;
+				}
+			}
+		}
+		return Optional.empty();
 	}
 }
