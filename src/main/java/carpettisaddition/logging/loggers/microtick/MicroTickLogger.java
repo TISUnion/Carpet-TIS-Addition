@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.microtick;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.TranslatableLogger;
+import carpettisaddition.logging.loggers.BaseLogger;
 import carpettisaddition.logging.loggers.microtick.events.*;
 import carpettisaddition.logging.loggers.microtick.message.IndentedMessage;
 import carpettisaddition.logging.loggers.microtick.message.MessageList;
@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class MicroTickLogger extends TranslatableLogger
+public class MicroTickLogger extends BaseLogger
 {
 	// [stage][detail]^[extra]
 

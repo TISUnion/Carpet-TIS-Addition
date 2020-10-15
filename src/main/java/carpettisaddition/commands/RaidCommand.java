@@ -15,7 +15,9 @@ import net.minecraft.entity.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.*;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
 import net.minecraft.util.registry.Registry;
 
 import java.util.*;
@@ -23,7 +25,7 @@ import java.util.*;
 import static net.minecraft.server.command.CommandManager.literal;
 
 
-public class RaidCommand extends TranslatableCommand
+public class RaidCommand extends BaseCommand
 {
 	public static RaidCommand inst = new RaidCommand();
 

@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 import static java.lang.Math.max;
 
-public class TicketLogger extends TranslatableLogger
+public class TicketLogger extends BaseLogger
 {
 	private static final TicketLogger instance = new TicketLogger();
 
@@ -52,7 +52,7 @@ public class TicketLogger extends TranslatableLogger
 		}
 		LoggerRegistry.getLogger("ticket").log((option) ->
 		{
-			if (Arrays.asList(option.split(",")).contains(chunkTicket.getType().toString()))
+			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicket.getType().toString()))
 			{
 				ChunkPos pos = new ChunkPos(position);
 				BlockPos centerPos = pos.toBlockPos(8, 0, 8);

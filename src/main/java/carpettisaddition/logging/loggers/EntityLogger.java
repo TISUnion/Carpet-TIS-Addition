@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class EntityLogger<T extends Entity> extends TranslatableLogger
+public class EntityLogger<T extends Entity> extends BaseLogger
 {
 	private static final EntityLogger<Entity> instance = new EntityLogger<>(null);
 	protected final String loggerName;
@@ -73,7 +73,7 @@ public class EntityLogger<T extends Entity> extends TranslatableLogger
 	{
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
 		{
-			if (!Arrays.asList(option.split(",")).contains(LoggingType.DIE))
+			if (!Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(LoggingType.DIE))
 			{
 				return null;
 			}
