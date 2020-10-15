@@ -70,7 +70,7 @@ public abstract class ServerWorldMixin
 	private void beforeExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
 	{
 		MicroTickLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(event.priority.getIndex()));
-		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new TileTickTickStageExtra(event, this.tileTickOrderCounter++));
+		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new TileTickTickStageExtra((ServerWorld)(Object)this, event, this.tileTickOrderCounter++));
 	}
 
 	@Inject(method = "tickBlock", at = @At("RETURN"))
@@ -150,7 +150,7 @@ public abstract class ServerWorldMixin
 	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTickLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(this.blockEventDepth));
-		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new BlockEventTickStageExtra(blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
+		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new BlockEventTickStageExtra((ServerWorld)(Object)this, blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
 	}
 
 	@Inject(method = "method_14174", at = @At("RETURN"))

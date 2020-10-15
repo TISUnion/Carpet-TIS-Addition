@@ -39,30 +39,41 @@ public class BlockStateChangeEvent extends BaseEvent
 		return text;
 	}
 
-	@Override
-	public BaseText toText()
+	private BaseText getChangesText(char header)
 	{
 		List<Object> changes = Lists.newArrayList();
 		for (PropertyChanges change : this.changes)
 		{
-			changes.add(String.format("w  %s: ", change.name));
+			changes.add(String.format("w %c%s: ", header, change.name));
 			changes.add(this.getColoredValue(change.oldValue));
 			changes.add("g ->");
 			changes.add(this.getColoredValue(change.newValue));
 		}
-		BaseText changesText = Messenger.c(changes.toArray(new Object[0]));
+		return Messenger.c(changes.toArray(new Object[0]));
+	}
+
+	@Override
+	public BaseText toText()
+	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(block));
 		if (this.getEventType() != EventType.ACTION_END)
 		{
-			list.add(changesText);
+			list.add(this.getChangesText(' '));
 		}
 		else
 		{
-			list.add(Util.getFancyText("w", Messenger.s(" " + this.tr("BlockState Change")), changesText, null));
+			;
+			list.add(Util.getFancyText(
+					"w",
+					Messenger.c("q  " + this.tr("BlockState Change")),
+					(BaseText)Messenger.s(this.tr("Changed states")).append(this.getChangesText('\n')),
+					null
+			));
 		}
 		if (this.returnValue != null)
 		{
+			list.add(Messenger.s(" "));
 			list.add(MicroTickUtil.getSuccessText(this.returnValue));
 		}
 		return Messenger.c(list.toArray(new Object[0]));

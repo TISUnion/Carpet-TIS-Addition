@@ -31,7 +31,7 @@ public class DetectBlockUpdateEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(MicroTickUtil.getTranslatedName(this.fromBlock));
-		list.add("w  " + MicroTickLoggerManager.tr("Emit"));
+		list.add("q  " + MicroTickLoggerManager.tr("Emit"));
 		list.add("c  " + this.updateType);
 		list.add("^w " + this.updateTypeExtraMessage);
 		list.add("w  " + this.tr("Detected"));

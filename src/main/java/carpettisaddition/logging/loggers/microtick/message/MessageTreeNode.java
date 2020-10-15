@@ -47,13 +47,19 @@ public class MessageTreeNode
 		this.flushed = true;
 
 		List<ArrangedMessage> childrenMessageList = Lists.newArrayList();
+		int childWithMessageCount = 0;
 		for (MessageTreeNode child : this.children)
 		{
-			childrenMessageList.addAll(child.flush(depth + 1));
+			List<ArrangedMessage> childMessage = child.flush(depth + 1);
+			childrenMessageList.addAll(childMessage);
+			if (!childMessage.isEmpty())
+			{
+				childWithMessageCount++;
+			}
 		}
 
-		boolean showEntryMessage = this.entryMessage.getEvent().isImportant() || !childrenMessageList.isEmpty();
-		boolean mergeMessage = this.quitMessage != null && this.entryMessage.getEvent().isImportant();
+		boolean showEntryMessage = this.entryMessage.getEvent().isImportant() || childWithMessageCount > 0;
+		boolean mergeMessage = showEntryMessage && this.quitMessage != null && childWithMessageCount <= 1;
 		boolean showQuitMessage = this.quitMessage != null && showEntryMessage && !mergeMessage;
 		List<ArrangedMessage> list = Lists.newArrayList();
 

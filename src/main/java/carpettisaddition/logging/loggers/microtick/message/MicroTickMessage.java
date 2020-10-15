@@ -4,14 +4,15 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.MicroTickLogger;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.events.BaseEvent;
+import carpettisaddition.logging.loggers.microtick.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.logging.loggers.microtick.utils.StackTraceDeobfuscator;
-import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import carpettisaddition.utils.Util;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
@@ -43,11 +44,11 @@ public class MicroTickMessage
 	private final BlockPos pos;
 	private final DyeColor color;
 	private final String stage, stageDetail;
-	private final ToTextAble stageExtra;
+	private final TickStageExtraBase stageExtra;
 	private final StackTraceElement[] stackTrace;
 	private final BaseEvent event;
 
-	public MicroTickMessage(DimensionType dimensionType, BlockPos pos, DyeColor color, BaseEvent event, String stage, String stageDetail, ToTextAble stageExtra, StackTraceElement[] stackTrace)
+	public MicroTickMessage(DimensionType dimensionType, BlockPos pos, DyeColor color, BaseEvent event, String stage, String stageDetail, TickStageExtraBase stageExtra, StackTraceElement[] stackTrace)
 	{
 		this.dimensionType = dimensionType;
 		this.pos = pos.toImmutable();
@@ -102,7 +103,7 @@ public class MicroTickMessage
 		{
 			ret = Messenger.c(
 					text,
-					String.format("!/execute in %s run tp @s %d %d %d", this.dimensionType, this.pos.getX(), this.pos.getY(), this.pos.getZ()),
+					"?" + Util.getTeleportCommand(pos, this.dimensionType),
 					String.format("^w [ %d, %d, %d ]", this.pos.getX(), this.pos.getY(), this.pos.getZ())
 			);
 		}
@@ -117,12 +118,13 @@ public class MicroTickMessage
 	{
 		List<Object> comps = Lists.newArrayList();
 		comps.add("g  " + MicroTickLoggerManager.tr("at"));
-		comps.add("y  " + this.stage);
+		comps.add("y  " + MicroTickLoggerManager.tr("stage." + stage, stage));
 		if (this.stageDetail != null)
 		{
-			comps.add("y ." + this.stageDetail);
+			comps.add("y ." + MicroTickLoggerManager.tr("stage_detail." + stageDetail, stageDetail));
 		}
 		BaseText tickStageExtraText = this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s("");
+		ClickEvent tickStageExtraClickEvent = this.stageExtra != null ? this.stageExtra.getClickEvent() : null;
 		return Util.getFancyText(
 				null,
 				Messenger.c(comps.toArray(new Object[0])),
@@ -131,7 +133,7 @@ public class MicroTickMessage
 						String.format("w %s: ", MicroTickLoggerManager.tr("Dimension")),
 						Util.getDimensionNameText(this.dimensionType)
 				),
-				null);
+				tickStageExtraClickEvent);
 	}
 
 	private BaseText getStackTraceText()

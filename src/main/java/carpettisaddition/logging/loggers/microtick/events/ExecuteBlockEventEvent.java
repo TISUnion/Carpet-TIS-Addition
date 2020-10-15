@@ -60,6 +60,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		list.add(getMessageExtra(blockAction));
 		if (returnValue != null)
 		{
+			list.add(Messenger.s(" "));
 			list.add(MicroTickUtil.getSuccessText(this.returnValue));
 		}
 		return Messenger.c(list.toArray(new Object[0]));

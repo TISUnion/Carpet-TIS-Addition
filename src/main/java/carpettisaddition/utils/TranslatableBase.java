@@ -25,9 +25,10 @@ public abstract class TranslatableBase
 		{
 			path += name + ".";
 		}
+		key = key.toLowerCase();
 		if (autoConvert)
 		{
-			key = key.toLowerCase().replace(" ", "_");
+			key = key.replace(" ", "_");
 		}
 		return path + key;
 	}

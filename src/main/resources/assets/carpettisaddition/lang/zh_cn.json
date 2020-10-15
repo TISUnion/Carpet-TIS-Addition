@@ -158,6 +158,7 @@
   "logger.microtick.piston_block_event_type.retract": "拉回方块",
   "logger.microtick.piston_block_event_type.drop": "丢下方块",
   "logger.microtick.event.block_state_change.blockstate_change": "方块状态改变",
+  "logger.microtick.event.block_state_change.changed_states": "变化的方块状态",
   "logger.microtick.event.detect_block_update.emit": "发出",
   "logger.microtick.event.detect_block_update.detected": "被检测",
   "logger.microtick.event.detect_block_update.ended": "结束",
@@ -178,7 +179,7 @@
   "logger.microtick.event.schedule_block_event.scheduled": "添加",
   "logger.microtick.event.schedule_block_event.blockevent": "方块事件",
   "logger.microtick.event.schedule_tile_tick.scheduled": "添加",
-  "logger.microtick.event.schedule_block_event.tiletick_event": "计划刻事件",
+  "logger.microtick.event.schedule_tile_tick.tiletick_event": "计划刻事件",
 
 
   "invalidate_reason.difficulty_peaceful": "难度被设为和平",

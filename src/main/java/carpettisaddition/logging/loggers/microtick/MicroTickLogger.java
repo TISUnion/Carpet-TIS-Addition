@@ -7,10 +7,10 @@ import carpettisaddition.logging.loggers.microtick.events.*;
 import carpettisaddition.logging.loggers.microtick.message.ArrangedMessage;
 import carpettisaddition.logging.loggers.microtick.message.MessageList;
 import carpettisaddition.logging.loggers.microtick.message.MicroTickMessage;
+import carpettisaddition.logging.loggers.microtick.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
-import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -42,7 +42,7 @@ public class MicroTickLogger extends TranslatableLogger
 	private static final Direction[] DIRECTION_VALUES = Direction.values();
 	private String stage;
 	private String stageDetail;
-	private ToTextAble stageExtra;
+	private TickStageExtraBase stageExtra;
 	private final World world;
 	public final MessageList messageList = new MessageList();
 	private final LongOpenHashSet pistonBlockEventSuccessPosition = new LongOpenHashSet();
@@ -65,7 +65,7 @@ public class MicroTickLogger extends TranslatableLogger
 	
 	public void setTickStage(String stage)
 	{
-		this.stage = this.tr("stage." + stage, stage);
+		this.stage = stage;
 	}
 	public String getTickStage()
 	{
@@ -73,17 +73,17 @@ public class MicroTickLogger extends TranslatableLogger
 	}
 	public void setTickStageDetail(String stageDetail)
 	{
-		this.stageDetail = this.tr("stage_detail." + stageDetail, stageDetail);
+		this.stageDetail = stageDetail;
 	}
 	public String getTickStageDetail()
 	{
 		return this.stageDetail;
 	}
-	public void setTickStageExtra(ToTextAble extra)
+	public void setTickStageExtra(TickStageExtraBase extra)
 	{
 		this.stageExtra = extra;
 	}
-	public ToTextAble getTickStageExtra()
+	public TickStageExtraBase getTickStageExtra()
 	{
 		return this.stageExtra;
 	}

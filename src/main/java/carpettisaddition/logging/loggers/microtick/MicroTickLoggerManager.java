@@ -4,9 +4,9 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.interfaces.IWorld_MicroTickLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.microtick.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
-import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -191,11 +191,11 @@ public class MicroTickLoggerManager
         getWorldLogger(world).ifPresent(logger -> logger.setTickStageDetail(detail));
     }
 
-    public static void setTickStageExtra(World world, ToTextAble stage)
+    public static void setTickStageExtra(World world, TickStageExtraBase stage)
     {
         getWorldLogger(world).ifPresent(logger -> logger.setTickStageExtra(stage));
     }
-    public static void setTickStageExtra(ToTextAble stage)
+    public static void setTickStageExtra(TickStageExtraBase stage)
     {
         if (instance != null)
         {

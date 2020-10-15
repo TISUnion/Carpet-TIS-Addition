@@ -29,13 +29,13 @@ public class Util
 		DIMENSION_NAME.put(DimensionType.THE_END, new TranslatableText("advancements.end.root.title"));
 	}
 
-	public static String getTeleportCommand(Vec3d pos, Dimension dim)
+	public static String getTeleportCommand(Vec3d pos, DimensionType dimensionType)
 	{
-		return String.format("/execute in %s run tp %f %f %f", dim.getType().toString(), pos.getX(), pos.getY(), pos.getZ());
+		return String.format("/execute in %s run tp %f %f %f", dimensionType, pos.getX(), pos.getY(), pos.getZ());
 	}
-	public static String getTeleportCommand(Vec3i pos, Dimension dim)
+	public static String getTeleportCommand(Vec3i pos, DimensionType dimensionType)
 	{
-		return String.format("/execute in %s run tp %d %d %d", dim.getType().toString(), pos.getX(), pos.getY(), pos.getZ());
+		return String.format("/execute in %s run tp %d %d %d", dimensionType, pos.getX(), pos.getY(), pos.getZ());
 	}
 	public static String getTeleportCommand(Entity entity)
 	{
@@ -68,12 +68,12 @@ public class Util
 	public static BaseText getCoordinateText(String style, Vec3d pos, Dimension dim)
 	{
 		String posText = String.format("[%.1f, %.1f, %.1f]", pos.getX(), pos.getY(), pos.getZ());
-		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim));
+		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim.getType()));
 	}
 	public static BaseText getCoordinateText(String style, Vec3i pos, Dimension dim)
 	{
 		String posText = String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());
-		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim));
+		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim.getType()));
 	}
 	public static BaseText getEntityText(String style, Entity entity)
 	{
