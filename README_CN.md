@@ -23,7 +23,7 @@
 
 # 索引
 
-## 特性
+## 规则
 
 - [方块事件广播范围](#方块事件广播范围-blockEventPacketRange)
 - [结构方块范围限制](#结构方块范围限制-structureBlockLimit)

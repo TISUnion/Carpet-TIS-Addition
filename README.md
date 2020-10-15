@@ -23,7 +23,7 @@ Require fabric carpet versions:
 
 # Index
 
-## Features
+## Rules
 
 - [blockEventPacketRange](#blockEventPacketRange)
 - [structureBlockLimit](#structureBlockLimit)
