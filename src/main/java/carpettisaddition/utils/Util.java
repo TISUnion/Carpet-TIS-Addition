@@ -47,7 +47,7 @@ public class Util
 		BaseText text = (BaseText)displayText.deepCopy();
 		if (style != null)
 		{
-			text.setStyle(Messenger.c(style + "  ").getStyle().deepCopy());
+			text.setStyle(Messenger.c(style + "  ").getSiblings().get(0).getStyle());
 		}
 		text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
 		if (clickEvent != null)
