@@ -4,6 +4,7 @@ public enum EventType
 {
 	ACTION_START("Begin"),
 	ACTION_END("End"),
+	ACTION("Action"),  // merge of ACTION_START and ACTION_END
 	EVENT("Event");
 
 	private final String name;

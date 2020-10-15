@@ -15,7 +15,7 @@ import java.util.Objects;
 public class ExecuteBlockEventEvent extends BaseEvent
 {
 	private final BlockAction blockAction;
-	private final Boolean returnValue;
+	private Boolean returnValue;
 
 	public ExecuteBlockEventEvent(EventType eventType, BlockAction blockAction, Boolean returnValue)
 	{
@@ -62,5 +62,15 @@ public class ExecuteBlockEventEvent extends BaseEvent
 	public int hashCode()
 	{
 		return Objects.hash(super.hashCode(), blockAction, returnValue);
+	}
+
+	@Override
+	public void mergeQuitEvent(BaseEvent quitEvent)
+	{
+		if (quitEvent instanceof ExecuteBlockEventEvent)
+		{
+			super.mergeQuitEvent(quitEvent);
+			this.returnValue = ((ExecuteBlockEventEvent)quitEvent).returnValue;
+		}
 	}
 }

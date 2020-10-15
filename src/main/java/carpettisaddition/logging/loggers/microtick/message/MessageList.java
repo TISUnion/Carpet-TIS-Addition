@@ -8,11 +8,18 @@ public class MessageList
 {
 	private final List<MessageTreeNode> messageTrees = Lists.newArrayList();
 	private MessageTreeNode currentNode;
+	private boolean flushed;
+
+	public MessageList()
+	{
+		this.flushed = false;
+	}
 
 	public void clear()
 	{
 		this.messageTrees.clear();
 		this.currentNode = null;
+		this.flushed = false;
 	}
 
 	public boolean isEmpty()
@@ -20,13 +27,19 @@ public class MessageList
 		return this.messageTrees.isEmpty();
 	}
 
-	public List<ArrangedMessage> toList()
+	public List<ArrangedMessage> flush()
 	{
+		if (this.flushed)
+		{
+			throw new IllegalStateException(this.getClass().getName() + " can only flush once");
+		}
+		this.flushed = true;
 		List<ArrangedMessage> list = Lists.newArrayList();
 		for (MessageTreeNode tree : this.messageTrees)
 		{
-			list.addAll(tree.toList());
+			list.addAll(tree.flush());
 		}
+		this.clear();
 		return list;
 	}
 
@@ -37,7 +50,7 @@ public class MessageList
 		{
 			this.messageTrees.add(currentNode);
 		}
-		if (message.messageType == MessageType.ATOM)
+		if (message.getMessageType() == MessageType.ATOM)
 		{
 			this.currentNode = this.currentNode.getParent();
 		}

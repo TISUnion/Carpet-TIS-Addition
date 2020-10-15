@@ -37,26 +37,38 @@ public class MicroTickMessage
 		}
 	}
 
-	public final DimensionType dimensionType;
-	public final BlockPos pos;
-	public final DyeColor color;
-	public final String stage, stageDetail;
-	public final ToTextAble stageExtra;
-	public final StackTraceElement[] stackTrace;
-	public final BaseEvent event;
-	public final MessageType messageType;
+	private final DimensionType dimensionType;
+	private final BlockPos pos;
+	private final DyeColor color;
+	private final String stage, stageDetail;
+	private final ToTextAble stageExtra;
+	private final StackTraceElement[] stackTrace;
+	private final BaseEvent event;
 
-	public MicroTickMessage(MicroTickLogger logger, DimensionType dimensionType, BlockPos pos, DyeColor color, BaseEvent event)
+	public MicroTickMessage(DimensionType dimensionType, BlockPos pos, DyeColor color, BaseEvent event, String stage, String stageDetail, ToTextAble stageExtra, StackTraceElement[] stackTrace)
 	{
 		this.dimensionType = dimensionType;
 		this.pos = pos.toImmutable();
 		this.color = color;
 		this.event = event;
-		this.messageType = MessageType.fromEventType(event.getEventType());
-		this.stage = logger.getTickStage();
-		this.stageDetail = logger.getTickStageDetail();
-		this.stageExtra = logger.getTickStageExtra();
-		this.stackTrace = StackTraceDeobfuscator.deobfuscateStackTrace((new Exception(logger.getClass().getName())).getStackTrace());
+		this.stage = stage;
+		this.stageDetail = stageDetail;
+		this.stageExtra = stageExtra;
+		this.stackTrace = stackTrace;
+	}
+	public MicroTickMessage(MicroTickLogger logger, DimensionType dimensionType, BlockPos pos, DyeColor color, BaseEvent event)
+	{
+		this(dimensionType, pos, color, event, logger.getTickStage(), logger.getTickStageDetail(), logger.getTickStageExtra(), StackTraceDeobfuscator.deobfuscateStackTrace((new Exception(logger.getClass().getName())).getStackTrace()));
+	}
+
+	public MessageType getMessageType()
+	{
+		return MessageType.fromEventType(event.getEventType());
+	}
+
+	public BaseEvent getEvent()
+	{
+		return this.event;
 	}
 
 	public boolean equals(Object obj)
@@ -102,7 +114,7 @@ public class MicroTickMessage
 	private BaseText getStage()
 	{
 		List<Object> comps = Lists.newArrayList();
-		comps.add("g at ");
+		comps.add("g  at ");
 		comps.add("y " + this.stage);
 		if (this.stageDetail != null)
 		{
@@ -123,7 +135,7 @@ public class MicroTickMessage
 	private BaseText getStackTrace()
 	{
 		return Messenger.c(
-				"f $",
+				"f  $",
 				"^w " + Joiner.on("\n").join(this.stackTrace)
 		);
 	}
@@ -141,11 +153,9 @@ public class MicroTickMessage
 		{
 			if (showStage)
 			{
-				line.add("w  ");
 				line.add(this.getStage());
 			}
 		}
-		line.add("w  ");
 		line.add(this.getStackTrace());
 		return Messenger.c(line.toArray(new Object[0]));
 	}
@@ -161,7 +171,14 @@ public class MicroTickMessage
 				", stageDetail='" + stageDetail + '\'' +
 				", stageExtra=" + stageExtra +
 				", event=" + event +
-				", messageType=" + messageType +
 				'}';
+	}
+
+	public void mergeQuiteMessage(MicroTickMessage quiteMessage)
+	{
+		if (quiteMessage != null)
+		{
+			this.event.mergeQuitEvent(quiteMessage.event);
+		}
 	}
 }

@@ -8,9 +8,9 @@ import java.util.Map;
 
 public enum BlockUpdateType
 {
-	BLOCK_UPDATE("BlockUpdate", new String[]{"Neighbor Changed", "Neighbor Update"}, Constants.BLOCK_UPDATE_ORDER),
-	BLOCK_UPDATE_EXCEPT("BlockUpdate Except", new String[]{"Neighbor Changed Except", "Neighbor Update Except"}, Constants.BLOCK_UPDATE_ORDER),
-	STATE_UPDATE("StateUpdate", new String[]{"Post Placement", "Update Shape"}, Constants.STATE_UPDATE_ORDER);
+	BLOCK_UPDATE("BlockUpdates", new String[]{"Neighbor Changed", "Neighbor Update"}, Constants.BLOCK_UPDATE_ORDER),
+	BLOCK_UPDATE_EXCEPT("BlockUpdates Except", new String[]{"Neighbor Changed Except", "Neighbor Update Except"}, Constants.BLOCK_UPDATE_ORDER),
+	STATE_UPDATE("StateUpdates", new String[]{"Post Placement", "Update Shape"}, Constants.STATE_UPDATE_ORDER);
 
 	private final String name;
 	private final String[] aka;

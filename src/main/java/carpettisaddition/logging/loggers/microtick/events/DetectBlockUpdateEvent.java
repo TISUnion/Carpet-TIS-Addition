@@ -33,6 +33,7 @@ public class DetectBlockUpdateEvent extends BaseEvent
 		list.add(String.format("w  %s", "Emit"));
 		list.add(String.format("c  %s", this.updateType));
 		list.add(String.format("^w %s", this.updateTypeExtraMessage));
+		list.add("w  Detected");
 		if (this.getEventType() == EventType.ACTION_END)
 		{
 			list.add("q  ended");

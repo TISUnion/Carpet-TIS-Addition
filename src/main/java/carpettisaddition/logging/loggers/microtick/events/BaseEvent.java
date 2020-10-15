@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 {
-	private final EventType eventType;
+	private EventType eventType;
 
 	protected BaseEvent(EventType eventType, String translateKey)
 	{
@@ -40,5 +40,22 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 	public int hashCode()
 	{
 		return Objects.hash(eventType);
+	}
+
+	protected EventType getMergedEventType(BaseEvent quitEvent)
+	{
+		if (this.eventType == EventType.ACTION_START && quitEvent.eventType == EventType.ACTION_END)
+		{
+			return EventType.ACTION;
+		}
+		else
+		{
+			return this.eventType;
+		}
+	}
+
+	public void mergeQuitEvent(BaseEvent quitEvent)
+	{
+		this.eventType = this.getMergedEventType(quitEvent);
 	}
 }

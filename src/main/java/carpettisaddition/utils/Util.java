@@ -5,7 +5,10 @@ import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionServer;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
-import net.minecraft.text.*;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -56,7 +59,7 @@ public class Util
 	}
 	private static BaseText __getCoordinateText(String style, Dimension dim, String posText, String command)
 	{
-		LiteralText hoverText = new LiteralText("");
+		BaseText hoverText = Messenger.s("");
 		hoverText.append(String.format("%s %s\n", teleportHint, posText));
 		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
 		hoverText.append(getDimensionNameText(dim.getType()));
@@ -81,7 +84,7 @@ public class Util
 
 	public static BaseText getDimensionNameText(DimensionType dim)
 	{
-		return (BaseText)DIMENSION_NAME.getOrDefault(dim, new LiteralText(dim.toString())).deepCopy();
+		return (BaseText)DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())).deepCopy();
 	}
 
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)

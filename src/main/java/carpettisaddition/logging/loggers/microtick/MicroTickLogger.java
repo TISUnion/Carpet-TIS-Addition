@@ -43,7 +43,7 @@ public class MicroTickLogger extends TranslatableLogger
 	private String stageDetail;
 	private ToTextAble stageExtra;
 	private final World world;
-	public final MessageList messages = new MessageList();
+	public final MessageList messageList = new MessageList();
 	private final LongOpenHashSet pistonBlockEventSuccessPosition = new LongOpenHashSet();
 	private final BaseText dimensionDisplayTextGray;
 
@@ -220,17 +220,17 @@ public class MicroTickLogger extends TranslatableLogger
 	public void addMessage(DyeColor color, BlockPos pos, World world, BaseEvent event)
 	{
 		MicroTickMessage message = new MicroTickMessage(this, world.getDimension().getType(), pos, color, event);
-		if (message.event.getEventType() != EventType.ACTION_END)
+		if (message.getEvent().getEventType() != EventType.ACTION_END)
 		{
-			this.messages.addMessageAndIndent(message);
+			this.messageList.addMessageAndIndent(message);
 		}
 		else
 		{
-			this.messages.addMessageAndUnIndent(message);
+			this.messageList.addMessageAndUnIndent(message);
 		}
 	}
 
-	private BaseText[] getMessages(boolean uniqueOnly)
+	private BaseText[] getTrimmedMessages(List<ArrangedMessage> flushedMessages, boolean uniqueOnly)
 	{
 		List<BaseText> msg = Lists.newArrayList();
 		Set<MicroTickMessage> messageHashSet = Sets.newHashSet();
@@ -242,7 +242,7 @@ public class MicroTickLogger extends TranslatableLogger
 				this.dimensionDisplayTextGray,
 				"f ] ------------"
 		));
-		for (ArrangedMessage message : this.messages.toList())
+		for (ArrangedMessage message : flushedMessages)
 		{
 			boolean showThisMessage = !uniqueOnly || messageHashSet.add(message.getMessage());
 			if (showThisMessage)
@@ -255,18 +255,18 @@ public class MicroTickLogger extends TranslatableLogger
 
 	public void flushMessages()
 	{
-		if (!this.messages.isEmpty())
+		if (!this.messageList.isEmpty())
 		{
-			Map<Boolean, BaseText[]> flushedMessages = new Reference2ObjectArrayMap<>();
-			flushedMessages.put(false, getMessages(false));
-			flushedMessages.put(true, getMessages(true));
+			List<ArrangedMessage> flushedMessages = this.messageList.flush();
+			Map<Boolean, BaseText[]> flushedTrimmedMessages = new Reference2ObjectArrayMap<>();
+			flushedTrimmedMessages.put(false, getTrimmedMessages(flushedMessages, false));
+			flushedTrimmedMessages.put(true, getTrimmedMessages(flushedMessages, true));
 			LoggerRegistry.getLogger("microtick").log((option) ->
 			{
 				boolean uniqueOnly = option.equals("unique");
-				return flushedMessages.get(uniqueOnly);
+				return flushedTrimmedMessages.get(uniqueOnly);
 			});
 		}
-		this.messages.clear();
 		this.pistonBlockEventSuccessPosition.clear();
 	}
 }

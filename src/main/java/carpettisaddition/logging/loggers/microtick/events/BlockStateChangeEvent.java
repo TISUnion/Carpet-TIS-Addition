@@ -7,7 +7,6 @@ import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.Objects;
 public class BlockStateChangeEvent extends BaseEvent
 {
 	private final Block block;
-	private final Boolean returnValue;
+	private Boolean returnValue;
 	private final List<PropertyChanges> changes = Lists.newArrayList();
 
 	public BlockStateChangeEvent(EventType eventType, Boolean returnValue, Block block)
@@ -28,7 +27,7 @@ public class BlockStateChangeEvent extends BaseEvent
 
 	private BaseText getColoredValue(Object value)
 	{
-		BaseText text = new LiteralText(value.toString());
+		BaseText text = Messenger.s(value.toString());
 		if (Boolean.TRUE.equals(value))
 		{
 			text.getStyle().setColor(Formatting.GREEN);
@@ -60,7 +59,7 @@ public class BlockStateChangeEvent extends BaseEvent
 		}
 		else
 		{
-			list.add(Util.getFancyText("w", new LiteralText(" BlockState Change"), changesText, null));
+			list.add(Util.getFancyText("w", Messenger.s(" BlockState Change"), changesText, null));
 			list.add(String.format("%s  %s", MicroTickUtil.getBooleanColor(returnValue), returnValue ? "Succeed" : "Failed"));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
@@ -95,6 +94,16 @@ public class BlockStateChangeEvent extends BaseEvent
 	public int hashCode()
 	{
 		return Objects.hash(super.hashCode(), block, returnValue, changes);
+	}
+
+	@Override
+	public void mergeQuitEvent(BaseEvent quitEvent)
+	{
+		if (quitEvent instanceof BlockStateChangeEvent)
+		{
+			super.mergeQuitEvent(quitEvent);
+			this.returnValue = ((BlockStateChangeEvent)quitEvent).returnValue;
+		}
 	}
 
 	public static class PropertyChanges

@@ -12,6 +12,7 @@ public enum MessageType
 		switch (eventType)
 		{
 			case EVENT:
+			case ACTION:
 				return ATOM;
 			case ACTION_START:
 			case ACTION_END:

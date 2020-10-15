@@ -8,22 +8,18 @@ public class MessageTreeNode
 {
 	private final List<MessageTreeNode> children = Lists.newArrayList();
 	private final MessageTreeNode parent;
-	private final MicroTickMessage message;
+	private final MicroTickMessage entryMessage;
 	private MicroTickMessage quitMessage;
-	private final int depth;
+	private boolean flushed;
 
 	public MessageTreeNode(MessageTreeNode parent, MicroTickMessage message)
 	{
 		this.parent = parent;
-		this.message = message;
+		this.entryMessage = message;
+		this.flushed = false;
 		if (this.parent != null)
 		{
 			this.parent.addChild(this);
-			this.depth = this.parent.depth + 1;
-		}
-		else
-		{
-			this.depth = 0;
 		}
 	}
 
@@ -42,25 +38,43 @@ public class MessageTreeNode
 		this.children.add(child);
 	}
 
-	public List<ArrangedMessage> toList()
+	private List<ArrangedMessage> flush(int depth)
 	{
-		List<ArrangedMessage> list = Lists.newArrayList();
-		boolean isLeaf = this.children.isEmpty();
-		if (this.message.event.isImportant() || !isLeaf)
+		if (this.flushed)
 		{
-			list.add(new ArrangedMessage(this.message, this.depth));
+			throw new IllegalStateException(this.getClass().getName() + " can only flush once");
 		}
-		if (!isLeaf)
+		this.flushed = true;
+
+		List<ArrangedMessage> childrenMessageList = Lists.newArrayList();
+		for (MessageTreeNode child : this.children)
 		{
-			for (MessageTreeNode child : this.children)
-			{
-				list.addAll(child.toList());
-			}
-			if (this.quitMessage != null)
-			{
-				list.add(new ArrangedMessage(this.quitMessage, this.depth));
-			}
+			childrenMessageList.addAll(child.flush(depth + 1));
+		}
+
+		boolean showEntryMessage = this.entryMessage.getEvent().isImportant() || !childrenMessageList.isEmpty();
+		boolean mergeMessage = this.quitMessage != null && this.entryMessage.getEvent().isImportant();
+		boolean showQuitMessage = this.quitMessage != null && showEntryMessage && !mergeMessage;
+		List<ArrangedMessage> list = Lists.newArrayList();
+
+		if (mergeMessage)
+		{
+			this.entryMessage.mergeQuiteMessage(this.quitMessage);
+		}
+		if (showEntryMessage)
+		{
+			list.add(new ArrangedMessage(this.entryMessage, depth));
+		}
+		list.addAll(childrenMessageList);
+		if (showQuitMessage)
+		{
+			list.add(new ArrangedMessage(this.quitMessage, depth));
 		}
 		return list;
+	}
+
+	public List<ArrangedMessage> flush()
+	{
+		return this.flush(0);
 	}
 }
