@@ -246,14 +246,17 @@ public class MicroTickLogger extends TranslatableLogger
 		if (!this.messageList.isEmpty())
 		{
 			List<IndentedMessage> flushedMessages = this.messageList.flush();
-			Map<Boolean, BaseText[]> flushedTrimmedMessages = new Reference2ObjectArrayMap<>();
-			flushedTrimmedMessages.put(false, getTrimmedMessages(flushedMessages, false));
-			flushedTrimmedMessages.put(true, getTrimmedMessages(flushedMessages, true));
-			LoggerRegistry.getLogger("microtick").log((option) ->
+			if (!flushedMessages.isEmpty())
 			{
-				boolean uniqueOnly = option.equals("unique");
-				return flushedTrimmedMessages.get(uniqueOnly);
-			});
+				Map<Boolean, BaseText[]> flushedTrimmedMessages = new Reference2ObjectArrayMap<>();
+				flushedTrimmedMessages.put(false, getTrimmedMessages(flushedMessages, false));
+				flushedTrimmedMessages.put(true, getTrimmedMessages(flushedMessages, true));
+				LoggerRegistry.getLogger("microtick").log((option) ->
+				{
+					boolean uniqueOnly = option.equals("unique");
+					return flushedTrimmedMessages.get(uniqueOnly);
+				});
+			}
 		}
 		this.pistonBlockEventSuccessPosition.clear();
 	}
