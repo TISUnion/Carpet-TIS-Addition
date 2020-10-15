@@ -80,9 +80,14 @@ public class MicroTickUtil
 				Util.getFancyText("r", Messenger.s("×"), hintText, null);
 	}
 
+	private static boolean isPositionAvailable(World world, BlockPos pos)
+	{
+		return world.getChunkManager().shouldTickBlock(pos);
+	}
+
 	public static Optional<DyeColor> getWoolColor(World world, BlockPos pos)
 	{
-		if (!MicroTickLoggerManager.isLoggerActivated())
+		if (!MicroTickLoggerManager.isLoggerActivated() || !isPositionAvailable(world, pos))
 		{
 			return Optional.empty();
 		}
@@ -133,6 +138,10 @@ public class MicroTickUtil
 
 	public static Optional<DyeColor> getEndRodWoolColor(World world, BlockPos pos)
 	{
+		if (!MicroTickLoggerManager.isLoggerActivated() || !isPositionAvailable(world, pos))
+		{
+			return Optional.empty();
+		}
 		for (Direction facing: DIRECTION_VALUES)
 		{
 			BlockPos blockEndRodPos = pos.offset(facing);
