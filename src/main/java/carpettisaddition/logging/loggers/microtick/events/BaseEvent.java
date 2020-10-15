@@ -1,8 +1,12 @@
 package carpettisaddition.logging.loggers.microtick.events;
 
+import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
+import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import carpettisaddition.utils.TranslatableBase;
+import net.minecraft.block.Block;
+import net.minecraft.text.BaseText;
 
 import java.util.Objects;
 
@@ -57,5 +61,14 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 	public void mergeQuitEvent(BaseEvent quitEvent)
 	{
 		this.eventType = this.getMergedEventType(quitEvent);
+	}
+
+	protected BaseText getEnclosedTranslatedBlockNameHeaderText(Block block)
+	{
+		return Messenger.c(
+				"w [",
+				MicroTickUtil.getTranslatedText(block),
+				"w ] "
+		);
 	}
 }

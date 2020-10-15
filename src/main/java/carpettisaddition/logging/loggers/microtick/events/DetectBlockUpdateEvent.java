@@ -4,7 +4,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
-import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
+import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -30,14 +30,17 @@ public class DetectBlockUpdateEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(MicroTickUtil.getTranslatedName(this.fromBlock));
-		list.add("q  " + MicroTickLoggerManager.tr("Emit"));
-		list.add("c  " + this.updateType);
+		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.fromBlock));
+		list.add("c " + MicroTickLoggerManager.tr("Emit"));
+		list.add(Util.getSpaceText());
+		list.add("c " + this.updateType);
 		list.add("^w " + this.updateTypeExtraMessage);
-		list.add("w  " + this.tr("Detected"));
+		list.add(Util.getSpaceText());
+		list.add("w " + this.tr("Detected"));
 		if (this.getEventType() == EventType.ACTION_END)
 		{
-			list.add("q  " + MicroTickLoggerManager.tr("ended"));
+			list.add(Util.getSpaceText());
+			list.add("c " + MicroTickLoggerManager.tr("ended"));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}

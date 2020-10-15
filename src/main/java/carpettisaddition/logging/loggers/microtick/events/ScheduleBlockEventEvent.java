@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
-import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
+import carpettisaddition.utils.Util;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.BaseText;
 
@@ -22,10 +22,11 @@ public class ScheduleBlockEventEvent extends BaseEvent
 	public BaseText toText()
 	{
 		return Messenger.c(
-				MicroTickUtil.getTranslatedName(blockAction.getBlock()),
-				"q  " + this.tr("Scheduled"),
-				"c  " + this.tr("BlockEvent"),
-				ExecuteBlockEventEvent.getMessageExtra(blockAction)
+				this.getEnclosedTranslatedBlockNameHeaderText(blockAction.getBlock()),
+				"c " + this.tr("Scheduled"),
+				Util.getSpaceText(),
+				"c " + this.tr("BlockEvent"),
+				ExecuteBlockEventEvent.getMessageExtraMessengerHoverText(blockAction)
 		);
 	}
 

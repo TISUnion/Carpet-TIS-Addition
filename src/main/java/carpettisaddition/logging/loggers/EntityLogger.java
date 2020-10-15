@@ -21,7 +21,7 @@ import java.util.List;
 
 public class EntityLogger<T extends Entity> extends TranslatableLogger
 {
-	private static final EntityLogger<Entity> inst = new EntityLogger<>(null);
+	private static final EntityLogger<Entity> instance = new EntityLogger<>(null);
 	protected final String loggerName;
 
 	public EntityLogger(String loggerName)
@@ -62,7 +62,7 @@ public class EntityLogger<T extends Entity> extends TranslatableLogger
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", entity.world.getTime()),
 					getNameTextRich(entity),
-					String.format("r  %s", inst.tr("despawned")),
+					String.format("r %s", instance.tr(" despawned")),
 					"g  @ ",
 					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
 			)};
@@ -81,7 +81,7 @@ public class EntityLogger<T extends Entity> extends TranslatableLogger
 			itemName.setStyle(itemName.getStyle().setColor(Formatting.WHITE));
 			TranslatableText deathMessage = Util.getTranslatedName("death.attack." + source.name, itemName);
 			deathMessage.setStyle(deathMessage.getStyle().setColor(Formatting.RED));
-			deathMessage.setStyle(deathMessage.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", inst.tr("damage_amount", "Damage amount"), amount)))));
+			deathMessage.setStyle(deathMessage.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", instance.tr("damage_amount", "Damage amount"), amount)))));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", entity.world.getTime()),
 					deathMessage,

@@ -116,24 +116,27 @@ public class MicroTickMessage
 
 	private BaseText getStageText()
 	{
-		List<Object> comps = Lists.newArrayList();
-		comps.add("g  " + MicroTickLoggerManager.tr("at"));
-		comps.add("y  " + MicroTickLoggerManager.tr("stage." + stage, stage));
+		List<Object> stageText = Lists.newArrayList();
+		stageText.add("y  " + MicroTickLoggerManager.tr("stage." + stage, stage));
 		if (this.stageDetail != null)
 		{
-			comps.add("y ." + MicroTickLoggerManager.tr("stage_detail." + stageDetail, stageDetail));
+			stageText.add("y ." + MicroTickLoggerManager.tr("stage_detail." + stageDetail, stageDetail));
 		}
 		BaseText tickStageExtraText = this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s("");
 		ClickEvent tickStageExtraClickEvent = this.stageExtra != null ? this.stageExtra.getClickEvent() : null;
-		return Util.getFancyText(
-				null,
-				Messenger.c(comps.toArray(new Object[0])),
-				Messenger.c(
-						tickStageExtraText,
-						String.format("w %s: ", MicroTickLoggerManager.tr("Dimension")),
-						Util.getDimensionNameText(this.dimensionType)
-				),
-				tickStageExtraClickEvent);
+		return Messenger.c(
+				"g " + MicroTickLoggerManager.tr(" at"),
+				Util.getFancyText(
+						null,
+						Messenger.c(stageText.toArray(new Object[0])),
+						Messenger.c(
+								tickStageExtraText,
+								String.format("w %s: ", MicroTickLoggerManager.tr("Dimension")),
+								Util.getDimensionNameText(this.dimensionType)
+						),
+						tickStageExtraClickEvent
+				)
+		);
 	}
 
 	private BaseText getStackTraceText()

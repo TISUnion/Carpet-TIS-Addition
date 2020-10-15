@@ -102,7 +102,7 @@ public class MicroTickUtil
 		return WoolTool.getWoolColorAtPosition(world.getWorld(), woolPos);
 	}
 
-	public static BaseText getTranslatedName(Block block)
+	public static BaseText getTranslatedText(Block block)
 	{
 		BaseText name = new TranslatableText(block.getTranslationKey());
 		name.getStyle().setColor(Formatting.WHITE);

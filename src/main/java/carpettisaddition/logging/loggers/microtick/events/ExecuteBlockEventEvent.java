@@ -4,6 +4,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.types.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
+import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.PistonBlock;
 import net.minecraft.server.world.BlockAction;
@@ -25,7 +26,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		this.returnValue = returnValue;
 	}
 
-	public static String getMessageExtra(BlockAction blockAction)
+	public static String getMessageExtraMessengerHoverText(BlockAction blockAction)
 	{
 		int eventID = blockAction.getType();
 		int eventParam = blockAction.getData();
@@ -47,20 +48,22 @@ public class ExecuteBlockEventEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(MicroTickUtil.getTranslatedName(blockAction.getBlock()));
-		list.add("q  " + this.tr("Execute"));
+		list.add(this.getEnclosedTranslatedBlockNameHeaderText(blockAction.getBlock()));
+		list.add("c " + this.tr("Execute"));
 		if (this.blockAction.getBlock() instanceof PistonBlock)
 		{
-			list.add("c  " + PistonBlockEventType.byId(blockAction.getType()));
+			list.add(Util.getSpaceText());
+			list.add("c " + PistonBlockEventType.byId(blockAction.getType()));
 		}
 		else
 		{
-			list.add("c  " + this.tr("BlockEvent"));
+			list.add(Util.getSpaceText());
+			list.add("c " + this.tr("BlockEvent"));
 		}
-		list.add(getMessageExtra(blockAction));
+		list.add(getMessageExtraMessengerHoverText(blockAction));
 		if (returnValue != null)
 		{
-			list.add(Messenger.s(" "));
+			list.add(Util.getSpaceText());
 			list.add(MicroTickUtil.getSuccessText(this.returnValue));
 		}
 		return Messenger.c(list.toArray(new Object[0]));

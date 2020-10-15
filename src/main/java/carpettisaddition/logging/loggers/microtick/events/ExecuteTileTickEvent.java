@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.microtick.events;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.types.EventType;
-import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
+import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -25,12 +25,14 @@ public class ExecuteTileTickEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(MicroTickUtil.getTranslatedName(this.tileTickEntry.getObject()));
-		list.add("q  " + this.tr("Execute"));
-		list.add("c  " + this.tr("TileTick Event"));
+		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.tileTickEntry.getObject()));
+		list.add("c " + this.tr("Execute"));
+		list.add(Util.getSpaceText());
+		list.add("c " + this.tr("TileTick Event"));
 		if (this.getEventType() == EventType.ACTION_END)
 		{
-			list.add("q  " + MicroTickLoggerManager.tr("ended"));
+			list.add(Util.getSpaceText());
+			list.add("c " + MicroTickLoggerManager.tr("ended"));
 		}
 		list.add(String.format("^w %s: %d (%s)", MicroTickLoggerManager.tr("Priority"), this.tileTickEntry.priority.getIndex(), this.tileTickEntry.priority));
 		return Messenger.c(list.toArray(new Object[0]));

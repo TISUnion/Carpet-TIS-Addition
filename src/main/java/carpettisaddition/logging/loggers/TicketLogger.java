@@ -15,20 +15,26 @@ import static java.lang.Math.max;
 
 public class TicketLogger extends TranslatableLogger
 {
-	private final String addedActionText;
-	private final String removedActionText;
 	private static final TicketLogger instance = new TicketLogger();
 
 	public TicketLogger()
 	{
 		super("ticket");
-		addedActionText = "l " + tr("added");
-		removedActionText = "r " + tr("removed");
 	}
 
 	public static TicketLogger getInstance()
 	{
 		return instance;
+	}
+
+	private String getAddedActionText()
+	{
+		return "l " + this.tr(" added");
+	}
+
+	private String getRemovedActionText()
+	{
+		return "r " + this.tr(" removed");
 	}
 
 	private String formatSize(int range)
@@ -52,15 +58,15 @@ public class TicketLogger extends TranslatableLogger
 				return new BaseText[]{Messenger.c(
 						String.format("g [%s] ", world.getTime()),
 						String.format(String.format("^w %s", tr("time_detail", "World: %s\nGameTime: %d")), dimensionName, world.getTime()),
-						String.format("w %s ", tr("Ticket")),
-						String.format("d %s ", chunkTicket.getType()),
+						String.format("w %s", tr("Ticket ")),
+						String.format("d %s", chunkTicket.getType()),
 						String.format(String.format("^w %s", tr("ticket_detail", "Level = %d\nDuration = %s\nEntity processing chunks: %s\nLazy processing chunks: %s\nBorder chunks: %s")),
 								chunkTicket.getLevel(), expiryTicks > 0 ? expiryTicks + " gt" : tr("Permanent"),
 								formatSize(32 - level), formatSize(33 - level), formatSize(34 - level)
 						),
-						actionText + " ",
-						String.format("g %s ", tr("at")),
-						String.format("w [%d, %d]", pos.x, pos.z),
+						actionText,
+						String.format("g %s", tr(" at")),
+						String.format("w  [%d, %d]", pos.x, pos.z),
 						String.format(String.format("^w %s", tr("teleport_hint", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
 						String.format("?/execute in %s run tp %d ~ %d", dimensionName, centerPos.getX(), centerPos.getZ())
 				)};
@@ -76,7 +82,7 @@ public class TicketLogger extends TranslatableLogger
 	{
 		if (!ExtensionLoggerRegistry.__ticket)
 		{
-			instance.onManipulateTicket(world, position, chunkTicket, instance.addedActionText);
+			instance.onManipulateTicket(world, position, chunkTicket, instance.getAddedActionText());
 		}
 	}
 
@@ -84,7 +90,7 @@ public class TicketLogger extends TranslatableLogger
 	{
 		if (!ExtensionLoggerRegistry.__ticket)
 		{
-			instance.onManipulateTicket(world, position, chunkTicket, instance.removedActionText);
+			instance.onManipulateTicket(world, position, chunkTicket, instance.getRemovedActionText());
 		}
 	}
 }

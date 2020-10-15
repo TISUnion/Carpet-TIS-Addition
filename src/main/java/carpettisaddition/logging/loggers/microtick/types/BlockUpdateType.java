@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.microtick.types;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
+import carpettisaddition.utils.Util;
 import com.google.common.base.Joiner;
 import net.minecraft.util.math.Direction;
 
@@ -37,7 +38,10 @@ public enum BlockUpdateType
 	{
 		int counter = 0;
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(String.format("%s %s\n", tr("aka"), Joiner.on('\n').join(this.aka)));
+		stringBuilder.append(tr("aka"));
+		stringBuilder.append(Util.getSpace());
+		stringBuilder.append(Joiner.on(", ").join(this.aka));
+		stringBuilder.append('\n');
 		for (Direction direction : this.updateOrder)
 		{
 			if (skipSide != direction)

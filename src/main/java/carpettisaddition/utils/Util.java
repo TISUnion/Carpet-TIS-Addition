@@ -110,4 +110,15 @@ public class Util
 	{
 		return String.format("%d, (%.1f/h)", rate, (double)rate / ticks * (20 * 60 * 60));
 	}
+
+	// some language doesn't use space char to divide word
+	// so here comes the compatibility
+	public static String getSpace()
+	{
+		return Translations.tr("language_tool.space", " ");
+	}
+	public static BaseText getSpaceText()
+	{
+		return Messenger.s(getSpace());
+	}
 }
