@@ -2,7 +2,6 @@ package carpettisaddition.logging.loggers;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-// import carpet.utils.Translations;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.utils.Util;
 import net.minecraft.entity.raid.Raid;
@@ -23,8 +22,6 @@ public class RaidLogger extends TranslatableLogger
 	{
 		return instance;
 	}
-
-	/*
 
 	private void __onRaidCreated(Raid raid)
 	{
@@ -93,7 +90,6 @@ public class RaidLogger extends TranslatableLogger
 			instance.__onCenterMoved(raid, pos);
 		}
 	}
-	 */
 
 	public enum InvalidateReason
 	{

@@ -6,6 +6,8 @@
   "mixins": [
     "carpet.CarpetServerMixin",
     "carpet.HUDControllerMixin",
+    "carpet.LoggerRegistryInvoker",
+    "carpet.LoggerRegistryMixin",
     "carpet.SettingsManagerMixin",
     "carpet.TickCommand_tickWarpMaximumDurationMixin",
     "carpet.onServerLoadedWorlds.MinecraftServerMixin",

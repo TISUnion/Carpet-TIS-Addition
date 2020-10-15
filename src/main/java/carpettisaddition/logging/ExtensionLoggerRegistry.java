@@ -1,11 +1,10 @@
 package carpettisaddition.logging;
 
-import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.loggers.ItemLogger;
 import carpettisaddition.logging.loggers.XPOrbLogger;
+import carpettisaddition.mixins.carpet.LoggerRegistryInvoker;
 
 
 public class ExtensionLoggerRegistry
@@ -16,27 +15,27 @@ public class ExtensionLoggerRegistry
     public static boolean __xporb;
     public static boolean __raid;
     public static boolean __microtick;
-    /*
+
 
     public static void registerLoggers()
     {
-        LoggerRegistry.registerLogger(
+        LoggerRegistryInvoker.callRegisterLogger(
                 "ticket", standardLogger("ticket", "portal", new String[]{
                         "portal,player", "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
                 }
         ));
-        LoggerRegistry.registerLogger("item", ItemLogger.getInstance().getStandardLogger());
-        LoggerRegistry.registerLogger("xporb", XPOrbLogger.getInstance().getStandardLogger());
-        LoggerRegistry.registerLogger("raid", standardLogger("raid", null, null));
-        LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
-        LoggerRegistry.registerLogger("microtick", standardLogger("microtick", "all", new String[]{"all", "unique"}));
+        LoggerRegistryInvoker.callRegisterLogger("item", ItemLogger.getInstance().getStandardLogger());
+        LoggerRegistryInvoker.callRegisterLogger("xporb", XPOrbLogger.getInstance().getStandardLogger());
+        LoggerRegistryInvoker.callRegisterLogger("raid", standardLogger("raid", null, null));
+        LoggerRegistryInvoker.callRegisterLogger("memory", standardHUDLogger("memory", null, null));
+        LoggerRegistryInvoker.callRegisterLogger("microtick", standardLogger("microtick", "all", new String[]{"all", "unique"}));
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)
 	{
         try
         {
-            return new Logger(ExtensionLoggerRegistry.class.getField("__" + logName), logName, def, options);
+            return new ExtensionLogger(ExtensionLoggerRegistry.class.getField("__" + logName), logName, def, options);
         }
         catch (NoSuchFieldException e)
         {
@@ -48,12 +47,12 @@ public class ExtensionLoggerRegistry
     {
         try
         {
-            return new HUDLogger(ExtensionLoggerRegistry.class.getField("__" + logName), logName, def, options);
+            return new ExtensionHUDLogger(ExtensionLoggerRegistry.class.getField("__" + logName), logName, def, options);
         }
         catch (NoSuchFieldException e)
         {
             throw new RuntimeException(String.format("Failed to create standard HUD logger \"%s\" @ %s", logName, CarpetTISAdditionServer.fancyName));
         }
     }
-     */
+
 }

@@ -1,7 +1,6 @@
 package carpettisaddition.utils;
 
 import carpet.utils.Messenger;
-// import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionServer;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
@@ -55,6 +54,7 @@ public class Util
 		{
 			text.getStyle().setClickEvent(clickEvent);
 		}
+		System.err.println(text);
 		return text;
 	}
 	private static BaseText __getCoordinateText(String style, Dimension dim, String posText, String command)

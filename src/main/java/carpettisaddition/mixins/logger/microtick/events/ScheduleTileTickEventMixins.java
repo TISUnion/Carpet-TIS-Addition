@@ -59,7 +59,7 @@ public abstract class ScheduleTileTickEventMixins
 		)
 		private void onScheduleTileTickEvent(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci)
 		{
-			MicroTickLoggerManager.onScheduleTileTickEvent(world, (AbstractRedstoneGateBlock)(Object)this, pos, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
+			MicroTickLoggerManager.onScheduleTileTickEvent(world, (AbstractRedstoneGateBlock)(Object)this, pos, this.getUpdateDelayInternal(state), TickPriority.HIGH);
 		}
 
 		@Inject(

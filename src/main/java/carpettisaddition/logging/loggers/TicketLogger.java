@@ -46,10 +46,6 @@ public class TicketLogger extends TranslatableLogger
 
 	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
 	{
-		if (true)
-		{
-			return;
-		}
 		if (!ExtensionLoggerRegistry.__ticket)
 		{
 			return;

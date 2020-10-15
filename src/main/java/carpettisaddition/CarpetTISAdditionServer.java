@@ -8,15 +8,12 @@ import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.utils.StackTraceDeobfuscator;
-import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Map;
 
 
 public class CarpetTISAdditionServer implements CarpetExtension
@@ -56,6 +53,9 @@ public class CarpetTISAdditionServer implements CarpetExtension
         {
             // here we will be snooping for command changes
         });
+
+        // Let's do some logging things
+        ExtensionLoggerRegistry.registerLoggers();
     }
 
     @Override
