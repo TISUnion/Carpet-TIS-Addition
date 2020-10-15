@@ -2,7 +2,7 @@ package carpettisaddition.interfaces;
 
 import net.minecraft.server.world.ServerWorld;
 
-public interface IChunkTicketManager
+public interface IChunkTicketManager_TicketLogger
 {
-	public void setServerWorld(ServerWorld world);
+	void setServerWorld(ServerWorld world);
 }

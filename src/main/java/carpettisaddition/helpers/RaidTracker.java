@@ -2,7 +2,7 @@ package carpettisaddition.helpers;
 
 import carpet.utils.Messenger;
 import carpettisaddition.commands.RaidCommand;
-import carpettisaddition.logging.logHelpers.RaidLogHelper;
+import carpettisaddition.logging.loggers.RaidLogger;
 import carpettisaddition.utils.TranslatableBase;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
@@ -25,7 +25,7 @@ public class RaidTracker extends TranslatableBase
 	private long startTick;
 	private int raidGeneratedCount;
 	private final Map<EntityType<?>, Integer> raiderCounter = Maps.newHashMap();
-	private final Map<RaidLogHelper.InvalidateReason, Integer> raidInvalidateCounter = Maps.newHashMap();
+	private final Map<RaidLogger.InvalidateReason, Integer> raidInvalidateCounter = Maps.newHashMap();
 
 	public RaidTracker()
 	{
@@ -96,7 +96,7 @@ public class RaidTracker extends TranslatableBase
 		return inst.__restartTracking(source);
 	}
 
-	public void __trackRaidInvalidated(RaidLogHelper.InvalidateReason reason)
+	public void __trackRaidInvalidated(RaidLogger.InvalidateReason reason)
 	{
 		if (isTracking)
 		{
@@ -104,7 +104,7 @@ public class RaidTracker extends TranslatableBase
 			raidInvalidateCounter.put(reason, count == null ? 1 : count + 1);
 		}
 	}
-	public static void trackRaidInvalidated(RaidLogHelper.InvalidateReason reason)
+	public static void trackRaidInvalidated(RaidLogger.InvalidateReason reason)
 	{
 		inst.__trackRaidInvalidated(reason);
 	}

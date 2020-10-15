@@ -1,7 +1,6 @@
 package carpettisaddition.mixins.command;
 
 import carpettisaddition.helpers.RaidTracker;
-import carpettisaddition.logging.logHelpers.RaidLogHelper;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.util.math.BlockPos;

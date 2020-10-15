@@ -3,30 +3,39 @@ package carpettisaddition.utils;
 import carpet.utils.Messenger;
 // import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionServer;
-import net.minecraft.client.network.ClientPlayerEntity;
+import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.*;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 
-import java.util.List;
+import java.util.Map;
 
 
 public class Util
 {
 	private static final String teleportHint = "Click to teleport to";
-
-	public static String getTeleportCommand(Vec3d pos, Dimension dim)
+	private static final Map<DimensionType, BaseText> DIMENSION_NAME = Maps.newHashMap();
+	static
 	{
-		return String.format("/execute in %s run tp %f %f %f", dim.getType().toString(), pos.getX(), pos.getY(), pos.getZ());
+		DIMENSION_NAME.put(DimensionType.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"));
+		DIMENSION_NAME.put(DimensionType.THE_NETHER, new TranslatableText("advancements.nether.root.title"));
+		DIMENSION_NAME.put(DimensionType.THE_END, new TranslatableText("advancements.end.root.title"));
 	}
-	public static String getTeleportCommand(Vec3i pos, Dimension dim)
+
+	public static String getTeleportCommand(Vec3d pos, DimensionType dimensionType)
 	{
-		return String.format("/execute in %s run tp %d %d %d", dim.getType().toString(), pos.getX(), pos.getY(), pos.getZ());
+		return String.format("/execute in %s run tp %f %f %f", dimensionType, pos.getX(), pos.getY(), pos.getZ());
+	}
+	public static String getTeleportCommand(Vec3i pos, DimensionType dimensionType)
+	{
+		return String.format("/execute in %s run tp %d %d %d", dimensionType, pos.getX(), pos.getY(), pos.getZ());
 	}
 	public static String getTeleportCommand(Entity entity)
 	{
@@ -34,17 +43,23 @@ public class Util
 		return String.format("/execute at %1$s run tp %1$s", uuid);
 	}
 
-	private static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
+	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
 	{
 		BaseText text = (BaseText)displayText.copy();
-		text.setStyle(Messenger.c(style + "  ").getStyle());
+		if (style != null)
+		{
+			text.setStyle(Messenger.c(style + "  ").getStyle());
+		}
 		text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
-		text.getStyle().setClickEvent(clickEvent);
+		if (clickEvent != null)
+		{
+			text.getStyle().setClickEvent(clickEvent);
+		}
 		return text;
 	}
 	private static BaseText __getCoordinateText(String style, Dimension dim, String posText, String command)
 	{
-		LiteralText hoverText = new LiteralText("");
+		BaseText hoverText = Messenger.s("");
 		hoverText.append(String.format("%s %s\n", teleportHint, posText));
 		hoverText.append( "Dimension: ");
 		hoverText.append(getDimensionNameText(dim.getType()));
@@ -53,12 +68,12 @@ public class Util
 	public static BaseText getCoordinateText(String style, Vec3d pos, Dimension dim)
 	{
 		String posText = String.format("[%.1f, %.1f, %.1f]", pos.getX(), pos.getY(), pos.getZ());
-		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim));
+		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim.getType()));
 	}
 	public static BaseText getCoordinateText(String style, Vec3i pos, Dimension dim)
 	{
 		String posText = String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());
-		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim));
+		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim.getType()));
 	}
 	public static BaseText getEntityText(String style, Entity entity)
 	{
@@ -69,19 +84,7 @@ public class Util
 
 	public static BaseText getDimensionNameText(DimensionType dim)
 	{
-		if (dim == DimensionType.OVERWORLD)
-		{
-			return getTranslatedName("createWorld.customize.preset.overworld");
-		}
-		else if (dim == DimensionType.THE_NETHER)
-		{
-			return getTranslatedName("advancements.nether.root.title");
-		}
-		else if (dim == DimensionType.THE_END)
-		{
-			return getTranslatedName("advancements.end.root.title");
-		}
-		return null;
+		return (BaseText)DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())).deepCopy();
 	}
 
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)
@@ -106,5 +109,16 @@ public class Util
 	public static String ratePerHour(int rate, long ticks)
 	{
 		return String.format("%d, (%.1f/h)", rate, (double)rate / ticks * (20 * 60 * 60));
+	}
+
+	// some language doesn't use space char to divide word
+	// so here comes the compatibility
+	public static String getSpace()
+	{
+		return " ";
+	}
+	public static BaseText getSpaceText()
+	{
+		return Messenger.s(getSpace());
 	}
 }

@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.logger.xporb;
 
-import carpettisaddition.logging.logHelpers.XPOrbLogHelper;
+import carpettisaddition.logging.loggers.XPOrbLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -42,7 +42,7 @@ public abstract class ExperienceOrbEntity_xpOrbLoggerMixin extends Entity
 	{
 		if (!this.world.isClient && !this.flagDespawned)
 		{
-			XPOrbLogHelper.onXPOrbDespawn((ExperienceOrbEntity)(Object)this);
+			XPOrbLogger.onXPOrbDespawn((ExperienceOrbEntity)(Object)this);
 			this.flagDespawned = true;
 		}
 	}
@@ -58,7 +58,7 @@ public abstract class ExperienceOrbEntity_xpOrbLoggerMixin extends Entity
 	{
 		if (!this.world.isClient && !this.flagDied)
 		{
-			XPOrbLogHelper.onXPOrbDie((ExperienceOrbEntity)(Object)this, source, amount);
+			XPOrbLogger.onXPOrbDie((ExperienceOrbEntity)(Object)this, source, amount);
 			this.flagDied = true;
 		}
 	}

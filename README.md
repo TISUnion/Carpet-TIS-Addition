@@ -23,7 +23,7 @@ Require fabric carpet versions:
 
 # Index
 
-## Features
+## Rules
 
 - [blockEventPacketRange](#blockEventPacketRange)
 - [structureBlockLimit](#structureBlockLimit)
@@ -45,6 +45,8 @@ Require fabric carpet versions:
 - [opPlayerNoCheat](#opPlayerNoCheat)
 - [redstoneDustRandomUpdateOrder](#redstoneDustRandomUpdateOrder)
 - [instantCommandBlock](#instantCommandBlock)
+- [lightUpdates](#lightUpdates)
+- [microTick](#microTick)
 
 ## Loggers
 
@@ -53,6 +55,7 @@ Require fabric carpet versions:
 - [item](#item)
 - [xporb](#xporb)
 - [raid](#raid)
+- [microTick](#microTick-1)
 
 ## Commands
 
@@ -318,6 +321,33 @@ If set to off, no light update can be scheduled or executed
 - Default value: `on`  
 - Suggested options: `on`, `suppressed`, `off`
 - Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
+## microTick
+
+Enable the function of [MicroTick logger](#microTick)
+
+Display actions of redstone components and blockupdates with wool block
+
+Use `/log microtick` to start logging
+
+Might impact the server performance for a lot when it's on
+
+EndRods will detect block updates and redstone components will show their actions
+
+| Block Type                               | How to log actions    |
+| ---------------------------------------- | --------------------- |
+| Observer, Piston, EndRod                 | pointing towards wool |
+| Repeater, Comparator, Rail, Button, etc. | placed on wool        |
+
+Beside that, blocks pointed by EndRod on wool block will also show their actions
+
+If [lithium mod](https://github.com/jellysquid3/lithium-fabric) is installed, since it will replace the TileTick container, old Mixin to listen to ScheduleTileTick events will not work anymore. And then a backup bruteforce Mixin will be loaded instead to listen to ScheduleTileTick events, but then ScheduleTileTick events might not be fully listened for all blocks
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`, `CREATIVE`
 
 
 -----------
