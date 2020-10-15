@@ -2,6 +2,7 @@
   "required": true,
   "package": "carpettisaddition.mixins",
   "compatibilityLevel": "JAVA_8",
+  "plugin": "carpettisaddition.CarpetTISAdditionMixinPlugin",
   "mixins": [
     "carpet.CarpetServerMixin",
     "carpet.HUDControllerMixin",
@@ -28,6 +29,7 @@
     "logger.microtick.events.ScheduleTileTickEventMixins$ObserverBlockMixin",
     "logger.microtick.events.ScheduleTileTickEventMixins$RedstoneTorchBlockMixin",
     "logger.microtick.events.ScheduleTileTickEventMixins$TripwireHookBlockMixin",
+    "logger.microtick.events.ServerTickSchedulerMixin",
     "logger.microtick.events.ServerWorldMixin",
     "logger.microtick.events.WorldMixin",
     "logger.microtick.tickstages.MinecraftServerMixin",

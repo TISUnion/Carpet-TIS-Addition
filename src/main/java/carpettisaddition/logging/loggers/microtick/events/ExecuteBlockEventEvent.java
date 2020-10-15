@@ -64,7 +64,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		if (returnValue != null)
 		{
 			list.add("w  ");
-			list.add(MicroTickUtil.getSuccessText(this.returnValue));
+			list.add(MicroTickUtil.getSuccessText(this.returnValue, true));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}

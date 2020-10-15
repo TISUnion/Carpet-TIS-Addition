@@ -17,7 +17,7 @@ public abstract class ServerChunkManagerMixin
 	@Shadow @Final private ServerWorld world;
 
 	@SuppressWarnings("UnresolvedMixinReference")
-	 @Inject(
+	@Inject(
 			method = "method_20801",  // lambda method
 			at = @At(
 					value = "CONSTANT",

@@ -331,14 +331,16 @@ Display actions of redstone components and blockupdates with wool block
 
 Use `/log microtick` to start logging
 
-Might increase server mspt for up to 30% in redstone contraptions when it's on
+Might impact the server performance for a lot when it's on
 
-Endrods will detect block updates and redstone components will show their actions
+EndRods will detect block updates and redstone components will show their actions
 
 | Block Type                               | How to log actions    |
 | ---------------------------------------- | --------------------- |
-| observer, piston, endrod                 | pointing towards wool |
-| repeater, comparator, rail, button, etc. | placed on wool        |
+| Observer, Piston, EndRod                 | pointing towards wool |
+| Repeater, Comparator, Rail, Button, etc. | placed on wool        |
+
+Beside that, blocks pointed by EndRod on wool block will also show their actions
 
 - Type: `boolean`  
 - Default value: `false`  

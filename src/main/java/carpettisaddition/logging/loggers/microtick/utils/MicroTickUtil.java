@@ -63,15 +63,21 @@ public class MicroTickUtil
 		return text;
 	}
 
-	public static BaseText getSuccessText(boolean bool)
+	public static BaseText getSuccessText(boolean bool, boolean showReturnValue)
 	{
-		BaseText returnValueHint = Messenger.c(
-				String.format("w \n%s: ", MicroTickLoggerManager.tr("Return value")),
-				getColoredValue(bool)
-		);
+		BaseText hintText = bool ?
+				Messenger.c("e " + MicroTickLoggerManager.tr("Successful")) :
+				Messenger.c("r " + MicroTickLoggerManager.tr("Failed"));
+		if (showReturnValue)
+		{
+			hintText.append(Messenger.c(
+					String.format("w \n%s: ", MicroTickLoggerManager.tr("Return value")),
+					getColoredValue(bool)
+			));
+		}
 		return bool ?
-				Util.getFancyText("e", Messenger.s("√"), (BaseText)Messenger.c("e " + MicroTickLoggerManager.tr("Succeeded")).append(returnValueHint), null) :
-				Util.getFancyText("r", Messenger.s("×"), (BaseText)Messenger.c("r " + MicroTickLoggerManager.tr("Failed")).append(returnValueHint), null);
+				Util.getFancyText("e", Messenger.s("√"), hintText, null) :
+				Util.getFancyText("r", Messenger.s("×"), hintText, null);
 	}
 
 	public static Optional<DyeColor> getWoolColor(World world, BlockPos pos)
@@ -92,11 +98,11 @@ public class MicroTickUtil
 		else if (block instanceof AbstractButtonBlock || block instanceof LeverBlock)
 		{
 			Direction facing;
-			if (state.get(WallMountedBlock.FACE) == WallMountLocation.FLOOR)
+			if (state.get(Properties.WALL_MOUNT_LOCATION) == WallMountLocation.FLOOR)
 			{
 				facing = Direction.UP;
 			}
-			else if (state.get(WallMountedBlock.FACE) == WallMountLocation.CEILING)
+			else if (state.get(Properties.WALL_MOUNT_LOCATION) == WallMountLocation.CEILING)
 			{
 				facing = Direction.DOWN;
 			}
@@ -125,7 +131,7 @@ public class MicroTickUtil
 		return Optional.ofNullable(WoolTool.getWoolColorAtPosition(world.getWorld(), woolPos));
 	}
 
-	public static Optional<DyeColor> getEndrodWoolColor(World world, BlockPos pos)
+	public static Optional<DyeColor> getEndRodWoolColor(World world, BlockPos pos)
 	{
 		for (Direction facing: DIRECTION_VALUES)
 		{
@@ -143,12 +149,12 @@ public class MicroTickUtil
 		return Optional.empty();
 	}
 
-	public static Optional<DyeColor> getWoolOrEndrodWoolColor(World world, BlockPos pos)
+	public static Optional<DyeColor> getWoolOrEndRodWoolColor(World world, BlockPos pos)
 	{
 		Optional<DyeColor> optionalDyeColor = getWoolColor(world, pos);
 		if (!optionalDyeColor.isPresent())
 		{
-			optionalDyeColor = getEndrodWoolColor(world, pos);
+			optionalDyeColor = getEndRodWoolColor(world, pos);
 		}
 		return optionalDyeColor;
 	}

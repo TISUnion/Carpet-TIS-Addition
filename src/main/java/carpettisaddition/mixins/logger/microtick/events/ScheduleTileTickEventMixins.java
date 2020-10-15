@@ -19,6 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Random;
 
+// This class is for minimum TileTick Event scheduling listening if any mod replace the container of ServerTickScheduler
+// for example, lithium mod
 public abstract class ScheduleTileTickEventMixins
 {
 	@Mixin(ComparatorBlock.class)

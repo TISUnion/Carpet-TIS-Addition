@@ -23,6 +23,8 @@ import java.util.Optional;
 
 public class MicroTickLoggerManager
 {
+    public static final String ON_SCHEDULE_TILE_TICK_EVENT_MAIN_MIXIN = "ServerTickSchedulerMixin";
+    public static final String ON_SCHEDULE_TILE_TICK_EVENT_BACKUP_MIXIN = "ScheduleTileTickEventMixins";
     private static MicroTickLoggerManager instance;
 
     private final Map<World, MicroTickLogger> loggers = new Reference2ObjectArrayMap<>();
@@ -107,12 +109,16 @@ public class MicroTickLoggerManager
         }
     }
 
-    public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority)
+    public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority, Boolean success)
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onScheduleTileTick(world, block, pos, delay, priority));
+            getWorldLogger(world).ifPresent(logger -> logger.onScheduleTileTick(world, block, pos, delay, priority, success));
         }
+    }
+    public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority)
+    {
+        onScheduleTileTickEvent(world, block, pos, delay, priority, null);
     }
     public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay)
     {

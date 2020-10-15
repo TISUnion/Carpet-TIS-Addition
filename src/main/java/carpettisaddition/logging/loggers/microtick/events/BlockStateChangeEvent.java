@@ -79,7 +79,7 @@ public class BlockStateChangeEvent extends BaseEvent
 		if (this.returnValue != null)
 		{
 			list.add("w  ");
-			list.add(MicroTickUtil.getSuccessText(this.returnValue));
+			list.add(MicroTickUtil.getSuccessText(this.returnValue, true));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}

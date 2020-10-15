@@ -80,7 +80,7 @@ public class TicketLogger extends TranslatableLogger
 
 	public static void onAddTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		if (!ExtensionLoggerRegistry.__ticket)
+		if (ExtensionLoggerRegistry.__ticket)
 		{
 			instance.onManipulateTicket(world, position, chunkTicket, instance.getAddedActionText());
 		}
@@ -88,7 +88,7 @@ public class TicketLogger extends TranslatableLogger
 
 	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		if (!ExtensionLoggerRegistry.__ticket)
+		if (ExtensionLoggerRegistry.__ticket)
 		{
 			instance.onManipulateTicket(world, position, chunkTicket, instance.getRemovedActionText());
 		}
