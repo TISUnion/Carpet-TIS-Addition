@@ -362,6 +362,8 @@ Info when a ticket is created or removed
 
 Use csv format, like `portal,dragon` for logging multiple types of ticket
 
+Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 version)
+
 **Warning:** Logging `unknown` ticket may make you get spammed
 
 - Default value: `portal`
@@ -386,6 +388,8 @@ Available events:
 - `despawn`: An item entity despawned
 
 Use csv format, like `despawn,die` for logging multiple events
+
+Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 version)
 
 - Default value: `despawn`
 - Suggested options: `despawn`, `die`, `despawn,die`
