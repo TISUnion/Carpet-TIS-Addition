@@ -325,11 +325,11 @@
 
 ## 微时序 (microtick)
 
-启用 `/log microtick` 的功能
+启用[微时序监视器](#微时序-microtick-1)的功能
 
 使用羊毛块来输出红石元件的动作与方块更新
 
-使用 `/log microtick` 来启动记录
+使用 `/log microtick` 来开始监视
 
 末地烛会检测方块更新，红石元件会输出它们的动作
 

@@ -325,7 +325,7 @@ If set to off, no light update can be scheduled or executed
 
 ## microTick
 
-Enable the function of `/log micirotick`
+Enable the function of [MicroTick logger](#microTick)
 
 Display actions of redstone components and blockupdates with wool block
 

@@ -88,9 +88,9 @@
   "rule.lightUpdates.extra.2": "【警告】若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环",
 
   "rule.microtick.name": "微时序",
-  "rule.microtick.desc": "启用 /log microtick 的功能",
+  "rule.microtick.desc": "启用微时序监视器的功能",
   "rule.microtick.extra.0": "使用羊毛块来输出红石元件的动作与方块更新",
-  "rule.microtick.extra.1": "使用 /log microtick 来启动记录",
+  "rule.microtick.extra.1": "使用/log microtick来开始监视",
   "rule.microtick.extra.2": "启动时将对性能造成最多30%的影响",
   "rule.microtick.extra.3": "末地烛会检测方块更新，红石元件会输出它们的动作",
   "rule.microtick.extra.4": "- 侦测器、活塞、末地烛：指向羊毛块",

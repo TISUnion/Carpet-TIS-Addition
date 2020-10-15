@@ -270,7 +270,7 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(
-			desc = "Enable the function of /log microtick",
+			desc = "Enable the function of MicroTick logger",
 			extra = {
 					"Display actions of redstone components and blockupdates with wool block",
 					"Use /log microtick to start logging",
