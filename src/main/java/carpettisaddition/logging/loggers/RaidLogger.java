@@ -3,6 +3,7 @@ package carpettisaddition.logging.loggers;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
+import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.utils.Util;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.text.BaseText;
@@ -11,11 +12,16 @@ import net.minecraft.util.math.BlockPos;
 
 public class RaidLogger extends TranslatableLogger
 {
-	public static RaidLogger inst = new RaidLogger();
+	private static final RaidLogger instance = new RaidLogger();
 
 	public RaidLogger()
 	{
 		super("raid");
+	}
+
+	public static RaidLogger getInstance()
+	{
+		return instance;
 	}
 
 	private void __onRaidCreated(Raid raid)
@@ -30,7 +36,10 @@ public class RaidLogger extends TranslatableLogger
 	}
 	public static void onRaidCreated(Raid raid)
 	{
-		inst.__onRaidCreated(raid);
+		if (ExtensionLoggerRegistry.__raid)
+		{
+			instance.__onRaidCreated(raid);
+		}
 	}
 
 	private void __onRaidInvalidated(Raid raid, InvalidateReason reason)
@@ -43,7 +52,10 @@ public class RaidLogger extends TranslatableLogger
 	}
 	public static void onRaidInvalidated(Raid raid, InvalidateReason reason)
 	{
-		inst.__onRaidInvalidated(raid, reason);
+		if (ExtensionLoggerRegistry.__raid)
+		{
+			instance.__onRaidInvalidated(raid, reason);
+		}
 	}
 
 	private void __onBadOmenLevelIncreased(Raid raid, int badOmenLevel)
@@ -56,7 +68,10 @@ public class RaidLogger extends TranslatableLogger
 	}
 	public static void onBadOmenLevelIncreased(Raid raid, int badOmenLevel)
 	{
-		inst.__onBadOmenLevelIncreased(raid, badOmenLevel);
+		if (ExtensionLoggerRegistry.__raid)
+		{
+			instance.__onBadOmenLevelIncreased(raid, badOmenLevel);
+		}
 	}
 
 	private void __onCenterMoved(Raid raid, BlockPos pos)
@@ -71,7 +86,10 @@ public class RaidLogger extends TranslatableLogger
 	}
 	public static void onCenterMoved(Raid raid, BlockPos pos)
 	{
-		inst.__onCenterMoved(raid, pos);
+		if (ExtensionLoggerRegistry.__raid)
+		{
+			instance.__onCenterMoved(raid, pos);
+		}
 	}
 
 	public enum InvalidateReason
@@ -91,7 +109,7 @@ public class RaidLogger extends TranslatableLogger
 
 		public String tr()
 		{
-			return Translations.tr("invalidate_reason." + getName(), getName().replace("_", " "));
+			return Translations.tr("raid_invalidate_reason." + getName(), getName().replace("_", " "));
 		}
 	}
 }

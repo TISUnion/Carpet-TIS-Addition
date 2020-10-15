@@ -182,13 +182,13 @@
   "logger.microtick.event.schedule_tile_tick.tiletick_event": "计划刻事件",
 
 
-  "invalidate_reason.difficulty_peaceful": "难度被设为和平",
-  "invalidate_reason.gamerule_disable": "被游戏规则禁用",
-  "invalidate_reason.poi_removed_before_spawn": "生成袭击者前POI全被移除",
-  "invalidate_reason.time_out": "超过时长限制",
-  "invalidate_reason.raider_cannot_spawn": "无法生成袭击者",
-  "invalidate_reason.raid_victory": "袭击胜利",
-  "invalidate_reason.raid_defeat": "袭击失败",
+  "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
+  "raid_invalidate_reason.gamerule_disable": "被游戏规则禁用",
+  "raid_invalidate_reason.poi_removed_before_spawn": "生成袭击者前POI全被移除",
+  "raid_invalidate_reason.time_out": "超过时长限制",
+  "raid_invalidate_reason.raider_cannot_spawn": "无法生成袭击者",
+  "raid_invalidate_reason.raid_victory": "袭击胜利",
+  "raid_invalidate_reason.raid_defeat": "袭击失败",
 
 
   "command.raid.raid_count": "袭击数量",

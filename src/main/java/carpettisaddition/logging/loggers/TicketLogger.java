@@ -17,13 +17,18 @@ public class TicketLogger extends TranslatableLogger
 {
 	private final String addedActionText;
 	private final String removedActionText;
-	public static TicketLogger inst = new TicketLogger();
+	private static final TicketLogger instance = new TicketLogger();
 
 	public TicketLogger()
 	{
 		super("ticket");
 		addedActionText = "l " + tr("added");
 		removedActionText = "r " + tr("removed");
+	}
+
+	public static TicketLogger getInstance()
+	{
+		return instance;
 	}
 
 	private String formatSize(int range)
@@ -35,10 +40,6 @@ public class TicketLogger extends TranslatableLogger
 
 	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
 	{
-		if (!ExtensionLoggerRegistry.__ticket)
-		{
-			return;
-		}
 		LoggerRegistry.getLogger("ticket").log((option) ->
 		{
 			if (Arrays.asList(option.split(",")).contains(chunkTicket.getType().toString()))
@@ -73,11 +74,17 @@ public class TicketLogger extends TranslatableLogger
 
 	public static void onAddTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		inst.onManipulateTicket(world, position, chunkTicket, inst.addedActionText);
+		if (!ExtensionLoggerRegistry.__ticket)
+		{
+			instance.onManipulateTicket(world, position, chunkTicket, instance.addedActionText);
+		}
 	}
 
 	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		inst.onManipulateTicket(world, position, chunkTicket, inst.removedActionText);
+		if (!ExtensionLoggerRegistry.__ticket)
+		{
+			instance.onManipulateTicket(world, position, chunkTicket, instance.removedActionText);
+		}
 	}
 }
