@@ -127,7 +127,7 @@ public class MicroTickLogger extends BaseLogger
 					}
 					color = optionalDyeColor.get();
 				}
-				event.addChanges(property.getName(), newState.get(property), oldState.get(property));
+				event.addChanges(property.getName(), oldState.get(property), newState.get(property));
 			}
 		}
 		if (event.hasChanges())

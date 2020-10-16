@@ -24,7 +24,7 @@ public class BlockStateChangeEvent extends BaseEvent
 		this.returnValue = returnValue;
 	}
 
-	private BaseText getChangesText(char header)
+	private BaseText getChangesText(char header, boolean justShowMeDetail)
 	{
 		List<Object> changes = Lists.newArrayList();
 		boolean isFirst = true;
@@ -35,18 +35,25 @@ public class BlockStateChangeEvent extends BaseEvent
 				changes.add("w " + header);
 			}
 			isFirst = false;
-			BaseText displayText = Messenger.c(
+			BaseText simpleText = Messenger.c(
 					String.format("w %s", change.name),
 					"g =",
 					MicroTickUtil.getColoredValue(change.newValue)
 			);
-			BaseText floatText = Messenger.c(
+			BaseText detailText = Messenger.c(
 					String.format("w %s: ", change.name),
 					MicroTickUtil.getColoredValue(change.oldValue),
 					"g ->",
 					MicroTickUtil.getColoredValue(change.newValue)
 			);
-			changes.add(Util.getFancyText(null, displayText, floatText, null));
+			if (justShowMeDetail)
+			{
+				changes.add(detailText);
+			}
+			else
+			{
+				changes.add(Util.getFancyText(null, simpleText, detailText, null));
+			}
 		}
 		return Messenger.c(changes.toArray(new Object[0]));
 	}
@@ -61,7 +68,7 @@ public class BlockStateChangeEvent extends BaseEvent
 		{
 			list.add(titleText);
 			list.add("w : ");
-			list.add(this.getChangesText(' '));
+			list.add(this.getChangesText(' ', false));
 		}
 		else
 		{
@@ -70,7 +77,7 @@ public class BlockStateChangeEvent extends BaseEvent
 					titleText,
 					Messenger.c(
 							String.format("w %s:\n", this.tr("Changed BlockStates")),
-							this.getChangesText('\n'),
+							this.getChangesText('\n', true),
 							"w  "
 					),
 					null
