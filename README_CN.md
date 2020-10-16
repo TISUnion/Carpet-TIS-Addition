@@ -430,7 +430,7 @@
 
 ### 追踪 (tracking)
 
-`raid tracking [<start|stop|restart|realtime>]`
+`/raid tracking [<start|stop|restart|realtime>]`
 
 开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
 

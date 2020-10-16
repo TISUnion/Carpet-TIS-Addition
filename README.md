@@ -431,7 +431,7 @@ List information of all current raids
 
 ### tracking
 
-`raid tracking [<start|stop|restart|realtime>]`
+`/raid tracking [<start|stop|restart|realtime>]`
 
 Start a raid tracking to gather statistics from ongoing raids
 
