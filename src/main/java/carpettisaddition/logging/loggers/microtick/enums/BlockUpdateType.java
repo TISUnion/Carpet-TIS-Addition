@@ -56,7 +56,7 @@ public enum BlockUpdateType
 		}
 		if (skipSide != null)
 		{
-			stringBuilder.append(String.format("%s: %s\n", tr("Except"), skipSide));
+			stringBuilder.append(String.format("\n%s: %s", tr("Except"), skipSide));
 		}
 		return stringBuilder.toString();
 	}

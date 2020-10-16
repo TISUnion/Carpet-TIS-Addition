@@ -26,13 +26,13 @@ public class ExecuteTileTickEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.tileTickEntry.getObject()));
-		list.add("c " + this.tr("Execute"));
+		list.add(COLOR_ACTION + this.tr("Execute"));
 		list.add(Util.getSpaceText());
-		list.add("c " + this.tr("TileTick Event"));
+		list.add(COLOR_TARGET + this.tr("TileTick Event"));
 		if (this.getEventType() == EventType.ACTION_END)
 		{
 			list.add(Util.getSpaceText());
-			list.add("c " + MicroTickLoggerManager.tr("ended"));
+			list.add(COLOR_RESULT + MicroTickLoggerManager.tr("ended"));
 		}
 		list.add(String.format("^w %s: %d (%s)", MicroTickLoggerManager.tr("Priority"), this.tileTickEntry.priority.getIndex(), this.tileTickEntry.priority));
 		return Messenger.c(list.toArray(new Object[0]));

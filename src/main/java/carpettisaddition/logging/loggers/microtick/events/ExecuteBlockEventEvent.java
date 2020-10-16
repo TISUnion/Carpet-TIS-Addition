@@ -49,16 +49,16 @@ public class ExecuteBlockEventEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(blockAction.getBlock()));
-		list.add("c " + this.tr("Execute"));
+		list.add(COLOR_ACTION + this.tr("Execute"));
 		if (this.blockAction.getBlock() instanceof PistonBlock)
 		{
 			list.add(Util.getSpaceText());
-			list.add("c " + PistonBlockEventType.byId(blockAction.getType()));
+			list.add(COLOR_TARGET + PistonBlockEventType.byId(blockAction.getType()));
 		}
 		else
 		{
 			list.add(Util.getSpaceText());
-			list.add("c " + this.tr("BlockEvent"));
+			list.add(COLOR_TARGET + this.tr("BlockEvent"));
 		}
 		list.add(getMessageExtraMessengerHoverText(blockAction));
 		if (returnValue != null)

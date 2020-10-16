@@ -32,15 +32,24 @@ public class EmitBlockUpdateEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
-		list.add("c " + this.tr("Emit Updates"));
+		list.add(COLOR_ACTION + this.tr("Emit"));
+		list.add(COLOR_TARGET + this.tr("Updates"));
 		if (this.methodName != null)
 		{
 			list.add(String.format("^w %s: %s", this.tr("method_name", "Method name (yarn)"), this.methodName));
 		}
-		if (this.getEventType() == EventType.ACTION_END)
+		switch (this.getEventType())
 		{
-			list.add(Util.getSpaceText());
-			list.add("c " + MicroTickLoggerManager.tr("ended"));
+			case ACTION_START:
+				list.add(Util.getSpaceText());
+				list.add(COLOR_RESULT + MicroTickLoggerManager.tr("started"));
+				break;
+			case ACTION_END:
+				list.add(Util.getSpaceText());
+				list.add(COLOR_RESULT + MicroTickLoggerManager.tr("ended"));
+				break;
+			default:
+				break;
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}
