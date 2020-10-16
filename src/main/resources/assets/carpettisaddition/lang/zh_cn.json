@@ -89,9 +89,9 @@
 
   "rule.microtick.name": "微时序",
   "rule.microtick.desc": "启用微时序监视器的功能",
-  "rule.microtick.extra.0": "使用羊毛块来输出红石元件的动作与方块更新",
+  "rule.microtick.extra.0": "使用羊毛块来输出红石元件的动作、方块更新与堆栈跟踪",
   "rule.microtick.extra.1": "使用/log microtick来开始监视",
-  "rule.microtick.extra.2": "开起时将对服务端性能造成显著影响",
+  "rule.microtick.extra.2": "开启时服务端性能将受到一定影响",
   "rule.microtick.extra.3": "末地烛会检测方块更新，红石元件会输出它们的动作",
   "rule.microtick.extra.4": "- 侦测器、活塞、末地烛：指向羊毛块",
   "rule.microtick.extra.5": "- 中继器、比较器、铁轨、按钮等：放置在羊毛块上",

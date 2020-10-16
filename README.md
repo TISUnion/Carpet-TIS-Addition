@@ -327,11 +327,11 @@ If set to off, no light update can be scheduled or executed
 
 Enable the function of [MicroTick logger](#microTick)
 
-Display actions of redstone components and blockupdates with wool block
+Display redstone components actions, blockupdates and stacktrace with a wool block
 
 Use `/log microtick` to start logging
 
-Might impact the server performance for a lot when it's on
+Might impact the server performance when it's on
 
 EndRods will detect block updates and redstone components will show their actions
 
