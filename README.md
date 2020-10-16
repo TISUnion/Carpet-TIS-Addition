@@ -11,16 +11,6 @@ A [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) extensi
 
 Use with carpet mod in the same Minecraft version. Use newer carpet mod versions whenever possible
 
-Require fabric carpet versions:
-
-| Minecraft      | fabric carpet |
-| -------------- | ------------- |
-| 1.14.4         | \>=1.3.7      |
-| 1.15.2         | \>=1.4.8      |
-| 1.16, 1.16.1   | \>=1.4.0      |
-| 1.16.2, 1.16.3 | \>=1.4.8      |
-
-
 # Index
 
 ## Rules
