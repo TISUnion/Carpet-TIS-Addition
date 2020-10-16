@@ -64,6 +64,11 @@ public class MicroTickLoggerManager
         return Optional.empty();
     }
 
+    public static String tr(String key, String text, boolean autoFormat)
+    {
+        return instance.dummyLoggerForTranslate.tr(key, text, autoFormat);
+    }
+
     public static String tr(String key, String text)
     {
         return instance.dummyLoggerForTranslate.tr(key, text);
