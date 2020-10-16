@@ -4,9 +4,10 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.interfaces.IWorld_MicroTickLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.enums.EventType;
+import carpettisaddition.logging.loggers.microtick.enums.TickStage;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStageExtraBase;
-import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
-import carpettisaddition.logging.loggers.microtick.types.EventType;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -171,7 +172,7 @@ public class MicroTickLoggerManager
         }
     }
 
-    public static void setTickStage(World world, String stage)
+    public static void setTickStage(World world, TickStage stage)
     {
         getWorldLogger(world).ifPresent(logger -> {
             logger.setTickStage(stage);
@@ -179,7 +180,7 @@ public class MicroTickLoggerManager
             logger.setTickStageExtra(null);
         });
     }
-    public static void setTickStage(String stage)
+    public static void setTickStage(TickStage stage)
     {
         if (instance != null)
         {
@@ -210,7 +211,7 @@ public class MicroTickLoggerManager
         }
     }
 
-    public static Optional<String> getTickStage(World world)
+    public static Optional<TickStage> getTickStage(World world)
     {
         return getWorldLogger(world).map(MicroTickLogger::getTickStage);
     }

@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtick.types.EventType;
+import carpettisaddition.logging.loggers.microtick.enums.EventType;
 import carpettisaddition.utils.Util;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.BaseText;

@@ -1,8 +1,9 @@
 package carpettisaddition.mixins.logger.microtick.tickstages;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
+import carpettisaddition.logging.loggers.microtick.enums.TickStage;
 import carpettisaddition.logging.loggers.microtick.tickstages.BlockEventTickStageExtra;
-import carpettisaddition.logging.loggers.microtick.tickstages.StringTickStage;
+import carpettisaddition.logging.loggers.microtick.tickstages.StringTickStageExtra;
 import carpettisaddition.logging.loggers.microtick.tickstages.TileTickTickStageExtra;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
@@ -31,7 +32,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageWorldBorder(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "WorldBorder");
+		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.WORLD_BORDER);
 	}
 
 	/*
@@ -49,7 +50,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageTileTick(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "TileTick");
+		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.TILE_TICK);
 	}
 
 	private int tileTickOrderCounter = 0;
@@ -95,7 +96,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageRaid(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "Raid");
+		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.RAID);
 	}
 
 	@Inject(
@@ -107,7 +108,7 @@ public abstract class ServerWorldMixin
 	)
 	void onStageWanderingTrader(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "WanderingTrader");
+		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.WANDERING_TRADER);
 	}
 
 	/*
@@ -122,7 +123,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageBlockEvent(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "BlockEvent");
+		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.BLOCK_EVENT);
 	}
 
 	@Shadow
@@ -182,8 +183,8 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageEntitiesWeather(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "Entity");
-		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStage.ENTITY_WEATHER_EFFECT);
+		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.ENTITY);
+		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStageExtra.ENTITY_WEATHER_EFFECT);
 	}
 
 	@Inject(
@@ -195,7 +196,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageEntitiesRegular(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStage.ENTITY_REGULAR);
+		MicroTickLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStageExtra.ENTITY_REGULAR);
 	}
 
 	@Inject(
@@ -204,7 +205,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onTickChunk(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, "RandomTick&Climate");
+		MicroTickLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.RANDOMTICK_CLIMATE);
 	}
 
 	@Inject(

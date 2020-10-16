@@ -1,6 +1,7 @@
-package carpettisaddition.logging.loggers.microtick.types;
+package carpettisaddition.logging.loggers.microtick.enums;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
+import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.utils.Util;
 import com.google.common.base.Joiner;
 import net.minecraft.util.math.Direction;
@@ -50,7 +51,7 @@ public enum BlockUpdateType
 				{
 					stringBuilder.append('\n');
 				}
-				stringBuilder.append(String.format("%d. %s", (++counter), tr(direction.toString())));
+				stringBuilder.append(String.format("%d. %s", (++counter), MicroTickUtil.getFormattedDirectionString(direction)));
 			}
 		}
 		if (skipSide != null)

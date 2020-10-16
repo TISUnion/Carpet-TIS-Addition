@@ -2,8 +2,8 @@ package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
-import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
-import carpettisaddition.logging.loggers.microtick.types.EventType;
+import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.enums.EventType;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;

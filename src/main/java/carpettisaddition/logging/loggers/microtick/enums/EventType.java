@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtick.types;
+package carpettisaddition.logging.loggers.microtick.enums;
 
 public enum EventType
 {

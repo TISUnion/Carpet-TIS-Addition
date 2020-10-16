@@ -3,23 +3,22 @@ package carpettisaddition.logging.loggers.microtick;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.BaseLogger;
+import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
+import carpettisaddition.logging.loggers.microtick.enums.EventType;
+import carpettisaddition.logging.loggers.microtick.enums.TickStage;
 import carpettisaddition.logging.loggers.microtick.events.*;
 import carpettisaddition.logging.loggers.microtick.message.IndentedMessage;
 import carpettisaddition.logging.loggers.microtick.message.MessageList;
 import carpettisaddition.logging.loggers.microtick.message.MicroTickMessage;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStageExtraBase;
-import carpettisaddition.logging.loggers.microtick.types.BlockUpdateType;
-import carpettisaddition.logging.loggers.microtick.types.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.PistonBlock;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
@@ -41,12 +40,11 @@ public class MicroTickLogger extends BaseLogger
 {
 	// [stage][detail]^[extra]
 
-	private String stage;
+	private TickStage stage;
 	private String stageDetail;
 	private TickStageExtraBase stageExtra;
 	private final World world;
 	public final MessageList messageList = new MessageList();
-	private final LongOpenHashSet pistonBlockEventSuccessPosition = new LongOpenHashSet();
 	private final BaseText dimensionDisplayTextGray;
 
 	public MicroTickLogger(World world)
@@ -64,11 +62,11 @@ public class MicroTickLogger extends BaseLogger
 		}
 	}
 	
-	public void setTickStage(String stage)
+	public void setTickStage(TickStage stage)
 	{
 		this.stage = stage;
 	}
-	public String getTickStage()
+	public TickStage getTickStage()
 	{
 		return this.stage;
 	}
@@ -163,22 +161,7 @@ public class MicroTickLogger extends BaseLogger
 	public void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, EventType eventType)
 	{
 		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndRodWoolColor(world, blockAction.getPos());
-		if (color.isPresent())
-		{
-			if (blockAction.getBlock() instanceof PistonBlock)
-			{
-				// ignore failure after a success block event of piston in the same gt
-				if (pistonBlockEventSuccessPosition.contains(blockAction.getPos().asLong()))
-				{
-					return;
-				}
-				if (returnValue != null && returnValue)
-				{
-					this.pistonBlockEventSuccessPosition.add(blockAction.getPos().asLong());
-				}
-			}
-			this.addMessage(color.get(), blockAction.getPos(), world, new ExecuteBlockEventEvent(eventType, blockAction, returnValue));
-		}
+		color.ifPresent(dyeColor -> this.addMessage(dyeColor, blockAction.getPos(), world, new ExecuteBlockEventEvent(eventType, blockAction, returnValue)));
 	}
 
 	public void onScheduleBlockEvent(World world, BlockAction blockAction)
@@ -258,6 +241,5 @@ public class MicroTickLogger extends BaseLogger
 				});
 			}
 		}
-		this.pistonBlockEventSuccessPosition.clear();
 	}
 }

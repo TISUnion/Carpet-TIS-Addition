@@ -8,7 +8,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
@@ -175,15 +174,11 @@ public class MicroTickUtil
 		return name;
 	}
 
-	public static Optional<?> getBlockStateProperty(BlockState blockState, Property<?> property)
+	public static String getFormattedDirectionString(Direction direction)
 	{
-		try
-		{
-			return Optional.of(blockState.get(property));
-		}
-		catch (IllegalArgumentException ignored)
-		{
-			return Optional.empty();
-		}
+		String name = direction.toString();
+		String translatedName = MicroTickLoggerManager.tr("direction." + name, name);
+		char sign = direction.getDirection().offset() > 0 ? '+' : '-';
+		return String.format("%s (%c%s)", translatedName, sign, direction.getAxis());
 	}
 }

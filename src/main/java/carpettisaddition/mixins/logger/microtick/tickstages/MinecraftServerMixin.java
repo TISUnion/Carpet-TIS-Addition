@@ -1,7 +1,8 @@
 package carpettisaddition.mixins.logger.microtick.tickstages;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
-import carpettisaddition.logging.loggers.microtick.tickstages.StringTickStage;
+import carpettisaddition.logging.loggers.microtick.enums.TickStage;
+import carpettisaddition.logging.loggers.microtick.tickstages.StringTickStageExtra;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,7 +22,7 @@ public abstract class MinecraftServerMixin
 	)
 	private void onStageAutosave(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage("AutoSave");
+		MicroTickLoggerManager.setTickStage(TickStage.AUTO_SAVE);
 	}
 
 	@Inject(
@@ -30,8 +31,8 @@ public abstract class MinecraftServerMixin
 	)
 	private void onStagePlayerAction(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage("PlayerAction");
-		MicroTickLoggerManager.setTickStageExtra(StringTickStage.SYNC_TASKS);
+		MicroTickLoggerManager.setTickStage(TickStage.PLAYER_ACTION);
+		MicroTickLoggerManager.setTickStageExtra(StringTickStageExtra.SYNC_TASKS);
 	}
 
 	@Inject(
@@ -43,7 +44,7 @@ public abstract class MinecraftServerMixin
 	)
 	private void onStageCommandFunctions(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage("CommandFunction");
+		MicroTickLoggerManager.setTickStage(TickStage.COMMAND_FUNCTION);
 	}
 
 	@Inject(
@@ -55,6 +56,6 @@ public abstract class MinecraftServerMixin
 	)
 	private void onStageNetwork(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage("Network");
+		MicroTickLoggerManager.setTickStage(TickStage.NETWORK);
 	}
 }
