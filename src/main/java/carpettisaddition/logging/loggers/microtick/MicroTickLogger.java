@@ -20,6 +20,7 @@ import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.BlockEvent;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.BaseText;
@@ -43,11 +44,11 @@ public class MicroTickLogger extends BaseLogger
 	private TickStage stage;
 	private String stageDetail;
 	private TickStageExtraBase stageExtra;
-	private final World world;
+	private final ServerWorld world;
 	public final MessageList messageList = new MessageList();
 	private final BaseText dimensionDisplayTextGray;
 
-	public MicroTickLogger(World world)
+	public MicroTickLogger(ServerWorld world)
 	{
 		super("microtick");
 		this.world = world;
@@ -65,6 +66,8 @@ public class MicroTickLogger extends BaseLogger
 	public void setTickStage(TickStage stage)
 	{
 		this.stage = stage;
+		this.stageDetail = null;
+		this.stageExtra = null;
 	}
 	public TickStage getTickStage()
 	{

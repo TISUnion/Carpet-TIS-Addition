@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.microtick;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.interfaces.IWorld_MicroTickLogger;
+import carpettisaddition.interfaces.IServerWorld_MicroTickLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.enums.EventType;
@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.BlockEvent;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.ScheduledTick;
@@ -26,14 +27,14 @@ public class MicroTickLoggerManager
 {
     private static MicroTickLoggerManager instance;
 
-    private final Map<World, MicroTickLogger> loggers = new Reference2ObjectArrayMap<>();
+    private final Map<ServerWorld, MicroTickLogger> loggers = new Reference2ObjectArrayMap<>();
     private final MicroTickLogger dummyLoggerForTranslate = new MicroTickLogger(null);
 
     public MicroTickLoggerManager(MinecraftServer minecraftServer)
     {
-        for (World world : minecraftServer.getWorlds())
+        for (ServerWorld world : minecraftServer.getWorlds())
         {
-            this.loggers.put(world, ((IWorld_MicroTickLogger)world).getMicroTickLogger());
+            this.loggers.put(world, ((IServerWorld_MicroTickLogger)world).getMicroTickLogger());
         }
     }
 
@@ -56,7 +57,11 @@ public class MicroTickLoggerManager
 
     private static Optional<MicroTickLogger> getWorldLogger(World world)
     {
-        return instance == null ? Optional.empty() : Optional.ofNullable(instance.loggers.get(world));
+        if (instance != null && world instanceof ServerWorld)
+        {
+            return Optional.of(((IServerWorld_MicroTickLogger)world).getMicroTickLogger());
+        }
+        return Optional.empty();
     }
 
     public static String tr(String key, String text)
@@ -146,7 +151,6 @@ public class MicroTickLoggerManager
         }
     }
 
-
     /*
      * ------------------
      *  Component things
@@ -161,24 +165,15 @@ public class MicroTickLoggerManager
         }
     }
 
-    public static void flushMessages() // needs to call at the end of a gt
-    {
-        if (instance != null && isLoggerActivated())
-        {
-            for (MicroTickLogger logger : instance.loggers.values())
-            {
-                logger.flushMessages();
-            }
-        }
-    }
+    /*
+     * ------------
+     *  Tick Stage
+     * ------------
+     */
 
     public static void setTickStage(World world, TickStage stage)
     {
-        getWorldLogger(world).ifPresent(logger -> {
-            logger.setTickStage(stage);
-            logger.setTickStageDetail(null);
-            logger.setTickStageExtra(null);
-        });
+        getWorldLogger(world).ifPresent(logger -> logger.setTickStage(stage));
     }
     public static void setTickStage(TickStage stage)
     {
@@ -207,6 +202,23 @@ public class MicroTickLoggerManager
             for (MicroTickLogger logger : instance.loggers.values())
             {
                 logger.setTickStageExtra(stage);
+            }
+        }
+    }
+
+    /*
+     * ------------
+     *  Interfaces
+     * ------------
+     */
+
+    public static void flushMessages() // needs to call at the end of a gt
+    {
+        if (instance != null && isLoggerActivated())
+        {
+            for (MicroTickLogger logger : instance.loggers.values())
+            {
+                logger.flushMessages();
             }
         }
     }
