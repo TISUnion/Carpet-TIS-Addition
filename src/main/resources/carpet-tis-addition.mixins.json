@@ -14,7 +14,6 @@
     "command.RaidManagerAccessor",
     "logger.item.ItemEntity_itemLoggerMixin",
     "logger.microtick.ServerWorldMixin",
-    "logger.microtick.WorldMixin",
     "logger.microtick.events.BlockMixin",
     "logger.microtick.events.EmitBlockUpdateMixins$AbstractButtonBlockMixin",
     "logger.microtick.events.EmitBlockUpdateMixins$AbstractPressurePlateBlockMixin",
