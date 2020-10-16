@@ -1,8 +1,8 @@
 package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtick.types.EventType;
-import carpettisaddition.logging.loggers.microtick.types.PistonBlockEventType;
+import carpettisaddition.logging.loggers.microtick.enums.EventType;
+import carpettisaddition.logging.loggers.microtick.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
@@ -39,7 +39,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		builder.append(String.format("\neventParam: %d", eventParam));
 		if (blockAction.getBlock() instanceof PistonBlock)
 		{
-			builder.append(String.format(" (%s)", Direction.byId(eventParam)));
+			builder.append(String.format(" (%s)", MicroTickUtil.getFormattedDirectionString(Direction.byId(eventParam))));
 		}
 		return builder.toString();
 	}

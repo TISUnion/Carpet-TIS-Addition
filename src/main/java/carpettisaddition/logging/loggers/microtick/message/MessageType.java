@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.microtick.message;
 
-import carpettisaddition.logging.loggers.microtick.types.EventType;
+import carpettisaddition.logging.loggers.microtick.enums.EventType;
 
 public enum MessageType
 {
