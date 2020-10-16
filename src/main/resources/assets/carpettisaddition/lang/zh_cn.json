@@ -160,7 +160,7 @@
   "logger.microtick.block_update_type.aka": "也就是",
   "logger.microtick.block_update_type.except": "排除",
   "logger.microtick.block_update_type.blockupdates": "方块更新",
-  "logger.microtick.block_update_type.blockupdates_except": "方块更新(5毗邻)",
+  "logger.microtick.block_update_type.blockupdates_except": "方块更新(含排除)",
   "logger.microtick.block_update_type.stateupdates": "状态更新",
   "logger.microtick.piston_block_event_type.push": "推出方块",
   "logger.microtick.piston_block_event_type.retract": "拉回方块",
