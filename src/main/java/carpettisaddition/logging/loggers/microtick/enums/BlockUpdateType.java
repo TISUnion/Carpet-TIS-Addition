@@ -21,12 +21,11 @@ public enum BlockUpdateType
 		this.name = name;
 		this.aka = aka;
 		this.updateOrder = updateOrder;
-
 	}
 
 	private String tr(String text)
 	{
-		return MicroTickLoggerManager.tr("block_update_type." + text, text);
+		return MicroTickLoggerManager.tr("block_update_type." + text, text, true);
 	}
 
 	@Override
