@@ -410,7 +410,7 @@ Info when these raid related events happen:
 
 Log micro timings of redstone components. The ticket of the chunk the component is in needs to be at least lazy-processing (ticket level 32)
 
-Check rule [microTick](#microTick) for detail
+Check rule [microTick](#microTick) for detail. Remember to use `/carpet microTick true` to enable logger functionality
 
 Available options: 
 - `all`: Log all events
