@@ -31,16 +31,22 @@ public class DetectBlockUpdateEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.fromBlock));
-		list.add("c " + MicroTickLoggerManager.tr("Emit"));
+		list.add(COLOR_ACTION + MicroTickLoggerManager.tr("Emit"));
 		list.add(Util.getSpaceText());
-		list.add("c " + this.updateType);
+		list.add(COLOR_TARGET + this.updateType);
 		list.add("^w " + this.updateTypeExtraMessage);
 		list.add(Util.getSpaceText());
-		list.add("e " + this.tr("Detected"));
-		if (this.getEventType() == EventType.ACTION_END)
+		switch (this.getEventType())
 		{
-			list.add(Util.getSpaceText());
-			list.add("c " + MicroTickLoggerManager.tr("ended"));
+			case ACTION_START:
+				list.add(COLOR_RESULT + MicroTickLoggerManager.tr("started"));
+				break;
+			case ACTION_END:
+				list.add(COLOR_RESULT + MicroTickLoggerManager.tr("ended"));
+				break;
+			default:
+				list.add(COLOR_RESULT + this.tr("detected"));
+				break;
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}

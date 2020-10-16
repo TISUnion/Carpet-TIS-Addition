@@ -78,13 +78,13 @@ public abstract class WorldMixin
 		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_END);
 	}
 
-	@Inject(method = "updateNeighborsExcept", at = @At("RETURN"))
+	@Inject(method = "updateNeighborsExcept", at = @At("HEAD"))
 	private void startUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
 	{
 		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_START);
 	}
 
-	@Inject(method = "updateNeighborsExcept", at = @At("TAIL"))
+	@Inject(method = "updateNeighborsExcept", at = @At("RETURN"))
 	private void endUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
 	{
 		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_END);

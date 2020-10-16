@@ -23,9 +23,9 @@ public class ScheduleBlockEventEvent extends BaseEvent
 	{
 		return Messenger.c(
 				this.getEnclosedTranslatedBlockNameHeaderText(blockAction.getBlock()),
-				"c " + this.tr("Scheduled"),
+				COLOR_ACTION + this.tr("Scheduled"),
 				Util.getSpaceText(),
-				"c " + this.tr("BlockEvent"),
+				COLOR_TARGET + this.tr("BlockEvent"),
 				ExecuteBlockEventEvent.getMessageExtraMessengerHoverText(blockAction)
 		);
 	}

@@ -63,7 +63,7 @@ public class BlockStateChangeEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
-		BaseText titleText = Messenger.c("c " + this.tr("State Change"));
+		BaseText titleText = Messenger.c(COLOR_ACTION + this.tr("State Change"));
 		if (this.getEventType() != EventType.ACTION_END)
 		{
 			list.add(titleText);
@@ -74,10 +74,14 @@ public class BlockStateChangeEvent extends BaseEvent
 		{
 			list.add(Util.getFancyText(
 					"w",
-					titleText,
+					Messenger.c(
+							titleText,
+							Util.getSpaceText(),
+							COLOR_RESULT + this.tr("finished")
+					),
 					Messenger.c(
 							String.format("w %s", this.tr("Changed BlockStates")),
-							"g :\n",
+							"w :\n",
 							this.getChangesText('\n', true),
 							"w  "
 					),
