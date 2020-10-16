@@ -41,8 +41,8 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 		{
 			if (isLithiumLoaded)
 			{
-				LOGGER.info("Detected Lithium mod, loading backup mixin for onScheduleTileTick event");
-				LOGGER.info("ScheduleTileTick events might not be fully listened");
+				LOGGER.info("[CarpetTISAddition] Detected Lithium mod, loading backup mixin for MicroTick logger onScheduleTileTick event");
+				LOGGER.info("[CarpetTISAddition] ScheduleTileTick events might not be fully listened");
 				return false;
 			}
 			else

@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtick.types.EventType;
+import carpettisaddition.logging.loggers.microtick.enums.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import carpettisaddition.utils.TranslatableBase;

@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtick.types.EventType;
+import carpettisaddition.logging.loggers.microtick.enums.EventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
@@ -67,7 +67,7 @@ public class BlockStateChangeEvent extends BaseEvent
 		if (this.getEventType() != EventType.ACTION_END)
 		{
 			list.add(titleText);
-			list.add("w : ");
+			list.add("g : ");
 			list.add(this.getChangesText(' ', false));
 		}
 		else
@@ -76,7 +76,8 @@ public class BlockStateChangeEvent extends BaseEvent
 					"w",
 					titleText,
 					Messenger.c(
-							String.format("w %s:\n", this.tr("Changed BlockStates")),
+							String.format("w %s", this.tr("Changed BlockStates")),
+							"g :\n",
 							this.getChangesText('\n', true),
 							"w  "
 					),

@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.microtick.events;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
-import carpettisaddition.logging.loggers.microtick.types.EventType;
+import carpettisaddition.logging.loggers.microtick.enums.EventType;
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

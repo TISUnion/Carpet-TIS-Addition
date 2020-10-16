@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.logger.microtick.tickstages;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
+import carpettisaddition.logging.loggers.microtick.enums.TickStage;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Final;
@@ -26,7 +27,7 @@ public abstract class ServerChunkManagerMixin
 	)
 	private void onStageSpawn(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage(this.world, "Spawning");
+		MicroTickLoggerManager.setTickStage(this.world, TickStage.SPAWNING);
 	}
 	@Inject(
 			method = "tickChunks",
@@ -37,6 +38,6 @@ public abstract class ServerChunkManagerMixin
 	)
 	private void onStageSpawnSpecial(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage(this.world, "SpawningSpecial");
+		MicroTickLoggerManager.setTickStage(this.world, TickStage.SPAWNING_SPECIAL);
 	}
 }

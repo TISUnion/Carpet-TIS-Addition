@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.logger.microtick.tickstages;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
+import carpettisaddition.logging.loggers.microtick.enums.TickStage;
 import carpettisaddition.logging.loggers.microtick.tickstages.TileEntityTickStageExtra;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.profiler.Profiler;
@@ -24,7 +25,7 @@ public abstract class WorldMixin
 	)
 	private void onStageTileEntity(CallbackInfo ci)
 	{
-		MicroTickLoggerManager.setTickStage((World)(Object)this, "TileEntity");
+		MicroTickLoggerManager.setTickStage((World)(Object)this, TickStage.TILE_ENTITY);
 		this.tileEntityOrderCounter = 0;
 	}
 

@@ -414,6 +414,21 @@ Info when these raid related events happen:
 - The center Position of a raid has been moved
 
 
+## microtick
+
+`/log microtick <type>`
+
+Log micro timings of redstone components. The ticket of the chunk the component is in needs to be at least lazy-processing (ticket level 32)
+
+Check rule [microTick](#microTick) for detail
+
+Available options: 
+- `all`: Log all events
+- `unique`: Log the first unique event in every gametick
+
+- Default value: `all`
+- Suggested options: `all`, `unique`
+
 # Commands
 
 ## raid
