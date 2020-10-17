@@ -132,7 +132,7 @@ public class MicroTickUtil
 			return Optional.empty();
 		}
 
-		return Optional.ofNullable(WoolTool.getWoolColorAtPosition(world.getWorld(), woolPos));
+		return Optional.ofNullable(WoolTool.getWoolColorAtPosition(world, woolPos));
 	}
 
 	public static Optional<DyeColor> getEndRodWoolColor(World world, BlockPos pos)
@@ -148,7 +148,7 @@ public class MicroTickUtil
 			if (iBlockState.getBlock() == Blocks.END_ROD && iBlockState.get(FacingBlock.FACING).getOpposite() == facing)
 			{
 				BlockPos woolPos = blockEndRodPos.offset(facing);
-				DyeColor color = WoolTool.getWoolColorAtPosition(world.getWorld(), woolPos);
+				DyeColor color = WoolTool.getWoolColorAtPosition(world, woolPos);
 				if (color != null)
 				{
 					return Optional.of(color);
