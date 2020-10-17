@@ -315,7 +315,7 @@ If set to off, no light update can be scheduled or executed
 
 ## microTick
 
-Enable the function of [MicroTick logger](#microTick)
+Enable the function of [MicroTick logger](#microTick-1)
 
 Display redstone components actions, blockupdates and stacktrace with a wool block
 
@@ -410,7 +410,7 @@ Info when these raid related events happen:
 
 Log micro timings of redstone components. The ticket of the chunk the component is in needs to be at least lazy-processing (ticket level 32)
 
-Check rule [microTick](#microTick) for detail
+Check rule [microTick](#microTick) for detail. Remember to use `/carpet microTick true` to enable logger functionality
 
 Available options: 
 - `all`: Log all events
@@ -431,7 +431,7 @@ List information of all current raids
 
 ### tracking
 
-`raid tracking [<start|stop|restart|realtime>]`
+`/raid tracking [<start|stop|restart|realtime>]`
 
 Start a raid tracking to gather statistics from ongoing raids
 

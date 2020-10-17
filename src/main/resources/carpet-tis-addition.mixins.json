@@ -35,6 +35,7 @@
     "logger.microtick.tickstages.MinecraftServerMixin",
     "logger.microtick.tickstages.ServerChunkManagerMixin",
     "logger.microtick.tickstages.ServerWorldMixin",
+    "logger.microtick.tickstages.SpawnHelperMixin",
     "logger.microtick.tickstages.WorldMixin",
     "logger.raid.RaidManagerMixin",
     "logger.raid.RaidMixin",

@@ -17,18 +17,6 @@ public abstract class ServerChunkManagerMixin
 {
 	@Shadow @Final private ServerWorld world;
 
-	@SuppressWarnings("UnresolvedMixinReference")
-	@Inject(
-			method = "method_20801",  // lambda method
-			at = @At(
-					value = "INVOKE",
-					args = "Lnet/minecraft/server/world/ThreadedAnvilChunkStorage;isTooFarFromPlayersToSpawnMobs(Lnet/minecraft/util/math/ChunkPos;)Z"
-			)
-	)
-	private void onStageSpawn(CallbackInfo ci)
-	{
-		MicroTickLoggerManager.setTickStage(this.world, TickStage.SPAWNING);
-	}
 	@Inject(
 			method = "tickChunks",
 			at = @At(
