@@ -4,8 +4,10 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.enums.EventType;
 import carpettisaddition.logging.loggers.microtick.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
+import carpettisaddition.logging.loggers.microtick.utils.ToTextAble;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
+import net.minecraft.block.Block;
 import net.minecraft.block.PistonBlock;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.BaseText;
@@ -18,12 +20,18 @@ public class ExecuteBlockEventEvent extends BaseEvent
 {
 	private final BlockAction blockAction;
 	private Boolean returnValue;
+	private FailInfo failInfo;
 
-	public ExecuteBlockEventEvent(EventType eventType, BlockAction blockAction, Boolean returnValue)
+	public ExecuteBlockEventEvent(EventType eventType, BlockAction blockAction, Boolean returnValue, FailInfo failInfo)
 	{
 		super(eventType, "execute_block_event");
 		this.blockAction = blockAction;
 		this.returnValue = returnValue;
+		this.failInfo = failInfo;
+		if (this.failInfo != null)
+		{
+			this.failInfo.setEvent(this);
+		}
 	}
 
 	public static String getMessageExtraMessengerHoverText(BlockAction blockAction)
@@ -64,7 +72,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		if (returnValue != null)
 		{
 			list.add("w  ");
-			list.add(MicroTickUtil.getSuccessText(this.returnValue, true));
+			list.add(MicroTickUtil.getSuccessText(this.returnValue, true, this.failInfo != null && !this.returnValue ? this.failInfo.toText() : null));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}
@@ -93,6 +101,52 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		{
 			super.mergeQuitEvent(quitEvent);
 			this.returnValue = ((ExecuteBlockEventEvent)quitEvent).returnValue;
+			this.failInfo = ((ExecuteBlockEventEvent)quitEvent).failInfo;
 		}
+	}
+
+	public static class FailInfo implements ToTextAble
+	{
+		private final FailReason reason;
+		private final Block actualBlock;
+		private ExecuteBlockEventEvent event;
+
+		public FailInfo(FailReason reason, Block block)
+		{
+			this.reason = reason;
+			this.actualBlock = block;  // for custom BLOCK_CHANGED reason
+		}
+
+		public void setEvent(ExecuteBlockEventEvent event)
+		{
+			this.event = event;
+		}
+
+		@Override
+		public BaseText toText()
+		{
+			switch (this.reason)
+			{
+				case BLOCK_CHANGED:
+					return Messenger.c(
+							"w " + this.event.tr("fail_info.block_changed", "Block has changed"),
+							"w : ",
+							MicroTickUtil.getTranslatedText(this.event.blockAction.getBlock()),
+							"g  -> ",
+							MicroTickUtil.getTranslatedText(this.actualBlock)
+					);
+				case EVENT_FAIL:
+				default:
+					return Messenger.c(
+							"w " + this.event.tr("fail_info.event_fail", "Event Failed")
+					);
+			}
+		}
+	}
+
+	public enum FailReason
+	{
+		BLOCK_CHANGED,
+		EVENT_FAIL
 	}
 }

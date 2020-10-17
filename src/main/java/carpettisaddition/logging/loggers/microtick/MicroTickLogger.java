@@ -161,16 +161,16 @@ public class MicroTickLogger extends BaseLogger
 	 * -------------
 	 */
 
-	public void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, EventType eventType)
+	public void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, ExecuteBlockEventEvent.FailInfo failInfo, EventType eventType)
 	{
 		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndRodWoolColor(world, blockAction.getPos());
-		color.ifPresent(dyeColor -> this.addMessage(dyeColor, blockAction.getPos(), world, new ExecuteBlockEventEvent(eventType, blockAction, returnValue)));
+		color.ifPresent(dyeColor -> this.addMessage(dyeColor, blockAction.getPos(), world, new ExecuteBlockEventEvent(eventType, blockAction, returnValue, failInfo)));
 	}
 
-	public void onScheduleBlockEvent(World world, BlockAction blockAction)
+	public void onScheduleBlockEvent(World world, BlockAction blockAction, boolean success)
 	{
 		Optional<DyeColor> color = MicroTickUtil.getWoolOrEndRodWoolColor(world, blockAction.getPos());
-		color.ifPresent(dyeColor -> this.addMessage(dyeColor, blockAction.getPos(), world, new ScheduleBlockEventEvent(blockAction)));
+		color.ifPresent(dyeColor -> this.addMessage(dyeColor, blockAction.getPos(), world, new ScheduleBlockEventEvent(blockAction, success)));
 	}
 
 	/*

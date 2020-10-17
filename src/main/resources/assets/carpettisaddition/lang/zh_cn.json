@@ -177,6 +177,8 @@
   "logger.microtick.event.emit_block_update.ended": "结束",
   "logger.microtick.event.execute_block_event.execute": "执行",
   "logger.microtick.event.execute_block_event.blockevent": "方块事件",
+  "logger.microtick.event.execute_block_event.fail_info.block_changed": "方块已变化",
+  "logger.microtick.event.execute_block_event.fail_info.event_fail": "事件执行失败",
   "logger.microtick.event.execute_tile_tick.execute": "执行",
   "logger.microtick.event.execute_tile_tick.tiletick_event": "计划刻事件",
   "logger.microtick.event.schedule_block_event.scheduled": "添加",
