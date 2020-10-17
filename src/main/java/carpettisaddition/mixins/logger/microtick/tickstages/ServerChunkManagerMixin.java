@@ -17,18 +17,6 @@ public abstract class ServerChunkManagerMixin
 {
 	@Shadow @Final private ServerWorld world;
 
-	@SuppressWarnings("UnresolvedMixinReference")
-	@Inject(
-			method = "method_20801",  // lambda method
-			at = @At(
-					value = "CONSTANT",
-					args = "stringValue=spawner"
-			)
-	)
-	private void onStageSpawn(CallbackInfo ci)
-	{
-		MicroTickLoggerManager.setTickStage(this.world, TickStage.SPAWNING);
-	}
 	@Inject(
 			method = "tickChunks",
 			at = @At(

@@ -407,9 +407,9 @@
 
 `/log microtick <类型>`
 
-记录元件的微时序，元件所在区块的加载票等级需为弱加载 (加载票等级 32)
+记录元件的微时序，元件所在区块的加载票等级需至少为弱加载 (加载票等级 32)
 
-见规则 [微时序](#微时序-microtick) 以获得详细信息
+见规则 [微时序](#微时序-microtick) 以获得详细信息，记得使用 `/carpet microTick true` 启用监视器功能
 
 可用的类型选项: 
 - `all`: 默认值，输出所有事件
@@ -430,7 +430,7 @@
 
 ### 追踪 (tracking)
 
-`raid tracking [<start|stop|restart|realtime>]`
+`/raid tracking [<start|stop|restart|realtime>]`
 
 开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
 

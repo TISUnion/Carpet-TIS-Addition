@@ -33,6 +33,7 @@ public class EmitBlockUpdateEvent extends BaseEvent
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
 		list.add(COLOR_ACTION + this.tr("Emit"));
+		list.add(Util.getSpaceText());
 		list.add(COLOR_TARGET + this.tr("Updates"));
 		if (this.methodName != null)
 		{
