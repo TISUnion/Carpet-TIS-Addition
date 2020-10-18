@@ -90,6 +90,11 @@ public class MicroTickLogger extends BaseLogger
 		return this.stageExtra;
 	}
 
+	public ServerWorld getWorld()
+	{
+		return this.world;
+	}
+
 	/*
 	 * --------------
 	 *  Block Update

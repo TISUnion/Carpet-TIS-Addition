@@ -30,13 +30,25 @@ public class MicroTickLoggerManager
 
     private final Map<ServerWorld, MicroTickLogger> loggers = new Reference2ObjectArrayMap<>();
     private final MicroTickLogger dummyLoggerForTranslate = new MicroTickLogger(null);
+    private long lastFlushTime;
 
     public MicroTickLoggerManager(MinecraftServer minecraftServer)
     {
+        this.lastFlushTime = -1;
         for (ServerWorld world : minecraftServer.getWorlds())
         {
             this.loggers.put(world, ((IServerWorld_MicroTickLogger)world).getMicroTickLogger());
         }
+    }
+
+    public static MicroTickLoggerManager getInstance()
+    {
+        return instance;
+    }
+
+    public Map<ServerWorld, MicroTickLogger> getLoggers()
+    {
+        return loggers;
     }
 
     public static boolean isLoggerActivated()
@@ -218,14 +230,23 @@ public class MicroTickLoggerManager
      * ------------
      */
 
-    public static void flushMessages() // needs to call at the end of a gt
+    private void flush(long gameTime) // needs to call at the end of a gt
     {
-        if (instance != null && isLoggerActivated())
+        if (gameTime != this.lastFlushTime)
         {
-            for (MicroTickLogger logger : instance.loggers.values())
+            this.lastFlushTime = gameTime;
+            for (MicroTickLogger logger : this.loggers.values())
             {
                 logger.flushMessages();
             }
+        }
+    }
+
+    public static void flushMessages(long gameTime) // needs to call at the end of a gt
+    {
+        if (instance != null && isLoggerActivated())
+        {
+            instance.flush(gameTime);
         }
     }
 
