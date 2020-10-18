@@ -2,6 +2,7 @@ package carpettisaddition.logging.loggers.microtick.events;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtick.enums.EventType;
+import carpettisaddition.logging.loggers.microtick.utils.MicroTickUtil;
 import carpettisaddition.utils.Util;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.BaseText;
@@ -11,11 +12,13 @@ import java.util.Objects;
 public class ScheduleBlockEventEvent extends BaseEvent
 {
 	private final BlockAction blockAction;
+	private final boolean success;
 
-	public ScheduleBlockEventEvent(BlockAction blockAction)
+	public ScheduleBlockEventEvent(BlockAction blockAction, boolean success)
 	{
 		super(EventType.EVENT, "schedule_block_event");
 		this.blockAction = blockAction;
+		this.success = success;
 	}
 
 	@Override
@@ -26,7 +29,9 @@ public class ScheduleBlockEventEvent extends BaseEvent
 				COLOR_ACTION + this.tr("Scheduled"),
 				Util.getSpaceText(),
 				COLOR_TARGET + this.tr("BlockEvent"),
-				ExecuteBlockEventEvent.getMessageExtraMessengerHoverText(blockAction)
+				ExecuteBlockEventEvent.getMessageExtraMessengerHoverText(blockAction),
+				Util.getSpaceText(),
+				MicroTickUtil.getSuccessText(this.success, false)
 		);
 	}
 

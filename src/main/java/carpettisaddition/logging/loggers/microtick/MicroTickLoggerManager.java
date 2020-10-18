@@ -7,6 +7,7 @@ import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.enums.EventType;
 import carpettisaddition.logging.loggers.microtick.enums.TickStage;
+import carpettisaddition.logging.loggers.microtick.events.ExecuteBlockEventEvent;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStageExtraBase;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
@@ -29,13 +30,25 @@ public class MicroTickLoggerManager
 
     private final Map<ServerWorld, MicroTickLogger> loggers = new Reference2ObjectArrayMap<>();
     private final MicroTickLogger dummyLoggerForTranslate = new MicroTickLogger(null);
+    private long lastFlushTime;
 
     public MicroTickLoggerManager(MinecraftServer minecraftServer)
     {
+        this.lastFlushTime = -1;
         for (ServerWorld world : minecraftServer.getWorlds())
         {
             this.loggers.put(world, ((IServerWorld_MicroTickLogger)world).getMicroTickLogger());
         }
+    }
+
+    public static MicroTickLoggerManager getInstance()
+    {
+        return instance;
+    }
+
+    public Map<ServerWorld, MicroTickLogger> getLoggers()
+    {
+        return loggers;
     }
 
     public static boolean isLoggerActivated()
@@ -140,19 +153,19 @@ public class MicroTickLoggerManager
      * -------------
      */
 
-    public static void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, EventType eventType)
+    public static void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, ExecuteBlockEventEvent.FailInfo failInfo, EventType eventType)
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onExecuteBlockEvent(world, blockAction, returnValue, eventType));
+            getWorldLogger(world).ifPresent(logger -> logger.onExecuteBlockEvent(world, blockAction, returnValue, failInfo, eventType));
         }
     }
 
-    public static void onScheduleBlockEvent(World world, BlockAction blockAction)
+    public static void onScheduleBlockEvent(World world, BlockAction blockAction, boolean success)
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onScheduleBlockEvent(world, blockAction));
+            getWorldLogger(world).ifPresent(logger -> logger.onScheduleBlockEvent(world, blockAction, success));
         }
     }
 
@@ -217,14 +230,23 @@ public class MicroTickLoggerManager
      * ------------
      */
 
-    public static void flushMessages() // needs to call at the end of a gt
+    private void flush(long gameTime) // needs to call at the end of a gt
     {
-        if (instance != null && isLoggerActivated())
+        if (gameTime != this.lastFlushTime)
         {
-            for (MicroTickLogger logger : instance.loggers.values())
+            this.lastFlushTime = gameTime;
+            for (MicroTickLogger logger : this.loggers.values())
             {
                 logger.flushMessages();
             }
+        }
+    }
+
+    public static void flushMessages(long gameTime) // needs to call at the end of a gt
+    {
+        if (instance != null && isLoggerActivated())
+        {
+            instance.flush(gameTime);
         }
     }
 

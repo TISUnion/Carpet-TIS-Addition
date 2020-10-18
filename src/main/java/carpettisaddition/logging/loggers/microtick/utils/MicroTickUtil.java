@@ -62,21 +62,29 @@ public class MicroTickUtil
 		return text;
 	}
 
-	public static BaseText getSuccessText(boolean bool, boolean showReturnValue)
+	public static BaseText getSuccessText(boolean value, boolean showReturnValue, BaseText hoverExtra)
 	{
-		BaseText hintText = bool ?
+		BaseText hintText = value ?
 				Messenger.c("e " + MicroTickLoggerManager.tr("Successful")) :
 				Messenger.c("r " + MicroTickLoggerManager.tr("Failed"));
+		if (hoverExtra != null)
+		{
+			hintText.append(Messenger.c("w \n", hoverExtra));
+		}
 		if (showReturnValue)
 		{
 			hintText.append(Messenger.c(
 					String.format("w \n%s: ", MicroTickLoggerManager.tr("Return value")),
-					getColoredValue(bool)
+					getColoredValue(value)
 			));
 		}
-		return bool ?
+		return value ?
 				Util.getFancyText("e", Messenger.s("√"), hintText, null) :
 				Util.getFancyText("r", Messenger.s("×"), hintText, null);
+	}
+	public static BaseText getSuccessText(boolean bool, boolean showReturnValue)
+	{
+		return getSuccessText(bool, showReturnValue, null);
 	}
 
 	private static boolean isPositionAvailable(World world, BlockPos pos)
