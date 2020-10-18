@@ -8,32 +8,20 @@ public class MessageList
 {
 	private final List<MessageTreeNode> messageTrees = Lists.newArrayList();
 	private MessageTreeNode currentNode;
-	private boolean flushed;
 
-	public MessageList()
-	{
-		this.flushed = false;
-	}
-
-	public void clear()
+	public synchronized void clear()
 	{
 		this.messageTrees.clear();
 		this.currentNode = null;
-		this.flushed = false;
 	}
 
-	public boolean isEmpty()
+	public synchronized boolean isEmpty()
 	{
 		return this.messageTrees.isEmpty();
 	}
 
-	public List<IndentedMessage> flush()
+	public synchronized List<IndentedMessage> flush()
 	{
-		if (this.flushed)
-		{
-			throw new IllegalStateException(this.getClass().getName() + " can only flush once");
-		}
-		this.flushed = true;
 		List<IndentedMessage> list = Lists.newArrayList();
 		for (MessageTreeNode tree : this.messageTrees)
 		{
@@ -43,7 +31,7 @@ public class MessageList
 		return list;
 	}
 
-	public void addMessageAndIndent(MicroTickMessage message)
+	public synchronized void addMessageAndIndent(MicroTickMessage message)
 	{
 		this.currentNode = new MessageTreeNode(this.currentNode, message);
 		if (currentNode.getParent() == null)
@@ -56,7 +44,7 @@ public class MessageList
 		}
 	}
 
-	public void addMessageAndUnIndent(MicroTickMessage message)
+	public synchronized void addMessageAndUnIndent(MicroTickMessage message)
 	{
 		if (this.currentNode != null)
 		{
