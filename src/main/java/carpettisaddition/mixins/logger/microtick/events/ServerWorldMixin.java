@@ -2,16 +2,22 @@ package carpettisaddition.mixins.logger.microtick.events;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
 import carpettisaddition.logging.loggers.microtick.enums.EventType;
+import carpettisaddition.logging.loggers.microtick.events.ExecuteBlockEventEvent;
+import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ScheduledTick;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 
 @Mixin(ServerWorld.class)
@@ -43,21 +49,30 @@ public abstract class ServerWorldMixin
 	 * -------------
 	 */
 
-	@Inject(method = "addSyncedBlockEvent", at = @At("HEAD"))
-	private void onScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
+	@Shadow @Final private ObjectLinkedOpenHashSet<BlockAction> pendingBlockActions;
+	private int oldBlockActionQueueSize;
+
+	@Inject(method = "addBlockAction", at = @At("HEAD"))
+	private void startScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockEvent(pos, block, type, data));
+		oldBlockActionQueueSize = this.pendingBlockActions.size();
 	}
 
-	@Inject(method = "processBlockEvent", at = @At(value = "HEAD", shift = At.Shift.AFTER))
-	private void beforeBlockEventExecuted(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "addBlockAction", at = @At("RETURN"))
+	private void endScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, EventType.ACTION_START);
+		MicroTickLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
 	}
 
-	@Inject(method = "processBlockEvent", at = @At("RETURN"))
-	private void afterBlockEventExecuted(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "method_14174", at = @At(value = "HEAD", shift = At.Shift.AFTER))
+	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
-		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), EventType.ACTION_END);
+		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, null, EventType.ACTION_START);
+	}
+
+	@Inject(method = "method_14174", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
+	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir, BlockState blockState)
+	{
+		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), new ExecuteBlockEventEvent.FailInfo(blockState.getBlock() != blockAction.getBlock() ? ExecuteBlockEventEvent.FailReason.BLOCK_CHANGED : ExecuteBlockEventEvent.FailReason.EVENT_FAIL, blockState.getBlock()), EventType.ACTION_END);
 	}
 }
