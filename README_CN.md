@@ -37,6 +37,7 @@
 - [瞬时命令方块](#瞬时命令方块-instantCommandBlock)
 - [光照更新](#光照更新-lightUpdates)
 - [微时序](#微时序-microtick)
+- [禁用反刷屏监测](#禁用反刷屏监测-antiSpamDisabled)
 
 ## 监视器
 
@@ -338,6 +339,16 @@
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `COMMAND`, `CREATIVE`
+
+
+## 禁用反刷屏监测 (antiSpamDisabled)
+
+禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`, `SURVIVAL`
 
 -----------
 

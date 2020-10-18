@@ -43,6 +43,7 @@
     "logger.ticket.ChunkTicketManagerMixin",
     "logger.ticket.ServerChunkManagerMixin",
     "logger.xporb.ExperienceOrbEntity_xpOrbLoggerMixin",
+    "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.dispenserNoItemCost.ItemDispenserBehaviorMixin",
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",

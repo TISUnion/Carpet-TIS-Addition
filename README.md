@@ -37,6 +37,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [instantCommandBlock](#instantCommandBlock)
 - [lightUpdates](#lightUpdates)
 - [microTick](#microTick)
+- [antiSpamDisabled](#antiSpamDisabled)
 
 ## Loggers
 
@@ -339,6 +340,15 @@ If [lithium mod](https://github.com/jellysquid3/lithium-fabric) is installed, si
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `COMMAND`, `CREATIVE`
 
+
+## antiSpamDisabled
+
+Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `SURVIVAL`
 
 -----------
 

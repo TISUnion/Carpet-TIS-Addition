@@ -284,6 +284,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean microTick = false;
 
+	@Rule(
+			desc = "Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown",
+			category = {TIS, CREATIVE, SURVIVAL}
+	)
+	public static boolean antiSpamDisabled = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
