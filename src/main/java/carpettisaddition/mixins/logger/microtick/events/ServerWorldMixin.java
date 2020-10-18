@@ -49,29 +49,29 @@ public abstract class ServerWorldMixin
 	 * -------------
 	 */
 
-	@Shadow @Final private ObjectLinkedOpenHashSet<BlockAction> pendingBlockActions;
+	@Shadow @Final private ObjectLinkedOpenHashSet<BlockEvent> syncedBlockEventQueue;
 	private int oldBlockActionQueueSize;
 
-	@Inject(method = "addBlockAction", at = @At("HEAD"))
+	@Inject(method = "addSyncedBlockEvent", at = @At("HEAD"))
 	private void startScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		oldBlockActionQueueSize = this.pendingBlockActions.size();
+		oldBlockActionQueueSize = this.syncedBlockEventQueue.size();
 	}
 
-	@Inject(method = "addBlockAction", at = @At("RETURN"))
+	@Inject(method = "addSyncedBlockEvent", at = @At("RETURN"))
 	private void endScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
+		MicroTickLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockEvent(pos, block, type, data), this.syncedBlockEventQueue.size() > this.oldBlockActionQueueSize);
 	}
 
-	@Inject(method = "method_14174", at = @At(value = "HEAD", shift = At.Shift.AFTER))
-	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "processBlockEvent", at = @At(value = "HEAD", shift = At.Shift.AFTER))
+	private void beforeBlockEventExecuted(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, null, EventType.ACTION_START);
 	}
 
-	@Inject(method = "method_14174", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir, BlockState blockState)
+	@Inject(method = "processBlockEvent", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
+	private void afterBlockEventExecuted(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir, BlockState blockState)
 	{
 		MicroTickLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), new ExecuteBlockEventEvent.FailInfo(blockState.getBlock() != blockAction.getBlock() ? ExecuteBlockEventEvent.FailReason.BLOCK_CHANGED : ExecuteBlockEventEvent.FailReason.EVENT_FAIL, blockState.getBlock()), EventType.ACTION_END);
 	}
