@@ -1,9 +1,12 @@
 package carpettisaddition.mixins.logger.microtick.events;
 
 import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
+import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
+import me.jellysquid.mods.lithium.common.world.scheduler.TickEntry;
 import net.minecraft.block.Block;
 import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
@@ -14,21 +17,28 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Set;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
-
-@Mixin(ServerTickScheduler.class)
-public abstract class ServerTickSchedulerMixin<T>
+@Mixin(LithiumServerTickScheduler.class)
+public class LithiumServerTickSchedulerMixin<T> extends ServerTickScheduler<T>
 {
-	@Shadow @Final private ServerWorld world;
-	@Shadow @Final private Set<ScheduledTick<T>> scheduledTickActions;
+	@Shadow(remap = false) @Final private Map<ScheduledTick<T>, TickEntry<T>> scheduledTicks;
+	@Shadow(remap = false) @Final private ServerWorld world;
 
 	private final ThreadLocal<Integer> oldListSize = ThreadLocal.withInitial(() -> 0);
+
+	public LithiumServerTickSchedulerMixin(ServerWorld world, Predicate<T> invalidObjPredicate, Function<T, Identifier> idToName, Function<Identifier, T> nameToId, Consumer<ScheduledTick<T>> scheduledTickConsumer)
+	{
+		super(world, invalidObjPredicate, idToName, nameToId, scheduledTickConsumer);
+	}
 
 	@Inject(method = "schedule", at = @At("HEAD"))
 	private void startScheduleTileTickEvent(CallbackInfo ci)
 	{
-		this.oldListSize.set(this.scheduledTickActions.size());
+		this.oldListSize.set(this.scheduledTicks.size());
 	}
 
 	@Inject(method = "schedule", at = @At("RETURN"))
@@ -36,7 +46,7 @@ public abstract class ServerTickSchedulerMixin<T>
 	{
 		if (object instanceof Block)
 		{
-			MicroTickLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTickActions.size() > oldListSize.get());
+			MicroTickLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTicks.size() > oldListSize.get());
 		}
 	}
 }
