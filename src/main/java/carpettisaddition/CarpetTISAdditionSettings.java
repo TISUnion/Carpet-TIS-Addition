@@ -290,6 +290,15 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean antiSpamDisabled = false;
 
+	@Rule(
+			desc = "If set to false, entity collision check before block placement will be disabled, aka you can place blocks inside entities",
+			extra = {
+					"Works with creative mode players only"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean blockPlacementCollisionCheck = true;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

@@ -100,6 +100,10 @@
   "rule.antiSpamDisabled.name": "禁用反刷屏监测",
   "rule.antiSpamDisabled.desc": "禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却",
 
+  "rule.blockPlacementCollisionCheck.name": "方块放置碰撞检测",
+  "rule.blockPlacementCollisionCheck.desc": "若关闭，则方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内",
+  "rule.blockPlacementCollisionCheck.extra.0": "仅对创造模式玩家有效",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

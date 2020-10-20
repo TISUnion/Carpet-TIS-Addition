@@ -38,6 +38,7 @@
 - [光照更新](#光照更新-lightUpdates)
 - [微时序](#微时序-microtick)
 - [禁用反刷屏监测](#禁用反刷屏监测-antiSpamDisabled)
+- [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementCollisionCheck)
 
 ## 监视器
 
@@ -347,6 +348,18 @@
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`, `SURVIVAL`
+
+
+## 方块放置碰撞检测 (blockPlacementCollisionCheck)
+
+若关闭，则方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内
+
+仅对创造模式玩家有效
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 -----------
 
