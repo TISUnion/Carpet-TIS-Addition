@@ -332,8 +332,6 @@ EndRods will detect block updates and redstone components will show their action
 
 Beside that, blocks pointed by EndRod on wool block will also show their actions
 
-If [lithium mod](https://github.com/jellysquid3/lithium-fabric) is installed, since it will replace the TileTick container, old Mixin to listen to ScheduleTileTick events will not work anymore. And then a backup bruteforce Mixin will be loaded instead to listen to ScheduleTileTick events, but then ScheduleTileTick events might not be fully listened for all blocks
-
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`

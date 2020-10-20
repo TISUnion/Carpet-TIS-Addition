@@ -50,18 +50,18 @@ public abstract class ServerWorldMixin
 	 */
 
 	@Shadow @Final private ObjectLinkedOpenHashSet<BlockAction> pendingBlockActions;
-	private int oldBlockActionQueueSize;
+	private final ThreadLocal<Integer> oldBlockActionQueueSize = ThreadLocal.withInitial(() -> 0);
 
 	@Inject(method = "addBlockAction", at = @At("HEAD"))
 	private void startScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		oldBlockActionQueueSize = this.pendingBlockActions.size();
+		oldBlockActionQueueSize.set(this.pendingBlockActions.size());
 	}
 
 	@Inject(method = "addBlockAction", at = @At("RETURN"))
 	private void endScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		MicroTickLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
+		MicroTickLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize.get());
 	}
 
 	@Inject(method = "method_14174", at = @At(value = "HEAD", shift = At.Shift.AFTER))
