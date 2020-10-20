@@ -332,8 +332,6 @@
 
 除此之外，羊毛块上的末地烛指向方块的动作也会被记录
 
-如果 [lithium mod](https://github.com/jellysquid3/lithium-fabric) 被加载，由于其会替换计划刻容器导致原监听“添加计划刻”事件的 Mixin 失效，一个朴素实现的备用 Mixin 会用来监听“添加计划刻”事件，不过在这个情况下并非所有方块的“添加计划刻”事件都能被监听
-
 - 类型: `boolean`  
 - 默认值: `false`  
 - 参考选项: `false`, `true`
