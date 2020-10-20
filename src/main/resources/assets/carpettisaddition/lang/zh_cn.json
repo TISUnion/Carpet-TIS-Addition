@@ -97,6 +97,13 @@
   "rule.microtick.extra.5": "- 中继器、比较器、铁轨、按钮等：放置在羊毛块上",
   "rule.microtick.extra.6": "除此之外，羊毛块上的末地烛指向方块的动作也会被记录",
 
+  "rule.antiSpamDisabled.name": "禁用反刷屏监测",
+  "rule.antiSpamDisabled.desc": "禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却",
+
+  "rule.blockPlacementIgnoreEntity.name": "方块放置忽略实体",
+  "rule.blockPlacementIgnoreEntity.desc": "方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内",
+  "rule.blockPlacementIgnoreEntity.extra.0": "仅对创造模式玩家有效",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

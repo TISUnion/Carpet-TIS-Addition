@@ -37,6 +37,8 @@
 - [瞬时命令方块](#瞬时命令方块-instantCommandBlock)
 - [光照更新](#光照更新-lightUpdates)
 - [微时序](#微时序-microtick)
+- [禁用反刷屏监测](#禁用反刷屏监测-antiSpamDisabled)
+- [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementIgnoreEntity)
 
 ## 监视器
 
@@ -336,6 +338,28 @@
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `COMMAND`, `CREATIVE`
+
+
+## 禁用反刷屏监测 (antiSpamDisabled)
+
+禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`, `SURVIVAL`
+
+
+## 方块放置忽略实体 (blockPlacementIgnoreEntity)
+
+方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内
+
+仅对创造模式玩家有效
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 -----------
 

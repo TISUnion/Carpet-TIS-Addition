@@ -284,6 +284,21 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean microTick = false;
 
+	@Rule(
+			desc = "Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown",
+			category = {TIS, CREATIVE, SURVIVAL}
+	)
+	public static boolean antiSpamDisabled = false;
+
+	@Rule(
+			desc = "Disable entity collision check before block placement, aka you can place blocks inside entities",
+			extra = {
+					"Works with creative mode players only"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean blockPlacementIgnoreEntity = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
