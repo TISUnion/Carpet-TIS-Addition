@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.rule.blockPlacementCollisionCheck;
+package carpettisaddition.mixins.rule.blockPlacementIgnoreEntity;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.BlockState;
@@ -19,7 +19,7 @@ public abstract class BlockItemMixin
 	@Inject(method = "canPlace", at = @At(value = "HEAD"), cancellable = true)
 	void skipCollisionCheck(ItemPlacementContext context, BlockState state, CallbackInfoReturnable<Boolean> cir)
 	{
-		if (!CarpetTISAdditionSettings.blockPlacementCollisionCheck)  // if no entity collision check
+		if (CarpetTISAdditionSettings.blockPlacementIgnoreEntity)
 		{
 			PlayerEntity player = context.getPlayer();
 			if (player != null && player.isCreative())

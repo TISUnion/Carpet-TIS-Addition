@@ -38,7 +38,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [lightUpdates](#lightUpdates)
 - [microTick](#microTick)
 - [antiSpamDisabled](#antiSpamDisabled)
-- [blockPlacementCollisionCheck](#blockPlacementCollisionCheck)
+- [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
 
 ## Loggers
 
@@ -350,14 +350,14 @@ Disable spamming checks on players, including: chat message cooldown, creative i
 - Categories: `TIS`, `CREATIVE`, `SURVIVAL`
 
 
-## blockPlacementCollisionCheck
+## blockPlacementIgnoreEntity
 
-If set to false, entity collision check before block placement will be disabled, aka you can place blocks inside entities
+Disable entity collision check before block placement, aka you can place blocks inside entities
 
 Works with creative mode players only
 
 - Type: `boolean`  
-- Default value: `true`  
+- Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 

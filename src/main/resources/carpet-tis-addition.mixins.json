@@ -39,7 +39,7 @@
     "logger.xporb.ExperienceOrbEntity_xpOrbLoggerMixin",
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
-    "rule.blockPlacementCollisionCheck.BlockItemMixin",
+    "rule.blockPlacementIgnoreEntity.BlockItemMixin",
     "rule.dispenserNoItemCost.ItemDispenserBehaviorMixin",
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
