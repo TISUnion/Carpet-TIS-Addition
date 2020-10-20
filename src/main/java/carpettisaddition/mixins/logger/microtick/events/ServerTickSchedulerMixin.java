@@ -21,14 +21,14 @@ import java.util.Set;
 public abstract class ServerTickSchedulerMixin<T>
 {
 	@Shadow @Final private ServerWorld world;
-
 	@Shadow @Final private Set<ScheduledTick<T>> scheduledTickActions;
-	private int oldListSize;
+
+	private final ThreadLocal<Integer> oldListSize = ThreadLocal.withInitial(() -> 0);
 
 	@Inject(method = "schedule", at = @At("HEAD"))
 	private void startScheduleTileTickEvent(CallbackInfo ci)
 	{
-		this.oldListSize = this.scheduledTickActions.size();
+		this.oldListSize.set(this.scheduledTickActions.size());
 	}
 
 	@Inject(method = "schedule", at = @At("RETURN"))
@@ -36,7 +36,7 @@ public abstract class ServerTickSchedulerMixin<T>
 	{
 		if (object instanceof Block)
 		{
-			MicroTickLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTickActions.size() > oldListSize);
+			MicroTickLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTickActions.size() > oldListSize.get());
 		}
 	}
 }
