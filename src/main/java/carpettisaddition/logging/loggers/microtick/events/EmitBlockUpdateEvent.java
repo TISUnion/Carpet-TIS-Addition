@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EmitBlockUpdateEvent extends BaseEvent
 {
@@ -53,5 +54,22 @@ public class EmitBlockUpdateEvent extends BaseEvent
 				break;
 		}
 		return Messenger.c(list.toArray(new Object[0]));
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof EmitBlockUpdateEvent)) return false;
+		if (!super.equals(o)) return false;
+		EmitBlockUpdateEvent that = (EmitBlockUpdateEvent) o;
+		return Objects.equals(block, that.block) &&
+				Objects.equals(methodName, that.methodName);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), block, methodName);
 	}
 }

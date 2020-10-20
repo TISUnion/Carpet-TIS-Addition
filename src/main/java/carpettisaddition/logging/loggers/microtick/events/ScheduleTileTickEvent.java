@@ -59,7 +59,8 @@ public class ScheduleTileTickEvent extends BaseEvent
 		return delay == that.delay &&
 				Objects.equals(block, that.block) &&
 				Objects.equals(pos, that.pos) &&
-				priority == that.priority;
+				priority == that.priority &&
+				Objects.equals(success, that.success);
 	}
 
 	@Override

@@ -149,5 +149,22 @@ public class BlockStateChangeEvent extends BaseEvent
 			this.oldValue = oldValue;
 			this.newValue = newValue;
 		}
+
+		@Override
+		public boolean equals(Object o)
+		{
+			if (this == o) return true;
+			if (!(o instanceof PropertyChanges)) return false;
+			PropertyChanges changes = (PropertyChanges) o;
+			return Objects.equals(name, changes.name) &&
+					Objects.equals(oldValue, changes.oldValue) &&
+					Objects.equals(newValue, changes.newValue);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return Objects.hash(name, oldValue, newValue);
+		}
 	}
 }

@@ -42,7 +42,8 @@ public class ScheduleBlockEventEvent extends BaseEvent
 		if (!(o instanceof ScheduleBlockEventEvent)) return false;
 		if (!super.equals(o)) return false;
 		ScheduleBlockEventEvent that = (ScheduleBlockEventEvent) o;
-		return Objects.equals(blockAction, that.blockAction);
+		return success == that.success &&
+				Objects.equals(blockAction, that.blockAction);
 	}
 
 	@Override
