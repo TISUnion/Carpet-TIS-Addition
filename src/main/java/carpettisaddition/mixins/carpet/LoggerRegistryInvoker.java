@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(LoggerRegistry.class)
 public interface LoggerRegistryInvoker
 {
-	@Invoker
+	@Invoker(remap = false)
 	static void callRegisterLogger(String name, Logger logger)
 	{
 	}
