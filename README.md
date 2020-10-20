@@ -37,6 +37,8 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [instantCommandBlock](#instantCommandBlock)
 - [lightUpdates](#lightUpdates)
 - [microTick](#microTick)
+- [antiSpamDisabled](#antiSpamDisabled)
+- [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
 
 ## Loggers
 
@@ -337,6 +339,27 @@ Beside that, blocks pointed by EndRod on wool block will also show their actions
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `COMMAND`, `CREATIVE`
 
+
+## antiSpamDisabled
+
+Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `SURVIVAL`
+
+
+## blockPlacementIgnoreEntity
+
+Disable entity collision check before block placement, aka you can place blocks inside entities
+
+Works with creative mode players only
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 -----------
 
