@@ -16,7 +16,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 	@Shadow private int creativeItemDropThreshold;
 
 	@Inject(
-			method = "onChatMessage",
+			method = "onGameMessage",
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/server/network/ServerPlayNetworkHandler;messageCooldown:I",
