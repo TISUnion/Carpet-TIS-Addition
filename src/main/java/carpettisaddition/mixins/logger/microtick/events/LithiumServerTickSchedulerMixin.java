@@ -23,7 +23,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Mixin(LithiumServerTickScheduler.class)
-public class LithiumServerTickSchedulerMixin<T> extends ServerTickScheduler<T>
+public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickScheduler<T>
 {
 	@Shadow(remap = false) @Final private Map<ScheduledTick<T>, TickEntry<T>> scheduledTicks;
 	@Shadow(remap = false) @Final private ServerWorld world;
