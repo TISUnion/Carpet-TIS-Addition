@@ -7,7 +7,7 @@ import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtick.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtick.enums.EventType;
 import carpettisaddition.logging.loggers.microtick.enums.TickStage;
-import carpettisaddition.logging.loggers.microtick.events.ExecuteBlockEventEvent;
+import carpettisaddition.logging.loggers.microtick.events.*;
 import carpettisaddition.logging.loggers.microtick.tickstages.TickStageExtraBase;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
@@ -102,7 +102,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onBlockUpdate(world, pos, fromBlock, updateType, () -> updateType.getUpdateOrderList(exceptSide), eventType));
+            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, new DetectBlockUpdateEvent(eventType, fromBlock, updateType, () -> updateType.getUpdateOrderList(exceptSide))));
         }
     }
 
@@ -127,7 +127,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onExecuteTileTick(world, event, eventType));
+            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, event.pos, new ExecuteTileTickEvent(eventType, event)));
         }
     }
 
@@ -135,7 +135,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onScheduleTileTick(world, block, pos, delay, priority, success));
+            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, new ScheduleTileTickEvent(block, pos, delay, priority, success)));
         }
     }
     public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority)
@@ -157,7 +157,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onExecuteBlockEvent(world, blockAction, returnValue, failInfo, eventType));
+            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, blockAction.getPos(), new ExecuteBlockEventEvent(eventType, blockAction, returnValue, failInfo)));
         }
     }
 
@@ -165,7 +165,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onScheduleBlockEvent(world, blockAction, success));
+            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, blockAction.getPos(), new ScheduleBlockEventEvent(blockAction, success)));
         }
     }
 
@@ -179,7 +179,7 @@ public class MicroTickLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.onEmitBlockUpdate(world, block, pos, eventType, methodName));
+            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, new EmitBlockUpdateEvent(eventType, block, methodName)));
         }
     }
 

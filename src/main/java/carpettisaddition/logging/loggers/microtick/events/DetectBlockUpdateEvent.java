@@ -11,19 +11,31 @@ import net.minecraft.text.BaseText;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public class DetectBlockUpdateEvent extends BaseEvent
 {
 	private final BlockUpdateType updateType;
-	private final String updateTypeExtraMessage;
+	private final Supplier<String> updateTypeExtraMessage;
+	private String updateTypeExtraMessageCache;
 	private final Block fromBlock;
 
-	public DetectBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, String updateTypeExtraMessage)
+	public DetectBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, Supplier<String> updateTypeExtraMessage)
 	{
 		super(eventType, "detect_block_update");
 		this.fromBlock = fromBlock;
 		this.updateType = blockUpdateType;
 		this.updateTypeExtraMessage = updateTypeExtraMessage;
+		this.updateTypeExtraMessageCache = null;
+	}
+
+	private String getUpdateTypeExtraMessage()
+	{
+		if (this.updateTypeExtraMessageCache == null)
+		{
+			this.updateTypeExtraMessageCache = this.updateTypeExtraMessage.get();
+		}
+		return this.updateTypeExtraMessageCache;
 	}
 
 	@Override
@@ -34,7 +46,7 @@ public class DetectBlockUpdateEvent extends BaseEvent
 		list.add(COLOR_ACTION + MicroTickLoggerManager.tr("Emit"));
 		list.add(Util.getSpaceText());
 		list.add(COLOR_TARGET + this.updateType);
-		list.add("^w " + this.updateTypeExtraMessage);
+		list.add("^w " + this.getUpdateTypeExtraMessage());
 		list.add(Util.getSpaceText());
 		switch (this.getEventType())
 		{
@@ -59,13 +71,13 @@ public class DetectBlockUpdateEvent extends BaseEvent
 		if (!super.equals(o)) return false;
 		DetectBlockUpdateEvent that = (DetectBlockUpdateEvent) o;
 		return updateType == that.updateType &&
-				Objects.equals(updateTypeExtraMessage, that.updateTypeExtraMessage) &&
+				Objects.equals(this.getUpdateTypeExtraMessage(), that.getUpdateTypeExtraMessage()) &&
 				Objects.equals(fromBlock, that.fromBlock);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(super.hashCode(), updateType, updateTypeExtraMessage, fromBlock);
+		return Objects.hash(super.hashCode(), updateType, this.getUpdateTypeExtraMessage(), fromBlock);
 	}
 }
