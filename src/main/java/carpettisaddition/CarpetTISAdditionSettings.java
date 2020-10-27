@@ -189,7 +189,7 @@ public class CarpetTISAdditionSettings
 			desc = "Phathom killed by shulker will drops an elytra with given possibility",
 			extra = "Set it to 0 to disable",
 			options = {"0", "0.2", "1"},
-			validate = ValidatePossibility.class,
+			validate = Validator.PROBABILITY.class,
 			strict = false,
 			category = {TIS, FEATURE}
 	)
@@ -234,7 +234,8 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			desc = "Disable some command to prevent accidentally cheating",
 			extra = "Affects command list: /gamemode, /tp, /teleport, /give, /setblock, /summon",
-			category = {TIS, SURVIVAL}
+			category = {TIS, SURVIVAL},
+			validate = Validator._COMMAND.class  // for notifyPlayersCommandsChanged
 	)
 	public static boolean opPlayerNoCheat = false;
 
@@ -304,16 +305,17 @@ public class CarpetTISAdditionSettings
 	 *   General validators down below
 	 */
 
-	private static class ValidatePossibility extends Validator<Double>
-	{
-		@Override
-		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
-		{
-			return (newValue >= 0.0D && newValue <= 1.0D) ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a value from 0 to 1";
-		}
-	}
+// just use Validator.PROBABILITY
+//	private static class ValidatePossibility extends Validator<Double>
+//	{
+//		@Override
+//		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
+//		{
+//			return (newValue >= 0.0D && newValue <= 1.0D) ? newValue : null;
+//		}
+//		public String description()
+//		{
+//			return "You must choose a value from 0 to 1";
+//		}
+//	}
 }
