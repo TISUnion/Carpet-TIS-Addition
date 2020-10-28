@@ -89,4 +89,16 @@ public abstract class WorldMixin
 	{
 		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_END);
 	}
+
+	@Inject(method = "updateHorizontalAdjacent", at = @At("HEAD"))
+	private void startUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)
+	{
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_START);
+	}
+
+	@Inject(method = "updateHorizontalAdjacent", at = @At("RETURN"))
+	private void endUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)
+	{
+		MicroTickLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_END);
+	}
 }

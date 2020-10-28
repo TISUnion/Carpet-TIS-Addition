@@ -20,6 +20,7 @@ public abstract class PhantomEntityMixin extends FlyingEntity
 		super(entityType, world);
 	}
 
+	@Override
 	protected void dropLoot(DamageSource source, boolean causedByPlayer)
 	{
 		super.dropLoot(source, causedByPlayer);

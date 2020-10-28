@@ -43,10 +43,6 @@ public class StackTraceDeobfuscator
 
 	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements)
 	{
-		if (mappings.isEmpty())
-		{
-			return stackTraceElements;
-		}
 		List<StackTraceElement> list = Lists.newArrayList();
 		for (StackTraceElement element : stackTraceElements)
 		{
