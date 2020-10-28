@@ -189,7 +189,7 @@ public class CarpetTISAdditionSettings
 			desc = "Phathom killed by shulker will drops an elytra with given possibility",
 			extra = "Set it to 0 to disable",
 			options = {"0", "0.2", "1"},
-			validate = Validator.PROBABILITY.class,
+			validate = ValidatePossibility.class,
 			strict = false,
 			category = {TIS, FEATURE}
 	)
@@ -306,16 +306,17 @@ public class CarpetTISAdditionSettings
 	 */
 
 // just use Validator.PROBABILITY
-//	private static class ValidatePossibility extends Validator<Double>
-//	{
-//		@Override
-//		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
-//		{
-//			return (newValue >= 0.0D && newValue <= 1.0D) ? newValue : null;
-//		}
-//		public String description()
-//		{
-//			return "You must choose a value from 0 to 1";
-//		}
-//	}
+// but it doesn't exist in fabric-carpet 1.14.4
+	private static class ValidatePossibility extends Validator<Double>
+	{
+		@Override
+		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
+		{
+			return (newValue >= 0.0D && newValue <= 1.0D) ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a value from 0 to 1";
+		}
+	}
 }
