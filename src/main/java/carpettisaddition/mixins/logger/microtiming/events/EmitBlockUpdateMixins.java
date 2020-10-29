@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 public abstract class EmitBlockUpdateMixins
@@ -137,6 +138,28 @@ public abstract class EmitBlockUpdateMixins
 		private void endEmitBlockUpdate(World world, BlockPos pos, Direction direction, CallbackInfo ci)
 		{
 			MicroTimingLoggerManager.onEmitBlockUpdate(world, (TripwireHookBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighborsOnAxis");
+		}
+	}
+
+	@Mixin(RedstoneWireBlock.class)
+	public static abstract class RedstoneWireBlockMixin
+	{
+		@Inject(
+				method = "update",
+				at = @At(
+						value = "INVOKE",
+						target = "Ljava/util/List;iterator()Ljava/util/Iterator;"
+				)
+		)
+		private void startEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir)
+		{
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_START, "update");
+		}
+
+		@Inject(method = "update", at = @At("RETURN"))
+		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir)
+		{
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_END, "update");
 		}
 	}
 }
