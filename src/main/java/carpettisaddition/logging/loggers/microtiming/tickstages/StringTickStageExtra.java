@@ -9,6 +9,7 @@ public class StringTickStageExtra extends TickStageExtraBase
 	public static final StringTickStageExtra SYNC_TASKS = new StringTickStageExtra("SyncTasks including player actions", "sync_tasks");
 	public static final StringTickStageExtra ENTITY_WEATHER_EFFECT = new StringTickStageExtra("Ticking weather effects", "entity_weather_effect");
 	public static final StringTickStageExtra ENTITY_REGULAR = new StringTickStageExtra("Ticking regular entities", "entity_regular");
+	public static final StringTickStageExtra ENTITY_PLAYER = new StringTickStageExtra("Ticking player entities", "entity_player");
 	private final String info;
 	private final String translationKey;
 

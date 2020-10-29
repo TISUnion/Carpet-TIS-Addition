@@ -164,6 +164,7 @@
   "logger.microTiming.stage_extra.sync_tasks": "玩家动作等需要同步到主世界线程的任务",
   "logger.microTiming.stage_extra.entity_weather_effect": "运算天气实体",
   "logger.microTiming.stage_extra.entity_regular": "运算普通实体",
+  "logger.microTiming.stage_extra.entity_player": "运算玩家实体",
   "logger.microTiming.block_update_type.aka": "也就是",
   "logger.microTiming.block_update_type.except": "排除",
   "logger.microTiming.block_update_type.blockupdates": "方块更新",
