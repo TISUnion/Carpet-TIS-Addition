@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.microtiming.tickstages;
 
 import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.Util;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
@@ -19,7 +20,7 @@ public abstract class PlayerRelatedTickStageExtra extends TickStageExtraBase
 	public BaseText toText()
 	{
 		return Messenger.c(
-				String.format("w %s: %s", this.tr("Player"), this.player.getGameProfile().getName())
+				String.format("w %s: %s", MicroTimingLoggerManager.tr("Player"), this.player.getGameProfile().getName())
 		);
 	}
 
