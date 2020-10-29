@@ -51,13 +51,22 @@ public class MicroTimingUtil
 	public static BaseText getColoredValue(Object value)
 	{
 		BaseText text = Messenger.s(value.toString());
+		Formatting color = null;
 		if (Boolean.TRUE.equals(value))
 		{
-			text.getStyle().setColor(Formatting.GREEN);
+			color = Formatting.GREEN;
 		}
 		else if (Boolean.FALSE.equals(value))
 		{
-			text.getStyle().setColor(Formatting.RED);
+			color = Formatting.RED;
+		}
+		if (value instanceof Number)
+		{
+			color = Formatting.GOLD;
+		}
+		if (color != null)
+		{
+			text.getStyle().setColor(color);
 		}
 		return text;
 	}
