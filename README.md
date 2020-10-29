@@ -434,11 +434,12 @@ Log micro timings of redstone components. The ticket of the chunk the component 
 Check rule [microTiming](#microTiming) for detail. Remember to use `/carpet microTiming true` to enable logger functionality
 
 Available options: 
-- `all`: Log all events
+- `all`: Default value, log all events
+- `merged`: Log all events and merged continuous same events
 - `unique`: Log the first unique event in every gametick
 
-- Default value: `all`
-- Suggested options: `all`, `unique`
+- Default value: `merged`
+- Suggested options: `all`, `merged`, `unique`
 
 # Commands
 
