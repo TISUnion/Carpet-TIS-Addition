@@ -5,6 +5,7 @@ import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionServer;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
@@ -41,6 +42,11 @@ public class Util
 	{
 		String uuid = entity.getUuid().toString();
 		return String.format("/execute at %1$s run tp %1$s", uuid);
+	}
+	public static String getTeleportCommand(PlayerEntity player)
+	{
+		String name = player.getGameProfile().getName();
+		return String.format("/execute at %1$s run tp %1$s", name);
 	}
 
 	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)

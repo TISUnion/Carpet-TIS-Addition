@@ -4,13 +4,11 @@ import carpet.utils.Messenger;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 
-public class PlayerEntityTickStageExtra extends TickStageExtraBase
+public class PlayerEntityTickStageExtra extends PlayerActionTickStageExtra
 {
-	private final ServerPlayerEntity player;
-
 	public PlayerEntityTickStageExtra(ServerPlayerEntity player)
 	{
-		this.player = player;
+		super(player);
 	}
 
 	@Override
@@ -18,7 +16,7 @@ public class PlayerEntityTickStageExtra extends TickStageExtraBase
 	{
 		return Messenger.c(
 				String.format("w %s\n", this.tr("Ticking player entity")),
-				String.format("w %s: %s", this.tr("Player"), this.player.getGameProfile().getName())
+				super.toText()
 		);
 	}
 }
