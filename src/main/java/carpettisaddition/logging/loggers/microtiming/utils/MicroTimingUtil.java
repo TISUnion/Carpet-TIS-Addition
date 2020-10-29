@@ -102,7 +102,7 @@ public class MicroTimingUtil
 		Block block = state.getBlock();
 		BlockPos woolPos = pos;
 
-		if (block == Blocks.OBSERVER || block == Blocks.END_ROD ||
+		if (block instanceof ObserverBlock || block instanceof EndRodBlock ||
 				block instanceof PistonBlock || block instanceof PistonExtensionBlock)
 		{
 			woolPos = pos.offset(state.get(Properties.FACING).getOpposite());
@@ -124,14 +124,17 @@ public class MicroTimingUtil
 			}
 			woolPos = pos.offset(facing.getOpposite());
 		}
-		else if (block == Blocks.REDSTONE_WALL_TORCH || block == Blocks.TRIPWIRE_HOOK)
+		else if (block instanceof WallRedstoneTorchBlock || block instanceof TripwireHookBlock)
 		{
 			woolPos = pos.offset(state.get(Properties.HORIZONTAL_FACING).getOpposite());
 		}
-		else if (block instanceof AbstractRailBlock ||
+		else if (
+				block instanceof AbstractRailBlock ||
 				block instanceof AbstractRedstoneGateBlock ||
-				block == Blocks.REDSTONE_TORCH ||
-				block instanceof AbstractPressurePlateBlock)  // on block
+				block instanceof RedstoneTorchBlock ||
+				block instanceof RedstoneWireBlock ||
+				block instanceof AbstractPressurePlateBlock
+		)  // on block
 		{
 			woolPos = pos.down();
 		}

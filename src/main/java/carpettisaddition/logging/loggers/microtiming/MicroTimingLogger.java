@@ -105,6 +105,7 @@ public class MicroTimingLogger extends BaseLogger
 	{
 		INTEREST_PROPERTIES.add(Properties.POWERED);
 		INTEREST_PROPERTIES.add(Properties.LIT);
+		INTEREST_PROPERTIES.add(Properties.POWER);
 	}
 
 	public void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, EventType eventType)
