@@ -151,12 +151,17 @@ public class MicroTimingMessage
 		);
 	}
 
+	public static BaseText getIndentationText(int indentation)
+	{
+		return Messenger.s(INDENTATIONS.get(min(indentation, MAX_INDENT)));
+	}
+
 	public BaseText toText(int indentation, boolean showStage)
 	{
 		List<Object> line = Lists.newArrayList();
 		if (indentation > 0)
 		{
-			line.add("w " + INDENTATIONS.get(min(indentation, MAX_INDENT)));
+			line.add(getIndentationText(indentation));
 		}
 		line.add(this.getHashTagText());
 		line.add(event.toText());

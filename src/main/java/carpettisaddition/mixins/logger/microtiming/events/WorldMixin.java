@@ -39,7 +39,7 @@ public abstract class WorldMixin
 		{
 			BlockState oldState = this.getBlockState(pos);
 			this.previousBlockState.get().push(oldState);
-			MicroTimingLoggerManager.onSetBlockState((World)(Object)this, pos, oldState, newState, cir.getReturnValue(), EventType.ACTION_START);
+			MicroTimingLoggerManager.onSetBlockState((World)(Object)this, pos, oldState, newState, null, EventType.ACTION_START);
 		}
 	}
 

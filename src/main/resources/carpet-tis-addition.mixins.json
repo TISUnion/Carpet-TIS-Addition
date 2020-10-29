@@ -24,6 +24,7 @@
     "logger.microtiming.events.EmitBlockUpdateMixins$LeverBlockMixin",
     "logger.microtiming.events.EmitBlockUpdateMixins$ObserverBlockMixin",
     "logger.microtiming.events.EmitBlockUpdateMixins$PoweredRailBlockMixin",
+    "logger.microtiming.events.EmitBlockUpdateMixins$RedstoneWireBlockMixin",
     "logger.microtiming.events.EmitBlockUpdateMixins$TripwireHookBlockMixin",
     "logger.microtiming.events.LithiumServerTickSchedulerMixin",
     "logger.microtiming.events.ServerTickSchedulerMixin",

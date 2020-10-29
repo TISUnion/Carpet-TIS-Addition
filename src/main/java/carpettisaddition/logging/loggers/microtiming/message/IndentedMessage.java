@@ -19,6 +19,11 @@ public class IndentedMessage implements ToTextAble
 		return this.message;
 	}
 
+	public int getIndentation()
+	{
+		return indentation;
+	}
+
 	@Override
 	public BaseText toText()
 	{
