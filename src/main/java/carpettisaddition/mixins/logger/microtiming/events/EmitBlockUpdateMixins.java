@@ -147,7 +147,7 @@ public abstract class EmitBlockUpdateMixins
 				method = "update",
 				at = @At(
 						value = "INVOKE",
-						target = "Ljava/util/List;iterator()Ljava/util/Iterator;"
+						target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
 				)
 		)
 		private void startEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci)
