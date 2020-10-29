@@ -327,12 +327,12 @@ Might impact the server performance when it's on
 
 EndRods will detect block updates and redstone components will show their actions
 
-| Block Type                               | How to log actions    |
-| ---------------------------------------- | --------------------- |
-| Observer, Piston, EndRod                 | pointing towards wool |
-| Repeater, Comparator, Rail, Button, etc. | placed on wool        |
+| Block Type                                                   | How to log            |
+| ------------------------------------------------------------ | --------------------- |
+| Observer, Piston, EndRod                                     | pointing towards wool |
+| Repeater, Comparator, RedstoneTorch, RedstoneDust, Rail, Button, Lever, PressurePlate, TripwireHook | placed on wool        |
 
-Beside that, blocks pointed by EndRod on wool block will also show their actions
+Beside that, a universal block actions logging method is using EndRod on wool block to point on the block you want to log
 
 - Type: `boolean`  
 - Default value: `false`  
