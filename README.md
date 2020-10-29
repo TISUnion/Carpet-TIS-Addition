@@ -317,7 +317,7 @@ If set to off, no light update can be scheduled or executed
 
 ## microTiming
 
-Enable the function of [MicroTick logger](#microTiming-1)
+Enable the function of [MicroTiming logger](#microTiming-1)
 
 Display redstone components actions, blockupdates and stacktrace with a wool block
 
