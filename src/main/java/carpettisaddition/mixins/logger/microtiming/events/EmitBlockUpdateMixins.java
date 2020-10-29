@@ -148,18 +148,18 @@ public abstract class EmitBlockUpdateMixins
 				method = "update",
 				at = @At(
 						value = "INVOKE",
-						target = "Ljava/util/List;iterator()Ljava/util/Iterator;"
+						target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
 				)
 		)
-		private void startEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir)
+		private void startEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_START, "updateNeighborsOnAxis");
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_START, "update");
 		}
 
 		@Inject(method = "update", at = @At("RETURN"))
-		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir)
+		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighborsOnAxis");
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_END, "update");
 		}
 	}
 }
