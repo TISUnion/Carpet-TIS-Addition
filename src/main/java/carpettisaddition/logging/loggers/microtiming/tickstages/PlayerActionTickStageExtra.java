@@ -1,31 +1,22 @@
 package carpettisaddition.logging.loggers.microtiming.tickstages;
 
 import carpet.utils.Messenger;
-import carpettisaddition.utils.Util;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 
-public class PlayerActionTickStageExtra extends TickStageExtraBase
+public class PlayerActionTickStageExtra extends PlayerRelatedTickStageExtra
 {
-	protected final ServerPlayerEntity player;
-
 	public PlayerActionTickStageExtra(ServerPlayerEntity player)
 	{
-		this.player = player;
+		super(player);
 	}
 
 	@Override
 	public BaseText toText()
 	{
 		return Messenger.c(
-				String.format("w %s: %s", this.tr("Player"), this.player.getGameProfile().getName())
+				String.format("w %s\n", this.tr("sync_tasks", "SyncTasks including player actions")),
+				super.toText()
 		);
-	}
-
-	@Override
-	public ClickEvent getClickEvent()
-	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, Util.getTeleportCommand(this.player));
 	}
 }
