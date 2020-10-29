@@ -16,7 +16,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
@@ -27,10 +27,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiFunction;
 
 public class MicroTimingLogger extends BaseLogger
@@ -160,7 +157,15 @@ public class MicroTimingLogger extends BaseLogger
 		this.addMessage(world, pos, event, MicroTimingUtil::getWoolOrEndRodWoolColor);
 	}
 
-	private BaseText[] getTrimmedMessages(List<IndentedMessage> flushedMessages, boolean uniqueOnly)
+	private BaseText getMergedResult(int count, IndentedMessage previousMessage)
+	{
+		return Messenger.c(
+				MicroTimingMessage.getIndentationText(previousMessage.getIndentation()),
+				Util.getFancyText("f", Messenger.s(String.format("  +%dx", count)), previousMessage.getMessage().toText(0, true), null)
+		);
+	}
+
+	private BaseText[] getTrimmedMessages(List<IndentedMessage> flushedMessages, LoggingOption option)
 	{
 		List<BaseText> msg = Lists.newArrayList();
 		Set<MicroTimingMessage> messageHashSet = Sets.newHashSet();
@@ -174,12 +179,38 @@ public class MicroTimingLogger extends BaseLogger
 				this.dimensionDisplayTextGray,
 				"f ] ------------"
 		));
-		for (IndentedMessage message : flushedMessages)
+		int skipCount = 0;
+		Iterator<IndentedMessage> iterator = flushedMessages.iterator();
+		IndentedMessage previousMessage = null;
+		while (iterator.hasNext())
 		{
-			boolean showThisMessage = !uniqueOnly || messageHashSet.add(message.getMessage()) || message.getMessage().getMessageType() == MessageType.PROCEDURE;
+			IndentedMessage message = iterator.next();
+			boolean showThisMessage = option == LoggingOption.ALL || message.getMessage().getMessageType() == MessageType.PROCEDURE;
+			if (!showThisMessage && option == LoggingOption.MERGED)
+			{
+				showThisMessage = previousMessage == null || !message.getMessage().equals(previousMessage.getMessage());
+			}
+			if (!showThisMessage && option == LoggingOption.UNIQUE)
+			{
+				showThisMessage = messageHashSet.add(message.getMessage());
+			}
 			if (showThisMessage)
 			{
+				if (option == LoggingOption.MERGED && previousMessage != null && skipCount > 0)
+				{
+					msg.add(this.getMergedResult(skipCount, previousMessage));
+				}
 				msg.add(message.toText());
+				previousMessage = message;
+				skipCount = 0;
+			}
+			else
+			{
+				skipCount++;
+			}
+			if (!iterator.hasNext() && option == LoggingOption.MERGED && skipCount > 0)
+			{
+				msg.add(this.getMergedResult(skipCount, previousMessage));
 			}
 		}
 		return msg.toArray(new BaseText[0]);
@@ -192,15 +223,37 @@ public class MicroTimingLogger extends BaseLogger
 			List<IndentedMessage> flushedMessages = this.messageList.flush();
 			if (!flushedMessages.isEmpty())
 			{
-				Map<Boolean, BaseText[]> flushedTrimmedMessages = new Reference2ObjectArrayMap<>();
-				flushedTrimmedMessages.put(false, getTrimmedMessages(flushedMessages, false));
-				flushedTrimmedMessages.put(true, getTrimmedMessages(flushedMessages, true));
-				LoggerRegistry.getLogger("microTiming").log((option) ->
+				Map<LoggingOption, BaseText[]> flushedTrimmedMessages = new EnumMap<>(LoggingOption.class);
+				for (LoggingOption option : LoggingOption.values())
 				{
-					boolean uniqueOnly = option.equals("unique");
-					return flushedTrimmedMessages.get(uniqueOnly);
-				});
+					flushedTrimmedMessages.put(option, getTrimmedMessages(flushedMessages, option));
+				}
+				LoggerRegistry.getLogger("microTiming").log((option) -> flushedTrimmedMessages.get(LoggingOption.ofString(option)));
 			}
+		}
+	}
+
+	public enum LoggingOption
+	{
+		MERGED,
+		ALL,
+		UNIQUE;
+
+		public static final LoggingOption DEFAULT = LoggingOption.MERGED;
+		private static final Map<String, LoggingOption> OPTION_MAP = new Object2ObjectArrayMap<>();
+
+		static
+		{
+			for (LoggingOption option : LoggingOption.values())
+			{
+				OPTION_MAP.put(option.name(), option);
+				OPTION_MAP.put(option.name().toLowerCase(), option);
+			}
+		}
+
+		public static LoggingOption ofString(String str)
+		{
+			return OPTION_MAP.getOrDefault(str, DEFAULT);
 		}
 	}
 }

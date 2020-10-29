@@ -6,6 +6,9 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.loggers.ItemLogger;
 import carpettisaddition.logging.loggers.XPOrbLogger;
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
+
+import java.util.Arrays;
 
 
 public class ExtensionLoggerRegistry
@@ -28,7 +31,7 @@ public class ExtensionLoggerRegistry
         LoggerRegistry.registerLogger("xporb", XPOrbLogger.getInstance().getStandardLogger());
         LoggerRegistry.registerLogger("raid", standardLogger("raid", null, null));
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
-        LoggerRegistry.registerLogger("microTiming", standardLogger("microTiming", "all", new String[]{"all", "unique"}));
+        LoggerRegistry.registerLogger("microTiming", standardLogger("microTiming", MicroTimingLogger.LoggingOption.DEFAULT.toString(), Arrays.stream(MicroTimingLogger.LoggingOption.values()).map(MicroTimingLogger.LoggingOption::toString).map(String::toLowerCase).toArray(String[]::new)));
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)
