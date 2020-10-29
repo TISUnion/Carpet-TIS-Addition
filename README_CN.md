@@ -36,7 +36,7 @@
 - [红石粉随机更新顺序](#红石粉随机更新顺序-redstoneDustRandomUpdateOrder)
 - [瞬时命令方块](#瞬时命令方块-instantCommandBlock)
 - [光照更新](#光照更新-lightUpdates)
-- [微时序](#微时序-microtick)
+- [微时序](#微时序-microTiming)
 - [禁用反刷屏监测](#禁用反刷屏监测-antiSpamDisabled)
 - [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementIgnoreEntity)
 
@@ -47,7 +47,7 @@
 - [掉落物](#掉落物-item)
 - [经验球](#经验球-xporb)
 - [袭击](#袭击-raid)
-- [微时序](#微时序-microtick-1)
+- [微时序](#微时序-microTiming-1)
 
 ## 指令
 
@@ -315,13 +315,13 @@
 - 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
-## 微时序 (microtick)
+## 微时序 (microTiming)
 
-启用[微时序监视器](#微时序-microtick-1)的功能
+启用[微时序监视器](#微时序-microTiming-1)的功能
 
 使用羊毛块来输出红石元件的动作、方块更新与堆栈跟踪
 
-使用 `/log microtick` 来开始监视
+使用 `/log microTiming` 来开始监视
 
 开启时服务端性能将受到一定影响
 
@@ -425,13 +425,13 @@
 - 袭击的中心点被移动
 
 
-## 微时序 (microtick)
+## 微时序 (microTiming)
 
-`/log microtick <类型>`
+`/log microTiming <类型>`
 
 记录元件的微时序，元件所在区块的加载票等级需至少为弱加载 (加载票等级 32)
 
-见规则 [微时序](#微时序-microtick) 以获得详细信息，记得使用 `/carpet microTick true` 启用监视器功能
+见规则 [微时序](#微时序-microTiming) 以获得详细信息，记得使用 `/carpet microTiming true` 启用监视器功能
 
 可用的类型选项: 
 - `all`: 默认值，输出所有事件

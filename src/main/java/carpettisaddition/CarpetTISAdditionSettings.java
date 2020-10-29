@@ -274,7 +274,7 @@ public class CarpetTISAdditionSettings
 			desc = "Enable the function of MicroTick logger",
 			extra = {
 					"Display redstone components actions, blockupdates and stacktrace with a wool block",
-					"Use /log microtick to start logging",
+					"Use /log microTiming to start logging",
 					"Might impact the server performance when it's on",
 					"EndRods will detect block updates and redstone components will show their actions",
 					"- Observer, Piston, EndRod: pointing towards wool",
@@ -283,7 +283,7 @@ public class CarpetTISAdditionSettings
 			},
 			category = {TIS, COMMAND, CREATIVE}
 	)
-	public static boolean microTick = false;
+	public static boolean microTiming = false;
 
 	@Rule(
 			desc = "Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown",

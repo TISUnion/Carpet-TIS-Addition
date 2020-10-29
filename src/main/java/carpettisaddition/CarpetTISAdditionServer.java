@@ -6,8 +6,8 @@ import carpettisaddition.commands.InfoCommand;
 import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
-import carpettisaddition.logging.loggers.microtick.MicroTickLoggerManager;
-import carpettisaddition.logging.loggers.microtick.utils.StackTraceDeobfuscator;
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.utils.StackTraceDeobfuscator;
 import carpettisaddition.utils.ExtensionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -70,14 +70,14 @@ public class CarpetTISAdditionServer implements CarpetExtension
     // carpet has issue (bug) to call onServerLoadedWorlds in IntegratedServer, so just do it myself to make sure it works properly
     public void onServerLoadedWorldsCTA(MinecraftServer server)
     {
-        MicroTickLoggerManager.attachServer(server);
+        MicroTimingLoggerManager.attachServer(server);
     }
 
     @Override
     public void onServerClosed(MinecraftServer server)
     {
         RaidTracker.stop();
-        MicroTickLoggerManager.detachServer();
+        MicroTimingLoggerManager.detachServer();
     }
 
     @Override
