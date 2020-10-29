@@ -2,7 +2,6 @@ package carpettisaddition.mixins.logger.microtiming.tickstages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import carpettisaddition.logging.loggers.microtiming.tickstages.StringTickStageExtra;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,7 +31,6 @@ public abstract class MinecraftServerMixin
 	private void onStagePlayerAction(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.PLAYER_ACTION);
-		MicroTimingLoggerManager.setTickStageExtra(StringTickStageExtra.SYNC_TASKS);
 	}
 
 	@Inject(
