@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 
 public class MicroTimingLogger extends BaseLogger
 {
@@ -147,10 +148,15 @@ public class MicroTimingLogger extends BaseLogger
 		}
 	}
 
+	public void addMessage(World world, BlockPos pos, BaseEvent event, BiFunction<World, BlockPos, Optional<DyeColor>> woolGetter)
+	{
+		Optional<DyeColor> color = woolGetter.apply(world, pos);
+		color.ifPresent(dyeColor -> this.addMessage(dyeColor, world, pos, event));
+	}
+
 	public void addMessage(World world, BlockPos pos, BaseEvent event)
 	{
-		Optional<DyeColor> color = MicroTimingUtil.getWoolOrEndRodWoolColor(world, pos);
-		color.ifPresent(dyeColor -> this.addMessage(dyeColor, world, pos, event));
+		this.addMessage(world, pos, event, MicroTimingUtil::getWoolOrEndRodWoolColor);
 	}
 
 	private BaseText[] getTrimmedMessages(List<IndentedMessage> flushedMessages, boolean uniqueOnly)

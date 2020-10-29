@@ -9,6 +9,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.events.*;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
+import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -37,7 +38,7 @@ public class MicroTimingLoggerManager
         this.lastFlushTime = -1;
         for (ServerWorld world : minecraftServer.getWorlds())
         {
-            this.loggers.put(world, ((IServerWorld_MicroTickLogger)world).getMicroTickLogger());
+            this.loggers.put(world, ((IServerWorld_microTimingLogger)world).getMicroTickLogger());
         }
     }
 
@@ -102,7 +103,7 @@ public class MicroTimingLoggerManager
     {
         if (isLoggerActivated())
         {
-            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, new DetectBlockUpdateEvent(eventType, fromBlock, updateType, () -> updateType.getUpdateOrderList(exceptSide))));
+            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, new DetectBlockUpdateEvent(eventType, fromBlock, updateType, () -> updateType.getUpdateOrderList(exceptSide)), MicroTimingUtil::getEndRodWoolColor));
         }
     }
 
