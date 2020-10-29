@@ -14,8 +14,7 @@ public class ExtensionLoggerRegistry
     public static boolean __item;
     public static boolean __xporb;
     public static boolean __raid;
-    public static boolean __microtick;
-
+    public static boolean __microTiming;
 
     public static void registerLoggers()
     {
@@ -28,7 +27,7 @@ public class ExtensionLoggerRegistry
         LoggerRegistryInvoker.callRegisterLogger("xporb", XPOrbLogger.getInstance().getStandardLogger());
         LoggerRegistryInvoker.callRegisterLogger("raid", standardLogger("raid", null, null));
         LoggerRegistryInvoker.callRegisterLogger("memory", standardHUDLogger("memory", null, null));
-        LoggerRegistryInvoker.callRegisterLogger("microtick", standardLogger("microtick", "all", new String[]{"all", "unique"}));
+        LoggerRegistryInvoker.callRegisterLogger("microTiming", standardLogger("microTiming", "all", new String[]{"all", "unique"}));
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)
@@ -54,5 +53,4 @@ public class ExtensionLoggerRegistry
             throw new RuntimeException(String.format("Failed to create standard HUD logger \"%s\" @ %s", logName, CarpetTISAdditionServer.fancyName));
         }
     }
-
 }
