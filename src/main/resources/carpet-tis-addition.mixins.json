@@ -29,6 +29,7 @@
     "logger.microtiming.events.WorldMixin",
     "logger.microtiming.tickstages.MinecraftServerMixin",
     "logger.microtiming.tickstages.ServerChunkManagerMixin",
+    "logger.microtiming.tickstages.ServerPlayNetworkHandlerMixin",
     "logger.microtiming.tickstages.ServerWorldMixin",
     "logger.microtiming.tickstages.SpawnHelperMixin",
     "logger.microtiming.tickstages.WorldMixin",

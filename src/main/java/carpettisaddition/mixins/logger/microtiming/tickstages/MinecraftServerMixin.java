@@ -57,6 +57,5 @@ public abstract class MinecraftServerMixin
 	private void onStageNetwork(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.NETWORK);
-		MicroTimingLoggerManager.setTickStageExtra(StringTickStageExtra.ENTITY_PLAYER);
 	}
 }
