@@ -3,15 +3,11 @@ package carpettisaddition.mixins.rule.redstoneDustRandomUpdateOrder;
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.RedstoneWireBlock;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.*;
 
@@ -26,26 +22,21 @@ public abstract class RedstoneWireBlockMixin extends Block
 		super(settings);
 	}
 
-	@Inject(
+	@Redirect(
 			method = "update",
 			at = @At(
-					value = "INVOKE_ASSIGN",
+					value = "INVOKE",
 					target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
-			cancellable = true
+			)
 	)
-	private void letsMakeTheOrderUnpredictable(World world, BlockPos pos, BlockState state, CallbackInfo ci, Set<BlockPos> set)
+	private Iterator<BlockPos> letsMakeTheOrderUnpredictable(Set<BlockPos> set)
 	{
 		if (CarpetTISAdditionSettings.redstoneDustRandomUpdateOrder)
 		{
 			List<BlockPos> list = Lists.newArrayList(set);
-			Collections.shuffle(list, random);
-			for (BlockPos blockPos: list)
-			{
-				world.updateNeighborsAlways(blockPos, this);
-			}
-			ci.cancel();
+			Collections.shuffle(list, this.random);
+			return list.iterator();
 		}
+		return set.iterator();
 	}
 }
