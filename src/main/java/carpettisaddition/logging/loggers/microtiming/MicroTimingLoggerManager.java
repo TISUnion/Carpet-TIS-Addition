@@ -38,7 +38,7 @@ public class MicroTimingLoggerManager
         this.lastFlushTime = -1;
         for (ServerWorld world : minecraftServer.getWorlds())
         {
-            this.loggers.put(world, ((IServerWorld_microTimingLogger)world).getMicroTickLogger());
+            this.loggers.put(world, ((IServerWorld_microTimingLogger)world).getMicroTimingLogger());
         }
     }
 
@@ -73,7 +73,7 @@ public class MicroTimingLoggerManager
     {
         if (instance != null && world instanceof ServerWorld)
         {
-            return Optional.of(((IServerWorld_microTimingLogger)world).getMicroTickLogger());
+            return Optional.of(((IServerWorld_microTimingLogger)world).getMicroTimingLogger());
         }
         return Optional.empty();
     }
