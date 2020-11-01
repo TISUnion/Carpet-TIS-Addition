@@ -25,15 +25,13 @@ public abstract class MinecraftServerMixin
 		MicroTimingLoggerManager.setTickStage(TickStage.AUTO_SAVE);
 	}
 
-	@Inject(
-			method = "method_16208",
-			at = @At("HEAD")
-	)
+	@Inject(method = "method_16208", at = @At("HEAD"))
 	private void onStagePlayerAction(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.PLAYER_ACTION);
 	}
 
+	// reset potential tick stage extra set in NetworkThreadUtilsMixin
 	@Inject(method = "runTask", at = @At("RETURN"))
 	void cleanStageExtraInStagePlayerAction(CallbackInfoReturnable<Boolean> cir)
 	{

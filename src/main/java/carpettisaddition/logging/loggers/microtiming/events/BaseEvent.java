@@ -7,6 +7,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import carpettisaddition.utils.TranslatableBase;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.registry.Registry;
 
 import java.util.Objects;
 
@@ -72,6 +73,7 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 		return Messenger.c(
 				"g [",
 				MicroTimingUtil.getTranslatedText(block),
+				"^w " + Registry.BLOCK.getId(block).toString(),
 				"g ] "
 		);
 	}
