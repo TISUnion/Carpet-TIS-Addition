@@ -16,14 +16,18 @@ import net.minecraft.block.BlockState;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 public class MicroTimingLoggerManager
 {
@@ -94,6 +98,28 @@ public class MicroTimingLoggerManager
     }
 
     /*
+     * -------------------------
+     *  General Event Operation
+     * -------------------------
+     */
+
+    public static void onEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier, BiFunction<World, BlockPos, Optional<DyeColor>> woolGetter)
+    {
+        if (isLoggerActivated())
+        {
+            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, supplier.get(), woolGetter));
+        }
+    }
+
+    public static void onEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier)
+    {
+        if (isLoggerActivated())
+        {
+            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, supplier.get()));
+        }
+    }
+
+    /*
      * ----------------------------------
      *  Block Update and Block Operation
      * ----------------------------------
@@ -101,10 +127,7 @@ public class MicroTimingLoggerManager
 
     public static void onBlockUpdate(World world, BlockPos pos, Block fromBlock, BlockUpdateType updateType, Direction exceptSide, EventType eventType)
     {
-        if (isLoggerActivated())
-        {
-            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, new DetectBlockUpdateEvent(eventType, fromBlock, updateType, () -> updateType.getUpdateOrderList(exceptSide)), MicroTimingUtil::getEndRodWoolColor));
-        }
+        onEvent(world, pos, () -> new DetectBlockUpdateEvent(eventType, fromBlock, updateType, () -> updateType.getUpdateOrderList(exceptSide)), MicroTimingUtil::getEndRodWoolColor);
     }
 
     public static void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, EventType eventType)
@@ -126,18 +149,12 @@ public class MicroTimingLoggerManager
 
     public static void onExecuteTileTickEvent(World world, ScheduledTick<Block> event, EventType eventType)
     {
-        if (isLoggerActivated())
-        {
-            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, event.pos, new ExecuteTileTickEvent(eventType, event)));
-        }
+        onEvent(world, event.pos, () -> new ExecuteTileTickEvent(eventType, event));
     }
 
     public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority, Boolean success)
     {
-        if (isLoggerActivated())
-        {
-            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, new ScheduleTileTickEvent(block, pos, delay, priority, success)));
-        }
+        onEvent(world, pos, () -> new ScheduleTileTickEvent(block, pos, delay, priority, success));
     }
     public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority)
     {
@@ -156,18 +173,12 @@ public class MicroTimingLoggerManager
 
     public static void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, ExecuteBlockEventEvent.FailInfo failInfo, EventType eventType)
     {
-        if (isLoggerActivated())
-        {
-            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, blockAction.getPos(), new ExecuteBlockEventEvent(eventType, blockAction, returnValue, failInfo)));
-        }
+        onEvent(world, blockAction.getPos(), () -> new ExecuteBlockEventEvent(eventType, blockAction, returnValue, failInfo));
     }
 
     public static void onScheduleBlockEvent(World world, BlockAction blockAction, boolean success)
     {
-        if (isLoggerActivated())
-        {
-            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, blockAction.getPos(), new ScheduleBlockEventEvent(blockAction, success)));
-        }
+        onEvent(world, blockAction.getPos(), () -> new ScheduleBlockEventEvent(blockAction, success));
     }
 
     /*
@@ -178,10 +189,12 @@ public class MicroTimingLoggerManager
 
     public static void onEmitBlockUpdate(World world, Block block, BlockPos pos, EventType eventType, String methodName)
     {
-        if (isLoggerActivated())
-        {
-            getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, new EmitBlockUpdateEvent(eventType, block, methodName)));
-        }
+        onEvent(world, pos, () -> new EmitBlockUpdateEvent(eventType, block, methodName));
+    }
+
+    public static void onEmitBlockUpdateRedstoneDust(World world, Block block, BlockPos pos, EventType eventType, String methodName, Collection<BlockPos> updateOrder)
+    {
+        onEvent(world, pos, () -> new EmitBlockUpdateRedstoneDustEvent(eventType, block, methodName, pos, updateOrder));
     }
 
     /*

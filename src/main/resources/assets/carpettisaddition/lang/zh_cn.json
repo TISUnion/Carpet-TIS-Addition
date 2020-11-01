@@ -186,6 +186,7 @@
   "logger.microTiming.event.emit_block_update.updates": "更新",
   "logger.microTiming.event.emit_block_update.method_name": "方法名(yarn)",
   "logger.microTiming.event.emit_block_update.ended": "结束",
+  "logger.microTiming.event.emit_block_update.self": "自身",
   "logger.microTiming.event.execute_block_event.execute": "执行",
   "logger.microTiming.event.execute_block_event.blockevent": "方块事件",
   "logger.microTiming.event.execute_block_event.fail_info.block_changed": "方块已变化",

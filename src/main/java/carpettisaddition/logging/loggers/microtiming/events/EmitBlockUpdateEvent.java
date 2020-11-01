@@ -7,6 +7,7 @@ import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
+import net.minecraft.text.HoverEvent;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +16,7 @@ public class EmitBlockUpdateEvent extends BaseEvent
 {
 	private final Block block;
 	private final String methodName;
+
 	public EmitBlockUpdateEvent(EventType eventType, Block block, String methodName)
 	{
 		super(eventType, "emit_block_update");
@@ -28,18 +30,26 @@ public class EmitBlockUpdateEvent extends BaseEvent
 		return false;
 	}
 
+	protected BaseText getUpdatesTextHoverText()
+	{
+		return Messenger.s(String.format("%s: %s", this.tr("method_name", "Method name (yarn)"), this.methodName));
+	}
+
 	@Override
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
-		list.add(COLOR_ACTION + this.tr("Emit"));
-		list.add(Util.getSpaceText());
-		list.add(COLOR_TARGET + this.tr("Updates"));
+		BaseText updatesText = Messenger.c(
+				COLOR_ACTION + this.tr("Emit"),
+				Util.getSpaceText(),
+				COLOR_TARGET + this.tr("Updates")
+		);
 		if (this.methodName != null)
 		{
-			list.add(String.format("^w %s: %s", this.tr("method_name", "Method name (yarn)"), this.methodName));
+			updatesText.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, this.getUpdatesTextHoverText()));
 		}
+		list.add(updatesText);
 		switch (this.getEventType())
 		{
 			case ACTION_START:
