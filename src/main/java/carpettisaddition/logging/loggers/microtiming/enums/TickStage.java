@@ -17,7 +17,8 @@ public enum TickStage
 	AUTO_SAVE("AutoSave", false),
 	PLAYER_ACTION("PlayerAction", false),
 	COMMAND_FUNCTION("CommandFunction", false),
-	NETWORK("Network", false);
+	NETWORK("Network", false),
+	CONSOLE("Console", false);
 
 	private final String name;
 	private final boolean insideWorld;

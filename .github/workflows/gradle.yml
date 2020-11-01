@@ -3,7 +3,12 @@
 
 name: Java CI with Gradle
 
-on: [push, pull_request]
+on: 
+  push:
+    paths:
+    - "src/**"
+  pull_request:
+
 
 jobs:
   build:

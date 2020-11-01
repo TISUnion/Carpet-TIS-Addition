@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.util.Set;
+
 public abstract class EmitBlockUpdateMixins
 {
 	@Mixin(AbstractRedstoneGateBlock.class)
@@ -148,17 +150,18 @@ public abstract class EmitBlockUpdateMixins
 				at = @At(
 						value = "INVOKE",
 						target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
-				)
+				),
+				locals = LocalCapture.CAPTURE_FAILHARD
 		)
-		private void startEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci)
+		private void startEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci, Set<BlockPos> set)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_START, "update");
+			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_START, "update", set);
 		}
 
 		@Inject(method = "update", at = @At("RETURN"))
 		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_END, "update");
+			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_END, "update", null);
 		}
 	}
 }

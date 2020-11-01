@@ -36,7 +36,7 @@ public abstract class ServerWorldMixin extends World implements IServerWorld_mic
 	}
 
 	@Override
-	public MicroTimingLogger getMicroTickLogger()
+	public MicroTimingLogger getMicroTimingLogger()
 	{
 		return this.microTimingLogger;
 	}
