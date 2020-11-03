@@ -1,5 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.message;
 
+import carpettisaddition.CarpetTISAdditionServer;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 
@@ -34,6 +35,10 @@ public class MessageTreeNode
 	public void setQuitMessage(MicroTimingMessage message)
 	{
 		this.quitMessage = message;
+		if (this.entryMessage.getEvent().getClass() != this.quitMessage.getEvent().getClass())
+		{
+			CarpetTISAdditionServer.LOGGER.warn(String.format("Trying to merge %s with %s", cn(this.entryMessage.getEvent()), cn(this.quitMessage.getEvent())));
+		}
 	}
 
 	private void addChild(MessageTreeNode child)
@@ -117,6 +122,36 @@ public class MessageTreeNode
 			this.childMessageList = Lists.newArrayList();
 			this.iterator = null;
 			this.childWithMessageCount = 0;
+		}
+	}
+
+	private static String cn(Object o)
+	{
+		String[] list = o.toString().split("\\.");
+		return list[list.length - 1];
+	}
+	private static String ms(MicroTimingMessage msg)
+	{
+		return cn(msg.getEvent()) + " " + cn(msg.getEvent().getEventType()) + " " + cn(msg.getMessageType());
+	}
+	private void printTree(int depth)
+	{
+		StringBuilder prefix = new StringBuilder();
+		for (int i = 0; i < depth; i++) prefix.append("  ");
+
+		System.err.println(prefix.toString() + ms(this.entryMessage));
+		for (MessageTreeNode child : this.children) child.printTree(depth + 1);
+		System.err.println(prefix.toString() + (this.quitMessage != null ? ms(this.quitMessage) : null));
+	}
+	public void printTree()
+	{
+		try
+		{
+			this.printTree(0);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 }
