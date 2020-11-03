@@ -130,9 +130,9 @@ public class BlockStateChangeEvent extends BaseEvent
 	@Override
 	public void mergeQuitEvent(BaseEvent quitEvent)
 	{
+		super.mergeQuitEvent(quitEvent);
 		if (quitEvent instanceof BlockStateChangeEvent)
 		{
-			super.mergeQuitEvent(quitEvent);
 			this.returnValue = ((BlockStateChangeEvent)quitEvent).returnValue;
 		}
 	}

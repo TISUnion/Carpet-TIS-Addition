@@ -25,6 +25,7 @@ public class MessageList
 		List<IndentedMessage> list = Lists.newArrayList();
 		for (MessageTreeNode tree : this.messageTrees)
 		{
+			// tree.printTree();
 			list.addAll(tree.flush());
 		}
 		this.clear();

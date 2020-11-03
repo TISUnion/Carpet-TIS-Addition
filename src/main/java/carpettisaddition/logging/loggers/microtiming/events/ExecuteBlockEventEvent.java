@@ -97,9 +97,9 @@ public class ExecuteBlockEventEvent extends BaseEvent
 	@Override
 	public void mergeQuitEvent(BaseEvent quitEvent)
 	{
+		super.mergeQuitEvent(quitEvent);
 		if (quitEvent instanceof ExecuteBlockEventEvent)
 		{
-			super.mergeQuitEvent(quitEvent);
 			this.returnValue = ((ExecuteBlockEventEvent)quitEvent).returnValue;
 			this.failInfo = ((ExecuteBlockEventEvent)quitEvent).failInfo;
 		}
