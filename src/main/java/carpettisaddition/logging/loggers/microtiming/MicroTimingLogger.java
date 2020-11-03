@@ -165,7 +165,7 @@ public class MicroTimingLogger extends BaseLogger
 						"g",
 						Messenger.s(String.format("  +%dx", count)),
 						Messenger.c(
-								String.format("w %s\n", String.format(this.tr("merged_message", "Merged %d more same message(s)"), count)),
+								String.format("w %s\n", String.format(this.tr("merged_message", "Merged %d more same message" + (count > 1 ? "s" : "")), count)),
 								previousMessage.getMessage().toText(0, true)
 						),
 						null
