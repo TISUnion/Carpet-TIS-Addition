@@ -15,14 +15,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 
 	@Shadow private int creativeItemDropThreshold;
 
-	@Inject(
-			method = "onGameMessage",
-			at = @At(
-					value = "FIELD",
-					target = "Lnet/minecraft/server/network/ServerPlayNetworkHandler;messageCooldown:I",
-					ordinal = 0
-			)
-	)
+	@Inject(method = "onGameMessage", at = @At(value = "TAIL"))
 	private void resetMessageCooldown(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.antiSpamDisabled)
@@ -31,14 +24,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 		}
 	}
 
-	@Inject(
-			method = "onCreativeInventoryAction",
-			at = @At(
-					value = "FIELD",
-					target = "Lnet/minecraft/server/network/ServerPlayNetworkHandler;creativeItemDropThreshold:I",
-					ordinal = 0
-			)
-	)
+	@Inject(method = "onCreativeInventoryAction", at = @At("TAIL"))
 	private void resetCreativeItemDropThreshold(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.antiSpamDisabled)
