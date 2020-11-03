@@ -161,7 +161,15 @@ public class MicroTimingLogger extends BaseLogger
 	{
 		return Messenger.c(
 				MicroTimingMessage.getIndentationText(previousMessage.getIndentation()),
-				Util.getFancyText("f", Messenger.s(String.format("  +%dx", count)), previousMessage.getMessage().toText(0, true), null)
+				Util.getFancyText(
+						"g",
+						Messenger.s(String.format("  +%dx", count)),
+						Messenger.c(
+								String.format("w %s\n", String.format(this.tr("merged_message", "Merged %d more same message(s)"), count)),
+								previousMessage.getMessage().toText(0, true)
+						),
+						null
+				)
 		);
 	}
 
