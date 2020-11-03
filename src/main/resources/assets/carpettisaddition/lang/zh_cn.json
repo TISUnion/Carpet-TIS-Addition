@@ -139,7 +139,7 @@
   "logger.microTiming.ended": "结束",
   "logger.microTiming.gametime": "游戏刻",
   "logger.microTiming.return_value": "返回值",
-  "logger.microTiming.merged_message": "已合并额外的%d条相同信息",
+  "logger.microTiming.merged_message": "已合并额外%d条相同的信息",
   "logger.microTiming.direction.down": "下",
   "logger.microTiming.direction.up": "上",
   "logger.microTiming.direction.north": "北",
