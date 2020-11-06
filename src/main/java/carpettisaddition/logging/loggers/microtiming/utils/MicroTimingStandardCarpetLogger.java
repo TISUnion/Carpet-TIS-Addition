@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class MicroTimingStandardCarpetLogger extends Logger
 {
 	public static final String NAME = MicroTimingLogger.NAME;
-	private static final Translator translator = new Translator(NAME, "carpet_logger");
+	private static final Translator translator = new Translator("logger", NAME + ".carpet_logger");
 
 	private MicroTimingStandardCarpetLogger(Field acceleratorField, String logName, String def, String[] options)
 	{
