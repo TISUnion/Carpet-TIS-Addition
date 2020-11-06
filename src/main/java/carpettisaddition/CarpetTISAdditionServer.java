@@ -90,8 +90,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         // here goes extra stuff
-        RaidCommand.registerCommand(dispatcher);
-        InfoCommand.registerCommand(dispatcher);
+        RaidCommand.getInstance().registerCommand(dispatcher);
+        InfoCommand.getInstance().registerCommand(dispatcher);
     }
 
     @Override
