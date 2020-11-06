@@ -21,7 +21,6 @@ import java.util.Map;
 
 public class Util
 {
-	private static final String teleportHint = Translations.tr("util.teleport_hint", "Click to teleport to");
 	private static final Map<DimensionType, BaseText> DIMENSION_NAME = Maps.newHashMap();
 	static
 	{
@@ -30,6 +29,10 @@ public class Util
 		DIMENSION_NAME.put(DimensionType.THE_END, new TranslatableText("advancements.end.root.title"));
 	}
 
+	private static String getTeleportHint()
+	{
+		return Translations.tr("util.teleport_hint", "Click to teleport to");
+	}
 	public static String getTeleportCommand(Vec3d pos, DimensionType dimensionType)
 	{
 		return String.format("/execute in %s run tp %f %f %f", dimensionType, pos.getX(), pos.getY(), pos.getZ());
@@ -66,7 +69,7 @@ public class Util
 	private static BaseText __getCoordinateText(String style, Dimension dim, String posText, String command)
 	{
 		BaseText hoverText = Messenger.s("");
-		hoverText.append(String.format("%s %s\n", teleportHint, posText));
+		hoverText.append(String.format("%s %s\n", getTeleportHint(), posText));
 		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
 		hoverText.append(getDimensionNameText(dim.getType()));
 		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
@@ -84,7 +87,7 @@ public class Util
 	public static BaseText getEntityText(String style, Entity entity)
 	{
 		BaseText entityName = (BaseText)entity.getType().getName().copy();
-		BaseText hoverText = Messenger.c(String.format("w %s ", teleportHint), entityName);
+		BaseText hoverText = Messenger.c(String.format("w %s ", getTeleportHint()), entityName);
 		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
 	}
 

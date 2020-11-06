@@ -24,8 +24,12 @@ public class RaidLogger extends BaseLogger
 		return instance;
 	}
 
-	private void __onRaidCreated(Raid raid)
+	public void onRaidCreated(Raid raid)
 	{
+		if (!ExtensionLoggerRegistry.__raid)
+		{
+			return;
+		}
 		LoggerRegistry.getLogger("raid").log(() -> {
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("created", "Raid created with id %d"), raid.getRaidId())),
@@ -34,48 +38,39 @@ public class RaidLogger extends BaseLogger
 			)};
 		});
 	}
-	public static void onRaidCreated(Raid raid)
-	{
-		if (ExtensionLoggerRegistry.__raid)
-		{
-			instance.__onRaidCreated(raid);
-		}
-	}
 
-	private void __onRaidInvalidated(Raid raid, InvalidateReason reason)
+	public void onRaidInvalidated(Raid raid, InvalidateReason reason)
 	{
+		if (!ExtensionLoggerRegistry.__raid)
+		{
+			return;
+		}
 		LoggerRegistry.getLogger("raid").log(() -> {
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("invalidated", "Raid (id: %d) invalidated, reason: %s"), raid.getRaidId(), reason.tr()))
 			)};
 		});
 	}
-	public static void onRaidInvalidated(Raid raid, InvalidateReason reason)
-	{
-		if (ExtensionLoggerRegistry.__raid)
-		{
-			instance.__onRaidInvalidated(raid, reason);
-		}
-	}
 
-	private void __onBadOmenLevelIncreased(Raid raid, int badOmenLevel)
+	public void onBadOmenLevelIncreased(Raid raid, int badOmenLevel)
 	{
+		if (!ExtensionLoggerRegistry.__raid)
+		{
+			return;
+		}
 		LoggerRegistry.getLogger("raid").log(() -> {
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("bad_omen_level_increased", "Raid (id: %d) increased its bad omen level to %d"), raid.getRaidId(), badOmenLevel))
 			)};
 		});
 	}
-	public static void onBadOmenLevelIncreased(Raid raid, int badOmenLevel)
-	{
-		if (ExtensionLoggerRegistry.__raid)
-		{
-			instance.__onBadOmenLevelIncreased(raid, badOmenLevel);
-		}
-	}
 
-	private void __onCenterMoved(Raid raid, BlockPos pos)
+	public void onCenterMoved(Raid raid, BlockPos pos)
 	{
+		if (!ExtensionLoggerRegistry.__raid)
+		{
+			return;
+		}
 		LoggerRegistry.getLogger("raid").log(() -> {
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("center_moved", "Raid (id: %d) moves its center to"), raid.getRaidId())),
@@ -83,13 +78,6 @@ public class RaidLogger extends BaseLogger
 					Util.getCoordinateText("w", pos, raid.getWorld().getDimension())
 			)};
 		});
-	}
-	public static void onCenterMoved(Raid raid, BlockPos pos)
-	{
-		if (ExtensionLoggerRegistry.__raid)
-		{
-			instance.__onCenterMoved(raid, pos);
-		}
 	}
 
 	public enum InvalidateReason

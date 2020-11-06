@@ -15,7 +15,7 @@ import static java.lang.Math.max;
 
 public class TicketLogger extends BaseLogger
 {
-	private static final TicketLogger instance = new TicketLogger();
+	private static final TicketLogger INSTANCE = new TicketLogger();
 
 	public TicketLogger()
 	{
@@ -24,7 +24,7 @@ public class TicketLogger extends BaseLogger
 
 	public static TicketLogger getInstance()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	private String getAddedActionText()
@@ -82,7 +82,7 @@ public class TicketLogger extends BaseLogger
 	{
 		if (ExtensionLoggerRegistry.__ticket)
 		{
-			instance.onManipulateTicket(world, position, chunkTicket, instance.getAddedActionText());
+			INSTANCE.onManipulateTicket(world, position, chunkTicket, INSTANCE.getAddedActionText());
 		}
 	}
 
@@ -90,7 +90,7 @@ public class TicketLogger extends BaseLogger
 	{
 		if (ExtensionLoggerRegistry.__ticket)
 		{
-			instance.onManipulateTicket(world, position, chunkTicket, instance.getRemovedActionText());
+			INSTANCE.onManipulateTicket(world, position, chunkTicket, INSTANCE.getRemovedActionText());
 		}
 	}
 }

@@ -19,14 +19,15 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class EntityLogger<T extends Entity> extends BaseLogger
+public abstract class EntityLogger<T extends Entity> extends BaseLogger
 {
-	private static final EntityLogger<Entity> instance = new EntityLogger<>(null);
 	protected final String loggerName;
+
+	private static final EntityLogger<Entity> translator = new EntityLogger<Entity>("entity"){};
 
 	public EntityLogger(String loggerName)
 	{
-		super(loggerName == null ? "entity" : loggerName);
+		super(loggerName);
 		this.loggerName = loggerName;
 	}
 
@@ -51,7 +52,7 @@ public class EntityLogger<T extends Entity> extends BaseLogger
 		return text;
 	}
 
-	protected void __onEntityDespawn(T entity)
+	public void onEntityDespawn(T entity)
 	{
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
 		{
@@ -62,14 +63,14 @@ public class EntityLogger<T extends Entity> extends BaseLogger
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", entity.world.getTime()),
 					getNameTextRich(entity),
-					String.format("r %s", instance.tr(" despawned")),
+					String.format("r %s", translator.tr(" despawned")),
 					"g  @ ",
 					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
 			)};
 		});
 	}
 
-	protected void __onEntityDie(T entity, DamageSource source, float amount)
+	public void onEntityDied(T entity, DamageSource source, float amount)
 	{
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
 		{
@@ -81,7 +82,7 @@ public class EntityLogger<T extends Entity> extends BaseLogger
 			itemName.setStyle(itemName.getStyle().setColor(Formatting.WHITE));
 			TranslatableText deathMessage = Util.getTranslatedName("death.attack." + source.name, itemName);
 			deathMessage.setStyle(deathMessage.getStyle().setColor(Formatting.RED));
-			deathMessage.setStyle(deathMessage.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", instance.tr("damage_amount", "Damage amount"), amount)))));
+			deathMessage.setStyle(deathMessage.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount)))));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", entity.world.getTime()),
 					deathMessage,
