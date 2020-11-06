@@ -22,6 +22,12 @@ import java.util.Map;
 @Mixin(PistonBlock.class)
 public abstract class PistonBlockMixin
 {
+	/**
+	 * Set all blocks to be moved to air without any kind of update first (yeeted attached block updater like dead coral),
+	 * then let vanilla codes to set the air blocks into b36
+	 * Before setting a block to air, store the block state right before setting it to air to make sure no block desync
+	 * will happen (yeeted onRemoved block updater like lit observer).
+	 */
 	@Inject(
 			method = "move",
 			slice = @Slice(
@@ -33,7 +39,7 @@ public abstract class PistonBlockMixin
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/List;size()I",
-					shift = At.Shift.AFTER,  // to make sure this will beinject after onMove in PistonBlock_movableTEMixin in fabric-carpet
+					shift = At.Shift.AFTER,  // to make sure this will be injected after onMove in PistonBlock_movableTEMixin in fabric-carpet
 					ordinal = 0
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
@@ -42,7 +48,7 @@ public abstract class PistonBlockMixin
 	{
 		if (CarpetTISAdditionSettings.tntDupingFix)
 		{
-			for(int l = list.size() - 1; l >= 0; --l)
+			for (int l = list.size() - 1; l >= 0; --l)
 			{
 				BlockPos toBeMovedBlockPos = list.get(l);
 				list2.set(l, world.getBlockState(toBeMovedBlockPos));

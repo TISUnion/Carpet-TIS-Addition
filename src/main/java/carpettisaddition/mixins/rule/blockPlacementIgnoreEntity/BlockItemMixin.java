@@ -24,7 +24,7 @@ public abstract class BlockItemMixin
 			PlayerEntity player = context.getPlayer();
 			if (player != null && player.isCreative())
 			{
-				// partially vanilla copy
+				// partially vanilla copy (removed entity collision check)
 				cir.setReturnValue(!this.checkStatePlacement() || state.canPlaceAt(context.getWorld(), context.getBlockPos()));
 				cir.cancel();
 			}

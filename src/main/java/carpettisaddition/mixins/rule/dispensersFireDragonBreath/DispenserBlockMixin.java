@@ -15,11 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(DispenserBlock.class)
 public abstract class DispenserBlockMixin
 {
-    @Inject(
-            method = "getBehaviorForItem",
-            at = @At("HEAD"),
-            cancellable = true
-    )
+    @Inject(method = "getBehaviorForItem", at = @At("HEAD"), cancellable = true)
     private void registerCarpetBehaviors(ItemStack stack, CallbackInfoReturnable<DispenserBehavior> cir)
     {
         Item item = stack.getItem();

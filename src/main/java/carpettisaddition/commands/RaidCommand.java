@@ -25,16 +25,22 @@ import java.util.*;
 import static net.minecraft.server.command.CommandManager.literal;
 
 
-public class RaidCommand extends BaseCommand
+public class RaidCommand extends AbstractCommand
 {
-	public static RaidCommand inst = new RaidCommand();
+	private static final RaidCommand INSTANCE = new RaidCommand();
+
+	public static RaidCommand getInstance()
+	{
+		return INSTANCE;
+	}
 
 	public RaidCommand()
 	{
 		super("raid");
 	}
 
-	private void __registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	@Override
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal("raid")
 			.requires((player) -> SettingsManager.canUseCommand(player, CarpetTISAdditionSettings.commandRaid))
@@ -60,10 +66,6 @@ public class RaidCommand extends BaseCommand
 					)
 			);
 		dispatcher.register(builder);
-	}
-	public static void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
-	{
-		inst.__registerCommand(dispatcher);
 	}
 
 	public int listRaid(ServerCommandSource source, boolean fullMode)

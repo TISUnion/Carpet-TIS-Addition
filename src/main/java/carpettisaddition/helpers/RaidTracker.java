@@ -150,7 +150,7 @@ public class RaidTracker extends TranslatableBase
 		result.add(Messenger.c("bg --------------------"));
 		result.add(Messenger.c(String.format("w %s %.2f min", tr("Tracked"), (double)ticks / (20 * 60))));
 		result.add(Messenger.c(String.format("w %s: %s", tr("Raid generated"), Util.ratePerHour(raidGeneratedCount, ticks))));
-		result.add(Messenger.c(String.format("w %s: %s", RaidCommand.inst.tr("Raiders"), Util.ratePerHour(raiderCountSum, ticks))));
+		result.add(Messenger.c(String.format("w %s: %s", RaidCommand.getInstance().tr("Raiders"), Util.ratePerHour(raiderCountSum, ticks))));
 		raiderCounter.forEach((raiderType, count) -> result.add(Messenger.c(
 				"g - ",
 				raiderType.getName(),

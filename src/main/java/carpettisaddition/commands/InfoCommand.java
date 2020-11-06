@@ -15,15 +15,22 @@ import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class InfoCommand extends BaseCommand
+public class InfoCommand extends AbstractCommand
 {
-	public static InfoCommand inst = new InfoCommand();
+	private static final InfoCommand INSTANCE = new InfoCommand();
+
+	public static InfoCommand getInstance()
+	{
+		return INSTANCE;
+	}
 
 	public InfoCommand()
 	{
 		super("info");
 	}
-	private void __registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+
+	@Override
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal("info").
 				requires((player) -> SettingsManager.canUseCommand(player, CarpetSettings.commandInfo)).
@@ -31,10 +38,6 @@ public class InfoCommand extends BaseCommand
 						then(literal("ticking_order").
 								executes((c) -> showWorldTickOrder(c.getSource()))));
 		dispatcher.register(builder);
-	}
-	public static void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
-	{
-		inst.__registerCommand(dispatcher);
 	}
 
 	private int showWorldTickOrder(ServerCommandSource source)

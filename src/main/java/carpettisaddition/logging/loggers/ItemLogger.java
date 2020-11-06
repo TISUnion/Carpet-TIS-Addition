@@ -1,16 +1,14 @@
 package carpettisaddition.logging.loggers;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.utils.Util;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
 
 
 public class ItemLogger extends EntityLogger<ItemEntity>
 {
-	private static final ItemLogger instance = new ItemLogger();
+	private static final ItemLogger INSTANCE = new ItemLogger();
 
 	public ItemLogger()
 	{
@@ -19,22 +17,7 @@ public class ItemLogger extends EntityLogger<ItemEntity>
 
 	public static ItemLogger getInstance()
 	{
-		return instance;
-	}
-
-	public static void onItemDie(ItemEntity item, DamageSource source, float amount)
-	{
-		if (ExtensionLoggerRegistry.__item)
-		{
-			instance.__onEntityDie(item, source, amount);
-		}
-	}
-	public static void onItemDespawn(ItemEntity item)
-	{
-		if (ExtensionLoggerRegistry.__item)
-		{
-			instance.__onEntityDespawn(item);
-		}
+		return INSTANCE;
 	}
 
 	@Override
