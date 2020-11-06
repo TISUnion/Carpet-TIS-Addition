@@ -9,7 +9,7 @@ import carpettisaddition.logging.loggers.microtiming.events.BaseEvent;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.StackTraceDeobfuscator;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
@@ -107,7 +107,7 @@ public class MicroTimingMessage
 		{
 			ret = Messenger.c(
 					text,
-					"?" + Util.getTeleportCommand(pos, this.dimensionType),
+					"?" + TextUtil.getTeleportCommand(pos, this.dimensionType),
 					String.format("^w [ %d, %d, %d ]", this.pos.getX(), this.pos.getY(), this.pos.getZ())
 			);
 		}
@@ -129,10 +129,10 @@ public class MicroTimingMessage
 		List<Object> hoverTextList = Lists.newArrayList();
 		hoverTextList.add(this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s(""));
 		hoverTextList.add(String.format("w %s: ", MicroTimingLoggerManager.tr("Dimension")));
-		hoverTextList.add(this.stage.isInsideWorld() ? Util.getDimensionNameText(this.dimensionType) : "w N/A");
+		hoverTextList.add(this.stage.isInsideWorld() ? TextUtil.getDimensionNameText(this.dimensionType) : "w N/A");
 		return Messenger.c(
 				"g  @",
-				Util.getFancyText(
+				TextUtil.getFancyText(
 						null,
 						Messenger.c(stageText.toArray(new Object[0])),
 						Messenger.c(hoverTextList.toArray(new Object[0])),

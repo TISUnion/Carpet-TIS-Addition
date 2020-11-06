@@ -13,7 +13,7 @@ import carpettisaddition.logging.loggers.microtiming.message.MessageType;
 import carpettisaddition.logging.loggers.microtiming.message.MicroTimingMessage;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
@@ -33,6 +33,7 @@ import java.util.function.BiFunction;
 public class MicroTimingLogger extends AbstractLogger
 {
 	// [stage][detail]^[extra]
+	public static final String NAME = "microTiming";
 
 	private TickStage stage;
 	private String stageDetail;
@@ -43,13 +44,13 @@ public class MicroTimingLogger extends AbstractLogger
 
 	public MicroTimingLogger(ServerWorld world)
 	{
-		super("microTiming");
+		super(NAME);
 		this.world = world;
 		if (world != null)
 		{
-			this.dimensionDisplayTextGray = Util.getFancyText(
+			this.dimensionDisplayTextGray = TextUtil.getFancyText(
 					"g",
-					Util.getDimensionNameText(this.world.getRegistryKey()),
+					TextUtil.getDimensionNameText(this.world.getRegistryKey()),
 					Messenger.s(this.world.getRegistryKey().getValue().toString()),
 					null
 			);
@@ -161,7 +162,7 @@ public class MicroTimingLogger extends AbstractLogger
 	{
 		return Messenger.c(
 				MicroTimingMessage.getIndentationText(previousMessage.getIndentation()),
-				Util.getFancyText(
+				TextUtil.getFancyText(
 						"g",
 						Messenger.s(String.format("  +%dx", count)),
 						Messenger.c(
@@ -236,7 +237,7 @@ public class MicroTimingLogger extends AbstractLogger
 				{
 					flushedTrimmedMessages.put(option, getTrimmedMessages(flushedMessages, option));
 				}
-				LoggerRegistry.getLogger("microTiming").log((option) -> flushedTrimmedMessages.get(LoggingOption.ofString(option)));
+				LoggerRegistry.getLogger(NAME).log((option) -> flushedTrimmedMessages.get(LoggingOption.ofString(option)));
 			}
 		}
 	}

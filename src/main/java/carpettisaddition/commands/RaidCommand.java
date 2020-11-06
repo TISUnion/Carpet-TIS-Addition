@@ -7,7 +7,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.RaidTracker;
 import carpettisaddition.mixins.command.RaidAccessor;
 import carpettisaddition.mixins.command.RaidManagerAccessor;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -83,7 +83,7 @@ public class RaidCommand extends AbstractCommand
 				continue;
 			}
 			List<BaseText> result = new ArrayList<>();
-			result.add(Messenger.c(Util.getDimensionNameText(world.getRegistryKey()), String.format("w  %s: %d", tr("raid count"), raids.size())));
+			result.add(Messenger.c(TextUtil.getDimensionNameText(world.getRegistryKey()), String.format("w  %s: %d", tr("raid count"), raids.size())));
 			hasRaid |= raids.size() > 0;
 
 			for (Map.Entry<Integer, Raid> entry : raids.entrySet())
@@ -92,11 +92,11 @@ public class RaidCommand extends AbstractCommand
 				RaidAccessor raidAccessor = (RaidAccessor) raid;
 				int currentWave = raidAccessor.getWavesSpawned();
 				String status = raidAccessor.getStatus().getName();
-				result.add(Messenger.c("g - ", Util.getTranslatedName("event.minecraft.raid"), String.format("w  #%d", raid.getRaidId())));
+				result.add(Messenger.c("g - ", TextUtil.getTranslatedName("event.minecraft.raid"), String.format("w  #%d", raid.getRaidId())));
 				result.add(Messenger.c("g   ", String.format("w %s: %s", tr("Status"), tr("status." + status, status))));
 				if (fullMode)
 				{
-					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), Util.getCoordinateText("w", raid.getCenter(), world.getRegistryKey())));
+					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), TextUtil.getCoordinateText("w", raid.getCenter(), world.getRegistryKey())));
 					result.add(Messenger.c("g   ", String.format("w %s: %d", tr("Bad Omen Level"), raid.getBadOmenLevel())));
 				}
 				result.add(Messenger.c("g   ", String.format("w %s: %d/%d", tr("Waves"), raidAccessor.getWavesSpawned(), raidAccessor.getWaveCount())));
@@ -111,11 +111,11 @@ public class RaidCommand extends AbstractCommand
 					for (Iterator<RaiderEntity> iter = raiders.iterator(); iter.hasNext(); )
 					{
 						RaiderEntity raider = iter.next();
-						BaseText raiderName = Util.getEntityText(raider.equals(raidAccessor.getWaveToCaptain().get(currentWave)) ? "r" : "w", raider);
+						BaseText raiderName = TextUtil.getEntityText(raider.equals(raidAccessor.getWaveToCaptain().get(currentWave)) ? "r" : "w", raider);
 						BaseText raiderMessage = Messenger.c(
 								raiderName,
 								"g  @ ",
-								Util.getCoordinateText("w", raider.getPos(), raider.world.getRegistryKey())
+								TextUtil.getCoordinateText("w", raider.getPos(), raider.world.getRegistryKey())
 						);
 						if (fullMode)
 						{
@@ -125,8 +125,8 @@ public class RaidCommand extends AbstractCommand
 						{
 							BaseText x = Messenger.s(String.format("[%s] ", Registry.ENTITY_TYPE.getId(raider.getType()).getPath().substring(0, 1).toUpperCase()));
 							x.setStyle(raiderName.getStyle());
-							x.setStyle(x.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, raiderMessage)));
-							x.setStyle(x.getStyle().withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Util.getTeleportCommand(raider))));
+							TextUtil.attachHoverEvent(x, new HoverEvent(HoverEvent.Action.SHOW_TEXT, raiderMessage));
+							TextUtil.attachClickEvent(x, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(raider)));
 							line.add(x);
 							counter++;
 							if (counter == 10 || !iter.hasNext())

@@ -5,7 +5,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.PistonBlock;
@@ -60,12 +60,12 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		list.add(COLOR_ACTION + this.tr("Execute"));
 		if (this.blockAction.getBlock() instanceof PistonBlock)
 		{
-			list.add(Util.getSpaceText());
+			list.add(TextUtil.getSpaceText());
 			list.add(COLOR_TARGET + PistonBlockEventType.byId(blockAction.getType()));
 		}
 		else
 		{
-			list.add(Util.getSpaceText());
+			list.add(TextUtil.getSpaceText());
 			list.add(COLOR_TARGET + this.tr("BlockEvent"));
 		}
 		list.add(getMessageExtraMessengerHoverText(blockAction));

@@ -1,6 +1,6 @@
 package carpettisaddition.commands;
 
-import carpettisaddition.utils.TranslatableBase;
+import carpettisaddition.translations.TranslatableBase;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;
 
