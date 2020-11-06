@@ -35,7 +35,7 @@ public abstract class ItemEntity_itemLoggerMixin extends Entity
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 			)
 	)
 	void onDespawned(CallbackInfo ci)
@@ -51,7 +51,7 @@ public abstract class ItemEntity_itemLoggerMixin extends Entity
 			method = "damage",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 			)
 	)
 	void onDied(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)

@@ -27,7 +27,7 @@ public abstract class PistonBlockMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/block/Block;hasBlockEntity()Z"
+							target = "Lnet/minecraft/block/BlockState;method_31709()Z"
 					)
 			),
 			at = @At(

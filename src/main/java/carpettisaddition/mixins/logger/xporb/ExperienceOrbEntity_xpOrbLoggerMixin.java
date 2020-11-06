@@ -35,7 +35,7 @@ public abstract class ExperienceOrbEntity_xpOrbLoggerMixin extends Entity
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 			)
 	)
 	void onDespawned(CallbackInfo ci)
@@ -51,7 +51,7 @@ public abstract class ExperienceOrbEntity_xpOrbLoggerMixin extends Entity
 			method = "damage",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 			)
 	)
 	void onDied(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)

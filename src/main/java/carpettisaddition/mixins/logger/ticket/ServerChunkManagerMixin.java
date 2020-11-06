@@ -2,6 +2,7 @@ package carpettisaddition.mixins.logger.ticket;
 
 import carpettisaddition.interfaces.IChunkTicketManager_TicketLogger;
 import com.mojang.datafixers.DataFixer;
+import net.minecraft.class_5567;
 import net.minecraft.server.WorldGenerationProgressListener;
 import net.minecraft.server.world.ChunkTicketManager;
 import net.minecraft.server.world.ServerChunkManager;
@@ -17,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.File;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
@@ -31,7 +31,7 @@ public abstract class ServerChunkManagerMixin
 			method = "<init>",
 			at = @At(value = "RETURN")
 	)
-	private void onConstructed(ServerWorld serverWorld, LevelStorage.Session session, DataFixer dataFixer, StructureManager structureManager, Executor workerExecutor, ChunkGenerator chunkGenerator, int viewDistance, boolean bl, WorldGenerationProgressListener worldGenerationProgressListener, Supplier<PersistentStateManager> supplier, CallbackInfo ci)
+	private void onConstructed(ServerWorld serverWorld, LevelStorage.Session session, DataFixer dataFixer, StructureManager structureManager, Executor workerExecutor, ChunkGenerator chunkGenerator, int viewDistance, boolean bl, WorldGenerationProgressListener worldGenerationProgressListener, class_5567 arg, Supplier<PersistentStateManager> supplier, CallbackInfo ci)
 	{
 		((IChunkTicketManager_TicketLogger)this.ticketManager).setServerWorld(serverWorld);
 	}

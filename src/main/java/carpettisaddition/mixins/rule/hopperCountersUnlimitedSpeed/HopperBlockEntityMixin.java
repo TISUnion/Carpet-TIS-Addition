@@ -4,6 +4,7 @@ import carpet.CarpetSettings;
 import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.HopperBlockEntity;
@@ -19,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.function.Supplier;
+import java.util.function.BooleanSupplier;
 
 
 @Mixin(HopperBlockEntity.class)
@@ -27,15 +28,15 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 {
 	private static final int OPERATION_LIMIT = Short.MAX_VALUE;
 
-	@Shadow protected abstract boolean insert();
-	@Shadow protected abstract boolean isFull();
-	@Shadow public abstract double getHopperX();
-	@Shadow public abstract double getHopperY();
-	@Shadow public abstract double getHopperZ();
-
-	public HopperBlockEntityMixin()
+	@Shadow
+	private static boolean insert(World world, BlockPos blockPos, BlockState blockState, Inventory inventory)
 	{
-		super(BlockEntityType.HOPPER);
+		return false;
+	}
+
+	protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState)
+	{
+		super(blockEntityType, blockPos, blockState);
 	}
 
 	@Inject(
@@ -45,16 +46,15 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V"
 			)
 	)
-	private void onActionSuccess(Supplier<Boolean> extractMethod, CallbackInfoReturnable<Boolean> cir)
+	private static void onActionSuccess(World world, BlockPos blockPos, BlockState blockState, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (CarpetSettings.hopperCounters && CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed)
 		{
-			World world = getWorld();
 			if (world == null)
 			{
 				return;
 			}
-			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, new BlockPos(getHopperX(), getHopperY(), getHopperZ()).offset(this.getCachedState().get(HopperBlock.FACING)));
+			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperBlockEntity.getPos().offset(hopperBlockEntity.getCachedState().get(HopperBlock.FACING)));
 			if (wool_color == null)
 			{
 				return;
@@ -63,14 +63,14 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			{
 				boolean flag = false;
 				// vanilla copy starts
-				if (!this.isEmpty())
+				if (!hopperBlockEntity.isEmpty())
 
 				{
-					flag = this.insert();
+					flag = insert(world, blockPos, blockState, hopperBlockEntity);
 				}
-				if (!this.isFull())
+				if (!((HopperBlockEntityAccessor)hopperBlockEntity).callIsFull())
 				{
-					flag |= (Boolean)extractMethod.get();
+					flag |= booleanSupplier.getAsBoolean();
 				}
 				// vanilla copy ends
 
@@ -80,7 +80,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				}
 				if (i == 0)
 				{
-					CarpetTISAdditionServer.LOGGER.warn(String.format("Hopper in %s exceeded hopperCountersUnlimitedSpeed operation limit %d", new BlockPos(getHopperX(), getHopperY(), getHopperZ()), OPERATION_LIMIT));
+					CarpetTISAdditionServer.LOGGER.warn(String.format("Hopper in %s exceeded hopperCountersUnlimitedSpeed operation limit %d", hopperBlockEntity.getPos(), OPERATION_LIMIT));
 				}
 			}
 		}
@@ -94,7 +94,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	)
 	private static void dontExtractRemovedItem(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
 	{
-		if (itemEntity.removed)
+		if (itemEntity.isRemoved())
 		{
 			cir.setReturnValue(false);
 			cir.cancel();

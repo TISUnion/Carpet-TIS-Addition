@@ -11,8 +11,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
-
-    @Redirect(method = "tick", at = @At(
+    // lambda method in method tick
+    @SuppressWarnings("UnresolvedMixinReference")
+    @Redirect(method = "method_31420", at = @At(
         value = "INVOKE",
         target = "Lnet/minecraft/entity/Entity;checkDespawn()V"
     ))
