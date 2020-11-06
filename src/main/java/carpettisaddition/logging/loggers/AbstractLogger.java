@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers;
 
-import carpettisaddition.utils.TranslatableBase;
+import carpettisaddition.translations.TranslatableBase;
 
 public abstract class AbstractLogger extends TranslatableBase
 {

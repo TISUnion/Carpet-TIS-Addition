@@ -5,7 +5,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.utils.TranslatableBase;
+import carpettisaddition.translations.Translator;
 import net.minecraft.entity.player.PlayerEntity;
 
 import java.lang.reflect.Field;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class MicroTimingStandardCarpetLogger extends Logger
 {
 	public static final String NAME = MicroTimingLogger.NAME;
-	private static final TranslatableBase translator = new TranslatableBase(NAME, "carpet_logger");
+	private static final Translator translator = new Translator(NAME, "carpet_logger");
 
 	private MicroTimingStandardCarpetLogger(Field acceleratorField, String logName, String def, String[] options)
 	{

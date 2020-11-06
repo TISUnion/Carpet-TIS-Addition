@@ -3,7 +3,7 @@ package carpettisaddition.helpers;
 import carpet.utils.Messenger;
 import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.logging.loggers.RaidLogger;
-import carpettisaddition.utils.TranslatableBase;
+import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
