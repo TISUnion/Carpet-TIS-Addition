@@ -1,5 +1,3 @@
 accessWidener	v1	named
 
 accessible  class   net/minecraft/village/raid/Raid$Status
-accessible  class   net/minecraft/world/chunk/WorldChunk$class_5563
-accessible  class   net/minecraft/world/chunk/WorldChunk$class_5564
