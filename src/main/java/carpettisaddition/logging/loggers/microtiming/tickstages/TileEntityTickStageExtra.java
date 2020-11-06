@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.tickstages;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.text.BaseText;
@@ -40,6 +40,6 @@ public class TileEntityTickStageExtra extends TickStageExtraBase
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, Util.getTeleportCommand(this.pos, this.world.getRegistryKey()));
+		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.pos, this.world.getRegistryKey()));
 	}
 }

@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.text.BaseText;
 
@@ -27,10 +27,10 @@ public class ScheduleBlockEventEvent extends BaseEvent
 		return Messenger.c(
 				this.getEnclosedTranslatedBlockNameHeaderText(blockAction.getBlock()),
 				COLOR_ACTION + this.tr("Scheduled"),
-				Util.getSpaceText(),
+				TextUtil.getSpaceText(),
 				COLOR_TARGET + this.tr("BlockEvent"),
 				ExecuteBlockEventEvent.getMessageExtraMessengerHoverText(blockAction),
-				Util.getSpaceText(),
+				TextUtil.getSpaceText(),
 				MicroTimingUtil.getSuccessText(this.success, false)
 		);
 	}

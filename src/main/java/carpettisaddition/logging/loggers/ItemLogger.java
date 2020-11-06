@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers;
 
 import carpet.utils.Messenger;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.text.BaseText;
 
@@ -24,7 +24,7 @@ public class ItemLogger extends EntityLogger<ItemEntity>
 	protected BaseText getNameText(ItemEntity item)
 	{
 		BaseText text = super.getNameText(item);
-		text.append("(").append(Util.getTranslatedName(item.getStack().getTranslationKey())).append(")");
+		text.append("(").append(TextUtil.getTranslatedName(item.getStack().getTranslationKey())).append(")");
 		return text;
 	}
 

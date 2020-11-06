@@ -4,7 +4,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -38,7 +38,7 @@ public class ScheduleTileTickEvent extends BaseEvent
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(block));
 		list.add(COLOR_ACTION + this.tr("Scheduled"));
-		list.add(Util.getSpaceText());
+		list.add(TextUtil.getSpaceText());
 		list.add(COLOR_TARGET + this.tr("TileTick Event"));
 		list.add(String.format("^w %s: %dgt\n%s: %d (%s)", MicroTimingLoggerManager.tr("Delay"), delay, MicroTimingLoggerManager.tr("Priority"), priority.getIndex(), priority));
 		if (this.success != null)
