@@ -28,15 +28,18 @@ public class DispenserHelper
 				World world = source.getWorld();
 				BlockPos blockpos = source.getBlockPos().offset(sourceFace);
 
+				// Vanilla copy of DragonFireballEntity#onCollision
 				AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(world, blockpos.getX() + 0.5, blockpos.getY() + 0.5, blockpos.getZ() + 0.5);
-				areaEffectCloudEntity.setOwner(null);
+				areaEffectCloudEntity.setOwner(null);  // it doesn't have an entity owner
 				areaEffectCloudEntity.setParticleType(ParticleTypes.DRAGON_BREATH);
 				areaEffectCloudEntity.setRadius(3.0F);
 				areaEffectCloudEntity.setDuration(600);
 				areaEffectCloudEntity.setRadiusGrowth((7.0F - areaEffectCloudEntity.getRadius()) / (float)areaEffectCloudEntity.getDuration());
 				areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1, 1));
+				// use event 2007 from ThrownPotionEntity.java#onCollision instead of event 2006 from DragonFireballEntity#onCollision
 				world.playLevelEvent(2007, blockpos, areaEffectCloudEntity.getColor());
 				world.spawnEntity(areaEffectCloudEntity);
+				// Vanilla copy ends
 
 				stack.decrement(1);
 				return stack;
