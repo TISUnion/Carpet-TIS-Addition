@@ -7,6 +7,7 @@ on:
   push:
     paths:
     - "src/**"
+    - ".github/**"
   pull_request:
 
 
@@ -34,9 +35,6 @@ jobs:
           ~/.gradle
           .gradle
         key: ${{ runner.os }}-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}
-    - name: Display cache status
-      if: steps.cache.outputs.cache-hit == 'true'
-      run: echo Gradle cache hit!
       
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
