@@ -42,7 +42,7 @@ public abstract class ExperienceOrbEntity_xpOrbLoggerMixin extends Entity
 	{
 		if (!this.world.isClient && !this.flagDespawned)
 		{
-			XPOrbLogger.onXPOrbDespawn((ExperienceOrbEntity)(Object)this);
+			XPOrbLogger.getInstance().onEntityDespawn((ExperienceOrbEntity)(Object)this);
 			this.flagDespawned = true;
 		}
 	}
@@ -58,7 +58,7 @@ public abstract class ExperienceOrbEntity_xpOrbLoggerMixin extends Entity
 	{
 		if (!this.world.isClient && !this.flagDied)
 		{
-			XPOrbLogger.onXPOrbDie((ExperienceOrbEntity)(Object)this, source, amount);
+			XPOrbLogger.getInstance().onEntityDied((ExperienceOrbEntity)(Object)this, source, amount);
 			this.flagDied = true;
 		}
 	}

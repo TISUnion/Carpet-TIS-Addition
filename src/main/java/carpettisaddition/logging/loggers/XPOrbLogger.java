@@ -1,15 +1,13 @@
 package carpettisaddition.logging.loggers;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
 import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
 
 
 public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 {
-	private static final XPOrbLogger instance = new XPOrbLogger();
+	private static final XPOrbLogger INSTANCE = new XPOrbLogger();
 
 	public XPOrbLogger()
 	{
@@ -18,22 +16,7 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 
 	public static XPOrbLogger getInstance()
 	{
-		return instance;
-	}
-
-	public static void onXPOrbDie(ExperienceOrbEntity xp, DamageSource source, float amount)
-	{
-		if (ExtensionLoggerRegistry.__xporb)
-		{
-			instance.__onEntityDie(xp, source, amount);
-		}
-	}
-	public static void onXPOrbDespawn(ExperienceOrbEntity xp)
-	{
-		if (ExtensionLoggerRegistry.__xporb)
-		{
-			instance.__onEntityDespawn(xp);
-		}
+		return INSTANCE;
 	}
 
 	@Override

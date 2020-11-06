@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
-    // lambda method in method tick
+    // lambda method in method ServerWorld#tick
     @SuppressWarnings("UnresolvedMixinReference")
     @Redirect(method = "method_31420", at = @At(
         value = "INVOKE",

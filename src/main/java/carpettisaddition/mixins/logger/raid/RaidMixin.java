@@ -29,13 +29,13 @@ public abstract class RaidMixin implements IRaid_RaidLogger
 	)
 	private void onConstruct(CallbackInfo ci)
 	{
-		RaidLogger.onRaidCreated((Raid)(Object)this);
+		RaidLogger.getInstance().onRaidCreated((Raid)(Object)this);
 	}
 
 	@Override
 	public void onRaidInvalidated(RaidLogger.InvalidateReason reason)
 	{
-		RaidLogger.onRaidInvalidated((Raid)(Object)this, reason);
+		RaidLogger.getInstance().onRaidInvalidated((Raid)(Object)this, reason);
 		RaidTracker.trackRaidInvalidated(reason);
 	}
 
@@ -63,7 +63,7 @@ public abstract class RaidMixin implements IRaid_RaidLogger
 	{
 		if (this.badOmenLevel > 1 && this.badOmenLevel > this.previousBadOmenLevel)
 		{
-			RaidLogger.onBadOmenLevelIncreased((Raid)(Object)this, this.badOmenLevel);
+			RaidLogger.getInstance().onBadOmenLevelIncreased((Raid)(Object)this, this.badOmenLevel);
 		}
 	}
 
@@ -188,6 +188,6 @@ public abstract class RaidMixin implements IRaid_RaidLogger
 	)
 	void onCenterMoved(BlockPos blockPos, CallbackInfo ci)
 	{
-		RaidLogger.onCenterMoved((Raid)(Object)this, blockPos);
+		RaidLogger.getInstance().onCenterMoved((Raid)(Object)this, blockPos);
 	}
 }

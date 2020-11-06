@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
-	// blockEventPacketRange
 	@Redirect(
 			method = "processSyncedBlockEvents",
 			at = @At(
@@ -24,7 +23,7 @@ public abstract class ServerWorldMixin
 					target = "Lnet/minecraft/server/PlayerManager;sendToAround(Lnet/minecraft/entity/player/PlayerEntity;DDDDLnet/minecraft/util/registry/RegistryKey;Lnet/minecraft/network/Packet;)V"
 			)
 	)
-	private void sendToAroundWithinRange(PlayerManager getPlayerManager, /*Nullable*/ PlayerEntity player, double x, double y, double z, double d, RegistryKey<World> dimension, Packet<?> packet)
+	private void sendToAroundWithinRange(PlayerManager getPlayerManager, PlayerEntity player, double x, double y, double z, double d, RegistryKey<World> dimension, Packet<?> packet)
 	{
 		getPlayerManager.sendToAround(player, x, y, z, CarpetTISAdditionSettings.blockEventPacketRange, dimension, packet);
 	}

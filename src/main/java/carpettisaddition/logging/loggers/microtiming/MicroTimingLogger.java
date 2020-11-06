@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.microtiming;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.BaseLogger;
+import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.events.BaseEvent;
@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 import java.util.*;
 import java.util.function.BiFunction;
 
-public class MicroTimingLogger extends BaseLogger
+public class MicroTimingLogger extends AbstractLogger
 {
 	// [stage][detail]^[extra]
 
