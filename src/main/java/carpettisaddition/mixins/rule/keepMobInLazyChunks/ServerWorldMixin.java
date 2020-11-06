@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
-
     @Redirect(method = "tick", at = @At(
         value = "INVOKE",
         target = "Lnet/minecraft/entity/Entity;checkDespawn()V"
