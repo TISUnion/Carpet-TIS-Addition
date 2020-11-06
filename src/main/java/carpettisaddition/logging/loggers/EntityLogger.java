@@ -6,7 +6,6 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.utils.Util;
 import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
@@ -14,9 +13,9 @@ import net.minecraft.text.HoverEvent;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public abstract class EntityLogger<T extends Entity> extends AbstractLogger
@@ -56,7 +55,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	{
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
 		{
-			if (!Arrays.asList(option.split(",")).contains(LoggingType.DESPAWN))
+			if (!LoggingType.DESPAWN.isContainedIn(option))
 			{
 				return null;
 			}
@@ -74,7 +73,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	{
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
 		{
-			if (!Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(LoggingType.DIE))
+			if (!LoggingType.DIE.isContainedIn(option))
 			{
 				return null;
 			}
@@ -94,36 +93,36 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public Logger getStandardLogger()
 	{
-		return ExtensionLoggerRegistry.standardLogger(this.loggerName, EntityLogger.LoggingType.DIE, EntityLogger.LoggingType.loggingSuggest);
+		return ExtensionLoggerRegistry.standardLogger(this.loggerName, LoggingType.DIE.getName(), LoggingType.LOGGING_SUGGESTIONS);
 	}
 
-	public static class LoggingType
+	public enum LoggingType
 	{
-		public static final String DESPAWN = "despawn";
-		public static final String DIE = "die";
-		public static final List<String> typeList;
-		public static final	String[] loggingSuggest;
+		DESPAWN("despawn"),
+		DIE("die");
+		private final String name;
+		public static final	String[] LOGGING_SUGGESTIONS;
+
+		LoggingType(String name)
+		{
+			this.name = name;
+		}
+
+		public String getName()
+		{
+			return name;
+		}
+
+		public boolean isContainedIn(String option)
+		{
+			return Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(this.getName());
+		}
 
 		static
 		{
-			typeList = Lists.newArrayList();
-			for (Field field : LoggingType.class.getFields())
-			{
-				if (field.getType() == String.class)
-				{
-					try
-					{
-						typeList.add((String) field.get(null));
-					}
-					catch (IllegalAccessException e)
-					{
-						throw new IllegalStateException(e);
-					}
-				}
-			}
-			List<String> list = Lists.newArrayList(typeList);
-			list.add(Joiner.on(",").join(typeList));
-			loggingSuggest = list.toArray(new String[0]);
+			List<String> list = Arrays.stream(LoggingType.values()).map(LoggingType::getName).collect(Collectors.toList());
+			list.add(Joiner.on(",").join(list));
+			LOGGING_SUGGESTIONS = list.toArray(new String[0]);
 		}
 	}
 }
