@@ -25,6 +25,18 @@ jobs:
       run: echo Carpet TIS Addition Build \#$GITHUB_RUN_NUMBER
     - name: Set build number in codes
       run: sed -i "s/build.undefined/build.$GITHUB_RUN_NUMBER/g" src/main/java/carpettisaddition/CarpetTISAdditionServer.java gradle.properties
+    
+    - name: Cache gradle files
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: |
+          ~/.gradle
+          .gradle
+        key: ${{ runner.os }}-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}
+    - name: Display cache status
+      if: steps.cache.outputs.cache-hit == 'true'
+      run: echo Gradle cache hit!
       
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
