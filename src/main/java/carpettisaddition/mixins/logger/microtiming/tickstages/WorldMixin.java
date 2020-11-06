@@ -26,10 +26,7 @@ public abstract class WorldMixin implements IWorld_microTimingLogger
 		this.tileEntityOrderCounter = tileEntityOrderCounter;
 	}
 
-	@Inject(
-			method = "tickBlockEntities",
-			at = @At("HEAD")
-	)
+	@Inject(method = "tickBlockEntities", at = @At("HEAD"))
 	private void onStageTileEntity(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((World)(Object)this, TickStage.TILE_ENTITY);
