@@ -13,7 +13,7 @@ import carpettisaddition.logging.loggers.microtiming.message.MessageType;
 import carpettisaddition.logging.loggers.microtiming.message.MicroTimingMessage;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
@@ -48,9 +48,9 @@ public class MicroTimingLogger extends AbstractLogger
 		this.world = world;
 		if (world != null)
 		{
-			this.dimensionDisplayTextGray = Util.getFancyText(
+			this.dimensionDisplayTextGray = TextUtil.getFancyText(
 					"g",
-					Util.getDimensionNameText(this.world.getDimension().getType()),
+					TextUtil.getDimensionNameText(this.world.getDimension().getType()),
 					Messenger.s(this.world.getDimension().getType().toString()),
 					null
 			);
@@ -162,7 +162,7 @@ public class MicroTimingLogger extends AbstractLogger
 	{
 		return Messenger.c(
 				MicroTimingMessage.getIndentationText(previousMessage.getIndentation()),
-				Util.getFancyText(
+				TextUtil.getFancyText(
 						"g",
 						Messenger.s(String.format("  +%dx", count)),
 						Messenger.c(

@@ -4,7 +4,7 @@ import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.base.Joiner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
@@ -32,7 +32,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	protected BaseText getNameText(T entity)
 	{
-		return Util.getTranslatedName(entity.getType().getTranslationKey());
+		return TextUtil.getTranslatedName(entity.getType().getTranslationKey());
 	}
 
 	protected BaseText getNameTextHoverText(T entity)
@@ -46,7 +46,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		BaseText hoverText = getNameTextHoverText(entity);
 		if (hoverText != null)
 		{
-			text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+			TextUtil.attachHoverEvent(text, new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
 		}
 		return text;
 	}
@@ -64,7 +64,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 					getNameTextRich(entity),
 					String.format("r %s", translator.tr(" despawned")),
 					"g  @ ",
-					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
+					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
 			)};
 		});
 	}
@@ -78,15 +78,14 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 				return null;
 			}
 			BaseText itemName = getNameTextRich(entity);
-			itemName.setStyle(itemName.getStyle().setColor(Formatting.WHITE));
-			TranslatableText deathMessage = Util.getTranslatedName("death.attack." + source.name, itemName);
-			deathMessage.setStyle(deathMessage.getStyle().setColor(Formatting.RED));
-			deathMessage.setStyle(deathMessage.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount)))));
+			TranslatableText deathMessage = TextUtil.getTranslatedName("death.attack." + source.name, TextUtil.attachColor(itemName, Formatting.WHITE));
+			TextUtil.attachColor(deathMessage, Formatting.RED);
+			TextUtil.attachHoverEvent(deathMessage, new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount))));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", entity.world.getTime()),
 					deathMessage,
 					"g  @ ",
-					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
+					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
 			)};
 		});
 	}

@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -52,7 +52,7 @@ public class BlockStateChangeEvent extends BaseEvent
 			}
 			else
 			{
-				changes.add(Util.getFancyText(null, simpleText, detailText, null));
+				changes.add(TextUtil.getFancyText(null, simpleText, detailText, null));
 			}
 		}
 		return Messenger.c(changes.toArray(new Object[0]));
@@ -72,11 +72,11 @@ public class BlockStateChangeEvent extends BaseEvent
 		}
 		else
 		{
-			list.add(Util.getFancyText(
+			list.add(TextUtil.getFancyText(
 					"w",
 					Messenger.c(
 							titleText,
-							Util.getSpaceText(),
+							TextUtil.getSpaceText(),
 							COLOR_RESULT + this.tr("finished")
 					),
 					Messenger.c(
