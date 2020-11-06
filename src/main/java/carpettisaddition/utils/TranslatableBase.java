@@ -2,8 +2,7 @@ package carpettisaddition.utils;
 
 import carpet.utils.Translations;
 
-
-public abstract class TranslatableBase
+public class TranslatableBase
 {
 	private final String type;
 	private final String name;
@@ -14,6 +13,11 @@ public abstract class TranslatableBase
 		this.name = name;
 	}
 
+	public TranslatableBase(String prefix)
+	{
+		this(null, prefix);
+	}
+
 	// use <type>.<name>.<key> as translation key
 	// format key before apply
 	// - convert key to lowercase
@@ -22,13 +26,13 @@ public abstract class TranslatableBase
 	private String getPath(String key, boolean autoFormat)
 	{
 		String path = "";
-		if (type != null)
+		if (this.type != null)
 		{
-			path += type + ".";
+			path += this.type + ".";
 		}
-		if (name != null)
+		if (this.name != null)
 		{
-			path += name + ".";
+			path += this.name + ".";
 		}
 		key = key.toLowerCase();
 		if (autoFormat)

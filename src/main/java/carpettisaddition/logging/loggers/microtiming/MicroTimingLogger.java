@@ -33,6 +33,7 @@ import java.util.function.BiFunction;
 public class MicroTimingLogger extends AbstractLogger
 {
 	// [stage][detail]^[extra]
+	public static final String NAME = "microTiming";
 
 	private TickStage stage;
 	private String stageDetail;
@@ -43,7 +44,7 @@ public class MicroTimingLogger extends AbstractLogger
 
 	public MicroTimingLogger(ServerWorld world)
 	{
-		super("microTiming");
+		super(NAME);
 		this.world = world;
 		if (world != null)
 		{
@@ -236,7 +237,7 @@ public class MicroTimingLogger extends AbstractLogger
 				{
 					flushedTrimmedMessages.put(option, getTrimmedMessages(flushedMessages, option));
 				}
-				LoggerRegistry.getLogger("microTiming").log((option) -> flushedTrimmedMessages.get(LoggingOption.ofString(option)));
+				LoggerRegistry.getLogger(NAME).log((option) -> flushedTrimmedMessages.get(LoggingOption.ofString(option)));
 			}
 		}
 	}
