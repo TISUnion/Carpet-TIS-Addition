@@ -20,7 +20,8 @@ import java.util.Map;
 
 public class TextUtil
 {
-	// Mojang compatibility <3
+	// mojang compatibility thing <3
+	// these get changed in 1.16 so for easier compatible coding just wrap these methods
 	public static BaseText attachHoverEvent(BaseText text, HoverEvent hoverEvent)
 	{
 		text.getStyle().setHoverEvent(hoverEvent);
@@ -38,6 +39,7 @@ public class TextUtil
 		text.getStyle().setColor(formatting);
 		return text;
 	}
+	// mojang compatibility thing ends
 
 	private static final Map<DimensionType, BaseText> DIMENSION_NAME = Maps.newHashMap();
 	static
@@ -139,6 +141,7 @@ public class TextUtil
 	{
 		return Translations.tr("language_tool.space", " ");
 	}
+
 	public static BaseText getSpaceText()
 	{
 		return Messenger.s(getSpace());
