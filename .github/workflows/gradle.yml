@@ -33,6 +33,7 @@ jobs:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
+          ./.gradle/loom-cache
         key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}
       
     - name: Grant execute permission for gradlew
