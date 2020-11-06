@@ -27,8 +27,8 @@
   "accessWidener" : "carpet-tis-addition.accesswidener",
   "depends": {
     "fabricloader": ">=0.7.1",
-    "carpet": ">=1.4.8",
-    "minecraft": ">=1.16.2"
+    "carpet": ">=1.4.16",
+    "minecraft": "1.17.*"
   },
   "suggests": {
     "flamingo": "*"
