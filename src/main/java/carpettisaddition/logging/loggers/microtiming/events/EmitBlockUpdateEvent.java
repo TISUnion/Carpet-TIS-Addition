@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -42,22 +42,22 @@ public class EmitBlockUpdateEvent extends BaseEvent
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
 		BaseText updatesText = Messenger.c(
 				COLOR_ACTION + this.tr("Emit"),
-				Util.getSpaceText(),
+				TextUtil.getSpaceText(),
 				COLOR_TARGET + this.tr("Updates")
 		);
 		if (this.methodName != null)
 		{
-			updatesText.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, this.getUpdatesTextHoverText()));
+			TextUtil.attachHoverEvent(updatesText, new HoverEvent(HoverEvent.Action.SHOW_TEXT, this.getUpdatesTextHoverText()));
 		}
 		list.add(updatesText);
 		switch (this.getEventType())
 		{
 			case ACTION_START:
-				list.add(Util.getSpaceText());
+				list.add(TextUtil.getSpaceText());
 				list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("started"));
 				break;
 			case ACTION_END:
-				list.add(Util.getSpaceText());
+				list.add(TextUtil.getSpaceText());
 				list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("ended"));
 				break;
 			default:

@@ -4,9 +4,8 @@ import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
@@ -14,9 +13,9 @@ import net.minecraft.text.HoverEvent;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public abstract class EntityLogger<T extends Entity> extends AbstractLogger
@@ -33,7 +32,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	protected BaseText getNameText(T entity)
 	{
-		return Util.getTranslatedName(entity.getType().getTranslationKey());
+		return TextUtil.getTranslatedName(entity.getType().getTranslationKey());
 	}
 
 	protected BaseText getNameTextHoverText(T entity)
@@ -47,7 +46,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		BaseText hoverText = getNameTextHoverText(entity);
 		if (hoverText != null)
 		{
-			text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+			TextUtil.attachHoverEvent(text, new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
 		}
 		return text;
 	}
@@ -56,7 +55,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	{
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
 		{
-			if (!Arrays.asList(option.split(",")).contains(LoggingType.DESPAWN))
+			if (!LoggingType.DESPAWN.isContainedIn(option))
 			{
 				return null;
 			}
@@ -65,7 +64,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 					getNameTextRich(entity),
 					String.format("r %s", translator.tr(" despawned")),
 					"g  @ ",
-					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
+					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
 			)};
 		});
 	}
@@ -74,56 +73,55 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	{
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
 		{
-			if (!Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(LoggingType.DIE))
+			if (!LoggingType.DIE.isContainedIn(option))
 			{
 				return null;
 			}
 			BaseText itemName = getNameTextRich(entity);
-			itemName.setStyle(itemName.getStyle().setColor(Formatting.WHITE));
-			TranslatableText deathMessage = Util.getTranslatedName("death.attack." + source.name, itemName);
-			deathMessage.setStyle(deathMessage.getStyle().setColor(Formatting.RED));
-			deathMessage.setStyle(deathMessage.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount)))));
+			TranslatableText deathMessage = TextUtil.getTranslatedName("death.attack." + source.name, TextUtil.attachColor(itemName, Formatting.WHITE));
+			TextUtil.attachColor(deathMessage, Formatting.RED);
+			TextUtil.attachHoverEvent(deathMessage, new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount))));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", entity.world.getTime()),
 					deathMessage,
 					"g  @ ",
-					Util.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
+					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
 			)};
 		});
 	}
 
 	public Logger getStandardLogger()
 	{
-		return ExtensionLoggerRegistry.standardLogger(this.loggerName, EntityLogger.LoggingType.DIE, EntityLogger.LoggingType.loggingSuggest);
+		return ExtensionLoggerRegistry.standardLogger(this.loggerName, LoggingType.DIE.getName(), LoggingType.LOGGING_SUGGESTIONS);
 	}
 
-	public static class LoggingType
+	public enum LoggingType
 	{
-		public static final String DESPAWN = "despawn";
-		public static final String DIE = "die";
-		public static final List<String> typeList;
-		public static final	String[] loggingSuggest;
+		DESPAWN("despawn"),
+		DIE("die");
+		private final String name;
+		public static final	String[] LOGGING_SUGGESTIONS;
+
+		LoggingType(String name)
+		{
+			this.name = name;
+		}
+
+		public String getName()
+		{
+			return name;
+		}
+
+		public boolean isContainedIn(String option)
+		{
+			return Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(this.getName());
+		}
 
 		static
 		{
-			typeList = Lists.newArrayList();
-			for (Field field : LoggingType.class.getFields())
-			{
-				if (field.getType() == String.class)
-				{
-					try
-					{
-						typeList.add((String) field.get(null));
-					}
-					catch (IllegalAccessException e)
-					{
-						throw new IllegalStateException(e);
-					}
-				}
-			}
-			List<String> list = Lists.newArrayList(typeList);
-			list.add(Joiner.on(",").join(typeList));
-			loggingSuggest = list.toArray(new String[0]);
+			List<String> list = Arrays.stream(LoggingType.values()).map(LoggingType::getName).collect(Collectors.toList());
+			list.add(Joiner.on(",").join(list));
+			LOGGING_SUGGESTIONS = list.toArray(new String[0]);
 		}
 	}
 }

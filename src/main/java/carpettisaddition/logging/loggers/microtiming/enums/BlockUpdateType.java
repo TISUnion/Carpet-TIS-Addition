@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.microtiming.enums;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import net.minecraft.util.math.Direction;
@@ -41,7 +41,7 @@ public enum BlockUpdateType
 		int counter = 0;
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(tr("aka"));
-		stringBuilder.append(Util.getSpace());
+		stringBuilder.append(TextUtil.getSpace());
 		stringBuilder.append(Joiner.on(", ").join(this.aka));
 		stringBuilder.append('\n');
 		for (Direction direction : this.updateOrder)

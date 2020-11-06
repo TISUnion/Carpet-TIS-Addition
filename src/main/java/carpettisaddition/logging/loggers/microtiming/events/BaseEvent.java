@@ -4,7 +4,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
-import carpettisaddition.utils.TranslatableBase;
+import carpettisaddition.translations.TranslatableBase;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.registry.Registry;

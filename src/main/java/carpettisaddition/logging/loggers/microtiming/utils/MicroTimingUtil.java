@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.utils;
 import carpet.utils.Messenger;
 import carpet.utils.WoolTool;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
@@ -66,7 +66,7 @@ public class MicroTimingUtil
 		}
 		if (color != null)
 		{
-			text.getStyle().setColor(color);
+			TextUtil.attachColor(text, color);
 		}
 		return text;
 	}
@@ -88,8 +88,8 @@ public class MicroTimingUtil
 			));
 		}
 		return value ?
-				Util.getFancyText("e", Messenger.s("√"), hintText, null) :
-				Util.getFancyText("r", Messenger.s("×"), hintText, null);
+				TextUtil.getFancyText("e", Messenger.s("√"), hintText, null) :
+				TextUtil.getFancyText("r", Messenger.s("×"), hintText, null);
 	}
 	public static BaseText getSuccessText(boolean bool, boolean showReturnValue)
 	{
@@ -190,9 +190,7 @@ public class MicroTimingUtil
 
 	public static BaseText getTranslatedText(Block block)
 	{
-		BaseText name = new TranslatableText(block.getTranslationKey());
-		name.getStyle().setColor(Formatting.WHITE);
-		return name;
+		return TextUtil.attachColor(new TranslatableText(block.getTranslationKey()), Formatting.WHITE);
 	}
 
 	public static String getFormattedDirectionString(Direction direction)

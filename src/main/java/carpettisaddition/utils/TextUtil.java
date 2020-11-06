@@ -17,9 +17,27 @@ import net.minecraft.world.dimension.DimensionType;
 
 import java.util.Map;
 
-
-public class Util
+public class TextUtil
 {
+	// Mojang compatibility <3
+	public static BaseText attachHoverEvent(BaseText text, HoverEvent hoverEvent)
+	{
+		text.getStyle().setHoverEvent(hoverEvent);
+		return text;
+	}
+
+	public static BaseText attachClickEvent(BaseText text, ClickEvent clickEvent)
+	{
+		text.getStyle().setClickEvent(clickEvent);
+		return text;
+	}
+
+	public static BaseText attachColor(BaseText text, Formatting formatting)
+	{
+		text.getStyle().setColor(formatting);
+		return text;
+	}
+
 	private static final Map<DimensionType, BaseText> DIMENSION_NAME = Maps.newHashMap();
 	static
 	{
@@ -58,10 +76,10 @@ public class Util
 		{
 			text.setStyle(Messenger.c(style + "  ").getSiblings().get(0).getStyle());
 		}
-		text.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+		attachHoverEvent(text, new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
 		if (clickEvent != null)
 		{
-			text.getStyle().setClickEvent(clickEvent);
+			attachClickEvent(text, clickEvent);
 		}
 		return text;
 	}
@@ -100,7 +118,7 @@ public class Util
 		TranslatableText text = new TranslatableText(key, args);
 		if (color != null)
 		{
-			text.getStyle().setColor(color);
+			attachColor(text, color);
 		}
 		return text;
 	}
@@ -112,11 +130,6 @@ public class Util
 	public static long getGameTime()
 	{
 		return CarpetTISAdditionServer.minecraft_server.getWorld(DimensionType.OVERWORLD).getTime();
-	}
-
-	public static String ratePerHour(int rate, long ticks)
-	{
-		return String.format("%d, (%.1f/h)", rate, (double)rate / ticks * (20 * 60 * 60));
 	}
 
 	// some language doesn't use space char to divide word

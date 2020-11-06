@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +33,7 @@ public class RaidLogger extends AbstractLogger
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("created", "Raid created with id %d"), raid.getRaidId())),
 					"g  @ ",
-					Util.getCoordinateText("w", raid.getCenter(), raid.getWorld().getDimension())
+					TextUtil.getCoordinateText("w", raid.getCenter(), raid.getWorld().getDimension())
 			)};
 		});
 	}
@@ -74,7 +74,7 @@ public class RaidLogger extends AbstractLogger
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("center_moved", "Raid (id: %d) moves its center to"), raid.getRaidId())),
 					"w  ",
-					Util.getCoordinateText("w", pos, raid.getWorld().getDimension())
+					TextUtil.getCoordinateText("w", pos, raid.getWorld().getDimension())
 			)};
 		});
 	}

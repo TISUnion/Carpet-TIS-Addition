@@ -1,15 +1,19 @@
-package carpettisaddition.utils;
+package carpettisaddition.translations;
 
-
-public abstract class TranslatableBase
+public class Translator implements Translatable
 {
 	private final String type;
 	private final String name;
 
-	public TranslatableBase(String type, String name)
+	public Translator(String type, String name)
 	{
 		this.type = type;
 		this.name = name;
+	}
+
+	public Translator(String prefix)
+	{
+		this(null, prefix);
 	}
 
 	// use <type>.<name>.<key> as translation key
@@ -20,13 +24,13 @@ public abstract class TranslatableBase
 	private String getPath(String key, boolean autoFormat)
 	{
 		String path = "";
-		if (type != null)
+		if (this.type != null)
 		{
-			path += type + ".";
+			path += this.type + ".";
 		}
-		if (name != null)
+		if (this.name != null)
 		{
-			path += name + ".";
+			path += this.name + ".";
 		}
 		key = key.toLowerCase();
 		if (autoFormat)
@@ -36,16 +40,19 @@ public abstract class TranslatableBase
 		return path + key;
 	}
 
+	@Override
 	public String tr(String key, String text, boolean autoFormat)
 	{
 		return text;
 	}
 
+	@Override
 	public String tr(String key, String text)
 	{
 		return tr(key, text, false);
 	}
 
+	@Override
 	public String tr(String key)
 	{
 		return key;

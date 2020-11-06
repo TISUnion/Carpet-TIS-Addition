@@ -4,7 +4,7 @@ import carpet.CarpetSettings;
 import carpet.settings.SettingsManager;
 import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.utils.Util;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -52,7 +52,7 @@ public class InfoCommand extends AbstractCommand
 			order++;
 			Messenger.m(source, Messenger.c(
 					"g " + order + ". ",
-					Util.getDimensionNameText(world.getDimension().getType())
+					TextUtil.getDimensionNameText(world.getDimension().getType())
 			));
 		}
 		return 1;
