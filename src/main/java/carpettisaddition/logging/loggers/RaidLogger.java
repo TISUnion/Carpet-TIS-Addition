@@ -10,7 +10,7 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 
 
-public class RaidLogger extends BaseLogger
+public class RaidLogger extends AbstractLogger
 {
 	private static final RaidLogger instance = new RaidLogger();
 

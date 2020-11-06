@@ -2,11 +2,11 @@ package carpettisaddition.logging.loggers;
 
 import carpettisaddition.utils.TranslatableBase;
 
-public abstract class BaseLogger extends TranslatableBase
+public abstract class AbstractLogger extends TranslatableBase
 {
 	protected final static String MULTI_OPTION_SEP_REG = "[,. ]";
 
-	public BaseLogger(String name)
+	public AbstractLogger(String name)
 	{
 		super("logger", name);
 	}

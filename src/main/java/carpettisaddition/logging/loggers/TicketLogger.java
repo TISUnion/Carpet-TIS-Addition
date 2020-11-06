@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 import static java.lang.Math.max;
 
-public class TicketLogger extends BaseLogger
+public class TicketLogger extends AbstractLogger
 {
 	private static final TicketLogger INSTANCE = new TicketLogger();
 

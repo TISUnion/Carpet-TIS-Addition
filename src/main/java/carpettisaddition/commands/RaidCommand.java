@@ -25,7 +25,7 @@ import java.util.*;
 import static net.minecraft.server.command.CommandManager.literal;
 
 
-public class RaidCommand extends BaseCommand
+public class RaidCommand extends AbstractCommand
 {
 	private static final RaidCommand INSTANCE = new RaidCommand();
 

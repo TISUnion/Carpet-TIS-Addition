@@ -5,9 +5,9 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;
 
 
-public abstract class BaseCommand extends TranslatableBase
+public abstract class AbstractCommand extends TranslatableBase
 {
-	public BaseCommand(String name)
+	public AbstractCommand(String name)
 	{
 		super("command", name);
 	}

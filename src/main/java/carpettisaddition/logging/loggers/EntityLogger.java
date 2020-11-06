@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public abstract class EntityLogger<T extends Entity> extends BaseLogger
+public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 {
 	protected final String loggerName;
 
