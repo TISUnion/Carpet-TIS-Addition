@@ -17,6 +17,7 @@ public class ExtensionLoggerRegistry
     public static boolean __xporb;
     public static boolean __raid;
     public static boolean __microTiming;
+    public static boolean __damage;
 
     public static void registerLoggers()
     {
@@ -30,6 +31,7 @@ public class ExtensionLoggerRegistry
         LoggerRegistry.registerLogger("raid", standardLogger("raid", null, null));
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
         LoggerRegistry.registerLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.create());
+        LoggerRegistry.registerLogger("damage", standardLogger("damage", "all", new String[]{"all", "players", "me"}));
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)
