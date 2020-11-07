@@ -12,7 +12,7 @@
     "command.Raid_raidTrackerMixin",
     "command.RaidAccessor",
     "command.RaidManagerAccessor",
-    "logger.item.ItemEntity_itemLoggerMixin",
+    "logger.item.ItemEntityMixin",
     "logger.microtiming.ServerWorldMixin",
     "logger.microtiming.WorldMixin",
     "logger.microtiming.events.BlockMixin",
