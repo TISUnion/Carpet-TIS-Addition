@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
@@ -36,9 +37,16 @@ public abstract class PlayerEntityMixin extends LivingEntity
 
 	@Inject(
 			method = "damage",
+			slice = @Slice(
+					from = @At(
+							value = "FIELD",
+							target = "Lnet/minecraft/world/Difficulty;HARD:Lnet/minecraft/world/Difficulty;"
+					)
+			),
 			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"
+					value = "CONSTANT",
+					args = "floatValue=0.0F",
+					ordinal = 0
 			)
 	)
 	void onDifficultyModifiedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
