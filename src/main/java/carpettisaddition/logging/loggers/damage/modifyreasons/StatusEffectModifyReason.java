@@ -15,7 +15,7 @@ public class StatusEffectModifyReason extends ModifyReason
 
 	public StatusEffectModifyReason(StatusEffect statusEffect, Integer amplifier)
 	{
-		super("StatusEffect");
+		super("Status effect");
 		this.statusEffect = statusEffect;
 		this.amplifier = amplifier;
 	}
@@ -28,6 +28,8 @@ public class StatusEffectModifyReason extends ModifyReason
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
+		list.add(super.toText());
+		list.add("w  ");
 		list.add(this.statusEffect.getName());
 		if (this.amplifier != null)
 		{

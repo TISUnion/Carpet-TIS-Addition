@@ -5,7 +5,6 @@ import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
 
 public class ArmorModifyReason extends ModifyReason
 {
@@ -27,14 +26,20 @@ public class ArmorModifyReason extends ModifyReason
 	@Override
 	public BaseText toText()
 	{
-		return Messenger.c(
-				TextUtil.attachColor(TextUtil.getAttributeText(EntityAttributes.ARMOR), Formatting.BLUE),
-				TextUtil.getSpaceText(),
-				"t " + String.format("%.1f", this.armor),
-				"g , ",
-				TextUtil.attachColor(TextUtil.getAttributeText(EntityAttributes.ARMOR_TOUGHNESS), Formatting.BLUE),
-				TextUtil.getSpaceText(),
-				"t " + String.format("%.1f", this.toughness)
+		return TextUtil.getFancyText(
+				null,
+				Messenger.c(
+						super.toText(),
+						String.format("w  %.1f + %.1f", this.armor, this.toughness)
+				),
+				Messenger.c(
+						TextUtil.getAttributeText(EntityAttributes.ARMOR),
+						"w : " + String.format("%.1f", this.armor),
+						"w \n",
+						TextUtil.getAttributeText(EntityAttributes.ARMOR_TOUGHNESS),
+						"w : " + String.format("%.1f", this.toughness)
+				),
+				null
 		);
 	}
 }

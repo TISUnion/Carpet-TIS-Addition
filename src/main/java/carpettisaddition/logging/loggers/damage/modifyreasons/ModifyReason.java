@@ -9,7 +9,7 @@ public class ModifyReason
 	public static final ModifyReason HELMET = new ModifyReason("Wearing a helmet");
 	public static final ModifyReason SHIELD = new ModifyReason("Holding a shield");
 	public static final ModifyReason RECENTLY_HIT = new ModifyReason("Recently hit");
-	public static final ModifyReason DIFFICULTY = new ModifyReason("difficulty");
+	public static final ModifyReason DIFFICULTY = new ModifyReason("Difficulty");
 	public static final ModifyReason IMMUNE = new ModifyReason("Immune to damage");
 	public static final ModifyReason RESPAWN_PROTECTION = new ModifyReason("Respawn protection");
 	public static final ModifyReason PVP_DISABLED = new ModifyReason("PVP disabled");
@@ -28,7 +28,7 @@ public class ModifyReason
 
 	public BaseText toText()
 	{
-		return Messenger.s(this.tr());
+		return Messenger.c("w " + this.tr());
 	}
 
 	public String tr()

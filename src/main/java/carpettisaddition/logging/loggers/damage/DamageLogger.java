@@ -16,6 +16,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -84,6 +85,18 @@ public class DamageLogger extends AbstractLogger
 		return null;
 	}
 
+	private static BaseText getAmountText(String style, float amount)
+	{
+		String display = String.format("%.2f", amount);
+		String detail = String.format("%.6f", amount);
+		return TextUtil.getFancyText(
+				style,
+				Messenger.s(display),
+				Messenger.s(detail),
+				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, detail)
+		);
+	}
+
 	public void flush(float finalAmount, float remainingHealth)
 	{
 		if (!isLoggerActivated() || this.flushed)
@@ -100,12 +113,10 @@ public class DamageLogger extends AbstractLogger
 							target.getDisplayName(),
 							"g  " + this.tr("receiving"),
 							TextUtil.getSpaceText(),
-							String.format("r %.2f", initialAmount),
+							getAmountText("r", this.initialAmount),
 							TextUtil.getSpaceText(),
 							"g " + this.tr("damage"),
-							TextUtil.getSpaceText(),
-							"g " + this.tr("from"),
-							TextUtil.getSpaceText(),
+							String.format("g , %s: ", this.tr("damage type")),
 							TextUtil.getFancyText(
 									"w",
 									Messenger.s(this.damageSource.getName()),
@@ -117,14 +128,17 @@ public class DamageLogger extends AbstractLogger
 					{
 						float oldAmount = modification.getOldAmount();
 						float newAmount = modification.getNewAmount();
+						float delta = Math.abs(newAmount - oldAmount);
 						String sig = newAmount > oldAmount ? "+" : "-";
-						String radio = oldAmount != 0 ? String.format("%.1f%%", 100.0F * Math.abs(newAmount - oldAmount) / oldAmount) : "N/A%";
+						String radio = oldAmount != 0.0F ? String.format("%.1f%%", 100.0F * delta / oldAmount) : "N/A%";
 						lines.add(Messenger.c(
 								"g  - ",
-								String.format("r %.2f", oldAmount),
+								getAmountText("r", oldAmount),
 								"g  -> ",
-								String.format("%s %.2f", newAmount > oldAmount ? "r" : "d", newAmount),
-								String.format("g  (%s%s) %s", sig, radio, this.tr("due to")),
+								getAmountText(newAmount > oldAmount ? "r" : "d", newAmount),
+								String.format("g  (%s", sig),
+								TextUtil.attachHoverEvent(getAmountText("g", delta), new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s%.6f", sig, delta)))),
+								String.format("g , %s%s) %s", sig, radio, this.tr("due to")),
 								TextUtil.getSpaceText(),
 								modification.getReason().toText()
 						));
@@ -133,11 +147,11 @@ public class DamageLogger extends AbstractLogger
 							"g  - ",
 							"w " + this.tr("Actually received"),
 							TextUtil.getSpaceText(),
-							String.format("r %.2f", finalAmount),
+							getAmountText(finalAmount > 0.0F ? "r" : "w", finalAmount),
 							TextUtil.getSpaceText(),
 							String.format("g %s, ", this.tr("damage")),
 							String.format("w %s: ", this.tr("Remaining health")),
-							String.format("l %.2f", remainingHealth)
+							getAmountText(remainingHealth > 0 ? "l" : "r", remainingHealth)
 					));
 					return lines.stream().map(Messenger::c).toArray(BaseText[]::new);
 				})
