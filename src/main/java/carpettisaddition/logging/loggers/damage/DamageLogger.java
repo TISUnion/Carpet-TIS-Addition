@@ -83,6 +83,10 @@ public class DamageLogger extends AbstractLogger
 			this.modificationList.add(new Modification(this.currentAmount, newAmount, reason));
 			this.currentAmount = newAmount;
 		}
+		if (reason == ModifyReason.INVULNERABLE)  // no spam for creative player
+		{
+			this.valid = false;
+		}
 	}
 
 	private static BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, Entity from, Entity to, Supplier<BaseText[]> messageFuture)
@@ -131,6 +135,10 @@ public class DamageLogger extends AbstractLogger
 					}
 					if (attacker != null)
 					{
+						if (!sourceHoverTextList.isEmpty())
+						{
+							sourceHoverTextList.add("w \n");
+						}
 						sourceHoverTextList.add(Messenger.c(String.format("w %s: ", this.tr("Attacker")), attacker.getName()));
 					}
 					lines.add(Messenger.c(
