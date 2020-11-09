@@ -29,6 +29,11 @@ public class TextUtil
 		return text;
 	}
 
+	public static BaseText attachHoverText(BaseText text, BaseText hoverText)
+	{
+		return attachHoverEvent(text, new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+	}
+
 	public static BaseText attachClickEvent(BaseText text, ClickEvent clickEvent)
 	{
 		text.getStyle().setClickEvent(clickEvent);
@@ -90,7 +95,10 @@ public class TextUtil
 			//noinspection ResultOfMethodCallIgnored
 			MessengerInvoker.call_applyStyleToTextComponent(text, style);
 		}
-		attachHoverEvent(text, new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+		if (hoverText != null)
+		{
+			attachHoverText(text, hoverText);
+		}
 		if (clickEvent != null)
 		{
 			attachClickEvent(text, clickEvent);
