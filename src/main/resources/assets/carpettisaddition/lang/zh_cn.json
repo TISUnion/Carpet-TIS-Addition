@@ -211,6 +211,7 @@
   "logger.damage.modify_reason.status_effect": "状态效果",
   "logger.damage.modify_reason.enchantment": "附魔",
   "logger.damage.modify_reason.armor": "护甲",
+  "logger.damage.attacker": "攻击者",
   "logger.damage.source": "来源",
   "logger.damage.is_receiving": "正在受到",
   "logger.damage.damage_type": "伤害类型",
