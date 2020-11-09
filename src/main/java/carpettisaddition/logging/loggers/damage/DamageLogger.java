@@ -17,7 +17,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -152,7 +151,7 @@ public class DamageLogger extends AbstractLogger
 								"g  -> ",
 								getAmountText(newAmount > oldAmount ? "r" : "d", newAmount),
 								String.format("g  (%s", sig),
-								TextUtil.attachHoverEvent(getAmountText("g", delta), new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s%.6f", sig, delta)))),
+								TextUtil.attachHoverText(getAmountText("g", delta), Messenger.s(String.format("%s%.6f", sig, delta))),
 								String.format("g , %s%s) %s", sig, radio, this.tr("due to")),
 								TextUtil.getSpaceText(),
 								modification.getReason().toText()

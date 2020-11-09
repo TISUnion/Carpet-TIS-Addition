@@ -7,7 +7,6 @@ import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.HoverEvent;
 
 import java.util.List;
 import java.util.Objects;
@@ -47,7 +46,7 @@ public class EmitBlockUpdateEvent extends BaseEvent
 		);
 		if (this.methodName != null)
 		{
-			TextUtil.attachHoverEvent(updatesText, new HoverEvent(HoverEvent.Action.SHOW_TEXT, this.getUpdatesTextHoverText()));
+			TextUtil.attachHoverText(updatesText, this.getUpdatesTextHoverText());
 		}
 		list.add(updatesText);
 		switch (this.getEventType())

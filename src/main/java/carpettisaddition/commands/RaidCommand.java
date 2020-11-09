@@ -17,7 +17,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
 import net.minecraft.util.registry.Registry;
 
 import java.util.*;
@@ -125,7 +124,7 @@ public class RaidCommand extends AbstractCommand
 						{
 							BaseText x = Messenger.s(String.format("[%s] ", Registry.ENTITY_TYPE.getId(raider.getType()).getPath().substring(0, 1).toUpperCase()));
 							x.setStyle(raiderName.getStyle().copy());
-							TextUtil.attachHoverEvent(x, new HoverEvent(HoverEvent.Action.SHOW_TEXT, raiderMessage));
+							TextUtil.attachHoverText(x, raiderMessage);
 							TextUtil.attachClickEvent(x, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(raider)));
 							line.add(x);
 							counter++;
