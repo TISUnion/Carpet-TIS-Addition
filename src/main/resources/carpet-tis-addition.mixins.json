@@ -8,6 +8,7 @@
     "carpet.HUDControllerMixin",
     "carpet.LoggerRegistryInvoker",
     "carpet.LoggerRegistryMixin",
+    "carpet.MessengerInvoker",
     "carpet.SettingsManagerMixin",
     "carpet.TickCommand_tickWarpMaximumDurationMixin",
     "carpet.onServerLoadedWorlds.MinecraftServerMixin",

@@ -2,6 +2,7 @@ package carpettisaddition.utils;
 
 import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.mixins.carpet.MessengerInvoker;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -86,7 +87,8 @@ public class TextUtil
 		BaseText text = (BaseText)displayText.deepCopy();
 		if (style != null)
 		{
-			text.setStyle(Messenger.c(style + "  ").getSiblings().get(0).getStyle());
+			//noinspection ResultOfMethodCallIgnored
+			MessengerInvoker.call_applyStyleToTextComponent(text, style);
 		}
 		attachHoverEvent(text, new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
 		if (clickEvent != null)
