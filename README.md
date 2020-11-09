@@ -48,6 +48,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [xporb](#xporb)
 - [raid](#raid)
 - [microTiming](#microTiming-1)
+- [damage](#damage)
 
 ## Commands
 
@@ -59,7 +60,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [other stuffs](#other-stuffs)
 
 
-# Features
+# Rule List
 
 ## blockEventPacketRange
 
@@ -387,6 +388,10 @@ Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 
 
 Display current consumed and total memory of the server in HUD
 
+Attributes:
+- Default value: N/A
+- Suggested options: N/A
+
 
 ## item
 
@@ -402,6 +407,7 @@ Use csv format, like `despawn,die` for logging multiple events
 
 Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 version)
 
+Attributes:
 - Default value: `despawn`
 - Suggested options: `despawn`, `die`, `despawn,die`
 
@@ -424,6 +430,9 @@ Info when these raid related events happen:
 - The bad omen level of a raid has been increased
 - The center Position of a raid has been moved
 
+Attributes:
+- Default value: N/A
+- Suggested options: N/A
 
 ## microTiming
 
@@ -438,8 +447,25 @@ Available options:
 - `merged`: Log all events and merged continuous same events
 - `unique`: Log the first unique event in every gametick
 
+Attributes:
 - Default value: `merged`
 - Suggested options: `all`, `merged`, `unique`
+
+
+## damage
+
+`/log damage <target>`
+
+Info when a living entity gets damage and display how the damage gets calculated
+
+Available logging targets:
+- `all`: Log damage from all living entities
+- `players`: Log damage with player participation
+- `me`: Log damage related to yourself
+
+Attributes:
+- Default value: `all`
+- Suggested options: `all`, `players`, `me`
 
 # Commands
 
