@@ -15,12 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(ItemEntity.class)
-public abstract class ItemEntity_itemLoggerMixin extends Entity
+public abstract class ItemEntityMixin extends Entity
 {
 	private boolean flagDied = false;
 	private boolean flagDespawned = false;
 
-	public ItemEntity_itemLoggerMixin(EntityType<?> entityType_1, World world_1)
+	public ItemEntityMixin(EntityType<?> entityType_1, World world_1)
 	{
 		super(entityType_1, world_1);
 	}
