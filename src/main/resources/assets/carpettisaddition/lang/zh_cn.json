@@ -212,7 +212,7 @@
   "logger.damage.modify_reason.enchantment": "附魔",
   "logger.damage.modify_reason.armor": "护甲",
   "logger.damage.source": "来源",
-  "logger.damage.receiving": "正在受到",
+  "logger.damage.is_receiving": "正在受到",
   "logger.damage.damage_type": "伤害类型",
   "logger.damage.due_to": "，原因: ",
   "logger.damage.actually_received": "实际受到",
