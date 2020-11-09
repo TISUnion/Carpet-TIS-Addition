@@ -40,6 +40,25 @@ public abstract class PlayerEntityMixin extends LivingEntity
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
+							target = "Lnet/minecraft/entity/player/PlayerAbilities;invulnerable:Z"
+					)
+			),
+			at = @At(
+					value = "RETURN",
+					shift = At.Shift.BEFORE,  // before onDamageEnded in LivingEntityAndPlayerEntityMixins$DamageMixin
+					ordinal = 0
+			)
+	)
+	void onInvulnerableAbilityCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	{
+		((ILivingEntity_damageLogger)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(0.0F, ModifyReason.INVULNERABLE));
+	}
+
+	@Inject(
+			method = "damage",
+			slice = @Slice(
+					from = @At(
+							value = "FIELD",
 							target = "Lnet/minecraft/world/Difficulty;HARD:Lnet/minecraft/world/Difficulty;"
 					)
 			),
@@ -51,8 +70,6 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	)
 	void onDifficultyModifiedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		((ILivingEntity_damageLogger)this).getDamageLogger().ifPresent(damageLogger -> {
-			damageLogger.modifyDamage(amount, ModifyReason.DIFFICULTY);
-		});
+		((ILivingEntity_damageLogger)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(amount, ModifyReason.DIFFICULTY));
 	}
 }

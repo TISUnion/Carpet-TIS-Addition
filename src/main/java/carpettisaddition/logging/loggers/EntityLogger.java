@@ -9,7 +9,6 @@ import com.google.common.base.Joiner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.HoverEvent;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
@@ -46,7 +45,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		BaseText hoverText = getNameTextHoverText(entity);
 		if (hoverText != null)
 		{
-			TextUtil.attachHoverEvent(text, new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+			TextUtil.attachHoverText(text, hoverText);
 		}
 		return text;
 	}
@@ -80,7 +79,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 			BaseText itemName = getNameTextRich(entity);
 			TranslatableText deathMessage = TextUtil.getTranslatedName("death.attack." + source.name, TextUtil.attachColor(itemName, Formatting.WHITE));
 			TextUtil.attachColor(deathMessage, Formatting.RED);
-			TextUtil.attachHoverEvent(deathMessage, new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount))));
+			TextUtil.attachHoverText(deathMessage, Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount)));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", entity.world.getTime()),
 					deathMessage,

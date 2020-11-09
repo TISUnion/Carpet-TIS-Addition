@@ -17,7 +17,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -84,6 +83,10 @@ public class DamageLogger extends AbstractLogger
 			this.modificationList.add(new Modification(this.currentAmount, newAmount, reason));
 			this.currentAmount = newAmount;
 		}
+		if (reason == ModifyReason.INVULNERABLE)  // no spam for creative player
+		{
+			this.valid = false;
+		}
 	}
 
 	private static BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, Entity from, Entity to, Supplier<BaseText[]> messageFuture)
@@ -114,16 +117,30 @@ public class DamageLogger extends AbstractLogger
 			return;
 		}
 		this.valid = false;
-		Entity source = this.damageSource.getAttacker();
+		Entity attacker = this.damageSource.getAttacker();
+		Entity source = this.damageSource.getSource();
 		LivingEntity target = this.entity;
 		LoggerRegistry.getLogger(NAME).log((option, player) ->
-				verifyAndProduceMessage(option, player, source, target, () -> {
+				verifyAndProduceMessage(option, player, attacker, target, () -> {
 					List<Object> lines = Lists.newArrayList();
 					lines.add(Messenger.s(" "));
 					BaseText sourceName = TextUtil.attachClickEvent(
 							(BaseText)target.getDisplayName(),
 							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(target))
 					);
+					List<Object> sourceHoverTextList = Lists.newArrayList();
+					if (source != null)
+					{
+						sourceHoverTextList.add(Messenger.c(String.format("w %s: ", this.tr("Source")), source.getName()));
+					}
+					if (attacker != null)
+					{
+						if (!sourceHoverTextList.isEmpty())
+						{
+							sourceHoverTextList.add("w \n");
+						}
+						sourceHoverTextList.add(Messenger.c(String.format("w %s: ", this.tr("Attacker")), attacker.getName()));
+					}
 					lines.add(Messenger.c(
 							sourceName,
 							"g  " + this.tr("is receiving"),
@@ -135,8 +152,8 @@ public class DamageLogger extends AbstractLogger
 							TextUtil.getFancyText(
 									"w",
 									Messenger.s(this.damageSource.getName()),
-									source != null ? Messenger.c(String.format("w %s: ", this.tr("Source")), source.getName()) : null,
-									source != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(source)) : null
+									sourceHoverTextList.isEmpty() ? null : Messenger.c(sourceHoverTextList.toArray(new Object[0])),
+									attacker != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(attacker)) : null
 							)
 					));
 					for (Modification modification : this.modificationList)
@@ -152,7 +169,7 @@ public class DamageLogger extends AbstractLogger
 								"g  -> ",
 								getAmountText(newAmount > oldAmount ? "r" : "d", newAmount),
 								String.format("g  (%s", sig),
-								TextUtil.attachHoverEvent(getAmountText("g", delta), new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s%.6f", sig, delta)))),
+								TextUtil.attachHoverText(getAmountText("g", delta), Messenger.s(String.format("%s%.6f", sig, delta))),
 								String.format("g , %s%s) %s", sig, radio, this.tr("due to")),
 								TextUtil.getSpaceText(),
 								modification.getReason().toText()

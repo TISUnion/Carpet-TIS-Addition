@@ -44,7 +44,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 							args = "stringValue=fall"
 					)
 			),
-			at = @At(value = "RETURN", ordinal = 0, shift = At.Shift.BEFORE)
+			at = @At(value = "RETURN", ordinal = 0, shift = At.Shift.BEFORE) // before onDamageEnded in LivingEntityAndPlayerEntityMixins$DamageMixin
 	)
 	void onRespawnProtectionCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
@@ -63,6 +63,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 					)
 			),
 			at = {
+					// before onDamageEnded in LivingEntityAndPlayerEntityMixins$DamageMixin
 					@At(value = "RETURN", ordinal = 0, shift = At.Shift.BEFORE),
 					@At(value = "RETURN", ordinal = 1, shift = At.Shift.BEFORE)
 			}
