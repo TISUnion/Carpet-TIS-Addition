@@ -16,7 +16,6 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
@@ -237,7 +236,7 @@ public class MicroTimingLogger extends AbstractLogger
 				{
 					flushedTrimmedMessages.put(option, getTrimmedMessages(flushedMessages, option));
 				}
-				LoggerRegistry.getLogger(NAME).log((option) -> flushedTrimmedMessages.get(LoggingOption.ofString(option)));
+				LoggerRegistry.getLogger(NAME).log((option) -> flushedTrimmedMessages.get(LoggingOption.valueOf(option.toUpperCase())));
 			}
 		}
 	}
@@ -248,21 +247,6 @@ public class MicroTimingLogger extends AbstractLogger
 		ALL,
 		UNIQUE;
 
-		public static final LoggingOption DEFAULT = LoggingOption.MERGED;
-		private static final Map<String, LoggingOption> OPTION_MAP = new Object2ObjectArrayMap<>();
-
-		static
-		{
-			for (LoggingOption option : LoggingOption.values())
-			{
-				OPTION_MAP.put(option.name(), option);
-				OPTION_MAP.put(option.name().toLowerCase(), option);
-			}
-		}
-
-		public static LoggingOption ofString(String str)
-		{
-			return OPTION_MAP.getOrDefault(str, DEFAULT);
-		}
+		public static final LoggingOption DEFAULT = MERGED;
 	}
 }
