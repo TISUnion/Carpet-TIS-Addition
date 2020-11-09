@@ -110,7 +110,10 @@ public class DamageLogger extends AbstractLogger
 				verifyAndProduceMessage(option, player, source, target, () -> {
 					List<Object> lines = Lists.newArrayList();
 					lines.add(Messenger.c(
-							target.getDisplayName(),
+							TextUtil.attachClickEvent(
+									(BaseText)target.getDisplayName(),
+									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(target))
+							),
 							"g  " + this.tr("receiving"),
 							TextUtil.getSpaceText(),
 							getAmountText("r", this.initialAmount),
