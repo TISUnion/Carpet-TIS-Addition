@@ -119,12 +119,14 @@ public class DamageLogger extends AbstractLogger
 		LoggerRegistry.getLogger(NAME).log((option, player) ->
 				verifyAndProduceMessage(option, player, source, target, () -> {
 					List<Object> lines = Lists.newArrayList();
+					lines.add(Messenger.s(" "));
+					BaseText sourceName = TextUtil.attachClickEvent(
+							(BaseText)target.getDisplayName(),
+							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(target))
+					);
 					lines.add(Messenger.c(
-							TextUtil.attachClickEvent(
-									(BaseText)target.getDisplayName(),
-									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(target))
-							),
-							"g  " + this.tr("receiving"),
+							sourceName,
+							"g  " + this.tr("is receiving"),
 							TextUtil.getSpaceText(),
 							getAmountText("r", this.initialAmount),
 							TextUtil.getSpaceText(),
@@ -157,8 +159,8 @@ public class DamageLogger extends AbstractLogger
 						));
 					}
 					lines.add(Messenger.c(
-							"g  - ",
-							"w " + this.tr("Actually received"),
+							sourceName,
+							"w  " + this.tr("actually received"),
 							TextUtil.getSpaceText(),
 							getAmountText(finalAmount > 0.0F ? "r" : "w", finalAmount),
 							TextUtil.getSpaceText(),
