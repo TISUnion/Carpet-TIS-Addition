@@ -5,6 +5,7 @@ import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionServer;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
@@ -43,6 +44,7 @@ public class TextUtil
 	// mojang compatibility thing ends
 
 	private static final Map<RegistryKey<World>, BaseText> DIMENSION_NAME = Maps.newHashMap();
+
 	static
 	{
 		DIMENSION_NAME.put(World.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"));
@@ -54,23 +56,31 @@ public class TextUtil
 	{
 		return Translations.tr("util.teleport_hint", "Click to teleport to");
 	}
+
 	public static String getTeleportCommand(Vec3d pos, RegistryKey<World> dim)
 	{
 		return String.format("/execute in %s run tp %f %f %f", dim.getValue(), pos.getX(), pos.getY(), pos.getZ());
 	}
+
 	public static String getTeleportCommand(Vec3i pos, RegistryKey<World> dim)
 	{
 		return String.format("/execute in %s run tp %d %d %d", dim.getValue(), pos.getX(), pos.getY(), pos.getZ());
 	}
-	public static String getTeleportCommand(Entity entity)
-	{
-		String uuid = entity.getUuid().toString();
-		return String.format("/execute at %1$s run tp %1$s", uuid);
-	}
-	public static String getTeleportCommand(PlayerEntity player)
+
+	public static String getTeleportCommandPlayer(PlayerEntity player)
 	{
 		String name = player.getGameProfile().getName();
-		return String.format("/execute at %1$s run tp %1$s", name);
+		return String.format("/tp %s", name);
+	}
+
+	public static String getTeleportCommand(Entity entity)
+	{
+		if (entity instanceof PlayerEntity)
+		{
+			return getTeleportCommandPlayer((PlayerEntity)entity);
+		}
+		String uuid = entity.getUuid().toString();
+		return String.format("/tp %s", uuid);
 	}
 
 	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
@@ -87,6 +97,7 @@ public class TextUtil
 		}
 		return text;
 	}
+
 	private static BaseText __getCoordinateText(String style, RegistryKey<World> dim, String posText, String command)
 	{
 		BaseText hoverText = Messenger.s("");
@@ -105,11 +116,17 @@ public class TextUtil
 		String posText = String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());
 		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim));
 	}
+
 	public static BaseText getEntityText(String style, Entity entity)
 	{
 		BaseText entityName = (BaseText)entity.getType().getName().copy();
 		BaseText hoverText = Messenger.c(String.format("w %s ", getTeleportHint()), entityName);
 		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
+	}
+
+	public static BaseText getAttributeText(EntityAttribute attribute)
+	{
+		return new TranslatableText(attribute.getTranslationKey());
 	}
 
 	public static BaseText getDimensionNameText(RegistryKey<World> dim)
