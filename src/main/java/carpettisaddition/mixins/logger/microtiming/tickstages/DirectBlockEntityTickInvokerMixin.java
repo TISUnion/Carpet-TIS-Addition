@@ -17,7 +17,7 @@ public abstract class DirectBlockEntityTickInvokerMixin<T extends BlockEntity>
 {
 	@Shadow @Final private T blockEntity;
 
-	@Inject(method = "tick", at = @At("HEAD"))
+	@Inject(method = "tick()V", at = @At("HEAD"))
 	private void startTileEntitySection(CallbackInfo ci)
 	{
 		BlockEntity blockEntity = this.blockEntity;
