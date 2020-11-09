@@ -32,7 +32,7 @@
     "logger.microtiming.events.ServerTickSchedulerMixin",
     "logger.microtiming.events.ServerWorldMixin",
     "logger.microtiming.events.WorldMixin",
-    "logger.microtiming.tickstages.class_5563Mixin",
+    "logger.microtiming.tickstages.DirectBlockEntityTickInvokerMixin",
     "logger.microtiming.tickstages.MinecraftDedicatedServerMixin",
     "logger.microtiming.tickstages.MinecraftServerMixin",
     "logger.microtiming.tickstages.NetworkThreadUtilsMixin",

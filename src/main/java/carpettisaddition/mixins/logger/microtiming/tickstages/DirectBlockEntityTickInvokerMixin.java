@@ -12,15 +12,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(targets = "net.minecraft.world.chunk.WorldChunk$class_5563")
-public abstract class class_5563Mixin<T extends BlockEntity>
+@Mixin(targets = "net.minecraft.world.chunk.WorldChunk$DirectBlockEntityTickInvoker")
+public abstract class DirectBlockEntityTickInvokerMixin<T extends BlockEntity>
 {
-	@Shadow @Final private T field_27224;
+	@Shadow @Final private T blockEntity;
 
-	@Inject(method = "method_31703", at = @At("HEAD"))
+	@Inject(method = "tick", at = @At("HEAD"))
 	private void startTileEntitySection(CallbackInfo ci)
 	{
-		BlockEntity blockEntity = this.field_27224;
+		BlockEntity blockEntity = this.blockEntity;
 		World world = blockEntity.getWorld();
 		if (world != null)
 		{
