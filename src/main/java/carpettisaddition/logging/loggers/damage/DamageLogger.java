@@ -13,6 +13,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
@@ -31,7 +32,7 @@ public class DamageLogger extends AbstractLogger
 	private final float initialAmount;
 	private float currentAmount;
 	private final List<Modification> modificationList = Lists.newArrayList();
-	private boolean flushed;
+	private boolean valid;
 
 	public DamageLogger(LivingEntity entity, DamageSource damageSource, float initialAmount)
 	{
@@ -40,7 +41,7 @@ public class DamageLogger extends AbstractLogger
 		this.damageSource = damageSource;
 		this.initialAmount = initialAmount;
 		this.currentAmount = initialAmount;
-		this.flushed = false;
+		this.valid = true;
 	}
 
 	public static boolean isLoggerActivated()
@@ -51,6 +52,11 @@ public class DamageLogger extends AbstractLogger
 	public static Translatable getTranslator()
 	{
 		return translator;
+	}
+
+	public boolean isValid()
+	{
+		return valid;
 	}
 
 	public static void create(LivingEntity entity, DamageSource source, float amount)
@@ -67,6 +73,12 @@ public class DamageLogger extends AbstractLogger
 
 	public void modifyDamage(float newAmount, ModifyReason reason)
 	{
+		// to avoid spamming
+		if (this.damageSource.isFire() && (this.entity.isFireImmune() || this.entity.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)))
+		{
+			this.valid = false;
+			return;
+		}
 		if (newAmount != this.currentAmount)
 		{
 			this.modificationList.add(new Modification(this.currentAmount, newAmount, reason));
@@ -76,9 +88,7 @@ public class DamageLogger extends AbstractLogger
 
 	private static BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, Entity from, Entity to, Supplier<BaseText[]> messageFuture)
 	{
-		if ("all".equals(option)
-				|| ("players".equals(option) && (from instanceof PlayerEntity || to instanceof PlayerEntity))
-				|| ("me".equals(option) && (from == player || to == player)))
+		if ("all".equals(option) || ("players".equals(option) && (from instanceof PlayerEntity || to instanceof PlayerEntity)) || ("me".equals(option) && (from == player || to == player)))
 		{
 			return messageFuture.get();
 		}
@@ -99,18 +109,21 @@ public class DamageLogger extends AbstractLogger
 
 	public void flush(float finalAmount, float remainingHealth)
 	{
-		if (!isLoggerActivated() || this.flushed)
+		if (!isLoggerActivated() || !this.isValid())
 		{
 			return;
 		}
-		this.flushed = true;
+		this.valid = false;
 		Entity source = this.damageSource.getAttacker();
 		LivingEntity target = this.entity;
 		LoggerRegistry.getLogger(NAME).log((option, player) ->
 				verifyAndProduceMessage(option, player, source, target, () -> {
 					List<Object> lines = Lists.newArrayList();
 					lines.add(Messenger.c(
-							target.getDisplayName(),
+							TextUtil.attachClickEvent(
+									(BaseText)target.getDisplayName(),
+									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(target))
+							),
 							"g  " + this.tr("receiving"),
 							TextUtil.getSpaceText(),
 							getAmountText("r", this.initialAmount),

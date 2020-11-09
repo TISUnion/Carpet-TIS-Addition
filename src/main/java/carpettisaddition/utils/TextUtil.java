@@ -70,7 +70,7 @@ public class TextUtil
 	public static String getTeleportCommandPlayer(PlayerEntity player)
 	{
 		String name = player.getGameProfile().getName();
-		return String.format("/execute at %1$s run tp %1$s", name);
+		return String.format("/tp %s", name);
 	}
 
 	public static String getTeleportCommand(Entity entity)
@@ -80,7 +80,7 @@ public class TextUtil
 			return getTeleportCommandPlayer((PlayerEntity)entity);
 		}
 		String uuid = entity.getUuid().toString();
-		return String.format("/execute at %1$s run tp %1$s", uuid);
+		return String.format("/tp %s", uuid);
 	}
 
 	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
