@@ -104,6 +104,15 @@
   "rule.blockPlacementIgnoreEntity.desc": "方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内",
   "rule.blockPlacementIgnoreEntity.extra.0": "仅对创造模式玩家有效",
 
+  "rule.chunkTickSpeed.name": "区块刻速度",
+  "rule.chunkTickSpeed.desc": "修改每游戏刻每区块的区块刻运算的频率",
+  "rule.chunkTickSpeed.extra.0": "默认值为1。将其设为0以禁用区块刻",
+  "rule.chunkTickSpeed.extra.1": "受影响的游戏阶段：雷电、结冰与积雪、随机刻",
+  "rule.chunkTickSpeed.extra.2": "在值为n时，每游戏刻每区块，气候相关的阶段会发生n次，而随机刻会在每区段中发生n * randomTickSpeed次",
+
+  "rule.tileTickLimit.name": "计划刻上限",
+  "rule.tileTickLimit.desc": "修改每游戏刻中计划刻事件的执行次数上限",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
@@ -154,7 +163,7 @@
   "logger.microTiming.stage.wanderingtrader": "游商",
   "logger.microTiming.stage.blockevent": "方块事件",
   "logger.microTiming.stage.entity": "实体",
-  "logger.microTiming.stage.randomtick&climate": "随机刻&气候",
+  "logger.microTiming.stage.chunktick": "区块刻",
   "logger.microTiming.stage.tileentity": "方块实体",
   "logger.microTiming.stage.autosave": "自动保存",
   "logger.microTiming.stage.playeraction": "玩家操作",

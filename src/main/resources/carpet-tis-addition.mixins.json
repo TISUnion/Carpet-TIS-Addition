@@ -48,6 +48,7 @@
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
+    "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.dispenserNoItemCost.ItemDispenserBehaviorMixin",
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
@@ -70,6 +71,8 @@
     "rule.sandDupingFix.FallingBlockEntityMixin",
     "rule.structureBlockLimit.StructureBlockBlockEntityMixin",
     "rule.structureBlockLimit.UpdateStructureBlockC2SPacketMixin",
+    "rule.tileTickLimit.LithiumServerTickSchedulerMixin",
+    "rule.tileTickLimit.ServerTickSchedulerMixin",
     "rule.tntDupingFix.PistonBlockMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],

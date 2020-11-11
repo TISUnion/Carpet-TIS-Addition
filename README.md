@@ -39,6 +39,8 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [microTiming](#microTiming)
 - [antiSpamDisabled](#antiSpamDisabled)
 - [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
+- [chunkTickSpeed](#chunkTickSpeed)
+- [tileTickLimit](#tileTickLimit)
 
 ## Loggers
 
@@ -360,6 +362,34 @@ Works with creative mode players only
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## chunkTickSpeed
+
+Modify how often the chunk tick occurs per chunk per game tick
+
+The default value is `1`. Set it to `0` to disables chunk ticks
+
+Affected game phases: 
+- thunder
+- ice and snow
+- randomtick
+
+With a value of `n`, in every chunk every game tick, climate things will tick `n` times, and randomtick will tick `n` * `randomTickSpeed` times per chunk section
+
+- Type: `int`  
+- Default value: `1`  
+- Suggested options: `0`, `1`, `10`, `100`, `1000`
+- Categories: `TIS`, `CREATIVE`
+
+## tileTickLimit
+
+Modify the limit of executed tile tick events per game tick
+
+- Type: `int`  
+- Default value: `65536`  
+- Suggested options: `1024`, `65536`, `2147483647`
 - Categories: `TIS`, `CREATIVE`
 
 -----------

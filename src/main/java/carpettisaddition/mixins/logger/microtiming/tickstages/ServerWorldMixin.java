@@ -179,7 +179,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onTickChunk(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.RANDOMTICK_CLIMATE);
+		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.CHUNK_TICK);
 	}
 
 	@Inject(

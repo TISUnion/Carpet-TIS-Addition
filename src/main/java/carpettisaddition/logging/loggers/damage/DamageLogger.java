@@ -7,7 +7,7 @@ import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.damage.modifyreasons.Modification;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
-import carpettisaddition.translations.Translatable;
+import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 public class DamageLogger extends AbstractLogger
 {
 	public static final String NAME = "damage";
-	private static final DamageLogger translator = new DamageLogger(null, null, 0);
+	private static final Translator TRANSLATOR = (new DamageLogger(null, null, 0)).getTranslator();
 
 	private final LivingEntity entity;
 	private final DamageSource damageSource;
@@ -48,14 +48,14 @@ public class DamageLogger extends AbstractLogger
 		return ExtensionLoggerRegistry.__damage;
 	}
 
-	public static Translatable getTranslator()
+	public static Translator getStaticTranslator()
 	{
-		return translator;
+		return TRANSLATOR;
 	}
 
 	public boolean isValid()
 	{
-		return valid;
+		return this.valid;
 	}
 
 	public static void create(LivingEntity entity, DamageSource source, float amount)
