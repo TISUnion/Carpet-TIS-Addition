@@ -9,6 +9,11 @@ public class TranslatableBase implements Translatable
 		this.translator = new Translator(type, name);
 	}
 
+	public Translator getTranslator()
+	{
+		return translator;
+	}
+
 	@Override
 	public String tr(String key, String text, boolean autoFormat)
 	{

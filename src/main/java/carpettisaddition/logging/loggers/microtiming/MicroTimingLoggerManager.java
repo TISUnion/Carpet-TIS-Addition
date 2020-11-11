@@ -10,6 +10,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.events.*;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
+import carpettisaddition.translations.Translator;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -34,7 +35,7 @@ public class MicroTimingLoggerManager
     private static MicroTimingLoggerManager instance;
 
     private final Map<ServerWorld, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
-    private final MicroTimingLogger dummyLoggerForTranslate = new MicroTimingLogger(null);
+    private static final Translator TRANSLATOR = (new MicroTimingLogger(null)).getTranslator();
     private long lastFlushTime;
 
     public MicroTimingLoggerManager(MinecraftServer minecraftServer)
@@ -84,17 +85,17 @@ public class MicroTimingLoggerManager
 
     public static String tr(String key, String text, boolean autoFormat)
     {
-        return instance.dummyLoggerForTranslate.tr(key, text, autoFormat);
+        return TRANSLATOR.tr(key, text, autoFormat);
     }
 
     public static String tr(String key, String text)
     {
-        return instance.dummyLoggerForTranslate.tr(key, text);
+        return TRANSLATOR.tr(key, text);
     }
 
     public static String tr(String key)
     {
-        return instance.dummyLoggerForTranslate.tr(key);
+        return TRANSLATOR.tr(key);
     }
 
     /*
