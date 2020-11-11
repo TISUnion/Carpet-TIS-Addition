@@ -300,13 +300,36 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean blockPlacementIgnoreEntity = false;
 
+	@Rule(
+			desc = "Modify how often the chunk tick occurs per chunk per game tick",
+			extra = {
+					"The default value is 1. Set it to 0 to disables chunk ticks",
+					"Affected game phases: thunder, ice and snow, randomtick",
+					"With a value of n, in every chunk every game tick, climate things will tick n times, and randomtick will tick n * randomTickSpeed times per chunk section"
+			},
+			options = {"0", "1", "10", "100", "1000"},
+			validate = Validator.NONNEGATIVE_NUMBER.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int chunkTickSpeed = 1;
+
+	@Rule(
+			desc = "Modify the limit of executed tile tick events per game tick",
+			options = {"1024", "65536", "2147483647"},
+			validate = ValidatePositive.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int tileTickLimit = 65536;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
 	 */
 
-// just use Validator.PROBABILITY
-// but it doesn't exist in fabric-carpet 1.14.4
+	// just use Validator.PROBABILITY
+	// but it doesn't exist in fabric-carpet 1.14.4
 	private static class ValidatePossibility extends Validator<Double>
 	{
 		@Override
@@ -317,6 +340,19 @@ public class CarpetTISAdditionSettings
 		public String description()
 		{
 			return "You must choose a value from 0 to 1";
+		}
+	}
+
+	private static class ValidatePositive extends Validator<Number>
+	{
+		@Override
+		public Number validate(ServerCommandSource source, ParsedRule<Number> currentRule, Number newValue, String string)
+		{
+			return newValue.doubleValue() > 0.0D ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a positive value";
 		}
 	}
 }

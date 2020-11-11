@@ -23,12 +23,12 @@ public abstract class ServerTickSchedulerMixin<T>
 	@Shadow @Final private ServerWorld world;
 	@Shadow @Final private Set<ScheduledTick<T>> scheduledTickActions;
 
-	private final ThreadLocal<Integer> oldListSize = ThreadLocal.withInitial(() -> 0);
+	private int oldListSize;
 
 	@Inject(method = "schedule", at = @At("HEAD"))
 	private void startScheduleTileTickEvent(CallbackInfo ci)
 	{
-		this.oldListSize.set(this.scheduledTickActions.size());
+		this.oldListSize = this.scheduledTickActions.size();
 	}
 
 	@Inject(method = "schedule", at = @At("RETURN"))
@@ -36,7 +36,7 @@ public abstract class ServerTickSchedulerMixin<T>
 	{
 		if (object instanceof Block)
 		{
-			MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTickActions.size() > oldListSize.get());
+			MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTickActions.size() > this.oldListSize);
 		}
 	}
 }

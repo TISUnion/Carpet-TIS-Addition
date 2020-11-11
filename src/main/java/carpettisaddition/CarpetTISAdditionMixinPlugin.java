@@ -14,8 +14,8 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 {
 	private final Logger LOGGER = LogManager.getLogger();
 	private static final String LITHIUM_MOD_ID = "lithium";
-	public static final String SCHEDULE_TILE_TICK_EVENT_MIXIN_DEFAULT = ".ServerTickSchedulerMixin";
-	public static final String SCHEDULE_TILE_TICK_EVENT_MIXIN_LITHIUM = ".LithiumServerTickSchedulerMixin";
+	public static final String SERVER_TICK_SCHEDULER_MIXIN_DEFAULT = ".ServerTickSchedulerMixin";
+	public static final String SERVER_TICK_SCHEDULER_MIXIN_LITHIUM = ".LithiumServerTickSchedulerMixin";
 
 	@Override
 	public void onLoad(String mixinPackage)
@@ -32,12 +32,14 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName)
 	{
+		// it's quite a naive implementation now, but since there are not that many demands it's fine i think
+		// might refactor it if more judgement are needed to be done
 		boolean isLithiumLoaded = FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
-		if (mixinClassName.endsWith(SCHEDULE_TILE_TICK_EVENT_MIXIN_DEFAULT))
+		if (mixinClassName.endsWith(SERVER_TICK_SCHEDULER_MIXIN_DEFAULT))
 		{
 			return !isLithiumLoaded;
 		}
-		if (mixinClassName.endsWith(SCHEDULE_TILE_TICK_EVENT_MIXIN_LITHIUM))
+		if (mixinClassName.endsWith(SERVER_TICK_SCHEDULER_MIXIN_LITHIUM))
 		{
 			return isLithiumLoaded;
 		}

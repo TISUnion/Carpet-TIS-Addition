@@ -34,6 +34,6 @@ public class ModifyReason
 
 	public String tr()
 	{
-		return DamageLogger.getTranslator().tr("modify_reason." + this.getName(), this.getName(), true);
+		return DamageLogger.getStaticTranslator().tr("modify_reason." + this.getName(), this.getName(), true);
 	}
 }

@@ -28,7 +28,7 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	@Shadow(remap = false) @Final private Map<ScheduledTick<T>, TickEntry<T>> scheduledTicks;
 	@Shadow(remap = false) @Final private ServerWorld world;
 
-	private final ThreadLocal<Integer> oldListSize = ThreadLocal.withInitial(() -> 0);
+	private int oldListSize;
 
 	public LithiumServerTickSchedulerMixin(ServerWorld world, Predicate<T> invalidObjPredicate, Function<T, Identifier> idToName, Function<Identifier, T> nameToId, Consumer<ScheduledTick<T>> scheduledTickConsumer)
 	{
@@ -38,7 +38,7 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	@Inject(method = "schedule", at = @At("HEAD"))
 	private void startScheduleTileTickEvent(CallbackInfo ci)
 	{
-		this.oldListSize.set(this.scheduledTicks.size());
+		this.oldListSize = this.scheduledTicks.size();
 	}
 
 	@Inject(method = "schedule", at = @At("RETURN"))
@@ -46,7 +46,7 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	{
 		if (object instanceof Block)
 		{
-			MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTicks.size() > oldListSize.get());
+			MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTicks.size() > this.oldListSize);
 		}
 	}
 }
