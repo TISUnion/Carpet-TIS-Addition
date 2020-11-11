@@ -154,7 +154,7 @@
   "logger.microTiming.stage.wanderingtrader": "游商",
   "logger.microTiming.stage.blockevent": "方块事件",
   "logger.microTiming.stage.entity": "实体",
-  "logger.microTiming.stage.randomtick&climate": "随机刻&气候",
+  "logger.microTiming.stage.chunktick": "区块刻",
   "logger.microTiming.stage.tileentity": "方块实体",
   "logger.microTiming.stage.autosave": "自动保存",
   "logger.microTiming.stage.playeraction": "玩家操作",

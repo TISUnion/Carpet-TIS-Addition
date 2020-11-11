@@ -12,7 +12,7 @@ public enum TickStage
 	WANDERING_TRADER("WanderingTrader", true),
 	BLOCK_EVENT("BlockEvent", true),
 	ENTITY("Entity", true),
-	RANDOMTICK_CLIMATE("RandomTick&Climate", true),
+	CHUNK_TICK("ChunkTick", true),
 	TILE_ENTITY("TileEntity", true),
 	AUTO_SAVE("AutoSave", false),
 	PLAYER_ACTION("PlayerAction", false),
