@@ -300,6 +300,20 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean blockPlacementIgnoreEntity = false;
 
+	@Rule(
+			desc = "Modify how often the chunk tick occurs per chunk per game tick",
+			extra = {
+					"The default value is 1. Set it to 0 to disables chunk ticks",
+					"Affected game phases: thunder, ice and snow, randomtick",
+					"With a value of n, in every chunk every game tick, climate things will tick n times, and randomtick will tick n * randomTickSpeed times per chunk section"
+			},
+			options = {"0", "1", "10", "100", "1000"},
+			validate = Validator.NONNEGATIVE_NUMBER.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int chunkTickSpeed = 1;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
