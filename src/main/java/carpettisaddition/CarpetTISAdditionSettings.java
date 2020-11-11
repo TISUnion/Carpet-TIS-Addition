@@ -314,6 +314,15 @@ public class CarpetTISAdditionSettings
 	)
 	public static int chunkTickSpeed = 1;
 
+	@Rule(
+			desc = "Modify the limit of executed tile tick events per game tick",
+			options = {"1024", "65536", "2147483647"},
+			validate = ValidatePositive.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int tileTickLimit = 65536;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
@@ -332,4 +341,17 @@ public class CarpetTISAdditionSettings
 //			return "You must choose a value from 0 to 1";
 //		}
 //	}
+
+	private static class ValidatePositive extends Validator<Number>
+	{
+		@Override
+		public Number validate(ServerCommandSource source, ParsedRule<Number> currentRule, Number newValue, String string)
+		{
+			return newValue.doubleValue() > 0.0D ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a positive value";
+		}
+	}
 }

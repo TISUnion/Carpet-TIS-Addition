@@ -72,6 +72,8 @@
     "rule.sandDupingFix.FallingBlockEntityMixin",
     "rule.structureBlockLimit.StructureBlockBlockEntityMixin",
     "rule.structureBlockLimit.UpdateStructureBlockC2SPacketMixin",
+    "rule.tileTickLimit.LithiumServerTickSchedulerMixin",
+    "rule.tileTickLimit.ServerTickSchedulerMixin",
     "rule.tntDupingFix.PistonBlockMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],

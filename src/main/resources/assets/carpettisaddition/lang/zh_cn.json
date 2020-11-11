@@ -110,6 +110,9 @@
   "rule.chunkTickSpeed.extra.1": "受影响的游戏阶段：雷电、结冰与积雪、随机刻",
   "rule.chunkTickSpeed.extra.2": "在值为n时，每游戏刻每区块，气候相关的阶段会发生n次，而随机刻会在每区段中发生n * randomTickSpeed次",
 
+  "rule.tileTickLimit.name": "计划刻上限",
+  "rule.tileTickLimit.desc": "修改每游戏刻中计划刻事件的执行次数上限",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

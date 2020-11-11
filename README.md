@@ -40,6 +40,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [antiSpamDisabled](#antiSpamDisabled)
 - [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
 - [chunkTickSpeed](#chunkTickSpeed)
+- [tileTickLimit](#tileTickLimit)
 
 ## Loggers
 
@@ -380,6 +381,15 @@ With a value of `n`, in every chunk every game tick, climate things will tick `n
 - Type: `int`  
 - Default value: `1`  
 - Suggested options: `0`, `1`, `10`, `100`, `1000`
+- Categories: `TIS`, `CREATIVE`
+
+## tileTickLimit
+
+Modify the limit of executed tile tick events per game tick
+
+- Type: `int`  
+- Default value: `65536`  
+- Suggested options: `1024`, `65536`, `2147483647`
 - Categories: `TIS`, `CREATIVE`
 
 -----------
