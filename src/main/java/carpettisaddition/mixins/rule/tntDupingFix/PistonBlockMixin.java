@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.rule.tntDupingFix;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.google.common.collect.Maps;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PistonBlock;
@@ -16,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -101,7 +103,7 @@ public abstract class PistonBlockMixin
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void makeSureStatesInBlockStatesIsCorrect(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState[] blockStates)
+	private void makeSureStatesInBlockStatesIsCorrectAndSendStateUpdates(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState[] blockStates, Direction direction, Set<BlockPos> set)
 	{
 		if (this.isDupeFixed.get())
 		{
@@ -113,6 +115,19 @@ public abstract class PistonBlockMixin
 			{
 				--j2;
 				blockStates[j2] = list2.get(l2);
+			}
+
+			// Emit missing state updates at set positions manually
+			Map<BlockPos, BlockState> stateMap = Maps.newHashMap();
+			for (int i = 0; i < list.size(); i++)
+			{
+				stateMap.put(list.get(i), list2.get(i));
+			}
+
+			for (BlockPos blockPos1 : set)
+			{
+				BlockState blockState1 = stateMap.get(blockPos1);
+				blockState1.updateNeighborStates(world, blockPos1, 68 & -2);
 			}
 		}
 	}
