@@ -11,6 +11,7 @@ public class ModifyReason
 	public static final ModifyReason RECENTLY_HIT = new ModifyReason("Recently hit");
 	public static final ModifyReason DIFFICULTY = new ModifyReason("Difficulty");
 	public static final ModifyReason IMMUNE = new ModifyReason("Immune to damage");
+	public static final ModifyReason INVULNERABLE = new ModifyReason("Invulnerable");
 	public static final ModifyReason RESPAWN_PROTECTION = new ModifyReason("Respawn protection");
 	public static final ModifyReason PVP_DISABLED = new ModifyReason("PVP disabled");
 
@@ -33,6 +34,6 @@ public class ModifyReason
 
 	public String tr()
 	{
-		return DamageLogger.getTranslator().tr("modify_reason." + this.getName(), this.getName(), true);
+		return DamageLogger.getStaticTranslator().tr("modify_reason." + this.getName(), this.getName(), true);
 	}
 }

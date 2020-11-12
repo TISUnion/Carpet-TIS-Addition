@@ -7,7 +7,7 @@ import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.damage.modifyreasons.Modification;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
-import carpettisaddition.translations.Translatable;
+import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
@@ -17,7 +17,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -25,7 +24,7 @@ import java.util.function.Supplier;
 public class DamageLogger extends AbstractLogger
 {
 	public static final String NAME = "damage";
-	private static final DamageLogger translator = new DamageLogger(null, null, 0);
+	private static final Translator TRANSLATOR = (new DamageLogger(null, null, 0)).getTranslator();
 
 	private final LivingEntity entity;
 	private final DamageSource damageSource;
@@ -49,14 +48,14 @@ public class DamageLogger extends AbstractLogger
 		return ExtensionLoggerRegistry.__damage;
 	}
 
-	public static Translatable getTranslator()
+	public static Translator getStaticTranslator()
 	{
-		return translator;
+		return TRANSLATOR;
 	}
 
 	public boolean isValid()
 	{
-		return valid;
+		return this.valid;
 	}
 
 	public static void create(LivingEntity entity, DamageSource source, float amount)
@@ -83,6 +82,10 @@ public class DamageLogger extends AbstractLogger
 		{
 			this.modificationList.add(new Modification(this.currentAmount, newAmount, reason));
 			this.currentAmount = newAmount;
+		}
+		if (reason == ModifyReason.INVULNERABLE)  // no spam for creative player
+		{
+			this.valid = false;
 		}
 	}
 
@@ -114,16 +117,30 @@ public class DamageLogger extends AbstractLogger
 			return;
 		}
 		this.valid = false;
-		Entity source = this.damageSource.getAttacker();
+		Entity attacker = this.damageSource.getAttacker();
+		Entity source = this.damageSource.getSource();
 		LivingEntity target = this.entity;
 		LoggerRegistry.getLogger(NAME).log((option, player) ->
-				verifyAndProduceMessage(option, player, source, target, () -> {
+				verifyAndProduceMessage(option, player, attacker, target, () -> {
 					List<Object> lines = Lists.newArrayList();
 					lines.add(Messenger.s(" "));
 					BaseText sourceName = TextUtil.attachClickEvent(
 							(BaseText)target.getDisplayName(),
 							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(target))
 					);
+					List<Object> sourceHoverTextList = Lists.newArrayList();
+					if (source != null)
+					{
+						sourceHoverTextList.add(Messenger.c(String.format("w %s: ", this.tr("Source")), source.getName()));
+					}
+					if (attacker != null)
+					{
+						if (!sourceHoverTextList.isEmpty())
+						{
+							sourceHoverTextList.add("w \n");
+						}
+						sourceHoverTextList.add(Messenger.c(String.format("w %s: ", this.tr("Attacker")), attacker.getName()));
+					}
 					lines.add(Messenger.c(
 							sourceName,
 							"g  " + this.tr("is receiving"),
@@ -135,8 +152,8 @@ public class DamageLogger extends AbstractLogger
 							TextUtil.getFancyText(
 									"w",
 									Messenger.s(this.damageSource.getName()),
-									source != null ? Messenger.c(String.format("w %s: ", this.tr("Source")), source.getName()) : null,
-									source != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(source)) : null
+									sourceHoverTextList.isEmpty() ? null : Messenger.c(sourceHoverTextList.toArray(new Object[0])),
+									attacker != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(attacker)) : null
 							)
 					));
 					for (Modification modification : this.modificationList)
@@ -152,7 +169,7 @@ public class DamageLogger extends AbstractLogger
 								"g  -> ",
 								getAmountText(newAmount > oldAmount ? "r" : "d", newAmount),
 								String.format("g  (%s", sig),
-								TextUtil.attachHoverEvent(getAmountText("g", delta), new HoverEvent(HoverEvent.Action.SHOW_TEXT, Messenger.s(String.format("%s%.6f", sig, delta)))),
+								TextUtil.attachHoverText(getAmountText("g", delta), Messenger.s(String.format("%s%.6f", sig, delta))),
 								String.format("g , %s%s) %s", sig, radio, this.tr("due to")),
 								TextUtil.getSpaceText(),
 								modification.getReason().toText()

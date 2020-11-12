@@ -41,15 +41,18 @@ public abstract class LivingEntityAndPlayerEntityMixins
 		@Inject(method = "applyDamage", at = @At("RETURN"))
 		void onDamageApplyDone(DamageSource source, float amount, CallbackInfo ci)
 		{
-			LivingEntity entity = (LivingEntity) (Object) this;
-			Optional<DamageLogger> logger = ((ILivingEntity_damageLogger) this).getDamageLogger();
-			if (entity.isInvulnerableTo(source))
+			if (DamageLogger.isLoggerActivated())
 			{
-				amount = 0.0F;
-				logger.ifPresent(damageLogger -> damageLogger.modifyDamage(0.0F, ModifyReason.IMMUNE));
+				LivingEntity entity = (LivingEntity) (Object) this;
+				Optional<DamageLogger> logger = ((ILivingEntity_damageLogger) this).getDamageLogger();
+				if (entity.isInvulnerableTo(source))
+				{
+					amount = 0.0F;
+					logger.ifPresent(damageLogger -> damageLogger.modifyDamage(0.0F, ModifyReason.IMMUNE));
+				}
+				float finalAmount = amount;
+				logger.ifPresent(damageLogger -> damageLogger.flush(finalAmount, entity.getHealth()));
 			}
-			float finalAmount = amount;
-			logger.ifPresent(damageLogger -> damageLogger.flush(finalAmount, entity.getHealth()));
 		}
 	}
 
@@ -59,13 +62,17 @@ public abstract class LivingEntityAndPlayerEntityMixins
 		@Inject(method = "damage", at = @At(value = "RETURN"))
 		void onDamageEnded(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 		{
-			LivingEntity entity = (LivingEntity) (Object) this;
-			if (!cir.getReturnValue())
+			if (DamageLogger.isLoggerActivated())
 			{
-				// return false means actually received no damage
-				((ILivingEntity_damageLogger) this).getDamageLogger().ifPresent(damageLogger -> damageLogger.flush(0.0F, entity.getHealth()));
+				LivingEntity entity = (LivingEntity) (Object) this;
+				if (!cir.getReturnValue())
+				{
+					// return false means actually received no damage for some reason,
+					// logger.flush after regular damage calculation might not be called so here's a backup call
+					((ILivingEntity_damageLogger) this).getDamageLogger().ifPresent(damageLogger -> damageLogger.flush(0.0F, entity.getHealth()));
+				}
+				((ILivingEntity_damageLogger) this).setDamageLogger(null);
 			}
-			((ILivingEntity_damageLogger) this).setDamageLogger(null);
 		}
 	}
 }

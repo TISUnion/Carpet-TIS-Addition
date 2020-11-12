@@ -3,7 +3,6 @@ package carpettisaddition.mixins.logger.microtiming.tickstages;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.tickstages.BlockEventTickStageExtra;
-import carpettisaddition.logging.loggers.microtiming.tickstages.StringTickStageExtra;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TileTickTickStageExtra;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
@@ -179,7 +178,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onTickChunk(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.RANDOMTICK_CLIMATE);
+		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.CHUNK_TICK);
 	}
 
 	@Inject(

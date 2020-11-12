@@ -22,6 +22,8 @@ import java.util.Map;
 @Mixin(PistonBlock.class)
 public abstract class PistonBlockMixin
 {
+	private final ThreadLocal<Boolean> isDupeFixed = ThreadLocal.withInitial(() -> false);
+
 	/**
 	 * Set all blocks to be moved to air without any kind of update first (yeeted attached block updater like dead coral),
 	 * then let vanilla codes to set the air blocks into b36
@@ -46,31 +48,70 @@ public abstract class PistonBlockMixin
 	)
 	private void setAllToBeMovedBlockToAirFirst(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState blockStates[], Direction direction, int j)
 	{
-		if (CarpetTISAdditionSettings.tntDupingFix)
+		// just in case the rule gets changed halfway
+		this.isDupeFixed.set(CarpetTISAdditionSettings.tntDupingFix);
+
+		if (this.isDupeFixed.get())
 		{
+			// vanilla iterating order
 			for (int l = list.size() - 1; l >= 0; --l)
 			{
 				BlockPos toBeMovedBlockPos = list.get(l);
-				list2.set(l, world.getBlockState(toBeMovedBlockPos));
-				world.setBlockState(toBeMovedBlockPos, Blocks.AIR.getDefaultState(), 18);
+				// Get the current state to make sure it is the state we want
+				BlockState toBeMovedBlockState = world.getBlockState(toBeMovedBlockPos);
+				// Added 16 to the vanilla flag, resulting in no block update or state update
+				// Although this cannot yeet onRemoved updaters, but it can prevent attached blocks from breaking,
+				// which is nicer than just let them break imo
+				world.setBlockState(toBeMovedBlockPos, Blocks.AIR.getDefaultState(), 68 + 16);
+
+				// Update containers which contain the old state
+				list2.set(l, toBeMovedBlockState);
+				// map stores block pos and block state of moved blocks which changed into air due to block being moved
+				map.put(toBeMovedBlockPos, toBeMovedBlockState);
 			}
 		}
 	}
 
+	/**
+	 * Just to make sure blockStates array contains the correct values
+	 * But ..., when reading states from it, mojang itself inverts the order and reads the wrong state releative to the blockpos
+	 * When assigning:
+	 *   blockStates = (list concat with list3 in order).map(world::getBlockState)
+	 * When reading:
+	 *   match list3[list3.size()-1] with blockStates[0]
+	 *   match list3[list3.size()-2] with blockStates[1]
+	 *   ...
+	 * The block pos matches wrongly with block state, so mojang uses the wrong block as the source block to emit block updates :thonk:
+	 * EDITED in 1.16.4: mojang has fixed it now
+	 *
+	 * Whatever, just make it behave like vanilla
+	 */
 	@Inject(
 			method = "move",
+			slice = @Slice(
+					from = @At(
+							value = "FIELD",
+							target = "Lnet/minecraft/block/PistonBlock;isSticky:Z"
+					)
+			),
 			at = @At(
 					value = "INVOKE",
-					target = "Ljava/util/Map;remove(Ljava/lang/Object;)Ljava/lang/Object;",
+					target = "Ljava/util/Map;keySet()Ljava/util/Set;",
 					ordinal = 0
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void useTheStateInList2Please(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState blockStates[], Direction direction, int j, int l, BlockPos blockPos4, BlockState blockState3)
+	private void makeSureStatesInBlockStatesIsCorrect(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState[] blockStates, BlockState blockState6)
 	{
-		if (CarpetTISAdditionSettings.tntDupingFix)
+		if (this.isDupeFixed.get())
 		{
-			blockState3 = list2.get(l);
+			// since blockState8 = world.getBlockState(blockPos4) always return AIR due to the changes above
+			// list and list2 has the same size and indicating the same block
+			int j2 = list3.size();
+			for (int l2 = list.size() - 1; l2 >= 0; --l2)
+			{
+				blockStates[j2++] = list2.get(l2);
+			}
 		}
 	}
 }
