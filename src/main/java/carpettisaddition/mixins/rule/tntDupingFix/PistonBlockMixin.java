@@ -106,6 +106,7 @@ public abstract class PistonBlockMixin
 		if (this.isDupeFixed.get())
 		{
 			// since blockState8 = world.getBlockState(blockPos4) always return AIR due to the changes above
+			// some states value in blockStates array need to be corrected
 			// list and list2 has the same size and indicating the same block
 			int j2 = list3.size();
 			for (int l2 = list.size() - 1; l2 >= 0; --l2)
