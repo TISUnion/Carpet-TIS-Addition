@@ -82,6 +82,7 @@ public abstract class PistonBlockMixin
 	 *   match list3[list3.size()-2] with blockStates[1]
 	 *   ...
 	 * The block pos matches wrongly with block state, so mojang uses the wrong block as the source block to emit block updates :thonk:
+	 * EDITED in 1.16.4: mojang has fixed it now
 	 *
 	 * Whatever, just make it behave like vanilla
 	 */
@@ -100,17 +101,16 @@ public abstract class PistonBlockMixin
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void makeSureStatesInBlockStatesIsCorrect(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState blockStates[], Direction direction, int j, int l, BlockPos blockPos4, BlockState blockState3)
+	private void makeSureStatesInBlockStatesIsCorrect(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState[] blockStates, BlockState blockState6)
 	{
 		if (this.isDupeFixed.get())
 		{
 			// since blockState8 = world.getBlockState(blockPos4) always return AIR due to the changes above
 			// list and list2 has the same size and indicating the same block
-			int j2 = j + list.size();
+			int j2 = list3.size();
 			for (int l2 = list.size() - 1; l2 >= 0; --l2)
 			{
-				--j2;
-				blockStates[j2] = list2.get(l2);
+				blockStates[j2++] = list2.get(l2);
 			}
 		}
 	}
