@@ -534,7 +534,7 @@ c	aah	net/minecraft/class_3222	net/minecraft/server/network/ServerPlayerEntity
 	m	()Lvj;	M	method_26281	getSpawnPointDimension
 	m	()Z	N	method_26282	isSpawnPointSet
 	m	()Lgp;	O	method_14232	getCameraPosition
-	m	()Labc;	Q	method_31273	method_31273
+	m	()Labc;	Q	method_31273	getTextStream
 	m	(DZ)V	a	method_14207	handleFall
 		p	1			heightDifference
 		p	3			onGround
@@ -617,8 +617,11 @@ c	aah	net/minecraft/class_3222	net/minecraft/server/network/ServerPlayerEntity
 	m	()V	f	method_14235	onSpawn
 	m	(Lfx;)Z	g	method_26287	isBedTooFarAway
 		p	1			pos
+	m	()V	method_7346	method_7346	closeHandledScreen
+		c	Closes the current handled screen and sends a screen closing packet to the client.
 	m	()V	n	method_14241	updateCursorStack
-	m	()V	o	method_14247	closeCurrentScreen
+	m	()V	o	method_14247	closeScreenHandler
+		c	Runs closing tasks for the current screen handler and\nsets it to the {@code playerScreenHandler}.
 	m	()V	p	method_14231	onDisconnect
 	m	()Z	q	method_14239	isDisconnected
 	m	()V	r	method_14217	markHealthDirty
@@ -662,7 +665,7 @@ c	aah	net/minecraft/class_3222	net/minecraft/server/network/ServerPlayerEntity
 	f	Lfx;	cl	field_23192	spawnPointPosition
 	f	Z	cm	field_23193	spawnPointSet
 	f	F	cn	field_26353	spawnAngle
-	f	Labc;	co	field_26821	field_26821
+	f	Labc;	co	field_26821	textStream
 	f	I	cp	field_13986	screenHandlerSyncId
 	f	Laai;	d	field_13974	interactionManager
 	f	Z	e	field_13991	skipPacketSlotUpdates
@@ -988,11 +991,18 @@ c	aay	net/minecraft/class_3244	net/minecraft/server/network/ServerPlayNetworkHan
 	m	(Laqa;)Z	a	method_29780	method_29780
 	m	(Lbrz;Ldci;)Z	a	method_20630	isPlayerNotCollidingWithBlocks
 	m	(Lddh;Lddh;)Z	a	method_29781	method_29781
-	m	(Ljava/lang/Object;Ljava/util/function/Consumer;Ljava/util/function/BiFunction;)V	a	method_31275	method_31275
+	m	(Ljava/lang/Object;Ljava/util/function/Consumer;Ljava/util/function/BiFunction;)V	a	method_31275	filterText
+		p	1			text
+		p	2			consumer
+		p	3			backingFilterer
 	m	(Ljava/lang/String;Ljava/util/List;I)V	a	method_31276	method_31276
-	m	(Ljava/lang/String;Ljava/util/function/Consumer;)V	a	method_31277	method_31277
+	m	(Ljava/lang/String;Ljava/util/function/Consumer;)V	a	method_31277	filterText
+		p	1			text
+		p	2			consumer
 	m	(Ljava/util/List;I)V	a	method_31278	method_31278
-	m	(Ljava/util/List;Ljava/util/function/Consumer;)V	a	method_31279	method_31279
+	m	(Ljava/util/List;Ljava/util/function/Consumer;)V	a	method_31279	filterTexts
+		p	1			texts
+		p	2			consumer
 	m	(Ljava/util/function/Consumer;Ljava/lang/Object;)V	a	method_31280	method_31280
 	m	(Ljava/util/function/Consumer;Ljava/util/Optional;)V	a	method_31281	method_31281
 	m	(Lnr;Lio/netty/util/concurrent/Future;)V	a	method_14368	method_14368
@@ -1153,56 +1163,77 @@ c	abb	net/minecraft/class_3251	net/minecraft/server/network/ServerQueryNetworkHa
 	f	Lnet/minecraft/server/MinecraftServer;	b	field_14180	server
 	f	Lnd;	c	field_14178	connection
 	f	Z	d	field_14177	responseSent
-c	abc	net/minecraft/class_5513	net/minecraft/class_5513
-	m	()V	a	method_31287	method_31287
-	m	(Ljava/lang/String;)Ljava/util/concurrent/CompletableFuture;	a	method_31288	method_31288
-	m	(Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;	a	method_31289	method_31289
-	m	()V	b	method_31290	method_31290
-c	abd	net/minecraft/class_5514	net/minecraft/class_5514
+c	abc	net/minecraft/class_5513	net/minecraft/server/filter/TextStream
+	m	()V	a	method_31287	onConnect
+	m	(Ljava/lang/String;)Ljava/util/concurrent/CompletableFuture;	a	method_31288	filterText
+		p	1			text
+	m	(Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;	a	method_31289	filterTexts
+		p	1			texts
+	m	()V	b	method_31290	onDisconnect
+c	abd	net/minecraft/class_5514	net/minecraft/server/filter/TextFilterer
 	m	(Labd;)Ljava/util/concurrent/ExecutorService;	a	method_31291	method_31291
 	m	(Labd;Lcom/mojang/authlib/GameProfile;Ljava/lang/String;Labd$a;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;	a	method_31292	method_31292
 	m	(Labd;Lcom/mojang/authlib/GameProfile;Ljava/net/URL;Ljava/util/concurrent/Executor;)V	a	method_31293	method_31293
 	m	(Lcom/google/gson/JsonObject;Ljava/lang/String;Labd$a;)Ljava/util/Optional;	a	method_31294	method_31294
-	m	(Lcom/google/gson/JsonObject;Ljava/net/URL;)Lcom/google/gson/JsonObject;	a	method_31295	method_31295
+	m	(Lcom/google/gson/JsonObject;Ljava/net/URL;)Lcom/google/gson/JsonObject;	a	method_31295	sendJsonRequest
+		p	1			payload
+		p	2			endpoint
 	m	(Lcom/google/gson/JsonObject;Ljava/net/URL;Lcom/mojang/authlib/GameProfile;)V	a	method_31296	method_31296
-	m	(Lcom/mojang/authlib/GameProfile;)Labc;	a	method_31297	method_31297
-	m	(Lcom/mojang/authlib/GameProfile;Ljava/lang/String;Labd$a;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;	a	method_31298	method_31298
-	m	(Lcom/mojang/authlib/GameProfile;Ljava/net/URL;Ljava/util/concurrent/Executor;)V	a	method_31299	method_31299
-	m	(Ljava/io/InputStream;)V	a	method_31300	method_31300
+	m	(Lcom/mojang/authlib/GameProfile;)Labc;	a	method_31297	createFilterer
+		p	1			gameProfile
+	m	(Lcom/mojang/authlib/GameProfile;Ljava/lang/String;Labd$a;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;	a	method_31298	filterMessage
+		p	1			gameProfile
+		p	2			message
+		p	3			ignorer
+		p	4			executor
+	m	(Lcom/mojang/authlib/GameProfile;Ljava/net/URL;Ljava/util/concurrent/Executor;)V	a	method_31299	sendJoinOrLeaveRequest
+		p	1			gameProfile
+		p	2			endpoint
+		p	3			executor
+	m	(Ljava/io/InputStream;)V	a	method_31300	consumeFully
+		p	1			inputStream
 	m	(Ljava/lang/Runnable;)Ljava/lang/Thread;	a	method_31301	method_31301
 	m	(Labd;)Ljava/net/URL;	b	method_31303	method_31303
-	m	(Lcom/google/gson/JsonObject;Ljava/net/URL;)V	b	method_31304	method_31304
+	m	(Lcom/google/gson/JsonObject;Ljava/net/URL;)V	b	method_31304	sendRequest
+		p	1			payload
+		p	2			endpoint
 	m	(Labd;)Ljava/net/URL;	c	method_31305	method_31305
-	m	(Lcom/google/gson/JsonObject;Ljava/net/URL;)Ljava/net/HttpURLConnection;	c	method_31306	method_31306
+	m	(Lcom/google/gson/JsonObject;Ljava/net/URL;)Ljava/net/HttpURLConnection;	c	method_31306	createConnection
+		p	1			payload
+		p	2			endpoint
 	m	()V	close	close	close
 	m	(Labd;)Labd$a;	d	method_31307	method_31307
-	f	Lorg/apache/logging/log4j/Logger;	a	field_26823	field_26823
-	f	Ljava/util/concurrent/atomic/AtomicInteger;	b	field_26824	field_26824
-	f	Ljava/util/concurrent/ThreadFactory;	c	field_26825	field_26825
-	f	Ljava/net/URL;	d	field_26826	field_26826
-	f	Ljava/net/URL;	e	field_26827	field_26827
-	f	Ljava/net/URL;	f	field_26828	field_26828
-	f	Ljava/lang/String;	g	field_26829	field_26829
-	f	I	h	field_26830	field_26830
-	f	Ljava/lang/String;	i	field_26831	field_26831
-	f	Labd$a;	j	field_26832	field_26832
-	f	Ljava/util/concurrent/ExecutorService;	k	field_26833	field_26833
-c	abd$1	net/minecraft/class_5514$1	net/minecraft/class_5514$1
-c	abd$a	net/minecraft/class_5514$class_5515	net/minecraft/class_5514$class_5515
+	f	Lorg/apache/logging/log4j/Logger;	a	field_26823	LOGGER
+	f	Ljava/util/concurrent/atomic/AtomicInteger;	b	field_26824	NEXT_WORKER_ID
+	f	Ljava/util/concurrent/ThreadFactory;	c	field_26825	THREAD_FACTORY
+	f	Ljava/net/URL;	d	field_26826	chatEndpoint
+	f	Ljava/net/URL;	e	field_26827	joinEndpoint
+	f	Ljava/net/URL;	f	field_26828	leaveEndpoint
+	f	Ljava/lang/String;	g	field_26829	apiKey
+	f	I	h	field_26830	ruleId
+	f	Ljava/lang/String;	i	field_26831	serverId
+	f	Labd$a;	j	field_26832	ignorer
+	f	Ljava/util/concurrent/ExecutorService;	k	field_26833	executor
+c	abd$1	net/minecraft/class_5514$1	net/minecraft/server/filter/TextFilterer$1
+c	abd$a	net/minecraft/class_5514$class_5515	net/minecraft/server/filter/TextFilterer$HashIgnorer
 	m	(Ljava/lang/String;I)Z	a	method_31310	method_31310
 	m	(Ljava/lang/String;I)Z	b	method_31312	method_31312
 	m	(Ljava/lang/String;I)Z	shouldIgnore	shouldIgnore	shouldIgnore
-	f	Labd$a;	a	field_26834	field_26834
-	f	Labd$a;	b	field_26835	field_26835
-c	abd$b	net/minecraft/class_5514$class_5516	net/minecraft/class_5514$class_5516
+		p	1			hashes
+		p	2			hashesSize
+	f	Labd$a;	a	field_26834	NEVER_IGNORE
+	f	Labd$a;	b	field_26835	IGNORE_IF_MATCHES_ALL
+c	abd$b	net/minecraft/class_5514$class_5516	net/minecraft/server/filter/TextFilterer$Impl
 	m	(Ljava/lang/Throwable;)Ljava/util/Optional;	a	method_31313	method_31313
 	m	(Ljava/util/Optional;)Ljava/lang/String;	a	method_31314	method_31314
 	m	(Ljava/lang/String;)Ljava/util/concurrent/CompletableFuture;	b	method_31315	method_31315
 	m	(Ljava/util/List;)Ljava/util/Optional;	b	method_31316	method_31316
 	f	Labd;	a	field_26836	field_26836
-	f	Lcom/mojang/authlib/GameProfile;	b	field_26837	field_26837
-	f	Ljava/util/concurrent/Executor;	c	field_26838	field_26838
-c	abd$c	net/minecraft/class_5514$class_5517	net/minecraft/class_5514$class_5517
+	f	Lcom/mojang/authlib/GameProfile;	b	field_26837	gameProfile
+	f	Ljava/util/concurrent/Executor;	c	field_26838	executor
+c	abd$c	net/minecraft/class_5514$class_5517	net/minecraft/server/filter/TextFilterer$FailedHttpRequestException
+	m	(Ljava/lang/String;)V	<init>	<init>	<init>
+		p	1			message
 c	abg	net/minecraft/class_3255	net/minecraft/resource/AbstractFileResourcePack
 	m	(Ljava/io/File;)V	<init>	<init>	<init>
 		p	1			base
@@ -12113,16 +12144,22 @@ c	aun	net/minecraft/class_4113	net/minecraft/entity/ai/brain/task/PanicTask
 	m	(Laag;Lbfj;J)V	c	method_20648	keepRunning
 c	auo	net/minecraft/class_4214	net/minecraft/entity/ai/brain/task/WakeUpTask
 c	aup	net/minecraft/class_4131	net/minecraft/util/collection/WeightedList
+	m	(Ljava/util/List;)V	<init>	<init>	<init>
+		p	1			entries
 	m	()Laup;	a	method_19029	shuffle
 	m	(Laup;)Ljava/util/List;	a	method_28337	method_28337
-	m	(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;	a	method_28338	method_28338
+		p	0			list
+	m	(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;	a	method_28338	createCodec
+		p	0			codec
 	m	(Ljava/lang/Object;)D	a	method_23332	method_23332
+		p	0			object
 	m	(Ljava/lang/Object;I)Laup;	a	method_19031	add
 		p	1			item
 		p	2			weight
 	m	(Ljava/util/Random;)Laup;	a	method_23333	shuffle
 		p	1			random
 	m	(Ljava/util/Random;Laup$a;)V	a	method_23334	method_23334
+		p	1			entry
 	m	()Z	b	method_28339	isEmpty
 	m	(Ljava/util/Random;)Ljava/lang/Object;	b	method_23337	pickRandom
 		p	1			random
@@ -12132,12 +12169,16 @@ c	aup	net/minecraft/class_4131	net/minecraft/util/collection/WeightedList
 	f	Ljava/util/Random;	b	field_18398	random
 c	aup$1	net/minecraft/class_4131$1	net/minecraft/util/collection/WeightedList$1
 c	aup$a	net/minecraft/class_4131$class_4132	net/minecraft/util/collection/WeightedList$Entry
+	m	(Ljava/lang/Object;I)V	<init>	<init>	<init>
+		p	1			item
+		p	2			weight
 	m	()Ljava/lang/Object;	a	method_19035	getElement
 	m	(F)V	a	method_19034	setShuffledOrder
 		p	1			random
 	m	(Laup$a;)Ljava/lang/Object;	a	method_28340	method_28340
 	m	(Laup$a;F)V	a	method_23340	method_23340
-	m	(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;	a	method_28341	method_28341
+	m	(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;	a	method_28341	createCodec
+		p	0			codec
 	m	(Laup$a;)I	b	method_28342	method_28342
 	m	()D	c	method_19033	getShuffledOrder
 	m	(Laup$a;)D	c	method_23339	method_23339
@@ -12148,9 +12189,16 @@ c	aup$a	net/minecraft/class_4131$class_4132	net/minecraft/util/collection/Weight
 c	aup$a$1	net/minecraft/class_4131$class_4132$1	net/minecraft/util/collection/WeightedList$Entry$1
 	m	(Laup$a;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;	a	method_28343	encode
 	m	(Lcom/mojang/serialization/Dynamic;Ljava/lang/Object;)Laup$a;	a	method_28344	method_28344
+		p	1			object
 	m	(Lcom/mojang/serialization/DynamicOps;Laup$a;)Lcom/mojang/datafixers/util/Pair;	a	method_28345	method_28345
+		p	1			entry
 	m	(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;	decode	decode	decode
+		p	1			ops
+		p	2			object
 	m	(Ljava/lang/Object;Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;	encode	encode	encode
+		p	1			entry
+		p	2			ops
+		p	3			object
 	f	Lcom/mojang/serialization/Codec;	a	field_24666	field_24666
 c	auq	net/minecraft/class_4983	net/minecraft/entity/ai/brain/task/FarmerWorkTask
 	m	(Laag;Lbfj;Lgf;Lceh;)V	a	method_26334	compostSeeds
@@ -25792,7 +25840,7 @@ c	brx	net/minecraft/class_1937	net/minecraft/world/World
 		p	5			isClient
 		p	6			debugWorld
 		p	7			seed
-	m	(Lfx;)Z	D	method_8558	isValid
+	m	(Lfx;)Z	D	method_8558	isValidHorizontally
 		p	0			pos
 	m	(Lfx;)Lccj;	E	method_8426	getPendingBlockEntity
 		p	1			pos
@@ -25957,7 +26005,7 @@ c	brx	net/minecraft/class_1937	net/minecraft/world/World
 	m	()Ljava/lang/String;	b	method_8484	method_8484
 	m	(F)F	b	method_8478	getThunderGradient
 		p	1			delta
-	m	(I)Z	b	method_8476	isHeightInvalid
+	m	(I)Z	b	method_8476	isOutOfBuildLimitVertically
 		p	0			y
 	m	(ILfx;I)V	b	method_8474	syncGlobalEvent
 		p	1			eventId
@@ -26008,14 +26056,17 @@ c	brx	net/minecraft/class_1937	net/minecraft/world/World
 	m	()V	close	close	close
 	m	(F)F	d	method_8430	getRainGradient
 		p	1			delta
-	m	(I)Z	d	method_25952	method_25952
+	m	(I)Z	d	method_25952	isInvalidVertically
+		p	0			y
 	m	(II)Lcgh;	d	method_8497	getChunk
 	m	(F)V	e	method_8519	setRainGradient
 		p	1			rainGradient
-	m	(Lfx;)Z	k	method_24794	method_24794
+	m	(Lfx;)Z	k	method_24794	isInBuildLimit
+		p	0			pos
 	m	()Lnet/minecraft/server/MinecraftServer;	l	method_8503	getServer
-	m	(Lfx;)Z	l	method_25953	method_25953
-	m	(Lfx;)Z	m	method_8518	isHeightInvalid
+	m	(Lfx;)Z	l	method_25953	isValid
+		p	0			pos
+	m	(Lfx;)Z	m	method_8518	isOutOfBuildLimitVertically
 		p	0			pos
 	m	(Lfx;)Lcgh;	n	method_8500	getWorldChunk
 		p	1			pos
@@ -26752,9 +26803,9 @@ c	bsv	net/minecraft/class_1959	net/minecraft/world/biome/Biome
 	f	Lcom/mojang/serialization/Codec;	d	field_24677	REGISTRY_CODEC
 	f	Lcom/mojang/serialization/Codec;	e	field_26750	field_26750
 	f	Lcuc;	f	field_9324	FOLIAGE_NOISE
-	f	Ljava/util/Map;	g	field_26634	field_26634
+	f	Ljava/util/Map;	g	field_26634	structures
 	f	Lcuc;	h	field_9335	TEMPERATURE_NOISE
-	f	Lcuc;	i	field_26392	field_26392
+	f	Lcuc;	i	field_26392	FROZEN_OCEAN_NOISE
 	f	Lbsv$d;	j	field_26393	weather
 	f	Lbsw;	k	field_26635	generationSettings
 	f	Lbtg;	l	field_26395	spawnSettings
@@ -26839,7 +26890,7 @@ c	bsv$c	net/minecraft/class_1959$class_4762	net/minecraft/world/biome/Biome$Mixe
 		p	4			weirdness
 		p	5			weight
 	m	(Lbsv$c;)F	a	method_24381	calculateDistanceTo
-		c	Calculates the distance from this noise point to another one. The\ndistance is a squared distance in a multi-dimensional cartesian plane\nfrom a mathematical point of view, with a special parameter that\nreduces the calculated distance.\n\n<p>For most fields except rarity potential, smaller difference between\ntwo points' fields will lead to smaller distance. For rarity potential,\nlarger differences lead to smaller distance.\n\n<p>This distance is used by the mixed-noise biome layer source. The\nlayer source calculates an arbitrary noise point, and selects the\nbiome that offers a closest point to its arbitrary point.
+		c	Calculates the distance from this noise point to another one. The\ndistance is a squared distance in a multi-dimensional cartesian plane\nfrom a mathematical point of view, with a special parameter that\nreduces the calculated distance.\n\n<p>For most fields except weight, smaller difference between\ntwo points' fields will lead to smaller distance. For weight,\nlarger differences lead to smaller distance.\n\n<p>This distance is used by the mixed-noise biome layer source. The\nlayer source calculates an arbitrary noise point, and selects the\nbiome that offers a closest point to its arbitrary point.
 		p	1			other
 			c	the other noise point
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_28425	method_28425
@@ -27286,6 +27337,7 @@ c	btb	net/minecraft/class_1972	net/minecraft/world/biome/BiomeKeys
 	f	Lvj;	z	field_9419	STONE_SHORE
 c	btc	net/minecraft/class_1973	net/minecraft/world/biome/source/CheckerboardBiomeSource
 	m	(Ljava/util/List;I)V	<init>	<init>	<init>
+		p	1			biomeArray
 		p	2			size
 	m	(Lbtc;)Ljava/lang/Integer;	a	method_28453	method_28453
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_28454	method_28454
@@ -27293,7 +27345,7 @@ c	btc	net/minecraft/class_1973	net/minecraft/world/biome/source/CheckerboardBiom
 	f	Lcom/mojang/serialization/Codec;	e	field_24715	CODEC
 	f	Ljava/util/List;	f	field_9481	biomeArray
 	f	I	g	field_9480	gridSize
-	f	I	h	field_24716	field_24716
+	f	I	h	field_24716	scale
 c	btd	net/minecraft/class_1992	net/minecraft/world/biome/source/FixedBiomeSource
 	m	(Lbsv;)V	<init>	<init>	<init>
 		p	1			biome
@@ -35744,7 +35796,9 @@ c	chk	net/minecraft/class_5432	net/minecraft/world/gen/decorator/Decoratable
 		c	Applies the {@code minecraft:count} decorator, which repeats\nthe input positions by a random number between 0 and {@code maxCount}.
 		p	1			maxCount
 			c	the maximum repetition count
-	m	(I)Ljava/lang/Object;	d	method_30377	method_30377
+	m	(I)Ljava/lang/Object;	d	method_30377	rangeOf
+		c	Applies the {@code minecraft:range} decorator, which returns the input\nposition with a y value from zero to {@code max}.
+		p	1			max
 c	chl	net/minecraft/class_2897	net/minecraft/world/gen/chunk/FlatChunkGenerator
 	m	(Lcpf;)V	<init>	<init>	<init>
 		p	1			config
@@ -35898,6 +35952,7 @@ c	cho	net/minecraft/class_3754	net/minecraft/world/gen/chunk/NoiseChunkGenerator
 		p	2			x
 		p	3			z
 	m	([F)V	a	method_28551	method_28551
+		p	0			array
 	m	(II)[D	b	method_16406	sampleNoiseColumn
 		p	1			x
 		p	2			z
@@ -36006,7 +36061,7 @@ c	chq	net/minecraft/class_5308	net/minecraft/world/gen/chunk/NoiseSamplingConfig
 	m	()D	c	method_28579	getXZFactor
 	m	()D	d	method_28580	getYFactor
 	f	Lcom/mojang/serialization/Codec;	a	field_24799	CODEC
-	f	Lcom/mojang/serialization/Codec;	b	field_25188	field_25188
+	f	Lcom/mojang/serialization/Codec;	b	field_25188	CODEC_RANGE
 	f	D	c	field_24800	xzScale
 	f	D	d	field_24801	yScale
 	f	D	e	field_24802	xzFactor
@@ -36196,6 +36251,8 @@ c	chx	net/minecraft/class_2919	net/minecraft/world/gen/ChunkRandom
 		p	1			bound
 	f	I	a	field_13276	sampleCount
 c	chy	net/minecraft/class_2918	net/minecraft/world/gen/carver/RavineCarver
+	m	(Lcom/mojang/serialization/Codec;)V	<init>	<init>	<init>
+		p	1			configCodec
 	m	(Lcfw;Ljava/util/function/Function;JIIIDDDFFFIIDLjava/util/BitSet;)V	a	method_12657	carveRavine
 		p	1			chunk
 		p	2			posToBiome
@@ -36257,6 +36314,7 @@ c	cia	net/minecraft/class_2925	net/minecraft/world/gen/carver/CaveCarver
 		p	21			carvingMask
 	m	(Lcfw;Ljava/util/function/Function;Ljava/util/Random;IIIIILjava/util/BitSet;Lcmk;)Z	a	method_12673	carve
 	m	(Ljava/util/Random;)F	a	method_16576	getTunnelSystemWidth
+		p	1			random
 	m	(Ljava/util/Random;IILcmk;)Z	a	method_12676	shouldCarve
 	m	()D	b	method_16578	getTunnelSystemHeightWidthRatio
 	m	(Ljava/util/Random;)I	b	method_16579	getCaveY
@@ -36267,6 +36325,15 @@ c	cib	net/minecraft/class_2922	net/minecraft/world/gen/carver/ConfiguredCarver
 		p	2			config
 	m	()Lchz;	a	method_30378	getConfig
 	m	(Lcfw;Ljava/util/function/Function;Ljava/util/Random;IIIIILjava/util/BitSet;)Z	a	method_12668	carve
+		p	1			chunk
+		p	2			posToBiome
+		p	3			random
+		p	4			seaLevel
+		p	5			chunkX
+		p	6			chunkZ
+		p	7			mainChunkX
+		p	8			mainChunkZ
+		p	9			carvingMask
 	m	(Lcib;)Lcig;	a	method_28612	method_28612
 	m	(Ljava/util/Random;II)Z	a	method_12669	shouldCarve
 		p	1			random
@@ -36278,10 +36345,12 @@ c	cib	net/minecraft/class_2922	net/minecraft/world/gen/carver/ConfiguredCarver
 	f	Lcig;	d	field_13279	carver
 	f	Lchz;	e	field_13278	config
 c	cic	net/minecraft/class_2934	net/minecraft/world/gen/carver/NetherCaveCarver
+	m	(Lcom/mojang/serialization/Codec;)V	<init>	<init>	<init>
+		p	1			configCodec
 c	cid	net/minecraft/class_2932	net/minecraft/world/gen/carver/DefaultCarverConfig
 	m	()Lcid;	a	method_28613	method_28613
-	f	Lcom/mojang/serialization/Codec;	b	field_24829	field_24829
-	f	Lcid;	c	field_24830	field_24830
+	f	Lcom/mojang/serialization/Codec;	b	field_24829	CODEC
+	f	Lcid;	c	field_24830	INSTANCE
 c	cie	net/minecraft/class_2938	net/minecraft/world/gen/carver/UnderwaterRavineCarver
 c	cif	net/minecraft/class_2936	net/minecraft/world/gen/carver/UnderwaterCaveCarver
 	m	(Lcig;Lcfw;Ljava/util/BitSet;Ljava/util/Random;Lfx$a;IIIIIIII)Z	a	method_16138	carveAtPoint
@@ -36328,6 +36397,7 @@ c	cig	net/minecraft/class_2939	net/minecraft/world/gen/carver/Carver
 		p	1			state
 		p	2			stateAbove
 	m	(Lcfw;IIIIIIII)Z	a	method_12711	isRegionUncarvable
+		p	1			chunk
 		p	2			mainChunkX
 		p	3			mainChunkZ
 		p	4			relMinX
@@ -36364,13 +36434,15 @@ c	cig	net/minecraft/class_2939	net/minecraft/world/gen/carver/Carver
 	m	(Lcfw;Ljava/util/function/Function;Ljava/util/Random;IIIIILjava/util/BitSet;Lchz;)Z	a	method_12702	carve
 		p	1			chunk
 		p	2			posToBiome
+		p	3			random
 		p	4			seaLevel
 		p	5			chunkX
 		p	6			chunkZ
 		p	7			mainChunkX
 		p	8			mainChunkZ
 		p	9			carvingMask
-	m	(Lchz;)Lcib;	a	method_28614	method_28614
+	m	(Lchz;)Lcib;	a	method_28614	configure
+		p	1			config
 	m	(Ljava/lang/String;Lcig;)Lcig;	a	method_12704	register
 	m	(Ljava/util/Random;IILchz;)Z	a	method_12705	shouldCarve
 		p	1			random
@@ -37381,8 +37453,11 @@ c	cln	net/minecraft/class_4631	net/minecraft/world/gen/placer/ColumnPlacer
 		p	1			minSize
 		p	2			extraSize
 	m	(Lcln;)Ljava/lang/Integer;	a	method_28675	method_28675
+		p	0			placer
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_28676	method_28676
+		p	0			instance
 	m	(Lcln;)Ljava/lang/Integer;	b	method_28677	method_28677
+		p	0			placer
 	f	Lcom/mojang/serialization/Codec;	b	field_24867	CODEC
 	f	I	c	field_21227	minSize
 	f	I	d	field_21228	extraSize
@@ -38065,7 +38140,8 @@ c	cnh	net/minecraft/class_4646	net/minecraft/world/gen/foliage/BlobFoliagePlacer
 		p	2			offset
 		p	3			height
 	m	(Lcnh;)Ljava/lang/Integer;	a	method_28837	method_28837
-	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/Products$P3;	a	method_28838	method_28838
+	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/Products$P3;	a	method_28838	createCodec
+		p	0			builder
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	c	method_28839	method_28839
 	f	Lcom/mojang/serialization/Codec;	a	field_24927	CODEC
 	f	I	b	field_23752	height
@@ -38105,14 +38181,15 @@ c	cnl	net/minecraft/class_4647	net/minecraft/world/gen/foliage/FoliagePlacer
 		p	7			radius
 		p	8			leaves
 		p	9			box
-	m	(Lbsb;Ljava/util/Random;Lcmz;Lfx;ILjava/util/Set;IZLcra;)V	a	method_23449	generate
+	m	(Lbsb;Ljava/util/Random;Lcmz;Lfx;ILjava/util/Set;IZLcra;)V	a	method_23449	generateSquare
+		c	Generates a square of leaves with the given radius. Sub-classes can use the method {@code isInvalidForLeaves} to exclude certain positions, such as corners.
 		p	1			world
 		p	2			random
 		p	3			config
 		p	4			pos
-		p	5			baseHeight
+		p	5			radius
 		p	6			leaves
-		p	7			offset
+		p	7			y
 		p	8			giantTrunk
 		p	9			box
 	m	(Lcnl;)Lafw;	a	method_30410	method_30410
@@ -38122,10 +38199,11 @@ c	cnl	net/minecraft/class_4647	net/minecraft/world/gen/foliage/FoliagePlacer
 		p	1			random
 		p	2			baseHeight
 	m	(Ljava/util/Random;IIIIZ)Z	a	method_23451	isInvalidForLeaves
+		c	Used to exclude certain positions such as corners when creating a square of leaves.
 		p	1			random
 		p	2			baseHeight
 		p	3			dx
-		p	4			dy
+		p	4			y
 		p	5			dz
 		p	6			giantTrunk
 	m	(Ljava/util/Random;ILcmz;)I	a	method_26989	getRandomHeight
@@ -38134,7 +38212,14 @@ c	cnl	net/minecraft/class_4647	net/minecraft/world/gen/foliage/FoliagePlacer
 		p	3			config
 	m	(Lcnl;)Lafw;	b	method_30412	method_30412
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/Products$P2;	b	method_30411	fillFoliagePlacerFields
-	m	(Ljava/util/Random;IIIIZ)Z	b	method_27387	method_27387
+	m	(Ljava/util/Random;IIIIZ)Z	b	method_27387	isPositionInvalid
+		c	Normalizes x and z coords before checking if they are invalid.
+		p	1			random
+		p	2			dx
+		p	3			y
+		p	4			dz
+		p	5			radius
+		p	6			giantTrunk
 	f	Lcom/mojang/serialization/Codec;	d	field_24931	TYPE_CODEC
 	f	Lafw;	e	field_21296	radius
 	f	Lafw;	f	field_23753	offset
@@ -38238,6 +38323,7 @@ c	cnx	net/minecraft/class_4655	net/minecraft/world/gen/stateprovider/PillarBlock
 	m	(Lbuo;)V	<init>	<init>	<init>
 		p	1			block
 	m	(Lcnx;)Lbuo;	a	method_28866	method_28866
+		p	0			provider
 	f	Lcom/mojang/serialization/Codec;	b	field_24944	CODEC
 	f	Lbuo;	c	field_21313	block
 c	cny	net/minecraft/class_4656	net/minecraft/world/gen/stateprovider/SimpleBlockStateProvider
@@ -38916,20 +39002,31 @@ c	coo	net/minecraft/class_4659	net/minecraft/world/gen/tree/BeehiveTreeDecorator
 	m	(F)V	<init>	<init>	<init>
 		p	1			probability
 	m	(ILfx;)Z	a	method_23464	method_23464
+		p	1			pos
 	m	(Lcoo;)Ljava/lang/Float;	a	method_28890	method_28890
+		p	0			decorator
 	f	Lcom/mojang/serialization/Codec;	a	field_24958	CODEC
 	f	F	b	field_21317	probability
 c	cop	net/minecraft/class_4660	net/minecraft/world/gen/tree/CocoaBeansTreeDecorator
 	m	(F)V	<init>	<init>	<init>
 		p	1			probability
 	m	(ILfx;)Z	a	method_23465	method_23465
+		p	1			pos
 	m	(Lcop;)Ljava/lang/Float;	a	method_28891	method_28891
 	m	(Ljava/util/Random;Lbsr;Ljava/util/Set;Lcra;Lfx;)V	a	method_23466	method_23466
+		p	5			pos
 	f	Lcom/mojang/serialization/Codec;	a	field_24959	CODEC
 	f	F	b	field_21318	probability
 c	coq	net/minecraft/class_4661	net/minecraft/world/gen/tree/LeaveVineTreeDecorator
-	m	(Lbsb;Lfx;Lcey;Ljava/util/Set;Lcra;)V	a	method_23467	method_23467
+	m	(Lbsb;Lfx;Lcey;Ljava/util/Set;Lcra;)V	a	method_23467	placeVines
+		c	Places a vine at a given position and then up to 4 more vines going downwards.
+		p	1			world
+		p	2			pos
+		p	3			side
+		p	4			placedStates
+		p	5			box
 	m	(Ljava/util/Random;Lbsr;Ljava/util/Set;Lcra;Lfx;)V	a	method_23468	method_23468
+		p	5			pos
 	m	()Lcoq;	b	method_28892	method_28892
 	f	Lcom/mojang/serialization/Codec;	a	field_24960	CODEC
 	f	Lcoq;	b	field_24961	INSTANCE
@@ -38940,17 +39037,20 @@ c	cor	net/minecraft/class_4662	net/minecraft/world/gen/tree/TreeDecorator
 		p	1			world
 		p	2			pos
 		p	3			state
+		p	4			placedStates
 		p	5			box
 	m	(Lbse;Lfx;Lcey;Ljava/util/Set;Lcra;)V	a	method_23471	placeVine
 		p	1			world
 		p	2			pos
 		p	3			directionProperty
+		p	4			placedStates
 		p	5			box
 	m	(Lbsr;Ljava/util/Random;Ljava/util/List;Ljava/util/List;Ljava/util/Set;Lcra;)V	a	method_23469	generate
 		p	1			world
 		p	2			random
 		p	3			logPositions
 		p	4			leavesPositions
+		p	5			placedStates
 		p	6			box
 	f	Lcom/mojang/serialization/Codec;	c	field_24962	TYPE_CODEC
 c	cos	net/minecraft/class_4663	net/minecraft/world/gen/tree/TreeDecoratorType
@@ -38968,6 +39068,7 @@ c	cos	net/minecraft/class_4663	net/minecraft/world/gen/tree/TreeDecoratorType
 	f	Lcom/mojang/serialization/Codec;	f	field_24963	codec
 c	cot	net/minecraft/class_4664	net/minecraft/world/gen/tree/TrunkVineTreeDecorator
 	m	(Ljava/util/Random;Lbsr;Ljava/util/Set;Lcra;Lfx;)V	a	method_23474	method_23474
+		p	5			pos
 	m	()Lcot;	b	method_28896	method_28896
 	f	Lcom/mojang/serialization/Codec;	a	field_24964	CODEC
 	f	Lcot;	b	field_24965	INSTANCE
@@ -38980,22 +39081,30 @@ c	cow	net/minecraft/class_5212	net/minecraft/world/gen/trunk/LargeOakTrunkPlacer
 		p	2			height
 	m	(Lbsb;Ljava/util/Random;ILfx;Ljava/util/List;Ljava/util/Set;Lcra;Lcmz;)V	a	method_27392	makeBranches
 		p	1			world
+		p	2			random
 		p	3			treeHeight
 		p	4			treePos
 		p	5			branches
+		p	6			placedStates
+		p	7			box
 		p	8			config
 	m	(Lbsb;Ljava/util/Random;Lfx;Lfx;ZLjava/util/Set;Lcra;Lcmz;)Z	a	method_27393	makeOrCheckBranch
 		p	1			world
 		p	3			start
 		p	4			end
 		p	5			make
+		p	6			placedStates
+		p	7			box
 		p	8			config
 	m	(Lfx;)I	a	method_27394	getLongestSide
 		p	1			offset
 	m	(Lfx;Lfx;)Lgc$a;	a	method_27395	getLogAxis
 		p	1			branchStart
 		p	2			branchEnd
-	m	(II)F	b	method_27396	method_27396
+	m	(II)F	b	method_27396	shouldGenerateBranch
+		c	If the returned value is greater than or equal to 0, a branch will be generated.
+		p	1			trunkHeight
+		p	2			y
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	b	method_28898	method_28898
 	f	Lcom/mojang/serialization/Codec;	a	field_24967	CODEC
 c	cow$a	net/minecraft/class_5212$class_5213	net/minecraft/world/gen/trunk/LargeOakTrunkPlacer$BranchPosition
@@ -39048,18 +39157,42 @@ c	cpb	net/minecraft/class_5141	net/minecraft/world/gen/trunk/TrunkPlacer
 		p	2			firstRandomHeight
 		p	3			secondRandomHeight
 	m	()Lcpc;	a	method_28903	getType
-	m	(Lbsb;Lfx;)V	a	method_27400	method_27400
+	m	(Lbsb;Lfx;)V	a	method_27400	setToDirt
+		p	0			world
+		p	1			pos
 	m	(Lbsb;Ljava/util/Random;ILfx;Ljava/util/Set;Lcra;Lcmz;)Ljava/util/List;	a	method_26991	generate
 		c	Generates the trunk blocks and return a list of tree nodes to place foliage around
 		p	1			world
 		p	2			random
 		p	3			trunkHeight
 		p	4			pos
-	m	(Lbsb;Ljava/util/Random;Lfx$a;Ljava/util/Set;Lcra;Lcmz;)V	a	method_27401	method_27401
-	m	(Lbsb;Ljava/util/Random;Lfx;Ljava/util/Set;Lcra;Lcmz;)Z	a	method_27402	method_27402
-	m	(Lbsc;Lfx;)Z	a	method_27403	method_27403
-	m	(Lbse;Lfx;Lceh;Lcra;)V	a	method_27404	method_27404
+		p	5			placedStates
+		p	6			box
+		p	7			config
+	m	(Lbsb;Ljava/util/Random;Lfx$a;Ljava/util/Set;Lcra;Lcmz;)V	a	method_27401	trySetState
+		p	0			world
+		p	1			random
+		p	2			pos
+		p	3			placedStates
+		p	4			box
+		p	5			config
+	m	(Lbsb;Ljava/util/Random;Lfx;Ljava/util/Set;Lcra;Lcmz;)Z	a	method_27402	getAndSetState
+		p	0			world
+		p	1			random
+		p	2			pos
+		p	3			placedStates
+		p	4			box
+		p	5			config
+	m	(Lbsc;Lfx;)Z	a	method_27403	canGenerate
+		p	0			world
+		p	1			pos
+	m	(Lbse;Lfx;Lceh;Lcra;)V	a	method_27404	setBlockState
+		p	0			world
+		p	1			pos
+		p	2			state
+		p	3			box
 	m	(Lceh;)Z	a	method_27405	method_27405
+		p	0			state
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/Products$P3;	a	method_28904	method_28904
 	m	(Lcpb;)Ljava/lang/Integer;	a	method_28905	method_28905
 	m	(Ljava/util/Random;)I	a	method_26993	getHeight
@@ -41506,6 +41639,7 @@ c	cte	net/minecraft/class_3506	net/minecraft/world/gen/surfacebuilder/BadlandsSu
 		p	3			z
 	m	(Ljava/util/Random;Lcfw;Lbsv;IIIDLceh;Lceh;IJLctu;)V	a	method_15208	generate
 	m	(J)V	b	method_15209	initLayerBlocks
+		c	Seeds the layers by creating multiple bands of colored terracotta. The yellow and red terracotta bands are one block thick while the brown\nterracotta band is 2 blocks thick. Then, a gradient band is created with white terracotta in the center and light gray terracotta on the top and bottom.
 		p	1			seed
 	f	Lceh;	K	field_15624	WHITE_TERRACOTTA
 	f	Lceh;	L	field_15620	ORANGE_TERRACOTTA
@@ -41523,8 +41657,8 @@ c	ctf	net/minecraft/class_5163	net/minecraft/world/gen/surfacebuilder/BasaltDelt
 	f	Lceh;	a	field_23915	BASALT
 	f	Lceh;	b	field_23916	BLACKSTONE
 	f	Lceh;	c	field_23917	GRAVEL
-	f	Lcom/google/common/collect/ImmutableList;	d	field_23918	field_23918
-	f	Lcom/google/common/collect/ImmutableList;	e	field_23919	field_23919
+	f	Lcom/google/common/collect/ImmutableList;	d	field_23918	SURFACE_STATES
+	f	Lcom/google/common/collect/ImmutableList;	e	field_23919	UNDER_LAVA_STATES
 c	ctg	net/minecraft/class_3504	net/minecraft/world/gen/surfacebuilder/ConfiguredSurfaceBuilder
 	m	(Lctt;Lctv;)V	<init>	<init>	<init>
 		p	1			surfaceBuilder
@@ -41537,8 +41671,13 @@ c	ctg	net/minecraft/class_3504	net/minecraft/world/gen/surfacebuilder/Configured
 		p	1			random
 		p	2			chunk
 		p	3			biome
+		p	4			x
+		p	5			z
+		p	6			height
+		p	7			noise
 		p	9			defaultBlock
 		p	10			defaultFluid
+		p	11			seaLevel
 		p	12			seed
 	f	Lcom/mojang/serialization/Codec;	a	field_25878	CODEC
 	f	Lcom/mojang/serialization/Codec;	b	field_25015	REGISTRY_CODEC
@@ -41582,22 +41721,27 @@ c	ctl	net/minecraft/class_3516	net/minecraft/world/gen/surfacebuilder/GravellyMo
 c	ctm	net/minecraft/class_3514	net/minecraft/world/gen/surfacebuilder/MountainSurfaceBuilder
 	m	(Ljava/util/Random;Lcfw;Lbsv;IIIDLceh;Lceh;IJLctu;)V	a	method_15233	generate
 c	ctn	net/minecraft/class_5164	net/minecraft/world/gen/surfacebuilder/AbstractNetherSurfaceBuilder
-	m	()Lcom/google/common/collect/ImmutableList;	a	method_27129	method_27129
+	m	()Lcom/google/common/collect/ImmutableList;	a	method_27129	getSurfaceStates
 	m	(IIILjava/util/Map$Entry;)Ljava/lang/Double;	a	method_27130	method_27130
-	m	(Lcom/google/common/collect/ImmutableList;J)Lcom/google/common/collect/ImmutableMap;	a	method_27131	method_27131
+		p	3			entry
+	m	(Lcom/google/common/collect/ImmutableList;J)Lcom/google/common/collect/ImmutableMap;	a	method_27131	createNoisesForStates
+		p	0			states
+		p	1			seed
 	m	(Ljava/util/Random;Lcfw;Lbsv;IIIDLceh;Lceh;IJLctu;)V	a	method_27132	generate
-	m	()Lcom/google/common/collect/ImmutableList;	b	method_27133	method_27133
+	m	()Lcom/google/common/collect/ImmutableList;	b	method_27133	getUnderLavaStates
 	m	(IIILjava/util/Map$Entry;)Ljava/lang/Double;	b	method_27134	method_27134
-	m	()Lceh;	c	method_27135	method_27135
-	f	J	a	field_23920	field_23920
-	f	Lcom/google/common/collect/ImmutableMap;	b	field_23921	field_23921
-	f	Lcom/google/common/collect/ImmutableMap;	c	field_23922	field_23922
-	f	Lcub;	d	field_23923	field_23923
+		p	3			entry
+	m	()Lceh;	c	method_27135	getLavaShoreState
+		c	Returns the state that will make up the boundary between the land and the lava ocean.
+	f	J	a	field_23920	seed
+	f	Lcom/google/common/collect/ImmutableMap;	b	field_23921	surfaceNoises
+	f	Lcom/google/common/collect/ImmutableMap;	c	field_23922	underLavaNoises
+	f	Lcub;	d	field_23923	shoreNoise
 c	cto	net/minecraft/class_4789	net/minecraft/world/gen/surfacebuilder/NetherForestSurfaceBuilder
 	m	(Ljava/util/Random;Lcfw;Lbsv;IIIDLceh;Lceh;IJLctu;)V	a	method_24455	generate
 	f	J	a	field_22201	seed
 	f	Lceh;	b	field_22202	CAVE_AIR
-	f	Lcub;	c	field_22203	field_22203
+	f	Lcub;	c	field_22203	surfaceNoise
 c	ctp	net/minecraft/class_3520	net/minecraft/world/gen/surfacebuilder/NetherSurfaceBuilder
 	m	(Ljava/util/Random;Lcfw;Lbsv;IIIDLceh;Lceh;IJLctu;)V	a	method_15300	generate
 	f	J	a	field_15661	seed
@@ -41613,7 +41757,7 @@ c	cts	net/minecraft/class_4790	net/minecraft/world/gen/surfacebuilder/SoulSandVa
 	f	Lceh;	a	field_22209	SOUL_SAND
 	f	Lceh;	b	field_22210	SOUL_SOIL
 	f	Lceh;	c	field_22204	GRAVEL
-	f	Lcom/google/common/collect/ImmutableList;	d	field_23924	field_23924
+	f	Lcom/google/common/collect/ImmutableList;	d	field_23924	SURFACE_STATES
 c	ctt	net/minecraft/class_3523	net/minecraft/world/gen/surfacebuilder/SurfaceBuilder
 	m	(Lcom/mojang/serialization/Codec;)V	<init>	<init>	<init>
 		p	1			codec
@@ -41696,10 +41840,14 @@ c	ctu	net/minecraft/class_3527	net/minecraft/world/gen/surfacebuilder/TernarySur
 		p	2			underMaterial
 		p	3			underwaterMaterial
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_29004	method_29004
+		p	0			instance
 	m	(Lctu;)Lceh;	a	method_29005	method_29005
+		p	0			config
 	m	(Lctu;)Lceh;	b	method_29006	method_29006
+		p	0			config
 	m	()Lceh;	c	method_15330	getUnderwaterMaterial
 	m	(Lctu;)Lceh;	c	method_29007	method_29007
+		p	0			config
 	f	Lcom/mojang/serialization/Codec;	a	field_25017	CODEC
 	f	Lceh;	b	field_15715	topMaterial
 	f	Lceh;	c	field_15717	underMaterial
@@ -42826,7 +42974,7 @@ c	cwh	net/minecraft/class_3655	net/minecraft/world/biome/layer/AddEdgeBiomesLaye
 	f	Lit/unimi/dsi/fastutil/ints/IntSet;	b	field_26728	field_26728
 	f	Lit/unimi/dsi/fastutil/ints/IntSet;	c	field_26729	field_26729
 	f	[Lcwh;	d	field_16179	field_16179
-c	cwi	net/minecraft/class_3654	net/minecraft/world/biome/layer/SmoothenShorelineLayer
+c	cwi	net/minecraft/class_3654	net/minecraft/world/biome/layer/SmoothLayer
 	m	(Ljava/lang/String;)Lcwi;	valueOf	valueOf	valueOf
 	m	()[Lcwi;	values	values	values
 	f	Lcwi;	a	field_16171	INSTANCE
@@ -69129,32 +69277,42 @@ c	enc	net/minecraft/class_1129	net/minecraft/client/search/Searchable
 	m	(Ljava/lang/String;)Ljava/util/List;	a	method_4810	findAll
 		p	1			text
 c	end	net/minecraft/class_1128	net/minecraft/client/search/SuffixArray
-	m	()V	a	method_4807	sort
+	c	Provides an efficient way to search for a text in multiple texts.
+	m	()V	a	method_4807	build
+		c	Builds a suffix array with added texts.\n\n<p>You are not allowed to call this method multiple times.\n\n<p>Takes O(N * log N * log M) time on average where N is the sum of all text\nlength added, and M is the maximum text length added.
 	m	(I)Ljava/lang/String;	a	method_4808	getDebugString
 		p	1			suffixIndex
 	m	(Ljava/lang/Object;Ljava/lang/String;)V	a	method_4806	add
+		c	Adds a text with the corresponding object.\n\n<p>You are not allowed to call this method after calling {@link #build()} method.\n\n<p>Takes O({@code text.length()}) time.
 		p	1			object
 		p	2			text
 	m	(Ljava/lang/String;)Ljava/util/List;	a	method_4804	findAll
+		c	Retrieves all objects of which corresponding texts contain {@code text}.\n\n<p>You have to call {@link #build()} method before calling this method.\n\n<p>Takes O({@code text.length()} * log N) time to find objects where N is the\nsum of all text length added. Takes O(X + Y * log Y) time to collect found\nobjects into a list where X is the number of occurrences of {@code text} in all\ntexts added, and Y is the number of found objects.
 		p	1			text
 	m	(Ljava/lang/String;I)I	a	method_4805	compare
 		p	1			string
 		p	2			suffixIndex
 	m	([I[I[III)V	a	method_4803	method_4803
+		p	3			i
+		p	4			j
 	m	()V	b	method_4809	printArray
 	f	Ljava/util/List;	a	field_5503	objects
 	f	Z	b	field_5508	PRINT_COMPARISONS
 	f	Z	c	field_5507	PRINT_ARRAY
 	f	Lorg/apache/logging/log4j/Logger;	d	field_5510	LOGGER
 	f	Lit/unimi/dsi/fastutil/ints/IntList;	e	field_5505	characters
-	f	Lit/unimi/dsi/fastutil/ints/IntList;	f	field_5509	suffixStarts
+	f	Lit/unimi/dsi/fastutil/ints/IntList;	f	field_5509	textStarts
 	f	Lit/unimi/dsi/fastutil/ints/IntList;	g	field_5504	suffixIndexToObjectIndex
-	f	Lit/unimi/dsi/fastutil/ints/IntList;	h	field_5506	suffixSplits
+	f	Lit/unimi/dsi/fastutil/ints/IntList;	h	field_5506	offsetInText
 	f	I	i	field_5502	maxTextLength
 c	end$1	net/minecraft/class_1128$1	net/minecraft/client/search/SuffixArray$1
 	m	(II)I	compare	compare	compare
+		p	1			i
+		p	2			j
 	m	(Ljava/lang/Integer;Ljava/lang/Integer;)I	compare	compare	compare
 	m	(Ljava/lang/Object;Ljava/lang/Object;)I	compare	compare	compare
+		p	1			i
+		p	2			j
 	f	[I	a	field_5513	field_5513
 	f	[I	b	field_5511	field_5511
 	f	Lend;	c	field_5512	field_5512
@@ -76122,7 +76280,8 @@ c	net/minecraft/server/MinecraftServer	net/minecraft/server/MinecraftServer	net/
 		p	1			world
 		p	2			pos
 		p	3			player
-	m	(Laah;)Labc;	a	method_31371	method_31371
+	m	(Laah;)Labc;	a	method_31371	createFilterer
+		p	1			player
 	m	(Laap;)V	a	method_3786	createWorlds
 	m	(Labw;)Lbrk;	a	method_29735	method_29735
 	m	(Labw;Lbrk;Z)Lbrk;	a	method_29736	loadDataPacks
@@ -77440,7 +77599,7 @@ c	om	net/minecraft/class_2602	net/minecraft/network/listener/ClientPlayPacketLis
 		p	1			packet
 	m	(Lpd;)V	a	method_11145	onCommandTree
 		p	1			packet
-	m	(Lpe;)V	a	method_11123	onGuiActionConfirm
+	m	(Lpe;)V	a	method_11123	onConfirmScreenAction
 		p	1			packet
 	m	(Lpf;)V	a	method_11102	onCloseScreen
 		p	1			packet
@@ -77889,16 +78048,16 @@ c	pd$a	net/minecraft/class_2641$class_2642	net/minecraft/network/packet/s2c/play
 	f	I	c	field_12126	redirectNodeIndex
 	f	[I	d	field_12125	childNodeIndices
 	f	Lcom/mojang/brigadier/tree/CommandNode;	e	field_12128	node
-c	pe	net/minecraft/class_2644	net/minecraft/network/packet/s2c/play/ConfirmGuiActionS2CPacket
+c	pe	net/minecraft/class_2644	net/minecraft/network/packet/s2c/play/ConfirmScreenActionS2CPacket
 	m	(ISZ)V	<init>	<init>	<init>
-		p	1			id
+		p	1			syncId
 		p	2			actionId
 		p	3			accepted
 	m	(Lom;)V	a	method_11424	apply
-	m	()I	b	method_11425	getId
+	m	()I	b	method_11425	getSyncId
 	m	()S	c	method_11423	getActionId
 	m	()Z	d	method_11426	wasAccepted
-	f	I	a	field_12136	id
+	f	I	a	field_12136	syncId
 	f	S	b	field_12134	actionId
 	f	Z	c	field_12135	accepted
 c	pf	net/minecraft/class_2645	net/minecraft/network/packet/s2c/play/CloseScreenS2CPacket
@@ -79152,13 +79311,13 @@ c	sa	net/minecraft/class_2792	net/minecraft/network/listener/ServerPlayPacketLis
 		p	1			packet
 	m	(Lsh;)V	a	method_12059	onRequestCommandCompletions
 		p	1			packet
-	m	(Lsi;)V	a	method_12079	onConfirmTransaction
+	m	(Lsi;)V	a	method_12079	onConfirmScreenAction
 		p	1			packet
 	m	(Lsj;)V	a	method_12055	onButtonClick
 		p	1			packet
-	m	(Lsk;)V	a	method_12076	onClickWindow
+	m	(Lsk;)V	a	method_12076	onClickSlot
 		p	1			packet
-	m	(Lsl;)V	a	method_12054	onGuiClose
+	m	(Lsl;)V	a	method_12054	onCloseHandledScreen
 		p	1			packet
 	m	(Lsm;)V	a	method_12075	onCustomPayload
 		p	1			packet
@@ -79295,15 +79454,15 @@ c	sh	net/minecraft/class_2805	net/minecraft/network/packet/c2s/play/RequestComma
 	m	()Ljava/lang/String;	c	method_12148	getPartialCommand
 	f	I	a	field_12784	completionId
 	f	Ljava/lang/String;	b	field_12785	partialCommand
-c	si	net/minecraft/class_2809	net/minecraft/network/packet/c2s/play/ConfirmGuiActionC2SPacket
+c	si	net/minecraft/class_2809	net/minecraft/network/packet/c2s/play/ConfirmScreenActionC2SPacket
 	m	(ISZ)V	<init>	<init>	<init>
-		p	1			windowId
+		p	1			syncId
 		p	2			actionId
 		p	3			accepted
 	m	(Lsa;)V	a	method_12177	apply
-	m	()I	b	method_12178	getWindowId
-	m	()S	c	method_12176	getSyncId
-	f	I	a	field_12811	windowId
+	m	()I	b	method_12178	getSyncId
+	m	()S	c	method_12176	getActionId
+	f	I	a	field_12811	syncId
 	f	S	b	field_12809	actionId
 	f	Z	c	field_12810	accepted
 c	sj	net/minecraft/class_2811	net/minecraft/network/packet/c2s/play/ButtonClickC2SPacket
@@ -79315,7 +79474,7 @@ c	sj	net/minecraft/class_2811	net/minecraft/network/packet/c2s/play/ButtonClickC
 	m	()I	c	method_12186	getButtonId
 	f	I	a	field_12813	syncId
 	f	I	b	field_12812	buttonId
-c	sk	net/minecraft/class_2813	net/minecraft/network/packet/c2s/play/ClickWindowC2SPacket
+c	sk	net/minecraft/class_2813	net/minecraft/network/packet/c2s/play/ClickSlotC2SPacket
 	m	(IIILbik;Lbmb;S)V	<init>	<init>	<init>
 		p	1			syncId
 		p	2			slot
@@ -79336,11 +79495,11 @@ c	sk	net/minecraft/class_2813	net/minecraft/network/packet/c2s/play/ClickWindowC
 	f	S	d	field_12820	actionId
 	f	Lbmb;	e	field_12816	stack
 	f	Lbik;	f	field_12815	actionType
-c	sl	net/minecraft/class_2815	net/minecraft/network/packet/c2s/play/GuiCloseC2SPacket
+c	sl	net/minecraft/class_2815	net/minecraft/network/packet/c2s/play/CloseHandledScreenC2SPacket
 	m	(I)V	<init>	<init>	<init>
-		p	1			id
+		p	1			syncId
 	m	(Lsa;)V	a	method_12198	apply
-	f	I	a	field_12827	id
+	f	I	a	field_12827	syncId
 c	sm	net/minecraft/class_2817	net/minecraft/network/packet/c2s/play/CustomPayloadC2SPacket
 	m	(Lvk;Lnf;)V	<init>	<init>	<init>
 		p	1			channel
@@ -83117,7 +83276,7 @@ c	zg	net/minecraft/class_3176	net/minecraft/server/dedicated/MinecraftDedicatedS
 	f	Ladl;	o	field_13819	rconServer
 	f	Lzi;	p	field_16799	propertiesLoader
 	f	Lzm;	q	field_16800	gui
-	f	Labd;	r	field_26898	field_26898
+	f	Labd;	r	field_26898	filterer
 c	zg$1	net/minecraft/class_3176$1	net/minecraft/server/dedicated/MinecraftDedicatedServer$1
 	m	()V	run	run	run
 	f	Lzg;	a	field_13822	field_13822
@@ -83146,7 +83305,7 @@ c	zh	net/minecraft/class_3806	net/minecraft/server/dedicated/ServerPropertiesHan
 	f	Z	Q	field_24056	enableJmxMonitoring
 	f	Z	R	field_24453	enableStatus
 	f	I	S	field_24454	entityBroadcastRangePercentage
-	f	Ljava/lang/String;	T	field_26899	field_26899
+	f	Ljava/lang/String;	T	field_26899	textFilteringConfig
 	f	Lzk$a;	U	field_16817	playerIdleTimeout
 	f	Lzk$a;	V	field_16804	whiteList
 	f	Lchw;	W	field_24623	generatorOptions

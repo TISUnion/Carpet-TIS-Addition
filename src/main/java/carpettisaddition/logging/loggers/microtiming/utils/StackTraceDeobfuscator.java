@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class StackTraceDeobfuscator
 {
-	private static final String MAPPING_FILE_NAME = "yarn-1.16.4+build.1-v2.tiny";
+	private static final String MAPPING_FILE_NAME = "yarn-1.16.4+build.6-v2.tiny";
 	private static final String IGNORE_CLASS_PATH = "carpettisaddition.logging.loggers.microtiming";
 	private static final Map<String, String> mappings = Maps.newHashMap();
 
