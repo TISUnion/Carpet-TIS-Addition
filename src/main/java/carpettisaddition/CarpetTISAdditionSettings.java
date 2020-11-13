@@ -3,6 +3,7 @@ package carpettisaddition;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
+import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.regex.Pattern;
@@ -273,7 +274,7 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			desc = "Enable the function of MicroTick logger",
 			extra = {
-					"Display redstone components actions, blockupdates and stacktrace with a wool block",
+					"Display redstone components actions, block updates and stacktrace with a wool block",
 					"Use /log microTiming to start logging",
 					"Might impact the server performance when it's on",
 					"EndRods will detect block updates and redstone components will show their actions",
@@ -281,9 +282,20 @@ public class CarpetTISAdditionSettings
 					"- Repeater, Comparator, Rail, Button, etc.: placed on wool",
 					"Beside that, a universal block actions logging method is using EndRod on wool block to point on the block you want to log"
 			},
-			category = {TIS, COMMAND, CREATIVE}
+			category = {TIS, CREATIVE}
 	)
 	public static boolean microTiming = false;
+
+	@Rule(
+			desc = "Modify the way to specify events to be logged in microTiming logger",
+			extra = {
+					"labelled: Logs events labelled with wool",
+					"in_range: Logs events within 32m of any player",
+					"all: Logs every event. Use with caution"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.LABELLED;
 
 	@Rule(
 			desc = "Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown",

@@ -37,6 +37,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [instantCommandBlock](#instantCommandBlock)
 - [lightUpdates](#lightUpdates)
 - [microTiming](#microTiming)
+- [microTimingTarget](#microTimingTarget)
 - [antiSpamDisabled](#antiSpamDisabled)
 - [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
 - [chunkTickSpeed](#chunkTickSpeed)
@@ -322,7 +323,7 @@ If set to off, no light update can be scheduled or executed
 
 Enable the function of [MicroTiming logger](#microTiming-1)
 
-Display redstone components actions, blockupdates and stacktrace with a wool block
+Display redstone components actions, block updates and stacktrace with a wool block
 
 Use `/log microTiming` to start logging
 
@@ -340,7 +341,21 @@ Beside that, a universal block actions logging method is using EndRod on wool bl
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `COMMAND`, `CREATIVE`
+- Categories: `TIS`, `CREATIVE`
+
+
+## microTimingTarget
+
+Modify the way to specify events to be logged in microTiming logger
+
+`labelled`: Logs events labelled with wool
+`in_range`: Logs events within 32m of any player
+`all`: Logs every event. **Use with caution**
+
+- Type: `enum`  
+- Default value: `labelled`  
+- Suggested options: `labelled`, `in_range`, `all`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## antiSpamDisabled
