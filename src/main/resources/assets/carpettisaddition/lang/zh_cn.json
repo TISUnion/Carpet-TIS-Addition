@@ -136,6 +136,8 @@
 
   "logger.microTiming.dimension": "维度",
   "logger.microTiming.player": "玩家",
+  "logger.microTiming.entity": "实体",
+  "logger.microTiming.type": "类型",
   "logger.microTiming.block": "方块",
   "logger.microTiming.order": "次序",
   "logger.microTiming.depth": "深度",

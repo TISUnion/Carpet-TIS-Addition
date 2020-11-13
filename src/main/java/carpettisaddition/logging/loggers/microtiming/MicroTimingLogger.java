@@ -86,9 +86,10 @@ public class MicroTimingLogger extends AbstractLogger
 	private final static Set<Property<?>> INTEREST_PROPERTIES = new ReferenceArraySet<>();
 	static
 	{
-		INTEREST_PROPERTIES.add(Properties.POWERED);
-		INTEREST_PROPERTIES.add(Properties.LIT);
-		INTEREST_PROPERTIES.add(Properties.POWER);
+		INTEREST_PROPERTIES.add(Properties.POWERED);  // redstone repeater, observer, etc.
+		INTEREST_PROPERTIES.add(Properties.LIT);  // redstone torch, redstone lamp
+		INTEREST_PROPERTIES.add(Properties.POWER);  // redstone dust, weighted pressure plates, etc.
+		INTEREST_PROPERTIES.add(Properties.LOCKED);  // redstone repeater
 	}
 
 	public void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, EventType eventType)
