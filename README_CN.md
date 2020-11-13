@@ -37,6 +37,7 @@
 - [瞬时命令方块](#瞬时命令方块-instantCommandBlock)
 - [光照更新](#光照更新-lightUpdates)
 - [微时序](#微时序-microTiming)
+- [微时序目标](#微时序目标-microTimingTarget)
 - [禁用反刷屏监测](#禁用反刷屏监测-antiSpamDisabled)
 - [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementIgnoreEntity)
 - [区块刻速度](#区块刻速度-chunkTickSpeed)
@@ -337,10 +338,26 @@
 
 除此之外，一种通用的记录方块动作的收单是使用羊毛块上的末地烛指向需记录的方块
 
+可通过操控规则 [微时序目标](#微时序目标-microTimingTarget) 以切换记录方法
+
 - 类型: `boolean`  
 - 默认值: `false`  
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `COMMAND`, `CREATIVE`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 微时序目标 (microTimingTarget)
+
+设置指定微时序记录器记录目标的方法
+
+`labelled`: 记录被羊毛块标记的事件
+`in_range`: 记录离任意玩家 32m 内的事件
+`all`: 记录所有事件。**谨慎使用**
+
+- 类型: `enum`  
+- 默认值: `labelled`  
+- 参考选项: `labelled`, `in_range`, `all`
+- 分类: `TIS`, `CREATIVE`
 
 
 ## 禁用反刷屏监测 (antiSpamDisabled)

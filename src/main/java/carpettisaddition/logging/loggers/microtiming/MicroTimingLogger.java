@@ -39,25 +39,11 @@ public class MicroTimingLogger extends AbstractLogger
 	private TickStageExtraBase stageExtra;
 	private final ServerWorld world;
 	public final MessageList messageList = new MessageList();
-	private final BaseText dimensionDisplayTextGray;
 
 	public MicroTimingLogger(ServerWorld world)
 	{
 		super(NAME);
 		this.world = world;
-		if (world != null)
-		{
-			this.dimensionDisplayTextGray = TextUtil.getFancyText(
-					"g",
-					TextUtil.getDimensionNameText(this.world.getRegistryKey()),
-					Messenger.s(this.world.getRegistryKey().getValue().toString()),
-					null
-			);
-		}
-		else
-		{
-			this.dimensionDisplayTextGray = null;
-		}
 	}
 	
 	public void setTickStage(TickStage stage)
@@ -100,9 +86,10 @@ public class MicroTimingLogger extends AbstractLogger
 	private final static Set<Property<?>> INTEREST_PROPERTIES = new ReferenceArraySet<>();
 	static
 	{
-		INTEREST_PROPERTIES.add(Properties.POWERED);
-		INTEREST_PROPERTIES.add(Properties.LIT);
-		INTEREST_PROPERTIES.add(Properties.POWER);
+		INTEREST_PROPERTIES.add(Properties.POWERED);  // redstone repeater, observer, etc.
+		INTEREST_PROPERTIES.add(Properties.LIT);  // redstone torch, redstone lamp
+		INTEREST_PROPERTIES.add(Properties.POWER);  // redstone dust, weighted pressure plates, etc.
+		INTEREST_PROPERTIES.add(Properties.LOCKED);  // redstone repeater
 	}
 
 	public void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, EventType eventType)
@@ -184,7 +171,12 @@ public class MicroTimingLogger extends AbstractLogger
 				"^w world.getTime()",
 				"g  " + this.world.getTime(),
 				"f  @ ",
-				this.dimensionDisplayTextGray,
+				TextUtil.getFancyText(
+						"g",
+						TextUtil.getDimensionNameText(this.world.getRegistryKey()),
+						Messenger.s(this.world.getRegistryKey().getValue().toString()),
+						null
+				),
 				"f ] ------------"
 		));
 		int skipCount = 0;
@@ -236,7 +228,7 @@ public class MicroTimingLogger extends AbstractLogger
 				{
 					flushedTrimmedMessages.put(option, getTrimmedMessages(flushedMessages, option));
 				}
-				LoggerRegistry.getLogger(NAME).log((option) -> flushedTrimmedMessages.get(LoggingOption.valueOf(option.toUpperCase())));
+				LoggerRegistry.getLogger(NAME).log(option -> flushedTrimmedMessages.get(LoggingOption.getOrDefault(option)));
 			}
 		}
 	}
@@ -248,5 +240,19 @@ public class MicroTimingLogger extends AbstractLogger
 		UNIQUE;
 
 		public static final LoggingOption DEFAULT = MERGED;
+
+		public static LoggingOption getOrDefault(String option)
+		{
+			LoggingOption loggingOption;
+			try
+			{
+				loggingOption = LoggingOption.valueOf(option.toUpperCase());
+			}
+			catch (IllegalArgumentException e)
+			{
+				loggingOption = LoggingOption.DEFAULT;
+			}
+			return loggingOption;
+		}
 	}
 }

@@ -65,7 +65,7 @@ public class MicroTimingMessage
 	}
 	public MicroTimingMessage(MicroTimingLogger logger, RegistryKey<World> dimensionType, BlockPos pos, DyeColor color, BaseEvent event)
 	{
-		this(dimensionType, pos, color, event, logger.getTickStage(), logger.getTickStageDetail(), logger.getTickStageExtra(), StackTraceDeobfuscator.deobfuscateStackTrace((new Exception(logger.getClass().getName())).getStackTrace()));
+		this(dimensionType, pos, color, event, logger.getTickStage(), logger.getTickStageDetail(), logger.getTickStageExtra(), StackTraceDeobfuscator.deobfuscateStackTrace(Thread.currentThread().getStackTrace()));
 	}
 
 	public MessageType getMessageType()

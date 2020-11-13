@@ -96,6 +96,13 @@
   "rule.microTiming.extra.4": "- 侦测器、活塞、末地烛：指向羊毛块",
   "rule.microTiming.extra.5": "- 中继器、比较器、铁轨、按钮等：放置在羊毛块上",
   "rule.microTiming.extra.6": "除此之外，一种通用的记录方块动作的收单是使用羊毛块上的末地烛指向需记录的方块",
+  "rule.microTiming.extra.7": "可通过操控规则 微时序目标(microTimingTarget) 以切换记录方法",
+
+  "rule.microTimingTarget.name": "微时序目标",
+  "rule.microTimingTarget.desc": "设置指定微时序记录器记录目标的方法",
+  "rule.microTimingTarget.extra.0": "labelled: 记录被羊毛块标记的事件",
+  "rule.microTimingTarget.extra.1": "in_range: 记录离任意玩家32m内的事件",
+  "rule.microTimingTarget.extra.2": "all: 记录所有事件。谨慎使用",
 
   "rule.antiSpamDisabled.name": "禁用反刷屏监测",
   "rule.antiSpamDisabled.desc": "禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却",
@@ -136,6 +143,8 @@
 
   "logger.microTiming.dimension": "维度",
   "logger.microTiming.player": "玩家",
+  "logger.microTiming.entity": "实体",
+  "logger.microTiming.type": "类型",
   "logger.microTiming.block": "方块",
   "logger.microTiming.order": "次序",
   "logger.microTiming.depth": "深度",
@@ -149,6 +158,7 @@
   "logger.microTiming.gametime": "游戏刻",
   "logger.microTiming.return_value": "返回值",
   "logger.microTiming.merged_message": "已合并额外%d条相同的信息",
+  "logger.microTiming.deobfuscated_stack_trace": "反混淆后的堆栈跟踪",
   "logger.microTiming.direction.down": "下",
   "logger.microTiming.direction.up": "上",
   "logger.microTiming.direction.north": "北",
