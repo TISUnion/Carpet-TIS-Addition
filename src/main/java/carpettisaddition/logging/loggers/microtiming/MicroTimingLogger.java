@@ -39,25 +39,11 @@ public class MicroTimingLogger extends AbstractLogger
 	private TickStageExtraBase stageExtra;
 	private final ServerWorld world;
 	public final MessageList messageList = new MessageList();
-	private final BaseText dimensionDisplayTextGray;
 
 	public MicroTimingLogger(ServerWorld world)
 	{
 		super(NAME);
 		this.world = world;
-		if (world != null)
-		{
-			this.dimensionDisplayTextGray = TextUtil.getFancyText(
-					"g",
-					TextUtil.getDimensionNameText(this.world.getDimension().getType()),
-					Messenger.s(this.world.getDimension().getType().toString()),
-					null
-			);
-		}
-		else
-		{
-			this.dimensionDisplayTextGray = null;
-		}
 	}
 	
 	public void setTickStage(TickStage stage)
@@ -184,7 +170,12 @@ public class MicroTimingLogger extends AbstractLogger
 				"^w world.getTime()",
 				"g  " + this.world.getTime(),
 				"f  @ ",
-				this.dimensionDisplayTextGray,
+				TextUtil.getFancyText(
+						"g",
+						TextUtil.getDimensionNameText(this.world.getDimension().getType()),
+						Messenger.s(this.world.getDimension().getType().toString()),
+						null
+				),
 				"f ] ------------"
 		));
 		int skipCount = 0;
@@ -236,7 +227,7 @@ public class MicroTimingLogger extends AbstractLogger
 				{
 					flushedTrimmedMessages.put(option, getTrimmedMessages(flushedMessages, option));
 				}
-				LoggerRegistry.getLogger(NAME).log((option) -> flushedTrimmedMessages.get(LoggingOption.valueOf(option.toUpperCase())));
+				LoggerRegistry.getLogger(NAME).log(option -> flushedTrimmedMessages.get(LoggingOption.getOrDefault(option)));
 			}
 		}
 	}
@@ -248,5 +239,19 @@ public class MicroTimingLogger extends AbstractLogger
 		UNIQUE;
 
 		public static final LoggingOption DEFAULT = MERGED;
+
+		public static LoggingOption getOrDefault(String option)
+		{
+			LoggingOption loggingOption;
+			try
+			{
+				loggingOption = LoggingOption.valueOf(option.toUpperCase());
+			}
+			catch (IllegalArgumentException e)
+			{
+				loggingOption = LoggingOption.DEFAULT;
+			}
+			return loggingOption;
+		}
 	}
 }
