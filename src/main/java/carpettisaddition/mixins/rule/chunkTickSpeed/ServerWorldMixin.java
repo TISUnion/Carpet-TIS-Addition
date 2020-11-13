@@ -48,7 +48,7 @@ public abstract class ServerWorldMixin
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerChunkManager;tick(Ljava/util/function/BooleanSupplier;)V"
+					target = "Lnet/minecraft/server/world/ServerWorld;getChunkManager()Lnet/minecraft/server/world/ServerChunkManager;"
 			)
 	)
 	void resetTickChunkDepth(BooleanSupplier shouldKeepTicking, CallbackInfo ci)

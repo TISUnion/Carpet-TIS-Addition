@@ -2,8 +2,8 @@ package carpettisaddition.mixins.logger.microtiming.tickstages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IWorldMixin;
 import carpettisaddition.logging.loggers.microtiming.tickstages.BlockEventTickStageExtra;
-import carpettisaddition.logging.loggers.microtiming.tickstages.StringTickStageExtra;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TileTickTickStageExtra;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
+
 	@Inject(
 			method = "tick",
 			at = @At(
@@ -171,12 +172,16 @@ public abstract class ServerWorldMixin
 	private void onStageEntities(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.ENTITY);
+		((IWorldMixin)this).setEntityOrderCounter(0);
 	}
 
-	@Inject(
-			method = "tickChunk",
-			at = @At("HEAD")
-	)
+	/*
+	 * -------------------
+	 *  Chunk Tick starts
+	 * -------------------
+	 */
+
+	@Inject(method = "tickChunk", at = @At("HEAD"))
 	private void onTickChunk(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.CHUNK_TICK);
@@ -217,4 +222,10 @@ public abstract class ServerWorldMixin
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, "RandomTick");
 	}
+
+	/*
+	 * -----------------
+	 *  Chunk Tick ends
+	 * -----------------
+	 */
 }
