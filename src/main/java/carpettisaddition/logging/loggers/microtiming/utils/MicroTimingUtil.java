@@ -205,7 +205,7 @@ public class MicroTimingUtil
 			}
 			if (useBackup)
 			{
-				optionalDyeColor = Optional.of(DyeColor.WHITE);
+				optionalDyeColor = Optional.of(DyeColor.LIGHT_GRAY);
 			}
 		}
 		return optionalDyeColor;
