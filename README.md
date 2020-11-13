@@ -338,6 +338,8 @@ EndRods will detect block updates and redstone components will show their action
 
 Beside that, a universal block actions logging method is using EndRod on wool block to point on the block you want to log
 
+Check rule [microTimingTarget](#microTimingTarget) to see how to switch logging method
+
 - Type: `boolean`  
 - Default value: `false`  
 - Suggested options: `false`, `true`

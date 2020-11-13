@@ -280,7 +280,8 @@ public class CarpetTISAdditionSettings
 					"EndRods will detect block updates and redstone components will show their actions",
 					"- Observer, Piston, EndRod: pointing towards wool",
 					"- Repeater, Comparator, Rail, Button, etc.: placed on wool",
-					"Beside that, a universal block actions logging method is using EndRod on wool block to point on the block you want to log"
+					"Beside that, a universal block actions logging method is using EndRod on wool block to point on the block you want to log",
+					"Check rule microTimingTarget to see how to switch logging method"
 			},
 			category = {TIS, CREATIVE}
 	)
