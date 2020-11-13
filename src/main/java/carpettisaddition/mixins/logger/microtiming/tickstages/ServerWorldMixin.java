@@ -2,8 +2,8 @@ package carpettisaddition.mixins.logger.microtiming.tickstages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IWorldMixin;
 import carpettisaddition.logging.loggers.microtiming.tickstages.BlockEventTickStageExtra;
-import carpettisaddition.logging.loggers.microtiming.tickstages.StringTickStageExtra;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TileTickTickStageExtra;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
@@ -181,28 +181,19 @@ public abstract class ServerWorldMixin
 					args = "stringValue=entities"
 			)
 	)
-	private void onStageEntitiesWeather(CallbackInfo ci)
+	private void onStageEntities(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.ENTITY);
-		MicroTimingLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStageExtra.ENTITY_WEATHER_EFFECT);
+		((IWorldMixin)this).setEntityOrderCounter(0);
 	}
 
-	@Inject(
-			method = "tick",
-			at = @At(
-					value = "CONSTANT",
-					args = "stringValue=regular"
-			)
-	)
-	private void onStageEntitiesRegular(CallbackInfo ci)
-	{
-		MicroTimingLoggerManager.setTickStageExtra((ServerWorld)(Object)this, StringTickStageExtra.ENTITY_REGULAR);
-	}
+	/*
+	 * -------------------
+	 *  Chunk Tick starts
+	 * -------------------
+	 */
 
-	@Inject(
-			method = "tickChunk",
-			at = @At("HEAD")
-	)
+	@Inject(method = "tickChunk", at = @At("HEAD"))
 	private void onTickChunk(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.CHUNK_TICK);
@@ -243,4 +234,10 @@ public abstract class ServerWorldMixin
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, "RandomTick");
 	}
+
+	/*
+	 * -----------------
+	 *  Chunk Tick ends
+	 * -----------------
+	 */
 }

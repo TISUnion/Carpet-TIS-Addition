@@ -2,7 +2,9 @@ package carpettisaddition.logging.loggers.microtiming.utils;
 
 import carpet.utils.Messenger;
 import carpet.utils.WoolTool;
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
@@ -109,7 +111,7 @@ public class MicroTimingUtil
 		}
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		BlockPos woolPos = pos;
+		BlockPos woolPos;
 
 		if (block instanceof ObserverBlock || block instanceof EndRodBlock ||
 				block instanceof PistonBlock || block instanceof PistonExtensionBlock)
@@ -184,6 +186,27 @@ public class MicroTimingUtil
 		if (!optionalDyeColor.isPresent())
 		{
 			optionalDyeColor = getEndRodWoolColor(world, pos);
+		}
+		if (!optionalDyeColor.isPresent())
+		{
+			boolean useBackup;
+			switch (CarpetTISAdditionSettings.microTimingTarget)
+			{
+				case IN_RANGE:
+					useBackup = world.getClosestPlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, MicroTimingTarget.IN_RANGE_RADIUS, player -> true) != null;
+					break;
+				case ALL:
+					useBackup = true;
+					break;
+				case LABELLED:
+				default:
+					useBackup = false;
+					break;
+			}
+			if (useBackup)
+			{
+				optionalDyeColor = Optional.of(DyeColor.WHITE);
+			}
 		}
 		return optionalDyeColor;
 	}
