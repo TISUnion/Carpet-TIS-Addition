@@ -1,8 +1,9 @@
 package carpettisaddition.mixins.logger.microtiming.tickstages;
 
-import carpettisaddition.interfaces.IWorld_microTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IWorldMixin;
+import carpettisaddition.logging.loggers.microtiming.tickstages.EntityTickStageExtra;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Consumer;
 
 @Mixin(World.class)
-public abstract class WorldMixin implements IWorld_microTimingLogger
+public abstract class WorldMixin implements IWorldMixin
 {
 	/*
 	 * ---------------
