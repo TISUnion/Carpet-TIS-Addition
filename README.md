@@ -351,7 +351,9 @@ Check rule [microTimingTarget](#microTimingTarget) to see how to switch logging 
 Modify the way to specify events to be logged in microTiming logger
 
 `labelled`: Logs events labelled with wool
+
 `in_range`: Logs events within 32m of any player
+
 `all`: Logs every event. **Use with caution**
 
 - Type: `enum`  
