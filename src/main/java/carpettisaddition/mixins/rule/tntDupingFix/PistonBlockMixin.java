@@ -91,7 +91,7 @@ public abstract class PistonBlockMixin
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
-							target = "Lnet/minecraft/block/PistonBlock;isSticky:Z"
+							target = "Lnet/minecraft/block/PistonBlock;sticky:Z"
 					)
 			),
 			at = @At(
