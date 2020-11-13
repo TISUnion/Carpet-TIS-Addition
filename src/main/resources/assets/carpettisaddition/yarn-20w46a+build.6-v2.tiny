@@ -22247,7 +22247,10 @@ c	bli	net/minecraft/class_1755	net/minecraft/item/BucketItem
 	f	Lcxm;	a	field_7905	fluid
 c	blj	net/minecraft/class_5537	net/minecraft/item/BundleItem
 	m	(Lbgl;Lbmx;)V	a	method_32343	method_32343
+		p	1			stack
 	m	(Lbmx;Lbgl;)V	a	method_31557	emptyBundle
+		p	0			stack
+		p	1			playerInventory
 	m	(Lbmx;Lmi;)Z	a	method_31558	method_31558
 	m	(Lbmx;Lmo;)Ljava/util/Optional;	a	method_32344	method_32344
 	m	(Lna;)Lbmx;	a	method_31559	method_31559
@@ -22255,8 +22258,11 @@ c	blj	net/minecraft/class_5537	net/minecraft/item/BundleItem
 		p	0			bundle
 		p	1			stack
 	m	(Lbmx;)F	d	method_31561	getAmountFilled
+		p	0			stack
 	m	(Lbmx;)I	k	method_31562	getItemOccupancy
+		p	0			stack
 	m	(Lbmx;)I	o	method_31563	getBundleOccupancy
+		p	0			stack
 	m	(Lbmx;)Ljava/util/stream/Stream;	p	method_32345	method_32345
 	m	(Lbmx;)I	q	method_31564	method_31564
 	f	I	a	field_27016	ITEM_BAR_COLOR
@@ -22678,6 +22684,10 @@ c	bmt	net/minecraft/class_1792	net/minecraft/item/Item
 		p	1			stack
 		p	2			ingredient
 	m	(Lbmx;Lbmx;Lbja;Lbgl;)Z	a	method_31565	onStackClicked
+		p	1			stack
+		p	2			otherStack
+		p	3			clickType
+		p	4			playerInventory
 	m	(Lbmx;Lbsv;Laqk;IZ)V	a	method_7888	inventoryTick
 		p	1			stack
 		p	2			world
@@ -22742,6 +22752,10 @@ c	bmt	net/minecraft/class_1792	net/minecraft/item/Item
 	m	(I)Lbmt;	b	method_7875	byRawId
 		p	0			id
 	m	(Lbmx;Lbmx;Lbja;Lbgl;)Z	b	method_31566	onClicked
+		p	1			stack
+		p	2			otherStack
+		p	3			clickType
+		p	4			playerInventory
 	m	(Lbmx;Lbsv;Lbgm;)V	b	method_7843	onCraft
 		c	Called when a player acquires the item by crafting, smelting, smithing, etc.
 		p	1			stack
@@ -22756,14 +22770,17 @@ c	bmt	net/minecraft/class_1792	net/minecraft/item/Item
 	m	(Lbmx;)Lbol;	d_	method_7853	getUseAction
 		p	1			stack
 	m	(Lbmx;)Z	e	method_31567	isItemBarVisible
+		p	1			stack
 	m	(Lbmx;)I	e_	method_7881	getMaxUseTime
 		p	1			stack
 	m	()Z	f	method_31568	hasStoredInventory
 	m	(Lbmx;)I	f	method_31569	getItemBarStep
+		p	1			stack
 	m	(Lbmx;)Z	f_	method_7870	isEnchantable
 		p	1			stack
 	m	()Lady;	g	method_31570	method_31570
 	m	(Lbmx;)I	g	method_31571	getItemBarColor
+		p	1			stack
 	m	()Lady;	h	method_21830	getEatSound
 	m	(Lbmx;)Ljava/util/Optional;	h	method_32346	method_32346
 	m	(Lbmx;)Z	i	method_7886	hasGlint
@@ -47799,7 +47816,7 @@ c	dem$1	net/minecraft/class_227$1	net/minecraft/loot/condition/WeatherCheckLootC
 c	dem$b	net/minecraft/class_227$class_228	net/minecraft/loot/condition/WeatherCheckLootCondition$Serializer
 	m	(Lcom/google/gson/JsonObject;Ldem;Lcom/google/gson/JsonSerializationContext;)V	a	method_960	toJson
 	m	(Lcom/google/gson/JsonObject;Lcom/google/gson/JsonDeserializationContext;)Ldem;	b	method_961	fromJson
-c	deo	net/minecraft/class_5646	net/minecraft/class_5646
+c	deo	net/minecraft/class_5646	net/minecraft/loot/provider/nbt/ContextLootNbtProvider
 	m	(Ldeo;)Ldeo$b;	a	method_32428	method_32428
 	m	(Ljava/lang/String;)Ldeo;	a	method_32429	method_32429
 	m	(Ldbk$c;)Ldeo$b;	b	method_32430	method_32430
@@ -47807,37 +47824,43 @@ c	deo	net/minecraft/class_5646	net/minecraft/class_5646
 	f	Ldeo;	a	field_27914	field_27914
 	f	Ldeo$b;	b	field_27915	field_27915
 	f	Ldeo$b;	c	field_27916	field_27916
-c	deo$1	net/minecraft/class_5646$1	net/minecraft/class_5646$1
-c	deo$2	net/minecraft/class_5646$2	net/minecraft/class_5646$2
+c	deo$1	net/minecraft/class_5646$1	net/minecraft/loot/provider/nbt/ContextLootNbtProvider$1
+c	deo$2	net/minecraft/class_5646$2	net/minecraft/loot/provider/nbt/ContextLootNbtProvider$2
 	f	Ldbk$c;	a	field_27917	field_27917
-c	deo$a	net/minecraft/class_5646$class_5647	net/minecraft/class_5646$class_5647
+c	deo$a	net/minecraft/class_5646$class_5647	net/minecraft/loot/provider/nbt/ContextLootNbtProvider$CustomSerializer
 	m	(Ldeo;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;	a	method_32432	toJson
 	m	(Lcom/google/gson/JsonElement;Lcom/google/gson/JsonDeserializationContext;)Ldeo;	b	method_32433	fromJson
-c	deo$b	net/minecraft/class_5646$class_5648	net/minecraft/class_5646$class_5648
+c	deo$b	net/minecraft/class_5646$class_5648	net/minecraft/loot/provider/nbt/ContextLootNbtProvider$class_5648
 	m	()Ljava/lang/String;	a	method_32434	method_32434
 	m	(Ldbk;)Lna;	a	method_32435	method_32435
 	m	()Ljava/util/Set;	b	method_32436	method_32436
-c	deo$c	net/minecraft/class_5646$class_5649	net/minecraft/class_5646$class_5649
+c	deo$c	net/minecraft/class_5646$class_5649	net/minecraft/loot/provider/nbt/ContextLootNbtProvider$Serializer
 	m	(Lcom/google/gson/JsonObject;Ldeo;Lcom/google/gson/JsonSerializationContext;)V	a	method_32437	toJson
 	m	(Lcom/google/gson/JsonObject;Lcom/google/gson/JsonDeserializationContext;)Ldeo;	b	method_32438	fromJson
-c	dep	net/minecraft/class_5650	net/minecraft/class_5650
-c	deq	net/minecraft/class_5651	net/minecraft/class_5651
-	m	()Ldep;	a	method_32439	method_32439
+c	dep	net/minecraft/class_5650	net/minecraft/loot/provider/nbt/LootNbtProviderType
+c	deq	net/minecraft/class_5651	net/minecraft/loot/provider/nbt/LootNbtProvider
+	m	()Ldep;	a	method_32439	getType
 	m	(Ldbk;)Lna;	a	method_32440	method_32440
 	m	()Ljava/util/Set;	b	method_32441	method_32441
-c	der	net/minecraft/class_5652	net/minecraft/class_5652
+c	der	net/minecraft/class_5652	net/minecraft/loot/provider/nbt/LootNbtProviderTypes
 	m	()Ljava/lang/Object;	a	method_32442	method_32442
-	m	(Ljava/lang/String;Ldbq;)Ldep;	a	method_32443	method_32443
-	f	Ldep;	a	field_27918	field_27918
-	f	Ldep;	b	field_27919	field_27919
-c	des	net/minecraft/class_5653	net/minecraft/class_5653
+	m	(Ljava/lang/String;Ldbq;)Ldep;	a	method_32443	register
+		p	0			id
+	f	Ldep;	a	field_27918	STORAGE
+	f	Ldep;	b	field_27919	CONTEXT
+c	des	net/minecraft/class_5653	net/minecraft/loot/provider/nbt/StorageLootNbtProvider
+	m	(Lvs;)V	<init>	<init>	<init>
+		p	1			source
 	m	(Ldes;)Lvs;	a	method_32444	method_32444
-	f	Lvs;	a	field_27920	field_27920
-c	des$1	net/minecraft/class_5653$1	net/minecraft/class_5653$1
-c	des$a	net/minecraft/class_5653$class_5654	net/minecraft/class_5653$class_5654
+	f	Lvs;	a	field_27920	source
+c	des$1	net/minecraft/class_5653$1	net/minecraft/loot/provider/nbt/StorageLootNbtProvider$1
+c	des$a	net/minecraft/class_5653$class_5654	net/minecraft/loot/provider/nbt/StorageLootNbtProvider$Serializer
 	m	(Lcom/google/gson/JsonObject;Ldes;Lcom/google/gson/JsonSerializationContext;)V	a	method_32445	toJson
 	m	(Lcom/google/gson/JsonObject;Lcom/google/gson/JsonDeserializationContext;)Ldes;	b	method_32446	fromJson
-c	deu	net/minecraft/class_40	net/minecraft/loot/BinomialLootTableRange
+c	deu	net/minecraft/class_40	net/minecraft/loot/provider/number/BinomialLootNumberProvider
+	m	(Ldex;Ldex;)V	<init>	<init>	<init>
+		p	1			n
+		p	2			p
 	m	(IF)Ldeu;	a	method_273	create
 		p	0			n
 		p	1			p
@@ -47845,44 +47868,50 @@ c	deu	net/minecraft/class_40	net/minecraft/loot/BinomialLootTableRange
 	m	(Ldeu;)Ldex;	b	method_274	method_274
 	f	Ldex;	a	field_918	n
 	f	Ldex;	b	field_917	p
-c	deu$1	net/minecraft/class_40$1	net/minecraft/loot/BinomialLootTableRange$1
-c	deu$a	net/minecraft/class_40$class_41	net/minecraft/loot/BinomialLootTableRange$Serializer
+c	deu$1	net/minecraft/class_40$1	net/minecraft/loot/provider/number/BinomialLootNumberProvider$1
+c	deu$a	net/minecraft/class_40$class_41	net/minecraft/loot/provider/number/BinomialLootNumberProvider$Serializer
 	m	(Lcom/google/gson/JsonObject;Ldeu;Lcom/google/gson/JsonSerializationContext;)V	a	method_276	toJson
 	m	(Lcom/google/gson/JsonObject;Lcom/google/gson/JsonDeserializationContext;)Ldeu;	b	method_275	fromJson
-c	dev	net/minecraft/class_44	net/minecraft/loot/ConstantLootTableRange
-	m	(F)Ldev;	a	method_32448	method_32448
+c	dev	net/minecraft/class_44	net/minecraft/loot/provider/number/ConstantLootNumberProvider
+	m	(F)V	<init>	<init>	<init>
+		p	1			value
+	m	(F)Ldev;	a	method_32448	create
+		p	0			value
 	m	(Ldev;)F	a	method_32449	method_32449
 	m	(Ljava/lang/Object;)Z	equals	equals	equals
 	m	()I	hashCode	hashCode	hashCode
 	f	F	a	field_922	value
-c	dev$1	net/minecraft/class_44$1	net/minecraft/loot/ConstantLootTableRange$1
-c	dev$a	net/minecraft/class_44$class_5655	net/minecraft/loot/ConstantLootTableRange$class_5655
+c	dev$1	net/minecraft/class_44$1	net/minecraft/loot/provider/number/ConstantLootNumberProvider$1
+c	dev$a	net/minecraft/class_44$class_5655	net/minecraft/loot/provider/number/ConstantLootNumberProvider$CustomSerializer
 	m	(Ldev;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;	a	method_32450	toJson
 	m	(Lcom/google/gson/JsonElement;Lcom/google/gson/JsonDeserializationContext;)Ldev;	b	method_32451	fromJson
-c	dev$b	net/minecraft/class_44$class_5656	net/minecraft/loot/ConstantLootTableRange$class_5656
+c	dev$b	net/minecraft/class_44$class_5656	net/minecraft/loot/provider/number/ConstantLootNumberProvider$Serializer
 	m	(Lcom/google/gson/JsonObject;Ldev;Lcom/google/gson/JsonSerializationContext;)V	a	method_32452	toJson
 	m	(Lcom/google/gson/JsonObject;Lcom/google/gson/JsonDeserializationContext;)Ldev;	b	method_32453	fromJson
-c	dew	net/minecraft/class_5657	net/minecraft/class_5657
-c	dex	net/minecraft/class_5658	net/minecraft/class_5658
+c	dew	net/minecraft/class_5657	net/minecraft/loot/provider/number/LootNumberProviderType
+c	dex	net/minecraft/class_5658	net/minecraft/loot/provider/number/LootNumberProvider
 	m	()Ldew;	a	method_365	getType
-	m	(Ldbk;)I	a	method_366	next
-	m	(Ldbk;)F	b	method_32454	method_32454
-c	dey	net/minecraft/class_5659	net/minecraft/class_5659
+	m	(Ldbk;)I	a	method_366	nextInt
+		p	1			context
+	m	(Ldbk;)F	b	method_32454	nextFloat
+		p	1			context
+c	dey	net/minecraft/class_5659	net/minecraft/loot/provider/number/LootNumberProviderTypes
 	m	()Ljava/lang/Object;	a	method_32455	method_32455
-	m	(Ljava/lang/String;Ldbq;)Ldew;	a	method_32456	method_32456
-	f	Ldew;	a	field_27921	field_27921
-	f	Ldew;	b	field_27922	field_27922
-	f	Ldew;	c	field_27923	field_27923
-	f	Ldew;	d	field_27924	field_27924
-c	dez	net/minecraft/class_5660	net/minecraft/class_5660
+	m	(Ljava/lang/String;Ldbq;)Ldew;	a	method_32456	register
+		p	0			id
+	f	Ldew;	a	field_27921	CONSTANT
+	f	Ldew;	b	field_27922	UNIFORM
+	f	Ldew;	c	field_27923	BINOMIAL
+	f	Ldew;	d	field_27924	SCORE
+c	dez	net/minecraft/class_5660	net/minecraft/loot/provider/number/ScoreLootNumberProvider
 	m	(Ldez;)Ljava/lang/String;	a	method_32457	method_32457
 	m	(Ldez;)Ldff;	b	method_32458	method_32458
 	m	(Ldez;)F	c	method_32459	method_32459
 	f	Ldff;	a	field_27925	field_27925
 	f	Ljava/lang/String;	b	field_27926	field_27926
 	f	F	c	field_27927	field_27927
-c	dez$1	net/minecraft/class_5660$1	net/minecraft/class_5660$1
-c	dez$a	net/minecraft/class_5660$class_5661	net/minecraft/class_5660$class_5661
+c	dez$1	net/minecraft/class_5660$1	net/minecraft/loot/provider/number/ScoreLootNumberProvider$1
+c	dez$a	net/minecraft/class_5660$class_5661	net/minecraft/loot/provider/number/ScoreLootNumberProvider$Serializer
 	m	(Lcom/google/gson/JsonObject;Ldez;Lcom/google/gson/JsonSerializationContext;)V	a	method_32460	toJson
 	m	(Lcom/google/gson/JsonObject;Lcom/google/gson/JsonDeserializationContext;)Ldez;	b	method_32461	fromJson
 c	df	net/minecraft/class_2177	net/minecraft/command/argument/ColorArgumentType
@@ -47899,43 +47928,52 @@ c	df	net/minecraft/class_2177	net/minecraft/command/argument/ColorArgumentType
 	m	(Lcom/mojang/brigadier/StringReader;)Ljava/lang/Object;	parse	parse	parse
 	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	a	field_9840	INVALID_COLOR_EXCEPTION
 	f	Ljava/util/Collection;	b	field_9839	EXAMPLES
-c	dfa	net/minecraft/class_5662	net/minecraft/class_5662
-	m	(FF)Ldfa;	a	method_32462	method_32462
+c	dfa	net/minecraft/class_5662	net/minecraft/loot/provider/number/UniformLootNumberProvider
+	m	(Ldex;Ldex;)V	<init>	<init>	<init>
+		p	1			min
+		p	2			max
+	m	(FF)Ldfa;	a	method_32462	create
+		p	0			min
+		p	1			max
 	m	(Ldfa;)Ldex;	a	method_32463	method_32463
 	m	(Ldfa;)Ldex;	b	method_32464	method_32464
-	f	Ldex;	a	field_27928	field_27928
-	f	Ldex;	b	field_27929	field_27929
-c	dfa$1	net/minecraft/class_5662$1	net/minecraft/class_5662$1
-c	dfa$a	net/minecraft/class_5662$class_5663	net/minecraft/class_5662$class_5663
+	f	Ldex;	a	field_27928	min
+	f	Ldex;	b	field_27929	max
+c	dfa$1	net/minecraft/class_5662$1	net/minecraft/loot/provider/number/UniformLootNumberProvider$1
+c	dfa$a	net/minecraft/class_5662$class_5663	net/minecraft/loot/provider/number/UniformLootNumberProvider$Serializer
 	m	(Lcom/google/gson/JsonObject;Ldfa;Lcom/google/gson/JsonSerializationContext;)V	a	method_32465	toJson
 	m	(Lcom/google/gson/JsonObject;Lcom/google/gson/JsonDeserializationContext;)Ldfa;	b	method_32466	fromJson
-c	dfc	net/minecraft/class_5664	net/minecraft/class_5664
+c	dfc	net/minecraft/class_5664	net/minecraft/loot/provider/score/ContextLootScoreProvider
 	m	(Ldfc;)Ldbk$c;	a	method_32467	method_32467
 	f	Ldbk$c;	a	field_27930	field_27930
-c	dfc$1	net/minecraft/class_5664$1	net/minecraft/class_5664$1
-c	dfc$a	net/minecraft/class_5664$class_5665	net/minecraft/class_5664$class_5665
+c	dfc$1	net/minecraft/class_5664$1	net/minecraft/loot/provider/score/ContextLootScoreProvider$1
+c	dfc$a	net/minecraft/class_5664$class_5665	net/minecraft/loot/provider/score/ContextLootScoreProvider$class_5665
 	m	(Ldfc;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;	a	method_32468	toJson
 	m	(Lcom/google/gson/JsonElement;Lcom/google/gson/JsonDeserializationContext;)Ldfc;	b	method_32469	fromJson
-c	dfc$b	net/minecraft/class_5664$class_5666	net/minecraft/class_5664$class_5666
+c	dfc$b	net/minecraft/class_5664$class_5666	net/minecraft/loot/provider/score/ContextLootScoreProvider$class_5666
 	m	(Lcom/google/gson/JsonObject;Ldfc;Lcom/google/gson/JsonSerializationContext;)V	a	method_32470	toJson
 	m	(Lcom/google/gson/JsonObject;Lcom/google/gson/JsonDeserializationContext;)Ldfc;	b	method_32471	fromJson
-c	dfd	net/minecraft/class_5667	net/minecraft/class_5667
+c	dfd	net/minecraft/class_5667	net/minecraft/loot/provider/score/FixedLootScoreProvider
+	m	(Ljava/lang/String;)V	<init>	<init>	<init>
+		p	1			name
 	m	(Ldfd;)Ljava/lang/String;	a	method_32472	method_32472
-	f	Ljava/lang/String;	a	field_27931	field_27931
-c	dfd$1	net/minecraft/class_5667$1	net/minecraft/class_5667$1
-c	dfd$a	net/minecraft/class_5667$class_5668	net/minecraft/class_5667$class_5668
+	f	Ljava/lang/String;	a	field_27931	name
+c	dfd$1	net/minecraft/class_5667$1	net/minecraft/loot/provider/score/FixedLootScoreProvider$1
+c	dfd$a	net/minecraft/class_5667$class_5668	net/minecraft/loot/provider/score/FixedLootScoreProvider$Serializer
 	m	(Lcom/google/gson/JsonObject;Ldfd;Lcom/google/gson/JsonSerializationContext;)V	a	method_32473	toJson
 	m	(Lcom/google/gson/JsonObject;Lcom/google/gson/JsonDeserializationContext;)Ldfd;	b	method_32474	fromJson
-c	dfe	net/minecraft/class_5669	net/minecraft/class_5669
-c	dff	net/minecraft/class_5670	net/minecraft/class_5670
-	m	()Ldfe;	a	method_32475	method_32475
-	m	(Ldbk;)Ljava/lang/String;	a	method_32476	method_32476
+c	dfe	net/minecraft/class_5669	net/minecraft/loot/provider/score/LootScoreProviderType
+c	dff	net/minecraft/class_5670	net/minecraft/loot/provider/score/LootScoreProvider
+	m	()Ldfe;	a	method_32475	getType
+	m	(Ldbk;)Ljava/lang/String;	a	method_32476	getName
+		p	1			context
 	m	()Ljava/util/Set;	b	method_32477	method_32477
-c	dfg	net/minecraft/class_5671	net/minecraft/class_5671
+c	dfg	net/minecraft/class_5671	net/minecraft/loot/provider/score/LootScoreProviderTypes
 	m	()Ljava/lang/Object;	a	method_32478	method_32478
-	m	(Ljava/lang/String;Ldbq;)Ldfe;	a	method_32479	method_32479
-	f	Ldfe;	a	field_27932	field_27932
-	f	Ldfe;	b	field_27933	field_27933
+	m	(Ljava/lang/String;Ldbq;)Ldfe;	a	method_32479	register
+		p	0			id
+	f	Ldfe;	a	field_27932	FIXED
+	f	Ldfe;	b	field_27933	CONTEXT
 c	dfk	net/minecraft/class_231	net/minecraft/world/timer/FunctionTimerCallback
 	m	(Ldfk;)Lvs;	a	method_966	method_966
 	m	(Lnet/minecraft/server/MinecraftServer;Ldfo;J)V	a	method_967	call
@@ -54560,8 +54598,8 @@ c	dni	net/minecraft/class_310	net/minecraft/client/MinecraftClient
 	f	Ldnb;	aB	field_16762	game
 	f	Lesm;	aC	field_1758	tutorialManager
 	f	Ldvn;	aD	field_26842	socialInteractionsManager
-	f	Leab;	aE	field_27387	field_27387
-	f	Legh;	aF	field_27388	field_27388
+	f	Leab;	aE	field_27387	entityModelLoader
+	f	Legh;	aF	field_27388	blockEntityRenderDispatcher
 	f	Lero;	aG	field_1766	server
 	f	Lebc;	aH	field_1699	currentServerEntry
 	f	Lnm;	aI	field_1746	connection
@@ -58384,7 +58422,7 @@ c	drq	net/minecraft/class_425	net/minecraft/client/gui/screen/SplashScreen
 	f	J	m	field_18220	prepareCompleteTime
 c	drq$a	net/minecraft/class_425$class_4070	net/minecraft/client/gui/screen/SplashScreen$LogoTexture
 c	drr	net/minecraft/class_3929	net/minecraft/client/gui/screen/ingame/HandledScreens
-	m	()Z	a	method_17539	validateScreens
+	m	()Z	a	method_17539	isMissingScreens
 	m	(Lbjv;)Ldrr$a;	a	method_17540	getProvider
 		p	0			type
 	m	(Lbjv;Ldni;ILoa;)V	a	method_17541	open
@@ -61488,17 +61526,18 @@ c	dwu	net/minecraft/class_3881	net/minecraft/client/render/entity/model/ModelWit
 		p	2			matrices
 c	dwv	net/minecraft/class_548	net/minecraft/client/render/entity/model/ArmorStandArmorEntityModel
 	m	(Lbdd;FFFFF)V	a	method_17066	setAngles
-	m	(Leaj;)Leal;	a	method_32686	method_32686
+	m	(Leaj;)Leal;	a	method_32686	getTexturedModelData
+		p	0			dilation
 c	dww	net/minecraft/class_551	net/minecraft/client/render/entity/model/ArmorStandEntityModel
 	m	(Lbdd;FFF)V	a	method_24223	animateModel
-	m	()Leal;	c	method_31979	method_31979
+	m	()Leal;	c	method_31979	getTexturedModelData
 	m	(Lbdd;FFFFF)V	method_17066	method_17066	setAngles
 	f	Leaf;	a	field_27391	field_27391
 	f	Leaf;	b	field_27392	field_27392
 	f	Leaf;	r	field_3313	hip
 	f	Leaf;	s	field_3312	plate
 c	dwx	net/minecraft/class_553	net/minecraft/client/render/entity/model/BatEntityModel
-	m	()Leal;	a	method_31980	method_31980
+	m	()Leal;	a	method_31980	getTexturedModelData
 	m	(Lbak;FFFFF)V	a	method_17069	setAngles
 	f	Leaf;	a	field_27393	field_27393
 	f	Leaf;	b	field_3321	head
@@ -61510,7 +61549,7 @@ c	dwx	net/minecraft/class_553	net/minecraft/client/render/entity/model/BatEntity
 c	dwy	net/minecraft/class_4495	net/minecraft/client/render/entity/model/BeeEntityModel
 	m	(Lbaq;FFF)V	a	method_22111	animateModel
 	m	(Lbaq;FFFFF)V	a	method_22112	setAngles
-	m	()Leal;	c	method_31981	method_31981
+	m	()Leal;	c	method_31981	getTexturedModelData
 	f	Leaf;	a	field_20504	body
 	f	Leaf;	b	field_20506	rightWing
 	f	Leaf;	f	field_20507	leftWing
@@ -61522,7 +61561,7 @@ c	dwy	net/minecraft/class_4495	net/minecraft/client/render/entity/model/BeeEntit
 	f	Leaf;	l	field_20513	rightAntenna
 	f	F	m	field_20514	bodyPitch
 c	dwz	net/minecraft/class_555	net/minecraft/client/render/entity/model/BlazeEntityModel
-	m	()Leal;	a	method_31982	method_31982
+	m	()Leal;	a	method_31982	getTexturedModelData
 	m	(I)Ljava/lang/String;	a	method_31983	method_31983
 	m	(Leaf;I)Leaf;	a	method_31984	method_31984
 	f	Leaf;	a	field_27394	field_27394
@@ -61543,7 +61582,7 @@ c	dx$b	net/minecraft/class_2224$class_2227	net/minecraft/command/argument/Number
 	m	(Lcom/mojang/brigadier/StringReader;)Ljava/lang/Object;	parse	parse	parse
 	f	Ljava/util/Collection;	a	field_9938	EXAMPLES
 c	dxa	net/minecraft/class_554	net/minecraft/client/render/entity/model/BoatEntityModel
-	m	()Leal;	a	method_31985	method_31985
+	m	()Leal;	a	method_31985	getTexturedModelData
 	m	(Lbid;FFFFF)V	a	method_22952	setAngles
 	m	(Lbid;ILeaf;F)V	a	method_2797	setPaddleAngle
 		p	3			angle
@@ -61554,7 +61593,7 @@ c	dxa	net/minecraft/class_554	net/minecraft/client/render/entity/model/BoatEntit
 	f	Leaf;	f	field_3326	bottom
 	f	Lcom/google/common/collect/ImmutableList;	g	field_20922	parts
 c	dxb	net/minecraft/class_557	net/minecraft/client/render/entity/model/BookModel
-	m	()Leal;	a	method_31986	method_31986
+	m	()Leal;	a	method_31986	getTexturedModelData
 	m	(FFFF)V	a	method_17073	setPageAngles
 	m	(Ldit;Ldix;IIFFFF)V	b	method_24184	method_24184
 		p	1			matrices
@@ -61580,11 +61619,11 @@ c	dxc	net/minecraft/class_3680	net/minecraft/client/render/entity/model/CatEntit
 	f	F	o	field_16243	headDownAnimation
 c	dxd	net/minecraft/class_559	net/minecraft/client/render/entity/model/DonkeyEntityModel
 	m	(Lbbq;FFFFF)V	a	method_17076	setAngles
-	m	()Leal;	c	method_31987	method_31987
+	m	()Leal;	c	method_31987	getTexturedModelData
 	f	Leaf;	f	field_27399	field_27399
 	f	Leaf;	g	field_27400	field_27400
 c	dxe	net/minecraft/class_558	net/minecraft/client/render/entity/model/ChickenEntityModel
-	m	()Leal;	c	method_31988	method_31988
+	m	()Leal;	c	method_31988	getTexturedModelData
 	f	Leaf;	a	field_3344	head
 	f	Leaf;	b	field_3346	torso
 	f	Leaf;	f	field_27401	field_27401
@@ -61594,7 +61633,7 @@ c	dxe	net/minecraft/class_558	net/minecraft/client/render/entity/model/ChickenEn
 	f	Leaf;	j	field_3340	beak
 	f	Leaf;	k	field_3342	wattle
 c	dxf	net/minecraft/class_561	net/minecraft/client/render/entity/model/CodEntityModel
-	m	()Leal;	a	method_31989	method_31989
+	m	()Leal;	a	method_31989	getTexturedModelData
 	f	Leaf;	a	field_27405	field_27405
 	f	Leaf;	b	field_3350	tail
 c	dxg	net/minecraft/class_4593	net/minecraft/client/render/entity/model/TintableAnimalModel
@@ -61614,10 +61653,10 @@ c	dxh	net/minecraft/class_4594	net/minecraft/client/render/entity/model/Tintable
 	f	F	b	field_20927	greenMultiplier
 	f	F	f	field_20928	blueMultiplier
 c	dxi	net/minecraft/class_560	net/minecraft/client/render/entity/model/CowEntityModel
-	m	()Leal;	c	method_31990	method_31990
+	m	()Leal;	c	method_31990	getTexturedModelData
 	m	()Leaf;	d	method_2800	getHead
 c	dxj	net/minecraft/class_562	net/minecraft/client/render/entity/model/CreeperEntityModel
-	m	(Leaj;)Leal;	a	method_31991	method_31991
+	m	(Leaj;)Leal;	a	method_31991	getTexturedModelData
 	f	Leaf;	a	field_27406	field_27406
 	f	Leaf;	b	field_3360	head
 	f	Leaf;	f	field_27407	field_27407
@@ -61625,7 +61664,7 @@ c	dxj	net/minecraft/class_562	net/minecraft/client/render/entity/model/CreeperEn
 	f	Leaf;	h	field_27409	field_27409
 	f	Leaf;	i	field_27410	field_27410
 c	dxk	net/minecraft/class_889	net/minecraft/client/render/entity/model/DolphinEntityModel
-	m	()Leal;	a	method_31992	method_31992
+	m	()Leal;	a	method_31992	getTexturedModelData
 	f	Leaf;	a	field_27411	field_27411
 	f	Leaf;	b	field_4658	body
 	f	Leaf;	f	field_4657	tail
@@ -61633,19 +61672,19 @@ c	dxk	net/minecraft/class_889	net/minecraft/client/render/entity/model/DolphinEn
 c	dxl	net/minecraft/class_564	net/minecraft/client/render/entity/model/DrownedEntityModel
 	m	(Lbez;FFF)V	a	method_17077	animateModel
 	m	(Lbez;FFFFF)V	a	method_17134	setAngles
-	m	(Leaj;)Leal;	a	method_31993	method_31993
+	m	(Leaj;)Leal;	a	method_31993	getTexturedModelData
 c	dxm	net/minecraft/class_563	net/minecraft/client/render/entity/model/ElytraEntityModel
 	m	(Laqw;FFFFF)V	a	method_17079	setAngles
-	m	()Leal;	c	method_31994	method_31994
+	m	()Leal;	c	method_31994	getTexturedModelData
 	f	Leaf;	a	field_27412	field_27412
 	f	Leaf;	b	field_3365	field_3365
 c	dxn	net/minecraft/class_566	net/minecraft/client/render/entity/model/EndermanEntityModel
-	m	()Leal;	c	method_31995	method_31995
+	m	()Leal;	c	method_31995	getTexturedModelData
 	m	(Laqw;FFFFF)V	method_17087	method_17087	setAngles
 	f	Z	a	field_3371	carryingBlock
 	f	Z	b	field_3370	angry
 c	dxo	net/minecraft/class_565	net/minecraft/client/render/entity/model/EndermiteEntityModel
-	m	()Leal;	a	method_31996	method_31996
+	m	()Leal;	a	method_31996	getTexturedModelData
 	m	(I)Ljava/lang/String;	a	method_31997	method_31997
 	f	[[I	a	field_3366	field_3366
 	f	[[I	b	field_3369	field_3369
@@ -61670,7 +61709,7 @@ c	dxp	net/minecraft/class_583	net/minecraft/client/render/entity/model/EntityMod
 	f	Z	d	field_3449	riding
 	f	Z	e	field_3448	child
 c	dxq	net/minecraft/class_568	net/minecraft/client/render/entity/model/EvokerFangsEntityModel
-	m	()Leal;	a	method_31998	method_31998
+	m	()Leal;	a	method_31998	getTexturedModelData
 	f	Leaf;	a	field_27414	field_27414
 	f	Leaf;	b	field_3374	field_3374
 	f	Leaf;	f	field_3376	field_3376
@@ -61678,7 +61717,7 @@ c	dxq	net/minecraft/class_568	net/minecraft/client/render/entity/model/EvokerFan
 c	dxr	net/minecraft/class_4041	net/minecraft/client/render/entity/model/FoxEntityModel
 	m	(Lbax;FFF)V	a	method_18330	animateModel
 	m	(Lbax;FFFFF)V	a	method_18332	setAngles
-	m	()Leal;	c	method_31999	method_31999
+	m	()Leal;	c	method_31999	getTexturedModelData
 	f	Leaf;	a	field_18015	head
 	f	Leaf;	b	field_18019	torso
 	f	Leaf;	f	field_27415	field_27415
@@ -61688,14 +61727,14 @@ c	dxr	net/minecraft/class_4041	net/minecraft/client/render/entity/model/FoxEntit
 	f	Leaf;	j	field_18024	tail
 	f	F	k	field_18025	legPitchModifier
 c	dxs	net/minecraft/class_567	net/minecraft/client/render/entity/model/GhastEntityModel
-	m	()Leal;	a	method_32000	method_32000
+	m	()Leal;	a	method_32000	getTexturedModelData
 	m	(I)Ljava/lang/String;	a	method_32001	method_32001
 	f	Leaf;	a	field_27419	field_27419
 	f	[Leaf;	b	field_3372	tentacles
 c	dxt	net/minecraft/class_3969	net/minecraft/client/render/entity/model/GiantEntityModel
 	m	(Lbeb;)Z	a	method_17792	isAttacking
 c	dxu	net/minecraft/class_570	net/minecraft/client/render/entity/model/GuardianEntityModel
-	m	()Leal;	a	method_32002	method_32002
+	m	()Leal;	a	method_32002	getTexturedModelData
 	m	(FF)V	a	method_24185	method_24185
 	m	(I)Ljava/lang/String;	a	method_32003	method_32003
 	m	(IFF)F	a	method_32004	method_32004
@@ -61716,11 +61755,11 @@ c	dxu	net/minecraft/class_570	net/minecraft/client/render/entity/model/GuardianE
 	f	[Leaf;	n	field_3378	field_3378
 c	dxv	net/minecraft/class_3882	net/minecraft/client/render/entity/model/ModelWithHead
 	m	()Leaf;	d	method_2838	getHead
-c	dxw	net/minecraft/class_5597	net/minecraft/class_5597
-	m	()Leaf;	b	method_32008	method_32008
+c	dxw	net/minecraft/class_5597	net/minecraft/client/render/entity/model/SinglePartEntityModel
+	m	()Leaf;	b	method_32008	getPart
 c	dxx	net/minecraft/class_4791	net/minecraft/client/render/entity/model/HoglinEntityModel
 	m	(Laqx;FFFFF)V	a	method_24461	setAngles
-	m	()Leal;	c	method_32009	method_32009
+	m	()Leal;	c	method_32009	getTexturedModelData
 	f	Leaf;	a	field_22227	head
 	f	Leaf;	b	field_22228	rightEar
 	f	Leaf;	f	field_22229	leftEar
@@ -61733,7 +61772,7 @@ c	dxx	net/minecraft/class_4791	net/minecraft/client/render/entity/model/HoglinEn
 c	dxy	net/minecraft/class_549	net/minecraft/client/render/entity/model/HorseEntityModel
 	m	(Lbbr;FFF)V	a	method_17084	animateModel
 	m	(Lbbr;FFFFF)V	a	method_17085	setAngles
-	m	(Leaj;)Lean;	a	method_32010	method_32010
+	m	(Leaj;)Lean;	a	method_32010	getModelData
 	f	Leaf;	a	field_3305	torso
 	f	Leaf;	b	field_3307	head
 	f	Leaf;	f	field_27425	field_27425
@@ -61748,6 +61787,8 @@ c	dxy	net/minecraft/class_549	net/minecraft/client/render/entity/model/HorseEnti
 	f	[Leaf;	o	field_3304	field_3304
 	f	[Leaf;	p	field_3301	field_3301
 c	dxz	net/minecraft/class_572	net/minecraft/client/render/entity/model/BipedEntityModel
+	m	(Leaf;)V	<init>	<init>	<init>
+		p	1			part
 	m	(F)F	a	method_2807	method_2807
 	m	(FFF)F	a	method_2804	lerpAngle
 	m	(Laqs;)Leaf;	a	method_2808	getArm
@@ -61757,7 +61798,9 @@ c	dxz	net/minecraft/class_572	net/minecraft/client/render/entity/model/BipedEnti
 	m	(Laqw;FFF)V	a	method_17086	animateModel
 	m	(Laqw;FFFFF)V	a	method_17087	setAngles
 	m	(Ldxz;)V	a	method_2818	setAttributes
-	m	(Leaj;F)Lean;	a	method_32011	method_32011
+	m	(Leaj;F)Lean;	a	method_32011	getModelData
+		p	0			dilation
+		p	1			pivotOffsetY
 	m	(Laqw;)V	b	method_30155	method_30155
 	m	(Laqw;)Laqs;	c	method_2806	getPreferredArm
 		p	1			entity
@@ -61767,7 +61810,7 @@ c	dxz	net/minecraft/class_572	net/minecraft/client/render/entity/model/BipedEnti
 	f	Leaf;	g	field_3394	helmet
 	f	Leaf;	h	field_3391	torso
 	f	Leaf;	i	field_3401	rightArm
-	f	Leaf;	j	field_27433	field_27433
+	f	Leaf;	j	field_27433	leftArm
 	f	Leaf;	k	field_3392	rightLeg
 	f	Leaf;	l	field_3397	leftLeg
 	f	Ldxz$a;	m	field_3399	leftArmPose
@@ -61797,16 +61840,26 @@ c	dy	net/minecraft/class_2232	net/minecraft/command/argument/IdentifierArgumentT
 	m	()Ldy;	a	method_9441	identifier
 	m	(Lcom/mojang/brigadier/StringReader;)Lvs;	a	method_9446	parse
 	m	(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ly;	a	method_9439	getAdvancementArgument
+		p	0			context
+		p	1			argumentName
 	m	(Ljava/lang/Object;)Lcom/mojang/brigadier/Message;	a	method_32687	method_32687
 	m	(Lvs;)Lcom/mojang/brigadier/exceptions/CommandSyntaxException;	a	method_27574	method_27574
 	m	(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Lbpo;	b	method_9442	getRecipeArgument
+		p	0			context
+		p	1			argumentName
 	m	(Ljava/lang/Object;)Lcom/mojang/brigadier/Message;	b	method_27573	method_27573
 	m	(Lvs;)Lcom/mojang/brigadier/exceptions/CommandSyntaxException;	b	method_17788	method_17788
-	m	(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ldec;	c	method_23727	method_23727
+	m	(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ldec;	c	method_23727	getPredicateArgument
+		p	0			context
+		p	1			argumentName
 	m	(Ljava/lang/Object;)Lcom/mojang/brigadier/Message;	c	method_9445	method_9445
-	m	(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ldcv;	d	method_32688	method_32688
+	m	(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ldcv;	d	method_32688	getItemModifierArgument
+		p	0			context
+		p	1			argumentName
 	m	(Ljava/lang/Object;)Lcom/mojang/brigadier/Message;	d	method_9444	method_9444
-	m	(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Larr;	e	method_27575	method_27575
+	m	(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Larr;	e	method_27575	getAttributeArgument
+		p	0			context
+		p	1			argumentName
 	m	(Ljava/lang/Object;)Lcom/mojang/brigadier/Message;	e	method_9440	method_9440
 	m	(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Lvs;	f	method_9443	getIdentifier
 		p	0			context
@@ -61816,11 +61869,11 @@ c	dy	net/minecraft/class_2232	net/minecraft/command/argument/IdentifierArgumentT
 	f	Ljava/util/Collection;	a	field_9946	EXAMPLES
 	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	b	field_9945	UNKNOWN_ADVANCEMENT_EXCEPTION
 	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	c	field_9947	UNKNOWN_RECIPE_EXCEPTION
-	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	d	field_21506	field_21506
-	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	e	field_24267	field_24267
-	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	f	field_28002	field_28002
+	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	d	field_21506	UNKNOWN_PREDICATE_EXCEPTION
+	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	e	field_24267	UNKNOWN_ATTRIBUTE_EXCEPTION
+	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	f	field_28002	UNKNOWN_ITEM_MODIFIER_EXCEPTION
 c	dya	net/minecraft/class_575	net/minecraft/client/render/entity/model/IllagerEntityModel
-	m	()Leal;	a	method_32012	method_32012
+	m	()Leal;	a	method_32012	getTexturedModelData
 	m	(Laqs;)Leaf;	a	method_2813	getAttackingArm
 		p	1			arm
 	m	(Lbdo;FFFFF)V	a	method_17094	setAngles
@@ -61834,7 +61887,7 @@ c	dya	net/minecraft/class_575	net/minecraft/client/render/entity/model/IllagerEn
 	f	Leaf;	j	field_3426	rightAttackingArm
 	f	Leaf;	k	field_3417	leftAttackingArm
 c	dyb	net/minecraft/class_574	net/minecraft/client/render/entity/model/IronGolemEntityModel
-	m	()Leal;	a	method_32013	method_32013
+	m	()Leal;	a	method_32013	getTexturedModelData
 	m	(Lbay;FFF)V	a	method_17095	animateModel
 	m	(Lbay;FFFFF)V	a	method_17097	setAngles
 	m	()Leaf;	c	method_2809	getRightArm
@@ -61845,7 +61898,7 @@ c	dyb	net/minecraft/class_574	net/minecraft/client/render/entity/model/IronGolem
 	f	Leaf;	h	field_27439	field_27439
 	f	Leaf;	i	field_27440	field_27440
 c	dyc	net/minecraft/class_576	net/minecraft/client/render/entity/model/MagmaCubeEntityModel
-	m	()Leal;	a	method_32014	method_32014
+	m	()Leal;	a	method_32014	getTexturedModelData
 	m	(I)Ljava/lang/String;	a	method_32015	method_32015
 	m	(Lbep;FFF)V	a	method_17098	animateModel
 	m	(Lbep;FFFFF)V	a	method_22958	setAngles
@@ -61853,7 +61906,7 @@ c	dyc	net/minecraft/class_576	net/minecraft/client/render/entity/model/MagmaCube
 	f	Leaf;	a	field_27441	field_27441
 	f	[Leaf;	b	field_3427	field_3427
 c	dyd	net/minecraft/class_579	net/minecraft/client/render/entity/model/LeashKnotEntityModel
-	m	()Leal;	a	method_32017	method_32017
+	m	()Leal;	a	method_32017	getTexturedModelData
 	f	Leaf;	a	field_27442	field_27442
 	f	Leaf;	b	field_3431	leashKnot
 c	dye	net/minecraft/class_4595	net/minecraft/client/render/entity/model/CompositeEntityModel
@@ -61862,7 +61915,7 @@ c	dye	net/minecraft/class_4595	net/minecraft/client/render/entity/model/Composit
 c	dyf	net/minecraft/class_578	net/minecraft/client/render/entity/model/LlamaEntityModel
 	m	(Lbbq;FFFFF)V	a	method_22962	setAngles
 	m	(Ldit;Ldix;IIFFFFLeaf;)V	a	method_22963	method_22963
-	m	(Leaj;)Leal;	a	method_32018	method_32018
+	m	(Leaj;)Leal;	a	method_32018	getTexturedModelData
 	m	(Ldit;Ldix;IIFFFFLeaf;)V	b	method_22964	method_22964
 	f	Leaf;	a	field_27443	field_27443
 	f	Leaf;	b	field_27444	field_27444
@@ -61873,10 +61926,10 @@ c	dyf	net/minecraft/class_578	net/minecraft/client/render/entity/model/LlamaEnti
 	f	Leaf;	j	field_27449	field_27449
 	f	Leaf;	k	field_27450	field_27450
 c	dyg	net/minecraft/class_581	net/minecraft/client/render/entity/model/LlamaSpitEntityModel
-	m	()Leal;	a	method_32019	method_32019
+	m	()Leal;	a	method_32019	getTexturedModelData
 	f	Leaf;	a	field_27451	field_27451
 c	dyh	net/minecraft/class_580	net/minecraft/client/render/entity/model/MinecartEntityModel
-	m	()Leal;	a	method_32020	method_32020
+	m	()Leal;	a	method_32020	getTexturedModelData
 	f	Leaf;	a	field_27452	field_27452
 	f	Leaf;	b	field_27453	field_27453
 c	dyi	net/minecraft/class_3879	net/minecraft/client/model/Model
@@ -61900,7 +61953,7 @@ c	dyj	net/minecraft/class_4496	net/minecraft/client/model/ModelUtil
 		p	1			angle2
 		p	2			progress
 c	dyk	net/minecraft/class_582	net/minecraft/client/render/entity/model/OcelotEntityModel
-	m	(Leaj;)Lean;	a	method_32021	method_32021
+	m	(Leaj;)Lean;	a	method_32021	getModelData
 	f	Leaf;	a	field_27454	field_27454
 	f	Leaf;	b	field_27455	field_27455
 	f	Leaf;	f	field_27456	field_27456
@@ -61913,12 +61966,12 @@ c	dyk	net/minecraft/class_582	net/minecraft/client/render/entity/model/OcelotEnt
 c	dyl	net/minecraft/class_586	net/minecraft/client/render/entity/model/PandaEntityModel
 	m	(Lbbb;FFF)V	a	method_17102	animateModel
 	m	(Lbbb;FFFFF)V	a	method_17103	setAngles
-	m	()Leal;	c	method_32022	method_32022
+	m	()Leal;	c	method_32022	getTexturedModelData
 	f	F	j	field_3470	scaredAnimationProgress
 	f	F	k	field_3469	lieOnBackAnimationProgress
 	f	F	l	field_3468	playAnimationProgress
 c	dym	net/minecraft/class_584	net/minecraft/client/render/entity/model/ParrotEntityModel
-	m	()Leal;	a	method_32023	method_32023
+	m	()Leal;	a	method_32023	getTexturedModelData
 	m	(Lbbc;)Ldym$a;	a	method_17107	getPose
 		p	0			parrot
 	m	(Lbbc;FFF)V	a	method_17108	animateModel
@@ -61964,7 +62017,7 @@ c	dym$a	net/minecraft/class_584$class_585	net/minecraft/client/render/entity/mod
 	f	Ldym$a;	e	field_3464	ON_SHOULDER
 	f	[Ldym$a;	f	field_3467	field_3467
 c	dyn	net/minecraft/class_588	net/minecraft/client/render/entity/model/PhantomEntityModel
-	m	()Leal;	a	method_32024	method_32024
+	m	()Leal;	a	method_32024	getTexturedModelData
 	f	Leaf;	a	field_27463	field_27463
 	f	Leaf;	b	field_3477	leftWing
 	f	Leaf;	f	field_3476	leftWingTip
@@ -61973,18 +62026,19 @@ c	dyn	net/minecraft/class_588	net/minecraft/client/render/entity/model/PhantomEn
 	f	Leaf;	i	field_3471	tail
 	f	Leaf;	j	field_3473	lowerTail
 c	dyo	net/minecraft/class_587	net/minecraft/client/render/entity/model/PigEntityModel
-	m	(Leaj;)Leal;	a	method_32025	method_32025
+	m	(Leaj;)Leal;	a	method_32025	getTexturedModelData
 c	dyp	net/minecraft/class_4840	net/minecraft/client/render/entity/model/PiglinEntityModel
 	m	(Laqx;)V	a	method_29354	method_29354
 	m	(Laqx;F)V	a	method_29355	method_29353
 	m	(Laqx;FFFFF)V	a	method_24803	setAngles
-	m	(Leaj;)Lean;	a	method_32026	method_32026
-	f	Leaf;	a	field_27464	field_27464
-	f	Leaf;	v	field_27465	field_27465
-	f	Leah;	w	field_25634	field_25634
-	f	Leah;	x	field_25635	field_25635
-	f	Leah;	y	field_25632	field_25632
-	f	Leah;	z	field_25633	field_25633
+	m	(Leaj;)Lean;	a	method_32026	getModelData
+		p	0			dilation
+	f	Leaf;	a	field_27464	rightEar
+	f	Leaf;	v	field_27465	leftEar
+	f	Leah;	w	field_25634	torsoRotation
+	f	Leah;	x	field_25635	headRotation
+	f	Leah;	y	field_25632	leftArmRotation
+	f	Leah;	z	field_25633	rightArmRotation
 c	dyq	net/minecraft/class_591	net/minecraft/client/render/entity/model/PlayerEntityModel
 	m	(Leaf;Z)V	<init>	<init>	<init>
 		p	2			thinArms
@@ -61994,7 +62048,9 @@ c	dyq	net/minecraft/class_591	net/minecraft/client/render/entity/model/PlayerEnt
 		p	3			light
 		p	4			overlay
 	m	(Leaf;)Z	a	method_32027	method_32027
-	m	(Leaj;Z)Lean;	a	method_32028	method_32028
+	m	(Leaj;Z)Lean;	a	method_32028	getTexturedModelData
+		p	0			dilation
+		p	1			slim
 	m	(Ljava/util/Random;)Leaf;	a	method_22697	getRandomPart
 		p	1			random
 	m	(Ldit;Ldix;II)V	b	method_2823	renderCape
@@ -62014,19 +62070,19 @@ c	dyq	net/minecraft/class_591	net/minecraft/client/render/entity/model/PlayerEnt
 	f	Z	x	field_3480	thinArms
 c	dyr	net/minecraft/class_590	net/minecraft/client/render/entity/model/PolarBearEntityModel
 	m	(Lbbe;FFFFF)V	a	method_17114	setAngles
-	m	()Leal;	c	method_32029	method_32029
+	m	()Leal;	c	method_32029	getTexturedModelData
 c	dys	net/minecraft/class_592	net/minecraft/client/render/entity/model/LargePufferfishEntityModel
-	m	()Leal;	a	method_32030	method_32030
+	m	()Leal;	a	method_32030	getTexturedModelData
 	f	Leaf;	a	field_27467	field_27467
 	f	Leaf;	b	field_27468	field_27468
 	f	Leaf;	f	field_27469	field_27469
 c	dyt	net/minecraft/class_595	net/minecraft/client/render/entity/model/MediumPufferfishEntityModel
-	m	()Leal;	a	method_32031	method_32031
+	m	()Leal;	a	method_32031	getTexturedModelData
 	f	Leaf;	a	field_27470	field_27470
 	f	Leaf;	b	field_27471	field_27471
 	f	Leaf;	f	field_27472	field_27472
 c	dyu	net/minecraft/class_594	net/minecraft/client/render/entity/model/SmallPufferfishEntityModel
-	m	()Leal;	a	method_32032	method_32032
+	m	()Leal;	a	method_32032	getTexturedModelData
 	f	Leaf;	a	field_27473	field_27473
 	f	Leaf;	b	field_27474	field_27474
 	f	Leaf;	f	field_27475	field_27475
@@ -62039,7 +62095,7 @@ c	dyv	net/minecraft/class_597	net/minecraft/client/render/entity/model/Quadruped
 	f	Leaf;	h	field_27478	field_27478
 	f	Leaf;	i	field_27479	field_27479
 c	dyw	net/minecraft/class_596	net/minecraft/client/render/entity/model/RabbitEntityModel
-	m	()Leal;	a	method_32034	method_32034
+	m	()Leal;	a	method_32034	getTexturedModelData
 	m	(Lbbg;FFF)V	a	method_17115	animateModel
 	m	(Lbbg;FFFFF)V	a	method_17117	setAngles
 	m	(Ldit;Ldix;IIFFFFLeaf;)V	a	method_22966	method_22966
@@ -62059,7 +62115,7 @@ c	dyw	net/minecraft/class_596	net/minecraft/client/render/entity/model/RabbitEnt
 	f	Leaf;	o	field_3530	nose
 	f	F	p	field_3531	field_3531
 c	dyx	net/minecraft/class_571	net/minecraft/client/render/entity/model/RavagerEntityModel
-	m	()Leal;	a	method_32035	method_32035
+	m	()Leal;	a	method_32035	getTexturedModelData
 	m	(Lbel;FFF)V	a	method_17089	animateModel
 	m	(Lbel;FFFFF)V	a	method_17091	setAngles
 	f	Leaf;	a	field_27489	field_27489
@@ -62071,13 +62127,13 @@ c	dyx	net/minecraft/class_571	net/minecraft/client/render/entity/model/RavagerEn
 	f	Leaf;	j	field_27493	field_27493
 	f	Leaf;	k	field_3384	neck
 c	dyy	net/minecraft/class_599	net/minecraft/client/render/entity/model/SalmonEntityModel
-	m	()Leal;	a	method_32036	method_32036
+	m	()Leal;	a	method_32036	getTexturedModelData
 	f	Leaf;	a	field_27494	field_27494
 	f	Leaf;	b	field_3548	tail
 c	dyz	net/minecraft/class_598	net/minecraft/client/render/entity/model/SheepWoolEntityModel
 	m	(Lbbi;FFF)V	a	method_17118	animateModel
 	m	(Lbbi;FFFFF)V	a	method_17119	setAngles
-	m	()Leal;	c	method_32037	method_32037
+	m	()Leal;	c	method_32037	getTexturedModelData
 	f	F	j	field_3541	field_3541
 c	dz	net/minecraft/class_2233	net/minecraft/command/argument/ScoreHolderArgumentType
 	m	(Z)V	<init>	<init>	<init>
@@ -62121,29 +62177,30 @@ c	dz$c	net/minecraft/class_2233$class_2236	net/minecraft/command/argument/ScoreH
 c	dza	net/minecraft/class_601	net/minecraft/client/render/entity/model/SheepEntityModel
 	m	(Lbbi;FFF)V	a	method_17120	animateModel
 	m	(Lbbi;FFFFF)V	a	method_17121	setAngles
-	m	()Leal;	c	method_32038	method_32038
+	m	()Leal;	c	method_32038	getTexturedModelData
 	f	F	j	field_3552	headPitchModifier
 c	dzb	net/minecraft/class_600	net/minecraft/client/render/entity/model/ShieldEntityModel
-	m	()Leal;	a	method_32039	method_32039
+	m	()Leal;	a	method_32039	getTexturedModelData
 	m	()Leaf;	b	method_23774	getPlate
 	m	()Leaf;	c	method_23775	getHandle
 	f	Leaf;	a	field_27495	field_27495
 	f	Leaf;	b	field_3550	plate
 	f	Leaf;	c	field_3551	handle
 c	dzc	net/minecraft/class_603	net/minecraft/client/render/entity/model/ShulkerBulletEntityModel
-	m	()Leal;	a	method_32040	method_32040
+	m	()Leal;	a	method_32040	getTexturedModelData
 	f	Leaf;	a	field_27496	field_27496
 	f	Leaf;	b	field_3556	bullet
 c	dzd	net/minecraft/class_602	net/minecraft/client/render/entity/model/ShulkerEntityModel
-	m	()Leal;	a	method_32041	method_32041
+	m	()Leal;	a	method_32041	getTexturedModelData
 	m	(Lbem;FFFFF)V	a	method_17122	setAngles
 	m	()Leaf;	b	method_2829	getTopShell
 	m	()Leaf;	c	method_2830	getHead
+	m	()Leaf;	method_2831	method_2831	getBottomShell
 	f	Leaf;	a	field_3553	bottomShell
 	f	Leaf;	b	field_3555	topShell
 	f	Leaf;	f	field_3554	head
 c	dze	net/minecraft/class_604	net/minecraft/client/render/entity/model/SilverfishEntityModel
-	m	()Leal;	a	method_32042	method_32042
+	m	()Leal;	a	method_32042	getTexturedModelData
 	m	(I)Ljava/lang/String;	a	method_32043	method_32043
 	m	(Leaf;I)Leaf;	a	method_32044	method_32044
 	m	(I)Ljava/lang/String;	b	method_32045	method_32045
@@ -62156,21 +62213,21 @@ c	dze	net/minecraft/class_604	net/minecraft/client/render/entity/model/Silverfis
 c	dzf	net/minecraft/class_606	net/minecraft/client/render/entity/model/SkeletonEntityModel
 	m	(Laqx;FFF)V	a	method_19689	animateModel
 	m	(Laqx;FFFFF)V	a	method_19690	setAngles
-	m	()Leal;	c	method_32047	method_32047
+	m	()Leal;	c	method_32047	getTexturedModelData
 c	dzg	net/minecraft/class_607	net/minecraft/client/render/entity/model/SkullEntityModel
-	m	()Lean;	a	method_32048	method_32048
-	m	()Leal;	b	method_32049	method_32049
-	m	()Leal;	c	method_32050	method_32050
+	m	()Lean;	a	method_32048	getModelData
+	m	()Leal;	b	method_32049	getHeadTexturedModelData
+	m	()Leal;	c	method_32050	getSkullTexturedModelData
 	f	Leaf;	a	field_3564	skull
 	f	Leaf;	b	field_27498	field_27498
 c	dzh	net/minecraft/class_5598	net/minecraft/client/render/block/entity/SkullBlockEntityModel
 	m	(FFF)V	a	method_2821	method_2821
 c	dzi	net/minecraft/class_609	net/minecraft/client/render/entity/model/SlimeEntityModel
-	m	()Leal;	a	method_32051	method_32051
-	m	()Leal;	c	method_32052	method_32052
+	m	()Leal;	a	method_32051	getOuterTexturedModelData
+	m	()Leal;	c	method_32052	getInnerTexturedModelData
 	f	Leaf;	a	field_27499	field_27499
 c	dzj	net/minecraft/class_608	net/minecraft/client/render/entity/model/SnowGolemEntityModel
-	m	()Leal;	a	method_32053	method_32053
+	m	()Leal;	a	method_32053	getTexturedModelData
 	m	()Leaf;	c	method_2834	getTopSnowball
 	f	Leaf;	a	field_27500	field_27500
 	f	Leaf;	b	field_27501	field_27501
@@ -62178,7 +62235,7 @@ c	dzj	net/minecraft/class_608	net/minecraft/client/render/entity/model/SnowGolem
 	f	Leaf;	g	field_27502	field_27502
 	f	Leaf;	h	field_27503	field_27503
 c	dzk	net/minecraft/class_611	net/minecraft/client/render/entity/model/SpiderEntityModel
-	m	()Leal;	a	method_32054	method_32054
+	m	()Leal;	a	method_32054	getTexturedModelData
 	f	Leaf;	a	field_27504	field_27504
 	f	Leaf;	b	field_3583	head
 	f	Leaf;	f	field_27505	field_27505
@@ -62190,13 +62247,13 @@ c	dzk	net/minecraft/class_611	net/minecraft/client/render/entity/model/SpiderEnt
 	f	Leaf;	l	field_27511	field_27511
 	f	Leaf;	m	field_27512	field_27512
 c	dzl	net/minecraft/class_610	net/minecraft/client/render/entity/model/SquidEntityModel
-	m	()Leal;	a	method_32055	method_32055
+	m	()Leal;	a	method_32055	getTexturedModelData
 	m	(I)Ljava/lang/String;	a	method_32056	method_32056
 	m	(Leaf;I)Leaf;	a	method_32057	method_32057
 	f	[Leaf;	a	field_3574	tentacles
 	f	Leaf;	b	field_27513	field_27513
 c	dzm	net/minecraft/class_4997	net/minecraft/client/render/entity/model/StriderEntityModel
-	m	()Leal;	a	method_32058	method_32058
+	m	()Leal;	a	method_32058	getTexturedModelData
 	m	(Lbet;FFFFF)V	a	method_26414	setAngles
 	f	Leaf;	a	field_27514	field_27514
 	f	Leaf;	b	field_23353	field_23353
@@ -62209,32 +62266,32 @@ c	dzm	net/minecraft/class_4997	net/minecraft/client/render/entity/model/StriderE
 	f	Leaf;	l	field_27519	field_27519
 	f	Leaf;	m	field_27520	field_27520
 c	dzn	net/minecraft/class_613	net/minecraft/client/render/entity/model/TridentEntityModel
-	m	()Leal;	a	method_32059	method_32059
+	m	()Leal;	a	method_32059	getTexturedModelData
 	f	Lvs;	a	field_3592	TEXTURE
 	f	Leaf;	b	field_27521	field_27521
 c	dzo	net/minecraft/class_612	net/minecraft/client/render/entity/model/SmallTropicalFishEntityModel
-	m	(Leaj;)Leal;	a	method_32060	method_32060
+	m	(Leaj;)Leal;	a	method_32060	getTexturedModelData
 	f	Leaf;	a	field_27522	field_27522
 	f	Leaf;	b	field_27523	field_27523
 c	dzp	net/minecraft/class_615	net/minecraft/client/render/entity/model/LargeTropicalFishEntityModel
-	m	(Leaj;)Leal;	a	method_32061	method_32061
+	m	(Leaj;)Leal;	a	method_32061	getTexturedModelData
 	f	Leaf;	a	field_27524	field_27524
 	f	Leaf;	b	field_3599	field_3599
 c	dzq	net/minecraft/class_614	net/minecraft/client/render/entity/model/TurtleEntityModel
 	m	(Lbbn;FFFFF)V	a	method_17125	setAngles
-	m	()Leal;	c	method_32062	method_32062
+	m	()Leal;	c	method_32062	getTexturedModelData
 	f	Leaf;	j	field_3594	plastron
 		c	The belly side of the turtle's shell.
 c	dzr	net/minecraft/class_617	net/minecraft/client/render/entity/model/VexEntityModel
 	m	(Lbeu;FFFFF)V	a	method_17127	setAngles
-	m	()Leal;	c	method_32063	method_32063
+	m	()Leal;	c	method_32063	getTexturedModelData
 	f	Leaf;	a	field_3601	leftWing
 	f	Leaf;	b	field_3602	rightWing
 c	dzs	net/minecraft/class_3884	net/minecraft/client/render/entity/model/ModelWithHat
 	m	(Z)V	a	method_17150	setHatVisible
 		p	1			visible
 c	dzt	net/minecraft/class_620	net/minecraft/client/render/entity/model/VillagerResemblingModel
-	m	()Lean;	a	method_32064	method_32064
+	m	()Lean;	a	method_32064	getModelData
 	f	Leaf;	a	field_27525	field_27525
 	f	Leaf;	b	field_27526	field_27526
 	f	Leaf;	f	field_27527	field_27527
@@ -62244,14 +62301,14 @@ c	dzt	net/minecraft/class_620	net/minecraft/client/render/entity/model/VillagerR
 	f	Leaf;	j	field_27531	field_27531
 c	dzu	net/minecraft/class_622	net/minecraft/client/render/entity/model/WitchEntityModel
 	m	(Z)V	b	method_2840	setLiftingNose
-	m	()Leal;	c	method_32065	method_32065
+	m	()Leal;	c	method_32065	getTexturedModelData
 	m	()Leaf;	e	method_2839	getNose
 	f	Z	b	field_3614	liftingNose
 c	dzv	net/minecraft/class_621	net/minecraft/client/render/entity/model/WitherEntityModel
 	m	(Lbdb;FFF)V	a	method_17128	animateModel
 	m	(Lbdb;FFFFF)V	a	method_17130	setAngles
 	m	(Lbdb;Leaf;I)V	a	method_32066	method_32066
-	m	(Leaj;)Leal;	a	method_32067	method_32067
+	m	(Leaj;)Leal;	a	method_32067	getTexturedModelData
 	f	Leaf;	a	field_27532	field_27532
 	f	Leaf;	b	field_27533	field_27533
 	f	Leaf;	f	field_27534	field_27534
@@ -62261,7 +62318,7 @@ c	dzv	net/minecraft/class_621	net/minecraft/client/render/entity/model/WitherEnt
 c	dzw	net/minecraft/class_624	net/minecraft/client/render/entity/model/WolfEntityModel
 	m	(Lbbp;FFF)V	a	method_17131	animateModel
 	m	(Lbbp;FFFFF)V	a	method_17133	setAngles
-	m	()Leal;	c	method_32068	method_32068
+	m	()Leal;	c	method_32068	getTexturedModelData
 	f	Leaf;	a	field_3621	head
 	f	Leaf;	b	field_20788	field_20788
 	f	Leaf;	f	field_3623	torso
@@ -62276,11 +62333,11 @@ c	dzx	net/minecraft/class_623	net/minecraft/client/render/entity/model/ZombieEnt
 	m	(Lbez;)Z	a	method_17793	isAttacking
 c	dzy	net/minecraft/class_619	net/minecraft/client/render/entity/model/ZombieVillagerEntityModel
 	m	(Lbez;FFFFF)V	a	method_17135	setAngles
-	m	(Leaj;)Leal;	a	method_32069	method_32069
-	m	()Leal;	c	method_32070	method_32070
+	m	(Leaj;)Leal;	a	method_32069	getArmorTexturedModelData
+	m	()Leal;	c	method_32070	getTexturedModelData
 	f	Leaf;	a	field_17144	hat
 c	dzz	net/minecraft/class_626	net/minecraft/client/render/entity/model/DragonHeadEntityModel
-	m	()Leal;	a	method_32071	method_32071
+	m	()Leal;	a	method_32071	getTexturedModelData
 	f	Leaf;	a	field_3638	head
 	f	Leaf;	b	field_3639	jaw
 c	e	net/minecraft/class_4998	net/minecraft/util/math/AxisTransformation
@@ -62321,16 +62378,17 @@ c	ea	net/minecraft/class_2239	net/minecraft/command/argument/ScoreboardSlotArgum
 	m	(Lcom/mojang/brigadier/StringReader;)Ljava/lang/Object;	parse	parse	parse
 	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	a	field_9954	INVALID_SLOT_EXCEPTION
 	f	Ljava/util/Collection;	b	field_9953	EXAMPLES
-c	eab	net/minecraft/class_5599	net/minecraft/class_5599
-	m	(Lead;)Leaf;	a	method_32072	method_32072
-	f	Ljava/util/Map;	a	field_27542	field_27542
-c	eac	net/minecraft/class_5600	net/minecraft/class_5600
-	m	()Ljava/util/Map;	a	method_32073	method_32073
+c	eab	net/minecraft/class_5599	net/minecraft/client/render/entity/model/EntityModelLoader
+	m	(Lead;)Leaf;	a	method_32072	getModelPart
+		p	1			layer
+	f	Ljava/util/Map;	a	field_27542	modelParts
+c	eac	net/minecraft/class_5600	net/minecraft/client/render/entity/model/EntityModels
+	m	()Ljava/util/Map;	a	method_32073	getModels
 	m	(Lcom/google/common/collect/ImmutableMap$Builder;Leal;Lchk;)V	a	method_32074	method_32074
 	m	(Lcom/google/common/collect/ImmutableMap;Lead;)Z	a	method_32075	method_32075
-	f	Leaj;	a	field_27543	field_27543
-	f	Leaj;	b	field_27544	field_27544
-	f	Leaj;	c	field_27545	field_27545
+	f	Leaj;	a	field_27543	FISH_PATTERN_DILATION
+	f	Leaj;	b	field_27544	ARMOR_DILATION
+	f	Leaj;	c	field_27545	HAT_DILATION
 c	ead	net/minecraft/class_5601	net/minecraft/client/render/entity/model/EntityModelLayer
 	m	(Lvs;Ljava/lang/String;)V	<init>	<init>	<init>
 		p	1			identifier
@@ -62513,12 +62571,16 @@ c	eae	net/minecraft/class_5602	net/minecraft/client/render/entity/model/EntityMo
 	f	Lead;	y	field_27699	CREEPER
 	f	Lead;	z	field_27700	CREEPER_ARMOR
 c	eaf	net/minecraft/class_630	net/minecraft/client/model/ModelPart
-	m	()Leah;	a	method_32084	method_32084
+	m	(Ljava/util/List;Ljava/util/Map;)V	<init>	<init>	<init>
+		p	1			cuboids
+		p	2			children
+	m	()Leah;	a	method_32084	getTransform
 	m	(FFF)V	a	method_2851	setPivot
 		p	1			x
 		p	2			y
 		p	3			z
 	m	(Ldit$a;Ldix;IIFFFF)V	a	method_22702	renderCuboids
+		p	1			entry
 		p	2			vertexConsumer
 		p	3			light
 		p	4			overlay
@@ -62542,13 +62604,16 @@ c	eaf	net/minecraft/class_630	net/minecraft/client/model/ModelPart
 		p	6			green
 		p	7			blue
 		p	8			alpha
-	m	(Leaf;)V	a	method_17138	copyPositionAndRotation
-	m	(Leah;)V	a	method_32085	method_32085
-	m	(Ljava/lang/String;)Leaf;	a	method_32086	method_32086
+	m	(Leaf;)V	a	method_17138	copyTransform
+		p	1			part
+	m	(Leah;)V	a	method_32085	setTransform
+		p	1			rotationData
+	m	(Ljava/lang/String;)Leaf;	a	method_32086	getChild
+		p	1			name
 	m	(Ljava/util/Random;)Leaf$a;	a	method_22700	getRandomCuboid
 		p	1			random
-	m	()Z	b	method_32087	method_32087
-	m	()Ljava/util/stream/Stream;	c	method_32088	method_32088
+	m	()Z	b	method_32087	isEmpty
+	m	()Ljava/util/stream/Stream;	c	method_32088	traverse
 	f	F	a	field_3657	pivotX
 	f	F	b	field_3656	pivotY
 	f	F	c	field_3655	pivotZ
@@ -62574,7 +62639,15 @@ c	eaf$a	net/minecraft/class_630$class_628	net/minecraft/client/model/ModelPart$C
 		p	12			mirror
 		p	13			textureWidth
 		p	14			textureHeight
-	m	(Ldit$a;Ldix;IIFFFF)V	a	method_32089	method_32089
+	m	(Ldit$a;Ldix;IIFFFF)V	a	method_32089	renderCuboid
+		p	1			entry
+		p	2			vertexConsumer
+		p	3			light
+		p	4			overlay
+		p	5			red
+		p	6			green
+		p	7			blue
+		p	8			alpha
 	f	F	a	field_3645	minX
 	f	F	b	field_3644	minY
 	f	F	c	field_3643	minZ
@@ -62612,78 +62685,211 @@ c	eaf$c	net/minecraft/class_630$class_618	net/minecraft/client/model/ModelPart$V
 	f	Lg;	a	field_3605	pos
 	f	F	b	field_3604	u
 	f	F	c	field_3603	v
-c	eah	net/minecraft/class_5603	net/minecraft/class_5603
-	m	(FFF)Leah;	a	method_32090	method_32090
-	m	(FFFFFF)Leah;	a	method_32091	method_32091
-	m	(FFF)Leah;	b	method_32092	method_32092
-	f	Leah;	a	field_27701	field_27701
-	f	F	b	field_27702	field_27702
-	f	F	c	field_27703	field_27703
-	f	F	d	field_27704	field_27704
-	f	F	e	field_27705	field_27705
-	f	F	f	field_27706	field_27706
-	f	F	g	field_27707	field_27707
-c	eai	net/minecraft/class_5604	net/minecraft/class_5604
-	m	(II)Leaf$a;	a	method_32093	method_32093
-	f	Ljava/lang/String;	a	field_27708	field_27708
-	f	Lg;	b	field_27709	field_27709
-	f	Lg;	c	field_27710	field_27710
-	f	Leaj;	d	field_27711	field_27711
-	f	Z	e	field_27712	field_27712
-	f	Leap;	f	field_27713	field_27713
-	f	Leap;	g	field_27714	field_27714
-c	eaj	net/minecraft/class_5605	net/minecraft/class_5605
-	m	(F)Leaj;	a	method_32094	method_32094
-	m	(FFF)Leaj;	a	method_32095	method_32095
-	f	Leaj;	a	field_27715	field_27715
-	f	F	b	field_27716	field_27716
-	f	F	c	field_27717	field_27717
-	f	F	d	field_27718	field_27718
-c	eak	net/minecraft/class_5606	net/minecraft/class_5606
-	m	()Leak;	a	method_32096	method_32096
-	m	(FFFFFF)Leak;	a	method_32097	method_32097
-	m	(FFFFFFLeaj;)Leak;	a	method_32098	method_32098
-	m	(FFFFFFLeaj;FF)Leak;	a	method_32099	method_32099
-	m	(FFFFFFZ)Leak;	a	method_32100	method_32100
-	m	(II)Leak;	a	method_32101	method_32101
-	m	(Ljava/lang/String;FFFFFF)Leak;	a	method_32102	method_32102
-	m	(Ljava/lang/String;FFFFFFLeaj;)Leak;	a	method_32103	method_32103
-	m	(Ljava/lang/String;FFFIIIII)Leak;	a	method_32104	method_32104
-	m	(Ljava/lang/String;FFFIIILeaj;II)Leak;	a	method_32105	method_32105
-	m	(Z)Leak;	a	method_32106	method_32106
-	m	()Ljava/util/List;	b	method_32107	method_32107
-	m	()Leak;	c	method_32108	method_32108
-	f	Ljava/util/List;	a	field_27719	field_27719
-	f	I	b	field_27720	field_27720
-	f	I	c	field_27721	field_27721
-	f	Z	d	field_27722	field_27722
-c	eal	net/minecraft/class_5607	net/minecraft/class_5607
-	m	()Leaf;	a	method_32109	method_32109
-	m	(Lean;II)Leal;	a	method_32110	method_32110
-	f	Lean;	a	field_27723	field_27723
-	f	Leam;	b	field_27724	field_27724
-c	eam	net/minecraft/class_5608	net/minecraft/class_5608
-	f	I	a	field_27725	field_27725
-	f	I	b	field_27726	field_27726
-c	ean	net/minecraft/class_5609	net/minecraft/class_5609
-	m	()Leao;	a	method_32111	method_32111
-	f	Leao;	a	field_27727	field_27727
-c	eao	net/minecraft/class_5610	net/minecraft/class_5610
-	m	(II)Leaf;	a	method_32112	method_32112
+c	eah	net/minecraft/class_5603	net/minecraft/client/model/ModelTransform
+	m	(FFFFFF)V	<init>	<init>	<init>
+		p	1			pivotX
+		p	2			pivotY
+		p	3			pivotZ
+		p	4			pitch
+		p	5			yaw
+		p	6			roll
+	m	(FFF)Leah;	a	method_32090	pivot
+		p	0			pivotX
+		p	1			pivotY
+		p	2			pivotZ
+	m	(FFFFFF)Leah;	a	method_32091	of
+		p	0			pivotX
+		p	1			pivotY
+		p	2			pivotZ
+		p	3			pitch
+		p	4			yaw
+		p	5			roll
+	m	(FFF)Leah;	b	method_32092	rotation
+		p	0			pitch
+		p	1			yaw
+		p	2			roll
+	f	Leah;	a	field_27701	NONE
+	f	F	b	field_27702	pivotX
+	f	F	c	field_27703	pivotY
+	f	F	d	field_27704	pivotZ
+	f	F	e	field_27705	pitch
+	f	F	f	field_27706	yaw
+	f	F	g	field_27707	roll
+c	eai	net/minecraft/class_5604	net/minecraft/client/model/ModelCuboidData
+	m	(Ljava/lang/String;FFFFFFFFLeaj;ZFF)V	<init>	<init>	<init>
+		p	1			name
+		p	2			textureX
+		p	3			textureY
+		p	4			offsetX
+		p	5			offsetY
+		p	6			offsetZ
+		p	7			sizeX
+		p	8			sizeY
+		p	9			sizeZ
+		p	10			extra
+		p	11			mirror
+		p	12			textureScaleX
+		p	13			textureScaleY
+	m	(II)Leaf$a;	a	method_32093	createCuboid
+		p	1			textureWidth
+		p	2			textureHeight
+	f	Ljava/lang/String;	a	field_27708	name
+	f	Lg;	b	field_27709	offset
+	f	Lg;	c	field_27710	dimensions
+	f	Leaj;	d	field_27711	extraSize
+	f	Z	e	field_27712	mirror
+	f	Leap;	f	field_27713	textureUV
+	f	Leap;	g	field_27714	textureScale
+c	eaj	net/minecraft/class_5605	net/minecraft/client/util/math/Dilation
+	m	(F)V	<init>	<init>	<init>
+		p	1			radius
+	m	(FFF)V	<init>	<init>	<init>
+		p	1			radiusX
+		p	2			radiusY
+		p	3			radiusZ
+	m	(F)Leaj;	a	method_32094	add
+		p	1			radius
+	m	(FFF)Leaj;	a	method_32095	add
+		p	1			radiusX
+		p	2			radiusY
+		p	3			radiusZ
+	f	Leaj;	a	field_27715	NONE
+	f	F	b	field_27716	radiusX
+	f	F	c	field_27717	radiusY
+	f	F	d	field_27718	radiusZ
+c	eak	net/minecraft/class_5606	net/minecraft/client/model/ModelPartBuilder
+	m	()Leak;	a	method_32096	mirrored
+	m	(FFFFFF)Leak;	a	method_32097	cuboid
+		p	1			offsetX
+		p	2			offsetY
+		p	3			offsetZ
+		p	4			sizeX
+		p	5			sizeY
+		p	6			sizeZ
+	m	(FFFFFFLeaj;)Leak;	a	method_32098	cuboid
+		p	1			offsetX
+		p	2			offsetY
+		p	3			offsetZ
+		p	4			sizeX
+		p	5			sizeY
+		p	6			sizeZ
+		p	7			extra
+	m	(FFFFFFLeaj;FF)Leak;	a	method_32099	cuboid
+		p	1			offsetX
+		p	2			offsetY
+		p	3			offsetZ
+		p	4			sizeX
+		p	5			sizeY
+		p	6			sizeZ
+		p	7			extra
+		p	8			textureScaleX
+		p	9			textureScaleY
+	m	(FFFFFFZ)Leak;	a	method_32100	cuboid
+		p	1			offsetX
+		p	2			offsetY
+		p	3			offsetZ
+		p	4			sizeX
+		p	5			sizeY
+		p	6			sizeZ
+		p	7			mirror
+	m	(II)Leak;	a	method_32101	uv
+		p	1			textureX
+		p	2			textureY
+	m	(Ljava/lang/String;FFFFFF)Leak;	a	method_32102	cuboid
+		p	1			name
+		p	2			offsetX
+		p	3			offsetY
+		p	4			offsetZ
+		p	5			sizeX
+		p	6			sizeY
+		p	7			sizeZ
+	m	(Ljava/lang/String;FFFFFFLeaj;)Leak;	a	method_32103	cuboid
+		p	1			name
+		p	2			offsetX
+		p	3			offsetY
+		p	4			offsetZ
+		p	5			sizeX
+		p	6			sizeY
+		p	7			sizeZ
+		p	8			extra
+	m	(Ljava/lang/String;FFFIIIII)Leak;	a	method_32104	cuboid
+		p	1			name
+		p	2			offsetX
+		p	3			offsetY
+		p	4			offsetZ
+		p	5			sizeX
+		p	6			sizeY
+		p	7			sizeZ
+		p	8			textureX
+		p	9			textureY
+	m	(Ljava/lang/String;FFFIIILeaj;II)Leak;	a	method_32105	cuboid
+		p	1			name
+		p	2			offsetX
+		p	3			offsetY
+		p	4			offsetZ
+		p	5			sizeX
+		p	6			sizeY
+		p	7			sizeZ
+		p	8			extra
+		p	9			textureX
+		p	10			textureY
+	m	(Z)Leak;	a	method_32106	mirrored
+		p	1			mirror
+	m	()Ljava/util/List;	b	method_32107	build
+	m	()Leak;	c	method_32108	create
+	f	Ljava/util/List;	a	field_27719	cuboidData
+	f	I	b	field_27720	textureX
+	f	I	c	field_27721	textureY
+	f	Z	d	field_27722	mirror
+c	eal	net/minecraft/class_5607	net/minecraft/client/model/TexturedModelData
+	m	(Lean;Leam;)V	<init>	<init>	<init>
+		p	1			data
+		p	2			dimensions
+	m	()Leaf;	a	method_32109	createModel
+	m	(Lean;II)Leal;	a	method_32110	of
+		p	0			partData
+		p	1			textureWidth
+		p	2			textureHeight
+	f	Lean;	a	field_27723	data
+	f	Leam;	b	field_27724	dimensions
+c	eam	net/minecraft/class_5608	net/minecraft/client/model/TextureDimensions
+	c	Internal class used by {@link TexturedModelPartGroup}.
+	m	(II)V	<init>	<init>	<init>
+		p	1			width
+		p	2			height
+	f	I	a	field_27725	width
+	f	I	b	field_27726	height
+c	ean	net/minecraft/class_5609	net/minecraft/client/model/ModelData
+	m	()Leao;	a	method_32111	getRoot
+	f	Leao;	a	field_27727	data
+c	eao	net/minecraft/class_5610	net/minecraft/client/model/ModelPartData
+	m	(Ljava/util/List;Leah;)V	<init>	<init>	<init>
+		p	1			cuboidData
+		p	2			rotationData
+	m	(II)Leaf;	a	method_32112	createPart
+		p	1			textureWidth
+		p	2			textureHeight
 	m	(IILeai;)Leaf$a;	a	method_32113	method_32113
 	m	(IILjava/util/Map$Entry;)Leaf;	a	method_32114	method_32114
 	m	(Leaf;Leaf;)Leaf;	a	method_32115	method_32115
-	m	(Ljava/lang/String;)Leao;	a	method_32116	method_32116
-	m	(Ljava/lang/String;Leak;Leah;)Leao;	a	method_32117	method_32117
-	f	Ljava/util/List;	a	field_27728	field_27728
-	f	Leah;	b	field_27729	field_27729
-	f	Ljava/util/Map;	c	field_27730	field_27730
-c	eap	net/minecraft/class_5611	net/minecraft/class_5611
-	m	()F	a	method_32118	method_32118
-	m	()F	b	method_32119	method_32119
+	m	(Ljava/lang/String;)Leao;	a	method_32116	getChild
+		p	1			name
+	m	(Ljava/lang/String;Leak;Leah;)Leao;	a	method_32117	addChild
+		p	1			name
+		p	2			builder
+		p	3			rotationData
+	f	Ljava/util/List;	a	field_27728	cuboidData
+	f	Leah;	b	field_27729	rotationData
+	f	Ljava/util/Map;	c	field_27730	children
+c	eap	net/minecraft/class_5611	net/minecraft/client/util/math/Vector2f
+	m	(FF)V	<init>	<init>	<init>
+		p	1			x
+		p	2			y
+	m	()F	a	method_32118	getX
+	m	()F	b	method_32119	getY
 	m	()Ljava/lang/String;	toString	toString	toString
-	f	F	a	field_27731	field_27731
-	f	F	b	field_27732	field_27732
+	f	F	a	field_27731	x
+	f	F	b	field_27732	y
 c	eat	net/minecraft/class_632	net/minecraft/client/network/ClientAdvancementManager
 	m	(Ldni;)V	<init>	<init>	<init>
 		p	1			client
@@ -63813,9 +64019,11 @@ c	ebz$a	net/minecraft/class_687$class_688	net/minecraft/client/particle/FlamePar
 		p	1			spriteProvider
 	m	(Lhj;Leaw;DDDDDD)Lecj;	a	method_3036	createParticle
 	f	Leda;	a	field_17812	spriteProvider
-c	ebz$b	net/minecraft/class_687$class_5613	net/minecraft/client/particle/FlameParticle$class_5613
+c	ebz$b	net/minecraft/class_687$class_5613	net/minecraft/client/particle/FlameParticle$SmallFactory
+	m	(Leda;)V	<init>	<init>	<init>
+		p	1			spriteProvider
 	m	(Lhj;Leaw;DDDDDD)Lecj;	a	method_32131	createParticle
-	f	Leda;	a	field_27736	field_27736
+	f	Leda;	a	field_27736	spriteProvider
 c	ec	net/minecraft/class_2243	net/minecraft/command/argument/TeamArgumentType
 	m	()Lec;	a	method_9482	team
 	m	(Lcom/mojang/brigadier/StringReader;)Ljava/lang/String;	a	method_9483	parse
@@ -64231,11 +64439,22 @@ c	ecu$a	net/minecraft/class_717$class_718	net/minecraft/client/particle/FireSmok
 		p	1			spriteProvider
 	m	(Lhj;Leaw;DDDDDD)Lecj;	a	method_3101	createParticle
 	f	Leda;	a	field_17869	spriteProvider
-c	ecv	net/minecraft/class_5685	net/minecraft/class_5685
-	f	Leda;	a	field_28003	field_28003
-c	ecv$a	net/minecraft/class_5685$class_5686	net/minecraft/class_5685$class_5686
+c	ecv	net/minecraft/class_5685	net/minecraft/client/particle/SnowflakeParticle
+	m	(Leaw;DDDDDDLeda;)V	<init>	<init>	<init>
+		p	1			world
+		p	2			x
+		p	4			y
+		p	6			z
+		p	8			velocityX
+		p	10			velocityY
+		p	12			velocityZ
+		p	14			spriteProvider
+	f	Leda;	a	field_28003	spriteProvider
+c	ecv$a	net/minecraft/class_5685$class_5686	net/minecraft/client/particle/SnowflakeParticle$Factory
+	m	(Leda;)V	<init>	<init>	<init>
+		p	1			spriteProvider
 	m	(Lhj;Leaw;DDDDDD)Lecj;	a	method_32690	createParticle
-	f	Leda;	a	field_28004	field_28004
+	f	Leda;	a	field_28004	spriteProvider
 c	ecw	net/minecraft/class_4956	net/minecraft/client/particle/SoulParticle
 	m	(Leaw;DDDDDDLeda;)V	<init>	<init>	<init>
 		p	1			world
@@ -67248,7 +67467,7 @@ c	eg$c	net/minecraft/class_2252$class_2255	net/minecraft/command/argument/BlockP
 	f	Lmi;	b	field_10677	nbt
 	f	Ljava/util/Map;	c	field_10678	properties
 c	egd	net/minecraft/class_823	net/minecraft/client/render/block/entity/BannerBlockEntityRenderer
-	m	()Leal;	a	method_32135	method_32135
+	m	()Leal;	a	method_32135	getTexturedModelData
 	m	(Lcdr;FLdit;Leek;II)V	a	method_3546	render
 	m	(Ldit;Leek;IILeaf;Lepz;ZLjava/util/List;)V	a	method_29999	method_29999
 	m	(Ldit;Leek;IILeaf;Lepz;ZLjava/util/List;Z)V	a	method_23802	renderCanvas
@@ -67273,18 +67492,18 @@ c	ege	net/minecraft/class_822	net/minecraft/client/render/block/entity/BeaconBlo
 	m	(Ldit;Leek;Lvs;FFJII[FFF)V	a	method_3545	renderLightBeam
 	f	Lvs;	a	field_4338	BEAM_TEXTURE
 c	egf	net/minecraft/class_825	net/minecraft/client/render/block/entity/BedBlockEntityRenderer
-	m	()Leal;	a	method_32136	method_32136
+	m	()Leal;	a	method_32136	getHeadTexturedModelData
 	m	(Lbsw;Lfx;)Z	a	method_24188	method_24188
 	m	(Lcdw;FLdit;Leek;II)V	a	method_3557	render
 	m	(Ldit;Leek;Leaf;Lgc;Lepz;IIZ)V	a	method_3558	method_3558
 		p	1			matrix
 		p	6			light
 		p	7			overlay
-	m	()Leal;	b	method_32137	method_32137
+	m	()Leal;	b	method_32137	getFootTexturedModelData
 	f	Leaf;	a	field_27744	field_27744
 	f	Leaf;	b	field_27745	field_27745
 c	egg	net/minecraft/class_3880	net/minecraft/client/render/block/entity/BellBlockEntityRenderer
-	m	()Leal;	a	method_32138	method_32138
+	m	()Leal;	a	method_32138	getTexturedModelData
 	m	(Lcdy;FLdit;Leek;II)V	a	method_17139	render
 	f	Lepz;	a	field_17145	BELL_BODY_TEXTURE
 	f	Leaf;	b	field_20816	field_20816
@@ -67367,7 +67586,7 @@ c	egl	net/minecraft/class_4737	net/minecraft/client/render/block/entity/Lightmap
 c	egm	net/minecraft/class_3941	net/minecraft/client/render/block/entity/CampfireBlockEntityRenderer
 	m	(Lcee;FLdit;Leek;II)V	a	method_17581	render
 c	egn	net/minecraft/class_826	net/minecraft/client/render/block/entity/ChestBlockEntityRenderer
-	m	()Leal;	a	method_32147	method_32147
+	m	()Leal;	a	method_32147	getSingleTexturedModelData
 	m	(Ldit;Ldix;Leaf;Leaf;Leaf;FII)V	a	method_22749	render
 		p	1			matrices
 		p	2			vertices
@@ -67377,8 +67596,8 @@ c	egn	net/minecraft/class_826	net/minecraft/client/render/block/entity/ChestBloc
 		p	6			openFactor
 		p	7			light
 		p	8			overlay
-	m	()Leal;	b	method_32148	method_32148
-	m	()Leal;	c	method_32149	method_32149
+	m	()Leal;	b	method_32148	getRightDoubleTexturedModelData
+	m	()Leal;	c	method_32149	getLeftDoubleTexturedModelData
 	f	Leaf;	a	field_20817	singleChestLid
 	f	Leaf;	b	field_20818	singleChestBase
 	f	Leaf;	c	field_20819	singleChestLatch
@@ -67390,11 +67609,11 @@ c	egn	net/minecraft/class_826	net/minecraft/client/render/block/entity/ChestBloc
 	f	Leaf;	i	field_21481	doubleChestLeftLatch
 	f	Z	j	field_4365	christmas
 c	ego	net/minecraft/class_829	net/minecraft/client/render/block/entity/ConduitBlockEntityRenderer
-	m	()Leal;	a	method_32150	method_32150
+	m	()Leal;	a	method_32150	getEyeTexturedModelData
 	m	(Lcej;FLdit;Leek;II)V	a	method_22750	render
-	m	()Leal;	b	method_32151	method_32151
-	m	()Leal;	c	method_32152	method_32152
-	m	()Leal;	d	method_32153	method_32153
+	m	()Leal;	b	method_32151	getWindTexturedModelData
+	m	()Leal;	c	method_32152	getShellTexturedModelData
+	m	()Leal;	d	method_32153	getPlainTexturedModelData
 	f	Lepz;	a	field_4377	BASE_TEXTURE
 	f	Lepz;	b	field_4378	CAGE_TEXTURE
 	f	Lepz;	c	field_4373	WIND_TEXTURE
@@ -67421,7 +67640,7 @@ c	egs	net/minecraft/class_834	net/minecraft/client/render/block/entity/ShulkerBo
 	m	(Lcey;FLdit;Leek;II)V	a	method_3574	render
 	f	Ldzd;	a	field_4387	model
 c	egt	net/minecraft/class_837	net/minecraft/client/render/block/entity/SignBlockEntityRenderer
-	m	()Leal;	a	method_32154	method_32154
+	m	()Leal;	a	method_32154	getTexturedModelData
 	m	(Lbvr;)Lchk;	a	method_32155	method_32155
 	m	(Lcez;FLdit;Leek;II)V	a	method_23083	render
 	m	(Lchk;)Lchk;	a	method_32156	method_32156
@@ -67434,9 +67653,12 @@ c	egt$a	net/minecraft/class_837$class_4702	net/minecraft/client/render/block/ent
 	f	Leaf;	a	field_27756	field_27756
 	f	Leaf;	b	field_21531	foot
 c	egu	net/minecraft/class_836	net/minecraft/client/render/block/entity/SkullBlockEntityRenderer
+	m	(Legj$a;)V	<init>	<init>	<init>
+		p	1			ctx
 	m	(Lcbl$a;Lcom/mojang/authlib/GameProfile;)Lees;	a	method_3578	method_3578
 	m	(Lcfa;FLdit;Leek;II)V	a	method_3577	render
-	m	(Leab;)Ljava/util/Map;	a	method_32160	method_32160
+	m	(Leab;)Ljava/util/Map;	a	method_32160	getModels
+		p	0			modelLoader
 	m	(Lgc;FFLdit;Leek;ILdzh;Lees;)V	a	method_32161	method_32161
 	m	(Ljava/util/HashMap;)V	a	method_3580	method_3580
 	f	Ljava/util/Map;	a	field_4391	MODELS
@@ -68279,11 +68501,17 @@ c	ei	net/minecraft/class_2259	net/minecraft/command/argument/BlockArgumentParser
 	f	Ljava/util/function/BiFunction;	s	field_10696	suggestions
 c	eib	net/minecraft/class_875	net/minecraft/client/render/entity/HorseBaseEntityRenderer
 	m	(Lejb$a;Ldxy;F)V	<init>	<init>	<init>
+		p	1			ctx
 		p	2			model
 		p	3			scale
 	m	(Lbbr;Ldit;F)V	a	method_3874	scale
 	f	F	a	field_4641	scale
 c	eic	net/minecraft/class_968	net/minecraft/client/render/entity/ZombieBaseEntityRenderer
+	m	(Lejb$a;Ldzx;Ldzx;Ldzx;)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			bodyModel
+		p	3			legsArmorModel
+		p	4			bodyArmorModel
 	m	(Lbez;)Lvs;	a	method_4163	getTexture
 	m	(Lbez;)Z	b	method_25449	isShaking
 	f	Lvs;	a	field_4819	TEXTURE
@@ -68318,7 +68546,7 @@ c	eij	net/minecraft/class_881	net/minecraft/client/render/entity/BoatEntityRende
 	m	(Lbid;)Lvs;	a	method_3891	getTexture
 	m	(Lbid;FFLdit;Leek;I)V	a	method_3888	render
 	m	(Lejb$a;Lbid$b;)Lcom/mojang/datafixers/util/Pair;	a	method_32163	method_32163
-	f	Ljava/util/Map;	a	field_27758	field_27758
+	f	Ljava/util/Map;	a	field_27758	texturesAndModels
 c	eik	net/minecraft/class_929	net/minecraft/client/render/entity/CatEntityRenderer
 	m	(Lbar;)Lvs;	a	method_4078	getTexture
 	m	(Lbar;Ldit;F)V	a	method_4079	scale
@@ -68329,7 +68557,9 @@ c	eil	net/minecraft/class_880	net/minecraft/client/render/entity/CaveSpiderEntit
 	f	Lvs;	a	field_4646	TEXTURE
 c	eim	net/minecraft/class_883	net/minecraft/client/render/entity/DonkeyEntityRenderer
 	m	(Lejb$a;FLead;)V	<init>	<init>	<init>
+		p	1			ctx
 		p	2			scale
+		p	3			layer
 	m	(Lbbq;)Lvs;	a	method_3894	getTexture
 	f	Ljava/util/Map;	a	field_4650	TEXTURES
 c	ein	net/minecraft/class_882	net/minecraft/client/render/entity/ChickenEntityRenderer
@@ -68374,7 +68604,7 @@ c	eiu	net/minecraft/class_893	net/minecraft/client/render/entity/ElderGuardianEn
 	m	(Lbec;)Lvs;	method_3976	method_3976	getTexture
 	f	Lvs;	a	field_4665	TEXTURE
 c	eiv	net/minecraft/class_892	net/minecraft/client/render/entity/EndCrystalEntityRenderer
-	m	()Leal;	a	method_32164	method_32164
+	m	()Leal;	a	method_32164	getTexturedModelData
 	m	(Lbcg;)Lvs;	a	method_3909	getTexture
 	m	(Lbcg;F)F	a	method_23155	getYOffset
 		p	0			crystal
@@ -68388,7 +68618,7 @@ c	eiv	net/minecraft/class_892	net/minecraft/client/render/entity/EndCrystalEntit
 	f	Leaf;	h	field_21004	frame
 	f	Leaf;	i	field_21005	bottom
 c	eiw	net/minecraft/class_895	net/minecraft/client/render/entity/EnderDragonEntityRenderer
-	m	()Leal;	a	method_32165	method_32165
+	m	()Leal;	a	method_32165	getTexturedModelData
 	m	(FFFFILdit;Leek;I)V	a	method_3917	renderCrystalBeam
 		p	0			dx
 		p	1			dy
@@ -68430,34 +68660,43 @@ c	eiw	net/minecraft/class_895	net/minecraft/client/render/entity/EnderDragonEnti
 	f	F	l	field_21007	HALF_SQRT_3
 	f	Leiw$a;	m	field_21008	model
 c	eiw$a	net/minecraft/class_895$class_625	net/minecraft/client/render/entity/EnderDragonEntityRenderer$DragonEntityModel
+	m	(Leaf;)V	<init>	<init>	<init>
+		p	1			part
 	m	(Lbch;FFF)V	a	method_23620	animateModel
 	m	(Lbch;FFFFF)V	a	method_23621	setAngles
-	m	(Ldit;Ldix;IIFLeaf;Leaf;Leaf;Leaf;Leaf;Leaf;Leaf;)V	a	method_23838	method_23838
+	m	(Ldit;Ldix;IIFLeaf;Leaf;Leaf;Leaf;Leaf;Leaf;Leaf;)V	a	method_23838	setLimbRotation
 		p	1			matrices
 		p	2			vertices
 		p	3			light
 		p	4			overlay
 		p	5			offset
+		p	6			wing
+		p	7			frontLeg
+		p	8			frontLegTip
+		p	9			frontFoot
+		p	10			hindLeg
+		p	11			hindLegTip
+		p	12			hindFoot
 	f	Leaf;	a	field_3630	head
 	f	Leaf;	b	field_3637	neck
 	f	Leaf;	f	field_3631	jaw
 	f	Leaf;	g	field_3627	body
-	f	Leaf;	h	field_3629	wing
-	f	Leaf;	i	field_21548	field_21548
-	f	Leaf;	j	field_21549	field_21549
-	f	Leaf;	k	field_21550	field_21550
-	f	Leaf;	l	field_21551	field_21551
-	f	Leaf;	m	field_21552	field_21552
-	f	Leaf;	n	field_21553	field_21553
-	f	Leaf;	o	field_21554	field_21554
-	f	Leaf;	p	field_21555	field_21555
-	f	Leaf;	r	field_3635	wingTip
-	f	Leaf;	s	field_3632	frontLeg
-	f	Leaf;	t	field_3634	frontLegTip
-	f	Leaf;	u	field_3625	frontFoot
-	f	Leaf;	v	field_3633	rearLeg
-	f	Leaf;	w	field_3626	rearLegTip
-	f	Leaf;	x	field_3628	rearFoot
+	f	Leaf;	h	field_3629	leftWing
+	f	Leaf;	i	field_21548	leftWingTip
+	f	Leaf;	j	field_21549	leftFrontLeg
+	f	Leaf;	k	field_21550	leftFrontLegTip
+	f	Leaf;	l	field_21551	leftFrontFoot
+	f	Leaf;	m	field_21552	leftHindLeg
+	f	Leaf;	n	field_21553	leftHindLegTip
+	f	Leaf;	o	field_21554	leftHindFoot
+	f	Leaf;	p	field_21555	rightWing
+	f	Leaf;	r	field_3635	rightWingTip
+	f	Leaf;	s	field_3632	rightFrontLeg
+	f	Leaf;	t	field_3634	rightFrontLegTip
+	f	Leaf;	u	field_3625	rightFrontFoot
+	f	Leaf;	v	field_3633	rightHindLeg
+	f	Leaf;	w	field_3626	rightHindLegTip
+	f	Leaf;	x	field_3628	rightHindFoot
 	f	Lbch;	y	field_21441	dragon
 	f	F	z	field_21442	tickDelta
 c	eix	net/minecraft/class_894	net/minecraft/client/render/entity/EndermanEntityRenderer
@@ -68473,6 +68712,10 @@ c	eiy	net/minecraft/class_896	net/minecraft/client/render/entity/EndermiteEntity
 c	eiz	net/minecraft/class_898	net/minecraft/client/render/entity/EntityRenderDispatcher
 	m	(Leol;Lejw;Ldod;Ldnm;Leab;)V	<init>	<init>	<init>
 		p	1			textureManager
+		p	2			itemRenderer
+		p	3			textRenderer
+		p	4			gameOptions
+		p	5			modelLoader
 	m	()Z	a	method_3958	shouldRenderHitboxes
 	m	(DDD)D	a	method_3959	getSquaredDistanceToCamera
 		p	1			x
@@ -68574,12 +68817,14 @@ c	eiz	net/minecraft/class_898	net/minecraft/client/render/entity/EntityRenderDis
 	f	Ljava/util/Map;	g	field_4687	modelRenderers
 	f	Lbsv;	h	field_4684	world
 	f	Ld;	i	field_21794	rotation
-	f	Lejw;	j	field_27759	field_27759
+	f	Lejw;	j	field_27759	itemRenderer
 	f	Ldod;	k	field_4689	textRenderer
-	f	Leab;	l	field_27760	field_27760
+	f	Leab;	l	field_27760	modelLoader
 	f	Z	m	field_4681	renderShadows
 	f	Z	n	field_4680	renderHitboxes
 c	eja	net/minecraft/class_897	net/minecraft/client/render/entity/EntityRenderer
+	m	(Lejb$a;)V	<init>	<init>	<init>
+		p	1			ctx
 	m	(Laqk;)Lvs;	a	method_3931	getTexture
 		p	1			entity
 	m	(Laqk;F)Ldfw;	a	method_23169	getPositionOffset
@@ -68599,8 +68844,11 @@ c	eja	net/minecraft/class_897	net/minecraft/client/render/entity/EntityRenderer
 		p	5			y
 		p	7			z
 	m	(Laqk;Lfx;)I	a	method_24087	getBlockLight
+		p	1			entity
+		p	2			pos
 	m	(Laqk;Loa;Ldit;Leek;I)V	a	method_3926	renderLabelIfPresent
 		p	1			entity
+		p	2			text
 		p	3			matrices
 		p	4			vertexConsumers
 		p	5			light
@@ -68611,33 +68859,46 @@ c	eja	net/minecraft/class_897	net/minecraft/client/render/entity/EntityRenderer
 	m	(Laqk;F)I	b	method_24088	getLight
 		p	1			entity
 		p	2			tickDelta
-	m	(Laqk;Lfx;)I	b	method_27950	method_27950
-	f	Ldod;	a	field_27761	field_27761
+	m	(Laqk;Lfx;)I	b	method_27950	getSkyLight
+		p	1			entity
+		p	2			pos
+	f	Ldod;	a	field_27761	textRenderer
 	f	Leiz;	b	field_4676	dispatcher
 	f	F	c	field_4673	shadowRadius
 	f	F	d	field_4672	shadowOpacity
-c	ejb	net/minecraft/class_5617	net/minecraft/class_5617
+c	ejb	net/minecraft/class_5617	net/minecraft/client/render/entity/EntityRendererFactory
 	m	(Lejb$a;)Leja;	create	create	create
-c	ejb$a	net/minecraft/class_5617$class_5618	net/minecraft/class_5617$class_5618
-	m	()Leiz;	a	method_32166	method_32166
-	m	(Lead;)Leaf;	a	method_32167	method_32167
-	m	()Lejw;	b	method_32168	method_32168
-	m	()Lacq;	c	method_32169	method_32169
-	m	()Leab;	d	method_32170	method_32170
-	m	()Ldod;	e	method_32171	method_32171
-	f	Leiz;	a	field_27762	field_27762
-	f	Lejw;	b	field_27763	field_27763
-	f	Lacq;	c	field_27764	field_27764
-	f	Leab;	d	field_27765	field_27765
-	f	Ldod;	e	field_27766	field_27766
+		p	1			ctx
+c	ejb$a	net/minecraft/class_5617$class_5618	net/minecraft/client/render/entity/EntityRendererFactory$Context
+	m	(Leiz;Lejw;Lacq;Leab;Ldod;)V	<init>	<init>	<init>
+		p	1			renderDispatcher
+		p	2			itemRenderer
+		p	3			resourceManager
+		p	4			modelLoader
+		p	5			textRenderer
+	m	()Leiz;	a	method_32166	getRenderDispatcher
+	m	(Lead;)Leaf;	a	method_32167	getPart
+		p	1			layer
+	m	()Lejw;	b	method_32168	getItemRenderer
+	m	()Lacq;	c	method_32169	getResourceManager
+	m	()Leab;	d	method_32170	getModelLoader
+	m	()Ldod;	e	method_32171	getTextRenderer
+	f	Leiz;	a	field_27762	renderDispatcher
+	f	Lejw;	b	field_27763	itemRenderer
+	f	Lacq;	c	field_27764	resourceManager
+	f	Leab;	d	field_27765	modelLoader
+	f	Ldod;	e	field_27766	textRenderer
 c	ejc	net/minecraft/class_5619	net/minecraft/client/render/entity/EntityRenderers
-	m	()Z	a	method_32172	method_32172
+	m	()Z	a	method_32172	isMissingRendererFactories
 	m	(Laqo;Lejb;)V	a	method_32173	register
 		p	0			type
+		p	1			factory
 	m	(Lcom/google/common/collect/ImmutableMap$Builder;Lejb$a;Laqo;Lejb;)V	a	method_32174	method_32174
 	m	(Lcom/google/common/collect/ImmutableMap$Builder;Lejb$a;Ljava/lang/String;Lejb;)V	a	method_32175	method_32175
-	m	(Lejb$a;)Ljava/util/Map;	a	method_32176	method_32176
-	m	(Lejb$a;)Ljava/util/Map;	b	method_32177	method_32177
+	m	(Lejb$a;)Ljava/util/Map;	a	method_32176	reloadEntityRenderers
+		p	0			ctx
+	m	(Lejb$a;)Ljava/util/Map;	b	method_32177	reloadPlayerRenderers
+		p	0			ctx
 	m	(Lejb$a;)Leja;	c	method_32178	method_32178
 	m	(Lejb$a;)Leja;	d	method_32179	method_32179
 	m	(Lejb$a;)Leja;	e	method_32180	method_32180
@@ -68660,8 +68921,8 @@ c	ejc	net/minecraft/class_5619	net/minecraft/client/render/entity/EntityRenderer
 	m	(Lejb$a;)Leja;	v	method_32197	method_32197
 	m	(Lejb$a;)Leja;	w	method_32198	method_32198
 	f	Lorg/apache/logging/log4j/Logger;	a	field_27767	LOGGER
-	f	Ljava/util/Map;	b	field_27768	field_27768
-	f	Ljava/util/Map;	c	field_27769	field_27769
+	f	Ljava/util/Map;	b	field_27768	rendererFactories
+	f	Ljava/util/Map;	c	field_27769	playerRendererFactories
 c	ejd	net/minecraft/class_900	net/minecraft/client/render/entity/EvokerFangsEntityRenderer
 	m	(Lbgu;)Lvs;	a	method_3963	getTexture
 	m	(Lbgu;FFLdit;Leek;I)V	a	method_3962	render
@@ -68708,11 +68969,18 @@ c	ejk	net/minecraft/class_905	net/minecraft/client/render/entity/GhastEntityRend
 	f	Lvs;	a	field_4705	TEXTURE
 	f	Lvs;	g	field_4706	ANGRY_TEXTURE
 c	ejl	net/minecraft/class_908	net/minecraft/client/render/entity/GiantEntityRenderer
+	m	(Lejb$a;F)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			scale
 	m	(Lbeb;)Lvs;	a	method_3981	getTexture
 	m	(Lbeb;Ldit;F)V	a	method_3980	scale
 	f	Lvs;	a	field_4710	TEXTURE
 	f	F	g	field_4711	scale
 c	ejm	net/minecraft/class_907	net/minecraft/client/render/entity/GuardianEntityRenderer
+	m	(Lejb$a;FLead;)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			shadowRadius
+		p	3			layer
 	m	(Laqw;DF)Ldfw;	a	method_3979	fromLerpedPosition
 		p	1			entity
 		p	2			yOffset
@@ -68734,7 +69002,16 @@ c	ejo	net/minecraft/class_910	net/minecraft/client/render/entity/HorseEntityRend
 	f	Ljava/util/Map;	a	field_4714	TEXTURES
 c	ejp	net/minecraft/class_909	net/minecraft/client/render/entity/BipedEntityRenderer
 	m	(Lejb$a;Ldxz;F)V	<init>	<init>	<init>
+		p	1			ctx
 		p	2			model
+		p	3			shadowRadius
+	m	(Lejb$a;Ldxz;FFFF)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			model
+		p	3			shadowRadius
+		p	4			scaleX
+		p	5			scaleY
+		p	6			scaleZ
 	m	(Laqx;)Lvs;	a	method_3982	getTexture
 	f	Lvs;	a	field_4713	TEXTURE
 c	ejq	net/minecraft/class_912	net/minecraft/client/render/entity/HuskEntityRenderer
@@ -68743,7 +69020,9 @@ c	ejq	net/minecraft/class_912	net/minecraft/client/render/entity/HuskEntityRende
 	f	Lvs;	a	field_4716	TEXTURE
 c	ejr	net/minecraft/class_3729	net/minecraft/client/render/entity/IllagerEntityRenderer
 	m	(Lejb$a;Ldya;F)V	<init>	<init>	<init>
+		p	1			ctx
 		p	2			model
+		p	3			shadowRadius
 	m	(Lbdo;Ldit;F)V	a	method_16460	scale
 c	ejs	net/minecraft/class_914	net/minecraft/client/render/entity/IllusionerEntityRenderer
 	m	(Lbee;)Lvs;	a	method_3990	getTexture
@@ -68923,6 +69202,7 @@ c	ejy	net/minecraft/class_919	net/minecraft/client/render/entity/LightningEntity
 	m	(Lb;Ldix;FFIFFFFFFFZZZZ)V	a	method_23183	method_23183
 c	ejz	net/minecraft/class_922	net/minecraft/client/render/entity/LivingEntityRenderer
 	m	(Lejb$a;Ldxp;F)V	<init>	<init>	<init>
+		p	1			ctx
 		p	2			model
 		p	3			shadowRadius
 	m	(Laqw;)Z	a	method_25450	isShaking
@@ -68992,6 +69272,9 @@ c	ek	net/minecraft/class_2262	net/minecraft/command/argument/BlockPosArgumentTyp
 	f	Lcom/mojang/brigadier/exceptions/SimpleCommandExceptionType;	b	field_10704	OUT_OF_WORLD_EXCEPTION
 	f	Ljava/util/Collection;	c	field_10702	EXAMPLES
 c	eka	net/minecraft/class_921	net/minecraft/client/render/entity/LlamaEntityRenderer
+	m	(Lejb$a;Lead;)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			layer
 	m	(Lbbu;)Lvs;	a	method_4037	getTexture
 	f	[Lvs;	a	field_4736	TEXTURES
 c	ekb	net/minecraft/class_923	net/minecraft/client/render/entity/LlamaSpitEntityRenderer
@@ -69005,6 +69288,9 @@ c	ekc	net/minecraft/class_917	net/minecraft/client/render/entity/MagmaCubeEntity
 	m	(Lbef;Lfx;)I	a	method_24090	getBlockLight
 	f	Lvs;	a	field_4727	TEXTURE
 c	ekd	net/minecraft/class_925	net/minecraft/client/render/entity/MinecartEntityRenderer
+	m	(Lejb$a;Lead;)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			layer
 	m	(Lbib;)Lvs;	a	method_4065	getTexture
 	m	(Lbib;FFLdit;Leek;I)V	a	method_4063	render
 	m	(Lbib;FLcgb;Ldit;Leek;I)V	a	method_4064	renderBlock
@@ -69019,6 +69305,11 @@ c	ekd	net/minecraft/class_925	net/minecraft/client/render/entity/MinecartEntityR
 c	eke	net/minecraft/class_927	net/minecraft/client/render/entity/MobEntityRenderer
 	m	(Laqx;FFLdit;Leek;I)V	a	method_4072	render
 	m	(Laqx;FLdit;Leek;Laqk;)V	a	method_4073	method_4073
+		p	1			entity
+		p	2			tickDelta
+		p	3			matrices
+		p	4			provider
+		p	5			holdingEntity
 	m	(Laqx;Lehf;DDD)Z	a	method_4068	shouldRender
 	m	(Ldix;Lb;FFFIIIIFFFFIZ)V	a	method_23187	method_23187
 	m	(Laqx;)Z	b	method_4071	hasLabel
@@ -69054,10 +69345,15 @@ c	ekl	net/minecraft/class_932	net/minecraft/client/render/entity/PigEntityRender
 	f	Lvs;	a	field_4755	TEXTURE
 c	ekm	net/minecraft/class_4842	net/minecraft/client/render/entity/PiglinEntityRenderer
 	m	(Lejb$a;Lead;Lead;Lead;Z)V	<init>	<init>	<init>
+		p	1			ctx
 		p	2			mainLayer
 		p	3			innerArmorLayer
 		p	4			outerArmorLayer
+		p	5			zombie
 	m	(Leab;Lead;Z)Ldyp;	a	method_24875	getPiglinModel
+		p	0			modelLoader
+		p	1			layer
+		p	2			zombie
 	m	(Laqx;)Z	c	method_25451	isShaking
 	m	(Laqx;)Lvs;	method_3982	method_3982	getTexture
 	f	Ljava/util/Map;	a	field_25793	TEXTURES
@@ -69122,6 +69418,11 @@ c	ekx	net/minecraft/class_942	net/minecraft/client/render/entity/SilverfishEntit
 	m	(Lben;)Lvs;	b	method_4108	getTexture
 	f	Lvs;	a	field_4779	TEXTURE
 c	eky	net/minecraft/class_946	net/minecraft/client/render/entity/SkeletonEntityRenderer
+	m	(Lejb$a;Lead;Lead;Lead;)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			layer
+		p	3			legArmorLayer
+		p	4			bodyArmorLayer
 	m	(Lbdp;)Lvs;	a	method_4119	getTexture
 	f	Lvs;	a	field_4785	TEXTURE
 c	ekz	net/minecraft/class_945	net/minecraft/client/render/entity/SlimeEntityRenderer
@@ -69149,6 +69450,9 @@ c	elb	net/minecraft/class_947	net/minecraft/client/render/entity/SpectralArrowEn
 	m	(Lbhh;)Lvs;	a	method_4120	getTexture
 	f	Lvs;	a	field_4787	TEXTURE
 c	elc	net/minecraft/class_949	net/minecraft/client/render/entity/SpiderEntityRenderer
+	m	(Lejb$a;Lead;)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			layer
 	m	(Lber;)Lvs;	a	method_4123	getTexture
 	m	(Lber;)F	b	method_4124	getLyingAngle
 	f	Lvs;	a	field_4789	TEXTURE
@@ -69167,6 +69471,10 @@ c	elf	net/minecraft/class_4999	net/minecraft/client/render/entity/StriderEntityR
 	f	Lvs;	a	field_23372	TEXTURE
 	f	Lvs;	g	field_23937	COLD_TEXTURE
 c	elg	net/minecraft/class_953	net/minecraft/client/render/entity/FlyingItemEntityRenderer
+	m	(Lejb$a;FZ)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			scale
+		p	3			lit
 	f	Lejw;	a	field_4792	itemRenderer
 	f	F	e	field_17147	scale
 	f	Z	f	field_21745	lit
@@ -69203,6 +69511,9 @@ c	elm	net/minecraft/class_958	net/minecraft/client/render/entity/TurtleEntityRen
 	m	(Lbbn;FFLdit;Leek;I)V	a	method_4138	render
 	f	Lvs;	a	field_4798	TEXTURE
 c	eln	net/minecraft/class_961	net/minecraft/client/render/entity/ZombieHorseEntityRenderer
+	m	(Lejb$a;Lead;)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			layer
 	m	(Lbbr;)Lvs;	a	method_4145	getTexture
 	f	Ljava/util/Map;	a	field_4803	TEXTURES
 c	elo	net/minecraft/class_960	net/minecraft/client/render/entity/VexEntityRenderer
@@ -69241,7 +69552,7 @@ c	elu	net/minecraft/class_967	net/minecraft/client/render/entity/WitherSkeletonE
 	m	(Lbdp;)Lvs;	method_4119	method_4119	getTexture
 	f	Lvs;	a	field_4818	TEXTURE
 c	elv	net/minecraft/class_966	net/minecraft/client/render/entity/WitherSkullEntityRenderer
-	m	()Leal;	a	method_32199	method_32199
+	m	()Leal;	a	method_32199	getTexturedModelData
 	m	(Lbhp;)Lvs;	a	method_4160	getTexture
 	m	(Lbhp;FFLdit;Leek;I)V	a	method_4159	render
 	m	(Lbhp;Lfx;)I	a	method_24094	getBlockLight
@@ -69259,6 +69570,11 @@ c	elx	net/minecraft/class_5144	net/minecraft/client/render/entity/ZoglinEntityRe
 	m	(Lbey;)Lvs;	a	method_27039	getTexture
 	f	Lvs;	a	field_23779	TEXTURE
 c	ely	net/minecraft/class_3886	net/minecraft/client/render/entity/ZombieEntityRenderer
+	m	(Lejb$a;Lead;Lead;Lead;)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			layer
+		p	3			legsArmorLayer
+		p	4			bodyArmorLayer
 c	elz	net/minecraft/class_971	net/minecraft/client/render/entity/ZombieVillagerEntityRenderer
 	m	(Lbfa;)Lvs;	a	method_4175	getTexture
 	m	(Lbfa;)Z	b	method_25452	isShaking
@@ -69300,11 +69616,20 @@ c	emf	net/minecraft/class_974	net/minecraft/client/render/entity/feature/Creeper
 c	emg	net/minecraft/class_4004	net/minecraft/client/render/entity/feature/VillagerHeldItemFeatureRenderer
 	m	(Ldit;Leek;ILaqw;FFFFFF)V	a	method_4208	render
 c	emh	net/minecraft/class_976	net/minecraft/client/render/entity/feature/HeadFeatureRenderer
+	m	(Leks;Leab;)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			modelLoader
+	m	(Leks;Leab;FFF)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			modelLoader
+		p	3			scaleX
+		p	4			scaleY
+		p	5			scaleZ
 	m	(Ldit;Leek;ILaqw;FFFFFF)V	a	method_17159	render
-	f	F	a	field_24474	field_24474
-	f	F	b	field_24475	field_24475
-	f	F	c	field_24476	field_24476
-	f	Ljava/util/Map;	d	field_27771	field_27771
+	f	F	a	field_24474	scaleX
+	f	F	b	field_24475	scaleY
+	f	F	c	field_24476	scaleZ
+	f	Ljava/util/Map;	d	field_27771	headModels
 c	emi	net/minecraft/class_978	net/minecraft/client/render/entity/feature/Deadmau5FeatureRenderer
 	m	(Ldit;Leek;ILedn;FFFFFF)V	a	method_4181	render
 c	emj	net/minecraft/class_977	net/minecraft/client/render/entity/feature/DolphinHeldItemFeatureRenderer
@@ -69343,11 +69668,23 @@ c	ems	net/minecraft/class_970	net/minecraft/client/render/entity/feature/ArmorFe
 	m	(Laqp;)Ldxz;	a	method_4172	getArmor
 		p	1			slot
 	m	(Lbks;ZLjava/lang/String;)Lvs;	a	method_4174	getArmorTexture
+		p	1			item
+		p	2			legs
+		p	3			overlay
 	m	(Ldit;Leek;ILaqw;FFFFFF)V	a	method_17157	render
 	m	(Ldit;Leek;ILbks;ZLdxz;ZFFFLjava/lang/String;)V	a	method_23192	renderArmorParts
+		p	1			matrices
+		p	2			provider
+		p	4			item
+		p	6			model
+		p	7			legs
+		p	11			overlay
 	m	(Ldit;Leek;Laqw;Laqp;ILdxz;)V	a	method_4169	renderArmor
 		p	1			matrices
 		p	2			vertexConsumers
+		p	3			entity
+		p	4			armorSlot
+		p	6			model
 	m	(Ldxz;Laqp;)V	a	method_4170	setVisible
 		p	1			bipedModel
 		p	2			slot
@@ -69481,7 +69818,7 @@ c	eng	net/minecraft/class_996	net/minecraft/client/render/entity/feature/Snowman
 c	enh	net/minecraft/class_1000	net/minecraft/client/render/entity/feature/SpiderEyesFeatureRenderer
 	f	Lees;	a	field_4902	SKIN
 c	eni	net/minecraft/class_998	net/minecraft/client/render/entity/feature/TridentRiptideFeatureRenderer
-	m	()Leal;	a	method_32200	method_32200
+	m	()Leal;	a	method_32200	getTexturedModelData
 	m	(Ldit;Leek;ILaqw;FFFFFF)V	a	method_4203	render
 	f	Lvs;	a	field_4898	TEXTURE
 	f	Leaf;	b	field_21012	aura
@@ -69537,6 +69874,9 @@ c	enp	net/minecraft/class_1006	net/minecraft/client/render/entity/feature/WolfCo
 	m	(Ldit;Leek;ILbbp;FFFFFF)V	a	method_4209	render
 	f	Lvs;	a	field_4913	SKIN
 c	ens	net/minecraft/class_1007	net/minecraft/client/render/entity/PlayerEntityRenderer
+	m	(Lejb$a;Z)V	<init>	<init>	<init>
+		p	1			ctx
+		p	2			slim
 	m	(Ldit;Leek;ILedn;)V	a	method_4220	renderRightArm
 		p	1			matrices
 		p	2			vertexConsumers
@@ -69553,6 +69893,8 @@ c	ens	net/minecraft/class_1007	net/minecraft/client/render/entity/PlayerEntityRe
 	m	(Ledn;F)Ldfw;	a	method_23206	getPositionOffset
 	m	(Ledn;FFLdit;Leek;I)V	a	method_4215	render
 	m	(Ledn;Lapd;)Ldxz$a;	a	method_4210	getArmPose
+		p	0			player
+		p	1			hand
 	m	(Ledn;Ldit;F)V	a	method_4217	scale
 	m	(Ledn;Ldit;FFF)V	a	method_4212	setupTransforms
 	m	(Ledn;Loa;Ldit;Leek;I)V	a	method_4213	renderLabelIfPresent
@@ -69562,6 +69904,7 @@ c	ens	net/minecraft/class_1007	net/minecraft/client/render/entity/PlayerEntityRe
 		p	3			light
 		p	4			player
 	m	(Ledn;)V	b	method_4218	setModelPose
+		p	1			player
 c	enu	net/minecraft/class_5272	net/minecraft/client/item/ModelPredicateProviderRegistry
 	m	(Lbmt;)Ljava/util/Map;	a	method_27877	method_27877
 	m	(Lbmt;Lvs;)Lenv;	a	method_27878	get
@@ -72196,6 +72539,7 @@ c	fk	net/minecraft/class_2316	net/minecraft/command/argument/ArgumentTypes
 		p	0			buf
 	m	(Lno;Lcom/mojang/brigadier/arguments/ArgumentType;)V	a	method_10019	toPacket
 	m	(Lvs;)Lfk$a;	a	method_10018	byId
+		p	0			id
 	m	(Lcom/mojang/brigadier/arguments/ArgumentType;)Lfk$a;	b	method_10013	byClass
 	f	Lorg/apache/logging/log4j/Logger;	a	field_10923	LOGGER
 	f	Ljava/util/Map;	b	field_10921	classMap
@@ -73135,9 +73479,9 @@ c	gm	net/minecraft/class_2378	net/minecraft/util/registry/Registry
 	f	Lvr;	H	field_25295	LOOT_POOL_ENTRY_TYPE_KEY
 	f	Lvr;	I	field_25296	LOOT_FUNCTION_TYPE_KEY
 	f	Lvr;	J	field_25297	LOOT_CONDITION_TYPE_KEY
-	f	Lvr;	K	field_28005	LOOT_NUMBER_PROVIDER_TYPE
-	f	Lvr;	L	field_28006	LOOT_NBT_PROVIDER_TYPE
-	f	Lvr;	M	field_28007	LOOT_SCORE_PROVIDER_TYPE
+	f	Lvr;	K	field_28005	LOOT_NUMBER_PROVIDER_TYPE_KEY
+	f	Lvr;	L	field_28006	LOOT_NBT_PROVIDER_TYPE_KEY
+	f	Lvr;	M	field_28007	LOOT_SCORE_PROVIDER_TYPE_KEY
 	f	Lvr;	N	field_25095	DIMENSION_TYPE_KEY
 	f	Lvr;	O	field_25298	DIMENSION
 	f	Lvr;	P	field_25490	DIMENSION_OPTIONS
@@ -73198,9 +73542,9 @@ c	gm	net/minecraft/class_2378	net/minecraft/util/registry/Registry
 	f	Lgm;	ar	field_25293	LOOT_POOL_ENTRY_TYPE
 	f	Lgm;	as	field_25294	LOOT_FUNCTION_TYPE
 	f	Lgm;	at	field_25299	LOOT_CONDITION_TYPE
-	f	Lgm;	au	field_28008	field_28008
-	f	Lgm;	av	field_28009	field_28009
-	f	Lgm;	aw	field_28010	field_28010
+	f	Lgm;	au	field_28008	LOOT_NUMBER_PROVIDER_TYPE
+	f	Lgm;	av	field_28009	LOOT_NBT_PROVIDER_TYPE
+	f	Lgm;	aw	field_28010	LOOT_SCORE_PROVIDER_TYPE
 	f	Lvr;	ax	field_26374	NOISE_SETTINGS_WORLDGEN
 	f	Lvr;	ay	field_25912	CONFIGURED_SURFACE_BUILDER_WORLDGEN
 	f	Lvr;	az	field_25913	CONFIGURED_CARVER_WORLDGEN
@@ -73559,7 +73903,9 @@ c	gt	net/minecraft/class_5620	net/minecraft/block/cauldron/CauldronBehavior
 		p	3			hand
 		p	4			stack
 		p	5			state
+		p	6			soundEvent
 	m	(Lcgb;)Z	a	method_32696	method_32696
+		p	0			state
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	a	method_32209	method_32209
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;Lbmx;Ljava/util/function/Predicate;Lady;)Lape;	a	method_32210	emptyCauldron
 		p	0			state
@@ -73573,6 +73919,7 @@ c	gt	net/minecraft/class_5620	net/minecraft/block/cauldron/CauldronBehavior
 	m	(Lit/unimi/dsi/fastutil/objects/Object2ObjectOpenHashMap;)V	a	method_32211	method_32211
 	m	()V	b	method_32212	registerBehavior
 	m	(Lcgb;)Z	b	method_32208	method_32208
+		p	0			state
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	b	method_32214	method_32214
 	m	(Lcgb;)Z	c	method_32213	method_32213
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	c	method_32215	method_32215
@@ -73580,8 +73927,26 @@ c	gt	net/minecraft/class_5620	net/minecraft/block/cauldron/CauldronBehavior
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	e	method_32216	method_32216
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	f	method_32217	method_32217
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	g	method_32698	method_32698
+		p	0			state
+		p	1			world
+		p	2			pos
+		p	3			player
+		p	4			hand
+		p	5			stack
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	h	method_32218	method_32218
+		p	0			state
+		p	1			world
+		p	2			pos
+		p	3			player
+		p	4			hand
+		p	5			stack
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	i	method_32219	method_32219
+		p	0			state
+		p	1			world
+		p	2			pos
+		p	3			player
+		p	4			hand
+		p	5			stack
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	interact	interact	interact
 		p	1			state
 		p	2			world
@@ -73590,8 +73955,26 @@ c	gt	net/minecraft/class_5620	net/minecraft/block/cauldron/CauldronBehavior
 		p	5			hand
 		p	6			stack
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	j	method_32220	method_32220
+		p	0			state
+		p	1			world
+		p	2			pos
+		p	3			player
+		p	4			hand
+		p	5			stack
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	k	method_32221	method_32221
+		p	0			state
+		p	1			world
+		p	2			pos
+		p	3			player
+		p	4			hand
+		p	5			stack
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	l	method_32222	method_32222
+		p	0			state
+		p	1			world
+		p	2			pos
+		p	3			player
+		p	4			hand
+		p	5			stack
 	m	(Lcgb;Lbsv;Lfx;Lbgm;Lapd;Lbmx;)Lape;	m	method_32223	method_32223
 	f	Ljava/util/Map;	a	field_27775	EMPTY_CAULDRON_BEHAVIOR
 	f	Ljava/util/Map;	b	field_27776	WATER_CAULDRON_BEHAVIOR
@@ -83846,27 +84229,88 @@ c	xn	net/minecraft/class_3069	net/minecraft/server/command/HelpCommand
 	m	(Lcom/mojang/brigadier/CommandDispatcher;Lcom/mojang/brigadier/context/CommandContext;)I	a	method_13407	method_13407
 	m	(Lcom/mojang/brigadier/CommandDispatcher;Lcom/mojang/brigadier/context/CommandContext;)I	b	method_13406	method_13406
 	f	Lcom/mojang/brigadier/exceptions/SimpleCommandExceptionType;	a	field_13665	FAILED_EXCEPTION
-c	xo	net/minecraft/class_5687	net/minecraft/class_5687
+c	xo	net/minecraft/class_5687	net/minecraft/server/command/ItemCommand
 	m	(Laqk;I)Lbmx;	a	method_32706	method_32706
-	m	(Lcom/mojang/brigadier/CommandDispatcher;)V	a	method_32707	method_32707
+	m	(Lcom/mojang/brigadier/CommandDispatcher;)V	a	method_32707	register
+		p	0			dispatcher
 	m	(Lcom/mojang/brigadier/context/CommandContext;)I	a	method_32708	method_32708
 	m	(Lcom/mojang/brigadier/context/CommandContext;Lcom/mojang/brigadier/suggestion/SuggestionsBuilder;)Ljava/util/concurrent/CompletableFuture;	a	method_32709	method_32709
 	m	(Ldb;)Z	a	method_32710	method_32710
-	m	(Ldb;Laqk;ILfx;I)I	a	method_32711	method_32711
-	m	(Ldb;Laqk;ILfx;ILdcv;)I	a	method_32712	method_32712
-	m	(Ldb;Laqk;ILjava/util/Collection;I)I	a	method_32713	method_32713
-	m	(Ldb;Laqk;ILjava/util/Collection;ILdcv;)I	a	method_32714	method_32714
+	m	(Ldb;Laqk;ILfx;I)I	a	method_32711	executeBlockCopyEntity
+		p	0			source
+		p	1			sourceEntity
+		p	2			sourceSlot
+		p	3			pos
+		p	4			slot
+	m	(Ldb;Laqk;ILfx;ILdcv;)I	a	method_32712	executeBlockCopyEntity
+		p	0			source
+		p	1			sourceEntity
+		p	2			sourceSlot
+		p	3			pos
+		p	4			slot
+		p	5			modifier
+	m	(Ldb;Laqk;ILjava/util/Collection;I)I	a	method_32713	executeEntityCopyEntity
+		p	0			source
+		p	1			sourceEntity
+		p	2			sourceSlot
+		p	3			targets
+		p	4			slot
+	m	(Ldb;Laqk;ILjava/util/Collection;ILdcv;)I	a	method_32714	executeEntityCopyEntity
+		p	0			source
+		p	1			sourceEntity
+		p	2			sourceSlot
+		p	3			targets
+		p	4			slot
+		p	5			modifier
 	m	(Ldb;Ldcv;Lbmx;)Lbmx;	a	method_32715	method_32715
 	m	(Ldb;Lfx;I)Lbmx;	a	method_32716	method_32716
-	m	(Ldb;Lfx;ILbmx;)I	a	method_32717	method_32717
-	m	(Ldb;Lfx;ILdcv;)I	a	method_32718	method_32718
-	m	(Ldb;Lfx;ILfx;I)I	a	method_32719	method_32719
-	m	(Ldb;Lfx;ILfx;ILdcv;)I	a	method_32720	method_32720
-	m	(Ldb;Lfx;ILjava/util/Collection;I)I	a	method_32721	method_32721
-	m	(Ldb;Lfx;ILjava/util/Collection;ILdcv;)I	a	method_32722	method_32722
+	m	(Ldb;Lfx;ILbmx;)I	a	method_32717	executeBlockReplace
+		p	0			source
+		p	1			pos
+		p	2			slot
+		p	3			stack
+	m	(Ldb;Lfx;ILdcv;)I	a	method_32718	executeBlockModify
+		p	0			source
+		p	1			pos
+		p	2			slot
+		p	3			modifier
+	m	(Ldb;Lfx;ILfx;I)I	a	method_32719	executeBlockCopyBlock
+		p	0			source
+		p	1			sourcePos
+		p	2			sourceSlot
+		p	3			pos
+		p	4			slot
+	m	(Ldb;Lfx;ILfx;ILdcv;)I	a	method_32720	executeBlockCopyBlock
+		p	0			source
+		p	1			sourcePos
+		p	2			sourceSlot
+		p	3			pos
+		p	4			slot
+		p	5			modifier
+	m	(Ldb;Lfx;ILjava/util/Collection;I)I	a	method_32721	executeEntityCopyBlock
+		p	0			source
+		p	1			sourcePos
+		p	2			sourceSlot
+		p	3			targets
+		p	4			slot
+	m	(Ldb;Lfx;ILjava/util/Collection;ILdcv;)I	a	method_32722	executeEntityCopyBlock
+		p	0			source
+		p	1			sourcePos
+		p	2			sourceSlot
+		p	3			targets
+		p	4			slot
+		p	5			modifier
 	m	(Ldb;Lfx;Lcom/mojang/brigadier/exceptions/Dynamic3CommandExceptionType;)Laox;	a	method_32723	method_32723
-	m	(Ldb;Ljava/util/Collection;ILbmx;)I	a	method_32724	method_32724
-	m	(Ldb;Ljava/util/Collection;ILdcv;)I	a	method_32725	method_32725
+	m	(Ldb;Ljava/util/Collection;ILbmx;)I	a	method_32724	executeEntityReplace
+		p	0			source
+		p	1			targets
+		p	2			slot
+		p	3			stack
+	m	(Ldb;Ljava/util/Collection;ILdcv;)I	a	method_32725	executeEntityModify
+		p	0			source
+		p	1			targets
+		p	2			slot
+		p	3			modifier
 	m	(Ljava/lang/Object;)Lcom/mojang/brigadier/Message;	a	method_32726	method_32726
 	m	(Ljava/lang/Object;Ljava/lang/Object;)Lcom/mojang/brigadier/Message;	a	method_32727	method_32727
 	m	(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/mojang/brigadier/Message;	a	method_32728	method_32728
@@ -83886,13 +84330,13 @@ c	xo	net/minecraft/class_5687	net/minecraft/class_5687
 	m	(Lcom/mojang/brigadier/context/CommandContext;)I	l	method_32742	method_32742
 	m	(Lcom/mojang/brigadier/context/CommandContext;)I	m	method_32743	method_32743
 	m	(Lcom/mojang/brigadier/context/CommandContext;)I	n	method_32744	method_32744
-	f	Lcom/mojang/brigadier/exceptions/Dynamic3CommandExceptionType;	a	field_28018	field_28018
-	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	b	field_28019	field_28019
-	f	Lcom/mojang/brigadier/exceptions/Dynamic3CommandExceptionType;	c	field_28020	field_28020
-	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	d	field_28021	field_28021
-	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	e	field_28022	field_28022
-	f	Lcom/mojang/brigadier/exceptions/Dynamic2CommandExceptionType;	f	field_28023	field_28023
-	f	Lcom/mojang/brigadier/suggestion/SuggestionProvider;	g	field_28024	field_28024
+	f	Lcom/mojang/brigadier/exceptions/Dynamic3CommandExceptionType;	a	field_28018	NOT_A_CONTAINER_TARGET_EXCEPTION
+	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	b	field_28019	NO_SUCH_SLOT_TARGET_EXCEPTION
+	f	Lcom/mojang/brigadier/exceptions/Dynamic3CommandExceptionType;	c	field_28020	NOT_A_CONTAINER_SOURCE_EXCEPTION
+	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	d	field_28021	NO_SUCH_SLOT_SOURCE_EXCEPTION
+	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	e	field_28022	NO_CHANGES_EXCEPTION
+	f	Lcom/mojang/brigadier/exceptions/Dynamic2CommandExceptionType;	f	field_28023	KNOWN_ITEM_EXCEPTION
+	f	Lcom/mojang/brigadier/suggestion/SuggestionProvider;	g	field_28024	MODIFIER_SUGGESTION_PROVIDER
 c	xp	net/minecraft/class_3073	net/minecraft/server/command/KickCommand
 	m	(Lcom/mojang/brigadier/CommandDispatcher;)V	a	method_13410	register
 		p	0			dispatcher
