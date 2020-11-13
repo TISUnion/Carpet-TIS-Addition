@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.microtiming.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.mapping.reader.v2.MappingGetter;
@@ -60,7 +61,7 @@ public class StackTraceDeobfuscator
 				list.clear();
 			}
 		}
-		list.add(0, new StackTraceElement("Deobfuscated stack trace", "", MAPPING_FILE_NAME, -1));
+		list.add(0, new StackTraceElement(MicroTimingLoggerManager.tr("Deobfuscated stack trace"), "", MAPPING_FILE_NAME, -1));
 		return list.toArray(new StackTraceElement[0]);
 	}
 
@@ -88,7 +89,7 @@ public class StackTraceDeobfuscator
 		{
 			String intermediaryName = name.get(this.intermediaryIndex).replace('/', '.');
 			String remappedName = name.get(this.namedIndex).replace('/', '.');
-			mappings.put(intermediaryName, remappedName);
+			this.mappings.put(intermediaryName, remappedName);
 		}
 
 		@Override
