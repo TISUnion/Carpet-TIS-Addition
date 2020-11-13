@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -25,10 +25,9 @@ import java.util.function.Predicate;
 @Mixin(LithiumServerTickScheduler.class)
 public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickScheduler<T>
 {
-	@Shadow(remap = false) @Final private Map<ScheduledTick<T>, TickEntry<T>> scheduledTicks;
 	@Shadow(remap = false) @Final private ServerWorld world;
 
-	private int oldListSize;
+	private boolean scheduleSuccess;
 
 	public LithiumServerTickSchedulerMixin(ServerWorld world, Predicate<T> invalidObjPredicate, Function<T, Identifier> idToName, Consumer<ScheduledTick<T>> consumer)
 	{
@@ -38,7 +37,22 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	@Inject(method = "schedule", at = @At("HEAD"))
 	private void startScheduleTileTickEvent(CallbackInfo ci)
 	{
-		this.oldListSize = this.scheduledTicks.size();
+		this.scheduleSuccess = false;
+	}
+
+	@Inject(
+			method = "addScheduledTick",
+			at = @At(
+					value = "FIELD",
+					target = "Lme/jellysquid/mods/lithium/common/world/scheduler/TickEntry;scheduled:Z",
+					ordinal = 0
+			),
+			locals = LocalCapture.CAPTURE_FAILHARD,
+			remap = false
+	)
+	private void checkIfItIsNotScheduled(ScheduledTick<T> tick, CallbackInfo ci, TickEntry<T> entry)
+	{
+		this.scheduleSuccess = !entry.scheduled;
 	}
 
 	@Inject(method = "schedule", at = @At("RETURN"))
@@ -46,7 +60,7 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	{
 		if (object instanceof Block)
 		{
-			MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTicks.size() > this.oldListSize);
+			MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduleSuccess);
 		}
 	}
 }
