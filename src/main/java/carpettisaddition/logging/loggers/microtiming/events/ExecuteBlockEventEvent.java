@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
 import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
@@ -69,6 +70,11 @@ public class ExecuteBlockEventEvent extends BaseEvent
 			list.add(COLOR_TARGET + this.tr("BlockEvent"));
 		}
 		list.add(getMessageExtraMessengerHoverText(blockAction));
+		if (this.getEventType() == EventType.ACTION_END)
+		{
+			list.add(TextUtil.getSpaceText());
+			list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("ended"));
+		}
 		if (returnValue != null)
 		{
 			list.add("w  ");
