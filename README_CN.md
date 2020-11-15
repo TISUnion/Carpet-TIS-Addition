@@ -147,7 +147,7 @@
 
 当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋
 
-可与选项 [dispenserFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md#发射器发射龙息-dispensersfiredragonbreath) 联动
+可与选项 [dispenserFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#发射器发射龙息-dispensersfiredragonbreath) 联动
 
 - 类型: `boolean`  
 - 默认值: `false`  
@@ -467,7 +467,7 @@
 
 `/log xporb <events>`
 
-基本上与 [掉落物监视器](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md#掉落物-item) 相同，只不过监视的是经验球实体
+基本上与 [掉落物监视器](https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#掉落物-item) 相同，只不过监视的是经验球实体
 
 
 ## 袭击 (raid)
