@@ -76,7 +76,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void onServerClosed(MinecraftServer server)
     {
-        RaidTracker.stop();
+        RaidTracker.getInstance().stop();
         MicroTimingLoggerManager.detachServer();
     }
 

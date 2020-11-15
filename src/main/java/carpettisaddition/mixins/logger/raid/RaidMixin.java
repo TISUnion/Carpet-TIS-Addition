@@ -36,7 +36,7 @@ public abstract class RaidMixin implements IRaid_RaidLogger
 	public void onRaidInvalidated(RaidLogger.InvalidateReason reason)
 	{
 		RaidLogger.getInstance().onRaidInvalidated((Raid)(Object)this, reason);
-		RaidTracker.trackRaidInvalidated(reason);
+		RaidTracker.getInstance().trackRaidInvalidated(reason);
 	}
 
 	@Inject(
