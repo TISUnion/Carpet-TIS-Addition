@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtiming.utils;
+package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import net.minecraft.world.dimension.DimensionType;
