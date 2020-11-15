@@ -275,6 +275,8 @@
   "raid_tracker.raid_generated": "袭击生成统计",
   "raid_tracker.invalidate_reasons_statistics": "结束原因统计",
   "raid_tracker.none": "暂无",
+  "raid_tracker.real_time": "现实时间",
+  "raid_tracker.in_game": "游戏内时间",
 
 
   "util.teleport_hint": "点击以传送至",

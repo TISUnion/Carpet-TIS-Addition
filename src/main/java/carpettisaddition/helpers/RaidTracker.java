@@ -134,7 +134,7 @@ public class RaidTracker extends TranslatableBase
 		int invalidateCounterSum = this.raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
 
 		result.add(Messenger.c("bg --------------------"));
-		result.add(Messenger.c(String.format("w %s %.2f min", tr("Tracked"), (double)ticks / (20 * 60))));
+		result.add(Messenger.c(String.format("w %s %.2f min (%s)", tr("Tracked"), (double)ticks / (20 * 60), realtime ? tr("real time") : tr("in game"))));
 		result.add(Messenger.c(String.format("w %s: %s", tr("Raid generated"), CounterUtil.ratePerHour(this.raidGeneratedCount, ticks))));
 		result.add(Messenger.c(String.format("w %s: %s", RaidCommand.getInstance().tr("Raiders"), CounterUtil.ratePerHour(raiderCountSum, ticks))));
 		this.raiderCounter.forEach((raiderType, count) -> result.add(Messenger.c(
