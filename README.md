@@ -42,6 +42,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
 - [chunkTickSpeed](#chunkTickSpeed)
 - [tileTickLimit](#tileTickLimit)
+- [poiUpdates](#poiUpdates)
 
 ## Loggers
 
@@ -402,6 +403,7 @@ With a value of `n`, in every chunk every game tick, climate things will tick `n
 - Suggested options: `0`, `1`, `10`, `100`, `1000`
 - Categories: `TIS`, `CREATIVE`
 
+
 ## tileTickLimit
 
 Modify the limit of executed tile tick events per game tick
@@ -410,6 +412,19 @@ Modify the limit of executed tile tick events per game tick
 - Default value: `65536`  
 - Suggested options: `1024`, `65536`, `2147483647`
 - Categories: `TIS`, `CREATIVE`
+
+
+## poiUpdates
+
+Whether block changes will cause POI to updates or not
+
+Set it to `false` to disable POI updates
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
 
 -----------
 

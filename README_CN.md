@@ -42,6 +42,7 @@
 - [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementIgnoreEntity)
 - [区块刻速度](#区块刻速度-chunkTickSpeed)
 - [计划刻上限](#计划刻上限-tileTickLimit)
+- [POI更新开关](#POI更新开关-poiUpdates)
 
 ## 监视器
 
@@ -411,6 +412,19 @@
 - 默认值: `65536`  
 - 参考选项: `1024`, `65536`, `2147483647`
 - 分类: `TIS`, `CREATIVE`
+
+
+## POI更新开关 (poiUpdates)
+
+方块变化时是否会更新 POI
+
+将其设为 `false` 以禁用 POI 更新
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
 
 -----------
 
