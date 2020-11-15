@@ -29,18 +29,34 @@ public abstract class ServerWorldMixin
 	 * -----------
 	 */
 
-	// Shift the opcode to make sure the stage detail and extra has been set in tickstages.ServerWorldMixin
-	// Injects with shift below are the same
-	@Inject(method = "tickBlock", at = @At(value = "HEAD", shift = At.Shift.AFTER))
+	private final ThreadLocal<Boolean> thisTileTickEventExecuted = ThreadLocal.withInitial(() -> false);
+
+	@Inject(method = "tickBlock", at = @At("HEAD"))
 	private void beforeExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
 	{
+		this.thisTileTickEventExecuted.set(false);
+	}
+
+	@Inject(
+			method = "tickBlock",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V"
+			)
+	)
+	private void preExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
+	{
 		MicroTimingLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, EventType.ACTION_START);
+		this.thisTileTickEventExecuted.set(true);
 	}
 
 	@Inject(method = "tickBlock", at = @At("RETURN"))
 	private void afterExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, EventType.ACTION_END);
+		if (this.thisTileTickEventExecuted.get())
+		{
+			MicroTimingLoggerManager.onExecuteTileTickEvent((ServerWorld) (Object) this, event, EventType.ACTION_END);
+		}
 	}
 
 	/*
@@ -65,6 +81,8 @@ public abstract class ServerWorldMixin
 		MicroTimingLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
 	}
 
+	// Shift the opcode to make sure the stage detail and extra has been set in tickstages.ServerWorldMixin
+	// Injects with shift below are the same
 	@Inject(method = "method_14174", at = @At(value = "HEAD", shift = At.Shift.AFTER))
 	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
@@ -74,6 +92,7 @@ public abstract class ServerWorldMixin
 	@Inject(method = "method_14174", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
 	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir, BlockState blockState)
 	{
-		MicroTimingLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), new ExecuteBlockEventEvent.FailInfo(blockState.getBlock() != blockAction.getBlock() ? ExecuteBlockEventEvent.FailReason.BLOCK_CHANGED : ExecuteBlockEventEvent.FailReason.EVENT_FAIL, blockState.getBlock()), EventType.ACTION_END);
+		ExecuteBlockEventEvent.FailInfo failInfo = new ExecuteBlockEventEvent.FailInfo(blockState.getBlock() != blockAction.getBlock() ? ExecuteBlockEventEvent.FailReason.BLOCK_CHANGED : ExecuteBlockEventEvent.FailReason.EVENT_FAIL, blockState.getBlock());
+		MicroTimingLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), failInfo, EventType.ACTION_END);
 	}
 }
