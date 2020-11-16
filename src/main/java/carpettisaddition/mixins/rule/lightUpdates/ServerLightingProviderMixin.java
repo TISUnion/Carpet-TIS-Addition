@@ -18,9 +18,11 @@ public abstract class ServerLightingProviderMixin
 	)
 	void onAddingLightUpdateTask(CallbackInfo ci)
 	{
-		if (CarpetTISAdditionSettings.lightUpdates == CarpetTISAdditionSettings.LightUpdateOptions.OFF)
+		//noinspection SwitchStatementWithTooFewBranches
+		switch (CarpetTISAdditionSettings.lightUpdates)
 		{
-			ci.cancel();
+			case OFF:
+				ci.cancel();
 		}
 	}
 
@@ -31,9 +33,11 @@ public abstract class ServerLightingProviderMixin
 	)
 	void onExecutingLightUpdates(CallbackInfo ci)
 	{
-		if (CarpetTISAdditionSettings.lightUpdates != CarpetTISAdditionSettings.LightUpdateOptions.ON)  // off or suppressed
+		switch (CarpetTISAdditionSettings.lightUpdates)
 		{
-			ci.cancel();
+			case OFF:
+			case SUPPRESSED:
+				ci.cancel();
 		}
 	}
 }
