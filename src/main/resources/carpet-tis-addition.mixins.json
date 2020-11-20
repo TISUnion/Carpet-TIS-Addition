@@ -7,7 +7,6 @@
     "carpet.CarpetServerMixin",
     "carpet.HUDControllerMixin",
     "carpet.SettingsManagerMixin",
-    "carpet.TickCommand_tickWarpMaximumDurationMixin",
     "carpet.onServerLoadedWorlds.MinecraftServerMixin",
     "command.Raid_raidTrackerMixin",
     "command.RaidAccessor",

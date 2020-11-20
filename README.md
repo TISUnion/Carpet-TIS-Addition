@@ -546,5 +546,4 @@ Show the ticking order of current dimensions in the game
 # Other Stuffs
 
 - Set the maximum length of fake player's name to 16 to prevent kicking out other players
-- Set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
 - Display the version of TIS Carpet Addition inside `/carpet` command
