@@ -1,8 +1,8 @@
 package carpettisaddition.mixins.logger.microtiming;
 
-import carpettisaddition.interfaces.IServerWorld_microTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IServerWorld;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.RegistryKey;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Supplier;
 
 @Mixin(ServerWorld.class)
-public abstract class ServerWorldMixin extends World implements IServerWorld_microTimingLogger
+public abstract class ServerWorldMixin extends World implements IServerWorld
 {
 	private MicroTimingLogger microTimingLogger;
 

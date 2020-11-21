@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.raid;
 
-import carpettisaddition.interfaces.IRaid_RaidLogger;
-import carpettisaddition.logging.loggers.RaidLogger;
+import carpettisaddition.logging.loggers.raid.IRaid;
+import carpettisaddition.logging.loggers.raid.RaidLogger;
 import net.minecraft.village.raid.Raid;
 import net.minecraft.village.raid.RaidManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,6 +34,6 @@ public abstract class RaidManagerMixin
 	)
 	private void onInvalidatedByGamerule(CallbackInfo ci, Iterator<Raid> iterator, Raid raid)
 	{
-		((IRaid_RaidLogger)raid).onRaidInvalidated(RaidLogger.InvalidateReason.GAMERULE_DISABLE);
+		((IRaid)raid).onRaidInvalidated(RaidLogger.InvalidateReason.GAMERULE_DISABLE);
 	}
 }

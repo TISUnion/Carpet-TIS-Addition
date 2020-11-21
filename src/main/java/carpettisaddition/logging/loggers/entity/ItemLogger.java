@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers;
+package carpettisaddition.logging.loggers.entity;
 
 import carpet.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
