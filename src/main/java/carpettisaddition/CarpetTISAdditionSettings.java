@@ -4,6 +4,7 @@ import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
+import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.regex.Pattern;
@@ -297,6 +298,16 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.LABELLED;
+
+	@Rule(
+			desc = "Determine the way to divide game ticks",
+			extra = {
+					"world_timer: Divides at Overworld timer increment",
+					"code_order: Divides at the end of the main loop in code"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static TickDivision microTimingTickDivision = TickDivision.WORLD_TIMER;
 
 	@Rule(
 			desc = "Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown",

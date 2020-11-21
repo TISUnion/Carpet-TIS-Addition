@@ -1,6 +1,8 @@
-package carpettisaddition.mixins.logger.microtiming;
+package carpettisaddition.mixins.logger.microtiming.messageflush;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
@@ -23,9 +25,12 @@ public abstract class WorldMixin
 	)
 	private void onTimeUpdate(CallbackInfo ci)
 	{
-		if (this.getDimension().getType() == DimensionType.OVERWORLD)  // only flush messages at overworld time update
+		if (CarpetTISAdditionSettings.microTimingTickDivision == TickDivision.WORLD_TIMER)
 		{
-			MicroTimingLoggerManager.flushMessages(this.getTime());
+			if (this.getDimension().getType() == DimensionType.OVERWORLD)  // only flush messages at overworld time update
+			{
+				MicroTimingLoggerManager.flushMessages(this.getTime());
+			}
 		}
 	}
 }
