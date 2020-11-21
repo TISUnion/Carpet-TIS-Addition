@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,13 +16,29 @@ public class BlockStateChangeEvent extends BaseEvent
 {
 	private final Block block;
 	private Boolean returnValue;
+	private final int flags;
 	private final List<PropertyChanges> changes = Lists.newArrayList();
 
-	public BlockStateChangeEvent(EventType eventType, Boolean returnValue, Block block)
+	private static final List<FlagData> SET_BLOCK_STATE_FLAGS = Lists.newArrayList();
+
+	static
+	{
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(1, "emits block updates", false));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(2, "updates listeners", false));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(4, "updates client listeners", true));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(8, null, false));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(16, "emits state updates", true));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(32, null, false));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(64, "caused by piston", false));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(128, null, false));
+	}
+
+	public BlockStateChangeEvent(EventType eventType, Boolean returnValue, Block block, int flags)
 	{
 		super(eventType, "block_state_change");
 		this.block = block;
 		this.returnValue = returnValue;
+		this.flags = flags;
 	}
 
 	private BaseText getChangesText(char header, boolean justShowMeDetail)
@@ -58,12 +75,40 @@ public class BlockStateChangeEvent extends BaseEvent
 		return Messenger.c(changes.toArray(new Object[0]));
 	}
 
+	private BaseText getFlagsText()
+	{
+		String bits = Integer.toBinaryString(this.flags);
+		bits = String.join("", Collections.nCopies(Math.max(SET_BLOCK_STATE_FLAGS.size() - bits.length(), 0), "0")) + bits;
+		List<Object> list = Lists.newArrayList();
+		list.add(Messenger.s(String.format("setBlockState flags = %d (%s)", this.flags, bits)));
+		for (FlagData flagData: SET_BLOCK_STATE_FLAGS)
+		{
+			if (flagData.isValid())
+			{
+				int currentBit = (this.flags & flagData.mask) > 0 ? 1 : 0;
+				list.add(Messenger.c(
+						String.format("w \nbit %d = %d: ", flagData.bitPos, currentBit),
+						String.format("^w 2^%d = %d", flagData.bitPos, flagData.mask),
+						MicroTimingUtil.getSuccessText((currentBit ^ flagData.revert) != 0, false),
+						"w  ",
+						Messenger.s(this.tr("flag_data." + flagData.bitPos, flagData.detail))
+				));
+			}
+		}
+		return Messenger.c(list.toArray(new Object[0]));
+	}
+
 	@Override
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
-		BaseText titleText = Messenger.c(COLOR_ACTION + this.tr("State Change"));
+		BaseText titleText = TextUtil.getFancyText(
+				null,
+				Messenger.c(COLOR_ACTION + this.tr("State Change")),
+				this.getFlagsText(),
+				null
+		);
 		if (this.getEventType() != EventType.ACTION_END)
 		{
 			list.add(titleText);
@@ -82,8 +127,7 @@ public class BlockStateChangeEvent extends BaseEvent
 					Messenger.c(
 							String.format("w %s", this.tr("Changed BlockStates")),
 							"w :\n",
-							this.getChangesText('\n', true),
-							"w  "
+							this.getChangesText('\n', true)
 					),
 					null
 			));
@@ -165,6 +209,36 @@ public class BlockStateChangeEvent extends BaseEvent
 		public int hashCode()
 		{
 			return Objects.hash(name, oldValue, newValue);
+		}
+	}
+
+	private static class FlagData
+	{
+		private final int mask;
+		private final String detail;
+		private final int revert;
+		private final int bitPos;
+
+		private FlagData(int mask, String detail, boolean revert)
+		{
+			if (mask <= 0)
+			{
+				throw new IllegalArgumentException(String.format("mask = %d < 0", mask));
+			}
+			this.mask = mask;
+			this.detail = detail;
+			this.revert = revert ? 1 : 0;
+			int pos = 0;
+			for (int n = this.mask; n > 0; n >>= 1)
+			{
+				pos++;
+			}
+			this.bitPos = pos - 1;
+		}
+
+		private boolean isValid()
+		{
+			return this.detail != null;
 		}
 	}
 }

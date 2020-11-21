@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.damage;
 
-import carpettisaddition.interfaces.ILivingEntity_damageLogger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
+import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.damage.DamageSource;
@@ -47,7 +47,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 	)
 	void onRespawnProtectionCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		((ILivingEntity_damageLogger)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
+		((ILivingEntity)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
 				0.0F, ModifyReason.RESPAWN_PROTECTION
 		));
 	}
@@ -69,7 +69,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 	)
 	void onPVPDisabledCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		((ILivingEntity_damageLogger)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
+		((ILivingEntity)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
 				0.0F, ModifyReason.PVP_DISABLED
 		));
 	}

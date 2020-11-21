@@ -2,9 +2,9 @@ package carpettisaddition.logging.loggers.damage;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.interfaces.ILivingEntity_damageLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
+import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
 import carpettisaddition.logging.loggers.damage.modifyreasons.Modification;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.translations.Translator;
@@ -62,7 +62,7 @@ public class DamageLogger extends AbstractLogger
 	{
 		if (DamageLogger.isLoggerActivated())
 		{
-			ILivingEntity_damageLogger iEntity = (ILivingEntity_damageLogger)entity;
+			ILivingEntity iEntity = (ILivingEntity)entity;
 			if (!iEntity.getDamageLogger().isPresent())
 			{
 				iEntity.setDamageLogger(new DamageLogger(entity, source, amount));

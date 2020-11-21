@@ -2,12 +2,12 @@ package carpettisaddition.logging.loggers.microtiming;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.interfaces.IServerWorld_microTimingLogger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.events.*;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IServerWorld;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
@@ -43,7 +43,7 @@ public class MicroTimingLoggerManager
         this.lastFlushTime = -1;
         for (ServerWorld world : minecraftServer.getWorlds())
         {
-            this.loggers.put(world, ((IServerWorld_microTimingLogger)world).getMicroTimingLogger());
+            this.loggers.put(world, ((IServerWorld)world).getMicroTimingLogger());
         }
     }
 
@@ -78,7 +78,7 @@ public class MicroTimingLoggerManager
     {
         if (instance != null && world instanceof ServerWorld)
         {
-            return Optional.of(((IServerWorld_microTimingLogger)world).getMicroTimingLogger());
+            return Optional.of(((IServerWorld)world).getMicroTimingLogger());
         }
         return Optional.empty();
     }
@@ -131,13 +131,13 @@ public class MicroTimingLoggerManager
         onEvent(world, pos, () -> new DetectBlockUpdateEvent(eventType, fromBlock, updateType, () -> updateType.getUpdateOrderList(exceptSide)), MicroTimingUtil::getEndRodWoolColor);
     }
 
-    public static void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, EventType eventType)
+    public static void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, int flags, EventType eventType)
     {
         if (isLoggerActivated())
         {
             if (oldState.getBlock() == newState.getBlock())
             {
-                getWorldLogger(world).ifPresent(logger -> logger.onSetBlockState(world, pos, oldState, newState, returnValue, eventType));
+                getWorldLogger(world).ifPresent(logger -> logger.onSetBlockState(world, pos, oldState, newState, returnValue, flags, eventType));
             }
         }
     }

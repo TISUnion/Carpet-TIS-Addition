@@ -336,6 +336,15 @@ public class CarpetTISAdditionSettings
 	)
 	public static int tileTickLimit = 65536;
 
+	@Rule(
+			desc = "Whether block changes will cause POI to updates or not",
+			extra = {
+					"Set it to false to disable POI updates"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean poiUpdates = true;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

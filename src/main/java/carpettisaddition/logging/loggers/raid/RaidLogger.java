@@ -1,8 +1,9 @@
-package carpettisaddition.logging.loggers;
+package carpettisaddition.logging.loggers.raid;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.text.BaseText;

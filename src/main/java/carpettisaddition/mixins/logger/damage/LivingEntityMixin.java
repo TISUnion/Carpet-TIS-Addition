@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.damage;
 
-import carpettisaddition.interfaces.ILivingEntity_damageLogger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
+import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ArmorModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.EnchantmentModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Optional;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin implements ILivingEntity_damageLogger
+public abstract class LivingEntityMixin implements ILivingEntity
 {
 	@Shadow protected float field_6253;
 

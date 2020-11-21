@@ -156,11 +156,6 @@ public class TextUtil
 		return getTranslatedName(key, null, args);
 	}
 
-	public static long getGameTime()
-	{
-		return CarpetTISAdditionServer.minecraft_server.getWorld(DimensionType.OVERWORLD).getTime();
-	}
-
 	// some language doesn't use space char to divide word
 	// so here comes the compatibility
 	public static String getSpace()

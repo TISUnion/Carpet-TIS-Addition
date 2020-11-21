@@ -92,11 +92,11 @@ public class MicroTimingLogger extends AbstractLogger
 		INTEREST_PROPERTIES.add(Properties.LOCKED);  // redstone repeater
 	}
 
-	public void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, EventType eventType)
+	public void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, int flags, EventType eventType)
 	{
 		// lazy loading
 		DyeColor color = null;
-		BlockStateChangeEvent event = new BlockStateChangeEvent(eventType, returnValue, newState.getBlock());
+		BlockStateChangeEvent event = new BlockStateChangeEvent(eventType, returnValue, newState.getBlock(), flags);
 
 		for (Property<?> property: newState.getProperties())
 		{
