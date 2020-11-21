@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.microtiming.tickstages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.logging.loggers.microtiming.interfaces.IWorldMixin;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IWorld;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TileEntityTickStageExtra;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.World;
@@ -24,8 +24,8 @@ public abstract class DirectBlockEntityTickInvokerMixin<T extends BlockEntity>
 		World world = blockEntity.getWorld();
 		if (world != null)
 		{
-			int counter = ((IWorldMixin) world).getTileEntityOrderCounter();
-			((IWorldMixin) world).setTileEntityOrderCounter(counter + 1);
+			int counter = ((IWorld) world).getTileEntityOrderCounter();
+			((IWorld) world).setTileEntityOrderCounter(counter + 1);
 			MicroTimingLoggerManager.setTickStageExtra(world, new TileEntityTickStageExtra(blockEntity, counter));
 		}
 	}
