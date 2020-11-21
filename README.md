@@ -442,6 +442,7 @@ Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 
 
 **Warning:** Logging `unknown` ticket may make you get spammed
 
+Attributes:
 - Default value: `portal`
 - Suggested options: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
 
@@ -498,6 +499,7 @@ Attributes:
 - Default value: N/A
 - Suggested options: N/A
 
+
 ## microTiming
 
 `/log microTiming <type>`
@@ -531,6 +533,7 @@ Attributes:
 - Default value: `all`
 - Suggested options: `all`, `players`, `me`
 
+
 # Commands
 
 ## raid
@@ -561,5 +564,5 @@ Show the ticking order of current dimensions in the game
 # Other Stuffs
 
 - Set the maximum length of fake player's name to 16 to prevent kicking out other players
-- Set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
+- Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
