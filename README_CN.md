@@ -42,6 +42,7 @@
 - [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementIgnoreEntity)
 - [区块刻速度](#区块刻速度-chunkTickSpeed)
 - [计划刻上限](#计划刻上限-tileTickLimit)
+- [POI更新开关](#POI更新开关-poiUpdates)
 
 ## 监视器
 
@@ -147,7 +148,7 @@
 
 当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋
 
-可与选项 [dispenserFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md#发射器发射龙息-dispensersfiredragonbreath) 联动
+可与选项 [dispenserFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#发射器发射龙息-dispensersfiredragonbreath) 联动
 
 - 类型: `boolean`  
 - 默认值: `false`  
@@ -412,6 +413,19 @@
 - 参考选项: `1024`, `65536`, `2147483647`
 - 分类: `TIS`, `CREATIVE`
 
+
+## POI更新开关 (poiUpdates)
+
+方块变化时是否会更新 POI
+
+将其设为 `false` 以禁用 POI 更新
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 -----------
 
 # 监视器
@@ -467,7 +481,7 @@
 
 `/log xporb <events>`
 
-基本上与 [掉落物监视器](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md#掉落物-item) 相同，只不过监视的是经验球实体
+基本上与 [掉落物监视器](https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#掉落物-item) 相同，只不过监视的是经验球实体
 
 
 ## 袭击 (raid)

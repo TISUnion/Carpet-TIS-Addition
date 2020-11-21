@@ -5,7 +5,7 @@ import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.logging.loggers.RaidLogger;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.CounterUtil;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.GameUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityType;
@@ -20,49 +20,52 @@ import java.util.Map;
 
 public class RaidTracker extends TranslatableBase
 {
-	public static RaidTracker inst = new RaidTracker();
+	public static final RaidTracker INSTANCE = new RaidTracker();
 
 	private boolean isTracking;
 	private long startTick;
+	private long startMillis;
 	private int raidGeneratedCount;
-	private final Map<EntityType<?>, Integer> raiderCounter = Maps.newHashMap();
-	private final Map<RaidLogger.InvalidateReason, Integer> raidInvalidateCounter = Maps.newHashMap();
+	private final Map<EntityType<?>, Integer> raiderCounter = Maps.newLinkedHashMap();
+	private final Map<RaidLogger.InvalidateReason, Integer> raidInvalidateCounter = Maps.newLinkedHashMap();
 
 	public RaidTracker()
 	{
 		super(null, "raid_tracker");
 	}
 
-	private int __startTracking(ServerCommandSource source, boolean info)
+	public static RaidTracker getInstance()
 	{
-		if (isTracking)
+		return INSTANCE;
+	}
+
+	public int startTracking(ServerCommandSource source, boolean info)
+	{
+		if (this.isTracking)
 		{
-			Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_already_started", "Raid tracker has already been running"))));
+			Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_already_started", "Raid tracker is already running"))));
 			return 1;
 		}
-		isTracking = true;
-		startTick = TextUtil.getGameTime();
-		raidGeneratedCount = 0;
-		raiderCounter.clear();
-		raidInvalidateCounter.clear();
+		this.isTracking = true;
+		this.startTick = GameUtil.getGameTime();
+		this.startMillis = System.currentTimeMillis();
+		this.raidGeneratedCount = 0;
+		this.raiderCounter.clear();
+		this.raidInvalidateCounter.clear();
 		if (info)
 		{
 			Messenger.m(source, Messenger.s(tr("tracking_started", "Raid tracking started")));
 		}
 		return 1;
 	}
-	public static int startTracking(ServerCommandSource source)
-	{
-		return inst.__startTracking(source, true);
-	}
 
-	private int __stopTracking(ServerCommandSource source, boolean info)
+	public int stopTracking(ServerCommandSource source, boolean info)
 	{
 		if (source != null)
 		{
-			if (isTracking)
+			if (this.isTracking)
 			{
-				printTrackingResult(source);
+				this.printTrackingResult(source, false);
 				if (info)
 				{
 					Messenger.m(source, Messenger.s(tr("tracking_stopped", "Raid tracking stopped")));
@@ -70,105 +73,83 @@ public class RaidTracker extends TranslatableBase
 			}
 			else if (info)
 			{
-				Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_not_started", "Raid tracking is not started"))));
+				Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_not_started", "Raid tracking has not started"))));
 			}
 		}
-		isTracking = false;
+		this.isTracking = false;
 		return 1;
 	}
-	public static int stopTracking(ServerCommandSource source)
+
+	// call this when server stops
+	public void stop()
 	{
-		return inst.__stopTracking(source, true);
-	}
-	public static void stop()
-	{
-		stopTracking(null);
+		this.stopTracking(null, false);
 	}
 
-	private int __restartTracking(ServerCommandSource source)
+	public int restartTracking(ServerCommandSource source)
 	{
-		__stopTracking(source, false);
-		__startTracking(source, false);
+		this.stopTracking(source, false);
+		this.startTracking(source, false);
 		Messenger.m(source, Messenger.s(tr("tracking_restarted", "Raid tracking restarted")));
 		return 1;
 	}
-	public static int restartTracking(ServerCommandSource source)
-	{
-		return inst.__restartTracking(source);
-	}
 
-	public void __trackRaidInvalidated(RaidLogger.InvalidateReason reason)
+	public void trackRaidInvalidated(RaidLogger.InvalidateReason reason)
 	{
-		if (isTracking)
+		if (this.isTracking)
 		{
-			Integer count = raidInvalidateCounter.get(reason);
-			raidInvalidateCounter.put(reason, count == null ? 1 : count + 1);
+			Integer count = this.raidInvalidateCounter.get(reason);
+			this.raidInvalidateCounter.put(reason, count == null ? 1 : count + 1);
 		}
 	}
-	public static void trackRaidInvalidated(RaidLogger.InvalidateReason reason)
-	{
-		inst.__trackRaidInvalidated(reason);
-	}
 
-	public void __trackRaidGenerated(Raid raid)
+	public void trackRaidGenerated(Raid raid)
 	{
-		if (isTracking)
+		if (this.isTracking)
 		{
-			raidGeneratedCount++;
+			this.raidGeneratedCount++;
 		}
 	}
-	public static void trackRaidGenerated(Raid raid)
-	{
-		inst.__trackRaidGenerated(raid);
-	}
 
-	public void __trackNewRaider(RaiderEntity raider)
+	public void trackNewRaider(RaiderEntity raider)
 	{
-		if (isTracking)
+		if (this.isTracking)
 		{
 			EntityType<?> key = raider.getType();
-			Integer count = raiderCounter.get(key);
-			raiderCounter.put(key, count == null ? 1 : count + 1);
+			Integer count = this.raiderCounter.get(key);
+			this.raiderCounter.put(key, count == null ? 1 : count + 1);
 		}
 	}
-	public static void trackNewRaider(RaiderEntity raider)
-	{
-		inst.__trackNewRaider(raider);
-	}
 
-	private int __printTrackingResult(ServerCommandSource source)
+	public int printTrackingResult(ServerCommandSource source, boolean realtime)
 	{
-		if (!isTracking)
+		if (!this.isTracking)
 		{
-			Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_not_started", "Raid tracking is not started"))));
+			Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_not_started", "Raid tracking has not started"))));
 			return 1;
 		}
 		List<BaseText> result = Lists.newArrayList();
-		long ticks = Math.max(1, TextUtil.getGameTime() - startTick);
-		int raiderCountSum = raiderCounter.values().stream().mapToInt(Integer::intValue).sum();
-		int invalidateCounterSum = raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
+		long ticks = Math.max(1, realtime ? (System.currentTimeMillis() - this.startMillis) / 50 : GameUtil.getGameTime() - this.startTick);
+		int raiderCountSum = this.raiderCounter.values().stream().mapToInt(Integer::intValue).sum();
+		int invalidateCounterSum = this.raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
 
 		result.add(Messenger.c("bg --------------------"));
-		result.add(Messenger.c(String.format("w %s %.2f min", tr("Tracked"), (double)ticks / (20 * 60))));
-		result.add(Messenger.c(String.format("w %s: %s", tr("Raid generated"), CounterUtil.ratePerHour(raidGeneratedCount, ticks))));
+		result.add(Messenger.c(String.format("w %s %.2f min (%s)", tr("Tracked"), (double)ticks / (20 * 60), realtime ? tr("real time") : tr("in game"))));
+		result.add(Messenger.c(String.format("w %s: %s", tr("Raid generated"), CounterUtil.ratePerHour(this.raidGeneratedCount, ticks))));
 		result.add(Messenger.c(String.format("w %s: %s", RaidCommand.getInstance().tr("Raiders"), CounterUtil.ratePerHour(raiderCountSum, ticks))));
-		raiderCounter.forEach((raiderType, count) -> result.add(Messenger.c(
+		this.raiderCounter.forEach((raiderType, count) -> result.add(Messenger.c(
 				"g - ",
 				raiderType.getName(),
 				String.format("w : %s, %.1f%%", CounterUtil.ratePerHour(count, ticks), (double) count / raiderCountSum * 100))
 		));
 
-		result.add(Messenger.c(String.format("w %s: ", tr("Invalidate reasons statistics")), String.format("w %s", raidInvalidateCounter.isEmpty() ? tr("None") : "")));
-		raidInvalidateCounter.forEach((reason, count) -> result.add(Messenger.c(
+		result.add(Messenger.c(String.format("w %s: ", tr("Invalidate reasons statistics")), String.format("w %s", this.raidInvalidateCounter.isEmpty() ? tr("None") : "")));
+		this.raidInvalidateCounter.forEach((reason, count) -> result.add(Messenger.c(
 				"g - ",
 				String.format("w %s", reason.tr()),
 				String.format("w : %s, %.1f%%", CounterUtil.ratePerHour(count, ticks), (double)count / invalidateCounterSum * 100))
 		));
 		Messenger.send(source, result);
 		return 1;
-	}
-	public static int printTrackingResult(ServerCommandSource source)
-	{
-		return inst.__printTrackingResult(source);
 	}
 }

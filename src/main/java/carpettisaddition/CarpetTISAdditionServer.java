@@ -27,7 +27,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public static final String compactName = name.replace("-","");  // carpettisaddition
     // should be the same as the version in gradlew.properties
     // "undefined" will be replaced with build number during github action
-    public static final String version = "1.7.1+build.undefined";
+    public static final String version = "1.8.0+build.undefined";
     public static final Logger LOGGER = LogManager.getLogger(fancyName);
     public static MinecraftServer minecraft_server;
 
@@ -76,7 +76,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void onServerClosed(MinecraftServer server)
     {
-        RaidTracker.stop();
+        RaidTracker.getInstance().stop();
         MicroTimingLoggerManager.detachServer();
     }
 

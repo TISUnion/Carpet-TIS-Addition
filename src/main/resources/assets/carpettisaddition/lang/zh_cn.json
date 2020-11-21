@@ -120,6 +120,10 @@
   "rule.tileTickLimit.name": "计划刻上限",
   "rule.tileTickLimit.desc": "修改每游戏刻中计划刻事件的执行次数上限",
 
+  "rule.poiUpdates.name": "POI更新开关",
+  "rule.poiUpdates.desc": "方块变化时是否会更新POI",
+  "rule.poiUpdates.extra.0": "将其设为false以禁用POI更新",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
@@ -199,6 +203,11 @@
   "logger.microTiming.event.block_state_change.state_change": "状态改变",
   "logger.microTiming.event.block_state_change.changed_states": "变化的状态",
   "logger.microTiming.event.block_state_change.finished": "结束",
+  "logger.microTiming.event.block_state_change.flag_data.0": "发出方块更新",
+  "logger.microTiming.event.block_state_change.flag_data.1": "更新listener",
+  "logger.microTiming.event.block_state_change.flag_data.2": "更新客户端listener",
+  "logger.microTiming.event.block_state_change.flag_data.4": "发出状态更新",
+  "logger.microTiming.event.block_state_change.flag_data.6": "由活塞引起",
   "logger.microTiming.event.detect_block_update.emit": "发出",
   "logger.microTiming.event.detect_block_update.detected": "被检测",
   "logger.microTiming.event.detect_block_update.ended": "结束",
@@ -275,6 +284,8 @@
   "raid_tracker.raid_generated": "袭击生成统计",
   "raid_tracker.invalidate_reasons_statistics": "结束原因统计",
   "raid_tracker.none": "暂无",
+  "raid_tracker.real_time": "现实时间",
+  "raid_tracker.in_game": "游戏内时间",
 
 
   "util.teleport_hint": "点击以传送至",

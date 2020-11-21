@@ -19,7 +19,7 @@ public abstract class Raid_raidTrackerMixin
 	)
 	private void onConstruct(CallbackInfo ci)
 	{
-		RaidTracker.trackRaidGenerated((Raid)(Object)this);
+		RaidTracker.getInstance().trackRaidGenerated((Raid)(Object)this);
 	}
 
 	@Inject(
@@ -30,7 +30,7 @@ public abstract class Raid_raidTrackerMixin
 	{
 		if (!existing)
 		{
-			RaidTracker.trackNewRaider(raider);
+			RaidTracker.getInstance().trackNewRaider(raider);
 		}
 	}
 }
