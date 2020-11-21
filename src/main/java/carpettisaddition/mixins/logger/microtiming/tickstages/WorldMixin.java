@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import carpettisaddition.logging.loggers.microtiming.interfaces.IWorldMixin;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IWorld;
 import carpettisaddition.logging.loggers.microtiming.tickstages.EntityTickStageExtra;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TileEntityTickStageExtra;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.function.Consumer;
 
 @Mixin(World.class)
-public abstract class WorldMixin implements IWorldMixin
+public abstract class WorldMixin implements IWorld
 {
 	/*
 	 * ---------------

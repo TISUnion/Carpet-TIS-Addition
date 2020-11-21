@@ -1,8 +1,8 @@
 package carpettisaddition.mixins.logger.raid;
 
 import carpettisaddition.helpers.RaidTracker;
-import carpettisaddition.interfaces.IRaid_RaidLogger;
-import carpettisaddition.logging.loggers.RaidLogger;
+import carpettisaddition.logging.loggers.raid.IRaid;
+import carpettisaddition.logging.loggers.raid.RaidLogger;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.util.math.BlockPos;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(Raid.class)
-public abstract class RaidMixin implements IRaid_RaidLogger
+public abstract class RaidMixin implements IRaid
 {
 	@Shadow private int badOmenLevel;
 

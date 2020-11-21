@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import carpettisaddition.logging.loggers.microtiming.interfaces.IWorldMixin;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IWorld;
 import carpettisaddition.logging.loggers.microtiming.tickstages.BlockEventTickStageExtra;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TileTickTickStageExtra;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
@@ -184,7 +184,7 @@ public abstract class ServerWorldMixin
 	private void onStageEntities(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.ENTITY);
-		((IWorldMixin)this).setEntityOrderCounter(0);
+		((IWorld)this).setEntityOrderCounter(0);
 	}
 
 	/*

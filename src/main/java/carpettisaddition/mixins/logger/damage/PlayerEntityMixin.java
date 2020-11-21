@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.damage;
 
-import carpettisaddition.interfaces.ILivingEntity_damageLogger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
+import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -51,7 +51,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	)
 	void onInvulnerableAbilityCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		((ILivingEntity_damageLogger)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(0.0F, ModifyReason.INVULNERABLE));
+		((ILivingEntity)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(0.0F, ModifyReason.INVULNERABLE));
 	}
 
 	@Inject(
@@ -70,6 +70,6 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	)
 	void onDifficultyModifiedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		((ILivingEntity_damageLogger)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(amount, ModifyReason.DIFFICULTY));
+		((ILivingEntity)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(amount, ModifyReason.DIFFICULTY));
 	}
 }

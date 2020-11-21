@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.damage;
 
-import carpettisaddition.interfaces.ILivingEntity_damageLogger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
+import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.StatusEffectModifyReason;
 import net.minecraft.entity.LivingEntity;
@@ -32,7 +32,7 @@ public abstract class LivingEntityAndPlayerEntityMixins
 		)
 		void onAbsorptionReducedDamage(DamageSource source, float amount, CallbackInfo ci)
 		{
-			((ILivingEntity_damageLogger) this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
+			((ILivingEntity) this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
 					amount, new StatusEffectModifyReason(StatusEffects.ABSORPTION)
 			));
 		}
@@ -44,7 +44,7 @@ public abstract class LivingEntityAndPlayerEntityMixins
 			if (DamageLogger.isLoggerActivated())
 			{
 				LivingEntity entity = (LivingEntity) (Object) this;
-				Optional<DamageLogger> logger = ((ILivingEntity_damageLogger) this).getDamageLogger();
+				Optional<DamageLogger> logger = ((ILivingEntity) this).getDamageLogger();
 				if (entity.isInvulnerableTo(source))
 				{
 					amount = 0.0F;
@@ -69,9 +69,9 @@ public abstract class LivingEntityAndPlayerEntityMixins
 				{
 					// return false means actually received no damage for some reason,
 					// logger.flush after regular damage calculation might not be called so here's a backup call
-					((ILivingEntity_damageLogger) this).getDamageLogger().ifPresent(damageLogger -> damageLogger.flush(0.0F, entity.getHealth()));
+					((ILivingEntity) this).getDamageLogger().ifPresent(damageLogger -> damageLogger.flush(0.0F, entity.getHealth()));
 				}
-				((ILivingEntity_damageLogger) this).setDamageLogger(null);
+				((ILivingEntity) this).setDamageLogger(null);
 			}
 		}
 	}

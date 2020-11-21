@@ -1,8 +1,9 @@
-package carpettisaddition.logging.loggers;
+package carpettisaddition.logging.loggers.ticket;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.AbstractLogger;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
