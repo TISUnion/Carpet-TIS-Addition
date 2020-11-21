@@ -56703,12 +56703,18 @@ c	doh	net/minecraft/class_425	net/minecraft/client/gui/screen/SplashScreen
 		p	3			exceptionHandler
 		p	4			reloading
 	m	(Ldfm;IIIIF)V	a	method_18103	renderProgressBar
+		p	1			matrices
+		p	2			x1
+		p	3			y1
+		p	4			x2
+		p	5			y2
+		p	6			opacity
 	m	(Ldjz;)V	a	method_18819	init
 		p	0			client
 	m	()Lvk;	b	method_18639	method_18639
 	f	Lvk;	a	field_2483	LOGO
-	f	I	b	field_25041	field_25041
-	f	I	c	field_25042	field_25042
+	f	I	b	field_25041	BRAND_ARGB
+	f	I	c	field_25042	BRAND_RGB
 	f	Ldjz;	d	field_18217	client
 	f	Lace;	e	field_17767	reloadMonitor
 	f	Ljava/util/function/Consumer;	i	field_18218	exceptionHandler
