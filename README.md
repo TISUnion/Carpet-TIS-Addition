@@ -13,7 +13,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 
 # Index
 
-## Rules
+## [Rules](#Rules)
 
 - [blockEventPacketRange](#blockEventPacketRange)
 - [structureBlockLimit](#structureBlockLimit)
@@ -44,7 +44,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [tileTickLimit](#tileTickLimit)
 - [poiUpdates](#poiUpdates)
 
-## Loggers
+## [Loggers](#Loggers)
 
 - [ticket](#ticket)
 - [memory](#memory)
@@ -54,14 +54,15 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [microTiming](#microTiming-1)
 - [damage](#damage)
 
-## Commands
+## [Commands](#Commands)
 
 - [raid](#raid-1)
 - [info](#info)
 
-## Others
+## [Others](#Others)
 
 - [other stuffs](#other-stuffs)
+- [development](#Development)
 
 
 # Rule List
@@ -566,3 +567,27 @@ Show the ticking order of current dimensions in the game
 - Set the maximum length of fake player's name to 16 to prevent kicking out other players
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
+
+-----------
+
+# Development
+
+Current main development branch: **1.15.2**
+
+Current maintaining branches:
+- 1.14.4, for Minecraft 1.14.4
+- 1.15.2, for Minecraft 1.15.2
+- 1.16.4, for Minecraft 1.16.2 to 1.16.4
+- 1.17, for Minecraft 1.17 snapshots
+
+For general new features, implement them in 1.15.2 branch first then merge it into other branches
+
+Branches merge order:
+- 1.15.2 -> 1.14.4
+- 1.15.2 -> 1.16.4 -> 1.17
+
+For version specific fixes / patches, implement them in relevant branches
+
+master branches usually only receives doc updates and merge from 1.15.2 during release 
+
+Try not to affect version compatibility it's necessary
