@@ -13,7 +13,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 
 # Index
 
-## [Rules](#Rules)
+## [Rules](#rule-list)
 
 - [blockEventPacketRange](#blockEventPacketRange)
 - [structureBlockLimit](#structureBlockLimit)
@@ -44,7 +44,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [tileTickLimit](#tileTickLimit)
 - [poiUpdates](#poiUpdates)
 
-## [Loggers](#Loggers)
+## [Loggers](#logger-list)
 
 - [ticket](#ticket)
 - [memory](#memory)
@@ -54,12 +54,12 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [microTiming](#microTiming-1)
 - [damage](#damage)
 
-## [Commands](#Commands)
+## [Commands](#command-list)
 
 - [raid](#raid-1)
 - [info](#info)
 
-## [Others](#Others)
+## Others
 
 - [other stuffs](#other-stuffs)
 - [development](#Development)
@@ -429,7 +429,7 @@ Set it to `false` to disable POI updates
 
 -----------
 
-# Loggers
+# Logger List
 
 ## ticket
 
@@ -535,7 +535,7 @@ Attributes:
 - Suggested options: `all`, `players`, `me`
 
 
-# Commands
+# Command List
 
 ## raid
 
