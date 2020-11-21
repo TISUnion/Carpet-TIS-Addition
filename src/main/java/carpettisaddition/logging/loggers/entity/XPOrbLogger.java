@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers;
+package carpettisaddition.logging.loggers.entity;
 
 import carpet.utils.Messenger;
 import net.minecraft.entity.ExperienceOrbEntity;

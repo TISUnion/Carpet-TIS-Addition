@@ -1,13 +1,14 @@
-package carpettisaddition.logging.loggers;
+package carpettisaddition.logging.loggers.raid;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
-import net.minecraft.village.raid.Raid;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.village.raid.Raid;
 
 
 public class RaidLogger extends AbstractLogger

@@ -4,8 +4,8 @@ import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.logging.loggers.ItemLogger;
-import carpettisaddition.logging.loggers.XPOrbLogger;
+import carpettisaddition.logging.loggers.entity.ItemLogger;
+import carpettisaddition.logging.loggers.entity.XPOrbLogger;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
 
 

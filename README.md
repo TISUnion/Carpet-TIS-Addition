@@ -13,7 +13,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 
 # Index
 
-## Rules
+## [Rules](#rule-list)
 
 - [blockEventPacketRange](#blockEventPacketRange)
 - [structureBlockLimit](#structureBlockLimit)
@@ -42,8 +42,9 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
 - [chunkTickSpeed](#chunkTickSpeed)
 - [tileTickLimit](#tileTickLimit)
+- [poiUpdates](#poiUpdates)
 
-## Loggers
+## [Loggers](#logger-list)
 
 - [ticket](#ticket)
 - [memory](#memory)
@@ -53,7 +54,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [microTiming](#microTiming-1)
 - [damage](#damage)
 
-## Commands
+## [Commands](#command-list)
 
 - [raid](#raid-1)
 - [info](#info)
@@ -61,6 +62,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 ## Others
 
 - [other stuffs](#other-stuffs)
+- [development](#Development)
 
 
 # Rule List
@@ -402,6 +404,7 @@ With a value of `n`, in every chunk every game tick, climate things will tick `n
 - Suggested options: `0`, `1`, `10`, `100`, `1000`
 - Categories: `TIS`, `CREATIVE`
 
+
 ## tileTickLimit
 
 Modify the limit of executed tile tick events per game tick
@@ -411,9 +414,22 @@ Modify the limit of executed tile tick events per game tick
 - Suggested options: `1024`, `65536`, `2147483647`
 - Categories: `TIS`, `CREATIVE`
 
+
+## poiUpdates
+
+Whether block changes will cause POI to updates or not
+
+Set it to `false` to disable POI updates
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 -----------
 
-# Loggers
+# Logger List
 
 ## ticket
 
@@ -427,6 +443,7 @@ Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 
 
 **Warning:** Logging `unknown` ticket may make you get spammed
 
+Attributes:
 - Default value: `portal`
 - Suggested options: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
 
@@ -483,6 +500,7 @@ Attributes:
 - Default value: N/A
 - Suggested options: N/A
 
+
 ## microTiming
 
 `/log microTiming <type>`
@@ -516,7 +534,8 @@ Attributes:
 - Default value: `all`
 - Suggested options: `all`, `players`, `me`
 
-# Commands
+
+# Command List
 
 ## raid
 
@@ -546,5 +565,29 @@ Show the ticking order of current dimensions in the game
 # Other Stuffs
 
 - Set the maximum length of fake player's name to 16 to prevent kicking out other players
-- Set the maximum tick warp maximum duration to `Integer.MAX_VALUE`
+- Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
+
+-----------
+
+# Development
+
+Current main development branch: **1.15.2**
+
+Current maintaining branches:
+- 1.14.4, for Minecraft 1.14.4
+- 1.15.2, for Minecraft 1.15.2
+- 1.16.4, for Minecraft 1.16.2 to 1.16.4
+- 1.17, for Minecraft 1.17 snapshots
+
+For general new features, implement them in 1.15.2 branch first then merge it into other branches
+
+Branches merge order:
+- 1.15.2 -> 1.14.4
+- 1.15.2 -> 1.16.4 -> 1.17
+
+For version specific fixes / patches, implement them in relevant branches
+
+master branches usually only receives doc updates and merge from 1.15.2 during release 
+
+Try not to affect version compatibility it's necessary

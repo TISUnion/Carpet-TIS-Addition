@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.logger.xporb;
 
-import carpettisaddition.logging.loggers.XPOrbLogger;
+import carpettisaddition.logging.loggers.entity.XPOrbLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;

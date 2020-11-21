@@ -1,9 +1,10 @@
-package carpettisaddition.logging.loggers;
+package carpettisaddition.logging.loggers.entity;
 
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.base.Joiner;
 import net.minecraft.entity.Entity;

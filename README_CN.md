@@ -13,7 +13,7 @@
 
 # 索引
 
-## 规则
+## [规则](#规则列表)
 
 - [方块事件广播范围](#方块事件广播范围-blockEventPacketRange)
 - [结构方块范围限制](#结构方块范围限制-structureBlockLimit)
@@ -42,8 +42,9 @@
 - [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementIgnoreEntity)
 - [区块刻速度](#区块刻速度-chunkTickSpeed)
 - [计划刻上限](#计划刻上限-tileTickLimit)
+- [POI更新开关](#POI更新开关-poiUpdates)
 
-## 监视器
+## [监视器](#监视器列表)
 
 - [加载票](#加载票-ticket)
 - [内存](#内存-memory)
@@ -53,14 +54,15 @@
 - [微时序](#微时序-microTiming-1)
 - [伤害](#伤害-damage)
 
-## 指令
+## [指令](#指令列表)
 
 - [袭击](#袭击-raid-1)
 - [信息](#信息-info)
 
-## 其它
+## 其他
 
 - [其他](#其他)
+- [开发](#开发)
 
 
 # 规则列表
@@ -147,7 +149,7 @@
 
 当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋
 
-可与选项 [dispenserFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md#发射器发射龙息-dispensersfiredragonbreath) 联动
+可与选项 [dispenserFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#发射器发射龙息-dispensersfiredragonbreath) 联动
 
 - 类型: `boolean`  
 - 默认值: `false`  
@@ -412,9 +414,22 @@
 - 参考选项: `1024`, `65536`, `2147483647`
 - 分类: `TIS`, `CREATIVE`
 
+
+## POI更新开关 (poiUpdates)
+
+方块变化时是否会更新 POI
+
+将其设为 `false` 以禁用 POI 更新
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 -----------
 
-# 监视器
+# 监视器列表
 
 ## 加载票 (ticket)
 
@@ -467,7 +482,7 @@
 
 `/log xporb <events>`
 
-基本上与 [掉落物监视器](https://github.com/TISUnion/Carpet-TIS-Addition/blob/1.15.2/README_CN.md#掉落物-item) 相同，只不过监视的是经验球实体
+基本上与 [掉落物监视器](https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#掉落物-item) 相同，只不过监视的是经验球实体
 
 
 ## 袭击 (raid)
@@ -519,7 +534,8 @@
 - 默认值: `all`
 - 参考选项: `all`, `players`, `me`
 
-# 指令
+
+# 指令列表
 
 ## 袭击 (raid)
 
@@ -535,6 +551,7 @@
 
 开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
 
+
 ## 信息 (info)
 
 ### world ticking_order
@@ -548,5 +565,30 @@
 # 其他
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出
-- 将 tick warp 最大时长限制调整为 `Integer.MAX_VALUE`
+- 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
 - 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
+
+-----------
+
+# 开发
+
+当前主开发分支：**1.15.2**
+
+维护中的分支：
+- 1.14.4，对应 Minecraft 1.14.4
+- 1.15.2，对应 Minecraft 1.15.2
+- 1.16.4，对应 Minecraft 1.16.2 至 1.16.4
+- 1.17，对应 Minecraft 1.17 快照
+
+对于通用的特性，在 1.15.2 分支中实现，再将其合并至其他分支
+
+分支合并顺序：
+- 1.15.2 -> 1.14.4
+- 1.15.2 -> 1.16.4 -> 1.17
+
+对于版本专用的修复/补丁，在对应的分支上操作即可
+
+master 分支通常仅接受文档更新以及发布 release 时来自 1.15.2 分支的合并
+
+除非必要，尽量不要影响版本兼容性
+

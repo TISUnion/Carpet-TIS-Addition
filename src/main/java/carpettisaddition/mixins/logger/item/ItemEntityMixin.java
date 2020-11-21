@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.logger.item;
 
-import carpettisaddition.logging.loggers.ItemLogger;
+import carpettisaddition.logging.loggers.entity.ItemLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;

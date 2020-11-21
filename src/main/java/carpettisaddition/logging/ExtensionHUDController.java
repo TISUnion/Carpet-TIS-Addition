@@ -1,8 +1,7 @@
-package carpettisaddition.utils;
+package carpettisaddition.logging;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.BaseText;
 

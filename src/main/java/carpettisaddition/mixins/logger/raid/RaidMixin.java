@@ -1,11 +1,11 @@
 package carpettisaddition.mixins.logger.raid;
 
 import carpettisaddition.helpers.RaidTracker;
-import carpettisaddition.interfaces.IRaid_RaidLogger;
-import carpettisaddition.logging.loggers.RaidLogger;
+import carpettisaddition.logging.loggers.raid.IRaid;
+import carpettisaddition.logging.loggers.raid.RaidLogger;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.village.raid.Raid;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.village.raid.Raid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(Raid.class)
-public abstract class RaidMixin implements IRaid_RaidLogger
+public abstract class RaidMixin implements IRaid
 {
 	@Shadow private int badOmenLevel;
 
@@ -36,7 +36,7 @@ public abstract class RaidMixin implements IRaid_RaidLogger
 	public void onRaidInvalidated(RaidLogger.InvalidateReason reason)
 	{
 		RaidLogger.getInstance().onRaidInvalidated((Raid)(Object)this, reason);
-		RaidTracker.trackRaidInvalidated(reason);
+		RaidTracker.getInstance().trackRaidInvalidated(reason);
 	}
 
 	@Inject(

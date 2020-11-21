@@ -2,7 +2,6 @@ package carpettisaddition.utils;
 
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
-import carpettisaddition.CarpetTISAdditionServer;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -18,7 +17,6 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class TextUtil
 {
@@ -154,11 +152,6 @@ public class TextUtil
 	public static TranslatableText getTranslatedName(String key, Object... args)
 	{
 		return getTranslatedName(key, null, args);
-	}
-
-	public static long getGameTime()
-	{
-		return Objects.requireNonNull(CarpetTISAdditionServer.minecraft_server.getWorld(World.OVERWORLD)).getTime();
 	}
 
 	// some language doesn't use space char to divide word
