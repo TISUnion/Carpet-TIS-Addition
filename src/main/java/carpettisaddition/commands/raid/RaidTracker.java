@@ -38,11 +38,14 @@ public class RaidTracker extends TranslatableBase
 		return INSTANCE;
 	}
 
-	public int startTracking(ServerCommandSource source, boolean info)
+	public int startTracking(ServerCommandSource source, boolean showFeedback)
 	{
 		if (this.isTracking)
 		{
-			Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_already_started", "Raid tracker is already running"))));
+			if (showFeedback)
+			{
+				Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_already_started", "Raid tracker is already running"))));
+			}
 			return 1;
 		}
 		this.isTracking = true;
@@ -51,26 +54,26 @@ public class RaidTracker extends TranslatableBase
 		this.raidGeneratedCount = 0;
 		this.raiderCounter.clear();
 		this.raidInvalidateCounter.clear();
-		if (info)
+		if (showFeedback)
 		{
 			Messenger.m(source, Messenger.s(tr("tracking_started", "Raid tracking started")));
 		}
 		return 1;
 	}
 
-	public int stopTracking(ServerCommandSource source, boolean info)
+	public int stopTracking(ServerCommandSource source, boolean showFeedback)
 	{
 		if (source != null)
 		{
 			if (this.isTracking)
 			{
 				this.printTrackingResult(source, false);
-				if (info)
+				if (showFeedback)
 				{
 					Messenger.m(source, Messenger.s(tr("tracking_stopped", "Raid tracking stopped")));
 				}
 			}
-			else if (info)
+			else if (showFeedback)
 			{
 				Messenger.m(source, Messenger.c(String.format("r %s", tr("tracking_not_started", "Raid tracking has not started"))));
 			}
