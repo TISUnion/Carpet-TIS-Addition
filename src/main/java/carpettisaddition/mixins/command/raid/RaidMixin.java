@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.command.raid;
 
 import carpettisaddition.commands.raid.RaidTracker;
+import net.minecraft.entity.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
-@Mixin(net.minecraft.entity.raid.Raid.class)
+@Mixin(Raid.class)
 public abstract class RaidMixin
 {
 	@Inject(
@@ -18,7 +19,7 @@ public abstract class RaidMixin
 	)
 	private void onConstruct(CallbackInfo ci)
 	{
-		RaidTracker.getInstance().trackRaidGenerated((net.minecraft.entity.raid.Raid)(Object)this);
+		RaidTracker.getInstance().trackRaidGenerated((Raid)(Object)this);
 	}
 
 	@Inject(

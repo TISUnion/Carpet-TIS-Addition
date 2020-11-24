@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "carpet.CarpetSettings$CheckOptimizedTntEnabledValidator")
 public class CheckOptimizedTntEnabledValidatorMixin<T>
 {
-	@Inject(method = "validate", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "validate", at = @At("HEAD"), cancellable = true, remap = false)
 	private void stopCheckingOptimizedTntEnabled(ServerCommandSource source, ParsedRule<T> currentRule, T newValue, String string, CallbackInfoReturnable<T> cir)
 	{
 		cir.setReturnValue(newValue);
