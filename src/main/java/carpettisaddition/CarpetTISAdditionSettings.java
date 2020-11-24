@@ -345,6 +345,29 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean poiUpdates = true;
 
+	@Rule(
+			desc = "Overwrite the default fuse duration of TNT",
+			extra = "This might also affects the fuse duration of TNT ignited in explosion",
+			options = {"0", "80", "32767"},
+			validate = ValidateTNTFuseDuration.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int tntFuseDuration = 80;
+
+	private static class ValidateTNTFuseDuration extends Validator<Integer>
+	{
+		@Override
+		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		{
+			return 0 <= newValue && newValue <= 32767 ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a integer from 0 to 32767";
+		}
+	}
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

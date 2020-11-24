@@ -43,6 +43,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [chunkTickSpeed](#chunkTickSpeed)
 - [tileTickLimit](#tileTickLimit)
 - [poiUpdates](#poiUpdates)
+- [tntFuseDuration](#tntFuseDuration)
 
 ## [Loggers](#logger-list)
 
@@ -424,6 +425,18 @@ Set it to `false` to disable POI updates
 - Type: `boolean`  
 - Default value: `true`  
 - Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## tntFuseDuration
+
+Overwrite the default fuse duration of TNT
+
+This might also affects the fuse duration of TNT ignited in explosion
+
+- Type: `int`  
+- Default value: `80`  
+- Suggested options: `0`, `80`, `32767`
 - Categories: `TIS`, `CREATIVE`
 
 

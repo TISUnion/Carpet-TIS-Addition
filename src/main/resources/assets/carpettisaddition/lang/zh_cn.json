@@ -124,6 +124,10 @@
   "rule.poiUpdates.desc": "方块变化时是否会更新POI",
   "rule.poiUpdates.extra.0": "将其设为false以禁用POI更新",
 
+  "rule.tntFuseDuration.name": "TNT引信时长",
+  "rule.tntFuseDuration.desc": "覆盖TNT的默认引信时长",
+  "rule.tntFuseDuration.extra.0": "这也会影响被爆炸点燃的TNT的引信时长",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

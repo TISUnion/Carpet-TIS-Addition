@@ -43,6 +43,7 @@
 - [区块刻速度](#区块刻速度-chunkTickSpeed)
 - [计划刻上限](#计划刻上限-tileTickLimit)
 - [POI更新开关](#POI更新开关-poiUpdates)
+- [TNT引信时长](#TNT引信时长-tntFuseDuration)
 
 ## [监视器](#监视器列表)
 
@@ -424,6 +425,18 @@
 - 类型: `boolean`  
 - 默认值: `true`  
 - 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## TNT引信时长 (tntFuseDuration)
+
+覆盖 TNT 的默认引信时长
+
+这也会影响被爆炸点燃的 TNT 的引信时长
+
+- 类型: `int`  
+- 默认值: `80`  
+- 参考选项: `0`, `80`, `32767`
 - 分类: `TIS`, `CREATIVE`
 
 
