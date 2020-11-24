@@ -591,6 +591,7 @@ Show the ticking order of current dimensions in the game
 - Set the maximum length of fake player's name to 16 to prevent kicking out other players
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
+- Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
 
 -----------
 

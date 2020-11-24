@@ -593,6 +593,7 @@
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出
 - 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
 - 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
+- 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
 
 -----------
 
