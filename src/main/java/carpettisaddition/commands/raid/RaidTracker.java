@@ -1,7 +1,6 @@
-package carpettisaddition.helpers;
+package carpettisaddition.commands.raid;
 
 import carpet.utils.Messenger;
-import carpettisaddition.commands.RaidCommand;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.CounterUtil;
