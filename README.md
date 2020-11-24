@@ -44,6 +44,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [tileTickLimit](#tileTickLimit)
 - [poiUpdates](#poiUpdates)
 - [tntFuseDuration](#tntFuseDuration)
+- [entityMomentumLoss](#entityMomentumLoss)
 
 ## [Loggers](#logger-list)
 
@@ -438,6 +439,16 @@ This might also affects the fuse duration of TNT ignited in explosion
 - Default value: `80`  
 - Suggested options: `0`, `80`, `32767`
 - Categories: `TIS`, `CREATIVE`
+
+
+## entityMomentumLoss
+
+Set it to `false` to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `EXPERIMENTAL`
 
 
 -----------

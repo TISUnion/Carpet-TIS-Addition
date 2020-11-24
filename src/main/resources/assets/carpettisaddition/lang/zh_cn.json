@@ -128,6 +128,9 @@
   "rule.tntFuseDuration.desc": "覆盖TNT的默认引信时长",
   "rule.tntFuseDuration.extra.0": "这也会影响被爆炸点燃的TNT的引信时长",
 
+  "rule.entityMomentumLoss.name": "实体速度丢失",
+  "rule.entityMomentumLoss.desc": "将其设为 false 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

@@ -52,6 +52,7 @@
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.dispenserNoItemCost.ItemDispenserBehaviorMixin",
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
+    "rule.entityMomentumLoss.EntityMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
     "rule.HUDLoggerUpdateInterval.HUDControllerMixin",

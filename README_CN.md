@@ -44,6 +44,7 @@
 - [计划刻上限](#计划刻上限-tileTickLimit)
 - [POI更新开关](#POI更新开关-poiUpdates)
 - [TNT引信时长](#TNT引信时长-tntFuseDuration)
+- [实体速度丢失](#实体速度丢失-entityMomentumLoss)
 
 ## [监视器](#监视器列表)
 
@@ -438,6 +439,18 @@
 - 默认值: `80`  
 - 参考选项: `0`, `80`, `32767`
 - 分类: `TIS`, `CREATIVE`
+
+
+## 实体速度丢失 (entityMomentumLoss)
+
+方块变化时是否会更新 POI
+
+将其设为 `false` 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `EXPERIMENTAL`
 
 
 -----------
