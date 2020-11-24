@@ -69,13 +69,13 @@ public class ExecuteBlockEventEvent extends BaseEvent
 			list.add(TextUtil.getSpaceText());
 			list.add(COLOR_TARGET + this.tr("BlockEvent"));
 		}
-		list.add(getMessageExtraMessengerHoverText(blockAction));
+		list.add(getMessageExtraMessengerHoverText(this.blockAction));
 		if (this.getEventType() == EventType.ACTION_END)
 		{
 			list.add(TextUtil.getSpaceText());
 			list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("ended"));
 		}
-		if (returnValue != null)
+		if (this.returnValue != null)
 		{
 			list.add("w  ");
 			list.add(MicroTimingUtil.getSuccessText(this.returnValue, true, this.failInfo != null && !this.returnValue ? this.failInfo.toText() : null));

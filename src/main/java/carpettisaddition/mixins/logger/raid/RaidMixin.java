@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.logger.raid;
 
-import carpettisaddition.helpers.RaidTracker;
+import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.loggers.raid.IRaid;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
 import net.minecraft.entity.player.PlayerEntity;
