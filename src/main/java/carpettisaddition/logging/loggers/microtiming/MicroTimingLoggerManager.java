@@ -25,6 +25,7 @@ import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -54,7 +55,7 @@ public class MicroTimingLoggerManager
 
     public Map<ServerWorld, MicroTimingLogger> getLoggers()
     {
-        return loggers;
+        return this.loggers;
     }
 
     public static boolean isLoggerActivated()
@@ -239,12 +240,6 @@ public class MicroTimingLoggerManager
         }
     }
 
-    /*
-     * ------------
-     *  Interfaces
-     * ------------
-     */
-
     private void flush(long gameTime) // needs to call at the end of a gt
     {
         if (gameTime != this.lastFlushTime)
@@ -265,8 +260,20 @@ public class MicroTimingLoggerManager
         }
     }
 
+    /*
+     * ------------
+     *  Interfaces
+     * ------------
+     */
+
     public static Optional<TickStage> getTickStage(World world)
     {
         return getWorldLogger(world).map(MicroTimingLogger::getTickStage);
+    }
+
+    public static Optional<TickStage> getTickStage()
+    {
+        Iterator<ServerWorld> iterator = getInstance().getLoggers().keySet().iterator();
+        return iterator.hasNext() ? getTickStage(iterator.next()) : Optional.empty();
     }
 }
