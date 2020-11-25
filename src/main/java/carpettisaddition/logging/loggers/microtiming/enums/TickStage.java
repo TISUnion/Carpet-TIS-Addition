@@ -15,6 +15,7 @@ public enum TickStage
 	CHUNK_TICK("ChunkTick", true),
 	TILE_ENTITY("TileEntity", true),
 	AUTO_SAVE("AutoSave", false),
+	ASYNC_TASK("AsyncTask", false),
 	PLAYER_ACTION("PlayerAction", false),
 	COMMAND_FUNCTION("CommandFunction", false),
 	NETWORK("Network", false),

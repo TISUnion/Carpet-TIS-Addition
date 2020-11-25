@@ -9,4 +9,9 @@ public class GameUtil
 	{
 		return CarpetTISAdditionServer.minecraft_server.getWorld(DimensionType.OVERWORLD).getTime();
 	}
+
+	public boolean isOnServerThread()
+	{
+		return CarpetTISAdditionServer.minecraft_server != null && CarpetTISAdditionServer.minecraft_server.isOnThread();
+	}
 }

@@ -15,7 +15,7 @@ public class PlayerActionTickStageExtra extends PlayerRelatedTickStageExtra
 	public BaseText toText()
 	{
 		return Messenger.c(
-				String.format("w %s\n", this.tr("sync_tasks", "Sync task executions in main thread including player actions")),
+				String.format("w %s\n", this.tr("player_action", "Executing player actions sent by clients")),
 				super.toText()
 		);
 	}
