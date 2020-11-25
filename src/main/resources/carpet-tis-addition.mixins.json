@@ -75,6 +75,7 @@
     "rule.renewableDragonEgg.DragonEggBlockMixin",
     "rule.renewableDragonHead.EnderDragonEntityMixin",
     "rule.renewableElytra.PhantomEntityMixin",
+    "rule.repeaterHalfDelay.AbstractRedstoneGateBlockMixin",
     "rule.sandDupingFix.FallingBlockEntityMixin",
     "rule.structureBlockLimit.StructureBlockBlockEntityMixin",
     "rule.structureBlockLimit.UpdateStructureBlockC2SPacketMixin",

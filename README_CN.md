@@ -45,6 +45,7 @@
 - [POI更新开关](#POI更新开关-poiUpdates)
 - [TNT引信时长](#TNT引信时长-tntFuseDuration)
 - [实体速度丢失](#实体速度丢失-entityMomentumLoss)
+- [中继器延迟折半](#中继器延迟折半-repeaterHalfDelay)
 
 ## [监视器](#监视器列表)
 
@@ -451,6 +452,18 @@
 - 默认值: `true`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `EXPERIMENTAL`
+
+
+## 中继器延迟折半 (repeaterHalfDelay)
+
+当红石中继器位于红石矿上方时，红石中继器的延迟将减半
+
+延迟将会由 2, 4, 6, 8 游戏刻变为 1, 2,3 ,4 游戏刻
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 
 -----------
