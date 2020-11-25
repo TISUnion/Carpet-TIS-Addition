@@ -14,15 +14,13 @@ public abstract class TntEntityMixin
 {
 	@Shadow public abstract void setFuse(int fuse);
 
-	@Shadow private int fuseTimer;
-
-	@Inject(method = "<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V", at = @At("TAIL"))
-	private void modifyFuseTimer1(CallbackInfo ci)
-	{
-		this.fuseTimer = CarpetTISAdditionSettings.tntFuseDuration;
-	}
-
-	@Inject(method = "<init>(Lnet/minecraft/world/World;DDDLnet/minecraft/entity/LivingEntity;)V", at = @At("TAIL"))
+	@Inject(
+			method = {
+					"<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V",
+					"<init>(Lnet/minecraft/world/World;DDDLnet/minecraft/entity/LivingEntity;)V"
+			},
+			at = @At("TAIL")
+	)
 	private void modifyFuseTimer2(CallbackInfo ci)
 	{
 		this.setFuse(CarpetTISAdditionSettings.tntFuseDuration);
