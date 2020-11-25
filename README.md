@@ -43,6 +43,9 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [chunkTickSpeed](#chunkTickSpeed)
 - [tileTickLimit](#tileTickLimit)
 - [poiUpdates](#poiUpdates)
+- [tntFuseDuration](#tntFuseDuration)
+- [entityMomentumLoss](#entityMomentumLoss)
+- [repeaterHalfDelay](#repeaterHalfDelay)
 
 ## [Loggers](#logger-list)
 
@@ -427,6 +430,40 @@ Set it to `false` to disable POI updates
 - Categories: `TIS`, `CREATIVE`
 
 
+## tntFuseDuration
+
+Overwrite the default fuse duration of TNT
+
+This might also affects the fuse duration of TNT ignited in explosion
+
+- Type: `int`  
+- Default value: `80`  
+- Suggested options: `0`, `80`, `32767`
+- Categories: `TIS`, `CREATIVE`
+
+
+## entityMomentumLoss
+
+Set it to `false` to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `EXPERIMENTAL`
+
+
+## repeaterHalfDelay
+
+Halve the delay of redstone repeaters upon a redstone ore
+
+The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game tick
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 -----------
 
 # Logger List
@@ -567,6 +604,7 @@ Show the ticking order of current dimensions in the game
 - Set the maximum length of fake player's name to 16 to prevent kicking out other players
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
+- Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
 
 -----------
 

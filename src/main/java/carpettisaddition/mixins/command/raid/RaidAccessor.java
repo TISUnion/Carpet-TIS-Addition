@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.command;
+package carpettisaddition.mixins.command.raid;
 
 import net.minecraft.village.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;

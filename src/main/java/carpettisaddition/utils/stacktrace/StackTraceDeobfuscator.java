@@ -1,7 +1,7 @@
-package carpettisaddition.logging.loggers.microtiming.utils;
+package carpettisaddition.utils.stacktrace;
 
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.translations.Translator;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.mapping.reader.v2.MappingGetter;
@@ -18,8 +18,8 @@ import java.util.Map;
 public class StackTraceDeobfuscator
 {
 	private static final String MAPPING_FILE_NAME = "yarn-20w46a+build.6-v2.tiny";
-	private static final String IGNORE_CLASS_PATH = "carpettisaddition.logging.loggers.microtiming";
 	private static final Map<String, String> mappings = Maps.newHashMap();
+	static final Translator translator = new Translator("util", "stack_trace");
 
 	public static void loadMappings()
 	{
@@ -42,7 +42,7 @@ public class StackTraceDeobfuscator
 		}
 	}
 
-	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements)
+	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements, String ignoreClassPath)
 	{
 		List<StackTraceElement> list = Lists.newArrayList();
 		for (StackTraceElement element : stackTraceElements)
@@ -56,13 +56,18 @@ public class StackTraceDeobfuscator
 					element.getLineNumber()
 			);
 			list.add(newElement);
-			if (newElement.getClassName().startsWith(IGNORE_CLASS_PATH))
+			if (ignoreClassPath != null && newElement.getClassName().startsWith(ignoreClassPath))
 			{
 				list.clear();
 			}
 		}
-		list.add(0, new StackTraceElement(MicroTimingLoggerManager.tr("Deobfuscated stack trace"), "", MAPPING_FILE_NAME, -1));
+		list.add(0, new StackTraceElement(translator.tr("Deobfuscated stack trace"), "", MAPPING_FILE_NAME, -1));
 		return list.toArray(new StackTraceElement[0]);
+	}
+
+	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements)
+	{
+		return deobfuscateStackTrace(stackTraceElements, null);
 	}
 
 	private static String getFileName(String className)

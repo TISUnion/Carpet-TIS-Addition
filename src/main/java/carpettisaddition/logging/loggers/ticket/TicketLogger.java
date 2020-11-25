@@ -4,6 +4,7 @@ import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
+import carpettisaddition.utils.stacktrace.StackTracePrinter;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
@@ -69,7 +70,9 @@ public class TicketLogger extends AbstractLogger
 						String.format("g %s", tr(" at")),
 						String.format("w  [%d, %d]", pos.x, pos.z),
 						String.format(String.format("^w %s", tr("teleport_hint", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
-						String.format("?/execute in %s run tp %d ~ %d", dimensionName, centerPos.getX(), centerPos.getZ())
+						String.format("?/execute in %s run tp %d ~ %d", dimensionName, centerPos.getX(), centerPos.getZ()),
+						"w  ",
+						StackTracePrinter.create().ignore(TicketLogger.class).deobfuscate().toSymbolText()
 				)};
 			}
 			else

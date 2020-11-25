@@ -345,6 +345,44 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean poiUpdates = true;
 
+	@Rule(
+			desc = "Overwrite the default fuse duration of TNT",
+			extra = "This might also affects the fuse duration of TNT ignited in explosion",
+			options = {"0", "80", "32767"},
+			validate = ValidateTNTFuseDuration.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int tntFuseDuration = 80;
+
+	private static class ValidateTNTFuseDuration extends Validator<Integer>
+	{
+		@Override
+		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		{
+			return 0 <= newValue && newValue <= 32767 ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a integer from 0 to 32767";
+		}
+	}
+
+	@Rule(
+			desc = "Set it to false to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk",
+			category = {TIS, EXPERIMENTAL}
+	)
+	public static boolean entityMomentumLoss = true;
+
+	@Rule(
+			desc = "Halve the delay of redstone repeaters upon a redstone ore",
+			extra = {
+					"The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game tick"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean repeaterHalfDelay = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

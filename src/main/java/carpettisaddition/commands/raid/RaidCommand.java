@@ -1,12 +1,12 @@
-package carpettisaddition.commands;
+package carpettisaddition.commands.raid;
 
 import carpet.settings.SettingsManager;
 import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.RaidTracker;
-import carpettisaddition.mixins.command.RaidAccessor;
-import carpettisaddition.mixins.command.RaidManagerAccessor;
+import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.mixins.command.raid.RaidAccessor;
+import carpettisaddition.mixins.command.raid.RaidManagerAccessor;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;

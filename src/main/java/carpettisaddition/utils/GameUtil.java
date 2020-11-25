@@ -11,4 +11,9 @@ public class GameUtil
 	{
 		return Objects.requireNonNull(CarpetTISAdditionServer.minecraft_server.getWorld(World.OVERWORLD)).getTime();
 	}
+
+	public boolean isOnServerThread()
+	{
+		return CarpetTISAdditionServer.minecraft_server != null && CarpetTISAdditionServer.minecraft_server.isOnThread();
+	}
 }
