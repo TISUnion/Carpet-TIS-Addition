@@ -3,11 +3,11 @@ package carpettisaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpettisaddition.commands.InfoCommand;
-import carpettisaddition.commands.RaidCommand;
-import carpettisaddition.helpers.RaidTracker;
+import carpettisaddition.commands.raid.RaidCommand;
+import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.logging.loggers.microtiming.utils.StackTraceDeobfuscator;
+import carpettisaddition.utils.stacktrace.StackTraceDeobfuscator;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -24,7 +24,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public static final String compactName = name.replace("-","");  // carpettisaddition
     // should be the same as the version in gradlew.properties
     // "undefined" will be replaced with build number during github action
-    public static final String version = "1.8.0+build.undefined";
+    public static final String version = "1.9.0+build.undefined";
     public static final Logger LOGGER = LogManager.getLogger(fancyName);
     public static MinecraftServer minecraft_server;
 

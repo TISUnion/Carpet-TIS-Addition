@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.logger.microtiming.tickstages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.tickstages.PlayerActionTickStageExtra;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.Packet;
@@ -26,6 +27,7 @@ public abstract class NetworkThreadUtilsMixin<T>
 			if (listener instanceof ServerPlayNetworkHandler)
 			{
 				ServerPlayNetworkHandler handler = (ServerPlayNetworkHandler) listener;
+				MicroTimingLoggerManager.setTickStage(TickStage.PLAYER_ACTION);
 				MicroTimingLoggerManager.setTickStageExtra(new PlayerActionTickStageExtra(handler.player));
 			}
 		}
