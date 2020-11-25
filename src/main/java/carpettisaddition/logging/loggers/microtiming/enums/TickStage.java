@@ -18,7 +18,8 @@ public enum TickStage
 	PLAYER_ACTION("PlayerAction", false),
 	COMMAND_FUNCTION("CommandFunction", false),
 	NETWORK("Network", false),
-	CONSOLE("Console", false);
+	CONSOLE("Console", false),
+	SCARPET("Scarpet", false);
 
 	private final String name;
 	private final boolean insideWorld;

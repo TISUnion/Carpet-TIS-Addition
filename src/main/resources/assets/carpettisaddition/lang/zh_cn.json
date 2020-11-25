@@ -190,6 +190,7 @@
   "logger.microTiming.stage.commandfunction": "函数及数据包",
   "logger.microTiming.stage.network": "网络",
   "logger.microTiming.stage.console": "控制台",
+  "logger.microTiming.stage.scarpet": "Scarpet",
   "logger.microTiming.stage_detail.thunder": "闪电",
   "logger.microTiming.stage_detail.ice&snow": "结冰&积雪",
   "logger.microTiming.stage_detail.randomtick": "随机刻",
