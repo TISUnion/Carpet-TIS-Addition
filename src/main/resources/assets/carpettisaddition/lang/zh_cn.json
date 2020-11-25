@@ -131,6 +131,10 @@
   "rule.entityMomentumLoss.name": "实体速度丢失",
   "rule.entityMomentumLoss.desc": "将其设为 false 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失",
 
+  "rule.repeaterHalfDelay.name": "中继器延迟折半",
+  "rule.repeaterHalfDelay.desc": "当红石中继器位于红石矿上方时，红石中继器的延迟将减半",
+  "rule.repeaterHalfDelay.extra.0": "延迟将会由2,4,6,8游戏刻变为1,2,3,4游戏刻",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
