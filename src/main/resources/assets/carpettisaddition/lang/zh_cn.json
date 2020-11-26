@@ -135,6 +135,9 @@
   "rule.repeaterHalfDelay.desc": "当红石中继器位于红石矿上方时，红石中继器的延迟将减半",
   "rule.repeaterHalfDelay.extra.0": "延迟将会由2,4,6,8游戏刻变为1,2,3,4游戏刻",
 
+  "rule.totallyNoBlockUpdate.name": "完全没有方块更新",
+  "rule.totallyNoBlockUpdate.desc": "禁用所有方块更新以及状态更新",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

@@ -466,6 +466,16 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 完全没有方块更新 (totallyNoBlockUpdate)
+
+禁用所有方块更新以及状态更新
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 -----------
 
 # 监视器列表
