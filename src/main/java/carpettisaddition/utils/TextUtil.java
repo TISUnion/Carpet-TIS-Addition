@@ -39,9 +39,9 @@ public class TextUtil
 		return text;
 	}
 
-	public static BaseText attachColor(BaseText text, Formatting formatting)
+	public static BaseText attachFormatting(BaseText text, Formatting... formattings)
 	{
-		text.getStyle().setColor(formatting);
+		text.formatted(formattings);
 		return text;
 	}
 	// mojang compatibility thing ends
@@ -62,7 +62,17 @@ public class TextUtil
 
 	public static String getTeleportCommand(Vec3d pos, DimensionType dimensionType)
 	{
-		return String.format("/execute in %s run tp %f %f %f", dimensionType, pos.getX(), pos.getY(), pos.getZ());
+		return String.format("/execute in %s run tp %s %s %s", dimensionType, pos.getX(), pos.getY(), pos.getZ());
+	}
+
+	public static String getTeleportCommand(Vec3d pos)
+	{
+		return String.format("/tp %s %s %s", pos.getX(), pos.getY(), pos.getZ());
+	}
+
+	public static String getTeleportCommand(Vec3i pos)
+	{
+		return String.format("/tp %d %d %d", pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	public static String getTeleportCommand(Vec3i pos, DimensionType dimensionType)
@@ -112,15 +122,25 @@ public class TextUtil
 		hoverText.append(getDimensionNameText(dim.getType()));
 		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
 	}
+
+	public static String getCoordinateString(Vec3d pos)
+	{
+		return String.format("[%.1f, %.1f, %.1f]", pos.getX(), pos.getY(), pos.getZ());
+	}
+
+	public static String getCoordinateString(Vec3i pos)
+	{
+		return String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());
+	}
+
 	public static BaseText getCoordinateText(String style, Vec3d pos, Dimension dim)
 	{
-		String posText = String.format("[%.1f, %.1f, %.1f]", pos.getX(), pos.getY(), pos.getZ());
-		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim.getType()));
+		return __getCoordinateText(style, dim, getCoordinateString(pos), getTeleportCommand(pos, dim.getType()));
 	}
+
 	public static BaseText getCoordinateText(String style, Vec3i pos, Dimension dim)
 	{
-		String posText = String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());
-		return __getCoordinateText(style, dim, posText, getTeleportCommand(pos, dim.getType()));
+		return __getCoordinateText(style, dim, getCoordinateString(pos), getTeleportCommand(pos, dim.getType()));
 	}
 
 	public static BaseText getEntityText(String style, Entity entity)
@@ -145,7 +165,7 @@ public class TextUtil
 		TranslatableText text = new TranslatableText(key, args);
 		if (color != null)
 		{
-			attachColor(text, color);
+			attachFormatting(text, color);
 		}
 		return text;
 	}

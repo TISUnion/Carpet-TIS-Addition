@@ -3,6 +3,8 @@ package carpettisaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpettisaddition.commands.InfoCommand;
+import carpettisaddition.commands.lifetime.LifeTimeCommand;
+import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
@@ -71,6 +73,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void onServerLoadedWorldsCTA(MinecraftServer server)
     {
         MicroTimingLoggerManager.attachServer(server);
+        LifeTimeTracker.attachServer(server);
     }
 
     @Override
@@ -78,6 +81,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         RaidTracker.getInstance().stop();
         MicroTimingLoggerManager.detachServer();
+        LifeTimeTracker.detachServer();
     }
 
     @Override
@@ -92,6 +96,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
         // here goes extra stuff
         RaidCommand.getInstance().registerCommand(dispatcher);
         InfoCommand.getInstance().registerCommand(dispatcher);
+        LifeTimeCommand.getInstance().registerCommand(dispatcher);
     }
 
     @Override

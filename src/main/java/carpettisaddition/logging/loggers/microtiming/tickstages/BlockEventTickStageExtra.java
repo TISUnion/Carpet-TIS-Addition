@@ -7,7 +7,6 @@ import carpettisaddition.utils.TextUtil;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockEventTickStageExtra extends TickStageExtraBase
@@ -28,13 +27,12 @@ public class BlockEventTickStageExtra extends TickStageExtraBase
 	@Override
 	public BaseText toText()
 	{
-		BlockPos pos = this.blockEventData.getPos();
 		return Messenger.c(
 				String.format("w %s: ", MicroTimingLoggerManager.tr("Block")),
 				MicroTimingUtil.getTranslatedText(this.blockEventData.getBlock()),
 				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Order"), this.order),
 				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Depth"), this.depth),
-				String.format("w \n%s: [%d, %d, %d]", MicroTimingLoggerManager.tr("Position"), pos.getX(), pos.getY(), pos.getZ())
+				String.format("w \n%s: %s", MicroTimingLoggerManager.tr("Position"), TextUtil.getCoordinateString(this.blockEventData.getPos()))
 		);
 	}
 

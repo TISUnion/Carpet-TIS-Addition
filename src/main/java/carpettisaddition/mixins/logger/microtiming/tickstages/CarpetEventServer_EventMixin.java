@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 		},
 		remap = false
 )
-public abstract class CarpetEventServer$EventMixin
+public abstract class CarpetEventServer_EventMixin
 {
 	/**
 	 * {@code @Dynamic} for yeeting UnresolvedMixinReference warning
