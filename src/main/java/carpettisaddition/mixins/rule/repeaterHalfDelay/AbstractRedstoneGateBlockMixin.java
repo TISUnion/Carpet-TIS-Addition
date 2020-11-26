@@ -21,7 +21,7 @@ public abstract class AbstractRedstoneGateBlockMixin
 	@Shadow protected abstract int getUpdateDelayInternal(BlockState state);
 
 	@Redirect(
-			method = "scheduledTick",
+			method = "onScheduledTick",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/block/AbstractRedstoneGateBlock;getUpdateDelayInternal(Lnet/minecraft/block/BlockState;)I"
