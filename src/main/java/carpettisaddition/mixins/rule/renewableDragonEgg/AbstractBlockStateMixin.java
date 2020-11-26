@@ -1,32 +1,32 @@
 package carpettisaddition.mixins.rule.renewableDragonEgg;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * Lithium block.flatten_states uses hasRandomTicks cache, disable it bruteforcely
- * Mixin priority = 1500, higher than lithium
- */
-@Mixin(value = AbstractBlock.AbstractBlockState.class, priority = 1500)
+@Mixin(AbstractBlock.AbstractBlockState.class)
 public abstract class AbstractBlockStateMixin
 {
 	@Shadow public abstract Block getBlock();
 
-	@Shadow protected abstract BlockState asBlockState();
-
 	/**
-	 * @author Fallen_Breath
-	 * @reason Force using vanilla method to make sure the result is correct
-	 * in case lithium mod overwrites it and uses its immutable cache
+	 * Lithium block.flatten_states sets up immutable hasRandomTicks cache, and the cache may not match the actual value
+	 * since whether dragon egg block has random tick is changeable
+	 * So, if the block is dragon egg, use our own carpet setting rule value
 	 */
-	@Overwrite
-	public boolean hasRandomTicks()
+	@Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
+	private void hasRandomTicksDragonEgg(CallbackInfoReturnable<Boolean> cir)
 	{
-		// vanilla copy
-		return this.getBlock().hasRandomTicks(this.asBlockState());
+		if (this.getBlock().is(Blocks.DRAGON_EGG))
+		{
+			cir.setReturnValue(CarpetTISAdditionSettings.renewableDragonEgg);
+			cir.cancel();
+		}
 	}
 }
