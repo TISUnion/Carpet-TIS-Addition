@@ -73,6 +73,7 @@
     "rule.poiUpdates.ServerWorldMixin",
     "rule.railDupingFix.AbstractRailBlockMixin",
     "rule.redstoneDustRandomUpdateOrder.RedstoneWireBlockMixin",
+    "rule.renewableDragonEgg.AbstractBlockStateMixin",
     "rule.renewableDragonEgg.DragonEggBlockMixin",
     "rule.renewableDragonHead.EnderDragonEntityMixin",
     "rule.renewableElytra.PhantomEntityMixin",

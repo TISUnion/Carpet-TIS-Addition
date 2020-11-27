@@ -1,9 +1,9 @@
 package carpettisaddition.commands;
 
 import carpet.CarpetSettings;
-import carpet.settings.SettingsManager;
 import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
@@ -33,7 +33,7 @@ public class InfoCommand extends AbstractCommand
 	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal("info").
-				requires((player) -> SettingsManager.canUseCommand(player, CarpetSettings.commandInfo)).
+				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetSettings.commandInfo)).
 				then(literal("world").
 						then(literal("ticking_order").
 								executes((c) -> showWorldTickOrder(c.getSource()))));
