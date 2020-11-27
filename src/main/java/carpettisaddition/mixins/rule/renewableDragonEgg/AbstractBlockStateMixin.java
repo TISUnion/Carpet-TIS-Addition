@@ -23,7 +23,7 @@ public abstract class AbstractBlockStateMixin
 	@Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
 	private void hasRandomTicksDragonEgg(CallbackInfoReturnable<Boolean> cir)
 	{
-		if (this.getBlock().is(Blocks.DRAGON_EGG))
+		if (this.getBlock() == Blocks.DRAGON_EGG)
 		{
 			cir.setReturnValue(CarpetTISAdditionSettings.renewableDragonEgg);
 			cir.cancel();
