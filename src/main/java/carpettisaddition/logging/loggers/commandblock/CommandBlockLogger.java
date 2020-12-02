@@ -8,6 +8,7 @@ import carpettisaddition.utils.TextUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.vehicle.CommandBlockMinecartEntity;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.ChatUtil;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.CommandBlockExecutor;
@@ -85,6 +86,10 @@ public class CommandBlockLogger extends AbstractLogger
 
 	public void onCommandBlockMinecartActivated(CommandBlockMinecartEntity entity)
 	{
+		if (ChatUtil.isEmpty(entity.getCommandExecutor().getCommand()))
+		{
+			return;
+		}
 		this.logCommandBlockExecution(
 				entity.getEntityWorld(),
 				TextUtil.getEntityText(null, entity),
