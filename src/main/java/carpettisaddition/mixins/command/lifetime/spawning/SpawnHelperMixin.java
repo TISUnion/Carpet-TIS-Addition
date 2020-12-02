@@ -17,7 +17,7 @@ public abstract class SpawnHelperMixin
 			method = "spawnEntitiesInChunk",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			),
 			index = 0,
 			allow = 1

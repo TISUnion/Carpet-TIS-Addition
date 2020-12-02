@@ -23,6 +23,7 @@
     "command.lifetime.removal.EntityMixin",
     "command.lifetime.removal.ExperienceOrbEntityMixin",
     "command.lifetime.removal.HopperBlockEntityMixin",
+    "command.lifetime.removal.HostileEntityMixin",
     "command.lifetime.removal.ItemEntityMixin",
     "command.lifetime.removal.MobEntityMixin",
     "command.lifetime.removal.WitherEntityMixin",

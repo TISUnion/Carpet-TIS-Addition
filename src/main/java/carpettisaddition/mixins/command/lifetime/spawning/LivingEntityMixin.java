@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,20 +25,20 @@ public abstract class LivingEntityMixin extends Entity
 
 	// wither rose thing
 	@Inject(
-			method = "onKilledBy",
+			method = "onDeath",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void onMobDroppedItemLifeTimeTracker(LivingEntity adversary, CallbackInfo ci, boolean bl, ItemEntity itemEntity)
+	private void onMobDroppedItemLifeTimeTracker(DamageSource source, CallbackInfo ci, Entity entity, LivingEntity livingEntity, boolean bl, ItemEntity itemEntity)
 	{
 		((IEntity)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
 	}
 
 	@ModifyArg(
-			method = "dropXp",
+			method = "updatePostDeath",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
