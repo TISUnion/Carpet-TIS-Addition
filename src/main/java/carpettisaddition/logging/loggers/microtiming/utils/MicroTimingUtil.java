@@ -11,7 +11,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -209,11 +208,6 @@ public class MicroTimingUtil
 			}
 		}
 		return optionalDyeColor;
-	}
-
-	public static BaseText getTranslatedText(Block block)
-	{
-		return TextUtil.attachFormatting(new TranslatableText(block.getTranslationKey()), Formatting.WHITE);
 	}
 
 	public static String getFormattedDirectionString(Direction direction)

@@ -264,6 +264,9 @@
   "logger.damage.damage": "伤害",
   "logger.damage.remaining_health": "剩余生命值",
 
+  "logger.commandBlock.executed": "执行了",
+
+
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
   "raid_invalidate_reason.gamerule_disable": "被游戏规则禁用",
   "raid_invalidate_reason.poi_removed_before_spawn": "生成袭击者前POI全被移除",
@@ -348,7 +351,7 @@
 
 
   "util.teleport_hint": "点击以传送至",
-  "util.teleport_hint_dimension": "维度: ",
+  "util.teleport_hint.dimension": "维度",
 
 
   "util.stack_trace.deobfuscated_stack_trace": "反混淆后的堆栈跟踪",
