@@ -9,11 +9,11 @@ import java.util.Objects;
 
 public class DeathRemovalReason extends RemovalReason
 {
-	private final DamageSource damageSource;
+	private final String damageSourceName;
 
 	public DeathRemovalReason(DamageSource damageSource)
 	{
-		this.damageSource = Objects.requireNonNull(damageSource);
+		this.damageSourceName = damageSource.getName();
 	}
 
 	@Override
@@ -22,13 +22,13 @@ public class DeathRemovalReason extends RemovalReason
 		if (this == o) return true;
 		if (!(o instanceof DeathRemovalReason)) return false;
 		DeathRemovalReason that = (DeathRemovalReason) o;
-		return Objects.equals(this.damageSource, that.damageSource);
+		return Objects.equals(this.damageSourceName, that.damageSourceName);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(this.damageSource);
+		return Objects.hash(this.damageSourceName);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class DeathRemovalReason extends RemovalReason
 				"g  (",
 				TextUtil.getFancyText(
 						null,
-						Messenger.s(this.damageSource.getName()),
+						Messenger.s(this.damageSourceName),
 						Messenger.s(this.tr("Damage source")),
 						null
 				),
