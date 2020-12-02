@@ -2,6 +2,7 @@ package carpettisaddition.mixins.command.lifetime.spawning;
 
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.spawning.MobDropSpawningReason;
+import carpettisaddition.commands.lifetime.utils.ExperienceOrbEntityFlags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -10,7 +11,6 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -36,17 +36,15 @@ public abstract class LivingEntityMixin extends Entity
 		((IEntity)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
 	}
 
-	@ModifyArg(
-			method = "dropXp",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			),
-			index = 0
-	)
-	private Entity onMobDroppedXpLifeTimeTracker(Entity entity)
+	@Inject(method = "dropXp", at = @At("HEAD"))
+	private void onMobDroppedXpLifeTimeTrackerPre(CallbackInfo ci)
 	{
-		((IEntity)entity).recordSpawning(new MobDropSpawningReason(this.getType()));
-		return entity;
+		ExperienceOrbEntityFlags.recordSpawning = true;
+	}
+
+	@Inject(method = "dropXp", at = @At("TAIL"))
+	private void onMobDroppedXpLifeTimeTrackerPost(CallbackInfo ci)
+	{
+		ExperienceOrbEntityFlags.recordSpawning = false;
 	}
 }

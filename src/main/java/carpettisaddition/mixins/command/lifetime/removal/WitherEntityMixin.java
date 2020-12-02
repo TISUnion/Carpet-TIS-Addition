@@ -15,7 +15,7 @@ public abstract class WitherEntityMixin
 			method = "checkDespawn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/boss/WitherEntity;remove()V"
+					target = "Lnet/minecraft/entity/boss/WitherEntity;discard()V"
 			)
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)

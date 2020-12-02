@@ -31,7 +31,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 			)
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)
@@ -43,11 +43,17 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 			method = "onPlayerCollision",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 			)
 	)
 	private void onPickupLifeTimeTracker(PlayerEntity player, CallbackInfo ci)
 	{
 		((IEntity)this).recordRemoval(LiteralRemovalReason.PICKUP);
+	}
+
+	@Inject(method = "merge", at = @At("TAIL"))
+	private void onMergedLifeTimeTracker(ExperienceOrbEntity other, CallbackInfo ci)
+	{
+		((IEntity)other).recordRemoval(LiteralRemovalReason.MERGE);
 	}
 }

@@ -17,7 +17,7 @@ public abstract class ExperienceOrbEntityMixin implements EntityDamageable
 			method = "damage",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 			)
 	)
 	private	void onDeathLifeTimeTracker(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)

@@ -17,7 +17,7 @@ public abstract class ItemEntityMixin implements EntityDamageable
 			method = "damage",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 			)
 	)
 	private void onDeathLifeTimeTracker(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)

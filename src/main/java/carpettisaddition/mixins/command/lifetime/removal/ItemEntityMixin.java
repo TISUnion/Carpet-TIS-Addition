@@ -32,7 +32,7 @@ public abstract class ItemEntityMixin extends Entity
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 			)
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)
@@ -44,12 +44,12 @@ public abstract class ItemEntityMixin extends Entity
 			method = "merge(Lnet/minecraft/entity/ItemEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/ItemEntity;Lnet/minecraft/item/ItemStack;)V",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 			)
 	)
 	private static void onMergedLifeTimeTracker(ItemEntity targetEntity, ItemStack targetStack, ItemEntity sourceEntity, ItemStack sourceStack, CallbackInfo ci)
 	{
-		if (!sourceEntity.removed)
+		if (!sourceEntity.isRemoved())
 		{
 			((IEntity)sourceEntity).recordRemoval(LiteralRemovalReason.MERGE);
 		}
@@ -59,12 +59,12 @@ public abstract class ItemEntityMixin extends Entity
 			method = "onPlayerCollision",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 			)
 	)
 	private void onPickupLifeTimeTracker(PlayerEntity player, CallbackInfo ci)
 	{
-		if (!this.removed)
+		if (!this.isRemoved())
 		{
 			((IEntity)this).recordRemoval(LiteralRemovalReason.PICKUP);
 		}

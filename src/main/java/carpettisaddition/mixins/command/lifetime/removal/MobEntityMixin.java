@@ -18,7 +18,7 @@ public abstract class MobEntityMixin
 			method = "checkDespawn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V"
+					target = "Lnet/minecraft/entity/mob/MobEntity;discard()V"
 			),
 			require = 3
 	)
