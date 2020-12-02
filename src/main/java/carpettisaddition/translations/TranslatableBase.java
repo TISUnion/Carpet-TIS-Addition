@@ -4,9 +4,14 @@ public class TranslatableBase implements Translatable
 {
 	private final Translator translator;
 
+	public TranslatableBase(Translator translator)
+	{
+		this.translator = translator;
+	}
+
 	public TranslatableBase(String type, String name)
 	{
-		this.translator = new Translator(type, name);
+		this(new Translator(type, name));
 	}
 
 	public Translator getTranslator()
