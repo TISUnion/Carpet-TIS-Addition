@@ -3,6 +3,7 @@ package carpettisaddition.utils;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
 import com.google.common.collect.Maps;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
@@ -43,6 +44,11 @@ public class TextUtil
 	{
 		text.formatted(formattings);
 		return text;
+	}
+
+	public static BaseText copyText(BaseText text)
+	{
+		return text.copy();
 	}
 	// mojang compatibility thing ends
 
@@ -98,7 +104,7 @@ public class TextUtil
 
 	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
 	{
-		BaseText text = (BaseText)displayText.shallowCopy();
+		BaseText text = copyText(displayText);
 		if (style != null)
 		{
 			text.setStyle(Messenger.parseStyle(style));
@@ -118,7 +124,8 @@ public class TextUtil
 	{
 		BaseText hoverText = Messenger.s("");
 		hoverText.append(String.format("%s %s\n", getTeleportHint(), posText));
-		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
+		hoverText.append(Translations.tr("util.teleport_hint.dimension", "Dimension"));
+		hoverText.append(": ");
 		hoverText.append(getDimensionNameText(dim));
 		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
 	}
@@ -145,8 +152,8 @@ public class TextUtil
 
 	public static BaseText getEntityText(String style, Entity entity)
 	{
-		BaseText entityName = (BaseText)entity.getType().getName().copy();
-		BaseText hoverText = Messenger.c(String.format("w %s ", getTeleportHint()), entityName);
+		BaseText entityName = copyText((BaseText)entity.getType().getName());
+		BaseText hoverText = Messenger.c("w " + getTeleportHint(), getSpaceText(), entityName);
 		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
 	}
 
@@ -157,7 +164,7 @@ public class TextUtil
 
 	public static BaseText getDimensionNameText(RegistryKey<World> dim)
 	{
-		return DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.getValue().toString())).copy();
+		return copyText(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())));
 	}
 
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)
@@ -169,9 +176,15 @@ public class TextUtil
 		}
 		return text;
 	}
+
 	public static TranslatableText getTranslatedName(String key, Object... args)
 	{
 		return getTranslatedName(key, null, args);
+	}
+
+	public static BaseText getBlockName(Block block)
+	{
+		return TextUtil.attachFormatting(new TranslatableText(block.getTranslationKey()), Formatting.WHITE);
 	}
 
 	// some language doesn't use space char to divide word

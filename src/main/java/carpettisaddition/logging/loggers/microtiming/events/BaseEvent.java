@@ -2,9 +2,9 @@ package carpettisaddition.logging.loggers.microtiming.events;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.utils.TextUtil;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.registry.Registry;
@@ -72,7 +72,7 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 	{
 		return Messenger.c(
 				"g [",
-				MicroTimingUtil.getTranslatedText(block),
+				TextUtil.getBlockName(block),
 				"^w " + Registry.BLOCK.getId(block).toString(),
 				"g ] "
 		);

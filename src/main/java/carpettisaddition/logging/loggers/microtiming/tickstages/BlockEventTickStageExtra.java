@@ -2,7 +2,6 @@ package carpettisaddition.logging.loggers.microtiming.tickstages;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.text.BaseText;
@@ -29,7 +28,7 @@ public class BlockEventTickStageExtra extends TickStageExtraBase
 	{
 		return Messenger.c(
 				String.format("w %s: ", MicroTimingLoggerManager.tr("Block")),
-				MicroTimingUtil.getTranslatedText(this.blockEventData.getBlock()),
+				TextUtil.getBlockName(this.blockEventData.getBlock()),
 				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Order"), this.order),
 				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Depth"), this.depth),
 				String.format("w \n%s: %s", MicroTimingLoggerManager.tr("Position"), TextUtil.getCoordinateString(this.blockEventData.getPos()))

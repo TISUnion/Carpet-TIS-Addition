@@ -1,9 +1,9 @@
 package carpettisaddition.commands.lifetime;
 
-import carpet.settings.SettingsManager;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
+import carpettisaddition.utils.CarpetModUtil;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
@@ -35,7 +35,7 @@ public class LifeTimeCommand extends AbstractCommand
 		String entityTypeArg = "entity_type";
 		String detailModeArg = "detail";
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
-				requires((player) -> SettingsManager.canUseCommand(player, CarpetTISAdditionSettings.commandLifeTime)).
+				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandLifeTime)).
 				// lifetime tracking [general tracker stuffs here]
 				then(
 						LifeTimeTracker.getInstance().getTrackingArgumentBuilder()
