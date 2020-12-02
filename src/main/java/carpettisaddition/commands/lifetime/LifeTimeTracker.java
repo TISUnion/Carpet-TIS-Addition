@@ -5,11 +5,13 @@ import carpettisaddition.commands.AbstractTracker;
 import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
+import carpettisaddition.utils.TextUtil;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Map;
@@ -119,6 +121,24 @@ public class LifeTimeTracker extends AbstractTracker
 		{
 			Messenger.m(source, Messenger.s(this.tr("Unknown entity type") + ": " + entityTypeString, "r"));
 		}
+		return 1;
+	}
+
+	protected int showHelp(ServerCommandSource source)
+	{
+		String docLink = this.tr("help.doc_link", "https://github.com/TISUnion/Carpet-TIS-Addition#lifetime");
+		source.sendFeedback(Messenger.c(
+				String.format("wb %s\n", this.getTranslatedNameFull()),
+				String.format("w %s\n", this.tr("help.doc_summary", "A tracker to track lifetime and spawn / removal reasons from all newly spawned and dead entities")),
+				String.format("w %s", this.tr("help.complete_doc_hint", "Complete doc")),
+				TextUtil.getSpaceText(),
+				TextUtil.getFancyText(
+						null,
+						Messenger.s(this.tr("help.here", "here"), "ut"),
+						Messenger.s(docLink, "t"),
+						new ClickEvent(ClickEvent.Action.OPEN_URL, docLink)
+				)
+		), false);
 		return 1;
 	}
 }

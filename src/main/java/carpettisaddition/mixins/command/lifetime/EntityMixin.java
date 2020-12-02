@@ -8,6 +8,7 @@ import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -61,6 +62,14 @@ public abstract class EntityMixin implements IEntity
 	{
 		if (this.doLifeTimeTracking && !this.recordedSpawning)
 		{
+			//noinspection ConstantConditions
+			if ((Entity)(Object)this instanceof MobEntity)
+			{
+				if (((MobEntity)(Object)this).isPersistent())
+				{
+					return;
+				}
+			}
 			this.recordedSpawning = true;
 			this.spawnPos = this.getPos();
 			((IServerWorld)this.world).getLifeTimeWorldTracker().onEntitySpawn((Entity)(Object)this, reason);

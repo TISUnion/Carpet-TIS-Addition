@@ -75,6 +75,10 @@ public class LifeTimeCommand extends AbstractCommand
 																)
 												)
 								)
+				).
+				then(
+						literal("help").
+								executes(c -> LifeTimeTracker.getInstance().showHelp(c.getSource()))
 				);
 		dispatcher.register(builder);
 	}

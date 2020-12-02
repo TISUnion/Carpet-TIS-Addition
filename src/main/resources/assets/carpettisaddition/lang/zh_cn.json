@@ -331,6 +331,7 @@
   "tracker.lifetime.spawn_reason.trans_dimension": "跨维度",
   "tracker.lifetime.spawn_reason.trans_dimension.from": "来自",
   "tracker.lifetime.removal_reason.despawn": "消失",
+  "tracker.lifetime.removal_reason.persistent": "获取持久标签",
   "tracker.lifetime.removal_reason.other": "其他",
   "tracker.lifetime.removal_reason.death": "死亡",
   "tracker.lifetime.removal_reason.merge": "实体合并",
@@ -339,6 +340,10 @@
   "tracker.lifetime.removal_reason.damage_source": "伤害来源",
   "tracker.lifetime.removal_reason.trans_dimension": "跨维度",
   "tracker.lifetime.removal_reason.trans_dimension.to": "前往",
+  "tracker.lifetime.help.doc_summary": "一个追踪所有新生成生物的存活时间及生成/移除原因的记录器",
+  "tracker.lifetime.help.complete_doc_hint": "完整文档",
+  "tracker.lifetime.help.here": "传送门",
+  "tracker.lifetime.help.doc_link": "https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#存活时间-lifetime",
 
 
   "util.teleport_hint": "点击以传送至",

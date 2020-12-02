@@ -6,6 +6,7 @@ import net.minecraft.text.BaseText;
 public class LiteralRemovalReason extends RemovalReason
 {
 	public static final LiteralRemovalReason DESPAWN = new LiteralRemovalReason("despawn", "Despawn");
+	public static final LiteralRemovalReason PERSISTENT = new LiteralRemovalReason("persistent", "Becomes persistent");
 	public static final LiteralRemovalReason OTHER = new LiteralRemovalReason("other", "Other");
 
 	// for item entity and xp orb entity

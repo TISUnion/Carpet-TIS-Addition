@@ -614,13 +614,15 @@ Show the ticking order of current dimensions in the game
 
 ## lifetime
 
+A tracker to track lifetime and spawn / removal reasons from all newly spawned and dead entities
+
 Adding a `realtime` suffix to the command will turn the rate result from in-game time based to realtime based
 
 ### tracking
 
 `/raid tracking [<start|stop|restart>]`
 
-Start a lifetime tracking to track data from all newly spawn entities
+Control the lifetime tracker
 
 Tracked entity types:
 - All kinds of mob (Entity catalogue is not `MISC`)
@@ -630,6 +632,7 @@ Tracked entity types:
 Tracked entity spawning reasons
 - Natural spawning
 - Portal pigman spawning
+- Becomes persistent. Note that the entity is still not removed from the world
 - Trans-dimension from portal
 - Spawned by item (spawn eggs etc.)
 - `/summon` command

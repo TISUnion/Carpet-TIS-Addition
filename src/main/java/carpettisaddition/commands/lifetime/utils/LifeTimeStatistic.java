@@ -14,7 +14,7 @@ import net.minecraft.world.dimension.DimensionType;
 public class LifeTimeStatistic extends TranslatableBase
 {
 	public static final String COLOR_MIN_TIME = "q ";
-	public static final String COLOR_MAX_TIME = "q ";
+	public static final String COLOR_MAX_TIME = "c ";
 	public static final String COLOR_AVG_TIME = "p ";
 
 	public StatisticElement minTimeElement;
@@ -57,11 +57,6 @@ public class LifeTimeStatistic extends TranslatableBase
 		}
 	}
 
-	private String getRoundedAverage()
-	{
-		return String.format("%.2f", (double)this.timeSum / this.count);
-	}
-
 	/**
 	 * - Minimum life time: xx gt
 	 * - Maximum life time: yy gt
@@ -88,7 +83,7 @@ public class LifeTimeStatistic extends TranslatableBase
 				indent,
 				"w " + this.tr("Average life time"),
 				"g : ",
-				COLOR_AVG_TIME + this.getRoundedAverage(),
+				COLOR_AVG_TIME + String.format("%.4f", (double)this.timeSum / this.count),
 				"g  gt"
 		);
 	}
@@ -107,7 +102,7 @@ public class LifeTimeStatistic extends TranslatableBase
 				divider,
 				COLOR_MAX_TIME + this.maxTimeElement.time,
 				divider,
-				COLOR_AVG_TIME + this.getRoundedAverage(),
+				COLOR_AVG_TIME + String.format("%.2f", (double)this.timeSum / this.count),
 				"g  (gt)"
 		);
 	}
