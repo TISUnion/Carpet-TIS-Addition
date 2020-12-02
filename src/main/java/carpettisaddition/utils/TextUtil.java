@@ -123,7 +123,8 @@ public class TextUtil
 	{
 		BaseText hoverText = Messenger.s("");
 		hoverText.append(String.format("%s %s\n", getTeleportHint(), posText));
-		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
+		hoverText.append(Translations.tr("util.teleport_hint.dimension", "Dimension"));
+		hoverText.append("w : ");
 		hoverText.append(getDimensionNameText(dim));
 		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
 	}
@@ -151,7 +152,7 @@ public class TextUtil
 	public static BaseText getEntityText(String style, Entity entity)
 	{
 		BaseText entityName = copyText((BaseText)entity.getType().getName());
-		BaseText hoverText = Messenger.c(String.format("w %s ", getTeleportHint()), entityName);
+		BaseText hoverText = Messenger.c("w " + getTeleportHint(), getSpaceText(), entityName);
 		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
 	}
 

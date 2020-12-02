@@ -351,7 +351,7 @@
 
 
   "util.teleport_hint": "点击以传送至",
-  "util.teleport_hint_dimension": "维度: ",
+  "util.teleport_hint.dimension": "维度",
 
 
   "util.stack_trace.deobfuscated_stack_trace": "反混淆后的堆栈跟踪",
