@@ -6,11 +6,36 @@ public class Translator implements Translatable
 {
 	private final String type;
 	private final String name;
+	private final String translationPath;
 
 	public Translator(String type, String name)
 	{
 		this.type = type;
 		this.name = name;
+		this.translationPath = this.generateTranslationPath();
+	}
+
+	public String getTranslationPath()
+	{
+		return this.translationPath;
+	}
+
+	private String generateTranslationPath()
+	{
+		String path = "";
+		if (this.type != null)
+		{
+			path += this.type + ".";
+		}
+		if (this.name != null)
+		{
+			path += this.name + ".";
+		}
+		if (path.endsWith("."))
+		{
+			path = path.substring(0, path.length() - 1);
+		}
+		return path;
 	}
 
 	public Translator(String prefix)
@@ -25,14 +50,10 @@ public class Translator implements Translatable
 	// - (optional) replace space with underscore
 	private String getPath(String key, boolean autoFormat)
 	{
-		String path = "";
-		if (this.type != null)
+		String path = this.getTranslationPath();
+		if (!path.isEmpty())
 		{
-			path += this.type + ".";
-		}
-		if (this.name != null)
-		{
-			path += this.name + ".";
+			path += ".";
 		}
 		key = key.toLowerCase();
 		if (autoFormat)
@@ -42,6 +63,13 @@ public class Translator implements Translatable
 		return path + key;
 	}
 
+	/**
+	 * Full control mode
+	 * @param key translation key
+	 * @param text fallback text
+	 * @param autoFormat if autoFormat the key will be auto format, including trimming and space replacement with _
+	 * @return translated text
+	 */
 	@Override
 	public String tr(String key, String text, boolean autoFormat)
 	{

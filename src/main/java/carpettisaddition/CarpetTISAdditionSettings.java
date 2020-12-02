@@ -213,7 +213,7 @@ public class CarpetTISAdditionSettings
 	public static boolean railDupingFix = false;
 
 	@Rule(
-			desc = "Enables /raid command for raid tracking",
+			desc = "Enables /raid command for raid listing and tracking",
 			category = {TIS, COMMAND}
 	)
 	public static String commandRaid = "true";
@@ -382,6 +382,15 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static boolean repeaterHalfDelay = false;
+
+	@Rule(
+			desc = "Enables /lifetime command to track entity lifetime and so on",
+			extra = {
+					"Useful for mob farm debugging etc."
+			},
+			category = {TIS, COMMAND}
+	)
+	public static String commandLifeTime = "true";
 
 	/*
 	 *   Declare rules above this

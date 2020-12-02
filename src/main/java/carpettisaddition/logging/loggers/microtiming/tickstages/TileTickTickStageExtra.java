@@ -43,7 +43,7 @@ public class TileTickTickStageExtra extends TickStageExtraBase
 		}
 		list.add(String.format("w %s: %d\n", MicroTimingLoggerManager.tr("Order"), this.order));
 		list.add(String.format("w %s: %d (%s)\n", MicroTimingLoggerManager.tr("Priority"), priority.getIndex(), priority));
-		list.add(String.format("w %s: [%d, %d, %d]", MicroTimingLoggerManager.tr("Position"), pos.getX(), pos.getY(), pos.getZ()));
+		list.add(String.format("w %s: %s", MicroTimingLoggerManager.tr("Position"), TextUtil.getCoordinateString(pos)));
 		return Messenger.c(list.toArray(new Object[0]));
 	}
 

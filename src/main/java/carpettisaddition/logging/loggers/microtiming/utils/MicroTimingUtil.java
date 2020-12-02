@@ -68,7 +68,7 @@ public class MicroTimingUtil
 		}
 		if (color != null)
 		{
-			TextUtil.attachColor(text, color);
+			TextUtil.attachFormatting(text, color);
 		}
 		return text;
 	}
@@ -213,7 +213,7 @@ public class MicroTimingUtil
 
 	public static BaseText getTranslatedText(Block block)
 	{
-		return TextUtil.attachColor(new TranslatableText(block.getTranslationKey()), Formatting.WHITE);
+		return TextUtil.attachFormatting(new TranslatableText(block.getTranslationKey()), Formatting.WHITE);
 	}
 
 	public static String getFormattedDirectionString(Direction direction)

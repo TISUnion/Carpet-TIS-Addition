@@ -46,6 +46,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [tntFuseDuration](#tntFuseDuration)
 - [entityMomentumLoss](#entityMomentumLoss)
 - [repeaterHalfDelay](#repeaterHalfDelay)
+- [commandLifeTime](#commandLifeTime)
 
 ## [Loggers](#logger-list)
 
@@ -61,6 +62,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 
 - [raid](#raid-1)
 - [info](#info)
+- [lifetime](#lifetime)
 
 ## Others
 
@@ -240,7 +242,7 @@ Disable rail duping using old school pushing lit powered or activator rail metho
 
 ## commandRaid
 
-Enables `/raid` command for raid tracking
+Enables `/raid` command for raid listing and tracking
 
 - Type: `boolean`  
 - Default value: `true`  
@@ -464,6 +466,18 @@ The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game t
 - Categories: `TIS`, `CREATIVE`
 
 
+## commandLifeTime
+
+Enables `/lifetime` command to track entity lifetime and so on
+
+Useful for mob farm debugging etc.
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`
+
+
 -----------
 
 # Logger List
@@ -596,6 +610,56 @@ Start a raid tracking to gather statistics from ongoing raids
 `/info world ticking_order`
 
 Show the ticking order of current dimensions in the game
+
+
+## lifetime
+
+A tracker to track lifetime and spawn / removal reasons from all newly spawned and dead entities
+
+Adding a `realtime` suffix to the command will turn the rate result from in-game time based to realtime based
+
+### tracking
+
+`/raid tracking [<start|stop|restart>]`
+
+Control the lifetime tracker
+
+Tracked entity types:
+- All kinds of mob (Entity catalogue is not `MISC`)
+- Item Entity
+- Experience Orb Entity
+
+Tracked entity spawning reasons
+- Natural spawning
+- Portal pigman spawning
+- Becomes persistent. Note that the entity is still not removed from the world
+- Trans-dimension from portal
+- Spawned by item (spawn eggs etc.)
+- `/summon` command
+- Mob dropping loot (item and xp orb only)
+
+Note that only entities that have been tracked spawning will be counted to the statistic 
+
+Tracked entity removal reasons
+- Despawn, including immediately despawn, random despawn and difficulty despawn
+- Damaged to death
+- Trans-dimension through portal
+- Entity merged (item and xp orb only)
+- Picked up by player (item and xp orb only)
+- Collected up by hopper or hopper minecart (item only)
+- Other (anything else not in the list)
+
+The definition of lifetime is: **The difference in world time between entity spawning and entity removal**
+
+Statistics are sorted by the proportion of the amount 
+
+## <entity_type>
+
+`/lifetime <entity_type> [<life_time|removal|spawning>]`
+
+Show the detail statistic of specific entity type. You can specify which part of the statistic will be output
+
+For example, `/lifetime creeper` shows all statistic of creeper in detail, and `/lifetime creeper removal` only shows removal statistic of creeper in detail 
 
 -----------
 
