@@ -126,7 +126,7 @@ public class TextUtil
 		BaseText hoverText = Messenger.s("");
 		hoverText.append(String.format("%s %s\n", getTeleportHint(), posText));
 		hoverText.append("Dimension");
-		hoverText.append("w : ");
+		hoverText.append(": ");
 		hoverText.append(getDimensionNameText(dim));
 		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
 	}
