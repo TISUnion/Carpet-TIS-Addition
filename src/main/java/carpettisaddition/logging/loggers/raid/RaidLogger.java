@@ -35,7 +35,7 @@ public class RaidLogger extends AbstractLogger
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("created", "Raid created with id %d"), raid.getRaidId())),
 					"g  @ ",
-					TextUtil.getCoordinateText("w", raid.getCenter(), raid.getWorld().getDimension())
+					TextUtil.getCoordinateText("w", raid.getCenter(), raid.getWorld().getDimension().getType())
 			)};
 		});
 	}
@@ -76,7 +76,7 @@ public class RaidLogger extends AbstractLogger
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("center_moved", "Raid (id: %d) moves its center to"), raid.getRaidId())),
 					"w  ",
-					TextUtil.getCoordinateText("w", pos, raid.getWorld().getDimension())
+					TextUtil.getCoordinateText("w", pos, raid.getWorld().getDimension().getType())
 			)};
 		});
 	}

@@ -81,7 +81,7 @@ public class RaidCommand extends AbstractCommand
 				result.add(Messenger.c("g   ", String.format("w %s: %s", tr("Status"), tr("status." + status, status))));
 				if (fullMode)
 				{
-					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), TextUtil.getCoordinateText("w", raid.getCenter(), world.getDimension())));
+					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), TextUtil.getCoordinateText("w", raid.getCenter(), world.getDimension().getType())));
 					result.add(Messenger.c("g   ", String.format("w %s: %d", tr("Bad Omen Level"), raid.getBadOmenLevel())));
 				}
 				result.add(Messenger.c("g   ", String.format("w %s: %d/%d", tr("Waves"), raidAccessor.getWavesSpawned(), raidAccessor.getWaveCount())));
@@ -100,7 +100,7 @@ public class RaidCommand extends AbstractCommand
 						BaseText raiderMessage = Messenger.c(
 								raiderName,
 								"g  @ ",
-								TextUtil.getCoordinateText("w", raider.getPos(), raider.world.getDimension())
+								TextUtil.getCoordinateText("w", raider.getPos(), raider.world.getDimension().getType())
 						);
 						if (fullMode)
 						{

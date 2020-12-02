@@ -137,9 +137,9 @@ public class ExecuteBlockEventEvent extends BaseEvent
 					return Messenger.c(
 							"w " + this.event.tr("fail_info.block_changed", "Block has changed"),
 							"w : ",
-							MicroTimingUtil.getTranslatedText(this.event.blockAction.getBlock()),
+							TextUtil.getBlockName(this.event.blockAction.getBlock()),
 							"g  -> ",
-							MicroTimingUtil.getTranslatedText(this.actualBlock)
+							TextUtil.getBlockName(this.actualBlock)
 					);
 				case EVENT_FAIL:
 				default:

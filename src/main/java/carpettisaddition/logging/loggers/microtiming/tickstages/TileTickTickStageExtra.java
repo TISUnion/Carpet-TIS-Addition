@@ -2,7 +2,6 @@ package carpettisaddition.logging.loggers.microtiming.tickstages;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -38,7 +37,7 @@ public class TileTickTickStageExtra extends TickStageExtraBase
 		if (target instanceof Block)
 		{
 			list.add(String.format("w %s: ", MicroTimingLoggerManager.tr("Block")));
-			list.add(MicroTimingUtil.getTranslatedText((Block)target));
+			list.add(TextUtil.getBlockName((Block)target));
 			list.add("w \n");
 		}
 		list.add(String.format("w %s: %d\n", MicroTimingLoggerManager.tr("Order"), this.order));

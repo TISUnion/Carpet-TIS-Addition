@@ -64,7 +64,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 					getNameTextRich(entity),
 					String.format("r %s", translator.tr(" despawned")),
 					"g  @ ",
-					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
+					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType())
 			)};
 		});
 	}
@@ -85,7 +85,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 					String.format("g [%s] ", entity.world.getTime()),
 					deathMessage,
 					"g  @ ",
-					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension())
+					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType())
 			)};
 		});
 	}

@@ -57,6 +57,7 @@
 - [袭击](#袭击-raid)
 - [微时序](#微时序-microTiming-1)
 - [伤害](#伤害-damage)
+- [命令方块](#命令方块-commandBlock)
 
 ## [指令](#指令列表)
 
@@ -495,7 +496,7 @@
 **警告:** 监视 `unknown` 加载票的话可能会导致你被刷屏
 
 属性:
-- 默认值: `portal`
+- 默认选项: `portal`
 - 参考选项: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
 
 
@@ -506,7 +507,7 @@
 于 tab 栏中显示服务端当前消耗的内存以及占用的最大内存
 
 属性:
-- 默认值: N/A
+- 默认选项: N/A
 - 参考选项: N/A
 
 
@@ -525,7 +526,7 @@
 可用的选项分隔符: `,`、`.` 与 ` ` (`.` 是 1.14.4 版本的唯一选择)
 
 属性:
-- 默认值: `despawn`
+- 默认选项: `despawn`
 - 参考选项: `despawn`, `die`, `despawn,die`
 
 
@@ -548,7 +549,7 @@
 - 袭击的中心点被移动
 
 属性:
-- 默认值: N/A
+- 默认选项: N/A
 - 参考选项: N/A
 
 
@@ -566,7 +567,7 @@
 - `unique`: 输出所有每游戏刻中第一次出现的事件
 
 属性:
-- 默认值: `merged`
+- 默认选项: `merged`
 - 参考选项: `all`, `merged` `unique`
 
 
@@ -582,8 +583,23 @@
 - `me`: 记录与自己相关的伤害
 
 属性:
-- 默认值: `all`
+- 默认选项: `all`
 - 参考选项: `all`, `players`, `me`
+
+
+## 命令方块 (commandBlock)
+
+`/log commandBlock <option>`
+
+记录命令方块或命令方块矿车的指令执行
+
+有助于找到烦人的不知所踪的命令方块在何处
+
+当使用默认的 `throttled` 选项，每个命令方块最高以每 3 秒一次的频率记录其执行
+
+属性:
+- 默认选项: `throttled`
+- 参考选项: `throttled`, `all`
 
 
 # 指令列表

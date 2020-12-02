@@ -3,6 +3,7 @@ package carpettisaddition.utils;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
 import com.google.common.collect.Maps;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +14,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 
 import java.util.Map;
@@ -43,6 +43,11 @@ public class TextUtil
 	{
 		text.formatted(formattings);
 		return text;
+	}
+
+	public static BaseText copyText(BaseText text)
+	{
+		return (BaseText)text.deepCopy();
 	}
 	// mojang compatibility thing ends
 
@@ -98,7 +103,7 @@ public class TextUtil
 
 	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
 	{
-		BaseText text = (BaseText)displayText.deepCopy();
+		BaseText text = copyText(displayText);
 		if (style != null)
 		{
 			text.setStyle(Messenger.parseStyle(style));
@@ -114,12 +119,12 @@ public class TextUtil
 		return text;
 	}
 
-	private static BaseText __getCoordinateText(String style, Dimension dim, String posText, String command)
+	private static BaseText __getCoordinateText(String style, DimensionType dim, String posText, String command)
 	{
 		BaseText hoverText = Messenger.s("");
 		hoverText.append(String.format("%s %s\n", getTeleportHint(), posText));
 		hoverText.append(Translations.tr("util.teleport_hint_dimension", "Dimension: "));
-		hoverText.append(getDimensionNameText(dim.getType()));
+		hoverText.append(getDimensionNameText(dim));
 		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
 	}
 
@@ -133,19 +138,19 @@ public class TextUtil
 		return String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());
 	}
 
-	public static BaseText getCoordinateText(String style, Vec3d pos, Dimension dim)
+	public static BaseText getCoordinateText(String style, Vec3d pos, DimensionType dim)
 	{
-		return __getCoordinateText(style, dim, getCoordinateString(pos), getTeleportCommand(pos, dim.getType()));
+		return __getCoordinateText(style, dim, getCoordinateString(pos), getTeleportCommand(pos, dim));
 	}
 
-	public static BaseText getCoordinateText(String style, Vec3i pos, Dimension dim)
+	public static BaseText getCoordinateText(String style, Vec3i pos, DimensionType dim)
 	{
-		return __getCoordinateText(style, dim, getCoordinateString(pos), getTeleportCommand(pos, dim.getType()));
+		return __getCoordinateText(style, dim, getCoordinateString(pos), getTeleportCommand(pos, dim));
 	}
 
 	public static BaseText getEntityText(String style, Entity entity)
 	{
-		BaseText entityName = (BaseText)entity.getType().getName().copy();
+		BaseText entityName = copyText((BaseText)entity.getType().getName());
 		BaseText hoverText = Messenger.c(String.format("w %s ", getTeleportHint()), entityName);
 		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
 	}
@@ -157,7 +162,7 @@ public class TextUtil
 
 	public static BaseText getDimensionNameText(DimensionType dim)
 	{
-		return (BaseText)DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())).deepCopy();
+		return copyText(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())));
 	}
 
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)
@@ -169,9 +174,15 @@ public class TextUtil
 		}
 		return text;
 	}
+
 	public static TranslatableText getTranslatedName(String key, Object... args)
 	{
 		return getTranslatedName(key, null, args);
+	}
+
+	public static BaseText getBlockName(Block block)
+	{
+		return TextUtil.attachFormatting(new TranslatableText(block.getTranslationKey()), Formatting.WHITE);
 	}
 
 	// some language doesn't use space char to divide word

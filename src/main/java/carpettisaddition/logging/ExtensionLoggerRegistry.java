@@ -4,6 +4,7 @@ import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
 import carpettisaddition.logging.loggers.entity.ItemLogger;
 import carpettisaddition.logging.loggers.entity.XPOrbLogger;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
@@ -18,6 +19,7 @@ public class ExtensionLoggerRegistry
     public static boolean __raid;
     public static boolean __microTiming;
     public static boolean __damage;
+    public static boolean __commandBlock;
 
     public static void registerLoggers()
     {
@@ -32,6 +34,7 @@ public class ExtensionLoggerRegistry
         LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
         LoggerRegistry.registerLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.create());
         LoggerRegistry.registerLogger("damage", standardLogger("damage", "all", new String[]{"all", "players", "me"}));
+        LoggerRegistry.registerLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)
