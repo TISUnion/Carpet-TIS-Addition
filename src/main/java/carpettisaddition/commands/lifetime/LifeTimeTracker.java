@@ -96,12 +96,26 @@ public class LifeTimeTracker extends AbstractTracker
 		}
 	}
 
-	protected int printTrackingResultSpecific(ServerCommandSource source, String entityTypeString, SpecificDetailMode detailMode, boolean realtime)
+	protected int printTrackingResultSpecific(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
 	{
 		Optional<EntityType<?>> entityTypeOptional = Registry.ENTITY_TYPE.stream().
 				filter(entityType -> LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType).equals(entityTypeString)).findFirst();
 		if (entityTypeOptional.isPresent())
 		{
+			SpecificDetailMode detailMode = null;
+			if (detailModeString != null)
+			{
+				try
+				{
+					detailMode = SpecificDetailMode.fromString(detailModeString);
+				}
+				catch (IllegalArgumentException e)
+				{
+					Messenger.m(source, Messenger.s(String.format(this.tr("invalid_detail", "Invalid statistic detail \"%s\""), detailModeString), "r"));
+					return 1;
+				}
+			}
+
 			long ticks = this.sendTrackedTime(source, realtime);
 			EntityType<?> entityType = entityTypeOptional.get();
 			source.sendFeedback(Messenger.c(
@@ -109,8 +123,9 @@ public class LifeTimeTracker extends AbstractTracker
 					entityType.getName(),
 					"w " + this.tr("specific_result.post", "")
 					), false);
+			SpecificDetailMode finalDetailMode = detailMode;
 			int count = this.trackers.values().stream().
-					mapToInt(tracker -> tracker.print(source, ticks, entityType, detailMode)).
+					mapToInt(tracker -> tracker.print(source, ticks, entityType, finalDetailMode)).
 					sum();
 			if (count == 0)
 			{
@@ -119,7 +134,7 @@ public class LifeTimeTracker extends AbstractTracker
 		}
 		else
 		{
-			Messenger.m(source, Messenger.s(this.tr("Unknown entity type") + ": " + entityTypeString, "r"));
+			Messenger.m(source, Messenger.s(String.format(this.tr("unknown_entity_type", "Unknown entity type \"%s\""), entityTypeString), "r"));
 		}
 		return 1;
 	}
