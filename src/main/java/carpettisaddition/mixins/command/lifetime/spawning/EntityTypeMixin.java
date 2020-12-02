@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityType.class)
-public abstract class EntityTypeMixin<T extends Entity>
+public abstract class EntityTypeMixin
 {
 	@Inject(method = "spawnFromItemStack", at = @At("TAIL"))
 	private void onEntitySpawnFromItemLifeTimeTracker(CallbackInfoReturnable<Entity> cir)

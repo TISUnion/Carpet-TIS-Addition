@@ -61,7 +61,7 @@ public class LifeTimeCommand extends AbstractCommand
 												executes(c -> LifeTimeTracker.getInstance().printTrackingResultSpecific(
 														c.getSource(),
 														getString(c, entityTypeArg),
-														SpecificDetailMode.fromString(getString(c, detailModeArg)),
+														getString(c, detailModeArg),
 														false
 												)).
 												then(
@@ -70,7 +70,7 @@ public class LifeTimeCommand extends AbstractCommand
 																executes(c -> LifeTimeTracker.getInstance().printTrackingResultSpecific(
 																		c.getSource(),
 																		getString(c, entityTypeArg),
-																		SpecificDetailMode.fromString(getString(c, detailModeArg)),
+																		getString(c, detailModeArg),
 																		true)
 																)
 												)
