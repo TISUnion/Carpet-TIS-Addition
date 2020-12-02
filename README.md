@@ -57,6 +57,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [raid](#raid)
 - [microTiming](#microTiming-1)
 - [damage](#damage)
+- [commandBlock](#commandBlock)
 
 ## [Commands](#command-list)
 
@@ -495,7 +496,7 @@ Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 
 **Warning:** Logging `unknown` ticket may make you get spammed
 
 Attributes:
-- Default value: `portal`
+- Default option: `portal`
 - Suggested options: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
 
 
@@ -506,7 +507,7 @@ Attributes:
 Display current consumed and total memory of the server in HUD
 
 Attributes:
-- Default value: N/A
+- Default option: N/A
 - Suggested options: N/A
 
 
@@ -525,7 +526,7 @@ Use csv format, like `despawn,die` for logging multiple events
 Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 version)
 
 Attributes:
-- Default value: `despawn`
+- Default option: `despawn`
 - Suggested options: `despawn`, `die`, `despawn,die`
 
 
@@ -548,7 +549,7 @@ Info when these raid related events happen:
 - The center Position of a raid has been moved
 
 Attributes:
-- Default value: N/A
+- Default option: N/A
 - Suggested options: N/A
 
 
@@ -566,7 +567,7 @@ Available options:
 - `unique`: Log the first unique event in every gametick
 
 Attributes:
-- Default value: `merged`
+- Default option: `merged`
 - Suggested options: `all`, `merged`, `unique`
 
 
@@ -582,8 +583,23 @@ Available logging targets:
 - `me`: Log damage related to yourself
 
 Attributes:
-- Default value: `all`
+- Default option: `all`
 - Suggested options: `all`, `players`, `me`
+
+
+## commandBlock
+
+`/log commandBlock <option>`
+
+Info when a command block or command block minecart executes command
+
+It's useful to find out where the annoying hidden running command block is
+
+With default `throttled` option every command block will log at the highest frequency once every 3 seconds
+
+Attributes:
+- Default option: `throttled`
+- Suggested options: `throttled`, `all`
 
 
 # Command List

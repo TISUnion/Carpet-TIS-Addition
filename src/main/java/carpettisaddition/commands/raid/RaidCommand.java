@@ -1,12 +1,12 @@
 package carpettisaddition.commands.raid;
 
-import carpet.settings.SettingsManager;
 import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.mixins.command.raid.RaidAccessor;
 import carpettisaddition.mixins.command.raid.RaidManagerAccessor;
+import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
@@ -42,7 +42,7 @@ public class RaidCommand extends AbstractCommand
 	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal("raid")
-			.requires((player) -> SettingsManager.canUseCommand(player, CarpetTISAdditionSettings.commandRaid))
+			.requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRaid))
 			.then(literal("list")
 					.executes((c) -> listRaid(c.getSource(), false))
 					.then(literal("full")
@@ -81,7 +81,7 @@ public class RaidCommand extends AbstractCommand
 				result.add(Messenger.c("g   ", String.format("w %s: %s", tr("Status"), tr("status." + status, status))));
 				if (fullMode)
 				{
-					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), TextUtil.getCoordinateText("w", raid.getCenter(), world.getDimension())));
+					result.add(Messenger.c("g   ", String.format("w %s: ", tr("Center")), TextUtil.getCoordinateText("w", raid.getCenter(), world.getDimension().getType())));
 					result.add(Messenger.c("g   ", String.format("w %s: %d", tr("Bad Omen Level"), raid.getBadOmenLevel())));
 				}
 				result.add(Messenger.c("g   ", String.format("w %s: %d/%d", tr("Waves"), raidAccessor.getWavesSpawned(), raidAccessor.getWaveCount())));
@@ -100,7 +100,7 @@ public class RaidCommand extends AbstractCommand
 						BaseText raiderMessage = Messenger.c(
 								raiderName,
 								"g  @ ",
-								TextUtil.getCoordinateText("w", raider.getPos(), raider.world.getDimension())
+								TextUtil.getCoordinateText("w", raider.getPos(), raider.world.getDimension().getType())
 						);
 						if (fullMode)
 						{
