@@ -78,8 +78,8 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 				return null;
 			}
 			BaseText itemName = getNameTextRich(entity);
-			TranslatableText deathMessage = TextUtil.getTranslatedName("death.attack." + source.name, TextUtil.attachColor(itemName, Formatting.WHITE));
-			TextUtil.attachColor(deathMessage, Formatting.RED);
+			TranslatableText deathMessage = TextUtil.getTranslatedName("death.attack." + source.name, TextUtil.attachFormatting(itemName, Formatting.WHITE));
+			TextUtil.attachFormatting(deathMessage, Formatting.RED);
 			TextUtil.attachHoverText(deathMessage, Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount)));
 			return new BaseText[]{Messenger.c(
 					String.format("g [%s] ", entity.world.getTime()),

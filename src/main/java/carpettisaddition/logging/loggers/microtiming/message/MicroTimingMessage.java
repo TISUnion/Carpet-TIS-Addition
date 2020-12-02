@@ -107,8 +107,8 @@ public class MicroTimingMessage
 		{
 			ret = Messenger.c(
 					text,
-					"?" + TextUtil.getTeleportCommand(pos, this.dimensionType),
-					String.format("^w [ %d, %d, %d ]", this.pos.getX(), this.pos.getY(), this.pos.getZ())
+					"?" + TextUtil.getTeleportCommand(this.pos, this.dimensionType),
+					String.format("^w %s", TextUtil.getCoordinateString(this.pos))
 			);
 		}
 		else

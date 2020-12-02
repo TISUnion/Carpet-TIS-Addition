@@ -33,7 +33,7 @@ public class TileEntityTickStageExtra extends TickStageExtraBase
 				String.format("w %s: ", MicroTimingLoggerManager.tr("Block")),
 				MicroTimingUtil.getTranslatedText(this.block),
 				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Order"), this.order),
-				String.format("w \n%s: [%d, %d, %d]", MicroTimingLoggerManager.tr("Position"), this.pos.getX(), this.pos.getY(), this.pos.getZ())
+				String.format("w \n%s: %s", MicroTimingLoggerManager.tr("Position"), TextUtil.getCoordinateString(this.pos))
 		);
 	}
 

@@ -49,21 +49,7 @@ public class RaidCommand extends AbstractCommand
 							.executes((c) -> listRaid(c.getSource(), true))
 					)
 			)
-			.then(literal("tracking")
-					.executes((c) -> RaidTracker.getInstance().printTrackingResult(c.getSource(), false))
-					.then(literal("start")
-							.executes((c) -> RaidTracker.getInstance().startTracking(c.getSource(), true))
-					)
-					.then(literal("stop")
-							.executes((c) -> RaidTracker.getInstance().stopTracking(c.getSource(), true))
-					)
-					.then(literal("restart")
-							.executes((c) -> RaidTracker.getInstance().restartTracking(c.getSource()))
-					)
-					.then(literal("realtime")
-							.executes((c) -> RaidTracker.getInstance().printTrackingResult(c.getSource(), true))
-					)
-			);
+			.then(RaidTracker.getInstance().getTrackingArgumentBuilder());
 		dispatcher.register(builder);
 	}
 
