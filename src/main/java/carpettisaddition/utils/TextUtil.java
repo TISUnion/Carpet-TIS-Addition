@@ -48,7 +48,7 @@ public class TextUtil
 
 	public static BaseText copyText(BaseText text)
 	{
-		return text.copy();
+		return (BaseText)text.shallowCopy();
 	}
 	// mojang compatibility thing ends
 
