@@ -83,8 +83,8 @@ public class LifeTimeWorldTracker extends TranslatableBase
 		List<BaseText> result = Lists.newArrayList();
 		result.add(Messenger.c(
 				"w  \n",
-				TextUtil.attachFormatting(TextUtil.getDimensionNameText(this.world.getDimension().getType()), Formatting.BOLD, Formatting.GOLD),
-				String.format("g  (%s)", this.world.getDimension().getType().toString())
+				TextUtil.attachFormatting(TextUtil.getDimensionNameText(this.world.getRegistryKey()), Formatting.BOLD, Formatting.GOLD),
+				String.format("g  (%s)", this.world.getRegistryKey().getValue())
 		));
 
 		if (specificType == null)

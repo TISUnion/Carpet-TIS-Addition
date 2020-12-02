@@ -7,7 +7,8 @@ import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import carpettisaddition.commands.lifetime.removal.TransDimensionRemovalReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.server.world.ServerWorld;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,7 +35,7 @@ public abstract class EntityMixin
 	}
 
 	@Inject(
-			method = "changeDimension",
+			method = "moveToWorld",
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
@@ -42,13 +43,13 @@ public abstract class EntityMixin
 					)
 			),
 			at = @At(
-					value = "FIELD",
-					target = "Lnet/minecraft/entity/Entity;removed:Z"
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/Entity;method_30076()V"
 			),
 			allow = 1
 	)
-	private void onEntityTransDimensionRemovedLifeTimeTracker(DimensionType newDimension, CallbackInfoReturnable<Entity> cir)
+	private void onEntityTransDimensionRemovedLifeTimeTracker(ServerWorld destination, CallbackInfoReturnable<@Nullable Entity> cir)
 	{
-		((IEntity)this).recordRemoval(new TransDimensionRemovalReason(newDimension));
+		((IEntity)this).recordRemoval(new TransDimensionRemovalReason(destination.getRegistryKey()));
 	}
 }

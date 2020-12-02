@@ -14,10 +14,10 @@ public abstract class SpawnHelperMixin
 	// fabric-carpet used @Redirect so there goes @ModifyArg here xd
 	// dont try to capture locals, WAY too many
 	@ModifyArg(
-			method = "spawnEntitiesInChunk",
+			method = "spawnEntitiesInChunk(Lnet/minecraft/entity/SpawnGroup;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/world/chunk/Chunk;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/SpawnHelper$Checker;Lnet/minecraft/world/SpawnHelper$Runner;)V",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 			),
 			index = 0,
 			allow = 1

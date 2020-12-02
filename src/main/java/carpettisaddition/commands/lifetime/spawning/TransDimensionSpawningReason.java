@@ -4,15 +4,16 @@ import carpet.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.Formatting;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
 
 import java.util.Objects;
 
 public class TransDimensionSpawningReason extends SpawningReason
 {
-	private final DimensionType oldDimension;
+	private final RegistryKey<World> oldDimension;
 
-	public TransDimensionSpawningReason(DimensionType oldDimension)
+	public TransDimensionSpawningReason(RegistryKey<World> oldDimension)
 	{
 		this.oldDimension = Objects.requireNonNull(oldDimension);
 	}

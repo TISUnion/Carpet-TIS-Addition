@@ -9,7 +9,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
 
 public class LifeTimeStatistic extends TranslatableBase
 {
@@ -46,7 +47,7 @@ public class LifeTimeStatistic extends TranslatableBase
 		long time = ((IEntity)entity).getLifeTime();
 		this.count++;
 		this.timeSum += time;
-		StatisticElement element = new StatisticElement(time, entity.dimension, ((IEntity)entity).getSpawnPosition());
+		StatisticElement element = new StatisticElement(time, entity.getEntityWorld().getRegistryKey(), ((IEntity)entity).getSpawnPosition());
 		if (time < this.minTimeElement.time)
 		{
 			this.minTimeElement = element;
@@ -110,10 +111,10 @@ public class LifeTimeStatistic extends TranslatableBase
 	private class StatisticElement
 	{
 		private final long time;
-		private final DimensionType dimensionType;
+		private final RegistryKey<World> dimensionType;
 		private final Vec3d spawnPos;
 
-		private StatisticElement(long time, DimensionType dimensionType, Vec3d spawnPos)
+		private StatisticElement(long time, RegistryKey<World> dimensionType, Vec3d spawnPos)
 		{
 			this.time = time;
 			this.dimensionType = dimensionType;
