@@ -660,7 +660,7 @@ Tracked entity spawning reasons
 Note that only entities that have been tracked spawning will be counted to the statistic 
 
 Tracked entity removal reasons
-- Despawn, including immediately despawn, random despawn and difficulty despawn
+- Despawn, including immediately despawn, random despawn, difficulty despawn and timeout despawn
 - Damaged to death
 - Trans-dimension through portal
 - Entity merged (item and xp orb only)
