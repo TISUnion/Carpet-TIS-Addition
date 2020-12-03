@@ -652,6 +652,8 @@ Tracked entity spawning reasons
 - Trans-dimension from portal
 - Spawned by item (spawn eggs etc.)
 - Slime division (for slime and magma cube)
+- Raid
+- Zombie Reinforce
 - `/summon` command
 - Mob dropping loot (item and xp orb only)
 

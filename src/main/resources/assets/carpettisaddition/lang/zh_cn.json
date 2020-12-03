@@ -331,6 +331,8 @@
   "tracker.lifetime.spawn_reason.command": "summon指令",
   "tracker.lifetime.spawn_reason.item": "怪物蛋等",
   "tracker.lifetime.spawn_reason.slime": "史莱姆分裂",
+  "tracker.lifetime.spawn_reason.raid": "袭击",
+  "tracker.lifetime.spawn_reason.zombie_reinforce": "僵尸增援",
   "tracker.lifetime.spawn_reason.mob_drop.pre": "由",
   "tracker.lifetime.spawn_reason.mob_drop.post": "掉落",
   "tracker.lifetime.spawn_reason.trans_dimension": "跨维度",

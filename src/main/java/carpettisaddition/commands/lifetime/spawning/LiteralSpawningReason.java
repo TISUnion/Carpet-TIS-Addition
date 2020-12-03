@@ -10,6 +10,8 @@ public class LiteralSpawningReason extends SpawningReason
 	public static final LiteralSpawningReason COMMAND = new LiteralSpawningReason("command", "Summon command");
 	public static final LiteralSpawningReason ITEM = new LiteralSpawningReason("item", "Spawned by item");
 	public static final LiteralSpawningReason SLIME = new LiteralSpawningReason("slime", "Slime division");
+	public static final LiteralSpawningReason RAID = new LiteralSpawningReason("raid", "Raid");
+	public static final LiteralSpawningReason ZOMBIE_REINFORCE = new LiteralSpawningReason("zombie_reinforce", "Zombie Reinforce");
 
 	private final String translationKey;
 	private final String name;
