@@ -295,10 +295,10 @@
 
   "tracker.tracker_name_full": "%s追踪器",
   "tracker.tracking_already_started": "%s正在运行中",
-  "tracker.tracking_started": "%s已开始",
+  "tracker.tracking_started": "%s已启动",
   "tracker.tracking_stopped": "%s已停止",
-  "tracker.tracking_not_started": "%s未开启",
-  "tracker.tracking_restarted": "%s已重新开始",
+  "tracker.tracking_not_started": "%s未启动",
+  "tracker.tracking_restarted": "%s已重新启动",
   "tracker.tracked": "已追踪",
   "tracker.real_time": "现实时间",
   "tracker.in_game": "游戏内时间",
