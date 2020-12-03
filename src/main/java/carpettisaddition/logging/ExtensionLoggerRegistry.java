@@ -6,7 +6,6 @@ import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
 import carpettisaddition.logging.loggers.entity.ItemLogger;
 import carpettisaddition.logging.loggers.entity.XPOrbLogger;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
-import carpettisaddition.mixins.carpet.LoggerRegistryInvoker;
 
 
 public class ExtensionLoggerRegistry
@@ -22,18 +21,18 @@ public class ExtensionLoggerRegistry
 
     public static void registerLoggers()
     {
-        LoggerRegistryInvoker.callRegisterLogger(
+        LoggerRegistry.registerLogger(
                 "ticket", standardLogger("ticket", "portal", new String[]{
                         "portal,player", "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
                 }
         ));
-        LoggerRegistryInvoker.callRegisterLogger("item", ItemLogger.getInstance().getStandardLogger());
-        LoggerRegistryInvoker.callRegisterLogger("xporb", XPOrbLogger.getInstance().getStandardLogger());
-        LoggerRegistryInvoker.callRegisterLogger("raid", standardLogger("raid", null, null));
-        LoggerRegistryInvoker.callRegisterLogger("memory", standardHUDLogger("memory", null, null));
-        LoggerRegistryInvoker.callRegisterLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.create());
-        LoggerRegistryInvoker.callRegisterLogger("damage", standardLogger("damage", "all", new String[]{"all", "players", "me"}));
-        LoggerRegistryInvoker.callRegisterLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
+        LoggerRegistry.registerLogger("item", ItemLogger.getInstance().getStandardLogger());
+        LoggerRegistry.registerLogger("xporb", XPOrbLogger.getInstance().getStandardLogger());
+        LoggerRegistry.registerLogger("raid", standardLogger("raid", null, null));
+        LoggerRegistry.registerLogger("memory", standardHUDLogger("memory", null, null));
+        LoggerRegistry.registerLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.create());
+        LoggerRegistry.registerLogger("damage", standardLogger("damage", "all", new String[]{"all", "players", "me"}));
+        LoggerRegistry.registerLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)
