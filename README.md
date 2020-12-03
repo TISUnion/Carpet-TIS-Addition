@@ -672,7 +672,7 @@ The definition of lifetime is: **The difference in world time between entity spa
 
 Statistics are sorted by the proportion of the amount 
 
-## <entity_type>
+### <entity_type>
 
 `/lifetime <entity_type> [<life_time|removal|spawning>]`
 

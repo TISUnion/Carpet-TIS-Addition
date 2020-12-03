@@ -672,7 +672,7 @@
 
 统计信息以数量所占比例排序 
 
-## <实体类型>
+### <实体类型>
 
 `/lifetime <实体类型> [<life_time|removal|spawning>]`
 
