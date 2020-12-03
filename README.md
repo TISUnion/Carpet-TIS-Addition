@@ -648,7 +648,6 @@ Tracked entity types:
 Tracked entity spawning reasons
 - Natural spawning
 - Portal pigman spawning
-- Becomes persistent. Note that the entity is still not removed from the world
 - Trans-dimension from portal
 - Spawned by item (spawn eggs etc.)
 - Slime division (for slime and magma cube)
@@ -662,6 +661,7 @@ Note that only entities that have been tracked spawning will be counted to the s
 Tracked entity removal reasons
 - Despawn, including immediately despawn, random despawn, difficulty despawn and timeout despawn
 - Damaged to death
+- Becomes persistent. Note that the entity is still not removed from the world
 - Trans-dimension through portal
 - Entity merged (item and xp orb only)
 - Picked up by player (item and xp orb only)
