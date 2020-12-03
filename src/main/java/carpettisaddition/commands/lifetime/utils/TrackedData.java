@@ -4,7 +4,6 @@ import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
-import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.CounterUtil;
 import com.google.common.collect.Lists;
@@ -73,7 +72,7 @@ public class TrackedData extends TranslatableBase
 	}
 
 	// - AAA: 50, (100/h) 25%
-	private BaseText getReasonWithRate(ToTextAble reason, long ticks, int count, int total)
+	private BaseText getReasonWithRate(AbstractReason reason, long ticks, int count, int total)
 	{
 		return Messenger.c(
 				"g - ",
