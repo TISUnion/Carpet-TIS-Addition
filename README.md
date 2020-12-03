@@ -698,14 +698,20 @@ Current maintaining branches:
 - 1.16.4, for Minecraft 1.16.2 to 1.16.4
 - 1.17, for Minecraft 1.17 snapshots
 
+Current archived branches:
+- 1.16, for Minecraft 1.16 to 1.16.1
+
 For general new features, implement them in 1.15.2 branch first then merge it into other branches
 
 Branches merge order:
 - 1.15.2 -> 1.14.4
 - 1.15.2 -> 1.16.4 -> 1.17
+- 1.15.2 -> master (when release)
 
 For version specific fixes / patches, implement them in relevant branches
 
-master branches usually only receives doc updates and merge from 1.15.2 during release 
+master branches usually only receives doc updates directly
 
-Try not to affect version compatibility it's necessary
+Try not to affect version compatibility unless it's necessary
+
+English doc and Chinese doc are aligned line by line btw
