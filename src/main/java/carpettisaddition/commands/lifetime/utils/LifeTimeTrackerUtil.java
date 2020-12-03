@@ -1,20 +1,17 @@
 package carpettisaddition.commands.lifetime.utils;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.registry.Registry;
 
 public class LifeTimeTrackerUtil
 {
-	public static boolean isTrackedEntityType(EntityType<?> entityType)
-	{
-		return entityType.getCategory() != EntityCategory.MISC || entityType == EntityType.ITEM || entityType == EntityType.EXPERIENCE_ORB;
-	}
-
 	public static boolean isTrackedEntity(Entity entity)
 	{
-		return isTrackedEntityType(entity.getType());
+		return entity instanceof MobEntity || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity;
 	}
 
 	public static String getEntityTypeDescriptor(EntityType<?> entityType)

@@ -641,7 +641,7 @@ Adding a `realtime` suffix to the command will turn the rate result from in-game
 Control the lifetime tracker
 
 Tracked entity types:
-- All kinds of mob (Entity catalogue is not `MISC`)
+- All kinds of mob (MobEntity)
 - Item Entity
 - Experience Orb Entity
 
