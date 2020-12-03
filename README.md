@@ -651,6 +651,7 @@ Tracked entity spawning reasons
 - Becomes persistent. Note that the entity is still not removed from the world
 - Trans-dimension from portal
 - Spawned by item (spawn eggs etc.)
+- Slime division (for slime and magma cube)
 - `/summon` command
 - Mob dropping loot (item and xp orb only)
 

@@ -9,6 +9,7 @@ public class LiteralSpawningReason extends SpawningReason
 	public static final LiteralSpawningReason PORTAL_PIGMAN = new LiteralSpawningReason("portal_pigman", "Nether portal pigman spawning");
 	public static final LiteralSpawningReason COMMAND = new LiteralSpawningReason("command", "Summon command");
 	public static final LiteralSpawningReason ITEM = new LiteralSpawningReason("item", "Spawned by item");
+	public static final LiteralSpawningReason SLIME = new LiteralSpawningReason("slime", "Slime division");
 
 	private final String translationKey;
 	private final String name;

@@ -28,6 +28,7 @@
     "command.lifetime.spawning.LivingEntityMixin",
     "command.lifetime.spawning.NetherPortalBlockMixin",
     "command.lifetime.spawning.PlayerEntityMixin",
+    "command.lifetime.spawning.SlimeEntityMixin",
     "command.lifetime.spawning.SpawnHelperMixin",
     "command.lifetime.spawning.SummonCommandMixin",
     "command.raid.RaidAccessor",
