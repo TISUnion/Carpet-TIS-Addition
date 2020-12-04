@@ -20,6 +20,6 @@ public abstract class WitherEntityMixin
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN);
+		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
 	}
 }

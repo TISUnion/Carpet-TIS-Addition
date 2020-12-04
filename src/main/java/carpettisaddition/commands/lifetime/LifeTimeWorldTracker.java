@@ -104,7 +104,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 		// sorted by spawn count
 		// will being sorting by avg life time better?
 		this.dataMap.entrySet().stream().
-				sorted(Collections.reverseOrder(Comparator.comparingInt(a -> a.getValue().spawnCount))).
+				sorted(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().spawnCount))).
 				forEach((entry) -> {
 					EntityType<?> entityType = entry.getKey();
 					TrackedData data = entry.getValue();

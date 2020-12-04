@@ -20,7 +20,7 @@ public class LifeTimeStatistic extends TranslatableBase
 
 	public StatisticElement minTimeElement;
 	public StatisticElement maxTimeElement;
-	public int count;
+	public long count;
 	public long timeSum;
 
 	public LifeTimeStatistic()

@@ -4,9 +4,9 @@ import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
-import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.CounterUtil;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
@@ -17,11 +17,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A lifetime tracking tracked data per mob type
+ */
 public class TrackedData extends TranslatableBase
 {
 	// spawning
 	public final Map<SpawningReason, Integer> spawningReasons = Maps.newHashMap();
-	public int spawnCount;
+	public long spawnCount;
 	// removal
 	public final Map<RemovalReason, LifeTimeStatistic> removalReasons = Maps.newHashMap();
 	public final LifeTimeStatistic lifeTimeStatistic = new LifeTimeStatistic();
@@ -43,9 +46,9 @@ public class TrackedData extends TranslatableBase
 		this.removalReasons.computeIfAbsent(reason, r -> new LifeTimeStatistic()).update(entity);
 	}
 
-	public int getRemovalCount()
+	public long getRemovalCount()
 	{
-		return this.removalReasons.values().stream().mapToInt(stat -> stat.count).sum();
+		return this.removalReasons.values().stream().mapToLong(stat -> stat.count).sum();
 	}
 
 	/**
@@ -72,15 +75,20 @@ public class TrackedData extends TranslatableBase
 		);
 	}
 
-	// - AAA: 50, (100/h) 25%
-	private BaseText getReasonWithRate(ToTextAble reason, long ticks, int count, int total)
+	/**
+	 * - AAA: 50, (100/h) 25%
+	 * @param reason spawning reason or removal reason
+	 */
+	private BaseText getReasonWithRate(AbstractReason reason, long ticks, long count, long total)
 	{
+		double percentage = 100.0D * count / total;
 		return Messenger.c(
 				"g - ",
 				reason.toText(),
 				"g : ",
 				CounterUtil.ratePerHourText(count, ticks, "wgg"),
-				String.format("w  %.1f%%", 100.0D * count / total)
+				"w  ",
+				TextUtil.attachHoverText(Messenger.s(String.format("%.1f%%", percentage)), Messenger.s(String.format("%.6f%%", percentage)))
 		);
 	}
 
@@ -135,7 +143,7 @@ public class TrackedData extends TranslatableBase
 	{
 		List<BaseText> result = Lists.newArrayList();
 		List<Map.Entry<RemovalReason, LifeTimeStatistic>> entryList = Lists.newArrayList(this.removalReasons.entrySet());
-		entryList.sort(Collections.reverseOrder(Comparator.comparingInt(a -> a.getValue().count)));
+		entryList.sort(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().count)));
 
 		// Title for hover mode
 		if (!entryList.isEmpty() && hoverMode)

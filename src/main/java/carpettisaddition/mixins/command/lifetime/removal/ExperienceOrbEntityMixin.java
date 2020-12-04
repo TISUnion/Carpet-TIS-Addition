@@ -36,7 +36,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN);
+		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_TIMEOUT);
 	}
 
 	@Inject(
