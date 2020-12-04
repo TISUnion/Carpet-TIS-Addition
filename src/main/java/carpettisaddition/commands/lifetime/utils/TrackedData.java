@@ -6,6 +6,7 @@ import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.CounterUtil;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
@@ -74,15 +75,20 @@ public class TrackedData extends TranslatableBase
 		);
 	}
 
-	// - AAA: 50, (100/h) 25%
+	/**
+	 * - AAA: 50, (100/h) 25%
+	 * @param reason spawning reason or removal reason
+	 */
 	private BaseText getReasonWithRate(AbstractReason reason, long ticks, long count, long total)
 	{
+		double percentage = 100.0D * count / total;
 		return Messenger.c(
 				"g - ",
 				reason.toText(),
 				"g : ",
 				CounterUtil.ratePerHourText(count, ticks, "wgg"),
-				String.format("w  %.1f%%", 100.0D * count / total)
+				"w  ",
+				TextUtil.attachHoverText(Messenger.s(String.format("%.1f%%", percentage)), Messenger.s(String.format("%.6f%%", percentage)))
 		);
 	}
 
