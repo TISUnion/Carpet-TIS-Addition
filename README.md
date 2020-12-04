@@ -641,24 +641,27 @@ Adding a `realtime` suffix to the command will turn the rate result from in-game
 Control the lifetime tracker
 
 Tracked entity types:
-- All kinds of mob (Entity catalogue is not `MISC`)
+- All kinds of mob (MobEntity)
 - Item Entity
 - Experience Orb Entity
 
 Tracked entity spawning reasons
 - Natural spawning
 - Portal pigman spawning
-- Becomes persistent. Note that the entity is still not removed from the world
 - Trans-dimension from portal
 - Spawned by item (spawn eggs etc.)
+- Slime division (for slime and magma cube)
+- Raid
+- Zombie Reinforce
 - `/summon` command
 - Mob dropping loot (item and xp orb only)
 
 Note that only entities that have been tracked spawning will be counted to the statistic 
 
 Tracked entity removal reasons
-- Despawn, including immediately despawn, random despawn and difficulty despawn
+- Despawn, including immediately despawn, random despawn, difficulty despawn and timeout despawn
 - Damaged to death
+- Becomes persistent. Note that the entity is still not removed from the world
 - Trans-dimension through portal
 - Entity merged (item and xp orb only)
 - Picked up by player (item and xp orb only)
@@ -669,7 +672,7 @@ The definition of lifetime is: **The difference in world time between entity spa
 
 Statistics are sorted by the proportion of the amount 
 
-## <entity_type>
+### <entity_type>
 
 `/lifetime <entity_type> [<life_time|removal|spawning>]`
 

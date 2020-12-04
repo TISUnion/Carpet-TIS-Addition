@@ -18,13 +18,26 @@ public abstract class MobEntityMixin
 			method = "checkDespawn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V"
-			),
-			require = 2  // peaceful despawn thing is moved to HostileEntity#tick
+					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					ordinal = 0
+			)
 	)
-	private void onDespawnLifeTimeTracker(CallbackInfo ci)
+	private void onImmediatelyDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN);
+		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_IMMEDIATELY);
+	}
+
+	@Inject(
+			method = "checkDespawn",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					ordinal = 1
+			)
+	)
+	private void onRandomlyDespawnLifeTimeTracker(CallbackInfo ci)
+	{
+		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_RANDOMLY);
 	}
 
 	@Inject(method = "setPersistent", at = @At("HEAD"))

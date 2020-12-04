@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(WitherEntity.class)
 public abstract class WitherEntityMixin
 {
-// does not exists in 1.14
+	// does not exists in 1.14
 //	@Inject(
 //			method = "checkDespawn",
 //			at = @At(
@@ -16,6 +16,6 @@ public abstract class WitherEntityMixin
 //	)
 //	private void onDespawnLifeTimeTracker(CallbackInfo ci)
 //	{
-//		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN);
+//		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
 //	}
 }
