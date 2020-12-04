@@ -18,13 +18,39 @@ public abstract class MobEntityMixin
 			method = "checkDespawn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V"
-			),
-			require = 3
+					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					ordinal = 0
+			)
 	)
-	private void onDespawnLifeTimeTracker(CallbackInfo ci)
+	private void onDifficultyDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN);
+		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
+	}
+
+	@Inject(
+			method = "checkDespawn",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					ordinal = 1
+			)
+	)
+	private void onImmediatelyDespawnLifeTimeTracker(CallbackInfo ci)
+	{
+		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_IMMEDIATELY);
+	}
+
+	@Inject(
+			method = "checkDespawn",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					ordinal = 2
+			)
+	)
+	private void onRandomlyDespawnLifeTimeTracker(CallbackInfo ci)
+	{
+		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_RANDOMLY);
 	}
 
 	@Inject(method = "setPersistent", at = @At("HEAD"))

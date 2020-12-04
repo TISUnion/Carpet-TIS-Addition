@@ -3,9 +3,11 @@ package carpettisaddition.mixins.rule.tileTickLimit;
 import carpettisaddition.CarpetTISAdditionSettings;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
+@Pseudo
 @Mixin(value = LithiumServerTickScheduler.class, priority = 998)
 public abstract class LithiumServerTickSchedulerMixin<T>
 {

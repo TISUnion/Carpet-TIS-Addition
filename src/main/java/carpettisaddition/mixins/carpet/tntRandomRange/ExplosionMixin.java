@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // increase priority to make the wrapWorldRandom injection be in front of other cancellable injections
-@Mixin(value = Explosion.class, priority = 999)
+@Mixin(value = Explosion.class, priority = 900)
 public class ExplosionMixin
 {
 	@Shadow @Final
