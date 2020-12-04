@@ -16,11 +16,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A lifetime tracking tracked data per mob type
+ */
 public class TrackedData extends TranslatableBase
 {
 	// spawning
 	public final Map<SpawningReason, Integer> spawningReasons = Maps.newHashMap();
-	public int spawnCount;
+	public long spawnCount;
 	// removal
 	public final Map<RemovalReason, LifeTimeStatistic> removalReasons = Maps.newHashMap();
 	public final LifeTimeStatistic lifeTimeStatistic = new LifeTimeStatistic();
@@ -42,9 +45,9 @@ public class TrackedData extends TranslatableBase
 		this.removalReasons.computeIfAbsent(reason, r -> new LifeTimeStatistic()).update(entity);
 	}
 
-	public int getRemovalCount()
+	public long getRemovalCount()
 	{
-		return this.removalReasons.values().stream().mapToInt(stat -> stat.count).sum();
+		return this.removalReasons.values().stream().mapToLong(stat -> stat.count).sum();
 	}
 
 	/**
@@ -72,7 +75,7 @@ public class TrackedData extends TranslatableBase
 	}
 
 	// - AAA: 50, (100/h) 25%
-	private BaseText getReasonWithRate(AbstractReason reason, long ticks, int count, int total)
+	private BaseText getReasonWithRate(AbstractReason reason, long ticks, long count, long total)
 	{
 		return Messenger.c(
 				"g - ",
@@ -134,7 +137,7 @@ public class TrackedData extends TranslatableBase
 	{
 		List<BaseText> result = Lists.newArrayList();
 		List<Map.Entry<RemovalReason, LifeTimeStatistic>> entryList = Lists.newArrayList(this.removalReasons.entrySet());
-		entryList.sort(Collections.reverseOrder(Comparator.comparingInt(a -> a.getValue().count)));
+		entryList.sort(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().count)));
 
 		// Title for hover mode
 		if (!entryList.isEmpty() && hoverMode)
