@@ -17,7 +17,7 @@ public abstract class RaidMixin
 			method = "addRaider",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 			)
 	)
 	private void onEntitySpawnAsRaiderLifeTimeTracker(int wave, RaiderEntity raider, BlockPos pos, boolean existing, CallbackInfo ci)
