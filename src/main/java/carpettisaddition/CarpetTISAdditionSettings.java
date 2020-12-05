@@ -392,6 +392,16 @@ public class CarpetTISAdditionSettings
 	)
 	public static String commandLifeTime = "true";
 
+	@Rule(
+			desc = "Optimize fast entity movement by only checking block collisions on current moving axis",
+			extra = {
+					"Inspired by the fastMovingEntityOptimization rule in carpetmod112",
+					"Use with other explosion optimization to greatly improve performance in cannons"
+			},
+			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
+	)
+	public static boolean optimizationFastEntityMovement = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

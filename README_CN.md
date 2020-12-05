@@ -47,6 +47,7 @@
 - [实体速度丢失](#实体速度丢失-entityMomentumLoss)
 - [中继器延迟折半](#中继器延迟折半-repeaterHalfDelay)
 - [存活时间追踪器](#存活时间追踪器-commandLifeTime)
+- [优化高速实体移动](#优化高速实体移动-optimizationFastEntityMovement)
 
 ## [监视器](#监视器列表)
 
@@ -477,6 +478,20 @@
 - 默认值: `true`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `COMMAND`
+
+
+## 优化高速实体移动 (optimizationFastEntityMovement)
+
+通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动
+
+受 [carpetmod112](https://github.com/gnembon/carpetmod112) 的规则 `fastMovingEntityOptimization` 启发
+
+同其他爆炸优化一起使用可大幅度提升炮的性能表现
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
 -----------
