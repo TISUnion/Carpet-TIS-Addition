@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.rule.fastMovingEntityOptimization;
+package carpettisaddition.mixins.rule.optimizationFastEntityMovement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.entity.Entity;
