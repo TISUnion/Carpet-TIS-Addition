@@ -31,7 +31,7 @@ public abstract class EntityMixin
 			method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityContext;Lnet/minecraft/util/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getBlockCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/stream/Stream;"
+					target = "Lnet/minecraft/world/World;method_20812(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/stream/Stream;"
 			)
 	)
 	private static Stream<VoxelShape> dontUseThatLargeBlockCollisions(World world, Entity entity, Box box, /* parent method parameters */ Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam, EntityContext context, ReusableStream<VoxelShape> collisions)
@@ -43,11 +43,11 @@ public abstract class EntityMixin
 			currentCollidingWorld.set(world);
 			return Stream.empty();
 		}
-		return world.getBlockCollisions(entity, box);
+		return world.method_20812(entity, box);
 	}
 
 	@Redirect(
-			method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/util/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
+			method = "method_20737",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/util/shape/VoxelShapes;calculateMaxOffset(Lnet/minecraft/util/math/Direction$Axis;Lnet/minecraft/util/math/Box;Ljava/util/stream/Stream;D)D"
@@ -71,7 +71,7 @@ public abstract class EntityMixin
 					axisOnlyMovement = new Vec3d(0.0D, 0.0D, movement.getZ());
 					break;
 			}
-			Stream<VoxelShape> blockCollisions = currentCollidingWorld.get().getBlockCollisions(currentCollidingEntity.get(), entityBoundingBox.stretch(axisOnlyMovement));
+			Stream<VoxelShape> blockCollisions = currentCollidingWorld.get().method_20812(currentCollidingEntity.get(), entityBoundingBox.stretch(axisOnlyMovement));
 			shapes = Stream.concat(blockCollisions, collisions.stream());
 		}
 		return VoxelShapes.calculateMaxOffset(axis, box, shapes, maxDist);
