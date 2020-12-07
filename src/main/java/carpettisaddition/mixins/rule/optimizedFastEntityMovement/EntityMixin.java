@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.rule.optimizationFastEntityMovement;
+package carpettisaddition.mixins.rule.optimizedFastEntityMovement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.entity.Entity;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 @Mixin(Entity.class)
 public abstract class EntityMixin
 {
-	private static final ThreadLocal<Boolean> optimizationFastEntityMovementEnable = ThreadLocal.withInitial(() -> false);
+	private static final ThreadLocal<Boolean> optimizedFastEntityMovementEnable = ThreadLocal.withInitial(() -> false);
 	private static final ThreadLocal<World> currentCollidingWorld = new ThreadLocal<>();
 	private static final ThreadLocal<Entity> currentCollidingEntity = new ThreadLocal<>();
 
@@ -36,8 +36,8 @@ public abstract class EntityMixin
 	)
 	private static Stream<VoxelShape> dontUseThatLargeBlockCollisions(World world, Entity entity, Box box, /* parent method parameters */ Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam, EntityContext context, ReusableStream<VoxelShape> collisions)
 	{
-		optimizationFastEntityMovementEnable.set(CarpetTISAdditionSettings.optimizationFastEntityMovement && movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD);
-		if (optimizationFastEntityMovementEnable.get())
+		optimizedFastEntityMovementEnable.set(CarpetTISAdditionSettings.optimizedFastEntityMovement && movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD);
+		if (optimizedFastEntityMovementEnable.get())
 		{
 			currentCollidingEntity.set(entity);
 			currentCollidingWorld.set(world);
@@ -56,7 +56,7 @@ public abstract class EntityMixin
 	)
 	private static double useAxisOnlyBlockCollisions(Direction.Axis axis, Box box, Stream<VoxelShape> shapes, double maxDist, /* parent method parameters */ Vec3d movement, Box entityBoundingBox, ReusableStream<VoxelShape> collisions)
 	{
-		if (optimizationFastEntityMovementEnable.get())
+		if (optimizedFastEntityMovementEnable.get())
 		{
 			Vec3d axisOnlyMovement = null;
 			switch (axis)
