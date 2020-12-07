@@ -6,6 +6,7 @@ import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
+import carpettisaddition.utils.GameUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
@@ -63,12 +64,9 @@ public abstract class EntityMixin implements IEntity
 		if (this.doLifeTimeTracking && !this.recordedSpawning)
 		{
 			//noinspection ConstantConditions
-			if ((Entity)(Object)this instanceof MobEntity)
+			if ((Entity)(Object)this instanceof MobEntity && !GameUtil.countsTowardsMobcap((Entity)(Object)this))
 			{
-				if (((MobEntity)(Object)this).isPersistent())
-				{
-					return;
-				}
+				return;
 			}
 			this.recordedSpawning = true;
 			this.spawnPos = this.getPos();
