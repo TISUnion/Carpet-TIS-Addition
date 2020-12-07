@@ -47,7 +47,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [entityMomentumLoss](#entityMomentumLoss)
 - [repeaterHalfDelay](#repeaterHalfDelay)
 - [commandLifeTime](#commandLifeTime)
-- [optimizationFastEntityMovement](#optimizationFastEntityMovement)
+- [optimizeFastEntityMovement](#optimizeFastEntityMovement)
 
 ## [Loggers](#logger-list)
 
@@ -480,7 +480,7 @@ Useful for mob farm debugging etc.
 - Categories: `TIS`, `COMMAND`
 
 
-## optimizationFastEntityMovement
+## optimizeFastEntityMovement
 
 Optimize fast entity movement by only checking block collisions on current moving axis
 

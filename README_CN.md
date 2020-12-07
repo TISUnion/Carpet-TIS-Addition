@@ -47,7 +47,7 @@
 - [实体速度丢失](#实体速度丢失-entityMomentumLoss)
 - [中继器延迟折半](#中继器延迟折半-repeaterHalfDelay)
 - [存活时间追踪器](#存活时间追踪器-commandLifeTime)
-- [优化高速实体移动](#优化高速实体移动-optimizationFastEntityMovement)
+- [优化高速实体移动](#优化高速实体移动-optimizeFastEntityMovement)
 
 ## [监视器](#监视器列表)
 
@@ -480,7 +480,7 @@
 - 分类: `TIS`, `COMMAND`
 
 
-## 优化高速实体移动 (optimizationFastEntityMovement)
+## 优化高速实体移动 (optimizeFastEntityMovement)
 
 通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动
 

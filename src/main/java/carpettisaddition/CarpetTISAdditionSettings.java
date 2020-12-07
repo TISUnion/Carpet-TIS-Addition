@@ -400,7 +400,7 @@ public class CarpetTISAdditionSettings
 			},
 			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
 	)
-	public static boolean optimizationFastEntityMovement = false;
+	public static boolean optimizeFastEntityMovement = false;
 
 	/*
 	 *   Declare rules above this

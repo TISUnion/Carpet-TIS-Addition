@@ -139,10 +139,10 @@
   "rule.commandLifeTime.desc": "启用/lifetime命令用于追踪生物存活时间等信息",
   "rule.commandLifeTime.extra.0": "可助于调试刷怪塔等",
 
-  "rule.optimizationFastEntityMovement.name": "优化高速实体移动",
-  "rule.optimizationFastEntityMovement.desc": "通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动",
-  "rule.optimizationFastEntityMovement.extra.0": "受carpetmod112的规则fastMovingEntityOptimization启发",
-  "rule.optimizationFastEntityMovement.extra.1": "同其他爆炸优化一起使用可大幅度提升炮的性能表现",
+  "rule.optimizeFastEntityMovement.name": "优化高速实体移动",
+  "rule.optimizeFastEntityMovement.desc": "通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动",
+  "rule.optimizeFastEntityMovement.extra.0": "受carpetmod112的规则fastMovingEntityOptimization启发",
+  "rule.optimizeFastEntityMovement.extra.1": "同其他爆炸优化一起使用可大幅度提升炮的性能表现",
 
 
   "logger.ticket.added": "被添加",
