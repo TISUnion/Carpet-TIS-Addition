@@ -142,7 +142,11 @@
   "rule.optimizeFastEntityMovement.name": "优化高速实体移动",
   "rule.optimizeFastEntityMovement.desc": "通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动",
   "rule.optimizeFastEntityMovement.extra.0": "受carpetmod112的规则fastMovingEntityOptimization启发",
-  "rule.optimizeFastEntityMovement.extra.1": "同其他爆炸优化一起使用可大幅度提升炮的性能表现",
+  "rule.optimizeFastEntityMovement.extra.1": "同规则optimizedTNT一起使用可大幅度提升炮的性能表现",
+
+  "rule.optimizedTNTHighPriority.name": "TNT优化高优先级",
+  "rule.optimizedTNTHighPriority.desc": "用带有更高优先级的Mixin注入来实现carpet规则optimizedTNT",
+  "rule.optimizedTNTHighPriority.extra.0": "因此规则optimizedTNT可以覆盖lithium的爆炸优化",
 
 
   "logger.ticket.added": "被添加",

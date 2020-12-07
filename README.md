@@ -486,7 +486,19 @@ Optimize fast entity movement by only checking block collisions on current movin
 
 Inspired by the `fastMovingEntityOptimization` rule in [carpetmod112](https://github.com/gnembon/carpetmod112)
 
-Use with other explosion optimization to greatly improve performance in cannons
+Use with rule `optimizedTNT` to greatly improve performance in cannons
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## optimizedTNTHighPriority
+
+Use a Mixin injection with higher priority for carpet rule `optimizedTNT`
+ 
+So the rule `optimizedTNT` can overwrite lithium's explosion optimization
 
 - Type: `boolean`  
 - Default value: `true`  

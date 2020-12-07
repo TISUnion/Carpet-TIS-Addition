@@ -486,7 +486,19 @@
 
 受 [carpetmod112](https://github.com/gnembon/carpetmod112) 的规则 `fastMovingEntityOptimization` 启发
 
-同其他爆炸优化一起使用可大幅度提升炮的性能表现
+同规则 `optimizedTNT` 一起使用可大幅度提升炮的性能表现
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## TNT优化高优先级 (optimizedTNTHighPriority)
+
+用带有更高优先级的 Mixin 注入来实现 carpet 规则 `optimizedTNT`
+
+因此规则 `optimizedTNT` 可以覆盖 lithium 的爆炸优化
 
 - 类型: `boolean`  
 - 默认值: `true`  
