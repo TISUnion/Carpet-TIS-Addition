@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 
 /**
  * priority value restrictions:
- * - less than 1000 ({@link me.jellysquid.mods.lithium.mixin.world.fast_explosions.MixinExplosion}, priority = default value = 1000)
+ * - less than 1000 ({@link me.jellysquid.mods.lithium.mixin.world.explosions.ExplosionMixin}, priority = default value = 1000)
  * - more than 800 ({@link carpettisaddition.mixins.carpet.tntRandomRange.ExplosionMixin}, priority = 800)
  * so it injects after wrapping world.random but before lithium explosion optimization
  */
