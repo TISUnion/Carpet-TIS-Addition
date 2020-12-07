@@ -662,6 +662,10 @@ Show the ticking order of current dimensions in the game
 
 A tracker to track lifetime and spawn / removal reasons from all newly spawned and dead entities
 
+This tracker is mostly used to debug mobfarms. It aims to track the process from mob starting affecting the mobcap to mob being removed from the mobcap. The spawning tracking part of it doesn't cover every kind of mob spawning reasons
+
+Other than being removed from the world, if a mob becomes persistent for the first time like nametagged or item pickup, it will be marked as removal too. If the mob spawns 
+
 Adding a `realtime` suffix to the command will turn the rate result from in-game time based to realtime based
 
 ### tracking
@@ -681,7 +685,6 @@ Tracked entity spawning reasons
 - Trans-dimension from portal
 - Spawned by item (spawn eggs etc.)
 - Slime division (for slime and magma cube)
-- Raid
 - Zombie Reinforce
 - `/summon` command
 - Mob dropping loot (item and xp orb only)
