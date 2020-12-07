@@ -131,12 +131,14 @@ public abstract class AbstractTracker extends TranslatableBase
 
 	public int restartTracking(ServerCommandSource source)
 	{
+		boolean wasTracking = this.isTracking();
 		this.stopTracking(source, false);
 		this.startTracking(source, false);
-		Messenger.m(source, Messenger.c(
-				"w  \n",
-				"w " + String.format(baseTranslator.tr("tracking_restarted", "%s restarted"), this.getTranslatedNameFull())
-		));
+		if (wasTracking)
+		{
+			source.sendFeedback(Messenger.s(" "), false);
+		}
+		Messenger.m(source, Messenger.s(String.format(baseTranslator.tr("tracking_restarted", "%s restarted"), this.getTranslatedNameFull())));
 		return 1;
 	}
 
