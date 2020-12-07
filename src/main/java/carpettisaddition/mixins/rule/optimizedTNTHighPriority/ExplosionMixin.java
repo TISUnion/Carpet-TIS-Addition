@@ -2,15 +2,12 @@ package carpettisaddition.mixins.rule.optimizedTNTHighPriority;
 
 import carpet.CarpetSettings;
 import carpet.helpers.OptimizedExplosion;
-import carpet.logging.logHelpers.ExplosionLogHelper;
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.lang.reflect.Field;
 
 /**
  * priority value restrictions:
@@ -21,50 +18,18 @@ import java.lang.reflect.Field;
 @Mixin(value = Explosion.class, priority = 900)
 public abstract class ExplosionMixin
 {
-	private static final Field EXPLOSION_LOGGER_FIELD;
-
-	static
-	{
-		Field target = null;
-		try
-		{
-			// finding fabric-carpet's eLogger field
-			for (Field field : ExplosionMixin.class.getDeclaredFields())
-			{
-				if (field.getType() == ExplosionLogHelper.class)
-				{
-					field.setAccessible(true);
-					target = field;
-					break;
-				}
-			}
-		}
-		catch (Exception ignored)
-		{
-		}
-		EXPLOSION_LOGGER_FIELD = target;
-	}
-
 	@Inject(method = "collectBlocksAndDamageEntities", at = @At("HEAD"), cancellable = true)
 	private void onExplosionAButWithHighPriority(CallbackInfo ci)
 	{
-		if (CarpetTISAdditionSettings.optimizedTNTHighPriority && EXPLOSION_LOGGER_FIELD != null)
+		if (CarpetTISAdditionSettings.optimizedTNTHighPriority)
 		{
-			try
+			// copy of carpet's onExplosionA method in ExplosionMixin begins
+			if (CarpetSettings.optimizedTNT)
 			{
-				ExplosionLogHelper eLogger = (ExplosionLogHelper)EXPLOSION_LOGGER_FIELD.get(this);
-
-				// copy of carpet's onExplosionA method in ExplosionMixin begins
-				if (CarpetSettings.optimizedTNT)
-				{
-					OptimizedExplosion.doExplosionA((Explosion) (Object) this, eLogger);
-					ci.cancel();
-				}
-				// copy ends
+				OptimizedExplosion.doExplosionA((Explosion) (Object) this);
+				ci.cancel();
 			}
-			catch (IllegalAccessException ignored)
-			{
-			}
+			// copy ends
 		}
 	}
 }
