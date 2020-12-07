@@ -400,12 +400,13 @@ public class CarpetTISAdditionSettings
 			},
 			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
 	)
-	public static boolean optimizeFastEntityMovement = false;
+	public static boolean optimizedFastEntityMovement = false;
 
 	@Rule(
 			desc = "Use a Mixin injection with higher priority for carpet rule optimizedTNT",
 			extra = {
-					"So the rule optimizedTNT can overwrite lithium's explosion optimization"
+					"So the rule optimizedTNT can overwrite lithium's explosion optimization",
+					"Of course rule optimizedTNT needs to be on for it to work"
 			},
 			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
 	)
