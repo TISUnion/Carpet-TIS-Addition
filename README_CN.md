@@ -47,6 +47,8 @@
 - [实体速度丢失](#实体速度丢失-entityMomentumLoss)
 - [中继器延迟折半](#中继器延迟折半-repeaterHalfDelay)
 - [存活时间追踪器](#存活时间追踪器-commandLifeTime)
+- [优化高速实体移动](#优化高速实体移动-optimizedFastEntityMovement)
+- [TNT优化高优先级](#TNT优化高优先级-optimizedTNTHighPriority)
 
 ## [监视器](#监视器列表)
 
@@ -477,6 +479,34 @@
 - 默认值: `true`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `COMMAND`
+
+
+## 优化高速实体移动 (optimizedFastEntityMovement)
+
+通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动
+
+受 [carpetmod112](https://github.com/gnembon/carpetmod112) 的规则 `fastMovingEntityOptimization` 启发
+
+同规则 `optimizedTNT` 一起使用可大幅度提升炮的性能表现
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## TNT优化高优先级 (optimizedTNTHighPriority)
+
+用带有更高优先级的 Mixin 注入来实现 carpet 规则 `optimizedTNT`
+
+因此规则 `optimizedTNT` 可以覆盖 lithium 的爆炸优化
+
+当然，它需要规则 `optimizedTNT` 开启才能工作
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
 -----------

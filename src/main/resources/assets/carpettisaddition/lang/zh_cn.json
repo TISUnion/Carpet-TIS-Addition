@@ -139,6 +139,16 @@
   "rule.commandLifeTime.desc": "启用/lifetime命令用于追踪生物存活时间等信息",
   "rule.commandLifeTime.extra.0": "可助于调试刷怪塔等",
 
+  "rule.optimizedFastEntityMovement.name": "优化高速实体移动",
+  "rule.optimizedFastEntityMovement.desc": "通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动",
+  "rule.optimizedFastEntityMovement.extra.0": "受carpetmod112的规则fastMovingEntityOptimization启发",
+  "rule.optimizedFastEntityMovement.extra.1": "同规则optimizedTNT一起使用可大幅度提升炮的性能表现",
+
+  "rule.optimizedTNTHighPriority.name": "TNT优化高优先级",
+  "rule.optimizedTNTHighPriority.desc": "用带有更高优先级的Mixin注入来实现carpet规则optimizedTNT",
+  "rule.optimizedTNTHighPriority.extra.0": "因此规则optimizedTNT可以覆盖lithium的爆炸优化",
+  "rule.optimizedTNTHighPriority.extra.1": "当然，它需要规则optimizedTNT开启才能工作",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

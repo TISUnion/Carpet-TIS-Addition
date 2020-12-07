@@ -95,6 +95,8 @@
     "rule.opPlayerNoCheat.SetBlockCommandMixin",
     "rule.opPlayerNoCheat.SummonCommandMixin",
     "rule.opPlayerNoCheat.TeleportCommandMixin",
+    "rule.optimizedFastEntityMovement.EntityMixin",
+    "rule.optimizedTNTHighPriority.ExplosionMixin",
     "rule.poiUpdates.ServerWorldMixin",
     "rule.railDupingFix.AbstractRailBlockMixin",
     "rule.redstoneDustRandomUpdateOrder.RedstoneWireBlockMixin",

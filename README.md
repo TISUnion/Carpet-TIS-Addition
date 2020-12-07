@@ -47,6 +47,8 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [entityMomentumLoss](#entityMomentumLoss)
 - [repeaterHalfDelay](#repeaterHalfDelay)
 - [commandLifeTime](#commandLifeTime)
+- [optimizedFastEntityMovement](#optimizedFastEntityMovement)
+- [optimizedTNTHighPriority](#optimizedTNTHighPriority)
 
 ## [Loggers](#logger-list)
 
@@ -477,6 +479,34 @@ Useful for mob farm debugging etc.
 - Default value: `true`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `COMMAND`
+
+
+## optimizedFastEntityMovement
+
+Optimize fast entity movement by only checking block collisions on current moving axis
+
+Inspired by the `fastMovingEntityOptimization` rule in [carpetmod112](https://github.com/gnembon/carpetmod112)
+
+Use with rule `optimizedTNT` to greatly improve performance in cannons
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## optimizedTNTHighPriority
+
+Use a Mixin injection with higher priority for carpet rule `optimizedTNT`
+ 
+So the rule `optimizedTNT` can overwrite lithium's explosion optimization
+
+Of course rule optimizedTNT needs to be on for it to work
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
 -----------

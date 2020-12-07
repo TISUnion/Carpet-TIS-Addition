@@ -392,6 +392,26 @@ public class CarpetTISAdditionSettings
 	)
 	public static String commandLifeTime = "true";
 
+	@Rule(
+			desc = "Optimize fast entity movement by only checking block collisions on current moving axis",
+			extra = {
+					"Inspired by the fastMovingEntityOptimization rule in carpetmod112",
+					"Use with rule optimizedTNT to greatly improve performance in cannons"
+			},
+			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
+	)
+	public static boolean optimizedFastEntityMovement = false;
+
+	@Rule(
+			desc = "Use a Mixin injection with higher priority for carpet rule optimizedTNT",
+			extra = {
+					"So the rule optimizedTNT can overwrite lithium's explosion optimization",
+					"Of course rule optimizedTNT needs to be on for it to work"
+			},
+			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
+	)
+	public static boolean optimizedTNTHighPriority = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
