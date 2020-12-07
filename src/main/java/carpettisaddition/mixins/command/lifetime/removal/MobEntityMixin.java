@@ -43,9 +43,18 @@ public abstract class MobEntityMixin
 	@Inject(method = "setPersistent", at = @At("HEAD"))
 	private void onEntityPersistentLifeTimeTracker(CallbackInfo ci)
 	{
-		if (!this.persistent)
-		{
-			((IEntity)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
-		}
+		((IEntity)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+	}
+
+	@Inject(
+			method = "loot",
+			at = @At(
+					value = "FIELD",
+					target = "Lnet/minecraft/entity/mob/MobEntity;persistent:Z"
+			)
+	)
+	private void onEntityPersistent2LifeTimeTracker(CallbackInfo ci)
+	{
+		((IEntity)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
 	}
 }
