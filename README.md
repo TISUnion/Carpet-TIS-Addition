@@ -668,8 +668,6 @@ Other than being removed from the world, if a mob becomes persistent for the fir
 
 This tracker also tracks lifetime of items and xp orbs from mob and block drops as an additional functionality. Note that it doesn't track all item / xp orb spawning, so you'd better have a test before actually using it
 
-This tracker also tracks lifetime of items and xp orbs from mob and block drops as an additional functionality
-
 Adding a `realtime` suffix to the command will turn the rate result from in-game time based to realtime based
 
 ### tracking
@@ -700,6 +698,7 @@ Tracked entity removal reasons
 - Despawn, including immediately despawn, random despawn, difficulty despawn and timeout despawn
 - Damaged to death
 - Becomes persistent. Note that the entity is still not removed from the world
+- Rides on a vehicle (1.16+). Note that the entity is still not removed from the world
 - Trans-dimension through portal
 - Entity merged (item and xp orb only)
 - Picked up by player (item and xp orb only)
