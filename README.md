@@ -704,7 +704,7 @@ Tracked entity removal reasons
 - Collected up by hopper or hopper minecart (item only)
 - Other (anything else not in the list)
 
-The definition of lifetime is: **The difference in world time between entity spawning and entity removal**
+The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap 
 
 Statistics are sorted by the proportion of the amount 
 

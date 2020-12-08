@@ -24,6 +24,9 @@ public class LifeTimeWorldTracker extends TranslatableBase
 {
 	private final ServerWorld world;
 	private final Map<EntityType<?>, TrackedData> dataMap = Maps.newHashMap();
+	// a counter which accumulates when spawning stage occurs
+	// it's used to determine life time
+	private long spawnStageCounter;
 
 	public LifeTimeWorldTracker(ServerWorld world)
 	{
@@ -58,6 +61,16 @@ public class LifeTimeWorldTracker extends TranslatableBase
 	public void onEntityRemove(Entity entity, RemovalReason reason)
 	{
 		this.getTrackedData(entity).ifPresent(data -> data.updateRemoval(entity, reason));
+	}
+
+	public void increaseSpawnStageCounter()
+	{
+		this.spawnStageCounter++;
+	}
+
+	public long getSpawnStageCounter()
+	{
+		return this.spawnStageCounter;
 	}
 
 	private List<BaseText> addIfEmpty(List<BaseText> list, BaseText text)

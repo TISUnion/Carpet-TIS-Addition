@@ -13,6 +13,7 @@
     "carpet.tntRandomRange.ExplosionMixin",
     "carpet.tntRandomRange.WorldMixin",
     "command.lifetime.EntityMixin",
+    "command.lifetime.ServerChunkManagerMixin",
     "command.lifetime.ServerWorldMixin",
     "command.lifetime.deathdamage.ExperienceOrbEntityMixin",
     "command.lifetime.deathdamage.ItemEntityMixin",
