@@ -10,6 +10,7 @@ import carpettisaddition.utils.GameUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,9 +40,9 @@ public abstract class EntityMixin implements IEntity
 		this.doLifeTimeTracking = false;
 		this.recordedSpawning = false;
 		this.recordedRemoval = false;
-		if (this.world != null)
+		if (this.world instanceof ServerWorld)
 		{
-			this.spawnTime = this.world.getTime();
+			this.spawnTime = ((IServerWorld)this.world).getLifeTimeWorldTracker().getSpawnStageCounter();
 			this.doLifeTimeTracking = LifeTimeTracker.isActivated() && LifeTimeTrackerUtil.isTrackedEntity((Entity) (Object) this);
 		}
 	}
@@ -49,7 +50,7 @@ public abstract class EntityMixin implements IEntity
 	@Override
 	public long getLifeTime()
 	{
-		return this.world.getTime() - this.spawnTime;
+		return ((IServerWorld)this.world).getLifeTimeWorldTracker().getSpawnStageCounter() - this.spawnTime;
 	}
 
 	@Override
