@@ -664,7 +664,11 @@ A tracker to track lifetime and spawn / removal reasons from all newly spawned a
 
 This tracker is mostly used to debug mobfarms. It aims to track the process from mob starting affecting the mobcap to mob being removed from the mobcap. The spawning tracking part of it doesn't cover every kind of mob spawning reasons
 
-Other than being removed from the world, if a mob becomes persistent for the first time like nametagged or item pickup, it will be marked as removal too. If the mob spawns 
+Other than being removed from the world, if a mob becomes persistent for the first time like nametagged or item pickup, it will be marked as removal too. If a mob doesn't count towards the mobcap when it spawns, it will not be tracked
+
+This tracker also tracks lifetime of items and xp orbs from mob and block drops as an additional functionality. Note that it doesn't track all item / xp orb spawning, so you'd better have a test before actually using it
+
+This tracker also tracks lifetime of items and xp orbs from mob and block drops as an additional functionality
 
 Adding a `realtime` suffix to the command will turn the rate result from in-game time based to realtime based
 
@@ -687,7 +691,8 @@ Tracked entity spawning reasons
 - Slime division (for slime and magma cube)
 - Zombie Reinforce
 - `/summon` command
-- Mob dropping loot (item and xp orb only)
+- Mob drop (item and xp orb only)
+- Block drop (item only)
 
 Note that only entities that have been tracked spawning will be counted to the statistic 
 
@@ -701,7 +706,7 @@ Tracked entity removal reasons
 - Collected up by hopper or hopper minecart (item only)
 - Other (anything else not in the list)
 
-The definition of lifetime is: **The difference in world time between entity spawning and entity removal**
+The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
 
 Statistics are sorted by the proportion of the amount 
 
@@ -734,14 +739,20 @@ Current maintaining branches:
 - 1.16.4, for Minecraft 1.16.2 to 1.16.4
 - 1.17, for Minecraft 1.17 snapshots
 
+Current archived branches:
+- 1.16, for Minecraft 1.16 to 1.16.1
+
 For general new features, implement them in 1.15.2 branch first then merge it into other branches
 
 Branches merge order:
 - 1.15.2 -> 1.14.4
 - 1.15.2 -> 1.16.4 -> 1.17
+- 1.15.2 -> master (when release)
 
 For version specific fixes / patches, implement them in relevant branches
 
-master branches usually only receives doc updates and merge from 1.15.2 during release 
+master branches usually only receives doc updates directly
 
-Try not to affect version compatibility it's necessary
+Try not to affect version compatibility unless it's necessary
+
+English doc and Chinese doc are aligned line by line btw
