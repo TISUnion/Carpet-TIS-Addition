@@ -27,6 +27,9 @@ public class LiteralRemovalReason extends RemovalReason
 	// for item entity
 	public static final LiteralRemovalReason HOPPER = new LiteralRemovalReason("hopper", "Collected by hopper");
 
+	// for 1.16+
+	public static final LiteralRemovalReason ON_VEHICLE = new LiteralRemovalReason("on_vehicle", "Rides on a vehicle");
+
 	private final String name;
 	private final String translationKey;
 
