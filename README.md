@@ -49,6 +49,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [commandLifeTime](#commandLifeTime)
 - [optimizedFastEntityMovement](#optimizedFastEntityMovement)
 - [optimizedTNTHighPriority](#optimizedTNTHighPriority)
+- [optimizedHardHitBoxEntityCollision](#optimizedHardHitBoxEntityCollision)
 
 ## [Loggers](#logger-list)
 
@@ -502,6 +503,24 @@ Use a Mixin injection with higher priority for carpet rule `optimizedTNT`
 So the rule `optimizedTNT` can overwrite lithium's explosion optimization
 
 Of course rule optimizedTNT needs to be on for it to work
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## optimizedHardHitBoxEntityCollision
+
+Optimize entity colliding with entities with hard hit box
+
+It uses a separate list to store entities, that have a hard hit box including boat and shulker, in a chunk
+
+It reduces quite a lot of unnecessary iterating when an entity is moving and trying to search entities with hard hit box on the way, since the world is always not filled with boats and shulkers
+
+Enable it before loading the chunk to make it work. ~20% performance boost in portal mob farms
+
+Might not work with other mods that add new entities
 
 - Type: `boolean`  
 - Default value: `true`  
