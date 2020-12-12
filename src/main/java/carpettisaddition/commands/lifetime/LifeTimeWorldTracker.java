@@ -207,7 +207,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 			result.add(TextUtil.getFancyText(
 					"q",
 					Messenger.s(this.tr("Life Time Overview")),
-					Messenger.s(this.tr("life_time_explain", "The difference in world time between entity spawning and entity removal")),
+					Messenger.s(this.tr("life_time_explain", "The amount of spawning stage passing between entity spawning and entity removal")),
 					null
 			));
 			result.add(specificData.lifeTimeStatistic.getResult(""));
