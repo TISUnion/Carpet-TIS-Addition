@@ -1066,6 +1066,7 @@ c	aas	net/minecraft/class_3218	net/minecraft/server/world/ServerWorld
 		p	2			maxDistance
 	m	(Lfx;Lban;)V	a	method_19535	method_19535
 	m	(Lfx;Lpg;Laat;)V	a	method_32818	method_32818
+		p	3			player
 	m	(Lgq;)Z	a	method_20588	isNearOccupiedPointOfInterest
 		p	1			sectionPos
 	m	(Lhj;DDDIDDDD)I	a	method_14199	spawnParticles
@@ -1140,7 +1141,7 @@ c	aas	net/minecraft/class_3218	net/minecraft/server/world/ServerWorld
 	m	()Ljava/util/List;	g	method_18776	getAliveEnderDragons
 	m	(Laat;)Z	g	method_18775	method_18775
 		p	0			player
-	m	()I	i	method_32819	method_32819
+	m	()I	i	method_32819	getHeightLimit
 	m	(Laqq;)Z	i	method_31430	method_31430
 	m	()Laaq;	j	method_14178	getChunkManager
 	m	(Laqq;)Z	j	method_14175	addEntity
@@ -1240,6 +1241,7 @@ c	aat	net/minecraft/class_3222	net/minecraft/server/network/ServerPlayerEntity
 		c	Sends packets to the client that refresh the current screen handler's items.
 		p	1			handler
 	m	(Lbsg;)V	a	method_14246	sendUnloadChunkPacket
+		p	1			chunkPos
 	m	(Lbsg;Lox;Lox;)V	a	method_14205	sendInitialChunkPackets
 	m	(Lbsy;)Z	a	method_7336	changeGameMode
 		p	1			gameMode
@@ -1289,7 +1291,8 @@ c	aat	net/minecraft/class_3222	net/minecraft/server/network/ServerPlayerEntity
 	m	(Lfx;Lgc;)Z	b	method_26286	isBedObstructed
 		p	1			pos
 		p	2			direction
-	m	(Laas;)V	c	method_32747	method_32747
+	m	(Laas;)V	c	method_32747	setWorld
+		p	1			world
 	m	(Laqq;)V	c	method_14249	onStoppedTracking
 		p	1			entity
 	m	(Lmn;)V	c	method_32748	setGameMode
@@ -4587,12 +4590,13 @@ c	aes	net/minecraft/class_3486	net/minecraft/tag/FluidTags
 	f	Laex;	a	field_23680	REQUIRED_TAGS
 	f	Laez$e;	b	field_15517	WATER
 	f	Laez$e;	c	field_15518	LAVA
-c	aet	net/minecraft/class_5698	net/minecraft/class_5698
-	m	(Ljava/lang/String;)Laez$e;	a	method_32823	method_32823
-	m	()Ljava/util/List;	c	method_32824	method_32824
-	f	Laez$e;	a	field_28090	field_28090
-	f	Laez$e;	b	field_28091	field_28091
-	f	Laex;	c	field_28092	field_28092
+c	aet	net/minecraft/class_5698	net/minecraft/tag/GameEventTags
+	m	(Ljava/lang/String;)Laez$e;	a	method_32823	register
+		p	0			id
+	m	()Ljava/util/List;	c	method_32824	getRequiredTags
+	f	Laez$e;	a	field_28090	VIBRATIONS
+	f	Laez$e;	b	field_28091	IGNORE_VIBRATIONS_STEPPING_CAREFULLY
+	f	Laex;	c	field_28092	REQUIRED_TAGS
 c	aeu	net/minecraft/class_3489	net/minecraft/tag/ItemTags
 	m	()Lafa;	a	method_15106	getTagGroup
 	m	(Ljava/lang/String;)Laez$e;	a	method_15102	register
@@ -4888,7 +4892,7 @@ c	afb	net/minecraft/class_5415	net/minecraft/tag/TagManager
 		p	0			buf
 	m	()Lafa;	c	method_30220	getFluids
 	m	()Lafa;	d	method_30221	getEntityTypes
-	m	()Lafa;	e	method_32834	method_32834
+	m	()Lafa;	e	method_32834	getGameEvents
 	m	()V	f	method_30222	apply
 	f	Lafb;	a	field_25744	EMPTY
 c	afb$1	net/minecraft/class_5415$1	net/minecraft/tag/TagManager$1
@@ -5385,7 +5389,12 @@ c	afz	net/minecraft/class_3532	net/minecraft/util/math/MathHelper
 		p	0			value
 		p	2			min
 		p	4			max
-	m	(DDDDD)D	a	method_32854	method_32854
+	m	(DDDDD)D	a	method_32854	lerpFromProgress
+		p	0			lerpValue
+		p	2			lerpStart
+		p	4			lerpEnd
+		p	6			start
+		p	8			end
 	m	(DDDDDD)D	a	method_16437	lerp2
 		c	A two-dimensional lerp between values on the 4 corners of the unit square. Arbitrary values are specified for the corners and the output is interpolated between them.
 		p	0			deltaX
@@ -5522,7 +5531,10 @@ c	afz	net/minecraft/class_3532	net/minecraft/util/math/MathHelper
 		p	0			x
 		p	1			y
 		p	2			z
-	m	(Ljava/util/Random;FF)F	c	method_32855	method_32855
+	m	(Ljava/util/Random;FF)F	c	method_32855	nextGaussian
+		p	0			random
+		p	1			mean
+		p	2			deviation
 	m	(D)J	d	method_15372	lfloor
 	m	(DD)D	d	method_15349	atan2
 		p	0			y
@@ -5801,32 +5813,44 @@ c	agi	net/minecraft/class_3545	net/minecraft/util/Pair
 	m	()Ljava/lang/Object;	b	method_15441	getRight
 	f	Ljava/lang/Object;	a	field_15772	left
 	f	Ljava/lang/Object;	b	field_15773	right
-c	agj	net/minecraft/class_5700	net/minecraft/class_5700
-	m	()F	a	method_32856	method_32856
-	m	(F)Lagj;	a	method_32857	method_32857
-	m	(FF)Lagj;	a	method_32858	method_32858
-	m	(FFF)Lcom/mojang/serialization/Codec;	a	method_32859	method_32859
+c	agj	net/minecraft/class_5700	net/minecraft/world/gen/UniformFloatDistribution
+	m	(FF)V	<init>	<init>	<init>
+		p	1			base
+		p	2			spread
+	m	()F	a	method_32856	minValue
+	m	(F)Lagj;	a	method_32857	of
+		c	Creates a distribution with a constant value.
+		p	0			value
+			c	the constant value
+	m	(FF)Lagj;	a	method_32858	of
+		p	0			base
+		p	1			spread
+	m	(FFF)Lcom/mojang/serialization/Codec;	a	method_32859	createValidatedCodec
+		p	0			minBase
+		p	1			maxBase
+		p	2			maxSpread
 	m	(FFFLagj;)Lcom/mojang/serialization/DataResult;	a	method_32860	method_32860
 	m	(Lagj;)Lcom/mojang/datafixers/util/Either;	a	method_32861	method_32861
 	m	(Lcom/mojang/datafixers/util/Either;)Lagj;	a	method_32862	method_32862
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_32863	method_32863
-	m	(Ljava/util/Random;)F	a	method_32864	method_32864
+	m	(Ljava/util/Random;)F	a	method_32864	getValue
+		p	1			random
 	m	(Lagj;)Lagj;	b	method_32865	method_32865
-	m	()F	c	method_32866	method_32866
+	m	()F	c	method_32866	maxValue
 	m	(Lagj;)Lcom/mojang/serialization/DataResult;	c	method_32867	method_32867
 	m	(Lagj;)Ljava/lang/Float;	d	method_32868	method_32868
 	m	(Lagj;)Ljava/lang/Float;	e	method_32869	method_32869
 	m	(Ljava/lang/Object;)Z	equals	equals	equals
 	m	()I	hashCode	hashCode	hashCode
 	m	()Ljava/lang/String;	toString	toString	toString
-	f	Lcom/mojang/serialization/Codec;	a	field_28096	field_28096
-	f	F	b	field_28097	field_28097
-	f	F	c	field_28098	field_28098
+	f	Lcom/mojang/serialization/Codec;	a	field_28096	CODEC
+	f	F	b	field_28097	base
+	f	F	c	field_28098	spread
 c	agk	net/minecraft/class_5428	net/minecraft/world/gen/UniformIntDistribution
 	m	(II)V	<init>	<init>	<init>
 		p	1			base
 		p	2			spread
-	m	()I	a	method_32870	method_32870
+	m	()I	a	method_32870	minValue
 	m	(I)Lagk;	a	method_30314	of
 		c	Creates a distribution with a constant value.
 		p	0			value
@@ -5845,7 +5869,7 @@ c	agk	net/minecraft/class_5428	net/minecraft/world/gen/UniformIntDistribution
 	m	(Ljava/util/Random;)I	a	method_30321	getValue
 		p	1			random
 	m	(Lagk;)Lagk;	b	method_30322	method_30322
-	m	()I	c	method_32871	method_32871
+	m	()I	c	method_32871	maxValue
 	m	(Lagk;)Lcom/mojang/serialization/DataResult;	c	method_30323	method_30323
 	m	(Lagk;)Ljava/lang/Integer;	d	method_30324	method_30324
 	m	(Lagk;)Ljava/lang/Integer;	e	method_30325	method_30325
@@ -8076,7 +8100,7 @@ c	anr	net/minecraft/class_5416	net/minecraft/datafixer/schema/Schema2568
 	m	(Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;	a	method_30225	method_30225
 	m	(Lcom/mojang/datafixers/schemas/Schema;Ljava/util/Map;Ljava/lang/String;)V	a	method_30226	method_30226
 	m	(Lcom/mojang/datafixers/schemas/Schema;)Ljava/util/Map;	registerEntities	registerEntities	registerEntities
-c	ans	net/minecraft/class_5701	net/minecraft/class_5701
+c	ans	net/minecraft/class_5701	net/minecraft/datafixer/schema/Schema2684
 	m	(Lcom/mojang/datafixers/schemas/Schema;)Ljava/util/Map;	registerBlockEntities	registerBlockEntities	registerBlockEntities
 c	ant	net/minecraft/class_1247	net/minecraft/datafixer/schema/Schema501
 	m	(ILcom/mojang/datafixers/schemas/Schema;)V	<init>	<init>	<init>
@@ -9143,14 +9167,14 @@ c	aqa	net/minecraft/class_1282	net/minecraft/entity/damage/DamageSource
 		p	0			attacker
 	m	()Laqa;	e	method_5518	setExplosive
 	m	()Z	f	method_5537	bypassesArmor
-	m	()Z	g	method_32872	method_32872
+	m	()Z	g	method_32872	isFallingBlock
 	m	()F	h	method_5528	getExhaustion
 	m	()Z	i	method_5538	isOutOfWorld
 	m	()Z	j	method_5504	isUnblockable
 	m	()Laqq;	k	method_5526	getSource
 	m	()Laqq;	l	method_5529	getAttacker
 	m	()Laqa;	m	method_5508	setBypassesArmor
-	m	()Laqa;	n	method_32873	method_32873
+	m	()Laqa;	n	method_32873	setFallingBlock
 	m	()Laqa;	o	method_5505	setOutOfWorld
 	m	()Laqa;	p	method_5509	setUnblockable
 	m	()Laqa;	q	method_5507	setFire
@@ -9193,9 +9217,9 @@ c	aqa	net/minecraft/class_1282	net/minecraft/entity/damage/DamageSource
 	f	Laqa;	t	field_5842	DRYOUT
 	f	Laqa;	u	field_16992	SWEET_BERRY_BUSH
 	f	Laqa;	v	field_27856	FREEZE
-	f	Laqa;	w	field_28099	field_28099
+	f	Laqa;	w	field_28099	FALLING_STALACTITE
 	f	Ljava/lang/String;	x	field_5841	name
-	f	Z	y	field_28100	field_28100
+	f	Z	y	field_28100	fallingBlock
 	f	Z	z	field_5840	bypassesArmor
 c	aqb	net/minecraft/class_1285	net/minecraft/entity/damage/EntityDamageSource
 	m	(Ljava/lang/String;Laqq;)V	<init>	<init>	<init>
@@ -9641,7 +9665,7 @@ c	aqq	net/minecraft/class_1297	net/minecraft/entity/Entity
 		p	1			state
 		p	2			multiplier
 	m	(Lcgl;Lfx;)Z	a	method_30332	method_30332
-	m	(Lckk;)V	a	method_32876	method_32876
+	m	(Lckk;)V	a	method_32876	sendGameEvent
 	m	(Ldgy;)V	a	method_5857	setBoundingBox
 		p	1			boundingBox
 	m	(Ldhd;)V	a	method_30228	updateTrackedPosition
@@ -10702,7 +10726,7 @@ c	arb	net/minecraft/class_1538	net/minecraft/entity/LightningEntity
 		p	1			cosmetic
 	m	(Laat;)V	d	method_6961	setChanneler
 		p	1			channeler
-	m	()V	h	method_31499	method_31499
+	m	()V	h	method_31499	powerLightningRod
 	f	J	b	field_7186	seed
 	f	I	c	field_7185	ambientTick
 	f	I	d	field_7183	remainingActions
@@ -11431,6 +11455,8 @@ c	ari	net/minecraft/class_5354	net/minecraft/entity/mob/Angerable
 	m	(Larc;)V	a	method_6015	setAttacker
 		p	1			attacker
 	m	(Lbtb;Lmn;)V	a	method_29512	angerFromTag
+		p	1			world
+		p	2			tag
 	m	(Ljava/util/UUID;)V	a	method_29513	setAngryAt
 		p	1			uuid
 	m	(I)V	a_	method_29514	setAngerTime
@@ -14960,7 +14986,7 @@ c	bai	net/minecraft/class_1419	net/minecraft/village/ZombieSiegeManager
 		p	2			pos
 	m	(Laas;)V	b	method_6447	trySpawnZombie
 		p	1			world
-	f	Lorg/apache/logging/log4j/Logger;	a	field_26390	field_26390
+	f	Lorg/apache/logging/log4j/Logger;	a	field_26390	LOGGER
 	f	Z	b	field_6725	spawned
 	f	Lbai$a;	c	field_18479	state
 	f	I	d	field_6723	remaining
@@ -17278,7 +17304,7 @@ c	bdg	net/minecraft/class_1528	net/minecraft/entity/boss/WitherEntity
 	m	()Lasb$a;	fd	method_26904	createWitherAttributes
 	m	()I	fe	method_6884	getInvulnerableTimer
 	m	(Larc;)Z	i	method_6873	method_6873
-	m	()V	m	method_6885	method_6885
+	m	()V	m	method_6885	onSummoned
 	m	(I)V	t	method_6875	setInvulTimer
 		p	1			ticks
 	m	(I)I	u	method_6882	getTrackedEntityId
@@ -17508,10 +17534,14 @@ c	bdp	net/minecraft/class_1540	net/minecraft/entity/FallingBlockEntity
 		p	6			z
 		p	8			block
 	m	(Laqa;FLaqq;)V	a	method_32879	method_32879
-	m	(Lbvx;Lfx;)V	a	method_32752	method_32752
+	m	(Lbvx;Lfx;)V	a	method_32752	onDestroyedOnLanding
+		p	1			block
+		p	2			pos
 	m	(Lfx;)V	a	method_6963	setFallingBlockPos
 		p	1			pos
 	m	(FI)V	b	method_6965	setHurtEntities
+		p	1			fallHurtAmount
+		p	2			fallHurtMax
 	m	()Lfx;	g	method_6964	getFallingBlockPos
 	m	()Lbtb;	h	method_6966	getWorldClient
 	m	()Lcgl;	i	method_6962	getBlockState
@@ -19236,7 +19266,10 @@ c	bge	net/minecraft/class_1646	net/minecraft/entity/passive/VillagerEntity
 	m	(Lbge;Lban;)Z	a	method_19520	method_19520
 	m	(Lbgf;)V	a	method_7221	setVillagerData
 		p	1			villagerData
-	m	(Lfx;DD)Lfx;	a	method_30023	method_30023
+	m	(Lfx;DD)Lfx;	a	method_30023	getHighestOpenPositionOnOffset
+		p	1			pos
+		p	2			x
+		p	4			z
 	m	(Lmn;Lnf;)V	a	method_28370	method_28370
 	m	(Lnet/minecraft/server/MinecraftServer;Layu;Lgf;)V	a	method_19178	method_19178
 	m	(Lnf;)V	a	method_21650	setGossipDataFromTag
@@ -19260,9 +19293,9 @@ c	bge	net/minecraft/class_1646	net/minecraft/entity/passive/VillagerEntity
 	m	()V	fE	method_19187	clearCurrentBonus
 	m	()Z	fF	method_20823	needRestock
 	m	()Z	fG	method_20824	canRestock
-	m	()V	fH	method_21723	method_21723
+	m	()V	fH	method_21723	restockAndUpdatePricesOnDemand
 	m	()V	fI	method_21724	updatePricesOnDemand
-	m	()V	fJ	method_30958	method_30958
+	m	()V	fJ	method_30958	releaseAllTickets
 	m	()Z	fK	method_20698	lacksFood
 	m	()V	fL	method_19185	consumeAvailableFood
 	m	()Z	fM	method_19188	canLevelUp
@@ -19307,12 +19340,18 @@ c	bge	net/minecraft/class_1646	net/minecraft/entity/passive/VillagerEntity
 	f	I	by	field_19427	restocksToday
 	f	J	bz	field_20332	lastRestockCheckTime
 c	bgf	net/minecraft/class_3850	net/minecraft/village/VillagerData
+	m	(Lbgj;Lbgh;I)V	<init>	<init>	<init>
+		p	1			type
+		p	2			profession
+		p	3			level
 	m	()Lbgj;	a	method_16919	getType
 	m	(I)Lbgf;	a	method_16920	withLevel
 		p	1			level
 	m	(Lbgf;)Ljava/lang/Integer;	a	method_28371	method_28371
 	m	(Lbgh;)Lbgf;	a	method_16921	withProfession
+		p	1			profession
 	m	(Lbgj;)Lbgf;	a	method_16922	withType
+		p	1			type
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_28372	method_28372
 	m	()Lbgh;	b	method_16924	getProfession
 	m	(I)I	b	method_19194	getLowerLevelExperience
@@ -19547,10 +19586,14 @@ c	bgi$k	net/minecraft/class_3853$class_1654	net/minecraft/village/TradeOffers$Se
 	f	I	d	field_18590	maxUses
 	f	I	e	field_18591	experience
 c	bgj	net/minecraft/class_3854	net/minecraft/village/VillagerType
+	m	(Ljava/lang/String;)V	<init>	<init>	<init>
+		p	1			name
 	m	(Ljava/lang/String;)Lbgj;	a	method_16931	create
 		p	0			id
 	m	(Ljava/util/HashMap;)V	a	method_16932	method_16932
+		p	0			map
 	m	(Ljava/util/Optional;)Lbgj;	a	method_16930	forBiome
+		p	0			biomeKey
 	m	(Lvx;)Ljava/util/Optional;	a	method_31080	method_31080
 	m	()Ljava/lang/String;	toString	toString	toString
 	f	Lbgj;	a	field_17071	DESERT
@@ -19560,7 +19603,7 @@ c	bgj	net/minecraft/class_3854	net/minecraft/village/VillagerType
 	f	Lbgj;	e	field_17075	SNOW
 	f	Lbgj;	f	field_17076	SWAMP
 	f	Lbgj;	g	field_17077	TAIGA
-	f	Ljava/lang/String;	h	field_26690	field_26690
+	f	Ljava/lang/String;	h	field_26690	name
 	f	Ljava/util/Map;	i	field_17078	BIOME_TO_TYPE
 c	bgk	net/minecraft/class_3989	net/minecraft/entity/passive/WanderingTraderEntity
 	m	(Lbgk;)Laza;	a	method_18061	method_18061
@@ -20524,7 +20567,7 @@ c	bht	net/minecraft/class_1685	net/minecraft/entity/projectile/TridentEntity
 		p	2			owner
 		p	3			stack
 	m	()Z	u	method_23751	isEnchanted
-	m	()Z	x	method_31551	method_31551
+	m	()Z	x	method_31551	hasChanneling
 	m	()Z	z	method_7493	isOwnerAlive
 	f	Lvh;	ab	field_21514	ENCHANTED
 	f	Lbnc;	ac	field_7650	tridentStack
@@ -20669,6 +20712,7 @@ c	bhw$a	net/minecraft/class_3765$class_4259	net/minecraft/village/raid/Raid$Stat
 	m	()Ljava/lang/String;	a	method_20026	getName
 	m	(Ljava/lang/String;)Lbhw$a;	a	method_20027	method_20027
 	m	(Ljava/lang/String;)Lbhw$a;	b	method_20028	fromName
+		p	0			name
 	m	(Ljava/lang/String;)Lbhw$a;	valueOf	valueOf	valueOf
 	m	()[Lbhw$a;	values	values	values
 	f	Lbhw$a;	a	field_19026	ONGOING
@@ -20784,6 +20828,7 @@ c	bhy	net/minecraft/class_3767	net/minecraft/village/raid/RaidManager
 	m	(Lcjk;)Ljava/lang/String;	a	method_16533	nameFor
 	m	(Lfx;I)Lbhw;	a	method_19209	getRaidAt
 		p	1			pos
+		p	2			searchDistance
 	m	()I	d	method_16534	nextId
 	f	Ljava/util/Map;	a	field_16639	raids
 	f	Laas;	b	field_16641	world
@@ -21362,9 +21407,11 @@ c	bix	net/minecraft/class_1703	net/minecraft/screen/ScreenHandler
 		p	2			value
 	m	(IILbjg;Lbgr;)Lbnc;	a	method_7593	onSlotClick
 		c	Performs a slot click. This can behave in many different ways depending mainly on the action type.\n@return The stack that was clicked on before anything changed, used mostly for verifying that the client and server are in sync
+		p	1			slotIndex
 		p	2			clickData
 		p	3			actionType
 			c	The type of slot click. Check the docs for each SlotActionType value for details
+		p	4			player
 	m	(ILbgr;)Z	a	method_7600	shouldQuickCraftContinue
 		p	0			stage
 		p	1			player
@@ -21431,8 +21478,11 @@ c	bix	net/minecraft/class_1703	net/minecraft/screen/ScreenHandler
 	m	(II)I	b	method_7591	packQuickCraftData
 		p	0			quickCraftStage
 		p	1			buttonId
-	m	(IILbjg;Lbgr;)Lbnc;	b	method_30010	method_30010
+	m	(IILbjg;Lbgr;)Lbnc;	b	method_30010	removeStack
+		p	1			slotIndex
 		p	2			clickData
+		p	3			actionType
+		p	4			player
 	m	(Lapd;)I	b	method_7618	calculateComparatorOutput
 		p	0			inventory
 	m	(Lbgr;)V	b	method_7595	close
@@ -22226,6 +22276,7 @@ c	bkn	net/minecraft/class_1735	net/minecraft/screen/slot/Slot
 		p	2			amount
 	m	(Lbnc;Lbnc;)V	a	method_7670	onStackChanged
 		p	1			originalItem
+		p	2			newItem
 	m	()Z	b	method_7682	doDrawHoveringEffect
 	m	(I)V	b	method_7672	onTake
 		p	1			amount
@@ -22338,7 +22389,7 @@ c	bkx	net/minecraft/class_1738	net/minecraft/item/ArmorItem
 		p	0			pointer
 		p	1			armor
 	m	()Lbky;	ab_	method_7686	getMaterial
-	m	()F	ac_	method_26353	method_26353
+	m	()F	ac_	method_26353	getToughness
 	m	()Laqv;	b	method_7685	getSlotType
 	m	()I	e	method_7687	getProtection
 	f	Lgy;	a	field_7879	DISPENSER_BEHAVIOR
@@ -22431,7 +22482,7 @@ c	blc	net/minecraft/class_1743	net/minecraft/item/AxeItem
 	m	(Lbpd;Lbgr;)V	a	method_20269	method_20269
 		p	1			p
 	f	Ljava/util/Map;	a	field_7898	STRIPPED_BLOCKS
-	f	Ljava/util/Set;	c	field_23139	field_23139
+	f	Ljava/util/Set;	c	field_23139	EFFECTIVE_MATERIALS
 	f	Ljava/util/Set;	d	field_7899	EFFECTIVE_BLOCKS
 c	bld	net/minecraft/class_1746	net/minecraft/item/BannerItem
 	m	(Lbnc;Ljava/util/List;)V	a	method_7705	appendBannerTooltip
@@ -22517,6 +22568,9 @@ c	blk	net/minecraft/class_1754	net/minecraft/item/GlassBottleItem
 	m	(Laqp;)Z	a	method_7726	method_7726
 		p	0			entity
 	m	(Lbnc;Lbgr;Lbnc;)Lbnc;	a	method_7725	fill
+		p	1			stack
+		p	2			player
+		p	3			outputStack
 c	bll	net/minecraft/class_1753	net/minecraft/item/BowItem
 	m	(I)F	a	method_7722	getPullProgress
 		p	0			useTicks
@@ -22528,6 +22582,7 @@ c	bln	net/minecraft/class_1755	net/minecraft/item/BucketItem
 		p	1			fluid
 		p	2			settings
 	m	(Lbgr;Laec;)V	a	method_32342	method_32342
+		p	1			sound
 	m	(Lbgr;Lbtc;Lfx;)V	a	method_7727	playEmptyingSound
 		p	1			player
 		p	2			world
@@ -22537,7 +22592,9 @@ c	bln	net/minecraft/class_1755	net/minecraft/item/BucketItem
 		p	2			player
 	f	Lcyt;	a	field_7905	fluid
 c	blo	net/minecraft/class_5537	net/minecraft/item/BundleItem
-	m	(Lbnc;Lbgr;)Z	a	method_32757	method_32757
+	m	(Lbnc;Lbgr;)Z	a	method_32757	dropAllBundledItems
+		p	0			stack
+		p	1			player
 	m	(Lbnc;Lbkn;Lbnc;)V	a	method_32758	method_32758
 	m	(Lbnc;Lmn;)Z	a	method_31558	method_31558
 	m	(Lbnc;Lmt;)Ljava/util/Optional;	a	method_32344	method_32344
@@ -22551,7 +22608,8 @@ c	blo	net/minecraft/class_5537	net/minecraft/item/BundleItem
 	m	(Lbnc;)I	o	method_31563	getBundleOccupancy
 		p	0			stack
 	m	(Lbnc;)Ljava/util/Optional;	p	method_32759	method_32759
-	m	(Lbnc;)Ljava/util/stream/Stream;	q	method_32345	method_32345
+	m	(Lbnc;)Ljava/util/stream/Stream;	q	method_32345	getBundledStacks
+		p	0			stack
 	m	(Lbnc;)I	r	method_31564	method_31564
 	f	I	a	field_27016	ITEM_BAR_COLOR
 c	blp	net/minecraft/class_1757	net/minecraft/item/ChorusFruitItem
@@ -22559,10 +22617,13 @@ c	blq	net/minecraft/class_1759	net/minecraft/item/CompassItem
 	m	(Lmn;)Ljava/util/Optional;	a	method_26364	getLodestoneDimension
 		p	0			tag
 	m	(Lmn;Lnf;)V	a	method_28375	method_28375
-	m	(Lvx;Lfx;Lmn;)V	a	method_27315	method_27315
+	m	(Lvx;Lfx;Lmn;)V	a	method_27315	writeToTag
+		p	1			worldKey
+		p	2			pos
+		p	3			tag
 	m	(Lbnc;)Z	d	method_26365	hasLodestone
 		p	0			stack
-	f	Lorg/apache/logging/log4j/Logger;	a	field_24670	field_24670
+	f	Lorg/apache/logging/log4j/Logger;	a	field_24670	LOGGER
 c	blr	net/minecraft/class_1762	net/minecraft/item/NetworkSyncedItem
 	c	Represents an item which can contain extra data that is synced to the client.
 	m	(Lbnc;Lbtb;Lbgr;)Lox;	a	method_7757	createSyncPacket
@@ -22896,6 +22957,7 @@ c	bmp	net/minecraft/class_1785	net/minecraft/item/FishBucketItem
 		p	2			fluid
 		p	3			settings
 	m	(Laas;Lbnc;Lfx;)V	a	method_7824	spawnFish
+		p	1			world
 		p	2			stack
 		p	3			pos
 	f	Laqu;	a	field_7991	fishType
@@ -22975,6 +23037,7 @@ c	bmy	net/minecraft/class_1792	net/minecraft/item/Item
 		p	4			hand
 	m	(Lbnc;Lbkn;Lbjf;Lbgq;)Z	a	method_31565	onStackClicked
 		p	1			stack
+		p	2			slot
 		p	3			clickType
 		p	4			playerInventory
 	m	(Lbnc;Lbnc;)Z	a	method_7878	canRepair
@@ -22983,6 +23046,9 @@ c	bmy	net/minecraft/class_1792	net/minecraft/item/Item
 	m	(Lbnc;Lbnc;Lbkn;Lbjf;Lbgq;)Z	a	method_31566	onClicked
 		p	1			stack
 		p	2			otherStack
+		p	3			slot
+		p	4			clickType
+		p	5			playerInventory
 	m	(Lbnc;Lbtb;Laqq;IZ)V	a	method_7888	inventoryTick
 		p	1			stack
 		p	2			world
@@ -22990,6 +23056,9 @@ c	bmy	net/minecraft/class_1792	net/minecraft/item/Item
 		p	4			slot
 		p	5			selected
 	m	(Lbnc;Lbtb;Larc;)Lbnc;	a	method_7861	finishUsing
+		p	1			stack
+		p	2			world
+		p	3			entity
 	m	(Lbnc;Lbtb;Larc;I)V	a	method_7840	onStoppedUsing
 		p	1			stack
 		p	2			world
@@ -23066,7 +23135,7 @@ c	bmy	net/minecraft/class_1792	net/minecraft/item/Item
 		p	1			stack
 	m	(Lbnc;)Z	f_	method_7870	isEnchantable
 		p	1			stack
-	m	()Laec;	g	method_31570	method_31570
+	m	()Laec;	g	method_31570	getEquipSound
 	m	(Lbnc;)I	g	method_31571	getItemBarColor
 		p	1			stack
 	m	()Laec;	h	method_21830	getEatSound
@@ -23221,7 +23290,9 @@ c	bnc	net/minecraft/class_1799	net/minecraft/item/ItemStack
 		p	1			item
 		p	2			count
 	m	(Lbta;ILjava/util/Optional;)V	<init>	<init>	<init>
+		p	1			item
 		p	2			count
+		p	3			tag
 	m	(Lmn;)V	<init>	<init>	<init>
 		p	1			tag
 	m	()Z	A	method_7923	isEnchantable
@@ -23236,7 +23307,7 @@ c	bnc	net/minecraft/class_1799	net/minecraft/item/ItemStack
 	m	()Z	J	method_19267	isFood
 	m	()Laec;	K	method_21832	getDrinkSound
 	m	()Laec;	L	method_21833	getEatSound
-	m	()Laec;	M	method_31572	method_31572
+	m	()Laec;	M	method_31572	getEquipSound
 	m	()V	N	method_7957	updateEmptyState
 	m	()I	O	method_30266	getHideFlags
 	m	()Ljava/util/Optional;	a	method_32347	getTooltipData
@@ -23248,6 +23319,7 @@ c	bnc	net/minecraft/class_1799	net/minecraft/item/ItemStack
 		p	3			breakCallback
 	m	(ILbnc$a;)Z	a	method_30267	isSectionHidden
 		p	0			flags
+		p	1			tooltipSection
 	m	(ILjava/util/Random;Laat;)Z	a	method_7970	damage
 		p	1			amount
 		p	2			random
@@ -23255,14 +23327,17 @@ c	bnc	net/minecraft/class_1799	net/minecraft/item/ItemStack
 	m	(Laez;)Z	a	method_31573	isIn
 		p	1			tag
 	m	(Lafb;Lcgp;)Z	a	method_7940	canDestroy
+		p	1			tagManager
 		p	2			pos
 	m	(Laqq;)V	a	method_27320	setHolder
 		p	1			holder
 	m	(Laqv;)Lcom/google/common/collect/Multimap;	a	method_7926	getAttributeModifiers
+		p	1			slot
 	m	(Larc;Lbgr;)V	a	method_7979	postHit
 		p	1			target
 		p	2			attacker
 	m	(Larx;Lasa;Laqv;)V	a	method_7916	addAttributeModifier
+		p	1			attribute
 		p	2			modifier
 		p	3			slot
 	m	(Lbgr;Larc;Lapj;)Lapk;	a	method_7920	useOnEntity
@@ -23273,12 +23348,20 @@ c	bnc	net/minecraft/class_1799	net/minecraft/item/ItemStack
 		p	1			player
 		p	2			context
 	m	(Lbkn;Lbjf;Lbgq;)Z	a	method_31575	onStackClicked
+		p	1			slot
+		p	2			clickType
+		p	3			playerInventory
 	m	(Lbmy;)Z	a	method_31574	isOf
 		p	1			item
 	m	(Lbnc$a;)V	a	method_30268	addHideFlag
+		p	1			tooltipSection
 	m	(Lbnc;)Z	a	method_7962	isItemEqualIgnoreDamage
 		p	1			stack
 	m	(Lbnc;Lbkn;Lbjf;Lbgq;)Z	a	method_31576	onClicked
+		p	1			stack
+		p	2			slot
+		p	3			clickType
+		p	4			playerInventory
 	m	(Lbnc;Lbnc;)Z	a	method_7975	areTagsEqual
 		p	0			left
 		p	1			right
@@ -23341,6 +23424,7 @@ c	bnc	net/minecraft/class_1799	net/minecraft/item/ItemStack
 	m	(I)V	b	method_7974	setDamage
 		p	1			damage
 	m	(Lafb;Lcgp;)Z	b	method_7944	canPlaceOn
+		p	1			tagManager
 		p	2			pos
 	m	(Lbnc;)Z	b	method_7929	isItemEqual
 		p	1			stack
@@ -23382,7 +23466,9 @@ c	bnc	net/minecraft/class_1799	net/minecraft/item/ItemStack
 	m	(I)V	e	method_7939	setCount
 		p	1			count
 	m	(Lbnc;)Ljava/lang/Integer;	e	method_28378	method_28378
-	m	(Lbnc;Lbnc;)Z	e	method_31577	method_31577
+	m	(Lbnc;Lbnc;)Z	e	method_31577	areStacksEqual
+		p	0			stack
+		p	1			otherStack
 	m	()Z	f	method_7963	isDamageable
 	m	(I)V	f	method_7933	increment
 		p	1			amount
@@ -23439,8 +23525,15 @@ c	bnc$a	net/minecraft/class_1799$class_5422	net/minecraft/item/ItemStack$Tooltip
 	f	I	h	field_25775	flag
 	f	[Lbnc$a;	i	field_25776	field_25776
 c	bnd	net/minecraft/class_5328	net/minecraft/item/ItemUsage
-	m	(Lbnc;Lbgr;Lbnc;)Lbnc;	a	method_30012	method_30012
-	m	(Lbnc;Lbgr;Lbnc;Z)Lbnc;	a	method_30270	method_30270
+	m	(Lbnc;Lbgr;Lbnc;)Lbnc;	a	method_30012	exchangeStack
+		p	0			inputStack
+		p	1			player
+		p	2			outputStack
+	m	(Lbnc;Lbgr;Lbnc;Z)Lbnc;	a	method_30270	exchangeItem
+		p	0			inputStack
+		p	1			player
+		p	2			outputStack
+		p	3			creativeOverride
 	m	(Lbtb;Lbgr;Lapj;)Lapl;	a	method_29282	consumeHeldItem
 		p	0			world
 		p	1			player
@@ -24466,9 +24559,9 @@ c	bne	net/minecraft/class_1802	net/minecraft/item/Items
 	f	Lbmy;	sU	field_27050	WAXED_SEMI_WEATHERED_CUT_COPPER_SLAB
 	f	Lbmy;	sV	field_27051	LIGHTNING_ROD
 	f	Lbmy;	sW	field_27876	POWDER_SNOW_BUCKET
-	f	Lbmy;	sX	field_28042	field_28042
-	f	Lbmy;	sY	field_28043	field_28043
-	f	Lbmy;	sZ	field_28101	field_28101
+	f	Lbmy;	sX	field_28042	POINTED_DRIPSTONE
+	f	Lbmy;	sY	field_28043	DRIPSTONE_BLOCK
+	f	Lbmy;	sZ	field_28101	SCULK_SENSOR
 	f	Lbmy;	sa	field_27052	LIME_CANDLE
 	f	Lbmy;	sb	field_27053	PINK_CANDLE
 	f	Lbmy;	sc	field_27054	GRAY_CANDLE
@@ -24506,13 +24599,19 @@ c	bnf	net/minecraft/class_1801	net/minecraft/item/KnowledgeBookItem
 	f	Lorg/apache/logging/log4j/Logger;	a	field_8042	LOGGER
 c	bng	net/minecraft/class_1804	net/minecraft/item/LeadItem
 	m	(Lbgr;Lbtb;Lfx;)Lapk;	a	method_7994	attachHeldMobsToBlock
+		p	0			player
+		p	1			world
+		p	2			pos
 c	bnh	net/minecraft/class_1803	net/minecraft/item/LingeringPotionItem
 c	bni	net/minecraft/class_1806	net/minecraft/item/FilledMapItem
 	m	(I)Ljava/lang/String;	a	method_17440	getMapName
 		p	0			mapId
 	m	(Laas;Lbnc;)V	a	method_8002	fillExplorationMap
+		p	0			world
 		p	1			map
-	m	(Lbnc;I)V	a	method_32348	method_32348
+	m	(Lbnc;I)V	a	method_32348	setMapId
+		p	0			stack
+		p	1			id
 	m	(Lbnc;Lbtb;)Ldbu;	a	method_8001	getOrCreateMapState
 		p	0			map
 		p	1			world
@@ -24577,7 +24676,7 @@ c	bnm	net/minecraft/class_1810	net/minecraft/item/PickaxeItem
 		p	4			settings
 	m	(Lit/unimi/dsi/fastutil/objects/Object2IntOpenHashMap;)V	a	method_31581	method_31581
 	f	Ljava/util/Set;	a	field_8899	EFFECTIVE_BLOCKS
-	f	Lit/unimi/dsi/fastutil/objects/Object2IntMap;	c	field_27078	field_27078
+	f	Lit/unimi/dsi/fastutil/objects/Object2IntMap;	c	field_27078	BLOCK_MINING_LEVELS
 c	bnn	net/minecraft/class_1809	net/minecraft/item/SkullItem
 c	bno	net/minecraft/class_1812	net/minecraft/item/PotionItem
 c	bnp	net/minecraft/class_1811	net/minecraft/item/RangedWeaponItem
@@ -24686,6 +24785,11 @@ c	boc	net/minecraft/class_1826	net/minecraft/item/SpawnEggItem
 		p	0			type
 	m	(Lbgr;Lard;Laqu;Laas;Ldhd;Lbnc;)Ljava/util/Optional;	a	method_24793	spawnBaby
 		p	1			user
+		p	2			entity
+		p	3			entityType
+		p	4			world
+		p	5			pos
+		p	6			stack
 	m	(Lmn;)Laqu;	a	method_8015	getEntityType
 		p	1			tag
 	m	(Lmn;Laqu;)Z	a	method_8018	isOfSameEntityType
@@ -24714,6 +24818,7 @@ c	boh	net/minecraft/class_1830	net/minecraft/item/SuspiciousStewItem
 		p	2			duration
 c	boi	net/minecraft/class_1829	net/minecraft/item/SwordItem
 	m	(Lbok;IFLbmy$a;)V	<init>	<init>	<init>
+		p	1			toolMaterial
 		p	2			attackDamage
 		p	3			attackSpeed
 		p	4			settings
@@ -24977,6 +25082,11 @@ c	bp$a	net/minecraft/class_5279$class_5280	net/minecraft/advancement/criterion/T
 	f	Lbq;	a	field_24493	item
 	f	Lbg$b;	b	field_24494	entity
 c	bpb	net/minecraft/class_1750	net/minecraft/item/ItemPlacementContext
+	m	(Lbgr;Lapj;Lbnc;Ldgz;)V	<init>	<init>	<init>
+		p	1			player
+		p	2			hand
+		p	3			stack
+		p	4			hitResult
 	m	(Lbpd;)V	<init>	<init>	<init>
 		p	1			context
 	m	(Lbpb;Lfx;Lgc;)Lbpb;	a	method_16355	offset
@@ -24986,7 +25096,7 @@ c	bpb	net/minecraft/class_1750	net/minecraft/item/ItemPlacementContext
 	m	()Z	b	method_7716	canPlace
 	m	()Z	c	method_7717	canReplaceExisting
 	m	()Lgc;	d	method_7715	getPlayerLookDirection
-	m	()Lgc;	e	method_32760	method_32760
+	m	()Lgc;	e	method_32760	getVerticalPlayerLookDirection
 	m	()[Lgc;	f	method_7718	getPlacementDirections
 	f	Z	a	field_7904	canReplaceExisting
 	f	Lfx;	b	field_7903	placementPos
@@ -26008,13 +26118,26 @@ c	bry	net/minecraft/class_1914	net/minecraft/village/TradeOffer
 		p	5			maxUses
 		p	6			rewardedExp
 		p	7			priceMultiplier
+	m	(Lbnc;Lbnc;Lbnc;IIIFI)V	<init>	<init>	<init>
+		p	1			firstBuyItem
+		p	2			secondBuyItem
+		p	3			sellItem
+		p	4			uses
+		p	5			maxUses
+		p	6			rewardedExp
+		p	7			priceMultiplier
+		p	8			demandBonus
+	m	(Lmn;)V	<init>	<init>	<init>
+		p	1			tag
 	m	()Lbnc;	a	method_8246	getOriginalFirstBuyItem
 	m	(I)V	a	method_8245	increaseSpecialPrice
+		p	1			increment
 	m	(Lbnc;Lbnc;)Z	a	method_16952	matchesBuyItems
 		p	1			first
 		p	2			second
 	m	()Lbnc;	b	method_19272	getAdjustedFirstBuyItem
 	m	(I)V	b	method_19273	setSpecialPrice
+		p	1			specialPrice
 	m	(Lbnc;Lbnc;)Z	b	method_16953	depleteBuyItems
 	m	()Lbnc;	c	method_8247	getSecondBuyItem
 	m	(Lbnc;Lbnc;)Z	c	method_16954	acceptsBuy
@@ -26034,7 +26157,7 @@ c	bry	net/minecraft/class_1914	net/minecraft/village/TradeOffer
 	m	()I	o	method_19279	getMerchantExperience
 	m	()Z	p	method_8255	isDisabled
 	m	()V	q	method_8254	clearUses
-	m	()Z	r	method_21834	method_21834
+	m	()Z	r	method_21834	hasAvailableUses
 	m	()Z	s	method_8256	shouldRewardPlayerExperience
 	m	()Lmn;	t	method_8251	toTag
 	f	Lbnc;	a	field_9146	firstBuyItem
@@ -26186,12 +26309,13 @@ c	bse	net/minecraft/class_1919	net/minecraft/server/world/BlockEvent
 c	bsf	net/minecraft/class_1922	net/minecraft/world/BlockView
 	c	Represents a scoped, read-only view of block states, fluid states and block entities.
 	m	()I	N	method_8315	getMaxLightLevel
-	m	(Lbsi;)Ldgz;	a	method_32880	method_32880
+	m	(Lbsi;)Ldgz;	a	method_32880	raycast
 	m	(Lbsi;Lfx;)Ldgz;	a	method_32881	method_32881
 	m	(Lbsj;)Ldgz;	a	method_17742	raycast
 		p	1			context
 	m	(Lbsj;Lfx;)Ldgz;	a	method_17743	method_17743
-	m	(Ldgy;)Ljava/util/stream/Stream;	a	method_29546	method_29546
+	m	(Ldgy;)Ljava/util/stream/Stream;	a	method_29546	getStatesInBox
+		p	1			box
 	m	(Ldhd;Ldhd;Lfx;Ldhw;Lcgl;)Ldgz;	a	method_17745	raycastBlock
 		p	1			start
 		p	2			end
@@ -26292,13 +26416,17 @@ c	bsh$a	net/minecraft/class_4296$class_4989	net/minecraft/server/world/SimpleTic
 	f	I	b	field_23258	delay
 	f	Lbtv;	c	field_23259	priority
 	f	Ljava/lang/Object;	d	field_23260	object
-c	bsi	net/minecraft/class_5702	net/minecraft/class_5702
-	m	()Ldhd;	a	method_32883	method_32883
-	m	()Ldhd;	b	method_32884	method_32884
-	m	()Ljava/util/function/Predicate;	c	method_32885	method_32885
-	f	Ldhd;	a	field_28102	field_28102
-	f	Ldhd;	b	field_28103	field_28103
-	f	Ljava/util/function/Predicate;	c	field_28104	field_28104
+c	bsi	net/minecraft/class_5702	net/minecraft/world/BlockStateRaycastContext
+	m	(Ldhd;Ldhd;Ljava/util/function/Predicate;)V	<init>	<init>	<init>
+		p	1			start
+		p	2			end
+		p	3			state
+	m	()Ldhd;	a	method_32883	getEnd
+	m	()Ldhd;	b	method_32884	getStart
+	m	()Ljava/util/function/Predicate;	c	method_32885	getState
+	f	Ldhd;	a	field_28102	start
+	f	Ldhd;	b	field_28103	end
+	f	Ljava/util/function/Predicate;	c	field_28104	state
 c	bsj	net/minecraft/class_3959	net/minecraft/world/RaycastContext
 	m	(Ldhd;Ldhd;Lbsj$a;Lbsj$b;Laqq;)V	<init>	<init>	<init>
 		p	1			start
@@ -26412,7 +26540,8 @@ c	bsl	net/minecraft/class_5329	net/minecraft/world/BlockCollisionSpliterator
 	f	Z	h	field_25175	checkEntity
 	f	Ljava/util/function/BiPredicate;	i	field_25669	blockPredicate
 c	bsm	net/minecraft/class_5423	net/minecraft/class_5423
-	m	(Lfx;)Ljava/util/Optional;	h	method_31081	method_31081
+	m	(Lfx;)Ljava/util/Optional;	h	method_31081	getBiomeKey
+		p	1			pos
 	m	()Lgo;	s	method_30349	getRegistryManager
 c	bsn	net/minecraft/class_5304	net/minecraft/world/gen/Spawner
 	c	Handles spawning entities in a world.\n\n<p>A spawner is typically used to spawn entities within a special context, such as cats in a village or wandering traders.
@@ -27071,6 +27200,7 @@ c	btb	net/minecraft/class_1937	net/minecraft/world/World
 		p	2			pos
 	m	(Lbvx;)Ljava/lang/String;	a	method_8473	method_8473
 	m	(Lcej;)V	a	method_8438	addBlockEntity
+		p	1			blockEntity
 	m	(Lcfq;)V	a	method_31594	addBlockEntityTicker
 	m	(Lfx;Laqq;)Z	a	method_8515	isTopSolid
 		p	1			pos
@@ -27085,6 +27215,7 @@ c	btb	net/minecraft/class_1937	net/minecraft/world/World
 		p	3			type
 		p	4			data
 	m	(Lfx;Lbvx;Lfx;)V	a	method_8492	updateNeighbor
+		p	1			pos
 		p	2			sourceBlock
 		p	3			neighborPos
 	m	(Lfx;Lbvx;Lgc;)V	a	method_8508	updateNeighborsExcept
@@ -27186,6 +27317,7 @@ c	btb	net/minecraft/class_1937	net/minecraft/world/World
 	m	(F)V	e	method_8519	setRainGradient
 		p	1			rainGradient
 	m	(Lfx;)Z	i	method_24794	isInBuildLimit
+		p	1			pos
 	m	(Lfx;)Z	j	method_25953	isValid
 		p	0			pos
 	m	(Lfx;)Lcin;	k	method_8500	getWorldChunk
@@ -27194,6 +27326,7 @@ c	btb	net/minecraft/class_1937	net/minecraft/world/World
 		p	1			pos
 	m	()Lnet/minecraft/server/MinecraftServer;	m	method_8503	getServer
 	m	(Lfx;)Z	m	method_8477	canSetBlock
+		p	1			pos
 	m	(Lfx;)V	n	method_8524	markDirty
 		p	1			pos
 	m	(Lfx;)I	o	method_8488	getReceivedStrongRedstonePower
@@ -27243,8 +27376,14 @@ c	btc	net/minecraft/class_1936	net/minecraft/world/WorldAccess
 	m	()Lcif;	K	method_8398	getChunkManager
 	m	()Lbtt;	L	method_8405	getFluidTickScheduler
 	m	()Lbtt;	M	method_8397	getBlockTickScheduler
-	m	(Laqq;Lckk;Laqq;)V	a	method_32887	method_32887
-	m	(Laqq;Lckk;Lfx;)V	a	method_32888	method_32888
+	m	(Laqq;Lckk;Laqq;)V	a	method_32887	sendGameEvent
+		p	1			entity
+		p	2			event
+		p	3			sender
+	m	(Laqq;Lckk;Lfx;)V	a	method_32888	sendGameEvent
+		p	1			entity
+		p	2			event
+		p	3			pos
 	m	(Lbgr;ILfx;I)V	a	method_8444	syncWorldEvent
 		p	1			player
 		p	2			eventId
@@ -27257,7 +27396,9 @@ c	btc	net/minecraft/class_1936	net/minecraft/world/WorldAccess
 		p	4			category
 		p	5			volume
 		p	6			pitch
-	m	(Lckk;Lfx;)V	a	method_32889	method_32889
+	m	(Lckk;Lfx;)V	a	method_32889	sendGameEvent
+		p	1			event
+		p	2			pos
 	m	(Lfx;Lbvx;)V	a	method_8408	updateNeighbors
 		p	1			pos
 		p	2			block
@@ -28747,12 +28888,17 @@ c	but	net/minecraft/class_2275	net/minecraft/block/AbstractCauldronBlock
 		p	2			behaviorMap
 	m	(Lcgl;)D	a	method_31615	getFluidHeight
 		p	1			state
-	m	(Lcgl;Lbtb;Lfx;Lcyt;)V	a	method_32764	method_32764
+	m	(Lcgl;Lbtb;Lfx;Lcyt;)V	a	method_32764	fillFromDripstone
+		p	1			state
+		p	2			world
+		p	3			pos
+		p	4			fluid
 	m	(Lcgl;Lfx;Laqq;)Z	a	method_31616	isEntityTouchingFluid
 		p	1			state
 		p	2			pos
 		p	3			entity
-	m	(Lcyt;)Z	a	method_32765	method_32765
+	m	(Lcyt;)Z	a	method_32765	canBeFilledByDripstone
+		p	1			fluid
 	f	Ldhw;	a	field_10746	OUTLINE_SHAPE
 	f	Ldhw;	b	field_10747	RAY_TRACE_SHAPE
 	f	Ljava/util/Map;	c	field_27084	behaviorMap
@@ -28767,7 +28913,10 @@ c	buu	net/minecraft/class_4739	net/minecraft/block/AbstractChestBlock
 		p	4			ignoreBlocked
 	f	Ljava/util/function/Supplier;	a	field_21796	entityTypeRetriever
 c	buv	net/minecraft/class_2363	net/minecraft/block/AbstractFurnaceBlock
-	m	(Lbtb;Lcel;Lcel;)Lcek;	a	method_31617	method_31617
+	m	(Lbtb;Lcel;Lcel;)Lcek;	a	method_31617	checkType
+		p	0			world
+		p	1			givenType
+		p	2			expectedType
 	m	(Lbtb;Lfx;Lbgr;)V	a	method_17025	openScreen
 		p	1			world
 		p	2			pos
@@ -28828,10 +28977,12 @@ c	bvb	net/minecraft/class_2199	net/minecraft/block/AnvilBlock
 c	bvc	net/minecraft/class_2195	net/minecraft/block/AttachedStemBlock
 	m	(Lccm;Ljava/util/function/Supplier;Lcgk$c;)V	<init>	<init>	<init>
 		p	1			gourdBlock
+		p	2			pickBlockItem
+		p	3			settings
 	f	Lchf;	a	field_9873	FACING
 	f	Ljava/util/Map;	b	field_9874	FACING_TO_SHAPE
 	f	Lccm;	c	field_9875	gourdBlock
-	f	Ljava/util/function/Supplier;	d	field_27095	field_27095
+	f	Ljava/util/function/Supplier;	d	field_27095	pickBlockItem
 c	bvd	net/minecraft/class_2211	net/minecraft/block/BambooBlock
 	m	(Lbsf;Lfx;)I	a	method_9387	countBambooAbove
 		p	1			world
@@ -28897,7 +29048,8 @@ c	bvn	net/minecraft/class_4770	net/minecraft/block/AbstractFireBlock
 	m	(Lbsf;Lfx;)Lcgl;	a	method_24416	getState
 		p	0			world
 		p	1			pos
-	m	(Lbtb;)Z	a	method_30366	method_30366
+	m	(Lbtb;)Z	a	method_30366	isOverworldOrNether
+		p	0			world
 	m	(Lbtb;Lfx;Lgc;)Z	a	method_30032	method_30032
 	m	(Lbtb;Lfx;Lgc;)Z	b	method_30033	method_30033
 	m	(Lcgl;)Z	f	method_10195	isFlammable
@@ -28960,7 +29112,7 @@ c	bvp	net/minecraft/class_2241	net/minecraft/block/AbstractRailBlock
 		p	0			state
 	f	Ldhw;	a	field_9958	STRAIGHT_SHAPE
 	f	Ldhw;	b	field_9960	ASCENDING_SHAPE
-	f	Lchc;	c	field_27096	field_27096
+	f	Lchc;	c	field_27096	WATERLOGGED
 	f	Z	d	field_9959	allowCurves
 c	bvp$1	net/minecraft/class_2241$1	net/minecraft/block/AbstractRailBlock$1
 	f	[I	a	field_24465	field_24465
@@ -28975,6 +29127,7 @@ c	bvs	net/minecraft/class_2244	net/minecraft/block/BedBlock
 		p	1			entity
 	m	(Laqu;Lbsk;Lfx;F)Ljava/util/Optional;	a	method_9484	findWakeUpPosition
 		p	0			type
+		p	1			view
 		p	2			pos
 	m	(Laqu;Lbsk;Lfx;Lgc;Lgc;)Ljava/util/Optional;	a	method_30835	method_30835
 	m	(Laqu;Lbsk;Lfx;[[IZ)Ljava/util/Optional;	a	method_30836	method_30836
@@ -28992,7 +29145,9 @@ c	bvs	net/minecraft/class_2244	net/minecraft/block/BedBlock
 		p	1			direction
 	m	(Lgc;)[[I	a	method_30837	method_30837
 	m	(Lgc;Lgc;)[[I	a	method_30838	method_30838
-	m	(Lbsf;Lfx;)Z	b	method_30839	method_30839
+	m	(Lbsf;Lfx;)Z	b	method_30839	isBed
+		p	0			view
+		p	1			pos
 	m	(Lgc;Lgc;)[[I	b	method_30840	method_30840
 	m	()Lbly;	c	method_9487	getColor
 	m	(Lcgl;)Lgc;	g	method_24163	getOppositePartDirection
@@ -29061,9 +29216,12 @@ c	bvv	net/minecraft/class_3709	net/minecraft/block/BellBlock
 	m	(Lbtb;Lcgl;Ldgz;Lbgr;Z)Z	a	method_19285	ring
 		p	1			world
 		p	2			state
+		p	3			hitResult
+		p	4			player
 	m	(Lbtb;Lfx;Lgc;)Z	a	method_17026	ring
 		p	1			world
 		p	2			pos
+		p	3			direction
 	m	(Lcgl;Lgc;D)Z	a	method_17028	isPointOnBell
 		p	1			state
 		p	2			side
@@ -29188,6 +29346,7 @@ c	bvx	net/minecraft/class_2248	net/minecraft/block/Block
 		p	0			state
 		p	1			world
 		p	2			pos
+		p	3			side
 	m	(Lcgl;Lbtb;Lfx;Lbua$e;)V	a	method_9504	precipitationTick
 		p	1			state
 		p	2			world
@@ -29278,6 +29437,7 @@ c	bvx	net/minecraft/class_2248	net/minecraft/block/Block
 		p	0			state
 	m	()F	j	method_23349	getVelocityMultiplier
 	m	(Lcgl;)Z	j	method_9581	cannotConnect
+		p	0			state
 	m	(Lcgl;)V	k	method_9590	setDefaultState
 		p	1			state
 	m	()F	l	method_23350	getJumpVelocityMultiplier
@@ -29325,13 +29485,16 @@ c	bvy	net/minecraft/class_2246	net/minecraft/block/Blocks
 	m	(I)Ljava/util/function/ToIntFunction;	a	method_26107	createLightLevelFromBlockState
 		p	0			litLevel
 	m	(ILcgl;)I	a	method_26108	method_26108
+		p	1			state
 	m	(Lbly;)Lbvs;	a	method_26109	createBedBlock
 		p	0			color
 	m	(Lbly;Lcgk$c;)Lcbr;	a	method_26110	createShulkerBoxBlock
 		p	0			color
 		p	1			settings
 	m	(Lbly;Lcgl;)Lcyz;	a	method_26111	method_26111
+		p	1			state
 	m	(Lcgl;)I	a	method_32894	method_32894
+		p	0			state
 	m	(Lcgl;Lbsf;Lfx;)Z	a	method_26113	always
 		c	A shortcut to always return {@code true} a context predicate, used as\n{@code settings.solidBlock(Blocks::always)}.
 		p	0			state
@@ -29346,10 +29509,12 @@ c	bvy	net/minecraft/class_2246	net/minecraft/block/Blocks
 	m	(Lcyz;)Lbvx;	a	method_26115	createNetherStemBlock
 		p	0			materialColor
 	m	(Lcyz;Lcgl;)Lcyz;	a	method_26116	method_26116
+		p	1			state
 	m	(Lcyz;Lcyz;)Lcbj;	a	method_26117	createLogBlock
 		p	0			topMaterialColor
 		p	1			sideMaterialColor
 	m	(Lcyz;Lcyz;Lcgl;)Lcyz;	a	method_26118	method_26118
+		p	2			state
 	m	(Ljava/lang/String;Lbvx;)Lbvx;	a	method_9492	register
 		p	0			id
 		p	1			block
@@ -29375,6 +29540,9 @@ c	bvy	net/minecraft/class_2246	net/minecraft/block/Blocks
 	m	(Lcgl;)I	c	method_26121	method_26121
 		p	0			state
 	m	(Lcgl;Lbsf;Lfx;)Z	c	method_32895	method_32895
+		p	0			state
+		p	1			view
+		p	2			pos
 	m	(Lcgl;Lbsf;Lfx;Laqu;)Ljava/lang/Boolean;	c	method_26126	canSpawnOnLeaves
 		p	0			state
 		p	1			world
@@ -29384,6 +29552,9 @@ c	bvy	net/minecraft/class_2246	net/minecraft/block/Blocks
 	m	(Lcgl;)I	d	method_26124	method_26124
 		p	0			state
 	m	(Lcgl;Lbsf;Lfx;)Z	d	method_26125	method_26125
+		p	0			state
+		p	1			view
+		p	2			pos
 	m	(Lcgl;Lbsf;Lfx;Laqu;)Z	d	method_26128	method_26128
 		p	0			state
 		p	1			world
@@ -29393,6 +29564,9 @@ c	bvy	net/minecraft/class_2246	net/minecraft/block/Blocks
 	m	(Lcgl;)I	e	method_26127	method_26127
 		p	0			state
 	m	(Lcgl;Lbsf;Lfx;)Z	e	method_27091	method_27091
+		p	0			state
+		p	1			view
+		p	2			pos
 	m	(Lcgl;Lbsf;Lfx;Laqu;)Z	e	method_26130	method_26130
 		p	0			state
 		p	1			world
@@ -30393,7 +30567,8 @@ c	bwc	net/minecraft/class_2263	net/minecraft/block/FluidDrainable
 		p	3			state
 	m	()Ljava/util/Optional;	c	method_32351	getDrainSound
 c	bwd	net/minecraft/class_5543	net/minecraft/block/BuddingAmethystBlock
-	m	(Lcgl;)Z	g	method_31626	method_31626
+	m	(Lcgl;)Z	g	method_31626	canGrowIn
+		p	0			state
 	f	[Lgc;	a	field_27172	DIRECTIONS
 c	bwe	net/minecraft/class_2261	net/minecraft/block/PlantBlock
 	m	(Lcgl;Lbsf;Lfx;)Z	d	method_9695	canPlantOnTop
@@ -30480,7 +30655,8 @@ c	bwi	net/minecraft/class_3922	net/minecraft/block/CampfireBlock
 		p	2			state
 	m	(Lcgl;)Z	g	method_23896	isLitCampfire
 		p	0			state
-	m	(Lcgl;)Z	h	method_30035	method_30035
+	m	(Lcgl;)Z	h	method_30035	canBeLit
+		p	0			state
 	m	(Lcgl;)Z	m	method_17456	doesBlockCauseSignalFire
 		p	1			state
 	f	Ldhw;	a	field_17351	SHAPE
@@ -30517,7 +30693,7 @@ c	bwk	net/minecraft/class_5545	net/minecraft/block/CandleCakeBlock
 		p	0			candle
 	m	(Lcgl;Lcgk$a;)Z	a	method_31633	method_31633
 		p	1			state
-	m	(Ldgz;)Z	a	method_31634	method_31634
+	m	(Ldgz;)Z	a	method_31634	isHittingCandle
 		p	0			hitResult
 	m	(Lcgl;)Z	g	method_31635	canBeLit
 		p	0			state
@@ -30537,6 +30713,7 @@ c	bwn	net/minecraft/class_2276	net/minecraft/block/CarvedPumpkinBlock
 		p	1			world
 		p	2			pos
 	m	(Lbte;Lfx;)Z	a	method_9733	canDispense
+		p	1			world
 		p	2			pos
 	m	()Lcgq;	c	method_9732	getSnowGolemDispenserPattern
 	m	()Lcgq;	e	method_9729	getSnowGolemPattern
@@ -30689,6 +30866,9 @@ c	bwx	net/minecraft/class_2282	net/minecraft/block/CocoaBlock
 c	bwx$1	net/minecraft/class_2282$1	net/minecraft/block/CocoaBlock$1
 	f	[I	a	field_10781	field_10781
 c	bwy	net/minecraft/class_2288	net/minecraft/block/CommandBlock
+	m	(Lcgk$c;Z)V	<init>	<init>	<init>
+		p	1			settings
+		p	2			auto
 	m	(Lbtb;Lfx;Lgc;)V	a	method_9779	executeCommandChain
 		p	0			world
 		p	1			pos
@@ -30702,7 +30882,7 @@ c	bwy	net/minecraft/class_2288	net/minecraft/block/CommandBlock
 	f	Lchf;	a	field_10791	FACING
 	f	Lchc;	b	field_10793	CONDITIONAL
 	f	Lorg/apache/logging/log4j/Logger;	c	field_10792	LOGGER
-	f	Z	d	field_27192	field_27192
+	f	Z	d	field_27192	auto
 c	bwz	net/minecraft/class_2286	net/minecraft/block/ComparatorBlock
 	m	(Lbtb;Lgc;Lfx;)Lbdk;	a	method_9774	getAttachedItemFrame
 		p	1			world
@@ -30712,6 +30892,7 @@ c	bwz	net/minecraft/class_2286	net/minecraft/block/ComparatorBlock
 	m	(Lbtb;Lfx;Lcgl;)I	e	method_9773	calculateOutputSignal
 		p	1			world
 		p	2			pos
+		p	3			state
 	m	(Lbtb;Lfx;Lcgl;)V	f	method_9775	update
 		p	1			world
 		p	2			pos
@@ -30896,7 +31077,10 @@ c	bxj$1	net/minecraft/class_2310$1	net/minecraft/block/HorizontalConnectingBlock
 c	bxk	net/minecraft/class_4848	net/minecraft/block/CryingObsidianBlock
 c	bxl	net/minecraft/class_2309	net/minecraft/block/DaylightDetectorBlock
 	m	(Lbtb;Lfx;Lcgl;Lceu;)V	a	method_31642	tick
+		p	0			world
 		p	1			pos
+		p	2			state
+		p	3			blockEntity
 	m	(Lcgl;Lbtb;Lfx;)V	d	method_9983	updateState
 		p	0			state
 		p	1			world
@@ -30920,6 +31104,7 @@ c	bxn	net/minecraft/class_2313	net/minecraft/block/DetectorRailBlock
 	m	(Lfx;)Ldgy;	a	method_10004	getCartDetectionBox
 		p	1			pos
 	m	(Laqq;)Z	b	method_31644	method_31644
+		p	0			entity
 	m	(Lbtb;Lfx;Lcgl;Z)V	b	method_10003	updateNearbyRails
 		p	1			world
 		p	2			pos
@@ -30937,6 +31122,7 @@ c	bxo	net/minecraft/class_2312	net/minecraft/block/AbstractRedstoneGateBlock
 		p	2			pos
 		p	3			state
 	m	(Lbte;Lfx;Lcgl;)Z	a	method_9996	isLocked
+		p	1			world
 		p	2			pos
 		p	3			state
 	m	(Lbsf;Lfx;Lcgl;)I	b	method_9993	getOutputLevel
@@ -30981,6 +31167,7 @@ c	bxq	net/minecraft/class_2369	net/minecraft/block/GrassPathBlock
 	f	Ldhw;	a	field_11106	SHAPE
 c	bxr	net/minecraft/class_2315	net/minecraft/block/DispenserBlock
 	m	(Laas;Lfx;)V	a	method_10012	dispense
+		p	1			world
 		p	2			pos
 	m	(Lbnc;)Lgy;	a	method_10011	getBehaviorForItem
 		p	1			stack
@@ -30995,6 +31182,11 @@ c	bxr	net/minecraft/class_2315	net/minecraft/block/DispenserBlock
 	f	Ljava/util/Map;	c	field_10919	BEHAVIORS
 c	bxs	net/minecraft/class_2323	net/minecraft/block/DoorBlock
 	m	(Laqq;Lbtb;Lcgl;Lfx;Z)V	a	method_10033	setOpen
+		p	1			entity
+		p	2			world
+		p	3			state
+		p	4			pos
+		p	5			open
 	m	(Lbtb;Lfx;)Z	a	method_24795	isWoodenDoor
 		p	0			world
 		p	1			pos
@@ -31117,7 +31309,9 @@ c	byc	net/minecraft/class_2336	net/minecraft/block/EnderChestBlock
 	f	Ldhw;	d	field_10967	SHAPE
 	f	Lof;	e	field_17363	CONTAINER_NAME
 c	byd	net/minecraft/class_2343	net/minecraft/block/BlockEntityProvider
-	m	(Lbtb;Lcej;)Lckm;	a	method_32896	method_32896
+	m	(Lbtb;Lcej;)Lckm;	a	method_32896	getGameEventListener
+		p	1			world
+		p	2			blockEntity
 	m	(Lbtb;Lcgl;Lcel;)Lcek;	a	method_31645	getTicker
 		p	1			world
 		p	2			state
@@ -31127,6 +31321,7 @@ c	byd	net/minecraft/class_2343	net/minecraft/block/BlockEntityProvider
 		p	2			state
 c	bye	net/minecraft/class_2341	net/minecraft/block/WallMountedBlock
 	m	(Lbte;Lfx;Lgc;)Z	b	method_20046	canPlaceAt
+		p	0			world
 		p	1			pos
 		p	2			direction
 	m	(Lcgl;)Lgc;	h	method_10119	getDirection
@@ -31135,7 +31330,7 @@ c	bye	net/minecraft/class_2341	net/minecraft/block/WallMountedBlock
 c	bye$1	net/minecraft/class_2341$1	net/minecraft/block/WallMountedBlock$1
 	f	[I	a	field_11008	field_11008
 c	byf	net/minecraft/class_5688	net/minecraft/block/LandingBlock
-	m	()Ljava/util/function/Predicate;	a	method_32897	method_32897
+	m	()Ljava/util/function/Predicate;	a	method_32897	getEntityPredicate
 	m	(Lbtb;Lfx;Lbdp;)V	a	method_10129	onDestroyedOnLanding
 		p	1			world
 		p	2			pos
@@ -31146,7 +31341,7 @@ c	byf	net/minecraft/class_5688	net/minecraft/block/LandingBlock
 		p	3			fallingBlockState
 		p	4			currentStateInPos
 		p	5			fallingBlockEntity
-	m	()Laqa;	b	method_32898	method_32898
+	m	()Laqa;	b	method_32898	getDamageSource
 c	byg	net/minecraft/class_2346	net/minecraft/block/FallingBlock
 	m	(Lbdp;)V	a	method_10132	configureFallingBlockEntity
 		p	1			entity
@@ -31177,6 +31372,7 @@ c	byi	net/minecraft/class_2354	net/minecraft/block/FenceBlock
 		p	2			neighborIsFullSquare
 		p	3			dir
 	m	(Lcgl;)Z	h	method_26375	isFence
+		p	1			state
 	f	[Ldhw;	i	field_11066	cullingShapes
 c	byj	net/minecraft/class_2349	net/minecraft/block/FenceGateBlock
 	m	(Lcgl;Lgc;)Z	a	method_16703	canWallConnect
@@ -31209,15 +31405,19 @@ c	byk	net/minecraft/class_2358	net/minecraft/block/FireBlock
 		p	3			spreadFactor
 		p	4			rand
 		p	5			currentAge
-	m	(Lbtc;Lfx;I)Lcgl;	a	method_24855	method_24855
+	m	(Lbtc;Lfx;I)Lcgl;	a	method_24855	getStateWithAge
+		p	1			world
+		p	2			pos
+		p	3			age
 	m	(Lbte;Lfx;)I	a	method_10194	getBurnChance
+		p	1			world
 		p	2			pos
 	m	(Lbvx;II)V	a	method_10189	registerFlammableBlock
 		p	1			block
 		p	2			burnChance
 		p	3			spreadChance
 	m	(Ljava/util/Map$Entry;)Z	a	method_10197	method_10197
-	m	(Ljava/util/Random;)I	a	method_26155	method_26155
+	m	(Ljava/util/Random;)I	a	method_26155	getFireTickDelay
 	m	(Lbsf;Lfx;)Lcgl;	b	method_10198	getStateForPosition
 		p	1			world
 		p	2			pos
@@ -31225,12 +31425,14 @@ c	byk	net/minecraft/class_2358	net/minecraft/block/FireBlock
 	m	(Lbsf;Lfx;)Z	d	method_10193	areBlocksAroundFlammable
 		p	1			world
 		p	2			pos
-	m	(Lcgl;)Ldhw;	h	method_31016	method_31016
+	m	(Lcgl;)Ldhw;	h	method_31016	getShapeForState
+		p	0			state
 	m	(Lcgl;)I	m	method_10190	getSpreadChance
 		p	1			state
 	m	(Lcgl;)I	n	method_10191	getBurnChance
 		p	1			state
 	m	(Lcgl;)Z	o	method_31017	method_31017
+		p	0			state
 	f	Lchl;	b	field_11092	AGE
 	f	Lchc;	c	field_11096	NORTH
 	f	Lchc;	d	field_11094	EAST
@@ -31238,12 +31440,12 @@ c	byk	net/minecraft/class_2358	net/minecraft/block/FireBlock
 	f	Lchc;	f	field_11088	WEST
 	f	Lchc;	g	field_11093	UP
 	f	Ljava/util/Map;	h	field_11090	DIRECTION_PROPERTIES
-	f	Ldhw;	i	field_26653	field_26653
-	f	Ldhw;	j	field_26654	field_26654
-	f	Ldhw;	k	field_26655	field_26655
-	f	Ldhw;	o	field_26656	field_26656
-	f	Ldhw;	p	field_26657	field_26657
-	f	Ljava/util/Map;	q	field_26658	field_26658
+	f	Ldhw;	i	field_26653	UP_SHAPE
+	f	Ldhw;	j	field_26654	WEST_SHAPE
+	f	Ldhw;	k	field_26655	EAST_SHAPE
+	f	Ldhw;	o	field_26656	NORTH_SHAPE
+	f	Ldhw;	p	field_26657	SOUTH_SHAPE
+	f	Ljava/util/Map;	q	field_26658	voxelShapes
 	f	Lit/unimi/dsi/fastutil/objects/Object2IntMap;	r	field_11095	burnChances
 	f	Lit/unimi/dsi/fastutil/objects/Object2IntMap;	s	field_11091	spreadChances
 c	byl	net/minecraft/class_3712	net/minecraft/block/FletchingTableBlock
@@ -31262,7 +31464,7 @@ c	byn	net/minecraft/class_2362	net/minecraft/block/FlowerPotBlock
 		p	1			content
 		p	2			settings
 	m	()Lbvx;	c	method_16231	getContent
-	m	()Z	e	method_31646	method_31646
+	m	()Z	e	method_31646	isEmpty
 	f	Ldhw;	a	field_11102	SHAPE
 	f	Ljava/util/Map;	b	field_11103	CONTENT_TO_POTTED
 	f	Lbvx;	c	field_11101	content
@@ -31279,10 +31481,11 @@ c	byo	net/minecraft/class_2360	net/minecraft/block/FrostedIceBlock
 c	byp	net/minecraft/class_4771	net/minecraft/block/FungusBlock
 	m	(Lcgk$c;Ljava/util/function/Supplier;)V	<init>	<init>	<init>
 		p	1			settings
+		p	2			feature
 	f	Ldhw;	a	field_22134	SHAPE
-	f	Ljava/util/function/Supplier;	b	field_22135	field_22135
+	f	Ljava/util/function/Supplier;	b	field_22135	feature
 c	byq	net/minecraft/class_3865	net/minecraft/block/FurnaceBlock
-c	byr	net/minecraft/class_5552	net/minecraft/class_5552
+c	byr	net/minecraft/class_5552	net/minecraft/block/OperatorBlock
 c	bys	net/minecraft/class_2368	net/minecraft/block/GlassBlock
 c	byt	net/minecraft/class_2366	net/minecraft/block/GlazedTerracottaBlock
 c	byu	net/minecraft/class_2372	net/minecraft/block/GrassBlock
@@ -31369,6 +31572,7 @@ c	byx	net/minecraft/class_4863	net/minecraft/block/AbstractPlantPartBlock
 	m	()Lbyz;	c	method_24945	getStem
 	m	()Lbvx;	d	method_24946	getPlant
 	m	(Lcgl;)Z	h	method_24947	canAttachTo
+		p	1			state
 	f	Lgc;	a	field_22507	growthDirection
 	f	Z	b	field_22508	tickWater
 	f	Ldhw;	c	field_23080	outlineShape
@@ -31550,6 +31754,7 @@ c	bzh	net/minecraft/class_2384	net/minecraft/block/InfestedBlock
 		p	2			settings
 			c	block settings
 	m	(Laas;Lfx;)V	a	method_24797	spawnSilverfish
+		p	1			world
 		p	2			pos
 	m	(Lbvx;)Lcgl;	a	method_10270	fromRegularBlock
 		p	0			regularBlock
@@ -31567,7 +31772,9 @@ c	bzj	net/minecraft/class_3748	net/minecraft/block/JigsawBlock
 		p	1			info2
 	m	(Lgc;)Lcfc$a;	a	method_26377	method_26377
 	m	(Lcgl;)Lgc;	h	method_26378	getFacing
+		p	0			state
 	m	(Lcgl;)Lgc;	m	method_26379	getRotation
+		p	0			state
 	f	Lchj;	a	field_23262	ORIENTATION
 c	bzk	net/minecraft/class_2387	net/minecraft/block/JukeboxBlock
 	m	(Lbtb;Lfx;)V	a	method_10277	removeRecord
@@ -31599,7 +31806,7 @@ c	bzo	net/minecraft/class_3749	net/minecraft/block/LanternBlock
 	m	(Lcgl;)Lgc;	h	method_16370	attachedDirection
 		p	0			state
 	f	Lchc;	a	field_16545	HANGING
-	f	Lchc;	b	field_26441	field_26441
+	f	Lchc;	b	field_26441	WATERLOGGED
 	f	Ldhw;	c	field_16546	STANDING_SHAPE
 	f	Ldhw;	d	field_16544	HANGING_SHAPE
 c	bzp	net/minecraft/class_5553	net/minecraft/block/LavaCauldronBlock
@@ -31612,7 +31819,8 @@ c	bzq	net/minecraft/class_5556	net/minecraft/block/LeveledCauldronBlock
 		p	0			precipitation
 	m	(Lbua$e;)Z	b	method_32353	method_32353
 		p	0			precipitation
-	m	(Lcgl;)Z	b_	method_32766	method_32766
+	m	(Lcgl;)Z	b_	method_32766	isFull
+		p	1			state
 	m	(Lcgl;Lbtb;Lfx;)V	d	method_31650	decrementFluidLevel
 		p	0			state
 		p	1			world
@@ -31706,7 +31914,10 @@ c	bzu$1	net/minecraft/class_2401$1	net/minecraft/block/LeverBlock$1
 	f	[I	b	field_11270	field_11270
 	f	[I	c	field_11269	field_11269
 c	bzv	net/minecraft/class_5554	net/minecraft/block/LightningRodBlock
-	m	(Lcgl;Lbtb;Lfx;)V	d	method_31648	method_31648
+	m	(Lcgl;Lbtb;Lfx;)V	d	method_31648	setPowered
+		p	1			state
+		p	2			world
+		p	3			pos
 	f	Lchc;	b	field_27193	POWERED
 c	bzw	net/minecraft/class_2404	net/minecraft/block/FluidBlock
 	m	(Lcys;Lcgk$c;)V	<init>	<init>	<init>
@@ -31878,12 +32089,16 @@ c	cab	net/minecraft/class_2415	net/minecraft/util/BlockMirror
 c	cab$1	net/minecraft/class_2415$1	net/minecraft/util/BlockMirror$1
 	f	[I	a	field_11303	field_11303
 c	cac	net/minecraft/class_2420	net/minecraft/block/MushroomPlantBlock
+	m	(Lcgk$c;Ljava/util/function/Supplier;)V	<init>	<init>	<init>
+		p	1			settings
+		p	2			feature
 	m	(Laas;Lfx;Lcgl;Ljava/util/Random;)Z	a	method_10349	trySpawningBigMushroom
+		p	1			world
 		p	2			pos
 		p	3			state
 		p	4			random
 	f	Ldhw;	a	field_11304	SHAPE
-	f	Ljava/util/function/Supplier;	b	field_27194	field_27194
+	f	Ljava/util/function/Supplier;	b	field_27194	feature
 c	cad	net/minecraft/class_2418	net/minecraft/block/MyceliumBlock
 c	cae	net/minecraft/class_2423	net/minecraft/block/NetherPortalBlock
 	f	Lchj;	a	field_11310	AXIS
@@ -31924,7 +32139,10 @@ c	cal	net/minecraft/class_2426	net/minecraft/block/ObserverBlock
 		p	2			pos
 	f	Lchc;	b	field_11322	POWERED
 c	cam	net/minecraft/class_2431	net/minecraft/block/OreBlock
-	f	Lafv;	a	field_27195	field_27195
+	m	(Lcgk$c;Lafv;)V	<init>	<init>	<init>
+		p	1			settings
+		p	2			experienceDropped
+	f	Lafv;	a	field_27195	experienceDropped
 c	can	net/minecraft/class_2429	net/minecraft/block/ConnectingBlock
 	m	(FLcgk$c;)V	<init>	<init>	<init>
 		p	1			radius
@@ -31946,20 +32164,42 @@ c	can	net/minecraft/class_2429	net/minecraft/block/ConnectingBlock
 c	cao	net/minecraft/class_2435	net/minecraft/block/PlayerSkullBlock
 c	cap	net/minecraft/class_2433	net/minecraft/block/WallPlayerSkullBlock
 c	caq	net/minecraft/class_5689	net/minecraft/block/PointedDripstoneBlock
-	m	(Lbtb;Lfx;)Lfx;	a	method_32767	method_32767
+	m	(Lbtb;Lfx;)Lfx;	a	method_32767	getDripPos
+		p	0			world
+		p	1			pos
 	m	(Lbtb;Lfx;Lcgl;)V	a	method_32899	method_32899
 	m	(Lbtb;Lfx;Lcgl;I)Lfx;	a	method_32776	getSupportingPos
 		p	0			world
 		p	1			pos
 		p	2			state
 	m	(Lbtb;Lfx;Lcgl;Lcaq$a;)V	a	method_32768	createParticle
-	m	(Lbtb;Lfx;Lcyt;)Lfx;	a	method_32769	method_32769
-	m	(Lbte;Lfx;Lgc;Z)Lchi;	a	method_32770	method_32770
-	m	(Lcgl;Laas;Lfx;)V	a	method_32771	method_32771
-	m	(Lcgl;Laas;Lfx;F)V	a	method_32772	method_32772
-	m	(Lcgl;Lbtc;Lfx;)V	a	method_32773	method_32773
+		p	0			world
+		p	1			pos
+		p	2			state
+	m	(Lbtb;Lfx;Lcyt;)Lfx;	a	method_32769	getCauldronPos
+		p	0			world
+		p	1			pos
+		p	2			fluid
+	m	(Lbte;Lfx;Lgc;Z)Lchi;	a	method_32770	getThickness
+		p	0			world
+		p	1			pos
+		p	2			direction
+		p	3			tryMerge
+	m	(Lcgl;Laas;Lfx;)V	a	method_32771	spawnFallingBlock
+		p	0			state
+		p	1			world
+		p	2			pos
+	m	(Lcgl;Laas;Lfx;F)V	a	method_32772	dripTick
+		p	0			state
+		p	1			world
+		p	2			pos
+		p	3			dripChance
+	m	(Lcgl;Lbtc;Lfx;)V	a	method_32773	scheduleFall
+		p	1			state
+		p	2			world
+		p	3			pos
 	m	(Lcgl;Lbtc;Lfx;I)Lfx;	a	method_32782	method_32782
-	m	(Lcgl;Lgc;)Z	a	method_32774	isPointedDripstone
+	m	(Lcgl;Lgc;)Z	a	method_32774	isPointedDripstoneFacingDirection
 		p	0			state
 		p	1			direction
 	m	(Laas;Lfx;I)I	b	method_32900	method_32900
@@ -31970,12 +32210,30 @@ c	caq	net/minecraft/class_5689	net/minecraft/block/PointedDripstoneBlock
 		p	0			world
 		p	1			pos
 		p	2			state
-	m	(Lbte;Lfx;Lgc;)Lgc;	b	method_32777	method_32777
-	m	(Lcgl;Lbte;Lfx;)Z	b	method_32778	method_32778
-	m	(Lbte;Lfx;Lgc;)Z	c	method_32781	method_32781
-	m	(Lcgl;)Z	h	method_32783	method_32783
-	m	(Lcgl;)Lcgl;	m	method_32901	method_32901
-	m	(Lcgl;)Z	n	method_32784	hasTipThickness
+	m	(Lbte;Lfx;Lgc;)Lgc;	b	method_32777	getDirectionToPlaceAt
+		p	0			world
+		p	1			pos
+		p	2			direction
+	m	(Lcgl;Lbte;Lfx;)Z	b	method_32778	isHeldByPointedDripstone
+		p	0			state
+		p	1			world
+		p	2			pos
+	m	(Lbte;Lfx;Lgc;)Z	c	method_32781	canPlaceAtWithDirection
+		p	0			world
+		p	1			pos
+		p	2			direction
+	m	(Lcgl;)Z	h	method_32783	canDrip
+		p	0			state
+	m	(Lcgl;)Lcgl;	m	method_32901	getFluidBlockState
+		p	1			state
+	m	(Lbtb;Lfx;)Z	method_32779	method_32779	isFluidStill
+		p	0			world
+		p	1			pos
+	m	(Lcgl;Lbtc;Lfx;)Lfx;	method_32782	method_32782	getTipPos
+		p	0			state
+		p	1			world
+		p	2			pos
+	m	(Lcgl;)Z	n	method_32784	isTip
 		p	0			state
 	m	(Lcgl;)Z	o	method_32785	isPointingDown
 		p	0			state
@@ -32108,12 +32366,18 @@ c	cb	net/minecraft/class_2105	net/minecraft/predicate/NbtPredicate
 	f	Lcb;	a	field_9716	ANY
 	f	Lmn;	b	field_9715	tag
 c	cba	net/minecraft/class_2457	net/minecraft/block/RedstoneWireBlock
-	m	(Lbsf;Lcgl;Lfx;)Lcgl;	a	method_27840	method_27840
+	m	(Lbsf;Lcgl;Lfx;)Lcgl;	a	method_27840	getPlacementState
 		p	1			world
 		p	2			state
 		p	3			pos
 	m	(Lbsf;Lfx;Lgc;)Lchq;	a	method_10477	getRenderConnectionType
-	m	(Lbsf;Lfx;Lgc;Z)Lchq;	a	method_27841	method_27841
+		p	1			view
+		p	2			pos
+		p	3			direction
+	m	(Lbsf;Lfx;Lgc;Z)Lchq;	a	method_27841	getRenderConnectionType
+		p	1			view
+		p	2			pos
+		p	3			direction
 	m	(Lbtb;Lfx;)I	a	method_27842	getReceivedRedstonePower
 		p	1			world
 		p	2			pos
@@ -32213,8 +32477,12 @@ c	cbf	net/minecraft/class_2462	net/minecraft/block/RepeaterBlock
 c	cbg	net/minecraft/class_4969	net/minecraft/block/RespawnAnchorBlock
 	m	(Laqu;Lbsk;Lfx;)Ljava/util/Optional;	a	method_26156	findRespawnPosition
 		p	0			entity
+		p	1			view
 		p	2			pos
-	m	(Laqu;Lbsk;Lfx;Z)Ljava/util/Optional;	a	method_30842	method_30842
+	m	(Laqu;Lbsk;Lfx;Z)Ljava/util/Optional;	a	method_30842	findRespawnPosition
+		p	0			entity
+		p	1			view
+		p	2			pos
 	m	(Lbnc;)Z	a	method_29289	isChargeItem
 		p	0			stack
 	m	(Lbtb;)Z	a	method_27353	isNether
@@ -32236,8 +32504,8 @@ c	cbg	net/minecraft/class_4969	net/minecraft/block/RespawnAnchorBlock
 	m	(Lcgl;)Z	h	method_29290	canCharge
 		p	0			state
 	f	Lchl;	a	field_23153	CHARGES
-	f	Lcom/google/common/collect/ImmutableList;	b	field_26442	field_26442
-	f	Lcom/google/common/collect/ImmutableList;	c	field_26443	field_26443
+	f	Lcom/google/common/collect/ImmutableList;	b	field_26442	VALID_HORIZONTAL_SPAWN_OFFSETS
+	f	Lcom/google/common/collect/ImmutableList;	c	field_26443	VALID_SPAWN_OFFSETS
 c	cbg$1	net/minecraft/class_4969$1	net/minecraft/block/RespawnAnchorBlock$1
 	f	Lfx;	a	field_25404	field_25404
 	f	Z	b	field_25405	field_25405
@@ -32290,6 +32558,9 @@ c	cbm	net/minecraft/class_2473	net/minecraft/block/SaplingBlock
 		p	1			generator
 		p	2			settings
 	m	(Laas;Lfx;Lcgl;Ljava/util/Random;)V	a	method_10507	generate
+		p	1			world
+		p	2			pos
+		p	3			state
 	f	Lchl;	a	field_11476	STAGE
 	f	Ldhw;	b	field_11478	SHAPE
 	f	Lcfu;	c	field_11477	generator
@@ -32308,21 +32579,36 @@ c	cbn	net/minecraft/class_3736	net/minecraft/block/ScaffoldingBlock
 	f	Ldhw;	e	field_16497	BOTTOM_OUTLINE_SHAPE
 	f	Ldhw;	f	field_17577	COLLISION_SHAPE
 	f	Ldhw;	g	field_17578	OUTLINE_SHAPE
-c	cbo	net/minecraft/class_5703	net/minecraft/class_5703
-	m	(Lbtb;Lfx;)V	a	method_32902	method_32902
-	m	(Lbtb;Lfx;Lcgl;)V	a	method_32903	method_32903
-	m	(Lbtb;Lfx;Lcgl;I)V	a	method_32904	method_32904
+c	cbo	net/minecraft/class_5703	net/minecraft/block/SculkSensorBlock
+	m	(Lcgk$c;I)V	<init>	<init>	<init>
+		p	1			settings
+		p	2			range
+	m	(Lbtb;Lfx;)V	a	method_32902	updateNeighbors
+		p	0			world
+		p	1			pos
+	m	(Lbtb;Lfx;Lcgl;)V	a	method_32903	setCooldown
+		p	0			world
+		p	1			pos
+		p	2			state
+	m	(Lbtb;Lfx;Lcgl;I)V	a	method_32904	setActive
+		p	0			world
+		p	1			pos
+		p	2			state
+		p	3			power
 	m	(Lbtb;Lfx;Lcgl;Lcfh;)V	a	method_32905	method_32905
 	m	(Lit/unimi/dsi/fastutil/objects/Object2IntOpenHashMap;)V	a	method_32906	method_32906
-	m	()I	e	method_32907	method_32907
-	m	(Lcgl;)Lchr;	h	method_32908	method_32908
-	m	(Lcgl;)Z	m	method_32909	method_32909
-	f	Lit/unimi/dsi/fastutil/objects/Object2IntMap;	a	field_28110	field_28110
-	f	Lchj;	b	field_28111	field_28111
-	f	Lchl;	c	field_28112	field_28112
-	f	Lchc;	d	field_28113	field_28113
-	f	Ldhw;	e	field_28114	field_28114
-	f	I	f	field_28115	field_28115
+		p	0			map
+	m	()I	e	method_32907	getRange
+	m	(Lcgl;)Lchr;	h	method_32908	getPhase
+		p	0			state
+	m	(Lcgl;)Z	m	method_32909	isInactive
+		p	0			state
+	f	Lit/unimi/dsi/fastutil/objects/Object2IntMap;	a	field_28110	FREQUENCIES
+	f	Lchj;	b	field_28111	SCULK_SENSOR_PHASE
+	f	Lchl;	c	field_28112	POWER
+	f	Lchc;	d	field_28113	WATERLOGGED
+	f	Ldhw;	e	field_28114	OUTLINE_SHAPE
+	f	I	f	field_28115	range
 c	cbp	net/minecraft/class_2472	net/minecraft/block/SeaPickleBlock
 	m	(Lcgl;)Z	h	method_10506	isDry
 		p	0			state
@@ -32425,6 +32711,7 @@ c	cca	net/minecraft/class_2493	net/minecraft/block/SnowyBlock
 	f	Lchc;	a	field_11522	SNOWY
 c	ccb	net/minecraft/class_4775	net/minecraft/block/SoulFireBlock
 	m	(Lcgl;)Z	h	method_26158	isSoulBase
+		p	0			state
 c	ccc	net/minecraft/class_2492	net/minecraft/block/SoulSandBlock
 	f	Ldhw;	a	field_11521	COLLISION_SHAPE
 c	ccd	net/minecraft/class_2498	net/minecraft/sound/BlockSoundGroup
@@ -32477,7 +32764,7 @@ c	ccd	net/minecraft/class_2498	net/minecraft/sound/BlockSoundGroup
 	f	Lccd;	ae	field_28060	DRIPSTONE_BLOCK
 	f	Lccd;	af	field_28061	POINTED_DRIPSTONE
 	f	Lccd;	ag	field_27204	COPPER
-	f	Lccd;	ah	field_28116	field_28116
+	f	Lccd;	ah	field_28116	SCULK
 	f	F	ai	field_11540	volume
 	f	F	aj	field_11539	pitch
 	f	Laec;	ak	field_11546	breakSound
@@ -32521,9 +32808,11 @@ c	ccf	net/minecraft/class_2502	net/minecraft/block/SpongeBlock
 c	ccg	net/minecraft/class_2500	net/minecraft/block/SpreadableBlock
 	m	(Lcgl;Lbte;Lfx;)Z	b	method_10614	canSurvive
 		p	0			state
+		p	1			world
 		p	2			pos
 	m	(Lcgl;Lbte;Lfx;)Z	c	method_10613	canSpread
 		p	0			state
+		p	1			world
 		p	2			pos
 c	cch	net/minecraft/class_2506	net/minecraft/block/StainedGlassBlock
 	m	(Lbly;Lcgk$c;)V	<init>	<init>	<init>
@@ -32595,11 +32884,13 @@ c	cck	net/minecraft/class_2508	net/minecraft/block/SignBlock
 c	ccl	net/minecraft/class_2513	net/minecraft/block/StemBlock
 	m	(Lccm;Ljava/util/function/Supplier;Lcgk$c;)V	<init>	<init>	<init>
 		p	1			gourdBlock
+		p	2			pickBlockItem
+		p	3			settings
 	m	()Lccm;	c	method_10694	getGourdBlock
 	f	Lchl;	a	field_11584	AGE
 	f	[Ldhw;	b	field_11583	AGE_TO_SHAPE
 	f	Lccm;	c	field_11585	gourdBlock
-	f	Ljava/util/function/Supplier;	d	field_27205	field_27205
+	f	Ljava/util/function/Supplier;	d	field_27205	pickBlockItem
 c	ccm	net/minecraft/class_2511	net/minecraft/block/GourdBlock
 	m	()Lccl;	c	method_10679	getStem
 	m	()Lbvc;	d	method_10680	getAttachedStem
@@ -32611,6 +32902,8 @@ c	cco	net/minecraft/class_3718	net/minecraft/block/StonecutterBlock
 	f	Lof;	c	field_17650	TITLE
 c	ccp	net/minecraft/class_2515	net/minecraft/block/StructureBlock
 	m	(Laas;Lcfn;)V	a	method_10703	doAction
+		p	1			world
+		p	2			blockEntity
 	f	Lchj;	a	field_11586	MODE
 c	ccp$1	net/minecraft/class_2515$1	net/minecraft/block/StructureBlock$1
 	f	[I	a	field_11587	field_11587
@@ -32658,12 +32951,16 @@ c	ccx	net/minecraft/class_4850	net/minecraft/block/TargetBlock
 	m	(Lbtc;Lcgl;Ldgz;Laqq;)I	a	method_24858	trigger
 		p	0			world
 		p	1			state
+		p	2			hitResult
+		p	3			entity
 	m	(Ldgz;Ldhd;)I	a	method_24859	calculatePower
+		p	0			hitResult
 		p	1			pos
 	f	Lchl;	a	field_22428	POWER
 c	ccy	net/minecraft/class_5555	net/minecraft/block/TintedGlassBlock
 c	ccz	net/minecraft/class_2530	net/minecraft/block/TntBlock
 	m	(Lapj;Lbgr;)V	a	method_20292	method_20292
+		p	1			player
 	m	(Lbtb;Lfx;)V	a	method_10738	primeTnt
 		p	0			world
 		p	1			pos
@@ -32786,19 +33083,26 @@ c	cde	net/minecraft/class_2537	net/minecraft/block/TripwireHookBlock
 c	cde$1	net/minecraft/class_2537$1	net/minecraft/block/TripwireHookBlock$1
 	f	[I	a	field_11672	field_11672
 c	cdf	net/minecraft/class_2542	net/minecraft/block/TurtleEggBlock
-	m	(Lbsf;Lfx;)Z	a	method_10831	isSand
+	m	(Lbsf;Lfx;)Z	a	method_10831	isSandBelow
+		p	0			view
+		p	1			pos
 	m	(Lbtb;)Z	a	method_10832	shouldHatchProgress
 		p	1			world
 	m	(Lbtb;Laqq;)Z	a	method_10835	breaksEgg
+		p	1			world
+		p	2			entity
 	m	(Lbtb;Lfx;Laqq;I)V	a	method_10834	tryBreakEgg
 		p	1			world
+		p	2			pos
 		p	3			entity
 		p	4			inverseChance
 	m	(Lbtb;Lfx;Lcgl;)V	a	method_10833	breakEgg
 		p	1			world
 		p	2			pos
 		p	3			state
-	m	(Lbsf;Lfx;)Z	b	method_29952	method_29952
+	m	(Lbsf;Lfx;)Z	b	method_29952	isSand
+		p	0			view
+		p	1			pos
 	f	Lchl;	a	field_11711	HATCH
 	f	Lchl;	b	field_11710	EGGS
 	f	Ldhw;	c	field_11712	SMALL_SHAPE
@@ -32830,7 +33134,8 @@ c	cdi	net/minecraft/class_2541	net/minecraft/block/VineBlock
 		p	1			state
 		p	2			world
 		p	3			pos
-	m	(Lcgl;)Ldhw;	h	method_31018	method_31018
+	m	(Lcgl;)Ldhw;	h	method_31018	getShapeForState
+		p	0			state
 	m	(Lcgl;)Z	m	method_10823	hasAdjacentBlocks
 		p	1			state
 	m	(Lcgl;)I	n	method_10822	getAdjacentBlockCount
@@ -32848,7 +33153,7 @@ c	cdi	net/minecraft/class_2541	net/minecraft/block/VineBlock
 	f	Ldhw;	i	field_11705	WEST_SHAPE
 	f	Ldhw;	j	field_11701	SOUTH_SHAPE
 	f	Ldhw;	k	field_11700	NORTH_SHAPE
-	f	Ljava/util/Map;	o	field_26659	field_26659
+	f	Ljava/util/Map;	o	field_26659	voxelShapes
 c	cdi$1	net/minecraft/class_2541$1	net/minecraft/block/VineBlock$1
 	f	[I	a	field_11708	field_11708
 	f	[I	b	field_11707	field_11707
@@ -33276,6 +33581,7 @@ c	cej	net/minecraft/class_2586	net/minecraft/block/entity/BlockEntity
 	m	(Ljava/lang/String;)Lcej;	a	method_17898	method_17898
 	m	(Lm;)V	a	method_11003	populateCrashReport
 	m	(Lmn;)V	a	method_11014	fromTag
+		p	1			tag
 	m	(Lmn;Ljava/lang/String;Lcej;)Lcej;	a	method_17897	method_17897
 	m	(II)Z	a_	method_11004	onSyncedBlockEvent
 		p	1			type
@@ -33810,12 +34116,16 @@ c	cfg	net/minecraft/class_2621	net/minecraft/block/entity/LootableContainerBlock
 	m	()Lgj;	f	method_11282	getInvStackList
 	f	Lvy;	b_	field_12037	lootTableId
 	f	J	c_	field_12036	lootTableSeed
-c	cfh	net/minecraft/class_5704	net/minecraft/class_5704
+c	cfh	net/minecraft/class_5704	net/minecraft/block/entity/SculkSensorBlockEntity
+	m	(Lfx;Lcgl;)V	<init>	<init>	<init>
+		p	1			pos
+		p	2			state
 	m	(II)I	b	method_32910	method_32910
-	m	()Lckr;	d	method_32911	method_32911
-	m	()I	f	method_32912	method_32912
-	f	Lckr;	a	field_28118	field_28118
-	f	I	b	field_28119	field_28119
+		p	1			range
+	m	()Lckr;	d	method_32911	getEventListener
+	m	()I	f	method_32912	getLastVibrationFrequency
+	f	Lckr;	a	field_28118	listener
+	f	I	b	field_28119	lastVibrationFrequency
 c	cfi	net/minecraft/class_2627	net/minecraft/block/entity/ShulkerBoxBlockEntity
 	m	(Lbly;Lfx;Lcgl;)V	<init>	<init>	<init>
 		p	1			color
@@ -34118,6 +34428,12 @@ c	cgd	net/minecraft/class_2667	net/minecraft/block/PistonExtensionBlock
 		p	1			world
 		p	2			pos
 	m	(Lfx;Lcgl;Lcgl;Lgc;ZZ)Lcej;	a	method_11489	createBlockEntityPiston
+		p	0			pos
+		p	1			state
+		p	2			pushedBlock
+		p	3			facing
+		p	4			extending
+		p	5			source
 	f	Lchf;	a	field_12196	FACING
 	f	Lchj;	b	field_12197	TYPE
 c	cge	net/minecraft/class_2665	net/minecraft/block/PistonBlock
@@ -34138,6 +34454,10 @@ c	cge	net/minecraft/class_2665	net/minecraft/block/PistonBlock
 		p	3			dir
 		p	4			retract
 	m	(Lcgl;Lbtb;Lfx;Lgc;ZLgc;)Z	a	method_11484	isMovable
+		p	0			state
+		p	1			world
+		p	2			pos
+		p	3			direction
 		p	4			canBreak
 		p	5			pistonDir
 	f	Lchc;	b	field_12191	EXTENDED
@@ -34153,8 +34473,12 @@ c	cge$1	net/minecraft/class_2665$1	net/minecraft/block/PistonBlock$1
 	f	[I	b	field_12192	field_12192
 c	cgf	net/minecraft/class_2671	net/minecraft/block/PistonHeadBlock
 	m	(Lcgl;Lcgl;)Z	a	method_26980	method_26980
+		p	1			state
 	m	(Lgc;Z)Ldhw;	a	method_11520	getHeadShape
-	m	(Z)[Ldhw;	a	method_31019	method_31019
+		p	0			direction
+		p	1			isShort
+	m	(Z)[Ldhw;	a	method_31019	getHeadShapes
+		p	0			isShort
 	m	(ZLgc;)Ldhw;	a	method_31020	method_31020
 	m	(I)[Ldhw;	b	method_31021	method_31021
 	f	Lchj;	b	field_12224	TYPE
@@ -34177,8 +34501,8 @@ c	cgf	net/minecraft/class_2671	net/minecraft/block/PistonHeadBlock
 	f	Ldhw;	v	field_12225	SHORT_NORTH_ARM_SHAPE
 	f	Ldhw;	w	field_12219	SHORT_EAST_ARM_SHAPE
 	f	Ldhw;	x	field_12212	SHORT_WEST_ARM_SHAPE
-	f	[Ldhw;	y	field_26660	field_26660
-	f	[Ldhw;	z	field_26661	field_26661
+	f	[Ldhw;	y	field_26660	SHORT_HEAD_SHAPES
+	f	[Ldhw;	z	field_26661	HEAD_SHAPES
 c	cgf$1	net/minecraft/class_2671$1	net/minecraft/block/PistonHeadBlock$1
 	f	[I	a	field_12232	field_12232
 c	cgg	net/minecraft/class_4623	net/minecraft/util/math/Boxes
@@ -34190,21 +34514,41 @@ c	cgg$1	net/minecraft/class_4623$1	net/minecraft/util/math/Boxes$1
 	f	[I	a	field_21215	field_21215
 c	cgh	net/minecraft/class_2669	net/minecraft/block/entity/PistonBlockEntity
 	c	A piston block entity represents the block being pushed by a piston.
+	m	(Lfx;Lcgl;)V	<init>	<init>	<init>
+		p	1			pos
+		p	2			state
+	m	(Lfx;Lcgl;Lcgl;Lgc;ZZ)V	<init>	<init>	<init>
+		p	1			pos
+		p	2			state
+		p	3			pushedBlock
+		p	4			facing
+		p	5			extending
+		p	6			source
 	m	(F)F	a	method_11499	getProgress
 		p	1			tickDelta
 	m	(Lbsf;Lfx;)Ldhw;	a	method_11512	getCollisionShape
 		p	1			world
 		p	2			pos
 	m	(Lbtb;Lfx;FLcgh;)V	a	method_11503	pushEntities
+		p	0			world
+		p	1			pos
+		p	3			blockEntity
 	m	(Lbtb;Lfx;Lcgl;Lcgh;)V	a	method_31707	tick
+		p	0			world
+		p	1			pos
+		p	2			state
+		p	3			blockEntity
 	m	(Ldgy;Laqq;)Z	a	method_23671	method_23671
 	m	(Ldgy;Lgc;Ldgy;)D	a	method_11497	getIntersectionSize
 	m	(Lfx;Laqq;Lgc;D)V	a	method_11514	push
+		p	0			pos
 		p	1			entity
 		p	2			direction
 		p	3			amount
 	m	(Lfx;Ldgy;Lcgh;)Ldgy;	a	method_11500	offsetHeadBox
+		p	0			pos
 		p	1			box
+		p	2			blockEntity
 	m	(Lgc;Laqq;DLgc;)V	a	method_23672	method_23672
 	m	(F)F	b	method_11494	getRenderOffsetX
 		p	1			tickDelta
@@ -34396,7 +34740,7 @@ c	cgk	net/minecraft/class_4970	net/minecraft/block/AbstractBlock
 		p	2			world
 		p	3			pos
 	m	()Lcgk$b;	ai_	method_16841	getOffsetType
-	m	()F	am_	method_32913	method_32913
+	m	()F	am_	method_32913	getMaxModelOffset
 	m	(Lcgl;)Z	b	method_9498	hasComparatorOutput
 		p	1			state
 	m	(Lcgl;Laas;Lfx;Ljava/util/Random;)V	b	method_9514	randomTick
@@ -34529,6 +34873,8 @@ c	cgk$a	net/minecraft/class_4970$class_4971	net/minecraft/block/AbstractBlock$Ab
 		p	3			hand
 		p	4			hit
 	m	(Lbtb;Lcel;)Lcek;	a	method_31708	getBlockEntityTicker
+		p	1			world
+		p	2			blockEntityType
 	m	(Lbtb;Lcgl;Ldgz;Lbhh;)V	a	method_26175	onProjectileHit
 		p	1			world
 		p	2			state
@@ -34799,7 +35145,9 @@ c	cgk$c	net/minecraft/class_4970$class_2251	net/minecraft/block/AbstractBlock$Se
 		p	0			material
 		p	1			mapColor
 	m	(Lcyz;)Lcgk$c;	a	method_31710	mapColor
+		p	1			color
 	m	(Lcyz;Lcgl;)Lcyz;	a	method_31711	method_31711
+		p	1			state
 	m	(Ljava/util/function/ToIntFunction;)Lcgk$c;	a	method_9631	luminance
 		c	Specifies the light level emitted by a block.
 		p	1			luminance
@@ -35259,7 +35607,7 @@ c	chb	net/minecraft/class_2741	net/minecraft/state/property/Properties
 		c	A property that specifies the size of bamboo leaves.
 	f	Lchf;	aP	field_28062	VERTICAL_DIRECTION
 	f	Lchj;	aQ	field_28063	THICKNESS
-	f	Lchj;	aR	field_28120	field_28120
+	f	Lchj;	aR	field_28120	SCULK_SENSOR_PHASE
 	f	Lchj;	aa	field_12533	DOUBLE_BLOCK_HALF
 		c	A property that specifies whether a double height block is the upper or lower half.
 	f	Lchj;	ab	field_12518	BLOCK_HALF
@@ -35609,14 +35957,16 @@ c	chq	net/minecraft/class_2773	net/minecraft/block/enums/WireConnection
 	f	Lchq;	c	field_12687	NONE
 	f	Ljava/lang/String;	d	field_12685	name
 	f	[Lchq;	e	field_12688	field_12688
-c	chr	net/minecraft/class_5705	net/minecraft/class_5705
+c	chr	net/minecraft/class_5705	net/minecraft/block/enums/SculkSensorPhase
+	m	(Ljava/lang/String;ILjava/lang/String;)V	<init>	<init>	<init>
+		p	3			name
 	m	()Ljava/lang/String;	toString	toString	toString
 	m	(Ljava/lang/String;)Lchr;	valueOf	valueOf	valueOf
 	m	()[Lchr;	values	values	values
-	f	Lchr;	a	field_28121	field_28121
-	f	Lchr;	b	field_28122	field_28122
-	f	Lchr;	c	field_28123	field_28123
-	f	Ljava/lang/String;	d	field_28124	field_28124
+	f	Lchr;	a	field_28121	INACTIVE
+	f	Lchr;	b	field_28122	ACTIVE
+	f	Lchr;	c	field_28123	COOLDOWN
+	f	Ljava/lang/String;	d	field_28124	name
 	f	[Lchr;	e	field_28125	field_28125
 c	chs	net/minecraft/class_2771	net/minecraft/block/enums/SlabType
 	m	(Ljava/lang/String;ILjava/lang/String;)V	<init>	<init>	<init>
@@ -35877,6 +36227,7 @@ c	cic	net/minecraft/class_2791	net/minecraft/world/chunk/Chunk
 	m	(Laqq;)V	a	method_12002	addEntity
 		p	1			entity
 	m	(Lcej;)V	a	method_12007	setBlockEntity
+		p	1			blockEntity
 	m	(Lclc$a;)Lclc;	a	method_12032	getHeightmap
 		p	1			type
 	m	(Lclc$a;II)I	a	method_12005	sampleHeightmap
@@ -36383,7 +36734,7 @@ c	cin	net/minecraft/class_2818	net/minecraft/world/chunk/WorldChunk
 		p	10			loadToWorldConsumer
 	m	()V	A	method_12221	runPostProcessing
 	m	()V	B	method_20530	disableTickSchedulers
-	m	()V	C	method_31712	method_31712
+	m	()V	C	method_31712	removeAllBlockEntities
 	m	()V	D	method_31713	updateAllBlockEntityTickers
 	m	()Lorg/apache/logging/log4j/Logger;	E	method_31714	method_31714
 	m	()Z	F	method_31715	canTickBlockEntities
@@ -36424,7 +36775,8 @@ c	cin	net/minecraft/class_2818	net/minecraft/world/chunk/WorldChunk
 		p	0			structure
 	m	(Z)V	c	method_12226	setLoadedToWorld
 		p	1			loaded
-	m	(Lcej;)V	d	method_31722	method_31722
+	m	(Lcej;)V	d	method_31722	removeBlockEntity
+		p	1			blockEntity
 	m	(Lcou;)Lit/unimi/dsi/fastutil/longs/LongSet;	d	method_12212	method_12212
 		p	0			structure
 	m	(Lcej;)V	e	method_32919	method_32919
@@ -36433,6 +36785,7 @@ c	cin	net/minecraft/class_2818	net/minecraft/world/chunk/WorldChunk
 	m	(Lfx;)Lcej;	j	method_12208	createBlockEntity
 		p	1			pos
 	m	(Lfx;)Z	k	method_31724	canTickBlockEntity
+		p	1			pos
 	m	(Lfx;)V	l	method_31725	removeBlockEntityTicker
 	m	(Lfx;)Lcyt;	m	method_12230	method_12230
 	m	(Lfx;)Lbvx;	n	method_12209	method_12209
@@ -36469,6 +36822,9 @@ c	cin	net/minecraft/class_2818	net/minecraft/world/chunk/WorldChunk
 	f	Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;	x	field_28129	field_28129
 c	cin$1	net/minecraft/class_2818$1	net/minecraft/world/chunk/WorldChunk$EmptyBlockEntityTickInvoker
 c	cin$a	net/minecraft/class_2818$class_5563	net/minecraft/world/chunk/WorldChunk$DirectBlockEntityTickInvoker
+	m	(Lcin;Lcej;Lcek;)V	<init>	<init>	<init>
+		p	2			blockEntity
+		p	3			ticker
 	m	(Lcgl;)Ljava/lang/Object;	a	method_31726	method_31726
 	m	()Ljava/lang/String;	toString	toString	toString
 	f	Lcin;	a	field_27223	worldChunk
@@ -36483,7 +36839,10 @@ c	cin$b	net/minecraft/class_2818$class_2819	net/minecraft/world/chunk/WorldChunk
 	f	Lcin$b;	c	field_12859	CHECK
 	f	[Lcin$b;	d	field_12862	field_12862
 c	cin$c	net/minecraft/class_2818$class_5564	net/minecraft/world/chunk/WorldChunk$WrappedBlockEntityTickInvoker
+	m	(Lcin;Lcfq;)V	<init>	<init>	<init>
+		p	2			wrapped
 	m	(Lcfq;)V	a	method_31727	setWrapped
+		p	1			wrapped
 	m	(Lcin$c;Lcfq;)V	a	method_31728	method_31728
 	m	()Ljava/lang/String;	toString	toString	toString
 	f	Lcin;	a	field_27227	field_27227
@@ -37128,7 +37487,13 @@ c	cjk	net/minecraft/class_2874	net/minecraft/world/dimension/DimensionType
 		p	10			bedWorks
 		p	11			respawnAnchorWorks
 		p	12			hasRaids
-		p	13			logicalHeight
+		p	13			minimumY
+		p	14			height
+		p	15			logicalHeight
+		p	16			biomeAccessType
+		p	17			infiniburn
+		p	18			skyProperties
+		p	19			ambientLight
 	m	()Ljava/lang/String;	a	method_12489	getSuffix
 	m	(F)[F	a	method_28515	method_28515
 	m	(I)F	a	method_28516	method_28516
@@ -37164,6 +37529,7 @@ c	cjk	net/minecraft/class_2874	net/minecraft/world/dimension/DimensionType
 		p	1			time
 			c	the time to calculate the index from
 	m	(Lcjk;)Lcom/mojang/serialization/DataResult;	b	method_32923	method_32923
+		p	0			type
 	m	(Lgn;)Lcjk;	b	method_29565	method_29565
 	m	(Lgn;Lgn;J)Lcie;	b	method_28535	createNetherGenerator
 		p	0			biomeRegistry
@@ -37183,9 +37549,9 @@ c	cjk	net/minecraft/class_2874	net/minecraft/world/dimension/DimensionType
 	m	()Z	h	method_29956	isBedWorking
 	m	()Z	i	method_29957	isRespawnAnchorWorking
 	m	()Z	j	method_29958	hasRaids
-	m	()I	k	method_29959	getLogicalHeight
-	m	()I	l	method_32924	method_32924
-	m	()I	m	method_32925	method_32925
+	m	()I	k	method_29959	getMinimumY
+	m	()I	l	method_32924	getHeight
+	m	()I	m	method_32925	getLogicalHeight
 	m	()Z	n	method_28540	hasEnderDragonFight
 	m	()Lbuf;	o	method_22415	getBiomeAccessType
 	m	()Z	p	method_29960	hasFixedTime
@@ -37194,9 +37560,9 @@ c	cjk	net/minecraft/class_2874	net/minecraft/world/dimension/DimensionType
 	f	Z	A	field_25613	bedWorks
 	f	Z	B	field_25614	respawnAnchorWorks
 	f	Z	C	field_25615	hasRaids
-	f	I	D	field_25616	logicalHeight
-	f	I	E	field_28131	field_28131
-	f	I	F	field_28132	field_28132
+	f	I	D	field_25616	minimumY
+	f	I	E	field_28131	height
+	f	I	F	field_28132	logicalHeight
 	f	Lbuf;	G	field_20658	biomeAccessType
 	f	Lvy;	H	field_25617	infiniburn
 	f	Lvy;	I	field_26751	skyProperties
@@ -37593,83 +37959,103 @@ c	ckf	net/minecraft/class_5584	net/minecraft/class_5584
 	f	Z	d	field_27292	tracked
 	f	Z	e	field_27293	tick
 	f	[Lckf;	f	field_27294	field_27294
-c	ckh	net/minecraft/class_5707	net/minecraft/class_5707
+c	ckh	net/minecraft/class_5707	net/minecraft/world/event/BlockPositionSource
+	m	(Lfx;)V	<init>	<init>	<init>
+		p	1			pos
+	m	(Ljava/util/Optional;)V	<init>	<init>	<init>
+		p	1			pos
 	m	(Lckh;)Ljava/util/Optional;	a	method_32926	method_32926
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_32927	method_32927
 	m	(Lckh;)Ljava/util/Optional;	b	method_32928	method_32928
-	f	Lcom/mojang/serialization/Codec;	a	field_28137	field_28137
-	f	Ljava/util/Optional;	c	field_28138	field_28138
-c	ckh$a	net/minecraft/class_5707$class_5708	net/minecraft/class_5707$class_5708
-	m	(Lnt;)Lckh;	a	method_32929	method_32962
-	m	(Lnt;Lckh;)V	a	method_32930	method_32960
-c	cki	net/minecraft/class_5709	net/minecraft/class_5709
+	f	Lcom/mojang/serialization/Codec;	a	field_28137	BLOCK_CODEC
+	f	Ljava/util/Optional;	c	field_28138	pos
+c	ckh$a	net/minecraft/class_5707$class_5708	net/minecraft/world/event/BlockPositionSource$Source
+	m	(Lnt;)Lckh;	a	method_32929	read
+	m	(Lnt;Lckh;)V	a	method_32930	write
+c	cki	net/minecraft/class_5709	net/minecraft/world/event/EntityPositionSource
+	m	(I)V	<init>	<init>	<init>
+		p	1			entityId
 	m	(Lcki;)I	a	method_32931	method_32931
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_32932	method_32932
 	m	(Lcki;)Ljava/lang/Integer;	b	method_32933	method_32933
-	f	Lcom/mojang/serialization/Codec;	a	field_28139	field_28139
-	f	I	c	field_28140	field_28140
-	f	Ljava/util/Optional;	d	field_28141	field_28141
-c	cki$a	net/minecraft/class_5709$class_5710	net/minecraft/class_5709$class_5710
-	m	(Lnt;)Lcki;	a	method_32934	method_32962
-	m	(Lnt;Lcki;)V	a	method_32935	method_32960
+	f	Lcom/mojang/serialization/Codec;	a	field_28139	ENTITY_CODEC
+	f	I	c	field_28140	entityId
+	f	Ljava/util/Optional;	d	field_28141	entity
+c	cki$a	net/minecraft/class_5709$class_5710	net/minecraft/world/event/EntityPositionSource$Source
+	m	(Lnt;)Lcki;	a	method_32934	read
+	m	(Lnt;Lcki;)V	a	method_32935	write
 c	ckj	net/minecraft/class_5711	net/minecraft/class_5711
+	m	(Lbtb;)V	<init>	<init>	<init>
+		p	1			world
 	m	(Lbtb;Lckk;Laqq;Lfx;Lckm;)Z	a	method_32936	method_32936
 	m	(Lckk;Laqq;Lfx;Lckm;)Z	a	method_32937	method_32937
-	f	Ljava/util/List;	b	field_28142	field_28142
-	f	Lbtb;	c	field_28143	field_28143
-c	ckk	net/minecraft/class_5712	net/minecraft/class_5712
-	m	()Ljava/lang/String;	a	method_32938	method_32938
-	m	(Ljava/lang/String;)Lckk;	a	method_32939	method_32939
-	m	(Ljava/lang/String;I)Lckk;	a	method_32940	method_32940
-	m	()I	b	method_32941	method_32941
-	f	Lckk;	A	field_28144	field_28144
-	f	Lckk;	B	field_28145	field_28145
-	f	Lckk;	C	field_28146	field_28146
-	f	Lckk;	D	field_28147	field_28147
-	f	Lckk;	E	field_28148	field_28148
-	f	Lckk;	F	field_28149	field_28149
-	f	Lckk;	G	field_28150	field_28150
-	f	Lckk;	H	field_28151	field_28151
-	f	Lckk;	I	field_28152	field_28152
-	f	Ljava/lang/String;	J	field_28153	field_28153
-	f	I	K	field_28154	field_28154
-	f	Lckk;	a	field_28155	field_28155
-	f	Lckk;	b	field_28156	field_28156
-	f	Lckk;	c	field_28157	field_28157
-	f	Lckk;	d	field_28158	field_28158
-	f	Lckk;	e	field_28159	field_28159
-	f	Lckk;	f	field_28160	field_28160
-	f	Lckk;	g	field_28161	field_28161
-	f	Lckk;	h	field_28162	field_28162
-	f	Lckk;	i	field_28163	field_28163
-	f	Lckk;	j	field_28164	field_28164
-	f	Lckk;	k	field_28165	field_28165
-	f	Lckk;	l	field_28166	field_28166
-	f	Lckk;	m	field_28167	field_28167
-	f	Lckk;	n	field_28168	field_28168
-	f	Lckk;	o	field_28169	field_28169
-	f	Lckk;	p	field_28170	field_28170
-	f	Lckk;	q	field_28171	field_28171
-	f	Lckk;	r	field_28172	field_28172
-	f	Lckk;	s	field_28173	field_28173
-	f	Lckk;	t	field_28174	field_28174
-	f	Lckk;	u	field_28175	field_28175
-	f	Lckk;	v	field_28176	field_28176
-	f	Lckk;	w	field_28177	field_28177
-	f	Lckk;	x	field_28178	field_28178
-	f	Lckk;	y	field_28179	field_28179
-	f	Lckk;	z	field_28180	field_28180
+	f	Ljava/util/List;	b	field_28142	listeners
+	f	Lbtb;	c	field_28143	world
+c	ckk	net/minecraft/class_5712	net/minecraft/world/event/GameEvent
+	m	(Ljava/lang/String;I)V	<init>	<init>	<init>
+		p	1			id
+		p	2			range
+	m	()Ljava/lang/String;	a	method_32938	getId
+	m	(Ljava/lang/String;)Lckk;	a	method_32939	register
+		p	0			id
+	m	(Ljava/lang/String;I)Lckk;	a	method_32940	register
+		p	0			id
+		p	1			range
+	m	()I	b	method_32941	getRange
+	f	Lckk;	A	field_28144	DISPENSE_FAIL
+	f	Lckk;	B	field_28145	FISHING_ROD_CAST
+	f	Lckk;	C	field_28146	FISHING_ROD_REEL_IN
+	f	Lckk;	D	field_28147	PISTON_EXTEND
+	f	Lckk;	E	field_28148	PISTON_CONTRACT
+	f	Lckk;	F	field_28149	FLINT_AND_STEEL_USE
+	f	Lckk;	G	field_28150	EATING_START
+	f	Lckk;	H	field_28151	EATING_FINISH
+	f	Lckk;	I	field_28152	LIGHTNING_STRIKE
+	f	Ljava/lang/String;	J	field_28153	id
+	f	I	K	field_28154	range
+	f	Lckk;	a	field_28155	STEP
+	f	Lckk;	b	field_28156	SWIM
+	f	Lckk;	c	field_28157	FLAP
+	f	Lckk;	d	field_28158	ELYTRA_FREE_FALL
+	f	Lckk;	e	field_28159	HIT_GROUND
+	f	Lckk;	f	field_28160	SPLASH
+	f	Lckk;	g	field_28161	PROJECTILE_SHOOT
+	f	Lckk;	h	field_28162	PROJECTILE_LAND
+	f	Lckk;	i	field_28163	ENTITY_HIT
+	f	Lckk;	j	field_28164	BLOCK_PLACE
+	f	Lckk;	k	field_28165	BLOCK_DESTROY
+	f	Lckk;	l	field_28166	FLUID_PLACE
+	f	Lckk;	m	field_28167	FLUID_PICKUP
+	f	Lckk;	n	field_28168	BLOCK_OPEN
+	f	Lckk;	o	field_28169	BLOCK_CLOSE
+	f	Lckk;	p	field_28170	BLOCK_SWITCH
+	f	Lckk;	q	field_28171	BLOCK_UNSWITCH
+	f	Lckk;	r	field_28172	BLOCK_ATTACH
+	f	Lckk;	s	field_28173	BLOCK_DETACH
+	f	Lckk;	t	field_28174	BLOCK_PRESS
+	f	Lckk;	u	field_28175	BLOCK_UNPRESS
+	f	Lckk;	v	field_28176	CONTAINER_OPEN
+	f	Lckk;	w	field_28177	CONTAINER_CLOSE
+	f	Lckk;	x	field_28178	EXPLODE
+	f	Lckk;	y	field_28179	ARMOR_STAND_ADD_ITEM
+	f	Lckk;	z	field_28180	WOLF_SHAKING
 c	ckl	net/minecraft/class_5713	net/minecraft/class_5713
-	m	()Z	a	method_32942	method_32942
+	m	()Z	a	method_32942	isEmpty
 	m	(Lckk;Laqq;Lfx;)V	a	method_32943	method_32943
-	m	(Lckm;)V	a	method_32944	method_32944
-	m	(Lckm;)V	b	method_32945	method_32945
+	m	(Lckm;)V	a	method_32944	addListener
+		p	1			listener
+	m	(Lckm;)V	b	method_32945	removeListener
+		p	1			listener
 	f	Lckl;	a	field_28181	field_28181
 c	ckl$1	net/minecraft/class_5713$1	net/minecraft/class_5713$1
-c	ckm	net/minecraft/class_5714	net/minecraft/class_5714
-	m	()Lcko;	a	method_32946	method_32946
+c	ckm	net/minecraft/class_5714	net/minecraft/world/event/listener/GameEventListener
+	m	()Lcko;	a	method_32946	getEvent
 	m	(Lbtb;Lckk;Laqq;Lfx;)Z	a	method_32947	method_32947
-	m	()I	b	method_32948	method_32948
+		p	1			world
+		p	2			eventType
+		p	3			entity
+		p	4			pos
+	m	()I	b	method_32948	getRange
 c	ckn	net/minecraft/class_5715	net/minecraft/class_5715
 	m	(Lbtb;)V	a	method_32949	method_32949
 	m	(Lbtb;Lgq;Ljava/util/function/Consumer;)V	a	method_32950	method_32950
@@ -37679,74 +38065,130 @@ c	ckn	net/minecraft/class_5715	net/minecraft/class_5715
 	m	(Lckl;)V	c	method_32954	method_32954
 	f	Lckm;	a	field_28182	field_28182
 	f	Lgq;	b	field_28183	field_28183
-c	cko	net/minecraft/class_5716	net/minecraft/class_5716
-	m	()Lckp;	a	method_32955	method_32955
-	m	(Lbtb;)Ljava/util/Optional;	a	method_32956	method_32956
-	f	Lcom/mojang/serialization/Codec;	b	field_28184	field_28184
-c	ckp	net/minecraft/class_5717	net/minecraft/class_5717
-	m	()Lcom/mojang/serialization/Codec;	a	method_32957	method_32957
-	m	(Lcko;Lnt;)V	a	method_32958	method_32958
-	m	(Ljava/lang/String;Lckp;)Lckp;	a	method_32959	method_32959
-	m	(Lnt;Lcko;)V	a	method_32960	method_32960
+c	cko	net/minecraft/class_5716	net/minecraft/world/event/PositionSource
+	m	()Lckp;	a	method_32955	getSourceType
+	m	(Lbtb;)Ljava/util/Optional;	a	method_32956	getPos
+		p	1			world
+	f	Lcom/mojang/serialization/Codec;	b	field_28184	CODEC
+c	ckp	net/minecraft/class_5717	net/minecraft/world/event/PositionSourceType
+	m	()Lcom/mojang/serialization/Codec;	a	method_32957	getCodec
+	m	(Lcko;Lnt;)V	a	method_32958	write
+		p	0			event
+		p	1			packet
+	m	(Ljava/lang/String;Lckp;)Lckp;	a	method_32959	register
+		p	0			id
+		p	1			eventSource
+	m	(Lnt;Lcko;)V	a	method_32960	write
+		p	1			packet
+		p	2			event
 	m	(Lvy;)Ljava/lang/IllegalArgumentException;	a	method_32961	method_32961
-	m	(Lnt;)Lcko;	b	method_32962	method_32962
-	m	(Lnt;)Lcko;	c	method_32963	method_32963
-	f	Lckp;	a	field_28185	field_28185
-	f	Lckp;	b	field_28186	field_28186
-c	ckr	net/minecraft/class_5718	net/minecraft/class_5718
+	m	(Lnt;)Lcko;	b	method_32962	read
+		p	1			packet
+	m	(Lnt;)Lcko;	c	method_32963	readRaw
+		p	0			packet
+	f	Lckp;	a	field_28185	BLOCK
+	f	Lckp;	b	field_28186	ENTITY
+c	ckr	net/minecraft/class_5718	net/minecraft/world/event/listener/SculkSensorListener
+	m	(Lcko;ILckr$a;)V	<init>	<init>	<init>
+		p	1			event
+		p	2			range
 	m	(Lbtb;)V	a	method_32964	method_32964
+		p	1			world
 	m	(Lbtb;Lckk;Lfx;Lfx;)V	a	method_32965	method_32965
-	m	(Lbtb;Lfx;Lfx;)Z	a	method_32966	method_32966
+		p	1			world
+		p	2			eventType
+		p	3			pos
+		p	4			sourcePos
+	m	(Lbtb;Lfx;Lfx;)Z	a	method_32966	isOccluded
+		p	1			world
+		p	2			pos
+		p	3			sourcePos
 	m	(Lcgl;)Z	a	method_32967	method_32967
-	m	(Lckk;Laqq;)Z	a	method_32968	method_32968
-	f	Lcko;	a	field_28187	field_28187
-	f	I	b	field_28188	field_28188
+		p	0			state
+	m	(Lckk;Laqq;)Z	a	method_32968	shouldActivate
+		p	1			eventType
+		p	2			entity
+	f	Lcko;	a	field_28187	event
+	f	I	b	field_28188	range
 	f	Lckr$a;	c	field_28189	field_28189
-	f	Ljava/util/Optional;	d	field_28190	field_28190
+	f	Ljava/util/Optional;	d	field_28190	eventType
 	f	I	e	field_28191	field_28191
-	f	I	f	field_28192	field_28192
-c	ckr$a	net/minecraft/class_5718$class_5719	net/minecraft/class_5718$class_5719
-	m	(Lbtb;Lckm;Lckk;I)V	a	method_32969	method_32969
-	m	(Lbtb;Lckm;Lfx;Lckk;Laqq;)Z	a	method_32970	method_32970
-c	cks	net/minecraft/class_5720	net/minecraft/class_5720
-	m	()I	a	method_32971	method_32971
+	f	I	f	field_28192	cooldown
+c	ckr$a	net/minecraft/class_5718$class_5719	net/minecraft/world/event/listener/SculkSensorListener$class_5719
+	m	(Lbtb;Lckm;Lckk;I)V	a	method_32969	listen
+		p	1			world
+		p	2			listener
+		p	3			type
+	m	(Lbtb;Lckm;Lfx;Lckk;Laqq;)Z	a	method_32970	shouldListen
+		p	1			world
+		p	2			listener
+		p	3			pos
+		p	4			event
+		p	5			entity
+c	cks	net/minecraft/class_5720	net/minecraft/world/Vibration
+	m	(Lfx;Lcko;I)V	<init>	<init>	<init>
+		p	1			origin
+		p	2			destination
+		p	3			arrivalInTicks
+	m	()I	a	method_32971	getArrivalInTick
 	m	(Lcks;)Ljava/lang/Integer;	a	method_32972	method_32972
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_32973	method_32973
-	m	(Lnt;)Lcks;	a	method_32974	method_32974
-	m	(Lnt;Lcks;)V	a	method_32975	method_32975
-	m	()Lfx;	b	method_32976	method_32976
+	m	(Lnt;)Lcks;	a	method_32974	read
+		p	0			packet
+	m	(Lnt;Lcks;)V	a	method_32975	write
+		p	0			packet
+		p	1			vibration
+	m	()Lfx;	b	method_32976	getOrigin
 	m	(Lcks;)Lcko;	b	method_32977	method_32977
-	m	()Lcko;	c	method_32978	method_32978
+	m	()Lcko;	c	method_32978	getDestination
 	m	(Lcks;)Lfx;	c	method_32979	method_32979
-	f	Lcom/mojang/serialization/Codec;	a	field_28193	field_28193
-	f	Lfx;	b	field_28194	field_28194
-	f	Lcko;	c	field_28195	field_28195
-	f	I	d	field_28196	field_28196
-c	cku	net/minecraft/class_5721	net/minecraft/class_5721
-	m	()Lcku;	a	method_32980	method_32980
-	m	(I)Lcku;	a	method_32981	method_32981
-	m	(Lbth;Lfx;ILjava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/Optional;	a	method_32982	method_32982
-	m	(Ljava/util/OptionalInt;)Lcku;	a	method_32983	method_32983
-	m	(Ljava/util/OptionalInt;Ljava/util/OptionalInt;)Lcku;	a	method_32984	method_32984
-	m	()Ljava/util/OptionalInt;	b	method_32985	method_32985
-	m	(II)Lcku$b;	b	method_32986	method_32986
-	m	()Ljava/util/OptionalInt;	c	method_32987	method_32987
-	m	(I)Lcku;	c	method_32988	method_32988
-c	cku$a	net/minecraft/class_5721$class_5722	net/minecraft/class_5721$class_5722
+	f	Lcom/mojang/serialization/Codec;	a	field_28193	CODEC
+	f	Lfx;	b	field_28194	origin
+	f	Lcko;	c	field_28195	destination
+	f	I	d	field_28196	arrivalInTicks
+c	cku	net/minecraft/class_5721	net/minecraft/world/gen/feature/util/DripstoneColumn
+	m	()Lcku;	a	method_32980	createEmpty
+	m	(I)Lcku;	a	method_32981	createHalfWithCeiling
+		p	0			ceiling
+	m	(Lbth;Lfx;ILjava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/Optional;	a	method_32982	create
+		p	0			world
+		p	1			pos
+		p	2			height
+		p	3			canGenerate
+		p	4			canReplace
+	m	(Ljava/util/OptionalInt;)Lcku;	a	method_32983	withFloor
+		p	1			floor
+	m	(Ljava/util/OptionalInt;Ljava/util/OptionalInt;)Lcku;	a	method_32984	create
+		p	0			ceilingHeight
+		p	1			floorHeight
+	m	()Ljava/util/OptionalInt;	b	method_32985	getCeilingHeight
+	m	(II)Lcku$b;	b	method_32986	createBounded
+		p	0			floor
+		p	1			ceiling
+	m	()Ljava/util/OptionalInt;	c	method_32987	getFloorHeight
+	m	(I)Lcku;	c	method_32988	createHalfWithFloor
+		p	0			floor
+c	cku$a	net/minecraft/class_5721$class_5722	net/minecraft/world/gen/feature/util/DripstoneColumn$Empty
 	m	()Lcku$a;	e	method_32989	method_32989
 	m	()Ljava/lang/String;	toString	toString	toString
-	f	Lcku$a;	a	field_28197	field_28197
-c	cku$b	net/minecraft/class_5721$class_5723	net/minecraft/class_5721$class_5723
-	m	()I	e	method_32990	method_32990
-	m	()I	f	method_32991	method_32991
-	m	()I	g	method_32992	method_32992
+	f	Lcku$a;	a	field_28197	INSTANCE
+c	cku$b	net/minecraft/class_5721$class_5723	net/minecraft/world/gen/feature/util/DripstoneColumn$Bounded
+	m	(II)V	<init>	<init>	<init>
+		p	1			floor
+		p	2			ceiling
+	m	()I	e	method_32990	getCeiling
+	m	()I	f	method_32991	getFloor
+	m	()I	g	method_32992	getHeight
 	m	()Ljava/lang/String;	toString	toString	toString
-	f	I	a	field_28198	field_28198
-	f	I	b	field_28199	field_28199
-c	cku$c	net/minecraft/class_5721$class_5724	net/minecraft/class_5721$class_5724
+	f	I	a	field_28198	floor
+	f	I	b	field_28199	ceiling
+c	cku$c	net/minecraft/class_5721$class_5724	net/minecraft/world/gen/feature/util/DripstoneColumn$Half
+	m	(IZ)V	<init>	<init>	<init>
+		p	1			height
+		p	2			floor
 	m	()Ljava/lang/String;	toString	toString	toString
-	f	I	a	field_28200	field_28200
-	f	Z	b	field_28201	field_28201
+	f	I	a	field_28200	height
+	f	Z	b	field_28201	floor
 c	ckv	net/minecraft/class_2891	net/minecraft/world/gen/chunk/DebugChunkGenerator
 	m	(Lgn;)V	<init>	<init>	<init>
 		p	1			biomeRegistry
@@ -38753,26 +39195,85 @@ c	cmu	net/minecraft/class_3005	net/minecraft/world/gen/feature/DesertWellFeature
 	f	Lcgl;	ah	field_13449	fluidInside
 c	cmv	net/minecraft/class_5433	net/minecraft/world/gen/feature/UnderwaterDiskFeature
 	m	(Lbtw;Lcie;Ljava/util/Random;Lfx;Lcps;)Z	method_13005	method_13005	generate
-c	cmw	net/minecraft/class_5725	net/minecraft/class_5725
-	m	(IIIILcpt;)D	a	method_32997	method_32997
-	m	(Lbtc;Lfx;)Z	a	method_32998	method_32998
+c	cmw	net/minecraft/class_5725	net/minecraft/world/gen/feature/DripstoneClusterFeature
+	m	(IIIILcpt;)D	a	method_32997	dripstoneChance
+		p	1			radiusX
+		p	2			radiusZ
+		p	3			localX
+		p	4			localZ
+		p	5			config
+	m	(Lbtc;Lfx;)Z	a	method_32998	isStoneOrWater
+		p	1			world
+		p	2			pos
 	m	(Lbtw;Lcie;Ljava/util/Random;Lfx;Lcpt;)Z	a	method_32999	generate
-	m	(Lbtw;Lfx;)Z	a	method_33000	method_33000
-	m	(Lbtw;Lfx;ILgc;)V	a	method_33001	method_33001
-	m	(Lbtw;Ljava/util/Random;Lfx;IIFDIFLcpt;)V	a	method_33002	method_33002
-	m	(Ljava/util/Random;FFFF)F	a	method_33003	method_33003
-	m	(Ljava/util/Random;IIFILcpt;)I	a	method_33004	method_33004
-c	cmx	net/minecraft/class_5726	net/minecraft/class_5726
-	m	(DDDD)D	a	method_33005	method_33005
-	m	(Lbtc;Lfx;)Z	a	method_33006	method_33006
+	m	(Lbtw;Lfx;)Z	a	method_33000	canWaterSpawn
+		p	1			world
+		p	2			pos
+	m	(Lbtw;Lfx;ILgc;)V	a	method_33001	placeDripstoneBlocks
+		p	1			world
+		p	2			pos
+		p	3			height
+		p	4			direction
+	m	(Lbtw;Ljava/util/Random;Lfx;IIFDIFLcpt;)V	a	method_33002	generate
+		p	1			world
+		p	2			random
+		p	3			pos
+		p	4			localX
+		p	5			localZ
+		p	6			wetness
+		p	7			dripstoneChance
+		p	9			height
+		p	10			density
+		p	11			config
+	m	(Ljava/util/Random;FFFF)F	a	method_33003	clampedGaussian
+		p	0			random
+		p	1			min
+		p	2			max
+		p	3			mean
+		p	4			deviation
+	m	(Ljava/util/Random;IIFILcpt;)I	a	method_33004	getHeight
+		p	1			random
+		p	2			localX
+		p	3			localZ
+		p	4			density
+		p	5			height
+		p	6			config
+c	cmx	net/minecraft/class_5726	net/minecraft/world/gen/feature/util/DripstoneHelper
+	m	(DDDD)D	a	method_33005	scaleHeightFromRadius
+		p	0			radius
+		p	2			scale
+		p	4			heightScale
+		p	6			bluntness
+	m	(Lbtc;Lfx;)Z	a	method_33006	canGenerate
+		p	0			world
+		p	1			pos
 	m	(Lbtw;Lfx$a;Lgc;Lcgl;)V	a	method_33007	method_33007
-	m	(Lbtw;Lfx;)Z	a	method_33008	method_33008
-	m	(Lbtw;Lfx;I)Z	a	method_33009	method_33009
-	m	(Lbtw;Lfx;Lgc;IZ)V	a	method_33010	method_33010
-	m	(Lcgl;)Z	a	method_33011	method_33011
-	m	(Lgc;IZLjava/util/function/Consumer;)V	a	method_33012	method_33012
-	m	(Lgc;Lchi;)Lcgl;	a	method_33013	method_33013
-	m	(Lcgl;)Z	b	method_33014	method_33014
+		p	3			state
+	m	(Lbtw;Lfx;)Z	a	method_33008	generateDripstoneBlock
+		p	0			world
+		p	1			pos
+	m	(Lbtw;Lfx;I)Z	a	method_33009	canGenerateBase
+		p	0			world
+		p	1			pos
+		p	2			height
+	m	(Lbtw;Lfx;Lgc;IZ)V	a	method_33010	generatePointedDripstone
+		p	0			world
+		p	1			pos
+		p	2			direction
+		p	3			height
+		p	4			merge
+	m	(Lcgl;)Z	a	method_33011	canReplace
+		p	0			state
+	m	(Lgc;IZLjava/util/function/Consumer;)V	a	method_33012	getDripstoneThickness
+		p	0			direction
+		p	1			height
+		p	2			merge
+		p	3			callback
+	m	(Lgc;Lchi;)Lcgl;	a	method_33013	getState
+		p	0			direction
+		p	1			thickness
+	m	(Lcgl;)Z	b	method_33014	canGenerate
+		p	0			state
 c	cmy	net/minecraft/class_3021	net/minecraft/world/gen/feature/EndCityFeature
 	m	(IILcie;)I	a	method_13084	method_13084
 	m	(Lcie;Lbud;JLclm;IILbua;Lbsg;Lcqe;)Z	a	method_28625	shouldStartAt
@@ -39050,35 +39551,59 @@ c	cnr	net/minecraft/class_3081	net/minecraft/world/gen/feature/KelpFeature
 c	cns	net/minecraft/class_3085	net/minecraft/world/gen/feature/LakeFeature
 	m	(Lbtw;Lcie;Ljava/util/Random;Lfx;Lcpm;)Z	a	method_13471	generate
 	f	Lcgl;	a	field_13668	CAVE_AIR
-c	cnt	net/minecraft/class_5727	net/minecraft/class_5727
+c	cnt	net/minecraft/class_5727	net/minecraft/world/gen/feature/LargeDripstoneFeature
 	m	(Lbtw;Lcie;Ljava/util/Random;Lfx;Lcpz;)Z	a	method_33015	generate
-	m	(Lfx;ZLjava/util/Random;ILagj;Lagj;)Lcnt$a;	a	method_33016	method_33016
-c	cnt$1	net/minecraft/class_5727$1	net/minecraft/class_5727$1
-c	cnt$a	net/minecraft/class_5727$class_5728	net/minecraft/class_5727$class_5728
-	m	()I	a	method_33017	method_33017
-	m	(F)I	a	method_33018	method_33018
-	m	(Lbtw;Lcnt$b;)Z	a	method_33019	method_33019
-	m	(Lbtw;Ljava/util/Random;Lcnt$b;)V	a	method_33020	method_33020
+	m	(Lfx;ZLjava/util/Random;ILagj;Lagj;)Lcnt$a;	a	method_33016	createGenerator
+		p	0			pos
+		p	1			isStalagmite
+		p	2			random
+		p	3			scale
+		p	4			bluntness
+		p	5			heightScale
+c	cnt$1	net/minecraft/class_5727$1	net/minecraft/world/gen/feature/LargeDripstoneFeature$1
+c	cnt$a	net/minecraft/class_5727$class_5728	net/minecraft/world/gen/feature/LargeDripstoneFeature$DripstoneGenerator
+	m	(Lfx;ZIDD)V	<init>	<init>	<init>
+		p	1			pos
+		p	2			isStalagmite
+		p	3			scale
+		p	4			bluntness
+		p	6			heightScale
+	m	()I	a	method_33017	getBaseScale
+	m	(F)I	a	method_33018	scale
+		p	1			height
+	m	(Lbtw;Lcnt$b;)Z	a	method_33019	canGenerate
+		p	1			world
+		p	2			wind
+	m	(Lbtw;Ljava/util/Random;Lcnt$b;)V	a	method_33020	generate
+		p	1			world
+		p	2			random
+		p	3			wind
 	m	(Lcnt$a;)I	a	method_33021	method_33021
 	m	(Lcnt$a;Lbtw;Lcnt$b;)Z	a	method_33022	method_33022
 	m	(Lcnt$a;Lbtw;Ljava/util/Random;Lcnt$b;)V	a	method_33023	method_33023
 	m	(Lcnt$a;Lcpz;)Z	a	method_33024	method_33024
-	m	(Lcpz;)Z	a	method_33025	method_33025
-	m	()I	b	method_33026	method_33026
+	m	(Lcpz;)Z	a	method_33025	generateWind
+		p	1			config
+	m	()I	b	method_33026	getStalactiteHeight
 	m	(Lcnt$a;)I	b	method_33027	method_33027
-	m	()I	c	method_33028	method_33028
-	f	Lfx;	a	field_28206	field_28206
-	f	Z	b	field_28207	field_28207
-	f	I	c	field_28208	field_28208
-	f	D	d	field_28209	field_28209
-	f	D	e	field_28210	field_28210
-c	cnt$b	net/minecraft/class_5727$class_5729	net/minecraft/class_5727$class_5729
+	m	()I	c	method_33028	getStalagmiteHeight
+	f	Lfx;	a	field_28206	pos
+	f	Z	b	field_28207	isStalagmite
+	f	I	c	field_28208	scale
+	f	D	d	field_28209	bluntness
+	f	D	e	field_28210	heightScale
+c	cnt$b	net/minecraft/class_5727$class_5729	net/minecraft/world/gen/feature/LargeDripstoneFeature$WindModifier
+	m	(ILjava/util/Random;Lagj;)V	<init>	<init>	<init>
+		p	1			y
+		p	2			random
+		p	3			wind
 	m	()Lcnt$b;	a	method_33029	method_33029
 	m	(Lcnt$b;Lfx;)Lfx;	a	method_33030	method_33030
-	m	(Lfx;)Lfx;	a	method_33031	method_33031
-	m	()Lcnt$b;	b	method_33032	method_33032
-	f	I	a	field_28211	field_28211
-	f	Ldhd;	b	field_28212	field_28212
+	m	(Lfx;)Lfx;	a	method_33031	modify
+		p	1			pos
+	m	()Lcnt$b;	b	method_33032	create
+	f	I	a	field_28211	y
+	f	Ldhd;	b	field_28212	wind
 c	cnu	net/minecraft/class_3098	net/minecraft/world/gen/feature/MineshaftFeature
 	m	(Lcie;Lbud;JLclm;IILbua;Lbsg;Lcqb;)Z	a	method_28638	shouldStartAt
 c	cnu$a	net/minecraft/class_3098$class_3099	net/minecraft/world/gen/feature/MineshaftFeature$Start
@@ -39688,12 +40213,27 @@ c	com/mojang/blaze3d/systems/RenderSystem$a$a	com/mojang/blaze3d/systems/RenderS
 	m	(Lit/unimi/dsi/fastutil/ints/IntConsumer;I)V	accept	accept	accept
 c	coo	net/minecraft/class_3177	net/minecraft/world/gen/feature/SimpleRandomFeature
 	m	(Lbtw;Lcie;Ljava/util/Random;Lfx;Lcqr;)Z	a	method_13953	generate
-c	cop	net/minecraft/class_5730	net/minecraft/class_5730
+c	cop	net/minecraft/class_5730	net/minecraft/world/gen/feature/SmallDripstoneFeature
 	m	(Lbtw;Lcie;Ljava/util/Random;Lfx;Lcqs;)Z	a	method_33033	generate
-	m	(Lbtw;Ljava/util/Random;Lfx;)V	a	method_33034	method_33034
-	m	(Lbtw;Ljava/util/Random;Lfx;Lcqs;)Z	a	method_33035	method_33035
-	m	(Lbtw;Ljava/util/Random;Lfx;Lgc;Lcqs;)Z	a	method_33036	method_33036
-	m	(Ljava/util/Random;Lfx;Lcqs;)Lfx;	a	method_33037	method_33037
+	m	(Lbtw;Ljava/util/Random;Lfx;)V	a	method_33034	generateDripstoneBlocks
+		p	0			world
+		p	1			random
+		p	2			pos
+	m	(Lbtw;Ljava/util/Random;Lfx;Lcqs;)Z	a	method_33035	generate
+		p	0			world
+		p	1			random
+		p	2			pos
+		p	3			config
+	m	(Lbtw;Ljava/util/Random;Lfx;Lgc;Lcqs;)Z	a	method_33036	generateDripstone
+		p	0			world
+		p	1			random
+		p	2			pos
+		p	3			direction
+		p	4			config
+	m	(Ljava/util/Random;Lfx;Lcqs;)Lfx;	a	method_33037	randomPos
+		p	0			random
+		p	1			pos
+		p	2			config
 c	coq	net/minecraft/class_3183	net/minecraft/world/gen/feature/FreezeTopLayerFeature
 	m	(Lbtw;Lcie;Ljava/util/Random;Lfx;Lcqe;)Z	a	method_13978	generate
 c	cor	net/minecraft/class_3310	net/minecraft/world/gen/feature/EndSpikeFeature
@@ -40175,7 +40715,21 @@ c	cps	net/minecraft/class_3013	net/minecraft/world/gen/feature/DiskFeatureConfig
 	f	Lagk;	c	field_13472	radius
 	f	I	d	field_13471	halfHeight
 	f	Ljava/util/List;	e	field_13469	targets
-c	cpt	net/minecraft/class_5731	net/minecraft/class_5731
+c	cpt	net/minecraft/class_5731	net/minecraft/world/gen/feature/DripstoneClusterFeatureConfig
+	m	(ILagk;Lagk;IILagk;Lagj;Lagj;FFFII)V	<init>	<init>	<init>
+		p	1			floorToCeilingSearchRange
+		p	2			height
+		p	3			radius
+		p	4			maxStalagmiteStalactiteHeightDiff
+		p	5			heightDeviation
+		p	6			dripstoneBlockLayerThickness
+		p	7			density
+		p	8			wetness
+		p	9			wetnessMean
+		p	10			wetnessDeviation
+		p	11			chanceOfDripstoneColumnAtMaxDistanceFromCenter
+		p	12			maxDistanceFromCenterAffectingChanceOfDripstoneColumn
+		p	13			maxDistanceFromCenterAffectingHeightBias
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_33038	method_33038
 	m	(Lcpt;)Ljava/lang/Integer;	a	method_33039	method_33039
 	m	(Lcpt;)Ljava/lang/Integer;	b	method_33040	method_33040
@@ -40190,20 +40744,20 @@ c	cpt	net/minecraft/class_5731	net/minecraft/class_5731
 	m	(Lcpt;)Lagk;	k	method_33049	method_33049
 	m	(Lcpt;)Lagk;	l	method_33050	method_33050
 	m	(Lcpt;)Ljava/lang/Integer;	m	method_33051	method_33051
-	f	Lcom/mojang/serialization/Codec;	a	field_28213	field_28213
-	f	I	b	field_28214	field_28214
-	f	Lagk;	c	field_28215	field_28215
-	f	Lagk;	d	field_28216	field_28216
-	f	I	e	field_28217	field_28217
-	f	I	f	field_28218	field_28218
-	f	Lagk;	g	field_28219	field_28219
-	f	Lagj;	h	field_28220	field_28220
-	f	Lagj;	i	field_28221	field_28221
-	f	F	j	field_28222	field_28222
-	f	F	k	field_28223	field_28223
-	f	F	l	field_28224	field_28224
-	f	I	m	field_28225	field_28225
-	f	I	n	field_28226	field_28226
+	f	Lcom/mojang/serialization/Codec;	a	field_28213	CODEC
+	f	I	b	field_28214	floorToCeilingSearchRange
+	f	Lagk;	c	field_28215	height
+	f	Lagk;	d	field_28216	radius
+	f	I	e	field_28217	maxStalagmiteStalactiteHeightDiff
+	f	I	f	field_28218	heightDeviation
+	f	Lagk;	g	field_28219	dripstoneBlockLayerThickness
+	f	Lagj;	h	field_28220	density
+	f	Lagj;	i	field_28221	wetness
+	f	F	j	field_28222	wetnessMean
+	f	F	k	field_28223	wetnessDeviation
+	f	F	l	field_28224	chanceOfDripstoneColumnAtMaxDistanceFromCenter
+	f	I	m	field_28225	maxDistanceFromCenterAffectingChanceOfDripstoneColumn
+	f	I	n	field_28226	maxDistanceFromCenterAffectingHeightBias
 c	cpu	net/minecraft/class_3018	net/minecraft/world/gen/feature/EndGatewayFeatureConfig
 	m	(Ljava/util/Optional;Z)V	<init>	<init>	<init>
 		p	1			exitPos
@@ -40297,7 +40851,17 @@ c	cpy	net/minecraft/class_3812	net/minecraft/world/gen/feature/StructurePoolFeat
 	f	Lcom/mojang/serialization/Codec;	a	field_24886	CODEC
 	f	Ljava/util/function/Supplier;	b	field_16861	startPool
 	f	I	c	field_16860	size
-c	cpz	net/minecraft/class_5732	net/minecraft/class_5732
+c	cpz	net/minecraft/class_5732	net/minecraft/world/gen/feature/LargeDripstoneFeatureConfig
+	m	(ILagk;Lagj;FLagj;Lagj;Lagj;IF)V	<init>	<init>	<init>
+		p	1			floorToCeilingSearchRange
+		p	2			columnRadius
+		p	3			heightScale
+		p	4			maxColumnRadiusToCaveHeightRatio
+		p	5			stalactiteBluntness
+		p	6			stalagmiteBluntness
+		p	7			windSpeed
+		p	8			minRadiusForWind
+		p	9			minBluntnessForWind
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_33052	method_33052
 	m	(Lcpz;)Ljava/lang/Float;	a	method_33053	method_33053
 	m	(Lcpz;)Ljava/lang/Integer;	b	method_33054	method_33054
@@ -40308,16 +40872,16 @@ c	cpz	net/minecraft/class_5732	net/minecraft/class_5732
 	m	(Lcpz;)Lagj;	g	method_33059	method_33059
 	m	(Lcpz;)Lagk;	h	method_33060	method_33060
 	m	(Lcpz;)Ljava/lang/Integer;	i	method_33061	method_33061
-	f	Lcom/mojang/serialization/Codec;	a	field_28227	field_28227
-	f	I	b	field_28228	field_28228
-	f	Lagk;	c	field_28229	field_28229
-	f	Lagj;	d	field_28230	field_28230
-	f	F	e	field_28231	field_28231
-	f	Lagj;	f	field_28232	field_28232
-	f	Lagj;	g	field_28233	field_28233
-	f	Lagj;	h	field_28234	field_28234
-	f	I	i	field_28235	field_28235
-	f	F	j	field_28236	field_28236
+	f	Lcom/mojang/serialization/Codec;	a	field_28227	CODEC
+	f	I	b	field_28228	floorToCeilingSearchRange
+	f	Lagk;	c	field_28229	columnRadius
+	f	Lagj;	d	field_28230	heightScale
+	f	F	e	field_28231	maxColumnRadiusToCaveHeightRatio
+	f	Lagj;	f	field_28232	stalactiteBluntness
+	f	Lagj;	g	field_28233	stalagmiteBluntness
+	f	Lagj;	h	field_28234	windSpeed
+	f	I	i	field_28235	minRadiusForWind
+	f	F	j	field_28236	minBluntnessForWind
 c	cq	net/minecraft/class_2135	net/minecraft/advancement/criterion/TickCriterion
 	m	(Laat;)V	a	method_9141	trigger
 		p	1			player
@@ -40583,17 +41147,22 @@ c	cqr	net/minecraft/class_3179	net/minecraft/world/gen/feature/SimpleRandomFeatu
 	m	(Ljava/util/function/Supplier;)Ljava/util/stream/Stream;	a	method_30651	method_30651
 	f	Lcom/mojang/serialization/Codec;	a	field_24910	CODEC
 	f	Ljava/util/List;	b	field_13827	features
-c	cqs	net/minecraft/class_5733	net/minecraft/class_5733
+c	cqs	net/minecraft/class_5733	net/minecraft/world/gen/feature/SmallDripstoneFeatureConfig
+	m	(IIIF)V	<init>	<init>	<init>
+		p	1			maxPlacements
+		p	2			emptySpaceSearchRadius
+		p	3			maxOffsetFromOrigin
+		p	4			chanceOfTallerDripstone
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_33062	method_33062
 	m	(Lcqs;)Ljava/lang/Float;	a	method_33063	method_33063
 	m	(Lcqs;)Ljava/lang/Integer;	b	method_33064	method_33064
 	m	(Lcqs;)Ljava/lang/Integer;	c	method_33065	method_33065
 	m	(Lcqs;)Ljava/lang/Integer;	d	method_33066	method_33066
-	f	Lcom/mojang/serialization/Codec;	a	field_28237	field_28237
-	f	I	b	field_28238	field_28238
-	f	I	c	field_28239	field_28239
-	f	I	d	field_28240	field_28240
-	f	F	e	field_28241	field_28241
+	f	Lcom/mojang/serialization/Codec;	a	field_28237	CODEC
+	f	I	b	field_28238	maxPlacements
+	f	I	c	field_28239	emptySpaceSearchRadius
+	f	I	d	field_28240	maxOffsetFromOrigin
+	f	F	e	field_28241	chanceOfTallerDripstone
 c	cqt	net/minecraft/class_3666	net/minecraft/world/gen/feature/EndSpikeFeatureConfig
 	m	(ZLjava/util/List;Lfx;)V	<init>	<init>	<init>
 		p	1			crystalInvulnerable
@@ -44892,6 +45461,7 @@ c	cyy	net/minecraft/class_3614	net/minecraft/block/Material
 		p	5			blocksLight
 		p	6			breakByHand
 		p	7			burnable
+		p	8			pistonBehavior
 	m	()Z	a	method_15797	isLiquid
 	m	()Z	b	method_15799	isSolid
 	m	()Z	c	method_15801	blocksMovement
@@ -44963,7 +45533,7 @@ c	cyy	net/minecraft/class_3614	net/minecraft/block/Material
 	f	Lcyy;	o	field_15924	SUPPORTED
 		c	Material for blocks that require a supporting block such as redstone components, torches, flower pots, and skulls.
 	f	Lcyy;	p	field_15913	COBWEB
-	f	Lcyy;	q	field_28242	field_28242
+	f	Lcyy;	q	field_28242	SCULK
 	f	Lcyy;	r	field_15918	REDSTONE_LAMP
 	f	Lcyy;	s	field_15936	ORGANIC_PRODUCT
 		c	Material for blocks that come from mobs such as honey, slime, or infested blocks. Includes clay but not bone blocks.
@@ -49136,7 +49706,7 @@ c	dhi	net/minecraft/class_3726	net/minecraft/block/ShapeContext
 	m	()Ldhi;	a	method_16194	absent
 	m	(Laqq;)Ldhi;	a	method_16195	of
 		p	0			entity
-	m	(Lcyu;Lcys;)Z	a	method_27866	method_27866
+	m	(Lcyu;Lcys;)Z	a	method_27866	canWalkOnFluid
 		p	1			state
 		p	2			fluid
 	m	(Ldhw;Lfx;Z)Z	a	method_16192	isAbove
@@ -49231,16 +49801,21 @@ c	dhn	net/minecraft/class_3727	net/minecraft/block/EntityShapeContext
 	m	(ZDLbnc;Lbnc;Ljava/util/function/Predicate;Ljava/util/Optional;)V	<init>	<init>	<init>
 		p	1			descending
 		p	2			minY
+		p	4			boots
+		p	5			heldItem
+		p	6			walkOnFluidPredicate
+		p	7			entity
 	m	(Lcyt;)Z	a	method_27867	method_27867
+		p	0			fluid
 	m	(Lcyt;)Z	b	method_27868	method_27868
-	m	()Ljava/util/Optional;	c	method_32480	method_32480
+	m	()Ljava/util/Optional;	c	method_32480	getEntity
 	f	Ldhi;	a	field_17593	ABSENT
 	f	Z	b	field_16451	descending
 	f	D	c	field_16450	minY
 	f	Lbnc;	d	field_17594	heldItem
-	f	Lbnc;	e	field_27934	field_27934
-	f	Ljava/util/function/Predicate;	f	field_24425	field_24425
-	f	Ljava/util/Optional;	g	field_27935	field_27935
+	f	Lbnc;	e	field_27934	boots
+	f	Ljava/util/function/Predicate;	f	field_24425	walkOnFluidPredicate
+	f	Ljava/util/Optional;	g	field_27935	entity
 c	dhn$1	net/minecraft/class_3727$1	net/minecraft/block/EntityShapeContext$1
 c	dho	net/minecraft/class_250	net/minecraft/util/shape/IdentityPairList
 	m	(Lit/unimi/dsi/fastutil/doubles/DoubleList;)V	<init>	<init>	<init>
@@ -54443,17 +55018,20 @@ c	dnc	net/minecraft/class_4431	net/minecraft/client/realms/util/JsonUtils
 		p	0			key
 		p	1			node
 		p	2			defaultValue
-c	dnd	net/minecraft/class_5672	net/minecraft/class_5672
-	m	()Lof;	a	method_32506	method_32506
-	m	()I	b	method_32507	method_32507
+c	dnd	net/minecraft/class_5672	net/minecraft/client/realms/gui/screen/RealmsWorldGeneratorType
+	m	(Ljava/lang/String;IILof;)V	<init>	<init>	<init>
+		p	3			id
+		p	4			text
+	m	()Lof;	a	method_32506	getText
+	m	()I	b	method_32507	getId
 	m	(Ljava/lang/String;)Ldnd;	valueOf	valueOf	valueOf
 	m	()[Ldnd;	values	values	values
-	f	Ldnd;	a	field_27944	field_27944
-	f	Ldnd;	b	field_27945	field_27945
-	f	Ldnd;	c	field_27946	field_27946
-	f	Ldnd;	d	field_27947	field_27947
-	f	I	e	field_27948	field_27948
-	f	Lof;	f	field_27949	field_27949
+	f	Ldnd;	a	field_27944	DEFAULT
+	f	Ldnd;	b	field_27945	FLAT
+	f	Ldnd;	c	field_27946	LARGE_BIOMES
+	f	Ldnd;	d	field_27947	AMPLIFIED
+	f	I	e	field_27948	id
+	f	Lof;	f	field_27949	text
 	f	[Ldnd;	g	field_27950	field_27950
 c	dne	net/minecraft/class_4432	net/minecraft/client/realms/util/RealmsPersistence
 	m	()Ldne$a;	a	method_21549	readFile
@@ -65019,12 +65597,14 @@ c	ecy$w	net/minecraft/class_663$class_4088	net/minecraft/client/particle/BlockLe
 		p	1			spriteProvider
 	m	(Lhm;Lecc;DDDDDD)Ledr;	a	method_18825	createParticle
 	f	Leei;	a	field_18298	spriteProvider
-c	ecz	net/minecraft/class_5734	net/minecraft/class_5734
+c	ecz	net/minecraft/class_5734	net/minecraft/client/particle/DustColorTransitionParticle
+	m	(Lecc;DDDDDDLhf;Leei;)V	<init>	<init>	<init>
+		p	1			world
 	m	(Ldhd;F)Ldhd;	a	method_33073	method_33073
 	m	(F)V	f	method_33074	method_33074
 	f	Ldhd;	a	field_28244	field_28244
 	f	Ldhd;	b	field_28245	field_28245
-c	ecz$a	net/minecraft/class_5734$class_5735	net/minecraft/class_5734$class_5735
+c	ecz$a	net/minecraft/class_5734$class_5735	net/minecraft/client/particle/DustColorTransitionParticle$Factory
 	m	(Lhf;Lecc;DDDDDD)Ledr;	a	method_33075	createParticle
 	f	Leei;	a	field_28246	field_28246
 c	ed	net/minecraft/class_2245	net/minecraft/command/argument/TimeArgumentType
@@ -65041,12 +65621,16 @@ c	ed	net/minecraft/class_2245	net/minecraft/command/argument/TimeArgumentType
 	f	Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;	c	field_9971	INVALID_COUNT_EXCEPTION
 	f	Lit/unimi/dsi/fastutil/objects/Object2IntMap;	d	field_9972	UNITS
 c	eda	net/minecraft/class_671	net/minecraft/client/particle/RedDustParticle
+	m	(Lecc;DDDDDDLhg;Leei;)V	<init>	<init>	<init>
+		p	1			world
 c	eda$a	net/minecraft/class_671$class_672	net/minecraft/client/particle/RedDustParticle$Factory
 	m	(Leei;)V	<init>	<init>	<init>
 		p	1			spriteProvider
 	m	(Lhg;Lecc;DDDDDD)Ledr;	a	method_3022	createParticle
 	f	Leei;	a	field_17802	spriteProvider
-c	edb	net/minecraft/class_5736	net/minecraft/class_5736
+c	edb	net/minecraft/class_5736	net/minecraft/client/particle/AbstractDustParticle
+	m	(Lecc;DDDDDDLhh;Leei;)V	<init>	<init>	<init>
+		p	1			world
 	m	(FF)F	a	method_33076	method_33076
 	f	Leei;	a	field_28247	field_28247
 c	edc	net/minecraft/class_668	net/minecraft/client/particle/EnchantGlyphParticle
@@ -65879,15 +66463,18 @@ c	eep	net/minecraft/class_733	net/minecraft/client/particle/EmitterParticle
 	f	Lhj;	C	field_3893	parameters
 	f	Laqq;	a	field_3894	entity
 	f	I	b	field_3896	emitterAge
-c	eeq	net/minecraft/class_5737	net/minecraft/class_5737
+c	eeq	net/minecraft/class_5737	net/minecraft/client/particle/VibrationParticle
+	m	(Lecc;Lcks;I)V	<init>	<init>	<init>
+		p	1			world
+		p	3			maxAge
 	m	(FFLd;)V	a	method_33077	method_33077
 	m	(Ldke;Ldoa;FLjava/util/function/Consumer;)V	a	method_33078	method_33078
 	m	(FFLd;)V	b	method_33079	method_33079
 	f	F	D	field_28248	field_28248
 	f	Lcks;	a	field_28249	field_28249
 	f	F	b	field_28250	field_28250
-c	eeq$1	net/minecraft/class_5737$1	net/minecraft/class_5737$1
-c	eeq$a	net/minecraft/class_5737$class_5738	net/minecraft/class_5737$class_5738
+c	eeq$1	net/minecraft/class_5737$1	net/minecraft/client/particle/VibrationParticle$1
+c	eeq$a	net/minecraft/class_5737$class_5738	net/minecraft/client/particle/VibrationParticle$Factory
 	m	(Lhn;Lecc;DDDDDD)Ledr;	a	method_33080	createParticle
 	f	Leei;	a	field_28251	field_28251
 c	eer	net/minecraft/class_738	net/minecraft/client/particle/FishingParticle
@@ -68923,7 +69510,9 @@ c	eic$a	net/minecraft/class_837$class_4702	net/minecraft/client/render/block/ent
 c	eid	net/minecraft/class_836	net/minecraft/client/render/block/entity/SkullBlockEntityRenderer
 	m	(Lehs$a;)V	<init>	<init>	<init>
 		p	1			ctx
-	m	(Lcbu$a;Lcom/mojang/authlib/GameProfile;)Legb;	a	method_3578	method_3578
+	m	(Lcbu$a;Lcom/mojang/authlib/GameProfile;)Legb;	a	method_3578	getRenderLayer
+		p	0			type
+		p	1			profile
 	m	(Lcfk;FLdka;Left;II)V	a	method_3577	render
 	m	(Lebh;)Ljava/util/Map;	a	method_32160	getModels
 		p	0			modelLoader
@@ -69569,7 +70158,9 @@ c	eiw$a	net/minecraft/class_863$class_864	net/minecraft/client/render/debug/Debu
 		p	3			cameraX
 		p	5			cameraY
 		p	7			cameraZ
-c	eix	net/minecraft/class_5739	net/minecraft/class_5739
+c	eix	net/minecraft/class_5739	net/minecraft/client/render/debug/GameEventDebugRenderer
+	m	(Ldop;)V	<init>	<init>	<init>
+		p	1			client
 	m	(Lbtb;Lfx;Leix$b;)Z	a	method_33086	method_33086
 	m	(Lckk;Lfx;)V	a	method_33087	method_33087
 	m	(Lcko;I)V	a	method_33088	method_33088
@@ -69577,18 +70168,18 @@ c	eix	net/minecraft/class_5739	net/minecraft/class_5739
 	m	(Ldjv;DDDLfx;)V	a	method_33090	method_33090
 	m	(Leix$b;Ldka;Ldke;DDDLfx;)V	a	method_33091	method_33091
 	m	(Lfx;)V	a	method_33092	method_33092
-	f	Ldop;	a	field_28255	field_28255
+	f	Ldop;	a	field_28255	client
 	f	Ljava/util/List;	b	field_28256	field_28256
 	f	Ljava/util/List;	c	field_28257	field_28257
-c	eix$a	net/minecraft/class_5739$class_5740	net/minecraft/class_5739$class_5740
+c	eix$a	net/minecraft/class_5739$class_5740	net/minecraft/client/render/debug/GameEventDebugRenderer$Listener
 	m	()Z	a	method_33093	method_33093
 	f	J	a	field_28258	field_28258
 	f	Lckk;	b	field_28259	field_28259
 	f	Ldhd;	c	field_28260	field_28260
-c	eix$b	net/minecraft/class_5739$class_5741	net/minecraft/class_5739$class_5741
+c	eix$b	net/minecraft/class_5739$class_5741	net/minecraft/client/render/debug/GameEventDebugRenderer$class_5741
 	m	(Lbtb;)Ljava/util/Optional;	a	method_33094	method_33094
 	m	(Lbtb;Lfx;)Z	a	method_33095	method_33095
-	f	Lcko;	a	field_28261	field_28261
+	f	Lcko;	a	field_28261	event
 	f	I	b	field_28262	field_28262
 c	eiy	net/minecraft/class_4503	net/minecraft/client/render/debug/GameTestDebugRenderer
 	m	(JLjava/util/Map$Entry;)Z	a	method_23110	method_23110
@@ -70859,7 +71450,9 @@ c	enr	net/minecraft/class_976	net/minecraft/client/render/entity/feature/HeadFea
 		p	4			scaleY
 		p	5			scaleZ
 	m	(Ldka;Left;ILarc;FFFFFF)V	a	method_17159	render
-	m	(Ldka;Z)V	a	method_32798	method_32798
+	m	(Ldka;Z)V	a	method_32798	translate
+		p	0			matrices
+		p	1			villager
 	f	F	a	field_24474	scaleX
 	f	F	b	field_24475	scaleY
 	f	F	c	field_24476	scaleZ
@@ -70980,8 +71573,14 @@ c	eoj	net/minecraft/class_983	net/minecraft/client/render/entity/feature/Shoulde
 	f	Ldzs;	a	field_17154	model
 c	eok	net/minecraft/class_993	net/minecraft/client/render/entity/feature/PhantomEyesFeatureRenderer
 	f	Legb;	a	field_4890	SKIN
-c	eol	net/minecraft/class_5697	net/minecraft/class_5697
-	m	(Larc;Lbnc;Laqy;Ldka;Left;I)V	a	method_32799	method_32799
+c	eol	net/minecraft/class_5697	net/minecraft/client/render/entity/feature/PlayerHeldItemFeatureRenderer
+	m	(Larc;Lbnc;Laqy;Ldka;Left;I)V	a	method_32799	renderSpyglass
+		p	1			entity
+		p	2			stack
+		p	3			arm
+		p	4			matrices
+		p	5			vertexConsumers
+		p	6			light
 c	eom	net/minecraft/class_3887	net/minecraft/client/render/entity/feature/FeatureRenderer
 	m	(Lemc;)V	<init>	<init>	<init>
 		p	1			context
@@ -74039,7 +74638,8 @@ c	fx	net/minecraft/class_2338	net/minecraft/util/math/BlockPos
 		p	1			distance
 	m	()Lfx;	h	method_10062	toImmutable
 		c	Returns an immutable block position with the same x, y, and z as this\nposition.\n\n<p>This method should be called when a block position is used as map\nkeys as to prevent side effects of mutations of mutable block positions.
-	m	(I)Lfx;	h	method_33096	method_33096
+	m	(I)Lfx;	h	method_33096	withY
+		p	1			y
 	m	()Lfx$a;	i	method_25503	mutableCopy
 		c	Returns a mutable copy of this block position.\n\n<p>If this block position is a mutable one, mutation to this block\nposition won't affect the returned position.
 	f	Lcom/mojang/serialization/Codec;	a	field_25064	CODEC
@@ -74297,7 +74897,9 @@ c	gc	net/minecraft/class_2350	net/minecraft/util/math/Direction
 		p	2			z
 	m	(Laqq;)[Lgc;	a	method_10159	getEntityFacingOrder
 		p	0			entity
-	m	(Laqq;Lgc$a;)Lgc;	a	method_32801	method_32801
+	m	(Laqq;Lgc$a;)Lgc;	a	method_32801	getLookDirectionForAxis
+		p	0			entity
+		p	1			axis
 	m	(Lb;Lgc;)Lgc;	a	method_23225	transform
 		p	0			matrix
 		p	1			direction
@@ -74658,21 +75260,30 @@ c	gn	net/minecraft/class_2378	net/minecraft/util/registry/Registry
 	m	(Lvx;)Ljava/lang/Object;	a	method_29107	get
 		p	1			key
 	m	(Lvx;Lcom/mojang/serialization/Lifecycle;Ljava/util/function/Supplier;)Lgn;	a	method_29108	create
+		p	0			key
+		p	1			lifecycle
 		p	2			defaultEntry
 	m	(Lvx;Lgt;Ljava/util/function/Supplier;Lcom/mojang/serialization/Lifecycle;)Lgt;	a	method_10227	create
+		p	0			key
 		p	1			registry
 		p	2			defaultEntry
+		p	3			lifecycle
 	m	(Lvx;Ljava/lang/String;Lcom/mojang/serialization/Lifecycle;Ljava/util/function/Supplier;)Lgb;	a	method_29109	create
+		p	0			key
 		p	1			defaultId
+		p	2			lifecycle
 		p	3			defaultEntry
 	m	(Lvx;Ljava/lang/String;Ljava/util/function/Supplier;)Lgb;	a	method_10224	create
+		p	0			key
 		p	1			defaultId
 		p	2			defaultEntry
 	m	(Lvx;Ljava/util/function/Supplier;)Lgn;	a	method_10247	create
+		p	0			key
 		p	1			defaultEntry
 	m	(Lvy;)Ljava/lang/Object;	a	method_10223	get
 		p	1			id
 	m	(Lvy;Ljava/util/function/Supplier;)V	a	method_29110	method_29110
+		p	0			id
 	m	()Laqi;	aa	method_10219	method_10219
 	m	()Lcyt;	ab	method_10248	method_10248
 	m	()Laec;	ac	method_10233	method_10233
@@ -74692,6 +75303,7 @@ c	gn	net/minecraft/class_2378	net/minecraft/util/registry/Registry
 	m	()Ljava/util/Set;	d	method_29722	getEntries
 	m	(Ljava/lang/Object;)Lcom/mojang/serialization/Lifecycle;	d	method_31139	getEntryLifecycle
 		c	Gets the lifecycle of a registry entry.
+		p	1			entry
 	m	(Lvx;)Ljava/lang/Object;	d	method_31140	getOrThrow
 		c	Gets an entry from the registry.\n\n@throws IllegalStateException if the entry was not present in the registry
 		p	1			key
@@ -74739,7 +75351,7 @@ c	gn	net/minecraft/class_2378	net/minecraft/util/registry/Registry
 	f	Lvx;	P	field_25095	DIMENSION_TYPE_KEY
 	f	Lvx;	Q	field_25298	DIMENSION
 	f	Lvx;	R	field_25490	DIMENSION_OPTIONS
-	f	Lgb;	S	field_28264	STEP
+	f	Lgb;	S	field_28264	GAME_EVENTS
 	f	Lgn;	T	field_11156	SOUND_EVENT
 	f	Lgb;	U	field_11154	FLUID
 	f	Lgn;	V	field_11159	STATUS_EFFECT
@@ -74786,7 +75398,7 @@ c	gn	net/minecraft/class_2378	net/minecraft/util/registry/Registry
 	f	Lgn;	aj	field_17597	RECIPE_TYPE
 	f	Lgn;	ak	field_17598	RECIPE_SERIALIZER
 	f	Lgn;	al	field_23781	ATTRIBUTE
-	f	Lgn;	am	field_28265	field_28265
+	f	Lgn;	am	field_28265	POSITION_SOURCES
 	f	Lgn;	an	field_11152	STAT_TYPE
 	f	Lgb;	ao	field_17166	VILLAGER_TYPE
 	f	Lgb;	ap	field_17167	VILLAGER_PROFESSION
@@ -75100,7 +75712,9 @@ c	gs	net/minecraft/class_2382	net/minecraft/util/math/Vec3i
 	m	(Lgs;D)Z	a	method_19771	isWithinDistance
 		p	1			vec
 		p	2			distance
-	m	(Lgs;Z)D	a	method_33106	method_33106
+	m	(Lgs;Z)D	a	method_33106	getSquaredDistance
+		p	1			vec
+		p	2			treatAsBlockPos
 	m	(Ljava/util/stream/IntStream;)Lcom/mojang/serialization/DataResult;	a	method_29125	method_29125
 	m	([I)Lgs;	a	method_29126	method_29126
 	m	(Lgc;I)Lgs;	b	method_23226	offset
@@ -75387,38 +76001,45 @@ c	he	net/minecraft/class_2388	net/minecraft/particle/BlockStateParticleEffect
 c	he$1	net/minecraft/class_2388$1	net/minecraft/particle/BlockStateParticleEffect$1
 	m	(Lhk;Lcom/mojang/brigadier/StringReader;)Lhe;	a	method_10279	read
 	m	(Lhk;Lnt;)Lhe;	a	method_10280	read
-c	hf	net/minecraft/class_5743	net/minecraft/class_5743
+c	hf	net/minecraft/class_5743	net/minecraft/particle/DustColorTransitionParticleEffect
+	m	(Ldhd;Ldhd;F)V	<init>	<init>	<init>
+		p	1			fromColor
+		p	2			toColor
+		p	3			scale
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_33107	method_33107
 	m	(Lhf;)Ljava/lang/Float;	a	method_33108	method_33108
 	m	(Lhf;)Ldhd;	b	method_33109	method_33109
-	m	()Ldhd;	c	method_33110	method_33110
+	m	()Ldhd;	c	method_33110	getFromColor
 	m	(Lhf;)Ldhd;	c	method_33111	method_33111
-	m	()Ldhd;	d	method_33112	method_33112
-	f	Ldhd;	a	field_28267	field_28267
-	f	Lhf;	b	field_28268	field_28268
-	f	Lcom/mojang/serialization/Codec;	c	field_28269	field_28269
-	f	Lhj$a;	d	field_28270	field_28270
-	f	Ldhd;	g	field_28271	field_28271
-c	hf$1	net/minecraft/class_5743$1	net/minecraft/class_5743$1
+	m	()Ldhd;	d	method_33112	getToColor
+	f	Ldhd;	a	field_28267	SCULK_BLUE
+	f	Lhf;	b	field_28268	SCULK_EFFECT
+	f	Lcom/mojang/serialization/Codec;	c	field_28269	CODEC
+	f	Lhj$a;	d	field_28270	FACTORY
+	f	Ldhd;	g	field_28271	toColor
+c	hf$1	net/minecraft/class_5743$1	net/minecraft/particle/DustColorTransitionParticleEffect$1
 	m	(Lhk;Lcom/mojang/brigadier/StringReader;)Lhf;	a	method_33113	read
 	m	(Lhk;Lnt;)Lhf;	a	method_33114	read
 c	hg	net/minecraft/class_2390	net/minecraft/particle/DustParticleEffect
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_33115	method_33115
 	m	(Lhg;)Ljava/lang/Float;	a	method_33116	method_33116
 	m	(Lhg;)Ldhd;	b	method_33117	method_33117
-	f	Ldhd;	a	field_28272	field_28272
-	f	Lhg;	b	field_11188	RED
+	f	Ldhd;	a	field_28272	RED
+	f	Lhg;	b	field_11188	RED_EFFECT
 	f	Lcom/mojang/serialization/Codec;	c	field_25124	CODEC
 	f	Lhj$a;	d	field_11189	PARAMETERS_FACTORY
 c	hg$1	net/minecraft/class_2390$1	net/minecraft/particle/DustParticleEffect$1
 	m	(Lhk;Lcom/mojang/brigadier/StringReader;)Lhg;	a	method_10287	read
 	m	(Lhk;Lnt;)Lhg;	a	method_10288	read
-c	hh	net/minecraft/class_5744	net/minecraft/class_5744
-	m	(Lcom/mojang/brigadier/StringReader;)Ldhd;	a	method_33118	method_33118
-	m	()Ldhd;	e	method_33119	method_33119
-	m	()F	f	method_33120	method_33120
-	f	Ldhd;	e	field_28273	field_28273
-	f	F	f	field_28274	field_28274
+c	hh	net/minecraft/class_5744	net/minecraft/particle/AbstractDustParticleEffect
+	m	(Ldhd;F)V	<init>	<init>	<init>
+		p	1			color
+		p	2			scale
+	m	(Lcom/mojang/brigadier/StringReader;)Ldhd;	a	method_33118	readColor
+	m	()Ldhd;	e	method_33119	getColor
+	m	()F	f	method_33120	getScale
+	f	Ldhd;	e	field_28273	color
+	f	F	f	field_28274	scale
 c	hi	net/minecraft/class_2392	net/minecraft/particle/ItemStackParticleEffect
 	m	(Lhk;Lbnc;)V	<init>	<init>	<init>
 		p	1			type
@@ -75557,14 +76178,14 @@ c	hm	net/minecraft/class_2400	net/minecraft/particle/DefaultParticleType
 c	hm$1	net/minecraft/class_2400$1	net/minecraft/particle/DefaultParticleType$1
 	m	(Lhk;Lcom/mojang/brigadier/StringReader;)Lhm;	a	method_10307	read
 	m	(Lhk;Lnt;)Lhm;	a	method_10306	read
-c	hn	net/minecraft/class_5745	net/minecraft/class_5745
+c	hn	net/minecraft/class_5745	net/minecraft/particle/VibrationParticleEffect
 	m	(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;	a	method_33123	method_33123
 	m	(Lhn;)Lcks;	a	method_33124	method_33124
 	m	()Lcks;	c	method_33125	method_33125
 	f	Lcom/mojang/serialization/Codec;	a	field_28277	field_28277
 	f	Lhj$a;	b	field_28278	field_28278
 	f	Lcks;	c	field_28279	field_28279
-c	hn$1	net/minecraft/class_5745$1	net/minecraft/class_5745$1
+c	hn$1	net/minecraft/class_5745$1	net/minecraft/particle/VibrationParticleEffect$1
 	m	(Lhk;Lcom/mojang/brigadier/StringReader;)Lhn;	a	method_33126	read
 	m	(Lhk;Lnt;)Lhn;	a	method_33127	read
 c	hp	net/minecraft/class_5458	net/minecraft/util/registry/BuiltinRegistries
@@ -77617,7 +78238,7 @@ c	k	net/minecraft/class_124	net/minecraft/util/Formatting
 	f	Ljava/util/regex/Pattern;	x	field_1066	FORMATTING_CODE_PATTERN
 	f	Ljava/lang/String;	y	field_1057	name
 	f	C	z	field_1059	code
-c	ka	net/minecraft/class_5746	net/minecraft/class_5746
+c	ka	net/minecraft/class_5746	net/minecraft/data/server/GameEventTagsProvider
 c	kb	net/minecraft/class_2471	net/minecraft/data/server/ItemTagsProvider
 	m	(Laez$e;Laez$e;)V	a	method_10505	copy
 	f	Ljava/util/function/Function;	d	field_23783	field_23783
@@ -77628,6 +78249,7 @@ c	kc	net/minecraft/class_2474	net/minecraft/data/server/AbstractTagProvider
 	m	(Laez$e;)Lkc$a;	a	method_10512	getOrCreateTagBuilder
 	m	(Lhs;Lvy;Laez$a;)V	a	method_27046	method_27046
 	m	(Lvy;)Ljava/nio/file/Path;	a	method_10510	getOutput
+		p	1			identifier
 	m	()V	b	method_10514	configure
 	m	(Laez$e;)Laez$a;	b	method_27169	method_27169
 	m	(Lvy;)Laez$a;	b	method_27170	method_27170
@@ -79035,7 +79657,7 @@ c	mn	net/minecraft/class_2487	net/minecraft/nbt/CompoundTag
 		p	1			key
 	m	(Ljava/lang/Object;)Z	equals	equals	equals
 		p	1			o
-	m	()Z	f	method_33133	method_33133
+	m	()Z	f	method_33133	isEmpty
 	m	(Ljava/lang/String;)B	f	method_10571	getByte
 		p	1			key
 	m	()Lmn;	g	method_10553	copy
@@ -79158,12 +79780,14 @@ c	mt	net/minecraft/class_2499	net/minecraft/nbt/ListTag
 	m	(I)S	d	method_10609	getShort
 		p	1			index
 	m	(I)I	e	method_10600	getInt
+		p	1			index
 	m	(Ljava/lang/Object;)Z	equals	equals	equals
 		p	1			o
 	m	()V	f	method_17809	forgetTypeIfEmpty
 	m	(I)[I	f	method_10610	getIntArray
 		p	1			index
 	m	(I)Ljava/lang/Object;	get	get	get
+		p	1			index
 	m	(I)D	h	method_10611	getDouble
 		p	1			index
 	m	()I	hashCode	hashCode	hashCode
@@ -79608,7 +80232,7 @@ c	net/minecraft/server/MinecraftServer	net/minecraft/server/MinecraftServer	net/
 	m	()I	M	method_3756	getServerPort
 	m	()Ljava/lang/String;	N	method_3811	getUserName
 	m	()Z	O	method_3724	isSinglePlayer
-	m	()V	P	method_31400	method_31400
+	m	()V	P	method_31400	generateKeyPair
 	m	()Z	Q	method_3783	isMonsterSpawningEnabled
 	m	()Z	R	method_3799	isDemo
 	m	()Ljava/lang/String;	S	method_3784	getResourcePackUrl
@@ -79642,6 +80266,7 @@ c	net/minecraft/server/MinecraftServer	net/minecraft/server/MinecraftServer	net/
 	m	(Laop;)V	a	method_24487	startMonitor
 		p	1			monitor
 	m	(Laph;Z)V	a	method_3776	setDifficulty
+		p	1			difficulty
 		p	2			forceUpdate
 	m	(Lbsy;)V	a	method_3838	setDefaultGameMode
 		p	1			gameMode
@@ -79751,7 +80376,8 @@ c	net/minecraft/server/MinecraftServer	net/minecraft/server/MinecraftServer	net/
 	m	(I)I	b	method_27903	adjustTrackingDistance
 		p	1			initialDistance
 	m	(Laas;)Ljava/lang/String;	b	method_3733	method_3733
-	m	(Laat;)Laau;	b	method_32816	method_32816
+	m	(Laat;)Laau;	b	method_32816	getPlayerInteractionManager
+		p	1			player
 	m	(Labb;)V	b	method_3774	prepareStartRegion
 	m	(Laop;)V	b	method_24490	endMonitor
 		p	1			monitor
@@ -81206,7 +81832,8 @@ c	pa	net/minecraft/class_2602	net/minecraft/network/listener/ClientPlayPacketLis
 		p	1			packet
 	m	(Lpf;)V	a	method_11097	onPlayerSpawn
 		p	1			packet
-	m	(Lpg;)V	a	method_33135	method_33135
+	m	(Lpg;)V	a	method_33135	onVibration
+		p	1			packet
 	m	(Lph;)V	a	method_11160	onEntityAnimation
 		p	1			packet
 	m	(Lpi;)V	a	method_11129	onStatistics
@@ -81494,10 +82121,12 @@ c	pf	net/minecraft/class_2613	net/minecraft/network/packet/s2c/play/PlayerSpawnS
 	f	D	e	field_12021	z
 	f	B	f	field_12020	yaw
 	f	B	g	field_12019	pitch
-c	pg	net/minecraft/class_5747	net/minecraft/class_5747
+c	pg	net/minecraft/class_5747	net/minecraft/network/packet/s2c/play/VibrationS2CPacket
+	m	(Lcks;)V	<init>	<init>	<init>
+		p	1			vibration
 	m	(Lpa;)V	a	method_33136	apply
-	m	()Lcks;	b	method_33137	method_33137
-	f	Lcks;	a	field_28283	field_28283
+	m	()Lcks;	b	method_33137	getVibration
+	f	Lcks;	a	field_28283	vibration
 c	ph	net/minecraft/class_2616	net/minecraft/network/packet/s2c/play/EntityAnimationS2CPacket
 	m	(Laqq;I)V	<init>	<init>	<init>
 		p	1			entity
@@ -82899,11 +83528,20 @@ c	so	net/minecraft/class_4209	net/minecraft/server/network/DebugInfoSender
 		p	2			path
 		p	3			nodeReachProximity
 	m	(Lbtb;Lckk;Lfx;)V	a	method_33139	method_33139
+		p	0			world
+		p	1			event
+		p	2			pos
 	m	(Lbtb;Lckm;)V	a	method_33140	method_33140
+		p	0			world
+		p	1			eventListener
 	m	(Lbtb;Lfx;)V	a	method_19472	sendNeighborUpdate
 		p	0			world
 		p	1			pos
 	m	(Lbtb;Lfx;Lcgl;Lceg;)V	a	method_23856	sendBeehiveDebugData
+		p	0			world
+		p	1			pos
+		p	2			state
+		p	3			blockEntity
 	m	(Lbtw;Lcvs;)V	a	method_19474	sendStructureStart
 		p	1			structureStart
 	m	(Laas;Lfx;)V	b	method_19777	sendPoiRemoval
@@ -82913,6 +83551,8 @@ c	so	net/minecraft/class_4209	net/minecraft/server/network/DebugInfoSender
 		p	0			world
 		p	1			pos
 	m	(Laas;Lfx;)V	d	method_24819	method_24819
+		p	0			world
+		p	1			pos
 	f	Lorg/apache/logging/log4j/Logger;	a	field_18961	LOGGER
 c	sp	net/minecraft/class_2792	net/minecraft/network/listener/ServerPlayPacketListener
 	c	A server side packet listener where play stage packets from a client are processed.
