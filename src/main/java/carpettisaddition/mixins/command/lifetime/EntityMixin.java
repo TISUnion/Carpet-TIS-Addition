@@ -32,7 +32,8 @@ public abstract class EntityMixin implements IEntity
 	private boolean doLifeTimeTracking;
 	private boolean recordedSpawning;
 	private boolean recordedRemoval;
-	private Vec3d spawnPos;
+	private Vec3d spawningPos;
+	private Vec3d removalPos;
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void onConstructLifeTimeTracker(CallbackInfo ci)
@@ -54,9 +55,15 @@ public abstract class EntityMixin implements IEntity
 	}
 
 	@Override
-	public Vec3d getSpawnPosition()
+	public Vec3d getSpawningPosition()
 	{
-		return this.spawnPos;
+		return this.spawningPos;
+	}
+
+	@Override
+	public Vec3d getRemovalPosition()
+	{
+		return this.removalPos;
 	}
 
 	@Override
@@ -70,7 +77,7 @@ public abstract class EntityMixin implements IEntity
 				return;
 			}
 			this.recordedSpawning = true;
-			this.spawnPos = this.getPos();
+			this.spawningPos = this.getPos();
 			((IServerWorld)this.world).getLifeTimeWorldTracker().onEntitySpawn((Entity)(Object)this, reason);
 		}
 	}
@@ -78,9 +85,10 @@ public abstract class EntityMixin implements IEntity
 	@Override
 	public void recordRemoval(RemovalReason reason)
 	{
-		if (this.doLifeTimeTracking && this.recordedSpawning && this.spawnPos != null && !this.recordedRemoval)
+		if (this.doLifeTimeTracking && this.recordedSpawning && this.spawningPos != null && !this.recordedRemoval)
 		{
 			this.recordedRemoval = true;
+			this.removalPos = this.getPos();
 			((IServerWorld)this.world).getLifeTimeWorldTracker().onEntityRemove((Entity)(Object)this, reason);
 		}
 	}
