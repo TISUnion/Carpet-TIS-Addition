@@ -8,7 +8,9 @@ public interface IEntity
 {
 	long getLifeTime();
 
-	Vec3d getSpawnPosition();
+	Vec3d getSpawningPosition();
+
+	Vec3d getRemovalPosition();
 
 	void recordSpawning(SpawningReason reason);
 

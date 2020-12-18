@@ -2,6 +2,7 @@ package carpettisaddition.mixins.command.lifetime.removal;
 
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
+import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -49,10 +50,7 @@ public abstract class ItemEntityMixin extends Entity
 	)
 	private static void onMergedLifeTimeTracker(ItemEntity targetEntity, ItemStack targetStack, ItemEntity sourceEntity, ItemStack sourceStack, CallbackInfo ci)
 	{
-		if (!sourceEntity.removed)
-		{
-			((IEntity)sourceEntity).recordRemoval(LiteralRemovalReason.MERGE);
-		}
+		((IEntity)sourceEntity).recordRemoval(LiteralRemovalReason.MERGE);
 	}
 
 	@Inject(
@@ -64,9 +62,6 @@ public abstract class ItemEntityMixin extends Entity
 	)
 	private void onPickupLifeTimeTracker(PlayerEntity player, CallbackInfo ci)
 	{
-		if (!this.removed)
-		{
-			((IEntity)this).recordRemoval(LiteralRemovalReason.PICKUP);
-		}
+		((IEntity)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
 	}
 }
