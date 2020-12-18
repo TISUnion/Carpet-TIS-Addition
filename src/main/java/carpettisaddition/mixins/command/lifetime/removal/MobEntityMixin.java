@@ -73,9 +73,20 @@ public abstract class MobEntityMixin extends LivingEntity
 					target = "Lnet/minecraft/entity/mob/MobEntity;persistent:Z"
 			)
 	)
-	private void onEntityPersistent2LifeTimeTracker(ItemEntity item, CallbackInfo ci)
+	private void onEntityPersistent2LifeTimeTracker(CallbackInfo ci)
 	{
 		((IEntity)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+	}
+
+	@Inject(
+			method = "loot",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+			)
+	)
+	private void onItemPickUpLifeTimeTracker(ItemEntity item, CallbackInfo ci)
+	{
 		((IEntity)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
 	}
 }
