@@ -22,7 +22,6 @@ public class LiteralRemovalReason extends RemovalReason
 
 	// for item entity and xp orb entity
 	public static final LiteralRemovalReason MERGE = new LiteralRemovalReason("merge", "Entity merging");
-	public static final LiteralRemovalReason PICKUP = new LiteralRemovalReason("pickup", "Picked up by player");
 
 	// for item entity
 	public static final LiteralRemovalReason HOPPER = new LiteralRemovalReason("hopper", "Collected by hopper");

@@ -2,6 +2,7 @@ package carpettisaddition.mixins.command.lifetime.removal;
 
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
+import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -48,7 +49,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 	)
 	private void onPickupLifeTimeTracker(PlayerEntity player, CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.PICKUP);
+		((IEntity)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
 	}
 
 	@Inject(method = "merge", at = @At("TAIL"))

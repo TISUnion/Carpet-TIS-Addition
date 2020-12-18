@@ -47,7 +47,7 @@ public class LifeTimeStatistic extends TranslatableBase
 		long time = ((IEntity)entity).getLifeTime();
 		this.count++;
 		this.timeSum += time;
-		StatisticElement element = new StatisticElement(time, entity.getEntityWorld().getRegistryKey(), ((IEntity)entity).getSpawnPosition());
+		StatisticElement element = new StatisticElement(time, entity.getEntityWorld().getRegistryKey(), ((IEntity)entity).getSpawningPosition());
 		if (time < this.minTimeElement.time)
 		{
 			this.minTimeElement = element;
