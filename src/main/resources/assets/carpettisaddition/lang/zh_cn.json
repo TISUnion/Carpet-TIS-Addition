@@ -149,6 +149,13 @@
   "rule.optimizedTNTHighPriority.extra.0": "因此规则optimizedTNT可以覆盖lithium的爆炸优化",
   "rule.optimizedTNTHighPriority.extra.1": "当然，它需要规则optimizedTNT开启才能工作",
 
+  "rule.tooledTNT.name": "工具化TNT",
+  "rule.tooledTNT.desc": "由玩家引发的爆炸破坏并掉落物品时会应用玩家手上的工具",
+  "rule.tooledTNT.extra.0": "因此你可以点燃TNT以采集需要特定工具或者附魔的方块，只要你在爆炸时拿着正确的工具",
+  "rule.tooledTNT.extra.1": "比如，你可以拿着精准采集镐子来采集冰，或者拿着剪刀来采集草",
+  "rule.tooledTNT.extra.2": "此规则同样适用于玩家以外的生物",
+  "rule.tooledTNT.extra.3": "技术上来讲，此规则将来源生物主手上的物品应用在了爆炸里战利品表的创建中",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

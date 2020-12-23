@@ -110,6 +110,8 @@
     "rule.tileTickLimit.ServerTickSchedulerMixin",
     "rule.tntDupingFix.PistonBlockMixin",
     "rule.tntFuseDuration.TntEntityMixin",
+    "rule.tooledTNT.ExplosionMixin",
+    "rule.tooledTNT.OptimizedExplosionMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],
   "client": [

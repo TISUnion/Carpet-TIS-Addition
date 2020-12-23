@@ -49,6 +49,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [commandLifeTime](#commandLifeTime)
 - [optimizedFastEntityMovement](#optimizedFastEntityMovement)
 - [optimizedTNTHighPriority](#optimizedTNTHighPriority)
+- [tooledTNT](#tooledTNT)
 
 ## [Loggers](#logger-list)
 
@@ -507,6 +508,24 @@ Of course rule optimizedTNT needs to be on for it to work
 - Default value: `true`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## tooledTNT
+
+Tools on the player's main hand is applied to item dropping during the explosion caused by the player
+
+So you can ignite TNT to harvest blocks that require specific tool or enchantment as long as you are holding the right tool
+
+For example, you can harvest ice with silk touch pickaxe, or harvest grass with shears
+
+It also works for any other living entities beside player
+
+Technically this rule applies the main hand item of the causing entity onto the loot table builder during the explosion
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
 
 
 -----------
