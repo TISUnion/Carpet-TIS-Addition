@@ -149,6 +149,9 @@
   "rule.optimizedTNTHighPriority.extra.0": "因此规则optimizedTNT可以覆盖lithium的爆炸优化",
   "rule.optimizedTNTHighPriority.extra.1": "当然，它需要规则optimizedTNT开启才能工作",
 
+  "rule.creativeOpenShulkerBoxForcibly.name": "创造玩家强制打开潜影盒",
+  "rule.creativeOpenShulkerBoxForcibly.desc": "允许创造模式的玩家打开被阻挡的潜影盒",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",

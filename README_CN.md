@@ -49,6 +49,7 @@
 - [存活时间追踪器](#存活时间追踪器-commandLifeTime)
 - [优化高速实体移动](#优化高速实体移动-optimizedFastEntityMovement)
 - [TNT优化高优先级](#TNT优化高优先级-optimizedTNTHighPriority)
+- [创造玩家强制打开潜影盒](#创造玩家强制打开潜影盒-creativeOpenShulkerBoxForcibly)
 
 ## [监视器](#监视器列表)
 
@@ -507,6 +508,16 @@
 - 默认值: `true`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## 创造玩家强制打开潜影盒 (creativeOpenShulkerBoxForcibly)
+
+允许创造模式的玩家打开被阻挡的潜影盒
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 
 -----------

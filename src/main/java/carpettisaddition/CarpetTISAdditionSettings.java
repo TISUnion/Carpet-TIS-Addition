@@ -412,6 +412,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean optimizedTNTHighPriority = false;
 
+	@Rule(
+			desc = "Allow creative players to open a shulker block even if the shulker box is blocked",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean creativeOpenShulkerBoxForcibly = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

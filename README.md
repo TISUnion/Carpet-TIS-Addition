@@ -49,6 +49,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [commandLifeTime](#commandLifeTime)
 - [optimizedFastEntityMovement](#optimizedFastEntityMovement)
 - [optimizedTNTHighPriority](#optimizedTNTHighPriority)
+- [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
 
 ## [Loggers](#logger-list)
 
@@ -507,6 +508,16 @@ Of course rule optimizedTNT needs to be on for it to work
 - Default value: `true`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## creativeOpenShulkerBoxForcibly
+
+Allow creative players to open a shulker block even if the shulker box is blocked
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 
 -----------

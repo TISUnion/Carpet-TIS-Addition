@@ -34,7 +34,7 @@ public abstract class EntityMixin
 					target = "Lnet/minecraft/world/World;getBlockCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/stream/Stream;"
 			)
 	)
-	private static Stream<VoxelShape> dontUseThatLargeBlockCollisions(World world, Entity entity, Box box, /* parent method parameters */ Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam, EntityContext context, ReusableStream<VoxelShape> collisions)
+	private static Stream<VoxelShape> dontUseThatLargeBlockCollisions(World world, Entity entity, Box box, /* parent method parameters -> */ Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam, EntityContext context, ReusableStream<VoxelShape> collisions)
 	{
 		optimizedFastEntityMovementEnable.set(CarpetTISAdditionSettings.optimizedFastEntityMovement && movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD);
 		if (optimizedFastEntityMovementEnable.get())
@@ -54,7 +54,7 @@ public abstract class EntityMixin
 			),
 			require = 4
 	)
-	private static double useAxisOnlyBlockCollisions(Direction.Axis axis, Box box, Stream<VoxelShape> shapes, double maxDist, /* parent method parameters */ Vec3d movement, Box entityBoundingBox, ReusableStream<VoxelShape> collisions)
+	private static double useAxisOnlyBlockCollisions(Direction.Axis axis, Box box, Stream<VoxelShape> shapes, double maxDist, /* parent method parameters -> */ Vec3d movement, Box entityBoundingBox, ReusableStream<VoxelShape> collisions)
 	{
 		if (optimizedFastEntityMovementEnable.get())
 		{
