@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+// It's almost the same as interface IWorld in < 1.16
 @Mixin(value = class_5423.class, priority = 2000)
 public interface class_5423_Mixin extends EntityView
 {
