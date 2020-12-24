@@ -1,4 +1,4 @@
-package carpettisaddition.helpers.tntRandomRange;
+package carpettisaddition.helpers.carpet.tntRandomRange;
 
 import java.util.Random;
 

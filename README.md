@@ -49,6 +49,10 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [commandLifeTime](#commandLifeTime)
 - [optimizedFastEntityMovement](#optimizedFastEntityMovement)
 - [optimizedTNTHighPriority](#optimizedTNTHighPriority)
+- [optimizedHardHitBoxEntityCollision](#optimizedHardHitBoxEntityCollision)
+- [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
+- [totallyNoBlockUpdate](#totallyNoBlockUpdate)
+- [tooledTNT](#tooledTNT)
 
 ## [Loggers](#logger-list)
 
@@ -469,6 +473,16 @@ The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game t
 - Categories: `TIS`, `CREATIVE`
 
 
+## totallyNoBlockUpdate
+
+Disable all block updates and state updates
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## commandLifeTime
 
 Enables `/lifetime` command to track entity lifetime and so on
@@ -507,6 +521,52 @@ Of course rule optimizedTNT needs to be on for it to work
 - Default value: `true`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## optimizedHardHitBoxEntityCollision
+
+Optimize entity colliding with entities with hard hit box
+
+It uses a separate list to store entities, that have a hard hit box including boat and shulker, in a chunk
+
+It reduces quite a lot of unnecessary iterating when an entity is moving and trying to search entities with hard hit box on the way, since the world is always not filled with boats and shulkers
+
+Enable it before loading the chunk to make it work. ~20% performance boost in portal mob farms
+
+Might not work with other mods that add new entities
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## creativeOpenShulkerBoxForcibly
+
+Allow creative players to open a shulker block even if the shulker box is blocked
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## tooledTNT
+
+Tools on the player's main hand is applied to item dropping during the explosion caused by the player
+
+So you can ignite TNT to harvest blocks that require specific tool or enchantment as long as you are holding the right tool
+
+For example, you can harvest ice with silk touch pickaxe, or harvest grass with shears
+
+It also works for any other living entities beside player
+
+Technically this rule applies the main hand item of the causing entity onto the loot table builder during the explosion
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
 
 
 -----------

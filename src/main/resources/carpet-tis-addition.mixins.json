@@ -78,6 +78,7 @@
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
+    "rule.creativeOpenShulkerBoxForcibly.ShulkerBoxBlockMixin",
     "rule.dispenserNoItemCost.ItemDispenserBehaviorMixin",
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
     "rule.entityMomentumLoss.EntityMixin",
@@ -94,6 +95,8 @@
     "rule.opPlayerNoCheat.SummonCommandMixin",
     "rule.opPlayerNoCheat.TeleportCommandMixin",
     "rule.optimizedFastEntityMovement.EntityMixin",
+    "rule.optimizedHardHitBoxEntityCollision.IWorldMixin",
+    "rule.optimizedHardHitBoxEntityCollision.WorldChunkMixin",
     "rule.optimizedTNTHighPriority.ExplosionMixin",
     "rule.poiUpdates.ServerWorldMixin",
     "rule.railDupingFix.AbstractRailBlockMixin",
@@ -110,6 +113,10 @@
     "rule.tileTickLimit.ServerTickSchedulerMixin",
     "rule.tntDupingFix.PistonBlockMixin",
     "rule.tntFuseDuration.TntEntityMixin",
+    "rule.tooledTNT.ExplosionMixin",
+    "rule.tooledTNT.OptimizedExplosionMixin",
+    "rule.totallyNoBlockUpdate.AbstractBlockStateMixin",
+    "rule.totallyNoBlockUpdate.WorldMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],
   "injectors": {

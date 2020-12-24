@@ -49,6 +49,10 @@
 - [存活时间追踪器](#存活时间追踪器-commandLifeTime)
 - [优化高速实体移动](#优化高速实体移动-optimizedFastEntityMovement)
 - [TNT优化高优先级](#TNT优化高优先级-optimizedTNTHighPriority)
+- [优化硬碰撞箱实体碰撞](#优化硬碰撞箱实体碰撞-optimizedHardHitBoxEntityCollision)
+- [创造玩家强制打开潜影盒](#创造玩家强制打开潜影盒-creativeOpenShulkerBoxForcibly)
+- [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
+- [工具化TNT](#工具化TNT-tooledTNT)
 
 ## [监视器](#监视器列表)
 
@@ -507,6 +511,62 @@
 - 默认值: `true`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## 优化硬碰撞箱实体碰撞 (optimizedHardHitBoxEntityCollision)
+
+优化实体与硬碰撞箱实体的碰撞
+
+使用了独立的列表在区块中储存带有硬碰撞箱的实体，包括船和潜影贝
+
+它能在实体移动并搜索路径上的带有硬碰撞箱的实体时减少大量无用的运算，因为世界里船和潜影贝的数量总是少数
+
+在加载区块前开启它以使其工作，在地狱门刷怪塔中有~20%的性能提升
+
+与添加了新实体的 mod 可能不兼容
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## 创造玩家强制打开潜影盒 (creativeOpenShulkerBoxForcibly)
+
+允许创造模式的玩家打开被阻挡的潜影盒
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 完全没有方块更新 (totallyNoBlockUpdate)
+
+禁用所有方块更新以及状态更新的执行
+
+- 类型: `boolean`  
+- 默认值: `true`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 工具化TNT (tooledTNT)
+
+由玩家引发的爆炸破坏并掉落物品时会应用玩家手上的工具
+
+因此你可以点燃TNT以采集需要特定工具或者附魔的方块，只要你在爆炸时拿着正确的工具
+
+比如，你可以拿着精准采集镐子来采集冰，或者拿着剪刀来采集草
+
+此规则同样适用于玩家以外的生物
+
+技术上来讲，此规则将来源生物主手上的物品应用在了爆炸里战利品表的创建中
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
 
 
 -----------
