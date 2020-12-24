@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.carpet.tntRandomRange;
 
-import carpettisaddition.helpers.tntRandomRange.IWorld;
+import carpettisaddition.helpers.carpet.tntRandomRange.IWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
