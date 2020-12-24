@@ -412,6 +412,43 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean optimizedTNTHighPriority = false;
 
+	@Rule(
+			desc = "Optimize entity colliding with entities with hard hit box",
+			extra = {
+					"It uses a separate list to store entities, that have a hard hit box including boat and shulker, in a chunk",
+					"It reduces quite a lot of unnecessary iterating when an entity is moving and trying to search entities with hard hit box on the way," +
+							"since the world is always not filled with boats and shulkers",
+					"Enable it before loading the chunk to make it work. ~20% performance boost in portal mob farms",
+					"Might not work with other mods that add new entities"
+			},
+			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
+	)
+	public static boolean optimizedHardHitBoxEntityCollision = false;
+
+	@Rule(
+			desc = "Allow creative players to open a shulker block even if the shulker box is blocked",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean creativeOpenShulkerBoxForcibly = false;
+
+	@Rule(
+			desc = "Disable all block updates and state updates",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean totallyNoBlockUpdate = false;
+
+	@Rule(
+			desc = "Tools on the player's main hand is applied to item dropping during the explosion caused by the player",
+			extra = {
+					"So you can ignite TNT to harvest blocks that require specific tool or enchantment as long as you are holding the right tool",
+					"For example, you can harvest ice with silk touch pickaxe, or harvest grass with shears",
+					"It also works for any other living entities beside player",
+					"Technically this rule applies the main hand item of the causing entity onto the loot table builder during the explosion"
+			},
+			category = {TIS, FEATURE}
+	)
+	public static boolean tooledTNT = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

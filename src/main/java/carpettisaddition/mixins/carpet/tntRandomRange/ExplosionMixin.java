@@ -1,8 +1,8 @@
 package carpettisaddition.mixins.carpet.tntRandomRange;
 
 import carpet.CarpetSettings;
-import carpettisaddition.helpers.tntRandomRange.IWorld;
-import carpettisaddition.helpers.tntRandomRange.WrappedRandom;
+import carpettisaddition.helpers.carpet.tntRandomRange.IWorld;
+import carpettisaddition.helpers.carpet.tntRandomRange.WrappedRandom;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Final;
