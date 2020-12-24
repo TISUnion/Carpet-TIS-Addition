@@ -473,16 +473,6 @@ The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game t
 - Categories: `TIS`, `CREATIVE`
 
 
-## totallyNoBlockUpdate
-
-Disable all block updates and state updates
-
-- Type: `boolean`  
-- Default value: `true`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`
-
-
 ## commandLifeTime
 
 Enables `/lifetime` command to track entity lifetime and so on
@@ -547,6 +537,16 @@ Allow creative players to open a shulker block even if the shulker box is blocke
 
 - Type: `boolean`  
 - Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## totallyNoBlockUpdate
+
+Disable all block updates and state updates
+
+- Type: `boolean`  
+- Default value: `true`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
