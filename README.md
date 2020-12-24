@@ -527,7 +527,7 @@ Of course rule optimizedTNT needs to be on for it to work
 
 Optimize entity colliding with entities with hard hit box
 
-It uses a separate list to store entities, that have a hard hit box including boat and shulker, in a chunk
+It uses an extra separate list to store entities, that have a hard hit box including boat and shulker, in a chunk
 
 It reduces quite a lot of unnecessary iterating when an entity is moving and trying to search entities with hard hit box on the way, since the world is always not filled with boats and shulkers
 
