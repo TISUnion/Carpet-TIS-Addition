@@ -51,6 +51,7 @@
 - [TNT优化高优先级](#TNT优化高优先级-optimizedTNTHighPriority)
 - [优化硬碰撞箱实体碰撞](#优化硬碰撞箱实体碰撞-optimizedHardHitBoxEntityCollision)
 - [创造玩家强制打开潜影盒](#创造玩家强制打开潜影盒-creativeOpenShulkerBoxForcibly)
+- [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 
 ## [监视器](#监视器列表)
 
@@ -535,6 +536,16 @@
 
 - 类型: `boolean`  
 - 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 完全没有方块更新 (totallyNoBlockUpdate)
+
+禁用所有方块更新以及状态更新的执行
+
+- 类型: `boolean`  
+- 默认值: `true`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
 

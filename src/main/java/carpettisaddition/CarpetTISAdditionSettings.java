@@ -431,6 +431,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean creativeOpenShulkerBoxForcibly = false;
 
+	@Rule(
+			desc = "Disable all block updates and state updates",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean totallyNoBlockUpdate = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

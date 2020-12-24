@@ -51,6 +51,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [optimizedTNTHighPriority](#optimizedTNTHighPriority)
 - [optimizedHardHitBoxEntityCollision](#optimizedHardHitBoxEntityCollision)
 - [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
+- [totallyNoBlockUpdate](#totallyNoBlockUpdate)
 
 ## [Loggers](#logger-list)
 
@@ -464,6 +465,16 @@ Set it to `false` to disable entity axis momentum cancellation if it's above 10m
 Halve the delay of redstone repeaters upon a redstone ore
 
 The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game tick
+
+- Type: `boolean`  
+- Default value: `true`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## totallyNoBlockUpdate
+
+Disable all block updates and state updates
 
 - Type: `boolean`  
 - Default value: `true`  

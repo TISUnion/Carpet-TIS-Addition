@@ -159,6 +159,9 @@
   "rule.creativeOpenShulkerBoxForcibly.name": "创造玩家强制打开潜影盒",
   "rule.creativeOpenShulkerBoxForcibly.desc": "允许创造模式的玩家打开被阻挡的潜影盒",
 
+  "rule.totallyNoBlockUpdate.name": "完全没有方块更新",
+  "rule.totallyNoBlockUpdate.desc": "禁用所有方块更新以及状态更新的执行",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
