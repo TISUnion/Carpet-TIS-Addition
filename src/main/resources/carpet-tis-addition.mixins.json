@@ -95,7 +95,7 @@
     "rule.opPlayerNoCheat.SummonCommandMixin",
     "rule.opPlayerNoCheat.TeleportCommandMixin",
     "rule.optimizedFastEntityMovement.EntityMixin",
-    "rule.optimizedHardHitBoxEntityCollision.IWorldMixin",
+    "rule.optimizedHardHitBoxEntityCollision.class_5423_Mixin",
     "rule.optimizedHardHitBoxEntityCollision.WorldChunkMixin",
     "rule.optimizedTNTHighPriority.ExplosionMixin",
     "rule.poiUpdates.ServerWorldMixin",
