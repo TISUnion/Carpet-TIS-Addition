@@ -437,6 +437,18 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean totallyNoBlockUpdate = false;
 
+	@Rule(
+			desc = "Tools on the player's main hand is applied to item dropping during the explosion caused by the player",
+			extra = {
+					"So you can ignite TNT to harvest blocks that require specific tool or enchantment as long as you are holding the right tool",
+					"For example, you can harvest ice with silk touch pickaxe, or harvest grass with shears",
+					"It also works for any other living entities beside player",
+					"Technically this rule applies the main hand item of the causing entity onto the loot table builder during the explosion"
+			},
+			category = {TIS, FEATURE}
+	)
+	public static boolean tooledTNT = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

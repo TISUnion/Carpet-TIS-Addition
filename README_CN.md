@@ -52,6 +52,7 @@
 - [优化硬碰撞箱实体碰撞](#优化硬碰撞箱实体碰撞-optimizedHardHitBoxEntityCollision)
 - [创造玩家强制打开潜影盒](#创造玩家强制打开潜影盒-creativeOpenShulkerBoxForcibly)
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
+- [工具化TNT](#工具化TNT-tooledTNT)
 
 ## [监视器](#监视器列表)
 
@@ -548,6 +549,24 @@
 - 默认值: `true`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
+
+
+## 工具化TNT (tooledTNT)
+
+由玩家引发的爆炸破坏并掉落物品时会应用玩家手上的工具
+
+因此你可以点燃TNT以采集需要特定工具或者附魔的方块，只要你在爆炸时拿着正确的工具
+
+比如，你可以拿着精准采集镐子来采集冰，或者拿着剪刀来采集草
+
+此规则同样适用于玩家以外的生物
+
+技术上来讲，此规则将来源生物主手上的物品应用在了爆炸里战利品表的创建中
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
 
 
 -----------
