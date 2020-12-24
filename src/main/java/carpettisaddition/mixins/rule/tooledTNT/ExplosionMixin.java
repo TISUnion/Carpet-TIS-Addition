@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.rule.tooledTNT;
 
-import carpettisaddition.helpers.TooledTNTHelper;
+import carpettisaddition.helpers.rule.tooledTNT.TooledTNTHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,4 +1,4 @@
-package carpettisaddition.helpers;
+package carpettisaddition.helpers.rule.tooledTNT;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.BlockState;
