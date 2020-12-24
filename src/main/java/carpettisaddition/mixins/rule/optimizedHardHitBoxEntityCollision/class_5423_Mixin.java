@@ -13,9 +13,8 @@ import org.spongepowered.asm.mixin.Overwrite;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-// should mixin into class_5423 instead of IWorld for 1.16.4
 @Mixin(value = class_5423.class, priority = 2000)
-public interface IWorldMixin extends EntityView
+public interface class_5423_Mixin extends EntityView
 {
 	/**
 	 * @reason Interface injection is not supported by Mixin yet
