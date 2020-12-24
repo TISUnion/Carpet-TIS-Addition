@@ -22,11 +22,13 @@ public class OptimizedHardHitBoxEntityCollisionHelper
 	/**
 	 * Check if the given entity may have hard hitbox
 	 * In vanilla only boat and shulker have hard hitbox
-	 * For boat, getCollisionBox always returns not null
-	 * For shulker, getCollisionBox returns not null if the shulker is alive, in case of edge cases
+	 * For boat, Entity#getCollisionBox always returns not null
+	 * For shulker, Entity#getCollisionBox returns not null if the shulker is alive, in case of edge cases
 	 * here comes an extra shulker check
 	 *
-	 * Might not work with other mods
+	 * Might not work with other mods since they might have dynamic Entity#getCollisionBox result
+	 *
+	 * ----- ^ doc for <= 1.15.2 -----
 	 * In 1.16 there's a method called {@link Entity#isCollidable}, which handles this logic well, so just use it
 	 */
 	public static boolean hasHardHitBox(Entity entity)
