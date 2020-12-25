@@ -608,6 +608,7 @@ Attributes:
 Info when something happens to an item entity, for example item despawned after 5min
 
 Available events:
+- `create`: An item entity is created in the world for any kinds of reason. Stack trace is included in the message
 - `die`: An item entity died
 - `despawn`: An item entity despawned
 

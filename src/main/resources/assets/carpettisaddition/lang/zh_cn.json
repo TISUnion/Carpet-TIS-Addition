@@ -179,6 +179,7 @@
   "logger.ticket.permanent": "永久",
   "logger.ticket.teleport_hint": "点击以传送至区块 [%d, %d]",
 
+  "logger.entity.created": "被创建了",
   "logger.entity.despawned": "消失了",
   "logger.entity.damage_amount": "伤害值",
 
