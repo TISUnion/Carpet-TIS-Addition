@@ -151,7 +151,7 @@
 
   "rule.optimizedHardHitBoxEntityCollision.name": "优化硬碰撞箱实体碰撞",
   "rule.optimizedHardHitBoxEntityCollision.desc": "优化实体与硬碰撞箱实体的碰撞",
-  "rule.optimizedHardHitBoxEntityCollision.extra.0": "使用了独立的列表在区块中储存带有硬碰撞箱的实体，包括船和潜影贝",
+  "rule.optimizedHardHitBoxEntityCollision.extra.0": "它使用了一个额外的独立的列表在区块中储存带有硬碰撞箱的实体，包括船和潜影贝",
   "rule.optimizedHardHitBoxEntityCollision.extra.1": "它能在实体移动并搜索路径上的带有硬碰撞箱的实体时减少大量无用的运算，因为世界里船和潜影贝的数量总是少数",
   "rule.optimizedHardHitBoxEntityCollision.extra.2": "在加载区块前开启它以使其工作，在地狱门刷怪塔中有~20%的性能提升",
   "rule.optimizedHardHitBoxEntityCollision.extra.3": "与添加了新实体的 mod 可能不兼容",
@@ -179,6 +179,7 @@
   "logger.ticket.permanent": "永久",
   "logger.ticket.teleport_hint": "点击以传送至区块 [%d, %d]",
 
+  "logger.entity.created": "被创建了",
   "logger.entity.despawned": "消失了",
   "logger.entity.damage_amount": "伤害值",
 

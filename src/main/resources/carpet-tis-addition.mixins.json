@@ -73,7 +73,7 @@
     "logger.raid.RaidMixin",
     "logger.ticket.ChunkTicketManagerMixin",
     "logger.ticket.ServerChunkManagerMixin",
-    "logger.xporb.ExperienceOrbEntity_xpOrbLoggerMixin",
+    "logger.xporb.ExperienceOrbEntityMixin",
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
