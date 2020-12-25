@@ -473,16 +473,6 @@ The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game t
 - Categories: `TIS`, `CREATIVE`
 
 
-## totallyNoBlockUpdate
-
-Disable all block updates and state updates
-
-- Type: `boolean`  
-- Default value: `true`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`
-
-
 ## commandLifeTime
 
 Enables `/lifetime` command to track entity lifetime and so on
@@ -527,7 +517,7 @@ Of course rule optimizedTNT needs to be on for it to work
 
 Optimize entity colliding with entities with hard hit box
 
-It uses a separate list to store entities, that have a hard hit box including boat and shulker, in a chunk
+It uses an extra separate list to store entities, that have a hard hit box including boat and shulker, in a chunk
 
 It reduces quite a lot of unnecessary iterating when an entity is moving and trying to search entities with hard hit box on the way, since the world is always not filled with boats and shulkers
 
@@ -547,6 +537,16 @@ Allow creative players to open a shulker block even if the shulker box is blocke
 
 - Type: `boolean`  
 - Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## totallyNoBlockUpdate
+
+Disable all block updates and state updates
+
+- Type: `boolean`  
+- Default value: `true`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
@@ -608,6 +608,7 @@ Attributes:
 Info when something happens to an item entity, for example item despawned after 5min
 
 Available events:
+- `create`: An item entity is created in the world for any kinds of reason. Stack trace is included in the message
 - `die`: An item entity died
 - `despawn`: An item entity despawned
 

@@ -6,15 +6,17 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.stacktrace.StackTracePrinter;
 import com.google.common.base.Joiner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.world.World;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 
@@ -51,43 +53,59 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		return text;
 	}
 
-	public void onEntityDespawn(T entity)
+	// e.g. "[12000] " for gt 12000, note the space at the end
+	private BaseText getWorldTimeText(World world)
+	{
+		return Messenger.s(String.format("[%s] ", world.getTime()), "g");
+	}
+
+	private void onLoggingEvent(LoggingType loggingType, Supplier<BaseText[]> supplier)
 	{
 		LoggerRegistry.getLogger(this.loggerName).log((option) ->
-		{
-			if (!LoggingType.DESPAWN.isContainedIn(option))
-			{
-				return null;
-			}
-			return new BaseText[]{Messenger.c(
-					String.format("g [%s] ", entity.world.getTime()),
-					getNameTextRich(entity),
-					String.format("r %s", translator.tr(" despawned")),
-					"g  @ ",
-					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType())
-			)};
-		});
+				loggingType.isContainedIn(option) ? supplier.get() : null
+		);
+	}
+
+	public void onEntityCreated(T entity)
+	{
+		this.onLoggingEvent(LoggingType.CREATE, () -> new BaseText[]{Messenger.c(
+				this.getWorldTimeText(entity.world),
+				getNameTextRich(entity),
+				String.format("r %s", translator.tr(" created")),
+				"g  @ ",
+				TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType()),
+				"w  ",
+				StackTracePrinter.create().ignore(this.getClass()).deobfuscate().toSymbolText()
+		)});
+	}
+
+	public void onEntityDespawn(T entity)
+	{
+		this.onLoggingEvent(LoggingType.DESPAWN, () -> new BaseText[]{Messenger.c(
+				this.getWorldTimeText(entity.world),
+				getNameTextRich(entity),
+				String.format("r %s", translator.tr(" despawned")),
+				"g  @ ",
+				TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType())
+		)});
 	}
 
 	public void onEntityDied(T entity, DamageSource source, float amount)
 	{
-		LoggerRegistry.getLogger(this.loggerName).log((option) ->
-		{
-			if (!LoggingType.DIE.isContainedIn(option))
-			{
-				return null;
-			}
-			BaseText itemName = getNameTextRich(entity);
-			TranslatableText deathMessage = TextUtil.getTranslatedName("death.attack." + source.name, TextUtil.attachFormatting(itemName, Formatting.WHITE));
-			TextUtil.attachFormatting(deathMessage, Formatting.RED);
-			TextUtil.attachHoverText(deathMessage, Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount)));
-			return new BaseText[]{Messenger.c(
-					String.format("g [%s] ", entity.world.getTime()),
-					deathMessage,
-					"g  @ ",
-					TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType())
-			)};
-		});
+		this.onLoggingEvent(LoggingType.DIE, () -> new BaseText[]{Messenger.c(
+				this.getWorldTimeText(entity.world),
+				TextUtil.getFancyText(
+						null,
+						TextUtil.getTranslatedName(
+								"death.attack." + source.name,
+								TextUtil.attachFormatting(getNameTextRich(entity), Formatting.WHITE)
+						),
+						Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount)),
+						null
+				),
+				"g  @ ",
+				TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType())
+		)});
 	}
 
 	public Logger getStandardLogger()
@@ -98,7 +116,9 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	public enum LoggingType
 	{
 		DESPAWN("despawn"),
-		DIE("die");
+		DIE("die"),
+		CREATE("create");
+
 		private final String name;
 		public static final	String[] LOGGING_SUGGESTIONS;
 

@@ -10,7 +10,7 @@ public class OptimizedHardHitBoxEntityCollisionHelper
 	public static final ThreadLocal<Boolean> checkHardHitBoxEntityOnly = ThreadLocal.withInitial(() -> false);
 
 	/**
-	 * Check if the given entity may have entity.getHardCollisionBox return not null
+	 * Check if the given entity may have {@link Entity#getHardCollisionBox} return not null
 	 * In vanilla only boat and minecart do that
 	 *
 	 * Doesn't work with other mods
@@ -23,11 +23,11 @@ public class OptimizedHardHitBoxEntityCollisionHelper
 	/**
 	 * Check if the given entity may have hard hitbox
 	 * In vanilla only boat and shulker have hard hitbox
-	 * For boat, getCollisionBox always returns not null
-	 * For shulker, getCollisionBox returns not null if the shulker is alive, in case of edge cases
+	 * For boat, {@link Entity#getCollisionBox} always returns not null
+	 * For shulker, {@link Entity#getCollisionBox} returns not null if the shulker is alive, in case of edge cases
 	 * here comes an extra shulker check
 	 *
-	 * Might not work with other mods
+	 * Might not work with other mods since they might have dynamic {@link Entity#getCollisionBox} result
 	 */
 	public static boolean hasHardHitBox(Entity entity)
 	{
