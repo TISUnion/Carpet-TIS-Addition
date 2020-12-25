@@ -494,7 +494,7 @@
 同规则 `optimizedTNT` 一起使用可大幅度提升炮的性能表现
 
 - 类型: `boolean`  
-- 默认值: `true`  
+- 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
@@ -508,7 +508,7 @@
 当然，它需要规则 `optimizedTNT` 开启才能工作
 
 - 类型: `boolean`  
-- 默认值: `true`  
+- 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 

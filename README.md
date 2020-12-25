@@ -494,7 +494,7 @@ Inspired by the `fastMovingEntityOptimization` rule in [carpetmod112](https://gi
 Use with rule `optimizedTNT` to greatly improve performance in cannons
 
 - Type: `boolean`  
-- Default value: `true`  
+- Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
@@ -508,7 +508,7 @@ So the rule `optimizedTNT` can overwrite lithium's explosion optimization
 Of course rule optimizedTNT needs to be on for it to work
 
 - Type: `boolean`  
-- Default value: `true`  
+- Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
