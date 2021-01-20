@@ -617,8 +617,6 @@ c	aah	net/minecraft/class_3222	net/minecraft/server/network/ServerPlayerEntity
 	m	()V	f	method_14235	onSpawn
 	m	(Lfx;)Z	g	method_26287	isBedTooFarAway
 		p	1			pos
-	m	()V	method_7346	method_7346	closeHandledScreen
-		c	Closes the current handled screen and sends a screen closing packet to the client.
 	m	()V	n	method_14241	updateCursorStack
 	m	()V	o	method_14247	closeScreenHandler
 		c	Runs closing tasks for the current screen handler and\nsets it to the {@code playerScreenHandler}.
@@ -71088,6 +71086,8 @@ c	gc$c	net/minecraft/class_2350$class_2353	net/minecraft/util/math/Direction$Typ
 	m	()Ljava/util/stream/Stream;	a	method_29716	stream
 	m	(Lgc;)Z	a	method_10182	test
 	m	(Ljava/util/Random;)Lgc;	a	method_10183	random
+		p	1			random
+	m	(Ljava/util/Random;)Lgc$a;	b	method_33325	randomAxis
 		p	1			random
 	m	()Ljava/util/Iterator;	iterator	iterator	iterator
 	m	(Ljava/lang/Object;)Z	test	test	test
