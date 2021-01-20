@@ -15,13 +15,7 @@ public abstract class ServerChunkManagerMixin
 {
 	@Shadow @Final private ServerWorld world;
 
-	@Inject(
-			method = "tickChunks",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;Lnet/minecraft/world/SpawnHelper$ChunkSource;)Lnet/minecraft/world/SpawnHelper$Info;"
-			)
-	)
+	@Inject(method = "tickChunks", at = @At(value = "HEAD"))
 	private void onCountingMobcapLifeTimeTracker(CallbackInfo ci)
 	{
 		((IServerWorld)this.world).getLifeTimeWorldTracker().increaseSpawnStageCounter();

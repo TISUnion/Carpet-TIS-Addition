@@ -494,7 +494,7 @@ Inspired by the `fastMovingEntityOptimization` rule in [carpetmod112](https://gi
 Use with rule `optimizedTNT` to greatly improve performance in cannons
 
 - Type: `boolean`  
-- Default value: `true`  
+- Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
@@ -508,7 +508,7 @@ So the rule `optimizedTNT` can overwrite lithium's explosion optimization
 Of course rule optimizedTNT needs to be on for it to work
 
 - Type: `boolean`  
-- Default value: `true`  
+- Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
@@ -766,7 +766,7 @@ Tracked entity removal reasons
 - Collected up by hopper or hopper minecart (item only)
 - Other (anything else not in the list)
 
-The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
+The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is at the beginning of `ServerChunkManager#tickChunks` 
 
 Statistics are sorted by the proportion of the amount 
 
