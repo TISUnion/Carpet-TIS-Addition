@@ -494,7 +494,7 @@ Inspired by the `fastMovingEntityOptimization` rule in [carpetmod112](https://gi
 Use with rule `optimizedTNT` to greatly improve performance in cannons
 
 - Type: `boolean`  
-- Default value: `true`  
+- Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
@@ -508,7 +508,7 @@ So the rule `optimizedTNT` can overwrite lithium's explosion optimization
 Of course rule optimizedTNT needs to be on for it to work
 
 - Type: `boolean`  
-- Default value: `true`  
+- Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
@@ -766,7 +766,7 @@ Tracked entity removal reasons
 - Collected up by hopper or hopper minecart (item only)
 - Other (anything else not in the list)
 
-The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
+The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap (at the beginning of `ServerChunkManager#tickChunks` for 1.16.5+)
 
 Statistics are sorted by the proportion of the amount 
 
@@ -796,7 +796,7 @@ Current main development branch: **1.15.2**
 Current maintaining branches:
 - 1.14.4, for Minecraft 1.14.4
 - 1.15.2, for Minecraft 1.15.2
-- 1.16.4, for Minecraft 1.16.2 to 1.16.4
+- 1.16.5, for Minecraft 1.16.2 to 1.16.5
 - 1.17, for Minecraft 1.17 snapshots
 
 Current archived branches:
@@ -806,7 +806,7 @@ For general new features, implement them in 1.15.2 branch first then merge it in
 
 Branches merge order:
 - 1.15.2 -> 1.14.4
-- 1.15.2 -> 1.16.4 -> 1.17
+- 1.15.2 -> 1.16.5 -> 1.17
 - 1.15.2 -> master (when release)
 
 For version specific fixes / patches, implement them in relevant branches
