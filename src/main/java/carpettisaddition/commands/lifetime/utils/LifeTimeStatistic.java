@@ -89,11 +89,6 @@ public class LifeTimeStatistic extends TranslatableBase
 		);
 	}
 
-	public BaseText getResult(String indentString)
-	{
-		return this.getResult(indentString, false);
-	}
-
 	/**
 	 * @param divider a {@link Messenger#c} format divider
 	 */
