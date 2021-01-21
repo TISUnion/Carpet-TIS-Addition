@@ -2,11 +2,13 @@ package carpettisaddition.commands.lifetime;
 
 import carpet.utils.Messenger;
 import carpettisaddition.commands.AbstractTracker;
+import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.TextUtil;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -22,6 +24,8 @@ public class LifeTimeTracker extends AbstractTracker
 {
 	private static boolean attachedServer = false;
 	private static final LifeTimeTracker INSTANCE = new LifeTimeTracker();
+
+	private int currentTrackId = 0;
 
 	private final Map<ServerWorld, LifeTimeWorldTracker> trackers = new Reference2ObjectArrayMap<>();
 
@@ -56,6 +60,11 @@ public class LifeTimeTracker extends AbstractTracker
 		return attachedServer && INSTANCE.isTracking();
 	}
 
+	public static boolean willTrackEntity(Entity entity)
+	{
+		return isActivated() && ((IEntity)entity).getTrackId() == INSTANCE.getCurrentTrackId() && LifeTimeTrackerUtil.isTrackedEntity(entity);
+	}
+
 	public Stream<String> getAvailableEntityType()
 	{
 		if (!isActivated())
@@ -70,9 +79,15 @@ public class LifeTimeTracker extends AbstractTracker
 				distinct();
 	}
 
+	public int getCurrentTrackId()
+	{
+		return this.currentTrackId;
+	}
+
 	@Override
 	protected void initTracker()
 	{
+		this.currentTrackId++;
 		this.trackers.values().forEach(LifeTimeWorldTracker::initTracker);
 	}
 
