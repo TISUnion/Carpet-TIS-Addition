@@ -180,7 +180,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 									Messenger.s(
 											Messenger.c(
 													String.format("q %s\n", this.tr("Life Time Overview")),
-													data.lifeTimeStatistic.getResult("")
+													data.lifeTimeStatistic.getResult("", true)
 											).getString()  // to reduce network load
 									),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.LIFE_TIME))
@@ -210,7 +210,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 					Messenger.s(this.tr("life_time_explain", "The amount of spawning stage passing between entity spawning and entity removal")),
 					null
 			));
-			result.add(specificData.lifeTimeStatistic.getResult(""));
+			result.add(specificData.lifeTimeStatistic.getResult("", false));
 		}
 		if (showSpawning)
 		{
