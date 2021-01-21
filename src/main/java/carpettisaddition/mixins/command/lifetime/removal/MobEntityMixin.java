@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MobEntity.class)
@@ -36,10 +37,18 @@ public abstract class MobEntityMixin extends LivingEntity
 
 	@Inject(
 			method = "checkDespawn",
+			// slice for optifine reeee
+			// optifine will inserts shits after getClosestPlayer
+			slice = @Slice(
+					from = @At(
+							value = "INVOKE",
+							target = "Lnet/minecraft/entity/Entity;squaredDistanceTo(Lnet/minecraft/entity/Entity;)D"
+					)
+			),
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
-					ordinal = 1
+					ordinal = 0
 			)
 	)
 	private void onImmediatelyDespawnLifeTimeTracker(CallbackInfo ci)
@@ -49,10 +58,16 @@ public abstract class MobEntityMixin extends LivingEntity
 
 	@Inject(
 			method = "checkDespawn",
+			slice = @Slice(
+					from = @At(
+							value = "INVOKE",
+							target = "Lnet/minecraft/entity/Entity;squaredDistanceTo(Lnet/minecraft/entity/Entity;)D"
+					)
+			),
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
-					ordinal = 2
+					ordinal = 1
 			)
 	)
 	private void onRandomlyDespawnLifeTimeTracker(CallbackInfo ci)
