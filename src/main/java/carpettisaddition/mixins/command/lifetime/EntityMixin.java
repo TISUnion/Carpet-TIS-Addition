@@ -5,7 +5,6 @@ import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
-import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.utils.GameUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -34,18 +33,30 @@ public abstract class EntityMixin implements IEntity
 	private boolean recordedRemoval;
 	private Vec3d spawningPos;
 	private Vec3d removalPos;
+	private int trackId;
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void onConstructLifeTimeTracker(CallbackInfo ci)
 	{
-		this.doLifeTimeTracking = false;
 		this.recordedSpawning = false;
 		this.recordedRemoval = false;
 		if (this.world instanceof ServerWorld)
 		{
 			this.spawnTime = ((IServerWorld)this.world).getLifeTimeWorldTracker().getSpawnStageCounter();
-			this.doLifeTimeTracking = LifeTimeTracker.isActivated() && LifeTimeTrackerUtil.isTrackedEntity((Entity) (Object) this);
+			this.trackId = LifeTimeTracker.getInstance().getCurrentTrackId();
+			this.doLifeTimeTracking = LifeTimeTracker.willTrackEntity((Entity)(Object)this);
 		}
+		else
+		{
+			this.trackId = -1;
+			this.doLifeTimeTracking = false;
+		}
+	}
+
+	@Override
+	public int getTrackId()
+	{
+		return this.trackId;
 	}
 
 	@Override

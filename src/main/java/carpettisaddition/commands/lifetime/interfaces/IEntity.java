@@ -6,6 +6,8 @@ import net.minecraft.util.math.Vec3d;
 
 public interface IEntity
 {
+	int getTrackId();
+
 	long getLifeTime();
 
 	Vec3d getSpawningPosition();
