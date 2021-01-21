@@ -165,7 +165,7 @@ public class TrackedData extends TranslatableBase
 			result.add(Messenger.c(
 					this.getReasonWithRate(reason, ticks, statistic.count, this.lifeTimeStatistic.count),
 					"w \n",
-					statistic.getResult("  ")
+					statistic.getResult("  ", hoverMode)
 			));
 		});
 		return result;
