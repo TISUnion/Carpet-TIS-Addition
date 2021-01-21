@@ -47,7 +47,7 @@ public abstract class EntityMixin
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/Entity;method_30076()V"
+					target = "Lnet/minecraft/entity/Entity;removeFromDimension()V"
 			),
 			allow = 1
 	)
