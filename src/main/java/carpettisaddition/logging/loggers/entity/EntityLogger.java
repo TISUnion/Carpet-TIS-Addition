@@ -32,6 +32,11 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		this.loggerName = loggerName;
 	}
 
+	public String getLoggerName()
+	{
+		return this.loggerName;
+	}
+
 	protected BaseText getNameText(T entity)
 	{
 		return TextUtil.getTranslatedName(entity.getType().getTranslationKey());
@@ -61,9 +66,11 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	private void onLoggingEvent(LoggingType loggingType, Supplier<BaseText[]> supplier)
 	{
-		LoggerRegistry.getLogger(this.loggerName).log((option) ->
-				loggingType.isContainedIn(option) ? supplier.get() : null
-		);
+		Logger logger = LoggerRegistry.getLogger(this.loggerName);
+		if (logger != null)  // in case in client world
+		{
+			logger.log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
+		}
 	}
 
 	public void onEntityCreated(T entity)

@@ -46,7 +46,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 
 	private Optional<TrackedData> getTrackedData(Entity entity)
 	{
-		if (LifeTimeTracker.isActivated() && LifeTimeTrackerUtil.isTrackedEntity(entity))
+		if (LifeTimeTracker.willTrackEntity(entity))
 		{
 			return Optional.of(this.dataMap.computeIfAbsent(entity.getType(), (e -> new TrackedData())));
 		}
