@@ -766,7 +766,7 @@ Tracked entity removal reasons
 - Collected up by hopper or hopper minecart (item only)
 - Other (anything else not in the list)
 
-The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap (at the beginning of `ServerChunkManager#tickChunks` for 1.16.5+)
+The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
 
 Statistics are sorted by the proportion of the amount 
 
@@ -815,4 +815,4 @@ master branches usually only receives doc updates directly
 
 Try not to affect version compatibility unless it's necessary
 
-English doc and Chinese doc are aligned line by line btw
+The English doc and the Chinese doc are aligned line by line btw
