@@ -3,7 +3,6 @@ package carpettisaddition.script;
 import carpet.script.CarpetEventServer.Event;
 import carpet.script.value.ListValue;
 import carpet.script.value.StringValue;
-import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.loggers.microtiming.events.BaseEvent;
 import carpettisaddition.logging.loggers.microtiming.events.BlockStateChangeEvent;
@@ -14,9 +13,7 @@ import carpettisaddition.logging.loggers.microtiming.events.ExecuteBlockEventEve
 import carpettisaddition.logging.loggers.microtiming.events.ExecuteTileTickEvent;
 import carpettisaddition.logging.loggers.microtiming.events.ScheduleBlockEventEvent;
 import carpettisaddition.logging.loggers.microtiming.events.ScheduleTileTickEvent;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 import java.util.Arrays;
 

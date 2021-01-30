@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.microtiming;
 
-import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.ExtensionLoggerRegistry;

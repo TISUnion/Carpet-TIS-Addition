@@ -3,7 +3,6 @@ package carpettisaddition.script;
 import carpet.script.CarpetContext;
 import carpet.script.Expression;
 import carpet.script.argument.BlockArgument;
-import carpet.script.exception.InternalExpressionException;
 import carpet.script.value.ListValue;
 import carpet.script.value.NumericValue;
 import carpet.script.value.Value;
