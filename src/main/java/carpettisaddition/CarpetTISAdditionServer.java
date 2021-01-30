@@ -2,6 +2,7 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
+import carpet.script.CarpetExpression;
 import carpettisaddition.commands.InfoCommand;
 import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
@@ -9,6 +10,7 @@ import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.script.Functions;
 import carpettisaddition.translations.ExtensionTranslations;
 import carpettisaddition.utils.stacktrace.StackTraceDeobfuscator;
 import com.mojang.brigadier.CommandDispatcher;
@@ -121,5 +123,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public Map<String, String> canHasTranslations(String lang)
     {
         return ExtensionTranslations.getTranslationFromResourcePath(lang);
+    }
+
+    @Override
+    public void scarpetApi(CarpetExpression expression) {
+        Functions.apply(expression.getExpr());
+        CarpetTISAdditionServer.LOGGER.info("Loaded TIS-Carpet scarpet extension");
     }
 }

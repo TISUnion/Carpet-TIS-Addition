@@ -71,6 +71,20 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [info](#info)
 - [lifetime](#lifetime)
 
+
+## [Scarpet](#scarpet)
+
+### [Functions](#functions)
+
+- [`register_block(pos)`](#register_block(pos))
+- [`deregister_block(pos)`](#deregister_block(pos))
+- [`registered(pos)`](#registered(pos))
+  
+### [Events](#events)
+
+- [`__on_block_event(type, pos)`](#__on_block_event(type, pos))
+
+
 ## Others
 
 - [other stuffs](#other-stuffs)
@@ -705,9 +719,42 @@ List information of all current raids
 
 ### tracking
 
-`/raid tracking [<start|stop|restart|realtime>]`
+`/raid tracking [<start|stop|restart>]`
 
-Start a raid tracking to gather statistics from ongoing raids
+Control the lifetime tracker
+
+Tracked entity types:
+- All kinds of mob (MobEntity)
+- Item Entity
+- Experience Orb Entity
+
+Tracked entity spawning reasons
+- Natural spawning
+- Portal pigman spawning
+- Trans-dimension from portal
+- Spawned by item (spawn eggs etc.)
+- Slime division (for slime and magma cube)
+- Zombie Reinforce
+- `/summon` command
+- Mob drop (item and xp orb only)
+- Block drop (item only)
+
+Note that only entities that have been tracked spawning will be counted to the statistic
+
+Tracked entity removal reasons
+- Despawn, including immediately despawn, random despawn, difficulty despawn and timeout despawn
+- Damaged to death
+- Becomes persistent. Note that the entity is still not removed from the world
+- Rides on a vehicle (1.16+). Note that the entity is still not removed from the world
+- Trans-dimension through portal
+- Entity merged (item and xp orb only)
+- Picked up by player (item and xp orb only)
+- Collected up by hopper or hopper minecart (item only)
+- Other (anything else not in the list)
+
+The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
+
+Statistics are sorted by the proportion of the amount
 
 
 ## info
@@ -731,45 +778,6 @@ This tracker also tracks lifetime of items and xp orbs from mob and block drops 
 
 Adding a `realtime` suffix to the command will turn the rate result from in-game time based to realtime based
 
-### tracking
-
-`/raid tracking [<start|stop|restart>]`
-
-Control the lifetime tracker
-
-Tracked entity types:
-- All kinds of mob (MobEntity)
-- Item Entity
-- Experience Orb Entity
-
-Tracked entity spawning reasons
-- Natural spawning
-- Portal pigman spawning
-- Trans-dimension from portal
-- Spawned by item (spawn eggs etc.)
-- Slime division (for slime and magma cube)
-- Zombie Reinforce
-- `/summon` command
-- Mob drop (item and xp orb only)
-- Block drop (item only)
-
-Note that only entities that have been tracked spawning will be counted to the statistic 
-
-Tracked entity removal reasons
-- Despawn, including immediately despawn, random despawn, difficulty despawn and timeout despawn
-- Damaged to death
-- Becomes persistent. Note that the entity is still not removed from the world
-- Rides on a vehicle (1.16+). Note that the entity is still not removed from the world
-- Trans-dimension through portal
-- Entity merged (item and xp orb only)
-- Picked up by player (item and xp orb only)
-- Collected up by hopper or hopper minecart (item only)
-- Other (anything else not in the list)
-
-The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
-
-Statistics are sorted by the proportion of the amount 
-
 ### <entity_type>
 
 `/lifetime <entity_type> [<life_time|removal|spawning>]`
@@ -777,6 +785,36 @@ Statistics are sorted by the proportion of the amount
 Show the detail statistic of specific entity type. You can specify which part of the statistic will be output
 
 For example, `/lifetime creeper` shows all statistic of creeper in detail, and `/lifetime creeper removal` only shows removal statistic of creeper in detail 
+
+# Scarpet
+
+## Functions
+
+### `register_block(pos)`
+
+Registers a block position to be tracked with events by scarpet. It is added to a global tracker (which you can view with
+`registered()`). Blocks in this list will trigger events in `__on_block_event` if they occur, independently of the loggers.
+Returns `true` if block was not previously in list, and `false` if it was.
+
+### `deregister_block(pos)`
+
+Removes a block position from the list of block positions to be tracked. Returns `true` if block was previously in the
+list, and `false` if not.
+
+### `registered()`, `registered(pos)`
+
+Without any arguments, returns the list of block positions which are tracked by scarpet to trigger the block event events
+within scarpet. With a position, will return `true` or `false` based on whether or not that position is in the list.
+
+## Events
+
+### `__on_block_event(type, pos)`
+
+This event will trigger any time any event that can be tracked with the loggers occurs on one of the blocks tracked by
+scarpet, and that can be updated by the `register_block` and `deregister_block` functions. The type determines the type
+of block event that occured, which can be one of: `'detected_block_update'`,`'block_state_changed'`,`'executed_block_event'`,
+`'executed_tile_tick'`,`'emitted_block_update'`,`'emitted_block_update_redstone_dust'`,`'scheduled_block_event'` or 
+`'scheduled_tile_tick'`
 
 -----------
 

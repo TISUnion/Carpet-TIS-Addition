@@ -10,6 +10,7 @@ import carpettisaddition.logging.loggers.microtiming.events.*;
 import carpettisaddition.logging.loggers.microtiming.interfaces.IServerWorld;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
+import carpettisaddition.script.BlockEvents;
 import carpettisaddition.translations.Translator;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
@@ -28,12 +29,15 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class MicroTimingLoggerManager
 {
     private static MicroTimingLoggerManager instance;
+
+    public static Set<BlockPos> trackedPositions;
 
     private final Map<ServerWorld, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
     private static final Translator TRANSLATOR = (new MicroTimingLogger(null)).getTranslator();
@@ -107,6 +111,9 @@ public class MicroTimingLoggerManager
 
     public static void onEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier, BiFunction<World, BlockPos, Optional<DyeColor>> woolGetter)
     {
+        if(trackedPositions.contains(pos))//For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
+            BlockEvents.determineBlockEvent(supplier.get(),world, pos);
+
         if (isLoggerActivated())
         {
             getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, supplier.get(), woolGetter));
@@ -115,6 +122,9 @@ public class MicroTimingLoggerManager
 
     public static void onEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier)
     {
+        if(trackedPositions.contains(pos))//For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
+            BlockEvents.determineBlockEvent(supplier.get(),world, pos);
+
         if (isLoggerActivated())
         {
             getWorldLogger(world).ifPresent(logger -> logger.addMessage(world, pos, supplier.get()));
