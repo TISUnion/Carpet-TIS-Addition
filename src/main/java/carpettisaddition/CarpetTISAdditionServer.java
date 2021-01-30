@@ -10,6 +10,7 @@ import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.script.BlockEvents;
 import carpettisaddition.script.Functions;
 import carpettisaddition.translations.ExtensionTranslations;
 import carpettisaddition.utils.stacktrace.StackTraceDeobfuscator;
@@ -60,6 +61,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
         {
             // here we will be snooping for command changes
         });
+
+        BlockEvents.noop();//to register event properly
     }
 
     @Override

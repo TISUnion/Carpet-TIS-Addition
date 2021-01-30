@@ -3,6 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
+import carpettisaddition.script.BlockEvents;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
