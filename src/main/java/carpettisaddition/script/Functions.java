@@ -23,7 +23,7 @@ public class Functions {
             return (_c, _t)-> new NumericValue(MicroTimingLoggerManager.trackedPositions.add(registeredBlock));
         });
 
-        expr.addLazyFunction("deregister_block", -1, (c, t, lv)->{
+        expr.addLazyFunction("unregister_block", -1, (c, t, lv)->{
 
             CarpetContext cc = (CarpetContext)c;
             BlockArgument blockLocator = BlockArgument.findIn(cc, lv, 0);
@@ -32,12 +32,13 @@ public class Functions {
             return (_c, _t)-> new NumericValue(MicroTimingLoggerManager.trackedPositions.remove(registeredBlock));
         });
 
-        expr.addLazyFunction("registered", -1, (c, t, lv)->{
+        expr.addLazyFunction("registered_blocks", 0, (c, t, lv)->{
 
-            if(lv.size()==0){
-                List<Value> blockList = MicroTimingLoggerManager.trackedPositions.stream().map(b-> ListValue.fromTriple(b.getX(),b.getY(),b.getZ())).collect(Collectors.toList());
-                return (_c, _t) -> new ListValue(blockList);
-            }
+            List<Value> blockList = MicroTimingLoggerManager.trackedPositions.stream().map(b-> ListValue.fromTriple(b.getX(),b.getY(),b.getZ())).collect(Collectors.toList());
+            return (_c, _t) -> new ListValue(blockList);
+        });
+
+        expr.addLazyFunction("registered", -1, (c, t, lv)->{
 
             CarpetContext cc = (CarpetContext)c;
             BlockArgument blockLocator = BlockArgument.findIn(cc, lv, 0);

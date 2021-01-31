@@ -27,27 +27,27 @@ public class BlockEvents extends Event {
 
     public static void determineBlockEvent(BaseEvent event, BlockPos pos){
         if(event instanceof DetectBlockUpdateEvent)
-            BLOCK_EVENT.onBlockEvent("detected_block_update", pos);
+            MICRO_TIMING_EVENT.onBlockEvent("detected_block_update", pos);
         if(event instanceof BlockStateChangeEvent)
-            BLOCK_EVENT.onBlockEvent("block_state_changed", pos);
+            MICRO_TIMING_EVENT.onBlockEvent("block_state_changed", pos);
         if(event instanceof ExecuteBlockEventEvent)
-            BLOCK_EVENT.onBlockEvent("executed_block_event", pos);
+            MICRO_TIMING_EVENT.onBlockEvent("executed_block_event", pos);
         if(event instanceof ExecuteTileTickEvent)
-            BLOCK_EVENT.onBlockEvent("executed_tile_tick", pos);
+            MICRO_TIMING_EVENT.onBlockEvent("executed_tile_tick", pos);
         if(event instanceof EmitBlockUpdateEvent)
-            BLOCK_EVENT.onBlockEvent("emitted_block_update", pos);
+            MICRO_TIMING_EVENT.onBlockEvent("emitted_block_update", pos);
         if(event instanceof EmitBlockUpdateRedstoneDustEvent)
-            BLOCK_EVENT.onBlockEvent("emitted_block_update_redstone_dust", pos);
+            MICRO_TIMING_EVENT.onBlockEvent("emitted_block_update_redstone_dust", pos);
         if(event instanceof ScheduleBlockEventEvent)
-            BLOCK_EVENT.onBlockEvent("scheduled_block_event", pos);
+            MICRO_TIMING_EVENT.onBlockEvent("scheduled_block_event", pos);
         if(event instanceof ScheduleTileTickEvent)
-            BLOCK_EVENT.onBlockEvent("scheduled_tile_tick", pos);
+            MICRO_TIMING_EVENT.onBlockEvent("scheduled_tile_tick", pos);
     }
 
 
     public void onBlockEvent(String type, BlockPos pos){}
 
-    public static BlockEvents BLOCK_EVENT = new BlockEvents("block_event", 2, true) {
+    public static BlockEvents MICRO_TIMING_EVENT = new BlockEvents("microtiming_event", 2, true) {
         @Override
         public void onBlockEvent(String type, BlockPos pos) {
             this.handler.call(
