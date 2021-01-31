@@ -79,7 +79,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [`register_block(pos)`](#register_block(pos))
 - [`unregister_block(pos)`](#unregister_block(pos))
 - [`registered_blocks()`](#registered_blocks())
-- [`registered(pos)`](#registered(pos))
+- [`is_registered(pos)`](#is_registered(pos))
   
 ### [Events](#events)
 
@@ -794,7 +794,7 @@ For example, `/lifetime creeper` shows all statistic of creeper in detail, and `
 ### `register_block(pos)`
 
 Registers a block position to be tracked with events by scarpet. It is added to a global tracker (which you can view with
-`registered()`). Blocks in this list will trigger events in `__on_microtiming_event` if they occur, independently of the loggers.
+`is_registered()`). Blocks in this list will trigger events in `__on_microtiming_event` if they occur, independently of the loggers.
 Returns `true` if block was not previously in list, and `false` if it was.
 
 ### `unregister_block(pos)`
@@ -806,7 +806,7 @@ list, and `false` if not.
 
 Returns the list of block positions which are tracked by scarpet to trigger the block event events within scarpet.
 
-### `registered(pos)`
+### `is_registered(pos)`
 
 Returns `true` or `false` based on whether or not that position is in the list of tracked block positions.
 

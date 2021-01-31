@@ -38,7 +38,7 @@ public class Functions {
             return (_c, _t) -> new ListValue(blockList);
         });
 
-        expr.addLazyFunction("registered", -1, (c, t, lv)->{
+        expr.addLazyFunction("is_registered", -1, (c, t, lv)->{
 
             CarpetContext cc = (CarpetContext)c;
             BlockArgument blockLocator = BlockArgument.findIn(cc, lv, 0);
