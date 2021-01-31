@@ -113,7 +113,7 @@ public class MicroTimingLoggerManager
     public static void onEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier, BiFunction<World, BlockPos, Optional<DyeColor>> woolGetter)
     {
         if(trackedPositions.contains(pos))//For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
-            BlockEvents.determineBlockEvent(supplier.get(), pos);
+            BlockEvents.determineBlockEvent(supplier.get(), world, pos);
 
         if (isLoggerActivated())
         {
@@ -124,7 +124,7 @@ public class MicroTimingLoggerManager
     public static void onEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier)
     {
         if(trackedPositions.contains(pos))//For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
-            BlockEvents.determineBlockEvent(supplier.get(), pos);
+            BlockEvents.determineBlockEvent(supplier.get(), world, pos);
 
         if (isLoggerActivated())
         {

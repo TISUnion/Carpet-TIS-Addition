@@ -83,7 +83,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
   
 ### [Events](#events)
 
-- [`__on_microtiming_event(type, pos)`](#__on_microtiming_event(type, pos))
+- [`__on_microtiming_event(type, pos, dimension)`](#__on_microtiming_event(type, pos, dimension))
 
 
 ## Others
@@ -812,7 +812,7 @@ Returns `true` or `false` based on whether or not that position is in the list o
 
 ## Events
 
-### `__on_microtiming_event(type, pos)`
+### `__on_microtiming_event(type, pos, dimension)`
 
 This event will trigger any time any event that can be tracked with the loggers occurs on one of the blocks tracked by
 scarpet, and that can be updated by the `register_block` and `unregister_block` functions. The type determines the type
