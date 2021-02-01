@@ -718,6 +718,27 @@ Attributes:
 
 List information of all current raids
 
+## info
+
+### world ticking_order
+
+`/info world ticking_order`
+
+Show the ticking order of current dimensions in the game
+
+
+## lifetime
+
+A tracker to track lifetime and spawn / removal reasons from all newly spawned and dead entities
+
+This tracker is mostly used to debug mobfarms. It aims to track the process from mob starting affecting the mobcap to mob being removed from the mobcap. The spawning tracking part of it doesn't cover every kind of mob spawning reasons
+
+Other than being removed from the world, if a mob becomes persistent for the first time like nametagged or item pickup, it will be marked as removal too. If a mob doesn't count towards the mobcap when it spawns, it will not be tracked
+
+This tracker also tracks lifetime of items and xp orbs from mob and block drops as an additional functionality. Note that it doesn't track all item / xp orb spawning, so you'd better have a test before actually using it
+
+Adding a `realtime` suffix to the command will turn the rate result from in-game time based to realtime based
+
 ### tracking
 
 `/raid tracking [<start|stop|restart>]`
@@ -756,28 +777,6 @@ Tracked entity removal reasons
 The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
 
 Statistics are sorted by the proportion of the amount
-
-
-## info
-
-### world ticking_order
-
-`/info world ticking_order`
-
-Show the ticking order of current dimensions in the game
-
-
-## lifetime
-
-A tracker to track lifetime and spawn / removal reasons from all newly spawned and dead entities
-
-This tracker is mostly used to debug mobfarms. It aims to track the process from mob starting affecting the mobcap to mob being removed from the mobcap. The spawning tracking part of it doesn't cover every kind of mob spawning reasons
-
-Other than being removed from the world, if a mob becomes persistent for the first time like nametagged or item pickup, it will be marked as removal too. If a mob doesn't count towards the mobcap when it spawns, it will not be tracked
-
-This tracker also tracks lifetime of items and xp orbs from mob and block drops as an additional functionality. Note that it doesn't track all item / xp orb spawning, so you'd better have a test before actually using it
-
-Adding a `realtime` suffix to the command will turn the rate result from in-game time based to realtime based
 
 ### <entity_type>
 
