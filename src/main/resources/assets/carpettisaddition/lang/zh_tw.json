@@ -365,7 +365,7 @@
   "tracker.lifetime.help.doc_summary": "一個追踪所有新生成生物的存活時間及生成/移除原因的記錄器",
   "tracker.lifetime.help.complete_doc_hint": "完整文檔",
   "tracker.lifetime.help.here": "傳送門",
-  "tracker.lifetime.help.doc_link": "https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#存活時間-lifetime",
+  "tracker.lifetime.help.doc_link": "https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#存活时间-li​​fetime",
 
 
   "util.teleport_hint": "點擊以傳送至",
