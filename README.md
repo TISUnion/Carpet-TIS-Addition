@@ -718,6 +718,13 @@ Attributes:
 
 List information of all current raids
 
+### tracking
+
+`/raid tracking [<start|stop|restart|realtime>]`
+
+Start a raid tracking to gather statistics from ongoing raids
+
+
 ## info
 
 ### world ticking_order
@@ -761,7 +768,7 @@ Tracked entity spawning reasons
 - Mob drop (item and xp orb only)
 - Block drop (item only)
 
-Note that only entities that have been tracked spawning will be counted to the statistic
+Note that only entities that have been tracked spawning will be counted to the statistic 
 
 Tracked entity removal reasons
 - Despawn, including immediately despawn, random despawn, difficulty despawn and timeout despawn
@@ -774,13 +781,18 @@ Tracked entity removal reasons
 - Collected up by hopper or hopper minecart (item only)
 - Other (anything else not in the list)
 
-The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
+The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap (at the beginning of `ServerChunkManager#tickChunks` for 1.16.5+)
 
-Statistics are sorted by the proportion of the amount
+Statistics are sorted by the proportion of the amount 
 
 ### <entity_type>
 
 `/lifetime <entity_type> [<life_time|removal|spawning>]`
+
+Show the detail statistic of specific entity type. You can specify which part of the statistic will be output
+
+For example, `/lifetime creeper` shows all statistic of creeper in detail, and `/lifetime creeper removal` only shows removal statistic of creeper in detail 
+
 
 Show the detail statistic of specific entity type. You can specify which part of the statistic will be output
 
