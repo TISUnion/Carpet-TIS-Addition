@@ -450,7 +450,11 @@ public class CarpetTISAdditionSettings
 	public static boolean tooledTNT = false;
 
 	@Rule(
-			desc = "Disable block destruction by liquid flowing",
+			desc = "Disable block destruction by fluid flowing",
+			extra = {
+					"Fluid will just simple stopped at the state before destroying the block",
+					"It's useful to prevent liquid from accidentally flooding your redstone wiring in creative"
+			},
 			category = {TIS, CREATIVE}
 	)
 	public static boolean fluidDestructionDisabled = false;

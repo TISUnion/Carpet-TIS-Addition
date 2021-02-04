@@ -53,6 +53,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
 - [totallyNoBlockUpdate](#totallyNoBlockUpdate)
 - [tooledTNT](#tooledTNT)
+- [fluidDestructionDisabled](#fluidDestructionDisabled)
 
 ## [Loggers](#logger-list)
 
@@ -567,6 +568,20 @@ Technically this rule applies the main hand item of the causing entity onto the 
 - Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `FEATURE`
+
+
+## fluidDestructionDisabled
+
+Disable block destruction by liquid flowing
+
+Fluid will just simple stopped at the state before destroying the block
+
+It's useful to prevent liquid from accidentally flooding your redstone wiring in creative
+
+- Type: `boolean`  
+- Default value: `false`  
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 
 -----------
