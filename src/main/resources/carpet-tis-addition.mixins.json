@@ -84,6 +84,7 @@
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
     "rule.entityMomentumLoss.EntityMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
+    "rule.fluidDestructionDisabled.BaseFluidMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
     "rule.HUDLoggerUpdateInterval.HUDControllerMixin",
     "rule.instantCommandBlock.CommandBlockMixin",

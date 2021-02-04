@@ -449,6 +449,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean tooledTNT = false;
 
+	@Rule(
+			desc = "Disable block destruction by liquid flowing",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean fluidDestructionDisabled = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

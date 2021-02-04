@@ -169,6 +169,9 @@
   "rule.tooledTNT.extra.2": "此规则同样适用于玩家以外的生物",
   "rule.tooledTNT.extra.3": "技术上来讲，此规则将来源生物主手上的物品应用在了爆炸里战利品表的创建中",
 
+  "rule.fluidDestructionDisabled.name": "禁用流体破坏",
+  "rule.fluidDestructionDisabled.desc": "禁用流体流动造成的方块破坏",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
