@@ -1,9 +1,11 @@
-package carpettisaddition.commands.lifetime.utils;
+package carpettisaddition.commands.lifetime.trackeddata;
 
 import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
+import carpettisaddition.commands.lifetime.utils.AbstractReason;
+import carpettisaddition.commands.lifetime.utils.LifeTimeStatistic;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.CounterUtil;
 import carpettisaddition.utils.TextUtil;
@@ -22,10 +24,7 @@ import java.util.Map;
  */
 public class TrackedData extends TranslatableBase
 {
-	// spawning
-	public final Map<SpawningReason, Integer> spawningReasons = Maps.newHashMap();
-	public long spawnCount;
-	// removal
+	public final Map<SpawningReason, Long> spawningReasons = Maps.newHashMap();
 	public final Map<RemovalReason, LifeTimeStatistic> removalReasons = Maps.newHashMap();
 	public final LifeTimeStatistic lifeTimeStatistic = new LifeTimeStatistic();
 
@@ -36,8 +35,7 @@ public class TrackedData extends TranslatableBase
 
 	public void updateSpawning(Entity entity, SpawningReason reason)
 	{
-		this.spawnCount++;
-		this.spawningReasons.put(reason, this.spawningReasons.getOrDefault(reason, 0) + 1);
+		this.spawningReasons.put(reason, this.spawningReasons.getOrDefault(reason, 0L) + 1);
 	}
 
 	public void updateRemoval(Entity entity, RemovalReason reason)
@@ -46,25 +44,35 @@ public class TrackedData extends TranslatableBase
 		this.removalReasons.computeIfAbsent(reason, r -> new LifeTimeStatistic()).update(entity);
 	}
 
+	protected static long getLongMapSum(Map<?, Long> longMap)
+	{
+		return longMap.values().stream().mapToLong(v -> v).sum();
+	}
+
+	public long getSpawningCount()
+	{
+		return getLongMapSum(this.spawningReasons);
+	}
+
 	public long getRemovalCount()
 	{
 		return this.removalReasons.values().stream().mapToLong(stat -> stat.count).sum();
 	}
 
 	/**
-	 * Spawn Count: xxxxx <divider> Removal Count yyyyy
+	 * Spawn Count: xxxxx
 	 */
 	public BaseText getSpawningCountText(long ticks)
 	{
 		return Messenger.c(
 				"q " + this.tr("Spawn Count"),
 				"g : ",
-				CounterUtil.ratePerHourText(this.spawnCount, ticks, "wgg")
+				CounterUtil.ratePerHourText(this.getSpawningCount(), ticks, "wgg")
 		);
 	}
 
 	/**
-	 * Removal Count: xxxxx <divider> Removal Count yyyyy
+	 * Removal Count: xxxxx
 	 */
 	public BaseText getRemovalCountText(long ticks)
 	{
@@ -79,7 +87,7 @@ public class TrackedData extends TranslatableBase
 	 * - AAA: 50, (100/h) 25%
 	 * @param reason spawning reason or removal reason
 	 */
-	private BaseText getReasonWithRate(AbstractReason reason, long ticks, long count, long total)
+	private static BaseText getReasonWithRate(AbstractReason reason, long ticks, long count, long total)
 	{
 		double percentage = 100.0D * count / total;
 		return Messenger.c(
@@ -90,6 +98,16 @@ public class TrackedData extends TranslatableBase
 				"w  ",
 				TextUtil.attachHoverText(Messenger.s(String.format("%.1f%%", percentage)), Messenger.s(String.format("%.6f%%", percentage)))
 		);
+	}
+
+	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total)
+	{
+		return getReasonWithRate(reason, ticks, count, total);
+	}
+
+	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total)
+	{
+		return getReasonWithRate(reason, ticks, count, total);
 	}
 
 	/**
@@ -103,8 +121,8 @@ public class TrackedData extends TranslatableBase
 	public List<BaseText> getSpawningReasonsTexts(long ticks, boolean hoverMode)
 	{
 		List<BaseText> result = Lists.newArrayList();
-		List<Map.Entry<SpawningReason, Integer>> entryList = Lists.newArrayList(this.spawningReasons.entrySet());
-		entryList.sort(Collections.reverseOrder(Comparator.comparingInt(Map.Entry::getValue)));
+		List<Map.Entry<SpawningReason, Long>> entryList = Lists.newArrayList(this.spawningReasons.entrySet());
+		entryList.sort(Collections.reverseOrder(Comparator.comparingLong(Map.Entry::getValue)));
 
 		// Title for hover mode
 		if (!entryList.isEmpty() && hoverMode)
@@ -113,6 +131,9 @@ public class TrackedData extends TranslatableBase
 		}
 
 		entryList.forEach(entry -> {
+			SpawningReason reason = entry.getKey();
+			Long statistic = entry.getValue();
+
 			// added to upper result which will be sent by Messenger.send
 			// so each element will be in a separate line
 			if (hoverMode)
@@ -120,7 +141,7 @@ public class TrackedData extends TranslatableBase
 				result.add(Messenger.s("\n"));
 			}
 
-			result.add(this.getReasonWithRate(entry.getKey(), ticks, entry.getValue(), this.spawnCount));
+			result.add(this.getSpawningReasonWithRate(reason, ticks, statistic, this.getSpawningCount()));
 		});
 		return result;
 	}
@@ -163,7 +184,7 @@ public class TrackedData extends TranslatableBase
 			}
 
 			result.add(Messenger.c(
-					this.getReasonWithRate(reason, ticks, statistic.count, this.lifeTimeStatistic.count),
+					this.getRemovalReasonWithRate(reason, ticks, statistic.count, this.lifeTimeStatistic.count),
 					"w \n",
 					statistic.getResult("  ", hoverMode)
 			));
