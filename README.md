@@ -72,6 +72,21 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [info](#info)
 - [lifetime](#lifetime)
 
+
+## [Scarpet](#scarpet-1)
+
+### [Functions](#functions-1)
+
+- [`register_block(pos)`](#register_blockpos)
+- [`unregister_block(pos)`](#unregister_blockpos)
+- [`registered_blocks()`](#registered_blocks)
+- [`is_registered(pos)`](#is_registeredpos)
+  
+### [Events](#events)
+
+- [`__on_microtiming_event(type, pos, dimension)`](#__on_microtiming_eventtype-pos-dimension)
+
+
 ## Others
 
 - [other stuffs](#other-stuffs)
@@ -792,6 +807,51 @@ Statistics are sorted by the proportion of the amount
 Show the detail statistic of specific entity type. You can specify which part of the statistic will be output
 
 For example, `/lifetime creeper` shows all statistic of creeper in detail, and `/lifetime creeper removal` only shows removal statistic of creeper in detail 
+
+-----------
+
+# Scarpet
+
+Available in Carpet TIS Addition 1.16.4+
+
+## Functions
+
+### `register_block(pos)`
+
+Registers a block position to be tracked with events by scarpet. It is added to a global tracker (which you can view with `is_registered()`). 
+
+Blocks in this list will trigger events in `__on_microtiming_event` if they occur, independently of the loggers.
+
+Returns `true` if block was not previously in list, and `false` if it was.
+
+### `unregister_block(pos)`
+
+Removes a block position from the list of block positions to be tracked. Returns `true` if block was previously in the list, and `false` if not.
+
+### `registered_blocks()`
+
+Returns the list of block positions which are tracked by scarpet to trigger the block event events within scarpet.
+
+### `is_registered(pos)`
+
+Returns `true` or `false` based on whether that position is in the list of tracked block positions or not.
+
+## Events
+
+### `__on_microtiming_event(type, pos, dimension)`
+
+This event will trigger any time any event that can be tracked with the loggers occurs on one of the blocks tracked by scarpet, and that can be updated by the `register_block` and `unregister_block` functions. 
+
+The type determines the type of block event that occurs, which can be one of:
+
+- `'detected_block_update'`
+- `'block_state_changed'`
+- `'executed_block_event'`
+- `'executed_tile_tick'`
+- `'emitted_block_update'`
+- `'emitted_block_update_redstone_dust'`
+- `'scheduled_block_event'`
+- `'scheduled_tile_tick'`
 
 -----------
 
