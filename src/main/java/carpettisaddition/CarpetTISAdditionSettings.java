@@ -18,26 +18,16 @@ public class CarpetTISAdditionSettings
     public static final String TIS = "TIS";
     public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space or you can't /carpet list this
 
+	public static final double VANILLA_BLOCK_EVENT_PACKET_RANGE = 64.0D;
     @Rule(
             desc = "Set the range where player will receive a block event packet after a block event fires successfully",
             extra = "For piston the packet is used to render the piston movement animation. Decrease it to reduce client's lag",
-            validate = ValidatorBlockEventPacketRange.class,
+            validate = Validator.NONNEGATIVE_NUMBER.class,
             options = {"0", "16", "64", "128"},
             strict = false,
             category = {TIS, OPTIMIZATION}
     )
-    public static double blockEventPacketRange = 64;
-	public static class ValidatorBlockEventPacketRange extends Validator<Double>
-	{
-		@Override
-		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
-		{
-			return 0 <= newValue && newValue <= 1024 ? newValue : null;
-		}
-
-		@Override
-		public String description() { return "You must choose a value from 0 to 1024";}
-	}
+    public static double blockEventPacketRange = VANILLA_BLOCK_EVENT_PACKET_RANGE;
 
 
 	@Rule(
