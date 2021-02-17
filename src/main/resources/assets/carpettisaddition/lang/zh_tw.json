@@ -149,6 +149,25 @@
   "rule.optimizedTNTHighPriority.extra.0": "因此規則optimizedTNT可以覆蓋lithium的爆炸優化",
   "rule.optimizedTNTHighPriority.extra.1": "當然，它需要規則optimizedTNT開啟才能工作",
 
+  "rule.optimizedHardHitBoxEntityCollision.name": "優化硬碰撞箱實體碰撞",
+  "rule.optimizedHardHitBoxEntityCollision.desc": "優化實體與硬碰撞箱實體的碰撞",
+  "rule.optimizedHardHitBoxEntityCollision.extra.0": "它使用了一個額外的獨立的列表在區塊中儲存帶有硬碰撞箱的實體，包括船和界伏蚌",
+  "rule.optimizedHardHitBoxEntityCollision.extra.1": "它能在實體移動並蒐索路徑上的帶有硬碰撞箱的實體時減少大量無用的運算，因為世界裡船和界伏蚌的數量總是少數",
+  "rule.optimizedHardHitBoxEntityCollision.extra.2": "在加載區塊前開啟它以使其工作，在地獄門刷怪塔中有~20%的性能提升",
+  "rule.optimizedHardHitBoxEntityCollision.extra.3": "與添加了新實體的 mod 可能不兼容",
+
+  "rule.creativeOpenShulkerBoxForcibly.name": "創造玩家強制打開界伏盒",
+  "rule.creativeOpenShulkerBoxForcibly.desc": "允許創造模式的玩家打開被阻擋的界伏盒",
+
+  "rule.totallyNoBlockUpdate.name": "完全沒有方塊更新",
+  "rule.totallyNoBlockUpdate.desc": "禁用所有方塊更新以及狀態更新的執行",
+
+  "rule.tooledTNT.name": "工具化TNT",
+  "rule.tooledTNT.desc": "由玩家引發的爆炸破壞並掉落物品時會應用玩家手上的工具",
+  "rule.tooledTNT.extra.0": "因此你可以點燃TNT以採集需要特定工具或者附魔的方塊，只要你在爆炸時拿著正確的工具",
+  "rule.tooledTNT.extra.1": "比如，你可以拿著絲綢之觸鎬子來採集冰，或者拿著剪刀來採集草",
+  "rule.tooledTNT.extra.2": "此規則同樣適用於玩家以外的生物",
+  "rule.tooledTNT.extra.3": "技術上來講，此規則將來源生物主手上的物品應用在了爆炸裡戰利品表的創建中", 
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
