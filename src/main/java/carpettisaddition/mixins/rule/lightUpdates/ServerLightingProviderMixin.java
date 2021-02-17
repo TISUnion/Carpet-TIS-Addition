@@ -23,6 +23,7 @@ public abstract class ServerLightingProviderMixin
 		{
 			case OFF:
 				ci.cancel();
+				break;
 		}
 	}
 
@@ -38,6 +39,7 @@ public abstract class ServerLightingProviderMixin
 			case OFF:
 			case SUPPRESSED:
 				ci.cancel();
+				break;
 		}
 	}
 }

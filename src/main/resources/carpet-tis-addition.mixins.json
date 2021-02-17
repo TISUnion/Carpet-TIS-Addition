@@ -47,6 +47,7 @@
     "logger.damage.PlayerEntityMixin",
     "logger.damage.ServerPlayerEntityMixin",
     "logger.item.ItemEntityMixin",
+    "logger.lightqueue.ServerLightingProviderAccessor",
     "logger.microtiming.ServerWorldMixin",
     "logger.microtiming.WorldMixin",
     "logger.microtiming.events.BlockMixin",
