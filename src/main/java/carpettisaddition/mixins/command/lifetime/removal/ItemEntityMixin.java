@@ -50,14 +50,23 @@ public abstract class ItemEntityMixin extends Entity
 	)
 	private static void onMergedLifeTimeTracker(ItemEntity targetEntity, ItemStack targetStack, ItemEntity sourceEntity, ItemStack sourceStack, CallbackInfo ci)
 	{
+		// the recorded item stack count will be 0, it should be fine
 		((IEntity)sourceEntity).recordRemoval(LiteralRemovalReason.MERGE);
 	}
 
 	@Inject(
 			method = "onPlayerCollision",
+			slice = @Slice(
+					from = @At(
+							value = "INVOKE",
+							target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					)
+			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					target = "Lnet/minecraft/item/ItemStack;setCount(I)V",
+					ordinal = 0,
+					shift = At.Shift.AFTER
 			)
 	)
 	private void onPickupLifeTimeTracker(PlayerEntity player, CallbackInfo ci)

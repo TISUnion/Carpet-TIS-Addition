@@ -2,6 +2,7 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
+import carpet.script.CarpetExpression;
 import carpettisaddition.commands.InfoCommand;
 import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
@@ -9,6 +10,8 @@ import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.script.Functions;
+import carpettisaddition.script.MicroTimingEvent;
 import carpettisaddition.translations.ExtensionTranslations;
 import carpettisaddition.utils.stacktrace.StackTraceDeobfuscator;
 import com.mojang.brigadier.CommandDispatcher;
@@ -29,7 +32,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public static final String compactName = name.replace("-","");  // carpettisaddition
     // should be the same as the version in gradlew.properties
     // "undefined" will be replaced with build number during github action
-    public static final String version = "1.12.1+build.undefined";
+    public static final String version = "1.13.0+build.undefined";
     public static final Logger LOGGER = LogManager.getLogger(fancyName);
     public static MinecraftServer minecraft_server;
 
@@ -58,6 +61,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
         {
             // here we will be snooping for command changes
         });
+
+        MicroTimingEvent.noop();//to register event properly
     }
 
     @Override
@@ -121,5 +126,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public Map<String, String> canHasTranslations(String lang)
     {
         return ExtensionTranslations.getTranslationFromResourcePath(lang);
+    }
+
+    @Override
+    public void scarpetApi(CarpetExpression expression)
+    {
+        Functions.apply(expression.getExpr());
     }
 }
