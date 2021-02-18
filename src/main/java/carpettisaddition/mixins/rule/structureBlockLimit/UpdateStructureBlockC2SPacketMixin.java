@@ -70,7 +70,7 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 	)
 	private void structureBlockLimitsWrite(PacketByteBuf buf, CallbackInfo ci)
 	{
-		//client method, only applicable if with carpet is on the server, or running locally
+		// client method, only applicable if with carpet is on the server, or running locally
 		if (CarpetTISAdditionSettings.structureBlockLimit >= 128)
 		{
 			buf.writeInt(this.offset.getX());

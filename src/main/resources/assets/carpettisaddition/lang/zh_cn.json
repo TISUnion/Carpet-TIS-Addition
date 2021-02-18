@@ -354,6 +354,7 @@
   "tracker.lifetime.spawn_count": "生成数量",
   "tracker.lifetime.removal_count": "移除数量",
   "tracker.lifetime.item_count": "物品数",
+  "tracker.lifetime.experience_amount": "经验数",
   "tracker.lifetime.life_time": "存活时间",
   "tracker.lifetime.life_time_overview": "存活时间概览",
   "tracker.lifetime.life_time_explain": "实体生成时刻与移除时刻间的经过的自然生物刷新阶段的数量",

@@ -22,13 +22,13 @@ import java.util.Map;
 /**
  * A lifetime tracking tracked data per mob type
  */
-public class TrackedData extends TranslatableBase
+public class BasicTrackedData extends TranslatableBase
 {
 	public final Map<SpawningReason, Long> spawningReasons = Maps.newHashMap();
 	public final Map<RemovalReason, LifeTimeStatistic> removalReasons = Maps.newHashMap();
 	public final LifeTimeStatistic lifeTimeStatistic = new LifeTimeStatistic();
 
-	public TrackedData()
+	public BasicTrackedData()
 	{
 		super(LifeTimeTracker.getInstance().getTranslator());
 	}
