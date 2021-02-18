@@ -53,6 +53,7 @@
 - [创造玩家强制打开潜影盒](#创造玩家强制打开潜影盒-creativeOpenShulkerBoxForcibly)
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 - [工具化TNT](#工具化TNT-tooledTNT)
+- [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
 
 ## [监视器](#监视器列表)
 
@@ -70,6 +71,19 @@
 - [袭击](#袭击-raid-1)
 - [信息](#信息-info)
 - [存活时间](#存活时间-lifetime)
+
+## [Scarpet](#scarpet-1)
+
+### [Functions](#functions-1)
+
+- [`register_block(pos)`](#register_blockpos)
+- [`unregister_block(pos)`](#unregister_blockpos)
+- [`registered_blocks()`](#registered_blocks)
+- [`is_registered(pos)`](#is_registeredpos)
+  
+### [Events](#events)
+
+- [`__on_microtiming_event(type, pos, dimension)`](#__on_microtiming_eventtype-pos-dimension)
 
 ## 其他
 
@@ -569,6 +583,20 @@
 - 分类: `TIS`, `FEATURE`
 
 
+## 禁用流体破坏 (fluidDestructionDisabled)
+
+禁用流体流动造成的方块破坏
+
+流体会简单的停留在即将破坏方块时的状态
+
+这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路
+
+- 类型: `boolean`  
+- 默认值: `false`  
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 -----------
 
 # 监视器列表
@@ -780,6 +808,53 @@
 
 -----------
 
+# Scarpet
+
+于 Carpet TIS Addition 1.16.4+ 中可用
+
+## 函数
+
+### `register_block(pos)`
+
+注册一个可以被 scarpet 追踪事件的方块位置。它将会被添加至一个全局的追踪器中（你可以使用 `is_registered()` 来查询）
+
+位于追踪器所追踪的方块将会在事件发生时触发 scarpet 事件 `__on_microtiming_event`。该事件独立于微时序记录器的开关触发
+
+若该方块位置在之前并不位于列表中，返回 `true`；若该方块位置曾位于列表中，返回 `false`
+
+### `unregister_block(pos)`
+
+从追踪的方块位置列表中移除给定的方块位置
+
+若该方块位置在之前曾位于列表中，返回 `true`；若该方块位置并不存在于列表中，返回 `false`
+
+### `registered_blocks()`
+
+返回被 scarpet 追踪事件的方块位置列表
+
+### `is_registered(pos)`
+
+判断该位置是否位于追踪事件的列表中，返回 `true` 或 `false`
+
+## 事件
+
+### `__on_microtiming_event(type, pos, dimension)`
+
+该事件在被追踪的方块位置发生任何可被微时序记录器记录的事件时触发
+
+`type` 表示着时间的类型，可为：
+
+- `'detected_block_update'`
+- `'block_state_changed'`
+- `'executed_block_event'`
+- `'executed_tile_tick'`
+- `'emitted_block_update'`
+- `'emitted_block_update_redstone_dust'`
+- `'scheduled_block_event'`
+- `'scheduled_tile_tick'`
+
+-----------
+
 # 其他
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出
@@ -796,11 +871,12 @@
 目前维护的分支：
 - 1.14.4，对应 Minecraft 1.14.4
 - 1.15.2，对应 Minecraft 1.15.2
-- 1.16.4，对应 Minecraft 1.16.2 至 1.16.4
+- 1.16.5，对应 Minecraft 1.16.4 至 1.16.5
 - 1.17，对应 Minecraft 1.17 快照
 
 目前存档的分支：
 - 1.16，对应 Minecraft 1.16 至 1.16.1
+- 1.16.3，对应 Minecraft 1.16.2 至 1.16.3
 
 对于通用的新特性，在 1.15.2 分支中实现，再将其合并至其他分支
 

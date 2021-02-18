@@ -169,6 +169,11 @@
   "rule.tooledTNT.extra.2": "此规则同样适用于玩家以外的生物",
   "rule.tooledTNT.extra.3": "技术上来讲，此规则将来源生物主手上的物品应用在了爆炸里战利品表的创建中",
 
+  "rule.fluidDestructionDisabled.name": "禁用流体破坏",
+  "rule.fluidDestructionDisabled.desc": "禁用流体流动造成的方块破坏",
+  "rule.fluidDestructionDisabled.extra.0": "流体会简单的停留在即将破坏方块时的状态",
+  "rule.fluidDestructionDisabled.extra.1": "这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路",
+
 
   "logger.ticket.added": "被添加",
   "logger.ticket.removed": "被移除",
@@ -348,6 +353,7 @@
   "tracker.lifetime.detail_hint": "点击以查看详情",
   "tracker.lifetime.spawn_count": "生成数量",
   "tracker.lifetime.removal_count": "移除数量",
+  "tracker.lifetime.item_count": "物品数",
   "tracker.lifetime.life_time": "存活时间",
   "tracker.lifetime.life_time_overview": "存活时间概览",
   "tracker.lifetime.life_time_explain": "实体生成时刻与移除时刻间的经过的自然生物刷新阶段的数量",
