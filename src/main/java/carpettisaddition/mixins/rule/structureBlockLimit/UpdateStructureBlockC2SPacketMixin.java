@@ -2,10 +2,16 @@ package carpettisaddition.mixins.rule.structureBlockLimit;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.network.packet.c2s.play.UpdateStructureBlockC2SPacket;
+import net.minecraft.util.PacketByteBuf;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(UpdateStructureBlockC2SPacket.class)
 public abstract class UpdateStructureBlockC2SPacketMixin
@@ -28,5 +34,29 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 	private int structureBlockLimitPositive(int value)
 	{
 		return CarpetTISAdditionSettings.structureBlockLimit;
+	}
+
+	// fabric carpet 1.4.25+ protocol
+
+	@Shadow private BlockPos offset;
+
+	@Shadow private BlockPos size;
+
+	@Inject(method = "read", at = @At("TAIL"))
+	private void structureBlockLimitsRead(PacketByteBuf buf, CallbackInfo ci)
+	{
+		if (buf.readableBytes() == 6 * 4)
+		{
+			this.offset = new BlockPos(
+					MathHelper.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
+					MathHelper.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
+					MathHelper.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit)
+			);
+			this.size = new BlockPos(
+					MathHelper.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
+					MathHelper.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
+					MathHelper.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit)
+			);
+		}
 	}
 }
