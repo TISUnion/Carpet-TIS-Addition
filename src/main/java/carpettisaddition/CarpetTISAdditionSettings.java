@@ -29,28 +29,8 @@ public class CarpetTISAdditionSettings
     )
     public static double blockEventPacketRange = VANILLA_BLOCK_EVENT_PACKET_RANGE;
 
-
-	@Rule(
-			desc = "Overwrite the size limit of structure block",
-			extra = "Relative position might display wrongly on client side if it's larger than 32",
-			validate = ValidateStructureBlockLimit.class,
-			options = {"32", "64", "96", "127"},
-			strict = false,
-			category = {TIS, CREATIVE}
-	)
-	public static int structureBlockLimit = 32;
-	private static class ValidateStructureBlockLimit extends Validator<Integer>
-	{
-		@Override
-		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
-		{
-			return (newValue > 0 && newValue <= 127) ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a value from 1 to 127";
-		}
-	}
+//	Remove due to fabric carpet implement this in 1.4.25
+//	public static int structureBlockLimit = 32;
 
 	@Rule(
 			desc = "Overwrite the tracking distance of xp orb",

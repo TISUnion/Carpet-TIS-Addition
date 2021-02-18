@@ -1,12 +1,12 @@
 package carpettisaddition.mixins.rule.structureBlockLimit;
 
-import carpettisaddition.CarpetTISAdditionSettings;
+import carpet.CarpetSettings;
 import net.minecraft.network.packet.c2s.play.UpdateStructureBlockC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-
+// Keep these for previous Carpet TIS Addition rule structureBlockLimit support
 @Mixin(UpdateStructureBlockC2SPacket.class)
 public abstract class UpdateStructureBlockC2SPacketMixin
 {
@@ -17,7 +17,7 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 	)
 	private int structureBlockLimitNegative(int value)
 	{
-		return -CarpetTISAdditionSettings.structureBlockLimit;
+		return -CarpetSettings.structureBlockLimit;
 	}
 
 	@ModifyConstant(
@@ -27,6 +27,6 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 	)
 	private int structureBlockLimitPositive(int value)
 	{
-		return CarpetTISAdditionSettings.structureBlockLimit;
+		return CarpetSettings.structureBlockLimit;
 	}
 }

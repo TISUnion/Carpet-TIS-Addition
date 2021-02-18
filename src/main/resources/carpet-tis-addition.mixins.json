@@ -108,7 +108,6 @@
     "rule.renewableElytra.PhantomEntityMixin",
     "rule.repeaterHalfDelay.AbstractRedstoneGateBlockMixin",
     "rule.sandDupingFix.FallingBlockEntityMixin",
-    "rule.structureBlockLimit.StructureBlockBlockEntityMixin",
     "rule.structureBlockLimit.UpdateStructureBlockC2SPacketMixin",
     "rule.tileTickLimit.LithiumServerTickSchedulerMixin",
     "rule.tileTickLimit.ServerTickSchedulerMixin",
