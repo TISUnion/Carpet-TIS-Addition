@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(Entity.class)
 public abstract class EntityMixin
 {
-	@ModifyConstant(method = "fromTag", constant = @Constant(doubleValue = 10.0D), require = 3)
+	@ModifyConstant(method = "readNbt", constant = @Constant(doubleValue = 10.0D), require = 3)
 	private double dontYeetItsSpeed(double value)
 	{
 		if (!CarpetTISAdditionSettings.entityMomentumLoss)

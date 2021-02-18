@@ -59,7 +59,7 @@ public abstract class ItemEntityMixin extends Entity
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+							target = "Lnet/minecraft/entity/Entity;discard()V"
 					)
 			),
 			at = @At(
