@@ -3,8 +3,9 @@ package carpettisaddition.commands.lifetime;
 import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
+import carpettisaddition.commands.lifetime.trackeddata.BasicTrackedData;
+import carpettisaddition.commands.lifetime.trackeddata.ExperienceOrbTrackedData;
 import carpettisaddition.commands.lifetime.trackeddata.ItemTrackedData;
-import carpettisaddition.commands.lifetime.trackeddata.TrackedData;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.translations.TranslatableBase;
@@ -13,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -25,7 +27,7 @@ import java.util.*;
 public class LifeTimeWorldTracker extends TranslatableBase
 {
 	private final ServerWorld world;
-	private final Map<EntityType<?>, TrackedData> dataMap = Maps.newHashMap();
+	private final Map<EntityType<?>, BasicTrackedData> dataMap = Maps.newHashMap();
 	// a counter which accumulates when spawning stage occurs
 	// it's used to determine life time
 	private long spawnStageCounter;
@@ -36,7 +38,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 		this.world = world;
 	}
 
-	public Map<EntityType<?>, TrackedData> getDataMap()
+	public Map<EntityType<?>, BasicTrackedData> getDataMap()
 	{
 		return this.dataMap;
 	}
@@ -46,7 +48,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 		this.dataMap.clear();
 	}
 
-	private Optional<TrackedData> getTrackedData(Entity entity)
+	private Optional<BasicTrackedData> getTrackedData(Entity entity)
 	{
 		if (LifeTimeTracker.willTrackEntity(entity))
 		{
@@ -55,7 +57,11 @@ public class LifeTimeWorldTracker extends TranslatableBase
 				{
 					return new ItemTrackedData();
 				}
-				return new TrackedData();
+				if (entity instanceof ExperienceOrbEntity)
+				{
+					return new ExperienceOrbTrackedData();
+				}
+				return new BasicTrackedData();
 			})));
 		}
 		return Optional.empty();
@@ -93,7 +99,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 	protected int print(ServerCommandSource source, long ticks, EntityType<?> specificType, SpecificDetailMode detailMode)
 	{
 		// existence check
-		TrackedData specificData = this.dataMap.get(specificType);
+		BasicTrackedData specificData = this.dataMap.get(specificType);
 		if (this.dataMap.isEmpty() || (specificType != null && specificData == null))
 		{
 			return 0;
@@ -128,7 +134,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 				sorted(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().getSpawningCount()))).
 				forEach((entry) -> {
 					EntityType<?> entityType = entry.getKey();
-					TrackedData data = entry.getValue();
+					BasicTrackedData data = entry.getValue();
 					List<BaseText> spawningReasons = data.getSpawningReasonsTexts(ticks, true);
 					List<BaseText> removalReasons = data.getRemovalReasonsTexts(ticks, true);
 					String currentCommandBase = String.format("/%s %s", LifeTimeTracker.getInstance().getCommandPrefix(), LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType));
@@ -197,7 +203,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 				});
 	}
 
-	private void printSpecific(long ticks, EntityType<?> specificType, TrackedData specificData, SpecificDetailMode detailMode, List<BaseText> result)
+	private void printSpecific(long ticks, EntityType<?> specificType, BasicTrackedData specificData, SpecificDetailMode detailMode, List<BaseText> result)
 	{
 		boolean showLifeTime = detailMode == null || detailMode == SpecificDetailMode.LIFE_TIME;
 		boolean showSpawning = detailMode == null || detailMode == SpecificDetailMode.SPAWNING;

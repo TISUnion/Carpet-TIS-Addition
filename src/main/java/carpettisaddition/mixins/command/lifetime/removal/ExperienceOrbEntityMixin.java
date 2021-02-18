@@ -44,7 +44,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 			method = "onPlayerCollision",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/entity/player/PlayerEntity;sendPickup(Lnet/minecraft/entity/Entity;I)V"
 			)
 	)
 	private void onPickupLifeTimeTracker(PlayerEntity player, CallbackInfo ci)
