@@ -36,7 +36,11 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 		return CarpetTISAdditionSettings.structureBlockLimit;
 	}
 
-	// fabric carpet 1.4.25+ protocol
+	/*
+	 * ----------------------------------
+	 *   Fabric Carpet 1.4.25+ Protocol
+	 * ----------------------------------
+	 */
 
 	@Shadow private BlockPos offset;
 
@@ -57,6 +61,24 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 					MathHelper.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
 					MathHelper.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit)
 			);
+		}
+	}
+
+	@Inject(
+			method = "write",
+			at = @At("TAIL")
+	)
+	private void structureBlockLimitsWrite(PacketByteBuf buf, CallbackInfo ci)
+	{
+		//client method, only applicable if with carpet is on the server, or running locally
+		if (CarpetTISAdditionSettings.structureBlockLimit >= 128)
+		{
+			buf.writeInt(this.offset.getX());
+			buf.writeInt(this.offset.getY());
+			buf.writeInt(this.offset.getZ());
+			buf.writeInt(this.size.getX());
+			buf.writeInt(this.size.getY());
+			buf.writeInt(this.size.getZ());
 		}
 	}
 }

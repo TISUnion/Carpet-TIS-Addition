@@ -44,7 +44,7 @@ public class CarpetTISAdditionSettings
 		@Override
 		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
 		{
-			return (newValue > 0 && newValue <= 127) ? newValue : null;
+			return (newValue > 0 && newValue <= 65536) ? newValue : null;
 		}
 		public String description()
 		{
