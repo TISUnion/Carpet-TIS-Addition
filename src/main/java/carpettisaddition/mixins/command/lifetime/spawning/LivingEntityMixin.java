@@ -2,7 +2,7 @@ package carpettisaddition.mixins.command.lifetime.spawning;
 
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.spawning.MobDropSpawningReason;
-import carpettisaddition.commands.lifetime.utils.ExperienceOrbEntityFlags;
+import carpettisaddition.commands.lifetime.utils.ExperienceOrbEntityUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -39,12 +39,6 @@ public abstract class LivingEntityMixin extends Entity
 	@Inject(method = "dropXp", at = @At("HEAD"))
 	private void onMobDroppedXpLifeTimeTrackerPre(CallbackInfo ci)
 	{
-		ExperienceOrbEntityFlags.recordSpawning = true;
-	}
-
-	@Inject(method = "dropXp", at = @At("TAIL"))
-	private void onMobDroppedXpLifeTimeTrackerPost(CallbackInfo ci)
-	{
-		ExperienceOrbEntityFlags.recordSpawning = false;
+		ExperienceOrbEntityUtil.spawningReason = new MobDropSpawningReason(this.getType());
 	}
 }

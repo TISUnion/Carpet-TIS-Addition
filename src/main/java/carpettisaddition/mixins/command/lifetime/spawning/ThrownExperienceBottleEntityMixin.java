@@ -1,27 +1,25 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.thrown.ThrownExperienceBottleEntity;
+import carpettisaddition.commands.lifetime.utils.ExperienceOrbEntityUtil;
+import net.minecraft.entity.projectile.thrown.ExperienceBottleEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ThrownExperienceBottleEntity.class)
+@Mixin(ExperienceBottleEntity.class)
 public class ThrownExperienceBottleEntityMixin
 {
-	@ModifyArg(
+	@Inject(
 			method = "onCollision",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			),
-			index = 0
+					target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"
+			)
 	)
-	private Entity onXPBottleDroppedXpLifeTimeTracker(Entity entity)
+	private void onXPBottleDroppedXpLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)entity).recordSpawning(LiteralSpawningReason.ITEM);
-		return entity;
+		ExperienceOrbEntityUtil.spawningReason = LiteralSpawningReason.ITEM;
 	}
 }
