@@ -132,7 +132,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 					List<BaseText> spawningReasons = data.getSpawningReasonsTexts(ticks, true);
 					List<BaseText> removalReasons = data.getRemovalReasonsTexts(ticks, true);
 					String currentCommandBase = String.format("/%s %s", LifeTimeTracker.getInstance().getCommandPrefix(), LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType));
-					// [Creeper] S: 76, (1513.3/h), L: 4gt / 815gt / 210.2gt
+					// [Creeper] S/R: 21/8, L: 145/145/145.00 (gt)
 					result.add(Messenger.c(
 							"g - [",
 							TextUtil.getFancyText(
