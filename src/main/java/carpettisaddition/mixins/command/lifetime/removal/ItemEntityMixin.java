@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity
@@ -56,21 +58,17 @@ public abstract class ItemEntityMixin extends Entity
 
 	@Inject(
 			method = "onPlayerCollision",
-			slice = @Slice(
-					from = @At(
-							value = "INVOKE",
-							target = "Lnet/minecraft/entity/ItemEntity;remove()V"
-					)
-			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/item/ItemStack;setCount(I)V",
-					ordinal = 0,
-					shift = At.Shift.AFTER
-			)
+					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+			),
+			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void onPickupLifeTimeTracker(PlayerEntity player, CallbackInfo ci)
+	private void onPickupLifeTimeTracker(PlayerEntity player, CallbackInfo ci, ItemStack itemStack, Item item, int i)
 	{
+		int stackCount = itemStack.getCount();
+		itemStack.setCount(i);
 		((IEntity)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
+		itemStack.setCount(stackCount);
 	}
 }
