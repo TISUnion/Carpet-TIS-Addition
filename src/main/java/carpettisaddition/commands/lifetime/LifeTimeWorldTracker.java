@@ -3,15 +3,17 @@ package carpettisaddition.commands.lifetime;
 import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
+import carpettisaddition.commands.lifetime.trackeddata.ItemTrackedData;
+import carpettisaddition.commands.lifetime.trackeddata.TrackedData;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
-import carpettisaddition.commands.lifetime.utils.TrackedData;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
@@ -48,7 +50,13 @@ public class LifeTimeWorldTracker extends TranslatableBase
 	{
 		if (LifeTimeTracker.willTrackEntity(entity))
 		{
-			return Optional.of(this.dataMap.computeIfAbsent(entity.getType(), (e -> new TrackedData())));
+			return Optional.of(this.dataMap.computeIfAbsent(entity.getType(), (e -> {
+				if (entity instanceof ItemEntity)
+				{
+					return new ItemTrackedData();
+				}
+				return new TrackedData();
+			})));
 		}
 		return Optional.empty();
 	}
@@ -117,14 +125,14 @@ public class LifeTimeWorldTracker extends TranslatableBase
 		// sorted by spawn count
 		// will being sorting by avg life time better?
 		this.dataMap.entrySet().stream().
-				sorted(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().spawnCount))).
+				sorted(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().getSpawningCount()))).
 				forEach((entry) -> {
 					EntityType<?> entityType = entry.getKey();
 					TrackedData data = entry.getValue();
 					List<BaseText> spawningReasons = data.getSpawningReasonsTexts(ticks, true);
 					List<BaseText> removalReasons = data.getRemovalReasonsTexts(ticks, true);
 					String currentCommandBase = String.format("/%s %s", LifeTimeTracker.getInstance().getCommandPrefix(), LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType));
-					// [Creeper] S: 76, (1513.3/h), L: 4gt / 815gt / 210.2gt
+					// [Creeper] S/R: 21/8, L: 145/145/145.00 (gt)
 					result.add(Messenger.c(
 							"g - [",
 							TextUtil.getFancyText(
@@ -147,7 +155,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 							"g : ",
 							TextUtil.getFancyText(
 									null,
-									Messenger.c("e " + data.spawnCount),
+									Messenger.c("e " + data.getSpawningCount()),
 									Messenger.s(
 											Messenger.c(
 													data.getSpawningCountText(ticks),
