@@ -33,6 +33,7 @@
     "command.lifetime.spawning.SlimeEntityMixin",
     "command.lifetime.spawning.SpawnHelperMixin",
     "command.lifetime.spawning.SummonCommandMixin",
+    "command.lifetime.spawning.ThrownExperienceBottleEntityMixin",
     "command.lifetime.spawning.ZombieEntityMixin",
     "command.raid.RaidAccessor",
     "command.raid.RaidManagerAccessor",

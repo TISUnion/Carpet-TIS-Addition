@@ -37,7 +37,7 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	private BaseText attachExtraCountHoverText(BaseText text, long extraCount, long ticks)
 	{
 		return TextUtil.attachHoverText(text, Messenger.c(
-				"q " + this.getCountDisplayString(),
+				"w " + this.getCountDisplayString(),
 				"g : ",
 				CounterUtil.ratePerHourText(extraCount, ticks, "wgg")
 		));
