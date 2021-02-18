@@ -871,11 +871,12 @@ Current main development branch: **1.15.2**
 Current maintaining branches:
 - 1.14.4, for Minecraft 1.14.4
 - 1.15.2, for Minecraft 1.15.2
-- 1.16.5, for Minecraft 1.16.2 to 1.16.5
+- 1.16.5, for Minecraft 1.16.4 to 1.16.5
 - 1.17, for Minecraft 1.17 snapshots
 
 Current archived branches:
 - 1.16, for Minecraft 1.16 to 1.16.1
+- 1.16.3, for Minecraft 1.16.2 to 1.16.3
 
 For general new features, implement them in 1.15.2 branch first then merge it into other branches
 
