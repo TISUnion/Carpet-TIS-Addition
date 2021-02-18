@@ -10,8 +10,8 @@ import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.script.MicroTimingEvent;
 import carpettisaddition.script.Functions;
+import carpettisaddition.script.MicroTimingEvent;
 import carpettisaddition.translations.ExtensionTranslations;
 import carpettisaddition.utils.stacktrace.StackTraceDeobfuscator;
 import com.mojang.brigadier.CommandDispatcher;
@@ -129,8 +129,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
     }
 
     @Override
-    public void scarpetApi(CarpetExpression expression) {
+    public void scarpetApi(CarpetExpression expression)
+    {
         Functions.apply(expression.getExpr());
-        CarpetTISAdditionServer.LOGGER.info("Loaded TIS-Carpet scarpet extension");
     }
 }
