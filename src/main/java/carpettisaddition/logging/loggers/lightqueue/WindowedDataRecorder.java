@@ -16,7 +16,7 @@ public class WindowedDataRecorder
 		this.enqueuedCount += newData.enqueuedTask;
 		this.executedCount += newData.executedTask;
 		this.dataQueue.addLast(newData);
-		if (this.dataQueue.size() > CarpetTISAdditionSettings.lightQueueLoggerSamplingDuration)
+		while (this.dataQueue.size() > CarpetTISAdditionSettings.lightQueueLoggerSamplingDuration)
 		{
 			RecordedData data = dataQueue.removeFirst();
 			this.enqueuedCount -= data.enqueuedTask;
