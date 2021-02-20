@@ -57,15 +57,16 @@ public class LightQueueLogger extends AbstractLogger implements Tickable
 			if (lightingProvider instanceof IServerLightingProvider)
 			{
 				IServerLightingProvider iProvider = (IServerLightingProvider)lightingProvider;
+				long enqueuedCount = iProvider.getEnqueuedTaskCountAndClean();
+				long executedCount = iProvider.getExecutedTaskCountAndClean();
 				if (ExtensionLoggerRegistry.__lightQueue)
 				{
-					this.dataMap.get(world).add(new RecordedData(iProvider.getEnqueuedTaskCount(), iProvider.getExecutedTaskCount(), iProvider.getQueueSize()));
+					this.dataMap.get(world).add(new RecordedData(enqueuedCount, executedCount, iProvider.getQueueSize()));
 				}
 				else
 				{
 					this.dataMap.get(world).getQueue().clear();
 				}
-				iProvider.resetCounter();
 			}
 		});
 	}

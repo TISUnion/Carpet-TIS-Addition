@@ -450,9 +450,9 @@ public class CarpetTISAdditionSettings
 	public static boolean fluidDestructionDisabled = false;
 
 	@Rule(
-			desc = "The sampling duration of light queue logger in gametick",
+			desc = "The sampling duration of light queue logger in game tick",
 			extra = {
-					"Affects the size increasing speed and the suppressed duration value in the logger"
+					"Affects all data except the queue size displayed in the logger"
 			},
 			validate = ValidatePositive.class,
 			options = {"1", "20", "60", "100", "6000"},
@@ -462,9 +462,11 @@ public class CarpetTISAdditionSettings
 	public static int lightQueueLoggerSamplingDuration = 60;
 
 	@Rule(
-			desc = "Wait until all lighting tasks to be done at the beginning of world ticking",
+			desc = "Synchronize lighting thread with the server thread",
 			extra = {
-					"So you can safely tick warp without potential light suppression"
+					"so the light thread will not lag behind the main thread and get desynchronized",
+					"The server will wait until all lighting tasks to be done at the beginning of each world ticking",
+					"With this rule you can safely /tick warp without potential light suppression or lighting desynchronization"
 			},
 			category = {TIS, CREATIVE, EXPERIMENTAL}
 	)

@@ -54,6 +54,8 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [totallyNoBlockUpdate](#totallyNoBlockUpdate)
 - [tooledTNT](#tooledTNT)
 - [fluidDestructionDisabled](#fluidDestructionDisabled)
+- [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration)
+- [synchronizedLightThread](#synchronizedLightThread)
 
 ## [Loggers](#logger-list)
 
@@ -71,7 +73,6 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [raid](#raid-1)
 - [info](#info)
 - [lifetime](#lifetime)
-
 
 ## [Scarpet](#scarpet-1)
 
@@ -597,6 +598,32 @@ It's useful to prevent liquid from accidentally flooding your redstone wiring in
 - Default value: `false`  
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
+
+
+## lightQueueLoggerSamplingDuration
+
+The sampling duration of light queue logger in game tick
+
+Affects all data except the queue size displayed in the logger
+
+- Type: `int`
+- Default value: `60`
+- Suggested options: `1`, `20`, `60`, `100`, `6000`
+- Categories: `TIS`
+
+
+## synchronizedLightThread
+
+Synchronize lighting thread with the server thread, so the light thread will not lag behind the main thread and get desynchronized
+
+The server will wait until all lighting tasks to be done at the beginning of each world ticking
+
+With this rule you can safely `/tick warp` without potential light suppression or lighting desynchronization
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
 -----------

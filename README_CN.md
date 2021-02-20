@@ -54,6 +54,8 @@
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 - [工具化TNT](#工具化TNT-tooledTNT)
 - [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
+- [光照队列记录器采样时长](#光照队列记录器采样时长-lightQueueLoggerSamplingDuration)
+- [同步光照线程](#同步光照线程-synchronizedLightThread)
 
 ## [监视器](#监视器列表)
 
@@ -84,6 +86,7 @@
 ### [Events](#events)
 
 - [`__on_microtiming_event(type, pos, dimension)`](#__on_microtiming_eventtype-pos-dimension)
+
 
 ## 其他
 
@@ -595,6 +598,32 @@
 - 默认值: `false`  
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
+
+
+## 光照队列记录器采样时长 (lightQueueLoggerSamplingDuration)
+
+光照队列记录器的采样时长，单位为游戏刻
+
+影响记录器中显示的，除队列大小外的所有数据
+
+- 类型: `int`
+- 默认值: `60`
+- 参考选项: `1`, `20`, `60`, `100`, `6000`
+- 分类: `TIS`
+
+
+## 同步光照线程 (synchronizedLightThread)
+
+将光照线程与主线程同步，这样光照线程就不会于落后主线程而失去同步
+
+服务器将会在每个世界开始运算时等待光照线程的任务完成
+
+你可以借此安全地 `/tick warp` 而不用担心潜在的光照抑制或光照不同步
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
 -----------

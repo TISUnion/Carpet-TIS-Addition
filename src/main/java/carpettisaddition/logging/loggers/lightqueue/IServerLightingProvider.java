@@ -2,11 +2,9 @@ package carpettisaddition.logging.loggers.lightqueue;
 
 public interface IServerLightingProvider
 {
-	long getEnqueuedTaskCount();
+	long getEnqueuedTaskCountAndClean();
 
-	long getExecutedTaskCount();
-
-	void resetCounter();
+	long getExecutedTaskCountAndClean();
 
 	long getQueueSize();
 }

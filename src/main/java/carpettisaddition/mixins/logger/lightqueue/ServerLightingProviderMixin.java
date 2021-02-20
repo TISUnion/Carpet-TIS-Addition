@@ -42,22 +42,15 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 	}
 
 	@Override
-	public long getEnqueuedTaskCount()
+	public long getEnqueuedTaskCountAndClean()
 	{
-		return this.enqueuedTaskCount.get();
+		return this.enqueuedTaskCount.getAndSet(0);
 	}
 
 	@Override
-	public long getExecutedTaskCount()
+	public long getExecutedTaskCountAndClean()
 	{
-		return this.executedTaskCount.get();
-	}
-
-	@Override
-	public void resetCounter()
-	{
-		this.enqueuedTaskCount.set(0);
-		this.executedTaskCount.set(0);
+		return this.executedTaskCount.getAndSet(0);
 	}
 
 	@Override
