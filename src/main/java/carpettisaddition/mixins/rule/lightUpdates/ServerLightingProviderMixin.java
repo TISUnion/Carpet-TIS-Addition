@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
-@Mixin(ServerLightingProvider.class)
+@Mixin(value = ServerLightingProvider.class, priority = 500)
 public abstract class ServerLightingProviderMixin
 {
 	@Inject(

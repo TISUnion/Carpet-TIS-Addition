@@ -37,7 +37,7 @@ public class ExtensionLoggerRegistry
         LoggerRegistry.registerLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.create());
         LoggerRegistry.registerLogger("damage", standardLogger("damage", "all", new String[]{"all", "players", "me"}));
         LoggerRegistry.registerLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
-        LoggerRegistry.registerLogger(LightQueueLogger.NAME, standardHUDLogger(LightQueueLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "nether", "end"}));
+        LoggerRegistry.registerLogger(LightQueueLogger.NAME, LightQueueLogger.getInstance().getHUDLogger());
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)
@@ -52,7 +52,7 @@ public class ExtensionLoggerRegistry
         }
     }
 
-    private static Logger standardHUDLogger(String logName, String def, String [] options)
+    public static HUDLogger standardHUDLogger(String logName, String def, String [] options)
     {
         try
         {

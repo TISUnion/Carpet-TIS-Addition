@@ -8,6 +8,7 @@ import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.lightqueue.LightQueueLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.translations.ExtensionTranslations;
 import carpettisaddition.utils.stacktrace.StackTraceDeobfuscator;
@@ -74,6 +75,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         MicroTimingLoggerManager.attachServer(server);
         LifeTimeTracker.attachServer(server);
+        LightQueueLogger.getInstance().attachServer(server);
     }
 
     @Override
@@ -87,7 +89,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void onTick(MinecraftServer server)
     {
-        // maybe, maybe
+        LightQueueLogger.getInstance().tick();
     }
 
     @Override

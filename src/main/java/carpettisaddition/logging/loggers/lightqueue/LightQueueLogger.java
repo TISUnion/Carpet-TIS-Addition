@@ -1,34 +1,33 @@
 package carpettisaddition.logging.loggers.lightqueue;
 
-import carpettisaddition.CarpetTISAdditionServer;
+import carpet.logging.HUDLogger;
+import carpet.utils.Messenger;
+import carpettisaddition.logging.ExtensionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
-import carpettisaddition.mixins.logger.lightqueue.ServerLightingProviderAccessor;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Queues;
-import com.mojang.datafixers.util.Pair;
-import it.unimi.dsi.fastutil.objects.ObjectList;
-import net.minecraft.server.world.ServerLightingProvider;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.Tickable;
 import net.minecraft.world.chunk.light.LightingProvider;
 
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 public class LightQueueLogger extends AbstractLogger implements Tickable
 {
 	public static final String NAME = "lightQueue";
-	private static final int SAMPLING_DURATION = 20 * 60 * 5;
+	private static final int SAMPLING_DURATION = 20;
 	private static final LightQueueLogger INSTANCE = new LightQueueLogger();
-	private final Map<ServerWorld, Queue<RecordedData>> samplingResult = Maps.newHashMap();
+	private final Map<ServerWorld, WindowedDataRecorder> recorderMap = Maps.newHashMap();
+	private final Map<String, ServerWorld> nameToWorldMap = Maps.newHashMap();
 
 	public LightQueueLogger()
 	{
 		super(NAME);
-		for (ServerWorld world: CarpetTISAdditionServer.minecraft_server.getWorlds())
-		{
-			this.samplingResult.put(world, Queues.newArrayDeque());
-		}
 	}
 
 	public static LightQueueLogger getInstance()
@@ -36,30 +35,58 @@ public class LightQueueLogger extends AbstractLogger implements Tickable
 		return INSTANCE;
 	}
 
+	public void attachServer(MinecraftServer minecraftServer)
+	{
+		this.recorderMap.clear();
+		this.nameToWorldMap.clear();
+		for (ServerWorld world: minecraftServer.getWorlds())
+		{
+			this.recorderMap.put(world, new WindowedDataRecorder(SAMPLING_DURATION));
+			String[] s = world.getDimension().getType().toString().split(" ");
+			this.nameToWorldMap.put(s[Math.max(s.length - 1, 0)], world);
+		}
+		System.err.println("world count " + this.recorderMap.size());
+	}
+
+	public HUDLogger getHUDLogger()
+	{
+		List<String> worldNameList = new ArrayList<>(this.nameToWorldMap.keySet());
+		worldNameList.add("dynamic");
+		return ExtensionLoggerRegistry.standardHUDLogger(LightQueueLogger.NAME, "dynamic", worldNameList.toArray(new String[0]));
+	}
+
 	@Override
 	public void tick()
 	{
-		this.samplingResult.forEach((world, dataQueue) -> {
+		this.recorderMap.forEach((world, recorder) -> {
 			LightingProvider lightingProvider = world.getLightingProvider();
-			if (lightingProvider instanceof ServerLightingProvider)
+			if (lightingProvider instanceof IServerLightingProvider)
 			{
-				ObjectList<Pair<ServerLightingProvider.Stage, Runnable>> taskQueue = ((ServerLightingProviderAccessor)lightingProvider).getPendingTasks();
-
+				IServerLightingProvider iProvider = (IServerLightingProvider)lightingProvider;
+				recorder.add(new RecordedData(iProvider.getEnqueuedTaskCount(), iProvider.getExecutedTaskCount(), iProvider.getTaskQueue().size()));
 			}
 		});
 	}
 
-	private static class RecordedData
+	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
-		private final long enqueuedTask;
-		private final long finishedTask;
-		private final int queueSize;
-
-		public RecordedData(long enqueuedTask, long finishedTask, int queueSize)
+		if (!(playerEntity.getEntityWorld() instanceof ServerWorld))
 		{
-			this.enqueuedTask = enqueuedTask;
-			this.finishedTask = finishedTask;
-			this.queueSize = queueSize;
+			return new BaseText[]{Messenger.s("not ServerWorld")};
 		}
+		ServerWorld serverWorld = this.nameToWorldMap.getOrDefault(option, (ServerWorld)playerEntity.getEntityWorld());
+		WindowedDataRecorder recorder = this.recorderMap.get(serverWorld);
+		Deque<RecordedData> innerQueue = recorder.getQueue();
+		if (innerQueue.isEmpty())
+		{
+			return new BaseText[]{Messenger.s("queue empty")};
+		}
+		RecordedData lastTickData = innerQueue.getLast();
+		double increaseSpeed = (double)(recorder.getEnqueuedCount() - recorder.getExecutedCount()) / innerQueue.size();
+		return new BaseText[]{Messenger.c(
+				"w Light Queue",
+				String.format("w  I/O/S: %d/%d/%d", recorder.getEnqueuedCount(), recorder.getExecutedCount(), lastTickData.queueSize),
+				String.format("w  %s%.1f/gt", increaseSpeed >= 0.0D ? "+" : "-", increaseSpeed)
+		)};
 	}
 }
