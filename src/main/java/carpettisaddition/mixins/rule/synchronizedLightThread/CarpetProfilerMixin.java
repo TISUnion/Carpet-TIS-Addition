@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class CarpetProfilerMixin
 {
 	@Mutable
-	@Shadow @Final private static String[] SECTIONS;
+	@Shadow(remap = false) @Final private static String[] SECTIONS;
 
 	static
 	{

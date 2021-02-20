@@ -256,9 +256,33 @@ public class CarpetTISAdditionSettings
 	public static LightUpdateOptions lightUpdates = LightUpdateOptions.ON;
 	public enum LightUpdateOptions
 	{
-		ON,
-		SUPPRESSED,
-		OFF
+		// Regular vanilla behavior
+		ON(true, true),
+		// Enqueue tasks, but never execute them. Might blocks the game forever
+		SUPPRESSED(true, false),
+		// Ignore all incoming tasks except ones created in method light, but already enqueued ones can be executed
+		IGNORED(false, true),
+		// Ignore all incoming tasks and do not execute any tasks. Might blocks the game forever
+		OFF(false, false);
+
+		private final boolean shouldEnqueue;
+		private final boolean shouldExecute;
+
+		LightUpdateOptions(boolean shouldEnqueue, boolean shouldExecute)
+		{
+			this.shouldEnqueue = shouldEnqueue;
+			this.shouldExecute = shouldExecute;
+		}
+
+		public boolean shouldEnqueueLightTask()
+		{
+			return this.shouldEnqueue;
+		}
+
+		public boolean shouldExecuteLightTask()
+		{
+			return this.shouldExecute;
+		}
 	}
 
 	@Rule(

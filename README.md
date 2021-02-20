@@ -346,7 +346,7 @@ If set to off, no light update can be scheduled or executed
 
 - Type: `enum`  
 - Default value: `on`  
-- Suggested options: `on`, `suppressed`, `off`
+- Suggested options: `on`, `suppressed`, `ignored`, `off`
 - Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 

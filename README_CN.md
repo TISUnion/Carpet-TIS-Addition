@@ -346,7 +346,7 @@
 
 - 类型: `enum`  
 - 默认值: `on`  
-- 参考选项: `on`, `suppressed`, `off`
+- 参考选项: `on`, `suppressed`, `ignored`, `off`
 - 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
