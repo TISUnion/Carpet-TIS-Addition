@@ -1,5 +1,6 @@
 package carpettisaddition.logging.loggers.lightqueue;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import com.google.common.collect.Queues;
 
 import java.util.Deque;
@@ -7,21 +8,15 @@ import java.util.Deque;
 public class WindowedDataRecorder
 {
 	private final Deque<RecordedData> dataQueue = Queues.newArrayDeque();
-	private final int windowSize;
 	private long enqueuedCount;
 	private long executedCount;
-
-	public WindowedDataRecorder(int windowSize)
-	{
-		this.windowSize = windowSize;
-	}
 
 	public void add(RecordedData newData)
 	{
 		this.enqueuedCount += newData.enqueuedTask;
 		this.executedCount += newData.executedTask;
 		this.dataQueue.addLast(newData);
-		if (this.dataQueue.size() > this.windowSize)
+		if (this.dataQueue.size() > CarpetTISAdditionSettings.lightQueueLoggerSamplingDuration)
 		{
 			RecordedData data = dataQueue.removeFirst();
 			this.enqueuedCount -= data.enqueuedTask;

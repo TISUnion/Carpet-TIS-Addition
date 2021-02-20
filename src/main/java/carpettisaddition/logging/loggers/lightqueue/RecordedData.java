@@ -4,9 +4,9 @@ public class RecordedData
 {
 	public final long enqueuedTask;
 	public final long executedTask;
-	public final int queueSize;
+	public final long queueSize;
 
-	public RecordedData(long enqueuedTask, long executedTask, int queueSize)
+	public RecordedData(long enqueuedTask, long executedTask, long queueSize)
 	{
 		this.enqueuedTask = enqueuedTask;
 		this.executedTask = executedTask;

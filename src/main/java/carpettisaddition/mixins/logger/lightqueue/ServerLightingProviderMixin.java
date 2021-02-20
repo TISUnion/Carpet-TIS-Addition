@@ -1,24 +1,20 @@
 package carpettisaddition.mixins.logger.lightqueue;
 
 import carpettisaddition.logging.loggers.lightqueue.IServerLightingProvider;
-import com.mojang.datafixers.util.Pair;
-import it.unimi.dsi.fastutil.objects.ObjectList;
 import net.minecraft.server.world.ServerLightingProvider;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 @Mixin(ServerLightingProvider.class)
 public abstract class ServerLightingProviderMixin implements IServerLightingProvider
 {
-	@Shadow @Final private ObjectList<Pair<ServerLightingProvider.Stage, Runnable>> pendingTasks;
-
-	private long enqueuedTaskCount;
-	private long executedTaskCount;
+	private final AtomicLong enqueuedTaskCount = new AtomicLong();
+	private final AtomicLong executedTaskCount = new AtomicLong();
+	private final AtomicLong queueSize = new AtomicLong();
 
 	@Inject(
 			method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$Stage;Ljava/lang/Runnable;)V",
@@ -27,34 +23,46 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 	)
 	void onEnqueuedLightUpdateTask(CallbackInfo ci)
 	{
-		this.enqueuedTaskCount++;
+		this.enqueuedTaskCount.getAndIncrement();
+		this.queueSize.getAndIncrement();
 	}
 
 	@Inject(
 			method = "runTasks",
-			at = @At(value = "TAIL"),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			at = @At(
+					value = "INVOKE",
+					target = "Lit/unimi/dsi/fastutil/objects/ObjectListIterator;remove()V",
+					remap = false
+			)
 	)
-	void onExecutingLightUpdates(CallbackInfo ci, int i)
+	void onExecutedLightUpdates(CallbackInfo ci)
 	{
-		this.executedTaskCount += i;
+		this.executedTaskCount.getAndIncrement();
+		this.queueSize.getAndDecrement();
 	}
 
 	@Override
 	public long getEnqueuedTaskCount()
 	{
-		return this.enqueuedTaskCount;
+		return this.enqueuedTaskCount.get();
 	}
 
 	@Override
 	public long getExecutedTaskCount()
 	{
-		return this.executedTaskCount;
+		return this.executedTaskCount.get();
 	}
 
 	@Override
-	public ObjectList<Pair<ServerLightingProvider.Stage, Runnable>> getTaskQueue()
+	public void resetCounter()
 	{
-		return this.pendingTasks;
+		this.enqueuedTaskCount.set(0);
+		this.executedTaskCount.set(0);
+	}
+
+	@Override
+	public long getQueueSize()
+	{
+		return this.queueSize.get();
 	}
 }

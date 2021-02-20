@@ -449,6 +449,27 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean fluidDestructionDisabled = false;
 
+	@Rule(
+			desc = "The sampling duration of light queue logger in gametick",
+			extra = {
+					"Affects the size increasing speed and the suppressed duration value in the logger"
+			},
+			validate = ValidatePositive.class,
+			options = {"1", "20", "60", "100", "6000"},
+			strict = false,
+			category = {TIS}
+	)
+	public static int lightQueueLoggerSamplingDuration = 60;
+
+	@Rule(
+			desc = "Wait until all lighting tasks to be done at the beginning of world ticking",
+			extra = {
+					"So you can safely tick warp without potential light suppression"
+			},
+			category = {TIS, CREATIVE, EXPERIMENTAL}
+	)
+	public static boolean synchronizedLightThread = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below
