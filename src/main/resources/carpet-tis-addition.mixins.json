@@ -11,7 +11,7 @@
     "carpet.onServerLoadedWorlds.MinecraftServerMixin",
     "carpet.tntRandomRange.CheckOptimizedTntEnabledValidatorMixin",
     "carpet.tntRandomRange.ExplosionMixin",
-    "carpet.tntRandomRange.WorldMixin",
+    "carpet.tntRandomRange.WorldAccessor",
     "command.lifetime.EntityMixin",
     "command.lifetime.ServerChunkManagerMixin",
     "command.lifetime.ServerWorldMixin",
