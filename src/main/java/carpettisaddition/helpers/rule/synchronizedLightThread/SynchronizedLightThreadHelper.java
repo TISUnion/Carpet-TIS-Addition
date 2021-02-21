@@ -19,6 +19,7 @@ public class SynchronizedLightThreadHelper
 		LightingProvider lightingProvider = serverWorld.getLightingProvider();
 		if (lightingProvider instanceof ServerLightingProvider)
 		{
+			// the task queue of the executor of the light thread
 			TaskQueue<?, ?> queue = ((ServerLightingProviderAccessor)lightingProvider).getProcessor().queue;
 			while (!queue.isEmpty())
 			{
