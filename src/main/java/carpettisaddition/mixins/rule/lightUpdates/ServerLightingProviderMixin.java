@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.concurrent.CompletableFuture;
 
-// method light is overwritten by mc-fix_mc-170012 with priority 1000, so the priority needs to at least 1000
+// method light is overwritten by mc-fix_mc-170012 with priority 1000, so the priority needs to be at least 1000
 @Mixin(value = ServerLightingProvider.class, priority = 1500)
 public abstract class ServerLightingProviderMixin
 {

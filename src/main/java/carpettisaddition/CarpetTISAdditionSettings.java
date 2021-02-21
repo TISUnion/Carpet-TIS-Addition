@@ -261,6 +261,7 @@ public class CarpetTISAdditionSettings
 		// Enqueue tasks, but never execute them. Might blocks the game forever
 		SUPPRESSED(true, false),
 		// Ignore all incoming tasks except ones created in method light, but already enqueued ones can be executed
+		// TODO: Further testing to make sure it doesnt block the server
 		IGNORED(false, true),
 		// Ignore all incoming tasks and do not execute any tasks. Might blocks the game forever
 		OFF(false, false);
