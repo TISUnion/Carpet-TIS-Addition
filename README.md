@@ -790,7 +790,7 @@ Adding a `realtime` suffix to the command will turn the rate result from in-game
 
 ### tracking
 
-`/raid tracking [<start|stop|restart>]`
+`/lifetime tracking [<start|stop|restart>]`
 
 Control the lifetime tracker
 
