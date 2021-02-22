@@ -761,7 +761,7 @@
 
 ### tracking
 
-`/raid tracking [<start|stop|restart>]`
+`/lifetime tracking [<start|stop|restart>]`
 
 控制存活时间追踪器
 
