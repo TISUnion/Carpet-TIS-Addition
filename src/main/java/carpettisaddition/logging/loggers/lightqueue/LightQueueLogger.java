@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.lightqueue;
 import carpet.logging.HUDLogger;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
-import carpettisaddition.logging.loggers.AbstractLogger;
+import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +16,7 @@ import net.minecraft.world.chunk.light.LightingProvider;
 import java.util.Deque;
 import java.util.Map;
 
-public class LightQueueLogger extends AbstractLogger implements Tickable
+public class LightQueueLogger extends AbstractHUDLogger implements Tickable
 {
 	public static final String NAME = "lightQueue";
 	private static final LightQueueLogger INSTANCE = new LightQueueLogger();
@@ -71,6 +71,7 @@ public class LightQueueLogger extends AbstractLogger implements Tickable
 		});
 	}
 
+	@Override
 	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
 		if (!(playerEntity.getEntityWorld() instanceof ServerWorld))

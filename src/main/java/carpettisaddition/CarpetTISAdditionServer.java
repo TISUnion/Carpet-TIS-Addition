@@ -2,7 +2,6 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import carpettisaddition.commands.InfoCommand;
 import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.raid.RaidCommand;
@@ -97,7 +96,6 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         // here goes extra stuff
         RaidCommand.getInstance().registerCommand(dispatcher);
-        InfoCommand.getInstance().registerCommand(dispatcher);
         LifeTimeCommand.getInstance().registerCommand(dispatcher);
     }
 

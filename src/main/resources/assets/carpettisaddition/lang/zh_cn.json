@@ -312,6 +312,11 @@
 
   "logger.commandBlock.executed": "执行了",
 
+  "logger.tickWarp.not_started": "Tick warp尚未开始",
+  "logger.tickWarp.starter": "启动者",
+  "logger.tickWarp.average_tps": "平均TPS",
+  "logger.tickWarp.remaining_time": "剩余时间",
+
 
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
   "raid_invalidate_reason.gamerule_disable": "被游戏规则禁用",
