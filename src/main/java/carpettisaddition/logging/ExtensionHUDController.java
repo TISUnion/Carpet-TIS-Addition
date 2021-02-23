@@ -4,7 +4,7 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueLogger;
 import carpettisaddition.logging.loggers.memory.MemoryLogger;
-import carpettisaddition.logging.loggers.tickWarp.TickWarpLogger;
+import carpettisaddition.logging.loggers.tickwarp.TickWarpLogger;
 import net.minecraft.server.MinecraftServer;
 
 

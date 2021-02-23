@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.tickWarp;
+package carpettisaddition.logging.loggers.tickwarp;
 
 import carpet.helpers.TickSpeed;
 import carpet.utils.Messenger;
@@ -47,7 +47,7 @@ public class TickWarpLogger extends AbstractHUDLogger implements CommandExtender
 
 	private double getAverageTPS()
 	{
-		double seconds = Math.max(System.nanoTime() - TickSpeed.time_warp_start_time, 1) / 1000000000.0D;
+		double seconds = Math.max(System.nanoTime() - TickSpeed.time_warp_start_time, 1) / 1E9D;
 		return this.getCompletedTicks() / seconds;
 	}
 
@@ -118,7 +118,7 @@ public class TickWarpLogger extends AbstractHUDLogger implements CommandExtender
 	{
 		builder.then(
 				literal("warp").then(
-						literal("info").
+						literal("status").
 						executes(c -> this.showTickWarpInfo(c.getSource()))
 				)
 		);
@@ -141,7 +141,7 @@ public class TickWarpLogger extends AbstractHUDLogger implements CommandExtender
 					String.format("w %.2f", this.getAverageTPS())
 			));
 			result.add(Messenger.c(
-					String.format("w %s", this.tr("Remaining time")),
+					String.format("w %s", this.tr("Estimated remaining time")),
 					"g : ",
 					String.format("w %.2fmin", this.getRemainingTicks() / this.getAverageTPS() / 60)
 			));

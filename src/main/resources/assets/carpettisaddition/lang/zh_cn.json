@@ -314,8 +314,9 @@
 
   "logger.tickWarp.not_started": "Tick warp尚未开始",
   "logger.tickWarp.starter": "启动者",
+  "logger.tickWarp.server": "服务器",
   "logger.tickWarp.average_tps": "平均TPS",
-  "logger.tickWarp.remaining_time": "剩余时间",
+  "logger.tickWarp.estimated_remaining_time": "剩余时间",
 
 
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",

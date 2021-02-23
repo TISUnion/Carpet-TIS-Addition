@@ -12,8 +12,8 @@ import carpettisaddition.logging.loggers.lightqueue.LightQueueLogger;
 import carpettisaddition.logging.loggers.memory.MemoryLogger;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
-import carpettisaddition.logging.loggers.tickWarp.TickWarpLogger;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
+import carpettisaddition.logging.loggers.tickwarp.TickWarpLogger;
 
 
 public class ExtensionLoggerRegistry

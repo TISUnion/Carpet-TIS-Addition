@@ -67,12 +67,15 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [microTiming](#microTiming-1)
 - [damage](#damage)
 - [commandBlock](#commandBlock)
+- [lightQueue](#lightQueue)
+- [tickWarp](#tickWarp)
 
 ## [Commands](#command-list)
 
 - [raid](#raid-1)
 - [info](#info)
 - [lifetime](#lifetime)
+- [tick](#tick)
 
 ## [Scarpet](#scarpet-1)
 
@@ -176,7 +179,7 @@ Set it to `#none` to stop adding a suffix
 
 Make dragon egg renewable
 
-When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and "summon" a new dragon egg
+When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and `summon` a new dragon egg
 
 Use with rule [dispensersFireDragonBreath](#dispensersfiredragonbreath) for more ease
 
@@ -750,6 +753,42 @@ Attributes:
 - Suggested options: `throttled`, `all`
 
 
+## lightQueue
+
+`/log lightQueue`
+
+A HUD logger for debugging light suppression. It displays the following information of the lighting task queue:
+
+- Average task accumulation speed
+- Current light queue size. Indicating with symbol `S`
+- Estimated duration of light suppression if the light suppressor is switched off now. Indicating with symbol `T`
+- Average task enqueuing speed
+- Average task executing speed
+
+The sampling duration can be specified with rule [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration), default 60gt
+
+Specify the logging option to select the world you want log its light queue, like `/log mobcaps`
+
+Attributes:
+- Default option: `dynamic`
+- Suggested options: `dynamic`, `overworld`, `the_nether`, `the_end`
+
+
+## tickWarp
+
+`/log tickWarp <option>`
+
+A HUD logger to display to progress of current tick warping
+
+It only shows up when the server is tick warping
+
+See [/tick warp status](#warp-status) command for displaying more details of tick warp
+
+Attributes:
+- Default option: `bar`
+- Suggested options: `bar`, `value`
+
+
 # Command List
 
 ## raid
@@ -834,6 +873,17 @@ Statistics are sorted by the proportion of the amount
 Show the detail statistic of specific entity type. You can specify which part of the statistic will be output
 
 For example, `/lifetime creeper` shows all statistic of creeper in detail, and `/lifetime creeper removal` only shows removal statistic of creeper in detail 
+
+
+## tick
+
+### warp status
+
+`/tick warp status`
+
+Display the current status of tick warping, including starter, estimated remaining time etc.
+
+See [tickWarp logger](#tickWarp) for easier access
 
 -----------
 

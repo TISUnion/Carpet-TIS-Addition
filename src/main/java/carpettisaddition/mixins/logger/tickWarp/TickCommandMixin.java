@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.tickWarp;
 
 import carpet.commands.TickCommand;
-import carpettisaddition.logging.loggers.tickWarp.TickWarpLogger;
+import carpettisaddition.logging.loggers.tickwarp.TickWarpLogger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
