@@ -888,6 +888,7 @@ The type determines the type of block event that occurs, which can be one of:
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
 - Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
+- Added `randomly` argument for `/player` command. e.g. `/player Steve use randomly 10 20` will make Steve right-click at dynamically varying random intervals in range \[10, 20]
 
 -----------
 
