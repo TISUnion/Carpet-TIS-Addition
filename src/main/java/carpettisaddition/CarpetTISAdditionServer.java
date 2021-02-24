@@ -13,7 +13,6 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.script.Functions;
 import carpettisaddition.script.MicroTimingEvent;
 import carpettisaddition.translations.ExtensionTranslations;
-import carpettisaddition.utils.stacktrace.StackTraceDeobfuscator;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -26,7 +25,7 @@ import java.util.Map;
 
 public class CarpetTISAdditionServer implements CarpetExtension
 {
-    public static final CarpetTISAdditionServer instance = new CarpetTISAdditionServer();
+    public static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
     public static final String name = "carpet-tis-addition";
     public static final String fancyName = "Carpet TIS Addition";
     public static final String compactName = name.replace("-","");  // carpettisaddition
@@ -42,12 +41,9 @@ public class CarpetTISAdditionServer implements CarpetExtension
         return name;
     }
 
-    public static void noop() { }
-
-    static
+    public static void registerExtension()
     {
-        CarpetServer.manageExtension(instance);
-        StackTraceDeobfuscator.loadMappings();
+        CarpetServer.manageExtension(INSTANCE);
     }
 
     @Override
