@@ -83,9 +83,10 @@
 
   "rule.lightUpdates.name": "光照更新",
   "rule.lightUpdates.desc": "暂停或者禁止光照更新",
-  "rule.lightUpdates.extra.0": "若被设为抑制(suppressed)，光照更新不会被执行",
-  "rule.lightUpdates.extra.1": "若被设为关闭(off)，光照更新不会被计划或被执行",
-  "rule.lightUpdates.extra.2": "【警告】若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环",
+  "rule.lightUpdates.extra.0": "若被设为抑制(suppressed)，光照更新不会被执行，这可用于模拟光照抑制器",
+  "rule.lightUpdates.extra.1": "若被设为忽略(ignored)，光照更新不会被计划，这常用于在创造模式中制造光照错误",
+  "rule.lightUpdates.extra.2": "若被设为关闭(off)，光照更新不会被计划或被执行",
+  "rule.lightUpdates.extra.3": "【警告】若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环",
 
   "rule.microTiming.name": "微时序",
   "rule.microTiming.desc": "启用微时序监视器的功能",

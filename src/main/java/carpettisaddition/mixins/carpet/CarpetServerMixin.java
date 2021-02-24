@@ -18,6 +18,6 @@ public abstract class CarpetServerMixin
 	)
 	private static void registerCarpetExtension100Success(CallbackInfo ci)
 	{
-		CarpetTISAdditionServer.noop();
+		CarpetTISAdditionServer.registerExtension();
 	}
 }
