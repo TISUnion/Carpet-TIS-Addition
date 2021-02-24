@@ -40,7 +40,7 @@ public class LightQueueLogger extends AbstractHUDLogger implements Tickable
 		for (ServerWorld world: minecraftServer.getWorlds())
 		{
 			this.dataMap.put(world, new WindowedDataRecorder());
-			this.nameToWorldMap.put(TextUtil.dimensionToString(world.getDimension().getType()), world);
+			this.nameToWorldMap.put(TextUtil.dimensionToString(world.getRegistryKey()), world);
 		}
 	}
 
@@ -91,7 +91,7 @@ public class LightQueueLogger extends AbstractHUDLogger implements Tickable
 
 		BaseText header = Messenger.c(
 				"g LQ(",
-				TextUtil.getColoredDimensionSymbol(serverWorld.getDimension().getType()),
+				TextUtil.getColoredDimensionSymbol(serverWorld.getRegistryKey()),
 				"g ) "
 		);
 		return new BaseText[]{

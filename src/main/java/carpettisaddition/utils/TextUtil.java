@@ -18,7 +18,6 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class TextUtil
 {
@@ -168,22 +167,22 @@ public class TextUtil
 		return copyText(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())));
 	}
 
-	public static String dimensionToString(DimensionType dimensionType)
+	public static String dimensionToString(RegistryKey<World> dimensionType)
 	{
-		return Objects.requireNonNull(DimensionType.getId(dimensionType)).getPath();
+		return dimensionType.getValue().getPath();
 	}
 
-	public static BaseText getColoredDimensionSymbol(DimensionType dimensionType)
+	public static BaseText getColoredDimensionSymbol(RegistryKey<World> dimensionType)
 	{
-		if (dimensionType == DimensionType.OVERWORLD)
+		if (dimensionType == World.OVERWORLD)
 		{
 			return Messenger.s("O", "e");  // DARK_GREEN
 		}
-		if (dimensionType == DimensionType.THE_NETHER)
+		if (dimensionType == World.NETHER)
 		{
 			return Messenger.s("N", "n");  // DARK_RED
 		}
-		if (dimensionType == DimensionType.THE_END)
+		if (dimensionType == World.END)
 		{
 			return Messenger.s("E", "p");  // DARK_PURPLE
 		}
