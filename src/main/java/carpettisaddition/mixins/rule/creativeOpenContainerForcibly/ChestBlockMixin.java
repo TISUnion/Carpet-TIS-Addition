@@ -21,7 +21,7 @@ public abstract class ChestBlockMixin
 	private final ThreadLocal<Boolean> ignoreBlockedForCreative = ThreadLocal.withInitial(() -> false);
 
 	@Inject(
-			method = "onUse",
+			method = "activate",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/block/ChestBlock;createContainerFactory(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/container/NameableContainerFactory;"
@@ -39,11 +39,11 @@ public abstract class ChestBlockMixin
 			method = "createContainerFactory",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/ChestBlock;getBlockEntitySource(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Z)Lnet/minecraft/block/DoubleBlockProperties$PropertySource;"
+					target = "Lnet/minecraft/block/ChestBlock;retrieve(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/IWorld;Lnet/minecraft/util/math/BlockPos;ZLnet/minecraft/block/ChestBlock$PropertyRetriever;)Ljava/lang/Object;"
 			),
 			index = 3
 	)
-	private boolean modifyShouldIgnoreBlockedParameter(boolean value)
+	private boolean modifyShouldIgnoreBlockParameter(boolean value)
 	{
 		if (this.ignoreBlockedForCreative.get())
 		{
