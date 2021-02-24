@@ -8,6 +8,6 @@ public class CarpetTISAdditionMod implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
-		StackTraceDeobfuscator.loadMappings();
+		StackTraceDeobfuscator.init();
 	}
 }
