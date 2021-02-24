@@ -43,7 +43,7 @@ public abstract class ChestBlockMixin
 			),
 			index = 3
 	)
-	private boolean modifyShouldIgnoreBlockedParameter(boolean value)
+	private boolean modifyShouldIgnoreBlockParameter(boolean value)
 	{
 		if (this.ignoreBlockedForCreative.get())
 		{
