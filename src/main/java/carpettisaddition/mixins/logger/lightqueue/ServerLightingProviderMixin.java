@@ -18,8 +18,7 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 
 	@Inject(
 			method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$class_3901;Ljava/lang/Runnable;)V",
-			at = @At(value = "TAIL"),
-			cancellable = true
+			at = @At(value = "TAIL")
 	)
 	void onEnqueuedLightUpdateTask(CallbackInfo ci)
 	{
