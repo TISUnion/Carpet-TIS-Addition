@@ -53,7 +53,7 @@ public class LightQueueLogger extends AbstractHUDLogger implements Tickable
 	public void tick()
 	{
 		this.nameToWorldMap.values().forEach(world -> {
-			LightingProvider lightingProvider = world.getLightingProvider();
+			LightingProvider lightingProvider = world.getChunkManager().getLightingProvider();
 			if (lightingProvider instanceof IServerLightingProvider)
 			{
 				IServerLightingProvider iProvider = (IServerLightingProvider)lightingProvider;

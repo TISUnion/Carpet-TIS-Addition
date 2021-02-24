@@ -1,5 +1,6 @@
 package carpettisaddition.logging;
 
+import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;

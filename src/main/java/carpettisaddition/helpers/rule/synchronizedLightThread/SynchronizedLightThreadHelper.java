@@ -2,7 +2,6 @@ package carpettisaddition.helpers.rule.synchronizedLightThread;
 
 import carpet.utils.CarpetProfiler;
 import carpettisaddition.mixins.rule.synchronizedLightThread.ServerLightingProviderAccessor;
-import net.minecraft.server.world.ServerLightingProvider;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.thread.TaskQueue;
 import net.minecraft.world.chunk.light.LightingProvider;
@@ -16,8 +15,8 @@ public class SynchronizedLightThreadHelper
 		serverWorld.getProfiler().push(SECTION_NAME);
 		CarpetProfiler.ProfilerToken token = CarpetProfiler.start_section(serverWorld, SECTION_NAME, CarpetProfiler.TYPE.GENERAL);
 
-		LightingProvider lightingProvider = serverWorld.getLightingProvider();
-		if (lightingProvider instanceof ServerLightingProvider)
+		LightingProvider lightingProvider = serverWorld.getChunkManager().getLightingProvider();
+		if (lightingProvider != null)
 		{
 			// the task queue of the executor of the light thread
 			TaskQueue<?, ?> queue = ((ServerLightingProviderAccessor)lightingProvider).getProcessor().queue;
