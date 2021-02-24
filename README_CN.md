@@ -341,7 +341,9 @@
 
 暂停或者禁止光照更新
 
-若被设为抑制(suppressed)，光照更新不会被执行
+若被设为抑制(suppressed)，光照更新不会被执行，这可用于模拟光照抑制器
+
+若被设为忽略(ignored)，光照更新不会被计划，这常用于在创造模式中制造光照错误
 
 若被设为关闭(off)，光照更新不会被计划或被执行
 
@@ -931,6 +933,8 @@
 - `'emitted_block_update_redstone_dust'`
 - `'scheduled_block_event'`
 - `'scheduled_tile_tick'`
+
+规则 [微时序](#微时序-microTiming) 需要被设置为 true 来使这些事件能被触发
 
 -----------
 

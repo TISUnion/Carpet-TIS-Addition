@@ -247,7 +247,8 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			desc = "Pause or disable light updates",
 			extra = {
-					"If set to suppressed, no light update can be executed",
+					"If set to suppressed, no light update can be executed which simulates light suppressor",
+					"If set to ignored, no light update can be scheduled. It's useful for creating light errors",
 					"If set to off, no light update can be scheduled or executed",
 					"[WARNING] If set to suppressed or off, new chunks cannot be loaded. Then if the server tries to load chunk for player movement or whatever reason the server will be stuck forever"
 			},

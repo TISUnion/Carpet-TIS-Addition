@@ -18,6 +18,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
+      "carpettisaddition.CarpetTISAdditionMod"
     ]
   },
   "mixins": [
