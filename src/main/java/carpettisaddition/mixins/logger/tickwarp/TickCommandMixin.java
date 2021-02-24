@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.tickWarp;
+package carpettisaddition.mixins.logger.tickwarp;
 
 import carpet.commands.TickCommand;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpLogger;
