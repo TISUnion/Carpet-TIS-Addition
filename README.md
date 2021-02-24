@@ -54,6 +54,8 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [totallyNoBlockUpdate](#totallyNoBlockUpdate)
 - [tooledTNT](#tooledTNT)
 - [fluidDestructionDisabled](#fluidDestructionDisabled)
+- [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration)
+- [synchronizedLightThread](#synchronizedLightThread)
 
 ## [Loggers](#logger-list)
 
@@ -65,13 +67,15 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [microTiming](#microTiming-1)
 - [damage](#damage)
 - [commandBlock](#commandBlock)
+- [lightQueue](#lightQueue)
+- [tickWarp](#tickWarp)
 
 ## [Commands](#command-list)
 
 - [raid](#raid-1)
 - [info](#info)
 - [lifetime](#lifetime)
-
+- [tick](#tick)
 
 ## [Scarpet](#scarpet-1)
 
@@ -175,7 +179,7 @@ Set it to `#none` to stop adding a suffix
 
 Make dragon egg renewable
 
-When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and "summon" a new dragon egg
+When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and `summon` a new dragon egg
 
 Use with rule [dispensersFireDragonBreath](#dispensersfiredragonbreath) for more ease
 
@@ -345,7 +349,7 @@ If set to off, no light update can be scheduled or executed
 
 - Type: `enum`  
 - Default value: `on`  
-- Suggested options: `on`, `suppressed`, `off`
+- Suggested options: `on`, `suppressed`, `ignored`, `off`
 - Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
@@ -599,6 +603,32 @@ It's useful to prevent liquid from accidentally flooding your redstone wiring in
 - Categories: `TIS`, `CREATIVE`
 
 
+## lightQueueLoggerSamplingDuration
+
+The sampling duration of light queue logger in game tick
+
+Affects all data except the queue size displayed in the logger
+
+- Type: `int`
+- Default value: `60`
+- Suggested options: `1`, `20`, `60`, `100`, `6000`
+- Categories: `TIS`
+
+
+## synchronizedLightThread
+
+Synchronize lighting thread with the server thread, so the light thread will not lag behind the main thread and get desynchronized
+
+The server will wait until all lighting tasks to be done at the beginning of each world ticking
+
+With this rule you can safely `/tick warp` without potential light suppression or lighting desynchronization
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
 -----------
 
 # Logger List
@@ -723,6 +753,42 @@ Attributes:
 - Suggested options: `throttled`, `all`
 
 
+## lightQueue
+
+`/log lightQueue`
+
+A HUD logger for debugging light suppression. It displays the following information of the lighting task queue:
+
+- Average task accumulation speed
+- Current light queue size. Indicating with symbol `S`
+- Estimated duration of light suppression if the light suppressor is switched off now. Indicating with symbol `T`
+- Average task enqueuing speed
+- Average task executing speed
+
+The sampling duration can be specified with rule [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration), default 60gt
+
+Specify the logging option to select the world you want log its light queue, like `/log mobcaps`
+
+Attributes:
+- Default option: `dynamic`
+- Suggested options: `dynamic`, `overworld`, `the_nether`, `the_end`
+
+
+## tickWarp
+
+`/log tickWarp <option>`
+
+A HUD logger to display to progress of current tick warping
+
+It only shows up when the server is tick warping
+
+See [/tick warp status](#warp-status) command for displaying more details of tick warp
+
+Attributes:
+- Default option: `bar`
+- Suggested options: `bar`, `value`
+
+
 # Command List
 
 ## raid
@@ -763,7 +829,7 @@ Adding a `realtime` suffix to the command will turn the rate result from in-game
 
 ### tracking
 
-`/raid tracking [<start|stop|restart>]`
+`/lifetime tracking [<start|stop|restart>]`
 
 Control the lifetime tracker
 
@@ -807,6 +873,17 @@ Statistics are sorted by the proportion of the amount
 Show the detail statistic of specific entity type. You can specify which part of the statistic will be output
 
 For example, `/lifetime creeper` shows all statistic of creeper in detail, and `/lifetime creeper removal` only shows removal statistic of creeper in detail 
+
+
+## tick
+
+### warp status
+
+`/tick warp status`
+
+Display the current status of tick warping, including starter, estimated remaining time etc.
+
+See [tickWarp logger](#tickWarp) for easier access
 
 -----------
 
@@ -861,6 +938,7 @@ The type determines the type of block event that occurs, which can be one of:
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
 - Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
+- Added `randomly` argument for `/player` command. e.g. `/player Steve use randomly 10 20` will make Steve right-click at dynamically varying random intervals in range \[10, 20]
 
 -----------
 

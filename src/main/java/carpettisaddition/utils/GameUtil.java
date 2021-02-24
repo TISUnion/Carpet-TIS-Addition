@@ -19,6 +19,9 @@ public class GameUtil
 		return CarpetTISAdditionServer.minecraft_server != null && CarpetTISAdditionServer.minecraft_server.isOnThread();
 	}
 
+	/**
+	 * See the exit point for the looping in {@link net.minecraft.server.world.ServerWorld#getMobCountsByCategory}
+	 */
 	public static boolean countsTowardsMobcap(Entity entity)
 	{
 		if (entity instanceof MobEntity)

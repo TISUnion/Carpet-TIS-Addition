@@ -1,7 +1,6 @@
 package carpettisaddition.mixins.carpet.tntRandomRange;
 
 import carpet.CarpetSettings;
-import carpettisaddition.helpers.carpet.tntRandomRange.IWorld;
 import carpettisaddition.helpers.carpet.tntRandomRange.WrappedRandom;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
@@ -22,9 +21,10 @@ public class ExplosionMixin
 	@Inject(method = "collectBlocksAndDamageEntities", at = @At("HEAD"))
 	private void wrapWorldRandom(CallbackInfo ci)
 	{
+		// -1.0D is the default value of rule tntRandomRange
 		if (CarpetSettings.tntRandomRange != -1.0D)
 		{
-			((IWorld)this.world).setRandomCTA(WrappedRandom.wrap(this.world.random));
+			((WorldAccessor)this.world).setRandom(WrappedRandom.wrap(this.world.random));
 		}
 	}
 
@@ -33,7 +33,7 @@ public class ExplosionMixin
 	{
 		if (this.world.random instanceof WrappedRandom)
 		{
-			((IWorld)this.world).setRandomCTA(((WrappedRandom)this.world.random).unwrap());
+			((WorldAccessor)this.world).setRandom(((WrappedRandom)this.world.random).unwrap());
 		}
 	}
 }

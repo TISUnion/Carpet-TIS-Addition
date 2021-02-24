@@ -167,6 +167,28 @@ public class TextUtil
 		return copyText(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())));
 	}
 
+	public static String dimensionToString(RegistryKey<World> dimensionType)
+	{
+		return dimensionType.getValue().getPath();
+	}
+
+	public static BaseText getColoredDimensionSymbol(RegistryKey<World> dimensionType)
+	{
+		if (dimensionType == World.OVERWORLD)
+		{
+			return Messenger.s("O", "e");  // DARK_GREEN
+		}
+		if (dimensionType == World.NETHER)
+		{
+			return Messenger.s("N", "n");  // DARK_RED
+		}
+		if (dimensionType == World.END)
+		{
+			return Messenger.s("E", "p");  // DARK_PURPLE
+		}
+		return Messenger.s(dimensionToString(dimensionType).toUpperCase().substring(0, 1));
+	}
+
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)
 	{
 		TranslatableText text = new TranslatableText(key, args);
