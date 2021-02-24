@@ -156,8 +156,8 @@
   "rule.optimizedHardHitBoxEntityCollision.extra.2": "在加载区块前开启它以使其工作，在地狱门刷怪塔中有~20%的性能提升",
   "rule.optimizedHardHitBoxEntityCollision.extra.3": "与添加了新实体的 mod 可能不兼容",
 
-  "rule.creativeOpenShulkerBoxForcibly.name": "创造玩家强制打开潜影盒",
-  "rule.creativeOpenShulkerBoxForcibly.desc": "允许创造模式的玩家打开被阻挡的潜影盒",
+  "rule.creativeOpenContainerForcibly.name": "创造玩家强制打开容器",
+  "rule.creativeOpenContainerForcibly.desc": "允许创造模式的玩家打开被阻挡的容器，如潜影盒",
 
   "rule.totallyNoBlockUpdate.name": "完全没有方块更新",
   "rule.totallyNoBlockUpdate.desc": "禁用所有方块更新以及状态更新的执行",

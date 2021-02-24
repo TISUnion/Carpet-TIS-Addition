@@ -441,10 +441,10 @@ public class CarpetTISAdditionSettings
 	public static boolean optimizedHardHitBoxEntityCollision = false;
 
 	@Rule(
-			desc = "Allow creative players to open a shulker block even if the shulker box is blocked",
+			desc = "Allow creative players to open a container even if the container is blocked. e.g. for shulker box",
 			category = {TIS, CREATIVE}
 	)
-	public static boolean creativeOpenShulkerBoxForcibly = false;
+	public static boolean creativeOpenContainerForcibly = false;
 
 	@Rule(
 			desc = "Disable all block updates and state updates",

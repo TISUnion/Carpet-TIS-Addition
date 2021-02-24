@@ -10,13 +10,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.Tickable;
 import net.minecraft.world.chunk.light.LightingProvider;
 
 import java.util.Deque;
 import java.util.Map;
 
-public class LightQueueLogger extends AbstractHUDLogger implements Tickable
+public class LightQueueLogger extends AbstractHUDLogger
 {
 	public static final String NAME = "lightQueue";
 	private static final LightQueueLogger INSTANCE = new LightQueueLogger();
@@ -49,7 +48,6 @@ public class LightQueueLogger extends AbstractHUDLogger implements Tickable
 		return ExtensionLoggerRegistry.standardHUDLogger(LightQueueLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"});
 	}
 
-	@Override
 	public void tick()
 	{
 		this.nameToWorldMap.values().forEach(world -> {
