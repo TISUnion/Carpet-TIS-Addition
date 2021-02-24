@@ -551,9 +551,9 @@ Might not work with other mods that add new entities
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
-## creativeOpenShulkerBoxForcibly
+## creativeOpenContainerForcibly
 
-Allow creative players to open a shulker block even if the shulker box is blocked
+Allow creative players to open a container even if the container is blocked. e.g. for shulker box
 
 - Type: `boolean`  
 - Default value: `false`  

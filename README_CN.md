@@ -50,7 +50,7 @@
 - [优化高速实体移动](#优化高速实体移动-optimizedFastEntityMovement)
 - [TNT优化高优先级](#TNT优化高优先级-optimizedTNTHighPriority)
 - [优化硬碰撞箱实体碰撞](#优化硬碰撞箱实体碰撞-optimizedHardHitBoxEntityCollision)
-- [创造玩家强制打开潜影盒](#创造玩家强制打开潜影盒-creativeOpenShulkerBoxForcibly)
+- [创造玩家强制打开容器](#创造玩家强制打开容器-creativeOpenContainerForcibly)
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 - [工具化TNT](#工具化TNT-tooledTNT)
 - [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
@@ -551,9 +551,9 @@
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
-## 创造玩家强制打开潜影盒 (creativeOpenShulkerBoxForcibly)
+## 创造玩家强制打开容器 (creativeOpenContainerForcibly)
 
-允许创造模式的玩家打开被阻挡的潜影盒
+允许创造模式的玩家打开被阻挡的容器，如潜影盒
 
 - 类型: `boolean`  
 - 默认值: `false`  
