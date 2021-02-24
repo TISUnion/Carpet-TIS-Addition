@@ -1,6 +1,6 @@
-package carpettisaddition.mixins.rule.creativeOpenShulkerBoxForcibly;
+package carpettisaddition.mixins.rule.creativeOpenContainerForcibly;
 
-import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.creativeOpenContainerForcibly.CreativeOpenContainerForciblyHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
@@ -32,12 +32,9 @@ public abstract class ShulkerBoxBlockMixin
 	)
 	private boolean noCollideOrCreative(BlockState state, World world, BlockPos pos, ShulkerBoxBlockEntity shulkerBoxBlockEntity, /* parent method parameters -> */ BlockState state2, World world2, BlockPos pos2, PlayerEntity player, Hand hand, BlockHitResult hit)
 	{
-		if (CarpetTISAdditionSettings.creativeOpenShulkerBoxForcibly)
+		if (CreativeOpenContainerForciblyHelper.canOpenForcibly(player))
 		{
-			if (player.isCreative())
-			{
-				return true;
-			}
+			return true;
 		}
 		// vanilla
 		return method_33383(state, world, pos, shulkerBoxBlockEntity);
