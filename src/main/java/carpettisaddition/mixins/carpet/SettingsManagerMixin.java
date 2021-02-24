@@ -15,7 +15,9 @@ import static carpettisaddition.CarpetTISAdditionServer.version;
 
 
 @Mixin(SettingsManager.class)
-public class SettingsManagerMixin {
+public class SettingsManagerMixin
+{
+    @SuppressWarnings("DefaultAnnotationParam")
     @Inject(
             method = "listAllSettings",
             slice = @Slice(

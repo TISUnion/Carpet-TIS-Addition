@@ -3,6 +3,7 @@ package carpettisaddition.mixins.rule.opPlayerNoCheat;
 import carpettisaddition.helpers.CommandPermissionHelper;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.command.TeleportCommand;
+import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -11,14 +12,17 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(TeleportCommand.class)
 public abstract class TeleportCommandMixin
 {
-	@SuppressWarnings("UnresolvedMixinReference")
+	@Dynamic
+	@SuppressWarnings("DefaultAnnotationParam")
 	@Redirect(
 			method = {"method_13763", "method_13764"},  // lambda method
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/command/ServerCommandSource;hasPermissionLevel(I)Z"
+					target = "Lnet/minecraft/server/command/ServerCommandSource;hasPermissionLevel(I)Z",
+					remap = true
 			),
-			allow = 2
+			allow = 2,
+			remap = false
 	)
 	private static boolean checkIfAllowCheating(ServerCommandSource source, int level)
 	{
