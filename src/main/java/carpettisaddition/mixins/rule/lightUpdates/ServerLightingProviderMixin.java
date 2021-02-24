@@ -35,11 +35,7 @@ public abstract class ServerLightingProviderMixin
 		}
 	}
 
-	@Inject(
-			method = "runTasks",
-			at = @At(value = "HEAD"),
-			cancellable = true
-	)
+	@Inject(method = "runTasks", at = @At(value = "HEAD"), cancellable = true)
 	void onExecutingLightUpdates(CallbackInfo ci)
 	{
 		if (!CarpetTISAdditionSettings.lightUpdates.shouldExecuteLightTask())
@@ -48,14 +44,7 @@ public abstract class ServerLightingProviderMixin
 		}
 	}
 
-	@Inject(
-			method = "light",
-			at = @At(
-					value = "INVOKE",
-					target = "Ljava/util/concurrent/CompletableFuture;supplyAsync(Ljava/util/function/Supplier;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
-					remap = false
-			)
-	)
+	@Inject(method = "light", at = @At("HEAD"))
 	private void thisEnqueueIsImportant(CallbackInfoReturnable<CompletableFuture<Chunk>> cir)
 	{
 		this.enqueueImportant.set(true);
