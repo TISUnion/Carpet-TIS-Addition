@@ -14,7 +14,7 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 {
 	private final Logger LOGGER = LogManager.getLogger();
 	private static final String LITHIUM_MOD_ID = "lithium";
-	public static final String SERVER_TICK_SCHEDULER_MIXIN_LITHIUM = ".LithiumServerTickSchedulerMixin";
+	private static final String TIC_TACS_MOD_ID = "tic_tacs";
 
 	@Override
 	public void onLoad(String mixinPackage)
@@ -34,13 +34,18 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 		// it's quite a naive implementation now, but since there are not that many demands it's fine i think
 		// might refactor it if more judgement are needed to be done
 		boolean isLithiumLoaded = FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
-		if (mixinClassName.endsWith(SERVER_TICK_SCHEDULER_MIXIN_LITHIUM))
+		boolean isTicTacsLoaded = FabricLoader.getInstance().isModLoaded(TIC_TACS_MOD_ID);
+		if (mixinClassName.endsWith(".LithiumServerTickSchedulerMixin"))
 		{
 			return isLithiumLoaded;
 		}
 		if (mixinClassName.endsWith("rule.renewableDragonEgg.AbstractBlockStateMixin"))
 		{
 			return isLithiumLoaded;
+		}
+		if (mixinClassName.endsWith("logger.lightqueue.LightingExecutorMixin"))
+		{
+			return isTicTacsLoaded;
 		}
 		return true;
 	}

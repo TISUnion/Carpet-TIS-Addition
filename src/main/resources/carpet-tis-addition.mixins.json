@@ -50,6 +50,7 @@
     "logger.damage.PlayerEntityMixin",
     "logger.damage.ServerPlayerEntityMixin",
     "logger.item.ItemEntityMixin",
+    "logger.lightqueue.LightingExecutorMixin",
     "logger.lightqueue.ServerLightingProviderMixin",
     "logger.microtiming.ServerWorldMixin",
     "logger.microtiming.events.AbstractBlockStateMixin",

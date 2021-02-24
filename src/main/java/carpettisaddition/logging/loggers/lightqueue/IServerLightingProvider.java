@@ -7,4 +7,6 @@ public interface IServerLightingProvider
 	long getExecutedTaskCountAndClean();
 
 	long getQueueSize();
+
+	void onExecutedLightUpdates();
 }

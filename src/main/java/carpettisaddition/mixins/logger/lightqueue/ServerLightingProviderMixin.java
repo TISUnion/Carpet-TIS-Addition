@@ -20,10 +20,17 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 			method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$Stage;Ljava/lang/Runnable;)V",
 			at = @At(value = "TAIL")
 	)
-	void onEnqueuedLightUpdateTask(CallbackInfo ci)
+	private void onEnqueuedLightUpdateTask(CallbackInfo ci)
 	{
 		this.enqueuedTaskCount.getAndIncrement();
 		this.queueSize.getAndIncrement();
+	}
+
+	@Override
+	public void onExecutedLightUpdates()
+	{
+		this.executedTaskCount.getAndIncrement();
+		this.queueSize.getAndDecrement();
 	}
 
 	@Inject(
@@ -34,10 +41,9 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 					remap = false
 			)
 	)
-	void onExecutedLightUpdates(CallbackInfo ci)
+	private void onExecutedLightUpdates(CallbackInfo ci)
 	{
-		this.executedTaskCount.getAndIncrement();
-		this.queueSize.getAndDecrement();
+		this.onExecutedLightUpdates();
 	}
 
 	@Override
