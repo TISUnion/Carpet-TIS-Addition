@@ -903,7 +903,9 @@ Returns `true` if block was not previously in list, and `false` if it was.
 
 ### `unregister_block(pos)`
 
-Removes a block position from the list of block positions to be tracked. Returns `true` if block was previously in the list, and `false` if not.
+Removes a block position from the list of block positions to be tracked
+
+Returns `true` if block was previously in the list, and `false` if not.
 
 ### `registered_blocks()`
 
@@ -929,6 +931,8 @@ The type determines the type of block event that occurs, which can be one of:
 - `'emitted_block_update_redstone_dust'`
 - `'scheduled_block_event'`
 - `'scheduled_tile_tick'`
+
+Rule [microTiming](#microTiming) is required to be true for dispatching these events
 
 -----------
 

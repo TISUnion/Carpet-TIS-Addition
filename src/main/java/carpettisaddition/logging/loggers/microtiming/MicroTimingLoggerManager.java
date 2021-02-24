@@ -25,12 +25,7 @@ import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
@@ -110,10 +105,21 @@ public class MicroTimingLoggerManager
      * -------------------------
      */
 
+    public static void dispatchScarpetEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier)
+    {
+        if (CarpetTISAdditionSettings.microTiming)
+        {
+            // For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
+            if (trackedPositions.contains(pos))
+            {
+                MicroTimingEvent.determineBlockEvent(supplier.get(), world, pos);
+            }
+        }
+    }
+
     public static void onEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier, BiFunction<World, BlockPos, Optional<DyeColor>> woolGetter)
     {
-        if(trackedPositions.contains(pos))//For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
-            MicroTimingEvent.determineBlockEvent(supplier.get(), world, pos);
+        dispatchScarpetEvent(world, pos, supplier);
 
         if (isLoggerActivated())
         {
@@ -123,8 +129,7 @@ public class MicroTimingLoggerManager
 
     public static void onEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier)
     {
-        if(trackedPositions.contains(pos))//For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
-            MicroTimingEvent.determineBlockEvent(supplier.get(), world, pos);
+        dispatchScarpetEvent(world, pos, supplier);
 
         if (isLoggerActivated())
         {

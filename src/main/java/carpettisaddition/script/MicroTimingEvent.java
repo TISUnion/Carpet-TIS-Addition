@@ -4,15 +4,7 @@ import carpet.script.CarpetEventServer.Event;
 import carpet.script.value.ListValue;
 import carpet.script.value.StringValue;
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.logging.loggers.microtiming.events.BaseEvent;
-import carpettisaddition.logging.loggers.microtiming.events.BlockStateChangeEvent;
-import carpettisaddition.logging.loggers.microtiming.events.DetectBlockUpdateEvent;
-import carpettisaddition.logging.loggers.microtiming.events.EmitBlockUpdateEvent;
-import carpettisaddition.logging.loggers.microtiming.events.EmitBlockUpdateRedstoneDustEvent;
-import carpettisaddition.logging.loggers.microtiming.events.ExecuteBlockEventEvent;
-import carpettisaddition.logging.loggers.microtiming.events.ExecuteTileTickEvent;
-import carpettisaddition.logging.loggers.microtiming.events.ScheduleBlockEventEvent;
-import carpettisaddition.logging.loggers.microtiming.events.ScheduleTileTickEvent;
+import carpettisaddition.logging.loggers.microtiming.events.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -45,7 +37,6 @@ public class MicroTimingEvent extends Event {
         if(event instanceof ScheduleTileTickEvent)
             MICRO_TIMING_EVENT.onMicroTimingEvent("scheduled_tile_tick", pos, world.getDimension());
     }
-
 
     public void onMicroTimingEvent(String type, BlockPos pos, DimensionType dimension){}
 
