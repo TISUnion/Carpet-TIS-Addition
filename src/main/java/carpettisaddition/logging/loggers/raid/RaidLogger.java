@@ -13,11 +13,12 @@ import net.minecraft.util.math.BlockPos;
 
 public class RaidLogger extends AbstractLogger
 {
+	public static final String NAME = "raid";
 	private static final RaidLogger instance = new RaidLogger();
 
 	public RaidLogger()
 	{
-		super("raid");
+		super(NAME);
 	}
 
 	public static RaidLogger getInstance()
@@ -31,7 +32,7 @@ public class RaidLogger extends AbstractLogger
 		{
 			return;
 		}
-		LoggerRegistry.getLogger("raid").log(() -> {
+		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("created", "Raid created with id %d"), raid.getRaidId())),
 					"g  @ ",
@@ -46,7 +47,7 @@ public class RaidLogger extends AbstractLogger
 		{
 			return;
 		}
-		LoggerRegistry.getLogger("raid").log(() -> {
+		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("invalidated", "Raid (id: %d) invalidated, reason: %s"), raid.getRaidId(), reason.tr()))
 			)};
@@ -59,7 +60,7 @@ public class RaidLogger extends AbstractLogger
 		{
 			return;
 		}
-		LoggerRegistry.getLogger("raid").log(() -> {
+		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("bad_omen_level_increased", "Raid (id: %d) increased its bad omen level to %d"), raid.getRaidId(), badOmenLevel))
 			)};
@@ -72,7 +73,7 @@ public class RaidLogger extends AbstractLogger
 		{
 			return;
 		}
-		LoggerRegistry.getLogger("raid").log(() -> {
+		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
 					String.format("w %s", String.format(tr("center_moved", "Raid (id: %d) moves its center to"), raid.getRaidId())),
 					"w  ",

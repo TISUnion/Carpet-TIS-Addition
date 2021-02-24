@@ -54,6 +54,8 @@
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 - [工具化TNT](#工具化TNT-tooledTNT)
 - [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
+- [光照队列记录器采样时长](#光照队列记录器采样时长-lightQueueLoggerSamplingDuration)
+- [同步光照线程](#同步光照线程-synchronizedLightThread)
 
 ## [监视器](#监视器列表)
 
@@ -65,12 +67,15 @@
 - [微时序](#微时序-microTiming-1)
 - [伤害](#伤害-damage)
 - [命令方块](#命令方块-commandBlock)
+- [光照队列](#光照队列-lightQueue)
+- [tickWarp](#tickWarp-tickWarp)
 
 ## [指令](#指令列表)
 
 - [袭击](#袭击-raid-1)
 - [信息](#信息-info)
 - [存活时间](#存活时间-lifetime)
+- [tick](#tick)
 
 ## [Scarpet](#scarpet-1)
 
@@ -84,6 +89,7 @@
 ### [Events](#events)
 
 - [`__on_microtiming_event(type, pos, dimension)`](#__on_microtiming_eventtype-pos-dimension)
+
 
 ## 其他
 
@@ -343,7 +349,7 @@
 
 - 类型: `enum`  
 - 默认值: `on`  
-- 参考选项: `on`, `suppressed`, `off`
+- 参考选项: `on`, `suppressed`, `ignored`, `off`
 - 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
@@ -597,6 +603,32 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 光照队列记录器采样时长 (lightQueueLoggerSamplingDuration)
+
+光照队列记录器的采样时长，单位为游戏刻
+
+影响记录器中显示的，除队列大小外的所有数据
+
+- 类型: `int`
+- 默认值: `60`
+- 参考选项: `1`, `20`, `60`, `100`, `6000`
+- 分类: `TIS`
+
+
+## 同步光照线程 (synchronizedLightThread)
+
+将光照线程与主线程同步，这样光照线程就不会于落后主线程而失去同步
+
+服务器将会在每个世界开始运算时等待光照线程的任务完成
+
+你可以借此安全地 `/tick warp` 而不用担心潜在的光照抑制或光照不同步
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
 -----------
 
 # 监视器列表
@@ -721,6 +753,42 @@
 - 参考选项: `throttled`, `all`
 
 
+## 光照队列 (lightQueue)
+
+`/log lightQueue`
+
+一个用于调试光照抑制的 HUD 记录器。它将显示光照队列的如下信息：
+
+- 当前光照队列的大小。用符号 `S` 表示
+- 如果光照抑制器被关闭，光照抑制将会持续的预估时长。用符号 `T` 表示
+- 光照更新任务平均每游戏刻入队速度。用符号 `I` 表示
+- 光照更新任务平均每游戏刻执行速度。用符号 `O` 表示
+- 光照更新任务平均每游戏刻积累速度
+
+计算平均值的采样时长可通过规则 [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration) 指定，默认值为 60gt
+
+类似 `/log mobcaps`， 你可以通过记录器选项来指定你想要记录光照队列的世界。
+
+属性:
+- 默认选项: `dynamic`
+- 参考选项: `dynamic`, `overworld`, `the_nether`, `the_end`
+
+
+## tickWarp (tickWarp)
+
+`/log tickWarp <option>`
+
+一个用于展示当前 tick warp 进度信息的 HUD 记录器
+
+它仅在服务器正在 tick warp 时显示出来
+
+见指令 [/tick warp status](#warp-status) 以查询更多 tick warp 的信息
+
+属性:
+- 默认选项: `bar`
+- 参考选项: `bar`, `value`
+
+
 # 指令列表
 
 ## 袭击 (raid)
@@ -761,7 +829,7 @@
 
 ### tracking
 
-`/raid tracking [<start|stop|restart>]`
+`/lifetime tracking [<start|stop|restart>]`
 
 控制存活时间追踪器
 
@@ -805,6 +873,17 @@
 显示指定实体类型的详细统计信息。你可以指定输出哪一部分统计信息
 
 比如 `/lifetime creeper` 将详细地显示爬行者的统计信息，`/lifetime creeper removal` 则只详细显示爬行者的移除统计信息 
+
+
+## tick
+
+### warp status
+
+`/tick warp status`
+
+显示当前 tick warp 的状态信息，如启动者、估计剩余时间等
+
+见 [tickWarp 记录器](#tickWarp) 以了解更方便地查询信息的方法
 
 -----------
 
@@ -861,6 +940,7 @@
 - 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
 - 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
 - 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
+- 为 `/player` 指令添加 `randomly` 参数。如 `/player Steve use randomly 10 20` 将使 Steve 以动态变化的随机间隔点击右键，间隔区间为 \[10, 20]
 
 -----------
 

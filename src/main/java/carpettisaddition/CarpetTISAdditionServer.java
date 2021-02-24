@@ -9,6 +9,7 @@ import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.loggers.lightqueue.LightQueueLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.script.Functions;
 import carpettisaddition.script.MicroTimingEvent;
@@ -32,7 +33,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public static final String compactName = name.replace("-","");  // carpettisaddition
     // should be the same as the version in gradlew.properties
     // "undefined" will be replaced with build number during github action
-    public static final String version = "1.13.0+build.undefined";
+    public static final String version = "1.14.0+build.undefined";
     public static final Logger LOGGER = LogManager.getLogger(fancyName);
     public static MinecraftServer minecraft_server;
 
@@ -79,6 +80,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         MicroTimingLoggerManager.attachServer(server);
         LifeTimeTracker.attachServer(server);
+        LightQueueLogger.getInstance().attachServer(server);
     }
 
     @Override
@@ -92,7 +94,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void onTick(MinecraftServer server)
     {
-        // maybe, maybe
+        LightQueueLogger.getInstance().tick();
     }
 
     @Override
@@ -100,7 +102,6 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         // here goes extra stuff
         RaidCommand.getInstance().registerCommand(dispatcher);
-        InfoCommand.getInstance().registerCommand(dispatcher);
         LifeTimeCommand.getInstance().registerCommand(dispatcher);
     }
 

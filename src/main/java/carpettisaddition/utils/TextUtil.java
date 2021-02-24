@@ -18,6 +18,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class TextUtil
 {
@@ -165,6 +166,28 @@ public class TextUtil
 	public static BaseText getDimensionNameText(RegistryKey<World> dim)
 	{
 		return copyText(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())));
+	}
+
+	public static String dimensionToString(DimensionType dimensionType)
+	{
+		return Objects.requireNonNull(DimensionType.getId(dimensionType)).getPath();
+	}
+
+	public static BaseText getColoredDimensionSymbol(DimensionType dimensionType)
+	{
+		if (dimensionType == DimensionType.OVERWORLD)
+		{
+			return Messenger.s("O", "e");  // DARK_GREEN
+		}
+		if (dimensionType == DimensionType.THE_NETHER)
+		{
+			return Messenger.s("N", "n");  // DARK_RED
+		}
+		if (dimensionType == DimensionType.THE_END)
+		{
+			return Messenger.s("E", "p");  // DARK_PURPLE
+		}
+		return Messenger.s(dimensionToString(dimensionType).toUpperCase().substring(0, 1));
 	}
 
 	public static TranslatableText getTranslatedName(String key, Formatting color, Object... args)
