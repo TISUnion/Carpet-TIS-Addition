@@ -20,7 +20,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
 {
-	@Shadow
+	@Shadow(remap = false)
 	private static int action(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action)
 	{
 		return 0;
