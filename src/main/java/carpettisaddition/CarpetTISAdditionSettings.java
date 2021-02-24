@@ -256,9 +256,34 @@ public class CarpetTISAdditionSettings
 	public static LightUpdateOptions lightUpdates = LightUpdateOptions.ON;
 	public enum LightUpdateOptions
 	{
-		ON,
-		SUPPRESSED,
-		OFF
+		// Regular vanilla behavior
+		ON(true, true),
+		// Enqueue tasks, but never execute them. Might blocks the game forever
+		SUPPRESSED(true, false),
+		// Ignore all incoming tasks except ones created in method light, but already enqueued ones can be executed
+		// TODO: Further testing to make sure it doesnt block the server
+		IGNORED(false, true),
+		// Ignore all incoming tasks and do not execute any tasks. Might blocks the game forever
+		OFF(false, false);
+
+		private final boolean shouldEnqueue;
+		private final boolean shouldExecute;
+
+		LightUpdateOptions(boolean shouldEnqueue, boolean shouldExecute)
+		{
+			this.shouldEnqueue = shouldEnqueue;
+			this.shouldExecute = shouldExecute;
+		}
+
+		public boolean shouldEnqueueLightTask()
+		{
+			return this.shouldEnqueue;
+		}
+
+		public boolean shouldExecuteLightTask()
+		{
+			return this.shouldExecute;
+		}
 	}
 
 	@Rule(
@@ -448,6 +473,29 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static boolean fluidDestructionDisabled = false;
+
+	@Rule(
+			desc = "The sampling duration of light queue logger in game tick",
+			extra = {
+					"Affects all data except the queue size displayed in the logger"
+			},
+			validate = ValidatePositive.class,
+			options = {"1", "20", "60", "100", "6000"},
+			strict = false,
+			category = {TIS}
+	)
+	public static int lightQueueLoggerSamplingDuration = 60;
+
+	@Rule(
+			desc = "Synchronize lighting thread with the server thread",
+			extra = {
+					"so the light thread will not lag behind the main thread and get desynchronized",
+					"The server will wait until all lighting tasks to be done at the beginning of each world ticking",
+					"With this rule you can safely /tick warp without potential light suppression or lighting desynchronization"
+			},
+			category = {TIS, CREATIVE, EXPERIMENTAL}
+	)
+	public static boolean synchronizedLightThread = false;
 
 	/*
 	 *   Declare rules above this

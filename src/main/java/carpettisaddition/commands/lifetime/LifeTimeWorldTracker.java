@@ -108,8 +108,8 @@ public class LifeTimeWorldTracker extends TranslatableBase
 		// dimension name header
 		// Overworld (minecraft:overworld)
 		List<BaseText> result = Lists.newArrayList();
+		result.add(Messenger.s(" "));
 		result.add(Messenger.c(
-				"w  \n",
 				TextUtil.attachFormatting(TextUtil.getDimensionNameText(this.world.getDimension().getType()), Formatting.BOLD, Formatting.GOLD),
 				String.format("g  (%s)", this.world.getDimension().getType().toString())
 		));

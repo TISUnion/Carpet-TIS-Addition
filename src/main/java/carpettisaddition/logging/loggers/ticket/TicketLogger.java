@@ -17,11 +17,12 @@ import static java.lang.Math.max;
 
 public class TicketLogger extends AbstractLogger
 {
+	public static final String NAME = "ticket";
 	private static final TicketLogger INSTANCE = new TicketLogger();
 
 	public TicketLogger()
 	{
-		super("ticket");
+		super(NAME);
 	}
 
 	public static TicketLogger getInstance()
@@ -48,11 +49,7 @@ public class TicketLogger extends AbstractLogger
 
 	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, String actionText)
 	{
-		if (!ExtensionLoggerRegistry.__ticket)
-		{
-			return;
-		}
-		LoggerRegistry.getLogger("ticket").log((option) ->
+		LoggerRegistry.getLogger(NAME).log((option) ->
 		{
 			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicket.getType().toString()))
 			{
