@@ -12,13 +12,12 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChestBlock.class)
 public abstract class ChestBlockMixin
 {
-	private final ThreadLocal<Boolean> ignoreBlockedForCreative = ThreadLocal.withInitial(() -> false);
+	private static final ThreadLocal<Boolean> ignoreChestBlockedCheck = ThreadLocal.withInitial(() -> false);
 
 	@Inject(
 			method = "activate",
@@ -29,27 +28,30 @@ public abstract class ChestBlockMixin
 	)
 	private void noCollideOrCreative(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
 	{
-		if (CreativeOpenContainerForciblyHelper.canOpenForcibly(player))
-		{
-			this.ignoreBlockedForCreative.set(true);
-		}
+		ignoreChestBlockedCheck.set(CreativeOpenContainerForciblyHelper.canOpenForcibly(player));
 	}
 
-	@ModifyArg(
-			method = "createContainerFactory",
+	@Inject(
+			method = "activate",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/ChestBlock;retrieve(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/IWorld;Lnet/minecraft/util/math/BlockPos;ZLnet/minecraft/block/ChestBlock$PropertyRetriever;)Ljava/lang/Object;"
-			),
-			index = 3
+					target = "Lnet/minecraft/block/ChestBlock;createContainerFactory(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/container/NameableContainerFactory;",
+					shift = At.Shift.AFTER
+			)
 	)
-	private boolean modifyShouldIgnoreBlockParameter(boolean value)
+	private void noCollideOrCreativeReset(CallbackInfoReturnable<ActionResult> cir)
 	{
-		if (this.ignoreBlockedForCreative.get())
+		ignoreChestBlockedCheck.set(false);
+	}
+
+	// never try to target ChestBlock#getBlockEntitySource, yarn will not be happy with that at server-side runtime, no intermediary warning
+	// see #17
+	@Inject(method = "isChestBlocked", at = @At("HEAD"), cancellable = true)
+	private static void believeMeTheChestIsNotBlocked(CallbackInfoReturnable<Boolean> cir)
+	{
+		if (ignoreChestBlockedCheck.get())
 		{
-			this.ignoreBlockedForCreative.set(false);
-			return true;
+			cir.setReturnValue(false);
 		}
-		return value;
 	}
 }
