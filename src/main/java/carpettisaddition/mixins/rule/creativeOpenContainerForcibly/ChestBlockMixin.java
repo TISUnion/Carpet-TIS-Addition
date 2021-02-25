@@ -12,13 +12,12 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChestBlock.class)
 public abstract class ChestBlockMixin
 {
-	private final ThreadLocal<Boolean> ignoreBlockedForCreative = ThreadLocal.withInitial(() -> false);
+	private static final ThreadLocal<Boolean> ignoreBlockedForCreative = ThreadLocal.withInitial(() -> false);
 
 	@Inject(
 			method = "onUse",
@@ -31,25 +30,19 @@ public abstract class ChestBlockMixin
 	{
 		if (CreativeOpenContainerForciblyHelper.canOpenForcibly(player))
 		{
-			this.ignoreBlockedForCreative.set(true);
+			ignoreBlockedForCreative.set(true);
 		}
 	}
 
-	@ModifyArg(
-			method = "createContainerFactory",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/block/ChestBlock;getBlockEntitySource(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Z)Lnet/minecraft/block/DoubleBlockProperties$PropertySource;"
-			),
-			index = 3
-	)
-	private boolean modifyShouldIgnoreBlockParameter(boolean value)
+	// never try to target ChestBlock#getBlockEntitySource, yarn will not be happy with that at server-side runtime, no intermediary warning
+	// see #17
+	@Inject(method = "isChestBlocked", at = @At("HEAD"), cancellable = true)
+	private static void believeMeTheChestIsNotBlocked(CallbackInfoReturnable<Boolean> cir)
 	{
-		if (this.ignoreBlockedForCreative.get())
+		if (ignoreBlockedForCreative.get())
 		{
-			this.ignoreBlockedForCreative.set(false);
-			return true;
+			ignoreBlockedForCreative.set(false);
+			cir.setReturnValue(false);
 		}
-		return value;
 	}
 }
