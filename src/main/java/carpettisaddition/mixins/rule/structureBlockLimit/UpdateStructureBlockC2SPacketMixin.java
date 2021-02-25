@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class UpdateStructureBlockC2SPacketMixin
 {
 	@ModifyConstant(
-			method = "read",
+			method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
 			require = 3,
 			constant = @Constant(intValue = -48)
 	)
@@ -21,7 +21,7 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 	}
 
 	@ModifyConstant(
-			method = "read",
+			method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
 			require = 6,
 			constant = @Constant(intValue = 48)
 	)
