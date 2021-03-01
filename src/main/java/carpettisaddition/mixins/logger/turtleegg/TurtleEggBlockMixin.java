@@ -17,23 +17,32 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(TurtleEggBlock.class)
 public abstract class TurtleEggBlockMixin
 {
-	private Entity breakingEggEntity;
+	private final ThreadLocal<Entity> eggBreakingEntity = ThreadLocal.withInitial(() -> null);
 
 	@Inject(method = "breakEgg", at = @At("HEAD"))
 	private void onEggBrokenTurtleEggLogger(World world, BlockPos pos, BlockState state, CallbackInfo ci)
 	{
-		TurtleEggLogger.getInstance().onBreakingEgg(world, pos, state, this.breakingEggEntity);
+		if (TurtleEggLogger.getInstance().isActivated())
+		{
+			TurtleEggLogger.getInstance().onBreakingEgg(world, pos, state, this.eggBreakingEntity.get());
+		}
 	}
 
 	@Inject(method = "tryBreakEgg", at = @At("HEAD"))
 	private void recordEntityTurtleEggLogger(World world, BlockPos pos, Entity entity, int inverseChance, CallbackInfo ci)
 	{
-		this.breakingEggEntity = entity;
+		if (TurtleEggLogger.getInstance().isActivated())
+		{
+			this.eggBreakingEntity.set(entity);
+		}
 	}
 
 	@Inject(method = "afterBreak", at = @At("HEAD"))
 	private void recordEntityTurtleEggLogger(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo ci)
 	{
-		this.breakingEggEntity = player;
+		if (TurtleEggLogger.getInstance().isActivated())
+		{
+			this.eggBreakingEntity.set(player);
+		}
 	}
 }

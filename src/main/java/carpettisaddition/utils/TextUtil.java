@@ -152,7 +152,7 @@ public class TextUtil
 
 	public static BaseText getEntityText(String style, Entity entity)
 	{
-		BaseText entityName = copyText((BaseText)entity.getType().getName());
+		BaseText entityName = copyText((BaseText)entity.getName());
 		BaseText hoverText = Messenger.c("w " + getTeleportHint(), getSpaceText(), entityName);
 		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
 	}

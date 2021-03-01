@@ -27,17 +27,22 @@ public class TurtleEggLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
+	public boolean isActivated()
+	{
+		return ExtensionLoggerRegistry.__turtleEgg;
+	}
+
 	public void onBreakingEgg(World world, BlockPos pos, BlockState state, Entity entity)
 	{
-		if (!world.isClient && ExtensionLoggerRegistry.__turtleEgg)
+		if (!world.isClient)
 		{
 			return;
 		}
 		LoggerRegistry.getLogger(NAME).log(() -> {
 			//  xxx breaks egg @ {}
 			return new BaseText[]{Messenger.c(
-					"g [\uD83E\uDD5A] ",
-					entity.getName(),
+					"g [\uD83E\uDD5A] ",  // \egg/
+					entity != null ? TextUtil.getEntityText(null, entity) : Messenger.s("?"),
 					"w  x ",
 					TextUtil.getBlockName(state.getBlock()),
 					"g  @ ",
