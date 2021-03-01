@@ -70,6 +70,7 @@
 - [命令方块](#命令方块-commandBlock)
 - [光照队列](#光照队列-lightQueue)
 - [tickWarp](#tickWarp-tickWarp)
+- [海龟蛋](#海龟蛋-turtleEgg)
 
 ## [指令](#指令列表)
 
@@ -800,6 +801,17 @@
 属性:
 - 默认选项: `bar`
 - 参考选项: `bar`, `value`
+
+
+## 海龟蛋 (turtleEgg)
+
+`/log turtleEgg`
+
+在海龟蛋被踩碎时输出记录信息
+
+属性:
+- 默认选项: N/A
+- 参考选项: N/A
 
 
 # 指令列表

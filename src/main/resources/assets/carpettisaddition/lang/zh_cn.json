@@ -419,11 +419,10 @@
 
   "util.teleport_hint": "点击以传送至",
   "util.teleport_hint.dimension": "维度",
+  "util.entity_type": "实体类型",
+  "util.language.space": "",
 
 
   "util.stack_trace.deobfuscated_stack_trace": "反混淆后的堆栈跟踪",
   "util.stack_trace.n_more_lines": "等%d行",
-
-
-  "language_tool.space": ""
 }

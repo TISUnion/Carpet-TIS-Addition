@@ -80,6 +80,7 @@
     "logger.ticket.ChunkTicketManagerMixin",
     "logger.ticket.ServerChunkManagerMixin",
     "logger.tickwarp.TickCommandMixin",
+    "logger.turtleegg.StepAndDestroyBlockGoalMixin",
     "logger.turtleegg.TurtleEggBlockMixin",
     "logger.xporb.ExperienceOrbEntityMixin",
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
@@ -129,6 +130,7 @@
     "rule.tooledTNT.OptimizedExplosionMixin",
     "rule.totallyNoBlockUpdate.BlockMixin",
     "rule.totallyNoBlockUpdate.WorldMixin",
+    "rule.turtleEggTrampledDisabled.StepAndDestroyBlockGoalMixin",
     "rule.turtleEggTrampledDisabled.TurtleEggBlockMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],

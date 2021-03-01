@@ -70,6 +70,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [commandBlock](#commandBlock)
 - [lightQueue](#lightQueue)
 - [tickWarp](#tickWarp)
+- [turtleEgg](#turtleEgg)
 
 ## [Commands](#command-list)
 
@@ -800,6 +801,17 @@ See [/tick warp status](#warp-status) command for displaying more details of tic
 Attributes:
 - Default option: `bar`
 - Suggested options: `bar`, `value`
+
+
+## turtleEgg
+
+`/log turtleEgg`
+
+Logs when a turtle egg is trampled to broken
+
+Attributes:
+- Default option: N/A
+- Suggested options: N/A
 
 
 # Command List
