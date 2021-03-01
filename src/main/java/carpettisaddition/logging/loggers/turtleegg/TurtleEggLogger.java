@@ -27,7 +27,7 @@ public class TurtleEggLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
-	public void onEggBroken(World world, BlockPos pos, BlockState state, Entity entity)
+	public void onBreakingEgg(World world, BlockPos pos, BlockState state, Entity entity)
 	{
 		if (!world.isClient && ExtensionLoggerRegistry.__turtleEgg)
 		{

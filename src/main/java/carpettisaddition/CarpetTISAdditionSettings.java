@@ -498,6 +498,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean synchronizedLightThread = false;
 
+	@Rule(
+			desc = "Disable turtle egg trampled to broken",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean turtleEggTrampledDisabled = false;
+
 	/*
 	 *   Declare rules above this
 	 *   General validators down below

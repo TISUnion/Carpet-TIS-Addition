@@ -19,10 +19,10 @@ public abstract class TurtleEggBlockMixin
 {
 	private Entity breakingEggEntity;
 
-	@Inject(method = "breakEgg", at = @At("TAIL"))
+	@Inject(method = "breakEgg", at = @At("HEAD"))
 	private void onEggBrokenTurtleEggLogger(World world, BlockPos pos, BlockState state, CallbackInfo ci)
 	{
-		TurtleEggLogger.getInstance().onEggBroken(world, pos, state, this.breakingEggEntity);
+		TurtleEggLogger.getInstance().onBreakingEgg(world, pos, state, this.breakingEggEntity);
 	}
 
 	@Inject(method = "tryBreakEgg", at = @At("HEAD"))

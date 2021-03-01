@@ -129,6 +129,7 @@
     "rule.tooledTNT.OptimizedExplosionMixin",
     "rule.totallyNoBlockUpdate.BlockMixin",
     "rule.totallyNoBlockUpdate.WorldMixin",
+    "rule.turtleEggTrampledDisabled.TurtleEggBlockMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],
   "client": [

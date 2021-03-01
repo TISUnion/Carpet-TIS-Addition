@@ -56,6 +56,7 @@
 - [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
 - [光照队列记录器采样时长](#光照队列记录器采样时长-lightQueueLoggerSamplingDuration)
 - [同步光照线程](#同步光照线程-synchronizedLightThread)
+- [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
 
 ## [监视器](#监视器列表)
 
@@ -629,6 +630,16 @@
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
+## 禁用海龟蛋被践踏 (turtleEggTrampledDisabled)
+
+阻止海龟蛋因实体踩踏而破坏
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 
 -----------

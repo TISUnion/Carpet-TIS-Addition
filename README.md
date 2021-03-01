@@ -56,6 +56,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [fluidDestructionDisabled](#fluidDestructionDisabled)
 - [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration)
 - [synchronizedLightThread](#synchronizedLightThread)
+- [turtleEggTrampledDisabled](#turtleEggTrampledDisabled)
 
 ## [Loggers](#logger-list)
 
@@ -629,6 +630,16 @@ With this rule you can safely `/tick warp` without potential light suppression o
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
+## turtleEggTrampledDisabled
+
+Disable turtle egg trampled to broken
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 
 -----------
