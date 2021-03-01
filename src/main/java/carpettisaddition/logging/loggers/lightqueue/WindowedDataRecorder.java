@@ -38,4 +38,11 @@ public class WindowedDataRecorder
 	{
 		return this.executedCount;
 	}
+
+	public void clear()
+	{
+		this.getQueue().clear();
+		this.enqueuedCount = 0;
+		this.executedCount = 0;
+	}
 }
