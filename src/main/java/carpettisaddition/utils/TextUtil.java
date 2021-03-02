@@ -1,7 +1,7 @@
 package carpettisaddition.utils;
 
 import carpet.utils.Messenger;
-import carpet.utils.Translations;
+import carpettisaddition.translations.Translator;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -21,6 +21,8 @@ import java.util.Map;
 
 public class TextUtil
 {
+	private static final Translator translator = new Translator("util");
+
 	// mojang compatibility thing <3
 	// these get changed in 1.16 so for easier compatible coding just wrap these methods
 	public static BaseText attachHoverEvent(BaseText text, HoverEvent hoverEvent)
@@ -63,7 +65,7 @@ public class TextUtil
 
 	private static String getTeleportHint()
 	{
-		return Translations.tr("util.teleport_hint", "Click to teleport to");
+		return translator.tr("teleport_hint", "Click to teleport to");
 	}
 
 	public static String getTeleportCommand(Vec3d pos, RegistryKey<World> dim)
@@ -124,7 +126,7 @@ public class TextUtil
 	{
 		BaseText hoverText = Messenger.s("");
 		hoverText.append(String.format("%s %s\n", getTeleportHint(), posText));
-		hoverText.append(Translations.tr("util.teleport_hint.dimension", "Dimension"));
+		hoverText.append(translator.tr("teleport_hint.dimension", "Dimension"));
 		hoverText.append(": ");
 		hoverText.append(getDimensionNameText(dim));
 		return getFancyText(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
@@ -152,9 +154,16 @@ public class TextUtil
 
 	public static BaseText getEntityText(String style, Entity entity)
 	{
-		BaseText entityName = copyText((BaseText)entity.getType().getName());
-		BaseText hoverText = Messenger.c("w " + getTeleportHint(), getSpaceText(), entityName);
-		return getFancyText(style, entityName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
+		BaseText entityBaseName = copyText((BaseText)entity.getType().getName());
+		BaseText entityDisplayName = copyText((BaseText)entity.getName());
+		BaseText hoverText = Messenger.c(
+				String.format("w %s: ", translator.tr("entity_type", "Entity type")),
+				entityBaseName,
+				"w \n" + getTeleportHint(),
+				getSpaceText(),
+				entityDisplayName
+		);
+		return getFancyText(style, entityDisplayName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getTeleportCommand(entity)));
 	}
 
 	public static BaseText getAttributeText(EntityAttribute attribute)
@@ -213,7 +222,7 @@ public class TextUtil
 	// so here comes the compatibility
 	public static String getSpace()
 	{
-		return Translations.tr("language_tool.space", " ");
+		return translator.tr("language.space", " ");
 	}
 
 	public static BaseText getSpaceText()

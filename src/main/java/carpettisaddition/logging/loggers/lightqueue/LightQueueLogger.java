@@ -63,7 +63,7 @@ public class LightQueueLogger extends AbstractHUDLogger
 				}
 				else
 				{
-					this.dataMap.get(world).getQueue().clear();
+					this.dataMap.get(world).clear();
 				}
 			}
 		});
