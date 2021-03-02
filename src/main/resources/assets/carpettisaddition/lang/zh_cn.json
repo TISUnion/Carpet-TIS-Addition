@@ -424,5 +424,5 @@
 
 
   "util.stack_trace.deobfuscated_stack_trace": "反混淆后的堆栈跟踪",
-  "util.stack_trace.n_more_lines": "等%d行",
+  "util.stack_trace.n_more_lines": "等%d行"
 }
