@@ -3,83 +3,75 @@
   "category.CARPET_MOD": "carpet_mod",
 
 
+  "rule.antiSpamDisabled.name": "禁用反刷屏监测",
+  "rule.antiSpamDisabled.desc": "禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却",
+
   "rule.blockEventPacketRange.name": "方块事件广播范围",
   "rule.blockEventPacketRange.desc": "设置会在方块事件成功执行后收到数据包的玩家范围",
   "rule.blockEventPacketRange.extra.0": "对于活塞而言，这一个数据包是用于显示活塞移动的话。把这个值调小以减小客户端卡顿",
 
-  "rule.structureBlockLimit.name": "结构方块范围限制",
-  "rule.structureBlockLimit.desc": "覆写结构方块的范围限制",
-  "rule.structureBlockLimit.extra.0": "当相对位置的值大于32时客户端里结构的位置可能会错误地显示",
+  "rule.blockPlacementIgnoreEntity.name": "方块放置忽略实体",
+  "rule.blockPlacementIgnoreEntity.desc": "方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内",
+  "rule.blockPlacementIgnoreEntity.extra.0": "仅对创造模式玩家有效",
 
-  "rule.xpTrackingDistance.name": "经验球追踪距离",
-  "rule.xpTrackingDistance.desc": "修改经验球检测并追踪玩家的距离",
-  "rule.xpTrackingDistance.extra.0": "将其调至0以禁用追踪",
+  "rule.chunkTickSpeed.name": "区块刻速度",
+  "rule.chunkTickSpeed.desc": "修改每游戏刻每区块的区块刻运算的频率",
+  "rule.chunkTickSpeed.extra.0": "默认值为1。将其设为0以禁用区块刻",
+  "rule.chunkTickSpeed.extra.1": "受影响的游戏阶段：雷电、结冰与积雪、随机刻",
+  "rule.chunkTickSpeed.extra.2": "在值为n时，每游戏刻每区块，气候相关的阶段会发生n次，而随机刻会在每区段中发生n * randomTickSpeed次",
 
-  "rule.tntDupingFix.name": "TNT复制修复",
-  "rule.tntDupingFix.desc": "禁用TNT、地毯以及部分铁轨的复制机",
-  "rule.tntDupingFix.extra.0": "基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块",
-  "rule.tntDupingFix.extra.1": "Dupe bad dig good",
-
-  "rule.fakePlayerNamePrefix.name": "假人名称前缀",
-  "rule.fakePlayerNamePrefix.desc": "为/player指令召唤出来的假人名称添加指定前缀",
-  "rule.fakePlayerNamePrefix.extra.0": "将其设置为#none以阻止添加前缀",
-  "rule.fakePlayerNamePrefix.extra.1": "这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁",
-  "rule.fakePlayerNameSuffix.name": "假人名称后缀",
-  "rule.fakePlayerNameSuffix.desc": "为/player指令召唤出来的假人名称添加指定后缀",
-  "rule.fakePlayerNameSuffix.extra.0": "将其设置为#none以阻止添加后缀",
-
-  "rule.renewableDragonEgg.name": "可再生龙蛋",
-  "rule.renewableDragonEgg.desc": "让龙蛋变得可再生",
-  "rule.renewableDragonEgg.extra.0": "当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋",
-  "rule.renewableDragonEgg.extra.1": "可与选项 “dispenserFireDragonBreath”联动",
-
-  "rule.dispensersFireDragonBreath.name": "发射器发射龙息",
-  "rule.dispensersFireDragonBreath.desc": "发射器可使用龙息瓶创造出龙息效果云",
-
-  "rule.renewableDragonHead.name": "可再生龙首",
-  "rule.renewableDragonHead.desc": "被高压爬行者杀死的末影龙将会掉落一个龙首",
-
-  "rule.HUDLoggerUpdateInterval.name": "HUD监视器更新间隔",
-  "rule.HUDLoggerUpdateInterval.desc": "覆写Carpet Mod HUD监视器的更新间隔，单位为gametick",
-
-  "rule.hopperCountersUnlimitedSpeed.name": "漏斗计数器无限速度",
-  "rule.hopperCountersUnlimitedSpeed.desc": "当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度",
-  "rule.hopperCountersUnlimitedSpeed.extra.0": "仅当Carpet Mod中的hopperCounters开启时有效",
-
-  "rule.renewableElytra.name": "可再生鞘翅",
-  "rule.renewableElytra.desc": "当幻翼被潜影贝杀死时有给定概率掉落鞘翅",
-  "rule.renewableElytra.extra.0": "设置为0以禁用",
-
-  "rule.sandDupingFix.name": "刷沙机修复",
-  "rule.sandDupingFix.desc": "禁用使用末地门的刷沙机以及刷重力方块机",
-  "rule.sandDupingFix.extra.0": "重力方块包括沙子、铁砧、龙蛋等",
-  "rule.sandDupingFix.extra.1": "在开启后刷沙机的沙子将会仅被传送至另一个纬度",
-
-  "rule.railDupingFix.name": "刷铁轨机修复",
-  "rule.railDupingFix.desc": "禁用老式的移动点亮的充能或激活铁轨的刷铁轨机",
+  "rule.commandLifeTime.name": "存活时间追踪器",
+  "rule.commandLifeTime.desc": "启用/lifetime命令用于追踪生物存活时间等信息",
+  "rule.commandLifeTime.extra.0": "可助于调试刷怪塔等",
 
   "rule.commandRaid.name": "袭击追踪器",
   "rule.commandRaid.desc": "启用/raid命令用于列出或追踪袭击信息",
 
-  "rule.keepMobInLazyChunks.name": "保持弱加载区块的怪物",
-  "rule.keepMobInLazyChunks.desc": "弱加载区块的怪物不再会被刷新掉",
-  "rule.keepMobInLazyChunks.extra.0": "此选项对1.15以前的版本无效",
+  "rule.creativeOpenContainerForcibly.name": "创造玩家强制打开容器",
+  "rule.creativeOpenContainerForcibly.desc": "允许创造模式的玩家打开被阻挡的容器，如潜影盒",
 
   "rule.dispenserNoItemCost.name": "发射器不消耗物品",
   "rule.dispenserNoItemCost.desc": "开启后，发射器发射不再消耗物品",
   "rule.dispenserNoItemCost.extra.0": "无论投掷物品还是使用物品都如此，但是投掷器传输物品仍会消耗物品",
 
-  "rule.opPlayerNoCheat.name": "op玩家不准作弊",
-  "rule.opPlayerNoCheat.desc": "禁用部分指令以避免op玩家意外地作弊",
-  "rule.opPlayerNoCheat.extra.0": "影响的指令列表：/gamemode, /tp, /teleport, /give, /setblock, /summon",
+  "rule.dispensersFireDragonBreath.name": "发射器发射龙息",
+  "rule.dispensersFireDragonBreath.desc": "发射器可使用龙息瓶创造出龙息效果云",
 
-  "rule.redstoneDustRandomUpdateOrder.name": "红石粉随机更新顺序",
-  "rule.redstoneDustRandomUpdateOrder.desc": "随机化红石粉发出方块更新的顺序",
-  "rule.redstoneDustRandomUpdateOrder.extra.0": "有助于测试你的装置是否依赖于位置",
+  "rule.entityMomentumLoss.name": "实体速度丢失",
+  "rule.entityMomentumLoss.desc": "将其设为 false 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失",
+
+  "rule.fakePlayerNamePrefix.name": "假人名称前缀",
+  "rule.fakePlayerNamePrefix.desc": "为/player指令召唤出来的假人名称添加指定前缀",
+  "rule.fakePlayerNamePrefix.extra.0": "将其设置为#none以阻止添加前缀",
+  "rule.fakePlayerNamePrefix.extra.1": "这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁",
+
+  "rule.fakePlayerNameSuffix.name": "假人名称后缀",
+  "rule.fakePlayerNameSuffix.desc": "为/player指令召唤出来的假人名称添加指定后缀",
+  "rule.fakePlayerNameSuffix.extra.0": "将其设置为#none以阻止添加后缀",
+
+  "rule.fluidDestructionDisabled.name": "禁用流体破坏",
+  "rule.fluidDestructionDisabled.desc": "禁用流体流动造成的方块破坏",
+  "rule.fluidDestructionDisabled.extra.0": "流体会简单的停留在即将破坏方块时的状态",
+  "rule.fluidDestructionDisabled.extra.1": "这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路",
+
+  "rule.hopperCountersUnlimitedSpeed.name": "漏斗计数器无限速度",
+  "rule.hopperCountersUnlimitedSpeed.desc": "当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度",
+  "rule.hopperCountersUnlimitedSpeed.extra.0": "仅当Carpet Mod中的hopperCounters开启时有效",
+
+  "rule.HUDLoggerUpdateInterval.name": "HUD监视器更新间隔",
+  "rule.HUDLoggerUpdateInterval.desc": "覆写Carpet Mod HUD监视器的更新间隔，单位为gametick",
 
   "rule.instantCommandBlock.name": "瞬时命令方块",
   "rule.instantCommandBlock.desc": "令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行",
   "rule.instantCommandBlock.extra.0": "仅影响普通命令方块",
+
+  "rule.keepMobInLazyChunks.name": "保持弱加载区块的怪物",
+  "rule.keepMobInLazyChunks.desc": "弱加载区块的怪物不再会被刷新掉",
+  "rule.keepMobInLazyChunks.extra.0": "此选项对1.15以前的版本无效",
+
+  "rule.lightQueueLoggerSamplingDuration.name": "光照队列记录器采样时长",
+  "rule.lightQueueLoggerSamplingDuration.desc": "光照队列记录器的采样时长，单位为游戏刻",
+  "rule.lightQueueLoggerSamplingDuration.extra.0": "影响记录器中显示的，除队列大小外的所有数据",
 
   "rule.lightUpdates.name": "光照更新",
   "rule.lightUpdates.desc": "暂停或者禁止光照更新",
@@ -105,50 +97,14 @@
   "rule.microTimingTarget.extra.1": "in_range: 记录离任意玩家32m内的事件",
   "rule.microTimingTarget.extra.2": "all: 记录所有事件。谨慎使用",
 
-  "rule.antiSpamDisabled.name": "禁用反刷屏监测",
-  "rule.antiSpamDisabled.desc": "禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却",
-
-  "rule.blockPlacementIgnoreEntity.name": "方块放置忽略实体",
-  "rule.blockPlacementIgnoreEntity.desc": "方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内",
-  "rule.blockPlacementIgnoreEntity.extra.0": "仅对创造模式玩家有效",
-
-  "rule.chunkTickSpeed.name": "区块刻速度",
-  "rule.chunkTickSpeed.desc": "修改每游戏刻每区块的区块刻运算的频率",
-  "rule.chunkTickSpeed.extra.0": "默认值为1。将其设为0以禁用区块刻",
-  "rule.chunkTickSpeed.extra.1": "受影响的游戏阶段：雷电、结冰与积雪、随机刻",
-  "rule.chunkTickSpeed.extra.2": "在值为n时，每游戏刻每区块，气候相关的阶段会发生n次，而随机刻会在每区段中发生n * randomTickSpeed次",
-
-  "rule.tileTickLimit.name": "计划刻上限",
-  "rule.tileTickLimit.desc": "修改每游戏刻中计划刻事件的执行次数上限",
-
-  "rule.poiUpdates.name": "POI更新开关",
-  "rule.poiUpdates.desc": "方块变化时是否会更新POI",
-  "rule.poiUpdates.extra.0": "将其设为false以禁用POI更新",
-
-  "rule.tntFuseDuration.name": "TNT引信时长",
-  "rule.tntFuseDuration.desc": "覆盖TNT的默认引信时长",
-  "rule.tntFuseDuration.extra.0": "这也会影响被爆炸点燃的TNT的引信时长",
-
-  "rule.entityMomentumLoss.name": "实体速度丢失",
-  "rule.entityMomentumLoss.desc": "将其设为 false 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失",
-
-  "rule.repeaterHalfDelay.name": "中继器延迟折半",
-  "rule.repeaterHalfDelay.desc": "当红石中继器位于红石矿上方时，红石中继器的延迟将减半",
-  "rule.repeaterHalfDelay.extra.0": "延迟将会由2,4,6,8游戏刻变为1,2,3,4游戏刻",
-
-  "rule.commandLifeTime.name": "存活时间追踪器",
-  "rule.commandLifeTime.desc": "启用/lifetime命令用于追踪生物存活时间等信息",
-  "rule.commandLifeTime.extra.0": "可助于调试刷怪塔等",
+  "rule.opPlayerNoCheat.name": "op玩家不准作弊",
+  "rule.opPlayerNoCheat.desc": "禁用部分指令以避免op玩家意外地作弊",
+  "rule.opPlayerNoCheat.extra.0": "影响的指令列表：/gamemode, /tp, /teleport, /give, /setblock, /summon",
 
   "rule.optimizedFastEntityMovement.name": "优化高速实体移动",
   "rule.optimizedFastEntityMovement.desc": "通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动",
   "rule.optimizedFastEntityMovement.extra.0": "受carpetmod112的规则fastMovingEntityOptimization启发",
   "rule.optimizedFastEntityMovement.extra.1": "同规则optimizedTNT一起使用可大幅度提升炮的性能表现",
-
-  "rule.optimizedTNTHighPriority.name": "TNT优化高优先级",
-  "rule.optimizedTNTHighPriority.desc": "用带有更高优先级的Mixin注入来实现carpet规则optimizedTNT",
-  "rule.optimizedTNTHighPriority.extra.0": "因此规则optimizedTNT可以覆盖lithium的爆炸优化",
-  "rule.optimizedTNTHighPriority.extra.1": "当然，它需要规则optimizedTNT开启才能工作",
 
   "rule.optimizedHardHitBoxEntityCollision.name": "优化硬碰撞箱实体碰撞",
   "rule.optimizedHardHitBoxEntityCollision.desc": "优化实体与硬碰撞箱实体的碰撞",
@@ -157,11 +113,64 @@
   "rule.optimizedHardHitBoxEntityCollision.extra.2": "在加载区块前开启它以使其工作，在地狱门刷怪塔中有~20%的性能提升",
   "rule.optimizedHardHitBoxEntityCollision.extra.3": "与添加了新实体的 mod 可能不兼容",
 
-  "rule.creativeOpenContainerForcibly.name": "创造玩家强制打开容器",
-  "rule.creativeOpenContainerForcibly.desc": "允许创造模式的玩家打开被阻挡的容器，如潜影盒",
+  "rule.optimizedTNTHighPriority.name": "TNT优化高优先级",
+  "rule.optimizedTNTHighPriority.desc": "用带有更高优先级的Mixin注入来实现carpet规则optimizedTNT",
+  "rule.optimizedTNTHighPriority.extra.0": "因此规则optimizedTNT可以覆盖lithium的爆炸优化",
+  "rule.optimizedTNTHighPriority.extra.1": "当然，它需要规则optimizedTNT开启才能工作",
 
-  "rule.totallyNoBlockUpdate.name": "完全没有方块更新",
-  "rule.totallyNoBlockUpdate.desc": "禁用所有方块更新以及状态更新的执行",
+  "rule.poiUpdates.name": "POI更新开关",
+  "rule.poiUpdates.desc": "方块变化时是否会更新POI",
+  "rule.poiUpdates.extra.0": "将其设为false以禁用POI更新",
+
+  "rule.railDupingFix.name": "刷铁轨机修复",
+  "rule.railDupingFix.desc": "禁用老式的移动点亮的充能或激活铁轨的刷铁轨机",
+
+  "rule.redstoneDustRandomUpdateOrder.name": "红石粉随机更新顺序",
+  "rule.redstoneDustRandomUpdateOrder.desc": "随机化红石粉发出方块更新的顺序",
+  "rule.redstoneDustRandomUpdateOrder.extra.0": "有助于测试你的装置是否依赖于位置",
+
+  "rule.renewableDragonEgg.name": "可再生龙蛋",
+  "rule.renewableDragonEgg.desc": "让龙蛋变得可再生",
+  "rule.renewableDragonEgg.extra.0": "当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋",
+  "rule.renewableDragonEgg.extra.1": "可与选项 “dispenserFireDragonBreath”联动",
+
+  "rule.renewableDragonHead.name": "可再生龙首",
+  "rule.renewableDragonHead.desc": "被高压爬行者杀死的末影龙将会掉落一个龙首",
+
+  "rule.renewableElytra.name": "可再生鞘翅",
+  "rule.renewableElytra.desc": "当幻翼被潜影贝杀死时有给定概率掉落鞘翅",
+  "rule.renewableElytra.extra.0": "设置为0以禁用",
+
+  "rule.repeaterHalfDelay.name": "中继器延迟折半",
+  "rule.repeaterHalfDelay.desc": "当红石中继器位于红石矿上方时，红石中继器的延迟将减半",
+  "rule.repeaterHalfDelay.extra.0": "延迟将会由2,4,6,8游戏刻变为1,2,3,4游戏刻",
+
+  "rule.sandDupingFix.name": "刷沙机修复",
+  "rule.sandDupingFix.desc": "禁用使用末地门的刷沙机以及刷重力方块机",
+  "rule.sandDupingFix.extra.0": "重力方块包括沙子、铁砧、龙蛋等",
+  "rule.sandDupingFix.extra.1": "在开启后刷沙机的沙子将会仅被传送至另一个纬度",
+
+  "rule.structureBlockLimit.name": "结构方块范围限制",
+  "rule.structureBlockLimit.desc": "覆写结构方块的范围限制",
+  "rule.structureBlockLimit.extra.0": "当相对位置的值大于32时客户端里结构的位置可能会错误地显示",
+
+  "rule.synchronizedLightThread.name": "同步光照线程",
+  "rule.synchronizedLightThread.desc": "将光照线程与主线程同步",
+  "rule.synchronizedLightThread.extra.0": "这样光照线程就不会于落后主线程而失去同步",
+  "rule.synchronizedLightThread.extra.1": "服务器将会在每个世界开始运算时等待光照线程的任务完成",
+  "rule.synchronizedLightThread.extra.2": "你可以借此安全地 /tick warp 而不用担心潜在的光照抑制或光照不同步",
+
+  "rule.tileTickLimit.name": "计划刻上限",
+  "rule.tileTickLimit.desc": "修改每游戏刻中计划刻事件的执行次数上限",
+
+  "rule.tntDupingFix.desc": "禁用TNT、地毯以及部分铁轨的复制机",
+  "rule.tntDupingFix.extra.0": "基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块",
+  "rule.tntDupingFix.extra.1": "Dupe bad dig good",
+  "rule.tntDupingFix.name": "TNT复制修复",
+
+  "rule.tntFuseDuration.name": "TNT引信时长",
+  "rule.tntFuseDuration.desc": "覆盖TNT的默认引信时长",
+  "rule.tntFuseDuration.extra.0": "这也会影响被爆炸点燃的TNT的引信时长",
 
   "rule.tooledTNT.name": "工具化TNT",
   "rule.tooledTNT.desc": "由玩家引发的爆炸破坏并掉落物品时会应用玩家手上的工具",
@@ -170,20 +179,15 @@
   "rule.tooledTNT.extra.2": "此规则同样适用于玩家以外的生物",
   "rule.tooledTNT.extra.3": "技术上来讲，此规则将来源生物主手上的物品应用在了爆炸里战利品表的创建中",
 
-  "rule.fluidDestructionDisabled.name": "禁用流体破坏",
-  "rule.fluidDestructionDisabled.desc": "禁用流体流动造成的方块破坏",
-  "rule.fluidDestructionDisabled.extra.0": "流体会简单的停留在即将破坏方块时的状态",
-  "rule.fluidDestructionDisabled.extra.1": "这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路",
+  "rule.totallyNoBlockUpdate.name": "完全没有方块更新",
+  "rule.totallyNoBlockUpdate.desc": "禁用所有方块更新以及状态更新的执行",
 
-  "rule.lightQueueLoggerSamplingDuration.name": "光照队列记录器采样时长",
-  "rule.lightQueueLoggerSamplingDuration.desc": "光照队列记录器的采样时长，单位为游戏刻",
-  "rule.lightQueueLoggerSamplingDuration.extra.0": "影响记录器中显示的，除队列大小外的所有数据",
+  "rule.turtleEggTrampledDisabled.name": "禁用海龟蛋被践踏",
+  "rule.turtleEggTrampledDisabled.desc": "阻止海龟蛋因实体踩踏而破坏",
 
-  "rule.synchronizedLightThread.name": "同步光照线程",
-  "rule.synchronizedLightThread.desc": "将光照线程与主线程同步",
-  "rule.synchronizedLightThread.extra.0": "这样光照线程就不会于落后主线程而失去同步",
-  "rule.synchronizedLightThread.extra.1": "服务器将会在每个世界开始运算时等待光照线程的任务完成",
-  "rule.synchronizedLightThread.extra.2": "你可以借此安全地 /tick warp 而不用担心潜在的光照抑制或光照不同步",
+  "rule.xpTrackingDistance.name": "经验球追踪距离",
+  "rule.xpTrackingDistance.desc": "修改经验球检测并追踪玩家的距离",
+  "rule.xpTrackingDistance.extra.0": "将其调至0以禁用追踪",
 
 
   "logger.ticket.added": "被添加",
@@ -416,11 +420,10 @@
 
   "util.teleport_hint": "点击以传送至",
   "util.teleport_hint.dimension": "维度",
+  "util.entity_type": "实体类型",
+  "util.language.space": "",
 
 
   "util.stack_trace.deobfuscated_stack_trace": "反混淆后的堆栈跟踪",
-  "util.stack_trace.n_more_lines": "等%d行",
-
-
-  "language_tool.space": ""
+  "util.stack_trace.n_more_lines": "等%d行"
 }

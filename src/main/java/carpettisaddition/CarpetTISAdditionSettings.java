@@ -10,79 +10,90 @@ import java.util.regex.Pattern;
 
 import static carpet.settings.RuleCategory.*;
 
-/**
- * Here is your example Settings class you can plug to use carpetmod /carpet settings command
- */
 public class CarpetTISAdditionSettings
 {
     public static final String TIS = "TIS";
     public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space or you can't /carpet list this
 
+	@Rule(
+			desc = "Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown",
+			category = {TIS, CREATIVE, SURVIVAL}
+	)
+	public static boolean antiSpamDisabled = false;
+
 	public static final double VANILLA_BLOCK_EVENT_PACKET_RANGE = 64.0D;
-    @Rule(
-            desc = "Set the range where player will receive a block event packet after a block event fires successfully",
-            extra = "For piston the packet is used to render the piston movement animation. Decrease it to reduce client's lag",
-            validate = Validator.NONNEGATIVE_NUMBER.class,
-            options = {"0", "16", "64", "128"},
-            strict = false,
-            category = {TIS, OPTIMIZATION}
-    )
-    public static double blockEventPacketRange = VANILLA_BLOCK_EVENT_PACKET_RANGE;
-
-
 	@Rule(
-			desc = "Overwrite the size limit of structure block",
-			extra = "Relative position might display wrongly on client side if it's larger than 32",
-			validate = ValidateStructureBlockLimit.class,
-			options = {"32", "64", "96", "127"},
+			desc = "Set the range where player will receive a block event packet after a block event fires successfully",
+			extra = "For piston the packet is used to render the piston movement animation. Decrease it to reduce client's lag",
+			validate = Validator.NONNEGATIVE_NUMBER.class,
+			options = {"0", "16", "64", "128"},
 			strict = false,
-			category = {TIS, CREATIVE}
+			category = {TIS, OPTIMIZATION}
 	)
-	public static int structureBlockLimit = 32;
-	private static class ValidateStructureBlockLimit extends Validator<Integer>
-	{
-		@Override
-		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
-		{
-			return (newValue > 0 && newValue <= 65536) ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a value from 1 to 127";
-		}
-	}
+	public static double blockEventPacketRange = VANILLA_BLOCK_EVENT_PACKET_RANGE;
 
 	@Rule(
-			desc = "Overwrite the tracking distance of xp orb",
-			extra = "Change it to 0 to disable tracking",
-			options = {"0", "1", "8", "32"},
-			validate = ValidateXPTrackingDistance.class,
-			strict = false,
-			category = {TIS, CREATIVE}
-	)
-	public static double xpTrackingDistance = 8.0F;
-	private static class ValidateXPTrackingDistance extends Validator<Double>
-	{
-		@Override
-		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
-		{
-			return (newValue >= 0 && newValue <= 128) ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a value from 0 to 128";
-		}
-	}
-
-	@Rule(
-			desc = "Disable TNT, carpet and part of rail dupers",
+			desc = "Disable entity collision check before block placement, aka you can place blocks inside entities",
 			extra = {
-					"Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block",
-					"Dupe bad dig good"
+					"Works with creative mode players only"
 			},
-			category = {TIS, BUGFIX, EXPERIMENTAL}
+			category = {TIS, CREATIVE}
 	)
-	public static boolean tntDupingFix = false;
+	public static boolean blockPlacementIgnoreEntity = false;
+
+	@Rule(
+			desc = "Modify how often the chunk tick occurs per chunk per game tick",
+			extra = {
+					"The default value is 1. Set it to 0 to disables chunk ticks",
+					"Affected game phases: thunder, ice and snow, randomtick",
+					"With a value of n, in every chunk every game tick, climate things will tick n times, and randomtick will tick n * randomTickSpeed times per chunk section"
+			},
+			options = {"0", "1", "10", "100", "1000"},
+			validate = Validator.NONNEGATIVE_NUMBER.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int chunkTickSpeed = 1;
+
+	@Rule(
+			desc = "Enables /lifetime command to track entity lifetime and so on",
+			extra = {
+					"Useful for mob farm debugging etc."
+			},
+			category = {TIS, COMMAND}
+	)
+	public static String commandLifeTime = "true";
+
+	@Rule(
+			desc = "Enables /raid command for raid listing and tracking",
+			category = {TIS, COMMAND}
+	)
+	public static String commandRaid = "true";
+
+	@Rule(
+			desc = "Allow creative players to open a container even if the container is blocked. e.g. for shulker box",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean creativeOpenContainerForcibly = false;
+
+	@Rule(
+			desc = "Dispensers and droppers execute without having the itemstack inside decreased",
+			extra = "Either dropping and using items do not cost, but dropper transferring item still costs",
+			category = {TIS, DISPENSER, CREATIVE}
+	)
+	public static boolean dispenserNoItemCost = false;
+
+	@Rule(
+			desc = "Dispenser can fire dragon breath bottle to create a dragon breath effect cloud",
+			category = {TIS, FEATURE, DISPENSER}
+	)
+	public static boolean dispensersFireDragonBreath = false;
+
+	@Rule(
+			desc = "Set it to false to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk",
+			category = {TIS, EXPERIMENTAL}
+	)
+	public static boolean entityMomentumLoss = true;
 
 	public static final String fakePlayerNameNoExtra = "#none";
 	@Rule(
@@ -124,26 +135,23 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(
-			desc = "Make dragon egg renewable",
+			desc = "Disable block destruction by fluid flowing",
 			extra = {
-					"When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and \"summon\" a new dragon egg",
-					"Use with rule \"dispensersFireDragonBreath\" for more ease"
+					"Fluid will just simple stopped at the state before destroying the block",
+					"It's useful to prevent liquid from accidentally flooding your redstone wiring in creative"
 			},
-			category = {TIS, FEATURE}
+			category = {TIS, CREATIVE}
 	)
-	public static boolean renewableDragonEgg = false;
+	public static boolean fluidDestructionDisabled = false;
 
 	@Rule(
-			desc = "Dispenser can fire dragon breath bottle to create a dragon breath effect cloud",
-			category = {TIS, FEATURE, DISPENSER}
+			desc = "Make hopper pointing towards wool has infinity speed to suck in or transfer items",
+			extra = {
+					"Only works when hopperCounters option in Carpet Mod is on"
+			},
+			category = {TIS, CREATIVE, CARPET_MOD}
 	)
-	public static boolean dispensersFireDragonBreath = false;
-
-	@Rule(
-			desc = "Ender dragon killed by charged creeper will drop dragon head",
-			category = {TIS, FEATURE}
-	)
-	public static boolean renewableDragonHead = false;
+	public static boolean hopperCountersUnlimitedSpeed = false;
 
 	@Rule(
 			desc = "Overwrite HUD loggers update interval (gametick)",
@@ -167,46 +175,11 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(
-			desc = "Make hopper pointing towards wool has infinity speed to suck in or transfer items",
-			extra = {
-					"Only works when hopperCounters option in Carpet Mod is on"
-			},
-			category = {TIS, CREATIVE, CARPET_MOD}
+			desc = "Make command blocks on redstone ores execute command instantly instead of scheduling a 1gt delay TileTick event for execution",
+			extra = "Only affects normal command blocks",
+			category = {TIS, CREATIVE}
 	)
-	public static boolean hopperCountersUnlimitedSpeed = false;
-
-
-	@Rule(
-			desc = "Phathom killed by shulker will drops an elytra with given possibility",
-			extra = "Set it to 0 to disable",
-			options = {"0", "0.2", "1"},
-			validate = ValidatePossibility.class,
-			strict = false,
-			category = {TIS, FEATURE}
-	)
-	public static double renewableElytra = 0.0D;
-
-	@Rule(
-			desc = "Disable sand and other gravity block duping using end portal",
-			extra = {
-					"Gravity block includes sand, anvil, dragon egg and so on",
-					"In sand dupers sand will only get teleported to the other dimension"
-			},
-			category = {TIS, BUGFIX}
-	)
-	public static boolean sandDupingFix = false;
-
-	@Rule(
-			desc = "Disable rail duping using old school pushing lit powered or activator rail method",
-			category = {TIS, BUGFIX}
-	)
-	public static boolean railDupingFix = false;
-
-	@Rule(
-			desc = "Enables /raid command for raid listing and tracking",
-			category = {TIS, COMMAND}
-	)
-	public static String commandRaid = "true";
+	public static boolean instantCommandBlock = false;
 
 	@Rule(
 			desc = "The mobs in lazy chunks will not despawn",
@@ -216,33 +189,16 @@ public class CarpetTISAdditionSettings
 	public static boolean keepMobInLazyChunks = false;
 
 	@Rule(
-	        desc = "Dispensers and droppers execute without having the itemstack inside decreased",
-			extra = "Either dropping and using items do not cost, but dropper transferring item still costs",
-			category = {TIS, DISPENSER, CREATIVE}
+			desc = "The sampling duration of light queue logger in game tick",
+			extra = {
+					"Affects all data except the queue size displayed in the logger"
+			},
+			validate = ValidatePositive.class,
+			options = {"1", "20", "60", "100", "6000"},
+			strict = false,
+			category = {TIS}
 	)
-	public static boolean dispenserNoItemCost = false;
-
-	@Rule(
-			desc = "Disable some command to prevent accidentally cheating",
-			extra = "Affects command list: /gamemode, /tp, /teleport, /give, /setblock, /summon",
-			category = {TIS, SURVIVAL},
-			validate = Validator._COMMAND.class  // for notifyPlayersCommandsChanged
-	)
-	public static boolean opPlayerNoCheat = false;
-
-	@Rule(
-			desc = "Randomize the order for redstone dust to emit block updates",
-			extra = "It's useful to test if your contraption is locational or not",
-			category = {TIS, CREATIVE}
-	)
-	public static boolean redstoneDustRandomUpdateOrder = false;
-
-	@Rule(
-			desc = "Make command blocks on redstone ores execute command instantly instead of scheduling a 1gt delay TileTick event for execution",
-			extra = "Only affects normal command blocks",
-			category = {TIS, CREATIVE}
-	)
-	public static boolean instantCommandBlock = false;
+	public static int lightQueueLoggerSamplingDuration = 60;
 
 	@Rule(
 			desc = "Pause or disable light updates",
@@ -255,6 +211,7 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE, EXPERIMENTAL}
 	)
 	public static LightUpdateOptions lightUpdates = LightUpdateOptions.ON;
+
 	public enum LightUpdateOptions
 	{
 		// Regular vanilla behavior
@@ -314,63 +271,6 @@ public class CarpetTISAdditionSettings
 	)
 	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.LABELLED;
 
-	@Rule(
-			desc = "Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown",
-			category = {TIS, CREATIVE, SURVIVAL}
-	)
-	public static boolean antiSpamDisabled = false;
-
-	@Rule(
-			desc = "Disable entity collision check before block placement, aka you can place blocks inside entities",
-			extra = {
-					"Works with creative mode players only"
-			},
-			category = {TIS, CREATIVE}
-	)
-	public static boolean blockPlacementIgnoreEntity = false;
-
-	@Rule(
-			desc = "Modify how often the chunk tick occurs per chunk per game tick",
-			extra = {
-					"The default value is 1. Set it to 0 to disables chunk ticks",
-					"Affected game phases: thunder, ice and snow, randomtick",
-					"With a value of n, in every chunk every game tick, climate things will tick n times, and randomtick will tick n * randomTickSpeed times per chunk section"
-			},
-			options = {"0", "1", "10", "100", "1000"},
-			validate = Validator.NONNEGATIVE_NUMBER.class,
-			strict = false,
-			category = {TIS, CREATIVE}
-	)
-	public static int chunkTickSpeed = 1;
-
-	@Rule(
-			desc = "Modify the limit of executed tile tick events per game tick",
-			options = {"1024", "65536", "2147483647"},
-			validate = ValidatePositive.class,
-			strict = false,
-			category = {TIS, CREATIVE}
-	)
-	public static int tileTickLimit = 65536;
-
-	@Rule(
-			desc = "Whether block changes will cause POI to updates or not",
-			extra = {
-					"Set it to false to disable POI updates"
-			},
-			category = {TIS, CREATIVE}
-	)
-	public static boolean poiUpdates = true;
-
-	@Rule(
-			desc = "Overwrite the default fuse duration of TNT",
-			extra = "This might also affects the fuse duration of TNT ignited in explosion",
-			options = {"0", "80", "32767"},
-			validate = ValidateTNTFuseDuration.class,
-			strict = false,
-			category = {TIS, CREATIVE}
-	)
-	public static int tntFuseDuration = 80;
-
 	private static class ValidateTNTFuseDuration extends Validator<Integer>
 	{
 		@Override
@@ -385,28 +285,12 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(
-			desc = "Set it to false to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk",
-			category = {TIS, EXPERIMENTAL}
+			desc = "Disable some command to prevent accidentally cheating",
+			extra = "Affects command list: /gamemode, /tp, /teleport, /give, /setblock, /summon",
+			category = {TIS, SURVIVAL},
+			validate = Validator._COMMAND.class  // for notifyPlayersCommandsChanged
 	)
-	public static boolean entityMomentumLoss = true;
-
-	@Rule(
-			desc = "Halve the delay of redstone repeaters upon a redstone ore",
-			extra = {
-					"The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game tick"
-			},
-			category = {TIS, CREATIVE}
-	)
-	public static boolean repeaterHalfDelay = false;
-
-	@Rule(
-			desc = "Enables /lifetime command to track entity lifetime and so on",
-			extra = {
-					"Useful for mob farm debugging etc."
-			},
-			category = {TIS, COMMAND}
-	)
-	public static String commandLifeTime = "true";
+	public static boolean opPlayerNoCheat = false;
 
 	@Rule(
 			desc = "Optimize fast entity movement by only checking block collisions on current moving axis",
@@ -417,16 +301,6 @@ public class CarpetTISAdditionSettings
 			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
 	)
 	public static boolean optimizedFastEntityMovement = false;
-
-	@Rule(
-			desc = "Use a Mixin injection with higher priority for carpet rule optimizedTNT",
-			extra = {
-					"So the rule optimizedTNT can overwrite lithium's explosion optimization",
-					"Of course rule optimizedTNT needs to be on for it to work"
-			},
-			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
-	)
-	public static boolean optimizedTNTHighPriority = false;
 
 	@Rule(
 			desc = "Optimize entity colliding with entities with hard hit box",
@@ -442,16 +316,144 @@ public class CarpetTISAdditionSettings
 	public static boolean optimizedHardHitBoxEntityCollision = false;
 
 	@Rule(
-			desc = "Allow creative players to open a container even if the container is blocked. e.g. for shulker box",
-			category = {TIS, CREATIVE}
+			desc = "Use a Mixin injection with higher priority for carpet rule optimizedTNT",
+			extra = {
+					"So the rule optimizedTNT can overwrite lithium's explosion optimization",
+					"Of course rule optimizedTNT needs to be on for it to work"
+			},
+			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
 	)
-	public static boolean creativeOpenContainerForcibly = false;
+	public static boolean optimizedTNTHighPriority = false;
 
 	@Rule(
-			desc = "Disable all block updates and state updates",
+			desc = "Whether block changes will cause POI to updates or not",
+			extra = {
+					"Set it to false to disable POI updates"
+			},
 			category = {TIS, CREATIVE}
 	)
-	public static boolean totallyNoBlockUpdate = false;
+	public static boolean poiUpdates = true;
+
+	@Rule(
+			desc = "Disable rail duping using old school pushing lit powered or activator rail method",
+			category = {TIS, BUGFIX}
+	)
+	public static boolean railDupingFix = false;
+
+	@Rule(
+			desc = "Randomize the order for redstone dust to emit block updates",
+			extra = "It's useful to test if your contraption is locational or not",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean redstoneDustRandomUpdateOrder = false;
+
+	@Rule(
+			desc = "Make dragon egg renewable",
+			extra = {
+					"When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and \"summon\" a new dragon egg",
+					"Use with rule \"dispensersFireDragonBreath\" for more ease"
+			},
+			category = {TIS, FEATURE}
+	)
+	public static boolean renewableDragonEgg = false;
+
+	@Rule(
+			desc = "Ender dragon killed by charged creeper will drop dragon head",
+			category = {TIS, FEATURE}
+	)
+	public static boolean renewableDragonHead = false;
+
+
+	@Rule(
+			desc = "Phathom killed by shulker will drops an elytra with given possibility",
+			extra = "Set it to 0 to disable",
+			options = {"0", "0.2", "1"},
+			validate = ValidatePossibility.class,
+			strict = false,
+			category = {TIS, FEATURE}
+	)
+	public static double renewableElytra = 0.0D;
+
+	@Rule(
+			desc = "Halve the delay of redstone repeaters upon a redstone ore",
+			extra = {
+					"The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game tick"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean repeaterHalfDelay = false;
+
+	@Rule(
+			desc = "Disable sand and other gravity block duping using end portal",
+			extra = {
+					"Gravity block includes sand, anvil, dragon egg and so on",
+					"In sand dupers sand will only get teleported to the other dimension"
+			},
+			category = {TIS, BUGFIX}
+	)
+	public static boolean sandDupingFix = false;
+
+	@Rule(
+			desc = "Overwrite the size limit of structure block",
+			extra = "Relative position might display wrongly on client side if it's larger than 32",
+			validate = ValidateStructureBlockLimit.class,
+			options = {"32", "64", "96", "127"},
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int structureBlockLimit = 32;
+	private static class ValidateStructureBlockLimit extends Validator<Integer>
+	{
+		@Override
+		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		{
+			return (newValue > 0 && newValue <= 65536) ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a value from 1 to 127";
+		}
+	}
+
+	@Rule(
+			desc = "Synchronize lighting thread with the server thread",
+			extra = {
+					"so the light thread will not lag behind the main thread and get desynchronized",
+					"The server will wait until all lighting tasks to be done at the beginning of each world ticking",
+					"With this rule you can safely /tick warp without potential light suppression or lighting desynchronization"
+			},
+			category = {TIS, CREATIVE, EXPERIMENTAL}
+	)
+	public static boolean synchronizedLightThread = false;
+
+	@Rule(
+			desc = "Modify the limit of executed tile tick events per game tick",
+			options = {"1024", "65536", "2147483647"},
+			validate = ValidatePositive.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int tileTickLimit = 65536;
+
+	@Rule(
+			desc = "Disable TNT, carpet and part of rail dupers",
+			extra = {
+					"Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block",
+					"Dupe bad dig good"
+			},
+			category = {TIS, BUGFIX, EXPERIMENTAL}
+	)
+	public static boolean tntDupingFix = false;
+
+	@Rule(
+			desc = "Overwrite the default fuse duration of TNT",
+			extra = "This might also affects the fuse duration of TNT ignited in explosion",
+			options = {"0", "80", "32767"},
+			validate = ValidateTNTFuseDuration.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int tntFuseDuration = 80;
 
 	@Rule(
 			desc = "Tools on the player's main hand is applied to item dropping during the explosion caused by the player",
@@ -466,37 +468,38 @@ public class CarpetTISAdditionSettings
 	public static boolean tooledTNT = false;
 
 	@Rule(
-			desc = "Disable block destruction by fluid flowing",
-			extra = {
-					"Fluid will just simple stopped at the state before destroying the block",
-					"It's useful to prevent liquid from accidentally flooding your redstone wiring in creative"
-			},
+			desc = "Disable all block updates and state updates",
 			category = {TIS, CREATIVE}
 	)
-	public static boolean fluidDestructionDisabled = false;
+	public static boolean totallyNoBlockUpdate = false;
 
 	@Rule(
-			desc = "The sampling duration of light queue logger in game tick",
-			extra = {
-					"Affects all data except the queue size displayed in the logger"
-			},
-			validate = ValidatePositive.class,
-			options = {"1", "20", "60", "100", "6000"},
+			desc = "Disable turtle egg trampled to broken",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean turtleEggTrampledDisabled = false;
+
+	@Rule(
+			desc = "Overwrite the tracking distance of xp orb",
+			extra = "Change it to 0 to disable tracking",
+			options = {"0", "1", "8", "32"},
+			validate = ValidateXPTrackingDistance.class,
 			strict = false,
-			category = {TIS}
+			category = {TIS, CREATIVE}
 	)
-	public static int lightQueueLoggerSamplingDuration = 60;
-
-	@Rule(
-			desc = "Synchronize lighting thread with the server thread",
-			extra = {
-					"so the light thread will not lag behind the main thread and get desynchronized",
-					"The server will wait until all lighting tasks to be done at the beginning of each world ticking",
-					"With this rule you can safely /tick warp without potential light suppression or lighting desynchronization"
-			},
-			category = {TIS, CREATIVE, EXPERIMENTAL}
-	)
-	public static boolean synchronizedLightThread = false;
+	public static double xpTrackingDistance = 8.0F;
+	private static class ValidateXPTrackingDistance extends Validator<Double>
+	{
+		@Override
+		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
+		{
+			return (newValue >= 0 && newValue <= 128) ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a value from 0 to 128";
+		}
+	}
 
 	/*
 	 *   Declare rules above this

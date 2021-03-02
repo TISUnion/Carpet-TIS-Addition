@@ -15,47 +15,48 @@
 
 ## [规则](#规则列表)
 
+- [禁用反刷屏监测](#禁用反刷屏监测-antiSpamDisabled)
 - [方块事件广播范围](#方块事件广播范围-blockEventPacketRange)
-- [结构方块范围限制](#结构方块范围限制-structureBlockLimit)
-- [经验球追踪距离](#经验球追踪距离-xpTrackingDistance)
-- [tnt复制修复](#tnt复制修复-tntDupingFix)
+- [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementIgnoreEntity)
+- [区块刻速度](#区块刻速度-chunkTickSpeed)
+- [存活时间追踪器](#存活时间追踪器-commandLifeTime)
+- [袭击追踪器](#袭击追踪器-commandRaid)
+- [创造玩家强制打开容器](#创造玩家强制打开容器-creativeOpenContainerForcibly)
+- [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
+- [发射器发射龙息](#发射器发射龙息-dispensersFireDragonBreath)
+- [实体速度丢失](#实体速度丢失-entityMomentumLoss)
 - [假人名称前缀](#假人名称前缀-fakePlayerNamePrefix)
 - [假人名称后缀](#假人名称后缀-fakePlayerNameSuffix)
-- [可再生龙蛋](#可再生龙蛋-renewableDragonEgg)
-- [发射器发射龙息](#发射器发射龙息-dispensersFireDragonBreath)
-- [可再生龙首](#可再生龙首-renewableDragonHead)
-- [hud监视器更新间隔](#hud监视器更新间隔-HUDLoggerUpdateInterval)
+- [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
 - [漏斗计数器无限速度](#漏斗计数器无限速度-hopperCountersUnlimitedSpeed)
-- [可再生鞘翅](#可再生鞘翅-renewableElytra)
-- [刷沙机修复](#刷沙机修复-sandDupingFix)
-- [刷铁轨机修复](#刷铁轨机修复-railDupingFix)
-- [袭击追踪器](#袭击追踪器-commandRaid)
-- [保持弱加载区块的怪物](#保持弱加载区块的怪物-keepMobInLazyChunks)
-- [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
-- [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
-- [红石粉随机更新顺序](#红石粉随机更新顺序-redstoneDustRandomUpdateOrder)
+- [hud监视器更新间隔](#hud监视器更新间隔-HUDLoggerUpdateInterval)
 - [瞬时命令方块](#瞬时命令方块-instantCommandBlock)
+- [保持弱加载区块的怪物](#保持弱加载区块的怪物-keepMobInLazyChunks)
+- [光照队列记录器采样时长](#光照队列记录器采样时长-lightQueueLoggerSamplingDuration)
 - [光照更新](#光照更新-lightUpdates)
 - [微时序](#微时序-microTiming)
 - [微时序目标](#微时序目标-microTimingTarget)
-- [禁用反刷屏监测](#禁用反刷屏监测-antiSpamDisabled)
-- [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementIgnoreEntity)
-- [区块刻速度](#区块刻速度-chunkTickSpeed)
-- [计划刻上限](#计划刻上限-tileTickLimit)
-- [POI更新开关](#POI更新开关-poiUpdates)
-- [TNT引信时长](#TNT引信时长-tntFuseDuration)
-- [实体速度丢失](#实体速度丢失-entityMomentumLoss)
-- [中继器延迟折半](#中继器延迟折半-repeaterHalfDelay)
-- [存活时间追踪器](#存活时间追踪器-commandLifeTime)
+- [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
 - [优化高速实体移动](#优化高速实体移动-optimizedFastEntityMovement)
-- [TNT优化高优先级](#TNT优化高优先级-optimizedTNTHighPriority)
 - [优化硬碰撞箱实体碰撞](#优化硬碰撞箱实体碰撞-optimizedHardHitBoxEntityCollision)
-- [创造玩家强制打开容器](#创造玩家强制打开容器-creativeOpenContainerForcibly)
-- [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
-- [工具化TNT](#工具化TNT-tooledTNT)
-- [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
-- [光照队列记录器采样时长](#光照队列记录器采样时长-lightQueueLoggerSamplingDuration)
+- [TNT优化高优先级](#TNT优化高优先级-optimizedTNTHighPriority)
+- [POI更新开关](#POI更新开关-poiUpdates)
+- [刷铁轨机修复](#刷铁轨机修复-railDupingFix)
+- [红石粉随机更新顺序](#红石粉随机更新顺序-redstoneDustRandomUpdateOrder)
+- [可再生龙蛋](#可再生龙蛋-renewableDragonEgg)
+- [可再生龙首](#可再生龙首-renewableDragonHead)
+- [可再生鞘翅](#可再生鞘翅-renewableElytra)
+- [中继器延迟折半](#中继器延迟折半-repeaterHalfDelay)
+- [刷沙机修复](#刷沙机修复-sandDupingFix)
+- [结构方块范围限制](#结构方块范围限制-structureBlockLimit)
 - [同步光照线程](#同步光照线程-synchronizedLightThread)
+- [计划刻上限](#计划刻上限-tileTickLimit)
+- [tnt复制修复](#tnt复制修复-tntDupingFix)
+- [TNT引信时长](#TNT引信时长-tntFuseDuration)
+- [工具化TNT](#工具化TNT-tooledTNT)
+- [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
+- [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
+- [经验球追踪距离](#经验球追踪距离-xpTrackingDistance)
 
 ## [监视器](#监视器列表)
 
@@ -69,6 +70,7 @@
 - [命令方块](#命令方块-commandBlock)
 - [光照队列](#光照队列-lightQueue)
 - [tickWarp](#tickWarp-tickWarp)
+- [海龟蛋](#海龟蛋-turtleEgg)
 
 ## [指令](#指令列表)
 
@@ -99,54 +101,121 @@
 
 # 规则列表
 
+## 禁用反刷屏监测 (antiSpamDisabled)
+
+禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`, `SURVIVAL`
+
+
 ## 方块事件广播范围 (blockEventPacketRange)
 
-设置会在方块事件成功执行后收到数据包的玩家范围 
+设置会在方块事件成功执行后收到数据包的玩家范围
 
 对于活塞而言，这一个数据包是用于显示活塞移动的话。把这个值调小以减小客户端卡顿
 
-- 类型: `double`  
-- 默认值: `64`  
+- 类型: `double`
+- 默认值: `64`
 - 参考选项: `0`, `16`, `64`, `128`
-- 分类: `TIS`, `OPTIMIZATION` 
+- 分类: `TIS`, `OPTIMIZATION`
 
 
-## 结构方块范围限制 (structureBlockLimit)
+## 方块放置忽略实体 (blockPlacementIgnoreEntity)
 
-覆写结构方块的范围限制
+方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内
 
-当相对位置的值大于32时客户端里结构的位置可能会错误地显示
+仅对创造模式玩家有效
 
-- 类型: `int`  
-- 默认值: `32`  
-- 参考选项: `32`, `64`, `96`, `127`
-- 分类: `TIS`, `CREATIVE` 
-
-
-## 经验球追踪距离 (xpTrackingDistance)
-
-修改经验球检测并追踪玩家的距离
-
-将其调至0以禁用追踪"
-
-- 类型: `double`  
-- 默认值: `8`
-- 参考选项: `0`, `1`, `8`, `32`
-- 分类: `TIS`, `CREATIVE` 
-
-
-## TNT复制修复 (tntDupingFix)
-
-禁用TNT、地毯以及部分铁轨的复制机
-
-基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块
-
-~~Dupe bad dig good~~
-
-- 类型: `boolean`  
-- 默认值: `false`  
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `BUGFIX`, `EXPERIMENTAL` 
+- 分类: `TIS`, `CREATIVE`
+
+
+## 区块刻速度 (chunkTickSpeed)
+
+修改每游戏刻每区块的区块刻运算的频率
+
+默认值为 `1`。将其设为 `0` 以禁用区块刻
+
+受影响的游戏阶段：
+- 雷电
+- 结冰与积雪
+- 随机刻
+
+在值为 `n` 时，每游戏刻每区块，气候相关的阶段会发生 `n` 次，而随机刻会在每区段中发生 `n` * `randomTickSpeed` 次
+
+- 类型: `int`
+- 默认值: `1`
+- 参考选项: `0`, `1`, `10`, `100`, `1000`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 存活时间追踪器 (commandLifeTime)
+
+启用 `/lifetime` 命令用于追踪生物存活时间等信息
+
+可助于调试刷怪塔等
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `COMMAND`
+
+
+## 袭击追踪器 (commandRaid)
+
+启用 `/raid` 命令用于列出或追踪袭击信息
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `COMMAND`
+
+
+## 创造玩家强制打开容器 (creativeOpenContainerForcibly)
+
+允许创造模式的玩家打开被阻挡的容器，如潜影盒
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 发射器不消耗物品 (dispenserNoItemCost)
+
+开启后，发射器和投掷器使用被激活时不再消耗物品
+
+无论投掷物品还是使用物品都如此，但是投掷器传输物品仍会消耗物品
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `DISPENSER`, `CREATIVE`
+
+
+## 发射器发射龙息 (dispensersFireDragonBreath)
+
+发射器可使用龙息瓶创造出龙息效果云
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `DISPENSER`
+
+
+## 实体速度丢失 (entityMomentumLoss)
+
+将其设为 `false` 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `EXPERIMENTAL`
 
 
 ## 假人名称前缀 (fakePlayerNamePrefix)
@@ -157,8 +226,8 @@
 
 这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁
 
-- 类型: `String`  
-- 默认值: `#none`  
+- 类型: `String`
+- 默认值: `#none`
 - 参考选项: `#none`, `bot_`
 - 分类: `TIS`, `CARPET_MOD`
 
@@ -169,54 +238,24 @@
 
 将其设置为 `#none` 以阻止添加后缀
 
-- 类型: `String`  
-- 默认值: `#none`  
+- 类型: `String`
+- 默认值: `#none`
 - 参考选项: `#none`, `_fake`
 - 分类: `TIS`, `CARPET_MOD`
 
 
-## 可再生龙蛋 (renewableDragonEgg)
+## 禁用流体破坏 (fluidDestructionDisabled)
 
-让龙蛋变得可再生
+禁用流体流动造成的方块破坏
 
-当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋
+流体会简单的停留在即将破坏方块时的状态
 
-可与选项 [dispenserFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#发射器发射龙息-dispensersfiredragonbreath) 联动
+这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路
 
-- 类型: `boolean`  
-- 默认值: `false`  
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `FEATURE`
-
-
-## 发射器发射龙息 (dispensersFireDragonBreath)
-
-发射器可使用龙息瓶创造出龙息效果云
-
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `FEATURE`, `DISPENSER`
-
-
-## 可再生龙首 (renewableDragonHead)
-
-被高压爬行者杀死的末影龙将会掉落一个龙首
-
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `FEATURE`
-
-
-## HUD监视器更新间隔 (HUDLoggerUpdateInterval)
-
-覆写Carpet Mod HUD监视器的更新间隔，单位为gametick
-
-- 类型: `int`  
-- 默认值: `20`
-- 参考选项: `1`, `5`, `20`, `100`
-- 分类: `TIS`, `CARPET_MOD`
+- 分类: `TIS`, `CREATIVE`
 
 
 ## 漏斗计数器无限速度 (hopperCountersUnlimitedSpeed)
@@ -225,104 +264,20 @@
 
 仅当Carpet Mod中的hopperCounters开启时有效
 
-- 类型: `boolean`  
-- 默认值: `false`  
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`, `CARPET_MOD`
 
 
-## 可再生鞘翅 (renewableElytra)
+## HUD监视器更新间隔 (HUDLoggerUpdateInterval)
 
-当幻翼被潜影贝杀死时有给定概率掉落鞘翅
+覆写Carpet Mod HUD监视器的更新间隔，单位为gametick
 
-设置为0以禁用
-
-- 类型: `double`  
-- 默认值: `0`  
-- 参考选项: `0`, `0.2`, `1`
-- 分类: `TIS`, `FEATURE`
-
-
-## 刷沙机修复 (sandDupingFix)
-
-禁用使用末地门的刷沙机以及刷重力方块机
-
-重力方块包括沙子、铁砧、龙蛋等
-
-在开启后刷沙机的沙子将会仅被传送至另一个纬度
-
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `BUGFIX`
-
-
-## 刷铁轨机修复 (railDupingFix)
-
-禁用老式的移动点亮的充能或激活铁轨的刷铁轨机
-
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `BUGFIX`
-
-
-## 袭击追踪器 (commandRaid)
-
-启用 `/raid` 命令用于列出或追踪袭击信息
-
-- 类型: `boolean`  
-- 默认值: `true`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `COMMAND`
-
-
-## 保持弱加载区块的怪物 (keepMobInLazyChunks)
-
-弱加载区块的怪物不再会被刷新掉，就像 1.15 之前版本似的
-
-此选项对1.15以前的版本无效
-
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `FEATURE`, `EXPERIMENTAL` 
-
-
-## 发射器不消耗物品 (dispenserNoItemCost)
-
-开启后，发射器和投掷器使用被激活时不再消耗物品
-
-无论投掷物品还是使用物品都如此，但是投掷器传输物品仍会消耗物品
-
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `DISPENSER`, `CREATIVE`
-
-
-## op玩家不准作弊 (opPlayerNoCheat)
-
-禁用部分指令以避免op玩家意外地作弊
-
-影响的指令列表：`/gamemode`, `/tp`, `/teleport`, `/give`, `/setblock`, `/summon`
-
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `SURVIVAL`
-
-
-## 红石粉随机更新顺序 (redstoneDustRandomUpdateOrder)
-
-随机化红石粉发出方块更新的顺序
-
-有助于测试你的装置是否依赖于位置
-
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `CREATIVE`
+- 类型: `int`
+- 默认值: `20`
+- 参考选项: `1`, `5`, `20`, `100`
+- 分类: `TIS`, `CARPET_MOD`
 
 
 ## 瞬时命令方块 (instantCommandBlock)
@@ -331,10 +286,34 @@
 
 仅影响普通命令方块
 
-- 类型: `boolean`  
-- 默认值: `false`  
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
+
+
+## 保持弱加载区块的怪物 (keepMobInLazyChunks)
+
+弱加载区块的怪物不再会被刷新掉，就像 1.15 之前版本似的
+
+此选项对1.15以前的版本无效
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `EXPERIMENTAL`
+
+
+## 光照队列记录器采样时长 (lightQueueLoggerSamplingDuration)
+
+光照队列记录器的采样时长，单位为游戏刻
+
+影响记录器中显示的，除队列大小外的所有数据
+
+- 类型: `int`
+- 默认值: `60`
+- 参考选项: `1`, `20`, `60`, `100`, `6000`
+- 分类: `TIS`
 
 
 ## 光照更新 (lightUpdates)
@@ -349,8 +328,8 @@
 
 **【警告】**：若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环
 
-- 类型: `enum`  
-- 默认值: `on`  
+- 类型: `enum`
+- 默认值: `on`
 - 参考选项: `on`, `suppressed`, `ignored`, `off`
 - 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
@@ -376,8 +355,8 @@
 
 可通过操控规则 [微时序目标](#微时序目标-microTimingTarget) 以切换记录方法
 
-- 类型: `boolean`  
-- 默认值: `false`  
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
 
@@ -392,119 +371,22 @@
 
 `all`: 记录所有事件。**谨慎使用**
 
-- 类型: `enum`  
-- 默认值: `labelled`  
+- 类型: `enum`
+- 默认值: `labelled`
 - 参考选项: `labelled`, `in_range`, `all`
 - 分类: `TIS`, `CREATIVE`
 
 
-## 禁用反刷屏监测 (antiSpamDisabled)
+## op玩家不准作弊 (opPlayerNoCheat)
 
-禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却
+禁用部分指令以避免op玩家意外地作弊
 
-- 类型: `boolean`  
-- 默认值: `false`  
+影响的指令列表：`/gamemode`, `/tp`, `/teleport`, `/give`, `/setblock`, `/summon`
+
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `CREATIVE`, `SURVIVAL`
-
-
-## 方块放置忽略实体 (blockPlacementIgnoreEntity)
-
-方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内
-
-仅对创造模式玩家有效
-
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `CREATIVE`
-
-
-## 区块刻速度 (chunkTickSpeed)
-
-修改每游戏刻每区块的区块刻运算的频率
-
-默认值为 `1`。将其设为 `0` 以禁用区块刻
-
-受影响的游戏阶段：
-- 雷电
-- 结冰与积雪
-- 随机刻
-  
-在值为 `n` 时，每游戏刻每区块，气候相关的阶段会发生 `n` 次，而随机刻会在每区段中发生 `n` * `randomTickSpeed` 次
-
-- 类型: `int`  
-- 默认值: `1`  
-- 参考选项: `0`, `1`, `10`, `100`, `1000`
-- 分类: `TIS`, `CREATIVE`
-
-
-## 计划刻上限 (tileTickLimit)
-
-修改每游戏刻中计划刻事件的执行次数上限
-
-- 类型: `int`  
-- 默认值: `65536`  
-- 参考选项: `1024`, `65536`, `2147483647`
-- 分类: `TIS`, `CREATIVE`
-
-
-## POI更新开关 (poiUpdates)
-
-方块变化时是否会更新 POI
-
-将其设为 `false` 以禁用 POI 更新
-
-- 类型: `boolean`  
-- 默认值: `true`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `CREATIVE`
-
-
-## TNT引信时长 (tntFuseDuration)
-
-覆盖 TNT 的默认引信时长
-
-这也会影响被爆炸点燃的 TNT 的引信时长
-
-- 类型: `int`  
-- 默认值: `80`  
-- 参考选项: `0`, `80`, `32767`
-- 分类: `TIS`, `CREATIVE`
-
-
-## 实体速度丢失 (entityMomentumLoss)
-
-将其设为 `false` 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失
-
-- 类型: `boolean`  
-- 默认值: `true`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `EXPERIMENTAL`
-
-
-## 中继器延迟折半 (repeaterHalfDelay)
-
-当红石中继器位于红石矿上方时，红石中继器的延迟将减半
-
-延迟将会由 2, 4, 6, 8 游戏刻变为 1, 2,3 ,4 游戏刻
-
-- 类型: `boolean`  
-- 默认值: `true`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `CREATIVE`
-
-
-## 存活时间追踪器 (commandLifeTime)
-
-启用 `/lifetime` 命令用于追踪生物存活时间等信息
-
-可助于调试刷怪塔等
-
-- 类型: `boolean`  
-- 默认值: `true`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `COMMAND`
+- 分类: `TIS`, `SURVIVAL`
 
 
 ## 优化高速实体移动 (optimizedFastEntityMovement)
@@ -515,22 +397,8 @@
 
 同规则 `optimizedTNT` 一起使用可大幅度提升炮的性能表现
 
-- 类型: `boolean`  
-- 默认值: `false`  
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
-
-
-## TNT优化高优先级 (optimizedTNTHighPriority)
-
-用带有更高优先级的 Mixin 注入来实现 carpet 规则 `optimizedTNT`
-
-因此规则 `optimizedTNT` 可以覆盖 lithium 的爆炸优化
-
-当然，它需要规则 `optimizedTNT` 开启才能工作
-
-- 类型: `boolean`  
-- 默认值: `false`  
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
@@ -547,29 +415,181 @@
 
 与添加了新实体的 mod 可能不兼容
 
-- 类型: `boolean`  
-- 默认值: `true`  
+- 类型: `boolean`
+- 默认值: `true`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
-## 创造玩家强制打开容器 (creativeOpenContainerForcibly)
+## TNT优化高优先级 (optimizedTNTHighPriority)
 
-允许创造模式的玩家打开被阻挡的容器，如潜影盒
+用带有更高优先级的 Mixin 注入来实现 carpet 规则 `optimizedTNT`
 
-- 类型: `boolean`  
-- 默认值: `false`  
+因此规则 `optimizedTNT` 可以覆盖 lithium 的爆炸优化
+
+当然，它需要规则 `optimizedTNT` 开启才能工作
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## POI更新开关 (poiUpdates)
+
+方块变化时是否会更新 POI
+
+将其设为 `false` 以禁用 POI 更新
+
+- 类型: `boolean`
+- 默认值: `true`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
 
 
-## 完全没有方块更新 (totallyNoBlockUpdate)
+## 刷铁轨机修复 (railDupingFix)
 
-禁用所有方块更新以及状态更新的执行
+禁用老式的移动点亮的充能或激活铁轨的刷铁轨机
 
-- 类型: `boolean`  
-- 默认值: `true`  
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
+## 红石粉随机更新顺序 (redstoneDustRandomUpdateOrder)
+
+随机化红石粉发出方块更新的顺序
+
+有助于测试你的装置是否依赖于位置
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 可再生龙蛋 (renewableDragonEgg)
+
+让龙蛋变得可再生
+
+当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋
+
+可与选项 [dispenserFireDragonBreath](https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#发射器发射龙息-dispensersfiredragonbreath) 联动
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
+
+
+## 可再生龙首 (renewableDragonHead)
+
+被高压爬行者杀死的末影龙将会掉落一个龙首
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
+
+
+## 可再生鞘翅 (renewableElytra)
+
+当幻翼被潜影贝杀死时有给定概率掉落鞘翅
+
+设置为0以禁用
+
+- 类型: `double`
+- 默认值: `0`
+- 参考选项: `0`, `0.2`, `1`
+- 分类: `TIS`, `FEATURE`
+
+
+## 中继器延迟折半 (repeaterHalfDelay)
+
+当红石中继器位于红石矿上方时，红石中继器的延迟将减半
+
+延迟将会由 2, 4, 6, 8 游戏刻变为 1, 2,3 ,4 游戏刻
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 刷沙机修复 (sandDupingFix)
+
+禁用使用末地门的刷沙机以及刷重力方块机
+
+重力方块包括沙子、铁砧、龙蛋等
+
+在开启后刷沙机的沙子将会仅被传送至另一个纬度
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
+## 结构方块范围限制 (structureBlockLimit)
+
+覆写结构方块的范围限制
+
+当相对位置的值大于32时客户端里结构的位置可能会错误地显示
+
+- 类型: `int`
+- 默认值: `32`
+- 参考选项: `32`, `64`, `96`, `127`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 同步光照线程 (synchronizedLightThread)
+
+将光照线程与主线程同步，这样光照线程就不会于落后主线程而失去同步
+
+服务器将会在每个世界开始运算时等待光照线程的任务完成
+
+你可以借此安全地 `/tick warp` 而不用担心潜在的光照抑制或光照不同步
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
+## 计划刻上限 (tileTickLimit)
+
+修改每游戏刻中计划刻事件的执行次数上限
+
+- 类型: `int`
+- 默认值: `65536`
+- 参考选项: `1024`, `65536`, `2147483647`
+- 分类: `TIS`, `CREATIVE`
+
+
+## TNT复制修复 (tntDupingFix)
+
+禁用TNT、地毯以及部分铁轨的复制机
+
+基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块
+
+~~Dupe bad dig good~~
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`, `EXPERIMENTAL`
+
+
+## TNT引信时长 (tntFuseDuration)
+
+覆盖 TNT 的默认引信时长
+
+这也会影响被爆炸点燃的 TNT 的引信时长
+
+- 类型: `int`
+- 默认值: `80`
+- 参考选项: `0`, `80`, `32767`
 - 分类: `TIS`, `CREATIVE`
 
 
@@ -585,50 +605,32 @@
 
 技术上来讲，此规则将来源生物主手上的物品应用在了爆炸里战利品表的创建中
 
-- 类型: `boolean`  
-- 默认值: `false`  
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `FEATURE`
 
 
-## 禁用流体破坏 (fluidDestructionDisabled)
+## 完全没有方块更新 (totallyNoBlockUpdate)
 
-禁用流体流动造成的方块破坏
+禁用所有方块更新以及状态更新的执行
 
-流体会简单的停留在即将破坏方块时的状态
-
-这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路
-
-- 类型: `boolean`  
-- 默认值: `false`  
+- 类型: `boolean`
+- 默认值: `true`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
 
 
-## 光照队列记录器采样时长 (lightQueueLoggerSamplingDuration)
+## 经验球追踪距离 (xpTrackingDistance)
 
-光照队列记录器的采样时长，单位为游戏刻
+修改经验球检测并追踪玩家的距离
 
-影响记录器中显示的，除队列大小外的所有数据
+将其调至0以禁用追踪"
 
-- 类型: `int`
-- 默认值: `60`
-- 参考选项: `1`, `20`, `60`, `100`, `6000`
-- 分类: `TIS`
-
-
-## 同步光照线程 (synchronizedLightThread)
-
-将光照线程与主线程同步，这样光照线程就不会于落后主线程而失去同步
-
-服务器将会在每个世界开始运算时等待光照线程的任务完成
-
-你可以借此安全地 `/tick warp` 而不用担心潜在的光照抑制或光照不同步
-
-- 类型: `boolean`
-- 默认值: `false`
-- 参考选项: `false`, `true`
-- 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+- 类型: `double`
+- 默认值: `8`
+- 参考选项: `0`, `1`, `8`, `32`
+- 分类: `TIS`, `CREATIVE`
 
 
 -----------
@@ -789,6 +791,17 @@
 属性:
 - 默认选项: `bar`
 - 参考选项: `bar`, `value`
+
+
+## 海龟蛋 (turtleEgg)
+
+`/log turtleEgg`
+
+在海龟蛋被踩碎时输出记录信息
+
+属性:
+- 默认选项: N/A
+- 参考选项: N/A
 
 
 # 指令列表
