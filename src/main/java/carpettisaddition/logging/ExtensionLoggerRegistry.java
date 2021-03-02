@@ -14,6 +14,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCa
 import carpettisaddition.logging.loggers.raid.RaidLogger;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpLogger;
+import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
 
 
 public class ExtensionLoggerRegistry
@@ -28,6 +29,7 @@ public class ExtensionLoggerRegistry
     public static boolean __commandBlock;
     public static boolean __lightQueue;
     public static boolean __tickWarp;
+    public static boolean __turtleEgg;
 
     public static void registerLoggers()
     {
@@ -45,6 +47,7 @@ public class ExtensionLoggerRegistry
         LoggerRegistry.registerLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
         LoggerRegistry.registerLogger(LightQueueLogger.NAME, LightQueueLogger.getInstance().getHUDLogger());
         LoggerRegistry.registerLogger(TickWarpLogger.NAME, standardHUDLogger(TickWarpLogger.NAME, "bar", new String[]{"bar", "value"}));
+        LoggerRegistry.registerLogger(TurtleEggLogger.NAME, standardLogger(TurtleEggLogger.NAME, null, null));
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)

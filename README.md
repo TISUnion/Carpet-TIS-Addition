@@ -15,47 +15,48 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 
 ## [Rules](#rule-list)
 
+- [antiSpamDisabled](#antiSpamDisabled)
 - [blockEventPacketRange](#blockEventPacketRange)
-- [structureBlockLimit](#structureBlockLimit)
-- [xpTrackingDistance](#xpTrackingDistance)
-- [tntDupingFix](#tntDupingFix)
+- [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
+- [chunkTickSpeed](#chunkTickSpeed)
+- [commandLifeTime](#commandLifeTime)
+- [commandRaid](#commandRaid)
+- [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
+- [dispenserNoItemCost](#dispenserNoItemCost)
+- [dispensersFireDragonBreath](#dispensersFireDragonBreath)
+- [entityMomentumLoss](#entityMomentumLoss)
 - [fakePlayerNamePrefix](#fakePlayerNamePrefix)
 - [fakePlayerNameSuffix](#fakePlayerNameSuffix)
-- [renewableDragonEgg](#renewableDragonEgg)
-- [dispensersFireDragonBreath](#dispensersFireDragonBreath)
-- [renewableDragonHead](#renewableDragonHead)
-- [HUDLoggerUpdateInterval](#HUDLoggerUpdateInterval)
+- [fluidDestructionDisabled](#fluidDestructionDisabled)
 - [hopperCountersUnlimitedSpeed](#hopperCountersUnlimitedSpeed)
-- [renewableElytra](#renewableElytra)
-- [sandDupingFix](#sandDupingFix)
-- [railDupingFix](#railDupingFix)
-- [commandRaid](#commandRaid)
-- [keepMobInLazyChunks](#keepMobInLazyChunks)
-- [dispenserNoItemCost](#dispenserNoItemCost)
-- [opPlayerNoCheat](#opPlayerNoCheat)
-- [redstoneDustRandomUpdateOrder](#redstoneDustRandomUpdateOrder)
+- [HUDLoggerUpdateInterval](#HUDLoggerUpdateInterval)
 - [instantCommandBlock](#instantCommandBlock)
+- [keepMobInLazyChunks](#keepMobInLazyChunks)
+- [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration)
 - [lightUpdates](#lightUpdates)
 - [microTiming](#microTiming)
 - [microTimingTarget](#microTimingTarget)
-- [antiSpamDisabled](#antiSpamDisabled)
-- [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
-- [chunkTickSpeed](#chunkTickSpeed)
-- [tileTickLimit](#tileTickLimit)
-- [poiUpdates](#poiUpdates)
-- [tntFuseDuration](#tntFuseDuration)
-- [entityMomentumLoss](#entityMomentumLoss)
-- [repeaterHalfDelay](#repeaterHalfDelay)
-- [commandLifeTime](#commandLifeTime)
+- [opPlayerNoCheat](#opPlayerNoCheat)
 - [optimizedFastEntityMovement](#optimizedFastEntityMovement)
-- [optimizedTNTHighPriority](#optimizedTNTHighPriority)
 - [optimizedHardHitBoxEntityCollision](#optimizedHardHitBoxEntityCollision)
-- [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
-- [totallyNoBlockUpdate](#totallyNoBlockUpdate)
-- [tooledTNT](#tooledTNT)
-- [fluidDestructionDisabled](#fluidDestructionDisabled)
-- [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration)
+- [optimizedTNTHighPriority](#optimizedTNTHighPriority)
+- [poiUpdates](#poiUpdates)
+- [railDupingFix](#railDupingFix)
+- [redstoneDustRandomUpdateOrder](#redstoneDustRandomUpdateOrder)
+- [renewableDragonEgg](#renewableDragonEgg)
+- [renewableDragonHead](#renewableDragonHead)
+- [renewableElytra](#renewableElytra)
+- [repeaterHalfDelay](#repeaterHalfDelay)
+- [sandDupingFix](#sandDupingFix)
+- [structureBlockLimit](#structureBlockLimit)
 - [synchronizedLightThread](#synchronizedLightThread)
+- [tileTickLimit](#tileTickLimit)
+- [tntDupingFix](#tntDupingFix)
+- [tntFuseDuration](#tntFuseDuration)
+- [tooledTNT](#tooledTNT)
+- [totallyNoBlockUpdate](#totallyNoBlockUpdate)
+- [turtleEggTrampledDisabled](#turtleEggTrampledDisabled)
+- [xpTrackingDistance](#xpTrackingDistance)
 
 ## [Loggers](#logger-list)
 
@@ -69,6 +70,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [commandBlock](#commandBlock)
 - [lightQueue](#lightQueue)
 - [tickWarp](#tickWarp)
+- [turtleEgg](#turtleEgg)
 
 ## [Commands](#command-list)
 
@@ -99,54 +101,121 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 
 # Rule List
 
+## antiSpamDisabled
+
+Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `SURVIVAL`
+
+
 ## blockEventPacketRange
 
 Set the range where player will receive a block event packet after a block event fires successfully
 
 For piston the packet is used to render the piston movement animation. Decrease it to reduce client's lag
 
-- Type: `double`  
-- Default value: `64`  
+- Type: `double`
+- Default value: `64`
 - Suggested options: `0`, `16`, `64`, `128`
-- Categories: `TIS`, `OPTIMIZATION` 
+- Categories: `TIS`, `OPTIMIZATION`
 
 
-## structureBlockLimit
+## blockPlacementIgnoreEntity
 
-Overwrite the size limit of structure block
+Disable entity collision check before block placement, aka you can place blocks inside entities
 
-Relative position might display wrongly on client side if it's larger than 32
+Works with creative mode players only
 
-- Type: `int`  
-- Default value: `32`  
-- Suggested options: `32`, `64`, `96`, `127`
-- Categories: `TIS`, `CREATIVE` 
-
-
-## xpTrackingDistance
-
-Overwrite the tracking distance of xp orb
-
-Change it to 0 to disable tracking
-
-- Type: `double`  
-- Default value: `8`
-- Suggested options: `0`, `1`, `8`, `32`
-- Categories: `TIS`, `CREATIVE` 
-
-
-## tntDupingFix
-
-Disable TNT, carpet and part of rail dupers
-
-Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block
-
-~~Dupe bad dig good~~
-
-- Type: `boolean`  
-- Default value: `false`  
+- Type: `boolean`
+- Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `BUGFIX`, `EXPERIMENTAL` 
+- Categories: `TIS`, `CREATIVE`
+
+
+## chunkTickSpeed
+
+Modify how often the chunk tick occurs per chunk per game tick
+
+The default value is `1`. Set it to `0` to disables chunk ticks
+
+Affected game phases:
+- thunder
+- ice and snow
+- randomtick
+
+With a value of `n`, in every chunk every game tick, climate things will tick `n` times, and randomtick will tick `n` * `randomTickSpeed` times per chunk section
+
+- Type: `int`
+- Default value: `1`
+- Suggested options: `0`, `1`, `10`, `100`, `1000`
+- Categories: `TIS`, `CREATIVE`
+
+
+## commandLifeTime
+
+Enables `/lifetime` command to track entity lifetime and so on
+
+Useful for mob farm debugging etc.
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`
+
+
+## commandRaid
+
+Enables `/raid` command for raid listing and tracking
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`
+
+
+## creativeOpenContainerForcibly
+
+Allow creative players to open a container even if the container is blocked. e.g. for shulker box
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## dispenserNoItemCost
+
+Dispensers and droppers execute without having the itemstack inside decreased
+
+Either dropping and using items do not cost, but dropper transferring item still costs
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `DISPENSER`, `CREATIVE`
+
+
+## dispensersFireDragonBreath
+
+Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `DISPENSER`
+
+
+## entityMomentumLoss
+
+Set it to `false` to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `EXPERIMENTAL`
 
 
 ## fakePlayerNamePrefix
@@ -157,10 +226,10 @@ Which can prevent summoning fake player with illegal names and make player list 
 
 Set it to `#none` to stop adding a prefix
 
-- Type: `String`  
-- Default value: `#none`  
+- Type: `String`
+- Default value: `#none`
 - Suggested options: `#none`, `bot_`
-- Categories: `TIS`, `CARPET_MOD` 
+- Categories: `TIS`, `CARPET_MOD`
 
 
 ## fakePlayerNameSuffix
@@ -169,54 +238,24 @@ Add a name suffix for fake players spawned with `/player` command
 
 Set it to `#none` to stop adding a suffix
 
-- Type: `String`  
-- Default value: `#none`  
+- Type: `String`
+- Default value: `#none`
 - Suggested options: `#none`, `_fake`
 - Categories: `TIS`, `CARPET_MOD`
 
 
-## renewableDragonEgg
+## fluidDestructionDisabled
 
-Make dragon egg renewable
+Disable block destruction by liquid flowing
 
-When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and `summon` a new dragon egg
+Fluid will just simple stopped at the state before destroying the block
 
-Use with rule [dispensersFireDragonBreath](#dispensersfiredragonbreath) for more ease
+It's useful to prevent liquid from accidentally flooding your redstone wiring in creative
 
-- Type: `boolean`  
-- Default value: `false`  
+- Type: `boolean`
+- Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `FEATURE`
-
-
-## dispensersFireDragonBreath
-
-Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `FEATURE`, `DISPENSER`
-
-
-## renewableDragonHead
-
-Ender dragon killed by charged creeper will drop dragon head
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `FEATURE`
-
-
-## HUDLoggerUpdateInterval
-
-Overwrite HUD loggers update interval (gametick)
-
-- Type: `int`  
-- Default value: `20`
-- Suggested options: `1`, `5`, `20`, `100`
-- Categories: `TIS`, `CARPET_MOD`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## hopperCountersUnlimitedSpeed
@@ -225,104 +264,20 @@ Make hopper pointing towards wool has infinity speed to suck in or transfer item
 
 Only works when hopperCounters option in Carpet Mod is on
 
-- Type: `boolean`  
-- Default value: `false`  
+- Type: `boolean`
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`, `CARPET_MOD`
 
 
-## renewableElytra
+## HUDLoggerUpdateInterval
 
-Phathom killed by shulker will drops an elytra with given possibility
+Overwrite HUD loggers update interval (gametick)
 
-Set it to 0 to disable
-
-- Type: `double`  
-- Default value: `0`  
-- Suggested options: `0`, `0.2`, `1`
-- Categories: `TIS`, `FEATURE`
-
-
-## sandDupingFix
-
-Disable sand and other gravity block duping using end portal
-
-Gravity block includes sand, anvil, dragon egg and so on
-
-In sand dupers sand will only get teleported to the other dimension
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `BUGFIX`
-
-
-## railDupingFix
-
-Disable rail duping using old school pushing lit powered or activator rail method
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `BUGFIX`
-
-
-## commandRaid
-
-Enables `/raid` command for raid listing and tracking
-
-- Type: `boolean`  
-- Default value: `true`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `COMMAND`
-
-
-## keepMobInLazyChunks
-
-The mobs in lazy chunks will not despawn, like the behavior before 1.15
-
-This option has no effect in versions before 1.15
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `FEATURE`, `EXPERIMENTAL` 
-
-
-## dispenserNoItemCost
-
-Dispensers and droppers execute without having the itemstack inside decreased
-
-Either dropping and using items do not cost, but dropper transferring item still costs
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `DISPENSER`, `CREATIVE`
-
-
-## opPlayerNoCheat
-
-Disable some command to prevent accidentally cheating
-
-Affects command list: `/gamemode`, `/tp`, `/teleport`, `/give`, `/setblock`, `/summon`
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `SURVIVAL`
-
-
-## redstoneDustRandomUpdateOrder
-
-Randomize the order for redstone dust to emit block updates
-
-It's useful to test if your contraption is locational or not
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`
+- Type: `int`
+- Default value: `20`
+- Suggested options: `1`, `5`, `20`, `100`
+- Categories: `TIS`, `CARPET_MOD`
 
 
 ## instantCommandBlock
@@ -331,10 +286,34 @@ Make command blocks on redstone ores execute command instantly instead of schedu
 
 Only affects normal command blocks
 
-- Type: `boolean`  
-- Default value: `false`  
+- Type: `boolean`
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
+
+
+## keepMobInLazyChunks
+
+The mobs in lazy chunks will not despawn, like the behavior before 1.15
+
+This option has no effect in versions before 1.15
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `EXPERIMENTAL`
+
+
+## lightQueueLoggerSamplingDuration
+
+The sampling duration of light queue logger in game tick
+
+Affects all data except the queue size displayed in the logger
+
+- Type: `int`
+- Default value: `60`
+- Suggested options: `1`, `20`, `60`, `100`, `6000`
+- Categories: `TIS`
 
 
 ## lightUpdates
@@ -349,8 +328,8 @@ If set to off, no light update can be scheduled or executed
 
 **\[WARNING\]** If set to suppressed or off, new chunks cannot be loaded. Then if the server tries to load chunk for player movement or whatever reason the server will be stuck forever
 
-- Type: `enum`  
-- Default value: `on`  
+- Type: `enum`
+- Default value: `on`
 - Suggested options: `on`, `suppressed`, `ignored`, `off`
 - Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
@@ -376,8 +355,8 @@ Beside that, a universal block actions logging method is using EndRod on wool bl
 
 Check rule [microTimingTarget](#microTimingTarget) to see how to switch logging method
 
-- Type: `boolean`  
-- Default value: `false`  
+- Type: `boolean`
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
@@ -392,119 +371,22 @@ Modify the way to specify events to be logged in microTiming logger
 
 `all`: Logs every event. **Use with caution**
 
-- Type: `enum`  
-- Default value: `labelled`  
+- Type: `enum`
+- Default value: `labelled`
 - Suggested options: `labelled`, `in_range`, `all`
 - Categories: `TIS`, `CREATIVE`
 
 
-## antiSpamDisabled
+## opPlayerNoCheat
 
-Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown
+Disable some command to prevent accidentally cheating
 
-- Type: `boolean`  
-- Default value: `false`  
+Affects command list: `/gamemode`, `/tp`, `/teleport`, `/give`, `/setblock`, `/summon`
+
+- Type: `boolean`
+- Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`, `SURVIVAL`
-
-
-## blockPlacementIgnoreEntity
-
-Disable entity collision check before block placement, aka you can place blocks inside entities
-
-Works with creative mode players only
-
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`
-
-
-## chunkTickSpeed
-
-Modify how often the chunk tick occurs per chunk per game tick
-
-The default value is `1`. Set it to `0` to disables chunk ticks
-
-Affected game phases: 
-- thunder
-- ice and snow
-- randomtick
-
-With a value of `n`, in every chunk every game tick, climate things will tick `n` times, and randomtick will tick `n` * `randomTickSpeed` times per chunk section
-
-- Type: `int`  
-- Default value: `1`  
-- Suggested options: `0`, `1`, `10`, `100`, `1000`
-- Categories: `TIS`, `CREATIVE`
-
-
-## tileTickLimit
-
-Modify the limit of executed tile tick events per game tick
-
-- Type: `int`  
-- Default value: `65536`  
-- Suggested options: `1024`, `65536`, `2147483647`
-- Categories: `TIS`, `CREATIVE`
-
-
-## poiUpdates
-
-Whether block changes will cause POI to updates or not
-
-Set it to `false` to disable POI updates
-
-- Type: `boolean`  
-- Default value: `true`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`
-
-
-## tntFuseDuration
-
-Overwrite the default fuse duration of TNT
-
-This might also affects the fuse duration of TNT ignited in explosion
-
-- Type: `int`  
-- Default value: `80`  
-- Suggested options: `0`, `80`, `32767`
-- Categories: `TIS`, `CREATIVE`
-
-
-## entityMomentumLoss
-
-Set it to `false` to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk
-
-- Type: `boolean`  
-- Default value: `true`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `EXPERIMENTAL`
-
-
-## repeaterHalfDelay
-
-Halve the delay of redstone repeaters upon a redstone ore
-
-The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game tick
-
-- Type: `boolean`  
-- Default value: `true`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`
-
-
-## commandLifeTime
-
-Enables `/lifetime` command to track entity lifetime and so on
-
-Useful for mob farm debugging etc.
-
-- Type: `boolean`  
-- Default value: `true`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `COMMAND`
+- Categories: `TIS`, `SURVIVAL`
 
 
 ## optimizedFastEntityMovement
@@ -515,22 +397,8 @@ Inspired by the `fastMovingEntityOptimization` rule in [carpetmod112](https://gi
 
 Use with rule `optimizedTNT` to greatly improve performance in cannons
 
-- Type: `boolean`  
-- Default value: `false`  
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
-
-
-## optimizedTNTHighPriority
-
-Use a Mixin injection with higher priority for carpet rule `optimizedTNT`
- 
-So the rule `optimizedTNT` can overwrite lithium's explosion optimization
-
-Of course rule optimizedTNT needs to be on for it to work
-
-- Type: `boolean`  
-- Default value: `false`  
+- Type: `boolean`
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
@@ -547,29 +415,181 @@ Enable it before loading the chunk to make it work. ~20% performance boost in po
 
 Might not work with other mods that add new entities
 
-- Type: `boolean`  
-- Default value: `true`  
+- Type: `boolean`
+- Default value: `true`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
-## creativeOpenContainerForcibly
+## optimizedTNTHighPriority
 
-Allow creative players to open a container even if the container is blocked. e.g. for shulker box
+Use a Mixin injection with higher priority for carpet rule `optimizedTNT`
 
-- Type: `boolean`  
-- Default value: `false`  
+So the rule `optimizedTNT` can overwrite lithium's explosion optimization
+
+Of course rule optimizedTNT needs to be on for it to work
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
+
+
+## poiUpdates
+
+Whether block changes will cause POI to updates or not
+
+Set it to `false` to disable POI updates
+
+- Type: `boolean`
+- Default value: `true`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
 
-## totallyNoBlockUpdate
+## railDupingFix
 
-Disable all block updates and state updates
+Disable rail duping using old school pushing lit powered or activator rail method
 
-- Type: `boolean`  
-- Default value: `true`  
+- Type: `boolean`
+- Default value: `false`
 - Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
+
+## redstoneDustRandomUpdateOrder
+
+Randomize the order for redstone dust to emit block updates
+
+It's useful to test if your contraption is locational or not
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## renewableDragonEgg
+
+Make dragon egg renewable
+
+When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and `summon` a new dragon egg
+
+Use with rule [dispensersFireDragonBreath](#dispensersfiredragonbreath) for more ease
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
+
+
+## renewableDragonHead
+
+Ender dragon killed by charged creeper will drop dragon head
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
+
+
+## renewableElytra
+
+Phathom killed by shulker will drops an elytra with given possibility
+
+Set it to 0 to disable
+
+- Type: `double`
+- Default value: `0`
+- Suggested options: `0`, `0.2`, `1`
+- Categories: `TIS`, `FEATURE`
+
+
+## repeaterHalfDelay
+
+Halve the delay of redstone repeaters upon a redstone ore
+
+The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game tick
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## sandDupingFix
+
+Disable sand and other gravity block duping using end portal
+
+Gravity block includes sand, anvil, dragon egg and so on
+
+In sand dupers sand will only get teleported to the other dimension
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
+
+## structureBlockLimit
+
+Overwrite the size limit of structure block
+
+Relative position might display wrongly on client side if it's larger than 32
+
+- Type: `int`
+- Default value: `32`
+- Suggested options: `32`, `64`, `96`, `127`
+- Categories: `TIS`, `CREATIVE`
+
+
+## synchronizedLightThread
+
+Synchronize lighting thread with the server thread, so the light thread will not lag behind the main thread and get desynchronized
+
+The server will wait until all lighting tasks to be done at the beginning of each world ticking
+
+With this rule you can safely `/tick warp` without potential light suppression or lighting desynchronization
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+
+
+## tileTickLimit
+
+Modify the limit of executed tile tick events per game tick
+
+- Type: `int`
+- Default value: `65536`
+- Suggested options: `1024`, `65536`, `2147483647`
+- Categories: `TIS`, `CREATIVE`
+
+
+## tntDupingFix
+
+Disable TNT, carpet and part of rail dupers
+
+Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block
+
+~~Dupe bad dig good~~
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`, `EXPERIMENTAL`
+
+
+## tntFuseDuration
+
+Overwrite the default fuse duration of TNT
+
+This might also affects the fuse duration of TNT ignited in explosion
+
+- Type: `int`
+- Default value: `80`
+- Suggested options: `0`, `80`, `32767`
 - Categories: `TIS`, `CREATIVE`
 
 
@@ -585,50 +605,32 @@ It also works for any other living entities beside player
 
 Technically this rule applies the main hand item of the causing entity onto the loot table builder during the explosion
 
-- Type: `boolean`  
-- Default value: `false`  
+- Type: `boolean`
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `FEATURE`
 
 
-## fluidDestructionDisabled
+## totallyNoBlockUpdate
 
-Disable block destruction by liquid flowing
+Disable all block updates and state updates
 
-Fluid will just simple stopped at the state before destroying the block
-
-It's useful to prevent liquid from accidentally flooding your redstone wiring in creative
-
-- Type: `boolean`  
-- Default value: `false`  
+- Type: `boolean`
+- Default value: `true`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
 
-## lightQueueLoggerSamplingDuration
+## xpTrackingDistance
 
-The sampling duration of light queue logger in game tick
+Overwrite the tracking distance of xp orb
 
-Affects all data except the queue size displayed in the logger
+Change it to 0 to disable tracking
 
-- Type: `int`
-- Default value: `60`
-- Suggested options: `1`, `20`, `60`, `100`, `6000`
-- Categories: `TIS`
-
-
-## synchronizedLightThread
-
-Synchronize lighting thread with the server thread, so the light thread will not lag behind the main thread and get desynchronized
-
-The server will wait until all lighting tasks to be done at the beginning of each world ticking
-
-With this rule you can safely `/tick warp` without potential light suppression or lighting desynchronization
-
-- Type: `boolean`
-- Default value: `false`
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
+- Type: `double`
+- Default value: `8`
+- Suggested options: `0`, `1`, `8`, `32`
+- Categories: `TIS`, `CREATIVE`
 
 
 -----------
@@ -789,6 +791,17 @@ See [/tick warp status](#warp-status) command for displaying more details of tic
 Attributes:
 - Default option: `bar`
 - Suggested options: `bar`, `value`
+
+
+## turtleEgg
+
+`/log turtleEgg`
+
+Logs when a turtle egg is trampled to broken
+
+Attributes:
+- Default option: N/A
+- Suggested options: N/A
 
 
 # Command List
