@@ -6,6 +6,8 @@
   "mixins": [
     "carpet.commands.randomlyTriggerAction.EntityPlayerActionPackActionMixin",
     "carpet.commands.randomlyTriggerAction.PlayerCommandMixin",
+    "carpet.commands.spawnTrackingRestart.SpawnCommandInvoker",
+    "carpet.commands.spawnTrackingRestart.SpawnCommandMixin",
     "carpet.commands.tickWarpMaximumDuration.TickCommandMixin",
     "carpet.hooks.CarpetServerMixin",
     "carpet.hooks.HUDControllerMixin",

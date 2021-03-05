@@ -958,6 +958,7 @@
 - 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
 - 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
 - 为 `/player` 指令添加 `randomly` 参数。如 `/player Steve use randomly 10 20` 将使 Steve 以动态变化的随机间隔点击右键，间隔区间为 \[10, 20]
+- 添加 `/spawn tracking restart`
 
 -----------
 
