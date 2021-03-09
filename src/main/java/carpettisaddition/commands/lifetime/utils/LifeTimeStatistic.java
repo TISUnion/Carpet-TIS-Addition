@@ -88,23 +88,24 @@ public class LifeTimeStatistic extends TranslatableBase
 		);
 	}
 
-	/**
-	 * @param divider a {@link Messenger#c} format divider
-	 */
-	public BaseText getCompressedResult(Object divider)
+	public BaseText getCompressedResult(boolean showGtSuffix)
 	{
 		if (!this.isValid())
 		{
 			return Messenger.s("N/A", "g");
 		}
-		return Messenger.c(
+		BaseText text = Messenger.c(
 				COLOR_MIN_TIME + this.minTimeElement.time,
-				divider,
+				"g /",
 				COLOR_MAX_TIME + this.maxTimeElement.time,
-				divider,
-				COLOR_AVG_TIME + String.format("%.2f", (double)this.timeSum / this.count),
-				"g  (gt)"
+				"g /",
+				COLOR_AVG_TIME + String.format("%.2f", (double)this.timeSum / this.count)
 		);
+		if (showGtSuffix)
+		{
+			text.append(Messenger.c("g  (gt)"));
+		}
+		return text;
 	}
 
 	private class StatisticElement

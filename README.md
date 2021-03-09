@@ -71,12 +71,13 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [lightQueue](#lightQueue)
 - [tickWarp](#tickWarp)
 - [turtleEgg](#turtleEgg)
+- [lifeTime](#lifeTime)
 
 ## [Commands](#command-list)
 
 - [raid](#raid-1)
 - [info](#info)
-- [lifetime](#lifetime)
+- [lifetime](#lifetime-1)
 - [tick](#tick)
 
 ## [Scarpet](#scarpet-1)
@@ -802,6 +803,21 @@ Logs when a turtle egg is trampled to broken
 Attributes:
 - Default option: N/A
 - Suggested options: N/A
+
+
+## lifeTime
+
+`/log lifeTime <entity_type>`
+
+A HUD Logger
+
+Displays the current lifetime statistic of specific entity type from the [LifeTime Tracker](#lifetime-1) in the dimension the player is in
+
+The logging options is required to be an available entity type
+
+Attributes:
+- Default option: N/A
+- Suggested options: All available entity types in current's lifetime tracking
 
 
 # Command List
