@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet;
+package carpettisaddition.mixins.carpet.hooks;
 
 import carpet.logging.HUDController;
 import carpettisaddition.logging.ExtensionHUDController;

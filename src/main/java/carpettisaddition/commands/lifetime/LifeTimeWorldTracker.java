@@ -189,7 +189,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 									null,
 									Messenger.c(
 											"q L", "g : ",
-											data.lifeTimeStatistic.getCompressedResult("g /")
+											data.lifeTimeStatistic.getCompressedResult(true)
 									),
 									Messenger.s(
 											Messenger.c(

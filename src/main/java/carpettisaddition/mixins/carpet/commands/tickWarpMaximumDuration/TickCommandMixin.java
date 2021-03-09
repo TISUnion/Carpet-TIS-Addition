@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet;
+package carpettisaddition.mixins.carpet.commands.tickWarpMaximumDuration;
 
 import carpet.commands.TickCommand;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(TickCommand.class)
-public abstract class TickCommand_tickWarpMaximumDurationMixin
+public abstract class TickCommandMixin
 {
 	@Redirect(
 			method = "register",

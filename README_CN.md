@@ -71,12 +71,13 @@
 - [光照队列](#光照队列-lightQueue)
 - [tickWarp](#tickWarp-tickWarp)
 - [海龟蛋](#海龟蛋-turtleEgg)
+- [存活时间](#存活时间-lifeTime)
 
 ## [指令](#指令列表)
 
 - [袭击](#袭击-raid-1)
 - [信息](#信息-info)
-- [存活时间](#存活时间-lifetime)
+- [存活时间](#存活时间-lifetime-1)
 - [tick](#tick)
 
 ## [Scarpet](#scarpet-1)
@@ -804,6 +805,21 @@
 - 参考选项: N/A
 
 
+## 存活时间 (lifeTime)
+
+`/log lifeTime <实体类型>`
+
+一个用于 HUD 记录器
+
+显示玩家所处在的维度中指定实体类型当前于 [存活时间追踪器](#存活时间-lifetime-1) 中的数据
+
+记录器选项需要为一个合法的实体类型
+
+属性:
+- 默认选项: N/A
+- 参考选项: 所有在当前追踪中可用的实体类型
+
+
 # 指令列表
 
 ## 袭击 (raid)
@@ -958,6 +974,7 @@
 - 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
 - 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
 - 为 `/player` 指令添加 `randomly` 参数。如 `/player Steve use randomly 10 20` 将使 Steve 以动态变化的随机间隔点击右键，间隔区间为 \[10, 20]
+- 添加 `/spawn tracking restart`
 
 -----------
 
