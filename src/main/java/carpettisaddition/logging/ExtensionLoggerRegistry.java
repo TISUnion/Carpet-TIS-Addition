@@ -7,6 +7,7 @@ import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.logging.loggers.entity.ItemLogger;
 import carpettisaddition.logging.loggers.entity.XPOrbLogger;
+import carpettisaddition.logging.loggers.lifetime.LifeTimeHUDLogger;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueLogger;
 import carpettisaddition.logging.loggers.memory.MemoryLogger;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
@@ -14,6 +15,8 @@ import carpettisaddition.logging.loggers.raid.RaidLogger;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpLogger;
 import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
+
+import java.lang.reflect.Field;
 
 
 public class ExtensionLoggerRegistry
@@ -29,6 +32,7 @@ public class ExtensionLoggerRegistry
     public static boolean __lightQueue;
     public static boolean __tickWarp;
     public static boolean __turtleEgg;
+    public static boolean __lifeTime;
 
     public static void registerLoggers()
     {
@@ -47,29 +51,28 @@ public class ExtensionLoggerRegistry
         LoggerRegistry.registerLogger(LightQueueLogger.NAME, LightQueueLogger.getInstance().getHUDLogger());
         LoggerRegistry.registerLogger(TickWarpLogger.NAME, standardHUDLogger(TickWarpLogger.NAME, "bar", new String[]{"bar", "value"}));
         LoggerRegistry.registerLogger(TurtleEggLogger.NAME, standardLogger(TurtleEggLogger.NAME, null, null));
+        LoggerRegistry.registerLogger(LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance().getHUDLogger());
+    }
+
+    public static Field getLoggerField(String logName)
+    {
+        try
+        {
+            return ExtensionLoggerRegistry.class.getField("__" + logName);
+        }
+        catch (NoSuchFieldException e)
+        {
+            throw new RuntimeException(String.format("Failed to get logger field \"%s\" @ %s", logName, CarpetTISAdditionServer.fancyName));
+        }
     }
 
     public static Logger standardLogger(String logName, String def, String[] options)
 	{
-        try
-        {
-            return new ExtensionLogger(ExtensionLoggerRegistry.class.getField("__" + logName), logName, def, options);
-        }
-        catch (NoSuchFieldException e)
-        {
-            throw new RuntimeException(String.format("Failed to create standard logger \"%s\" @ %s", logName, CarpetTISAdditionServer.fancyName));
-        }
+        return new ExtensionLogger(getLoggerField(logName), logName, def, options);
     }
 
     public static HUDLogger standardHUDLogger(String logName, String def, String [] options)
     {
-        try
-        {
-            return new ExtensionHUDLogger(ExtensionLoggerRegistry.class.getField("__" + logName), logName, def, options);
-        }
-        catch (NoSuchFieldException e)
-        {
-            throw new RuntimeException(String.format("Failed to create standard HUD logger \"%s\" @ %s", logName, CarpetTISAdditionServer.fancyName));
-        }
+        return new ExtensionHUDLogger(getLoggerField(logName), logName, def, options);
     }
 }

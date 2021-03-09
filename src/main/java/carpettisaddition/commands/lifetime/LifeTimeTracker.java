@@ -14,7 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +37,11 @@ public class LifeTimeTracker extends AbstractTracker
 	public static LifeTimeTracker getInstance()
 	{
 		return INSTANCE;
+	}
+
+	public LifeTimeWorldTracker getTracker(World world)
+	{
+		return world instanceof ServerWorld ? this.trackers.get(world) : null;
 	}
 
 	public static void attachServer(MinecraftServer minecraftServer)
@@ -113,8 +118,7 @@ public class LifeTimeTracker extends AbstractTracker
 
 	protected int printTrackingResultSpecific(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
 	{
-		Optional<EntityType<?>> entityTypeOptional = Registry.ENTITY_TYPE.stream().
-				filter(entityType -> LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType).equals(entityTypeString)).findFirst();
+		Optional<EntityType<?>> entityTypeOptional = LifeTimeTrackerUtil.getEntityTypeFromName(entityTypeString);
 		if (entityTypeOptional.isPresent())
 		{
 			SpecificDetailMode detailMode = null;

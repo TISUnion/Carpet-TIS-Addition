@@ -23,16 +23,9 @@ public class MicroTimingStandardCarpetLogger extends ExtensionLogger
 
 	public static MicroTimingStandardCarpetLogger create()
 	{
-		try
-		{
-			String def = MicroTimingLogger.LoggingOption.DEFAULT.toString();
-			String[] options = Arrays.stream(MicroTimingLogger.LoggingOption.values()).map(MicroTimingLogger.LoggingOption::toString).map(String::toLowerCase).toArray(String[]::new);
-			return new MicroTimingStandardCarpetLogger(ExtensionLoggerRegistry.class.getField("__" + NAME), NAME, def, options);
-		}
-		catch (NoSuchFieldException e)
-		{
-			throw new RuntimeException("Failed to create " + MicroTimingStandardCarpetLogger.class.getName());
-		}
+		String def = MicroTimingLogger.LoggingOption.DEFAULT.toString();
+		String[] options = Arrays.stream(MicroTimingLogger.LoggingOption.values()).map(MicroTimingLogger.LoggingOption::toString).map(String::toLowerCase).toArray(String[]::new);
+		return new MicroTimingStandardCarpetLogger(ExtensionLoggerRegistry.getLoggerField(NAME), NAME, def, options);
 	}
 
 	@Override

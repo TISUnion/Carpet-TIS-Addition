@@ -7,6 +7,8 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.registry.Registry;
 
+import java.util.Optional;
+
 public class LifeTimeTrackerUtil
 {
 	public static boolean isTrackedEntity(Entity entity)
@@ -17,5 +19,10 @@ public class LifeTimeTrackerUtil
 	public static String getEntityTypeDescriptor(EntityType<?> entityType)
 	{
 		return Registry.ENTITY_TYPE.getId(entityType).getPath();
+	}
+
+	public static Optional<EntityType<?>> getEntityTypeFromName(String name)
+	{
+		return Registry.ENTITY_TYPE.stream().filter(entityType -> getEntityTypeDescriptor(entityType).equals(name)).findFirst();
 	}
 }
