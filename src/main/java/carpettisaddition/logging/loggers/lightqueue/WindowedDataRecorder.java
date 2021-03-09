@@ -8,8 +8,8 @@ import java.util.Deque;
 public class WindowedDataRecorder
 {
 	private final Deque<RecordedData> dataQueue = Queues.newArrayDeque();
-	private long enqueuedCount;
-	private long executedCount;
+	private long enqueuedCount = 0;
+	private long executedCount = 0;
 
 	public void add(RecordedData newData)
 	{
@@ -18,7 +18,7 @@ public class WindowedDataRecorder
 		this.dataQueue.addLast(newData);
 		while (this.dataQueue.size() > CarpetTISAdditionSettings.lightQueueLoggerSamplingDuration)
 		{
-			RecordedData data = dataQueue.removeFirst();
+			RecordedData data = this.dataQueue.removeFirst();
 			this.enqueuedCount -= data.enqueuedTask;
 			this.executedCount -= data.executedTask;
 		}
@@ -41,7 +41,7 @@ public class WindowedDataRecorder
 
 	public void clear()
 	{
-		this.getQueue().clear();
+		this.dataQueue.clear();
 		this.enqueuedCount = 0;
 		this.executedCount = 0;
 	}

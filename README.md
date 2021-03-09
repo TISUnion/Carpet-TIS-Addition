@@ -71,12 +71,13 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [lightQueue](#lightQueue)
 - [tickWarp](#tickWarp)
 - [turtleEgg](#turtleEgg)
+- [lifeTime](#lifeTime)
 
 ## [Commands](#command-list)
 
 - [raid](#raid-1)
 - [info](#info)
-- [lifetime](#lifetime)
+- [lifetime](#lifetime-1)
 - [tick](#tick)
 
 ## [Scarpet](#scarpet-1)
@@ -804,6 +805,21 @@ Attributes:
 - Suggested options: N/A
 
 
+## lifeTime
+
+`/log lifeTime <entity_type>`
+
+A HUD Logger
+
+Displays the current lifetime statistic of specific entity type from the [LifeTime Tracker](#lifetime-1) in the dimension the player is in
+
+The logging options is required to be an available entity type
+
+Attributes:
+- Default option: N/A
+- Suggested options: All available entity types in current's lifetime tracking
+
+
 # Command List
 
 ## raid
@@ -958,6 +974,7 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 - Display the version of TIS Carpet Addition inside `/carpet` command
 - Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
 - Added `randomly` argument for `/player` command. e.g. `/player Steve use randomly 10 20` will make Steve right-click at dynamically varying random intervals in range \[10, 20]
+- Added `/spawn tracking restart` for lazy man
 
 -----------
 
