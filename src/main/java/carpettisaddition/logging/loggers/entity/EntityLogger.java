@@ -24,7 +24,13 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 {
 	protected final String loggerName;
 
-	private static final EntityLogger<Entity> translator = new EntityLogger<Entity>("entity"){};
+	private static final EntityLogger<Entity> translator = new EntityLogger<Entity>("entity"){
+		@Override
+		protected boolean getAcceleratorBoolean()
+		{
+			throw new RuntimeException();
+		}
+	};
 
 	public EntityLogger(String loggerName)
 	{
@@ -47,6 +53,8 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		return null;
 	}
 
+	protected abstract boolean getAcceleratorBoolean();
+
 	private BaseText getNameTextRich(T entity)
 	{
 		BaseText text = getNameText(entity);
@@ -66,10 +74,9 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	private void onLoggingEvent(LoggingType loggingType, Supplier<BaseText[]> supplier)
 	{
-		Logger logger = LoggerRegistry.getLogger(this.loggerName);
-		if (logger != null)  // in case in client world
+		if (this.getAcceleratorBoolean())
 		{
-			logger.log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
+			LoggerRegistry.getLogger(this.loggerName).log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
 		}
 	}
 

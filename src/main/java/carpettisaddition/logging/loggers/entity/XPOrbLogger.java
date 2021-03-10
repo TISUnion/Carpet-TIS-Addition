@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.entity;
 
 import carpet.utils.Messenger;
+import carpettisaddition.logging.ExtensionLoggerRegistry;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.text.BaseText;
 
@@ -23,5 +24,11 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 	protected BaseText getNameTextHoverText(ExperienceOrbEntity xp)
 	{
 		return Messenger.s(String.format("%s: %d", tr("XP amount"), xp.getExperienceAmount()));
+	}
+
+	@Override
+	protected boolean getAcceleratorBoolean()
+	{
+		return ExtensionLoggerRegistry.__xporb;
 	}
 }
