@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.carpet.hooks;
 
 import carpet.logging.HUDController;
-import carpettisaddition.logging.ExtensionHUDController;
+import carpettisaddition.logging.TISAdditionHUDController;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,8 +20,8 @@ public abstract class HUDControllerMixin
 			),
 			remap = false
 	)
-	private static void updateExtensionHUDLogger(MinecraftServer server, CallbackInfo ci)
+	private static void updateTISAdditionHUDLoggers(MinecraftServer server, CallbackInfo ci)
 	{
-		ExtensionHUDController.update_hud(server);
+		TISAdditionHUDController.updateHUD(server);
 	}
 }

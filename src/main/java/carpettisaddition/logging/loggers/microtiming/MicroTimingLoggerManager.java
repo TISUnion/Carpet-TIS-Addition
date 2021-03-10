@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.microtiming;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
@@ -60,7 +60,7 @@ public class MicroTimingLoggerManager
 
     public static boolean isLoggerActivated()
     {
-        return CarpetTISAdditionSettings.microTiming && ExtensionLoggerRegistry.__microTiming && instance != null;
+        return CarpetTISAdditionSettings.microTiming && TISAdditionLoggerRegistry.__microTiming && instance != null;
     }
 
     public static void attachServer(MinecraftServer minecraftServer)

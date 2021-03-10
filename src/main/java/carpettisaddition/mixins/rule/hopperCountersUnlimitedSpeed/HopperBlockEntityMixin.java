@@ -94,10 +94,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	)
 	private static void dontExtractRemovedItem(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
 	{
-		if (itemEntity.isRemoved() && CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed)
+		if (CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed && itemEntity.isRemoved())
 		{
 			cir.setReturnValue(false);
-			cir.cancel();
 		}
 	}
 }

@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.damage;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
 import carpettisaddition.logging.loggers.damage.modifyreasons.Modification;
@@ -45,7 +45,7 @@ public class DamageLogger extends AbstractLogger
 
 	public static boolean isLoggerActivated()
 	{
-		return ExtensionLoggerRegistry.__damage;
+		return TISAdditionLoggerRegistry.__damage;
 	}
 
 	public static Translator getStaticTranslator()

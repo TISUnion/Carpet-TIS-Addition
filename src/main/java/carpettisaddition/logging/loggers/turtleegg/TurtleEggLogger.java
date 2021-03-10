@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.turtleegg;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.block.BlockState;
@@ -29,7 +29,7 @@ public class TurtleEggLogger extends AbstractLogger
 
 	public boolean isActivated()
 	{
-		return ExtensionLoggerRegistry.__turtleEgg;
+		return TISAdditionLoggerRegistry.__turtleEgg;
 	}
 
 	public void onBreakingEgg(World world, BlockPos pos, BlockState state, Entity entity)
