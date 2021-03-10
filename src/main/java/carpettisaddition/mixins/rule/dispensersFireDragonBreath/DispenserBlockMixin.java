@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.rule.dispensersFireDragonBreath;
 
-import carpettisaddition.helpers.DispenserHelper;
+import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.dispensersFireDragonBreath.FireDragonBreathDispenserBehaviour;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.item.Item;
@@ -18,10 +19,13 @@ public abstract class DispenserBlockMixin
     @Inject(method = "getBehaviorForItem", at = @At("HEAD"), cancellable = true)
     private void registerCarpetBehaviors(ItemStack stack, CallbackInfoReturnable<DispenserBehavior> cir)
     {
-        Item item = stack.getItem();
-        if (item == Items.DRAGON_BREATH)
+        if (CarpetTISAdditionSettings.dispensersFireDragonBreath)
         {
-            cir.setReturnValue(new DispenserHelper.FireDragonBreathDispenserBehaviour());
+            Item item = stack.getItem();
+            if (item == Items.DRAGON_BREATH)
+            {
+                cir.setReturnValue(FireDragonBreathDispenserBehaviour.INSTANCE);
+            }
         }
     }
 }
