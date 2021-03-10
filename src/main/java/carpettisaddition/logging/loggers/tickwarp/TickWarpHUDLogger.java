@@ -14,18 +14,18 @@ import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class TickWarpLogger extends AbstractHUDLogger implements CommandExtender
+public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExtender
 {
 	public static final String NAME = "tickWarp";
 
-	private static final TickWarpLogger INSTANCE = new TickWarpLogger();
+	private static final TickWarpHUDLogger INSTANCE = new TickWarpHUDLogger();
 
-	private TickWarpLogger()
+	private TickWarpHUDLogger()
 	{
 		super(NAME);
 	}
 
-	public static TickWarpLogger getInstance()
+	public static TickWarpHUDLogger getInstance()
 	{
 		return INSTANCE;
 	}

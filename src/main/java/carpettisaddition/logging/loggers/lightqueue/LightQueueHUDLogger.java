@@ -15,19 +15,19 @@ import net.minecraft.world.chunk.light.LightingProvider;
 import java.util.Deque;
 import java.util.Map;
 
-public class LightQueueLogger extends AbstractHUDLogger
+public class LightQueueHUDLogger extends AbstractHUDLogger
 {
 	public static final String NAME = "lightQueue";
-	private static final LightQueueLogger INSTANCE = new LightQueueLogger();
+	private static final LightQueueHUDLogger INSTANCE = new LightQueueHUDLogger();
 	private final Map<ServerWorld, WindowedDataRecorder> dataMap = Maps.newHashMap();
 	private final Map<String, ServerWorld> nameToWorldMap = Maps.newHashMap();
 
-	public LightQueueLogger()
+	public LightQueueHUDLogger()
 	{
 		super(NAME);
 	}
 
-	public static LightQueueLogger getInstance()
+	public static LightQueueHUDLogger getInstance()
 	{
 		return INSTANCE;
 	}
@@ -45,7 +45,7 @@ public class LightQueueLogger extends AbstractHUDLogger
 
 	public HUDLogger getHUDLogger()
 	{
-		return ExtensionLoggerRegistry.standardHUDLogger(LightQueueLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"});
+		return ExtensionLoggerRegistry.standardHUDLogger(LightQueueHUDLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"});
 	}
 
 	public void tick()
