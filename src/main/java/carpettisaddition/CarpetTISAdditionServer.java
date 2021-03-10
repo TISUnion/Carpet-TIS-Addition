@@ -6,14 +6,13 @@ import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.translations.ExtensionTranslations;
+import carpettisaddition.translations.TISAdditionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -96,26 +95,14 @@ public class CarpetTISAdditionServer implements CarpetExtension
     }
 
     @Override
-    public void onPlayerLoggedIn(ServerPlayerEntity player)
-    {
-         // will need that for client features
-    }
-
-    @Override
-    public void onPlayerLoggedOut(ServerPlayerEntity player)
-    {
-        // will need that for client features
-    }
-
-    @Override
     public void registerLoggers()
     {
-        ExtensionLoggerRegistry.registerLoggers();
+        TISAdditionLoggerRegistry.registerLoggers();
     }
 
     @Override
     public Map<String, String> canHasTranslations(String lang)
     {
-        return ExtensionTranslations.getTranslationFromResourcePath(lang);
+        return TISAdditionTranslations.getTranslationFromResourcePath(lang);
     }
 }

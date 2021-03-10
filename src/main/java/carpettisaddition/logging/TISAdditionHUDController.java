@@ -9,14 +9,14 @@ import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import net.minecraft.server.MinecraftServer;
 
 
-public class ExtensionHUDController
+public class TISAdditionHUDController
 {
-    public static void update_hud(MinecraftServer server)
+    public static void updateHUD(MinecraftServer server)
     {
-        doHudLogging(ExtensionLoggerRegistry.__lightQueue, LightQueueHUDLogger.NAME, LightQueueHUDLogger.getInstance());
-        doHudLogging(ExtensionLoggerRegistry.__lifeTime, LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance());
-        doHudLogging(ExtensionLoggerRegistry.__tickWarp, TickWarpHUDLogger.NAME, TickWarpHUDLogger.getInstance());
-        doHudLogging(ExtensionLoggerRegistry.__memory, MemoryHUDLogger.NAME, MemoryHUDLogger.getInstance());
+        doHudLogging(TISAdditionLoggerRegistry.__lightQueue, LightQueueHUDLogger.NAME, LightQueueHUDLogger.getInstance());
+        doHudLogging(TISAdditionLoggerRegistry.__lifeTime, LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance());
+        doHudLogging(TISAdditionLoggerRegistry.__tickWarp, TickWarpHUDLogger.NAME, TickWarpHUDLogger.getInstance());
+        doHudLogging(TISAdditionLoggerRegistry.__memory, MemoryHUDLogger.NAME, MemoryHUDLogger.getInstance());
     }
 
     private static void doHudLogging(boolean condition, String loggerName, AbstractHUDLogger logger)

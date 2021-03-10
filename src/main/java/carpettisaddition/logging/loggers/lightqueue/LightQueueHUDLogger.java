@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.lightqueue;
 
 import carpet.logging.HUDLogger;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Maps;
@@ -45,7 +45,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 
 	public HUDLogger getHUDLogger()
 	{
-		return ExtensionLoggerRegistry.standardHUDLogger(LightQueueHUDLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"});
+		return TISAdditionLoggerRegistry.standardHUDLogger(LightQueueHUDLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"});
 	}
 
 	public void tick()
@@ -57,7 +57,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 				IServerLightingProvider iProvider = (IServerLightingProvider)lightingProvider;
 				long enqueuedCount = iProvider.getEnqueuedTaskCountAndClean();
 				long executedCount = iProvider.getExecutedTaskCountAndClean();
-				if (ExtensionLoggerRegistry.__lightQueue)
+				if (TISAdditionLoggerRegistry.__lightQueue)
 				{
 					this.dataMap.get(world).add(new RecordedData(enqueuedCount, executedCount, iProvider.getQueueSize()));
 				}

@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.entity;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.text.BaseText;
@@ -38,6 +38,6 @@ public class ItemLogger extends EntityLogger<ItemEntity>
 	@Override
 	protected boolean getAcceleratorBoolean()
 	{
-		return ExtensionLoggerRegistry.__item;
+		return TISAdditionLoggerRegistry.__item;
 	}
 }

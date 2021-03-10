@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.entity;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.text.BaseText;
 
@@ -29,6 +29,6 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 	@Override
 	protected boolean getAcceleratorBoolean()
 	{
-		return ExtensionLoggerRegistry.__xporb;
+		return TISAdditionLoggerRegistry.__xporb;
 	}
 }

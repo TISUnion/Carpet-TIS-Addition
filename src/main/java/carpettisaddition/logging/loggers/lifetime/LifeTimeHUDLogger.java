@@ -6,7 +6,7 @@ import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.LifeTimeWorldTracker;
 import carpettisaddition.commands.lifetime.trackeddata.BasicTrackedData;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.EntityType;
@@ -70,7 +70,7 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 	{
 		public LifeTimeStandardCarpetHUDLogger()
 		{
-			super(ExtensionLoggerRegistry.getLoggerField(NAME), NAME, null,null);
+			super(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, null,null);
 		}
 
 		@Override

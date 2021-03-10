@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.entity;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.stacktrace.StackTracePrinter;
@@ -124,7 +124,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public Logger getStandardLogger()
 	{
-		return ExtensionLoggerRegistry.standardLogger(this.loggerName, LoggingType.DIE.getName(), LoggingType.LOGGING_SUGGESTIONS);
+		return TISAdditionLoggerRegistry.standardLogger(this.loggerName, LoggingType.DIE.getName(), LoggingType.LOGGING_SUGGESTIONS);
 	}
 
 	public enum LoggingType

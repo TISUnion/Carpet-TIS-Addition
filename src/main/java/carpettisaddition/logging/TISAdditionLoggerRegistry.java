@@ -20,7 +20,7 @@ import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
 import java.lang.reflect.Field;
 
 
-public class ExtensionLoggerRegistry
+public class TISAdditionLoggerRegistry
 {
     public static boolean __ticket;
     public static boolean __memory;
@@ -59,7 +59,7 @@ public class ExtensionLoggerRegistry
     {
         try
         {
-            return ExtensionLoggerRegistry.class.getField("__" + logName);
+            return TISAdditionLoggerRegistry.class.getField("__" + logName);
         }
         catch (NoSuchFieldException e)
         {
