@@ -16,6 +16,10 @@ import net.minecraft.util.Formatting;
 
 import java.util.Optional;
 
+/**
+ * Independent of lifetime tracker
+ * It only reads some data from the tracker
+ */
 public class LifeTimeHUDLogger extends AbstractHUDLogger
 {
 	public static final String NAME = "lifeTime";
