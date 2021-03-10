@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class ExtensionTranslations
+public class TISAdditionTranslations
 {
     public static Map<String, String> getTranslationFromResourcePath(String lang)
     {
@@ -19,7 +19,7 @@ public class ExtensionTranslations
         try
         {
             dataJSON = IOUtils.toString(
-                    Objects.requireNonNull(ExtensionTranslations.class.getClassLoader().getResourceAsStream(String.format("assets/carpettisaddition/lang/%s.json", lang))),
+                    Objects.requireNonNull(TISAdditionTranslations.class.getClassLoader().getResourceAsStream(String.format("assets/carpettisaddition/lang/%s.json", lang))),
                     StandardCharsets.UTF_8);
         }
         catch (NullPointerException | IOException e)

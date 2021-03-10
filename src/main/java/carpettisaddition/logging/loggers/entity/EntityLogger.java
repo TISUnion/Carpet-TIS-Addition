@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.entity;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.stacktrace.StackTracePrinter;
@@ -24,7 +24,13 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 {
 	protected final String loggerName;
 
-	private static final EntityLogger<Entity> translator = new EntityLogger<Entity>("entity"){};
+	private static final EntityLogger<Entity> translator = new EntityLogger<Entity>("entity"){
+		@Override
+		protected boolean getAcceleratorBoolean()
+		{
+			throw new RuntimeException();
+		}
+	};
 
 	public EntityLogger(String loggerName)
 	{
@@ -47,6 +53,8 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		return null;
 	}
 
+	protected abstract boolean getAcceleratorBoolean();
+
 	private BaseText getNameTextRich(T entity)
 	{
 		BaseText text = getNameText(entity);
@@ -66,10 +74,9 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	private void onLoggingEvent(LoggingType loggingType, Supplier<BaseText[]> supplier)
 	{
-		Logger logger = LoggerRegistry.getLogger(this.loggerName);
-		if (logger != null)  // in case in client world
+		if (this.getAcceleratorBoolean())
 		{
-			logger.log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
+			LoggerRegistry.getLogger(this.loggerName).log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
 		}
 	}
 
@@ -117,7 +124,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public Logger getStandardLogger()
 	{
-		return ExtensionLoggerRegistry.standardLogger(this.loggerName, LoggingType.DIE.getName(), LoggingType.LOGGING_SUGGESTIONS);
+		return TISAdditionLoggerRegistry.standardLogger(this.loggerName, LoggingType.DIE.getName(), LoggingType.LOGGING_SUGGESTIONS);
 	}
 
 	public enum LoggingType

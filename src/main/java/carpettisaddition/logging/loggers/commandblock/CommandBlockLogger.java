@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.commandblock;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.block.BlockState;
@@ -33,7 +33,7 @@ public class CommandBlockLogger extends AbstractLogger
 
 	private void logCommandBlockExecution(World world, BaseText nameText, BaseText posText, CommandBlockExecutor executor)
 	{
-		if (!ExtensionLoggerRegistry.__commandBlock)
+		if (!TISAdditionLoggerRegistry.__commandBlock)
 		{
 			return;
 		}

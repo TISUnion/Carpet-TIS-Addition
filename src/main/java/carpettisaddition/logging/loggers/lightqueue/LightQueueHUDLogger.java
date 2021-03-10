@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.lightqueue;
 
 import carpet.logging.HUDLogger;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Maps;
@@ -15,19 +15,19 @@ import net.minecraft.world.chunk.light.LightingProvider;
 import java.util.Deque;
 import java.util.Map;
 
-public class LightQueueLogger extends AbstractHUDLogger
+public class LightQueueHUDLogger extends AbstractHUDLogger
 {
 	public static final String NAME = "lightQueue";
-	private static final LightQueueLogger INSTANCE = new LightQueueLogger();
+	private static final LightQueueHUDLogger INSTANCE = new LightQueueHUDLogger();
 	private final Map<ServerWorld, WindowedDataRecorder> dataMap = Maps.newHashMap();
 	private final Map<String, ServerWorld> nameToWorldMap = Maps.newHashMap();
 
-	public LightQueueLogger()
+	public LightQueueHUDLogger()
 	{
 		super(NAME);
 	}
 
-	public static LightQueueLogger getInstance()
+	public static LightQueueHUDLogger getInstance()
 	{
 		return INSTANCE;
 	}
@@ -45,7 +45,7 @@ public class LightQueueLogger extends AbstractHUDLogger
 
 	public HUDLogger getHUDLogger()
 	{
-		return ExtensionLoggerRegistry.standardHUDLogger(LightQueueLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"});
+		return TISAdditionLoggerRegistry.standardHUDLogger(LightQueueHUDLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"});
 	}
 
 	public void tick()
@@ -57,7 +57,7 @@ public class LightQueueLogger extends AbstractHUDLogger
 				IServerLightingProvider iProvider = (IServerLightingProvider)lightingProvider;
 				long enqueuedCount = iProvider.getEnqueuedTaskCountAndClean();
 				long executedCount = iProvider.getExecutedTaskCountAndClean();
-				if (ExtensionLoggerRegistry.__lightQueue)
+				if (TISAdditionLoggerRegistry.__lightQueue)
 				{
 					this.dataMap.get(world).add(new RecordedData(enqueuedCount, executedCount, iProvider.getQueueSize()));
 				}

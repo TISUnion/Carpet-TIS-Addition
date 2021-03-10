@@ -5,18 +5,18 @@ import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 
-public class MemoryLogger extends AbstractHUDLogger
+public class MemoryHUDLogger extends AbstractHUDLogger
 {
 	public static final String NAME = "memory";
 
-	private static final MemoryLogger INSTANCE = new MemoryLogger();
+	private static final MemoryHUDLogger INSTANCE = new MemoryHUDLogger();
 
-	private MemoryLogger()
+	private MemoryHUDLogger()
 	{
 		super(NAME);
 	}
 
-	public static MemoryLogger getInstance()
+	public static MemoryHUDLogger getInstance()
 	{
 		return INSTANCE;
 	}

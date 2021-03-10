@@ -14,6 +14,5 @@ public class CheckOptimizedTntEnabledValidatorMixin<T>
 	private void stopCheckingOptimizedTntEnabled(ServerCommandSource source, ParsedRule<T> currentRule, T newValue, String string, CallbackInfoReturnable<T> cir)
 	{
 		cir.setReturnValue(newValue);
-		cir.cancel();
 	}
 }
