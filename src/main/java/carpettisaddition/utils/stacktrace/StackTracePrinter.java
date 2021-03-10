@@ -61,6 +61,7 @@ public class StackTracePrinter
 		return this.stackTrace;
 	}
 
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	@Deprecated
 	public BaseText toBaseText()
 	{
