@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.microtiming.utils;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.ExtensionLogger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.translations.Translator;
@@ -25,7 +25,7 @@ public class MicroTimingStandardCarpetLogger extends ExtensionLogger
 	{
 		String def = MicroTimingLogger.LoggingOption.DEFAULT.toString();
 		String[] options = Arrays.stream(MicroTimingLogger.LoggingOption.values()).map(MicroTimingLogger.LoggingOption::toString).map(String::toLowerCase).toArray(String[]::new);
-		return new MicroTimingStandardCarpetLogger(ExtensionLoggerRegistry.getLoggerField(NAME), NAME, def, options);
+		return new MicroTimingStandardCarpetLogger(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, def, options);
 	}
 
 	@Override

@@ -8,18 +8,18 @@ import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.logging.loggers.entity.ItemLogger;
 import carpettisaddition.logging.loggers.entity.XPOrbLogger;
 import carpettisaddition.logging.loggers.lifetime.LifeTimeHUDLogger;
-import carpettisaddition.logging.loggers.lightqueue.LightQueueLogger;
-import carpettisaddition.logging.loggers.memory.MemoryLogger;
+import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
+import carpettisaddition.logging.loggers.memory.MemoryHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
-import carpettisaddition.logging.loggers.tickwarp.TickWarpLogger;
+import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
 
 import java.lang.reflect.Field;
 
 
-public class ExtensionLoggerRegistry
+public class TISAdditionLoggerRegistry
 {
     public static boolean __ticket;
     public static boolean __memory;
@@ -44,12 +44,12 @@ public class ExtensionLoggerRegistry
         LoggerRegistry.registerLogger(ItemLogger.getInstance().getLoggerName(), ItemLogger.getInstance().getStandardLogger());
         LoggerRegistry.registerLogger(XPOrbLogger.getInstance().getLoggerName(), XPOrbLogger.getInstance().getStandardLogger());
         LoggerRegistry.registerLogger(RaidLogger.NAME, standardLogger(RaidLogger.NAME, null, null));
-        LoggerRegistry.registerLogger(MemoryLogger.NAME, standardHUDLogger(MemoryLogger.NAME, null, null));
+        LoggerRegistry.registerLogger(MemoryHUDLogger.NAME, standardHUDLogger(MemoryHUDLogger.NAME, null, null));
         LoggerRegistry.registerLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.create());
         LoggerRegistry.registerLogger(DamageLogger.NAME, standardLogger(DamageLogger.NAME, "all", new String[]{"all", "players", "me"}));
         LoggerRegistry.registerLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
-        LoggerRegistry.registerLogger(LightQueueLogger.NAME, LightQueueLogger.getInstance().getHUDLogger());
-        LoggerRegistry.registerLogger(TickWarpLogger.NAME, standardHUDLogger(TickWarpLogger.NAME, "bar", new String[]{"bar", "value"}));
+        LoggerRegistry.registerLogger(LightQueueHUDLogger.NAME, LightQueueHUDLogger.getInstance().getHUDLogger());
+        LoggerRegistry.registerLogger(TickWarpHUDLogger.NAME, standardHUDLogger(TickWarpHUDLogger.NAME, "bar", new String[]{"bar", "value"}));
         LoggerRegistry.registerLogger(TurtleEggLogger.NAME, standardLogger(TurtleEggLogger.NAME, null, null));
         LoggerRegistry.registerLogger(LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance().getHUDLogger());
     }
@@ -58,7 +58,7 @@ public class ExtensionLoggerRegistry
     {
         try
         {
-            return ExtensionLoggerRegistry.class.getField("__" + logName);
+            return TISAdditionLoggerRegistry.class.getField("__" + logName);
         }
         catch (NoSuchFieldException e)
         {

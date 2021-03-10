@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.ticket;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.stacktrace.StackTracePrinter;
 import net.minecraft.server.world.ChunkTicket;
@@ -85,7 +85,7 @@ public class TicketLogger extends AbstractLogger
 
 	public static void onAddTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		if (ExtensionLoggerRegistry.__ticket)
+		if (TISAdditionLoggerRegistry.__ticket)
 		{
 			INSTANCE.onManipulateTicket(world, position, chunkTicket, INSTANCE.getAddedActionText());
 		}
@@ -93,7 +93,7 @@ public class TicketLogger extends AbstractLogger
 
 	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
 	{
-		if (ExtensionLoggerRegistry.__ticket)
+		if (TISAdditionLoggerRegistry.__ticket)
 		{
 			INSTANCE.onManipulateTicket(world, position, chunkTicket, INSTANCE.getRemovedActionText());
 		}

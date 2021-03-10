@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.tickwarp;
 
 import carpet.commands.TickCommand;
-import carpettisaddition.logging.loggers.tickwarp.TickWarpLogger;
+import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +22,7 @@ public abstract class TickCommandMixin
 	)
 	private static LiteralArgumentBuilder<ServerCommandSource> registerTickWarpInfo(LiteralArgumentBuilder<ServerCommandSource> builder)
 	{
-		TickWarpLogger.getInstance().extendCommand(builder);
+		TickWarpHUDLogger.getInstance().extendCommand(builder);
 		return builder;
 	}
 }

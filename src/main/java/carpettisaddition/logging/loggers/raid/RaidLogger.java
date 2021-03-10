@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.raid;
 
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLoggerRegistry;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.raid.Raid;
@@ -27,7 +27,7 @@ public class RaidLogger extends AbstractLogger
 
 	public void onRaidCreated(Raid raid)
 	{
-		if (!ExtensionLoggerRegistry.__raid)
+		if (!TISAdditionLoggerRegistry.__raid)
 		{
 			return;
 		}
@@ -42,7 +42,7 @@ public class RaidLogger extends AbstractLogger
 
 	public void onRaidInvalidated(Raid raid, InvalidateReason reason)
 	{
-		if (!ExtensionLoggerRegistry.__raid)
+		if (!TISAdditionLoggerRegistry.__raid)
 		{
 			return;
 		}
@@ -55,7 +55,7 @@ public class RaidLogger extends AbstractLogger
 
 	public void onBadOmenLevelIncreased(Raid raid, int badOmenLevel)
 	{
-		if (!ExtensionLoggerRegistry.__raid)
+		if (!TISAdditionLoggerRegistry.__raid)
 		{
 			return;
 		}
@@ -68,7 +68,7 @@ public class RaidLogger extends AbstractLogger
 
 	public void onCenterMoved(Raid raid, BlockPos pos)
 	{
-		if (!ExtensionLoggerRegistry.__raid)
+		if (!TISAdditionLoggerRegistry.__raid)
 		{
 			return;
 		}

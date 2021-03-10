@@ -26,7 +26,6 @@ public abstract class BlockItemMixin
 			{
 				// partially vanilla copy (removed entity collision check)
 				cir.setReturnValue(!this.checkStatePlacement() || state.canPlaceAt(context.getWorld(), context.getBlockPos()));
-				cir.cancel();
 			}
 		}
 	}
