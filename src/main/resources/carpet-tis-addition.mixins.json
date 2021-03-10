@@ -24,6 +24,7 @@
     "command.lifetime.deathdamage.ItemEntityMixin",
     "command.lifetime.deathdamage.LivingEntityMixin",
     "command.lifetime.removal.EntityMixin",
+    "command.lifetime.removal.ExperienceOrbEntityAccessor",
     "command.lifetime.removal.ExperienceOrbEntityMixin",
     "command.lifetime.removal.HopperBlockEntityMixin",
     "command.lifetime.removal.ItemEntityMixin",

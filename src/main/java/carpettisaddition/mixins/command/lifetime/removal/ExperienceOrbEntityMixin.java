@@ -55,6 +55,9 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 	@Inject(method = "merge", at = @At("TAIL"))
 	private void onMergedLifeTimeTracker(ExperienceOrbEntity other, CallbackInfo ci)
 	{
+		int amountBackup = ((ExperienceOrbEntityAccessor)other).getAmount();
+		((ExperienceOrbEntityAccessor)other).setAmount(0);
 		((IEntity)other).recordRemoval(LiteralRemovalReason.MERGE);
+		((ExperienceOrbEntityAccessor)other).setAmount(amountBackup);
 	}
 }
