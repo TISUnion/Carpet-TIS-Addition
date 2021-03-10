@@ -1,4 +1,4 @@
-package carpettisaddition.logging;
+package carpettisaddition.logging.compat;
 
 import carpet.logging.Logger;
 

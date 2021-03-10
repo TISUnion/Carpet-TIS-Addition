@@ -1,8 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.utils;
 
 import carpet.utils.Messenger;
-import carpettisaddition.logging.ExtensionLogger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
+import carpettisaddition.logging.compat.ExtensionLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.translations.Translator;

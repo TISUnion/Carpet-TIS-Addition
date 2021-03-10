@@ -2,7 +2,7 @@ package carpettisaddition.mixins.carpet;
 
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
-import carpettisaddition.logging.IExtensionLogger;
+import carpettisaddition.logging.compat.IExtensionLogger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

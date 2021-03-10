@@ -52,7 +52,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
         });
 
         // Let's do some logging things
-        ExtensionLoggerRegistry.registerLoggers();
+        TISAdditionLoggerRegistry.registerLoggers();
     }
 
     @Override

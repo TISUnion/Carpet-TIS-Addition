@@ -5,7 +5,6 @@ import carpettisaddition.commands.lifetime.spawning.MobDropSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,7 +20,7 @@ public abstract class LivingEntityMixin extends Entity
 
 	// wither rose thing
 	@ModifyArg(
-			method = "onKilledBy",
+			method = "onDeath",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
