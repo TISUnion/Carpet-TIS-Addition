@@ -7,9 +7,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(ExperienceOrbEntity.class)
 public interface ExperienceOrbEntityAccessor
 {
-	@Accessor
-	int getAmount();
+	@Accessor(value = "amount")
+	int getAmountCTA();
 
-	@Accessor
-	void setAmount(int amount);
+	@Accessor(value = "amount")
+	void setAmountCTA(int amount);
 }
