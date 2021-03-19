@@ -35,6 +35,8 @@
     "flamingo": "*"
   },
   "custom": {
-    "modmenu:parent": "carpet"
+    "modmenu": {
+      "parent": "carpet"
+    }
   }
 }
