@@ -143,7 +143,7 @@ public class GameEventLogger extends AbstractLogger
     {
         gameEventContext = new GameEventContext(gameEvent, pos, null, range, entity, GameEventStatus.NOTHING, registryKey, properties);
         msg.clear();
-        if (this.gameEventContext.getProperties().getTime() != lastGameTick && registryKey == World.OVERWORLD)
+        if (this.gameEventContext.getProperties().getTime() != lastGameTick)
         { // only flush with overworld time changed
             lastGameTick = this.gameEventContext.getProperties().getTime();
             currentEventID = 0;
@@ -152,9 +152,9 @@ public class GameEventLogger extends AbstractLogger
         msg.add(Messenger.c(
                 getIDMessage(),
                 TextUtil.getSpaceText(),
-                Messenger.s("[", "p"),
-                TextUtil.getFancyText("p", Messenger.s(getGameEventID(gameEvent)), getSpecialTagsForGameEvent(gameEvent), null),
-                Messenger.s("]", "p"),
+                Messenger.s("[", "e"),
+                TextUtil.getFancyText("e", Messenger.s(getGameEventID(gameEvent)), getSpecialTagsForGameEvent(gameEvent), null),
+                Messenger.s("]", "e"),
                 TextUtil.getSpaceText()
         ));
     }
@@ -164,7 +164,7 @@ public class GameEventLogger extends AbstractLogger
         msg.add(Messenger.c(
                 getIDMessage(),
                 TextUtil.getSpaceText(),
-                "p [ENDED]"
+                "r [ENDED]"
         ));
         currentEventID++;
         flushMessages();
@@ -182,7 +182,7 @@ public class GameEventLogger extends AbstractLogger
                     "t [" + this.tr("listener", "Listener") + "] ",
                     Messenger.s(this.tr("caught", "caught.")),
                     TextUtil.getSpaceText(),
-                    getStyledPositionText("lb", pos, "$")));
+                    getStyledPositionText("l", pos, "@")));
         });
         // deprecated, in fact idk how to reach this code at all.
         /*
@@ -202,7 +202,9 @@ public class GameEventLogger extends AbstractLogger
                 "w " + "  ",
                 getIDMessage(),
                 TextUtil.getSpaceText(),
-                "t [" + this.tr("sculk_sensor", "Sculk Sensor") + "]  ",
+                "g [",
+                TextUtil.getBlockName(world.getBlockState(sourcePos).getBlock()),
+                "g ] ",
                 getStyledPositionText("l", blockPos, "@"),
                 "w " + " ---> ",
                 getStyledPositionText("l", sourcePos, "@")
@@ -218,7 +220,7 @@ public class GameEventLogger extends AbstractLogger
                 "w " + "  ",
                 getIDMessage(),
                 TextUtil.getSpaceText(),
-                "t [" + this.tr("listener", "Listener") + "] ",
+                "w [" + this.tr("listener", "Listener") + "] ",
                 getStyledPositionText("l", blockPos, "@"),
                 "w " + " -",
                 "r " + "x",
