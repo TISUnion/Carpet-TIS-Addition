@@ -820,7 +820,7 @@
 - 默认选项: N/A
 - 参考选项: 所有在当前追踪中可用的实体类型
 
-## gameEvent
+## 游戏事件 (gameEvent)
 
 `/log gameEvent <option>`
 
