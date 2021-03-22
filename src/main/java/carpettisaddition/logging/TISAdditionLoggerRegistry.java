@@ -8,6 +8,7 @@ import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.logging.loggers.entity.ItemLogger;
 import carpettisaddition.logging.loggers.entity.XPOrbLogger;
+import carpettisaddition.logging.loggers.gameevent.GameEventLogger;
 import carpettisaddition.logging.loggers.lifetime.LifeTimeHUDLogger;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.memory.MemoryHUDLogger;
@@ -34,6 +35,7 @@ public class TISAdditionLoggerRegistry
     public static boolean __tickWarp;
     public static boolean __turtleEgg;
     public static boolean __lifeTime;
+    public static boolean __gameEvent;
 
     public static void registerLoggers()
     {
@@ -53,6 +55,7 @@ public class TISAdditionLoggerRegistry
         LoggerRegistry.registerLogger(TickWarpHUDLogger.NAME, standardHUDLogger(TickWarpHUDLogger.NAME, "bar", new String[]{"bar", "value"}));
         LoggerRegistry.registerLogger(TurtleEggLogger.NAME, standardLogger(TurtleEggLogger.NAME, null, null));
         LoggerRegistry.registerLogger(LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance().getHUDLogger());
+        LoggerRegistry.registerLogger(GameEventLogger.NAME, GameEventLogger.getInstance().getStandardLogger());
     }
 
     public static Field getLoggerField(String logName)
