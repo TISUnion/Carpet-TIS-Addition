@@ -72,6 +72,7 @@
 - [tickWarp](#tickWarp-tickWarp)
 - [海龟蛋](#海龟蛋-turtleEgg)
 - [存活时间](#存活时间-lifeTime)
+- [游戏事件](#游戏事件-gameEvent)
 
 ## [指令](#指令列表)
 
@@ -818,6 +819,16 @@
 属性:
 - 默认选项: N/A
 - 参考选项: 所有在当前追踪中可用的实体类型
+
+## gameEvent
+
+`/log gameEvent <option>`
+
+显示游戏事件(gameEvent)的触发以及事件和潜声传感器的互动情况
+
+属性:
+- 默认选项: `all`
+- 参考选项: `all`,`vibration`,`sculk_sensed`
 
 
 # 指令列表

@@ -72,6 +72,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [tickWarp](#tickWarp)
 - [turtleEgg](#turtleEgg)
 - [lifeTime](#lifeTime)
+- [gameEvent](#gameEvent)
 
 ## [Commands](#command-list)
 
@@ -818,6 +819,16 @@ The logging options is required to be an available entity type
 Attributes:
 - Default option: N/A
 - Suggested options: All available entity types in current's lifetime tracking
+
+## gameEvent
+
+`/log gameEvent <option>`
+
+Infos the triggering of game events and the interaction with the sculk sensors
+
+Attributes:
+- Default option: `all`
+- Suggested options: `all`,`vibration`,`sculk_sensed`
 
 
 # Command List
