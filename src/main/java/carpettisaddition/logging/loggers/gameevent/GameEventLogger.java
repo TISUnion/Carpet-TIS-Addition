@@ -10,26 +10,34 @@ import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.tag.GameEventTags;
-import net.minecraft.text.*;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProperties;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class GameEventLogger extends AbstractLogger
 {
     public static final String NAME = "gameEvent";
     private static final GameEventLogger INSTANCE = new GameEventLogger();
     private GameEventContext gameEventContext;
+    private int currentEventID;
+    private long lastGameTick;
     private List<BaseText> msg = Lists.newArrayList();
 
-    private GameEventLogger()
+    public GameEventLogger()
     {
         super(NAME);
+        currentEventID = 0;
+        lastGameTick = 0;
     }
 
     public boolean isLoggerActivated()
@@ -48,12 +56,6 @@ public class GameEventLogger extends AbstractLogger
         String[] option = Arrays.stream(LoggingOption.values()).map(LoggingOption::toString).map(String::toLowerCase).toArray(String[]::new);
         return TISAdditionLoggerRegistry.standardLogger(NAME, def, option);
     }
-
-    public GameEventLogger(String name)
-    {
-        super(name);
-    }
-
 
     private BaseText[] getMessageByOption(LoggingOption option)
     {
@@ -85,30 +87,86 @@ public class GameEventLogger extends AbstractLogger
 
     private String getGameEventID(GameEvent gameEvent)
     {
-        return gameEvent.toString().substring(gameEvent.toString().indexOf('{') + 1, gameEvent.toString().indexOf(',')).toUpperCase();
+        return gameEvent.toString().substring(gameEvent.toString().indexOf('{') + 2, gameEvent.toString().indexOf(',') - 1).toUpperCase();
     }
 
-    public void onGameEventStartProcessing(@Nullable Entity entity, GameEvent gameEvent, BlockPos pos, int range)
+    private String getColoredAttributesLabel(boolean b, String text)
     {
-        gameEventContext = new GameEventContext(gameEvent, pos, null, range, entity, GameEventStatus.NOTHING);
-        msg.clear();
+        return (b ? "e " : "g ") + text; // Dark green if true, gray for the else.
+    }
+
+    private BaseText getSpecialTagsForGameEvent(GameEvent gameEvent)
+    {
+        return Messenger.c(
+                getColoredAttributesLabel(GameEventTags.IGNORE_VIBRATIONS_SNEAKING.contains(gameEvent), "Ignore Vibrations Sneaking\n"),
+                getColoredAttributesLabel(GameEventTags.VIBRATIONS.contains(gameEvent), "Vibrations")
+        );
+    }
+
+    private BaseText getStyledPositionText(String style, BlockPos pos, BaseText text)
+    {
+        return TextUtil.getFancyText(style, text,
+                TextUtil.getCoordinateText("c", pos, gameEventContext.getWorldRegistryKey()),
+                new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(pos)));
+    }
+
+    private BaseText getStyledPositionText(String style, BlockPos pos, String text)
+    {
+        return getStyledPositionText(style, pos, Messenger.s(text));
+    }
+
+    private void addTickStartMessage()
+    {
         msg.add(Messenger.c(
-                "w " + this.tr("detected", "Detected"),
+                "f [",
+                "f " + this.tr("GameTime"),
+                "^w world.getTime()",
+                "g  " + gameEventContext.getProperties().getTime(),
+                "f  @ ",
+                TextUtil.getFancyText(
+                        "g",
+                        TextUtil.getDimensionNameText(gameEventContext.getWorldRegistryKey()),
+                        Messenger.s(this.gameEventContext.getWorldRegistryKey().getValue().toString()),
+                        null
+                ),
+                "f ] ------------"
+        ));
+    }
+
+    private BaseText getIDMessage()
+    {
+        BlockPos pos = gameEventContext.getBlockPos();
+        return getStyledPositionText("fb", pos, String.format("#%d", currentEventID));
+    }
+
+    public void onGameEventStartProcessing(@Nullable Entity entity, GameEvent gameEvent, BlockPos pos, int range, RegistryKey<World> registryKey, WorldProperties properties)
+    {
+        gameEventContext = new GameEventContext(gameEvent, pos, null, range, entity, GameEventStatus.NOTHING, registryKey, properties);
+        msg.clear();
+        if (this.gameEventContext.getProperties().getTime() != lastGameTick && registryKey == World.OVERWORLD)
+        { // only flush with overworld time changed
+            lastGameTick = this.gameEventContext.getProperties().getTime();
+            currentEventID = 0;
+            addTickStartMessage();
+        }
+        msg.add(Messenger.c(
+                getIDMessage(),
                 TextUtil.getSpaceText(),
-                "e " + this.tr("game_event", "Game Event"),
-                TextUtil.getSpaceText(),
-                TextUtil.getFancyText("pb", Messenger.s(getGameEventID(gameEvent)),
-                        GameEventTags.VIBRATIONS.contains(gameEvent) ?
-                                Messenger.c("l " + this.tr("vibration", "vibration")) :
-                                Messenger.c("r " + this.tr("simple", "simple")), null),
-                TextUtil.getSpaceText(),
-                TextUtil.getFancyText("qu", Messenger.s(this.tr("here", "here"))
-                        , Messenger.tp("c", pos), new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(pos)))
+                Messenger.s("[", "pb"),
+                TextUtil.getFancyText("pb", Messenger.s(getGameEventID(gameEvent)), getSpecialTagsForGameEvent(gameEvent), null),
+                Messenger.s("]", "pb"),
+                TextUtil.getSpaceText()
         ));
     }
 
     public void onGameEventEndProcessing(@Nullable Entity entity, GameEvent gameEvent, BlockPos pos, int range)
     {
+        msg.add(Messenger.c(
+                getIDMessage(),
+                TextUtil.getSpaceText(),
+                "pb [ENDED]"
+        ));
+        currentEventID++;
         flushMessages();
     }
 
@@ -119,40 +177,53 @@ public class GameEventLogger extends AbstractLogger
         { // No isPresentOrElse in Java 8.
             msg.add(Messenger.c(
                     TextUtil.getSpaceText(),
-                    Messenger.s(this.tr("this_gameevent_was_caught", "This Game Event was caught")),
+                    getIDMessage(),
                     TextUtil.getSpaceText(),
-                    TextUtil.getFancyText("qu", Messenger.s(this.tr("here", "here"))
-                            , Messenger.tp("c", pos), new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(pos)))));
+                    "tb [" + this.tr("listener", "Listener") + "] ",
+                    Messenger.s(this.tr("caught", "caught.")),
+                    TextUtil.getSpaceText(),
+                    getStyledPositionText("lb", pos, "$")));
         });
+        // deprecated, in fact idk how to reach this code at all.
+        /*
         if (!listener.getPositionSource().getPos(world).isPresent())
-        { // stupidly implements
+        { // stupidly implements,
             msg.add(Messenger.c(
                     TextUtil.getSpaceText(),
                     Messenger.s(this.tr("this_gameevent_was_caught_with_unknown_listener_position", "This Game Event was caught with unknown position"), "w")
             ));
         }
+         */
     }
-
     public void onGameEventSculkSensed(World world, GameEvent gameEvent, BlockPos blockPos, BlockPos sourcePos)
     {
         gameEventContext.setStatus(GameEventStatus.SCULK_SENSED);
         msg.add(Messenger.c(
-                "r " + this.tr("wow", "  Wow!"),
+                "w " + "  ",
+                getIDMessage(),
                 TextUtil.getSpaceText(),
-                TextUtil.getFancyText("tb", Messenger.s(this.tr("sculk_sensor", "Sculk Sensor")),
-                        Messenger.tp("c", sourcePos),
-                        new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(sourcePos))),
-                TextUtil.getSpaceText(),
-                "w " + this.tr("has_detected", "has detected this event.")
+                "tb [" + this.tr("sculk_sensor", "Sculk Sensor") + "]  ",
+                getStyledPositionText("l", blockPos, "@"),
+                "w " + " ---> ",
+                getStyledPositionText("l", sourcePos, "@")
         ));
     }
 
-    public void onGameEventOccluded(HitResult hitResult)
+    // Failure path pattern: source -x-> listener
+    // hover text on 'x' with click TP event.
+    // to be finished.
+    public void onGameEventOccluded(BlockPos blockPos, BlockPos sourcePos, BlockHitResult hitResult)
     {
         msg.add(Messenger.c(
-                "r " + this.tr("oops", "  Oops!"),
+                "w " + "  ",
+                getIDMessage(),
                 TextUtil.getSpaceText(),
-                "w " + this.tr("path_blocked", "Event path is blocked")
+                "tb [" + this.tr("listener", "Listener") + "] ",
+                getStyledPositionText("l", blockPos, "@"),
+                "w " + " -",
+                "r " + "x",
+                "w " + "-> ",
+                getStyledPositionText("l", sourcePos, "@")
         ));
     }
 

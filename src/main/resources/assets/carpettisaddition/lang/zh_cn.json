@@ -314,30 +314,16 @@
   "logger.damage.actually_received": "实际受到",
   "logger.damage.damage": "伤害",
   "logger.damage.remaining_health": "剩余生命值",
-
   "logger.commandBlock.executed": "执行了",
-
   "logger.tickWarp.not_started": "Tick warp尚未开始",
   "logger.tickWarp.starter": "启动者",
   "logger.tickWarp.server": "服务器",
   "logger.tickWarp.average_tps": "平均TPS",
   "logger.tickWarp.estimated_remaining_time": "剩余时间",
-
   "logger.lifeTime.unknown_entity_type": "未知的实体类型",
-
-  "logger.gameEvent.detected": "侦测到",
-  "logger.gameEvent.game_event": "游戏事件",
-  "logger.gameEvent.vibration": "振动事件",
-  "logger.gameEvent.simple": "一般事件",
-  "logger.gameEvent.this_gameevent_was_caught": "这个游戏事件已经被监听器捕获",
-  "logger.gameEvent.here": "点击传送",
-  "logger.gameEvent.this_gameevent_was_caught_with_unknown_listener_position": "这个游戏事件被未知位置的监听器捕获",
-  "logger.gameEvent.wow": "  哇塞！",
-  "logger.gameEvent.has_detected": "刚刚检测到振动！",
+  "logger.gameEvent.listener": "监听器",
+  "logger.gameEvent.caught": "已捕获",
   "logger.gameEvent.sculk_sensor": "潜声传感器",
-  "logger.gameEvent.oops": "  噢天哪~！",
-  "logger.gameEvent.path_blocked": "这个事件到侦测器的路径有阻振方块阻挡",
-
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
   "raid_invalidate_reason.gamerule_disable": "被游戏规则禁用",
   "raid_invalidate_reason.poi_removed_before_spawn": "生成袭击者前POI全被移除",

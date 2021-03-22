@@ -2,6 +2,7 @@ package carpettisaddition.mixins.logger.gameevent;
 
 import carpettisaddition.logging.loggers.gameevent.GameEventLogger;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -28,13 +29,13 @@ public class SculkSensorListenerMixin
         {
             return;
         }
-        HitResult hitResult = world.raycast(new BlockStateRaycastContext(Vec3d.ofCenter(pos), Vec3d.ofCenter(sourcePos), (state) ->
+        BlockHitResult hitResult = world.raycast(new BlockStateRaycastContext(Vec3d.ofCenter(pos), Vec3d.ofCenter(sourcePos), (state) ->
                 state.isIn(BlockTags.OCCLUDES_VIBRATION_SIGNALS)));
-        if (hitResult.getType() == HitResult.Type.BLOCK)
+        if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK)
         {
             // This GameEvent will be occluded by a special block
             // wools etc
-            GameEventLogger.getInstance().onGameEventOccluded(hitResult);
+            GameEventLogger.getInstance().onGameEventOccluded(pos, sourcePos, hitResult);
         }
     }
 
