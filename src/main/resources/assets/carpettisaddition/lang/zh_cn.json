@@ -314,16 +314,21 @@
   "logger.damage.actually_received": "实际受到",
   "logger.damage.damage": "伤害",
   "logger.damage.remaining_health": "剩余生命值",
+
   "logger.commandBlock.executed": "执行了",
+
   "logger.tickWarp.not_started": "Tick warp尚未开始",
   "logger.tickWarp.starter": "启动者",
   "logger.tickWarp.server": "服务器",
   "logger.tickWarp.average_tps": "平均TPS",
   "logger.tickWarp.estimated_remaining_time": "剩余时间",
+
   "logger.lifeTime.unknown_entity_type": "未知的实体类型",
+
   "logger.gameEvent.listener": "监听器",
   "logger.gameEvent.caught": "已捕获",
   "logger.gameEvent.sculk_sensor": "潜声传感器",
+
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
   "raid_invalidate_reason.gamerule_disable": "被游戏规则禁用",
   "raid_invalidate_reason.poi_removed_before_spawn": "生成袭击者前POI全被移除",
@@ -345,7 +350,6 @@
   "command.raid.raiders": "袭击者",
   "command.raid.none": "无",
   "command.raid.no_raid": "不存在袭击",
-
 
   "command.info.ticking_order": "游戏中%d个维度的运算顺序：",
 
