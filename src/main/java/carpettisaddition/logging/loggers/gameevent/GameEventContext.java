@@ -3,7 +3,6 @@ package carpettisaddition.logging.loggers.gameevent;
 import carpettisaddition.logging.loggers.gameevent.enums.GameEventStatus;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProperties;
@@ -13,12 +12,12 @@ public class GameEventContext
 {
     private GameEvent gameEvent;
     private BlockPos blockPos;
-    private BlockPos sensorPos;
-    private int range;
-    private Entity entity;
+    private final BlockPos sensorPos;
+    private final int range;
+    private final Entity entity;
     private GameEventStatus status;
-    private RegistryKey<World> worldRegistryKey;
-    private WorldProperties properties;
+    private final RegistryKey<World> worldRegistryKey;
+    private final WorldProperties properties;
 
     public GameEventContext(GameEvent gameEvent, BlockPos blockPos, BlockPos sensorPos, int range, Entity entity, GameEventStatus result, RegistryKey<World> worldRegistryKey, WorldProperties properties)
     {

@@ -11,7 +11,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.tag.GameEventTags;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
@@ -24,14 +23,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
+import static carpettisaddition.logging.loggers.gameevent.utils.GameEventUtils.*;
+
 public class GameEventLogger extends AbstractLogger
 {
     public static final String NAME = "gameEvent";
     private static final GameEventLogger INSTANCE = new GameEventLogger();
     private GameEventContext gameEventContext;
+    private GameEventListener listener;
     private int currentEventID;
     private long lastGameTick;
-    private List<BaseText> msg = Lists.newArrayList();
+    private final List<BaseText> msg = Lists.newArrayList();
 
     public GameEventLogger()
     {
@@ -85,35 +87,6 @@ public class GameEventLogger extends AbstractLogger
         LoggerRegistry.getLogger(NAME).log((option) -> getMessageByOption(LoggingOption.getOrDefault(option)));
     }
 
-    private String getGameEventID(GameEvent gameEvent)
-    {
-        return gameEvent.toString().substring(gameEvent.toString().indexOf('{') + 2, gameEvent.toString().indexOf(',') - 1).toUpperCase();
-    }
-
-    private String getColoredAttributesLabel(boolean b, String text)
-    {
-        return (b ? "e " : "g ") + text; // Dark green if true, gray for the else.
-    }
-
-    private BaseText getSpecialTagsForGameEvent(GameEvent gameEvent)
-    {
-        return Messenger.c(
-                getColoredAttributesLabel(GameEventTags.IGNORE_VIBRATIONS_SNEAKING.contains(gameEvent), "Ignore Vibrations Sneaking\n"),
-                getColoredAttributesLabel(GameEventTags.VIBRATIONS.contains(gameEvent), "Vibrations")
-        );
-    }
-
-    private BaseText getStyledPositionText(String style, BlockPos pos, BaseText text)
-    {
-        return TextUtil.getFancyText(style, text,
-                TextUtil.getCoordinateText("c", pos, gameEventContext.getWorldRegistryKey()),
-                new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(pos)));
-    }
-
-    private BaseText getStyledPositionText(String style, BlockPos pos, String text)
-    {
-        return getStyledPositionText(style, pos, Messenger.s(text));
-    }
 
     private void addTickStartMessage()
     {
@@ -136,7 +109,7 @@ public class GameEventLogger extends AbstractLogger
     private BaseText getIDMessage()
     {
         BlockPos pos = gameEventContext.getBlockPos();
-        return getStyledPositionText("f", pos, String.format("#%d", currentEventID));
+        return getStyledPositionText("f", pos, String.format("#%d", currentEventID), gameEventContext);
     }
 
     public void onGameEventStartProcessing(@Nullable Entity entity, GameEvent gameEvent, BlockPos pos, int range, RegistryKey<World> registryKey, WorldProperties properties)
@@ -173,6 +146,7 @@ public class GameEventLogger extends AbstractLogger
     public void onGameEventListen(World world, GameEventListener listener)
     {
         gameEventContext.setStatus(GameEventStatus.CAUGHT);
+
         listener.getPositionSource().getPos(world).ifPresent((pos) ->
         { // No isPresentOrElse in Java 8.
             msg.add(Messenger.c(
@@ -182,18 +156,8 @@ public class GameEventLogger extends AbstractLogger
                     "t [" + this.tr("listener", "Listener") + "] ",
                     Messenger.s(this.tr("caught", "caught.")),
                     TextUtil.getSpaceText(),
-                    getStyledPositionText("l", pos, "@")));
+                    getStyledPositionText("l", pos, "@", gameEventContext)));
         });
-        // deprecated, in fact idk how to reach this code at all.
-        /*
-        if (!listener.getPositionSource().getPos(world).isPresent())
-        { // stupidly implements,
-            msg.add(Messenger.c(
-                    TextUtil.getSpaceText(),
-                    Messenger.s(this.tr("this_gameevent_was_caught_with_unknown_listener_position", "This Game Event was caught with unknown position"), "w")
-            ));
-        }
-         */
     }
     public void onGameEventSculkSensed(World world, GameEvent gameEvent, BlockPos blockPos, BlockPos sourcePos)
     {
@@ -205,9 +169,9 @@ public class GameEventLogger extends AbstractLogger
                 "g [",
                 TextUtil.getBlockName(world.getBlockState(sourcePos).getBlock()),
                 "g ] ",
-                getStyledPositionText("l", blockPos, "@"),
+                getStyledPositionText("l", blockPos, "@", gameEventContext),
                 "w " + " ---> ",
-                getStyledPositionText("l", sourcePos, "@")
+                getStyledPositionText("l", sourcePos, "@", gameEventContext)
         ));
     }
 
@@ -221,11 +185,11 @@ public class GameEventLogger extends AbstractLogger
                 getIDMessage(),
                 TextUtil.getSpaceText(),
                 "w [" + this.tr("listener", "Listener") + "] ",
-                getStyledPositionText("l", blockPos, "@"),
+                getStyledPositionText("l", blockPos, "@", gameEventContext),
                 "w " + " -",
                 "r " + "x",
                 "w " + "-> ",
-                getStyledPositionText("l", sourcePos, "@")
+                getStyledPositionText("l", sourcePos, "@", gameEventContext)
         ));
     }
 
@@ -233,6 +197,7 @@ public class GameEventLogger extends AbstractLogger
     {
         ALL,
         VIBRATION,
+        IN_RANGE,
         SCULK_SENSED;
 
         public static final LoggingOption DEFAULT = ALL;
