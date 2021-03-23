@@ -81,6 +81,7 @@
     "logger.raid.RaidManagerMixin",
     "logger.raid.RaidMixin",
     "logger.ticket.ChunkTicketManagerMixin",
+    "logger.ticket.ChunkTicketTypeMixin",
     "logger.ticket.ServerChunkManagerMixin",
     "logger.tickwarp.TickCommandMixin",
     "logger.turtleegg.StepAndDestroyBlockGoalMixin",
