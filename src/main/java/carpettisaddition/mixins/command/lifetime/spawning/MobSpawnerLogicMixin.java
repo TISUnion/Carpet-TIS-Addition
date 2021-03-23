@@ -1,0 +1,27 @@
+package carpettisaddition.mixins.command.lifetime.spawning;
+
+import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.MobSpawnerLogic;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+
+@Mixin(MobSpawnerLogic.class)
+public abstract class MobSpawnerLogicMixin
+{
+	@ModifyArg(
+			method = "spawnEntity",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+			),
+			index = 0
+	)
+	private Entity onSpawnerLogicSpawnEntityLifeTimeTracker(Entity entity)
+	{
+		((IEntity)entity).recordSpawning(LiteralSpawningReason.SPAWNER);
+		return entity;
+	}
+}
