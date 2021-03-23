@@ -8,7 +8,7 @@ repositories {
 		url 'https://masa.dy.fi/maven'
 	}
 	maven {
-		url 'https://www.cursemaven.com'
+		url 'https://www.jitpack.io'
 	}
 }
 
@@ -28,7 +28,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
 	modCompile "carpet:fabric-carpet:${project.minecraft_version}-${project.carpet_core_version}"
-	modCompileOnly "curse.maven:lithium-360438:3107909"  // Lithium mc1.16.4-0.6.0
+	modCompileOnly 'com.github.CaffeineMC.lithium-fabric:lithium:mc1.16.5-0.6.4'
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	// modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
