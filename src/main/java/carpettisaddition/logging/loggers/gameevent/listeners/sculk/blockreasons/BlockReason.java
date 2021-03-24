@@ -1,0 +1,44 @@
+package carpettisaddition.logging.loggers.gameevent.listeners.sculk.blockreasons;
+
+import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.gameevent.GameEventLogger;
+import carpettisaddition.logging.loggers.gameevent.listeners.sculk.SculkSensorListenerMessenger;
+import net.minecraft.text.BaseText;
+
+public class BlockReason
+{
+    public static final BlockReason OTHER_REASON = new BlockReason("other_reason","Other Reason");
+
+    public static final String BLOCK_REASON_TR = "blockReason.";
+
+    private final String reasonKey;
+    private final String reasonText;
+
+    public BlockReason(String reasonKey, String reasonText) {
+        this.reasonKey = reasonKey;
+        this.reasonText = reasonText;
+    }
+    protected BaseText getFrontText(){
+        return Messenger.c(
+                "r " + this.tr("blocked","Blocked"),
+                "r :",
+                "n " + this.tr(),
+                "w  "
+        );
+    }
+    protected BaseText getAdditionPrompt(){
+        return Messenger.c(
+                "t # "
+        );
+    }
+
+    public BaseText toText(SculkSensorListenerMessenger messenger){
+        return getFrontText();
+    }
+    private String tr(String key,String text){
+        return GameEventLogger.getStaticTranslator().tr(BLOCK_REASON_TR + key,text);
+    }
+    private String tr(){
+        return this.tr(reasonKey, reasonText);
+    }
+}

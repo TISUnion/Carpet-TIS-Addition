@@ -6,33 +6,37 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.gameevent.enums.GameEventStatus;
+import carpettisaddition.logging.loggers.gameevent.listeners.GameEventListenerMessenger;
+import carpettisaddition.logging.loggers.gameevent.listeners.sculk.SculkSensorListenerMessenger;
+import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.tag.GameEventTags;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProperties;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
+import net.minecraft.world.event.listener.SculkSensorListener;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static carpettisaddition.logging.loggers.gameevent.utils.GameEventUtils.*;
+import static carpettisaddition.logging.loggers.gameevent.utils.GameEventUtil.*;
 
 public class GameEventLogger extends AbstractLogger
 {
     public static final String NAME = "gameEvent";
     private static final GameEventLogger INSTANCE = new GameEventLogger();
     private GameEventContext gameEventContext;
-    private GameEventListener listener;
+    private GameEventListenerMessenger messenger;
     private int currentEventID;
     private long lastGameTick;
+    private static final Translator TRANSLATOR = (new GameEventLogger()).getTranslator();
     private final List<BaseText> msg = Lists.newArrayList();
 
     public GameEventLogger()
@@ -42,14 +46,19 @@ public class GameEventLogger extends AbstractLogger
         lastGameTick = 0;
     }
 
-    public boolean isLoggerActivated()
-    {
-        return TISAdditionLoggerRegistry.__gameEvent;
-    }
 
+
+    public static Translator getStaticTranslator(){
+        return TRANSLATOR;
+    }
     public static GameEventLogger getInstance()
     {
         return INSTANCE;
+    }
+
+    public boolean isLoggerActivated()
+    {
+        return TISAdditionLoggerRegistry.__gameEvent;
     }
 
     public Logger getStandardLogger()
@@ -59,6 +68,10 @@ public class GameEventLogger extends AbstractLogger
         return TISAdditionLoggerRegistry.standardLogger(NAME, def, option);
     }
 
+    public GameEventListenerMessenger getMessenger()
+    {
+        return messenger;
+    }
     private BaseText[] getMessageByOption(LoggingOption option)
     {
         BaseText[] res = msg.toArray(new BaseText[0]);
@@ -68,12 +81,6 @@ public class GameEventLogger extends AbstractLogger
                 return res;
             case VIBRATION:
                 if (GameEventTags.VIBRATIONS.contains(gameEventContext.getGameEvent()))
-                {
-                    return res;
-                }
-                break;
-            case SCULK_SENSED:
-                if (gameEventContext.getStatus() == GameEventStatus.SCULK_SENSED)
                 {
                     return res;
                 }
@@ -114,7 +121,7 @@ public class GameEventLogger extends AbstractLogger
 
     public void onGameEventStartProcessing(@Nullable Entity entity, GameEvent gameEvent, BlockPos pos, int range, RegistryKey<World> registryKey, WorldProperties properties)
     {
-        gameEventContext = new GameEventContext(gameEvent, pos, null, range, entity, GameEventStatus.NOTHING, registryKey, properties);
+        gameEventContext = new GameEventContext(gameEvent, pos, range, entity, GameEventStatus.NOTHING, registryKey, properties);
         msg.clear();
         if (this.gameEventContext.getProperties().getTime() != lastGameTick)
         { // only flush with overworld time changed
@@ -143,62 +150,24 @@ public class GameEventLogger extends AbstractLogger
         flushMessages();
     }
 
-    public void onGameEventListen(World world, GameEventListener listener)
+    public void onGameEventListenStart(World world, GameEventListener listener)
     {
         gameEventContext.setStatus(GameEventStatus.CAUGHT);
-
-        listener.getPositionSource().getPos(world).ifPresent((pos) ->
-        { // No isPresentOrElse in Java 8.
-            msg.add(Messenger.c(
-                    TextUtil.getSpaceText(),
-                    getIDMessage(),
-                    TextUtil.getSpaceText(),
-                    "t [" + this.tr("listener", "Listener") + "] ",
-                    Messenger.s(this.tr("caught", "caught.")),
-                    TextUtil.getSpaceText(),
-                    getStyledPositionText("l", pos, "@", gameEventContext)));
-        });
+        if(listener instanceof SculkSensorListener){
+            messenger = new SculkSensorListenerMessenger(world,gameEventContext.getBlockPos(),listener,gameEventContext);
+        }
     }
-    public void onGameEventSculkSensed(World world, GameEvent gameEvent, BlockPos blockPos, BlockPos sourcePos)
-    {
-        gameEventContext.setStatus(GameEventStatus.SCULK_SENSED);
-        msg.add(Messenger.c(
-                "w " + "  ",
-                getIDMessage(),
-                TextUtil.getSpaceText(),
-                "g [",
-                TextUtil.getBlockName(world.getBlockState(sourcePos).getBlock()),
-                "g ] ",
-                getStyledPositionText("l", blockPos, "@", gameEventContext),
-                "w " + " ---> ",
-                getStyledPositionText("l", sourcePos, "@", gameEventContext)
-        ));
+    public void onGameEventListenEnd(){
+        msg.addAll(messenger.getMessage());
     }
 
-    // Failure path pattern: source -x-> listener
-    // hover text on 'x' with click TP event.
-    // to be finished.
-    public void onGameEventOccluded(BlockPos blockPos, BlockPos sourcePos, BlockHitResult hitResult)
-    {
-        msg.add(Messenger.c(
-                "w " + "  ",
-                getIDMessage(),
-                TextUtil.getSpaceText(),
-                "w [" + this.tr("listener", "Listener") + "] ",
-                getStyledPositionText("l", blockPos, "@", gameEventContext),
-                "w " + " -",
-                "r " + "x",
-                "w " + "-> ",
-                getStyledPositionText("l", sourcePos, "@", gameEventContext)
-        ));
-    }
+
 
     private enum LoggingOption
     {
         ALL,
         VIBRATION,
-        IN_RANGE,
-        SCULK_SENSED;
+        IN_RANGE;
 
         public static final LoggingOption DEFAULT = ALL;
 

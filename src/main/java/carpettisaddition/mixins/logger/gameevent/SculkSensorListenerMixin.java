@@ -1,6 +1,8 @@
 package carpettisaddition.mixins.logger.gameevent;
 
 import carpettisaddition.logging.loggers.gameevent.GameEventLogger;
+import carpettisaddition.logging.loggers.gameevent.listeners.sculk.SculkSensorListenerMessenger;
+import carpettisaddition.logging.loggers.gameevent.listeners.sculk.blockreasons.OccludedByBlocksReason;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -25,7 +27,7 @@ public class SculkSensorListenerMixin
     )
     private void isOccluded(World world, BlockPos pos, BlockPos sourcePos, CallbackInfoReturnable<Boolean> cir)
     {
-        if (!GameEventLogger.getInstance().isLoggerActivated())
+        if (!GameEventLogger.getInstance().isLoggerActivated() || !(GameEventLogger.getInstance().getMessenger() instanceof SculkSensorListenerMessenger))
         {
             return;
         }
@@ -35,7 +37,8 @@ public class SculkSensorListenerMixin
         {
             // This GameEvent will be occluded by a special block
             // wools etc
-            GameEventLogger.getInstance().onGameEventOccluded(pos, sourcePos, hitResult);
+            SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
+            messenger.onSculkBlocked(OccludedByBlocksReason.OCCLUDED_BY_BLOCKS_REASON);
         }
     }
 
@@ -45,10 +48,11 @@ public class SculkSensorListenerMixin
     )
     private void onGameEventSensed(World world, GameEvent gameEvent, BlockPos blockPos, BlockPos sourcePos, CallbackInfo ci)
     {
-        if (!GameEventLogger.getInstance().isLoggerActivated())
+        if (!GameEventLogger.getInstance().isLoggerActivated() || !(GameEventLogger.getInstance().getMessenger() instanceof SculkSensorListenerMessenger))
         {
             return;
         }
-        GameEventLogger.getInstance().onGameEventSculkSensed(world, gameEvent, blockPos, sourcePos);
+        SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
+        messenger.onSculkDecideToActivate();
     }
 }

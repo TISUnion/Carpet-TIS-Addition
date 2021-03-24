@@ -9,7 +9,7 @@ import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.event.GameEvent;
 
-public class GameEventUtils
+public class GameEventUtil
 {
     public static String getColoredAttributesLabel(boolean b, String text)
     {
@@ -20,7 +20,9 @@ public class GameEventUtils
     {
         return gameEvent.toString().substring(gameEvent.toString().indexOf('{') + 2, gameEvent.toString().indexOf(',') - 1).toUpperCase();
     }
-
+    public static BaseText getSomeSpace(int number){
+        return Messenger.c("w " + String.format("%1$" + number + "s",""));
+    }
 
     public static BaseText getSpecialTagsForGameEvent(GameEvent gameEvent)
     {

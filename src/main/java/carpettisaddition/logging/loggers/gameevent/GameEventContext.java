@@ -12,18 +12,16 @@ public class GameEventContext
 {
     private GameEvent gameEvent;
     private BlockPos blockPos;
-    private final BlockPos sensorPos;
     private final int range;
     private final Entity entity;
     private GameEventStatus status;
     private final RegistryKey<World> worldRegistryKey;
     private final WorldProperties properties;
 
-    public GameEventContext(GameEvent gameEvent, BlockPos blockPos, BlockPos sensorPos, int range, Entity entity, GameEventStatus result, RegistryKey<World> worldRegistryKey, WorldProperties properties)
+    public GameEventContext(GameEvent gameEvent, BlockPos blockPos, int range, Entity entity, GameEventStatus result, RegistryKey<World> worldRegistryKey, WorldProperties properties)
     {
         this.gameEvent = gameEvent;
         this.blockPos = blockPos;
-        this.sensorPos = sensorPos;
         this.range = range;
         this.entity = entity;
         this.status = result;

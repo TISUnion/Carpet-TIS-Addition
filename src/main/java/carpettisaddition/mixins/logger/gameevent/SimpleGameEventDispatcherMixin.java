@@ -20,11 +20,22 @@ public class SimpleGameEventDispatcherMixin
             method = "dispatchTo",
             at = @At("HEAD")
     )
-    private void onGameEventCaught(World world, GameEvent event, @Nullable Entity entity, BlockPos pos, GameEventListener listener, CallbackInfoReturnable<Boolean> cir)
+    private void onGameEventListenStart(World world, GameEvent event, @Nullable Entity entity, BlockPos pos, GameEventListener listener, CallbackInfoReturnable<Boolean> cir)
     {
         if (GameEventLogger.getInstance().isLoggerActivated())
         {
-            GameEventLogger.getInstance().onGameEventListen(world, listener);
+            GameEventLogger.getInstance().onGameEventListenStart(world, listener);
+        }
+    }
+    @Inject(
+            method = "dispatchTo",
+            at = @At("RETURN")
+    )
+    private void onGameEventListenEnd(World world, GameEvent event, @Nullable Entity entity, BlockPos pos, GameEventListener listener, CallbackInfoReturnable<Boolean> cir)
+    {
+        if (GameEventLogger.getInstance().isLoggerActivated())
+        {
+            GameEventLogger.getInstance().onGameEventListenEnd();
         }
     }
 }
