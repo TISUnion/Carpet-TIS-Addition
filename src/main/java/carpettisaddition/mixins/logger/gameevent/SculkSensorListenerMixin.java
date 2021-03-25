@@ -2,7 +2,8 @@ package carpettisaddition.mixins.logger.gameevent;
 
 import carpettisaddition.logging.loggers.gameevent.GameEventLogger;
 import carpettisaddition.logging.loggers.gameevent.listeners.sculk.SculkSensorListenerMessenger;
-import carpettisaddition.logging.loggers.gameevent.listeners.sculk.blockreasons.OccludedBlockReason;
+import carpettisaddition.logging.loggers.gameevent.listeners.sculk.blockreasons.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -12,15 +13,24 @@ import net.minecraft.world.BlockStateRaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.SculkSensorListener;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(SculkSensorListener.class)
 public class SculkSensorListenerMixin
 {
+    @Shadow
+    protected int delay;
+    @Shadow
+    protected Optional<GameEvent> event;
+
     @Inject(
             method = "isOccluded",
             at = @At("HEAD")
@@ -38,7 +48,7 @@ public class SculkSensorListenerMixin
             // This GameEvent will be occluded by a special block
             // wools etc
             SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
-            messenger.onSculkBlocked(OccludedBlockReason.OCCLUDED_BY_BLOCKS_REASON);
+            messenger.onSculkBlocked(BlockOccludedBlockReason.OCCLUDED_BY_BLOCKS_REASON);
         }
     }
 
@@ -54,5 +64,107 @@ public class SculkSensorListenerMixin
         }
         SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
         messenger.onSculkDecideToActivate();
+    }
+
+    @Inject(
+            method = "shouldActivate",
+            at = @At(
+                    value = "RETURN",
+                    ordinal = 0
+            )
+    )
+    private void onOccupiedBlocked(GameEvent event, @Nullable Entity entity, CallbackInfoReturnable<Boolean> cir)
+    {
+        if (!GameEventLogger.getInstance().isLoggerActivated() || !(GameEventLogger.getInstance().getMessenger() instanceof SculkSensorListenerMessenger))
+        {
+            return;
+        }
+        SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
+        messenger.onSculkBlocked(new OccupiedByOtherEventBlockReason(this.event.get(), delay));
+    }
+
+    @Inject(
+            method = "shouldActivate",
+            at = @At(
+                    value = "RETURN",
+                    ordinal = 1
+            )
+    )
+    private void onNotVibrationBlocked(GameEvent event, @Nullable Entity entity, CallbackInfoReturnable<Boolean> cir)
+    {
+        if (!GameEventLogger.getInstance().isLoggerActivated() || !(GameEventLogger.getInstance().getMessenger() instanceof SculkSensorListenerMessenger))
+        {
+            return;
+        }
+        SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
+        messenger.onSculkBlocked(BlockReason.NOT_VIBRATION_BLOCK_REASON);
+    }
+
+    @Inject(
+            method = "shouldActivate",
+            at = @At(
+                    value = "RETURN",
+                    ordinal = 2
+            )
+    )
+    private void ondEntitySneakingBlocked(GameEvent event, @Nullable Entity entity, CallbackInfoReturnable<Boolean> cir)
+    {
+        if (!GameEventLogger.getInstance().isLoggerActivated() || !(GameEventLogger.getInstance().getMessenger() instanceof SculkSensorListenerMessenger))
+        {
+            return;
+        }
+        SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
+        messenger.onSculkBlocked(new EntitySneakingBlockReason(entity));
+    }
+
+    @Inject(
+            method = "shouldActivate",
+            at = @At(
+                    value = "RETURN",
+                    ordinal = 3
+            )
+    )
+    private void ondEntityOccludedBlocked(GameEvent event, @Nullable Entity entity, CallbackInfoReturnable<Boolean> cir)
+    {
+        if (!GameEventLogger.getInstance().isLoggerActivated() || !(GameEventLogger.getInstance().getMessenger() instanceof SculkSensorListenerMessenger))
+        {
+            return;
+        }
+        SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
+        messenger.onSculkBlocked(new ItemOccludedBlockReason(entity));
+    }
+
+    @Inject(
+            method = "listen",
+            at = @At(
+                    value = "RETURN",
+                    ordinal = 1
+            )
+    )
+    private void onSensorPlacedOrRemovedBlocked(World world, GameEvent event, @Nullable Entity entity, BlockPos pos, CallbackInfoReturnable<Boolean> cir)
+    {
+        if (!GameEventLogger.getInstance().isLoggerActivated() || !(GameEventLogger.getInstance().getMessenger() instanceof SculkSensorListenerMessenger))
+        {
+            return;
+        }
+        SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
+        messenger.onSculkBlocked(BlockReason.SENSOR_PLACED_OR_REMOVED_BLOCK_REASON);
+    }
+
+    @Inject(
+            method = "listen(Lnet/minecraft/world/World;Lnet/minecraft/world/event/GameEvent;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;)Z",
+            at = @At(
+                    value = "RETURN",
+                    ordinal = 2
+            )
+    )
+    private void onSculkUnavailableBlock(World world, GameEvent event, @Nullable Entity entity, BlockPos pos, CallbackInfoReturnable<Boolean> cir)
+    {
+        if (!GameEventLogger.getInstance().isLoggerActivated() || !(GameEventLogger.getInstance().getMessenger() instanceof SculkSensorListenerMessenger))
+        {
+            return;
+        }
+        SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
+        messenger.onSculkBlocked(BlockReason.SCULK_UNAVAILABLE_BLOCK_REASON);
     }
 }

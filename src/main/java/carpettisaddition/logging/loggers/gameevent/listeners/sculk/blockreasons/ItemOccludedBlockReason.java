@@ -5,17 +5,18 @@ import carpettisaddition.logging.loggers.gameevent.listeners.sculk.SculkSensorLi
 import carpettisaddition.logging.loggers.gameevent.utils.GameEventUtil;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.text.BaseText;
-import net.minecraft.world.event.GameEvent;
 
-public class EntitySneakingBlockReason extends BlockReason
+public class ItemOccludedBlockReason extends BlockReason
 {
-    private static final String REASON_KEY = "entity_sneaking";
-    private static final String REASON_TEXT = "Entity Sneaking";
-    private Entity entity;
-    public EntitySneakingBlockReason(Entity entity){
+    private static final String REASON_KEY = "item_occluded";
+    private static final String REASON_TEXT = "Item Occluded";
+    private final Entity item;
+
+    public ItemOccludedBlockReason(Entity item){
         super(REASON_KEY,REASON_TEXT);
-        this.entity = entity;
+        this.item = item;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class EntitySneakingBlockReason extends BlockReason
         return Messenger.c(
                 super.toText(messenger),
                 GameEventUtil.getAdditionPrompt(),
-                TextUtil.getEntityText("c",entity)
+                TextUtil.getEntityText("c",item)
         );
     }
 }

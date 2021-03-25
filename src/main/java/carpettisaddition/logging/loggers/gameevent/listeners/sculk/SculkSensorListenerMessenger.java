@@ -57,7 +57,7 @@ public class SculkSensorListenerMessenger extends GameEventListenerMessenger
     {
         if (!this.reasonable)
         {
-            //onSculkBlocked(BlockReason.OTHER_REASON);
+            onSculkBlocked(BlockReason.OTHER_REASON);
         }
         return this.msg;
     }

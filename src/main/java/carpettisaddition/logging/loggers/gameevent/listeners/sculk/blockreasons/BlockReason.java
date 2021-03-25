@@ -8,6 +8,9 @@ import net.minecraft.text.BaseText;
 public class BlockReason
 {
     public static final BlockReason OTHER_REASON = new BlockReason("other_reason","Other Reason");
+    public static final BlockReason NOT_VIBRATION_BLOCK_REASON = new BlockReason("not_vibration","Not Vibration");
+    public static final BlockReason SENSOR_PLACED_OR_REMOVED_BLOCK_REASON = new BlockReason("sensor_placed_or_removed","Sensor Placed or Removed");
+    public static final BlockReason SCULK_UNAVAILABLE_BLOCK_REASON = new BlockReason("sculk_unavailable","Sculk Unavailable");
 
     public static final String BLOCK_REASON_TR = "blockReason.";
 

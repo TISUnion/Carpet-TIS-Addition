@@ -5,12 +5,12 @@ import carpettisaddition.logging.loggers.gameevent.listeners.sculk.SculkSensorLi
 import carpettisaddition.logging.loggers.gameevent.utils.GameEventUtil;
 import net.minecraft.text.BaseText;
 
-public class OccludedBlockReason extends BlockReason
+public class BlockOccludedBlockReason extends BlockReason
 {
-    public static final OccludedBlockReason OCCLUDED_BY_BLOCKS_REASON = new OccludedBlockReason();
+    public static final BlockOccludedBlockReason OCCLUDED_BY_BLOCKS_REASON = new BlockOccludedBlockReason();
     public static final String REASON_KEY = "occluded";
     public static final String REASON_TEXT = "Occluded";
-    public OccludedBlockReason()
+    public BlockOccludedBlockReason()
     {
         super(REASON_KEY, REASON_TEXT);
     }
