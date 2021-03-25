@@ -91,6 +91,7 @@
     "logger.gameevent.WorldMixin",
     "logger.gameevent.SculkSensorListenerMixin",
     "logger.gameevent.SimpleGameEventDispatcherMixin",
+    "logger.gameevent.GameEventAccessor",
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",

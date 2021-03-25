@@ -158,7 +158,7 @@ public class GameEventLogger extends AbstractLogger
         }
     }
     public void onGameEventListenEnd(){
-        msg.addAll(messenger.getMessage());
+        msg.addAll(messenger.onListenEnd());
     }
 
 

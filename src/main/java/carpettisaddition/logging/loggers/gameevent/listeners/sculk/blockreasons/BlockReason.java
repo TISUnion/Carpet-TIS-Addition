@@ -26,19 +26,14 @@ public class BlockReason
                 "w  "
         );
     }
-    protected BaseText getAdditionPrompt(){
-        return Messenger.c(
-                "t # "
-        );
-    }
 
     public BaseText toText(SculkSensorListenerMessenger messenger){
         return getFrontText();
     }
-    private String tr(String key,String text){
+    protected String tr(String key,String text){
         return GameEventLogger.getStaticTranslator().tr(BLOCK_REASON_TR + key,text);
     }
-    private String tr(){
+    protected String tr(){
         return this.tr(reasonKey, reasonText);
     }
 }

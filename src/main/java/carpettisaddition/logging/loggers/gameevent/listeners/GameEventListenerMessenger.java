@@ -77,7 +77,7 @@ public abstract class GameEventListenerMessenger
         return msg;
     }
 
-    public List<BaseText> getMessage()
+    public List<BaseText> onListenEnd()
     {
         return msg;
     }

@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.gameevent;
 
 import carpettisaddition.logging.loggers.gameevent.GameEventLogger;
 import carpettisaddition.logging.loggers.gameevent.listeners.sculk.SculkSensorListenerMessenger;
-import carpettisaddition.logging.loggers.gameevent.listeners.sculk.blockreasons.OccludedByBlocksReason;
+import carpettisaddition.logging.loggers.gameevent.listeners.sculk.blockreasons.OccludedBlockReason;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -38,7 +38,7 @@ public class SculkSensorListenerMixin
             // This GameEvent will be occluded by a special block
             // wools etc
             SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
-            messenger.onSculkBlocked(OccludedByBlocksReason.OCCLUDED_BY_BLOCKS_REASON);
+            messenger.onSculkBlocked(OccludedBlockReason.OCCLUDED_BY_BLOCKS_REASON);
         }
     }
 
