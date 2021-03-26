@@ -325,9 +325,20 @@
 
   "logger.lifeTime.unknown_entity_type": "未知的实体类型",
 
-  "logger.gameEvent.listener": "监听器",
-  "logger.gameEvent.caught": "已捕获",
-  "logger.gameEvent.sculk_sensor": "潜声传感器",
+  "logger.gameEvent.block_reason.other_reason": "其他原因",
+  "logger.gameEvent.block_reason.not_vibration": "非振事件",
+  "logger.gameEvent.block_reason.sensor_position_not_exists": "传感器位置不存在",
+  "logger.gameEvent.block_reason.sculk_unavailable": "传感器未就绪",
+  "logger.gameEvent.block_reason.blocked": "事件被阻止",
+  "logger.gameEvent.block_reason.occluded": "阻振吸收",
+  "logger.gameEvent.block_reason.entity_sneaking": "实体潜行",
+  "logger.gameEvent.block_reason.item_occluded": "物品阻振",
+  "logger.gameEvent.block_reason.occupied": "被占用",
+  "logger.gameEvent.block_reason.too_far": "超出最远距离",
+  "logger.gameEvent.block_reason.occupied_game_event": "占用事件",
+  "logger.gameEvent.block_reason.distance": "距离",
+  "logger.gameEvent.block_reason.listener_range": "传感器距离",
+  "logger.gameEvent.block_reason.current_delay": "当前延迟",
 
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
   "raid_invalidate_reason.gamerule_disable": "被游戏规则禁用",

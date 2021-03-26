@@ -5,7 +5,6 @@ import carpettisaddition.logging.loggers.gameevent.listeners.sculk.SculkSensorLi
 import carpettisaddition.logging.loggers.gameevent.utils.GameEventUtil;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.text.BaseText;
 
 public class ItemOccludedBlockReason extends BlockReason

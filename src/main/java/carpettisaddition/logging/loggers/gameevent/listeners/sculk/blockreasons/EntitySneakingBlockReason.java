@@ -6,7 +6,6 @@ import carpettisaddition.logging.loggers.gameevent.utils.GameEventUtil;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
-import net.minecraft.world.event.GameEvent;
 
 public class EntitySneakingBlockReason extends BlockReason
 {

@@ -7,10 +7,8 @@ import carpettisaddition.utils.TextUtil;
 import net.minecraft.tag.GameEventTags;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 

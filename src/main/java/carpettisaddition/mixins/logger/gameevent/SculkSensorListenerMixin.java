@@ -148,7 +148,7 @@ public class SculkSensorListenerMixin
             return;
         }
         SculkSensorListenerMessenger messenger = (SculkSensorListenerMessenger) GameEventLogger.getInstance().getMessenger();
-        messenger.onSculkBlocked(BlockReason.SENSOR_PLACED_OR_REMOVED_BLOCK_REASON);
+        messenger.onSculkBlocked(BlockReason.SENSOR_POSITION_NOT_EXISTS);
     }
 
     @Inject(

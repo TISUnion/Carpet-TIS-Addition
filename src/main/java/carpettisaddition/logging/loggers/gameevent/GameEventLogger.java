@@ -144,7 +144,7 @@ public class GameEventLogger extends AbstractLogger
         msg.add(Messenger.c(
                 getIDMessage(),
                 TextUtil.getSpaceText(),
-                "r [ENDED]"
+                "r [END]"
         ));
         currentEventID++;
         flushMessages();
