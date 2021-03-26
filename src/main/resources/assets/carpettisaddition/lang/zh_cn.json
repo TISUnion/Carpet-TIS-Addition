@@ -327,7 +327,7 @@
 
   "logger.gameEvent.block_reason.other_reason": "其他原因",
   "logger.gameEvent.block_reason.not_vibration": "非振事件",
-  "logger.gameEvent.block_reason.sensor_position_not_exists": "传感器位置不存在",
+  "logger.gameEvent.block_reason.sensor_position_doesnt_exist": "传感器位置不存在",
   "logger.gameEvent.block_reason.sculk_unavailable": "传感器未就绪",
   "logger.gameEvent.block_reason.blocked": "事件被阻止",
   "logger.gameEvent.block_reason.occluded": "阻振吸收",

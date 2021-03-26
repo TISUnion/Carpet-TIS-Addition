@@ -9,7 +9,7 @@ public class BlockReason
 {
     public static final BlockReason OTHER_REASON = new BlockReason("other_reason","Other Reason");
     public static final BlockReason NOT_VIBRATION_BLOCK_REASON = new BlockReason("not_vibration","Not Vibration");
-    public static final BlockReason SENSOR_POSITION_NOT_EXISTS = new BlockReason("sensor_position_not_exists","Sensor Position Not Exists");
+    public static final BlockReason SENSOR_POSITION_NOT_EXISTS = new BlockReason("sensor_position_doesnt_exist","Sensor Position Doesn't Exist");
     public static final BlockReason SCULK_UNAVAILABLE_BLOCK_REASON = new BlockReason("sculk_unavailable","Sculk Unavailable");
 
     public static final String BLOCK_REASON_TR = "block_reason.";
