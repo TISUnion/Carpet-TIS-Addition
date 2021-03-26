@@ -31,6 +31,7 @@ import static carpettisaddition.logging.loggers.gameevent.utils.GameEventUtil.*;
 public class GameEventLogger extends AbstractLogger
 {
     public static final String NAME = "gameEvent";
+    private static final int RANGE = 8;
     private static final GameEventLogger INSTANCE = new GameEventLogger();
     private GameEventContext gameEventContext;
     private GameEventListenerMessenger messenger;
@@ -85,6 +86,11 @@ public class GameEventLogger extends AbstractLogger
                     return res;
                 }
                 break;
+            case LISTENER_CAUGHT:
+                if(gameEventContext.getStatus() == GameEventStatus.LISTENER_CAUGHT)
+                {
+                    return res;
+                }
         }
         return new BaseText[0];
     }
@@ -152,7 +158,7 @@ public class GameEventLogger extends AbstractLogger
 
     public void onGameEventListenStart(World world, GameEventListener listener)
     {
-        gameEventContext.setStatus(GameEventStatus.CAUGHT);
+        gameEventContext.setStatus(GameEventStatus.LISTENER_CAUGHT);
         if(listener instanceof SculkSensorListener){
             messenger = new SculkSensorListenerMessenger(world,gameEventContext.getBlockPos(),listener,gameEventContext);
         }
@@ -167,7 +173,7 @@ public class GameEventLogger extends AbstractLogger
     {
         ALL,
         VIBRATION,
-        IN_RANGE;
+        LISTENER_CAUGHT;
 
         public static final LoggingOption DEFAULT = ALL;
 
