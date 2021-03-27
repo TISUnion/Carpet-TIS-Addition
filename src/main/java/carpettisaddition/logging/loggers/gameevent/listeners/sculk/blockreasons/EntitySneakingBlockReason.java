@@ -11,7 +11,7 @@ public class EntitySneakingBlockReason extends BlockReason
 {
     private static final String REASON_KEY = "entity_sneaking";
     private static final String REASON_TEXT = "Entity Sneaking";
-    private Entity entity;
+    private final Entity entity;
     public EntitySneakingBlockReason(Entity entity){
         super(REASON_KEY,REASON_TEXT);
         this.entity = entity;

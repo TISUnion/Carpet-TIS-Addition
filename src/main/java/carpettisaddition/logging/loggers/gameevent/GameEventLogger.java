@@ -31,7 +31,6 @@ import static carpettisaddition.logging.loggers.gameevent.utils.GameEventUtil.*;
 public class GameEventLogger extends AbstractLogger
 {
     public static final String NAME = "gameEvent";
-    private static final int RANGE = 8;
     private static final GameEventLogger INSTANCE = new GameEventLogger();
     private GameEventContext gameEventContext;
     private GameEventListenerMessenger messenger;
@@ -125,12 +124,12 @@ public class GameEventLogger extends AbstractLogger
         return getStyledPositionText("f", pos, String.format("#%d", currentEventID), gameEventContext);
     }
 
-    public void onGameEventStartProcessing(@Nullable Entity entity, GameEvent gameEvent, BlockPos pos, int range, RegistryKey<World> registryKey, WorldProperties properties)
+    public void onGameEventStartProcessing(@Nullable Entity entity, GameEvent gameEvent, BlockPos pos, RegistryKey<World> registryKey, WorldProperties properties)
     {
-        gameEventContext = new GameEventContext(gameEvent, pos, range, entity, GameEventStatus.NOTHING, registryKey, properties);
+        gameEventContext = new GameEventContext(gameEvent, pos, entity, GameEventStatus.NOTHING, registryKey, properties);
         msg.clear();
         if (this.gameEventContext.getProperties().getTime() != lastGameTick)
-        { // only flush with overworld time changed
+        {
             lastGameTick = this.gameEventContext.getProperties().getTime();
             currentEventID = 0;
             addTickStartMessage();
@@ -172,7 +171,7 @@ public class GameEventLogger extends AbstractLogger
     private enum LoggingOption
     {
         ALL,
-        VIBRATION,
+        VIBRATION, // Currently(21w10a) all gameEvent has this tag, so this option is equivalent to 'all'.
         LISTENER_CAUGHT;
 
         public static final LoggingOption DEFAULT = ALL;

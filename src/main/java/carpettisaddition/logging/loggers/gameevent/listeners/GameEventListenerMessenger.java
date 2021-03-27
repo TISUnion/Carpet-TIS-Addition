@@ -19,7 +19,7 @@ public abstract class GameEventListenerMessenger
     protected GameEventListener listener;
     protected GameEventContext gameEventContext;
     protected BlockPos eventPos;
-    protected final List<BaseText> msg = new ArrayList<BaseText>();
+    protected final List<BaseText> msg = new ArrayList<>();
     protected int eventCount;
 
     public World getWorld()
@@ -49,7 +49,7 @@ public abstract class GameEventListenerMessenger
                 GameEventUtil.getSomeSpace(eventCount),
                 this.getListenerName(),
                 "w " + " $->", // $->@ = Listener '@' started listening
-                GameEventUtil.getStyledPositionText("l", getListener().getPositionSource().getPos(world).get(), "@", gameEventContext)
+                GameEventUtil.getStyledPositionText("l", getListener().getPositionSource().getPos(world), "@", gameEventContext)
         ));
     }
 

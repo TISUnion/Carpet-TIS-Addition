@@ -10,19 +10,17 @@ import net.minecraft.world.event.GameEvent;
 
 public class GameEventContext
 {
-    private GameEvent gameEvent;
+    private final GameEvent gameEvent;
     private BlockPos blockPos;
-    private final int range;
     private final Entity entity;
     private GameEventStatus status;
     private final RegistryKey<World> worldRegistryKey;
     private final WorldProperties properties;
 
-    public GameEventContext(GameEvent gameEvent, BlockPos blockPos, int range, Entity entity, GameEventStatus result, RegistryKey<World> worldRegistryKey, WorldProperties properties)
+    public GameEventContext(GameEvent gameEvent, BlockPos blockPos, Entity entity, GameEventStatus result, RegistryKey<World> worldRegistryKey, WorldProperties properties)
     {
         this.gameEvent = gameEvent;
         this.blockPos = blockPos;
-        this.range = range;
         this.entity = entity;
         this.status = result;
         this.worldRegistryKey = worldRegistryKey;

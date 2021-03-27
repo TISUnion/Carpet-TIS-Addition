@@ -33,7 +33,7 @@ public class WorldMixin
     {
         if (GameEventLogger.getInstance().isLoggerActivated())
         {
-            GameEventLogger.getInstance().onGameEventStartProcessing(entity, gameEvent, pos, range, registryKey, properties);
+            GameEventLogger.getInstance().onGameEventStartProcessing(entity, gameEvent, pos, registryKey, properties);
         }
     }
 
