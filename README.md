@@ -876,6 +876,7 @@ Tracked entity spawning reasons
 - Spawned by item (spawn eggs etc.)
 - Slime division (for slime and magma cube)
 - Zombie Reinforce
+- Spawner
 - `/summon` command
 - Mob drop (item and xp orb only)
 - Block drop (item only)
