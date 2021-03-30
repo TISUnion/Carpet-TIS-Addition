@@ -6,22 +6,41 @@ import net.minecraft.entity.Entity;
 import net.minecraft.world.MobSpawnerLogic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MobSpawnerLogic.class)
 public abstract class MobSpawnerLogicMixin
 {
+	private Entity spawnedEntity$lifeTimeTracker;
+
 	@ModifyArg(
-			method = "spawnEntity",
+			method = "update",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;shouldCreateNewEntityWithPassenger(Lnet/minecraft/entity/Entity;)Z"
 			),
 			index = 0
 	)
-	private Entity onSpawnerLogicSpawnEntityLifeTimeTracker(Entity entity)
+	private Entity recordSpawnedEntity(Entity entity)
 	{
-		((IEntity)entity).recordSpawning(LiteralSpawningReason.SPAWNER);
+		this.spawnedEntity$lifeTimeTracker = entity;
 		return entity;
+	}
+
+	@Inject(
+			method = "update",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/World;syncWorldEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+			)
+	)
+	private void onSpawnerLogicSpawnEntityLifeTimeTracker(CallbackInfo ci)
+	{
+		if (this.spawnedEntity$lifeTimeTracker != null)
+		{
+			((IEntity)this.spawnedEntity$lifeTimeTracker).recordSpawning(LiteralSpawningReason.SPAWNER);
+		}
 	}
 }
