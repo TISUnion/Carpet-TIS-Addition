@@ -42,7 +42,6 @@ public class TicketLogger extends AbstractLogger
 	public void addTicketType(ChunkTicketType<?> ticketType)
 	{
 		this.tickTypes.add(ticketType);
-		System.err.println("added " + ticketType);
 	}
 
 	private String[] getLoggingSuggestions()
