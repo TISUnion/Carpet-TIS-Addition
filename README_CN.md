@@ -58,6 +58,10 @@
 - [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
 - [经验球追踪距离](#经验球追踪距离-xpTrackingDistance)
 
+## [移植的规则](#移植的规则)
+
+- [光照引擎最大任务组数](#光照引擎最大任务组数-lightEngineMaxBatchSize)
+
 ## [监视器](#监视器列表)
 
 - [加载票](#加载票-ticket)
@@ -632,6 +636,15 @@
 - 默认值: `8`
 - 参考选项: `0`, `1`, `8`, `32`
 - 分类: `TIS`, `CREATIVE`
+
+
+-----------
+
+# 移植的规则
+
+## 光照引擎最大任务组数 (lightEngineMaxBatchSize)
+
+移植自 fabric carpet [1.4.23](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.23) ，至 1.14.4 及 1.15.2
 
 
 -----------

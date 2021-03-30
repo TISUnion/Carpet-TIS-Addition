@@ -58,6 +58,10 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [turtleEggTrampledDisabled](#turtleEggTrampledDisabled)
 - [xpTrackingDistance](#xpTrackingDistance)
 
+## [Ported-rules](#ported-rules)
+
+- [lightEngineMaxBatchSize](#lightEngineMaxBatchSize)
+
 ## [Loggers](#logger-list)
 
 - [ticket](#ticket)
@@ -632,6 +636,15 @@ Change it to 0 to disable tracking
 - Default value: `8`
 - Suggested options: `0`, `1`, `8`, `32`
 - Categories: `TIS`, `CREATIVE`
+
+
+-----------
+
+# Ported rules
+
+## lightEngineMaxBatchSize
+
+Ported from fabric carpet [1.4.23](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.23) to 1.14.4 and 1.15.2
 
 
 -----------

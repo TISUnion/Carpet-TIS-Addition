@@ -3,6 +3,7 @@ package carpettisaddition;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
+import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -187,6 +188,33 @@ public class CarpetTISAdditionSettings
 			category = {TIS, EXPERIMENTAL, FEATURE}
 	)
 	public static boolean keepMobInLazyChunks = false;
+
+	@Rule(
+			desc = "Changes maximum light tasks batch size",
+			extra = {
+					"Allows for a higher light suppression tolerance",
+					"Setting it to 5 - Default limit defined by the game"
+			},
+			category = {EXPERIMENTAL, OPTIMIZATION},  // no TIS since it's a fabric-carpet backport
+			strict = false,
+			options = {"5", "50", "100", "200"},
+			validate = LightBatchValidator.class
+	)
+	public static int lightEngineMaxBatchSize = 5;
+
+	public static class LightBatchValidator extends Validator<Integer>
+	{
+		@Override
+		public Integer validate(ServerCommandSource serverCommandSource, ParsedRule<Integer> parsedRule, Integer newValue, String string)
+		{
+			if (newValue > 0)
+			{
+				LightBatchSizeChanger.setSize(newValue);
+				return newValue;
+			}
+			return null;
+		}
+	}
 
 	@Rule(
 			desc = "The sampling duration of light queue logger in game tick",
