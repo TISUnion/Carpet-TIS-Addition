@@ -61,6 +61,7 @@
 ## [移植的规则](#移植的规则)
 
 - [光照引擎最大任务组数](#光照引擎最大任务组数-lightEngineMaxBatchSize)
+- [结构方块轮廓距离](#结构方块轮廓距离-structureBlockOutlineDistance)
 
 ## [监视器](#监视器列表)
 
@@ -645,6 +646,10 @@
 ## 光照引擎最大任务组数 (lightEngineMaxBatchSize)
 
 移植自 fabric carpet [1.4.23](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.23) ，至 1.14.4 及 1.15.2
+
+## 结构方块轮廓距离 (structureBlockOutlineDistance)
+
+移植自 fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25) ，至 1.14.4 及 1.15.2
 
 
 -----------

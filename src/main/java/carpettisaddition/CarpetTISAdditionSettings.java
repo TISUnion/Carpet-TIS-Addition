@@ -189,6 +189,9 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean keepMobInLazyChunks = false;
 
+	/**
+	 * Ported from fabric carpet 1.4.23
+	 */
 	@Rule(
 			desc = "Changes maximum light tasks batch size",
 			extra = {
@@ -442,6 +445,19 @@ public class CarpetTISAdditionSettings
 			return "You must choose a value from 1 to 127";
 		}
 	}
+
+	/**
+	 * Ported from fabric carpet 1.4.25
+	 */
+	@Rule(
+			desc = "Customizable Structure Block outline render distance",
+			extra = "Required on client to work properly",
+			options = {"96", "192", "2048"},
+			category = {CREATIVE, CLIENT},
+			strict = false,
+			validate = Validator.NONNEGATIVE_NUMBER.class
+	)
+	public static double structureBlockOutlineDistance = 96.0D;
 
 	@Rule(
 			desc = "Synchronize lighting thread with the server thread",

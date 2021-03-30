@@ -139,7 +139,8 @@
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],
   "client": [
-    "carpet.onServerLoadedWorlds.IntegratedServerMixin"
+    "carpet.onServerLoadedWorlds.IntegratedServerMixin",
+    "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
