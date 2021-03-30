@@ -8,7 +8,7 @@
 
   "rule.blockEventPacketRange.name": "方块事件广播范围",
   "rule.blockEventPacketRange.desc": "设置会在方块事件成功执行后收到数据包的玩家范围",
-  "rule.blockEventPacketRange.extra.0": "对于活塞而言，这一个数据包是用于显示活塞移动的话。把这个值调小以减小客户端卡顿",
+  "rule.blockEventPacketRange.extra.0": "对于活塞而言，这一个数据包用于显示活塞的运动。把这个值调小以减小客户端卡顿",
 
   "rule.blockPlacementIgnoreEntity.name": "方块放置忽略实体",
   "rule.blockPlacementIgnoreEntity.desc": "方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内",
@@ -396,6 +396,7 @@
   "tracker.lifetime.spawn_reason.slime": "史莱姆分裂",
   "tracker.lifetime.spawn_reason.raid": "袭击",
   "tracker.lifetime.spawn_reason.zombie_reinforce": "僵尸增援",
+  "tracker.lifetime.spawn_reason.spawner": "刷怪笼",
   "tracker.lifetime.spawn_reason.mob_drop.pre": "由",
   "tracker.lifetime.spawn_reason.mob_drop.post": "掉落",
   "tracker.lifetime.spawn_reason.trans_dimension": "跨维度",
