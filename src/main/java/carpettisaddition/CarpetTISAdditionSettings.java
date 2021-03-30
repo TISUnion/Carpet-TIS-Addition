@@ -3,6 +3,7 @@ package carpettisaddition;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
+import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -187,6 +188,36 @@ public class CarpetTISAdditionSettings
 			category = {TIS, EXPERIMENTAL, FEATURE}
 	)
 	public static boolean keepMobInLazyChunks = false;
+
+	/**
+	 * Ported from fabric carpet 1.4.23
+	 */
+	@Rule(
+			desc = "Changes maximum light tasks batch size",
+			extra = {
+					"Allows for a higher light suppression tolerance",
+					"Setting it to 5 - Default limit defined by the game"
+			},
+			category = {EXPERIMENTAL, OPTIMIZATION},  // no TIS since it's a fabric-carpet backport
+			strict = false,
+			options = {"5", "50", "100", "200"},
+			validate = LightBatchValidator.class
+	)
+	public static int lightEngineMaxBatchSize = 5;
+
+	public static class LightBatchValidator extends Validator<Integer>
+	{
+		@Override
+		public Integer validate(ServerCommandSource serverCommandSource, ParsedRule<Integer> parsedRule, Integer newValue, String string)
+		{
+			if (newValue > 0)
+			{
+				LightBatchSizeChanger.setSize(newValue);
+				return newValue;
+			}
+			return null;
+		}
+	}
 
 	@Rule(
 			desc = "The sampling duration of light queue logger in game tick",
@@ -395,6 +426,19 @@ public class CarpetTISAdditionSettings
 
 //	Remove due to fabric carpet implement this in 1.4.25
 //	public static int structureBlockLimit = 32;
+
+	/**
+	 * Ported from fabric carpet 1.4.25
+	 */
+	@Rule(
+			desc = "Customizable Structure Block outline render distance",
+			extra = "Required on client to work properly",
+			options = {"96", "192", "2048"},
+			category = {CREATIVE, CLIENT},
+			strict = false,
+			validate = Validator.NONNEGATIVE_NUMBER.class
+	)
+	public static double structureBlockOutlineDistance = 96.0D;
 
 	@Rule(
 			desc = "Synchronize lighting thread with the server thread",

@@ -138,6 +138,8 @@
     "rule.turtleEggTrampledDisabled.TurtleEggBlockMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],
+  "client": [
+  ],
   "injectors": {
     "defaultRequire": 1
   }
