@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class ShulkerBoxBlockMixin
 {
 	@Shadow
-	private static boolean method_33383(BlockState blockState, World world, BlockPos blockPos, ShulkerBoxBlockEntity shulkerBoxBlockEntity)
+	private static boolean canOpen(BlockState state, World world, BlockPos pos, ShulkerBoxBlockEntity entity)
 	{
 		return false;
 	}
@@ -27,7 +27,7 @@ public abstract class ShulkerBoxBlockMixin
 			method = "onUse",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/ShulkerBoxBlock;method_33383(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/ShulkerBoxBlockEntity;)Z"
+					target = "Lnet/minecraft/block/ShulkerBoxBlock;canOpen(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/ShulkerBoxBlockEntity;)Z"
 			)
 	)
 	private boolean noCollideOrCreative(BlockState state, World world, BlockPos pos, ShulkerBoxBlockEntity shulkerBoxBlockEntity, /* parent method parameters -> */ BlockState state2, World world2, BlockPos pos2, PlayerEntity player, Hand hand, BlockHitResult hit)
@@ -37,6 +37,6 @@ public abstract class ShulkerBoxBlockMixin
 			return true;
 		}
 		// vanilla
-		return method_33383(state, world, pos, shulkerBoxBlockEntity);
+		return canOpen(state, world, pos, shulkerBoxBlockEntity);
 	}
 }

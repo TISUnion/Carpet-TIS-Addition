@@ -2,6 +2,7 @@ package carpettisaddition.helpers.rule.synchronizedLightThread;
 
 import carpet.utils.CarpetProfiler;
 import carpettisaddition.mixins.rule.synchronizedLightThread.ServerLightingProviderAccessor;
+import carpettisaddition.mixins.rule.synchronizedLightThread.TaskExecutorAccessor;
 import net.minecraft.server.world.ServerLightingProvider;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.thread.TaskQueue;
@@ -20,7 +21,7 @@ public class SynchronizedLightThreadHelper
 		if (lightingProvider instanceof ServerLightingProvider)
 		{
 			// the task queue of the executor of the light thread
-			TaskQueue<?, ?> queue = ((ServerLightingProviderAccessor)lightingProvider).getProcessor().queue;
+			TaskQueue<?, ?> queue = ((TaskExecutorAccessor<?>)((ServerLightingProviderAccessor)lightingProvider).getProcessor()).getQueue();
 			while (!queue.isEmpty())
 			{
 				Thread.yield();

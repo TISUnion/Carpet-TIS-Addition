@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class StackTraceDeobfuscator
 {
-	private static final String MAPPING_FILE_NAME = "yarn-21w08a+build.2-v2.tiny";
+	private static final String MAPPING_FILE_NAME = "yarn-21w13a+build.5-v2.tiny";
 	private static final Map<String, String> mappings = Maps.newHashMap();
 	static final Translator translator = new Translator("util", "stack_trace");
 

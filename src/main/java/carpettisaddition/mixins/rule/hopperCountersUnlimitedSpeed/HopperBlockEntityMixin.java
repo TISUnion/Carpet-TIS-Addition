@@ -54,7 +54,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			{
 				return;
 			}
-			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperBlockEntity.getPos().offset(hopperBlockEntity.getCachedState().get(HopperBlock.FACING)));
+			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperBlockEntity.getPos().method_35851(hopperBlockEntity.getCachedState().get(HopperBlock.FACING)));
 			if (wool_color == null)
 			{
 				return;

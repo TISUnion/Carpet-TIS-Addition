@@ -3,7 +3,7 @@ package carpettisaddition.mixins.command.lifetime.spawning;
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.command.SummonCommand;
 import net.minecraft.server.world.ServerWorld;
@@ -22,11 +22,11 @@ public abstract class SummonCommandMixin
 			method = "execute",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/entity/EntityType;loadEntityWithPassengers(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/world/World;Ljava/util/function/Function;)Lnet/minecraft/entity/Entity;"
+					target = "Lnet/minecraft/entity/EntityType;loadEntityWithPassengers(Lnet/minecraft/nbt/NbtCompound;Lnet/minecraft/world/World;Ljava/util/function/Function;)Lnet/minecraft/entity/Entity;"
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private static void onEntitySummonLifeTimeTracker(ServerCommandSource source, Identifier entity, Vec3d pos, CompoundTag nbt, boolean initialize, CallbackInfoReturnable<Integer> cir, CompoundTag compoundTag, ServerWorld serverWorld, Entity entity2)
+	private static void onEntitySummonLifeTimeTracker(ServerCommandSource source, Identifier entity, Vec3d pos, NbtCompound nbt, boolean initialize, CallbackInfoReturnable<Integer> cir, NbtCompound compoundTag, ServerWorld serverWorld, Entity entity2)
 	{
 		if (entity2 != null)
 		{
