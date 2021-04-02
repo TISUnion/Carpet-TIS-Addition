@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityPlayerActionPack.class)
 public abstract class EntityPlayerActionPackMixin
 {
-	@Inject(method = "onUpdate", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "onUpdate", at = @At("HEAD"), cancellable = true, remap = false)
 	private void stopUpdatingWhenTickFrozen(CallbackInfo ci)
 	{
 		if (!TickSpeed.process_entities)
