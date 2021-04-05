@@ -997,6 +997,7 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 - Added `randomly` argument for `/player` command. e.g. `/player Steve use randomly 10 20` will make Steve right-click at dynamically varying random intervals in range \[10, 20]
 - Added `/spawn tracking restart` for lazy man
 - Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
+- Added OP permission check to cheaty command `/player <someone> mount anything`
 
 -----------
 

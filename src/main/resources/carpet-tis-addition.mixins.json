@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "carpettisaddition.CarpetTISAdditionMixinPlugin",
   "mixins": [
+    "carpet.commands.noPlayerMountAbuse.EntityPlayerActionPackMixin",
     "carpet.commands.randomlyTriggerAction.EntityPlayerActionPackActionMixin",
     "carpet.commands.randomlyTriggerAction.PlayerCommandMixin",
     "carpet.commands.spawnTrackingRestart.SpawnCommandInvoker",
