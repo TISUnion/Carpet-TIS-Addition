@@ -18,6 +18,7 @@
 - [禁用反刷屏监测](#禁用反刷屏监测-antiSpamDisabled)
 - [方块事件广播范围](#方块事件广播范围-blockEventPacketRange)
 - [方块放置碰撞检测](#方块放置碰撞检测-blockPlacementIgnoreEntity)
+- [区块更新数据包阈值](#区块更新数据包阈值-chunkUpdatePacketThreshold)
 - [区块刻速度](#区块刻速度-chunkTickSpeed)
 - [存活时间追踪器](#存活时间追踪器-commandLifeTime)
 - [袭击追踪器](#袭击追踪器-commandRaid)
@@ -139,6 +140,22 @@
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
+
+
+## 区块更新数据包阈值 (chunkUpdatePacketThreshold)
+
+如果方块变化的数量大于这个阈值，则游戏将仅发送区块更新数据包而非若干个方块变更数据包
+
+增加该数值或许可以减小网络带宽用量，并在子区段同时存在不少方块实体与方块变化时提升客户端的帧数
+
+将其设为非常高以模拟1.16+的表现，也就是不存在区块更新数据包，仅有多个方块变更数据包
+
+该规则仅于1.16前的版本有效
+
+- 类型: `int`
+- 默认值: `64`
+- 参考选项: `64`, `4096`, `65536`
+- 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
 ## 区块刻速度 (chunkTickSpeed)
