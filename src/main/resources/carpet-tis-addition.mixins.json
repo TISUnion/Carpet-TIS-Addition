@@ -105,6 +105,7 @@
     "rule.instantCommandBlock.CommandBlockMixin",
     "rule.keepMobInLazyChunks.MobEntityMixin",
     "rule.keepMobInLazyChunks.ServerWorldMixin",
+    "rule.lightEngineMaxBatchSize.MinecraftServerMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",
