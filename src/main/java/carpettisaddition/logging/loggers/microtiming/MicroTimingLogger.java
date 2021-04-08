@@ -104,7 +104,7 @@ public class MicroTimingLogger extends AbstractLogger
 			{
 				if (color == null)
 				{
-					Optional<DyeColor> optionalDyeColor = MicroTimingUtil.getWoolOrEndRodWoolColor(world, pos);
+					Optional<DyeColor> optionalDyeColor = MicroTimingUtil.defaultColorGetter(world, pos);
 					if (!optionalDyeColor.isPresent())
 					{
 						break;
@@ -120,7 +120,7 @@ public class MicroTimingLogger extends AbstractLogger
 		}
 	}
 
-	public void addMessage(DyeColor color, World world, BlockPos pos, BaseEvent event)
+	private void addMessage(DyeColor color, World world, BlockPos pos, BaseEvent event)
 	{
 		MicroTimingMessage message = new MicroTimingMessage(this, world.getDimension().getType(), pos, color, event);
 		if (message.getEvent().getEventType() != EventType.ACTION_END)
@@ -135,13 +135,12 @@ public class MicroTimingLogger extends AbstractLogger
 
 	public void addMessage(World world, BlockPos pos, BaseEvent event, BiFunction<World, BlockPos, Optional<DyeColor>> woolGetter)
 	{
+		if (woolGetter == null)
+		{
+			woolGetter = MicroTimingUtil::defaultColorGetter;
+		}
 		Optional<DyeColor> color = woolGetter.apply(world, pos);
 		color.ifPresent(dyeColor -> this.addMessage(dyeColor, world, pos, event));
-	}
-
-	public void addMessage(World world, BlockPos pos, BaseEvent event)
-	{
-		this.addMessage(world, pos, event, MicroTimingUtil::getWoolOrEndRodWoolColor);
 	}
 
 	private BaseText getMergedResult(int count, IndentedMessage previousMessage)

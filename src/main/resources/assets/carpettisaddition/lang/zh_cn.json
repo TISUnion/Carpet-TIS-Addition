@@ -91,11 +91,19 @@
   "rule.microTiming.extra.6": "除此之外，一种通用的记录方块动作的收单是使用羊毛块上的末地烛指向需记录的方块",
   "rule.microTiming.extra.7": "可通过操控规则 微时序目标(microTimingTarget) 以切换记录方法",
 
+  "rule.microTimingDyeMarker.name": "微时序染料记号",
+  "rule.microTimingDyeMarker.desc": "允许玩家手持染料右击方块来将其标记为微时序监视器的目标",
+  "rule.microTimingDyeMarker.extra.0": "你需要订阅微时序监视器才能标记并渲染方块",
+  "rule.microTimingDyeMarker.extra.1": "使用相同颜色的染料再次右击以移除记号",
+  "rule.microTimingDyeMarker.extra.2": "使用指令`/carpet microTimingDyeMarker clear`以移除所有记号",
+  "rule.microTimingDyeMarker.extra.3": "如果客户端拥有fabric-carpet mod，被标记的方块将会显示出一个边框",
+
   "rule.microTimingTarget.name": "微时序目标",
   "rule.microTimingTarget.desc": "设置指定微时序记录器记录目标的方法",
   "rule.microTimingTarget.extra.0": "labelled: 记录被羊毛块标记的事件",
   "rule.microTimingTarget.extra.1": "in_range: 记录离任意玩家32m内的事件",
   "rule.microTimingTarget.extra.2": "all: 记录所有事件。谨慎使用",
+  "rule.microTimingTarget.extra.3": "marker_only: 仅记录被染料记号的方块。将其与规则microTimingDyeMarker（微时序染料记号）一起使用",
 
   "rule.opPlayerNoCheat.name": "op玩家不准作弊",
   "rule.opPlayerNoCheat.desc": "禁用部分指令以避免op玩家意外地作弊",
@@ -214,6 +222,7 @@
   "logger.raid.bad_omen_level_increased": "袭击(id: %d)不祥之兆等级提升为%d",
   "logger.raid.center_moved": "袭击(id: %d)的中心点移动至",
 
+  "logger.microTiming.color": "颜色",
   "logger.microTiming.dimension": "维度",
   "logger.microTiming.player": "玩家",
   "logger.microTiming.entity": "实体",
@@ -298,6 +307,9 @@
   "logger.microTiming.event.schedule_tile_tick.tiletick_event": "计划刻事件",
   "logger.microTiming.carpet_logger.rule_hint": "使用%s指令来启动记录器",
   "logger.microTiming.carpet_logger.click_to_execute": "点击以执行",
+  "logger.microTiming.marker.on_mark": "已为方块%1$s添加微时序记号%2$s",
+  "logger.microTiming.marker.on_unmark": "已去除方块%1$s的微时序记号",
+  "logger.microTiming.marker.cleared": "已清除全部微时序记号",
 
   "logger.damage.modify_reason.wearing_a_helmet": "戴着头盔",
   "logger.damage.modify_reason.holding_a_shield": "举着盾牌",

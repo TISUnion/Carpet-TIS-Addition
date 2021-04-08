@@ -1,14 +1,20 @@
 package carpettisaddition.logging.loggers.microtiming.utils;
 
+import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpet.utils.WoolTool;
+import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
+import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
@@ -17,8 +23,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MicroTimingUtil
 {
@@ -102,7 +111,7 @@ public class MicroTimingUtil
 		return world.getChunkManager().shouldTickBlock(pos);
 	}
 
-	public static Optional<DyeColor> getWoolColor(World world, BlockPos pos)
+	private static Optional<DyeColor> getWoolColor(World world, BlockPos pos)
 	{
 		if (!MicroTimingLoggerManager.isLoggerActivated() || !isPositionAvailable(world, pos))
 		{
@@ -156,7 +165,7 @@ public class MicroTimingUtil
 		return Optional.ofNullable(WoolTool.getWoolColorAtPosition(world, woolPos));
 	}
 
-	public static Optional<DyeColor> getEndRodWoolColor(World world, BlockPos pos)
+	private static Optional<DyeColor> getEndRodWoolColor(World world, BlockPos pos)
 	{
 		if (!MicroTimingLoggerManager.isLoggerActivated() || !isPositionAvailable(world, pos))
 		{
@@ -179,33 +188,54 @@ public class MicroTimingUtil
 		return Optional.empty();
 	}
 
-	public static Optional<DyeColor> getWoolOrEndRodWoolColor(World world, BlockPos pos)
+	public static Optional<DyeColor> blockUpdateColorGetter(World world, BlockPos pos)
 	{
-		Optional<DyeColor> optionalDyeColor = getWoolColor(world, pos);
-		if (!optionalDyeColor.isPresent())
+		Optional<DyeColor> optionalDyeColor = Optional.empty();
+		if (CarpetTISAdditionSettings.microTimingTarget != MicroTimingTarget.MARKER_ONLY)
 		{
 			optionalDyeColor = getEndRodWoolColor(world, pos);
 		}
 		if (!optionalDyeColor.isPresent())
 		{
-			boolean useBackup;
-			switch (CarpetTISAdditionSettings.microTimingTarget)
+			optionalDyeColor = MicroTimingMarkerManager.getInstance().getColor(world, pos);
+		}
+		return optionalDyeColor;
+	}
+
+	public static Optional<DyeColor> defaultColorGetter(World world, BlockPos pos)
+	{
+		Optional<DyeColor> optionalDyeColor = Optional.empty();
+		if (CarpetTISAdditionSettings.microTimingTarget != MicroTimingTarget.MARKER_ONLY)
+		{
+			optionalDyeColor = getWoolColor(world, pos);
+			if (!optionalDyeColor.isPresent())
 			{
-				case IN_RANGE:
-					useBackup = world.getClosestPlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, MicroTimingTarget.IN_RANGE_RADIUS, player -> true) != null;
-					break;
-				case ALL:
-					useBackup = true;
-					break;
-				case LABELLED:
-				default:
-					useBackup = false;
-					break;
+				optionalDyeColor = getEndRodWoolColor(world, pos);
 			}
-			if (useBackup)
+			if (!optionalDyeColor.isPresent())
 			{
-				optionalDyeColor = Optional.of(DyeColor.LIGHT_GRAY);
+				boolean useBackup;
+				switch (CarpetTISAdditionSettings.microTimingTarget)
+				{
+					case IN_RANGE:
+						useBackup = world.getClosestPlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, MicroTimingTarget.IN_RANGE_RADIUS, player -> true) != null;
+						break;
+					case ALL:
+						useBackup = true;
+						break;
+					default:
+						useBackup = false;
+						break;
+				}
+				if (useBackup)
+				{
+					optionalDyeColor = Optional.of(DyeColor.LIGHT_GRAY);
+				}
 			}
+		}
+		if (!optionalDyeColor.isPresent())
+		{
+			optionalDyeColor = MicroTimingMarkerManager.getInstance().getColor(world, pos);
 		}
 		return optionalDyeColor;
 	}
@@ -216,5 +246,25 @@ public class MicroTimingUtil
 		String translatedName = MicroTimingLoggerManager.tr("direction." + name, name);
 		char sign = direction.getDirection().offset() > 0 ? '+' : '-';
 		return String.format("%s (%c%s)", translatedName, sign, direction.getAxis());
+	}
+
+	public static boolean isMarkerEnabled()
+	{
+		return CarpetTISAdditionSettings.microTimingDyeMarker.equals("true");
+	}
+
+	public static boolean isPlayerSubscribed(PlayerEntity playerEntity)
+	{
+		Map<String, String> map = LoggerRegistry.getPlayerSubscriptions(playerEntity.getEntityName());
+		return map != null && map.containsKey(MicroTimingLogger.NAME);
+	}
+
+	public static List<ServerPlayerEntity> getSubscribedPlayers()
+	{
+		return CarpetTISAdditionServer.minecraft_server == null ?
+				Collections.emptyList() :
+				CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayerList().stream().
+						filter(MicroTimingUtil::isPlayerSubscribed).
+						collect(Collectors.toList());
 	}
 }

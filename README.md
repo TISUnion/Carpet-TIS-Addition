@@ -35,6 +35,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration)
 - [lightUpdates](#lightUpdates)
 - [microTiming](#microTiming)
+- [microTimingDyeMarker](#microTimingDyeMarker)
 - [microTimingTarget](#microTimingTarget)
 - [opPlayerNoCheat](#opPlayerNoCheat)
 - [optimizedFastEntityMovement](#optimizedFastEntityMovement)
@@ -367,6 +368,24 @@ Check rule [microTimingTarget](#microTimingTarget) to see how to switch logging 
 - Categories: `TIS`, `CREATIVE`
 
 
+## microTimingDyeMarker
+
+Allow player to right click with dye item to mark a block to be logged by microTiming logger
+
+You need to subscribe to microTiming logger for marking or displaying blocks
+
+Right click with the same dye to remove the marker
+
+Use `/carpet microTimingDyeMarker clear` to remove all markers
+
+You can see boxes at marked blocks with fabric-carpet installed on your client
+
+- Type: `string`
+- Default value: `false`
+- Suggested options: `false`, `true`, `clear`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## microTimingTarget
 
 Modify the way to specify events to be logged in microTiming logger
@@ -376,6 +395,8 @@ Modify the way to specify events to be logged in microTiming logger
 `in_range`: Logs events within 32m of any player
 
 `all`: Logs every event. **Use with caution**
+
+`marker_only`: Logs event labelled with dye marker only. Use it with rule [microTimingDyeMarker](#microTimingDyeMarker)
 
 - Type: `enum`
 - Default value: `labelled`

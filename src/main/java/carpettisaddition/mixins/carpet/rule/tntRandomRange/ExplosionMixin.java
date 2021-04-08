@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet.tntRandomRange;
+package carpettisaddition.mixins.carpet.rule.tntRandomRange;
 
 import carpet.CarpetSettings;
 import carpettisaddition.helpers.carpet.tntRandomRange.WrappedRandom;

@@ -12,6 +12,7 @@ import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
@@ -100,21 +101,18 @@ public class MicroTimingMessage
 
 	private BaseText getHashTagText()
 	{
-		String text = MicroTimingUtil.getColorStyle(this.color) + " # ";
-		BaseText ret;
-		if (this.pos != null)
-		{
-			ret = Messenger.c(
-					text,
-					"?" + TextUtil.getTeleportCommand(this.pos, this.dimensionType),
-					String.format("^w %s", TextUtil.getCoordinateString(this.pos))
-			);
-		}
-		else
-		{
-			ret = Messenger.c(text);
-		}
-		return ret;
+		return TextUtil.getFancyText(
+				MicroTimingUtil.getColorStyle(this.color),
+				Messenger.s("# "),
+				Messenger.s(
+						String.format("%s\n%s: %s",
+								TextUtil.getCoordinateString(this.pos),
+								MicroTimingLoggerManager.tr("color"),
+								this.color
+						)
+				),
+				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.pos, this.dimensionType))
+		);
 	}
 
 	private BaseText getStageText()
