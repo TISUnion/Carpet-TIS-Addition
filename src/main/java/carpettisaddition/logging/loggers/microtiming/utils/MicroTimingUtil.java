@@ -115,7 +115,7 @@ public class MicroTimingUtil
 		if (block instanceof ObserverBlock || block instanceof EndRodBlock ||
 				block instanceof PistonBlock || block instanceof PistonExtensionBlock)
 		{
-			woolPos = pos.method_35851(state.get(Properties.FACING).getOpposite());
+			woolPos = pos.offset(state.get(Properties.FACING).getOpposite());
 		}
 		else if (block instanceof AbstractButtonBlock || block instanceof LeverBlock)
 		{
@@ -132,11 +132,11 @@ public class MicroTimingUtil
 			{
 				facing = state.get(Properties.HORIZONTAL_FACING);
 			}
-			woolPos = pos.method_35851(facing.getOpposite());
+			woolPos = pos.offset(facing.getOpposite());
 		}
 		else if (block instanceof WallRedstoneTorchBlock || block instanceof TripwireHookBlock)
 		{
-			woolPos = pos.method_35851(state.get(Properties.HORIZONTAL_FACING).getOpposite());
+			woolPos = pos.offset(state.get(Properties.HORIZONTAL_FACING).getOpposite());
 		}
 		else if (
 				block instanceof AbstractRailBlock ||
@@ -164,11 +164,11 @@ public class MicroTimingUtil
 		}
 		for (Direction facing: DIRECTION_VALUES)
 		{
-			BlockPos blockEndRodPos = pos.method_35851(facing);
+			BlockPos blockEndRodPos = pos.offset(facing);
 			BlockState iBlockState = world.getBlockState(blockEndRodPos);
 			if (iBlockState.getBlock() == Blocks.END_ROD && iBlockState.get(FacingBlock.FACING).getOpposite() == facing)
 			{
-				BlockPos woolPos = blockEndRodPos.method_35851(facing);
+				BlockPos woolPos = blockEndRodPos.offset(facing);
 				DyeColor color = WoolTool.getWoolColorAtPosition(world, woolPos);
 				if (color != null)
 				{

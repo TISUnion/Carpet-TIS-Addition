@@ -21,7 +21,7 @@ public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
 	{
 		Direction sourceFace = source.getBlockState().get(DispenserBlock.FACING);
 		World world = source.getWorld();
-		BlockPos blockpos = source.getBlockPos().method_35851(sourceFace);
+		BlockPos blockpos = source.getBlockPos().offset(sourceFace);
 
 		// Vanilla copy of DragonFireballEntity#onCollision
 		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(world, blockpos.getX() + 0.5, blockpos.getY() + 0.5, blockpos.getZ() + 0.5);
