@@ -1,4 +1,4 @@
-package carpettisaddition.helpers;
+package carpettisaddition.helpers.rule.opPlayerNoCheat;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.server.command.ServerCommandSource;

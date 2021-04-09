@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.rule.synchronizedLightThread;
 
 import carpet.utils.CarpetProfiler;
-import carpettisaddition.helpers.rule.synchronizedLightThread.SynchronizedLightThreadHelper;
+import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import com.google.common.collect.Lists;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +19,7 @@ public abstract class CarpetProfilerMixin
 	static
 	{
 		List<String> list = Lists.newArrayList(SECTIONS);
-		list.add(SynchronizedLightThreadHelper.SECTION_NAME);
+		list.add(LightThreadSynchronizer.SECTION_NAME);
 		SECTIONS = list.toArray(new String[0]);
 	}
 }

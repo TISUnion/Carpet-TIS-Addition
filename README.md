@@ -58,7 +58,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [turtleEggTrampledDisabled](#turtleEggTrampledDisabled)
 - [xpTrackingDistance](#xpTrackingDistance)
 
-## [Ported-rules](#ported-rules)
+## [Ported-rules](#ported-rules-list)
 
 - [lightEngineMaxBatchSize](#lightEngineMaxBatchSize)
 - [structureBlockOutlineDistance](#structureBlockOutlineDistance)
@@ -641,15 +641,17 @@ Change it to 0 to disable tracking
 
 -----------
 
-# Ported rules
+# Ported rules list
 
 ## lightEngineMaxBatchSize
 
-Ported from fabric carpet [1.4.23](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.23) to 1.14.4 and 1.15.2
+- Source: fabric carpet [1.4.23](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.23)
+- Target branches: 1.14.4, 1.15.2
 
 ## structureBlockOutlineDistance
 
-Ported from fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25) to 1.14.4 and 1.15.2
+- Source: fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25)
+- Target branches: 1.14.4, 1.15.2
 
 
 -----------
@@ -994,6 +996,8 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 - Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
 - Added `randomly` argument for `/player` command. e.g. `/player Steve use randomly 10 20` will make Steve right-click at dynamically varying random intervals in range \[10, 20]
 - Added `/spawn tracking restart` for lazy man
+- Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
+- Added OP permission check to cheaty command `/player <someone> mount anything`
 
 -----------
 

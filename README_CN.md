@@ -58,7 +58,7 @@
 - [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
 - [经验球追踪距离](#经验球追踪距离-xpTrackingDistance)
 
-## [移植的规则](#移植的规则)
+## [移植的规则](#移植的规则列表)
 
 - [光照引擎最大任务组数](#光照引擎最大任务组数-lightEngineMaxBatchSize)
 - [结构方块轮廓距离](#结构方块轮廓距离-structureBlockOutlineDistance)
@@ -641,15 +641,17 @@
 
 -----------
 
-# 移植的规则
+# 移植的规则列表
 
 ## 光照引擎最大任务组数 (lightEngineMaxBatchSize)
 
-移植自 fabric carpet [1.4.23](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.23) ，至 1.14.4 及 1.15.2
+- 移植自：fabric carpet [1.4.23](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.23)
+- 移植的分支：1.14.4, 1.15.2
 
 ## 结构方块轮廓距离 (structureBlockOutlineDistance)
 
-移植自 fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25) ，至 1.14.4 及 1.15.2
+- 移植自：fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25)
+- 移植的分支：1.14.4, 1.15.2
 
 
 -----------
@@ -994,6 +996,8 @@
 - 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
 - 为 `/player` 指令添加 `randomly` 参数。如 `/player Steve use randomly 10 20` 将使 Steve 以动态变化的随机间隔点击右键，间隔区间为 \[10, 20]
 - 添加 `/spawn tracking restart`
+- 取消玩家动作包（由 `/player` 指令触发的 PlayerActionPack）在 `/tick freeze` 时的更新
+- 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
 
 -----------
 
