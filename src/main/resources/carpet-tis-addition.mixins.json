@@ -10,7 +10,7 @@
     "carpet.commands.spawnTrackingRestart.SpawnCommandInvoker",
     "carpet.commands.spawnTrackingRestart.SpawnCommandMixin",
     "carpet.commands.tickWarpMaximumDuration.TickCommandMixin",
-    "carpet.freezeActionPack.EntityPlayerActionPackMixin",
+    "carpet.freezeActionPackTicking.EntityPlayerActionPackMixin",
     "carpet.hooks.CarpetServerMixin",
     "carpet.hooks.HUDControllerMixin",
     "carpet.hooks.SettingsManagerMixin",
