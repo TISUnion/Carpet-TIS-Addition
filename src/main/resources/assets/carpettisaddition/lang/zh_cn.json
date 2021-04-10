@@ -247,6 +247,7 @@
   "logger.microTiming.stage.entity": "实体",
   "logger.microTiming.stage.chunktick": "区块刻",
   "logger.microTiming.stage.tileentity": "方块实体",
+  "logger.microTiming.stage.dragonfight": "龙战逻辑",
   "logger.microTiming.stage.autosave": "自动保存",
   "logger.microTiming.stage.playeraction": "玩家操作",
   "logger.microTiming.stage.commandfunction": "函数及数据包",

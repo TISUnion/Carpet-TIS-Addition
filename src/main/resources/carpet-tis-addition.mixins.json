@@ -72,6 +72,7 @@
     "logger.microtiming.events.ServerWorldMixin",
     "logger.microtiming.events.WorldMixin",
     "logger.microtiming.tickstages.CarpetEventServer_EventMixin",
+    "logger.microtiming.tickstages.EnderDragonFightMixin",
     "logger.microtiming.tickstages.MinecraftDedicatedServerMixin",
     "logger.microtiming.tickstages.MinecraftServerMixin",
     "logger.microtiming.tickstages.NetworkThreadUtilsMixin",

@@ -178,7 +178,7 @@ public abstract class ServerWorldMixin
 			method = "tick",
 			at = @At(
 					value = "CONSTANT",
-					args = "stringValue=entities"
+					args = "stringValue=global"
 			)
 	)
 	private void onStageEntities(CallbackInfo ci)
