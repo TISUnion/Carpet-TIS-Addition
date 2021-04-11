@@ -7,7 +7,6 @@
     "carpet.commands.noPlayerMountAbuse.EntityPlayerActionPackMixin",
     "carpet.commands.randomlyTriggerAction.EntityPlayerActionPackActionMixin",
     "carpet.commands.randomlyTriggerAction.PlayerCommandMixin",
-    "carpet.commands.spawnTrackingRestart.SpawnCommandInvoker",
     "carpet.commands.spawnTrackingRestart.SpawnCommandMixin",
     "carpet.commands.tickWarpMaximumDuration.TickCommandMixin",
     "carpet.freezeActionPackTicking.EntityPlayerActionPackMixin",

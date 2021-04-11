@@ -3,7 +3,9 @@ package carpettisaddition.mixins.carpet.commands.spawnTrackingRestart;
 import carpet.commands.SpawnCommand;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -13,6 +15,18 @@ import static net.minecraft.server.command.CommandManager.literal;
 @Mixin(SpawnCommand.class)
 public abstract class SpawnCommandMixin
 {
+	@Shadow(remap = false)
+	private static int stopTracking(ServerCommandSource source)
+	{
+		return 0;
+	}
+
+	@Shadow(remap = false)
+	private static int startTracking(ServerCommandSource source, BlockPos a, BlockPos b)
+	{
+		return 0;
+	}
+
 	/**
 	 * Attach literal("restart") to node literal("tracking") by modifying argument in then(literal("tracking"))
 	 */
@@ -44,8 +58,8 @@ public abstract class SpawnCommandMixin
 				literal("restart").
 						executes(c -> {
 							int result = 0;
-							result += SpawnCommandInvoker.callStopTracking(c.getSource());
-							result += SpawnCommandInvoker.callStartTracking(c.getSource(), null, null);
+							result += stopTracking(c.getSource());
+							result += startTracking(c.getSource(), null, null);
 							return result > 0 ? 1 : 0;
 						})
 		);
