@@ -1,6 +1,6 @@
-package carpettisaddition.utils.stacktrace.yarn;
+package carpettisaddition.utils.deobfuscator.yarn;
 
-import carpettisaddition.utils.stacktrace.StackTraceDeobfuscator;
+import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 
 import java.io.InputStream;
 

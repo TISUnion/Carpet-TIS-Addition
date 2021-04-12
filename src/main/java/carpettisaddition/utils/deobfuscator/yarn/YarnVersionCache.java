@@ -1,4 +1,4 @@
-package carpettisaddition.utils.stacktrace.yarn;
+package carpettisaddition.utils.deobfuscator.yarn;
 
 public class YarnVersionCache
 {

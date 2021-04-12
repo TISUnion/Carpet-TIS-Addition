@@ -1,9 +1,9 @@
-package carpettisaddition.utils.stacktrace;
+package carpettisaddition.utils.deobfuscator;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.stacktrace.yarn.BundledMappingProvider;
-import carpettisaddition.utils.stacktrace.yarn.OnlineMappingProvider;
+import carpettisaddition.utils.deobfuscator.yarn.BundledMappingProvider;
+import carpettisaddition.utils.deobfuscator.yarn.OnlineMappingProvider;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.mapping.reader.v2.MappingGetter;

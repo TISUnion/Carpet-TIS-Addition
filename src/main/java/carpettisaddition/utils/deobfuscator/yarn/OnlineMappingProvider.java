@@ -1,9 +1,9 @@
-package carpettisaddition.utils.stacktrace.yarn;
+package carpettisaddition.utils.deobfuscator.yarn;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.utils.FileUtil;
 import carpettisaddition.utils.MiscUtil;
-import carpettisaddition.utils.stacktrace.StackTraceDeobfuscator;
+import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 import com.google.common.collect.Lists;
 import com.google.common.net.UrlEscapers;
 import com.google.gson.*;

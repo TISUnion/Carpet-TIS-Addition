@@ -1,4 +1,4 @@
-package carpettisaddition.utils.stacktrace;
+package carpettisaddition.utils.deobfuscator;
 
 import carpet.utils.Messenger;
 import carpettisaddition.translations.Translator;
