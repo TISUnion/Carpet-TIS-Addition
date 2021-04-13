@@ -1,4 +1,4 @@
-package carpettisaddition.utils.stacktrace;
+package carpettisaddition.utils.deobfuscator;
 
 import carpet.utils.Messenger;
 import carpettisaddition.translations.Translator;
@@ -61,6 +61,7 @@ public class StackTracePrinter
 		return this.stackTrace;
 	}
 
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	@Deprecated
 	public BaseText toBaseText()
 	{

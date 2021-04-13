@@ -7,11 +7,12 @@
     "carpet.LoggerRegistryInvoker",
     "carpet.LoggerRegistryMixin",
     "carpet.MessengerInvoker",
+    "carpet.commands.noPlayerMountAbuse.EntityPlayerActionPackMixin",
     "carpet.commands.randomlyTriggerAction.EntityPlayerActionPackActionMixin",
     "carpet.commands.randomlyTriggerAction.PlayerCommandMixin",
-    "carpet.commands.spawnTrackingRestart.SpawnCommandInvoker",
     "carpet.commands.spawnTrackingRestart.SpawnCommandMixin",
     "carpet.commands.tickWarpMaximumDuration.TickCommandMixin",
+    "carpet.freezeActionPackTicking.EntityPlayerActionPackMixin",
     "carpet.hooks.CarpetServerMixin",
     "carpet.hooks.HUDControllerMixin",
     "carpet.hooks.SettingsManagerMixin",
@@ -37,6 +38,7 @@
     "command.lifetime.spawning.EntityMixin",
     "command.lifetime.spawning.EntityTypeMixin",
     "command.lifetime.spawning.LivingEntityMixin",
+    "command.lifetime.spawning.MobSpawnerLogicMixin",
     "command.lifetime.spawning.NetherPortalBlockMixin",
     "command.lifetime.spawning.PlayerEntityMixin",
     "command.lifetime.spawning.SlimeEntityMixin",
@@ -73,6 +75,7 @@
     "logger.microtiming.events.ServerWorldMixin",
     "logger.microtiming.events.WorldMixin",
     "logger.microtiming.tickstages.CarpetEventServer_EventMixin",
+    "logger.microtiming.tickstages.EnderDragonFightMixin",
     "logger.microtiming.tickstages.MinecraftDedicatedServerMixin",
     "logger.microtiming.tickstages.MinecraftServerMixin",
     "logger.microtiming.tickstages.NetworkThreadUtilsMixin",
@@ -84,6 +87,7 @@
     "logger.raid.RaidManagerMixin",
     "logger.raid.RaidMixin",
     "logger.ticket.ChunkTicketManagerMixin",
+    "logger.ticket.ChunkTicketTypeMixin",
     "logger.ticket.ServerChunkManagerMixin",
     "logger.tickwarp.TickCommandMixin",
     "logger.turtleegg.StepAndDestroyBlockGoalMixin",
@@ -102,9 +106,11 @@
     "rule.fluidDestructionDisabled.BaseFluidMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
     "rule.HUDLoggerUpdateInterval.HUDControllerMixin",
+    "rule.instantCommandBlock.CommandBlockExecutorMixin",
     "rule.instantCommandBlock.CommandBlockMixin",
     "rule.keepMobInLazyChunks.MobEntityMixin",
     "rule.keepMobInLazyChunks.ServerWorldMixin",
+    "rule.lightEngineMaxBatchSize.MinecraftServerMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",
@@ -141,7 +147,8 @@
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],
   "client": [
-    "carpet.onServerLoadedWorlds.IntegratedServerMixin"
+    "carpet.onServerLoadedWorlds.IntegratedServerMixin",
+    "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

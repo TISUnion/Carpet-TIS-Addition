@@ -14,6 +14,7 @@ public enum TickStage
 	ENTITY("Entity", true),
 	CHUNK_TICK("ChunkTick", true),
 	TILE_ENTITY("TileEntity", true),
+	DRAGON_FIGHT("DragonFight", true),
 	AUTO_SAVE("AutoSave", false),
 	ASYNC_TASK("AsyncTask", false),
 	PLAYER_ACTION("PlayerAction", false),

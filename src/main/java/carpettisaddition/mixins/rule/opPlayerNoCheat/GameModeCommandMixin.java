@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
-import carpettisaddition.helpers.CommandPermissionHelper;
+import carpettisaddition.helpers.rule.opPlayerNoCheat.CommandPermissionHelper;
 import net.minecraft.server.command.GameModeCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Dynamic;

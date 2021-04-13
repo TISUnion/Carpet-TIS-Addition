@@ -24,6 +24,13 @@ public class TextUtil
 {
 	private static final Translator translator = new Translator("util");
 
+	private static final Translator miscTranslator = new Translator("misc");
+
+	public static Translator getMiscTranslator()
+	{
+		return miscTranslator;
+	}
+
 	// mojang compatibility thing <3
 	// these get changed in 1.16 so for easier compatible coding just wrap these methods
 	public static BaseText attachHoverEvent(BaseText text, HoverEvent hoverEvent)

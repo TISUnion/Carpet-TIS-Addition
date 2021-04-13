@@ -45,10 +45,16 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		return this.getTotalTicks() - this.getRemainingTicks();
 	}
 
+	private double getAverageMSPT()
+	{
+		double milliSeconds = Math.max(System.nanoTime() - TickSpeed.time_warp_start_time, 1) / 1e6;
+		return milliSeconds / this.getCompletedTicks();
+	}
+
 	private double getAverageTPS()
 	{
-		double seconds = Math.max(System.nanoTime() - TickSpeed.time_warp_start_time, 1) / 1E9D;
-		return this.getCompletedTicks() / seconds;
+		double secondPerTick = this.getAverageMSPT() / 1e3;
+		return 1.0 / secondPerTick;
 	}
 
 	private BaseText getSourceName()
@@ -124,27 +130,21 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		);
 	}
 
+	private void addLine(List<BaseText> list, String info, Object data)
+	{
+		list.add(Messenger.c(String.format("w %s", info), "g : ", data));
+	}
+
 	private int showTickWarpInfo(ServerCommandSource source)
 	{
 		List<BaseText> result = Lists.newArrayList();
 		if (this.isWarping())
 		{
 			result.add(Messenger.s(" "));
-			result.add(Messenger.c(
-					String.format("w %s", this.tr("Starter")),
-					"g : ",
-					this.getSourceName()
-			));
-			result.add(Messenger.c(
-					String.format("w %s", this.tr("Average TPS")),
-					"g : ",
-					String.format("w %.2f", this.getAverageTPS())
-			));
-			result.add(Messenger.c(
-					String.format("w %s", this.tr("Estimated remaining time")),
-					"g : ",
-					String.format("w %.2fmin", this.getRemainingTicks() / this.getAverageTPS() / 60)
-			));
+			this.addLine(result, this.tr("Starter"), this.getSourceName());
+			this.addLine(result, this.tr("Average TPS"), String.format("w %.2f", this.getAverageTPS()));
+			this.addLine(result, this.tr("Average MSPT"), String.format("w %.2f", this.getAverageMSPT()));
+			this.addLine(result, this.tr("Estimated remaining time"), String.format("w %.2fmin", this.getRemainingTicks() / this.getAverageTPS() / 60));
 			result.add(Messenger.c(
 					this.getProgressBar(),
 					"w  ",

@@ -39,11 +39,7 @@ public class TISAdditionLoggerRegistry
 
     public static void registerLoggers()
     {
-        LoggerRegistry.registerLogger(
-                TicketLogger.NAME, standardLogger("ticket", "portal", new String[]{
-                        "portal,player", "portal,dragon", "start", "dragon", "player", "forced", "light", "portal", "post_teleport", "unknown"
-                }
-        ));
+        LoggerRegistry.registerLogger(TicketLogger.NAME, TicketLogger.getInstance().getStandardLogger());
         LoggerRegistry.registerLogger(ItemLogger.getInstance().getLoggerName(), ItemLogger.getInstance().getStandardLogger());
         LoggerRegistry.registerLogger(XPOrbLogger.getInstance().getLoggerName(), XPOrbLogger.getInstance().getStandardLogger());
         LoggerRegistry.registerLogger(RaidLogger.NAME, standardLogger(RaidLogger.NAME, null, null));
