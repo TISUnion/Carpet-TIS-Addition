@@ -472,7 +472,7 @@ public class CarpetTISAdditionSettings
 			desc = "Customizable Structure Block outline render distance",
 			extra = "Required on client to work properly",
 			options = {"96", "192", "2048"},
-			category = {CREATIVE, CLIENT},
+			category = {CREATIVE /*, CLIENT not in 114 */},
 			strict = false,
 			validate = Validator.NONNEGATIVE_NUMBER.class
 	)

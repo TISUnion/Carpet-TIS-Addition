@@ -4,6 +4,7 @@ import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
+import carpettisaddition.logging.compat.ExtensionLogger;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.TextUtil;
@@ -54,7 +55,7 @@ public class TicketLogger extends AbstractLogger
 
 	public Logger getStandardLogger()
 	{
-		return new Logger(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null){
+		return new ExtensionLogger(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null){
 			@Override
 			public String[] getOptions()
 			{

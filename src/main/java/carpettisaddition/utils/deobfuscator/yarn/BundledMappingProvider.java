@@ -6,7 +6,7 @@ import java.io.InputStream;
 
 public class BundledMappingProvider
 {
-	private static final String MAPPING_NAME = "yarn-1.15.2+build.17-v2";
+	private static final String MAPPING_NAME = "yarn-1.14.4+build.18-v2";
 
 	public static boolean loadMapping()
 	{
