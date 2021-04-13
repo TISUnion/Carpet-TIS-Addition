@@ -1,7 +1,9 @@
-package carpettisaddition.utils.stacktrace;
+package carpettisaddition.utils.deobfuscator;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.deobfuscator.yarn.BundledMappingProvider;
+import carpettisaddition.utils.deobfuscator.yarn.OnlineMappingProvider;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.mapping.reader.v2.MappingGetter;
@@ -17,28 +19,38 @@ import java.util.Map;
 
 public class StackTraceDeobfuscator
 {
-	private static final String MAPPING_FILE_NAME = "yarn-21w14a+build.4-v2.tiny";
+	private static String MAPPING_VERSION = "unknown";
 	private static final Map<String, String> mappings = Maps.newHashMap();
 	static final Translator translator = new Translator("util", "stack_trace");
 
-	public static void loadMappings()
+	public static void init()
 	{
-		InputStream inputStream = StackTraceDeobfuscator.class.getClassLoader().getResourceAsStream("assets/carpettisaddition/" + MAPPING_FILE_NAME);
-		if (inputStream != null)
+		if (!BundledMappingProvider.loadMapping())
 		{
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-			try (BufferedReader mappingReader = new BufferedReader(inputStreamReader))
-			{
-				TinyV2Factory.visit(mappingReader, new MappingVisitor(mappings));
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			CarpetTISAdditionServer.LOGGER.info("Bundled mapping is not found, switched to online mapping provider");
+			OnlineMappingProvider.getMapping();
+		}
+	}
+
+	public static boolean loadMappings(InputStream inputStream, String mappingVersion)
+	{
+		try (BufferedReader mappingReader = new BufferedReader(new InputStreamReader(inputStream)))
+		{
+			TinyV2Factory.visit(mappingReader, new MappingVisitor(mappings));
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 		if (mappings.isEmpty())
 		{
-			CarpetTISAdditionServer.LOGGER.warn("Fail to load mapping");
+			CarpetTISAdditionServer.LOGGER.warn("Fail to load mapping {}", mappingVersion);
+			return false;
+		}
+		else
+		{
+			MAPPING_VERSION = mappingVersion;
+			return true;
 		}
 	}
 
@@ -61,7 +73,7 @@ public class StackTraceDeobfuscator
 				list.clear();
 			}
 		}
-		list.add(0, new StackTraceElement(translator.tr("Deobfuscated stack trace"), "", MAPPING_FILE_NAME, -1));
+		list.add(0, new StackTraceElement(translator.tr("Deobfuscated stack trace"), "", MAPPING_VERSION, -1));
 		return list.toArray(new StackTraceElement[0]);
 	}
 

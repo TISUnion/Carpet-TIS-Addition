@@ -3,6 +3,7 @@ package carpettisaddition;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
+import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -188,6 +189,9 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean keepMobInLazyChunks = false;
 
+//	Remove due to fabric carpet implement this in 1.4.23
+//	public static int lightEngineMaxBatchSize = 5;
+
 	@Rule(
 			desc = "The sampling duration of light queue logger in game tick",
 			extra = {
@@ -208,9 +212,19 @@ public class CarpetTISAdditionSettings
 					"If set to off, no light update can be scheduled or executed",
 					"[WARNING] If set to suppressed or off, new chunks cannot be loaded. Then if the server tries to load chunk for player movement or whatever reason the server will be stuck forever"
 			},
-			category = {TIS, CREATIVE, EXPERIMENTAL}
+			category = {TIS, CREATIVE, EXPERIMENTAL},
+			validate = ValidateLightUpdates.class
 	)
 	public static LightUpdateOptions lightUpdates = LightUpdateOptions.ON;
+
+	private static class ValidateLightUpdates extends Validator<Enum<LightUpdateOptions>>
+	{
+		@Override
+		public Enum<LightUpdateOptions> validate(ServerCommandSource source, ParsedRule<Enum<LightUpdateOptions>> currentRule, Enum<LightUpdateOptions> newValue, String string)
+		{
+			return LightThreadSynchronizer.checkRuleSafety(source, synchronizedLightThread, (LightUpdateOptions)newValue) ? newValue : null;
+		}
+	}
 
 	public enum LightUpdateOptions
 	{
@@ -233,11 +247,19 @@ public class CarpetTISAdditionSettings
 			this.shouldExecute = shouldExecute;
 		}
 
+		/**
+		 * ON, SUPPRESSED: true
+		 * OFF, IGNORE: false
+		 */
 		public boolean shouldEnqueueLightTask()
 		{
 			return this.shouldEnqueue;
 		}
 
+		/**
+		 * ON, IGNORE: true
+		 * OFF, SUPPRESSED: false
+		 */
 		public boolean shouldExecuteLightTask()
 		{
 			return this.shouldExecute;
@@ -396,6 +418,9 @@ public class CarpetTISAdditionSettings
 //	Remove due to fabric carpet implement this in 1.4.25
 //	public static int structureBlockLimit = 32;
 
+//	Remove due to fabric carpet implement this in 1.4.25
+//	public static double structureBlockOutlineDistance = 96.0D;
+
 	@Rule(
 			desc = "Synchronize lighting thread with the server thread",
 			extra = {
@@ -403,9 +428,19 @@ public class CarpetTISAdditionSettings
 					"The server will wait until all lighting tasks to be done at the beginning of each world ticking",
 					"With this rule you can safely /tick warp without potential light suppression or lighting desynchronization"
 			},
-			category = {TIS, CREATIVE, EXPERIMENTAL}
+			category = {TIS, CREATIVE, EXPERIMENTAL},
+			validate = ValidateSynchronizedLightThread.class
 	)
 	public static boolean synchronizedLightThread = false;
+
+	private static class ValidateSynchronizedLightThread extends Validator<Boolean>
+	{
+		@Override
+		public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string)
+		{
+			return LightThreadSynchronizer.checkRuleSafety(source, newValue, lightUpdates) ? newValue : null;
+		}
+	}
 
 	@Rule(
 			desc = "Modify the limit of executed tile tick events per game tick",

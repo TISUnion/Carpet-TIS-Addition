@@ -6,7 +6,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
-import carpettisaddition.utils.stacktrace.StackTracePrinter;
+import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.base.Joiner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;

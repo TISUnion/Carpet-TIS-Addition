@@ -8,7 +8,7 @@
 
   "rule.blockEventPacketRange.name": "方块事件广播范围",
   "rule.blockEventPacketRange.desc": "设置会在方块事件成功执行后收到数据包的玩家范围",
-  "rule.blockEventPacketRange.extra.0": "对于活塞而言，这一个数据包是用于显示活塞移动的话。把这个值调小以减小客户端卡顿",
+  "rule.blockEventPacketRange.extra.0": "对于活塞而言，这一个数据包用于显示活塞的运动。把这个值调小以减小客户端卡顿",
 
   "rule.blockPlacementIgnoreEntity.name": "方块放置忽略实体",
   "rule.blockPlacementIgnoreEntity.desc": "方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内",
@@ -159,6 +159,9 @@
   "rule.synchronizedLightThread.extra.0": "这样光照线程就不会于落后主线程而失去同步",
   "rule.synchronizedLightThread.extra.1": "服务器将会在每个世界开始运算时等待光照线程的任务完成",
   "rule.synchronizedLightThread.extra.2": "你可以借此安全地 /tick warp 而不用担心潜在的光照抑制或光照不同步",
+  "rule.synchronizedLightThread.safety_warning.0": "检测到规则synchronizedLightThread和规则lightUpdates间的危险组合",
+  "rule.synchronizedLightThread.safety_warning.1": "对规则的修改已被取消，以防止在同步光照时无限等待",
+  "rule.synchronizedLightThread.safety_warning.2": "相关规则将要修改为的值:",
 
   "rule.tileTickLimit.name": "计划刻上限",
   "rule.tileTickLimit.desc": "修改每游戏刻中计划刻事件的执行次数上限",
@@ -244,6 +247,7 @@
   "logger.microTiming.stage.entity": "实体",
   "logger.microTiming.stage.chunktick": "区块刻",
   "logger.microTiming.stage.tileentity": "方块实体",
+  "logger.microTiming.stage.dragonfight": "龙战逻辑",
   "logger.microTiming.stage.autosave": "自动保存",
   "logger.microTiming.stage.playeraction": "玩家操作",
   "logger.microTiming.stage.commandfunction": "函数及数据包",
@@ -321,7 +325,8 @@
   "logger.tickWarp.starter": "启动者",
   "logger.tickWarp.server": "服务器",
   "logger.tickWarp.average_tps": "平均TPS",
-  "logger.tickWarp.estimated_remaining_time": "剩余时间",
+  "logger.tickWarp.average_mspt": "平均MSPT",
+  "logger.tickWarp.estimated_remaining_time": "剩余时间估算",
 
   "logger.lifeTime.unknown_entity_type": "未知的实体类型",
 
@@ -396,6 +401,7 @@
   "tracker.lifetime.spawn_reason.slime": "史莱姆分裂",
   "tracker.lifetime.spawn_reason.raid": "袭击",
   "tracker.lifetime.spawn_reason.zombie_reinforce": "僵尸增援",
+  "tracker.lifetime.spawn_reason.spawner": "刷怪笼",
   "tracker.lifetime.spawn_reason.mob_drop.pre": "由",
   "tracker.lifetime.spawn_reason.mob_drop.post": "掉落",
   "tracker.lifetime.spawn_reason.trans_dimension": "跨维度",
@@ -428,5 +434,9 @@
 
 
   "util.stack_trace.deobfuscated_stack_trace": "反混淆后的堆栈跟踪",
-  "util.stack_trace.n_more_lines": "等%d行"
+  "util.stack_trace.n_more_lines": "等%d行",
+
+
+
+  "misc.player_mount_anything_permission_denied": "只有OP玩家才被允许骑乘任意实体"
 }

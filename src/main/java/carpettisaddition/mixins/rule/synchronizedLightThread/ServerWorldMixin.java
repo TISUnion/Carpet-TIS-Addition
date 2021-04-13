@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.rule.synchronizedLightThread;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.synchronizedLightThread.SynchronizedLightThreadHelper;
+import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +16,7 @@ public abstract class ServerWorldMixin
 	{
 		if (CarpetTISAdditionSettings.synchronizedLightThread)
 		{
-			SynchronizedLightThreadHelper.waitForLightThread((ServerWorld)(Object)this);
+			LightThreadSynchronizer.waitForLightThread((ServerWorld)(Object)this);
 		}
 	}
 }

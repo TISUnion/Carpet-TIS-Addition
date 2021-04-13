@@ -4,11 +4,12 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "carpettisaddition.CarpetTISAdditionMixinPlugin",
   "mixins": [
+    "carpet.commands.noPlayerMountAbuse.EntityPlayerActionPackMixin",
     "carpet.commands.randomlyTriggerAction.EntityPlayerActionPackActionMixin",
     "carpet.commands.randomlyTriggerAction.PlayerCommandMixin",
-    "carpet.commands.spawnTrackingRestart.SpawnCommandInvoker",
     "carpet.commands.spawnTrackingRestart.SpawnCommandMixin",
     "carpet.commands.tickWarpMaximumDuration.TickCommandMixin",
+    "carpet.freezeActionPackTicking.EntityPlayerActionPackMixin",
     "carpet.hooks.CarpetServerMixin",
     "carpet.hooks.HUDControllerMixin",
     "carpet.hooks.SettingsManagerMixin",
@@ -35,6 +36,7 @@
     "command.lifetime.spawning.EntityTypeMixin",
     "command.lifetime.spawning.ExperienceOrbEntityMixin",
     "command.lifetime.spawning.LivingEntityMixin",
+    "command.lifetime.spawning.MobSpawnerLogicMixin",
     "command.lifetime.spawning.NetherPortalBlockMixin",
     "command.lifetime.spawning.PlayerEntityMixin",
     "command.lifetime.spawning.SlimeEntityMixin",
@@ -72,6 +74,7 @@
     "logger.microtiming.events.WorldMixin",
     "logger.microtiming.tickstages.CarpetEventServer_EventMixin",
     "logger.microtiming.tickstages.DirectBlockEntityTickInvokerMixin",
+    "logger.microtiming.tickstages.EnderDragonFightMixin",
     "logger.microtiming.tickstages.MinecraftDedicatedServerMixin",
     "logger.microtiming.tickstages.MinecraftServerMixin",
     "logger.microtiming.tickstages.NetworkThreadUtilsMixin",
@@ -83,6 +86,7 @@
     "logger.raid.RaidManagerMixin",
     "logger.raid.RaidMixin",
     "logger.ticket.ChunkTicketManagerMixin",
+    "logger.ticket.ChunkTicketTypeMixin",
     "logger.ticket.ServerChunkManagerMixin",
     "logger.tickwarp.TickCommandMixin",
     "logger.turtleegg.StepAndDestroyBlockGoalMixin",
@@ -102,6 +106,7 @@
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityAccessor",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
     "rule.HUDLoggerUpdateInterval.HUDControllerMixin",
+    "rule.instantCommandBlock.CommandBlockExecutorMixin",
     "rule.instantCommandBlock.CommandBlockMixin",
     "rule.keepMobInLazyChunks.MobEntityMixin",
     "rule.keepMobInLazyChunks.ServerWorldMixin",
@@ -140,6 +145,8 @@
     "rule.turtleEggTrampledDisabled.StepAndDestroyBlockGoalMixin",
     "rule.turtleEggTrampledDisabled.TurtleEggBlockMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
+  ],
+  "client": [
   ],
   "injectors": {
     "defaultRequire": 1

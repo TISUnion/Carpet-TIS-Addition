@@ -58,6 +58,11 @@
 - [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
 - [经验球追踪距离](#经验球追踪距离-xpTrackingDistance)
 
+## [移植的规则](#移植的规则列表)
+
+- [光照引擎最大任务组数](#光照引擎最大任务组数-lightEngineMaxBatchSize)
+- [结构方块轮廓距离](#结构方块轮廓距离-structureBlockOutlineDistance)
+
 ## [监视器](#监视器列表)
 
 - [加载票](#加载票-ticket)
@@ -116,7 +121,7 @@
 
 设置会在方块事件成功执行后收到数据包的玩家范围
 
-对于活塞而言，这一个数据包是用于显示活塞移动的话。把这个值调小以减小客户端卡顿
+对于活塞而言，这一个数据包用于显示活塞的运动。把这个值调小以减小客户端卡顿
 
 - 类型: `double`
 - 默认值: `64`
@@ -636,6 +641,21 @@
 
 -----------
 
+# 移植的规则列表
+
+## 光照引擎最大任务组数 (lightEngineMaxBatchSize)
+
+- 移植自：fabric carpet [1.4.23](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.23)
+- 移植的分支：1.14.4, 1.15.2
+
+## 结构方块轮廓距离 (structureBlockOutlineDistance)
+
+- 移植自：fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25)
+- 移植的分支：1.14.4, 1.15.2
+
+
+-----------
+
 # 监视器列表
 
 ## 加载票 (ticket)
@@ -876,6 +896,7 @@
 - 被物品生成（怪物蛋等）
 - 史莱姆分裂 (对于史莱姆以及岩浆怪)
 - 僵尸增援
+- 刷怪笼
 - `/summon` 指令
 - 生物掉落（仅掉落物及经验球）
 - 方块掉落（仅掉落物）
@@ -975,6 +996,8 @@
 - 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
 - 为 `/player` 指令添加 `randomly` 参数。如 `/player Steve use randomly 10 20` 将使 Steve 以动态变化的随机间隔点击右键，间隔区间为 \[10, 20]
 - 添加 `/spawn tracking restart`
+- 取消玩家动作包（由 `/player` 指令触发的 PlayerActionPack）在 `/tick freeze` 时的更新
+- 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
 
 -----------
 
@@ -996,7 +1019,7 @@
 
 分支合并顺序：
 - 1.15.2 -> 1.14.4
-- 1.15.2 -> 1.16.4 -> 1.17
+- 1.15.2 -> 1.16.5 -> 1.17
 - 1.15.2 -> master (发布 release 时)
 
 对于版本专用的修复/补丁，在对应的分支上操作即可
