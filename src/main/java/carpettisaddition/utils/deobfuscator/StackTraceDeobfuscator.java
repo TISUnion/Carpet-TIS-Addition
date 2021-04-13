@@ -27,7 +27,7 @@ public class StackTraceDeobfuscator
 	{
 		if (!BundledMappingProvider.loadMapping())
 		{
-			CarpetTISAdditionServer.LOGGER.info("Bundled mapping is not found, switched to online mapping provider");
+			CarpetTISAdditionServer.LOGGER.debug("Bundled mapping is not found, switched to online mapping provider");
 			OnlineMappingProvider.getMapping();
 		}
 	}
