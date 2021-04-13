@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.rule.instantCommandBlock;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.instantCommandBlock.ICommandBlockExecutor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,7 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Random;
-
 
 @Mixin(CommandBlock.class)
 public abstract class CommandBlockMixin
@@ -44,7 +44,10 @@ public abstract class CommandBlockMixin
 				Block blockBelow = world.getBlockState(pos.down()).getBlock();
 				if (blockBelow == Blocks.REDSTONE_ORE)
 				{
+					ICommandBlockExecutor icbe = (ICommandBlockExecutor)commandBlockBlockEntity.getCommandExecutor();
+					icbe.setIgnoreWorldTimeCheck(true);
 					this.scheduledTick(state, serverWorld, pos, serverWorld.getRandom());
+					icbe.setIgnoreWorldTimeCheck(false);
 					ci.cancel();
 				}
 			}

@@ -165,8 +165,9 @@ public abstract class ServerWorldMixin
 	@Inject(
 			method = "tick",
 			at = @At(
-					value = "CONSTANT",
-					args = "stringValue=entities"
+					value = "FIELD",
+					target = "Lnet/minecraft/server/world/ServerWorld;entitiesById:Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;",
+					ordinal = 0
 			)
 	)
 	private void onStageEntities(CallbackInfo ci)
