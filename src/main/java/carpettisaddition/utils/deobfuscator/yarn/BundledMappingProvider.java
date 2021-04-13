@@ -6,7 +6,8 @@ import java.io.InputStream;
 
 public class BundledMappingProvider
 {
-	private static final String MAPPING_NAME = "yarn-21w14a+build.4-v2";
+//	private static final String MAPPING_NAME = "yarn-21w14a+build.4-v2";
+	private static final String MAPPING_NAME = "use online mapping provider for snapshots";
 
 	public static boolean loadMapping()
 	{
