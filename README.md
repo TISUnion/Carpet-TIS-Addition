@@ -378,7 +378,9 @@ Right click with the same dye to remove the marker
 
 Use `/carpet microTimingDyeMarker clear` to remove all markers
 
-You can see boxes at marked blocks with fabric-carpet installed on your client
+You can create a named marker by using a renamed dye item. Marker name will be shown in logging message as well
+
+You can see boxes at marked blocks with fabric-carpet installed on your client. With carpet-tis-addition installed the marker name could also be seen through blocks
 
 - Type: `string`
 - Default value: `false`

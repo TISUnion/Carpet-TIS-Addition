@@ -378,7 +378,9 @@
 
 使用指令 `/carpet microTimingDyeMarker clear` 以移除所有记号
 
-如果客户端拥有 fabric-carpet mod，被标记的方块将会显示出一个边框
+你可以使用命名的染料物品来创建一个命名的记号。记号的名称同时将会在监视器的输出信息中展示
+
+如果客户端拥有 fabric-carpet mod，被标记的方块将会显示出一个边框。如果客户端还带有carpet-tis-addition，则记号的名称还可透过方块查看
 
 - 类型: `string`
 - 默认值: `false`

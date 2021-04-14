@@ -329,9 +329,9 @@ public class MicroTimingLoggerManager
 	 * ----------------
 	 */
 
-	public void onPlayerRightClick(PlayerEntity playerEntity, Hand hand, BlockPos blockPos)
+	public boolean onPlayerRightClick(PlayerEntity playerEntity, Hand hand, BlockPos blockPos)
 	{
-		if (MicroTimingUtil.isMarkerEnabled() && playerEntity instanceof ServerPlayerEntity && hand == Hand.MAIN_HAND && !playerEntity.isSneaking())
+		if (MicroTimingUtil.isMarkerEnabled() && playerEntity instanceof ServerPlayerEntity && hand == Hand.MAIN_HAND)
 		{
 			ItemStack itemStack = playerEntity.getMainHandStack();
 			Item holdingItem = itemStack.getItem();
@@ -343,7 +343,9 @@ public class MicroTimingLoggerManager
 					name = (BaseText)itemStack.getName();
 				}
 				MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, ((DyeItem)holdingItem).getColor(), name);
+				return true;
 			}
 		}
+		return false;
 	}
 }
