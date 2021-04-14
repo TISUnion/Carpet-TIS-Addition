@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.Map;
@@ -45,40 +46,85 @@ public class MicroTimingMarkerManager extends TranslatableBase
 		this.markers.clear();
 	}
 
-	public void addMarker(PlayerEntity playerEntity, BlockPos blockPos, DyeColor color)
+	public void addMarker(PlayerEntity playerEntity, BlockPos blockPos, DyeColor color, @Nullable String name)
 	{
 		if (playerEntity instanceof ServerPlayerEntity && playerEntity.world instanceof ServerWorld)
 		{
 			StorageKey key = new StorageKey(playerEntity.world, blockPos);
-			MicroTimingMarker existedMarker = this.markers.remove(key);
+			MicroTimingMarker existedMarker = this.markers.get(key);
+			boolean removeExistedMarker = false;
+			boolean createNewMarker = false;
 			if (existedMarker != null)
 			{
-				existedMarker.cleanShapeToAll();
+				// roll the marker type to the next one
+				if (existedMarker.color == color)
+				{
+					// has next marker type
+					if (existedMarker.rollMarkerType())
+					{
+						existedMarker.setName(name);
+						playerEntity.addChatMessage(Messenger.s(String.format(
+								this.tr("on_type_roll", "Rolled marker type to %1$s"),
+								existedMarker.getMarkerType()
+						)), true);
+					}
+					// no more marker type, remove it
+					else
+					{
+						removeExistedMarker = true;
+					}
+				}
+				// color is different, just remove it and create a new one
+				else
+				{
+					removeExistedMarker = true;
+					createNewMarker = true;
+				}
 			}
-			MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color);
-			if (existedMarker == null || newMarker.color != existedMarker.color)
-			{
-				this.markers.put(key, newMarker);
-				newMarker.sendShapeToAll();
-				playerEntity.addChatMessage(Messenger.s(String.format(
-						this.tr("on_mark", "Marked %1$s with color %2$s for MicroTiming logging"),
-						TextUtil.getCoordinateString(blockPos),
-						TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + color.toString() + Formatting.RESET
-				)), true);
-			}
+			// no existed marker, create a new one
 			else
 			{
+				createNewMarker = true;
+			}
+
+			if (removeExistedMarker)
+			{
+				existedMarker.cleanShapeToAll();
+				this.markers.remove(key);
 				playerEntity.addChatMessage(Messenger.s(String.format(
 						this.tr("on_unmark", "Unmarked %1$s from MicroTiming logging"),
 						TextUtil.getCoordinateString(blockPos)
 				)), true);
 			}
+			if (createNewMarker)
+			{
+				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color);
+				newMarker.setName(name);
+				this.markers.put(key, newMarker);
+				newMarker.sendShapeToAll();
+				playerEntity.addChatMessage(Messenger.s(String.format(
+						this.tr("on_mark", "Marked %1$s with color %2$s"),
+						TextUtil.getCoordinateString(blockPos),
+						TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + color.toString() + Formatting.RESET,
+						newMarker.getMarkerType()
+				)), true);
+			}
 		}
 	}
 
-	public Optional<DyeColor> getColor(World world, BlockPos blockPos)
+	public Optional<DyeColor> getColor(World world, BlockPos blockPos, MicroTimingMarkerType requiredMarkerType)
 	{
-		return Optional.ofNullable(this.markers.get(new StorageKey(world, blockPos))).map(marker -> marker.color);
+		MicroTimingMarker marker = this.markers.get(new StorageKey(world, blockPos));
+		if (marker == null)
+		{
+			return Optional.empty();
+		}
+		return Optional.ofNullable(marker.getMarkerType().ordinal() >= requiredMarkerType.ordinal() ? marker.color : null);
+	}
+
+	public Optional<String> getMarkerName(World world, BlockPos blockPos)
+	{
+		return Optional.ofNullable(this.markers.get(new StorageKey(world, blockPos))).map(MicroTimingMarker::getName);
 	}
 
 	public void sendMarkersForPlayer(ServerPlayerEntity player)

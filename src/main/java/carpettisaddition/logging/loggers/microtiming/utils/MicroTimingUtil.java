@@ -9,6 +9,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
+import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerType;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
@@ -197,7 +198,7 @@ public class MicroTimingUtil
 		}
 		if (!optionalDyeColor.isPresent())
 		{
-			optionalDyeColor = MicroTimingMarkerManager.getInstance().getColor(world, pos);
+			optionalDyeColor = MicroTimingMarkerManager.getInstance().getColor(world, pos, MicroTimingMarkerType.END_ROD);
 		}
 		return optionalDyeColor;
 	}
@@ -235,7 +236,7 @@ public class MicroTimingUtil
 		}
 		if (!optionalDyeColor.isPresent())
 		{
-			optionalDyeColor = MicroTimingMarkerManager.getInstance().getColor(world, pos);
+			optionalDyeColor = MicroTimingMarkerManager.getInstance().getColor(world, pos, MicroTimingMarkerType.REGULAR);
 		}
 		return optionalDyeColor;
 	}

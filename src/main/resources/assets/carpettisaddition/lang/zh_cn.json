@@ -309,6 +309,7 @@
   "logger.microTiming.carpet_logger.click_to_execute": "点击以执行",
   "logger.microTiming.marker.on_mark": "已为方块%1$s添加微时序记号%2$s",
   "logger.microTiming.marker.on_unmark": "已去除方块%1$s的微时序记号",
+  "logger.microTiming.marker.on_type_roll": "已将记号类型变换为%1$s",
   "logger.microTiming.marker.cleared": "已清除全部微时序记号",
 
   "logger.damage.modify_reason.wearing_a_helmet": "戴着头盔",
