@@ -227,7 +227,7 @@ Set it to `false` to disable entity axis momentum cancellation if it's above 10m
 
 ## fakePlayerNamePrefix
 
-Add a name prefix for fake players spawned with `/player` command
+Add a markerName prefix for fake players spawned with `/player` command
 
 Which can prevent summoning fake player with illegal names and make player list look nicer
 
@@ -241,7 +241,7 @@ Set it to `#none` to stop adding a prefix
 
 ## fakePlayerNameSuffix
 
-Add a name suffix for fake players spawned with `/player` command
+Add a markerName suffix for fake players spawned with `/player` command
 
 Set it to `#none` to stop adding a suffix
 
@@ -1011,7 +1011,7 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 
 # Other Stuffs
 
-- Set the maximum length of fake player's name to 16 to prevent kicking out other players
+- Set the maximum length of fake player's markerName to 16 to prevent kicking out other players
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
 - Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod

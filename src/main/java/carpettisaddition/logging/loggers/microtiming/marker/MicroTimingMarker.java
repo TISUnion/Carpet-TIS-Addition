@@ -1,61 +1,71 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
 import carpet.script.utils.ShapeDispatcher;
-import carpet.script.value.ListValue;
-import carpet.script.value.NumericValue;
-import carpet.script.value.StringValue;
-import carpet.script.value.Value;
+import carpet.script.value.*;
+import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.microtiming.marker.texthack.ScarpetDisplayedTextHack;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.mixins.carpet.shape.ExpiringShapeInvoker;
 import carpettisaddition.mixins.logger.microtiming.marker.DyeColorAccessor;
+import carpettisaddition.utils.TextUtil;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class MicroTimingMarker
 {
 	public final DyeColor color;
-	public final ShapeDispatcher.Box box;
-	public final Map<String, Value> shapeParams;
-	public final Map<String, Value> shapeParamsEmpty;
+	private final ShapeData<ShapeDispatcher.Box> box;
+	private final ShapeData<ShapeDispatcher.Text> text;
 	private MicroTimingMarkerType markerType;
 	@Nullable
-	private String name;
+	private final BaseText markerName;
 
 	@SuppressWarnings("ConstantConditions")
-	public MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color)
+	public MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color, @Nullable BaseText markerName)
 	{
-		this.markerType = MicroTimingMarkerType.REGULAR;
-		this.shapeParams = Maps.newHashMap();
-		this.shapeParams.put("shape", new StringValue("box"));
 		this.color = color;
-		this.shapeParams.put("color", new NumericValue(((long) ((DyeColorAccessor) (Object) this.color).getTextColor() << 8) | 0xAF));
-		this.shapeParams.put("dim", new StringValue(serverWorld.getDimension().getType().toString()));
-		this.shapeParams.put("duration", new NumericValue(Integer.MAX_VALUE));
-		this.shapeParams.put("from", listFromBlockPos(blockPos));
-		this.shapeParams.put("to", listFromBlockPos(blockPos.add(1, 1, 1)));
-		this.box = new ShapeDispatcher.Box();
-		((ExpiringShapeInvoker) this.box).callInit(this.shapeParams);
-		this.shapeParamsEmpty = Maps.newHashMap(this.shapeParams);
-		this.shapeParamsEmpty.put("duration", new NumericValue(0));
+		this.markerName = markerName;
+		this.markerType = MicroTimingMarkerType.REGULAR;
+		Map<String, Value> boxParams = Maps.newHashMap();
+		boxParams.put("shape", new StringValue("box"));
+		boxParams.put("color", new NumericValue(((long) ((DyeColorAccessor) (Object) this.color).getTextColor() << 8) | 0xAF));
+		boxParams.put("dim", new StringValue(serverWorld.getDimension().getType().toString()));
+		boxParams.put("duration", new NumericValue(Integer.MAX_VALUE));
+		boxParams.put("from", listFromBlockPos(blockPos));
+		boxParams.put("to", listFromBlockPos(blockPos.add(1, 1, 1)));
+		this.box = new ShapeData<>(new ShapeDispatcher.Box(), boxParams);
+		if (this.markerName != null)
+		{
+			Map<String, Value> textParams = Maps.newHashMap();
+			textParams.put("shape", new StringValue("label"));
+			textParams.put("dim", new StringValue(serverWorld.getDimension().getType().toString()));
+			textParams.put("duration", new NumericValue(Integer.MAX_VALUE));
+			textParams.put("pos", ListValue.of(new NumericValue(blockPos.getX() + 0.5D), new NumericValue(blockPos.getY() + 0.5D), new NumericValue(blockPos.getZ() + 0.5D)));
+			textParams.put("text", new FormattedTextValue(Messenger.c(Messenger.s(TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(this.color)).getColor() + "# " + Formatting.RESET), TextUtil.copyText(this.markerName))));
+			textParams.put("align", new StringValue(ScarpetDisplayedTextHack.MICRO_TIMING_TEXT_MAGIC_STRING));
+			this.text = new ShapeData<>(new ShapeDispatcher.Text(), textParams);
+		}
+		else
+		{
+			this.text = null;
+		}
 		this.updateLineWidth();
 	}
 
-	public void setName(@Nullable String name)
-	{
-		this.name = name;
-	}
-
 	@Nullable
-	public String getName()
+	public String getMarkerNameString()
 	{
-		return this.name;
+		return this.markerName != null ? this.markerName.asString() : null;
 	}
 
 	public MicroTimingMarkerType getMarkerType()
@@ -65,8 +75,7 @@ public class MicroTimingMarker
 
 	private void updateLineWidth()
 	{
-		this.shapeParams.put("line", new NumericValue(this.markerType.getLineWidth()));
-		this.shapeParamsEmpty.put("line", new NumericValue(this.markerType.getLineWidth()));
+		this.box.updateLineWidth(this.markerType.getLineWidth());
 	}
 
 	public boolean rollMarkerType()
@@ -97,18 +106,51 @@ public class MicroTimingMarker
 		return ListValue.of(new NumericValue(blockPos.getX()), new NumericValue(blockPos.getY()), new NumericValue(blockPos.getZ()));
 	}
 
-	private void sendShape(Map<String, Value> params)
+	public List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>> getShapeDataList(boolean display)
 	{
-		ShapeDispatcher.sendShape(MicroTimingUtil.getSubscribedPlayers(), Collections.singletonList(Pair.of(this.box, params)));
+		List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>> result = Lists.newArrayList();
+		result.add(this.box.toPair(display));
+		if (this.text != null)
+		{
+			result.add(this.text.toPair(display));
+		}
+		return result;
 	}
 
 	public void sendShapeToAll()
 	{
-		this.sendShape(this.shapeParams);
+		ShapeDispatcher.sendShape(MicroTimingUtil.getSubscribedPlayers(), this.getShapeDataList(true));
 	}
 
 	public void cleanShapeToAll()
 	{
-		this.sendShape(this.shapeParamsEmpty);
+		ShapeDispatcher.sendShape(MicroTimingUtil.getSubscribedPlayers(), this.getShapeDataList(false));
+	}
+
+	private static class ShapeData<T extends ShapeDispatcher.ExpiringShape>
+	{
+		public final T shape;
+		public final Map<String, Value> params;
+		public final Map<String, Value> emptyParams;
+
+		private ShapeData(T shape, Map<String, Value> params)
+		{
+			this.shape = shape;
+			this.params = params;
+			((ExpiringShapeInvoker)this.shape).callInit(this.params);
+			this.emptyParams = Maps.newHashMap(this.params);
+			this.emptyParams.put("duration", new NumericValue(0));
+		}
+
+		private Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>> toPair(boolean display)
+		{
+			return Pair.of(this.shape, display ? this.params : this.emptyParams);
+		}
+
+		public void updateLineWidth(float lineWidth)
+		{
+			this.params.put("line", new NumericValue(lineWidth));
+			this.emptyParams.put("line", new NumericValue(lineWidth));
+		}
 	}
 }

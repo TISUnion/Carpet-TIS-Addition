@@ -27,6 +27,7 @@ import net.minecraft.server.world.BlockAction;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -336,10 +337,10 @@ public class MicroTimingLoggerManager
 			Item holdingItem = itemStack.getItem();
 			if (holdingItem instanceof DyeItem && MicroTimingUtil.isPlayerSubscribed(playerEntity))
 			{
-				String name = null;
+				BaseText name = null;
 				if (itemStack.hasCustomName())
 				{
-					name = itemStack.getName().asString();
+					name = (BaseText)itemStack.getName();
 				}
 				MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, ((DyeItem)holdingItem).getColor(), name);
 			}

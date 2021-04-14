@@ -146,8 +146,15 @@ public class MicroTimingMessage
 		Block block = this.event.getBlock();
 		return Messenger.c(
 				"g [",
-				this.blockName != null ? Messenger.s(this.blockName) : TextUtil.getBlockName(block),
-				"^w " + Registry.BLOCK.getId(block).toString(),
+				TextUtil.getFancyText(
+						null,
+						this.blockName != null ? Messenger.s(this.blockName) : TextUtil.getBlockName(block),
+						Messenger.c(
+								TextUtil.getBlockName(block),
+								"w \n" + Registry.BLOCK.getId(block).toString()
+						),
+						null
+				),
 				"g ] "
 		);
 	}

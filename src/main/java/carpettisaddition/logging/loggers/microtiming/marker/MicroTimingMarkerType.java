@@ -9,7 +9,7 @@ public enum MicroTimingMarkerType
 	/**
 	 * Log everything
 	 */
-	END_ROD(8.0F);
+	END_ROD(7.0F);
 
 	public final float lineWidth;
 

@@ -10,12 +10,12 @@ import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -46,7 +46,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 		this.markers.clear();
 	}
 
-	public void addMarker(PlayerEntity playerEntity, BlockPos blockPos, DyeColor color, @Nullable String name)
+	public void addMarker(PlayerEntity playerEntity, BlockPos blockPos, DyeColor color, @Nullable BaseText name)
 	{
 		if (playerEntity instanceof ServerPlayerEntity && playerEntity.world instanceof ServerWorld)
 		{
@@ -62,7 +62,6 @@ public class MicroTimingMarkerManager extends TranslatableBase
 					// has next marker type
 					if (existedMarker.rollMarkerType())
 					{
-						existedMarker.setName(name);
 						playerEntity.addChatMessage(Messenger.s(String.format(
 								this.tr("on_type_roll", "Rolled marker type to %1$s"),
 								existedMarker.getMarkerType()
@@ -98,8 +97,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 			}
 			if (createNewMarker)
 			{
-				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color);
-				newMarker.setName(name);
+				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color, name);
 				this.markers.put(key, newMarker);
 				newMarker.sendShapeToAll();
 				playerEntity.addChatMessage(Messenger.s(String.format(
@@ -124,27 +122,27 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 	public Optional<String> getMarkerName(World world, BlockPos blockPos)
 	{
-		return Optional.ofNullable(this.markers.get(new StorageKey(world, blockPos))).map(MicroTimingMarker::getName);
+		return Optional.ofNullable(this.markers.get(new StorageKey(world, blockPos))).map(MicroTimingMarker::getMarkerNameString);
+	}
+
+	private void sendMarkersForPlayerInner(ServerPlayerEntity player, boolean display)
+	{
+		ShapeDispatcher.sendShape(
+				Collections.singletonList(player),
+				this.markers.values().stream().
+						flatMap(marker -> marker.getShapeDataList(display).stream()).
+						collect(Collectors.toList())
+		);
 	}
 
 	public void sendMarkersForPlayer(ServerPlayerEntity player)
 	{
-		ShapeDispatcher.sendShape(
-				Collections.singletonList(player),
-				this.markers.values().stream().
-						map(marker -> Pair.of((ShapeDispatcher.ExpiringShape)marker.box, marker.shapeParams)).
-						collect(Collectors.toList())
-		);
+		this.sendMarkersForPlayerInner(player, true);
 	}
 
 	public void cleanMarkersForPlayer(ServerPlayerEntity player)
 	{
-		ShapeDispatcher.sendShape(
-				Collections.singletonList(player),
-				this.markers.values().stream().
-						map(marker -> Pair.of((ShapeDispatcher.ExpiringShape)marker.box, marker.shapeParamsEmpty)).
-						collect(Collectors.toList())
-		);
+		this.sendMarkersForPlayerInner(player, false);
 	}
 
 	private static class StorageKey
