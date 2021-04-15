@@ -9,6 +9,7 @@ import carpettisaddition.logging.loggers.microtiming.events.BaseEvent;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
+import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
@@ -27,6 +28,8 @@ import static java.lang.Integer.min;
 
 public class MicroTimingMessage
 {
+	private static final Translator TRANSLATOR = MicroTimingLoggerManager.TRANSLATOR;
+
 	private static final int MAX_INDENT = 10;
 	private static final int SPACE_PER_INDENT = 2;
 	private static final List<String> INDENTATIONS = Lists.newArrayList();
@@ -97,16 +100,19 @@ public class MicroTimingMessage
 		return Objects.hash(dimensionType, pos, color, stage, stageDetail, stageExtra, event);
 	}
 
-	private BaseText getHashTagText()
+	private BaseText getHashTagText(int indentation)
 	{
 		return TextUtil.getFancyText(
 				MicroTimingUtil.getColorStyle(this.color),
 				Messenger.s("# "),
 				Messenger.s(
-						String.format("%s\n%s: %s",
+						String.format("%s: %s\n%s: %s\n%s: %s",
+								TRANSLATOR.tr("Position"),
 								TextUtil.getCoordinateString(this.pos),
-								MicroTimingLoggerManager.tr("color"),
-								this.color
+								TRANSLATOR.tr("Color"),
+								this.color,
+								TRANSLATOR.tr("Indentation"),
+								indentation
 						)
 				),
 				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.pos, this.dimensionType))
@@ -119,11 +125,11 @@ public class MicroTimingMessage
 		stageText.add("y  " + this.stage.tr());
 		if (this.stageDetail != null)
 		{
-			stageText.add("y ." + MicroTimingLoggerManager.tr("stage_detail." + this.stageDetail, this.stageDetail));
+			stageText.add("y ." + TRANSLATOR.tr("stage_detail." + this.stageDetail, this.stageDetail));
 		}
 		List<Object> hoverTextList = Lists.newArrayList();
 		hoverTextList.add(this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s(""));
-		hoverTextList.add(String.format("w %s: ", MicroTimingLoggerManager.tr("Dimension")));
+		hoverTextList.add(String.format("w %s: ", TRANSLATOR.tr("Dimension")));
 		hoverTextList.add(this.stage.isInsideWorld() ? TextUtil.getDimensionNameText(this.dimensionType) : "w N/A");
 		return Messenger.c(
 				"g  @",
@@ -143,15 +149,17 @@ public class MicroTimingMessage
 
 	private BaseText getEnclosedTranslatedBlockNameHeaderText()
 	{
-		Block block = this.event.getBlock();
+		Block eventSourceBlock = this.event.getEventSourceBlock();
+		BaseText sourceBlockNameText = TextUtil.getBlockName(eventSourceBlock);
 		return Messenger.c(
 				"g [",
 				TextUtil.getFancyText(
 						null,
-						this.blockName != null ? Messenger.s(this.blockName) : TextUtil.getBlockName(block),
+						this.blockName != null ? Messenger.s(this.blockName) : sourceBlockNameText,
 						Messenger.c(
-								TextUtil.getBlockName(block),
-								"w \n" + Registry.BLOCK.getId(block).toString()
+								String.format("w %s: ", TRANSLATOR.tr("Event source block")),
+								sourceBlockNameText,
+								String.format("w \n%s: %s", TRANSLATOR.tr("Block ID"), Registry.BLOCK.getId(eventSourceBlock))
 						),
 						null
 				),
@@ -166,7 +174,7 @@ public class MicroTimingMessage
 		{
 			line.add(getIndentationText(indentation));
 		}
-		line.add(this.getHashTagText());
+		line.add(this.getHashTagText(indentation));
 		line.add(this.getEnclosedTranslatedBlockNameHeaderText());
 		line.add(this.event.toText());
 		if (this.event.getEventType() != EventType.ACTION_END)

@@ -100,12 +100,12 @@ public class MicroTimingMarkerManager extends TranslatableBase
 				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color, name);
 				this.markers.put(key, newMarker);
 				newMarker.sendShapeToAll();
-				playerEntity.addChatMessage(Messenger.s(String.format(
-						this.tr("on_mark", "Marked %1$s with color %2$s"),
-						TextUtil.getCoordinateString(blockPos),
-						TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + color.toString() + Formatting.RESET,
-						newMarker.getMarkerType()
-				)), true);
+				String coord = TextUtil.getCoordinateString(blockPos);
+				playerEntity.addChatMessage(Messenger.c(
+						Messenger.s(String.format(this.tr("on_mark.pre", "Marked %1$s with color "), coord)),
+						Messenger.s(TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + color.toString() + Formatting.RESET),
+						Messenger.s(String.format(this.tr("on_mark.post", ""), coord))
+				), true);
 			}
 		}
 	}

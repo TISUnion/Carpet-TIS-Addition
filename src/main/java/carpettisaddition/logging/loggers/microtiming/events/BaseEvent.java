@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 {
-	protected final Block block;
+	private final Block eventSourceBlock;
 
 	protected static final String COLOR_ACTION = "c ";
 	protected static final String COLOR_TARGET = "c ";
@@ -17,11 +17,11 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 
 	private EventType eventType;
 
-	protected BaseEvent(EventType eventType, String translateKey, Block block)
+	protected BaseEvent(EventType eventType, String translateKey, Block eventSourceBlock)
 	{
 		super("logger.microTiming.event", translateKey);
 		this.eventType = eventType;
-		this.block = block;
+		this.eventSourceBlock = eventSourceBlock;
 	}
 
 	// if it's not important, it can be ignore if it's on a leaf node
@@ -39,15 +39,15 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 	public boolean equals(Object o)
 	{
 		if (this == o) return true;
-		if (!(o instanceof BaseEvent)) return false;
+		if (o == null || getClass() != o.getClass()) return false;
 		BaseEvent baseEvent = (BaseEvent) o;
-		return eventType == baseEvent.eventType;
+		return Objects.equals(eventSourceBlock, baseEvent.eventSourceBlock) && eventType == baseEvent.eventType;
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(eventType);
+		return Objects.hash(eventSourceBlock, eventType);
 	}
 
 	protected EventType getMergedEventType(BaseEvent quitEvent)
@@ -67,8 +67,8 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 		this.eventType = this.getMergedEventType(quitEvent);
 	}
 
-	public Block getBlock()
+	public Block getEventSourceBlock()
 	{
-		return this.block;
+		return this.eventSourceBlock;
 	}
 }
