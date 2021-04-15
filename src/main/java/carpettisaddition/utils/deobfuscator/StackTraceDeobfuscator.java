@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class StackTraceDeobfuscator
 {
-	private static String MAPPING_VERSION = "unknown";
+	private static String MAPPING_VERSION = "no mapping";
 	private static final Map<String, String> mappings = Maps.newHashMap();
 	static final Translator translator = new Translator("util", "stack_trace");
 
