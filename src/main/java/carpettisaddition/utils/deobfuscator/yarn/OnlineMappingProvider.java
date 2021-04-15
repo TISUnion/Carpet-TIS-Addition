@@ -109,7 +109,7 @@ public class OnlineMappingProvider
 			String escapedUrl = UrlEscapers.urlFragmentEscaper().escape(mappingJarUrl);
 
 			LOGGER.info("Downloading yarn mapping from {}", escapedUrl);
-			File jarFile = new File(mappingJar);
+			File jarFile = new File(STORAGE_DIRECTORY + mappingJar);
 			FileUtils.copyURLToFile(new URL(escapedUrl), jarFile);
 
 			FileSystem jar = FileSystems.newFileSystem(jarFile.toPath(), null);
