@@ -3,9 +3,11 @@ package carpettisaddition;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
+import carpet.utils.Messenger;
 import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
+import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.regex.Pattern;
@@ -311,11 +313,46 @@ public class CarpetTISAdditionSettings
 	public static boolean microTiming = false;
 
 	@Rule(
+			desc = "Allow player to right click with dye item to mark a block to be logged by microTiming logger",
+			extra = {
+					"You need to subscribe to microTiming logger for marking or displaying blocks",
+					"Right click with the same dye to remove the marker",
+					"Use `/carpet microTimingDyeMarker clear` to remove all markers",
+					"You can create a named marker by using a renamed dye item. Marker name will be shown in logging message as well",
+					"You can see boxes at marked blocks with fabric-carpet installed on your client. " +
+							"With carpet-tis-addition installed the marker name could also be seen through blocks",
+			},
+			options = {"false", "true", "clear"},
+			validate = ValidateMicroTimingDyeMarker.class,
+			category = {TIS, CREATIVE}
+	)
+	public static String microTimingDyeMarker = "false";
+
+	private static class ValidateMicroTimingDyeMarker extends Validator<String>
+	{
+		@Override
+		public String validate(ServerCommandSource source, ParsedRule<String> currentRule, String newValue, String string)
+		{
+			if ("clear".equals(newValue))
+			{
+				MicroTimingMarkerManager.getInstance().clear();
+				if (source != null)
+				{
+					Messenger.m(source, "w " + MicroTimingMarkerManager.getInstance().tr("cleared", "Marker cleared"));
+				}
+				return currentRule.get();
+			}
+			return newValue;
+		}
+	}
+
+	@Rule(
 			desc = "Modify the way to specify events to be logged in microTiming logger",
 			extra = {
 					"labelled: Logs events labelled with wool",
 					"in_range: Logs events within 32m of any player",
-					"all: Logs every event. Use with caution"
+					"all: Logs every event. Use with caution",
+					"marker_only: Logs event labelled with dye marker only. Use it with rule microTimingDyeMarker"
 			},
 			category = {TIS, CREATIVE}
 	)

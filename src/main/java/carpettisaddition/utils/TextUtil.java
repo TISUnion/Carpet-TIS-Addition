@@ -8,10 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -112,13 +109,17 @@ public class TextUtil
 		return String.format("/tp %s", uuid);
 	}
 
+	public static Style parseCarpetStyle(String style)
+	{
+		return Messenger.parseStyle(style);
+	}
+
 	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
 	{
 		BaseText text = copyText(displayText);
 		if (style != null)
 		{
-			//noinspection ResultOfMethodCallIgnored
-			MessengerInvoker.call_applyStyleToTextComponent(text, style);
+			text.setStyle(parseCarpetStyle(style));
 		}
 		if (hoverText != null)
 		{

@@ -1,28 +1,27 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import carpettisaddition.translations.TranslatableBase;
-import carpettisaddition.utils.TextUtil;
 import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.registry.Registry;
 
 import java.util.Objects;
 
 public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 {
+	protected final Block block;
+
 	protected static final String COLOR_ACTION = "c ";
 	protected static final String COLOR_TARGET = "c ";
 	protected static final String COLOR_RESULT = "q ";
 
 	private EventType eventType;
 
-	protected BaseEvent(EventType eventType, String translateKey)
+	protected BaseEvent(EventType eventType, String translateKey, Block block)
 	{
 		super("logger.microTiming.event", translateKey);
 		this.eventType = eventType;
+		this.block = block;
 	}
 
 	// if it's not important, it can be ignore if it's on a leaf node
@@ -68,13 +67,8 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 		this.eventType = this.getMergedEventType(quitEvent);
 	}
 
-	protected BaseText getEnclosedTranslatedBlockNameHeaderText(Block block)
+	public Block getBlock()
 	{
-		return Messenger.c(
-				"g [",
-				TextUtil.getBlockName(block),
-				"^w " + Registry.BLOCK.getId(block).toString(),
-				"g ] "
-		);
+		return this.block;
 	}
 }

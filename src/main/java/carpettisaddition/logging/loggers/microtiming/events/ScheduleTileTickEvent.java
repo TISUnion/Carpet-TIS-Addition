@@ -16,7 +16,6 @@ import java.util.Objects;
 
 public class ScheduleTileTickEvent extends BaseEvent
 {
-	private final Block block;
 	private final BlockPos pos;
 	private final int delay;
 	private final TickPriority priority;
@@ -24,8 +23,7 @@ public class ScheduleTileTickEvent extends BaseEvent
 
 	public ScheduleTileTickEvent(Block block, BlockPos pos, int delay, TickPriority priority, Boolean success)
 	{
-		super(EventType.EVENT, "schedule_tile_tick");
-		this.block = block;
+		super(EventType.EVENT, "schedule_tile_tick", block);
 		this.pos = pos;
 		this.delay = delay;
 		this.priority = priority;
@@ -36,7 +34,6 @@ public class ScheduleTileTickEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(this.getEnclosedTranslatedBlockNameHeaderText(block));
 		list.add(COLOR_ACTION + this.tr("Scheduled"));
 		list.add(TextUtil.getSpaceText());
 		list.add(COLOR_TARGET + this.tr("TileTick Event"));

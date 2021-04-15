@@ -35,6 +35,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration)
 - [lightUpdates](#lightUpdates)
 - [microTiming](#microTiming)
+- [microTimingDyeMarker](#microTimingDyeMarker)
 - [microTimingTarget](#microTimingTarget)
 - [opPlayerNoCheat](#opPlayerNoCheat)
 - [optimizedFastEntityMovement](#optimizedFastEntityMovement)
@@ -226,7 +227,7 @@ Set it to `false` to disable entity axis momentum cancellation if it's above 10m
 
 ## fakePlayerNamePrefix
 
-Add a name prefix for fake players spawned with `/player` command
+Add a markerName prefix for fake players spawned with `/player` command
 
 Which can prevent summoning fake player with illegal names and make player list look nicer
 
@@ -240,7 +241,7 @@ Set it to `#none` to stop adding a prefix
 
 ## fakePlayerNameSuffix
 
-Add a name suffix for fake players spawned with `/player` command
+Add a markerName suffix for fake players spawned with `/player` command
 
 Set it to `#none` to stop adding a suffix
 
@@ -367,6 +368,26 @@ Check rule [microTimingTarget](#microTimingTarget) to see how to switch logging 
 - Categories: `TIS`, `CREATIVE`
 
 
+## microTimingDyeMarker
+
+Allow player to right click with dye item to mark a block to be logged by microTiming logger
+
+You need to subscribe to microTiming logger for marking or displaying blocks
+
+Right click with the same dye to remove the marker
+
+Use `/carpet microTimingDyeMarker clear` to remove all markers
+
+You can create a named marker by using a renamed dye item. Marker name will be shown in logging message as well
+
+You can see boxes at marked blocks with fabric-carpet installed on your client. With carpet-tis-addition installed the marker name could also be seen through blocks
+
+- Type: `string`
+- Default value: `false`
+- Suggested options: `false`, `true`, `clear`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## microTimingTarget
 
 Modify the way to specify events to be logged in microTiming logger
@@ -376,6 +397,8 @@ Modify the way to specify events to be logged in microTiming logger
 `in_range`: Logs events within 32m of any player
 
 `all`: Logs every event. **Use with caution**
+
+`marker_only`: Logs event labelled with dye marker only. Use it with rule [microTimingDyeMarker](#microTimingDyeMarker)
 
 - Type: `enum`
 - Default value: `labelled`
@@ -990,7 +1013,7 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 
 # Other Stuffs
 
-- Set the maximum length of fake player's name to 16 to prevent kicking out other players
+- Set the maximum length of fake player's markerName to 16 to prevent kicking out other players
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
 - Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod

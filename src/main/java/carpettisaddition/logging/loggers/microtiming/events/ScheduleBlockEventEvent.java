@@ -16,7 +16,7 @@ public class ScheduleBlockEventEvent extends BaseEvent
 
 	public ScheduleBlockEventEvent(BlockAction blockAction, boolean success)
 	{
-		super(EventType.EVENT, "schedule_block_event");
+		super(EventType.EVENT, "schedule_block_event", blockAction.getBlock());
 		this.blockAction = blockAction;
 		this.success = success;
 	}
@@ -25,7 +25,6 @@ public class ScheduleBlockEventEvent extends BaseEvent
 	public BaseText toText()
 	{
 		return Messenger.c(
-				this.getEnclosedTranslatedBlockNameHeaderText(blockAction.getBlock()),
 				COLOR_ACTION + this.tr("Scheduled"),
 				TextUtil.getSpaceText(),
 				COLOR_TARGET + this.tr("BlockEvent"),

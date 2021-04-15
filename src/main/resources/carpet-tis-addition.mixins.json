@@ -16,10 +16,11 @@
     "carpet.hooks.CarpetServerMixin",
     "carpet.hooks.HUDControllerMixin",
     "carpet.hooks.SettingsManagerMixin",
-    "carpet.onServerLoadedWorlds.MinecraftServerMixin",
-    "carpet.tntRandomRange.CheckOptimizedTntEnabledValidatorMixin",
-    "carpet.tntRandomRange.ExplosionMixin",
-    "carpet.tntRandomRange.WorldAccessor",
+    "carpet.hooks.onServerLoadedWorlds.MinecraftServerMixin",
+    "carpet.rule.tntRandomRange.CheckOptimizedTntEnabledValidatorMixin",
+    "carpet.rule.tntRandomRange.ExplosionMixin",
+    "carpet.rule.tntRandomRange.WorldAccessor",
+    "carpet.shape.ExpiringShapeInvoker",
     "command.info.InfoCommandMixin",
     "command.lifetime.EntityMixin",
     "command.lifetime.ServerChunkManagerMixin",
@@ -74,6 +75,11 @@
     "logger.microtiming.events.ServerTickSchedulerMixin",
     "logger.microtiming.events.ServerWorldMixin",
     "logger.microtiming.events.WorldMixin",
+    "logger.microtiming.marker.BlockStateMixin",
+    "logger.microtiming.marker.DyeColorAccessor",
+    "logger.microtiming.marker.ServerNetworkHandlerMixin",
+    "logger.microtiming.marker.texthack.ShapeDispatcherTextMixin",
+    "logger.microtiming.marker.texthack.ShapesRendererRenderedTextMixin",
     "logger.microtiming.tickstages.CarpetEventServer_EventMixin",
     "logger.microtiming.tickstages.EnderDragonFightMixin",
     "logger.microtiming.tickstages.MinecraftDedicatedServerMixin",
@@ -147,7 +153,7 @@
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
   ],
   "client": [
-    "carpet.onServerLoadedWorlds.IntegratedServerMixin",
+    "carpet.hooks.onServerLoadedWorlds.IntegratedServerMixin",
     "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin"
   ],
   "injectors": {

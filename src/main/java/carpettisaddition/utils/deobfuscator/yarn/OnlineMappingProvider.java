@@ -80,7 +80,7 @@ public class OnlineMappingProvider
 		}
 		if (useCache && storedCache != null)
 		{
-			LOGGER.info("Found yarn version from file cache");
+			LOGGER.debug("Found yarn version from file cache");
 			return storedCache.yarnVersion;
 		}
 
@@ -133,7 +133,7 @@ public class OnlineMappingProvider
 		{
 			// 1. Get yarn version
 			String yarnVersion = getYarnVersion(true);
-			LOGGER.info("Got yarn version for Minecraft {}: {}", MINECRAFT_VERSION, yarnVersion);
+			LOGGER.debug("Got yarn version for Minecraft {}: {}", MINECRAFT_VERSION, yarnVersion);
 
 			// 2. Get yarn mapping
 			FileInputStream mappingStream = getYarnMappingStream(yarnVersion);

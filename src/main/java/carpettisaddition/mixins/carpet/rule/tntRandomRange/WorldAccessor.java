@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet.tntRandomRange;
+package carpettisaddition.mixins.carpet.rule.tntRandomRange;
 
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
