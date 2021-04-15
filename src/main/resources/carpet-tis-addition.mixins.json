@@ -14,6 +14,7 @@
     "carpet.hooks.HUDControllerMixin",
     "carpet.hooks.SettingsManagerMixin",
     "carpet.hooks.onServerLoadedWorlds.MinecraftServerMixin",
+    "carpet.robustness.FormattedTextParamMixin",
     "carpet.rule.tntRandomRange.CheckOptimizedTntEnabledValidatorMixin",
     "carpet.rule.tntRandomRange.ExplosionMixin",
     "carpet.rule.tntRandomRange.WorldAccessor",
