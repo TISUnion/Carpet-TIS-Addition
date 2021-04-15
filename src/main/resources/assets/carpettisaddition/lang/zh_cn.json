@@ -224,7 +224,10 @@
   "logger.raid.center_moved": "袭击(id: %d)的中心点移动至",
 
   "logger.microTiming.color": "颜色",
+  "logger.microTiming.indentation": "缩进层数",
   "logger.microTiming.dimension": "维度",
+  "logger.microTiming.event_source_block": "事件源方块",
+  "logger.microTiming.block_id": "方块ID",
   "logger.microTiming.player": "玩家",
   "logger.microTiming.entity": "实体",
   "logger.microTiming.type": "类型",
