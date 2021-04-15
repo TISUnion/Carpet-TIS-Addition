@@ -37,18 +37,18 @@ public class MicroTimingUtil
 	static
 	{
 		COLOR_STYLE.put(DyeColor.WHITE, "w");
-		COLOR_STYLE.put(DyeColor.ORANGE, "d");
+		COLOR_STYLE.put(DyeColor.ORANGE, "#F9801D");  // DyeColor.ORANGE.color
 		COLOR_STYLE.put(DyeColor.MAGENTA, "m");
 		COLOR_STYLE.put(DyeColor.LIGHT_BLUE, "c");
 		COLOR_STYLE.put(DyeColor.YELLOW, "y");
 		COLOR_STYLE.put(DyeColor.LIME, "l");
-		COLOR_STYLE.put(DyeColor.PINK, "r");
+		COLOR_STYLE.put(DyeColor.PINK, "#F38BAA");  // DyeColor.PINK.color
 		COLOR_STYLE.put(DyeColor.GRAY, "f");
 		COLOR_STYLE.put(DyeColor.LIGHT_GRAY, "g");
 		COLOR_STYLE.put(DyeColor.CYAN, "q");
 		COLOR_STYLE.put(DyeColor.PURPLE, "p");
 		COLOR_STYLE.put(DyeColor.BLUE, "v");
-		COLOR_STYLE.put(DyeColor.BROWN, "n");
+		COLOR_STYLE.put(DyeColor.BROWN, "#835432");  // DyeColor.BROWN.color
 		COLOR_STYLE.put(DyeColor.GREEN, "e");
 		COLOR_STYLE.put(DyeColor.RED, "r");
 		COLOR_STYLE.put(DyeColor.BLACK, "k");
@@ -268,4 +268,6 @@ public class MicroTimingUtil
 						filter(MicroTimingUtil::isPlayerSubscribed).
 						collect(Collectors.toList());
 	}
+
+
 }
