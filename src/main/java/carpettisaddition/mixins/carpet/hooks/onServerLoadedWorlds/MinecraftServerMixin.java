@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet.onServerLoadedWorlds;
+package carpettisaddition.mixins.carpet.hooks.onServerLoadedWorlds;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import net.minecraft.server.MinecraftServer;

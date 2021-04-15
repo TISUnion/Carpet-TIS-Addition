@@ -35,6 +35,7 @@
 - [光照队列记录器采样时长](#光照队列记录器采样时长-lightQueueLoggerSamplingDuration)
 - [光照更新](#光照更新-lightUpdates)
 - [微时序](#微时序-microTiming)
+- [微时序染料记号](#微时序染料记号-microTimingDyeMarker)
 - [微时序目标](#微时序目标-microTimingTarget)
 - [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
 - [优化高速实体移动](#优化高速实体移动-optimizedFastEntityMovement)
@@ -367,6 +368,28 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 微时序染料记号 (microTimingDyeMarker)
+
+*由于对 scarpet 形状渲染及 carpet 网络通讯协议支持的缺乏，该功能无法在 1.14.4 分支中使用*
+
+允许玩家手持染料右击方块来将其标记为微时序监视器的目标
+
+你需要订阅微时序监视器才能标记并渲染方块
+
+使用相同颜色的染料再次右击以移除颜色记号
+
+使用指令 `/carpet microTimingDyeMarker clear` 以移除所有记号
+
+你可以使用命名的染料物品来创建一个命名的记号。记号的名称同时将会在监视器的输出信息中展示
+
+如果客户端拥有 fabric-carpet mod，被标记的方块将会显示出一个边框。如果客户端还带有carpet-tis-addition，则记号的名称还可透过方块查看
+
+- 类型: `string`
+- 默认值: `false`
+- 参考选项: `false`, `true`, `clear`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 微时序目标 (microTimingTarget)
 
 设置指定微时序记录器记录目标的方法
@@ -376,6 +399,8 @@
 `in_range`: 记录离任意玩家 32m 内的事件
 
 `all`: 记录所有事件。**谨慎使用**
+
+`marker_only`: 仅记录被染料记号的方块。将其与规则 [microTimingDyeMarker（微时序染料记号）](#微时序染料记号-microTimingDyeMarker) 一起使用
 
 - 类型: `enum`
 - 默认值: `labelled`

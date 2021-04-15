@@ -17,7 +17,7 @@ public class ExecuteTileTickEvent extends BaseEvent
 	private final ScheduledTick<Block> tileTickEntry;
 	public ExecuteTileTickEvent(EventType eventType, ScheduledTick<Block> tileTickEntry)
 	{
-		super(eventType, "execute_tile_tick");
+		super(eventType, "execute_tile_tick", tileTickEntry.getObject());
 		this.tileTickEntry = tileTickEntry;
 	}
 
@@ -25,7 +25,6 @@ public class ExecuteTileTickEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.tileTickEntry.getObject()));
 		list.add(COLOR_ACTION + this.tr("Execute"));
 		list.add(TextUtil.getSpaceText());
 		list.add(COLOR_TARGET + this.tr("TileTick Event"));

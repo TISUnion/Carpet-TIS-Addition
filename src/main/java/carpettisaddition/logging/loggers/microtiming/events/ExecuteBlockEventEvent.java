@@ -25,7 +25,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 
 	public ExecuteBlockEventEvent(EventType eventType, BlockEvent blockAction, Boolean returnValue, FailInfo failInfo)
 	{
-		super(eventType, "execute_block_event");
+		super(eventType, "execute_block_event", blockAction.getBlock());
 		this.blockAction = blockAction;
 		this.returnValue = returnValue;
 		this.failInfo = failInfo;
@@ -57,7 +57,6 @@ public class ExecuteBlockEventEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(this.getEnclosedTranslatedBlockNameHeaderText(blockAction.getBlock()));
 		list.add(COLOR_ACTION + this.tr("Execute"));
 		if (this.blockAction.getBlock() instanceof PistonBlock)
 		{

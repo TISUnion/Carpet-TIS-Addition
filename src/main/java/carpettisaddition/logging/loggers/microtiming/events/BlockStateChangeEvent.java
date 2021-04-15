@@ -14,7 +14,6 @@ import java.util.Objects;
 
 public class BlockStateChangeEvent extends BaseEvent
 {
-	private final Block block;
 	private Boolean returnValue;
 	private final int flags;
 	private final List<PropertyChanges> changes = Lists.newArrayList();
@@ -35,8 +34,7 @@ public class BlockStateChangeEvent extends BaseEvent
 
 	public BlockStateChangeEvent(EventType eventType, Boolean returnValue, Block block, int flags)
 	{
-		super(eventType, "block_state_change");
-		this.block = block;
+		super(eventType, "block_state_change", block);
 		this.returnValue = returnValue;
 		this.flags = flags;
 	}
@@ -102,7 +100,6 @@ public class BlockStateChangeEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
 		BaseText titleText = TextUtil.getFancyText(
 				null,
 				Messenger.c(COLOR_ACTION + this.tr("State Change")),

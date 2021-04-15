@@ -15,6 +15,12 @@ public class Translator implements Translatable
 		this.translationPath = this.generateTranslationPath();
 	}
 
+	public Translator getDerivedTranslator(String derivedName)
+	{
+		String name = this.name == null ? derivedName : this.name + "." + derivedName;
+		return new Translator(this.type, name);
+	}
+
 	public String getTranslationPath()
 	{
 		return this.translationPath;

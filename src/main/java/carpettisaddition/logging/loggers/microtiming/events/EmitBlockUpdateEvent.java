@@ -13,13 +13,11 @@ import java.util.Objects;
 
 public class EmitBlockUpdateEvent extends BaseEvent
 {
-	private final Block block;
 	private final String methodName;
 
 	public EmitBlockUpdateEvent(EventType eventType, Block block, String methodName)
 	{
-		super(eventType, "emit_block_update");
-		this.block = block;
+		super(eventType, "emit_block_update", block);
 		this.methodName = methodName;
 	}
 
@@ -38,7 +36,6 @@ public class EmitBlockUpdateEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.block));
 		BaseText updatesText = Messenger.c(
 				COLOR_ACTION + this.tr("Emit"),
 				TextUtil.getSpaceText(),

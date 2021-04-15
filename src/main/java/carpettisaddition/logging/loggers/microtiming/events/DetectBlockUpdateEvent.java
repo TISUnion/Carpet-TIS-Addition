@@ -22,7 +22,7 @@ public class DetectBlockUpdateEvent extends BaseEvent
 
 	public DetectBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, Supplier<String> updateTypeExtraMessage)
 	{
-		super(eventType, "detect_block_update");
+		super(eventType, "detect_block_update", fromBlock);
 		this.fromBlock = fromBlock;
 		this.updateType = blockUpdateType;
 		this.updateTypeExtraMessage = updateTypeExtraMessage;
@@ -42,7 +42,6 @@ public class DetectBlockUpdateEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(this.getEnclosedTranslatedBlockNameHeaderText(this.fromBlock));
 		list.add(COLOR_ACTION + MicroTimingLoggerManager.tr("Emit"));
 		list.add(TextUtil.getSpaceText());
 		list.add(COLOR_TARGET + this.updateType);
