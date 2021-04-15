@@ -23,7 +23,7 @@ public abstract class BlockStateMixin
 			boolean accepted = MicroTimingLoggerManager.getInstance().onPlayerRightClick(player, hand, hit.getBlockPos());
 			if (accepted)
 			{
-				cir.setReturnValue(ActionResult.SUCCESS);
+				cir.setReturnValue(ActionResult.CONSUME);
 			}
 		}
 	}
