@@ -316,7 +316,7 @@ public class CarpetTISAdditionSettings
 			desc = "Allow player to right click with dye item to mark a block to be logged by microTiming logger",
 			extra = {
 					"You need to subscribe to microTiming logger for marking or displaying blocks",
-					"Right click with the same dye to remove the marker",
+					"Right click with the same dye to switch the marker to end rod mode with which block update information will be logged additionally. Right click again to remove the marker",
 					"Use `/carpet microTimingDyeMarker clear` to remove all markers",
 					"You can create a named marker by using a renamed dye item. Marker name will be shown in logging message as well",
 					"You can see boxes at marked blocks with fabric-carpet installed on your client. " +

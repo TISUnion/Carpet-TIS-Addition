@@ -63,7 +63,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 					if (existedMarker.rollMarkerType())
 					{
 						playerEntity.addChatMessage(Messenger.s(String.format(
-								this.tr("on_type_roll", "Rolled marker type to %1$s"),
+								this.tr("on_type_switch", "Switch marker to %1$s mode"),
 								existedMarker.getMarkerType()
 						)), true);
 					}
