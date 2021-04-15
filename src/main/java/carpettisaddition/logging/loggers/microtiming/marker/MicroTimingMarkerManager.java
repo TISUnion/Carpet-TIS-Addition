@@ -12,7 +12,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
@@ -100,12 +99,12 @@ public class MicroTimingMarkerManager extends TranslatableBase
 				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color, name);
 				this.markers.put(key, newMarker);
 				newMarker.sendShapeToAll();
-				playerEntity.sendMessage(Messenger.s(String.format(
-						this.tr("on_mark", "Marked %1$s with color %2$s"),
-						TextUtil.getCoordinateString(blockPos),
-						TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + color.toString() + Formatting.RESET,
-						newMarker.getMarkerType()
-				)), true);
+				String coord = TextUtil.getCoordinateString(blockPos);
+				playerEntity.sendMessage(Messenger.c(
+						Messenger.s(String.format(this.tr("on_mark.pre", "Marked %1$s with color "), coord)),
+						Messenger.s(color.toString(), MicroTimingUtil.getColorStyle(color)),
+						Messenger.s(String.format(this.tr("on_mark.post", " "), coord))
+				), true);
 			}
 		}
 	}

@@ -13,11 +13,13 @@ import java.util.Objects;
 
 public class EmitBlockUpdateEvent extends BaseEvent
 {
+	private final Block block;
 	private final String methodName;
 
 	public EmitBlockUpdateEvent(EventType eventType, Block block, String methodName)
 	{
 		super(eventType, "emit_block_update", block);
+		this.block = block;
 		this.methodName = methodName;
 	}
 

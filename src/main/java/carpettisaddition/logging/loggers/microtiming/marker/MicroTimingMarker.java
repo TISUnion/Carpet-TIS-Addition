@@ -13,7 +13,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
@@ -51,7 +50,7 @@ public class MicroTimingMarker
 			textParams.put("dim", new StringValue(serverWorld.getRegistryKey().getValue().toString()));
 			textParams.put("duration", new NumericValue(Integer.MAX_VALUE));
 			textParams.put("pos", ListValue.of(new NumericValue(blockPos.getX() + 0.5D), new NumericValue(blockPos.getY() + 0.5D), new NumericValue(blockPos.getZ() + 0.5D)));
-			textParams.put("text", new FormattedTextValue(Messenger.c(Messenger.s(TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(this.color)).getColor() + "# " + Formatting.RESET), TextUtil.copyText(this.markerName))));
+			textParams.put("text", new FormattedTextValue(Messenger.c(MicroTimingUtil.getColorStyle(this.color) + " # ", TextUtil.copyText(this.markerName))));
 			textParams.put("align", new StringValue(ScarpetDisplayedTextHack.MICRO_TIMING_TEXT_MAGIC_STRING));
 			this.text = new ShapeData<>(new ShapeDispatcher.DisplayedText(), textParams);
 		}

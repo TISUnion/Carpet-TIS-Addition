@@ -16,6 +16,7 @@ import java.util.Objects;
 
 public class ScheduleTileTickEvent extends BaseEvent
 {
+	private final Block block;
 	private final BlockPos pos;
 	private final int delay;
 	private final TickPriority priority;
@@ -24,6 +25,7 @@ public class ScheduleTileTickEvent extends BaseEvent
 	public ScheduleTileTickEvent(Block block, BlockPos pos, int delay, TickPriority priority, Boolean success)
 	{
 		super(EventType.EVENT, "schedule_tile_tick", block);
+		this.block = block;
 		this.pos = pos;
 		this.delay = delay;
 		this.priority = priority;
