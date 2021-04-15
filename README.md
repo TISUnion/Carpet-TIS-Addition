@@ -374,7 +374,7 @@ Allow player to right click with dye item to mark a block to be logged by microT
 
 You need to subscribe to microTiming logger for marking or displaying blocks
 
-Right click with the same dye to remove the marker
+Right click with the same dye to switch the marker to end rod mode with which block update information will be logged additionally. Right click again to remove the marker
 
 Use `/carpet microTimingDyeMarker clear` to remove all markers
 
