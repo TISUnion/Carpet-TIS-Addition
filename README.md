@@ -370,6 +370,8 @@ Check rule [microTimingTarget](#microTimingTarget) to see how to switch logging 
 
 ## microTimingDyeMarker
 
+*Doesn't work in 1.14.4 branch due to lack of carpet network and scarpet shape rendering framework*
+
 Allow player to right click with dye item to mark a block to be logged by microTiming logger
 
 You need to subscribe to microTiming logger for marking or displaying blocks
