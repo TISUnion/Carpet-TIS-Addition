@@ -370,8 +370,6 @@ Check rule [microTimingTarget](#microTimingTarget) to see how to switch logging 
 
 ## microTimingDyeMarker
 
-*Doesn't work in 1.14.4 branch due to lack of carpet network and scarpet shape rendering framework*
-
 Allow player to right click with dye item to mark a block to be logged by microTiming logger
 
 You need to subscribe to microTiming logger for marking or displaying blocks
@@ -382,7 +380,9 @@ Use `/carpet microTimingDyeMarker clear` to remove all markers
 
 You can create a named marker by using a renamed dye item. Marker name will be shown in logging message as well
 
-You can see boxes at marked blocks with fabric-carpet installed on your client. With carpet-tis-addition installed the marker name could also be seen through blocks
+You can see boxes at marked blocks with fabric-carpet installed on your client. With carpet-tis-addition installed the marker name could also be seen through blocks.
+
+*Visual rendering thing doesn't work in 1.14.4 branch due to lack of carpet network and scarpet shape rendering framework in frabic carpet*
 
 - Type: `string`
 - Default value: `false`
