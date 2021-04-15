@@ -109,9 +109,10 @@ public class TextUtil
 		return String.format("/tp %s", uuid);
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	public static Style parseCarpetStyle(String style)
 	{
-		return Messenger.parseStyle(style);
+		return MessengerInvoker.call_applyStyleToTextComponent(Messenger.s(""), style).getStyle();
 	}
 
 	public static BaseText getFancyText(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)

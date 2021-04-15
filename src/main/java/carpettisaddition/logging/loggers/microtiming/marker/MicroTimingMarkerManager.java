@@ -1,11 +1,11 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
-import carpet.script.utils.ShapeDispatcher;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.compact.scarpet.ShapeDispatcher;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
