@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @SuppressWarnings("SimplifiableConditionalExpression")
 @Mixin(ShapesRenderer.RenderedText.class)
-public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.RenderedShape<ShapeDispatcher.Text>
+public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.RenderedShape<ShapeDispatcher.DisplayedText>
 {
-	protected ShapesRendererRenderedTextMixin(MinecraftClient client, ShapeDispatcher.Text shape)
+	protected ShapesRendererRenderedTextMixin(MinecraftClient client, ShapeDispatcher.DisplayedText shape)
 	{
 		super(client, shape);
 	}
@@ -31,7 +31,7 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
-							target = "Lcarpet/script/utils/ShapeDispatcher$Text;indent:F"
+							target = "Lcarpet/script/utils/ShapeDispatcher$DisplayedText;indent:F"
 					)
 			),
 			at = @At(
@@ -54,7 +54,7 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			method = "renderLines",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/font/TextRenderer;draw(Ljava/lang/String;FFIZLnet/minecraft/client/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
+					target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLnet/minecraft/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
 					remap = true
 			),
 			index = 7,

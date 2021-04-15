@@ -14,6 +14,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.script.MicroTimingEvent;
 import carpettisaddition.translations.Translator;
+import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import net.minecraft.block.Block;
@@ -38,8 +39,10 @@ import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
-import java.util.function.BiFunction;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class MicroTimingLoggerManager
@@ -50,7 +53,8 @@ public class MicroTimingLoggerManager
 	public static final Translator TRANSLATOR = (new MicroTimingLogger(null)).getTranslator();
 	private long lastFlushTime;
 
-    public static Set<BlockPos> trackedPositions = new HashSet<>();
+	// for scarpet event
+    public static Set<BlockPos> trackedPositions = Sets.newHashSet();
 
     public MicroTimingLoggerManager(MinecraftServer minecraftServer)
 	{
@@ -135,6 +139,7 @@ public class MicroTimingLoggerManager
 	{
 		if (isLoggerActivated())
 		{
+			dispatchScarpetEvent(context.getWorld(), context.getBlockPos(), context.getEventSupplier());
 			getWorldLogger(context.getWorld()).ifPresent(logger -> logger.addMessage(context));
 		}
 	}

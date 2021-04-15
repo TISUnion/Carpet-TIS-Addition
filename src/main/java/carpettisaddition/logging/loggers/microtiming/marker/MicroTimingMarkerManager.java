@@ -14,8 +14,8 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -62,7 +62,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 					// has next marker type
 					if (existedMarker.rollMarkerType())
 					{
-						playerEntity.addChatMessage(Messenger.s(String.format(
+						playerEntity.sendMessage(Messenger.s(String.format(
 								this.tr("on_type_roll", "Rolled marker type to %1$s"),
 								existedMarker.getMarkerType()
 						)), true);
@@ -90,7 +90,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 			{
 				existedMarker.cleanShapeToAll();
 				this.markers.remove(key);
-				playerEntity.addChatMessage(Messenger.s(String.format(
+				playerEntity.sendMessage(Messenger.s(String.format(
 						this.tr("on_unmark", "Unmarked %1$s from MicroTiming logging"),
 						TextUtil.getCoordinateString(blockPos)
 				)), true);
@@ -100,7 +100,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color, name);
 				this.markers.put(key, newMarker);
 				newMarker.sendShapeToAll();
-				playerEntity.addChatMessage(Messenger.s(String.format(
+				playerEntity.sendMessage(Messenger.s(String.format(
 						this.tr("on_mark", "Marked %1$s with color %2$s"),
 						TextUtil.getCoordinateString(blockPos),
 						TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + color.toString() + Formatting.RESET,
@@ -147,10 +147,10 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 	private static class StorageKey
 	{
-		private final DimensionType dimensionType;
+		private final RegistryKey<World> dimensionType;
 		private final BlockPos blockPos;
 
-		private StorageKey(DimensionType dimensionType, BlockPos blockPos)
+		private StorageKey(RegistryKey<World> dimensionType, BlockPos blockPos)
 		{
 			this.dimensionType = dimensionType;
 			this.blockPos = blockPos;
@@ -158,7 +158,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 		private StorageKey(World world, BlockPos blockPos)
 		{
-			this(world.getDimension().getType(), blockPos);
+			this(world.getRegistryKey(), blockPos);
 		}
 
 		@Override

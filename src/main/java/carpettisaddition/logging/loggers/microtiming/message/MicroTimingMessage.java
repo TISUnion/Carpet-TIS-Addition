@@ -17,6 +17,7 @@ import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
@@ -55,7 +56,7 @@ public class MicroTimingMessage
 
 	public MicroTimingMessage(MicroTimingLogger logger, MicroTimingContext context)
 	{
-		this.dimensionType = context.getWorld().getDimension().getType();
+		this.dimensionType = context.getWorld().getRegistryKey();
 		this.pos = context.getBlockPos();
 		this.color = context.getColor();
 		this.event = context.getEventSupplier().get();

@@ -2,8 +2,8 @@ package carpettisaddition.mixins.logger.microtiming.marker;
 
 import carpet.network.ServerNetworkHandler;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.PacketByteBuf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

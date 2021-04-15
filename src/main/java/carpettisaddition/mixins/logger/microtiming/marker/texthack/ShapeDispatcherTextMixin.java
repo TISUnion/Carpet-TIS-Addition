@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
-@Mixin(ShapeDispatcher.Text.class)
+@Mixin(ShapeDispatcher.DisplayedText.class)
 public abstract class ShapeDispatcherTextMixin implements IShapeDispatcherText
 {
 	private boolean isMicroTimingMarkerText = false;

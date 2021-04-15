@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.microtiming.marker;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(BlockState.class)
+@Mixin(AbstractBlock.AbstractBlockState.class)
 public abstract class BlockStateMixin
 {
 	@Inject(method = "onUse", at = @At("HEAD"), cancellable = true)

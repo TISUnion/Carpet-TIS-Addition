@@ -25,7 +25,7 @@ public class MicroTimingMarker
 {
 	public final DyeColor color;
 	private final ShapeData<ShapeDispatcher.Box> box;
-	private final ShapeData<ShapeDispatcher.Text> text;
+	private final ShapeData<ShapeDispatcher.DisplayedText> text;
 	private MicroTimingMarkerType markerType;
 	@Nullable
 	private final BaseText markerName;
@@ -39,7 +39,7 @@ public class MicroTimingMarker
 		Map<String, Value> boxParams = Maps.newHashMap();
 		boxParams.put("shape", new StringValue("box"));
 		boxParams.put("color", new NumericValue(((long) ((DyeColorAccessor) (Object) this.color).getTextColor() << 8) | 0xAF));
-		boxParams.put("dim", new StringValue(serverWorld.getDimension().getType().toString()));
+		boxParams.put("dim", new StringValue(serverWorld.getRegistryKey().getValue().toString()));
 		boxParams.put("duration", new NumericValue(Integer.MAX_VALUE));
 		boxParams.put("from", listFromBlockPos(blockPos));
 		boxParams.put("to", listFromBlockPos(blockPos.add(1, 1, 1)));
@@ -48,12 +48,12 @@ public class MicroTimingMarker
 		{
 			Map<String, Value> textParams = Maps.newHashMap();
 			textParams.put("shape", new StringValue("label"));
-			textParams.put("dim", new StringValue(serverWorld.getDimension().getType().toString()));
+			textParams.put("dim", new StringValue(serverWorld.getRegistryKey().getValue().toString()));
 			textParams.put("duration", new NumericValue(Integer.MAX_VALUE));
 			textParams.put("pos", ListValue.of(new NumericValue(blockPos.getX() + 0.5D), new NumericValue(blockPos.getY() + 0.5D), new NumericValue(blockPos.getZ() + 0.5D)));
 			textParams.put("text", new FormattedTextValue(Messenger.c(Messenger.s(TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(this.color)).getColor() + "# " + Formatting.RESET), TextUtil.copyText(this.markerName))));
 			textParams.put("align", new StringValue(ScarpetDisplayedTextHack.MICRO_TIMING_TEXT_MAGIC_STRING));
-			this.text = new ShapeData<>(new ShapeDispatcher.Text(), textParams);
+			this.text = new ShapeData<>(new ShapeDispatcher.DisplayedText(), textParams);
 		}
 		else
 		{
