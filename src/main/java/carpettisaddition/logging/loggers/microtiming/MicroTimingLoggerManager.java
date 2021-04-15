@@ -14,7 +14,6 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
-import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,7 +24,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
@@ -40,7 +38,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 public class MicroTimingLoggerManager
 {
@@ -140,15 +137,6 @@ public class MicroTimingLoggerManager
 						withWoolGetter(MicroTimingUtil::blockUpdateColorGetter)
 		);
 	}
-
-	private final static Set<Property<?>> INTEREST_PROPERTIES = new ReferenceArraySet<>();
-	static
-	{
-		INTEREST_PROPERTIES.add(Properties.POWERED);  // redstone repeater, observer, etc.
-		INTEREST_PROPERTIES.add(Properties.LIT);  // redstone torch, redstone lamp
-		INTEREST_PROPERTIES.add(Properties.POWER);  // redstone dust, weighted pressure plates, etc.
-		INTEREST_PROPERTIES.add(Properties.LOCKED);  // redstone repeater
-	}
 	
 	public static void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, int flags, EventType eventType)
 	{
@@ -162,19 +150,16 @@ public class MicroTimingLoggerManager
 
 				for (Property<?> property: newState.getProperties())
 				{
-					if (INTEREST_PROPERTIES.contains(property))
+					if (color == null)
 					{
-						if (color == null)
+						Optional<DyeColor> optionalDyeColor = MicroTimingUtil.defaultColorGetter(world, pos);
+						if (!optionalDyeColor.isPresent())
 						{
-							Optional<DyeColor> optionalDyeColor = MicroTimingUtil.defaultColorGetter(world, pos);
-							if (!optionalDyeColor.isPresent())
-							{
-								break;
-							}
-							color = optionalDyeColor.get();
+							break;
 						}
-						event.addChanges(property.getName(), oldState.get(property), newState.get(property));
+						color = optionalDyeColor.get();
 					}
+					event.addIfChanges(property.getName(), oldState.get(property), newState.get(property));
 				}
 				if (event.hasChanges())
 				{
