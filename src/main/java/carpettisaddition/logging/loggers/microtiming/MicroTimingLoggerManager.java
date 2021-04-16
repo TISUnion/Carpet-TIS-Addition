@@ -16,7 +16,6 @@ import carpettisaddition.script.MicroTimingEvent;
 import carpettisaddition.translations.Translator;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
-import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,7 +26,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
@@ -160,15 +158,6 @@ public class MicroTimingLoggerManager
 		);
 	}
 
-	private final static Set<Property<?>> INTEREST_PROPERTIES = new ReferenceArraySet<>();
-	static
-	{
-		INTEREST_PROPERTIES.add(Properties.POWERED);  // redstone repeater, observer, etc.
-		INTEREST_PROPERTIES.add(Properties.LIT);  // redstone torch, redstone lamp
-		INTEREST_PROPERTIES.add(Properties.POWER);  // redstone dust, weighted pressure plates, etc.
-		INTEREST_PROPERTIES.add(Properties.LOCKED);  // redstone repeater
-	}
-
 	public static void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, int flags, EventType eventType)
 	{
 		if (isLoggerActivated())
@@ -181,19 +170,16 @@ public class MicroTimingLoggerManager
 
 				for (Property<?> property: newState.getProperties())
 				{
-					if (INTEREST_PROPERTIES.contains(property))
+					if (color == null)
 					{
-						if (color == null)
+						Optional<DyeColor> optionalDyeColor = MicroTimingUtil.defaultColorGetter(world, pos);
+						if (!optionalDyeColor.isPresent())
 						{
-							Optional<DyeColor> optionalDyeColor = MicroTimingUtil.defaultColorGetter(world, pos);
-							if (!optionalDyeColor.isPresent())
-							{
-								break;
-							}
-							color = optionalDyeColor.get();
+							break;
 						}
-						event.addChanges(property.getName(), oldState.get(property), newState.get(property));
+						color = optionalDyeColor.get();
 					}
+					event.addIfChanges(property.getName(), oldState.get(property), newState.get(property));
 				}
 				if (event.hasChanges())
 				{
@@ -348,7 +334,7 @@ public class MicroTimingLoggerManager
 	 * ----------------
 	 */
 
-	public boolean onPlayerRightClick(PlayerEntity playerEntity, Hand hand, BlockPos blockPos)
+	public static boolean onPlayerRightClick(PlayerEntity playerEntity, Hand hand, BlockPos blockPos)
 	{
 		if (MicroTimingUtil.isMarkerEnabled() && playerEntity instanceof ServerPlayerEntity && hand == Hand.MAIN_HAND)
 		{
@@ -361,6 +347,7 @@ public class MicroTimingLoggerManager
 				{
 					name = (BaseText)itemStack.getName();
 				}
+				// server-side check will be in addMarker
 				MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, ((DyeItem)holdingItem).getColor(), name);
 				return true;
 			}

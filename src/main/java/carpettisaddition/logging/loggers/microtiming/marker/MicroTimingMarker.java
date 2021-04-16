@@ -24,6 +24,7 @@ public class MicroTimingMarker
 {
 	public final DyeColor color;
 	private final ShapeData<ShapeDispatcher.Box> box;
+	@Nullable
 	private final ShapeData<ShapeDispatcher.DisplayedText> text;
 	private MicroTimingMarkerType markerType;
 	@Nullable
@@ -136,9 +137,15 @@ public class MicroTimingMarker
 		{
 			this.shape = shape;
 			this.params = params;
-			((ExpiringShapeInvoker)this.shape).callInit(this.params);
 			this.emptyParams = Maps.newHashMap(this.params);
 			this.emptyParams.put("duration", new NumericValue(0));
+			this.syncShapeInstance();
+		}
+
+		private void syncShapeInstance()
+		{
+			// the shape instance is useful for non-carpet players
+			((ExpiringShapeInvoker)this.shape).callInit(this.params);
 		}
 
 		private Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>> toPair(boolean display)
@@ -150,6 +157,7 @@ public class MicroTimingMarker
 		{
 			this.params.put("line", new NumericValue(lineWidth));
 			this.emptyParams.put("line", new NumericValue(lineWidth));
+			this.syncShapeInstance();
 		}
 	}
 }

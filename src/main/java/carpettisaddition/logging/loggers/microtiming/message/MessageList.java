@@ -37,7 +37,7 @@ public class MessageList
 		this.currentNode = new MessageTreeNode(this.currentNode, message);
 		if (currentNode.getParent() == null)
 		{
-			this.messageTrees.add(currentNode);
+			this.messageTrees.add(this.currentNode);
 		}
 		if (message.getMessageType() == MessageType.ATOM)
 		{

@@ -1023,6 +1023,7 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 - Added `/spawn tracking restart` for lazy man
 - Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
 - Added OP permission check to cheaty command `/player <someone> mount anything`
+- Fixed carpet fake player not responding to knockback from player melee attack (https://github.com/gnembon/fabric-carpet/issues/745)
 
 -----------
 

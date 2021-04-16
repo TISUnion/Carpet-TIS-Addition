@@ -139,7 +139,7 @@ public class BlockStateChangeEvent extends BaseEvent
 		return Messenger.c(list.toArray(new Object[0]));
 	}
 
-	public void addChanges(String name, Object oldValue, Object newValue)
+	public void addIfChanges(String name, Object oldValue, Object newValue)
 	{
 		if (!oldValue.equals(newValue))
 		{

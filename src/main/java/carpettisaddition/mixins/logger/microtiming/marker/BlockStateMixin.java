@@ -18,13 +18,11 @@ public abstract class BlockStateMixin
 	@Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
 	private void onUseOnBlock$MicroTimingLoggerMarker(World world, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
 	{
-		if (MicroTimingLoggerManager.getInstance() != null && !world.isClient())
+		// client side is allowed here so the client wont desync
+		boolean accepted = MicroTimingLoggerManager.onPlayerRightClick(player, hand, hit.getBlockPos());
+		if (accepted)
 		{
-			boolean accepted = MicroTimingLoggerManager.getInstance().onPlayerRightClick(player, hand, hit.getBlockPos());
-			if (accepted)
-			{
-				cir.setReturnValue(ActionResult.SUCCESS);
-			}
+			cir.setReturnValue(ActionResult.CONSUME);
 		}
 	}
 }

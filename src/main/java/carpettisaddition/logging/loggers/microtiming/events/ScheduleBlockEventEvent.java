@@ -29,7 +29,7 @@ public class ScheduleBlockEventEvent extends BaseEvent
 				TextUtil.getSpaceText(),
 				COLOR_TARGET + this.tr("BlockEvent"),
 				ExecuteBlockEventEvent.getMessageExtraMessengerHoverText(blockAction),
-				TextUtil.getSpaceText(),
+				"w  ",
 				MicroTimingUtil.getSuccessText(this.success, false)
 		);
 	}
