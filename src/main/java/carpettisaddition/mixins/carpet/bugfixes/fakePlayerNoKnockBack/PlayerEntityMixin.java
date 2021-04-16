@@ -7,7 +7,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(PlayerEntity.class)
+// lower priority so it will more likely be mixin later
+@Mixin(value = PlayerEntity.class, priority = 500)
 public abstract class PlayerEntityMixin
 {
 	@Redirect(
@@ -16,7 +17,8 @@ public abstract class PlayerEntityMixin
 					value = "FIELD",
 					target = "Lnet/minecraft/entity/Entity;velocityModified:Z",
 					ordinal = 0
-			)
+			),
+			require = 0  // in case it's fixed in fabric carpet using the same redirect
 	)
 	private boolean velocityModifiedAndNotCarpetFakePlayer(Entity target)
 	{
