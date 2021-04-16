@@ -11,7 +11,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerType;
 import carpettisaddition.utils.TextUtil;
-import com.google.common.collect.Maps;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,26 +33,24 @@ import java.util.stream.Collectors;
 public class MicroTimingUtil
 {
 	public static final Direction[] DIRECTION_VALUES = Direction.values();
-	private static final Map<DyeColor, String> COLOR_STYLE = Maps.newHashMap();
-	static
-	{
-		COLOR_STYLE.put(DyeColor.WHITE, "w");
-		COLOR_STYLE.put(DyeColor.ORANGE, "d");
-		COLOR_STYLE.put(DyeColor.MAGENTA, "m");
-		COLOR_STYLE.put(DyeColor.LIGHT_BLUE, "c");
-		COLOR_STYLE.put(DyeColor.YELLOW, "y");
-		COLOR_STYLE.put(DyeColor.LIME, "l");
-		COLOR_STYLE.put(DyeColor.PINK, "r");
-		COLOR_STYLE.put(DyeColor.GRAY, "f");
-		COLOR_STYLE.put(DyeColor.LIGHT_GRAY, "g");
-		COLOR_STYLE.put(DyeColor.CYAN, "q");
-		COLOR_STYLE.put(DyeColor.PURPLE, "p");
-		COLOR_STYLE.put(DyeColor.BLUE, "v");
-		COLOR_STYLE.put(DyeColor.BROWN, "n");
-		COLOR_STYLE.put(DyeColor.GREEN, "e");
-		COLOR_STYLE.put(DyeColor.RED, "r");
-		COLOR_STYLE.put(DyeColor.BLACK, "k");
-	}
+	private static final ImmutableMap<DyeColor, String> COLOR_STYLE = new ImmutableMap.Builder<DyeColor, String>().
+			put(DyeColor.WHITE, "w").
+			put(DyeColor.ORANGE, "d").
+			put(DyeColor.MAGENTA, "m").
+			put(DyeColor.LIGHT_BLUE, "c").
+			put(DyeColor.YELLOW, "y").
+			put(DyeColor.LIME, "l").
+			put(DyeColor.PINK, "r").
+			put(DyeColor.GRAY, "f").
+			put(DyeColor.LIGHT_GRAY, "g").
+			put(DyeColor.CYAN, "q").
+			put(DyeColor.PURPLE, "p").
+			put(DyeColor.BLUE, "v").
+			put(DyeColor.BROWN, "n").
+			put(DyeColor.GREEN, "e").
+			put(DyeColor.RED, "r").
+			put(DyeColor.BLACK, "k").
+			build();
 
 	public static String getColorStyle(DyeColor color)
 	{

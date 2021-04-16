@@ -1023,6 +1023,7 @@
 - 添加 `/spawn tracking restart`
 - 取消玩家动作包（由 `/player` 指令触发的 PlayerActionPack）在 `/tick freeze` 时的更新
 - 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
+- 修复地毯假人不响应玩家近战攻击的击退的bug（https://github.com/gnembon/fabric-carpet/issues/745）
 
 -----------
 

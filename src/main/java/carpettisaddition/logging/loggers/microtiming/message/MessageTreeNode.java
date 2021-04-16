@@ -37,7 +37,7 @@ public class MessageTreeNode
 		this.quitMessage = message;
 		if (this.entryMessage.getEvent().getClass() != this.quitMessage.getEvent().getClass())
 		{
-			CarpetTISAdditionServer.LOGGER.warn(String.format("Trying to merge %s with %s", cn(this.entryMessage.getEvent()), cn(this.quitMessage.getEvent())));
+			CarpetTISAdditionServer.LOGGER.warn(String.format("Trying to merge %s with %s", childName(this.entryMessage.getEvent()), childName(this.quitMessage.getEvent())));
 		}
 	}
 
@@ -125,14 +125,20 @@ public class MessageTreeNode
 		}
 	}
 
-	private static String cn(Object o)
+	/*
+	 * ----------------
+	 *   Debug things
+	 * ----------------
+	 */
+
+	private static String childName(Object o)
 	{
 		String[] list = o.toString().split("\\.");
 		return list[list.length - 1];
 	}
 	private static String ms(MicroTimingMessage msg)
 	{
-		return cn(msg.getEvent()) + " " + cn(msg.getEvent().getEventType()) + " " + cn(msg.getMessageType());
+		return childName(msg.getEvent()) + " " + childName(msg.getEvent().getEventType()) + " " + childName(msg.getMessageType());
 	}
 	private void printTree(int depth)
 	{

@@ -48,7 +48,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 	public void addMarker(PlayerEntity playerEntity, BlockPos blockPos, DyeColor color, @Nullable BaseText name)
 	{
-		if (playerEntity instanceof ServerPlayerEntity && playerEntity.world instanceof ServerWorld)
+		if (playerEntity instanceof ServerPlayerEntity && !playerEntity.world.isClient() && playerEntity.world instanceof ServerWorld)
 		{
 			StorageKey key = new StorageKey(playerEntity.world, blockPos);
 			MicroTimingMarker existedMarker = this.markers.get(key);
