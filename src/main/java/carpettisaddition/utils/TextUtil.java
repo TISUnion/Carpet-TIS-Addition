@@ -2,7 +2,7 @@ package carpettisaddition.utils;
 
 import carpet.utils.Messenger;
 import carpettisaddition.translations.Translator;
-import com.google.common.collect.Maps;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -13,8 +13,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-
-import java.util.Map;
 
 public class TextUtil
 {
@@ -58,14 +56,11 @@ public class TextUtil
 	}
 	// mojang compatibility thing ends
 
-	private static final Map<RegistryKey<World>, BaseText> DIMENSION_NAME = Maps.newHashMap();
-
-	static
-	{
-		DIMENSION_NAME.put(World.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"));
-		DIMENSION_NAME.put(World.NETHER, new TranslatableText("advancements.nether.root.title"));
-		DIMENSION_NAME.put(World.END, new TranslatableText("advancements.end.root.title"));
-	}
+	private static final ImmutableMap<RegistryKey<World>, BaseText> DIMENSION_NAME = ImmutableMap.of(
+			World.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"),
+			World.NETHER, new TranslatableText("advancements.nether.root.title"),
+			World.END, new TranslatableText("advancements.end.root.title")
+	);
 
 	private static String getTeleportHint()
 	{

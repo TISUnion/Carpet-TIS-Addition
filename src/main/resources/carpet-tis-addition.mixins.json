@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "carpettisaddition.CarpetTISAdditionMixinPlugin",
   "mixins": [
+    "carpet.bugfixes.fakePlayerNoKnockBack.PlayerEntityMixin",
     "carpet.commands.noPlayerMountAbuse.EntityPlayerActionPackMixin",
     "carpet.commands.randomlyTriggerAction.EntityPlayerActionPackActionMixin",
     "carpet.commands.randomlyTriggerAction.PlayerCommandMixin",
