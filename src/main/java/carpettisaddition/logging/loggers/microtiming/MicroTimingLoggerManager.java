@@ -314,7 +314,7 @@ public class MicroTimingLoggerManager
 	 * ----------------
 	 */
 
-	public boolean onPlayerRightClick(PlayerEntity playerEntity, Hand hand, BlockPos blockPos)
+	public static boolean onPlayerRightClick(PlayerEntity playerEntity, Hand hand, BlockPos blockPos)
 	{
 		if (MicroTimingUtil.isMarkerEnabled() && playerEntity instanceof ServerPlayerEntity && hand == Hand.MAIN_HAND)
 		{
@@ -327,6 +327,7 @@ public class MicroTimingLoggerManager
 				{
 					name = (BaseText)itemStack.getName();
 				}
+				// server-side check will be in addMarker
 				MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, ((DyeItem)holdingItem).getColor(), name);
 				return true;
 			}
