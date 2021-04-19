@@ -45,26 +45,19 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void onGameStarted()
     {
-        // let's /carpet handle our few simple settings
         CarpetServer.settingsManager.parseSettingsClass(CarpetTISAdditionSettings.class);
-
-        // set-up a snooper to observe how rules are changing in carpet
-        CarpetServer.settingsManager.addRuleObserver( (serverCommandSource, currentRuleState, originalUserTest) ->
-        {
-            // here we will be snooping for command changes
-        });
     }
 
     @Override
     public void onServerLoaded(MinecraftServer server)
     {
-        // reloading of /carpet settings is handled by carpet
-        // reloading of own settings is handled as an extension, since we claim own settings manager
-        // in case something else falls into
         minecraft_server = server;
     }
 
-    // carpet has issue (bug) to call onServerLoadedWorlds in IntegratedServer, so just do it myself to make sure it works properly
+    /**
+     * Carpet has issue (bug) to call onServerLoadedWorlds in IntegratedServer, so just do it myself to make sure it works properly
+     * Only in <= 1.15.x
+     */
     public void onServerLoadedWorldsCTA(MinecraftServer server)
     {
         MicroTimingLoggerManager.attachServer(server);
@@ -89,7 +82,6 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher)
     {
-        // here goes extra stuff
         RaidCommand.getInstance().registerCommand(dispatcher);
         LifeTimeCommand.getInstance().registerCommand(dispatcher);
     }
