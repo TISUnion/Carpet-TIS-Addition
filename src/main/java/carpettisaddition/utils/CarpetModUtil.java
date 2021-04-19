@@ -1,5 +1,6 @@
 package carpettisaddition.utils;
 
+import carpet.settings.SettingsManager;
 import net.minecraft.server.command.ServerCommandSource;
 
 public class CarpetModUtil
@@ -10,24 +11,10 @@ public class CarpetModUtil
 	 * for backwards compatibility for Minecraft 1.16.4 and some 1.17 snapshots
 	 * Firstly try to use carpet's method, if failed, use our own copied implementation
 	 *
-	 * TODO: remove this in 1.16+ branches when fabric carpet stops supporting 1.16.x
+	 * TODO: remove this in 1.16+ branches when fabric carpet stops supporting 1.16.x (done)
 	 */
 	public static boolean canUseCommand(ServerCommandSource source, Object commandLevel)
 	{
-		if (commandLevel instanceof Boolean) return (Boolean) commandLevel;
-		String commandLevelString = commandLevel.toString();
-		switch (commandLevelString)
-		{
-			case "true": return true;
-			case "false": return false;
-			case "ops": return source.hasPermissionLevel(2); // typical for other cheaty commands
-			case "0":
-			case "1":
-			case "2":
-			case "3":
-			case "4":
-				return source.hasPermissionLevel(Integer.parseInt(commandLevelString));
-		}
-		return false;
+		return SettingsManager.canUseCommand(source, commandLevel);
 	}
 }
