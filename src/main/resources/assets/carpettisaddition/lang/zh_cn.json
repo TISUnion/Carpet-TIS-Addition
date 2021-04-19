@@ -37,6 +37,9 @@
   "rule.dispensersFireDragonBreath.name": "发射器发射龙息",
   "rule.dispensersFireDragonBreath.desc": "发射器可使用龙息瓶创造出龙息效果云",
 
+  "rule.enchantCommandNoRestriction.name": "enchant指令约束移除",
+  "rule.enchantCommandNoRestriction.desc": "移除/enchant指令中所有对目标附魔的约束",
+
   "rule.entityMomentumLoss.name": "实体速度丢失",
   "rule.entityMomentumLoss.desc": "将其设为 false 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失",
 

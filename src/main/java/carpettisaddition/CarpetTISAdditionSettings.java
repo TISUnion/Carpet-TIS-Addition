@@ -94,6 +94,12 @@ public class CarpetTISAdditionSettings
 	public static boolean dispensersFireDragonBreath = false;
 
 	@Rule(
+			desc = "Remove all enchantment restriction checks inside /enchant command",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean enchantCommandNoRestriction = false;
+
+	@Rule(
 			desc = "Set it to false to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk",
 			category = {TIS, EXPERIMENTAL}
 	)

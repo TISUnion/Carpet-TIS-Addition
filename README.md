@@ -24,6 +24,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
 - [dispenserNoItemCost](#dispenserNoItemCost)
 - [dispensersFireDragonBreath](#dispensersFireDragonBreath)
+- [enchantCommandNoRestriction](#enchantCommandNoRestriction)
 - [entityMomentumLoss](#entityMomentumLoss)
 - [fakePlayerNamePrefix](#fakePlayerNamePrefix)
 - [fakePlayerNameSuffix](#fakePlayerNameSuffix)
@@ -213,6 +214,16 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `FEATURE`, `DISPENSER`
+
+
+## enchantCommandNoRestriction
+
+Remove all enchantment restriction checks inside `/enchant` command
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## entityMomentumLoss
