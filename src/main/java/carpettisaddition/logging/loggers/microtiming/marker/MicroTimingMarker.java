@@ -165,7 +165,7 @@ public class MicroTimingMarker
 	// 1.15 client cannot response to text component color, so just use Formatting symbol here
 	private BaseText withFormattingSymbol(String text)
 	{
-		return Messenger.s(TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + text + Formatting.RESET);
+		return Messenger.s(text, MicroTimingUtil.getColorStyle(this.color));
 	}
 
 	// [1, 2, 3]

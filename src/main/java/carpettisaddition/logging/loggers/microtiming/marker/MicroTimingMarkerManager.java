@@ -12,7 +12,6 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -120,7 +119,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 			{
 				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color, name);
 				this.addMarker(newMarker);
-				playerEntity.addChatMessage(Messenger.c(
+				playerEntity.sendMessage(Messenger.c(
 						Messenger.s(this.tr("on_mark", "§aAdded§r MicroTiming marker: ") + ": "),
 						newMarker.toFullText()
 				), true);
@@ -176,7 +175,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 			{
 				boolean nextState = !marker.isMovable();
 				marker.setMovable(nextState);
-				playerEntity.addChatMessage(nextState ?
+				playerEntity.sendMessage(nextState ?
 						Messenger.c(
 								Messenger.s(this.tr("on_mobility_true.pre", "Marker ")),
 								marker.toShortText(),
