@@ -105,6 +105,7 @@
     "rule.creativeOpenContainerForcibly.ShulkerBoxBlockMixin",
     "rule.dispenserNoItemCost.ItemDispenserBehaviorMixin",
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
+    "rule.enchantCommandNoRestriction.EnchantCommandMixin",
     "rule.entityMomentumLoss.EntityMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
     "rule.fluidDestructionDisabled.BaseFluidMixin",

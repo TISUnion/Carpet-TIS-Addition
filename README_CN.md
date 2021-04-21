@@ -24,6 +24,7 @@
 - [创造玩家强制打开容器](#创造玩家强制打开容器-creativeOpenContainerForcibly)
 - [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
 - [发射器发射龙息](#发射器发射龙息-dispensersFireDragonBreath)
+- [enchant指令约束移除](#enchant指令约束移除-enchantCommandNoRestriction)
 - [实体速度丢失](#实体速度丢失-entityMomentumLoss)
 - [假人名称前缀](#假人名称前缀-fakePlayerNamePrefix)
 - [假人名称后缀](#假人名称后缀-fakePlayerNameSuffix)
@@ -213,6 +214,16 @@
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
+
+
+## enchant指令约束移除 (enchantCommandNoRestriction)
+
+移除 `/enchant` 指令中所有对目标附魔的约束
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 
 ## 实体速度丢失 (entityMomentumLoss)
