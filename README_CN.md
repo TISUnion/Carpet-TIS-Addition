@@ -24,6 +24,7 @@
 - [创造玩家强制打开容器](#创造玩家强制打开容器-creativeOpenContainerForcibly)
 - [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
 - [发射器发射龙息](#发射器发射龙息-dispensersFireDragonBreath)
+- [enchant指令约束移除](#enchant指令约束移除-enchantCommandNoRestriction)
 - [实体速度丢失](#实体速度丢失-entityMomentumLoss)
 - [假人名称前缀](#假人名称前缀-fakePlayerNamePrefix)
 - [假人名称后缀](#假人名称后缀-fakePlayerNameSuffix)
@@ -215,6 +216,16 @@
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
 
 
+## enchant指令约束移除 (enchantCommandNoRestriction)
+
+移除 `/enchant` 指令中所有对目标附魔的约束
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 实体速度丢失 (entityMomentumLoss)
 
 将其设为 `false` 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失
@@ -375,6 +386,8 @@
 你需要订阅微时序监视器才能标记并渲染方块
 
 使用相同颜色的染料再次右击以切换至末地烛模式，此时记录器将会额外地记录标记位置处的方块更新。再次右击则会移除颜色记号
+
+使用粘液球物品右击标记可将其设为可移动。当标记依附的方块被活塞移动时，它会自动的移动到对应的新位置
 
 使用指令 `/carpet microTimingDyeMarker clear` 以移除所有记号
 

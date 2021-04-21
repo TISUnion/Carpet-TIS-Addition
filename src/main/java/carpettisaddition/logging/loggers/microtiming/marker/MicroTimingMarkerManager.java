@@ -3,9 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.marker;
 import carpet.script.utils.ShapeDispatcher;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.TranslatableBase;
-import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -13,13 +11,13 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -39,15 +37,40 @@ public class MicroTimingMarkerManager extends TranslatableBase
 		return INSTANCE;
 	}
 
-	public void clear()
+	public int clear()
 	{
 		this.markers.values().forEach(MicroTimingMarker::cleanShapeToAll);
+		int size = this.markers.size();
 		this.markers.clear();
+		return size;
+	}
+
+	private static boolean checkServerSide(PlayerEntity playerEntity)
+	{
+		return playerEntity instanceof ServerPlayerEntity && !playerEntity.world.isClient() && playerEntity.world instanceof ServerWorld;
+	}
+
+	private void removeMarker(MicroTimingMarker marker)
+	{
+		marker.cleanShapeToAll();
+		this.markers.remove(marker.getStorageKey());
+	}
+
+	private void addMarker(MicroTimingMarker marker)
+	{
+		marker.sendShapeToAll();
+		StorageKey key = marker.getStorageKey();
+		MicroTimingMarker existedMarker = this.markers.get(key);
+		if (existedMarker != null)
+		{
+			this.removeMarker(existedMarker);
+		}
+		this.markers.put(marker.getStorageKey(), marker);
 	}
 
 	public void addMarker(PlayerEntity playerEntity, BlockPos blockPos, DyeColor color, @Nullable BaseText name)
 	{
-		if (playerEntity instanceof ServerPlayerEntity && !playerEntity.world.isClient() && playerEntity.world instanceof ServerWorld)
+		if (checkServerSide(playerEntity))
 		{
 			StorageKey key = new StorageKey(playerEntity.world, blockPos);
 			MicroTimingMarker existedMarker = this.markers.get(key);
@@ -63,7 +86,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 					{
 						playerEntity.sendMessage(Messenger.s(String.format(
 								this.tr("on_type_switch", "Switch marker to %1$s mode"),
-								existedMarker.getMarkerType()
+								existedMarker.getMarkerType().getFancyString()
 						)), true);
 					}
 					// no more marker type, remove it
@@ -87,23 +110,19 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 			if (removeExistedMarker)
 			{
-				existedMarker.cleanShapeToAll();
-				this.markers.remove(key);
-				playerEntity.sendMessage(Messenger.s(String.format(
-						this.tr("on_unmark", "Unmarked %1$s from MicroTiming logging"),
-						TextUtil.getCoordinateString(blockPos)
-				)), true);
+				this.removeMarker(existedMarker);
+				playerEntity.sendMessage(Messenger.c(
+						Messenger.s(this.tr("on_unmark", "§cRemoved§r MicroTiming marker") + ": "),
+						existedMarker.toFullText()
+				), true);
 			}
 			if (createNewMarker)
 			{
 				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color, name);
-				this.markers.put(key, newMarker);
-				newMarker.sendShapeToAll();
-				String coord = TextUtil.getCoordinateString(blockPos);
-				playerEntity.sendMessage(Messenger.c(
-						Messenger.s(String.format(this.tr("on_mark.pre", "Marked %1$s with color "), coord)),
-						Messenger.s(color.toString(), MicroTimingUtil.getColorStyle(color)),
-						Messenger.s(String.format(this.tr("on_mark.post", " "), coord))
+				this.addMarker(newMarker);
+				playerEntity.addChatMessage(Messenger.c(
+						Messenger.s(this.tr("on_mark", "§aAdded§r MicroTiming marker: ") + ": "),
+						newMarker.toFullText()
 				), true);
 			}
 		}
@@ -144,35 +163,45 @@ public class MicroTimingMarkerManager extends TranslatableBase
 		this.sendMarkersForPlayerInner(player, false);
 	}
 
-	private static class StorageKey
+	/**
+	 * return false if there is not a marker there, true otherwise
+	 */
+	public boolean tweakMarkerMobility(PlayerEntity playerEntity, BlockPos blockPos)
 	{
-		private final RegistryKey<World> dimensionType;
-		private final BlockPos blockPos;
-
-		private StorageKey(RegistryKey<World> dimensionType, BlockPos blockPos)
+		if (checkServerSide(playerEntity))
 		{
-			this.dimensionType = dimensionType;
-			this.blockPos = blockPos;
+			StorageKey key = new StorageKey(playerEntity.world, blockPos);
+			MicroTimingMarker marker = this.markers.get(key);
+			if (marker != null)
+			{
+				boolean nextState = !marker.isMovable();
+				marker.setMovable(nextState);
+				playerEntity.addChatMessage(nextState ?
+						Messenger.c(
+								Messenger.s(this.tr("on_mobility_true.pre", "Marker ")),
+								marker.toShortText(),
+								Messenger.s(this.tr("on_mobility_true.post", " is set to be §amovable§r"))
+						) :
+						Messenger.c(
+								Messenger.s(this.tr("on_mobility_false.pre", "Marker ")),
+								marker.toShortText(),
+								Messenger.s(this.tr("on_mobility_false.post", " is set to be §cimmovable§r"))
+						)
+				, true);
+				return true;
+			}
 		}
+		return false;
+	}
 
-		private StorageKey(World world, BlockPos blockPos)
+	public void moveMarker(World world, BlockPos blockPos, Direction direction)
+	{
+		StorageKey prevPosKey = new StorageKey(world, blockPos);
+		MicroTimingMarker marker = this.markers.get(prevPosKey);
+		if (marker != null && marker.isMovable())
 		{
-			this(world.getRegistryKey(), blockPos);
-		}
-
-		@Override
-		public boolean equals(Object o)
-		{
-			if (this == o) return true;
-			if (o == null || getClass() != o.getClass()) return false;
-			StorageKey that = (StorageKey) o;
-			return Objects.equals(dimensionType, that.dimensionType) && Objects.equals(blockPos, that.blockPos);
-		}
-
-		@Override
-		public int hashCode()
-		{
-			return Objects.hash(dimensionType, blockPos);
+			this.removeMarker(marker);
+			this.addMarker(marker.offset(direction));
 		}
 	}
 }

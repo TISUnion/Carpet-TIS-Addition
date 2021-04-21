@@ -24,6 +24,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
 - [dispenserNoItemCost](#dispenserNoItemCost)
 - [dispensersFireDragonBreath](#dispensersFireDragonBreath)
+- [enchantCommandNoRestriction](#enchantCommandNoRestriction)
 - [entityMomentumLoss](#entityMomentumLoss)
 - [fakePlayerNamePrefix](#fakePlayerNamePrefix)
 - [fakePlayerNameSuffix](#fakePlayerNameSuffix)
@@ -215,6 +216,16 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 - Categories: `TIS`, `FEATURE`, `DISPENSER`
 
 
+## enchantCommandNoRestriction
+
+Remove all enchantment restriction checks inside `/enchant` command
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## entityMomentumLoss
 
 Set it to `false` to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk
@@ -375,6 +386,8 @@ Allow player to right click with dye item to mark a block to be logged by microT
 You need to subscribe to microTiming logger for marking or displaying blocks
 
 Right click with the same dye to switch the marker to end rod mode with which block update information will be logged additionally. Right click again to remove the marker
+
+Right click a marker with slime ball item to make it movable. It will move to the corresponding new position when the attaching block is moved by a piston
 
 Use `/carpet microTimingDyeMarker clear` to remove all markers
 

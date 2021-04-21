@@ -93,6 +93,12 @@ public class CarpetTISAdditionSettings
 	public static boolean dispensersFireDragonBreath = false;
 
 	@Rule(
+			desc = "Remove all enchantment restriction checks inside /enchant command",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean enchantCommandNoRestriction = false;
+
+	@Rule(
 			desc = "Set it to false to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk",
 			category = {TIS, EXPERIMENTAL}
 	)
@@ -289,6 +295,7 @@ public class CarpetTISAdditionSettings
 			extra = {
 					"You need to subscribe to microTiming logger for marking or displaying blocks",
 					"Right click with the same dye to switch the marker to end rod mode with which block update information will be logged additionally. Right click again to remove the marker",
+					"Right click a marker with slime ball item to make it movable. It will move to the corresponding new position when the attaching block is moved by a piston",
 					"Use `/carpet microTimingDyeMarker clear` to remove all markers",
 					"You can create a named marker by using a renamed dye item. Marker name will be shown in logging message as well",
 					"You can see boxes at marked blocks with fabric-carpet installed on your client. " +
