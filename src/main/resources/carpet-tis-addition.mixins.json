@@ -74,6 +74,7 @@
     "logger.microtiming.events.WorldMixin",
     "logger.microtiming.marker.BlockStateMixin",
     "logger.microtiming.marker.DyeColorAccessor",
+    "logger.microtiming.marker.PistonBlockMixin",
     "logger.microtiming.marker.ServerNetworkHandlerMixin",
     "logger.microtiming.marker.texthack.ShapeDispatcherTextMixin",
     "logger.microtiming.marker.texthack.ShapesRendererRenderedTextMixin",

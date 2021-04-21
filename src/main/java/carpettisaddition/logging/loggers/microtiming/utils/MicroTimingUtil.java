@@ -249,7 +249,7 @@ public class MicroTimingUtil
 
 	public static boolean isMarkerEnabled()
 	{
-		return CarpetTISAdditionSettings.microTimingDyeMarker.equals("true");
+		return MicroTimingLoggerManager.isLoggerActivated() && CarpetTISAdditionSettings.microTimingDyeMarker.equals("true");
 	}
 
 	public static boolean isPlayerSubscribed(PlayerEntity playerEntity)
