@@ -7,7 +7,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-// lower priority so it will more likely be mixin later
+/**
+ * Lower priority so it will more likely be mixin later
+ *
+ * In fabric-carpet 1.4.33, the same mixin has been included
+ * TODO: Removed this mixin when tis carpet's carpet version requirement has been bumped to 1.4.33+
+ */
 @Mixin(value = PlayerEntity.class, priority = 500)
 public abstract class PlayerEntityMixin
 {
