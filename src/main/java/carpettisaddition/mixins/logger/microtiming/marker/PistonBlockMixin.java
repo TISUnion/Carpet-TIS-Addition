@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 @Mixin(PistonBlock.class)
 public abstract class PistonBlockMixin
@@ -26,7 +26,7 @@ public abstract class PistonBlockMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Ljava/util/Map;remove(Ljava/lang/Object;)Ljava/lang/Object;"
+							target = "Ljava/util/Set;remove(Ljava/lang/Object;)Z"
 					)
 			),
 			at = @At(
@@ -37,7 +37,7 @@ public abstract class PistonBlockMixin
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void moveMicroTimingMarkerAsWell(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map map, List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction, int l, BlockPos blockPos4, BlockState blockState3)
+	private void moveMicroTimingMarkerAsWell(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction, Set set, int l, BlockPos blockPos4, BlockState blockState2)
 	{
 		MicroTimingLoggerManager.moveMarker(world, blockPos4.offset(direction.getOpposite()), direction);
 	}
