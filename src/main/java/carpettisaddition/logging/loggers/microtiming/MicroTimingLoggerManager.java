@@ -20,6 +20,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.BlockAction;
@@ -316,11 +317,11 @@ public class MicroTimingLoggerManager
 
 	public static boolean onPlayerRightClick(PlayerEntity playerEntity, Hand hand, BlockPos blockPos)
 	{
-		if (MicroTimingUtil.isMarkerEnabled() && playerEntity instanceof ServerPlayerEntity && hand == Hand.MAIN_HAND)
+		if (MicroTimingUtil.isMarkerEnabled() && playerEntity instanceof ServerPlayerEntity && hand == Hand.MAIN_HAND && MicroTimingUtil.isPlayerSubscribed(playerEntity))
 		{
 			ItemStack itemStack = playerEntity.getMainHandStack();
 			Item holdingItem = itemStack.getItem();
-			if (holdingItem instanceof DyeItem && MicroTimingUtil.isPlayerSubscribed(playerEntity))
+			if (holdingItem instanceof DyeItem)
 			{
 				BaseText name = null;
 				if (itemStack.hasCustomName())
@@ -331,7 +332,19 @@ public class MicroTimingLoggerManager
 				MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, ((DyeItem)holdingItem).getColor(), name);
 				return true;
 			}
+			if (holdingItem == Items.SLIME_BALL)
+			{
+				return MicroTimingMarkerManager.getInstance().tweakMarkerMobility(playerEntity, blockPos);
+			}
 		}
 		return false;
+	}
+
+	public static void moveMarker(World world, BlockPos blockPos, Direction direction)
+	{
+		if (MicroTimingUtil.isMarkerEnabled())
+		{
+			MicroTimingMarkerManager.getInstance().moveMarker(world, blockPos, direction);
+		}
 	}
 }

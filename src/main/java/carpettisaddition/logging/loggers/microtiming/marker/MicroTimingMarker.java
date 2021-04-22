@@ -19,6 +19,7 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,20 +28,26 @@ import java.util.Map;
 
 public class MicroTimingMarker
 {
+	private final ServerWorld serverWorld;
+	private final BlockPos blockPos;
 	public final DyeColor color;
 	private final ShapeData<ShapeDispatcher.Box> box;
 	@Nullable
 	private final ShapeData<ShapeDispatcher.Text> text;
-	private MicroTimingMarkerType markerType;
 	@Nullable
 	private final BaseText markerName;
+	private MicroTimingMarkerType markerType;
+	private boolean movable;
 
 	@SuppressWarnings("ConstantConditions")
-	public MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color, @Nullable BaseText markerName)
+	private MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color, @Nullable BaseText markerName, MicroTimingMarkerType markerType, boolean movable)
 	{
+		this.serverWorld = serverWorld;
+		this.blockPos = blockPos;
 		this.color = color;
 		this.markerName = markerName;
-		this.markerType = MicroTimingMarkerType.REGULAR;
+		this.markerType = markerType;
+		this.movable = movable;
 		Map<String, Value> boxParams = Maps.newHashMap();
 		boxParams.put("shape", new StringValue("box"));
 		boxParams.put("color", new NumericValue(((long) ((DyeColorAccessor) (Object) this.color).getTextColor() << 8) | 0xAF));
@@ -65,6 +72,21 @@ public class MicroTimingMarker
 			this.text = null;
 		}
 		this.updateLineWidth();
+	}
+
+	public MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color, @Nullable BaseText markerName)
+	{
+		this(serverWorld, blockPos, color, markerName, MicroTimingMarkerType.REGULAR, false);
+	}
+
+	public boolean isMovable()
+	{
+		return this.movable;
+	}
+
+	public void setMovable(boolean movable)
+	{
+		this.movable = movable;
 	}
 
 	@Nullable
@@ -130,6 +152,40 @@ public class MicroTimingMarker
 	public void cleanShapeToAll()
 	{
 		ShapeDispatcher.sendShape(MicroTimingUtil.getSubscribedPlayers(), this.getShapeDataList(false));
+	}
+
+	public StorageKey getStorageKey()
+	{
+		return new StorageKey(this.serverWorld, this.blockPos);
+	}
+
+	/**
+	 * Create a copied marker at offset direction
+	 */
+	public MicroTimingMarker offset(Direction direction)
+	{
+		return new MicroTimingMarker(this.serverWorld, this.blockPos.offset(direction), this.color, this.markerName, this.markerType, this.movable);
+	}
+
+	// 1.15 client cannot response to text component color, so just use Formatting symbol here
+	private BaseText withFormattingSymbol(String text)
+	{
+		return Messenger.s(TextUtil.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + text + Formatting.RESET);
+	}
+
+	// [1, 2, 3]
+	public BaseText toShortText()
+	{
+		return this.withFormattingSymbol(TextUtil.getCoordinateString(this.blockPos));
+	}
+
+	// [1, 2, 3] red
+	public BaseText toFullText()
+	{
+		return Messenger.c(
+				Messenger.s(TextUtil.getCoordinateString(this.blockPos)),
+				this.withFormattingSymbol(" " + this.color.toString())
+		);
 	}
 
 	private static class ShapeData<T extends ShapeDispatcher.ExpiringShape>
