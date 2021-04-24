@@ -147,7 +147,7 @@ public class MicroTimingLoggerManager
 			{
 				// lazy loading
 				DyeColor color = null;
-				BlockStateChangeEvent event = new BlockStateChangeEvent(eventType, returnValue, newState.getBlock(), flags);
+				BlockStateChangeEvent event = new BlockStateChangeEvent(eventType, newState.getBlock(), returnValue, flags);
 
 				for (Property<?> property: newState.getProperties())
 				{
@@ -170,6 +170,15 @@ public class MicroTimingLoggerManager
                                     withEvent(event)
                     );
 				}
+			}
+			else
+			{
+				onEvent(
+						MicroTimingContext.create().
+								withWorld(world).withBlockPos(pos).
+								withEventSupplier(() -> new BlockReplaceEvent(eventType, oldState.getBlock(), newState.getBlock(), returnValue, flags)).
+								withWoolGetter(MicroTimingUtil::defaultColorGetter)
+				);
 			}
 		}
 	}
