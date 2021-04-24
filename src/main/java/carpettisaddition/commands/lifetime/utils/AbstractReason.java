@@ -8,6 +8,6 @@ public abstract class AbstractReason extends TranslatableBase implements ToTextA
 {
 	public AbstractReason(String reasonType)
 	{
-		super(LifeTimeTracker.getInstance().getTranslator().getTranslationPath(), reasonType);
+		super(LifeTimeTracker.getInstance().getTranslator().getDerivedTranslator(reasonType));
 	}
 }
