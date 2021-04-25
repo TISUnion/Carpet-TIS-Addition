@@ -51,4 +51,10 @@ public abstract class EntityMixin
 	{
 		((IEntity)this).recordRemoval(new TransDimensionRemovalReason(newDimension));
 	}
+
+	@Inject(method = "destroy", at = @At("HEAD"))
+	private void onEntityDestroyedInVoid(CallbackInfo ci)
+	{
+		((IEntity)this).recordRemoval(LiteralRemovalReason.VOID);
+	}
 }

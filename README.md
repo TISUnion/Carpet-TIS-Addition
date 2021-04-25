@@ -950,6 +950,7 @@ Tracked entity removal reasons
 - Entity merged (item and xp orb only)
 - Picked up by player (item and xp orb only)
 - Collected up by hopper or hopper minecart (item only)
+- Entering void
 - Other (anything else not in the list)
 
 The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
