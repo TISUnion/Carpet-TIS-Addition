@@ -353,8 +353,6 @@
   "logger.tickWarp.average_mspt": "平均MSPT",
   "logger.tickWarp.estimated_remaining_time": "剩余时间估算",
 
-  "logger.lifeTime.unknown_entity_type": "未知的实体类型",
-
 
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
   "raid_invalidate_reason.gamerule_disable": "被游戏规则禁用",

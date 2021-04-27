@@ -2,12 +2,15 @@ package carpettisaddition.commands.lifetime;
 
 import carpet.utils.Messenger;
 import carpettisaddition.commands.AbstractTracker;
+import carpettisaddition.commands.lifetime.filter.EntityFilter;
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.TextUtil;
+import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
+import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
@@ -15,9 +18,11 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class LifeTimeTracker extends AbstractTracker
@@ -26,6 +31,8 @@ public class LifeTimeTracker extends AbstractTracker
 	private static final LifeTimeTracker INSTANCE = new LifeTimeTracker();
 
 	private int currentTrackId = 0;
+	private static final Predicate<Entity> DEFAULT_FILTER = entity -> true;
+	private final Map<EntityType<?>, Predicate<Entity>> entityFilter = Maps.newHashMap();
 
 	private final Map<ServerWorld, LifeTimeWorldTracker> trackers = new Reference2ObjectArrayMap<>();
 
@@ -65,9 +72,13 @@ public class LifeTimeTracker extends AbstractTracker
 		return attachedServer && INSTANCE.isTracking();
 	}
 
-	public static boolean willTrackEntity(Entity entity)
+	public boolean willTrackEntity(Entity entity)
 	{
-		return isActivated() && ((IEntity)entity).getTrackId() == INSTANCE.getCurrentTrackId() && LifeTimeTrackerUtil.isTrackedEntity(entity);
+		return isActivated() &&
+				((IEntity)entity).getTrackId() == INSTANCE.getCurrentTrackId() &&
+				LifeTimeTrackerUtil.isTrackedEntity(entity) &&
+				this.entityFilter.getOrDefault(null, DEFAULT_FILTER).test(entity) &&  // global filter
+				this.entityFilter.getOrDefault(entity.getType(), DEFAULT_FILTER).test(entity);
 	}
 
 	public Stream<String> getAvailableEntityType()
@@ -87,6 +98,21 @@ public class LifeTimeTracker extends AbstractTracker
 	public int getCurrentTrackId()
 	{
 		return this.currentTrackId;
+	}
+
+	public int setEntityFilter(ServerCommandSource source, @Nullable EntityType<?> entityType, @Nullable EntitySelector filter)
+	{
+		if (filter != null)
+		{
+			this.entityFilter.put(entityType, new EntityFilter(source, filter));
+			Messenger.m(source, Messenger.s(this.tr("awa", "Entity filter set")));
+		}
+		else
+		{
+			this.entityFilter.put(entityType, DEFAULT_FILTER);
+			Messenger.m(source, Messenger.s(this.tr("awa", "Entity filter removed")));
+		}
+		return 1;
 	}
 
 	@Override
@@ -114,6 +140,11 @@ public class LifeTimeTracker extends AbstractTracker
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public void sendUnknownEntity(ServerCommandSource source, String entityTypeString)
+	{
+		Messenger.m(source, Messenger.s(String.format(this.tr("unknown_entity_type", "Unknown entity type \"%s\""), entityTypeString), "r"));
 	}
 
 	protected int printTrackingResultSpecific(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
@@ -153,7 +184,7 @@ public class LifeTimeTracker extends AbstractTracker
 		}
 		else
 		{
-			Messenger.m(source, Messenger.s(String.format(this.tr("unknown_entity_type", "Unknown entity type \"%s\""), entityTypeString), "r"));
+			this.sendUnknownEntity(source, entityTypeString);
 		}
 		return 1;
 	}

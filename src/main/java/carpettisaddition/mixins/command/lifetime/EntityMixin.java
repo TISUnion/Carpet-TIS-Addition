@@ -44,7 +44,7 @@ public abstract class EntityMixin implements IEntity
 		{
 			this.spawnTime = ((IServerWorld)this.world).getLifeTimeWorldTracker().getSpawnStageCounter();
 			this.trackId = LifeTimeTracker.getInstance().getCurrentTrackId();
-			this.doLifeTimeTracking = LifeTimeTracker.willTrackEntity((Entity)(Object)this);
+			this.doLifeTimeTracking = LifeTimeTracker.getInstance().willTrackEntity((Entity)(Object)this);
 		}
 		else
 		{

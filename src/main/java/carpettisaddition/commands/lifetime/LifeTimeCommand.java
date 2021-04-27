@@ -2,11 +2,20 @@ package carpettisaddition.commands.lifetime;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.CarpetModUtil;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.command.EntitySelector;
+import net.minecraft.command.arguments.EntityArgumentType;
+import net.minecraft.entity.EntityType;
 import net.minecraft.server.command.ServerCommandSource;
+
+import java.util.Optional;
+import java.util.function.Function;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.string;
@@ -29,6 +38,31 @@ public class LifeTimeCommand extends AbstractCommand
 		return INSTANCE;
 	}
 
+	private int setEntityFilter(ServerCommandSource source, String entityTypeName, EntitySelector selector)
+	{
+		Optional<EntityType<?>> optionalEntityType = LifeTimeTrackerUtil.getEntityTypeFromName(entityTypeName);
+		if (optionalEntityType.isPresent())
+		{
+			LifeTimeTracker.getInstance().setEntityFilter(source, optionalEntityType.get(), selector);
+			return 1;
+		}
+		else
+		{
+			LifeTimeTracker.getInstance().sendUnknownEntity(source, entityTypeName);
+			return 0;
+		}
+	}
+
+	private ArgumentBuilder<ServerCommandSource, ?> createFilterNode(ArgumentBuilder<ServerCommandSource, ?> node, Function<CommandContext<ServerCommandSource>, EntityType<?>> entityTypeSupplier)
+	{
+		return node.
+				executes(c -> LifeTimeTracker.getInstance().setEntityFilter(c.getSource(), entityTypeSupplier.apply(c), null)).
+				then(
+						argument("filter", EntityArgumentType.entities()).
+						executes(c -> LifeTimeTracker.getInstance().setEntityFilter(c.getSource(), entityTypeSupplier.apply(c), c.getArgument("filter", EntitySelector.class)))
+				);
+	}
+
 	@Override
 	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
 	{
@@ -40,6 +74,28 @@ public class LifeTimeCommand extends AbstractCommand
 				then(
 						LifeTimeTracker.getInstance().getTrackingArgumentBuilder()
 				).
+				// lifetime filter
+				then(
+						literal("filter").
+						then(
+								literal("global").
+								executes(c -> LifeTimeTracker.getInstance().setEntityFilter(c.getSource(), null, null)).
+								then(
+										argument("filter", EntityArgumentType.entities()).
+										executes(c -> LifeTimeTracker.getInstance().setEntityFilter(c.getSource(), null, c.getArgument("filter", EntitySelector.class)))
+								)
+						).
+						then(
+								argument(entityTypeArg, string()).
+								suggests((c, b) -> suggestMatching(LifeTimeTrackerUtil.getEntityTypeDescriptorStream(), b)).
+								executes(c -> setEntityFilter(c.getSource(), getString(c, entityTypeArg), null)).
+								then(
+										argument("filter", EntityArgumentType.entities()).
+										executes(c -> setEntityFilter(c.getSource(), getString(c, entityTypeArg), c.getArgument("filter", EntitySelector.class)))
+								)
+						)
+				).
+				// lifetime result display
 				then(
 						argument(entityTypeArg, string()).
 						suggests((c, b) -> suggestMatching(LifeTimeTracker.getInstance().getAvailableEntityType(), b)).
