@@ -100,7 +100,7 @@ public class LifeTimeTracker extends AbstractTracker
 		return this.currentTrackId;
 	}
 
-	public int setEntityFilter(ServerCommandSource source, @Nullable EntityType<?> entityType, @Nullable EntitySelector filter)
+	public void setEntityFilter(ServerCommandSource source, @Nullable EntityType<?> entityType, @Nullable EntitySelector filter)
 	{
 		if (filter != null)
 		{
@@ -112,7 +112,11 @@ public class LifeTimeTracker extends AbstractTracker
 			this.entityFilter.put(entityType, DEFAULT_FILTER);
 			Messenger.m(source, Messenger.s(this.tr("awa", "Entity filter removed")));
 		}
-		return 1;
+	}
+
+	public Map<EntityType<?>, Predicate<Entity>> getEntityFilter()
+	{
+		return this.entityFilter;
 	}
 
 	@Override
