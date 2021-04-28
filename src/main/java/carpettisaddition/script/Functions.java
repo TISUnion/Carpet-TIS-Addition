@@ -14,22 +14,22 @@ import java.util.stream.Collectors;
 
 public class Functions {
     public static void apply(Expression expr){
-        expr.addLazyFunction("register_block", -1, (c, t, lv)->{
+        expr.addContextFunction("register_block", -1, (c, t, lv)->{
 
             CarpetContext cc = (CarpetContext)c;
             BlockArgument blockLocator = BlockArgument.findIn(cc, lv, 0);
             BlockPos registeredBlock = blockLocator.block.getPos();
 
-            return (_c, _t)-> new NumericValue(MicroTimingLoggerManager.trackedPositions.add(registeredBlock));
+            return new NumericValue(MicroTimingLoggerManager.trackedPositions.add(registeredBlock));
         });
 
-        expr.addLazyFunction("unregister_block", -1, (c, t, lv)->{
+        expr.addContextFunction("unregister_block", -1, (c, t, lv)->{
 
             CarpetContext cc = (CarpetContext)c;
             BlockArgument blockLocator = BlockArgument.findIn(cc, lv, 0);
             BlockPos registeredBlock = blockLocator.block.getPos();
 
-            return (_c, _t)-> new NumericValue(MicroTimingLoggerManager.trackedPositions.remove(registeredBlock));
+            return new NumericValue(MicroTimingLoggerManager.trackedPositions.remove(registeredBlock));
         });
 
         expr.addLazyFunction("registered_blocks", 0, (c, t, lv)->{
@@ -38,13 +38,13 @@ public class Functions {
             return (_c, _t) -> new ListValue(blockList);
         });
 
-        expr.addLazyFunction("is_registered", -1, (c, t, lv)->{
+        expr.addContextFunction("is_registered", -1, (c, t, lv)->{
 
             CarpetContext cc = (CarpetContext)c;
             BlockArgument blockLocator = BlockArgument.findIn(cc, lv, 0);
             BlockPos registeredBlock = blockLocator.block.getPos();
 
-            return (_c, _t)-> new NumericValue(MicroTimingLoggerManager.trackedPositions.contains(registeredBlock));
+            return new NumericValue(MicroTimingLoggerManager.trackedPositions.contains(registeredBlock));
         });
     }
 }
