@@ -32,10 +32,10 @@ public class Functions {
             return new NumericValue(MicroTimingLoggerManager.trackedPositions.remove(registeredBlock));
         });
 
-        expr.addLazyFunction("registered_blocks", 0, (c, t, lv)->{
+        expr.addContextFunction("registered_blocks", 0, (c, t, lv)->{
 
             List<Value> blockList = MicroTimingLoggerManager.trackedPositions.stream().map(b-> ListValue.fromTriple(b.getX(),b.getY(),b.getZ())).collect(Collectors.toList());
-            return (_c, _t) -> new ListValue(blockList);
+            return new ListValue(blockList);
         });
 
         expr.addContextFunction("is_registered", -1, (c, t, lv)->{
