@@ -29,7 +29,7 @@
   "accessWidener": "carpet-tis-addition.accesswidener",
   "depends": {
     "fabricloader": ">=0.7.1",
-    "carpet": ">=1.4.25",
+    "carpet": ">=1.4.34",
     "minecraft": ">=1.16.4"
   },
   "suggests": {
