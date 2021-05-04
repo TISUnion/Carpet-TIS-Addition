@@ -61,10 +61,12 @@ public abstract class PistonBlockMixin
 				BlockPos toBeMovedBlockPos = list.get(l);
 				// Get the current state to make sure it is the state we want
 				BlockState toBeMovedBlockState = world.getBlockState(toBeMovedBlockPos);
+				// 68 is vanilla flag, 68 = 4 | 64
 				// Added 16 to the vanilla flag, resulting in no block update or state update
+				// Added 2 to the vanilla flag, so at those pos where will be air the listeners can be updated correctly
 				// Although this cannot yeet onRemoved updaters, but it can prevent attached blocks from breaking,
 				// which is nicer than just let them break imo
-				world.setBlockState(toBeMovedBlockPos, Blocks.AIR.getDefaultState(), 68 + 16);
+				world.setBlockState(toBeMovedBlockPos, Blocks.AIR.getDefaultState(), 2 | 4 | 16 | 64);
 
 				// Update containers which contain the old state
 				list2.set(l, toBeMovedBlockState);
