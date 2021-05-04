@@ -105,6 +105,7 @@
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
+    "rule.creativeOpenContainerForcibly.EnderChestBlockMixin",
     "rule.creativeOpenContainerForcibly.ShulkerBoxBlockMixin",
     "rule.dispenserNoItemCost.ItemDispenserBehaviorMixin",
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
