@@ -61,6 +61,9 @@
   "rule.hopperCountersUnlimitedSpeed.desc": "当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度",
   "rule.hopperCountersUnlimitedSpeed.extra.0": "仅当Carpet Mod中的hopperCounters开启时有效",
 
+  "rule.hopperNoItemCost.name": "漏斗不消耗物品",
+  "rule.hopperNoItemCost.desc": "上方放有羊毛方块的漏斗可不消耗物品地无限输出储存的物品",
+
   "rule.HUDLoggerUpdateInterval.name": "HUD监视器更新间隔",
   "rule.HUDLoggerUpdateInterval.desc": "覆写Carpet Mod HUD监视器的更新间隔，单位为gametick",
 
