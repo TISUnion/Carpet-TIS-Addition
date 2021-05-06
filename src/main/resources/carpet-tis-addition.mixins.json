@@ -113,6 +113,7 @@
     "rule.fakePlayerName.PlayerCommandMixin",
     "rule.fluidDestructionDisabled.BaseFluidMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
+    "rule.hopperNoItemCost.HopperBlockEntityMixin",
     "rule.HUDLoggerUpdateInterval.HUDControllerMixin",
     "rule.instantCommandBlock.CommandBlockExecutorMixin",
     "rule.instantCommandBlock.CommandBlockMixin",

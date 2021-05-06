@@ -30,6 +30,7 @@
 - [假人名称后缀](#假人名称后缀-fakePlayerNameSuffix)
 - [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
 - [漏斗计数器无限速度](#漏斗计数器无限速度-hopperCountersUnlimitedSpeed)
+- [漏斗不消耗物品](#漏斗不消耗物品-hopperNoItemCost)
 - [hud监视器更新间隔](#hud监视器更新间隔-HUDLoggerUpdateInterval)
 - [瞬时命令方块](#瞬时命令方块-instantCommandBlock)
 - [保持弱加载区块的怪物](#保持弱加载区块的怪物-keepMobInLazyChunks)
@@ -280,12 +281,22 @@
 
 当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度
 
-仅当Carpet Mod中的hopperCounters开启时有效
+仅当 Carpet Mod 中的 hopperCounters 开启时有效
 
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`, `CARPET_MOD`
+
+
+## 漏斗不消耗物品 (hopperNoItemCost)
+
+上方放有羊毛方块的漏斗可不消耗物品地无限输出储存的物品
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 
 ## HUD监视器更新间隔 (HUDLoggerUpdateInterval)
