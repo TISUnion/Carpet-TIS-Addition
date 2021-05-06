@@ -163,6 +163,12 @@ public class CarpetTISAdditionSettings
 	public static boolean hopperCountersUnlimitedSpeed = false;
 
 	@Rule(
+			desc = "Hopper with wool block on top outputs item infinitely without having its item decreased",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean hopperNoItemCost = false;
+
+	@Rule(
 			desc = "Overwrite HUD loggers update interval (gametick)",
 			options = {"1", "5", "20", "100"},
 			validate = ValidateHUDLoggerUpdateInterval.class,

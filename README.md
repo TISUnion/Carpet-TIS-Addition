@@ -30,6 +30,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [fakePlayerNameSuffix](#fakePlayerNameSuffix)
 - [fluidDestructionDisabled](#fluidDestructionDisabled)
 - [hopperCountersUnlimitedSpeed](#hopperCountersUnlimitedSpeed)
+- [hopperNoItemCost](#hopperNoItemCost)
 - [HUDLoggerUpdateInterval](#HUDLoggerUpdateInterval)
 - [instantCommandBlock](#instantCommandBlock)
 - [keepMobInLazyChunks](#keepMobInLazyChunks)
@@ -286,6 +287,16 @@ Only works when hopperCounters option in Carpet Mod is on
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`, `CARPET_MOD`
+
+
+## hopperNoItemCost
+
+Hopper with wool block on top outputs item infinitely without having its item decreased
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## HUDLoggerUpdateInterval
