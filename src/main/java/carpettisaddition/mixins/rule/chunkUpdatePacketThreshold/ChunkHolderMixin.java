@@ -25,7 +25,7 @@ public abstract class ChunkHolderMixin
 
 	@Shadow private int blockUpdateCount;
 
-	// CPT = chunkUpdatePacketThreshold
+	// CUPT = chunkUpdatePacketThreshold
 	private boolean ruleEnabled$CUPT;
 	private int ruleValue$CUPT;
 	private final Set<Short> blockUpdatePositionsSet$CUPT = Sets.newLinkedHashSet();
@@ -34,8 +34,8 @@ public abstract class ChunkHolderMixin
 	{
 		this.ruleValue$CUPT = CarpetTISAdditionSettings.chunkUpdatePacketThreshold;
 		this.ruleEnabled$CUPT = this.ruleValue$CUPT != CarpetTISAdditionSettings.VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD;
-		// rollback to vanilla array
-		if (!this.ruleEnabled$CUPT)
+		// rollback to vanilla array when rule disabled and array length is incorrect
+		if (!this.ruleEnabled$CUPT && this.blockUpdatePositions.length != CarpetTISAdditionSettings.VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD)
 		{
 			this.blockUpdatePositions = new short[CarpetTISAdditionSettings.VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD];
 		}
