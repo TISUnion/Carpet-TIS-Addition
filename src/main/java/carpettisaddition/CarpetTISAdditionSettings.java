@@ -45,6 +45,34 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean blockPlacementIgnoreEntity = false;
 
+	public static final int VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD = 64;
+	public static final int MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD = 65536;
+	@Rule(
+			desc = "The threshold which the game will just send an chunk data packet if the amount of block changes is more than it",
+			extra = {
+					"Increasing this value might reduce network bandwidth usage, and boost client's fps if there are lots of tile entities in a chunk section with a lot of block changes",
+					"Set it to really high to simulate 1.16+ behavior, which is no chunk packet but only multiple block change packet",
+					"This rule is only available in <1.16"
+			},
+			validate = ValidateChunkUpdatePacketThreshold.class,
+			options = {"64", "4096", "65536"},
+			strict = false,
+			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
+	)
+	public static int chunkUpdatePacketThreshold = VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD;
+	private static class ValidateChunkUpdatePacketThreshold extends Validator<Integer>
+	{
+		@Override
+		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		{
+			return (newValue >= 2 && newValue <= MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD) ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a value from 2 to " + MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD;
+		}
+	}
+
 	@Rule(
 			desc = "Modify how often the chunk tick occurs per chunk per game tick",
 			extra = {

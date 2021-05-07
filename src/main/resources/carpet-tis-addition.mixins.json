@@ -103,6 +103,7 @@
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
+    "rule.chunkUpdatePacketThreshold.ChunkHolderMixin",
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
     "rule.creativeOpenContainerForcibly.EnderChestBlockMixin",
     "rule.creativeOpenContainerForcibly.ShulkerBoxBlockMixin",
