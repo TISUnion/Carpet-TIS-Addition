@@ -1,9 +1,8 @@
 package carpettisaddition.commands.lifetime;
 
-import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
-import carpettisaddition.commands.lifetime.filter.EntityFilter;
+import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.CarpetModUtil;
@@ -13,7 +12,6 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.arguments.EntityArgumentType;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.command.ServerCommandSource;
 import org.jetbrains.annotations.Nullable;
@@ -22,7 +20,6 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.string;
@@ -74,24 +71,22 @@ public class LifeTimeCommand extends AbstractCommand
 	private int setEntityFilter(ServerCommandSource source, @Nullable String entityTypeName, EntitySelector selector)
 	{
 		return checkEntityTypeThen(source, entityTypeName, entityType ->
-				LifeTimeTracker.getInstance().setEntityFilter(source, entityType, selector)
+				EntityFilterManager.getInstance().setEntityFilter(source, entityType, selector)
 		);
 	}
 
 	private int printEntityFilter(ServerCommandSource source, @Nullable String entityTypeName)
 	{
-		return checkEntityTypeThen(source, entityTypeName, entityType -> {
-			Predicate<Entity> entityPredicate = LifeTimeTracker.getInstance().getEntityFilter().get(entityType);
-			if (entityPredicate instanceof EntityFilter)
-			{
-				Messenger.m(source, Messenger.s(entityPredicate.toString()));
-			}
-			else
-			{
-				Messenger.m(source, Messenger.s("Un-set"));
-			}
-		});
+		return checkEntityTypeThen(source, entityTypeName, entityType ->
+				EntityFilterManager.getInstance().displayFilter(source, entityType)
+		);
 	}
+
+	/*
+	 * ------------------
+	 *   Node factories
+	 * ------------------
+	 */
 
 	private ArgumentBuilder<ServerCommandSource, ?> createFilterNode(ArgumentBuilder<ServerCommandSource, ?> node, Function<CommandContext<ServerCommandSource>, @Nullable String> entityTypeNameSupplier)
 	{
@@ -114,6 +109,12 @@ public class LifeTimeCommand extends AbstractCommand
 				then(literal("realtime").executes(c -> action.apply(c, true)));
 	}
 
+	/*
+	 * -----------------------
+	 *   Node factories ends
+	 * -----------------------
+	 */
+
 	@Override
 	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
 	{
@@ -121,6 +122,7 @@ public class LifeTimeCommand extends AbstractCommand
 		String detailModeArg = "detail";
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
 				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandLifeTime)).
+				executes(c -> LifeTimeTracker.getInstance().showHelp(c.getSource())).
 				// lifetime tracking [general tracker stuffs here]
 				then(
 						LifeTimeTracker.getInstance().getTrackingArgumentBuilder()

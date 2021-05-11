@@ -1,11 +1,14 @@
 package carpettisaddition.commands.lifetime.filter;
 
+import carpet.utils.Messenger;
 import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
+import carpettisaddition.utils.TextUtil;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,6 +23,11 @@ public class EntityFilter implements Predicate<Entity>
 	{
 		this.entitySelector = (EntitySelectorAccessor)entitySelector;
 		this.serverCommandSource = serverCommandSource;
+	}
+
+	private Vec3d getAnchorPos()
+	{
+		return this.entitySelector.getPositionOffset().apply(this.serverCommandSource.getPosition());
 	}
 
 	@Override
@@ -46,7 +54,7 @@ public class EntityFilter implements Predicate<Entity>
 			}
 			return false;
 		}
-		Vec3d anchorPos = this.entitySelector.getPositionOffset().apply(this.serverCommandSource.getPosition());
+		Vec3d anchorPos = this.getAnchorPos();
 		Predicate<Entity> predicate = this.entitySelector.invokeGetPositionPredicate(anchorPos);
 		if (this.entitySelector.getSenderOnly() && testEntity != this.serverCommandSource.getEntity())
 		{
@@ -65,5 +73,18 @@ public class EntityFilter implements Predicate<Entity>
 			return false;
 		}
 		return predicate.test(testEntity);
+	}
+
+	public BaseText toText()
+	{
+		return TextUtil.getFancyText(
+				"c",
+				Messenger.s(this.entitySelector.getInputText()),
+				Messenger.c(
+						String.format("w Dimension: %s\n", TextUtil.getDimensionNameText(this.serverCommandSource.getWorld().getDimension().getType())),
+						String.format("w Anchor Pos: %s", this.getAnchorPos())
+				),
+				null
+		);
 	}
 }

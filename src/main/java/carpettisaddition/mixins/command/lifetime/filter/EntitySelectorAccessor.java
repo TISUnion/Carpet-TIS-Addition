@@ -1,5 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.filter;
 
+import carpettisaddition.commands.lifetime.filter.IEntitySelector;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -16,7 +17,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Mixin(EntitySelector.class)
-public interface EntitySelectorAccessor
+public interface EntitySelectorAccessor extends IEntitySelector
 {
 	@Accessor
 	boolean getIncludesNonPlayers();

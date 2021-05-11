@@ -2,15 +2,13 @@ package carpettisaddition.commands.lifetime;
 
 import carpet.utils.Messenger;
 import carpettisaddition.commands.AbstractTracker;
-import carpettisaddition.commands.lifetime.filter.EntityFilter;
+import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.TextUtil;
-import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
-import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
@@ -18,11 +16,9 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class LifeTimeTracker extends AbstractTracker
@@ -31,8 +27,6 @@ public class LifeTimeTracker extends AbstractTracker
 	private static final LifeTimeTracker INSTANCE = new LifeTimeTracker();
 
 	private int currentTrackId = 0;
-	private static final Predicate<Entity> DEFAULT_FILTER = entity -> true;
-	private final Map<EntityType<?>, Predicate<Entity>> entityFilter = Maps.newHashMap();
 
 	private final Map<ServerWorld, LifeTimeWorldTracker> trackers = new Reference2ObjectArrayMap<>();
 
@@ -77,8 +71,7 @@ public class LifeTimeTracker extends AbstractTracker
 		return isActivated() &&
 				((IEntity)entity).getTrackId() == INSTANCE.getCurrentTrackId() &&
 				LifeTimeTrackerUtil.isTrackedEntity(entity) &&
-				this.entityFilter.getOrDefault(null, DEFAULT_FILTER).test(entity) &&  // global filter
-				this.entityFilter.getOrDefault(entity.getType(), DEFAULT_FILTER).test(entity);
+				EntityFilterManager.getInstance().test(entity);
 	}
 
 	public Stream<String> getAvailableEntityType()
@@ -98,25 +91,6 @@ public class LifeTimeTracker extends AbstractTracker
 	public int getCurrentTrackId()
 	{
 		return this.currentTrackId;
-	}
-
-	public void setEntityFilter(ServerCommandSource source, @Nullable EntityType<?> entityType, @Nullable EntitySelector filter)
-	{
-		if (filter != null)
-		{
-			this.entityFilter.put(entityType, new EntityFilter(source, filter));
-			Messenger.m(source, Messenger.s(this.tr("awa", "Entity filter set")));
-		}
-		else
-		{
-			this.entityFilter.put(entityType, DEFAULT_FILTER);
-			Messenger.m(source, Messenger.s(this.tr("awa", "Entity filter removed")));
-		}
-	}
-
-	public Map<EntityType<?>, Predicate<Entity>> getEntityFilter()
-	{
-		return this.entityFilter;
 	}
 
 	@Override
@@ -198,7 +172,7 @@ public class LifeTimeTracker extends AbstractTracker
 		String docLink = this.tr("help.doc_link", "https://github.com/TISUnion/Carpet-TIS-Addition#lifetime");
 		source.sendFeedback(Messenger.c(
 				String.format("wb %s\n", this.getTranslatedNameFull()),
-				String.format("w %s\n", this.tr("help.doc_summary", "A tracker to track lifetime and spawn / removal reasons from all newly spawned and dead entities")),
+				String.format("w %s\n", this.tr("help.doc_summary", "A tracker to track lifetime and spawn / removal reasons from all newly spawned and removed entities")),
 				String.format("w %s", this.tr("help.complete_doc_hint", "Complete doc")),
 				TextUtil.getSpaceText(),
 				TextUtil.getFancyText(

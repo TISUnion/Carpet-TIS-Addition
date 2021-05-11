@@ -464,6 +464,13 @@
   "tracker.lifetime.help.complete_doc_hint": "完整文档",
   "tracker.lifetime.help.here": "传送门",
   "tracker.lifetime.help.doc_link": "https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#存活时间-lifetime",
+  "tracker.lifetime.filter.global": "全局",
+  "tracker.lifetime.filter.unsupported.0": "不支持的实体筛选器",
+  "tracker.lifetime.filter.unsupported.1": "请输入一个@e类型的实体选择器",
+  "tracker.lifetime.filter.set": "%1$s的筛选器已设置为%2$s",
+  "tracker.lifetime.filter.removed": "%1$s的筛选器已移除",
+  "tracker.lifetime.filter.display": "%1$s的筛选器为%2$s",
+  "tracker.lifetime.filter.none": "无",
 
 
   "util.teleport_hint": "点击以传送至",

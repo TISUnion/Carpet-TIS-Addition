@@ -1,6 +1,13 @@
 package carpettisaddition.translations;
 
+import carpet.utils.Messenger;
 import carpet.utils.Translations;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslationException;
+
+import java.util.stream.Stream;
 
 public class Translator implements Translatable
 {
@@ -92,5 +99,27 @@ public class Translator implements Translatable
 	public String tr(String key)
 	{
 		return Translations.tr(getPath(key, true), key);
+	}
+
+	public BaseText advTr(String key, String defaultKeyText, Object ...args)
+	{
+		String msgKeyString = this.tr(key, defaultKeyText);
+		TranslatableText fixedTranslatableText = new TranslatableText(msgKeyString, args) {
+			@Override
+			public Stream<Text> stream()
+			{
+				try
+				{
+					this.translations.clear();
+					this.setTranslation(msgKeyString);
+					return this.translations.stream();
+				}
+				catch (TranslationException e)
+				{
+					return Stream.of(Messenger.s(msgKeyString));
+				}
+			}
+		};
+		return Messenger.c(fixedTranslatableText.stream().toArray());
 	}
 }
