@@ -101,7 +101,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 	{
 		// existence check
 		BasicTrackedData specificData = this.dataMap.get(specificType);
-		if (this.dataMap.isEmpty() || (specificType != null && specificData == null))
+		if (this.dataMap.isEmpty() || (specificType != null && specificData == null) || !LifeTimeTracker.getInstance().isTracking())
 		{
 			return 0;
 		}
