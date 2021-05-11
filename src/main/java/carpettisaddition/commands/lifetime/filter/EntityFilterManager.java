@@ -2,15 +2,17 @@ package carpettisaddition.commands.lifetime.filter;
 
 import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
+import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.text.ClickEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -22,7 +24,7 @@ public class EntityFilterManager extends TranslatableBase
 	private static final Predicate<Entity> DEFAULT_FILTER = entity -> true;
 
 	// key null is for global filter
-	private final Map<EntityType<?>, Predicate<Entity>> entityFilter = Maps.newHashMap();
+	private final Map<EntityType<?>, Predicate<Entity>> entityFilter = Maps.newLinkedHashMap();
 
 	public EntityFilterManager()
 	{
@@ -39,6 +41,10 @@ public class EntityFilterManager extends TranslatableBase
 		return this.entityFilter.getOrDefault(entityType, DEFAULT_FILTER);
 	}
 
+	/**
+	 * Test right before recording entity spawning
+	 * So the entity should be fully initialized
+	 */
 	public boolean test(Entity entity)
 	{
 		// global filter, then specific filter
@@ -60,7 +66,7 @@ public class EntityFilterManager extends TranslatableBase
 				EntityFilter entityFilter = new EntityFilter(source, entitySelector);
 				this.entityFilter.put(entityType, entityFilter);
 				Messenger.m(source, this.advTr(
-						"set", "Entity filter of %1$s set to %2$s",
+						"filter_set", "Entity filter of %1$s is set to %2$s",
 						typeName,
 						entityFilter.toText()
 				));
@@ -68,22 +74,57 @@ public class EntityFilterManager extends TranslatableBase
 		}
 		else
 		{
-			this.entityFilter.put(entityType, DEFAULT_FILTER);
+			this.entityFilter.remove(entityType);
 			Messenger.m(source, this.advTr(
-					"removed", "Entity filter of %1$s removed",
+					"filter_removed", "Entity filter of %1$s removed",
 					typeName
 			));
 		}
 	}
 
-	public void displayFilter(ServerCommandSource source, @NotNull EntityType<?> entityType)
+	public BaseText getEntityFilterText(@Nullable EntityType<?> entityType)
 	{
 		Predicate<Entity> entityPredicate = this.getFilter(entityType);
-		BaseText filterText = entityPredicate instanceof EntityFilter ? ((EntityFilter)entityPredicate).toText() : Messenger.s(this.tr("None"));
+		return entityPredicate instanceof EntityFilter ? ((EntityFilter)entityPredicate).toText() : Messenger.s(this.tr("None"));
+	}
+
+	public BaseText getEntityTypeText(@Nullable EntityType<?> entityType)
+	{
+		return entityType != null ? (BaseText)entityType.getName() : Messenger.s(this.tr("global"));
+	}
+
+	public void displayFilter(ServerCommandSource source, @Nullable EntityType<?> entityType)
+	{
 		Messenger.m(source, this.advTr(
 				"display", "Entity filter of %1$s is %2$s",
-				entityType.getName(),
-				filterText
+				this.getEntityTypeText(entityType),
+				this.getEntityFilterText(entityType)
 		));
+	}
+
+	public int displayAllFilters(ServerCommandSource source)
+	{
+		Messenger.m(source, Messenger.s(String.format(this.tr("display_total", "There are %s activated filters"), this.entityFilter.size())));
+		this.entityFilter.keySet().forEach(entityType -> Messenger.m(
+				source,
+				Messenger.c(
+						"f - ",
+						this.getEntityTypeText(entityType),
+						"g : ",
+						this.getEntityFilterText(entityType),
+						"w  ",
+						TextUtil.getFancyText(
+								null,
+								Messenger.s("[×]", "r"),
+								Messenger.s(this.tr("click_to_clear", "Click to clear filter")),
+								new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format(
+										"/%s filter %s clear",
+										LifeTimeTracker.getInstance().getCommandPrefix(),
+										entityType != null ? LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType) : "global"
+								))
+						)
+				)
+		));
+		return 1;
 	}
 }

@@ -2,6 +2,7 @@ package carpettisaddition.commands.lifetime.filter;
 
 import carpet.utils.Messenger;
 import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
+import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
@@ -9,18 +10,20 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 
-public class EntityFilter implements Predicate<Entity>
+public class EntityFilter extends TranslatableBase implements Predicate<Entity>
 {
 	private final EntitySelectorAccessor entitySelector;
 	private final ServerCommandSource serverCommandSource;
 
 	public EntityFilter(@NotNull ServerCommandSource serverCommandSource, @NotNull EntitySelector entitySelector)
 	{
+		super(EntityFilterManager.getInstance().getTranslator());
 		this.entitySelector = (EntitySelectorAccessor)entitySelector;
 		this.serverCommandSource = serverCommandSource;
 	}
@@ -77,14 +80,16 @@ public class EntityFilter implements Predicate<Entity>
 
 	public BaseText toText()
 	{
+		String inputText = this.entitySelector.getInputText();
 		return TextUtil.getFancyText(
-				"c",
-				Messenger.s(this.entitySelector.getInputText()),
+				"y",
+				Messenger.s(inputText),
 				Messenger.c(
-						String.format("w Dimension: %s\n", TextUtil.getDimensionNameText(this.serverCommandSource.getWorld().getDimension().getType())),
-						String.format("w Anchor Pos: %s", this.getAnchorPos())
+						String.format("w %s: ", this.tr("Dimension")),
+						TextUtil.getDimensionNameText(this.serverCommandSource.getWorld().getDimension().getType()),
+						String.format("w \n%s: %s", this.tr("Anchor Pos"), this.getAnchorPos())
 				),
-				null
+				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, inputText)
 		);
 	}
 }

@@ -1,6 +1,7 @@
 package carpettisaddition.commands.lifetime;
 
 import carpet.utils.Messenger;
+import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.commands.lifetime.trackeddata.BasicTrackedData;
@@ -144,7 +145,11 @@ public class LifeTimeWorldTracker extends TranslatableBase
 							TextUtil.getFancyText(
 									null,
 									(BaseText)entityType.getName(),
-									Messenger.s(this.tr("detail_hint", "Click to show detail")),
+									Messenger.c(
+											String.format("w %s: ", this.tr("filter_info_header", "Filter")),
+											EntityFilterManager.getInstance().getEntityFilterText(entityType),
+											"w \n" + this.tr("detail_hint", "Click to show detail")
+									),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, currentCommandBase)
 							),
 							"g ] ",
@@ -205,6 +210,10 @@ public class LifeTimeWorldTracker extends TranslatableBase
 
 	private void printSpecific(long ticks, EntityType<?> specificType, BasicTrackedData specificData, SpecificDetailMode detailMode, List<BaseText> result)
 	{
+		result.add(Messenger.c(
+				String.format("c %s: ", this.tr("filter_info_header", "Filter")),
+				EntityFilterManager.getInstance().getEntityFilterText(specificType)
+		));
 		boolean showLifeTime = detailMode == null || detailMode == SpecificDetailMode.LIFE_TIME;
 		boolean showSpawning = detailMode == null || detailMode == SpecificDetailMode.SPAWNING;
 		boolean showRemoval = detailMode == null || detailMode == SpecificDetailMode.REMOVAL;

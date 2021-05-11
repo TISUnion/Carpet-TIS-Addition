@@ -118,8 +118,8 @@ public class LifeTimeCommand extends AbstractCommand
 	@Override
 	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
 	{
-		String entityTypeArg = "entity_type";
-		String detailModeArg = "detail";
+		final String entityTypeArg = "entity_type";
+		final String detailModeArg = "detail";
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
 				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandLifeTime)).
 				executes(c -> LifeTimeTracker.getInstance().showHelp(c.getSource())).
@@ -130,6 +130,7 @@ public class LifeTimeCommand extends AbstractCommand
 				// lifetime filter
 				then(
 						literal("filter").
+						executes(c -> EntityFilterManager.getInstance().displayAllFilters(c.getSource())).
 						then(createFilterNode(literal("global"), c -> null)).
 						then(createFilterNode(
 								argument(entityTypeArg, string()).suggests((c, b) -> suggestMatching(LifeTimeTrackerUtil.getEntityTypeDescriptorStream(), b)),

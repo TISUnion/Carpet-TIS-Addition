@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.command.lifetime;
 
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
+import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
@@ -80,7 +81,7 @@ public abstract class EntityMixin implements IEntity
 	@Override
 	public void recordSpawning(SpawningReason reason)
 	{
-		if (this.doLifeTimeTracking && !this.recordedSpawning)
+		if (this.doLifeTimeTracking && !this.recordedSpawning && EntityFilterManager.getInstance().test((Entity)(Object)this))
 		{
 			//noinspection ConstantConditions
 			if ((Entity)(Object)this instanceof MobEntity && !GameUtil.countsTowardsMobcap((Entity)(Object)this))

@@ -2,7 +2,6 @@ package carpettisaddition.commands.lifetime;
 
 import carpet.utils.Messenger;
 import carpettisaddition.commands.AbstractTracker;
-import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
@@ -70,8 +69,7 @@ public class LifeTimeTracker extends AbstractTracker
 	{
 		return isActivated() &&
 				((IEntity)entity).getTrackId() == INSTANCE.getCurrentTrackId() &&
-				LifeTimeTrackerUtil.isTrackedEntity(entity) &&
-				EntityFilterManager.getInstance().test(entity);
+				LifeTimeTrackerUtil.isTrackedEntity(entity);
 	}
 
 	public Stream<String> getAvailableEntityType()
@@ -146,11 +144,10 @@ public class LifeTimeTracker extends AbstractTracker
 
 			long ticks = this.sendTrackedTime(source, realtime);
 			EntityType<?> entityType = entityTypeOptional.get();
-			source.sendFeedback(Messenger.c(
-					"w " + this.tr("specific_result.pre", "Life time result for "),
-					entityType.getName(),
-					"w " + this.tr("specific_result.post", "")
-					), false);
+			source.sendFeedback(
+					this.advTr("specific_result", "Life time result for %1$s", entityType.getName()),
+					false
+			);
 			SpecificDetailMode finalDetailMode = detailMode;
 			int count = this.trackers.values().stream().
 					mapToInt(tracker -> tracker.print(source, ticks, entityType, finalDetailMode)).
