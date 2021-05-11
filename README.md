@@ -18,6 +18,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [antiSpamDisabled](#antiSpamDisabled)
 - [blockEventPacketRange](#blockEventPacketRange)
 - [blockPlacementIgnoreEntity](#blockPlacementIgnoreEntity)
+- [chunkUpdatePacketThreshold](#chunkUpdatePacketThreshold)
 - [chunkTickSpeed](#chunkTickSpeed)
 - [commandLifeTime](#commandLifeTime)
 - [commandRaid](#commandRaid)
@@ -30,6 +31,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [fakePlayerNameSuffix](#fakePlayerNameSuffix)
 - [fluidDestructionDisabled](#fluidDestructionDisabled)
 - [hopperCountersUnlimitedSpeed](#hopperCountersUnlimitedSpeed)
+- [hopperNoItemCost](#hopperNoItemCost)
 - [HUDLoggerUpdateInterval](#HUDLoggerUpdateInterval)
 - [instantCommandBlock](#instantCommandBlock)
 - [keepMobInLazyChunks](#keepMobInLazyChunks)
@@ -141,6 +143,22 @@ Works with creative mode players only
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
+
+
+## chunkUpdatePacketThreshold
+
+The threshold which the game will just send an chunk data packet if the amount of block changes is more than it
+
+Increasing this value might reduce network bandwidth usage, and boost client's fps if there are lots of tile entities in a chunk section with a lot of block changes
+
+Set it to really high to simulate 1.16+ behavior, which is no chunk packet but only multiple block change packet
+
+This rule is only available in <1.16
+
+- Type: `int`
+- Default value: `64`
+- Suggested options: `64`, `4096`, `65536`
+- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
 ## chunkTickSpeed
@@ -286,6 +304,16 @@ Only works when hopperCounters option in Carpet Mod is on
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`, `CARPET_MOD`
+
+
+## hopperNoItemCost
+
+Hopper with wool block on top outputs item infinitely without having its item decreased
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## HUDLoggerUpdateInterval

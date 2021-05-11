@@ -120,7 +120,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color, name);
 				this.addMarker(newMarker);
 				playerEntity.addChatMessage(Messenger.c(
-						Messenger.s(this.tr("on_mark", "§aAdded§r MicroTiming marker: ") + ": "),
+						Messenger.s(this.tr("on_mark", "§aAdded§r MicroTiming marker") + ": "),
 						newMarker.toFullText()
 				), true);
 			}

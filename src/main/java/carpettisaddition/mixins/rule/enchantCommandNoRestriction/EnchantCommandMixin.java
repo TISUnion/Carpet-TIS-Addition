@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.Collection;
 import java.util.Collections;
 
-@Mixin(EnchantCommand.class)
+@Mixin(value = EnchantCommand.class, priority = 900)
 public abstract class EnchantCommandMixin
 {
 	@Redirect(

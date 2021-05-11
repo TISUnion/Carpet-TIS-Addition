@@ -26,12 +26,14 @@ public abstract class MinecraftServerMixin
 	}
 
 	@Inject(method = "method_16208", at = @At("HEAD"))
-	private void onStagePlayerAction(CallbackInfo ci)
+	private void onStageAsyncTask(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.ASYNC_TASK);
 	}
 
-	// reset potential tick stage (extra) set in NetworkThreadUtilsMixin
+	/**
+	 * Reset potential tick stage (extra) set in {@link carpettisaddition.mixins.logger.microtiming.tickstages.NetworkThreadUtilsMixin}
+	 */
 	@Inject(method = "runTask", at = @At("RETURN"))
 	void cleanStageExtraInStagePlayerAction(CallbackInfoReturnable<Boolean> cir)
 	{

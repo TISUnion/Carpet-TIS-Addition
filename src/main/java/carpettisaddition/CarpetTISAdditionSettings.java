@@ -7,6 +7,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
+import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -44,6 +45,34 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static boolean blockPlacementIgnoreEntity = false;
+
+	public static final int VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD = 64;
+	public static final int MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD = 65536;
+	@Rule(
+			desc = "The threshold which the game will just send an chunk data packet if the amount of block changes is more than it",
+			extra = {
+					"Increasing this value might reduce network bandwidth usage, and boost client's fps if there are lots of tile entities in a chunk section with a lot of block changes",
+					"Set it to really high to simulate 1.16+ behavior, which is no chunk packet but only multiple block change packet",
+					"This rule is only available in <1.16"
+			},
+			validate = ValidateChunkUpdatePacketThreshold.class,
+			options = {"64", "4096", "65536"},
+			strict = false,
+			category = {TIS, OPTIMIZATION, EXPERIMENTAL}
+	)
+	public static int chunkUpdatePacketThreshold = VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD;
+	private static class ValidateChunkUpdatePacketThreshold extends Validator<Integer>
+	{
+		@Override
+		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		{
+			return (newValue >= 2 && newValue <= MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD) ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a value from 2 to " + MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD;
+		}
+	}
 
 	@Rule(
 			desc = "Modify how often the chunk tick occurs per chunk per game tick",
@@ -162,6 +191,12 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE, CARPET_MOD}
 	)
 	public static boolean hopperCountersUnlimitedSpeed = false;
+
+	@Rule(
+			desc = "Hopper with wool block on top outputs item infinitely without having its item decreased",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean hopperNoItemCost = false;
 
 	@Rule(
 			desc = "Overwrite HUD loggers update interval (gametick)",
@@ -364,6 +399,16 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.LABELLED;
+
+	@Rule(
+			desc = "Determine the way to divide game ticks",
+			extra = {
+					"world_timer: Divides at Overworld timer increment",
+					"player_action: Divides at the beginning of player action"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static TickDivision microTimingTickDivision = TickDivision.WORLD_TIMER;
 
 	private static class ValidateTNTFuseDuration extends Validator<Integer>
 	{
