@@ -4,6 +4,7 @@ import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
+import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.text.BaseText;
@@ -91,6 +92,8 @@ public class RaidLogger extends AbstractLogger
 		RAID_VICTORY,
 		RAID_DEFEAT;
 
+		private static final Translator TRANSLATOR = new Translator("raid_invalidate_reason");
+
 		public String getName()
 		{
 			return this.name().toLowerCase();
@@ -98,7 +101,7 @@ public class RaidLogger extends AbstractLogger
 
 		public String tr()
 		{
-			return getName().replace("_", " ");
+			return TRANSLATOR.tr(getName(), getName().replace("_", " "));
 		}
 	}
 }

@@ -341,8 +341,7 @@
 
   "tracker.lifetime.name": "存活時間",
   "tracker.lifetime.no_result": "暫無結果",
-  "tracker.lifetime.specific_result.pre": "",
-  "tracker.lifetime.specific_result.post": "的存活時間追踪結果",
+  "tracker.lifetime.specific_result": "%1$s的存活時間追踪結果",
   "tracker.lifetime.invalid_detail": "非法統計信息詳情\"%s\"",
   "tracker.lifetime.unknown_entity_type": "未知的實體類型\"%s\"",
   "tracker.lifetime.detail_hint": "點擊以查看詳情",
