@@ -119,6 +119,11 @@
   "rule.microTimingTarget.extra.2": "all: 记录所有事件。谨慎使用",
   "rule.microTimingTarget.extra.3": "marker_only: 仅记录被染料记号的方块。将其与规则microTimingDyeMarker（微时序染料记号）一起使用",
 
+  "rule.microTimingTickDivision.name": "微时序游戏刻划分",
+  "rule.microTimingTickDivision.desc": "设置指定微时序记录器划分两个游戏刻的方法",
+  "rule.microTimingTickDivision.extra.0": "world_timer: 划分于世界计时器自增时",
+  "rule.microTimingTickDivision.extra.1": "player_action: 划分于玩家操作阶段开始前",
+
   "rule.opPlayerNoCheat.name": "op玩家不准作弊",
   "rule.opPlayerNoCheat.desc": "禁用部分指令以避免op玩家意外地作弊",
   "rule.opPlayerNoCheat.extra.0": "影响的指令列表：/gamemode, /tp, /teleport, /give, /setblock, /summon",
