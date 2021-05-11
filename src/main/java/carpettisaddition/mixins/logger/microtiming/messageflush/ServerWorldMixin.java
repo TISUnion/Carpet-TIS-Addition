@@ -5,24 +5,23 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.MutableWorldProperties;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.ChunkManager;
-import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.level.LevelProperties;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin extends World
 {
-	protected ServerWorldMixin(LevelProperties levelProperties, DimensionType dimensionType, BiFunction<World, Dimension, ChunkManager> chunkManagerProvider, Profiler profiler, boolean isClient)
+	protected ServerWorldMixin(MutableWorldProperties properties, RegistryKey<World> registryRef, DimensionType dimensionType, Supplier<Profiler> profiler, boolean isClient, boolean debugWorld, long seed)
 	{
-		super(levelProperties, dimensionType, chunkManagerProvider, profiler, isClient);
+		super(properties, registryRef, dimensionType, profiler, isClient, debugWorld, seed);
 	}
 
 	@Inject(
@@ -33,7 +32,7 @@ public abstract class ServerWorldMixin extends World
 	{
 		if (CarpetTISAdditionSettings.microTimingTickDivision == TickDivision.WORLD_TIMER)
 		{
-			if (this.getDimension().getType() == DimensionType.OVERWORLD)  // only flush messages at overworld time update
+			if (this.getRegistryKey() == World.OVERWORLD)  // only flush messages at overworld time update
 			{
 				MicroTimingLoggerManager.flushMessages();
 			}

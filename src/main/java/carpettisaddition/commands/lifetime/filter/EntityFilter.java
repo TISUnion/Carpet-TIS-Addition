@@ -86,7 +86,7 @@ public class EntityFilter extends TranslatableBase implements Predicate<Entity>
 				Messenger.s(inputText),
 				Messenger.c(
 						String.format("w %s: ", this.tr("Dimension")),
-						TextUtil.getDimensionNameText(this.serverCommandSource.getWorld().getDimension().getType()),
+						TextUtil.getDimensionNameText(this.serverCommandSource.getWorld().getRegistryKey()),
 						String.format("w \n%s: %s", this.tr("Anchor Pos"), this.getAnchorPos())
 				),
 				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, inputText)

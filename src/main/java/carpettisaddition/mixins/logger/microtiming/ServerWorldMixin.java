@@ -1,7 +1,6 @@
 package carpettisaddition.mixins.logger.microtiming;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.interfaces.IServerWorld;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
@@ -39,17 +38,5 @@ public abstract class ServerWorldMixin extends World implements IServerWorld
 	public MicroTimingLogger getMicroTimingLogger()
 	{
 		return this.microTimingLogger;
-	}
-
-	@Inject(
-			method = "tickTime",
-			at = @At(value = "HEAD")
-	)
-	private void onTimeUpdate(CallbackInfo ci)
-	{
-		if (this.getRegistryKey() == World.OVERWORLD)  // only flush messages at overworld time update
-		{
-			MicroTimingLoggerManager.flushMessages(this.getTime());
-		}
 	}
 }
