@@ -6,6 +6,7 @@ import carpet.settings.Validator;
 import carpet.utils.Messenger;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
+import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -370,6 +371,16 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.LABELLED;
+
+	@Rule(
+			desc = "Determine the way to divide game ticks",
+			extra = {
+					"world_timer: Divides at Overworld timer increment",
+					"player_action: Divides at the beginning of player action"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static TickDivision microTimingTickDivision = TickDivision.WORLD_TIMER;
 
 	private static class ValidateTNTFuseDuration extends Validator<Integer>
 	{

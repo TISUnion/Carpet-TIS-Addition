@@ -8,6 +8,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class LifeTimeTrackerUtil
 {
@@ -24,5 +25,10 @@ public class LifeTimeTrackerUtil
 	public static Optional<EntityType<?>> getEntityTypeFromName(String name)
 	{
 		return Registry.ENTITY_TYPE.stream().filter(entityType -> getEntityTypeDescriptor(entityType).equals(name)).findFirst();
+	}
+
+	public static Stream<String> getEntityTypeDescriptorStream()
+	{
+		return Registry.ENTITY_TYPE.stream().map(LifeTimeTrackerUtil::getEntityTypeDescriptor);
 	}
 }

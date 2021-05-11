@@ -10,6 +10,7 @@ import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.script.Functions;
 import carpettisaddition.script.MicroTimingEvent;
 import carpettisaddition.translations.TISAdditionTranslations;
@@ -68,6 +69,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
         MicroTimingLoggerManager.attachServer(server);
         LifeTimeTracker.attachServer(server);
         LightQueueHUDLogger.getInstance().attachServer(server);
+        MicroTimingMarkerManager.getInstance().clear();
     }
 
     @Override

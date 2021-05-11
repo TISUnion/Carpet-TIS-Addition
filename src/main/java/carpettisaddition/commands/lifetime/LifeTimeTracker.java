@@ -65,9 +65,11 @@ public class LifeTimeTracker extends AbstractTracker
 		return attachedServer && INSTANCE.isTracking();
 	}
 
-	public static boolean willTrackEntity(Entity entity)
+	public boolean willTrackEntity(Entity entity)
 	{
-		return isActivated() && ((IEntity)entity).getTrackId() == INSTANCE.getCurrentTrackId() && LifeTimeTrackerUtil.isTrackedEntity(entity);
+		return isActivated() &&
+				((IEntity)entity).getTrackId() == INSTANCE.getCurrentTrackId() &&
+				LifeTimeTrackerUtil.isTrackedEntity(entity);
 	}
 
 	public Stream<String> getAvailableEntityType()
@@ -116,6 +118,11 @@ public class LifeTimeTracker extends AbstractTracker
 		}
 	}
 
+	public void sendUnknownEntity(ServerCommandSource source, String entityTypeString)
+	{
+		Messenger.m(source, Messenger.s(String.format(this.tr("unknown_entity_type", "Unknown entity type \"%s\""), entityTypeString), "r"));
+	}
+
 	protected int printTrackingResultSpecific(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
 	{
 		Optional<EntityType<?>> entityTypeOptional = LifeTimeTrackerUtil.getEntityTypeFromName(entityTypeString);
@@ -137,11 +144,10 @@ public class LifeTimeTracker extends AbstractTracker
 
 			long ticks = this.sendTrackedTime(source, realtime);
 			EntityType<?> entityType = entityTypeOptional.get();
-			source.sendFeedback(Messenger.c(
-					"w " + this.tr("specific_result.pre", "Life time result for "),
-					entityType.getName(),
-					"w " + this.tr("specific_result.post", "")
-					), false);
+			source.sendFeedback(
+					this.advTr("specific_result", "Life time result for %1$s", entityType.getName()),
+					false
+			);
 			SpecificDetailMode finalDetailMode = detailMode;
 			int count = this.trackers.values().stream().
 					mapToInt(tracker -> tracker.print(source, ticks, entityType, finalDetailMode)).
@@ -153,7 +159,7 @@ public class LifeTimeTracker extends AbstractTracker
 		}
 		else
 		{
-			Messenger.m(source, Messenger.s(String.format(this.tr("unknown_entity_type", "Unknown entity type \"%s\""), entityTypeString), "r"));
+			this.sendUnknownEntity(source, entityTypeString);
 		}
 		return 1;
 	}
@@ -163,7 +169,7 @@ public class LifeTimeTracker extends AbstractTracker
 		String docLink = this.tr("help.doc_link", "https://github.com/TISUnion/Carpet-TIS-Addition#lifetime");
 		source.sendFeedback(Messenger.c(
 				String.format("wb %s\n", this.getTranslatedNameFull()),
-				String.format("w %s\n", this.tr("help.doc_summary", "A tracker to track lifetime and spawn / removal reasons from all newly spawned and dead entities")),
+				String.format("w %s\n", this.tr("help.doc_summary", "A tracker to track lifetime and spawn / removal reasons from all newly spawned and removed entities")),
 				String.format("w %s", this.tr("help.complete_doc_hint", "Complete doc")),
 				TextUtil.getSpaceText(),
 				TextUtil.getFancyText(

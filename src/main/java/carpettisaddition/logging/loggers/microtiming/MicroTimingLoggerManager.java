@@ -36,7 +36,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Map;
@@ -50,24 +49,16 @@ public class MicroTimingLoggerManager
 
 	private final Map<ServerWorld, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
 	public static final Translator TRANSLATOR = (new MicroTimingLogger(null)).getTranslator();
-	private long lastFlushTime;
 
 	// for scarpet event
     public static Set<BlockPos> trackedPositions = Sets.newHashSet();
 
     public MicroTimingLoggerManager(MinecraftServer minecraftServer)
 	{
-		this.lastFlushTime = -1;
 		for (ServerWorld world : minecraftServer.getWorlds())
 		{
 			this.loggers.put(world, ((IServerWorld)world).getMicroTimingLogger());
 		}
-	}
-
-	@Nullable
-	public static MicroTimingLoggerManager getInstance()
-	{
-		return instance;
 	}
 
 	public Map<ServerWorld, MicroTimingLogger> getLoggers()
@@ -318,23 +309,22 @@ public class MicroTimingLoggerManager
 		}
 	}
 
-	private void flush(long gameTime) // needs to call at the end of a gt
+	private synchronized void flush()
 	{
-		if (gameTime != this.lastFlushTime)
+		for (MicroTimingLogger logger : this.loggers.values())
 		{
-			this.lastFlushTime = gameTime;
-			for (MicroTimingLogger logger : this.loggers.values())
-			{
-				logger.flushMessages();
-			}
+			logger.flushMessages();
 		}
 	}
 
-	public static void flushMessages(long gameTime) // needs to call at the end of a gt
+	/**
+	 * Invoke this at the end of a "gametick", or right before the first thing in the next "gametick" happens
+	 */
+	public static void flushMessages()
 	{
 		if (instance != null && isLoggerActivated())
 		{
-			instance.flush(gameTime);
+			instance.flush();
 		}
 	}
 

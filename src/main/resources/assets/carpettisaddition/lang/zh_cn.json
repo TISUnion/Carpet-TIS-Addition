@@ -119,6 +119,11 @@
   "rule.microTimingTarget.extra.2": "all: 记录所有事件。谨慎使用",
   "rule.microTimingTarget.extra.3": "marker_only: 仅记录被染料记号的方块。将其与规则microTimingDyeMarker（微时序染料记号）一起使用",
 
+  "rule.microTimingTickDivision.name": "微时序游戏刻划分",
+  "rule.microTimingTickDivision.desc": "设置指定微时序记录器划分两个游戏刻的方法",
+  "rule.microTimingTickDivision.extra.0": "world_timer: 划分于世界计时器自增时",
+  "rule.microTimingTickDivision.extra.1": "player_action: 划分于玩家操作阶段开始前",
+
   "rule.opPlayerNoCheat.name": "op玩家不准作弊",
   "rule.opPlayerNoCheat.desc": "禁用部分指令以避免op玩家意外地作弊",
   "rule.opPlayerNoCheat.extra.0": "影响的指令列表：/gamemode, /tp, /teleport, /give, /setblock, /summon",
@@ -364,8 +369,6 @@
   "logger.tickWarp.average_mspt": "平均MSPT",
   "logger.tickWarp.estimated_remaining_time": "剩余时间估算",
 
-  "logger.lifeTime.unknown_entity_type": "未知的实体类型",
-
 
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
   "raid_invalidate_reason.gamerule_disable": "被游戏规则禁用",
@@ -410,10 +413,10 @@
 
   "tracker.lifetime.name": "存活时间",
   "tracker.lifetime.no_result": "暂无结果",
-  "tracker.lifetime.specific_result.pre": "",
-  "tracker.lifetime.specific_result.post": "的存活时间追踪结果",
+  "tracker.lifetime.specific_result": "%1$s的存活时间追踪结果",
   "tracker.lifetime.invalid_detail": "非法统计信息详情\"%s\"",
   "tracker.lifetime.unknown_entity_type": "未知的实体类型\"%s\"",
+  "tracker.lifetime.filter_info_header": "筛选器",
   "tracker.lifetime.detail_hint": "点击以查看详情",
   "tracker.lifetime.spawn_count": "生成数量",
   "tracker.lifetime.removal_count": "移除数量",
@@ -453,6 +456,7 @@
   "tracker.lifetime.removal_reason.mob_pickup.pre": "被",
   "tracker.lifetime.removal_reason.mob_pickup.post": "捡起",
   "tracker.lifetime.removal_reason.hopper": "漏斗收集",
+  "tracker.lifetime.removal_reason.void": "进入虚空",
   "tracker.lifetime.removal_reason.on_vehicle": "骑上载具",
   "tracker.lifetime.removal_reason.damage_source": "伤害来源",
   "tracker.lifetime.removal_reason.trans_dimension": "跨维度",
@@ -461,6 +465,17 @@
   "tracker.lifetime.help.complete_doc_hint": "完整文档",
   "tracker.lifetime.help.here": "传送门",
   "tracker.lifetime.help.doc_link": "https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#存活时间-lifetime",
+  "tracker.lifetime.filter.global": "全局",
+  "tracker.lifetime.filter.unsupported.0": "不支持的实体筛选器",
+  "tracker.lifetime.filter.unsupported.1": "请输入一个@e类型的实体选择器",
+  "tracker.lifetime.filter.filter_set": "%1$s的筛选器已设置为%2$s",
+  "tracker.lifetime.filter.filter_removed": "%1$s的筛选器已移除",
+  "tracker.lifetime.filter.display": "%1$s的筛选器为%2$s",
+  "tracker.lifetime.filter.display_total": "共有%s个激活的筛选器",
+  "tracker.lifetime.filter.none": "无",
+  "tracker.lifetime.filter.dimension": "维度",
+  "tracker.lifetime.filter.anchor_pos": "锚点坐标",
+  "tracker.lifetime.filter.click_to_clear": "点击以清除筛选器",
 
 
   "util.teleport_hint": "点击以传送至",

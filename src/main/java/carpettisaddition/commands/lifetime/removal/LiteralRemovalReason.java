@@ -26,6 +26,9 @@ public class LiteralRemovalReason extends RemovalReason
 	// for item entity
 	public static final LiteralRemovalReason HOPPER = new LiteralRemovalReason("hopper", "Collected by hopper");
 
+	// fall down to y=-64 and below
+	public static final LiteralRemovalReason VOID = new LiteralRemovalReason("void", "Entering void");
+
 	// for 1.16+
 	public static final LiteralRemovalReason ON_VEHICLE = new LiteralRemovalReason("on_vehicle", "Rides on a vehicle");
 

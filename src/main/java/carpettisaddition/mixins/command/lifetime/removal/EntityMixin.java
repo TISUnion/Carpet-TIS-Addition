@@ -64,4 +64,10 @@ public abstract class EntityMixin
 			((IEntity)this).recordRemoval(LiteralRemovalReason.ON_VEHICLE);
 		}
 	}
+
+	@Inject(method = "destroy", at = @At("HEAD"))
+	private void onEntityDestroyedInVoid(CallbackInfo ci)
+	{
+		((IEntity)this).recordRemoval(LiteralRemovalReason.VOID);
+	}
 }

@@ -28,7 +28,7 @@ public abstract class SpawnCommandMixin
 	}
 
 	/**
-	 * Attach literal("restart") to node literal("tracking") by modifying argument in then(literal("tracking"))
+	 * Add literal("restart") as a child of node literal("tracking") by modifying argument in then(literal("tracking"))
 	 */
 	@ModifyArg(
 			method = "register",

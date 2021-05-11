@@ -1,12 +1,10 @@
 package carpettisaddition.logging.loggers.lifetime;
 
-import carpet.logging.HUDLogger;
 import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.LifeTimeWorldTracker;
 import carpettisaddition.commands.lifetime.trackeddata.BasicTrackedData;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
-import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.EntityType;
@@ -64,33 +62,5 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 	public LifeTimeStandardCarpetHUDLogger getHUDLogger()
 	{
 		return new LifeTimeStandardCarpetHUDLogger();
-	}
-
-	public class LifeTimeStandardCarpetHUDLogger extends HUDLogger
-	{
-		public LifeTimeStandardCarpetHUDLogger()
-		{
-			super(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, null,null);
-		}
-
-		@Override
-		public void addPlayer(String playerName, String option)
-		{
-			super.addPlayer(playerName, option);
-			PlayerEntity player = this.playerFromName(playerName);
-			if (player != null)
-			{
-				if (!LifeTimeTrackerUtil.getEntityTypeFromName(option).isPresent())
-				{
-					Messenger.m(player, Messenger.s(String.format("%s: %s", LifeTimeHUDLogger.this.tr("Unknown entity type"), option)));
-				}
-			}
-		}
-
-		@Override
-		public String[] getOptions()
-		{
-			return LifeTimeTracker.getInstance().getAvailableEntityType().toArray(String[]::new);
-		}
 	}
 }
