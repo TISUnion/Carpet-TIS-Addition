@@ -65,7 +65,7 @@ public abstract class EntityMixin
 		}
 	}
 
-	@Inject(method = "destroy", at = @At("HEAD"))
+	@Inject(method = "tickInVoid", at = @At("HEAD"))
 	private void onEntityDestroyedInVoid(CallbackInfo ci)
 	{
 		((IEntity)this).recordRemoval(LiteralRemovalReason.VOID);

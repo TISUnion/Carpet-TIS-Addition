@@ -3,8 +3,8 @@ package carpettisaddition.mixins.command.lifetime.filter;
 import carpettisaddition.commands.lifetime.filter.IEntitySelector;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.predicate.NumberRange;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
@@ -51,7 +51,7 @@ public interface EntitySelectorAccessor extends IEntitySelector
 
 	@Nullable
 	@Accessor
-	EntityType<?> getType();
+	TypeFilter<Entity, ?> getEntityFilter();
 
 	@Accessor
 	boolean getUsesAt();
