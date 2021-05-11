@@ -24,6 +24,10 @@ import java.util.Map;
 
 public class MicroTimingMarker
 {
+	public static final int MARKER_SYNC_INTERVAL = 5 * 20;  // 5sec
+	public static final int MARKER_RENDER_DURATION = 10 * 60 * 20;  // 10min
+	// 10min / 5sec = 120, so it should works fine unless the server tps is below 20 / 120 = 0.167
+
 	private final ServerWorld serverWorld;
 	private final BlockPos blockPos;
 	public final DyeColor color;
@@ -48,7 +52,7 @@ public class MicroTimingMarker
 		boxParams.put("shape", new StringValue("box"));
 		boxParams.put("color", new NumericValue(((long) ((DyeColorAccessor) (Object) this.color).getTextColor() << 8) | 0xAF));
 		boxParams.put("dim", new StringValue(serverWorld.getDimension().getType().toString()));
-		boxParams.put("duration", new NumericValue(Integer.MAX_VALUE));
+		boxParams.put("duration", new NumericValue(MARKER_RENDER_DURATION));
 		boxParams.put("from", listFromBlockPos(blockPos));
 		boxParams.put("to", listFromBlockPos(blockPos.add(1, 1, 1)));
 		this.box = new ShapeData<>(new ShapeDispatcher.Box(), boxParams);

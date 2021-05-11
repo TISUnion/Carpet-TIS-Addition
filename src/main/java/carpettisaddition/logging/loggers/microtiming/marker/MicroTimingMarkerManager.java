@@ -3,6 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.marker;
 import carpet.script.utils.ShapeDispatcher;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.TranslatableBase;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,6 +17,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +27,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 	private static final MicroTimingMarkerManager INSTANCE = new MicroTimingMarkerManager();
 
 	private final Map<StorageKey, MicroTimingMarker> markers = Maps.newHashMap();
+	private long tickCounter = 0;
 
 	public MicroTimingMarkerManager()
 	{
@@ -38,7 +41,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 	public int clear()
 	{
-		this.markers.values().forEach(MicroTimingMarker::cleanShapeToAll);
+		this.cleanMarkersForAll();
 		int size = this.markers.size();
 		this.markers.clear();
 		return size;
@@ -142,24 +145,59 @@ public class MicroTimingMarkerManager extends TranslatableBase
 		return Optional.ofNullable(this.markers.get(new StorageKey(world, blockPos))).map(MicroTimingMarker::getMarkerNameString);
 	}
 
-	private void sendMarkersForPlayerInner(ServerPlayerEntity player, boolean display)
+	/*
+	 * The marker operators below is more efficient than simply iterating markers and invoking marker's
+	 * sendShapeToAll / cleanShapeToAll method, since it's able to send multiple shapes per packet
+	 */
+
+	private void sendMarkersForPlayerInner(List<ServerPlayerEntity> playerList, boolean display)
 	{
-		ShapeDispatcher.sendShape(
-				Collections.singletonList(player),
-				this.markers.values().stream().
-						flatMap(marker -> marker.getShapeDataList(display).stream()).
-						collect(Collectors.toList())
-		);
+		if (!playerList.isEmpty() && !this.markers.isEmpty())
+		{
+			ShapeDispatcher.sendShape(
+					playerList,
+					this.markers.values().stream().
+							flatMap(marker -> marker.getShapeDataList(display).stream()).
+							collect(Collectors.toList())
+			);
+		}
 	}
 
 	public void sendMarkersForPlayer(ServerPlayerEntity player)
 	{
-		this.sendMarkersForPlayerInner(player, true);
+		this.sendMarkersForPlayerInner(Collections.singletonList(player), true);
 	}
 
 	public void cleanMarkersForPlayer(ServerPlayerEntity player)
 	{
-		this.sendMarkersForPlayerInner(player, false);
+		this.sendMarkersForPlayerInner(Collections.singletonList(player), false);
+	}
+
+	public void sendMarkersForAll()
+	{
+		this.sendMarkersForPlayerInner(MicroTimingUtil.getSubscribedPlayers(), true);
+	}
+
+	public void cleanMarkersForAll()
+	{
+		this.sendMarkersForPlayerInner(MicroTimingUtil.getSubscribedPlayers(), false);
+	}
+
+	/*
+	 * marker operators ends
+	 */
+
+	/**
+	 * When a player switch a server via bungee, the scarpet shapes on the client won't reset since it's not dimension-based
+	 * So to make sure the shapes are removable, we don't send shapes with infinite duration, but shapes with limited duration
+	 * and send the shapes periodically
+	 */
+	public void tick()
+	{
+		if (this.tickCounter++ % MicroTimingMarker.MARKER_SYNC_INTERVAL == 0)
+		{
+			this.sendMarkersForAll();
+		}
 	}
 
 	/**
