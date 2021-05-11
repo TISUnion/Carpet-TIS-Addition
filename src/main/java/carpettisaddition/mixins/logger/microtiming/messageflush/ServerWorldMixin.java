@@ -1,7 +1,8 @@
-package carpettisaddition.mixins.logger.microtiming;
+package carpettisaddition.mixins.logger.microtiming.messageflush;
 
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
-import carpettisaddition.logging.loggers.microtiming.interfaces.IServerWorld;
+import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.RegistryKey;
@@ -16,27 +17,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Supplier;
 
 @Mixin(ServerWorld.class)
-public abstract class ServerWorldMixin extends World implements IServerWorld
+public abstract class ServerWorldMixin extends World
 {
-	private MicroTimingLogger microTimingLogger;
-
 	protected ServerWorldMixin(MutableWorldProperties properties, RegistryKey<World> registryRef, DimensionType dimensionType, Supplier<Profiler> profiler, boolean isClient, boolean debugWorld, long seed)
 	{
 		super(properties, registryRef, dimensionType, profiler, isClient, debugWorld, seed);
 	}
 
 	@Inject(
-			method = "<init>",
-			at = @At(value = "RETURN")
+			method = "tick",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tickTime()V")
 	)
-	private void onConstruct(CallbackInfo ci)
+	private void flushMessageOnTimeUpdate(CallbackInfo ci)
 	{
-		this.microTimingLogger = new MicroTimingLogger((ServerWorld)(Object)this);
-	}
-
-	@Override
-	public MicroTimingLogger getMicroTimingLogger()
-	{
-		return this.microTimingLogger;
+		if (CarpetTISAdditionSettings.microTimingTickDivision == TickDivision.WORLD_TIMER)
+		{
+			if (this.getRegistryKey() == World.OVERWORLD)  // only flush messages at overworld time update
+			{
+				MicroTimingLoggerManager.flushMessages();
+			}
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package carpettisaddition.translations;
 
+import net.minecraft.text.BaseText;
+
 public class TranslatableBase implements Translatable
 {
 	private final Translator translator;
@@ -35,5 +37,11 @@ public class TranslatableBase implements Translatable
 	public String tr(String key)
 	{
 		return this.translator.tr(key);
+	}
+
+	@Override
+	public BaseText advTr(String key, String defaultKeyText, Object ...args)
+	{
+		return this.translator.advTr(key, defaultKeyText, args);
 	}
 }

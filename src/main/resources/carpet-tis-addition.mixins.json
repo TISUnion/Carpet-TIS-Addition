@@ -26,6 +26,9 @@
     "command.lifetime.deathdamage.ExperienceOrbEntityMixin",
     "command.lifetime.deathdamage.ItemEntityMixin",
     "command.lifetime.deathdamage.LivingEntityMixin",
+    "command.lifetime.filter.EntitySelectorAccessor",
+    "command.lifetime.filter.EntitySelectorMixin",
+    "command.lifetime.filter.EntitySelectorReaderMixin",
     "command.lifetime.removal.EntityMixin",
     "command.lifetime.removal.ExperienceOrbEntityAccessor",
     "command.lifetime.removal.ExperienceOrbEntityMixin",
@@ -80,6 +83,8 @@
     "logger.microtiming.marker.ServerNetworkHandlerMixin",
     "logger.microtiming.marker.texthack.ShapeDispatcherTextMixin",
     "logger.microtiming.marker.texthack.ShapesRendererRenderedTextMixin",
+    "logger.microtiming.messageflush.MinecraftServerMixin",
+    "logger.microtiming.messageflush.ServerWorldMixin",
     "logger.microtiming.tickstages.CarpetEventServer_EventMixin",
     "logger.microtiming.tickstages.DirectBlockEntityTickInvokerMixin",
     "logger.microtiming.tickstages.EnderDragonFightMixin",
@@ -155,7 +160,8 @@
     "rule.totallyNoBlockUpdate.WorldMixin",
     "rule.turtleEggTrampledDisabled.StepAndDestroyBlockGoalMixin",
     "rule.turtleEggTrampledDisabled.TurtleEggBlockMixin",
-    "rule.xpTrackingDistance.ExperienceOrbEntityMixin"
+    "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
+    "translations.TranslatableTextAccessor"
   ],
   "client": [
   ],
