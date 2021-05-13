@@ -993,6 +993,19 @@ Show the detail statistic of specific entity type. You can specify which part of
 
 For example, `/lifetime creeper` shows all statistic of creeper in detail, and `/lifetime creeper removal` only shows removal statistic of creeper in detail 
 
+### filter
+
+`/lifetime filter <entity_type> set <entity_selector>`
+
+`/lifetime filter <entity_type> clear`
+
+Set an entity filter for given entity type. Use `global` as the `<entity_type>` to set filter globally
+
+Entities need to be accepted by the related filter to be record by the lifetime tracker
+
+Filter is input as an `@e` style Minecraft entity selector. e.g. `@e[distance=..100,nbt={Item:{id:"minecraft:oak_sapling"}}]`
+
+Use `/lifetime filter` to display current activated filters
 
 ## tick
 

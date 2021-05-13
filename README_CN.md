@@ -993,6 +993,19 @@
 
 比如 `/lifetime creeper` 将详细地显示爬行者的统计信息，`/lifetime creeper removal` 则只详细显示爬行者的移除统计信息 
 
+### filter
+
+`/lifetime filter <实体类型> set <实体选择器>`
+
+`/lifetime filter <实体类型> clear`
+
+为指定实体类型设置实体筛选器。在 `<实体类型>` 处键入 `global` 以设置全局筛选器
+
+实体需要被对应的筛选器所接受才可被存活时间追踪器进行追踪
+
+使用 `@e` 类型的 Minecraft 实体选择器来输入实体筛选器，如：`@e[distance=..100,nbt={Item:{id:"minecraft:oak_sapling"}}]`
+
+使用 `/lifetime filter` 来显示激活的实体筛选器
 
 ## tick
 
