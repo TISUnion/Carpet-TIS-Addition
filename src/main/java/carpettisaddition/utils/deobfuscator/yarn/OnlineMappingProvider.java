@@ -112,7 +112,7 @@ public class OnlineMappingProvider
 			File jarFile = new File(STORAGE_DIRECTORY + mappingJar);
 			FileUtils.copyURLToFile(new URL(escapedUrl), jarFile);
 
-			FileSystem jar = FileSystems.newFileSystem(jarFile.toPath(), null);
+			FileSystem jar = FileSystems.newFileSystem(jarFile.toPath(), (ClassLoader)null);
 			Files.copy(jar.getPath(MAPPINGS_JAR_LOCATION), mappingFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			Files.delete(jarFile.toPath());
 		}
