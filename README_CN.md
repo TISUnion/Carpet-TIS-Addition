@@ -40,6 +40,7 @@
 - [微时序](#微时序-microTiming)
 - [微时序染料记号](#微时序染料记号-microTimingDyeMarker)
 - [微时序目标](#微时序目标-microTimingTarget)
+- [微时序游戏刻划分](#微时序游戏刻划分-microTimingTickDivision)
 - [op玩家不准作弊](#op玩家不准作弊-opPlayerNoCheat)
 - [优化高速实体移动](#优化高速实体移动-optimizedFastEntityMovement)
 - [优化硬碰撞箱实体碰撞](#优化硬碰撞箱实体碰撞-optimizedHardHitBoxEntityCollision)
@@ -446,6 +447,20 @@
 - 类型: `enum`
 - 默认值: `labelled`
 - 参考选项: `labelled`, `in_range`, `all`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 微时序游戏刻划分 (microTimingTickDivision)
+
+设置指定微时序记录器划分两个游戏刻的方法
+
+`world_timer`: 划分于世界计时器自增时
+
+`player_action`: 划分于玩家操作阶段开始前
+
+- 类型: `enum`
+- 默认值: `world_timer`
+- 参考选项: `world_timer`, `player_action`
 - 分类: `TIS`, `CREATIVE`
 
 

@@ -40,6 +40,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [microTiming](#microTiming)
 - [microTimingDyeMarker](#microTimingDyeMarker)
 - [microTimingTarget](#microTimingTarget)
+- [microTimingTickDivision](#microTimingTarget)
 - [opPlayerNoCheat](#opPlayerNoCheat)
 - [optimizedFastEntityMovement](#optimizedFastEntityMovement)
 - [optimizedHardHitBoxEntityCollision](#optimizedHardHitBoxEntityCollision)
@@ -446,6 +447,20 @@ Modify the way to specify events to be logged in microTiming logger
 - Type: `enum`
 - Default value: `labelled`
 - Suggested options: `labelled`, `in_range`, `all`
+- Categories: `TIS`, `CREATIVE`
+
+
+## microTimingTickDivision
+
+Determine the way to divide game ticks
+
+`world_timer`: Divides at Overworld timer increment
+  
+`player_action`: Divides at the beginning of player action
+
+- Type: `enum`
+- Default value: `world_timer`
+- Suggested options: `world_timer`, `player_action`
 - Categories: `TIS`, `CREATIVE`
 
 
