@@ -27,13 +27,13 @@ public abstract class WorldChunkMixin
 	private TypeFilterableList<Entity>[] hardHitBoxEntitySections;
 	private boolean optimizedHHBECEnabled;  // optimizedHardHitBoxEntityCollisionEnabled
 
+	@SuppressWarnings("unchecked")
 	@Inject(
 			method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/world/biome/source/BiomeArray;Lnet/minecraft/world/chunk/UpgradeData;Lnet/minecraft/world/TickScheduler;Lnet/minecraft/world/TickScheduler;J[Lnet/minecraft/world/chunk/ChunkSection;Ljava/util/function/Consumer;)V",
 			at = @At("TAIL")
 	)
 	private void onConstruct(CallbackInfo ci)
 	{
-		//noinspection unchecked
 		this.hardHitBoxEntitySections = (TypeFilterableList<Entity>[])(new TypeFilterableList[this.entitySections.length]);
 		for(int i = 0; i < this.hardHitBoxEntitySections.length; ++i)
 		{
