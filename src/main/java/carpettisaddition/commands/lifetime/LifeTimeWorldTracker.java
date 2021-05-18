@@ -148,6 +148,8 @@ public class LifeTimeWorldTracker extends TranslatableBase
 									Messenger.c(
 											String.format("w %s: ", this.tr("filter_info_header", "Filter")),
 											EntityFilterManager.getInstance().getEntityFilterText(entityType),
+											"g  / [G] ",
+											EntityFilterManager.getInstance().getEntityFilterText(null),
 											"w \n" + this.tr("detail_hint", "Click to show detail")
 									),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, currentCommandBase)
@@ -212,7 +214,11 @@ public class LifeTimeWorldTracker extends TranslatableBase
 	{
 		result.add(Messenger.c(
 				String.format("c %s: ", this.tr("filter_info_header", "Filter")),
-				EntityFilterManager.getInstance().getEntityFilterText(specificType)
+				EntityFilterManager.getInstance().getEntityFilterText(specificType),
+				"g  / ",
+				TextUtil.getFancyText("g", Messenger.s("[G]"), Messenger.s(EntityFilterManager.getInstance().tr("Global")), null),
+				"g  ",
+				EntityFilterManager.getInstance().getEntityFilterText(null)
 		));
 		boolean showLifeTime = detailMode == null || detailMode == SpecificDetailMode.LIFE_TIME;
 		boolean showSpawning = detailMode == null || detailMode == SpecificDetailMode.SPAWNING;
