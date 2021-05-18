@@ -79,6 +79,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void onTick(MinecraftServer server)
     {
         LightQueueHUDLogger.getInstance().tick();
+        MicroTimingMarkerManager.getInstance().tick();
     }
 
     @Override
