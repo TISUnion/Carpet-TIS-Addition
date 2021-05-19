@@ -46,7 +46,7 @@ public class MicroTimingStandardCarpetLogger extends Logger
 						"^w " + translator.tr("Click to execute")
 				));
 			}
-			MicroTimingMarkerManager.getInstance().sendMarkersForPlayer(player);
+			MicroTimingMarkerManager.getInstance().sendAllMarkersForPlayer(player);
 		}
 	}
 
@@ -57,7 +57,7 @@ public class MicroTimingStandardCarpetLogger extends Logger
 		ServerPlayerEntity player = this.playerFromName(playerName);
 		if (player != null)
 		{
-			MicroTimingMarkerManager.getInstance().cleanMarkersForPlayer(player);
+			MicroTimingMarkerManager.getInstance().cleanAllMarkersForPlayer(player);
 		}
 	}
 
@@ -67,7 +67,7 @@ public class MicroTimingStandardCarpetLogger extends Logger
 		super.onPlayerConnect(player, firstTime);
 		if (player instanceof ServerPlayerEntity && MicroTimingUtil.isPlayerSubscribed(player))
 		{
-			MicroTimingMarkerManager.getInstance().sendMarkersForPlayer((ServerPlayerEntity)player);
+			MicroTimingMarkerManager.getInstance().sendAllMarkersForPlayer((ServerPlayerEntity)player);
 		}
 	}
 }

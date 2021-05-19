@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MicroTimingMarkerManager extends TranslatableBase
@@ -27,7 +28,6 @@ public class MicroTimingMarkerManager extends TranslatableBase
 	private static final MicroTimingMarkerManager INSTANCE = new MicroTimingMarkerManager();
 
 	private final Map<StorageKey, MicroTimingMarker> markers = Maps.newHashMap();
-	private long tickCounter = 0;
 
 	public MicroTimingMarkerManager()
 	{
@@ -41,7 +41,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 	public int clear()
 	{
-		this.cleanMarkersForAll();
+		this.cleanMarkersForAll(marker -> true);
 		int size = this.markers.size();
 		this.markers.clear();
 		return size;
@@ -150,37 +150,37 @@ public class MicroTimingMarkerManager extends TranslatableBase
 	 * sendShapeToAll / cleanShapeToAll method, since it's able to send multiple shapes per packet
 	 */
 
-	private void sendMarkersForPlayerInner(List<ServerPlayerEntity> playerList, boolean display)
+	private void sendMarkersForPlayerInner(List<ServerPlayerEntity> playerList, Predicate<MicroTimingMarker> markerPredicate, boolean display)
 	{
 		if (!playerList.isEmpty() && !this.markers.isEmpty())
 		{
 			ShapeDispatcher.sendShape(
 					playerList,
-					this.markers.values().stream().
+					this.markers.values().stream().filter(markerPredicate).
 							flatMap(marker -> marker.getShapeDataList(display).stream()).
 							collect(Collectors.toList())
 			);
 		}
 	}
 
-	public void sendMarkersForPlayer(ServerPlayerEntity player)
+	public void sendAllMarkersForPlayer(ServerPlayerEntity player)
 	{
-		this.sendMarkersForPlayerInner(Collections.singletonList(player), true);
+		this.sendMarkersForPlayerInner(Collections.singletonList(player), marker -> true, true);
 	}
 
-	public void cleanMarkersForPlayer(ServerPlayerEntity player)
+	public void cleanAllMarkersForPlayer(ServerPlayerEntity player)
 	{
-		this.sendMarkersForPlayerInner(Collections.singletonList(player), false);
+		this.sendMarkersForPlayerInner(Collections.singletonList(player), marker -> true, false);
 	}
 
-	public void sendMarkersForAll()
+	public void sendMarkersForAll(Predicate<MicroTimingMarker> markerPredicate)
 	{
-		this.sendMarkersForPlayerInner(MicroTimingUtil.getSubscribedPlayers(), true);
+		this.sendMarkersForPlayerInner(MicroTimingUtil.getSubscribedPlayers(), markerPredicate, true);
 	}
 
-	public void cleanMarkersForAll()
+	public void cleanMarkersForAll(Predicate<MicroTimingMarker> markerPredicate)
 	{
-		this.sendMarkersForPlayerInner(MicroTimingUtil.getSubscribedPlayers(), false);
+		this.sendMarkersForPlayerInner(MicroTimingUtil.getSubscribedPlayers(), markerPredicate, false);
 	}
 
 	/*
@@ -194,10 +194,8 @@ public class MicroTimingMarkerManager extends TranslatableBase
 	 */
 	public void tick()
 	{
-		if (this.tickCounter++ % MicroTimingMarker.MARKER_SYNC_INTERVAL == 0)
-		{
-			this.sendMarkersForAll();
-		}
+		this.sendMarkersForAll(marker -> marker.tickCounter % MicroTimingMarker.MARKER_SYNC_INTERVAL == 0);
+		this.markers.values().forEach(marker -> marker.tickCounter++);
 	}
 
 	/**
@@ -214,16 +212,8 @@ public class MicroTimingMarkerManager extends TranslatableBase
 				boolean nextState = !marker.isMovable();
 				marker.setMovable(nextState);
 				playerEntity.addChatMessage(nextState ?
-						Messenger.c(
-								Messenger.s(this.tr("on_mobility_true.pre", "Marker ")),
-								marker.toShortText(),
-								Messenger.s(this.tr("on_mobility_true.post", " is set to be §amovable§r"))
-						) :
-						Messenger.c(
-								Messenger.s(this.tr("on_mobility_false.pre", "Marker ")),
-								marker.toShortText(),
-								Messenger.s(this.tr("on_mobility_false.post", " is set to be §cimmovable§r"))
-						)
+						this.advTr("on_mobility_true", "Marker %1$s is set to be §amovable§r", marker.toShortText()) :
+						this.advTr("on_mobility_false", "Marker %1$s is set to be §cimmovable§r", marker.toShortText())
 				, true);
 				return true;
 			}
@@ -233,12 +223,11 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 	public void moveMarker(World world, BlockPos blockPos, Direction direction)
 	{
-		StorageKey prevPosKey = new StorageKey(world, blockPos);
-		MicroTimingMarker marker = this.markers.get(prevPosKey);
+		MicroTimingMarker marker = this.markers.get(new StorageKey(world, blockPos));
 		if (marker != null && marker.isMovable())
 		{
 			this.removeMarker(marker);
-			this.addMarker(marker.offset(direction));
+			this.addMarker(marker.offsetCopy(direction));
 		}
 	}
 }
