@@ -10,11 +10,12 @@
     "carpet.commands.randomlyTriggerAction.PlayerCommandMixin",
     "carpet.commands.spawnTrackingRestart.SpawnCommandMixin",
     "carpet.commands.tickWarpMaximumDuration.TickCommandMixin",
+    "carpet.events.onCarpetClientHello.ServerNetworkHandlerMixin",
+    "carpet.events.onServerLoadedWorlds.MinecraftServerMixin",
     "carpet.freezeActionPackTicking.EntityPlayerActionPackMixin",
     "carpet.hooks.CarpetServerMixin",
     "carpet.hooks.HUDControllerMixin",
     "carpet.hooks.SettingsManagerMixin",
-    "carpet.hooks.onServerLoadedWorlds.MinecraftServerMixin",
     "carpet.rule.tntRandomRange.CheckOptimizedTntEnabledValidatorMixin",
     "carpet.rule.tntRandomRange.ExplosionMixin",
     "carpet.rule.tntRandomRange.WorldAccessor",
@@ -160,7 +161,7 @@
     "translations.TranslatableTextAccessor"
   ],
   "client": [
-    "carpet.hooks.onServerLoadedWorlds.IntegratedServerMixin",
+    "carpet.events.onServerLoadedWorlds.IntegratedServerMixin",
     "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin"
   ],
   "injectors": {

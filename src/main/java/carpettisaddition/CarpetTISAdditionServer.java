@@ -10,10 +10,12 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
+import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
 import carpettisaddition.translations.TISAdditionTranslations;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -80,6 +82,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         LightQueueHUDLogger.getInstance().tick();
         MicroTimingMarkerManager.getInstance().tick();
+    }
+
+    public static void onCarpetClientHello(ServerPlayerEntity player)
+    {
+        MicroTimingStandardCarpetLogger.getInstance().onCarpetClientHello(player);
     }
 
     @Override

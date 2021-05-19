@@ -54,7 +54,7 @@ public class MicroTimingMarker
 		boxParams.put("shape", new StringValue("box"));
 		boxParams.put("color", new NumericValue(((long) ((DyeColorAccessor) (Object) this.color).getTextColor() << 8) | 0xAF));
 		boxParams.put("dim", new StringValue(serverWorld.getDimension().getType().toString()));
-		boxParams.put("duration", new NumericValue(MARKER_RENDER_DURATION));
+		boxParams.put("duration", new NumericValue(Integer.MAX_VALUE));
 		boxParams.put("from", listFromBlockPos(blockPos));
 		boxParams.put("to", listFromBlockPos(blockPos.add(1, 1, 1)));
 		this.box = new ShapeData<>(new ShapeDispatcher.Box(), boxParams);

@@ -42,7 +42,7 @@ public class TISAdditionLoggerRegistry
         LoggerRegistry.registerLogger(XPOrbLogger.getInstance().getLoggerName(), XPOrbLogger.getInstance().getStandardLogger());
         LoggerRegistry.registerLogger(RaidLogger.NAME, standardLogger(RaidLogger.NAME, null, null));
         LoggerRegistry.registerLogger(MemoryHUDLogger.NAME, standardHUDLogger(MemoryHUDLogger.NAME, null, null));
-        LoggerRegistry.registerLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.create());
+        LoggerRegistry.registerLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.getInstance());
         LoggerRegistry.registerLogger(DamageLogger.NAME, standardLogger(DamageLogger.NAME, "all", new String[]{"all", "players", "me"}));
         LoggerRegistry.registerLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
         LoggerRegistry.registerLogger(LightQueueHUDLogger.NAME, LightQueueHUDLogger.getInstance().getHUDLogger());
