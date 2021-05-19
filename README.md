@@ -40,6 +40,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [microTiming](#microTiming)
 - [microTimingDyeMarker](#microTimingDyeMarker)
 - [microTimingTarget](#microTimingTarget)
+- [microTimingTickDivision](#microTimingTarget)
 - [opPlayerNoCheat](#opPlayerNoCheat)
 - [optimizedFastEntityMovement](#optimizedFastEntityMovement)
 - [optimizedHardHitBoxEntityCollision](#optimizedHardHitBoxEntityCollision)
@@ -446,6 +447,20 @@ Modify the way to specify events to be logged in microTiming logger
 - Type: `enum`
 - Default value: `labelled`
 - Suggested options: `labelled`, `in_range`, `all`
+- Categories: `TIS`, `CREATIVE`
+
+
+## microTimingTickDivision
+
+Determine the way to divide game ticks
+
+`world_timer`: Divides at Overworld timer increment
+  
+`player_action`: Divides at the beginning of player action
+
+- Type: `enum`
+- Default value: `world_timer`
+- Suggested options: `world_timer`, `player_action`
 - Categories: `TIS`, `CREATIVE`
 
 
@@ -993,6 +1008,19 @@ Show the detail statistic of specific entity type. You can specify which part of
 
 For example, `/lifetime creeper` shows all statistic of creeper in detail, and `/lifetime creeper removal` only shows removal statistic of creeper in detail 
 
+### filter
+
+`/lifetime filter <entity_type> set <entity_selector>`
+
+`/lifetime filter <entity_type> clear`
+
+Set an entity filter for given entity type. Use `global` as the `<entity_type>` to set filter globally
+
+Entities need to be accepted by the related filter to be record by the lifetime tracker
+
+Filter is input as an `@e` style Minecraft entity selector. e.g. `@e[distance=..100,nbt={Item:{id:"minecraft:oak_sapling"}}]`
+
+Use `/lifetime filter` to display current activated filters
 
 ## tick
 

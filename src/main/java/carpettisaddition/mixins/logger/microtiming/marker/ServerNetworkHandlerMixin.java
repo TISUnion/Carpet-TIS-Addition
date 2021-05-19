@@ -15,6 +15,6 @@ public abstract class ServerNetworkHandlerMixin
 	@Inject(method = "onHello", at = @At("TAIL"), remap = false)
 	private static void onCarpetClientConnected(ServerPlayerEntity playerEntity, PacketByteBuf packetData, CallbackInfo ci)
 	{
-		MicroTimingMarkerManager.getInstance().sendMarkersForPlayer(playerEntity);
+		MicroTimingMarkerManager.getInstance().sendAllMarkersForPlayer(playerEntity);
 	}
 }
