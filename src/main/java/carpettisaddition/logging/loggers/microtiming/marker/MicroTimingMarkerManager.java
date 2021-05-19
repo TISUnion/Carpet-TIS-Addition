@@ -3,6 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.marker;
 import carpet.script.utils.ShapeDispatcher;
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.TranslatableBase;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,8 +17,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MicroTimingMarkerManager extends TranslatableBase
@@ -38,7 +41,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 	public int clear()
 	{
-		this.markers.values().forEach(MicroTimingMarker::cleanShapeToAll);
+		this.cleanMarkersForAll(marker -> true);
 		int size = this.markers.size();
 		this.markers.clear();
 		return size;
@@ -142,24 +145,57 @@ public class MicroTimingMarkerManager extends TranslatableBase
 		return Optional.ofNullable(this.markers.get(new StorageKey(world, blockPos))).map(MicroTimingMarker::getMarkerNameString);
 	}
 
-	private void sendMarkersForPlayerInner(ServerPlayerEntity player, boolean display)
+	/*
+	 * The marker operators below is more efficient than simply iterating markers and invoking marker's
+	 * sendShapeToAll / cleanShapeToAll method, since it's able to send multiple shapes per packet
+	 */
+
+	private void sendMarkersForPlayerInner(List<ServerPlayerEntity> playerList, Predicate<MicroTimingMarker> markerPredicate, boolean display)
 	{
-		ShapeDispatcher.sendShape(
-				Collections.singletonList(player),
-				this.markers.values().stream().
-						flatMap(marker -> marker.getShapeDataList(display).stream()).
-						collect(Collectors.toList())
-		);
+		if (!playerList.isEmpty() && !this.markers.isEmpty())
+		{
+			ShapeDispatcher.sendShape(
+					playerList,
+					this.markers.values().stream().filter(markerPredicate).
+							flatMap(marker -> marker.getShapeDataList(display).stream()).
+							collect(Collectors.toList())
+			);
+		}
 	}
 
-	public void sendMarkersForPlayer(ServerPlayerEntity player)
+	public void sendAllMarkersForPlayer(ServerPlayerEntity player)
 	{
-		this.sendMarkersForPlayerInner(player, true);
+		this.sendMarkersForPlayerInner(Collections.singletonList(player), marker -> true, true);
 	}
 
-	public void cleanMarkersForPlayer(ServerPlayerEntity player)
+	public void cleanAllMarkersForPlayer(ServerPlayerEntity player)
 	{
-		this.sendMarkersForPlayerInner(player, false);
+		this.sendMarkersForPlayerInner(Collections.singletonList(player), marker -> true, false);
+	}
+
+	public void sendMarkersForAll(Predicate<MicroTimingMarker> markerPredicate)
+	{
+		this.sendMarkersForPlayerInner(MicroTimingUtil.getSubscribedPlayers(), markerPredicate, true);
+	}
+
+	public void cleanMarkersForAll(Predicate<MicroTimingMarker> markerPredicate)
+	{
+		this.sendMarkersForPlayerInner(MicroTimingUtil.getSubscribedPlayers(), markerPredicate, false);
+	}
+
+	/*
+	 * marker operators ends
+	 */
+
+	/**
+	 * When a player switch a server via bungee, the scarpet shapes on the client won't reset since it's not dimension-based
+	 * So to make sure the shapes are removable, we don't send shapes with infinite duration, but shapes with limited duration
+	 * and send the shapes periodically
+	 */
+	public void tick()
+	{
+		this.sendMarkersForAll(marker -> marker.tickCounter % MicroTimingMarker.MARKER_SYNC_INTERVAL == 0);
+		this.markers.values().forEach(marker -> marker.tickCounter++);
 	}
 
 	/**
@@ -176,16 +212,8 @@ public class MicroTimingMarkerManager extends TranslatableBase
 				boolean nextState = !marker.isMovable();
 				marker.setMovable(nextState);
 				playerEntity.sendMessage(nextState ?
-						Messenger.c(
-								Messenger.s(this.tr("on_mobility_true.pre", "Marker ")),
-								marker.toShortText(),
-								Messenger.s(this.tr("on_mobility_true.post", " is set to be §amovable§r"))
-						) :
-						Messenger.c(
-								Messenger.s(this.tr("on_mobility_false.pre", "Marker ")),
-								marker.toShortText(),
-								Messenger.s(this.tr("on_mobility_false.post", " is set to be §cimmovable§r"))
-						)
+						this.advTr("on_mobility_true", "Marker %1$s is set to be §amovable§r", marker.toShortText()) :
+						this.advTr("on_mobility_false", "Marker %1$s is set to be §cimmovable§r", marker.toShortText())
 				, true);
 				return true;
 			}
@@ -195,12 +223,11 @@ public class MicroTimingMarkerManager extends TranslatableBase
 
 	public void moveMarker(World world, BlockPos blockPos, Direction direction)
 	{
-		StorageKey prevPosKey = new StorageKey(world, blockPos);
-		MicroTimingMarker marker = this.markers.get(prevPosKey);
+		MicroTimingMarker marker = this.markers.get(new StorageKey(world, blockPos));
 		if (marker != null && marker.isMovable())
 		{
 			this.removeMarker(marker);
-			this.addMarker(marker.offset(direction));
+			this.addMarker(marker.offsetCopy(direction));
 		}
 	}
 }

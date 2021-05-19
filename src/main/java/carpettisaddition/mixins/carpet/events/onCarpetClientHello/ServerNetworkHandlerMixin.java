@@ -1,7 +1,7 @@
-package carpettisaddition.mixins.logger.microtiming.marker;
+package carpettisaddition.mixins.carpet.events.onCarpetClientHello;
 
 import carpet.network.ServerNetworkHandler;
-import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
+import carpettisaddition.CarpetTISAdditionServer;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ServerNetworkHandlerMixin
 {
 	@Inject(method = "onHello", at = @At("TAIL"), remap = false)
-	private static void onCarpetClientConnected(ServerPlayerEntity playerEntity, PacketByteBuf packetData, CallbackInfo ci)
+	private static void onCarpetClientHello(ServerPlayerEntity playerEntity, PacketByteBuf packetData, CallbackInfo ci)
 	{
-		MicroTimingMarkerManager.getInstance().sendAllMarkersForPlayer(playerEntity);
+		CarpetTISAdditionServer.onCarpetClientHello(playerEntity);
 	}
 }

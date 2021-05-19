@@ -382,19 +382,6 @@ public class CarpetTISAdditionSettings
 	)
 	public static TickDivision microTimingTickDivision = TickDivision.WORLD_TIMER;
 
-	private static class ValidateTNTFuseDuration extends Validator<Integer>
-	{
-		@Override
-		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
-		{
-			return 0 <= newValue && newValue <= 32767 ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a integer from 0 to 32767";
-		}
-	}
-
 	@Rule(
 			desc = "Disable some command to prevent accidentally cheating",
 			extra = "Affects command list: /gamemode, /tp, /teleport, /give, /setblock, /summon",
@@ -559,6 +546,19 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static int tntFuseDuration = 80;
+
+	private static class ValidateTNTFuseDuration extends Validator<Integer>
+	{
+		@Override
+		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		{
+			return 0 <= newValue && newValue <= 32767 ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a integer from 0 to 32767";
+		}
+	}
 
 	@Rule(
 			desc = "Tools on the player's main hand is applied to item dropping during the explosion caused by the player",
