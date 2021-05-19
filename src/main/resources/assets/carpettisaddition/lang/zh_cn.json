@@ -334,10 +334,8 @@
   "logger.microTiming.marker.on_mark": "已§a添加§r微时序记号",
   "logger.microTiming.marker.on_unmark": "已§c移除§r微时序记号",
   "logger.microTiming.marker.on_type_switch": "已将微时序记号的模式切换至%1$s",
-  "logger.microTiming.marker.on_mobility_true.pre": "已将记号",
-  "logger.microTiming.marker.on_mobility_true.post": "设置为§a可移动§r",
-  "logger.microTiming.marker.on_mobility_false.pre": "已将记号",
-  "logger.microTiming.marker.on_mobility_false.post": "设置为§c不可移动§r",
+  "logger.microTiming.marker.on_mobility_true": "已将记号%1$s设置为§a可移动§r",
+  "logger.microTiming.marker.on_mobility_false": "已将记号%1$s设置为§c不可移动§r",
   "logger.microTiming.marker.cleared": "已清除全部微时序记号",
 
   "logger.damage.modify_reason.wearing_a_helmet": "戴着头盔",

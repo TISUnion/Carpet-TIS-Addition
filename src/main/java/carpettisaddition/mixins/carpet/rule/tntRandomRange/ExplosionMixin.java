@@ -18,22 +18,31 @@ public class ExplosionMixin
 	@Shadow @Final
 	private World world;
 
+	private void tryUnWrapWorldRandom()
+	{
+		if (this.world.random instanceof WrappedRandom)
+		{
+			((WorldAccessor)this.world).setRandom(((WrappedRandom)this.world.random).unwrap());
+		}
+	}
+
 	@Inject(method = "collectBlocksAndDamageEntities", at = @At("HEAD"))
 	private void wrapWorldRandom(CallbackInfo ci)
 	{
-		// -1.0D is the default value of rule tntRandomRange
-		if (CarpetSettings.tntRandomRange != -1.0D)
+		// Do wrapping thing server side only
+		if (!this.world.isClient())
 		{
-			((WorldAccessor)this.world).setRandom(WrappedRandom.wrap(this.world.random));
+			this.tryUnWrapWorldRandom();
+			if (CarpetSettings.tntRandomRange >= 0)
+			{
+				((WorldAccessor) this.world).setRandom(WrappedRandom.wrap(this.world.random));
+			}
 		}
 	}
 
 	@Inject(method = "collectBlocksAndDamageEntities", at = @At("RETURN"))
 	private void unwrapWorldRandom(CallbackInfo ci)
 	{
-		if (this.world.random instanceof WrappedRandom)
-		{
-			((WorldAccessor)this.world).setRandom(((WrappedRandom)this.world.random).unwrap());
-		}
+		this.tryUnWrapWorldRandom();
 	}
 }

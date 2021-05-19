@@ -36,7 +36,7 @@ public class WrappedRandom extends Random
 	@Override
 	public float nextFloat()
 	{
-		this.random.nextFloat();  // to make sure world random gets triggered too
-		return (float)CarpetSettings.tntRandomRange;
+		float vanillaResult = this.random.nextFloat();  // to make sure world random gets triggered too
+		return CarpetSettings.tntRandomRange >= 0 ? (float)CarpetSettings.tntRandomRange : vanillaResult;
 	}
 }

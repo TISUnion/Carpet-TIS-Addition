@@ -23,6 +23,10 @@ import java.util.Map;
 
 public class MicroTimingMarker
 {
+	public static final int MARKER_SYNC_INTERVAL = 5 * 20;  // 5sec
+	public static final int MARKER_RENDER_DURATION = 10 * 60 * 20;  // 5min
+	// 5min / 5sec = 60, so it should works fine unless the server tps is below 20 / 60 = 0.333
+
 	private final ServerWorld serverWorld;
 	private final BlockPos blockPos;
 	public final DyeColor color;
@@ -33,6 +37,8 @@ public class MicroTimingMarker
 	private final BaseText markerName;
 	private MicroTimingMarkerType markerType;
 	private boolean movable;
+
+	public long tickCounter;
 
 	@SuppressWarnings("ConstantConditions")
 	private MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color, @Nullable BaseText markerName, MicroTimingMarkerType markerType, boolean movable)
@@ -157,7 +163,7 @@ public class MicroTimingMarker
 	/**
 	 * Create a copied marker at offset direction
 	 */
-	public MicroTimingMarker offset(Direction direction)
+	public MicroTimingMarker offsetCopy(Direction direction)
 	{
 		return new MicroTimingMarker(this.serverWorld, this.blockPos.offset(direction), this.color, this.markerName, this.markerType, this.movable);
 	}
