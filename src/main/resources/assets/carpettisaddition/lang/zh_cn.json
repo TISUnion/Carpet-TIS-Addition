@@ -359,6 +359,7 @@
   "logger.damage.remaining_health": "剩余生命值",
 
   "logger.commandBlock.executed": "执行了",
+  "logger.commandBlock.remove_executor": "点击以删除%1$s",
 
   "logger.tickWarp.not_started": "Tick warp尚未开始",
   "logger.tickWarp.starter": "启动者",
