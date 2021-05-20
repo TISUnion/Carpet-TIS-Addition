@@ -6,11 +6,14 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.vehicle.CommandBlockMinecartEntity;
 import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.util.ChatUtil;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.CommandBlockExecutor;
 import net.minecraft.world.World;
 
@@ -31,7 +34,7 @@ public class CommandBlockLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
-	private void logCommandBlockExecution(World world, BaseText nameText, BaseText posText, CommandBlockExecutor executor)
+	private void logCommandBlockExecution(World world, BaseText nameText, BaseText posText, CommandBlockExecutor executor, String removeCommand)
 	{
 		if (!TISAdditionLoggerRegistry.__commandBlock)
 		{
@@ -66,10 +69,17 @@ public class CommandBlockLogger extends AbstractLogger
 							"c",
 							Messenger.s(finalCommandPreview),
 							Messenger.s(executor.getCommand()),
-							null
+							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, executor.getCommand())
 					),
 					"g  @ ",
-					posText
+					posText,
+					"w  ",
+					TextUtil.getFancyText(
+							"r",
+							Messenger.s("[×]"),
+							this.advTr("remove_executor", "Click to remove %1$s", nameText),
+							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, removeCommand)
+					)
 			)};
 		});
 	}
@@ -80,7 +90,8 @@ public class CommandBlockLogger extends AbstractLogger
 				world,
 				TextUtil.getBlockName(state.getBlock()),
 				TextUtil.getCoordinateText("w", pos, world.getRegistryKey()),
-				executor
+				executor,
+				String.format("/execute in %s run setblock %d %d %d %s", world.getRegistryKey().getValue(), pos.getX(), pos.getY(), pos.getZ(), Registry.BLOCK.getId(Blocks.AIR))
 		);
 	}
 
@@ -94,7 +105,8 @@ public class CommandBlockLogger extends AbstractLogger
 				entity.getEntityWorld(),
 				TextUtil.getEntityText(null, entity),
 				TextUtil.getCoordinateText("w", entity.getPos(), entity.getEntityWorld().getRegistryKey()),
-				entity.getCommandExecutor()
+				entity.getCommandExecutor(),
+				String.format("/kill %s", entity.getUuidAsString())
 		);
 	}
 }

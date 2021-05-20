@@ -1,6 +1,7 @@
 package carpettisaddition.helpers.carpet.tntRandomRange;
 
 import carpet.CarpetSettings;
+import carpettisaddition.utils.GameUtil;
 
 import java.util.Random;
 
@@ -37,6 +38,6 @@ public class WrappedRandom extends Random
 	public float nextFloat()
 	{
 		float vanillaResult = this.random.nextFloat();  // to make sure world random gets triggered too
-		return CarpetSettings.tntRandomRange >= 0 ? (float)CarpetSettings.tntRandomRange : vanillaResult;
+		return CarpetSettings.tntRandomRange >= 0 && GameUtil.isOnServerThread() ? (float)CarpetSettings.tntRandomRange : vanillaResult;
 	}
 }
