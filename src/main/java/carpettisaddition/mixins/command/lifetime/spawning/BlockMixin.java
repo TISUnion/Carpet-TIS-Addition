@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class BlockMixin
 {
 	@ModifyArg(
-			method = "dropStack",
+			method = "method_36993",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
