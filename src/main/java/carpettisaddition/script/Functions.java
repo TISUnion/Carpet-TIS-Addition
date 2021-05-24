@@ -2,33 +2,34 @@ package carpettisaddition.script;
 
 import carpet.script.annotation.Locator;
 import carpet.script.annotation.ScarpetFunction;
-import carpet.script.value.BlockValue;
 import carpet.script.value.ListValue;
 import carpet.script.value.Value;
+import carpet.script.value.ValueConversions;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Functions {
     @ScarpetFunction(maxParams = 3)
-    public boolean register_block(@Locator.Block BlockValue block) {
-        return MicroTimingLoggerManager.trackedPositions.add(block.getPos());
+    public boolean register_block(@Locator.Block BlockPos pos) {
+        return MicroTimingLoggerManager.trackedPositions.add(pos);
     }
     
     @ScarpetFunction(maxParams = 3)
-    public boolean unregister_block(@Locator.Block BlockValue block) {
-        return MicroTimingLoggerManager.trackedPositions.remove(block.getPos());
+    public boolean unregister_block(@Locator.Block BlockPos pos) {
+        return MicroTimingLoggerManager.trackedPositions.remove(pos);
     }
     
     @ScarpetFunction
     public ListValue registered_blocks() {
-        List<Value> blockList = MicroTimingLoggerManager.trackedPositions.stream().map(b-> ListValue.fromTriple(b.getX(),b.getY(),b.getZ())).collect(Collectors.toList());
+        List<Value> blockList = MicroTimingLoggerManager.trackedPositions.stream().map(ValueConversions::of).collect(Collectors.toList());
         return new ListValue(blockList);
     }
     
     @ScarpetFunction(maxParams = 3)
-    public boolean is_registered(@Locator.Block BlockValue block) {
-        return MicroTimingLoggerManager.trackedPositions.contains(block.getPos());
+    public boolean is_registered(@Locator.Block BlockPos pos) {
+        return MicroTimingLoggerManager.trackedPositions.contains(pos);
     }
 }
