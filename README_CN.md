@@ -1085,7 +1085,7 @@
 
 # 其他
 
-- 将假人的名字长度限制调整为 16 以防止真实玩家被踢出
+- 将假人的名字长度限制调整为 16 以防止真实玩家被踢出，对 1.4.38 前的 fabric-carpet 有效（fabric-carpet 1.4.38 也实现了相关的约束）
 - 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
 - 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
 - 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
@@ -1094,6 +1094,7 @@
 - 取消玩家动作包（由 `/player` 指令触发的 PlayerActionPack）在 `/tick freeze` 时的更新
 - 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
 - 修复地毯假人不响应玩家近战攻击的击退的bug（https://github.com/gnembon/fabric-carpet/issues/745）
+- 使指令 `/info entity` 能正常地运行
 
 -----------
 

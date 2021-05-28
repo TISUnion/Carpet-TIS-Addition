@@ -1085,7 +1085,7 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 
 # Other Stuffs
 
-- Set the maximum length of fake player's markerName to 16 to prevent kicking out other players
+- Set the maximum length of fake player's markerName to 16 to prevent kicking out other players (Works before fabric-carpet v1.4.38, fabric-carpet v1.4.38 implemented the same check)
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
 - Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
@@ -1094,6 +1094,7 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 - Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
 - Added OP permission check to cheaty command `/player <someone> mount anything`
 - Fixed carpet fake player not responding to knockback from player melee attack (https://github.com/gnembon/fabric-carpet/issues/745)
+- Make `/info entity` work again
 
 -----------
 
