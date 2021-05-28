@@ -6,8 +6,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 
@@ -54,16 +52,5 @@ public abstract class PlayerCommandMixin
 	private static String getStringWithPrefixAtCantSpawn(final CommandContext<?> context, final String name)
 	{
 		return getDecoratedString(context, name);
-	}
-
-	@ModifyConstant(
-			method = "spawn",
-			constant = @Constant(intValue = 40),
-			require = 1,
-			remap = false
-	)
-	private static int nameLengthLimit(int value)
-	{
-		return 16;
 	}
 }
