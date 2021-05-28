@@ -78,6 +78,7 @@ public class StackTracePrinter
 	// a $ symbol with hover text showing the stack trace
 	public BaseText toSymbolText()
 	{
-		return TextUtil.getFancyText("f", Messenger.s("$"), this.toBaseText(), null);
+		BaseText baseText = this.toBaseText();
+		return TextUtil.getFancyText("f", Messenger.s("$"), baseText, null);  // no COPY_TO_CLIPBOARD in 1.14
 	}
 }
