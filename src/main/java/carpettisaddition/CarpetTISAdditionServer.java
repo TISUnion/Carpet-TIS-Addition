@@ -3,6 +3,7 @@ package carpettisaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpet.script.CarpetExpression;
+import carpet.script.annotation.AnnotationParser;
 import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.raid.RaidCommand;
@@ -53,6 +54,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         CarpetServer.settingsManager.parseSettingsClass(CarpetTISAdditionSettings.class);
 
+        AnnotationParser.parseFunctionClass(Functions.class);
         MicroTimingEvent.noop();  //to register event properly
     }
 
@@ -111,11 +113,5 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public Map<String, String> canHasTranslations(String lang)
     {
         return TISAdditionTranslations.getTranslationFromResourcePath(lang);
-    }
-
-    @Override
-    public void scarpetApi(CarpetExpression expression)
-    {
-        Functions.apply(expression.getExpr());
     }
 }
