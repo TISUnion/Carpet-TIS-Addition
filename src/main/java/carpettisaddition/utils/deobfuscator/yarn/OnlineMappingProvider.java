@@ -26,7 +26,7 @@ import java.util.List;
 public class OnlineMappingProvider
 {
 	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
-	public static final String MINECRAFT_VERSION = MinecraftVersion.create().getName();
+	public static final String MINECRAFT_VERSION = MinecraftVersion.GAME_VERSION.getName();
 	public static final String YARN_META_URL = "https://meta.fabricmc.net/v2/versions/yarn/" + MINECRAFT_VERSION;
 	public static final String YARN_MAPPING_URL_BASE = "https://maven.fabricmc.net/net/fabricmc/yarn/";
 	public static final String MAPPINGS_JAR_LOCATION = "mappings/mappings.tiny";
