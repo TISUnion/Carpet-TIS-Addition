@@ -5,6 +5,7 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.base.Joiner;
 import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -78,6 +79,7 @@ public class StackTracePrinter
 	// a $ symbol with hover text showing the stack trace
 	public BaseText toSymbolText()
 	{
-		return TextUtil.getFancyText("f", Messenger.s("$"), this.toBaseText(), null);
+		BaseText baseText = this.toBaseText();
+		return TextUtil.getFancyText("f", Messenger.s("$"), baseText, new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, baseText.asString()));
 	}
 }
