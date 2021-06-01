@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet.commands.noPlayerMountAbuse;
+package carpettisaddition.mixins.carpet.tweaks.command.noPlayerMountAbuse;
 
 import carpet.helpers.EntityPlayerActionPack;
 import carpet.utils.Messenger;

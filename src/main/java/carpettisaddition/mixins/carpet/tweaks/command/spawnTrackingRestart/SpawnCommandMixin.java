@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet.commands.spawnTrackingRestart;
+package carpettisaddition.mixins.carpet.tweaks.command.spawnTrackingRestart;
 
 import carpet.commands.SpawnCommand;
 import com.mojang.brigadier.builder.ArgumentBuilder;
