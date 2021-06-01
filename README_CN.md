@@ -27,6 +27,7 @@
 - [发射器发射龙息](#发射器发射龙息-dispensersFireDragonBreath)
 - [enchant指令约束移除](#enchant指令约束移除-enchantCommandNoRestriction)
 - [实体速度丢失](#实体速度丢失-entityMomentumLoss)
+- [爆炸数据包广播范围](#爆炸数据包广播范围-explosionPacketRange)
 - [假人名称前缀](#假人名称前缀-fakePlayerNamePrefix)
 - [假人名称后缀](#假人名称后缀-fakePlayerNameSuffix)
 - [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
@@ -253,6 +254,16 @@
 - 默认值: `true`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `EXPERIMENTAL`
+
+
+## 爆炸数据包广播范围 (explosionPacketRange)
+
+设置在爆炸发生时，爆炸数据包对玩家的广播范围
+
+- 类型: `double`
+- 默认值: `64`
+- 参考选项: `0`, `16`, `64`, `128`, `2048`
+- 分类: `TIS`, `CREATIVE`
 
 
 ## 假人名称前缀 (fakePlayerNamePrefix)

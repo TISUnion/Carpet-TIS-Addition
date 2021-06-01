@@ -119,6 +119,7 @@
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
     "rule.enchantCommandNoRestriction.EnchantCommandMixin",
     "rule.entityMomentumLoss.EntityMixin",
+    "rule.explosionPacketRange.ServerWorldMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
     "rule.fluidDestructionDisabled.BaseFluidMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",

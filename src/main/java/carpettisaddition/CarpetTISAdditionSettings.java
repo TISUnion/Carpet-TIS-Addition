@@ -134,6 +134,16 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean entityMomentumLoss = true;
 
+	public static final double VANILLA_EXPLOSION_PACKET_RANGE = 64.0D;  // sqrt(4096)
+	@Rule(
+			desc = "Set the range where player will receive an explosion packet when an explosion happens",
+			validate = Validator.NONNEGATIVE_NUMBER.class,
+			options = {"0", "16", "64", "128", "2048"},
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static double explosionPacketRange = VANILLA_EXPLOSION_PACKET_RANGE;
+
 	public static final String fakePlayerNameNoExtra = "#none";
 	@Rule(
 			desc = "Add a name prefix for fake players spawned with /player command",
