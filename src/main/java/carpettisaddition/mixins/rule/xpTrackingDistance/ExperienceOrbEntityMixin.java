@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class ExperienceOrbEntityMixin
 {
 	@ModifyConstant(
-			method = {"tick", "onEverySecond"},
+			method = {"tick", "expensiveUpdate"},
 			require = 1,
 			constant = @Constant(doubleValue = 8.0D)
 	)
@@ -24,7 +24,7 @@ public abstract class ExperienceOrbEntityMixin
 	}
 
 	@ModifyConstant(
-			method = {"tick", "onEverySecond"},
+			method = {"tick", "expensiveUpdate"},
 			require = 1,
 			constant = @Constant(doubleValue = 64.0D)
 	)
