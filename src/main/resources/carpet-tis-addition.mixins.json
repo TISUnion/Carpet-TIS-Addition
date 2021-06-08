@@ -104,6 +104,7 @@
     "logger.ticket.ChunkTicketTypeMixin",
     "logger.ticket.ServerChunkManagerMixin",
     "logger.tickwarp.TickCommandMixin",
+    "logger.tickwarp.TickSpeedMixin",
     "logger.turtleegg.StepAndDestroyBlockGoalMixin",
     "logger.turtleegg.TurtleEggBlockMixin",
     "logger.xporb.ExperienceOrbEntityMixin",

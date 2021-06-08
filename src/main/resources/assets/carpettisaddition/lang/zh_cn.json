@@ -361,12 +361,15 @@
   "logger.commandBlock.executed": "执行了",
   "logger.commandBlock.remove_executor": "点击以删除%1$s",
 
-  "logger.tickWarp.not_started": "Tick warp尚未开始",
+  "logger.tickWarp.not_started": "tick warp尚未开始",
   "logger.tickWarp.starter": "启动者",
   "logger.tickWarp.server": "服务器",
   "logger.tickWarp.average_tps": "平均TPS",
   "logger.tickWarp.average_mspt": "平均MSPT",
-  "logger.tickWarp.estimated_remaining_time": "剩余时间估算",
+  "logger.tickWarp.time_info": "%1$smin (游戏内) / %2$smin (现实)",
+  "logger.tickWarp.elapsed_time": "已流逝时间",
+  "logger.tickWarp.estimated_time": "剩余时间",
+  "logger.tickWarp.show_history_header": "上一次tick warp的结果 (%.2fmin前)",
 
 
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
