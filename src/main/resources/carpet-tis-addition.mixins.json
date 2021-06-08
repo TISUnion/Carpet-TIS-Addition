@@ -16,6 +16,8 @@
     "carpet.tweaks.command.spawnTrackingRestart.SpawnCommandMixin",
     "carpet.tweaks.command.tickWarpMaximumDuration.TickCommandMixin",
     "carpet.tweaks.freezeActionPackTicking.EntityPlayerActionPackMixin",
+    "carpet.tweaks.logger.explosion.ExplosionLogHelperMixin",
+    "carpet.tweaks.logger.explosion.TntEntityMixin",
     "carpet.tweaks.rule.tntRandomRange.CheckOptimizedTntEnabledValidatorMixin",
     "carpet.tweaks.rule.tntRandomRange.ExplosionMixin",
     "carpet.tweaks.rule.tntRandomRange.WorldAccessor",
