@@ -68,7 +68,7 @@ public class LifeTimeTracker extends AbstractTracker
 	public boolean willTrackEntity(Entity entity)
 	{
 		return isActivated() &&
-				((IEntity)entity).getTrackId() == INSTANCE.getCurrentTrackId() &&
+				((IEntity)entity).getTrackId() == this.getCurrentTrackId() &&
 				LifeTimeTrackerUtil.isTrackedEntity(entity);
 	}
 
@@ -123,7 +123,7 @@ public class LifeTimeTracker extends AbstractTracker
 		Messenger.m(source, Messenger.s(String.format(this.tr("unknown_entity_type", "Unknown entity type \"%s\""), entityTypeString), "r"));
 	}
 
-	protected int printTrackingResultSpecific(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
+	private void printTrackingResultSpecificInner(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
 	{
 		Optional<EntityType<?>> entityTypeOptional = LifeTimeTrackerUtil.getEntityTypeFromName(entityTypeString);
 		if (entityTypeOptional.isPresent())
@@ -138,7 +138,7 @@ public class LifeTimeTracker extends AbstractTracker
 				catch (IllegalArgumentException e)
 				{
 					Messenger.m(source, Messenger.s(String.format(this.tr("invalid_detail", "Invalid statistic detail \"%s\""), detailModeString), "r"));
-					return 1;
+					return;
 				}
 			}
 
@@ -161,8 +161,13 @@ public class LifeTimeTracker extends AbstractTracker
 		{
 			this.sendUnknownEntity(source, entityTypeString);
 		}
-		return 1;
 	}
+
+	public int printTrackingResultSpecific(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
+	{
+		return this.doWhenTracking(source, () -> this.printTrackingResultSpecificInner(source, entityTypeString, detailModeString, realtime));
+	}
+
 
 	protected int showHelp(ServerCommandSource source)
 	{

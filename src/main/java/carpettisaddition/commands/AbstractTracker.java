@@ -142,12 +142,11 @@ public abstract class AbstractTracker extends TranslatableBase
 		return 1;
 	}
 
-	public int reportTracking(ServerCommandSource source, boolean realtime)
+	protected int doWhenTracking(ServerCommandSource source, Runnable runnable)
 	{
 		if (this.isTracking())
 		{
-			this.printTrackingResult(source, realtime);
-			return 1;
+			runnable.run();
 		}
 		else
 		{
@@ -156,6 +155,11 @@ public abstract class AbstractTracker extends TranslatableBase
 			));
 		}
 		return 1;
+	}
+
+	public int reportTracking(ServerCommandSource source, boolean realtime)
+	{
+		return this.doWhenTracking(source, () -> this.printTrackingResult(source, realtime));
 	}
 
 	public LiteralArgumentBuilder<ServerCommandSource> getTrackingArgumentBuilder()
