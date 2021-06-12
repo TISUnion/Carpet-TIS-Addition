@@ -162,6 +162,7 @@
     "rule.tooledTNT.ExplosionMixin",
     "rule.tooledTNT.OptimizedExplosionMixin",
     "rule.totallyNoBlockUpdate.BlockMixin",
+    "rule.totallyNoBlockUpdate.RedstoneWireBlockMixin",
     "rule.totallyNoBlockUpdate.WorldMixin",
     "rule.turtleEggTrampledDisabled.StepAndDestroyBlockGoalMixin",
     "rule.turtleEggTrampledDisabled.TurtleEggBlockMixin",
