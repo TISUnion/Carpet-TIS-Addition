@@ -22,7 +22,7 @@ import java.util.List;
 @Mixin(ExplosionLogHelper.class)
 public abstract class ExplosionLogHelperMixin
 {
-	@Shadow @Final public Entity entity;
+	@Shadow(remap = false) @Final public Entity entity;
 
 	/**
 	 * velocity -> angle in [0, 2pi)
