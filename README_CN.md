@@ -438,7 +438,7 @@
 *由于 fabric carpet 对 scarpet 形状渲染及 carpet 网络通讯协议支持的缺乏，视觉渲染相关功能无法在 1.14.4 分支中使用*
 
 - 类型: `string`
-- 默认值: `false`
+- 默认值: `true`
 - 参考选项: `false`, `true`, `clear`
 - 分类: `TIS`, `CREATIVE`
 

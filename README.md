@@ -438,7 +438,7 @@ You can see boxes at marked blocks with fabric-carpet installed on your client. 
 *Visual rendering thing doesn't work in 1.14.4 branch due to lack of carpet network and scarpet shape rendering framework in frabic carpet*
 
 - Type: `string`
-- Default value: `false`
+- Default value: `true`
 - Suggested options: `false`, `true`, `clear`
 - Categories: `TIS`, `CREATIVE`
 

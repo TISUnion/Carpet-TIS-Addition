@@ -378,7 +378,7 @@ public class CarpetTISAdditionSettings
 			validate = ValidateMicroTimingDyeMarker.class,
 			category = {TIS, CREATIVE}
 	)
-	public static String microTimingDyeMarker = "false";
+	public static String microTimingDyeMarker = "true";
 
 	private static class ValidateMicroTimingDyeMarker extends Validator<String>
 	{
