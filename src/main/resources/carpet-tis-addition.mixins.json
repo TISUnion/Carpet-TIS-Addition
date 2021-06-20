@@ -158,6 +158,7 @@
     "rule.tileTickLimit.LithiumServerTickSchedulerMixin",
     "rule.tileTickLimit.ServerTickSchedulerMixin",
     "rule.tntDupingFix.PistonBlockMixin",
+    "rule.tntFuseDuration.TntBlockMixin",
     "rule.tntFuseDuration.TntEntityMixin",
     "rule.tooledTNT.ExplosionMixin",
     "rule.tooledTNT.OptimizedExplosionMixin",
