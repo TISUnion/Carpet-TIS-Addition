@@ -27,6 +27,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [dispensersFireDragonBreath](#dispensersFireDragonBreath)
 - [enchantCommandNoRestriction](#enchantCommandNoRestriction)
 - [entityMomentumLoss](#entityMomentumLoss)
+- [explosionPacketRange](#explosionPacketRange)
 - [fakePlayerNamePrefix](#fakePlayerNamePrefix)
 - [fakePlayerNameSuffix](#fakePlayerNameSuffix)
 - [fluidDestructionDisabled](#fluidDestructionDisabled)
@@ -253,6 +254,16 @@ Set it to `false` to disable entity axis momentum cancellation if it's above 10m
 - Default value: `true`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `EXPERIMENTAL`
+
+
+## explosionPacketRange
+
+Set the range where player will receive an explosion packet when an explosion happens
+
+- Type: `double`
+- Default value: `64`
+- Suggested options: `0`, `16`, `64`, `128`, `2048`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## fakePlayerNamePrefix

@@ -49,6 +49,9 @@
   "rule.entityMomentumLoss.name": "实体速度丢失",
   "rule.entityMomentumLoss.desc": "将其设为 false 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失",
 
+  "rule.explosionPacketRange.name": "爆炸数据包广播范围",
+  "rule.explosionPacketRange.desc": "设置在爆炸发生时，爆炸数据包对玩家的广播范围",
+
   "rule.fakePlayerNamePrefix.name": "假人名称前缀",
   "rule.fakePlayerNamePrefix.desc": "为/player指令召唤出来的假人名称添加指定前缀",
   "rule.fakePlayerNamePrefix.extra.0": "将其设置为#none以阻止添加前缀",
