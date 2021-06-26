@@ -142,12 +142,12 @@ public class LifeTimeCommand extends AbstractCommand
 						argument(entityTypeArg, string()).suggests((c, b) -> suggestMatching(LifeTimeTracker.getInstance().getAvailableEntityType(), b)).
 						then(realtimeActionNode(
 								argument(detailModeArg, string()).suggests((c, b) -> suggestMatching(SpecificDetailMode.getSuggestion(), b)),
-								// lifetime tracking creeper spawning
+								// lifetime creeper spawning
 								(c, realtime) -> LifeTimeTracker.getInstance().printTrackingResultSpecific(
 										c.getSource(), getString(c, entityTypeArg), getString(c, detailModeArg), realtime
 								)
 						)),
-						// lifetime tracking creeper
+						// lifetime creeper
 						(c, realtime) -> LifeTimeTracker.getInstance().printTrackingResultSpecific(
 								c.getSource(), getString(c, entityTypeArg), null, realtime
 						)
