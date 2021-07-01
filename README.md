@@ -22,7 +22,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [chunkTickSpeed](#chunkTickSpeed)
 - [commandLifeTime](#commandLifeTime)
 - [commandRaid](#commandRaid)
-- [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
+- [creativeOpenContainerForcibly](#creativeOpenContainerForcibly)
 - [dispenserNoItemCost](#dispenserNoItemCost)
 - [dispensersFireDragonBreath](#dispensersFireDragonBreath)
 - [enchantCommandNoRestriction](#enchantCommandNoRestriction)
