@@ -25,7 +25,7 @@ public abstract class MinecraftServerMixin
 		MicroTimingLoggerManager.setTickStage(TickStage.AUTO_SAVE);
 	}
 
-	@Inject(method = "method_16208", at = @At("HEAD"))
+	@Inject(method = "runTasksTillTickEnd", at = @At("HEAD"))
 	private void onStageAsyncTask(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.ASYNC_TASK);
