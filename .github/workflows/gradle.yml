@@ -6,6 +6,7 @@ name: Java CI with Gradle
 on: 
   push:
     paths:
+    - "gradle.properties"
     - "src/**"
     - ".github/**"
   pull_request:
