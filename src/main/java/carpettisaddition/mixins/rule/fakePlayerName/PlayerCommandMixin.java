@@ -16,14 +16,16 @@ public abstract class PlayerCommandMixin
 {
 	private static String getDecoratedString(final CommandContext<?> context, final String name)
 	{
+		String rulePrefix = CarpetTISAdditionSettings.fakePlayerNamePrefix;
+		String ruleSuffix = CarpetTISAdditionSettings.fakePlayerNameSuffix;
 		String playerName = StringArgumentType.getString(context, name);
-		if (!CarpetTISAdditionSettings.fakePlayerNamePrefix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra))
+		if (!rulePrefix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra) && !playerName.startsWith(rulePrefix))
 		{
-			playerName = CarpetTISAdditionSettings.fakePlayerNamePrefix + playerName;
+			playerName = rulePrefix + playerName;
 		}
-		if (!CarpetTISAdditionSettings.fakePlayerNameSuffix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra))
+		if (!ruleSuffix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra) && !playerName.endsWith(ruleSuffix))
 		{
-			playerName = playerName + CarpetTISAdditionSettings.fakePlayerNameSuffix;
+			playerName = playerName + ruleSuffix;
 		}
 		return playerName;
 	}
