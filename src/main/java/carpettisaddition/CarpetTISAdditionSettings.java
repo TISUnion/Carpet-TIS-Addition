@@ -652,6 +652,12 @@ public class CarpetTISAdditionSettings
 	public static boolean turtleEggTrampledDisabled = false;
 
 	@Rule(
+			desc = "Enable visualize projectile logger",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean visualizeProjectileLoggerEnabled = false;
+
+	@Rule(
 			desc = "Overwrite the tracking distance of xp orb",
 			extra = "Change it to 0 to disable tracking",
 			options = {"0", "1", "8", "32"},
