@@ -10,7 +10,7 @@ public class LifeTimeStandardCarpetHUDLogger extends ExtensionHUDLogger
 {
 	public LifeTimeStandardCarpetHUDLogger()
 	{
-		super(TISAdditionLoggerRegistry.getLoggerField(LifeTimeHUDLogger.NAME), LifeTimeHUDLogger.NAME, null,null);
+		super(TISAdditionLoggerRegistry.getLoggerField(LifeTimeHUDLogger.NAME), LifeTimeHUDLogger.NAME, null, null);
 	}
 
 	@Override

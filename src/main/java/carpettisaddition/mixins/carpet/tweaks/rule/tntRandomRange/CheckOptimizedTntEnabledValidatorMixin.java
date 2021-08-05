@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet.rule.tntRandomRange;
+package carpettisaddition.mixins.carpet.tweaks.rule.tntRandomRange;
 
 import carpet.settings.ParsedRule;
 import net.minecraft.server.command.ServerCommandSource;

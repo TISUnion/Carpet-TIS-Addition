@@ -3,6 +3,7 @@ package carpettisaddition.translations;
 import carpet.utils.Messenger;
 import carpettisaddition.mixins.translations.TranslatableTextAccessor;
 import net.minecraft.text.BaseText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.text.TranslationException;
 
@@ -101,6 +102,13 @@ public class Translator implements Translatable
 	@SuppressWarnings("ConstantConditions")
 	public BaseText advTr(String key, String defaultKeyText, Object ...args)
 	{
+		for (int i = 0; i < args.length; i++)
+		{
+			if (!(args[i] instanceof Text))
+			{
+				args[i] = Messenger.s(args[i].toString());
+			}
+		}
 		String msgKeyString = this.tr(key, defaultKeyText);
 		TranslatableTextAccessor fixedTranslatableText = (TranslatableTextAccessor)(new TranslatableText(msgKeyString, args));
 		try

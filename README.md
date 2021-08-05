@@ -22,11 +22,12 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [chunkTickSpeed](#chunkTickSpeed)
 - [commandLifeTime](#commandLifeTime)
 - [commandRaid](#commandRaid)
-- [creativeOpenShulkerBoxForcely](#creativeOpenShulkerBoxForcely)
+- [creativeOpenContainerForcibly](#creativeOpenContainerForcibly)
 - [dispenserNoItemCost](#dispenserNoItemCost)
 - [dispensersFireDragonBreath](#dispensersFireDragonBreath)
 - [enchantCommandNoRestriction](#enchantCommandNoRestriction)
 - [entityMomentumLoss](#entityMomentumLoss)
+- [explosionPacketRange](#explosionPacketRange)
 - [fakePlayerNamePrefix](#fakePlayerNamePrefix)
 - [fakePlayerNameSuffix](#fakePlayerNameSuffix)
 - [fluidDestructionDisabled](#fluidDestructionDisabled)
@@ -255,6 +256,16 @@ Set it to `false` to disable entity axis momentum cancellation if it's above 10m
 - Categories: `TIS`, `EXPERIMENTAL`
 
 
+## explosionPacketRange
+
+Set the range where player will receive an explosion packet when an explosion happens
+
+- Type: `double`
+- Default value: `64`
+- Suggested options: `0`, `16`, `64`, `128`, `2048`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## fakePlayerNamePrefix
 
 Add a markerName prefix for fake players spawned with `/player` command
@@ -297,7 +308,7 @@ It's useful to prevent liquid from accidentally flooding your redstone wiring in
 
 ## hopperCountersUnlimitedSpeed
 
-Make hopper pointing towards wool has infinity speed to suck in or transfer items
+Make hopper pointing towards wool has infinity speed to suck in or transfer items with no cooldown
 
 Only works when hopperCounters option in Carpet Mod is on
 
@@ -427,7 +438,7 @@ You can see boxes at marked blocks with fabric-carpet installed on your client. 
 *Visual rendering thing doesn't work in 1.14.4 branch due to lack of carpet network and scarpet shape rendering framework in frabic carpet*
 
 - Type: `string`
-- Default value: `false`
+- Default value: `true`
 - Suggested options: `false`, `true`, `clear`
 - Categories: `TIS`, `CREATIVE`
 
@@ -1083,18 +1094,22 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 
 -----------
 
-# Other Stuffs
+# Carpet Command Tweaks
 
-- Set the maximum length of fake player's markerName to 16 to prevent kicking out other players (Works before fabric-carpet v1.4.38, fabric-carpet v1.4.38 implemented the same check)
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
-- Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
-- Added `randomly` argument for `/player` command. e.g. `/player Steve use randomly 10 20` will make Steve right-click at dynamically varying random intervals in range \[10, 20]
-- Added `/spawn tracking restart` for lazy man
-- Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
-- Added OP permission check to cheaty command `/player <someone> mount anything`
-- Fixed carpet fake player not responding to knockback from player melee attack (https://github.com/gnembon/fabric-carpet/issues/745)
+- Add `randomly` argument for `/player` command. e.g. `/player Steve use randomly 10 20` will make Steve right-click at dynamically varying random intervals in range \[10, 20]
+- Add `/spawn tracking restart` for lazy man
+- Add OP permission check to cheaty command `/player <someone> mount anything`
 - Make `/info entity` work again
+- Show tile tick events & block events in `/info block` command
+
+# Misc
+
+- Set the maximum length of fake player's markerName to 16 to prevent kicking out other players (Works before fabric-carpet v1.4.38, fabric-carpet v1.4.38 implemented the same check)
+- Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
+- Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
+- Fixed carpet fake player not responding to knockback from player melee attack (https://github.com/gnembon/fabric-carpet/issues/745)
 
 -----------
 
@@ -1106,17 +1121,18 @@ Current maintaining branches:
 - 1.14.4, for Minecraft 1.14.4
 - 1.15.2, for Minecraft 1.15.2
 - 1.16.5, for Minecraft 1.16.4 to 1.16.5
-- 1.17, for Minecraft 1.17 snapshots
+- 1.17.x, for Minecraft 1.17.1
 
 Current archived branches:
 - 1.16, for Minecraft 1.16 to 1.16.1
 - 1.16.3, for Minecraft 1.16.2 to 1.16.3
+- 1.17, for Minecraft 1.17
 
 For general new features, implement them in 1.15.2 branch first then merge it into other branches
 
 Branches merge order:
 - 1.15.2 -> 1.14.4
-- 1.15.2 -> 1.16.5 -> 1.17
+- 1.15.2 -> 1.16.5 -> 1.17.x
 - 1.15.2 -> master (when release)
 
 For version specific fixes / patches, implement them in relevant branches

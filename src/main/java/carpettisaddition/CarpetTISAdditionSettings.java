@@ -134,6 +134,16 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean entityMomentumLoss = true;
 
+	public static final double VANILLA_EXPLOSION_PACKET_RANGE = 64.0D;  // sqrt(4096)
+	@Rule(
+			desc = "Set the range where player will receive an explosion packet when an explosion happens",
+			validate = Validator.NONNEGATIVE_NUMBER.class,
+			options = {"0", "16", "64", "128", "2048"},
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static double explosionPacketRange = VANILLA_EXPLOSION_PACKET_RANGE;
+
 	public static final String fakePlayerNameNoExtra = "#none";
 	@Rule(
 			desc = "Add a name prefix for fake players spawned with /player command",
@@ -184,7 +194,7 @@ public class CarpetTISAdditionSettings
 	public static boolean fluidDestructionDisabled = false;
 
 	@Rule(
-			desc = "Make hopper pointing towards wool has infinity speed to suck in or transfer items",
+			desc = "Make hopper pointing towards wool has infinity speed to suck in or transfer items with no cooldown",
 			extra = {
 					"Only works when hopperCounters option in Carpet Mod is on"
 			},
@@ -368,7 +378,7 @@ public class CarpetTISAdditionSettings
 			validate = ValidateMicroTimingDyeMarker.class,
 			category = {TIS, CREATIVE}
 	)
-	public static String microTimingDyeMarker = "false";
+	public static String microTimingDyeMarker = "true";
 
 	private static class ValidateMicroTimingDyeMarker extends Validator<String>
 	{
@@ -640,6 +650,12 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static boolean turtleEggTrampledDisabled = false;
+
+	@Rule(
+			desc = "Enable visualize projectile logger",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean visualizeProjectileLoggerEnabled = false;
 
 	@Rule(
 			desc = "Overwrite the tracking distance of xp orb",

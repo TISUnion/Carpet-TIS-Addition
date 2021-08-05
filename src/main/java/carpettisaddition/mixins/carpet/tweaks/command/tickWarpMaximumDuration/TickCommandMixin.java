@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet.commands.tickWarpMaximumDuration;
+package carpettisaddition.mixins.carpet.tweaks.command.tickWarpMaximumDuration;
 
 import carpet.commands.TickCommand;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
