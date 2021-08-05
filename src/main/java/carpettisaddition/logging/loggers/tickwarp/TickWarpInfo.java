@@ -27,6 +27,6 @@ public class TickWarpInfo
 
 	public ServerPlayerEntity getTimeAdvancer()
 	{
-		return TickSpeed.time_advancerer;
+		return TickSpeed.time_advancerer instanceof ServerPlayerEntity ? (ServerPlayerEntity)TickSpeed.time_advancerer : null;
 	}
 }

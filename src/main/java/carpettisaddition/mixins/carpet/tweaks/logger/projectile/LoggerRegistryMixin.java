@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class LoggerRegistryMixin
 {
 	@ModifyArg(
-			method = "registerLoggers",
+			method = "initLoggers",
 			slice = @Slice(
 					from = @At(
 							value = "CONSTANT",
@@ -23,7 +23,7 @@ public abstract class LoggerRegistryMixin
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lcarpet/logging/Logger;stardardLogger(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)Lcarpet/logging/Logger;",
+					target = "Lcarpet/logging/Logger;<init>(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V",
 					ordinal = 0,
 					remap = false
 			),

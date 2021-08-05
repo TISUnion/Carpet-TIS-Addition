@@ -1,9 +1,9 @@
 package carpettisaddition.mixins.carpet.tweaks.logger.explosion;
 
-import carpet.logging.logHelpers.ExplosionLogHelper;
 import carpet.utils.Messenger;
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ITntEntity;
 import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.compact.ExplosionLogHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.text.BaseText;
