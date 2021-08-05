@@ -31,8 +31,8 @@ public abstract class SnowBallEntityMixin extends ThrownItemEntity
 				if (this.getVelocity().lengthSquared() > 0)
 				{
 					this.velocityDirty = true;
+					this.setVelocity(Vec3d.ZERO);
 				}
-				this.setVelocity(Vec3d.ZERO);
 				VisualizeTrajectoryHelper.addVisualizer(this);
 			}
 			else

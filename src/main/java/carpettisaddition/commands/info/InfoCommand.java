@@ -100,7 +100,7 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 			for (BlockEvent be : blockEvents)
 			{
 				result.add(Messenger.c(
-						"w    ",
+						"w     ",
 						TextUtil.getBlockName(be.getBlock()),
 						String.format("w : id = %d, param = %d", be.getType(), be.getData()))
 				);
