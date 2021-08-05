@@ -32,6 +32,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	@Shadow public abstract double getHopperX();
 	@Shadow public abstract double getHopperY();
 	@Shadow public abstract double getHopperZ();
+	@Shadow protected abstract void setCooldown(int cooldown);
 
 	public HopperBlockEntityMixin()
 	{
@@ -42,13 +43,15 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			method = "insertAndExtract",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V"
+					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V",
+					shift = At.Shift.AFTER
 			)
 	)
-	private void onActionSuccess(Supplier<Boolean> extractMethod, CallbackInfoReturnable<Boolean> cir)
+	private void doHopperCountersUnlimitedSpeed(Supplier<Boolean> extractMethod, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (CarpetSettings.hopperCounters && CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed)
 		{
+			// hopper counter check
 			World world = getWorld();
 			if (world == null)
 			{
@@ -59,6 +62,8 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			{
 				return;
 			}
+
+			// unlimited speed
 			for (int i = OPERATION_LIMIT - 1; i >= 0; i--)
 			{
 				boolean flag = false;
@@ -83,6 +88,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 					CarpetTISAdditionServer.LOGGER.warn(String.format("Hopper in %s exceeded hopperCountersUnlimitedSpeed operation limit %d", new BlockPos(getHopperX(), getHopperY(), getHopperZ()), OPERATION_LIMIT));
 				}
 			}
+
+			// no cooldown
+			this.setCooldown(0);
 		}
 	}
 

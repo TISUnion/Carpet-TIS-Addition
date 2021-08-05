@@ -67,7 +67,7 @@
   "rule.fluidDestructionDisabled.extra.1": "这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路",
 
   "rule.hopperCountersUnlimitedSpeed.name": "漏斗计数器无限速度",
-  "rule.hopperCountersUnlimitedSpeed.desc": "当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度",
+  "rule.hopperCountersUnlimitedSpeed.desc": "当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度，且无冷却时间",
   "rule.hopperCountersUnlimitedSpeed.extra.0": "仅当Carpet Mod中的hopperCounters开启时有效",
 
   "rule.hopperNoItemCost.name": "漏斗不消耗物品",

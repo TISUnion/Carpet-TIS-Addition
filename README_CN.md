@@ -308,7 +308,7 @@
 
 ## 漏斗计数器无限速度 (hopperCountersUnlimitedSpeed)
 
-当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度
+当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度，且无冷却时间
 
 仅当 Carpet Mod 中的 hopperCounters 开启时有效
 

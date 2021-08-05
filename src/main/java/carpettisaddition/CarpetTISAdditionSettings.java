@@ -194,7 +194,7 @@ public class CarpetTISAdditionSettings
 	public static boolean fluidDestructionDisabled = false;
 
 	@Rule(
-			desc = "Make hopper pointing towards wool has infinity speed to suck in or transfer items",
+			desc = "Make hopper pointing towards wool has infinity speed to suck in or transfer items with no cooldown",
 			extra = {
 					"Only works when hopperCounters option in Carpet Mod is on"
 			},

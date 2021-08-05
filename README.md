@@ -308,7 +308,7 @@ It's useful to prevent liquid from accidentally flooding your redstone wiring in
 
 ## hopperCountersUnlimitedSpeed
 
-Make hopper pointing towards wool has infinity speed to suck in or transfer items
+Make hopper pointing towards wool has infinity speed to suck in or transfer items with no cooldown
 
 Only works when hopperCounters option in Carpet Mod is on
 
