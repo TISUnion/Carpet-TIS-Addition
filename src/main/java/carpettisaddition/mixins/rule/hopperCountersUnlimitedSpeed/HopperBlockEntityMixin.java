@@ -89,7 +89,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			}
 
 			// no cooldown
-			hopperBlockEntity.setCooldown(0);
+			((HopperBlockEntityAccessor)hopperBlockEntity).callSetCooldown(0);
 		}
 	}
 

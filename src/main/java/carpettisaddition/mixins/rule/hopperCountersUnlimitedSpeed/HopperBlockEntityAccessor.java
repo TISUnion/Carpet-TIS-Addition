@@ -9,4 +9,7 @@ public interface HopperBlockEntityAccessor
 {
 	@Invoker
 	boolean callIsFull();
+
+	@Invoker
+	void callSetCooldown(int cooldown);
 }

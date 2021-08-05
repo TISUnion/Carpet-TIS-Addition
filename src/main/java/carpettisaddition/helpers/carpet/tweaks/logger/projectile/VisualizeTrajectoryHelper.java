@@ -30,7 +30,7 @@ public class VisualizeTrajectoryHelper
 		// so make a copy and clean the list first
 		List<Entity> snowballEntities = Lists.newArrayList(VISUALIZE_SNOWBALLS.values());
 		VISUALIZE_SNOWBALLS.clear();
-		snowballEntities.forEach(Entity::remove);
+		snowballEntities.forEach(Entity::discard);
 	}
 
 	public static void addVisualizer(Entity entity)

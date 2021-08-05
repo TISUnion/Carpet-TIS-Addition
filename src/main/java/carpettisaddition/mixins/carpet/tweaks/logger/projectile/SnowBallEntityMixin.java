@@ -37,7 +37,7 @@ public abstract class SnowBallEntityMixin extends ThrownItemEntity
 			}
 			else
 			{
-				this.remove();
+				this.discard();
 			}
 		}
 		else
