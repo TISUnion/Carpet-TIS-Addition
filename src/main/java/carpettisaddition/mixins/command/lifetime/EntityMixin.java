@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.command.lifetime;
 
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
+import carpettisaddition.commands.lifetime.LifeTimeWorldTracker;
 import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
 import carpettisaddition.commands.lifetime.interfaces.IEntity;
 import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
@@ -43,15 +44,21 @@ public abstract class EntityMixin implements IEntity
 		this.recordedRemoval = false;
 		if (this.world instanceof ServerWorld)
 		{
-			this.spawnTime = ((IServerWorld)this.world).getLifeTimeWorldTracker().getSpawnStageCounter();
-			this.trackId = LifeTimeTracker.getInstance().getCurrentTrackId();
-			this.doLifeTimeTracking = LifeTimeTracker.getInstance().willTrackEntity((Entity)(Object)this);
+			// In case the entity is loaded when the world is being constructed
+			// Not sure if it's possible in vanilla, at least it happens in #29
+			LifeTimeWorldTracker tracker = ((IServerWorld)this.world).getLifeTimeWorldTracker();
+			if (tracker != null)
+			{
+				// do track
+				this.spawnTime = tracker.getSpawnStageCounter();
+				this.trackId = LifeTimeTracker.getInstance().getCurrentTrackId();
+				this.doLifeTimeTracking = LifeTimeTracker.getInstance().willTrackEntity((Entity)(Object)this);
+				return;
+			}
 		}
-		else
-		{
-			this.trackId = -1;
-			this.doLifeTimeTracking = false;
-		}
+		// dont track
+		this.trackId = -1;
+		this.doLifeTimeTracking = false;
 	}
 
 	@Override

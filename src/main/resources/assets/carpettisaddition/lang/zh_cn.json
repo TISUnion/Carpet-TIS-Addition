@@ -49,6 +49,9 @@
   "rule.entityMomentumLoss.name": "实体速度丢失",
   "rule.entityMomentumLoss.desc": "将其设为 false 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失",
 
+  "rule.explosionPacketRange.name": "爆炸数据包广播范围",
+  "rule.explosionPacketRange.desc": "设置在爆炸发生时，爆炸数据包对玩家的广播范围",
+
   "rule.fakePlayerNamePrefix.name": "假人名称前缀",
   "rule.fakePlayerNamePrefix.desc": "为/player指令召唤出来的假人名称添加指定前缀",
   "rule.fakePlayerNamePrefix.extra.0": "将其设置为#none以阻止添加前缀",
@@ -64,7 +67,7 @@
   "rule.fluidDestructionDisabled.extra.1": "这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路",
 
   "rule.hopperCountersUnlimitedSpeed.name": "漏斗计数器无限速度",
-  "rule.hopperCountersUnlimitedSpeed.desc": "当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度",
+  "rule.hopperCountersUnlimitedSpeed.desc": "当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度，且无冷却时间",
   "rule.hopperCountersUnlimitedSpeed.extra.0": "仅当Carpet Mod中的hopperCounters开启时有效",
 
   "rule.hopperNoItemCost.name": "漏斗不消耗物品",
@@ -215,6 +218,10 @@
   "rule.turtleEggTrampledDisabled.name": "禁用海龟蛋被践踏",
   "rule.turtleEggTrampledDisabled.desc": "阻止海龟蛋因实体踩踏而破坏",
 
+  "rule.visualizeProjectileLoggerEnabled.name": "可视化投掷物记录器",
+  "rule.visualizeProjectileLoggerEnabled.desc": "启用可视化投掷物记录器",
+  "rule.visualizeProjectileLoggerEnabled.extra.0": "试试/log projectiles visualize吧",
+
   "rule.xpTrackingDistance.name": "经验球追踪距离",
   "rule.xpTrackingDistance.desc": "修改经验球检测并追踪玩家的距离",
   "rule.xpTrackingDistance.extra.0": "将其调至0以禁用追踪",
@@ -361,12 +368,19 @@
   "logger.commandBlock.executed": "执行了",
   "logger.commandBlock.remove_executor": "点击以删除%1$s",
 
-  "logger.tickWarp.not_started": "Tick warp尚未开始",
+  "logger.tickWarp.not_started": "tick warp尚未开始",
   "logger.tickWarp.starter": "启动者",
   "logger.tickWarp.server": "服务器",
   "logger.tickWarp.average_tps": "平均TPS",
   "logger.tickWarp.average_mspt": "平均MSPT",
-  "logger.tickWarp.estimated_remaining_time": "剩余时间估算",
+  "logger.tickWarp.time_info": "%1$smin (游戏内) / %2$smin (现实)",
+  "logger.tickWarp.elapsed_time": "已流逝时间",
+  "logger.tickWarp.estimated_time": "剩余时间",
+  "logger.tickWarp.show_history_header": "上一次tick warp的结果 (%.2fmin前)",
+
+  "logger.projectiles.visualized.info": "可视化投掷物记录器：已可视化%d游戏刻的轨迹",
+  "logger.projectiles.visualized.not_enabled": "可视化投掷物记录器：可视化规则未启用",
+  "logger.projectiles.visualized.not_enabled.hint": "点击以启用",
 
 
   "raid_invalidate_reason.difficulty_peaceful": "难度被设为和平",
