@@ -62,6 +62,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [tooledTNT](#tooledTNT)
 - [totallyNoBlockUpdate](#totallyNoBlockUpdate)
 - [turtleEggTrampledDisabled](#turtleEggTrampledDisabled)
+- [visualizeProjectileLoggerEnabled](#visualizeProjectileLoggerEnabled)
 - [xpTrackingDistance](#xpTrackingDistance)
 
 ## [Ported-rules](#ported-rules-list)
@@ -712,6 +713,18 @@ Technically this rule applies the main hand item of the causing entity onto the 
 ## totallyNoBlockUpdate
 
 Disable all block updates and state updates
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## visualizeProjectileLoggerEnabled
+
+Enable visualize projectile logger
+
+Try `/log projectiles visualize`
 
 - Type: `boolean`
 - Default value: `true`
