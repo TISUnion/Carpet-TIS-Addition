@@ -62,6 +62,7 @@
 - [工具化TNT](#工具化TNT-tooledTNT)
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 - [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
+- [经验球追踪距离](#可视化投掷物记录器-visualizeProjectileLoggerEnabled)
 - [经验球追踪距离](#经验球追踪距离-xpTrackingDistance)
 
 ## [移植的规则](#移植的规则列表)
@@ -719,11 +720,23 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 可视化投掷物记录器 (visualizeProjectileLoggerEnabled)
+
+启用可视化投掷物记录器
+
+试试 `/log projectiles visualize` 吧
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 经验球追踪距离 (xpTrackingDistance)
 
 修改经验球检测并追踪玩家的距离
 
-将其调至0以禁用追踪"
+将其调至 0 以禁用追踪
 
 - 类型: `double`
 - 默认值: `8`

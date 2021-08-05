@@ -653,6 +653,9 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			desc = "Enable visualize projectile logger",
+			extra = {
+					"Try /log projectiles visualize"
+			},
 			category = {TIS, CREATIVE}
 	)
 	public static boolean visualizeProjectileLoggerEnabled = false;

@@ -6,10 +6,12 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.ProjectileLoggerTarget;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.TrajectoryLoggerUtil;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.VisualizeTrajectoryHelper;
+import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -41,6 +43,7 @@ public abstract class TrajectoryLogHelperMixin
 	@Unique
 	private Entity entity;
 	private boolean doVisualizeLogging;
+	private Translator translator = new Translator("logger", "projectiles.visualized");
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void initTISCMStuffs(String logName, CallbackInfo ci)
@@ -155,7 +158,7 @@ public abstract class TrajectoryLogHelperMixin
 				{
 					if (CarpetTISAdditionSettings.visualizeProjectileLoggerEnabled)
 					{
-						comp.add(Messenger.c(String.format("w Visualize projectile logger: visualized %d tick(s)", this.positions.size())));
+						comp.add(Messenger.s(String.format(this.translator.tr("info", "Visualize projectile logger: visualized %d tick(s)"), this.positions.size())));
 						for (int i = 0; i < this.positions.size(); i++)
 						{
 							VisualizeTrajectoryHelper.createVisualizer(this.world, this.positions.get(i), String.valueOf(i));
@@ -164,7 +167,12 @@ public abstract class TrajectoryLogHelperMixin
 					}
 					else
 					{
-						comp.add(Messenger.c("w visualize logger: visualize is not enabled"));  // TODO: click event for rule
+						comp.add(TextUtil.getFancyText(
+								"w",
+								Messenger.s(this.translator.tr("not_enabled", "Visualize projectile logger: visualize is not enabled")),
+								Messenger.s(this.translator.tr("not_enabled.hint", "Click to enable")),
+								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/carpet visualizeProjectileLoggerEnabled true")
+						));
 					}
 				}
 				break;
