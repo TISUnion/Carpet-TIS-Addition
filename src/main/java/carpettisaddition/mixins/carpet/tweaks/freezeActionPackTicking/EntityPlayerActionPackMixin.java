@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet.freezeActionPackTicking;
+package carpettisaddition.mixins.carpet.tweaks.freezeActionPackTicking;
 
 import carpet.helpers.EntityPlayerActionPack;
 import carpet.helpers.TickSpeed;

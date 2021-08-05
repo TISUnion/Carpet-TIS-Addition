@@ -27,6 +27,7 @@
 - [发射器发射龙息](#发射器发射龙息-dispensersFireDragonBreath)
 - [enchant指令约束移除](#enchant指令约束移除-enchantCommandNoRestriction)
 - [实体速度丢失](#实体速度丢失-entityMomentumLoss)
+- [爆炸数据包广播范围](#爆炸数据包广播范围-explosionPacketRange)
 - [假人名称前缀](#假人名称前缀-fakePlayerNamePrefix)
 - [假人名称后缀](#假人名称后缀-fakePlayerNameSuffix)
 - [禁用流体破坏](#禁用流体破坏-fluidDestructionDisabled)
@@ -61,6 +62,7 @@
 - [工具化TNT](#工具化TNT-tooledTNT)
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 - [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
+- [经验球追踪距离](#可视化投掷物记录器-visualizeProjectileLoggerEnabled)
 - [经验球追踪距离](#经验球追踪距离-xpTrackingDistance)
 
 ## [移植的规则](#移植的规则列表)
@@ -255,6 +257,16 @@
 - 分类: `TIS`, `EXPERIMENTAL`
 
 
+## 爆炸数据包广播范围 (explosionPacketRange)
+
+设置在爆炸发生时，爆炸数据包对玩家的广播范围
+
+- 类型: `double`
+- 默认值: `64`
+- 参考选项: `0`, `16`, `64`, `128`, `2048`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 假人名称前缀 (fakePlayerNamePrefix)
 
 为 `/player` 指令召唤出来的假人名称添加指定前缀
@@ -297,7 +309,7 @@
 
 ## 漏斗计数器无限速度 (hopperCountersUnlimitedSpeed)
 
-当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度
+当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度，且无冷却时间
 
 仅当 Carpet Mod 中的 hopperCounters 开启时有效
 
@@ -427,7 +439,7 @@
 *由于 fabric carpet 对 scarpet 形状渲染及 carpet 网络通讯协议支持的缺乏，视觉渲染相关功能无法在 1.14.4 分支中使用*
 
 - 类型: `string`
-- 默认值: `false`
+- 默认值: `true`
 - 参考选项: `false`, `true`, `clear`
 - 分类: `TIS`, `CREATIVE`
 
@@ -708,11 +720,23 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 可视化投掷物记录器 (visualizeProjectileLoggerEnabled)
+
+启用可视化投掷物记录器
+
+试试 `/log projectiles visualize` 吧
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 经验球追踪距离 (xpTrackingDistance)
 
 修改经验球检测并追踪玩家的距离
 
-将其调至0以禁用追踪"
+将其调至 0 以禁用追踪
 
 - 类型: `double`
 - 默认值: `8`
@@ -1083,18 +1107,22 @@
 
 -----------
 
+# Carpet 相关指令修改
+
+- 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
+- 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
+- 为 `/player` 指令添加 `randomly` 参数。如 `/player Steve use randomly 10 20` 将使 Steve 以动态变化的随机间隔点击右键，间隔区间为 \[10, 20]
+- 添加懒人最爱的 `/spawn tracking restart`
+- 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
+- 使指令 `/info entity` 能正常地运行
+- 在指令 `/info block` 中显示目标位置的计划刻事件及方块事件
+
 # 其他
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出，对 1.4.38 前的 fabric-carpet 有效（fabric-carpet 1.4.38 也实现了相关的约束）
-- 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
-- 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
 - 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
-- 为 `/player` 指令添加 `randomly` 参数。如 `/player Steve use randomly 10 20` 将使 Steve 以动态变化的随机间隔点击右键，间隔区间为 \[10, 20]
-- 添加 `/spawn tracking restart`
 - 取消玩家动作包（由 `/player` 指令触发的 PlayerActionPack）在 `/tick freeze` 时的更新
-- 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
-- 修复地毯假人不响应玩家近战攻击的击退的bug（https://github.com/gnembon/fabric-carpet/issues/745）
-- 使指令 `/info entity` 能正常地运行
+- 修复地毯假人不响应玩家近战攻击的击退的 bug（https://github.com/gnembon/fabric-carpet/issues/745）
 
 -----------
 
@@ -1106,17 +1134,18 @@
 - 1.14.4，对应 Minecraft 1.14.4
 - 1.15.2，对应 Minecraft 1.15.2
 - 1.16.5，对应 Minecraft 1.16.4 至 1.16.5
-- 1.17，对应 Minecraft 1.17 快照
+- 1.17.x，对应 Minecraft 1.17.1
 
 目前存档的分支：
 - 1.16，对应 Minecraft 1.16 至 1.16.1
 - 1.16.3，对应 Minecraft 1.16.2 至 1.16.3
+- 1.17，对应 Minecraft 1.17
 
 对于通用的新特性，在 1.15.2 分支中实现，再将其合并至其他分支
 
 分支合并顺序：
 - 1.15.2 -> 1.14.4
-- 1.15.2 -> 1.16.5 -> 1.17
+- 1.15.2 -> 1.16.5 -> 1.17.x
 - 1.15.2 -> master (发布 release 时)
 
 对于版本专用的修复/补丁，在对应的分支上操作即可

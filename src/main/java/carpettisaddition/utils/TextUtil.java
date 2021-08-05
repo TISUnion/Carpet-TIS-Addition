@@ -4,13 +4,18 @@ import carpet.utils.Messenger;
 import carpettisaddition.translations.Translator;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
@@ -219,7 +224,26 @@ public class TextUtil
 
 	public static BaseText getBlockName(Block block)
 	{
-		return TextUtil.attachFormatting(new TranslatableText(block.getTranslationKey()), Formatting.WHITE);
+		return attachHoverText(new TranslatableText(block.getTranslationKey()), Messenger.s(Registry.BLOCK.getId(block).toString()));
+	}
+
+	public static BaseText getFluidName(Fluid fluid)
+	{
+		Identifier id = Registry.FLUID.getId(fluid);
+		BaseText nameText;
+		if (fluid.isIn(FluidTags.WATER))
+		{
+			nameText = getBlockName(Blocks.WATER);
+		}
+		else if (fluid.isIn(FluidTags.LAVA))
+		{
+			nameText = getBlockName(Blocks.LAVA);
+		}
+		else
+		{
+			nameText = Messenger.s(id.getPath());
+		}
+		return attachHoverText(nameText, Messenger.s(id.toString()));
 	}
 
 	// some language doesn't use space char to divide word

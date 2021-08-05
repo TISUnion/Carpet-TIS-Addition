@@ -43,13 +43,15 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			method = "insertAndExtract",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V"
+					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V",
+					shift = At.Shift.AFTER
 			)
 	)
 	private static void onActionSuccess(World world, BlockPos blockPos, BlockState blockState, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (CarpetSettings.hopperCounters && CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed)
 		{
+			// hopper counter check
 			if (world == null)
 			{
 				return;
@@ -59,6 +61,8 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			{
 				return;
 			}
+
+			// unlimited speed
 			for (int i = OPERATION_LIMIT - 1; i >= 0; i--)
 			{
 				boolean flag = false;
@@ -83,6 +87,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 					CarpetTISAdditionServer.LOGGER.warn(String.format("Hopper in %s exceeded hopperCountersUnlimitedSpeed operation limit %d", hopperBlockEntity.getPos(), OPERATION_LIMIT));
 				}
 			}
+
+			// no cooldown
+			hopperBlockEntity.setCooldown(0);
 		}
 	}
 

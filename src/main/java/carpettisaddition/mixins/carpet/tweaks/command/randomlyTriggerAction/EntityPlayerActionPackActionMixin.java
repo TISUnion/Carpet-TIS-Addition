@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.carpet.commands.randomlyTriggerAction;
+package carpettisaddition.mixins.carpet.tweaks.command.randomlyTriggerAction;
 
 import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.helpers.carpet.randomlyTriggerAction.IEntityPlayerActionPackAction;
