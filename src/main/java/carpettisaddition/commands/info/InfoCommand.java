@@ -12,7 +12,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
@@ -92,12 +92,12 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		}
 	}
 
-	private void appendBlockEventInfo(List<BaseText> result, List<BlockAction> blockEvents)
+	private void appendBlockEventInfo(List<BaseText> result, List<BlockEvent> blockEvents)
 	{
 		if (!blockEvents.isEmpty())
 		{
 			result.add(Messenger.s(" - Queued Block Events * " + blockEvents.size()));
-			for (BlockAction be : blockEvents)
+			for (BlockEvent be : blockEvents)
 			{
 				result.add(Messenger.c(
 						"w    ",
@@ -120,7 +120,7 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		List<ScheduledTick<Fluid>> liquidTileTicks = ((ServerTickScheduler<Fluid>)world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
 		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), TextUtil::getBlockName);
 		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", world.getTime(), TextUtil::getFluidName);
-		List<BlockAction> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.getPos().equals(pos)).toList();
+		List<BlockEvent> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.getPos().equals(pos)).toList();
 		this.appendBlockEventInfo(result, blockEvents);
 		return result;
 	}

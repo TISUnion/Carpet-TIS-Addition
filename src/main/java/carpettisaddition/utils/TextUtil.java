@@ -15,10 +15,9 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-
-import java.util.Objects;
 
 public class TextUtil
 {
@@ -232,11 +231,11 @@ public class TextUtil
 	{
 		Identifier id = Registry.FLUID.getId(fluid);
 		BaseText nameText;
-		if (fluid.matches(FluidTags.WATER))
+		if (fluid.isIn(FluidTags.WATER))
 		{
 			nameText = getBlockName(Blocks.WATER);
 		}
-		else if (fluid.matches(FluidTags.LAVA))
+		else if (fluid.isIn(FluidTags.LAVA))
 		{
 			nameText = getBlockName(Blocks.LAVA);
 		}

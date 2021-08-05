@@ -24,7 +24,7 @@ public abstract class ProjectileEntityMixin implements ProjectileLoggerTarget
 		TrajectoryLoggerUtil.currentEntity.set((Entity)(Object)this);
 	}
 
-	@Inject(method = "onHit(Lnet/minecraft/util/hit/HitResult;)V", at = @At("HEAD"))
+	@Inject(method = "onCollision", at = @At("HEAD"))
 	private void recordHitPoint(HitResult hitResult, CallbackInfo ci)
 	{
 		this.hitResult = hitResult;

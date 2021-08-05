@@ -4,7 +4,7 @@ import carpet.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.thrown.SnowballEntity;
+import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -54,6 +54,6 @@ public class VisualizeTrajectoryHelper
 
 	public static void onVisualizerReacted(ServerPlayerEntity player, Entity snowBall)
 	{
-		player.sendMessage(Messenger.s(snowBall.getPos().toString()));
+		player.sendMessage(Messenger.s(snowBall.getPos().toString()), false);
 	}
 }

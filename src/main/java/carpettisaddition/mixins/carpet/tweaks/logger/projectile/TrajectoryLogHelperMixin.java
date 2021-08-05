@@ -108,7 +108,7 @@ public abstract class TrajectoryLogHelperMixin
 			hitPos = hitResultOptional.get().getPos();
 			if (hitResultOptional.get() instanceof BlockHitResult)
 			{
-				hitType = Messenger.c("w block ", TextUtil.getCoordinateText(null, ((BlockHitResult)hitResultOptional.get()).getBlockPos(), this.world.getDimension().getType()));
+				hitType = Messenger.c("w block ", TextUtil.getCoordinateText(null, ((BlockHitResult)hitResultOptional.get()).getBlockPos(), this.world.getRegistryKey()));
 			}
 			else if (hitResultOptional.get() instanceof EntityHitResult)
 			{
