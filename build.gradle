@@ -1,9 +1,12 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'fabric-loom' version '0.9-SNAPSHOT'
 	id 'maven-publish'
 }
 
 repositories {
+	maven {
+		url "$projectDir/localmaven"
+	}
 	maven {
 		url 'https://masa.dy.fi/maven'
 	}
@@ -28,7 +31,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-	modCompileOnly "curse.maven:lithium-360438:3354305"  // Lithium mc1.17-0.7.1
+	modCompileOnly "curse.maven:lithium-360438:3380166"  // Lithium mc1.17.1-0.7.3
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	// modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
@@ -37,8 +40,8 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 }
 
-minecraft {
-	accessWidener = file("src/main/resources/carpet-tis-addition.accesswidener")
+loom {
+	accessWidenerPath = file("src/main/resources/carpet-tis-addition.accesswidener")
 }
 
 processResources {

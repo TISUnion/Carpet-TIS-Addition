@@ -15,7 +15,6 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -134,9 +133,9 @@ public class MicroTimingMarker
 		return ListValue.of(new NumericValue(blockPos.getX()), new NumericValue(blockPos.getY()), new NumericValue(blockPos.getZ()));
 	}
 
-	public List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>> getShapeDataList(boolean display)
+	public List<ShapeDispatcher.ShapeWithConfig> getShapeDataList(boolean display)
 	{
-		List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>> result = Lists.newArrayList();
+		List<ShapeDispatcher.ShapeWithConfig> result = Lists.newArrayList();
 		result.add(this.box.toPair(display));
 		if (this.text != null)
 		{
@@ -210,9 +209,9 @@ public class MicroTimingMarker
 			((ExpiringShapeInvoker)this.shape).callInit(this.params);
 		}
 
-		private Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>> toPair(boolean display)
+		private ShapeDispatcher.ShapeWithConfig toPair(boolean display)
 		{
-			return Pair.of(this.shape, display ? this.params : this.emptyParams);
+			return new ShapeDispatcher.ShapeWithConfig(this.shape, display ? this.params : this.emptyParams);
 		}
 
 		public void updateLineWidth(float lineWidth)
