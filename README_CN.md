@@ -62,7 +62,7 @@
 - [工具化TNT](#工具化TNT-tooledTNT)
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 - [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
-- [经验球追踪距离](#可视化投掷物记录器-visualizeProjectileLoggerEnabled)
+- [可视化投掷物记录器](#可视化投掷物记录器-visualizeProjectileLoggerEnabled)
 - [经验球追踪距离](#经验球追踪距离-xpTrackingDistance)
 
 ## [移植的规则](#移植的规则列表)
