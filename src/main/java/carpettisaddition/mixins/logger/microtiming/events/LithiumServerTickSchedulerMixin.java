@@ -2,7 +2,6 @@ package carpettisaddition.mixins.logger.microtiming.events;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
-import me.jellysquid.mods.lithium.common.world.scheduler.TickEntry;
 import net.minecraft.block.Block;
 import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.server.world.ServerWorld;
@@ -43,18 +42,19 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	}
 
 	@Inject(
-			method = "addScheduledTick",
+			method = "scheduleTick",
 			at = @At(
 					value = "FIELD",
-					target = "Lme/jellysquid/mods/lithium/common/world/scheduler/TickEntry;scheduled:Z",
-					ordinal = 0
+					target = "Lit/unimi/dsi/fastutil/objects/ObjectOpenHashSet;add(Ljava/lang/Object;)Z",
+					ordinal = 0,
+					remap = false
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			remap = false
 	)
-	private void checkIfItIsNotScheduled(ScheduledTick<T> tick, CallbackInfo ci, TickEntry<T> entry)
+	private void checkIfItIsScheduled(BlockPos pos, T object, long time, TickPriority priority, CallbackInfo ci, boolean added)
 	{
-		this.scheduleSuccess = !entry.scheduled;
+		this.scheduleSuccess = added;
 	}
 
 	@Inject(method = "schedule", at = @At("RETURN"))
