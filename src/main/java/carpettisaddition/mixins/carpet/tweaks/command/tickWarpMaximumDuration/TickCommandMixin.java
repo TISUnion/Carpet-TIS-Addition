@@ -2,6 +2,7 @@ package carpettisaddition.mixins.carpet.tweaks.command.tickWarpMaximumDuration;
 
 import carpet.commands.TickCommand;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -10,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
+	@Dynamic
 	@Redirect(
 			method = "register",
 			// should be accurate enough

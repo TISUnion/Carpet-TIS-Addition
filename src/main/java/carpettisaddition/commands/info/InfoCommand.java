@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -120,7 +121,7 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		List<ScheduledTick<Fluid>> liquidTileTicks = ((ServerTickScheduler<Fluid>)world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
 		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), TextUtil::getBlockName);
 		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", world.getTime(), TextUtil::getFluidName);
-		List<BlockEvent> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.getPos().equals(pos)).toList();
+		List<BlockEvent> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.getPos().equals(pos)).collect(Collectors.toList());
 		this.appendBlockEventInfo(result, blockEvents);
 		return result;
 	}
