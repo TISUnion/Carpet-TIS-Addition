@@ -43,18 +43,19 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	}
 
 	@Inject(
-			method = "addScheduledTick",
+			method = "scheduleTick",
 			at = @At(
-					value = "FIELD",
-					target = "Lme/jellysquid/mods/lithium/common/world/scheduler/TickEntry;scheduled:Z",
-					ordinal = 0
+					value = "INVOKE_ASSIGN",
+					target = "Lit/unimi/dsi/fastutil/objects/ObjectOpenHashSet;add(Ljava/lang/Object;)Z",
+					ordinal = 0,
+					remap = false
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			remap = false
 	)
-	private void checkIfItIsNotScheduled(ScheduledTick<T> tick, CallbackInfo ci, TickEntry<T> entry)
+	private void checkIfItIsScheduled(BlockPos pos, Object object, long time, TickPriority priority, CallbackInfo ci, TickEntry<T> tick, boolean added)
 	{
-		this.scheduleSuccess = !entry.scheduled;
+		this.scheduleSuccess = added;
 	}
 
 	@Inject(method = "schedule", at = @At("RETURN"))

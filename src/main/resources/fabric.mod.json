@@ -32,6 +32,9 @@
     "carpet": ">=1.4.44",
     "minecraft": "1.18.*"
   },
+  "breaks": {
+    "lithium": "<0.7.4"
+  },
   "suggests": {
     "flamingo": "*"
   },
