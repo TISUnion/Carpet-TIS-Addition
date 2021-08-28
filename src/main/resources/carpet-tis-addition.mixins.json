@@ -141,6 +141,7 @@
     "rule.keepMobInLazyChunks.MobEntityMixin",
     "rule.keepMobInLazyChunks.ServerWorldMixin",
     "rule.lightEngineMaxBatchSize.MinecraftServerMixin",
+    "rule.lightEngineMaxBatchSize.ServerLightingProviderMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",
