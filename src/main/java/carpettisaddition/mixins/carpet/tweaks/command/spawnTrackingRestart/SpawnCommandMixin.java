@@ -4,6 +4,7 @@ import carpet.commands.SpawnCommand;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.BlockPos;
+import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,6 +31,7 @@ public abstract class SpawnCommandMixin
 	/**
 	 * Add literal("restart") as a child of node literal("tracking") by modifying argument in then(literal("tracking"))
 	 */
+	@Dynamic
 	@ModifyArg(
 			method = "register",
 			slice = @Slice(
