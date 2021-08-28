@@ -5,9 +5,6 @@ plugins {
 
 repositories {
 	maven {
-		url "$projectDir/localmaven"
-	}
-	maven {
 		url 'https://masa.dy.fi/maven'
 	}
 	maven {
