@@ -182,7 +182,7 @@ public class TextUtil
 
 	public static BaseText getDimensionNameText(RegistryKey<World> dim)
 	{
-		return copyText(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())));
+		return copyText(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.getValue().toString())));
 	}
 
 	public static String dimensionToString(RegistryKey<World> dimensionType)
