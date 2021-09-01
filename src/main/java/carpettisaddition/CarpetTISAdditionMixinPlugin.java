@@ -39,11 +39,7 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 		{
 			return isLithiumLoaded;
 		}
-		if (mixinClassName.endsWith("rule.renewableDragonEgg.AbstractBlockStateMixin"))
-		{
-			return isLithiumLoaded;
-		}
-		if (mixinClassName.endsWith("logger.lightqueue.LightingExecutorMixin"))
+		if (mixinClassName.contains(".compact.tic_tacs."))
 		{
 			return isTicTacsLoaded;
 		}
