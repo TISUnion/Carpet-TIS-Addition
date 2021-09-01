@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.rule.renewableDragonEgg;
+package carpettisaddition.mixins.rule.renewableDragonEgg.compact.lithium;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.AbstractBlock;

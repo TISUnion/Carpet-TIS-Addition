@@ -31,25 +31,13 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName)
 	{
-		// it's quite a naive implementation now, but since there are not that many demands it's fine i think
-		// might refactor it if more judgement are needed to be done
-		boolean isLithiumLoaded = FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
-		boolean isTicTacsLoaded = FabricLoader.getInstance().isModLoaded(TIC_TACS_MOD_ID);
-		if (mixinClassName.endsWith(".LithiumServerTickSchedulerMixin"))
-		{
-			return isLithiumLoaded;
-		}
-		if (mixinClassName.endsWith("rule.renewableDragonEgg.AbstractBlockStateMixin"))
-		{
-			return isLithiumLoaded;
-		}
 		if (mixinClassName.contains(".compact.lithium."))
 		{
-			return isLithiumLoaded;
+			return FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
 		}
-		if (mixinClassName.endsWith("logger.lightqueue.LightingExecutorMixin"))
+		if (mixinClassName.contains(".compact.tic_tacs."))
 		{
-			return isTicTacsLoaded;
+			return FabricLoader.getInstance().isModLoaded(TIC_TACS_MOD_ID);
 		}
 		return true;
 	}
