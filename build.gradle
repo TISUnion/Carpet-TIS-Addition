@@ -28,7 +28,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-	modCompileOnly "curse.maven:lithium-360438:3438799"  // Lithium mc1.17.1-0.7.4
+	modImplementation "curse.maven:lithium-360438:3438799"  // Lithium mc1.17.1-0.7.4
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	// modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"

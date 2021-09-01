@@ -43,6 +43,10 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 		{
 			return isLithiumLoaded;
 		}
+		if (mixinClassName.contains(".compact.lithium."))
+		{
+			return isLithiumLoaded;
+		}
 		if (mixinClassName.endsWith("logger.lightqueue.LightingExecutorMixin"))
 		{
 			return isTicTacsLoaded;
