@@ -35,7 +35,7 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 		// might refactor it if more judgement are needed to be done
 		boolean isLithiumLoaded = FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
 		boolean isTicTacsLoaded = FabricLoader.getInstance().isModLoaded(TIC_TACS_MOD_ID);
-		if (mixinClassName.endsWith(".LithiumServerTickSchedulerMixin"))
+		if (mixinClassName.contains(".compact.lithium."))
 		{
 			return isLithiumLoaded;
 		}
