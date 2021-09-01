@@ -142,7 +142,7 @@
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
     "rule.hopperNoItemCost.HopperBlockEntityMixin",
     "rule.hopperNoItemCost.compact.lithium.HopperBlockEntityMixin",
-    "rule.hopperNoItemCost.compact.lithium.HopperHelperMixin",
+    "rule.hopperNoItemCost.compact.lithium.LithiumStackListMixin",
     "rule.HUDLoggerUpdateInterval.HUDControllerMixin",
     "rule.instantCommandBlock.CommandBlockExecutorMixin",
     "rule.instantCommandBlock.CommandBlockMixin",

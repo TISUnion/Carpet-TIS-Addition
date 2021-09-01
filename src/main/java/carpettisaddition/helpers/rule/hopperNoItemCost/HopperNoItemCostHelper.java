@@ -1,6 +1,6 @@
 package carpettisaddition.helpers.rule.hopperNoItemCost;
 
-import net.minecraft.block.entity.HopperBlockEntity;
+import me.jellysquid.mods.lithium.common.hopper.LithiumStackList;
 
 /**
  * Lithium mod uses its own optimized way for hoppers to transfer their items out
@@ -9,5 +9,5 @@ import net.minecraft.block.entity.HopperBlockEntity;
  */
 public class HopperNoItemCostHelper
 {
-	public static final ThreadLocal<HopperBlockEntity> currentHopper = ThreadLocal.withInitial(() -> null);
+	public static final ThreadLocal<LithiumStackList> currentHopperInvList = ThreadLocal.withInitial(() -> null);
 }

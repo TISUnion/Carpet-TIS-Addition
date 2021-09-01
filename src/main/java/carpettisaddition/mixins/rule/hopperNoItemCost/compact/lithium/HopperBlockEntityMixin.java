@@ -1,10 +1,15 @@
 package carpettisaddition.mixins.rule.hopperNoItemCost.compact.lithium;
 
+import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.hopperNoItemCost.HopperNoItemCostHelper;
+import me.jellysquid.mods.lithium.api.inventory.LithiumInventory;
+import me.jellysquid.mods.lithium.common.hopper.InventoryHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.HopperBlockEntity;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,11 +28,18 @@ public abstract class HopperBlockEntityMixin
 					target = "Lnet/minecraft/block/entity/HopperBlockEntity;insert(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/inventory/Inventory;)Z"
 			)
 	)
-	private static void CTALithiumCompact$beforeInsert(World world, BlockPos pos, BlockState state, HopperBlockEntity blockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
+	private static void CTALithiumCompact$beforeInsert(World world, BlockPos pos, BlockState state, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (CarpetTISAdditionSettings.hopperNoItemCost)
 		{
-			HopperNoItemCostHelper.currentHopper.set(blockEntity);
+			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, pos.offset(Direction.UP));
+			if (wool_color != null)
+			{
+				if (hopperBlockEntity instanceof LithiumInventory)
+				{
+					HopperNoItemCostHelper.currentHopperInvList.set(InventoryHelper.getLithiumStackList((LithiumInventory)hopperBlockEntity));
+				}
+			}
 		}
 	}
 
@@ -39,11 +51,11 @@ public abstract class HopperBlockEntityMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private static void CTALithiumCompact$afterInsert(World world, BlockPos pos, BlockState state, HopperBlockEntity blockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
+	private static void CTALithiumCompact$afterInsert(World world, BlockPos pos, BlockState state, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (CarpetTISAdditionSettings.hopperNoItemCost)
 		{
-			HopperNoItemCostHelper.currentHopper.set(null);
+			HopperNoItemCostHelper.currentHopperInvList.set(null);
 		}
 	}
 }
