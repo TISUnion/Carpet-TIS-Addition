@@ -30,12 +30,9 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName)
 	{
-		// it's quite a naive implementation now, but since there are not that many demands it's fine i think
-		// might refactor it if more judgement are needed to be done
-		boolean isLithiumLoaded = FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
 		if (mixinClassName.contains(".compact.lithium."))
 		{
-			return isLithiumLoaded;
+			return FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
 		}
 		return true;
 	}
