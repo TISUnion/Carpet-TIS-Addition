@@ -21,7 +21,7 @@ public class VisualizeTrajectoryHelper
 
 	public static boolean isVisualizeProjectile(@Nullable Entity entity)
 	{
-		return entity != null && entity.getScoreboardTags().contains(TISCM_VISPROJ_LOGGER);
+		return entity instanceof SnowballEntity && entity.getScoreboardTags().contains(TISCM_VISPROJ_LOGGER);
 	}
 
 	public static void clearVisualizers()
