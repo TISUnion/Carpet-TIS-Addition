@@ -170,6 +170,7 @@
     "rule.tntDupingFix.PistonBlockMixin",
     "rule.tntFuseDuration.TntBlockMixin",
     "rule.tntFuseDuration.TntEntityMixin",
+    "rule.tntIgnoreRedstoneSignal.TntBlockMixin",
     "rule.tooledTNT.ExplosionMixin",
     "rule.tooledTNT.OptimizedExplosionMixin",
     "rule.totallyNoBlockUpdate.BlockMixin",

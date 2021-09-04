@@ -205,6 +205,10 @@
   "rule.tntFuseDuration.desc": "覆盖TNT的默认引信时长",
   "rule.tntFuseDuration.extra.0": "这也会影响被爆炸点燃的TNT的引信时长",
 
+  "rule.tntIgnoreRedstoneSignal.name": "TNT忽略红石信号",
+  "rule.tntIgnoreRedstoneSignal.desc": "阻止TNT被红石信号点燃",
+  "rule.tntIgnoreRedstoneSignal.extra.0": "你仍可以使用爆炸等方式点燃TNT",
+
   "rule.tooledTNT.name": "工具化TNT",
   "rule.tooledTNT.desc": "由玩家引发的爆炸破坏并掉落物品时会应用玩家手上的工具",
   "rule.tooledTNT.extra.0": "因此你可以点燃TNT以采集需要特定工具或者附魔的方块，只要你在爆炸时拿着正确的工具",

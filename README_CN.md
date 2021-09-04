@@ -57,8 +57,9 @@
 - [结构方块范围限制](#结构方块范围限制-structureBlockLimit)
 - [同步光照线程](#同步光照线程-synchronizedLightThread)
 - [计划刻上限](#计划刻上限-tileTickLimit)
-- [tnt复制修复](#tnt复制修复-tntDupingFix)
+- [TNT复制修复](#TNT复制修复-tntDupingFix)
 - [TNT引信时长](#TNT引信时长-tntFuseDuration)
+- [TNT忽略红石信号](#TNT忽略红石信号-tntIgnoreRedstoneSignal)
 - [工具化TNT](#工具化TNT-tooledTNT)
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 - [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
@@ -689,6 +690,18 @@
 - 类型: `int`
 - 默认值: `80`
 - 参考选项: `0`, `80`, `32767`
+- 分类: `TIS`, `CREATIVE`
+
+
+## TNT忽略红石信号 (tntIgnoreRedstoneSignal)
+
+阻止 TNT 被红石信号点燃
+
+你仍可以使用爆炸等方式点燃TNT
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
 
 

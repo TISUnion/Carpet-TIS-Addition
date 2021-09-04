@@ -59,6 +59,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [tileTickLimit](#tileTickLimit)
 - [tntDupingFix](#tntDupingFix)
 - [tntFuseDuration](#tntFuseDuration)
+- [tntIgnoreRedstoneSignal](#tntIgnoreRedstoneSignal)
 - [tooledTNT](#tooledTNT)
 - [totallyNoBlockUpdate](#totallyNoBlockUpdate)
 - [turtleEggTrampledDisabled](#turtleEggTrampledDisabled)
@@ -680,15 +681,27 @@ Attachment block update based dupers will do nothing and redstone component upda
 - Categories: `TIS`, `BUGFIX`, `EXPERIMENTAL`
 
 
-## tntFuseDuration
+## tntIgnoreRedstoneSignal
 
-Overwrite the default fuse duration of TNT
+Prevent TNT blocks from being ignited from redstone
 
-This might also affects the fuse duration of TNT ignited in explosion
+You can still use explosion etc. to ignite a tnt
 
 - Type: `int`
 - Default value: `80`
 - Suggested options: `0`, `80`, `32767`
+- Categories: `TIS`, `CREATIVE`
+
+
+## tntFuseDuration
+
+Overwrite the default fuse duration of TNT
+
+This might also affect the fuse duration of TNT ignited in explosion
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
 

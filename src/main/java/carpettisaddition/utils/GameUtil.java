@@ -3,6 +3,7 @@ package carpettisaddition.utils;
 import carpettisaddition.CarpetTISAdditionServer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
 
 public class GameUtil
@@ -28,5 +29,13 @@ public class GameUtil
 			return !mobEntity.isPersistent() && !mobEntity.cannotDespawn();
 		}
 		return false;
+	}
+
+	/**
+	 * Return a BlockPos that is out of the world limit
+	 */
+	public static BlockPos getInvalidBlockPos()
+	{
+		return new BlockPos(0, -1024, 0);
 	}
 }

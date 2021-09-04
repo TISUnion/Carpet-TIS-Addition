@@ -606,7 +606,7 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			desc = "Overwrite the default fuse duration of TNT",
-			extra = "This might also affects the fuse duration of TNT ignited in explosion",
+			extra = "This might also affect the fuse duration of TNT ignited in explosion",
 			options = {"0", "80", "32767"},
 			validate = ValidateTNTFuseDuration.class,
 			strict = false,
@@ -626,6 +626,13 @@ public class CarpetTISAdditionSettings
 			return "You must choose a integer from 0 to 32767";
 		}
 	}
+
+	@Rule(
+			desc = "Prevent TNT blocks from being ignited from redstone",
+			extra = "You can still use explosion etc. to ignite a tnt",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean tntIgnoreRedstoneSignal = false;
 
 	@Rule(
 			desc = "Tools on the player's main hand is applied to item dropping during the explosion caused by the player",
