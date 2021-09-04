@@ -1,4 +1,4 @@
-package carpettisaddition.helpers.carpet.tntRandomRange;
+package carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange;
 
 import carpet.CarpetSettings;
 import carpettisaddition.utils.GameUtil;
