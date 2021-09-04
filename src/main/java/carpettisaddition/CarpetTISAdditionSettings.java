@@ -9,8 +9,14 @@ import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchro
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
+import carpettisaddition.translations.Translator;
+import com.google.common.collect.Maps;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.BaseText;
 
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import static carpet.settings.RuleCategory.*;
@@ -19,6 +25,8 @@ public class CarpetTISAdditionSettings
 {
     public static final String TIS = "TIS";
     public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space or you can't /carpet list this
+
+	private static final Translator translator = new Translator("rule");
 
 	@Rule(
 			desc = "Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown",
@@ -172,10 +180,25 @@ public class CarpetTISAdditionSettings
 
 	private static class ValidateFakePlayerNameExtra extends Validator<String>
 	{
+		private final Map<ParsedRule<?>, String> lastDangerousInput = Maps.newHashMap();
+
 		@Override
 		public String validate(ServerCommandSource source, ParsedRule<String> currentRule, String newValue, String string)
 		{
-			return (newValue.equals(fakePlayerNameNoExtra) || Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue)) ? newValue : null;
+			if (!newValue.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue) && source != null)
+			{
+				Consumer<BaseText> messenger = msg -> source.sendFeedback(Messenger.s(msg.getString(), "r"), false);
+				messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.found", "Unexpected character found in value \"%1$s\" when applying rule %2$s", newValue, currentRule.name));
+				if (!Objects.equals(this.lastDangerousInput.get(currentRule), newValue))
+				{
+					messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.blocked", "Re-enter the command again if you do want to use this value"));
+					this.lastDangerousInput.put(currentRule, newValue);
+					return null;
+				}
+				messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.applied", "Accepted anyway cuz you insisted"));
+			}
+			this.lastDangerousInput.remove(currentRule);
+			return newValue;
 		}
 		public String description()
 		{
