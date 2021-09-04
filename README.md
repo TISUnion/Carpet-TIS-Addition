@@ -1157,9 +1157,9 @@ Current maintaining branches:
 - 1.18-exp, for Minecraft 1.18 experimental snapshots
 
 Current archived branches:
-- 1.16, for Minecraft 1.16 to 1.16.1
-- 1.16.3, for Minecraft 1.16.2 to 1.16.3
-- 1.17, for Minecraft 1.17
+- archive/1.16, for Minecraft 1.16 to 1.16.1
+- archive/1.16.3, for Minecraft 1.16.2 to 1.16.3
+- archive/1.17, for Minecraft 1.17
 
 For general new features, implement them in 1.15.2 branch first then merge it into other branches
 

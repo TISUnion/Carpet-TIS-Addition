@@ -1157,9 +1157,9 @@
 - 1.18-exp，对应 Minecraft 1.18 实验性快照
 
 目前存档的分支：
-- 1.16，对应 Minecraft 1.16 至 1.16.1
-- 1.16.3，对应 Minecraft 1.16.2 至 1.16.3
-- 1.17，对应 Minecraft 1.17
+- archive/1.16，对应 Minecraft 1.16 至 1.16.1
+- archive/1.16.3，对应 Minecraft 1.16.2 至 1.16.3
+- archive/1.17，对应 Minecraft 1.17
 
 对于通用的新特性，在 1.15.2 分支中实现，再将其合并至其他分支
 
