@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import com.google.common.net.UrlEscapers;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.MinecraftVersion;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Logger;
 
@@ -25,10 +26,9 @@ import java.util.List;
 public class OnlineMappingProvider
 {
 	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
-	// Minecraft's version "1.18-experimental-4" is not the same as yarn format, so the version is declared manually
-	// TODO: not manual impl
-	// public static final String MINECRAFT_VERSION = MinecraftVersion.CURRENT.getName();
-	public static final String MINECRAFT_VERSION = "1.18_experimental-snapshot-5";
+	// Minecraft's version "1.18-experimental-4" is not the same as yarn format, so the version is handled trickily
+	// TODO: better impl
+	public static final String MINECRAFT_VERSION = MinecraftVersion.CURRENT.getName().replace("-experimental-", "_experimental-snapshot-");
 	public static final String YARN_META_URL = "https://meta.fabricmc.net/v2/versions/yarn/" + MINECRAFT_VERSION;
 	public static final String YARN_MAPPING_URL_BASE = "https://maven.fabricmc.net/net/fabricmc/yarn/";
 	public static final String MAPPINGS_JAR_LOCATION = "mappings/mappings.tiny";
