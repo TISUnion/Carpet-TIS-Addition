@@ -54,11 +54,13 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [renewableElytra](#renewableElytra)
 - [repeaterHalfDelay](#repeaterHalfDelay)
 - [sandDupingFix](#sandDupingFix)
+- [structureBlockDoNotPreserveFluid](#structureBlockDoNotPreserveFluid)
 - [structureBlockLimit](#structureBlockLimit)
 - [synchronizedLightThread](#synchronizedLightThread)
 - [tileTickLimit](#tileTickLimit)
 - [tntDupingFix](#tntDupingFix)
 - [tntFuseDuration](#tntFuseDuration)
+- [tntIgnoreRedstoneSignal](#tntIgnoreRedstoneSignal)
 - [tooledTNT](#tooledTNT)
 - [totallyNoBlockUpdate](#totallyNoBlockUpdate)
 - [turtleEggTrampledDisabled](#turtleEggTrampledDisabled)
@@ -446,7 +448,7 @@ You can see boxes at marked blocks with fabric-carpet installed on your client. 
 
 ## microTimingTarget
 
-Modify the way to specify events to be logged in microTiming logger
+Modify the way to specify events to be logged in microTiming logger. Events labelled with dye marker are always logged
 
 `labelled`: Logs events labelled with wool
 
@@ -630,6 +632,18 @@ In sand dupers sand will only get teleported to the other dimension
 - Categories: `TIS`, `BUGFIX`
 
 
+## structureBlockDoNotPreserveFluid
+
+Structure block do not preserve existed fluid when placing waterlogged-able blocks
+
+Has a side effect of suppressing bug [MC-130584](https://bugs.mojang.com/browse/MC-130584) happening
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `BUGFIX`
+
+
 ## structureBlockLimit
 
 Overwrite the size limit of structure block
@@ -680,15 +694,27 @@ Attachment block update based dupers will do nothing and redstone component upda
 - Categories: `TIS`, `BUGFIX`, `EXPERIMENTAL`
 
 
-## tntFuseDuration
+## tntIgnoreRedstoneSignal
 
-Overwrite the default fuse duration of TNT
+Prevent TNT blocks from being ignited from redstone
 
-This might also affects the fuse duration of TNT ignited in explosion
+You can still use explosion etc. to ignite a tnt
 
 - Type: `int`
 - Default value: `80`
 - Suggested options: `0`, `80`, `32767`
+- Categories: `TIS`, `CREATIVE`
+
+
+## tntFuseDuration
+
+Overwrite the default fuse duration of TNT
+
+This might also affect the fuse duration of TNT ignited in explosion
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
 
@@ -1107,7 +1133,14 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 
 -----------
 
-# Carpet Command Tweaks
+# Other stuffs
+
+## Carpet Rule Tweaks
+
+- Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
+- Enhanced rule `creativeNoClip`: Dispenser block placement and xp orb tracking now ignore players in creativeNoClip state
+
+## Carpet Command Tweaks
 
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
@@ -1117,10 +1150,9 @@ Rule [microTiming](#microTiming) is required to be true for dispatching these ev
 - Make `/info entity` work again
 - Show tile tick events & block events in `/info block` command
 
-# Misc
+## Misc
 
 - Set the maximum length of fake player's markerName to 16 to prevent kicking out other players (Works before fabric-carpet v1.4.38, fabric-carpet v1.4.38 implemented the same check)
-- Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
 - Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
 - Fixed carpet fake player not responding to knockback from player melee attack (https://github.com/gnembon/fabric-carpet/issues/745)
 
@@ -1135,17 +1167,18 @@ Current maintaining branches:
 - 1.15.2, for Minecraft 1.15.2
 - 1.16.5, for Minecraft 1.16.4 to 1.16.5
 - 1.17.x, for Minecraft 1.17.1
+- 1.18-exp, for Minecraft 1.18 experimental snapshots
 
 Current archived branches:
-- 1.16, for Minecraft 1.16 to 1.16.1
-- 1.16.3, for Minecraft 1.16.2 to 1.16.3
-- 1.17, for Minecraft 1.17
+- archive/1.16, for Minecraft 1.16 to 1.16.1
+- archive/1.16.3, for Minecraft 1.16.2 to 1.16.3
+- archive/1.17, for Minecraft 1.17
 
 For general new features, implement them in 1.15.2 branch first then merge it into other branches
 
 Branches merge order:
 - 1.15.2 -> 1.14.4
-- 1.15.2 -> 1.16.5 -> 1.17.x
+- 1.15.2 -> 1.16.5 -> 1.17.x -> 1.18-exp
 - 1.15.2 -> master (when release)
 
 For version specific fixes / patches, implement them in relevant branches

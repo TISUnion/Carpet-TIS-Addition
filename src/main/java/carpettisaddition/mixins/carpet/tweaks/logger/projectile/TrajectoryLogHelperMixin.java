@@ -43,12 +43,14 @@ public abstract class TrajectoryLogHelperMixin
 	@Unique
 	private Entity entity;
 	private boolean doVisualizeLogging;
-	private Translator translator = new Translator("logger", "projectiles.visualized");
+	private boolean hasCreatedVisualizer;
+	private final Translator translator = new Translator("logger", "projectiles.visualized");
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void initTISCMStuffs(String logName, CallbackInfo ci)
 	{
 		this.doVisualizeLogging = false;
+		this.hasCreatedVisualizer = false;
 		if (TrajectoryLoggerUtil.isVisualizer.get())
 		{
 			TrajectoryLoggerUtil.isVisualizer.set(false);
@@ -143,7 +145,7 @@ public abstract class TrajectoryLogHelperMixin
 					}
 					else
 					{
-						comp.set(comp.size() - 1, (BaseText)lastLine.append(marker));
+						lastLine.append(marker);
 					}
 				}
 				break;
@@ -159,11 +161,15 @@ public abstract class TrajectoryLogHelperMixin
 					if (CarpetTISAdditionSettings.visualizeProjectileLoggerEnabled)
 					{
 						comp.add(Messenger.s(String.format(this.translator.tr("info", "Visualize projectile logger: visualized %d tick(s)"), this.positions.size())));
-						for (int i = 0; i < this.positions.size(); i++)
+						if (!this.hasCreatedVisualizer)
 						{
-							VisualizeTrajectoryHelper.createVisualizer(this.world, this.positions.get(i), String.valueOf(i));
+							for (int i = 0; i < this.positions.size(); i++)
+							{
+								VisualizeTrajectoryHelper.createVisualizer(this.world, this.positions.get(i), String.valueOf(i));
+							}
+							hitResultOptional.ifPresent(hitResult -> VisualizeTrajectoryHelper.createVisualizer(this.world, hitResult.getPos(), "Hit"));
+							this.hasCreatedVisualizer = true;
 						}
-						hitResultOptional.ifPresent(hitResult -> VisualizeTrajectoryHelper.createVisualizer(this.world, hitResult.getPos(), "Hit"));
 					}
 					else
 					{

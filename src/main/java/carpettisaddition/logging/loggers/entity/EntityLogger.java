@@ -72,9 +72,9 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		return Messenger.s(String.format("[%s] ", world.getTime()), "g");
 	}
 
-	private void onLoggingEvent(LoggingType loggingType, Supplier<BaseText[]> supplier)
+	private void onLoggingEvent(T entity, LoggingType loggingType, Supplier<BaseText[]> supplier)
 	{
-		if (this.getAcceleratorBoolean())
+		if (this.getAcceleratorBoolean() && entity.world != null && !entity.world.isClient())
 		{
 			LoggerRegistry.getLogger(this.loggerName).log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
 		}
@@ -82,7 +82,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public void onEntityCreated(T entity)
 	{
-		this.onLoggingEvent(LoggingType.CREATE, () -> new BaseText[]{Messenger.c(
+		this.onLoggingEvent(entity, LoggingType.CREATE, () -> new BaseText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
 				getNameTextRich(entity),
 				String.format("r %s", translator.tr(" created")),
@@ -95,7 +95,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public void onEntityDespawn(T entity)
 	{
-		this.onLoggingEvent(LoggingType.DESPAWN, () -> new BaseText[]{Messenger.c(
+		this.onLoggingEvent(entity, LoggingType.DESPAWN, () -> new BaseText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
 				getNameTextRich(entity),
 				String.format("r %s", translator.tr(" despawned")),
@@ -106,7 +106,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public void onEntityDied(T entity, DamageSource source, float amount)
 	{
-		this.onLoggingEvent(LoggingType.DIE, () -> new BaseText[]{Messenger.c(
+		this.onLoggingEvent(entity, LoggingType.DIE, () -> new BaseText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
 				TextUtil.getFancyText(
 						null,
