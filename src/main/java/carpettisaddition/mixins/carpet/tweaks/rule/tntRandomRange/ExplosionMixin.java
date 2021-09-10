@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.carpet.tweaks.rule.tntRandomRange;
 
 import carpet.CarpetSettings;
-import carpettisaddition.helpers.carpet.tntRandomRange.WrappedRandom;
+import carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange.WrappedRandom;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Final;

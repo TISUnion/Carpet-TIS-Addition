@@ -54,11 +54,13 @@
 - [可再生鞘翅](#可再生鞘翅-renewableElytra)
 - [中继器延迟折半](#中继器延迟折半-repeaterHalfDelay)
 - [刷沙机修复](#刷沙机修复-sandDupingFix)
+- [结构方块不保留流体](#结构方块不保留流体-structureBlockDoNotPreserveFluid)
 - [结构方块范围限制](#结构方块范围限制-structureBlockLimit)
 - [同步光照线程](#同步光照线程-synchronizedLightThread)
 - [计划刻上限](#计划刻上限-tileTickLimit)
-- [tnt复制修复](#tnt复制修复-tntDupingFix)
+- [TNT复制修复](#TNT复制修复-tntDupingFix)
 - [TNT引信时长](#TNT引信时长-tntFuseDuration)
+- [TNT忽略红石信号](#TNT忽略红石信号-tntIgnoreRedstoneSignal)
 - [工具化TNT](#工具化TNT-tooledTNT)
 - [完全没有方块更新](#完全没有方块更新-totallyNoBlockUpdate)
 - [禁用海龟蛋被践踏](#禁用海龟蛋被践踏-turtleEggTrampledDisabled)
@@ -446,7 +448,7 @@
 
 ## 微时序目标 (microTimingTarget)
 
-设置指定微时序记录器记录目标的方法
+设置指定微时序记录器记录目标的方法。被染料记号标记的方块总会被记录
 
 `labelled`: 记录被羊毛块标记的事件
 
@@ -454,7 +456,7 @@
 
 `all`: 记录所有事件。**谨慎使用**
 
-`marker_only`: 仅记录被染料记号的方块。将其与规则 [microTimingDyeMarker（微时序染料记号）](#微时序染料记号-microTimingDyeMarker) 一起使用
+`marker_only`: 仅记录被染料记号标记的方块。将其与规则 [microTimingDyeMarker（微时序染料记号）](#微时序染料记号-microTimingDyeMarker) 一起使用
 
 - 类型: `enum`
 - 默认值: `labelled`
@@ -630,6 +632,18 @@
 - 分类: `TIS`, `BUGFIX`
 
 
+## 结构方块不保留流体 (structureBlockDoNotPreserveFluid)
+
+结构方块在放置含水方块时，不保留已存在的流体
+
+同时有着抑制 [MC-130584](https://bugs.mojang.com/browse/MC-130584) 发生的副作用
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
 ## 结构方块范围限制 (structureBlockLimit)
 
 覆写结构方块的范围限制
@@ -689,6 +703,18 @@
 - 类型: `int`
 - 默认值: `80`
 - 参考选项: `0`, `80`, `32767`
+- 分类: `TIS`, `CREATIVE`
+
+
+## TNT忽略红石信号 (tntIgnoreRedstoneSignal)
+
+阻止 TNT 被红石信号点燃
+
+你仍可以使用爆炸等方式点燃TNT
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
 
 
@@ -1107,7 +1133,14 @@
 
 -----------
 
-# Carpet 相关指令修改
+# 其他
+
+## Carpet 相关规则修改
+
+- 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
+- 增强规则 `creativeNoClip`：发射器放置方块、经验球追踪时无视处于 creativeNoClip 状态下的玩家
+
+## Carpet 相关指令修改
 
 - 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
 - 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
@@ -1117,10 +1150,9 @@
 - 使指令 `/info entity` 能正常地运行
 - 在指令 `/info block` 中显示目标位置的计划刻事件及方块事件
 
-# 其他
+## 杂项
 
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出，对 1.4.38 前的 fabric-carpet 有效（fabric-carpet 1.4.38 也实现了相关的约束）
-- 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
 - 取消玩家动作包（由 `/player` 指令触发的 PlayerActionPack）在 `/tick freeze` 时的更新
 - 修复地毯假人不响应玩家近战攻击的击退的 bug（https://github.com/gnembon/fabric-carpet/issues/745）
 
@@ -1135,17 +1167,18 @@
 - 1.15.2，对应 Minecraft 1.15.2
 - 1.16.5，对应 Minecraft 1.16.4 至 1.16.5
 - 1.17.x，对应 Minecraft 1.17.1
+- 1.18-exp，对应 Minecraft 1.18 实验性快照
 
 目前存档的分支：
-- 1.16，对应 Minecraft 1.16 至 1.16.1
-- 1.16.3，对应 Minecraft 1.16.2 至 1.16.3
-- 1.17，对应 Minecraft 1.17
+- archive/1.16，对应 Minecraft 1.16 至 1.16.1
+- archive/1.16.3，对应 Minecraft 1.16.2 至 1.16.3
+- archive/1.17，对应 Minecraft 1.17
 
 对于通用的新特性，在 1.15.2 分支中实现，再将其合并至其他分支
 
 分支合并顺序：
 - 1.15.2 -> 1.14.4
-- 1.15.2 -> 1.16.5 -> 1.17.x
+- 1.15.2 -> 1.16.5 -> 1.17.x -> 1.18-exp
 - 1.15.2 -> master (发布 release 时)
 
 对于版本专用的修复/补丁，在对应的分支上操作即可
