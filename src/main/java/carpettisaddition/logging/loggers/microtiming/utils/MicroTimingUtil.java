@@ -204,6 +204,7 @@ public class MicroTimingUtil
 	public static Optional<DyeColor> defaultColorGetter(World world, BlockPos pos)
 	{
 		Optional<DyeColor> optionalDyeColor = Optional.empty();
+		boolean usingFallbackColor = false;
 		if (CarpetTISAdditionSettings.microTimingTarget != MicroTimingTarget.MARKER_ONLY)
 		{
 			optionalDyeColor = getWoolColor(world, pos);
@@ -213,26 +214,24 @@ public class MicroTimingUtil
 			}
 			if (!optionalDyeColor.isPresent())
 			{
-				boolean useBackup;
 				switch (CarpetTISAdditionSettings.microTimingTarget)
 				{
 					case IN_RANGE:
-						useBackup = world.getClosestPlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, MicroTimingTarget.IN_RANGE_RADIUS, player -> true) != null;
+						usingFallbackColor = world.getClosestPlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, MicroTimingTarget.IN_RANGE_RADIUS, player -> true) != null;
 						break;
 					case ALL:
-						useBackup = true;
+						usingFallbackColor = true;
 						break;
 					default:
-						useBackup = false;
 						break;
 				}
-				if (useBackup)
+				if (usingFallbackColor)
 				{
 					optionalDyeColor = Optional.of(DyeColor.LIGHT_GRAY);
 				}
 			}
 		}
-		if (!optionalDyeColor.isPresent())
+		if (!optionalDyeColor.isPresent() || usingFallbackColor)
 		{
 			optionalDyeColor = MicroTimingMarkerManager.getInstance().getColor(world, pos, MicroTimingMarkerType.REGULAR);
 		}

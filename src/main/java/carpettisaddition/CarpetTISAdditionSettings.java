@@ -422,7 +422,7 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(
-			desc = "Modify the way to specify events to be logged in microTiming logger",
+			desc = "Modify the way to specify events to be logged in microTiming logger. Events labelled with dye marker are always logged",
 			extra = {
 					"labelled: Logs events labelled with wool",
 					"in_range: Logs events within 32m of any player",

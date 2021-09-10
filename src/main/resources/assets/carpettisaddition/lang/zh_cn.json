@@ -120,11 +120,11 @@
   "rule.microTimingDyeMarker.extra.5": "如果客户端安装有fabric-carpet mod，被标记的方块将会显示出一个边框。如果客户端还带有carpet-tis-addition，则记号的名称还可透过方块查看",
 
   "rule.microTimingTarget.name": "微时序目标",
-  "rule.microTimingTarget.desc": "设置指定微时序记录器记录目标的方法",
+  "rule.microTimingTarget.desc": "设置指定微时序记录器记录目标的方法。被染料记号标记的方块总会被记录",
   "rule.microTimingTarget.extra.0": "labelled: 记录被羊毛块标记的事件",
   "rule.microTimingTarget.extra.1": "in_range: 记录离任意玩家32m内的事件",
   "rule.microTimingTarget.extra.2": "all: 记录所有事件。谨慎使用",
-  "rule.microTimingTarget.extra.3": "marker_only: 仅记录被染料记号的方块。将其与规则microTimingDyeMarker（微时序染料记号）一起使用",
+  "rule.microTimingTarget.extra.3": "marker_only: 仅记录被染料记号标记的方块。将其与规则microTimingDyeMarker（微时序染料记号）一起使用",
 
   "rule.microTimingTickDivision.name": "微时序游戏刻划分",
   "rule.microTimingTickDivision.desc": "设置指定微时序记录器划分两个游戏刻的方法",

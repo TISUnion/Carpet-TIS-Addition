@@ -448,7 +448,7 @@ You can see boxes at marked blocks with fabric-carpet installed on your client. 
 
 ## microTimingTarget
 
-Modify the way to specify events to be logged in microTiming logger
+Modify the way to specify events to be logged in microTiming logger. Events labelled with dye marker are always logged
 
 `labelled`: Logs events labelled with wool
 

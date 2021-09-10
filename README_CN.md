@@ -448,7 +448,7 @@
 
 ## 微时序目标 (microTimingTarget)
 
-设置指定微时序记录器记录目标的方法
+设置指定微时序记录器记录目标的方法。被染料记号标记的方块总会被记录
 
 `labelled`: 记录被羊毛块标记的事件
 
@@ -456,7 +456,7 @@
 
 `all`: 记录所有事件。**谨慎使用**
 
-`marker_only`: 仅记录被染料记号的方块。将其与规则 [microTimingDyeMarker（微时序染料记号）](#微时序染料记号-microTimingDyeMarker) 一起使用
+`marker_only`: 仅记录被染料记号标记的方块。将其与规则 [microTimingDyeMarker（微时序染料记号）](#微时序染料记号-microTimingDyeMarker) 一起使用
 
 - 类型: `enum`
 - 默认值: `labelled`
