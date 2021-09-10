@@ -61,6 +61,10 @@
   "rule.fakePlayerNameSuffix.desc": "为/player指令召唤出来的假人名称添加指定后缀",
   "rule.fakePlayerNameSuffix.extra.0": "将其设置为#none以阻止添加后缀",
 
+  "rule._validator.validatefakeplayernameextra.warn.found": "在应用规则 %2$s 时在值 \"%1$s\" 中发现了意料之外的字符",
+  "rule._validator.validatefakeplayernameextra.warn.blocked": "如果你真的要应用这个值，请再输入一次该指令",
+  "rule._validator.validatefakeplayernameextra.warn.applied": "接受该值，因为你坚持这样做",
+
   "rule.fluidDestructionDisabled.name": "禁用流体破坏",
   "rule.fluidDestructionDisabled.desc": "禁用流体流动造成的方块破坏",
   "rule.fluidDestructionDisabled.extra.0": "流体会简单的停留在即将破坏方块时的状态",
@@ -116,11 +120,11 @@
   "rule.microTimingDyeMarker.extra.5": "如果客户端安装有fabric-carpet mod，被标记的方块将会显示出一个边框。如果客户端还带有carpet-tis-addition，则记号的名称还可透过方块查看",
 
   "rule.microTimingTarget.name": "微时序目标",
-  "rule.microTimingTarget.desc": "设置指定微时序记录器记录目标的方法",
+  "rule.microTimingTarget.desc": "设置指定微时序记录器记录目标的方法。被染料记号标记的方块总会被记录",
   "rule.microTimingTarget.extra.0": "labelled: 记录被羊毛块标记的事件",
   "rule.microTimingTarget.extra.1": "in_range: 记录离任意玩家32m内的事件",
   "rule.microTimingTarget.extra.2": "all: 记录所有事件。谨慎使用",
-  "rule.microTimingTarget.extra.3": "marker_only: 仅记录被染料记号的方块。将其与规则microTimingDyeMarker（微时序染料记号）一起使用",
+  "rule.microTimingTarget.extra.3": "marker_only: 仅记录被染料记号标记的方块。将其与规则microTimingDyeMarker（微时序染料记号）一起使用",
 
   "rule.microTimingTickDivision.name": "微时序游戏刻划分",
   "rule.microTimingTickDivision.desc": "设置指定微时序记录器划分两个游戏刻的方法",
@@ -180,6 +184,10 @@
   "rule.sandDupingFix.extra.0": "重力方块包括沙子、铁砧、龙蛋等",
   "rule.sandDupingFix.extra.1": "在开启后刷沙机的沙子将会仅被传送至另一个纬度",
 
+  "rule.structureBlockDoNotPreserveFluid.name": "结构方块不保留流体",
+  "rule.structureBlockDoNotPreserveFluid.desc": "结构方块在放置含水方块时，不保留已存在的流体",
+  "rule.structureBlockDoNotPreserveFluid.extra.0": "同时有着抑制 MC-130584 发生的副作用",
+
   "rule.structureBlockLimit.name": "结构方块范围限制",
   "rule.structureBlockLimit.desc": "覆写结构方块的范围限制",
   "rule.structureBlockLimit.extra.0": "当相对位置的值大于32时客户端里结构的位置可能会错误地显示",
@@ -204,6 +212,10 @@
   "rule.tntFuseDuration.name": "TNT引信时长",
   "rule.tntFuseDuration.desc": "覆盖TNT的默认引信时长",
   "rule.tntFuseDuration.extra.0": "这也会影响被爆炸点燃的TNT的引信时长",
+
+  "rule.tntIgnoreRedstoneSignal.name": "TNT忽略红石信号",
+  "rule.tntIgnoreRedstoneSignal.desc": "阻止TNT被红石信号点燃",
+  "rule.tntIgnoreRedstoneSignal.extra.0": "你仍可以使用爆炸等方式点燃TNT",
 
   "rule.tooledTNT.name": "工具化TNT",
   "rule.tooledTNT.desc": "由玩家引发的爆炸破坏并掉落物品时会应用玩家手上的工具",

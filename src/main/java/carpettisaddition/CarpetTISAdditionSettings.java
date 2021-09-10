@@ -8,8 +8,14 @@ import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchro
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
+import carpettisaddition.translations.Translator;
+import com.google.common.collect.Maps;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.BaseText;
 
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import static carpet.settings.RuleCategory.*;
@@ -18,6 +24,8 @@ public class CarpetTISAdditionSettings
 {
     public static final String TIS = "TIS";
     public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space or you can't /carpet list this
+
+	private static final Translator translator = new Translator("rule");
 
 	@Rule(
 			desc = "Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown",
@@ -171,10 +179,25 @@ public class CarpetTISAdditionSettings
 
 	private static class ValidateFakePlayerNameExtra extends Validator<String>
 	{
+		private final Map<ParsedRule<?>, String> lastDangerousInput = Maps.newHashMap();
+
 		@Override
 		public String validate(ServerCommandSource source, ParsedRule<String> currentRule, String newValue, String string)
 		{
-			return (newValue.equals(fakePlayerNameNoExtra) || Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue)) ? newValue : null;
+			if (!newValue.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue) && source != null)
+			{
+				Consumer<BaseText> messenger = msg -> source.sendFeedback(Messenger.s(msg.getString(), "r"), false);
+				messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.found", "Unexpected character found in value \"%1$s\" when applying rule %2$s", newValue, currentRule.name));
+				if (!Objects.equals(this.lastDangerousInput.get(currentRule), newValue))
+				{
+					messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.blocked", "Re-enter the command again if you do want to use this value"));
+					this.lastDangerousInput.put(currentRule, newValue);
+					return null;
+				}
+				messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.applied", "Accepted anyway cuz you insisted"));
+			}
+			this.lastDangerousInput.remove(currentRule);
+			return newValue;
 		}
 		public String description()
 		{
@@ -371,7 +394,7 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(
-			desc = "Modify the way to specify events to be logged in microTiming logger",
+			desc = "Modify the way to specify events to be logged in microTiming logger. Events labelled with dye marker are always logged",
 			extra = {
 					"labelled: Logs events labelled with wool",
 					"in_range: Logs events within 32m of any player",
@@ -501,6 +524,13 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean sandDupingFix = false;
 
+	@Rule(
+			desc = "Structure block do not preserve existed fluid when placing waterlogged-able blocks",
+			extra = "Has a side effect of suppressing bug MC-130584 happening",
+			category = {TIS, CREATIVE, BUGFIX}
+	)
+	public static boolean structureBlockDoNotPreserveFluid = false;
+
 //	Remove due to fabric carpet implement this in 1.4.25
 //	public static int structureBlockLimit = 32;
 
@@ -549,7 +579,7 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			desc = "Overwrite the default fuse duration of TNT",
-			extra = "This might also affects the fuse duration of TNT ignited in explosion",
+			extra = "This might also affect the fuse duration of TNT ignited in explosion",
 			options = {"0", "80", "32767"},
 			validate = ValidateTNTFuseDuration.class,
 			strict = false,
@@ -569,6 +599,13 @@ public class CarpetTISAdditionSettings
 			return "You must choose a integer from 0 to 32767";
 		}
 	}
+
+	@Rule(
+			desc = "Prevent TNT blocks from being ignited from redstone",
+			extra = "You can still use explosion etc. to ignite a tnt",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean tntIgnoreRedstoneSignal = false;
 
 	@Rule(
 			desc = "Tools on the player's main hand is applied to item dropping during the explosion caused by the player",
