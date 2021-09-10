@@ -184,6 +184,10 @@
   "rule.sandDupingFix.extra.0": "重力方块包括沙子、铁砧、龙蛋等",
   "rule.sandDupingFix.extra.1": "在开启后刷沙机的沙子将会仅被传送至另一个纬度",
 
+  "rule.structureBlockDoNotPreserveFluid.name": "结构方块不保留流体",
+  "rule.structureBlockDoNotPreserveFluid.desc": "结构方块在放置含水方块时，不保留已存在的流体",
+  "rule.structureBlockDoNotPreserveFluid.extra.0": "同时有着抑制 MC-130584 发生的副作用",
+
   "rule.structureBlockLimit.name": "结构方块范围限制",
   "rule.structureBlockLimit.desc": "覆写结构方块的范围限制",
   "rule.structureBlockLimit.extra.0": "当相对位置的值大于32时客户端里结构的位置可能会错误地显示",

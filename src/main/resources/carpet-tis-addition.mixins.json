@@ -163,6 +163,8 @@
     "rule.renewableElytra.PhantomEntityMixin",
     "rule.repeaterHalfDelay.AbstractRedstoneGateBlockMixin",
     "rule.sandDupingFix.FallingBlockEntityMixin",
+    "rule.structureBlockDoNotPreserveFluid.StructureBlockBlockEntityMixin",
+    "rule.structureBlockDoNotPreserveFluid.StructurePlacementDataAccessor",
     "rule.structureBlockLimit.StructureBlockBlockEntityMixin",
     "rule.structureBlockLimit.UpdateStructureBlockC2SPacketMixin",
     "rule.synchronizedLightThread.CarpetProfilerMixin",

@@ -54,6 +54,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [renewableElytra](#renewableElytra)
 - [repeaterHalfDelay](#repeaterHalfDelay)
 - [sandDupingFix](#sandDupingFix)
+- [structureBlockDoNotPreserveFluid](#structureBlockDoNotPreserveFluid)
 - [structureBlockLimit](#structureBlockLimit)
 - [synchronizedLightThread](#synchronizedLightThread)
 - [tileTickLimit](#tileTickLimit)
@@ -629,6 +630,18 @@ In sand dupers sand will only get teleported to the other dimension
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `BUGFIX`
+
+
+## structureBlockDoNotPreserveFluid
+
+Structure block do not preserve existed fluid when placing waterlogged-able blocks
+
+Has a side effect of suppressing bug [MC-130584](https://bugs.mojang.com/browse/MC-130584) happening
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `BUGFIX`
 
 
 ## structureBlockLimit

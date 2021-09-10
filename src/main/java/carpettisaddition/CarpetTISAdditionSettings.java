@@ -553,6 +553,13 @@ public class CarpetTISAdditionSettings
 	public static boolean sandDupingFix = false;
 
 	@Rule(
+			desc = "Structure block do not preserve existed fluid when placing waterlogged-able blocks",
+			extra = "Has a side effect of suppressing bug MC-130584 happening",
+			category = {TIS, CREATIVE, BUGFIX}
+	)
+	public static boolean structureBlockDoNotPreserveFluid = false;
+
+	@Rule(
 			desc = "Overwrite the size limit of structure block",
 			extra = "Relative position might display wrongly on client side if it's larger than 32",
 			validate = ValidateStructureBlockLimit.class,

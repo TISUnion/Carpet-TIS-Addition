@@ -54,6 +54,7 @@
 - [可再生鞘翅](#可再生鞘翅-renewableElytra)
 - [中继器延迟折半](#中继器延迟折半-repeaterHalfDelay)
 - [刷沙机修复](#刷沙机修复-sandDupingFix)
+- [结构方块不保留流体](#结构方块不保留流体-structureBlockDoNotPreserveFluid)
 - [结构方块范围限制](#结构方块范围限制-structureBlockLimit)
 - [同步光照线程](#同步光照线程-synchronizedLightThread)
 - [计划刻上限](#计划刻上限-tileTickLimit)
@@ -624,6 +625,18 @@
 重力方块包括沙子、铁砧、龙蛋等
 
 在开启后刷沙机的沙子将会仅被传送至另一个纬度
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
+## 结构方块不保留流体 (structureBlockDoNotPreserveFluid)
+
+结构方块在放置含水方块时，不保留已存在的流体
+
+同时有着抑制 [MC-130584](https://bugs.mojang.com/browse/MC-130584) 发生的副作用
 
 - 类型: `boolean`
 - 默认值: `false`
