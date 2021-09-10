@@ -13,7 +13,7 @@ public class CreativeNoClipHelper
 		if (CarpetSettings.creativeNoClip && entity instanceof PlayerEntity)
 		{
 			PlayerEntity player = (PlayerEntity) entity;
-			return player.isCreative() && player.abilities.flying;
+			return player.isCreative() && player.getAbilities().flying;
 		}
 		return false;
 	}
