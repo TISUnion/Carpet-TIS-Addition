@@ -28,16 +28,16 @@ public class BlockEventTickStageExtra extends TickStageExtraBase
 	{
 		return Messenger.c(
 				String.format("w %s: ", MicroTimingLoggerManager.tr("Block")),
-				TextUtil.getBlockName(this.blockEventData.getBlock()),
+				TextUtil.getBlockName(this.blockEventData.block()),
 				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Order"), this.order),
 				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Depth"), this.depth),
-				String.format("w \n%s: %s", MicroTimingLoggerManager.tr("Position"), TextUtil.getCoordinateString(this.blockEventData.getPos()))
+				String.format("w \n%s: %s", MicroTimingLoggerManager.tr("Position"), TextUtil.getCoordinateString(this.blockEventData.pos()))
 		);
 	}
 
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.blockEventData.getPos(), this.world.getRegistryKey()));
+		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.blockEventData.pos(), this.world.getRegistryKey()));
 	}
 }

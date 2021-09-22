@@ -25,7 +25,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 
 	public ExecuteBlockEventEvent(EventType eventType, BlockEvent blockAction, Boolean returnValue, FailInfo failInfo)
 	{
-		super(eventType, "execute_block_event", blockAction.getBlock());
+		super(eventType, "execute_block_event", blockAction.block());
 		this.blockAction = blockAction;
 		this.returnValue = returnValue;
 		this.failInfo = failInfo;
@@ -37,16 +37,16 @@ public class ExecuteBlockEventEvent extends BaseEvent
 
 	public static String getMessageExtraMessengerHoverText(BlockEvent blockAction)
 	{
-		int eventID = blockAction.getType();
-		int eventParam = blockAction.getData();
+		int eventID = blockAction.type();
+		int eventParam = blockAction.data();
 		StringBuilder builder = new StringBuilder();
 		builder.append(String.format("^w eventID: %d", eventID));
-		if (blockAction.getBlock() instanceof PistonBlock)
+		if (blockAction.block() instanceof PistonBlock)
 		{
 			builder.append(String.format(" (%s)", PistonBlockEventType.byId(eventID)));
 		}
 		builder.append(String.format("\neventParam: %d", eventParam));
-		if (blockAction.getBlock() instanceof PistonBlock)
+		if (blockAction.block() instanceof PistonBlock)
 		{
 			builder.append(String.format(" (%s)", MicroTimingUtil.getFormattedDirectionString(Direction.byId(eventParam))));
 		}
@@ -58,10 +58,10 @@ public class ExecuteBlockEventEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(COLOR_ACTION + this.tr("Execute"));
-		if (this.blockAction.getBlock() instanceof PistonBlock)
+		if (this.blockAction.block() instanceof PistonBlock)
 		{
 			list.add(TextUtil.getSpaceText());
-			list.add(COLOR_TARGET + PistonBlockEventType.byId(blockAction.getType()));
+			list.add(COLOR_TARGET + PistonBlockEventType.byId(blockAction.type()));
 		}
 		else
 		{
@@ -136,7 +136,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 					return Messenger.c(
 							"w " + this.event.tr("fail_info.block_changed", "Block has changed"),
 							"w : ",
-							TextUtil.getBlockName(this.event.blockAction.getBlock()),
+							TextUtil.getBlockName(this.event.blockAction.block()),
 							"g  -> ",
 							TextUtil.getBlockName(this.actualBlock)
 					);

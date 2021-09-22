@@ -228,7 +228,7 @@ public class MicroTimingLoggerManager
 	{
 		onEvent(
 				MicroTimingContext.create().
-						withWorld(world).withBlockPos(blockAction.getPos()).
+						withWorld(world).withBlockPos(blockAction.pos()).
 						withEvent(new ExecuteBlockEventEvent(eventType, blockAction, returnValue, failInfo))
 		);
 	}
@@ -237,7 +237,7 @@ public class MicroTimingLoggerManager
 	{
 		onEvent(
 				MicroTimingContext.create().
-						withWorld(world).withBlockPos(blockAction.getPos()).
+						withWorld(world).withBlockPos(blockAction.pos()).
 						withEvent(new ScheduleBlockEventEvent(blockAction, success))
 		);
 	}

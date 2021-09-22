@@ -102,8 +102,8 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 			{
 				result.add(Messenger.c(
 						"w     ",
-						TextUtil.getBlockName(be.getBlock()),
-						String.format("w : id = %d, param = %d", be.getType(), be.getData()))
+						TextUtil.getBlockName(be.block()),
+						String.format("w : id = %d, param = %d", be.type(), be.data()))
 				);
 			}
 		}
@@ -121,7 +121,7 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		List<ScheduledTick<Fluid>> liquidTileTicks = ((ServerTickScheduler<Fluid>)world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
 		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), TextUtil::getBlockName);
 		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", world.getTime(), TextUtil::getFluidName);
-		List<BlockEvent> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.getPos().equals(pos)).collect(Collectors.toList());
+		List<BlockEvent> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.pos().equals(pos)).collect(Collectors.toList());
 		this.appendBlockEventInfo(result, blockEvents);
 		return result;
 	}

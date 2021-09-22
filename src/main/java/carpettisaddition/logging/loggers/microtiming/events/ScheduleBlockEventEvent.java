@@ -16,7 +16,7 @@ public class ScheduleBlockEventEvent extends BaseEvent
 
 	public ScheduleBlockEventEvent(BlockEvent blockAction, boolean success)
 	{
-		super(EventType.EVENT, "schedule_block_event", blockAction.getBlock());
+		super(EventType.EVENT, "schedule_block_event", blockAction.block());
 		this.blockAction = blockAction;
 		this.success = success;
 	}

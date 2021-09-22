@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.9-SNAPSHOT'
+	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -27,7 +27,8 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+	// modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+	modImplementation "curse.maven:carpet-349239:3462924"  // Carpet Mod v1.4.46 for 1.18
 	modCompileOnly "curse.maven:lithium-360438:3438799"  // Lithium mc1.17.1-0.7.4
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
