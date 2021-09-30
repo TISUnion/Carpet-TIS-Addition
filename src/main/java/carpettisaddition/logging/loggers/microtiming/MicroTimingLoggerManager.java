@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.microtiming;
 
-import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
@@ -67,13 +66,11 @@ public class MicroTimingLoggerManager
 	public static void attachServer(MinecraftServer minecraftServer)
 	{
 		instance = new MicroTimingLoggerManager(minecraftServer);
-		CarpetTISAdditionServer.LOGGER.debug("Attached MicroTick loggers to " + instance.loggers.size() + " worlds");
 	}
 
 	public static void detachServer()
 	{
 		instance = null;
-		CarpetTISAdditionServer.LOGGER.debug("Detached MicroTick loggers");
 	}
 
 	private static Optional<MicroTimingLogger> getWorldLogger(World world)
