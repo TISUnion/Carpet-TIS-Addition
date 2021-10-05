@@ -70,6 +70,8 @@
     "command.lifetime.spawning.ThrownExperienceBottleEntityMixin",
     "command.lifetime.spawning.VillagerEntityMixin",
     "command.lifetime.spawning.ZombieEntityMixin",
+    "command.manipulate.ServerWorldAccessor",
+    "command.manipulate.WorldAccessor",
     "command.raid.RaidAccessor",
     "command.raid.RaidManagerAccessor",
     "command.raid.RaidMixin",

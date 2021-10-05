@@ -17,6 +17,7 @@
 - [区块更新数据包阈值](rules_cn.md#区块更新数据包阈值-chunkupdatepacketthreshold)
 - [区块刻速度](rules_cn.md#区块刻速度-chunktickspeed)
 - [存活时间追踪器](rules_cn.md#存活时间追踪器-commandlifetime)
+- [世界控制命令开关](rules_cn.md#世界控制命令开关-commandmanipulate)
 - [袭击追踪器](rules_cn.md#袭击追踪器-commandraid)
 - [刷新命令开关](rules_cn.md#刷新命令开关-commandrefresh)
 - [创造玩家强制打开容器](rules_cn.md#创造玩家强制打开容器-creativeopencontainerforcibly)
@@ -94,6 +95,7 @@
 - [存活时间](commands_cn.md#存活时间-lifetime)
 - [tick](commands_cn.md#tick)
 - [刷新](commands_cn.md#刷新-refresh)
+- [操控世界](commands_cn.md#操控世界-manipulate)
 
 ## [Scarpet](misc_cn.md#scarpet)
 
