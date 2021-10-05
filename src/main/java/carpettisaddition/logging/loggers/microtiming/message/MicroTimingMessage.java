@@ -165,7 +165,7 @@ public class MicroTimingMessage
 				"g [",
 				TextUtil.getFancyText(
 						null,
-						eventSource.getName(),
+						this.blockName != null ? Messenger.s(this.blockName) : eventSource.getName(),
 						Messenger.c(
 								String.format("w %s: ", TRANSLATOR.tr("Event source")),
 								eventSource.getName(),
