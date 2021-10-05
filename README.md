@@ -357,7 +357,7 @@ Only affects normal command blocks
 
 The mobs in lazy chunks will not despawn, like the behavior before 1.15
 
-This option has no effect in versions before 1.15
+This option only have effects between Minecraft 1.15 and 1.16
 
 - Type: `boolean`
 - Default value: `false`

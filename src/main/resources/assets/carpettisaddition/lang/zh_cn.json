@@ -86,7 +86,7 @@
 
   "rule.keepMobInLazyChunks.name": "保持弱加载区块的怪物",
   "rule.keepMobInLazyChunks.desc": "弱加载区块的怪物不再会被刷新掉",
-  "rule.keepMobInLazyChunks.extra.0": "此选项对1.15以前的版本无效",
+  "rule.keepMobInLazyChunks.extra.0": "此选项仅对1.15至1.16间的版本有效",
 
   "rule.lightQueueLoggerSamplingDuration.name": "光照队列记录器采样时长",
   "rule.lightQueueLoggerSamplingDuration.desc": "光照队列记录器的采样时长，单位为游戏刻",
