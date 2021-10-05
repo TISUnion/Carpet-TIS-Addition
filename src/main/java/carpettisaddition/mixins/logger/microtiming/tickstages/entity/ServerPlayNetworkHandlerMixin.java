@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.microtiming.tickstages;
+package carpettisaddition.mixins.logger.microtiming.tickstages.entity;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.tickstages.PlayerEntityTickStageExtra;

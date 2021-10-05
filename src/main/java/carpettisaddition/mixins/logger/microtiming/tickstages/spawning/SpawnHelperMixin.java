@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.microtiming.tickstages;
+package carpettisaddition.mixins.logger.microtiming.tickstages.spawning;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 
 @Mixin(SpawnHelper.class)
 public abstract class SpawnHelperMixin

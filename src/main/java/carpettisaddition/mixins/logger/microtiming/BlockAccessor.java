@@ -11,6 +11,6 @@ public interface BlockAccessor
 	@Accessor
 	static Direction[] getFACINGS()
 	{
-		return null;
+		throw new RuntimeException();
 	}
 }
