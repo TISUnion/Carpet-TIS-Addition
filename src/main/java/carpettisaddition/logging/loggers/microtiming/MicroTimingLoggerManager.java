@@ -177,22 +177,22 @@ public class MicroTimingLoggerManager
 	 * -----------
 	 */
 
-	public static void onExecuteTileTickEvent(World world, ScheduledTick<Block> event, EventType eventType)
+	public static void onExecuteTileTickEvent(World world, ScheduledTick<?> tileTickEvent, EventType eventType)
 	{
-		onEvent(
+		ExecuteTileTickEvent.createFrom(eventType, tileTickEvent).ifPresent(event -> onEvent(
 				MicroTimingContext.create().
-						withWorld(world).withBlockPos(event.pos).
-						withEvent(new ExecuteTileTickEvent(eventType, event))
-		);
+						withWorld(world).withBlockPos(tileTickEvent.pos).
+						withEvent(event)
+		));
 	}
 
-	public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority, Boolean success)
+	public static void onScheduleTileTickEvent(World world, Object object, BlockPos pos, int delay, TickPriority priority, Boolean success)
 	{
-		onEvent(
+		EventSource.fromObject(object).ifPresent(eventSource -> onEvent(
 				MicroTimingContext.create().
 						withWorld(world).withBlockPos(pos).
-						withEvent(new ScheduleTileTickEvent(block, pos, delay, priority, success))
-		);
+						withEvent(new ScheduleTileTickEvent(eventSource, pos, delay, priority, success))
+		));
 	}
 
 	/*

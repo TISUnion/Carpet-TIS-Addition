@@ -6,6 +6,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.events.BaseEvent;
+import carpettisaddition.logging.loggers.microtiming.events.EventSource;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
@@ -14,11 +15,11 @@ import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.dimension.DimensionType;
 
 import java.util.List;
@@ -147,19 +148,28 @@ public class MicroTimingMessage
 		return Messenger.s(INDENTATIONS.get(min(indentation, MAX_INDENT)));
 	}
 
+	// [Stone]
 	private BaseText getEnclosedTranslatedBlockNameHeaderText()
 	{
-		Block eventSourceBlock = this.event.getEventSourceBlock();
-		BaseText sourceBlockNameText = TextUtil.getBlockName(eventSourceBlock);
+		EventSource eventSource = this.event.getEventSource();
+		String type = "unknown";
+		if (eventSource.getSourceObject() instanceof Block)
+		{
+			type = TRANSLATOR.tr("block");
+		}
+		else if (eventSource.getSourceObject() instanceof Fluid)
+		{
+			type = TRANSLATOR.tr("fluid");
+		}
 		return Messenger.c(
 				"g [",
 				TextUtil.getFancyText(
 						null,
-						this.blockName != null ? Messenger.s(this.blockName) : sourceBlockNameText,
+						eventSource.getName(),
 						Messenger.c(
-								String.format("w %s: ", TRANSLATOR.tr("Event source block")),
-								sourceBlockNameText,
-								String.format("w \n%s: %s", TRANSLATOR.tr("Block ID"), Registry.BLOCK.getId(eventSourceBlock))
+								String.format("w %s: ", TRANSLATOR.tr("Event source")),
+								eventSource.getName(),
+								String.format("w  (%s)\n%s: %s", type, TRANSLATOR.tr("ID"), eventSource.getId())
 						),
 						null
 				),

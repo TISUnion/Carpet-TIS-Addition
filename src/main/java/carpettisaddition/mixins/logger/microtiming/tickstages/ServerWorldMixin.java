@@ -6,7 +6,6 @@ import carpettisaddition.logging.loggers.microtiming.interfaces.IWorld;
 import carpettisaddition.logging.loggers.microtiming.tickstages.BlockEventTickStageExtra;
 import carpettisaddition.logging.loggers.microtiming.tickstages.TileTickTickStageExtra;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
-import net.minecraft.block.Block;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.ScheduledTick;
@@ -57,25 +56,31 @@ public abstract class ServerWorldMixin
 
 	@Inject(
 			method = "tick",
-			at = @At(
-					value = "CONSTANT",
-					args = "stringValue=tickPending"
-			)
+			at = {
+					@At(
+							value = "FIELD",
+							args = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+					),
+					@At(
+							value = "FIELD",
+							args = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+					)
+			}
 	)
 	private void onEnterTileTickStage(CallbackInfo ci)
 	{
 		this.tileTickOrderCounter = 0;
 	}
 
-	@Inject(method = "tickBlock", at = @At("HEAD"))
-	private void beforeExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
+	@Inject(method = {"tickBlock", "tickFluid"}, at = @At("HEAD"))
+	private void beforeExecuteTileTickEvent(ScheduledTick<?> event, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(event.priority.getIndex()));
 		MicroTimingLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new TileTickTickStageExtra((ServerWorld)(Object)this, event, this.tileTickOrderCounter++));
 	}
 
-	@Inject(method = "tickBlock", at = @At("RETURN"))
-	private void afterExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
+	@Inject(method = {"tickBlock", "tickFluid"}, at = @At("RETURN"))
+	private void afterExecuteTileTickEvent(ScheduledTick<?> event, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
 		MicroTimingLoggerManager.setTickStageExtra((ServerWorld)(Object)this, null);

@@ -5,20 +5,26 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
 import net.minecraft.world.ScheduledTick;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
-public class ExecuteTileTickEvent extends BaseEvent
+public class ExecuteTileTickEvent<T> extends BaseEvent
 {
-	private final ScheduledTick<Block> tileTickEntry;
-	public ExecuteTileTickEvent(EventType eventType, ScheduledTick<Block> tileTickEntry)
+	private final ScheduledTick<T> tileTickEntry;
+
+	private ExecuteTileTickEvent(EventType eventType, ScheduledTick<T> tileTickEntry, EventSource source)
 	{
-		super(eventType, "execute_tile_tick", tileTickEntry.getObject());
+		super(eventType, "execute_tile_tick", source);
 		this.tileTickEntry = tileTickEntry;
+	}
+
+	public static Optional<ExecuteTileTickEvent<?>> createFrom(EventType eventType, ScheduledTick<?> tileTickEntry)
+	{
+		return EventSource.fromObject(tileTickEntry.getObject()).map(eventSource -> new ExecuteTileTickEvent<>(eventType, tileTickEntry, eventSource));
 	}
 
 	@Override
@@ -44,7 +50,7 @@ public class ExecuteTileTickEvent extends BaseEvent
 		if (this == o) return true;
 		if (!(o instanceof ExecuteTileTickEvent)) return false;
 		if (!super.equals(o)) return false;
-		ExecuteTileTickEvent that = (ExecuteTileTickEvent) o;
+		ExecuteTileTickEvent<?> that = (ExecuteTileTickEvent<?>) o;
 		return Objects.equals(tileTickEntry, that.tileTickEntry);
 	}
 

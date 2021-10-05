@@ -5,6 +5,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.BlockPos;
@@ -38,6 +39,12 @@ public class TileTickTickStageExtra extends TickStageExtraBase
 		{
 			list.add(String.format("w %s: ", MicroTimingLoggerManager.tr("Block")));
 			list.add(TextUtil.getBlockName((Block)target));
+			list.add("w \n");
+		}
+		else if (target instanceof Fluid)
+		{
+			list.add(String.format("w %s: ", MicroTimingLoggerManager.tr("Fluid")));
+			list.add(TextUtil.getFluidName((Fluid)target));
 			list.add("w \n");
 		}
 		list.add(String.format("w %s: %d\n", MicroTimingLoggerManager.tr("Order"), this.order));
