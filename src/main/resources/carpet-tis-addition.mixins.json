@@ -79,6 +79,7 @@
     "logger.damage.ServerPlayerEntityMixin",
     "logger.item.ItemEntityMixin",
     "logger.lightqueue.ServerLightingProviderMixin",
+    "logger.microtiming.BlockAccessor",
     "logger.microtiming.ServerWorldMixin",
     "logger.microtiming.events.BlockMixin",
     "logger.microtiming.events.EmitBlockUpdateMixins$AbstractButtonBlockMixin",
