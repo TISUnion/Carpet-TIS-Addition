@@ -18,8 +18,20 @@ public abstract class MinecraftServerMixin
 					args = "stringValue=save"
 			)
 	)
-	private void onStageAutosave(CallbackInfo ci)
+	private void enterStageAutosave(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.AUTO_SAVE);
+	}
+
+	@Inject(
+			method = "tick",
+			at = @At(
+					value = "CONSTANT",
+					args = "stringValue=Autosave finished"
+			)
+	)
+	private void exitStageAutosave(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage(TickStage.UNKNOWN);
 	}
 }

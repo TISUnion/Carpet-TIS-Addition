@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-
 @Mixin(ServerChunkManager.class)
 public abstract class ServerChunkManagerMixin
 {
@@ -24,8 +23,21 @@ public abstract class ServerChunkManagerMixin
 					target = "Lnet/minecraft/world/gen/chunk/ChunkGenerator;spawnEntities(Lnet/minecraft/server/world/ServerWorld;ZZ)V"
 			)
 	)
-	private void onStageSpawnSpecial(CallbackInfo ci)
+	private void enterStageSpawnSpecial(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(this.world, TickStage.SPAWNING_SPECIAL);
+	}
+
+	@Inject(
+			method = "tickChunks",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/gen/chunk/ChunkGenerator;spawnEntities(Lnet/minecraft/server/world/ServerWorld;ZZ)V",
+					shift = At.Shift.AFTER
+			)
+	)
+	private void exitStageSpawnSpecial(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage(this.world, TickStage.UNKNOWN);
 	}
 }

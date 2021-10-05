@@ -95,8 +95,6 @@ public abstract class ServerWorldMixin
 		MicroTimingLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
 	}
 
-	// Shift the opcode to make sure the stage detail and extra has been set in tickstages.ServerWorldMixin
-	// Injects with shift below are the same
 	@Inject(method = "method_14174", at = @At(value = "HEAD", shift = At.Shift.AFTER))
 	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{

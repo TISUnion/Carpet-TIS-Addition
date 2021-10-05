@@ -12,9 +12,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ServerWorldMixin
 {
 	@Inject(method = "tickChunk", at = @At("HEAD"))
-	private void onTickChunk(CallbackInfo ci)
+	private void enterTickChunk(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.CHUNK_TICK);
+	}
+
+	@Inject(method = "tickChunk", at = @At("TAIL"))
+	private void exitTickChunk(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage(TickStage.UNKNOWN);
 	}
 
 	@Inject(

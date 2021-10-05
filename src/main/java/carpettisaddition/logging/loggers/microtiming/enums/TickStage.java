@@ -4,6 +4,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 
 public enum TickStage
 {
+	UNKNOWN("Unknown", false),
 	SPAWNING("Spawning", true),
 	SPAWNING_SPECIAL("SpawningSpecial", true),
 	WORLD_BORDER("WorldBorder", true),

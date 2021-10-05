@@ -8,6 +8,7 @@ import net.minecraft.world.ScheduledTick;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerWorld.class)
@@ -18,13 +19,32 @@ public abstract class ServerWorldMixin
 	@Inject(
 			method = "tick",
 			at = @At(
-					value = "CONSTANT",
-					args = "stringValue=tickPending"
+					value = "FIELD",
+					target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
 			)
 	)
-	private void onStageTileTick(CallbackInfo ci)
+	private void enterStageTileTick(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.TILE_TICK);
+	}
+
+	@Inject(
+			method = "tick",
+			slice = @Slice(
+					from = @At(
+							value = "FIELD",
+							target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+					)
+			),
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/server/world/ServerTickScheduler;tick()V",
+					shift = At.Shift.AFTER
+			)
+	)
+	private void exitStageTileTick(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.UNKNOWN);
 	}
 
 	@Inject(
@@ -32,15 +52,15 @@ public abstract class ServerWorldMixin
 			at = {
 					@At(
 							value = "FIELD",
-							args = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+							target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
 					),
 					@At(
 							value = "FIELD",
-							args = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+							target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
 					)
 			}
 	)
-	private void onEnterTileTickStage(CallbackInfo ci)
+	private void resetTileTickOrderCounter(CallbackInfo ci)
 	{
 		this.tileTickOrderCounter = 0;
 	}

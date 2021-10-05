@@ -12,8 +12,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MinecraftDedicatedServerMixin
 {
 	@Inject(method = "executeQueuedCommands", at = @At("HEAD"))
-	private void onStagePlayerAction(CallbackInfo ci)
+	private void enterStageConsole(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.CONSOLE);
+	}
+
+	@Inject(method = "executeQueuedCommands", at = @At("TAIL"))
+	private void exitStageConsole(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage(TickStage.UNKNOWN);
 	}
 }

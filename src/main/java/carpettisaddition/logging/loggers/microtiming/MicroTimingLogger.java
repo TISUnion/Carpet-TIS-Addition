@@ -19,6 +19,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -37,9 +38,10 @@ public class MicroTimingLogger extends AbstractLogger
 	{
 		super(NAME);
 		this.world = world;
+		this.stage = TickStage.UNKNOWN;
 	}
 	
-	public void setTickStage(TickStage stage)
+	public void setTickStage(@NotNull TickStage stage)
 	{
 		this.stage = stage;
 		this.stageDetail = null;

@@ -20,10 +20,16 @@ public abstract class WorldMixin
 	private int tileEntityOrderCounter;
 
 	@Inject(method = "tickBlockEntities", at = @At("HEAD"))
-	private void onStageTileEntity(CallbackInfo ci)
+	private void enterStageTileEntity(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((World)(Object)this, TickStage.TILE_ENTITY);
 		this.tileEntityOrderCounter = 0;
+	}
+
+	@Inject(method = "tickBlockEntities", at = @At("TAIL"))
+	private void exitStageTileEntity(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage((World)(Object)this, TickStage.UNKNOWN);
 	}
 
 	@Inject(

@@ -22,8 +22,14 @@ public abstract class CarpetEventServer_EventMixin
 	 * scarpet stage it's not that important so failure is tolerable
 	 */
 	@Inject(method = "onTick", at = @At("HEAD"), remap = false, require = 0)
-	private void onCarpetModStage(CallbackInfo ci)
+	private void enterCarpetModStage(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.SCARPET);
+	}
+
+	@Inject(method = "onTick", at = @At("HEAD"), remap = false, require = 0)
+	private void exitCarpetModStage(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage(TickStage.UNKNOWN);
 	}
 }

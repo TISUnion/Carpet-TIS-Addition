@@ -3,6 +3,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.playera
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.tickstages.PlayerActionTickStageExtra;
+import carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.MinecraftServerMixin;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.PacketListener;
@@ -16,6 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(NetworkThreadUtils.class)
 public abstract class NetworkThreadUtilsMixin<T>
 {
+	/**
+	 * Stage reset happens in {@link MinecraftServerMixin}
+	 */
 	@Inject(
 			method = "forceMainThread(Lnet/minecraft/network/Packet;Lnet/minecraft/network/listener/PacketListener;Lnet/minecraft/util/thread/ThreadExecutor;)V",
 			at = @At("HEAD")

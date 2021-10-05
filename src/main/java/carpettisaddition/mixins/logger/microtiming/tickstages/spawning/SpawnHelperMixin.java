@@ -16,8 +16,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class SpawnHelperMixin
 {
 	@Inject(method = "spawnEntitiesInChunk", at = @At("HEAD"))
-	private static void onStageSpawn(EntityCategory category, ServerWorld serverWorld, WorldChunk chunk, BlockPos spawnPos, CallbackInfo ci)
+	private static void enterStageSpawn(EntityCategory category, ServerWorld serverWorld, WorldChunk chunk, BlockPos spawnPos, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(serverWorld, TickStage.SPAWNING);
+	}
+
+	@Inject(method = "spawnEntitiesInChunk", at = @At("TAIL"))
+	private static void exitStageSpawn(EntityCategory category, ServerWorld serverWorld, WorldChunk chunk, BlockPos spawnPos, CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage(serverWorld, TickStage.UNKNOWN);
 	}
 }

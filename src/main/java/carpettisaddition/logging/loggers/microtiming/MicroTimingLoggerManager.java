@@ -33,6 +33,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Map;
@@ -249,12 +250,12 @@ public class MicroTimingLoggerManager
 	 * ------------
 	 */
 
-	public static void setTickStage(World world, TickStage stage)
+	public static void setTickStage(World world, @NotNull TickStage stage)
 	{
 		getWorldLogger(world).ifPresent(logger -> logger.setTickStage(stage));
 	}
 
-	public static void setTickStage(TickStage stage)
+	public static void setTickStage(@NotNull TickStage stage)
 	{
 		if (instance != null)
 		{

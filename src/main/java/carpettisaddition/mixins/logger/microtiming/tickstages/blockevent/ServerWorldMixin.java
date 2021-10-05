@@ -27,13 +27,19 @@ public abstract class ServerWorldMixin
 	private int blockEventCurrentDepthSize;
 
 	@Inject(method = "sendBlockActions", at = @At("HEAD"))
-	private void onEnterBlockEventStage(CallbackInfo ci)
+	private void enterBlockEventStage(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.BLOCK_EVENT);
 		this.blockEventOrderCounter = 0;
 		this.blockEventCurrentDepthCounter = 0;
 		this.blockEventDepth = 0;
 		this.blockEventCurrentDepthSize = this.pendingBlockActions.size();
+	}
+
+	@Inject(method = "sendBlockActions", at = @At("TAIL"))
+	private void exitBlockEventStage(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage(TickStage.UNKNOWN);
 	}
 
 	@Inject(method = "method_14174", at = @At("HEAD"))

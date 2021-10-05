@@ -19,9 +19,21 @@ public abstract class ServerWorldMixin
 					args = "stringValue=global"
 			)
 	)
-	private void onStageEntities(CallbackInfo ci)
+	private void enterStageEntities(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.ENTITY);
 		((IWorld)this).setEntityOrderCounter(0);
+	}
+
+	@Inject(
+			method = "tick",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/server/world/ServerWorld;tickBlockEntities()V"
+			)
+	)
+	private void exitStageEntities(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.UNKNOWN);
 	}
 }
