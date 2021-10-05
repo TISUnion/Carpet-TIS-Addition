@@ -199,11 +199,19 @@ public class MicroTimingMessage
 		return Messenger.c(line.toArray(new Object[0]));
 	}
 
-	public void mergeQuiteMessage(MicroTimingMessage quiteMessage)
+	/**
+	 * Merge the closing bracket event into current event, for cleaner view
+	 *
+	 * this (opening bracket)
+	 *   sub message A
+	 *     sub-sub message B
+	 * quitMessage (closing bracket)
+	 */
+	public void mergeQuitMessage(MicroTimingMessage quitMessage)
 	{
-		if (quiteMessage != null)
+		if (quitMessage != null)
 		{
-			this.event.mergeQuitEvent(quiteMessage.event);
+			this.event.mergeQuitEvent(quitMessage.event);
 		}
 	}
 }

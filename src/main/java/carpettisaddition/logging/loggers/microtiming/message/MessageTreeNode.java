@@ -77,7 +77,7 @@ public class MessageTreeNode
 				boolean showQuitMessage = e.node.quitMessage != null && showEntryMessage && !mergeMessage;
 				if (mergeMessage)
 				{
-					e.node.entryMessage.mergeQuiteMessage(e.node.quitMessage);
+					e.node.entryMessage.mergeQuitMessage(e.node.quitMessage);
 				}
 				if (showEntryMessage)
 				{

@@ -55,21 +55,12 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 		return Objects.hash(eventSource, eventType);
 	}
 
-	protected EventType getMergedEventType(BaseEvent quitEvent)
+	public void mergeQuitEvent(BaseEvent quitEvent)
 	{
 		if (this.eventType == EventType.ACTION_START && quitEvent.eventType == EventType.ACTION_END)
 		{
-			return EventType.ACTION;
+			this.eventType = EventType.ACTION;
 		}
-		else
-		{
-			return this.eventType;
-		}
-	}
-
-	public void mergeQuitEvent(BaseEvent quitEvent)
-	{
-		this.eventType = this.getMergedEventType(quitEvent);
 	}
 
 	public EventSource getEventSource()
