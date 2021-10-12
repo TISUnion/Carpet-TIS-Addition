@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtiming.tickstages;
+package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
@@ -10,14 +10,14 @@ import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class TileEntityTickStageExtra extends TickStageExtraBase
+public class TileEntitySubStage extends AbstractSubStage
 {
 	private final World world;
 	private final BlockPos pos;
 	private final Block block;
 	private final int order;
 
-	public TileEntityTickStageExtra(BlockEntity tileEntity, int order)
+	public TileEntitySubStage(BlockEntity tileEntity, int order)
 	{
 		this.world = tileEntity.getWorld();
 		this.pos = tileEntity.getPos().toImmutable();

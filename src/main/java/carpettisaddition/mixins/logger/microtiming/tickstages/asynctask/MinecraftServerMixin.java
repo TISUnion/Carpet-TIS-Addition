@@ -29,7 +29,7 @@ public abstract class MinecraftServerMixin
 	 * Reset potential tick stage (extra) set in {@link NetworkThreadUtilsMixin}
 	 */
 	@Inject(method = "runTask", at = @At("RETURN"))
-	void cleanStageExtraInStagePlayerAction(CallbackInfoReturnable<Boolean> cir)
+	void cleanSubStageInStagePlayerAction(CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.ASYNC_TASK);
 	}

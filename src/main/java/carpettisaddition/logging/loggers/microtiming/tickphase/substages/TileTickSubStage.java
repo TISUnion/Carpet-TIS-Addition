@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtiming.tickstages;
+package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
@@ -15,13 +15,13 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class TileTickTickStageExtra extends TickStageExtraBase
+public class TileTickSubStage extends AbstractSubStage
 {
 	private final World world;
 	private final ScheduledTick<?> nextTickListEntry;
 	private final int order;
 
-	public TileTickTickStageExtra(World world, ScheduledTick<?> nextTickListEntry, int order)
+	public TileTickSubStage(World world, ScheduledTick<?> nextTickListEntry, int order)
 	{
 		this.world = world;
 		this.nextTickListEntry = nextTickListEntry;

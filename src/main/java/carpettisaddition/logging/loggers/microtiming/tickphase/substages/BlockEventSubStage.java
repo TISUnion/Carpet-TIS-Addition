@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtiming.tickstages;
+package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
@@ -8,14 +8,14 @@ import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.world.World;
 
-public class BlockEventTickStageExtra extends TickStageExtraBase
+public class BlockEventSubStage extends AbstractSubStage
 {
 	private final World world;
 	private final BlockAction blockEventData;
 	private final int order;
 	private final int depth;
 
-	public BlockEventTickStageExtra(World world, BlockAction blockEventData, int order, int depth)
+	public BlockEventSubStage(World world, BlockAction blockEventData, int order, int depth)
 	{
 		this.world = world;
 		this.blockEventData = blockEventData;

@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.blockevent;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import carpettisaddition.logging.loggers.microtiming.tickstages.BlockEventTickStageExtra;
+import carpettisaddition.logging.loggers.microtiming.tickphase.substages.BlockEventSubStage;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.server.world.ServerWorld;
@@ -46,14 +46,14 @@ public abstract class ServerWorldMixin
 	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(this.blockEventDepth));
-		MicroTimingLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new BlockEventTickStageExtra((ServerWorld)(Object)this, blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
+		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, new BlockEventSubStage((ServerWorld)(Object)this, blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
 	}
 
 	@Inject(method = "method_14174", at = @At("RETURN"))
 	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
-		MicroTimingLoggerManager.setTickStageExtra((ServerWorld)(Object)this, null);
+		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, null);
 		this.blockEventCurrentDepthCounter++;
 		if (this.blockEventCurrentDepthCounter == this.blockEventCurrentDepthSize)
 		{

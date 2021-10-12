@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.tiletick;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import carpettisaddition.logging.loggers.microtiming.tickstages.TileTickTickStageExtra;
+import carpettisaddition.logging.loggers.microtiming.tickphase.substages.TileTickSubStage;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.ScheduledTick;
 import org.spongepowered.asm.mixin.Mixin;
@@ -69,13 +69,13 @@ public abstract class ServerWorldMixin
 	private void beforeExecuteTileTickEvent(ScheduledTick<?> event, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(event.priority.getIndex()));
-		MicroTimingLoggerManager.setTickStageExtra((ServerWorld)(Object)this, new TileTickTickStageExtra((ServerWorld)(Object)this, event, this.tileTickOrderCounter++));
+		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, new TileTickSubStage((ServerWorld)(Object)this, event, this.tileTickOrderCounter++));
 	}
 
 	@Inject(method = {"tickBlock", "tickFluid"}, at = @At("RETURN"))
 	private void afterExecuteTileTickEvent(ScheduledTick<?> event, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
-		MicroTimingLoggerManager.setTickStageExtra((ServerWorld)(Object)this, null);
+		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, null);
 	}
 }

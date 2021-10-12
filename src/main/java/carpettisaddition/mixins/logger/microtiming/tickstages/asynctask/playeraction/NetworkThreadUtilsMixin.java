@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.playera
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import carpettisaddition.logging.loggers.microtiming.tickstages.PlayerActionTickStageExtra;
+import carpettisaddition.logging.loggers.microtiming.tickphase.substages.PlayerActionSubStage;
 import carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.MinecraftServerMixin;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.Packet;
@@ -32,7 +32,7 @@ public abstract class NetworkThreadUtilsMixin<T>
 			{
 				ServerPlayNetworkHandler handler = (ServerPlayNetworkHandler) listener;
 				MicroTimingLoggerManager.setTickStage(TickStage.PLAYER_ACTION);
-				MicroTimingLoggerManager.setTickStageExtra(new PlayerActionTickStageExtra(handler.player));
+				MicroTimingLoggerManager.setSubTickStage(new PlayerActionSubStage(handler.player));
 			}
 		}
 	}

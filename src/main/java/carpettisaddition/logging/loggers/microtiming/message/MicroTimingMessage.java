@@ -4,10 +4,9 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.events.BaseEvent;
 import carpettisaddition.logging.loggers.microtiming.events.EventSource;
-import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
+import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
@@ -50,9 +49,7 @@ public class MicroTimingMessage
 	private final DimensionType dimensionType;
 	private final BlockPos pos;
 	private final DyeColor color;
-	private final TickStage stage;
-	private final String stageDetail;
-	private final TickStageExtraBase stageExtra;
+	private final TickPhase tickPhase;
 	private final BaseText stackTraceText;
 	private final BaseEvent event;
 	private final String blockName;
@@ -64,15 +61,13 @@ public class MicroTimingMessage
 		this.color = context.getColor();
 		this.event = context.getEventSupplier().get();
 		this.blockName = context.getBlockName();
-		this.stage = logger.getTickStage();
-		this.stageDetail = logger.getTickStageDetail();
-		this.stageExtra = logger.getTickStageExtra();
+		this.tickPhase = logger.getTickPhase();
 		this.stackTraceText = StackTracePrinter.create().ignore(MicroTimingLoggerManager.class).deobfuscate().toSymbolText();
 	}
 
 	public MessageType getMessageType()
 	{
-		return MessageType.fromEventType(event.getEventType());
+		return MessageType.fromEventType(this.event.getEventType());
 	}
 
 	public BaseEvent getEvent()
@@ -89,16 +84,14 @@ public class MicroTimingMessage
 		return Objects.equals(dimensionType, message.dimensionType) &&
 				Objects.equals(pos, message.pos) &&
 				color == message.color &&
-				stage == message.stage &&
-				Objects.equals(stageDetail, message.stageDetail) &&
-				Objects.equals(stageExtra, message.stageExtra) &&
+				Objects.equals(tickPhase, message.tickPhase) &&
 				Objects.equals(event, message.event);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(dimensionType, pos, color, stage, stageDetail, stageExtra, event);
+		return Objects.hash(dimensionType, pos, color, tickPhase, event);
 	}
 
 	private BaseText getHashTagText(int indentation)
@@ -117,29 +110,6 @@ public class MicroTimingMessage
 						)
 				),
 				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.pos, this.dimensionType))
-		);
-	}
-
-	private BaseText getStageText()
-	{
-		List<Object> stageText = Lists.newArrayList();
-		stageText.add("y  " + this.stage.tr());
-		if (this.stageDetail != null)
-		{
-			stageText.add("y ." + TRANSLATOR.tr("stage_detail." + this.stageDetail, this.stageDetail));
-		}
-		List<Object> hoverTextList = Lists.newArrayList();
-		hoverTextList.add(this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s(""));
-		hoverTextList.add(String.format("w %s: ", TRANSLATOR.tr("Dimension")));
-		hoverTextList.add(this.stage.isInsideWorld() ? TextUtil.getDimensionNameText(this.dimensionType) : "w N/A");
-		return Messenger.c(
-				"g  @",
-				TextUtil.getFancyText(
-						null,
-						Messenger.c(stageText.toArray(new Object[0])),
-						Messenger.c(hoverTextList.toArray(new Object[0])),
-						this.stageExtra != null ? this.stageExtra.getClickEvent() : null
-				)
 		);
 	}
 
@@ -191,7 +161,7 @@ public class MicroTimingMessage
 		{
 			if (showStage)
 			{
-				line.add(this.getStageText());
+				line.add(this.tickPhase.toText());
 			}
 		}
 		line.add("w  ");

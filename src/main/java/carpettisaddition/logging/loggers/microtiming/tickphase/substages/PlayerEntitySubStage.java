@@ -1,12 +1,12 @@
-package carpettisaddition.logging.loggers.microtiming.tickstages;
+package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpet.utils.Messenger;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 
-public class PlayerEntityTickStageExtra extends PlayerRelatedTickStageExtra
+public class PlayerEntitySubStage extends AbstractPlayerRelatedSubStage
 {
-	public PlayerEntityTickStageExtra(ServerPlayerEntity player)
+	public PlayerEntitySubStage(ServerPlayerEntity player)
 	{
 		super(player);
 	}

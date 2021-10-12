@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.microtiming.tickstages.entity;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.logging.loggers.microtiming.tickstages.PlayerEntityTickStageExtra;
+import carpettisaddition.logging.loggers.microtiming.tickphase.substages.PlayerEntitySubStage;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,12 +18,12 @@ public abstract class ServerPlayNetworkHandlerMixin
 	@Inject(method = "tick", at = @At("HEAD"))
 	void startStageDetailTickPlayer(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStageExtra(new PlayerEntityTickStageExtra(this.player));
+		MicroTimingLoggerManager.setSubTickStage(new PlayerEntitySubStage(this.player));
 	}
 
 	@Inject(method = "tick", at = @At("RETURN"))
 	void endStageDetailTickPlayer(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStageExtra(null);
+		MicroTimingLoggerManager.setSubTickStage(null);
 	}
 }

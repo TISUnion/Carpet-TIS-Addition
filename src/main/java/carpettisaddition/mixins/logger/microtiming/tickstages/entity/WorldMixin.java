@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.entity;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.interfaces.IWorld;
-import carpettisaddition.logging.loggers.microtiming.tickstages.EntityTickStageExtra;
+import carpettisaddition.logging.loggers.microtiming.tickphase.substages.EntitySubStage;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,12 +25,12 @@ public abstract class WorldMixin implements IWorld
 	@Inject(method = "tickEntity", at = @At("HEAD"))
 	private void beforeTickEntity(Consumer<Entity> consumer, Entity entity, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStageExtra((World)(Object)this, new EntityTickStageExtra(entity, this.entityOrderCounter++));
+		MicroTimingLoggerManager.setSubTickStage((World)(Object)this, new EntitySubStage(entity, this.entityOrderCounter++));
 	}
 
 	@Inject(method = "tickEntity", at = @At("RETURN"))
 	private void afterTickEntity(Consumer<Entity> consumer, Entity entity, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStageExtra((World)(Object)this, null);
+		MicroTimingLoggerManager.setSubTickStage((World)(Object)this, null);
 	}
 }

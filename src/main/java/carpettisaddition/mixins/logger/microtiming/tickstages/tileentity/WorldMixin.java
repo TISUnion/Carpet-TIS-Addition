@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.tileentity;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import carpettisaddition.logging.loggers.microtiming.tickstages.TileEntityTickStageExtra;
+import carpettisaddition.logging.loggers.microtiming.tickphase.substages.TileEntitySubStage;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.world.World;
@@ -42,6 +42,6 @@ public abstract class WorldMixin
 	)
 	private void onTickTileEntity(CallbackInfo ci, Profiler profiler, Iterator<?> iterator, BlockEntity blockEntity)
 	{
-		MicroTimingLoggerManager.setTickStageExtra((World)(Object)this, new TileEntityTickStageExtra(blockEntity, this.tileEntityOrderCounter++));  // TISCM Micro Tick logger
+		MicroTimingLoggerManager.setSubTickStage((World)(Object)this, new TileEntitySubStage(blockEntity, this.tileEntityOrderCounter++));  // TISCM Micro Tick logger
 	}
 }

@@ -10,7 +10,8 @@ import carpettisaddition.logging.loggers.microtiming.message.IndentedMessage;
 import carpettisaddition.logging.loggers.microtiming.message.MessageList;
 import carpettisaddition.logging.loggers.microtiming.message.MessageType;
 import carpettisaddition.logging.loggers.microtiming.message.MicroTimingMessage;
-import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
+import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
+import carpettisaddition.logging.loggers.microtiming.tickphase.substages.AbstractSubStage;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.TextUtil;
@@ -28,49 +29,35 @@ public class MicroTimingLogger extends AbstractLogger
 	// [stage][detail]^[extra]
 	public static final String NAME = "microTiming";
 
-	private TickStage stage;
-	private String stageDetail;
-	private TickStageExtraBase stageExtra;
+	private TickPhase tickPhase;
 	private final ServerWorld world;
 	public final MessageList messageList = new MessageList();
 
-	public MicroTimingLogger(ServerWorld world)
+	public MicroTimingLogger(@NotNull ServerWorld world)
 	{
 		super(NAME);
 		this.world = world;
-		this.stage = TickStage.UNKNOWN;
+		this.tickPhase = new TickPhase(TickStage.UNKNOWN, this.world.getDimension().getType());
 	}
 	
 	public void setTickStage(@NotNull TickStage stage)
 	{
-		this.stage = stage;
-		this.stageDetail = null;
-		this.stageExtra = null;
-	}
-
-	public TickStage getTickStage()
-	{
-		return this.stage;
+		this.tickPhase = this.tickPhase.withMainStage(stage);
 	}
 
 	public void setTickStageDetail(String stageDetail)
 	{
-		this.stageDetail = stageDetail;
+		this.tickPhase = this.tickPhase.withDetailed(stageDetail);
 	}
 
-	public String getTickStageDetail()
+	public void setSubTickStage(AbstractSubStage subStage)
 	{
-		return this.stageDetail;
+		this.tickPhase = this.tickPhase.withSubStage(subStage);
 	}
 
-	public void setTickStageExtra(TickStageExtraBase extra)
+	public TickPhase getTickPhase()
 	{
-		this.stageExtra = extra;
-	}
-
-	public TickStageExtraBase getTickStageExtra()
-	{
-		return this.stageExtra;
+		return this.tickPhase;
 	}
 
 	public ServerWorld getWorld()

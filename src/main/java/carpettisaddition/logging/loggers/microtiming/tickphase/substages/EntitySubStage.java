@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtiming.tickstages;
+package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
@@ -8,13 +8,13 @@ import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityTickStageExtra extends TickStageExtraBase
+public class EntitySubStage extends AbstractSubStage
 {
 	private final Entity entity;
 	private final int order;
 	private final Vec3d pos;
 
-	public EntityTickStageExtra(Entity entity, int order)
+	public EntitySubStage(Entity entity, int order)
 	{
 		this.entity = entity;
 		this.order = order;

@@ -65,6 +65,7 @@ public enum BlockUpdateType
 		return stringBuilder.toString();
 	}
 
+	@SuppressWarnings("deprecation")
 	private static class Constants
 	{
 		/**
