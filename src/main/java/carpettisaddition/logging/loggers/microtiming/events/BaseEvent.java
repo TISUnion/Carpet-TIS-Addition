@@ -9,12 +9,11 @@ import java.util.Objects;
 
 public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 {
-	private final EventSource eventSource;
-
 	protected static final String COLOR_ACTION = "c ";
 	protected static final String COLOR_TARGET = "c ";
 	protected static final String COLOR_RESULT = "q ";
 
+	private final EventSource eventSource;
 	private EventType eventType;
 
 	protected BaseEvent(EventType eventType, String translateKey, EventSource eventSource)

@@ -11,6 +11,7 @@ import net.minecraft.world.dimension.DimensionType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 import static carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager.TRANSLATOR;
 
@@ -70,5 +71,14 @@ public class TickPhase implements ToTextAble
 				Messenger.c(hoverTextList.toArray(new Object[0])),
 				this.subStage != null ? this.subStage.getClickEvent() : null
 		);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		TickPhase tickPhase = (TickPhase) o;
+		return mainStage == tickPhase.mainStage && Objects.equals(stageDetail, tickPhase.stageDetail) && Objects.equals(subStage, tickPhase.subStage) && Objects.equals(dimensionType, tickPhase.dimensionType);
 	}
 }

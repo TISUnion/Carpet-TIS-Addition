@@ -5,17 +5,32 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import java.util.Objects;
 import java.util.Optional;
 
-public interface EventSource
+public abstract class EventSource
 {
-	Object getSourceObject();
+	public abstract Object getSourceObject();
 
-	BaseText getName();
+	public abstract BaseText getName();
 
-	Identifier getId();
+	public abstract Identifier getId();
 
-	static Optional<EventSource> fromObject(Object object)
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		return Objects.equals(getSourceObject(), ((EventSource)o).getSourceObject());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return this.getSourceObject().hashCode();
+	}
+
+	public static Optional<EventSource> fromObject(Object object)
 	{
 		if (object instanceof net.minecraft.block.Block)
 		{
@@ -28,7 +43,7 @@ public interface EventSource
 		return Optional.empty();
 	}
 
-	class Block implements EventSource
+	public static class Block extends EventSource
 	{
 		private final net.minecraft.block.Block block;
 
@@ -56,7 +71,7 @@ public interface EventSource
 		}
 	}
 
-	class Fluid implements EventSource
+	public static class Fluid extends EventSource
 	{
 		private final net.minecraft.fluid.Fluid fluid;
 
