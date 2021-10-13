@@ -45,6 +45,7 @@ public abstract class ExplosionMixin
 		EXPLOSION_LOGGER_FIELD = target;
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	@Inject(method = "collectBlocksAndDamageEntities", at = @At("HEAD"), cancellable = true)
 	private void onExplosionAButWithHighPriority(CallbackInfo ci)
 	{
