@@ -8,11 +8,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(SpawnHelper.class)
+// use smaller priority so it @ModifyArg before fabric carpet's @Redirect
+@Mixin(value = SpawnHelper.class, priority = 500)
 public abstract class SpawnHelperMixin
 {
 	// fabric-carpet used @Redirect so there goes @ModifyArg here xd
-	// dont try to capture locals, WAY too many
+	// don't try to capture locals, WAY too many
 	@ModifyArg(
 			method = "spawnEntitiesInChunk",
 			at = @At(
