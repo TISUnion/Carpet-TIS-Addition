@@ -33,6 +33,9 @@
   "rule.commandRaid.name": "袭击追踪器",
   "rule.commandRaid.desc": "启用/raid命令用于列出或追踪袭击信息",
 
+  "rule.commandRefresh.name": "刷新命令开关",
+  "rule.commandRefresh.desc": "启用/refresh命令让你的客户端与服务端保持同步",
+
   "rule.creativeOpenContainerForcibly.name": "创造玩家强制打开容器",
   "rule.creativeOpenContainerForcibly.desc": "允许创造模式的玩家打开被阻挡的容器，如潜影盒",
 
@@ -421,6 +424,11 @@
 
 
   "command.info.ticking_order": "游戏中%d个维度的运算顺序：",
+
+  "command.refresh.inventory.done": "已刷新物品栏",
+  "command.refresh.chunk.overloaded": "刷新失败：玩家网络连接已过载",
+  "command.refresh.chunk.too_far": "选中的区块不在你的视距之内",
+  "command.refresh.chunk.done": "已刷新%1$s个区块",
 
 
   "tracker.tracker_name_full": "%s追踪器",

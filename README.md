@@ -22,6 +22,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [chunkTickSpeed](#chunkTickSpeed)
 - [commandLifeTime](#commandLifeTime)
 - [commandRaid](#commandRaid)
+- [commandRefresh](#commandRefresh)
 - [creativeOpenContainerForcibly](#creativeOpenContainerForcibly)
 - [dispenserNoItemCost](#dispenserNoItemCost)
 - [dispensersFireDragonBreath](#dispensersFireDragonBreath)
@@ -93,6 +94,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 - [info](#info)
 - [lifetime](#lifetime-1)
 - [tick](#tick)
+- [refresh](#refresh)
 
 ## [Scarpet](#scarpet-1)
 
@@ -200,6 +202,16 @@ Useful for mob farm debugging etc.
 ## commandRaid
 
 Enables `/raid` command for raid listing and tracking
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`
+
+
+## commandRefresh
+
+Enables `/refresh` command for synchronizing your client to the server
 
 - Type: `boolean`
 - Default value: `true`
@@ -1060,9 +1072,10 @@ For example, `/lifetime creeper` shows all statistic of creeper in detail, and `
 
 ### filter
 
-`/lifetime filter <entity_type> set <entity_selector>`
-
-`/lifetime filter <entity_type> clear`
+```
+/lifetime filter <entity_type> set <entity_selector>
+/lifetime filter <entity_type> clear
+```
 
 Set an entity filter for given entity type. Use `global` as the `<entity_type>` to set filter globally
 
@@ -1071,6 +1084,7 @@ Entities need to be accepted by the related filter to be record by the lifetime 
 Filter is input as an `@e` style Minecraft entity selector. e.g. `@e[distance=..100,nbt={Item:{id:"minecraft:oak_sapling"}}]`
 
 Use `/lifetime filter` to display current activated filters
+
 
 ## tick
 
@@ -1081,6 +1095,27 @@ Use `/lifetime filter` to display current activated filters
 Display the current status of tick warping, including starter, estimated remaining time etc.
 
 See [tickWarp logger](#tickWarp) for easier access
+
+
+## refresh
+
+### inventory
+
+`/refresh inventory`: Refresh your inventory
+`/refresh inventory <players>`: Refresh selected players' inventory. Requires permission level 2
+
+### chunk
+
+`/refresh chunk`: The same as `/refresh chunk current`
+`/refresh chunk current`: Refresh the current chunk you are in
+`/refresh chunk all`: Refresh all chunks within your view distance
+`/refresh chunk inrange <chebyshevDistance>`: Refresh all chunks within the given chebyshev distance
+`/refresh chunk at <chunkX> <chunkZ>`: Refresh the chunk at given position
+
+All chunk refresh operations only affect chunks within your view distance
+
+Multiple chunk refreshing creates lags on server's network thread due to packet compression, so there is an input thresholder for the command to prevent packet over-accumulation
+
 
 -----------
 

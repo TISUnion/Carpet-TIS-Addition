@@ -6,6 +6,7 @@ import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
+import carpettisaddition.commands.refresh.RefreshCommand;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
@@ -91,6 +92,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         RaidCommand.getInstance().registerCommand(dispatcher);
         LifeTimeCommand.getInstance().registerCommand(dispatcher);
+        RefreshCommand.getInstance().registerCommand(dispatcher);
     }
 
     @Override

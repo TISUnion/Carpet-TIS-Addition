@@ -112,6 +112,12 @@ public class CarpetTISAdditionSettings
 	public static String commandRaid = "true";
 
 	@Rule(
+			desc = "Enables /refresh command for synchronizing your client to the server",
+			category = {TIS, COMMAND}
+	)
+	public static String commandRefresh = "true";
+
+	@Rule(
 			desc = "Allow creative players to open a container even if the container is blocked. e.g. for shulker box",
 			category = {TIS, CREATIVE}
 	)

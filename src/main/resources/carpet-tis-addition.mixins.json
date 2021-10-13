@@ -68,6 +68,7 @@
     "command.raid.RaidAccessor",
     "command.raid.RaidManagerAccessor",
     "command.raid.RaidMixin",
+    "command.refresh.ThreadedAnvilChunkStorageAccessor",
     "command.tick.warp.TickCommandMixin",
     "logger.commandblock.CommandBlockExecutorMixin",
     "logger.commandblock.CommandBlockMinecartEntityMixin",

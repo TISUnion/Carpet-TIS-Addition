@@ -1,0 +1,196 @@
+package carpettisaddition.commands.refresh;
+
+import carpet.utils.Messenger;
+import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
+import carpettisaddition.utils.CarpetModUtil;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.network.MessageType;
+import net.minecraft.network.Packet;
+import net.minecraft.network.PacketDeflater;
+import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ChunkHolder;
+import net.minecraft.util.math.ChunkPos;
+import org.apache.commons.lang3.mutable.MutableInt;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
+import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
+import static net.minecraft.command.arguments.EntityArgumentType.getPlayers;
+import static net.minecraft.command.arguments.EntityArgumentType.players;
+import static net.minecraft.server.command.CommandManager.argument;
+import static net.minecraft.server.command.CommandManager.literal;
+
+public class RefreshCommand extends AbstractCommand
+{
+	private static final String NAME = "refresh";
+	private static final RefreshCommand INSTANCE = new RefreshCommand();
+
+	/**
+	 * `/refresh chunk all` is costly on network thread due to packet compression in {@link PacketDeflater}
+	 * Here's a check to see if the connection thread is already heavily-loaded
+	 */
+	private final Set<ServerPlayerEntity> refreshingChunkPlayers = Collections.newSetFromMap(new WeakHashMap<>());
+
+	public RefreshCommand()
+	{
+		super(NAME);
+	}
+
+	public static RefreshCommand getInstance()
+	{
+		return INSTANCE;
+	}
+
+	@Override
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	{
+		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
+				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRefresh)).
+				then(
+						literal("inventory").
+						executes(c -> refreshSelfInventory(c.getSource())).
+						then(
+								argument("players", players()).
+								requires(s -> s.hasPermissionLevel(2)).
+								executes(c -> refreshSelectedPlayerInventory(c.getSource(), getPlayers(c, "players")))
+						)
+				).
+				then(
+						literal("chunk").
+						executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayer())).
+						then(literal("current").executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayer()))).
+						then(literal("all").executes(c -> refreshAllChunks(c.getSource()))).
+						then(literal("inrange").then(
+								argument("chebyshevDistance", integer()).
+								executes(c -> refreshChunksInRange(c.getSource(), getInteger(c, "chebyshevDistance")))
+						)).
+						then(literal("at").
+								then(argument("chunkX", integer()).
+										then(
+												argument("chunkZ", integer()).
+												executes(c -> refreshSelectedChunk(c.getSource(), getInteger(c, "chunkX"), getInteger(c, "chunkZ")))
+										)
+								)
+						)
+				);
+		dispatcher.register(builder);
+	}
+
+	/*
+	 * ---------------------
+	 *   Refresh Inventory
+	 * ---------------------
+	 */
+
+	private void refreshPlayerInventory(ServerCommandSource source, ServerPlayerEntity player)
+	{
+		source.getMinecraftServer().getPlayerManager().method_14594(player);
+		Messenger.m(player, Messenger.s(this.tr("inventory.done", "Inventory refreshed")));
+	}
+
+	private int refreshSelfInventory(ServerCommandSource source) throws CommandSyntaxException
+	{
+		this.refreshPlayerInventory(source, source.getPlayer());
+		return 1;
+	}
+
+	private int refreshSelectedPlayerInventory(ServerCommandSource source, Collection<ServerPlayerEntity> players)
+	{
+		players.forEach(player -> this.refreshPlayerInventory(source, player));
+		return players.size();
+	}
+
+	/*
+	 * ---------------------
+	 *     Refresh Chunk
+	 * ---------------------
+	 */
+
+	private int refreshChunks(ServerCommandSource source, @Nullable ChunkPos chunkPos, @Nullable Predicate<ChunkPos> predicate) throws CommandSyntaxException
+	{
+		ServerPlayerEntity player = source.getPlayer();
+		synchronized (this.refreshingChunkPlayers)
+		{
+			if (this.refreshingChunkPlayers.contains(player))
+			{
+				source.sendError(Messenger.s(this.tr("chunk.overloaded", "Refresh failed: Network connection overloaded")));
+				return 0;
+			}
+		}
+		ThreadedAnvilChunkStorageAccessor chunkStorage = (ThreadedAnvilChunkStorageAccessor)source.getPlayer().getServerWorld().getChunkManager().threadedAnvilChunkStorage;
+		MutableInt counter = new MutableInt(0);
+		Consumer<ChunkPos> chunkRefresher = pos -> {
+			chunkStorage.invokeSendWatchPackets(player, pos, new Packet[2], false, true);
+			counter.add(1);
+		};
+		Predicate<ChunkPos> inPlayerViewDistance = pos -> ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(pos, player, true) <= chunkStorage.getWatchDistance();
+		if (chunkPos != null)
+		{
+			if (inPlayerViewDistance.test(chunkPos))
+			{
+				chunkRefresher.accept(chunkPos);
+			}
+			else
+			{
+				source.sendError(Messenger.s(this.tr("chunk.too_far", "Selected chunk is not within your view distance")));
+			}
+		}
+		else
+		{
+			Objects.requireNonNull(predicate);
+			chunkStorage.getCurrentChunkHolders().values().stream().
+					map(ChunkHolder::getPos).
+					filter(inPlayerViewDistance.and(predicate)).
+					forEach(chunkRefresher);
+			synchronized (this.refreshingChunkPlayers)
+			{
+				this.refreshingChunkPlayers.add(player);
+			}
+		}
+		player.networkHandler.sendPacket(
+				new ChatMessageS2CPacket(this.advTr("chunk.done", "Refreshed %1$s chunks", counter.getValue()), MessageType.SYSTEM),
+				future -> {
+					synchronized (this.refreshingChunkPlayers)
+					{
+						this.refreshingChunkPlayers.remove(player);
+					}
+				}
+		);
+		return counter.getValue();
+	}
+	private int refreshSingleChunk(ServerCommandSource source, @Nullable ChunkPos chunkPos) throws CommandSyntaxException
+	{
+		return this.refreshChunks(source, chunkPos, null);
+	}
+
+	private int refreshAllChunks(ServerCommandSource source) throws CommandSyntaxException
+	{
+		return this.refreshChunks(source, null, chunkPos -> true);
+	}
+
+	private int refreshCurrentChunk(ServerCommandSource source, ServerPlayerEntity player) throws CommandSyntaxException
+	{
+		return this.refreshSingleChunk(source, new ChunkPos(player.getBlockPos()));
+	}
+
+	private int refreshSelectedChunk(ServerCommandSource source, int x, int z) throws CommandSyntaxException
+	{
+		return this.refreshSingleChunk(source, new ChunkPos(x, z));
+	}
+
+	private int refreshChunksInRange(ServerCommandSource source, int distance) throws CommandSyntaxException
+	{
+		ServerPlayerEntity player = source.getPlayer();
+		return this.refreshChunks(source, null, chunkPos -> ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(chunkPos, player, true) <= distance);
+	}
+}
