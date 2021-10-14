@@ -10,6 +10,9 @@ repositories {
 	maven {
 		url 'https://www.cursemaven.com'
 	}
+	maven {
+		url 'https://www.jitpack.io'
+	}
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -27,9 +30,8 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	// modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-	modImplementation "curse.maven:carpet-349239:3462924"  // Carpet Mod v1.4.46 for 1.18
-	modCompileOnly "curse.maven:lithium-360438:3438799"  // Lithium mc1.17.1-0.7.4
+	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+	modCompileOnly "com.github.Fallen-Breath:lithium-fabric:1.17.x~dev-cta18compact-SNAPSHOT"  // Lithium mc1.17.1-0.7.5
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	// modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
