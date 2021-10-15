@@ -37,7 +37,7 @@ public class MicroTimingLogger extends AbstractLogger
 	{
 		super(NAME);
 		this.world = world;
-		this.tickPhase = new TickPhase(TickStage.UNKNOWN, this.world.getDimension().getType());
+		this.tickPhase = new TickPhase(TickStage.UNKNOWN, this.world.getRegistryKey());
 	}
 	
 	public void setTickStage(@NotNull TickStage stage)

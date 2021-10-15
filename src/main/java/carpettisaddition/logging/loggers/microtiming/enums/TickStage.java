@@ -10,7 +10,7 @@ public enum TickStage
 	WORLD_BORDER("WorldBorder", true),
 	TILE_TICK("TileTick", true),
 	RAID("Raid", true),
-	WANDERING_TRADER("WanderingTrader", true),
+	WANDERING_TRADER("WanderingTrader", true),  // included in SPAWNING_SPECIAL in 1.16
 	BLOCK_EVENT("BlockEvent", true),
 	ENTITY("Entity", true),
 	CHUNK_TICK("ChunkTick", true),

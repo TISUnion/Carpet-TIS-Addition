@@ -14,14 +14,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class SpawnHelperMixin
 {
 	@Inject(method = "spawn", at = @At("HEAD"))
-	private static void enterStageSpawn(EntityCategory category, ServerWorld serverWorld, WorldChunk chunk, BlockPos spawnPos, CallbackInfo ci)
+	private static void enterStageSpawn(ServerWorld world, WorldChunk chunk, SpawnHelper.Info info, boolean spawnAnimals, boolean spawnMonsters, boolean shouldSpawnAnimals, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(world, TickStage.SPAWNING);
 	}
 
 	@Inject(method = "spawn", at = @At("TAIL"))
-	private static void exitStageSpawn(EntityCategory category, ServerWorld serverWorld, WorldChunk chunk, BlockPos spawnPos, CallbackInfo ci)
+	private static void exitStageSpawn(ServerWorld world, WorldChunk chunk, SpawnHelper.Info info, boolean spawnAnimals, boolean spawnMonsters, boolean shouldSpawnAnimals, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStage(serverWorld, TickStage.UNKNOWN);
+		MicroTimingLoggerManager.setTickStage(world, TickStage.UNKNOWN);
 	}
 }

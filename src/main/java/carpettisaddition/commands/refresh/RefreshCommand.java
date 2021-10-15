@@ -11,10 +11,11 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketDeflater;
-import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
+import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkHolder;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.ChunkPos;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.Nullable;
@@ -25,8 +26,8 @@ import java.util.function.Predicate;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.command.arguments.EntityArgumentType.getPlayers;
-import static net.minecraft.command.arguments.EntityArgumentType.players;
+import static net.minecraft.command.argument.EntityArgumentType.getPlayers;
+import static net.minecraft.command.argument.EntityArgumentType.players;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -94,7 +95,7 @@ public class RefreshCommand extends AbstractCommand
 
 	private void refreshPlayerInventory(ServerCommandSource source, ServerPlayerEntity player)
 	{
-		source.getMinecraftServer().getPlayerManager().method_14594(player);
+		source.getMinecraftServer().getPlayerManager().sendPlayerStatus(player);
 		Messenger.m(player, Messenger.s(this.tr("inventory.done", "Inventory refreshed")));
 	}
 
@@ -158,7 +159,7 @@ public class RefreshCommand extends AbstractCommand
 			}
 		}
 		player.networkHandler.sendPacket(
-				new ChatMessageS2CPacket(this.advTr("chunk.done", "Refreshed %1$s chunks", counter.getValue()), MessageType.SYSTEM),
+				new GameMessageS2CPacket(this.advTr("chunk.done", "Refreshed %1$s chunks", counter.getValue()), MessageType.SYSTEM, Util.NIL_UUID),
 				future -> {
 					synchronized (this.refreshingChunkPlayers)
 					{

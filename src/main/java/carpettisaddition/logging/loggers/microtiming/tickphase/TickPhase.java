@@ -7,7 +7,8 @@ import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -23,9 +24,9 @@ public class TickPhase implements ToTextAble
 	@Nullable
 	public final AbstractSubStage subStage;
 	@Nullable
-	public final DimensionType dimensionType;
+	public final RegistryKey<World> dimensionType;
 
-	private TickPhase(TickStage mainStage, @Nullable String stageDetail, @Nullable AbstractSubStage subStage, @Nullable DimensionType dimensionType)
+	private TickPhase(TickStage mainStage, @Nullable String stageDetail, @Nullable AbstractSubStage subStage, @Nullable RegistryKey<World> dimensionType)
 	{
 		this.mainStage = mainStage;
 		this.stageDetail = stageDetail;
@@ -33,7 +34,7 @@ public class TickPhase implements ToTextAble
 		this.dimensionType = dimensionType;
 	}
 
-	public TickPhase(TickStage mainStage, @Nullable DimensionType dimensionType)
+	public TickPhase(TickStage mainStage, @Nullable RegistryKey<World> dimensionType)
 	{
 		this(mainStage, null, null, dimensionType);
 	}

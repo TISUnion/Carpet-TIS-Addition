@@ -2,8 +2,8 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.raid;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import net.minecraft.entity.raid.RaidManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.village.raid.RaidManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

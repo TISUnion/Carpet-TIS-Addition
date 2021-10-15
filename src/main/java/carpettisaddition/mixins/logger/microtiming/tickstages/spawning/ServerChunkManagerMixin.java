@@ -32,7 +32,7 @@ public abstract class ServerChunkManagerMixin
 			method = "tickChunks",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/gen/chunk/ChunkGenerator;spawnEntities(Lnet/minecraft/server/world/ServerWorld;ZZ)V",
+					target = "Lnet/minecraft/server/world/ServerWorld;tickSpawners(ZZ)V",
 					shift = At.Shift.AFTER
 			)
 	)
