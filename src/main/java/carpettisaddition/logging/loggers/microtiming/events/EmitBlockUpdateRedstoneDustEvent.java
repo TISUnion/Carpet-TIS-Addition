@@ -23,7 +23,7 @@ public class EmitBlockUpdateRedstoneDustEvent extends EmitBlockUpdateEvent
 	{
 		super(eventType, block, methodName);
 		this.updateOrder = updateOrder != null ? Lists.newArrayList(updateOrder) : null;
-		this.pos = pos;
+		this.pos = pos.toImmutable();
 	}
 
 	@Override

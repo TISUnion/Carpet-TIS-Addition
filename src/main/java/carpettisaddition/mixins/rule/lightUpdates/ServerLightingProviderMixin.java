@@ -40,7 +40,7 @@ public abstract class ServerLightingProviderMixin
 	/**
 	 * Lighting suppression? Just make an endless loop here
 	 */
-	@Inject(method = "runTasks", at = @At(value = "HEAD"), cancellable = true)
+	@Inject(method = "runTasks", at = @At(value = "HEAD"))
 	private void onExecutingLightUpdates(CallbackInfo ci)
 	{
 		while (!CarpetTISAdditionSettings.lightUpdates.shouldExecuteLightTask())

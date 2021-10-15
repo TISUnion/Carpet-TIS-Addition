@@ -34,11 +34,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
 
-    - name: Display build number
-      run: echo Carpet TIS Addition Build \#$GITHUB_RUN_NUMBER
-    - name: Set build number in codes
-      run: sed -i "s/build.undefined/build.$GITHUB_RUN_NUMBER/g" src/main/java/carpettisaddition/CarpetTISAdditionServer.java gradle.properties
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
