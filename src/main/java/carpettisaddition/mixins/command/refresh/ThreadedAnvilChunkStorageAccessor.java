@@ -1,11 +1,12 @@
 package carpettisaddition.mixins.command.refresh;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkHolder;
 import net.minecraft.server.world.ThreadedAnvilChunkStorage;
 import net.minecraft.util.math.ChunkPos;
+import org.apache.commons.lang3.mutable.MutableObject;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -19,12 +20,13 @@ public interface ThreadedAnvilChunkStorageAccessor
 	@Accessor
 	int getWatchDistance();
 
-	@Invoker
-	static int invokeGetChebyshevDistance(ChunkPos pos, ServerPlayerEntity player, boolean useCameraPosition)
+	// isChunkWithinEuclideanDistanceRange or whatever
+	@Invoker("method_37901")
+	static boolean invokeIsChunkWithinEuclideanDistanceRange(ChunkPos chunkPos, ServerPlayerEntity serverPlayerEntity, boolean useWatchedPosition, int distance)
 	{
-		return 0;
+		return false;
 	}
 
 	@Invoker
-	void invokeSendWatchPackets(ServerPlayerEntity player, ChunkPos pos, Packet<?>[] packets, boolean withinMaxWatchDistance, boolean withinViewDistance);
+	void invokeSendWatchPackets(ServerPlayerEntity player, ChunkPos pos, MutableObject<ChunkDataS2CPacket> mutableObject, boolean withinMaxWatchDistance, boolean withinViewDistance);
 }
