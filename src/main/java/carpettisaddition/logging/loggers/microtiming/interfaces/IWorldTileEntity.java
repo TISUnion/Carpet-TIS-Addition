@@ -1,10 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.interfaces;
 
-public interface IWorld
+public interface IWorldTileEntity
 {
 	int getTileEntityOrderCounter();
 
 	void setTileEntityOrderCounter(int tileEntityOrderCounter);
-
-	void setEntityOrderCounter(int value);
 }

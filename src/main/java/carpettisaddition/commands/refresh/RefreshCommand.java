@@ -95,7 +95,7 @@ public class RefreshCommand extends AbstractCommand
 
 	private void refreshPlayerInventory(ServerCommandSource source, ServerPlayerEntity player)
 	{
-		source.getMinecraftServer().getPlayerManager().sendPlayerStatus(player);
+		source.getServer().getPlayerManager().sendPlayerStatus(player);
 		Messenger.m(player, Messenger.s(this.tr("inventory.done", "Inventory refreshed")));
 	}
 

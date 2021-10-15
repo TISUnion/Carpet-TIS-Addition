@@ -2,20 +2,15 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.tileentity;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import carpettisaddition.logging.loggers.microtiming.tickphase.substages.TileEntitySubStage;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.profiler.Profiler;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IWorldTileEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.Iterator;
 
 @Mixin(World.class)
-public abstract class WorldMixin
+public abstract class WorldMixin implements IWorldTileEntity
 {
 	private int tileEntityOrderCounter;
 
@@ -32,16 +27,15 @@ public abstract class WorldMixin
 		MicroTimingLoggerManager.setTickStage((World)(Object)this, TickStage.UNKNOWN);
 	}
 
-	@Inject(
-			method = "tickBlockEntities",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/util/Tickable;tick()V"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
-	)
-	private void onTickTileEntity(CallbackInfo ci, Profiler profiler, Iterator<?> iterator, BlockEntity blockEntity)
+	@Override
+	public int getTileEntityOrderCounter()
 	{
-		MicroTimingLoggerManager.setSubTickStage((World)(Object)this, new TileEntitySubStage(blockEntity, this.tileEntityOrderCounter++));  // TISCM Micro Tick logger
+		return this.tileEntityOrderCounter;
+	}
+
+	@Override
+	public void setTileEntityOrderCounter(int tileEntityOrderCounter)
+	{
+		this.tileEntityOrderCounter = tileEntityOrderCounter;
 	}
 }

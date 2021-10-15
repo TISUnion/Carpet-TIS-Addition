@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(AbstractBlock.class)
 public interface AbstractBlockAccessor
 {
-	@Accessor
+	@Accessor("DIRECTIONS")
 	static Direction[] getFACINGS()
 	{
 		throw new RuntimeException();

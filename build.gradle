@@ -8,7 +8,7 @@ repositories {
 		url 'https://masa.dy.fi/maven'
 	}
 	maven {
-		url 'https://www.cursemaven.com'
+		url 'https://www.jitpack.io'
 	}
 }
 
