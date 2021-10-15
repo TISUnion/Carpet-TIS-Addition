@@ -15,8 +15,15 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+String versionSuffix = ''
+String buildNumber = System.getenv("GITHUB_RUN_NUMBER");
+if (buildNumber != null) {
+	versionSuffix = '+build.' + buildNumber
+}
+String fullModVersion = project.mod_version + versionSuffix
+
 archivesBaseName = project.archives_base_name
-version = 'mc' + project.minecraft_version + '-' + project.mod_version
+version = 'mc' + project.minecraft_version + '-v' + fullModVersion
 group = project.maven_group
 
 
@@ -40,10 +47,10 @@ loom {
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property "version", fullModVersion
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.mod_version
+		expand "version": fullModVersion
 	}
 }
 
