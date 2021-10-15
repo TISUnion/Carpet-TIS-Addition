@@ -4,12 +4,10 @@ import carpet.utils.Messenger;
 import carpettisaddition.translations.Translator;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -230,20 +228,7 @@ public class TextUtil
 	public static BaseText getFluidName(Fluid fluid)
 	{
 		Identifier id = Registry.FLUID.getId(fluid);
-		BaseText nameText;
-		if (fluid.isIn(FluidTags.WATER))
-		{
-			nameText = getBlockName(Blocks.WATER);
-		}
-		else if (fluid.isIn(FluidTags.LAVA))
-		{
-			nameText = getBlockName(Blocks.LAVA);
-		}
-		else
-		{
-			nameText = Messenger.s(id.getPath());
-		}
-		return attachHoverText(nameText, Messenger.s(id.toString()));
+		return attachHoverText(getBlockName(fluid.getDefaultState().getBlockState().getBlock()), Messenger.s(id.toString()));
 	}
 
 	// some language doesn't use space char to divide word

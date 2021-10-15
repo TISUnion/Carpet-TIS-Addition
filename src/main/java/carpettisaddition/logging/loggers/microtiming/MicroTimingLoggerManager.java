@@ -1,15 +1,16 @@
 package carpettisaddition.logging.loggers.microtiming;
 
-import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
+import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.events.*;
 import carpettisaddition.logging.loggers.microtiming.interfaces.IServerWorld;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
-import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
+import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
+import carpettisaddition.logging.loggers.microtiming.tickphase.substages.AbstractSubStage;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.script.MicroTimingEvent;
@@ -36,6 +37,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Map;
@@ -48,7 +50,7 @@ public class MicroTimingLoggerManager
 	private static MicroTimingLoggerManager instance;
 
 	private final Map<ServerWorld, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
-	public static final Translator TRANSLATOR = (new MicroTimingLogger(null)).getTranslator();
+	public static final Translator TRANSLATOR = (new AbstractLogger(MicroTimingLogger.NAME){}).getTranslator();
 
 	// for scarpet event
     public static Set<BlockPos> trackedPositions = Sets.newHashSet();
@@ -74,13 +76,11 @@ public class MicroTimingLoggerManager
 	public static void attachServer(MinecraftServer minecraftServer)
 	{
 		instance = new MicroTimingLoggerManager(minecraftServer);
-		CarpetTISAdditionServer.LOGGER.debug("Attached MicroTick loggers to " + instance.loggers.size() + " worlds");
 	}
 
 	public static void detachServer()
 	{
 		instance = null;
-		CarpetTISAdditionServer.LOGGER.debug("Detached MicroTick loggers");
 	}
 
 	private static Optional<MicroTimingLogger> getWorldLogger(World world)
@@ -200,22 +200,22 @@ public class MicroTimingLoggerManager
 	 * -----------
 	 */
 
-	public static void onExecuteTileTickEvent(World world, ScheduledTick<Block> event, EventType eventType)
+	public static void onExecuteTileTickEvent(World world, ScheduledTick<?> tileTickEvent, EventType eventType)
 	{
-		onEvent(
+		ExecuteTileTickEvent.createFrom(eventType, tileTickEvent).ifPresent(event -> onEvent(
 				MicroTimingContext.create().
-						withWorld(world).withBlockPos(event.pos).
-						withEvent(new ExecuteTileTickEvent(eventType, event))
-		);
+						withWorld(world).withBlockPos(tileTickEvent.pos).
+						withEvent(event)
+		));
 	}
 
-	public static void onScheduleTileTickEvent(World world, Block block, BlockPos pos, int delay, TickPriority priority, Boolean success)
+	public static void onScheduleTileTickEvent(World world, Object object, BlockPos pos, int delay, TickPriority priority, Boolean success)
 	{
-		onEvent(
+		EventSource.fromObject(object).ifPresent(eventSource -> onEvent(
 				MicroTimingContext.create().
 						withWorld(world).withBlockPos(pos).
-						withEvent(new ScheduleTileTickEvent(block, pos, delay, priority, success))
-		);
+						withEvent(new ScheduleTileTickEvent(eventSource, pos, delay, priority, success))
+		));
 	}
 
 	/*
@@ -267,17 +267,17 @@ public class MicroTimingLoggerManager
 	}
 
 	/*
-	 * ------------
-	 *  Tick Stage
-	 * ------------
+	 * --------------------
+	 *  Tick Stage / Phase
+	 * --------------------
 	 */
 
-	public static void setTickStage(World world, TickStage stage)
+	public static void setTickStage(World world, @NotNull TickStage stage)
 	{
 		getWorldLogger(world).ifPresent(logger -> logger.setTickStage(stage));
 	}
 
-	public static void setTickStage(TickStage stage)
+	public static void setTickStage(@NotNull TickStage stage)
 	{
 		if (instance != null)
 		{
@@ -293,20 +293,28 @@ public class MicroTimingLoggerManager
 		getWorldLogger(world).ifPresent(logger -> logger.setTickStageDetail(detail));
 	}
 
-	public static void setTickStageExtra(World world, TickStageExtraBase stage)
+	public static void setSubTickStage(World world, AbstractSubStage stage)
 	{
-		getWorldLogger(world).ifPresent(logger -> logger.setTickStageExtra(stage));
+		getWorldLogger(world).ifPresent(logger -> logger.setSubTickStage(stage));
 	}
 
-	public static void setTickStageExtra(TickStageExtraBase stage)
+	public static void setSubTickStage(AbstractSubStage stage)
 	{
 		if (instance != null)
 		{
 			for (MicroTimingLogger logger : instance.loggers.values())
 			{
-				logger.setTickStageExtra(stage);
+				logger.setSubTickStage(stage);
 			}
 		}
+	}
+
+	/**
+	 * Public API
+	 */
+	public TickPhase getTickPhase(ServerWorld world)
+	{
+		return ((IServerWorld)world).getMicroTimingLogger().getTickPhase();
 	}
 
 	private synchronized void flush()
