@@ -5,9 +5,11 @@
 [![MC Versions](http://cf.way2muchnoise.eu/versions/For%20MC_carpet-tis-addition_all.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 [![CurseForge](http://cf.way2muchnoise.eu/full_carpet-tis-addition_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 
-[>>> 中文 <<<](https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md)
+**English** | [中文](README_CN.md)
 
 A [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) extension, a collection of carpet mod style useful tools and interesting features
+
+Under the default configuration conditions, this mod will not change any vanilla behavior
 
 Use with carpet mod in the same Minecraft version. Use newer carpet mod versions whenever possible
 
