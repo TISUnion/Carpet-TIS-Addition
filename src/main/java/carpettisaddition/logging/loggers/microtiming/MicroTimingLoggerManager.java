@@ -214,7 +214,7 @@ public class MicroTimingLoggerManager
 		EventSource.fromObject(object).ifPresent(eventSource -> onEvent(
 				MicroTimingContext.create().
 						withWorld(world).withBlockPos(pos).
-						withEvent(new ScheduleTileTickEvent(eventSource, pos, delay, priority, success))
+						withEvent(new ScheduleTileTickEvent(eventSource, delay, priority, success))
 		));
 	}
 
