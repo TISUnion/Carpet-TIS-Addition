@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'fabric-loom' version '0.9-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -15,12 +15,17 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+String versionSuffix = ''
+String buildNumber = System.getenv("GITHUB_RUN_NUMBER");
+if (buildNumber != null) {
+	versionSuffix = '+build.' + buildNumber
+}
+String fullModVersion = project.mod_version + versionSuffix
+
 archivesBaseName = project.archives_base_name
-version = 'mc' + project.minecraft_version + '-' + project.mod_version
+version = 'mc' + project.minecraft_version + '-v' + fullModVersion
 group = project.maven_group
 
-minecraft {
-}
 
 dependencies {
 	//to change the versions see the gradle.properties file
@@ -28,7 +33,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-	modCompileOnly "curse.maven:lithium-360438:3438799"  // Lithium mc1.17.1-0.7.4
+	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:mc1.17.1-0.7.4"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	// modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
@@ -37,15 +42,15 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 }
 
-minecraft {
-	accessWidener = file("src/main/resources/carpet-tis-addition.accesswidener")
+loom {
+	accessWidenerPath = file("src/main/resources/carpet-tis-addition.accesswidener")
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property "version", fullModVersion
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.mod_version
+		expand "version": fullModVersion
 	}
 }
 

@@ -69,7 +69,7 @@ public abstract class TrajectoryLogHelperMixin
 		}
 	}
 
-	@Inject(method = "onFinish", at = @At("HEAD"), remap = false, cancellable = true)
+	@Inject(method = "onFinish", at = @At("HEAD"), remap = false)
 	private void checkIfIsVisualizeLogger(CallbackInfo ci)
 	{
 		if (this.doVisualizeLogging)
@@ -97,7 +97,6 @@ public abstract class TrajectoryLogHelperMixin
 	/**
 	 * lambda method in {@link TrajectoryLogHelper#onFinish}
 	 */
-	@SuppressWarnings("UnresolvedMixinReference")
 	@Inject(method = "lambda$onFinish$0", at = @At("TAIL"), remap = false, cancellable = true)
 	private void projectileLoggerEnhance(String option, CallbackInfoReturnable<BaseText[]> cir)
 	{

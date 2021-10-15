@@ -6,9 +6,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.TickPriority;
 
 import java.util.List;
@@ -16,17 +14,13 @@ import java.util.Objects;
 
 public class ScheduleTileTickEvent extends BaseEvent
 {
-	private final Block block;
-	private final BlockPos pos;
 	private final int delay;
 	private final TickPriority priority;
 	private final Boolean success;
 
-	public ScheduleTileTickEvent(Block block, BlockPos pos, int delay, TickPriority priority, Boolean success)
+	public ScheduleTileTickEvent(EventSource eventSource, int delay, TickPriority priority, Boolean success)
 	{
-		super(EventType.EVENT, "schedule_tile_tick", block);
-		this.block = block;
-		this.pos = pos;
+		super(EventType.EVENT, "schedule_tile_tick", eventSource);
 		this.delay = delay;
 		this.priority = priority;
 		this.success = success;
@@ -56,8 +50,6 @@ public class ScheduleTileTickEvent extends BaseEvent
 		if (!super.equals(o)) return false;
 		ScheduleTileTickEvent that = (ScheduleTileTickEvent) o;
 		return delay == that.delay &&
-				Objects.equals(block, that.block) &&
-				Objects.equals(pos, that.pos) &&
 				priority == that.priority &&
 				Objects.equals(success, that.success);
 	}
@@ -65,6 +57,6 @@ public class ScheduleTileTickEvent extends BaseEvent
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(super.hashCode(), block, pos, delay, priority);
+		return Objects.hash(super.hashCode(), delay, priority);
 	}
 }

@@ -4,9 +4,9 @@ import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.events.BaseEvent;
-import carpettisaddition.logging.loggers.microtiming.tickstages.TickStageExtraBase;
+import carpettisaddition.logging.loggers.microtiming.events.EventSource;
+import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
@@ -14,6 +14,7 @@ import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
@@ -50,9 +51,7 @@ public class MicroTimingMessage
 	private final RegistryKey<World> dimensionType;
 	private final BlockPos pos;
 	private final DyeColor color;
-	private final TickStage stage;
-	private final String stageDetail;
-	private final TickStageExtraBase stageExtra;
+	private final TickPhase tickPhase;
 	private final BaseText stackTraceText;
 	private final BaseEvent event;
 	private final String blockName;
@@ -64,15 +63,13 @@ public class MicroTimingMessage
 		this.color = context.getColor();
 		this.event = context.getEventSupplier().get();
 		this.blockName = context.getBlockName();
-		this.stage = logger.getTickStage();
-		this.stageDetail = logger.getTickStageDetail();
-		this.stageExtra = logger.getTickStageExtra();
+		this.tickPhase = logger.getTickPhase();
 		this.stackTraceText = StackTracePrinter.create().ignore(MicroTimingLoggerManager.class).deobfuscate().toSymbolText();
 	}
 
 	public MessageType getMessageType()
 	{
-		return MessageType.fromEventType(event.getEventType());
+		return MessageType.fromEventType(this.event.getEventType());
 	}
 
 	public BaseEvent getEvent()
@@ -89,16 +86,14 @@ public class MicroTimingMessage
 		return Objects.equals(dimensionType, message.dimensionType) &&
 				Objects.equals(pos, message.pos) &&
 				color == message.color &&
-				stage == message.stage &&
-				Objects.equals(stageDetail, message.stageDetail) &&
-				Objects.equals(stageExtra, message.stageExtra) &&
+				Objects.equals(tickPhase, message.tickPhase) &&
 				Objects.equals(event, message.event);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(dimensionType, pos, color, stage, stageDetail, stageExtra, event);
+		return Objects.hash(dimensionType, pos, color, tickPhase, event);
 	}
 
 	private BaseText getHashTagText(int indentation)
@@ -120,47 +115,33 @@ public class MicroTimingMessage
 		);
 	}
 
-	private BaseText getStageText()
-	{
-		List<Object> stageText = Lists.newArrayList();
-		stageText.add("y  " + this.stage.tr());
-		if (this.stageDetail != null)
-		{
-			stageText.add("y ." + TRANSLATOR.tr("stage_detail." + this.stageDetail, this.stageDetail));
-		}
-		List<Object> hoverTextList = Lists.newArrayList();
-		hoverTextList.add(this.stageExtra != null ? Messenger.c(this.stageExtra.toText(), "w \n"): Messenger.s(""));
-		hoverTextList.add(String.format("w %s: ", TRANSLATOR.tr("Dimension")));
-		hoverTextList.add(this.stage.isInsideWorld() ? TextUtil.getDimensionNameText(this.dimensionType) : "w N/A");
-		return Messenger.c(
-				"g  @",
-				TextUtil.getFancyText(
-						null,
-						Messenger.c(stageText.toArray(new Object[0])),
-						Messenger.c(hoverTextList.toArray(new Object[0])),
-						this.stageExtra != null ? this.stageExtra.getClickEvent() : null
-				)
-		);
-	}
-
 	public static BaseText getIndentationText(int indentation)
 	{
 		return Messenger.s(INDENTATIONS.get(min(indentation, MAX_INDENT)));
 	}
 
+	// [Stone]
 	private BaseText getEnclosedTranslatedBlockNameHeaderText()
 	{
-		Block eventSourceBlock = this.event.getEventSourceBlock();
-		BaseText sourceBlockNameText = TextUtil.getBlockName(eventSourceBlock);
+		EventSource eventSource = this.event.getEventSource();
+		String type = "unknown";
+		if (eventSource.getSourceObject() instanceof Block)
+		{
+			type = TRANSLATOR.tr("block");
+		}
+		else if (eventSource.getSourceObject() instanceof Fluid)
+		{
+			type = TRANSLATOR.tr("fluid");
+		}
 		return Messenger.c(
 				"g [",
 				TextUtil.getFancyText(
 						null,
-						this.blockName != null ? Messenger.s(this.blockName) : sourceBlockNameText,
+						this.blockName != null ? Messenger.s(this.blockName) : eventSource.getName(),
 						Messenger.c(
-								String.format("w %s: ", TRANSLATOR.tr("Event source block")),
-								sourceBlockNameText,
-								String.format("w \n%s: %s", TRANSLATOR.tr("Block ID"), Registry.BLOCK.getId(eventSourceBlock))
+								String.format("w %s: ", TRANSLATOR.tr("Event source")),
+								eventSource.getName(),
+								String.format("w  (%s)\n%s: %s", type, TRANSLATOR.tr("ID"), eventSource.getId())
 						),
 						null
 				),
@@ -182,7 +163,7 @@ public class MicroTimingMessage
 		{
 			if (showStage)
 			{
-				line.add(this.getStageText());
+				line.add(this.tickPhase.toText());
 			}
 		}
 		line.add("w  ");
@@ -190,11 +171,19 @@ public class MicroTimingMessage
 		return Messenger.c(line.toArray(new Object[0]));
 	}
 
-	public void mergeQuiteMessage(MicroTimingMessage quiteMessage)
+	/**
+	 * Merge the closing bracket event into current event, for cleaner view
+	 *
+	 * this (opening bracket)
+	 *   sub message A
+	 *     sub-sub message B
+	 * quitMessage (closing bracket)
+	 */
+	public void mergeQuitMessage(MicroTimingMessage quitMessage)
 	{
-		if (quiteMessage != null)
+		if (quitMessage != null)
 		{
-			this.event.mergeQuitEvent(quiteMessage.event);
+			this.event.mergeQuitEvent(quitMessage.event);
 		}
 	}
 }

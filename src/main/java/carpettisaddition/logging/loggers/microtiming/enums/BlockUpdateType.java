@@ -2,10 +2,13 @@ package carpettisaddition.logging.loggers.microtiming.enums;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
+import carpettisaddition.mixins.logger.microtiming.AbstractBlockAccessor;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 
 public enum BlockUpdateType
 {
@@ -64,8 +67,19 @@ public enum BlockUpdateType
 
 	private static class Constants
 	{
+		/**
+		 * See {@link World#updateNeighborsAlways} and {@link World#updateNeighborsExcept}
+		 */
 		private static final Direction[] BLOCK_UPDATE_ORDER = new Direction[]{Direction.WEST, Direction.EAST, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH};
-		private static final Direction[] STATE_UPDATE_ORDER = new Direction[]{Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH, Direction.DOWN, Direction.UP};  // the same as Block.FACINGS
+
+		/**
+		 * See {@link AbstractBlock.AbstractBlockState#updateNeighbors}
+		 */
+		private static final Direction[] STATE_UPDATE_ORDER = AbstractBlockAccessor.getFACINGS();
+
+		/**
+		 * See {@link World#updateComparators}
+		 */
 		private static final Direction[] COMPARATOR_UPDATE_ORDER = Lists.newArrayList(Direction.Type.HORIZONTAL.iterator()).toArray(new Direction[0]);
 	}
 }

@@ -77,7 +77,7 @@ public class MessageTreeNode
 				boolean showQuitMessage = e.node.quitMessage != null && showEntryMessage && !mergeMessage;
 				if (mergeMessage)
 				{
-					e.node.entryMessage.mergeQuiteMessage(e.node.quitMessage);
+					e.node.entryMessage.mergeQuitMessage(e.node.quitMessage);
 				}
 				if (showEntryMessage)
 				{
@@ -145,9 +145,9 @@ public class MessageTreeNode
 		StringBuilder prefix = new StringBuilder();
 		for (int i = 0; i < depth; i++) prefix.append("  ");
 
-		System.err.println(prefix.toString() + ms(this.entryMessage));
+		System.err.println(prefix + ms(this.entryMessage));
 		for (MessageTreeNode child : this.children) child.printTree(depth + 1);
-		System.err.println(prefix.toString() + (this.quitMessage != null ? ms(this.quitMessage) : null));
+		System.err.println(prefix + (this.quitMessage != null ? ms(this.quitMessage) : null));
 	}
 	public void printTree()
 	{

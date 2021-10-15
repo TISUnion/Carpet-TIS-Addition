@@ -3,7 +3,6 @@ package carpettisaddition.mixins.logger.microtiming.events.compact.lithium;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
 import me.jellysquid.mods.lithium.common.world.scheduler.TickEntry;
-import net.minecraft.block.Block;
 import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -59,9 +58,6 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	@Inject(method = "schedule", at = @At("RETURN"))
 	private void endScheduleTileTickEvent(BlockPos pos, T object, int delay, TickPriority priority, CallbackInfo ci)
 	{
-		if (object instanceof Block)
-		{
-			MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduleSuccess);
-		}
+		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduleSuccess);
 	}
 }
