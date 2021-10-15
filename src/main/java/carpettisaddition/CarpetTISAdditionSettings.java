@@ -112,6 +112,12 @@ public class CarpetTISAdditionSettings
 	public static String commandRaid = "true";
 
 	@Rule(
+			desc = "Enables /refresh command for synchronizing your client to the server",
+			category = {TIS, COMMAND}
+	)
+	public static String commandRefresh = "true";
+
+	@Rule(
 			desc = "Allow creative players to open a container even if the container is blocked. e.g. for shulker box",
 			category = {TIS, CREATIVE}
 	)
@@ -261,7 +267,7 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			desc = "The mobs in lazy chunks will not despawn",
-			extra = "This option has no effect in versions before 1.15",
+			extra = "This option only have effects between Minecraft 1.15 and 1.16",
 			category = {TIS, EXPERIMENTAL, FEATURE}
 	)
 	public static boolean keepMobInLazyChunks = false;

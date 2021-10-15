@@ -19,11 +19,11 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 	@Nullable
 	protected Boolean returnValue;
 
-	private static final Translator TRANSLATOR = (new BaseEvent(null, "set_block_state_event_base", null){
+	private static final Translator TRANSLATOR = (new BaseEvent(null, "set_block_state_event_base", (EventSource)null) {
 		@Override
 		public BaseText toText()
 		{
-			return null;
+			throw new UnsupportedOperationException();
 		}
 	}).getTranslator();
 	private static final List<FlagData> SET_BLOCK_STATE_FLAGS = Lists.newArrayList();

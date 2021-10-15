@@ -22,6 +22,7 @@
 - [区块刻速度](#区块刻速度-chunkTickSpeed)
 - [存活时间追踪器](#存活时间追踪器-commandLifeTime)
 - [袭击追踪器](#袭击追踪器-commandRaid)
+- [刷新命令开关](#刷新命令开关-commandRefresh)
 - [创造玩家强制打开容器](#创造玩家强制打开容器-creativeOpenContainerForcibly)
 - [发射器不消耗物品](#发射器不消耗物品-dispenserNoItemCost)
 - [发射器发射龙息](#发射器发射龙息-dispensersFireDragonBreath)
@@ -93,6 +94,7 @@
 - [信息](#信息-info)
 - [存活时间](#存活时间-lifetime-1)
 - [tick](#tick)
+- [刷新](#刷新-refresh)
 
 ## [Scarpet](#scarpet-1)
 
@@ -200,6 +202,16 @@
 ## 袭击追踪器 (commandRaid)
 
 启用 `/raid` 命令用于列出或追踪袭击信息
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `COMMAND`
+
+
+## 刷新命令开关 (commandRefresh)
+
+启用 `/refresh` 命令让你的客户端与服务端保持同步
 
 - 类型: `boolean`
 - 默认值: `true`
@@ -357,7 +369,7 @@
 
 弱加载区块的怪物不再会被刷新掉，就像 1.15 之前版本似的
 
-此选项对1.15以前的版本无效
+此选项仅对 1.15 至 1.16 间的版本有效
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -1060,9 +1072,10 @@
 
 ### filter
 
-`/lifetime filter <实体类型> set <实体选择器>`
-
-`/lifetime filter <实体类型> clear`
+```
+/lifetime filter <实体类型> set <实体选择器>
+/lifetime filter <实体类型> clear`
+```
 
 为指定实体类型设置实体筛选器。在 `<实体类型>` 处键入 `global` 以设置全局筛选器
 
@@ -1071,6 +1084,7 @@
 使用 `@e` 类型的 Minecraft 实体选择器来输入实体筛选器，如：`@e[distance=..100,nbt={Item:{id:"minecraft:oak_sapling"}}]`
 
 使用 `/lifetime filter` 来显示激活的实体筛选器
+
 
 ## tick
 
@@ -1081,6 +1095,27 @@
 显示当前 tick warp 的状态信息，如启动者、估计剩余时间等
 
 见 [tickWarp 记录器](#tickWarp) 以了解更方便地查询信息的方法
+
+
+## 刷新 (refresh)
+
+### inventory
+
+`/refresh inventory`: 刷新你的物品栏
+`/refresh inventory <players>`: 刷新指定玩家的物品栏。需要权限等级 2
+
+### chunk
+
+`/refresh chunk`: 同 `/refresh chunk current`
+`/refresh chunk current`: 刷新你所在的区块
+`/refresh chunk all`: 刷新视距内的所有区块
+`/refresh chunk inrange <chebyshevDistance>`: 刷新给定切比雪夫距离内的所有区块
+`/refresh chunk at <chunkX> <chunkZ>`: 刷新指定位置的区块
+
+所有区块刷新操作均仅影响视距之内的区块
+
+受到数据包压缩操作影响，区块批量刷新操作会对服务端的网络线程造成卡顿，因此该指令包含一个输入限速器来防止数据包过多地堆积
+
 
 -----------
 

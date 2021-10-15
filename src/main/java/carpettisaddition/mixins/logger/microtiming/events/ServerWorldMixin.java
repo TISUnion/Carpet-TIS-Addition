@@ -6,6 +6,7 @@ import carpettisaddition.logging.loggers.microtiming.events.ExecuteBlockEventEve
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -31,8 +32,8 @@ public abstract class ServerWorldMixin
 
 	private final ThreadLocal<Boolean> thisTileTickEventExecuted = ThreadLocal.withInitial(() -> false);
 
-	@Inject(method = "tickBlock", at = @At("HEAD"))
-	private void beforeExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
+	@Inject(method = {"tickBlock", "tickFluid"}, at = @At("HEAD"))
+	private void beforeExecuteTileTickEvent(CallbackInfo ci)
 	{
 		this.thisTileTickEventExecuted.set(false);
 	}
@@ -44,14 +45,27 @@ public abstract class ServerWorldMixin
 					target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V"
 			)
 	)
-	private void preExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
+	private void preExecuteBlockTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, EventType.ACTION_START);
 		this.thisTileTickEventExecuted.set(true);
 	}
 
-	@Inject(method = "tickBlock", at = @At("RETURN"))
-	private void afterExecuteTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
+	@Inject(
+			method = "tickFluid",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/fluid/FluidState;onScheduledTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
+			)
+	)
+	private void preExecuteFluidTileTickEvent(ScheduledTick<Fluid> event, CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.onExecuteTileTickEvent((ServerWorld)(Object)this, event, EventType.ACTION_START);
+		this.thisTileTickEventExecuted.set(true);
+	}
+
+	@Inject(method = {"tickBlock", "tickFluid"}, at = @At("RETURN"))
+	private void afterExecuteTileTickEvent(ScheduledTick<?> event, CallbackInfo ci)
 	{
 		if (this.thisTileTickEventExecuted.get())
 		{
@@ -81,8 +95,6 @@ public abstract class ServerWorldMixin
 		MicroTimingLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
 	}
 
-	// Shift the opcode to make sure the stage detail and extra has been set in tickstages.ServerWorldMixin
-	// Injects with shift below are the same
 	@Inject(method = "method_14174", at = @At(value = "HEAD", shift = At.Shift.AFTER))
 	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{

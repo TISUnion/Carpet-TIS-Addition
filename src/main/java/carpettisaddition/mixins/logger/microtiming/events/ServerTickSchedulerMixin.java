@@ -1,7 +1,6 @@
 package carpettisaddition.mixins.logger.microtiming.events;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import net.minecraft.block.Block;
 import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -34,9 +33,6 @@ public abstract class ServerTickSchedulerMixin<T>
 	@Inject(method = "schedule", at = @At("RETURN"))
 	private void endScheduleTileTickEvent(BlockPos pos, T object, int delay, TickPriority priority, CallbackInfo ci)
 	{
-		if (object instanceof Block)
-		{
-			MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, (Block)object, pos, delay, priority, this.scheduledTickActions.size() > this.oldListSize);
-		}
+		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduledTickActions.size() > this.oldListSize);
 	}
 }
