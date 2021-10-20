@@ -610,7 +610,7 @@ Ender dragon killed by charged creeper will drop dragon head
 
 ## renewableElytra
 
-Phathom killed by shulker will drops an elytra with given possibility
+Phantom killed by shulker will drops an elytra with given possibility
 
 Set it to 0 to disable
 
