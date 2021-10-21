@@ -9,7 +9,6 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
-import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Mixin(ExplosionLogHelper.class)
@@ -51,20 +51,12 @@ public abstract class ExplosionLogHelperMixin
 		return angle;
 	}
 
-	@Dynamic
-	@Inject(
-			method = "lambda$onExplosionDone$1",
-			at = @At(
-					value = "INVOKE",
-					target = "Ljava/util/List;toArray([Ljava/lang/Object;)[Ljava/lang/Object;",
-					remap = false
-			),
-			remap = false
-	)
-	private void attachBlockDestroyedWarning(List<BaseText> messages, String option, CallbackInfoReturnable<BaseText[]> cir)
+	@Inject(method = "lambda$onExplosionDone$1", at = @At("RETURN"), remap = false, cancellable = true)
+	private void attachBlockDestroyedWarning(long gametime, String option, CallbackInfoReturnable<BaseText[]> cir)
 	{
 		if (this.entity instanceof TntEntity)
 		{
+			List<BaseText> messages = Arrays.asList(cir.getReturnValue());
 			ITntEntity iTntEntity = (ITntEntity)this.entity;
 			if (iTntEntity.dataRecorded())
 			{
@@ -91,6 +83,7 @@ public abstract class ExplosionLogHelperMixin
 						break;
 				}
 			}
+			cir.setReturnValue(messages.toArray(new BaseText[0]));
 		}
 	}
 }
