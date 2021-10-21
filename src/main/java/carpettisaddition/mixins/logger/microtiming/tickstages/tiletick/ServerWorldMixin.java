@@ -47,6 +47,7 @@ public abstract class ServerWorldMixin
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.UNKNOWN);
 	}
 
+	@SuppressWarnings("MixinAnnotationTarget")
 	@Inject(
 			method = "tick",
 			at = {

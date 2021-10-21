@@ -102,7 +102,6 @@
     "logger.microtiming.marker.DyeColorAccessor",
     "logger.microtiming.marker.ExpiringShapeInvoker",
     "logger.microtiming.marker.PistonBlockMixin",
-    "logger.microtiming.marker.ServerNetworkHandlerMixin",
     "logger.microtiming.messageflush.MinecraftServerMixin",
     "logger.microtiming.messageflush.ServerWorldMixin",
     "logger.microtiming.tickstages.asynctask.MinecraftServerMixin",
