@@ -502,7 +502,7 @@ public class CarpetTISAdditionSettings
 
 
 	@Rule(
-			desc = "Phathom killed by shulker will drops an elytra with given possibility",
+			desc = "Phantom killed by shulker will drops an elytra with given possibility",
 			extra = "Set it to 0 to disable",
 			options = {"0", "0.2", "1"},
 			validate = Validator.PROBABILITY.class,

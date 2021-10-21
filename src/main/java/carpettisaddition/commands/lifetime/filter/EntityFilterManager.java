@@ -53,7 +53,7 @@ public class EntityFilterManager extends TranslatableBase
 
 	public void setEntityFilter(ServerCommandSource source, @Nullable EntityType<?> entityType, @Nullable EntitySelector entitySelector)
 	{
-		BaseText typeName = entityType != null ? (BaseText)entityType.getName() : Messenger.s(this.tr(""));
+		BaseText typeName = entityType != null ? (BaseText)entityType.getName() : Messenger.s(this.tr("Global"));
 		if (entitySelector != null)
 		{
 			if (!entitySelector.includesNonPlayers() || ((EntitySelectorAccessor)entitySelector).getPlayerName() != null)
