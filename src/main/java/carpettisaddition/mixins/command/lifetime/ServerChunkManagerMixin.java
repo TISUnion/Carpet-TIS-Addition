@@ -19,7 +19,7 @@ public abstract class ServerChunkManagerMixin
 			method = "tickChunks",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ChunkTicketManager;getSpawningChunkCount()I"
+					target = "Lnet/minecraft/server/world/ChunkTicketManager;getTickedChunkCount()I"
 			)
 	)
 	private void onCountingMobcapLifeTimeTracker(CallbackInfo ci)

@@ -10,8 +10,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.vehicle.CommandBlockMinecartEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.util.ChatUtil;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.StringHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.CommandBlockExecutor;
@@ -97,7 +97,7 @@ public class CommandBlockLogger extends AbstractLogger
 
 	public void onCommandBlockMinecartActivated(CommandBlockMinecartEntity entity)
 	{
-		if (ChatUtil.isEmpty(entity.getCommandExecutor().getCommand()))
+		if (StringHelper.isEmpty(entity.getCommandExecutor().getCommand()))
 		{
 			return;
 		}

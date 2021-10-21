@@ -108,7 +108,8 @@ public class MicroTimingUtil
 
 	private static boolean isPositionAvailable(World world, BlockPos pos)
 	{
-		return world instanceof ServerWorld && ((ServerWorld)world).method_37117(pos);
+		// shouldTickBlock or isTickingFutureReady or whatever, just the same test in Tile tick list entries executing
+		return world instanceof ServerWorld && ((ServerWorld)world).isTickingFutureReady(pos);
 	}
 
 	private static Optional<DyeColor> getWoolColor(World world, BlockPos pos)
