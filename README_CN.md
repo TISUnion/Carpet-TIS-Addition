@@ -5,9 +5,11 @@
 [![MC Versions](http://cf.way2muchnoise.eu/versions/For%20MC_carpet-tis-addition_all.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 [![CurseForge](http://cf.way2muchnoise.eu/full_carpet-tis-addition_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition)
 
-[>>> English <<<](https://github.com/TISUnion/Carpet-TIS-Addition)
+[English](README.md) | **中文**
 
 这是一个 [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) 的扩展 mod，包含了不少~~NotVanilla的~~有意思的功能以及特性
+
+在默认配置条件下，本模组不会改变任何原版机制
 
 跟同 Minecraft 版本的 carpet mod 一起使用即可。尽可能地使用较新的 carpet mod
 
@@ -1102,14 +1104,19 @@
 ### inventory
 
 `/refresh inventory`: 刷新你的物品栏
+
 `/refresh inventory <players>`: 刷新指定玩家的物品栏。需要权限等级 2
 
 ### chunk
 
 `/refresh chunk`: 同 `/refresh chunk current`
+
 `/refresh chunk current`: 刷新你所在的区块
+
 `/refresh chunk all`: 刷新视距内的所有区块
+
 `/refresh chunk inrange <chebyshevDistance>`: 刷新给定切比雪夫距离内的所有区块
+
 `/refresh chunk at <chunkX> <chunkZ>`: 刷新指定位置的区块
 
 所有区块刷新操作均仅影响视距之内的区块

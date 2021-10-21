@@ -235,7 +235,11 @@ public class MicroTimingUtil
 		}
 		if (!optionalDyeColor.isPresent() || usingFallbackColor)
 		{
-			optionalDyeColor = MicroTimingMarkerManager.getInstance().getColor(world, pos, MicroTimingMarkerType.REGULAR);
+			Optional<DyeColor> markerColor = MicroTimingMarkerManager.getInstance().getColor(world, pos, MicroTimingMarkerType.REGULAR);
+			if (markerColor.isPresent())
+			{
+				optionalDyeColor = markerColor;
+			}
 		}
 		return optionalDyeColor;
 	}
