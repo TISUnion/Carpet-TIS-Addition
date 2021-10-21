@@ -78,7 +78,7 @@ public abstract class RaidMixin implements IRaid
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/world/WorldAccess;getDifficulty()Lnet/minecraft/world/Difficulty;"
+							target = "Lnet/minecraft/server/world/ServerWorld;getDifficulty()Lnet/minecraft/world/Difficulty;"
 					)
 			),
 			at = @At(
