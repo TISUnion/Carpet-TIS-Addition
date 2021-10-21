@@ -52,6 +52,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 		));
 	}
 
+	@SuppressWarnings("MixinAnnotationTarget")
 	@Inject(
 			method = "damage",
 			slice = @Slice(
