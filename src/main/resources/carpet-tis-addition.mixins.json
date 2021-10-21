@@ -87,6 +87,7 @@
     "logger.lightqueue.ServerLightingProviderMixin",
     "logger.microtiming.BlockAccessor",
     "logger.microtiming.ServerWorldMixin",
+    "logger.microtiming.api.MinecraftServerMixin",
     "logger.microtiming.events.BlockMixin",
     "logger.microtiming.events.EmitBlockUpdateMixins$AbstractButtonBlockMixin",
     "logger.microtiming.events.EmitBlockUpdateMixins$AbstractPressurePlateBlockMixin",
