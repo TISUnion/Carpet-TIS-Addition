@@ -139,4 +139,3 @@ See [tickWarp logger](#tickWarp) for easier access
 All chunk refresh operations only affect chunks within your view distance
 
 Multiple chunk refreshing creates lags on server's network thread due to packet compression, so there is an input thresholder for the command to prevent packet over-accumulation
-

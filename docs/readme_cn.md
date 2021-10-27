@@ -4,8 +4,6 @@
 
 ## [规则](rules_cn.md)
 
-[规则](rules_cn.md#规则)
-
 - [禁用反刷屏监测](rules_cn.md#禁用反刷屏监测-antispamdisabled)
 - [方块事件广播范围](rules_cn.md#方块事件广播范围-blockeventpacketrange)
 - [方块放置碰撞检测](rules_cn.md#方块放置碰撞检测-blockplacementignoreentity)
@@ -64,44 +62,44 @@
 - [光照引擎最大任务组数](rules_cn.md#光照引擎最大任务组数-lightenginemaxbatchsize)
 - [结构方块轮廓距离](rules_cn.md#结构方块轮廓距离-structureblockoutlinedistance)
 
-## [监视器](#监视器列表)
+## [监视器](loggers_cn.md)
 
-- [加载票](#加载票-ticket)
-- [内存](#内存-memory)
-- [掉落物](#掉落物-item)
-- [经验球](#经验球-xporb)
-- [袭击](#袭击-raid)
-- [微时序](#微时序-microtiming)
-- [伤害](#伤害-damage)
-- [命令方块](#命令方块-commandblock)
-- [光照队列](#光照队列-lightqueue)
-- [tickWarp](#tickWarp-tickwarp)
-- [海龟蛋](#海龟蛋-turtleegg)
-- [存活时间](#存活时间-lifetime)
+- [加载票](loggers_cn.md#加载票-ticket)
+- [内存](loggers_cn.md#内存-memory)
+- [掉落物](loggers_cn.md#掉落物-item)
+- [经验球](loggers_cn.md#经验球-xporb)
+- [袭击](loggers_cn.md#袭击-raid)
+- [微时序](loggers_cn.md#微时序-microtiming)
+- [伤害](loggers_cn.md#伤害-damage)
+- [命令方块](loggers_cn.md#命令方块-commandblock)
+- [光照队列](loggers_cn.md#光照队列-lightqueue)
+- [tickWarp](loggers_cn.md#tickwarp)
+- [海龟蛋](loggers_cn.md#海龟蛋-turtleegg)
+- [存活时间](loggers_cn.md#存活时间-lifetime)
 
-## [指令](#指令列表)
+## [指令](commands_cn.md)
 
-- [袭击](#袭击-raid)
-- [信息](#信息-info)
-- [存活时间](#存活时间-lifetime)
-- [tick](#tick)
-- [刷新](#刷新-refresh)
+- [袭击](commands_cn.md#袭击-raid)
+- [信息](commands_cn.md#信息-info)
+- [存活时间](commands_cn.md#存活时间-lifetime)
+- [tick](commands_cn.md#tick)
+- [刷新](commands_cn.md#刷新-refresh)
 
-## [Scarpet](#scarpet-1)
+## [Scarpet](misc_cn.md#scarpet)
 
-### [Functions](#functions-1)
+### [Functions](misc_cn.md#函数)
 
-- [`register_block(pos)`](#register_blockpos)
-- [`unregister_block(pos)`](#unregister_blockpos)
-- [`registered_blocks()`](#registered_blocks)
-- [`is_registered(pos)`](#is_registeredpos)
+- [`register_block(pos)`](misc_cn.md#register_blockpos)
+- [`unregister_block(pos)`](misc_cn.md#unregister_blockpos)
+- [`registered_blocks()`](misc_cn.md#registered_blocks)
+- [`is_registered(pos)`](misc_cn.md#is_registeredpos)
 
-### [Events](#events)
+### [Events](misc_cn.md#事件)
 
-- [`__on_microtiming_event(type, pos, dimension)`](#__on_microtiming_eventtype-pos-dimension)
+- [`__on_microtiming_event(type, pos, dimension)`](misc_cn.md#__on_microtiming_eventtype-pos-dimension)
 
 
 ## 其他
 
-- [其他](#其他)
-- [开发](#开发)
+- [其他](misc_cn.md#其他)
+- [开发](development_cn.md)

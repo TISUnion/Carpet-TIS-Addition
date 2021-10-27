@@ -295,7 +295,7 @@
 
 ## 微时序 (microTiming)
 
-启用[微时序监视器](#微时序-microTiming-1)的功能
+启用[微时序监视器](loggers_cn.md#微时序-microTiming)的功能
 
 使用羊毛块来输出红石元件的动作、方块更新与堆栈跟踪
 
@@ -639,7 +639,17 @@
 禁用所有方块更新以及状态更新的执行
 
 - 类型: `boolean`
-- 默认值: `true`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 禁用海龟蛋被践踏 (turtleEggTrampledDisabled)
+
+阻止海龟蛋因实体踩踏而破坏
+
+- 类型: `boolean`
+- 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
 
@@ -651,7 +661,7 @@
 试试 `/log projectiles visualize` 吧
 
 - 类型: `boolean`
-- 默认值: `true`
+- 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
 
@@ -681,4 +691,3 @@
 
 - 移植自：fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25)
 - 移植的分支：1.14.4, 1.15.2
-

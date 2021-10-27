@@ -81,7 +81,7 @@ Attributes:
 
 Log micro timings of redstone components. The ticket of the chunk the component is in needs to be at least lazy-processing (ticket level 32)
 
-Check rule [microTiming](#microTiming) for detail. Remember to use `/carpet microTiming true` to enable logger functionality
+Check rule [microTiming](rules.md#microtiming) for detail. Remember to use `/carpet microTiming true` to enable logger functionality
 
 Available options:
 - `all`: Default value, log all events
@@ -136,7 +136,7 @@ A HUD logger for debugging light suppression. It displays the following informat
 - Average task enqueuing speed
 - Average task executing speed
 
-The sampling duration can be specified with rule [lightQueueLoggerSamplingDuration](#lightQueueLoggerSamplingDuration), default 60gt
+The sampling duration can be specified with rule [lightQueueLoggerSamplingDuration](rules.md#lightqueueloggersamplingduration), default 60gt
 
 Specify the logging option to select the world you want log its light queue, like `/log mobcaps`
 
@@ -153,7 +153,7 @@ A HUD logger to display to progress of current tick warping
 
 It only shows up when the server is tick warping
 
-See [/tick warp status](#warp-status) command for displaying more details of tick warp
+See [/tick warp status](commands.md#warp-status) command for displaying more details of tick warp
 
 Attributes:
 - Default option: `bar`
@@ -177,7 +177,7 @@ Attributes:
 
 A HUD Logger
 
-Displays the current lifetime statistic of specific entity type from the [LifeTime Tracker](#lifetime-1) in the dimension the player is in
+Displays the current lifetime statistic of specific entity type from the [LifeTime Tracker](commands.md#lifetime) in the dimension the player is in
 
 The logging options is required to be an available entity type
 

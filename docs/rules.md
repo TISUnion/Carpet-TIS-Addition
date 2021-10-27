@@ -691,4 +691,3 @@ Change it to 0 to disable tracking
 
 - Source: fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25)
 - Target branches: 1.14.4, 1.15.2
-

@@ -47,7 +47,7 @@ The type determines the type of block event that occurs, which can be one of:
 - `'scheduled_block_event'`
 - `'scheduled_tile_tick'`
 
-Rule [microTiming](#microTiming) is required to be true for dispatching these events
+Rule [microTiming](rules.md#microtiming) is required to be true for dispatching these events
 
 -----------
 
