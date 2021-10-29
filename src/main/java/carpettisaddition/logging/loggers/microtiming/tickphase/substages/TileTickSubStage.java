@@ -5,11 +5,11 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.class_6760;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
@@ -18,10 +18,10 @@ import java.util.List;
 public class TileTickSubStage extends AbstractSubStage
 {
 	private final World world;
-	private final ScheduledTick<?> nextTickListEntry;
+	private final class_6760<?> nextTickListEntry;
 	private final int order;
 
-	public TileTickSubStage(World world, ScheduledTick<?> nextTickListEntry, int order)
+	public TileTickSubStage(World world, class_6760<?> nextTickListEntry, int order)
 	{
 		this.world = world;
 		this.nextTickListEntry = nextTickListEntry;
@@ -31,9 +31,9 @@ public class TileTickSubStage extends AbstractSubStage
 	@Override
 	public BaseText toText()
 	{
-		BlockPos pos = this.nextTickListEntry.pos;
-		TickPriority priority = this.nextTickListEntry.priority;
-		Object target = this.nextTickListEntry.getObject();
+		BlockPos pos = this.nextTickListEntry.pos();
+		TickPriority priority = this.nextTickListEntry.priority();
+		Object target = this.nextTickListEntry.type();
 		List<Object> list = Lists.newArrayList();
 		if (target instanceof Block)
 		{
@@ -56,6 +56,6 @@ public class TileTickSubStage extends AbstractSubStage
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.nextTickListEntry.pos, this.world.getRegistryKey()));
+		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.nextTickListEntry.pos(), this.world.getRegistryKey()));
 	}
 }

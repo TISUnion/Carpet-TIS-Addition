@@ -10,6 +10,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerType;
+import carpettisaddition.mixins.logger.microtiming.tickstages.ServerWorldAccessor;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.*;
@@ -22,6 +23,7 @@ import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
@@ -109,7 +111,7 @@ public class MicroTimingUtil
 	private static boolean isPositionAvailable(World world, BlockPos pos)
 	{
 		// shouldTickBlock or isTickingFutureReady or whatever, just the same test in Tile tick list entries executing
-		return world instanceof ServerWorld && ((ServerWorld)world).isTickingFutureReady(pos);
+		return world instanceof ServerWorld && ((ServerWorldAccessor)world).invokeIsTickingFutureReady(ChunkPos.toLong(pos));
 	}
 
 	private static Optional<DyeColor> getWoolColor(World world, BlockPos pos)

@@ -5,8 +5,8 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
+import net.minecraft.class_6760;
 import net.minecraft.text.BaseText;
-import net.minecraft.world.ScheduledTick;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,17 +14,17 @@ import java.util.Optional;
 
 public class ExecuteTileTickEvent<T> extends BaseEvent
 {
-	private final ScheduledTick<T> tileTickEntry;
+	private final class_6760<T> tileTickEntry;
 
-	private ExecuteTileTickEvent(EventType eventType, ScheduledTick<T> tileTickEntry, EventSource source)
+	private ExecuteTileTickEvent(EventType eventType, class_6760<T> tileTickEntry, EventSource source)
 	{
 		super(eventType, "execute_tile_tick", source);
 		this.tileTickEntry = tileTickEntry;
 	}
 
-	public static Optional<ExecuteTileTickEvent<?>> createFrom(EventType eventType, ScheduledTick<?> tileTickEntry)
+	public static Optional<ExecuteTileTickEvent<?>> createFrom(EventType eventType, class_6760<?> tileTickEntry)
 	{
-		return EventSource.fromObject(tileTickEntry.getObject()).map(eventSource -> new ExecuteTileTickEvent<>(eventType, tileTickEntry, eventSource));
+		return EventSource.fromObject(tileTickEntry.type()).map(eventSource -> new ExecuteTileTickEvent<>(eventType, tileTickEntry, eventSource));
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class ExecuteTileTickEvent<T> extends BaseEvent
 			list.add(TextUtil.getSpaceText());
 			list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("ended"));
 		}
-		list.add(String.format("^w %s: %d (%s)", MicroTimingLoggerManager.tr("Priority"), this.tileTickEntry.priority.getIndex(), this.tileTickEntry.priority));
+		list.add(String.format("^w %s: %d (%s)", MicroTimingLoggerManager.tr("Priority"), this.tileTickEntry.priority().getIndex(), this.tileTickEntry.priority()));
 		return Messenger.c(list.toArray(new Object[0]));
 	}
 

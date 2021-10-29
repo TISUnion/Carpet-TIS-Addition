@@ -29,7 +29,7 @@ public abstract class CommandBlockMixin
 			method = "neighborUpdate",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/TickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"
+					target = "Lnet/minecraft/world/World;method_39279(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;I)V"
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true

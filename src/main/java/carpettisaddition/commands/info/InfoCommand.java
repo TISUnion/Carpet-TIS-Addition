@@ -9,16 +9,12 @@ import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.fluid.Fluid;
+import net.minecraft.class_6760;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.BlockEvent;
-import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.World;
 
 import java.util.Collection;
@@ -77,17 +73,17 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		return 1;
 	}
 
-	private <T> void appendTileTickInfo(List<BaseText> result, List<ScheduledTick<T>> tileTickList, String title, long currentTime, Function<T, BaseText> nameGetter)
+	private void appendTileTickInfo(List<BaseText> result, List<class_6760<?>> tileTickList, String title, long currentTime, Function<Object, BaseText> nameGetter)
 	{
 		if (!tileTickList.isEmpty())
 		{
 			result.add(Messenger.s(String.format(" - %s * %d", title, tileTickList.size())));
-			for (ScheduledTick<T> tt : tileTickList)
+			for (class_6760<?> tt : tileTickList)
 			{
 				result.add(Messenger.c(
 						"w     ",
-						nameGetter.apply(tt.getObject()),
-						String.format("w : time = %d (+%dgt), priority = %d", tt.time, tt.time - currentTime, tt.priority.getIndex())
+						nameGetter.apply(tt.type()),
+						String.format("w : time = %d (+%dgt), priority = %d", tt.triggerTick(), tt.triggerTick() - currentTime, tt.priority().getIndex())
 				));
 			}
 		}
@@ -116,11 +112,12 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 			return Collections.emptyList();
 		}
 		List<BaseText> result = Lists.newArrayList();
-		BlockBox bound = BlockBox.create(pos, pos.add(1, 1, 1));
-		List<ScheduledTick<Block>> blockTileTicks = ((ServerTickScheduler<Block>)world.getBlockTickScheduler()).getScheduledTicks(bound, false, false);
-		List<ScheduledTick<Fluid>> liquidTileTicks = ((ServerTickScheduler<Fluid>)world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
-		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), TextUtil::getBlockName);
-		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", world.getTime(), TextUtil::getFluidName);
+		// TODO: make tiletick display work
+//		BlockBox bound = BlockBox.create(pos, pos.add(1, 1, 1));
+//		List<class_6760> blockTileTicks = (world.getBlockTickScheduler()).getScheduledTicks(bound, false, false);
+//		List<class_6760> liquidTileTicks = (world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
+//		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), obj -> TextUtil.getBlockName((Block)obj));
+//		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", world.getTime(), obj -> TextUtil.getFluidName((Fluid)obj));
 		List<BlockEvent> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.pos().equals(pos)).collect(Collectors.toList());
 		this.appendBlockEventInfo(result, blockEvents);
 		return result;

@@ -19,6 +19,7 @@ import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.class_6760;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
@@ -34,7 +35,6 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -200,11 +200,11 @@ public class MicroTimingLoggerManager
 	 * -----------
 	 */
 
-	public static void onExecuteTileTickEvent(World world, ScheduledTick<?> tileTickEvent, EventType eventType)
+	public static void onExecuteTileTickEvent(World world, class_6760<?> tileTickEvent, EventType eventType)
 	{
 		ExecuteTileTickEvent.createFrom(eventType, tileTickEvent).ifPresent(event -> onEvent(
 				MicroTimingContext.create().
-						withWorld(world).withBlockPos(tileTickEvent.pos).
+						withWorld(world).withBlockPos(tileTickEvent.pos()).
 						withEvent(event)
 		));
 	}

@@ -1,38 +1,53 @@
 package carpettisaddition.mixins.logger.microtiming.events;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import net.minecraft.server.world.ServerTickScheduler;
+import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
+import net.minecraft.class_6755;
+import net.minecraft.class_6757;
+import net.minecraft.class_6760;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ScheduledTick;
-import net.minecraft.world.TickPriority;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.Set;
 
-
-@Mixin(ServerTickScheduler.class)
+// ServerTickScheduler in 1.17
+@Mixin(class_6757.class)
 public abstract class ServerTickSchedulerMixin<T>
 {
-	@Shadow @Final private ServerWorld world;
-	@Shadow @Final private Set<ScheduledTick<T>> scheduledTickActions;
-
 	private int oldListSize;
 
-	@Inject(method = "schedule", at = @At("HEAD"))
-	private void startScheduleTileTickEvent(CallbackInfo ci)
+	@Inject(
+			method = "method_39363",  // scheduleTileTick stuff
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/class_6755;method_39363(Lnet/minecraft/class_6760;)V"  // schedule tileTick in chunk
+			),
+			locals = LocalCapture.CAPTURE_FAILHARD
+	)
+	private void startScheduleTileTickEvent(class_6760<T> tt, CallbackInfo ci, long l, class_6755<T> chunkTickScheduler)
 	{
-		this.oldListSize = this.scheduledTickActions.size();
+		this.oldListSize = chunkTickScheduler.getTicks();
 	}
 
-	@Inject(method = "schedule", at = @At("RETURN"))
-	private void endScheduleTileTickEvent(BlockPos pos, T object, int delay, TickPriority priority, CallbackInfo ci)
+	@Inject(
+			method = "method_39363",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/class_6755;method_39363(Lnet/minecraft/class_6760;)V",
+					shift = At.Shift.AFTER
+			),
+			locals = LocalCapture.CAPTURE_FAILHARD
+	)
+	private void endScheduleTileTickEvent(class_6760<T> tt, CallbackInfo ci, long l, class_6755<T> chunkTickScheduler)
 	{
-		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduledTickActions.size() > this.oldListSize);
+		ServerWorld serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld();
+		if (serverWorld != null)
+		{
+			int delay = (int)(tt.triggerTick() - serverWorld.getTime());
+			MicroTimingLoggerManager.onScheduleTileTickEvent(serverWorld, tt.type(), tt.pos(), delay, tt.priority(), chunkTickScheduler.getTicks() > this.oldListSize);
+		}
 	}
 }
