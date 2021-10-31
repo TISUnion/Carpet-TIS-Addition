@@ -368,6 +368,8 @@
   "tracker.lifetime.spawn_reason.zombie_reinforce": "殭屍增援",
   "tracker.lifetime.spawn_reason.mob_drop.pre": "由",
   "tracker.lifetime.spawn_reason.mob_drop.post": "掉落",
+  "tracker.lifetime.spawn_reason.mob_throw.pre": "由",
+  "tracker.lifetime.spawn_reason.mob_throw.post": "扔出",
   "tracker.lifetime.spawn_reason.trans_dimension": "跨維度",
   "tracker.lifetime.spawn_reason.trans_dimension.from": "來自",
   "tracker.lifetime.removal_reason.despawn.randomly": "隨機消失",
