@@ -478,6 +478,8 @@
   "tracker.lifetime.spawn_reason.spawner": "刷怪笼",
   "tracker.lifetime.spawn_reason.mob_drop.pre": "由",
   "tracker.lifetime.spawn_reason.mob_drop.post": "掉落",
+  "tracker.lifetime.spawn_reason.mob_throw.pre": "由",
+  "tracker.lifetime.spawn_reason.mob_throw.post": "扔出",
   "tracker.lifetime.spawn_reason.trans_dimension": "跨维度",
   "tracker.lifetime.spawn_reason.trans_dimension.from": "来自",
   "tracker.lifetime.removal_reason.despawn.randomly": "随机消失",

@@ -60,6 +60,7 @@
     "command.lifetime.spawning.EntityMixin",
     "command.lifetime.spawning.EntityTypeMixin",
     "command.lifetime.spawning.LivingEntityMixin",
+    "command.lifetime.spawning.LookTargetUtilMixin",
     "command.lifetime.spawning.MobSpawnerLogicMixin",
     "command.lifetime.spawning.NetherPortalBlockMixin",
     "command.lifetime.spawning.PlayerEntityMixin",
