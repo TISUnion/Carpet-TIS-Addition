@@ -7,7 +7,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.events.*;
-import carpettisaddition.logging.loggers.microtiming.interfaces.IServerWorld;
+import carpettisaddition.logging.loggers.microtiming.interfaces.ServerWorldWithMicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.AbstractSubStage;
@@ -52,7 +52,7 @@ public class MicroTimingLoggerManager
 	{
 		for (ServerWorld world : minecraftServer.getWorlds())
 		{
-			this.loggers.put(world, ((IServerWorld)world).getMicroTimingLogger());
+			this.loggers.put(world, ((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger());
 		}
 	}
 
@@ -80,7 +80,7 @@ public class MicroTimingLoggerManager
 	{
 		if (instance != null && world instanceof ServerWorld)
 		{
-			return Optional.of(((IServerWorld)world).getMicroTimingLogger());
+			return Optional.of(((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger());
 		}
 		return Optional.empty();
 	}
@@ -294,7 +294,7 @@ public class MicroTimingLoggerManager
 	 */
 	public TickPhase getTickPhase(ServerWorld world)
 	{
-		return ((IServerWorld)world).getMicroTimingLogger().getTickPhase();
+		return ((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger().getTickPhase();
 	}
 
 	private synchronized void flush()

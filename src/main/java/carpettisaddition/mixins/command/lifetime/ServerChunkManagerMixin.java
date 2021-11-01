@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime;
 
-import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
+import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Final;
@@ -24,6 +24,6 @@ public abstract class ServerChunkManagerMixin
 	)
 	private void onCountingMobcapLifeTimeTracker(CallbackInfo ci)
 	{
-		((IServerWorld)this.world).getLifeTimeWorldTracker().increaseSpawnStageCounter();
+		((ServerWorldWithLifeTimeTracker)this.world).getLifeTimeWorldTracker().increaseSpawnStageCounter();
 	}
 }

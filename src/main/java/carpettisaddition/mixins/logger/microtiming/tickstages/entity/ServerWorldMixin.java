@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.entity;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import carpettisaddition.logging.loggers.microtiming.interfaces.IWorld;
+import carpettisaddition.logging.loggers.microtiming.interfaces.WorldWithEntityTickingOrder;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +22,7 @@ public abstract class ServerWorldMixin
 	private void enterStageEntities(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.ENTITY);
-		((IWorld)this).setEntityOrderCounter(0);
+		((WorldWithEntityTickingOrder)this).setEntityOrderCounter(0);
 	}
 
 	@Inject(

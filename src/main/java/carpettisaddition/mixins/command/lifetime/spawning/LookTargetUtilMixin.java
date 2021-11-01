@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobThrowSpawningReason;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -24,6 +24,6 @@ public class LookTargetUtilMixin {
             )
     )
     private static void onThrowItemEntityLifeTimeTracker(LivingEntity entity, ItemStack stack, LivingEntity target, CallbackInfo ci, double ignored, ItemEntity itemEntity) {
-        ((IEntity) itemEntity).recordSpawning(new MobThrowSpawningReason(entity.getType()));
+        ((LifetimeTrackerTarget) itemEntity).recordSpawning(new MobThrowSpawningReason(entity.getType()));
     }
 }

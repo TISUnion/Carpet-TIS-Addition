@@ -2,7 +2,7 @@ package carpettisaddition.commands.lifetime.utils;
 
 import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.Entity;
@@ -43,10 +43,10 @@ public class LifeTimeStatistic extends TranslatableBase
 
 	public void update(Entity entity)
 	{
-		long time = ((IEntity)entity).getLifeTime();
+		long time = ((LifetimeTrackerTarget)entity).getLifeTime();
 		this.count++;
 		this.timeSum += time;
-		StatisticElement element = new StatisticElement(time, entity.dimension, ((IEntity)entity).getSpawningPosition(), ((IEntity)entity).getRemovalPosition());
+		StatisticElement element = new StatisticElement(time, entity.dimension, ((LifetimeTrackerTarget)entity).getSpawningPosition(), ((LifetimeTrackerTarget)entity).getRemovalPosition());
 		if (time < this.minTimeElement.time)
 		{
 			this.minTimeElement = element;

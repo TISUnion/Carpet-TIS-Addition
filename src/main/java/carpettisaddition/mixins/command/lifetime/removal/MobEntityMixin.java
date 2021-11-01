@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.removal;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
 import net.minecraft.entity.EntityType;
@@ -32,7 +32,7 @@ public abstract class MobEntityMixin extends LivingEntity
 	)
 	private void onDifficultyDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
 	}
 
 	@Inject(
@@ -53,7 +53,7 @@ public abstract class MobEntityMixin extends LivingEntity
 	)
 	private void onImmediatelyDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_IMMEDIATELY);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_IMMEDIATELY);
 	}
 
 	@Inject(
@@ -72,13 +72,13 @@ public abstract class MobEntityMixin extends LivingEntity
 	)
 	private void onRandomlyDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_RANDOMLY);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_RANDOMLY);
 	}
 
 	@Inject(method = "setPersistent", at = @At("HEAD"))
 	private void onEntityPersistentLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
 	}
 
 	@Inject(
@@ -90,7 +90,7 @@ public abstract class MobEntityMixin extends LivingEntity
 	)
 	private void onEntityPersistent2LifeTimeTracker(ItemEntity item, CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
-		((IEntity)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+		((LifetimeTrackerTarget)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
 	}
 }

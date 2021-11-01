@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobDropSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -28,7 +28,7 @@ public abstract class LivingEntityMixin extends Entity
 	)
 	private Entity onMobDroppedItemLifeTimeTracker(Entity itemEntity)
 	{
-		((IEntity)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
+		((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
 		return itemEntity;
 	}
 
@@ -42,7 +42,7 @@ public abstract class LivingEntityMixin extends Entity
 	)
 	private Entity onMobDroppedXpLifeTimeTracker(Entity entity)
 	{
-		((IEntity)entity).recordSpawning(new MobDropSpawningReason(this.getType()));
+		((LifetimeTrackerTarget)entity).recordSpawning(new MobDropSpawningReason(this.getType()));
 		return entity;
 	}
 }

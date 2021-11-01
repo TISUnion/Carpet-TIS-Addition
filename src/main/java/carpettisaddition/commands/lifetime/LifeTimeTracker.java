@@ -2,8 +2,8 @@ package carpettisaddition.commands.lifetime;
 
 import carpet.utils.Messenger;
 import carpettisaddition.commands.AbstractTracker;
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
-import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
+import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.TextUtil;
@@ -50,7 +50,7 @@ public class LifeTimeTracker extends AbstractTracker
 		INSTANCE.trackers.clear();
 		for (ServerWorld world : minecraftServer.getWorlds())
 		{
-			INSTANCE.trackers.put(world, ((IServerWorld)world).getLifeTimeWorldTracker());
+			INSTANCE.trackers.put(world, ((ServerWorldWithLifeTimeTracker)world).getLifeTimeWorldTracker());
 		}
 	}
 
@@ -68,7 +68,7 @@ public class LifeTimeTracker extends AbstractTracker
 	public boolean willTrackEntity(Entity entity)
 	{
 		return isActivated() &&
-				((IEntity)entity).getTrackId() == this.getCurrentTrackId() &&
+				((LifetimeTrackerTarget)entity).getTrackId() == this.getCurrentTrackId() &&
 				LifeTimeTrackerUtil.isTrackedEntity(entity);
 	}
 

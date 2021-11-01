@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobDropSpawningReason;
 import carpettisaddition.commands.lifetime.spawning.TransDimensionSpawningReason;
 import net.minecraft.entity.Entity;
@@ -26,7 +26,7 @@ public abstract class EntityMixin
 		Entity entity = cir.getReturnValue();
 		if (entity != null)
 		{
-			((IEntity)entity).recordSpawning(new TransDimensionSpawningReason(this.world.getDimension().getType()));
+			((LifetimeTrackerTarget)entity).recordSpawning(new TransDimensionSpawningReason(this.world.getDimension().getType()));
 		}
 	}
 
@@ -36,7 +36,7 @@ public abstract class EntityMixin
 		ItemEntity itemEntity = cir.getReturnValue();
 		if (itemEntity != null)
 		{
-			((IEntity)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
+			((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
 		}
 	}
 }
