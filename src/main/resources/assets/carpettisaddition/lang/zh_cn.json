@@ -401,7 +401,7 @@
   "logger.tickWarp.show_history_header": "上一次tick warp的结果 (%.2fmin前)",
 
   "logger.projectiles.visualized.info": "可视化投掷物记录器：已可视化%d游戏刻的轨迹",
-  "logger.projectiles.visualized.not_enabled": "可视化投掷物记录器：可视化规则未启用",
+  "logger.projectiles.visualized.not_enabled.warn": "可视化投掷物记录器：可视化规则未启用",
   "logger.projectiles.visualized.not_enabled.hint": "点击以启用",
 
 

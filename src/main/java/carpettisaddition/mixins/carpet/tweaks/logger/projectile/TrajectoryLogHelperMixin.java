@@ -174,7 +174,7 @@ public abstract class TrajectoryLogHelperMixin
 					{
 						comp.add(TextUtil.getFancyText(
 								"w",
-								Messenger.s(this.translator.tr("not_enabled", "Visualize projectile logger: visualize is not enabled")),
+								Messenger.s(this.translator.tr("not_enabled.warn", "Visualize projectile logger: visualize is not enabled")),
 								Messenger.s(this.translator.tr("not_enabled.hint", "Click to enable")),
 								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/carpet visualizeProjectileLoggerEnabled true")
 						));
