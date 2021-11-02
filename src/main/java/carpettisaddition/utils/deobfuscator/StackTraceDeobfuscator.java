@@ -2,7 +2,6 @@ package carpettisaddition.utils.deobfuscator;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.deobfuscator.yarn.BundledMappingProvider;
 import carpettisaddition.utils.deobfuscator.yarn.OnlineMappingProvider;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -20,20 +19,22 @@ import java.util.Map;
 public class StackTraceDeobfuscator
 {
 	private static String MAPPING_VERSION = "no mapping";
-	private static final Map<String, String> mappings = Maps.newHashMap();
+	private static Map<String, String> MAPPING = Maps.newHashMap();
+	private static boolean fetchedMapping = false;
 	static final Translator translator = new Translator("util", "stack_trace");
 
-	public static void init()
+	public static synchronized void fetchMapping()
 	{
-		if (!BundledMappingProvider.loadMapping())
+		if (!fetchedMapping)
 		{
-			CarpetTISAdditionServer.LOGGER.debug("Bundled mapping is not found, switched to online mapping provider");
 			OnlineMappingProvider.getMapping();
+			fetchedMapping = true;
 		}
 	}
 
 	public static boolean loadMappings(InputStream inputStream, String mappingVersion)
 	{
+		Map<String, String> mappings = Maps.newHashMap();
 		try (BufferedReader mappingReader = new BufferedReader(new InputStreamReader(inputStream)))
 		{
 			TinyV2Factory.visit(mappingReader, new MappingVisitor(mappings));
@@ -49,6 +50,7 @@ public class StackTraceDeobfuscator
 		}
 		else
 		{
+			MAPPING = mappings;
 			MAPPING_VERSION = mappingVersion;
 			return true;
 		}
@@ -59,8 +61,8 @@ public class StackTraceDeobfuscator
 		List<StackTraceElement> list = Lists.newArrayList();
 		for (StackTraceElement element : stackTraceElements)
 		{
-			String remappedClass = mappings.get(element.getClassName());
-			String remappedMethod = mappings.get(element.getMethodName());
+			String remappedClass = MAPPING.get(element.getClassName());
+			String remappedMethod = MAPPING.get(element.getMethodName());
 			StackTraceElement newElement = new StackTraceElement(
 					remappedClass != null ? remappedClass : element.getClassName(),
 					remappedMethod != null ? remappedMethod : element.getMethodName(),
