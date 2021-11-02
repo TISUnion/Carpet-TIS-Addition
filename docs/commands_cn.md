@@ -40,6 +40,8 @@
 
 给指令添加 `realtime` 后缀可将速率结果从基于游戏时间转换为基于现实时间
 
+如果你需要切换对不占用怪物容量的生物的策略，可以去看看规则 [lifeTimeTrackerConsidersMobcap](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 
+
 ### tracking
 
 `/lifetime tracking [<start|stop|restart>]`

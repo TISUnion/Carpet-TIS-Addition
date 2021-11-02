@@ -1,5 +1,6 @@
 package carpettisaddition.mixins.command.lifetime;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.LifeTimeWorldTracker;
 import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
@@ -91,7 +92,11 @@ public abstract class EntityMixin implements LifetimeTrackerTarget
 		if (this.doLifeTimeTracking && !this.recordedSpawning && EntityFilterManager.getInstance().test((Entity)(Object)this))
 		{
 			//noinspection ConstantConditions
-			if ((Entity)(Object)this instanceof MobEntity && !GameUtil.countsTowardsMobcap((Entity)(Object)this))
+			if (
+					CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap &&
+					(Entity)(Object)this instanceof MobEntity &&
+					!GameUtil.countsTowardsMobcap((Entity)(Object)this)
+			)
 			{
 				return;
 			}

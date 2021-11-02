@@ -1,5 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.removal;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
@@ -78,7 +79,10 @@ public abstract class MobEntityMixin extends LivingEntity
 	@Inject(method = "setPersistent", at = @At("HEAD"))
 	private void onEntityPersistentLifeTimeTracker(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+		if (CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap)
+		{
+			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+		}
 	}
 
 	@Inject(
@@ -90,7 +94,10 @@ public abstract class MobEntityMixin extends LivingEntity
 	)
 	private void onEntityPersistent2LifeTimeTracker(ItemEntity item, CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+		if (CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap)
+		{
+			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+		}
 		((LifetimeTrackerTarget)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
 	}
 }

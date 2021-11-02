@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 public class LifeTimeTrackerUtil
 {
-	public static boolean isTrackedEntity(Entity entity)
+	public static boolean isTrackedEntityClass(Entity entity)
 	{
 		return entity instanceof MobEntity || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity;
 	}

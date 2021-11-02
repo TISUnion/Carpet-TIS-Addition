@@ -272,6 +272,16 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean keepMobInLazyChunks = false;
 
+	@Rule(
+			desc = "Strategy for lifetime tracker to deal with mob that doesn't count towards mobcap",
+			extra = {
+					"true: Don't track mobs that don't count towards mobcap, and treat mobs as removal as soon as they don't affect mobcap e.g. right when they pick up some items. Good for mob farm designing",
+					"false: Tracks everything it can track and mark mobs as removal when they actually get removed. Good for raid testing Good for raid testing or non-mobfarms"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean lifeTimeTrackerConsidersMobcap = true;
+
 	/**
 	 * Ported from fabric carpet 1.4.23
 	 */

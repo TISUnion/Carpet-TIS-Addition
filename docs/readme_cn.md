@@ -26,6 +26,7 @@
 - [hud监视器更新间隔](rules_cn.md#hud监视器更新间隔-hudloggerupdateinterval)
 - [瞬时命令方块](rules_cn.md#瞬时命令方块-instantcommandblock)
 - [保持弱加载区块的怪物](rules_cn.md#保持弱加载区块的怪物-keepmobinlazychunks)
+- [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap)
 - [光照队列记录器采样时长](rules_cn.md#光照队列记录器采样时长-lightqueueloggersamplingduration)
 - [光照更新](rules_cn.md#光照更新-lightupdates)
 - [微时序](rules_cn.md#微时序-microtiming)

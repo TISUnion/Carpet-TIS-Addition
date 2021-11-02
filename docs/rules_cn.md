@@ -263,6 +263,20 @@
 - 分类: `TIS`, `FEATURE`, `EXPERIMENTAL`
 
 
+## 存活时间追踪器考虑怪物容量 (lifeTimeTrackerConsidersMobcap)
+
+存活时间追踪器对不占怪物容量的生物的策略
+
+`true`: 不追踪不占用怪物容量的生物，并与生物不影响怪物容量的时刻将其标记为已移除，如当它们捡起物品时。便于设计刷怪塔
+
+`false`: 追踪所有可追踪的生物，在生物确实被删除时将其标记为已移除。便于设计袭击农场或非刷怪塔的机器
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 光照队列记录器采样时长 (lightQueueLoggerSamplingDuration)
 
 光照队列记录器的采样时长，单位为游戏刻

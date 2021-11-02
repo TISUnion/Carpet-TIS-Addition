@@ -26,6 +26,7 @@
 - [HUDLoggerUpdateInterval](rules.md#hudloggerupdateinterval)
 - [instantCommandBlock](rules.md#instantcommandblock)
 - [keepMobInLazyChunks](rules.md#keepmobinlazychunks)
+- [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap)
 - [lightQueueLoggerSamplingDuration](rules.md#lightqueueloggersamplingduration)
 - [lightUpdates](rules.md#lightupdates)
 - [microTiming](rules.md#microtiming)

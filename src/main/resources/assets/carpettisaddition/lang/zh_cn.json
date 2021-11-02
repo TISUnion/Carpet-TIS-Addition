@@ -91,6 +91,11 @@
   "rule.keepMobInLazyChunks.desc": "弱加载区块的怪物不再会被刷新掉",
   "rule.keepMobInLazyChunks.extra.0": "此选项仅对1.15至1.16间的版本有效",
 
+  "rule.lifeTimeTrackerConsidersMobcap.name": "存活时间追踪器考虑怪物容量",
+  "rule.lifeTimeTrackerConsidersMobcap.desc": "存活时间追踪器对不占怪物容量的生物的策略",
+  "rule.lifeTimeTrackerConsidersMobcap.extra.0": "true: 不追踪不占用怪物容量的生物，并与生物不影响怪物容量的时刻将其标记为已移除，如当它们捡起物品时。便于设计刷怪塔",
+  "rule.lifeTimeTrackerConsidersMobcap.extra.1": "false: 追踪所有可追踪的生物，在生物确实被删除时将其标记为已移除。便于设计袭击农场或非刷怪塔的机器",
+
   "rule.lightQueueLoggerSamplingDuration.name": "光照队列记录器采样时长",
   "rule.lightQueueLoggerSamplingDuration.desc": "光照队列记录器的采样时长，单位为游戏刻",
   "rule.lightQueueLoggerSamplingDuration.extra.0": "影响记录器中显示的，除队列大小外的所有数据",
@@ -473,9 +478,10 @@
   "tracker.lifetime.spawn_reason.item": "怪物蛋等",
   "tracker.lifetime.spawn_reason.block_drop": "方块掉落",
   "tracker.lifetime.spawn_reason.slime": "史莱姆分裂",
-  "tracker.lifetime.spawn_reason.raid": "袭击",
   "tracker.lifetime.spawn_reason.zombie_reinforce": "僵尸增援",
   "tracker.lifetime.spawn_reason.spawner": "刷怪笼",
+  "tracker.lifetime.spawn_reason.raid": "袭击",
+  "tracker.lifetime.spawn_reason.summon": "被生物或方块召唤",
   "tracker.lifetime.spawn_reason.mob_drop": "由%1$s掉落",
   "tracker.lifetime.spawn_reason.mob_throw": "由%1$s扔出",
   "tracker.lifetime.spawn_reason.trans_dimension": "跨维度",

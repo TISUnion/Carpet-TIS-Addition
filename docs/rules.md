@@ -263,6 +263,20 @@ This option only have effects between Minecraft 1.15 and 1.16
 - Categories: `TIS`, `FEATURE`, `EXPERIMENTAL`
 
 
+## lifeTimeTrackerConsidersMobcap
+
+Strategy for lifetime tracker to deal with mob that doesn't count towards mobcap
+
+`true`: Don't track mobs that don't count towards mobcap, and treat mobs as removal as soon as they don't affect mobcap e.g. right when they pick up some items. Good for mob farm designing
+
+`false`: Tracks everything it can track and mark mobs as removal when they actually get removed. Good for raid testing or non-mobfarms.
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## lightQueueLoggerSamplingDuration
 
 The sampling duration of light queue logger in game tick

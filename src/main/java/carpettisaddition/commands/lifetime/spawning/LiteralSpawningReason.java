@@ -12,6 +12,8 @@ public class LiteralSpawningReason extends SpawningReason
 	public static final LiteralSpawningReason SLIME = new LiteralSpawningReason("slime", "Slime division");
 	public static final LiteralSpawningReason ZOMBIE_REINFORCE = new LiteralSpawningReason("zombie_reinforce", "Zombie Reinforce");
 	public static final LiteralSpawningReason SPAWNER = new LiteralSpawningReason("spawner", "Spawned by spawner");
+	public static final LiteralSpawningReason RAID = new LiteralSpawningReason("raid", "Spawned in raid as raider");
+	public static final LiteralSpawningReason SUMMON = new LiteralSpawningReason("summon", "Be summoned by entity or block");
 
 	// item only
 	public static final LiteralSpawningReason BLOCK_DROP = new LiteralSpawningReason("block_drop", "Block drop");

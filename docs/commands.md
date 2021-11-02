@@ -40,6 +40,8 @@ This tracker also tracks lifetime of items and xp orbs from mob and block drops 
 
 Adding a `realtime` suffix to the command will turn the rate result from in-game time based to realtime based
 
+Check rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) for switching the strategy with mobs that don't count towards mobcap
+
 ### tracking
 
 `/lifetime tracking [<start|stop|restart>]`

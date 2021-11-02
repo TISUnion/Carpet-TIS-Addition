@@ -69,7 +69,7 @@ public class LifeTimeTracker extends AbstractTracker
 	{
 		return isActivated() &&
 				((LifetimeTrackerTarget)entity).getTrackId() == this.getCurrentTrackId() &&
-				LifeTimeTrackerUtil.isTrackedEntity(entity);
+				LifeTimeTrackerUtil.isTrackedEntityClass(entity);
 	}
 
 	public Stream<String> getAvailableEntityType()
