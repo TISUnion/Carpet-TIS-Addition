@@ -1,7 +1,6 @@
 package carpettisaddition.commands.lifetime.removal;
 
-import carpet.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
 
@@ -35,12 +34,12 @@ public class DeathRemovalReason extends RemovalReason
 	public BaseText toText()
 	{
 		return Messenger.c(
-				"w " + this.tr("Death"),
+				tr("death"),
 				"g  (",
-				TextUtil.getFancyText(
+				Messenger.fancy(
 						null,
 						Messenger.s(this.damageSourceName),
-						Messenger.s(this.tr("Damage source")),
+						tr("damage_source"),
 						null
 				),
 				"g )"

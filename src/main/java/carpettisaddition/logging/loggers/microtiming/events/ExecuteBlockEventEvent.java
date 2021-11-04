@@ -1,12 +1,9 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.PistonBlock;
@@ -35,44 +32,40 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		}
 	}
 
-	public static String getMessageExtraMessengerHoverText(BlockEvent blockAction)
+	public static BaseText getMessageExtraMessengerHoverText(BlockEvent blockAction)
 	{
 		int eventID = blockAction.getType();
 		int eventParam = blockAction.getData();
-		StringBuilder builder = new StringBuilder();
-		builder.append(String.format("^w eventID: %d", eventID));
+		List<Object> builder = Lists.newArrayList();
+		builder.add(String.format("w eventID: %d", eventID));
 		if (blockAction.getBlock() instanceof PistonBlock)
 		{
-			builder.append(String.format(" (%s)", PistonBlockEventType.byId(eventID)));
+			builder.add(Messenger.c(Messenger.s(" ("), PistonBlockEventType.byId(eventID).toText(), Messenger.s(")")));
 		}
-		builder.append(String.format("\neventParam: %d", eventParam));
+		builder.add(Messenger.newLine());
+		builder.add(String.format("w eventParam: %d", eventParam));
 		if (blockAction.getBlock() instanceof PistonBlock)
 		{
-			builder.append(String.format(" (%s)", MicroTimingUtil.getFormattedDirectionString(Direction.byId(eventParam))));
+			builder.add("w  (");
+			builder.add(MicroTimingUtil.getFormattedDirectionText(Direction.byId(eventParam)));
+			builder.add("w )");
 		}
-		return builder.toString();
+		return Messenger.c(builder.toArray(new Object[0]));
 	}
 
-	@Override
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(COLOR_ACTION + this.tr("Execute"));
-		if (this.blockAction.getBlock() instanceof PistonBlock)
-		{
-			list.add(TextUtil.getSpaceText());
-			list.add(COLOR_TARGET + PistonBlockEventType.byId(blockAction.getType()));
-		}
-		else
-		{
-			list.add(TextUtil.getSpaceText());
-			list.add(COLOR_TARGET + this.tr("BlockEvent"));
-		}
-		list.add(getMessageExtraMessengerHoverText(this.blockAction));
+		list.add(Messenger.formatting(tr("execute"), COLOR_ACTION));
+		list.add(Messenger.getSpaceText());
+		BaseText eventName = this.blockAction.getBlock() instanceof PistonBlock ?
+				Messenger.formatting(PistonBlockEventType.byId(blockAction.getType()).toText(), COLOR_TARGET) :
+				Messenger.formatting(tr("blockevent"), COLOR_TARGET);
+		list.add(Messenger.fancy(eventName, getMessageExtraMessengerHoverText(this.blockAction), null));
 		if (this.getEventType() == EventType.ACTION_END)
 		{
-			list.add(TextUtil.getSpaceText());
-			list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("ended"));
+			list.add(Messenger.getSpaceText());
+			list.add(Messenger.formatting(tr("ended"), COLOR_RESULT));
 		}
 		if (this.returnValue != null)
 		{
@@ -110,7 +103,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		}
 	}
 
-	public static class FailInfo implements ToTextAble
+	public static class FailInfo
 	{
 		private final FailReason reason;
 		private final Block actualBlock;
@@ -127,24 +120,21 @@ public class ExecuteBlockEventEvent extends BaseEvent
 			this.event = event;
 		}
 
-		@Override
 		public BaseText toText()
 		{
 			switch (this.reason)
 			{
 				case BLOCK_CHANGED:
 					return Messenger.c(
-							"w " + this.event.tr("fail_info.block_changed", "Block has changed"),
+							this.event.tr("fail_info.block_changed"),
 							"w : ",
-							TextUtil.getBlockName(this.event.blockAction.getBlock()),
+							Messenger.block(this.event.blockAction.getBlock()),
 							"g  -> ",
-							TextUtil.getBlockName(this.actualBlock)
+							Messenger.block(this.actualBlock)
 					);
 				case EVENT_FAIL:
 				default:
-					return Messenger.c(
-							"w " + this.event.tr("fail_info.event_fail", "Event Failed")
-					);
+					return this.event.tr("fail_info.event_fail");
 			}
 		}
 	}

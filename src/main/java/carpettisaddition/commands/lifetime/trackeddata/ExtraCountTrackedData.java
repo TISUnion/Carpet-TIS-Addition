@@ -1,10 +1,9 @@
 package carpettisaddition.commands.lifetime.trackeddata;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.utils.CounterUtil;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
@@ -32,12 +31,12 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 		this.removalExtraCountMap.put(reason, this.removalExtraCountMap.getOrDefault(reason, 0L) + this.getExtraCount(entity));
 	}
 
-	protected abstract String getCountDisplayString();
+	protected abstract BaseText getCountDisplayText();
 
 	private BaseText attachExtraCountHoverText(BaseText text, long extraCount, long ticks)
 	{
-		return TextUtil.attachHoverText(text, Messenger.c(
-				"w " + this.getCountDisplayString(),
+		return Messenger.hover(text, Messenger.c(
+				this.getCountDisplayText(),
 				"g : ",
 				CounterUtil.ratePerHourText(extraCount, ticks, "wgg")
 		));

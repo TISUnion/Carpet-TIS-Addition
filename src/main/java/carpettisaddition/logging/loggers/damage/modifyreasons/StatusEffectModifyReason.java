@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.damage.modifyreasons;
 
-import carpet.utils.Messenger;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.text.BaseText;

@@ -1,7 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -35,27 +36,27 @@ public class TileTickSubStage extends AbstractSubStage
 		TickPriority priority = this.nextTickListEntry.priority;
 		Object target = this.nextTickListEntry.getObject();
 		List<Object> list = Lists.newArrayList();
+
 		if (target instanceof Block)
 		{
-			list.add(String.format("w %s: ", MicroTimingLoggerManager.tr("Block")));
-			list.add(TextUtil.getBlockName((Block)target));
-			list.add("w \n");
+			list.add(Messenger.c(MicroTimingLoggerManager.tr("common.block"), "w : ", Messenger.block((Block)target)));
 		}
 		else if (target instanceof Fluid)
 		{
-			list.add(String.format("w %s: ", MicroTimingLoggerManager.tr("Fluid")));
-			list.add(TextUtil.getFluidName((Fluid)target));
-			list.add("w \n");
+			list.add(Messenger.c(MicroTimingLoggerManager.tr("common.fluid"), "w : ", Messenger.fluid((Fluid)target)));
 		}
-		list.add(String.format("w %s: %d\n", MicroTimingLoggerManager.tr("Order"), this.order));
-		list.add(String.format("w %s: %d (%s)\n", MicroTimingLoggerManager.tr("Priority"), priority.getIndex(), priority));
-		list.add(String.format("w %s: %s", MicroTimingLoggerManager.tr("Position"), TextUtil.getCoordinateString(pos)));
+		list.add(Messenger.newLine());
+
+		list.add(Messenger.c(MicroTimingLoggerManager.tr("common.order"), String.format("w : %d\n", this.order)));
+		list.add(Messenger.c(MicroTimingLoggerManager.tr("common.priority"), String.format("w : %d (%s)\n", priority.getIndex(), priority)));
+		list.add(Messenger.c(MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtil.coord(pos))));
+
 		return Messenger.c(list.toArray(new Object[0]));
 	}
 
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.nextTickListEntry.pos, this.world.getRegistryKey()));
+		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.nextTickListEntry.pos, DimensionWrapper.of(this.world)));
 	}
 }

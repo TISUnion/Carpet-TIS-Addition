@@ -1,0 +1,631 @@
+carpettisaddition:
+  rule:
+    _validator:
+      validatefakeplayernameextra:
+        warn:
+          found: 在应用规则 %2$s 时在值 "%1$s" 中发现了意料之外的字符
+          blocked: 如果你真的要应用这个值，请再输入一次该指令
+          applied: 接受该值，因为你坚持这样做
+    synchronizedLightThread:
+      safety_warning:
+        '0': 检测到规则synchronizedLightThread和规则lightUpdates间的危险组合
+        '1': 对规则的修改已被取消，以防止在同步光照时无限等待
+        '2': '相关规则将要修改为的值:'
+
+  logger:
+    ticket:
+      added: 被添加
+      removed: 被移除
+      time_detail: "世界: %s\n游戏刻: %d"
+      message: 加载票 %1$s 于 %3$s %2$s
+      ticket_detail: "等级 = %d\n持续时间 = %s\n强加载区块: %s\n弱加载区块: %s\n边界区块: %s"
+      permanent: 永久
+    entity:
+      created: '%1$s被创建了'
+      despawned: '%1$s消失了'
+      damage_amount: 伤害值
+    xporb:
+      xp_amount: 经验值
+    item:
+      item_stack_size: 物品数
+    raid:
+      created: '袭击(id: %1$s)被创建'
+      invalidated: '袭击(id: %1$s)结束，原因为: %2$s'
+      bad_omen_level_increased: '袭击(id: %1$s)不祥之兆等级提升为%2$s'
+      center_moved: '袭击(id: %1$s)的中心点移动至%2$s'
+    microTiming:
+      merged_message: 已合并额外%1$s条相同的信息
+      gametime: 游戏刻
+      common:
+        color: 颜色
+        indentation: 缩进层数
+        dimension: 维度
+        event_source: 事件源
+        id: ID
+        entity: 实体
+        type: 类型
+        block: 方块
+        fluid: 流体
+        order: 次序
+        depth: 深度
+        priority: 优先级
+        position: 位置
+      util:
+        successful: 成功
+        failed: 失败
+        return_value: 返回值
+        direction:
+          down: 下
+          up: 上
+          north: 北
+          south: 南
+          west: 西
+          east: 东
+      stage:
+        unknown: 未知
+        spawning: 生物刷新
+        spawningspecial: 特殊生物刷新
+        worldborder: 世界边境
+        tiletick: 计划刻
+        raid: 袭击
+        wanderingtrader: 游商
+        blockevent: 方块事件
+        entity: 实体
+        chunktick: 区块刻
+        tileentity: 方块实体
+        dragonfight: 龙战逻辑
+        asynctask: 异步回调任务
+        autosave: 自动保存
+        playeraction: 玩家操作
+        commandfunction: 函数及数据包
+        network: 网络
+        console: 控制台
+        scarpet: Scarpet
+      stage_detail:
+        thunder: 闪电
+        ice&snow: 结冰&积雪
+        randomtick: 随机刻
+      sub_stage:
+        player: 玩家
+        player_action: 执行来自客户端的玩家动作
+        ticking_weather_effect_entities: 运算天气实体
+        ticking_regular_entities: 运算普通实体
+        ticking_player_entity: 运算玩家实体
+      block_update_type:
+        aka: 也就是%1$s
+        except: 排除
+        blockupdates: 方块更新
+        blockupdates_except: 方块更新(含排除)
+        stateupdates: 状态更新
+        comparatorupdates: 比较器更新
+      piston_block_event_type:
+        push: 推出方块
+        retract: 拉回方块
+        drop: 丢下方块
+      event:
+        set_block_state_event_base:
+          flag_data:
+            '0': 发出方块更新
+            '1': 更新listener
+            '2': 更新客户端listener
+            '4': 发出状态更新
+            '6': 由活塞引起
+        block_state_change:
+          state_change: 状态改变
+          changed_states: 变化的状态
+          finished: 结束
+        block_replace:
+          block_replace: 方块替换
+          finished: 结束
+        detect_block_update:
+          emit: 发出
+          detected: 被检测
+          started: 开始
+          ended: 结束
+        emit_block_update:
+          emit: 发出
+          updates: 更新
+          method_name: 方法名(yarn)
+          started: 开始
+          ended: 结束
+          self: 自身
+        execute_block_event:
+          execute: 执行
+          blockevent: 方块事件
+          ended: 结束
+          fail_info:
+            block_changed: 方块已变化
+            event_fail: 事件执行失败
+        execute_tile_tick:
+          execute: 执行
+          ended: 结束
+          priority: 优先级
+          tiletick_event: 计划刻事件
+        schedule_block_event:
+          scheduled: 添加
+          blockevent: 方块事件
+        schedule_tile_tick:
+          scheduled: 添加
+          tiletick_event: 计划刻事件
+          delay: 延迟
+          priority: 优先级
+      carpet_logger:
+        rule_hint: 使用%1$s指令来启动记录器
+        click_to_execute: 点击以执行
+      marker:
+        on_mark: '已§a添加§r微时序记号: %1$s'
+        on_unmark: '已§c移除§r微时序记号: %1$s'
+        on_type_switch: 已将微时序记号的模式切换至%1$s
+        on_mobility_true: 已将记号%1$s设置为§a可移动§r
+        on_mobility_false: 已将记号%1$s设置为§c不可移动§r
+        cleared: 已清除全部微时序记号
+    damage:
+      modify_reason:
+        wearing_a_helmet: 戴着头盔
+        holding_a_shield: 举着盾牌
+        recently_hit: 伤害冷却
+        difficulty: 游戏难度
+        immuse_to_damage: 免疫伤害
+        invulnerable: 无敌
+        respawn_protection: 重生保护
+        pvp_disabled: 禁止PVP
+        status_effect: 状态效果
+        enchantment: 附魔
+        armor: 护甲
+      attacker: 攻击者
+      source: 来源
+      header_message: "%1$s正在受到%2$s伤害，伤害类型: %3$s"
+      due_to: ', 原因: %1$s'
+      footer_message: "%1$s实际受到%2$s伤害，剩余生命值: %3$s"
+    commandBlock:
+      executed: '%1$s执行了%2$s'
+      remove_executor: 点击以删除%1$s
+    tickWarp:
+      not_started: tick warp尚未开始
+      starter: 启动者
+      server: 服务器
+      average_tps: 平均TPS
+      average_mspt: 平均MSPT
+      time_info: '%1$smin (游戏内) / %2$smin (现实)'
+      elapsed_time: 已流逝时间
+      estimated_time: 剩余时间
+      show_history_header: 上一次tick warp的结果 (%1$smin前)
+    projectiles:
+      visualized:
+        info: '可视化投掷物记录器: 已可视化%1$s游戏刻的轨迹'
+        not_enabled:
+          warn: '可视化投掷物记录器: 可视化规则未启用'
+          hint: 点击以启用
+
+  raid_invalidate_reason:
+    difficulty_peaceful: 难度被设为和平
+    gamerule_disable: 被游戏规则禁用
+    poi_removed_before_spawn: 生成袭击者前POI全被移除
+    time_out: 超过时长限制
+    raider_cannot_spawn: 无法生成袭击者
+    raid_victory: 袭击胜利
+    raid_defeat: 袭击失败
+
+  command:
+    raid:
+      raid_count: "袭击数量: %1$s"
+      status:
+        .: 状态
+        ongoing: 进行中
+        victory: 胜利
+        loss: 失败
+        stopped: 终止
+      center: 中心点
+      bad_omen_level: 不祥之兆等级
+      waves: 波数
+      raiders: 袭击者
+      none: 无
+      no_raid: 不存在袭击
+    info:
+      ticking_order: 游戏中%1$s个维度的运算顺序：
+    refresh:
+      inventory:
+        done: 已刷新物品栏
+      chunk:
+        overloaded: 刷新失败：玩家网络连接已过载
+        too_far: 选中的区块不在你的视距之内
+        done: 已刷新%1$s个区块
+
+  tracker:
+    tracker_name_full: '%1$s追踪器'
+    tracking_already_started: '%1$s正在运行中'
+    tracking_started: '%1$s已启动'
+    tracking_stopped: '%1$s已停止'
+    tracking_not_started: '%1$s未启动'
+    tracking_restarted: '%1$s已重新启动'
+    tracked: 已追踪
+    real_time: 现实时间
+    in_game: 游戏内时间
+    raid:
+      name: 袭击
+      raid_generated: 袭击生成统计
+      invalidate_reasons_statistics: 结束原因统计
+      none: 暂无
+    lifetime:
+      name: 存活时间
+      no_result: 暂无结果
+      specific_result: '%1$s的存活时间追踪结果'
+      invalid_detail: 非法统计信息详情"%1$s"
+      unknown_entity_type: 未知的实体类型"%1$s"
+      filter_info_header: 筛选器
+      detail_hint: 点击以查看详情
+      spawn_count: 生成数量
+      removal_count: 移除数量
+      item_count: 物品数
+      experience_amount: 经验数
+      life_time: 存活时间
+      life_time_overview: 存活时间概览
+      life_time_explain: 实体生成时刻与移除时刻间的经过的自然生物刷新阶段的数量
+      reasons_for_spawning: 生成原因
+      reasons_for_removal: 移除原因
+      minimum_life_time: 最小存活时间
+      maximum_life_time: 最大存活时间
+      average_life_time: 平均存活时间
+      spawning_position: 生成位置
+      removal_position: 移除位置
+      spawn_reason:
+        natural: 自然刷新
+        portal_pigman: 地狱门僵尸猪人生成
+        command: summon指令
+        item: 怪物蛋等
+        block_drop: 方块掉落
+        slime: 史莱姆分裂
+        zombie_reinforce: 僵尸增援
+        spawner: 刷怪笼
+        raid: 袭击
+        summon: 被生物或方块召唤
+        mob_drop: 由%1$s掉落
+        mob_throw: 由%1$s扔出
+        trans_dimension:
+          .: 跨维度
+          from: 来自%1$s
+      removal_reason:
+        despawn:
+          randomly: 随机消失
+          immediately: 立即消失
+          difficulty: 因游戏难度而消失
+          timeout: 因超时而消失
+        persistent: 获取持久标签
+        other: 其他
+        death: 死亡
+        merge: 实体合并
+        mob_pickup: 被%1$s捡起
+        hopper: 漏斗收集
+        void: 进入虚空
+        on_vehicle: 骑上载具
+        damage_source: 伤害来源
+        trans_dimension:
+          .: 跨维度
+          to: 前往%1$s
+      help:
+        doc_summary: 一个追踪所有新生成生物的存活时间及生成/移除原因的记录器
+        complete_doc_hint: 完整文档%1$s
+        here: 传送门
+        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#存活时间-lifetime
+      filter:
+        global: 全局
+        unsupported:
+          '0': 不支持的实体筛选器
+          '1': 请输入一个@e类型的实体选择器
+        filter_set: '%1$s的筛选器已设置为%2$s'
+        filter_removed: '%1$s的筛选器已移除'
+        display: '%1$s的筛选器为%2$s'
+        display_total: 共有%1$s个激活的筛选器
+        none: 无
+        dimension: 维度
+        anchor_pos: 锚点坐标
+        click_to_clear: 点击以清除筛选器
+
+  util:
+    teleport_hint:
+      .: 点击以传送至
+      dimension: 维度
+    entity_type: 实体类型
+    language:
+      space: ''
+    stack_trace:
+      deobfuscated_stack_trace: 反混淆后的堆栈跟踪
+      n_more_lines: 等%1$s行
+
+  misc:
+    player_mount_anything_permission_denied: 只有OP玩家才被允许骑乘任意实体
+
+  # ------------------------------------------------------
+  #   Translation below will be passed to fabric carpet
+  # ------------------------------------------------------
+
+  carpet_extension:
+    category:
+      TIS: TIS
+      CARPET_MOD: carpet_mod
+
+    rule:
+      antiSpamDisabled:
+        name: 禁用反刷屏监测
+        desc: 禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却
+      blockEventPacketRange:
+        name: 方块事件广播范围
+        desc: 设置会在方块事件成功执行后收到数据包的玩家范围
+        extra:
+          '0': 对于活塞而言，这一个数据包用于显示活塞的运动。把这个值调小以减小客户端卡顿
+      blockPlacementIgnoreEntity:
+        name: 方块放置忽略实体
+        desc: 方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内
+        extra:
+          '0': 仅对创造模式玩家有效
+      chunkUpdatePacketThreshold:
+        name: 区块更新数据包阈值
+        desc: 如果方块变化的数量大于这个阈值，则游戏将仅发送区块更新数据包而非若干个方块变更数据包
+        extra:
+          '0': 增加该数值或许可以减小网络带宽用量，并在子区段同时存在不少方块实体与方块变化时提升客户端的帧数
+          '1': 将其设为非常高以模拟1.16+的表现，也就是不存在区块更新数据包，仅有多个方块变更数据包
+          '2': 该规则仅于1.16前的版本有效
+      chunkTickSpeed:
+        name: 区块刻速度
+        desc: 修改每游戏刻每区块的区块刻运算的频率
+        extra:
+          '0': 默认值为1。将其设为0以禁用区块刻
+          '1': 受影响的游戏阶段：雷电、结冰与积雪、随机刻
+          '2': 在值为n时，每游戏刻每区块，气候相关的阶段会发生n次，而随机刻会在每区段中发生n * randomTickSpeed次
+      commandLifeTime:
+        name: 存活时间追踪器
+        desc: 启用/lifetime命令用于追踪生物存活时间等信息
+        extra:
+          '0': 可助于调试刷怪塔等
+      commandRaid:
+        name: 袭击追踪器
+        desc: 启用/raid命令用于列出或追踪袭击信息
+      commandRefresh:
+        name: 刷新命令开关
+        desc: 启用/refresh命令让你的客户端与服务端保持同步
+      creativeOpenContainerForcibly:
+        name: 创造玩家强制打开容器
+        desc: 允许创造模式的玩家打开被阻挡的容器，如潜影盒
+      dispenserNoItemCost:
+        name: 发射器不消耗物品
+        desc: 开启后，发射器发射不再消耗物品
+        extra:
+          '0': 无论投掷物品还是使用物品都如此，但是投掷器传输物品仍会消耗物品
+      dispensersFireDragonBreath:
+        name: 发射器发射龙息
+        desc: 发射器可使用龙息瓶创造出龙息效果云
+      enchantCommandNoRestriction:
+        name: enchant指令约束移除
+        desc: 移除/enchant指令中所有对目标附魔的约束
+      entityMomentumLoss:
+        name: 实体速度丢失
+        desc: 将其设为 false 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失
+      explosionPacketRange:
+        name: 爆炸数据包广播范围
+        desc: 设置在爆炸发生时，爆炸数据包对玩家的广播范围
+      fakePlayerNamePrefix:
+        name: 假人名称前缀
+        desc: 为/player指令召唤出来的假人名称添加指定前缀
+        extra:
+          '0': 将其设置为#none以阻止添加前缀
+          '1': 这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁
+      fakePlayerNameSuffix:
+        name: 假人名称后缀
+        desc: 为/player指令召唤出来的假人名称添加指定后缀
+        extra:
+          '0': 将其设置为#none以阻止添加后缀
+      _validator:
+        validatefakeplayernameextra:
+          warn:
+            found: 在应用规则 %2$s 时在值 "%1$s" 中发现了意料之外的字符
+            blocked: 如果你真的要应用这个值，请再输入一次该指令
+            applied: 接受该值，因为你坚持这样做
+      fluidDestructionDisabled:
+        name: 禁用流体破坏
+        desc: 禁用流体流动造成的方块破坏
+        extra:
+          '0': 流体会简单的停留在即将破坏方块时的状态
+          '1': 这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路
+      hopperCountersUnlimitedSpeed:
+        name: 漏斗计数器无限速度
+        desc: 当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度，且无冷却时间
+        extra:
+          '0': 仅当Carpet Mod中的hopperCounters开启时有效
+      hopperNoItemCost:
+        name: 漏斗不消耗物品
+        desc: 上方放有羊毛方块的漏斗可不消耗物品地无限输出储存的物品
+      HUDLoggerUpdateInterval:
+        name: HUD监视器更新间隔
+        desc: 覆写Carpet Mod HUD监视器的更新间隔，单位为gametick
+      instantCommandBlock:
+        name: 瞬时命令方块
+        desc: 令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行
+        extra:
+          '0': 仅影响普通命令方块
+      keepMobInLazyChunks:
+        name: 保持弱加载区块的怪物
+        desc: 弱加载区块的怪物不再会被刷新掉
+        extra:
+          '0': 此选项仅对1.15至1.16间的版本有效
+      lifeTimeTrackerConsidersMobcap:
+        name: 存活时间追踪器考虑怪物容量
+        desc: 存活时间追踪器对不占怪物容量的生物的策略
+        extra:
+          '0': 'true: 不追踪不占用怪物容量的生物，并与生物不影响怪物容量的时刻将其标记为已移除，如当它们捡起物品时。便于设计刷怪塔'
+          '1': 'false: 追踪所有可追踪的生物，在生物确实被删除时将其标记为已移除。便于设计袭击农场或非刷怪塔的机器'
+      lightQueueLoggerSamplingDuration:
+        name: 光照队列记录器采样时长
+        desc: 光照队列记录器的采样时长，单位为游戏刻
+        extra:
+          '0': 影响记录器中显示的，除队列大小外的所有数据
+      lightUpdates:
+        name: 光照更新
+        desc: 暂停或者禁止光照更新
+        extra:
+          '0': 若被设为抑制(suppressed)，光照更新不会被执行，这可用于模拟光照抑制器
+          '1': 若被设为忽略(ignored)，光照更新不会被计划，这常用于在创造模式中制造光照错误
+          '2': 若被设为关闭(off)，光照更新不会被计划或被执行
+          '3': 【警告】若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环
+      microTiming:
+        name: 微时序
+        desc: 启用微时序监视器的功能
+        extra:
+          '0': 使用羊毛块来输出红石元件的动作、方块更新与堆栈跟踪
+          '1': 使用/log microTiming来开始监视
+          '2': 开启时服务端性能将受到一定影响
+          '3': 末地烛会检测方块更新，红石元件会输出它们的动作
+          '4': '- 侦测器、活塞、末地烛：指向羊毛块'
+          '5': '- 中继器、比较器、铁轨、按钮等：放置在羊毛块上'
+          '6': 除此之外，一种通用的记录方块动作的手段是使用羊毛块上的末地烛指向需记录的方块
+          '7': 可通过操控规则 微时序目标(microTimingTarget) 以切换记录方法
+      microTimingDyeMarker:
+        name: 微时序染料记号
+        desc: 允许玩家手持染料右击方块来将其标记为微时序监视器的目标
+        extra:
+          '0': 你需要订阅微时序监视器才能标记并渲染方块
+          '1': 使用相同颜色的染料再次右击以切换至末地烛模式，此时记录器将会额外地记录标记位置处的方块更新。再次右击则会移除颜色记号
+          '2': 使用粘液球物品右击标记可将其设为可移动。当标记依附的方块被活塞移动时，它会自动的移动到对应的新位置
+          '3': 使用指令`/carpet microTimingDyeMarker clear`以移除所有记号
+          '4': 你可以使用命名的染料物品来创建一个命名的记号。记号的名称同时将会在监视器的输出信息中展示
+          '5': 如果客户端安装有fabric-carpet mod，被标记的方块将会显示出一个边框。如果客户端还带有carpet-tis-addition，则记号的名称还可透过方块查看
+      microTimingTarget:
+        name: 微时序目标
+        desc: 设置指定微时序记录器记录目标的方法。被染料记号标记的方块总会被记录
+        extra:
+          '0': 'labelled: 记录被羊毛块标记的事件'
+          '1': 'in_range: 记录离任意玩家32m内的事件'
+          '2': 'all: 记录所有事件。谨慎使用'
+          '3': 'marker_only: 仅记录被染料记号标记的方块。将其与规则microTimingDyeMarker（微时序染料记号）一起使用'
+      microTimingTickDivision:
+        name: 微时序游戏刻划分
+        desc: 设置指定微时序记录器划分两个游戏刻的方法
+        extra:
+          '0': 'world_timer: 划分于世界计时器自增时'
+          '1': 'player_action: 划分于玩家操作阶段开始前'
+      opPlayerNoCheat:
+        name: op玩家不准作弊
+        desc: 禁用部分指令以避免op玩家意外地作弊
+        extra:
+          '0': 影响的指令列表：/gamemode, /tp, /teleport, /give, /setblock, /summon
+      optimizedFastEntityMovement:
+        name: 优化高速实体移动
+        desc: 通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动
+        extra:
+          '0': 受carpetmod112的规则fastMovingEntityOptimization启发
+          '1': 同规则optimizedTNT一起使用可大幅度提升炮的性能表现
+      optimizedHardHitBoxEntityCollision:
+        name: 优化硬碰撞箱实体碰撞
+        desc: 优化实体与硬碰撞箱实体的碰撞
+        extra:
+          '0': 它使用了一个额外的独立的列表在区块中储存带有硬碰撞箱的实体，包括船和潜影贝
+          '1': 它能在实体移动并搜索路径上的带有硬碰撞箱的实体时减少大量无用的运算，因为世界里船和潜影贝的数量总是少数
+          '2': 在加载区块前开启它以使其工作，在地狱门刷怪塔中有~20%的性能提升
+          '3': 与添加了新实体的 mod 可能不兼容
+      optimizedTNTHighPriority:
+        name: TNT优化高优先级
+        desc: 用带有更高优先级的Mixin注入来实现carpet规则optimizedTNT
+        extra:
+          '0': 因此规则optimizedTNT可以覆盖lithium的爆炸优化
+          '1': 当然，它需要规则optimizedTNT开启才能工作
+      poiUpdates:
+        name: POI更新开关
+        desc: 方块变化时是否会更新POI
+        extra:
+          '0': 将其设为false以禁用POI更新
+      railDupingFix:
+        name: 刷铁轨机修复
+        desc: 禁用老式的移动点亮的充能或激活铁轨的刷铁轨机
+      redstoneDustRandomUpdateOrder:
+        name: 红石粉随机更新顺序
+        desc: 随机化红石粉发出方块更新的顺序
+        extra:
+          '0': 有助于测试你的装置是否依赖于位置
+      renewableDragonEgg:
+        name: 可再生龙蛋
+        desc: 让龙蛋变得可再生
+        extra:
+          '0': 当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋
+          '1': 可与选项 “dispenserFireDragonBreath”联动
+      renewableDragonHead:
+        name: 可再生龙首
+        desc: 被高压爬行者杀死的末影龙将会掉落一个龙首
+      renewableElytra:
+        name: 可再生鞘翅
+        desc: 当幻翼被潜影贝杀死时有给定概率掉落鞘翅
+        extra:
+          '0': 设置为0以禁用
+      repeaterHalfDelay:
+        name: 中继器延迟折半
+        desc: 当红石中继器位于红石矿上方时，红石中继器的延迟将减半
+        extra:
+          '0': 延迟将会由2,4,6,8游戏刻变为1,2,3,4游戏刻
+      sandDupingFix:
+        name: 刷沙机修复
+        desc: 禁用使用末地门的刷沙机以及刷重力方块机
+        extra:
+          '0': 重力方块包括沙子、铁砧、龙蛋等
+          '1': 在开启后刷沙机的沙子将会仅被传送至另一个纬度
+      structureBlockDoNotPreserveFluid:
+        name: 结构方块不保留流体
+        desc: 结构方块在放置含水方块时，不保留已存在的流体
+        extra:
+          '0': 同时有着抑制 MC-130584 发生的副作用
+      structureBlockLimit:
+        name: 结构方块范围限制
+        desc: 覆写结构方块的范围限制
+        extra:
+          '0': 当相对位置的值大于32时客户端里结构的位置可能会错误地显示
+      synchronizedLightThread:
+        name: 同步光照线程
+        desc: 将光照线程与主线程同步
+        extra:
+          '0': 这样光照线程就不会于落后主线程而失去同步
+          '1': 服务器将会在每个世界开始运算时等待光照线程的任务完成
+          '2': 你可以借此安全地 /tick warp 而不用担心潜在的光照抑制或光照不同步
+        safety_warning:
+          '0': 检测到规则synchronizedLightThread和规则lightUpdates间的危险组合
+          '1': 对规则的修改已被取消，以防止在同步光照时无限等待
+          '2': '相关规则将要修改为的值:'
+      tileTickLimit:
+        name: 计划刻上限
+        desc: 修改每游戏刻中计划刻事件的执行次数上限
+      tntDupingFix:
+        desc: 禁用TNT、地毯以及部分铁轨的复制机
+        extra:
+          '0': 基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块
+          '1': Dupe bad dig good
+        name: TNT复制修复
+      tntFuseDuration:
+        name: TNT引信时长
+        desc: 覆盖TNT的默认引信时长
+        extra:
+          '0': 这也会影响被爆炸点燃的TNT的引信时长
+      tntIgnoreRedstoneSignal:
+        name: TNT忽略红石信号
+        desc: 阻止TNT被红石信号点燃
+        extra:
+          '0': 你仍可以使用爆炸等方式点燃TNT
+      tooledTNT:
+        name: 工具化TNT
+        desc: 由玩家引发的爆炸破坏并掉落物品时会应用玩家手上的工具
+        extra:
+          '0': 因此你可以点燃TNT以采集需要特定工具或者附魔的方块，只要你在爆炸时拿着正确的工具
+          '1': 比如，你可以拿着精准采集镐子来采集冰，或者拿着剪刀来采集草
+          '2': 此规则同样适用于玩家以外的生物
+          '3': 技术上来讲，此规则将来源生物主手上的物品应用在了爆炸里战利品表的创建中
+      totallyNoBlockUpdate:
+        name: 完全没有方块更新
+        desc: 禁用所有方块更新以及状态更新的执行
+      turtleEggTrampledDisabled:
+        name: 禁用海龟蛋被践踏
+        desc: 阻止海龟蛋因实体踩踏而破坏
+      visualizeProjectileLoggerEnabled:
+        name: 可视化投掷物记录器
+        desc: 启用可视化投掷物记录器
+        extra:
+          '0': 试试/log projectiles visualize吧
+      xpTrackingDistance:
+        name: 经验球追踪距离
+        desc: 修改经验球检测并追踪玩家的距离
+        extra:
+          '0': 将其调至0以禁用追踪

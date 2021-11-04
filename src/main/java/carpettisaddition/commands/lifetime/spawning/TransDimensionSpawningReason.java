@@ -1,19 +1,16 @@
 package carpettisaddition.commands.lifetime.spawning;
 
-import carpet.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
 
 import java.util.Objects;
 
 public class TransDimensionSpawningReason extends SpawningReason
 {
-	private final RegistryKey<World> oldDimension;
+	private final DimensionWrapper oldDimension;
 
-	public TransDimensionSpawningReason(RegistryKey<World> oldDimension)
+	public TransDimensionSpawningReason(DimensionWrapper oldDimension)
 	{
 		this.oldDimension = Objects.requireNonNull(oldDimension);
 	}
@@ -37,10 +34,9 @@ public class TransDimensionSpawningReason extends SpawningReason
 	public BaseText toText()
 	{
 		return Messenger.c(
-				"w " + this.tr("trans_dimension", "Trans-dimension"),
-				"g  (" + this.tr("trans_dimension.from", "from"),
-				TextUtil.getSpaceText(),
-				TextUtil.attachFormatting(TextUtil.getDimensionNameText(this.oldDimension), Formatting.GRAY),
+				tr("trans_dimension"),
+				"g  (",
+				Messenger.formatting(tr("trans_dimension.from", Messenger.dimension(this.oldDimension)), "g"),
 				"g )"
 		);
 	}

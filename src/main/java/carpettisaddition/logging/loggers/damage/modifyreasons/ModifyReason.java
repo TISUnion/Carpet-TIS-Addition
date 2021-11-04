@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.damage.modifyreasons;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
 import net.minecraft.text.BaseText;
 
@@ -17,7 +16,7 @@ public class ModifyReason
 
 	private final String name;
 
-	ModifyReason(String name)
+	protected ModifyReason(String name)
 	{
 		this.name = name;
 	}
@@ -29,11 +28,6 @@ public class ModifyReason
 
 	public BaseText toText()
 	{
-		return Messenger.c("w " + this.tr());
-	}
-
-	public String tr()
-	{
-		return DamageLogger.getStaticTranslator().tr("modify_reason." + this.getName(), this.getName(), true);
+		return DamageLogger.getStaticTranslator().tr("modify_reason." + this.getName().toLowerCase().replace(" ", "_"));
 	}
 }

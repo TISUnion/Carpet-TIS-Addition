@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.removal;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import net.minecraft.entity.boss.WitherEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +20,6 @@ public abstract class WitherEntityMixin
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
 	}
 }

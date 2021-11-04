@@ -1,11 +1,13 @@
 package carpettisaddition.commands;
 
-import carpet.utils.Messenger;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.GameUtil;
+import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.BaseText;
+import net.minecraft.util.Formatting;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -40,15 +42,15 @@ public abstract class AbstractTracker extends TranslatableBase
 	}
 
 	// Xxx
-	public String getTranslatedName()
+	public BaseText getTranslatedName()
 	{
-		return this.tr("name", this.name);
+		return tr("name");
 	}
 
 	// Xxx Tracker
-	public String getTranslatedNameFull()
+	public BaseText getTranslatedNameFull()
 	{
-		return String.format(baseTranslator.tr("tracker_name_full", "%s Tracker"), this.getTranslatedName());
+		return baseTranslator.tr("tracker_name_full", this.getTranslatedName());
 	}
 
 	/*
@@ -84,9 +86,7 @@ public abstract class AbstractTracker extends TranslatableBase
 		{
 			if (showFeedback)
 			{
-				Messenger.m(source, Messenger.c(
-						"r " + String.format(baseTranslator.tr("tracking_already_started", "%s is already running"), this.getTranslatedNameFull())
-				));
+				Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_already_started", this.getTranslatedNameFull()), Formatting.RED));
 			}
 			return 1;
 		}
@@ -95,9 +95,7 @@ public abstract class AbstractTracker extends TranslatableBase
 		this.startMillis = System.currentTimeMillis();
 		if (showFeedback)
 		{
-			Messenger.m(source, Messenger.c(
-					"w " + String.format(baseTranslator.tr("tracking_started", "%s started"), this.getTranslatedNameFull())
-			));
+			Messenger.tell(source, baseTranslator.tr("tracking_started", this.getTranslatedNameFull()));
 		}
 		this.initTracker();
 		return 1;
@@ -112,17 +110,12 @@ public abstract class AbstractTracker extends TranslatableBase
 				this.reportTracking(source, false);
 				if (showFeedback)
 				{
-					Messenger.m(source, Messenger.c(
-							"w  \n",
-							"w " + String.format(baseTranslator.tr("tracking_stopped", "%s stopped"), this.getTranslatedNameFull())
-					));
+					Messenger.tell(source, Messenger.newLine(), baseTranslator.tr("tracking_stopped", this.getTranslatedNameFull()));
 				}
 			}
 			else if (showFeedback)
 			{
-				Messenger.m(source, Messenger.c(
-						"r " + String.format(baseTranslator.tr("tracking_not_started", "%s has not started"), this.getTranslatedNameFull())
-				));
+				Messenger.tell(source, Messenger.newLine(), Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), Formatting.RED));
 			}
 		}
 		this.tracking = false;
@@ -136,9 +129,9 @@ public abstract class AbstractTracker extends TranslatableBase
 		this.startTracking(source, false);
 		if (wasTracking)
 		{
-			source.sendFeedback(Messenger.s(" "), false);
+			Messenger.tell(source, Messenger.s(" "));
 		}
-		Messenger.m(source, Messenger.s(String.format(baseTranslator.tr("tracking_restarted", "%s restarted"), this.getTranslatedNameFull())));
+		Messenger.tell(source, baseTranslator.tr("tracking_restarted", this.getTranslatedNameFull()));
 		return 1;
 	}
 
@@ -150,9 +143,7 @@ public abstract class AbstractTracker extends TranslatableBase
 		}
 		else
 		{
-			Messenger.m(source, Messenger.c(
-					"r " + String.format(baseTranslator.tr("tracking_not_started", "%s has not started"), this.getTranslatedNameFull())
-			));
+			Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), Formatting.RED));
 		}
 		return 1;
 	}
@@ -195,18 +186,15 @@ public abstract class AbstractTracker extends TranslatableBase
 	protected long sendTrackedTime(ServerCommandSource source, boolean realtime)
 	{
 		long ticks = this.getTrackedTick(realtime);
-		source.sendFeedback(Messenger.c(
+		Messenger.tell(
+				source,
 				"w  \n",
-				"g ----------- ",
-				"w " + this.getTranslatedNameFull(),
-				"g  -----------\n",
-				String.format(
-						"w %s %.2f min (%s)",
-						baseTranslator.tr("Tracked"),
-						(double)ticks / (20 * 60),
-						baseTranslator.tr(realtime ? "real time" : "in game")
-				)
-		), false);
+				"g ----------- ", this.getTranslatedNameFull(), "g  -----------\n",
+				baseTranslator.tr("tracked"),
+				String.format("w  %.2f min (", (double)ticks / (20 * 60)),
+				baseTranslator.tr(realtime ? "real_time" : "in_game"),
+				"w )"
+		);
 		return ticks;
 	}
 

@@ -1,10 +1,10 @@
 package carpettisaddition.logging.loggers.commandblock;
 
 import carpet.logging.LoggerRegistry;
-import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.vehicle.CommandBlockMinecartEntity;
@@ -61,23 +61,23 @@ public class CommandBlockLogger extends AbstractLogger
 				iExecutor.setLastLoggedTime(time);
 			}
 			return new BaseText[]{Messenger.c(
-					TextUtil.attachFormatting(TextUtil.copyText(nameText), Formatting.GOLD),
-					TextUtil.getSpaceText(),
-					"w " + this.tr("executed"),
-					TextUtil.getSpaceText(),
-					TextUtil.getFancyText(
-							"c",
-							Messenger.s(finalCommandPreview),
-							Messenger.s(executor.getCommand()),
-							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, executor.getCommand())
+					tr(
+							"executed",
+							Messenger.formatting(Messenger.copy(nameText), Formatting.GOLD),
+							Messenger.fancy(
+									"c",
+									Messenger.s(finalCommandPreview),
+									Messenger.s(executor.getCommand()),
+									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, executor.getCommand())
+							)
 					),
 					"g  @ ",
 					posText,
 					"w  ",
-					TextUtil.getFancyText(
+					Messenger.fancy(
 							"r",
 							Messenger.s("[×]"),
-							this.advTr("remove_executor", "Click to remove %1$s", nameText),
+							tr("remove_executor", nameText),
 							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, removeCommand)
 					)
 			)};
@@ -88,10 +88,10 @@ public class CommandBlockLogger extends AbstractLogger
 	{
 		this.logCommandBlockExecution(
 				world,
-				TextUtil.getBlockName(state.getBlock()),
-				TextUtil.getCoordinateText("w", pos, world.getRegistryKey()),
+				Messenger.block(state.getBlock()),
+				Messenger.coord("w", pos, DimensionWrapper.of(world)),
 				executor,
-				String.format("/execute in %s run setblock %d %d %d %s", world.getRegistryKey().getValue(), pos.getX(), pos.getY(), pos.getZ(), Registry.BLOCK.getId(Blocks.AIR))
+				String.format("/execute in %s run setblock %d %d %d %s", DimensionWrapper.of(world).getIdentifier(), pos.getX(), pos.getY(), pos.getZ(), Registry.BLOCK.getId(Blocks.AIR))
 		);
 	}
 
@@ -103,8 +103,8 @@ public class CommandBlockLogger extends AbstractLogger
 		}
 		this.logCommandBlockExecution(
 				entity.getEntityWorld(),
-				TextUtil.getEntityText(null, entity),
-				TextUtil.getCoordinateText("w", entity.getPos(), entity.getEntityWorld().getRegistryKey()),
+				Messenger.entity(null, entity),
+				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity)),
 				entity.getCommandExecutor(),
 				String.format("/kill %s", entity.getUuidAsString())
 		);

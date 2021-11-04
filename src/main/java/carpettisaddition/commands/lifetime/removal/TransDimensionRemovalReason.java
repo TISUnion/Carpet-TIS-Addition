@@ -1,19 +1,16 @@
 package carpettisaddition.commands.lifetime.removal;
 
-import carpet.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
 
 import java.util.Objects;
 
 public class TransDimensionRemovalReason extends RemovalReason
 {
-	private final RegistryKey<World> newDimension;
+	private final DimensionWrapper newDimension;
 
-	public TransDimensionRemovalReason(RegistryKey<World> newDimension)
+	public TransDimensionRemovalReason(DimensionWrapper newDimension)
 	{
 		this.newDimension = Objects.requireNonNull(newDimension);
 	}
@@ -37,10 +34,9 @@ public class TransDimensionRemovalReason extends RemovalReason
 	public BaseText toText()
 	{
 		return Messenger.c(
-				"w " + this.tr("trans_dimension", "Trans-dimension"),
-				"g  (" + this.tr("trans_dimension.to", "to"),
-				TextUtil.getSpaceText(),
-				TextUtil.attachFormatting(TextUtil.getDimensionNameText(this.newDimension), Formatting.GRAY),
+				tr("trans_dimension"),
+				"g  (",
+				Messenger.formatting(tr("trans_dimension.to", Messenger.dimension(this.newDimension)), "g"),
 				"g )"
 		);
 	}

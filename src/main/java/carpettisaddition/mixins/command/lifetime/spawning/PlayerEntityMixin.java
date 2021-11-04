@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
-import carpettisaddition.commands.lifetime.spawning.MobDropSpawningReason;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
+import carpettisaddition.commands.lifetime.spawning.MobThrowSpawningReason;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -26,7 +26,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 		ItemEntity itemEntity = cir.getReturnValue();
 		if (itemEntity != null)
 		{
-			((IEntity)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
+			((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobThrowSpawningReason(this.getType()));
 		}
 	}
 }
