@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.removal;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.ItemEntity;
@@ -24,7 +24,7 @@ public abstract class HopperBlockEntityMixin
 	{
 		if (!itemEntity.removed)
 		{
-			((IEntity)itemEntity).recordRemoval(LiteralRemovalReason.HOPPER);
+			((LifetimeTrackerTarget)itemEntity).recordRemoval(LiteralRemovalReason.HOPPER);
 		}
 	}
 }

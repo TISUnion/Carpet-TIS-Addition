@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.SlimeEntity;
@@ -21,7 +21,7 @@ public abstract class SlimeEntityMixin
 	)
 	private Entity onSlimeDivisionLifeTimeTracker(Entity slimeEntity)
 	{
-		((IEntity)slimeEntity).recordSpawning(LiteralSpawningReason.SLIME);
+		((LifetimeTrackerTarget)slimeEntity).recordSpawning(LiteralSpawningReason.SLIME);
 		return slimeEntity;
 	}
 }

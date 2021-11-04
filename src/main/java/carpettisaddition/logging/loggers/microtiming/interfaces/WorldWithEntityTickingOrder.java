@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.interfaces;
 
-public interface IWorld
+public interface WorldWithEntityTickingOrder
 {
 	void setEntityOrderCounter(int value);
 }

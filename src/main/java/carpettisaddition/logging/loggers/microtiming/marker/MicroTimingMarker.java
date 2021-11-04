@@ -2,11 +2,12 @@ package carpettisaddition.logging.loggers.microtiming.marker;
 
 import carpet.script.utils.ShapeDispatcher;
 import carpet.script.value.*;
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.marker.texthack.ScarpetDisplayedTextHack;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.mixins.logger.microtiming.marker.DyeColorAccessor;
 import carpettisaddition.mixins.logger.microtiming.marker.ExpiringShapeInvoker;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -52,7 +53,7 @@ public class MicroTimingMarker
 		Map<String, Value> boxParams = Maps.newHashMap();
 		boxParams.put("shape", new StringValue("box"));
 		boxParams.put("color", new NumericValue(((long) ((DyeColorAccessor) (Object) this.color).getTextColor() << 8) | 0xAF));
-		boxParams.put("dim", new StringValue(serverWorld.getRegistryKey().getValue().toString()));
+		boxParams.put("dim", new StringValue(DimensionWrapper.of(serverWorld).getIdentifierString()));
 		boxParams.put("duration", new NumericValue(Integer.MAX_VALUE));
 		boxParams.put("from", listFromBlockPos(blockPos));
 		boxParams.put("to", listFromBlockPos(blockPos.add(1, 1, 1)));
@@ -61,10 +62,10 @@ public class MicroTimingMarker
 		{
 			Map<String, Value> textParams = Maps.newHashMap();
 			textParams.put("shape", new StringValue("label"));
-			textParams.put("dim", new StringValue(serverWorld.getRegistryKey().getValue().toString()));
+			textParams.put("dim", new StringValue(DimensionWrapper.of(serverWorld).getIdentifierString()));
 			textParams.put("duration", new NumericValue(Integer.MAX_VALUE));
 			textParams.put("pos", ListValue.of(new NumericValue(blockPos.getX() + 0.5D), new NumericValue(blockPos.getY() + 0.5D), new NumericValue(blockPos.getZ() + 0.5D)));
-			textParams.put("text", new FormattedTextValue(Messenger.c(MicroTimingUtil.getColorStyle(this.color) + " # ", TextUtil.copyText(this.markerName))));
+			textParams.put("text", new FormattedTextValue(Messenger.c(MicroTimingUtil.getColorStyle(this.color) + " # ", Messenger.copy(this.markerName))));
 			textParams.put("align", new StringValue(ScarpetDisplayedTextHack.MICRO_TIMING_TEXT_MAGIC_STRING));
 			this.text = new ShapeData<>(new ShapeDispatcher.DisplayedText(), textParams);
 		}
@@ -177,14 +178,14 @@ public class MicroTimingMarker
 	// [1, 2, 3]
 	public BaseText toShortText()
 	{
-		return this.withFormattingSymbol(TextUtil.getCoordinateString(this.blockPos));
+		return this.withFormattingSymbol(TextUtil.coord(this.blockPos));
 	}
 
 	// [1, 2, 3] red
 	public BaseText toFullText()
 	{
 		return Messenger.c(
-				Messenger.s(TextUtil.getCoordinateString(this.blockPos)),
+				Messenger.s(TextUtil.coord(this.blockPos)),
 				this.withFormattingSymbol(" " + this.color.toString())
 		);
 	}

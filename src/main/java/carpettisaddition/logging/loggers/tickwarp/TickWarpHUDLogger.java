@@ -1,8 +1,8 @@
 package carpettisaddition.logging.loggers.tickwarp;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.entity.player.PlayerEntity;
@@ -77,7 +77,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 	private BaseText getSourceName()
 	{
 		ServerPlayerEntity advancer = this.getTimeAdvancer();
-		return advancer != null ? (BaseText)advancer.getName() : Messenger.s(this.tr("Server"));
+		return advancer != null ? (BaseText)advancer.getName() : tr("server");
 	}
 
 	private double getProgressRate()
@@ -148,15 +148,15 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		);
 	}
 
-	private void addLine(List<BaseText> list, String info, Object data)
+	private void addLine(List<BaseText> list, BaseText info, Object data)
 	{
-		list.add(Messenger.c(String.format("w %s", info), "g : ", data));
+		list.add(Messenger.c(info, "g : ", data));
 	}
 
 	private BaseText getTimeInfo(long ticks)
 	{
-		return this.advTr(
-				"time_info", "%1$smin (in game) / %2$smin (real time)",
+		return tr(
+				"time_info",
 				String.format("%.2f", ticks / 20.0D / 60.0D),
 				String.format("%.2f", ticks / this.getAverageTPS() / 60.0D)
 		);
@@ -169,11 +169,11 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		{
 			this.info = specifiedInfo;
 			result.add(Messenger.s(" "));
-			this.addLine(result, this.tr("Starter"), this.getSourceName());
-			this.addLine(result, this.tr("Average TPS"), String.format("w %.2f", this.getAverageTPS()));
-			this.addLine(result, this.tr("Average MSPT"), String.format("w %.2f", this.getAverageMSPT()));
-			this.addLine(result, this.tr("elapsed_time", "Time elapsed"), this.getTimeInfo(this.getCompletedTicks()));
-			this.addLine(result, this.tr("estimated_time", "Estimated remaining time"), this.getTimeInfo(this.getRemainingTicks()));
+			this.addLine(result, tr("starter"), this.getSourceName());
+			this.addLine(result, tr("average_tps"), String.format("w %.2f", this.getAverageTPS()));
+			this.addLine(result, tr("average_mspt"), String.format("w %.2f", this.getAverageMSPT()));
+			this.addLine(result, tr("elapsed_time"), this.getTimeInfo(this.getCompletedTicks()));
+			this.addLine(result, tr("estimated_time"), this.getTimeInfo(this.getRemainingTicks()));
 			result.add(Messenger.c(
 					this.getProgressBar(),
 					"w  ",
@@ -197,14 +197,14 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		}
 		else if (this.historyInfo.hasData())
 		{
-			result.add(Messenger.s(String.format(this.tr("show_history_header", "Last tick warp result (%.2fmin ago)"), (System.nanoTime() - this.historyInfo.getLastRecordingTime()) / 1e9 / 60.0D)));
+			result.add(tr("show_history_header", String.format("%.2f", (System.nanoTime() - this.historyInfo.getLastRecordingTime()) / 1e9 / 60.0D)));
 			this.generateTickWarpInfo(result, this.historyInfo);
 		}
 		else
 		{
-			result.add(Messenger.s(this.tr("not_started", "Tick warp has not started")));
+			result.add(tr("not_started"));
 		}
-		Messenger.send(source, result);
+		Messenger.tell(source, result);
 		return 1;
 	}
 

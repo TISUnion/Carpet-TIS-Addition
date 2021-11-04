@@ -1,8 +1,8 @@
 package carpettisaddition.mixins.carpet.hooks;
 
 import carpet.settings.SettingsManager;
-import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionMod;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,7 +35,7 @@ public class SettingsManagerMixin
             remap = false
     )
     private void printAdditionVersion(ServerCommandSource source, CallbackInfoReturnable<Integer> cir) {
-        Messenger.m(source,
+        Messenger.tell(source,
                 String.format("g %s ", fancyName),
                 String.format("g %s: ", tr("ui.version",  "version")),
                 String.format("g %s", CarpetTISAdditionMod.getVersion())

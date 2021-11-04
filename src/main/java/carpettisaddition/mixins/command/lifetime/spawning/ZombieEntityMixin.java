@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.ZombieEntity;
@@ -22,7 +22,7 @@ public abstract class ZombieEntityMixin
 	)
 	private Entity onZombieReinforceSpawnedLifeTimeTracker(Entity zombieEntity)
 	{
-		((IEntity)zombieEntity).recordSpawning(LiteralSpawningReason.ZOMBIE_REINFORCE);
+		((LifetimeTrackerTarget)zombieEntity).recordSpawning(LiteralSpawningReason.ZOMBIE_REINFORCE);
 		return zombieEntity;
 	}
 }

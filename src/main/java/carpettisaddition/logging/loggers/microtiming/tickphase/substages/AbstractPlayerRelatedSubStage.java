@@ -1,7 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
-import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
@@ -20,13 +19,14 @@ public abstract class AbstractPlayerRelatedSubStage extends AbstractSubStage
 	public BaseText toText()
 	{
 		return Messenger.c(
-				String.format("w %s: %s", MicroTimingLoggerManager.tr("Player"), this.player.getGameProfile().getName())
+				tr("player"),
+				String.format("w : %s", this.player.getGameProfile().getName())
 		);
 	}
 
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.player));
+		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.player));
 	}
 }

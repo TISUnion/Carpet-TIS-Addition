@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
-import carpet.utils.Messenger;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 
@@ -15,7 +15,7 @@ public class PlayerActionSubStage extends AbstractPlayerRelatedSubStage
 	public BaseText toText()
 	{
 		return Messenger.c(
-				String.format("w %s\n", this.tr("player_action", "Executing player actions sent by clients")),
+				tr("player_action"), Messenger.newLine(),
 				super.toText()
 		);
 	}

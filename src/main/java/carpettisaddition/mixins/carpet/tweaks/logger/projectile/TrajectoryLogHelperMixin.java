@@ -1,13 +1,13 @@
 package carpettisaddition.mixins.carpet.tweaks.logger.projectile;
 
 import carpet.logging.logHelpers.TrajectoryLogHelper;
-import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.ProjectileLoggerTarget;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.TrajectoryLoggerUtil;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.VisualizeTrajectoryHelper;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
@@ -109,11 +109,11 @@ public abstract class TrajectoryLogHelperMixin
 			hitPos = hitResultOptional.get().getPos();
 			if (hitResultOptional.get() instanceof BlockHitResult)
 			{
-				hitType = Messenger.c("w block ", TextUtil.getCoordinateText(null, ((BlockHitResult)hitResultOptional.get()).getBlockPos(), this.world.getRegistryKey()));
+				hitType = Messenger.c("w block ", Messenger.coord(null, ((BlockHitResult)hitResultOptional.get()).getBlockPos(), DimensionWrapper.of(this.world)));
 			}
 			else if (hitResultOptional.get() instanceof EntityHitResult)
 			{
-				hitType = Messenger.c("w entity (", TextUtil.getEntityText(null, ((EntityHitResult)hitResultOptional.get()).getEntity()), "w )");
+				hitType = Messenger.c("w entity (", Messenger.entity(null, ((EntityHitResult)hitResultOptional.get()).getEntity()), "w )");
 			}
 			else
 			{
@@ -126,7 +126,7 @@ public abstract class TrajectoryLogHelperMixin
 				if (hitResultOptional.isPresent())
 				{
 					BaseText lastLine = comp.get(comp.size() - 1);
-					BaseText marker = TextUtil.getFancyText(
+					BaseText marker = Messenger.fancy(
 							"g",
 							Messenger.s(" x"),
 							Messenger.c(
@@ -159,7 +159,7 @@ public abstract class TrajectoryLogHelperMixin
 				{
 					if (CarpetTISAdditionSettings.visualizeProjectileLoggerEnabled)
 					{
-						comp.add(Messenger.s(String.format(this.translator.tr("info", "Visualize projectile logger: visualized %d tick(s)"), this.positions.size())));
+						comp.add(this.translator.tr("info", this.positions.size()));
 						if (!this.hasCreatedVisualizer)
 						{
 							for (int i = 0; i < this.positions.size(); i++)
@@ -172,10 +172,10 @@ public abstract class TrajectoryLogHelperMixin
 					}
 					else
 					{
-						comp.add(TextUtil.getFancyText(
+						comp.add(Messenger.fancy(
 								"w",
-								Messenger.s(this.translator.tr("not_enabled", "Visualize projectile logger: visualize is not enabled")),
-								Messenger.s(this.translator.tr("not_enabled.hint", "Click to enable")),
+								this.translator.tr("not_enabled.warn"),
+								this.translator.tr("not_enabled.hint"),
 								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/carpet visualizeProjectileLoggerEnabled true")
 						));
 					}

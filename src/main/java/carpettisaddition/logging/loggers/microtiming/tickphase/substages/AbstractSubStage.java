@@ -1,19 +1,15 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.translations.TranslatableBase;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 
-public abstract class AbstractSubStage
+public abstract class AbstractSubStage extends TranslatableBase
 {
-	public String tr(String key, String text)
+	public AbstractSubStage()
 	{
-		return MicroTimingLoggerManager.tr("sub_stage." + key, text);
-	}
-
-	public String tr(String text)
-	{
-		return MicroTimingLoggerManager.tr("sub_stage." + text, text, true);
+		super(MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("sub_stage"));
 	}
 
 	public ClickEvent getClickEvent()

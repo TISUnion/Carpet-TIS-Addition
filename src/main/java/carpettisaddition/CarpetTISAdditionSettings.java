@@ -9,6 +9,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
@@ -192,15 +193,15 @@ public class CarpetTISAdditionSettings
 		{
 			if (!newValue.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue) && source != null)
 			{
-				Consumer<BaseText> messenger = msg -> source.sendFeedback(Messenger.s(msg.getString(), "r"), false);
-				messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.found", "Unexpected character found in value \"%1$s\" when applying rule %2$s", newValue, currentRule.name));
+				Consumer<BaseText> messenger = msg -> Messenger.tell(source, Messenger.s(msg.getString(), "r"));
+				messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.found", newValue, currentRule.name));
 				if (!Objects.equals(this.lastDangerousInput.get(currentRule), newValue))
 				{
-					messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.blocked", "Re-enter the command again if you do want to use this value"));
+					messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.blocked"));
 					this.lastDangerousInput.put(currentRule, newValue);
 					return null;
 				}
-				messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.applied", "Accepted anyway cuz you insisted"));
+				messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.applied"));
 			}
 			this.lastDangerousInput.remove(currentRule);
 			return newValue;
@@ -270,6 +271,16 @@ public class CarpetTISAdditionSettings
 			category = {TIS, EXPERIMENTAL, FEATURE}
 	)
 	public static boolean keepMobInLazyChunks = false;
+
+	@Rule(
+			desc = "Strategy for lifetime tracker to deal with mob that doesn't count towards mobcap",
+			extra = {
+					"true: Don't track mobs that don't count towards mobcap, and treat mobs as removal as soon as they don't affect mobcap e.g. right when they pick up some items. Good for mob farm designing",
+					"false: Tracks everything it can track and mark mobs as removal when they actually get removed. Good for raid testing Good for raid testing or non-mobfarms"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean lifeTimeTrackerConsidersMobcap = true;
 
 //	Remove due to fabric carpet implement this in 1.4.23
 //	public static int lightEngineMaxBatchSize = 5;
@@ -391,7 +402,7 @@ public class CarpetTISAdditionSettings
 				MicroTimingMarkerManager.getInstance().clear();
 				if (source != null)
 				{
-					Messenger.m(source, "w " + MicroTimingMarkerManager.getInstance().tr("cleared", "Marker cleared"));
+					Messenger.tell(source, MicroTimingMarkerManager.getInstance().tr("cleared"));
 				}
 				return currentRule.get();
 			}
@@ -636,6 +647,12 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static boolean turtleEggTrampledDisabled = false;
+
+	@Rule(
+			desc = "qOf DSh hwg ORRWHW Cb",
+			category = {TIS, EXPERIMENTAL}
+	)
+	public static boolean ultraSecretSetting = false;
 
 	@Rule(
 			desc = "Enable visualize projectile logger",

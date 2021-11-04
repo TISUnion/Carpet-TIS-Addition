@@ -1,9 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -50,7 +49,7 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 			}
 			else
 			{
-				changes.add(TextUtil.getFancyText(null, simpleText, detailText, null));
+				changes.add(Messenger.fancy(null, simpleText, detailText, null));
 			}
 		}
 		return Messenger.c(changes.toArray(new Object[0]));
@@ -60,9 +59,9 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		BaseText titleText = TextUtil.getFancyText(
+		BaseText titleText = Messenger.fancy(
 				null,
-				Messenger.c(COLOR_ACTION + this.tr("State Change")),
+				Messenger.formatting(tr("state_change"), COLOR_ACTION),
 				this.getFlagsText(),
 				null
 		);
@@ -76,18 +75,9 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 		}
 		else
 		{
-			list.add(TextUtil.getFancyText(
-					"w",
-					Messenger.c(
-							titleText,
-							TextUtil.getSpaceText(),
-							COLOR_RESULT + this.tr("finished")
-					),
-					Messenger.c(
-							String.format("w %s", this.tr("Changed BlockStates")),
-							"w :\n",
-							this.getChangesText('\n', true)
-					),
+			list.add(Messenger.fancy(
+					Messenger.c(titleText, Messenger.getSpaceText(), Messenger.formatting(tr("finished"), COLOR_RESULT)),
+					Messenger.c(tr("changed_states"), "w :\n", this.getChangesText('\n', true)),
 					null
 			));
 		}

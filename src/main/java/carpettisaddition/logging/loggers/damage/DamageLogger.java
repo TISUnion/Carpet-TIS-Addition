@@ -1,13 +1,13 @@
 package carpettisaddition.logging.loggers.damage;
 
 import carpet.logging.LoggerRegistry;
-import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
 import carpettisaddition.logging.loggers.damage.modifyreasons.Modification;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
@@ -102,7 +102,7 @@ public class DamageLogger extends AbstractLogger
 	{
 		String display = String.format("%.2f", amount);
 		String detail = String.format("%.6f", amount);
-		return TextUtil.getFancyText(
+		return Messenger.fancy(
 				style,
 				Messenger.s(display),
 				Messenger.s(detail),
@@ -124,14 +124,14 @@ public class DamageLogger extends AbstractLogger
 				verifyAndProduceMessage(option, player, attacker, target, () -> {
 					List<Object> lines = Lists.newArrayList();
 					lines.add(Messenger.s(" "));
-					BaseText sourceName = TextUtil.attachClickEvent(
+					BaseText sourceName = Messenger.click(
 							(BaseText)target.getDisplayName(),
-							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(target))
+							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(target))
 					);
 					List<Object> sourceHoverTextList = Lists.newArrayList();
 					if (source != null)
 					{
-						sourceHoverTextList.add(Messenger.c(String.format("w %s: ", this.tr("Source")), source.getName()));
+						sourceHoverTextList.add(Messenger.c(tr("Source"), "w : ", source.getName()));
 					}
 					if (attacker != null)
 					{
@@ -139,21 +139,17 @@ public class DamageLogger extends AbstractLogger
 						{
 							sourceHoverTextList.add("w \n");
 						}
-						sourceHoverTextList.add(Messenger.c(String.format("w %s: ", this.tr("Attacker")), attacker.getName()));
+						sourceHoverTextList.add(Messenger.c(tr("Attacker"), "w : ", attacker.getName()));
 					}
-					lines.add(Messenger.c(
+					lines.add(tr(
+							"header_message",
 							sourceName,
-							"g  " + this.tr("is receiving"),
-							TextUtil.getSpaceText(),
 							getAmountText("r", this.initialAmount),
-							TextUtil.getSpaceText(),
-							"g " + this.tr("damage"),
-							String.format("g , %s: ", this.tr("damage type")),
-							TextUtil.getFancyText(
+							Messenger.fancy(
 									"w",
 									Messenger.s(this.damageSource.getName()),
 									sourceHoverTextList.isEmpty() ? null : Messenger.c(sourceHoverTextList.toArray(new Object[0])),
-									attacker != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(attacker)) : null
+									attacker != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(attacker)) : null
 							)
 					));
 					for (Modification modification : this.modificationList)
@@ -165,27 +161,20 @@ public class DamageLogger extends AbstractLogger
 						String radio = oldAmount != 0.0F ? String.format("%.1f%%", 100.0F * delta / oldAmount) : "N/A%";
 						lines.add(Messenger.c(
 								"g  - ",
-								getAmountText("r", oldAmount),
-								"g  -> ",
-								getAmountText(newAmount > oldAmount ? "r" : "d", newAmount),
+								getAmountText("r", oldAmount), "g  -> ", getAmountText(newAmount > oldAmount ? "r" : "d", newAmount),
 								String.format("g  (%s", sig),
-								TextUtil.attachHoverText(getAmountText("g", delta), Messenger.s(String.format("%s%.6f", sig, delta))),
-								String.format("g , %s%s) %s", sig, radio, this.tr("due to")),
-								TextUtil.getSpaceText(),
-								modification.getReason().toText()
+								Messenger.hover(getAmountText("g", delta), Messenger.s(String.format("%s%.6f", sig, delta))),
+								String.format("g , %s%s)", sig, radio),
+								tr("due_to", modification.getReason().toText())
 						));
 					}
-					lines.add(Messenger.c(
+					lines.add(tr(
+							"footer_message",
 							sourceName,
-							"w  " + this.tr("actually received"),
-							TextUtil.getSpaceText(),
 							getAmountText(finalAmount > 0.0F ? "r" : "w", finalAmount),
-							TextUtil.getSpaceText(),
-							String.format("g %s, ", this.tr("damage")),
-							String.format("w %s: ", this.tr("Remaining health")),
 							getAmountText(remainingHealth > 0 ? "l" : "r", remainingHealth)
 					));
-					return lines.stream().map(Messenger::c).toArray(BaseText[]::new);
+					return lines.stream().map(carpet.utils.Messenger::c).toArray(BaseText[]::new);
 				})
 		);
 	}

@@ -1,7 +1,11 @@
 package carpettisaddition.commands.info.entity;
 
-import carpet.utils.Messenger;
-import carpettisaddition.mixins.command.info.entity.*;
+import carpettisaddition.mixins.command.info.entity.EntityInfoAccessor;
+import carpettisaddition.mixins.command.info.entity.ItemEntityAccessor;
+import carpettisaddition.mixins.command.info.entity.SlimeEntityAccessor;
+import carpettisaddition.mixins.command.info.entity.ZombieVillagerEntityAccessor;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -57,7 +61,7 @@ public class EntityInfoPorting
 		}
 		lst.add(Messenger.c(String.format("w  - Height: %.2f, Width: %.2f, Eye height: %.2f",e.getHeight(), e.getWidth(), e.getStandingEyeHeight())));
 		lst.add(Messenger.c("w  - Age: ", "wb " + EntityInfoAccessor.makeTime(e.age)));
-		if (source_world.getRegistryKey() != e.world.getRegistryKey())
+		if (!DimensionWrapper.of(source_world).equals(DimensionWrapper.of(e)))
 		{
 			lst.add(Messenger.c("w  - Dimension: ", "wb "+e.world.getRegistryKey().getValue()));
 		}
@@ -184,7 +188,7 @@ public class EntityInfoPorting
 					if (ec.hasPositionTarget())
 					{
 						BlockPos pos = ec.getPositionTarget();
-						lst.add(Messenger.c("w  - Home position: ","wb "+(int)ec.getPositionTargetRange(),"w  blocks around ", Messenger.tp("wb",pos)));
+						lst.add(Messenger.c("w  - Home position: ","wb "+(int)ec.getPositionTargetRange(),"w  blocks around ", Messenger.coord("wb", pos)));
 					}
 
 					if (e instanceof PassiveEntity)  // EntityAgeable

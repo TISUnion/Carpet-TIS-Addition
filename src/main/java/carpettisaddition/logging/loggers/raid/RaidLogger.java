@@ -1,12 +1,14 @@
 package carpettisaddition.logging.loggers.raid;
 
 import carpet.logging.LoggerRegistry;
-import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.village.raid.Raid;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
+import net.minecraft.entity.raid.Raid;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 
@@ -34,9 +36,9 @@ public class RaidLogger extends AbstractLogger
 		}
 		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
-					String.format("w %s", String.format(tr("created", "Raid created with id %d"), raid.getRaidId())),
+					tr("created", raid.getRaidId()),
 					"g  @ ",
-					TextUtil.getCoordinateText("w", raid.getCenter(), raid.getWorld().getRegistryKey())
+					Messenger.coord("w", raid.getCenter(), DimensionWrapper.of(raid.getWorld()))
 			)};
 		});
 	}
@@ -49,7 +51,7 @@ public class RaidLogger extends AbstractLogger
 		}
 		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
-					String.format("w %s", String.format(tr("invalidated", "Raid (id: %d) invalidated, reason: %s"), raid.getRaidId(), reason.tr()))
+					tr("invalidated", raid.getRaidId(), reason.tr())
 			)};
 		});
 	}
@@ -62,7 +64,7 @@ public class RaidLogger extends AbstractLogger
 		}
 		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
-					String.format("w %s", String.format(tr("bad_omen_level_increased", "Raid (id: %d) increased its bad omen level to %d"), raid.getRaidId(), badOmenLevel))
+					tr("bad_omen_level_increased", raid.getRaidId(), badOmenLevel)
 			)};
 		});
 	}
@@ -75,9 +77,7 @@ public class RaidLogger extends AbstractLogger
 		}
 		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
-					String.format("w %s", String.format(tr("center_moved", "Raid (id: %d) moves its center to"), raid.getRaidId())),
-					"w  ",
-					TextUtil.getCoordinateText("w", pos, raid.getWorld().getRegistryKey())
+					tr("center_moved", raid.getRaidId(), Messenger.coord("w", pos, DimensionWrapper.of(raid.getWorld())))
 			)};
 		});
 	}
@@ -99,9 +99,9 @@ public class RaidLogger extends AbstractLogger
 			return this.name().toLowerCase();
 		}
 
-		public String tr()
+		public BaseText tr()
 		{
-			return TRANSLATOR.tr(getName(), getName().replace("_", " "));
+			return TRANSLATOR.tr(getName());
 		}
 	}
 }

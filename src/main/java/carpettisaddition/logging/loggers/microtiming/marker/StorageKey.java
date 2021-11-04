@@ -1,5 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
+import carpettisaddition.utils.DimensionWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
@@ -8,10 +9,10 @@ import java.util.Objects;
 
 public class StorageKey
 {
-	private final RegistryKey<World> dimensionType;
+	private final DimensionWrapper dimensionType;
 	private final BlockPos blockPos;
 
-	private StorageKey(RegistryKey<World> dimensionType, BlockPos blockPos)
+	private StorageKey(DimensionWrapper dimensionType, BlockPos blockPos)
 	{
 		this.dimensionType = dimensionType;
 		this.blockPos = blockPos;
@@ -19,7 +20,7 @@ public class StorageKey
 
 	public StorageKey(World world, BlockPos blockPos)
 	{
-		this(world.getRegistryKey(), blockPos);
+		this(DimensionWrapper.of(world), blockPos);
 	}
 
 	@Override

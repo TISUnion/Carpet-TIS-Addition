@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.deathdamage;
 
-import carpettisaddition.commands.lifetime.interfaces.EntityDamageable;
+import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.damage.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ExperienceOrbEntity.class)
-public abstract class ExperienceOrbEntityMixin implements EntityDamageable
+public abstract class ExperienceOrbEntityMixin implements DamageableEntity
 {
 	private DamageSource deathDamageSource;
 

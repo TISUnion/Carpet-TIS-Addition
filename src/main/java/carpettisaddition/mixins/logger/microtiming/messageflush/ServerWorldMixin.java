@@ -3,6 +3,7 @@ package carpettisaddition.mixins.logger.microtiming.messageflush;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
+import carpettisaddition.utils.DimensionWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.RegistryKey;
@@ -32,7 +33,7 @@ public abstract class ServerWorldMixin extends World
 	{
 		if (CarpetTISAdditionSettings.microTimingTickDivision == TickDivision.WORLD_TIMER)
 		{
-			if (this.getRegistryKey() == World.OVERWORLD)  // only flush messages at overworld time update
+			if (DimensionWrapper.of(this).equals(DimensionWrapper.OVERWORLD))  // only flush messages at overworld time update
 			{
 				MicroTimingLoggerManager.flushMessages();
 			}

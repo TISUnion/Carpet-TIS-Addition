@@ -1,9 +1,9 @@
 package carpettisaddition.commands.lifetime.filter;
 
-import carpet.utils.Messenger;
 import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslatableBase;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -81,13 +81,15 @@ public class EntityFilter extends TranslatableBase implements Predicate<Entity>
 	public BaseText toText()
 	{
 		String inputText = this.entitySelector.getInputText();
-		return TextUtil.getFancyText(
+		return Messenger.fancy(
 				"y",
 				Messenger.s(inputText),
 				Messenger.c(
-						String.format("w %s: ", this.tr("Dimension")),
-						TextUtil.getDimensionNameText(this.serverCommandSource.getWorld().getRegistryKey()),
-						String.format("w \n%s: %s", this.tr("Anchor Pos"), this.getAnchorPos())
+						tr("dimension"), "w : ",
+						Messenger.dimension(DimensionWrapper.of(this.serverCommandSource.getWorld())),
+						"w \n",
+						tr("anchor_pos"), "w : ",
+						Messenger.s(this.getAnchorPos().toString())
 				),
 				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, inputText)
 		);

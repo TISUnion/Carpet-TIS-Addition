@@ -1,6 +1,5 @@
 package carpettisaddition.utils;
 
-import carpet.utils.Messenger;
 import net.minecraft.text.BaseText;
 
 public class CounterUtil

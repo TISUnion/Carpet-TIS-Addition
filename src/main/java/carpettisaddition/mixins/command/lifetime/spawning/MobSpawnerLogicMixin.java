@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.MobSpawnerLogic;
@@ -40,7 +40,7 @@ public abstract class MobSpawnerLogicMixin
 	{
 		if (this.spawnedEntity$lifeTimeTracker != null)
 		{
-			((IEntity)this.spawnedEntity$lifeTimeTracker).recordSpawning(LiteralSpawningReason.SPAWNER);
+			((LifetimeTrackerTarget)this.spawnedEntity$lifeTimeTracker).recordSpawning(LiteralSpawningReason.SPAWNER);
 		}
 	}
 }

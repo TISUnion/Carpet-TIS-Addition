@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.microtiming.tickstages.entity;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.logging.loggers.microtiming.interfaces.IWorld;
+import carpettisaddition.logging.loggers.microtiming.interfaces.WorldWithEntityTickingOrder;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.EntitySubStage;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Consumer;
 
 @Mixin(World.class)
-public abstract class WorldMixin implements IWorld
+public abstract class WorldMixin implements WorldWithEntityTickingOrder
 {
 	private int entityOrderCounter;
 
