@@ -2,6 +2,7 @@ package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.mixins.carpet.MessengerInvoker;
+import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.translations.Translator;
 import com.google.common.collect.ImmutableMap;
@@ -238,13 +239,13 @@ public class Messenger
 	public static BaseText formatting(BaseText text, String carpetStyle)
 	{
 		Style textStyle = text.getStyle();
-		Style parsedStyle = parseCarpetStyle(carpetStyle);
-		textStyle.setColor(parsedStyle.getColor());
-		textStyle.setBold(parsedStyle.isBold());
-		textStyle.setItalic(parsedStyle.isItalic());
-		textStyle.setUnderline(parsedStyle.isUnderlined());
-		textStyle.setStrikethrough(parsedStyle.isStrikethrough());
-		textStyle.setObfuscated(parsedStyle.isObfuscated());
+		StyleAccessor parsedStyle = (StyleAccessor)parseCarpetStyle(carpetStyle);
+		textStyle.setColor(parsedStyle.getColorField());
+		textStyle.setBold(parsedStyle.getBoldField());
+		textStyle.setItalic(parsedStyle.getItalicField());
+		textStyle.setUnderline(parsedStyle.getUnderlineField());
+		textStyle.setStrikethrough(parsedStyle.getStrikethroughField());
+		textStyle.setObfuscated(parsedStyle.getObfuscatedField());
 		return style(text, textStyle);
 	}
 

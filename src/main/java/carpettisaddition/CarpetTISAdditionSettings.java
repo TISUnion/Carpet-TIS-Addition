@@ -705,6 +705,12 @@ public class CarpetTISAdditionSettings
 	public static boolean turtleEggTrampledDisabled = false;
 
 	@Rule(
+			desc = "qOf DSh hwg ORRWHW Cb",
+			category = {TIS, EXPERIMENTAL}
+	)
+	public static boolean ultraSecretSetting = false;
+
+	@Rule(
 			desc = "Enable visualize projectile logger",
 			extra = {
 					"Try /log projectiles visualize"

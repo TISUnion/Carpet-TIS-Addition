@@ -39,7 +39,7 @@ public abstract class HUDControllerMixin
 		if (player instanceof ServerPlayerEntity && text instanceof BaseText)
 		{
 			return TISAdditionTranslations.translate((BaseText)text, (ServerPlayerEntity)player);
-		};
+		}
 		return text;
 	}
 }
