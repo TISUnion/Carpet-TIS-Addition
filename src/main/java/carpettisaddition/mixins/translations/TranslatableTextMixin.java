@@ -22,9 +22,9 @@ public abstract class TranslatableTextMixin
 	)
 	private String applyTISCarpetTranslation(String vanillaTranslatedFormattingString)
 	{
-		if (vanillaTranslatedFormattingString.equals(this.key))  // translation failed
+		if (this.key.startsWith(TISAdditionTranslations.TRANSLATION_KEY_PREFIX) && vanillaTranslatedFormattingString.equals(this.key))
 		{
-			String tiscmTranslated = TISAdditionTranslations.translateKey(TISAdditionTranslations.DEFAULT_LANGUAGE, this.key);
+			String tiscmTranslated = TISAdditionTranslations.translateKeyToFormattingString(TISAdditionTranslations.getServerLanguage(), this.key);
 			if (tiscmTranslated != null)
 			{
 				return tiscmTranslated;

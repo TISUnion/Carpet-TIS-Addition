@@ -2,6 +2,7 @@ package carpettisaddition.translations;
 
 import carpet.CarpetSettings;
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.translations.ServerPlayerEntityAccessor;
 import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.mixins.translations.TranslatableTextAccessor;
@@ -79,36 +80,50 @@ public class TISAdditionTranslations
         });
     }
 
+    public static String getServerLanguage()
+    {
+        return CarpetSettings.language.equalsIgnoreCase("none") ? DEFAULT_LANGUAGE : CarpetSettings.language;
+    }
+
     /**
      * key -> translated formatting string
      */
     @Nullable
-    public static String translateKey(String lang, String key)
+    public static String translateKeyToFormattingString(String lang, String key)
     {
         return getTranslationFromResourcePath(lang.toLowerCase()).get(key);
     }
 
+    public static BaseText translate(BaseText text, String lang)
+    {
+        return translateText(Messenger.copy(text), lang);
+    }
+
     public static BaseText translate(BaseText text)
     {
-        return translate(Messenger.copy(text), CarpetSettings.language.equalsIgnoreCase("none") ? DEFAULT_LANGUAGE : CarpetSettings.language);
+        return translate(text, getServerLanguage());
     }
 
     public static BaseText translate(BaseText text, ServerPlayerEntity player)
     {
-        return translate(Messenger.copy(text), ((ServerPlayerEntityAccessor)player).getClientLanguage());
+        if (CarpetTISAdditionSettings.ultraSecretSetting)
+        {
+            return translate(text);
+        }
+        return translate(text, ((ServerPlayerEntityAccessor)player).getClientLanguage());
     }
 
-    private static BaseText translate(BaseText text, @NotNull String lang)
+    private static BaseText translateText(BaseText text, @NotNull String lang)
     {
         if (text instanceof TranslatableText)
         {
             TranslatableText translatableText = (TranslatableText)text;
             if (translatableText.getKey().startsWith(TRANSLATION_KEY_PREFIX))
             {
-                String msgKeyString = translateKey(lang, translatableText.getKey());
+                String msgKeyString = translateKeyToFormattingString(lang, translatableText.getKey());
                 if (msgKeyString == null && !lang.equals(DEFAULT_LANGUAGE))
                 {
-                    msgKeyString = translateKey(DEFAULT_LANGUAGE, translatableText.getKey());
+                    msgKeyString = translateKeyToFormattingString(DEFAULT_LANGUAGE, translatableText.getKey());
                 }
                 if (msgKeyString != null)
                 {
@@ -140,14 +155,14 @@ public class TISAdditionTranslations
         HoverEvent hoverEvent = ((StyleAccessor)text.getStyle()).getHoverEventField();
         if (hoverEvent != null)
         {
-            text.getStyle().setHoverEvent(new HoverEvent(hoverEvent.getAction(), translate((BaseText)hoverEvent.getValue(), lang)));
+            text.getStyle().setHoverEvent(new HoverEvent(hoverEvent.getAction(), translateText((BaseText)hoverEvent.getValue(), lang)));
         }
 
         // translate sibling texts
         List<Text> siblings = text.getSiblings();
         for (int i = 0; i < siblings.size(); i++)
         {
-            siblings.set(i, translate((BaseText)siblings.get(i), lang));
+            siblings.set(i, translateText((BaseText)siblings.get(i), lang));
         }
         return text;
     }
