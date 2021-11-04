@@ -10,7 +10,7 @@ import java.util.Objects;
 /*
  * A wrapper class to deal with dimension type class differences between minecraft version:
  * - DimensionType in 1.15-
- * - Registry<World> in 1.16+
+ * - RegistryKey<World> in 1.16+
  */
 public class DimensionWrapper
 {

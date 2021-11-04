@@ -54,6 +54,6 @@ public class VisualizeTrajectoryHelper
 
 	public static void onVisualizerReacted(ServerPlayerEntity player, Entity snowBall)
 	{
-		player.sendMessage(Messenger.s(snowBall.getPos().toString()), false);
+		Messenger.tell(player, Messenger.s(snowBall.getPos().toString()));
 	}
 }
