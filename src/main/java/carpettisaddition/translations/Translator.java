@@ -66,6 +66,6 @@ public class Translator implements Translatable
 	@Override
 	public BaseText tr(String key, Object... args)
 	{
-		return Messenger.tr(this.getPath(key), args);
+		return Messenger.tr(TISAdditionTranslations.TRANSLATION_KEY_PREFIX + this.getPath(key), args);
 	}
 }

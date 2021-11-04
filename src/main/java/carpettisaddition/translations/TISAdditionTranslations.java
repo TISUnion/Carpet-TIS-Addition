@@ -24,11 +24,10 @@ import java.util.Objects;
 public class TISAdditionTranslations
 {
     public static final String DEFAULT_LANGUAGE = "en_us";
+    public static final String TRANSLATION_NAMESPACE = CarpetTISAdditionServer.compactName;  // "carpettisaddition"
+    public static final String TRANSLATION_KEY_PREFIX = TRANSLATION_NAMESPACE + ".";  // "carpettisaddition."
     private static final Map<String, Map<String, String>> translationCache = Maps.newLinkedHashMap();
-    private static final String TRANSLATION_NAMESPACE = CarpetTISAdditionServer.compactName;  // "carpettisaddition"
-    private static final String TRANSLATION_KEY_PREFIX = TRANSLATION_NAMESPACE + ".";  // "carpettisaddition."
 
-    @SuppressWarnings("unchecked")
     @NotNull
     public static Map<String, String> getTranslationFromResourcePath(String lang)
     {
@@ -49,7 +48,7 @@ public class TISAdditionTranslations
             {
                 Map<String, Object> yamlMap = new Yaml().load(dataStr);
                 Map<String, String> translation = Maps.newLinkedHashMap();
-                build(translation, (Map<String, Object>)yamlMap.get(TRANSLATION_NAMESPACE), "");
+                build(translation, yamlMap, "");
                 return translation;
             }
             catch (Exception e)
