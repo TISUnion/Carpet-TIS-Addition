@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.microtiming.message;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
@@ -9,7 +8,8 @@ import carpettisaddition.logging.loggers.microtiming.events.EventSource;
 import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
@@ -19,7 +19,6 @@ import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.dimension.DimensionType;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,8 +27,6 @@ import static java.lang.Integer.min;
 
 public class MicroTimingMessage
 {
-	private static final Translator TRANSLATOR = MicroTimingLoggerManager.TRANSLATOR;
-
 	private static final int MAX_INDENT = 10;
 	private static final int SPACE_PER_INDENT = 2;
 	private static final List<String> INDENTATIONS = Lists.newArrayList();
@@ -46,7 +43,7 @@ public class MicroTimingMessage
 		}
 	}
 
-	private final DimensionType dimensionType;
+	private final DimensionWrapper dimensionType;
 	private final BlockPos pos;
 	private final DyeColor color;
 	private final TickPhase tickPhase;
@@ -56,13 +53,18 @@ public class MicroTimingMessage
 
 	public MicroTimingMessage(MicroTimingLogger logger, MicroTimingContext context)
 	{
-		this.dimensionType = context.getWorld().getDimension().getType();
+		this.dimensionType = DimensionWrapper.of(context.getWorld());
 		this.pos = context.getBlockPos();
 		this.color = context.getColor();
 		this.event = context.getEventSupplier().get();
 		this.blockName = context.getBlockName();
 		this.tickPhase = logger.getTickPhase();
-		this.stackTraceText = StackTracePrinter.create().ignore(MicroTimingLoggerManager.class).deobfuscate().toSymbolText();
+		this.stackTraceText = StackTracePrinter.makeSymbol(MicroTimingLoggerManager.class);
+	}
+
+	private static BaseText tr(String key, Object... args)
+	{
+		return MicroTimingLoggerManager.TRANSLATOR.tr(key, args);
 	}
 
 	public MessageType getMessageType()
@@ -96,20 +98,15 @@ public class MicroTimingMessage
 
 	private BaseText getHashTagText(int indentation)
 	{
-		return TextUtil.getFancyText(
+		return Messenger.fancy(
 				MicroTimingUtil.getColorStyle(this.color),
 				Messenger.s("# "),
-				Messenger.s(
-						String.format("%s: %s\n%s: %s\n%s: %s",
-								TRANSLATOR.tr("Position"),
-								TextUtil.getCoordinateString(this.pos),
-								TRANSLATOR.tr("Color"),
-								this.color,
-								TRANSLATOR.tr("Indentation"),
-								indentation
-						)
+				Messenger.c(
+						tr("common.position"), Messenger.s(": "), Messenger.coord(this.pos), Messenger.newLine(),
+						tr("common.color"), Messenger.s(": "), Messenger.s(this.color.toString()), Messenger.newLine(),
+						tr("common.indentation"), Messenger.s(": "), Messenger.s(String.valueOf(indentation))
 				),
-				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.pos, this.dimensionType))
+				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.pos, this.dimensionType))
 		);
 	}
 
@@ -122,24 +119,25 @@ public class MicroTimingMessage
 	private BaseText getEnclosedTranslatedBlockNameHeaderText()
 	{
 		EventSource eventSource = this.event.getEventSource();
-		String type = "unknown";
+		BaseText type = Messenger.s("unknown");
 		if (eventSource.getSourceObject() instanceof Block)
 		{
-			type = TRANSLATOR.tr("block");
+			type = tr("common.block");
 		}
 		else if (eventSource.getSourceObject() instanceof Fluid)
 		{
-			type = TRANSLATOR.tr("fluid");
+			type = tr("common.fluid");
 		}
 		return Messenger.c(
 				"g [",
-				TextUtil.getFancyText(
+				Messenger.fancy(
 						null,
 						this.blockName != null ? Messenger.s(this.blockName) : eventSource.getName(),
 						Messenger.c(
-								String.format("w %s: ", TRANSLATOR.tr("Event source")),
+								tr("common.event_source"), "w : ",
 								eventSource.getName(),
-								String.format("w  (%s)\n%s: %s", type, TRANSLATOR.tr("ID"), eventSource.getId())
+								"w  (", type, "w )\n",
+								tr("common.id"), String.format("w : %s", eventSource.getId())
 						),
 						null
 				),

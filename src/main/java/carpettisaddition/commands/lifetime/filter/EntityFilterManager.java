@@ -1,11 +1,10 @@
 package carpettisaddition.commands.lifetime.filter;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslatableBase;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
@@ -53,20 +52,20 @@ public class EntityFilterManager extends TranslatableBase
 
 	public void setEntityFilter(ServerCommandSource source, @Nullable EntityType<?> entityType, @Nullable EntitySelector entitySelector)
 	{
-		BaseText typeName = entityType != null ? (BaseText)entityType.getName() : Messenger.s(this.tr("Global"));
+		BaseText typeName = entityType != null ? (BaseText)entityType.getName() : tr("global");
 		if (entitySelector != null)
 		{
 			if (!entitySelector.includesNonPlayers() || ((EntitySelectorAccessor)entitySelector).getPlayerName() != null)
 			{
-				Messenger.m(source, Messenger.s(this.tr("unsupported.0", "Unsupported entity filter")));
-				Messenger.m(source, Messenger.s(this.tr("unsupported.1", "Please enter a @e style entity selector")));
+				Messenger.tell(source, tr("unsupported.0"));
+				Messenger.tell(source, tr("unsupported.1"));
 			}
 			else
 			{
 				EntityFilter entityFilter = new EntityFilter(source, entitySelector);
 				this.entityFilter.put(entityType, entityFilter);
-				Messenger.m(source, this.advTr(
-						"filter_set", "Entity filter of %1$s is set to %2$s",
+				Messenger.tell(source, tr(
+						"filter_set",
 						typeName,
 						entityFilter.toText()
 				));
@@ -75,8 +74,8 @@ public class EntityFilterManager extends TranslatableBase
 		else
 		{
 			this.entityFilter.remove(entityType);
-			Messenger.m(source, this.advTr(
-					"filter_removed", "Entity filter of %1$s removed",
+			Messenger.tell(source, tr(
+					"filter_removed",
 					typeName
 			));
 		}
@@ -85,18 +84,18 @@ public class EntityFilterManager extends TranslatableBase
 	public BaseText getEntityFilterText(@Nullable EntityType<?> entityType)
 	{
 		Predicate<Entity> entityPredicate = this.getFilter(entityType);
-		return entityPredicate instanceof EntityFilter ? ((EntityFilter)entityPredicate).toText() : Messenger.s(this.tr("None"));
+		return entityPredicate instanceof EntityFilter ? ((EntityFilter)entityPredicate).toText() : tr("none");
 	}
 
 	public BaseText getEntityTypeText(@Nullable EntityType<?> entityType)
 	{
-		return entityType != null ? (BaseText)entityType.getName() : Messenger.s(this.tr("global"));
+		return entityType != null ? (BaseText)entityType.getName() : tr("global");
 	}
 
 	public void displayFilter(ServerCommandSource source, @Nullable EntityType<?> entityType)
 	{
-		Messenger.m(source, this.advTr(
-				"display", "Entity filter of %1$s is %2$s",
+		Messenger.tell(source, tr(
+				"display",
 				this.getEntityTypeText(entityType),
 				this.getEntityFilterText(entityType)
 		));
@@ -104,8 +103,8 @@ public class EntityFilterManager extends TranslatableBase
 
 	public int displayAllFilters(ServerCommandSource source)
 	{
-		Messenger.m(source, Messenger.s(String.format(this.tr("display_total", "There are %s activated filters"), this.entityFilter.size())));
-		this.entityFilter.keySet().forEach(entityType -> Messenger.m(
+		Messenger.tell(source, tr("display_total", this.entityFilter.size()));
+		this.entityFilter.keySet().forEach(entityType -> Messenger.tell(
 				source,
 				Messenger.c(
 						"f - ",
@@ -113,14 +112,14 @@ public class EntityFilterManager extends TranslatableBase
 						"g : ",
 						this.getEntityFilterText(entityType),
 						"w  ",
-						TextUtil.getFancyText(
+						Messenger.fancy(
 								null,
 								Messenger.s("[×]", "r"),
-								Messenger.s(this.tr("click_to_clear", "Click to clear filter")),
+								tr("click_to_clear"),
 								new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format(
 										"/%s filter %s clear",
 										LifeTimeTracker.getInstance().getCommandPrefix(),
-										entityType != null ? LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType) : "global"
+										entityType != null ? LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType) : tr("global")
 								))
 						)
 				)

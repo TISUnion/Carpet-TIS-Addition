@@ -33,6 +33,6 @@ public class MobPickupRemovalReason extends RemovalReason
 	@Override
 	public BaseText toText()
 	{
-		return this.advTr("mob_pickup", "Picked up by %1$s", this.pickerType.getName());
+		return tr("mob_pickup", this.pickerType.getName());
 	}
 }

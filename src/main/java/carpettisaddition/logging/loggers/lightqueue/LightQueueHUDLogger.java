@@ -1,10 +1,10 @@
 package carpettisaddition.logging.loggers.lightqueue;
 
 import carpet.logging.HUDLogger;
-import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
@@ -39,7 +39,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 		for (ServerWorld world: minecraftServer.getWorlds())
 		{
 			this.dataMap.put(world, new WindowedDataRecorder());
-			this.nameToWorldMap.put(TextUtil.dimensionToString(world.getDimension().getType()), world);
+			this.nameToWorldMap.put(DimensionWrapper.of(world).getIdentifierString(), world);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 
 		BaseText header = Messenger.c(
 				"g LQ(",
-				TextUtil.getColoredDimensionSymbol(serverWorld.getDimension().getType()),
+				Messenger.getColoredDimensionSymbol(DimensionWrapper.of(serverWorld)),
 				"g ) "
 		);
 		return new BaseText[]{

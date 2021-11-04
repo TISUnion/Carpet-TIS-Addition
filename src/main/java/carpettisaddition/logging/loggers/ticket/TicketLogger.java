@@ -2,18 +2,17 @@ package carpettisaddition.logging.loggers.ticket;
 
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
-import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 
 import java.util.Arrays;
@@ -77,28 +76,29 @@ public class TicketLogger extends AbstractLogger
 			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicket.getType().toString()))
 			{
 				ChunkPos pos = new ChunkPos(position);
-				BlockPos centerPos = pos.toBlockPos(8, 0, 8);
 				long expiryTicks = chunkTicket.getType().getExpiryTicks();
 				int level = chunkTicket.getLevel();
-				String dimensionName = world.dimension.getType().toString();
 				return new BaseText[]{Messenger.c(
-						String.format("g [%s] ", world.getTime()),
-						String.format(String.format("^w %s", tr("time_detail", "World: %s\nGameTime: %d")), dimensionName, world.getTime()),
-						String.format("w %s", tr("Ticket ")),
-						String.format("d %s", chunkTicket.getType()),
-						String.format(String.format("^w %s", tr("ticket_detail", "Level = %d\nDuration = %s\nEntity processing chunks: %s\nLazy processing chunks: %s\nBorder chunks: %s")),
-								chunkTicket.getLevel(), expiryTicks > 0 ? expiryTicks + " gt" : tr("Permanent"),
-								formatSize(32 - level), formatSize(33 - level), formatSize(34 - level)
+						Messenger.fancy(
+								Messenger.s(String.format("[%s] ", world.getTime()), "g"),
+								tr("time_detail", DimensionWrapper.of(world).getIdentifierString(), world.getTime()),
+								null
 						),
-						TextUtil.getSpaceText(),
-						actionType.getText(this.getTranslator()),
-						TextUtil.getSpaceText(),
-						String.format("g %s", tr("at")),
-						String.format("w  [%d, %d]", pos.x, pos.z),
-						String.format(String.format("^w %s", tr("teleport_hint", "Click to teleport to chunk [%d, %d]")), pos.x, pos.z),
-						String.format("?/execute in %s run tp %d ~ %d", dimensionName, centerPos.getX(), centerPos.getZ()),
+						tr("message",
+								Messenger.fancy(
+										Messenger.s(chunkTicket.getType().toString(), "d"),
+										tr(
+												"ticket_detail",
+												chunkTicket.getLevel(), expiryTicks > 0 ? Messenger.s(expiryTicks + " gt") : tr("permanent"),
+												formatSize(32 - level), formatSize(33 - level), formatSize(34 - level)
+										),
+										null
+								),
+								actionType.getText(this.getTranslator()),
+								Messenger.coord(pos, DimensionWrapper.of(world))
+						),
 						"w  ",
-						StackTracePrinter.create().ignore(TicketLogger.class).deobfuscate().toSymbolText()
+						StackTracePrinter.makeSymbol(this.getClass())
 				)};
 			}
 			else
@@ -140,7 +140,7 @@ public class TicketLogger extends AbstractLogger
 
 		private BaseText getText(Translator translator)
 		{
-			return Messenger.s(translator.tr(this.translation), this.color);
+			return Messenger.formatting(translator.tr(this.translation), this.color);
 		}
 	}
 }

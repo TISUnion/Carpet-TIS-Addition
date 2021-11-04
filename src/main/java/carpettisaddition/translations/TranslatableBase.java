@@ -22,26 +22,8 @@ public class TranslatableBase implements Translatable
 	}
 
 	@Override
-	public String tr(String key, String text, boolean autoFormat)
+	public BaseText tr(String key, Object ...args)
 	{
-		return this.translator.tr(key, text, autoFormat);
-	}
-
-	@Override
-	public String tr(String key, String text)
-	{
-		return this.translator.tr(key, text);
-	}
-
-	@Override
-	public String tr(String key)
-	{
-		return this.translator.tr(key);
-	}
-
-	@Override
-	public BaseText advTr(String key, String defaultKeyText, Object ...args)
-	{
-		return this.translator.advTr(key, defaultKeyText, args);
+		return this.translator.tr(key, args);
 	}
 }

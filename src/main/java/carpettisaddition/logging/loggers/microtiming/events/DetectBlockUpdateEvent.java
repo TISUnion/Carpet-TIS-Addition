@@ -1,10 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -16,11 +14,11 @@ import java.util.function.Supplier;
 public class DetectBlockUpdateEvent extends BaseEvent
 {
 	private final BlockUpdateType updateType;
-	private final Supplier<String> updateTypeExtraMessage;
-	private String updateTypeExtraMessageCache;
+	private final Supplier<BaseText> updateTypeExtraMessage;
+	private BaseText updateTypeExtraMessageCache;
 	private final Block fromBlock;
 
-	public DetectBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, Supplier<String> updateTypeExtraMessage)
+	public DetectBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, Supplier<BaseText> updateTypeExtraMessage)
 	{
 		super(eventType, "detect_block_update", fromBlock);
 		this.fromBlock = fromBlock;
@@ -29,7 +27,7 @@ public class DetectBlockUpdateEvent extends BaseEvent
 		this.updateTypeExtraMessageCache = null;
 	}
 
-	private String getUpdateTypeExtraMessage()
+	private BaseText getUpdateTypeExtraMessage()
 	{
 		if (this.updateTypeExtraMessageCache == null)
 		{
@@ -42,21 +40,20 @@ public class DetectBlockUpdateEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(COLOR_ACTION + MicroTimingLoggerManager.tr("Emit"));
-		list.add(TextUtil.getSpaceText());
-		list.add(COLOR_TARGET + this.updateType);
-		list.add("^w " + this.getUpdateTypeExtraMessage());
-		list.add(TextUtil.getSpaceText());
+		list.add(Messenger.formatting(tr("emit"), COLOR_ACTION));
+		list.add(Messenger.getSpaceText());
+		list.add(Messenger.fancy(Messenger.formatting(this.updateType.toText(), COLOR_TARGET), this.getUpdateTypeExtraMessage(), null));
+		list.add(Messenger.getSpaceText());
 		switch (this.getEventType())
 		{
 			case ACTION_START:
-				list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("started"));
+				list.add(Messenger.formatting(tr("started"), COLOR_RESULT));
 				break;
 			case ACTION_END:
-				list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("ended"));
+				list.add(Messenger.formatting(tr("ended"), COLOR_RESULT));
 				break;
 			default:
-				list.add(COLOR_RESULT + this.tr("detected"));
+				list.add(Messenger.formatting(tr("detected"), COLOR_RESULT));
 				break;
 		}
 		return Messenger.c(list.toArray(new Object[0]));

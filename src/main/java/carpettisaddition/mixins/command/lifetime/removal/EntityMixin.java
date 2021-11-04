@@ -5,6 +5,7 @@ import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.DeathRemovalReason;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import carpettisaddition.commands.lifetime.removal.TransDimensionRemovalReason;
+import carpettisaddition.utils.DimensionWrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.dimension.DimensionType;
@@ -49,7 +50,7 @@ public abstract class EntityMixin
 	)
 	private void onEntityTransDimensionRemovedLifeTimeTracker(DimensionType newDimension, CallbackInfoReturnable<Entity> cir)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(new TransDimensionRemovalReason(newDimension));
+		((LifetimeTrackerTarget)this).recordRemoval(new TransDimensionRemovalReason(DimensionWrapper.of(newDimension)));
 	}
 
 	@Inject(method = "destroy", at = @At("HEAD"))

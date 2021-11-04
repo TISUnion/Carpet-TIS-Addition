@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 {
-	protected static final String COLOR_ACTION = "c ";
-	protected static final String COLOR_TARGET = "c ";
-	protected static final String COLOR_RESULT = "q ";
+	protected static final String COLOR_ACTION = "c";
+	protected static final String COLOR_TARGET = "c";
+	protected static final String COLOR_RESULT = "q";
 
 	private final EventSource eventSource;
 	private EventType eventType;
@@ -28,7 +28,7 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 		this(eventType, translateKey, new EventSource.Block(eventSourceBlock));
 	}
 
-	// if it's not important, it can be ignore if it's on a leaf node
+	// if it's not important, it can be ignored if it's on a leaf node
 	public boolean isImportant()
 	{
 		return true;

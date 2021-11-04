@@ -1,9 +1,7 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -31,7 +29,7 @@ public class EmitBlockUpdateEvent extends BaseEvent
 
 	protected BaseText getUpdatesTextHoverText()
 	{
-		return Messenger.s(String.format("%s: %s", this.tr("method_name", "Method name (yarn)"), this.methodName));
+		return Messenger.c(tr("method_name"), String.format("w : %s", this.methodName));
 	}
 
 	@Override
@@ -39,24 +37,24 @@ public class EmitBlockUpdateEvent extends BaseEvent
 	{
 		List<Object> list = Lists.newArrayList();
 		BaseText updatesText = Messenger.c(
-				COLOR_ACTION + this.tr("Emit"),
-				TextUtil.getSpaceText(),
-				COLOR_TARGET + this.tr("Updates")
+				Messenger.formatting(tr("emit"), COLOR_ACTION),
+				Messenger.getSpaceText(),
+				Messenger.formatting(tr("updates"), COLOR_TARGET)
 		);
 		if (this.methodName != null)
 		{
-			TextUtil.attachHoverText(updatesText, this.getUpdatesTextHoverText());
+			Messenger.hover(updatesText, this.getUpdatesTextHoverText());
 		}
 		list.add(updatesText);
 		switch (this.getEventType())
 		{
 			case ACTION_START:
-				list.add(TextUtil.getSpaceText());
-				list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("started"));
+				list.add(Messenger.getSpaceText());
+				list.add(Messenger.formatting(tr("started"), COLOR_RESULT));
 				break;
 			case ACTION_END:
-				list.add(TextUtil.getSpaceText());
-				list.add(COLOR_RESULT + MicroTimingLoggerManager.tr("ended"));
+				list.add(Messenger.getSpaceText());
+				list.add(Messenger.formatting(tr("ended"), COLOR_RESULT));
 				break;
 			default:
 				break;

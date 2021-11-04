@@ -18,9 +18,9 @@ import java.util.Map;
 
 public class StackTraceDeobfuscator
 {
-	private static String MAPPING_VERSION = "no mapping";
-	private static Map<String, String> MAPPING = Maps.newHashMap();
-	private static boolean fetchedMapping = false;
+	static Map<String, String> MAPPING = Maps.newHashMap();
+	static boolean fetchedMapping = false;
+	static String MAPPING_VERSION = "no mapping";
 	static final Translator translator = new Translator("util", "stack_trace");
 
 	public static synchronized void fetchMapping()
@@ -75,13 +75,7 @@ public class StackTraceDeobfuscator
 				list.clear();
 			}
 		}
-		list.add(0, new StackTraceElement(translator.tr("Deobfuscated stack trace"), "", MAPPING_VERSION, -1));
 		return list.toArray(new StackTraceElement[0]);
-	}
-
-	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements)
-	{
-		return deobfuscateStackTrace(stackTraceElements, null);
 	}
 
 	private static String getFileName(String className)

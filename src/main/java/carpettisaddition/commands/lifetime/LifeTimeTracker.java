@@ -1,18 +1,18 @@
 package carpettisaddition.commands.lifetime;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.AbstractTracker;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.world.World;
 
@@ -109,7 +109,7 @@ public class LifeTimeTracker extends AbstractTracker
 					sum();
 			if (count == 0)
 			{
-				Messenger.m(source, Messenger.s(this.tr("no_result", "No result yet")));
+				Messenger.tell(source, tr("no_result"));
 			}
 		}
 		catch (Exception e)
@@ -120,7 +120,7 @@ public class LifeTimeTracker extends AbstractTracker
 
 	public void sendUnknownEntity(ServerCommandSource source, String entityTypeString)
 	{
-		Messenger.m(source, Messenger.s(String.format(this.tr("unknown_entity_type", "Unknown entity type \"%s\""), entityTypeString), "r"));
+		Messenger.tell(source, Messenger.formatting(tr("unknown_entity_type", entityTypeString), "r"));
 	}
 
 	private void printTrackingResultSpecificInner(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
@@ -137,24 +137,21 @@ public class LifeTimeTracker extends AbstractTracker
 				}
 				catch (IllegalArgumentException e)
 				{
-					Messenger.m(source, Messenger.s(String.format(this.tr("invalid_detail", "Invalid statistic detail \"%s\""), detailModeString), "r"));
+					Messenger.tell(source, Messenger.formatting(tr("invalid_detail", detailModeString), "r"));
 					return;
 				}
 			}
 
 			long ticks = this.sendTrackedTime(source, realtime);
 			EntityType<?> entityType = entityTypeOptional.get();
-			source.sendFeedback(
-					this.advTr("specific_result", "Life time result for %1$s", entityType.getName()),
-					false
-			);
+			Messenger.tell(source, tr("specific_result", entityType.getName()));
 			SpecificDetailMode finalDetailMode = detailMode;
 			int count = this.trackers.values().stream().
 					mapToInt(tracker -> tracker.print(source, ticks, entityType, finalDetailMode)).
 					sum();
 			if (count == 0)
 			{
-				Messenger.m(source, Messenger.s(this.tr("no_result", "No result yet")));
+				Messenger.tell(source, tr("no_result"));
 			}
 		}
 		else
@@ -171,19 +168,21 @@ public class LifeTimeTracker extends AbstractTracker
 
 	protected int showHelp(ServerCommandSource source)
 	{
-		String docLink = this.tr("help.doc_link", "https://github.com/TISUnion/Carpet-TIS-Addition#lifetime");
-		source.sendFeedback(Messenger.c(
-				String.format("wb %s\n", this.getTranslatedNameFull()),
-				String.format("w %s\n", this.tr("help.doc_summary", "A tracker to track lifetime and spawn / removal reasons from all newly spawned and removed entities")),
-				String.format("w %s", this.tr("help.complete_doc_hint", "Complete doc")),
-				TextUtil.getSpaceText(),
-				TextUtil.getFancyText(
-						null,
-						Messenger.s(this.tr("help.here", "here"), "ut"),
-						Messenger.s(docLink, "t"),
-						new ClickEvent(ClickEvent.Action.OPEN_URL, docLink)
+		BaseText docLink = Messenger.formatting(tr("help.doc_link"), "t");
+		Messenger.tell(source, Messenger.join(
+				Messenger.s("\n"),
+				Messenger.formatting(this.getTranslatedNameFull(), "wb"),
+				tr("help.doc_summary"),
+				tr(
+						"help.complete_doc_hint",
+						Messenger.fancy(
+								null,
+								Messenger.formatting(tr("help.here"), "ut"),
+								docLink,
+								new ClickEvent(ClickEvent.Action.OPEN_URL, docLink.getString())
+						)
 				)
-		), false);
+		));
 		return 1;
 	}
 }

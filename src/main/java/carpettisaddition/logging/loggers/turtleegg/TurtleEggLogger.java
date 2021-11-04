@@ -1,10 +1,10 @@
 package carpettisaddition.logging.loggers.turtleegg;
 
 import carpet.logging.LoggerRegistry;
-import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
@@ -41,11 +41,11 @@ public class TurtleEggLogger extends AbstractLogger
 		LoggerRegistry.getLogger(NAME).log(() -> {
 			// [O] xxx breaks egg @ {}
 			return new BaseText[]{Messenger.c(
-					entity != null ? TextUtil.getEntityText(null, entity) : Messenger.s("?"),
+					entity != null ? Messenger.entity(null, entity) : Messenger.s("?"),
 					"r  x ",
-					TextUtil.getBlockName(state.getBlock()),
+					Messenger.block(state.getBlock()),
 					"g  @ ",
-					TextUtil.getCoordinateText(null, pos, world.getDimension().getType())
+					Messenger.coord(null, pos, DimensionWrapper.of(world))
 			)};
 		});
 	}

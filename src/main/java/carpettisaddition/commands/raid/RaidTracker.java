@@ -1,9 +1,9 @@
 package carpettisaddition.commands.raid;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.AbstractTracker;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
 import carpettisaddition.utils.CounterUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityType;
@@ -78,20 +78,20 @@ public class RaidTracker extends AbstractTracker
 		int raiderCountSum = this.raiderCounter.values().stream().mapToInt(Integer::intValue).sum();
 		int invalidateCounterSum = this.raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
 
-		result.add(Messenger.c(String.format("w %s: %s", tr("Raid generated"), CounterUtil.ratePerHour(this.raidGeneratedCount, ticks))));
-		result.add(Messenger.c(String.format("w %s: %s", RaidCommand.getInstance().tr("Raiders"), CounterUtil.ratePerHour(raiderCountSum, ticks))));
+		result.add(Messenger.c(tr("raid_generated"), "w : ", Messenger.s(CounterUtil.ratePerHour(this.raidGeneratedCount, ticks))));
+		result.add(Messenger.c(RaidCommand.getInstance().tr("Raiders"), "w : ", Messenger.s(CounterUtil.ratePerHour(raiderCountSum, ticks))));
 		this.raiderCounter.forEach((raiderType, count) -> result.add(Messenger.c(
 				"g - ",
 				raiderType.getName(),
 				String.format("w : %s, %.1f%%", CounterUtil.ratePerHour(count, ticks), (double) count / raiderCountSum * 100))
 		));
 
-		result.add(Messenger.c(String.format("w %s: ", tr("Reasons for invalidation")), String.format("w %s", this.raidInvalidateCounter.isEmpty() ? tr("None") : "")));
+		result.add(Messenger.c(tr("invalidate_reasons_statistics"), "w : ", this.raidInvalidateCounter.isEmpty() ? tr("None") : Messenger.s("")));
 		this.raidInvalidateCounter.forEach((reason, count) -> result.add(Messenger.c(
 				"g - ",
 				String.format("w %s", reason.tr()),
 				String.format("w : %s, %.1f%%", CounterUtil.ratePerHour(count, ticks), (double)count / invalidateCounterSum * 100))
 		));
-		Messenger.send(source, result);
+		Messenger.tell(source, result);
 	}
 }

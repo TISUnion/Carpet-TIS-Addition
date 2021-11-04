@@ -1,10 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpet.utils.Messenger;
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
 import net.minecraft.world.TickPriority;
@@ -30,10 +28,16 @@ public class ScheduleTileTickEvent extends BaseEvent
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(COLOR_ACTION + this.tr("Scheduled"));
-		list.add(TextUtil.getSpaceText());
-		list.add(COLOR_TARGET + this.tr("TileTick Event"));
-		list.add(String.format("^w %s: %dgt\n%s: %d (%s)", MicroTimingLoggerManager.tr("Delay"), delay, MicroTimingLoggerManager.tr("Priority"), priority.getIndex(), priority));
+		list.add(Messenger.formatting(tr("scheduled"), COLOR_ACTION));
+		list.add(Messenger.getSpaceText());
+		list.add(Messenger.fancy(
+				Messenger.formatting(tr("tiletick_event"), COLOR_TARGET),
+				Messenger.c(
+						tr("delay"), String.format("w : %dgt\n", this.delay),
+						tr("priority"), String.format("w : %d (%s)", this.priority.getIndex(), this.priority)
+				),
+				null
+		));
 		if (this.success != null)
 		{
 			list.add("w  ");

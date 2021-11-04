@@ -48,6 +48,11 @@ public class MicroTimingLoggerManager
 	private final Map<ServerWorld, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
 	public static final Translator TRANSLATOR = (new AbstractLogger(MicroTimingLogger.NAME){}).getTranslator();
 
+	public static BaseText tr(String key, Object... args)
+	{
+		return TRANSLATOR.tr(key, args);
+	}
+
 	public MicroTimingLoggerManager(MinecraftServer minecraftServer)
 	{
 		for (ServerWorld world : minecraftServer.getWorlds())
@@ -83,21 +88,6 @@ public class MicroTimingLoggerManager
 			return Optional.of(((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger());
 		}
 		return Optional.empty();
-	}
-
-	public static String tr(String key, String text, boolean autoFormat)
-	{
-		return TRANSLATOR.tr(key, text, autoFormat);
-	}
-
-	public static String tr(String key, String text)
-	{
-		return TRANSLATOR.tr(key, text);
-	}
-
-	public static String tr(String key)
-	{
-		return TRANSLATOR.tr(key);
 	}
 
 	/*

@@ -2,10 +2,10 @@ package carpettisaddition.logging.loggers.entity;
 
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
-import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.base.Joiner;
 import net.minecraft.entity.Entity;
@@ -45,7 +45,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	protected BaseText getNameText(T entity)
 	{
-		return TextUtil.getTranslatedName(entity.getType().getTranslationKey());
+		return Messenger.tr(entity.getType().getTranslationKey());
 	}
 
 	protected BaseText getNameTextHoverText(T entity)
@@ -61,7 +61,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		BaseText hoverText = getNameTextHoverText(entity);
 		if (hoverText != null)
 		{
-			TextUtil.attachHoverText(text, hoverText);
+			Messenger.hover(text, hoverText);
 		}
 		return text;
 	}
@@ -84,12 +84,11 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	{
 		this.onLoggingEvent(entity, LoggingType.CREATE, () -> new BaseText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
-				getNameTextRich(entity),
-				String.format("r %s", translator.tr(" created")),
+				translator.tr("created", getNameTextRich(entity)),
 				"g  @ ",
-				TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType()),
+				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity)),
 				"w  ",
-				StackTracePrinter.create().ignore(this.getClass()).deobfuscate().toSymbolText()
+				StackTracePrinter.makeSymbol(this.getClass())
 		)});
 	}
 
@@ -97,10 +96,10 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	{
 		this.onLoggingEvent(entity, LoggingType.DESPAWN, () -> new BaseText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
+				translator.tr("despawned", getNameTextRich(entity)),
 				getNameTextRich(entity),
-				String.format("r %s", translator.tr(" despawned")),
 				"g  @ ",
-				TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType())
+				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity))
 		)});
 	}
 
@@ -108,17 +107,20 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	{
 		this.onLoggingEvent(entity, LoggingType.DIE, () -> new BaseText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
-				TextUtil.getFancyText(
+				Messenger.fancy(
 						null,
-						TextUtil.getTranslatedName(
+						Messenger.tr(
 								"death.attack." + source.name,
-								TextUtil.attachFormatting(getNameTextRich(entity), Formatting.WHITE)
+								Messenger.formatting(getNameTextRich(entity), Formatting.WHITE)
 						),
-						Messenger.s(String.format("%s: %.1f", translator.tr("damage_amount", "Damage amount"), amount)),
+						Messenger.c(
+								translator.tr("damage_amount", "Damage amount"),
+								String.format("w : %.1f", amount)
+						),
 						null
 				),
 				"g  @ ",
-				TextUtil.getCoordinateText("w", entity.getPos(), entity.world.getDimension().getType())
+				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity))
 		)});
 	}
 

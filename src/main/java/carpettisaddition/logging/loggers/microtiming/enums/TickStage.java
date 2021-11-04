@@ -1,6 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.enums;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.translations.Translator;
+import net.minecraft.text.BaseText;
 
 public enum TickStage
 {
@@ -24,27 +26,23 @@ public enum TickStage
 	CONSOLE("Console", false),
 	SCARPET("Scarpet", false);
 
-	private final String name;
+	private static final Translator translator = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("stage");
+	private final String translationKey;
 	private final boolean insideWorld;
 
 	TickStage(String name, boolean insideWorld)
 	{
-		this.name = name;
+		this.translationKey = name;
 		this.insideWorld = insideWorld;
 	}
 
-	public String getName()
+	public BaseText getName()
 	{
-		return name;
-	}
-
-	public String tr()
-	{
-		return MicroTimingLoggerManager.tr("stage." + this.name, this.name);
+		return translator.tr(this.translationKey);
 	}
 
 	public boolean isInsideWorld()
 	{
-		return insideWorld;
+		return this.insideWorld;
 	}
 }

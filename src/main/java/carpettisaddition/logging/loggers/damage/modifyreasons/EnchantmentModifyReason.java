@@ -1,7 +1,6 @@
 package carpettisaddition.logging.loggers.damage.modifyreasons;
 
-import carpet.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.text.BaseText;
 
 public class EnchantmentModifyReason extends ModifyReason
@@ -17,10 +16,6 @@ public class EnchantmentModifyReason extends ModifyReason
 	@Override
 	public BaseText toText()
 	{
-		return Messenger.c(
-				super.toText(),
-				TextUtil.getSpaceText(),
-				String.format("w (EPF=%d)", this.point)
-		);
+		return Messenger.c(super.toText(), String.format("w  (EPF=%d)", this.point));
 	}
 }

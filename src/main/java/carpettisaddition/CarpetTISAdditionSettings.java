@@ -3,13 +3,13 @@ package carpettisaddition;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
-import carpet.utils.Messenger;
 import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
@@ -193,15 +193,15 @@ public class CarpetTISAdditionSettings
 		{
 			if (!newValue.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue) && source != null)
 			{
-				Consumer<BaseText> messenger = msg -> source.sendFeedback(Messenger.s(msg.getString(), "r"), false);
-				messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.found", "Unexpected character found in value \"%1$s\" when applying rule %2$s", newValue, currentRule.name));
+				Consumer<BaseText> messenger = msg -> Messenger.tell(source, Messenger.s(msg.getString(), "r"));
+				messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.found", newValue, currentRule.name));
 				if (!Objects.equals(this.lastDangerousInput.get(currentRule), newValue))
 				{
-					messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.blocked", "Re-enter the command again if you do want to use this value"));
+					messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.blocked"));
 					this.lastDangerousInput.put(currentRule, newValue);
 					return null;
 				}
-				messenger.accept(translator.advTr("_validator.ValidateFakePlayerNameExtra.warn.applied", "Accepted anyway cuz you insisted"));
+				messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.applied"));
 			}
 			this.lastDangerousInput.remove(currentRule);
 			return newValue;
@@ -429,7 +429,7 @@ public class CarpetTISAdditionSettings
 				MicroTimingMarkerManager.getInstance().clear();
 				if (source != null)
 				{
-					Messenger.m(source, "w " + MicroTimingMarkerManager.getInstance().tr("cleared", "Marker cleared"));
+					Messenger.tell(source, MicroTimingMarkerManager.getInstance().tr("cleared"));
 				}
 				return currentRule.get();
 			}

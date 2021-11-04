@@ -1,8 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -40,19 +40,20 @@ public class EmitBlockUpdateRedstoneDustEvent extends EmitBlockUpdateEvent
 				Vec3i vec = target.subtract(this.pos);
 				Direction direction = Direction.fromVector(vec.getX(), vec.getY(), vec.getZ());
 				list.add(String.format("w %d. ", i + 1));
-				list.add(Messenger.tp("w", target));
-				String extra = null;
+				list.add(Messenger.coord("w", target));
+				BaseText extra = null;
 				if (direction != null)
 				{
-					extra = MicroTimingUtil.getFormattedDirectionString(direction);
+					extra = MicroTimingUtil.getFormattedDirectionText(direction);
 				}
 				if (target.equals(this.pos))
 				{
-					extra = this.tr("self");
+					extra = tr("self");
 				}
 				if (extra != null)
 				{
-					list.add("w  " + extra);
+					list.add("w  ");
+					list.add(extra);
 				}
 			}
 			hover.append(Messenger.c(list.toArray(new Object[0])));

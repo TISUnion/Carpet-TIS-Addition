@@ -13,6 +13,6 @@ public class MobThrowSpawningReason extends MobRelatedSpawningReason
 	@Override
 	public BaseText toText()
 	{
-		return this.advTr("mob_throw", "Thrown by %1$s", this.providerType.getName());
+		return tr("mob_throw", this.providerType.getName());
 	}
 }

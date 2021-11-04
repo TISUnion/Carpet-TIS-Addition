@@ -3,12 +3,16 @@ package carpettisaddition.logging.loggers.microtiming.enums;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.mixins.logger.microtiming.BlockAccessor;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public enum BlockUpdateType
 {
@@ -17,6 +21,7 @@ public enum BlockUpdateType
 	STATE_UPDATE("StateUpdates", new String[]{"Post Placement", "Update Shape"}, Constants.STATE_UPDATE_ORDER),
 	COMPARATOR_UPDATE("ComparatorUpdates", new String[]{"Block update only to comparators"}, Constants.COMPARATOR_UPDATE_ORDER);
 
+	private static final Translator translator = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("block_update_type");
 	private final String name;
 	private final String[] aka;
 	private final Direction[] updateOrder;
@@ -28,41 +33,34 @@ public enum BlockUpdateType
 		this.updateOrder = updateOrder;
 	}
 
-	private String tr(String text)
+	public BaseText toText()
 	{
-		return MicroTimingLoggerManager.tr("block_update_type." + text, text, true);
+		return translator.tr(this.name.toLowerCase().replace(' ', '_'));
 	}
 
-	@Override
-	public String toString()
-	{
-		return this.tr(this.name);
-	}
-
-	public String getUpdateOrderList(Direction skipSide)
+	public BaseText getUpdateOrderList(Direction skipSide)
 	{
 		int counter = 0;
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(tr("aka"));
-		stringBuilder.append(TextUtil.getSpace());
-		stringBuilder.append(Joiner.on(", ").join(this.aka));
-		stringBuilder.append('\n');
+		List<Object> builder = Lists.newArrayList();
+		builder.add(translator.tr("aka", Joiner.on(", ").join(this.aka)));
+		builder.add(Messenger.newLine());
 		for (Direction direction : this.updateOrder)
 		{
 			if (skipSide != direction)
 			{
 				if (counter > 0)
 				{
-					stringBuilder.append('\n');
+					builder.add(Messenger.newLine());
 				}
-				stringBuilder.append(String.format("%d. %s", (++counter), MicroTimingUtil.getFormattedDirectionString(direction)));
+				builder.add(Messenger.s(String.format("%d. ", ++counter)));
+				builder.add(MicroTimingUtil.getFormattedDirectionText(direction));
 			}
 		}
 		if (skipSide != null)
 		{
-			stringBuilder.append(String.format("\n%s: %s", tr("Except"), skipSide));
+			builder.add(Messenger.s(String.format("\n%s: %s", translator.tr("except"), skipSide)));
 		}
-		return stringBuilder.toString();
+		return Messenger.c(builder.toArray(new Object[0]));
 	}
 
 	@SuppressWarnings("deprecation")
