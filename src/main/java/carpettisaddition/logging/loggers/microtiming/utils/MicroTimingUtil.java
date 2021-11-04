@@ -9,6 +9,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerType;
+import carpettisaddition.mixins.logger.microtiming.tickstages.ServerWorldAccessor;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.ImmutableMap;

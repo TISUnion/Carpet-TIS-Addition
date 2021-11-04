@@ -98,7 +98,7 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 				result.add(Messenger.c(
 						"w     ",
 						Messenger.block(be.block()),
-						String.format("w : id = %d, param = %d", be.getType(), be.getData()))
+						String.format("w : id = %d, param = %d", be.type(), be.data()))
 				);
 			}
 		}
