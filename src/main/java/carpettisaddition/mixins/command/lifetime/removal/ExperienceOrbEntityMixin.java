@@ -57,7 +57,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 	{
 		int amountBackup = ((ExperienceOrbEntityAccessor)other).getAmountCTA();
 		((ExperienceOrbEntityAccessor)other).setAmountCTA(0);
-		((IEntity)other).recordRemoval(LiteralRemovalReason.MERGE);
+		((LifetimeTrackerTarget)other).recordRemoval(LiteralRemovalReason.MERGE);
 		((ExperienceOrbEntityAccessor)other).setAmountCTA(amountBackup);
 	}
 }

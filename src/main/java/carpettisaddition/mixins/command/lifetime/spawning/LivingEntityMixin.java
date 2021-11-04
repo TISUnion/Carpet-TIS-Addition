@@ -38,6 +38,6 @@ public abstract class LivingEntityMixin extends Entity
 	@Inject(method = "dropXp", at = @At("HEAD"))
 	private void onMobDroppedXpLifeTimeTrackerPre(CallbackInfo ci)
 	{
-		ExperienceOrbEntityUtil.spawningReason = new MobDropSpawningReason(this.getType());
+		ExperienceOrbEntityUtil.spawningReason.set(new MobDropSpawningReason(this.getType()));
 	}
 }
