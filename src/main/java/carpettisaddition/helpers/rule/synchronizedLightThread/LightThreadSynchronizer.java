@@ -1,10 +1,10 @@
 package carpettisaddition.helpers.rule.synchronizedLightThread;
 
 import carpet.utils.CarpetProfiler;
-import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.rule.synchronizedLightThread.ServerLightingProviderAccessor;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -59,12 +59,12 @@ public class LightThreadSynchronizer
 		if (source != null)
 		{
 			List<BaseText> list = Lists.newArrayList();
-			list.add(Messenger.s(translator.tr("safety_warning.0", "Dangerous combination between rule synchronizedLightThread and rule lightUpdates detected"), "r"));
-			list.add(Messenger.s(translator.tr("safety_warning.1", "Rule modification has been cancelled to prevent infinite waiting in lighting synchronization"), "r"));
-			list.add(Messenger.s(translator.tr("safety_warning.2", "Related rule values to be set:"), "r"));
+			list.add(Messenger.formatting(translator.tr("safety_warning.0"), "r"));
+			list.add(Messenger.formatting(translator.tr("safety_warning.1"), "r"));
+			list.add(Messenger.formatting(translator.tr("safety_warning.2"), "r"));
 			list.add(Messenger.s("  - synchronizedLightThread: " + synchronizedLightThread, "r"));
 			list.add(Messenger.s("  - lightUpdates: " + lightUpdates.toString().toLowerCase(), "r"));
-			Messenger.send(source, list);
+			Messenger.tell(source, list);
 		}
 		return false;
 	}

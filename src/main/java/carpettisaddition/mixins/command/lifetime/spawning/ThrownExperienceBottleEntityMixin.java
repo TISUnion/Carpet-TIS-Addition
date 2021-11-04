@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.thrown.ThrownExperienceBottleEntity;
@@ -21,7 +21,7 @@ public class ThrownExperienceBottleEntityMixin
 	)
 	private Entity onXPBottleDroppedXpLifeTimeTracker(Entity entity)
 	{
-		((IEntity)entity).recordSpawning(LiteralSpawningReason.ITEM);
+		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.ITEM);
 		return entity;
 	}
 }

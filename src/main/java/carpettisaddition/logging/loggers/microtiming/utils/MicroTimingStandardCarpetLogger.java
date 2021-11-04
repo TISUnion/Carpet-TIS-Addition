@@ -1,13 +1,14 @@
 package carpettisaddition.logging.loggers.microtiming.utils;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.compat.ExtensionLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.ClickEvent;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -46,11 +47,14 @@ public class MicroTimingStandardCarpetLogger extends ExtensionLogger
 			if (!MicroTimingLoggerManager.isLoggerActivated())
 			{
 				String command = "/carpet microTiming true";
-				Messenger.m(player, Messenger.c(
-						"w " + String.format(translator.tr("rule_hint", "Use command %s to start logging"), command),
-						"?" + command,
-						"^w " + translator.tr("Click to execute")
-				));
+				Messenger.tell(
+						player,
+						Messenger.fancy(
+								translator.tr("rule_hint", command),
+								translator.tr("click_to_execute"),
+								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command)
+						)
+				);
 			}
 			MicroTimingMarkerManager.getInstance().sendAllMarkersForPlayer(player);
 		}

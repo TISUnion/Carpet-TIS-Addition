@@ -13,6 +13,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
 import carpettisaddition.translations.TISAdditionTranslations;
+import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -106,7 +107,15 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public Map<String, String> canHasTranslations(String lang)
     {
-        return TISAdditionTranslations.getTranslationFromResourcePath(lang);
+        Map<String, String> trimmedTranslation = Maps.newHashMap();
+        String prefix = TISAdditionTranslations.TRANSLATION_KEY_PREFIX + "carpet_extension.";
+        TISAdditionTranslations.getTranslationFromResourcePath(lang).forEach((key, value) -> {
+            if (key.startsWith(prefix))
+            {
+                trimmedTranslation.put(key.substring(prefix.length()), value);
+            }
+        });
+        return trimmedTranslation;
     }
     */
 }

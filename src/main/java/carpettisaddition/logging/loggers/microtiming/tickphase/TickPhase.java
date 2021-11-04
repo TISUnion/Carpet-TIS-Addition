@@ -1,21 +1,18 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase;
 
-import carpet.utils.Messenger;
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.AbstractSubStage;
-import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
-import net.minecraft.world.dimension.DimensionType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
 
-import static carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager.TRANSLATOR;
-
-public class TickPhase implements ToTextAble
+public class TickPhase
 {
 	public final TickStage mainStage;
 	@Nullable
@@ -23,9 +20,9 @@ public class TickPhase implements ToTextAble
 	@Nullable
 	public final AbstractSubStage subStage;
 	@Nullable
-	public final DimensionType dimensionType;
+	public final DimensionWrapper dimensionType;
 
-	private TickPhase(TickStage mainStage, @Nullable String stageDetail, @Nullable AbstractSubStage subStage, @Nullable DimensionType dimensionType)
+	private TickPhase(TickStage mainStage, @Nullable String stageDetail, @Nullable AbstractSubStage subStage, @Nullable DimensionWrapper dimensionType)
 	{
 		this.mainStage = mainStage;
 		this.stageDetail = stageDetail;
@@ -33,7 +30,7 @@ public class TickPhase implements ToTextAble
 		this.dimensionType = dimensionType;
 	}
 
-	public TickPhase(TickStage mainStage, @Nullable DimensionType dimensionType)
+	public TickPhase(TickStage mainStage, @Nullable DimensionWrapper dimensionType)
 	{
 		this(mainStage, null, null, dimensionType);
 	}
@@ -53,19 +50,35 @@ public class TickPhase implements ToTextAble
 		return new TickPhase(this.mainStage, this.stageDetail, subStage, this.dimensionType);
 	}
 
+	private static BaseText tr(String key, Object... args)
+	{
+		return MicroTimingLoggerManager.TRANSLATOR.tr(key, args);
+	}
+
 	public BaseText toText()
 	{
 		List<Object> stageText = Lists.newArrayList();
-		stageText.add("y  " + this.mainStage.tr());
+		stageText.add(Messenger.formatting(this.mainStage.getName(), "y"));
 		if (this.stageDetail != null)
 		{
-			stageText.add("y ." + TRANSLATOR.tr("stage_detail." + this.stageDetail, this.stageDetail));
+			stageText.add("y .");
+			BaseText detailText;
+			try
+			{
+				detailText = Messenger.s(String.valueOf(Integer.parseInt(this.stageDetail)));
+			}
+			catch (NumberFormatException e)
+			{
+				detailText = tr("stage_detail." + this.stageDetail.toLowerCase());
+			}
+			stageText.add(Messenger.formatting(detailText, "y"));
 		}
 		List<Object> hoverTextList = Lists.newArrayList();
 		hoverTextList.add(this.subStage != null ? Messenger.c(this.subStage.toText(), "w \n"): Messenger.s(""));
-		hoverTextList.add(String.format("w %s: ", TRANSLATOR.tr("Dimension")));
-		hoverTextList.add(this.mainStage.isInsideWorld() ? TextUtil.getDimensionNameText(this.dimensionType) : "w N/A");
-		return TextUtil.getFancyText(
+		hoverTextList.add(tr("common.dimension"));
+		hoverTextList.add(Messenger.s(": "));
+		hoverTextList.add(this.mainStage.isInsideWorld() ? Messenger.dimension(this.dimensionType) : Messenger.s("N/A"));
+		return Messenger.fancy(
 				null,
 				Messenger.c(stageText.toArray(new Object[0])),
 				Messenger.c(hoverTextList.toArray(new Object[0])),

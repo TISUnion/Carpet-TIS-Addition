@@ -1,6 +1,5 @@
 package carpettisaddition.commands.lifetime.trackeddata;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
@@ -8,7 +7,7 @@ import carpettisaddition.commands.lifetime.utils.AbstractReason;
 import carpettisaddition.commands.lifetime.utils.LifeTimeStatistic;
 import carpettisaddition.translations.TranslatableBase;
 import carpettisaddition.utils.CounterUtil;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
@@ -65,7 +64,7 @@ public class BasicTrackedData extends TranslatableBase
 	public BaseText getSpawningCountText(long ticks)
 	{
 		return Messenger.c(
-				"q " + this.tr("Spawn Count"),
+				Messenger.formatting(tr("spawn_count"), "q"),
 				"g : ",
 				CounterUtil.ratePerHourText(this.getSpawningCount(), ticks, "wgg")
 		);
@@ -77,7 +76,7 @@ public class BasicTrackedData extends TranslatableBase
 	public BaseText getRemovalCountText(long ticks)
 	{
 		return Messenger.c(
-				"q " + this.tr("Removal Count"),
+				Messenger.formatting(tr("removal_count"), "q "),
 				"g : ",
 				CounterUtil.ratePerHourText(this.getRemovalCount(), ticks, "wgg")
 		);
@@ -96,7 +95,7 @@ public class BasicTrackedData extends TranslatableBase
 				"g : ",
 				CounterUtil.ratePerHourText(count, ticks, "wgg"),
 				"w  ",
-				TextUtil.attachHoverText(Messenger.s(String.format("%.1f%%", percentage)), Messenger.s(String.format("%.6f%%", percentage)))
+				Messenger.hover(Messenger.s(String.format("%.1f%%", percentage)), Messenger.s(String.format("%.6f%%", percentage)))
 		);
 	}
 
@@ -127,7 +126,7 @@ public class BasicTrackedData extends TranslatableBase
 		// Title for hover mode
 		if (!entryList.isEmpty() && hoverMode)
 		{
-			result.add(Messenger.s(this.tr("Reasons for spawning"), "e"));
+			result.add(Messenger.formatting(tr("reasons_for_spawning"), "e"));
 		}
 
 		entryList.forEach(entry -> {
@@ -169,7 +168,7 @@ public class BasicTrackedData extends TranslatableBase
 		// Title for hover mode
 		if (!entryList.isEmpty() && hoverMode)
 		{
-			result.add(Messenger.s(this.tr("Reasons for removal"), "r"));
+			result.add(Messenger.formatting(tr("reasons_for_removal"), "r"));
 		}
 
 		entryList.forEach(entry -> {

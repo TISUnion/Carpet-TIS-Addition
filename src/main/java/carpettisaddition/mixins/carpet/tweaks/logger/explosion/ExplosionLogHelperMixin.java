@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.carpet.tweaks.logger.explosion;
 
-import carpet.utils.Messenger;
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ITntEntity;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.compact.ExplosionLogHelper;
 import net.minecraft.entity.Entity;
@@ -69,8 +69,8 @@ public abstract class ExplosionLogHelperMixin
 			if (iTntEntity.dataRecorded())
 			{
 				String angleString = String.valueOf(this.calculateAngle(iTntEntity.getInitializedVelocity()));
-				String posString = TextUtil.getCoordinateString(iTntEntity.getInitializedPosition());
-				BaseText tntText = TextUtil.getFancyText(
+				String posString = TextUtil.coord(iTntEntity.getInitializedPosition());
+				BaseText tntText = Messenger.fancy(
 						"r",
 						Messenger.s("[TNT]"),
 						Messenger.c(

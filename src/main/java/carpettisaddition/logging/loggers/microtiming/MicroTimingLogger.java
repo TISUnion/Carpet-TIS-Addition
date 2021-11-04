@@ -1,7 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming;
 
 import carpet.logging.LoggerRegistry;
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
@@ -14,7 +13,8 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.AbstractSubStage;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.server.world.ServerWorld;
@@ -37,7 +37,7 @@ public class MicroTimingLogger extends AbstractLogger
 	{
 		super(NAME);
 		this.world = world;
-		this.tickPhase = new TickPhase(TickStage.UNKNOWN, this.world.getDimension().getType());
+		this.tickPhase = new TickPhase(TickStage.UNKNOWN, DimensionWrapper.of(this.world));
 	}
 	
 	public void setTickStage(@NotNull TickStage stage)
@@ -99,11 +99,11 @@ public class MicroTimingLogger extends AbstractLogger
 	{
 		return Messenger.c(
 				MicroTimingMessage.getIndentationText(previousMessage.getIndentation()),
-				TextUtil.getFancyText(
+				Messenger.fancy(
 						"g",
 						Messenger.s(String.format("  +%dx", count)),
 						Messenger.c(
-								String.format("w %s\n", String.format(this.tr("merged_message", "Merged %d more same message" + (count > 1 ? "s" : "")), count)),
+								tr("merged_message", count), "w \n",
 								previousMessage.getMessage().toText(0, true)
 						),
 						null
@@ -118,14 +118,14 @@ public class MicroTimingLogger extends AbstractLogger
 		msg.add(Messenger.s(" "));
 		msg.add(Messenger.c(
 				"f [",
-				"f " + this.tr("GameTime"),
+				Messenger.formatting(tr("gametime"), "f"),
 				"^w world.getTime()",
 				"g  " + this.world.getTime(),
 				"f  @ ",
-				TextUtil.getFancyText(
+				Messenger.fancy(
 						"g",
-						TextUtil.getDimensionNameText(this.world.getDimension().getType()),
-						Messenger.s(this.world.getDimension().getType().toString()),
+						Messenger.dimension(DimensionWrapper.of(this.world)),
+						Messenger.s(DimensionWrapper.of(this.world).getIdentifierString()),
 						null
 				),
 				"f ] ------------"

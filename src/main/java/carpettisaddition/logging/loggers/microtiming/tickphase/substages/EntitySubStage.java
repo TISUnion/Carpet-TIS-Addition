@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
@@ -25,18 +25,16 @@ public class EntitySubStage extends AbstractSubStage
 	public BaseText toText()
 	{
 		return Messenger.c(
-				String.format("w %s: ", MicroTimingLoggerManager.tr("Entity")),
-				this.entity.getDisplayName(),
-				String.format("w \n%s: ", MicroTimingLoggerManager.tr("Type")),
-				this.entity.getType().getName(),
-				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Order"), this.order),
-				String.format("w \n%s: [%.2f, %.2f, %.2f]", MicroTimingLoggerManager.tr("Position"), this.pos.getX(), this.pos.getY(), this.pos.getZ())
+				MicroTimingLoggerManager.tr("common.entity"), "w : ", this.entity.getDisplayName(), "w \n",
+				MicroTimingLoggerManager.tr("common.type"), "w : ", this.entity.getType().getName(), "w \n",
+				MicroTimingLoggerManager.tr("common.order"), String.format("w : %d\n", this.order),
+				MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtil.coord(this.pos))
 		);
 	}
 
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.entity));
+		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.entity));
 	}
 }

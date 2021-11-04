@@ -1,7 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.utils;
 
 import carpet.logging.LoggerRegistry;
-import carpet.utils.Messenger;
 import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
@@ -10,7 +9,8 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerType;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 public class MicroTimingUtil
 {
 	public static final Direction[] DIRECTION_VALUES = Direction.values();
+	private static final Translator TRANSLATOR = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("util");
 	private static final ImmutableMap<DyeColor, String> COLOR_STYLE = new ImmutableMap.Builder<DyeColor, String>().
 			put(DyeColor.WHITE, "w").
 			put(DyeColor.ORANGE, "d").
@@ -57,6 +58,11 @@ public class MicroTimingUtil
 		return COLOR_STYLE.getOrDefault(color, "w");
 	}
 
+	private static BaseText tr(String key, Object... args)
+	{
+		return TRANSLATOR.tr(key, args);
+	}
+
 	public static BaseText getColoredValue(Object value)
 	{
 		BaseText text = Messenger.s(value.toString());
@@ -75,7 +81,7 @@ public class MicroTimingUtil
 		}
 		if (color != null)
 		{
-			TextUtil.attachFormatting(text, color);
+			Messenger.formatting(text, color);
 		}
 		return text;
 	}
@@ -83,8 +89,8 @@ public class MicroTimingUtil
 	public static BaseText getSuccessText(boolean value, boolean showReturnValue, BaseText hoverExtra)
 	{
 		BaseText hintText = value ?
-				Messenger.c("e " + MicroTimingLoggerManager.tr("Successful")) :
-				Messenger.c("r " + MicroTimingLoggerManager.tr("Failed"));
+				Messenger.formatting(tr("successful"), "e") :
+				Messenger.formatting(tr("failed"), "r");
 		if (hoverExtra != null)
 		{
 			hintText.append(Messenger.c("w \n", hoverExtra));
@@ -92,13 +98,13 @@ public class MicroTimingUtil
 		if (showReturnValue)
 		{
 			hintText.append(Messenger.c(
-					String.format("w \n%s: ", MicroTimingLoggerManager.tr("Return value")),
+					"w \n", tr("return_value"), "w : ",
 					getColoredValue(value)
 			));
 		}
 		return value ?
-				TextUtil.getFancyText("e", Messenger.s("√"), hintText, null) :
-				TextUtil.getFancyText("r", Messenger.s("×"), hintText, null);
+				Messenger.fancy("e", Messenger.s("√"), hintText, null) :
+				Messenger.fancy("r", Messenger.s("×"), hintText, null);
 	}
 	public static BaseText getSuccessText(boolean bool, boolean showReturnValue)
 	{
@@ -242,12 +248,11 @@ public class MicroTimingUtil
 		return optionalDyeColor;
 	}
 
-	public static String getFormattedDirectionString(Direction direction)
+	public static BaseText getFormattedDirectionText(Direction direction)
 	{
-		String name = direction.toString();
-		String translatedName = MicroTimingLoggerManager.tr("direction." + name, name);
+		BaseText translatedName = tr("direction." + direction.toString());
 		char sign = direction.getDirection().offset() > 0 ? '+' : '-';
-		return String.format("%s (%c%s)", translatedName, sign, direction.getAxis());
+		return Messenger.c(translatedName, String.format("w (%c%s)", sign, direction.getAxis()));
 	}
 
 	public static boolean isMarkerEnabled()

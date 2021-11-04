@@ -1,0 +1,335 @@
+carpettisaddition:
+  rule:
+    _validator:
+      validatefakeplayernameextra:
+        warn:
+          found: "Unexpected character found in value \"%1$s\" when applying rule %2$s"
+          blocked: "Re-enter the command again if you do want to use this value"
+          applied: "Accepted anyway cuz you insisted"
+    synchronizedLightThread:
+      safety_warning:
+        '0': "Dangerous combination between rule synchronizedLightThread and rule lightUpdates detected"
+        '1': "Rule modification has been cancelled to prevent infinite waiting in lighting synchronization"
+        '2': "Related rule values to be set:"
+
+  logger:
+    ticket:
+      added: added
+      removed: removed
+      time_detail: "World: %1$s\nGameTime: %2$s"
+      message: Ticket %1$s %2$s at %3$s
+      ticket_detail: "Level = %1$s\nDuration = %2$s\nEntity processing chunks: %3$s\nLazy processing chunks: %4$s\nBorder chunks: %5$s"
+      permanent: Permanent
+    entity:
+      created: '%1$s created'
+      despawned: '%1$s despawned'
+      damage_amount: Damage amount
+    xporb:
+      xp_amount: XP amount
+    item:
+      item_stack_size: Item stack size
+    raid:
+      created: 'Raid created with id %1$s'
+      invalidated: 'Raid (id: %1$s) invalidated, reason: %2$s'
+      bad_omen_level_increased: 'Raid (id: %1$s) increased its bad omen level to %2$s'
+      center_moved: 'Raid (id: %1$s) moves its center to %2$s'
+    microTiming:
+      gametime: GameTime
+      merged_message: Merged %1$s more same messages
+      common:
+        color: Color
+        indentation: Indentation
+        dimension: Dimension
+        event_source: Event source
+        id: ID
+        entity: Entity
+        type: Type
+        block: Block
+        fluid: Fluid
+        order: Order
+        depth: Depth
+        priority: Priority
+        position: Position
+      util:
+        successful: Successful
+        failed: Failed
+        return_value: Return value
+        direction:
+          down: down
+          up: up
+          north: north
+          south: south
+          west: west
+          east: east
+      stage:
+        unknown: Unknown
+        spawning: Spawning
+        spawningspecial: SpawningSpecial
+        worldborder: WorldBorder
+        tiletick: TileTick
+        raid: Raid
+        wanderingtrader: WanderingTrader
+        blockevent: BlockEvent
+        entity: Entity
+        chunktick: ChunkTick
+        tileentity: TileEntity
+        dragonfight: DragonFight
+        autosave: AutoSave
+        asynctask: AsyncTask
+        playeraction: PlayerAction
+        commandfunction: CommandFunction
+        network: Network
+        console: Console
+        scarpet: Scarpet
+      stage_detail:
+        thunder: Thunder
+        ice&snow: Ice&Snow
+        randomtick: RandomTick
+      sub_stage:
+        player: Player
+        player_action: Executing player actions sent by clients
+        ticking_weather_effect_entities: Ticking weather effect entities
+        ticking_regular_entities: Ticking regular entities
+        ticking_player_entity: Ticking player entity
+      block_update_type:
+        aka: aka %1$s
+        except: Except
+        blockupdates: BlockUpdates
+        blockupdates_except: BlockUpdates Except
+        stateupdates: StateUpdates
+        comparatorupdates: ComparatorUpdates
+      piston_block_event_type:
+        push: Push
+        retract: Retract
+        drop: Drop
+      event:
+        set_block_state_event_base:
+          flag_data:
+            '0': "emits block updates"
+            '1': "updates listeners"
+            '2': "updates client listeners"
+            '4': "emits state updates"
+            '6': "caused by piston"
+        block_state_change:
+          state_change: State Change
+          changed_states: Changed BlockStates
+          finished: finished
+        block_replace:
+          block_replace: Block Replace
+          finished: finished
+        detect_block_update:
+          emit: emit
+          detected: detected
+          started: started
+          ended: ended
+        emit_block_update:
+          emit: Emit
+          updates: Updates
+          method_name: Method name (yarn)
+          started: started
+          ended: ended
+          self: self
+        execute_block_event:
+          execute: Execute
+          blockevent: BlockEvent
+          ended: ended
+          fail_info:
+            block_changed: Block has changed
+            event_fail: Event Failed
+        execute_tile_tick:
+          execute: Execute
+          ended: ended
+          priority: Priority
+          tiletick_event: TileTick Event
+        schedule_block_event:
+          scheduled: Scheduled
+          blockevent: BlockEvent
+        schedule_tile_tick:
+          scheduled: Scheduled
+          tiletick_event: TileTick Event
+          delay: Delay
+          priority: Priority
+      carpet_logger:
+        rule_hint: Use command %1$s to start logging
+        click_to_execute: Click to execute
+      marker:
+        on_mark: '§aAdded§r MicroTiming marker: %1$s'
+        on_unmark: '§cRemoved§r MicroTiming marker: %1$s'
+        on_type_switch: Switch marker to %1$s mode
+        on_mobility_true: Marker %1$s is set to be §amovable§r
+        on_mobility_false: Marker %1$s is set to be §cimmovable§r
+        cleared: Marker cleared
+    damage:
+      modify_reason:
+        wearing_a_helmet: Wearing a helmet
+        holding_a_shield: Holding a shield
+        recently_hit: Recently Hit
+        difficulty: Difficulty
+        immuse_to_damage: Immuse to damage
+        invulnerable: Invulnerable
+        respawn_protection: Respawn protection
+        pvp_disabled: PVP disabled
+        status_effect: Status effect
+        enchantment: Enchantment
+        armor: Armor
+      attacker: Attacker
+      source: Source
+      header_message: "%1$s is receiving %2$s damage, damage type: %3$s"
+      due_to: ' due to %1$s'
+      footer_message: "%1$s actually received %2$s damage, remaining health: %3$s"
+    commandBlock:
+      executed: '%1$s executed %2$s'
+      remove_executor: Click to remove %1$s
+    tickWarp:
+      not_started: Tick warp has not started
+      starter: Starter
+      server: Server
+      average_tps: Average TPS
+      average_mspt: Average MSPT
+      time_info: '%1$smin (in game) / %2$smin (real time)'
+      elapsed_time: Time elapsed
+      estimated_time: Estimated remaining time
+      show_history_header: Last tick warp result (%1$smin ago)
+    projectiles:
+      visualized:
+        info: 'Visualize projectile logger: visualized %1$s tick(s)'
+        not_enabled:
+          warn: 'Visualize projectile logger: visualize is not enabled'
+          hint: 'Click to enable'
+
+  raid_invalidate_reason:
+    difficulty_peaceful: difficulty peaceful
+    gamerule_disable: gamerule disable
+    poi_removed_before_spawn: poi removed before spawn
+    time_out: time out
+    raider_cannot_spawn: raider cannot spawn
+    raid_victory: raid victory
+    raid_defeat: raid defeat
+
+  command:
+    raid:
+      raid_count: "Raid Count: %1$s"
+      status:
+        .: Status
+        ongoing: ongoing
+        victory: victory
+        loss: loss
+        stopped: stopped
+      center: Center
+      bad_omen_level: Bad omen level
+      waves: Waves
+      raiders: Raiders
+      none: None
+      no_raid: No raid exists
+    info:
+      ticking_order: "Ticking order of %1$s dimensions in the game:"
+    refresh:
+      inventory:
+        done: Inventory refreshed
+      chunk:
+        overloaded: "Refresh failed: Network connection overloaded"
+        too_far: "Selected chunk is not within your view distance"
+        done: "Refreshed %1$s chunks"
+
+  tracker:
+    tracker_name_full: '%1$s Tracker'
+    tracking_already_started: '%1$s is already running'
+    tracking_started: '%1$s started'
+    tracking_stopped: '%1$s stopped'
+    tracking_not_started: '%1$s has not started'
+    tracking_restarted: '%1$s restarted'
+    tracked: Tracked
+    real_time: real time
+    in_game: in game
+    raid:
+      name: Raid
+      raid_generated: Raid generated
+      invalidate_reasons_statistics: Reasons for invalidation
+      none: None
+    lifetime:
+      name: LifeTime
+      no_result: No result yet
+      specific_result: Life time result for %1$s
+      invalid_detail: Invalid statistic detail "%1$s"
+      unknown_entity_type: Unknown entity type "%1$s"
+      filter_info_header: Filter
+      detail_hint: "Click to show detail"
+      spawn_count: Spawn Count
+      removal_count: Removal Count
+      item_count: "Item Count"
+      experience_amount: "Experience Amount"
+      life_time: Life Time
+      life_time_overview: Life Time Overview
+      life_time_explain: "The amount of spawning stage passing between entity spawning and entity removal"
+      reasons_for_spawning: Reasons for spawning
+      reasons_for_removal: Reasons for removal
+      minimum_life_time: Minimum life time
+      maximum_life_time: Maximum life time
+      average_life_time: Average life time
+      spawning_position: Spawning Position
+      removal_position: Removal Position
+      spawn_reason:
+        natural: "Natural spawning"
+        portal_pigman: "Nether portal pigman spawning"
+        command: "Summon command"
+        item: "Spawned by item"
+        block_drop: "Block drop"
+        slime: "Slime division"
+        zombie_reinforce: "Zombie Reinforce"
+        spawner: "Spawned by spawner"
+        raid: "Spawned in raid as raider"
+        summon: "Be summoned by entity or block"
+        mob_drop: "Dropped by %1$s"
+        mob_throw: "Thrown by %1$s"
+        trans_dimension:
+          .: "Trans-dimension"
+          from: from %1$s
+      removal_reason:
+        despawn:
+          randomly: "Randomly despawn"
+          immediately: "Immediately despawn"
+          difficulty: "Despawn for difficulty"
+          timeout: "Despawn for timeout"
+        persistent: "Becomes persistent"
+        other: "Other"
+        death: Death
+        merge: "Entity merging"
+        mob_pickup: "Picked up by %1$s"
+        hopper: "Collected by hopper"
+        void: "Entering void"
+        damage_source: Damage source
+        trans_dimension:
+          .: Trans-dimension
+          to: to %1$s
+      help:
+        doc_summary: "A tracker to track lifetime and spawn / removal reasons from all newly spawned and removed entities"
+        complete_doc_hint: "Complete doc %1$s"
+        here: here
+        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition#lifetime
+      filter:
+        global: Global
+        unsupported:
+          '0': "Unsupported entity filter"
+          '1': "Please enter a @e style entity selector"
+        filter_set: 'Entity filter of %1$s is set to %2$s'
+        filter_removed: 'Entity filter of %1$s removed'
+        display: "Entity filter of %1$s is %2$s"
+        display_total: "There are %1$s activated filters"
+        none: None
+        dimension: Dimension
+        anchor_pos: Anchor Pos
+        click_to_clear: "Click to clear filter"
+
+  util:
+    teleport_hint:
+      .: "Click to teleport to"
+      dimension: "Dimension"
+    entity_type: Entity type
+    language:
+      space: ' '
+    stack_trace:
+      deobfuscated_stack_trace: Deobfuscated stack trace
+      n_more_lines: '%1$s more lines'
+
+  misc:
+    player_mount_anything_permission_denied: Only OP players are allowed to mount anything

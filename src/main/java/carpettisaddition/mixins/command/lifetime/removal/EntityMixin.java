@@ -1,10 +1,11 @@
 package carpettisaddition.mixins.command.lifetime.removal;
 
-import carpettisaddition.commands.lifetime.interfaces.EntityDamageable;
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.DeathRemovalReason;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import carpettisaddition.commands.lifetime.removal.TransDimensionRemovalReason;
+import carpettisaddition.utils.DimensionWrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.dimension.DimensionType;
@@ -21,16 +22,16 @@ public abstract class EntityMixin
 	@Inject(method = "remove", at = @At("TAIL"))
 	private void onEntityRemovedLifeTimeTracker(CallbackInfo ci)
 	{
-		if (this instanceof EntityDamageable)
+		if (this instanceof DamageableEntity)
 		{
-			DamageSource damageSource = ((EntityDamageable)this).getDeathDamageSource();
+			DamageSource damageSource = ((DamageableEntity)this).getDeathDamageSource();
 			if (damageSource != null)
 			{
-				((IEntity)this).recordRemoval(new DeathRemovalReason(damageSource));
+				((LifetimeTrackerTarget)this).recordRemoval(new DeathRemovalReason(damageSource));
 				return;
 			}
 		}
-		((IEntity)this).recordRemoval(LiteralRemovalReason.OTHER);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.OTHER);
 	}
 
 	@Inject(
@@ -49,12 +50,12 @@ public abstract class EntityMixin
 	)
 	private void onEntityTransDimensionRemovedLifeTimeTracker(DimensionType newDimension, CallbackInfoReturnable<Entity> cir)
 	{
-		((IEntity)this).recordRemoval(new TransDimensionRemovalReason(newDimension));
+		((LifetimeTrackerTarget)this).recordRemoval(new TransDimensionRemovalReason(DimensionWrapper.of(newDimension)));
 	}
 
 	@Inject(method = "destroy", at = @At("HEAD"))
 	private void onEntityDestroyedInVoid(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.VOID);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.VOID);
 	}
 }

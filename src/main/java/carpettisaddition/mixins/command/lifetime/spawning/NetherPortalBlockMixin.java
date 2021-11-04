@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.NetherPortalBlock;
@@ -30,7 +30,7 @@ public abstract class NetherPortalBlockMixin
 	{
 		if (entity != null)
 		{
-			((IEntity) entity).recordSpawning(LiteralSpawningReason.PORTAL_PIGMAN);
+			((LifetimeTrackerTarget) entity).recordSpawning(LiteralSpawningReason.PORTAL_PIGMAN);
 		}
 	}
 }

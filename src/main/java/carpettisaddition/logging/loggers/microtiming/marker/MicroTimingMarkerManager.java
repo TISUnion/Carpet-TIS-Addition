@@ -1,9 +1,9 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compact.scarpet.ShapeDispatcher;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
@@ -86,10 +86,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 					// has next marker type
 					if (existedMarker.rollMarkerType())
 					{
-						playerEntity.addChatMessage(Messenger.s(String.format(
-								this.tr("on_type_switch", "Switch marker to %1$s mode"),
-								existedMarker.getMarkerType().getFancyString()
-						)), true);
+						Messenger.reminder(playerEntity, tr("on_type_switch", existedMarker.getMarkerType().getFancyString()));
 					}
 					// no more marker type, remove it
 					else
@@ -113,19 +110,13 @@ public class MicroTimingMarkerManager extends TranslatableBase
 			if (removeExistedMarker)
 			{
 				this.removeMarker(existedMarker);
-				playerEntity.addChatMessage(Messenger.c(
-						Messenger.s(this.tr("on_unmark", "§cRemoved§r MicroTiming marker") + ": "),
-						existedMarker.toFullText()
-				), true);
+				Messenger.reminder(playerEntity, tr("on_unmark", existedMarker.toFullText()));
 			}
 			if (createNewMarker)
 			{
 				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color, name);
 				this.addMarker(newMarker);
-				playerEntity.addChatMessage(Messenger.c(
-						Messenger.s(this.tr("on_mark", "§aAdded§r MicroTiming marker") + ": "),
-						newMarker.toFullText()
-				), true);
+				Messenger.reminder(playerEntity, tr("on_mark", newMarker.toFullText()));
 			}
 		}
 	}
@@ -212,8 +203,8 @@ public class MicroTimingMarkerManager extends TranslatableBase
 				boolean nextState = !marker.isMovable();
 				marker.setMovable(nextState);
 				playerEntity.addChatMessage(nextState ?
-						this.advTr("on_mobility_true", "Marker %1$s is set to be §amovable§r", marker.toShortText()) :
-						this.advTr("on_mobility_false", "Marker %1$s is set to be §cimmovable§r", marker.toShortText())
+						tr("on_mobility_true", marker.toShortText()) :
+						tr("on_mobility_false", marker.toShortText())
 				, true);
 				return true;
 			}

@@ -1,7 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.BaseText;
@@ -27,17 +28,16 @@ public class BlockEventSubStage extends AbstractSubStage
 	public BaseText toText()
 	{
 		return Messenger.c(
-				String.format("w %s: ", MicroTimingLoggerManager.tr("Block")),
-				TextUtil.getBlockName(this.blockEventData.getBlock()),
-				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Order"), this.order),
-				String.format("w \n%s: %d", MicroTimingLoggerManager.tr("Depth"), this.depth),
-				String.format("w \n%s: %s", MicroTimingLoggerManager.tr("Position"), TextUtil.getCoordinateString(this.blockEventData.getPos()))
+				MicroTimingLoggerManager.tr("common.block"), "w : ", Messenger.block(this.blockEventData.getBlock()), Messenger.newLine(),
+				MicroTimingLoggerManager.tr("common.order"), String.format("w : %d\n", this.order),
+				MicroTimingLoggerManager.tr("common.depth"), String.format("w : %d\n", this.depth),
+				MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtil.coord(this.blockEventData.getPos()))
 		);
 	}
 
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.blockEventData.getPos(), this.world.getDimension().getType()));
+		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.blockEventData.getPos(), DimensionWrapper.of(this.world)));
 	}
 }

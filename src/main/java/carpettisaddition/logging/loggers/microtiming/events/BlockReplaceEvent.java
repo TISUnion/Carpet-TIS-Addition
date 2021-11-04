@@ -1,9 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -26,34 +25,25 @@ public class BlockReplaceEvent extends SetBlockStateEventBase
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		BaseText titleText = TextUtil.getFancyText(
-				null,
-				Messenger.c(COLOR_ACTION + this.tr("Block Replace")),
+		BaseText titleText = Messenger.fancy(
+				Messenger.formatting(tr("block_replace"), COLOR_ACTION),
 				this.getFlagsText(),
 				null
 		);
 		BaseText infoText = Messenger.c(
-				TextUtil.getBlockName(this.oldBlock),
+				Messenger.block(this.oldBlock),
 				"g ->",
-				TextUtil.getBlockName(this.newBlock)
+				Messenger.block(this.newBlock)
 		);
 		if (this.getEventType() != EventType.ACTION_END)
 		{
-			list.add(Messenger.c(
-					titleText,
-					"g : ",
-					infoText
-			));
+			list.add(Messenger.c(titleText, "g : ", infoText));
 		}
 		else
 		{
-			list.add(TextUtil.getFancyText(
+			list.add(Messenger.fancy(
 					"w",
-					Messenger.c(
-							titleText,
-							TextUtil.getSpaceText(),
-							COLOR_RESULT + this.tr("finished")
-					),
+					Messenger.c(titleText, Messenger.getSpaceText(), Messenger.formatting(tr("finished"), COLOR_RESULT)),
 					infoText,
 					null
 			));

@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -61,7 +61,7 @@ public abstract class EventSource
 		@Override
 		public BaseText getName()
 		{
-			return TextUtil.getBlockName(this.block);
+			return Messenger.block(this.block);
 		}
 
 		@Override
@@ -89,7 +89,7 @@ public abstract class EventSource
 		@Override
 		public BaseText getName()
 		{
-			return TextUtil.getFluidName(this.fluid);
+			return Messenger.fluid(this.fluid);
 		}
 
 		@Override

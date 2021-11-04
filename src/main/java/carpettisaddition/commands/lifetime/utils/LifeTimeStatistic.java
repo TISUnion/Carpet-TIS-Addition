@@ -1,15 +1,15 @@
 package carpettisaddition.commands.lifetime.utils;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.dimension.DimensionType;
 
 public class LifeTimeStatistic extends TranslatableBase
 {
@@ -43,10 +43,10 @@ public class LifeTimeStatistic extends TranslatableBase
 
 	public void update(Entity entity)
 	{
-		long time = ((IEntity)entity).getLifeTime();
+		long time = ((LifetimeTrackerTarget)entity).getLifeTime();
 		this.count++;
 		this.timeSum += time;
-		StatisticElement element = new StatisticElement(time, entity.dimension, ((IEntity)entity).getSpawningPosition(), ((IEntity)entity).getRemovalPosition());
+		StatisticElement element = new StatisticElement(time, DimensionWrapper.of(entity), ((LifetimeTrackerTarget)entity).getSpawningPosition(), ((LifetimeTrackerTarget)entity).getRemovalPosition());
 		if (time < this.minTimeElement.time)
 		{
 			this.minTimeElement = element;
@@ -75,13 +75,13 @@ public class LifeTimeStatistic extends TranslatableBase
 		indent = Messenger.c(indent, "g - ");
 		return Messenger.c(
 				indent,
-				this.minTimeElement.getTimeWithPos(this.tr("Minimum life time"), COLOR_MIN_TIME, hoverMode),
+				this.minTimeElement.getTimeWithPos(tr("minimum_life_time"), COLOR_MIN_TIME, hoverMode),
 				newLine,
 				indent,
-				this.maxTimeElement.getTimeWithPos(this.tr("Maximum life time"), COLOR_MAX_TIME, hoverMode),
+				this.maxTimeElement.getTimeWithPos(tr("maximum_life_time"), COLOR_MAX_TIME, hoverMode),
 				newLine,
 				indent,
-				"w " + this.tr("Average life time"),
+				tr("average_life_time"),
 				"g : ",
 				COLOR_AVG_TIME + String.format("%.4f", (double)this.timeSum / this.count),
 				"g  gt"
@@ -111,11 +111,11 @@ public class LifeTimeStatistic extends TranslatableBase
 	private class StatisticElement
 	{
 		private final long time;
-		private final DimensionType dimensionType;
+		private final DimensionWrapper dimensionType;
 		private final Vec3d spawningPos;
 		private final Vec3d removalPos;
 
-		private StatisticElement(long time, DimensionType dimensionType, Vec3d spawningPos, Vec3d removalPos)
+		private StatisticElement(long time, DimensionWrapper dimensionType, Vec3d spawningPos, Vec3d removalPos)
 		{
 			this.time = time;
 			this.dimensionType = dimensionType;
@@ -127,10 +127,10 @@ public class LifeTimeStatistic extends TranslatableBase
 		 * [hint]: 123 gt
 		 * [hint]: 123 gt [S] [R]
 		 */
-		private BaseText getTimeWithPos(String hint, String fmt, boolean hoverMode)
+		private BaseText getTimeWithPos(BaseText hint, String fmt, boolean hoverMode)
 		{
 			BaseText text = Messenger.c(
-					"w " + hint,
+					hint,
 					"g : ",
 					fmt + this.time,
 					"g  gt"
@@ -139,26 +139,18 @@ public class LifeTimeStatistic extends TranslatableBase
 			{
 				text.append(Messenger.c(
 						"w  ",
-						TextUtil.getFancyText(
+						Messenger.fancy(
 								null,
 								Messenger.s("[S]", "e"),
-								Messenger.c(
-										"w " + tr("Spawning Position"),
-										"g : ",
-										"w " + TextUtil.getCoordinateString(this.spawningPos)
-								),
-								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.spawningPos, this.dimensionType))
+								Messenger.c(tr("spawning_position"), "g : ", "w " + TextUtil.coord(this.spawningPos)),
+								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.spawningPos, this.dimensionType))
 						),
 						"w  ",
-						TextUtil.getFancyText(
+						Messenger.fancy(
 								null,
 								Messenger.s("[R]", "r"),
-								Messenger.c(
-										"w " + tr("Removal Position"),
-										"g : ",
-										"w " + TextUtil.getCoordinateString(this.removalPos)
-								),
-								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.getTeleportCommand(this.removalPos, this.dimensionType))
+								Messenger.c(tr("removal_position"), "g : ", "w " + TextUtil.coord(this.removalPos)),
+								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.removalPos, this.dimensionType))
 						)
 				));
 			}

@@ -1,6 +1,5 @@
 package carpettisaddition.commands.lifetime;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
@@ -10,7 +9,8 @@ import carpettisaddition.commands.lifetime.trackeddata.ItemTrackedData;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.translations.TranslatableBase;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
@@ -111,8 +111,8 @@ public class LifeTimeWorldTracker extends TranslatableBase
 		List<BaseText> result = Lists.newArrayList();
 		result.add(Messenger.s(" "));
 		result.add(Messenger.c(
-				TextUtil.attachFormatting(TextUtil.getDimensionNameText(this.world.getDimension().getType()), Formatting.BOLD, Formatting.GOLD),
-				String.format("g  (%s)", this.world.getDimension().getType().toString())
+				Messenger.formatting(Messenger.dimension(DimensionWrapper.of(this.world)), Formatting.BOLD, Formatting.GOLD),
+				String.format("g  (%s)", DimensionWrapper.of(this.world).getIdentifier())
 		));
 
 		if (specificType == null)
@@ -123,7 +123,7 @@ public class LifeTimeWorldTracker extends TranslatableBase
 		{
 			this.printSpecific(ticks, specificType, specificData, detailMode, result);
 		}
-		Messenger.send(source, result);
+		Messenger.tell(source, result);
 		return 1;
 	}
 
@@ -142,67 +142,62 @@ public class LifeTimeWorldTracker extends TranslatableBase
 					// [Creeper] S/R: 21/8, L: 145/145/145.00 (gt)
 					result.add(Messenger.c(
 							"g - [",
-							TextUtil.getFancyText(
+							Messenger.fancy(
 									null,
 									(BaseText)entityType.getName(),
 									Messenger.c(
-											String.format("w %s: ", this.tr("filter_info_header", "Filter")),
+											tr("filter_info_header"), "w : ",
 											EntityFilterManager.getInstance().getEntityFilterText(entityType),
 											"g  / [G] ",
 											EntityFilterManager.getInstance().getEntityFilterText(null),
-											"w \n" + this.tr("detail_hint", "Click to show detail")
+											"w \n",
+											tr("detail_hint")
 									),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, currentCommandBase)
 							),
 							"g ] ",
-							TextUtil.getFancyText(
+							Messenger.fancy(
 									null,
 									Messenger.c("e S", "g /", "r R"),
 									Messenger.c(
-											"e " + this.tr("Spawn Count"),
+											Messenger.formatting(tr("spawn_count"), "e"),
 											"g  / ",
-											"r " + this.tr("Removal Count")
+											Messenger.formatting(tr("removal_count"), "r")
 									),
 									null
 							),
 							"g : ",
-							TextUtil.getFancyText(
+							Messenger.fancy(
 									null,
 									Messenger.c("e " + data.getSpawningCount()),
-									Messenger.s(
-											Messenger.c(
-													data.getSpawningCountText(ticks),
-													"w " + (spawningReasons.isEmpty() ? "" : "\n"),
-													Messenger.c(spawningReasons.toArray(new Object[0]))
-											).getString()  // to reduce network load
+									Messenger.c(
+											data.getSpawningCountText(ticks),
+											"w " + (spawningReasons.isEmpty() ? "" : "\n"),
+											Messenger.c(spawningReasons.toArray(new Object[0]))
 									),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.SPAWNING))
 							),
 							"g /",
-							TextUtil.getFancyText(
+							Messenger.fancy(
 									null,
 									Messenger.c("r " + data.getRemovalCount()),
-									Messenger.s(
-											Messenger.c(
-													data.getRemovalCountText(ticks),
-													"w " + (removalReasons.isEmpty() ? "" : "\n"),
-													Messenger.c(removalReasons.toArray(new Object[0]))
-											).getString()  // to reduce network load
+									Messenger.c(
+											data.getRemovalCountText(ticks),
+											"w " + (removalReasons.isEmpty() ? "" : "\n"),
+											Messenger.c(removalReasons.toArray(new Object[0]))
 									),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.REMOVAL))
 							),
 							"g , ",
-							TextUtil.getFancyText(
+							Messenger.fancy(
 									null,
 									Messenger.c(
 											"q L", "g : ",
 											data.lifeTimeStatistic.getCompressedResult(true)
 									),
-									Messenger.s(
-											Messenger.c(
-													String.format("q %s\n", this.tr("Life Time Overview")),
-													data.lifeTimeStatistic.getResult("", true)
-											).getString()  // to reduce network load
+									Messenger.c(
+											Messenger.formatting(tr("life_time_overview"), "q"), "w \n",
+											data.lifeTimeStatistic.getResult("", true)
 									),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.LIFE_TIME))
 							)
@@ -213,10 +208,10 @@ public class LifeTimeWorldTracker extends TranslatableBase
 	private void printSpecific(long ticks, EntityType<?> specificType, BasicTrackedData specificData, SpecificDetailMode detailMode, List<BaseText> result)
 	{
 		result.add(Messenger.c(
-				String.format("c %s: ", this.tr("filter_info_header", "Filter")),
+				Messenger.formatting(Messenger.c(tr("filter_info_header"), Messenger.s(": ")), "c"),
 				EntityFilterManager.getInstance().getEntityFilterText(specificType),
 				"g  / ",
-				TextUtil.getFancyText("g", Messenger.s("[G]"), Messenger.s(EntityFilterManager.getInstance().tr("Global")), null),
+				Messenger.fancy("g", Messenger.s("[G]"), EntityFilterManager.getInstance().tr("global"), null),
 				"g  ",
 				EntityFilterManager.getInstance().getEntityFilterText(null)
 		));
@@ -233,22 +228,22 @@ public class LifeTimeWorldTracker extends TranslatableBase
 		}
 		if (showLifeTime)
 		{
-			result.add(TextUtil.getFancyText(
+			result.add(Messenger.fancy(
 					"q",
-					Messenger.s(this.tr("Life Time Overview")),
-					Messenger.s(this.tr("life_time_explain", "The amount of spawning stage passing between entity spawning and entity removal")),
+					tr("life_time_overview"),
+					tr("life_time_explain"),
 					null
 			));
 			result.add(specificData.lifeTimeStatistic.getResult("", false));
 		}
 		if (showSpawning)
 		{
-			result.add(Messenger.s(this.tr("Reasons for spawning"), "e"));
+			result.add(Messenger.formatting(tr("reasons_for_spawning"), "e"));
 			result.addAll(this.addIfEmpty(specificData.getSpawningReasonsTexts(ticks, false), Messenger.s("  N/A", "g")));
 		}
 		if (showRemoval)
 		{
-			result.add(Messenger.s(this.tr("Reasons for removal"), "r"));
+			result.add(Messenger.formatting(tr("reasons_for_removal"), "r"));
 			result.addAll(this.addIfEmpty(specificData.getRemovalReasonsTexts(ticks, false), Messenger.s("  N/A", "g")));
 		}
 	}

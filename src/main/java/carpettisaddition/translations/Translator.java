@@ -1,11 +1,7 @@
 package carpettisaddition.translations;
 
-import carpet.utils.Messenger;
-import carpettisaddition.mixins.translations.TranslatableTextAccessor;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.text.TranslationException;
 
 public class Translator implements Translatable
 {
@@ -56,10 +52,7 @@ public class Translator implements Translatable
 
 	// use <type>.<name>.<key> as translation key
 	// format key before apply
-	// - convert key to lowercase
-	// - (optional) use String.trim() to remove leading and trailing spaces
-	// - (optional) replace space with underscore
-	private String getPath(String key, boolean autoFormat)
+	private String getPath(String key)
 	{
 		String path = this.getTranslationPath();
 		if (!path.isEmpty())
@@ -67,59 +60,12 @@ public class Translator implements Translatable
 			path += ".";
 		}
 		key = key.toLowerCase();
-		if (autoFormat)
-		{
-			key = key.trim().replace(" ", "_");
-		}
 		return path + key;
 	}
 
-	/**
-	 * Full control mode
-	 * @param key translation key
-	 * @param text fallback text
-	 * @param autoFormat if autoFormat the key will be auto format, including trimming and space replacement with _
-	 * @return translated text
-	 */
 	@Override
-	public String tr(String key, String text, boolean autoFormat)
+	public BaseText tr(String key, Object... args)
 	{
-		return text;
-	}
-
-	@Override
-	public String tr(String key, String text)
-	{
-		return tr(key, text, false);
-	}
-
-	@Override
-	public String tr(String key)
-	{
-		return key;
-	}
-
-	@SuppressWarnings("ConstantConditions")
-	public BaseText advTr(String key, String defaultKeyText, Object ...args)
-	{
-		for (int i = 0; i < args.length; i++)
-		{
-			if (!(args[i] instanceof Text))
-			{
-				args[i] = Messenger.s(args[i].toString());
-			}
-		}
-		String msgKeyString = this.tr(key, defaultKeyText);
-		TranslatableTextAccessor fixedTranslatableText = (TranslatableTextAccessor)(new TranslatableText(msgKeyString, args));
-		try
-		{
-			fixedTranslatableText.getTranslations().clear();
-			fixedTranslatableText.invokeSetTranslation(msgKeyString);
-			return Messenger.c(fixedTranslatableText.getTranslations().toArray(new Object[0]));
-		}
-		catch (TranslationException e)
-		{
-			return Messenger.s(msgKeyString);
-		}
+		return Messenger.tr(TISAdditionTranslations.TRANSLATION_KEY_PREFIX + this.getPath(key), args);
 	}
 }
