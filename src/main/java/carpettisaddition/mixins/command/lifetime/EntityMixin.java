@@ -1,10 +1,11 @@
 package carpettisaddition.mixins.command.lifetime;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.LifeTimeWorldTracker;
 import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
-import carpettisaddition.commands.lifetime.interfaces.IServerWorld;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
+import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.utils.GameUtil;
@@ -21,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
-public abstract class EntityMixin implements IEntity
+public abstract class EntityMixin implements LifetimeTrackerTarget
 {
 	@Shadow public World world;
 
@@ -46,7 +47,7 @@ public abstract class EntityMixin implements IEntity
 		{
 			// In case the entity is loaded when the world is being constructed
 			// Not sure if it's possible in vanilla, at least it happens in #29
-			LifeTimeWorldTracker tracker = ((IServerWorld)this.world).getLifeTimeWorldTracker();
+			LifeTimeWorldTracker tracker = ((ServerWorldWithLifeTimeTracker)this.world).getLifeTimeWorldTracker();
 			if (tracker != null)
 			{
 				// do track
@@ -70,7 +71,7 @@ public abstract class EntityMixin implements IEntity
 	@Override
 	public long getLifeTime()
 	{
-		return ((IServerWorld)this.world).getLifeTimeWorldTracker().getSpawnStageCounter() - this.spawnTime;
+		return ((ServerWorldWithLifeTimeTracker)this.world).getLifeTimeWorldTracker().getSpawnStageCounter() - this.spawnTime;
 	}
 
 	@Override
@@ -91,13 +92,17 @@ public abstract class EntityMixin implements IEntity
 		if (this.doLifeTimeTracking && !this.recordedSpawning && EntityFilterManager.getInstance().test((Entity)(Object)this))
 		{
 			//noinspection ConstantConditions
-			if ((Entity)(Object)this instanceof MobEntity && !GameUtil.countsTowardsMobcap((Entity)(Object)this))
+			if (
+					CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap &&
+					(Entity)(Object)this instanceof MobEntity &&
+					!GameUtil.countsTowardsMobcap((Entity)(Object)this)
+			)
 			{
 				return;
 			}
 			this.recordedSpawning = true;
 			this.spawningPos = this.getPos();
-			((IServerWorld)this.world).getLifeTimeWorldTracker().onEntitySpawn((Entity)(Object)this, reason);
+			((ServerWorldWithLifeTimeTracker)this.world).getLifeTimeWorldTracker().onEntitySpawn((Entity)(Object)this, reason);
 		}
 	}
 
@@ -108,7 +113,7 @@ public abstract class EntityMixin implements IEntity
 		{
 			this.recordedRemoval = true;
 			this.removalPos = this.getPos();
-			((IServerWorld)this.world).getLifeTimeWorldTracker().onEntityRemove((Entity)(Object)this, reason);
+			((ServerWorldWithLifeTimeTracker)this.world).getLifeTimeWorldTracker().onEntityRemove((Entity)(Object)this, reason);
 		}
 	}
 }

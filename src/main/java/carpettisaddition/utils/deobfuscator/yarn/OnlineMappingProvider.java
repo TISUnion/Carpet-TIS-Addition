@@ -179,6 +179,6 @@ public class OnlineMappingProvider
 	 */
 	public static void getMapping()
 	{
-		MiscUtil.startThread(OnlineMappingProvider.class.getSimpleName(), OnlineMappingProvider::getMappingInner);
+		MiscUtil.startThread("TISCM Mapping", OnlineMappingProvider::getMappingInner);
 	}
 }

@@ -1,9 +1,9 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
@@ -30,14 +30,14 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 
 	static
 	{
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(1, "emits block updates", false));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(2, "updates listeners", false));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(4, "updates client listeners", true));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(8, null, false));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(16, "emits state updates", true));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(32, null, false));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(64, "caused by piston", false));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(128, null, false));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(1, false, true));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(2, false, true));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(4, true, true));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(8, false, false));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(16, true, true));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(32, false, false));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(64, false, true));
+		SET_BLOCK_STATE_FLAGS.add(new FlagData(128, false, false));
 	}
 
 	protected SetBlockStateEventBase(EventType eventType, String translateKey, Block eventSourceBlock, @Nullable Boolean returnValue, int flags)
@@ -63,7 +63,7 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 						String.format("^w 2^%d = %d", flagData.bitPos, flagData.mask),
 						MicroTimingUtil.getSuccessText((currentBit ^ flagData.revert) != 0, false),
 						"w  ",
-						Messenger.s(TRANSLATOR.tr("flag_data." + flagData.bitPos, flagData.detail))
+						TRANSLATOR.tr("flag_data." + flagData.bitPos)
 				));
 			}
 		}
@@ -99,18 +99,18 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 	private static class FlagData
 	{
 		private final int mask;
-		private final String detail;
 		private final int revert;
 		private final int bitPos;
+		private final boolean valid;
 
-		private FlagData(int mask, String detail, boolean revert)
+		private FlagData(int mask, boolean revert, boolean valid)
 		{
+			this.valid = valid;
 			if (mask <= 0)
 			{
 				throw new IllegalArgumentException(String.format("mask = %d < 0", mask));
 			}
 			this.mask = mask;
-			this.detail = detail;
 			this.revert = revert ? 1 : 0;
 			int pos = 0;
 			for (int n = this.mask; n > 0; n >>= 1)
@@ -122,7 +122,7 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 
 		private boolean isValid()
 		{
-			return this.detail != null;
+			return this.valid;
 		}
 	}
 }

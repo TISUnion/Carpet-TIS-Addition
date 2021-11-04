@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -20,7 +20,7 @@ public abstract class BlockMixin
 	)
 	private static Entity onBlockDropsItemLifeTimeTracker(Entity itemEntity)
 	{
-		((IEntity)itemEntity).recordSpawning(LiteralSpawningReason.BLOCK_DROP);
+		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.BLOCK_DROP);
 		return itemEntity;
 	}
 }

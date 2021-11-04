@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.removal;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
 import net.minecraft.entity.Entity;
@@ -40,7 +40,7 @@ public abstract class ItemEntityMixin extends Entity
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_TIMEOUT);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_TIMEOUT);
 	}
 
 	@Inject(
@@ -53,7 +53,7 @@ public abstract class ItemEntityMixin extends Entity
 	private static void onMergedLifeTimeTracker(ItemEntity targetEntity, ItemStack targetStack, ItemEntity sourceEntity, ItemStack sourceStack, CallbackInfo ci)
 	{
 		// the recorded item stack count will be 0, it should be fine
-		((IEntity)sourceEntity).recordRemoval(LiteralRemovalReason.MERGE);
+		((LifetimeTrackerTarget)sourceEntity).recordRemoval(LiteralRemovalReason.MERGE);
 	}
 
 	@Inject(
@@ -68,7 +68,7 @@ public abstract class ItemEntityMixin extends Entity
 	{
 		int stackCount = itemStack.getCount();
 		itemStack.setCount(i);
-		((IEntity)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
+		((LifetimeTrackerTarget)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
 		itemStack.setCount(stackCount);
 	}
 }

@@ -1,9 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.message;
 
-import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import net.minecraft.text.BaseText;
 
-public class IndentedMessage implements ToTextAble
+public class IndentedMessage
 {
 	private final MicroTimingMessage message;
 	private final int indentation;
@@ -24,7 +23,6 @@ public class IndentedMessage implements ToTextAble
 		return indentation;
 	}
 
-	@Override
 	public BaseText toText()
 	{
 		return this.message.toText(this.indentation, this.indentation == 0);

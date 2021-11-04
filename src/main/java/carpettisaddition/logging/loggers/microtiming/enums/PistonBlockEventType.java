@@ -1,6 +1,8 @@
 package carpettisaddition.logging.loggers.microtiming.enums;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.translations.Translator;
+import net.minecraft.text.BaseText;
 
 public enum PistonBlockEventType
 {
@@ -8,18 +10,18 @@ public enum PistonBlockEventType
 	RETRACT("Retract"),
 	DROP("Drop");
 
+	private static final Translator translator = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("piston_block_event_type");
 	private static final PistonBlockEventType[] VALUES = PistonBlockEventType.values();
-	private final String name;
+	private final String translationKey;
 
 	PistonBlockEventType(String name)
 	{
-		this.name = name;
+		this.translationKey = name.toLowerCase();
 	}
 
-	@Override
-	public String toString()
+	public BaseText toText()
 	{
-		return MicroTimingLoggerManager.tr("piston_block_event_type." + this.name, this.name);
+		return translator.tr(this.translationKey);
 	}
 
 	public static PistonBlockEventType byId(int id)

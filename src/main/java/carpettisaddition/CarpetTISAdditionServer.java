@@ -2,7 +2,6 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import carpet.script.CarpetExpression;
 import carpet.script.annotation.AnnotationParser;
 import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
@@ -17,6 +16,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCa
 import carpettisaddition.script.Functions;
 import carpettisaddition.script.MicroTimingEvent;
 import carpettisaddition.translations.TISAdditionTranslations;
+import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -111,6 +111,14 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public Map<String, String> canHasTranslations(String lang)
     {
-        return TISAdditionTranslations.getTranslationFromResourcePath(lang);
+        Map<String, String> trimmedTranslation = Maps.newHashMap();
+        String prefix = TISAdditionTranslations.TRANSLATION_KEY_PREFIX + "carpet_extension.";
+        TISAdditionTranslations.getTranslationFromResourcePath(lang).forEach((key, value) -> {
+            if (key.startsWith(prefix))
+            {
+                trimmedTranslation.put(key.substring(prefix.length()), value);
+            }
+        });
+        return trimmedTranslation;
     }
 }

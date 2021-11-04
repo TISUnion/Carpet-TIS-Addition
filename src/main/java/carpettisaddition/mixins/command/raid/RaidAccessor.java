@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.command.raid;
 
-import net.minecraft.village.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;
+import net.minecraft.village.raid.Raid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.removal;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
 import net.minecraft.entity.Entity;
@@ -37,7 +37,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(LiteralRemovalReason.DESPAWN_TIMEOUT);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_TIMEOUT);
 	}
 
 	@Inject(
@@ -49,7 +49,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 	)
 	private void onPickupLifeTimeTracker(PlayerEntity player, CallbackInfo ci)
 	{
-		((IEntity)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
+		((LifetimeTrackerTarget)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
 	}
 
 	@Inject(method = "merge", at = @At("TAIL"))
@@ -57,7 +57,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 	{
 		int amountBackup = ((ExperienceOrbEntityAccessor)other).getAmountCTA();
 		((ExperienceOrbEntityAccessor)other).setAmountCTA(0);
-		((IEntity)other).recordRemoval(LiteralRemovalReason.MERGE);
+		((LifetimeTrackerTarget)other).recordRemoval(LiteralRemovalReason.MERGE);
 		((ExperienceOrbEntityAccessor)other).setAmountCTA(amountBackup);
 	}
 }

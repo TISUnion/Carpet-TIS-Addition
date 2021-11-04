@@ -1,8 +1,8 @@
 package carpettisaddition.mixins.carpet.tweaks.command.noPlayerMountAbuse;
 
 import carpet.helpers.EntityPlayerActionPack;
-import carpet.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -40,9 +40,7 @@ public abstract class EntityPlayerActionPackMixin
 				if (!minecraftServer.getPlayerManager().isOperator(this.player.getGameProfile()))  // not op
 				{
 					// hey that's illegal
-					Messenger.m(this.player, Messenger.s(TextUtil.getMiscTranslator().tr(
-							"player_mount_anything_permission_denied", "Only OP players are allowed to mount anything"), "r"
-					));
+					Messenger.tell(this.player, Messenger.formatting(new Translator("misc").tr("player_mount_anything_permission_denied"), "r"));
 					entities.clear();
 				}
 			}

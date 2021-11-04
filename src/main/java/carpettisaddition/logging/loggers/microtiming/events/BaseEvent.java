@@ -1,17 +1,17 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import carpettisaddition.translations.TranslatableBase;
 import net.minecraft.block.Block;
+import net.minecraft.text.BaseText;
 
 import java.util.Objects;
 
-public abstract class BaseEvent extends TranslatableBase implements ToTextAble
+public abstract class BaseEvent extends TranslatableBase
 {
-	protected static final String COLOR_ACTION = "c ";
-	protected static final String COLOR_TARGET = "c ";
-	protected static final String COLOR_RESULT = "q ";
+	protected static final String COLOR_ACTION = "c";
+	protected static final String COLOR_TARGET = "c";
+	protected static final String COLOR_RESULT = "q";
 
 	private final EventSource eventSource;
 	private EventType eventType;
@@ -28,7 +28,9 @@ public abstract class BaseEvent extends TranslatableBase implements ToTextAble
 		this(eventType, translateKey, new EventSource.Block(eventSourceBlock));
 	}
 
-	// if it's not important, it can be ignore if it's on a leaf node
+	public abstract BaseText toText();
+
+	// if it's not important, it can be ignored if it's on a leaf node
 	public boolean isImportant()
 	{
 		return true;

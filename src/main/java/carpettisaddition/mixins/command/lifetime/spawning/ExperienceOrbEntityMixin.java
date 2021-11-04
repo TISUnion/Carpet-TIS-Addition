@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.utils.ExperienceOrbEntityUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -24,9 +24,9 @@ public abstract class ExperienceOrbEntityMixin
 	)
 	private static Entity onXpOrbSpawnLifeTimeTracker(Entity entity)
 	{
-		if (ExperienceOrbEntityUtil.spawningReason != null)
+		if (ExperienceOrbEntityUtil.spawningReason.get() != null)
 		{
-			((IEntity)entity).recordSpawning(ExperienceOrbEntityUtil.spawningReason);
+			((LifetimeTrackerTarget)entity).recordSpawning(ExperienceOrbEntityUtil.spawningReason.get());
 		}
 		return entity;
 	}
@@ -34,6 +34,6 @@ public abstract class ExperienceOrbEntityMixin
 	@Inject(method = "spawn", at = @At("TAIL"))
 	private static void onXpOrbSpawnEndLifeTimeTracker(CallbackInfo ci)
 	{
-		ExperienceOrbEntityUtil.spawningReason = null;
+		ExperienceOrbEntityUtil.spawningReason.remove();
 	}
 }

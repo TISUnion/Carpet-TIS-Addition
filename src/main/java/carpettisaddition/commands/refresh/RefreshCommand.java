@@ -1,10 +1,11 @@
 package carpettisaddition.commands.refresh;
 
-import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
+import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -14,6 +15,7 @@ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkHolder;
+import net.minecraft.text.BaseText;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.ChunkPos;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -96,7 +98,7 @@ public class RefreshCommand extends AbstractCommand
 	private void refreshPlayerInventory(ServerCommandSource source, ServerPlayerEntity player)
 	{
 		source.getServer().getPlayerManager().sendPlayerStatus(player);
-		Messenger.m(player, Messenger.s(this.tr("inventory.done", "Inventory refreshed")));
+		Messenger.tell(player, tr("inventory.done"));
 	}
 
 	private int refreshSelfInventory(ServerCommandSource source) throws CommandSyntaxException
@@ -124,7 +126,7 @@ public class RefreshCommand extends AbstractCommand
 		{
 			if (this.refreshingChunkPlayers.contains(player))
 			{
-				source.sendError(Messenger.s(this.tr("chunk.overloaded", "Refresh failed: Network connection overloaded")));
+				Messenger.tell(source, Messenger.formatting(tr("chunk.overloaded"), "r"));
 				return 0;
 			}
 		}
@@ -143,7 +145,7 @@ public class RefreshCommand extends AbstractCommand
 			}
 			else
 			{
-				source.sendError(Messenger.s(this.tr("chunk.too_far", "Selected chunk is not within your view distance")));
+				Messenger.tell(source, Messenger.formatting(tr("chunk.too_far"), "r"));
 			}
 		}
 		else
@@ -158,8 +160,9 @@ public class RefreshCommand extends AbstractCommand
 				this.refreshingChunkPlayers.add(player);
 			}
 		}
+		BaseText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
 		player.networkHandler.sendPacket(
-				new GameMessageS2CPacket(this.advTr("chunk.done", "Refreshed %1$s chunks", counter.getValue()), MessageType.SYSTEM, Util.NIL_UUID),
+				new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
 				future -> {
 					synchronized (this.refreshingChunkPlayers)
 					{

@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.memory;
 
-import carpet.utils.Messenger;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 

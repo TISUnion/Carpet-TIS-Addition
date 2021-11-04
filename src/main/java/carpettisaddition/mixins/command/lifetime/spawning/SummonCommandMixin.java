@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
@@ -30,7 +30,7 @@ public abstract class SummonCommandMixin
 	{
 		if (entity2 != null)
 		{
-			((IEntity) entity2).recordSpawning(LiteralSpawningReason.COMMAND);
+			((LifetimeTrackerTarget) entity2).recordSpawning(LiteralSpawningReason.COMMAND);
 		}
 	}
 }

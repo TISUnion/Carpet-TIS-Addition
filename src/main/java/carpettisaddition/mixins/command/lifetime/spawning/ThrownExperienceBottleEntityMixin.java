@@ -20,6 +20,6 @@ public class ThrownExperienceBottleEntityMixin
 	)
 	private void onXPBottleDroppedXpLifeTimeTracker(CallbackInfo ci)
 	{
-		ExperienceOrbEntityUtil.spawningReason = LiteralSpawningReason.ITEM;
+		ExperienceOrbEntityUtil.spawningReason.set(LiteralSpawningReason.ITEM);
 	}
 }

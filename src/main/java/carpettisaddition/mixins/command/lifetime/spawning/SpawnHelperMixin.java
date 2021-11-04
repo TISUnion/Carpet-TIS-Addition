@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.spawning;
 
-import carpettisaddition.commands.lifetime.interfaces.IEntity;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.SpawnHelper;
@@ -25,7 +25,7 @@ public abstract class SpawnHelperMixin
 	)
 	private static Entity onEntitySpawnLifeTimeTracker(Entity entity)
 	{
-		((IEntity)entity).recordSpawning(LiteralSpawningReason.NATURAL);
+		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.NATURAL);
 		return entity;
 	}
 }
