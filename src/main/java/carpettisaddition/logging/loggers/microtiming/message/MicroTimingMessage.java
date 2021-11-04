@@ -145,6 +145,7 @@ public class MicroTimingMessage
 		);
 	}
 
+	// # [block] something happens (@ phase) $
 	public BaseText toText(int indentation, boolean showStage)
 	{
 		List<Object> line = Lists.newArrayList();
@@ -159,7 +160,7 @@ public class MicroTimingMessage
 		{
 			if (showStage)
 			{
-				line.add(this.tickPhase.toText());
+				line.add(Messenger.c("g  @ ", this.tickPhase.toText()));
 			}
 		}
 		line.add("w  ");

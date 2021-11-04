@@ -58,7 +58,7 @@ public class TickPhase
 	public BaseText toText()
 	{
 		List<Object> stageText = Lists.newArrayList();
-		stageText.add(Messenger.c(Messenger.s(" "), Messenger.formatting(this.mainStage.getName(), "y")));
+		stageText.add(Messenger.formatting(this.mainStage.getName(), "y"));
 		if (this.stageDetail != null)
 		{
 			stageText.add("y .");
