@@ -106,12 +106,12 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public Map<String, String> canHasTranslations(String lang)
     {
         Map<String, String> trimmedTranslation = Maps.newHashMap();
+        String prefix = TISAdditionTranslations.TRANSLATION_KEY_PREFIX + "carpet_extension.";
         TISAdditionTranslations.getTranslationFromResourcePath(lang).forEach((key, value) -> {
-            if (key.startsWith(TISAdditionTranslations.TRANSLATION_KEY_PREFIX))
+            if (key.startsWith(prefix))
             {
-                key = key.substring(TISAdditionTranslations.TRANSLATION_KEY_PREFIX.length());
+                trimmedTranslation.put(key.substring(prefix.length()), value);
             }
-            trimmedTranslation.put(key, value);
         });
         return trimmedTranslation;
     }

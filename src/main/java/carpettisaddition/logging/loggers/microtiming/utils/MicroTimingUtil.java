@@ -9,6 +9,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerType;
+import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.*;
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
 public class MicroTimingUtil
 {
 	public static final Direction[] DIRECTION_VALUES = Direction.values();
+	private static final Translator TRANSLATOR = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("util");
 	private static final ImmutableMap<DyeColor, String> COLOR_STYLE = new ImmutableMap.Builder<DyeColor, String>().
 			put(DyeColor.WHITE, "w").
 			put(DyeColor.ORANGE, "d").
@@ -58,7 +60,7 @@ public class MicroTimingUtil
 
 	private static BaseText tr(String key, Object... args)
 	{
-		return MicroTimingLoggerManager.TRANSLATOR.tr(key, args);
+		return TRANSLATOR.tr(key, args);
 	}
 
 	public static BaseText getColoredValue(Object value)

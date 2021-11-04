@@ -1,8 +1,4 @@
 carpettisaddition:
-  category:
-    TIS: TIS
-    CARPET_MOD: carpet_mod
-
   rule:
     _validator:
       validatefakeplayernameextra:
@@ -330,7 +326,7 @@ carpettisaddition:
       dimension: "Dimension"
     entity_type: Entity type
     language:
-      space: ''
+      space: ' '
     stack_trace:
       deobfuscated_stack_trace: Deobfuscated stack trace
       n_more_lines: '%1$s more lines'
