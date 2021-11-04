@@ -16,7 +16,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	@Inject(method = "setClientSettings", at = @At("HEAD"))
 	private void recordClientLanguage(ClientSettingsC2SPacket packet, CallbackInfo ci)
 	{
-		this.clientLanguage$CTA = ((ClientSettingsC2SPacketAccessor)packet).getLanguage();
+		this.clientLanguage$CTA = packet.language();
 	}
 
 	@Override

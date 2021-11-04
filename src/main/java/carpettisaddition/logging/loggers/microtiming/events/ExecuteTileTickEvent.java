@@ -3,8 +3,8 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.class_6760;
 import net.minecraft.text.BaseText;
+import net.minecraft.world.tick.OrderedTick;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,15 +12,15 @@ import java.util.Optional;
 
 public class ExecuteTileTickEvent<T> extends BaseEvent
 {
-	private final class_6760<T> tileTickEntry;
+	private final OrderedTick<T> tileTickEntry;
 
-	private ExecuteTileTickEvent(EventType eventType, class_6760<T> tileTickEntry, EventSource source)
+	private ExecuteTileTickEvent(EventType eventType, OrderedTick<T> tileTickEntry, EventSource source)
 	{
 		super(eventType, "execute_tile_tick", source);
 		this.tileTickEntry = tileTickEntry;
 	}
 
-	public static Optional<ExecuteTileTickEvent<?>> createFrom(EventType eventType, class_6760<?> tileTickEntry)
+	public static Optional<ExecuteTileTickEvent<?>> createFrom(EventType eventType, OrderedTick<?> tileTickEntry)
 	{
 		return EventSource.fromObject(tileTickEntry.type()).map(eventSource -> new ExecuteTileTickEvent<>(eventType, tileTickEntry, eventSource));
 	}

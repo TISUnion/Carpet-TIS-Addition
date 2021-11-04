@@ -6,23 +6,23 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.class_6760;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
+import net.minecraft.world.tick.OrderedTick;
 
 import java.util.List;
 
 public class TileTickSubStage extends AbstractSubStage
 {
 	private final World world;
-	private final class_6760<?> nextTickListEntry;
+	private final OrderedTick<?> nextTickListEntry;
 	private final int order;
 
-	public TileTickSubStage(World world, class_6760<?> nextTickListEntry, int order)
+	public TileTickSubStage(World world, OrderedTick<?> nextTickListEntry, int order)
 	{
 		this.world = world;
 		this.nextTickListEntry = nextTickListEntry;

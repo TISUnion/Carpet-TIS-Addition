@@ -9,13 +9,13 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.class_6760;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.tick.OrderedTick;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -72,12 +72,12 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		return 1;
 	}
 
-	private void appendTileTickInfo(List<BaseText> result, List<class_6760<?>> tileTickList, String title, long currentTime, Function<Object, BaseText> nameGetter)
+	private void appendTileTickInfo(List<BaseText> result, List<OrderedTick<?>> tileTickList, String title, long currentTime, Function<Object, BaseText> nameGetter)
 	{
 		if (!tileTickList.isEmpty())
 		{
 			result.add(Messenger.s(String.format(" - %s * %d", title, tileTickList.size())));
-			for (class_6760<?> tt : tileTickList)
+			for (OrderedTick<?> tt : tileTickList)
 			{
 				result.add(Messenger.c(
 						"w     ",

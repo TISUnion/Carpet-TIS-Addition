@@ -1,13 +1,12 @@
 package carpettisaddition.mixins.logger.microtiming;
 
 import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
-import net.minecraft.class_6757;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.tick.WorldTickScheduler;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
-// ServerTickScheduler in 1.17
-@Mixin(class_6757.class)
+@Mixin(WorldTickScheduler.class)
 public abstract class ServerTickSchedulerMixin implements ITileTickListWithServerWorld
 {
 	private ServerWorld serverWorld$CTA;

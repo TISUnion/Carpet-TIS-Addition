@@ -16,7 +16,7 @@ public abstract class ServerWorldMixin
 			method = "tick",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/class_6757;"
+					target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
 			)
 	)
 	private void enterStageTileTick(CallbackInfo ci)
@@ -29,12 +29,12 @@ public abstract class ServerWorldMixin
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
-							target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/class_6757;"
+							target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
 					)
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/class_6757;method_39377(JILjava/util/function/BiConsumer;)V",
+					target = "Lnet/minecraft/world/tick/WorldTickScheduler;tick(JILjava/util/function/BiConsumer;)V",
 					shift = At.Shift.AFTER
 			)
 	)

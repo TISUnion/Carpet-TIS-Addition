@@ -4,7 +4,6 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
 import carpettisaddition.logging.loggers.microtiming.interfaces.ServerWorldWithMicroTimingLogger;
 import net.minecraft.block.Block;
-import net.minecraft.class_6757;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
@@ -12,6 +11,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.MutableWorldProperties;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.tick.WorldTickScheduler;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,8 +24,8 @@ import java.util.function.Supplier;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin extends World implements ServerWorldWithMicroTimingLogger
 {
-	@Shadow @Final private class_6757<Block> blockTickScheduler;
-	@Shadow @Final private class_6757<Fluid> fluidTickScheduler;
+	@Shadow @Final private WorldTickScheduler<Block> blockTickScheduler;
+	@Shadow @Final private WorldTickScheduler<Fluid> fluidTickScheduler;
 
 	private MicroTimingLogger microTimingLogger;
 

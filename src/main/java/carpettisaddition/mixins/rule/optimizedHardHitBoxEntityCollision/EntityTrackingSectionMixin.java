@@ -7,10 +7,7 @@ import net.minecraft.util.collection.TypeFilterableList;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
-import net.minecraft.world.entity.EntityTrackingSection;
-import net.minecraft.world.entity.EntityTrackingStatus;
-import net.minecraft.world.entity.SectionedEntityCache;
-import net.minecraft.world.entity.SimpleEntityLookup;
+import net.minecraft.world.entity.*;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.function.Predicate;
 
 @Mixin(EntityTrackingSection.class)
-public abstract class EntityTrackingSectionMixin<T>
+public abstract class EntityTrackingSectionMixin<T extends EntityLike>
 {
 	// just like WorldChunk#entitySections in 1.16- but it's per chunk section and it uses genericity
 	@Shadow @Final private TypeFilterableList<T> collection;
@@ -72,12 +69,12 @@ public abstract class EntityTrackingSectionMixin<T>
 	 * - {@link World#getOtherEntities(Entity, Box, Predicate)}
 	 * - {@link SimpleEntityLookup#forEachIntersects(net.minecraft.util.math.Box, java.util.function.Consumer)}
 	 * - {@link SectionedEntityCache#forEachIntersects(net.minecraft.util.math.Box, java.util.function.Consumer)}
-	 * - {@link EntityTrackingSection#forEach(java.util.function.Predicate, java.util.function.Consumer)}
+	 * - {@link EntityTrackingSection#forEach(net.minecraft.util.math.Box, java.util.function.Consumer)}
 	 *
 	 * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	 */
 	@Redirect(
-			method = "forEach(Ljava/util/function/Predicate;Ljava/util/function/Consumer;)V",
+			method = "forEach(Lnet/minecraft/util/math/Box;Ljava/util/function/Consumer;)V",
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/world/entity/EntityTrackingSection;collection:Lnet/minecraft/util/collection/TypeFilterableList;"
