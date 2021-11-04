@@ -297,6 +297,7 @@ carpettisaddition:
         mob_pickup: "Picked up by %1$s"
         hopper: "Collected by hopper"
         void: "Entering void"
+        on_vehicle: Rides on a vehicle
         damage_source: Damage source
         trans_dimension:
           .: Trans-dimension

@@ -1,9 +1,6 @@
 package carpettisaddition.commands.info.entity;
 
-import carpettisaddition.mixins.command.info.entity.EntityInfoAccessor;
-import carpettisaddition.mixins.command.info.entity.ItemEntityAccessor;
-import carpettisaddition.mixins.command.info.entity.SlimeEntityAccessor;
-import carpettisaddition.mixins.command.info.entity.ZombieVillagerEntityAccessor;
+import carpettisaddition.mixins.command.info.entity.*;
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;

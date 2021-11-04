@@ -19,7 +19,7 @@ public abstract class HUDControllerMixin
 	private static final ThreadLocal<PlayerEntity> currentLoggingPlayer = ThreadLocal.withInitial(() -> null);
 
 	@Inject(method = "addMessage", at = @At("HEAD"), remap = false)
-	private static void applyTISCarpetTranslation_recordPlayer(PlayerEntity player, BaseText hudMessage, CallbackInfo ci)
+	private static void applyTISCarpetTranslation_recordPlayer(ServerPlayerEntity player, BaseText hudMessage, CallbackInfo ci)
 	{
 		currentLoggingPlayer.set(player);
 	}

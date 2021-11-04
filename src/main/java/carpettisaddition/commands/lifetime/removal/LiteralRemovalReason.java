@@ -29,7 +29,7 @@ public class LiteralRemovalReason extends RemovalReason
 	public static final LiteralRemovalReason VOID = new LiteralRemovalReason("void");
 
 	// for 1.16+
-	public static final LiteralRemovalReason ON_VEHICLE = new LiteralRemovalReason("on_vehicle", "Rides on a vehicle");
+	public static final LiteralRemovalReason ON_VEHICLE = new LiteralRemovalReason("on_vehicle");
 
 	private final String translationKey;
 

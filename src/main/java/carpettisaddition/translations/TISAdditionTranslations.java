@@ -3,7 +3,6 @@ package carpettisaddition.translations;
 import carpet.CarpetSettings;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.mixins.translations.ServerPlayerEntityAccessor;
 import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.mixins.translations.TranslatableTextAccessor;
 import carpettisaddition.utils.Messenger;
@@ -110,7 +109,7 @@ public class TISAdditionTranslations
         {
             return translate(text);
         }
-        return translate(text, ((ServerPlayerEntityAccessor)player).getClientLanguage());
+        return translate(text, ((ServerPlayerEntityWithClientLanguage)player).getClientLanguage$CTA());
     }
 
     private static BaseText translateText(BaseText text, @NotNull String lang)
@@ -133,7 +132,13 @@ public class TISAdditionTranslations
                     {
                         fixedTranslatableText.getTranslations().clear();
                         fixedTranslatableText.invokeSetTranslation(msgKeyString);
-                        text = Messenger.c(fixedTranslatableText.getTranslations().toArray(new Object[0]));
+                        text = Messenger.c(fixedTranslatableText.getTranslations().stream().map(stringVisitable -> {
+                            if (stringVisitable instanceof BaseText)
+                            {
+                                return (BaseText)stringVisitable;
+                            }
+                            return Messenger.s(stringVisitable.getString());
+                        }).toArray());
                     }
                     catch (TranslationException e)
                     {
@@ -155,7 +160,11 @@ public class TISAdditionTranslations
         HoverEvent hoverEvent = ((StyleAccessor)text.getStyle()).getHoverEventField();
         if (hoverEvent != null)
         {
-            text.getStyle().setHoverEvent(new HoverEvent(hoverEvent.getAction(), translateText((BaseText)hoverEvent.getValue(), lang)));
+            Object hoverText = hoverEvent.getValue(hoverEvent.getAction());
+            if (hoverEvent.getAction() == HoverEvent.Action.SHOW_TEXT && hoverText instanceof BaseText)
+            {
+                text.setStyle(text.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, translateText((BaseText)hoverText, lang))));
+            }
         }
 
         // translate sibling texts

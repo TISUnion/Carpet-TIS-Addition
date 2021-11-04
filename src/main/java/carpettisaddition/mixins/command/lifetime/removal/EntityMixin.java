@@ -1,5 +1,6 @@
 package carpettisaddition.mixins.command.lifetime.removal;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.DeathRemovalReason;
@@ -54,15 +55,18 @@ public abstract class EntityMixin
 	)
 	private void onEntityTransDimensionRemovedLifeTimeTracker(ServerWorld destination, CallbackInfoReturnable<@Nullable Entity> cir)
 	{
-		((IEntity)this).recordRemoval(new TransDimensionRemovalReason(destination.getRegistryKey()));
+		((LifetimeTrackerTarget)this).recordRemoval(new TransDimensionRemovalReason(DimensionWrapper.of(destination)));
 	}
 
 	@Inject(method = "startRiding(Lnet/minecraft/entity/Entity;Z)Z", at = @At("RETURN"))
 	void onEntityStartRidingLifeTimeTracker(CallbackInfoReturnable<Boolean> cir)
 	{
-		if (this.hasVehicle() && )
+		if (CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap)
 		{
-			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.ON_VEHICLE);
+			if (this.hasVehicle())
+			{
+				((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.ON_VEHICLE);
+			}
 		}
 	}
 

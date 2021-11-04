@@ -15,6 +15,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -164,7 +165,7 @@ public class Messenger
 
 	public static BaseText attribute(EntityAttribute attribute)
 	{
-		return tr("attribute.name." + attribute.getId());
+		return tr(attribute.getTranslationKey());
 	}
 
 	private static final ImmutableMap<DimensionWrapper, BaseText> DIMENSION_NAME = ImmutableMap.of(
@@ -214,7 +215,7 @@ public class Messenger
 
 	public static BaseText hover(BaseText text, HoverEvent hoverEvent)
 	{
-		text.getStyle().setHoverEvent(hoverEvent);
+		style(text, text.getStyle().withHoverEvent(hoverEvent));
 		return text;
 	}
 
@@ -225,7 +226,7 @@ public class Messenger
 
 	public static BaseText click(BaseText text, ClickEvent clickEvent)
 	{
-		text.getStyle().setClickEvent(clickEvent);
+		style(text, text.getStyle().withClickEvent(clickEvent));
 		return text;
 	}
 
@@ -239,12 +240,12 @@ public class Messenger
 	{
 		Style textStyle = text.getStyle();
 		StyleAccessor parsedStyle = (StyleAccessor)parseCarpetStyle(carpetStyle);
-		textStyle.setColor(parsedStyle.getColorField());
-		textStyle.setBold(parsedStyle.getBoldField());
-		textStyle.setItalic(parsedStyle.getItalicField());
-		textStyle.setUnderline(parsedStyle.getUnderlineField());
-		textStyle.setStrikethrough(parsedStyle.getStrikethroughField());
-		textStyle.setObfuscated(parsedStyle.getObfuscatedField());
+		textStyle = textStyle.withColor(parsedStyle.getColorField());
+		textStyle = textStyle.withBold(parsedStyle.getBoldField());
+		textStyle = textStyle.withItalic(parsedStyle.getItalicField());
+		((StyleAccessor)textStyle).setUnderlinedField(parsedStyle.getUnderlineField());
+		((StyleAccessor)textStyle).setStrikethroughField(parsedStyle.getStrikethroughField());
+		((StyleAccessor)textStyle).setObfuscatedField(parsedStyle.getObfuscatedField());
 		return style(text, textStyle);
 	}
 
@@ -256,7 +257,7 @@ public class Messenger
 
 	public static BaseText copy(BaseText text)
 	{
-		return (BaseText)text.deepCopy();
+		return (BaseText)text.shallowCopy();
 	}
 
 	/*
@@ -279,7 +280,7 @@ public class Messenger
 		text = player instanceof ServerPlayerEntity ?
 				TISAdditionTranslations.translate(text, (ServerPlayerEntity)player) :
 				TISAdditionTranslations.translate(text);
-		player.addChatMessage(text, true);
+		player.sendMessage(text, true);
 	}
 
 	private static <T> void messageSender(T target, BiConsumer<T, BaseText> consumer, Object... texts)
@@ -320,7 +321,7 @@ public class Messenger
 	{
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
-			CarpetTISAdditionServer.minecraft_server.sendMessage(text);
+				CarpetTISAdditionServer.minecraft_server.sendSystemMessage(text, Util.NIL_UUID);
 			CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayerList().forEach(player -> tell(player, text));
 		}
 	}

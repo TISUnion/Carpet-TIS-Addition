@@ -2,8 +2,8 @@ package carpettisaddition.utils;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 
 import java.util.Objects;
 
@@ -14,25 +14,25 @@ import java.util.Objects;
  */
 public class DimensionWrapper
 {
-	public static final DimensionWrapper OVERWORLD = of(DimensionType.OVERWORLD);
-	public static final DimensionWrapper THE_NETHER = of(DimensionType.THE_NETHER);
-	public static final DimensionWrapper THE_END = of(DimensionType.THE_END);
+	public static final DimensionWrapper OVERWORLD = of(World.OVERWORLD);
+	public static final DimensionWrapper THE_NETHER = of(World.NETHER);
+	public static final DimensionWrapper THE_END = of(World.END);
 
-	private final DimensionType dimensionType;
+	private final RegistryKey<World> dimensionType;
 
-	private DimensionWrapper(DimensionType dimensionType)
+	private DimensionWrapper(RegistryKey<World> dimensionType)
 	{
 		this.dimensionType = dimensionType;
 	}
 
-	public static DimensionWrapper of(DimensionType dimensionType)
+	public static DimensionWrapper of(RegistryKey<World> dimensionType)
 	{
 		return new DimensionWrapper(dimensionType);
 	}
 
 	public static DimensionWrapper of(World world)
 	{
-		return new DimensionWrapper(world.getDimension().getType());
+		return new DimensionWrapper(world.getRegistryKey());
 	}
 
 	public static DimensionWrapper of(Entity entity)
@@ -42,12 +42,12 @@ public class DimensionWrapper
 
 	public Identifier getIdentifier()
 	{
-		return DimensionType.getId(this.dimensionType);
+		return this.dimensionType.getValue();
 	}
 
 	public String getIdentifierString()
 	{
-		return this.dimensionType.toString();
+		return this.getIdentifier().toString();
 	}
 
 	@Override

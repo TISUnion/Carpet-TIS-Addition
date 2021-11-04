@@ -2,7 +2,6 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import carpet.script.CarpetExpression;
 import carpet.script.annotation.AnnotationParser;
 import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;

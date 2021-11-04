@@ -297,6 +297,7 @@ carpettisaddition:
         mob_pickup: 被%1$s捡起
         hopper: 漏斗收集
         void: 进入虚空
+        on_vehicle: 骑上载具
         damage_source: 伤害来源
         trans_dimension:
           .: 跨维度

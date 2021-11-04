@@ -3,7 +3,7 @@ package carpettisaddition.mixins.command.lifetime.spawning;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.raid.Raid;
+import net.minecraft.village.raid.Raid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -15,7 +15,7 @@ public abstract class RaidMixin
 			method = "addRaider",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 			)
 	)
 	private Entity onSpawnRaiderLifeTimeTracker(Entity raiderEntity)

@@ -3,7 +3,6 @@ package carpettisaddition;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
-import carpet.utils.Messenger;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
