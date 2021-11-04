@@ -3,7 +3,6 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -54,7 +53,6 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		return Messenger.c(builder.toArray(new Object[0]));
 	}
 
-	@Override
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
@@ -105,7 +103,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		}
 	}
 
-	public static class FailInfo implements ToTextAble
+	public static class FailInfo
 	{
 		private final FailReason reason;
 		private final Block actualBlock;
@@ -122,7 +120,6 @@ public class ExecuteBlockEventEvent extends BaseEvent
 			this.event = event;
 		}
 
-		@Override
 		public BaseText toText()
 		{
 			switch (this.reason)

@@ -3,7 +3,6 @@ package carpettisaddition.logging.loggers.microtiming.tickphase;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.AbstractSubStage;
-import carpettisaddition.logging.loggers.microtiming.utils.ToTextAble;
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
@@ -13,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class TickPhase implements ToTextAble
+public class TickPhase
 {
 	public final TickStage mainStage;
 	@Nullable
