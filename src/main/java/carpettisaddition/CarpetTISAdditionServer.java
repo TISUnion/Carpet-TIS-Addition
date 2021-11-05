@@ -16,6 +16,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCa
 import carpettisaddition.script.Functions;
 import carpettisaddition.script.MicroTimingEvent;
 import carpettisaddition.translations.TISAdditionTranslations;
+import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -52,6 +53,10 @@ public class CarpetTISAdditionServer implements CarpetExtension
     {
         CarpetServer.settingsManager.parseSettingsClass(CarpetTISAdditionSettings.class);
 
+        StackTraceDeobfuscator.fetchMapping();
+        TISAdditionTranslations.loadTranslations();
+
+        // scarpet things
         AnnotationParser.parseFunctionClass(Functions.class);
         MicroTimingEvent.noop();  //to register event properly
     }
