@@ -706,6 +706,8 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			desc = "qOf DSh hwg ORRWHW Cb",
+			options = {"false"},
+			strict = false,
 			category = {TIS, EXPERIMENTAL}
 	)
 	public static String ultraSecretSetting = "false";
