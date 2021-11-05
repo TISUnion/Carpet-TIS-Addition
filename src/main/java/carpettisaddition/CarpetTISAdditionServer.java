@@ -13,6 +13,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
 import carpettisaddition.translations.TISAdditionTranslations;
+import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -46,6 +47,9 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void onGameStarted()
     {
         CarpetServer.settingsManager.parseSettingsClass(CarpetTISAdditionSettings.class);
+
+        StackTraceDeobfuscator.fetchMapping();
+        TISAdditionTranslations.loadTranslations();
 
         // Let's do some logging things
         TISAdditionLoggerRegistry.registerLoggers();

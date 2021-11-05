@@ -5,42 +5,58 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.translations.ServerPlayerEntityAccessor;
 import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.mixins.translations.TranslatableTextAccessor;
+import carpettisaddition.utils.FileUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.*;
-import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class TISAdditionTranslations
 {
     public static final String DEFAULT_LANGUAGE = "en_us";
     public static final String TRANSLATION_NAMESPACE = CarpetTISAdditionServer.compactName;  // "carpettisaddition"
     public static final String TRANSLATION_KEY_PREFIX = TRANSLATION_NAMESPACE + ".";  // "carpettisaddition."
-    private static final Map<String, Map<String, String>> translationCache = Maps.newLinkedHashMap();
+    private static final String RESOURCE_DIR = String.format("assets/%s/lang", TRANSLATION_NAMESPACE);
+    private static final Map<String, Map<String, String>> translationStorage = Maps.newLinkedHashMap();
 
     @NotNull
     public static Map<String, String> getTranslationFromResourcePath(String lang)
     {
-        return translationCache.computeIfAbsent(lang, l -> {
+        return translationStorage.getOrDefault(lang, Collections.emptyMap());
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void loadTranslations()
+    {
+        try
+        {
+            String dataStr = FileUtil.readResourceFileAsString(RESOURCE_DIR + "/_languages.yml");
+            Map<String, Object> yamlMap = new Yaml().load(dataStr);
+            ((List<String>)yamlMap.get("languages")).forEach(TISAdditionTranslations::loadTranslation);
+        }
+        catch (Exception e)
+        {
+            CarpetTISAdditionServer.LOGGER.error("Failed to read language list", e);
+        }
+    }
+
+    private static void loadTranslation(String lang)
+    {
+        translationStorage.computeIfAbsent(lang, l -> {
             String dataStr;
             try
             {
-                dataStr = IOUtils.toString(
-                        Objects.requireNonNull(TISAdditionTranslations.class.getClassLoader().getResourceAsStream(String.format("assets/%s/lang/%s.yml", TRANSLATION_NAMESPACE, lang))),
-                        StandardCharsets.UTF_8
-                );
+                dataStr = FileUtil.readResourceFileAsString(String.format("%s/%s.yml", RESOURCE_DIR, lang));
             }
-            catch (NullPointerException | IOException e)
+            catch (IOException e)
             {
                 return Collections.emptyMap();
             }

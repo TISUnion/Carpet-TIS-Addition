@@ -1,6 +1,5 @@
 package carpettisaddition;
 
-import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -13,8 +12,6 @@ public class CarpetTISAdditionMod implements ModInitializer
 	public void onInitialize()
 	{
 		version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(RuntimeException::new).getMetadata().getVersion().getFriendlyString();
-
-		StackTraceDeobfuscator.fetchMapping();
 	}
 
 	public static String getModId()
