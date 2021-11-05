@@ -19,13 +19,18 @@ import java.util.stream.Stream;
 @Mixin(Entity.class)
 public abstract class EntityMixin
 {
-	private static final ThreadLocal<Boolean> optimizedFastEntityMovementEnable = ThreadLocal.withInitial(() -> false);
+	private static final ThreadLocal<Boolean> optimizedFEMEnable = ThreadLocal.withInitial(() -> false);  // optimizedFastEntityMovementEnable
 	private static final ThreadLocal<World> currentCollidingWorld = new ThreadLocal<>();
 	private static final ThreadLocal<Entity> currentCollidingEntity = new ThreadLocal<>();
 
 	// minimum velocity to trigger the optimization
-	// set it to 0 to test vanilla behavior if you want
+	// set it to 0 or enable rule ultraSecretSetting to test vanilla behavior if you want
 	private static final double OPTIMIZE_THRESHOLD = 4.0D;
+
+	private static boolean checkMovement$OFEM(Vec3d movement)
+	{
+		return movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD || CarpetTISAdditionSettings.ultraSecretSetting.equals("optimizedFastEntityMovement");
+	}
 
 	@Redirect(
 			method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityContext;Lnet/minecraft/util/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
@@ -36,8 +41,8 @@ public abstract class EntityMixin
 	)
 	private static Stream<VoxelShape> dontUseThatLargeBlockCollisions(World world, Entity entity, Box box, /* parent method parameters -> */ Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam, EntityContext context, ReusableStream<VoxelShape> collisions)
 	{
-		optimizedFastEntityMovementEnable.set(CarpetTISAdditionSettings.optimizedFastEntityMovement && movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD);
-		if (optimizedFastEntityMovementEnable.get())
+		optimizedFEMEnable.set(CarpetTISAdditionSettings.optimizedFastEntityMovement && checkMovement$OFEM(movement));
+		if (optimizedFEMEnable.get())
 		{
 			currentCollidingEntity.set(entity);
 			currentCollidingWorld.set(world);
@@ -56,7 +61,7 @@ public abstract class EntityMixin
 	)
 	private static double useAxisOnlyBlockCollisions(Direction.Axis axis, Box box, Stream<VoxelShape> shapes, double maxDist, /* parent method parameters -> */ Vec3d movement, Box entityBoundingBox, ReusableStream<VoxelShape> collisions)
 	{
-		if (optimizedFastEntityMovementEnable.get())
+		if (optimizedFEMEnable.get())
 		{
 			Vec3d axisOnlyMovement = null;
 			switch (axis)
@@ -72,7 +77,7 @@ public abstract class EntityMixin
 					break;
 			}
 			Stream<VoxelShape> blockCollisions = currentCollidingWorld.get().getBlockCollisions(currentCollidingEntity.get(), entityBoundingBox.stretch(axisOnlyMovement));
-			shapes = Stream.concat(blockCollisions, collisions.stream());
+			shapes = Stream.concat(collisions.stream(), blockCollisions);
 		}
 		return VoxelShapes.calculateMaxOffset(axis, box, shapes, maxDist);
 	}
