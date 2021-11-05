@@ -71,7 +71,7 @@ public class StackTracePrinter
 	{
 		List<StackTraceElement> list = Arrays.asList(this.stackTrace).subList(0, min(this.stackTrace.length, this.maxStackTraceSize));
 		int restLineCount = this.stackTrace.length - this.maxStackTraceSize;
-		BaseText text = Messenger.c(translator.tr("deobfuscated_stack_trace"), Messenger.s(String.format("w  (%s)\n", StackTraceDeobfuscator.MAPPING_VERSION)));
+		BaseText text = Messenger.c(translator.tr("deobfuscated_stack_trace"), Messenger.s(String.format(" (%s)\n", StackTraceDeobfuscator.MAPPING_VERSION)));
 		text.append(Messenger.s(Joiner.on("\n").join(list)));
 		if (restLineCount > 0)
 		{

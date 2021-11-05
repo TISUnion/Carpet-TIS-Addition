@@ -202,10 +202,7 @@ public class MicroTimingMarkerManager extends TranslatableBase
 			{
 				boolean nextState = !marker.isMovable();
 				marker.setMovable(nextState);
-				playerEntity.addChatMessage(nextState ?
-						tr("on_mobility_true", marker.toShortText()) :
-						tr("on_mobility_false", marker.toShortText())
-				, true);
+				Messenger.reminder(playerEntity, tr(nextState ? "on_mobility_true" : "on_mobility_false", marker.toShortText()));
 				return true;
 			}
 		}
