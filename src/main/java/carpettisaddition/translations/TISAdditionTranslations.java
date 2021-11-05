@@ -105,7 +105,7 @@ public class TISAdditionTranslations
 
     public static BaseText translate(BaseText text, ServerPlayerEntity player)
     {
-        if (CarpetTISAdditionSettings.ultraSecretSetting)
+        if (CarpetTISAdditionSettings.ultraSecretSetting.equals("translation"))
         {
             return translate(text);
         }
