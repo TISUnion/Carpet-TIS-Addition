@@ -651,7 +651,7 @@ public class CarpetTISAdditionSettings
 			desc = "qOf DSh hwg ORRWHW Cb",
 			category = {TIS, EXPERIMENTAL}
 	)
-	public static boolean ultraSecretSetting = false;
+	public static String ultraSecretSetting = "false";
 
 	@Rule(
 			desc = "Enable visualize projectile logger",

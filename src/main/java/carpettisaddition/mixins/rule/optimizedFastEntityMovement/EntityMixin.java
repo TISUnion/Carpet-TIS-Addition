@@ -20,13 +20,18 @@ import java.util.List;
 @Mixin(Entity.class)
 public abstract class EntityMixin
 {
-	private static final ThreadLocal<Boolean> optimizedFastEntityMovementEnable = ThreadLocal.withInitial(() -> false);
+	private static final ThreadLocal<Boolean> optimizedFEMEnable = ThreadLocal.withInitial(() -> false);  // optimizedFastEntityMovementEnable
 	private static final ThreadLocal<World> currentCollidingWorld = new ThreadLocal<>();
 	private static final ThreadLocal<Entity> currentCollidingEntity = new ThreadLocal<>();
 
 	// minimum velocity to trigger the optimization
-	// set it to 0 to test vanilla behavior if you want
+	// set it to 0 or enable rule ultraSecretSetting to test vanilla behavior if you want
 	private static final double OPTIMIZE_THRESHOLD = 4.0D;
+
+	private static boolean checkMovement$OFEM(Vec3d movement)
+	{
+		return movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD || CarpetTISAdditionSettings.ultraSecretSetting.equals("optimizedFastEntityMovement");
+	}
 
 	@Redirect(
 			method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/block/ShapeContext;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
@@ -37,8 +42,8 @@ public abstract class EntityMixin
 	)
 	private static Iterable<VoxelShape> dontUseThatLargeBlockCollisions(World world, Entity entity, Box box, /* parent method parameters -> */ Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam, ShapeContext context, List<VoxelShape> collisions)
 	{
-		optimizedFastEntityMovementEnable.set(CarpetTISAdditionSettings.optimizedFastEntityMovement && movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD);
-		if (optimizedFastEntityMovementEnable.get())
+		optimizedFEMEnable.set(CarpetTISAdditionSettings.optimizedFastEntityMovement && checkMovement$OFEM(movement));
+		if (optimizedFEMEnable.get())
 		{
 			currentCollidingEntity.set(entity);
 			currentCollidingWorld.set(world);
@@ -57,7 +62,7 @@ public abstract class EntityMixin
 	)
 	private static boolean theCollisionParameterIsIncompleteSoDontReturnEvenIfItIsEmpty(List<VoxelShape> voxelShapeList)
 	{
-		if (optimizedFastEntityMovementEnable.get())
+		if (optimizedFEMEnable.get())
 		{
 			return false;
 		}
@@ -74,7 +79,7 @@ public abstract class EntityMixin
 	)
 	private static double useAxisOnlyBlockCollisions(Direction.Axis axis, Box box, Iterable<VoxelShape> shapes, double maxDist, /* parent method parameters -> */ Vec3d movement, Box entityBoundingBox, List<VoxelShape> collisionsExceptBlockCollisions)
 	{
-		if (optimizedFastEntityMovementEnable.get())
+		if (optimizedFEMEnable.get())
 		{
 			Vec3d axisOnlyMovement = null;
 			switch (axis)
