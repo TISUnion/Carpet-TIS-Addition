@@ -175,7 +175,7 @@ public class Messenger
 
 	public static BaseText dimension(DimensionWrapper dim)
 	{
-		return copy(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.toString())));
+		return copy(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.getIdentifierString())));
 	}
 
 	public static BaseText getColoredDimensionSymbol(DimensionWrapper dimensionType)

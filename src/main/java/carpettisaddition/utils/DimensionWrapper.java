@@ -65,6 +65,7 @@ public class DimensionWrapper
 		return this.dimensionType.hashCode();
 	}
 
+	@Deprecated
 	@Override
 	public String toString()
 	{

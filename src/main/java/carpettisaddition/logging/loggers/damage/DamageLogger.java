@@ -174,7 +174,7 @@ public class DamageLogger extends AbstractLogger
 							getAmountText(finalAmount > 0.0F ? "r" : "w", finalAmount),
 							getAmountText(remainingHealth > 0 ? "l" : "r", remainingHealth)
 					));
-					return lines.stream().map(carpet.utils.Messenger::c).toArray(BaseText[]::new);
+					return lines.stream().map(Messenger::c).toArray(BaseText[]::new);
 				})
 		);
 	}
