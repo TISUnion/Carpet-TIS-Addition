@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
 import carpet.script.utils.ShapeDispatcher;
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.TranslatableBase;
@@ -185,6 +186,10 @@ public class MicroTimingMarkerManager extends TranslatableBase
 	 */
 	public void tick()
 	{
+		if (!CarpetTISAdditionSettings.microTiming)
+		{
+			return;
+		}
 		this.sendMarkersForAll(marker -> marker.tickCounter % MicroTimingMarker.MARKER_SYNC_INTERVAL == 0);
 		this.markers.values().forEach(marker -> marker.tickCounter++);
 	}
