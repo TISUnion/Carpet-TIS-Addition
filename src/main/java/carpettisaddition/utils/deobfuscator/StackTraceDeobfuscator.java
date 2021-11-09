@@ -21,7 +21,7 @@ public class StackTraceDeobfuscator
 	static Map<String, String> MAPPING = Maps.newHashMap();
 	static boolean fetchedMapping = false;
 	static String MAPPING_VERSION = "no mapping";
-	static final Translator translator = new Translator("util", "stack_trace");
+	static final Translator translator = new Translator("util.stack_trace");
 
 	public static synchronized void fetchMapping()
 	{

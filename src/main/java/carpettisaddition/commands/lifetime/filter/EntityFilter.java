@@ -1,7 +1,7 @@
 package carpettisaddition.commands.lifetime.filter;
 
 import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
-import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.command.EntitySelector;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 
-public class EntityFilter extends TranslatableBase implements Predicate<Entity>
+public class EntityFilter extends TranslationContext implements Predicate<Entity>
 {
 	private final EntitySelectorAccessor entitySelector;
 	private final ServerCommandSource serverCommandSource;

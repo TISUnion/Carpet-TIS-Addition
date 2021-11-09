@@ -4,7 +4,7 @@ import carpet.script.utils.ShapeDispatcher;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class MicroTimingMarkerManager extends TranslatableBase
+public class MicroTimingMarkerManager extends TranslationContext
 {
 	private static final MicroTimingMarkerManager INSTANCE = new MicroTimingMarkerManager();
 

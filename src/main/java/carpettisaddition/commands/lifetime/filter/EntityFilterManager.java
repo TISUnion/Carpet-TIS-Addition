@@ -3,7 +3,7 @@ package carpettisaddition.commands.lifetime.filter;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
-import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.command.EntitySelector;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class EntityFilterManager extends TranslatableBase
+public class EntityFilterManager extends TranslationContext
 {
 	private static final EntityFilterManager INSTANCE = new EntityFilterManager();
 	private static final Predicate<Entity> DEFAULT_FILTER = entity -> true;

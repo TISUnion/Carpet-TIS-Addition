@@ -89,7 +89,7 @@ public class RaidTracker extends AbstractTracker
 		result.add(Messenger.c(tr("invalidate_reasons_statistics"), "w : ", this.raidInvalidateCounter.isEmpty() ? tr("None") : Messenger.s("")));
 		this.raidInvalidateCounter.forEach((reason, count) -> result.add(Messenger.c(
 				"g - ",
-				String.format("w %s", reason.tr()),
+				reason.toText(),
 				String.format("w : %s, %.1f%%", CounterUtil.ratePerHour(count, ticks), (double)count / invalidateCounterSum * 100))
 		));
 		Messenger.tell(source, result);
