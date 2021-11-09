@@ -7,6 +7,7 @@ import carpettisaddition.translations.Translator;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -114,17 +115,15 @@ public class Messenger
 	 * -------------------------------
 	 */
 
-	private static BaseText getTeleportHint()
+	private static BaseText getTeleportHint(BaseText dest)
 	{
-		return translator.tr("teleport_hint");
+		return translator.tr("teleport_hint", dest);
 	}
 
-	private static BaseText __coord(String style, @Nullable DimensionWrapper dim, String posText, String command)
+	private static BaseText __coord(String style, @Nullable DimensionWrapper dim, String posStr, String command)
 	{
 		BaseText hoverText = Messenger.s("");
-		hoverText.append(getTeleportHint());
-		hoverText.append(Messenger.s(" "));
-		hoverText.append(posText);
+		hoverText.append(getTeleportHint(Messenger.s(posStr)));
 		if (dim != null)
 		{
 			hoverText.append("\n");
@@ -132,7 +131,7 @@ public class Messenger
 			hoverText.append(": ");
 			hoverText.append(dimension(dim));
 		}
-		return fancy(style, Messenger.s(posText), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
+		return fancy(style, Messenger.s(posStr), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
 	}
 
 	public static BaseText coord(String style, Vec3d pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
@@ -153,13 +152,15 @@ public class Messenger
 		BaseText entityBaseName = copy((BaseText)entity.getType().getName());
 		BaseText entityDisplayName = copy((BaseText)entity.getName());
 		BaseText hoverText = Messenger.c(
-				translator.tr("entity_type"), "w : ",
-				entityBaseName,
-				"w \n" + getTeleportHint(),
-				getSpaceText(),
-				entityDisplayName
+				translator.tr("entity_type", entityBaseName, s(EntityType.getId(entity.getType()).toString())), newLine(),
+				getTeleportHint(entityDisplayName)
 		);
 		return fancy(style, entityDisplayName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(entity)));
+	}
+
+	public static BaseText entity(Entity entity)
+	{
+		return entity(null, entity);
 	}
 
 	public static BaseText attribute(EntityAttribute attribute)

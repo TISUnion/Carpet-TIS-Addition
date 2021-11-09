@@ -322,9 +322,9 @@ carpettisaddition:
 
   util:
     teleport_hint:
-      .: 点击以传送至
+      .: '点击以传送至%1$s'
       dimension: 维度
-    entity_type: 实体类型
+    entity_type: '实体类型: %1$s (%2$s)'
     language:
       space: ''
     stack_trace:

@@ -124,10 +124,7 @@ public class DamageLogger extends AbstractLogger
 				verifyAndProduceMessage(option, player, attacker, target, () -> {
 					List<Object> lines = Lists.newArrayList();
 					lines.add(Messenger.s(" "));
-					BaseText sourceName = Messenger.click(
-							(BaseText)target.getDisplayName(),
-							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(target))
-					);
+					BaseText targetName = Messenger.entity(target);
 					List<Object> sourceHoverTextList = Lists.newArrayList();
 					if (source != null)
 					{
@@ -143,7 +140,7 @@ public class DamageLogger extends AbstractLogger
 					}
 					lines.add(tr(
 							"header_message",
-							sourceName,
+							targetName,
 							getAmountText("r", this.initialAmount),
 							Messenger.fancy(
 									"w",
@@ -170,7 +167,7 @@ public class DamageLogger extends AbstractLogger
 					}
 					lines.add(tr(
 							"footer_message",
-							sourceName,
+							targetName,
 							getAmountText(finalAmount > 0.0F ? "r" : "w", finalAmount),
 							getAmountText(remainingHealth > 0 ? "l" : "r", remainingHealth)
 					));

@@ -322,9 +322,9 @@ carpettisaddition:
 
   util:
     teleport_hint:
-      .: "Click to teleport to"
+      .: "Click to teleport to %1$s"
       dimension: "Dimension"
-    entity_type: Entity type
+    entity_type: 'Entity type: %1$s (%2$s)'
     language:
       space: ' '
     stack_trace:
