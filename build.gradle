@@ -16,7 +16,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 String versionSuffix = ''
-String buildNumber = System.getenv("GITHUB_RUN_NUMBER");
+String buildNumber = System.getenv("GITHUB_RUN_NUMBER")
 if (buildNumber != null) {
 	versionSuffix = '+build.' + buildNumber
 }
