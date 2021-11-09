@@ -131,7 +131,7 @@ public class DamageLogger extends AbstractLogger
 					List<Object> sourceHoverTextList = Lists.newArrayList();
 					if (source != null)
 					{
-						sourceHoverTextList.add(Messenger.c(tr("Source"), "w : ", source.getName()));
+						sourceHoverTextList.add(Messenger.c(tr("source"), "w : ", source.getName()));
 					}
 					if (attacker != null)
 					{
@@ -139,7 +139,7 @@ public class DamageLogger extends AbstractLogger
 						{
 							sourceHoverTextList.add("w \n");
 						}
-						sourceHoverTextList.add(Messenger.c(tr("Attacker"), "w : ", attacker.getName()));
+						sourceHoverTextList.add(Messenger.c(tr("attacker"), "w : ", attacker.getName()));
 					}
 					lines.add(tr(
 							"header_message",
