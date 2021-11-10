@@ -3,23 +3,31 @@ package carpettisaddition.commands.info;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandExtender;
+import carpettisaddition.mixins.command.info.ChunkTickSchedulerAccessor;
 import carpettisaddition.mixins.command.info.ServerWorldAccessor;
+import carpettisaddition.mixins.command.info.WorldTickSchedulerAccessor;
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraft.world.tick.ChunkTickScheduler;
 import net.minecraft.world.tick.OrderedTick;
+import net.minecraft.world.tick.WorldTickScheduler;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -72,12 +80,12 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		return 1;
 	}
 
-	private void appendTileTickInfo(List<BaseText> result, List<OrderedTick<?>> tileTickList, String title, long currentTime, Function<Object, BaseText> nameGetter)
+	private <T> void appendTileTickInfo(List<BaseText> result, List<OrderedTick<T>> tileTickList, String title, long currentTime, Function<T, BaseText> nameGetter)
 	{
 		if (!tileTickList.isEmpty())
 		{
 			result.add(Messenger.s(String.format(" - %s * %d", title, tileTickList.size())));
-			for (OrderedTick<?> tt : tileTickList)
+			for (OrderedTick<T> tt : tileTickList)
 			{
 				result.add(Messenger.c(
 						"w     ",
@@ -104,6 +112,18 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	private <T> List<OrderedTick<T>> getTileTicksAt(WorldTickScheduler<T> wts, BlockPos pos)
+	{
+		ChunkTickScheduler<T> cts = ((WorldTickSchedulerAccessor<T>)wts).getChunkTickSchedulers().get(ChunkPos.toLong(pos));
+		if (cts != null)
+		{
+			Queue<OrderedTick<T>> queue = ((ChunkTickSchedulerAccessor<T>)cts).getTickQueue();
+			return queue.stream().filter(t -> t.pos().equals(pos)).sorted(OrderedTick.TRIGGER_TICK_COMPARATOR).collect(Collectors.toList());
+		}
+		return Collections.emptyList();
+	}
+
 	public Collection<BaseText> showMoreBlockInfo(BlockPos pos, World world)
 	{
 		if (!(world instanceof ServerWorld))
@@ -111,12 +131,10 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 			return Collections.emptyList();
 		}
 		List<BaseText> result = Lists.newArrayList();
-		// TODO: make tiletick display work
-//		BlockBox bound = BlockBox.create(pos, pos.add(1, 1, 1));
-//		List<ScheduledTick<Block>> blockTileTicks = ((ServerTickScheduler<Block>)world.getBlockTickScheduler()).getScheduledTicks(bound, false, false);
-//		List<ScheduledTick<Fluid>> liquidTileTicks = ((ServerTickScheduler<Fluid>)world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
-//		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), Messenger::block);
-//		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", world.getTime(), Messenger::fluid);
+		List<OrderedTick<Block>> blockTileTicks = this.getTileTicksAt((WorldTickScheduler<Block>)world.getBlockTickScheduler(), pos);
+		List<OrderedTick<Fluid>> liquidTileTicks = this.getTileTicksAt((WorldTickScheduler<Fluid>)world.getFluidTickScheduler(), pos);
+		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), Messenger::block);
+		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", world.getTime(), Messenger::fluid);
 		List<BlockEvent> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.pos().equals(pos)).collect(Collectors.toList());
 		this.appendBlockEventInfo(result, blockEvents);
 		return result;
