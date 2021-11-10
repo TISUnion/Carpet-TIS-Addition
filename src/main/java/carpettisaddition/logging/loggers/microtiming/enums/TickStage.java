@@ -32,7 +32,7 @@ public enum TickStage
 
 	TickStage(String name, boolean insideWorld)
 	{
-		this.translationKey = name;
+		this.translationKey = name.toLowerCase();
 		this.insideWorld = insideWorld;
 	}
 

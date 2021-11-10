@@ -72,12 +72,12 @@ public class Messenger
 
 	// Fancy text
 	// TODO: yeets style
-	public static BaseText fancy(String style, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
+	public static BaseText fancy(String carpetStyle, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
 	{
 		BaseText text = copy(displayText);
-		if (style != null)
+		if (carpetStyle != null)
 		{
-			text.setStyle(parseCarpetStyle(style));
+			text.setStyle(parseCarpetStyle(carpetStyle));
 		}
 		if (hoverText != null)
 		{
