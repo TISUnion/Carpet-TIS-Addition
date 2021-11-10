@@ -15,7 +15,6 @@ import java.nio.file.Files;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +27,7 @@ public class LoggerSubscriptionStorage
 			10, TimeUnit.SECONDS,
 			new LinkedBlockingQueue<>(1),
 			new ThreadFactoryBuilder().setNameFormat(LoggerSubscriptionStorage.class.getSimpleName() + " IO").build(),
-			new ThreadPoolExecutor.AbortPolicy()
+			new ThreadPoolExecutor.DiscardOldestPolicy()
 	);
 	// player name -> (logger name -> option)
 	private DataStorage storage = null;
@@ -56,21 +55,15 @@ public class LoggerSubscriptionStorage
 		if (this.storage == null)
 		{
 			this.storage = new DataStorage();
+			this.save();
 		}
-		for (int i = 0; i < 100; i++) this.save();
 	}
 
 	private void save()
 	{
 		Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
 		String content = gson.toJson(this.storage);
-		try
-		{
-			FILE_SAVE_POOL.submit(() -> this.__save(content));
-		}
-		catch (RejectedExecutionException ignored)
-		{
-		}
+		FILE_SAVE_POOL.submit(() -> this.__save(content));
 	}
 
 	private void __save(String content)
@@ -121,7 +114,7 @@ public class LoggerSubscriptionStorage
 			playerEntry.forEach((loggerName, option) -> {
 				if (LoggerRegistry.getLogger(loggerName) != null)
 				{
-					CarpetTISAdditionServer.LOGGER.debug("Restore {} {} for {}", loggerName, option, playerName);
+					CarpetTISAdditionServer.LOGGER.info("Restore {} {} for {}", loggerName, option, playerName);
 					LoggerRegistry.subscribePlayer(playerName, loggerName, option);
 				}
 			});

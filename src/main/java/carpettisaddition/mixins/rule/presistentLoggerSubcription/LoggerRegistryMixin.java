@@ -8,7 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -20,8 +20,8 @@ public abstract class LoggerRegistryMixin
 	@Inject(
 			method = "playerConnected",
 			at = @At(
-					value = "INVOKE",
-					target = "Ljava/util/Map;values()Ljava/util/Collection;",
+					value = "FIELD",
+					target = "Lcarpet/logging/LoggerRegistry;loggerRegistry:Ljava/util/Map;",
 					remap = false
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD,
@@ -38,14 +38,13 @@ public abstract class LoggerRegistryMixin
 		}
 	}
 
-	@ModifyArg(
+	@ModifyVariable(
 			method = "playerConnected",
 			at = @At(
 					value = "INVOKE",
-					target = "Lcarpet/logging/Logger;onPlayerConnect(Lnet/minecraft/entity/player/PlayerEntity;Z)V",
+					target = "Ljava/util/Map;values()Ljava/util/Collection;",
 					remap = true
 			),
-			index = 1,
 			remap = false
 	)
 	private static boolean dontSetDefaultLogger(boolean value)
