@@ -2,6 +2,13 @@
 
 # 索引
 
+- [索引](readme_cn.md)
+- [规则](rules_cn.md)
+- [监视器](loggers_cn.md)
+- [指令](commands_cn.md)
+- [杂项](misc_cn.md)
+- [开发](development_cn.md)
+
 ## [规则](rules_cn.md)
 
 - [禁用反刷屏监测](rules_cn.md#禁用反刷屏监测-antispamdisabled)

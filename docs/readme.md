@@ -2,6 +2,13 @@
 
 # Index
 
+- [Index](readme.md)
+- [Rules](rules.md)
+- [Loggers](loggers.md)
+- [Commands](commands.md)
+- [Misc](commands.md)
+- [Development](development.md)
+
 ## [Rules](rules.md)
 
 - [antiSpamDisabled](rules.md#antispamdisabled)
