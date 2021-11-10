@@ -3,8 +3,10 @@ package carpettisaddition.utils;
 import carpettisaddition.CarpetTISAdditionServer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
+import org.jetbrains.annotations.Nullable;
 
 public class GameUtil
 {
@@ -37,5 +39,11 @@ public class GameUtil
 	public static BlockPos getInvalidBlockPos()
 	{
 		return new BlockPos(0, -1024, 0);
+	}
+
+	@Nullable
+	public static PlayerEntity getPlayerFromName(String playerName)
+	{
+		return CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayer(playerName);
 	}
 }

@@ -172,6 +172,7 @@
     "rule.optimizedHardHitBoxEntityCollision.WorldChunkMixin",
     "rule.optimizedTNTHighPriority.ExplosionMixin",
     "rule.poiUpdates.ServerWorldMixin",
+    "rule.presistentLoggerSubcription.LoggerRegistryMixin",
     "rule.railDupingFix.AbstractRailBlockMixin",
     "rule.redstoneDustRandomUpdateOrder.RedstoneWireBlockMixin",
     "rule.renewableDragonEgg.DragonEggBlockMixin",

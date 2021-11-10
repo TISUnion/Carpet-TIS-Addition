@@ -38,6 +38,7 @@
 - [optimizedHardHitBoxEntityCollision](rules.md#optimizedhardhitboxentitycollision)
 - [optimizedTNTHighPriority](rules.md#optimizedtnthighpriority)
 - [poiUpdates](rules.md#poiupdates)
+- [persistentLoggerSubscription](rules.md#persistentloggersubscription)
 - [railDupingFix](rules.md#raildupingfix)
 - [redstoneDustRandomUpdateOrder](rules.md#redstonedustrandomupdateorder)
 - [renewableDragonEgg](rules.md#renewabledragonegg)
