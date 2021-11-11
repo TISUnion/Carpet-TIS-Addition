@@ -1,6 +1,6 @@
 package carpettisaddition.commands;
 
-import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.GameUtil;
 import carpettisaddition.utils.Messenger;
@@ -11,7 +11,7 @@ import net.minecraft.util.Formatting;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public abstract class AbstractTracker extends TranslatableBase
+public abstract class AbstractTracker extends TranslationContext
 {
 	private static final Translator baseTranslator = new Translator("tracker");
 	private final String name;
@@ -21,7 +21,7 @@ public abstract class AbstractTracker extends TranslatableBase
 
 	public AbstractTracker(String name)
 	{
-		super("tracker", name.toLowerCase());
+		super("tracker." + name.toLowerCase());
 		this.name = name;
 	}
 

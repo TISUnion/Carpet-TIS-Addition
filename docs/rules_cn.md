@@ -460,6 +460,20 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 持久性记录器订阅 (persistentLoggerSubscription)
+
+在服务器重启后依然记忆着玩家订阅的记录器及记录器选项
+
+仅在玩家首次登录时应用 carpet 的 `defaultLoggers` 规则
+
+记录器订阅储存于 `config/carpettisaddition/logger_subscriptions.json` 中
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`
+
+
 ## 刷铁轨机修复 (railDupingFix)
 
 禁用老式的移动点亮的充能或激活铁轨的刷铁轨机

@@ -2,6 +2,13 @@
 
 # Index
 
+- [Index](readme.md)
+- [Rules](rules.md)
+- [Loggers](loggers.md)
+- [Commands](commands.md)
+- [Misc](commands.md)
+- [Development](development.md)
+
 ## [Rules](rules.md)
 
 - [antiSpamDisabled](rules.md#antispamdisabled)
@@ -38,6 +45,7 @@
 - [optimizedHardHitBoxEntityCollision](rules.md#optimizedhardhitboxentitycollision)
 - [optimizedTNTHighPriority](rules.md#optimizedtnthighpriority)
 - [poiUpdates](rules.md#poiupdates)
+- [persistentLoggerSubscription](rules.md#persistentloggersubscription)
 - [railDupingFix](rules.md#raildupingfix)
 - [redstoneDustRandomUpdateOrder](rules.md#redstonedustrandomupdateorder)
 - [renewableDragonEgg](rules.md#renewabledragonegg)

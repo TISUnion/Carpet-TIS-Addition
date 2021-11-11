@@ -92,7 +92,7 @@ public class RaidCommand extends AbstractCommand
 
 				Set<RaiderEntity> raiders = raidAccessor.getWaveToRaiders().get(currentWave);
 				boolean hasRaiders = raiders != null && !raiders.isEmpty();
-				result.add(Messenger.c("g   ", tr("Raiders"), "w : ", hasRaiders ? Messenger.s(String.format("x%d", raiders.size())) : tr("None")));
+				result.add(Messenger.c("g   ", tr("raiders"), "w : ", hasRaiders ? Messenger.s(String.format("x%d", raiders.size())) : tr("none")));
 				if (hasRaiders)
 				{
 					int counter = 0;

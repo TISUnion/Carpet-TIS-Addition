@@ -44,7 +44,7 @@ public abstract class TrajectoryLogHelperMixin
 	private Entity entity;
 	private boolean doVisualizeLogging;
 	private boolean hasCreatedVisualizer;
-	private final Translator translator = new Translator("logger", "projectiles.visualized");
+	private final Translator translator = new Translator("logger.projectiles.visualized");
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void initTISCMStuffs(String logName, CallbackInfo ci)

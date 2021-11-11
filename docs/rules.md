@@ -460,6 +460,18 @@ Set it to `false` to disable POI updates
 - Categories: `TIS`, `CREATIVE`
 
 
+## persistentLoggerSubscription
+
+Only applies carpet's defaultLoggers rule at someone's first login
+
+Logger subscriptions are saved in `config/carpettisaddition/logger_subscriptions.json`
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`
+
+
 ## railDupingFix
 
 Disable rail duping using old school pushing lit powered or activator rail method

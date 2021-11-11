@@ -18,7 +18,7 @@ import java.util.List;
 
 public class LightThreadSynchronizer
 {
-	private static final Translator translator = new Translator("rule", "synchronizedLightThread");
+	private static final Translator translator = new Translator("rule.synchronizedLightThread");
 	public static final String SECTION_NAME = "Lighting synchronization";
 
 	private static boolean isSafeToWait(boolean synchronizedLightThread, CarpetTISAdditionSettings.LightUpdateOptions lightUpdates)
