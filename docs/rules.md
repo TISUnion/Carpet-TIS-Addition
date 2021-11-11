@@ -462,6 +462,8 @@ Set it to `false` to disable POI updates
 
 ## persistentLoggerSubscription
 
+Remember the subscribed loggers as well as logging options of the player during server restart
+
 Only applies carpet's defaultLoggers rule at someone's first login
 
 Logger subscriptions are saved in `config/carpettisaddition/logger_subscriptions.json`
