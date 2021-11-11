@@ -160,7 +160,7 @@ public class MicroTimingMessage
 		{
 			if (showStage)
 			{
-				line.add(Messenger.c("g  @ ", this.tickPhase.toText()));
+				line.add(Messenger.c("g  @ ", this.tickPhase.toText("y")));
 			}
 		}
 		line.add("w  ");

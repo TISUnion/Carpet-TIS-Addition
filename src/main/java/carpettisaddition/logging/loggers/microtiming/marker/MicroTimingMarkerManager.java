@@ -1,8 +1,9 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compact.scarpet.ShapeDispatcher;
 import com.google.common.collect.Maps;
@@ -23,7 +24,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class MicroTimingMarkerManager extends TranslatableBase
+public class MicroTimingMarkerManager extends TranslationContext
 {
 	private static final MicroTimingMarkerManager INSTANCE = new MicroTimingMarkerManager();
 
@@ -185,6 +186,10 @@ public class MicroTimingMarkerManager extends TranslatableBase
 	 */
 	public void tick()
 	{
+		if (!CarpetTISAdditionSettings.microTiming)
+		{
+			return;
+		}
 		this.sendMarkersForAll(marker -> marker.tickCounter % MicroTimingMarker.MARKER_SYNC_INTERVAL == 0);
 		this.markers.values().forEach(marker -> marker.tickCounter++);
 	}

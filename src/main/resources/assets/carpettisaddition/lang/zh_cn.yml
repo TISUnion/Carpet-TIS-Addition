@@ -322,9 +322,9 @@ carpettisaddition:
 
   util:
     teleport_hint:
-      .: 点击以传送至
+      .: '点击以传送至%1$s'
       dimension: 维度
-    entity_type: 实体类型
+    entity_type: '实体类型: %1$s (%2$s)'
     language:
       space: ''
     stack_trace:
@@ -531,6 +531,12 @@ carpettisaddition:
         desc: 方块变化时是否会更新POI
         extra:
           '0': 将其设为false以禁用POI更新
+      persistentLoggerSubscription:
+        name: 持久性记录器订阅
+        desc: 在服务器重启后依然记忆着玩家订阅的记录器及记录器选项
+        extra:
+          '0': 仅在玩家首次登录时应用carpet的defaultLoggers规则
+          '1': 记录器订阅储存于config/carpettisaddition/logger_subscriptions.json中
       railDupingFix:
         name: 刷铁轨机修复
         desc: 禁用老式的移动点亮的充能或激活铁轨的刷铁轨机

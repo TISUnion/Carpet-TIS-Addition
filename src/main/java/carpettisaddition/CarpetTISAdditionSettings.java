@@ -510,6 +510,16 @@ public class CarpetTISAdditionSettings
 	public static boolean poiUpdates = true;
 
 	@Rule(
+			desc = "Remember the subscribed loggers as well as logging options of the player during server restart",
+			extra = {
+					"Only applies carpet's defaultLoggers rule at someone's first login",
+					"Logger subscriptions are saved in config/carpettisaddition/logger_subscriptions.json"
+			},
+			category = {TIS, CARPET_MOD}
+	)
+	public static boolean persistentLoggerSubscription = false;
+
+	@Rule(
 			desc = "Disable rail duping using old school pushing lit powered or activator rail method",
 			category = {TIS, BUGFIX}
 	)

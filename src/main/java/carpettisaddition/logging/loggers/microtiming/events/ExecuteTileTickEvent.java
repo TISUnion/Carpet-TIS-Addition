@@ -34,7 +34,7 @@ public class ExecuteTileTickEvent<T> extends BaseEvent
 		list.add(Messenger.fancy(
 				Messenger.formatting(tr("tiletick_event"), COLOR_TARGET),
 				Messenger.c(
-						tr("Priority"),
+						tr("priority"),
 						String.format("w : %d (%s)", this.tileTickEntry.priority.getIndex(), this.tileTickEntry.priority)
 				),
 				null

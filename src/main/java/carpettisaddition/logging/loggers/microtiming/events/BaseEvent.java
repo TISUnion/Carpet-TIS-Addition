@@ -1,13 +1,14 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.translations.TranslationContext;
 import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
 
 import java.util.Objects;
 
-public abstract class BaseEvent extends TranslatableBase
+public abstract class BaseEvent extends TranslationContext
 {
 	protected static final String COLOR_ACTION = "c";
 	protected static final String COLOR_TARGET = "c";
@@ -18,7 +19,7 @@ public abstract class BaseEvent extends TranslatableBase
 
 	protected BaseEvent(EventType eventType, String translateKey, EventSource eventSource)
 	{
-		super("logger.microTiming.event", translateKey);
+		super(MicroTimingLoggerManager.TRANSLATOR.getTranslationPath() + ".event." + translateKey);
 		this.eventType = eventType;
 		this.eventSource = eventSource;
 	}

@@ -2,7 +2,7 @@ package carpettisaddition.commands.lifetime.utils;
 
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
-import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
@@ -11,7 +11,7 @@ import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
 
-public class LifeTimeStatistic extends TranslatableBase
+public class LifeTimeStatistic extends TranslationContext
 {
 	public static final String COLOR_MIN_TIME = "q ";
 	public static final String COLOR_MAX_TIME = "c ";

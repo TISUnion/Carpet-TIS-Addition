@@ -124,14 +124,11 @@ public class DamageLogger extends AbstractLogger
 				verifyAndProduceMessage(option, player, attacker, target, () -> {
 					List<Object> lines = Lists.newArrayList();
 					lines.add(Messenger.s(" "));
-					BaseText sourceName = Messenger.click(
-							(BaseText)target.getDisplayName(),
-							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(target))
-					);
+					BaseText targetName = Messenger.entity(target);
 					List<Object> sourceHoverTextList = Lists.newArrayList();
 					if (source != null)
 					{
-						sourceHoverTextList.add(Messenger.c(tr("Source"), "w : ", source.getName()));
+						sourceHoverTextList.add(Messenger.c(tr("source"), "w : ", source.getName()));
 					}
 					if (attacker != null)
 					{
@@ -139,11 +136,11 @@ public class DamageLogger extends AbstractLogger
 						{
 							sourceHoverTextList.add("w \n");
 						}
-						sourceHoverTextList.add(Messenger.c(tr("Attacker"), "w : ", attacker.getName()));
+						sourceHoverTextList.add(Messenger.c(tr("attacker"), "w : ", attacker.getName()));
 					}
 					lines.add(tr(
 							"header_message",
-							sourceName,
+							targetName,
 							getAmountText("r", this.initialAmount),
 							Messenger.fancy(
 									"w",
@@ -170,11 +167,11 @@ public class DamageLogger extends AbstractLogger
 					}
 					lines.add(tr(
 							"footer_message",
-							sourceName,
+							targetName,
 							getAmountText(finalAmount > 0.0F ? "r" : "w", finalAmount),
 							getAmountText(remainingHealth > 0 ? "l" : "r", remainingHealth)
 					));
-					return lines.stream().map(carpet.utils.Messenger::c).toArray(BaseText[]::new);
+					return lines.stream().map(Messenger::c).toArray(BaseText[]::new);
 				})
 		);
 	}

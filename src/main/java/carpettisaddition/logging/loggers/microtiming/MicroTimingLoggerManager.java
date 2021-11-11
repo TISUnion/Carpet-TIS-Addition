@@ -36,6 +36,7 @@ import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Map;
@@ -47,6 +48,8 @@ public class MicroTimingLoggerManager
 
 	private final Map<ServerWorld, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
 	public static final Translator TRANSLATOR = (new AbstractLogger(MicroTimingLogger.NAME){}).getTranslator();
+	private TickPhase offWorldTickPhase = new TickPhase(TickStage.UNKNOWN, null);
+	public ThreadLocal<ServerWorld> currentWorld = ThreadLocal.withInitial(() -> null);
 
 	public static BaseText tr(String key, Object... args)
 	{
@@ -79,6 +82,16 @@ public class MicroTimingLoggerManager
 	public static void detachServer()
 	{
 		instance = null;
+	}
+
+	@NotNull
+	public static MicroTimingLoggerManager getInstance()
+	{
+		if (instance == null)
+		{
+			throw new RuntimeException("MicroTimingLoggerManager not attached");
+		}
+		return instance;
 	}
 
 	private static Optional<MicroTimingLogger> getWorldLogger(World world)
@@ -255,6 +268,7 @@ public class MicroTimingLoggerManager
 			{
 				logger.setTickStage(stage);
 			}
+			instance.offWorldTickPhase = instance.offWorldTickPhase.withMainStage(stage);
 		}
 	}
 
@@ -276,15 +290,8 @@ public class MicroTimingLoggerManager
 			{
 				logger.setSubTickStage(stage);
 			}
+			instance.offWorldTickPhase = instance.offWorldTickPhase.withSubStage(stage);
 		}
-	}
-
-	/**
-	 * Public API
-	 */
-	public TickPhase getTickPhase(ServerWorld world)
-	{
-		return ((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger().getTickPhase();
 	}
 
 	private synchronized void flush()
@@ -293,6 +300,29 @@ public class MicroTimingLoggerManager
 		{
 			logger.flushMessages();
 		}
+	}
+
+	/*
+	 * ----------------
+	 *     For API
+	 * ----------------
+	 */
+
+	public static void setCurrentWorld(ServerWorld world)
+	{
+		getInstance().currentWorld.set(world);
+	}
+
+	@Nullable
+	public static ServerWorld getCurrentWorld()
+	{
+		return getInstance().currentWorld.get();
+	}
+
+	@Nullable
+	public static TickPhase getOffWorldTickPhase()
+	{
+		return getInstance().offWorldTickPhase;
 	}
 
 	/**

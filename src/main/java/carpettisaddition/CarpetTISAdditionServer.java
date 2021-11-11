@@ -88,7 +88,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
         MicroTimingMarkerManager.getInstance().tick();
     }
 
-    public static void onCarpetClientHello(ServerPlayerEntity player)
+    public void onCarpetClientHello(ServerPlayerEntity player)
     {
         MicroTimingStandardCarpetLogger.getInstance().onCarpetClientHello(player);
     }

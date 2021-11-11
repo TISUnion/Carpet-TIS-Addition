@@ -5,7 +5,7 @@ import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.commands.lifetime.utils.AbstractReason;
 import carpettisaddition.commands.lifetime.utils.LifeTimeStatistic;
-import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.CounterUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * A lifetime tracking tracked data per mob type
  */
-public class BasicTrackedData extends TranslatableBase
+public class BasicTrackedData extends TranslationContext
 {
 	public final Map<SpawningReason, Long> spawningReasons = Maps.newHashMap();
 	public final Map<RemovalReason, LifeTimeStatistic> removalReasons = Maps.newHashMap();

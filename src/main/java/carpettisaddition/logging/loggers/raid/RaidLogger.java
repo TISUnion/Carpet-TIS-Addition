@@ -49,7 +49,7 @@ public class RaidLogger extends AbstractLogger
 		}
 		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
-					tr("invalidated", raid.getRaidId(), reason.tr())
+					tr("invalidated", raid.getRaidId(), reason.toText())
 			)};
 		});
 	}
@@ -97,7 +97,7 @@ public class RaidLogger extends AbstractLogger
 			return this.name().toLowerCase();
 		}
 
-		public BaseText tr()
+		public BaseText toText()
 		{
 			return TRANSLATOR.tr(getName());
 		}
