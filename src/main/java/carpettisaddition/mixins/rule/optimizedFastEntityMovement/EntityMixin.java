@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.rule.optimizedFastEntityMovement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.google.common.collect.Lists;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
@@ -9,7 +10,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
-import org.apache.commons.compress.utils.Lists;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
