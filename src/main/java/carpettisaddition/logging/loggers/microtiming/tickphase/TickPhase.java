@@ -55,13 +55,13 @@ public class TickPhase
 		return MicroTimingLoggerManager.TRANSLATOR.tr(key, args);
 	}
 
-	public BaseText toText()
+	public BaseText toText(@Nullable String carpetStyle)
 	{
 		List<Object> stageText = Lists.newArrayList();
-		stageText.add(Messenger.formatting(this.mainStage.getName(), "y"));
+		stageText.add(this.mainStage.getName());
 		if (this.stageDetail != null)
 		{
-			stageText.add("y .");
+			stageText.add(Messenger.s("."));
 			BaseText detailText;
 			try
 			{
@@ -71,7 +71,7 @@ public class TickPhase
 			{
 				detailText = tr("stage_detail." + this.stageDetail.toLowerCase());
 			}
-			stageText.add(Messenger.formatting(detailText, "y"));
+			stageText.add(detailText);
 		}
 		List<Object> hoverTextList = Lists.newArrayList();
 		hoverTextList.add(this.subStage != null ? Messenger.c(this.subStage.toText(), "w \n"): Messenger.s(""));
@@ -79,11 +79,16 @@ public class TickPhase
 		hoverTextList.add(Messenger.s(": "));
 		hoverTextList.add(this.mainStage.isInsideWorld() ? Messenger.dimension(this.dimensionType) : Messenger.s("N/A"));
 		return Messenger.fancy(
-				null,
+				carpetStyle,
 				Messenger.c(stageText.toArray(new Object[0])),
 				Messenger.c(hoverTextList.toArray(new Object[0])),
 				this.subStage != null ? this.subStage.getClickEvent() : null
 		);
+	}
+
+	public BaseText toText()
+	{
+		return this.toText(null);
 	}
 
 	@Override

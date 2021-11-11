@@ -2,18 +2,21 @@ package carpettisaddition.translations;
 
 import net.minecraft.text.BaseText;
 
-public class TranslatableBase implements Translatable
+/**
+ * With this you can use {@link TranslationContext#tr} freely in your target class
+ */
+public class TranslationContext
 {
 	private final Translator translator;
 
-	public TranslatableBase(Translator translator)
+	public TranslationContext(Translator translator)
 	{
 		this.translator = translator;
 	}
 
-	public TranslatableBase(String type, String name)
+	public TranslationContext(String translationPath)
 	{
-		this(new Translator(type, name));
+		this(new Translator(translationPath));
 	}
 
 	public Translator getTranslator()
@@ -21,7 +24,6 @@ public class TranslatableBase implements Translatable
 		return translator;
 	}
 
-	@Override
 	public BaseText tr(String key, Object ...args)
 	{
 		return this.translator.tr(key, args);
