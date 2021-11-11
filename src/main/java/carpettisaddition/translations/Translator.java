@@ -1,30 +1,25 @@
 package carpettisaddition.translations;
 
 import carpettisaddition.utils.Messenger;
+import com.google.common.base.Strings;
 import net.minecraft.text.BaseText;
 
-public class Translator implements Translatable
+public class Translator
 {
-	private final String type;
-	private final String name;
 	private final String translationPath;
 
-	public Translator(String type, String name)
+	public Translator(String translationPath)
 	{
-		this.type = type;
-		this.name = name;
-		this.translationPath = this.generateTranslationPath();
-	}
-
-	public Translator(String prefix)
-	{
-		this(prefix, null);
+		if (Strings.isNullOrEmpty(translationPath) || translationPath.startsWith(".") || translationPath.endsWith("."))
+		{
+			throw new RuntimeException("Invalid translation path: " + translationPath);
+		}
+		this.translationPath = translationPath;
 	}
 
 	public Translator getDerivedTranslator(String derivedName)
 	{
-		String name = this.name == null ? derivedName : this.name + "." + derivedName;
-		return new Translator(this.type, name);
+		return new Translator(this.translationPath + "." + derivedName);
 	}
 
 	public String getTranslationPath()
@@ -32,40 +27,9 @@ public class Translator implements Translatable
 		return this.translationPath;
 	}
 
-	private String generateTranslationPath()
-	{
-		String path = "";
-		if (this.type != null)
-		{
-			path += this.type + ".";
-		}
-		if (this.name != null)
-		{
-			path += this.name + ".";
-		}
-		if (path.endsWith("."))
-		{
-			path = path.substring(0, path.length() - 1);
-		}
-		return path;
-	}
-
-	// use <type>.<name>.<key> as translation key
-	// format key before apply
-	private String getPath(String key)
-	{
-		String path = this.getTranslationPath();
-		if (!path.isEmpty())
-		{
-			path += ".";
-		}
-		key = key.toLowerCase();
-		return path + key;
-	}
-
-	@Override
 	public BaseText tr(String key, Object... args)
 	{
-		return Messenger.tr(TISAdditionTranslations.TRANSLATION_KEY_PREFIX + this.getPath(key), args);
+		String translationKey = TISAdditionTranslations.TRANSLATION_KEY_PREFIX + this.translationPath + "." + key;
+		return Messenger.tr(translationKey, args);
 	}
 }

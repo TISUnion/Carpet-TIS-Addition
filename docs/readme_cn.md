@@ -2,6 +2,13 @@
 
 # 索引
 
+- [索引](readme_cn.md)
+- [规则](rules_cn.md)
+- [监视器](loggers_cn.md)
+- [指令](commands_cn.md)
+- [杂项](misc_cn.md)
+- [开发](development_cn.md)
+
 ## [规则](rules_cn.md)
 
 - [禁用反刷屏监测](rules_cn.md#禁用反刷屏监测-antispamdisabled)
@@ -38,6 +45,7 @@
 - [优化硬碰撞箱实体碰撞](rules_cn.md#优化硬碰撞箱实体碰撞-optimizedhardhitboxentitycollision)
 - [TNT优化高优先级](rules_cn.md#TNT优化高优先级-optimizedtnthighpriority)
 - [POI更新开关](rules_cn.md#POI更新开关-poiupdates)
+- [持久性记录器订阅](rules_cn.md#持久性记录器订阅-persistentloggersubscription)
 - [刷铁轨机修复](rules_cn.md#刷铁轨机修复-raildupingfix)
 - [红石粉随机更新顺序](rules_cn.md#红石粉随机更新顺序-redstonedustrandomupdateorder)
 - [可再生龙蛋](rules_cn.md#可再生龙蛋-renewabledragonegg)

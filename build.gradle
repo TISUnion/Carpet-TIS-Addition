@@ -16,7 +16,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 String versionSuffix = ''
-String buildNumber = System.getenv("GITHUB_RUN_NUMBER");
+String buildNumber = System.getenv("GITHUB_RUN_NUMBER")
 if (buildNumber != null) {
 	versionSuffix = '+build.' + buildNumber
 }
@@ -35,7 +35,7 @@ dependencies {
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 	modCompileOnly "com.github.Fallen-Breath:lithium-fabric:1.17.x~dev-cta18compact-SNAPSHOT"  // Lithium mc1.17.1-0.7.5
 
-	modImplementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
+	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
 	include "org.yaml:snakeyaml:${project.snakeyaml_version}"
 }
 
@@ -74,13 +74,7 @@ jar {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
+			from components.java
 		}
 	}
 

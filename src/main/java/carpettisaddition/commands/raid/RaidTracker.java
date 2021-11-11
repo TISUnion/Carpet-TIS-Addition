@@ -79,17 +79,17 @@ public class RaidTracker extends AbstractTracker
 		int invalidateCounterSum = this.raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
 
 		result.add(Messenger.c(tr("raid_generated"), "w : ", Messenger.s(CounterUtil.ratePerHour(this.raidGeneratedCount, ticks))));
-		result.add(Messenger.c(RaidCommand.getInstance().tr("Raiders"), "w : ", Messenger.s(CounterUtil.ratePerHour(raiderCountSum, ticks))));
+		result.add(Messenger.c(RaidCommand.getInstance().tr("raiders"), "w : ", Messenger.s(CounterUtil.ratePerHour(raiderCountSum, ticks))));
 		this.raiderCounter.forEach((raiderType, count) -> result.add(Messenger.c(
 				"g - ",
 				raiderType.getName(),
 				String.format("w : %s, %.1f%%", CounterUtil.ratePerHour(count, ticks), (double) count / raiderCountSum * 100))
 		));
 
-		result.add(Messenger.c(tr("invalidate_reasons_statistics"), "w : ", this.raidInvalidateCounter.isEmpty() ? tr("None") : Messenger.s("")));
+		result.add(Messenger.c(tr("invalidate_reasons_statistics"), "w : ", this.raidInvalidateCounter.isEmpty() ? tr("none") : Messenger.s("")));
 		this.raidInvalidateCounter.forEach((reason, count) -> result.add(Messenger.c(
 				"g - ",
-				String.format("w %s", reason.tr()),
+				reason.toText(),
 				String.format("w : %s, %.1f%%", CounterUtil.ratePerHour(count, ticks), (double)count / invalidateCounterSum * 100))
 		));
 		Messenger.tell(source, result);

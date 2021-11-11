@@ -8,7 +8,7 @@ import carpettisaddition.commands.lifetime.trackeddata.ExperienceOrbTrackedData;
 import carpettisaddition.commands.lifetime.trackeddata.ItemTrackedData;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
-import carpettisaddition.translations.TranslatableBase;
+import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
@@ -25,7 +25,7 @@ import net.minecraft.util.Formatting;
 
 import java.util.*;
 
-public class LifeTimeWorldTracker extends TranslatableBase
+public class LifeTimeWorldTracker extends TranslationContext
 {
 	private final ServerWorld world;
 	private final Map<EntityType<?>, BasicTrackedData> dataMap = Maps.newHashMap();
