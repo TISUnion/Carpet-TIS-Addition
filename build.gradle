@@ -35,7 +35,7 @@ dependencies {
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 	modCompileOnly "curse.maven:lithium-360438:2904300"
 
-	modImplementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
+	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
 	include "org.yaml:snakeyaml:${project.snakeyaml_version}"
 }
 

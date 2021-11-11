@@ -52,7 +52,7 @@ jobs:
           - '1.15.2'
           - '1.16.5'
           - '1.17.x'
-          - '1.18-exp'
+          - '1.18.x'
 
     steps:
       - uses: actions/checkout@v2
