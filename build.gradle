@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.10-SNAPSHOT'
+	id 'fabric-loom' version '0.10.54'  // TODO switch back to 0.10-SNAPSHOT when possible
 	id 'maven-publish'
 }
 
