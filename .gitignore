@@ -24,3 +24,8 @@ bin/
 # fabric
 
 run/
+
+# curseforge api cheatsheet
+
+/.github/workflows/gameversions.json
+/.github/workflows/gameversiontype.json

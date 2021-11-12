@@ -16,9 +16,12 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 String versionSuffix = ''
-String buildNumber = System.getenv("GITHUB_RUN_NUMBER")
+if (System.getenv("BUILD_RELEASE") != "true") {
+	versionSuffix += '-SHAPSHOT'
+}
+String buildNumber = System.getenv("BUILD_ID")
 if (buildNumber != null) {
-	versionSuffix = '+build.' + buildNumber
+	versionSuffix += '+build.' + buildNumber
 }
 String fullModVersion = project.mod_version + versionSuffix
 
