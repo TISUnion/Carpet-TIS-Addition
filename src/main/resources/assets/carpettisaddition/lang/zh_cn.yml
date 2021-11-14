@@ -64,20 +64,20 @@ carpettisaddition:
       stage:
         unknown: 未知
         spawning: 生物刷新
-        spawningspecial: 特殊生物刷新
-        worldborder: 世界边境
-        tiletick: 计划刻
+        spawning_special: 特殊生物刷新
+        world_border: 世界边境
+        tile_tick: 计划刻
         raid: 袭击
-        wanderingtrader: 游商
-        blockevent: 方块事件
+        wandering_trader: 游商
+        block_event: 方块事件
         entity: 实体
-        chunktick: 区块刻
-        tileentity: 方块实体
-        dragonfight: 龙战逻辑
-        asynctask: 异步回调任务
-        autosave: 自动保存
-        playeraction: 玩家操作
-        commandfunction: 函数及数据包
+        chunk_tick: 区块刻
+        tile_entity: 方块实体
+        dragon_fight: 龙战逻辑
+        auto_save: 自动保存
+        async_task: 异步回调任务
+        player_action: 玩家操作
+        command_function: 函数及数据包
         network: 网络
         console: 控制台
         scarpet: Scarpet
