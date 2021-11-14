@@ -63,7 +63,7 @@ jobs:
           name: '[${{ matrix.branch }}] build-artifacts'
           path: build/libs/
 
-      - name: Upload to the Github release
+      - name: Upload to Github release
         uses: softprops/action-gh-release@v1
         with:
           files: build/libs/${{ steps.findjar.outputs.jarname }}
