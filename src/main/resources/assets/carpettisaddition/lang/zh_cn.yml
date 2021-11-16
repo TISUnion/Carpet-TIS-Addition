@@ -305,7 +305,7 @@ carpettisaddition:
         doc_summary: 一个追踪所有新生成生物的存活时间及生成/移除原因的记录器
         complete_doc_hint: 完整文档%1$s
         here: 传送门
-        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#存活时间-lifetime
+        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/docs/commands_cn.md#存活时间-lifetime
       filter:
         global: 全局
         unsupported:
