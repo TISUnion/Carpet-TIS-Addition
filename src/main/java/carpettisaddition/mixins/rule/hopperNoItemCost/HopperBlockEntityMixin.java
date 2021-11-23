@@ -33,7 +33,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 					target = "Lnet/minecraft/inventory/Inventory;markDirty()V",
 					shift = At.Shift.AFTER
 			),
-			locals = LocalCapture.CAPTURE_FAILSOFT
+			locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	private static void hopperNoItemCost(World world, BlockPos pos, BlockState state, Inventory inventory, CallbackInfoReturnable<Boolean> cir, Inventory inventory2, Direction direction, int i, ItemStack itemStack, ItemStack itemStack2)
 	{
