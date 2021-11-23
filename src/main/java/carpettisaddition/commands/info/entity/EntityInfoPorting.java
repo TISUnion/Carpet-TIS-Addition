@@ -129,7 +129,7 @@ public class EntityInfoPorting
 			{
 				lst.add(Messenger.c("w  - Main hand: ", "wb "+EntityInfoAccessor.display_item(mainhand)));
 			}
-			ItemStack offhand = elb.getOffhandStack();
+			ItemStack offhand = elb.getOffHandStack();
 			if (!(offhand.isEmpty()))
 			{
 				lst.add(Messenger.c("w  - Off hand: ", "wb "+EntityInfoAccessor.display_item(offhand)));

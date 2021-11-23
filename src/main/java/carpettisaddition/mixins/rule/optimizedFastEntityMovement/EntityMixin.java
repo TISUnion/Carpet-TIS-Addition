@@ -2,7 +2,6 @@ package carpettisaddition.mixins.rule.optimizedFastEntityMovement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.google.common.collect.Lists;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -34,13 +33,13 @@ public abstract class EntityMixin
 	}
 
 	@Redirect(
-			method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/block/ShapeContext;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
+			method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;getBlockCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/lang/Iterable;"
 			)
 	)
-	private static Iterable<VoxelShape> dontUseThatLargeBlockCollisions(World world, Entity entity, Box box, /* parent method parameters -> */ Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam, ShapeContext context, List<VoxelShape> collisions)
+	private static Iterable<VoxelShape> dontUseThatLargeBlockCollisions(World world, Entity entity, Box box, /* parent method parameters -> */ Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam, List<VoxelShape> collisions)
 	{
 		optimizedFEMEnable.set(CarpetTISAdditionSettings.optimizedFastEntityMovement && checkMovement$OFEM(movement));
 		if (optimizedFEMEnable.get())
@@ -60,7 +59,7 @@ public abstract class EntityMixin
 					ordinal = 0
 			)
 	)
-	private static boolean theCollisionParameterIsIncompleteSoDontReturnEvenIfItIsEmpty(List<VoxelShape> voxelShapeList)
+	private static boolean theCollisionsListParameterIsIncompleteSoDontReturnEvenIfItIsEmpty(List<VoxelShape> voxelShapeList)
 	{
 		if (optimizedFEMEnable.get())
 		{
