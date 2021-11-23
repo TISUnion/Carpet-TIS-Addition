@@ -37,7 +37,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:mc1.17.1-0.7.4"
+	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:mc1.17.1-0.7.5"
 
 	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
 	include "org.yaml:snakeyaml:${project.snakeyaml_version}"
