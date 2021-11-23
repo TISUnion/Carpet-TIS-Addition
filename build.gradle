@@ -15,11 +15,12 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+String buildNumber = System.getenv("BUILD_ID")
 String versionSuffix = ''
-if (System.getenv("BUILD_RELEASE") != "true") {
+// not release, no build number, probably not in github action CI, so added a -SNAPSHOT suffix
+if (System.getenv("BUILD_RELEASE") != "true" && buildNumber == null) {
 	versionSuffix += '-SHAPSHOT'
 }
-String buildNumber = System.getenv("BUILD_ID")
 if (buildNumber != null) {
 	versionSuffix += '+build.' + buildNumber
 }
