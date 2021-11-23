@@ -25,6 +25,7 @@
 - [enchant指令约束移除](rules_cn.md#enchant指令约束移除-enchantcommandnorestriction)
 - [实体速度丢失](rules_cn.md#实体速度丢失-entitymomentumloss)
 - [爆炸数据包广播范围](rules_cn.md#爆炸数据包广播范围-explosionpacketrange)
+- [方块状态解析忽略失败](rules_cn.md#方块状态解析忽略失败-failsoftblockstateparsing)
 - [假人名称前缀](rules_cn.md#假人名称前缀-fakeplayernameprefix)
 - [假人名称后缀](rules_cn.md#假人名称后缀-fakeplayernamesuffix)
 - [禁用流体破坏](rules_cn.md#禁用流体破坏-fluiddestructiondisabled)
