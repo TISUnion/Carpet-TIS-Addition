@@ -158,6 +158,16 @@ public class CarpetTISAdditionSettings
 	)
 	public static double explosionPacketRange = VANILLA_EXPLOSION_PACKET_RANGE;
 
+	@Rule(
+			desc = "Ignore invalid property keys/values in block state arguments used in e.g. /setblock command",
+			extra = {
+					"In vanilla invalid property keys/values cause command failure when parsing, this rule suppresses that",
+					"Useful during cross-version litematica schematic pasting etc."
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean failSoftBlockStateParsing = false;
+
 	public static final String fakePlayerNameNoExtra = "#none";
 	@Rule(
 			desc = "Add a name prefix for fake players spawned with /player command",

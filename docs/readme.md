@@ -25,6 +25,7 @@
 - [enchantCommandNoRestriction](rules.md#enchantcommandnorestriction)
 - [entityMomentumLoss](rules.md#entitymomentumloss)
 - [explosionPacketRange](rules.md#explosionpacketrange)
+- [failSoftBlockStateParsing](rules.md#failsoftblockstateparsing)
 - [fakePlayerNamePrefix](rules.md#fakeplayernameprefix)
 - [fakePlayerNameSuffix](rules.md#fakeplayernamesuffix)
 - [fluidDestructionDisabled](rules.md#fluiddestructiondisabled)

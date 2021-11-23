@@ -402,6 +402,12 @@ carpettisaddition:
       explosionPacketRange:
         name: 爆炸数据包广播范围
         desc: 设置在爆炸发生时，爆炸数据包对玩家的广播范围
+      failSoftBlockStateParsing:
+        name: 方块状态解析忽略失败
+        desc: 忽略在/setblock等指令的方块状态参数中出现的无效键/值参数
+        extra:
+          '0': 在原版中这些无效的键/值会导致指令解析出错。这个规则抑制了这一出错
+          '1': 有助于跨版本粘贴litematica原理图等
       fakePlayerNamePrefix:
         name: 假人名称前缀
         desc: 为/player指令召唤出来的假人名称添加指定前缀
