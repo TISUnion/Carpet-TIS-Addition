@@ -64,20 +64,20 @@ carpettisaddition:
       stage:
         unknown: Unknown
         spawning: Spawning
-        spawningspecial: SpawningSpecial
-        worldborder: WorldBorder
-        tiletick: TileTick
+        spawning_special: SpawningSpecial
+        world_border: WorldBorder
+        tile_tick: TileTick
         raid: Raid
-        wanderingtrader: WanderingTrader
-        blockevent: BlockEvent
+        wandering_trader: WanderingTrader
+        block_event: BlockEvent
         entity: Entity
-        chunktick: ChunkTick
-        tileentity: TileEntity
-        dragonfight: DragonFight
-        autosave: AutoSave
-        asynctask: AsyncTask
-        playeraction: PlayerAction
-        commandfunction: CommandFunction
+        chunk_tick: ChunkTick
+        tile_entity: TileEntity
+        dragon_fight: DragonFight
+        auto_save: AutoSave
+        async_task: AsyncTask
+        player_action: PlayerAction
+        command_function: CommandFunction
         network: Network
         console: Console
         scarpet: Scarpet
@@ -306,7 +306,7 @@ carpettisaddition:
         doc_summary: "A tracker to track lifetime and spawn / removal reasons from all newly spawned and removed entities"
         complete_doc_hint: "Complete doc %1$s"
         here: here
-        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition#lifetime
+        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/docs/commands.md#lifetime
       filter:
         global: Global
         unsupported:

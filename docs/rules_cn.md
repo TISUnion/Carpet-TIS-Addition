@@ -2,7 +2,7 @@
 
 \>\>\> [返回索引](readme_cn.md)
 
-# 规则(
+# 规则
 
 ## 禁用反刷屏监测 (antiSpamDisabled)
 
@@ -164,6 +164,20 @@
 - 类型: `double`
 - 默认值: `64`
 - 参考选项: `0`, `16`, `64`, `128`, `2048`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 方块状态解析忽略失败 (failSoftBlockStateParsing)
+
+忽略在 `/setblock` 等指令的方块状态参数中出现的无效键/值参数
+
+在原版中这些无效的键/值会导致指令解析出错。这个规则抑制了这一出错
+
+有助于跨版本粘贴 litematica 原理图等
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
 - 分类: `TIS`, `CREATIVE`
 
 

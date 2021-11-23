@@ -30,14 +30,14 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 
 	static
 	{
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(1, false, true));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(2, false, true));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(4, true, true));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(8, false, false));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(16, true, true));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(32, false, false));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(64, false, true));
-		SET_BLOCK_STATE_FLAGS.add(new FlagData(128, false, false));
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(0, false));
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(1, false));
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(2, true));
+		SET_BLOCK_STATE_FLAGS.add(FlagData.dummy());
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(4, true));
+		SET_BLOCK_STATE_FLAGS.add(FlagData.dummy());
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(6, false));
+		SET_BLOCK_STATE_FLAGS.add(FlagData.dummy());
 	}
 
 	protected SetBlockStateEventBase(EventType eventType, String translateKey, Block eventSourceBlock, @Nullable Boolean returnValue, int flags)
@@ -103,21 +103,22 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 		private final int bitPos;
 		private final boolean valid;
 
-		private FlagData(int mask, boolean revert, boolean valid)
+		private FlagData(int bitPos, boolean revert, boolean valid)
 		{
 			this.valid = valid;
-			if (mask <= 0)
-			{
-				throw new IllegalArgumentException(String.format("mask = %d < 0", mask));
-			}
-			this.mask = mask;
 			this.revert = revert ? 1 : 0;
-			int pos = 0;
-			for (int n = this.mask; n > 0; n >>= 1)
-			{
-				pos++;
-			}
-			this.bitPos = pos - 1;
+			this.mask = 1 << bitPos;
+			this.bitPos = bitPos;
+		}
+
+		private static FlagData of(int bitPos, boolean revert)
+		{
+			return new FlagData(bitPos, revert, true);
+		}
+
+		private static FlagData dummy()
+		{
+			return new FlagData(0, false, false);
 		}
 
 		private boolean isValid()

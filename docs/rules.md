@@ -167,6 +167,20 @@ Set the range where player will receive an explosion packet when an explosion ha
 - Categories: `TIS`, `CREATIVE`
 
 
+## failSoftBlockStateParsing
+
+Ignore invalid property keys/values in block state arguments used in e.g. `/setblock` command
+
+In vanilla invalid property keys/values cause command failure when parsing, this rule suppresses that
+
+Useful during cross-version litematica schematic pasting etc.
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## fakePlayerNamePrefix
 
 Add a markerName prefix for fake players spawned with `/player` command

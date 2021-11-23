@@ -4,7 +4,6 @@ import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.hopperNoItemCost.HopperNoItemCostHelper;
 import me.jellysquid.mods.lithium.api.inventory.LithiumInventory;
-import me.jellysquid.mods.lithium.common.hopper.InventoryHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.util.DyeColor;
@@ -37,7 +36,7 @@ public abstract class HopperBlockEntityMixin
 			{
 				if (hopperBlockEntity instanceof LithiumInventory)
 				{
-					HopperNoItemCostHelper.currentHopperInvList.set(InventoryHelper.getLithiumStackList((LithiumInventory)hopperBlockEntity));
+					HopperNoItemCostHelper.enable.set(true);
 				}
 			}
 		}
@@ -55,7 +54,7 @@ public abstract class HopperBlockEntityMixin
 	{
 		if (CarpetTISAdditionSettings.hopperNoItemCost)
 		{
-			HopperNoItemCostHelper.currentHopperInvList.set(null);
+			HopperNoItemCostHelper.enable.set(false);
 		}
 	}
 }
