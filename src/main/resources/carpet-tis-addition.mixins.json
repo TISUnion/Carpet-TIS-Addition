@@ -155,6 +155,7 @@
     "rule.enchantCommandNoRestriction.EnchantCommandMixin",
     "rule.entityMomentumLoss.EntityMixin",
     "rule.explosionPacketRange.ServerWorldMixin",
+    "rule.failSoftBlockStateParsing.BlockArgumentParserMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
     "rule.fluidDestructionDisabled.FlowableFluidMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityAccessor",
