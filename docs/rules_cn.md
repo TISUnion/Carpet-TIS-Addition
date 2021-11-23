@@ -2,7 +2,7 @@
 
 \>\>\> [返回索引](readme_cn.md)
 
-# 规则(
+# 规则
 
 ## 禁用反刷屏监测 (antiSpamDisabled)
 
