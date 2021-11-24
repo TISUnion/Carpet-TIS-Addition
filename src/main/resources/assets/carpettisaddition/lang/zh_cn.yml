@@ -34,8 +34,8 @@ carpettisaddition:
       bad_omen_level_increased: '袭击(id: %1$s)不祥之兆等级提升为%2$s'
       center_moved: '袭击(id: %1$s)的中心点移动至%2$s'
     microTiming:
-      merged_message: 已合并额外%1$s条相同的信息
       gametime: 游戏刻
+      merged_message: 已合并额外%1$s条相同的信息
       common:
         color: 颜色
         indentation: 缩进层数
