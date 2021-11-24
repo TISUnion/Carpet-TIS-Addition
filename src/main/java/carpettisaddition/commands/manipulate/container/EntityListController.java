@@ -1,5 +1,6 @@
 package carpettisaddition.commands.manipulate.container;
 
+import carpettisaddition.mixins.command.manipulate.EntityListAccessor;
 import carpettisaddition.mixins.command.manipulate.ServerWorldAccessor;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -20,13 +21,15 @@ public class EntityListController extends AbstractEntityListController
 	@Override
 	protected boolean canManipulate(ServerWorld world)
 	{
-		return !((ServerWorldAccessor)world).isTickingEntity();
+		return true;
 	}
 
 	@Override
 	protected int processWholeList(ServerWorld world, Consumer<List<?>> collectionOperator)
 	{
-		Int2ObjectMap<Entity> map = ((ServerWorldAccessor)world).getEntitiesById();
+		EntityListAccessor entityList = (EntityListAccessor)((ServerWorldAccessor)world).getEntityList();
+		entityList.invokeEnsureSafe();
+		Int2ObjectMap<Entity> map = entityList.getEntities();
 		List<Pair<Integer, Entity>> list = map.int2ObjectEntrySet().stream().map(entry -> Pair.of(entry.getIntKey(), entry.getValue())).collect(Collectors.toList());
 		collectionOperator.accept(list);
 		map.clear();
