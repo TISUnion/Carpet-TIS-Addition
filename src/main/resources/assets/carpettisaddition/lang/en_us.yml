@@ -64,20 +64,20 @@ carpettisaddition:
       stage:
         unknown: Unknown
         spawning: Spawning
-        spawningspecial: SpawningSpecial
-        worldborder: WorldBorder
-        tiletick: TileTick
+        spawning_special: SpawningSpecial
+        world_border: WorldBorder
+        tile_tick: TileTick
         raid: Raid
-        wanderingtrader: WanderingTrader
-        blockevent: BlockEvent
+        wandering_trader: WanderingTrader
+        block_event: BlockEvent
         entity: Entity
-        chunktick: ChunkTick
-        tileentity: TileEntity
-        dragonfight: DragonFight
-        autosave: AutoSave
-        asynctask: AsyncTask
-        playeraction: PlayerAction
-        commandfunction: CommandFunction
+        chunk_tick: ChunkTick
+        tile_entity: TileEntity
+        dragon_fight: DragonFight
+        auto_save: AutoSave
+        async_task: AsyncTask
+        player_action: PlayerAction
+        command_function: CommandFunction
         network: Network
         console: Console
         scarpet: Scarpet
@@ -230,6 +230,29 @@ carpettisaddition:
         overloaded: "Refresh failed: Network connection overloaded"
         too_far: "Selected chunk is not within your view distance"
         done: "Refreshed %1$s chunks"
+    manipulate:
+      container:
+        help: Manipulate %1$s
+        cannot_manipulate: '%1$s cannot be manipulate now, you may try executing this command in another game phase'
+        entity:
+          name: Entity List
+          revert: Reverted %1$s with %2$s entities
+          shuffle: Shuffled %1$s with %2$s entities
+        tile_entity:
+          name: Tickable tile entity list
+          revert: Reverted %1$s with %2$s tile entities
+          shuffle: Shuffled %1$s with %2$s tile entities
+        tile_tick:
+          name: Tile Tick Queue
+          item_name: tile tick event
+          item_description: "Block: %1$s\nDelay: %2$s\nPriority: %3$s (%4$s)"
+          scheduled: Scheduled %1$s @ %2$s
+          removed: Removed %1$s tile tick events
+        block_event:
+          name: Block Event Queue
+          item_name: block event
+          scheduled: Scheduled %1$s @ %2$s
+          removed: Removed %1$s block events
 
   tracker:
     tracker_name_full: '%1$s Tracker'
@@ -305,7 +328,7 @@ carpettisaddition:
         doc_summary: "A tracker to track lifetime and spawn / removal reasons from all newly spawned and removed entities"
         complete_doc_hint: "Complete doc %1$s"
         here: here
-        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition#lifetime
+        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/docs/commands.md#lifetime
       filter:
         global: Global
         unsupported:

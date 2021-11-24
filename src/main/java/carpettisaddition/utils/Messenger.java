@@ -308,9 +308,9 @@ public class Messenger
 		messageSender(source, Messenger::__tell, texts);
 	}
 
-	public static void tell(PlayerEntity player, Object... text)
+	public static void tell(PlayerEntity player, Object... texts)
 	{
-		tell(player.getCommandSource(), text);
+		tell(player.getCommandSource(), texts);
 	}
 
 	public static void reminder(PlayerEntity player, Object... texts)

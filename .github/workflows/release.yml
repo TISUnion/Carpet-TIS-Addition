@@ -1,0 +1,83 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - branch: 1.14.4
+            cf_game_versions: modloader:fabric,minecraft-1-14:1.14.4
+          - branch: 1.15.2
+            cf_game_versions: modloader:fabric,minecraft-1-15:1.15.2
+          - branch: 1.16.5
+            cf_game_versions: modloader:fabric,minecraft-1-16:1.16.4,minecraft-1-16:1.16.5
+          - branch: 1.17.x
+            cf_game_versions: modloader:fabric,minecraft-1-17:1.17.1
+          - branch: 1.18.x
+            cf_game_versions: modloader:fabric,minecraft-1-18:1.18-Snapshot
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ matrix.branch }}
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Cache gradle files
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ./.gradle/loom-cache
+          key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build with Gradle
+        run: |
+          chmod +x gradlew
+          ./gradlew build
+        env:
+          BUILD_RELEASE: true
+
+      - name: Find correct JAR  # ty fabric carpet
+        id: findjar
+        run: |
+          output="$(find build/libs/ ! -name "*-dev.jar" ! -name "*-sources.jar" -type f -printf "%f\n")"
+          echo "::set-output name=jarname::$output"
+
+      - name: Upload to action artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: '[${{ matrix.branch }}] build-artifacts'
+          path: build/libs/
+
+      - name: Upload to Github release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/libs/${{ steps.findjar.outputs.jarname }}
+
+      - name: Upload to CurseForge
+        uses: itsmeow/curseforge-upload@v3
+        with:
+          token: ${{ secrets.CF_API_TOKEN }}
+          project_id: 397510  # https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition
+          game_endpoint: minecraft
+          game_versions: ${{ matrix.cf_game_versions }}
+          changelog_type: markdown
+          changelog: ${{ github.event.release.body }}
+          file_path: build/libs/${{ steps.findjar.outputs.jarname }}
+          release_type: release
+          relations: carpet:requiredDependency

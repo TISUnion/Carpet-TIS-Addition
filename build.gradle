@@ -15,10 +15,14 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+String buildNumber = System.getenv("BUILD_ID")
 String versionSuffix = ''
-String buildNumber = System.getenv("GITHUB_RUN_NUMBER")
+// not release, no build number, probably not in github action CI, so added a -SNAPSHOT suffix
+if (System.getenv("BUILD_RELEASE") != "true" && buildNumber == null) {
+	versionSuffix += '-SHAPSHOT'
+}
 if (buildNumber != null) {
-	versionSuffix = '+build.' + buildNumber
+	versionSuffix += '+build.' + buildNumber
 }
 String fullModVersion = project.mod_version + versionSuffix
 
@@ -28,15 +32,19 @@ group = project.maven_group
 
 
 dependencies {
-	//to change the versions see the gradle.properties file
+	// loom
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	
+	// mods
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 	modCompileOnly "curse.maven:lithium-360438:2904300"  // it's 1.15.2 tho but it doesn't matter
 
+	// libraries
 	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
 	include "org.yaml:snakeyaml:${project.snakeyaml_version}"
+	testImplementation "junit:junit:${project.junit_version}"
 }
 
 loom {

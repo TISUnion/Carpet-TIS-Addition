@@ -85,6 +85,16 @@ Useful for mob farm debugging etc.
 - Categories: `TIS`, `COMMAND`
 
 
+## commandManipulate
+
+Enables `/manipulate` command for world related manipulation command
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`, `EXPERIMENTAL`
+
+
 ## commandRaid
 
 Enables `/raid` command for raid listing and tracking
@@ -164,6 +174,20 @@ Set the range where player will receive an explosion packet when an explosion ha
 - Type: `double`
 - Default value: `64`
 - Suggested options: `0`, `16`, `64`, `128`, `2048`
+- Categories: `TIS`, `CREATIVE`
+
+
+## failSoftBlockStateParsing
+
+Ignore invalid property keys/values in block state arguments used in e.g. `/setblock` command
+
+In vanilla invalid property keys/values cause command failure when parsing, this rule suppresses that
+
+Useful during cross-version litematica schematic pasting etc.
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
 
@@ -346,9 +370,9 @@ Right click a marker with slime ball item to make it movable. It will move to th
 
 Use `/carpet microTimingDyeMarker clear` to remove all markers
 
-You can create a named marker by using a renamed dye item. Marker name will be shown in logging message as well
+You can create a named marker by using a renamed dye item. Marker translationName will be shown in logging message as well
 
-You can see boxes at marked blocks with fabric-carpet installed on your client. With carpet-tis-addition installed the marker name could also be seen through blocks.
+You can see boxes at marked blocks with fabric-carpet installed on your client. With carpet-tis-addition installed the marker translationName could also be seen through blocks.
 
 *Visual rendering thing doesn't work in 1.14.4 branch due to lack of carpet network and scarpet shape rendering framework in frabic carpet*
 

@@ -17,6 +17,7 @@
 - [区块更新数据包阈值](rules_cn.md#区块更新数据包阈值-chunkupdatepacketthreshold)
 - [区块刻速度](rules_cn.md#区块刻速度-chunktickspeed)
 - [存活时间追踪器](rules_cn.md#存活时间追踪器-commandlifetime)
+- [世界控制命令开关](rules_cn.md#世界控制命令开关-commandmanipulate)
 - [袭击追踪器](rules_cn.md#袭击追踪器-commandraid)
 - [刷新命令开关](rules_cn.md#刷新命令开关-commandrefresh)
 - [创造玩家强制打开容器](rules_cn.md#创造玩家强制打开容器-creativeopencontainerforcibly)
@@ -25,6 +26,7 @@
 - [enchant指令约束移除](rules_cn.md#enchant指令约束移除-enchantcommandnorestriction)
 - [实体速度丢失](rules_cn.md#实体速度丢失-entitymomentumloss)
 - [爆炸数据包广播范围](rules_cn.md#爆炸数据包广播范围-explosionpacketrange)
+- [方块状态解析忽略失败](rules_cn.md#方块状态解析忽略失败-failsoftblockstateparsing)
 - [假人名称前缀](rules_cn.md#假人名称前缀-fakeplayernameprefix)
 - [假人名称后缀](rules_cn.md#假人名称后缀-fakeplayernamesuffix)
 - [禁用流体破坏](rules_cn.md#禁用流体破坏-fluiddestructiondisabled)
@@ -93,6 +95,7 @@
 - [存活时间](commands_cn.md#存活时间-lifetime)
 - [tick](commands_cn.md#tick)
 - [刷新](commands_cn.md#刷新-refresh)
+- [操控世界](commands_cn.md#操控世界-manipulate)
 
 ## [Scarpet](misc_cn.md#scarpet)
 

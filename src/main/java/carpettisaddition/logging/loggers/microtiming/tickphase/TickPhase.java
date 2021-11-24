@@ -58,7 +58,7 @@ public class TickPhase
 	public BaseText toText(@Nullable String carpetStyle)
 	{
 		List<Object> stageText = Lists.newArrayList();
-		stageText.add(this.mainStage.getName());
+		stageText.add(this.mainStage.toText());
 		if (this.stageDetail != null)
 		{
 			stageText.add(Messenger.s("."));

@@ -6,37 +6,37 @@ import net.minecraft.text.BaseText;
 
 public enum TickStage
 {
-	UNKNOWN("Unknown", false),
-	SPAWNING("Spawning", true),
-	SPAWNING_SPECIAL("SpawningSpecial", true),
-	WORLD_BORDER("WorldBorder", true),
-	TILE_TICK("TileTick", true),
-	RAID("Raid", true),
-	WANDERING_TRADER("WanderingTrader", true),
-	BLOCK_EVENT("BlockEvent", true),
-	ENTITY("Entity", true),
-	CHUNK_TICK("ChunkTick", true),
-	TILE_ENTITY("TileEntity", true),
-	DRAGON_FIGHT("DragonFight", true),
-	AUTO_SAVE("AutoSave", false),
-	ASYNC_TASK("AsyncTask", false),
-	PLAYER_ACTION("PlayerAction", false),
-	COMMAND_FUNCTION("CommandFunction", false),
-	NETWORK("Network", false),
-	CONSOLE("Console", false),
-	SCARPET("Scarpet", false);
+	UNKNOWN(false),
+	SPAWNING(true),
+	SPAWNING_SPECIAL(true),
+	WORLD_BORDER(true),
+	TILE_TICK(true),
+	RAID(true),
+	WANDERING_TRADER(true),
+	BLOCK_EVENT(true),
+	ENTITY(true),
+	CHUNK_TICK(true),
+	TILE_ENTITY(true),
+	DRAGON_FIGHT(true),
+	AUTO_SAVE(false),
+	ASYNC_TASK(false),
+	PLAYER_ACTION(false),
+	COMMAND_FUNCTION(false),
+	NETWORK(false),
+	CONSOLE(false),
+	SCARPET(false);
 
 	private static final Translator translator = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("stage");
 	private final String translationKey;
 	private final boolean insideWorld;
 
-	TickStage(String name, boolean insideWorld)
+	TickStage(boolean insideWorld)
 	{
-		this.translationKey = name.toLowerCase();
+		this.translationKey = this.name().toLowerCase();
 		this.insideWorld = insideWorld;
 	}
 
-	public BaseText getName()
+	public BaseText toText()
 	{
 		return translator.tr(this.translationKey);
 	}

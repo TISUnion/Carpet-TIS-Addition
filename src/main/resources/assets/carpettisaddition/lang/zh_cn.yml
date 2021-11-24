@@ -34,8 +34,8 @@ carpettisaddition:
       bad_omen_level_increased: '袭击(id: %1$s)不祥之兆等级提升为%2$s'
       center_moved: '袭击(id: %1$s)的中心点移动至%2$s'
     microTiming:
-      merged_message: 已合并额外%1$s条相同的信息
       gametime: 游戏刻
+      merged_message: 已合并额外%1$s条相同的信息
       common:
         color: 颜色
         indentation: 缩进层数
@@ -64,20 +64,20 @@ carpettisaddition:
       stage:
         unknown: 未知
         spawning: 生物刷新
-        spawningspecial: 特殊生物刷新
-        worldborder: 世界边境
-        tiletick: 计划刻
+        spawning_special: 特殊生物刷新
+        world_border: 世界边境
+        tile_tick: 计划刻
         raid: 袭击
-        wanderingtrader: 游商
-        blockevent: 方块事件
+        wandering_trader: 游商
+        block_event: 方块事件
         entity: 实体
-        chunktick: 区块刻
-        tileentity: 方块实体
-        dragonfight: 龙战逻辑
-        asynctask: 异步回调任务
-        autosave: 自动保存
-        playeraction: 玩家操作
-        commandfunction: 函数及数据包
+        chunk_tick: 区块刻
+        tile_entity: 方块实体
+        dragon_fight: 龙战逻辑
+        auto_save: 自动保存
+        async_task: 异步回调任务
+        player_action: 玩家操作
+        command_function: 函数及数据包
         network: 网络
         console: 控制台
         scarpet: Scarpet
@@ -230,6 +230,29 @@ carpettisaddition:
         overloaded: 刷新失败：玩家网络连接已过载
         too_far: 选中的区块不在你的视距之内
         done: 已刷新%1$s个区块
+    manipulate:
+      container:
+        help: 操控%1$s
+        cannot_manipulate: '%1$s现在不能被操控，你可能需要在其他游戏阶段里执行这个指令'
+        entity:
+          name: 实体列表
+          revert: 已翻转具有%2$s个实体的%1$s
+          shuffle: 已随机打乱具有%2$s个实体的%1$s
+        tile_entity:
+          name: 可运算方块实体列表
+          revert: 已翻转具有%2$s个方块实体的%1$s
+          shuffle: 已随机打乱具有%2$s个方块实体的%1$s
+        tile_tick:
+          name: 计划刻队列
+          item_name: 计划刻事件
+          item_description: "方块: %1$s\n延迟: %2$s\n优先级: %3$s (%4$s)"
+          scheduled: 已添加%1$s @ %2$s
+          removed: 已移除%1$s个计划刻事件
+        block_event:
+          name: 方块事件队列
+          item_name: 方块事件
+          scheduled: 已添加%1$s @ %2$s
+          removed: 已移除%1$s个方块事件
 
   tracker:
     tracker_name_full: '%1$s追踪器'
@@ -305,7 +328,7 @@ carpettisaddition:
         doc_summary: 一个追踪所有新生成生物的存活时间及生成/移除原因的记录器
         complete_doc_hint: 完整文档%1$s
         here: 传送门
-        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/README_CN.md#存活时间-lifetime
+        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/docs/commands_cn.md#存活时间-lifetime
       filter:
         global: 全局
         unsupported:
@@ -376,6 +399,9 @@ carpettisaddition:
         desc: 启用/lifetime命令用于追踪生物存活时间等信息
         extra:
           '0': 可助于调试刷怪塔等
+      commandManipulate:
+        name: 世界控制命令开关
+        desc: 启用/manipulate命令用于控制世界
       commandRaid:
         name: 袭击追踪器
         desc: 启用/raid命令用于列出或追踪袭击信息
@@ -402,6 +428,12 @@ carpettisaddition:
       explosionPacketRange:
         name: 爆炸数据包广播范围
         desc: 设置在爆炸发生时，爆炸数据包对玩家的广播范围
+      failSoftBlockStateParsing:
+        name: 方块状态解析忽略失败
+        desc: 忽略在/setblock等指令的方块状态参数中出现的无效键/值参数
+        extra:
+          '0': 在原版中这些无效的键/值会导致指令解析出错。这个规则抑制了这一出错
+          '1': 有助于跨版本粘贴litematica原理图等
       fakePlayerNamePrefix:
         name: 假人名称前缀
         desc: 为/player指令召唤出来的假人名称添加指定前缀
