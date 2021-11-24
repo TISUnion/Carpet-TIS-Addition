@@ -37,7 +37,7 @@ public class BlockEventQueueController extends AbstractContainerController
 		for (ObjectListIterator<BlockEvent> iterator = queue.iterator(); iterator.hasNext(); )
 		{
 			BlockEvent be = iterator.next();
-			if (be.getPos().equals(blockPos))
+			if (be.pos().equals(blockPos))
 			{
 				iterator.remove();
 				counter++;

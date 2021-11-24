@@ -7,13 +7,11 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.Block;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.TickPriority;
+import net.minecraft.world.tick.WorldTickScheduler;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
@@ -31,11 +29,13 @@ public class TileTickQueueController extends AbstractContainerController
 		super("tile_tick");
 	}
 
-	private int remove(ServerTickScheduler<?> serverTickScheduler, BlockPos blockPos)
+	private int remove(WorldTickScheduler<?> tickScheduler, BlockPos blockPos)
 	{
 		BlockBox blockBox = BlockBox.create(blockPos, blockPos.add(1, 1, 1));
-		List<?> removed = serverTickScheduler.getScheduledTicks(blockBox, true, false);
-		return removed.size();
+		int sizeBefore = tickScheduler.getTickCount();
+		tickScheduler.clearNextTicks(blockBox);
+		int sizeAfter = tickScheduler.getTickCount();
+		return sizeBefore - sizeAfter;
 	}
 
 	private int removeAt(ServerCommandSource source, BlockPos blockPos)
@@ -63,7 +63,7 @@ public class TileTickQueueController extends AbstractContainerController
 			priority = TickPriority.byIndex((Integer)priorityArg);
 		}
 
-		source.getWorld().getBlockTickScheduler().schedule(blockPos, block, delay, priority);
+		source.getWorld().createAndScheduleBlockTick(blockPos, block, delay, priority);
 		Messenger.tell(source, tr(
 				"scheduled",
 				Messenger.fancy(tr("item_name"), tr("item_description", Messenger.block(block), delay, priority.getIndex(), priority), null),
