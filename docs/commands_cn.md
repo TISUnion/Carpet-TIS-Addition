@@ -141,3 +141,30 @@
 所有区块刷新操作均仅影响视距之内的区块
 
 受到数据包压缩操作影响，区块批量刷新操作会对服务端的网络线程造成卡顿，因此该指令包含一个输入限速器来防止数据包过多地堆积
+
+
+## 操控世界 (manipulate)
+
+### container
+
+`/manipulate container`
+
+操控世界的数据结构容器，包括：
+
+| 容器名 | 指令前缀 | 支持的操作 |
+| --- | --- | --- |
+| 实体列表 | `entity` | 翻转、随机打乱 |
+| 可运算的方块实体列表 | `tileentity` | 翻转、随机打乱 |
+| 计划刻队列 | `tiletick` | 添加元素、移除给定位置的元素 |
+| 方块事件队列 | `blockevent` | 添加元素、移除给定位置的元素 |
+
+指令列表：
+
+```
+/manipulate container entity [revert|shuffle]
+/manipulate container tileentity [revert|shuffle]
+/manipulate container tiletick add <pos> <block> <delay> [<priority>]
+/manipulate container tiletick remove <pos>
+/manipulate container blockevent add <pos> <block> <type> <data>
+/manipulate container blockevent remove <pos>
+```

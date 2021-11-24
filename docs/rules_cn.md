@@ -85,6 +85,16 @@
 - 分类: `TIS`, `COMMAND`
 
 
+## 世界控制命令开关 (commandManipulate)
+
+启用 `/manipulate` 命令用于控制世界
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `COMMAND`, `EXPERIMENTAL`
+
+
 ## 袭击追踪器 (commandRaid)
 
 启用 `/raid` 命令用于列出或追踪袭击信息

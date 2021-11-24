@@ -17,6 +17,7 @@
 - [chunkUpdatePacketThreshold](rules.md#chunkupdatepacketthreshold)
 - [chunkTickSpeed](rules.md#chunktickspeed)
 - [commandLifeTime](rules.md#commandlifetime)
+- [commandManipulate](rules.md#commandmanipulate)
 - [commandRaid](rules.md#commandraid)
 - [commandRefresh](rules.md#commandrefresh)
 - [creativeOpenContainerForcibly](rules.md#creativeopencontainerforcibly)
@@ -94,6 +95,7 @@
 - [lifetime](commands.md#lifetime)
 - [tick](commands.md#tick)
 - [refresh](commands.md#refresh)
+- [manipulate](commands.md#manipulate)
 
 ## [Scarpet](misc.md#scarpet)
 
