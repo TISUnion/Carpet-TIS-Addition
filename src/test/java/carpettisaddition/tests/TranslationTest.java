@@ -1,16 +1,19 @@
 package carpettisaddition.tests;
 
 import carpettisaddition.translations.TISAdditionTranslations;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import junit.framework.TestCase;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class TranslationTest extends TestCase
 {
 	private static final String CM_TRANSLATION_PREFIX = "carpettisaddition.carpet_extension";
+	private static final Set<String> TESTING_LANGUAGES = ImmutableSet.of("en_us", "zh_cn");
 
 	public void testTranslationConsistency()
 	{
@@ -21,6 +24,12 @@ public class TranslationTest extends TestCase
 						filter(key -> !key.startsWith(CM_TRANSLATION_PREFIX)).
 						collect(Collectors.toList())
 		));
+
+		// only test our maintaining languages
+		TESTING_LANGUAGES.forEach(lang -> assertTrue(translationKeys.containsKey(lang)));
+		translationKeys.keySet().removeIf(lang -> !TESTING_LANGUAGES.contains(lang));
+		System.out.printf("Testing %d languages: %s\n", translationKeys.size(), translationKeys.keySet());
+
 		if (translationKeys.size() >= 1)
 		{
 			String stdLang = translationKeys.keySet().iterator().next();
