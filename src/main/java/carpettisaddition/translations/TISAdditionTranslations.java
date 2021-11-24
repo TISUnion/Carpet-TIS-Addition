@@ -13,6 +13,7 @@ import net.minecraft.text.*;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.VisibleForTesting;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -26,7 +27,9 @@ public class TISAdditionTranslations
     public static final String TRANSLATION_NAMESPACE = CarpetTISAdditionServer.compactName;  // "carpettisaddition"
     public static final String TRANSLATION_KEY_PREFIX = TRANSLATION_NAMESPACE + ".";  // "carpettisaddition."
     private static final String RESOURCE_DIR = String.format("assets/%s/lang", TRANSLATION_NAMESPACE);
-    private static final Map<String, Map<String, String>> translationStorage = Maps.newLinkedHashMap();
+
+    @VisibleForTesting
+    public static final Map<String, Map<String, String>> translationStorage = Maps.newLinkedHashMap();
 
     @NotNull
     public static Map<String, String> getTranslationFromResourcePath(String lang)

@@ -34,8 +34,8 @@ carpettisaddition:
       bad_omen_level_increased: '袭击(id: %1$s)不祥之兆等级提升为%2$s'
       center_moved: '袭击(id: %1$s)的中心点移动至%2$s'
     microTiming:
-      merged_message: 已合并额外%1$s条相同的信息
       gametime: 游戏刻
+      merged_message: 已合并额外%1$s条相同的信息
       common:
         color: 颜色
         indentation: 缩进层数
@@ -230,6 +230,29 @@ carpettisaddition:
         overloaded: 刷新失败：玩家网络连接已过载
         too_far: 选中的区块不在你的视距之内
         done: 已刷新%1$s个区块
+    manipulate:
+      container:
+        help: 操控%1$s
+        cannot_manipulate: '%1$s现在不能被操控，你可能需要在其他游戏阶段里执行这个指令'
+        entity:
+          name: 实体列表
+          revert: 已翻转具有%2$s个实体的%1$s
+          shuffle: 已随机打乱具有%2$s个实体的%1$s
+        tile_entity:
+          name: 可运算方块实体列表
+          revert: 已翻转具有%2$s个方块实体的%1$s
+          shuffle: 已随机打乱具有%2$s个方块实体的%1$s
+        tile_tick:
+          name: 计划刻队列
+          item_name: 计划刻事件
+          item_description: "方块: %1$s\n延迟: %2$s\n优先级: %3$s (%4$s)"
+          scheduled: 已添加%1$s @ %2$s
+          removed: 已移除%1$s个计划刻事件
+        block_event:
+          name: 方块事件队列
+          item_name: 方块事件
+          scheduled: 已添加%1$s @ %2$s
+          removed: 已移除%1$s个方块事件
 
   tracker:
     tracker_name_full: '%1$s追踪器'
@@ -377,6 +400,9 @@ carpettisaddition:
         desc: 启用/lifetime命令用于追踪生物存活时间等信息
         extra:
           '0': 可助于调试刷怪塔等
+      commandManipulate:
+        name: 世界控制命令开关
+        desc: 启用/manipulate命令用于控制世界
       commandRaid:
         name: 袭击追踪器
         desc: 启用/raid命令用于列出或追踪袭击信息

@@ -32,15 +32,19 @@ group = project.maven_group
 
 
 dependencies {
-	//to change the versions see the gradle.properties file
+	// loom
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	
+	// mods
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 	modCompileOnly "com.github.Fallen-Breath:lithium-fabric:1.17.x~dev-cta18compact-SNAPSHOT"  // Lithium mc1.17.1-0.7.5
 
+	// libraries
 	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
 	include "org.yaml:snakeyaml:${project.snakeyaml_version}"
+	testImplementation "junit:junit:${project.junit_version}"
 }
 
 loom {

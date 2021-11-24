@@ -105,6 +105,12 @@ public class CarpetTISAdditionSettings
 	public static String commandLifeTime = "true";
 
 	@Rule(
+			desc = "Enables /manipulate command for world related manipulation command",
+			category = {TIS, COMMAND, EXPERIMENTAL}
+	)
+	public static String commandManipulate = "false";
+
+	@Rule(
 			desc = "Enables /raid command for raid listing and tracking",
 			category = {TIS, COMMAND}
 	)

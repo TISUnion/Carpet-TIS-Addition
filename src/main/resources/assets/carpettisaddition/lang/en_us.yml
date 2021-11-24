@@ -230,6 +230,29 @@ carpettisaddition:
         overloaded: "Refresh failed: Network connection overloaded"
         too_far: "Selected chunk is not within your view distance"
         done: "Refreshed %1$s chunks"
+    manipulate:
+      container:
+        help: Manipulate %1$s
+        cannot_manipulate: '%1$s cannot be manipulate now, you may try executing this command in another game phase'
+        entity:
+          name: Entity List
+          revert: Reverted %1$s with %2$s entities
+          shuffle: Shuffled %1$s with %2$s entities
+        tile_entity:
+          name: Tickable tile entity list
+          revert: Reverted %1$s with %2$s tile entities
+          shuffle: Shuffled %1$s with %2$s tile entities
+        tile_tick:
+          name: Tile Tick Queue
+          item_name: tile tick event
+          item_description: "Block: %1$s\nDelay: %2$s\nPriority: %3$s (%4$s)"
+          scheduled: Scheduled %1$s @ %2$s
+          removed: Removed %1$s tile tick events
+        block_event:
+          name: Block Event Queue
+          item_name: block event
+          scheduled: Scheduled %1$s @ %2$s
+          removed: Removed %1$s block events
 
   tracker:
     tracker_name_full: '%1$s Tracker'

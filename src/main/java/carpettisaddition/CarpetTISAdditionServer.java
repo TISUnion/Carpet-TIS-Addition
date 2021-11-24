@@ -5,6 +5,7 @@ import carpet.CarpetServer;
 import carpet.script.annotation.AnnotationParser;
 import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
+import carpettisaddition.commands.manipulate.ManipulateCommand;
 import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.commands.refresh.RefreshCommand;
@@ -105,6 +106,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
         RaidCommand.getInstance().registerCommand(dispatcher);
         LifeTimeCommand.getInstance().registerCommand(dispatcher);
         RefreshCommand.getInstance().registerCommand(dispatcher);
+        ManipulateCommand.getInstance().registerCommand(dispatcher);
     }
 
     @Override
