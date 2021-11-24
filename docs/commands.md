@@ -141,3 +141,32 @@ See [tickWarp logger](#tickWarp) for easier access
 All chunk refresh operations only affect chunks within your view distance
 
 Multiple chunk refreshing creates lags on server's network thread due to packet compression, so there is an input thresholder for the command to prevent packet over-accumulation
+
+
+## manipulate
+
+Manipulate the world
+
+### container
+
+`/manipulate container`
+
+Manipulate data structure containers of the world, including:
+
+| Container name | Command prefix | Support operations |
+| --- | --- | --- |
+| Entity list | `entity` | reverting, shuffling |
+| Tickable tile entity list | `tileentity` | reverting, shuffling |
+| Tile tick queue | `tiletick` | add item, remove items at position |
+| Block event queue | `blockevent` | add item, remove items at position |
+
+Command lists:
+
+```
+/manipulate container entity [revert|shuffle]
+/manipulate container tileentity [revert|shuffle]
+/manipulate container tiletick add <pos> <block> <delay> [<priority>]
+/manipulate container tiletick remove <pos>
+/manipulate container blockevent add <pos> <block> <type> <data>
+/manipulate container blockevent remove <pos>
+```
