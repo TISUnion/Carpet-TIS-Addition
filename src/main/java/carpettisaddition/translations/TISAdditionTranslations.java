@@ -10,6 +10,7 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.*;
+import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.Yaml;
@@ -146,9 +147,9 @@ public class TISAdditionTranslations
                     TranslatableTextAccessor fixedTranslatableText = (TranslatableTextAccessor)(new TranslatableText(msgKeyString, translatableText.getArgs()));
                     try
                     {
-                        fixedTranslatableText.getTranslations().clear();
-                        fixedTranslatableText.invokeSetTranslation(msgKeyString);
-                        text = Messenger.c(fixedTranslatableText.getTranslations().stream().map(stringVisitable -> {
+                        List<StringVisitable> translations = Lists.newArrayList();
+                        fixedTranslatableText.invokeSetTranslation(msgKeyString, translations::add);
+                        text = Messenger.c(translations.stream().map(stringVisitable -> {
                             if (stringVisitable instanceof BaseText)
                             {
                                 return (BaseText)stringVisitable;
