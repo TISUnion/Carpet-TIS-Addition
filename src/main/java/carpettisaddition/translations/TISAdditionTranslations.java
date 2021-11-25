@@ -151,7 +151,7 @@ public class TISAdditionTranslations
                     try
                     {
                         List<StringVisitable> translations = Lists.newArrayList();
-                        fixedTranslatableText.invokeSetTranslation(msgKeyString, translations::add);
+                        fixedTranslatableText.invokeForEachPart(msgKeyString, translations::add);
                         text = Messenger.c(translations.stream().map(stringVisitable -> {
                             if (stringVisitable instanceof BaseText)
                             {

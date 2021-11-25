@@ -17,7 +17,7 @@ public abstract class TranslatableTextMixin
 			method = "updateTranslations",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/text/TranslatableText;setTranslation(Ljava/lang/String;Ljava/util/function/Consumer;)V"
+					target = "Lnet/minecraft/text/TranslatableText;forEachPart(Ljava/lang/String;Ljava/util/function/Consumer;)V"
 			)
 	)
 	private String applyTISCarpetTranslation(String vanillaTranslatedFormattingString)

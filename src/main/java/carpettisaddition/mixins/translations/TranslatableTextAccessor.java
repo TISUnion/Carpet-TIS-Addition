@@ -11,5 +11,5 @@ import java.util.function.Consumer;
 public interface TranslatableTextAccessor
 {
 	@Invoker
-	void invokeSetTranslation(String translation, Consumer<StringVisitable> consumer);
+	void invokeForEachPart(String translation, Consumer<StringVisitable> partsConsumer);
 }

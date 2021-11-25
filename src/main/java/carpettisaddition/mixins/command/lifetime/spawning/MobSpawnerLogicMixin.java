@@ -19,7 +19,7 @@ public abstract class MobSpawnerLogicMixin
 			method = "serverTick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;shouldCreateNewEntityWithPassenger(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnNewEntityAndPassengers(Lnet/minecraft/entity/Entity;)Z"
 			),
 			index = 0
 	)
