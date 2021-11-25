@@ -748,6 +748,15 @@ public class CarpetTISAdditionSettings
 	public static boolean visualizeProjectileLoggerEnabled = false;
 
 	@Rule(
+			desc = "Modify the related altitude between the bottom of the world and the void where entities will receive void damages",
+			options = {"-64", "-512", "-4096"},
+			validate = ValidateNegative.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static double voidRelatedAltitude = -64.0D;
+
+	@Rule(
 			desc = "Overwrite the tracking distance of xp orb",
 			extra = "Change it to 0 to disable tracking",
 			options = {"0", "1", "8", "32"},
@@ -794,6 +803,19 @@ public class CarpetTISAdditionSettings
 		public Number validate(ServerCommandSource source, ParsedRule<Number> currentRule, Number newValue, String string)
 		{
 			return newValue.doubleValue() > 0.0D ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a positive value";
+		}
+	}
+
+	private static class ValidateNegative extends Validator<Number>
+	{
+		@Override
+		public Number validate(ServerCommandSource source, ParsedRule<Number> currentRule, Number newValue, String string)
+		{
+			return newValue.doubleValue() < 0.0D ? newValue : null;
 		}
 		public String description()
 		{

@@ -66,6 +66,7 @@
 - [完全没有方块更新](rules_cn.md#完全没有方块更新-totallynoblockupdate)
 - [禁用海龟蛋被践踏](rules_cn.md#禁用海龟蛋被践踏-turtleeggtrampleddisabled)
 - [可视化投掷物记录器](rules_cn.md#可视化投掷物记录器-visualizeprojectileloggerenabled)
+- [虚空相对海拔高度](rules_cn.md#虚空相对海拔高度-voidrelatedaltitude)
 - [经验球追踪距离](rules_cn.md#经验球追踪距离-xptrackingdistance)
 
 ## [移植的规则](rules_cn.md#移植的规则列表)

@@ -718,6 +718,16 @@ Try `/log projectiles visualize`
 - Categories: `TIS`, `CREATIVE`
 
 
+## voidRelatedAltitude
+
+Modify the related altitude between the bottom of the world and the void where entities will receive void damages
+
+- Type: `double`
+- Default value: `-64`
+- Suggested options: `-64`, `-512`, `-4096`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## xpTrackingDistance
 
 Overwrite the tracking distance of xp orb
