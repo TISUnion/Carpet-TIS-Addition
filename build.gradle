@@ -1,6 +1,9 @@
 plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'maven-publish'
+
+	// https://github.com/Juuxel/LoomQuiltflower
+	id 'io.github.juuxel.loom-quiltflower-mini' version '1.1.0'
 }
 
 repositories {
@@ -49,6 +52,10 @@ dependencies {
 
 loom {
 	accessWidenerPath = file("src/main/resources/carpet-tis-addition.accesswidener")
+}
+
+quiltflower {
+	addToRuntimeClasspath.set(true)
 }
 
 processResources {
