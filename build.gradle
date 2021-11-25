@@ -54,10 +54,6 @@ loom {
 	accessWidenerPath = file("src/main/resources/carpet-tis-addition.accesswidener")
 }
 
-quiltflower {
-	addToRuntimeClasspath.set(true)
-}
-
 processResources {
 	inputs.property "version", fullModVersion
 
