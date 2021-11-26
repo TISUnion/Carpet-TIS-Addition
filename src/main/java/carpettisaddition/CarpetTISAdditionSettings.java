@@ -830,7 +830,7 @@ public class CarpetTISAdditionSettings
 		}
 		public String description()
 		{
-			return "You must choose a positive value";
+			return "You must choose a negative value";
 		}
 	}
 }
