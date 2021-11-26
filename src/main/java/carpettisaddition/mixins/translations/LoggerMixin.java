@@ -5,39 +5,19 @@ import carpettisaddition.translations.TISAdditionTranslations;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.function.Consumer;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Logger.class)
 public abstract class LoggerMixin
 {
-	@Unique
-	private static final ThreadLocal<ServerPlayerEntity> currentLoggingPlayer = ThreadLocal.withInitial(() -> null);
-
-	@Inject(method = "sendPlayerMessage", at = @At("HEAD"), remap = false)
-	private void applyTISCarpetTranslation_recordPlayer(ServerPlayerEntity player, BaseText[] messages, CallbackInfo ci)
+	@ModifyVariable(method = "sendPlayerMessage", at = @At("HEAD"), argsOnly = true, remap = false)
+	private BaseText[] applyTISCarpetTranslationToHudMessage(BaseText[] messages, /* parent method parameters -> */ ServerPlayerEntity player, BaseText... messages_)
 	{
-		currentLoggingPlayer.set(player);
-	}
-
-	@ModifyArg(
-			method = "sendPlayerMessage",
-			at = @At(
-					value = "INVOKE",
-					target = "Ljava/util/stream/Stream;forEach(Ljava/util/function/Consumer;)V"
-			),
-			remap = false
-	)
-	private Consumer<? super BaseText> applyTISCarpetTranslation(Consumer<? super BaseText> textSender)
-	{
-		return text -> {
-			BaseText tiscmTranslated = TISAdditionTranslations.translate(text, currentLoggingPlayer.get());
-			textSender.accept(tiscmTranslated);
-		};
+		for (int i = 0; i < messages.length; i++)
+		{
+			messages[i] = TISAdditionTranslations.translate(messages[i], player);
+		}
+		return messages;
 	}
 }
