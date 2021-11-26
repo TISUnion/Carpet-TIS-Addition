@@ -114,7 +114,7 @@ public class LoggerSubscriptionStorage
 			playerEntry.forEach((loggerName, option) -> {
 				if (LoggerRegistry.getLogger(loggerName) != null)
 				{
-					CarpetTISAdditionServer.LOGGER.info("Restore {} {} for {}", loggerName, option, playerName);
+					CarpetTISAdditionServer.LOGGER.debug("Restore {} {} for {}", loggerName, option, playerName);
 					LoggerRegistry.subscribePlayer(playerName, loggerName, option);
 				}
 			});
