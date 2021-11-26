@@ -79,7 +79,7 @@ public class RaidTracker extends AbstractTracker
 		int invalidateCounterSum = this.raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
 
 		result.add(Messenger.c(tr("raid_generated"), "w : ", Messenger.s(CounterUtil.ratePerHour(this.raidGeneratedCount, ticks))));
-		result.add(Messenger.c(RaidCommand.getInstance().tr("raiders"), "w : ", Messenger.s(CounterUtil.ratePerHour(raiderCountSum, ticks))));
+		result.add(Messenger.c(RaidCommand.getInstance().getTranslator().tr("raiders"), "w : ", Messenger.s(CounterUtil.ratePerHour(raiderCountSum, ticks))));
 		this.raiderCounter.forEach((raiderType, count) -> result.add(Messenger.c(
 				"g - ",
 				raiderType.getName(),

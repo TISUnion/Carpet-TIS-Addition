@@ -34,6 +34,7 @@
 - [hopperNoItemCost](rules.md#hoppernoitemcost)
 - [HUDLoggerUpdateInterval](rules.md#hudloggerupdateinterval)
 - [instantCommandBlock](rules.md#instantcommandblock)
+- [itemEntitySkipMovementDisabled](rules.md#itementityskipmovementdisabled)
 - [keepMobInLazyChunks](rules.md#keepmobinlazychunks)
 - [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap)
 - [lightQueueLoggerSamplingDuration](rules.md#lightqueueloggersamplingduration)
@@ -66,6 +67,7 @@
 - [totallyNoBlockUpdate](rules.md#totallynoblockupdate)
 - [turtleEggTrampledDisabled](rules.md#turtleeggtrampleddisabled)
 - [visualizeProjectileLoggerEnabled](rules.md#visualizeprojectileloggerenabled)
+- [voidRelatedAltitude](rules.md#voidrelatedaltitude)
 - [xpTrackingDistance](rules.md#xptrackingdistance)
 
 ## [Ported-rules](rules.md#ported-rules)

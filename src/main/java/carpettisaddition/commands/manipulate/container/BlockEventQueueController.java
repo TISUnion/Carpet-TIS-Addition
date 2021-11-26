@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static net.minecraft.command.argument.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.argument.BlockPosArgumentType.getBlockPos;
+import static net.minecraft.command.argument.BlockPosArgumentType.getLoadedBlockPos;
 import static net.minecraft.command.argument.BlockStateArgumentType.blockState;
 import static net.minecraft.command.argument.BlockStateArgumentType.getBlockState;
 import static net.minecraft.server.command.CommandManager.argument;
@@ -50,7 +50,7 @@ public class BlockEventQueueController extends AbstractContainerController
 	public int addEvent(CommandContext<ServerCommandSource> context) throws CommandSyntaxException
 	{
 		ServerCommandSource source = context.getSource();
-		BlockPos blockPos = getBlockPos(context, "pos");
+		BlockPos blockPos = getLoadedBlockPos(context, "pos");
 		Block block = getBlockState(context, "block").getBlockState().getBlock();
 		int type = getInteger(context, "type");
 		int data = getInteger(context, "data");
@@ -71,7 +71,7 @@ public class BlockEventQueueController extends AbstractContainerController
 		return super.getCommandNode().
 				then(literal("remove").
 						then(argument("pos", blockPos()).
-								executes(c -> this.removeAt(c.getSource(), getBlockPos(c, "pos")))
+								executes(c -> this.removeAt(c.getSource(), getLoadedBlockPos(c, "pos")))
 						)
 				).
 				then(literal("add").

@@ -102,6 +102,7 @@ carpettisaddition:
         push: 推出方块
         retract: 拉回方块
         drop: 丢下方块
+        unknown: 未知操作
       event:
         set_block_state_event_base:
           flag_data:
@@ -474,6 +475,13 @@ carpettisaddition:
         desc: 令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行
         extra:
           '0': 仅影响普通命令方块
+      itemEntitySkipMovementDisabled:
+        name: 禁用物品实体跳过移动运算
+        desc: 移除物品实体跳过移动运算的机制
+        extra:
+          '0': 改回为1.13-的物品实体机制，也就是低速着地的物品实体依然会每gt都运算移动，而非每4gt
+          '1': 当你需要精准使用物品实体运动逻辑时有用
+          '2': 会导致利用了相关机制的机器无法工作，如2no2name的无线红石
       keepMobInLazyChunks:
         name: 保持弱加载区块的怪物
         desc: 弱加载区块的怪物不再会被刷新掉
@@ -662,6 +670,9 @@ carpettisaddition:
         desc: 启用可视化投掷物记录器
         extra:
           '0': 试试/log projectiles visualize吧
+      voidRelatedAltitude:
+        name: 虚空相对海拔高度
+        desc: 修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域
       xpTrackingDistance:
         name: 经验球追踪距离
         desc: 修改经验球检测并追踪玩家的距离

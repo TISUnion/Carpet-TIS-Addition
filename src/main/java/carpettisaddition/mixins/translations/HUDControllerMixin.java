@@ -2,44 +2,22 @@ package carpettisaddition.mixins.translations;
 
 import carpet.logging.HUDController;
 import carpettisaddition.translations.TISAdditionTranslations;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(HUDController.class)
 public abstract class HUDControllerMixin
 {
-	@Unique
-	private static final ThreadLocal<PlayerEntity> currentLoggingPlayer = ThreadLocal.withInitial(() -> null);
-
-	@Inject(method = "addMessage", at = @At("HEAD"), remap = false)
-	private static void applyTISCarpetTranslation_recordPlayer(ServerPlayerEntity player, BaseText hudMessage, CallbackInfo ci)
+	@ModifyVariable(method = "addMessage", at = @At("HEAD"), argsOnly = true, remap = false)
+	private static BaseText applyTISCarpetTranslationToHudLoggerMessage(BaseText hudMessage, /* parent method parameters -> */ ServerPlayerEntity player, BaseText hudMessage_)
 	{
-		currentLoggingPlayer.set(player);
-	}
-
-	@ModifyArg(
-			method = "addMessage",
-			at = @At(
-					value = "INVOKE",
-					target = "Ljava/util/List;add(Ljava/lang/Object;)Z",
-					ordinal = 1
-			),
-			remap = false
-	)
-	private static Object applyTISCarpetTranslation(Object text)
-	{
-		PlayerEntity player = currentLoggingPlayer.get();
-		if (player instanceof ServerPlayerEntity && text instanceof BaseText)
+		if (player != null)  // fabric carpet has a null check, so let's do the same
 		{
-			return TISAdditionTranslations.translate((BaseText)text, (ServerPlayerEntity)player);
+			hudMessage = TISAdditionTranslations.translate(hudMessage, player);
 		}
-		return text;
+		return hudMessage;
 	}
 }

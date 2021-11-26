@@ -131,21 +131,15 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public enum LoggingType
 	{
-		DESPAWN("despawn"),
-		DIE("die"),
-		CREATE("create");
+		DESPAWN,
+		DIE,
+		CREATE;
 
-		private final String name;
 		public static final	String[] LOGGING_SUGGESTIONS;
-
-		LoggingType(String name)
-		{
-			this.name = name;
-		}
 
 		public String getName()
 		{
-			return name;
+			return this.name().toLowerCase();
 		}
 
 		public boolean isContainedIn(String option)
