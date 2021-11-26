@@ -445,7 +445,7 @@ public class CarpetTISAdditionSettings
 				MicroTimingMarkerManager.getInstance().clear();
 				if (source != null)
 				{
-					Messenger.tell(source, MicroTimingMarkerManager.getInstance().tr("cleared"));
+					Messenger.tell(source, MicroTimingMarkerManager.getInstance().getTranslator().tr("cleared"));
 				}
 				return currentRule.get();
 			}
