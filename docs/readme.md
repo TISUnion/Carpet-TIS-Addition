@@ -34,6 +34,7 @@
 - [hopperNoItemCost](rules.md#hoppernoitemcost)
 - [HUDLoggerUpdateInterval](rules.md#hudloggerupdateinterval)
 - [instantCommandBlock](rules.md#instantcommandblock)
+- [itemEntitySkipMovementDisabled](rules.md#itementityskipmovementdisabled)
 - [keepMobInLazyChunks](rules.md#keepmobinlazychunks)
 - [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap)
 - [lightQueueLoggerSamplingDuration](rules.md#lightqueueloggersamplingduration)
