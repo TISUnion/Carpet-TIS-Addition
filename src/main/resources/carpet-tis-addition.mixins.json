@@ -203,6 +203,7 @@
     "rule.totallyNoBlockUpdate.WorldMixin",
     "rule.turtleEggTrampledDisabled.StepAndDestroyBlockGoalMixin",
     "rule.turtleEggTrampledDisabled.TurtleEggBlockMixin",
+    "rule.voidRelatedAltitude.AbstractDecorationEntityMixin",
     "rule.voidRelatedAltitude.AbstractMinecartEntityMixin",
     "rule.voidRelatedAltitude.EntityMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
