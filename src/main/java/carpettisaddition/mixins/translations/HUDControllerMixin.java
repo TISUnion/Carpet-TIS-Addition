@@ -2,7 +2,6 @@ package carpettisaddition.mixins.translations;
 
 import carpet.logging.HUDController;
 import carpettisaddition.translations.TISAdditionTranslations;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,6 +14,10 @@ public abstract class HUDControllerMixin
 	@ModifyVariable(method = "addMessage", at = @At("HEAD"), argsOnly = true, remap = false)
 	private static BaseText applyTISCarpetTranslationToHudMessage(BaseText hudMessage, /* parent method parameters -> */ ServerPlayerEntity player, BaseText hudMessage_)
 	{
-		return TISAdditionTranslations.translate(hudMessage, (ServerPlayerEntity)player);
+		if (player != null)  // fabric carpet has a null check, so let's do the same
+		{
+			hudMessage = TISAdditionTranslations.translate(hudMessage, player);
+		}
+		return hudMessage;
 	}
 }
