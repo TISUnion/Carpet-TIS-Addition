@@ -102,6 +102,7 @@ carpettisaddition:
         push: 推出方块
         retract: 拉回方块
         drop: 丢下方块
+        unknown: 未知操作
       event:
         set_block_state_event_base:
           flag_data:
