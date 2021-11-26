@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class HUDControllerMixin
 {
 	@ModifyVariable(method = "addMessage", at = @At("HEAD"), argsOnly = true, remap = false)
-	private static BaseText applyTISCarpetTranslationToHudMessage(BaseText hudMessage, /* parent method parameters -> */ PlayerEntity player, BaseText hudMessage_)
+	private static BaseText applyTISCarpetTranslationToHudLoggerMessage(BaseText hudMessage, /* parent method parameters -> */ PlayerEntity player, BaseText hudMessage_)
 	{
 		return TISAdditionTranslations.translate(hudMessage, (ServerPlayerEntity)player);
 	}
