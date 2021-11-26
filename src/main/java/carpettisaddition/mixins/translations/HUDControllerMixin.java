@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class HUDControllerMixin
 {
 	@ModifyVariable(method = "addMessage", at = @At("HEAD"), argsOnly = true, remap = false)
-	private static BaseText applyTISCarpetTranslationToHudMessage(BaseText hudMessage, /* parent method parameters -> */ ServerPlayerEntity player, BaseText hudMessage_)
+	private static BaseText applyTISCarpetTranslationToHudLoggerMessage(BaseText hudMessage, /* parent method parameters -> */ ServerPlayerEntity player, BaseText hudMessage_)
 	{
 		if (player != null)  // fabric carpet has a null check, so let's do the same
 		{

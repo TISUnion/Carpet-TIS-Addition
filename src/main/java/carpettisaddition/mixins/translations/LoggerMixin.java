@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class LoggerMixin
 {
 	@ModifyVariable(method = "sendPlayerMessage", at = @At("HEAD"), argsOnly = true, remap = false)
-	private BaseText[] applyTISCarpetTranslationToHudMessage(BaseText[] messages, /* parent method parameters -> */ ServerPlayerEntity player, BaseText... messages_)
+	private BaseText[] applyTISCarpetTranslationToLoggerMessage(BaseText[] messages, /* parent method parameters -> */ ServerPlayerEntity player, BaseText... messages_)
 	{
 		for (int i = 0; i < messages.length; i++)
 		{
