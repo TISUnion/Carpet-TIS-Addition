@@ -6,17 +6,18 @@ import net.minecraft.text.BaseText;
 
 public enum PistonBlockEventType
 {
-	PUSH("Push"),
-	RETRACT("Retract"),
-	DROP("Drop");
+	PUSH,
+	RETRACT,
+	DROP,
+	UNKNOWN;
 
 	private static final Translator translator = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("piston_block_event_type");
 	private static final PistonBlockEventType[] VALUES = PistonBlockEventType.values();
 	private final String translationKey;
 
-	PistonBlockEventType(String name)
+	PistonBlockEventType()
 	{
-		this.translationKey = name.toLowerCase();
+		this.translationKey = this.name().toLowerCase();
 	}
 
 	public BaseText toText()
@@ -24,8 +25,8 @@ public enum PistonBlockEventType
 		return translator.tr(this.translationKey);
 	}
 
-	public static PistonBlockEventType byId(int id)
+	public static PistonBlockEventType fromId(int id)
 	{
-		return VALUES[Math.abs(id % VALUES.length)];
+		return 0 <= id && id <= 2 ? VALUES[id] : UNKNOWN;
 	}
 }

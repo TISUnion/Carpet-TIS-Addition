@@ -275,6 +275,22 @@ Only affects normal command blocks
 - Categories: `TIS`, `CREATIVE`
 
 
+## itemEntitySkipMovementDisabled
+
+Removed the movement skipping mechanism when ticking of item entity
+
+Brings back 1.13- item entity behavior, where item entities with low velocity on ground still tick movement every gt instead of every 4gt
+
+Useful when you require precise item entity movement timing
+
+Breaks related redstone devices, e.g. 2no2name's wireless redstone
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## keepMobInLazyChunks
 
 The mobs in lazy chunks will not despawn, like the behavior before 1.15
@@ -715,6 +731,16 @@ Try `/log projectiles visualize`
 - Type: `boolean`
 - Default value: `false `
 - Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
+## voidRelatedAltitude
+
+Modify the related altitude between the bottom of the world and the void where entities will receive void damages
+
+- Type: `double`
+- Default value: `-64`
+- Suggested options: `-64`, `-512`, `-4096`
 - Categories: `TIS`, `CREATIVE`
 
 

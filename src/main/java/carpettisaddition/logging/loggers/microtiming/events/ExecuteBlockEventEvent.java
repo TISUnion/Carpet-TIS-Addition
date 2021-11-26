@@ -40,7 +40,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		builder.add(String.format("w eventID: %d", eventID));
 		if (blockAction.getBlock() instanceof PistonBlock)
 		{
-			builder.add(Messenger.c(Messenger.s(" ("), PistonBlockEventType.byId(eventID).toText(), Messenger.s(")")));
+			builder.add(Messenger.c(Messenger.s(" ("), PistonBlockEventType.fromId(eventID).toText(), Messenger.s(")")));
 		}
 		builder.add(Messenger.newLine());
 		builder.add(String.format("w eventParam: %d", eventParam));
@@ -59,7 +59,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		list.add(Messenger.formatting(tr("execute"), COLOR_ACTION));
 		list.add(Messenger.getSpaceText());
 		BaseText eventName = this.blockAction.getBlock() instanceof PistonBlock ?
-				Messenger.formatting(PistonBlockEventType.byId(blockAction.getType()).toText(), COLOR_TARGET) :
+				Messenger.formatting(PistonBlockEventType.fromId(blockAction.getType()).toText(), COLOR_TARGET) :
 				Messenger.formatting(tr("blockevent"), COLOR_TARGET);
 		list.add(Messenger.fancy(eventName, getMessageExtraMessengerHoverText(this.blockAction), null));
 		if (this.getEventType() == EventType.ACTION_END)

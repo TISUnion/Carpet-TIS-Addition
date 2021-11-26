@@ -5,7 +5,7 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
-public class MicroTimingApi
+public class MicroTimingAccess
 {
 	public static TickPhase getTickPhase(@NotNull ServerWorld world)
 	{
