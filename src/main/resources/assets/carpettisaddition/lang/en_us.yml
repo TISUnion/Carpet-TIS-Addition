@@ -102,6 +102,7 @@ carpettisaddition:
         push: Push
         retract: Retract
         drop: Drop
+        unknown: Unknown operation
       event:
         set_block_state_event_base:
           flag_data:

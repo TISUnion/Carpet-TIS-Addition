@@ -9,12 +9,12 @@ public class TranslationContext
 {
 	private final Translator translator;
 
-	public TranslationContext(Translator translator)
+	protected TranslationContext(Translator translator)
 	{
 		this.translator = translator;
 	}
 
-	public TranslationContext(String translationPath)
+	protected TranslationContext(String translationPath)
 	{
 		this(new Translator(translationPath));
 	}
@@ -24,7 +24,7 @@ public class TranslationContext
 		return translator;
 	}
 
-	public BaseText tr(String key, Object ...args)
+	protected BaseText tr(String key, Object ...args)
 	{
 		return this.translator.tr(key, args);
 	}

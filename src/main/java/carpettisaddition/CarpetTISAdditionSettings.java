@@ -282,6 +282,17 @@ public class CarpetTISAdditionSettings
 	public static boolean instantCommandBlock = false;
 
 	@Rule(
+			desc = "Removed the movement skipping mechanism when ticking of item entity",
+			extra = {
+					"Brings back 1.13- item entity behavior, where item entities with low velocity on ground still tick movement every gt instead of every 4gt",
+					"Useful when you require precise item entity movement timing",
+					"Breaks related redstone devices, e.g. 2no2name's wireless redstone"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean itemEntitySkipMovementDisabled = false;
+
+	@Rule(
 			desc = "The mobs in lazy chunks will not despawn",
 			extra = "This option only have effects between Minecraft 1.15 and 1.16",
 			category = {TIS, EXPERIMENTAL, FEATURE}
@@ -445,7 +456,7 @@ public class CarpetTISAdditionSettings
 				MicroTimingMarkerManager.getInstance().clear();
 				if (source != null)
 				{
-					Messenger.tell(source, MicroTimingMarkerManager.getInstance().tr("cleared"));
+					Messenger.tell(source, MicroTimingMarkerManager.getInstance().getTranslator().tr("cleared"));
 				}
 				return currentRule.get();
 			}
@@ -748,6 +759,15 @@ public class CarpetTISAdditionSettings
 	public static boolean visualizeProjectileLoggerEnabled = false;
 
 	@Rule(
+			desc = "Modify the related altitude between the bottom of the world and the void where entities will receive void damages",
+			options = {"-64", "-512", "-4096"},
+			validate = ValidateNegative.class,
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static double voidRelatedAltitude = -64.0D;
+
+	@Rule(
 			desc = "Overwrite the tracking distance of xp orb",
 			extra = "Change it to 0 to disable tracking",
 			options = {"0", "1", "8", "32"},
@@ -799,6 +819,19 @@ public class CarpetTISAdditionSettings
 		public String description()
 		{
 			return "You must choose a positive value";
+		}
+	}
+
+	private static class ValidateNegative extends Validator<Number>
+	{
+		@Override
+		public Number validate(ServerCommandSource source, ParsedRule<Number> currentRule, Number newValue, String string)
+		{
+			return newValue.doubleValue() < 0.0D ? newValue : null;
+		}
+		public String description()
+		{
+			return "You must choose a negative value";
 		}
 	}
 }

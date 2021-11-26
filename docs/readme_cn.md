@@ -34,6 +34,7 @@
 - [漏斗不消耗物品](rules_cn.md#漏斗不消耗物品-hoppernoitemcost)
 - [hud监视器更新间隔](rules_cn.md#hud监视器更新间隔-hudloggerupdateinterval)
 - [瞬时命令方块](rules_cn.md#瞬时命令方块-instantcommandblock)
+- [禁用物品实体跳过移动运算](rules_cn.md#禁用物品实体跳过移动运算-itementityskipmovementdisabled)
 - [保持弱加载区块的怪物](rules_cn.md#保持弱加载区块的怪物-keepmobinlazychunks)
 - [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap)
 - [光照队列记录器采样时长](rules_cn.md#光照队列记录器采样时长-lightqueueloggersamplingduration)
@@ -66,6 +67,7 @@
 - [完全没有方块更新](rules_cn.md#完全没有方块更新-totallynoblockupdate)
 - [禁用海龟蛋被践踏](rules_cn.md#禁用海龟蛋被践踏-turtleeggtrampleddisabled)
 - [可视化投掷物记录器](rules_cn.md#可视化投掷物记录器-visualizeprojectileloggerenabled)
+- [虚空相对海拔高度](rules_cn.md#虚空相对海拔高度-voidrelatedaltitude)
 - [经验球追踪距离](rules_cn.md#经验球追踪距离-xptrackingdistance)
 
 ## [移植的规则](rules_cn.md#移植的规则列表)

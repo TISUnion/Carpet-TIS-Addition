@@ -275,6 +275,22 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 禁用物品实体跳过移动运算 (itemEntitySkipMovementDisabled)
+
+移除物品实体跳过移动运算的机制
+
+改回为 1.13- 的物品实体机制，也就是低速着地的物品实体依然会每gt都运算移动，而非每4gt
+
+当你需要精准使用物品实体运动逻辑时有用
+
+会导致利用了相关机制的机器无法工作，如 2no2name 的无线红石
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 保持弱加载区块的怪物 (keepMobInLazyChunks)
 
 弱加载区块的怪物不再会被刷新掉，就像 1.15 之前版本似的
@@ -715,6 +731,16 @@
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 虚空相对海拔高度 (voidRelatedAltitude)
+
+修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域
+
+- 类型: `double`
+- 默认值: `-64`
+- 参考选项: `-64`, `-512`, `-4096`
 - 分类: `TIS`, `CREATIVE`
 
 
