@@ -530,6 +530,8 @@
 
 有助于测试你的装置是否依赖于位置
 
+在规则 `fastRedstoneDust` 启用时无效
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`

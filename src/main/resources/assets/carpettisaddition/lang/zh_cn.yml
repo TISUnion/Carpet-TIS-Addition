@@ -585,6 +585,7 @@ carpettisaddition:
         desc: 随机化红石粉发出方块更新的顺序
         extra:
           '0': 有助于测试你的装置是否依赖于位置
+          '1': 在规则fastRedstoneDust启用时无效
       renewableDragonEgg:
         name: 可再生龙蛋
         desc: 让龙蛋变得可再生

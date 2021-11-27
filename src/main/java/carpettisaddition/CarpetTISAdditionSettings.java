@@ -554,7 +554,10 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			desc = "Randomize the order for redstone dust to emit block updates",
-			extra = "It's useful to test if your contraption is locational or not",
+			extra = {
+					"It's useful to test if your contraption is locational or not",
+					"Does not work with rule fastRedstoneDust"
+			},
 			category = {TIS, CREATIVE}
 	)
 	public static boolean redstoneDustRandomUpdateOrder = false;

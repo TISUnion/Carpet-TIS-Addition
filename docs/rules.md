@@ -530,6 +530,8 @@ Randomize the order for redstone dust to emit block updates
 
 It's useful to test if your contraption is locational or not
 
+Does not work with rule `fastRedstoneDust`
+
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
