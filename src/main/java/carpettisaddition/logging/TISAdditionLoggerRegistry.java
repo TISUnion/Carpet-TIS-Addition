@@ -63,13 +63,23 @@ public class TISAdditionLoggerRegistry
         }
     }
 
-    public static Logger standardLogger(String logName, String def, String[] options)
+    public static Logger standardLogger(String logName, String def, String[] options, boolean strictOptions)
 	{
-        return new Logger(getLoggerField(logName), logName, def, options);
+        return new Logger(getLoggerField(logName), logName, def, options, strictOptions);
     }
 
-    public static HUDLogger standardHUDLogger(String logName, String def, String [] options)
+    private static Logger standardLogger(String logName, String def, String[] options)
+	{
+        return standardLogger(logName, def, options, true);
+    }
+
+    public static HUDLogger standardHUDLogger(String logName, String def, String [] options, boolean strictOptions)
     {
-        return new HUDLogger(getLoggerField(logName), logName, def, options);
+        return new HUDLogger(getLoggerField(logName), logName, def, options, strictOptions);
+    }
+
+    private static HUDLogger standardHUDLogger(String logName, String def, String [] options)
+    {
+        return standardHUDLogger(logName, def, options, true);
     }
 }

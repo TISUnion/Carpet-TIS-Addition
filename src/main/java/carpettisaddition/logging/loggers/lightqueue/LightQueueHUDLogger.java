@@ -45,7 +45,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 
 	public HUDLogger getHUDLogger()
 	{
-		return TISAdditionLoggerRegistry.standardHUDLogger(LightQueueHUDLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"});
+		return TISAdditionLoggerRegistry.standardHUDLogger(LightQueueHUDLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"}, false);
 	}
 
 	public void tick()

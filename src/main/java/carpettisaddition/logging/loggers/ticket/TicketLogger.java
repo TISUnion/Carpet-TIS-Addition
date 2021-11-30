@@ -53,7 +53,7 @@ public class TicketLogger extends AbstractLogger
 
 	public Logger getStandardLogger()
 	{
-		return new Logger(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null){
+		return new Logger(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null, false) {
 			@Override
 			public String[] getOptions()
 			{

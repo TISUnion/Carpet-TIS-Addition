@@ -126,7 +126,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public Logger getStandardLogger()
 	{
-		return TISAdditionLoggerRegistry.standardLogger(this.loggerName, LoggingType.DIE.getName(), LoggingType.LOGGING_SUGGESTIONS);
+		return TISAdditionLoggerRegistry.standardLogger(this.loggerName, LoggingType.DIE.getName(), LoggingType.LOGGING_SUGGESTIONS, false);
 	}
 
 	public enum LoggingType

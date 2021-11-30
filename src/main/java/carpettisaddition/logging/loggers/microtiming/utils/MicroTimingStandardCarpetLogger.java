@@ -22,7 +22,7 @@ public class MicroTimingStandardCarpetLogger extends Logger
 
 	private MicroTimingStandardCarpetLogger(Field acceleratorField, String logName, String def, String[] options)
 	{
-		super(acceleratorField, logName, def, options);
+		super(acceleratorField, logName, def, options, true);
 	}
 
 	private static MicroTimingStandardCarpetLogger createInstance()
