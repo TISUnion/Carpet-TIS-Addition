@@ -38,7 +38,7 @@ public class EntityInfoPorting
 	{
 		List<BaseText> lst = Lists.newArrayList();
 		World world = e.getEntityWorld();
-		lst.add(Messenger.c("w " + EntityInfoAccessor.entity_short_string(e)));
+		lst.add(Messenger.c("w " + EntityInfoUtil.entity_short_string(e)));
 		if (e.hasVehicle()) { lst.add(Messenger.c("w  - Rides: ", "wb "+e.getVehicle().getDisplayName().getString())); }
 		if (e.hasPassengers())
 		{
@@ -57,7 +57,7 @@ public class EntityInfoPorting
 			}
 		}
 		lst.add(Messenger.c(String.format("w  - Height: %.2f, Width: %.2f, Eye height: %.2f",e.getHeight(), e.getWidth(), e.getStandingEyeHeight())));
-		lst.add(Messenger.c("w  - Age: ", "wb " + EntityInfoAccessor.makeTime(e.age)));
+		lst.add(Messenger.c("w  - Age: ", "wb " + EntityInfoUtil.makeTime(e.age)));
 		if (!DimensionWrapper.of(source_world).equals(DimensionWrapper.of(e)))
 		{
 			lst.add(Messenger.c("w  - Dimension: ", "wb "+e.world.getRegistryKey().getValue()));
@@ -74,12 +74,12 @@ public class EntityInfoPorting
 			ItemStack stack = ei.getStack();// getEntityItem();
 			String stackname = stack.getCount()>1?String.format("%dx%s",stack.getCount(), stack.getName().getString()):stack.getName().getString();
 			lst.add(Messenger.c("w  - Content: ", "wb "+stackname));
-			lst.add(Messenger.c("w  - Despawn Timer: ", "wb " + EntityInfoAccessor.makeTime(((ItemEntityAccessor)ei).getItemAge())));
+			lst.add(Messenger.c("w  - Despawn Timer: ", "wb " + EntityInfoUtil.makeTime(((ItemEntityAccessor)ei).getItemAge())));
 		}
 		if (e instanceof ExperienceOrbEntity)
 		{
 			ExperienceOrbEntity exp = (ExperienceOrbEntity)e;
-			lst.add(Messenger.c("w  - Despawn Timer: ", "wb "+EntityInfoAccessor.makeTime(((ExperienceOrbEntityAccessor)exp).getOrbAge())));
+			lst.add(Messenger.c("w  - Despawn Timer: ", "wb "+ EntityInfoUtil.makeTime(((ExperienceOrbEntityAccessor)exp).getOrbAge())));
 			lst.add(Messenger.c("w  - Xp Value: ", "wb "+exp.getExperienceAmount()));
 		}
 		if (e instanceof ItemFrameEntity)
@@ -97,7 +97,7 @@ public class EntityInfoPorting
 		if (e instanceof LivingEntity)  // EntityLivingBase
 		{
 			LivingEntity elb = (LivingEntity)e;
-			lst.add(Messenger.c("w  - Despawn timer: ", "wb "+EntityInfoAccessor.makeTime(elb.getDespawnCounter())));
+			lst.add(Messenger.c("w  - Despawn timer: ", "wb "+ EntityInfoUtil.makeTime(elb.getDespawnCounter())));
 
 			lst.add(Messenger.c(String.format("w  - Health: %.2f/%.2f", elb.getHealth(), elb.getMaxHealth())));
 			if (elb.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).getValue() > 0.0)
@@ -121,25 +121,25 @@ public class EntityInfoPorting
 					lst.add(Messenger.c(String.format("w    * %s%s %s",
 							pe.getTranslationKey().substring(7),
 							(pe.getAmplifier()>1)?String.format("x%d",pe.getAmplifier()):"",
-							EntityInfoAccessor.makeTime(pe.getDuration()))));
+							EntityInfoUtil.makeTime(pe.getDuration()))));
 				}
 			}
 			ItemStack mainhand = elb.getMainHandStack();
 			if (!(mainhand.isEmpty()))
 			{
-				lst.add(Messenger.c("w  - Main hand: ", "wb "+EntityInfoAccessor.display_item(mainhand)));
+				lst.add(Messenger.c("w  - Main hand: ", "wb "+ EntityInfoUtil.display_item(mainhand)));
 			}
 			ItemStack offhand = elb.getOffHandStack();
 			if (!(offhand.isEmpty()))
 			{
-				lst.add(Messenger.c("w  - Off hand: ", "wb "+EntityInfoAccessor.display_item(offhand)));
+				lst.add(Messenger.c("w  - Off hand: ", "wb "+ EntityInfoUtil.display_item(offhand)));
 			}
 			String armour = "";
 			for (ItemStack armourpiece: elb.getArmorItems())
 			{
 				if (!(armourpiece.isEmpty()))
 				{
-					armour += String.format("\n   * %s", EntityInfoAccessor.display_item(armourpiece));
+					armour += String.format("\n   * %s", EntityInfoUtil.display_item(armourpiece));
 				}
 			}
 			if (!("".equals(armour)))
@@ -157,7 +157,7 @@ public class EntityInfoPorting
 				LivingEntity target_elb = el.getTarget();
 				if (target_elb != null)
 				{
-					lst.add(Messenger.c("w  - Attack target: ", "wb "+EntityInfoAccessor.entity_short_string(target_elb)));
+					lst.add(Messenger.c("w  - Attack target: ", "wb "+ EntityInfoUtil.entity_short_string(target_elb)));
 				}
 				if (el.canPickUpLoot())
 				{
@@ -172,11 +172,11 @@ public class EntityInfoPorting
 				{
 					WitherEntity ew = (WitherEntity)e;
 					Entity etarget = world.getEntityById(ew.getTrackedEntityId(0));
-					lst.add(Messenger.c("w  - Head 1 target: ", "wb "+EntityInfoAccessor.entity_short_string(etarget) ));
+					lst.add(Messenger.c("w  - Head 1 target: ", "wb "+ EntityInfoUtil.entity_short_string(etarget) ));
 					etarget = world.getEntityById(ew.getTrackedEntityId(1));
-					lst.add(Messenger.c("w  - Head 2 target: ", "wb "+EntityInfoAccessor.entity_short_string(etarget) ));
+					lst.add(Messenger.c("w  - Head 2 target: ", "wb "+ EntityInfoUtil.entity_short_string(etarget) ));
 					etarget = world.getEntityById(ew.getTrackedEntityId(2));
-					lst.add(Messenger.c("w  - Head 3 target: ", "wb "+EntityInfoAccessor.entity_short_string(etarget) ));
+					lst.add(Messenger.c("w  - Head 3 target: ", "wb "+ EntityInfoUtil.entity_short_string(etarget) ));
 				}
 
 				if (e instanceof PathAwareEntity)  // EntityCreature
@@ -193,11 +193,11 @@ public class EntityInfoPorting
 						PassiveEntity eage = (PassiveEntity) e;
 						if (eage.getBreedingAge() < 0)
 						{
-							lst.add(Messenger.c("w  - Time till adulthood: ", "wb "+EntityInfoAccessor.makeTime(-eage.getBreedingAge())));
+							lst.add(Messenger.c("w  - Time till adulthood: ", "wb "+ EntityInfoUtil.makeTime(-eage.getBreedingAge())));
 						}
 						if (eage.getBreedingAge() > 0)
 						{
-							lst.add(Messenger.c("w  - Mating cooldown: ", "wb "+EntityInfoAccessor.makeTime(eage.getBreedingAge())));
+							lst.add(Messenger.c("w  - Mating cooldown: ", "wb "+ EntityInfoUtil.makeTime(eage.getBreedingAge())));
 						}
 						if (e instanceof VillagerEntity)
 						{
@@ -210,7 +210,7 @@ public class EntityInfoPorting
 								ItemStack vstack = vinv.getStack(i);
 								if (!vstack.isEmpty())
 								{
-									inventory_content += String.format("\n   * %d: %s", i, EntityInfoAccessor.display_item(vstack));
+									inventory_content += String.format("\n   * %d: %s", i, EntityInfoUtil.display_item(vstack));
 								}
 							}
 							if (!("".equals(inventory_content)))
@@ -226,12 +226,12 @@ public class EntityInfoPorting
 						{
 							HorseBaseEntity ah = (HorseBaseEntity) e;
 							lst.add(Messenger.c(String.format("w  - Horse Speed: %.2f b/s (%.1f%%%%)",
-									EntityInfoAccessor.get_speed(elb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue()),
-									EntityInfoAccessor.get_horse_speed_percent(elb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue())
+									EntityInfoUtil.get_speed(elb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue()),
+									EntityInfoUtil.get_horse_speed_percent(elb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue())
 							)));
 							lst.add(Messenger.c(String.format("w  - Horse Jump: %.2f b/s (%.1f%%%%)",
-									EntityInfoAccessor.get_horse_jump(ah.getJumpStrength()),
-									EntityInfoAccessor.get_horse_jump_percent(ah.getJumpStrength())
+									EntityInfoUtil.get_horse_jump(ah.getJumpStrength()),
+									EntityInfoUtil.get_horse_jump_percent(ah.getJumpStrength())
 							)));
 						}
 					}
@@ -243,7 +243,7 @@ public class EntityInfoPorting
 							ZombieVillagerEntityAccessor ezv = (ZombieVillagerEntityAccessor) e;
 							if (ezv.getConversionTimer() > 0)
 							{
-								lst.add(Messenger.c("w  - Convert to villager in: ","wb "+EntityInfoAccessor.makeTime(ezv.getConversionTimer())));
+								lst.add(Messenger.c("w  - Convert to villager in: ","wb "+ EntityInfoUtil.makeTime(ezv.getConversionTimer())));
 							}
 						}
 					}
