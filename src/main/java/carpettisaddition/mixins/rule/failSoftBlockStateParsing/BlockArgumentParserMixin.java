@@ -10,7 +10,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BlockArgumentParser.class)
+// improves priority due to @ModifyVariable into locals
+@Mixin(value = BlockArgumentParser.class, priority = 500)
 public abstract class BlockArgumentParserMixin
 {
 	@Inject(

@@ -26,7 +26,7 @@ public abstract class BaseEvent extends TranslationContext
 
 	protected BaseEvent(EventType eventType, String translateKey, Block eventSourceBlock)
 	{
-		this(eventType, translateKey, new EventSource.Block(eventSourceBlock));
+		this(eventType, translateKey, new EventSource.BlockEventSource(eventSourceBlock));
 	}
 
 	public abstract BaseText toText();
