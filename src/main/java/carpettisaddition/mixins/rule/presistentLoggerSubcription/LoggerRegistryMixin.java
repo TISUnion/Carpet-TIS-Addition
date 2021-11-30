@@ -12,7 +12,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(LoggerRegistry.class)
+// improves priority due to @ModifyVariable into locals
+@Mixin(value = LoggerRegistry.class, priority = 500)
 public abstract class LoggerRegistryMixin
 {
 	private static final ThreadLocal<Boolean> appliedPersistentLoggerSubscription = ThreadLocal.withInitial(() -> false);

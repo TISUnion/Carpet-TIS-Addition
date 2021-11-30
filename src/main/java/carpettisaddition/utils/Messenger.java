@@ -5,25 +5,29 @@ import carpettisaddition.mixins.carpet.MessengerInvoker;
 import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.translations.Translator;
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.state.property.Property;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class Messenger
@@ -199,13 +203,28 @@ public class Messenger
 
 	public static BaseText block(Block block)
 	{
-		return hover(new TranslatableText(block.getTranslationKey()), s(Registry.BLOCK.getId(block).toString()));
+		return hover(tr(block.getTranslationKey()), s(IdentifierUtil.id(block).toString()));
+	}
+
+	public static BaseText block(BlockState blockState)
+	{
+		List<String> hovers = Lists.newArrayList();
+		hovers.add(IdentifierUtil.id(blockState.getBlock()).toString());
+		for (Property<?> property: blockState.getProperties())
+		{
+			hovers.add(String.format("%s=%s", property.getName(), blockState.get(property)));
+		}
+		return hover(block(blockState.getBlock()), s(Joiner.on('\n').join(hovers)));
 	}
 
 	public static BaseText fluid(Fluid fluid)
 	{
-		Identifier id = Registry.FLUID.getId(fluid);
-		return hover(block(fluid.getDefaultState().getBlockState().getBlock()), s(id.toString()));
+		return hover(block(fluid.getDefaultState().getBlockState().getBlock()), s(IdentifierUtil.id(fluid).toString()));
+	}
+
+	public static BaseText fluid(FluidState fluid)
+	{
+		return fluid(fluid.getFluid());
 	}
 
 	/*
