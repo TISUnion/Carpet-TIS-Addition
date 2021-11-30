@@ -446,12 +446,6 @@ carpettisaddition:
         desc: 为/player指令召唤出来的假人名称添加指定后缀
         extra:
           '0': 将其设置为#none以阻止添加后缀
-      _validator:
-        validatefakeplayernameextra:
-          warn:
-            found: 在应用规则 %2$s 时在值 "%1$s" 中发现了意料之外的字符
-            blocked: 如果你真的要应用这个值，请再输入一次该指令
-            applied: 接受该值，因为你坚持这样做
       fluidDestructionDisabled:
         name: 禁用流体破坏
         desc: 禁用流体流动造成的方块破坏
@@ -628,10 +622,6 @@ carpettisaddition:
           '0': 这样光照线程就不会于落后主线程而失去同步
           '1': 服务器将会在每个世界开始运算时等待光照线程的任务完成
           '2': 你可以借此安全地 /tick warp 而不用担心潜在的光照抑制或光照不同步
-        safety_warning:
-          '0': 检测到规则synchronizedLightThread和规则lightUpdates间的危险组合
-          '1': 对规则的修改已被取消，以防止在同步光照时无限等待
-          '2': '相关规则将要修改为的值:'
       tileTickLimit:
         name: 计划刻上限
         desc: 修改每游戏刻中计划刻事件的执行次数上限
