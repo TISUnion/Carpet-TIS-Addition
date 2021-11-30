@@ -19,7 +19,7 @@ public abstract class InfoCommandMixin
 			index = 0,
 			remap = false
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> registerTickWarpInfo(LiteralArgumentBuilder<ServerCommandSource> builder)
+	private static LiteralArgumentBuilder<ServerCommandSource> extendsInfoCommand(LiteralArgumentBuilder<ServerCommandSource> builder)
 	{
 		carpettisaddition.commands.info.InfoCommand.getInstance().extendCommand(builder);
 		return builder;

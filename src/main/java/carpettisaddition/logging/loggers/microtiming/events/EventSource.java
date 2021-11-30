@@ -1,9 +1,11 @@
 package carpettisaddition.logging.loggers.microtiming.events;
 
+import carpettisaddition.utils.IdentifierUtil;
 import carpettisaddition.utils.Messenger;
+import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -34,20 +36,20 @@ public abstract class EventSource
 	{
 		if (object instanceof net.minecraft.block.Block)
 		{
-			return Optional.of(new Block((net.minecraft.block.Block)object));
+			return Optional.of(new BlockEventSource((Block)object));
 		}
 		else if (object instanceof net.minecraft.fluid.Fluid)
 		{
-			return Optional.of(new Fluid((net.minecraft.fluid.Fluid)object));
+			return Optional.of(new FluidEventSource((net.minecraft.fluid.Fluid)object));
 		}
 		return Optional.empty();
 	}
 
-	public static class Block extends EventSource
+	public static class BlockEventSource extends EventSource
 	{
-		private final net.minecraft.block.Block block;
+		private final Block block;
 
-		public Block(net.minecraft.block.Block block)
+		public BlockEventSource(Block block)
 		{
 			this.block = block;
 		}
@@ -67,15 +69,15 @@ public abstract class EventSource
 		@Override
 		public Identifier getId()
 		{
-			return Registry.BLOCK.getId(this.block);
+			return IdentifierUtil.id(this.block);
 		}
 	}
 
-	public static class Fluid extends EventSource
+	public static class FluidEventSource extends EventSource
 	{
-		private final net.minecraft.fluid.Fluid fluid;
+		private final Fluid fluid;
 
-		public Fluid(net.minecraft.fluid.Fluid fluid)
+		public FluidEventSource(Fluid fluid)
 		{
 			this.fluid = fluid;
 		}
@@ -95,7 +97,7 @@ public abstract class EventSource
 		@Override
 		public Identifier getId()
 		{
-			return Registry.FLUID.getId(this.fluid);
+			return IdentifierUtil.id(this.fluid);
 		}
 	}
 }

@@ -33,11 +33,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build and test with Gradle
+      - name: Build with Gradle
         run: |
           chmod +x gradlew
           ./gradlew build
-          ./gradlew test
         env:
           BUILD_ID: ${{ github.run_number }}
 

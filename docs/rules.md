@@ -386,9 +386,9 @@ Right click a marker with slime ball item to make it movable. It will move to th
 
 Use `/carpet microTimingDyeMarker clear` to remove all markers
 
-You can create a named marker by using a renamed dye item. Marker translationName will be shown in logging message as well
+You can create a named marker by using a renamed dye item. Marker name will be shown in logging message as well
 
-You can see boxes at marked blocks with fabric-carpet installed on your client. With carpet-tis-addition installed the marker translationName could also be seen through blocks.
+You can see boxes at marked blocks with fabric-carpet installed on your client. With carpet-tis-addition installed the marker name could also be seen through blocks.
 
 *Visual rendering thing doesn't work in 1.14.4 branch due to lack of carpet network and scarpet shape rendering framework in frabic carpet*
 
@@ -529,6 +529,8 @@ Disable rail duping using old school pushing lit powered or activator rail metho
 Randomize the order for redstone dust to emit block updates
 
 It's useful to test if your contraption is locational or not
+
+Does not work with rule `fastRedstoneDust`
 
 - Type: `boolean`
 - Default value: `false`

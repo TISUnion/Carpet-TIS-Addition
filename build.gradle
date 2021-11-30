@@ -41,8 +41,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	
 	// mods
-//	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-	modImplementation 'com.github.Fallen-Breath:fabric-carpet:7b7bb86a29'
+	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 //	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:mc1.17.1-0.7.5"
 	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:14341d3b23"  // Lithium 1.18.x/dev
 
