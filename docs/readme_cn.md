@@ -36,6 +36,7 @@
 - [瞬时命令方块](rules_cn.md#瞬时命令方块-instantcommandblock)
 - [禁用物品实体跳过移动运算](rules_cn.md#禁用物品实体跳过移动运算-itementityskipmovementdisabled)
 - [保持弱加载区块的怪物](rules_cn.md#保持弱加载区块的怪物-keepmobinlazychunks)
+- [大木桶](rules_cn.md#大木桶-largebarrel)
 - [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap)
 - [光照队列记录器采样时长](rules_cn.md#光照队列记录器采样时长-lightqueueloggersamplingduration)
 - [光照更新](rules_cn.md#光照更新-lightupdates)
