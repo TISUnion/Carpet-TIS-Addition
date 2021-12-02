@@ -1,8 +1,8 @@
 package carpettisaddition.mixins.rule.largeBarrel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.largeBarrel.DoubleBlockProperties;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
-import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
