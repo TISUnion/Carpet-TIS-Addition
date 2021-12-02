@@ -171,6 +171,7 @@
     "rule.itemEntitySkipMovementDisabled.ItemEntityMixin",
     "rule.keepMobInLazyChunks.MobEntityMixin",
     "rule.keepMobInLazyChunks.ServerWorldMixin",
+    "rule.largeBarrel.BarrelBlockEntityViewerCountManagerMixin",
     "rule.largeBarrel.BarrelBlockMixin",
     "rule.largeBarrel.DoubleBlockPropertiesMixin",
     "rule.largeBarrel.HopperBlockEntityMixin",
