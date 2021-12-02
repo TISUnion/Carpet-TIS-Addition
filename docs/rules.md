@@ -303,6 +303,20 @@ This option only have effects between Minecraft 1.15 and 1.16
 - Categories: `TIS`, `FEATURE`, `EXPERIMENTAL`
 
 
+## largeBarrel
+
+The best storage block ever: Large barrel
+
+Two adjacent barrel blocks with their bottom side facing towards each other create a large barrel
+
+The behavior and logic of large barrel is just like large chest
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `EXPERIMENTAL`
+
+
 ## lifeTimeTrackerConsidersMobcap
 
 Strategy for lifetime tracker to deal with mob that doesn't count towards mobcap

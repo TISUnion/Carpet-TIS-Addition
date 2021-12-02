@@ -480,6 +480,12 @@ carpettisaddition:
         desc: 弱加载区块的怪物不再会被刷新掉
         extra:
           '0': 此选项仅对1.15至1.16间的版本有效
+      largeBarrel:
+        name: 大木桶
+        desc: '史上最棒的物品仓储方块: 大木桶'
+        extra:
+          '0': 两个相邻的底部相连木桶可以组成一个大木桶
+          '1': 大木桶的行为逻辑跟大箱子相近
       lifeTimeTrackerConsidersMobcap:
         name: 存活时间追踪器考虑怪物容量
         desc: 存活时间追踪器对不占怪物容量的生物的策略
