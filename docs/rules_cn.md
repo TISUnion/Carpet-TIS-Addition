@@ -303,6 +303,20 @@
 - 分类: `TIS`, `FEATURE`, `EXPERIMENTAL`
 
 
+## 大木桶 (largeBarrel)
+
+史上最棒的物品仓储方块: 大木桶
+
+两个相邻的底部相连木桶可以组成一个大木桶
+
+大木桶的行为逻辑跟大箱子相近
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `EXPERIMENTAL`
+
+
 ## 存活时间追踪器考虑怪物容量 (lifeTimeTrackerConsidersMobcap)
 
 存活时间追踪器对不占怪物容量的生物的策略

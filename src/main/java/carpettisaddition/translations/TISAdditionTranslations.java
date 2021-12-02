@@ -42,7 +42,7 @@ public class TISAdditionTranslations
     {
         try
         {
-            String dataStr = FileUtil.readResourceFileAsString(RESOURCE_DIR + "/_languages.yml");
+            String dataStr = FileUtil.readResourceFileAsString(RESOURCE_DIR + "/meta/languages.yml");
             Map<String, Object> yamlMap = new Yaml().load(dataStr);
             ((List<String>)yamlMap.get("languages")).forEach(TISAdditionTranslations::loadTranslation);
         }
