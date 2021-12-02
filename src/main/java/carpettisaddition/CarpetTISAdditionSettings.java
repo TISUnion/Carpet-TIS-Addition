@@ -294,9 +294,19 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			desc = "The mobs in lazy chunks will not despawn",
 			extra = "This option only have effects between Minecraft 1.15 and 1.16",
-			category = {TIS, EXPERIMENTAL, FEATURE}
+			category = {TIS, FEATURE, EXPERIMENTAL}
 	)
 	public static boolean keepMobInLazyChunks = false;
+
+	@Rule(
+			desc = "The best storage block ever: Large barrel",
+			extra = {
+					"Two adjacent barrel blocks with their bottom side facing towards each other create a large barrel",
+					"The behavior and logic of large barrel is just like large chest"
+			},
+			category = {TIS, FEATURE, EXPERIMENTAL}
+	)
+	public static boolean largeBarrel = false;
 
 	@Rule(
 			desc = "Strategy for lifetime tracker to deal with mob that doesn't count towards mobcap",

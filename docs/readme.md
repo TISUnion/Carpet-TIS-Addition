@@ -36,6 +36,7 @@
 - [instantCommandBlock](rules.md#instantcommandblock)
 - [itemEntitySkipMovementDisabled](rules.md#itementityskipmovementdisabled)
 - [keepMobInLazyChunks](rules.md#keepmobinlazychunks)
+- [largeBarrel](rules.md#largebarrel)
 - [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap)
 - [lightQueueLoggerSamplingDuration](rules.md#lightqueueloggersamplingduration)
 - [lightUpdates](rules.md#lightupdates)
