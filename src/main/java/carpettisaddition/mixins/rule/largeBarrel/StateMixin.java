@@ -2,15 +2,15 @@ package carpettisaddition.mixins.rule.largeBarrel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
-import net.minecraft.state.AbstractState;
+import net.minecraft.state.State;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractState.class)
-public abstract class AbstractStateMixin
+@Mixin(State.class)
+public abstract class StateMixin
 {
 	@SuppressWarnings("unchecked")
 	@Inject(method = "get", at = @At("TAIL"), cancellable = true)

@@ -6,8 +6,8 @@ import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.container.Container;
-import net.minecraft.container.NameableContainerFactory;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -29,17 +29,17 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 			method = "onUse",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/player/PlayerEntity;openContainer(Lnet/minecraft/container/NameableContainerFactory;)Ljava/util/OptionalInt;"
+					target = "Lnet/minecraft/entity/player/PlayerEntity;openHandledScreen(Lnet/minecraft/screen/NamedScreenHandlerFactory;)Ljava/util/OptionalInt;"
 			)
 	)
-	private NameableContainerFactory largeBarrel(NameableContainerFactory nameableContainerFactory)
+	private NamedScreenHandlerFactory largeBarrel(NamedScreenHandlerFactory nameableContainerFactory)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			if (nameableContainerFactory instanceof BarrelBlockEntity)
 			{
 				BarrelBlockEntity barrelBlockEntity = (BarrelBlockEntity) nameableContainerFactory;
-				return this.createContainerFactory(barrelBlockEntity.getCachedState(), barrelBlockEntity.getWorld(), barrelBlockEntity.getPos());
+				return this.createScreenHandlerFactory(barrelBlockEntity.getCachedState(), barrelBlockEntity.getWorld(), barrelBlockEntity.getPos());
 			}
 		}
 		// vanilla
@@ -47,13 +47,13 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	}
 
 	/**
-	 * Just like {@link net.minecraft.block.ChestBlock#createContainerFactory}
+	 * Just like {@link net.minecraft.block.ChestBlock#createScreenHandlerFactory}
 	 */
 	@Nullable
 	@Override
-	public NameableContainerFactory createContainerFactory(BlockState state, World world, BlockPos pos)
+	public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos)
 	{
-		NameableContainerFactory vanillaResult = super.createContainerFactory(state, world, pos);
+		NamedScreenHandlerFactory vanillaResult = super.createScreenHandlerFactory(state, world, pos);
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			return LargeBarrelHelper.getBlockEntitySource(state, world, pos).apply(LargeBarrelHelper.NAME_RETRIEVER).orElse(vanillaResult);
@@ -66,7 +66,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
-			cir.setReturnValue(Container.calculateComparatorOutput(LargeBarrelHelper.getInventory(state, world, pos)));
+			cir.setReturnValue(ScreenHandler.calculateComparatorOutput(LargeBarrelHelper.getInventory(state, world, pos)));
 		}
 	}
 }
