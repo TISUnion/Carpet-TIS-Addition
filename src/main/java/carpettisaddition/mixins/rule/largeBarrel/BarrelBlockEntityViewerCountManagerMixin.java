@@ -20,7 +20,7 @@ public abstract class BarrelBlockEntityViewerCountManagerMixin
 	BarrelBlockEntity field_27208;  // BarrelBlockEntity.this
 
 	@Inject(
-			method = "isPlayerViewing",
+			method = "isPlayerViewing(Lnet/minecraft/entity/player/PlayerEntity;)Z",
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					target = "Lnet/minecraft/screen/GenericContainerScreenHandler;getInventory()Lnet/minecraft/inventory/Inventory;"
