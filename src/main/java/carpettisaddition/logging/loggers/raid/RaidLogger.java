@@ -75,7 +75,7 @@ public class RaidLogger extends AbstractLogger
 		}
 		LoggerRegistry.getLogger(NAME).log(() -> {
 			return new BaseText[]{Messenger.c(
-					tr("center_moved", raid.getRaidId(), Messenger.coord("w", pos, DimensionWrapper.of(raid.getWorld())))
+					tr("center_moved", raid.getRaidId(), Messenger.coord(pos, DimensionWrapper.of(raid.getWorld())))
 			)};
 		});
 	}
@@ -90,7 +90,7 @@ public class RaidLogger extends AbstractLogger
 		RAID_VICTORY,
 		RAID_DEFEAT;
 
-		private static final Translator TRANSLATOR = new Translator("raid_invalidate_reason");
+		private static final Translator TRANSLATOR = getInstance().getTranslator().getDerivedTranslator("raid_invalidate_reason");
 
 		public String getName()
 		{
