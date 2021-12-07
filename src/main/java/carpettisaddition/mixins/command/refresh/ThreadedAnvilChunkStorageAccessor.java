@@ -21,8 +21,8 @@ public interface ThreadedAnvilChunkStorageAccessor
 	int getWatchDistance();
 
 	// isChunkWithinEuclideanDistanceRange or whatever
-	@Invoker("isWithinDistance")
-	static boolean invokeIsChunkWithinEuclideanDistanceRange(ChunkPos chunkPos, ServerPlayerEntity serverPlayerEntity, boolean useWatchedPosition, int distance)
+	@Invoker("method_39975")
+	static boolean invokeIsChunkWithinEuclideanDistanceRange(int chunkX, int chunkZ, int playerSectionX, int playerSectionZ, int distance)
 	{
 		return false;
 	}

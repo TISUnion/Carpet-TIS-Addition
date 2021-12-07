@@ -18,6 +18,7 @@ import net.minecraft.server.world.ChunkHolder;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.ChunkSectionPos;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.jetbrains.annotations.Nullable;
@@ -136,7 +137,7 @@ public class RefreshCommand extends AbstractCommand
 			chunkStorage.invokeSendWatchPackets(player, pos, new MutableObject<>(), false, true);
 			counter.add(1);
 		};
-		Predicate<ChunkPos> inPlayerViewDistance = pos -> ThreadedAnvilChunkStorageAccessor.invokeIsChunkWithinEuclideanDistanceRange(pos, player, true, chunkStorage.getWatchDistance());
+		Predicate<ChunkPos> inPlayerViewDistance = pos -> isChunkWithinEuclideanDistanceRange(pos, player, chunkStorage.getWatchDistance());
 		if (chunkPos != null)
 		{
 			if (inPlayerViewDistance.test(chunkPos))
@@ -195,6 +196,12 @@ public class RefreshCommand extends AbstractCommand
 	private int refreshChunksInRange(ServerCommandSource source, int distance) throws CommandSyntaxException
 	{
 		ServerPlayerEntity player = source.getPlayer();
-		return this.refreshChunks(source, null, chunkPos -> ThreadedAnvilChunkStorageAccessor.invokeIsChunkWithinEuclideanDistanceRange(chunkPos, player, true, distance));
+		return this.refreshChunks(source, null, chunkPos -> isChunkWithinEuclideanDistanceRange(chunkPos, player, distance));
+	}
+
+	private static boolean isChunkWithinEuclideanDistanceRange(ChunkPos chunkPos, ServerPlayerEntity player, int distance)
+	{
+		ChunkSectionPos watchedSection = player.getWatchedSection();
+		return ThreadedAnvilChunkStorageAccessor.invokeIsChunkWithinEuclideanDistanceRange(chunkPos.x, chunkPos.z, watchedSection.getSectionX(), watchedSection.getSectionZ(), distance);
 	}
 }
