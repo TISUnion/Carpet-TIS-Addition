@@ -33,6 +33,14 @@ carpettisaddition:
       invalidated: 'Raid (id: %1$s) invalidated, reason: %2$s'
       bad_omen_level_increased: 'Raid (id: %1$s) increased its bad omen level to %2$s'
       center_moved: 'Raid (id: %1$s) moves its center to %2$s'
+      raid_invalidate_reason:
+        difficulty_peaceful: difficulty peaceful
+        gamerule_disable: gamerule disable
+        poi_removed_before_spawn: poi removed before spawn
+        time_out: time out
+        raider_cannot_spawn: raider cannot spawn
+        raid_victory: raid victory
+        raid_defeat: raid defeat
     microTiming:
       gametime: GameTime
       merged_message: Merged %1$s more same messages
@@ -197,15 +205,6 @@ carpettisaddition:
         not_enabled:
           warn: 'Visualize projectile logger: visualize is not enabled'
           hint: 'Click to enable'
-
-  raid_invalidate_reason:
-    difficulty_peaceful: difficulty peaceful
-    gamerule_disable: gamerule disable
-    poi_removed_before_spawn: poi removed before spawn
-    time_out: time out
-    raider_cannot_spawn: raider cannot spawn
-    raid_victory: raid victory
-    raid_defeat: raid defeat
 
   command:
     raid:
