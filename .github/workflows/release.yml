@@ -22,7 +22,7 @@ jobs:
           - branch: 1.17.x
             cf_game_versions: modloader:fabric,minecraft-1-17:1.17.1
           - branch: 1.18.x
-            cf_game_versions: modloader:fabric,minecraft-1-18:1.18
+            cf_game_versions: modloader:fabric,minecraft-1-18:1.18.1
 
     steps:
       - uses: actions/checkout@v2
