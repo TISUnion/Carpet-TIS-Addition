@@ -41,6 +41,9 @@
   "custom": {
     "modmenu": {
       "parent": "carpet"
+    },
+    "lithium:options": {
+        "mixin.entity.collisions.movement": false
     }
   }
 }
