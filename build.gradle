@@ -45,8 +45,7 @@ dependencies {
 	
 	// mods
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-//	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:mc1.17.1-0.7.5"
-	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:14341d3b23"  // Lithium 1.18.x/dev
+	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:dace2004f3"  // Lithium 1.18.x/dev
 
 	// libraries
 	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"

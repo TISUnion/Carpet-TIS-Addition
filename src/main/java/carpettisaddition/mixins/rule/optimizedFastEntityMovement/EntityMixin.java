@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.rule.optimizedFastEntityMovement;
 
-import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMContext;
+import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
@@ -10,6 +11,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
@@ -19,18 +21,8 @@ import java.util.List;
 @Mixin(Entity.class)
 public abstract class EntityMixin
 {
-	private static final ThreadLocal<Boolean> optimizedFEMEnable = ThreadLocal.withInitial(() -> false);  // optimizedFastEntityMovementEnable
-	private static final ThreadLocal<World> currentCollidingWorld = new ThreadLocal<>();
-	private static final ThreadLocal<Entity> currentCollidingEntity = new ThreadLocal<>();
-
-	// minimum velocity to trigger the optimization
-	// set it to 0 or enable rule ultraSecretSetting to test vanilla behavior if you want
-	private static final double OPTIMIZE_THRESHOLD = 4.0D;
-
-	private static boolean checkMovement$OFEM(Vec3d movement)
-	{
-		return movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD || CarpetTISAdditionSettings.ultraSecretSetting.equals("optimizedFastEntityMovement");
-	}
+	@Unique
+	private static final ThreadLocal<OFEMContext> context = ThreadLocal.withInitial(() -> null);
 
 	@Redirect(
 			method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
@@ -41,13 +33,13 @@ public abstract class EntityMixin
 	)
 	private static Iterable<VoxelShape> dontUseThatLargeBlockCollisions(World world, Entity entity, Box box, /* parent method parameters -> */ Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam, List<VoxelShape> collisions)
 	{
-		optimizedFEMEnable.set(CarpetTISAdditionSettings.optimizedFastEntityMovement && checkMovement$OFEM(movement));
-		if (optimizedFEMEnable.get())
+		OFEMContext ctx = OFEMUtil.checkAndCreateContext(world, entity, movement);
+		context.set(ctx);
+		if (ctx != null)
 		{
-			currentCollidingEntity.set(entity);
-			currentCollidingWorld.set(world);
 			return Collections.emptyList();
 		}
+		// vanilla
 		return world.getBlockCollisions(entity, box);
 	}
 
@@ -61,7 +53,7 @@ public abstract class EntityMixin
 	)
 	private static boolean theCollisionsListParameterIsIncompleteSoDontReturnEvenIfItIsEmpty(List<VoxelShape> voxelShapeList)
 	{
-		if (optimizedFEMEnable.get())
+		if (context.get() != null)
 		{
 			return false;
 		}
@@ -78,25 +70,19 @@ public abstract class EntityMixin
 	)
 	private static double useAxisOnlyBlockCollisions(Direction.Axis axis, Box box, Iterable<VoxelShape> shapes, double maxDist, /* parent method parameters -> */ Vec3d movement, Box entityBoundingBox, List<VoxelShape> collisionsExceptBlockCollisions)
 	{
-		if (optimizedFEMEnable.get())
+		OFEMContext ctx = context.get();
+		if (ctx != null)
 		{
-			Vec3d axisOnlyMovement = null;
-			switch (axis)
-			{
-				case X:
-					axisOnlyMovement = new Vec3d(movement.getX(), 0.0D, 0.0D);
-					break;
-				case Y:
-					axisOnlyMovement = new Vec3d(0.0D, movement.getY(), 0.0D);
-					break;
-				case Z:
-					axisOnlyMovement = new Vec3d(0.0D, 0.0D, movement.getZ());
-					break;
-			}
-			Iterable<VoxelShape> blockCollisions = currentCollidingWorld.get().getBlockCollisions(currentCollidingEntity.get(), entityBoundingBox.stretch(axisOnlyMovement));
+			ctx.axis = axis;
+			ctx.movementOnAxis = maxDist;
+			ctx.entityBoundingBox = entityBoundingBox;
+			Iterable<VoxelShape> blockCollisions = OFEMUtil.getAxisOnlyBlockCollision(ctx);
 			List<VoxelShape> voxelShapeList = Lists.newArrayList();
+
+			// order: (entity, border), block
 			voxelShapeList.addAll(collisionsExceptBlockCollisions);
 			blockCollisions.forEach(voxelShapeList::add);
+
 			shapes = voxelShapeList;
 		}
 		return VoxelShapes.calculateMaxOffset(axis, box, shapes, maxDist);

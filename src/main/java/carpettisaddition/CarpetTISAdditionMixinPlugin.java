@@ -39,6 +39,10 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 		{
 			return FabricLoader.getInstance().isModLoaded(TIC_TACS_MOD_ID);
 		}
+		if (mixinClassName.equals("carpettisaddition.mixins.rule.optimizedFastEntityMovement.EntityMixin"))
+		{
+			return !FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
+		}
 		return true;
 	}
 
