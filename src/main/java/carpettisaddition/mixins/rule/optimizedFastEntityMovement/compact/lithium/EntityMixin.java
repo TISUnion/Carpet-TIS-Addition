@@ -2,6 +2,7 @@ package carpettisaddition.mixins.rule.optimizedFastEntityMovement.compact.lithiu
 
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMContext;
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMUtil;
+import com.google.common.collect.Lists;
 import me.jellysquid.mods.lithium.common.entity.LithiumEntityCollisions;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
@@ -10,7 +11,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.CollisionView;
 import net.minecraft.world.World;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
