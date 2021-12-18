@@ -4,25 +4,39 @@ on:
   release:
     types:
       - published
+  workflow_dispatch:
+    inputs:
+      target_release_tag:
+        description: The tag of the release you want to append the artifact to
+        required: true
 
 
 jobs:
+  matrix_prep:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.setmatrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 'Display current branch/tag name'
+        run: echo ${{ github.ref_name }}
+
+      - id: setmatrix
+        uses: JoshuaTheMiller/conditional-build-matrix@0.0.1
+        with:
+          # inputFile: '.github/workflows/matrix_includes.json' # Default input file path
+          filter: '[? `${{ github.event_name }}` == `release` || `${{ github.ref_name }}` == branch]'
+
+      - name: 'Print matrix'
+        run: echo ${{ steps.setmatrix.outputs.matrix }}
+
   release:
+    needs: matrix_prep
     runs-on: ubuntu-latest
 
     strategy:
-      matrix:
-        include:
-          - branch: 1.14.4
-            cf_game_versions: modloader:fabric,minecraft-1-14:1.14.4
-          - branch: 1.15.2
-            cf_game_versions: modloader:fabric,minecraft-1-15:1.15.2
-          - branch: 1.16.5
-            cf_game_versions: modloader:fabric,minecraft-1-16:1.16.4,minecraft-1-16:1.16.5
-          - branch: 1.17.x
-            cf_game_versions: modloader:fabric,minecraft-1-17:1.17.1
-          - branch: 1.18.x
-            cf_game_versions: modloader:fabric,minecraft-1-18:1.18.1
+      matrix: ${{fromJson(needs.matrix_prep.outputs.matrix)}}
 
     steps:
       - uses: actions/checkout@v2
@@ -65,9 +79,17 @@ jobs:
           path: build/libs/
 
       - name: Upload to Github release
+        if: ${{ github.event_name == 'release' }}
         uses: softprops/action-gh-release@v1
         with:
           files: build/libs/${{ steps.findjar.outputs.jarname }}
+
+      - name: Upload to specific Github release
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/libs/${{ steps.findjar.outputs.jarname }}
+          tag_name: ${{ github.event.inputs.target_release_tag }}
 
       - name: Upload to CurseForge
         uses: itsmeow/curseforge-upload@v3
