@@ -1,0 +1,22 @@
+[
+  {
+    "branch": "1.14.4",
+    "cf_game_versions": "modloader:fabric,minecraft-1-14:1.14.4"
+  },
+  {
+    "branch": "1.15.2",
+    "cf_game_versions": "modloader:fabric,minecraft-1-15:1.15.2"
+  },
+  {
+    "branch": "1.16.5",
+    "cf_game_versions": "modloader:fabric,minecraft-1-16:1.16.4,minecraft-1-16:1.16.5"
+  },
+  {
+    "branch": "1.17.x",
+    "cf_game_versions": "modloader:fabric,minecraft-1-17:1.17.1"
+  },
+  {
+    "branch": "1.18.x",
+    "cf_game_versions": "modloader:fabric,minecraft-1-18:1.18.1"
+  }
+]
