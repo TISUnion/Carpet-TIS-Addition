@@ -69,6 +69,6 @@ public class DimensionWrapper
 	@Override
 	public String toString()
 	{
-		return this.dimensionType.toString();
+		return this.getIdentifierString();
 	}
 }
