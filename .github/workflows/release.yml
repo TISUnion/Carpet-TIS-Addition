@@ -78,18 +78,35 @@ jobs:
           name: '[${{ matrix.branch }}] build-artifacts'
           path: build/libs/
 
-      - name: Upload to Github release
-        if: ${{ github.event_name == 'release' }}
-        uses: softprops/action-gh-release@v1
-        with:
-          files: build/libs/${{ steps.findjar.outputs.jarname }}
-
-      - name: Upload to specific Github release
+      - name: Get github release information
         if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: get_release
+        uses: cardinalby/git-get-release-action@v1.1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag: ${{ github.event.inputs.target_release_tag }}
+
+      - name: Generate publish related infomation
+        id: release_info
+        # the default value of tag_name is github.ref,  see https://github.com/softprops/action-gh-release#-customizing
+        run: |
+          if [ $GITHUB_EVENT_NAME == 'release' ]
+          then
+              echo "::set-output name=tag_name::${{ github.ref }}"
+          elif [ $GITHUB_EVENT_NAME == 'workflow_dispatch' ]
+          then
+              echo "::set-output name=tag_name::${{ github.event.inputs.target_release_tag }}"
+          else
+              echo Unknown github event name $GITHUB_EVENT_NAME
+              exit 1
+          fi
+
+      - name: Upload to Github release
         uses: softprops/action-gh-release@v1
         with:
           files: build/libs/${{ steps.findjar.outputs.jarname }}
-          tag_name: ${{ github.event.inputs.target_release_tag }}
+          tag_name: ${{ steps.release_info.outputs.tag_name }}
 
       - name: Upload to CurseForge
         uses: itsmeow/curseforge-upload@v3
@@ -99,7 +116,7 @@ jobs:
           game_endpoint: minecraft
           game_versions: ${{ matrix.cf_game_versions }}
           changelog_type: markdown
-          changelog: ${{ github.event.release.body }}
+          changelog: ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}  # one of them should be an empty string (null)
           file_path: build/libs/${{ steps.findjar.outputs.jarname }}
           release_type: release
           relations: carpet:requiredDependency
