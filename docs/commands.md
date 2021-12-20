@@ -62,6 +62,7 @@ Tracked entity spawning reasons
 - Zombie Reinforce
 - Spawner
 - `/summon` command
+- Breeding
 - Mob drop (item and xp orb only)
 - Block drop (item only)
 

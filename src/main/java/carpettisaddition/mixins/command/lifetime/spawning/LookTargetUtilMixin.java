@@ -12,9 +12,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-
 @Mixin(LookTargetUtil.class)
-public class LookTargetUtilMixin {
+public abstract class LookTargetUtilMixin {
     @Inject(
             method = "give",
             locals = LocalCapture.CAPTURE_FAILHARD,

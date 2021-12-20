@@ -292,6 +292,7 @@ carpettisaddition:
       spawning_position: 生成位置
       removal_position: 移除位置
       spawn_reason:
+        # LiteralSpawningReason starts
         natural: 自然刷新
         portal_pigman: 地狱门僵尸猪人生成
         command: summon指令
@@ -302,6 +303,8 @@ carpettisaddition:
         spawner: 刷怪笼
         raid: 袭击
         summon: 被生物或方块召唤
+        breeding: 繁殖
+        # LiteralSpawningReason ends
         mob_drop: 由%1$s掉落
         mob_throw: 由%1$s扔出
         trans_dimension:
