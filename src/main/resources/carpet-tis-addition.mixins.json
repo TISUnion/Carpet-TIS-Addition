@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "carpettisaddition.CarpetTISAdditionMixinPlugin",
   "mixins": [
+    "MoveToRaidCenterGoalMixin",
     "carpet.events.onCarpetClientHello.ServerNetworkHandlerMixin",
     "carpet.events.onServerLoadedWorlds.MinecraftServerMixin",
     "carpet.hooks.CarpetServerMixin",
