@@ -8,15 +8,19 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
 {
 	private static String getDecoratedString(final CommandContext<?> context, final String name)
 	{
+		String playerName = StringArgumentType.getString(context, name);
+		if (!name.equals("player"))
+		{
+			// not <player> argument, might be <gamemode> since carpet v1.4.48 or whatever, so return the value directly
+			return playerName;
+		}
 		String rulePrefix = CarpetTISAdditionSettings.fakePlayerNamePrefix;
 		String ruleSuffix = CarpetTISAdditionSettings.fakePlayerNameSuffix;
-		String playerName = StringArgumentType.getString(context, name);
 		if (!rulePrefix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra) && !playerName.startsWith(rulePrefix))
 		{
 			playerName = rulePrefix + playerName;
@@ -34,7 +38,6 @@ public abstract class PlayerCommandMixin
 					value = "INVOKE",
 					target = "Lcom/mojang/brigadier/arguments/StringArgumentType;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
 			),
-			require = 2,
 			remap = false
 	)
 	private static String getStringWithPrefixAtSpawn(final CommandContext<?> context, final String name)
