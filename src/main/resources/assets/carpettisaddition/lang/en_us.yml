@@ -295,7 +295,7 @@ carpettisaddition:
         # LiteralSpawningReason starts
         natural: Natural spawning
         portal_pigman: Nether portal pigman spawning
-        command: Summon command
+        command: /summon command
         item: Spawned by item
         block_drop: Block drop
         slime: Slime division

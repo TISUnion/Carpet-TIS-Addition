@@ -295,7 +295,7 @@ carpettisaddition:
         # LiteralSpawningReason starts
         natural: 自然刷新
         portal_pigman: 地狱门僵尸猪人生成
-        command: summon指令
+        command: /summon指令
         item: 怪物蛋等
         block_drop: 方块掉落
         slime: 史莱姆分裂
