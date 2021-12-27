@@ -12,11 +12,12 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class VillagerBreedTaskMixin
 {
 	@ModifyArg(
-			method = "createChild",
+			method = "method_18970",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			)
+			),
+			remap = false
 	)
 	private Entity onAnimalBirthLifeTimeTracker(Entity entity)
 	{

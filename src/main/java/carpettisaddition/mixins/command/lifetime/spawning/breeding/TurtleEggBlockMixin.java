@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class TurtleEggBlockMixin
 {
 	@ModifyArg(
-			method = "scheduledTick",
+			method = "onScheduledTick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
 	private Entity onAnimalBirthLifeTimeTracker(Entity entity)
