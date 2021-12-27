@@ -6,7 +6,6 @@ import me.jellysquid.mods.lithium.common.hopper.HopperHelper;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -32,9 +31,10 @@ public abstract class HopperHelperMixin
 	)
 	private static void useLargeBarrelInventoryMaybe(World world, BlockPos blockPos, CallbackInfoReturnable<Inventory> cir, Inventory inventory, BlockState blockState, Block block)
 	{
+		// note: inventory is always null
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
-			if (inventory instanceof BarrelBlockEntity && block instanceof BarrelBlock)
+			if (block instanceof BarrelBlock)
 			{
 				Inventory largeBarrel = LargeBarrelHelper.getInventory(blockState, world, blockPos);
 				if (largeBarrel != null)
