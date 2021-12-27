@@ -180,6 +180,7 @@
     "rule.largeBarrel.DoubleBlockPropertiesMixin",
     "rule.largeBarrel.HopperBlockEntityMixin",
     "rule.largeBarrel.StateMixin",
+    "rule.largeBarrel.compact.lithium.BarrelBlockMixin",
     "rule.largeBarrel.compact.lithium.HopperHelperMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
