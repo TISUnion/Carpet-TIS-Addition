@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ExperienceBottleEntity.class)
-public class ThrownExperienceBottleEntityMixin
+public abstract class ThrownExperienceBottleEntityMixin
 {
 	@Inject(
 			method = "onCollision",
