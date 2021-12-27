@@ -42,7 +42,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 		}
 	}
 
-	@Inject(method = "onStateReplaced", at = @At("TAIL"))
+	@Inject(method = "onStateReplaced", at = @At("RETURN"))
 	public void resetLithiumHopperCacheForLargeBarrel(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved, CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
