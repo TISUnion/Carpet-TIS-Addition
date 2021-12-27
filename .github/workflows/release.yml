@@ -89,11 +89,10 @@ jobs:
 
       - name: Generate publish related infomation
         id: release_info
-        # the default value of tag_name is github.ref,  see https://github.com/softprops/action-gh-release#-customizing
         run: |
           if [ $GITHUB_EVENT_NAME == 'release' ]
           then
-              echo "::set-output name=tag_name::${{ github.ref }}"
+              echo "::set-output name=tag_name::"  # leave an empty value here so softprops/action-gh-release will use the default value
           elif [ $GITHUB_EVENT_NAME == 'workflow_dispatch' ]
           then
               echo "::set-output name=tag_name::${{ github.event.inputs.target_release_tag }}"

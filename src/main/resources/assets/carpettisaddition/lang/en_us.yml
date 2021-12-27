@@ -292,34 +292,37 @@ carpettisaddition:
       spawning_position: Spawning Position
       removal_position: Removal Position
       spawn_reason:
-        natural: "Natural spawning"
-        portal_pigman: "Nether portal pigman spawning"
-        command: "Summon command"
-        item: "Spawned by item"
-        block_drop: "Block drop"
-        slime: "Slime division"
-        zombie_reinforce: "Zombie Reinforce"
-        spawner: "Spawned by spawner"
-        raid: "Spawned in raid as raider"
-        summon: "Be summoned by entity or block"
-        mob_drop: "Dropped by %1$s"
-        mob_throw: "Thrown by %1$s"
+        # LiteralSpawningReason starts
+        natural: Natural spawning
+        portal_pigman: Nether portal pigman spawning
+        command: /summon command
+        item: Spawned by item
+        block_drop: Block drop
+        slime: Slime division
+        zombie_reinforce: Zombie Reinforce
+        spawner: Spawned by spawner
+        raid: Spawned in raid as raider
+        summon: Be summoned by entity or block
+        breeding: Breeding
+        # LiteralSpawningReason ends
+        mob_drop: Dropped by %1$s
+        mob_throw: Thrown by %1$s
         trans_dimension:
-          .: "Trans-dimension"
+          .: Trans-dimension
           from: from %1$s
       removal_reason:
         despawn:
-          randomly: "Randomly despawn"
-          immediately: "Immediately despawn"
-          difficulty: "Despawn for difficulty"
-          timeout: "Despawn for timeout"
-        persistent: "Becomes persistent"
-        other: "Other"
+          randomly: Randomly despawn
+          immediately: Immediately despawn
+          difficulty: Despawn for difficulty
+          timeout: Despawn for timeout
+        persistent: Becomes persistent
+        other: Other
         death: Death
-        merge: "Entity merging"
-        mob_pickup: "Picked up by %1$s"
-        hopper: "Collected by hopper"
-        void: "Entering void"
+        merge: Entity merging
+        mob_pickup: Picked up by %1$s
+        hopper: Collected by hopper
+        void: Entering void
         on_vehicle: Rides on a vehicle
         damage_source: Damage source
         trans_dimension:

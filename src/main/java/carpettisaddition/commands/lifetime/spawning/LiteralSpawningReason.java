@@ -14,6 +14,7 @@ public class LiteralSpawningReason extends SpawningReason
 	public static final LiteralSpawningReason SPAWNER = new LiteralSpawningReason("spawner");
 	public static final LiteralSpawningReason RAID = new LiteralSpawningReason("raid");
 	public static final LiteralSpawningReason SUMMON = new LiteralSpawningReason("summon");
+	public static final LiteralSpawningReason BREEDING = new LiteralSpawningReason("breeding");
 
 	private final String translationKey;
 

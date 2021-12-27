@@ -1,11 +1,12 @@
-package carpettisaddition.mixins.rule.largeBarrel;
+package carpettisaddition.mixins.rule.largeBarrel.compact.lithium;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
+import me.jellysquid.mods.lithium.common.hopper.HopperHelper;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.HopperBlockEntity;
+import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -15,24 +16,25 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(HopperBlockEntity.class)
-public abstract class HopperBlockEntityMixin
+@Mixin(HopperHelper.class)
+public abstract class HopperHelperMixin
 {
 	@Inject(
-			method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;",
+			method = "vanillaGetBlockInventory",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getBlockEntity(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/entity/BlockEntity;"
+					target = "Lnet/minecraft/world/World;getBlockEntity(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/entity/BlockEntity;",
+					remap = true
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD,
-			cancellable = true
+			cancellable = true,
+			remap = false
 	)
-	private static void useLargeBarrelInventoryMaybe(World world, double x, double y, double z, CallbackInfoReturnable<Inventory> cir, BlockPos blockPos, BlockState blockState, Block block)
+	private static void useLargeBarrelInventoryMaybe(World world, BlockPos blockPos, CallbackInfoReturnable<Inventory> cir, Inventory inventory, BlockState blockState, Block block)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
-			// inventory var not captured, so no inventory instanceof BarrelBlockEntity check, should be fine
-			if (block instanceof BarrelBlock)
+			if (inventory instanceof BarrelBlockEntity && block instanceof BarrelBlock)
 			{
 				Inventory largeBarrel = LargeBarrelHelper.getInventory(blockState, world, blockPos);
 				if (largeBarrel != null)
