@@ -2,6 +2,7 @@ package carpettisaddition.mixins.rule.largeBarrel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
+import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.HopperBlockEntity;
@@ -30,10 +31,14 @@ public abstract class HopperBlockEntityMixin
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
-			Inventory largeBarrel = LargeBarrelHelper.getInventory(blockState, world, blockPos);
-			if (largeBarrel != null)
+			// inventory var not captured, so no inventory instanceof BarrelBlockEntity check, should be fine
+			if (block instanceof BarrelBlock)
 			{
-				cir.setReturnValue(largeBarrel);
+				Inventory largeBarrel = LargeBarrelHelper.getInventory(blockState, world, blockPos);
+				if (largeBarrel != null)
+				{
+					cir.setReturnValue(largeBarrel);
+				}
 			}
 		}
 	}

@@ -55,15 +55,19 @@ Tracked entity types:
 
 Tracked entity spawning reasons
 - Natural spawning
-- Portal pigman spawning
-- Trans-dimension from portal
-- Spawned by item (spawn eggs etc.)
-- Slime division (for slime and magma cube)
-- Zombie Reinforce
-- Spawner
+- Nether portal pigman spawning
 - `/summon` command
-- Mob drop (item and xp orb only)
+- Spawned by item
 - Block drop (item only)
+- Slime division
+- Zombie Reinforce
+- Spawned by spawner
+- Spawned in raid as raider
+- Be summoned by entity or block
+- Breeding
+- Mob drop (item and xp orb only)
+- Mob throw (item only)
+- Trans-dimension from portal
 
 Note that only entities that have been tracked spawning will be counted to the statistic
 

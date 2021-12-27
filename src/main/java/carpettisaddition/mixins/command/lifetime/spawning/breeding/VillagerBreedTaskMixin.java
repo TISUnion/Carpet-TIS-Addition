@@ -1,27 +1,26 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.breeding;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.thrown.ThrownExperienceBottleEntity;
+import net.minecraft.entity.ai.brain.task.VillagerBreedTask;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ThrownExperienceBottleEntity.class)
-public abstract class ThrownExperienceBottleEntityMixin
+@Mixin(VillagerBreedTask.class)
+public abstract class VillagerBreedTaskMixin
 {
 	@ModifyArg(
-			method = "onCollision",
+			method = "createChild",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			),
-			index = 0
+			)
 	)
-	private Entity onXPBottleDroppedXpLifeTimeTracker(Entity entity)
+	private Entity onAnimalBirthLifeTimeTracker(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.ITEM);
+		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.BREEDING);
 		return entity;
 	}
 }
