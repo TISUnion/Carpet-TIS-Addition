@@ -2,13 +2,16 @@ plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'maven-publish'
 
-	// https://github.com/Juuxel/LoomQuiltflower
-	id 'io.github.juuxel.loom-quiltflower-mini' version '1.1.0'
+	// https://github.com/Juuxel/loom-quiltflower-mini
+	id 'io.github.juuxel.loom-quiltflower-mini' version '1.2.1'
 }
 
 repositories {
 	maven {
 		url 'https://masa.dy.fi/maven'
+	}
+	maven {
+		url 'https://jitpack.io'
 	}
 	maven {
 		url 'https://www.jitpack.io'
@@ -46,6 +49,9 @@ dependencies {
 	// mods
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:mc1.16.5-0.6.4"
+
+	// runtime mods
+	modRuntimeOnly "com.github.astei:lazydfu:0.1.2"  // faster startup
 
 	// libraries
 	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
