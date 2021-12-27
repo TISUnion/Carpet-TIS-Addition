@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class TurtleEggBlockMixin
 {
 	@ModifyArg(
-			method = "scheduledTick",
+			method = "randomTick",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
