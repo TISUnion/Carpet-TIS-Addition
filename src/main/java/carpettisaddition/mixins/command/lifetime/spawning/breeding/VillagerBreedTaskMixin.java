@@ -15,7 +15,8 @@ public abstract class VillagerBreedTaskMixin
 			method = "method_18970",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
+					remap = true
 			),
 			remap = false
 	)
