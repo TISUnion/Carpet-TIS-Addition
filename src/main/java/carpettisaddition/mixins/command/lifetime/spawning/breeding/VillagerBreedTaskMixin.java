@@ -15,7 +15,7 @@ public abstract class VillagerBreedTaskMixin
 			method = "createChild",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 			)
 	)
 	private Entity onAnimalBirthLifeTimeTracker(Entity entity)
