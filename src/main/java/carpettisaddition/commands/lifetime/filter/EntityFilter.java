@@ -67,7 +67,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		{
 			return false;
 		}
-		if (this.entitySelector.getEntityFilter() != null && this.entitySelector.getEntityFilter().downcast(testEntity) != null)
+		if (this.entitySelector.getEntityFilter() != null && this.entitySelector.getEntityFilter().downcast(testEntity) == null)
 		{
 			return false;
 		}
