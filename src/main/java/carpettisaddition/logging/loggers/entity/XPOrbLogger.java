@@ -23,7 +23,7 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 	@Override
 	protected BaseText getNameTextHoverText(ExperienceOrbEntity xp)
 	{
-		return Messenger.c(tr("xp_amount", String.format("w : %d", xp.getExperienceAmount())));
+		return Messenger.c(tr("xp_amount"), String.format("w : %d", xp.getExperienceAmount()));
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class ItemLogger extends EntityLogger<ItemEntity>
 	@Override
 	protected BaseText getNameTextHoverText(ItemEntity item)
 	{
-		return Messenger.c(tr("item_stack_size", String.format("w : %d", item.getStack().getCount())));
+		return Messenger.c(tr("item_stack_size"), String.format("w : %d", item.getStack().getCount()));
 	}
 
 	@Override
