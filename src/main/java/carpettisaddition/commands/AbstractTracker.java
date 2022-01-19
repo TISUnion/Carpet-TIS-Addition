@@ -190,10 +190,11 @@ public abstract class AbstractTracker extends TranslationContext
 				source,
 				"w  \n",
 				"g ----------- ", this.getTranslatedNameFull(), "g  -----------\n",
-				baseTranslator.tr("tracked"),
-				String.format("w  %.2f min (", (double)ticks / (20 * 60)),
-				baseTranslator.tr(realtime ? "real_time" : "in_game"),
-				"w )"
+				baseTranslator.tr("tracked", Messenger.c(
+						String.format("w %.2f min (", (double)ticks / (20 * 60)),
+						baseTranslator.tr(realtime ? "real_time" : "in_game"),
+						"w )"
+				))
 		);
 		return ticks;
 	}

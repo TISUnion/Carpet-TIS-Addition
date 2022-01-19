@@ -261,7 +261,7 @@ carpettisaddition:
     tracking_stopped: '%1$s stopped'
     tracking_not_started: '%1$s has not started'
     tracking_restarted: '%1$s restarted'
-    tracked: Tracked
+    tracked: Tracked %1$s
     real_time: real time
     in_game: in game
     raid:

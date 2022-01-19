@@ -261,7 +261,7 @@ carpettisaddition:
     tracking_stopped: '%1$s已停止'
     tracking_not_started: '%1$s未启动'
     tracking_restarted: '%1$s已重新启动'
-    tracked: 已追踪
+    tracked: 已追踪 %1$s
     real_time: 现实时间
     in_game: 游戏内时间
     raid:
