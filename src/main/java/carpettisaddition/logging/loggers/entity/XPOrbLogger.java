@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.entity;
 
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
+import carpettisaddition.mixins.logger.xporb.ExperienceOrbEntityAccessor;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.text.BaseText;
@@ -23,7 +24,10 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 	@Override
 	protected BaseText getNameTextHoverText(ExperienceOrbEntity xp)
 	{
-		return Messenger.c(tr("xp_amount"), String.format("w : %d", xp.getExperienceAmount()));
+		int amount = xp.getExperienceAmount();
+		int count = ((ExperienceOrbEntityAccessor)xp).getPickingCount();
+		long total = (long)amount * count;
+		return Messenger.c(tr("xp_amount"), String.format("w : %dxp * %d = %d", amount, count, total));
 	}
 
 	@Override
