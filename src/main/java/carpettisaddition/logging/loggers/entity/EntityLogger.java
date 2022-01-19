@@ -97,7 +97,6 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		this.onLoggingEvent(entity, LoggingType.DESPAWN, () -> new BaseText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
 				translator.tr("despawned", getNameTextRich(entity)),
-				getNameTextRich(entity),
 				"g  @ ",
 				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity))
 		)});
