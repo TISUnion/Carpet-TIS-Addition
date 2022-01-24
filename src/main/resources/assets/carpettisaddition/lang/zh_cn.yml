@@ -307,6 +307,7 @@ carpettisaddition:
         # LiteralSpawningReason ends
         mob_drop: 由%1$s掉落
         mob_throw: 由%1$s扔出
+        mob_conversion: 转换自%1$s
         trans_dimension:
           .: 跨维度
           from: 来自%1$s
@@ -318,13 +319,15 @@ carpettisaddition:
           timeout: 因超时而消失
         persistent: 获取持久标签
         other: 其他
-        death: 死亡
         merge: 实体合并
-        mob_pickup: 被%1$s捡起
         hopper: 漏斗收集
         void: 进入虚空
         on_vehicle: 骑上载具
-        damage_source: 伤害来源
+        mob_pickup: 被%1$s捡起
+        mob_conversion: 转换为%1$s
+        death:
+          .: 死亡
+          damage_source: 伤害来源
         trans_dimension:
           .: 跨维度
           to: 前往%1$s
@@ -384,6 +387,11 @@ carpettisaddition:
         desc: 方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内
         extra:
           '0': 仅对创造模式玩家有效
+      chatLengthLimit:
+        name: 聊天信息长度限制
+        desc: 修改聊天信息长度的限制
+        extra:
+          '0': 该规则需客户端服务端一起生效才能正常工作
       chunkUpdatePacketThreshold:
         name: 区块更新数据包阈值
         desc: 如果方块变化的数量大于这个阈值，则游戏将仅发送区块更新数据包而非若干个方块变更数据包

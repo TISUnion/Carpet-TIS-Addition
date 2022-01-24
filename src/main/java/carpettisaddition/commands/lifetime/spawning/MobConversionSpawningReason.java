@@ -3,9 +3,9 @@ package carpettisaddition.commands.lifetime.spawning;
 import net.minecraft.entity.EntityType;
 import net.minecraft.text.BaseText;
 
-public class MobThrowSpawningReason extends MobRelatedSpawningReason
+public class MobConversionSpawningReason extends MobRelatedSpawningReason
 {
-	public MobThrowSpawningReason(EntityType<?> entityType)
+	public MobConversionSpawningReason(EntityType<?> entityType)
 	{
 		super(entityType);
 	}
@@ -13,6 +13,6 @@ public class MobThrowSpawningReason extends MobRelatedSpawningReason
 	@Override
 	public BaseText toText()
 	{
-		return tr("mob_throw", this.entityType.getName());
+		return tr("mob_conversion", this.entityType.getName());
 	}
 }

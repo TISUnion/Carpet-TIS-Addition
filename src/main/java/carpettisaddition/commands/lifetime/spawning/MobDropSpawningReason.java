@@ -5,14 +5,14 @@ import net.minecraft.text.BaseText;
 
 public class MobDropSpawningReason extends MobRelatedSpawningReason
 {
-	public MobDropSpawningReason(EntityType<?> providerType)
+	public MobDropSpawningReason(EntityType<?> entityType)
 	{
-		super(providerType);
+		super(entityType);
 	}
 
 	@Override
 	public BaseText toText()
 	{
-		return tr("mob_drop", this.providerType.getName());
+		return tr("mob_drop", this.entityType.getName());
 	}
 }
