@@ -23,7 +23,7 @@ public abstract class MooshroomEntityMixin extends Entity
 			method = "sheared",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/passive/MooshroomEntity;remove()V",
+					target = "Lnet/minecraft/entity/passive/MooshroomEntity;discard()V",
 					ordinal = 0
 			)
 	)

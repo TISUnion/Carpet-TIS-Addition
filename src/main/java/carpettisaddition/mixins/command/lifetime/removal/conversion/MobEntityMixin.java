@@ -20,13 +20,11 @@ public abstract class MobEntityMixin extends LivingEntity
 	}
 
 	@ModifyArg(
-			method = "method_29243",  // convertTo
+			method = "convertTo",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
-					remap = true
-			),
-			remap = false
+					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+			)
 	)
 
 	private Entity recordSelfRemoval$LifeTimeTracker(Entity targetEntity)

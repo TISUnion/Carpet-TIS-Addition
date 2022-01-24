@@ -22,7 +22,7 @@ public abstract class ChatMessageC2SPacketMixin
 
 	// server side
 	@ModifyConstant(
-			method = "read",
+			method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
 			constant = @Constant(intValue = CarpetTISAdditionSettings.VANILLA_CHAT_LENGTH_LIMIT),
 			require = 1
 	)
