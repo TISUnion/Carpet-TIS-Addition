@@ -12,7 +12,7 @@
     "cf_game_versions": "modloader:fabric,minecraft-1-16:1.16.4,minecraft-1-16:1.16.5"
   },
   {
-    "branch": "1.17.x",
+    "branch": "1.17.1",
     "cf_game_versions": "modloader:fabric,minecraft-1-17:1.17.1"
   },
   {
