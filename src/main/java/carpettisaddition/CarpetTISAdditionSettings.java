@@ -3,7 +3,6 @@ package carpettisaddition;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
-import carpettisaddition.helpers.rule.chatLengthLimit.ChatScreenTextFieldHandler;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
@@ -11,8 +10,6 @@ import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerMan
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
 
@@ -55,38 +52,6 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static boolean blockPlacementIgnoreEntity = false;
-
-	public static final int VANILLA_CHAT_LENGTH_LIMIT = 256;
-	public static final int MAXIMUM_CHAT_LENGTH_LIMIT = 65536;
-	@Rule(
-			desc = "Modify the chat message length limit",
-			extra = "Required on both client and server to work properly",
-			validate = ValidateChatLengthLimit.class,
-			options = {"256", "65536"},
-			strict = false,
-			category = {TIS, CLIENT}
-	)
-	public static int chatLengthLimit = VANILLA_CHAT_LENGTH_LIMIT;
-	private static class ValidateChatLengthLimit extends Validator<Integer>
-	{
-		@Override
-		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
-		{
-			if (VANILLA_CHAT_LENGTH_LIMIT <= newValue && newValue <= MAXIMUM_CHAT_LENGTH_LIMIT)
-			{
-				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
-				{
-					ChatScreenTextFieldHandler.CHAT_SCREEN_TEXT_FIELD_WIDGETS.forEach(widget -> widget.setMaxLength(newValue));
-				}
-				return newValue;
-			}
-			return null;
-		}
-		public String description()
-		{
-			return String.format("You must choose a value from %d to %d", VANILLA_CHAT_LENGTH_LIMIT, MAXIMUM_CHAT_LENGTH_LIMIT);
-		}
-	}
 
 	public static final int VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD = 64;
 	public static final int MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD = 65536;

@@ -156,7 +156,6 @@
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
-    "rule.chatLengthLimit.ChatMessageC2SPacketMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
     "rule.creativeOpenContainerForcibly.EnderChestBlockMixin",
@@ -233,7 +232,6 @@
     "translations.TranslatableTextMixin"
   ],
   "client": [
-    "rule.chatLengthLimit.ChatScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
