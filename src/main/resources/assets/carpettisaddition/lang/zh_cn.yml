@@ -307,6 +307,7 @@ carpettisaddition:
         # LiteralSpawningReason ends
         mob_drop: 由%1$s掉落
         mob_throw: 由%1$s扔出
+        mob_conversion: 转换自%1$s
         trans_dimension:
           .: 跨维度
           from: 来自%1$s
@@ -318,12 +319,14 @@ carpettisaddition:
           timeout: 因超时而消失
         persistent: 获取持久标签
         other: 其他
-        death: 死亡
         merge: 实体合并
-        mob_pickup: 被%1$s捡起
         hopper: 漏斗收集
         void: 进入虚空
-        damage_source: 伤害来源
+        mob_pickup: 被%1$s捡起
+        mob_conversion: 转换为%1$s
+        death:
+          .: 死亡
+          damage_source: 伤害来源
         trans_dimension:
           .: 跨维度
           to: 前往%1$s

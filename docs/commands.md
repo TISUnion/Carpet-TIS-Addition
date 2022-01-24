@@ -67,6 +67,7 @@ Tracked entity spawning reasons
 - Breeding
 - Mob drop (item and xp orb only)
 - Mob throw (item only)
+- Mob conversion
 - Trans-dimension from portal
 
 Note that only entities that have been tracked spawning will be counted to the statistic
@@ -76,11 +77,12 @@ Tracked entity removal reasons
 - Damaged to death
 - Becomes persistent. Note that the entity is still not removed from the world
 - Rides on a vehicle (1.16+). Note that the entity is still not removed from the world
-- Trans-dimension through portal
 - Entity merged (item and xp orb only)
-- Picked up by player (item and xp orb only)
 - Collected up by hopper or hopper minecart (item only)
 - Entering void
+- Picked up by player or mob (item and xp orb only)
+- Mob conversion
+- Trans-dimension through portal
 - Other (anything else not in the list)
 
 The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap

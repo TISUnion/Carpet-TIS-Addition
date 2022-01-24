@@ -307,6 +307,7 @@ carpettisaddition:
         # LiteralSpawningReason ends
         mob_drop: Dropped by %1$s
         mob_throw: Thrown by %1$s
+        mob_conversion: Converted from %1$s
         trans_dimension:
           .: Trans-dimension
           from: from %1$s
@@ -318,12 +319,14 @@ carpettisaddition:
           timeout: Despawn for timeout
         persistent: Becomes persistent
         other: Other
-        death: Death
         merge: Entity merging
-        mob_pickup: Picked up by %1$s
         hopper: Collected by hopper
         void: Entering void
-        damage_source: Damage source
+        mob_pickup: Picked up by %1$s
+        mob_conversion: Converted to %1$s
+        death:
+          .: Death
+          damage_source: Damage source
         trans_dimension:
           .: Trans-dimension
           to: to %1$s
