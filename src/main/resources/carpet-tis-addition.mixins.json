@@ -55,6 +55,11 @@
     "command.lifetime.removal.ItemEntityMixin",
     "command.lifetime.removal.MobEntityMixin",
     "command.lifetime.removal.WitherEntityMixin",
+    "command.lifetime.removal.conversion.MooshroomEntityMixin",
+    "command.lifetime.removal.conversion.PigEntityMixin",
+    "command.lifetime.removal.conversion.VillagerEntityMixin",
+    "command.lifetime.removal.conversion.ZombieEntityMixin",
+    "command.lifetime.removal.conversion.ZombieVillagerEntityMixin",
     "command.lifetime.spawning.BlockMixin",
     "command.lifetime.spawning.CarvedPumpkinBlockMixin",
     "command.lifetime.spawning.EntityMixin",
@@ -75,6 +80,11 @@
     "command.lifetime.spawning.breeding.FoxEntityMateGoalMixin",
     "command.lifetime.spawning.breeding.TurtleEggBlockMixin",
     "command.lifetime.spawning.breeding.VillagerBreedTaskMixin",
+    "command.lifetime.spawning.conversion.MooshroomEntityMixin",
+    "command.lifetime.spawning.conversion.PigEntityMixin",
+    "command.lifetime.spawning.conversion.VillagerEntityMixin",
+    "command.lifetime.spawning.conversion.ZombieEntityMixin",
+    "command.lifetime.spawning.conversion.ZombieVillagerEntityMixin",
     "command.manipulate.ServerWorldAccessor",
     "command.manipulate.WorldAccessor",
     "command.raid.RaidAccessor",
@@ -148,6 +158,7 @@
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
+    "rule.chatLengthLimit.ChatMessageC2SPacketMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
     "rule.creativeOpenContainerForcibly.EnderChestBlockMixin",
@@ -224,6 +235,7 @@
     "translations.TranslatableTextMixin"
   ],
   "client": [
+    "rule.chatLengthLimit.ChatScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

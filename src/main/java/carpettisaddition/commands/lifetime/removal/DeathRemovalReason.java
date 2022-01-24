@@ -39,7 +39,7 @@ public class DeathRemovalReason extends RemovalReason
 				Messenger.fancy(
 						null,
 						Messenger.s(this.damageSourceName),
-						tr("damage_source"),
+						tr("death.damage_source"),
 						null
 				),
 				"g )"
