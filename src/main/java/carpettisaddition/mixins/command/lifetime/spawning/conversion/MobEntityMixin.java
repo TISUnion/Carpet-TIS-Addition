@@ -4,31 +4,34 @@ import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobConversionSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.MooshroomEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(MooshroomEntity.class)
-public abstract class MooshroomEntityMixin extends Entity
+@Mixin(MobEntity.class)
+public abstract class MobEntityMixin extends LivingEntity
 {
-	public MooshroomEntityMixin(EntityType<?> type, World world)
+	protected MobEntityMixin(EntityType<? extends LivingEntity> entityType, World world)
 	{
-		super(type, world);
+		super(entityType, world);
 	}
 
 	@ModifyArg(
-			method = "sheared",
+			method = "method_29243",  // convertTo
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
-					ordinal = 0
-			)
+					remap = true
+			),
+			remap = false
 	)
-	private Entity recordCowSpawning$LifeTimeTracker(Entity cow)
+
+	private Entity recordSelfRemoval$LifeTimeTracker(Entity targetEntity)
 	{
-		((LifetimeTrackerTarget)cow).recordSpawning(new MobConversionSpawningReason(this.getType()));
-		return cow;
+		((LifetimeTrackerTarget)targetEntity).recordSpawning(new MobConversionSpawningReason(this.getType()));
+		return targetEntity;
 	}
 }

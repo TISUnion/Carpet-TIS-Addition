@@ -23,7 +23,7 @@ public abstract class PigEntityMixin extends AnimalEntity
 			method = "onStruckByLightning",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
 	private Entity recordSelfRemoval$LifeTimeTracker(Entity zombiePigman)
