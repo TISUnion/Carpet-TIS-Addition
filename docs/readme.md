@@ -14,7 +14,6 @@
 - [antiSpamDisabled](rules.md#antispamdisabled)
 - [blockEventPacketRange](rules.md#blockeventpacketrange)
 - [blockPlacementIgnoreEntity](rules.md#blockplacementignoreentity)
-- [chatLengthLimit](rules.md#chatlengthlimit)
 - [chunkUpdatePacketThreshold](rules.md#chunkupdatepacketthreshold)
 - [chunkTickSpeed](rules.md#chunktickspeed)
 - [commandLifeTime](rules.md#commandlifetime)
