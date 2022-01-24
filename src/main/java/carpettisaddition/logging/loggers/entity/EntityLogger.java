@@ -149,7 +149,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		static
 		{
 			List<String> list = Arrays.stream(LoggingType.values()).map(LoggingType::getName).collect(Collectors.toList());
-			list.add(Joiner.on(",").join(list));
+			list.add("\"" + Joiner.on(",").join(list) + "\"");
 			LOGGING_SUGGESTIONS = list.toArray(new String[0]);
 		}
 	}
