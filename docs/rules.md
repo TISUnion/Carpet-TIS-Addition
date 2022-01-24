@@ -38,6 +38,18 @@ Works with creative mode players only
 - Categories: `TIS`, `CREATIVE`
 
 
+## chatLengthLimit
+
+Modify the chat message length limit
+
+Required on both client and server to work properly
+
+- Type: `int`
+- Default value: `256`
+- Suggested options: `256`, `65536`
+- Categories: `TIS`, `CLIENT`
+
+
 ## chunkUpdatePacketThreshold
 
 The threshold which the game will just send an chunk data packet if the amount of block changes is more than it

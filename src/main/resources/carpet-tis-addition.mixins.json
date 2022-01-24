@@ -157,6 +157,7 @@
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
+    "rule.chatLengthLimit.ChatMessageC2SPacketMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.chunkUpdatePacketThreshold.ChunkHolderMixin",
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
@@ -235,6 +236,7 @@
   ],
   "client": [
     "carpet.events.onServerLoadedWorlds.IntegratedServerMixin",
+    "rule.chatLengthLimit.ChatScreenMixin",
     "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin"
   ],
   "injectors": {
