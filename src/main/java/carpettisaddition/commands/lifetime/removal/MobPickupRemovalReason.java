@@ -3,36 +3,17 @@ package carpettisaddition.commands.lifetime.removal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.text.BaseText;
 
-import java.util.Objects;
-
 // for item entity and xp orb entity
-public class MobPickupRemovalReason extends RemovalReason
+public class MobPickupRemovalReason extends MobRelatedRemovalReason
 {
-	private final EntityType<?> pickerType;
-
-	public MobPickupRemovalReason(EntityType<?> pickerType)
+	public MobPickupRemovalReason(EntityType<?> entityType)
 	{
-		this.pickerType = pickerType;
-	}
-
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		MobPickupRemovalReason that = (MobPickupRemovalReason) o;
-		return Objects.equals(pickerType, that.pickerType);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return Objects.hash(pickerType);
+		super(entityType);
 	}
 
 	@Override
 	public BaseText toText()
 	{
-		return tr("mob_pickup", this.pickerType.getName());
+		return tr("mob_pickup", this.entityType.getName());
 	}
 }

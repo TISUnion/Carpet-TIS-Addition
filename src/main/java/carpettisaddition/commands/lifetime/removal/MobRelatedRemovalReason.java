@@ -1,14 +1,14 @@
-package carpettisaddition.commands.lifetime.spawning;
+package carpettisaddition.commands.lifetime.removal;
 
 import net.minecraft.entity.EntityType;
 
 import java.util.Objects;
 
-public abstract class MobRelatedSpawningReason extends SpawningReason
+public abstract class MobRelatedRemovalReason extends RemovalReason
 {
 	protected final EntityType<?> entityType;
 
-	public MobRelatedSpawningReason(EntityType<?> entityType)
+	public MobRelatedRemovalReason(EntityType<?> entityType)
 	{
 		this.entityType = entityType;
 	}
@@ -18,7 +18,7 @@ public abstract class MobRelatedSpawningReason extends SpawningReason
 	{
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		MobRelatedSpawningReason that = (MobRelatedSpawningReason) o;
+		MobRelatedRemovalReason that = (MobRelatedRemovalReason) o;
 		return Objects.equals(entityType, that.entityType);
 	}
 
