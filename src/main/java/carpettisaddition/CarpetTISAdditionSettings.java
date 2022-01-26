@@ -284,7 +284,7 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			desc = "Removed the movement skipping mechanism when ticking of item entity",
 			extra = {
-					"Brings back 1.13- item entity behavior, where item entities with low velocity on ground still tick movement every gt instead of every 4gt",
+					"Brings back <=1.13 item entity behavior, where item entities with low velocity on ground still tick movement every gt instead of every 4gt",
 					"Useful when you require precise item entity movement timing",
 					"Breaks related redstone devices, e.g. 2no2name's wireless redstone"
 			},
