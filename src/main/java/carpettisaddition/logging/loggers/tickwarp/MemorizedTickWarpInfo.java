@@ -61,6 +61,12 @@ public class MemorizedTickWarpInfo extends TickWarpInfo
 		return this.timeAdvancer;
 	}
 
+	@Override
+	public long getCurrentTime()
+	{
+		return this.lastRecordingTime;
+	}
+
 	public boolean hasData()
 	{
 		return this.recordedSomething;
