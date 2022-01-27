@@ -29,4 +29,9 @@ public class TickWarpInfo
 	{
 		return TickSpeed.time_advancerer;
 	}
+
+	public long getCurrentTime()
+	{
+		return System.nanoTime();
+	}
 }
