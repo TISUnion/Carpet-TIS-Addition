@@ -29,4 +29,9 @@ public class TickWarpInfo
 	{
 		return TickSpeed.time_advancerer instanceof ServerPlayerEntity ? (ServerPlayerEntity)TickSpeed.time_advancerer : null;
 	}
+
+	public long getCurrentTime()
+	{
+		return System.nanoTime();
+	}
 }
