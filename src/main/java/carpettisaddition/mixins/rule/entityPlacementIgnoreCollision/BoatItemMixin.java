@@ -19,7 +19,7 @@ public abstract class BoatItemMixin
 			method = "use",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/world/World;getEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;",
+					target = "Lnet/minecraft/world/World;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;",
 					shift = At.Shift.AFTER
 			)
 	)
@@ -36,7 +36,7 @@ public abstract class BoatItemMixin
 			method = "use",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;doesNotCollide(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Z"
+					target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Z"
 			),
 			require = 0
 	)
@@ -47,6 +47,6 @@ public abstract class BoatItemMixin
 			return true;
 		}
 		// vanilla
-		return world.doesNotCollide(entity, box);
+		return world.isSpaceEmpty(entity, box);
 	}
 }

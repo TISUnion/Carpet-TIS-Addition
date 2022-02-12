@@ -2,30 +2,29 @@ package carpettisaddition.mixins.rule.preciseEntityPlacement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.preciseEntityPlacement.PreciseEntityPlacer;
-import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.item.ArmorStandItem;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ArmorStandItem.class)
 public abstract class ArmorStandItemItemMixin
 {
-	@ModifyVariable(
+	@Inject(
 			method = "useOnBlock",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/decoration/ArmorStandEntity;refreshPositionAndAngles(DDDFF)V",
-					shift = At.Shift.AFTER
+					target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/text/Text;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;"
 			)
 	)
-	private ArmorStandEntity preciseEntityPlacement(ArmorStandEntity armorStandEntity, ItemUsageContext context)
+	private void preciseEntityPlacement(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{
-			PreciseEntityPlacer.adjustEntity(armorStandEntity, context);
+			PreciseEntityPlacer.spawnEggTargetPos.set(context.getHitPos());
 		}
-		return armorStandEntity;
 	}
 }

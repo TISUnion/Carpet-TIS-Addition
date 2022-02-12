@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class SnowBlockMixin
 {
 	@ModifyConstant(
-			method = "scheduledTick",
+			method = "randomTick",
 			constant = @Constant(intValue = CarpetTISAdditionSettings.VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL - 1),
 			require = 0
 	)

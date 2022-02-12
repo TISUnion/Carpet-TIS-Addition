@@ -2,7 +2,7 @@ package carpettisaddition.mixins.rule.preciseEntityPlacement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.preciseEntityPlacement.PreciseEntityPlacer;
-import net.minecraft.entity.decoration.EnderCrystalEntity;
+import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.item.EndCrystalItem;
 import net.minecraft.item.ItemUsageContext;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,10 +16,10 @@ public abstract class EndCrystalItemMixin
 			method = "useOnBlock",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/decoration/EnderCrystalEntity;setShowBottom(Z)V"
+					target = "Lnet/minecraft/entity/decoration/EndCrystalEntity;setShowBottom(Z)V"
 			)
 	)
-	private EnderCrystalEntity preciseEntityPlacement(EnderCrystalEntity enderCrystalEntity, ItemUsageContext context)
+	private EndCrystalEntity preciseEntityPlacement(EndCrystalEntity enderCrystalEntity, ItemUsageContext context)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{
