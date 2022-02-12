@@ -10,7 +10,7 @@ public class PreciseEntityPlacer
 
 	public static void adjustEntity(Entity entity, Vec3d targetPos)
 	{
-		entity.refreshPositionAndAngles(targetPos.getX(), targetPos.getY(), targetPos.getZ(), entity.yaw, entity.pitch);
+		entity.refreshPositionAndAngles(targetPos.getX(), targetPos.getY(), targetPos.getZ(), entity.getYaw(), entity.getPitch());
 	}
 	public static void adjustEntity(Entity entity, ItemUsageContext context)
 	{
