@@ -38,6 +38,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 炼药锅方块类物品交互修复 (cauldronBlockItemInteractFix)
+
+让玩家可以对着填充有水的炼药锅放置方块
+
+仅对 Minecraft <= 1.16.x 有效。这个烦人的机制已经在 1.17+ 中被修复了
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 区块更新数据包阈值 (chunkUpdatePacketThreshold)
 
 如果方块变化的数量大于这个阈值，则游戏将仅发送区块更新数据包而非若干个方块变更数据包
@@ -165,6 +177,20 @@
 - 默认值: `true`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `EXPERIMENTAL`
+
+
+## 实体放置无视碰撞 (entityPlacementIgnoreCollision)
+
+在使用物品放置实体时禁用相关的方块与实体的碰撞检测
+
+受影响的物品：盔甲架、末影水晶、所有种类的船
+
+刷怪蛋物品不在作用范围内
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 
 ## 爆炸数据包广播范围 (explosionPacketRange)
@@ -528,6 +554,18 @@
 - 分类: `TIS`, `CARPET_MOD`
 
 
+## 精准实体放置 (preciseEntityPlacement)
+
+当使用物品放置/召唤实体时，将实体准确地放置在玩家指针指向的坐标点
+
+受影响的物品：刷怪蛋、盔甲架、末影水晶
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 刷铁轨机修复 (railDupingFix)
 
 禁用老式的移动点亮的充能或激活铁轨的刷铁轨机
@@ -592,7 +630,7 @@
 
 当红石中继器位于红石矿上方时，红石中继器的延迟将减半
 
-延迟将会由 2, 4, 6, 8 游戏刻变为 1, 2,3 ,4 游戏刻
+延迟将会由 2, 4, 6, 8 游戏刻变为 1, 2, 3, 4 游戏刻
 
 - 类型: `boolean`
 - 默认值: `true`
@@ -612,6 +650,24 @@
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `BUGFIX`
+
+
+## 融雪最小亮度 (snowMeltMinLightLevel)
+
+雪片融化所需的最小亮度等级
+
+在原版里这个值为12，意味着雪片将在亮度等级>=12时于随机刻中融化
+
+将其设为0以将所有位于你建筑上的烦人的雪片融化
+
+将其设为与防止降雪的最小亮度等级 (12) 来方便地测试你的建筑是否能借助亮度来防降雪
+
+你可以修改游戏规则 `randomTickSpeed` 来加速雪的融化，也可以修改地毯规则 `chunkTickSpeed` 来加速降雪的过程
+
+- 类型: `boolean`
+- 默认值: `true`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
 
 
 ## 结构方块不保留流体 (structureBlockDoNotPreserveFluid)
