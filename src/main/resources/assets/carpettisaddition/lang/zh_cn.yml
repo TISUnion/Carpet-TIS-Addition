@@ -632,6 +632,14 @@ carpettisaddition:
         extra:
           '0': 重力方块包括沙子、铁砧、龙蛋等
           '1': 在开启后刷沙机的沙子将会仅被传送至另一个纬度
+      snowMeltMinLightLevel:
+        name: 融雪最小亮度
+        desc: 雪片融化所需的最小亮度等级
+        extra:
+          '0': 在原版里这个值为12，意味着雪片将在亮度等级>=12时于随机刻中融化
+          '1': 将其设为0以将所有位于你建筑上的烦人的雪片融化
+          '2': 将其设为与防止降雪的最小亮度等级(12)来方便地测试你的建筑是否能借助亮度来防降雪
+          '3': 你可以修改游戏规则randomTickSpeed来加速雪的融化，也可以修改地毯规则chunkTickSpeed来加速降雪的过程
       structureBlockDoNotPreserveFluid:
         name: 结构方块不保留流体
         desc: 结构方块在放置含水方块时，不保留已存在的流体

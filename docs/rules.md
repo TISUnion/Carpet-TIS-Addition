@@ -652,6 +652,24 @@ In sand dupers sand will only get teleported to the other dimension
 - Categories: `TIS`, `BUGFIX`
 
 
+## snowMeltMinLightLevel
+
+The minimum light level allowed for snow to melt
+
+In vanilla the value is 12, which means snow will melt when the light level >=12 when random ticked
+
+Set it to 0 to melt all annoying snow on your builds
+
+Set it to the same level as the minimum light level for snow to not fall on block (light level 10) to easily test if your build is snow-proof with light or not
+
+You can modify gamerule `randomTickSpeed` to speed up the melting progress, or modify carpet rule `chunkTickSpeed` to speed up the snowfall progress
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## structureBlockDoNotPreserveFluid
 
 Structure block do not preserve existed fluid when placing waterlogged-able blocks

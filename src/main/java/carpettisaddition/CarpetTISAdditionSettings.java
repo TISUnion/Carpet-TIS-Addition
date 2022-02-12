@@ -642,6 +642,22 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean sandDupingFix = false;
 
+	public static final int VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL = 12;
+	@Rule(
+			desc = "The minimum light level allowed for snow to melt",
+			extra = {
+					"In vanilla the value is 12, which means snow will melt when the light level >=12 when random ticked",
+					"Set it to 0 to melt all annoying snow on your builds",
+					"Set it to the same level as the minimum light level for snow to not fall on block (light level 10) to easily test if your build is snow-proof with light or not",
+					"You can modify gamerule randomTickSpeed to speed up the melting progress, or modify carpet rule chunkTickSpeed to speed up the snowfall progress"
+			},
+			options = {"0", "10", "12"},
+			strict = false,
+			validate = Validator.NONNEGATIVE_NUMBER.class,
+			category = {TIS, CREATIVE}
+	)
+	public static int snowMeltMinLightLevel = VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL;
+
 	@Rule(
 			desc = "Structure block do not preserve existed fluid when placing waterlogged-able blocks",
 			extra = "Has a side effect of suppressing bug MC-130584 happening",

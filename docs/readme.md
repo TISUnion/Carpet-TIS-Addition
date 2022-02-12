@@ -60,6 +60,7 @@
 - [renewableElytra](rules.md#renewableelytra)
 - [repeaterHalfDelay](rules.md#repeaterhalfdelay)
 - [sandDupingFix](rules.md#sanddupingfix)
+- [snowMeltMinLightLevel](rules.md#snowmeltminlightlevel)
 - [structureBlockDoNotPreserveFluid](rules.md#structureblockdonotpreservefluid)
 - [structureBlockLimit](rules.md#structureblocklimit)
 - [synchronizedLightThread](rules.md#synchronizedlightthread)
