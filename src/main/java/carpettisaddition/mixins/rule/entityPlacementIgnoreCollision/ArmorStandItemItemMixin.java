@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 @Mixin(ArmorStandItem.class)
 public abstract class ArmorStandItemItemMixin
@@ -19,18 +18,18 @@ public abstract class ArmorStandItemItemMixin
 			method = "useOnBlock",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Z"
+					target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Z"
 			),
 			require = 0
 	)
-	private boolean entityPlacementIgnoreCollision_makeIfCondition1true(World world, Entity entity, Box box, Predicate<Entity> predicate)
+	private boolean entityPlacementIgnoreCollision_makeIfCondition1true(World world, Entity entity, Box box)
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
 			return true;
 		}
 		// vanilla
-		return world.isSpaceEmpty(entity, box, predicate);
+		return world.isSpaceEmpty(entity, box);
 	}
 
 	@Redirect(
