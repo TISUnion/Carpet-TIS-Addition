@@ -167,6 +167,20 @@ Set it to `false` to disable entity axis momentum cancellation if it's above 10m
 - Categories: `TIS`, `EXPERIMENTAL`
 
 
+## entityPlacementIgnoreCollision
+
+Disable block and entity collision check during entity placement with items
+
+Affected items: armorstand, end crystal, all kinds of boat
+
+Spawn egg items are not affected
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## explosionPacketRange
 
 Set the range where player will receive an explosion packet when an explosion happens

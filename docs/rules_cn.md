@@ -167,6 +167,20 @@
 - 分类: `TIS`, `EXPERIMENTAL`
 
 
+## 实体放置无视碰撞 (entityPlacementIgnoreCollision)
+
+在使用物品放置实体时禁用相关的方块与实体的碰撞检测
+
+受影响的物品：盔甲架、末影水晶、所有种类的船
+
+刷怪蛋物品不在作用范围内
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 爆炸数据包广播范围 (explosionPacketRange)
 
 设置在爆炸发生时，爆炸数据包对玩家的广播范围

@@ -154,6 +154,16 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean entityMomentumLoss = true;
 
+	@Rule(
+			desc = "Disable block and entity collision check during entity placement with items",
+			extra = {
+					"Affected items: armorstand, end crystal, all kinds of boat",
+					"Spawn egg items are not affected"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean entityPlacementIgnoreCollision = false;
+
 	public static final double VANILLA_EXPLOSION_PACKET_RANGE = 64.0D;  // sqrt(4096)
 	@Rule(
 			desc = "Set the range where player will receive an explosion packet when an explosion happens",

@@ -431,6 +431,12 @@ carpettisaddition:
       entityMomentumLoss:
         name: 实体速度丢失
         desc: 将其设为 false 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失
+      entityPlacementIgnoreCollision:
+        name: 实体放置无视碰撞
+        desc: 在使用物品放置实体时禁用相关的方块与实体的碰撞检测
+        extra:
+          '0': 受影响的物品：盔甲架、末影水晶、所有种类的船
+          '1': 刷怪蛋物品不在作用范围内
       explosionPacketRange:
         name: 爆炸数据包广播范围
         desc: 设置在爆炸发生时，爆炸数据包对玩家的广播范围

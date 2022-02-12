@@ -25,6 +25,7 @@
 - [dispensersFireDragonBreath](rules.md#dispensersfiredragonbreath)
 - [enchantCommandNoRestriction](rules.md#enchantcommandnorestriction)
 - [entityMomentumLoss](rules.md#entitymomentumloss)
+- [entityPlacementIgnoreCollision](rules.md#entityplacementignorecollision)
 - [explosionPacketRange](rules.md#explosionpacketrange)
 - [failSoftBlockStateParsing](rules.md#failsoftblockstateparsing)
 - [fakePlayerNamePrefix](rules.md#fakeplayernameprefix)

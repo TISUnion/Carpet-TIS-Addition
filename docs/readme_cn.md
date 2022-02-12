@@ -25,6 +25,7 @@
 - [发射器发射龙息](rules_cn.md#发射器发射龙息-dispensersfiredragonbreath)
 - [enchant指令约束移除](rules_cn.md#enchant指令约束移除-enchantcommandnorestriction)
 - [实体速度丢失](rules_cn.md#实体速度丢失-entitymomentumloss)
+- [实体放置无视碰撞](rules_cn.md#实体放置无视碰撞-entityplacementignorecollision)
 - [爆炸数据包广播范围](rules_cn.md#爆炸数据包广播范围-explosionpacketrange)
 - [方块状态解析忽略失败](rules_cn.md#方块状态解析忽略失败-failsoftblockstateparsing)
 - [假人名称前缀](rules_cn.md#假人名称前缀-fakeplayernameprefix)
