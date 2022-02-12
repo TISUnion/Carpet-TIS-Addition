@@ -542,6 +542,18 @@ Logger subscriptions are saved in `config/carpettisaddition/logger_subscriptions
 - Categories: `TIS`, `CARPET_MOD`
 
 
+## preciseEntityPlacement
+
+When placing / summoning entity with item, place the entity at the exact position of player's cursor target position
+
+Affected items: Spawn eggs, armorstand, ender crystal
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## railDupingFix
 
 Disable rail duping using old school pushing lit powered or activator rail method

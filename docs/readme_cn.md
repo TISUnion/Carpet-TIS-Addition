@@ -51,6 +51,7 @@
 - [TNT优化高优先级](rules_cn.md#TNT优化高优先级-optimizedtnthighpriority)
 - [POI更新开关](rules_cn.md#POI更新开关-poiupdates)
 - [持久性记录器订阅](rules_cn.md#持久性记录器订阅-persistentloggersubscription)
+- [精准实体放置](rules_cn.md#精准实体放置-preciseentityplacement)
 - [刷铁轨机修复](rules_cn.md#刷铁轨机修复-raildupingfix)
 - [红石粉随机更新顺序](rules_cn.md#红石粉随机更新顺序-redstonedustrandomupdateorder)
 - [可再生龙蛋](rules_cn.md#可再生龙蛋-renewabledragonegg)

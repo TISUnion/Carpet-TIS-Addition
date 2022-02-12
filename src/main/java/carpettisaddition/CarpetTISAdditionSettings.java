@@ -567,6 +567,13 @@ public class CarpetTISAdditionSettings
 	public static boolean persistentLoggerSubscription = false;
 
 	@Rule(
+			desc = "When placing / summoning entity with item, place the entity at the exact position of player's cursor target position",
+			extra = "Affected items: Spawn eggs, armorstand, ender crystal",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean preciseEntityPlacement = false;
+
+	@Rule(
 			desc = "Disable rail duping using old school pushing lit powered or activator rail method",
 			category = {TIS, BUGFIX}
 	)

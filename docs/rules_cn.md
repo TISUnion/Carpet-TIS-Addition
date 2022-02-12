@@ -542,6 +542,18 @@
 - 分类: `TIS`, `CARPET_MOD`
 
 
+## 精准实体放置 (preciseEntityPlacement)
+
+当使用物品放置/召唤实体时，将实体准确地放置在玩家指针指向的坐标点
+
+受影响的物品：刷怪蛋、盔甲架、末影水晶
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 刷铁轨机修复 (railDupingFix)
 
 禁用老式的移动点亮的充能或激活铁轨的刷铁轨机

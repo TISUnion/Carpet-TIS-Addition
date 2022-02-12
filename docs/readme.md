@@ -51,6 +51,7 @@
 - [optimizedTNTHighPriority](rules.md#optimizedtnthighpriority)
 - [poiUpdates](rules.md#poiupdates)
 - [persistentLoggerSubscription](rules.md#persistentloggersubscription)
+- [preciseEntityPlacement](rules.md#preciseentityplacement)
 - [railDupingFix](rules.md#raildupingfix)
 - [redstoneDustRandomUpdateOrder](rules.md#redstonedustrandomupdateorder)
 - [renewableDragonEgg](rules.md#renewabledragonegg)
