@@ -28,11 +28,12 @@ public abstract class EntityTypeMixin<T extends Entity>
 	)
 	private T preciseEntityPlacement(T entity, ServerWorld serverWorld, @Nullable CompoundTag itemTag, @Nullable Text name, @Nullable PlayerEntity player, BlockPos pos, SpawnReason spawnReason, boolean alignPosition, boolean invertY)
 	{
+		// there's an extra spawnEggTargetPos null check in the method PreciseEntityPlacer#adjustEntityFromSpawnEgg
+		// testing if the adjusting is required
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{
 			PreciseEntityPlacer.adjustEntityFromSpawnEgg(entity);
 		}
-
 		return entity;
 	}
 }
