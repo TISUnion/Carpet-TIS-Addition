@@ -53,6 +53,13 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean blockPlacementIgnoreEntity = false;
 
+	@Rule(
+			desc = "Make player be able to place block against cauldron block with any filled level",
+			extra = "Affected Minecraft <= 1.16.x. This annoying behavior is already been fixed in 1.17+",
+			category = {TIS, BUGFIX}
+	)
+	public static boolean cauldronBlockItemInteractFix = false;
+
 	public static final int VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD = 64;
 	public static final int MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD = 65536;
 	@Rule(
@@ -152,6 +159,16 @@ public class CarpetTISAdditionSettings
 			category = {TIS, EXPERIMENTAL}
 	)
 	public static boolean entityMomentumLoss = true;
+
+	@Rule(
+			desc = "Disable block and entity collision check during entity placement with items",
+			extra = {
+					"Affected items: armorstand, end crystal, all kinds of boat",
+					"Spawn egg items are not affected"
+			},
+			category = {TIS, CREATIVE}
+	)
+	public static boolean entityPlacementIgnoreCollision = false;
 
 	public static final double VANILLA_EXPLOSION_PACKET_RANGE = 64.0D;  // sqrt(4096)
 	@Rule(
@@ -529,6 +546,13 @@ public class CarpetTISAdditionSettings
 	public static boolean persistentLoggerSubscription = false;
 
 	@Rule(
+			desc = "When placing / summoning entity with item, place the entity at the exact position of player's cursor target position",
+			extra = "Affected items: Spawn eggs, armorstand, ender crystal",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean preciseEntityPlacement = false;
+
+	@Rule(
 			desc = "Disable rail duping using old school pushing lit powered or activator rail method",
 			category = {TIS, BUGFIX}
 	)
@@ -589,6 +613,22 @@ public class CarpetTISAdditionSettings
 			category = {TIS, BUGFIX}
 	)
 	public static boolean sandDupingFix = false;
+
+	public static final int VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL = 12;
+	@Rule(
+			desc = "The minimum light level allowed for snow to melt",
+			extra = {
+					"In vanilla the value is 12, which means snow will melt when the light level >=12 when random ticked",
+					"Set it to 0 to melt all annoying snow on your builds",
+					"Set it to the same level as the minimum light level for snow to not fall on block (light level 10) to easily test if your build is snow-proof with light or not",
+					"You can modify gamerule randomTickSpeed to speed up the melting progress, or modify carpet rule chunkTickSpeed to speed up the snowfall progress"
+			},
+			options = {"0", "10", "12"},
+			strict = false,
+			validate = Validator.NONNEGATIVE_NUMBER.class,
+			category = {TIS, CREATIVE}
+	)
+	public static int snowMeltMinLightLevel = VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL;
 
 	@Rule(
 			desc = "Structure block do not preserve existed fluid when placing waterlogged-able blocks",

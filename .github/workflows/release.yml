@@ -66,12 +66,6 @@ jobs:
         env:
           BUILD_RELEASE: true
 
-      - name: Find correct JAR  # ty fabric carpet
-        id: findjar
-        run: |
-          output="$(find build/libs/ ! -name "*-dev.jar" ! -name "*-sources.jar" -type f -printf "%f\n")"
-          echo "::set-output name=jarname::$output"
-
       - name: Upload to action artifact
         uses: actions/upload-artifact@v2
         with:
@@ -101,21 +95,43 @@ jobs:
               exit 1
           fi
 
-      - name: Upload to Github release
-        uses: softprops/action-gh-release@v1
+      - name: Read Properties mod_version
+        id: mod_version
+        uses: christian-draeger/read-properties@1.0.1
         with:
-          files: build/libs/${{ steps.findjar.outputs.jarname }}
-          tag_name: ${{ steps.release_info.outputs.tag_name }}
+          path: gradle.properties
+          property: mod_version
 
-      - name: Upload to CurseForge
-        uses: itsmeow/curseforge-upload@v3
+      - name: Read Properties minecraft_version
+        id: minecraft_version
+        uses: christian-draeger/read-properties@1.0.1
         with:
-          token: ${{ secrets.CF_API_TOKEN }}
-          project_id: 397510  # https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition
-          game_endpoint: minecraft
-          game_versions: ${{ matrix.cf_game_versions }}
-          changelog_type: markdown
+          path: gradle.properties
+          property: minecraft_version
+
+      - name: Publish Minecraft Mods
+        uses: Kir-Antipov/mc-publish@v2.1
+        with:
+          modrinth-id: jE0SjGuf  # https://modrinth.com/mod/carpet-tis-addition
+          modrinth-token: ${{ secrets.MODRINTH_API_TOKEN }}
+
+          curseforge-id: 397510  # https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition
+          curseforge-token: ${{ secrets.CF_API_TOKEN }}
+
+          github-tag: ${{ steps.release_info.outputs.tag_name }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          files-primary: build/libs/!(*-@(dev|sources)).jar
+          files-secondary: ''
+
+          name: ${{ format('Carpet TIS Addition v{0} for mc{1}', steps.mod_version.outputs.value, steps.minecraft_version.outputs.value) }}
+          version: ${{ format('mc{0}-v{1}', steps.minecraft_version.outputs.value, steps.mod_version.outputs.value) }}
+          version-type: release
           changelog: ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}  # one of them should be an empty string (null)
-          file_path: build/libs/${{ steps.findjar.outputs.jarname }}
-          release_type: release
-          relations: carpet:requiredDependency
+
+          loaders: fabric
+          game-versions: ${{ matrix.game_versions }}
+          version-resolver: exact
+
+          retry-attempts: 3
+          retry-delay: 10000
