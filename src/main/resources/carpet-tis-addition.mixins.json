@@ -157,6 +157,7 @@
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
+    "rule.cauldronBlockItemInteractFix.CauldronBlockMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.chunkUpdatePacketThreshold.ChunkHolderMixin",
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",

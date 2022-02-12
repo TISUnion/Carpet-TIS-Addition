@@ -386,6 +386,11 @@ carpettisaddition:
         desc: 方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内
         extra:
           '0': 仅对创造模式玩家有效
+      cauldronBlockItemInteractFix:
+        name: 炼药锅方块类物品交互修复
+        desc: 让玩家可以对着填充有水的炼药锅放置方块
+        extra:
+          '0': 仅对Minecraft <= 1.16.x有效。这个烦人的机制已经在1.17+中被修复了
       chunkUpdatePacketThreshold:
         name: 区块更新数据包阈值
         desc: 如果方块变化的数量大于这个阈值，则游戏将仅发送区块更新数据包而非若干个方块变更数据包

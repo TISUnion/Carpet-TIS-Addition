@@ -38,6 +38,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 炼药锅方块类物品交互修复 (cauldronBlockItemInteractFix)
+
+让玩家可以对着填充有水的炼药锅放置方块
+
+仅对 Minecraft <= 1.16.x 有效。这个烦人的机制已经在 1.17+ 中被修复了
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 区块更新数据包阈值 (chunkUpdatePacketThreshold)
 
 如果方块变化的数量大于这个阈值，则游戏将仅发送区块更新数据包而非若干个方块变更数据包

@@ -38,6 +38,18 @@ Works with creative mode players only
 - Categories: `TIS`, `CREATIVE`
 
 
+## cauldronBlockItemInteractFix
+
+Make player be able to place block against cauldron block with any filled level
+
+Affected Minecraft <= 1.16.x. This annoying behavior is already been fixed in 1.17+
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## chunkUpdatePacketThreshold
 
 The threshold which the game will just send an chunk data packet if the amount of block changes is more than it

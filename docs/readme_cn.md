@@ -14,6 +14,7 @@
 - [禁用反刷屏监测](rules_cn.md#禁用反刷屏监测-antispamdisabled)
 - [方块事件广播范围](rules_cn.md#方块事件广播范围-blockeventpacketrange)
 - [方块放置碰撞检测](rules_cn.md#方块放置碰撞检测-blockplacementignoreentity)
+- [炼药锅方块类物品交互修复](rules_cn.md#炼药锅方块类物品交互修复-cauldronblockiteminteractfix)
 - [区块更新数据包阈值](rules_cn.md#区块更新数据包阈值-chunkupdatepacketthreshold)
 - [区块刻速度](rules_cn.md#区块刻速度-chunktickspeed)
 - [存活时间追踪器](rules_cn.md#存活时间追踪器-commandlifetime)

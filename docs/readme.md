@@ -14,6 +14,7 @@
 - [antiSpamDisabled](rules.md#antispamdisabled)
 - [blockEventPacketRange](rules.md#blockeventpacketrange)
 - [blockPlacementIgnoreEntity](rules.md#blockplacementignoreentity)
+- [cauldronBlockItemInteractFix](rules.md#cauldronblockiteminteractfix)
 - [chunkUpdatePacketThreshold](rules.md#chunkupdatepacketthreshold)
 - [chunkTickSpeed](rules.md#chunktickspeed)
 - [commandLifeTime](rules.md#commandlifetime)

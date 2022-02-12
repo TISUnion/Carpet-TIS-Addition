@@ -54,6 +54,13 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean blockPlacementIgnoreEntity = false;
 
+	@Rule(
+			desc = "Make player be able to place block against cauldron block with any filled level",
+			extra = "Affected Minecraft <= 1.16.x. This annoying behavior is already been fixed in 1.17+",
+			category = {TIS, BUGFIX}
+	)
+	public static boolean cauldronBlockItemInteractFix = false;
+
 	public static final int VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD = 64;
 	public static final int MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD = 65536;
 	@Rule(
