@@ -38,6 +38,18 @@ Works with creative mode players only
 - Categories: `TIS`, `CREATIVE`
 
 
+## cauldronBlockItemInteractFix
+
+Make player be able to place block against cauldron block with any filled level
+
+Affected Minecraft <= 1.16.x. This annoying behavior is already been fixed in 1.17+
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## chunkUpdatePacketThreshold
 
 The threshold which the game will just send an chunk data packet if the amount of block changes is more than it
@@ -165,6 +177,20 @@ Set it to `false` to disable entity axis momentum cancellation if it's above 10m
 - Default value: `true`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `EXPERIMENTAL`
+
+
+## entityPlacementIgnoreCollision
+
+Disable block and entity collision check during entity placement with items
+
+Affected items: armorstand, end crystal, all kinds of boat
+
+Spawn egg items are not affected
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## explosionPacketRange
@@ -528,6 +554,18 @@ Logger subscriptions are saved in `config/carpettisaddition/logger_subscriptions
 - Categories: `TIS`, `CARPET_MOD`
 
 
+## preciseEntityPlacement
+
+When placing / summoning entity with item, place the entity at the exact position of player's cursor target position
+
+Affected items: Spawn eggs, armorstand, ender crystal
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## railDupingFix
 
 Disable rail duping using old school pushing lit powered or activator rail method
@@ -612,6 +650,24 @@ In sand dupers sand will only get teleported to the other dimension
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `BUGFIX`
+
+
+## snowMeltMinLightLevel
+
+The minimum light level allowed for snow to melt
+
+In vanilla the value is 12, which means snow will melt when the light level >=12 when random ticked
+
+Set it to 0 to melt all annoying snow on your builds
+
+Set it to the same level as the minimum light level for snow to not fall on block (light level 10) to easily test if your build is snow-proof with light or not
+
+You can modify gamerule `randomTickSpeed` to speed up the melting progress, or modify carpet rule `chunkTickSpeed` to speed up the snowfall progress
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## structureBlockDoNotPreserveFluid
