@@ -664,9 +664,9 @@
 
 你可以修改游戏规则 `randomTickSpeed` 来加速雪的融化，也可以修改地毯规则 `chunkTickSpeed` 来加速降雪的过程
 
-- 类型: `boolean`
-- 默认值: `true`
-- 参考选项: `false`, `true`
+- 类型: `int`
+- 默认值: `12`
+- 参考选项: `0`, `10`, `12`
 - 分类: `TIS`, `CREATIVE`
 
 

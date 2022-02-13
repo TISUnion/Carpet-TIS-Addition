@@ -664,9 +664,9 @@ Set it to the same level as the minimum light level for snow to not fall on bloc
 
 You can modify gamerule `randomTickSpeed` to speed up the melting progress, or modify carpet rule `chunkTickSpeed` to speed up the snowfall progress
 
-- Type: `boolean`
-- Default value: `true`
-- Suggested options: `false`, `true`
+- Type: `int`
+- Default value: `12`
+- Suggested options: `0`, `10`, `12`
 - Categories: `TIS`, `CREATIVE`
 
 
