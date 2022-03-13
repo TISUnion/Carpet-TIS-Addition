@@ -304,6 +304,7 @@ carpettisaddition:
         raid: 袭击
         summon: 被生物或方块召唤
         breeding: 繁殖
+        dispensed: 被方块投出
         # LiteralSpawningReason ends
         mob_drop: 由%1$s掉落
         mob_throw: 由%1$s扔出

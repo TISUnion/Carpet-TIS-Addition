@@ -63,6 +63,7 @@
     "command.lifetime.spawning.CarvedPumpkinBlockMixin",
     "command.lifetime.spawning.EntityMixin",
     "command.lifetime.spawning.EntityTypeMixin",
+    "command.lifetime.spawning.ItemDispenserBehaviorMixin",
     "command.lifetime.spawning.LivingEntityMixin",
     "command.lifetime.spawning.LookTargetUtilMixin",
     "command.lifetime.spawning.MobSpawnerLogicMixin",
