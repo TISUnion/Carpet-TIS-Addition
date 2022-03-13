@@ -193,6 +193,40 @@ Spawn egg items are not affected
 - Categories: `TIS`, `CREATIVE`
 
 
+## entityTrackerDistance
+
+The maximum horizontal chebyshev distance (in chunks) for the server to sync entities information to the client
+
+Basically this works as a "entity view distance", but will still be limited to the server view distance
+
+Set it to a value not less than the server view distance to make the server sync all entities within the view distance to the client
+
+Set it to a non-positive value to use vanilla logic
+
+Requires chunk reloading to set the new rule value to entities
+
+- Type: `int`
+- Default value: `-1`
+- Suggested options: `-1`, `16`, `64`
+- Categories: `TIS`, `CREATIVE`
+
+
+## entityTrackerInterval
+
+The time interval (in gametick) for the server to sync entities information to the client
+
+With a small number e.g. 1, entity information will be synced to the client every 1 gametick, resulting in less-likely client-side entity desync
+
+Set it to a non-positive value to use vanilla logic
+
+Requires chunk reloading to set the new rule value to entities
+
+- Type: `int`
+- Default value: `-1`
+- Suggested options: `-1`, `1`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## explosionPacketRange
 
 Set the range where player will receive an explosion packet when an explosion happens

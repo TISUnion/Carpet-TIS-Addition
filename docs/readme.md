@@ -27,6 +27,8 @@
 - [enchantCommandNoRestriction](rules.md#enchantcommandnorestriction)
 - [entityMomentumLoss](rules.md#entitymomentumloss)
 - [entityPlacementIgnoreCollision](rules.md#entityplacementignorecollision)
+- [entityTrackerDistance](rules.md#entitytrackerdistance)
+- [entityTrackerInterval](rules.md#entitytrackerinterval)
 - [explosionPacketRange](rules.md#explosionpacketrange)
 - [failSoftBlockStateParsing](rules.md#failsoftblockstateparsing)
 - [fakePlayerNamePrefix](rules.md#fakeplayernameprefix)

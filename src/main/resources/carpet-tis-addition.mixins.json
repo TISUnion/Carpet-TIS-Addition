@@ -172,6 +172,8 @@
     "rule.entityPlacementIgnoreCollision.BoatItemMixin",
     "rule.entityPlacementIgnoreCollision.EndCrystalItemMixin",
     "rule.entityPlacementIgnoreCollision.ItemPlacementContextAccessor",
+    "rule.entityTrackerDistance.EntityTypeMixin",
+    "rule.entityTrackerInterval.EntityTypeMixin",
     "rule.explosionPacketRange.ServerWorldMixin",
     "rule.failSoftBlockStateParsing.BlockArgumentParserMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
