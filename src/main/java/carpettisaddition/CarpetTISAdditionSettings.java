@@ -848,6 +848,12 @@ public class CarpetTISAdditionSettings
 	public static double voidRelatedAltitude = -64.0D;
 
 	@Rule(
+			desc = "Disable the wither spawned sound emitted when a wither fully reset its health after summoned",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean witherSpawnedSoundDisabled = false;
+
+	@Rule(
 			desc = "Overwrite the tracking distance of xp orb",
 			extra = "Change it to 0 to disable tracking",
 			options = {"0", "1", "8", "32"},

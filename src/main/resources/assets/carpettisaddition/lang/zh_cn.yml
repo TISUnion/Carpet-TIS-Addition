@@ -714,6 +714,9 @@ carpettisaddition:
       voidRelatedAltitude:
         name: 虚空相对海拔高度
         desc: 修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域
+      witherSpawnedSoundDisabled:
+        name: 禁用凋灵生成音效
+        desc: 禁用凋灵在召唤后生命值回满时发出的世界中所有玩家都能听到的音效
       xpTrackingDistance:
         name: 经验球追踪距离
         desc: 修改经验球检测并追踪玩家的距离

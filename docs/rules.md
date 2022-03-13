@@ -850,6 +850,16 @@ Modify the related altitude between the bottom of the world and the void where e
 - Categories: `TIS`, `CREATIVE`
 
 
+## witherSpawnedSoundDisabled
+
+Disable the wither spawned sound emitted when a wither fully reset its health after summoned
+
+- Type: `boolean`
+- Default value: `false `
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## xpTrackingDistance
 
 Overwrite the tracking distance of xp orb

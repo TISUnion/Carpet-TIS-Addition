@@ -238,6 +238,7 @@
     "rule.turtleEggTrampledDisabled.TurtleEggBlockMixin",
     "rule.voidRelatedAltitude.AbstractMinecartEntityMixin",
     "rule.voidRelatedAltitude.EntityMixin",
+    "rule.witherSpawnedSoundDisabled.WitherEntityMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
     "translations.HUDControllerMixin",
     "translations.LoggerMixin",

@@ -850,6 +850,16 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 禁用凋灵生成音效 (witherSpawnedSoundDisabled)
+
+禁用凋灵在召唤后生命值回满时发出的世界中所有玩家都能听到的音效
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 经验球追踪距离 (xpTrackingDistance)
 
 修改经验球检测并追踪玩家的距离

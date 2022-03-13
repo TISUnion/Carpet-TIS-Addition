@@ -75,6 +75,7 @@
 - [turtleEggTrampledDisabled](rules.md#turtleeggtrampleddisabled)
 - [visualizeProjectileLoggerEnabled](rules.md#visualizeprojectileloggerenabled)
 - [voidRelatedAltitude](rules.md#voidrelatedaltitude)
+- [witherSpawnedSoundDisabled](rules.md#witherspawnedsounddisabled)
 - [xpTrackingDistance](rules.md#xptrackingdistance)
 
 ## [Ported-rules](rules.md#ported-rules)
