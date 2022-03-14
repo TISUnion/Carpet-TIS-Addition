@@ -27,6 +27,8 @@
 - [enchantCommandNoRestriction](rules.md#enchantcommandnorestriction)
 - [entityMomentumLoss](rules.md#entitymomentumloss)
 - [entityPlacementIgnoreCollision](rules.md#entityplacementignorecollision)
+- [entityTrackerDistance](rules.md#entitytrackerdistance)
+- [entityTrackerInterval](rules.md#entitytrackerinterval)
 - [explosionPacketRange](rules.md#explosionpacketrange)
 - [failSoftBlockStateParsing](rules.md#failsoftblockstateparsing)
 - [fakePlayerNamePrefix](rules.md#fakeplayernameprefix)
@@ -73,6 +75,7 @@
 - [turtleEggTrampledDisabled](rules.md#turtleeggtrampleddisabled)
 - [visualizeProjectileLoggerEnabled](rules.md#visualizeprojectileloggerenabled)
 - [voidRelatedAltitude](rules.md#voidrelatedaltitude)
+- [witherSpawnedSoundDisabled](rules.md#witherspawnedsounddisabled)
 - [xpTrackingDistance](rules.md#xptrackingdistance)
 
 ## [Ported-rules](rules.md#ported-rules)

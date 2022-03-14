@@ -1,27 +1,26 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.raid;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.village.raid.Raid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ZombieEntity.class)
-public abstract class ZombieEntityMixin
+@Mixin(Raid.class)
+public abstract class RaidMixin
 {
 	@ModifyArg(
-			method = "damage",
+			method = "addRaider",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
-			),
-			allow = 1
+			)
 	)
-	private Entity onZombieReinforceSpawnedLifeTimeTracker(Entity zombieEntity)
+	private Entity onSpawnRaiderLifeTimeTracker(Entity raiderEntity)
 	{
-		((LifetimeTrackerTarget)zombieEntity).recordSpawning(LiteralSpawningReason.ZOMBIE_REINFORCE);
-		return zombieEntity;
+		((LifetimeTrackerTarget)raiderEntity).recordSpawning(LiteralSpawningReason.RAID);
+		return raiderEntity;
 	}
 }

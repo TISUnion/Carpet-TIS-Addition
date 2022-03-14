@@ -9,6 +9,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.MixinUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
@@ -179,6 +180,33 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static double explosionPacketRange = VANILLA_EXPLOSION_PACKET_RANGE;
+
+	@Rule(
+			desc = "The maximum horizontal chebyshev distance (in chunks) for the server to sync entities information to the client",
+			extra = {
+					"Basically this works as a \"entity view distance\", but will still be limited to the server view distance",
+					"Set it to a value not less than the server view distance to make the server sync all entities within the view distance to the client",
+					"Set it to a non-positive value to use vanilla logic",
+					"Requires chunk reloading to set the new rule value to entities"
+			},
+			options = {"-1", "16", "64"},
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int entityTrackerDistance = -1;
+
+	@Rule(
+			desc = "The time interval (in gametick) for the server to sync entities information to the client",
+			extra = {
+					"With a small number e.g. 1, entity information will be synced to the client every 1 gametick, resulting in less-likely client-side entity desync",
+					"Set it to a non-positive value to use vanilla logic",
+					"Requires chunk reloading to set the new rule value to entities"
+			},
+			options = {"-1", "1"},
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static int entityTrackerInterval = -1;
 
 	@Rule(
 			desc = "Ignore invalid property keys/values in block state arguments used in e.g. /setblock command",
@@ -737,13 +765,34 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean turtleEggTrampledDisabled = false;
 
+	/**
+	 * TISCM debugging rule
+	 * - translation: Use fabric-carpet's rule "language" as the target langauge when translating text for a player
+	 * - optimizedFastEntityMovement: Apply optimizedFastEntityMovement's logic to all entities while ignoring the velocity of the entity
+	 *   by default the rule only applies to entities travel faster than a threshold value
+	 * - mixin_audit: Triggers MixinEnvironment.getCurrentEnvironment().audit() which force-load all mixin targeted classes
+	 */
 	@Rule(
 			desc = "qOf DSh hwg ORRWHW Cb",
 			options = {"false"},
+			validate = ValidateUltraSecretSetting.class,
 			strict = false,
 			category = {TIS, EXPERIMENTAL}
 	)
 	public static String ultraSecretSetting = "false";
+	private static class ValidateUltraSecretSetting extends Validator<String>
+	{
+		@Override
+		public String validate(ServerCommandSource source, ParsedRule<String> currentRule, String newValue, String string)
+		{
+			if (newValue.equals("mixin_audit"))
+			{
+				MixinUtil.audit(source);
+				return currentRule.get();
+			}
+			return newValue;
+		}
+	}
 
 	@Rule(
 			desc = "Enable visualize projectile logger",
@@ -762,6 +811,12 @@ public class CarpetTISAdditionSettings
 			category = {TIS, CREATIVE}
 	)
 	public static double voidRelatedAltitude = -64.0D;
+
+	@Rule(
+			desc = "Disable the wither spawned sound emitted when a wither fully reset its health after summoned",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean witherSpawnedSoundDisabled = false;
 
 	@Rule(
 			desc = "Overwrite the tracking distance of xp orb",
