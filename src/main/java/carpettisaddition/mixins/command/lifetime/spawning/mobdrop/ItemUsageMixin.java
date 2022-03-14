@@ -19,8 +19,10 @@ public abstract class ItemUsageMixin
 			method = "method_33265",  // lambda method in spawnItemContents
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			)
+					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
+					remap = true
+			),
+			remap = false
 	)
 	private static Entity recordItemEntitySpawnedByItemEntityDestroyedLifeTimeTracker(Entity itemEntity)
 	{
