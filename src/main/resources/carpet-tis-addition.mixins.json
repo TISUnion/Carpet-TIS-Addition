@@ -125,7 +125,6 @@
     "logger.microtiming.marker.ExpiringShapeInvoker",
     "logger.microtiming.marker.PistonBlockMixin",
     "logger.microtiming.marker.texthack.ShapeDispatcherTextMixin",
-    "logger.microtiming.marker.texthack.ShapesRendererRenderedTextMixin",
     "logger.microtiming.messageflush.MinecraftServerMixin",
     "logger.microtiming.messageflush.ServerWorldMixin",
     "logger.microtiming.tickstages.asynctask.MinecraftServerMixin",
@@ -248,6 +247,7 @@
     "translations.TranslatableTextMixin"
   ],
   "client": [
+    "logger.microtiming.marker.texthack.ShapesRendererRenderedTextMixin"
   ],
   "injectors": {
     "defaultRequire": 1
