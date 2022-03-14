@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.blockdrop;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
