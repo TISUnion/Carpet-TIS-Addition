@@ -13,7 +13,7 @@ public abstract class WitherEntityMixin
 			method = "mobTick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;playGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+					target = "Lnet/minecraft/world/World;syncGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
 			),
 			index = 0
 	)
