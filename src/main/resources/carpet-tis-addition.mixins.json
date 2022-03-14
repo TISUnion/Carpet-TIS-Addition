@@ -125,7 +125,6 @@
     "logger.microtiming.marker.ExpiringShapeInvoker",
     "logger.microtiming.marker.PistonBlockMixin",
     "logger.microtiming.marker.texthack.ShapeDispatcherTextMixin",
-    "logger.microtiming.marker.texthack.ShapesRendererRenderedTextMixin",
     "logger.microtiming.messageflush.MinecraftServerMixin",
     "logger.microtiming.messageflush.ServerWorldMixin",
     "logger.microtiming.tickstages.asynctask.MinecraftServerMixin",
@@ -251,6 +250,7 @@
   ],
   "client": [
     "carpet.events.onServerLoadedWorlds.IntegratedServerMixin",
+    "logger.microtiming.marker.texthack.ShapesRendererRenderedTextMixin",
     "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin"
   ],
   "injectors": {
