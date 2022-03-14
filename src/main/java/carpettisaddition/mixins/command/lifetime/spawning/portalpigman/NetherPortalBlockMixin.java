@@ -1,36 +1,31 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.portalpigman;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.NetherPortalBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.Random;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(NetherPortalBlock.class)
 public abstract class NetherPortalBlockMixin
 {
-	@Inject(
+	@ModifyVariable(
 			method = "onScheduledTick",
 			at = @At(
-					value = "INVOKE_ASSIGN",
+					value = "STORE",
 					target = "Lnet/minecraft/entity/EntityType;spawn(Lnet/minecraft/world/World;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/text/Text;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnType;ZZ)Lnet/minecraft/entity/Entity;"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void onPigmanSpawnedLifeTimeTracker(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci, Entity entity)
+	private Entity onPigmanSpawnedLifeTimeTracker(Entity entity)
 	{
 		if (entity != null)
 		{
 			((LifetimeTrackerTarget) entity).recordSpawning(LiteralSpawningReason.PORTAL_PIGMAN);
 		}
+		return entity;
 	}
 }

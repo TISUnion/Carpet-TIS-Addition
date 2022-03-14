@@ -27,6 +27,8 @@
 - [enchant指令约束移除](rules_cn.md#enchant指令约束移除-enchantcommandnorestriction)
 - [实体速度丢失](rules_cn.md#实体速度丢失-entitymomentumloss)
 - [实体放置无视碰撞](rules_cn.md#实体放置无视碰撞-entityplacementignorecollision)
+- [实体同步距离](rules_cn.md#实体同步距离-entitytrackerdistance)
+- [实体同步间隔](rules_cn.md#实体同步间隔-entitytrackerinterval)
 - [爆炸数据包广播范围](rules_cn.md#爆炸数据包广播范围-explosionpacketrange)
 - [方块状态解析忽略失败](rules_cn.md#方块状态解析忽略失败-failsoftblockstateparsing)
 - [假人名称前缀](rules_cn.md#假人名称前缀-fakeplayernameprefix)
@@ -73,6 +75,7 @@
 - [禁用海龟蛋被践踏](rules_cn.md#禁用海龟蛋被践踏-turtleeggtrampleddisabled)
 - [可视化投掷物记录器](rules_cn.md#可视化投掷物记录器-visualizeprojectileloggerenabled)
 - [虚空相对海拔高度](rules_cn.md#虚空相对海拔高度-voidrelatedaltitude)
+- [禁用凋灵生成音效](rules_cn.md#禁用凋灵生成音效-witherspawnedsounddisabled)
 - [经验球追踪距离](rules_cn.md#经验球追踪距离-xptrackingdistance)
 
 ## [移植的规则](rules_cn.md#移植的规则列表)

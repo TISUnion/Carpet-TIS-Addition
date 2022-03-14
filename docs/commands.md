@@ -65,6 +65,7 @@ Tracked entity spawning reasons
 - Spawned in raid as raider
 - Be summoned by entity or block
 - Breeding
+- Dispensed by block
 - Mob drop (item and xp orb only)
 - Mob throw (item only)
 - Mob conversion

@@ -1,26 +1,26 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.blockdrop;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.SlimeEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(SlimeEntity.class)
-public abstract class SlimeEntityMixin
+@Mixin(ShulkerBoxBlock.class)
+public abstract class ShulkerBoxBlockMixin
 {
 	@ModifyArg(
-			method = "remove",
+			method = "onBreak",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private Entity onSlimeDivisionLifeTimeTracker(Entity slimeEntity)
+	private Entity onBlockDropsItemLifeTimeTracker(Entity itemEntity)
 	{
-		((LifetimeTrackerTarget)slimeEntity).recordSpawning(LiteralSpawningReason.SLIME);
-		return slimeEntity;
+		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.BLOCK_DROP);
+		return itemEntity;
 	}
 }
