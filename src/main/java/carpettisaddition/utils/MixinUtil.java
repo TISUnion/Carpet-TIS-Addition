@@ -19,7 +19,7 @@ public class MixinUtil
 		catch (Exception e)
 		{
 			CarpetTISAdditionServer.LOGGER.error("Error when auditing mixin", e);
-			response = Messenger.s(String.format("Mixin environment audited failed (%s), check console for more information", e));
+			response = Messenger.s(String.format("Mixin environment auditing failed, check console for more information (%s)", e));
 		}
 		if (source != null)
 		{
