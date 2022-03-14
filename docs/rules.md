@@ -193,6 +193,40 @@ Spawn egg items are not affected
 - Categories: `TIS`, `CREATIVE`
 
 
+## entityTrackerDistance
+
+The maximum horizontal chebyshev distance (in chunks) for the server to sync entities information to the client
+
+Basically this works as a "entity view distance", but will still be limited to the server view distance
+
+Set it to a value not less than the server view distance to make the server sync all entities within the view distance to the client
+
+Set it to a non-positive value to use vanilla logic
+
+Requires chunk reloading to set the new rule value to entities
+
+- Type: `int`
+- Default value: `-1`
+- Suggested options: `-1`, `16`, `64`
+- Categories: `TIS`, `CREATIVE`
+
+
+## entityTrackerInterval
+
+The time interval (in gametick) for the server to sync entities information to the client
+
+With a small number e.g. 1, entity information will be synced to the client every 1 gametick, resulting in less-likely client-side entity desync
+
+Set it to a non-positive value to use vanilla logic
+
+Requires chunk reloading to set the new rule value to entities
+
+- Type: `int`
+- Default value: `-1`
+- Suggested options: `-1`, `1`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## explosionPacketRange
 
 Set the range where player will receive an explosion packet when an explosion happens
@@ -664,9 +698,9 @@ Set it to the same level as the minimum light level for snow to not fall on bloc
 
 You can modify gamerule `randomTickSpeed` to speed up the melting progress, or modify carpet rule `chunkTickSpeed` to speed up the snowfall progress
 
-- Type: `boolean`
-- Default value: `true`
-- Suggested options: `false`, `true`
+- Type: `int`
+- Default value: `12`
+- Suggested options: `0`, `10`, `12`
 - Categories: `TIS`, `CREATIVE`
 
 
@@ -813,6 +847,16 @@ Modify the related altitude between the bottom of the world and the void where e
 - Type: `double`
 - Default value: `-64`
 - Suggested options: `-64`, `-512`, `-4096`
+- Categories: `TIS`, `CREATIVE`
+
+
+## witherSpawnedSoundDisabled
+
+Disable the wither spawned sound emitted when a wither fully reset its health after summoned
+
+- Type: `boolean`
+- Default value: `false `
+- Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
 
