@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.command.lifetime.spawning.item;
 
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import carpettisaddition.commands.lifetime.utils.ExperienceOrbEntityUtil;
+import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
 import net.minecraft.entity.projectile.thrown.ExperienceBottleEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +20,6 @@ public abstract class ThrownExperienceBottleEntityMixin
 	)
 	private void onXPBottleDroppedXpLifeTimeTracker(CallbackInfo ci)
 	{
-		ExperienceOrbEntityUtil.spawningReason.set(LiteralSpawningReason.ITEM);
+		LifetimeMixinUtil.xpOrbSpawningReason.set(LiteralSpawningReason.ITEM);
 	}
 }
