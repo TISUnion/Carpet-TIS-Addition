@@ -3,34 +3,28 @@ package carpettisaddition.mixins.command.lifetime.spawning.command;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.command.SummonCommand;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(SummonCommand.class)
 public abstract class SummonCommandMixin
 {
-	@Inject(
+	@ModifyVariable(
 			method = "execute",
 			at = @At(
-					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/entity/EntityType;loadEntityWithPassengers(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/world/World;Ljava/util/function/Function;)Lnet/minecraft/entity/Entity;"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+					value = "INVOKE",
+					target = "Lnet/minecraft/server/command/ServerCommandSource;sendFeedback(Lnet/minecraft/text/Text;Z)V",
+					ordinal = 1
+			)
 	)
-	private static void onEntitySummonLifeTimeTracker(ServerCommandSource source, Identifier entity, Vec3d pos, CompoundTag nbt, boolean initialize, CallbackInfoReturnable<Integer> cir, CompoundTag compoundTag, ServerWorld serverWorld, Entity entity2)
+	private static Entity onEntitySummonLifeTimeTracker(Entity entity)
 	{
-		if (entity2 != null)
+		if (entity != null)
 		{
-			((LifetimeTrackerTarget) entity2).recordSpawning(LiteralSpawningReason.COMMAND);
+			((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.COMMAND);
 		}
+		return entity;
 	}
 }
