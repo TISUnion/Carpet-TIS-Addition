@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.item;
 
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import carpettisaddition.commands.lifetime.utils.ExperienceOrbEntityUtil;
