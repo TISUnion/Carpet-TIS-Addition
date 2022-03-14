@@ -1,27 +1,27 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.item;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.projectile.thrown.ExperienceBottleEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(CarvedPumpkinBlock.class)
-public abstract class CarvedPumpkinBlockMixin
+@Mixin(ExperienceBottleEntity.class)
+public abstract class ThrownExperienceBottleEntityMixin
 {
 	@ModifyArg(
-			method = "trySpawnEntity",
+			method = "onCollision",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			),
-			require = 2
+			index = 0
 	)
-	private Entity onGolemSummonedLifeTimeTracker(Entity entity)
+	private Entity onXPBottleDroppedXpLifeTimeTracker(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON);
+		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.ITEM);
 		return entity;
 	}
 }

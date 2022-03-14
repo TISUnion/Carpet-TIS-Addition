@@ -1,26 +1,26 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.dispensed;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.block.Block;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(Block.class)
-public abstract class BlockMixin
+@Mixin(ItemDispenserBehavior.class)
+public abstract class ItemDispenserBehaviorMixin
 {
 	@ModifyArg(
-			method = "dropStack",
+			method = "spawnItem",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private static Entity onBlockDropsItemLifeTimeTracker(Entity itemEntity)
+	private static Entity recordItemEntityOnBlockDispenseLifeTimeTracker(Entity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.BLOCK_DROP);
+		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.DISPENSED);
 		return itemEntity;
 	}
 }
