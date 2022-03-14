@@ -1,26 +1,27 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.summon;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
+import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.SlimeEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(SlimeEntity.class)
-public abstract class SlimeEntityMixin
+@Mixin(CarvedPumpkinBlock.class)
+public abstract class CarvedPumpkinBlockMixin
 {
 	@ModifyArg(
-			method = "remove",
+			method = "trySpawnEntity",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			)
+			),
+			require = 2
 	)
-	private Entity onSlimeDivisionLifeTimeTracker(Entity slimeEntity)
+	private Entity onGolemSummonedLifeTimeTracker(Entity entity)
 	{
-		((LifetimeTrackerTarget)slimeEntity).recordSpawning(LiteralSpawningReason.SLIME);
-		return slimeEntity;
+		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON);
+		return entity;
 	}
 }

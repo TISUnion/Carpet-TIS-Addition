@@ -1,27 +1,27 @@
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.zombiereinforce;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.ZombieEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(CarvedPumpkinBlock.class)
-public abstract class CarvedPumpkinBlockMixin
+@Mixin(ZombieEntity.class)
+public abstract class ZombieEntityMixin
 {
 	@ModifyArg(
-			method = "trySpawnEntity",
+			method = "damage",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			),
-			require = 2
+			allow = 1
 	)
-	private Entity onGolemSummonedLifeTimeTracker(Entity entity)
+	private Entity onZombieReinforceSpawnedLifeTimeTracker(Entity zombieEntity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON);
-		return entity;
+		((LifetimeTrackerTarget)zombieEntity).recordSpawning(LiteralSpawningReason.ZOMBIE_REINFORCE);
+		return zombieEntity;
 	}
 }
