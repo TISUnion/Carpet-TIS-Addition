@@ -61,6 +61,7 @@
     "command.lifetime.removal.conversion.MooshroomEntityMixin",
     "command.lifetime.removal.conversion.PigEntityMixin",
     "command.lifetime.removal.conversion.VillagerEntityMixin",
+    "command.lifetime.spawning.ExperienceOrbEntityMixin",
     "command.lifetime.spawning.blockdrop.BlockMixin",
     "command.lifetime.spawning.blockdrop.ShulkerBoxBlockMixin",
     "command.lifetime.spawning.breeding.AnimalEntityMixin",

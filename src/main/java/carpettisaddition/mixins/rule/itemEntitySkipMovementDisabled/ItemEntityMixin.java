@@ -16,7 +16,7 @@ public abstract class ItemEntityMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/entity/ItemEntity;getEntityId()I"
+							target = "Lnet/minecraft/entity/ItemEntity;getId()I"
 					)
 			),
 			constant = @Constant(intValue = 4, ordinal = 0),
