@@ -304,6 +304,7 @@ carpettisaddition:
         raid: Spawned in raid as raider
         summon: Be summoned by entity or block
         breeding: Breeding
+        dispensed: Dispensed by block
         # LiteralSpawningReason ends
         mob_drop: Dropped by %1$s
         mob_throw: Thrown by %1$s

@@ -304,6 +304,7 @@ carpettisaddition:
         raid: 袭击
         summon: 被生物或方块召唤
         breeding: 繁殖
+        dispensed: 被方块投出
         # LiteralSpawningReason ends
         mob_drop: 由%1$s掉落
         mob_throw: 由%1$s扔出
@@ -443,6 +444,21 @@ carpettisaddition:
         extra:
           '0': 受影响的物品：盔甲架、末影水晶、所有种类的船
           '1': 刷怪蛋物品不在作用范围内
+      entityTrackerDistance:
+        name: 实体同步距离
+        desc: '服务器同步实体信息至客户端的最大水平切比雪夫距离（单位: 区块）'
+        extra:
+          '0': 基本上这就是服务端的“实体渲染视距”，不过这个距离依旧会被服务端视距所约束
+          '1': 将其设为一个不小于服务端视距的数值，就能令服务端将玩家视距内的所有实体都同步至客户端
+          '2': 将其设为一个非正值以使用原版逻辑
+          '3': 需要重新加载区块以将新的规则数值应用到实体上
+      entityTrackerInterval:
+        name: 实体同步间隔
+        desc: '服务器同步实体信息至客户端的时间间隔（单位: gt）'
+        extra:
+          '0': 如果设为一个较小的数值，如1，服务器将每1gt都同步实体信息至客户端，这能减小客户端发生实体不同步现象的概率
+          '1': 将其设为一个非正值以使用原版逻辑
+          '2': 需要重新加载区块以将新的规则数值应用到实体上
       explosionPacketRange:
         name: 爆炸数据包广播范围
         desc: 设置在爆炸发生时，爆炸数据包对玩家的广播范围
@@ -699,6 +715,9 @@ carpettisaddition:
       voidRelatedAltitude:
         name: 虚空相对海拔高度
         desc: 修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域
+      witherSpawnedSoundDisabled:
+        name: 禁用凋灵生成音效
+        desc: 禁用凋灵在召唤后生命值回满时发出的世界中所有玩家都能听到的音效
       xpTrackingDistance:
         name: 经验球追踪距离
         desc: 修改经验球检测并追踪玩家的距离
