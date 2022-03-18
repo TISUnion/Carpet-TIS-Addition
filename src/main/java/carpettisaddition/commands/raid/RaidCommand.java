@@ -12,6 +12,7 @@ import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.class_7157;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -40,7 +41,7 @@ public class RaidCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher, class_7157 commandBuildContext)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal("raid")
 			.requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRaid))

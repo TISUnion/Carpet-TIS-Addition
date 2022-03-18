@@ -7,6 +7,7 @@ import carpettisaddition.utils.CarpetModUtil;
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.class_7157;
 import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.List;
@@ -35,10 +36,10 @@ public class ManipulateCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher, class_7157 commandBuildContext)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> containerNode = literal("container");
-		COLLECTION_CONTROLLERS.forEach(controller -> containerNode.then(controller.getCommandNode()));
+		COLLECTION_CONTROLLERS.forEach(controller -> containerNode.then(controller.getCommandNode(commandBuildContext)));
 
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
 			requires(player -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandManipulate)).

@@ -9,6 +9,7 @@ import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.class_7157;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.PacketDeflater;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
@@ -56,7 +57,7 @@ public class RefreshCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher, class_7157 commandBuildContext)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
 				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRefresh)).

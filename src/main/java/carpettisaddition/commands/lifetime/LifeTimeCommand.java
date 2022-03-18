@@ -10,6 +10,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.class_7157;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.EntityType;
@@ -116,7 +117,7 @@ public class LifeTimeCommand extends AbstractCommand
 	 */
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher, class_7157 commandBuildContext)
 	{
 		final String entityTypeArg = "entity_type";
 		final String detailModeArg = "detail";

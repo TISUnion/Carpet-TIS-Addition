@@ -6,6 +6,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.Block;
+import net.minecraft.class_7157;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
@@ -73,9 +74,9 @@ public class TileTickQueueController extends AbstractContainerController
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode()
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(class_7157 commandBuildContext)
 	{
-		return super.getCommandNode().
+		return super.getCommandNode(commandBuildContext).
 				then(literal("remove").
 						then(argument("pos", blockPos()).
 								executes(c -> this.removeAt(c.getSource(), getLoadedBlockPos(c, "pos")))
@@ -83,7 +84,7 @@ public class TileTickQueueController extends AbstractContainerController
 				).
 				then(literal("add").
 						then(argument("pos", blockPos()).
-								then(argument("block", blockState()).
+								then(argument("block", blockState(commandBuildContext)).
 										then(argument("delay", integer()).
 												executes(c -> this.addTileTickEvent(c, null)).
 												then(argument("priority", integer(TickPriority.EXTREMELY_HIGH.getIndex(), TickPriority.EXTREMELY_LOW.getIndex())).
