@@ -69,48 +69,30 @@ public abstract class WorldMixin
 	@Inject(method = "updateNeighborsAlways", at = @At("HEAD"))
 	private void startUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_START);
-	}
-	@Inject(method = "updateNeighborsAlways", at = @At("RETURN"))
-
-	private void endUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
-	{
-		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_END);
+		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.BLOCK_UPDATE, null);
 	}
 
 	@Inject(method = "updateNeighborsExcept", at = @At("HEAD"))
 	private void startUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_START);
-	}
-
-	@Inject(method = "updateNeighborsExcept", at = @At("RETURN"))
-	private void endUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
-	{
-		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_END);
+		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction);
 	}
 
 	@Inject(method = "updateComparators", at = @At("HEAD"))
 	private void startUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_START);
-	}
-
-	@Inject(method = "updateComparators", at = @At("RETURN"))
-	private void endUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)
-	{
-		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_END);
+		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null);
 	}
 
 	@Inject(method = "updateNeighbor", at = @At("HEAD"))
 	private void startUpdateSingleBlock(BlockPos pos, Block sourceBlock, BlockPos neighborPos, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.SINGLE_UPDATE, null, EventType.ACTION_START);
+		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.SINGLE_UPDATE, null);
 	}
 
-	@Inject(method = "updateNeighbor", at = @At("HEAD"))
-	private void endUpdateSingleBlock(BlockPos pos, Block sourceBlock, BlockPos neighborPos, CallbackInfo ci)
+	@Inject(method = "method_41410", at = @At("HEAD"))
+	private void startUpdateSingleBlock(BlockState blockState, BlockPos blockPos, Block block, BlockPos blockPos2, boolean bl, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.SINGLE_UPDATE, null, EventType.ACTION_END);
+		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, blockPos, block, BlockUpdateType.SINGLE_UPDATE, null);
 	}
 }

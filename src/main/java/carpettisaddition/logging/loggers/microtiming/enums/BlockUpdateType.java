@@ -8,6 +8,7 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.class_7165;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -72,7 +73,7 @@ public enum BlockUpdateType
 		/**
 		 * See {@link World#updateNeighborsAlways} and {@link World#updateNeighborsExcept}
 		 */
-		private static final Direction[] BLOCK_UPDATE_ORDER = new Direction[]{Direction.WEST, Direction.EAST, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH};
+		private static final Direction[] BLOCK_UPDATE_ORDER = class_7165.field_37839;
 
 		/**
 		 * See {@link AbstractBlock.AbstractBlockState#updateNeighbors}

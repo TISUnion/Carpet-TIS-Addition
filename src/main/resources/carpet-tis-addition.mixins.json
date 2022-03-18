@@ -125,6 +125,8 @@
     "logger.microtiming.events.EmitBlockUpdateMixins$PoweredRailBlockMixin",
     "logger.microtiming.events.EmitBlockUpdateMixins$RedstoneWireBlockMixin",
     "logger.microtiming.events.EmitBlockUpdateMixins$TripwireHookBlockMixin",
+    "logger.microtiming.events.ScheduledBlockUpdaterMixins$MultiUpdaterMixin",
+    "logger.microtiming.events.ScheduledBlockUpdaterMixins$SimpleUpdaterMixin",
     "logger.microtiming.events.ServerWorldMixin",
     "logger.microtiming.events.WorldMixin",
     "logger.microtiming.events.WorldTickSchedulerMixin",
