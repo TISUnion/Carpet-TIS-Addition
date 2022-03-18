@@ -123,12 +123,22 @@ public class MicroTimingLoggerManager
 	 * ----------------------------------
 	 */
 
-	public static void onBlockUpdate(World world, BlockPos pos, Block fromBlock, BlockUpdateType updateType, Direction exceptSide, EventType eventType)
+	public static void onScheduleBlockUpdate(World world, BlockPos pos, Block sourceBlock, BlockUpdateType updateType, Direction exceptSide)
 	{
 		onEvent(
 				MicroTimingContext.create().
 						withWorld(world).withBlockPos(pos).
-						withEventSupplier(() -> new DetectBlockUpdateEvent(eventType, fromBlock, updateType, exceptSide)).
+						withEventSupplier(() -> new ScheduleBlockUpdateEvent(sourceBlock, updateType, exceptSide)).
+						withWoolGetter(MicroTimingUtil::blockUpdateColorGetter)
+		);
+	}
+
+	public static void onBlockUpdate(World world, BlockPos pos, Block sourceBlock, BlockUpdateType updateType, Direction exceptSide, EventType eventType)
+	{
+		onEvent(
+				MicroTimingContext.create().
+						withWorld(world).withBlockPos(pos).
+						withEventSupplier(() -> new DetectBlockUpdateEvent(eventType, sourceBlock, updateType, exceptSide)).
 						withWoolGetter(MicroTimingUtil::blockUpdateColorGetter)
 		);
 	}

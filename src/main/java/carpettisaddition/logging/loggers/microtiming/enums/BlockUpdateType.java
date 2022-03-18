@@ -19,7 +19,8 @@ public enum BlockUpdateType
 	BLOCK_UPDATE("BlockUpdates", new String[]{"Neighbor Changed", "Neighbor Update"}, Constants.BLOCK_UPDATE_ORDER),
 	BLOCK_UPDATE_EXCEPT("BlockUpdates Except", new String[]{"Neighbor Changed Except", "Neighbor Update Except"}, Constants.BLOCK_UPDATE_ORDER),
 	STATE_UPDATE("StateUpdates", new String[]{"Post Placement", "Update Shape"}, Constants.STATE_UPDATE_ORDER),
-	COMPARATOR_UPDATE("ComparatorUpdates", new String[]{"Block update only to comparators"}, Constants.COMPARATOR_UPDATE_ORDER);
+	COMPARATOR_UPDATE("ComparatorUpdates", new String[]{"Block update only to comparators"}, Constants.COMPARATOR_UPDATE_ORDER),
+	SINGLE_UPDATE("SingleUpdate", new String[]{"Block update to a single block"}, new Direction[]{});
 
 	private static final Translator translator = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("block_update_type");
 	private final String name;
@@ -43,17 +44,20 @@ public enum BlockUpdateType
 		int counter = 0;
 		List<Object> builder = Lists.newArrayList();
 		builder.add(translator.tr("aka", Joiner.on(", ").join(this.aka)));
-		builder.add(Messenger.newLine());
-		for (Direction direction : this.updateOrder)
+		if (this.updateOrder.length > 0)
 		{
-			if (skipSide != direction)
+			builder.add(Messenger.newLine());
+			for (Direction direction : this.updateOrder)
 			{
-				if (counter > 0)
+				if (skipSide != direction)
 				{
-					builder.add(Messenger.newLine());
+					if (counter > 0)
+					{
+						builder.add(Messenger.newLine());
+					}
+					builder.add(Messenger.s(String.format("%d. ", ++counter)));
+					builder.add(MicroTimingUtil.getFormattedDirectionText(direction));
 				}
-				builder.add(Messenger.s(String.format("%d. ", ++counter)));
-				builder.add(MicroTimingUtil.getFormattedDirectionText(direction));
 			}
 		}
 		if (skipSide != null)

@@ -101,4 +101,16 @@ public abstract class WorldMixin
 	{
 		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_END);
 	}
+
+	@Inject(method = "updateNeighbor", at = @At("HEAD"))
+	private void startUpdateSingleBlock(BlockPos pos, Block sourceBlock, BlockPos neighborPos, CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.SINGLE_UPDATE, null, EventType.ACTION_START);
+	}
+
+	@Inject(method = "updateNeighbor", at = @At("HEAD"))
+	private void endUpdateSingleBlock(BlockPos pos, Block sourceBlock, BlockPos neighborPos, CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.SINGLE_UPDATE, null, EventType.ACTION_END);
+	}
 }

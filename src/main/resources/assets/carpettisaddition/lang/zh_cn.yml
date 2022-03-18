@@ -106,6 +106,7 @@ carpettisaddition:
         blockupdates_except: 方块更新(含排除)
         stateupdates: 状态更新
         comparatorupdates: 比较器更新
+        singleupdate: 单方块更新
       piston_block_event_type:
         push: 推出方块
         retract: 拉回方块
