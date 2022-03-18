@@ -10,37 +10,24 @@ import net.minecraft.util.math.Direction;
 
 import java.util.List;
 
-public class DetectBlockUpdateEvent extends AbstractBlockUpdateEvent
+public class ScheduleBlockUpdateEvent extends AbstractBlockUpdateEvent
 {
-	public DetectBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, Direction exceptSide)
+	public ScheduleBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, Direction exceptSide)
 	{
-		super(eventType, "detect_block_update", fromBlock, blockUpdateType, exceptSide);
+		super(eventType, "schedule_block_update", fromBlock, blockUpdateType, exceptSide);
 	}
 
 	@Override
 	public BaseText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		list.add(Messenger.formatting(tr("emit"), COLOR_ACTION));
+		list.add(Messenger.formatting(tr("scheduled"), COLOR_ACTION));
 		list.add(Messenger.getSpaceText());
 		list.add(Messenger.fancy(
 				Messenger.formatting(this.blockUpdateType.toText(), COLOR_TARGET),
 				this.getUpdateTypeExtraMessage(),
 				null
 		));
-		list.add(Messenger.getSpaceText());
-		switch (this.getEventType())
-		{
-			case ACTION_START:
-				list.add(Messenger.formatting(tr("started"), COLOR_RESULT));
-				break;
-			case ACTION_END:
-				list.add(Messenger.formatting(tr("ended"), COLOR_RESULT));
-				break;
-			default:
-				list.add(Messenger.formatting(tr("detected"), COLOR_RESULT));
-				break;
-		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}
 }

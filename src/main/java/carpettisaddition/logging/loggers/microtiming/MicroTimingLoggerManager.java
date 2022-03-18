@@ -128,7 +128,7 @@ public class MicroTimingLoggerManager
 		onEvent(
 				MicroTimingContext.create().
 						withWorld(world).withBlockPos(pos).
-						withEventSupplier(() -> new DetectBlockUpdateEvent(eventType, fromBlock, updateType, () -> updateType.getUpdateOrderList(exceptSide))).
+						withEventSupplier(() -> new DetectBlockUpdateEvent(eventType, fromBlock, updateType, exceptSide)).
 						withWoolGetter(MicroTimingUtil::blockUpdateColorGetter)
 		);
 	}
