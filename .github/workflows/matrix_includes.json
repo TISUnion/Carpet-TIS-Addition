@@ -22,5 +22,9 @@
   {
     "branch": "1.19.x",
     "game_versions": "1.19-Snapshot"
+  },
+  {
+    "branch": "future",
+    "game_versions": "22w11a"
   }
 ]
