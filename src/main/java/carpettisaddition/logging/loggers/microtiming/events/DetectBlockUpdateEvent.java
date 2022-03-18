@@ -12,9 +12,9 @@ import java.util.List;
 
 public class DetectBlockUpdateEvent extends AbstractBlockUpdateEvent
 {
-	public DetectBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, Direction exceptSide)
+	public DetectBlockUpdateEvent(EventType eventType, Block sourceBlock, BlockUpdateType blockUpdateType, Direction exceptSide)
 	{
-		super(eventType, "detect_block_update", fromBlock, blockUpdateType, exceptSide);
+		super(eventType, "detect_block_update", sourceBlock, blockUpdateType, exceptSide);
 	}
 
 	@Override

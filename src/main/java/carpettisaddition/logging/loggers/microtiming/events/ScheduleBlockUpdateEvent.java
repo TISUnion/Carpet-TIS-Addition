@@ -12,9 +12,9 @@ import java.util.List;
 
 public class ScheduleBlockUpdateEvent extends AbstractBlockUpdateEvent
 {
-	public ScheduleBlockUpdateEvent(EventType eventType, Block fromBlock, BlockUpdateType blockUpdateType, Direction exceptSide)
+	public ScheduleBlockUpdateEvent(Block sourceBlock, BlockUpdateType blockUpdateType, Direction exceptSide)
 	{
-		super(eventType, "schedule_block_update", fromBlock, blockUpdateType, exceptSide);
+		super(EventType.EVENT, "schedule_block_update", sourceBlock, blockUpdateType, exceptSide);
 	}
 
 	@Override
