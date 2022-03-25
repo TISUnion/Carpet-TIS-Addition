@@ -6,7 +6,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.Block;
-import net.minecraft.class_7157;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
@@ -74,7 +74,7 @@ public class TileTickQueueController extends AbstractContainerController
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(class_7157 commandBuildContext)
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandRegistryAccess commandBuildContext)
 	{
 		return super.getCommandNode(commandBuildContext).
 				then(literal("remove").

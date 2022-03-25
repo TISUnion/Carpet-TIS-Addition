@@ -20,7 +20,7 @@ import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.class_7157;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -102,7 +102,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     }
 
     @Override
-    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, class_7157 commandBuildContext)
+    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext)
     {
         RaidCommand.getInstance().registerCommand(dispatcher, commandBuildContext);
         LifeTimeCommand.getInstance().registerCommand(dispatcher, commandBuildContext);

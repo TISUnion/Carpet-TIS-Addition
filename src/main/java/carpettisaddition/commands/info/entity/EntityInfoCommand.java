@@ -3,7 +3,7 @@ package carpettisaddition.commands.info.entity;
 import carpet.utils.Messenger;
 import carpettisaddition.commands.CommandExtender;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.class_7157;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -33,7 +33,7 @@ public class EntityInfoCommand implements CommandExtender
 	}
 
 	@Override
-	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder, class_7157 commandBuildContext)
+	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder, CommandRegistryAccess commandBuildContext)
 	{
 		builder.then(literal("entity").
 				then(argument("entity selector", EntityArgumentType.entities()).

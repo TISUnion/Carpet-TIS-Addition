@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.block.Block;
-import net.minecraft.class_7157;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.BlockEvent;
@@ -49,11 +49,11 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher, class_7157 commandBuildContext)
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext)
 	{
 	}
 
-	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder, class_7157 commandBuildContext)
+	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder, CommandRegistryAccess commandBuildContext)
 	{
 		builder.then(
 				literal("world").

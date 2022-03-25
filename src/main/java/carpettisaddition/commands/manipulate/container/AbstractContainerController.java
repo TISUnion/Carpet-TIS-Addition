@@ -5,7 +5,7 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import net.minecraft.class_7157;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
 
@@ -27,7 +27,7 @@ public abstract class AbstractContainerController extends TranslationContext
 		return tr("name");
 	}
 
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(class_7157 commandBuildContext)
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandRegistryAccess commandBuildContext)
 	{
 		return literal(this.commandPrefix).executes(c -> this.showHelp(c.getSource()));
 	}

@@ -5,7 +5,7 @@ import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.class_7157;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -144,7 +144,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		return new BaseText[]{Messenger.c(list.toArray(new Object[0]))};
 	}
 
-	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder, class_7157 commandBuildContext)
+	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder, CommandRegistryAccess commandBuildContext)
 	{
 		builder.then(
 				literal("warp").then(

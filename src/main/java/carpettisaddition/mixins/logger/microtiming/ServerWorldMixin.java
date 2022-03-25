@@ -30,9 +30,9 @@ public abstract class ServerWorldMixin extends World implements ServerWorldWithM
 
 	private MicroTimingLogger microTimingLogger;
 
-	protected ServerWorldMixin(MutableWorldProperties properties, RegistryKey<World> registryRef, RegistryEntry<DimensionType> registryEntry, Supplier<Profiler> profiler, boolean isClient, boolean debugWorld, long seed)
+	protected ServerWorldMixin(MutableWorldProperties properties, RegistryKey<World> registryRef, RegistryEntry<DimensionType> registryEntry, Supplier<Profiler> profiler, boolean isClient, boolean debugWorld, long seed, int i)
 	{
-		super(properties, registryRef, registryEntry, profiler, isClient, debugWorld, seed);
+		super(properties, registryRef, registryEntry, profiler, isClient, debugWorld, seed, i);
 	}
 
 	@Inject(

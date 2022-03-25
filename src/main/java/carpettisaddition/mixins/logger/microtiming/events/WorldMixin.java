@@ -84,13 +84,13 @@ public abstract class WorldMixin
 		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null);
 	}
 
-	@Inject(method = "updateNeighbor", at = @At("HEAD"))
+	@Inject(method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V", at = @At("HEAD"))
 	private void startUpdateSingleBlock(BlockPos pos, Block sourceBlock, BlockPos neighborPos, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.SINGLE_UPDATE, null);
 	}
 
-	@Inject(method = "method_41410", at = @At("HEAD"))
+	@Inject(method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V", at = @At("HEAD"))
 	private void startUpdateSingleBlock(BlockState blockState, BlockPos blockPos, Block block, BlockPos blockPos2, boolean bl, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, blockPos, block, BlockUpdateType.SINGLE_UPDATE, null);

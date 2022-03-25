@@ -10,7 +10,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import net.minecraft.block.Block;
-import net.minecraft.class_7157;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.util.math.BlockPos;
@@ -67,7 +67,7 @@ public class BlockEventQueueController extends AbstractContainerController
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(class_7157 commandBuildContext)
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandRegistryAccess commandBuildContext)
 	{
 		return super.getCommandNode(commandBuildContext).
 				then(literal("remove").
