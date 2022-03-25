@@ -10,6 +10,6 @@ public interface HopperBlockEntityAccessor
 	@Invoker
 	boolean callIsFull();
 
-	@Invoker("setTransferCooldown")
+	@Invoker
 	void callSetCooldown(int cooldown);
 }

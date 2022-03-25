@@ -43,7 +43,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			method = "insertAndExtract",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setTransferCooldown(I)V",
+					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V",
 					shift = At.Shift.AFTER
 			)
 	)
