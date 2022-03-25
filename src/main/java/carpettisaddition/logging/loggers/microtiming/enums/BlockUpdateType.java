@@ -20,7 +20,8 @@ public enum BlockUpdateType
 	BLOCK_UPDATE_EXCEPT("BlockUpdates Except", new String[]{"Neighbor Changed Except", "Neighbor Update Except"}, Constants.BLOCK_UPDATE_ORDER),
 	STATE_UPDATE("StateUpdates", new String[]{"Post Placement", "Update Shape"}, Constants.STATE_UPDATE_ORDER),
 	COMPARATOR_UPDATE("ComparatorUpdates", new String[]{"Block update only to comparators"}, Constants.COMPARATOR_UPDATE_ORDER),
-	SINGLE_UPDATE("SingleUpdate", new String[]{"Block update to a single block"}, new Direction[]{});
+	SINGLE_BLOCK_UPDATE("SingleBlockUpdate", new String[]{"Block update to a single block"}, new Direction[]{}),
+	SINGLE_STATE_UPDATE("SingleStateUpdate", new String[]{"State update to a single block"}, new Direction[]{});
 
 	private static final Translator translator = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("block_update_type");
 	private final String name;

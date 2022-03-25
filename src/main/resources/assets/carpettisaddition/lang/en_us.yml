@@ -106,7 +106,8 @@ carpettisaddition:
         blockupdates_except: BlockUpdates Except
         stateupdates: StateUpdates
         comparatorupdates: ComparatorUpdates
-        singleupdate: SingleUpdate
+        singleblockupdate: SingleBlockUpdate
+        singlestateupdate: SingleStateUpdate
       piston_block_event_type:
         push: Push
         retract: Retract
