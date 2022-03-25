@@ -115,8 +115,6 @@
     "logger.microtiming.ServerTickSchedulerMixin",
     "logger.microtiming.ServerWorldMixin",
     "logger.microtiming.api.MinecraftServerMixin",
-    "logger.microtiming.events.AbstractBlockStateMixin",
-    "logger.microtiming.events.ChainRestrictedNeighborUpdaterMixin",
     "logger.microtiming.events.ChainRestrictedNeighborUpdaterMixins$SimpleEntryMixin",
     "logger.microtiming.events.ChainRestrictedNeighborUpdaterMixins$SixWayEntryMixin",
     "logger.microtiming.events.ChainRestrictedNeighborUpdaterMixins$StatefulEntryMixin",

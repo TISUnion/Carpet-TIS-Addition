@@ -87,12 +87,18 @@ public abstract class WorldMixin
 	@Inject(method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V", at = @At("HEAD"))
 	private void startUpdateSingleBlock(BlockPos pos, Block sourceBlock, BlockPos neighborPos, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.SINGLE_UPDATE, null);
+		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null);
 	}
 
 	@Inject(method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V", at = @At("HEAD"))
 	private void startUpdateSingleBlock(BlockState blockState, BlockPos blockPos, Block block, BlockPos blockPos2, boolean bl, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, blockPos, block, BlockUpdateType.SINGLE_UPDATE, null);
+		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, blockPos, block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null);
+	}
+
+	@Inject(method = "method_42308", at = @At("HEAD"), remap = false)
+	private void startScheduleStateUpdate(Direction direction, BlockState blockState, BlockPos blockPos, BlockPos sourcePos, int flags, int maxUpdateDepth, CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, sourcePos, blockState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null);
 	}
 }
