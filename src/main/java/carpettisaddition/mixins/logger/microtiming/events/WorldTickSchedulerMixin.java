@@ -83,7 +83,7 @@ public abstract class WorldTickSchedulerMixin<T>
 		ServerWorld serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld();
 		if (serverWorld != null)
 		{
-			MicroTimingLoggerManager.onExecuteTileTickEvent(serverWorld, event, EventType.ACTION_START);
+			MicroTimingLoggerManager.onExecuteTileTickEvent(serverWorld, event, EventType.ACTION_END);
 		}
 		return event;
 	}
