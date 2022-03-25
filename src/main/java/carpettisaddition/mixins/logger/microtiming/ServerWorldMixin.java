@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.MutableWorldProperties;
 import net.minecraft.world.World;
