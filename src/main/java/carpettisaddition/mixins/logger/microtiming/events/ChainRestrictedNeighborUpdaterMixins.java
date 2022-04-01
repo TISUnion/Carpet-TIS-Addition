@@ -97,22 +97,22 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 		}
 	}
 
-	@Mixin(targets = "net.minecraft.world.block.ChainRestrictedNeighborUpdater$class_7272")
-	public static class StateUpdateEntryMixin
+	@Mixin(targets = "net.minecraft.world.block.ChainRestrictedNeighborUpdater$StateReplacementEntry")
+	public static class StateReplacementEntryMixin
 	{
-		@Shadow(remap = false) @Final private BlockState state;
+		@Shadow(remap = false) @Final private BlockState neighborState;
 		@Shadow(remap = false) @Final private BlockPos neighborPos;
 
 		@Inject(method = "update", at = @At("HEAD"), remap = false)
 		private void startStateUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.state.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START);
+			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.neighborState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START);
 		}
 
 		@Inject(method = "update", at = @At("TAIL"), remap = false)
 		private void endStateUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.state.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END);
+			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.neighborState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END);
 		}
 	}
 }

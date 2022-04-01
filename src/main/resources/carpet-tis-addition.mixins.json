@@ -118,7 +118,7 @@
     "logger.microtiming.events.ChainRestrictedNeighborUpdaterMixins$SimpleEntryMixin",
     "logger.microtiming.events.ChainRestrictedNeighborUpdaterMixins$SixWayEntryMixin",
     "logger.microtiming.events.ChainRestrictedNeighborUpdaterMixins$StatefulEntryMixin",
-    "logger.microtiming.events.ChainRestrictedNeighborUpdaterMixins$StateUpdateEntryMixin",
+    "logger.microtiming.events.ChainRestrictedNeighborUpdaterMixins$StateReplacementEntryMixin",
     "logger.microtiming.events.ChunkTickSchedulerAccessor",
     "logger.microtiming.events.EmitBlockUpdateMixins$AbstractButtonBlockMixin",
     "logger.microtiming.events.EmitBlockUpdateMixins$AbstractPressurePlateBlockMixin",

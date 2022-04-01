@@ -96,7 +96,7 @@ public abstract class WorldMixin
 		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, blockPos, block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null);
 	}
 
-	@Inject(method = "method_42308", at = @At("HEAD"), remap = false)
+	@Inject(method = "replaceWithStateForNeighborUpdate", at = @At("HEAD"), remap = false)
 	private void startScheduleStateUpdate(Direction direction, BlockState blockState, BlockPos blockPos, BlockPos sourcePos, int flags, int maxUpdateDepth, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, sourcePos, blockState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null);
