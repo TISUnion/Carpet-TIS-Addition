@@ -102,7 +102,7 @@
 
 ```
 /lifetime filter <实体类型> set <实体选择器>
-/lifetime filter <实体类型> clear`
+/lifetime filter <实体类型> clear
 ```
 
 为指定实体类型设置实体筛选器。在 `<实体类型>` 处键入 `global` 以设置全局筛选器
