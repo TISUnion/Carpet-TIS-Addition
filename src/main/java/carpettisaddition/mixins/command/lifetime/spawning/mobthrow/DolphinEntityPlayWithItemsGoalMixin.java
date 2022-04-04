@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(targets = "net.minecraft.entity.passive.DolphinEntity$PlayWithItemsGoal")
 public abstract class DolphinEntityPlayWithItemsGoalMixin
 {
-	@Shadow(remap = false) @Final
+	@SuppressWarnings("target")
+	@Shadow @Final
 	DolphinEntity field_6757;
 
 	@ModifyVariable(
