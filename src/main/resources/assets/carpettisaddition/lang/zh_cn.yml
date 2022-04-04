@@ -106,6 +106,8 @@ carpettisaddition:
         blockupdates_except: 方块更新(含排除)
         stateupdates: 状态更新
         comparatorupdates: 比较器更新
+        singleblockupdate: 单方块更新
+        singlestateupdate: 单状态更新
       piston_block_event_type:
         push: 推出方块
         retract: 拉回方块
@@ -153,6 +155,8 @@ carpettisaddition:
         schedule_block_event:
           scheduled: 添加
           blockevent: 方块事件
+        schedule_block_update:
+          scheduled: 计划执行
         schedule_tile_tick:
           scheduled: 添加
           tiletick_event: 计划刻事件
