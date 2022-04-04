@@ -6,6 +6,7 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.task.LookTargetUtil;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -20,7 +21,7 @@ public abstract class LookTargetUtilMixin
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private static ItemEntity onThrowItemEntityLifeTimeTracker(ItemEntity itemEntity, LivingEntity entity, ItemStack stack, LivingEntity target)
+	private static ItemEntity onThrowItemEntityLifeTimeTracker(ItemEntity itemEntity, LivingEntity entity, ItemStack stack, Vec3d targetLocation)
 	{
 		((LifetimeTrackerTarget) itemEntity).recordSpawning(new MobThrowSpawningReason(entity.getType()));
 		return itemEntity;
