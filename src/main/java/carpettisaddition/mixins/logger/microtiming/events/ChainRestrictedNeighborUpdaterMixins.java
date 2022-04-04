@@ -23,13 +23,13 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 		@Shadow @Final private Block sourceBlock;
 		@Shadow @Final private BlockPos pos;
 
-		@Inject(method = "update", at = @At("HEAD"), remap = false)
+		@Inject(method = "update", at = @At("HEAD"))
 		private void startBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
 		}
 
-		@Inject(method = "update", at = @At("TAIL"), remap = false)
+		@Inject(method = "update", at = @At("TAIL"))
 		private void endBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
@@ -41,13 +41,13 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 		@Shadow @Final private Block sourceBlock;
 		@Shadow @Final private BlockPos pos;
 
-		@Inject(method = "update", at = @At("HEAD"), remap = false)
+		@Inject(method = "update", at = @At("HEAD"))
 		private void startBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
 		}
 
-		@Inject(method = "update", at = @At("TAIL"), remap = false)
+		@Inject(method = "update", at = @At("TAIL"))
 		private void endBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
@@ -63,7 +63,7 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 
 		private boolean hasTriggeredStartEvent$CTA = false;
 
-		@Inject(method = "update", at = @At("HEAD"), remap = false)
+		@Inject(method = "update", at = @At("HEAD"))
 		private void startBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
 			if (!this.hasTriggeredStartEvent$CTA)
@@ -80,7 +80,7 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 			}
 		}
 
-		@Inject(method = "update", at = @At("TAIL"), remap = false)
+		@Inject(method = "update", at = @At("TAIL"))
 		private void endBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
 			if (!cir.getReturnValue())  // it's finished, returning false
@@ -100,16 +100,16 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 	@Mixin(targets = "net.minecraft.world.block.ChainRestrictedNeighborUpdater$StateReplacementEntry")
 	public static class StateReplacementEntryMixin
 	{
-		@Shadow(remap = false) @Final private BlockState neighborState;
-		@Shadow(remap = false) @Final private BlockPos neighborPos;
+		@Shadow @Final private BlockState neighborState;
+		@Shadow @Final private BlockPos neighborPos;
 
-		@Inject(method = "update", at = @At("HEAD"), remap = false)
+		@Inject(method = "update", at = @At("HEAD"))
 		private void startStateUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.neighborState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START);
 		}
 
-		@Inject(method = "update", at = @At("TAIL"), remap = false)
+		@Inject(method = "update", at = @At("TAIL"))
 		private void endStateUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.neighborState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END);
