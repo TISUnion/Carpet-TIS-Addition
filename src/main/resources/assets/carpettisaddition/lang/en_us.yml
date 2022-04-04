@@ -106,6 +106,8 @@ carpettisaddition:
         blockupdates_except: BlockUpdates Except
         stateupdates: StateUpdates
         comparatorupdates: ComparatorUpdates
+        singleblockupdate: SingleBlockUpdate
+        singlestateupdate: SingleStateUpdate
       piston_block_event_type:
         push: Push
         retract: Retract
@@ -153,6 +155,8 @@ carpettisaddition:
         schedule_block_event:
           scheduled: Scheduled
           blockevent: BlockEvent
+        schedule_block_update:
+          scheduled: Scheduled
         schedule_tile_tick:
           scheduled: Scheduled
           tiletick_event: TileTick Event
