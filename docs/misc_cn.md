@@ -70,6 +70,6 @@
 
 ## 杂项
 
-- 将假人的名字长度限制调整为 16 以防止真实玩家被踢出，对 1.4.38 前的 fabric-carpet 有效（fabric-carpet 1.4.38 也实现了相关的约束）
+- 将假人的名字长度限制调整为 16 以防止真实玩家被踢出，对 v1.4.38 前的 fabric-carpet 有效（fabric-carpet v1.4.38 也实现了相关的约束）
 - 取消玩家动作包（由 `/player` 指令触发的 PlayerActionPack）在 `/tick freeze` 时的更新
-- 修复地毯假人不响应玩家近战攻击的击退的 bug（https://github.com/gnembon/fabric-carpet/issues/745）
+- 修复地毯假人不响应玩家近战攻击的击退的 bug (https://github.com/gnembon/fabric-carpet/issues/745)，已于 fabric-carpet v1.4.33 修复

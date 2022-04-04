@@ -72,4 +72,4 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
 
 - Set the maximum length of fake player's markerName to 16 to prevent kicking out other players (Works before fabric-carpet v1.4.38, fabric-carpet v1.4.38 implemented the same check)
 - Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
-- Fixed carpet fake player not responding to knockback from player melee attack (https://github.com/gnembon/fabric-carpet/issues/745)
+- Fixed carpet fake player not responding to knockback from player melee attack (https://github.com/gnembon/fabric-carpet/issues/745), which is fixed in fabric-carpet v1.4.33
