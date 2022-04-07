@@ -52,6 +52,7 @@
     "command.lifetime.filter.EntitySelectorAccessor",
     "command.lifetime.filter.EntitySelectorMixin",
     "command.lifetime.filter.EntitySelectorReaderMixin",
+    "command.lifetime.removal.AllayEntityMixin",
     "command.lifetime.removal.DolphinEntityMixin",
     "command.lifetime.removal.EntityMixin",
     "command.lifetime.removal.ExperienceOrbEntityAccessor",
