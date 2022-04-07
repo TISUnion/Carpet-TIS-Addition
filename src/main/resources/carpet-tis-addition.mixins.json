@@ -10,6 +10,10 @@
     "carpet.hooks.CarpetServerMixin",
     "carpet.hooks.HUDControllerMixin",
     "carpet.hooks.SettingsManagerMixin",
+    "carpet.shape.ExpiringShapeInvoker",
+    "carpet.shape.ShapeDispatcherLineAccessor",
+    "carpet.shape.ShapeDispatcherSphereAccessor",
+    "carpet.shape.texthack.ShapeDispatcherTextMixin",
     "carpet.tweaks.command.noPlayerMountAbuse.EntityPlayerActionPackMixin",
     "carpet.tweaks.command.randomlyTriggerAction.EntityPlayerActionPackActionMixin",
     "carpet.tweaks.command.randomlyTriggerAction.PlayerCommandMixin",
@@ -126,9 +130,7 @@
     "logger.microtiming.events.compact.lithium.LithiumServerTickSchedulerMixin",
     "logger.microtiming.marker.BlockStateMixin",
     "logger.microtiming.marker.DyeColorAccessor",
-    "logger.microtiming.marker.ExpiringShapeInvoker",
     "logger.microtiming.marker.PistonBlockMixin",
-    "logger.microtiming.marker.texthack.ShapeDispatcherTextMixin",
     "logger.microtiming.messageflush.MinecraftServerMixin",
     "logger.microtiming.messageflush.ServerWorldMixin",
     "logger.microtiming.tickstages.asynctask.MinecraftServerMixin",
@@ -254,7 +256,7 @@
   ],
   "client": [
     "carpet.events.onServerLoadedWorlds.IntegratedServerMixin",
-    "logger.microtiming.marker.texthack.ShapesRendererRenderedTextMixin",
+    "carpet.shape.texthack.ShapesRendererRenderedTextMixin",
     "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin"
   ],
   "injectors": {

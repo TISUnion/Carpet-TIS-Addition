@@ -1,8 +1,8 @@
-package carpettisaddition.mixins.logger.microtiming.marker.texthack;
+package carpettisaddition.mixins.carpet.shape.texthack;
 
 import carpet.script.utils.ShapeDispatcher;
 import carpet.script.utils.ShapesRenderer;
-import carpettisaddition.logging.loggers.microtiming.marker.texthack.IShapeDispatcherText;
+import carpettisaddition.helpers.carpet.shape.IShapeDispatcherText;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
