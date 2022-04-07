@@ -174,7 +174,7 @@ public class Messenger
 	}
 
 	private static final ImmutableMap<DimensionWrapper, BaseText> DIMENSION_NAME = ImmutableMap.of(
-			DimensionWrapper.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"),
+			DimensionWrapper.OVERWORLD, new TranslatableText("flat_world_preset.minecraft.overworld"),
 			DimensionWrapper.THE_NETHER, new TranslatableText("advancements.nether.root.title"),
 			DimensionWrapper.THE_END, new TranslatableText("advancements.end.root.title")
 	);
