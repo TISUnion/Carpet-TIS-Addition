@@ -8,12 +8,11 @@ import net.minecraft.block.RepeaterBlock;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.random.AbstractRandom;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-
-import java.util.Random;
 
 @Mixin(AbstractRedstoneGateBlock.class)
 public abstract class AbstractRedstoneGateBlockMixin
@@ -27,7 +26,7 @@ public abstract class AbstractRedstoneGateBlockMixin
 					target = "Lnet/minecraft/block/AbstractRedstoneGateBlock;getUpdateDelayInternal(Lnet/minecraft/block/BlockState;)I"
 			)
 	)
-	private int modifyRepeaterDelay(AbstractRedstoneGateBlock abstractRedstoneGateBlock, BlockState state1, BlockState state2, ServerWorld world, BlockPos pos, Random random)
+	private int modifyRepeaterDelay(AbstractRedstoneGateBlock abstractRedstoneGateBlock, BlockState state1, BlockState state2, ServerWorld world, BlockPos pos, AbstractRandom random)
 	{
 		return this.getModifiedDelay(abstractRedstoneGateBlock, world, pos, state1);
 	}

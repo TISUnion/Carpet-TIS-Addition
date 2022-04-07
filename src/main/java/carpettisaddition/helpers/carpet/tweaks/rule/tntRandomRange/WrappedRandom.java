@@ -2,8 +2,8 @@ package carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange;
 
 import carpet.CarpetSettings;
 import carpettisaddition.utils.GameUtil;
-
-import java.util.Random;
+import net.minecraft.world.gen.random.AbstractRandom;
+import net.minecraft.world.gen.random.RandomDeriver;
 
 /**
  * A wrapped Random class for controlling the result of nextFloat() during method collectBlocksAndDamageEntities
@@ -15,23 +15,65 @@ import java.util.Random;
  * If other mods uses world random inside this method, the result might not be the same with vanilla, but it's
  * already modded so whatever
  */
-public class WrappedRandom extends Random
+public class WrappedRandom implements AbstractRandom
 {
-	private final Random random;
+	private final AbstractRandom random;
 
-	private WrappedRandom(Random random)
+	private WrappedRandom(AbstractRandom random)
 	{
 		this.random = random;
 	}
 
-	public static WrappedRandom wrap(Random random)
+	public static WrappedRandom wrap(AbstractRandom random)
 	{
 		return new WrappedRandom(random);
 	}
 
-	public Random unwrap()
+	public AbstractRandom unwrap()
 	{
 		return this.random;
+	}
+
+	@Override
+	public AbstractRandom derive()
+	{
+		return this.random.derive();
+	}
+
+	@Override
+	public RandomDeriver createRandomDeriver()
+	{
+		return this.random.createRandomDeriver();
+	}
+
+	@Override
+	public void setSeed(long seed)
+	{
+		this.random.setSeed(seed);
+	}
+
+	@Override
+	public int nextInt()
+	{
+		return this.random.nextInt();
+	}
+
+	@Override
+	public int nextInt(int bound)
+	{
+		return this.random.nextInt(bound);
+	}
+
+	@Override
+	public long nextLong()
+	{
+		return this.random.nextLong();
+	}
+
+	@Override
+	public boolean nextBoolean()
+	{
+		return this.random.nextBoolean();
 	}
 
 	@Override
@@ -39,5 +81,17 @@ public class WrappedRandom extends Random
 	{
 		float vanillaResult = this.random.nextFloat();  // to make sure world random gets triggered too
 		return CarpetSettings.tntRandomRange >= 0 && GameUtil.isOnServerThread() ? (float)CarpetSettings.tntRandomRange : vanillaResult;
+	}
+
+	@Override
+	public double nextDouble()
+	{
+		return this.random.nextDouble();
+	}
+
+	@Override
+	public double nextGaussian()
+	{
+		return this.random.nextGaussian();
 	}
 }

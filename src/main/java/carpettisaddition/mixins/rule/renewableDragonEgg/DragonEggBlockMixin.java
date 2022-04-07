@@ -11,11 +11,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.gen.random.AbstractRandom;
 import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.List;
-import java.util.Random;
 
 
 @Mixin(DragonEggBlock.class)
@@ -34,7 +34,7 @@ public abstract class DragonEggBlockMixin extends Block
 	@SuppressWarnings("deprecation")
 	@Intrinsic
 	@Override
-	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
+	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random)
 	{
 		if (CarpetTISAdditionSettings.renewableDragonEgg && random.nextInt(64) == 0)
 		{
