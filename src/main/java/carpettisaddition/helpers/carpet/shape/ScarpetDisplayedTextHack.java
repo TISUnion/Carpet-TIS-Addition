@@ -1,4 +1,4 @@
-package carpettisaddition.logging.loggers.microtiming.marker.texthack;
+package carpettisaddition.helpers.carpet.shape;
 
 public class ScarpetDisplayedTextHack
 {

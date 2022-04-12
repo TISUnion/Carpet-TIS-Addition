@@ -15,6 +15,7 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 	private final Logger LOGGER = LogManager.getLogger();
 	private static final String LITHIUM_MOD_ID = "lithium";
 	private static final String TIC_TACS_MOD_ID = "tic_tacs";
+	private static final String MALILIB_MOD_ID = "malilib";
 
 	@Override
 	public void onLoad(String mixinPackage)
@@ -38,6 +39,10 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 		if (mixinClassName.contains(".compact.tic_tacs."))
 		{
 			return FabricLoader.getInstance().isModLoaded(TIC_TACS_MOD_ID);
+		}
+		if (mixinClassName.contains(".compact.malilib."))
+		{
+			return FabricLoader.getInstance().isModLoaded(MALILIB_MOD_ID);
 		}
 		return true;
 	}

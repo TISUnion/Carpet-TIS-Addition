@@ -1,21 +1,22 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
 import carpet.script.utils.ShapeDispatcher;
-import carpet.script.value.*;
-import carpettisaddition.logging.loggers.microtiming.marker.texthack.ScarpetDisplayedTextHack;
+import carpet.script.value.NumericValue;
+import carpet.script.value.Value;
+import carpettisaddition.helpers.carpet.shape.ShapeHolder;
+import carpettisaddition.helpers.carpet.shape.ShapeUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.mixins.logger.microtiming.marker.DyeColorAccessor;
-import carpettisaddition.mixins.logger.microtiming.marker.ExpiringShapeInvoker;
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,9 +32,9 @@ public class MicroTimingMarker
 	private final ServerWorld serverWorld;
 	private final BlockPos blockPos;
 	public final DyeColor color;
-	private final ShapeData<ShapeDispatcher.Box> box;
+	private final ShapeHolder<ShapeDispatcher.Box> box;
 	@Nullable
-	private final ShapeData<ShapeDispatcher.DisplayedText> text;
+	private final ShapeHolder<ShapeDispatcher.DisplayedText> text;
 	@Nullable
 	private final BaseText markerName;
 	private MicroTimingMarkerType markerType;
@@ -50,24 +51,11 @@ public class MicroTimingMarker
 		this.markerName = markerName;
 		this.markerType = markerType;
 		this.movable = movable;
-		Map<String, Value> boxParams = Maps.newHashMap();
-		boxParams.put("shape", new StringValue("box"));
-		boxParams.put("color", new NumericValue(((long) ((DyeColorAccessor) (Object) this.color).getTextColor() << 8) | 0xAF));
-		boxParams.put("dim", new StringValue(DimensionWrapper.of(serverWorld).getIdentifierString()));
-		boxParams.put("duration", new NumericValue(Integer.MAX_VALUE));
-		boxParams.put("from", listFromBlockPos(blockPos));
-		boxParams.put("to", listFromBlockPos(blockPos.add(1, 1, 1)));
-		this.box = new ShapeData<>(new ShapeDispatcher.Box(), boxParams);
+		this.box = ShapeUtil.createBox(new Vec3d(blockPos), new Vec3d(blockPos.add(1, 1, 1)), DimensionWrapper.of(serverWorld), ((long)((DyeColorAccessor)(Object)this.color).getTextColor() << 8) | 0xAF);
 		if (this.markerName != null)
 		{
-			Map<String, Value> textParams = Maps.newHashMap();
-			textParams.put("shape", new StringValue("label"));
-			textParams.put("dim", new StringValue(DimensionWrapper.of(serverWorld).getIdentifierString()));
-			textParams.put("duration", new NumericValue(Integer.MAX_VALUE));
-			textParams.put("pos", ListValue.of(new NumericValue(blockPos.getX() + 0.5D), new NumericValue(blockPos.getY() + 0.5D), new NumericValue(blockPos.getZ() + 0.5D)));
-			textParams.put("text", new FormattedTextValue(Messenger.c(MicroTimingUtil.getColorStyle(this.color) + " # ", Messenger.copy(this.markerName))));
-			textParams.put("align", new StringValue(ScarpetDisplayedTextHack.MICRO_TIMING_TEXT_MAGIC_STRING));
-			this.text = new ShapeData<>(new ShapeDispatcher.DisplayedText(), textParams);
+			BaseText text = Messenger.c(MicroTimingUtil.getColorStyle(this.color) + " # ", Messenger.copy(this.markerName));
+			this.text = ShapeUtil.createLabel(text, new Vec3d(blockPos.getX() + 0.5D, blockPos.getY() + 0.5D, blockPos.getZ() + 0.5D), DimensionWrapper.of(serverWorld), null);
 		}
 		else
 		{
@@ -104,7 +92,7 @@ public class MicroTimingMarker
 
 	private void updateLineWidth()
 	{
-		this.box.updateLineWidth(this.markerType.getLineWidth());
+		this.box.setValue("line", new NumericValue(this.markerType.getLineWidth()));
 	}
 
 	public boolean rollMarkerType()
@@ -128,11 +116,6 @@ public class MicroTimingMarker
 			this.sendShapeToAll();
 		}
 		return hasNext;
-	}
-
-	private static ListValue listFromBlockPos(BlockPos blockPos)
-	{
-		return ListValue.of(new NumericValue(blockPos.getX()), new NumericValue(blockPos.getY()), new NumericValue(blockPos.getZ()));
 	}
 
 	public List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>> getShapeDataList(boolean display)
@@ -188,39 +171,5 @@ public class MicroTimingMarker
 				Messenger.s(TextUtil.coord(this.blockPos)),
 				this.withFormattingSymbol(" " + this.color.toString())
 		);
-	}
-
-	private static class ShapeData<T extends ShapeDispatcher.ExpiringShape>
-	{
-		public final T shape;
-		public final Map<String, Value> params;
-		public final Map<String, Value> emptyParams;
-
-		private ShapeData(T shape, Map<String, Value> params)
-		{
-			this.shape = shape;
-			this.params = params;
-			this.emptyParams = Maps.newHashMap(this.params);
-			this.emptyParams.put("duration", new NumericValue(0));
-			this.syncShapeInstance();
-		}
-
-		private void syncShapeInstance()
-		{
-			// the shape instance is useful for non-carpet players
-			((ExpiringShapeInvoker)this.shape).callInit(this.params);
-		}
-
-		private Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>> toPair(boolean display)
-		{
-			return Pair.of(this.shape, display ? this.params : this.emptyParams);
-		}
-
-		public void updateLineWidth(float lineWidth)
-		{
-			this.params.put("line", new NumericValue(lineWidth));
-			this.emptyParams.put("line", new NumericValue(lineWidth));
-			this.syncShapeInstance();
-		}
 	}
 }

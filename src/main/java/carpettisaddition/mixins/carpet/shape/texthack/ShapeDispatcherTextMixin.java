@@ -1,9 +1,9 @@
-package carpettisaddition.mixins.logger.microtiming.marker.texthack;
+package carpettisaddition.mixins.carpet.shape.texthack;
 
 import carpet.script.utils.ShapeDispatcher;
 import carpet.script.value.Value;
-import carpettisaddition.logging.loggers.microtiming.marker.texthack.IShapeDispatcherText;
-import carpettisaddition.logging.loggers.microtiming.marker.texthack.ScarpetDisplayedTextHack;
+import carpettisaddition.helpers.carpet.shape.IShapeDispatcherText;
+import carpettisaddition.helpers.carpet.shape.ScarpetDisplayedTextHack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
