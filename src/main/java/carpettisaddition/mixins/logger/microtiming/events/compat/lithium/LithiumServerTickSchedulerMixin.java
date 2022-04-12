@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.microtiming.events.compact.lithium;
+package carpettisaddition.mixins.logger.microtiming.events.compat.lithium;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
