@@ -1,6 +1,6 @@
 package carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip;
 
-import carpettisaddition.utils.compact.CarpetSettings;
+import carpettisaddition.utils.compat.CarpetSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 

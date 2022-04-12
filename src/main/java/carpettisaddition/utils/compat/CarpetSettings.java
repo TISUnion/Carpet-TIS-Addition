@@ -1,4 +1,4 @@
-package carpettisaddition.utils.compact;
+package carpettisaddition.utils.compat;
 
 public class CarpetSettings
 {

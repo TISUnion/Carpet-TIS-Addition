@@ -3,7 +3,7 @@ package carpettisaddition.helpers.carpet.shape;
 import carpet.script.value.NumericValue;
 import carpet.script.value.Value;
 import carpettisaddition.mixins.carpet.shape.ExpiringShapeInvoker;
-import carpettisaddition.utils.compact.scarpet.ShapeDispatcher;
+import carpettisaddition.utils.compat.scarpet.ShapeDispatcher;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.tuple.Pair;
 

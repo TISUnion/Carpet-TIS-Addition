@@ -9,7 +9,7 @@ import carpettisaddition.mixins.logger.microtiming.marker.DyeColorAccessor;
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
-import carpettisaddition.utils.compact.scarpet.ShapeDispatcher;
+import carpettisaddition.utils.compat.scarpet.ShapeDispatcher;
 import com.google.common.collect.Lists;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;

@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip;
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
-import carpettisaddition.utils.compact.CarpetSettings;
+import carpettisaddition.utils.compat.CarpetSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import org.spongepowered.asm.mixin.Dynamic;

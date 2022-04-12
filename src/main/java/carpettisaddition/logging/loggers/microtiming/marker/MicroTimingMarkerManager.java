@@ -5,7 +5,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.compact.scarpet.ShapeDispatcher;
+import carpettisaddition.utils.compat.scarpet.ShapeDispatcher;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;

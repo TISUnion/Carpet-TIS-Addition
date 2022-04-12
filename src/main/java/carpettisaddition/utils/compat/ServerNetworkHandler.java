@@ -1,4 +1,4 @@
-package carpettisaddition.utils.compact;
+package carpettisaddition.utils.compat;
 
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.PacketByteBuf;

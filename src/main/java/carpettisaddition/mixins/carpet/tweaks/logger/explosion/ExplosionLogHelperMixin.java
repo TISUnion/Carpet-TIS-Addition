@@ -3,7 +3,7 @@ package carpettisaddition.mixins.carpet.tweaks.logger.explosion;
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ITntEntity;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
-import carpettisaddition.utils.compact.ExplosionLogHelper;
+import carpettisaddition.utils.compat.ExplosionLogHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.text.BaseText;

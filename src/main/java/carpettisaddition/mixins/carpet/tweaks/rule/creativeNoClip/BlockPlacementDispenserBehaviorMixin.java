@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip;
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
-import carpettisaddition.utils.compact.CarpetSettings;
+import carpettisaddition.utils.compat.CarpetSettings;
 import net.minecraft.block.dispenser.BlockPlacementDispenserBehavior;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;

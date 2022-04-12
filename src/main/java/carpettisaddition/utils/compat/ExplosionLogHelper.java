@@ -1,4 +1,4 @@
-package carpettisaddition.utils.compact;
+package carpettisaddition.utils.compat;
 
 import carpet.utils.Messenger;
 import com.google.common.collect.Lists;

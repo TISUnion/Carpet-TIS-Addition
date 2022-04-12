@@ -1,4 +1,4 @@
-package carpettisaddition.utils.compact.scarpet;
+package carpettisaddition.utils.compat.scarpet;
 
 import carpet.script.value.Value;
 import net.minecraft.server.network.ServerPlayerEntity;

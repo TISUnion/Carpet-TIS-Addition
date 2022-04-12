@@ -1,4 +1,4 @@
-package carpettisaddition.utils.compact.scarpet.value;
+package carpettisaddition.utils.compat.scarpet.value;
 
 import carpet.script.value.NullValue;
 import carpet.script.value.StringValue;
