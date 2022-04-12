@@ -33,6 +33,16 @@ public class LargeBarrelHelper
 	public static final ThreadLocal<Boolean> gettingLargeBarrelPropertySource = ThreadLocal.withInitial(() -> false);
 	public static final ThreadLocal<Boolean> applyAxisOnlyDirectionTesting = ThreadLocal.withInitial(() -> false);
 
+	/**
+	 * World.getBlockEntity does not support off-server-thread accessing
+	 * When we want to get the large barrel inventory in single player via the integrated server world
+	 * on client Render thread, we need to somehow disable the off-thread testing
+	 *
+	 * Here's the flag for enable the functionality of mixin
+	 * {@link carpettisaddition.mixins.rule.largeBarrel.compat.malilib.BlockEntityTypeMixin}
+	 */
+	public static final ThreadLocal<Boolean> enabledOffThreadBlockEntityAccess = ThreadLocal.withInitial(() -> false);
+
 	public static DoubleBlockProperties.PropertySource<? extends BarrelBlockEntity> getBlockEntitySource(BlockState blockState, World world, BlockPos pos) {
 		gettingLargeBarrelPropertySource.set(true);
 		try
@@ -57,9 +67,11 @@ public class LargeBarrelHelper
 	 * Just like {@link net.minecraft.block.ChestBlock#getInventory}
 	 */
 	@Nullable
-	public static Inventory getInventory(BlockState state, World world, BlockPos pos) {
+	public static Inventory getInventory(BlockState state, World world, BlockPos pos)
+	{
 		return getBlockEntitySource(state, world, pos).apply(LargeBarrelHelper.INVENTORY_RETRIEVER).orElse(null);
 	}
+
 	/**
 	 * INVENTORY_RETRIEVER and NAME_RETRIEVER are totally not stolen from {@link net.minecraft.block.ChestBlock} XD
 	 */
