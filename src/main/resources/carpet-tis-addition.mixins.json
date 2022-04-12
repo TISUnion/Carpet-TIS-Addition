@@ -197,6 +197,8 @@
     "rule.largeBarrel.BarrelBlockMixin",
     "rule.largeBarrel.DoubleBlockPropertiesMixin",
     "rule.largeBarrel.HopperBlockEntityMixin",
+    "rule.largeBarrel.compat.malilib.BlockEntityTypeMixin",
+    "rule.largeBarrel.compat.malilib.InventoryUtilsMixin",
     "rule.lightEngineMaxBatchSize.MinecraftServerMixin",
     "rule.lightEngineMaxBatchSize.ServerLightingProviderMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",
