@@ -36,7 +36,7 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 		{
 			return FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
 		}
-		if (mixinClassName.contains(".compact.tic_tacs."))
+		if (mixinClassName.contains(".compat.tic_tacs."))
 		{
 			return FabricLoader.getInstance().isModLoaded(TIC_TACS_MOD_ID);
 		}
