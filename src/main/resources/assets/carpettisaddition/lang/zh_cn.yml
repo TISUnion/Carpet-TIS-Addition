@@ -16,9 +16,9 @@ carpettisaddition:
     ticket:
       added: 被添加
       removed: 被移除
-      time_detail: "世界: %s\n游戏刻: %d"
+      time_detail: "世界: %1$s\n游戏刻: %2$s"
       message: 加载票 %1$s 于 %3$s %2$s
-      ticket_detail: "等级 = %d\n持续时间 = %s\n强加载区块: %s\n弱加载区块: %s\n边界区块: %s"
+      ticket_detail: "等级 = %1$s\n持续时间 = %2$s\n强加载区块: %3$s\n弱加载区块: %4$s\n边界区块: %5$s"
       permanent: 永久
     entity:
       created: '%1$s被创建了'
