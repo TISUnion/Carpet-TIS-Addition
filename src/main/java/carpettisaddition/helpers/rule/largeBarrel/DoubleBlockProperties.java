@@ -1,5 +1,6 @@
 package carpettisaddition.helpers.rule.largeBarrel;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -8,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 
 import java.util.function.BiPredicate;
 import java.util.function.Function;
@@ -22,6 +24,13 @@ public class DoubleBlockProperties {
 	@SuppressWarnings("unchecked")
 	private static <S extends BlockEntity> S getBlockEntity(BlockEntityType<S> blockEntityType, BlockView world, BlockPos pos) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
+		if (CarpetTISAdditionSettings.largeBarrel && LargeBarrelHelper.enabledOffThreadBlockEntityAccess.get())
+		{
+			if (world instanceof World)
+			{
+				blockEntity = ((World)world).getChunk(pos).getBlockEntity(pos);
+			}
+		}
 		return blockEntity != null && blockEntity.getType() == blockEntityType ? (S)blockEntity : null;
 	}
 

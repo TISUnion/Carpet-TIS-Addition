@@ -1,17 +1,15 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
-import carpet.script.value.ListValue;
 import carpet.script.value.NumericValue;
-import carpet.script.value.StringValue;
 import carpet.script.value.Value;
-import carpettisaddition.logging.loggers.microtiming.marker.texthack.ScarpetDisplayedTextHack;
+import carpettisaddition.helpers.carpet.shape.ShapeHolder;
+import carpettisaddition.helpers.carpet.shape.ShapeUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.mixins.logger.microtiming.marker.DyeColorAccessor;
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.compact.scarpet.ShapeDispatcher;
-import carpettisaddition.utils.compact.scarpet.value.FormattedTextValue;
 import com.google.common.collect.Lists;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;

@@ -21,8 +21,22 @@ public class ShapeDispatcher
 		}
 	}
 
+	public static class Line extends ExpiringShape
+	{
+		private Line()
+		{
+		}
+	}
+
 	public static class Box extends ExpiringShape
 	{
+	}
+
+	public static class Sphere extends ExpiringShape
+	{
+		private Sphere()
+		{
+		}
 	}
 
 	public static class Text extends ExpiringShape

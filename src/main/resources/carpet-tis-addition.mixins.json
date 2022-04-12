@@ -15,7 +15,6 @@
     "carpet.shape.ExpiringShapeInvoker",
     "carpet.shape.ShapeDispatcherLineAccessor",
     "carpet.shape.ShapeDispatcherSphereAccessor",
-    "carpet.shape.texthack.ShapeDispatcherTextMixin",
     "carpet.tweaks.command.noPlayerMountAbuse.EntityPlayerActionPackMixin",
     "carpet.tweaks.command.randomlyTriggerAction.EntityPlayerActionPackActionMixin",
     "carpet.tweaks.command.randomlyTriggerAction.PlayerCommandMixin",

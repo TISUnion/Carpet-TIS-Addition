@@ -1,10 +1,14 @@
 package carpettisaddition.helpers.carpet.shape;
 
-import carpet.script.utils.ShapeDispatcher;
-import carpet.script.value.*;
+import carpet.script.value.ListValue;
+import carpet.script.value.NumericValue;
+import carpet.script.value.StringValue;
+import carpet.script.value.Value;
 import carpettisaddition.mixins.carpet.shape.ShapeDispatcherLineAccessor;
 import carpettisaddition.mixins.carpet.shape.ShapeDispatcherSphereAccessor;
 import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.compact.scarpet.ShapeDispatcher;
+import carpettisaddition.utils.compact.scarpet.value.FormattedTextValue;
 import com.google.common.collect.Maps;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
