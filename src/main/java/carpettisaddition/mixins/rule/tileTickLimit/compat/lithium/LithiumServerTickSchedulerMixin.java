@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.rule.tileTickLimit.compact.lithium;
+package carpettisaddition.mixins.rule.tileTickLimit.compat.lithium;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
