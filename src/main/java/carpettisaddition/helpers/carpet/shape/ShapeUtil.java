@@ -53,14 +53,14 @@ public class ShapeUtil
 		return new ShapeHolder<>(ShapeDispatcherSphereAccessor.invokeConstructor(), boxParams);
 	}
 
-	public static ShapeHolder<ShapeDispatcher.Text> createLabel(Text text, Vec3d pos, DimensionWrapper dimension, @Nullable Long color)
+	public static ShapeHolder<ShapeDispatcher.DisplayedText> createLabel(Text text, Vec3d pos, DimensionWrapper dimension, @Nullable Long color)
 	{
 		Map<String, Value> textParams = getBasicParamMap(dimension, color);
 		textParams.put("shape", new StringValue("label"));
 		textParams.put("pos", posToList(pos));
 		textParams.put("text", new FormattedTextValue(text));
 		textParams.put("align", new StringValue(ScarpetDisplayedTextHack.MICRO_TIMING_TEXT_MAGIC_STRING));
-		return new ShapeHolder<>(new ShapeDispatcher.Text(), textParams);
+		return new ShapeHolder<>(new ShapeDispatcher.DisplayedText(), textParams);
 	}
 
 	private static ListValue posToList(Vec3d vec3d)

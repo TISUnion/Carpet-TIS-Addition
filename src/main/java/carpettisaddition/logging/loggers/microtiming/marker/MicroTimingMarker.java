@@ -51,7 +51,7 @@ public class MicroTimingMarker
 		this.markerName = markerName;
 		this.markerType = markerType;
 		this.movable = movable;
-		this.box = ShapeUtil.createBox(new Vec3d(blockPos), new Vec3d(blockPos.add(1, 1, 1)), DimensionWrapper.of(serverWorld), ((long)((DyeColorAccessor)(Object)this.color).getTextColor() << 8) | 0xAF);
+		this.box = ShapeUtil.createBox(Vec3d.of(blockPos), Vec3d.of(blockPos.add(1, 1, 1)), DimensionWrapper.of(serverWorld), ((long)((DyeColorAccessor)(Object)this.color).getTextColor() << 8) | 0xAF);
 		if (this.markerName != null)
 		{
 			BaseText text = Messenger.c(MicroTimingUtil.getColorStyle(this.color) + " # ", Messenger.copy(this.markerName));
