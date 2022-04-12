@@ -5,7 +5,6 @@ import carpet.script.value.NumericValue;
 import carpet.script.value.Value;
 import carpettisaddition.mixins.carpet.shape.ExpiringShapeInvoker;
 import com.google.common.collect.Maps;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 
@@ -30,9 +29,9 @@ public class ShapeHolder<T extends ShapeDispatcher.ExpiringShape>
 		((ExpiringShapeInvoker) this.shape).callInit(this.params);
 	}
 
-	public Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>> toPair(boolean display)
+	public ShapeDispatcher.ShapeWithConfig toPair(boolean display)
 	{
-		return Pair.of(this.shape, display ? this.params : this.emptyParams);
+		return new ShapeDispatcher.ShapeWithConfig(this.shape, display ? this.params : this.emptyParams);
 	}
 
 	public void setValue(String key, Value value)
