@@ -1,6 +1,9 @@
 package carpettisaddition.mixins.logger.microtiming.events.compat.lithium;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
 import me.jellysquid.mods.lithium.common.world.scheduler.TickEntry;
 import net.minecraft.server.world.ServerTickScheduler;
@@ -21,6 +24,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+@Restriction(require = @Condition(ModIds.lithium))
 @Mixin(LithiumServerTickScheduler.class)
 public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickScheduler<T>
 {
