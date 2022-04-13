@@ -3,6 +3,9 @@ package carpettisaddition.mixins.rule.hopperNoItemCost.compat.lithium;
 import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.hopperNoItemCost.HopperNoItemCostHelper;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.api.inventory.LithiumInventory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.HopperBlockEntity;
@@ -17,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.BooleanSupplier;
 
+@Restriction(require = @Condition(ModIds.lithium))
 @Mixin(HopperBlockEntity.class)
 public abstract class HopperBlockEntityMixin
 {
