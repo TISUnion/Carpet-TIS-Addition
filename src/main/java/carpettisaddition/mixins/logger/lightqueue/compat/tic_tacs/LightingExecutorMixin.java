@@ -1,6 +1,9 @@
 package carpettisaddition.mixins.logger.lightqueue.compat.tic_tacs;
 
 import carpettisaddition.logging.loggers.lightqueue.IServerLightingProvider;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.world.chunk.light.LightingProvider;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * So in order to make the lightQueue logger be able to successfully record lighting tasks being executed,
  * here comes the Mixin
  */
+@Restriction(require = @Condition(ModIds.tic_tacs))
 @Pseudo
 @Mixin(
 		targets = {

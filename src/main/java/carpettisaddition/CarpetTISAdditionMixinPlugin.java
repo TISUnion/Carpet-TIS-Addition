@@ -1,26 +1,20 @@
 package carpettisaddition;
 
-import net.fabricmc.loader.api.FabricLoader;
+import me.fallenbreath.conditionalmixin.api.mixin.RestrictiveMixinConfigPlugin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.objectweb.asm.tree.ClassNode;
-import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
-import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.List;
 import java.util.Set;
 
-public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
+public class CarpetTISAdditionMixinPlugin extends RestrictiveMixinConfigPlugin
 {
 	private final Logger LOGGER = LogManager.getLogger();
-	private static final String LITHIUM_MOD_ID = "lithium";
-	private static final String TIC_TACS_MOD_ID = "tic_tacs";
-	private static final String MALILIB_MOD_ID = "malilib";
 
 	@Override
-	public void onLoad(String mixinPackage)
+	protected void onRestrictionCheckFailed(String mixinClassName, String reason)
 	{
-
+		LOGGER.debug("[TISCM] Disabled mixin {} due to {}", mixinClassName, reason);
 	}
 
 	@Override
@@ -30,44 +24,13 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 	}
 
 	@Override
-	public boolean shouldApplyMixin(String targetClassName, String mixinClassName)
-	{
-		if (mixinClassName.contains(".compat.lithium."))
-		{
-			return FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
-		}
-		if (mixinClassName.contains(".compat.tic_tacs."))
-		{
-			return FabricLoader.getInstance().isModLoaded(TIC_TACS_MOD_ID);
-		}
-		if (mixinClassName.contains(".compat.malilib."))
-		{
-			return FabricLoader.getInstance().isModLoaded(MALILIB_MOD_ID);
-		}
-		return true;
-	}
-
-	@Override
 	public void acceptTargets(Set<String> myTargets, Set<String> otherTargets)
 	{
-
 	}
 
 	@Override
 	public List<String> getMixins()
 	{
 		return null;
-	}
-
-	@Override
-	public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo)
-	{
-
-	}
-
-	@Override
-	public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo)
-	{
-
 	}
 }
