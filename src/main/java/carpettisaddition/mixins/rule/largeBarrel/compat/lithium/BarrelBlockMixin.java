@@ -1,6 +1,9 @@
 package carpettisaddition.mixins.rule.largeBarrel.compat.lithium;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity;
 import me.jellysquid.mods.lithium.common.world.blockentity.BlockEntityGetter;
 import net.minecraft.block.BarrelBlock;
@@ -17,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Restriction(require = @Condition(ModIds.lithium))
 @Mixin(value = BarrelBlock.class, priority = 2000)
 public abstract class BarrelBlockMixin extends BlockWithEntity
 {
