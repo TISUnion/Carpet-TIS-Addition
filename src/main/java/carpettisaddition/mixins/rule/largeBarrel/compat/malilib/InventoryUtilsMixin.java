@@ -2,6 +2,9 @@ package carpettisaddition.mixins.rule.largeBarrel.compat.malilib;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Restriction(require = @Condition(ModIds.malilib))
 @Pseudo
 @Mixin(targets = "fi.dy.masa.malilib.util.InventoryUtils")
 public abstract class InventoryUtilsMixin
