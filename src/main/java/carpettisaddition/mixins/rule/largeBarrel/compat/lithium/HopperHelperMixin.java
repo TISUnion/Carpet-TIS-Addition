@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.rule.largeBarrel.compact.lithium;
+package carpettisaddition.mixins.rule.largeBarrel.compat.lithium;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
