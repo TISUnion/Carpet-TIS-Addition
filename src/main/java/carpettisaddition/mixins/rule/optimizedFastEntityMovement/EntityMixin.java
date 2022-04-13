@@ -2,7 +2,10 @@ package carpettisaddition.mixins.rule.optimizedFastEntityMovement;
 
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMContext;
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMUtil;
+import carpettisaddition.utils.ModIds;
 import com.google.common.collect.Lists;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -18,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.Collections;
 import java.util.List;
 
+@Restriction(conflict = @Condition(ModIds.lithium))
 @Mixin(Entity.class)
 public abstract class EntityMixin
 {
