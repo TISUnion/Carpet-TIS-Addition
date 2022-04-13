@@ -4,6 +4,7 @@ import carpet.logging.logHelpers.ExplosionLogHelper;
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ITntEntity;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
+import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.text.BaseText;
@@ -16,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Mixin(ExplosionLogHelper.class)
@@ -56,7 +56,7 @@ public abstract class ExplosionLogHelperMixin
 	{
 		if (this.entity instanceof TntEntity)
 		{
-			List<BaseText> messages = Arrays.asList(cir.getReturnValue());
+			List<BaseText> messages = Lists.newArrayList(cir.getReturnValue());
 			ITntEntity iTntEntity = (ITntEntity)this.entity;
 			if (iTntEntity.dataRecorded())
 			{

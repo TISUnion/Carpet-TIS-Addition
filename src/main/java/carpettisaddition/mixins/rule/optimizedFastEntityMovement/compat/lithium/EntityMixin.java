@@ -2,7 +2,10 @@ package carpettisaddition.mixins.rule.optimizedFastEntityMovement.compat.lithium
 
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMContext;
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMUtil;
+import carpettisaddition.utils.ModIds;
 import com.google.common.collect.Lists;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.entity.LithiumEntityCollisions;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
@@ -26,6 +29,7 @@ import java.util.List;
  * Lithium's optimization `entity.collisions.movement` uses default priority 1000
  * We need to mixin into its merged static method, so here comes priority 2000
  */
+@Restriction(require = @Condition(ModIds.lithium))
 @Mixin(value = Entity.class, priority = 2000)
 public abstract class EntityMixin
 {
