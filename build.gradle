@@ -54,6 +54,10 @@ dependencies {
 	// runtime mods
 	modRuntimeOnly "com.github.astei:lazydfu:0.1.2"  // faster startup
 
+	// library mods
+	modImplementation "com.github.Fallen-Breath:conditional-mixin:${project.conditionalmixin_version}"
+	include "com.github.Fallen-Breath:conditional-mixin:${project.conditionalmixin_version}"
+
 	// libraries
 	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
 	include "org.yaml:snakeyaml:${project.snakeyaml_version}"
