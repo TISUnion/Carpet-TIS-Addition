@@ -1,11 +1,15 @@
 package carpettisaddition.mixins.rule.tileTickLimit.compat.lithium;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
+@Restriction(require = @Condition(ModIds.lithium))
 @Mixin(value = LithiumServerTickScheduler.class, priority = 998)
 public abstract class LithiumServerTickSchedulerMixin
 {

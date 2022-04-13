@@ -7,11 +7,12 @@ plugins {
 }
 
 repositories {
+	mavenCentral()
 	maven {
 		url 'https://masa.dy.fi/maven'
 	}
 	maven {
-		url 'https://www.jitpack.io'
+		url 'https://jitpack.io'
 	}
 	maven {
 		url 'https://www.cursemaven.com'
@@ -52,6 +53,10 @@ dependencies {
 
 	// runtime mods
 	modRuntimeOnly "com.github.astei:lazydfu:0.1.2"  // faster startup
+
+	// library mods
+	modImplementation "com.github.Fallen-Breath:conditional-mixin:${project.conditionalmixin_version}"
+	include "com.github.Fallen-Breath:conditional-mixin:${project.conditionalmixin_version}"
 
 	// libraries
 	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
