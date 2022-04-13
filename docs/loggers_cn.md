@@ -2,7 +2,7 @@
 
 \>\>\> [返回索引](readme_cn.md)
 
-# 监视器
+# 记录器
 
 ## 加载票 (ticket)
 
@@ -56,7 +56,7 @@
 
 `/log xporb <events>`
 
-基本上与 [掉落物监视器](#掉落物-item) 相同，只不过监视的是经验球实体
+基本上与 [掉落物记录器](#掉落物-item) 相同，只不过监视的是经验球实体
 
 
 ## 袭击 (raid)
@@ -81,7 +81,7 @@
 
 记录元件的微时序，元件所在区块的加载票等级需至少为弱加载 (加载票等级 32)
 
-见规则 [微时序](rules_cn.md#微时序-microtiming) 以获得详细信息，记得使用 `/carpet microTiming true` 启用监视器功能
+见规则 [微时序](rules_cn.md#微时序-microtiming) 以获得详细信息，记得使用 `/carpet microTiming true` 启用记录器功能
 
 可用的类型选项:
 - `all`: 默认值，输出所有事件

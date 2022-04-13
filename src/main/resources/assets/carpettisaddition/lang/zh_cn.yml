@@ -497,8 +497,8 @@ carpettisaddition:
         name: 漏斗不消耗物品
         desc: 上方放有羊毛方块的漏斗可不消耗物品地无限输出储存的物品
       HUDLoggerUpdateInterval:
-        name: HUD监视器更新间隔
-        desc: 覆写Carpet Mod HUD监视器的更新间隔，单位为gametick
+        name: HUD记录器更新间隔
+        desc: 覆写Carpet Mod HUD记录器的更新间隔，单位为gametick
       instantCommandBlock:
         name: 瞬时命令方块
         desc: 令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行
@@ -543,7 +543,7 @@ carpettisaddition:
           '3': 【警告】若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环
       microTiming:
         name: 微时序
-        desc: 启用微时序监视器的功能
+        desc: 启用微时序记录器的功能
         extra:
           '0': 使用羊毛块来输出红石元件的动作、方块更新与堆栈跟踪
           '1': 使用/log microTiming来开始监视
@@ -555,13 +555,13 @@ carpettisaddition:
           '7': 可通过操控规则 微时序目标(microTimingTarget) 以切换记录方法
       microTimingDyeMarker:
         name: 微时序染料记号
-        desc: 允许玩家手持染料右击方块来将其标记为微时序监视器的目标
+        desc: 允许玩家手持染料右击方块来将其标记为微时序记录器的目标
         extra:
-          '0': 你需要订阅微时序监视器才能标记并渲染方块
+          '0': 你需要订阅微时序记录器才能标记并渲染方块
           '1': 使用相同颜色的染料再次右击以切换至末地烛模式，此时记录器将会额外地记录标记位置处的方块更新。再次右击则会移除颜色记号
           '2': 使用粘液球物品右击标记可将其设为可移动。当标记依附的方块被活塞移动时，它会自动的移动到对应的新位置
           '3': 使用指令`/carpet microTimingDyeMarker clear`以移除所有记号
-          '4': 你可以使用命名的染料物品来创建一个命名的记号。记号的名称同时将会在监视器的输出信息中展示
+          '4': 你可以使用命名的染料物品来创建一个命名的记号。记号的名称同时将会在记录器的输出信息中展示
           '5': 如果客户端安装有fabric-carpet mod，被标记的方块将会显示出一个边框。如果客户端还带有carpet-tis-addition，则记号的名称还可透过方块查看
       microTimingTarget:
         name: 微时序目标
