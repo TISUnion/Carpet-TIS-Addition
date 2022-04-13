@@ -45,7 +45,7 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 			return FabricLoader.getInstance().isModLoaded(MALILIB_MOD_ID);
 		}
 
-		// disable these if
+		// disable these when
 		if (mixinClassName.equals("carpettisaddition.mixins.rule.optimizedFastEntityMovement.EntityMixin"))
 		{
 			return !FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);

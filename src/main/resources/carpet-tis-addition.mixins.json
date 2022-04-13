@@ -222,7 +222,7 @@
     "rule.opPlayerNoCheat.SummonCommandMixin",
     "rule.opPlayerNoCheat.TeleportCommandMixin",
     "rule.optimizedFastEntityMovement.EntityMixin",
-    "rule.optimizedFastEntityMovement.compact.lithium.EntityMixin",
+    "rule.optimizedFastEntityMovement.compat.lithium.EntityMixin",
     "rule.optimizedHardHitBoxEntityCollision.EntityTrackingSectionMixin",
     "rule.optimizedHardHitBoxEntityCollision.RegistryWorldViewMixin",
     "rule.optimizedTNTHighPriority.ExplosionMixin",
