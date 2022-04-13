@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.lightqueue.compact.tic_tacs;
+package carpettisaddition.mixins.logger.lightqueue.compat.tic_tacs;
 
 import carpettisaddition.logging.loggers.lightqueue.IServerLightingProvider;
 import net.minecraft.world.chunk.light.LightingProvider;

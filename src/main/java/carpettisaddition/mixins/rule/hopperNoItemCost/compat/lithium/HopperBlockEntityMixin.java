@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.rule.hopperNoItemCost.compact.lithium;
+package carpettisaddition.mixins.rule.hopperNoItemCost.compat.lithium;
 
 import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionSettings;

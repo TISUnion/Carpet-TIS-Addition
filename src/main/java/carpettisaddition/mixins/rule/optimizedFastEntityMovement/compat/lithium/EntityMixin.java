@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.rule.optimizedFastEntityMovement.compact.lithium;
+package carpettisaddition.mixins.rule.optimizedFastEntityMovement.compat.lithium;
 
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMContext;
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMUtil;
@@ -35,7 +35,7 @@ public abstract class EntityMixin
 	@Unique
 	private static final List<VoxelShape> EMPTY_BLOCK_COLLECTIONS = Lists.newArrayList();
 
-	@Dynamic
+	@Dynamic("Should be added by lithium")
 	@Redirect(
 			method = "lithiumCollideMultiAxisMovement",
 			at = @At(

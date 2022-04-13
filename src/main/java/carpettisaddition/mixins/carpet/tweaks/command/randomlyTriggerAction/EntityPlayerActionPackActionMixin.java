@@ -33,7 +33,8 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 			method = "tick",
 			at = @At(
 					value = "FIELD",
-					target = "Lcarpet/helpers/EntityPlayerActionPack$Action;interval:I"
+					target = "Lcarpet/helpers/EntityPlayerActionPack$Action;interval:I",
+					ordinal = 1
 			),
 			remap = false
 	)

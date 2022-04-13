@@ -15,6 +15,7 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 	private final Logger LOGGER = LogManager.getLogger();
 	private static final String LITHIUM_MOD_ID = "lithium";
 	private static final String TIC_TACS_MOD_ID = "tic_tacs";
+	private static final String MALILIB_MOD_ID = "malilib";
 
 	@Override
 	public void onLoad(String mixinPackage)
@@ -31,14 +32,20 @@ public class CarpetTISAdditionMixinPlugin implements IMixinConfigPlugin
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName)
 	{
-		if (mixinClassName.contains(".compact.lithium."))
+		if (mixinClassName.contains(".compat.lithium."))
 		{
 			return FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
 		}
-		if (mixinClassName.contains(".compact.tic_tacs."))
+		if (mixinClassName.contains(".compat.tic_tacs."))
 		{
 			return FabricLoader.getInstance().isModLoaded(TIC_TACS_MOD_ID);
 		}
+		if (mixinClassName.contains(".compat.malilib."))
+		{
+			return FabricLoader.getInstance().isModLoaded(MALILIB_MOD_ID);
+		}
+
+		// disable these when
 		if (mixinClassName.equals("carpettisaddition.mixins.rule.optimizedFastEntityMovement.EntityMixin"))
 		{
 			return !FabricLoader.getInstance().isModLoaded(LITHIUM_MOD_ID);
