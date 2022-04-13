@@ -4,4 +4,5 @@ public class ModIds
 {
 	public static final String lithium = "lithium";
 	public static final String malilib = "malilib";
+	public static final String tic_tacs = "tic_tacs";
 }
