@@ -12,7 +12,7 @@ repositories {
 		url 'https://masa.dy.fi/maven'
 	}
 	maven {
-		url 'https://www.jitpack.io'
+		url 'https://jitpack.io'
 	}
 	maven {
 		url 'https://www.cursemaven.com'
