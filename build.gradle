@@ -48,7 +48,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	
 	// mods
-	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+	modImplementation "com.github.gnembon:fabric-carpet:1.4.71"  // 22w15a-1.4.71+v220413 is not on masa's maven tho
 	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:mc1.18.2-0.7.9"
 
 	// runtime mods

@@ -12,7 +12,7 @@ public abstract class TntBlockMixin
 			method = "onDestroyedByExplosion",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/gen/random/AbstractRandom;nextInt(I)I"
+					target = "Lnet/minecraft/util/math/random/AbstractRandom;nextInt(I)I"
 			),
 			index = 0
 	)

@@ -2,8 +2,8 @@ package carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange;
 
 import carpet.CarpetSettings;
 import carpettisaddition.utils.GameUtil;
-import net.minecraft.world.gen.random.AbstractRandom;
-import net.minecraft.world.gen.random.RandomDeriver;
+import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.RandomDeriver;
 
 /**
  * A wrapped Random class for controlling the result of nextFloat() during method collectBlocksAndDamageEntities
