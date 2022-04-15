@@ -40,6 +40,14 @@ public class DimensionWrapper
 		return of(entity.getEntityWorld());
 	}
 
+	/**
+	 * Warning: mc version dependent
+	 */
+	public RegistryKey<World> getValue()
+	{
+		return this.dimensionType;
+	}
+
 	public Identifier getIdentifier()
 	{
 		return this.dimensionType.getValue();
