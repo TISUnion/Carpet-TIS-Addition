@@ -13,34 +13,33 @@ carpettisaddition:
         '2': "Related rule values to be set:"
 
   logger:
-    ticket:
-      added: added
-      removed: removed
-      time_detail: "World: %1$s\nGameTime: %2$s"
-      message: Ticket %1$s %2$s at %3$s
-      ticket_detail: "Level = %1$s\nDuration = %2$s\nEntity processing chunks: %3$s\nLazy processing chunks: %4$s\nBorder chunks: %5$s"
-      permanent: Permanent
+    commandBlock:
+      executed: '%1$s executed %2$s'
+      remove_executor: Click to remove %1$s
+    damage:
+      modify_reason:
+        wearing_a_helmet: Wearing a helmet
+        holding_a_shield: Holding a shield
+        recently_hit: Recently Hit
+        difficulty: Difficulty
+        immuse_to_damage: Immuse to damage
+        invulnerable: Invulnerable
+        respawn_protection: Respawn protection
+        pvp_disabled: PVP disabled
+        status_effect: Status effect
+        enchantment: Enchantment
+        armor: Armor
+      attacker: Attacker
+      source: Source
+      header_message: "%1$s is receiving %2$s damage, damage type: %3$s"
+      due_to: ' due to %1$s'
+      footer_message: "%1$s actually received %2$s damage, remaining health: %3$s"
     entity:
       created: '%1$s created'
       despawned: '%1$s despawned'
       damage_amount: Damage amount
-    xporb:
-      xp_amount: XP amount
     item:
       item_stack_size: Item stack size
-    raid:
-      created: 'Raid created with id %1$s'
-      invalidated: 'Raid (id: %1$s) invalidated, reason: %2$s'
-      bad_omen_level_increased: 'Raid (id: %1$s) increased its bad omen level to %2$s'
-      center_moved: 'Raid (id: %1$s) moves its center to %2$s'
-      raid_invalidate_reason:
-        difficulty_peaceful: difficulty peaceful
-        gamerule_disable: gamerule disable
-        poi_removed_before_spawn: poi removed before spawn
-        time_out: time out
-        raider_cannot_spawn: raider cannot spawn
-        raid_victory: raid victory
-        raid_defeat: raid defeat
     microTiming:
       gametime: GameTime
       merged_message: Merged %1$s more same messages
@@ -172,27 +171,35 @@ carpettisaddition:
         on_mobility_true: Marker %1$s is set to be §amovable§r
         on_mobility_false: Marker %1$s is set to be §cimmovable§r
         cleared: Marker cleared
-    damage:
-      modify_reason:
-        wearing_a_helmet: Wearing a helmet
-        holding_a_shield: Holding a shield
-        recently_hit: Recently Hit
-        difficulty: Difficulty
-        immuse_to_damage: Immuse to damage
-        invulnerable: Invulnerable
-        respawn_protection: Respawn protection
-        pvp_disabled: PVP disabled
-        status_effect: Status effect
-        enchantment: Enchantment
-        armor: Armor
-      attacker: Attacker
-      source: Source
-      header_message: "%1$s is receiving %2$s damage, damage type: %3$s"
-      due_to: ' due to %1$s'
-      footer_message: "%1$s actually received %2$s damage, remaining health: %3$s"
-    commandBlock:
-      executed: '%1$s executed %2$s'
-      remove_executor: Click to remove %1$s
+    mobcapsLocal:
+      player_not_found: Player %1$s not found
+      local: local
+    projectiles:
+      visualized:
+        info: 'Visualize projectile logger: visualized %1$s tick(s)'
+        not_enabled:
+          warn: 'Visualize projectile logger: visualize is not enabled'
+          hint: 'Click to enable'
+    raid:
+      created: 'Raid created with id %1$s'
+      invalidated: 'Raid (id: %1$s) invalidated, reason: %2$s'
+      bad_omen_level_increased: 'Raid (id: %1$s) increased its bad omen level to %2$s'
+      center_moved: 'Raid (id: %1$s) moves its center to %2$s'
+      raid_invalidate_reason:
+        difficulty_peaceful: difficulty peaceful
+        gamerule_disable: gamerule disable
+        poi_removed_before_spawn: poi removed before spawn
+        time_out: time out
+        raider_cannot_spawn: raider cannot spawn
+        raid_victory: raid victory
+        raid_defeat: raid defeat
+    ticket:
+      added: added
+      removed: removed
+      time_detail: "World: %1$s\nGameTime: %2$s"
+      message: Ticket %1$s %2$s at %3$s
+      ticket_detail: "Level = %1$s\nDuration = %2$s\nEntity processing chunks: %3$s\nLazy processing chunks: %4$s\nBorder chunks: %5$s"
+      permanent: Permanent
     tickWarp:
       not_started: Tick warp has not started
       starter: Starter
@@ -203,37 +210,12 @@ carpettisaddition:
       elapsed_time: Time elapsed
       estimated_time: Estimated remaining time
       show_history_header: Last tick warp result (%1$smin ago)
-    projectiles:
-      visualized:
-        info: 'Visualize projectile logger: visualized %1$s tick(s)'
-        not_enabled:
-          warn: 'Visualize projectile logger: visualize is not enabled'
-          hint: 'Click to enable'
+    xporb:
+      xp_amount: XP amount
 
   command:
-    raid:
-      raid_count: "Raid Count: %1$s"
-      status:
-        .: Status
-        ongoing: ongoing
-        victory: victory
-        loss: loss
-        stopped: stopped
-      center: Center
-      bad_omen_level: Bad omen level
-      waves: Waves
-      raiders: Raiders
-      none: None
-      no_raid: No raid exists
     info:
       ticking_order: "Ticking order of %1$s dimensions in the game:"
-    refresh:
-      inventory:
-        done: Inventory refreshed
-      chunk:
-        overloaded: "Refresh failed: Network connection overloaded"
-        too_far: "Selected chunk is not within your view distance"
-        done: "Refreshed %1$s chunks"
     manipulate:
       container:
         help: Manipulate %1$s
@@ -257,6 +239,30 @@ carpettisaddition:
           item_name: block event
           scheduled: Scheduled %1$s @ %2$s
           removed: Removed %1$s block events
+    raid:
+      raid_count: "Raid Count: %1$s"
+      status:
+        .: Status
+        ongoing: ongoing
+        victory: victory
+        loss: loss
+        stopped: stopped
+      center: Center
+      bad_omen_level: Bad omen level
+      waves: Waves
+      raiders: Raiders
+      none: None
+      no_raid: No raid exists
+    refresh:
+      inventory:
+        done: Inventory refreshed
+      chunk:
+        overloaded: "Refresh failed: Network connection overloaded"
+        too_far: "Selected chunk is not within your view distance"
+        done: "Refreshed %1$s chunks"
+    spawn:
+      mobcapsLocal:
+        info: 'Local mobcaps of player %1$s:'
 
   tracker:
     tracker_name_full: '%1$s Tracker'
@@ -268,11 +274,6 @@ carpettisaddition:
     tracked: Tracked %1$s
     real_time: real time
     in_game: in game
-    raid:
-      name: Raid
-      raid_generated: Raid generated
-      invalidate_reasons_statistics: Reasons for invalidation
-      none: None
     lifetime:
       name: LifeTime
       no_result: No result yet
@@ -354,6 +355,11 @@ carpettisaddition:
         dimension: Dimension
         anchor_pos: Anchor Pos
         click_to_clear: "Click to clear filter"
+    raid:
+      name: Raid
+      raid_generated: Raid generated
+      invalidate_reasons_statistics: Reasons for invalidation
+      none: None
 
   util:
     teleport_hint:

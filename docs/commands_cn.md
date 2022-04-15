@@ -4,21 +4,6 @@
 
 # 指令
 
-## 袭击 (raid)
-
-### 列表 (list)
-
-`/raid list [<full>]`
-
-列出目前所有袭击的信息
-
-### 追踪 (tracking)
-
-`/raid tracking [<start|stop|restart|realtime>]`
-
-开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
-
-
 ## 信息 (info)
 
 ### world ticking_order
@@ -40,7 +25,7 @@
 
 给指令添加 `realtime` 后缀可将速率结果从基于游戏时间转换为基于现实时间
 
-如果你需要切换对不占用怪物容量的生物的策略，可以去看看规则 [lifeTimeTrackerConsidersMobcap](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 
+如果你需要切换对不占用怪物容量的生物的策略，可以去看看规则 [lifeTimeTrackerConsidersMobcap](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap)
 
 ### tracking
 
@@ -114,15 +99,48 @@
 使用 `/lifetime filter` 来显示激活的实体筛选器
 
 
-## tick
+## 操控世界 (manipulate)
 
-### warp status
+操控世界
 
-`/tick warp status`
+### container
 
-显示当前 tick warp 的状态信息，如启动者、估计剩余时间等
+`/manipulate container`
 
-见 [tickWarp 记录器](loggers_cn.md#tickwarp) 以了解更方便地查询信息的方法
+操控世界的数据结构容器，包括：
+
+| 容器名 | 指令前缀 | 支持的操作 |
+| --- | --- | --- |
+| 实体列表 | `entity` | 翻转、随机打乱 |
+| 可运算的方块实体列表 | `tileentity` | 翻转、随机打乱 |
+| 计划刻队列 | `tiletick` | 添加元素、移除给定位置的元素 |
+| 方块事件队列 | `blockevent` | 添加元素、移除给定位置的元素 |
+
+指令列表：
+
+```
+/manipulate container entity [revert|shuffle]
+/manipulate container tileentity [revert|shuffle]
+/manipulate container tiletick add <pos> <block> <delay> [<priority>]
+/manipulate container tiletick remove <pos>
+/manipulate container blockevent add <pos> <block> <type> <data>
+/manipulate container blockevent remove <pos>
+```
+
+
+## 袭击 (raid)
+
+### 列表 (list)
+
+`/raid list [<full>]`
+
+列出目前所有袭击的信息
+
+### 追踪 (tracking)
+
+`/raid tracking [<start|stop|restart|realtime>]`
+
+开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
 
 
 ## 刷新 (refresh)
@@ -150,28 +168,27 @@
 受到数据包压缩操作影响，区块批量刷新操作会对服务端的网络线程造成卡顿，因此该指令包含一个输入限速器来防止数据包过多地堆积
 
 
-## 操控世界 (manipulate)
+## spawn
 
-### container
+### mobcapsLocal
 
-`/manipulate container`
+**于 Minecraft 1.18.2+ 中可用**
 
-操控世界的数据结构容器，包括：
+`/spawn mobcapsLocal [<玩家>]`
 
-| 容器名 | 指令前缀 | 支持的操作 |
-| --- | --- | --- |
-| 实体列表 | `entity` | 翻转、随机打乱 |
-| 可运算的方块实体列表 | `tileentity` | 翻转、随机打乱 |
-| 计划刻队列 | `tiletick` | 添加元素、移除给定位置的元素 |
-| 方块事件队列 | `blockevent` | 添加元素、移除给定位置的元素 |
+以类似 carpet 的 `/spawn mobcaps` 命令的格式显示指定玩家的局部怪物容量
 
-指令列表：
+若未指定玩家，则它将显示指令源的局部怪物容量
 
-```
-/manipulate container entity [revert|shuffle]
-/manipulate container tileentity [revert|shuffle]
-/manipulate container tiletick add <pos> <block> <delay> [<priority>]
-/manipulate container tiletick remove <pos>
-/manipulate container blockevent add <pos> <block> <type> <data>
-/manipulate container blockevent remove <pos>
-```
+另见: [mobcapslocal记录器](loggers_cn.md#局部怪物容量-mobcapslocal)
+
+
+## tick
+
+### warp status
+
+`/tick warp status`
+
+显示当前 tick warp 的状态信息，如启动者、估计剩余时间等
+
+见 [tickWarp 记录器](loggers_cn.md#tickwarp) 以了解更方便地查询信息的方法
