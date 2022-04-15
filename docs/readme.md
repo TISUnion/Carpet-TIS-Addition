@@ -86,19 +86,19 @@
 
 ## [Loggers](loggers.md)
 
-- [ticket](loggers.md#ticket)
-- [memory](loggers.md#memory)
-- [item](loggers.md#item)
-- [xporb](loggers.md#xporb)
-- [raid](loggers.md#raid)
-- [microTiming](loggers.md#microtiming)
-- [damage](loggers.md#damage)
 - [commandBlock](loggers.md#commandblock)
+- [damage](loggers.md#damage)
+- [item](loggers.md#item)
+- [lifeTime](loggers.md#lifetime)
 - [lightQueue](loggers.md#lightqueue)
+- [memory](loggers.md#memory)
+- [microTiming](loggers.md#microtiming)
+- [mobcapsLocal](loggers.md#mobcapslocal)
+- [raid](loggers.md#raid)
+- [ticket](loggers.md#ticket)
 - [tickWarp](loggers.md#tickwarp)
 - [turtleEgg](loggers.md#turtleegg)
-- [lifeTime](loggers.md#lifetime)
-- [mobcapsLocal](loggers.md#mobcapslocal)
+- [xporb](loggers.md#xporb)
 
 ## [Commands](commands.md)
 

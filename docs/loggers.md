@@ -4,32 +4,35 @@
 
 # Loggers
 
-## ticket
+## commandBlock
 
-`/log ticket <types>`
+`/log commandBlock <option>`
 
-Info when a ticket is created or removed
+Info when a command block or command block minecart executes command
 
-Use csv format, like `portal,dragon` for logging multiple types of ticket
+It's useful to find out where the annoying hidden running command block is
 
-Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 version)
-
-**Warning:** Logging `unknown` ticket may make you get spammed
+With default `throttled` option every command block will log at the highest frequency once every 3 seconds
 
 Attributes:
-- Default option: `portal`
-- Suggested options: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
+- Default option: `throttled`
+- Suggested options: `throttled`, `all`
 
 
-## memory
+## damage
 
-`/log memory`
+`/log damage <target>`
 
-Display current consumed and total memory of the server in HUD
+Info when a living entity gets damage and display how the damage gets calculated
+
+Available logging targets:
+- `all`: Log damage from all living entities
+- `players`: Log damage with player participation
+- `me`: Log damage related to yourself
 
 Attributes:
-- Default option: N/A
-- Suggested options: N/A
+- Default option: `all`
+- Suggested options: `all`, `players`, `me`
 
 
 ## item
@@ -52,23 +55,47 @@ Attributes:
 - Suggested options: `despawn`, `die`, `despawn,die`
 
 
-## xporb
+## lifeTime
 
-`/log xporb <events>`
+`/log lifeTime <entity_type>`
 
-Basically the same as [item logger](#item) but logs experience orb entities
+A HUD Logger
+
+Displays the current lifetime statistic of specific entity type from the [LifeTime Tracker](commands.md#lifetime) in the dimension the player is in
+
+The logging options is required to be an available entity type
+
+Attributes:
+- Default option: N/A
+- Suggested options: All available entity types in current's lifetime tracking
 
 
-## raid
+## lightQueue
 
-`/log raid`
+`/log lightQueue`
 
-Info when these raid related events happen:
+A HUD logger for debugging light suppression. It displays the following information of the lighting task queue:
 
-- A raid has been created
-- A raid has been invalidated
-- The bad omen level of a raid has been increased
-- The center Position of a raid has been moved
+- Average task accumulation speed
+- Current light queue size. Indicating with symbol `S`
+- Estimated duration of light suppression if the light suppressor is switched off now. Indicating with symbol `T`
+- Average task enqueuing speed
+- Average task executing speed
+
+The sampling duration can be specified with rule [lightQueueLoggerSamplingDuration](rules.md#lightqueueloggersamplingduration), default 60gt
+
+Specify the logging option to select the world you want log its light queue, like `/log mobcaps`
+
+Attributes:
+- Default option: `dynamic`
+- Suggested options: `dynamic`, `overworld`, `the_nether`, `the_end`
+
+
+## memory
+
+`/log memory`
+
+Display current consumed and total memory of the server in HUD
 
 Attributes:
 - Default option: N/A
@@ -93,56 +120,54 @@ Attributes:
 - Suggested options: `all`, `merged`, `unique`
 
 
-## damage
+## mobcapsLocal
 
-`/log damage <target>`
+**Available in Minecraft 1.18.2+**
 
-Info when a living entity gets damage and display how the damage gets calculated
+`/log mobcapsLocal [<player>]`
 
-Available logging targets:
-- `all`: Log damage from all living entities
-- `players`: Log damage with player participation
-- `me`: Log damage related to yourself
+A HUD Logger
 
-Attributes:
-- Default option: `all`
-- Suggested options: `all`, `players`, `me`
+Like carpet's mobcaps logger, but what it displays is the local mobcap of the specified player
 
-
-## commandBlock
-
-`/log commandBlock <option>`
-
-Info when a command block or command block minecart executes command
-
-It's useful to find out where the annoying hidden running command block is
-
-With default `throttled` option every command block will log at the highest frequency once every 3 seconds
+If no player is specified, it will display the local mobcap of the subscriber
 
 Attributes:
-- Default option: `throttled`
-- Suggested options: `throttled`, `all`
+- Default option: N/A
+- Suggested options: Names of all online players
 
 
-## lightQueue
+## raid
 
-`/log lightQueue`
+`/log raid`
 
-A HUD logger for debugging light suppression. It displays the following information of the lighting task queue:
+Info when these raid related events happen:
 
-- Average task accumulation speed
-- Current light queue size. Indicating with symbol `S`
-- Estimated duration of light suppression if the light suppressor is switched off now. Indicating with symbol `T`
-- Average task enqueuing speed
-- Average task executing speed
-
-The sampling duration can be specified with rule [lightQueueLoggerSamplingDuration](rules.md#lightqueueloggersamplingduration), default 60gt
-
-Specify the logging option to select the world you want log its light queue, like `/log mobcaps`
+- A raid has been created
+- A raid has been invalidated
+- The bad omen level of a raid has been increased
+- The center Position of a raid has been moved
 
 Attributes:
-- Default option: `dynamic`
-- Suggested options: `dynamic`, `overworld`, `the_nether`, `the_end`
+- Default option: N/A
+- Suggested options: N/A
+
+
+## ticket
+
+`/log ticket <types>`
+
+Info when a ticket is created or removed
+
+Use csv format, like `portal,dragon` for logging multiple types of ticket
+
+Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 version)
+
+**Warning:** Logging `unknown` ticket may make you get spammed
+
+Attributes:
+- Default option: `portal`
+- Suggested options: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
 
 
 ## tickWarp
@@ -171,33 +196,8 @@ Attributes:
 - Suggested options: N/A
 
 
-## lifeTime
+## xporb
 
-`/log lifeTime <entity_type>`
+`/log xporb <events>`
 
-A HUD Logger
-
-Displays the current lifetime statistic of specific entity type from the [LifeTime Tracker](commands.md#lifetime) in the dimension the player is in
-
-The logging options is required to be an available entity type
-
-Attributes:
-- Default option: N/A
-- Suggested options: All available entity types in current's lifetime tracking
-
-
-## mobcapsLocal
-
-**Available in Minecraft 1.18.2+**
-
-`/log mobcapsLocal [<player>]`
-
-A HUD Logger
-
-Like carpet's mobcaps logger, but what it displays is the local mobcap of the specified player
-
-If no player is specified, it will display the local mobcap of the subscriber
-
-Attributes:
-- Default option: N/A
-- Suggested options: Names of all online players
+Basically the same as [item logger](#item) but logs experience orb entities

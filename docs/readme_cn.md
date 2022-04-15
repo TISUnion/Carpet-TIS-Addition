@@ -86,19 +86,19 @@
 
 ## [记录器](loggers_cn.md)
 
-- [加载票](loggers_cn.md#加载票-ticket)
-- [内存](loggers_cn.md#内存-memory)
-- [掉落物](loggers_cn.md#掉落物-item)
-- [经验球](loggers_cn.md#经验球-xporb)
-- [袭击](loggers_cn.md#袭击-raid)
-- [微时序](loggers_cn.md#微时序-microtiming)
-- [伤害](loggers_cn.md#伤害-damage)
 - [命令方块](loggers_cn.md#命令方块-commandblock)
+- [伤害](loggers_cn.md#伤害-damage)
+- [掉落物](loggers_cn.md#掉落物-item)
+- [存活时间](loggers_cn.md#存活时间-lifetime)
 - [光照队列](loggers_cn.md#光照队列-lightqueue)
+- [内存](loggers_cn.md#内存-memory)
+- [微时序](loggers_cn.md#微时序-microtiming)
+- [局部怪物容量](loggers_cn.md#局部怪物容量-mobcapslocal)
+- [袭击](loggers_cn.md#袭击-raid)
+- [加载票](loggers_cn.md#加载票-ticket)
 - [tickWarp](loggers_cn.md#tickwarp)
 - [海龟蛋](loggers_cn.md#海龟蛋-turtleegg)
-- [存活时间](loggers_cn.md#存活时间-lifetime)
-- [局部怪物容量](loggers_cn.md#局部怪物容量-mobcapslocal)
+- [经验球](loggers_cn.md#经验球-xporb)
 
 ## [指令](commands_cn.md)
 
