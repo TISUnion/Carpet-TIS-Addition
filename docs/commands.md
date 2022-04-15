@@ -4,21 +4,6 @@
 
 # Commands
 
-## raid
-
-### list
-
-`/raid list [<full>]`
-
-List information of all current raids
-
-### tracking
-
-`/raid tracking [<start|stop|restart|realtime>]`
-
-Start a raid tracking to gather statistics from ongoing raids
-
-
 ## info
 
 ### world ticking_order
@@ -114,42 +99,6 @@ Filter is input as an `@e` style Minecraft entity selector. e.g. `@e[distance=..
 Use `/lifetime filter` to display current activated filters
 
 
-## tick
-
-### warp status
-
-`/tick warp status`
-
-Display the current status of tick warping, including starter, estimated remaining time etc.
-
-See [tickWarp logger](#tickWarp) for easier access
-
-
-## refresh
-
-### inventory
-
-`/refresh inventory`: Refresh your inventory
-
-`/refresh inventory <players>`: Refresh selected players' inventory. Requires permission level 2
-
-### chunk
-
-`/refresh chunk`: The same as `/refresh chunk current`
-
-`/refresh chunk current`: Refresh the current chunk you are in
-
-`/refresh chunk all`: Refresh all chunks within your view distance
-
-`/refresh chunk inrange <chebyshevDistance>`: Refresh all chunks within the given chebyshev distance
-
-`/refresh chunk at <chunkX> <chunkZ>`: Refresh the chunk at given position
-
-All chunk refresh operations only affect chunks within your view distance
-
-Multiple chunk refreshing creates lags on server's network thread due to packet compression, so there is an input thresholder for the command to prevent packet over-accumulation
-
-
 ## manipulate
 
 Manipulate the world
@@ -177,3 +126,69 @@ Command lists:
 /manipulate container blockevent add <pos> <block> <type> <data>
 /manipulate container blockevent remove <pos>
 ```
+
+
+## raid
+
+### list
+
+`/raid list [<full>]`
+
+List information of all current raids
+
+### tracking
+
+`/raid tracking [<start|stop|restart|realtime>]`
+
+Start a raid tracking to gather statistics from ongoing raids
+
+
+## refresh
+
+### inventory
+
+`/refresh inventory`: Refresh your inventory
+
+`/refresh inventory <players>`: Refresh selected players' inventory. Requires permission level 2
+
+### chunk
+
+`/refresh chunk`: The same as `/refresh chunk current`
+
+`/refresh chunk current`: Refresh the current chunk you are in
+
+`/refresh chunk all`: Refresh all chunks within your view distance
+
+`/refresh chunk inrange <chebyshevDistance>`: Refresh all chunks within the given chebyshev distance
+
+`/refresh chunk at <chunkX> <chunkZ>`: Refresh the chunk at given position
+
+All chunk refresh operations only affect chunks within your view distance
+
+Multiple chunk refreshing creates lags on server's network thread due to packet compression, so there is an input thresholder for the command to prevent packet over-accumulation
+
+
+## spawn
+
+### mobcapsLocal
+
+**Available in Minecraft 1.18.2+**
+
+`/spawn mobcapsLocal [<player>]`
+
+Display the local mobcap of the specified player in format like carpet's `/spawn mobcaps` command
+
+If no player is specified, it will display the local mobcap of the command source
+
+See also: [tickWarp logger](loggers.md#mobcapslocal)
+
+
+## tick
+
+### warp status
+
+`/tick warp status`
+
+Display the current status of tick warping, including starter, estimated remaining time etc.
+
+See [tickWarp logger](loggers.md#tickwarp) for easier access
