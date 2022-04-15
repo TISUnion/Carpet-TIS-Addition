@@ -4,7 +4,7 @@
 
 # Scarpet
 
-Available in Carpet TIS Addition 1.16.4+
+**Available in Minecraft 1.16.4+**
 
 ## Functions
 

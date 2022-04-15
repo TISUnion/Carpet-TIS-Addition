@@ -4,32 +4,35 @@
 
 # 记录器
 
-## 加载票 (ticket)
+## 命令方块 (commandBlock)
 
-`/log ticket <监视类型>`
+`/log commandBlock <option>`
 
-记录加载票的添加以及移除
+记录命令方块或命令方块矿车的指令执行
 
-用 csv 格式，例如 `portal,dragon` 来监视多种类型的加载票
+有助于找到烦人的不知所踪的命令方块在何处
 
-可用的选项分隔符: `,`、`.` 与 ` ` (`.` 是 1.14.4 版本的唯一选择)
-
-**警告:** 监视 `unknown` 加载票的话可能会导致你被刷屏
+当使用默认的 `throttled` 选项，每个命令方块最高以每 3 秒一次的频率记录其执行
 
 属性:
-- 默认选项: `portal`
-- 参考选项: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
+- 默认选项: `throttled`
+- 参考选项: `throttled`, `all`
 
 
-## 内存 (memory)
+## 伤害 (damage)
 
-`/log memory`
+`/log damage <目标>`
 
-于 tab 栏中显示服务端当前消耗的内存以及占用的最大内存
+记录生物的受伤，以及伤害结算的具体流程
+
+可选的记录目标:
+- `all`: 记录所有生物
+- `players`: 记录有玩家参与的生物伤害
+- `me`: 记录与自己相关的伤害
 
 属性:
-- 默认选项: N/A
-- 参考选项: N/A
+- 默认选项: `all`
+- 参考选项: `all`, `players`, `me`
 
 
 ## 掉落物 (item)
@@ -52,23 +55,47 @@
 - 参考选项: `despawn`, `die`, `despawn,die`
 
 
-## 经验球 (xporb)
+## 存活时间 (lifeTime)
 
-`/log xporb <events>`
+`/log lifeTime <实体类型>`
 
-基本上与 [掉落物记录器](#掉落物-item) 相同，只不过监视的是经验球实体
+一个 HUD 记录器
+
+显示玩家所处在的维度中指定实体类型当前于 [存活时间追踪器](commands_cn.md#存活时间-lifetime) 中的数据
+
+记录器选项需要为一个合法的实体类型
+
+属性:
+- 默认选项: N/A
+- 参考选项: 所有在当前追踪中可用的实体类型
 
 
-## 袭击 (raid)
+## 光照队列 (lightQueue)
 
-`/log raid`
+`/log lightQueue`
 
-记录以下袭击相关的事件：
+一个用于调试光照抑制的 HUD 记录器。它将显示光照队列的如下信息：
 
-- 袭击被创建
-- 袭击被移除
-- 袭击的不祥之兆等级被提升
-- 袭击的中心点被移动
+- 当前光照队列的大小。用符号 `S` 表示
+- 如果光照抑制器被关闭，光照抑制将会持续的预估时长。用符号 `T` 表示
+- 光照更新任务平均每游戏刻入队速度。用符号 `I` 表示
+- 光照更新任务平均每游戏刻执行速度。用符号 `O` 表示
+- 光照更新任务平均每游戏刻积累速度
+
+计算平均值的采样时长可通过规则 [lightQueueLoggerSamplingDuration](rules_cn.md#光照队列记录器采样时长-lightqueueloggersamplingduration) 指定，默认值为 60gt
+
+类似 `/log mobcaps`， 你可以通过记录器选项来指定你想要记录光照队列的世界。
+
+属性:
+- 默认选项: `dynamic`
+- 参考选项: `dynamic`, `overworld`, `the_nether`, `the_end`
+
+
+## 内存 (memory)
+
+`/log memory`
+
+于 tab 栏中显示服务端当前消耗的内存以及占用的最大内存
 
 属性:
 - 默认选项: N/A
@@ -93,56 +120,54 @@
 - 参考选项: `all`, `merged` `unique`
 
 
-## 伤害 (damage)
+## 局部怪物容量 (mobcapsLocal)
 
-`/log damage <目标>`
+**于 Minecraft 1.18.2+ 中可用**
 
-记录生物的受伤，以及伤害结算的具体流程
+`/log mobcapsLocal [<玩家名>]`
 
-可选的记录目标:
-- `all`: 记录所有生物
-- `players`: 记录有玩家参与的生物伤害
-- `me`: 记录与自己相关的伤害
+一个 HUD 记录器
 
-属性:
-- 默认选项: `all`
-- 参考选项: `all`, `players`, `me`
+类似 carpet 的 mobcaps 记录器，不过它显示的数据为指定玩家的局部怪物容量
 
-
-## 命令方块 (commandBlock)
-
-`/log commandBlock <option>`
-
-记录命令方块或命令方块矿车的指令执行
-
-有助于找到烦人的不知所踪的命令方块在何处
-
-当使用默认的 `throttled` 选项，每个命令方块最高以每 3 秒一次的频率记录其执行
+若未指定玩家，则它将显示订阅者的局部怪物容量
 
 属性:
-- 默认选项: `throttled`
-- 参考选项: `throttled`, `all`
+- 默认选项: N/A
+- 参考选项: 所有在线玩家的玩家名
 
 
-## 光照队列 (lightQueue)
+## 袭击 (raid)
 
-`/log lightQueue`
+`/log raid`
 
-一个用于调试光照抑制的 HUD 记录器。它将显示光照队列的如下信息：
+记录以下袭击相关的事件：
 
-- 当前光照队列的大小。用符号 `S` 表示
-- 如果光照抑制器被关闭，光照抑制将会持续的预估时长。用符号 `T` 表示
-- 光照更新任务平均每游戏刻入队速度。用符号 `I` 表示
-- 光照更新任务平均每游戏刻执行速度。用符号 `O` 表示
-- 光照更新任务平均每游戏刻积累速度
-
-计算平均值的采样时长可通过规则 [lightQueueLoggerSamplingDuration](rules_cn.md#光照队列记录器采样时长-lightqueueloggersamplingduration) 指定，默认值为 60gt
-
-类似 `/log mobcaps`， 你可以通过记录器选项来指定你想要记录光照队列的世界。
+- 袭击被创建
+- 袭击被移除
+- 袭击的不祥之兆等级被提升
+- 袭击的中心点被移动
 
 属性:
-- 默认选项: `dynamic`
-- 参考选项: `dynamic`, `overworld`, `the_nether`, `the_end`
+- 默认选项: N/A
+- 参考选项: N/A
+
+
+## 加载票 (ticket)
+
+`/log ticket <监视类型>`
+
+记录加载票的添加以及移除
+
+用 csv 格式，例如 `portal,dragon` 来监视多种类型的加载票
+
+可用的选项分隔符: `,`、`.` 与 ` ` (`.` 是 1.14.4 版本的唯一选择)
+
+**警告:** 监视 `unknown` 加载票的话可能会导致你被刷屏
+
+属性:
+- 默认选项: `portal`
+- 参考选项: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
 
 
 ## tickWarp
@@ -171,16 +196,8 @@
 - 参考选项: N/A
 
 
-## 存活时间 (lifeTime)
+## 经验球 (xporb)
 
-`/log lifeTime <实体类型>`
+`/log xporb <events>`
 
-一个用于 HUD 记录器
-
-显示玩家所处在的维度中指定实体类型当前于 [存活时间追踪器](commands_cn.md#存活时间-lifetime) 中的数据
-
-记录器选项需要为一个合法的实体类型
-
-属性:
-- 默认选项: N/A
-- 参考选项: 所有在当前追踪中可用的实体类型
+基本上与 [掉落物记录器](#掉落物-item) 相同，只不过监视的是经验球实体

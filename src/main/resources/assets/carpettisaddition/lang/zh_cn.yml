@@ -13,34 +13,33 @@ carpettisaddition:
         '2': '相关规则将要修改为的值:'
 
   logger:
-    ticket:
-      added: 被添加
-      removed: 被移除
-      time_detail: "世界: %1$s\n游戏刻: %2$s"
-      message: 加载票 %1$s 于 %3$s %2$s
-      ticket_detail: "等级 = %1$s\n持续时间 = %2$s\n强加载区块: %3$s\n弱加载区块: %4$s\n边界区块: %5$s"
-      permanent: 永久
+    commandBlock:
+      executed: '%1$s执行了%2$s'
+      remove_executor: 点击以删除%1$s
+    damage:
+      modify_reason:
+        wearing_a_helmet: 戴着头盔
+        holding_a_shield: 举着盾牌
+        recently_hit: 伤害冷却
+        difficulty: 游戏难度
+        immuse_to_damage: 免疫伤害
+        invulnerable: 无敌
+        respawn_protection: 重生保护
+        pvp_disabled: 禁止PVP
+        status_effect: 状态效果
+        enchantment: 附魔
+        armor: 护甲
+      attacker: 攻击者
+      source: 来源
+      header_message: "%1$s正在受到%2$s伤害，伤害类型: %3$s"
+      due_to: ', 原因: %1$s'
+      footer_message: "%1$s实际受到%2$s伤害，剩余生命值: %3$s"
     entity:
       created: '%1$s被创建了'
       despawned: '%1$s消失了'
       damage_amount: 伤害值
-    xporb:
-      xp_amount: 经验值
     item:
       item_stack_size: 物品数
-    raid:
-      created: '袭击(id: %1$s)被创建'
-      invalidated: '袭击(id: %1$s)结束，原因为: %2$s'
-      bad_omen_level_increased: '袭击(id: %1$s)不祥之兆等级提升为%2$s'
-      center_moved: '袭击(id: %1$s)的中心点移动至%2$s'
-      raid_invalidate_reason:
-        difficulty_peaceful: 难度被设为和平
-        gamerule_disable: 被游戏规则禁用
-        poi_removed_before_spawn: 生成袭击者前POI全被移除
-        time_out: 超过时长限制
-        raider_cannot_spawn: 无法生成袭击者
-        raid_victory: 袭击胜利
-        raid_defeat: 袭击失败
     microTiming:
       gametime: 游戏刻
       merged_message: 已合并额外%1$s条相同的信息
@@ -172,27 +171,35 @@ carpettisaddition:
         on_mobility_true: 已将记号%1$s设置为§a可移动§r
         on_mobility_false: 已将记号%1$s设置为§c不可移动§r
         cleared: 已清除全部微时序记号
-    damage:
-      modify_reason:
-        wearing_a_helmet: 戴着头盔
-        holding_a_shield: 举着盾牌
-        recently_hit: 伤害冷却
-        difficulty: 游戏难度
-        immuse_to_damage: 免疫伤害
-        invulnerable: 无敌
-        respawn_protection: 重生保护
-        pvp_disabled: 禁止PVP
-        status_effect: 状态效果
-        enchantment: 附魔
-        armor: 护甲
-      attacker: 攻击者
-      source: 来源
-      header_message: "%1$s正在受到%2$s伤害，伤害类型: %3$s"
-      due_to: ', 原因: %1$s'
-      footer_message: "%1$s实际受到%2$s伤害，剩余生命值: %3$s"
-    commandBlock:
-      executed: '%1$s执行了%2$s'
-      remove_executor: 点击以删除%1$s
+    mobcapsLocal:
+      player_not_found: 未找到玩家%1$s
+      local: 局部
+    projectiles:
+      visualized:
+        info: '可视化投掷物记录器: 已可视化%1$s游戏刻的轨迹'
+        not_enabled:
+          warn: '可视化投掷物记录器: 可视化规则未启用'
+          hint: 点击以启用
+    raid:
+      created: '袭击(id: %1$s)被创建'
+      invalidated: '袭击(id: %1$s)结束，原因为: %2$s'
+      bad_omen_level_increased: '袭击(id: %1$s)不祥之兆等级提升为%2$s'
+      center_moved: '袭击(id: %1$s)的中心点移动至%2$s'
+      raid_invalidate_reason:
+        difficulty_peaceful: 难度被设为和平
+        gamerule_disable: 被游戏规则禁用
+        poi_removed_before_spawn: 生成袭击者前POI全被移除
+        time_out: 超过时长限制
+        raider_cannot_spawn: 无法生成袭击者
+        raid_victory: 袭击胜利
+        raid_defeat: 袭击失败
+    ticket:
+      added: 被添加
+      removed: 被移除
+      time_detail: "世界: %1$s\n游戏刻: %2$s"
+      message: 加载票 %1$s 于 %3$s %2$s
+      ticket_detail: "等级 = %1$s\n持续时间 = %2$s\n强加载区块: %3$s\n弱加载区块: %4$s\n边界区块: %5$s"
+      permanent: 永久
     tickWarp:
       not_started: tick warp尚未开始
       starter: 启动者
@@ -203,40 +210,12 @@ carpettisaddition:
       elapsed_time: 已流逝时间
       estimated_time: 剩余时间
       show_history_header: 上一次tick warp的结果 (%1$smin前)
-    projectiles:
-      visualized:
-        info: '可视化投掷物记录器: 已可视化%1$s游戏刻的轨迹'
-        not_enabled:
-          warn: '可视化投掷物记录器: 可视化规则未启用'
-          hint: 点击以启用
-    mobcapsLocal:
-      player_not_found: 未找到玩家%1$s
-      local: 局部
+    xporb:
+      xp_amount: 经验值
 
   command:
-    raid:
-      raid_count: "袭击数量: %1$s"
-      status:
-        .: 状态
-        ongoing: 进行中
-        victory: 胜利
-        loss: 失败
-        stopped: 终止
-      center: 中心点
-      bad_omen_level: 不祥之兆等级
-      waves: 波数
-      raiders: 袭击者
-      none: 无
-      no_raid: 不存在袭击
     info:
       ticking_order: 游戏中%1$s个维度的运算顺序：
-    refresh:
-      inventory:
-        done: 已刷新物品栏
-      chunk:
-        overloaded: 刷新失败：玩家网络连接已过载
-        too_far: 选中的区块不在你的视距之内
-        done: 已刷新%1$s个区块
     manipulate:
       container:
         help: 操控%1$s
@@ -260,6 +239,27 @@ carpettisaddition:
           item_name: 方块事件
           scheduled: 已添加%1$s @ %2$s
           removed: 已移除%1$s个方块事件
+    raid:
+      raid_count: "袭击数量: %1$s"
+      status:
+        .: 状态
+        ongoing: 进行中
+        victory: 胜利
+        loss: 失败
+        stopped: 终止
+      center: 中心点
+      bad_omen_level: 不祥之兆等级
+      waves: 波数
+      raiders: 袭击者
+      none: 无
+      no_raid: 不存在袭击
+    refresh:
+      inventory:
+        done: 已刷新物品栏
+      chunk:
+        overloaded: 刷新失败：玩家网络连接已过载
+        too_far: 选中的区块不在你的视距之内
+        done: 已刷新%1$s个区块
     spawn:
       mobcapsLocal:
         info: '玩家%1$s的局部怪物容量:'
@@ -274,11 +274,6 @@ carpettisaddition:
     tracked: 已追踪 %1$s
     real_time: 现实时间
     in_game: 游戏内时间
-    raid:
-      name: 袭击
-      raid_generated: 袭击生成统计
-      invalidate_reasons_statistics: 结束原因统计
-      none: 暂无
     lifetime:
       name: 存活时间
       no_result: 暂无结果
@@ -360,6 +355,11 @@ carpettisaddition:
         dimension: 维度
         anchor_pos: 锚点坐标
         click_to_clear: 点击以清除筛选器
+    raid:
+      name: 袭击
+      raid_generated: 袭击生成统计
+      invalidate_reasons_statistics: 结束原因统计
+      none: 暂无
 
   util:
     teleport_hint:

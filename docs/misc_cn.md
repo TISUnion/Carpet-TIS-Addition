@@ -4,7 +4,7 @@
 
 # Scarpet
 
-于 Carpet TIS Addition 1.16.4+ 中可用
+**于 Minecraft 1.16.4+ 中可用**
 
 ## 函数
 
