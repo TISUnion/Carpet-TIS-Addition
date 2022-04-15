@@ -184,3 +184,20 @@ The logging options is required to be an available entity type
 Attributes:
 - Default option: N/A
 - Suggested options: All available entity types in current's lifetime tracking
+
+
+## mobcapsLocal
+
+**Available in Minecraft 1.18.2+**
+
+`/log mobcapsLocal [<player>]`
+
+A HUD Logger
+
+Like carpet's mobcaps logger, but what it displays is the local mobcap of the specified player
+
+If no player is specified, it will display the local mobcap of the subscriber
+
+Attributes:
+- Default option: N/A
+- Suggested options: Names of all online players

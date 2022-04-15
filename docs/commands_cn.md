@@ -175,3 +175,18 @@
 /manipulate container blockevent add <pos> <block> <type> <data>
 /manipulate container blockevent remove <pos>
 ```
+
+
+## spawn
+
+### mobcapsLocal
+
+**于 Minecraft 1.18.2+ 中可用**
+
+`/spawn mobcapsLocal [<玩家>]`
+
+以类似 carpet 的 `/spawn mobcaps` 命令的格式显示指定玩家的局部怪物容量
+
+若未指定玩家，则它将显示指令源的局部怪物容量
+
+另见: [mobcapslocal记录器](loggers_cn.md#局部怪物容量-mobcapslocal)

@@ -122,7 +122,7 @@ Use `/lifetime filter` to display current activated filters
 
 Display the current status of tick warping, including starter, estimated remaining time etc.
 
-See [tickWarp logger](#tickWarp) for easier access
+See [tickWarp logger](loggers.md#tickwarp) for easier access
 
 
 ## refresh
@@ -177,3 +177,18 @@ Command lists:
 /manipulate container blockevent add <pos> <block> <type> <data>
 /manipulate container blockevent remove <pos>
 ```
+
+
+## spawn
+
+### mobcapsLocal
+
+**Available in Minecraft 1.18.2+**
+
+`/spawn mobcapsLocal [<player>]`
+
+Display the local mobcap of the specified player in format like carpet's `/spawn mobcaps` command
+
+If no player is specified, it will display the local mobcap of the command source
+
+See also: [tickWarp logger](loggers.md#mobcapslocal)

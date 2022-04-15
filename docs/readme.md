@@ -98,6 +98,7 @@
 - [tickWarp](loggers.md#tickwarp)
 - [turtleEgg](loggers.md#turtleegg)
 - [lifeTime](loggers.md#lifetime)
+- [mobcapsLocal](loggers.md#mobcapslocal)
 
 ## [Commands](commands.md)
 
@@ -107,6 +108,7 @@
 - [tick](commands.md#tick)
 - [refresh](commands.md#refresh)
 - [manipulate](commands.md#manipulate)
+- [spawn](commands.md#spawn)
 
 ## [Scarpet](misc.md#scarpet)
 

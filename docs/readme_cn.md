@@ -98,6 +98,7 @@
 - [tickWarp](loggers_cn.md#tickwarp)
 - [海龟蛋](loggers_cn.md#海龟蛋-turtleegg)
 - [存活时间](loggers_cn.md#存活时间-lifetime)
+- [局部怪物容量](loggers_cn.md#局部怪物容量-mobcapslocal)
 
 ## [指令](commands_cn.md)
 
@@ -107,6 +108,7 @@
 - [tick](commands_cn.md#tick)
 - [刷新](commands_cn.md#刷新-refresh)
 - [操控世界](commands_cn.md#操控世界-manipulate)
+- [spawn](commands_cn.md#spawn)
 
 ## [Scarpet](misc_cn.md#scarpet)
 
