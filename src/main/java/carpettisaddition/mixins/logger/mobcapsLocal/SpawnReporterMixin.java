@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(SpawnReporter.class)
 public abstract class SpawnReporterMixin
 {
-	@Shadow @Final public static int MAGIC_NUMBER;
+	@Shadow(remap = false) @Final public static int MAGIC_NUMBER;
 
 	@Unique
 	private static SpawnGroup currentSpawnGroup$CTA = null;
