@@ -4,7 +4,7 @@
 
 - [索引](readme_cn.md)
 - [规则](rules_cn.md)
-- [监视器](loggers_cn.md)
+- [记录器](loggers_cn.md)
 - [指令](commands_cn.md)
 - [杂项](misc_cn.md)
 - [开发](development_cn.md)
@@ -36,7 +36,7 @@
 - [禁用流体破坏](rules_cn.md#禁用流体破坏-fluiddestructiondisabled)
 - [漏斗计数器无限速度](rules_cn.md#漏斗计数器无限速度-hoppercountersunlimitedspeed)
 - [漏斗不消耗物品](rules_cn.md#漏斗不消耗物品-hoppernoitemcost)
-- [hud监视器更新间隔](rules_cn.md#hud监视器更新间隔-hudloggerupdateinterval)
+- [hud记录器更新间隔](rules_cn.md#hud记录器更新间隔-hudloggerupdateinterval)
 - [瞬时命令方块](rules_cn.md#瞬时命令方块-instantcommandblock)
 - [禁用物品实体跳过移动运算](rules_cn.md#禁用物品实体跳过移动运算-itementityskipmovementdisabled)
 - [保持弱加载区块的怪物](rules_cn.md#保持弱加载区块的怪物-keepmobinlazychunks)
@@ -48,6 +48,7 @@
 - [微时序染料记号](rules_cn.md#微时序染料记号-microtimingdyemarker)
 - [微时序目标](rules_cn.md#微时序目标-microtimingtarget)
 - [微时序游戏刻划分](rules_cn.md#微时序游戏刻划分-microtimingtickdivision)
+- [怪物容量显示忽略杂项](rules_cn.md#怪物容量显示忽略杂项-mobcapsdisplayignoremisc)
 - [op玩家不准作弊](rules_cn.md#op玩家不准作弊-opplayernocheat)
 - [优化高速实体移动](rules_cn.md#优化高速实体移动-optimizedfastentitymovement)
 - [优化硬碰撞箱实体碰撞](rules_cn.md#优化硬碰撞箱实体碰撞-optimizedhardhitboxentitycollision)
@@ -83,7 +84,7 @@
 - [光照引擎最大任务组数](rules_cn.md#光照引擎最大任务组数-lightenginemaxbatchsize)
 - [结构方块轮廓距离](rules_cn.md#结构方块轮廓距离-structureblockoutlinedistance)
 
-## [监视器](loggers_cn.md)
+## [记录器](loggers_cn.md)
 
 - [加载票](loggers_cn.md#加载票-ticket)
 - [内存](loggers_cn.md#内存-memory)

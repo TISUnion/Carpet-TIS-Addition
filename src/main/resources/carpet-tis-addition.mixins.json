@@ -221,6 +221,7 @@
     "rule.largeBarrel.compat.malilib.BlockEntityTypeMixin",
     "rule.largeBarrel.compat.malilib.InventoryUtilsMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",
+    "rule.mobcapsDisplayIgnoreMisc.SpawnReporterMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",
     "rule.opPlayerNoCheat.SetBlockCommandMixin",
