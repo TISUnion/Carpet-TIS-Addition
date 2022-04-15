@@ -8,7 +8,6 @@ import carpettisaddition.logging.loggers.memory.MemoryHUDLogger;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import net.minecraft.server.MinecraftServer;
 
-
 public class TISAdditionHUDController
 {
     public static void updateHUD(MinecraftServer server)
@@ -17,9 +16,10 @@ public class TISAdditionHUDController
         doHudLogging(TISAdditionLoggerRegistry.__lifeTime, LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance());
         doHudLogging(TISAdditionLoggerRegistry.__tickWarp, TickWarpHUDLogger.NAME, TickWarpHUDLogger.getInstance());
         doHudLogging(TISAdditionLoggerRegistry.__memory, MemoryHUDLogger.NAME, MemoryHUDLogger.getInstance());
+        // mobcapsLocal logger has its own injection to make sure it will be updated right after the mobcaps logger
     }
 
-    private static void doHudLogging(boolean condition, String loggerName, AbstractHUDLogger logger)
+    public static void doHudLogging(boolean condition, String loggerName, AbstractHUDLogger logger)
     {
         if (condition)
         {
