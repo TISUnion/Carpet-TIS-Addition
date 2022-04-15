@@ -209,6 +209,9 @@ carpettisaddition:
         not_enabled:
           warn: 'Visualize projectile logger: visualize is not enabled'
           hint: 'Click to enable'
+    mobcapsLocal:
+      player_not_found: Player %1$s not found
+      local: local
 
   command:
     raid:
@@ -257,6 +260,9 @@ carpettisaddition:
           item_name: block event
           scheduled: Scheduled %1$s @ %2$s
           removed: Removed %1$s block events
+    spawn:
+      mobcapsLocal:
+        info: 'Local mobcaps of player %1$s:'
 
   tracker:
     tracker_name_full: '%1$s Tracker'

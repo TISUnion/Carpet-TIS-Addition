@@ -103,6 +103,8 @@
     "command.manipulate.EntityListAccessor",
     "command.manipulate.ServerWorldAccessor",
     "command.manipulate.WorldAccessor",
+    "command.mobcapsLocal.SpawnCommandAccessor",
+    "command.mobcapsLocal.SpawnCommandMixin",
     "command.raid.RaidAccessor",
     "command.raid.RaidManagerAccessor",
     "command.raid.RaidMixin",

@@ -209,6 +209,9 @@ carpettisaddition:
         not_enabled:
           warn: '可视化投掷物记录器: 可视化规则未启用'
           hint: 点击以启用
+    mobcapsLocal:
+      player_not_found: 未找到玩家%1$s
+      local: 局部
 
   command:
     raid:
@@ -257,6 +260,9 @@ carpettisaddition:
           item_name: 方块事件
           scheduled: 已添加%1$s @ %2$s
           removed: 已移除%1$s个方块事件
+    spawn:
+      mobcapsLocal:
+        info: '玩家%1$s的局部怪物容量:'
 
   tracker:
     tracker_name_full: '%1$s追踪器'

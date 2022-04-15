@@ -1,6 +1,10 @@
 package carpettisaddition.logging.loggers.mobcapsLocal;
 
+import carpet.logging.HUDLogger;
+import carpet.logging.Logger;
 import carpet.utils.SpawnReporter;
+import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.mixins.logger.mobcapsLocal.SpawnDensityCapperAccessor;
 import carpettisaddition.mixins.logger.mobcapsLocal.SpawnDensityCapperDensityCapAccessor;
@@ -12,9 +16,11 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.SpawnDensityCapper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 
 public class MobcapsLocalLogger extends AbstractHUDLogger
@@ -23,8 +29,7 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	private static final MobcapsLocalLogger INSTANCE = new MobcapsLocalLogger();
 
 	private final Map<DimensionWrapper, SpawnDensityCapper> capperMap = Maps.newHashMap();
-	@Nullable
-	private Object2IntMap<SpawnGroup> mobcapsMap = null;
+	private final ThreadLocal<@Nullable Object2IntMap<SpawnGroup>> mobcapsMap = ThreadLocal.withInitial(() -> null);
 
 	private MobcapsLocalLogger()
 	{
@@ -44,21 +49,77 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	@Nullable
 	public Object2IntMap<SpawnGroup> getMobcapsMap()
 	{
-		return mobcapsMap;
+		return mobcapsMap.get();
 	}
 
 	@Override
 	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
-		SpawnDensityCapper capper = this.capperMap.get(DimensionWrapper.of(playerEntity));
-		if (capper != null && playerEntity instanceof ServerPlayerEntity)
+		if (option != null)
 		{
-			SpawnDensityCapper.DensityCap cap = ((SpawnDensityCapperAccessor)capper).getPlayersToDensityCap().getOrDefault(playerEntity, SpawnDensityCapperDensityCapAccessor.invokeConstructor());
-			this.mobcapsMap = ((SpawnDensityCapperDensityCapAccessor) cap).getSpawnGroupsToDensity();
-			BaseText result = SpawnReporter.printMobcapsForDimension(((ServerPlayerEntity)playerEntity).getWorld(), false).get(0);
-			this.mobcapsMap = null;
-			return new BaseText[]{Messenger.c("g [local] ", result)};
+			ServerPlayerEntity specifiedPlayer = CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayer(option);
+			if (specifiedPlayer != null)
+			{
+				playerEntity = specifiedPlayer;
+			}
+			else
+			{
+				return new BaseText[]{Messenger.formatting(tr("player_not_found", option), Formatting.GRAY)};
+			}
 		}
-		return new BaseText[]{Messenger.s("-- Not available --")};
+		if (playerEntity instanceof ServerPlayerEntity)
+		{
+			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)playerEntity;
+			final BaseText result = Messenger.c("g [", Messenger.formatting(tr("local"), "g"), "g ] ");
+			this.withLocalMobcapContext(
+					serverPlayerEntity,
+					() -> {
+						List<BaseText> lines = SpawnReporter.printMobcapsForDimension(serverPlayerEntity.getWorld(), false);
+						result.append(lines.get(0));
+						if (option != null)
+						{
+							result.append(Messenger.s(String.format(" (%s)", option), "g"));
+						}
+					},
+					() -> {
+						result.append("-- Not available --");
+					}
+			);
+			return new BaseText[]{result};
+		}
+		return new BaseText[]{Messenger.s("-- Not ServerPlayerEntity --")};
+	}
+
+	public void withLocalMobcapContext(ServerPlayerEntity player, Runnable runnable, Runnable failureCallback)
+	{
+		SpawnDensityCapper capper = this.capperMap.get(DimensionWrapper.of(player));
+		if (capper != null)
+		{
+			SpawnDensityCapper.DensityCap cap = ((SpawnDensityCapperAccessor)capper).getPlayersToDensityCap().getOrDefault(player, SpawnDensityCapperDensityCapAccessor.invokeConstructor());
+			this.mobcapsMap.set(((SpawnDensityCapperDensityCapAccessor) cap).getSpawnGroupsToDensity());
+			try
+			{
+				runnable.run();
+			}
+			finally
+			{
+				this.mobcapsMap.set(null);
+			}
+		}
+		else
+		{
+			failureCallback.run();
+		}
+	}
+
+	public Logger getHUDLogger()
+	{
+		return new HUDLogger(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, null, null, false) {
+			@Override
+			public String[] getOptions()
+			{
+				return CarpetTISAdditionServer.minecraft_server.getPlayerNames();
+			}
+		};
 	}
 }

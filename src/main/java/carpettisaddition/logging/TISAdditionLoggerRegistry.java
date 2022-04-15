@@ -53,7 +53,7 @@ public class TISAdditionLoggerRegistry
         LoggerRegistry.registerLogger(TurtleEggLogger.NAME, standardLogger(TurtleEggLogger.NAME, null, null));
         LoggerRegistry.registerLogger(LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance().getHUDLogger());
 
-        LoggerRegistry.registerLogger(MobcapsLocalLogger.NAME, standardHUDLogger(MobcapsLocalLogger.NAME, null, null));
+        LoggerRegistry.registerLogger(MobcapsLocalLogger.NAME, MobcapsLocalLogger.getInstance().getHUDLogger());
     }
 
     public static Field getLoggerField(String logName)
