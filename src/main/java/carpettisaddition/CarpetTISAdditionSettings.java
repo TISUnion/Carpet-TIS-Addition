@@ -542,6 +542,16 @@ public class CarpetTISAdditionSettings
 	public static TickDivision microTimingTickDivision = TickDivision.WORLD_TIMER;
 
 	@Rule(
+			desc = "Ignore mob type \"misc\" in carpet mobcaps displays",
+			extra = {
+					"Since it's useless: Nothing in misc category spawns, and it's ignored when calculating mobcap",
+					"Affects mobcaps logger and /spawn mobcap command"
+			},
+			category = {TIS, CARPET_MOD}
+	)
+	public static boolean mobcapsDisplayIgnoreMisc = false;
+
+	@Rule(
 			desc = "Disable some command to prevent accidentally cheating",
 			extra = "Affects command list: /gamemode, /tp, /teleport, /give, /setblock, /summon",
 			category = {TIS, SURVIVAL},

@@ -8,7 +8,6 @@ import carpettisaddition.logging.loggers.memory.MemoryHUDLogger;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import net.minecraft.server.MinecraftServer;
 
-
 public class TISAdditionHUDController
 {
     public static void updateHUD(MinecraftServer server)
@@ -19,7 +18,7 @@ public class TISAdditionHUDController
         doHudLogging(TISAdditionLoggerRegistry.__memory, MemoryHUDLogger.NAME, MemoryHUDLogger.getInstance());
     }
 
-    private static void doHudLogging(boolean condition, String loggerName, AbstractHUDLogger logger)
+    public static void doHudLogging(boolean condition, String loggerName, AbstractHUDLogger logger)
     {
         if (condition)
         {

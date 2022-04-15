@@ -504,6 +504,20 @@ Determine the way to divide game ticks
 - Categories: `TIS`, `CREATIVE`
 
 
+## mobcapsDisplayIgnoreMisc
+
+Ignore mob type "misc" in carpet mobcaps displays
+
+Since it's useless: Nothing in misc category spawns, and it's ignored when calculating mobcap
+
+Affects mobcaps logger and `/spawn mobcap command`
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`
+
+
 ## opPlayerNoCheat
 
 Disable some command to prevent accidentally cheating
