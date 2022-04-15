@@ -7,6 +7,7 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -30,7 +31,7 @@ public class MobcapsLocalCommand extends TranslationContext implements CommandEx
 	}
 
 	@Override
-	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder)
+	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder, CommandRegistryAccess commandBuildContext)
 	{
 		builder.then(literal("mobcapsLocal").
 				executes(c -> showLocalMobcaps(c.getSource(), c.getSource().getPlayer())).
