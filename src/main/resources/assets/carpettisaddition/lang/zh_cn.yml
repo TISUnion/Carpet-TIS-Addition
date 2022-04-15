@@ -577,6 +577,12 @@ carpettisaddition:
         extra:
           '0': 'world_timer: 划分于世界计时器自增时'
           '1': 'player_action: 划分于玩家操作阶段开始前'
+      mobcapsDisplayIgnoreMisc:
+        name: 怪物容量显示忽略杂项
+        desc: 在carpet怪物容量显示中忽略杂项(misc)这一生物类型
+        extra:
+          '0': 因为它既占空间还没用：杂项生物类型不参与刷怪循环，在统计怪物容量时也被游戏忽略
+          '1': 影响mobcaps记录器以及/spawn mobcaps指令
       opPlayerNoCheat:
         name: op玩家不准作弊
         desc: 禁用部分指令以避免op玩家意外地作弊

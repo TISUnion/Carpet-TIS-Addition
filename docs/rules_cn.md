@@ -504,6 +504,20 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 怪物容量显示忽略杂项 (mobcapsDisplayIgnoreMisc)
+
+在 carpet 怪物容量显示中忽略杂项 (misc) 这一生物类型
+
+因为它既占空间还没用：杂项生物类型不参与刷怪循环，在统计怪物容量时也被游戏忽略
+
+影响 mobcaps 记录器以及 `/spawn mobcaps` 指令
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`
+
+
 ## op玩家不准作弊 (opPlayerNoCheat)
 
 禁用部分指令以避免op玩家意外地作弊

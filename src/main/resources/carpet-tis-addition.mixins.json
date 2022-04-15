@@ -202,6 +202,7 @@
     "rule.lightEngineMaxBatchSize.MinecraftServerMixin",
     "rule.lightEngineMaxBatchSize.ServerLightingProviderMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",
+    "rule.mobcapsDisplayIgnoreMisc.SpawnReporterMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",
     "rule.opPlayerNoCheat.SetBlockCommandMixin",

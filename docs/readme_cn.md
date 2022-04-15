@@ -48,6 +48,7 @@
 - [微时序染料记号](rules_cn.md#微时序染料记号-microtimingdyemarker)
 - [微时序目标](rules_cn.md#微时序目标-microtimingtarget)
 - [微时序游戏刻划分](rules_cn.md#微时序游戏刻划分-microtimingtickdivision)
+- [怪物容量显示忽略杂项](rules_cn.md#怪物容量显示忽略杂项-mobcapsdisplayignoremisc)
 - [op玩家不准作弊](rules_cn.md#op玩家不准作弊-opplayernocheat)
 - [优化高速实体移动](rules_cn.md#优化高速实体移动-optimizedfastentitymovement)
 - [优化硬碰撞箱实体碰撞](rules_cn.md#优化硬碰撞箱实体碰撞-optimizedhardhitboxentitycollision)
