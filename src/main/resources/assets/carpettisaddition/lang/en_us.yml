@@ -214,29 +214,8 @@ carpettisaddition:
       local: local
 
   command:
-    raid:
-      raid_count: "Raid Count: %1$s"
-      status:
-        .: Status
-        ongoing: ongoing
-        victory: victory
-        loss: loss
-        stopped: stopped
-      center: Center
-      bad_omen_level: Bad omen level
-      waves: Waves
-      raiders: Raiders
-      none: None
-      no_raid: No raid exists
     info:
       ticking_order: "Ticking order of %1$s dimensions in the game:"
-    refresh:
-      inventory:
-        done: Inventory refreshed
-      chunk:
-        overloaded: "Refresh failed: Network connection overloaded"
-        too_far: "Selected chunk is not within your view distance"
-        done: "Refreshed %1$s chunks"
     manipulate:
       container:
         help: Manipulate %1$s
@@ -260,6 +239,27 @@ carpettisaddition:
           item_name: block event
           scheduled: Scheduled %1$s @ %2$s
           removed: Removed %1$s block events
+    raid:
+      raid_count: "Raid Count: %1$s"
+      status:
+        .: Status
+        ongoing: ongoing
+        victory: victory
+        loss: loss
+        stopped: stopped
+      center: Center
+      bad_omen_level: Bad omen level
+      waves: Waves
+      raiders: Raiders
+      none: None
+      no_raid: No raid exists
+    refresh:
+      inventory:
+        done: Inventory refreshed
+      chunk:
+        overloaded: "Refresh failed: Network connection overloaded"
+        too_far: "Selected chunk is not within your view distance"
+        done: "Refreshed %1$s chunks"
     spawn:
       mobcapsLocal:
         info: 'Local mobcaps of player %1$s:'

@@ -102,13 +102,13 @@
 
 ## [指令](commands_cn.md)
 
-- [袭击](commands_cn.md#袭击-raid)
 - [信息](commands_cn.md#信息-info)
 - [存活时间](commands_cn.md#存活时间-lifetime)
-- [tick](commands_cn.md#tick)
-- [刷新](commands_cn.md#刷新-refresh)
 - [操控世界](commands_cn.md#操控世界-manipulate)
+- [袭击](commands_cn.md#袭击-raid)
+- [刷新](commands_cn.md#刷新-refresh)
 - [spawn](commands_cn.md#spawn)
+- [tick](commands_cn.md#tick)
 
 ## [Scarpet](misc_cn.md#scarpet)
 

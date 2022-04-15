@@ -102,13 +102,13 @@
 
 ## [Commands](commands.md)
 
-- [raid](commands.md#raid)
 - [info](commands.md#info)
 - [lifetime](commands.md#lifetime)
-- [tick](commands.md#tick)
-- [refresh](commands.md#refresh)
 - [manipulate](commands.md#manipulate)
+- [raid](commands.md#raid)
+- [refresh](commands.md#refresh)
 - [spawn](commands.md#spawn)
+- [tick](commands.md#tick)
 
 ## [Scarpet](misc.md#scarpet)
 

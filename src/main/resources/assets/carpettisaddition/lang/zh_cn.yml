@@ -214,29 +214,8 @@ carpettisaddition:
       local: 局部
 
   command:
-    raid:
-      raid_count: "袭击数量: %1$s"
-      status:
-        .: 状态
-        ongoing: 进行中
-        victory: 胜利
-        loss: 失败
-        stopped: 终止
-      center: 中心点
-      bad_omen_level: 不祥之兆等级
-      waves: 波数
-      raiders: 袭击者
-      none: 无
-      no_raid: 不存在袭击
     info:
       ticking_order: 游戏中%1$s个维度的运算顺序：
-    refresh:
-      inventory:
-        done: 已刷新物品栏
-      chunk:
-        overloaded: 刷新失败：玩家网络连接已过载
-        too_far: 选中的区块不在你的视距之内
-        done: 已刷新%1$s个区块
     manipulate:
       container:
         help: 操控%1$s
@@ -260,6 +239,27 @@ carpettisaddition:
           item_name: 方块事件
           scheduled: 已添加%1$s @ %2$s
           removed: 已移除%1$s个方块事件
+    raid:
+      raid_count: "袭击数量: %1$s"
+      status:
+        .: 状态
+        ongoing: 进行中
+        victory: 胜利
+        loss: 失败
+        stopped: 终止
+      center: 中心点
+      bad_omen_level: 不祥之兆等级
+      waves: 波数
+      raiders: 袭击者
+      none: 无
+      no_raid: 不存在袭击
+    refresh:
+      inventory:
+        done: 已刷新物品栏
+      chunk:
+        overloaded: 刷新失败：玩家网络连接已过载
+        too_far: 选中的区块不在你的视距之内
+        done: 已刷新%1$s个区块
     spawn:
       mobcapsLocal:
         info: '玩家%1$s的局部怪物容量:'
