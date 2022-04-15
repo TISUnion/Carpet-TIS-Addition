@@ -48,6 +48,7 @@
 - [microTimingDyeMarker](rules.md#microtimingdyemarker)
 - [microTimingTarget](rules.md#microtimingtarget)
 - [microTimingTickDivision](rules.md#microtimingtarget)
+- [mobcapsDisplayIgnoreMisc](rules.md#mobcapsdisplayignoremisc)
 - [opPlayerNoCheat](rules.md#opplayernocheat)
 - [optimizedFastEntityMovement](rules.md#optimizedfastentitymovement)
 - [optimizedHardHitBoxEntityCollision](rules.md#optimizedhardhitboxentitycollision)

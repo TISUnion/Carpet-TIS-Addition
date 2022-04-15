@@ -25,6 +25,9 @@ public class DimensionWrapper
 		this.dimensionType = dimensionType;
 	}
 
+	/**
+	 * Warning: mc version dependent
+	 */
 	public static DimensionWrapper of(RegistryKey<World> dimensionType)
 	{
 		return new DimensionWrapper(dimensionType);
@@ -38,6 +41,14 @@ public class DimensionWrapper
 	public static DimensionWrapper of(Entity entity)
 	{
 		return of(entity.getEntityWorld());
+	}
+
+	/**
+	 * Warning: mc version dependent
+	 */
+	public RegistryKey<World> getValue()
+	{
+		return this.dimensionType;
 	}
 
 	public Identifier getIdentifier()
