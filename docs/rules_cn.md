@@ -313,9 +313,9 @@
 - 分类: `TIS`, `CREATIVE`
 
 
-## HUD监视器更新间隔 (HUDLoggerUpdateInterval)
+## HUD记录器更新间隔 (HUDLoggerUpdateInterval)
 
-覆写Carpet Mod HUD监视器的更新间隔，单位为gametick
+覆写Carpet Mod HUD记录器的更新间隔，单位为gametick
 
 - 类型: `int`
 - 默认值: `20`
@@ -423,7 +423,7 @@
 
 ## 微时序 (microTiming)
 
-启用[微时序监视器](loggers_cn.md#微时序-microTiming)的功能
+启用[微时序记录器](loggers_cn.md#微时序-microTiming)的功能
 
 使用羊毛块来输出红石元件的动作、方块更新与堆栈跟踪
 
@@ -450,9 +450,9 @@
 
 ## 微时序染料记号 (microTimingDyeMarker)
 
-允许玩家手持染料右击方块来将其标记为微时序监视器的目标
+允许玩家手持染料右击方块来将其标记为微时序记录器的目标
 
-你需要订阅微时序监视器才能标记并渲染方块
+你需要订阅微时序记录器才能标记并渲染方块
 
 使用相同颜色的染料再次右击以切换至末地烛模式，此时记录器将会额外地记录标记位置处的方块更新。再次右击则会移除颜色记号
 
@@ -460,7 +460,7 @@
 
 使用指令 `/carpet microTimingDyeMarker clear` 以移除所有记号
 
-你可以使用命名的染料物品来创建一个命名的记号。记号的名称同时将会在监视器的输出信息中展示
+你可以使用命名的染料物品来创建一个命名的记号。记号的名称同时将会在记录器的输出信息中展示
 
 如果客户端拥有 fabric-carpet mod，被标记的方块将会显示出一个边框。如果客户端还带有carpet-tis-addition，则记号的名称还可透过方块查看
 
@@ -502,6 +502,20 @@
 - 默认值: `world_timer`
 - 参考选项: `world_timer`, `player_action`
 - 分类: `TIS`, `CREATIVE`
+
+
+## 怪物容量显示忽略杂项 (mobcapsDisplayIgnoreMisc)
+
+在 carpet 怪物容量显示中忽略杂项 (misc) 这一生物类型
+
+因为它既占空间还没用：杂项生物类型不参与刷怪循环，在统计怪物容量时也被游戏忽略
+
+影响 mobcaps 记录器以及 `/spawn mobcaps` 指令
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`
 
 
 ## op玩家不准作弊 (opPlayerNoCheat)

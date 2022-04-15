@@ -12,6 +12,7 @@ import carpettisaddition.logging.loggers.lifetime.LifeTimeHUDLogger;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.memory.MemoryHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
+import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
@@ -35,6 +36,8 @@ public class TISAdditionLoggerRegistry
     public static boolean __turtleEgg;
     public static boolean __lifeTime;
 
+    public static boolean __mobcapsLocal;
+
     public static void registerLoggers()
     {
         LoggerRegistry.registerLogger(TicketLogger.NAME, TicketLogger.getInstance().getStandardLogger());
@@ -49,6 +52,8 @@ public class TISAdditionLoggerRegistry
         LoggerRegistry.registerLogger(TickWarpHUDLogger.NAME, standardHUDLogger(TickWarpHUDLogger.NAME, "bar", new String[]{"bar", "value"}));
         LoggerRegistry.registerLogger(TurtleEggLogger.NAME, standardLogger(TurtleEggLogger.NAME, null, null));
         LoggerRegistry.registerLogger(LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance().getHUDLogger());
+
+        LoggerRegistry.registerLogger(MobcapsLocalLogger.NAME, MobcapsLocalLogger.getInstance().getHUDLogger());
     }
 
     public static Field getLoggerField(String logName)
