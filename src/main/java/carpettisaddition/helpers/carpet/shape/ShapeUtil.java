@@ -4,7 +4,7 @@ import carpet.script.utils.ShapeDispatcher;
 import carpet.script.value.*;
 import carpettisaddition.mixins.carpet.shape.ShapeDispatcherLineAccessor;
 import carpettisaddition.mixins.carpet.shape.ShapeDispatcherSphereAccessor;
-import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Maps;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
