@@ -29,7 +29,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Property;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -58,7 +58,7 @@ public class MicroTimingLoggerManager
 	// for scarpet event
     public static Set<BlockPos> trackedPositions = Sets.newHashSet();
 
-	public static BaseText tr(String key, Object... args)
+	public static MutableText tr(String key, Object... args)
 	{
 		return TRANSLATOR.tr(key, args);
 	}
@@ -380,10 +380,10 @@ public class MicroTimingLoggerManager
 			Item holdingItem = itemStack.getItem();
 			if (holdingItem instanceof DyeItem)
 			{
-				BaseText name = null;
+				MutableText name = null;
 				if (itemStack.hasCustomName())
 				{
-					name = (BaseText)itemStack.getName();
+					name = (MutableText)itemStack.getName();
 				}
 				// server-side check will be in addMarker
 				MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, ((DyeItem)holdingItem).getColor(), name);

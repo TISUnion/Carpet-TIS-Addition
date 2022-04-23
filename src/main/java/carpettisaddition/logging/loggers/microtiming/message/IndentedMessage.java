@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.message;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public class IndentedMessage
 {
@@ -23,7 +23,7 @@ public class IndentedMessage
 		return indentation;
 	}
 
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return this.message.toText(this.indentation, this.indentation == 0);
 	}

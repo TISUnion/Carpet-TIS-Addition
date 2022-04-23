@@ -7,7 +7,7 @@ import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -22,7 +22,7 @@ public abstract class AbstractContainerController extends TranslationContext
 		this.commandPrefix = translationName.replace("_", "");
 	}
 
-	protected BaseText getName()
+	protected MutableText getName()
 	{
 		return tr("name");
 	}

@@ -16,7 +16,7 @@ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkHolder;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.ChunkSectionPos;
@@ -162,7 +162,7 @@ public class RefreshCommand extends AbstractCommand
 				this.refreshingChunkPlayers.add(player);
 			}
 		}
-		BaseText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
+		MutableText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
 		player.networkHandler.sendPacket(
 				new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
 				future -> {

@@ -16,8 +16,8 @@ import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.raid.Raid;
 
@@ -69,7 +69,7 @@ public class RaidCommand extends AbstractCommand
 			{
 				continue;
 			}
-			List<BaseText> result = new ArrayList<>();
+			List<MutableText> result = new ArrayList<>();
 			result.add(Messenger.c(
 					Messenger.dimension(DimensionWrapper.of(world)),
 					"w  ", tr("raid_count", raids.size())
@@ -101,8 +101,8 @@ public class RaidCommand extends AbstractCommand
 					for (Iterator<RaiderEntity> iter = raiders.iterator(); iter.hasNext(); )
 					{
 						RaiderEntity raider = iter.next();
-						BaseText raiderName = Messenger.entity(raider.equals(raidAccessor.getWaveToCaptain().get(currentWave)) ? "r" : "w", raider);
-						BaseText raiderMessage = Messenger.c(
+						MutableText raiderName = Messenger.entity(raider.equals(raidAccessor.getWaveToCaptain().get(currentWave)) ? "r" : "w", raider);
+						MutableText raiderMessage = Messenger.c(
 								raiderName,
 								"g  @ ",
 								Messenger.coord("w", raider.getPos(), DimensionWrapper.of(raider.world))
@@ -113,7 +113,7 @@ public class RaidCommand extends AbstractCommand
 						}
 						else
 						{
-							BaseText x = Messenger.s(String.format("[%s] ", Registry.ENTITY_TYPE.getId(raider.getType()).getPath().substring(0, 1).toUpperCase()));
+							MutableText x = Messenger.s(String.format("[%s] ", Registry.ENTITY_TYPE.getId(raider.getType()).getPath().substring(0, 1).toUpperCase()));
 							x.setStyle(raiderName.getStyle());
 							Messenger.hover(x, raiderMessage);
 							Messenger.click(x, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(raider)));

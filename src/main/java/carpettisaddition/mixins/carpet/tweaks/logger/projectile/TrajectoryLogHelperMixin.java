@@ -10,8 +10,8 @@ import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -98,12 +98,12 @@ public abstract class TrajectoryLogHelperMixin
 	 * lambda method in {@link TrajectoryLogHelper#onFinish}
 	 */
 	@Inject(method = "lambda$onFinish$0", at = @At("TAIL"), remap = false, cancellable = true)
-	private void projectileLoggerEnhance(String option, CallbackInfoReturnable<BaseText[]> cir)
+	private void projectileLoggerEnhance(String option, CallbackInfoReturnable<MutableText[]> cir)
 	{
-		List<BaseText> comp = Lists.newArrayList(cir.getReturnValue());
+		List<MutableText> comp = Lists.newArrayList(cir.getReturnValue());
 		Optional<HitResult> hitResultOptional = getHitResult();
 		Vec3d hitPos = null;
-		BaseText hitType = null;
+		MutableText hitType = null;
 		if (hitResultOptional.isPresent())
 		{
 			hitPos = hitResultOptional.get().getPos();
@@ -125,8 +125,8 @@ public abstract class TrajectoryLogHelperMixin
 			case "brief":
 				if (hitResultOptional.isPresent())
 				{
-					BaseText lastLine = comp.get(comp.size() - 1);
-					BaseText marker = Messenger.fancy(
+					MutableText lastLine = comp.get(comp.size() - 1);
+					MutableText marker = Messenger.fancy(
 							"g",
 							Messenger.s(" x"),
 							Messenger.c(
@@ -182,6 +182,6 @@ public abstract class TrajectoryLogHelperMixin
 				}
 				break;
 		}
-		cir.setReturnValue(comp.toArray(new BaseText[0]));
+		cir.setReturnValue(comp.toArray(new MutableText[0]));
 	}
 }

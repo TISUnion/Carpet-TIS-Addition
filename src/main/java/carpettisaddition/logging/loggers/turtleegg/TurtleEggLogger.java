@@ -7,7 +7,7 @@ import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -40,7 +40,7 @@ public class TurtleEggLogger extends AbstractLogger
 		}
 		LoggerRegistry.getLogger(NAME).log(() -> {
 			// [O] xxx breaks egg @ {}
-			return new BaseText[]{Messenger.c(
+			return new MutableText[]{Messenger.c(
 					entity != null ? Messenger.entity(null, entity) : Messenger.s("?"),
 					"r  x ",
 					Messenger.block(state.getBlock()),

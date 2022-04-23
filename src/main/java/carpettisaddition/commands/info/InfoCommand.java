@@ -17,7 +17,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -81,7 +81,7 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		return 1;
 	}
 
-	private <T> void appendTileTickInfo(List<BaseText> result, List<OrderedTick<T>> tileTickList, String title, long currentTime, Function<T, BaseText> nameGetter)
+	private <T> void appendTileTickInfo(List<MutableText> result, List<OrderedTick<T>> tileTickList, String title, long currentTime, Function<T, MutableText> nameGetter)
 	{
 		if (!tileTickList.isEmpty())
 		{
@@ -97,7 +97,7 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		}
 	}
 
-	private void appendBlockEventInfo(List<BaseText> result, List<BlockEvent> blockEvents)
+	private void appendBlockEventInfo(List<MutableText> result, List<BlockEvent> blockEvents)
 	{
 		if (!blockEvents.isEmpty())
 		{
@@ -125,13 +125,13 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		return Collections.emptyList();
 	}
 
-	public Collection<BaseText> showMoreBlockInfo(BlockPos pos, World world)
+	public Collection<MutableText> showMoreBlockInfo(BlockPos pos, World world)
 	{
 		if (!(world instanceof ServerWorld))
 		{
 			return Collections.emptyList();
 		}
-		List<BaseText> result = Lists.newArrayList();
+		List<MutableText> result = Lists.newArrayList();
 		List<OrderedTick<Block>> blockTileTicks = this.getTileTicksAt((WorldTickScheduler<Block>)world.getBlockTickScheduler(), pos);
 		List<OrderedTick<Fluid>> liquidTileTicks = this.getTileTicksAt((WorldTickScheduler<Fluid>)world.getFluidTickScheduler(), pos);
 		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), Messenger::block);

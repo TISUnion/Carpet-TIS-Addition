@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 // TODO apply mixin
 public class LiteralSubStage extends AbstractSubStage
@@ -15,7 +15,7 @@ public class LiteralSubStage extends AbstractSubStage
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return tr(this.translationKey);
 	}

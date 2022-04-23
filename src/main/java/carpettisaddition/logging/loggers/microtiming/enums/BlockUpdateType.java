@@ -8,7 +8,7 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.block.NeighborUpdater;
@@ -36,12 +36,12 @@ public enum BlockUpdateType
 		this.updateOrder = updateOrder;
 	}
 
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return translator.tr(this.name.toLowerCase().replace(' ', '_'));
 	}
 
-	public BaseText getUpdateOrderList(Direction skipSide)
+	public MutableText getUpdateOrderList(Direction skipSide)
 	{
 		int counter = 0;
 		List<Object> builder = Lists.newArrayList();

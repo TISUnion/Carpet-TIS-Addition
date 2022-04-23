@@ -1,7 +1,7 @@
 package carpettisaddition.commands.lifetime.removal;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public class MobConversionRemovalReason extends MobRelatedRemovalReason
 {
@@ -11,7 +11,7 @@ public class MobConversionRemovalReason extends MobRelatedRemovalReason
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return tr("mob_conversion", this.entityType.getName());
 	}

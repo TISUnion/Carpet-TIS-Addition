@@ -19,8 +19,8 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.Formatting;
 
 import java.util.*;
@@ -88,7 +88,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 		return this.spawnStageCounter;
 	}
 
-	private List<BaseText> addIfEmpty(List<BaseText> list, BaseText text)
+	private List<MutableText> addIfEmpty(List<MutableText> list, MutableText text)
 	{
 		if (list.isEmpty())
 		{
@@ -108,7 +108,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 
 		// dimension name header
 		// Overworld (minecraft:overworld)
-		List<BaseText> result = Lists.newArrayList();
+		List<MutableText> result = Lists.newArrayList();
 		result.add(Messenger.s(" "));
 		result.add(Messenger.c(
 				Messenger.formatting(Messenger.dimension(DimensionWrapper.of(this.world)), Formatting.BOLD, Formatting.GOLD),
@@ -127,7 +127,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 		return 1;
 	}
 
-	private void printAll(long ticks, List<BaseText> result)
+	private void printAll(long ticks, List<MutableText> result)
 	{
 		// sorted by spawn count
 		// will being sorting by avg life time better?
@@ -136,15 +136,15 @@ public class LifeTimeWorldTracker extends TranslationContext
 				forEach((entry) -> {
 					EntityType<?> entityType = entry.getKey();
 					BasicTrackedData data = entry.getValue();
-					List<BaseText> spawningReasons = data.getSpawningReasonsTexts(ticks, true);
-					List<BaseText> removalReasons = data.getRemovalReasonsTexts(ticks, true);
+					List<MutableText> spawningReasons = data.getSpawningReasonsTexts(ticks, true);
+					List<MutableText> removalReasons = data.getRemovalReasonsTexts(ticks, true);
 					String currentCommandBase = String.format("/%s %s", LifeTimeTracker.getInstance().getCommandPrefix(), LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType));
 					// [Creeper] S/R: 21/8, L: 145/145/145.00 (gt)
 					result.add(Messenger.c(
 							"g - [",
 							Messenger.fancy(
 									null,
-									(BaseText)entityType.getName(),
+									(MutableText)entityType.getName(),
 									Messenger.c(
 											tr("filter_info_header"), "w : ",
 											EntityFilterManager.getInstance().getEntityFilterText(entityType),
@@ -205,7 +205,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 				});
 	}
 
-	private void printSpecific(long ticks, EntityType<?> specificType, BasicTrackedData specificData, SpecificDetailMode detailMode, List<BaseText> result)
+	private void printSpecific(long ticks, EntityType<?> specificType, BasicTrackedData specificData, SpecificDetailMode detailMode, List<MutableText> result)
 	{
 		result.add(Messenger.c(
 				Messenger.formatting(Messenger.c(tr("filter_info_header"), Messenger.s(": ")), "c"),

@@ -10,8 +10,8 @@ import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -52,7 +52,7 @@ public class EntityFilterManager extends TranslationContext
 
 	public void setEntityFilter(ServerCommandSource source, @Nullable EntityType<?> entityType, @Nullable EntitySelector entitySelector)
 	{
-		BaseText typeName = entityType != null ? (BaseText)entityType.getName() : tr("global");
+		MutableText typeName = entityType != null ? (MutableText)entityType.getName() : tr("global");
 		if (entitySelector != null)
 		{
 			if (!entitySelector.includesNonPlayers() || ((EntitySelectorAccessor)entitySelector).getPlayerName() != null)
@@ -81,15 +81,15 @@ public class EntityFilterManager extends TranslationContext
 		}
 	}
 
-	public BaseText getEntityFilterText(@Nullable EntityType<?> entityType)
+	public MutableText getEntityFilterText(@Nullable EntityType<?> entityType)
 	{
 		Predicate<Entity> entityPredicate = this.getFilter(entityType);
 		return entityPredicate instanceof EntityFilter ? ((EntityFilter)entityPredicate).toText() : tr("none");
 	}
 
-	public BaseText getEntityTypeText(@Nullable EntityType<?> entityType)
+	public MutableText getEntityTypeText(@Nullable EntityType<?> entityType)
 	{
-		return entityType != null ? (BaseText)entityType.getName() : tr("global");
+		return entityType != null ? (MutableText)entityType.getName() : tr("global");
 	}
 
 	public void displayFilter(ServerCommandSource source, @Nullable EntityType<?> entityType)

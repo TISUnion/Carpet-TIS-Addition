@@ -7,8 +7,8 @@ import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.Vec3d;
 
 public class LifeTimeStatistic extends TranslationContext
@@ -64,10 +64,10 @@ public class LifeTimeStatistic extends TranslationContext
 	 *
 	 * @param indentString spaces for indent
 	 */
-	public BaseText getResult(String indentString, boolean hoverMode)
+	public MutableText getResult(String indentString, boolean hoverMode)
 	{
-		BaseText indent = Messenger.s(indentString, "g");
-		BaseText newLine = Messenger.s("\n");
+		MutableText indent = Messenger.s(indentString, "g");
+		MutableText newLine = Messenger.s("\n");
 		if (!this.isValid())
 		{
 			return Messenger.c(indent, "g   N/A");
@@ -88,13 +88,13 @@ public class LifeTimeStatistic extends TranslationContext
 		);
 	}
 
-	public BaseText getCompressedResult(boolean showGtSuffix)
+	public MutableText getCompressedResult(boolean showGtSuffix)
 	{
 		if (!this.isValid())
 		{
 			return Messenger.s("N/A", "g");
 		}
-		BaseText text = Messenger.c(
+		MutableText text = Messenger.c(
 				COLOR_MIN_TIME + this.minTimeElement.time,
 				"g /",
 				COLOR_MAX_TIME + this.maxTimeElement.time,
@@ -127,9 +127,9 @@ public class LifeTimeStatistic extends TranslationContext
 		 * [hint]: 123 gt
 		 * [hint]: 123 gt [S] [R]
 		 */
-		private BaseText getTimeWithPos(BaseText hint, String fmt, boolean hoverMode)
+		private MutableText getTimeWithPos(MutableText hint, String fmt, boolean hoverMode)
 		{
-			BaseText text = Messenger.c(
+			MutableText text = Messenger.c(
 					hint,
 					"g : ",
 					fmt + this.time,

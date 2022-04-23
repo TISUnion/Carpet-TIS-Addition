@@ -5,7 +5,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +21,7 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 		this.block = block;
 	}
 
-	private BaseText getChangesText(char header, boolean justShowMeDetail)
+	private MutableText getChangesText(char header, boolean justShowMeDetail)
 	{
 		List<Object> changes = Lists.newArrayList();
 		boolean isFirst = true;
@@ -32,12 +32,12 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 				changes.add("w " + header);
 			}
 			isFirst = false;
-			BaseText simpleText = Messenger.c(
+			MutableText simpleText = Messenger.c(
 					String.format("w %s", change.name),
 					"g =",
 					MicroTimingUtil.getColoredValue(change.newValue)
 			);
-			BaseText detailText = Messenger.c(
+			MutableText detailText = Messenger.c(
 					String.format("w %s: ", change.name),
 					MicroTimingUtil.getColoredValue(change.oldValue),
 					"g ->",
@@ -56,10 +56,10 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		BaseText titleText = Messenger.fancy(
+		MutableText titleText = Messenger.fancy(
 				null,
 				Messenger.formatting(tr("state_change"), COLOR_ACTION),
 				this.getFlagsText(),

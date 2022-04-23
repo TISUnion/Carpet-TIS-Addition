@@ -9,7 +9,7 @@ import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.List;
 
@@ -80,10 +80,10 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		return 1.0 / secondPerTick;
 	}
 
-	private BaseText getSourceName()
+	private MutableText getSourceName()
 	{
 		ServerPlayerEntity advancer = this.getTimeAdvancer();
-		return advancer != null ? (BaseText)advancer.getName() : tr("server");
+		return advancer != null ? (MutableText)advancer.getName() : tr("server");
 	}
 
 	private double getProgressRate()
@@ -91,7 +91,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		return (double)this.getCompletedTicks() / Math.max(this.getTotalTicks(), 1);
 	}
 
-	private BaseText getProgressBar()
+	private MutableText getProgressBar()
 	{
 		double progressRate = this.getProgressRate();
 		List<Object> list = Lists.newArrayList();
@@ -104,7 +104,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		return Messenger.c(list.toArray(new Object[0]));
 	}
 
-	private BaseText getDurationRatio()
+	private MutableText getDurationRatio()
 	{
 		return Messenger.c(
 				String.format("g %d", this.getCompletedTicks()),
@@ -113,13 +113,13 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		);
 	}
 
-	private BaseText getProgressPercentage()
+	private MutableText getProgressPercentage()
 	{
 		return Messenger.c(String.format("g %.1f%%", this.getProgressRate() * 100));
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public MutableText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
 		if (!this.isWarping())
 		{
@@ -141,7 +141,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		}
 		list.add("w  ");
 		list.add(this.getProgressPercentage());
-		return new BaseText[]{Messenger.c(list.toArray(new Object[0]))};
+		return new MutableText[]{Messenger.c(list.toArray(new Object[0]))};
 	}
 
 	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder, CommandRegistryAccess commandBuildContext)
@@ -154,12 +154,12 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		);
 	}
 
-	private void addLine(List<BaseText> list, BaseText info, Object data)
+	private void addLine(List<MutableText> list, MutableText info, Object data)
 	{
 		list.add(Messenger.c(info, "g : ", data));
 	}
 
-	private BaseText getTimeInfo(long ticks)
+	private MutableText getTimeInfo(long ticks)
 	{
 		return tr(
 				"time_info",
@@ -168,7 +168,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		);
 	}
 
-	private synchronized void generateTickWarpInfo(List<BaseText> result, TickWarpInfo specifiedInfo)
+	private synchronized void generateTickWarpInfo(List<MutableText> result, TickWarpInfo specifiedInfo)
 	{
 		TickWarpInfo infoBackup = this.info;
 		try
@@ -196,7 +196,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 
 	private int showTickWarpInfo(ServerCommandSource source)
 	{
-		List<BaseText> result = Lists.newArrayList();
+		List<MutableText> result = Lists.newArrayList();
 		if (this.isWarping())
 		{
 			this.generateTickWarpInfo(result, this.info);

@@ -1,7 +1,7 @@
 package carpettisaddition.commands.lifetime.removal;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 // for item entity and xp orb entity
 public class MobPickupRemovalReason extends MobRelatedRemovalReason
@@ -12,7 +12,7 @@ public class MobPickupRemovalReason extends MobRelatedRemovalReason
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return tr("mob_pickup", this.entityType.getName());
 	}

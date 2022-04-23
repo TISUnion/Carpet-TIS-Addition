@@ -10,7 +10,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerLightingProvider;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.thread.TaskQueue;
 import net.minecraft.world.chunk.light.LightingProvider;
 
@@ -60,7 +60,7 @@ public class LightThreadSynchronizer
 		}
 		if (source != null)
 		{
-			List<BaseText> list = Lists.newArrayList();
+			List<MutableText> list = Lists.newArrayList();
 			list.add(Messenger.formatting(translator.tr("safety_warning.0"), "r"));
 			list.add(Messenger.formatting(translator.tr("safety_warning.1"), "r"));
 			list.add(Messenger.formatting(translator.tr("safety_warning.2"), "r"));

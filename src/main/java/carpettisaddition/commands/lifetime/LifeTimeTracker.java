@@ -12,8 +12,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.world.World;
 
 import java.util.Map;
@@ -168,7 +168,7 @@ public class LifeTimeTracker extends AbstractTracker
 
 	protected int showHelp(ServerCommandSource source)
 	{
-		BaseText docLink = Messenger.formatting(tr("help.doc_link"), "t");
+		MutableText docLink = Messenger.formatting(tr("help.doc_link"), "t");
 		Messenger.tell(source, Messenger.join(
 				Messenger.s("\n"),
 				Messenger.formatting(this.getTranslatedNameFull(), "wb"),

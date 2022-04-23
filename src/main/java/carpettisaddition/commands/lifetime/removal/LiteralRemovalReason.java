@@ -1,6 +1,6 @@
 package carpettisaddition.commands.lifetime.removal;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public class LiteralRemovalReason extends RemovalReason
 {
@@ -39,7 +39,7 @@ public class LiteralRemovalReason extends RemovalReason
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return tr(this.translationKey);
 	}

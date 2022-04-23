@@ -7,8 +7,8 @@ import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
@@ -30,7 +30,7 @@ public class TileTickSubStage extends AbstractSubStage
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		BlockPos pos = this.nextTickListEntry.pos();
 		TickPriority priority = this.nextTickListEntry.priority();

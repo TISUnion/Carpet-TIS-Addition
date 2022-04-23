@@ -41,45 +41,45 @@ public class Messenger
 	 */
 
 	// Compound Text
-	public static BaseText c(Object ... fields)
+	public static MutableText c(Object ... fields)
 	{
-		return carpet.utils.Messenger.c(fields);
+		return (MutableText)carpet.utils.Messenger.c(fields);
 	}
 
 	// Simple Text
-	public static BaseText s(String text)
+	public static MutableText s(String text)
 	{
-		return new LiteralText(text);
+		return Text.literal(text);
 	}
 
 	// Simple Text with carpet style
-	public static BaseText s(String text, String carpetStyle)
+	public static MutableText s(String text, String carpetStyle)
 	{
 		return formatting(s(text), carpetStyle);
 	}
 
 	// Simple Text with formatting
-	public static BaseText s(String text, Formatting textFormatting)
+	public static MutableText s(String text, Formatting textFormatting)
 	{
 		return formatting(s(text), textFormatting);
 	}
 
-	public static BaseText newLine()
+	public static MutableText newLine()
 	{
 		return s("\n");
 	}
 
 	// Translation Text
-	public static BaseText tr(String key, Object ... args)
+	public static MutableText tr(String key, Object ... args)
 	{
-		return new TranslatableText(key, args);
+		return Text.translatable(key, args);
 	}
 
 	// Fancy text
 	// TODO: yeets style
-	public static BaseText fancy(String carpetStyle, BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
+	public static MutableText fancy(String carpetStyle, MutableText displayText, MutableText hoverText, ClickEvent clickEvent)
 	{
-		BaseText text = copy(displayText);
+		MutableText text = copy(displayText);
 		if (carpetStyle != null)
 		{
 			text.setStyle(parseCarpetStyle(carpetStyle));
@@ -95,14 +95,14 @@ public class Messenger
 		return text;
 	}
 
-	public static BaseText fancy(BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
+	public static MutableText fancy(MutableText displayText, MutableText hoverText, ClickEvent clickEvent)
 	{
 		return fancy(null, displayText, hoverText, clickEvent);
 	}
 
-	public static BaseText join(BaseText joiner, BaseText... items)
+	public static MutableText join(MutableText joiner, MutableText... items)
 	{
-		BaseText text = s("");
+		MutableText text = s("");
 		for (int i = 0; i < items.length; i++)
 		{
 			if (i > 0)
@@ -120,14 +120,14 @@ public class Messenger
 	 * -------------------------------
 	 */
 
-	private static BaseText getTeleportHint(BaseText dest)
+	private static MutableText getTeleportHint(Text dest)
 	{
 		return translator.tr("teleport_hint", dest);
 	}
 
-	private static BaseText __coord(String style, @Nullable DimensionWrapper dim, String posStr, String command)
+	private static MutableText __coord(String style, @Nullable DimensionWrapper dim, String posStr, String command)
 	{
-		BaseText hoverText = Messenger.s("");
+		MutableText hoverText = Messenger.s("");
 		hoverText.append(getTeleportHint(Messenger.s(posStr)));
 		if (dim != null)
 		{
@@ -139,52 +139,53 @@ public class Messenger
 		return fancy(style, Messenger.s(posStr), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
 	}
 
-	public static BaseText coord(String style, Vec3d pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
-	public static BaseText coord(String style, Vec3i pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
-	public static BaseText coord(String style, ChunkPos pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
-	public static BaseText coord(String style, Vec3d pos) {return __coord(style, null, TextUtil.coord(pos), TextUtil.tp(pos));}
-	public static BaseText coord(String style, Vec3i pos) {return __coord(style, null, TextUtil.coord(pos), TextUtil.tp(pos));}
-	public static BaseText coord(String style, ChunkPos pos) {return __coord(style, null, TextUtil.coord(pos), TextUtil.tp(pos));}
-	public static BaseText coord(Vec3d pos, DimensionWrapper dim) {return coord(null, pos, dim);}
-	public static BaseText coord(Vec3i pos, DimensionWrapper dim) {return coord(null, pos, dim);}
-	public static BaseText coord(ChunkPos pos, DimensionWrapper dim) {return coord(null, pos, dim);}
-	public static BaseText coord(Vec3d pos) {return coord(null, pos);}
-	public static BaseText coord(Vec3i pos) {return coord(null, pos);}
-	public static BaseText coord(ChunkPos pos) {return coord(null, pos);}
+	public static MutableText coord(String style, Vec3d pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
+	public static MutableText coord(String style, Vec3i pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
+	public static MutableText coord(String style, ChunkPos pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
+	public static MutableText coord(String style, Vec3d pos) {return __coord(style, null, TextUtil.coord(pos), TextUtil.tp(pos));}
+	public static MutableText coord(String style, Vec3i pos) {return __coord(style, null, TextUtil.coord(pos), TextUtil.tp(pos));}
+	public static MutableText coord(String style, ChunkPos pos) {return __coord(style, null, TextUtil.coord(pos), TextUtil.tp(pos));}
+	public static MutableText coord(Vec3d pos, DimensionWrapper dim) {return coord(null, pos, dim);}
+	public static MutableText coord(Vec3i pos, DimensionWrapper dim) {return coord(null, pos, dim);}
+	public static MutableText coord(ChunkPos pos, DimensionWrapper dim) {return coord(null, pos, dim);}
+	public static MutableText coord(Vec3d pos) {return coord(null, pos);}
+	public static MutableText coord(Vec3i pos) {return coord(null, pos);}
+	public static MutableText coord(ChunkPos pos) {return coord(null, pos);}
 
-	public static BaseText entity(String style, Entity entity)
+	public static MutableText entity(String style, Entity entity)
 	{
-		BaseText entityBaseName = copy((BaseText)entity.getType().getName());
-		BaseText entityDisplayName = copy((BaseText)entity.getName());
-		BaseText hoverText = Messenger.c(
+		MutableText entityBaseName = copy(entity.getType().getName());
+		MutableText entityDisplayName = copy(entity.getName());
+		MutableText hoverText = Messenger.c(
 				translator.tr("entity_type", entityBaseName, s(EntityType.getId(entity.getType()).toString())), newLine(),
 				getTeleportHint(entityDisplayName)
 		);
 		return fancy(style, entityDisplayName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(entity)));
 	}
 
-	public static BaseText entity(Entity entity)
+	public static MutableText entity(Entity entity)
 	{
 		return entity(null, entity);
 	}
 
-	public static BaseText attribute(EntityAttribute attribute)
+	public static MutableText attribute(EntityAttribute attribute)
 	{
 		return tr(attribute.getTranslationKey());
 	}
 
-	private static final ImmutableMap<DimensionWrapper, BaseText> DIMENSION_NAME = ImmutableMap.of(
-			DimensionWrapper.OVERWORLD, new TranslatableText("flat_world_preset.minecraft.overworld"),
-			DimensionWrapper.THE_NETHER, new TranslatableText("advancements.nether.root.title"),
-			DimensionWrapper.THE_END, new TranslatableText("advancements.end.root.title")
+	private static final ImmutableMap<DimensionWrapper, MutableText> DIMENSION_NAME = ImmutableMap.of(
+			DimensionWrapper.OVERWORLD, tr("flat_world_preset.minecraft.overworld"),
+			DimensionWrapper.THE_NETHER, tr("advancements.nether.root.title"),
+			DimensionWrapper.THE_END, tr("advancements.end.root.title")
 	);
 
-	public static BaseText dimension(DimensionWrapper dim)
+	public static MutableText dimension(DimensionWrapper dim)
 	{
-		return copy(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.getIdentifierString())));
+		MutableText dimText = DIMENSION_NAME.get(dim);
+		return dimText != null ? copy(dimText) : Messenger.s(dim.getIdentifierString());
 	}
 
-	public static BaseText getColoredDimensionSymbol(DimensionWrapper dimensionType)
+	public static MutableText getColoredDimensionSymbol(DimensionWrapper dimensionType)
 	{
 		if (dimensionType.equals(DimensionWrapper.OVERWORLD))
 		{
@@ -201,12 +202,12 @@ public class Messenger
 		return s(dimensionType.getIdentifierString().toUpperCase().substring(0, 1));
 	}
 
-	public static BaseText block(Block block)
+	public static MutableText block(Block block)
 	{
 		return hover(tr(block.getTranslationKey()), s(IdentifierUtil.id(block).toString()));
 	}
 
-	public static BaseText block(BlockState blockState)
+	public static MutableText block(BlockState blockState)
 	{
 		List<String> hovers = Lists.newArrayList();
 		hovers.add(IdentifierUtil.id(blockState.getBlock()).toString());
@@ -217,12 +218,12 @@ public class Messenger
 		return hover(block(blockState.getBlock()), s(Joiner.on('\n').join(hovers)));
 	}
 
-	public static BaseText fluid(Fluid fluid)
+	public static MutableText fluid(Fluid fluid)
 	{
 		return hover(block(fluid.getDefaultState().getBlockState().getBlock()), s(IdentifierUtil.id(fluid).toString()));
 	}
 
-	public static BaseText fluid(FluidState fluid)
+	public static MutableText fluid(FluidState fluid)
 	{
 		return fluid(fluid.getFluid());
 	}
@@ -233,30 +234,30 @@ public class Messenger
 	 * --------------------
 	 */
 
-	public static BaseText hover(BaseText text, HoverEvent hoverEvent)
+	public static MutableText hover(MutableText text, HoverEvent hoverEvent)
 	{
 		style(text, text.getStyle().withHoverEvent(hoverEvent));
 		return text;
 	}
 
-	public static BaseText hover(BaseText text, BaseText hoverText)
+	public static MutableText hover(MutableText text, MutableText hoverText)
 	{
 		return hover(text, new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
 	}
 
-	public static BaseText click(BaseText text, ClickEvent clickEvent)
+	public static MutableText click(MutableText text, ClickEvent clickEvent)
 	{
 		style(text, text.getStyle().withClickEvent(clickEvent));
 		return text;
 	}
 
-	public static BaseText formatting(BaseText text, Formatting... formattings)
+	public static MutableText formatting(MutableText text, Formatting... formattings)
 	{
 		text.formatted(formattings);
 		return text;
 	}
 
-	public static BaseText formatting(BaseText text, String carpetStyle)
+	public static MutableText formatting(MutableText text, String carpetStyle)
 	{
 		Style textStyle = text.getStyle();
 		StyleAccessor parsedStyle = (StyleAccessor)parseCarpetStyle(carpetStyle);
@@ -269,15 +270,15 @@ public class Messenger
 		return style(text, textStyle);
 	}
 
-	public static BaseText style(BaseText text, Style style)
+	public static MutableText style(MutableText text, Style style)
 	{
 		text.setStyle(style);
 		return text;
 	}
 
-	public static BaseText copy(BaseText text)
+	public static MutableText copy(Text text)
 	{
-		return (BaseText)text.shallowCopy();
+		return text.shallowCopy();
 	}
 
 	/*
@@ -286,7 +287,7 @@ public class Messenger
 	 * ------------------
 	 */
 
-	private static void __tell(ServerCommandSource source, BaseText text)
+	private static void __tell(ServerCommandSource source, MutableText text)
 	{
 		Entity entity = source.getEntity();
 		text = entity instanceof ServerPlayerEntity ?
@@ -295,7 +296,7 @@ public class Messenger
 		source.sendFeedback(text, false);
 	}
 
-	private static void __reminder(PlayerEntity player, BaseText text)
+	private static void __reminder(PlayerEntity player, MutableText text)
 	{
 		text = player instanceof ServerPlayerEntity ?
 				TISAdditionTranslations.translate(text, (ServerPlayerEntity)player) :
@@ -303,17 +304,17 @@ public class Messenger
 		player.sendMessage(text, true);
 	}
 
-	private static <T> void messageSender(T target, BiConsumer<T, BaseText> consumer, Object... texts)
+	private static <T> void messageSender(T target, BiConsumer<T, MutableText> consumer, Object... texts)
 	{
 		if (texts.length == 1)
 		{
-			if (texts[0] instanceof BaseText)
+			if (texts[0] instanceof MutableText)
 			{
-				consumer.accept(target, (BaseText)texts[0]);
+				consumer.accept(target, (MutableText)texts[0]);
 			}
 			else if (texts[0] instanceof Collection)
 			{
-				((Collection<?>) texts[0]).forEach(text -> consumer.accept(target, (BaseText)text));
+				((Collection<?>) texts[0]).forEach(text -> consumer.accept(target, (MutableText)text));
 			}
 		}
 		else
@@ -337,7 +338,7 @@ public class Messenger
 		messageSender(player, Messenger::__reminder, texts);
 	}
 
-	public static void broadcast(BaseText text)
+	public static void broadcast(MutableText text)
 	{
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
@@ -360,7 +361,7 @@ public class Messenger
 
 	// some language doesn't use space char to divide word
 	// so here comes the compatibility
-	public static BaseText getSpaceText()
+	public static MutableText getSpaceText()
 	{
 		return translator.tr("language.space");
 	}

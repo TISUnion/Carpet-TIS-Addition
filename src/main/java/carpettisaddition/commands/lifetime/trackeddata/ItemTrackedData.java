@@ -2,7 +2,7 @@ package carpettisaddition.commands.lifetime.trackeddata;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public class ItemTrackedData extends ExtraCountTrackedData
 {
@@ -13,7 +13,7 @@ public class ItemTrackedData extends ExtraCountTrackedData
 	}
 
 	@Override
-	protected BaseText getCountDisplayText()
+	protected MutableText getCountDisplayText()
 	{
 		return tr("item_count");
 	}

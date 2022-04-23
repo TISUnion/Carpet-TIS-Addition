@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.world.chunk.light.LightingProvider;
 
 import java.util.Deque;
@@ -70,11 +70,11 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public MutableText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
 		if (!(playerEntity.getEntityWorld() instanceof ServerWorld))
 		{
-			return new BaseText[]{Messenger.s("not ServerWorld")};
+			return new MutableText[]{Messenger.s("not ServerWorld")};
 		}
 		ServerWorld serverWorld = this.nameToWorldMap.getOrDefault(option, (ServerWorld)playerEntity.getEntityWorld());
 		WindowedDataRecorder recorder = this.dataMap.get(serverWorld);
@@ -87,12 +87,12 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 		double executeSpeed = (double)executedCount / deque.size();
 		double increaseSpeed = enqueueSpeed - executeSpeed;
 
-		BaseText header = Messenger.c(
+		MutableText header = Messenger.c(
 				"g LQ(",
 				Messenger.getColoredDimensionSymbol(DimensionWrapper.of(serverWorld)),
 				"g ) "
 		);
-		return new BaseText[]{
+		return new MutableText[]{
 				Messenger.c(
 						header,
 						String.format("%s%.1f", increaseSpeed >= 0 ? "e +" : "n ", increaseSpeed),

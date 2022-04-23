@@ -3,8 +3,8 @@ package carpettisaddition.utils.deobfuscator;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.base.Joiner;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +31,7 @@ public class StackTracePrinter
 		return new StackTracePrinter();
 	}
 
-	public static BaseText makeSymbol(Class<?> ignoreClass)
+	public static MutableText makeSymbol(Class<?> ignoreClass)
 	{
 		return create().ignore(ignoreClass).deobfuscate().toSymbolText();
 	}
@@ -68,11 +68,11 @@ public class StackTracePrinter
 
 	@SuppressWarnings("DeprecatedIsStillUsed")
 	@Deprecated
-	public BaseText toBaseText()
+	public MutableText toBaseText()
 	{
 		List<StackTraceElement> list = Arrays.asList(this.stackTrace).subList(0, min(this.stackTrace.length, this.maxStackTraceSize));
 		int restLineCount = this.stackTrace.length - this.maxStackTraceSize;
-		BaseText text = Messenger.c(translator.tr("deobfuscated_stack_trace"), Messenger.s(String.format(" (%s)\n", StackTraceDeobfuscator.MAPPING_VERSION)));
+		MutableText text = Messenger.c(translator.tr("deobfuscated_stack_trace"), Messenger.s(String.format(" (%s)\n", StackTraceDeobfuscator.MAPPING_VERSION)));
 		text.append(Messenger.s(Joiner.on("\n").join(list)));
 		if (restLineCount > 0)
 		{
@@ -82,9 +82,9 @@ public class StackTracePrinter
 	}
 
 	// a $ symbol with hover text showing the stack trace
-	public BaseText toSymbolText()
+	public MutableText toSymbolText()
 	{
-		BaseText baseText = this.toBaseText();
-		return Messenger.fancy("f", Messenger.s("$"), baseText, new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, baseText.asString()));
+		MutableText baseText = this.toBaseText();
+		return Messenger.fancy("f", Messenger.s("$"), baseText, new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, baseText.getString()));
 	}
 }

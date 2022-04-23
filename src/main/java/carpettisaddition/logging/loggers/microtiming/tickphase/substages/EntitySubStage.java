@@ -4,8 +4,8 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.Vec3d;
 
 public class EntitySubStage extends AbstractSubStage
@@ -22,7 +22,7 @@ public class EntitySubStage extends AbstractSubStage
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return Messenger.c(
 				MicroTimingLoggerManager.tr("common.entity"), "w : ", this.entity.getDisplayName(), "w \n",

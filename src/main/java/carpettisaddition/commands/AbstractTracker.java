@@ -6,7 +6,7 @@ import carpettisaddition.utils.GameUtil;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.Formatting;
 
 import static net.minecraft.server.command.CommandManager.literal;
@@ -42,13 +42,13 @@ public abstract class AbstractTracker extends TranslationContext
 	}
 
 	// Xxx
-	public BaseText getTranslatedName()
+	public MutableText getTranslatedName()
 	{
 		return tr("name");
 	}
 
 	// Xxx Tracker
-	public BaseText getTranslatedNameFull()
+	public MutableText getTranslatedNameFull()
 	{
 		return baseTranslator.tr("tracker_name_full", this.getTranslatedName());
 	}

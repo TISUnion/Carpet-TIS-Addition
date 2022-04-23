@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.damage.modifyreasons;
 
 import carpettisaddition.logging.loggers.damage.DamageLogger;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public class ModifyReason
 {
@@ -26,7 +26,7 @@ public class ModifyReason
 		return name;
 	}
 
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return DamageLogger.getStaticTranslator().tr("modify_reason." + this.getName().toLowerCase().replace(" ", "_"));
 	}

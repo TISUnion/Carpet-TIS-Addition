@@ -2,7 +2,6 @@ package carpettisaddition.logging.loggers.microtiming.marker;
 
 import carpet.script.utils.ShapeDispatcher;
 import carpet.script.value.NumericValue;
-import carpet.script.value.Value;
 import carpettisaddition.helpers.carpet.shape.ShapeHolder;
 import carpettisaddition.helpers.carpet.shape.ShapeUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
@@ -12,7 +11,7 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -20,7 +19,6 @@ import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
 
 public class MicroTimingMarker
 {
@@ -35,14 +33,14 @@ public class MicroTimingMarker
 	@Nullable
 	private final ShapeHolder<ShapeDispatcher.DisplayedText> text;
 	@Nullable
-	private final BaseText markerName;
+	private final MutableText markerName;
 	private MicroTimingMarkerType markerType;
 	private boolean movable;
 
 	public long tickCounter;
 
 	@SuppressWarnings("ConstantConditions")
-	private MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color, @Nullable BaseText markerName, MicroTimingMarkerType markerType, boolean movable)
+	private MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color, @Nullable MutableText markerName, MicroTimingMarkerType markerType, boolean movable)
 	{
 		this.serverWorld = serverWorld;
 		this.blockPos = blockPos;
@@ -53,7 +51,7 @@ public class MicroTimingMarker
 		this.box = ShapeUtil.createBox(Vec3d.of(blockPos), Vec3d.of(blockPos.add(1, 1, 1)), DimensionWrapper.of(serverWorld), ((long)((DyeColorAccessor)(Object)this.color).getTextColor() << 8) | 0xAF);
 		if (this.markerName != null)
 		{
-			BaseText text = Messenger.c(MicroTimingUtil.getColorStyle(this.color) + " # ", Messenger.copy(this.markerName));
+			MutableText text = Messenger.c(MicroTimingUtil.getColorStyle(this.color) + " # ", Messenger.copy(this.markerName));
 			this.text = ShapeUtil.createLabel(text, new Vec3d(blockPos.getX() + 0.5D, blockPos.getY() + 0.5D, blockPos.getZ() + 0.5D), DimensionWrapper.of(serverWorld), null);
 		}
 		else
@@ -63,7 +61,7 @@ public class MicroTimingMarker
 		this.updateLineWidth();
 	}
 
-	public MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color, @Nullable BaseText markerName)
+	public MicroTimingMarker(ServerWorld serverWorld, BlockPos blockPos, DyeColor color, @Nullable MutableText markerName)
 	{
 		this(serverWorld, blockPos, color, markerName, MicroTimingMarkerType.REGULAR, false);
 	}
@@ -81,7 +79,7 @@ public class MicroTimingMarker
 	@Nullable
 	public String getMarkerNameString()
 	{
-		return this.markerName != null ? this.markerName.asString() : null;
+		return this.markerName != null ? this.markerName.getString() : null;
 	}
 
 	public MicroTimingMarkerType getMarkerType()
@@ -152,19 +150,19 @@ public class MicroTimingMarker
 	}
 
 	// 1.15 client cannot response to text component color, so just use Formatting symbol here
-	private BaseText withFormattingSymbol(String text)
+	private MutableText withFormattingSymbol(String text)
 	{
 		return Messenger.s(text, MicroTimingUtil.getColorStyle(this.color));
 	}
 
 	// [1, 2, 3]
-	public BaseText toShortText()
+	public MutableText toShortText()
 	{
 		return this.withFormattingSymbol(TextUtil.coord(this.blockPos));
 	}
 
 	// [1, 2, 3] red
-	public BaseText toFullText()
+	public MutableText toFullText()
 	{
 		return Messenger.c(
 				Messenger.s(TextUtil.coord(this.blockPos)),

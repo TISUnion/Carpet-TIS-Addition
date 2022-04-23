@@ -6,7 +6,7 @@ import carpettisaddition.utils.CounterUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.Map;
 
@@ -31,9 +31,9 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 		this.removalExtraCountMap.put(reason, this.removalExtraCountMap.getOrDefault(reason, 0L) + this.getExtraCount(entity));
 	}
 
-	protected abstract BaseText getCountDisplayText();
+	protected abstract MutableText getCountDisplayText();
 
-	private BaseText attachExtraCountHoverText(BaseText text, long extraCount, long ticks)
+	private MutableText attachExtraCountHoverText(MutableText text, long extraCount, long ticks)
 	{
 		return Messenger.hover(text, Messenger.c(
 				this.getCountDisplayText(),
@@ -43,25 +43,25 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	}
 
 	@Override
-	public BaseText getSpawningCountText(long ticks)
+	public MutableText getSpawningCountText(long ticks)
 	{
 		return this.attachExtraCountHoverText(super.getSpawningCountText(ticks), getLongMapSum(this.spawningExtraCountMap), ticks);
 	}
 
 	@Override
-	public BaseText getRemovalCountText(long ticks)
+	public MutableText getRemovalCountText(long ticks)
 	{
 		return this.attachExtraCountHoverText(super.getRemovalCountText(ticks), getLongMapSum(this.removalExtraCountMap), ticks);
 	}
 
 	@Override
-	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total)
+	protected MutableText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total)
 	{
 		return this.attachExtraCountHoverText(super.getSpawningReasonWithRate(reason, ticks, count, total), this.spawningExtraCountMap.getOrDefault(reason, 0L), ticks);
 	}
 
 	@Override
-	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total)
+	protected MutableText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total)
 	{
 		return this.attachExtraCountHoverText(super.getRemovalReasonWithRate(reason, ticks, count, total), this.removalExtraCountMap.getOrDefault(reason, 0L), ticks);
 	}

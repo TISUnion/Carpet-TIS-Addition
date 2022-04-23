@@ -1,6 +1,6 @@
 package carpettisaddition.translations;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 /**
  * With this you can use {@link TranslationContext#tr} freely in your target class
@@ -24,7 +24,7 @@ public class TranslationContext
 		return translator;
 	}
 
-	protected BaseText tr(String key, Object ...args)
+	protected MutableText tr(String key, Object ...args)
 	{
 		return this.translator.tr(key, args);
 	}

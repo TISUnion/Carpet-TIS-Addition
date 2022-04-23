@@ -4,7 +4,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.world.TickPriority;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class ScheduleTileTickEvent extends BaseEvent
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(Messenger.formatting(tr("scheduled"), COLOR_ACTION));

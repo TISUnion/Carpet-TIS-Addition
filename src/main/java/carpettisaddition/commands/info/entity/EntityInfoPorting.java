@@ -14,12 +14,12 @@ import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.decoration.painting.PaintingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -34,9 +34,9 @@ public class EntityInfoPorting
 	/**
 	 * From gnembon's carpet mod 1.13
 	 */
-	public static List<BaseText> entityInfo(Entity e, World source_world)
+	public static List<MutableText> entityInfo(Entity e, World source_world)
 	{
-		List<BaseText> lst = Lists.newArrayList();
+		List<MutableText> lst = Lists.newArrayList();
 		World world = e.getEntityWorld();
 		lst.add(Messenger.c("w " + EntityInfoUtil.entity_short_string(e)));
 		if (e.hasVehicle()) { lst.add(Messenger.c("w  - Rides: ", "wb "+e.getVehicle().getDisplayName().getString())); }
@@ -91,7 +91,7 @@ public class EntityInfoPorting
 		if (e instanceof PaintingEntity)
 		{
 			PaintingEntity ep = (PaintingEntity)e;
-			lst.add(Messenger.c("w  - Art: ", "wb "+ep.motive.toString()));
+			lst.add(Messenger.c("w  - Art: ", "wb "+ep.getVariant().toString()));
 		}
 
 		if (e instanceof LivingEntity)  // EntityLivingBase
@@ -222,9 +222,9 @@ public class EntityInfoPorting
 //								lst.add(Messenger.c("w  - Wealth: ", "lb "+ev.getWealth()+" emeralds" ));
 //							}
 						}
-						if (e instanceof HorseBaseEntity)
+						if (e instanceof AbstractHorseEntity)
 						{
-							HorseBaseEntity ah = (HorseBaseEntity) e;
+							AbstractHorseEntity ah = (AbstractHorseEntity) e;
 							lst.add(Messenger.c(String.format("w  - Horse Speed: %.2f b/s (%.1f%%%%)",
 									EntityInfoUtil.get_speed(elb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue()),
 									EntityInfoUtil.get_horse_speed_percent(elb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue())

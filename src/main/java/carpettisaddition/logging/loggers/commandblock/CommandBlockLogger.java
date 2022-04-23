@@ -8,8 +8,8 @@ import carpettisaddition.utils.Messenger;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.vehicle.CommandBlockMinecartEntity;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.StringHelper;
 import net.minecraft.util.math.BlockPos;
@@ -34,7 +34,7 @@ public class CommandBlockLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
-	private void logCommandBlockExecution(World world, BaseText nameText, BaseText posText, CommandBlockExecutor executor, String removeCommand)
+	private void logCommandBlockExecution(World world, MutableText nameText, MutableText posText, CommandBlockExecutor executor, String removeCommand)
 	{
 		if (!TISAdditionLoggerRegistry.__commandBlock)
 		{
@@ -60,7 +60,7 @@ public class CommandBlockLogger extends AbstractLogger
 			{
 				iExecutor.setLastLoggedTime(time);
 			}
-			return new BaseText[]{Messenger.c(
+			return new MutableText[]{Messenger.c(
 					tr(
 							"executed",
 							Messenger.formatting(Messenger.copy(nameText), Formatting.GOLD),

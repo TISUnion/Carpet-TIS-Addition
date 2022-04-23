@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.PistonBlock;
 import net.minecraft.server.world.BlockEvent;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.Direction;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		}
 	}
 
-	public static BaseText getMessageExtraMessengerHoverText(BlockEvent blockAction)
+	public static MutableText getMessageExtraMessengerHoverText(BlockEvent blockAction)
 	{
 		int eventID = blockAction.type();
 		int eventParam = blockAction.data();
@@ -53,12 +53,12 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		return Messenger.c(builder.toArray(new Object[0]));
 	}
 
-	public BaseText toText()
+	public MutableText toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(Messenger.formatting(tr("execute"), COLOR_ACTION));
 		list.add(Messenger.getSpaceText());
-		BaseText eventName = this.blockAction.block() instanceof PistonBlock ?
+		MutableText eventName = this.blockAction.block() instanceof PistonBlock ?
 				Messenger.formatting(PistonBlockEventType.fromId(blockAction.type()).toText(), COLOR_TARGET) :
 				Messenger.formatting(tr("blockevent"), COLOR_TARGET);
 		list.add(Messenger.fancy(eventName, getMessageExtraMessengerHoverText(this.blockAction), null));
@@ -120,7 +120,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 			this.event = event;
 		}
 
-		public BaseText toText()
+		public MutableText toText()
 		{
 			switch (this.reason)
 			{

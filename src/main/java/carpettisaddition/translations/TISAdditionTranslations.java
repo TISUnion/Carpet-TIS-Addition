@@ -113,17 +113,17 @@ public class TISAdditionTranslations
         return getTranslationFromResourcePath(lang.toLowerCase()).get(key);
     }
 
-    public static BaseText translate(BaseText text, String lang)
+    public static MutableText translate(MutableText text, String lang)
     {
         return translateText(Messenger.copy(text), lang);
     }
 
-    public static BaseText translate(BaseText text)
+    public static MutableText translate(MutableText text)
     {
         return translate(text, getServerLanguage());
     }
 
-    public static BaseText translate(BaseText text, ServerPlayerEntity player)
+    public static MutableText translate(MutableText text, ServerPlayerEntity player)
     {
         if (CarpetTISAdditionSettings.ultraSecretSetting.equals("translation"))
         {
@@ -132,11 +132,11 @@ public class TISAdditionTranslations
         return translate(text, ((ServerPlayerEntityWithClientLanguage)player).getClientLanguage$CTA());
     }
 
-    private static BaseText translateText(BaseText text, @NotNull String lang)
+    private static MutableText translateText(MutableText text, @NotNull String lang)
     {
-        if (text instanceof TranslatableText)
+        if (text.getContent() instanceof TranslatableTextContent)
         {
-            TranslatableText translatableText = (TranslatableText)text;
+            TranslatableTextContent translatableText = (TranslatableTextContent)text.getContent();
             if (translatableText.getKey().startsWith(TRANSLATION_KEY_PREFIX))
             {
                 String msgKeyString = translateKeyToFormattingString(lang, translatableText.getKey());
@@ -146,16 +146,16 @@ public class TISAdditionTranslations
                 }
                 if (msgKeyString != null)
                 {
-                    BaseText origin = text;
-                    TranslatableTextAccessor fixedTranslatableText = (TranslatableTextAccessor)(new TranslatableText(msgKeyString, translatableText.getArgs()));
+                    MutableText origin = text;
+                    TranslatableTextAccessor fixedTranslatableText = (TranslatableTextAccessor)(Messenger.tr(msgKeyString, translatableText.getArgs()));
                     try
                     {
                         List<StringVisitable> translations = Lists.newArrayList();
                         fixedTranslatableText.invokeForEachPart(msgKeyString, translations::add);
                         text = Messenger.c(translations.stream().map(stringVisitable -> {
-                            if (stringVisitable instanceof BaseText)
+                            if (stringVisitable instanceof MutableText)
                             {
-                                return (BaseText)stringVisitable;
+                                return (MutableText)stringVisitable;
                             }
                             return Messenger.s(stringVisitable.getString());
                         }).toArray());
@@ -181,9 +181,9 @@ public class TISAdditionTranslations
         if (hoverEvent != null)
         {
             Object hoverText = hoverEvent.getValue(hoverEvent.getAction());
-            if (hoverEvent.getAction() == HoverEvent.Action.SHOW_TEXT && hoverText instanceof BaseText)
+            if (hoverEvent.getAction() == HoverEvent.Action.SHOW_TEXT && hoverText instanceof MutableText)
             {
-                text.setStyle(text.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, translateText((BaseText)hoverText, lang))));
+                text.setStyle(text.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, translateText((MutableText)hoverText, lang))));
             }
         }
 
@@ -191,7 +191,7 @@ public class TISAdditionTranslations
         List<Text> siblings = text.getSiblings();
         for (int i = 0; i < siblings.size(); i++)
         {
-            siblings.set(i, translateText((BaseText)siblings.get(i), lang));
+            siblings.set(i, translateText((MutableText)siblings.get(i), lang));
         }
         return text;
     }

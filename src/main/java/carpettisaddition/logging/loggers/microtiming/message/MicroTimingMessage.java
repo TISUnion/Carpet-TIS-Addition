@@ -15,8 +15,8 @@ import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 
@@ -47,7 +47,7 @@ public class MicroTimingMessage
 	private final BlockPos pos;
 	private final DyeColor color;
 	private final TickPhase tickPhase;
-	private final BaseText stackTraceText;
+	private final MutableText stackTraceText;
 	private final BaseEvent event;
 	private final String blockName;
 
@@ -62,7 +62,7 @@ public class MicroTimingMessage
 		this.stackTraceText = StackTracePrinter.makeSymbol(MicroTimingLoggerManager.class);
 	}
 
-	private static BaseText tr(String key, Object... args)
+	private static MutableText tr(String key, Object... args)
 	{
 		return MicroTimingLoggerManager.TRANSLATOR.tr(key, args);
 	}
@@ -96,7 +96,7 @@ public class MicroTimingMessage
 		return Objects.hash(dimensionType, pos, color, tickPhase, event);
 	}
 
-	private BaseText getHashTagText(int indentation)
+	private MutableText getHashTagText(int indentation)
 	{
 		return Messenger.fancy(
 				MicroTimingUtil.getColorStyle(this.color),
@@ -110,16 +110,16 @@ public class MicroTimingMessage
 		);
 	}
 
-	public static BaseText getIndentationText(int indentation)
+	public static MutableText getIndentationText(int indentation)
 	{
 		return Messenger.s(INDENTATIONS.get(min(indentation, MAX_INDENT)));
 	}
 
 	// [Stone]
-	private BaseText getEnclosedTranslatedBlockNameHeaderText()
+	private MutableText getEnclosedTranslatedBlockNameHeaderText()
 	{
 		EventSource eventSource = this.event.getEventSource();
-		BaseText type = Messenger.s("unknown");
+		MutableText type = Messenger.s("unknown");
 		if (eventSource.getSourceObject() instanceof Block)
 		{
 			type = tr("common.block");
@@ -146,7 +146,7 @@ public class MicroTimingMessage
 	}
 
 	// # [block] something happens (@ phase) $
-	public BaseText toText(int indentation, boolean showStage)
+	public MutableText toText(int indentation, boolean showStage)
 	{
 		List<Object> line = Lists.newArrayList();
 		if (indentation > 0)

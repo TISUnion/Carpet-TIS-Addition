@@ -12,7 +12,7 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.Map;
 import java.util.Objects;
@@ -253,7 +253,7 @@ public class CarpetTISAdditionSettings
 		{
 			if (!newValue.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue) && source != null)
 			{
-				Consumer<BaseText> messenger = msg -> Messenger.tell(source, Messenger.s(msg.getString(), "r"));
+				Consumer<MutableText> messenger = msg -> Messenger.tell(source, Messenger.s(msg.getString(), "r"));
 				messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.found", newValue, currentRule.name));
 				if (!Objects.equals(this.lastDangerousInput.get(currentRule), newValue))
 				{

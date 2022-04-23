@@ -8,7 +8,7 @@ import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.Formatting;
 
 import java.util.Optional;
@@ -34,7 +34,7 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public MutableText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
 		LifeTimeWorldTracker tracker = LifeTimeTracker.getInstance().getTracker(playerEntity.getEntityWorld());
 		if (tracker != null)
@@ -44,8 +44,8 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 			{
 				EntityType<?> entityType = entityTypeOptional.get();
 				BasicTrackedData data = tracker.getDataMap().getOrDefault(entityType, new BasicTrackedData());
-				return new BaseText[]{Messenger.c(
-						Messenger.formatting(Messenger.copy((BaseText)entityType.getName()), Formatting.GRAY),
+				return new MutableText[]{Messenger.c(
+						Messenger.formatting(Messenger.copy((MutableText)entityType.getName()), Formatting.GRAY),
 						"g : ",
 						"e " + data.getSpawningCount(),
 						"g /",

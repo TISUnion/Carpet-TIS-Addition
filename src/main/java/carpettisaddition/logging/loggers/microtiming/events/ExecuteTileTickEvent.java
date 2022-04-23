@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.world.tick.OrderedTick;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class ExecuteTileTickEvent<T> extends BaseEvent
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(Messenger.formatting(tr("execute"), COLOR_ACTION));

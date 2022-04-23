@@ -9,8 +9,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 
@@ -78,7 +78,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		return predicate.test(testEntity);
 	}
 
-	public BaseText toText()
+	public MutableText toText()
 	{
 		String inputText = this.entitySelector.getInputText();
 		return Messenger.fancy(

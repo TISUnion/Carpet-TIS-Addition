@@ -7,8 +7,8 @@ import carpettisaddition.utils.TextUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -52,17 +52,17 @@ public abstract class ExplosionLogHelperMixin
 	}
 
 	@Inject(method = "lambda$onExplosionDone$1", at = @At("RETURN"), remap = false, cancellable = true)
-	private void attachBlockDestroyedWarning(long gametime, String option, CallbackInfoReturnable<BaseText[]> cir)
+	private void attachBlockDestroyedWarning(long gametime, String option, CallbackInfoReturnable<MutableText[]> cir)
 	{
 		if (this.entity instanceof TntEntity)
 		{
-			List<BaseText> messages = Lists.newArrayList(cir.getReturnValue());
+			List<MutableText> messages = Lists.newArrayList(cir.getReturnValue());
 			ITntEntity iTntEntity = (ITntEntity)this.entity;
 			if (iTntEntity.dataRecorded())
 			{
 				String angleString = String.valueOf(this.calculateAngle(iTntEntity.getInitializedVelocity()));
 				String posString = TextUtil.coord(iTntEntity.getInitializedPosition());
-				BaseText tntText = Messenger.fancy(
+				MutableText tntText = Messenger.fancy(
 						"r",
 						Messenger.s("[TNT]"),
 						Messenger.c(
@@ -75,7 +75,7 @@ public abstract class ExplosionLogHelperMixin
 				switch (option)
 				{
 					case "brief":
-						BaseText lastMessage = messages.get(messages.size() - 1);
+						MutableText lastMessage = messages.get(messages.size() - 1);
 						messages.set(messages.size() - 1, Messenger.c(lastMessage, "w  ", tntText));
 						break;
 					case "full":
@@ -83,7 +83,7 @@ public abstract class ExplosionLogHelperMixin
 						break;
 				}
 			}
-			cir.setReturnValue(messages.toArray(new BaseText[0]));
+			cir.setReturnValue(messages.toArray(new MutableText[0]));
 		}
 	}
 }

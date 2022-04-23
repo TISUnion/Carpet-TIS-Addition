@@ -4,7 +4,7 @@ import carpettisaddition.utils.IdentifierUtil;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.Identifier;
 
 import java.util.Objects;
@@ -14,7 +14,7 @@ public abstract class EventSource
 {
 	public abstract Object getSourceObject();
 
-	public abstract BaseText getName();
+	public abstract MutableText getName();
 
 	public abstract Identifier getId();
 
@@ -61,7 +61,7 @@ public abstract class EventSource
 		}
 
 		@Override
-		public BaseText getName()
+		public MutableText getName()
 		{
 			return Messenger.block(this.block);
 		}
@@ -89,7 +89,7 @@ public abstract class EventSource
 		}
 
 		@Override
-		public BaseText getName()
+		public MutableText getName()
 		{
 			return Messenger.fluid(this.fluid);
 		}

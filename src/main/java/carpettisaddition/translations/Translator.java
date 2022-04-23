@@ -2,7 +2,7 @@ package carpettisaddition.translations;
 
 import carpettisaddition.utils.Messenger;
 import com.google.common.base.Strings;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public class Translator
 {
@@ -27,7 +27,7 @@ public class Translator
 		return this.translationPath;
 	}
 
-	public BaseText tr(String key, Object... args)
+	public MutableText tr(String key, Object... args)
 	{
 		String translationKey = TISAdditionTranslations.TRANSLATION_KEY_PREFIX + this.translationPath + "." + key;
 		return Messenger.tr(translationKey, args);

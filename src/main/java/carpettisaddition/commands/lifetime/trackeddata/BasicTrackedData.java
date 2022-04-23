@@ -11,7 +11,7 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -61,7 +61,7 @@ public class BasicTrackedData extends TranslationContext
 	/**
 	 * Spawn Count: xxxxx
 	 */
-	public BaseText getSpawningCountText(long ticks)
+	public MutableText getSpawningCountText(long ticks)
 	{
 		return Messenger.c(
 				Messenger.formatting(tr("spawn_count"), "q"),
@@ -73,7 +73,7 @@ public class BasicTrackedData extends TranslationContext
 	/**
 	 * Removal Count: xxxxx
 	 */
-	public BaseText getRemovalCountText(long ticks)
+	public MutableText getRemovalCountText(long ticks)
 	{
 		return Messenger.c(
 				Messenger.formatting(tr("removal_count"), "q "),
@@ -86,7 +86,7 @@ public class BasicTrackedData extends TranslationContext
 	 * - AAA: 50, (100/h) 25%
 	 * @param reason spawning reason or removal reason
 	 */
-	private static BaseText getReasonWithRate(AbstractReason reason, long ticks, long count, long total)
+	private static MutableText getReasonWithRate(AbstractReason reason, long ticks, long count, long total)
 	{
 		double percentage = 100.0D * count / total;
 		return Messenger.c(
@@ -99,12 +99,12 @@ public class BasicTrackedData extends TranslationContext
 		);
 	}
 
-	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total)
+	protected MutableText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total)
 	{
 		return getReasonWithRate(reason, ticks, count, total);
 	}
 
-	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total)
+	protected MutableText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total)
 	{
 		return getReasonWithRate(reason, ticks, count, total);
 	}
@@ -117,9 +117,9 @@ public class BasicTrackedData extends TranslationContext
 	 * @param hoverMode automatically insert a new line text between lines or not for hover text display
 	 * @return might be a empty list
 	 */
-	public List<BaseText> getSpawningReasonsTexts(long ticks, boolean hoverMode)
+	public List<MutableText> getSpawningReasonsTexts(long ticks, boolean hoverMode)
 	{
-		List<BaseText> result = Lists.newArrayList();
+		List<MutableText> result = Lists.newArrayList();
 		List<Map.Entry<SpawningReason, Long>> entryList = Lists.newArrayList(this.spawningReasons.entrySet());
 		entryList.sort(Collections.reverseOrder(Comparator.comparingLong(Map.Entry::getValue)));
 
@@ -159,9 +159,9 @@ public class BasicTrackedData extends TranslationContext
 	 * @param hoverMode automatically insert a new line text between lines or not for hover text display
 	 * @return might be a empty list
 	 */
-	public List<BaseText> getRemovalReasonsTexts(long ticks, boolean hoverMode)
+	public List<MutableText> getRemovalReasonsTexts(long ticks, boolean hoverMode)
 	{
-		List<BaseText> result = Lists.newArrayList();
+		List<MutableText> result = Lists.newArrayList();
 		List<Map.Entry<RemovalReason, LifeTimeStatistic>> entryList = Lists.newArrayList(this.removalReasons.entrySet());
 		entryList.sort(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().count)));
 

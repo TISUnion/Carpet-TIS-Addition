@@ -1,6 +1,6 @@
 package carpettisaddition.commands.lifetime.spawning;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public class LiteralSpawningReason extends SpawningReason
 {
@@ -25,7 +25,7 @@ public class LiteralSpawningReason extends SpawningReason
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return tr(this.translationKey);
 	}

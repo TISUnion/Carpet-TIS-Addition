@@ -5,7 +5,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
@@ -27,9 +27,9 @@ public class EmitBlockUpdateRedstoneDustEvent extends EmitBlockUpdateEvent
 	}
 
 	@Override
-	protected BaseText getUpdatesTextHoverText()
+	protected MutableText getUpdatesTextHoverText()
 	{
-		BaseText hover = super.getUpdatesTextHoverText();
+		MutableText hover = super.getUpdatesTextHoverText();
 		if (this.updateOrder != null)
 		{
 			List<Object> list = Lists.newArrayList();
@@ -41,7 +41,7 @@ public class EmitBlockUpdateRedstoneDustEvent extends EmitBlockUpdateEvent
 				Direction direction = Direction.fromVector(vec.getX(), vec.getY(), vec.getZ());
 				list.add(String.format("w %d. ", i + 1));
 				list.add(Messenger.coord("w", target));
-				BaseText extra = null;
+				MutableText extra = null;
 				if (direction != null)
 				{
 					extra = MicroTimingUtil.getFormattedDirectionText(direction);

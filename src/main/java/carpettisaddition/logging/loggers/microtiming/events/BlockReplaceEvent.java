@@ -5,7 +5,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.List;
 
@@ -22,15 +22,15 @@ public class BlockReplaceEvent extends SetBlockStateEventBase
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		BaseText titleText = Messenger.fancy(
+		MutableText titleText = Messenger.fancy(
 				Messenger.formatting(tr("block_replace"), COLOR_ACTION),
 				this.getFlagsText(),
 				null
 		);
-		BaseText infoText = Messenger.c(
+		MutableText infoText = Messenger.c(
 				Messenger.block(this.oldBlock),
 				"g ->",
 				Messenger.block(this.newBlock)

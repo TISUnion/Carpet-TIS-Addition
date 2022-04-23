@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.ChunkPos;
 
 import java.util.Arrays;
@@ -78,7 +78,7 @@ public class TicketLogger extends AbstractLogger
 				ChunkPos pos = new ChunkPos(position);
 				long expiryTicks = chunkTicket.getType().getExpiryTicks();
 				int level = chunkTicket.getLevel();
-				return new BaseText[]{Messenger.c(
+				return new MutableText[]{Messenger.c(
 						Messenger.fancy(
 								Messenger.s(String.format("[%s] ", world.getTime()), "g"),
 								tr("time_detail", DimensionWrapper.of(world).getIdentifierString(), world.getTime()),
@@ -138,7 +138,7 @@ public class TicketLogger extends AbstractLogger
 			this.translation = translation;
 		}
 
-		private BaseText getText(Translator translator)
+		private MutableText getText(Translator translator)
 		{
 			return Messenger.formatting(translator.tr(this.translation), this.color);
 		}

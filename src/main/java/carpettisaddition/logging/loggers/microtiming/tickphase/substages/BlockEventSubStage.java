@@ -5,8 +5,8 @@ import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.server.world.BlockEvent;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.world.World;
 
 public class BlockEventSubStage extends AbstractSubStage
@@ -25,7 +25,7 @@ public class BlockEventSubStage extends AbstractSubStage
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return Messenger.c(
 				MicroTimingLoggerManager.tr("common.block"), "w : ", Messenger.block(this.blockEventData.block()), Messenger.newLine(),

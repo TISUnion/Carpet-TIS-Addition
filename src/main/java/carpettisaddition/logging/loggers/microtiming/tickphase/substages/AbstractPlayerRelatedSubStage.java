@@ -3,8 +3,8 @@ package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 
 public abstract class AbstractPlayerRelatedSubStage extends AbstractSubStage
 {
@@ -16,7 +16,7 @@ public abstract class AbstractPlayerRelatedSubStage extends AbstractSubStage
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return Messenger.c(
 				tr("player"),

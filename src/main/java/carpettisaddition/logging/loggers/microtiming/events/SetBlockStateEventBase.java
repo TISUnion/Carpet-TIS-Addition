@@ -6,7 +6,7 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -21,7 +21,7 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 
 	private static final Translator TRANSLATOR = (new BaseEvent(null, "set_block_state_event_base", (EventSource)null) {
 		@Override
-		public BaseText toText()
+		public MutableText toText()
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -47,7 +47,7 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 		this.flags = flags;
 	}
 
-	protected BaseText getFlagsText()
+	protected MutableText getFlagsText()
 	{
 		String bits = Integer.toBinaryString(this.flags);
 		bits = String.join("", Collections.nCopies(Math.max(SET_BLOCK_STATE_FLAGS.size() - bits.length(), 0), "0")) + bits;

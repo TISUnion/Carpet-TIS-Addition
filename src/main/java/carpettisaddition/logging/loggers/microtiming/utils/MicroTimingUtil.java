@@ -19,7 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -61,14 +61,14 @@ public class MicroTimingUtil
 		return COLOR_STYLE.getOrDefault(color, "w");
 	}
 
-	private static BaseText tr(String key, Object... args)
+	private static MutableText tr(String key, Object... args)
 	{
 		return TRANSLATOR.tr(key, args);
 	}
 
-	public static BaseText getColoredValue(Object value)
+	public static MutableText getColoredValue(Object value)
 	{
-		BaseText text = Messenger.s(value.toString());
+		MutableText text = Messenger.s(value.toString());
 		Formatting color = null;
 		if (Boolean.TRUE.equals(value))
 		{
@@ -89,9 +89,9 @@ public class MicroTimingUtil
 		return text;
 	}
 
-	public static BaseText getSuccessText(boolean value, boolean showReturnValue, BaseText hoverExtra)
+	public static MutableText getSuccessText(boolean value, boolean showReturnValue, MutableText hoverExtra)
 	{
-		BaseText hintText = value ?
+		MutableText hintText = value ?
 				Messenger.formatting(tr("successful"), "e") :
 				Messenger.formatting(tr("failed"), "r");
 		if (hoverExtra != null)
@@ -109,7 +109,7 @@ public class MicroTimingUtil
 				Messenger.fancy("e", Messenger.s("√"), hintText, null) :
 				Messenger.fancy("r", Messenger.s("×"), hintText, null);
 	}
-	public static BaseText getSuccessText(boolean bool, boolean showReturnValue)
+	public static MutableText getSuccessText(boolean bool, boolean showReturnValue)
 	{
 		return getSuccessText(bool, showReturnValue, null);
 	}
@@ -252,9 +252,9 @@ public class MicroTimingUtil
 		return optionalDyeColor;
 	}
 
-	public static BaseText getFormattedDirectionText(Direction direction)
+	public static MutableText getFormattedDirectionText(Direction direction)
 	{
-		BaseText translatedName = tr("direction." + direction.toString());
+		MutableText translatedName = tr("direction." + direction.toString());
 		char sign = direction.getDirection().offset() > 0 ? '+' : '-';
 		return Messenger.c(translatedName, String.format("w (%c%s)", sign, direction.getAxis()));
 	}

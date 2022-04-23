@@ -10,7 +10,7 @@ import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.base.Joiner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
@@ -43,22 +43,22 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		return this.loggerName;
 	}
 
-	protected BaseText getNameText(T entity)
+	protected MutableText getNameText(T entity)
 	{
 		return Messenger.tr(entity.getType().getTranslationKey());
 	}
 
-	protected BaseText getNameTextHoverText(T entity)
+	protected MutableText getNameTextHoverText(T entity)
 	{
 		return null;
 	}
 
 	protected abstract boolean getAcceleratorBoolean();
 
-	private BaseText getNameTextRich(T entity)
+	private MutableText getNameTextRich(T entity)
 	{
-		BaseText text = getNameText(entity);
-		BaseText hoverText = getNameTextHoverText(entity);
+		MutableText text = getNameText(entity);
+		MutableText hoverText = getNameTextHoverText(entity);
 		if (hoverText != null)
 		{
 			Messenger.hover(text, hoverText);
@@ -67,12 +67,12 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	}
 
 	// e.g. "[12000] " for gt 12000, note the space at the end
-	private BaseText getWorldTimeText(World world)
+	private MutableText getWorldTimeText(World world)
 	{
 		return Messenger.s(String.format("[%s] ", world.getTime()), "g");
 	}
 
-	private void onLoggingEvent(T entity, LoggingType loggingType, Supplier<BaseText[]> supplier)
+	private void onLoggingEvent(T entity, LoggingType loggingType, Supplier<MutableText[]> supplier)
 	{
 		if (this.getAcceleratorBoolean() && entity.world != null && !entity.world.isClient())
 		{
@@ -82,7 +82,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public void onEntityCreated(T entity)
 	{
-		this.onLoggingEvent(entity, LoggingType.CREATE, () -> new BaseText[]{Messenger.c(
+		this.onLoggingEvent(entity, LoggingType.CREATE, () -> new MutableText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
 				translator.tr("created", getNameTextRich(entity)),
 				"g  @ ",
@@ -94,7 +94,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public void onEntityDespawn(T entity)
 	{
-		this.onLoggingEvent(entity, LoggingType.DESPAWN, () -> new BaseText[]{Messenger.c(
+		this.onLoggingEvent(entity, LoggingType.DESPAWN, () -> new MutableText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
 				translator.tr("despawned", getNameTextRich(entity)),
 				"g  @ ",
@@ -104,7 +104,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public void onEntityDied(T entity, DamageSource source, float amount)
 	{
-		this.onLoggingEvent(entity, LoggingType.DIE, () -> new BaseText[]{Messenger.c(
+		this.onLoggingEvent(entity, LoggingType.DIE, () -> new MutableText[]{Messenger.c(
 				this.getWorldTimeText(entity.world),
 				Messenger.fancy(
 						null,

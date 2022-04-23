@@ -10,7 +10,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -71,7 +71,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 		this.markers.put(marker.getStorageKey(), marker);
 	}
 
-	public void addMarker(PlayerEntity playerEntity, BlockPos blockPos, DyeColor color, @Nullable BaseText name)
+	public void addMarker(PlayerEntity playerEntity, BlockPos blockPos, DyeColor color, @Nullable MutableText name)
 	{
 		if (checkServerSide(playerEntity))
 		{

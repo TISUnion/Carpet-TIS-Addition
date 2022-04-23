@@ -1,14 +1,14 @@
 package carpettisaddition.mixins.translations;
 
 import carpettisaddition.translations.TISAdditionTranslations;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(TranslatableText.class)
+@Mixin(TranslatableTextContent.class)
 public abstract class TranslatableTextMixin
 {
 	@Shadow @Final private String key;
@@ -17,7 +17,7 @@ public abstract class TranslatableTextMixin
 			method = "updateTranslations",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/text/TranslatableText;forEachPart(Ljava/lang/String;Ljava/util/function/Consumer;)V"
+					target = "Lnet/minecraft/text/TranslatableTextContent;forEachPart(Ljava/lang/String;Ljava/util/function/Consumer;)V"
 			)
 	)
 	private String applyTISCarpetTranslation(String vanillaTranslatedFormattingString)

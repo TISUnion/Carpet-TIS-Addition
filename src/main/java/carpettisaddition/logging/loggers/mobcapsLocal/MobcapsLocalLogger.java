@@ -15,7 +15,8 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.SpawnDensityCapper;
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +54,7 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public MutableText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
 		if (option != null)
 		{
@@ -64,17 +65,17 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 			}
 			else
 			{
-				return new BaseText[]{Messenger.formatting(tr("player_not_found", option), Formatting.GRAY)};
+				return new MutableText[]{Messenger.formatting(tr("player_not_found", option), Formatting.GRAY)};
 			}
 		}
 		if (playerEntity instanceof ServerPlayerEntity)
 		{
 			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)playerEntity;
-			final BaseText result = Messenger.c("g [", Messenger.formatting(tr("local"), "g"), "g ] ");
+			final MutableText result = Messenger.c("g [", Messenger.formatting(tr("local"), "g"), "g ] ");
 			this.withLocalMobcapContext(
 					serverPlayerEntity,
 					() -> {
-						List<BaseText> lines = SpawnReporter.printMobcapsForDimension(serverPlayerEntity.getWorld(), false);
+						List<Text> lines = SpawnReporter.printMobcapsForDimension(serverPlayerEntity.getWorld(), false);
 						result.append(lines.get(0));
 						if (option != null)
 						{
@@ -85,9 +86,9 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 						result.append("-- Not available --");
 					}
 			);
-			return new BaseText[]{result};
+			return new MutableText[]{result};
 		}
-		return new BaseText[]{Messenger.s("-- Not ServerPlayerEntity --")};
+		return new MutableText[]{Messenger.s("-- Not ServerPlayerEntity --")};
 	}
 
 	public void withLocalMobcapContext(ServerPlayerEntity player, Runnable runnable, Runnable failureCallback)

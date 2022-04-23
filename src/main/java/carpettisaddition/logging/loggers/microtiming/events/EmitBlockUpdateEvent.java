@@ -4,7 +4,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,16 +27,16 @@ public class EmitBlockUpdateEvent extends BaseEvent
 		return false;
 	}
 
-	protected BaseText getUpdatesTextHoverText()
+	protected MutableText getUpdatesTextHoverText()
 	{
 		return Messenger.c(tr("method_name"), String.format("w : %s", this.methodName));
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		BaseText updatesText = Messenger.c(
+		MutableText updatesText = Messenger.c(
 				Messenger.formatting(tr("emit"), COLOR_ACTION),
 				Messenger.getSpaceText(),
 				Messenger.formatting(tr("updates"), COLOR_TARGET)

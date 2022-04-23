@@ -2,8 +2,8 @@ package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.translations.TranslationContext;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 
 public abstract class AbstractSubStage extends TranslationContext
 {
@@ -17,5 +17,5 @@ public abstract class AbstractSubStage extends TranslationContext
 		return null;
 	}
 
-	public abstract BaseText toText();
+	public abstract MutableText toText();
 }

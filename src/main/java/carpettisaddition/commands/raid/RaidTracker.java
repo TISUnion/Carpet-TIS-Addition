@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.village.raid.Raid;
 
 import java.util.List;
@@ -74,7 +74,7 @@ public class RaidTracker extends AbstractTracker
 	{
 		long ticks = this.sendTrackedTime(source, realtime);
 
-		List<BaseText> result = Lists.newArrayList();
+		List<MutableText> result = Lists.newArrayList();
 		int raiderCountSum = this.raiderCounter.values().stream().mapToInt(Integer::intValue).sum();
 		int invalidateCounterSum = this.raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
 

@@ -2,7 +2,7 @@ package carpettisaddition.commands.lifetime.spawning;
 
 import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.Objects;
 
@@ -31,7 +31,7 @@ public class TransDimensionSpawningReason extends SpawningReason
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return Messenger.c(
 				tr("trans_dimension"),

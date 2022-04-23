@@ -15,8 +15,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -89,7 +89,7 @@ public class DamageLogger extends AbstractLogger
 		}
 	}
 
-	private static BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, Entity from, Entity to, Supplier<BaseText[]> messageFuture)
+	private static MutableText[] verifyAndProduceMessage(String option, PlayerEntity player, Entity from, Entity to, Supplier<MutableText[]> messageFuture)
 	{
 		if ("all".equals(option) || ("players".equals(option) && (from instanceof PlayerEntity || to instanceof PlayerEntity)) || ("me".equals(option) && (from == player || to == player)))
 		{
@@ -98,7 +98,7 @@ public class DamageLogger extends AbstractLogger
 		return null;
 	}
 
-	private static BaseText getAmountText(String style, float amount)
+	private static MutableText getAmountText(String style, float amount)
 	{
 		String display = String.format("%.2f", amount);
 		String detail = String.format("%.6f", amount);
@@ -124,7 +124,7 @@ public class DamageLogger extends AbstractLogger
 				verifyAndProduceMessage(option, player, attacker, target, () -> {
 					List<Object> lines = Lists.newArrayList();
 					lines.add(Messenger.s(" "));
-					BaseText targetName = Messenger.entity(target);
+					MutableText targetName = Messenger.entity(target);
 					List<Object> sourceHoverTextList = Lists.newArrayList();
 					if (source != null)
 					{
@@ -171,7 +171,7 @@ public class DamageLogger extends AbstractLogger
 							getAmountText(finalAmount > 0.0F ? "r" : "w", finalAmount),
 							getAmountText(remainingHealth > 0 ? "l" : "r", remainingHealth)
 					));
-					return lines.stream().map(Messenger::c).toArray(BaseText[]::new);
+					return lines.stream().map(Messenger::c).toArray(MutableText[]::new);
 				})
 		);
 	}

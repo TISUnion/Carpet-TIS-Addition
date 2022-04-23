@@ -3,7 +3,7 @@ package carpettisaddition.commands.lifetime.trackeddata;
 import carpettisaddition.mixins.command.lifetime.data.ExperienceOrbEntityAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public class ExperienceOrbTrackedData extends ExtraCountTrackedData
 {
@@ -14,7 +14,7 @@ public class ExperienceOrbTrackedData extends ExtraCountTrackedData
 	}
 
 	@Override
-	protected BaseText getCountDisplayText()
+	protected MutableText getCountDisplayText()
 	{
 		return tr("experience_amount");
 	}

@@ -2,7 +2,7 @@ package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
@@ -10,7 +10,7 @@ public class MixinUtil
 {
 	public static void audit(@Nullable ServerCommandSource source)
 	{
-		BaseText response;
+		MutableText response;
 		try
 		{
 			MixinEnvironment.getCurrentEnvironment().audit();

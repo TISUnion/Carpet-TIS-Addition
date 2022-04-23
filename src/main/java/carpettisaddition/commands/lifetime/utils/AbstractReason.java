@@ -2,7 +2,7 @@ package carpettisaddition.commands.lifetime.utils;
 
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.translations.TranslationContext;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public abstract class AbstractReason extends TranslationContext
 {
@@ -11,5 +11,5 @@ public abstract class AbstractReason extends TranslationContext
 		super(LifeTimeTracker.getInstance().getTranslator().getDerivedTranslator(reasonType));
 	}
 
-	public abstract BaseText toText();
+	public abstract MutableText toText();
 }

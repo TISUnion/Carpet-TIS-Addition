@@ -1,13 +1,13 @@
 package carpettisaddition.commands.info.entity;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.CommandExtender;
+import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -57,15 +57,15 @@ public class EntityInfoCommand implements CommandExtender
 	{
 		for (Entity e : entities)
 		{
-			List<BaseText> report = EntityInfoPorting.entityInfo(e, source.getWorld());
+			List<MutableText> report = EntityInfoPorting.entityInfo(e, source.getWorld());
 			printEntity(report, source, grep);
 		}
 		return 1;
 	}
 
-	private static void printEntity(List<BaseText> messages, ServerCommandSource source, String grep)
+	private static void printEntity(List<MutableText> messages, ServerCommandSource source, String grep)
 	{
-		List<BaseText> actual = new ArrayList<>();
+		List<MutableText> actual = new ArrayList<>();
 		if (grep != null)
 		{
 			Pattern p = Pattern.compile(grep);
@@ -73,7 +73,7 @@ public class EntityInfoCommand implements CommandExtender
 			boolean empty = true;
 			for (int i = 1; i < messages.size(); i++)
 			{
-				BaseText line = messages.get(i);
+				MutableText line = messages.get(i);
 				Matcher m = p.matcher(line.getString());
 				if (m.find())
 				{
@@ -90,7 +90,7 @@ public class EntityInfoCommand implements CommandExtender
 		{
 			actual = messages;
 		}
-		Messenger.m(source, "");
-		Messenger.send(source, actual);
+		Messenger.tell(source, "");
+		Messenger.tell(source, actual);
 	}
 }

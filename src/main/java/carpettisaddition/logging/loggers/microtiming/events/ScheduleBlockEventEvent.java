@@ -4,7 +4,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.server.world.BlockEvent;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 import java.util.Objects;
 
@@ -21,7 +21,7 @@ public class ScheduleBlockEventEvent extends BaseEvent
 	}
 
 	@Override
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return Messenger.c(
 				Messenger.formatting(tr("scheduled"), COLOR_ACTION),

@@ -2,7 +2,7 @@ package carpettisaddition.mixins.logger.tickwarp;
 
 import carpet.helpers.TickSpeed;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class TickSpeedMixin
 {
 	@Inject(method = "tickrate_advance", at = @At("TAIL"), remap = false)
-	private static void recordTickWarpAdvancer(CallbackInfoReturnable<BaseText> cir)
+	private static void recordTickWarpAdvancer(CallbackInfoReturnable<MutableText> cir)
 	{
 		TickWarpHUDLogger.getInstance().recordTickWarpAdvancer();
 	}
