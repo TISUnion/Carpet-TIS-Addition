@@ -137,6 +137,18 @@ public class TISAdditionTranslations
         if (text instanceof TranslatableText)
         {
             TranslatableText translatableText = (TranslatableText)text;
+
+            // translate arguments
+            for (int i = 0; i < translatableText.getArgs().length; i++)
+            {
+                Object arg = translatableText.getArgs()[i];
+                if (arg instanceof BaseText)
+                {
+                    translatableText.getArgs()[i] = translateText((BaseText)arg, lang);
+                }
+            }
+
+            // do translation logic
             if (translatableText.getKey().startsWith(TRANSLATION_KEY_PREFIX))
             {
                 String msgKeyString = translateKeyToFormattingString(lang, translatableText.getKey());
