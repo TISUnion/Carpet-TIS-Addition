@@ -504,6 +504,20 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 矿车搭载乘客最小速度 (minecartTakePassengerMinVelocity)
+
+决定矿车将其附近实体作为乘客搭载上车所需的最低水平方向速度
+
+将其设为 0 以让矿车忽略速度，像船一样总能将附件实体载上车
+
+将其设为 NaN 以让矿车永远不能把实体载上车
+
+- 类型: `double`
+- 默认值: `0.1`
+- 参考选项: `0`, `0.1`, `NaN`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 怪物容量显示忽略杂项 (mobcapsDisplayIgnoreMisc)
 
 在 carpet 怪物容量显示中忽略杂项 (misc) 这一生物类型

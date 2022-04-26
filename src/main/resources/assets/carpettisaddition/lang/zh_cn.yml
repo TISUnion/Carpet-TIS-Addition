@@ -584,6 +584,12 @@ carpettisaddition:
         extra:
           '0': 'world_timer: 划分于世界计时器自增时'
           '1': 'player_action: 划分于玩家操作阶段开始前'
+      minecartTakePassengerMinVelocity:
+        name: 矿车搭载乘客最小速度
+        desc: 决定矿车将其附近实体作为乘客搭载上车所需的最低水平方向速度
+        extra:
+          '0': 将其设为0以让矿车忽略速度，像船一样总能将附件实体载上车
+          '1': 将其设为NaN以让矿车永远不能把实体载上车
       mobcapsDisplayIgnoreMisc:
         name: 怪物容量显示忽略杂项
         desc: 在carpet怪物容量显示中忽略杂项(misc)这一生物类型
