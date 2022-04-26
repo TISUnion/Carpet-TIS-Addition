@@ -7,6 +7,7 @@ import carpettisaddition.translations.TranslationContext;
 import com.google.common.base.Joiner;
 import net.minecraft.text.BaseText;
 
+import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -65,8 +66,13 @@ public abstract class AbstractLogger extends TranslationContext
 
 	// Utils
 
-	public static String getCompoundOption(String... options)
+	protected static String createCompoundOption(Iterable<String> options)
 	{
 		return Joiner.on(OPTION_SEP).join(options);
+	}
+
+	protected static String createCompoundOption(String... options)
+	{
+		return createCompoundOption(Arrays.asList(options));
 	}
 }

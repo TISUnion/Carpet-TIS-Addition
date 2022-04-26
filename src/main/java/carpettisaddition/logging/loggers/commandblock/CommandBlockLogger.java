@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.commandblock;
 
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.Messenger;
@@ -50,7 +49,7 @@ public class CommandBlockLogger extends AbstractLogger
 		}
 		String finalCommandPreview = commandPreview;
 
-		LoggerRegistry.getLogger(NAME).log((option) -> {
+		this.log((option) -> {
 			boolean isThrottledLogging = !option.equals("all");
 			if (time - iExecutor.getLastLoggedTime() < MINIMUM_LOG_INTERVAL && isThrottledLogging)
 			{

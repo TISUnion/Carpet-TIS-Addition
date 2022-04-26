@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.microtiming;
 
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
@@ -179,7 +178,7 @@ public class MicroTimingLogger extends AbstractLogger
 				{
 					flushedTrimmedMessages.put(option, getTrimmedMessages(flushedMessages, option));
 				}
-				LoggerRegistry.getLogger(NAME).log(option -> flushedTrimmedMessages.get(LoggingOption.getOrDefault(option)));
+				this.log(option -> flushedTrimmedMessages.get(LoggingOption.getOrDefault(option)));
 			}
 		}
 	}

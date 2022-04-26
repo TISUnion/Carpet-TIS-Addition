@@ -1,7 +1,6 @@
 package carpettisaddition.logging.loggers.ticket;
 
 import carpet.logging.Logger;
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
@@ -46,8 +45,8 @@ public class TicketLogger extends AbstractLogger
 	private String[] getLoggingSuggestions()
 	{
 		List<String> suggestions = this.tickTypes.stream().map(ChunkTicketType::toString).collect(Collectors.toList());
-		suggestions.add(ChunkTicketType.PORTAL + "," + ChunkTicketType.PLAYER);
-		suggestions.add(ChunkTicketType.PORTAL + "," + ChunkTicketType.DRAGON);
+		suggestions.add(createCompoundOption(ChunkTicketType.PORTAL.toString(), ChunkTicketType.PLAYER.toString()));
+		suggestions.add(createCompoundOption(ChunkTicketType.PORTAL.toString(), ChunkTicketType.DRAGON.toString()));
 		return suggestions.toArray(new String[0]);
 	}
 
@@ -71,7 +70,7 @@ public class TicketLogger extends AbstractLogger
 
 	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, ActionType actionType)
 	{
-		LoggerRegistry.getLogger(NAME).log((option) ->
+		this.log((option) ->
 		{
 			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicket.getType().toString()))
 			{

@@ -7,7 +7,6 @@ import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
-import com.google.common.base.Joiner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
@@ -149,7 +148,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		static
 		{
 			List<String> list = Arrays.stream(LoggingType.values()).map(LoggingType::getName).collect(Collectors.toList());
-			list.add(Joiner.on(",").join(list));
+			list.add(createCompoundOption(list));
 			LOGGING_SUGGESTIONS = list.toArray(new String[0]);
 		}
 	}

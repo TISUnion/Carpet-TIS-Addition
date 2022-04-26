@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.turtleegg;
 
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.Messenger;
@@ -38,7 +37,7 @@ public class TurtleEggLogger extends AbstractLogger
 		{
 			return;
 		}
-		LoggerRegistry.getLogger(NAME).log(() -> {
+		this.log(() -> {
 			// [O] xxx breaks egg @ {}
 			return new BaseText[]{Messenger.c(
 					entity != null ? Messenger.entity(null, entity) : Messenger.s("?"),
