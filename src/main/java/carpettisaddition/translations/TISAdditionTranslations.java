@@ -5,12 +5,14 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.translations.ServerPlayerEntityAccessor;
 import carpettisaddition.mixins.translations.StyleAccessor;
-import carpettisaddition.mixins.translations.TranslatableTextAccessor;
 import carpettisaddition.utils.FileUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.*;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -159,14 +161,11 @@ public class TISAdditionTranslations
                 if (msgKeyString != null)
                 {
                     BaseText origin = text;
-                    TranslatableTextAccessor fixedTranslatableText = (TranslatableTextAccessor)(new TranslatableText(msgKeyString, translatableText.getArgs()));
                     try
                     {
-                        fixedTranslatableText.getTranslations().clear();
-                        fixedTranslatableText.invokeSetTranslation(msgKeyString);
-                        text = Messenger.c(fixedTranslatableText.getTranslations().toArray(new Object[0]));
+                        text = Messenger.format(msgKeyString, translatableText.getArgs());
                     }
-                    catch (TranslationException e)
+                    catch (IllegalArgumentException e)
                     {
                         text = Messenger.s(msgKeyString);
                     }

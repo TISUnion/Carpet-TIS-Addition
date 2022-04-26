@@ -2,6 +2,7 @@ package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.mixins.translations.StyleAccessor;
+import carpettisaddition.mixins.translations.TranslatableTextAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.compat.DimensionWrapper;
@@ -10,6 +11,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -21,6 +23,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -38,7 +41,7 @@ public class Messenger
 	 * ----------------------------
 	 */
 
-	// Compound Text
+	// Compound Text in carpet style
 	public static BaseText c(Object ... fields)
 	{
 		return carpet.utils.Messenger.c(fields);
@@ -110,6 +113,21 @@ public class Messenger
 			text.append(items[i]);
 		}
 		return text;
+	}
+
+	public static BaseText format(String formatter, Object... args)
+	{
+		TranslatableTextAccessor dummy = (TranslatableTextAccessor)(new TranslatableText(formatter, args));
+		try
+		{
+			dummy.getTranslations().clear();
+			dummy.invokeSetTranslation(formatter);
+			return Messenger.c(dummy.getTranslations().toArray(new Object[0]));
+		}
+		catch (TranslationException e)
+		{
+			throw new IllegalArgumentException(formatter);
+		}
 	}
 
 	/*
@@ -225,6 +243,12 @@ public class Messenger
 		return fluid(fluid.getFluid());
 	}
 
+	public static BaseText blockEntity(BlockEntity blockEntity)
+	{
+		Identifier id = IdentifierUtil.id(blockEntity.getType());
+		return s(id != null ? id.toString() : blockEntity.getClass().getSimpleName());
+	}
+
 	/*
 	 * --------------------
 	 *    Text Modifiers
@@ -286,7 +310,7 @@ public class Messenger
 
 	private static void __tell(ServerCommandSource source, BaseText text, boolean broadcastToOps)
 	{
-		// translation logic is handled in
+		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
 		source.sendFeedback(text, broadcastToOps);
 	}
 
