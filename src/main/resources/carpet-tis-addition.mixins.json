@@ -92,6 +92,7 @@
     "command.lifetime.spawning.slime.SlimeEntityMixin",
     "command.lifetime.spawning.spawner.MobSpawnerLogicMixin",
     "command.lifetime.spawning.summon.CarvedPumpkinBlockMixin",
+    "command.lifetime.spawning.summon.SummonVexGoalMixin",
     "command.lifetime.spawning.summon.VillagerEntityMixin",
     "command.lifetime.spawning.transdimension.EntityMixin",
     "command.lifetime.spawning.zombiereinforce.ZombieEntityMixin",
