@@ -95,7 +95,7 @@ public abstract class AbstractTracker extends TranslationContext
 		this.startMillis = System.currentTimeMillis();
 		if (showFeedback)
 		{
-			Messenger.tellAndBoardCastToOps(source, baseTranslator.tr("tracking_started", this.getTranslatedNameFull()));
+			Messenger.tell(source, baseTranslator.tr("tracking_started", this.getTranslatedNameFull()), true);
 		}
 		this.initTracker();
 		return 1;
@@ -110,12 +110,12 @@ public abstract class AbstractTracker extends TranslationContext
 				this.reportTracking(source, false);
 				if (showFeedback)
 				{
-					Messenger.tellAndBoardCastToOps(source, Messenger.newLine(), baseTranslator.tr("tracking_stopped", this.getTranslatedNameFull()));
+					Messenger.tell(source, Messenger.c(Messenger.newLine(), baseTranslator.tr("tracking_stopped", this.getTranslatedNameFull())), true);
 				}
 			}
 			else if (showFeedback)
 			{
-				Messenger.tell(source, Messenger.newLine(), Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), Formatting.RED));
+				Messenger.tell(source, Messenger.c(Messenger.newLine(), Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), Formatting.RED)));
 			}
 		}
 		this.tracking = false;
@@ -131,7 +131,7 @@ public abstract class AbstractTracker extends TranslationContext
 		{
 			Messenger.tell(source, Messenger.s(" "));
 		}
-		Messenger.tellAndBoardCastToOps(source, baseTranslator.tr("tracking_restarted", this.getTranslatedNameFull()));
+		Messenger.tell(source, baseTranslator.tr("tracking_restarted", this.getTranslatedNameFull()), true);
 		return 1;
 	}
 
@@ -188,13 +188,15 @@ public abstract class AbstractTracker extends TranslationContext
 		long ticks = this.getTrackedTick(realtime);
 		Messenger.tell(
 				source,
-				"w  \n",
-				"g ----------- ", this.getTranslatedNameFull(), "g  -----------\n",
-				baseTranslator.tr("tracked", Messenger.c(
-						String.format("w %.2f min (", (double)ticks / (20 * 60)),
-						baseTranslator.tr(realtime ? "real_time" : "in_game"),
-						"w )"
-				))
+				Messenger.c(
+						"w  \n",
+						"g ----------- ", this.getTranslatedNameFull(), "g  -----------\n",
+						baseTranslator.tr("tracked", Messenger.c(
+								String.format("w %.2f min (", (double)ticks / (20 * 60)),
+								baseTranslator.tr(realtime ? "real_time" : "in_game"),
+								"w )"
+						))
+				)
 		);
 		return ticks;
 	}

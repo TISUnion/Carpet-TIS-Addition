@@ -26,9 +26,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 public class Messenger
 {
@@ -292,56 +290,45 @@ public class Messenger
 		source.sendFeedback(text, broadcastToOps);
 	}
 
-	private static void __reminder(PlayerEntity player, BaseText text)
+	public static void tell(ServerCommandSource source, BaseText text, boolean broadcastToOps)
+	{
+		__tell(source, text, broadcastToOps);
+	}
+	public static void tell(PlayerEntity player, BaseText text, boolean broadcastToOps)
+	{
+		tell(player.getCommandSource(), text, broadcastToOps);
+	}
+	public static void tell(ServerCommandSource source, BaseText text)
+	{
+		tell(source, text, false);
+	}
+	public static void tell(PlayerEntity player, BaseText text)
+	{
+		tell(player, text, false);
+	}
+	public static void tell(ServerCommandSource source, Iterable<BaseText> texts, boolean broadcastToOps)
+	{
+		texts.forEach(text -> tell(source, text, broadcastToOps));
+	}
+	public static void tell(PlayerEntity player, Iterable<BaseText> texts, boolean broadcastToOps)
+	{
+		texts.forEach(text -> tell(player, text, broadcastToOps));
+	}
+	public static void tell(ServerCommandSource source, Iterable<BaseText> texts)
+	{
+		tell(source, texts, false);
+	}
+	public static void tell(PlayerEntity player, Iterable<BaseText> texts)
+	{
+		tell(player, texts, false);
+	}
+
+	public static void reminder(PlayerEntity player, BaseText text)
 	{
 		text = player instanceof ServerPlayerEntity ?
 				TISAdditionTranslations.translate(text, (ServerPlayerEntity)player) :
 				TISAdditionTranslations.translate(text);
 		player.addChatMessage(text, true);
-	}
-
-	private static <T> void messageSender(T target, BiConsumer<T, BaseText> consumer, Object... texts)
-	{
-		if (texts.length == 1)
-		{
-			if (texts[0] instanceof BaseText)
-			{
-				consumer.accept(target, (BaseText)texts[0]);
-			}
-			else if (texts[0] instanceof Collection)
-			{
-				((Collection<?>) texts[0]).forEach(text -> consumer.accept(target, (BaseText)text));
-			}
-		}
-		else
-		{
-			consumer.accept(target, c(texts));
-		}
-	}
-
-	public static void tell(ServerCommandSource source, Object... texts)
-	{
-		messageSender(source, (src, txt) -> __tell(src, txt, false), texts);
-	}
-
-	public static void tell(PlayerEntity player, Object... texts)
-	{
-		tell(player.getCommandSource(), texts);
-	}
-
-	public static void tellAndBoardCastToOps(ServerCommandSource source, Object... texts)
-	{
-		messageSender(source, (src, txt) -> __tell(src, txt, true), texts);
-	}
-
-	public static void tellAndBoardCastToOps(PlayerEntity player, Object... texts)
-	{
-		tellAndBoardCastToOps(player.getCommandSource(), texts);
-	}
-
-	public static void reminder(PlayerEntity player, Object... texts)
-	{
-		messageSender(player, Messenger::__reminder, texts);
 	}
 
 	public static void broadcast(BaseText text)

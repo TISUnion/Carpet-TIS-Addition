@@ -69,8 +69,10 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 			order++;
 			Messenger.tell(
 					source,
-					"g " + order + ". ",
-					Messenger.dimension(DimensionWrapper.of(world))
+					Messenger.c(
+							"g " + order + ". ",
+							Messenger.dimension(DimensionWrapper.of(world))
+					)
 			);
 		}
 		return 1;
