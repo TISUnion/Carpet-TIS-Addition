@@ -233,15 +233,10 @@ carpettisaddition:
             type: Type
             ticking_order: Ticking order
             not_found: There's no tile entity at %1$s
-          remove: Tile entity at %1$s removed
-          create:
-            not_provider: Block %1$s does not provide tile entity
-            created: Tile entity %1$s created
-            failed: Failed to create tile entity
           statistic:
-            title: Top %1$s tile entity amount in %1$s
-            total: Total
-            ticking: Ticking
+            title: Tile entity statistic in %1$s
+            all: All tile entities
+            ticking: Ticking tile entities
         tile_tick:
           name: Tile Tick Queue
           item_name: tile tick event
