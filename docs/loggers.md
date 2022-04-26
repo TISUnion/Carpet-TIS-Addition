@@ -168,6 +168,19 @@ Attributes:
 - Suggested options: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`
 
 
+## phantom
+
+`/log phantom <options>`
+
+With option `spawning`, it informs when someone spawns a wave of phantoms
+
+With option `reminder`, it reminds you when you haven't slept for 45min or 60min
+
+Attributes:
+- Default option: `spawning`
+- Suggested options: `spawning`, `reminder`, `spawning,reminder`
+
+
 ## raid
 
 `/log raid`

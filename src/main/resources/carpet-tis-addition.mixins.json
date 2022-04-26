@@ -160,6 +160,7 @@
     "logger.microtiming.tickstages.tiletick.ServerWorldMixin",
     "logger.microtiming.tickstages.worldborder.ServerWorldMixin",
     "logger.movement.EntityMixin",
+    "logger.phantom.PhantomSpawnerMixin",
     "logger.raid.RaidManagerMixin",
     "logger.raid.RaidMixin",
     "logger.ticket.ChunkTicketManagerMixin",

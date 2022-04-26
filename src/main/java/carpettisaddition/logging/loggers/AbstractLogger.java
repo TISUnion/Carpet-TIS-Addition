@@ -5,6 +5,7 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.translations.TranslationContext;
+import carpettisaddition.translations.Translator;
 import com.google.common.base.Joiner;
 import net.minecraft.text.BaseText;
 import org.jetbrains.annotations.Nullable;
@@ -15,6 +16,7 @@ import java.util.function.Supplier;
 
 public abstract class AbstractLogger extends TranslationContext
 {
+	private static final Translator TRANSLATOR = new Translator("logger");
 	public final static String MULTI_OPTION_SEP_REG = "[,. ]";
 	public final static String OPTION_SEP = ",";
 
@@ -30,7 +32,7 @@ public abstract class AbstractLogger extends TranslationContext
 	 */
 	public AbstractLogger(String name, boolean strictOption)
 	{
-		super("logger." + name);
+		super(TRANSLATOR.getDerivedTranslator(name));
 		this.name = name;
 		this.strictOption = strictOption;
 	}

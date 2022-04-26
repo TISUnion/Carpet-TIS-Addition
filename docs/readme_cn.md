@@ -99,6 +99,7 @@
 - [微时序](loggers_cn.md#微时序-microtiming)
 - [局部怪物容量](loggers_cn.md#局部怪物容量-mobcapslocal)
 - [移动](loggers_cn.md#移动-movement)
+- [幻翼](loggers_cn.md#幻翼-phantom)
 - [袭击](loggers_cn.md#袭击-raid)
 - [供给计数器](loggers_cn.md#供给计数器-scounter)
 - [加载票](loggers_cn.md#加载票-ticket)

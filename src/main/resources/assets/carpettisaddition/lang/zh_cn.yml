@@ -190,6 +190,13 @@ carpettisaddition:
         piston: 活塞限制
         sneaking: 潜行
         collision: 碰撞
+    phantom:
+      header: 幻翼生成提示
+      summon: '%1$s召唤了%2$s只%3$s'
+      reminder:
+        time_since_rest: 你已经有%1$s分钟没有睡觉了
+        regular: '%1$s将在%2$s分钟后开始生成'
+        now: '%1$s将从现在起开始生成'
     projectiles:
       visualized:
         info: '可视化投掷物记录器: 已可视化%1$s游戏刻的轨迹'

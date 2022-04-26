@@ -168,6 +168,19 @@
 - 参考选项: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`
 
 
+## 幻翼 (phantom)
+
+`/log phantom <选项列表>`
+
+当选项包含 `spawning` 时，它将在某名玩家召唤了一波幻翼时通知你
+
+当选项包含 `reminder` 时，它将在你已经过了 45 分钟 / 60 分钟没睡觉时通知你
+
+属性:
+- 默认选项: `spawning`
+- 参考选项: `spawning`, `reminder`, `spawning,reminder`
+
+
 ## 袭击 (raid)
 
 `/log raid`
