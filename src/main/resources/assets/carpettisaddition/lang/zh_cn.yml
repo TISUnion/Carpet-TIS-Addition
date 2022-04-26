@@ -228,6 +228,16 @@ carpettisaddition:
           name: 可运算方块实体列表
           revert: 已翻转具有%2$s个方块实体的%1$s
           shuffle: 已随机打乱具有%2$s个方块实体的%1$s
+          query:
+            title: 位于%1$s的方块实体信息
+            type: 类型
+            ticking_order: 运算顺序
+            not_found: 位于%1$s处无方块实体
+          remove: 位于%1$s的方块实体已被移除
+          create:
+            not_provider: 方块%1$s不提供方块实体
+            created: 方块实体%1$s已创建
+            failed: 创建方块实体失败
         tile_tick:
           name: 计划刻队列
           item_name: 计划刻事件
