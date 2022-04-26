@@ -95,7 +95,7 @@ public abstract class AbstractTracker extends TranslationContext
 		this.startMillis = System.currentTimeMillis();
 		if (showFeedback)
 		{
-			Messenger.tell(source, baseTranslator.tr("tracking_started", this.getTranslatedNameFull()));
+			Messenger.tellAndBoardCastToOps(source, baseTranslator.tr("tracking_started", this.getTranslatedNameFull()));
 		}
 		this.initTracker();
 		return 1;
@@ -110,7 +110,7 @@ public abstract class AbstractTracker extends TranslationContext
 				this.reportTracking(source, false);
 				if (showFeedback)
 				{
-					Messenger.tell(source, Messenger.newLine(), baseTranslator.tr("tracking_stopped", this.getTranslatedNameFull()));
+					Messenger.tellAndBoardCastToOps(source, Messenger.newLine(), baseTranslator.tr("tracking_stopped", this.getTranslatedNameFull()));
 				}
 			}
 			else if (showFeedback)
@@ -131,7 +131,7 @@ public abstract class AbstractTracker extends TranslationContext
 		{
 			Messenger.tell(source, Messenger.s(" "));
 		}
-		Messenger.tell(source, baseTranslator.tr("tracking_restarted", this.getTranslatedNameFull()));
+		Messenger.tellAndBoardCastToOps(source, baseTranslator.tr("tracking_restarted", this.getTranslatedNameFull()));
 		return 1;
 	}
 

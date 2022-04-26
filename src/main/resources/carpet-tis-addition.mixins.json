@@ -253,6 +253,7 @@
     "translations.HUDControllerMixin",
     "translations.LoggerMixin",
     "translations.ServerPlayerEntityAccessor",
+    "translations.ServerPlayerEntityMixin",
     "translations.StyleAccessor",
     "translations.TranslatableTextAccessor",
     "translations.TranslatableTextMixin"

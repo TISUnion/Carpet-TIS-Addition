@@ -286,13 +286,10 @@ public class Messenger
 	 * ------------------
 	 */
 
-	private static void __tell(ServerCommandSource source, BaseText text)
+	private static void __tell(ServerCommandSource source, BaseText text, boolean broadcastToOps)
 	{
-		Entity entity = source.getEntity();
-		text = entity instanceof ServerPlayerEntity ?
-				TISAdditionTranslations.translate(text, (ServerPlayerEntity)entity) :
-				TISAdditionTranslations.translate(text);
-		source.sendFeedback(text, false);
+		// translation logic is handled in
+		source.sendFeedback(text, broadcastToOps);
 	}
 
 	private static void __reminder(PlayerEntity player, BaseText text)
@@ -324,12 +321,22 @@ public class Messenger
 
 	public static void tell(ServerCommandSource source, Object... texts)
 	{
-		messageSender(source, Messenger::__tell, texts);
+		messageSender(source, (src, txt) -> __tell(src, txt, false), texts);
 	}
 
 	public static void tell(PlayerEntity player, Object... texts)
 	{
 		tell(player.getCommandSource(), texts);
+	}
+
+	public static void tellAndBoardCastToOps(ServerCommandSource source, Object... texts)
+	{
+		messageSender(source, (src, txt) -> __tell(src, txt, true), texts);
+	}
+
+	public static void tellAndBoardCastToOps(PlayerEntity player, Object... texts)
+	{
+		tellAndBoardCastToOps(player.getCommandSource(), texts);
 	}
 
 	public static void reminder(PlayerEntity player, Object... texts)
