@@ -9,15 +9,14 @@ import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.class_7439;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.PacketDeflater;
-import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkHolder;
 import net.minecraft.text.MutableText;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -164,7 +163,7 @@ public class RefreshCommand extends AbstractCommand
 		}
 		MutableText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
 		player.networkHandler.sendPacket(
-				new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
+				new class_7439(message, MessageType.SYSTEM),
 				future -> {
 					synchronized (this.refreshingChunkPlayers)
 					{

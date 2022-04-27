@@ -19,7 +19,7 @@ public abstract class ExplosionMixin
 					value = "FIELD",
 					target = "Lnet/minecraft/item/ItemStack;EMPTY:Lnet/minecraft/item/ItemStack;"
 			),
-			allow = 1
+			allow = 2
 	)
 	private ItemStack useTheToolInYourHand()
 	{

@@ -20,7 +20,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -342,7 +341,7 @@ public class Messenger
 	{
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
-				CarpetTISAdditionServer.minecraft_server.sendSystemMessage(text, Util.NIL_UUID);
+			CarpetTISAdditionServer.minecraft_server.method_43496(text);
 			CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayerList().forEach(player -> tell(player, text));
 		}
 	}
