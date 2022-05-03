@@ -1,7 +1,7 @@
 package carpettisaddition.commands.info.entity;
 
-import carpet.utils.Messenger;
 import carpettisaddition.commands.CommandExtender;
+import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.Entity;
@@ -89,7 +89,7 @@ public class EntityInfoCommand implements CommandExtender
 		{
 			actual = messages;
 		}
-		Messenger.m(source, "");
-		Messenger.send(source, actual);
+		Messenger.tell(source, Messenger.s(""));
+		Messenger.tell(source, actual);
 	}
 }
