@@ -116,7 +116,7 @@ public class TISAdditionTranslations
 
     public static BaseText translate(BaseText text, String lang)
     {
-        return translateText(Messenger.copy(text), lang);
+        return translateText(text, lang);
     }
 
     public static BaseText translate(BaseText text)
@@ -135,17 +135,61 @@ public class TISAdditionTranslations
 
     private static BaseText translateText(BaseText text, @NotNull String lang)
     {
+        // quick scan to check if any required translation exists
+        boolean[] translationRequired = new boolean[]{false};
+        forEachTISCMTranslationText(text, lang, (txt, msgKeyString) -> {
+            translationRequired[0] = true;
+            return txt;
+        });
+        if (!translationRequired[0])
+        {
+            return text;
+        }
+
+        // make a copy of the text, and apply translation
+        return forEachTISCMTranslationText(Messenger.copy(text), lang, (txt, msgKeyString) -> {
+            if (msgKeyString == null)
+            {
+                CarpetTISAdditionServer.LOGGER.warn("TISCM: Unknown translation key {}", txt.getKey());
+                return txt;
+            }
+
+            BaseText newText;
+            try
+            {
+                newText = Messenger.format(msgKeyString, txt.getArgs());
+            }
+            catch (IllegalArgumentException e)
+            {
+                newText = Messenger.s(msgKeyString);
+            }
+
+            // migrating text data
+            newText.getSiblings().addAll(txt.getSiblings());
+            newText.setStyle(txt.getStyle());
+
+            return newText;
+        });
+    }
+
+    private static BaseText forEachTISCMTranslationText(BaseText text, @NotNull String lang, TextModifier modifier)
+    {
         if (text instanceof TranslatableText)
         {
             TranslatableText translatableText = (TranslatableText)text;
 
             // translate arguments
-            for (int i = 0; i < translatableText.getArgs().length; i++)
+            Object[] args = translatableText.getArgs();
+            for (int i = 0; i < args.length; i++)
             {
-                Object arg = translatableText.getArgs()[i];
+                Object arg = args[i];
                 if (arg instanceof BaseText)
                 {
-                    translatableText.getArgs()[i] = translateText((BaseText)arg, lang);
+                    BaseText newText = forEachTISCMTranslationText((BaseText)arg, lang, modifier);
+                    if (newText != arg)
+                    {
+                        args[i] = newText;
+                    }
                 }
             }
 
@@ -157,26 +201,7 @@ public class TISAdditionTranslations
                 {
                     msgKeyString = translateKeyToFormattingString(DEFAULT_LANGUAGE, translatableText.getKey());
                 }
-                if (msgKeyString != null)
-                {
-                    BaseText origin = text;
-                    try
-                    {
-                        text = Messenger.format(msgKeyString, translatableText.getArgs());
-                    }
-                    catch (IllegalArgumentException e)
-                    {
-                        text = Messenger.s(msgKeyString);
-                    }
-
-                    // migrating text data
-                    text.getSiblings().addAll(origin.getSiblings());
-                    text.setStyle(origin.getStyle());
-                }
-                else
-                {
-                    CarpetTISAdditionServer.LOGGER.warn("TISCM: Unknown translation key {}", translatableText.getKey());
-                }
+                text = modifier.apply(translatableText, msgKeyString);
             }
         }
 
@@ -187,7 +212,11 @@ public class TISAdditionTranslations
             Object hoverText = hoverEvent.getValue(hoverEvent.getAction());
             if (hoverEvent.getAction() == HoverEvent.Action.SHOW_TEXT && hoverText instanceof BaseText)
             {
-                text.setStyle(text.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, translateText((BaseText)hoverText, lang))));
+                BaseText newText = forEachTISCMTranslationText((BaseText)hoverText, lang, modifier);
+                if (newText != hoverText)
+                {
+                    text.setStyle(text.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, newText)));
+                }
             }
         }
 
@@ -195,8 +224,19 @@ public class TISAdditionTranslations
         List<Text> siblings = text.getSiblings();
         for (int i = 0; i < siblings.size(); i++)
         {
-            siblings.set(i, translateText((BaseText)siblings.get(i), lang));
+            Text sibling = siblings.get(i);
+            BaseText newText = forEachTISCMTranslationText((BaseText)sibling, lang, modifier);
+            if (newText != sibling)
+            {
+                siblings.set(i, newText);
+            }
         }
         return text;
+    }
+
+    @FunctionalInterface
+    private interface TextModifier
+    {
+        BaseText apply(TranslatableText translatableText, @Nullable String msgKeyString);
     }
 }
