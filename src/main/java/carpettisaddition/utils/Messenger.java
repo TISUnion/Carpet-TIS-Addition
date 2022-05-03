@@ -46,9 +46,9 @@ public class Messenger
 	}
 
 	// Simple Text
-	public static BaseText s(String text)
+	public static BaseText s(Object text)
 	{
-		return new LiteralText(text);
+		return new LiteralText(text.toString());
 	}
 
 	// Simple Text with carpet style

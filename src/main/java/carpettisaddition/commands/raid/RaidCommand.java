@@ -83,11 +83,8 @@ public class RaidCommand extends AbstractCommand
 				String status = raidAccessor.getStatus().getName();
 				result.add(Messenger.c("g - ", Messenger.tr("event.minecraft.raid"), String.format("w  #%d", raid.getRaidId())));
 				result.add(Messenger.c("g   ", tr("status"), "w : ", tr("status." + status)));
-				if (fullMode)
-				{
-					result.add(Messenger.c("g   ", tr("center"), "w : ", Messenger.coord("w", raid.getCenter(), DimensionWrapper.of(world))));
-					result.add(Messenger.c("g   ", tr("bad_omen_level"), "w : ", Messenger.s(String.valueOf(raid.getBadOmenLevel()))));
-				}
+				result.add(Messenger.c("g   ", tr("center"), "w : ", Messenger.coord("w", raid.getCenter(), DimensionWrapper.of(world))));
+				result.add(Messenger.c("g   ", tr("bad_omen_level"), "w : ", Messenger.s(raid.getBadOmenLevel())));
 				result.add(Messenger.c("g   ", tr("waves"), "w : ", String.format("w %d/%d", raidAccessor.getWavesSpawned(), raidAccessor.getWaveCount())));
 
 				Set<RaiderEntity> raiders = raidAccessor.getWaveToRaiders().get(currentWave);
