@@ -3,7 +3,7 @@ package carpettisaddition.mixins.logger.microtiming.messageflush;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
-import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.RegistryKey;

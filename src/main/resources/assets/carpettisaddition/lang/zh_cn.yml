@@ -228,6 +228,15 @@ carpettisaddition:
           name: 可运算方块实体列表
           revert: 已翻转具有%2$s个方块实体的%1$s
           shuffle: 已随机打乱具有%2$s个方块实体的%1$s
+          query:
+            title: 位于%1$s的方块实体信息
+            type: 类型
+            ticking_order: 运算顺序
+            not_found: 位于%1$s处无方块实体
+          statistic:
+            title: '%1$s的方块实体统计'
+            all: 所有方块实体
+            ticking: 可运算的方块实体
         tile_tick:
           name: 计划刻队列
           item_name: 计划刻事件
@@ -584,6 +593,12 @@ carpettisaddition:
         extra:
           '0': 'world_timer: 划分于世界计时器自增时'
           '1': 'player_action: 划分于玩家操作阶段开始前'
+      minecartTakePassengerMinVelocity:
+        name: 矿车搭载乘客最小速度
+        desc: 决定矿车将其附近实体作为乘客搭载上车所需的最低水平方向速度
+        extra:
+          '0': 将其设为0以让矿车忽略速度，像船一样总能将附件实体载上车
+          '1': 将其设为NaN以让矿车永远不能把实体载上车
       mobcapsDisplayIgnoreMisc:
         name: 怪物容量显示忽略杂项
         desc: 在carpet怪物容量显示中忽略杂项(misc)这一生物类型

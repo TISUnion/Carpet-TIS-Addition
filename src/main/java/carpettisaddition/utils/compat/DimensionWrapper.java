@@ -1,4 +1,4 @@
-package carpettisaddition.utils;
+package carpettisaddition.utils.compat;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;

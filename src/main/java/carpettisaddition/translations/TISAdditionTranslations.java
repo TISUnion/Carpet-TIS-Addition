@@ -4,12 +4,14 @@ import carpet.CarpetSettings;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.translations.StyleAccessor;
-import carpettisaddition.mixins.translations.TranslatableTextAccessor;
 import carpettisaddition.utils.FileUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.*;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -136,6 +138,18 @@ public class TISAdditionTranslations
         if (text instanceof TranslatableText)
         {
             TranslatableText translatableText = (TranslatableText)text;
+
+            // translate arguments
+            for (int i = 0; i < translatableText.getArgs().length; i++)
+            {
+                Object arg = translatableText.getArgs()[i];
+                if (arg instanceof BaseText)
+                {
+                    translatableText.getArgs()[i] = translateText((BaseText)arg, lang);
+                }
+            }
+
+            // do translation logic
             if (translatableText.getKey().startsWith(TRANSLATION_KEY_PREFIX))
             {
                 String msgKeyString = translateKeyToFormattingString(lang, translatableText.getKey());
@@ -146,20 +160,11 @@ public class TISAdditionTranslations
                 if (msgKeyString != null)
                 {
                     BaseText origin = text;
-                    TranslatableTextAccessor fixedTranslatableText = (TranslatableTextAccessor)(new TranslatableText(msgKeyString, translatableText.getArgs()));
                     try
                     {
-                        fixedTranslatableText.getTranslations().clear();
-                        fixedTranslatableText.invokeSetTranslation(msgKeyString);
-                        text = Messenger.c(fixedTranslatableText.getTranslations().stream().map(stringVisitable -> {
-                            if (stringVisitable instanceof BaseText)
-                            {
-                                return (BaseText)stringVisitable;
-                            }
-                            return Messenger.s(stringVisitable.getString());
-                        }).toArray());
+                        text = Messenger.format(msgKeyString, translatableText.getArgs());
                     }
-                    catch (TranslationException e)
+                    catch (IllegalArgumentException e)
                     {
                         text = Messenger.s(msgKeyString);
                     }
