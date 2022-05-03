@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.mobcapsLocal;
 
 import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
-import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.SpawnDensityCapper;
