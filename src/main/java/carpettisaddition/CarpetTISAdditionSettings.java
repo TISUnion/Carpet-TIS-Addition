@@ -132,6 +132,12 @@ public class CarpetTISAdditionSettings
 	public static String commandRefresh = "true";
 
 	@Rule(
+			desc = "Enables /removeentity command for directly erase target entities from the world",
+			category = {TIS, COMMAND, CREATIVE}
+	)
+	public static String commandRemoveEntity = "ops";
+
+	@Rule(
 			desc = "Allow creative players to open a container even if the container is blocked. e.g. for shulker box",
 			category = {TIS, CREATIVE}
 	)
