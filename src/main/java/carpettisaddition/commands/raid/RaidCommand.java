@@ -6,6 +6,7 @@ import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.mixins.command.raid.RaidAccessor;
 import carpettisaddition.mixins.command.raid.RaidManagerAccessor;
 import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.IdentifierUtil;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.compat.DimensionWrapper;
@@ -18,7 +19,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.util.registry.Registry;
 
 import java.util.*;
 
@@ -109,7 +109,7 @@ public class RaidCommand extends AbstractCommand
 						}
 						else
 						{
-							BaseText x = Messenger.s(String.format("[%s] ", Registry.ENTITY_TYPE.getId(raider.getType()).getPath().substring(0, 1).toUpperCase()));
+							BaseText x = Messenger.s(String.format("[%s] ", IdentifierUtil.id(raider.getType()).getPath().substring(0, 1).toUpperCase()));
 							x.setStyle(raiderName.getStyle().copy());
 							Messenger.hover(x, raiderMessage);
 							Messenger.click(x, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(raider)));
