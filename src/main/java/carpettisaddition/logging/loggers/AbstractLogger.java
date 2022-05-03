@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public abstract class AbstractLogger extends TranslationContext
 {
 	public final static String MULTI_OPTION_SEP_REG = "[,. ]";
-	public final static String OPTION_SEP = ".";
+	public final static String OPTION_SEP = ",";
 
 	private final String name;
 
