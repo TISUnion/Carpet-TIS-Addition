@@ -10,5 +10,5 @@ public class IdentifierUtil
 {
 	public static Identifier id(Block block) {return Registry.BLOCK.getId(block);}
 	public static Identifier id(Fluid fluid) {return Registry.FLUID.getId(fluid);}
-	public static Identifier id(BlockEntityType<?> blockEntityType) {return Registry.BLOCK_ENTITY_TYPE.getId(blockEntityType);}
+	public static Identifier id(BlockEntityType<?> blockEntityType) {return Registry.BLOCK_ENTITY.getId(blockEntityType);}
 }
