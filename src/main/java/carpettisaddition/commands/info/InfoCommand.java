@@ -6,8 +6,8 @@ import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.mixins.command.info.ChunkTickSchedulerAccessor;
 import carpettisaddition.mixins.command.info.ServerWorldAccessor;
 import carpettisaddition.mixins.command.info.WorldTickSchedulerAccessor;
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -74,8 +74,10 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 			order++;
 			Messenger.tell(
 					source,
-					"g " + order + ". ",
-					Messenger.dimension(DimensionWrapper.of(world))
+					Messenger.c(
+							"g " + order + ". ",
+							Messenger.dimension(DimensionWrapper.of(world))
+					)
 			);
 		}
 		return 1;

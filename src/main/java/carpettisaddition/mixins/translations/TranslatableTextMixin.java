@@ -13,6 +13,9 @@ public abstract class TranslatableTextMixin
 {
 	@Shadow @Final private String key;
 
+	/**
+	 * This handles all TISCM translation when a TranslatableText is directly accessed as a String etc.
+	 */
 	@ModifyArg(
 			method = "updateTranslations",
 			at = @At(

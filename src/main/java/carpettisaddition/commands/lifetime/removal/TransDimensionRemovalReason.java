@@ -1,7 +1,7 @@
 package carpettisaddition.commands.lifetime.removal;
 
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.text.MutableText;
 
 import java.util.Objects;

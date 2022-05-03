@@ -2,8 +2,8 @@ package carpettisaddition.commands.lifetime.filter;
 
 import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslationContext;
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;

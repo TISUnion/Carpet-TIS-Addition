@@ -6,8 +6,8 @@ import carpettisaddition.helpers.carpet.tweaks.logger.projectile.ProjectileLogge
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.TrajectoryLoggerUtil;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.VisualizeTrajectoryHelper;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.ClickEvent;

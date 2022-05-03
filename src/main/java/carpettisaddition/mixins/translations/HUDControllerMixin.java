@@ -12,6 +12,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(HUDController.class)
 public abstract class HUDControllerMixin
 {
+	/**
+	 * This handle all TISCM translation in CM hud logger
+	 */
 	@ModifyVariable(method = "addMessage", at = @At("HEAD"), argsOnly = true, remap = false)
 	private static Text applyTISCarpetTranslationToHudLoggerMessage(Text hudMessage, /* parent method parameters -> */ ServerPlayerEntity player, Text hudMessage_)
 	{

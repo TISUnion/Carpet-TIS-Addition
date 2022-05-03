@@ -1,10 +1,9 @@
 package carpettisaddition.logging.loggers.commandblock;
 
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.vehicle.CommandBlockMinecartEntity;
@@ -50,7 +49,7 @@ public class CommandBlockLogger extends AbstractLogger
 		}
 		String finalCommandPreview = commandPreview;
 
-		LoggerRegistry.getLogger(NAME).log((option) -> {
+		this.log((option) -> {
 			boolean isThrottledLogging = !option.equals("all");
 			if (time - iExecutor.getLastLoggedTime() < MINIMUM_LOG_INTERVAL && isThrottledLogging)
 			{

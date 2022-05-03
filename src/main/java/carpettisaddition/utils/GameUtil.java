@@ -1,12 +1,16 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.mixins.utils.DirectBlockEntityTickInvokerAccessor;
+import carpettisaddition.mixins.utils.WrappedBlockEntityTickInvokerAccessor;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.BlockEntityTickInvoker;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -48,5 +52,22 @@ public class GameUtil
 	public static PlayerEntity getPlayerFromName(String playerName)
 	{
 		return CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayer(playerName);
+	}
+
+	/**
+	 * for mc 1.17+
+	 */
+	@Nullable
+	public static BlockEntity getBlockEntityFromTickInvoker(BlockEntityTickInvoker blockEntityTickInvoker)
+	{
+		if (blockEntityTickInvoker instanceof DirectBlockEntityTickInvokerAccessor)
+		{
+			return ((DirectBlockEntityTickInvokerAccessor<?>) blockEntityTickInvoker).getBlockEntity();
+		}
+		else if (blockEntityTickInvoker instanceof WrappedBlockEntityTickInvokerAccessor)
+		{
+			return getBlockEntityFromTickInvoker(((WrappedBlockEntityTickInvokerAccessor<?>)blockEntityTickInvoker).getWrapped());
+		}
+		return null;
 	}
 }

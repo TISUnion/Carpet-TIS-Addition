@@ -2,13 +2,14 @@ package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.mixins.translations.StyleAccessor;
-import carpettisaddition.translations.TISAdditionTranslations;
+import carpettisaddition.mixins.translations.TranslatableTextAccessor;
 import carpettisaddition.translations.Translator;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -16,18 +17,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 public class Messenger
 {
@@ -39,7 +38,7 @@ public class Messenger
 	 * ----------------------------
 	 */
 
-	// Compound Text
+	// Compound Text in carpet style
 	public static MutableText c(Object ... fields)
 	{
 		return (MutableText)carpet.utils.Messenger.c(fields);
@@ -111,6 +110,27 @@ public class Messenger
 			text.append(items[i]);
 		}
 		return text;
+	}
+
+	public static MutableText format(String formatter, Object... args)
+	{
+		TranslatableTextAccessor dummy = (TranslatableTextAccessor)(Text.translatable(formatter, args).getContent());
+		try
+		{
+			List<StringVisitable> segments = Lists.newArrayList();
+			dummy.invokeForEachPart(formatter, segments::add);
+			return Messenger.c(segments.stream().map(stringVisitable -> {
+				if (stringVisitable instanceof Text)
+				{
+					return (Text)stringVisitable;
+				}
+				return Messenger.s(stringVisitable.getString());
+			}).toArray());
+		}
+		catch (TranslationException e)
+		{
+			throw new IllegalArgumentException(formatter);
+		}
 	}
 
 	/*
@@ -227,6 +247,12 @@ public class Messenger
 		return fluid(fluid.getFluid());
 	}
 
+	public static MutableText blockEntity(BlockEntity blockEntity)
+	{
+		Identifier id = IdentifierUtil.id(blockEntity.getType());
+		return s(id != null ? id.toString() : blockEntity.getClass().getSimpleName());
+	}
+
 	/*
 	 * --------------------
 	 *    Text Modifiers
@@ -286,55 +312,49 @@ public class Messenger
 	 * ------------------
 	 */
 
-	private static void __tell(ServerCommandSource source, MutableText text)
+	private static void __tell(ServerCommandSource source, MutableText text, boolean broadcastToOps)
 	{
-		Entity entity = source.getEntity();
-		text = entity instanceof ServerPlayerEntity ?
-				TISAdditionTranslations.translate(text, (ServerPlayerEntity)entity) :
-				TISAdditionTranslations.translate(text);
-		source.sendFeedback(text, false);
+		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
+		source.sendFeedback(text, broadcastToOps);
 	}
 
-	private static void __reminder(PlayerEntity player, MutableText text)
+	public static void tell(ServerCommandSource source, MutableText text, boolean broadcastToOps)
 	{
-		text = player instanceof ServerPlayerEntity ?
-				TISAdditionTranslations.translate(text, (ServerPlayerEntity)player) :
-				TISAdditionTranslations.translate(text);
+		__tell(source, text, broadcastToOps);
+	}
+	public static void tell(PlayerEntity player, MutableText text, boolean broadcastToOps)
+	{
+		tell(player.getCommandSource(), text, broadcastToOps);
+	}
+	public static void tell(ServerCommandSource source, MutableText text)
+	{
+		tell(source, text, false);
+	}
+	public static void tell(PlayerEntity player, MutableText text)
+	{
+		tell(player, text, false);
+	}
+	public static void tell(ServerCommandSource source, Iterable<MutableText> texts, boolean broadcastToOps)
+	{
+		texts.forEach(text -> tell(source, text, broadcastToOps));
+	}
+	public static void tell(PlayerEntity player, Iterable<MutableText> texts, boolean broadcastToOps)
+	{
+		texts.forEach(text -> tell(player, text, broadcastToOps));
+	}
+	public static void tell(ServerCommandSource source, Iterable<MutableText> texts)
+	{
+		tell(source, texts, false);
+	}
+	public static void tell(PlayerEntity player, Iterable<MutableText> texts)
+	{
+		tell(player, texts, false);
+	}
+
+	public static void reminder(PlayerEntity player, MutableText text)
+	{
+		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
 		player.sendMessage(text, true);
-	}
-
-	private static <T> void messageSender(T target, BiConsumer<T, MutableText> consumer, Object... texts)
-	{
-		if (texts.length == 1)
-		{
-			if (texts[0] instanceof MutableText)
-			{
-				consumer.accept(target, (MutableText)texts[0]);
-			}
-			else if (texts[0] instanceof Collection)
-			{
-				((Collection<?>) texts[0]).forEach(text -> consumer.accept(target, (MutableText)text));
-			}
-		}
-		else
-		{
-			consumer.accept(target, c(texts));
-		}
-	}
-
-	public static void tell(ServerCommandSource source, Object... texts)
-	{
-		messageSender(source, Messenger::__tell, texts);
-	}
-
-	public static void tell(PlayerEntity player, Object... texts)
-	{
-		tell(player.getCommandSource(), texts);
-	}
-
-	public static void reminder(PlayerEntity player, Object... texts)
-	{
-		messageSender(player, Messenger::__reminder, texts);
 	}
 
 	public static void broadcast(MutableText text)
