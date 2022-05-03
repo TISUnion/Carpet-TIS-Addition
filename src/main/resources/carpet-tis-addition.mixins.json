@@ -99,7 +99,6 @@
     "command.lifetime.spawning.summon.VillagerEntityMixin",
     "command.lifetime.spawning.transdimension.EntityMixin",
     "command.lifetime.spawning.zombiereinforce.ZombieEntityMixin",
-    "command.manipulate.DirectBlockEntityTickInvokerAccessor",
     "command.manipulate.EntityListAccessor",
     "command.manipulate.ServerWorldAccessor",
     "command.manipulate.WorldAccessor",
@@ -267,7 +266,9 @@
     "translations.ServerPlayerEntityMixin",
     "translations.StyleAccessor",
     "translations.TranslatableTextAccessor",
-    "translations.TranslatableTextMixin"
+    "translations.TranslatableTextMixin",
+    "utils.DirectBlockEntityTickInvokerAccessor",
+    "utils.WrappedBlockEntityTickInvokerAccessor"
   ],
   "client": [
     "carpet.shape.texthack.ShapesRendererRenderedTextMixin"

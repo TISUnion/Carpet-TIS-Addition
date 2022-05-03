@@ -1,7 +1,7 @@
 package carpettisaddition.commands.manipulate.container;
 
-import carpettisaddition.mixins.command.manipulate.DirectBlockEntityTickInvokerAccessor;
 import carpettisaddition.mixins.command.manipulate.WorldAccessor;
+import carpettisaddition.utils.GameUtil;
 import carpettisaddition.utils.IdentifierUtil;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
@@ -51,7 +51,8 @@ public class TileEntityListController extends AbstractEntityListController
 	private static List<BlockEntity> extractFromTicker(Collection<BlockEntityTickInvoker> tickers)
 	{
 		return tickers.stream().
-				map(ticker -> ((DirectBlockEntityTickInvokerAccessor<?>)ticker).getBlockEntity()).
+				map(GameUtil::getBlockEntityFromTickInvoker).
+				filter(Objects::nonNull).
 				collect(Collectors.toList());
 	}
 
