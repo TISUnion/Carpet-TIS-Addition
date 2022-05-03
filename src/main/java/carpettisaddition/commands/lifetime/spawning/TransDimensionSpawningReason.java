@@ -1,7 +1,7 @@
 package carpettisaddition.commands.lifetime.spawning;
 
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.text.BaseText;
 
 import java.util.Objects;

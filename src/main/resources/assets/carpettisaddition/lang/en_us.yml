@@ -228,6 +228,15 @@ carpettisaddition:
           name: Tickable tile entity list
           revert: Reverted %1$s with %2$s tile entities
           shuffle: Shuffled %1$s with %2$s tile entities
+          query:
+            title: Tile entity information at %1$s
+            type: Type
+            ticking_order: Ticking order
+            not_found: There's no tile entity at %1$s
+          statistic:
+            title: Tile entity statistic in %1$s
+            all: All tile entities
+            ticking: Ticking tile entities
         tile_tick:
           name: Tile Tick Queue
           item_name: tile tick event

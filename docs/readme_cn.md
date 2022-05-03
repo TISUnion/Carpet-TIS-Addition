@@ -48,6 +48,7 @@
 - [微时序染料记号](rules_cn.md#微时序染料记号-microtimingdyemarker)
 - [微时序目标](rules_cn.md#微时序目标-microtimingtarget)
 - [微时序游戏刻划分](rules_cn.md#微时序游戏刻划分-microtimingtickdivision)
+- [矿车搭载乘客最小速度](rules_cn.md#矿车搭载乘客最小速度-minecarttakepassengerminvelocity)
 - [怪物容量显示忽略杂项](rules_cn.md#怪物容量显示忽略杂项-mobcapsdisplayignoremisc)
 - [op玩家不准作弊](rules_cn.md#op玩家不准作弊-opplayernocheat)
 - [优化高速实体移动](rules_cn.md#优化高速实体移动-optimizedfastentitymovement)

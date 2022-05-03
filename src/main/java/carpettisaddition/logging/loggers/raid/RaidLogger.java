@@ -1,11 +1,10 @@
 package carpettisaddition.logging.loggers.raid;
 
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.raid.Raid;
@@ -32,7 +31,7 @@ public class RaidLogger extends AbstractLogger
 		{
 			return;
 		}
-		LoggerRegistry.getLogger(NAME).log(() -> {
+		this.log(() -> {
 			return new BaseText[]{Messenger.c(
 					tr("created", raid.getRaidId()),
 					"g  @ ",
@@ -47,7 +46,7 @@ public class RaidLogger extends AbstractLogger
 		{
 			return;
 		}
-		LoggerRegistry.getLogger(NAME).log(() -> {
+		this.log(() -> {
 			return new BaseText[]{Messenger.c(
 					tr("invalidated", raid.getRaidId(), reason.toText())
 			)};
@@ -60,7 +59,7 @@ public class RaidLogger extends AbstractLogger
 		{
 			return;
 		}
-		LoggerRegistry.getLogger(NAME).log(() -> {
+		this.log(() -> {
 			return new BaseText[]{Messenger.c(
 					tr("bad_omen_level_increased", raid.getRaidId(), badOmenLevel)
 			)};
@@ -73,7 +72,7 @@ public class RaidLogger extends AbstractLogger
 		{
 			return;
 		}
-		LoggerRegistry.getLogger(NAME).log(() -> {
+		this.log(() -> {
 			return new BaseText[]{Messenger.c(
 					tr("center_moved", raid.getRaidId(), Messenger.coord(pos, DimensionWrapper.of(raid.getWorld())))
 			)};

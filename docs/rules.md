@@ -504,6 +504,20 @@ Determine the way to divide game ticks
 - Categories: `TIS`, `CREATIVE`
 
 
+## minecartTakePassengerMinVelocity
+
+Determine the minimum required horizontal velocity for a minecart to pick up nearby entity as its passenger
+
+Set it to 0 to let minecart always take passenger no matter how fast it is, just like a boat
+
+Set it to NaN to let minecart never takes passenger
+
+- Type: `double`
+- Default value: `0.1`
+- Suggested options: `0`, `0.1`, `NaN`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## mobcapsDisplayIgnoreMisc
 
 Ignore mob type "misc" in carpet mobcaps displays
