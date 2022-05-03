@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.command.manipulate;
+package carpettisaddition.mixins.utils;
 
 import net.minecraft.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
