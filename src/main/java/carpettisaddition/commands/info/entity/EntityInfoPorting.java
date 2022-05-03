@@ -1,8 +1,8 @@
 package carpettisaddition.commands.info.entity;
 
 import carpettisaddition.mixins.command.info.entity.*;
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;

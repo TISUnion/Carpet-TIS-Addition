@@ -1,6 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
-import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

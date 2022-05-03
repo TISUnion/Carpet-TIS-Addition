@@ -1,9 +1,9 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.server.world.BlockEvent;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;

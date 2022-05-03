@@ -513,6 +513,19 @@ public class CarpetTISAdditionSettings
 	)
 	public static TickDivision microTimingTickDivision = TickDivision.WORLD_TIMER;
 
+	public static final double VANILLA_MINECART_TAKE_PASSENGER_MIN_VELOCITY = 0.1D;  // sqrt(0.01)
+	@Rule(
+			desc = "Determine the minimum required horizontal velocity for a minecart to pick up nearby entity as its passenger",
+			extra = {
+					"Set it to 0 to let minecart always take passenger no matter how fast it is, just like a boat",
+					"Set it to NaN to let minecart never takes passenger",
+			},
+			options = {"0", "0.1", "NaN"},
+			strict = false,
+			category = {TIS, CREATIVE}
+	)
+	public static double minecartTakePassengerMinVelocity = VANILLA_MINECART_TAKE_PASSENGER_MIN_VELOCITY;
+
 	@Rule(
 			desc = "Ignore mob type \"misc\" in carpet mobcaps displays",
 			extra = {
