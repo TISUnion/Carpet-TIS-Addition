@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.microtiming;
 
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
@@ -13,8 +12,8 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.AbstractSubStage;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.server.world.ServerWorld;
@@ -179,7 +178,7 @@ public class MicroTimingLogger extends AbstractLogger
 				{
 					flushedTrimmedMessages.put(option, getTrimmedMessages(flushedMessages, option));
 				}
-				LoggerRegistry.getLogger(NAME).log(option -> flushedTrimmedMessages.get(LoggingOption.getOrDefault(option)));
+				this.log(option -> flushedTrimmedMessages.get(LoggingOption.getOrDefault(option)));
 			}
 		}
 	}

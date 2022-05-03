@@ -2,8 +2,8 @@ package carpettisaddition.commands.manipulate.container;
 
 import carpettisaddition.logging.loggers.microtiming.events.ExecuteBlockEventEvent;
 import carpettisaddition.mixins.command.manipulate.ServerWorldAccessor;
-import carpettisaddition.utils.DimensionWrapper;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

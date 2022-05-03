@@ -6,7 +6,7 @@ import carpet.script.value.StringValue;
 import carpet.script.value.Value;
 import carpettisaddition.mixins.carpet.shape.ShapeDispatcherLineAccessor;
 import carpettisaddition.mixins.carpet.shape.ShapeDispatcherSphereAccessor;
-import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.compat.scarpet.ShapeDispatcher;
 import carpettisaddition.utils.compat.scarpet.value.FormattedTextValue;
 import com.google.common.collect.Maps;

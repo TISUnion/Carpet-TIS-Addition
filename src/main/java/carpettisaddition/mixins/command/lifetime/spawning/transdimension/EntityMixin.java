@@ -2,7 +2,7 @@ package carpettisaddition.mixins.command.lifetime.spawning.transdimension;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.TransDimensionSpawningReason;
-import carpettisaddition.utils.DimensionWrapper;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;

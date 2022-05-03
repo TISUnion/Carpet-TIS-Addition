@@ -4,12 +4,14 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.translations.ServerPlayerEntityAccessor;
 import carpettisaddition.mixins.translations.StyleAccessor;
-import carpettisaddition.mixins.translations.TranslatableTextAccessor;
 import carpettisaddition.utils.FileUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.*;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -115,7 +117,7 @@ public class TISAdditionTranslations
 
     public static BaseText translate(BaseText text, String lang)
     {
-        return translateText(Messenger.copy(text), lang);
+        return translateText(text, lang);
     }
 
     public static BaseText translate(BaseText text)
@@ -134,9 +136,65 @@ public class TISAdditionTranslations
 
     private static BaseText translateText(BaseText text, @NotNull String lang)
     {
+        // quick scan to check if any required translation exists
+        boolean[] translationRequired = new boolean[]{false};
+        forEachTISCMTranslationText(text, lang, (txt, msgKeyString) -> {
+            translationRequired[0] = true;
+            return txt;
+        });
+        if (!translationRequired[0])
+        {
+            return text;
+        }
+
+        // make a copy of the text, and apply translation
+        return forEachTISCMTranslationText(Messenger.copy(text), lang, (txt, msgKeyString) -> {
+            if (msgKeyString == null)
+            {
+                CarpetTISAdditionServer.LOGGER.warn("TISCM: Unknown translation key {}", txt.getKey());
+                return txt;
+            }
+
+            BaseText newText;
+            try
+            {
+                newText = Messenger.format(msgKeyString, txt.getArgs());
+            }
+            catch (IllegalArgumentException e)
+            {
+                newText = Messenger.s(msgKeyString);
+            }
+
+            // migrating text data
+            newText.getSiblings().addAll(txt.getSiblings());
+            newText.setStyle(txt.getStyle());
+
+            return newText;
+        });
+    }
+
+    private static BaseText forEachTISCMTranslationText(BaseText text, @NotNull String lang, TextModifier modifier)
+    {
         if (text instanceof TranslatableText)
         {
             TranslatableText translatableText = (TranslatableText)text;
+
+            // translate arguments
+            Object[] args = translatableText.getArgs();
+            for (int i = 0; i < args.length; i++)
+            {
+                Object arg = args[i];
+                if (arg instanceof BaseText)
+                {
+                    BaseText newText = forEachTISCMTranslationText((BaseText)arg, lang, modifier);
+                    if (newText != arg)
+                    {
+                        args[i] = newText;
+                    }
+                }
+            }
+
+            // do translation logic
             if (translatableText.getKey().startsWith(TRANSLATION_KEY_PREFIX))
             {
                 String msgKeyString = translateKeyToFormattingString(lang, translatableText.getKey());
@@ -144,29 +202,7 @@ public class TISAdditionTranslations
                 {
                     msgKeyString = translateKeyToFormattingString(DEFAULT_LANGUAGE, translatableText.getKey());
                 }
-                if (msgKeyString != null)
-                {
-                    BaseText origin = text;
-                    TranslatableTextAccessor fixedTranslatableText = (TranslatableTextAccessor)(new TranslatableText(msgKeyString, translatableText.getArgs()));
-                    try
-                    {
-                        fixedTranslatableText.getTranslations().clear();
-                        fixedTranslatableText.invokeSetTranslation(msgKeyString);
-                        text = Messenger.c(fixedTranslatableText.getTranslations().toArray(new Object[0]));
-                    }
-                    catch (TranslationException e)
-                    {
-                        text = Messenger.s(msgKeyString);
-                    }
-
-                    // migrating text data
-                    text.getSiblings().addAll(origin.getSiblings());
-                    text.setStyle(origin.getStyle());
-                }
-                else
-                {
-                    CarpetTISAdditionServer.LOGGER.warn("TISCM: Unknown translation key {}", translatableText.getKey());
-                }
+                text = modifier.apply(translatableText, msgKeyString);
             }
         }
 
@@ -174,15 +210,31 @@ public class TISAdditionTranslations
         HoverEvent hoverEvent = ((StyleAccessor)text.getStyle()).getHoverEventField();
         if (hoverEvent != null)
         {
-            text.getStyle().setHoverEvent(new HoverEvent(hoverEvent.getAction(), translateText((BaseText)hoverEvent.getValue(), lang)));
+            Text hoverText = hoverEvent.getValue();
+            BaseText newText = forEachTISCMTranslationText((BaseText)hoverText, lang, modifier);
+            if (newText != hoverText)
+            {
+                text.getStyle().setHoverEvent(new HoverEvent(hoverEvent.getAction(), hoverText));
+            }
         }
 
         // translate sibling texts
         List<Text> siblings = text.getSiblings();
         for (int i = 0; i < siblings.size(); i++)
         {
-            siblings.set(i, translateText((BaseText)siblings.get(i), lang));
+            Text sibling = siblings.get(i);
+            BaseText newText = forEachTISCMTranslationText((BaseText)sibling, lang, modifier);
+            if (newText != sibling)
+            {
+                siblings.set(i, newText);
+            }
         }
         return text;
+    }
+
+    @FunctionalInterface
+    private interface TextModifier
+    {
+        BaseText apply(TranslatableText translatableText, @Nullable String msgKeyString);
     }
 }

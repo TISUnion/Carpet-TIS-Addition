@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.damage;
 
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
@@ -120,7 +119,7 @@ public class DamageLogger extends AbstractLogger
 		Entity attacker = this.damageSource.getAttacker();
 		Entity source = this.damageSource.getSource();
 		LivingEntity target = this.entity;
-		LoggerRegistry.getLogger(NAME).log((option, player) ->
+		this.log((option, player) ->
 				verifyAndProduceMessage(option, player, attacker, target, () -> {
 					List<Object> lines = Lists.newArrayList();
 					lines.add(Messenger.s(" "));

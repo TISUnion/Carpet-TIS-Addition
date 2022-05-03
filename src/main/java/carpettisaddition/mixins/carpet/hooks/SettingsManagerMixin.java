@@ -35,10 +35,13 @@ public class SettingsManagerMixin
             remap = false
     )
     private void printAdditionVersion(ServerCommandSource source, CallbackInfoReturnable<Integer> cir) {
-        Messenger.tell(source,
-                String.format("g %s ", fancyName),
-                String.format("g %s: ", "version"),
-                String.format("g %s", CarpetTISAdditionMod.getVersion())
+        Messenger.tell(
+                source,
+                Messenger.c(
+                        String.format("g %s ", fancyName),
+                        String.format("g %s: ", "version"),
+                        String.format("g %s", CarpetTISAdditionMod.getVersion())
+                )
         );
     }
 }

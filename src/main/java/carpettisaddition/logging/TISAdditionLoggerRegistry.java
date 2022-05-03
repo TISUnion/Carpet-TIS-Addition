@@ -21,36 +21,35 @@ import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
 
 import java.lang.reflect.Field;
 
-
 public class TISAdditionLoggerRegistry
 {
-    public static boolean __ticket;
-    public static boolean __memory;
-    public static boolean __item;
-    public static boolean __xporb;
-    public static boolean __raid;
-    public static boolean __microTiming;
-    public static boolean __damage;
     public static boolean __commandBlock;
+    public static boolean __damage;
+    public static boolean __item;
+    public static boolean __lifeTime;
     public static boolean __lightQueue;
+    public static boolean __memory;
+    public static boolean __microTiming;
+    public static boolean __raid;
+    public static boolean __ticket;
     public static boolean __tickWarp;
     public static boolean __turtleEgg;
-    public static boolean __lifeTime;
+    public static boolean __xporb;
 
     public static void registerLoggers()
     {
-        LoggerRegistry.registerLogger(TicketLogger.NAME, TicketLogger.getInstance().getStandardLogger());
+        LoggerRegistry.registerLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
+        LoggerRegistry.registerLogger(DamageLogger.NAME, standardLogger(DamageLogger.NAME, "all", new String[]{"all", "players", "me"}));
         LoggerRegistry.registerLogger(ItemLogger.getInstance().getLoggerName(), ItemLogger.getInstance().getStandardLogger());
-        LoggerRegistry.registerLogger(XPOrbLogger.getInstance().getLoggerName(), XPOrbLogger.getInstance().getStandardLogger());
-        LoggerRegistry.registerLogger(RaidLogger.NAME, standardLogger(RaidLogger.NAME, null, null));
+        LoggerRegistry.registerLogger(LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance().getHUDLogger());
+        LoggerRegistry.registerLogger(LightQueueHUDLogger.NAME, LightQueueHUDLogger.getInstance().getHUDLogger());
         LoggerRegistry.registerLogger(MemoryHUDLogger.NAME, standardHUDLogger(MemoryHUDLogger.NAME, null, null));
         LoggerRegistry.registerLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.getInstance());
-        LoggerRegistry.registerLogger(DamageLogger.NAME, standardLogger(DamageLogger.NAME, "all", new String[]{"all", "players", "me"}));
-        LoggerRegistry.registerLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
-        LoggerRegistry.registerLogger(LightQueueHUDLogger.NAME, LightQueueHUDLogger.getInstance().getHUDLogger());
+        LoggerRegistry.registerLogger(RaidLogger.NAME, standardLogger(RaidLogger.NAME, null, null));
+        LoggerRegistry.registerLogger(TicketLogger.NAME, TicketLogger.getInstance().getStandardLogger());
         LoggerRegistry.registerLogger(TickWarpHUDLogger.NAME, standardHUDLogger(TickWarpHUDLogger.NAME, "bar", new String[]{"bar", "value"}));
         LoggerRegistry.registerLogger(TurtleEggLogger.NAME, standardLogger(TurtleEggLogger.NAME, null, null));
-        LoggerRegistry.registerLogger(LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance().getHUDLogger());
+        LoggerRegistry.registerLogger(XPOrbLogger.getInstance().getLoggerName(), XPOrbLogger.getInstance().getStandardLogger());
     }
 
     public static Field getLoggerField(String logName)
