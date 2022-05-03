@@ -99,6 +99,7 @@
     "command.lifetime.spawning.summon.VillagerEntityMixin",
     "command.lifetime.spawning.transdimension.EntityMixin",
     "command.lifetime.spawning.zombiereinforce.ZombieEntityMixin",
+    "command.manipulate.DirectBlockEntityTickInvokerAccessor",
     "command.manipulate.EntityListAccessor",
     "command.manipulate.ServerWorldAccessor",
     "command.manipulate.WorldAccessor",

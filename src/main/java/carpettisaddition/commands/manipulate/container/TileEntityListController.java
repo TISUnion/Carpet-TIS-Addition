@@ -1,5 +1,6 @@
 package carpettisaddition.commands.manipulate.container;
 
+import carpettisaddition.mixins.command.manipulate.DirectBlockEntityTickInvokerAccessor;
 import carpettisaddition.mixins.command.manipulate.WorldAccessor;
 import carpettisaddition.utils.IdentifierUtil;
 import carpettisaddition.utils.Messenger;
@@ -12,6 +13,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.BlockEntityTickInvoker;
 
 import java.util.*;
@@ -46,13 +48,25 @@ public class TileEntityListController extends AbstractEntityListController
 		return blockEntityTickers.size();
 	}
 
+	private static List<BlockEntity> extractFromTicker(Collection<BlockEntityTickInvoker> tickers)
+	{
+		return tickers.stream().
+				map(ticker -> ((DirectBlockEntityTickInvokerAccessor<?>)ticker).getBlockEntity()).
+				collect(Collectors.toList());
+	}
+
+	private static List<BlockEntity> getTickingBlockEntities(ServerWorld world)
+	{
+		return extractFromTicker(((WorldAccessor)world).getBlockEntityTickers());
+	}
+
 	private int queryTileEntityInfo(ServerCommandSource source, BlockPos pos)
 	{
 		ServerWorld world = source.getWorld();
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity != null)
 		{
-			int index = world.tickingBlockEntities.indexOf(blockEntity);
+			int index = getTickingBlockEntities(world).indexOf(blockEntity);
 			Messenger.tell(source, Arrays.asList(
 					tr("query.title", Messenger.coord(pos, DimensionWrapper.of(world))),
 					Messenger.format("- %1$s: %2$s", tr("type"), Messenger.blockEntity(blockEntity)),
@@ -96,8 +110,11 @@ public class TileEntityListController extends AbstractEntityListController
 				"===== %1$s =====",
 				tr("statistic.title", Messenger.dimension(DimensionWrapper.of(world)))
 		));
-		this.showTopNInCollection(source, tr("statistic.all"), world.blockEntities);
-		this.showTopNInCollection(source, tr("statistic.ticking"), world.tickingBlockEntities);
+
+		// not available in 1.17+
+		// this.showTopNInCollection(source, tr("statistic.all"), getAllBlockEntities(world));
+
+		this.showTopNInCollection(source, tr("statistic.ticking"), getTickingBlockEntities(world));
 		return 1;
 	}
 
