@@ -54,14 +54,14 @@ public class TileEntityListController extends AbstractEntityListController
 			int index = world.tickingBlockEntities.indexOf(blockEntity);
 			Messenger.tell(source, Arrays.asList(
 					tr("query.title", Messenger.coord(pos, DimensionWrapper.of(world))),
-					Messenger.format("- %1$s: %2$s", tr("type"), Messenger.blockEntity(blockEntity)),
-					Messenger.format("- %1$s: %2$s", tr("ticking_order"), index != -1 ? index : "N/A")
+					Messenger.format("- %1$s: %2$s", tr("query.type"), Messenger.blockEntity(blockEntity)),
+					Messenger.format("- %1$s: %2$s", tr("query.ticking_order"), index != -1 ? index : "N/A")
 			));
 			return 1;
 		}
 		else
 		{
-			Messenger.tell(source, tr("not_found", Messenger.coord(pos, DimensionWrapper.of(world))));
+			Messenger.tell(source, tr("query.not_found", Messenger.coord(pos, DimensionWrapper.of(world))));
 			return 0;
 		}
 	}
