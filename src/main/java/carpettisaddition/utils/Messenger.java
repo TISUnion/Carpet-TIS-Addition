@@ -3,7 +3,6 @@ package carpettisaddition.utils;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.mixins.translations.TranslatableTextAccessor;
-import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.base.Joiner;
@@ -19,7 +18,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
@@ -349,9 +347,7 @@ public class Messenger
 
 	public static void reminder(PlayerEntity player, BaseText text)
 	{
-		text = player instanceof ServerPlayerEntity ?
-				TISAdditionTranslations.translate(text, (ServerPlayerEntity)player) :
-				TISAdditionTranslations.translate(text);
+		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
 		player.addChatMessage(text, true);
 	}
 
