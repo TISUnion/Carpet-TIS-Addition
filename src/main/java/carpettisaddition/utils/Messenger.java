@@ -4,6 +4,7 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.mixins.translations.TranslatableTextAccessor;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -114,7 +115,7 @@ public class Messenger
 
 	public static MutableText format(String formatter, Object... args)
 	{
-		TranslatableTextAccessor dummy = (TranslatableTextAccessor)(Text.translatable(formatter, args).getContent());
+		TranslatableTextAccessor dummy = (TranslatableTextAccessor)(Messenger.tr(formatter, args).getContent());
 		try
 		{
 			List<StringVisitable> segments = Lists.newArrayList();

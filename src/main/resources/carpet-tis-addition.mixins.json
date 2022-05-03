@@ -100,7 +100,6 @@
     "command.lifetime.spawning.summon.CarvedPumpkinBlockMixin",
     "command.lifetime.spawning.summon.LargeEntitySpawnHelperMixin",
     "command.lifetime.spawning.summon.SummonVexGoalMixin",
-    "command.lifetime.spawning.summon.VillagerEntityMixin",
     "command.lifetime.spawning.transdimension.EntityMixin",
     "command.lifetime.spawning.zombiereinforce.ZombieEntityMixin",
     "command.manipulate.EntityListAccessor",

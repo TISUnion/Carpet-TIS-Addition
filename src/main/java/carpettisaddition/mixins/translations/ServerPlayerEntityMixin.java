@@ -4,7 +4,7 @@ import carpettisaddition.translations.ServerPlayerEntityWithClientLanguage;
 import carpettisaddition.translations.TISAdditionTranslations;
 import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,17 +34,16 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	 */
 	@ModifyVariable(
 			method = {
-					"sendMessage(Lnet/minecraft/text/Text;Z)V",
-					"sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V",
+					"method_43502",
 			},
 			at = @At("HEAD"),
 			argsOnly = true
 	)
 	private Text applyTISCarpetTranslationToChatMessage(Text message)
 	{
-		if (message instanceof BaseText)
+		if (message instanceof MutableText)
 		{
-			message = TISAdditionTranslations.translate((BaseText)message, (ServerPlayerEntity)(Object)this);
+			message = TISAdditionTranslations.translate((MutableText)message, (ServerPlayerEntity)(Object)this);
 		}
 		return message;
 	}

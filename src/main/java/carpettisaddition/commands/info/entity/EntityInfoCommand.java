@@ -90,7 +90,7 @@ public class EntityInfoCommand implements CommandExtender
 		{
 			actual = messages;
 		}
-		Messenger.tell(source, "");
+		Messenger.tell(source, Messenger.s(""));
 		Messenger.tell(source, actual);
 	}
 }

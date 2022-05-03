@@ -10,9 +10,10 @@ import com.google.common.collect.Multiset;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.BlockEntityTickInvoker;
 
@@ -82,7 +83,7 @@ public class TileEntityListController extends AbstractEntityListController
 		}
 	}
 
-	private void showTopNInCollection(ServerCommandSource source, BaseText name, Collection<BlockEntity> blockEntities)
+	private void showTopNInCollection(ServerCommandSource source, MutableText name, Collection<BlockEntity> blockEntities)
 	{
 		Multiset<BlockEntityType<?>> counter = HashMultiset.create();
 		blockEntities.stream().map(BlockEntity::getType).forEach(counter::add);
@@ -120,9 +121,9 @@ public class TileEntityListController extends AbstractEntityListController
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode()
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandRegistryAccess commandBuildContext)
 	{
-		return super.getCommandNode().
+		return super.getCommandNode(commandBuildContext).
 				then(literal("statistic").
 						executes(c -> this.showStatistic(c.getSource()))
 				).

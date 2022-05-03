@@ -5,7 +5,7 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.translations.TranslationContext;
 import com.google.common.base.Joiner;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.Text;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -49,7 +49,7 @@ public abstract class AbstractLogger extends TranslationContext
 		}
 	}
 
-	public void log(Supplier<BaseText[]> messagePromise)
+	public void log(Supplier<Text[]> messagePromise)
 	{
 		actionWithLogger(logger -> logger.log(messagePromise));
 	}
