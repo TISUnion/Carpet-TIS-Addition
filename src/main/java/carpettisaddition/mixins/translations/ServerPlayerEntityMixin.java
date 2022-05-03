@@ -15,7 +15,10 @@ public abstract class ServerPlayerEntityMixin
 	 * This handle all TISCM translation on chat messages
 	 */
 	@ModifyVariable(
-			method = "sendChatMessage",
+			method = {
+					"addChatMessage",
+					"sendChatMessage",
+			},
 			at = @At("HEAD"),
 			argsOnly = true
 	)
