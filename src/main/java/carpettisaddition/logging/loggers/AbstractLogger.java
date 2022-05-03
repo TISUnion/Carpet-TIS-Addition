@@ -68,7 +68,7 @@ public abstract class AbstractLogger extends TranslationContext
 
 	protected static String createCompoundOption(Iterable<String> options)
 	{
-		return Joiner.on(OPTION_SEP).join(options);
+		return "\"" + Joiner.on(OPTION_SEP).join(options) + "\"";
 	}
 
 	protected static String createCompoundOption(String... options)

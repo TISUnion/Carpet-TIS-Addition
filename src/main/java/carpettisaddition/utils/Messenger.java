@@ -123,7 +123,13 @@ public class Messenger
 		{
 			dummy.getTranslations().clear();
 			dummy.invokeSetTranslation(formatter);
-			return Messenger.c(dummy.getTranslations().toArray(new Object[0]));
+			return Messenger.c(dummy.getTranslations().stream().map(stringVisitable -> {
+				if (stringVisitable instanceof BaseText)
+				{
+					return (BaseText)stringVisitable;
+				}
+				return Messenger.s(stringVisitable.getString());
+			}).toArray());
 		}
 		catch (TranslationException e)
 		{

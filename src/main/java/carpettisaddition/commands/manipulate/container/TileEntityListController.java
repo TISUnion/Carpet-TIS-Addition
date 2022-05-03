@@ -18,8 +18,8 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
+import static net.minecraft.command.argument.BlockPosArgumentType.blockPos;
+import static net.minecraft.command.argument.BlockPosArgumentType.getLoadedBlockPos;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 

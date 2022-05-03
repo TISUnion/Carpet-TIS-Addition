@@ -33,7 +33,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	 * This handle all TISCM translation on chat messages
 	 */
 	@ModifyVariable(
-			method = "sendChatMessage",
+			method = "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V",
 			at = @At("HEAD"),
 			argsOnly = true
 	)

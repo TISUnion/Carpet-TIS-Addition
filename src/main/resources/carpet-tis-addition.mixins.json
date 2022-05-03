@@ -251,8 +251,6 @@
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
     "translations.ClientSettingsC2SPacketAccessor",
     "translations.HUDControllerMixin",
-    "translations.LoggerMixin",
-    "translations.ServerPlayerEntityAccessor",
     "translations.ServerPlayerEntityMixin",
     "translations.StyleAccessor",
     "translations.TranslatableTextAccessor",
