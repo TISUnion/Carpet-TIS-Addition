@@ -6,6 +6,7 @@ import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -35,7 +36,7 @@ public class RemoveEntityCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> node = literal(NAME).
 				requires(
