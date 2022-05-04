@@ -362,7 +362,7 @@ public class Messenger
 	{
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
-			CarpetTISAdditionServer.minecraft_server.method_43496(text);
+			CarpetTISAdditionServer.minecraft_server.sendMessage(text);
 			CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayerList().forEach(player -> tell(player, text));
 		}
 	}

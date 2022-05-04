@@ -9,7 +9,7 @@ public interface InventoryOwnerMixin
 	// OH NO, Mixin cannot inject into interface default method
 	// TODO: GO FIX THIS InventoryOwner picking up item entity as item's removal reason
 //	@Inject(
-//			method = "method_43544",
+//			method = "pickUpItem",
 //			at = @At(
 //					value = "INVOKE",
 //					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
