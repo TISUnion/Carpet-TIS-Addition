@@ -127,6 +127,16 @@ Enables `/refresh` command for synchronizing your client to the server
 - Categories: `TIS`, `COMMAND`
 
 
+## commandRemoveEntity
+
+Enables `/removeentity` command for directly erase target entities from the world
+
+- Type: `boolean`
+- Default value: `ops`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`, `CREATIVE`
+
+
 ## creativeOpenContainerForcibly
 
 Allow creative players to open a container even if the container is blocked. e.g. for shulker box

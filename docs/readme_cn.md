@@ -21,6 +21,7 @@
 - [世界控制命令开关](rules_cn.md#世界控制命令开关-commandmanipulate)
 - [袭击追踪器](rules_cn.md#袭击追踪器-commandraid)
 - [刷新命令开关](rules_cn.md#刷新命令开关-commandrefresh)
+- [移除实体命令开关](rules_cn.md#移除实体命令开关-commandremoveentity)
 - [创造玩家强制打开容器](rules_cn.md#创造玩家强制打开容器-creativeopencontainerforcibly)
 - [发射器不消耗物品](rules_cn.md#发射器不消耗物品-dispensernoitemcost)
 - [发射器发射龙息](rules_cn.md#发射器发射龙息-dispensersfiredragonbreath)
@@ -108,6 +109,7 @@
 - [操控世界](commands_cn.md#操控世界-manipulate)
 - [袭击](commands_cn.md#袭击-raid)
 - [刷新](commands_cn.md#刷新-refresh)
+- [移除实体](commands_cn.md#移除实体-removeentity)
 - [spawn](commands_cn.md#spawn)
 - [tick](commands_cn.md#tick)
 

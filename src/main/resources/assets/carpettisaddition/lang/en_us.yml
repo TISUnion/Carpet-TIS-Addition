@@ -269,6 +269,8 @@ carpettisaddition:
         overloaded: "Refresh failed: Network connection overloaded"
         too_far: "Selected chunk is not within your view distance"
         done: "Refreshed %1$s chunks"
+    removeentity:
+      success: Removed %1$s entities
     spawn:
       mobcapsLocal:
         info: 'Local mobcaps of player %1$s:'
