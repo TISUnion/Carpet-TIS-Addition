@@ -17,6 +17,6 @@ public abstract class AbstractHUDLogger extends AbstractLogger
 	@Override
 	public HUDLogger createCarpetLogger()
 	{
-		return TISAdditionLoggerRegistry.standardHUDLogger(this.getName(), this.getDefaultLoggingOption(), this.getSuggestedLoggingOption());
+		return TISAdditionLoggerRegistry.standardHUDLogger(this.getName(), this.getDefaultLoggingOption(), this.getSuggestedLoggingOption(), true);
 	}
 }

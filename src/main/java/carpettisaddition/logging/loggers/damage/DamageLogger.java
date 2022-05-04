@@ -51,7 +51,7 @@ public class DamageLogger extends AbstractLogger
 
 	public static Logger createCarpetDamageLogger()
 	{
-		return TISAdditionLoggerRegistry.standardLogger(DamageLogger.NAME, "all", new String[]{"all", "players", "me"});
+		return TISAdditionLoggerRegistry.standardLogger(DamageLogger.NAME, "all", new String[]{"all", "players", "me"}, true);
 	}
 
 	public static boolean isLoggerActivated()

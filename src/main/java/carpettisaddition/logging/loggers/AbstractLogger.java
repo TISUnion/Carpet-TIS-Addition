@@ -48,7 +48,7 @@ public abstract class AbstractLogger extends TranslationContext
 
 	public Logger createCarpetLogger()
 	{
-		return TISAdditionLoggerRegistry.standardLogger(this.getName(), this.getDefaultLoggingOption(), this.getSuggestedLoggingOption());
+		return TISAdditionLoggerRegistry.standardLogger(this.getName(), this.getDefaultLoggingOption(), this.getSuggestedLoggingOption(), true);
 	}
 
 	public Logger getLogger()
