@@ -44,7 +44,7 @@ public class TileTickQueueController extends AbstractContainerController
 		int counter = 0;
 		counter += this.remove(source.getWorld().getBlockTickScheduler(), blockPos);
 		counter += this.remove(source.getWorld().getFluidTickScheduler(), blockPos);
-		Messenger.tell(source, tr("removed", counter));
+		Messenger.tell(source, tr("removed", counter), true);
 		return counter;
 	}
 
@@ -69,7 +69,7 @@ public class TileTickQueueController extends AbstractContainerController
 				"scheduled",
 				Messenger.fancy(tr("item_name"), tr("item_description", Messenger.block(block), delay, priority.getIndex(), priority), null),
 				Messenger.coord(blockPos, DimensionWrapper.of(source.getWorld()))
-		));
+		), true);
 		return 1;
 	}
 

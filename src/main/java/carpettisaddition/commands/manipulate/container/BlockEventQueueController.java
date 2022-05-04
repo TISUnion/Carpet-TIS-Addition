@@ -44,7 +44,7 @@ public class BlockEventQueueController extends AbstractContainerController
 				counter++;
 			}
 		}
-		Messenger.tell(source, Messenger.tr("removed", counter));
+		Messenger.tell(source, Messenger.tr("removed", counter), true);
 		return counter;
 	}
 
@@ -61,7 +61,7 @@ public class BlockEventQueueController extends AbstractContainerController
 				"scheduled",
 				Messenger.fancy(tr("item_name"), ExecuteBlockEventEvent.getMessageExtraMessengerHoverText(blockAction), null),
 				Messenger.coord(blockPos, DimensionWrapper.of(source.getWorld()))
-		));
+		), true);
 		source.getWorld().addSyncedBlockEvent(blockPos, block, type, data);
 		return 1;
 	}

@@ -269,6 +269,8 @@ carpettisaddition:
         overloaded: 刷新失败：玩家网络连接已过载
         too_far: 选中的区块不在你的视距之内
         done: 已刷新%1$s个区块
+    removeentity:
+      success: 已移除%1$s个实体
     spawn:
       mobcapsLocal:
         info: '玩家%1$s的局部怪物容量:'
@@ -440,6 +442,9 @@ carpettisaddition:
       commandRefresh:
         name: 刷新命令开关
         desc: 启用/refresh命令让你的客户端与服务端保持同步
+      commandRemoveEntity:
+        name: 移除实体命令开关
+        desc: 启用/removeentity命令用于直接在世界中抹除目标实体
       creativeOpenContainerForcibly:
         name: 创造玩家强制打开容器
         desc: 允许创造模式的玩家打开被阻挡的容器，如潜影盒

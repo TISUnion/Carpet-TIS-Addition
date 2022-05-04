@@ -1,5 +1,6 @@
 package carpettisaddition.logging.loggers.microtiming;
 
+import carpet.logging.Logger;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
@@ -38,7 +39,13 @@ public class MicroTimingLogger extends AbstractLogger
 		this.world = world;
 		this.tickPhase = new TickPhase(TickStage.UNKNOWN, DimensionWrapper.of(this.world));
 	}
-	
+
+	@Override
+	public Logger createCarpetLogger()
+	{
+		throw new UnsupportedOperationException("Use MicroTimingStandardCarpetLogger.getInstance()");
+	}
+
 	public void setTickStage(@NotNull TickStage stage)
 	{
 		this.tickPhase = this.tickPhase.withMainStage(stage);

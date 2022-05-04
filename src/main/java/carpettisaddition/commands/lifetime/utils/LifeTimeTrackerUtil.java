@@ -1,5 +1,6 @@
 package carpettisaddition.commands.lifetime.utils;
 
+import carpettisaddition.utils.IdentifierUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -19,7 +20,7 @@ public class LifeTimeTrackerUtil
 
 	public static String getEntityTypeDescriptor(EntityType<?> entityType)
 	{
-		return Registry.ENTITY_TYPE.getId(entityType).getPath();
+		return IdentifierUtil.id(entityType).getPath();
 	}
 
 	public static Optional<EntityType<?>> getEntityTypeFromName(String name)

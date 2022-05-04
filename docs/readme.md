@@ -21,6 +21,7 @@
 - [commandManipulate](rules.md#commandmanipulate)
 - [commandRaid](rules.md#commandraid)
 - [commandRefresh](rules.md#commandrefresh)
+- [commandRemoveEntity](rules.md#commandremoveentity)
 - [creativeOpenContainerForcibly](rules.md#creativeopencontainerforcibly)
 - [dispenserNoItemCost](rules.md#dispensernoitemcost)
 - [dispensersFireDragonBreath](rules.md#dispensersfiredragonbreath)
@@ -108,6 +109,7 @@
 - [manipulate](commands.md#manipulate)
 - [raid](commands.md#raid)
 - [refresh](commands.md#refresh)
+- [removeentity](commands.md#removeentity)
 - [spawn](commands.md#spawn)
 - [tick](commands.md#tick)
 

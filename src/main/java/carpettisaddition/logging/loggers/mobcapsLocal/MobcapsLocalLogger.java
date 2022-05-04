@@ -1,7 +1,6 @@
 package carpettisaddition.logging.loggers.mobcapsLocal;
 
 import carpet.logging.HUDLogger;
-import carpet.logging.Logger;
 import carpet.utils.SpawnReporter;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
@@ -113,7 +112,8 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 		}
 	}
 
-	public Logger getHUDLogger()
+	@Override
+	public HUDLogger createCarpetLogger()
 	{
 		return new HUDLogger(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, null, null, false) {
 			@Override

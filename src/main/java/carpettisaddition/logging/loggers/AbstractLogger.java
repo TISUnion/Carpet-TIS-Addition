@@ -3,9 +3,11 @@ package carpettisaddition.logging.loggers;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.translations.TranslationContext;
 import com.google.common.base.Joiner;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -30,6 +32,24 @@ public abstract class AbstractLogger extends TranslationContext
 	}
 
 	// Carpet Logging
+
+	@Nullable
+	public String getDefaultLoggingOption()
+	{
+		String[] suggested = this.getSuggestedLoggingOption();
+		return suggested != null && suggested.length > 0 ? suggested[0] : null;
+	}
+
+	@Nullable
+	public String[] getSuggestedLoggingOption()
+	{
+		return null;
+	}
+
+	public Logger createCarpetLogger()
+	{
+		return TISAdditionLoggerRegistry.standardLogger(this.getName(), this.getDefaultLoggingOption(), this.getSuggestedLoggingOption(), true);
+	}
 
 	public Logger getLogger()
 	{

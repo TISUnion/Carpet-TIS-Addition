@@ -4,6 +4,7 @@ import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.logging.loggers.entity.ItemLogger;
@@ -38,19 +39,29 @@ public class TISAdditionLoggerRegistry
 
     public static void registerLoggers()
     {
-        LoggerRegistry.registerLogger(CommandBlockLogger.NAME, standardLogger(CommandBlockLogger.NAME, "throttled", new String[]{"throttled", "all"}));
-        LoggerRegistry.registerLogger(DamageLogger.NAME, standardLogger(DamageLogger.NAME, "all", new String[]{"all", "players", "me"}));
-        LoggerRegistry.registerLogger(ItemLogger.getInstance().getLoggerName(), ItemLogger.getInstance().getStandardLogger());
-        LoggerRegistry.registerLogger(LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance().getHUDLogger());
-        LoggerRegistry.registerLogger(LightQueueHUDLogger.NAME, LightQueueHUDLogger.getInstance().getHUDLogger());
-        LoggerRegistry.registerLogger(MemoryHUDLogger.NAME, standardHUDLogger(MemoryHUDLogger.NAME, null, null));
-        LoggerRegistry.registerLogger(MicroTimingStandardCarpetLogger.NAME, MicroTimingStandardCarpetLogger.getInstance());
-        LoggerRegistry.registerLogger(MobcapsLocalLogger.NAME, MobcapsLocalLogger.getInstance().getHUDLogger());
-        LoggerRegistry.registerLogger(RaidLogger.NAME, standardLogger(RaidLogger.NAME, null, null));
-        LoggerRegistry.registerLogger(TicketLogger.NAME, TicketLogger.getInstance().getStandardLogger());
-        LoggerRegistry.registerLogger(TickWarpHUDLogger.NAME, standardHUDLogger(TickWarpHUDLogger.NAME, "bar", new String[]{"bar", "value"}));
-        LoggerRegistry.registerLogger(TurtleEggLogger.NAME, standardLogger(TurtleEggLogger.NAME, null, null));
-        LoggerRegistry.registerLogger(XPOrbLogger.getInstance().getLoggerName(), XPOrbLogger.getInstance().getStandardLogger());
+        register(CommandBlockLogger.getInstance());
+        register(DamageLogger.createCarpetDamageLogger());
+        register(ItemLogger.getInstance());
+        register(LifeTimeHUDLogger.getInstance());
+        register(LightQueueHUDLogger.getInstance());
+        register(MemoryHUDLogger.getInstance());
+        register(MicroTimingStandardCarpetLogger.getInstance());
+        register(MobcapsLocalLogger.getInstance());
+        register(RaidLogger.getInstance());
+        register(TicketLogger.getInstance());
+        register(TickWarpHUDLogger.getInstance());
+        register(TurtleEggLogger.getInstance());
+        register(XPOrbLogger.getInstance());
+    }
+
+    private static void register(AbstractLogger logger)
+    {
+        register(logger.createCarpetLogger());
+    }
+
+    private static void register(Logger logger)
+    {
+        LoggerRegistry.registerLogger(logger.getLogName(), logger);
     }
 
     public static Field getLoggerField(String logName)
@@ -70,18 +81,8 @@ public class TISAdditionLoggerRegistry
         return new Logger(getLoggerField(logName), logName, def, options, strictOptions);
     }
 
-    private static Logger standardLogger(String logName, String def, String[] options)
-	{
-        return standardLogger(logName, def, options, true);
-    }
-
     public static HUDLogger standardHUDLogger(String logName, String def, String [] options, boolean strictOptions)
     {
         return new HUDLogger(getLoggerField(logName), logName, def, options, strictOptions);
-    }
-
-    private static HUDLogger standardHUDLogger(String logName, String def, String [] options)
-    {
-        return standardHUDLogger(logName, def, options, true);
     }
 }
