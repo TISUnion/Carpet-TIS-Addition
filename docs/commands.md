@@ -168,6 +168,11 @@ All chunk refresh operations only affect chunks within your view distance
 Multiple chunk refreshing creates lags on server's network thread due to packet compression, so there is an input thresholder for the command to prevent packet over-accumulation
 
 
+## removeentity
+
+`/removeentity <target>`: Removed target entities from the world directly. Does not affect players
+
+
 ## spawn
 
 ### mobcapsLocal
