@@ -14,8 +14,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static net.minecraft.command.arguments.EntityArgumentType.entities;
-import static net.minecraft.command.arguments.EntityArgumentType.getEntities;
+import static net.minecraft.command.argument.EntityArgumentType.entities;
+import static net.minecraft.command.argument.EntityArgumentType.getEntities;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
