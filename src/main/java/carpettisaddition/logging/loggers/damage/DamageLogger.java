@@ -1,5 +1,6 @@
 package carpettisaddition.logging.loggers.damage;
 
+import carpet.logging.Logger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
@@ -40,6 +41,17 @@ public class DamageLogger extends AbstractLogger
 		this.initialAmount = initialAmount;
 		this.currentAmount = initialAmount;
 		this.valid = true;
+	}
+
+	@Override
+	public Logger createCarpetLogger()
+	{
+		throw new UnsupportedOperationException("Use DamageLogger.createCarpetDamageLogger()");
+	}
+
+	public static Logger createCarpetDamageLogger()
+	{
+		return TISAdditionLoggerRegistry.standardLogger(DamageLogger.NAME, "all", new String[]{"all", "players", "me"}, true);
 	}
 
 	public static boolean isLoggerActivated()

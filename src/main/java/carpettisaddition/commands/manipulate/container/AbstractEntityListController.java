@@ -24,7 +24,7 @@ public abstract class AbstractEntityListController extends AbstractContainerCont
 	{
 		return this.manipulate(source, () -> {
 			int size = this.processWholeList(source.getWorld(), Collections::reverse);
-			Messenger.tell(source, tr("revert", this.getName(), size));
+			Messenger.tell(source, tr("revert", this.getName(), size), true);
 		});
 	}
 
@@ -32,7 +32,7 @@ public abstract class AbstractEntityListController extends AbstractContainerCont
 	{
 		return this.manipulate(source, () -> {
 			int size = this.processWholeList(source.getWorld(), Collections::shuffle);
-			Messenger.tell(source, tr("shuffle", this.getName(), size));
+			Messenger.tell(source, tr("shuffle", this.getName(), size), true);
 		});
 	}
 

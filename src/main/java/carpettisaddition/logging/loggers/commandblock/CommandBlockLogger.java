@@ -33,6 +33,12 @@ public class CommandBlockLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
+	@Override
+	public String[] getSuggestedLoggingOption()
+	{
+		return new String[]{"throttled", "all"};
+	}
+
 	private void logCommandBlockExecution(World world, BaseText nameText, BaseText posText, CommandBlockExecutor executor, String removeCommand)
 	{
 		if (!TISAdditionLoggerRegistry.__commandBlock)
