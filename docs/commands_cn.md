@@ -109,18 +109,18 @@
 
 操控世界的数据结构容器，包括：
 
-| 容器名 | 指令前缀 | 支持的操作 |
-| --- | --- | --- |
-| 实体列表 | `entity` | 翻转、随机打乱 |
-| 可运算的方块实体列表 | `tileentity` | 翻转、随机打乱 |
-| 计划刻队列 | `tiletick` | 添加元素、移除给定位置的元素 |
-| 方块事件队列 | `blockevent` | 添加元素、移除给定位置的元素 |
+| 容器名 | 指令前缀 | 支持的操作               |
+| --- | --- |---------------------|
+| 实体列表 | `entity` | 翻转、随机打乱             |
+| 可运算的方块实体列表 | `tileentity` | 翻转、随机打乱、查询给定位置/总览信息 |
+| 计划刻队列 | `tiletick` | 添加元素、移除给定位置的元素      |
+| 方块事件队列 | `blockevent` | 添加元素、移除给定位置的元素      |
 
 指令列表：
 
 ```
 /manipulate container entity [revert|shuffle]
-/manipulate container tileentity [revert|shuffle]
+/manipulate container tileentity [query|revert|shuffle|statistic]
 /manipulate container tiletick add <pos> <block> <delay> [<priority>]
 /manipulate container tiletick remove <pos>
 /manipulate container blockevent add <pos> <block> <type> <data>
