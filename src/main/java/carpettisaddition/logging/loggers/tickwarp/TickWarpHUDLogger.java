@@ -32,6 +32,12 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		return INSTANCE;
 	}
 
+	@Override
+	public String[] getSuggestedLoggingOption()
+	{
+		return new String[]{"bar", "value"};
+	}
+
 	private long getTotalTicks()
 	{
 		return this.info.getTotalTicks();

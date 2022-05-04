@@ -1,6 +1,5 @@
 package carpettisaddition.logging.loggers.lightqueue;
 
-import carpet.logging.HUDLogger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.Messenger;
@@ -43,9 +42,10 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 		}
 	}
 
-	public HUDLogger getHUDLogger()
+	@Override
+	public String[] getSuggestedLoggingOption()
 	{
-		return TISAdditionLoggerRegistry.standardHUDLogger(LightQueueHUDLogger.NAME, "dynamic", new String[]{"dynamic", "overworld", "the_nether", "the_end"});
+		return new String[]{"dynamic", "overworld", "the_nether", "the_end"};
 	}
 
 	public void tick()

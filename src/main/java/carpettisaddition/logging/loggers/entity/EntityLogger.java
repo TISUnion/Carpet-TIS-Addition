@@ -1,8 +1,6 @@
 package carpettisaddition.logging.loggers.entity;
 
-import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
-import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
@@ -21,8 +19,6 @@ import java.util.stream.Collectors;
 
 public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 {
-	protected final String loggerName;
-
 	private static final EntityLogger<Entity> translator = new EntityLogger<Entity>("entity"){
 		@Override
 		protected boolean getAcceleratorBoolean()
@@ -34,12 +30,18 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	public EntityLogger(String loggerName)
 	{
 		super(loggerName);
-		this.loggerName = loggerName;
 	}
 
-	public String getLoggerName()
+	@Override
+	public String getDefaultLoggingOption()
 	{
-		return this.loggerName;
+		return LoggingType.DIE.getName();
+	}
+
+	@Override
+	public String[] getSuggestedLoggingOption()
+	{
+		return LoggingType.LOGGING_SUGGESTIONS;
 	}
 
 	protected BaseText getNameText(T entity)
@@ -75,7 +77,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	{
 		if (this.getAcceleratorBoolean() && entity.world != null && !entity.world.isClient())
 		{
-			LoggerRegistry.getLogger(this.loggerName).log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
+			LoggerRegistry.getLogger(this.getName()).log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
 		}
 	}
 
@@ -120,11 +122,6 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 				"g  @ ",
 				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity))
 		)});
-	}
-
-	public Logger getStandardLogger()
-	{
-		return TISAdditionLoggerRegistry.standardLogger(this.loggerName, LoggingType.DIE.getName(), LoggingType.LOGGING_SUGGESTIONS);
 	}
 
 	public enum LoggingType

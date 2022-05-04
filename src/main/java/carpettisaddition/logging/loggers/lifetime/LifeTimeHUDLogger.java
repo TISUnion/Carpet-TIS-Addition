@@ -1,5 +1,6 @@
 package carpettisaddition.logging.loggers.lifetime;
 
+import carpet.logging.HUDLogger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.LifeTimeWorldTracker;
 import carpettisaddition.commands.lifetime.trackeddata.BasicTrackedData;
@@ -36,6 +37,12 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 	}
 
 	@Override
+	public HUDLogger createCarpetLogger()
+	{
+		return new LifeTimeStandardCarpetHUDLogger();
+	}
+
+	@Override
 	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
 		LifeTimeWorldTracker tracker = LifeTimeTracker.getInstance().getTracker(playerEntity.getEntityWorld());
@@ -58,10 +65,5 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 			}
 		}
 		return null;
-	}
-
-	public LifeTimeStandardCarpetHUDLogger getHUDLogger()
-	{
-		return new LifeTimeStandardCarpetHUDLogger();
 	}
 }

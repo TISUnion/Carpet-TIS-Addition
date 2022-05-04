@@ -51,7 +51,8 @@ public class TicketLogger extends AbstractLogger
 		return suggestions.toArray(new String[0]);
 	}
 
-	public Logger getStandardLogger()
+	@Override
+	public Logger createCarpetLogger()
 	{
 		return new ExtensionLogger(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null){
 			@Override
