@@ -34,7 +34,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	 */
 	@ModifyVariable(
 			method = {
-					"sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;)V",
+					"sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/util/registry/RegistryKey;)V",
 			},
 			at = @At("HEAD"),
 			argsOnly = true

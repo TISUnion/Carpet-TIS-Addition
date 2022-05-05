@@ -2,6 +2,7 @@ package carpettisaddition.commands.refresh;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.mixins.command.refresh.ServerPlayerEntityAccessor;
 import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.CarpetModUtil;
@@ -163,7 +164,7 @@ public class RefreshCommand extends AbstractCommand
 		}
 		MutableText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
 		player.networkHandler.sendPacket(
-				new GameMessageS2CPacket(message, MessageType.SYSTEM),
+				new GameMessageS2CPacket(message, ((ServerPlayerEntityAccessor)player).invokeGetMessageTypeRegistryKeyIndex(MessageType.SYSTEM)),
 				future -> {
 					synchronized (this.refreshingChunkPlayers)
 					{
