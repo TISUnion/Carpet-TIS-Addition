@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class CarpetTISAdditionServer implements CarpetExtension
 {
-    public static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
+    private static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
     public static final String name = CarpetTISAdditionMod.getModId();
     public static final String fancyName = "Carpet TIS Addition";
     public static final String compactName = name.replace("-","");  // carpettisaddition
@@ -46,9 +46,14 @@ public class CarpetTISAdditionServer implements CarpetExtension
         return name;
     }
 
-    public static void registerExtension()
+    public static CarpetTISAdditionServer getInstance()
     {
-        CarpetServer.manageExtension(INSTANCE);
+        return INSTANCE;
+    }
+
+    public void registerExtension()
+    {
+        CarpetServer.manageExtension(this);
     }
 
     @Override

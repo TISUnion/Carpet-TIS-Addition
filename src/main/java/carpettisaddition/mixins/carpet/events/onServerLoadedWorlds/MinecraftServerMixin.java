@@ -13,6 +13,6 @@ public abstract class MinecraftServerMixin
 	@Inject(method = "loadWorld", at = @At("TAIL"))
 	private void onSetupServerIntegrated(CallbackInfo ci)
 	{
-		CarpetTISAdditionServer.INSTANCE.onServerLoadedWorldsCTA((MinecraftServer) (Object) this);
+		CarpetTISAdditionServer.getInstance().onServerLoadedWorldsCTA((MinecraftServer) (Object) this);
 	}
 }
