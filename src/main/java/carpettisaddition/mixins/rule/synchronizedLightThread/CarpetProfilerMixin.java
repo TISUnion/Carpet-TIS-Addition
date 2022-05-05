@@ -20,7 +20,7 @@ public abstract class CarpetProfilerMixin
 	static
 	{
 		Map<String, String> map = Maps.newLinkedHashMap(SECTIONS);
-		map.put(LightThreadSynchronizer.SECTION_NAME, "Light engine synchronization by rule synchronizedLightThread to make sure the lighting engine is not fall behind");
+		map.put(LightThreadSynchronizer.SECTION_NAME, "Light engine synchronization by rule synchronizedLightThread to make sure the lighting engine will not fall behind");
 		SECTIONS = Collections.unmodifiableMap(map);
 	}
 }
