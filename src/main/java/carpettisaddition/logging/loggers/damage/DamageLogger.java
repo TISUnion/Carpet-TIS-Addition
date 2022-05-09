@@ -38,7 +38,7 @@ public class DamageLogger extends AbstractLogger
 	@Override
 	public @Nullable String[] getSuggestedLoggingOption()
 	{
-		return new String[]{"all", "players", "me"};
+		return new String[]{"all", "players", "me", "->creeper", "vex->"};
 	}
 
 	public static boolean isLoggerActivated()
@@ -104,7 +104,8 @@ public class DamageLogger extends AbstractLogger
 
 		private BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, Entity from, Entity to, Supplier<BaseText[]> messageFuture)
 		{
-			if ("all".equals(option) || ("players".equals(option) && (from instanceof PlayerEntity || to instanceof PlayerEntity)) || ("me".equals(option) && (from == player || to == player)))
+			OptionParser parser = new OptionParser(option);
+			if (parser.accepts(player, from, to))
 			{
 				return messageFuture.get();
 			}

@@ -29,6 +29,19 @@ Available logging targets:
 - `all`: Log damage from all living entities
 - `players`: Log damage with player participation
 - `me`: Log damage related to yourself
+- `<entity_type>`: Log damage related to specified entity type. e.g. `creeper`
+
+Additionally,
+- if you append a `<-` in front of the target string or append a `->` behind the target string, only damage dealt from the target will be logged
+- if you append a `->` in front of the target string or append a `<-` behind the target string, only damage applied to the target will be logged
+
+Target examples:
+- `->me`: Damage applied to me
+-`->creeper`: Damage applied to creeper
+-`vex->`: Damage dealt from vex
+-`<-players`: Damage dealt from players
+-`zombie`: damage from / to zombies
+-`minecraft:zombie`, `<-zombie->`, `->zombie<-`: The same as `zombie`
 
 Attributes:
 - Default option: `all`
