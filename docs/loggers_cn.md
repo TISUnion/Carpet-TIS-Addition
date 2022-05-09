@@ -47,7 +47,7 @@
 
 属性:
 - 默认选项: `all`
-- 参考选项: `all`, `players`, `me`
+- 参考选项: `all`, `players`, `me`, `->creeper`, `vex->`, `Steve`, `@e[distance=..10]`
 
 
 ## 掉落物 (item)

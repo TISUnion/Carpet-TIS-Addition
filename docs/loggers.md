@@ -47,7 +47,7 @@ Target examples:
 
 Attributes:
 - Default option: `all`
-- Suggested options: `all`, `players`, `me`
+- Suggested options: `all`, `players`, `me`, `->creeper`, `vex->`, `Steve`, `@e[distance=..10]`
 
 
 ## item
