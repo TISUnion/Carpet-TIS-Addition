@@ -103,9 +103,9 @@
 
 可助于调试刷怪塔等
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -113,9 +113,9 @@
 
 启用 `/manipulate` 命令用于控制世界
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `false`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`, `EXPERIMENTAL`
 
 
@@ -123,9 +123,9 @@
 
 启用 `/raid` 命令用于列出或追踪袭击信息
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -133,9 +133,9 @@
 
 启用 `/refresh` 命令让你的客户端与服务端保持同步
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -143,9 +143,9 @@
 
 启用 `/removeentity` 命令用于直接在世界中抹除目标实体
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `ops`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`, `CREATIVE`
 
 

@@ -103,9 +103,9 @@ Enables `/lifetime` command to track entity lifetime and so on
 
 Useful for mob farm debugging etc.
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -113,9 +113,9 @@ Useful for mob farm debugging etc.
 
 Enables `/manipulate` command for world related manipulation command
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `false`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`, `EXPERIMENTAL`
 
 
@@ -123,9 +123,9 @@ Enables `/manipulate` command for world related manipulation command
 
 Enables `/raid` command for raid listing and tracking
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -133,9 +133,9 @@ Enables `/raid` command for raid listing and tracking
 
 Enables `/refresh` command for synchronizing your client to the server
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -143,9 +143,9 @@ Enables `/refresh` command for synchronizing your client to the server
 
 Enables `/removeentity` command for directly erase target entities from the world
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `ops`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`, `CREATIVE`
 
 
