@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.damage;
 
 import carpettisaddition.logging.loggers.damage.DamageLogger;
-import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
+import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.damage.DamageSource;
@@ -30,7 +30,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 					target = "Lnet/minecraft/server/MinecraftServer;isDedicated()Z"
 			)
 	)
-	void onDamageStarted(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onDamageStarted(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
 		DamageLogger.create(this, source, amount);
 	}
@@ -45,14 +45,13 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 			),
 			at = @At(value = "RETURN", ordinal = 0, shift = At.Shift.BEFORE) // before onDamageEnded in LivingEntityAndPlayerEntityMixins$DamageMixin
 	)
-	void onRespawnProtectionCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onRespawnProtectionCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		((ILivingEntity)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
+		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 				0.0F, ModifyReason.RESPAWN_PROTECTION
 		));
 	}
 
-	@SuppressWarnings("MixinAnnotationTarget")
 	@Inject(
 			method = "damage",
 			slice = @Slice(
@@ -68,9 +67,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 					@At(value = "RETURN", ordinal = 1, shift = At.Shift.BEFORE)
 			}
 	)
-	void onPVPDisabledCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onPVPDisabledCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		((ILivingEntity)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
+		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 				0.0F, ModifyReason.PVP_DISABLED
 		));
 	}
