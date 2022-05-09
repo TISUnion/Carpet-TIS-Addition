@@ -363,8 +363,6 @@ carpettisaddition:
         display: '%1$s的筛选器为%2$s'
         display_total: 共有%1$s个激活的筛选器
         none: 无
-        dimension: 维度
-        anchor_pos: 锚点坐标
         click_to_clear: 点击以清除筛选器
     raid:
       name: 袭击
@@ -382,6 +380,9 @@ carpettisaddition:
     stack_trace:
       deobfuscated_stack_trace: 反混淆后的堆栈跟踪
       n_more_lines: 等%1$s行
+    entity_filter:
+      dimension: 维度
+      anchor_pos: 锚点坐标
 
   misc:
     player_mount_anything_permission_denied: 只有OP玩家才被允许骑乘任意实体

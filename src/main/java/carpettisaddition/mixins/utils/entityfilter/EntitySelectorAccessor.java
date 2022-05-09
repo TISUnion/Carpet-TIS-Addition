@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.command.lifetime.filter;
+package carpettisaddition.mixins.utils.entityfilter;
 
 import carpettisaddition.commands.lifetime.filter.IEntitySelector;
 import net.minecraft.command.EntitySelector;

@@ -1,6 +1,6 @@
-package carpettisaddition.commands.lifetime.filter;
+package carpettisaddition.utils.entityfilter;
 
-import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
+import carpettisaddition.mixins.utils.entityfilter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
@@ -23,7 +23,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 
 	public EntityFilter(@NotNull ServerCommandSource serverCommandSource, @NotNull EntitySelector entitySelector)
 	{
-		super(EntityFilterManager.getInstance().getTranslator());
+		super("util.entity_filter");
 		this.entitySelector = (EntitySelectorAccessor)entitySelector;
 		this.serverCommandSource = serverCommandSource;
 	}
