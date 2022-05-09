@@ -76,6 +76,7 @@ public class Messenger
 	}
 
 	// Fancy text
+	// A copy will be made to make sure the original displayText will not be modified
 	// TODO: yeets style
 	public static BaseText fancy(@Nullable String carpetStyle, @NotNull BaseText displayText, @Nullable BaseText hoverText, @Nullable ClickEvent clickEvent)
 	{
@@ -107,7 +108,7 @@ public class Messenger
 		{
 			if (i > 0)
 			{
-				text.append(joiner.copy());
+				text.append(joiner);
 			}
 			text.append(items[i]);
 		}
@@ -169,8 +170,8 @@ public class Messenger
 
 	public static BaseText entity(String style, Entity entity)
 	{
-		BaseText entityBaseName = copy((BaseText)entity.getType().getName());
-		BaseText entityDisplayName = copy((BaseText)entity.getName());
+		BaseText entityBaseName = (BaseText)entity.getType().getName();
+		BaseText entityDisplayName = (BaseText)entity.getName();
 		BaseText hoverText = Messenger.c(
 				translator.tr("entity_type", entityBaseName, s(EntityType.getId(entity.getType()).toString())), newLine(),
 				getTeleportHint(entityDisplayName)
