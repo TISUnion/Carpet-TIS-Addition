@@ -111,7 +111,7 @@ public class DamageLogger extends AbstractLogger
 			return null;
 		}
 
-		private BaseText getAmountText(String style, float amount)
+		private BaseText getAmountText(@Nullable String style, float amount)
 		{
 			String display = String.format("%.2f", amount);
 			String detail = String.format("%.6f", amount);
@@ -161,7 +161,7 @@ public class DamageLogger extends AbstractLogger
 										sourceHoverTextList.isEmpty() ? null : Messenger.c(sourceHoverTextList.toArray(new Object[0])),
 										attacker != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(attacker)) : null
 								),
-								this.initialHealth
+								getAmountText(null, this.initialHealth)
 						));
 						for (Modification modification : this.modificationList)
 						{
