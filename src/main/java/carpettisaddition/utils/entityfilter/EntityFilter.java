@@ -4,7 +4,10 @@ import carpettisaddition.mixins.utils.entityfilter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.EntitySelector;
+import net.minecraft.command.EntitySelectorReader;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -14,6 +17,7 @@ import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class EntityFilter extends TranslationContext implements Predicate<Entity>
@@ -26,6 +30,25 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		super("util.entity_filter");
 		this.entitySelector = (EntitySelectorAccessor)entitySelector;
 		this.serverCommandSource = serverCommandSource;
+	}
+
+	public static EntityFilter create(Entity entity, String filterDescriptor) throws CommandSyntaxException
+	{
+		ServerCommandSource source = entity.getCommandSource();
+		EntitySelectorReader reader = new EntitySelectorReader(new StringReader(filterDescriptor), source.hasPermissionLevel(2));
+		return new EntityFilter(source, reader.read());
+	}
+
+	public static Optional<EntityFilter> createOptional(Entity entity, String filterDescriptor)
+	{
+		try
+		{
+			return Optional.of(create(entity, filterDescriptor));
+		}
+		catch (CommandSyntaxException e)
+		{
+			return Optional.empty();
+		}
 	}
 
 	private Vec3d getAnchorPos()
