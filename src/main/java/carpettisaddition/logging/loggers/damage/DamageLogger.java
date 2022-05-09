@@ -38,7 +38,7 @@ public class DamageLogger extends AbstractLogger
 	@Override
 	public @Nullable String[] getSuggestedLoggingOption()
 	{
-		return new String[]{"all", "players", "me", "->creeper", "vex->", "Steve", "@e[distance=..10]"};
+		return new String[]{"all", "players", "me", "->creeper", "vex->", "me->zombie", "Steve", "@e[distance=..10]"};
 	}
 
 	public static boolean isLoggerActivated()

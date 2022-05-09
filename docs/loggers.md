@@ -33,21 +33,22 @@ Available logging targets:
 - `<entity_selector>`：Log damage related to entities satisfies the given selector. e.g. `Steve` (player name), `@e[distance=..10]` (`@` selector, requires permission level 2)
 
 Additionally,
-- if you append a `<-` in front of the target string or append a `->` behind the target string, only damage dealt from the target will be logged
-- if you append a `->` in front of the target string or append a `<-` behind the target string, only damage dealt to the target will be logged
+- If you append a `->` behind the target string, only damage dealt from the target will be logged
+- If you append a `->` in front of the target string, only damage dealt to the target will be logged
+- If you contact 2 target strings with a `->`, only damage dealt from the former target to the latter target will be logged
 
 Target examples:
-- `->me`: Damage dealt to subscriber itself
+- `->me`: Damage dealt to the subscriber itself
 -`->creeper`: Damage dealt to creeper
 -`vex->`: Damage dealt from vex
--`<-players`: Damage dealt from players
 -`zombie`: damage from / to zombies
--`minecraft:zombie`, `<-zombie->`, `->zombie<-`: The same as `zombie`
+-`minecraft:zombie`: The same as `zombie`
+-`me->zombie`: damage from the subscriber to zombies
 -`->@e[distance=..10]`: Damage dealt to entities within 10m of the subscriber 
 
 Attributes:
 - Default option: `all`
-- Suggested options: `all`, `players`, `me`, `->creeper`, `vex->`, `Steve`, `@e[distance=..10]`
+- Suggested options: `all`, `players`, `me`, `->creeper`, `vex->`, `me->zombie`, `Steve`, `@e[distance=..10]`
 
 
 ## item
