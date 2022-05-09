@@ -85,6 +85,18 @@ With a value of `n`, in every chunk every game tick, climate things will tick `n
 - Categories: `TIS`, `CREATIVE`
 
 
+## clientSettingsLostOnRespawnFix
+
+Fixed stored client settings are not migrated from the old player entity during player respawn or entering end portal in the end
+
+So mods relies on client settings are always able to work correctly, e.g. serverside translation of this mod and worldedit mod
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
+
 ## commandLifeTime
 
 Enables `/lifetime` command to track entity lifetime and so on

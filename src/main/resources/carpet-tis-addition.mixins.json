@@ -169,6 +169,7 @@
     "rule.cauldronBlockItemInteractFix.CauldronBlockMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.chunkUpdatePacketThreshold.ChunkHolderMixin",
+    "rule.clientSettingsLostOnRespawnFix.ServerPlayerEntityMixin",
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
     "rule.creativeOpenContainerForcibly.EnderChestBlockMixin",
     "rule.creativeOpenContainerForcibly.ShulkerBoxBlockMixin",

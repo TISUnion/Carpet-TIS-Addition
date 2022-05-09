@@ -85,6 +85,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 玩家重生丢失客户端设置数据修复 (clientSettingsLostOnRespawnFix)
+
+修复在玩家重生或从末地进入末地门时，新创建的玩家实体未迁移旧玩家实体中储存着的客户端设置的问题
+
+因此依赖客户端设置数据的模组总能正常的工作，如本模组以及worldedit模组的服务端翻译
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
 ## 存活时间追踪器 (commandLifeTime)
 
 启用 `/lifetime` 命令用于追踪生物存活时间等信息
