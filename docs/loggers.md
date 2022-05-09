@@ -39,12 +39,12 @@ Additionally,
 
 Target examples:
 - `->me`: Damage dealt to the subscriber itself
--`->creeper`: Damage dealt to creeper
--`vex->`: Damage dealt from vex
--`zombie`: damage from / to zombies
--`minecraft:zombie`: The same as `zombie`
--`me->zombie`: damage from the subscriber to zombies
--`->@e[distance=..10]`: Damage dealt to entities within 10m of the subscriber 
+- `->creeper`: Damage dealt to creeper
+- `vex->`: Damage dealt from vex
+- `zombie`: Damage from / to zombies
+- `minecraft:zombie`: The same as `zombie`
+- `me->zombie`: Damage from the subscriber to zombies
+- `->@e[distance=..10]`: Damage dealt to entities within 10m of the subscriber 
 
 Attributes:
 - Default option: `all`
