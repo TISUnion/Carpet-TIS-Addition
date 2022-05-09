@@ -50,10 +50,10 @@ public class DamageLogger extends AbstractLogger
 	{
 		if (isLoggerActivated())
 		{
-			DamageLoggerTarget iEntity = (DamageLoggerTarget)entity;
-			if (!iEntity.getDamageTracker().isPresent())
+			DamageLoggerTarget damageLoggerTarget = (DamageLoggerTarget)entity;
+			if (!damageLoggerTarget.getDamageTracker().isPresent())
 			{
-				iEntity.setDamageTracker(getInstance().new Tracker(entity, source, amount));
+				damageLoggerTarget.setDamageTracker(getInstance().new Tracker(entity, source, amount));
 			}
 		}
 	}
@@ -71,7 +71,7 @@ public class DamageLogger extends AbstractLogger
 		public Tracker(LivingEntity entity, DamageSource damageSource, float initialAmount)
 		{
 			this.entity = entity;
-			this.initialHealth = entity != null ? entity.getHealth() : 0;
+			this.initialHealth = entity.getHealth();
 			this.damageSource = damageSource;
 			this.initialAmount = initialAmount;
 			this.currentAmount = initialAmount;
