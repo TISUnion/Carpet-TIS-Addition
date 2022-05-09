@@ -49,8 +49,6 @@
     "command.lifetime.deathdamage.ExperienceOrbEntityMixin",
     "command.lifetime.deathdamage.ItemEntityMixin",
     "command.lifetime.deathdamage.LivingEntityMixin",
-    "command.lifetime.filter.EntitySelectorMixin",
-    "command.lifetime.filter.EntitySelectorReaderMixin",
     "command.lifetime.removal.DolphinEntityMixin",
     "command.lifetime.removal.EntityMixin",
     "command.lifetime.removal.ExperienceOrbEntityMixin",
@@ -258,7 +256,9 @@
     "translations.StyleAccessor",
     "translations.TranslatableTextAccessor",
     "translations.TranslatableTextMixin",
-    "utils.entityfilter.EntitySelectorAccessor"
+    "utils.entityfilter.EntitySelectorAccessor",
+    "utils.entityfilter.EntitySelectorMixin",
+    "utils.entityfilter.EntitySelectorReaderMixin"
   ],
   "client": [
     "carpet.events.onServerLoadedWorlds.IntegratedServerMixin",
