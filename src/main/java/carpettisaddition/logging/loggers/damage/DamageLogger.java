@@ -27,6 +27,7 @@ public class DamageLogger extends AbstractLogger
 	private static final Translator TRANSLATOR = (new DamageLogger(null, null, 0)).getTranslator();
 
 	private final LivingEntity entity;
+	private final float initialHealth;
 	private final DamageSource damageSource;
 	private final float initialAmount;
 	private float currentAmount;
@@ -37,6 +38,7 @@ public class DamageLogger extends AbstractLogger
 	{
 		super(NAME);
 		this.entity = entity;
+		this.initialHealth = entity != null ? entity.getHealth() : 0;
 		this.damageSource = damageSource;
 		this.initialAmount = initialAmount;
 		this.currentAmount = initialAmount;
@@ -158,7 +160,8 @@ public class DamageLogger extends AbstractLogger
 									Messenger.s(this.damageSource.getName()),
 									sourceHoverTextList.isEmpty() ? null : Messenger.c(sourceHoverTextList.toArray(new Object[0])),
 									attacker != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(attacker)) : null
-							)
+							),
+							this.initialHealth
 					));
 					for (Modification modification : this.modificationList)
 					{

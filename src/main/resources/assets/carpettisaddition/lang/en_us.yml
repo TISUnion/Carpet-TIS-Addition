@@ -31,7 +31,7 @@ carpettisaddition:
         armor: Armor
       attacker: Attacker
       source: Source
-      header_message: "%1$s is receiving %2$s damage, damage type: %3$s"
+      header_message: "%1$s is receiving %2$s damage, damage type: %3$s, initial health: %4$s"
       due_to: ' due to %1$s'
       footer_message: "%1$s actually received %2$s damage, remaining health: %3$s"
     entity:

@@ -31,7 +31,7 @@ carpettisaddition:
         armor: 护甲
       attacker: 攻击者
       source: 来源
-      header_message: "%1$s正在受到%2$s伤害，伤害类型: %3$s"
+      header_message: "%1$s正在受到%2$s伤害，伤害类型: %3$s，原有生命值: %4$s"
       due_to: ', 原因: %1$s'
       footer_message: "%1$s实际受到%2$s伤害，剩余生命值: %3$s"
     entity:
