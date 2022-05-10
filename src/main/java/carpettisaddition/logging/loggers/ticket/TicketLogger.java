@@ -48,7 +48,7 @@ public class TicketLogger extends AbstractLogger
 		List<String> suggestions = this.tickTypes.stream().map(ChunkTicketType::toString).collect(Collectors.toList());
 		suggestions.add(createCompoundOption(ChunkTicketType.PORTAL.toString(), ChunkTicketType.PLAYER.toString()));
 		suggestions.add(createCompoundOption(ChunkTicketType.PORTAL.toString(), ChunkTicketType.DRAGON.toString()));
-		return suggestions.toArray(new String[0]);
+		return wrapOptions(suggestions.toArray(new String[0]));
 	}
 
 	@Override
