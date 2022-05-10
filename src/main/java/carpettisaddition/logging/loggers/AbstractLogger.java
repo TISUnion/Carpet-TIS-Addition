@@ -20,11 +20,18 @@ public abstract class AbstractLogger extends TranslationContext
 	public final static String OPTION_SEP = ",";
 
 	private final String name;
+	private final boolean strictOption;
 
-	public AbstractLogger(String name)
+	public AbstractLogger(String name, boolean strictOption)
 	{
 		super("logger." + name);
 		this.name = name;
+		this.strictOption = strictOption;
+	}
+
+	public AbstractLogger(String name)
+	{
+		this(name, true);
 	}
 
 	public String getName()
@@ -53,7 +60,7 @@ public abstract class AbstractLogger extends TranslationContext
 				this.getName(),
 				wrapOption(this.getDefaultLoggingOption()),
 				wrapOptions(this.getSuggestedLoggingOption()),
-				true
+				this.strictOption
 		);
 	}
 
