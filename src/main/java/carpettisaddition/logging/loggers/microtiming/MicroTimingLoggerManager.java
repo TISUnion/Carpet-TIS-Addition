@@ -71,7 +71,13 @@ public class MicroTimingLoggerManager
 
 	public static boolean isLoggerActivated()
 	{
-		return CarpetTISAdditionSettings.microTiming && TISAdditionLoggerRegistry.__microTiming && instance != null;
+		// make sure it's available first
+		if (CarpetTISAdditionSettings.microTiming && instance != null)
+		{
+			// has subscriber
+			return TISAdditionLoggerRegistry.__microTiming;
+		}
+		return false;
 	}
 
 	public static void attachServer(MinecraftServer minecraftServer)
