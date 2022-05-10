@@ -6,6 +6,7 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.translations.TranslationContext;
 import com.google.common.base.Joiner;
+import com.mojang.brigadier.StringReader;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,11 +20,18 @@ public abstract class AbstractLogger extends TranslationContext
 	public final static String OPTION_SEP = ",";
 
 	private final String name;
+	private final boolean strictOption;
 
-	public AbstractLogger(String name)
+	public AbstractLogger(String name, boolean strictOption)
 	{
 		super("logger." + name);
 		this.name = name;
+		this.strictOption = strictOption;
+	}
+
+	public AbstractLogger(String name)
+	{
+		this(name, true);
 	}
 
 	public String getName()
@@ -48,7 +56,12 @@ public abstract class AbstractLogger extends TranslationContext
 
 	public Logger createCarpetLogger()
 	{
-		return TISAdditionLoggerRegistry.standardLogger(this.getName(), this.getDefaultLoggingOption(), this.getSuggestedLoggingOption(), true);
+		return TISAdditionLoggerRegistry.standardLogger(
+				this.getName(),
+				wrapOption(this.getDefaultLoggingOption()),
+				wrapOptions(this.getSuggestedLoggingOption()),
+				this.strictOption
+		);
 	}
 
 	public Logger getLogger()
@@ -86,9 +99,49 @@ public abstract class AbstractLogger extends TranslationContext
 
 	// Utils
 
+	/**
+	 * Fabric carpet 1.4.25+ (mc1.16+) uses {@code StringArgumentType.string()} as the option argument in the `/log` command
+	 * So we might need to wrap our option with quotes if necessary
+	 */
+	protected static String wrapOption(@Nullable String option)
+	{
+		if (option == null)
+		{
+			return null;
+		}
+		boolean requiresQuotes = false;
+		for (int i = 0; i < option.length(); i++)
+		{
+			if (!StringReader.isAllowedInUnquotedString(option.charAt(i)))
+			{
+				requiresQuotes = true;
+				break;
+			}
+		}
+		if (requiresQuotes)
+		{
+			option = "\"" + option.replace("\"", "\"\"") + "\"";
+		}
+		return option;
+	}
+
+	protected static String[] wrapOptions(@Nullable String... options)
+	{
+		if (options == null)
+		{
+			return null;
+		}
+		options = options.clone();
+		for (int i = 0; i < options.length; i++)
+		{
+			options[i] = wrapOption(options[i]);
+		}
+		return options;
+	}
+
 	protected static String createCompoundOption(Iterable<String> options)
 	{
-		return "\"" + Joiner.on(OPTION_SEP).join(options) + "\"";
+		return Joiner.on(OPTION_SEP).join(options);
 	}
 
 	protected static String createCompoundOption(String... options)
