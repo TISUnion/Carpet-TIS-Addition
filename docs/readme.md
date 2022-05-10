@@ -17,6 +17,7 @@
 - [cauldronBlockItemInteractFix](rules.md#cauldronblockiteminteractfix)
 - [chunkUpdatePacketThreshold](rules.md#chunkupdatepacketthreshold)
 - [chunkTickSpeed](rules.md#chunktickspeed)
+- [clientSettingsLostOnRespawnFix](rules.md#clientsettingslostonrespawnfix)
 - [commandLifeTime](rules.md#commandlifetime)
 - [commandManipulate](rules.md#commandmanipulate)
 - [commandRaid](rules.md#commandraid)
