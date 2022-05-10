@@ -6,6 +6,7 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.translations.TranslationContext;
 import com.google.common.base.Joiner;
+import com.mojang.brigadier.StringReader;
 import net.minecraft.text.BaseText;
 import org.jetbrains.annotations.Nullable;
 
@@ -96,6 +97,23 @@ public abstract class AbstractLogger extends TranslationContext
 	 */
 	protected static String wrapOption(@Nullable String option)
 	{
+		if (option == null)
+		{
+			return null;
+		}
+		boolean requiresQuotes = false;
+		for (int i = 0; i < option.length(); i++)
+		{
+			if (!StringReader.isAllowedInUnquotedString(option.charAt(i)))
+			{
+				requiresQuotes = true;
+				break;
+			}
+		}
+		if (requiresQuotes)
+		{
+			option = "\"" + option.replace("\"", "\"\"") + "\"";
+		}
 		return option;
 	}
 
@@ -115,7 +133,7 @@ public abstract class AbstractLogger extends TranslationContext
 
 	protected static String createCompoundOption(Iterable<String> options)
 	{
-		return "\"" + Joiner.on(OPTION_SEP).join(options) + "\"";
+		return Joiner.on(OPTION_SEP).join(options);
 	}
 
 	protected static String createCompoundOption(String... options)
