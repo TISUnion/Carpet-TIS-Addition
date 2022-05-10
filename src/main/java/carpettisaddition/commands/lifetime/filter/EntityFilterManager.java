@@ -2,9 +2,10 @@ package carpettisaddition.commands.lifetime.filter;
 
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
-import carpettisaddition.mixins.command.lifetime.filter.EntitySelectorAccessor;
+import carpettisaddition.mixins.utils.entityfilter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.entityfilter.EntityFilter;
 import com.google.common.collect.Maps;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;

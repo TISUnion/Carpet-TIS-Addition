@@ -53,9 +53,6 @@
     "command.lifetime.deathdamage.ExperienceOrbEntityMixin",
     "command.lifetime.deathdamage.ItemEntityMixin",
     "command.lifetime.deathdamage.LivingEntityMixin",
-    "command.lifetime.filter.EntitySelectorAccessor",
-    "command.lifetime.filter.EntitySelectorMixin",
-    "command.lifetime.filter.EntitySelectorReaderMixin",
     "command.lifetime.removal.DolphinEntityMixin",
     "command.lifetime.removal.EntityMixin",
     "command.lifetime.removal.ExperienceOrbEntityAccessor",
@@ -186,6 +183,7 @@
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
     "rule.cauldronBlockItemInteractFix.CauldronBlockMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
+    "rule.clientSettingsLostOnRespawnFix.ServerPlayerEntityMixin",
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
     "rule.creativeOpenContainerForcibly.EnderChestBlockMixin",
     "rule.creativeOpenContainerForcibly.ShulkerBoxBlockMixin",
@@ -279,7 +277,10 @@
     "translations.TranslatableTextAccessor",
     "translations.TranslatableTextMixin",
     "utils.DirectBlockEntityTickInvokerAccessor",
-    "utils.WrappedBlockEntityTickInvokerAccessor"
+    "utils.WrappedBlockEntityTickInvokerAccessor",
+    "utils.entityfilter.EntitySelectorAccessor",
+    "utils.entityfilter.EntitySelectorMixin",
+    "utils.entityfilter.EntitySelectorReaderMixin"
   ],
   "client": [
     "carpet.shape.texthack.ShapesRendererRenderedTextMixin"

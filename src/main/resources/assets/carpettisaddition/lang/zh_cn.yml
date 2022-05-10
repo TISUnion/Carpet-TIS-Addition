@@ -31,7 +31,7 @@ carpettisaddition:
         armor: 护甲
       attacker: 攻击者
       source: 来源
-      header_message: "%1$s正在受到%2$s伤害，伤害类型: %3$s"
+      header_message: "%1$s正在受到%2$s伤害，伤害类型: %3$s，原有生命值: %4$s"
       due_to: ', 原因: %1$s'
       footer_message: "%1$s实际受到%2$s伤害，剩余生命值: %3$s"
     entity:
@@ -363,8 +363,6 @@ carpettisaddition:
         display: '%1$s的筛选器为%2$s'
         display_total: 共有%1$s个激活的筛选器
         none: 无
-        dimension: 维度
-        anchor_pos: 锚点坐标
         click_to_clear: 点击以清除筛选器
     raid:
       name: 袭击
@@ -382,6 +380,9 @@ carpettisaddition:
     stack_trace:
       deobfuscated_stack_trace: 反混淆后的堆栈跟踪
       n_more_lines: 等%1$s行
+    entity_filter:
+      dimension: 维度
+      anchor_pos: 锚点坐标
 
   misc:
     player_mount_anything_permission_denied: 只有OP玩家才被允许骑乘任意实体
@@ -428,6 +429,11 @@ carpettisaddition:
           '0': 默认值为1。将其设为0以禁用区块刻
           '1': 受影响的游戏阶段：雷电、结冰与积雪、随机刻
           '2': 在值为n时，每游戏刻每区块，气候相关的阶段会发生n次，而随机刻会在每区段中发生n * randomTickSpeed次
+      clientSettingsLostOnRespawnFix:
+        name: 玩家重生丢失客户端设置数据修复
+        desc: 修复在玩家重生或从末地进入末地门时，新创建的玩家实体未迁移旧玩家实体中储存着的客户端设置的问题
+        extra:
+          '0': 因此依赖客户端设置数据的模组总能正常的工作，如本模组以及worldedit模组的服务端翻译
       commandLifeTime:
         name: 存活时间追踪器
         desc: 启用/lifetime命令用于追踪生物存活时间等信息
