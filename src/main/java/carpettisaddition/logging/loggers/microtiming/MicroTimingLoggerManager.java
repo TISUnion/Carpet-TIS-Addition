@@ -56,7 +56,7 @@ public class MicroTimingLoggerManager
 	public ThreadLocal<ServerWorld> currentWorld = ThreadLocal.withInitial(() -> null);
 
 	// for scarpet event
-    public static Set<BlockPos> trackedPositions = Sets.newHashSet();
+    public static final Set<BlockPos> trackedPositions = Sets.newHashSet();
 
 	public static BaseText tr(String key, Object... args)
 	{
@@ -78,7 +78,7 @@ public class MicroTimingLoggerManager
 
 	public static boolean isLoggerActivated()
 	{
-		return CarpetTISAdditionSettings.microTiming && TISAdditionLoggerRegistry.__microTiming && instance != null;
+		return CarpetTISAdditionSettings.microTiming && instance != null && (TISAdditionLoggerRegistry.__microTiming || !trackedPositions.isEmpty());
 	}
 
 	public static void attachServer(MinecraftServer minecraftServer)
