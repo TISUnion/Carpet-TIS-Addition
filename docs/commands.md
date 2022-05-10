@@ -109,18 +109,18 @@ Manipulate the world
 
 Manipulate data structure containers of the world, including:
 
-| Container name | Command prefix | Support operations |
-| --- | --- | --- |
-| Entity list | `entity` | reverting, shuffling |
-| Tickable tile entity list | `tileentity` | reverting, shuffling |
-| Tile tick queue | `tiletick` | add item, remove items at position |
-| Block event queue | `blockevent` | add item, remove items at position |
+| Container name | Command prefix | Support operations                                                   |
+| --- | --- |----------------------------------------------------------------------|
+| Entity list | `entity` | reverting, shuffling                                                 |
+| Tickable tile entity list | `tileentity` | reverting, shuffling, query overall / specified position information |
+| Tile tick queue | `tiletick` | add item, remove items at position                                   |
+| Block event queue | `blockevent` | add item, remove items at position                                   |
 
 Command lists:
 
 ```
 /manipulate container entity [revert|shuffle]
-/manipulate container tileentity [revert|shuffle]
+/manipulate container tileentity [query|revert|shuffle|statistic]
 /manipulate container tiletick add <pos> <block> <delay> [<priority>]
 /manipulate container tiletick remove <pos>
 /manipulate container blockevent add <pos> <block> <type> <data>
