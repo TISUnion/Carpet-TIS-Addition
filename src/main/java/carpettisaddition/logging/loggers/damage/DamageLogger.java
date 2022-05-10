@@ -27,7 +27,7 @@ public class DamageLogger extends AbstractLogger
 
 	private DamageLogger()
 	{
-		super(NAME);
+		super(NAME, false);
 	}
 
 	public static DamageLogger getInstance()
