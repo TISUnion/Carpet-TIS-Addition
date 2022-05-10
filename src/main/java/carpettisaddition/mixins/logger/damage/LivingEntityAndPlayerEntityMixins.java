@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.damage;
 
 import carpettisaddition.logging.loggers.damage.DamageLogger;
-import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
+import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.StatusEffectModifyReason;
 import net.minecraft.entity.LivingEntity;
@@ -30,28 +30,28 @@ public abstract class LivingEntityAndPlayerEntityMixins
 						target = "Ljava/lang/Math;max(FF)F"
 				)
 		)
-		void onAbsorptionReducedDamage(DamageSource source, float amount, CallbackInfo ci)
+		private void onAbsorptionReducedDamage(DamageSource source, float amount, CallbackInfo ci)
 		{
-			((ILivingEntity) this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
+			((DamageLoggerTarget) this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 					amount, new StatusEffectModifyReason(StatusEffects.ABSORPTION)
 			));
 		}
 
 		// at the end of damage calculation
 		@Inject(method = "applyDamage", at = @At("RETURN"))
-		void onDamageApplyDone(DamageSource source, float amount, CallbackInfo ci)
+		private void onDamageApplyDone(DamageSource source, float amount, CallbackInfo ci)
 		{
 			if (DamageLogger.isLoggerActivated())
 			{
 				LivingEntity entity = (LivingEntity) (Object) this;
-				Optional<DamageLogger> logger = ((ILivingEntity) this).getDamageLogger();
+				Optional<DamageLogger.Tracker> logger = ((DamageLoggerTarget) this).getDamageTracker();
 				if (entity.isInvulnerableTo(source))
 				{
 					amount = 0.0F;
-					logger.ifPresent(damageLogger -> damageLogger.modifyDamage(0.0F, ModifyReason.IMMUNE));
+					logger.ifPresent(tracker -> tracker.modifyDamage(0.0F, ModifyReason.IMMUNE));
 				}
 				float finalAmount = amount;
-				logger.ifPresent(damageLogger -> damageLogger.flush(finalAmount, entity.getHealth()));
+				logger.ifPresent(tracker -> tracker.flush(finalAmount, entity.getHealth()));
 			}
 		}
 	}
@@ -60,7 +60,7 @@ public abstract class LivingEntityAndPlayerEntityMixins
 	public static class DamageMixin
 	{
 		@Inject(method = "damage", at = @At(value = "RETURN"))
-		void onDamageEnded(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+		private void onDamageEnded(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 		{
 			if (DamageLogger.isLoggerActivated())
 			{
@@ -69,9 +69,9 @@ public abstract class LivingEntityAndPlayerEntityMixins
 				{
 					// return false means actually received no damage for some reason,
 					// logger.flush after regular damage calculation might not be called so here's a backup call
-					((ILivingEntity) this).getDamageLogger().ifPresent(damageLogger -> damageLogger.flush(0.0F, entity.getHealth()));
+					((DamageLoggerTarget) this).getDamageTracker().ifPresent(tracker -> tracker.flush(0.0F, entity.getHealth()));
 				}
-				((ILivingEntity) this).setDamageLogger(null);
+				((DamageLoggerTarget) this).setDamageTracker(null);
 			}
 		}
 	}

@@ -1,6 +1,6 @@
-package carpettisaddition.mixins.command.lifetime.filter;
+package carpettisaddition.mixins.utils.entityfilter;
 
-import carpettisaddition.commands.lifetime.filter.IEntitySelector;
+import carpettisaddition.utils.entityfilter.IEntitySelector;
 import net.minecraft.command.EntitySelector;
 import org.spongepowered.asm.mixin.Mixin;
 

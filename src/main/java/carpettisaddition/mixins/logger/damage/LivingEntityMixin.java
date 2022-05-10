@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.damage;
 
 import carpettisaddition.logging.loggers.damage.DamageLogger;
-import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
+import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ArmorModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.EnchantmentModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
@@ -13,6 +13,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Optional;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin implements ILivingEntity
+public abstract class LivingEntityMixin implements DamageLoggerTarget
 {
 	@Shadow protected float field_6253;
 
@@ -31,18 +32,19 @@ public abstract class LivingEntityMixin implements ILivingEntity
 
 	@Shadow public abstract Iterable<ItemStack> getArmorItems();
 
-	private DamageLogger damageLogger;
+	@Nullable
+	private DamageLogger.Tracker tracker = null;
 
 	@Override
-	public Optional<DamageLogger> getDamageLogger()
+	public Optional<DamageLogger.Tracker> getDamageTracker()
 	{
-		return Optional.ofNullable(damageLogger);
+		return Optional.ofNullable(this.tracker);
 	}
 
 	@Override
-	public void setDamageLogger(DamageLogger damageLogger)
+	public void setDamageTracker(@Nullable DamageLogger.Tracker tracker)
 	{
-		this.damageLogger = damageLogger;
+		this.tracker = tracker;
 	}
 
 	// at the start of general damage calculation
@@ -53,7 +55,7 @@ public abstract class LivingEntityMixin implements ILivingEntity
 					target = "Lnet/minecraft/entity/LivingEntity;isSleeping()Z"
 			)
 	)
-	void onDamageStarted(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onDamageStarted(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
 		DamageLogger.create((LivingEntity)(Object)this, source, amount);
 	}
@@ -65,9 +67,9 @@ public abstract class LivingEntityMixin implements ILivingEntity
 					args = "floatValue=0.75F"
 			)
 	)
-	void onHelmetReducedAnvilDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onHelmetReducedAnvilDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		this.getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(amount * 0.75F, ModifyReason.HELMET));
+		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount * 0.75F, ModifyReason.HELMET));
 	}
 
 	@Inject(
@@ -84,9 +86,9 @@ public abstract class LivingEntityMixin implements ILivingEntity
 					ordinal = 0
 			)
 	)
-	void onShieldReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onShieldReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		this.getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(amount, ModifyReason.SHIELD));
+		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount, ModifyReason.SHIELD));
 	}
 
 	@Inject(
@@ -97,17 +99,17 @@ public abstract class LivingEntityMixin implements ILivingEntity
 					ordinal = 0
 			)
 	)
-	void onRecentHintReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onRecentHintReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		this.getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
+		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 				Math.max(amount - this.field_6253, 0.0F), ModifyReason.RECENTLY_HIT
 		));
 	}
 
 	@Inject(method = "applyArmorToDamage", at = @At("RETURN"))
-	void onArmorReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
+	private void onArmorReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
 	{
-		this.getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
+		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 				amount, new ArmorModifyReason((LivingEntity)(Object)this)
 		));
 	}
@@ -119,9 +121,9 @@ public abstract class LivingEntityMixin implements ILivingEntity
 					target = "Ljava/lang/Math;max(FF)F"
 			)
 	)
-	void onResistanceReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
+	private void onResistanceReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
 	{
-		this.getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(
+		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 				amount, new StatusEffectModifyReason(StatusEffects.RESISTANCE, this.getStatusEffect(StatusEffects.RESISTANCE).getAmplifier())
 		));
 	}
@@ -133,11 +135,11 @@ public abstract class LivingEntityMixin implements ILivingEntity
 					target = "Lnet/minecraft/entity/DamageUtil;getInflictedDamage(FF)F"
 			)
 	)
-	void onEnchantmentReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
+	private void onEnchantmentReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
 	{
-		this.getDamageLogger().ifPresent(damageLogger -> {
+		this.getDamageTracker().ifPresent(tracker -> {
 			int epf = EnchantmentHelper.getProtectionAmount(this.getArmorItems(), source);  // vanilla copy
-			damageLogger.modifyDamage(amount, new EnchantmentModifyReason(epf));
+			tracker.modifyDamage(amount, new EnchantmentModifyReason(epf));
 		});
 	}
 }

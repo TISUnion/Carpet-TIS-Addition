@@ -105,6 +105,15 @@ public class CarpetTISAdditionSettings
 	public static int chunkTickSpeed = 1;
 
 	@Rule(
+			desc = "Fixed stored client settings are not migrated from the old player entity during player respawn or entering end portal in the end",
+			extra = {
+					"So mods relies on client settings are always able to work correctly, e.g. serverside translation of this mod and worldedit mod"
+			},
+			category = {TIS, BUGFIX}
+	)
+	public static boolean clientSettingsLostOnRespawnFix = false;
+
+	@Rule(
 			desc = "Enables /lifetime command to track entity lifetime and so on",
 			extra = {
 					"Useful for mob farm debugging etc."

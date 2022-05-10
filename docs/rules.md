@@ -85,15 +85,27 @@ With a value of `n`, in every chunk every game tick, climate things will tick `n
 - Categories: `TIS`, `CREATIVE`
 
 
+## clientSettingsLostOnRespawnFix
+
+Fixed stored client settings are not migrated from the old player entity during player respawn or entering end portal in the end
+
+So mods relies on client settings are always able to work correctly, e.g. serverside translation of this mod and worldedit mod
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
+
 ## commandLifeTime
 
 Enables `/lifetime` command to track entity lifetime and so on
 
 Useful for mob farm debugging etc.
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -101,9 +113,9 @@ Useful for mob farm debugging etc.
 
 Enables `/manipulate` command for world related manipulation command
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `false`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`, `EXPERIMENTAL`
 
 
@@ -111,9 +123,9 @@ Enables `/manipulate` command for world related manipulation command
 
 Enables `/raid` command for raid listing and tracking
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -121,9 +133,9 @@ Enables `/raid` command for raid listing and tracking
 
 Enables `/refresh` command for synchronizing your client to the server
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -131,9 +143,9 @@ Enables `/refresh` command for synchronizing your client to the server
 
 Enables `/removeentity` command for directly erase target entities from the world
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `ops`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`
 - Categories: `TIS`, `COMMAND`, `CREATIVE`
 
 
