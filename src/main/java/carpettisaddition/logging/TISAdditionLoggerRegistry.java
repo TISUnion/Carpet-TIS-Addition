@@ -40,7 +40,7 @@ public class TISAdditionLoggerRegistry
     public static void registerLoggers()
     {
         register(CommandBlockLogger.getInstance());
-        register(DamageLogger.createCarpetDamageLogger());
+        register(DamageLogger.getInstance());
         register(ItemLogger.getInstance());
         register(LifeTimeHUDLogger.getInstance());
         register(LightQueueHUDLogger.getInstance());

@@ -25,6 +25,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -75,8 +76,9 @@ public class Messenger
 	}
 
 	// Fancy text
+	// A copy will be made to make sure the original displayText will not be modified
 	// TODO: yeets style
-	public static MutableText fancy(String carpetStyle, MutableText displayText, MutableText hoverText, ClickEvent clickEvent)
+	public static MutableText fancy(@Nullable String carpetStyle, @NotNull MutableText displayText, @Nullable MutableText hoverText, @Nullable ClickEvent clickEvent)
 	{
 		MutableText text = copy(displayText);
 		if (carpetStyle != null)
@@ -106,7 +108,7 @@ public class Messenger
 		{
 			if (i > 0)
 			{
-				text.append(joiner.copy());
+				text.append(joiner);
 			}
 			text.append(items[i]);
 		}
@@ -174,8 +176,8 @@ public class Messenger
 
 	public static MutableText entity(String style, Entity entity)
 	{
-		MutableText entityBaseName = copy(entity.getType().getName());
-		MutableText entityDisplayName = copy(entity.getName());
+		MutableText entityBaseName = (MutableText)entity.getType().getName();
+		MutableText entityDisplayName = (MutableText)entity.getName();
 		MutableText hoverText = Messenger.c(
 				translator.tr("entity_type", entityBaseName, s(EntityType.getId(entity.getType()).toString())), newLine(),
 				getTeleportHint(entityDisplayName)

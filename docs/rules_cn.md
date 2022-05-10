@@ -85,15 +85,27 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 玩家重生丢失客户端设置数据修复 (clientSettingsLostOnRespawnFix)
+
+修复在玩家重生或从末地进入末地门时，新创建的玩家实体未迁移旧玩家实体中储存着的客户端设置的问题
+
+因此依赖客户端设置数据的模组总能正常的工作，如本模组以及worldedit模组的服务端翻译
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
 ## 存活时间追踪器 (commandLifeTime)
 
 启用 `/lifetime` 命令用于追踪生物存活时间等信息
 
 可助于调试刷怪塔等
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -101,9 +113,9 @@
 
 启用 `/manipulate` 命令用于控制世界
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `false`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`, `EXPERIMENTAL`
 
 
@@ -111,9 +123,9 @@
 
 启用 `/raid` 命令用于列出或追踪袭击信息
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -121,9 +133,9 @@
 
 启用 `/refresh` 命令让你的客户端与服务端保持同步
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -131,9 +143,9 @@
 
 启用 `/removeentity` 命令用于直接在世界中抹除目标实体
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `ops`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`
 - 分类: `TIS`, `COMMAND`, `CREATIVE`
 
 

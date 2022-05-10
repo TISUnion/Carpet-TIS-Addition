@@ -17,6 +17,7 @@
 - [炼药锅方块类物品交互修复](rules_cn.md#炼药锅方块类物品交互修复-cauldronblockiteminteractfix)
 - [区块更新数据包阈值](rules_cn.md#区块更新数据包阈值-chunkupdatepacketthreshold)
 - [区块刻速度](rules_cn.md#区块刻速度-chunktickspeed)
+- [玩家重生丢失客户端设置数据修复](rules_cn.md#玩家重生丢失客户端设置数据修复-clientsettingslostonrespawnfix)
 - [存活时间追踪器](rules_cn.md#存活时间追踪器-commandlifetime)
 - [世界控制命令开关](rules_cn.md#世界控制命令开关-commandmanipulate)
 - [袭击追踪器](rules_cn.md#袭击追踪器-commandraid)

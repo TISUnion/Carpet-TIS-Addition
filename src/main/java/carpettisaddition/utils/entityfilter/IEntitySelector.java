@@ -1,4 +1,4 @@
-package carpettisaddition.commands.lifetime.filter;
+package carpettisaddition.utils.entityfilter;
 
 public interface IEntitySelector
 {

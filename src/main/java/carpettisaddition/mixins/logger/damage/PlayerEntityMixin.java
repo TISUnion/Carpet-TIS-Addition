@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.logger.damage;
 
 import carpettisaddition.logging.loggers.damage.DamageLogger;
-import carpettisaddition.logging.loggers.damage.interfaces.ILivingEntity;
+import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -30,7 +30,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 					target = "Lnet/minecraft/entity/player/PlayerEntity;dropShoulderEntities()V"
 			)
 	)
-	void onDamageStarted(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onDamageStarted(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
 		DamageLogger.create(this, source, amount);
 	}
@@ -49,9 +49,9 @@ public abstract class PlayerEntityMixin extends LivingEntity
 					ordinal = 0
 			)
 	)
-	void onInvulnerableAbilityCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onInvulnerableAbilityCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		((ILivingEntity)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(0.0F, ModifyReason.INVULNERABLE));
+		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(0.0F, ModifyReason.INVULNERABLE));
 	}
 
 	@Inject(
@@ -68,8 +68,8 @@ public abstract class PlayerEntityMixin extends LivingEntity
 					ordinal = 0
 			)
 	)
-	void onDifficultyModifiedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onDifficultyModifiedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
-		((ILivingEntity)this).getDamageLogger().ifPresent(damageLogger -> damageLogger.modifyDamage(amount, ModifyReason.DIFFICULTY));
+		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount, ModifyReason.DIFFICULTY));
 	}
 }

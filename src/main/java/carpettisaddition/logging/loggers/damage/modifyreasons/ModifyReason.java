@@ -1,9 +1,10 @@
 package carpettisaddition.logging.loggers.damage.modifyreasons;
 
 import carpettisaddition.logging.loggers.damage.DamageLogger;
+import carpettisaddition.translations.TranslationContext;
 import net.minecraft.text.MutableText;
 
-public class ModifyReason
+public class ModifyReason extends TranslationContext
 {
 	public static final ModifyReason HELMET = new ModifyReason("Wearing a helmet");
 	public static final ModifyReason SHIELD = new ModifyReason("Holding a shield");
@@ -18,6 +19,7 @@ public class ModifyReason
 
 	protected ModifyReason(String name)
 	{
+		super(DamageLogger.getInstance().getTranslator());
 		this.name = name;
 	}
 
@@ -28,6 +30,6 @@ public class ModifyReason
 
 	public MutableText toText()
 	{
-		return DamageLogger.getStaticTranslator().tr("modify_reason." + this.getName().toLowerCase().replace(" ", "_"));
+		return tr("modify_reason." + this.getName().toLowerCase().replace(" ", "_"));
 	}
 }
