@@ -48,7 +48,11 @@ public abstract class AbstractLogger extends TranslationContext
 
 	public Logger createCarpetLogger()
 	{
-		return TISAdditionLoggerRegistry.standardLogger(this.getName(), this.getDefaultLoggingOption(), this.getSuggestedLoggingOption());
+		return TISAdditionLoggerRegistry.standardLogger(
+				this.getName(),
+				wrapOption(this.getDefaultLoggingOption()),
+				wrapOptions(this.getSuggestedLoggingOption())
+		);
 	}
 
 	public Logger getLogger()
@@ -85,6 +89,29 @@ public abstract class AbstractLogger extends TranslationContext
 	}
 
 	// Utils
+
+	/**
+	 * Fabric carpet 1.4.25+ (mc1.16+) uses {@code StringArgumentType.string()} as the option argument in the `/log` command
+	 * So we might need to wrap our option with quotes if necessary
+	 */
+	protected static String wrapOption(@Nullable String option)
+	{
+		return option;
+	}
+
+	protected static String[] wrapOptions(@Nullable String... options)
+	{
+		if (options == null)
+		{
+			return null;
+		}
+		options = options.clone();
+		for (int i = 0; i < options.length; i++)
+		{
+			options[i] = wrapOption(options[i]);
+		}
+		return options;
+	}
 
 	protected static String createCompoundOption(Iterable<String> options)
 	{
