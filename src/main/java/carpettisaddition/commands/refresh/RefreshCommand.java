@@ -164,7 +164,7 @@ public class RefreshCommand extends AbstractCommand
 		}
 		MutableText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
 		player.networkHandler.sendPacket(
-				new GameMessageS2CPacket(message, ((ServerPlayerEntityAccessor)player).invokeGetMessageTypeRegistryKeyIndex(MessageType.SYSTEM)),
+				new GameMessageS2CPacket(message, ((ServerPlayerEntityAccessor)player).invokeGetMessageTypeId(MessageType.SYSTEM)),
 				future -> {
 					synchronized (this.refreshingChunkPlayers)
 					{

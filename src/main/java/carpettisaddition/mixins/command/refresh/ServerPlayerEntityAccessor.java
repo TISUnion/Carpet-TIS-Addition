@@ -9,6 +9,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(ServerPlayerEntity.class)
 public interface ServerPlayerEntityAccessor
 {
-	@Invoker("method_43666")
-	int invokeGetMessageTypeRegistryKeyIndex(RegistryKey<MessageType> registryKey);
+	@Invoker
+	int invokeGetMessageTypeId(RegistryKey<MessageType> registryKey);
 }
