@@ -2,6 +2,7 @@ package carpettisaddition.utils.mixin;
 
 import carpettisaddition.utils.ModIds;
 import me.jellysquid.mods.lithium.common.config.LithiumConfig;
+import me.jellysquid.mods.lithium.common.config.Option;
 import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,11 +32,8 @@ public class LithiumConfigAccess
 			return false;
 		}
 
-		switch (mixinRule)
-		{
-			default:
-				return false;
-		}
+		Option option = ((LithiumConfig)config).getEffectiveOptionForMixin(mixinRule);
+		return option != null && option.isEnabled();
 	}
 
 	static
