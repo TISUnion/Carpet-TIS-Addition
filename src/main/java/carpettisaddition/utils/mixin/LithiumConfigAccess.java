@@ -32,7 +32,9 @@ public class LithiumConfigAccess
 			return false;
 		}
 
-		Option option = ((LithiumConfig)config).getEffectiveOptionForMixin(mixinRule);
+		// in lithium's usage, the passed argument is something like "block.stone.StoneOptimizationMixin"
+		// so we need to attach a fake class name as suffix, to make sure lithium's logic works correctly
+		Option option = ((LithiumConfig)config).getEffectiveOptionForMixin(mixinRule + ".TCA_DummyMixin");
 		return option != null && option.isEnabled();
 	}
 
