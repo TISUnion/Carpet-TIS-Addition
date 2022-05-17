@@ -1,4 +1,4 @@
-package carpettisaddition;
+package carpettisaddition.utils.mixin;
 
 import me.fallenbreath.conditionalmixin.api.mixin.RestrictiveMixinConfigPlugin;
 import org.apache.logging.log4j.LogManager;
