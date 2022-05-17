@@ -2,7 +2,7 @@ package carpettisaddition.mixins.rule.optimizedFastEntityMovement;
 
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMContext;
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMUtil;
-import carpettisaddition.utils.ModIds;
+import carpettisaddition.utils.mixin.testers.LithiumEntityMovementOptimizationTester;
 import com.google.common.collect.Lists;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.Collections;
 import java.util.List;
 
-@Restriction(conflict = @Condition(ModIds.lithium))
+@Restriction(conflict = @Condition(type = Condition.Type.TESTER, tester = LithiumEntityMovementOptimizationTester.class))
 @Mixin(Entity.class)
 public abstract class EntityMixin
 {
