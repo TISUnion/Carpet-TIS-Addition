@@ -2,8 +2,8 @@ package carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange;
 
 import carpet.CarpetSettings;
 import carpettisaddition.utils.GameUtil;
-import net.minecraft.util.math.random.AbstractRandom;
-import net.minecraft.util.math.random.RandomDeriver;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.util.math.random.RandomSplitter;
 
 /**
  * A wrapped Random class for controlling the result of nextFloat() during method collectBlocksAndDamageEntities
@@ -15,35 +15,35 @@ import net.minecraft.util.math.random.RandomDeriver;
  * If other mods uses world random inside this method, the result might not be the same with vanilla, but it's
  * already modded so whatever
  */
-public class WrappedRandom implements AbstractRandom
+public class WrappedRandom implements Random
 {
-	private final AbstractRandom random;
+	private final Random random;
 
-	private WrappedRandom(AbstractRandom random)
+	private WrappedRandom(Random random)
 	{
 		this.random = random;
 	}
 
-	public static WrappedRandom wrap(AbstractRandom random)
+	public static WrappedRandom wrap(Random random)
 	{
 		return new WrappedRandom(random);
 	}
 
-	public AbstractRandom unwrap()
+	public Random unwrap()
 	{
 		return this.random;
 	}
 
 	@Override
-	public AbstractRandom derive()
+	public Random split()
 	{
-		return this.random.derive();
+		return this.random.split();
 	}
 
 	@Override
-	public RandomDeriver createRandomDeriver()
+	public RandomSplitter nextSplitter()
 	{
-		return this.random.createRandomDeriver();
+		return this.random.nextSplitter();
 	}
 
 	@Override

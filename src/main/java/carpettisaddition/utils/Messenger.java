@@ -306,7 +306,7 @@ public class Messenger
 
 	public static MutableText copy(Text text)
 	{
-		return text.shallowCopy();
+		return text.copy();
 	}
 
 	/*

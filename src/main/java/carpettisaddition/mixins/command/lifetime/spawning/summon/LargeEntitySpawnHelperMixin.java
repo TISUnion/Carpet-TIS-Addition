@@ -2,8 +2,8 @@ package carpettisaddition.mixins.command.lifetime.spawning.summon;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
+import net.minecraft.entity.LargeEntitySpawnHelper;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.LargeEntitySpawnHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
