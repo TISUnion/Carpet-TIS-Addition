@@ -97,6 +97,7 @@
 - [memory](loggers.md#memory)
 - [microTiming](loggers.md#microtiming)
 - [mobcapsLocal](loggers.md#mobcapslocal)
+- [movement](loggers.md#movement)
 - [raid](loggers.md#raid)
 - [ticket](loggers.md#ticket)
 - [tickWarp](loggers.md#tickwarp)

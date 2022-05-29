@@ -97,6 +97,7 @@
 - [内存](loggers_cn.md#内存-memory)
 - [微时序](loggers_cn.md#微时序-microtiming)
 - [局部怪物容量](loggers_cn.md#局部怪物容量-mobcapslocal)
+- [移动](loggers_cn.md#移动-movement)
 - [袭击](loggers_cn.md#袭击-raid)
 - [加载票](loggers_cn.md#加载票-ticket)
 - [tickWarp](loggers_cn.md#tickwarp)
