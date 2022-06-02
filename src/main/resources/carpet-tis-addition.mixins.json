@@ -188,6 +188,7 @@
     "rule.explosionPacketRange.ServerWorldMixin",
     "rule.failSoftBlockStateParsing.BlockArgumentParserMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
+    "rule.farmlandTrampledDisabled.FarmLandBlockMixin",
     "rule.fluidDestructionDisabled.BaseFluidMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
     "rule.hopperNoItemCost.HopperBlockEntityMixin",

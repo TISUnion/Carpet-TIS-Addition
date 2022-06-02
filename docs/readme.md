@@ -35,6 +35,7 @@
 - [failSoftBlockStateParsing](rules.md#failsoftblockstateparsing)
 - [fakePlayerNamePrefix](rules.md#fakeplayernameprefix)
 - [fakePlayerNameSuffix](rules.md#fakeplayernamesuffix)
+- [farmlandTrampledDisabled](rules.md#farmlandtrampleddisabled)
 - [fluidDestructionDisabled](rules.md#fluiddestructiondisabled)
 - [hopperCountersUnlimitedSpeed](rules.md#hoppercountersunlimitedspeed)
 - [hopperNoItemCost](rules.md#hoppernoitemcost)
