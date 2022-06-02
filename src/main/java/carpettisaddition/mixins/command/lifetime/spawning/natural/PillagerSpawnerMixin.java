@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class PillagerSpawnerMixin
 {
 	@ModifyArg(
-			method = "spawnOneEntity",
+			method = "spawnPillager",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 			)
 	)
 	private Entity onPillagerSpawnLifeTimeTracker(Entity pillager)

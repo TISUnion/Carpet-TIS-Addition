@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class CatSpawnerMixin
 {
 	@ModifyArg(
-			method = "spawn(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/World;)I",
+			method = "spawn(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/server/world/ServerWorld;)I",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 			)
 	)
 	private Entity onCatSpawnLifeTimeTracker(Entity cat)

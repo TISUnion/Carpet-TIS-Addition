@@ -15,7 +15,7 @@ public abstract class PhantomSpawnerMixin
 			method = "spawn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 			)
 	)
 	private Entity onPhantomSpawnLifeTimeTracker(Entity phantom)
