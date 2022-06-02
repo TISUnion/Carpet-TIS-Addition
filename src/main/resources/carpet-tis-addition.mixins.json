@@ -29,6 +29,7 @@
     "carpet.tweaks.logger.projectile.ThrownEntityMixin",
     "carpet.tweaks.logger.projectile.TrajectoryLogHelperMixin",
     "carpet.tweaks.messenger.MessengerMixin",
+    "carpet.tweaks.rule.creativeNoClip.BlockMixin",
     "carpet.tweaks.rule.creativeNoClip.BlockPlacementDispenserBehaviorMixin",
     "carpet.tweaks.rule.creativeNoClip.EntityPredicatesMixin",
     "carpet.tweaks.rule.creativeNoClip.ExperienceOrbEntityMixin",
