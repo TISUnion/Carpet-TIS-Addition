@@ -52,6 +52,7 @@
     "command.lifetime.deathdamage.ItemEntityMixin",
     "command.lifetime.deathdamage.LivingEntityMixin",
     "command.lifetime.removal.DolphinEntityMixin",
+    "command.lifetime.removal.EndermanEntityMixin",
     "command.lifetime.removal.EntityMixin",
     "command.lifetime.removal.ExperienceOrbEntityMixin",
     "command.lifetime.removal.FoxEntityMixin",
