@@ -3,12 +3,12 @@ package carpettisaddition.mixins.command.lifetime.spawning.natural;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.entity.Entity;
-import net.minecraft.world.gen.PillagerSpawner;
+import net.minecraft.world.spawner.PatrolSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(PillagerSpawner.class)
+@Mixin(PatrolSpawner.class)
 public abstract class PillagerSpawnerMixin
 {
 	@ModifyArg(
