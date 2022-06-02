@@ -174,6 +174,22 @@ carpettisaddition:
     mobcapsLocal:
       player_not_found: 未找到玩家%1$s
       local: 局部
+    movement:
+      header: '%1$s尝试移动%2$s'
+      header_details: '移动类型: %1$s, 游戏时间: %2$s'
+      delta: 差值
+      due_to: ', 原因: %1$s'
+      footer: '%1$s实际移动了%2$s'
+      movement_type:
+        self: 自身逻辑
+        player: 玩家操作
+        piston: 活塞
+        shulker_box: 潜影盒
+        shulker: 潜影贝
+      modification:
+        piston: 活塞限制
+        sneaking: 潜行
+        collision: 碰撞
     projectiles:
       visualized:
         info: '可视化投掷物记录器: 已可视化%1$s游戏刻的轨迹'
@@ -340,6 +356,7 @@ carpettisaddition:
         hopper: 漏斗收集
         void: 进入虚空
         on_vehicle: 骑上载具
+        pickup_block: 捡起方块
         mob_pickup: 被%1$s捡起
         mob_conversion: 转换为%1$s
         death:
@@ -509,6 +526,9 @@ carpettisaddition:
         desc: 为/player指令召唤出来的假人名称添加指定后缀
         extra:
           '0': 将其设置为#none以阻止添加后缀
+      farmlandTrampledDisabled:
+        name: 禁用耕地被踩踏
+        desc: 阻止耕地被生物踩成泥土
       fluidDestructionDisabled:
         name: 禁用流体破坏
         desc: 禁用流体流动造成的方块破坏

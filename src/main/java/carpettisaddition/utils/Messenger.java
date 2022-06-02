@@ -54,13 +54,13 @@ public class Messenger
 	}
 
 	// Simple Text with carpet style
-	public static BaseText s(String text, String carpetStyle)
+	public static BaseText s(Object text, String carpetStyle)
 	{
 		return formatting(s(text), carpetStyle);
 	}
 
 	// Simple Text with formatting
-	public static BaseText s(String text, Formatting textFormatting)
+	public static BaseText s(Object text, Formatting textFormatting)
 	{
 		return formatting(s(text), textFormatting);
 	}
@@ -174,6 +174,13 @@ public class Messenger
 	public static BaseText coord(Vec3d pos) {return coord(null, pos);}
 	public static BaseText coord(Vec3i pos) {return coord(null, pos);}
 	public static BaseText coord(ChunkPos pos) {return coord(null, pos);}
+
+	private static BaseText __vector(String style, String displayText, String detailedText)
+	{
+		return fancy(style, Messenger.s(displayText), Messenger.s(detailedText), new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, detailedText));
+	}
+	public static BaseText vector(String style, Vec3d vec) {return __vector(style, TextUtil.vector(vec), TextUtil.vector(vec, 6));}
+	public static BaseText vector(Vec3d vec) {return vector(null, vec);}
 
 	public static BaseText entity(String style, Entity entity)
 	{

@@ -63,6 +63,7 @@ Tracked entity removal reasons
 - Damaged to death
 - Becomes persistent. Note that the entity is still not removed from the world
 - Rides on a vehicle (1.16+). Note that the entity is still not removed from the world
+- Enderman picked up a block (1.16+). Note that the entity is still not removed from the world
 - Entity merged (item and xp orb only)
 - Collected up by hopper or hopper minecart (item only)
 - Entering void

@@ -299,6 +299,16 @@ Set it to `#none` to stop adding a suffix
 - Categories: `TIS`, `CARPET_MOD`
 
 
+## farmlandTrampledDisabled
+
+Disable farmland being able to be trampled into dirt by mobs
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## fluidDestructionDisabled
 
 Disable block destruction by liquid flowing

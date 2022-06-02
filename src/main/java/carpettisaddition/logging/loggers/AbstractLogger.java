@@ -20,7 +20,8 @@ public abstract class AbstractLogger extends TranslationContext
 	public final static String OPTION_SEP = ",";
 
 	private final String name;
-	private final boolean strictOption;
+
+	private final boolean strictOption;  // fabric carpet introduced this thing in mc1.17.1
 
 	public AbstractLogger(String name, boolean strictOption)
 	{
