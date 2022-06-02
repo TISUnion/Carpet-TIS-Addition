@@ -1,5 +1,7 @@
 package carpettisaddition.utils;
 
+import java.text.NumberFormat;
+
 public class StringUtil
 {
 	public static String removePrefix(String string, String... prefixes)
@@ -24,5 +26,13 @@ public class StringUtil
 			}
 		}
 		return string;
+	}
+
+	public static String fractionDigit(double value, int digit)
+	{
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMinimumFractionDigits(digit);
+		nf.setMaximumFractionDigits(digit);
+		return nf.format(value);
 	}
 }
