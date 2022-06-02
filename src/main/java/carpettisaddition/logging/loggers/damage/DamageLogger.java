@@ -138,11 +138,11 @@ public class DamageLogger extends AbstractLogger
 					this.verifyAndProduceMessage(option, player, attacker, target, () -> {
 						List<Object> lines = Lists.newArrayList();
 						lines.add(Messenger.s(" "));
-						BaseText targetName = Messenger.entity(target);
+						BaseText targetName = Messenger.entity("b", target);
 						List<Object> sourceHoverTextList = Lists.newArrayList();
 						if (source != null)
 						{
-							sourceHoverTextList.add(Messenger.c(tr("source"), "w : ", source.getName()));
+							sourceHoverTextList.add(Messenger.c(tr("source"), "w : ", Messenger.entity(source)));
 						}
 						if (attacker != null)
 						{
@@ -150,7 +150,7 @@ public class DamageLogger extends AbstractLogger
 							{
 								sourceHoverTextList.add("w \n");
 							}
-							sourceHoverTextList.add(Messenger.c(tr("attacker"), "w : ", attacker.getName()));
+							sourceHoverTextList.add(Messenger.c(tr("attacker"), "w : ", Messenger.entity(attacker)));
 						}
 						lines.add(tr(
 								"header_message",

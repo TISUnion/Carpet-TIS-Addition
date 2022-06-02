@@ -153,6 +153,21 @@ Attributes:
 - Suggested options: Names of all online players
 
 
+## movement
+
+`/log movement <target>`
+
+Info when a living entity tries to move and display how the actual movement gets calculated
+
+`<target>` is an entity selector. Make sure you have selector the necessary targets or expect log spam (`@` selector requires permission level 2)
+
+Additionally, appending `non_zero:` as the prefix in the `<target>` string will filter out those logs whose final movement vector is 0
+
+Attributes:
+- Default option: `non_zero:@a[distance=..10]`
+- Suggested options: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`
+
+
 ## raid
 
 `/log raid`
