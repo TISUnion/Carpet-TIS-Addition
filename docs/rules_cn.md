@@ -299,6 +299,16 @@
 - 分类: `TIS`, `CARPET_MOD`
 
 
+## 禁用耕地被踩踏 (farmlandTrampledDisabled)
+
+阻止耕地被生物踩成泥土
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 禁用流体破坏 (fluidDestructionDisabled)
 
 禁用流体流动造成的方块破坏

@@ -13,6 +13,7 @@ import carpettisaddition.logging.loggers.lifetime.LifeTimeHUDLogger;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.memory.MemoryHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
+import carpettisaddition.logging.loggers.movement.MovementLogger;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
@@ -29,6 +30,7 @@ public class TISAdditionLoggerRegistry
     public static boolean __lightQueue;
     public static boolean __memory;
     public static boolean __microTiming;
+    public static boolean __movement;
     public static boolean __raid;
     public static boolean __ticket;
     public static boolean __tickWarp;
@@ -44,6 +46,7 @@ public class TISAdditionLoggerRegistry
         register(LightQueueHUDLogger.getInstance());
         register(MemoryHUDLogger.getInstance());
         register(MicroTimingStandardCarpetLogger.getInstance());
+        register(MovementLogger.getInstance());
         register(RaidLogger.getInstance());
         register(TicketLogger.getInstance());
         register(TickWarpHUDLogger.getInstance());

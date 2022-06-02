@@ -30,4 +30,10 @@ public class TextUtil
 	public static String coord(Vec3d pos) {return String.format("[%.1f, %.1f, %.1f]", pos.getX(), pos.getY(), pos.getZ());}
 	public static String coord(Vec3i pos) {return String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());}
 	public static String coord(ChunkPos pos) {return String.format("[%d, %d]", pos.x, pos.z);}
+
+	public static String vector(Vec3d vec, int digits)
+	{
+		return String.format("(%s, %s, %s)", StringUtil.fractionDigit(vec.getX(), digits), StringUtil.fractionDigit(vec.getY(), digits), StringUtil.fractionDigit(vec.getZ(), digits));
+	}
+	public static String vector(Vec3d vec) {return vector(vec, 2);}
 }
