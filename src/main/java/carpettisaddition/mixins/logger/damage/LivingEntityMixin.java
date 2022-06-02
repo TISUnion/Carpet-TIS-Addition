@@ -115,7 +115,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	}
 
 	@Inject(
-			method = "applyEnchantmentsToDamage",
+			method = "modifyAppliedDamage",
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					target = "Ljava/lang/Math;max(FF)F"
@@ -129,7 +129,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	}
 
 	@Inject(
-			method = "applyEnchantmentsToDamage",
+			method = "modifyAppliedDamage",
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					target = "Lnet/minecraft/entity/DamageUtil;getInflictedDamage(FF)F"

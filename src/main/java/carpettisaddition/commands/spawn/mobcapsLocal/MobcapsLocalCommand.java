@@ -34,7 +34,7 @@ public class MobcapsLocalCommand extends TranslationContext implements CommandEx
 	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder, CommandRegistryAccess commandBuildContext)
 	{
 		builder.then(literal("mobcapsLocal").
-				executes(c -> showLocalMobcaps(c.getSource(), c.getSource().getPlayer())).
+				executes(c -> showLocalMobcaps(c.getSource(), c.getSource().getPlayerOrThrow())).
 				then(argument("player", EntityArgumentType.player()).
 						executes(c -> showLocalMobcaps(c.getSource(), getPlayer(c, "player")))
 				)

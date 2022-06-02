@@ -11,8 +11,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.network.MessageType;
 import net.minecraft.network.PacketDeflater;
+import net.minecraft.network.message.MessageType;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -72,8 +72,8 @@ public class RefreshCommand extends AbstractCommand
 				).
 				then(
 						literal("chunk").
-						executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayer())).
-						then(literal("current").executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayer()))).
+						executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayerOrThrow())).
+						then(literal("current").executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayerOrThrow()))).
 						then(literal("all").executes(c -> refreshAllChunks(c.getSource()))).
 						then(literal("inrange").then(
 								argument("chebyshevDistance", integer()).
@@ -105,7 +105,7 @@ public class RefreshCommand extends AbstractCommand
 
 	private int refreshSelfInventory(ServerCommandSource source) throws CommandSyntaxException
 	{
-		this.refreshPlayerInventory(source, source.getPlayer());
+		this.refreshPlayerInventory(source, source.getPlayerOrThrow());
 		return 1;
 	}
 
@@ -123,7 +123,7 @@ public class RefreshCommand extends AbstractCommand
 
 	private int refreshChunks(ServerCommandSource source, @Nullable ChunkPos chunkPos, @Nullable Predicate<ChunkPos> predicate) throws CommandSyntaxException
 	{
-		ServerPlayerEntity player = source.getPlayer();
+		ServerPlayerEntity player = source.getPlayerOrThrow();
 		synchronized (this.refreshingChunkPlayers)
 		{
 			if (this.refreshingChunkPlayers.contains(player))
@@ -132,7 +132,7 @@ public class RefreshCommand extends AbstractCommand
 				return 0;
 			}
 		}
-		ThreadedAnvilChunkStorageAccessor chunkStorage = (ThreadedAnvilChunkStorageAccessor)source.getPlayer().getWorld().getChunkManager().threadedAnvilChunkStorage;
+		ThreadedAnvilChunkStorageAccessor chunkStorage = (ThreadedAnvilChunkStorageAccessor)source.getPlayerOrThrow().getWorld().getChunkManager().threadedAnvilChunkStorage;
 		MutableInt counter = new MutableInt(0);
 		Consumer<ChunkPos> chunkRefresher = pos -> {
 			chunkStorage.invokeSendWatchPackets(player, pos, new MutableObject<>(), false, true);
@@ -196,7 +196,7 @@ public class RefreshCommand extends AbstractCommand
 
 	private int refreshChunksInRange(ServerCommandSource source, int distance) throws CommandSyntaxException
 	{
-		ServerPlayerEntity player = source.getPlayer();
+		ServerPlayerEntity player = source.getPlayerOrThrow();
 		return this.refreshChunks(source, null, chunkPos -> isChunkWithinEuclideanDistanceRange(chunkPos, player, distance));
 	}
 

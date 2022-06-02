@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.command.refresh;
 
-import net.minecraft.network.MessageType;
+import net.minecraft.network.message.MessageType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.registry.RegistryKey;
 import org.spongepowered.asm.mixin.Mixin;
