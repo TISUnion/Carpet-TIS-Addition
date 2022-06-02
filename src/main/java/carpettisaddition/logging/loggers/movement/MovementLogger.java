@@ -11,7 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
@@ -126,8 +126,8 @@ public class MovementLogger extends AbstractLogger
 					return null;
 				}
 
-				BaseText entityName = Messenger.entity("b", this.entity);
-				List<BaseText> lines = Lists.newArrayList();
+				MutableText entityName = Messenger.entity("b", this.entity);
+				List<MutableText> lines = Lists.newArrayList();
 
 				lines.add(Messenger.s(""));
 				lines.add(Messenger.c(
@@ -147,7 +147,7 @@ public class MovementLogger extends AbstractLogger
 
 				for (ModificationRecord record : this.modifications)
 				{
-					BaseText delta = Messenger.vector(record.newMovement.subtract(record.oldMovement));
+					MutableText delta = Messenger.vector(record.newMovement.subtract(record.oldMovement));
 					lines.add(Messenger.c(
 							"g  - ",
 							Messenger.vector("y", record.oldMovement),
@@ -168,7 +168,7 @@ public class MovementLogger extends AbstractLogger
 						Messenger.coord("g", this.entity.getPos(), DimensionWrapper.of(this.world))
 				));
 
-				return lines.toArray(new BaseText[0]);
+				return lines.toArray(new MutableText[0]);
 			});
 		}
 	}

@@ -16,7 +16,7 @@ public abstract class BlockMixin
 			method = "pushEntitiesUpBeforeBlockChange",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
+					target = "Lnet/minecraft/world/WorldAccess;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
 			)
 	)
 	private static void dontMoveCreativeNoClipPlayers_enter(CallbackInfoReturnable<BlockState> cir)
@@ -31,7 +31,7 @@ public abstract class BlockMixin
 			method = "pushEntitiesUpBeforeBlockChange",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
+					target = "Lnet/minecraft/world/WorldAccess;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
 					shift = At.Shift.AFTER
 			)
 	)

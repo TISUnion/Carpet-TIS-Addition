@@ -1,7 +1,7 @@
 package carpettisaddition.logging.loggers.movement;
 
 import carpettisaddition.translations.TranslationContext;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 
 public class MovementModification extends TranslationContext
 {
@@ -17,7 +17,7 @@ public class MovementModification extends TranslationContext
 		this.translationName = translationName;
 	}
 
-	public BaseText toText()
+	public MutableText toText()
 	{
 		return tr(this.translationName);
 	}
