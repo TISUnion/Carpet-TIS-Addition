@@ -28,6 +28,12 @@ public class LiteralRemovalReason extends RemovalReason
 	// fall down to y=-64 and below
 	public static final LiteralRemovalReason VOID = new LiteralRemovalReason("void");
 
+	// for 1.16+, general
+	public static final LiteralRemovalReason ON_VEHICLE = new LiteralRemovalReason("on_vehicle");
+
+	// for 1.16+, enderman
+	public static final LiteralRemovalReason PICKUP_BLOCK = new LiteralRemovalReason("pickup_block");
+
 	private final String translationKey;
 
 	private LiteralRemovalReason(String translationKey)

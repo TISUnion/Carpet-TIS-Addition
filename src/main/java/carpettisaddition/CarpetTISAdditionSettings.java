@@ -289,6 +289,12 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(
+			desc = "Disable farmland being able to be trampled into dirt by mobs",
+			category = {TIS, CREATIVE}
+	)
+	public static boolean farmlandTrampledDisabled = false;
+
+	@Rule(
 			desc = "Disable block destruction by fluid flowing",
 			extra = {
 					"Fluid will just simple stopped at the state before destroying the block",
