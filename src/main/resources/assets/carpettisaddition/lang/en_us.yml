@@ -356,6 +356,7 @@ carpettisaddition:
         hopper: Collected by hopper
         void: Entering void
         on_vehicle: Rides on a vehicle
+        pickup_block: Picked up a block
         mob_pickup: Picked up by %1$s
         mob_conversion: Converted to %1$s
         death:
