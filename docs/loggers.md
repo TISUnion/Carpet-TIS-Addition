@@ -184,6 +184,19 @@ Attributes:
 - Suggested options: N/A
 
 
+## scounter
+
+`/log scounter <color>`
+
+It's a HUD logger
+
+Similar to carpet's `counter` logger for its hopper counter, this logger is used for showing items output from infinity item supplier hoppers created by rule [hopperNoItemCost](rules.md#hoppernoitemcost)
+
+Attributes:
+- Default option: N/A
+- Suggested options: All dye color names
+
+
 ## ticket
 
 `/log ticket <types>`

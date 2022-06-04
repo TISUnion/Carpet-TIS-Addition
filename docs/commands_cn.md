@@ -174,6 +174,19 @@
 `/removeentity <target>`: 将选中实体直接从世界中移除。对玩家无效
 
 
+## 供给计数器 (scounter)
+
+类似 carpet 的漏斗计数器对应的 `/counter` 指令，该指令用于统计使用规则 [hopperNoItemCost](rules_cn.md#漏斗不消耗物品-hoppernoitemcost) 创建的漏斗无限物品供给器所输出的物品数量
+
+`/scounter`: 查看所有供给计数器的统计数据
+
+`/scounter reset`: 重置所有供给计数器
+
+`/scounter <color> [realtime]`: 查看指定供给计数器的统计数据，带上后缀 ` realtime` 则基于现实时间输出速率
+
+`/scounter <color> reset`: 重置指定供给计数器
+
+
 ## spawn
 
 ### mobcapsLocal

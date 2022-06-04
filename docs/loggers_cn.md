@@ -184,6 +184,19 @@
 - 参考选项: N/A
 
 
+## 供给计数器 (scounter)
+
+`/log scounter <color>`
+
+这是一个 HUD 记录器
+
+类似 carpet 的漏斗计数器对应的 `counter` 记录器，该记录器用于展示使用规则 [hopperNoItemCost](rules_cn.md#漏斗不消耗物品-hoppernoitemcost) 创建的漏斗无限物品供给器所输出的物品数量
+
+属性:
+- 默认选项: N/A
+- 参考选项: 所有染料颜色名
+
+
 ## 加载票 (ticket)
 
 `/log ticket <监视类型>`

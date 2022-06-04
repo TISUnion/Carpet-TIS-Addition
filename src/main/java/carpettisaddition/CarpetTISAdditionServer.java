@@ -9,6 +9,7 @@ import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.commands.refresh.RefreshCommand;
 import carpettisaddition.commands.removeentity.RemoveEntityCommand;
+import carpettisaddition.commands.scounter.SupplierCounterCommand;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
@@ -97,11 +98,12 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher)
     {
-        RaidCommand.getInstance().registerCommand(dispatcher);
         LifeTimeCommand.getInstance().registerCommand(dispatcher);
-        RefreshCommand.getInstance().registerCommand(dispatcher);
-        RemoveEntityCommand.getInstance().registerCommand(dispatcher);
         ManipulateCommand.getInstance().registerCommand(dispatcher);
+        RefreshCommand.getInstance().registerCommand(dispatcher);
+        RaidCommand.getInstance().registerCommand(dispatcher);
+        RemoveEntityCommand.getInstance().registerCommand(dispatcher);
+        SupplierCounterCommand.getInstance().registerCommand(dispatcher);
     }
 
     @Override
