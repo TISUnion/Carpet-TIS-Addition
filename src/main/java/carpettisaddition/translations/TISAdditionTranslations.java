@@ -214,7 +214,7 @@ public class TISAdditionTranslations
             BaseText newText = forEachTISCMTranslationText((BaseText)hoverText, lang, modifier);
             if (newText != hoverText)
             {
-                text.getStyle().setHoverEvent(new HoverEvent(hoverEvent.getAction(), hoverText));
+                text.getStyle().setHoverEvent(new HoverEvent(hoverEvent.getAction(), newText));
             }
         }
 
