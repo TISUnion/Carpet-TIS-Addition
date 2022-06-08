@@ -746,6 +746,20 @@
 - 分类: `TIS`, `BUGFIX`
 
 
+## 启用旧版NC更新器（simpleNeighborUpdaterEnabled）
+
+启用旧版NC更新器
+
+在1.19中，使用新版NC更新器意味着不能使用传统的更新抑制器（衷心希望新的原版更新抑制器能研发出来）
+
+启用旧版NC更新器将会让这项强大的技术得以重新使用
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`
+
+
 ## 融雪最小亮度 (snowMeltMinLightLevel)
 
 雪片融化所需的最小亮度等级

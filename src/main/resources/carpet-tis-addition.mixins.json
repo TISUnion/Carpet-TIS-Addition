@@ -261,6 +261,7 @@
     "rule.renewableElytra.PhantomEntityMixin",
     "rule.repeaterHalfDelay.AbstractRedstoneGateBlockMixin",
     "rule.sandDupingFix.FallingBlockEntityMixin",
+    "rule.simpleNeighborUpdaterEnabled.WorldMixin",
     "rule.snowMeltMinLightLevel.SnowBlockMixin",
     "rule.structureBlockDoNotPreserveFluid.StructureBlockBlockEntityMixin",
     "rule.structureBlockDoNotPreserveFluid.StructurePlacementDataAccessor",

@@ -839,6 +839,15 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(
+			desc = "Enable old neighbor updater before 1.19",
+			extra = {
+					"You can use update suppression if you enable that"
+			},
+			category = {TIS}
+	)
+	public static boolean simpleNeighborUpdaterEnabled = false;
+
+	@Rule(
 			desc = "Enable visualize projectile logger",
 			extra = {
 					"Try /log projectiles visualize"

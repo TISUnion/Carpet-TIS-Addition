@@ -746,6 +746,19 @@ In sand dupers sand will only get teleported to the other dimension
 - Categories: `TIS`, `BUGFIX`
 
 
+## simpleNeighborUpdaterEnabled
+
+Enable legacy NC updater
+
+In 1.19, using new NC updater means that you cannot use old update suppressor. (PS: I hope new vanilla update suppressor can be developed in future)
+
+Enable legacy NC updater can make this powerful technology useful again.
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`
+
 ## snowMeltMinLightLevel
 
 The minimum light level allowed for snow to melt
