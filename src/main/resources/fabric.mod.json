@@ -33,7 +33,7 @@
     "minecraft": "1.19.x"
   },
   "breaks": {
-    "lithium": "<=0.7.5"
+    "lithium": "<=0.7.10"
   },
   "suggests": {
     "flamingo": "*"

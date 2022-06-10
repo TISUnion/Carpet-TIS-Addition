@@ -49,7 +49,7 @@ dependencies {
 	
 	// mods
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:mc1.18.2-0.7.9"
+	modCompileOnly "com.github.CaffeineMC.lithium-fabric:lithium:mc1.19-0.8.0"
 
 	// runtime mods
 	modRuntimeOnly "com.github.astei:lazydfu:0.1.2"  // savior of your cpu

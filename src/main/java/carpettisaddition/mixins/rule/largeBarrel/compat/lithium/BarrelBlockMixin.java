@@ -4,7 +4,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity;
+import me.jellysquid.mods.lithium.common.hopper.RemovalCounter;
 import me.jellysquid.mods.lithium.common.world.blockentity.BlockEntityGetter;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
@@ -28,7 +28,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	 * aka "block.hopper" optimization in lithium
 	 * based on {@link me.jellysquid.mods.lithium.mixin.block.hopper.BlockEntityMixin}
 	 */
-	private static final boolean LITHIUM_HOPPER_OPTIMIZATION_LOADED = RemovableBlockEntity.class.isAssignableFrom(BlockEntity.class);
+	private static final boolean LITHIUM_HOPPER_OPTIMIZATION_LOADED = RemovalCounter.class.isAssignableFrom(BlockEntity.class);
 
 	protected BarrelBlockMixin(Settings settings)
 	{
@@ -65,11 +65,11 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 			if (affectedBarrelState.getBlock() instanceof BarrelBlock && affectedBarrelState.get(BarrelBlock.FACING) == changedBarrelDirection.getOpposite())
 			{
 				BlockEntity barrelBlockEntity = ((BlockEntityGetter)world).getLoadedExistingBlockEntity(affectedBarrelPos);
-				if (barrelBlockEntity instanceof BarrelBlockEntity && barrelBlockEntity instanceof RemovableBlockEntity)
+				if (barrelBlockEntity instanceof BarrelBlockEntity && barrelBlockEntity instanceof RemovalCounter)
 				{
 					// let lithium re-calculate the target inventory via HopperHelper#vanillaGetBlockInventory
 					// we have a nice mixin injection there to handle largeBarrel like vanilla
-					((RemovableBlockEntity)barrelBlockEntity).increaseRemoveCounter();
+					((RemovalCounter)barrelBlockEntity).increaseRemovedCounter();
 				}
 			}
 		}
