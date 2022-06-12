@@ -99,7 +99,9 @@
 - [微时序](loggers_cn.md#微时序-microtiming)
 - [局部怪物容量](loggers_cn.md#局部怪物容量-mobcapslocal)
 - [移动](loggers_cn.md#移动-movement)
+- [幻翼](loggers_cn.md#幻翼-phantom)
 - [袭击](loggers_cn.md#袭击-raid)
+- [供给计数器](loggers_cn.md#供给计数器-scounter)
 - [加载票](loggers_cn.md#加载票-ticket)
 - [tickWarp](loggers_cn.md#tickwarp)
 - [海龟蛋](loggers_cn.md#海龟蛋-turtleegg)
@@ -113,6 +115,7 @@
 - [袭击](commands_cn.md#袭击-raid)
 - [刷新](commands_cn.md#刷新-refresh)
 - [移除实体](commands_cn.md#移除实体-removeentity)
+- [供给计数器](commands_cn.md#供给计数器-scounter)
 - [spawn](commands_cn.md#spawn)
 - [tick](commands_cn.md#tick)
 

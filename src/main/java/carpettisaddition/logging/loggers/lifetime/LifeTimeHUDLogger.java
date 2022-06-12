@@ -26,7 +26,8 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 
 	public LifeTimeHUDLogger()
 	{
-		super(NAME);
+		// strictOption value is not used here, logics are handled in LifeTimeStandardCarpetHUDLogger
+		super(NAME, false);
 	}
 
 	public static LifeTimeHUDLogger getInstance()

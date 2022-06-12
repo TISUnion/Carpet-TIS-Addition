@@ -2,6 +2,7 @@ package carpettisaddition.mixins.rule.hopperNoItemCost;
 
 import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.commands.scounter.SupplierCounterCommand;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.HopperBlockEntity;
@@ -44,6 +45,17 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, pos.offset(Direction.UP));
 				if (wool_color != null)
 				{
+					if (SupplierCounterCommand.isActivated())
+					{
+						int delta = this.getStack(i).getCount() - itemStack.getCount();
+						if (delta <= 0)
+						{
+							ItemStack countingStack = itemStack.copy();
+							countingStack.setCount(-delta);
+							SupplierCounterCommand.getInstance().addFor(wool_color, countingStack);
+						}
+					}
+
 					// restore the hopper inventory slot
 					inventory.setStack(i, itemStack);
 				}

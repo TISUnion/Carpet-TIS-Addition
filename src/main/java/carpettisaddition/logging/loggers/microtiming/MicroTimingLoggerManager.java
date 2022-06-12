@@ -51,7 +51,7 @@ public class MicroTimingLoggerManager
 	private static MicroTimingLoggerManager instance;
 
 	private final Map<ServerWorld, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
-	public static final Translator TRANSLATOR = (new AbstractLogger(MicroTimingLogger.NAME){}).getTranslator();
+	public static final Translator TRANSLATOR = (new AbstractLogger(MicroTimingLogger.NAME, false){}).getTranslator();
 	private TickPhase offWorldTickPhase = new TickPhase(TickStage.UNKNOWN, null);
 	public ThreadLocal<ServerWorld> currentWorld = ThreadLocal.withInitial(() -> null);
 
