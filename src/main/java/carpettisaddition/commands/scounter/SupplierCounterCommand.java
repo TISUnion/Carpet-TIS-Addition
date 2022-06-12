@@ -7,9 +7,10 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.DyeColor;
 
 import java.util.Arrays;
@@ -54,7 +55,7 @@ public class SupplierCounterCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> root = literal(PREFIX).
 				requires(s -> CarpetModUtil.canUseCommand(s, CarpetTISAdditionSettings.hopperNoItemCost)).
@@ -99,7 +100,7 @@ public class SupplierCounterCommand extends AbstractCommand
 
 		for (SupplierCounter counter : this.counter.values())
 		{
-			List<BaseText> lines = counter.report(false);
+			List<MutableText> lines = counter.report(false);
 
 			if (lines.size() > 1)
 			{

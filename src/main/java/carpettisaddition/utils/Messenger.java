@@ -265,12 +265,12 @@ public class Messenger
 		return s(id != null ? id.toString() : blockEntity.getClass().getSimpleName());
 	}
 
-	public static BaseText item(Item item)
+	public static MutableText item(Item item)
 	{
 		return tr(item.getTranslationKey());
 	}
 
-	public static BaseText color(DyeColor color)
+	public static MutableText color(DyeColor color)
 	{
 		return translator.tr("color." + color.getName().toLowerCase());
 	}

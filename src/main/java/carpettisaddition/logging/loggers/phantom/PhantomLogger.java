@@ -11,8 +11,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.ServerStatHandler;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,7 +49,7 @@ public class PhantomLogger extends AbstractLogger
 		return LoggingOption.getSuggestions();
 	}
 
-	private BaseText pack(BaseText message)
+	private MutableText pack(MutableText message)
 	{
 		String command = String.format("/log %s", this.getName());
 		return Messenger.c(
@@ -71,7 +71,7 @@ public class PhantomLogger extends AbstractLogger
 		this.log(option -> {
 			if (LoggingOption.SPAWNING.isContainedIn(option))
 			{
-				return new BaseText[]{
+				return new MutableText[]{
 						pack(tr("summon", Messenger.entity("b", spawnerPlayer), phantomAmount, EntityType.PHANTOM.getName()))
 				};
 			}
@@ -96,7 +96,7 @@ public class PhantomLogger extends AbstractLogger
 					int timeUntilSpawn = PHANTOM_SPAWNING_TIME - timeSinceRest;
 					String sinceRest = StringUtil.fractionDigit(CounterUtil.tickToMinute(timeSinceRest), 0);
 					String untilSpawn = StringUtil.fractionDigit(CounterUtil.tickToMinute(timeUntilSpawn), 0);
-					return new BaseText[]{
+					return new MutableText[]{
 							pack(tr("reminder.time_since_rest", sinceRest)),
 							pack(tr(timeUntilSpawn != 0 ? "reminder.regular" : "reminder.now", EntityType.PHANTOM.getName(), untilSpawn))
 					};

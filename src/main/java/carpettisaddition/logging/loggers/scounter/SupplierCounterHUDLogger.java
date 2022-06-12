@@ -3,7 +3,7 @@ package carpettisaddition.logging.loggers.scounter;
 import carpettisaddition.commands.scounter.SupplierCounterCommand;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.MutableText;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -38,14 +38,14 @@ public class SupplierCounterHUDLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public MutableText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
-		List<BaseText> lines = new ArrayList<>();
+		List<MutableText> lines = new ArrayList<>();
 		Arrays.asList(option.split(",")).forEach(color -> {
 			SupplierCounterCommand.getInstance().getCounter(color).ifPresent(counter -> {
 				lines.add(counter.reportBrief(false));
 			});
 		});
-		return lines.toArray(new BaseText[0]);
+		return lines.toArray(new MutableText[0]);
 	}
 }
