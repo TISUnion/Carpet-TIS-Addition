@@ -339,6 +339,10 @@ Only works when hopperCounters option in Carpet Mod is on
 
 Hopper with wool block on top outputs item infinitely without having its item decreased
 
+You can use `/scounter` command or subscribe to the `scounter` logger to track the amount of the output items
+
+This rule is also the switch of the `/scounter` command
+
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`

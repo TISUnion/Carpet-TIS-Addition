@@ -99,6 +99,7 @@
 - [microTiming](loggers.md#microtiming)
 - [mobcapsLocal](loggers.md#mobcapslocal)
 - [movement](loggers.md#movement)
+- [phantom](loggers.md#phantom)
 - [raid](loggers.md#raid)
 - [ticket](loggers.md#ticket)
 - [tickWarp](loggers.md#tickwarp)

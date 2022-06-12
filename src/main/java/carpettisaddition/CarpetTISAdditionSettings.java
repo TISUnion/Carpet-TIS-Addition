@@ -315,7 +315,11 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			desc = "Hopper with wool block on top outputs item infinitely without having its item decreased",
-			category = {TIS, CREATIVE}
+			extra = {
+					"You can use /scounter command or subscribe to the scounter logger to track the amount of the output items",
+					"This rule is also the switch of the /scounter command"
+			},
+			category = {TIS, CREATIVE, COMMAND}
 	)
 	public static boolean hopperNoItemCost = false;
 

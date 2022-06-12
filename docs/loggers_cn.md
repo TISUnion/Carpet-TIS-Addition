@@ -168,6 +168,19 @@
 - 参考选项: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`
 
 
+## 幻翼 (phantom)
+
+`/log phantom <选项列表>`
+
+当选项包含 `spawning` 时，它将在某名玩家召唤了一波幻翼时通知你
+
+当选项包含 `reminder` 时，它将在你已经过了 45 分钟 / 60 分钟没睡觉时通知你
+
+属性:
+- 默认选项: `spawning`
+- 参考选项: `spawning`, `reminder`, `spawning,reminder`
+
+
 ## 袭击 (raid)
 
 `/log raid`
@@ -182,6 +195,19 @@
 属性:
 - 默认选项: N/A
 - 参考选项: N/A
+
+
+## 供给计数器 (scounter)
+
+`/log scounter <color>`
+
+这是一个 HUD 记录器
+
+类似 carpet 的漏斗计数器对应的 `counter` 记录器，该记录器用于展示使用规则 [hopperNoItemCost](rules_cn.md#漏斗不消耗物品-hoppernoitemcost) 创建的漏斗无限物品供给器所输出的物品数量
+
+属性:
+- 默认选项: N/A
+- 参考选项: 所有染料颜色名
 
 
 ## 加载票 (ticket)

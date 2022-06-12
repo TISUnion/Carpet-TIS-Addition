@@ -25,7 +25,7 @@ public class MovementLogger extends AbstractLogger
 
 	private MovementLogger()
 	{
-		super(NAME);
+		super(NAME, false);
 	}
 
 	public static MovementLogger getInstance()

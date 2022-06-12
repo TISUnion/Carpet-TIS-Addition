@@ -190,6 +190,13 @@ carpettisaddition:
         piston: 活塞限制
         sneaking: 潜行
         collision: 碰撞
+    phantom:
+      header: 幻翼生成提示
+      summon: '%1$s召唤了%2$s只%3$s'
+      reminder:
+        time_since_rest: 你已经有%1$s分钟没有睡觉了
+        regular: '%1$s将在%2$s分钟后开始生成'
+        now: '%1$s将从现在起开始生成'
     projectiles:
       visualized:
         info: '可视化投掷物记录器: 已可视化%1$s游戏刻的轨迹'
@@ -290,6 +297,17 @@ carpettisaddition:
     spawn:
       mobcapsLocal:
         info: '玩家%1$s的局部怪物容量:'
+    supplier_counter:
+      hover_name: 供给计数器
+      unknown_color: '未知的颜色: %1$s'
+      no_item_yet: 还没有物品被统计
+      restart_single: '%1$s供给计数器已重置'
+      restart_all: '所有供给计数器已重置'
+      counter:
+        not_started: '%1$s供给计数器无统计数据'
+        summary: '%1$s供给计数器的物品统计 (%2$s min%3$s), 总计: %4$s, (%5$s/h):'
+        realtime: 现实时间
+        reset: 重置
 
   tracker:
     tracker_name_full: '%1$s追踪器'
@@ -400,6 +418,23 @@ carpettisaddition:
     entity_filter:
       dimension: 维度
       anchor_pos: 锚点坐标
+    color:
+      white: 白色
+      orange: 橙色
+      magenta: 品红色
+      light_blue: 淡蓝色
+      yellow: 黄色
+      lime: 黄绿色
+      pink: 粉红色
+      gray: 灰色
+      light_gray: 淡灰色
+      cyan: 青色
+      purple: 紫色
+      blue: 蓝色
+      brown: 棕色
+      green: 绿色
+      red: 红色
+      black: 黑色
 
   misc:
     player_mount_anything_permission_denied: 只有OP玩家才被允许骑乘任意实体
@@ -543,6 +578,9 @@ carpettisaddition:
       hopperNoItemCost:
         name: 漏斗不消耗物品
         desc: 上方放有羊毛方块的漏斗可不消耗物品地无限输出储存的物品
+        extra:
+          '0': 你可以使用/scounter指令，或者订阅scounter记录器，来追踪这类漏斗的物品输出数量
+          '1': 该规则同时是/scounter指令的开关
       HUDLoggerUpdateInterval:
         name: HUD记录器更新间隔
         desc: 覆写Carpet Mod HUD记录器的更新间隔，单位为gametick

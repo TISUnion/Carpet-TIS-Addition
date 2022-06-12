@@ -17,7 +17,7 @@ public class RaidLogger extends AbstractLogger
 
 	public RaidLogger()
 	{
-		super(NAME);
+		super(NAME, true);
 	}
 
 	public static RaidLogger getInstance()
