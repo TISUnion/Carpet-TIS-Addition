@@ -40,7 +40,7 @@ public abstract class HopperBlockEntityMixin
 			{
 				if (hopperBlockEntity instanceof LithiumInventory)
 				{
-					HopperNoItemCostHelper.enable.set(true);
+					HopperNoItemCostHelper.woolColor.set(wool_color);
 				}
 			}
 		}
@@ -58,7 +58,7 @@ public abstract class HopperBlockEntityMixin
 	{
 		if (CarpetTISAdditionSettings.hopperNoItemCost)
 		{
-			HopperNoItemCostHelper.enable.set(false);
+			HopperNoItemCostHelper.woolColor.set(null);
 		}
 	}
 }
