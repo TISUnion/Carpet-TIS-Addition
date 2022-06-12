@@ -29,7 +29,7 @@ public class PhantomLogger extends AbstractLogger
 
 	private PhantomLogger()
 	{
-		super(NAME, true);
+		super(NAME, false);
 	}
 
 	public static PhantomLogger getInstance()
