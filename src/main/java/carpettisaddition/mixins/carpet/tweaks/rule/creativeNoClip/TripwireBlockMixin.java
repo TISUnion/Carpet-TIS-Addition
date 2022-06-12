@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip;
 
-import carpet.CarpetSettings;
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
+import carpettisaddition.utils.compat.CarpetSettings;
 import net.minecraft.block.TripwireBlock;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
