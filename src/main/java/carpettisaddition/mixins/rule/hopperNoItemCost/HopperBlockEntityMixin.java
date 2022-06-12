@@ -54,7 +54,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				{
 					if (SupplierCounterCommand.isActivated())
 					{
-						int delta = this.getInvStack(i).getCount() - itemStack.getCount();
+						int delta = this.getStack(i).getCount() - itemStack.getCount();
 						if (delta <= 0)
 						{
 							ItemStack countingStack = itemStack.copy();

@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
+import static net.minecraft.command.CommandSource.suggestMatching;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
-import static net.minecraft.server.command.CommandSource.suggestMatching;
 
 public class SupplierCounterCommand extends AbstractCommand
 {
