@@ -75,9 +75,14 @@ public class SupplierCounterCommand extends AbstractCommand
 		dispatcher.register(root);
 	}
 
-	public void addFor(DyeColor color, ItemStack stack)
+	public void record(DyeColor color, ItemStack previousStack, ItemStack currentStack)
 	{
-		this.counter.get(color).addItem(stack);
+		int delta = currentStack.getCount() - previousStack.getCount();
+		// previous -> current == more -> less, so delta < 0
+		if (delta < 0)
+		{
+			this.counter.get(color).addItem(currentStack.getItem(), -delta);
+		}
 	}
 
 	public int report(ServerCommandSource source, String color, boolean realtime)

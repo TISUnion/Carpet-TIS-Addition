@@ -9,7 +9,6 @@ import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2LongLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
@@ -51,14 +50,13 @@ public class SupplierCounter extends TranslationContext
 		return this.running;
 	}
 
-	public void addItem(ItemStack stack)
+	public void addItem(Item item, int count)
 	{
 		if (!this.isRunning())
 		{
 			this.start();
 		}
-		Item item = stack.getItem();
-		long newCount = this.counter.getLong(item) + stack.getCount();
+		long newCount = this.counter.getLong(item) + count;
 		this.counter.put(item, newCount);
 	}
 
