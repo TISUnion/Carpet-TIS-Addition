@@ -82,7 +82,7 @@ public class SupplierCounterCommand extends AbstractCommand
 		// previous -> current == more -> less, so delta < 0
 		if (delta < 0)
 		{
-			this.counter.get(color).addItem(currentStack.getItem(), -delta);
+			this.counter.get(color).addItem(previousStack.getItem(), -delta);
 		}
 	}
 

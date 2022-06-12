@@ -7,6 +7,7 @@ import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.utils.FileUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.*;
 import org.jetbrains.annotations.NotNull;
@@ -72,6 +73,10 @@ public class TISAdditionTranslations
             catch (Exception e)
             {
                 CarpetTISAdditionServer.LOGGER.error("Failed to load translation of language " + lang, e);
+                if (FabricLoader.getInstance().isDevelopmentEnvironment())
+                {
+                    throw e;
+                }
                 return Collections.emptyMap();
             }
         });
