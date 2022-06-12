@@ -174,6 +174,19 @@ Multiple chunk refreshing creates lags on server's network thread due to packet 
 `/removeentity <target>`: Removed target entities from the world directly. Does not affect players
 
 
+## scounter
+
+Similar to carpet's `/counter` command for its hopper counter, this command is used for counting items output from infinity item supplier hoppers created by rule [hopperNoItemCost](rules.md#hoppernoitemcost)
+
+`/scounter`: View statistics for all supplier counters
+
+`/scounter reset`: Reset all supplier counters
+
+`/scounter <color> [realtime]`: View statistics for specified supplier counter. Append suffix ` realtime` to display the rate using real time
+
+`/scounter <color> reset`: Reset specified supplier counter
+
+
 ## spawn
 
 ### mobcapsLocal

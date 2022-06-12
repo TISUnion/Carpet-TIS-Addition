@@ -33,7 +33,7 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 
 	private MobcapsLocalLogger()
 	{
-		super(NAME);
+		super(NAME, true);
 	}
 
 	public static MobcapsLocalLogger getInstance()

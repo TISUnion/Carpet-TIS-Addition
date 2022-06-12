@@ -4,9 +4,26 @@ import net.minecraft.text.MutableText;
 
 public class CounterUtil
 {
+	private static final int MS_PER_TICK = 50;
+
+	public static long getTimeElapsed(long startTick, long startMillis, boolean realtime)
+	{
+		return Math.max(1, realtime ? (System.currentTimeMillis() - startMillis) / MS_PER_TICK : GameUtil.getGameTime() - startTick);
+	}
+
+	public static double tickToMinute(long ticks)
+	{
+		return ticks / (20.0 * 60.0);
+	}
+
+	public static double tickToHour(long ticks)
+	{
+		return ticks / (20.0 * 60.0 * 60.0);
+	}
+
 	private static double getRatePerHourValue(long rate, long ticks)
 	{
-		return (double)rate / ticks * (20 * 60 * 60);
+		return (double)rate / tickToHour(ticks);
 	}
 
 	public static String ratePerHour(long rate, long ticks)

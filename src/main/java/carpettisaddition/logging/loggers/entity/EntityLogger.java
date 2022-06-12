@@ -29,7 +29,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public EntityLogger(String loggerName)
 	{
-		super(loggerName);
+		super(loggerName, false);
 	}
 
 	@Override

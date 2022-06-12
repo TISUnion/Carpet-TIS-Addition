@@ -2,6 +2,7 @@ package carpettisaddition.commands;
 
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.CounterUtil;
 import carpettisaddition.utils.GameUtil;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -179,7 +180,7 @@ public abstract class AbstractTracker extends TranslationContext
 
 	protected long getTrackedTick(boolean realtime)
 	{
-		return Math.max(1, realtime ? (System.currentTimeMillis() - this.getStartMillis()) / 50 : GameUtil.getGameTime() - this.getStartTick());
+		return CounterUtil.getTimeElapsed(this.getStartTick(), this.getStartMillis(), realtime);
 	}
 
 	// send general header for tracking report and return the processed "ticks"

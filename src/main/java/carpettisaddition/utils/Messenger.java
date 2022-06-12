@@ -17,9 +17,11 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.Item;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.*;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ChunkPos;
@@ -261,6 +263,16 @@ public class Messenger
 	{
 		Identifier id = IdentifierUtil.id(blockEntity.getType());
 		return s(id != null ? id.toString() : blockEntity.getClass().getSimpleName());
+	}
+
+	public static BaseText item(Item item)
+	{
+		return tr(item.getTranslationKey());
+	}
+
+	public static BaseText color(DyeColor color)
+	{
+		return translator.tr("color." + color.getName().toLowerCase());
 	}
 
 	/*

@@ -7,9 +7,9 @@ import net.minecraft.text.MutableText;
 
 public abstract class AbstractHUDLogger extends AbstractLogger
 {
-	public AbstractHUDLogger(String name)
+	public AbstractHUDLogger(String name, boolean strictOption)
 	{
-		super(name);
+		super(name, strictOption);
 	}
 
 	public abstract MutableText[] onHudUpdate(String option, PlayerEntity playerEntity);

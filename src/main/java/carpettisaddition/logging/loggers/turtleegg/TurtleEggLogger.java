@@ -18,7 +18,7 @@ public class TurtleEggLogger extends AbstractLogger
 
 	private TurtleEggLogger()
 	{
-		super(NAME);
+		super(NAME, true);
 	}
 
 	public static TurtleEggLogger getInstance()

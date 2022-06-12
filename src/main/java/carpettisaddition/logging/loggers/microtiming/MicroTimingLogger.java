@@ -35,7 +35,7 @@ public class MicroTimingLogger extends AbstractLogger
 
 	public MicroTimingLogger(@NotNull ServerWorld world)
 	{
-		super(NAME);
+		super(NAME, true);
 		this.world = world;
 		this.tickPhase = new TickPhase(TickStage.UNKNOWN, DimensionWrapper.of(this.world));
 	}
