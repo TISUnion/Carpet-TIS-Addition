@@ -84,7 +84,7 @@ public class SupplierCounter extends TranslationContext
 		if (this.isRunning())
 		{
 			long ticks = CounterUtil.getTimeElapsed(this.startTick, this.startMillis, realTime);
-			long total = this.counter.values().stream().mapToLong(x -> x).sum();
+			long total = this.counter.values().longStream().sum();
 			content = Messenger.s(String.format("%d, %.1f/h, %.1f min", total, total / CounterUtil.tickToHour(ticks), CounterUtil.tickToMinute(ticks)));
 		}
 		else
@@ -106,7 +106,7 @@ public class SupplierCounter extends TranslationContext
 		}
 
 		long ticks = CounterUtil.getTimeElapsed(this.startTick, this.startMillis, realTime);
-		long total = this.counter.values().stream().mapToLong(x -> x).sum();
+		long total = this.counter.values().longStream().sum();
 
 		BaseText realtimeSuffix = realTime ?
 				Messenger.c("g (", Messenger.formatting(tr("realtime"), "g"), "g )") :
