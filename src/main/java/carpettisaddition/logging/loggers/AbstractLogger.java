@@ -20,10 +20,19 @@ public abstract class AbstractLogger extends TranslationContext
 
 	private final String name;
 
-	public AbstractLogger(String name)
+	@SuppressWarnings("FieldCanBeLocal")
+	private final boolean strictOption;
+
+	/**
+	 * fabric carpet introduced strictOption thing in mc1.17.1
+	 * - false: loggers that accept dynamic/custom options
+	 * - true: loggers that don't need an option; loggers that only accept specified options
+	 */
+	public AbstractLogger(String name, boolean strictOption)
 	{
 		super("logger." + name);
 		this.name = name;
+		this.strictOption = strictOption;
 	}
 
 	public String getName()

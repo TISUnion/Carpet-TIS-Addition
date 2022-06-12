@@ -29,7 +29,7 @@ public class TicketLogger extends AbstractLogger
 
 	public TicketLogger()
 	{
-		super(NAME);
+		super(NAME, false);
 	}
 
 	public static TicketLogger getInstance()

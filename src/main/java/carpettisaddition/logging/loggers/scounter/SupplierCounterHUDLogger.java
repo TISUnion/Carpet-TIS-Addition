@@ -17,7 +17,7 @@ public class SupplierCounterHUDLogger extends AbstractHUDLogger
 
 	public SupplierCounterHUDLogger()
 	{
-		super(NAME);
+		super(NAME, false);
 	}
 
 	public static SupplierCounterHUDLogger getInstance()

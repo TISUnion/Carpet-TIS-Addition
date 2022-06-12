@@ -13,7 +13,7 @@ public class MemoryHUDLogger extends AbstractHUDLogger
 
 	private MemoryHUDLogger()
 	{
-		super(NAME);
+		super(NAME, true);
 	}
 
 	public static MemoryHUDLogger getInstance()

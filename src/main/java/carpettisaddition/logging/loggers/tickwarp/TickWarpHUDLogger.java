@@ -24,7 +24,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 
 	private TickWarpHUDLogger()
 	{
-		super(NAME);
+		super(NAME, true);
 	}
 
 	public static TickWarpHUDLogger getInstance()
