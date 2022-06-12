@@ -168,6 +168,19 @@ Attributes:
 - Suggested options: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`
 
 
+## phantom
+
+`/log phantom <options>`
+
+With option `spawning`, it informs when someone spawns a wave of phantoms
+
+With option `reminder`, it reminds you when you haven't slept for 45min or 60min
+
+Attributes:
+- Default option: `spawning`
+- Suggested options: `spawning`, `reminder`, `spawning,reminder`
+
+
 ## raid
 
 `/log raid`
@@ -182,6 +195,19 @@ Info when these raid related events happen:
 Attributes:
 - Default option: N/A
 - Suggested options: N/A
+
+
+## scounter
+
+`/log scounter <color>`
+
+It's a HUD logger
+
+Similar to carpet's `counter` logger for its hopper counter, this logger is used for showing items output from infinity item supplier hoppers created by rule [hopperNoItemCost](rules.md#hoppernoitemcost)
+
+Attributes:
+- Default option: N/A
+- Suggested options: All dye color names
 
 
 ## ticket

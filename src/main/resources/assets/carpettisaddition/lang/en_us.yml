@@ -190,6 +190,13 @@ carpettisaddition:
         piston: Piston Limit
         sneaking: Sneaking
         collision: Collision
+    phantom:
+      header: Phantom Reminder
+      summon: '%1$s summoned %2$sx %3$s'
+      reminder:
+        time_since_rest: You haven't slept for %1$s minutes
+        regular: '%1$s might spawn after %2$s minutes'
+        now: '%1$s might spawn since now'
     projectiles:
       visualized:
         info: 'Visualize projectile logger: visualized %1$s tick(s)'
@@ -290,6 +297,17 @@ carpettisaddition:
     spawn:
       mobcapsLocal:
         info: 'Local mobcaps of player %1$s:'
+    supplier_counter:
+      hover_name: Supplier counter
+      unknown_color: 'Unknown color: %1$s'
+      no_item_yet: No items have been counted yet.
+      restart_single: Restarted %1$s supplier counter
+      restart_all: Restarted all supplier counter
+      counter:
+        not_started: "%1$s hasn't started counting yet"
+        summary: 'Items for %1$s (%2$s min%3$s), total: %4$s, (%5$s/h):'
+        realtime: real time
+        reset: reset
 
   tracker:
     tracker_name_full: '%1$s Tracker'
@@ -400,6 +418,23 @@ carpettisaddition:
     entity_filter:
       dimension: Dimension
       anchor_pos: Anchor Pos
+    color:
+      white: white
+      orange: orange
+      magenta: magenta
+      light_blue: light blue
+      yellow: yellow
+      lime: lime
+      pink: pink
+      gray: gray
+      light_gray: light gray
+      cyan: cyan
+      purple: purple
+      blue: blue
+      brown: brown
+      green: green
+      red: red
+      black: black
 
   misc:
     player_mount_anything_permission_denied: Only OP players are allowed to mount anything

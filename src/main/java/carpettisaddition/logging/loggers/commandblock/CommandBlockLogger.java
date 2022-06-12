@@ -25,7 +25,7 @@ public class CommandBlockLogger extends AbstractLogger
 
 	public CommandBlockLogger()
 	{
-		super(NAME);
+		super(NAME, true);
 	}
 
 	public static CommandBlockLogger getInstance()
