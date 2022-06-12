@@ -50,13 +50,7 @@ public abstract class HopperHelperMixin
 			{
 				if (SupplierCounterCommand.isActivated())
 				{
-					int delta = originalTransferStack$CTA.getCount() - transferStack.getCount();
-					if (delta < 0)
-					{
-						ItemStack countingStack = transferStack.copy();
-						countingStack.setCount(-delta);
-						SupplierCounterCommand.getInstance().addFor(woolColor, countingStack);
-					}
+					SupplierCounterCommand.getInstance().record(woolColor, originalTransferStack$CTA, transferStack);
 				}
 				originalTransferStack$CTA = null;
 			}
