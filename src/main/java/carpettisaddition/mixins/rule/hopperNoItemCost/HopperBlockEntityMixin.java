@@ -54,13 +54,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				{
 					if (SupplierCounterCommand.isActivated())
 					{
-						int delta = this.getInvStack(i).getCount() - itemStack.getCount();
-						if (delta <= 0)
-						{
-							ItemStack countingStack = itemStack.copy();
-							countingStack.setCount(-delta);
-							SupplierCounterCommand.getInstance().addFor(wool_color, countingStack);
-						}
+						SupplierCounterCommand.getInstance().record(wool_color, itemStack, this.getInvStack(i));
 					}
 
 					// restore the hopper inventory slot
