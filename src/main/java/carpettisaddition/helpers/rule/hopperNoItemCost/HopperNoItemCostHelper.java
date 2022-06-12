@@ -1,5 +1,7 @@
 package carpettisaddition.helpers.rule.hopperNoItemCost;
 
+import net.minecraft.util.DyeColor;
+
 /**
  * Lithium mod uses its own optimized way for hoppers to transfer their items out
  * So the regular vanilla injection might not work
@@ -7,5 +9,9 @@ package carpettisaddition.helpers.rule.hopperNoItemCost;
  */
 public class HopperNoItemCostHelper
 {
-	public static final ThreadLocal<Boolean> enable = ThreadLocal.withInitial(() -> false);
+	/**
+	 * null -> disabled
+	 * other -> enabled with wool color
+	 */
+	public static final ThreadLocal<DyeColor> woolColor = ThreadLocal.withInitial(() -> null);
 }

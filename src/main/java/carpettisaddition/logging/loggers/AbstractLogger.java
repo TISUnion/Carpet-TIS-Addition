@@ -5,6 +5,7 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.translations.TranslationContext;
+import carpettisaddition.translations.Translator;
 import com.google.common.base.Joiner;
 import com.mojang.brigadier.StringReader;
 import net.minecraft.text.BaseText;
@@ -16,23 +17,24 @@ import java.util.function.Supplier;
 
 public abstract class AbstractLogger extends TranslationContext
 {
+	private static final Translator TRANSLATOR = new Translator("logger");
 	public final static String MULTI_OPTION_SEP_REG = "[,. ]";
 	public final static String OPTION_SEP = ",";
 
 	private final String name;
 
-	private final boolean strictOption;  // fabric carpet introduced this thing in mc1.17.1
+	private final boolean strictOption;
 
+	/**
+	 * fabric carpet introduced strictOption thing in mc1.17.1
+	 * - false: loggers that accept dynamic/custom options
+	 * - true: loggers that don't need an option; loggers that only accept specified options
+	 */
 	public AbstractLogger(String name, boolean strictOption)
 	{
-		super("logger." + name);
+		super(TRANSLATOR.getDerivedTranslator(name));
 		this.name = name;
 		this.strictOption = strictOption;
-	}
-
-	public AbstractLogger(String name)
-	{
-		this(name, true);
 	}
 
 	public String getName()

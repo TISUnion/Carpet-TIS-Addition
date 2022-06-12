@@ -23,7 +23,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 
 	public LightQueueHUDLogger()
 	{
-		super(NAME);
+		super(NAME, false);
 	}
 
 	public static LightQueueHUDLogger getInstance()
