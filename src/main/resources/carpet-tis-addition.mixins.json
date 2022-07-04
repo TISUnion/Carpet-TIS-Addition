@@ -238,6 +238,7 @@
     "rule.largeBarrel.compat.lithium.HopperHelperMixin",
     "rule.largeBarrel.compat.malilib.BlockEntityTypeMixin",
     "rule.largeBarrel.compat.malilib.InventoryUtilsMixin",
+    "rule.lightUpdates.LightingProviderMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",
     "rule.minecartTakePassengerMinVelocity.AbstractMinecartEntityMixin",
     "rule.mobcapsDisplayIgnoreMisc.SpawnReporterMixin",

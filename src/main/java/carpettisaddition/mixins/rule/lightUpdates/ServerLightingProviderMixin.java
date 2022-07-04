@@ -5,6 +5,7 @@ import net.minecraft.server.world.ServerLightingProvider;
 import net.minecraft.world.chunk.Chunk;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Group;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,6 +18,8 @@ import java.util.concurrent.CompletableFuture;
 @Mixin(value = ServerLightingProvider.class, priority = 1500)
 public abstract class ServerLightingProviderMixin
 {
+	@Shadow public abstract CompletableFuture<Chunk> retainData(Chunk chunk);
+
 	private final ThreadLocal<Boolean> enqueueImportant = ThreadLocal.withInitial(() -> false);
 
 	@Inject(
@@ -39,7 +42,7 @@ public abstract class ServerLightingProviderMixin
 
 	/**
 	 * Lighting suppression? Just make an endless loop here
-	 */
+	*/
 	@Inject(method = "runTasks", at = @At(value = "HEAD"))
 	private void onExecutingLightUpdates(CallbackInfo ci)
 	{

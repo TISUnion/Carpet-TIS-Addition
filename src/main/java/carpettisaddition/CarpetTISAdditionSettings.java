@@ -406,6 +406,7 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			desc = "Pause or disable light updates",
 			extra = {
+					"If set to mincost, all of the process of the light-update computing will be skipped",
 					"If set to suppressed, no light update can be executed which simulates light suppressor",
 					"If set to ignored, no light update can be scheduled. It's useful for creating light errors",
 					"If set to off, no light update can be scheduled or executed",
@@ -428,26 +429,30 @@ public class CarpetTISAdditionSettings
 	public enum LightUpdateOptions
 	{
 		// Regular vanilla behavior
-		ON(true, true),
+		ON(true, true, false),
 		// Enqueue tasks, but never execute them. Might blocks the game forever
-		SUPPRESSED(true, false),
+		SUPPRESSED(true, false, false),
+		// Allow almost all update tasks, but the result of light strength will always be 15
+		MINCOST(true, true, true),
 		// Ignore all incoming tasks except ones created in method light, but already enqueued ones can be executed
 		// TODO: Further testing to make sure it doesnt block the server
-		IGNORED(false, true),
+		IGNORED(false, true, false),
 		// Ignore all incoming tasks and do not execute any tasks. Might blocks the game forever
-		OFF(false, false);
+		OFF(false, false, false);
 
 		private final boolean shouldEnqueue;
 		private final boolean shouldExecute;
+		private final boolean isMinCalcCost;
 
-		LightUpdateOptions(boolean shouldEnqueue, boolean shouldExecute)
+		LightUpdateOptions(boolean shouldEnqueue, boolean shouldExecute, boolean isMinCalcCost)
 		{
 			this.shouldEnqueue = shouldEnqueue;
 			this.shouldExecute = shouldExecute;
+			this.isMinCalcCost = isMinCalcCost;
 		}
 
 		/**
-		 * ON, SUPPRESSED: true
+		 * ON, SUPPRESSED, MINCOST: true
 		 * OFF, IGNORE: false
 		 */
 		public boolean shouldEnqueueLightTask()
@@ -456,12 +461,20 @@ public class CarpetTISAdditionSettings
 		}
 
 		/**
-		 * ON, IGNORE: true
+		 * ON, IGNORE, MINCOST: true
 		 * OFF, SUPPRESSED: false
 		 */
 		public boolean shouldExecuteLightTask()
 		{
 			return this.shouldExecute;
+		}
+
+		/**
+		 * Only the MINCOST: true
+		 * Other mode: false
+		 */
+		public boolean isMinCalculateCost(){
+			return this.isMinCalcCost;
 		}
 	}
 
