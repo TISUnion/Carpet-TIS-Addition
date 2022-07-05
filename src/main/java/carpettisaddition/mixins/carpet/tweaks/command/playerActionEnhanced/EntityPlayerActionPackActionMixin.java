@@ -1,8 +1,8 @@
-package carpettisaddition.mixins.carpet.tweaks.command.randomlyTriggerAction;
+package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
 import carpet.helpers.EntityPlayerActionPack;
-import carpettisaddition.helpers.carpet.randomlyTriggerAction.IEntityPlayerActionPackAction;
-import carpettisaddition.helpers.carpet.randomlyTriggerAction.PlayerActionPackHelper;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackAction;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.PlayerActionPackHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;

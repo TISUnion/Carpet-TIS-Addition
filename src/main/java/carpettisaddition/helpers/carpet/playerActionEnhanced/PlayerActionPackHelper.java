@@ -1,6 +1,7 @@
-package carpettisaddition.helpers.carpet.randomlyTriggerAction;
+package carpettisaddition.helpers.carpet.playerActionEnhanced;
 
 import carpet.helpers.EntityPlayerActionPack;
+import carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced.EntityPlayerActionPackActionAccessor;
 
 import java.util.Random;
 
@@ -13,11 +14,15 @@ public class PlayerActionPackHelper
 		return lower + random.nextInt(upper - lower + 1);
 	}
 
-	public static EntityPlayerActionPack.Action getRandomlyTriggerAction(int lower, int upper)
+	public static EntityPlayerActionPack.Action randomly(int lower, int upper)
 	{
 		upper = Math.max(lower, upper);
 		EntityPlayerActionPack.Action action = EntityPlayerActionPack.Action.interval(getRandomInt(lower, upper));
 		((IEntityPlayerActionPackAction) action).setRandomlyRange(lower, upper);
 		return action;
+	}
+	public static EntityPlayerActionPack.Action after(int delay)
+	{
+		return EntityPlayerActionPackActionAccessor.invokeConstructor(1, 1, delay);
 	}
 }

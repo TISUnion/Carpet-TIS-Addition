@@ -1,8 +1,8 @@
-package carpettisaddition.mixins.carpet.tweaks.command.randomlyTriggerAction;
+package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
 import carpet.commands.PlayerCommand;
 import carpet.helpers.EntityPlayerActionPack;
-import carpettisaddition.helpers.carpet.randomlyTriggerAction.PlayerActionPackHelper;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.PlayerActionPackHelper;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.server.command.ServerCommandSource;
@@ -31,13 +31,24 @@ public abstract class PlayerCommandMixin
 	{
 		final String lower = "lower_bound";
 		final String upper = "upper_bound";
-		cir.getReturnValue().then(
-				literal("randomly").
-				then(argument(lower, integer(1)).
-						then(argument(upper, integer(1)).executes(
-								c -> action(c, type, PlayerActionPackHelper.getRandomlyTriggerAction(getInteger(c, lower), getInteger(c, upper)))
-						))
-				)
-		);
+		final String delay = "delay";
+
+		cir.getReturnValue().
+				then(literal("randomly").
+						then(argument(lower, integer(1)).
+								then(argument(upper, integer(1)).
+										executes(
+												c -> action(c, type, PlayerActionPackHelper.randomly(getInteger(c, lower), getInteger(c, upper)))
+										)
+								)
+						)
+				).
+				then(literal("after").
+						then(argument(delay, integer(1)).
+								executes(
+										c -> action(c, type, PlayerActionPackHelper.after(getInteger(c, delay)))
+								)
+						)
+				);
 	}
 }

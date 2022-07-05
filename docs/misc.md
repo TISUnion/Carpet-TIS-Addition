@@ -63,6 +63,7 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
 - Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
 - Display the version of TIS Carpet Addition inside `/carpet` command
 - Add `randomly` argument for `/player` command. e.g. `/player Steve use randomly 10 20` will make Steve right-click at dynamically varying random intervals in range \[10, 20]
+- Add `after` argument for `/player` command. e.g. `/player Steve use after 10` will make Steve right-click after a 10gt delay
 - Add `/spawn tracking restart` for lazy man
 - Add OP permission check to cheaty command `/player <someone> mount anything`
 - Make `/info entity` work again

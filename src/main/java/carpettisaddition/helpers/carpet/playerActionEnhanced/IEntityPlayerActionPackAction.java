@@ -1,4 +1,4 @@
-package carpettisaddition.helpers.carpet.randomlyTriggerAction;
+package carpettisaddition.helpers.carpet.playerActionEnhanced;
 
 public interface IEntityPlayerActionPackAction
 {
