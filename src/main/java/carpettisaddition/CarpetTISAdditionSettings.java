@@ -564,8 +564,7 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			desc = "Disable some command to prevent accidentally cheating",
 			extra = "Affects command list: /gamemode, /tp, /teleport, /give, /setblock, /summon",
-			category = {TIS, SURVIVAL},
-			validate = Validator._COMMAND.class  // for notifyPlayersCommandsChanged
+			category = {TIS, SURVIVAL, COMMAND}
 	)
 	public static boolean opPlayerNoCheat = false;
 

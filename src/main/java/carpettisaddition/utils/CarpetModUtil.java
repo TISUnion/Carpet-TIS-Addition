@@ -1,6 +1,6 @@
 package carpettisaddition.utils;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import net.minecraft.server.command.ServerCommandSource;
 
 public class CarpetModUtil
@@ -15,6 +15,6 @@ public class CarpetModUtil
 	 */
 	public static boolean canUseCommand(ServerCommandSource source, Object commandLevel)
 	{
-		return SettingsManager.canUseCommand(source, commandLevel);
+		return CommandHelper.canUseCommand(source, commandLevel);
 	}
 }

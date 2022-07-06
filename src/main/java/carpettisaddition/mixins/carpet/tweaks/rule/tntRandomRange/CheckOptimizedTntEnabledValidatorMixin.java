@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.carpet.tweaks.rule.tntRandomRange;
 
-import carpet.settings.ParsedRule;
+import carpet.api.settings.CarpetRule;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class CheckOptimizedTntEnabledValidatorMixin<T>
 {
 	@Inject(method = "validate", at = @At("HEAD"), cancellable = true, remap = false)
-	private void stopCheckingOptimizedTntEnabled(ServerCommandSource source, ParsedRule<T> currentRule, T newValue, String string, CallbackInfoReturnable<T> cir)
+	private void stopCheckingOptimizedTntEnabled(ServerCommandSource source, CarpetRule<T> currentRule, T newValue, String string, CallbackInfoReturnable<T> cir)
 	{
 		cir.setReturnValue(newValue);
 	}

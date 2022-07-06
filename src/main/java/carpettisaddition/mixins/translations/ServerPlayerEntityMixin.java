@@ -33,9 +33,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	 * This handle all TISCM translation on chat messages
 	 */
 	@ModifyVariable(
-			method = {
-					"sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/util/registry/RegistryKey;)V",
-			},
+			method = "method_43502",
 			at = @At("HEAD"),
 			argsOnly = true
 	)
