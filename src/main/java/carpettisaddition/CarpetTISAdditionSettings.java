@@ -367,10 +367,7 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CARPET_MOD})
 	public static boolean mobcapsDisplayIgnoreMisc = false;
 
-	@Rule(
-			categories = {TIS, SURVIVAL},
-			validators = Validator._COMMAND.class  // for notifyPlayersCommandsChanged
-	)
+	@Rule(categories = {TIS, SURVIVAL, COMMAND})
 	public static boolean opPlayerNoCheat = false;
 
 	@Rule(categories = {TIS, OPTIMIZATION, EXPERIMENTAL})
