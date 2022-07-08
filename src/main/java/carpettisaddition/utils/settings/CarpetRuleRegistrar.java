@@ -85,12 +85,23 @@ public class CarpetRuleRegistrar
 			@Override public String[] category() {return rule.categories();}
 			@Override public String[] options() {return rule.options();}
 			@Override public boolean strict() {return rule.strict();}
-			@SuppressWarnings("rawtypes")
-			@Override public Class<? extends Validator>[] validate() {return rule.validators();}
-
+			@SuppressWarnings("rawtypes") @Override public Class<? extends Validator>[] validate() {return rule.validators();}
 			@Override public Class<? extends Annotation> annotationType() {return rule.annotationType();}
+
+			//#if MC >= 11600
+			//$$ @Override public String appSource() {return "";}
+			//$$ @SuppressWarnings("unchecked") @Override public Class<? extends carpet.settings.Condition>[] condition() {return new Class[0];}
+			//#endif
 		};
-		this.rules.add(ParsedRuleAccessor.invokeConstructor(field, cmRule));
+
+		ParsedRule<?> parsedRule = ParsedRuleAccessor.invokeConstructor(
+				field, cmRule
+				//#if MC >= 11600
+				//$$ , this.settingsManager
+				//#else
+				//#endif
+		);
+		this.rules.add(parsedRule);
 	}
 
 	public void registerToCarpet()

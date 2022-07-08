@@ -9,7 +9,12 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+
+//#if MC >= 11600
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//#else
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//#endif
 
 @Mixin(MooshroomEntity.class)
 public abstract class MooshroomEntityMixin extends Entity
@@ -20,14 +25,24 @@ public abstract class MooshroomEntityMixin extends Entity
 	}
 
 	@Inject(
+			//#if MC >= 11600
+			//$$ method = "sheared",
+			//#else
 			method = "interactMob",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/passive/MooshroomEntity;remove()V",
 					ordinal = 0
 			)
 	)
-	private void recordSelfRemoval$LifeTimeTracker(CallbackInfoReturnable<Boolean> cir)
+	private void recordSelfRemoval$LifeTimeTracker(
+			//#if MC >= 11600
+			//$$ CallbackInfo ci
+			//#else
+			CallbackInfoReturnable<Boolean> cir
+			//#endif
+	)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(EntityType.COW));
 	}

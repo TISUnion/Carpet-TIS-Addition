@@ -16,7 +16,11 @@ public abstract class EndCrystalItemMixin
 			method = "useOnBlock",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/entity/decoration/EndCrystalEntity;setShowBottom(Z)V"
+					//#else
 					target = "Lnet/minecraft/entity/decoration/EnderCrystalEntity;setShowBottom(Z)V"
+					//#endif
 			)
 	)
 	private EnderCrystalEntity preciseEntityPlacement(EnderCrystalEntity enderCrystalEntity, ItemUsageContext context)

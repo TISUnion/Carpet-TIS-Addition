@@ -22,12 +22,20 @@ public abstract class RaidManagerMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
+							//#if MC >= 11600
+							//$$ target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$Key;)Z"
+							//#else
 							target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$RuleKey;)Z"
+							//#endif
 					)
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//#else
 					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//#endif
 					ordinal = 0
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD

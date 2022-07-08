@@ -41,7 +41,11 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
+							//#if MC >= 11600
+							//$$ target = "Lcarpet/script/utils/ShapeDispatcher$DisplayedText;indent:F"
+							//#else
 							target = "Lcarpet/script/utils/ShapeDispatcher$Text;indent:F"
+							//#endif
 					)
 			),
 			at = @At(
@@ -64,7 +68,11 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			method = "renderLines",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLnet/minecraft/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
+					//#else
 					target = "Lnet/minecraft/client/font/TextRenderer;draw(Ljava/lang/String;FFIZLnet/minecraft/client/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
+					//#endif
 					remap = true
 			),
 			index = 7,

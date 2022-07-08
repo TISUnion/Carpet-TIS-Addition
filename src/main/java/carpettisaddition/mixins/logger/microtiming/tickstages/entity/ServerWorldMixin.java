@@ -15,8 +15,14 @@ public abstract class ServerWorldMixin
 	@Inject(
 			method = "tick",
 			at = @At(
+					//#if MC >= 11600
+					//$$ value = "FIELD",
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;inEntityTick:Z",
+					//$$ ordinal = 0
+					//#else
 					value = "CONSTANT",
 					args = "stringValue=global"
+					//#endif
 			)
 	)
 	private void enterStageEntities(CallbackInfo ci)

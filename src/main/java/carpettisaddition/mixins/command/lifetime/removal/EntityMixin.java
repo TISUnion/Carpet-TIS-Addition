@@ -8,17 +8,27 @@ import carpettisaddition.commands.lifetime.removal.TransDimensionRemovalReason;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.world.dimension.DimensionType;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//#if MC >= 11600
+//$$ import carpettisaddition.CarpetTISAdditionSettings;
+//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import org.jetbrains.annotations.Nullable;
+//#else
+import net.minecraft.world.dimension.DimensionType;
+//#endif
+
 @Mixin(Entity.class)
 public abstract class EntityMixin
 {
+	@Shadow public abstract boolean hasVehicle();
+
 	@Inject(method = "remove", at = @At("TAIL"))
 	private void onEntityRemovedLifeTimeTracker(CallbackInfo ci)
 	{
@@ -35,7 +45,11 @@ public abstract class EntityMixin
 	}
 
 	@Inject(
+			//#if MC >= 11600
+			//$$ method = "moveToWorld",
+			//#else
 			method = "changeDimension",
+			//#endif
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
@@ -47,15 +61,40 @@ public abstract class EntityMixin
 					)
 			),
 			at = @At(
+					//#if MC >= 11600
+					//$$ value = "INVOKE",
+					//$$ target = "Lnet/minecraft/entity/Entity;method_30076()V"
+					//#else
 					value = "FIELD",
 					target = "Lnet/minecraft/entity/Entity;removed:Z"
+					//#endif
 			),
 			allow = 1
 	)
-	private void onEntityTransDimensionRemovedLifeTimeTracker(DimensionType newDimension, CallbackInfoReturnable<Entity> cir)
+	private void onEntityTransDimensionRemovedLifeTimeTracker(
+			//#if MC >= 11600
+			//$$ ServerWorld destination, CallbackInfoReturnable<@Nullable Entity> cir
+			//#else
+			DimensionType destination, CallbackInfoReturnable<Entity> cir
+			//#endif
+	)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(new TransDimensionRemovalReason(DimensionWrapper.of(newDimension)));
+		((LifetimeTrackerTarget)this).recordRemoval(new TransDimensionRemovalReason(DimensionWrapper.of(destination)));
 	}
+
+	//#if MC >= 11600
+	//$$ @Inject(method = "startRiding(Lnet/minecraft/entity/Entity;Z)Z", at = @At("RETURN"))
+	//$$ private void onEntityStartRidingLifeTimeTracker(CallbackInfoReturnable<Boolean> cir)
+	//$$ {
+	//$$ 	if (CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap)
+	//$$ 	{
+	//$$ 		if (this.hasVehicle())
+	//$$ 		{
+	//$$ 			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.ON_VEHICLE);
+	//$$ 		}
+	//$$ 	}
+	//$$ }
+	//#endif
 
 	@Inject(method = "destroy", at = @At("HEAD"))
 	private void onEntityDestroyedInVoid(CallbackInfo ci)

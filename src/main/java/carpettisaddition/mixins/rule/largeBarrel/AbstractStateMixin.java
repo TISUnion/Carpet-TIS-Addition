@@ -2,14 +2,25 @@ package carpettisaddition.mixins.rule.largeBarrel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
-import net.minecraft.state.AbstractState;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractState.class)
+//#if MC >= 11600
+//$$ import net.minecraft.state.State;
+//#else
+import net.minecraft.state.AbstractState;
+//#endif
+
+@Mixin(
+		//#if MC >= 11600
+		//$$ State.class
+		//#else
+		AbstractState.class
+		//#endif
+)
 public abstract class AbstractStateMixin
 {
 	@SuppressWarnings("unchecked")

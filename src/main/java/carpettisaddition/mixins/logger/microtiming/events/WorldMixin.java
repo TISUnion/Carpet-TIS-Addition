@@ -32,8 +32,21 @@ public abstract class WorldMixin
 
 	private final ThreadLocal<Deque<BlockState>> previousBlockState = ThreadLocal.withInitial(ArrayDeque::new);
 
-	@Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At("HEAD"))
-	void startSetBlockState(BlockPos pos, BlockState newState, int flags, CallbackInfoReturnable<Boolean> cir)
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z",
+			//#else
+			method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
+			//#endif
+			at = @At("HEAD")
+	)
+	private void startSetBlockState(
+			BlockPos pos, BlockState newState, int flags,
+			//#if MC >= 11600
+			//$$ int maxUpdateDepth,
+			//#endif
+			CallbackInfoReturnable<Boolean> cir
+	)
 	{
 		if (MicroTimingLoggerManager.isLoggerActivated())
 		{
@@ -43,8 +56,21 @@ public abstract class WorldMixin
 		}
 	}
 
-	@Inject(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At("RETURN"))
-	void endSetBlockState(BlockPos pos, BlockState newState, int flags, CallbackInfoReturnable<Boolean> cir)
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z",
+			//#else
+			method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
+			//#endif
+			at = @At("RETURN")
+	)
+	private void endSetBlockState(
+			BlockPos pos, BlockState newState, int flags,
+			//#if MC >= 11600
+			//$$ int maxUpdateDepth,
+			//#endif
+			CallbackInfoReturnable<Boolean> cir
+	)
 	{
 		if (MicroTimingLoggerManager.isLoggerActivated() && !this.previousBlockState.get().isEmpty())
 		{
@@ -54,8 +80,15 @@ public abstract class WorldMixin
 	}
 
 	// To avoid leaking memory after update suppression or whatever thing
-	@Inject(method = "tickTime", at = @At("HEAD"))
-	void cleanStack(CallbackInfo ci)
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "tickBlockEntities",
+			//#else
+			method = "tickTime",
+			//#endif
+			at = @At("HEAD")
+	)
+	private void cleanStack(CallbackInfo ci)
 	{
 		this.previousBlockState.get().clear();
 	}
@@ -90,13 +123,27 @@ public abstract class WorldMixin
 		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_END);
 	}
 
-	@Inject(method = "updateHorizontalAdjacent", at = @At("HEAD"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "updateComparators",
+			//#else
+			method = "updateHorizontalAdjacent",
+			//#endif
+			at = @At("HEAD")
+	)
 	private void startUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_START);
 	}
 
-	@Inject(method = "updateHorizontalAdjacent", at = @At("RETURN"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "updateComparators",
+			//#else
+			method = "updateHorizontalAdjacent",
+			//#endif
+			at = @At("RETURN")
+	)
 	private void endUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_END);

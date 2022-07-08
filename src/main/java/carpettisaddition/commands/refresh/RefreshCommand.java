@@ -12,7 +12,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketDeflater;
-import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkHolder;
@@ -31,6 +30,13 @@ import static net.minecraft.command.arguments.EntityArgumentType.getPlayers;
 import static net.minecraft.command.arguments.EntityArgumentType.players;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
+
+//#if MC >= 11600
+//$$ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+//$$ import net.minecraft.util.Util;
+//#else
+import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
+//#endif
 
 public class RefreshCommand extends AbstractCommand
 {
@@ -161,7 +167,11 @@ public class RefreshCommand extends AbstractCommand
 		}
 		BaseText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
 		player.networkHandler.sendPacket(
+				//#if MC >= 11600
+				//$$ new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
+				//#else
 				new ChatMessageS2CPacket(message, MessageType.SYSTEM),
+				//#endif
 				future -> {
 					synchronized (this.refreshingChunkPlayers)
 					{

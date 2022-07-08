@@ -1,7 +1,10 @@
 package carpettisaddition.mixins.rule.chunkUpdatePacketThreshold;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.ModIds;
 import com.google.common.collect.Sets;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.world.ChunkHolder;
 import net.minecraft.world.chunk.WorldChunk;
 import org.spongepowered.asm.mixin.Final;
@@ -17,9 +20,12 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Set;
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
 @Mixin(ChunkHolder.class)
 public abstract class ChunkHolderMixin
 {
+	//#if MC < 11600
+
 	@Mutable
 	@Shadow @Final private short[] blockUpdatePositions;
 
@@ -107,4 +113,6 @@ public abstract class ChunkHolderMixin
 	{
 		this.updateRuleStatus$CUPT();
 	}
+
+	//#endif
 }

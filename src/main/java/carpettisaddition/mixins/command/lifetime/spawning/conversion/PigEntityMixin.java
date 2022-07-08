@@ -23,7 +23,11 @@ public abstract class PigEntityMixin extends AnimalEntity
 			method = "onStruckByLightning",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//#else
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//#endif
 			)
 	)
 	private Entity recordZombiePigmanSpawning$LifeTimeTracker(Entity zombiePigman)

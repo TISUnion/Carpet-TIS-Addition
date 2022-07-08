@@ -1,9 +1,6 @@
 package carpettisaddition.commands.info.entity;
 
-import carpettisaddition.mixins.command.info.entity.EntityInfoAccessor;
-import carpettisaddition.mixins.command.info.entity.ItemEntityAccessor;
-import carpettisaddition.mixins.command.info.entity.SlimeEntityAccessor;
-import carpettisaddition.mixins.command.info.entity.ZombieVillagerEntityAccessor;
+import carpettisaddition.mixins.command.info.entity.*;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
@@ -63,11 +60,19 @@ public class EntityInfoPorting
 		lst.add(Messenger.c("w  - Age: ", "wb " + EntityInfoAccessor.makeTime(e.age)));
 		if (!DimensionWrapper.of(source_world).equals(DimensionWrapper.of(e)))
 		{
-			lst.add(Messenger.c("w  - Dimension: ", "wb "+e.dimension.toString()));
+			lst.add(Messenger.c("w  - Dimension: ", "wb "+DimensionWrapper.of(e).getIdentifierString()));
 		}
 		if (e.getFireTicks() > 0) { lst.add(Messenger.c("w  - Fire for ","wb "+e.getFireTicks(),"w  ticks")); }
 		if (e.isFireImmune() ) { lst.add(Messenger.c("w  - Immune to fire")); }
-		if (e.netherPortalCooldown > 0) { lst.add(Messenger.c("w  - Portal cooldown for ","wb "+e.netherPortalCooldown," ticks")); }
+
+		int netherPortalCooldown =
+				//#if MC >= 11600
+				//$$ ((EntityAccessor)e).getNetherPortalCooldown();
+				//#else
+				e.netherPortalCooldown;
+				//#endif
+		if (netherPortalCooldown> 0) { lst.add(Messenger.c("w  - Portal cooldown for ","wb "+netherPortalCooldown," ticks")); }
+
 		if (e.isInvulnerable()) { lst.add(Messenger.c("w  - Invulnerable")); }
 		if (e.isImmuneToExplosion()) { lst.add(Messenger.c("w  - Immune to explosions")); }
 

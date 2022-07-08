@@ -14,6 +14,10 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+//#if MC >= 11600
+//$$ import com.mojang.brigadier.StringReader;
+//#endif
+
 public abstract class AbstractLogger extends TranslationContext
 {
 	private static final Translator TRANSLATOR = new Translator("logger");
@@ -107,6 +111,26 @@ public abstract class AbstractLogger extends TranslationContext
 	 */
 	protected static String wrapOption(@Nullable String option)
 	{
+		//#if MC >= 11600
+		//$$ if (option == null)
+		//$$ {
+		//$$ 	return null;
+		//$$ }
+		//$$ boolean requiresQuotes = false;
+		//$$ for (int i = 0; i < option.length(); i++)
+		//$$ {
+		//$$ 	if (!StringReader.isAllowedInUnquotedString(option.charAt(i)))
+		//$$ 	{
+		//$$ 		requiresQuotes = true;
+		//$$ 		break;
+		//$$ 	}
+		//$$ }
+		//$$ if (requiresQuotes)
+		//$$ {
+		//$$ 	option = "\"" + option.replace("\"", "\"\"") + "\"";
+		//$$ }
+		//#endif
+
 		return option;
 	}
 

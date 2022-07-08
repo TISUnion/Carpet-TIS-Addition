@@ -19,7 +19,9 @@ public abstract class VillagerBreedTaskMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11500
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
+					//#elseif MC >= 11500
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 					//#else
 					//$$ target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",

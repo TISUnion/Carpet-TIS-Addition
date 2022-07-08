@@ -28,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public class MicroTimingMarker
 {
@@ -57,10 +58,30 @@ public class MicroTimingMarker
 		this.markerName = markerName;
 		this.markerType = markerType;
 		this.movable = movable;
-		this.box = ShapeUtil.createBox(new Vec3d(blockPos), new Vec3d(blockPos.add(1, 1, 1)), DimensionWrapper.of(serverWorld), ((long)((DyeColorAccessor)(Object)this.color).getTextColor() << 8) | 0xAF);
+
+		Function<BlockPos, Vec3d> fv =
+				//#if MC >= 11600
+				//$$ Vec3d::of;
+				//#else
+				Vec3d::new;
+				//#endif
+
+		this.box = ShapeUtil.createBox(
+				fv.apply(blockPos),
+				fv.apply(blockPos.add(1, 1, 1)),
+				DimensionWrapper.of(serverWorld),
+				((long)((DyeColorAccessor)(Object)this.color).getTextColor() << 8) | 0xAF
+		);
 		if (this.markerName != null)
 		{
-			BaseText text = Messenger.c(Messenger.s(Messenger.parseCarpetStyle(MicroTimingUtil.getColorStyle(this.color)).getColor() + "# " + Formatting.RESET), Messenger.copy(this.markerName));
+			BaseText text = Messenger.c(
+					//#if MC >= 11600
+					//$$ MicroTimingUtil.getColorStyle(this.color) + " # ",
+					//#else
+					Messenger.s(Messenger.parseCarpetStyle(MicroTimingUtil.getColorStyle(this.color)).getColor() + "# " + Formatting.RESET),
+					//#endif
+					Messenger.copy(this.markerName)
+			);
 			this.text = ShapeUtil.createLabel(text, new Vec3d(blockPos.getX() + 0.5D, blockPos.getY() + 0.5D, blockPos.getZ() + 0.5D), DimensionWrapper.of(serverWorld), null);
 		}
 		else
@@ -161,7 +182,11 @@ public class MicroTimingMarker
 	// 1.15 client cannot response to text component color, so just use Formatting symbol here
 	private BaseText withFormattingSymbol(String text)
 	{
+		//#if MC >= 11600
+		//$$ return Messenger.s(text, MicroTimingUtil.getColorStyle(this.color));
+		//#else
 		return Messenger.s(Messenger.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + text + Formatting.RESET);
+		//#endif
 	}
 
 	// [1, 2, 3]

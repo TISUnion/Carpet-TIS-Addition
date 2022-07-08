@@ -20,6 +20,9 @@ public abstract class MooshroomEntityMixin extends Entity
 	}
 
 	@ModifyArg(
+			//#if MC >= 11600
+			//$$ method = "sheared",
+			//#else
 			method = "interactMob",
 			slice = @Slice(
 					from = @At(
@@ -31,6 +34,7 @@ public abstract class MooshroomEntityMixin extends Entity
 							target = "Lnet/minecraft/tag/ItemTags;SMALL_FLOWERS:Lnet/minecraft/tag/Tag;"
 					)
 			),
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",

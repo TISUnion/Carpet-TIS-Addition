@@ -5,14 +5,26 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
+
+//#if MC < 11600
+import net.minecraft.world.dimension.DimensionType;
+//#endif
 
 public class GameUtil
 {
 	public static long getGameTime()
 	{
-		return CarpetTISAdditionServer.minecraft_server.getWorld(DimensionType.OVERWORLD).getTime();
+		//#if MC >= 11600
+		//$$ World world = CarpetTISAdditionServer.minecraft_server.getWorld(World.OVERWORLD);
+		//#else
+		World world = CarpetTISAdditionServer.minecraft_server.getWorld(DimensionType.OVERWORLD);
+		//#endif
+
+		return Objects.requireNonNull(world).getTime();
 	}
 
 	public static boolean isOnServerThread()
@@ -21,7 +33,9 @@ public class GameUtil
 	}
 
 	/**
-	 * See the exit point for the looping in {@link net.minecraft.server.world.ServerWorld#getMobCountsByCategory}
+	 * See the exit point for the looping in
+	 *   (>=1.16) {@link net.minecraft.world.SpawnHelper#setupSpawn}
+	 *   (<=1.15) {@link net.minecraft.server.world.ServerWorld#getMobCountsByCategory}
 	 */
 	public static boolean countsTowardsMobcap(Entity entity)
 	{

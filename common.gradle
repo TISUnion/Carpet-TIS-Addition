@@ -44,7 +44,7 @@ dependencies {
 }
 
 loom {
-	accessWidenerPath = file("../../src/main/resources/carpet-tis-addition.accesswidener")
+	accessWidenerPath = file("carpet-tis-addition.accesswidener")
 
 	runConfigs.all {
 		// to make sure it generates all "Minecraft Client (:subproject_name)" applications
@@ -73,6 +73,8 @@ group = project.parent.maven_group
 archivesBaseName = project.parent.archives_base_name + '-mc' + project.minecraft_version
 
 processResources {
+	from "carpet-tis-addition.accesswidener"
+
 	inputs.property "version", fullModVersion
 
 	filesMatching("fabric.mod.json") {
@@ -101,7 +103,7 @@ java {
 
 jar {
 	from("../../LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename { it }
 	}
 }
 

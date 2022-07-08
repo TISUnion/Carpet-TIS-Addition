@@ -19,7 +19,11 @@ public abstract class EnchantCommandMixin
 			method = "execute",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/enchantment/Enchantment;getMaxLevel()I"
+					//#else
 					target = "Lnet/minecraft/enchantment/Enchantment;getMaximumLevel()I"
+					//#endif
 			),
 			require = 0  // for potential mod compatibility
 	)
@@ -55,7 +59,11 @@ public abstract class EnchantCommandMixin
 			method = "execute",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/enchantment/EnchantmentHelper;isCompatible(Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;)Z"
+					//#else
 					target = "Lnet/minecraft/enchantment/EnchantmentHelper;contains(Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;)Z"
+					//#endif
 			),
 			index = 0
 	)

@@ -42,4 +42,8 @@ public class ShapeDispatcher
 	public static class Text extends ExpiringShape
 	{
 	}
+
+	public static class FormattedTextParam
+	{
+	}
 }

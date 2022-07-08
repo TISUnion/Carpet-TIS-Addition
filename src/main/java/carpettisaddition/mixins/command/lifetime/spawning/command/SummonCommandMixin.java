@@ -16,7 +16,11 @@ public abstract class SummonCommandMixin
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/server/command/ServerCommandSource;sendFeedback(Lnet/minecraft/text/Text;Z)V",
+					//#if MC >= 11600
+					//$$ ordinal = 0
+					//#else
 					ordinal = 1
+					//#endif
 			)
 	)
 	private static Entity onEntitySummonLifeTimeTracker(Entity entity)

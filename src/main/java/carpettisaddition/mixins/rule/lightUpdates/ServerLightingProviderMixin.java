@@ -70,7 +70,7 @@ public abstract class ServerLightingProviderMixin
 	@Inject(
 			method = {
 					"light",  // its ref map is generated in the injection "dummyInjectionForObfRefMap" above
-					"setupLightmaps"  // mc-fix_mc-170012
+					"setupLightmaps"  // mc-fix_mc-170012, or phosphor mod
 			},
 			at = @At(
 					value = "INVOKE",

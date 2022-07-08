@@ -42,6 +42,13 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
+//#if MC >= 11600
+//$$ import carpettisaddition.script.MicroTimingEvent;
+//$$ import com.google.common.collect.Sets;
+//$$ import java.util.Set;
+//$$ import java.util.function.Supplier;
+//#endif
+
 public class MicroTimingLoggerManager
 {
 	private static MicroTimingLoggerManager instance;
@@ -50,6 +57,11 @@ public class MicroTimingLoggerManager
 	public static final Translator TRANSLATOR = (new AbstractLogger(MicroTimingLogger.NAME, false){}).getTranslator();
 	private TickPhase offWorldTickPhase = new TickPhase(TickStage.UNKNOWN, null);
 	public ThreadLocal<ServerWorld> currentWorld = ThreadLocal.withInitial(() -> null);
+
+	//#if MC >= 11600
+	//$$ // for scarpet event
+	//$$ public static final Set<BlockPos> trackedPositions = Sets.newHashSet();
+	//#endif
 
 	public static BaseText tr(String key, Object... args)
 	{
@@ -74,6 +86,13 @@ public class MicroTimingLoggerManager
 		// make sure it's available first
 		if (CarpetTISAdditionSettings.microTiming && instance != null)
 		{
+			//#if MC >= 11600
+			//$$ if (!trackedPositions.isEmpty())
+			//$$ {
+			//$$ 	return true;
+			//$$ }
+			//#endif
+
 			// has subscriber
 			return TISAdditionLoggerRegistry.__microTiming;
 		}
@@ -115,8 +134,26 @@ public class MicroTimingLoggerManager
 	 * -------------------------
 	 */
 
+	//#if MC >= 11600
+	//$$ public static void dispatchScarpetEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier)
+	//$$ {
+	//$$ 	if (CarpetTISAdditionSettings.microTiming)
+	//$$ 	{
+	//$$ 		// For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
+	//$$ 		if (trackedPositions.contains(pos))
+	//$$ 		{
+	//$$ 			MicroTimingEvent.determineBlockEvent(supplier.get(), world, pos);
+	//$$ 		}
+	//$$ 	}
+	//$$ }
+	//#endif
+
 	private static void onEvent(MicroTimingContext context)
 	{
+		//#if MC >= 11600
+		//$$ dispatchScarpetEvent(context.getWorld(), context.getBlockPos(), context.getEventSupplier());
+		//#endif
+
 		getWorldLogger(context.getWorld()).ifPresent(logger -> logger.addMessage(context));
 	}
 

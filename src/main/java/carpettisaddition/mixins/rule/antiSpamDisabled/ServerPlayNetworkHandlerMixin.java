@@ -15,7 +15,14 @@ public abstract class ServerPlayNetworkHandlerMixin
 
 	@Shadow private int creativeItemDropThreshold;
 
-	@Inject(method = "onChatMessage", at = @At(value = "TAIL"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "onGameMessage",
+			//#else
+			method = "onChatMessage",
+			//#endif
+			at = @At("TAIL")
+	)
 	private void resetMessageCooldown(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.antiSpamDisabled)

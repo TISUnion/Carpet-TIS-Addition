@@ -7,12 +7,17 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import java.util.List;
+
+//#if MC >= 11600
+//$$import net.minecraft.block.AbstractBlock;
+//#else
+import net.minecraft.block.Block;
+//#endif
 
 public enum BlockUpdateType
 {
@@ -68,7 +73,9 @@ public enum BlockUpdateType
 		return Messenger.c(builder.toArray(new Object[0]));
 	}
 
+	//#if MC < 11600
 	@SuppressWarnings("deprecation")
+	//#endif
 	private static class Constants
 	{
 		/**
@@ -77,12 +84,14 @@ public enum BlockUpdateType
 		private static final Direction[] BLOCK_UPDATE_ORDER = new Direction[]{Direction.WEST, Direction.EAST, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH};
 
 		/**
-		 * See {@link Block#updateNeighborStates}
+		 * (<=1.15) See {@link Block#updateNeighborStates}
+		 * (>=1.16) See {@link AbstractBlock.AbstractBlockState#updateNeighbors}
 		 */
 		private static final Direction[] STATE_UPDATE_ORDER = BlockAccessor.getFACINGS();
 
 		/**
-		 * See {@link World#updateHorizontalAdjacent}
+		 * (<=1.15) See {@link World#updateHorizontalAdjacent}
+		 * (>=1.16) See {@link World#updateComparators}
 		 */
 		private static final Direction[] COMPARATOR_UPDATE_ORDER = Lists.newArrayList(Direction.Type.HORIZONTAL.iterator()).toArray(new Direction[0]);
 	}

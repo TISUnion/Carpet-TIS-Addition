@@ -1,15 +1,20 @@
 package carpettisaddition.mixins.rule.lightEngineMaxBatchSize;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
+	//#if MC < 11600
 	@ModifyArg(
 			method = "prepareStartRegion",
 			slice = @Slice(
@@ -29,4 +34,5 @@ public abstract class MinecraftServerMixin
 	{
 		return CarpetTISAdditionSettings.lightEngineMaxBatchSize;
 	}
+	//#endif
 }

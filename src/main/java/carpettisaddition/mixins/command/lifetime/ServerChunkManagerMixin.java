@@ -19,7 +19,11 @@ public abstract class ServerChunkManagerMixin
 			method = "tickChunks",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/server/world/ChunkTicketManager;getSpawningChunkCount()I"
+					//#else
 					target = "Lnet/minecraft/server/world/ServerWorld;getMobCountsByCategory()Lit/unimi/dsi/fastutil/objects/Object2IntMap;"
+					//#endif
 			)
 	)
 	private void onCountingMobcapLifeTimeTracker(CallbackInfo ci)

@@ -12,7 +12,9 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class TurtleEggBlockMixin
 {
 	@ModifyArg(
-			//#if MC >= 11500
+			//#if MC >= 11600
+			//$$ method = "randomTick",
+			//#elseif MC >= 11500
 			method = "scheduledTick",
 			//#else
 			//$$ method = "onScheduledTick",

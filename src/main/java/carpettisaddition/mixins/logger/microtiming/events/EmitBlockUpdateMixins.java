@@ -10,10 +10,15 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+//#if MC >= 11600
+//$$ import java.util.Iterator;
+//$$ import java.util.Set;
+//#else
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
+//#endif
 
 public abstract class EmitBlockUpdateMixins
 {
@@ -150,19 +155,49 @@ public abstract class EmitBlockUpdateMixins
 				method = "update",
 				at = @At(
 						value = "INVOKE",
+						//#if MC >= 11600
+						//$$ target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
+						//#else
 						target = "Ljava/util/List;iterator()Ljava/util/Iterator;"
+						//#endif
 				),
 				locals = LocalCapture.CAPTURE_FAILHARD
 		)
-		private void startEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir, List<BlockPos> list)
+		private void startEmitBlockUpdate(
+				World world, BlockPos pos, BlockState state,
+				//#if MC >= 11600
+				//$$ CallbackInfo ci, Set<BlockPos> collection
+				//#else
+				CallbackInfoReturnable<BlockState> cir, List<BlockPos> collection
+				//#endif
+		)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_START, "update", list);
+			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_START, "update", collection);
 		}
 
+		//#if MC >= 11600
+		//$$
+		//$$ @Inject(
+		//$$ 		method = "update",
+		//$$ 		at = @At(
+		//$$ 				value = "INVOKE",
+		//$$ 				target = "Ljava/util/Iterator;hasNext()Z"
+		//$$ 		),
+		//$$ 		locals = LocalCapture.CAPTURE_FAILHARD
+		//$$ )
+		//$$ private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci, Set<BlockPos> set, Iterator<BlockPos> iterator)
+		//$$ {
+		//$$ 	if (!iterator.hasNext())
+		//$$ 	{
+		//$$ 		MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock) (Object) this, pos, EventType.ACTION_END, "update", null);
+		//$$ 	}
+		//$$ }
+		//#else
 		@Inject(method = "update", at = @At("RETURN"))
 		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir)
 		{
 			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_END, "update", null);
 		}
+		//#endif
 	}
 }

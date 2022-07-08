@@ -16,8 +16,22 @@ public abstract class HUDControllerMixin
 	 * This handle all TISCM translation in CM hud logger
 	 */
 	@ModifyVariable(method = "addMessage", at = @At("HEAD"), argsOnly = true, remap = false)
-	private static BaseText applyTISCarpetTranslationToHudLoggerMessage(BaseText hudMessage, /* parent method parameters -> */ PlayerEntity player, BaseText hudMessage_)
+	private static BaseText applyTISCarpetTranslationToHudLoggerMessage(
+			BaseText hudMessage,
+			/* parent method parameters vvv */
+
+			//#if MC >= 11600
+			//$$ ServerPlayerEntity player,
+			//#else
+			PlayerEntity player,
+			//#endif
+			BaseText hudMessage_
+	)
 	{
-		return TISAdditionTranslations.translate(hudMessage, (ServerPlayerEntity)player);
+		if (player != null)
+		{
+			hudMessage = TISAdditionTranslations.translate(hudMessage, (ServerPlayerEntity)player);
+		}
+		return hudMessage;
 	}
 }

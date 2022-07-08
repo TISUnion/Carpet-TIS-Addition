@@ -15,7 +15,11 @@ public abstract class PhantomSpawnerMixin
 			method = "spawn",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
+					//#else
 					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//#endif
 			)
 	)
 	private Entity onPhantomSpawnLifeTimeTracker(Entity phantom)

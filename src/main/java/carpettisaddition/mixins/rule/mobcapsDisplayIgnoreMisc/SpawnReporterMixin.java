@@ -16,7 +16,11 @@ public abstract class SpawnReporterMixin
 			method = "printMobcapsForDimension",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/entity/SpawnGroup;values()[Lnet/minecraft/entity/SpawnGroup;"
+					//#else
 					target = "Lnet/minecraft/entity/EntityCategory;values()[Lnet/minecraft/entity/EntityCategory;"
+					//#endif
 			),
 			require = 0
 	)

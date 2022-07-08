@@ -20,7 +20,11 @@ public abstract class ServerChunkManagerMixin
 			method = "tickChunks",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;tickSpawners(ZZ)V"
+					//#else
 					target = "Lnet/minecraft/world/gen/chunk/ChunkGenerator;spawnEntities(Lnet/minecraft/server/world/ServerWorld;ZZ)V"
+					//#endif
 			)
 	)
 	private void enterStageSpawnSpecial(CallbackInfo ci)
@@ -32,7 +36,11 @@ public abstract class ServerChunkManagerMixin
 			method = "tickChunks",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;tickSpawners(ZZ)V",
+					//#else
 					target = "Lnet/minecraft/world/gen/chunk/ChunkGenerator;spawnEntities(Lnet/minecraft/server/world/ServerWorld;ZZ)V",
+					//#endif
 					shift = At.Shift.AFTER
 			)
 	)

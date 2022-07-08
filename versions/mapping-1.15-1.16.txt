@@ -1,0 +1,8 @@
+carpet.script.utils.ShapeDispatcher$Text carpet.script.utils.ShapeDispatcher$DisplayedText
+
+net.minecraft.server.PlayerManager method_14594() sendPlayerStatus()
+net.minecraft.entity.attribute.EntityAttributes ARMOR GENERIC_ARMOR
+net.minecraft.entity.attribute.EntityAttributes ARMOR_TOUGHNESS GENERIC_ARMOR_TOUGHNESS
+net.minecraft.entity.attribute.EntityAttributes FOLLOW_RANGE GENERIC_FOLLOW_RANGE
+net.minecraft.entity.attribute.EntityAttributes MOVEMENT_SPEED GENERIC_MOVEMENT_SPEED
+net.minecraft.entity.attribute.EntityAttributes ATTACK_DAMAGE GENERIC_ATTACK_DAMAGE

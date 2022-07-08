@@ -33,7 +33,11 @@ public abstract class EntityMixin
 	}
 
 	@Redirect(
+			//#if MC >= 11600
+			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/block/ShapeContext;Lnet/minecraft/util/collection/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
+			//#else
 			method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityContext;Lnet/minecraft/util/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11500
@@ -58,7 +62,9 @@ public abstract class EntityMixin
 	}
 
 	@Redirect(
-			//#if MC >= 11500
+			//#if MC >= 11600
+			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/util/collection/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
+			//#elseif MC >= 11500
 			method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/util/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
 			//#else
 			//$$ method = "method_20737",

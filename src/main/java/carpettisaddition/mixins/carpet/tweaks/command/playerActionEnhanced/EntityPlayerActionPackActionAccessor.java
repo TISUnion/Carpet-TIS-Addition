@@ -8,7 +8,12 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface EntityPlayerActionPackActionAccessor
 {
 	@Invoker("<init>")
-	static EntityPlayerActionPack.Action invokeConstructor(int limit, int interval, int offset)
+	static EntityPlayerActionPack.Action invokeConstructor(
+			int limit, int interval, int offset
+			//#if MC >= 11600
+			//$$ , boolean continuous
+			//#endif
+	)
 	{
 		throw new RuntimeException();
 	}

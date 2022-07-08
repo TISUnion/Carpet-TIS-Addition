@@ -10,6 +10,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+//#if MC >= 11600
+//$$ import net.minecraft.util.math.Vec3d;
+//#endif
+
 @Mixin(LookTargetUtil.class)
 public abstract class LookTargetUtilMixin
 {
@@ -20,7 +24,14 @@ public abstract class LookTargetUtilMixin
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private static ItemEntity onThrowItemEntityLifeTimeTracker(ItemEntity itemEntity, LivingEntity entity, ItemStack stack, LivingEntity target)
+	private static ItemEntity onThrowItemEntityLifeTimeTracker(
+			ItemEntity itemEntity, LivingEntity entity, ItemStack stack,
+			//#if MC >= 11600
+			//$$ Vec3d targetLocation
+			//#else
+			LivingEntity target
+			//#endif
+	)
 	{
 		((LifetimeTrackerTarget) itemEntity).recordSpawning(new MobThrowSpawningReason(entity.getType()));
 		return itemEntity;

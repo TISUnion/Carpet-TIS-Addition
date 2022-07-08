@@ -24,7 +24,11 @@ public abstract class ShulkerBoxBlockMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/util/math/Box;)Z"
+					//#else
 					target = "Lnet/minecraft/world/World;doesNotCollide(Lnet/minecraft/util/math/Box;)Z"
+					//#endif
 			)
 	)
 	private boolean noCollideOrCreative(World world, Box box, /* parent method parameters -> */ BlockState state, World world2, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit)
@@ -33,6 +37,7 @@ public abstract class ShulkerBoxBlockMixin
 		{
 			return true;
 		}
+
 		// vanilla
 		return world.doesNotCollide(box);
 	}

@@ -87,25 +87,57 @@ public abstract class ServerWorldMixin
 
 	private int oldBlockActionQueueSize;
 
-	@Inject(method = "addBlockAction", at = @At("HEAD"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "addSyncedBlockEvent",
+			//#else
+			method = "addBlockAction",
+			//#endif
+			at = @At("HEAD")
+	)
 	private void startScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
 		this.oldBlockActionQueueSize = this.pendingBlockActions.size();
 	}
 
-	@Inject(method = "addBlockAction", at = @At("RETURN"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "addSyncedBlockEvent",
+			//#else
+			method = "addBlockAction",
+			//#endif
+			at = @At("RETURN")
+	)
 	private void endScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
 	}
 
-	@Inject(method = "method_14174", at = @At(value = "HEAD", shift = At.Shift.AFTER))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "processBlockEvent",
+			//#else
+			method = "method_14174",
+			//#endif
+			at = @At(
+					value = "HEAD",
+					shift = At.Shift.AFTER
+			)
+	)
 	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, null, EventType.ACTION_START);
 	}
 
-	@Inject(method = "method_14174", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "processBlockEvent",
+			//#else
+			method = "method_14174",
+			//#endif
+			at = @At("RETURN"),
+			locals = LocalCapture.CAPTURE_FAILHARD
+	)
 	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir, BlockState blockState)
 	{
 		ExecuteBlockEventEvent.FailInfo failInfo = new ExecuteBlockEventEvent.FailInfo(blockState.getBlock() != blockAction.getBlock() ? ExecuteBlockEventEvent.FailReason.BLOCK_CHANGED : ExecuteBlockEventEvent.FailReason.EVENT_FAIL, blockState.getBlock());

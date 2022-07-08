@@ -2,6 +2,9 @@ package carpettisaddition.mixins.carpet.tweaks.logger.projectile;
 
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.ProjectileLoggerTarget;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.TrajectoryLoggerUtil;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.thrown.ThrownEntity;
 import net.minecraft.util.hit.HitResult;
@@ -13,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // smaller priority to make this execute before carpet's logger creation
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
 @Mixin(value = ThrownEntity.class, priority = 500)
 public abstract class ThrownEntityMixin implements ProjectileLoggerTarget
 {

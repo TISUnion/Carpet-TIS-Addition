@@ -88,18 +88,33 @@ public abstract class MobEntityMixin extends LivingEntity
 	}
 
 	@Inject(
+			//#if MC >= 11600
+			//$$ method = "equipLootStack",
+			//#else
 			method = "loot",
+			//#endif
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/entity/mob/MobEntity;persistent:Z"
 			)
 	)
-	private void onEntityPersistent2LifeTimeTracker(ItemEntity item, CallbackInfo ci)
+	private void onEntityPersistent2LifeTimeTracker(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap)
 		{
 			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
 		}
+	}
+
+	@Inject(
+			method = "loot",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+			)
+	)
+	private void onItemPickUpLifeTimeTracker(ItemEntity item, CallbackInfo ci)
+	{
 		((LifetimeTrackerTarget)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
 	}
 }

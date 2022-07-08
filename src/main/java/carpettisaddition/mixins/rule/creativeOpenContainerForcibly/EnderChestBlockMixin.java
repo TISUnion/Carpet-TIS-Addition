@@ -24,7 +24,11 @@ public abstract class EnderChestBlockMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/block/BlockState;isSolidBlock(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z"
+					//#else
 					target = "Lnet/minecraft/block/BlockState;isSimpleFullBlock(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z"
+					//#endif
 			),
 			require = 0
 	)
@@ -34,7 +38,12 @@ public abstract class EnderChestBlockMixin
 		{
 			return false;
 		}
+
 		// vanilla
+		//#if MC >= 11600
+		//$$ return blockState.isSolidBlock(view, pos);
+		//#else
 		return blockState.isSimpleFullBlock(view, pos);
+		//#endif
 	}
 }

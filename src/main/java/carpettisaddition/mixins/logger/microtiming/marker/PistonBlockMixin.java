@@ -49,15 +49,13 @@ public abstract class PistonBlockMixin
 	private void moveMicroTimingMarkerAsWell(
 			World world, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir,
-			BlockPos blockPos, PistonHandler pistonHandler,
-			//#if MC >= 11500
-			Map map,
+			//#if MC >= 11600
+			//$$ BlockPos blockPos, PistonHandler pistonHandler, Map map, List list, List list2, List list3, BlockState[] blockStates, Direction direction, int j, int l, BlockPos blockPos4, BlockState blockState3
+			//#elseif MC >= 11500
+			BlockPos blockPos, PistonHandler pistonHandler, Map map, List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction, int l, BlockPos blockPos4, BlockState blockState3
+			//#else
+			//$$ BlockPos blockPos, PistonHandler pistonHandler, List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction, Set set, int l, BlockPos blockPos4, BlockState blockState2
 			//#endif
-			List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction,
-			//#if MC < 11500
-			//$$ Set set,
-			//#endif
-			int l, BlockPos blockPos4, BlockState blockState3
 	)
 	{
 		MicroTimingLoggerManager.moveMarker(world, blockPos4.offset(direction.getOpposite()), direction);

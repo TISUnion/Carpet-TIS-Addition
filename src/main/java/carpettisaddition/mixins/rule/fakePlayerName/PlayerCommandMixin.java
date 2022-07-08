@@ -60,7 +60,8 @@ public abstract class PlayerCommandMixin
 		return getDecoratedString(context, name);
 	}
 
-	//#if MC >= 11500
+	//#if MC >= 11600
+	//#elseif MC >= 11500
 	@ModifyConstant(
 			method = "spawn",
 			constant = @Constant(intValue = 40),

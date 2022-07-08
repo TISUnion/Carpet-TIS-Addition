@@ -83,7 +83,11 @@ public abstract class RaidMixin implements IRaid
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//#else
 					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//#endif
 					ordinal = 0
 			)
 	)
@@ -102,7 +106,11 @@ public abstract class RaidMixin implements IRaid
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//#else
 					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//#endif
 					ordinal = 0
 			)
 	)
@@ -122,7 +130,11 @@ public abstract class RaidMixin implements IRaid
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//#else
 					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//#endif
 					ordinal = 0
 			)
 	)
@@ -136,12 +148,20 @@ public abstract class RaidMixin implements IRaid
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
+							//#if MC >= 11600
+							//$$ target = "Lnet/minecraft/village/raid/Raid;playRaidHorn(Lnet/minecraft/util/math/BlockPos;)V"
+							//#else
 							target = "Lnet/minecraft/entity/raid/Raid;playRaidHorn(Lnet/minecraft/util/math/BlockPos;)V"
+							//#endif
 					)
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//#else
 					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//#endif
 					ordinal = 0
 			)
 	)
@@ -160,7 +180,11 @@ public abstract class RaidMixin implements IRaid
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//#else
 					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//#endif
 					ordinal = 0
 			)
 	)
@@ -183,10 +207,14 @@ public abstract class RaidMixin implements IRaid
 	 */
 
 	@Inject(
+			//#if MC >= 11600
+			//$$ method = "setCenter",
+			//#else
 			method = "method_20509",
+			//#endif
 			at = @At(value = "HEAD")
 	)
-	void onCenterMoved(BlockPos blockPos, CallbackInfo ci)
+	private void onCenterMoved(BlockPos blockPos, CallbackInfo ci)
 	{
 		RaidLogger.getInstance().onCenterMoved((Raid)(Object)this, blockPos);
 	}

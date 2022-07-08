@@ -12,7 +12,7 @@ public enum TickStage
 	WORLD_BORDER(true),
 	TILE_TICK(true),
 	RAID(true),
-	WANDERING_TRADER(true),
+	WANDERING_TRADER(true),  // It's not used in 1.16+ where it's included in SPAWNING_SPECIAL in 1.16
 	BLOCK_EVENT(true),
 	ENTITY(true),
 	CHUNK_TICK(true),

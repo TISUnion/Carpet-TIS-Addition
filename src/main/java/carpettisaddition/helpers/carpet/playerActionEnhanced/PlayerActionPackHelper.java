@@ -23,6 +23,11 @@ public class PlayerActionPackHelper
 	}
 	public static EntityPlayerActionPack.Action after(int delay)
 	{
-		return EntityPlayerActionPackActionAccessor.invokeConstructor(1, 1, delay);
+		return EntityPlayerActionPackActionAccessor.invokeConstructor(
+				1, 1, delay
+				//#if MC >= 11600
+				//$$ , false
+				//#endif
+		);
 	}
 }

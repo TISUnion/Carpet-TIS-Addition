@@ -10,6 +10,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(Messenger.class)
 public abstract class MessengerMixin
 {
+	// these tweaks are only necessary for old carpet versions
+	//#if MC < 11600
+
 	@Redirect(
 			//#if MC >= 11500
 			method = "parseStyle",
@@ -100,17 +103,5 @@ public abstract class MessengerMixin
 		return value ? style.setObfuscated(value) : style;
 	}
 
-//	@Redirect(
-//			method = "parseStyle",
-//			at = @At(
-//					value = "INVOKE",
-//					target = "Lnet/minecraft/text/Style;setColor(Lnet/minecraft/util/Formatting;)Lnet/minecraft/text/Style;",
-//					remap = true
-//			),
-//			remap = false
-//	)
-//	private static Style noSettingColor(Style style, Formatting color)
-//	{
-//		return style;
-//	}
+	//#endif
 }

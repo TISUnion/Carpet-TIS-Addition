@@ -36,18 +36,36 @@ public class MicroTimingUtil
 	private static final Translator TRANSLATOR = MicroTimingLoggerManager.TRANSLATOR.getDerivedTranslator("util");
 	private static final ImmutableMap<DyeColor, String> COLOR_STYLE = new ImmutableMap.Builder<DyeColor, String>().
 			put(DyeColor.WHITE, "w").
+
+			//#if MC >= 11600
+			//$$ put(DyeColor.ORANGE, "#F9801D").  // DyeColor.ORANGE.color
+			//#else
 			put(DyeColor.ORANGE, "d").
+			//#endif
+
 			put(DyeColor.MAGENTA, "m").
 			put(DyeColor.LIGHT_BLUE, "c").
 			put(DyeColor.YELLOW, "y").
 			put(DyeColor.LIME, "l").
+
+			//#if MC >= 11600
+			//$$ put(DyeColor.PINK, "#F38BAA").  // DyeColor.PINK.color
+			//#else
 			put(DyeColor.PINK, "r").
+			//#endif
+
 			put(DyeColor.GRAY, "f").
 			put(DyeColor.LIGHT_GRAY, "g").
 			put(DyeColor.CYAN, "q").
 			put(DyeColor.PURPLE, "p").
 			put(DyeColor.BLUE, "v").
+
+			//#if MC >= 11600
+			//$$ put(DyeColor.BROWN, "#835432").  // DyeColor.BROWN.color
+			//#else
 			put(DyeColor.BROWN, "n").
+			//#endif
+
 			put(DyeColor.GREEN, "e").
 			put(DyeColor.RED, "r").
 			put(DyeColor.BLACK, "k").

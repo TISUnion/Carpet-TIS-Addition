@@ -10,7 +10,9 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class SnowBlockMixin
 {
 	@ModifyConstant(
-			//#if MC >= 11500
+			//#if MC >= 11600
+			//$$ method = "randomTick",
+			//#elseif MC >= 11500
 			method = "scheduledTick",
 			//#else
 			//$$ method = "onScheduledTick",

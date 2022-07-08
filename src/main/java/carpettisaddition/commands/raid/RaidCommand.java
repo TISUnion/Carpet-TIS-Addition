@@ -110,7 +110,13 @@ public class RaidCommand extends AbstractCommand
 						else
 						{
 							BaseText x = Messenger.s(String.format("[%s] ", IdentifierUtil.id(raider.getType()).getPath().substring(0, 1).toUpperCase()));
-							x.setStyle(raiderName.getStyle().copy());
+							x.setStyle(
+									//#if MC >= 11600
+									//$$ raiderName.getStyle()
+									//#else
+									raiderName.getStyle().copy()
+									//#endif
+							);
 							Messenger.hover(x, raiderMessage);
 							Messenger.click(x, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(raider)));
 							line.add(x);

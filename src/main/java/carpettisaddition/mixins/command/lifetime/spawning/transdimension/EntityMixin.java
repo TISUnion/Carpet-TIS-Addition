@@ -19,7 +19,14 @@ public abstract class EntityMixin
 
 	@Shadow public abstract EntityType<?> getType();
 
-	@Inject(method = "changeDimension", at = @At("RETURN"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "moveToWorld",
+			//#else
+			method = "changeDimension",
+			//#endif
+			at = @At("RETURN")
+	)
 	private void onEntityTransDimensionSpawnedLifeTimeTracker(CallbackInfoReturnable<Entity> cir)
 	{
 		Entity entity = cir.getReturnValue();

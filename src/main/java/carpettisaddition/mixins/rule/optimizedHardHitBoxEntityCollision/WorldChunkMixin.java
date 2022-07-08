@@ -68,16 +68,32 @@ public abstract class WorldChunkMixin
 	}
 
 	/**
-	 * this method is used in {@link World#getEntities(Entity, Box, Predicate)}
-	 * which will be invoked in {@link EntityView#getEntityCollisions} (or {@link EntityView#method_20743} in mc 1.14)
+	 * this method is used in
+	 *   (>=1.16) {@link World#getOtherEntities(Entity, Box, Predicate)}
+	 *   (<=1.15) {@link World#getEntities(Entity, Box, Predicate)}
+	 * which will be invoked in
+	 *   (>=1.15) {@link EntityView#getEntityCollisions}
+	 *   (<=1.14) {@link EntityView#method_20743}
 	 */
 	@Redirect(
+			//#if MC >= 11600
+			//$$ method = "collectOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/List;Ljava/util/function/Predicate;)V",
+			//#else
 			method = "getEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/List;Ljava/util/function/Predicate;)V",
+			//#endif
 			at = @At(
 					value = "FIELD",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/world/chunk/WorldChunk;entitySections:[Lnet/minecraft/util/collection/TypeFilterableList;"
+					//#else
 					target = "Lnet/minecraft/world/chunk/WorldChunk;entitySections:[Lnet/minecraft/util/TypeFilterableList;"
+					//#endif
 			),
+			//#if MC >= 11600
+			//$$ require = 3
+			//#else
 			require = 4
+			//#endif
 	)
 	private TypeFilterableList<Entity>[] optimizedHardHitBoxEntityCollision_redirectEntitySections(WorldChunk chunk)
 	{

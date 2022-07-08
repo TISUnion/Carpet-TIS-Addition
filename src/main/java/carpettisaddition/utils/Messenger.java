@@ -32,6 +32,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+//#if MC >= 11600
+//$$ import net.minecraft.util.Util;
+//#endif
+
 //#if MC < 11500
 //$$ import carpettisaddition.mixins.carpet.access.MessengerInvoker;
 //#endif
@@ -128,7 +132,19 @@ public class Messenger
 		{
 			dummy.getTranslations().clear();
 			dummy.invokeSetTranslation(formatter);
-			return Messenger.c(dummy.getTranslations().toArray(new Object[0]));
+			return Messenger.c(
+					//#if MC >= 11600
+					//$$ dummy.getTranslations().stream().map(stringVisitable -> {
+					//$$ 	if (stringVisitable instanceof BaseText)
+					//$$ 	{
+					//$$ 		return (BaseText)stringVisitable;
+					//$$ 	}
+					//$$ 	return Messenger.s(stringVisitable.getString());
+					//$$ }).toArray()
+					//#else
+					dummy.getTranslations().toArray(new Object[0])
+					//#endif
+			);
 		}
 		catch (TranslationException e)
 		{
@@ -199,7 +215,13 @@ public class Messenger
 
 	public static BaseText attribute(EntityAttribute attribute)
 	{
-		return tr("attribute.name." + attribute.getId());
+		return tr(
+				//#if MC >= 11600
+				//$$ attribute.getTranslationKey()
+				//#else
+				"attribute.name." + attribute.getId()
+				//#endif
+		);
 	}
 
 	private static final ImmutableMap<DimensionWrapper, BaseText> DIMENSION_NAME = ImmutableMap.of(
@@ -280,7 +302,11 @@ public class Messenger
 
 	public static BaseText hover(BaseText text, HoverEvent hoverEvent)
 	{
+		//#if MC >= 11600
+		//$$ style(text, text.getStyle().withHoverEvent(hoverEvent));
+		//#else
 		text.getStyle().setHoverEvent(hoverEvent);
+		//#endif
 		return text;
 	}
 
@@ -291,7 +317,11 @@ public class Messenger
 
 	public static BaseText click(BaseText text, ClickEvent clickEvent)
 	{
+		//#if MC >= 11600
+		//$$ style(text, text.getStyle().withClickEvent(clickEvent));
+		//#else
 		text.getStyle().setClickEvent(clickEvent);
+		//#endif
 		return text;
 	}
 
@@ -305,12 +335,23 @@ public class Messenger
 	{
 		Style textStyle = text.getStyle();
 		StyleAccessor parsedStyle = (StyleAccessor)parseCarpetStyle(carpetStyle);
+
+		//#if MC >= 11600
+		//$$ textStyle = textStyle.withColor(parsedStyle.getColorField());
+		//$$ textStyle = textStyle.withBold(parsedStyle.getBoldField());
+		//$$ textStyle = textStyle.withItalic(parsedStyle.getItalicField());
+		//$$ ((StyleAccessor)textStyle).setUnderlinedField(parsedStyle.getUnderlineField());
+		//$$ ((StyleAccessor)textStyle).setStrikethroughField(parsedStyle.getStrikethroughField());
+		//$$ ((StyleAccessor)textStyle).setObfuscatedField(parsedStyle.getObfuscatedField());
+		//#else
 		textStyle.setColor(parsedStyle.getColorField());
 		textStyle.setBold(parsedStyle.getBoldField());
 		textStyle.setItalic(parsedStyle.getItalicField());
 		textStyle.setUnderline(parsedStyle.getUnderlineField());
 		textStyle.setStrikethrough(parsedStyle.getStrikethroughField());
 		textStyle.setObfuscated(parsedStyle.getObfuscatedField());
+		//#endif
+
 		return style(text, textStyle);
 	}
 
@@ -322,7 +363,11 @@ public class Messenger
 
 	public static BaseText copy(BaseText text)
 	{
+		//#if MC >= 11600
+		//$$ return (BaseText)text.shallowCopy();
+		//#else
 		return (BaseText)text.deepCopy();
+		//#endif
 	}
 
 	/*
@@ -373,14 +418,24 @@ public class Messenger
 	public static void reminder(PlayerEntity player, BaseText text)
 	{
 		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
-		player.addChatMessage(text, true);
+		//#if MC >= 11600
+		//$$ player.sendMessage
+		//#else
+		player.addChatMessage
+		//#endif
+				(text, true);
 	}
 
 	public static void broadcast(BaseText text)
 	{
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
+			//#if MC >= 11600
+			//$$ CarpetTISAdditionServer.minecraft_server.sendSystemMessage(text, Util.NIL_UUID);
+			//#else
 			CarpetTISAdditionServer.minecraft_server.sendMessage(text);
+			//#endif
+
 			CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayerList().forEach(player -> tell(player, text));
 		}
 	}

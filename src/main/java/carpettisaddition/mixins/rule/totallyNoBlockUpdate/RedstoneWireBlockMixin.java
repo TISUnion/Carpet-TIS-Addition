@@ -11,7 +11,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class RedstoneWireBlockMixin
 {
 	// method to update wire connection
-	@Inject(method = "method_9517", at = @At("HEAD"), cancellable = true)
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "prepare",
+			//#else
+			method = "method_9517",
+			//#endif
+			at = @At("HEAD"),
+			cancellable = true
+	)
 	private void disableStateUpdateMaybe(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.totallyNoBlockUpdate)

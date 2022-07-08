@@ -32,9 +32,21 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 
 	private boolean scheduleSuccess;
 
-	public LithiumServerTickSchedulerMixin(ServerWorld world, Predicate<T> invalidObjPredicate, Function<T, Identifier> idToName, Function<Identifier, T> nameToId, Consumer<ScheduledTick<T>> scheduledTickConsumer)
+	public LithiumServerTickSchedulerMixin(
+			ServerWorld world, Predicate<T> invalidObjPredicate, Function<T, Identifier> idToName,
+			//#if MC < 11600
+			Function<Identifier, T> nameToId,
+			//#endif
+			Consumer<ScheduledTick<T>> scheduledTickConsumer
+	)
 	{
-		super(world, invalidObjPredicate, idToName, nameToId, scheduledTickConsumer);
+		super(
+				world, invalidObjPredicate, idToName,
+				//#if MC < 11600
+				nameToId,
+				//#endif
+				scheduledTickConsumer
+		);
 	}
 
 	@Inject(method = "schedule", at = @At("HEAD"))

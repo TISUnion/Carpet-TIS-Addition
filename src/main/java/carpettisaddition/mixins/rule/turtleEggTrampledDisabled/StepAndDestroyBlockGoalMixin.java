@@ -19,7 +19,11 @@ public abstract class StepAndDestroyBlockGoalMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
+							//#if MC >= 11600
+							//$$ target = "Lnet/minecraft/entity/ai/goal/StepAndDestroyBlockGoal;tickStepping(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;)V"
+							//#else
 							target = "Lnet/minecraft/entity/ai/goal/StepAndDestroyBlockGoal;tickStepping(Lnet/minecraft/world/IWorld;Lnet/minecraft/util/math/BlockPos;)V"
+							//#endif
 					)
 			),
 			at = @At(

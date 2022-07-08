@@ -33,7 +33,11 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 			//#endif
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/entity/player/PlayerEntity;openHandledScreen(Lnet/minecraft/screen/NamedScreenHandlerFactory;)Ljava/util/OptionalInt;"
+					//#else
 					target = "Lnet/minecraft/entity/player/PlayerEntity;openContainer(Lnet/minecraft/container/NameableContainerFactory;)Ljava/util/OptionalInt;"
+					//#endif
 			)
 	)
 	private NameableContainerFactory largeBarrel(NameableContainerFactory nameableContainerFactory)
@@ -43,7 +47,13 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 			if (nameableContainerFactory instanceof BarrelBlockEntity)
 			{
 				BarrelBlockEntity barrelBlockEntity = (BarrelBlockEntity) nameableContainerFactory;
-				return this.createContainerFactory(barrelBlockEntity.getCachedState(), barrelBlockEntity.getWorld(), barrelBlockEntity.getPos());
+				return this.
+						//#if MC >= 11600
+						//$$ createScreenHandlerFactory
+						//#else
+						createContainerFactory
+						//#endif
+								(barrelBlockEntity.getCachedState(), barrelBlockEntity.getWorld(), barrelBlockEntity.getPos());
 			}
 		}
 		// vanilla
@@ -51,13 +61,26 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	}
 
 	/**
-	 * Just like {@link net.minecraft.block.ChestBlock#createContainerFactory}
+	 * (<=1.15) Just like {@link net.minecraft.block.ChestBlock#createContainerFactory}
+	 * (>=1.16) Just like {@link net.minecraft.block.ChestBlock#createScreenHandlerFactory}
 	 */
 	@Nullable
 	@Override
-	public NameableContainerFactory createContainerFactory(BlockState state, World world, BlockPos pos)
+	public NameableContainerFactory
+	//#if MC >= 11600
+	//$$ createScreenHandlerFactory
+	//#else
+	createContainerFactory
+	//#endif
+	(BlockState state, World world, BlockPos pos)
 	{
-		NameableContainerFactory vanillaResult = super.createContainerFactory(state, world, pos);
+		NameableContainerFactory vanillaResult = super.
+				//#if MC >= 11600
+				//$$ createScreenHandlerFactory
+				//#else
+				createContainerFactory
+				//#endif
+						(state, world, pos);
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			return LargeBarrelHelper.getBlockEntitySource(state, world, pos).apply(LargeBarrelHelper.NAME_RETRIEVER).orElse(vanillaResult);

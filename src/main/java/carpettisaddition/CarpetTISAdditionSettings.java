@@ -234,8 +234,9 @@ public class CarpetTISAdditionSettings
 	public static boolean lifeTimeTrackerConsidersMobcap = true;
 
 	/**
-	 * Ported from fabric carpet 1.4.23
+	 * Ported from fabric carpet 1.4.23 to mc <1.16
 	 */
+	//#if MC < 11600
 	@Rule(
 			categories = {EXPERIMENTAL, OPTIMIZATION},  // no TIS since it's a fabric-carpet backport
 			strict = false,
@@ -257,6 +258,7 @@ public class CarpetTISAdditionSettings
 			return null;
 		}
 	}
+	//#endif
 
 	@Rule(
 			validators = ValidatePositive.class,
@@ -431,6 +433,10 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE, BUGFIX})
 	public static boolean structureBlockDoNotPreserveFluid = false;
 
+	/**
+	 * Ported from fabric carpet 1.4.25 to mc <1.16
+	 */
+	//#if MC < 11600
 	@Rule(
 			validators = ValidateStructureBlockLimit.class,
 			options = {"32", "64", "96", "127"},
@@ -450,10 +456,12 @@ public class CarpetTISAdditionSettings
 			return "You must choose a value from 1 to 127";
 		}
 	}
+	//#endif
 
 	/**
-	 * Ported from fabric carpet 1.4.25
+	 * Ported from fabric carpet 1.4.25 to mc <1.16
 	 */
+	//#if MC < 11600
 	@Rule(
 			options = {"96", "192", "2048"},
 			categories = {
@@ -466,6 +474,7 @@ public class CarpetTISAdditionSettings
 			validators = Validator.NONNEGATIVE_NUMBER.class
 	)
 	public static double structureBlockOutlineDistance = 96.0D;
+	//#endif
 
 	@Rule(
 			categories = {TIS, CREATIVE, EXPERIMENTAL},

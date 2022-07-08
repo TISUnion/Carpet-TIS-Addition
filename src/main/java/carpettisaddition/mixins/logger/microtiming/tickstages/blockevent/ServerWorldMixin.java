@@ -26,7 +26,14 @@ public abstract class ServerWorldMixin
 	private int blockEventCurrentDepthCounter;
 	private int blockEventCurrentDepthSize;
 
-	@Inject(method = "sendBlockActions", at = @At("HEAD"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "processSyncedBlockEvents",
+			//#else
+			method = "sendBlockActions",
+			//#endif
+			at = @At("HEAD")
+	)
 	private void enterBlockEventStage(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.BLOCK_EVENT);
@@ -36,20 +43,41 @@ public abstract class ServerWorldMixin
 		this.blockEventCurrentDepthSize = this.pendingBlockActions.size();
 	}
 
-	@Inject(method = "sendBlockActions", at = @At("TAIL"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "processSyncedBlockEvents",
+			//#else
+			method = "sendBlockActions",
+			//#endif
+			at = @At("TAIL")
+	)
 	private void exitBlockEventStage(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.UNKNOWN);
 	}
 
-	@Inject(method = "method_14174", at = @At("HEAD"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "processBlockEvent",
+			//#else
+			method = "method_14174",
+			//#endif
+			at = @At("HEAD")
+	)
 	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(this.blockEventDepth));
 		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, new BlockEventSubStage((ServerWorld)(Object)this, blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
 	}
 
-	@Inject(method = "method_14174", at = @At("RETURN"))
+	@Inject(
+			//#if MC >= 11600
+			//$$ method = "processBlockEvent",
+			//#else
+			method = "method_14174",
+			//#endif
+			at = @At("RETURN")
+	)
 	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);

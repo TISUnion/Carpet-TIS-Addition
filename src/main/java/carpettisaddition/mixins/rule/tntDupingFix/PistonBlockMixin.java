@@ -54,13 +54,12 @@ public abstract class PistonBlockMixin
 	private void setAllToBeMovedBlockToAirFirst(
 			World world, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir,
-			BlockPos blockPos, PistonHandler pistonHandler,
-			//#if MC >= 11500
-			Map<BlockPos, BlockState> map,
-			//#endif
-			List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState blockStates[], Direction direction
-			//#if MC < 11500
-			//$$ , Set<BlockPos> set
+			//#if MC >= 11600
+			//$$ BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState blockStates[], Direction direction, int j
+			//#elseif MC >= 11500
+			BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState blockStates[], Direction direction
+			//#else
+			//$$ BlockPos blockPos, PistonHandler pistonHandler, List<BlockPos> list, List<BlockState> list2, List list3, int j, BlockState blockStates[], Direction direction, Set set
 			//#endif
 	)
 	{
@@ -103,6 +102,7 @@ public abstract class PistonBlockMixin
 	 *   match list3[list3.size()-2] with blockStates[1]
 	 *   ...
 	 * The block pos matches wrongly with block state, so mojang uses the wrong block as the source block to emit block updates :thonk:
+	 * EDITED in 1.16.4: mojang has fixed it now
 	 *
 	 * Whatever, just make it behave like vanilla
 	 */
@@ -111,7 +111,11 @@ public abstract class PistonBlockMixin
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
+							//#if MC >= 11600
+							//$$ target = "Lnet/minecraft/block/PistonBlock;sticky:Z"
+							//#else
 							target = "Lnet/minecraft/block/PistonBlock;isSticky:Z"
+							//#endif
 					)
 			),
 			at = @At(
@@ -128,13 +132,12 @@ public abstract class PistonBlockMixin
 	private void makeSureStatesInBlockStatesIsCorrect(
 			World world, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir,
-			BlockPos blockPos, PistonHandler pistonHandler,
-			//#if MC >= 11500
-			Map<BlockPos, BlockState> map,
-			//#endif
-			List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState[] blockStates
-			//#if MC < 11500
-			//$$ , Direction direction, Set<BlockPos> set
+			//#if MC >= 11600
+			//$$ BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState[] blockStates, BlockState blockState6
+			//#elseif MC >= 11500
+			BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState[] blockStates
+			//#else
+			//$$ BlockPos blockPos, PistonHandler pistonHandler, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState[] blockStates, Direction direction, Set<BlockPos> set
 			//#endif
 	)
 	{
@@ -143,11 +146,21 @@ public abstract class PistonBlockMixin
 			// since blockState8 = world.getBlockState(blockPos4) always return AIR due to the changes above
 			// some states value in blockStates array need to be corrected
 			// list and list2 has the same size and indicating the same block
+
+			//#if MC >= 11600
+			//$$ int j2 = list3.size();
+			//#else
 			int j2 = j + list.size();
+			//#endif
+
 			for (int l2 = list.size() - 1; l2 >= 0; --l2)
 			{
+				//#if MC >= 11600
+				//$$ blockStates[j2++] = list2.get(l2);
+				//#else
 				--j2;
 				blockStates[j2] = list2.get(l2);
+				//#endif
 			}
 
 

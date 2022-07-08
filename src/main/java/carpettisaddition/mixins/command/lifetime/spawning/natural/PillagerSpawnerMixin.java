@@ -12,10 +12,18 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class PillagerSpawnerMixin
 {
 	@ModifyArg(
+			//#if MC >= 11600
+			//$$ method = "spawnPillager",
+			//#else
 			method = "spawnOneEntity",
+			//#endif
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
+					//#else
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//#endif
 			)
 	)
 	private Entity onPillagerSpawnLifeTimeTracker(Entity pillager)
