@@ -1,5 +1,9 @@
 package carpettisaddition.helpers.carpet.shape;
 
+//#if MC < 11500
+//$$ import carpettisaddition.utils.compat.carpet.scarpet.FormattedTextValue;
+//#endif
+
 import carpet.script.utils.ShapeDispatcher;
 import carpet.script.value.*;
 import carpettisaddition.mixins.carpet.shape.ShapeDispatcherLineAccessor;

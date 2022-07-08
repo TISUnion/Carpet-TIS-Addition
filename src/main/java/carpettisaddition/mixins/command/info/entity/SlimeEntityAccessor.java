@@ -8,5 +8,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface SlimeEntityAccessor
 {
 	@Invoker
+	//#if MC >= 11500
 	float invokeGetDamageAmount();
+	//#else
+	//$$ int invokeGetDamageAmount();
+	//#endif
 }

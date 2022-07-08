@@ -26,7 +26,12 @@ import java.util.Optional;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin implements DamageLoggerTarget
 {
-	@Shadow protected float lastDamageTaken;
+	@Shadow protected float
+			//#if MC >= 11500
+			lastDamageTaken;
+			//#else
+			//$$ field_6253;
+			//#endif
 
 	@Shadow public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
 
@@ -95,14 +100,25 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 			method = "damage",
 			at = @At(
 					value = "FIELD",
+					//#if MC >= 11500
 					target = "Lnet/minecraft/entity/LivingEntity;lastDamageTaken:F",
+					//#else
+					//$$ target = "Lnet/minecraft/entity/LivingEntity;field_6253:F",
+					//#endif
 					ordinal = 0
 			)
 	)
 	private void onRecentHintReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
+		final float last =
+				//#if MC >= 11500
+				this.lastDamageTaken;
+				//#else
+				//$$ this.field_6253;
+				//#endif
+
 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
-				Math.max(amount - this.lastDamageTaken, 0.0F), ModifyReason.RECENTLY_HIT
+				Math.max(amount - last, 0.0F), ModifyReason.RECENTLY_HIT
 		));
 	}
 

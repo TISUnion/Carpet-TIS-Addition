@@ -11,7 +11,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class StructureBlockBlockEntityMixin
 {
 	@ModifyArg(
+			//#if MC >= 11500
 			method = "place",
+			//#else
+			//$$ method = "loadStructure(Z)Z",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/structure/Structure;place(Lnet/minecraft/world/IWorld;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/structure/StructurePlacementData;)V"

@@ -1,12 +1,22 @@
 package carpettisaddition.logging.loggers.lifetime;
 
+//#if MC >= 11500
 import carpet.logging.HUDLogger;
+//#else
+//$$ import carpettisaddition.logging.compat.ExtensionHUDLogger;
+//#endif
+
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class LifeTimeStandardCarpetHUDLogger extends HUDLogger
+public class LifeTimeStandardCarpetHUDLogger extends
+		//#if MC >= 11500
+		HUDLogger
+		//#else
+		//$$ ExtensionHUDLogger
+		//#endif
 {
 	public LifeTimeStandardCarpetHUDLogger()
 	{

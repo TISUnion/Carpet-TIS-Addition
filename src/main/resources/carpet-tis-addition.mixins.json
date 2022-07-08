@@ -4,6 +4,9 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "carpettisaddition.utils.mixin.CarpetTISAdditionMixinPlugin",
   "mixins": [
+    "carpet.access.LoggerRegistryInvoker",
+    "carpet.access.LoggerRegistryMixin",
+    "carpet.access.MessengerInvoker",
     "carpet.bugfixes.fakePlayerNoKnockBack.PlayerEntityMixin",
     "carpet.events.onCarpetClientHello.ServerNetworkHandlerMixin",
     "carpet.events.onServerLoadedWorlds.MinecraftServerMixin",
@@ -59,6 +62,7 @@
     "command.lifetime.removal.ExperienceOrbEntityMixin",
     "command.lifetime.removal.FoxEntityMixin",
     "command.lifetime.removal.HopperBlockEntityMixin",
+    "command.lifetime.removal.HostileEntityMixin",
     "command.lifetime.removal.ItemEntityMixin",
     "command.lifetime.removal.MobEntityMixin",
     "command.lifetime.removal.WitherEntityMixin",

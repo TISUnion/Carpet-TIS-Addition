@@ -23,7 +23,13 @@ public interface IWorldMixin extends EntityView
 	 * @author Fallen_Breath
 	 */
 	@Overwrite
-	default Stream<VoxelShape> getEntityCollisions(Entity entity, Box box, Set<Entity> excluded)
+	default Stream<VoxelShape>
+	//#if MC >= 11500
+	getEntityCollisions
+	//#else
+	//$$ method_20743
+	//#endif
+	(Entity entity, Box box, Set<Entity> excluded)
 	{
 		try
 		{
@@ -36,7 +42,13 @@ public interface IWorldMixin extends EntityView
 			}
 
 			// vanill copy
-			return EntityView.super.getEntityCollisions(entity, box, excluded);
+			return EntityView.super.
+					//#if MC >= 11500
+							getEntityCollisions
+					//#else
+					//$$ method_20743
+					//#endif
+							(entity, box, excluded);
 		}
 		finally
 		{

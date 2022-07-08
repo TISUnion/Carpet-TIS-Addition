@@ -1,6 +1,11 @@
 package carpettisaddition.translations;
 
+//#if MC >= 11500
 import carpet.CarpetSettings;
+//#else
+//$$ import carpettisaddition.utils.compat.carpet.CarpetSettings;
+//#endif
+
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.translations.ServerPlayerEntityAccessor;

@@ -1,6 +1,11 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
+//#if MC >= 11500
 import carpet.script.utils.ShapeDispatcher;
+//#else
+//$$ import carpettisaddition.utils.compat.carpet.scarpet.ShapeDispatcher;
+//#endif
+
 import carpet.script.value.NumericValue;
 import carpet.script.value.Value;
 import carpettisaddition.helpers.carpet.shape.ShapeHolder;

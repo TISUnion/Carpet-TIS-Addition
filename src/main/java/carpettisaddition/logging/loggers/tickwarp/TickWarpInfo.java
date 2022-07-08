@@ -27,7 +27,11 @@ public class TickWarpInfo
 
 	public ServerPlayerEntity getTimeAdvancer()
 	{
+		//#if MC >= 11500
 		return TickSpeed.time_advancerer;
+		//#else
+		//$$ return TickSpeed.time_advancerer instanceof ServerPlayerEntity ? (ServerPlayerEntity)TickSpeed.time_advancerer : null;
+		//#endif
 	}
 
 	public long getCurrentTime()

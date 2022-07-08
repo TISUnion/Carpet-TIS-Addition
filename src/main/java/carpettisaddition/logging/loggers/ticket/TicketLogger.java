@@ -1,5 +1,9 @@
 package carpettisaddition.logging.loggers.ticket;
 
+//#if MC < 11500
+//$$ import carpettisaddition.logging.compat.ExtensionLogger;
+//#endif
+
 import carpet.logging.Logger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
@@ -53,7 +57,14 @@ public class TicketLogger extends AbstractLogger
 	@Override
 	public Logger createCarpetLogger()
 	{
-		return new Logger(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null){
+		return new
+				//#if MC < 11500
+				//$$ ExtensionLogger
+				//#else
+				Logger
+				//#endif
+				(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null){
+
 			@Override
 			public String[] getOptions()
 			{
@@ -73,11 +84,13 @@ public class TicketLogger extends AbstractLogger
 	{
 		this.log((option) ->
 		{
-			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicket.getType().toString()))
+			ChunkTicketType<?> chunkTicketType = chunkTicket.getType();
+			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicketType.toString()))
 			{
+				long expiryTicks = chunkTicketType.getExpiryTicks();
 				ChunkPos pos = new ChunkPos(position);
-				long expiryTicks = chunkTicket.getType().getExpiryTicks();
 				int level = chunkTicket.getLevel();
+
 				return new BaseText[]{Messenger.c(
 						Messenger.fancy(
 								Messenger.s(String.format("[%s] ", world.getTime()), "g"),
@@ -86,7 +99,7 @@ public class TicketLogger extends AbstractLogger
 						),
 						tr("message",
 								Messenger.fancy(
-										Messenger.s(chunkTicket.getType().toString(), "d"),
+										Messenger.s(chunkTicketType.toString(), "d"),
 										tr(
 												"ticket_detail",
 												chunkTicket.getLevel(), expiryTicks > 0 ? Messenger.s(expiryTicks + " gt") : tr("permanent"),

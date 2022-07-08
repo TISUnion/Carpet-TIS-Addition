@@ -5,11 +5,13 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 
+//#if MC < 11500
+//$$ import carpet.utils.Messenger;
+//$$ import net.minecraft.server.command.ServerCommandSource;
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//#endif
 
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
@@ -58,6 +60,7 @@ public abstract class PlayerCommandMixin
 		return getDecoratedString(context, name);
 	}
 
+	//#if MC >= 11500
 	@ModifyConstant(
 			method = "spawn",
 			constant = @Constant(intValue = 40),
@@ -68,4 +71,21 @@ public abstract class PlayerCommandMixin
 	{
 		return 16;
 	}
+	//#else
+	//$$ @Inject(
+	//$$		method = "spawn",
+	//$$ 		at = @At(value = "HEAD"),
+	//$$ 		remap = false,
+	//$$ 		cancellable = true
+	//$$ )
+	//$$ private static void checkNameLengthLimit(CommandContext<ServerCommandSource> context, CallbackInfoReturnable<Integer> cir)
+	//$$ {
+	//$$ 	String playerName = getDecoratedString(context, "player");
+	//$$ 	if (playerName.length() > 16)
+	//$$ 	{
+	//$$ 		Messenger.m(context.getSource(), "rb Player name: " + playerName + " is too long");
+	//$$ 		cir.setReturnValue(1);
+	//$$ 	}
+	//$$ }
+	//#endif
 }

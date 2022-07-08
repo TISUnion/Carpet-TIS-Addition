@@ -23,6 +23,7 @@ public abstract class MobEntityMixin extends LivingEntity
 		super(type, world);
 	}
 
+	//#if MC >= 11500
 	@Inject(
 			method = "checkDespawn",
 			at = @At(
@@ -35,6 +36,7 @@ public abstract class MobEntityMixin extends LivingEntity
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
 	}
+	//#endif
 
 	@Inject(
 			method = "checkDespawn",

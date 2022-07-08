@@ -10,9 +10,12 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(Messenger.class)
 public abstract class MessengerMixin
 {
-
 	@Redirect(
+			//#if MC >= 11500
 			method = "parseStyle",
+			//#else
+			//$$ method = "_applyStyleToTextComponent",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/text/Style;setItalic(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",
@@ -26,7 +29,11 @@ public abstract class MessengerMixin
 	}
 
 	@Redirect(
+			//#if MC >= 11500
 			method = "parseStyle",
+			//#else
+			//$$ method = "_applyStyleToTextComponent",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/text/Style;setStrikethrough(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",
@@ -40,7 +47,11 @@ public abstract class MessengerMixin
 	}
 
 	@Redirect(
+			//#if MC >= 11500
 			method = "parseStyle",
+			//#else
+			//$$ method = "_applyStyleToTextComponent",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/text/Style;setUnderline(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",
@@ -54,7 +65,11 @@ public abstract class MessengerMixin
 	}
 
 	@Redirect(
+			//#if MC >= 11500
 			method = "parseStyle",
+			//#else
+			//$$ method = "_applyStyleToTextComponent",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/text/Style;setBold(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",
@@ -68,7 +83,11 @@ public abstract class MessengerMixin
 	}
 
 	@Redirect(
+			//#if MC >= 11500
 			method = "parseStyle",
+			//#else
+			//$$ method = "_applyStyleToTextComponent",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/text/Style;setObfuscated(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",

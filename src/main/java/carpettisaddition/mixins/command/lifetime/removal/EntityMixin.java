@@ -39,7 +39,11 @@ public abstract class EntityMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
+							//#if MC >= 11500
 							target = "Lnet/minecraft/server/world/ServerWorld;onDimensionChanged(Lnet/minecraft/entity/Entity;)V"
+							//#else
+							//$$ target = "Lnet/minecraft/server/world/ServerWorld;method_18769(Lnet/minecraft/entity/Entity;)V"
+							//#endif
 					)
 			),
 			at = @At(

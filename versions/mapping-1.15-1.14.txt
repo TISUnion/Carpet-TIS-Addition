@@ -1,0 +1,12 @@
+carpet.logging.HUDController carpet.utils.HUDController
+carpet.logging.logHelpers.ExplosionLogHelper carpettisaddition.utils.compat.carpet.ExplosionLogHelper
+carpet.network.ServerNetworkHandler carpettisaddition.utils.compat.carpet.ServerNetworkHandler
+carpet.script.utils.ShapeDispatcher carpettisaddition.utils.compat.carpet.scarpet.ShapeDispatcher
+carpet.script.utils.ShapesRenderer carpettisaddition.utils.compat.carpet.scarpet.ShapesRenderer
+carpet.utils.Translations carpettisaddition.utils.compat.carpet.Translations
+
+net.minecraft.block.DoubleBlockProperties carpettisaddition.helpers.rule.largeBarrel.DoubleBlockProperties
+
+net.minecraft.entity.Entity getFireTicks() method_20802()
+net.minecraft.server.world.ChunkTicketType getExpiryTicks() method_20629()
+net.minecraft.world.CollisionView getBlockCollisions() method_20812()

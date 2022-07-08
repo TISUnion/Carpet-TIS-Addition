@@ -18,7 +18,11 @@ public abstract class SpawnHelperMixin
 			method = "spawnEntitiesInChunk",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11500
 					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//#else
+					//$$ target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//#endif
 			),
 			index = 0,
 			allow = 1

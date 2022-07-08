@@ -20,7 +20,11 @@ public abstract class LivingEntityMixin extends Entity
 
 	// wither rose thing
 	@ModifyArg(
+			//#if MC >= 11500
 			method = "onKilledBy",
+			//#else
+			//$$ method = "onDeath",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
@@ -33,7 +37,11 @@ public abstract class LivingEntityMixin extends Entity
 	}
 
 	@ModifyArg(
+			//#if MC >= 11500
 			method = "dropXp",
+			//#else
+			//$$ method = "updatePostDeath",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"

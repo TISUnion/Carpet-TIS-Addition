@@ -18,6 +18,11 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(BlockEntityType.class)
 public abstract class BlockEntityTypeMixin
 {
+	// for mc < 1.14
+	// the related target codes are ported so we just need to apply modification there
+	// see carpettisaddition.helpers.rule.largeBarrel.DoubleBlockProperties.getBlockEntity
+
+	//#if MC >= 11500
 	@ModifyVariable(
 			method = "get",
 			at = @At(
@@ -37,4 +42,5 @@ public abstract class BlockEntityTypeMixin
 		}
 		return blockEntity;
 	}
+	//#endif
 }

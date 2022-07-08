@@ -1,6 +1,11 @@
 package carpettisaddition.logging.loggers.microtiming.utils;
 
+//#if MC >= 11500
 import carpet.logging.Logger;
+//#else
+//$$ import carpettisaddition.logging.compat.ExtensionLogger;
+//#endif
+
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
@@ -13,7 +18,12 @@ import net.minecraft.text.ClickEvent;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-public class MicroTimingStandardCarpetLogger extends Logger
+public class MicroTimingStandardCarpetLogger extends
+		//#if MC >= 11500
+		Logger
+		//#else
+		//$$ ExtensionLogger
+		//#endif
 {
 	private static final MicroTimingStandardCarpetLogger INSTANCE = createInstance();
 

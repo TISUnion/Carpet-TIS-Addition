@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WitherEntity.class)
 public abstract class WitherEntityMixin
 {
+	//#if MC >= 11500
 	@Inject(
 			method = "checkDespawn",
 			at = @At(
@@ -22,4 +23,5 @@ public abstract class WitherEntityMixin
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
 	}
+	//#endif
 }

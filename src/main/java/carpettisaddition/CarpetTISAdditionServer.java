@@ -59,6 +59,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
 
         // rule description & extras depend on translation
         CarpetRuleRegistrar.register(CarpetServer.settingsManager, CarpetTISAdditionSettings.class);
+
+        // Let's do some logging things
+        //#if MC < 11500
+        //$$ TISAdditionLoggerRegistry.registerLoggers();
+        //#endif
     }
 
     @Override
@@ -111,6 +116,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
         SupplierCounterCommand.getInstance().registerCommand(dispatcher);
     }
 
+    //#if MC >= 11500
     @Override
     public void registerLoggers()
     {
@@ -130,4 +136,5 @@ public class CarpetTISAdditionServer implements CarpetExtension
         });
         return trimmedTranslation;
     }
+    //#endif
 }

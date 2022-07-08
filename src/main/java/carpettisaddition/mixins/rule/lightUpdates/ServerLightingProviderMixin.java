@@ -20,11 +20,15 @@ public abstract class ServerLightingProviderMixin
 	private final ThreadLocal<Boolean> enqueueImportant = ThreadLocal.withInitial(() -> false);
 
 	@Inject(
+			//#if MC >= 11500
 			method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$Stage;Ljava/lang/Runnable;)V",
+			//#else
+			//$$ method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$class_3901;Ljava/lang/Runnable;)V",
+			//#endif
 			at = @At(value = "HEAD"),
 			cancellable = true
 	)
-	void onEnqueueingLightUpdateTask(CallbackInfo ci)
+	private void onEnqueueingLightUpdateTask(CallbackInfo ci)
 	{
 		if (this.enqueueImportant.get())
 		{

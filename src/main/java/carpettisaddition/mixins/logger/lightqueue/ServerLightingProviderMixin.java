@@ -17,7 +17,11 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 	private final AtomicLong queueSize = new AtomicLong();
 
 	@Inject(
+			//#if MC >= 11500
 			method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$Stage;Ljava/lang/Runnable;)V",
+			//#else
+			//$$ method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$class_3901;Ljava/lang/Runnable;)V",
+			//#endif
 			at = @At(value = "TAIL")
 	)
 	void onEnqueuedLightUpdateTask(CallbackInfo ci)

@@ -1,8 +1,15 @@
 package carpettisaddition.logging;
 
+//#if MC >= 11500
+import carpet.logging.LoggerRegistry;
+//#else
+//$$ import carpettisaddition.logging.compat.ExtensionHUDLogger;
+//$$ import carpettisaddition.logging.compat.ExtensionLogger;
+//$$ import carpettisaddition.logging.compat.LoggerRegistry;
+//#endif
+
 import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
-import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
@@ -84,11 +91,23 @@ public class TISAdditionLoggerRegistry
 
     public static Logger standardLogger(String logName, String def, String[] options)
 	{
-        return new Logger(getLoggerField(logName), logName, def, options);
+        return new
+                //#if MC >= 11500
+                Logger
+                //#else
+                //$$ ExtensionLogger
+                //#endif
+                (getLoggerField(logName), logName, def, options);
     }
 
     public static HUDLogger standardHUDLogger(String logName, String def, String [] options)
     {
-        return new HUDLogger(getLoggerField(logName), logName, def, options);
+        return new
+                //#if MC >= 11500
+                HUDLogger
+                //#else
+                //$$ ExtensionHUDLogger
+                //#endif
+                (getLoggerField(logName), logName, def, options);
     }
 }

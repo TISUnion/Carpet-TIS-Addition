@@ -17,7 +17,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class EnderChestBlockMixin
 {
 	@Redirect(
+			//#if MC >= 11500
 			method = "onUse",
+			//#else
+			//$$ method = "activate",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/block/BlockState;isSimpleFullBlock(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z"

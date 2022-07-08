@@ -403,7 +403,11 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			options = {"0", "0.2", "1"},
+			//#if MC >= 11500
 			validators = Validator.PROBABILITY.class,
+			//#else
+			//$$ validators = ValidatePossibility.class,
+			//#endif
 			strict = false,
 			categories = {TIS, FEATURE}
 	)
@@ -452,7 +456,12 @@ public class CarpetTISAdditionSettings
 	 */
 	@Rule(
 			options = {"96", "192", "2048"},
-			categories = {CREATIVE, CLIENT},
+			categories = {
+					CREATIVE,
+					//#if MC >= 11500
+					CLIENT,
+					//#endif
+			},
 			strict = false,
 			validators = Validator.NONNEGATIVE_NUMBER.class
 	)
@@ -584,19 +593,22 @@ public class CarpetTISAdditionSettings
 	 *   General validators down below
 	 */
 
-// just use Validator.PROBABILITY
-//	private static class ValidatePossibility extends Validator<Double>
-//	{
-//		@Override
-//		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
-//		{
-//			return (newValue >= 0.0D && newValue <= 1.0D) ? newValue : null;
-//		}
-//		public String description()
-//		{
-//			return "You must choose a value from 0 to 1";
-//		}
-//	}
+	// just use Validator.PROBABILITY in 1.15+
+	// it doesn't exist in fabric-carpet 1.14.4 though
+	//#if MC < 11500
+	//$$ private static class ValidatePossibility extends Validator<Double>
+	//$$ {
+	//$$ 	@Override
+	//$$ 	public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
+	//$$ 	{
+	//$$ 		return (newValue >= 0.0D && newValue <= 1.0D) ? newValue : null;
+	//$$ 	}
+	//$$ 	public String description()
+	//$$ 	{
+	//$$ 		return "You must choose a value from 0 to 1";
+	//$$ 	}
+	//$$ }
+	//#endif
 
 	private static class ValidatePositive extends Validator<Number>
 	{

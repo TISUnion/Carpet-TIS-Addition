@@ -12,7 +12,11 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class NetherPortalBlockMixin
 {
 	@ModifyVariable(
+			//#if MC >= 11500
 			method = "scheduledTick",
+			//#else
+			//$$ method = "onScheduledTick",
+			//#endif
 			at = @At(
 					value = "STORE",
 					target = "Lnet/minecraft/entity/EntityType;spawn(Lnet/minecraft/world/World;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/text/Text;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnType;ZZ)Lnet/minecraft/entity/Entity;"

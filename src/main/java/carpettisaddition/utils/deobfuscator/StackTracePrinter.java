@@ -85,6 +85,17 @@ public class StackTracePrinter
 	public BaseText toSymbolText()
 	{
 		BaseText baseText = this.toBaseText();
-		return Messenger.fancy("f", Messenger.s("$"), baseText, new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, baseText.asString()));
+		return Messenger.fancy(
+				"f",
+				Messenger.s("$"),
+				baseText,
+
+				// no COPY_TO_CLIPBOARD in 1.14
+				//#if MC >= 11500
+				new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, baseText.asString())
+				//#else
+				//$$ null
+				//#endif
+		);
 	}
 }

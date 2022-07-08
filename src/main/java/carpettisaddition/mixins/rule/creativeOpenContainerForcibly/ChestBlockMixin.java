@@ -20,7 +20,11 @@ public abstract class ChestBlockMixin
 	private static final ThreadLocal<Boolean> ignoreChestBlockedCheck = ThreadLocal.withInitial(() -> false);
 
 	@Inject(
+			//#if MC >= 11500
 			method = "onUse",
+			//#else
+			//$$ method = "activate",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/block/ChestBlock;createContainerFactory(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/container/NameableContainerFactory;"
@@ -32,7 +36,11 @@ public abstract class ChestBlockMixin
 	}
 
 	@Inject(
+			//#if MC >= 11500
 			method = "onUse",
+			//#else
+			//$$ method = "activate",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/block/ChestBlock;createContainerFactory(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/container/NameableContainerFactory;",

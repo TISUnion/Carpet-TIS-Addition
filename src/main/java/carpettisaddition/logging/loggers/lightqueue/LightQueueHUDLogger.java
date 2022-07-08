@@ -51,7 +51,13 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 	public void tick()
 	{
 		this.nameToWorldMap.values().forEach(world -> {
-			LightingProvider lightingProvider = world.getLightingProvider();
+			LightingProvider lightingProvider =
+					//#if MC >= 11500
+					world.getLightingProvider();
+					//#else
+					//$$ world.getChunkManager().getLightingProvider();
+					//#endif
+
 			if (lightingProvider instanceof IServerLightingProvider)
 			{
 				IServerLightingProvider iProvider = (IServerLightingProvider)lightingProvider;

@@ -49,8 +49,13 @@ public abstract class ExplosionMixin
 	@Inject(method = "collectBlocksAndDamageEntities", at = @At("HEAD"), cancellable = true)
 	private void onExplosionAButWithHighPriority(CallbackInfo ci)
 	{
-		if (CarpetTISAdditionSettings.optimizedTNTHighPriority && EXPLOSION_LOGGER_FIELD != null)
+		if (CarpetTISAdditionSettings.optimizedTNTHighPriority)
 		{
+			//#if MC >= 11500
+			if (EXPLOSION_LOGGER_FIELD == null)
+			{
+				return;
+			}
 			try
 			{
 				ExplosionLogHelper eLogger = (ExplosionLogHelper)EXPLOSION_LOGGER_FIELD.get(this);
@@ -66,6 +71,15 @@ public abstract class ExplosionMixin
 			catch (IllegalAccessException ignored)
 			{
 			}
+			//#else
+			//$$ // copy of carpet's onExplosionA method in ExplosionMixin begins
+			//$$ if (CarpetSettings.optimizedTNT)
+			//$$ {
+			//$$ 	OptimizedExplosion.doExplosionA((Explosion) (Object) this);
+			//$$ 	ci.cancel();
+			//$$ }
+			//$$ // copy ends
+			//#endif
 		}
 	}
 }

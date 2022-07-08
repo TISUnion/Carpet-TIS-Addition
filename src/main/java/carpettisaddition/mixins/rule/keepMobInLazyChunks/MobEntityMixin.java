@@ -13,26 +13,28 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MobEntity.class)
-public abstract class MobEntityMixin extends LivingEntity {
-    @Shadow
-    public abstract LookControl getLookControl();
+public abstract class MobEntityMixin extends LivingEntity
+{
+	protected MobEntityMixin(EntityType<? extends LivingEntity> entityType_1, World world_1)
+	{
+		super(entityType_1, world_1);
+	}
 
-    @Shadow
-    public void checkDespawn() {}
-
-    protected MobEntityMixin(EntityType<? extends LivingEntity> entityType_1, World world_1)
-    {
-        super(entityType_1, world_1);
-    }
-
-    @Inject(method = "tickNewAi", at = @At(
-        value = "INVOKE_STRING",
-        target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V",
-        args = "ldc=sensing"
-    ))
-    private void mixin(CallbackInfo ci){
-        if(CarpetTISAdditionSettings.keepMobInLazyChunks){
-            this.checkDespawn();
-        }
-    }
+    //#if MC >= 11500
+	@Inject(
+            method = "tickNewAi",
+            at = @At(
+                    value = "INVOKE_STRING",
+                    target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V",
+                    args = "ldc=sensing"
+            )
+    )
+	private void keepMobInLazyChunks_reintroduce114CheckDespawnLogic(CallbackInfo ci)
+	{
+		if (CarpetTISAdditionSettings.keepMobInLazyChunks)
+		{
+			this.checkDespawn();
+		}
+	}
+    //#endif
 }

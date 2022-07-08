@@ -17,7 +17,12 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+//#if MC < 11500
+//$$ import com.google.common.collect.Maps;
+//$$ import java.util.Set;
+//#endif
 
 @Mixin(PistonBlock.class)
 public abstract class PistonBlockMixin
@@ -46,7 +51,18 @@ public abstract class PistonBlockMixin
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void setAllToBeMovedBlockToAirFirst(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState blockStates[], Direction direction)
+	private void setAllToBeMovedBlockToAirFirst(
+			World world, BlockPos pos, Direction dir, boolean retract,
+			CallbackInfoReturnable<Boolean> cir,
+			BlockPos blockPos, PistonHandler pistonHandler,
+			//#if MC >= 11500
+			Map<BlockPos, BlockState> map,
+			//#endif
+			List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState blockStates[], Direction direction
+			//#if MC < 11500
+			//$$ , Set<BlockPos> set
+			//#endif
+	)
 	{
 		// just in case the rule gets changed halfway
 		this.isDupeFixed.set(CarpetTISAdditionSettings.tntDupingFix);
@@ -68,8 +84,11 @@ public abstract class PistonBlockMixin
 
 				// Update containers which contain the old state
 				list2.set(l, toBeMovedBlockState);
+
 				// map stores block pos and block state of moved blocks which changed into air due to block being moved
+				//#if MC >= 11500
 				map.put(toBeMovedBlockPos, toBeMovedBlockState);
+				//#endif
 			}
 		}
 	}
@@ -97,12 +116,27 @@ public abstract class PistonBlockMixin
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11500
 					target = "Ljava/util/Map;keySet()Ljava/util/Set;",
+					//#else
+					//$$ target = "Ljava/util/Set;iterator()Ljava/util/Iterator;",
+					//#endif
 					ordinal = 0
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void makeSureStatesInBlockStatesIsCorrect(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir, BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState[] blockStates)
+	private void makeSureStatesInBlockStatesIsCorrect(
+			World world, BlockPos pos, Direction dir, boolean retract,
+			CallbackInfoReturnable<Boolean> cir,
+			BlockPos blockPos, PistonHandler pistonHandler,
+			//#if MC >= 11500
+			Map<BlockPos, BlockState> map,
+			//#endif
+			List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState[] blockStates
+			//#if MC < 11500
+			//$$ , Direction direction, Set<BlockPos> set
+			//#endif
+	)
 	{
 		if (this.isDupeFixed.get())
 		{
@@ -115,6 +149,22 @@ public abstract class PistonBlockMixin
 				--j2;
 				blockStates[j2] = list2.get(l2);
 			}
+
+
+			//#if MC < 11500
+			//$$ // Emit missing state updates at set positions manually
+			//$$ Map<BlockPos, BlockState> stateMap = Maps.newHashMap();
+			//$$ for (int i = 0; i < list.size(); i++)
+			//$$ {
+			//$$ 	stateMap.put(list.get(i), list2.get(i));
+			//$$ }
+			//$$
+			//$$ for (BlockPos blockPos1 : set)
+			//$$ {
+			//$$ 	BlockState blockState1 = stateMap.get(blockPos1);
+			//$$ 	blockState1.updateNeighborStates(world, blockPos1, 68 & -2);
+			//$$ }
+			//#endif
 		}
 	}
 }

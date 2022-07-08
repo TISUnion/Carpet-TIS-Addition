@@ -3,7 +3,6 @@ package carpettisaddition.helpers.rule.largeBarrel;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.container.Container;
@@ -20,6 +19,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+
+//#if MC >= 11500
+import net.minecraft.block.DoubleBlockProperties;
+//#endif
 
 public class LargeBarrelHelper
 {

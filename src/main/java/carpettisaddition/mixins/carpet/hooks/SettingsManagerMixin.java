@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static carpettisaddition.CarpetTISAdditionServer.fancyName;
 
-
 @Mixin(SettingsManager.class)
 public class SettingsManagerMixin
 {
@@ -23,7 +22,13 @@ public class SettingsManagerMixin
             slice = @Slice(
                     from = @At(
                             value = "CONSTANT",
-                            args = "stringValue=ui.version",  // after printed fabric-carpet version
+                            // after printed fabric-carpet version
+
+                            //#if MC >= 11500
+                            args = "stringValue=ui.version",
+                            //#else
+                            //$$ args = "stringValue= version: ",
+                            //#endif
                             ordinal = 0
                     )
             ),

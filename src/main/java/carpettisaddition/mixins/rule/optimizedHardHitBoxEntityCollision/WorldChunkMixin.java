@@ -29,10 +29,14 @@ public abstract class WorldChunkMixin
 
 	@SuppressWarnings("unchecked")
 	@Inject(
+			//#if MC >= 11500
 			method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/world/biome/source/BiomeArray;Lnet/minecraft/world/chunk/UpgradeData;Lnet/minecraft/world/TickScheduler;Lnet/minecraft/world/TickScheduler;J[Lnet/minecraft/world/chunk/ChunkSection;Ljava/util/function/Consumer;)V",
+			//#else
+			//$$ method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/util/math/ChunkPos;[Lnet/minecraft/world/biome/Biome;Lnet/minecraft/world/chunk/UpgradeData;Lnet/minecraft/world/TickScheduler;Lnet/minecraft/world/TickScheduler;J[Lnet/minecraft/world/chunk/ChunkSection;Ljava/util/function/Consumer;)V",
+			//#endif
 			at = @At("TAIL")
 	)
-	private void onConstruct(CallbackInfo ci)
+	private void optimizedHardHitBoxEntityCollision_onConstruct(CallbackInfo ci)
 	{
 		this.hardHitBoxEntitySections = (TypeFilterableList<Entity>[])(new TypeFilterableList[this.entitySections.length]);
 		for(int i = 0; i < this.hardHitBoxEntitySections.length; ++i)
@@ -43,7 +47,7 @@ public abstract class WorldChunkMixin
 	}
 
 	@Inject(method = "addEntity", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void onAddEntity(Entity entity, CallbackInfo ci, int k)
+	private void optimizedHardHitBoxEntityCollision_onAddEntity(Entity entity, CallbackInfo ci, int k)
 	{
 		if (this.optimizedHHBECEnabled)
 		{
@@ -55,7 +59,7 @@ public abstract class WorldChunkMixin
 	}
 
 	@Inject(method = "remove(Lnet/minecraft/entity/Entity;I)V", at = @At("TAIL"))
-	private void onRemoveEntity(Entity entity, int i, CallbackInfo ci)
+	private void optimizedHardHitBoxEntityCollision_onRemoveEntity(Entity entity, int i, CallbackInfo ci)
 	{
 		if (this.optimizedHHBECEnabled)
 		{
@@ -65,7 +69,7 @@ public abstract class WorldChunkMixin
 
 	/**
 	 * this method is used in {@link World#getEntities(Entity, Box, Predicate)}
-	 * which will be invoked in {@link EntityView#getEntityCollisions}
+	 * which will be invoked in {@link EntityView#getEntityCollisions} (or {@link EntityView#method_20743} in mc 1.14)
 	 */
 	@Redirect(
 			method = "getEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/List;Ljava/util/function/Predicate;)V",
@@ -75,7 +79,7 @@ public abstract class WorldChunkMixin
 			),
 			require = 4
 	)
-	private TypeFilterableList<Entity>[] redirectEntitySections(WorldChunk chunk)
+	private TypeFilterableList<Entity>[] optimizedHardHitBoxEntityCollision_redirectEntitySections(WorldChunk chunk)
 	{
 		if (this.optimizedHHBECEnabled && OptimizedHardHitBoxEntityCollisionHelper.checkHardHitBoxEntityOnly.get())
 		{

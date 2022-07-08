@@ -17,7 +17,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class ShulkerBoxBlockMixin
 {
 	@Redirect(
+			//#if MC >= 11500
 			method = "onUse",
+			//#else
+			//$$ method = "activate",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;doesNotCollide(Lnet/minecraft/util/math/Box;)Z"

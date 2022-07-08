@@ -5,7 +5,6 @@ import net.minecraft.block.AbstractRedstoneGateBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.RepeaterBlock;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,19 +14,35 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
+//#if MC >= 11500
+import net.minecraft.server.world.ServerWorld;
+//#endif
+
 @Mixin(AbstractRedstoneGateBlock.class)
 public abstract class AbstractRedstoneGateBlockMixin
 {
 	@Shadow protected abstract int getUpdateDelayInternal(BlockState state);
 
 	@Redirect(
+			//#if MC >= 11500
 			method = "scheduledTick",
+			//#else
+			//$$ method = "onScheduledTick",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/block/AbstractRedstoneGateBlock;getUpdateDelayInternal(Lnet/minecraft/block/BlockState;)I"
 			)
 	)
-	private int modifyRepeaterDelay(AbstractRedstoneGateBlock abstractRedstoneGateBlock, BlockState state1, BlockState state2, ServerWorld world, BlockPos pos, Random random)
+	private int modifyRepeaterDelay(
+			AbstractRedstoneGateBlock abstractRedstoneGateBlock, BlockState state1, BlockState state2,
+			//#if MC >= 11500
+			ServerWorld world,
+			//#else
+			//$$ World world,
+			//#endif
+			BlockPos pos, Random random
+	)
 	{
 		return this.getModifiedDelay(abstractRedstoneGateBlock, world, pos, state1);
 	}

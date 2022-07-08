@@ -32,6 +32,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+//#if MC < 11500
+//$$ import carpettisaddition.mixins.carpet.access.MessengerInvoker;
+//#endif
+
 public class Messenger
 {
 	private static final Translator translator = new Translator("util");
@@ -390,7 +394,11 @@ public class Messenger
 
 	public static Style parseCarpetStyle(String style)
 	{
+		//#if MC >= 11500
 		return carpet.utils.Messenger.parseStyle(style);
+		//#else
+		//$$ return MessengerInvoker.call_applyStyleToTextComponent(Messenger.s(""), style).getStyle();
+		//#endif
 	}
 
 	// some language doesn't use space char to divide word

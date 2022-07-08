@@ -1,6 +1,11 @@
 package carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip;
 
+//#if MC >= 11500
 import carpet.CarpetSettings;
+//#else
+//$$ import carpettisaddition.utils.compat.carpet.CarpetSettings;
+//#endif
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 

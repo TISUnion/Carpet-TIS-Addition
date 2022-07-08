@@ -26,7 +26,11 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	}
 
 	@ModifyArg(
+			//#if MC >= 11500
 			method = "onUse",
+			//#else
+			//$$ method = "activate",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/player/PlayerEntity;openContainer(Lnet/minecraft/container/NameableContainerFactory;)Ljava/util/OptionalInt;"

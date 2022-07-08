@@ -23,7 +23,12 @@ import java.util.Random;
 @Mixin(CommandBlock.class)
 public abstract class CommandBlockMixin
 {
-	@Shadow public abstract void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
+	@Shadow public abstract void
+	//#if MC >= 11500
+	scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
+	//#else
+	//$$ onScheduledTick(BlockState state, World world, BlockPos pos, Random random);
+	//#endif
 
 	@Inject(
 			method = "neighborUpdate",
@@ -46,7 +51,14 @@ public abstract class CommandBlockMixin
 				{
 					ICommandBlockExecutor icbe = (ICommandBlockExecutor)commandBlockBlockEntity.getCommandExecutor();
 					icbe.setIgnoreWorldTimeCheck(true);
-					this.scheduledTick(state, serverWorld, pos, serverWorld.getRandom());
+
+					//#if MC >= 11500
+					this.scheduledTick
+					//#else
+					//$$ this.onScheduledTick
+					//#endif
+							(state, serverWorld, pos, serverWorld.getRandom());
+
 					icbe.setIgnoreWorldTimeCheck(false);
 					ci.cancel();
 				}

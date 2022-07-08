@@ -4,7 +4,6 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.TranslatableText;
 
 import java.util.List;
 
@@ -30,11 +29,17 @@ public class StatusEffectModifyReason extends ModifyReason
 		List<Object> list = Lists.newArrayList();
 		list.add(super.toText());
 		list.add("w  ");
-		list.add(this.statusEffect.getName());
+		list.add(
+				//#if MC >= 11500
+				this.statusEffect.getName()
+				//#else
+				//$$ Messenger.tr(this.statusEffect.getTranslationKey())
+				//#endif
+		);
 		if (this.amplifier != null)
 		{
 			list.add("w  ");
-			list.add(this.amplifier <= 9 ? new TranslatableText("enchantment.level." + (this.amplifier + 1)) : Messenger.s(String.valueOf(this.amplifier)));
+			list.add(this.amplifier <= 9 ? Messenger.tr("enchantment.level." + (this.amplifier + 1)) : Messenger.s(String.valueOf(this.amplifier)));
 		}
 		return Messenger.c(list.toArray(new Object[0]));
 	}

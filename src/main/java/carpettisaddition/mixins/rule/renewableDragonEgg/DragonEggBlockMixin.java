@@ -17,6 +17,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.List;
 import java.util.Random;
 
+//#if MC < 11500
+//$$ import net.minecraft.world.World;
+//#endif
 
 @Mixin(DragonEggBlock.class)
 public abstract class DragonEggBlockMixin extends Block
@@ -34,7 +37,11 @@ public abstract class DragonEggBlockMixin extends Block
 	@SuppressWarnings("deprecation")
 	@Intrinsic
 	@Override
+	//#if MC >= 11500
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
+	//#else
+	//$$ public void onRandomTick(BlockState state, World world, BlockPos pos, Random random)
+	//#endif
 	{
 		if (CarpetTISAdditionSettings.renewableDragonEgg && random.nextInt(64) == 0)
 		{

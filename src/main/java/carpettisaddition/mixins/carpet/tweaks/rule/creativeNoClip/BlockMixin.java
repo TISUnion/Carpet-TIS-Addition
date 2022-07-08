@@ -1,6 +1,11 @@
 package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip;
 
+//#if MC >= 11500
 import carpet.CarpetSettings;
+//#else
+//$$ import carpettisaddition.utils.compat.carpet.CarpetSettings;
+//#endif
+
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

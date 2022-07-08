@@ -42,7 +42,11 @@ public abstract class ServerWorldMixin
 			method = "tickBlock",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11500
 					target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V"
+					//#else
+					//$$ target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V"
+					//#endif
 			)
 	)
 	private void preExecuteBlockTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
