@@ -438,3 +438,402 @@ carpettisaddition:
 
   misc:
     player_mount_anything_permission_denied: Only OP players are allowed to mount anything
+
+  # ------------------------------------------------------
+  #   Translation below will be passed to fabric carpet
+  # ------------------------------------------------------
+
+  carpet_translations:
+    category:
+      TIS: TIS
+      CARPET_MOD: carpet_mod
+
+    rule:
+      antiSpamDisabled:
+        name: antiSpamDisabled
+        desc: 'Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown'
+      blockEventPacketRange:
+        name: blockEventPacketRange
+        desc: Set the range where player will receive a block event packet after a block event fires successfully
+        extra:
+          '0': For piston the packet is used to render the piston movement animation. Decrease it to reduce client's lag
+      blockPlacementIgnoreEntity:
+        name: blockPlacementIgnoreEntity
+        desc: Disable entity collision check before block placement, aka you can place blocks inside entities
+        extra:
+          '0': Works with creative mode players only
+      cauldronBlockItemInteractFix:
+        name: cauldronBlockItemInteractFix
+        desc: Make player be able to place block against cauldron block with any filled level
+        extra:
+          '0': Affected Minecraft <= 1.16.x. This annoying behavior is already been fixed in 1.17+
+      chunkUpdatePacketThreshold:
+        name: chunkUpdatePacketThreshold
+        desc: The threshold which the game will just send an chunk data packet if the amount of block changes is more than it
+        extra:
+          '0': Increasing this value might reduce network bandwidth usage, and boost client's fps if there are lots of tile entities in a chunk section with a lot of block changes
+          '1': Set it to really high to simulate 1.16+ behavior, which is no chunk packet but only multiple block change packet
+          '2': This rule is only available in <1.16
+      chunkTickSpeed:
+        name: chunkTickSpeed
+        desc: Modify how often the chunk tick occurs per chunk per game tick
+        extra:
+          '0': The default value is 1. Set it to 0 to disables chunk ticks
+          '1': 'Affected game phases: thunder, ice and snow, randomtick'
+          '2': With a value of n, in every chunk every game tick, climate things will tick n times, and randomtick will tick n * randomTickSpeed times per chunk section
+      clientSettingsLostOnRespawnFix:
+        name: clientSettingsLostOnRespawnFix
+        desc: Fixed stored client settings are not migrated from the old player entity during player respawn or entering end portal in the end
+        extra:
+          '0': So mods relies on client settings are always able to work correctly, e.g. serverside translation of this mod and worldedit mod
+      commandLifeTime:
+        name: commandLifeTime
+        desc: Enables /lifetime command to track entity lifetime and so on
+        extra:
+          '0': Useful for mob farm debugging etc.
+      commandManipulate:
+        name: commandManipulate
+        desc: Enables /manipulate command for world related manipulation command
+      commandRaid:
+        name: commandRaid
+        desc: Enables /raid command for raid listing and tracking
+      commandRefresh:
+        name: commandRefresh
+        desc: Enables /refresh command for synchronizing your client to the server
+      commandRemoveEntity:
+        name: commandRemoveEntity
+        desc: Enables /removeentity command for directly erase target entities from the world
+      creativeOpenContainerForcibly:
+        name: creativeOpenContainerForcibly
+        desc: Allow creative players to open a container even if the container is blocked. e.g. for shulker box
+      dispenserNoItemCost:
+        name: dispenserNoItemCost
+        desc: Dispensers and droppers execute without having the itemstack inside decreased
+        extra:
+          '0': Either dropping and using items do not cost, but dropper transferring item still costs
+      dispensersFireDragonBreath:
+        name: dispensersFireDragonBreath
+        desc: Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
+      enchantCommandNoRestriction:
+        name: enchantCommandNoRestriction
+        desc: Remove all enchantment restriction checks inside /enchant command
+      entityMomentumLoss:
+        name: entityMomentumLoss
+        desc: Set it to false to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk
+      entityPlacementIgnoreCollision:
+        name: entityPlacementIgnoreCollision
+        desc: Disable block and entity collision check during entity placement with items
+        extra:
+          '0': 'Affected items: armorstand, end crystal, all kinds of boat'
+          '1': Spawn egg items are not affected
+      entityTrackerDistance:
+        name: entityTrackerDistance
+        desc: The maximum horizontal chebyshev distance (in chunks) for the server to sync entities information to the client
+        extra:
+          '0': Basically this works as a "entity view distance", but will still be limited to the server view distance
+          '1': Set it to a value not less than the server view distance to make the server sync all entities within the view distance to the client
+          '2': Set it to a non-positive value to use vanilla logic
+          '3': Requires chunk reloading to set the new rule value to entities
+      entityTrackerInterval:
+        name: entityTrackerInterval
+        desc: The time interval (in gametick) for the server to sync entities information to the client
+        extra:
+          '0': With a small number e.g. 1, entity information will be synced to the client every 1 gametick, resulting in less-likely client-side entity desync
+          '1': Set it to a non-positive value to use vanilla logic
+          '2': Requires chunk reloading to set the new rule value to entities
+      explosionPacketRange:
+        name: explosionPacketRange
+        desc: Set the range where player will receive an explosion packet when an explosion happens
+      failSoftBlockStateParsing:
+        name: failSoftBlockStateParsing
+        desc: Ignore invalid property keys/values in block state arguments used in e.g. /setblock command
+        extra:
+          '0': In vanilla invalid property keys/values cause command failure when parsing, this rule suppresses that
+          '1': Useful during cross-version litematica schematic pasting etc.
+      fakePlayerNamePrefix:
+        name: fakePlayerNamePrefix
+        desc: Add a name prefix for fake players spawned with /player command
+        extra:
+          '0': 'Set it to #none to stop adding a prefix'
+          '1': Which can prevent summoning fake player with illegal names and make player list look nicer
+      fakePlayerNameSuffix:
+        name: fakePlayerNameSuffix
+        desc: Add a name suffix for fake players spawned with /player command
+        extra:
+          '0': 'Set it to #none to stop adding a suffix'
+      farmlandTrampledDisabled:
+        name: farmlandTrampledDisabled
+        desc: Disable farmland being able to be trampled into dirt by mobs
+      fluidDestructionDisabled:
+        name: fluidDestructionDisabled
+        desc: Disable block destruction by fluid flowing
+        extra:
+          '0': Fluid will just simple stopped at the state before destroying the block
+          '1': It's useful to prevent liquid from accidentally flooding your redstone wiring in creative
+      hopperCountersUnlimitedSpeed:
+        name: hopperCountersUnlimitedSpeed
+        desc: Make hopper pointing towards wool has infinity speed to suck in or transfer items with no cooldown
+        extra:
+          '0': Only works when hopperCounters option in Carpet Mod is on
+      hopperNoItemCost:
+        name: hopperNoItemCost
+        desc: Hopper with wool block on top outputs item infinitely without having its item decreased
+        extra:
+          '0': You can use /scounter command or subscribe to the scounter logger to track the amount of the output items
+          '1': This rule is also the switch of the /scounter command
+      HUDLoggerUpdateInterval:
+        name: HUDLoggerUpdateInterval
+        desc: Overwrite HUD loggers update interval (gametick)
+      instantCommandBlock:
+        name: instantCommandBlock
+        desc: Make command blocks on redstone ores execute command instantly instead of scheduling a 1gt delay TileTick event for execution
+        extra:
+          '0': Only affects normal command blocks
+      itemEntitySkipMovementDisabled:
+        name: itemEntitySkipMovementDisabled
+        desc: Removed the movement skipping mechanism when ticking of item entity
+        extra:
+          '0': Brings back <=1.13 item entity behavior, where item entities with low velocity on ground still tick movement every gt instead of every 4gt
+          '1': Useful when you require precise item entity movement timing
+          '2': Breaks related redstone devices, e.g. 2no2name's wireless redstone
+      keepMobInLazyChunks:
+        name: keepMobInLazyChunks
+        desc: The mobs in lazy chunks will not despawn
+        extra:
+          '0': This option only have effects between Minecraft 1.15 and 1.16
+      largeBarrel:
+        name: largeBarrel
+        desc: 'The best storage block ever: Large barrel'
+        extra:
+          '0': Two adjacent barrel blocks with their bottom side facing towards each other create a large barrel
+          '1': The behavior and logic of large barrel is just like large chest
+      lifeTimeTrackerConsidersMobcap:
+        name: lifeTimeTrackerConsidersMobcap
+        desc: Strategy for lifetime tracker to deal with mob that doesn't count towards mobcap
+        extra:
+          '0': "true: Don't track mobs that don't count towards mobcap, and treat mobs as removal as soon as they don't affect mobcap e.g. right when they pick up some items. Good for mob farm designing"
+          '1': 'false: Tracks everything it can track and mark mobs as removal when they actually get removed. Good for raid testing Good for raid testing or non-mobfarms'
+      lightEngineMaxBatchSize:
+        name: lightEngineMaxBatchSize
+        desc: Changes maximum light tasks batch size
+        extra:
+          '0': Allows for a higher light suppression tolerance
+          '1': Setting it to 5 - Default limit defined by the game
+      lightQueueLoggerSamplingDuration:
+        name: lightQueueLoggerSamplingDuration
+        desc: The sampling duration of light queue logger in game tick
+        extra:
+          '0': Affects all data except the queue size displayed in the logger
+      lightUpdates:
+        name: lightUpdates
+        desc: Pause or disable light updates
+        extra:
+          '0': If set to suppressed, no light update can be executed which simulates light suppressor
+          '1': If set to ignored, no light update can be scheduled. It's useful for creating light errors
+          '2': If set to off, no light update can be scheduled or executed
+          '3': '[WARNING] If set to suppressed or off, new chunks cannot be loaded. Then if the server tries to load chunk for player movement or whatever reason the server will be stuck forever'
+      microTiming:
+        name: microTiming
+        desc: Enable the function of MicroTick logger
+        extra:
+          '0': Display redstone components actions, block updates and stacktrace with a wool block
+          '1': Use /log microTiming to start logging
+          '2': Might impact the server performance when it's on
+          '3': EndRods will detect block updates and redstone components will show their actions
+          '4': '- Observer, Piston, EndRod: pointing towards wool'
+          '5': '- Repeater, Comparator, Rail, Button, etc.: placed on wool'
+          '6': Beside that, a universal block actions logging method is using EndRod on wool block to point on the block you want to log
+          '7': Check rule microTimingTarget to see how to switch logging method
+      microTimingDyeMarker:
+        name: microTimingDyeMarker
+        desc: Allow player to right click with dye item to mark a block to be logged by microTiming logger
+        extra:
+          '0': You need to subscribe to microTiming logger for marking or displaying blocks
+          '1': Right click with the same dye to switch the marker to end rod mode with which block update information will be logged additionally. Right click again to remove the marker
+          '2': Right click a marker with slime ball item to make it movable. It will move to the corresponding new position when the attaching block is moved by a piston
+          '3': Use `/carpet microTimingDyeMarker clear` to remove all markers
+          '4': You can create a named marker by using a renamed dye item. Marker name will be shown in logging message as well
+          '5': You can see boxes at marked blocks with fabric-carpet installed on your client. With carpet-tis-addition installed the marker name could also be seen through blocks
+      microTimingTarget:
+        name: microTimingTarget
+        desc: Modify the way to specify events to be logged in microTiming logger. Events labelled with dye marker are always logged
+        extra:
+          '0': 'labelled: Logs events labelled with wool'
+          '1': 'in_range: Logs events within 32m of any player'
+          '2': 'all: Logs every event. Use with caution'
+          '3': 'marker_only: Logs event labelled with dye marker only. Use it with rule microTimingDyeMarker'
+      microTimingTickDivision:
+        name: microTimingTickDivision
+        desc: Determine the way to divide game ticks
+        extra:
+          '0': 'world_timer: Divides at Overworld timer increment'
+          '1': 'player_action: Divides at the beginning of player action'
+      minecartTakePassengerMinVelocity:
+        name: minecartTakePassengerMinVelocity
+        desc: Determine the minimum required horizontal velocity for a minecart to pick up nearby entity as its passenger
+        extra:
+          '0': Set it to 0 to let minecart always take passenger no matter how fast it is, just like a boat
+          '1': Set it to NaN to let minecart never takes passenger
+      mobcapsDisplayIgnoreMisc:
+        name: mobcapsDisplayIgnoreMisc
+        desc: Ignore mob type "misc" in carpet mobcaps displays
+        extra:
+          '0': "Since it's useless: Nothing in misc category spawns, and it's ignored when calculating mobcap"
+          '1': Affects mobcaps logger and /spawn mobcap command
+      opPlayerNoCheat:
+        name: opPlayerNoCheat
+        desc: Disable some command to prevent accidentally cheating
+        extra:
+          '0': 'Affects command list: /gamemode, /tp, /teleport, /give, /setblock, /summon'
+      optimizedFastEntityMovement:
+        name: optimizedFastEntityMovement
+        desc: Optimize fast entity movement by only checking block collisions on current moving axis
+        extra:
+          '0': Inspired by the fastMovingEntityOptimization rule in carpetmod112
+          '1': Use with rule optimizedTNT to greatly improve performance in cannons
+      optimizedHardHitBoxEntityCollision:
+        name: optimizedHardHitBoxEntityCollision
+        desc: Optimize entity colliding with entities with hard hit box
+        extra:
+          '0': It uses an extra separate list to store entities, that have a hard hit box including boat and shulker, in a chunk
+          '1': It reduces quite a lot of unnecessary iterating when an entity is moving and trying to search entities with hard hit box on the way,since the world is always not filled with boats and shulkers
+          '2': Enable it before loading the chunk to make it work. ~20% performance boost in portal mob farms
+          '3': Might not work with other mods that add new entities
+      optimizedTNTHighPriority:
+        name: optimizedTNTHighPriority
+        desc: Use a Mixin injection with higher priority for carpet rule optimizedTNT
+        extra:
+          '0': So the rule optimizedTNT can overwrite lithium's explosion optimization
+          '1': Of course rule optimizedTNT needs to be on for it to work
+      poiUpdates:
+        name: poiUpdates
+        desc: Whether block changes will cause POI to updates or not
+        extra:
+          '0': Set it to false to disable POI updates
+      persistentLoggerSubscription:
+        name: persistentLoggerSubscription
+        desc: Remember the subscribed loggers as well as logging options of the player during server restart
+        extra:
+          '0': Only applies carpet's defaultLoggers rule at someone's first login
+          '1': Logger subscriptions are saved in config/carpettisaddition/logger_subscriptions.json
+      preciseEntityPlacement:
+        name: preciseEntityPlacement
+        desc: When placing / summoning entity with item, place the entity at the exact position of player's cursor target position
+        extra:
+          '0': 'Affected items: Spawn eggs, armorstand, ender crystal'
+      railDupingFix:
+        name: railDupingFix
+        desc: Disable rail duping using old school pushing lit powered or activator rail method
+      redstoneDustRandomUpdateOrder:
+        name: redstoneDustRandomUpdateOrder
+        desc: Randomize the order for redstone dust to emit block updates
+        extra:
+          '0': It's useful to test if your contraption is locational or not
+          '1': Does not work with rule fastRedstoneDust
+      renewableDragonEgg:
+        name: renewableDragonEgg
+        desc: Make dragon egg renewable
+        extra:
+          '0': When a dragon egg is in dragon breath effect cloud it has a possibility to absorb the effect cloud and "summon" a new dragon egg
+          '1': Use with rule "dispensersFireDragonBreath" for more ease
+      renewableDragonHead:
+        name: renewableDragonHead
+        desc: Ender dragon killed by charged creeper will drop dragon head
+      renewableElytra:
+        name: renewableElytra
+        desc: Phantom killed by shulker will drops an elytra with given possibility
+        extra:
+          '0': Set it to 0 to disable
+      repeaterHalfDelay:
+        name: repeaterHalfDelay
+        desc: Halve the delay of redstone repeaters upon a redstone ore
+        extra:
+          '0': The delay will change from 2, 4, 6 or 8 game tick instead of 1, 2, 3 or 4 game tick
+      sandDupingFix:
+        name: sandDupingFix
+        desc: Disable sand and other gravity block duping using end portal
+        extra:
+          '0': Gravity block includes sand, anvil, dragon egg and so on
+          '1': In sand dupers sand will only get teleported to the other dimension
+      snowMeltMinLightLevel:
+        name: snowMeltMinLightLevel
+        desc: The minimum light level allowed for snow to melt
+        extra:
+          '0': In vanilla the value is 12, which means snow will melt when the light level >=12 when random ticked
+          '1': Set it to 0 to melt all annoying snow on your builds
+          '2': Set it to the same level as the minimum light level for snow to not fall on block (light level 10) to easily test if your build is snow-proof with light or not
+          '3': You can modify gamerule randomTickSpeed to speed up the melting progress, or modify carpet rule chunkTickSpeed to speed up the snowfall progress
+      structureBlockDoNotPreserveFluid:
+        name: structureBlockDoNotPreserveFluid
+        desc: Structure block do not preserve existed fluid when placing waterlogged-able blocks
+        extra:
+          '0': Has a side effect of suppressing bug MC-130584 happening
+      structureBlockLimit:
+        name: structureBlockLimit
+        desc: Overwrite the size limit of structure block
+        extra:
+          '0': Relative position might display wrongly on client side if it's larger than 32
+      structureBlockOutlineDistance:
+        name: structureBlockOutlineDistance
+        desc: Customizable Structure Block outline render distance
+        extra:
+          '0': Required on client to work properly
+      synchronizedLightThread:
+        name: synchronizedLightThread
+        desc: Synchronize lighting thread with the server thread
+        extra:
+          '0': so the light thread will not lag behind the main thread and get desynchronized
+          '1': The server will wait until all lighting tasks to be done at the beginning of each world ticking
+          '2': With this rule you can safely /tick warp without potential light suppression or lighting desynchronization
+      tileTickLimit:
+        name: tileTickLimit
+        desc: Modify the limit of executed tile tick events per game tick
+      tntDupingFix:
+        name: tntDupingFix
+        desc: Disable TNT, carpet and part of rail dupers
+        extra:
+          '0': Attachment block update based dupers will do nothing and redstone component update based dupers can no longer keep their duped block
+          '1': Dupe bad dig good
+      tntFuseDuration:
+        name: tntFuseDuration
+        desc: Overwrite the default fuse duration of TNT
+        extra:
+          '0': This might also affect the fuse duration of TNT ignited in explosion
+      tntIgnoreRedstoneSignal:
+        name: tntIgnoreRedstoneSignal
+        desc: Prevent TNT blocks from being ignited from redstone
+        extra:
+          '0': You can still use explosion etc. to ignite a tnt
+      tooledTNT:
+        name: tooledTNT
+        desc: Tools on the player's main hand is applied to item dropping during the explosion caused by the player
+        extra:
+          '0': So you can ignite TNT to harvest blocks that require specific tool or enchantment as long as you are holding the right tool
+          '1': For example, you can harvest ice with silk touch pickaxe, or harvest grass with shears
+          '2': It also works for any other living entities beside player
+          '3': Technically this rule applies the main hand item of the causing entity onto the loot table builder during the explosion
+      totallyNoBlockUpdate:
+        name: totallyNoBlockUpdate
+        desc: Disable all block updates and state updates
+      turtleEggTrampledDisabled:
+        name: turtleEggTrampledDisabled
+        desc: Disable turtle egg trampled to broken
+      ultraSecretSetting:
+        name: ultraSecretSetting
+        desc: qOf DSh hwg ORRWHW Cb
+      visualizeProjectileLoggerEnabled:
+        name: visualizeProjectileLoggerEnabled
+        desc: Enable visualize projectile logger
+        extra:
+          '0': Try /log projectiles visualize
+      voidRelatedAltitude:
+        name: voidRelatedAltitude
+        desc: Modify the related altitude between the bottom of the world and the void where entities will receive void damages
+      witherSpawnedSoundDisabled:
+        name: witherSpawnedSoundDisabled
+        desc: Disable the wither spawned sound emitted when a wither fully reset its health after summoned
+      xpTrackingDistance:
+        name: xpTrackingDistance
+        desc: Overwrite the tracking distance of xp orb
+        extra:
+          '0': Change it to 0 to disable tracking

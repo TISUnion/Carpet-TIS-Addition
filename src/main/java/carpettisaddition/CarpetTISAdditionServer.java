@@ -18,6 +18,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCa
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
+import carpettisaddition.utils.settings.CarpetRuleRegistrar;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -52,10 +53,12 @@ public class CarpetTISAdditionServer implements CarpetExtension
     @Override
     public void onGameStarted()
     {
-        CarpetServer.settingsManager.parseSettingsClass(CarpetTISAdditionSettings.class);
-
         StackTraceDeobfuscator.fetchMapping();
+
         TISAdditionTranslations.loadTranslations();
+
+        // rule description & extras depend on translation
+        CarpetRuleRegistrar.register(CarpetServer.settingsManager, CarpetTISAdditionSettings.class);
     }
 
     @Override
@@ -118,7 +121,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public Map<String, String> canHasTranslations(String lang)
     {
         Map<String, String> trimmedTranslation = Maps.newHashMap();
-        String prefix = TISAdditionTranslations.TRANSLATION_KEY_PREFIX + "carpet_extension.";
+        String prefix = TISAdditionTranslations.CARPET_TRANSLATIONS_KEY_PREFIX;
         TISAdditionTranslations.getTranslationFromResourcePath(lang).forEach((key, value) -> {
             if (key.startsWith(prefix))
             {

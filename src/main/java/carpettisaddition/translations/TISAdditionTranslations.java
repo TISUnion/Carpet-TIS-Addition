@@ -29,6 +29,7 @@ public class TISAdditionTranslations
     public static final String DEFAULT_LANGUAGE = "en_us";
     public static final String TRANSLATION_NAMESPACE = CarpetTISAdditionServer.compactName;  // "carpettisaddition"
     public static final String TRANSLATION_KEY_PREFIX = TRANSLATION_NAMESPACE + ".";  // "carpettisaddition."
+    public static final String CARPET_TRANSLATIONS_KEY_PREFIX = TRANSLATION_KEY_PREFIX + "carpet_translations.";  // "carpettisaddition.carpet_translations."
     private static final String RESOURCE_DIR = String.format("assets/%s/lang", TRANSLATION_NAMESPACE);
 
     @VisibleForTesting

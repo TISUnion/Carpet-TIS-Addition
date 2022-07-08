@@ -5,14 +5,13 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class TranslationTest extends TestCase
 {
-	private static final String CM_TRANSLATION_PREFIX = "carpettisaddition.carpet_extension";
 	private static final Set<String> TESTING_LANGUAGES = ImmutableSet.of("en_us", "zh_cn");
 
 	public void testTranslationConsistency()
@@ -20,9 +19,7 @@ public class TranslationTest extends TestCase
 		TISAdditionTranslations.loadTranslations();
 		Map<String, List<String>> translationKeys = Maps.newLinkedHashMap();
 		TISAdditionTranslations.translationStorage.forEach((lang, translations) -> translationKeys.put(
-				lang, translations.keySet().stream().
-						filter(key -> !key.startsWith(CM_TRANSLATION_PREFIX)).
-						collect(Collectors.toList())
+				lang, new ArrayList<>(translations.keySet())
 		));
 
 		// only test our maintaining languages

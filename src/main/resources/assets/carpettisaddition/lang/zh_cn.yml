@@ -443,7 +443,7 @@ carpettisaddition:
   #   Translation below will be passed to fabric carpet
   # ------------------------------------------------------
 
-  carpet_extension:
+  carpet_translations:
     category:
       TIS: TIS
       CARPET_MOD: carpet_mod
@@ -613,6 +613,12 @@ carpettisaddition:
         extra:
           '0': 'true: 不追踪不占用怪物容量的生物，并与生物不影响怪物容量的时刻将其标记为已移除，如当它们捡起物品时。便于设计刷怪塔'
           '1': 'false: 追踪所有可追踪的生物，在生物确实被删除时将其标记为已移除。便于设计袭击农场或非刷怪塔的机器'
+      lightEngineMaxBatchSize:
+        name: 光照引擎最大任务组数
+        desc: 修改光照引擎的最大任务组数
+        extra:
+          '0': 这样光照引擎的性能将有所提升，更难进入光照抑制状态
+          '1': 将它设为5，对应着原版所使用的默认值
       lightQueueLoggerSamplingDuration:
         name: 光照队列记录器采样时长
         desc: 光照队列记录器的采样时长，单位为游戏刻
@@ -767,6 +773,11 @@ carpettisaddition:
         desc: 覆写结构方块的范围限制
         extra:
           '0': 当相对位置的值大于32时客户端里结构的位置可能会错误地显示
+      structureBlockOutlineDistance:
+        name: 结构方块边界渲染距离
+        desc: 自定义结构方块边界的渲染距离
+        extra:
+          '0': 需要在客户端中生效以获得效果
       synchronizedLightThread:
         name: 同步光照线程
         desc: 将光照线程与主线程同步
@@ -778,11 +789,11 @@ carpettisaddition:
         name: 计划刻上限
         desc: 修改每游戏刻中计划刻事件的执行次数上限
       tntDupingFix:
+        name: TNT复制修复
         desc: 禁用TNT、地毯以及部分铁轨的复制机
         extra:
           '0': 基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块
           '1': Dupe bad dig good
-        name: TNT复制修复
       tntFuseDuration:
         name: TNT引信时长
         desc: 覆盖TNT的默认引信时长
@@ -807,6 +818,9 @@ carpettisaddition:
       turtleEggTrampledDisabled:
         name: 禁用海龟蛋被践踏
         desc: 阻止海龟蛋因实体踩踏而破坏
+      ultraSecretSetting:
+        name: ultraSecretSetting
+        desc: qOf DSh hwg ORRWHW Cb
       visualizeProjectileLoggerEnabled:
         name: 可视化投掷物记录器
         desc: 启用可视化投掷物记录器

@@ -270,7 +270,9 @@
     "translations.TranslatableTextMixin",
     "utils.entityfilter.EntitySelectorAccessor",
     "utils.entityfilter.EntitySelectorMixin",
-    "utils.entityfilter.EntitySelectorReaderMixin"
+    "utils.entityfilter.EntitySelectorReaderMixin",
+    "utils.settings.ParsedRuleAccessor",
+    "utils.settings.SettingsManagerAccessor"
   ],
   "client": [
     "carpet.events.onServerLoadedWorlds.IntegratedServerMixin",
