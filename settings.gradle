@@ -5,10 +5,40 @@ pluginManagement {
             url = 'https://maven.fabricmc.net/'
         }
         maven {
+            name = 'Jitpack'
+            url = "https://jitpack.io"
+        }
+        maven {
             name = 'Cotton'
             url = 'https://server.bbkr.space/artifactory/libs-release/'
         }
         mavenCentral()
         gradlePluginPortal()
     }
+    resolutionStrategy {
+        eachPlugin {
+            switch (requested.id.id) {
+                case "com.replaymod.preprocess": {
+                    useModule("com.github.Fallen-Breath:preprocessor:${requested.version}")
+                }
+            }
+        }
+    }
+}
+
+def versions = Arrays.asList(
+//        "1.14.4",
+        "1.15.2",
+//        "1.16.5",
+//        "1.17.1",
+//        "1.18.x",
+//        "1.19.x",
+//        "future",
+)
+for (String version : versions) {
+    include(":$version")
+
+    def proj = project(":$version")
+    proj.projectDir = file("versions/$version")
+    proj.buildFileName = "../../common.gradle"
 }

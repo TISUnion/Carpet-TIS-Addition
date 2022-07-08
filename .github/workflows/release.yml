@@ -6,8 +6,14 @@ on:
       - published
   workflow_dispatch:
     inputs:
+      target_subproject:
+        description: The subproject name of the specified Minecraft version to be released.
+        type: string
+        required: false
+        default: ''
       target_release_tag:
         description: The tag of the release you want to append the artifact to
+        type: string
         required: true
 
 
@@ -19,20 +25,30 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: 'Display current branch/tag name'
-        run: echo ${{ github.ref_name }}
+      - name: Display context
+        run: | 
+          echo ref_name = ${{ github.ref_name }}
+          echo target_subproject = ${{ github.event.inputs.target_subproject }}
+          echo target_release_tag = ${{ github.event.inputs.target_release_tag }}
 
       - id: setmatrix
         uses: JoshuaTheMiller/conditional-build-matrix@0.0.1
         with:
           # inputFile: '.github/workflows/matrix_includes.json' # Default input file path
-          filter: '[? `${{ github.event_name }}` == `release` || `${{ github.ref_name }}` == branch]'
+          filter: '[? `${{ github.event_name }}` == `release` || `${{ github.event.inputs.target_subproject }}` == `` || `"${{ github.event.inputs.target_subproject }}"` == subproject_dir ]'
 
-      - name: 'Print matrix'
+      - name: Print matrix
         run: echo ${{ steps.setmatrix.outputs.matrix }}
 
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      release: true
+
   release:
-    needs: matrix_prep
+    needs:
+      - matrix_prep
+      - build
     runs-on: ubuntu-latest
 
     strategy:
@@ -40,37 +56,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ matrix.branch }}
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: 17
 
-      - name: Cache gradle files
-        uses: actions/cache@v2
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            ./.gradle/loom-cache
-          key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Build with Gradle
-        run: |
-          chmod +x gradlew
-          ./gradlew build
-        env:
-          BUILD_RELEASE: true
-
-      - name: Upload to action artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: '[${{ matrix.branch }}] build-artifacts'
-          path: build/libs/
+          name: build-artifacts
+          path: build-artifacts
 
       - name: Get github release information
         if: ${{ github.event_name == 'workflow_dispatch' }}
@@ -106,7 +97,7 @@ jobs:
         id: minecraft_version
         uses: christian-draeger/read-properties@1.0.1
         with:
-          path: gradle.properties
+          path: ${{ format('versions/{0}/gradle.properties', matrix.subproject_dir) }}
           property: minecraft_version
 
       - name: Publish Minecraft Mods
@@ -121,7 +112,7 @@ jobs:
           github-tag: ${{ steps.release_info.outputs.tag_name }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-          files-primary: build/libs/!(*-@(dev|sources)).jar
+          files-primary: ${{ format('build-artifacts/{0}/build/libs/!(*-@(dev|sources)).jar', matrix.subproject_dir) }}
           files-secondary: ''
 
           name: ${{ format('Carpet TIS Addition v{0} for mc{1}', steps.mod_version.outputs.value, steps.minecraft_version.outputs.value) }}

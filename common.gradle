@@ -1,0 +1,122 @@
+apply plugin: 'maven-publish'
+apply plugin: 'fabric-loom'
+apply plugin: 'io.github.juuxel.loom-quiltflower'
+apply plugin: 'com.replaymod.preprocess'
+
+int mcVersion = 1
+
+preprocess {
+	mcVersion = vars.get()["MC"]
+	tabIndentation = true
+}
+
+repositories {
+	maven {
+		url 'https://masa.dy.fi/maven'
+	}
+	maven {
+		url 'https://jitpack.io'
+	}
+	maven {
+		url 'https://www.cursemaven.com'
+	}
+}
+
+dependencies {
+	// loom
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// mods
+	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+	modCompileOnly "${project.lithium_dependency}"
+
+	// runtime mods
+	modRuntimeOnly "com.github.astei:lazydfu:0.1.2"
+
+	// library mods
+	include(modImplementation("com.github.Fallen-Breath:conditional-mixin:${project.conditionalmixin_version}"))
+
+	// libraries
+	include(implementation("org.yaml:snakeyaml:${project.snakeyaml_version}"))
+	testImplementation "junit:junit:${project.junit_version}"
+}
+
+loom {
+	accessWidenerPath = file("../../src/main/resources/carpet-tis-addition.accesswidener")
+
+	runConfigs.all {
+		// to make sure it generates all "Minecraft Client (:subproject_name)" applications
+		ideConfigGenerated = true
+		runDir '../../run'
+		vmArgs '-Dmixin.debug.export=true'
+	}
+}
+
+remapJar {
+	remapperIsolation = true
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+String versionSuffix = ''
+if (System.getenv("BUILD_RELEASE") != "true") {
+	String buildNumber = System.getenv("BUILD_ID")
+	versionSuffix += buildNumber != null ? ('+build.' + buildNumber) : '-SHAPSHOT'
+}
+String fullModVersion = project.mod_version + versionSuffix
+
+version = 'v' + fullModVersion
+group = project.parent.maven_group
+archivesBaseName = project.parent.archives_base_name + '-mc' + project.minecraft_version
+
+processResources {
+	inputs.property "version", fullModVersion
+
+	filesMatching("fabric.mod.json") {
+		def valueMap = [
+				"version": fullModVersion,
+				"minecraft_dependency": project.minecraft_dependency,
+		]
+		expand valueMap
+	}
+}
+
+// ensure that the encoding is set to UTF-8, no matter what the system default is
+// this fixes some edge cases with special characters not displaying correctly
+// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+}
+
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+}
+
+jar {
+	from("../../LICENSE") {
+		rename { "${it}_${project.archivesBaseName}"}
+	}
+}
+
+// configure the maven publication
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifactId archivesBaseName
+
+			from components.java
+		}
+	}
+
+	// select the repositories you want to publish to
+	repositories {
+		// uncomment to publish to the local maven
+		// mavenLocal()
+	}
+}
