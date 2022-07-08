@@ -19,7 +19,7 @@ import java.util.List;
 @Mixin(ArmorStandItem.class)
 public abstract class ArmorStandItemItemMixin
 {
-	private static final ThreadLocal<ItemPlacementContext> currentContext$TCA = ThreadLocal.withInitial(() -> null);
+	private static final ThreadLocal<ItemPlacementContext> currentContext$TISCM = ThreadLocal.withInitial(() -> null);
 
 	/**
 	 * Make the first segment of the if statement below always returns true
@@ -38,7 +38,7 @@ public abstract class ArmorStandItemItemMixin
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
 			((ItemPlacementContextAccessor)itemPlacementContext).setCanReplaceExisting(true);
-			currentContext$TCA.set(itemPlacementContext);
+			currentContext$TISCM.set(itemPlacementContext);
 		}
 		return itemPlacementContext;
 	}
@@ -95,7 +95,7 @@ public abstract class ArmorStandItemItemMixin
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
-			ItemPlacementContext ctx = currentContext$TCA.get();
+			ItemPlacementContext ctx = currentContext$TISCM.get();
 			World world = ctx.getWorld();
 			if (!world.getBlockState(pos).canReplace(ctx))
 			{

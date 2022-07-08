@@ -6,7 +6,7 @@ import net.minecraft.util.StringIdentifiable;
 public enum DummyPropertyEnum implements StringIdentifiable
 {
 	;
-	public static final String NAME = "$TCA$DUMMY$";
+	public static final String NAME = "$TISCM$DUMMY$";
 	public static final EnumProperty<DummyPropertyEnum> DUMMY_PROPERTY = EnumProperty.of(NAME, DummyPropertyEnum.class);
 
 	@Override

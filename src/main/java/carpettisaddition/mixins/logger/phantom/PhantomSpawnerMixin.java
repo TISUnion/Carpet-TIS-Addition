@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(PhantomSpawner.class)
 public abstract class PhantomSpawnerMixin
 {
-	private PlayerEntity currentPlayer$TCA$phantomLogger = null;
+	private PlayerEntity currentPlayer$TISCM$phantomLogger = null;
 
 	@ModifyVariable(
 			method = "spawn",
@@ -21,7 +21,7 @@ public abstract class PhantomSpawnerMixin
 	)
 	private PlayerEntity recordsCurrentPlayer$phantomLogger(PlayerEntity player)
 	{
-		this.currentPlayer$TCA$phantomLogger = player;
+		this.currentPlayer$TISCM$phantomLogger = player;
 		return player;
 	}
 
@@ -35,10 +35,10 @@ public abstract class PhantomSpawnerMixin
 	)
 	private int logPlayerSpawningPhantoms(int amount)
 	{
-		if (this.currentPlayer$TCA$phantomLogger != null)
+		if (this.currentPlayer$TISCM$phantomLogger != null)
 		{
-			PhantomLogger.getInstance().onPhantomSpawn(this.currentPlayer$TCA$phantomLogger, amount);
-			this.currentPlayer$TCA$phantomLogger = null;
+			PhantomLogger.getInstance().onPhantomSpawn(this.currentPlayer$TISCM$phantomLogger, amount);
+			this.currentPlayer$TISCM$phantomLogger = null;
 		}
 		return amount;
 	}

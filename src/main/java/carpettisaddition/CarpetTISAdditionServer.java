@@ -71,7 +71,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
      * Carpet has issue (bug) to call onServerLoadedWorlds in IntegratedServer, so just do it myself to make sure it works properly
      * Only in <= 1.15.x
      */
-    public void onServerLoadedWorldsCTA(MinecraftServer server)
+    public void onServerLoadedWorlds$TISCM(MinecraftServer server)
     {
         MicroTimingLoggerManager.attachServer(server);
         LifeTimeTracker.attachServer(server);

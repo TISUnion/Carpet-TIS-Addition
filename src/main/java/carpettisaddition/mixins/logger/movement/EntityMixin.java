@@ -24,18 +24,18 @@ public abstract class EntityMixin implements MovementLoggerTarget
 	// ============= Interface Implementations =============
 
 	@Nullable
-	private MovementLogger.Tracker movementTracker$TCA = null;
+	private MovementLogger.Tracker movementTracker$TISCM = null;
 
 	@Override
 	public Optional<MovementLogger.Tracker> getMovementTracker()
 	{
-		return Optional.ofNullable(this.movementTracker$TCA);
+		return Optional.ofNullable(this.movementTracker$TISCM);
 	}
 
 	@Override
 	public void setMovementTracker(MovementLogger.@Nullable Tracker tracker)
 	{
-		this.movementTracker$TCA = tracker;
+		this.movementTracker$TISCM = tracker;
 	}
 
 	// ============= Life cycle =============

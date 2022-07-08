@@ -33,18 +33,18 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	@Shadow public abstract Iterable<ItemStack> getArmorItems();
 
 	@Nullable
-	private DamageLogger.Tracker damageTracker$TCA = null;
+	private DamageLogger.Tracker damageTracker$TISCM = null;
 
 	@Override
 	public Optional<DamageLogger.Tracker> getDamageTracker()
 	{
-		return Optional.ofNullable(this.damageTracker$TCA);
+		return Optional.ofNullable(this.damageTracker$TISCM);
 	}
 
 	@Override
 	public void setDamageTracker(@Nullable DamageLogger.Tracker tracker)
 	{
-		this.damageTracker$TCA = tracker;
+		this.damageTracker$TISCM = tracker;
 	}
 
 	// at the start of general damage calculation
