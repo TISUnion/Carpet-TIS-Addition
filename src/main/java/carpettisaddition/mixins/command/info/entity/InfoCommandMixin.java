@@ -1,15 +1,25 @@
 package carpettisaddition.mixins.command.info.entity;
 
 import carpet.commands.InfoCommand;
-import carpettisaddition.commands.info.entity.EntityInfoCommand;
 import carpettisaddition.utils.ModIds;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
+
+//#if MC >= 11900
+//$$ import com.mojang.brigadier.CommandDispatcher;
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import org.spongepowered.asm.mixin.injection.Inject;
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//#endif
+
+//#if MC >= 11700
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import carpettisaddition.commands.info.entity.EntityInfoCommand;
+import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+//#endif
 
 /**
  * Fabric carpet removed the "/info entity" command tree branch in mc 1.17+
@@ -20,6 +30,17 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class InfoCommandMixin
 {
 	//#if MC >= 11700
+	//$$
+	//$$ //#if MC >= 11900
+	//$$ //$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
+	//$$ //$$
+	//$$ //$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
+	//$$ //$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext, CallbackInfo ci)
+	//$$ //$$ {
+	//$$ //$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
+	//$$ //$$ }
+	//$$ //#endif
+	//$$
 	//$$ @ModifyVariable(
 	//$$ 		method = "register",
 	//$$ 		at = @At(
@@ -31,7 +52,12 @@ public abstract class InfoCommandMixin
 	//$$ )
 	//$$ private static LiteralArgumentBuilder<ServerCommandSource> registerInfoEntity(LiteralArgumentBuilder<ServerCommandSource> builder)
 	//$$ {
-	//$$ 	EntityInfoCommand.getInstance().extendCommand(builder);
+	//$$ 	EntityInfoCommand.getInstance().extendCommand(
+	//$$ 			builder
+	//$$ 			//#if MC >= 11900
+	//$$ 			//$$ , currentCommandBuildContext$TISCM
+	//$$ 			//#endif
+	//$$ 	);
 	//$$ 	return builder;
 	//$$ }
 	//#endif

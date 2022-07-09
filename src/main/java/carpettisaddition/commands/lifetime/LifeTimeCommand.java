@@ -27,6 +27,10 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 import static net.minecraft.server.command.CommandSource.suggestMatching;
 
+//#if MC >= 11900
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//#endif
+
 public class LifeTimeCommand extends AbstractCommand
 {
 	private static final String NAME = "lifetime";
@@ -116,7 +120,12 @@ public class LifeTimeCommand extends AbstractCommand
 	 */
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(
+			CommandDispatcher<ServerCommandSource> dispatcher
+			//#if MC >= 11900
+			//$$ , CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
 		final String entityTypeArg = "entity_type";
 		final String detailModeArg = "detail";

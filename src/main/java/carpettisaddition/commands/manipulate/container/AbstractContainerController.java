@@ -10,6 +10,10 @@ import net.minecraft.text.BaseText;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
+//#if MC >= 11900
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//#endif
+
 public abstract class AbstractContainerController extends TranslationContext
 {
 	protected static final Translator basicTranslator = ManipulateCommand.getInstance().getTranslator().getDerivedTranslator("container");
@@ -26,7 +30,11 @@ public abstract class AbstractContainerController extends TranslationContext
 		return tr("name");
 	}
 
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode()
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(
+			//#if MC >= 11900
+			//$$ CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
 		return literal(this.commandPrefix).executes(c -> this.showHelp(c.getSource()));
 	}

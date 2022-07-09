@@ -19,6 +19,7 @@ import carpettisaddition.logging.loggers.phantom.PhantomLogger;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 import carpettisaddition.utils.settings.CarpetRuleRegistrar;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -29,6 +30,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+//#if MC >= 11900
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//#endif
+
 //#if MC >= 11600
 //$$ import carpet.script.annotation.AnnotationParser;
 //$$ import carpettisaddition.script.Functions;
@@ -37,7 +42,7 @@ import java.util.Map;
 
 public class CarpetTISAdditionServer implements CarpetExtension
 {
-    public static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
+    private static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
     public static final String name = CarpetTISAdditionMod.getModId();
     public static final String fancyName = "Carpet TIS Addition";
     public static final String compactName = name.replace("-","");  // carpettisaddition
@@ -48,6 +53,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public String version()
     {
         return name;
+    }
+
+    public static CarpetTISAdditionServer getInstance()
+    {
+        return INSTANCE;
     }
 
     public static void registerExtension()
@@ -117,14 +127,26 @@ public class CarpetTISAdditionServer implements CarpetExtension
     }
 
     @Override
-    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher)
+    public void registerCommands(
+            CommandDispatcher<ServerCommandSource> dispatcher
+            //#if MC >= 11900
+            //$$ , CommandRegistryAccess commandBuildContext
+            //#endif
+    )
     {
-        LifeTimeCommand.getInstance().registerCommand(dispatcher);
-        ManipulateCommand.getInstance().registerCommand(dispatcher);
-        RefreshCommand.getInstance().registerCommand(dispatcher);
-        RaidCommand.getInstance().registerCommand(dispatcher);
-        RemoveEntityCommand.getInstance().registerCommand(dispatcher);
-        SupplierCounterCommand.getInstance().registerCommand(dispatcher);
+        Lists.newArrayList(
+                LifeTimeCommand.getInstance(),
+                ManipulateCommand.getInstance(),
+                RefreshCommand.getInstance(),
+                RaidCommand.getInstance(),
+                RemoveEntityCommand.getInstance(),
+                SupplierCounterCommand.getInstance()
+        ).forEach(command -> command.registerCommand(
+                dispatcher
+                //#if MC >= 11900
+                //$$ , commandBuildContext
+                //#endif
+        ));
     }
 
     //#if MC >= 11500

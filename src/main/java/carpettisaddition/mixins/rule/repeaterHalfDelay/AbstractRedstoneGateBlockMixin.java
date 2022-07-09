@@ -12,7 +12,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+//#if MC >= 11900
+//$$ import net.minecraft.util.math.random.Random;
+//#else
 import java.util.Random;
+//#endif
 
 //#if MC >= 11500
 import net.minecraft.server.world.ServerWorld;

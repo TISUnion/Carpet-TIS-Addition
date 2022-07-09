@@ -24,6 +24,10 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+//#if MC >= 11900
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//#endif
+
 //#if MC >= 11800
 //$$ import carpettisaddition.mixins.command.info.ChunkTickSchedulerAccessor;
 //$$ import carpettisaddition.mixins.command.info.WorldTickSchedulerAccessor;
@@ -55,11 +59,21 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(
+			CommandDispatcher<ServerCommandSource> dispatcher
+			//#if MC >= 11900
+			//$$ , CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
 	}
 
-	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder)
+	public void extendCommand(
+			LiteralArgumentBuilder<ServerCommandSource> builder
+			//#if MC >= 11900
+			//$$ , CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
 		builder.then(
 				literal("world").

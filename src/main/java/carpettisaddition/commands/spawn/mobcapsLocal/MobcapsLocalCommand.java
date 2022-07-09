@@ -5,6 +5,10 @@ import carpettisaddition.translations.TranslationContext;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 
+//#if MC >= 11900
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//#endif
+
 //#if MC >= 11800
 //$$ import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
 //$$ import carpettisaddition.mixins.command.mobcapsLocal.SpawnCommandAccessor;
@@ -32,7 +36,12 @@ public class MobcapsLocalCommand extends TranslationContext implements CommandEx
 	}
 
 	@Override
-	public void extendCommand(LiteralArgumentBuilder<ServerCommandSource> builder)
+	public void extendCommand(
+			LiteralArgumentBuilder<ServerCommandSource> builder
+			//#if MC >= 11900
+			//$$ , CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
 		//#if MC >= 11800
 		//$$ builder.then(literal("mobcapsLocal").

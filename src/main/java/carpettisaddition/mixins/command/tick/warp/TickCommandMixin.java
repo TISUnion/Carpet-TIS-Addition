@@ -8,9 +8,26 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+//#if MC >= 11900
+//$$ import com.mojang.brigadier.CommandDispatcher;
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import org.spongepowered.asm.mixin.injection.Inject;
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//#endif
+
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
+	//#if MC >= 11900
+	//$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
+	//$$
+	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
+	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext, CallbackInfo ci)
+	//$$ {
+	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
+	//$$ }
+	//#endif
+
 	@ModifyArg(
 			method = "register",
 			at = @At(
@@ -22,7 +39,12 @@ public abstract class TickCommandMixin
 	)
 	private static LiteralArgumentBuilder<ServerCommandSource> registerTickWarpInfo(LiteralArgumentBuilder<ServerCommandSource> builder)
 	{
-		TickWarpHUDLogger.getInstance().extendCommand(builder);
+		TickWarpHUDLogger.getInstance().extendCommand(
+				builder
+				//#if MC >= 11900
+				//$$ , currentCommandBuildContext$TISCM
+				//#endif
+		);;
 		return builder;
 	}
 }

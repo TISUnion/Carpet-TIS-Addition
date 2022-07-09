@@ -20,7 +20,11 @@ public abstract class OptimizedExplosionMixin
 					value = "FIELD",
 					target = "Lnet/minecraft/item/ItemStack;EMPTY:Lnet/minecraft/item/ItemStack;"
 			),
+			//#if MC >= 11900
+			//$$ allow = 2
+			//#else
 			allow = 1
+			//#endif
 	)
 	private static ItemStack useTheToolInYourHand(Explosion e, boolean spawnParticles)
 	{

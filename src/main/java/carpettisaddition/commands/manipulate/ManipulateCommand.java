@@ -13,6 +13,10 @@ import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
+//#if MC >= 11900
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//#endif
+
 public class ManipulateCommand extends AbstractCommand
 {
 	private static final String NAME = "manipulate";
@@ -35,10 +39,21 @@ public class ManipulateCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(
+			CommandDispatcher<ServerCommandSource> dispatcher
+			//#if MC >= 11900
+			//$$ , CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> containerNode = literal("container");
-		COLLECTION_CONTROLLERS.forEach(controller -> containerNode.then(controller.getCommandNode()));
+		COLLECTION_CONTROLLERS.forEach(
+				controller -> containerNode.then(controller.getCommandNode(
+						//#if MC >= 11900
+						//$$ commandBuildContext
+						//#endif
+				))
+		);
 
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
 			requires(player -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandManipulate)).

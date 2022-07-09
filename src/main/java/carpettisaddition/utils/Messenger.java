@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-//#if MC >= 11600
+//#if MC >= 11600 && MC < 11900
 //$$ import net.minecraft.util.Util;
 //#endif
 
@@ -53,13 +53,23 @@ public class Messenger
 	// Compound Text in carpet style
 	public static BaseText c(Object ... fields)
 	{
-		return carpet.utils.Messenger.c(fields);
+		return
+				//#if MC >= 11900
+				//$$ (MutableText)
+				//#endif
+				carpet.utils.Messenger.c(fields);
 	}
 
 	// Simple Text
 	public static BaseText s(Object text)
 	{
-		return new LiteralText(text.toString());
+		return
+				//#if MC >= 11900
+				//$$ Text.literal
+				//#else
+				new LiteralText
+				//#endif
+						(text.toString());
 	}
 
 	// Simple Text with carpet style
@@ -82,7 +92,13 @@ public class Messenger
 	// Translation Text
 	public static BaseText tr(String key, Object ... args)
 	{
-		return new TranslatableText(key, args);
+		return
+				//#if MC >= 11900
+				//$$ Text.translatable
+				//#else
+				new TranslatableText
+				//#endif
+						(key, args);
 	}
 
 	// Fancy text
@@ -127,7 +143,13 @@ public class Messenger
 
 	public static BaseText format(String formatter, Object... args)
 	{
-		TranslatableTextAccessor dummy = (TranslatableTextAccessor)(new TranslatableText(formatter, args));
+		TranslatableTextAccessor dummy =
+				(TranslatableTextAccessor)(
+						tr(formatter, args)
+						//#if MC >= 11900
+						//$$ .getContent()
+						//#endif
+				);
 		try
 		{
 			//#if MC >= 11800
@@ -146,9 +168,19 @@ public class Messenger
 					//$$ dummy.getTranslations().
 					//$$ //#endif
 					//$$ 		stream().map(stringVisitable -> {
-					//$$ 			if (stringVisitable instanceof BaseText)
+					//$$ 			if (stringVisitable instanceof
+					//$$ 					//#if MC >= 11900
+					//$$ 					//$$ Text
+					//$$ 					//#else
+					//$$ 					BaseText
+					//$$ 					//#endif
+					//$$ 			)
 					//$$ 			{
+					//$$ 				//#if MC >= 11900
+					//$$ 				//$$ return (Text)stringVisitable;
+					//$$ 				//#else
 					//$$ 				return (BaseText)stringVisitable;
+					//$$ 				//#endif
 					//$$ 			}
 					//$$ 			return Messenger.s(stringVisitable.getString());
 					//$$ 		}).toArray()
@@ -236,14 +268,21 @@ public class Messenger
 	}
 
 	private static final ImmutableMap<DimensionWrapper, BaseText> DIMENSION_NAME = ImmutableMap.of(
-			DimensionWrapper.OVERWORLD, new TranslatableText("createWorld.customize.preset.overworld"),
-			DimensionWrapper.THE_NETHER, new TranslatableText("advancements.nether.root.title"),
-			DimensionWrapper.THE_END, new TranslatableText("advancements.end.root.title")
+			DimensionWrapper.OVERWORLD, tr(
+					//#if MC >= 11900
+					//$$ "flat_world_preset.minecraft.overworld"
+					//#else
+					"createWorld.customize.preset.overworld"
+					//#endif
+			),
+			DimensionWrapper.THE_NETHER, tr("advancements.nether.root.title"),
+			DimensionWrapper.THE_END, tr("advancements.end.root.title")
 	);
 
 	public static BaseText dimension(DimensionWrapper dim)
 	{
-		return copy(DIMENSION_NAME.getOrDefault(dim, Messenger.s(dim.getIdentifierString())));
+		BaseText dimText = DIMENSION_NAME.get(dim);
+		return dimText != null ? copy(dimText) : Messenger.s(dim.getIdentifierString());
 	}
 
 	public static BaseText getColoredDimensionSymbol(DimensionWrapper dimensionType)
@@ -441,7 +480,9 @@ public class Messenger
 	{
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
-			//#if MC >= 11600
+			//#if MC >= 11900
+			//$$ CarpetTISAdditionServer.minecraft_server.sendMessage(text);
+			//#elseif MC >= 11600
 			//$$ CarpetTISAdditionServer.minecraft_server.sendSystemMessage(text, Util.NIL_UUID);
 			//#else
 			CarpetTISAdditionServer.minecraft_server.sendMessage(text);

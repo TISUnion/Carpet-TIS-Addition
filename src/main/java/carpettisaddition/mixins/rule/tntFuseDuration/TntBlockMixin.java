@@ -12,8 +12,12 @@ public abstract class TntBlockMixin
 			method = "onDestroyedByExplosion",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11900
+					//$$ target = "Lnet/minecraft/util/math/random/Random;nextInt(I)I"
+					//#else
 					target = "Ljava/util/Random;nextInt(I)I",
 					remap = false
+					//#endif
 			),
 			index = 0
 	)

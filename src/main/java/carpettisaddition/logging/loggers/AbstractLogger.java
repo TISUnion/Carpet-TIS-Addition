@@ -14,6 +14,10 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+//#if MC >= 11900
+//$$ import net.minecraft.text.Text;
+//#endif
+
 //#if MC >= 11600
 //$$ import com.mojang.brigadier.StringReader;
 //#endif
@@ -91,7 +95,13 @@ public abstract class AbstractLogger extends TranslationContext
 		}
 	}
 
-	public void log(Supplier<BaseText[]> messagePromise)
+	public void log(
+			//#if MC >= 11900
+			//$$ Supplier<Text[]> messagePromise
+			//#else
+			Supplier<BaseText[]> messagePromise
+			//#endif
+	)
 	{
 		actionWithLogger(logger -> logger.log(messagePromise));
 	}

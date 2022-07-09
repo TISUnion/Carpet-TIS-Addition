@@ -3,6 +3,7 @@ package carpettisaddition.utils.compat.carpet.scarpet;
 import carpet.script.value.NullValue;
 import carpet.script.value.StringValue;
 import carpet.script.value.Value;
+import carpettisaddition.utils.Messenger;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.text.BaseText;
@@ -32,7 +33,7 @@ public class FormattedTextValue extends StringValue
         {
             if (left instanceof NullValue)
                 return right;
-            text = new LiteralText(left.getString());
+            text = Messenger.s(left.getString());
         }
 
         if (right instanceof FormattedTextValue)

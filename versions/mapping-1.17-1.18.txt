@@ -1,9 +1,9 @@
 net.minecraft.world.ScheduledTick net.minecraft.world.tick.OrderedTick
 net.minecraft.world.ScheduledTick getObject() net.minecraft.world.tick.OrderedTick type()
 net.minecraft.world.ScheduledTick pos net.minecraft.world.tick.OrderedTick pos()
-net.minecraft.world.ScheduledTick time net.minecraft.world.tick.OrderedTick triggerTick()
 net.minecraft.world.ScheduledTick priority net.minecraft.world.tick.OrderedTick priority()
+net.minecraft.world.ScheduledTick time net.minecraft.world.tick.OrderedTick triggerTick()
 net.minecraft.server.world.BlockEvent getBlock() block()
-net.minecraft.server.world.BlockEvent getType() type()
 net.minecraft.server.world.BlockEvent getData() data()
 net.minecraft.server.world.BlockEvent getPos() pos()
+net.minecraft.server.world.BlockEvent getType() type()

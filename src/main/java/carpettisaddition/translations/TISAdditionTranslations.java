@@ -14,10 +14,7 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -159,16 +156,26 @@ public class TISAdditionTranslations
 
 		// make a copy of the text, and apply translation
 		return forEachTISCMTranslationText(Messenger.copy(text), lang, (txt, msgKeyString) -> {
+
+			//#if MC >= 11900
+			//$$ TranslatableTextContent content = (TranslatableTextContent) txt.getContent();
+			//$$ String txtKey = content.getKey();
+			//$$ Object[] txtArgs = content.getArgs();
+			//#else
+			String txtKey = txt.getKey();
+			Object[] txtArgs = txt.getArgs();
+			//#endif
+
 			if (msgKeyString == null)
 			{
-				CarpetTISAdditionServer.LOGGER.warn("TISCM: Unknown translation key {}", txt.getKey());
+				CarpetTISAdditionServer.LOGGER.warn("TISCM: Unknown translation key {}", txtKey);
 				return txt;
 			}
 
 			BaseText newText;
 			try
 			{
-				newText = Messenger.format(msgKeyString, txt.getArgs());
+				newText = Messenger.format(msgKeyString, txtArgs);
 			}
 			catch (IllegalArgumentException e)
 			{
@@ -185,9 +192,19 @@ public class TISAdditionTranslations
 
 	private static BaseText forEachTISCMTranslationText(BaseText text, @NotNull String lang, TextModifier modifier)
 	{
-		if (text instanceof TranslatableText)
+		if (
+				//#if MC >= 11900
+				//$$ text.getContent() instanceof TranslatableTextContent
+				//#else
+				text instanceof TranslatableText
+				//#endif
+		)
 		{
+			//#if MC >= 11900
+			//$$ TranslatableTextContent translatableText = (TranslatableTextContent)text.getContent();
+			//#else
 			TranslatableText translatableText = (TranslatableText)text;
+			//#endif
 
 			// translate arguments
 			Object[] args = translatableText.getArgs();
@@ -212,7 +229,14 @@ public class TISAdditionTranslations
 				{
 					msgKeyString = translateKeyToFormattingString(DEFAULT_LANGUAGE, translatableText.getKey());
 				}
-				text = modifier.apply(translatableText, msgKeyString);
+				text = modifier.apply(
+						//#if MC >= 11900
+						//$$ text,
+						//#else
+						translatableText,
+						//#endif
+						msgKeyString
+				);
 			}
 		}
 
@@ -258,6 +282,13 @@ public class TISAdditionTranslations
 	@FunctionalInterface
 	private interface TextModifier
 	{
-		BaseText apply(TranslatableText translatableText, @Nullable String msgKeyString);
+		BaseText apply(
+				//#if MC >= 11900
+				//$$ MutableText translatableText,
+				//#else
+				TranslatableText translatableText,
+				//#endif
+				@Nullable String msgKeyString
+		);
 	}
 }

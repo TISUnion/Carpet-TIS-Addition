@@ -112,7 +112,7 @@ public class MicroTimingMarker
 	@Nullable
 	public String getMarkerNameString()
 	{
-		return this.markerName != null ? this.markerName.asString() : null;
+		return this.markerName != null ? this.markerName.getString() : null;
 	}
 
 	public MicroTimingMarkerType getMarkerType()

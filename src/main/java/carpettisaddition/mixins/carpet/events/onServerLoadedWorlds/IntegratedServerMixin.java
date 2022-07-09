@@ -18,7 +18,7 @@ public abstract class IntegratedServerMixin
 	@Inject(method = "loadWorld", at = @At("TAIL"))
 	private void onSetupServerIntegrated(CallbackInfo ci)
 	{
-		CarpetTISAdditionServer.INSTANCE.onServerLoadedWorlds$TISCM((IntegratedServer) (Object) this);
+		CarpetTISAdditionServer.getInstance().onServerLoadedWorlds$TISCM((IntegratedServer) (Object) this);
 	}
 	//#endif
 }

@@ -1,0 +1,4 @@
+net.minecraft.text.BaseText net.minecraft.text.MutableText
+
+me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity me.jellysquid.mods.lithium.common.hopper.RemovalCounter
+me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity increaseRemoveCounter() me.jellysquid.mods.lithium.common.hopper.RemovalCounter increaseRemovedCounter()

@@ -30,6 +30,11 @@ import static net.minecraft.command.arguments.EntityArgumentType.players;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
+//#if MC >= 11900
+//$$ import carpettisaddition.mixins.command.refresh.ServerPlayerEntityAccessor;
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//#endif
+
 //#if MC >= 11800
 //$$ import net.minecraft.util.math.ChunkSectionPos;
 //$$ import org.apache.commons.lang3.mutable.MutableObject;
@@ -39,7 +44,9 @@ import net.minecraft.network.Packet;
 
 //#if MC >= 11600
 //$$ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+//$$ //#if MC < 11900
 //$$ import net.minecraft.util.Util;
+//$$ //#endif
 //#else
 import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 //#endif
@@ -66,7 +73,12 @@ public class RefreshCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(
+			CommandDispatcher<ServerCommandSource> dispatcher
+			//#if MC >= 11900
+			//$$ , CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
 				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRefresh)).
@@ -182,7 +194,9 @@ public class RefreshCommand extends AbstractCommand
 		}
 		BaseText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
 		player.networkHandler.sendPacket(
-				//#if MC >= 11600
+				//#if MC >= 11900
+				//$$ new GameMessageS2CPacket(message, ((ServerPlayerEntityAccessor)player).invokeGetMessageTypeId(MessageType.SYSTEM)),
+				//#elseif MC >= 11600
 				//$$ new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
 				//#else
 				new ChatMessageS2CPacket(message, MessageType.SYSTEM),

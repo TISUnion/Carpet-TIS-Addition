@@ -14,6 +14,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//#if MC >= 11900
+//$$ import net.minecraft.network.encryption.PlayerPublicKey;
+//$$ import org.jetbrains.annotations.Nullable;
+//#endif
+
 //#if MC >= 11600
 //$$ import net.minecraft.util.math.BlockPos;
 //#endif
@@ -21,7 +26,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity
 {
-	//#if MC >= 11600
+	//#if MC >= 11900
+	//$$ public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile, @Nullable PlayerPublicKey playerPublicKey)
+	//$$ {
+	//$$ 	super(world, pos, yaw, profile, playerPublicKey);
+	//$$ }
+	//#elseif MC >= 11600
 	//$$ public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile)
 	//$$ {
 	//$$ 	super(world, pos, yaw, profile);

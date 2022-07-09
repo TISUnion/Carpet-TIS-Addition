@@ -19,6 +19,6 @@ public abstract class ServerNetworkHandlerMixin
 	@Inject(method = "onHello", at = @At("TAIL"), remap = false)
 	private static void onCarpetClientHello(ServerPlayerEntity playerEntity, PacketByteBuf packetData, CallbackInfo ci)
 	{
-		CarpetTISAdditionServer.INSTANCE.onCarpetClientHello(playerEntity);
+		CarpetTISAdditionServer.getInstance().onCarpetClientHello(playerEntity);
 	}
 }

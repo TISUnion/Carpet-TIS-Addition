@@ -11,10 +11,27 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+//#if MC >= 11900
+//$$ import com.mojang.brigadier.CommandDispatcher;
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import org.spongepowered.asm.mixin.injection.Inject;
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//#endif
+
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"))
 @Mixin(SpawnCommand.class)
 public abstract class SpawnCommandMixin
 {
+	//#if MC >= 11900
+	//$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
+	//$$
+	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
+	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext, CallbackInfo ci)
+	//$$ {
+	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
+	//$$ }
+	//#endif
+
 	@ModifyArg(
 			method = "register",
 			at = @At(
@@ -26,7 +43,12 @@ public abstract class SpawnCommandMixin
 	)
 	private static LiteralArgumentBuilder<ServerCommandSource> appendLocalArgumentOnSpawnMobcaps(LiteralArgumentBuilder<ServerCommandSource> rootNode)
 	{
-		MobcapsLocalCommand.getInstance().extendCommand(rootNode);
+		MobcapsLocalCommand.getInstance().extendCommand(
+				rootNode
+				//#if MC >= 11900
+				//$$ , currentCommandBuildContext$TISCM
+				//#endif
+		);
 		return rootNode;
 	}
 }

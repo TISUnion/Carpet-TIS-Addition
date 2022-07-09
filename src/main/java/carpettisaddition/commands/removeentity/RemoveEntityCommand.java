@@ -19,6 +19,10 @@ import static net.minecraft.command.arguments.EntityArgumentType.getEntities;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
+//#if MC >= 11900
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//#endif
+
 public class RemoveEntityCommand extends AbstractCommand
 {
 	private static final String NAME = "removeentity";
@@ -35,7 +39,12 @@ public class RemoveEntityCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher)
+	public void registerCommand(
+			CommandDispatcher<ServerCommandSource> dispatcher
+			//#if MC >= 11900
+			//$$ , CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> node = literal(NAME).
 				requires(

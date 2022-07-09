@@ -99,7 +99,13 @@ public class EntityInfoPorting
 		if (e instanceof PaintingEntity)
 		{
 			PaintingEntity ep = (PaintingEntity)e;
-			lst.add(Messenger.c("w  - Art: ", "wb "+ep.motive.toString()));
+			String motive =
+					//#if MC >= 11900
+					//$$ ep.getVariant().toString();
+					//#else
+					ep.motive.toString();
+					//#endif
+			lst.add(Messenger.c("w  - Art: ", "wb "+motive));
 		}
 
 		if (e instanceof LivingEntity)  // EntityLivingBase

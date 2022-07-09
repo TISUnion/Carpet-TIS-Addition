@@ -26,7 +26,7 @@ public abstract class SpawnReporterMixin
 	//$$ @Shadow(remap = false) @Final public static int MAGIC_NUMBER;
 	//$$
 	//$$ @Unique
-	//$$ private static SpawnGroup currentSpawnGroup$CTA = null;
+	//$$ private static SpawnGroup currentSpawnGroup$TISCM = null;
 	//$$
 	//$$ @ModifyVariable(
 	//$$ 		method = "printMobcapsForDimension",
@@ -41,7 +41,7 @@ public abstract class SpawnReporterMixin
 	//$$ private static int applyMobcapsLocalLoggerValueOverrideForMaxMobLimit(int chunkcount)
 	//$$ {
 	//$$ 	Object2IntMap<SpawnGroup> mobcapsMap = MobcapsLocalLogger.getInstance().getMobcapsMap();
-	//$$ 	if (mobcapsMap != null && currentSpawnGroup$CTA != null)
+	//$$ 	if (mobcapsMap != null && currentSpawnGroup$TISCM != null)
 	//$$ 	{
 	//$$ 		chunkcount = MAGIC_NUMBER;
 	//$$ 	}
@@ -62,7 +62,7 @@ public abstract class SpawnReporterMixin
 	//$$ {
 	//$$ 	if (spawnGroup instanceof SpawnGroup)
 	//$$ 	{
-	//$$ 		currentSpawnGroup$CTA = (SpawnGroup)spawnGroup;
+	//$$ 		currentSpawnGroup$TISCM = (SpawnGroup)spawnGroup;
 	//$$ 	}
 	//$$ 	return spawnGroup;
 	//$$ }
@@ -80,9 +80,9 @@ public abstract class SpawnReporterMixin
 	//$$ private static int applyMobcapsLocalLoggerValueOverrideForCurrentMobCount(int cur)
 	//$$ {
 	//$$ 	Object2IntMap<SpawnGroup> mobcapsMap = MobcapsLocalLogger.getInstance().getMobcapsMap();
-	//$$ 	if (mobcapsMap != null && currentSpawnGroup$CTA != null)
+	//$$ 	if (mobcapsMap != null && currentSpawnGroup$TISCM != null)
 	//$$ 	{
-	//$$ 		cur = mobcapsMap.getOrDefault(currentSpawnGroup$CTA, -1);
+	//$$ 		cur = mobcapsMap.getOrDefault(currentSpawnGroup$TISCM, -1);
 	//$$ 	}
 	//$$ 	return cur;
 	//$$ }

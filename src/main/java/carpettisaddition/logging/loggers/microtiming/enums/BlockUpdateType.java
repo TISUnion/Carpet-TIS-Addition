@@ -13,6 +13,10 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+//#if MC >= 11900
+//$$ import net.minecraft.world.block.NeighborUpdater;
+//#endif
+
 //#if MC >= 11600
 //$$import net.minecraft.block.AbstractBlock;
 //#else
@@ -81,7 +85,12 @@ public enum BlockUpdateType
 		/**
 		 * See {@link World#updateNeighborsAlways} and {@link World#updateNeighborsExcept}
 		 */
-		private static final Direction[] BLOCK_UPDATE_ORDER = new Direction[]{Direction.WEST, Direction.EAST, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH};
+		private static final Direction[] BLOCK_UPDATE_ORDER =
+				//#if MC >= 11900
+				//$$ NeighborUpdater.UPDATE_ORDER;
+				//#else
+				new Direction[]{Direction.WEST, Direction.EAST, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH};
+				//#endif
 
 		/**
 		 * (<=1.15) See {@link Block#updateNeighborStates}

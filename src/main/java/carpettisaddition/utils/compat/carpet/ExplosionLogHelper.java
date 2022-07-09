@@ -1,6 +1,6 @@
 package carpettisaddition.utils.compat.carpet;
 
-import carpet.utils.Messenger;
+import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;

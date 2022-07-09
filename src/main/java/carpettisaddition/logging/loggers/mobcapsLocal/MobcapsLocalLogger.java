@@ -5,6 +5,10 @@ import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
 
+//#if MC >= 11900
+//$$ import net.minecraft.text.Text;
+//#endif
+
 //#if MC >= 11800
 //$$ import carpet.utils.SpawnReporter;
 //$$ import carpettisaddition.CarpetTISAdditionServer;
@@ -67,7 +71,13 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 		//$$ 	this.withLocalMobcapContext(
 		//$$ 			serverPlayerEntity,
 		//$$ 			() -> {
-		//$$ 				List<BaseText> lines = SpawnReporter.printMobcapsForDimension(serverPlayerEntity.getWorld(), false);
+		//$$ 				//#if MC >= 11900
+		//$$ 				//$$ List<Text> lines =
+		//$$ 				//#else
+		//$$ 				List<BaseText> lines =
+		//$$ 				//#endif
+		//$$ 						SpawnReporter.printMobcapsForDimension(serverPlayerEntity.getWorld(), false);
+		//$$
 		//$$ 				result.append(lines.get(0));
 		//$$ 				if (option != null)
 		//$$ 				{

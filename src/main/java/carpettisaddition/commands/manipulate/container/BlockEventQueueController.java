@@ -23,6 +23,10 @@ import static net.minecraft.command.arguments.BlockStateArgumentType.getBlockSta
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
+//#if MC >= 11900
+//$$ import net.minecraft.command.CommandRegistryAccess;
+//#endif
+
 public class BlockEventQueueController extends AbstractContainerController
 {
 	public BlockEventQueueController()
@@ -66,9 +70,17 @@ public class BlockEventQueueController extends AbstractContainerController
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode()
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(
+			//#if MC >= 11900
+			//$$ CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
-		return super.getCommandNode().
+		return super.getCommandNode(
+						//#if MC >= 11900
+						//$$ commandBuildContext
+						//#endif
+				).
 				then(literal("remove").
 						then(argument("pos", blockPos()).
 								executes(c -> this.removeAt(c.getSource(), getLoadedBlockPos(c, "pos")))
@@ -76,7 +88,11 @@ public class BlockEventQueueController extends AbstractContainerController
 				).
 				then(literal("add").
 						then(argument("pos", blockPos()).
-								then(argument("block", blockState()).
+								then(argument("block", blockState(
+												//#if MC >= 11900
+												//$$ commandBuildContext
+												//#endif
+										)).
 										then(argument("type", integer()).
 												then(argument("data", integer()).
 														executes(this::addEvent)

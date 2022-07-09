@@ -39,7 +39,9 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	 */
 	@ModifyVariable(
 			method = {
-					//#if MC >= 11600
+					//#if MC >= 11900
+					//$$ "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/util/registry/RegistryKey;)V",
+					//#elseif MC >= 11600
 					//$$ "sendMessage(Lnet/minecraft/text/Text;Z)V",
 					//$$ "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V",
 					//#else

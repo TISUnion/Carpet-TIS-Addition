@@ -20,6 +20,7 @@ public class LightThreadSynchronizer
 {
 	private static final Translator translator = new Translator("rule.synchronizedLightThread");
 	public static final String SECTION_NAME = "Lighting synchronization";
+	public static final String SECTION_DESCRIPTION = "Light engine synchronization by rule synchronizedLightThread to make sure the lighting engine will not fall behind";
 
 	private static boolean isSafeToWait(boolean synchronizedLightThread, CarpetTISAdditionSettings.LightUpdateOptions lightUpdates)
 	{
