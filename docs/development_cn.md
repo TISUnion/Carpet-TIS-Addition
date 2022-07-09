@@ -4,28 +4,9 @@
 
 # 开发
 
-当前主开发分支：**1.15.2**
+当前主开发 MC 版本：**1.15.2** (与 `versions/mainProject` 相同)
 
-目前维护的分支：
-- 1.14.4，对应 Minecraft 1.14.4
-- 1.15.2，对应 Minecraft 1.15.2
-- 1.16.5，对应 Minecraft 1.16.4 至 1.16.5
-- 1.17.1，对应 Minecraft 1.17.1
-- 1.18.x，对应 Minecraft 1.18 实验性快照
-
-目前存档的分支：
-- archive/1.16，对应 Minecraft 1.16 至 1.16.1
-- archive/1.16.3，对应 Minecraft 1.16.2 至 1.16.3
-- archive/1.17，对应 Minecraft 1.17
-
-对于通用的新特性，在 1.15.2 分支中实现，再将其合并至其他分支
-
-分支合并顺序：
-- 1.15.2 -> 1.14.4
-- 1.15.2 -> 1.16.5 -> 1.17.1 -> 1.18.x
-- 1.15.2 -> master (发布 release 时)
-
-对于版本专用的修复/补丁，在对应的分支上操作即可
+本模组借助 [preprocessor](https://github.com/ReplayMod/preprocessor)，在单一分支下对所有受支持的 MC 版本进行维护
 
 master 分支通常仅接受文档更新
 
