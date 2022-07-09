@@ -56,7 +56,13 @@ public class OnlineMappingProvider
 		URL url = new URL(YARN_META_URL);
 		URLConnection request = url.openConnection();
 		List<Pair<Integer, String>> list = Lists.newArrayList();
-		JsonElement json = (new JsonParser()).parse(new InputStreamReader(request.getInputStream()));
+		JsonElement json =
+				//#if MC >= 11800
+				//$$ JsonParser.parseReader
+				//#else
+				(new JsonParser()).parse
+				//#endif
+						(new InputStreamReader(request.getInputStream()));
 		json.getAsJsonArray().forEach(e -> {
 			JsonObject object = e.getAsJsonObject();
 			list.add(Pair.of(object.get("build").getAsInt(), object.get("version").getAsString()));
