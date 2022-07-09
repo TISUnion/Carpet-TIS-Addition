@@ -10,11 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class EntityMixin
 {
 	@ModifyConstant(
-			//#if MC >= 11700
-			//$$ method = "readNbt",
-			//#else
 			method = "fromTag",
-			//#endif
 			constant = @Constant(doubleValue = 10.0D),
 			require = 3
 	)

@@ -27,11 +27,7 @@ public abstract class ServerWorldMixin
 	private int blockEventCurrentDepthSize;
 
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "processSyncedBlockEvents",
-			//#else
 			method = "sendBlockActions",
-			//#endif
 			at = @At("HEAD")
 	)
 	private void enterBlockEventStage(CallbackInfo ci)
@@ -44,11 +40,7 @@ public abstract class ServerWorldMixin
 	}
 
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "processSyncedBlockEvents",
-			//#else
 			method = "sendBlockActions",
-			//#endif
 			at = @At("TAIL")
 	)
 	private void exitBlockEventStage(CallbackInfo ci)

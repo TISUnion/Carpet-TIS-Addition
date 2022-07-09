@@ -11,11 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class ServerWorldMixin
 {
 	@ModifyArg(
-			//#if MC >= 11600
-			//$$ method = "processSyncedBlockEvents",
-			//#else
 			method = "sendBlockActions",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600

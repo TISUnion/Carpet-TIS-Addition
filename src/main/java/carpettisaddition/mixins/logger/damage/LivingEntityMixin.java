@@ -131,7 +131,6 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	}
 
 	@Inject(
-			// TODO: check remap auto remaping to modifyAppliedDamage
 			method = "applyEnchantmentsToDamage",
 			at = @At(
 					value = "INVOKE_ASSIGN",
@@ -146,7 +145,6 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	}
 
 	@Inject(
-			// TODO: check remap auto remaping to modifyAppliedDamage
 			method = "applyEnchantmentsToDamage",
 			at = @At(
 					value = "INVOKE_ASSIGN",

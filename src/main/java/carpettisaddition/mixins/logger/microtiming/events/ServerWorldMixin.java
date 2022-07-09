@@ -92,11 +92,7 @@ public abstract class ServerWorldMixin
 	private int oldBlockActionQueueSize;
 
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "addSyncedBlockEvent",
-			//#else
 			method = "addBlockAction",
-			//#endif
 			at = @At("HEAD")
 	)
 	private void startScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
@@ -105,11 +101,7 @@ public abstract class ServerWorldMixin
 	}
 
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "addSyncedBlockEvent",
-			//#else
 			method = "addBlockAction",
-			//#endif
 			at = @At("RETURN")
 	)
 	private void endScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
