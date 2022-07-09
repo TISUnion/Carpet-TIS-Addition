@@ -41,7 +41,12 @@ public abstract class ArmorStandItemItemMixin
 	//$$ 		return true;
 	//$$ 	}
 	//$$ 	// vanilla
-	//$$ 	return world.isSpaceEmpty(entity, box, predicate);
+	//$$ 	return world.isSpaceEmpty(
+	//$$  			entity, box
+	//$$  			//#if MC < 11800
+	//$$  			, predicate
+	//$$  			//#endif
+	//$$ 	);
 	//$$ }
 	//$$
 	//$$ @Redirect(

@@ -63,7 +63,11 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			method = "insertAndExtract",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11800
+					//$$ target = "Lnet/minecraft/block/entity/HopperBlockEntity;setTransferCooldown(I)V",
+					//#else
 					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V",
+					//#endif
 					shift = At.Shift.AFTER
 			)
 	)
@@ -105,7 +109,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				//$${
 				//$$	flag = insert(world, blockPos, blockState, hopperBlockEntity);
 				//$$}
-				//$$if (!((HopperBlockEntityAccessor)hopperBlockEntity).callIsFull())
+				//$$if (!((HopperBlockEntityAccessor)hopperBlockEntity).invokeIsFull())
 				//$${
 				//$$	flag |= booleanSupplier.getAsBoolean();
 				//$$}
@@ -140,7 +144,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 
 			// no cooldown
 			//#if MC >= 11700
-			//$$ ((HopperBlockEntityAccessor)hopperBlockEntity).callSetCooldown(0);
+			//$$ ((HopperBlockEntityAccessor)hopperBlockEntity).invokeSetCooldown(0);
 			//#else
 			this.setCooldown(0);
 			//#endif

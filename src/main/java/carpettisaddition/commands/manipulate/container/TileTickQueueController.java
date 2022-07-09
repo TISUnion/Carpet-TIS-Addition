@@ -7,13 +7,10 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.Block;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.TickPriority;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
@@ -24,6 +21,13 @@ import static net.minecraft.command.arguments.BlockStateArgumentType.getBlockSta
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
+//#if MC >= 11800
+//$$ import net.minecraft.world.tick.WorldTickScheduler;
+//#else
+import net.minecraft.server.world.ServerTickScheduler;
+import java.util.List;
+//#endif
+
 public class TileTickQueueController extends AbstractContainerController
 {
 	public TileTickQueueController()
@@ -31,7 +35,13 @@ public class TileTickQueueController extends AbstractContainerController
 		super("tile_tick");
 	}
 
-	private int remove(ServerTickScheduler<?> serverTickScheduler, BlockPos blockPos)
+	private int remove(
+			//#if MC >= 11800
+			//$$ WorldTickScheduler<?> tickScheduler,
+			//#else
+			ServerTickScheduler<?> serverTickScheduler,
+			//#endif
+			BlockPos blockPos)
 	{
 		BlockBox blockBox =
 				//#if MC >= 11700
@@ -40,8 +50,16 @@ public class TileTickQueueController extends AbstractContainerController
 				new BlockBox
 				//#endif
 						(blockPos, blockPos.add(1, 1, 1));
+
+		//#if MC >= 11800
+		//$$ int sizeBefore = tickScheduler.getTickCount();
+		//$$ tickScheduler.clearNextTicks(blockBox);
+		//$$ int sizeAfter = tickScheduler.getTickCount();
+		//$$ return sizeBefore - sizeAfter;
+		//#else
 		List<?> removed = serverTickScheduler.getScheduledTicks(blockBox, true, false);
 		return removed.size();
+		//#endif
 	}
 
 	private int removeAt(ServerCommandSource source, BlockPos blockPos)
@@ -69,7 +87,13 @@ public class TileTickQueueController extends AbstractContainerController
 			priority = TickPriority.byIndex((Integer)priorityArg);
 		}
 
-		source.getWorld().getBlockTickScheduler().schedule(blockPos, block, delay, priority);
+		source.getWorld().
+				//#if MC >= 11800
+				//$$ createAndScheduleBlockTick
+				//#else
+				getBlockTickScheduler().schedule
+				//#endif
+				(blockPos, block, delay, priority);
 		Messenger.tell(source, tr(
 				"scheduled",
 				Messenger.fancy(tr("item_name"), tr("item_description", Messenger.block(block), delay, priority.getIndex(), priority), null),

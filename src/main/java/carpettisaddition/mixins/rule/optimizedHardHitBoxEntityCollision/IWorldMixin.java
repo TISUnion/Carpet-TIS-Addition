@@ -9,14 +9,25 @@ import net.minecraft.world.EntityView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import java.util.Set;
+//#if MC >= 11800
+//$$ import org.jetbrains.annotations.Nullable;
+//$$ import java.util.List;
+//#else
 import java.util.stream.Stream;
+//#endif
 
 //#if MC >= 11600
 //$$ import net.minecraft.world.RegistryWorldView;
-//$$ import java.util.function.Predicate;
 //#else
 import net.minecraft.world.IWorld;
+//#endif
+
+//#if MC < 11600
+import java.util.Set;
+//#endif
+
+//#if MC >= 11600 && MC < 11800
+//$$ import java.util.function.Predicate;
 //#endif
 
 @Mixin(
@@ -36,7 +47,9 @@ public interface IWorldMixin extends EntityView
 	 * @author Fallen_Breath
 	 */
 	@Overwrite
-	//#if MC >= 11600
+	//#if MC >= 11800
+	//$$ default List<VoxelShape> getEntityCollisions(@Nullable Entity entity, Box box)
+	//#elseif MC >= 11600
 	//$$ default Stream<VoxelShape> getEntityCollisions(Entity entity, Box box, Predicate<Entity> predicate)
 	//#elseif MC >= 11500
 	default Stream<VoxelShape> getEntityCollisions(Entity entity, Box box, Set<Entity> excluded)
@@ -54,9 +67,11 @@ public interface IWorldMixin extends EntityView
 				}
 			}
 
-			// vanill copy
+			// vanilla copy
 			return EntityView.super.
-					//#if MC >= 11600
+					//#if MC >= 11800
+					//$$ getEntityCollisions(entity, box);
+					//#elseif MC >= 11600
 					//$$ getEntityCollisions(entity, box, predicate);
 					//#elseif MC >= 11500
 					getEntityCollisions(entity, box, excluded);

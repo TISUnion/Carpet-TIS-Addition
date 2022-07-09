@@ -32,7 +32,7 @@ import carpettisaddition.utils.compat.DummyClass;
 public abstract class HopperHelperMixin
 {
 	//#if MC >= 11700
-	//$$ private static ItemStack originalTransferStack$CTA = null;
+	//$$ private static ItemStack originalTransferStack$TISCM = null;
 	//$$
 	//$$ @ModifyVariable(
 	//$$ 		method = "tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/SidedInventory;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z",
@@ -44,7 +44,7 @@ public abstract class HopperHelperMixin
 	//$$ {
 	//$$ 	if (CarpetTISAdditionSettings.hopperNoItemCost && HopperNoItemCostHelper.woolColor.get() != null)
 	//$$ 	{
-	//$$ 		originalTransferStack$CTA = transferStack;
+	//$$ 		originalTransferStack$TISCM = transferStack;
 	//$$ 		transferStack = transferStack.copy();
 	//$$ 	}
 	//$$ 	return transferStack;
@@ -61,13 +61,13 @@ public abstract class HopperHelperMixin
 	//$$ 	if (CarpetTISAdditionSettings.hopperNoItemCost)
 	//$$ 	{
 	//$$ 		DyeColor woolColor = HopperNoItemCostHelper.woolColor.get();
-	//$$ 		if (woolColor != null && originalTransferStack$CTA != null)
+	//$$ 		if (woolColor != null && originalTransferStack$TISCM != null)
 	//$$ 		{
 	//$$ 			if (SupplierCounterCommand.isActivated())
 	//$$ 			{
-	//$$ 				SupplierCounterCommand.getInstance().record(woolColor, originalTransferStack$CTA, transferStack);
+	//$$ 				SupplierCounterCommand.getInstance().record(woolColor, originalTransferStack$TISCM, transferStack);
 	//$$ 			}
-	//$$ 			originalTransferStack$CTA = null;
+	//$$ 			originalTransferStack$TISCM = null;
 	//$$ 		}
 	//$$ 	}
 	//$$ 	return transferStack;

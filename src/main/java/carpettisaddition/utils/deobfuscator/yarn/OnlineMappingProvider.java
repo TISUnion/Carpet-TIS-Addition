@@ -28,7 +28,8 @@ public class OnlineMappingProvider
 	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
 	public static final String MINECRAFT_VERSION =
 			//#if MC >= 11700
-			//$$ MinecraftVersion.GAME_VERSION.getName();
+			//$$ // Minecraft's version "1.18-experimental-4" is not the same as yarn format, so the version is handled trickily
+			//$$ MinecraftVersion.GAME_VERSION.getName().replace("-experimental-", "_experimental-snapshot-");
 			//#elseif MC >= 11600
 			//$$ MinecraftVersion.field_25319.getName();
 			//#else

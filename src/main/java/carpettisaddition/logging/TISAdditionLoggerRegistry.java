@@ -30,6 +30,10 @@ import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
 
 import java.lang.reflect.Field;
 
+//#if MC >= 11800
+//$$ import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
+//#endif
+
 public class TISAdditionLoggerRegistry
 {
     public static boolean __commandBlock;
@@ -39,6 +43,9 @@ public class TISAdditionLoggerRegistry
     public static boolean __lightQueue;
     public static boolean __memory;
     public static boolean __microTiming;
+    //#if MC >= 11800
+    //$$ public static boolean __mobcapsLocal;
+    //#endif
     public static boolean __movement;
     public static boolean __phantom;
     public static boolean __raid;
@@ -57,6 +64,9 @@ public class TISAdditionLoggerRegistry
         register(LightQueueHUDLogger.getInstance());
         register(MemoryHUDLogger.getInstance());
         register(MicroTimingStandardCarpetLogger.getInstance());
+        //#if MC >= 11800
+        //$$ register(MobcapsLocalLogger.getInstance());
+        //#endif
         register(MovementLogger.getInstance());
         register(PhantomLogger.getInstance());
         register(RaidLogger.getInstance());

@@ -20,7 +20,11 @@ public abstract class TranslatableTextMixin
 			method = "updateTranslations",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11800
+					//$$ target = "Lnet/minecraft/text/TranslatableText;forEachPart(Ljava/lang/String;Ljava/util/function/Consumer;)V"
+					//#else
 					target = "Lnet/minecraft/text/TranslatableText;setTranslation(Ljava/lang/String;)V"
+					//#endif
 			)
 	)
 	private String applyTISCarpetTranslation(String vanillaTranslatedFormattingString)

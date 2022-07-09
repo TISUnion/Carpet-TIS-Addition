@@ -2,7 +2,7 @@ package carpettisaddition.logging.loggers.microtiming.enums;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.mixins.logger.microtiming.BlockAccessor;
+import carpettisaddition.mixins.logger.microtiming.misc.BlockAccessor;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.base.Joiner;

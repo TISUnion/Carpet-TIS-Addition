@@ -78,13 +78,24 @@ public class SupplierCounter extends TranslationContext
 		return String.format("/%s %s", SupplierCounterCommand.PREFIX, this.color.getName().toLowerCase());
 	}
 
+	private long getTotal()
+	{
+		return this.counter.values().
+				//#if MC >= 11800
+				//$$ longStream().
+				//#else
+				stream().mapToLong(x -> x).
+				//#endif
+				sum();
+	}
+
 	public BaseText reportBrief(boolean realTime)
 	{
 		BaseText content;
 		if (this.isRunning())
 		{
 			long ticks = CounterUtil.getTimeElapsed(this.startTick, this.startMillis, realTime);
-			long total = this.counter.values().stream().mapToLong(x -> x).sum();
+			long total = this.getTotal();
 			content = Messenger.s(String.format("%d, %.1f/h, %.1f min", total, total / CounterUtil.tickToHour(ticks), CounterUtil.tickToMinute(ticks)));
 		}
 		else
@@ -106,7 +117,7 @@ public class SupplierCounter extends TranslationContext
 		}
 
 		long ticks = CounterUtil.getTimeElapsed(this.startTick, this.startMillis, realTime);
-		long total = this.counter.values().stream().mapToLong(x -> x).sum();
+		long total = this.getTotal();
 
 		BaseText realtimeSuffix = realTime ?
 				Messenger.c("g (", Messenger.formatting(tr("realtime"), "g"), "g )") :

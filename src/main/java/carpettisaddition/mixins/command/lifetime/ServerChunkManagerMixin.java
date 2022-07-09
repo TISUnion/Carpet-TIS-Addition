@@ -23,7 +23,9 @@ public abstract class ServerChunkManagerMixin
 			method = "tickChunks",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11600
+					//#if MC >= 11800
+					//$$ target = "Lnet/minecraft/server/world/ChunkTicketManager;getTickedChunkCount()I"
+					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/server/world/ChunkTicketManager;getSpawningChunkCount()I"
 					//#else
 					target = "Lnet/minecraft/server/world/ServerWorld;getMobCountsByCategory()Lit/unimi/dsi/fastutil/objects/Object2IntMap;"

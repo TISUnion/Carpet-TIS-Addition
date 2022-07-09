@@ -31,6 +31,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+//#if MC >= 11800
+//$$ import carpettisaddition.mixins.logger.microtiming.tickstages.ServerWorldAccessor;
+//$$ import net.minecraft.util.math.ChunkPos;
+//#endif
+
 public class MicroTimingUtil
 {
 	public static final Direction[] DIRECTION_VALUES = Direction.values();
@@ -133,7 +138,9 @@ public class MicroTimingUtil
 	private static boolean isPositionAvailable(World world, BlockPos pos)
 	{
 		return world instanceof ServerWorld &&
-				//#if MC >= 11700
+				//#if MC >= 11800
+				//$$ ((ServerWorldAccessor)world).invokeIsTickingFutureReady(ChunkPos.toLong(pos));
+				//#elseif MC >= 11700
 				//$$ ((ServerWorld)world).method_37117(pos);
 				//#else
 				world.getChunkManager().shouldTickBlock(pos);

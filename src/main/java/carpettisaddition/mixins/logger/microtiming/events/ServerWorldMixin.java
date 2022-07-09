@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
@@ -29,6 +28,9 @@ public abstract class ServerWorldMixin
 	 *  Tile Tick
 	 * -----------
 	 */
+	//#if MC >= 11800
+	//$$ // for MC 1.18+, executing tile tick stuffs are mixined in TileTickListMixin
+	//#else
 
 	private final ThreadLocal<Boolean> thisTileTickEventExecuted = ThreadLocal.withInitial(() -> false);
 
@@ -76,6 +78,8 @@ public abstract class ServerWorldMixin
 			MicroTimingLoggerManager.onExecuteTileTickEvent((ServerWorld) (Object) this, event, EventType.ACTION_END);
 		}
 	}
+
+	//#endif
 
 	/*
 	 * -------------

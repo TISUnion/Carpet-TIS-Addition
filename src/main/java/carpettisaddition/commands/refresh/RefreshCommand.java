@@ -10,7 +10,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.network.MessageType;
-import net.minecraft.network.Packet;
 import net.minecraft.network.PacketDeflater;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -30,6 +29,13 @@ import static net.minecraft.command.arguments.EntityArgumentType.getPlayers;
 import static net.minecraft.command.arguments.EntityArgumentType.players;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
+
+//#if MC >= 11800
+//$$ import net.minecraft.util.math.ChunkSectionPos;
+//$$ import org.apache.commons.lang3.mutable.MutableObject;
+//#else
+import net.minecraft.network.Packet;
+//#endif
 
 //#if MC >= 11600
 //$$ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
@@ -138,10 +144,19 @@ public class RefreshCommand extends AbstractCommand
 		ThreadedAnvilChunkStorageAccessor chunkStorage = (ThreadedAnvilChunkStorageAccessor)source.getPlayer().getServerWorld().getChunkManager().threadedAnvilChunkStorage;
 		MutableInt counter = new MutableInt(0);
 		Consumer<ChunkPos> chunkRefresher = pos -> {
-			chunkStorage.invokeSendWatchPackets(player, pos, new Packet[2], false, true);
+			chunkStorage.invokeSendWatchPackets(
+					player, pos,
+					//#if MC >= 11800
+					//$$ new MutableObject<>(),
+					//#else
+					new Packet[2],
+					//#endif
+					false, true
+			);
 			counter.add(1);
 		};
-		Predicate<ChunkPos> inPlayerViewDistance = pos -> ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(pos, player, true) <= chunkStorage.getWatchDistance();
+
+		Predicate<ChunkPos> inPlayerViewDistance = pos -> isChunkInsideRange(pos, player, chunkStorage.getWatchDistance());
 		if (chunkPos != null)
 		{
 			if (inPlayerViewDistance.test(chunkPos))
@@ -204,6 +219,16 @@ public class RefreshCommand extends AbstractCommand
 	private int refreshChunksInRange(ServerCommandSource source, int distance) throws CommandSyntaxException
 	{
 		ServerPlayerEntity player = source.getPlayer();
-		return this.refreshChunks(source, null, chunkPos -> ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(chunkPos, player, true) <= distance);
+		return this.refreshChunks(source, null, chunkPos -> isChunkInsideRange(chunkPos, player, distance));
+	}
+
+	private static boolean isChunkInsideRange(ChunkPos chunkPos, ServerPlayerEntity player, int distance)
+	{
+		//#if MC >= 11800
+		//$$ ChunkSectionPos watchedSection = player.getWatchedSection();
+		//$$ return ThreadedAnvilChunkStorageAccessor.invokeIsChunkWithinEuclideanDistanceRange(chunkPos.x, chunkPos.z, watchedSection.getSectionX(), watchedSection.getSectionZ(), distance);
+		//#else
+		return ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(chunkPos, player, true) <= distance;
+		//#endif
 	}
 }

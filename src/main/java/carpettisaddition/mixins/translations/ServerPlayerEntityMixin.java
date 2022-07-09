@@ -20,7 +20,12 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	@Inject(method = "setClientSettings", at = @At("HEAD"))
 	private void recordClientLanguage(ClientSettingsC2SPacket packet, CallbackInfo ci)
 	{
-		this.clientLanguage$TISCM = ((ClientSettingsC2SPacketAccessor)packet).getLanguage$TISCM();
+		this.clientLanguage$TISCM =
+				//#if MC >= 11800
+				//$$ packet.language();
+				//#else
+				((ClientSettingsC2SPacketAccessor)packet).getLanguage$TISCM();
+				//#endif
 	}
 
 	@Override

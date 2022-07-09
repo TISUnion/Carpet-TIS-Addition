@@ -30,7 +30,9 @@ public abstract class MobSpawnerLogicMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11600
+					//#if MC >= 11800
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnNewEntityAndPassengers(Lnet/minecraft/entity/Entity;)Z"
+					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;shouldCreateNewEntityWithPassenger(Lnet/minecraft/entity/Entity;)Z"
 					//#else
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"

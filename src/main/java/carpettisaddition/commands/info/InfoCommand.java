@@ -13,12 +13,9 @@ import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.BlockAction;
-import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.World;
 
 import java.util.Collection;
@@ -26,6 +23,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+//#if MC >= 11800
+//$$ import carpettisaddition.mixins.command.info.ChunkTickSchedulerAccessor;
+//$$ import carpettisaddition.mixins.command.info.WorldTickSchedulerAccessor;
+//$$ import net.minecraft.util.math.ChunkPos;
+//$$ import net.minecraft.world.tick.ChunkTickScheduler;
+//$$ import net.minecraft.world.tick.OrderedTick;
+//$$ import net.minecraft.world.tick.WorldTickScheduler;
+//$$ import java.util.Queue;
+//#else
+import net.minecraft.server.world.ServerTickScheduler;
+import net.minecraft.util.math.BlockBox;
+import net.minecraft.world.ScheduledTick;
+//#endif
 
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -110,6 +121,20 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		}
 	}
 
+	//#if MC >= 11800
+	//$$ @SuppressWarnings("unchecked")
+	//$$ private <T> List<OrderedTick<T>> getTileTicksAt(WorldTickScheduler<T> wts, BlockPos pos)
+	//$$ {
+	//$$ 	ChunkTickScheduler<T> cts = ((WorldTickSchedulerAccessor<T>)wts).getChunkTickSchedulers().get(ChunkPos.toLong(pos));
+	//$$ 	if (cts != null)
+	//$$ 	{
+	//$$ 		Queue<OrderedTick<T>> queue = ((ChunkTickSchedulerAccessor<T>)cts).getTickQueue();
+	//$$ 		return queue.stream().filter(t -> t.pos().equals(pos)).sorted(OrderedTick.TRIGGER_TICK_COMPARATOR).collect(Collectors.toList());
+	//$$ 	}
+	//$$ 	return Collections.emptyList();
+	//$$ }
+	//#endif
+
 	public Collection<BaseText> showMoreBlockInfo(BlockPos pos, World world)
 	{
 		if (!(world instanceof ServerWorld))
@@ -118,6 +143,10 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 		}
 		List<BaseText> result = Lists.newArrayList();
 
+		//#if MC >= 11800
+		//$$ List<OrderedTick<Block>> blockTileTicks = this.getTileTicksAt((WorldTickScheduler<Block>)world.getBlockTickScheduler(), pos);
+		//$$ List<OrderedTick<Fluid>> liquidTileTicks = this.getTileTicksAt((WorldTickScheduler<Fluid>)world.getFluidTickScheduler(), pos);
+		//#else
 		BlockBox bound =
 				//#if MC >= 11700
 				//$$ BlockBox.create
@@ -125,9 +154,10 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 				new BlockBox
 				//#endif
 				(pos, pos.add(1, 1, 1));
-
 		List<ScheduledTick<Block>> blockTileTicks = ((ServerTickScheduler<Block>)world.getBlockTickScheduler()).getScheduledTicks(bound, false, false);
 		List<ScheduledTick<Fluid>> liquidTileTicks = ((ServerTickScheduler<Fluid>)world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
+		//#endif
+
 		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), Messenger::block);
 		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", world.getTime(), Messenger::fluid);
 		List<BlockAction> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.getPos().equals(pos)).collect(Collectors.toList());

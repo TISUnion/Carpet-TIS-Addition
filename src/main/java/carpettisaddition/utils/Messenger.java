@@ -130,17 +130,28 @@ public class Messenger
 		TranslatableTextAccessor dummy = (TranslatableTextAccessor)(new TranslatableText(formatter, args));
 		try
 		{
+			//#if MC >= 11800
+			//$$ List<StringVisitable> segments = Lists.newArrayList();
+			//$$ dummy.invokeForEachPart(formatter, segments::add);
+			//#else
 			dummy.getTranslations().clear();
 			dummy.invokeSetTranslation(formatter);
+			//#endif
+
 			return Messenger.c(
 					//#if MC >= 11600
-					//$$ dummy.getTranslations().stream().map(stringVisitable -> {
-					//$$ 	if (stringVisitable instanceof BaseText)
-					//$$ 	{
-					//$$ 		return (BaseText)stringVisitable;
-					//$$ 	}
-					//$$ 	return Messenger.s(stringVisitable.getString());
-					//$$ }).toArray()
+					//$$ //#if MC >= 11800
+					//$$ //$$ segments.
+					//$$ //#else
+					//$$ dummy.getTranslations().
+					//$$ //#endif
+					//$$ 		stream().map(stringVisitable -> {
+					//$$ 			if (stringVisitable instanceof BaseText)
+					//$$ 			{
+					//$$ 				return (BaseText)stringVisitable;
+					//$$ 			}
+					//$$ 			return Messenger.s(stringVisitable.getString());
+					//$$ 		}).toArray()
 					//#else
 					dummy.getTranslations().toArray(new Object[0])
 					//#endif

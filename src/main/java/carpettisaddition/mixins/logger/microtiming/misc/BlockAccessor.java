@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.microtiming;
+package carpettisaddition.mixins.logger.microtiming.misc;
 
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;

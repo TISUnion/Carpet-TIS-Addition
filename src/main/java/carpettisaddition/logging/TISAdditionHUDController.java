@@ -16,6 +16,7 @@ public class TISAdditionHUDController
         doHudLogging(TISAdditionLoggerRegistry.__lightQueue, LightQueueHUDLogger.NAME, LightQueueHUDLogger.getInstance());
         doHudLogging(TISAdditionLoggerRegistry.__lifeTime, LifeTimeHUDLogger.NAME, LifeTimeHUDLogger.getInstance());
         doHudLogging(TISAdditionLoggerRegistry.__memory, MemoryHUDLogger.NAME, MemoryHUDLogger.getInstance());
+        // mobcapsLocal logger has its own injection to make sure it will be updated right after the mobcaps logger
         doHudLogging(TISAdditionLoggerRegistry.__scounter, SupplierCounterHUDLogger.NAME, SupplierCounterHUDLogger.getInstance());
         doHudLogging(TISAdditionLoggerRegistry.__tickWarp, TickWarpHUDLogger.NAME, TickWarpHUDLogger.getInstance());
     }

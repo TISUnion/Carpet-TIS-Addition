@@ -14,13 +14,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
-	private int tileTickOrderCounter = 0;
-
 	@Inject(
 			method = "tick",
 			at = @At(
 					value = "FIELD",
+					//#if MC >= 11800
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
+					//#else
 					target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+					//#endif
 			)
 	)
 	private void enterStageTileTick(CallbackInfo ci)
@@ -33,12 +35,20 @@ public abstract class ServerWorldMixin
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
+							//#if MC >= 11800
+							//$$ target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
+							//#else
 							target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+							//#endif
 					)
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11800
+					//$$ target = "Lnet/minecraft/world/tick/WorldTickScheduler;tick(JILjava/util/function/BiConsumer;)V",
+					//#else
 					target = "Lnet/minecraft/server/world/ServerTickScheduler;tick()V",
+					//#endif
 					shift = At.Shift.AFTER
 			)
 	)
@@ -47,7 +57,9 @@ public abstract class ServerWorldMixin
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.UNKNOWN);
 	}
 
-	@SuppressWarnings("MixinAnnotationTarget")
+	//#if MC < 11800
+	private int tileTickOrderCounter = 0;
+
 	@Inject(
 			method = "tick",
 			at = {
@@ -79,4 +91,5 @@ public abstract class ServerWorldMixin
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
 		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, null);
 	}
+	//#endif
 }

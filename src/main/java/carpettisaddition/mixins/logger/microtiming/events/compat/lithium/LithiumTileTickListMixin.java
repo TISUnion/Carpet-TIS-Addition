@@ -1,9 +1,14 @@
 package carpettisaddition.mixins.logger.microtiming.events.compat.lithium;
 
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import org.spongepowered.asm.mixin.Mixin;
+
+//#if MC >= 11800
+//$$ import carpettisaddition.utils.compat.DummyClass;
+//#else
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
 import me.jellysquid.mods.lithium.common.world.scheduler.TickEntry;
 import net.minecraft.server.world.ServerTickScheduler;
@@ -13,26 +18,39 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ScheduledTick;
 import net.minecraft.world.TickPriority;
 import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+//#endif
 
-@Restriction(require = @Condition(ModIds.lithium))
-@Mixin(LithiumServerTickScheduler.class)
-public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickScheduler<T>
+@Restriction(require = {
+		@Condition(value = ModIds.minecraft, versionPredicates = "<1.18"),
+		@Condition(ModIds.lithium)
+})
+@Mixin(
+		//#if MC >= 11800
+		//$$ value = DummyClass.class
+		//#else
+		value = LithiumServerTickScheduler.class
+		//#endif
+)
+public abstract class LithiumTileTickListMixin
+		//#if MC < 11800
+		<T> extends ServerTickScheduler<T>
+		//#endif
 {
+	//#if MC < 11800
+
 	@Shadow(remap = false) @Final private ServerWorld world;
 
 	private boolean scheduleSuccess;
 
-	public LithiumServerTickSchedulerMixin(
+	public LithiumTileTickListMixin(
 			ServerWorld world, Predicate<T> invalidObjPredicate, Function<T, Identifier> idToName,
 			//#if MC < 11600
 			Function<Identifier, T> nameToId,
@@ -96,4 +114,6 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	{
 		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduleSuccess);
 	}
+
+	//#endif
 }
