@@ -1,6 +1,9 @@
 package carpettisaddition.mixins.rule.totallyNoBlockUpdate;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.block.Block;
 //#endif
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.19"))
 @Mixin(
 		//#if MC >= 11600
 		//$$ AbstractBlock.AbstractBlockState.class
@@ -21,6 +25,7 @@ import net.minecraft.block.Block;
 )
 public abstract class BlockMixin
 {
+	//#if MC < 11900
 	@Inject(
 			//#if MC >= 11600
 			//$$ method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
@@ -37,4 +42,5 @@ public abstract class BlockMixin
 			ci.cancel();
 		}
 	}
+	//#endif
 }
