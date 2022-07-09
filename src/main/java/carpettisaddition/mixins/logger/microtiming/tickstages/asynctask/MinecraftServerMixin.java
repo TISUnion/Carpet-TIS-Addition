@@ -13,13 +13,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
-	@Inject(method = "method_16208", at = @At("HEAD"))
+	@Inject(
+			//#if MC >= 11700
+			//$$ method = "runTasksTillTickEnd",
+			//#else
+			method = "method_16208",
+			//#endif
+			at = @At("HEAD")
+	)
 	private void enterStageAsyncTask(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.ASYNC_TASK);
 	}
 
-	@Inject(method = "method_16208", at = @At("TAIL"))
+	@Inject(
+			//#if MC >= 11700
+			//$$ method = "runTasksTillTickEnd",
+			//#else
+			method = "method_16208",
+			//#endif
+			at = @At("TAIL")
+	)
 	private void exitStageAsyncTask(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.UNKNOWN);

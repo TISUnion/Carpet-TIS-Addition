@@ -33,7 +33,11 @@ public abstract class ExperienceOrbEntityMixin
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
+					//#else
 					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					//#endif
 			)
 	)
 	void onDespawned(CallbackInfo ci)
@@ -49,7 +53,11 @@ public abstract class ExperienceOrbEntityMixin
 			method = "damage",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
+					//#else
 					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					//#endif
 			)
 	)
 	void onDied(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)

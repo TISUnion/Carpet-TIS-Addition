@@ -2,6 +2,7 @@ package carpettisaddition.mixins.carpet.tweaks.logger.projectile;
 
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.VisualizeTrajectoryHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.thrown.SnowballEntity;
 import net.minecraft.entity.thrown.ThrownItemEntity;
@@ -35,7 +36,11 @@ public abstract class SnowBallEntityMixin extends ThrownItemEntity
 			}
 			else
 			{
+				//#if MC >= 11700
+				//$$ this.discard();
+				//#else
 				this.remove();
+				//#endif
 			}
 		}
 		else

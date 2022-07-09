@@ -35,7 +35,11 @@ public abstract class ItemEntityMixin extends Entity
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//#else
 					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//#endif
 			)
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)
@@ -47,7 +51,11 @@ public abstract class ItemEntityMixin extends Entity
 			method = "merge(Lnet/minecraft/entity/ItemEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/ItemEntity;Lnet/minecraft/item/ItemStack;)V",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//#else
 					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//#endif
 			)
 	)
 	private static void onMergedLifeTimeTracker(ItemEntity targetEntity, ItemStack targetStack, ItemEntity sourceEntity, ItemStack sourceStack, CallbackInfo ci)
@@ -60,7 +68,11 @@ public abstract class ItemEntityMixin extends Entity
 			method = "onPlayerCollision",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//#else
 					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//#endif
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)

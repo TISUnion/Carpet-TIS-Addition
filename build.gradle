@@ -14,14 +14,14 @@ preprocess {
     def mc114      = createNode('1.14.4'  , 1_14_04, 'yarn')
     def mc115      = createNode('1.15.2'  , 1_15_02, 'yarn')
     def mc116      = createNode('1.16.5'  , 1_16_05, 'yarn')
-//    def mc117      = createNode('1.17.1'  , 1_17_01, 'yarn')
+    def mc117      = createNode('1.17.1'  , 1_17_01, 'yarn')
 //    def mc118      = createNode('1.18.x'  , 1_18_02, 'yarn')
 //    def mc119      = createNode('1.19.x', 1_19_00, 'yarn')
 //    def mcSnapshot = createNode('future', 1_19_01, 'yarn')
 
     mc115.link(mc114, file('versions/mapping-1.15-1.14.txt'))
     mc115.link(mc116, file('versions/mapping-1.15-1.16.txt'))
-//    mc116.link(mc117, null)
+    mc116.link(mc117, file('versions/mapping-1.16-1.17.txt'))
 //    mc117.link(mc118, null)
 //    mc118.link(mcSnapshot, null)
 }

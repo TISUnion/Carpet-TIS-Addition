@@ -34,7 +34,13 @@ public abstract class FallingBlockEntityMixin extends Entity
 		{
 			// one-line code to fix
 			// thank mojang for not fixing
-			if (this.removed)
+			if (
+					//#if MC >= 11700
+					//$$ this.isRemoved()
+					//#else
+					this.removed
+					//#endif
+			)
 			{
 				ci.cancel();
 			}

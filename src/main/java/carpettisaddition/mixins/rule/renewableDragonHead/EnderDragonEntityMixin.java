@@ -42,7 +42,11 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Monste
 			method = "updatePostDeath",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;remove(Lnet/minecraft/entity/Entity$RemovalReason;)V"
+					//#else
 					target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;remove()V"
+					//#endif
 			)
 	)
 	private void dropHead(CallbackInfo ci)

@@ -12,11 +12,21 @@ public abstract class ServerWorldMixin
 {
 	//#if MC >= 11500
 	@Redirect(
+			//#if MC >= 11700
+			//$$ method = "method_31420",  // lambda method in method ServerWorld#tick
+			//$$ at = @At(
+			//$$ 		value = "INVOKE",
+			//$$ 		target = "Lnet/minecraft/entity/Entity;checkDespawn()V",
+			//$$ 		remap = true
+			//$$ ),
+			//$$ remap = false
+			//#else
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/Entity;checkDespawn()V"
 			)
+			//#endif
 	)
 	private void keepMobInLazyChunks_optionalCheckDespawn(Entity entity)
 	{

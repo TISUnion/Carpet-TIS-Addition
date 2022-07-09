@@ -1,5 +1,6 @@
 package carpettisaddition.helpers.rule.preciseEntityPlacement;
 
+import carpettisaddition.utils.EntityUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.math.Vec3d;
@@ -10,7 +11,7 @@ public class PreciseEntityPlacer
 
 	public static void adjustEntity(Entity entity, Vec3d targetPos)
 	{
-		entity.refreshPositionAndAngles(targetPos.getX(), targetPos.getY(), targetPos.getZ(), entity.yaw, entity.pitch);
+		entity.refreshPositionAndAngles(targetPos.getX(), targetPos.getY(), targetPos.getZ(), EntityUtil.getYaw(entity), EntityUtil.getPitch(entity));
 	}
 	public static void adjustEntity(Entity entity, ItemUsageContext context)
 	{

@@ -40,7 +40,11 @@ public abstract class PistonBlockMixin
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/world/World;addBlockEntity(Lnet/minecraft/block/entity/BlockEntity;)V",
+					//#else
 					target = "Lnet/minecraft/world/World;setBlockEntity(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/BlockEntity;)V",
+					//#endif
 					shift = At.Shift.AFTER,
 					ordinal = 0
 			),

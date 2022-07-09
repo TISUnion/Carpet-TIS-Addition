@@ -1,6 +1,9 @@
 package carpettisaddition.mixins.rule.cauldronBlockItemInteractFix;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.CauldronBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,9 +16,11 @@ import net.minecraft.util.ActionResult;
 //$$ import org.spongepowered.asm.mixin.injection.Slice;
 //#endif
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"))
 @Mixin(CauldronBlock.class)
 public abstract class CauldronBlockMixin
 {
+	//#if MC < 11700
 	@Inject(
 			//#if MC >= 11500
 			method = "onUse",
@@ -58,4 +63,5 @@ public abstract class CauldronBlockMixin
 			);
 		}
 	}
+	//#endif
 }

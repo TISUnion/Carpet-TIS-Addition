@@ -18,9 +18,20 @@ public abstract class PlayerCommandMixin
 {
 	private static String getDecoratedString(final CommandContext<?> context, final String name)
 	{
+		//#if MC >= 11700
+		//$$ String playerName = StringArgumentType.getString(context, name);
+		//$$ if (!name.equals("player"))
+		//$$ {
+		//$$ 	// since carpet v1.4.48 or whatever:
+		//$$ 	// not <player> argument, might be <gamemode>, so return the value directly
+		//$$ 	return playerName;
+		//$$ }
+		//#else
+		String playerName = StringArgumentType.getString(context, name);
+		//#endif
+
 		String rulePrefix = CarpetTISAdditionSettings.fakePlayerNamePrefix;
 		String ruleSuffix = CarpetTISAdditionSettings.fakePlayerNameSuffix;
-		String playerName = StringArgumentType.getString(context, name);
 		if (!rulePrefix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra) && !playerName.startsWith(rulePrefix))
 		{
 			playerName = rulePrefix + playerName;
@@ -38,7 +49,9 @@ public abstract class PlayerCommandMixin
 					value = "INVOKE",
 					target = "Lcom/mojang/brigadier/arguments/StringArgumentType;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
 			),
+			//#if MC < 11700
 			require = 2,
+			//#endif
 			remap = false
 	)
 	private static String getStringWithPrefixAtSpawn(final CommandContext<?> context, final String name)

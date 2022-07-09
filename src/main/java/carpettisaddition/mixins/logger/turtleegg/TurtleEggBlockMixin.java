@@ -29,7 +29,14 @@ public abstract class TurtleEggBlockMixin
 	}
 
 	@Inject(method = "tryBreakEgg", at = @At("HEAD"))
-	private void recordEntityTurtleEggLogger(World world, BlockPos pos, Entity entity, int inverseChance, CallbackInfo ci)
+	private void recordEntityTurtleEggLogger(
+			//#if MC >= 11700
+			//$$ World world, BlockState blockState, BlockPos blockPos, Entity entity, int i,
+			//#else
+			World world, BlockPos pos, Entity entity, int inverseChance,
+			//#endif
+			CallbackInfo ci
+	)
 	{
 		if (TurtleEggLogger.getInstance().isActivated())
 		{

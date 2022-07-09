@@ -27,7 +27,9 @@ public class OnlineMappingProvider
 {
 	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
 	public static final String MINECRAFT_VERSION =
-			//#if MC >= 11600
+			//#if MC >= 11700
+			//$$ MinecraftVersion.GAME_VERSION.getName();
+			//#elseif MC >= 11600
 			//$$ MinecraftVersion.field_25319.getName();
 			//#else
 			new MinecraftVersion().getName();

@@ -12,7 +12,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
-	@Inject(method = "method_16208", at = @At("HEAD"))
+	@Inject(
+			//#if MC >= 11700
+			//$$ method = "runTasksTillTickEnd",
+			//#else
+			method = "method_16208",
+			//#endif
+			at = @At("HEAD")
+	)
 	private void flushMessageOnPlayerAction(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.microTimingTickDivision == TickDivision.PLAYER_ACTION)

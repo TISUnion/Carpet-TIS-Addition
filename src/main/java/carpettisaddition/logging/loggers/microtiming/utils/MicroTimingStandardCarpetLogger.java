@@ -32,7 +32,12 @@ public class MicroTimingStandardCarpetLogger extends
 
 	private MicroTimingStandardCarpetLogger(Field acceleratorField, String logName, String def, String[] options)
 	{
-		super(acceleratorField, logName, def, options);
+		super(
+				acceleratorField, logName, def, options
+				//#if MC >= 11700
+				//$$ , true
+				//#endif
+		);
 	}
 
 	private static MicroTimingStandardCarpetLogger createInstance()

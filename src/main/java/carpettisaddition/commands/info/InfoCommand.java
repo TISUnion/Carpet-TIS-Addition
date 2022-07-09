@@ -117,7 +117,15 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 			return Collections.emptyList();
 		}
 		List<BaseText> result = Lists.newArrayList();
-		BlockBox bound = new BlockBox(pos, pos.add(1, 1, 1));
+
+		BlockBox bound =
+				//#if MC >= 11700
+				//$$ BlockBox.create
+				//#else
+				new BlockBox
+				//#endif
+				(pos, pos.add(1, 1, 1));
+
 		List<ScheduledTick<Block>> blockTileTicks = ((ServerTickScheduler<Block>)world.getBlockTickScheduler()).getScheduledTicks(bound, false, false);
 		List<ScheduledTick<Fluid>> liquidTileTicks = ((ServerTickScheduler<Fluid>)world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
 		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), Messenger::block);

@@ -63,8 +63,13 @@ public class TicketLogger extends AbstractLogger
 				//#else
 				Logger
 				//#endif
-				(TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null){
-
+				(
+						TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null
+						//#if MC >= 11700
+						//$$ , false
+						//#endif
+				)
+		{
 			@Override
 			public String[] getOptions()
 			{

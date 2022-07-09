@@ -63,7 +63,11 @@ public abstract class EntityMixin
 			at = @At(
 					//#if MC >= 11600
 					//$$ value = "INVOKE",
+					//$$ //#if MC >= 11700
+					//$$ //$$ target = "Lnet/minecraft/entity/Entity;removeFromDimension()V"
+					//$$ //#else
 					//$$ target = "Lnet/minecraft/entity/Entity;method_30076()V"
+					//$$ //#endif
 					//#else
 					value = "FIELD",
 					target = "Lnet/minecraft/entity/Entity;removed:Z"
@@ -96,7 +100,14 @@ public abstract class EntityMixin
 	//$$ }
 	//#endif
 
-	@Inject(method = "destroy", at = @At("HEAD"))
+	@Inject(
+			//#if MC >= 11700
+			//$$ method = "tickInVoid",
+			//#else
+			method = "destroy",
+			//#endif
+			at = @At("HEAD")
+	)
 	private void onEntityDestroyedInVoid(CallbackInfo ci)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.VOID);

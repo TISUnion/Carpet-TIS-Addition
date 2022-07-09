@@ -33,7 +33,13 @@ public class TileTickQueueController extends AbstractContainerController
 
 	private int remove(ServerTickScheduler<?> serverTickScheduler, BlockPos blockPos)
 	{
-		BlockBox blockBox = new BlockBox(blockPos, blockPos.add(1, 1, 1));
+		BlockBox blockBox =
+				//#if MC >= 11700
+				//$$ BlockBox.create
+				//#else
+				new BlockBox
+				//#endif
+						(blockPos, blockPos.add(1, 1, 1));
 		List<?> removed = serverTickScheduler.getScheduledTicks(blockBox, true, false);
 		return removed.size();
 	}

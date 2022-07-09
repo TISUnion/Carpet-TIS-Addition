@@ -16,7 +16,14 @@ import net.minecraft.server.world.ServerWorld;
 @Mixin(SpawnHelper.class)
 public abstract class SpawnHelperMixin
 {
-	@ModifyVariable(method = "spawnEntitiesInChunk", at = @At("HEAD"), argsOnly = true)
+	@ModifyVariable(
+			//#if MC >= 11600
+			//$$ method = "spawn",
+			//#else
+			method = "spawnEntitiesInChunk",
+			//#endif
+			at = @At("HEAD"), argsOnly = true
+	)
 	//#if MC >= 11500
 	private static ServerWorld enterStageSpawn(ServerWorld world)
 	//#else
@@ -27,7 +34,15 @@ public abstract class SpawnHelperMixin
 		return world;
 	}
 
-	@ModifyVariable(method = "spawnEntitiesInChunk", at = @At("TAIL"), argsOnly = true)
+	@ModifyVariable(
+			//#if MC >= 11600
+			//$$ method = "spawn",
+			//#else
+			method = "spawnEntitiesInChunk",
+			//#endif
+			at = @At("TAIL"),
+			argsOnly = true
+	)
 	//#if MC >= 11500
 	private static ServerWorld exitStageSpawn(ServerWorld world)
 	//#else

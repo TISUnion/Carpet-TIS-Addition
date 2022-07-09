@@ -1,5 +1,12 @@
 package carpettisaddition.mixins.rule.optimizedHardHitBoxEntityCollision;
 
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.world.chunk.WorldChunk;
+import org.spongepowered.asm.mixin.Mixin;
+
+//#if MC < 11700
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.optimizedHardHitBoxEntityCollision.OptimizedHardHitBoxEntityCollisionHelper;
 import net.minecraft.entity.Entity;
@@ -7,21 +14,23 @@ import net.minecraft.util.TypeFilterableList;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.WorldChunk;
 import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+//#endif
 
 import java.util.function.Predicate;
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"))
 @Mixin(WorldChunk.class)
 public abstract class WorldChunkMixin
 {
+	//#if MC < 11700
+
 	@Shadow @Final private TypeFilterableList<Entity>[] entitySections;
 
 	private TypeFilterableList<Entity>[] hardHitBoxEntitySections;
@@ -104,4 +113,6 @@ public abstract class WorldChunkMixin
 		// vanilla
 		return this.entitySections;
 	}
+
+	//#endif
 }

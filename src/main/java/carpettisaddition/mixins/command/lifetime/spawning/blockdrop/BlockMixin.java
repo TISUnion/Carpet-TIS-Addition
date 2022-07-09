@@ -12,7 +12,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class BlockMixin
 {
 	@ModifyArg(
+			//#if MC >= 11700
+			//$$ method = "dropStack(Lnet/minecraft/world/World;Ljava/util/function/Supplier;Lnet/minecraft/item/ItemStack;)V",
+			//#else
 			method = "dropStack",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"

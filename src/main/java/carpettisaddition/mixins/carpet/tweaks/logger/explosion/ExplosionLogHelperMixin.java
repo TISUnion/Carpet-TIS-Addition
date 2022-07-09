@@ -4,12 +4,12 @@ import carpet.logging.logHelpers.ExplosionLogHelper;
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ITntEntity;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
+import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
-import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -51,23 +51,28 @@ public abstract class ExplosionLogHelperMixin
 		return angle;
 	}
 
-	@Dynamic
 	@Inject(
 			method = "lambda$onExplosionDone$1",
-			at = @At(
-					value = "INVOKE",
-					target = "Ljava/util/List;toArray([Ljava/lang/Object;)[Ljava/lang/Object;",
-					remap = false
-			),
-			remap = false
+			at = @At("RETURN"),
+			remap = false,
+			cancellable = true
 	)
-	private void attachBlockDestroyedWarning(List<BaseText> messages, String option, CallbackInfoReturnable<BaseText[]> cir)
+	private void attachBlockDestroyedWarning(
+			//#if MC >= 11700
+			//$$ long gametime, String option,
+			//#else
+			List<BaseText> messages_, String option,
+			//#endif
+			CallbackInfoReturnable<BaseText[]> cir
+	)
 	{
 		if (this.entity instanceof TntEntity)
 		{
 			ITntEntity iTntEntity = (ITntEntity)this.entity;
 			if (iTntEntity.dataRecorded())
 			{
+				List<BaseText> messages = Lists.newArrayList(cir.getReturnValue());
+
 				String angleString = String.valueOf(this.calculateAngle(iTntEntity.getInitializedVelocity()));
 				String posString = TextUtil.coord(iTntEntity.getInitializedPosition());
 				BaseText tntText = Messenger.fancy(
@@ -90,6 +95,8 @@ public abstract class ExplosionLogHelperMixin
 						messages.add(Messenger.c(Messenger.s("  "), tntText));
 						break;
 				}
+
+				cir.setReturnValue(messages.toArray(new BaseText[0]));
 			}
 		}
 	}

@@ -13,25 +13,37 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+//#if MC >= 11700
+//$$ import net.minecraft.block.BlockState;
+//#else
+import org.spongepowered.asm.mixin.Shadow;
+//#endif
+
 @Mixin(HopperBlockEntity.class)
 public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntity
 {
+	//#if MC >= 11700
+	//$$ protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState)
+	//$$ {
+	//$$ 	super(blockEntityType, blockPos, blockState);
+	//$$ }
+	//#else
 	protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType)
 	{
 		super(blockEntityType);
 	}
+	//#endif
 
+	//#if MC < 11700
 	@Shadow public abstract double getHopperX();
-
 	@Shadow public abstract double getHopperY();
-
 	@Shadow public abstract double getHopperZ();
+	//#endif
 
 	@Inject(
 			method = "insert",
@@ -42,23 +54,44 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			),
 			locals = LocalCapture.CAPTURE_FAILSOFT
 	)
+	//#if MC >= 11700
+	//$$ private static void hopperNoItemCost(World world, BlockPos pos, BlockState state, Inventory inventory, CallbackInfoReturnable<Boolean> cir, Inventory inventory2, Direction direction, int i, ItemStack itemStack, ItemStack itemStack2)
+	//#else
 	private void hopperNoItemCost(CallbackInfoReturnable<Boolean> cir, Inventory inventory, Direction direction, int i, ItemStack itemStack, ItemStack itemStack2)
+	//#endif
 	{
 		if (CarpetTISAdditionSettings.hopperNoItemCost)
 		{
+			//#if MC < 11700
 			World world = this.getWorld();
+			//#endif
+
 			if (world != null)
 			{
-				DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, new BlockPos(this.getHopperX(), this.getHopperY(), this.getHopperZ()).offset(Direction.UP));
+				BlockPos hopperPos =
+						//#if MC >= 11700
+						//$$ pos;
+						//#else
+						new BlockPos(this.getHopperX(), this.getHopperY(), this.getHopperZ());
+						//#endif
+
+				DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperPos.offset(Direction.UP));
 				if (wool_color != null)
 				{
+					Inventory hopperInventory =
+							//#if MC >= 11700
+							//$$ inventory;
+							//#else
+							this;
+							//#endif
+
 					if (SupplierCounterCommand.isActivated())
 					{
-						SupplierCounterCommand.getInstance().record(wool_color, itemStack, this.getInvStack(i));
+						SupplierCounterCommand.getInstance().record(wool_color, itemStack, hopperInventory.getInvStack(i));
 					}
 
 					// restore the hopper inventory slot
-					this.setInvStack(i, itemStack);
+					hopperInventory.setInvStack(i, itemStack);
 				}
 			}
 		}

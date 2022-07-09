@@ -16,7 +16,11 @@ public abstract class ServerChunkManagerMixin
 {
 	@Shadow @Final private ChunkTicketManager ticketManager;
 
-	@Shadow @Final private ServerWorld world;
+	@Shadow @Final
+	//#if MC < 11700
+	private
+	//#endif
+	ServerWorld world;
 
 	@Inject(method = "<init>", at = @At(value = "RETURN"))
 	private void onConstructedTicketLogger(CallbackInfo ci)

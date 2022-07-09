@@ -3,12 +3,14 @@ package carpettisaddition.helpers.rule.synchronizedLightThread;
 import carpet.utils.CarpetProfiler;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.rule.synchronizedLightThread.ServerLightingProviderAccessor;
+import carpettisaddition.mixins.rule.synchronizedLightThread.TaskExecutorAccessor;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.thread.TaskExecutor;
 import net.minecraft.util.thread.TaskQueue;
 import net.minecraft.world.chunk.light.LightingProvider;
 
@@ -38,8 +40,9 @@ public class LightThreadSynchronizer
 
 		if (lightingProvider != null)
 		{
+			TaskExecutor<?> processor = ((ServerLightingProviderAccessor) lightingProvider).getProcessor();
 			// the task queue of the executor of the light thread
-			TaskQueue<?, ?> queue = ((ServerLightingProviderAccessor)lightingProvider).getProcessor().queue;
+			TaskQueue<?, ?> queue = ((TaskExecutorAccessor<?>)processor).getQueue();
 			while (!queue.isEmpty())
 			{
 				Thread.yield();

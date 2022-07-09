@@ -14,7 +14,7 @@ public class OptimizedHardHitBoxEntityCollisionHelper
 	 * (>=1.16) Check if the given entity may have {@link Entity#collidesWith} return true if other entity has {@link Entity#isCollidable} returns false
 	 * In vanilla only boat and minecart do that
 	 *
-	 * Doesn't work with other mods
+	 * Doesn't work with other mods that add new type of entities
 	 */
 	public static boolean treatsGeneralEntityAsHardHitBox(Entity entity)
 	{

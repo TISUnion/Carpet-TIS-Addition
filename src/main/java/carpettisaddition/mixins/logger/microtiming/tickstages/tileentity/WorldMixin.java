@@ -2,6 +2,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.tileentity;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
+import carpettisaddition.logging.loggers.microtiming.interfaces.IWorldTileEntity;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.TileEntitySubStage;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.profiler.Profiler;
@@ -15,9 +16,21 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.Iterator;
 
 @Mixin(World.class)
-public abstract class WorldMixin
+public abstract class WorldMixin implements IWorldTileEntity
 {
 	private int tileEntityOrderCounter;
+
+	@Override
+	public int getTileEntityOrderCounter()
+	{
+		return this.tileEntityOrderCounter;
+	}
+
+	@Override
+	public void setTileEntityOrderCounter(int tileEntityOrderCounter)
+	{
+		this.tileEntityOrderCounter = tileEntityOrderCounter;
+	}
 
 	@Inject(method = "tickBlockEntities", at = @At("HEAD"))
 	private void enterStageTileEntity(CallbackInfo ci)
@@ -32,6 +45,7 @@ public abstract class WorldMixin
 		MicroTimingLoggerManager.setTickStage((World)(Object)this, TickStage.UNKNOWN);
 	}
 
+	//#if MC < 11700
 	@Inject(
 			method = "tickBlockEntities",
 			at = @At(
@@ -44,4 +58,5 @@ public abstract class WorldMixin
 	{
 		MicroTimingLoggerManager.setSubTickStage((World)(Object)this, new TileEntitySubStage(blockEntity, this.tileEntityOrderCounter++));  // TISCM Micro Tick logger
 	}
+	//#endif
 }

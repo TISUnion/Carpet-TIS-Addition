@@ -28,7 +28,11 @@ public abstract class MobEntityMixin extends LivingEntity
 			method = "checkDespawn",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
+					//#else
 					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					//#endif
 					ordinal = 0
 			)
 	)
@@ -50,7 +54,11 @@ public abstract class MobEntityMixin extends LivingEntity
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
+					//#else
 					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					//#endif
 					ordinal = 0
 			)
 	)
@@ -69,7 +77,11 @@ public abstract class MobEntityMixin extends LivingEntity
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
+					//#else
 					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					//#endif
 					ordinal = 1
 			)
 	)
@@ -110,7 +122,11 @@ public abstract class MobEntityMixin extends LivingEntity
 			method = "loot",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//#else
 					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//#endif
 			)
 	)
 	private void onItemPickUpLifeTimeTracker(ItemEntity item, CallbackInfo ci)

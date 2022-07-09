@@ -28,13 +28,15 @@ public abstract class MobEntityMixin extends LivingEntity
 
 	//#if MC >= 11600
 	//$$ @ModifyArg(
+	//$$ 		//#if MC >= 11700
+	//$$ 		//$$ method = "convertTo",
+	//$$ 		//#else
 	//$$ 		method = "method_29243",  // convertTo
+	//$$ 		//#endif
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
-	//$$ 				target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
-	//$$ 				remap = true
-	//$$ 		),
-	//$$ 		remap = false
+	//$$ 				target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+	//$$ 		)
 	//$$ )
 	//$$
 	//$$ private Entity recordSelfRemoval$LifeTimeTracker(Entity targetEntity)

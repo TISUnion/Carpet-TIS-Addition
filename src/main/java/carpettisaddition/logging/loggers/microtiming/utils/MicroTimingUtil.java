@@ -16,6 +16,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
@@ -131,7 +132,12 @@ public class MicroTimingUtil
 
 	private static boolean isPositionAvailable(World world, BlockPos pos)
 	{
-		return world.getChunkManager().shouldTickBlock(pos);
+		return world instanceof ServerWorld &&
+				//#if MC >= 11700
+				//$$ ((ServerWorld)world).method_37117(pos);
+				//#else
+				world.getChunkManager().shouldTickBlock(pos);
+				//#endif
 	}
 
 	private static Optional<DyeColor> getWoolColor(World world, BlockPos pos)

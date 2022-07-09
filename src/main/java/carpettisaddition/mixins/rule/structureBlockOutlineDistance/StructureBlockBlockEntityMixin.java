@@ -11,14 +11,17 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
 @Mixin(StructureBlockBlockEntity.class)
-public abstract class StructureBlockBlockEntityMixin extends BlockEntity
+public abstract class StructureBlockBlockEntityMixin
+		//#if MC < 11600
+		extends BlockEntity
+		//#endif
 {
+	//#if MC < 11600
 	public StructureBlockBlockEntityMixin(BlockEntityType<?> type)
 	{
 		super(type);
 	}
 
-	//#if MC < 11600
 	@Override
 	public double getSquaredRenderDistance()
 	{

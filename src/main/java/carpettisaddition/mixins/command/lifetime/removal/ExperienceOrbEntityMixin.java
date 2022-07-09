@@ -32,7 +32,11 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
+					//#else
 					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					//#endif
 			)
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)
@@ -51,4 +55,15 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
 	}
+
+	//#if MC >= 11700
+	//$$ @Inject(method = "merge", at = @At("TAIL"))
+	//$$ private void onMergedLifeTimeTracker(ExperienceOrbEntity other, CallbackInfo ci)
+	//$$ {
+	//$$ 	int amountBackup = ((ExperienceOrbEntityAccessor)other).getAmount$TISCM();
+	//$$ 	((ExperienceOrbEntityAccessor)other).setAmount$TISCM(0);
+	//$$ 	((LifetimeTrackerTarget)other).recordRemoval(LiteralRemovalReason.MERGE);
+	//$$ 	((ExperienceOrbEntityAccessor)other).setAmount$TISCM(amountBackup);
+	//$$ }
+	//#endif
 }

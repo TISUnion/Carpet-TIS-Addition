@@ -67,6 +67,9 @@ public abstract class AbstractLogger extends TranslationContext
 				this.getName(),
 				wrapOption(this.getDefaultLoggingOption()),
 				wrapOptions(this.getSuggestedLoggingOption())
+				//#if MC >= 11700
+				//$$ , this.strictOption
+				//#endif
 		);
 	}
 

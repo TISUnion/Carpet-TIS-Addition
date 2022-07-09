@@ -17,7 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ExperienceOrbEntityMixin
 {
 	@Inject(
+			//#if MC >= 11700
+			//$$ method = "expensiveUpdate",
+			//#else
 			method = "tick",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;getClosestPlayer(Lnet/minecraft/entity/Entity;D)Lnet/minecraft/entity/player/PlayerEntity;"
@@ -32,7 +36,11 @@ public abstract class ExperienceOrbEntityMixin
 	}
 
 	@Inject(
+			//#if MC >= 11700
+			//$$ method = "expensiveUpdate",
+			//#else
 			method = "tick",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;getClosestPlayer(Lnet/minecraft/entity/Entity;D)Lnet/minecraft/entity/player/PlayerEntity;",

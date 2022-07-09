@@ -23,12 +23,15 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+
+//#if MC < 11700
+import org.apache.commons.lang3.tuple.Pair;
+//#endif
 
 public class MicroTimingMarker
 {
@@ -145,9 +148,21 @@ public class MicroTimingMarker
 		return hasNext;
 	}
 
-	public List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>> getShapeDataList(boolean display)
+	public
+	//#if MC >= 11700
+	//$$ List<ShapeDispatcher.ShapeWithConfig>
+	//#else
+	List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>>
+	//#endif
+	getShapeDataList(boolean display)
 	{
-		List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>> result = Lists.newArrayList();
+		//#if MC >= 11700
+		//$$ List<ShapeDispatcher.ShapeWithConfig>
+		//#else
+		List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>>
+		//#endif
+				result = Lists.newArrayList();
+
 		result.add(this.box.toPair(display));
 		if (this.text != null)
 		{

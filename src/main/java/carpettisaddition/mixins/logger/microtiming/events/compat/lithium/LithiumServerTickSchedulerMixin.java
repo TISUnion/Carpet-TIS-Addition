@@ -56,18 +56,39 @@ public abstract class LithiumServerTickSchedulerMixin<T> extends ServerTickSched
 	}
 
 	@Inject(
+			//#if MC >= 11700
+			//$$ method = "scheduleTick",
+			//$$ at = @At(
+			//$$ 		value = "INVOKE_ASSIGN",
+			//$$ 		target = "Lit/unimi/dsi/fastutil/objects/ObjectOpenHashSet;add(Ljava/lang/Object;)Z",
+			//$$ 		ordinal = 0,
+			//$$ 		remap = false
+			//$$ ),
+			//#else
 			method = "addScheduledTick",
 			at = @At(
 					value = "FIELD",
 					target = "Lme/jellysquid/mods/lithium/common/world/scheduler/TickEntry;scheduled:Z",
 					ordinal = 0
 			),
+			//#endif
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			remap = false
 	)
-	private void checkIfItIsNotScheduled(ScheduledTick<T> tick, CallbackInfo ci, TickEntry<T> entry)
+	private void checkScheduledState(
+			//#if MC >= 11700
+			//$$ BlockPos pos, Object object, long time, TickPriority priority, CallbackInfo ci, TickEntry<T> tick, boolean added
+			//#else
+			ScheduledTick<T> tick, CallbackInfo ci, TickEntry<T> entry
+			//#endif
+	)
 	{
-		this.scheduleSuccess = !entry.scheduled;
+		this.scheduleSuccess =
+				//#if MC >= 11700
+				//$$ added;
+				//#else
+				!entry.scheduled;
+				//#endif
 	}
 
 	@Inject(method = "schedule", at = @At("RETURN"))

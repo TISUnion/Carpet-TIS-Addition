@@ -19,7 +19,11 @@ import net.minecraft.block.Block;
 )
 public interface BlockAccessor
 {
-	@Accessor
+	@Accessor(
+			//#if MC >= 11700
+			//$$ "DIRECTIONS"
+			//#endif
+	)
 	static Direction[] getFACINGS()
 	{
 		throw new RuntimeException();

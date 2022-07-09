@@ -21,7 +21,9 @@ public abstract class MobSpawnerLogicMixin
 	//#endif
 
 	@ModifyArg(
-			//#if MC >= 11600
+			//#if MC >= 11700
+			//$$ method = "serverTick",
+			//#elseif MC >= 11600
 			//$$ method = "update",
 			//#else
 			method = "spawnEntity",
@@ -52,10 +54,18 @@ public abstract class MobSpawnerLogicMixin
 
 	//#if MC >= 11600
 	//$$ @Inject(
+	//$$ 		//#if MC >= 11700
+	//$$ 		//$$ method = "serverTick",
+	//$$ 		//#else
 	//$$ 		method = "update",
+	//$$ 		//#endif
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
+	//$$ 				//#if MC >= 11700
+	//$$ 				//$$ target = "Lnet/minecraft/server/world/ServerWorld;syncWorldEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+	//$$ 				//#else
 	//$$ 				target = "Lnet/minecraft/world/World;syncWorldEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+	//$$ 				//#endif
 	//$$ 		)
 	//$$ )
 	//$$ private void onSpawnerLogicSpawnEntityLifeTimeTracker(CallbackInfo ci)

@@ -16,7 +16,11 @@ public abstract class ItemEntityMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
+							//#if MC >= 11700
+							//$$ target = "Lnet/minecraft/entity/ItemEntity;getId()I"
+							//#else
 							target = "Lnet/minecraft/entity/ItemEntity;getEntityId()I"
+							//#endif
 					)
 			),
 			constant = @Constant(intValue = 4, ordinal = 0),

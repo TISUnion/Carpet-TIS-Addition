@@ -16,7 +16,11 @@ public abstract class WitherEntityMixin
 			method = "checkDespawn",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/boss/WitherEntity;discard()V"
+					//#else
 					target = "Lnet/minecraft/entity/boss/WitherEntity;remove()V"
+					//#endif
 			)
 	)
 	private void onDespawnLifeTimeTracker(CallbackInfo ci)

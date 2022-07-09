@@ -20,7 +20,12 @@ public class LifeTimeStandardCarpetHUDLogger extends
 {
 	public LifeTimeStandardCarpetHUDLogger()
 	{
-		super(TISAdditionLoggerRegistry.getLoggerField(LifeTimeHUDLogger.NAME), LifeTimeHUDLogger.NAME, null, null);
+		super(
+				TISAdditionLoggerRegistry.getLoggerField(LifeTimeHUDLogger.NAME), LifeTimeHUDLogger.NAME, null, null
+				//#if MC >= 11700
+				//$$ , false
+				//#endif
+		);
 	}
 
 	@Override

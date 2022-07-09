@@ -17,12 +17,22 @@ public abstract class HopperBlockEntityMixin
 			method = "extract(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/ItemEntity;)Z",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//#else
 					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//#endif
 			)
 	)
 	private static void onHopperCollectedItemLifeTimeTracker(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
 	{
-		if (!itemEntity.removed)
+		if (
+				//#if MC >= 11700
+				//$$ !itemEntity.isRemoved()
+				//#else
+				!itemEntity.removed
+				//#endif
+		)
 		{
 			((LifetimeTrackerTarget)itemEntity).recordRemoval(LiteralRemovalReason.HOPPER);
 		}

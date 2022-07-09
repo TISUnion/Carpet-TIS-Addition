@@ -22,7 +22,16 @@ public abstract class EntityPredicatesMixin
 	 * The lambda method with the declaration of {@link EntityPredicates#EXCEPT_SPECTATOR}
 	 */
 	@Dynamic
-	@Inject(method = "method_5907", at = @At("TAIL"), remap = false, cancellable = true)
+	@Inject(
+			//#if MC >= 11700
+			//$$ method = "method_24517",
+			//#else
+			method = "method_5907",
+			//#endif
+			at = @At("TAIL"),
+			remap = false,
+			cancellable = true
+	)
 	private static void creativeNoClipEnhancement(Entity entity, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (CarpetSettings.creativeNoClip && CreativeNoClipHelper.ignoreNoClipPlayersFlag.get())

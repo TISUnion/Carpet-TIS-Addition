@@ -50,7 +50,11 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/client/util/math/MatrixStack;scale(FFF)V",
+					//#else
 					target = "Lcom/mojang/blaze3d/systems/RenderSystem;scalef(FFF)V",
+					//#endif
 					ordinal = 0,
 					remap = true
 			),
@@ -88,7 +92,11 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			method = "renderLines",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/client/util/math/MatrixStack;pop()V",
+					//#else
 					target = "Lcom/mojang/blaze3d/systems/RenderSystem;popMatrix()V",
+					//#endif
 					ordinal = 0,
 					remap = true
 			),

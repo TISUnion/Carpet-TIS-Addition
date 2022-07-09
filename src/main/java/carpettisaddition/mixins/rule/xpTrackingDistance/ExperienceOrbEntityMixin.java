@@ -14,8 +14,13 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class ExperienceOrbEntityMixin
 {
 	@ModifyConstant(
+			//#if MC >= 11700
+			//$$ method = {"tick", "expensiveUpdate"},
+			//$$ require = 1,
+			//#else
 			method = "tick",
 			require = 3,
+			//#endif
 			constant = @Constant(doubleValue = 8.0D)
 	)
 	private double modifyGiveUpDistance(double value)
@@ -24,8 +29,13 @@ public abstract class ExperienceOrbEntityMixin
 	}
 
 	@ModifyConstant(
+			//#if MC >= 11700
+			//$$ method = {"tick", "expensiveUpdate"},
+			//$$ require = 1,
+			//#else
 			method = "tick",
 			require = 2,
+			//#endif
 			constant = @Constant(doubleValue = 64.0D)
 	)
 	private double modifyGiveUpDistanceSquare(double value)

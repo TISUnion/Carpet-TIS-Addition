@@ -10,6 +10,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+
+//#if MC >= 11700
+//$$ import carpettisaddition.mixins.utils.DirectBlockEntityTickInvokerAccessor;
+//$$ import carpettisaddition.mixins.utils.WrappedBlockEntityTickInvokerAccessor;
+//$$ import net.minecraft.block.entity.BlockEntity;
+//$$ import net.minecraft.world.chunk.BlockEntityTickInvoker;
+//#endif
+
 //#if MC < 11600
 import net.minecraft.world.dimension.DimensionType;
 //#endif
@@ -60,4 +68,23 @@ public class GameUtil
 	{
 		return CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayer(playerName);
 	}
+
+	//#if MC >= 11700
+	//$$ /**
+	//$$  * for mc 1.17+
+	//$$  */
+	//$$ @Nullable
+	//$$ public static BlockEntity getBlockEntityFromTickInvoker(BlockEntityTickInvoker blockEntityTickInvoker)
+	//$$ {
+	//$$ 	if (blockEntityTickInvoker instanceof DirectBlockEntityTickInvokerAccessor)
+	//$$ 	{
+	//$$ 		return ((DirectBlockEntityTickInvokerAccessor<?>) blockEntityTickInvoker).getBlockEntity();
+	//$$ 	}
+	//$$ 	else if (blockEntityTickInvoker instanceof WrappedBlockEntityTickInvokerAccessor)
+	//$$ 	{
+	//$$ 		return getBlockEntityFromTickInvoker(((WrappedBlockEntityTickInvokerAccessor<?>)blockEntityTickInvoker).getWrapped());
+	//$$ 	}
+	//$$ 	return null;
+	//$$ }
+	//#endif
 }
