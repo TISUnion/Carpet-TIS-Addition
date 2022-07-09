@@ -51,7 +51,7 @@ public abstract class HopperBlockEntityMixin
 	//$$ 		}
 	//$$ 	}
 	//$$ }
-	//$$ 
+ //$$
 	//$$ @Inject(
 	//$$ 		method = "insertAndExtract",
 	//$$ 		at = @At(

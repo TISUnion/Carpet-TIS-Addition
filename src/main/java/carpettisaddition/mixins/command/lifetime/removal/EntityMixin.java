@@ -63,11 +63,11 @@ public abstract class EntityMixin
 			at = @At(
 					//#if MC >= 11600
 					//$$ value = "INVOKE",
-					//$$ //#if MC >= 11700
-					//$$ //$$ target = "Lnet/minecraft/entity/Entity;removeFromDimension()V"
-					//$$ //#else
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/Entity;removeFromDimension()V"
+					//#else
 					//$$ target = "Lnet/minecraft/entity/Entity;method_30076()V"
-					//$$ //#endif
+					//#endif
 					//#else
 					value = "FIELD",
 					target = "Lnet/minecraft/entity/Entity;removed:Z"

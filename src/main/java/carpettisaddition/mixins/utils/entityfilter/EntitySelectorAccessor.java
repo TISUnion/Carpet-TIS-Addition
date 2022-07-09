@@ -55,7 +55,7 @@ public interface EntitySelectorAccessor extends IEntitySelector
 	UUID getUuid();
 
 	@Nullable
-	@Accessor
+	@Accessor("type")
 	//#if MC >= 11700
 	//$$ TypeFilter<Entity, ?> getEntityFilter();
 	//#else

@@ -245,15 +245,15 @@ public class TISAdditionTranslations
 		if (hoverEvent != null)
 		{
 			//#if MC >= 11600
-			//$$
+   //$$
 			//$$ Object hoverText = hoverEvent.getValue(hoverEvent.getAction());
 			//$$ if (hoverEvent.getAction() == HoverEvent.Action.SHOW_TEXT && hoverText instanceof BaseText)
 			//$$ {
-			//$$	 BaseText newText = forEachTISCMTranslationText((BaseText)hoverText, lang, modifier);
-			//$$	 if (newText != hoverText)
-			//$$	 {
-			//$$		 text.setStyle(text.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, newText)));
-			//$$	 }
+			//$$ 	 BaseText newText = forEachTISCMTranslationText((BaseText)hoverText, lang, modifier);
+			//$$ 	 if (newText != hoverText)
+			//$$ 	 {
+			//$$ 		 text.setStyle(text.getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, newText)));
+			//$$ 	 }
 			//$$ }
 			//#else
 			Text hoverText = hoverEvent.getValue();

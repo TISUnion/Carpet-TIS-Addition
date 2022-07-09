@@ -14,11 +14,11 @@ import org.spongepowered.asm.mixin.Mixin;
 //#endif
 
 //#if MC >= 11700
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import carpettisaddition.commands.info.entity.EntityInfoCommand;
-import net.minecraft.server.command.ServerCommandSource;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+//$$ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+//$$ import carpettisaddition.commands.info.entity.EntityInfoCommand;
+//$$ import net.minecraft.server.command.ServerCommandSource;
+//$$ import org.spongepowered.asm.mixin.injection.At;
+//$$ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 //#endif
 
 /**
@@ -30,17 +30,17 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class InfoCommandMixin
 {
 	//#if MC >= 11700
-	//$$
-	//$$ //#if MC >= 11900
-	//$$ //$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
-	//$$ //$$
-	//$$ //$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
-	//$$ //$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext, CallbackInfo ci)
-	//$$ //$$ {
-	//$$ //$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
-	//$$ //$$ }
-	//$$ //#endif
-	//$$
+ //$$
+	//#if MC >= 11900
+	//$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
+ //$$
+	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
+	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext, CallbackInfo ci)
+	//$$ {
+	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
+	//$$ }
+	//#endif
+ //$$
 	//$$ @ModifyVariable(
 	//$$ 		method = "register",
 	//$$ 		at = @At(
@@ -54,9 +54,9 @@ public abstract class InfoCommandMixin
 	//$$ {
 	//$$ 	EntityInfoCommand.getInstance().extendCommand(
 	//$$ 			builder
-	//$$ 			//#if MC >= 11900
-	//$$ 			//$$ , currentCommandBuildContext$TISCM
-	//$$ 			//#endif
+				//#if MC >= 11900
+				//$$ , currentCommandBuildContext$TISCM
+				//#endif
 	//$$ 	);
 	//$$ 	return builder;
 	//$$ }

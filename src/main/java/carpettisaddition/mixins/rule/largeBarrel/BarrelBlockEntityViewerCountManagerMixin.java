@@ -33,7 +33,7 @@ public abstract class BarrelBlockEntityViewerCountManagerMixin
 {
 	//#if MC >= 11700
 	//$$ @Shadow @Final BarrelBlockEntity field_27208;  // BarrelBlockEntity.this
-	//$$
+ //$$
 	//$$ @Inject(
 	//$$ 		method = "isPlayerViewing(Lnet/minecraft/entity/player/PlayerEntity;)Z",
 	//$$ 		at = @At(

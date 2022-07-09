@@ -18,7 +18,7 @@ import java.util.List;
 //#endif
 
 //#if MC >= 11600
-//$$import net.minecraft.block.AbstractBlock;
+//$$ import net.minecraft.block.AbstractBlock;
 //#else
 import net.minecraft.block.Block;
 //#endif

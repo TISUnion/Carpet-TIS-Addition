@@ -9,10 +9,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(ServerWorld.class)
 public interface ServerWorldAccessor
 {
-	@Accessor(
-			//#if MC >= 11600
-			//$$ "syncedBlockEventQueue"
-			//#endif
-	)
+	@Accessor
 	ObjectLinkedOpenHashSet<BlockAction> getPendingBlockActions();
 }

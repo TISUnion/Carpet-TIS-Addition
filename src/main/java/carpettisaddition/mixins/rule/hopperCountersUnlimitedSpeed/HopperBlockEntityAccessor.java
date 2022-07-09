@@ -13,12 +13,8 @@ public interface HopperBlockEntityAccessor
 	//#if MC >= 11700
 	//$$ @Invoker
 	//$$ boolean invokeIsFull();
-	//$$
-	//$$ @Invoker(
-	//$$ 		//#if MC >= 11800
-	//$$ 		//$$ "setTransferCooldown"
-	//$$ 		//#endif
-	//$$ )
+ //$$
+	//$$ @Invoker
 	//$$ void invokeSetCooldown(int cooldown);
 	//#endif
 }

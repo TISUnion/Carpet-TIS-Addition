@@ -248,9 +248,17 @@ public class MicroTimingLoggerManager
 		{
 			return;
 		}
+
+		BlockPos pos =
+				//#if MC >= 11800
+				//$$ tileTickEvent.pos();
+				//#else
+				tileTickEvent.pos;
+				//#endif
+
 		ExecuteTileTickEvent.createFrom(eventType, tileTickEvent).ifPresent(event -> onEvent(
 				MicroTimingContext.create().
-						withWorld(world).withBlockPos(tileTickEvent.pos).
+						withWorld(world).withBlockPos(pos).
 						withEvent(event)
 		));
 	}

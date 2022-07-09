@@ -6,7 +6,7 @@ import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-//#if MC >= 11900
+//#if MC >= 11900 && MC < 11901
 //$$ import net.minecraft.network.message.MessageType;
 //$$ import net.minecraft.util.registry.RegistryKey;
 //$$ import org.spongepowered.asm.mixin.gen.Invoker;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(ServerPlayerEntity.class)
 public interface ServerPlayerEntityAccessor
 {
-	//#if MC >= 11900
+	//#if MC >= 11900 && MC < 11901
 	//$$ @Invoker
 	//$$ int invokeGetMessageTypeId(RegistryKey<MessageType> registryKey);
 	//#endif

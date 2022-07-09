@@ -25,20 +25,10 @@ public interface ServerWorldAccessor
 	@Accessor
 	Int2ObjectMap<Entity> getEntitiesById();
 
-	@Accessor(
-			//#if MC >= 11600
-			//$$ "inEntityTick"
-			//#else
-			"ticking"
-			//#endif
-	)
+	@Accessor("ticking")
 	boolean isTickingEntity();
 	//#endif
 
-	@Accessor(
-			//#if MC >= 11600
-			//$$ "syncedBlockEventQueue"
-			//#endif
-	)
+	@Accessor
 	ObjectLinkedOpenHashSet<BlockAction> getPendingBlockActions();
 }

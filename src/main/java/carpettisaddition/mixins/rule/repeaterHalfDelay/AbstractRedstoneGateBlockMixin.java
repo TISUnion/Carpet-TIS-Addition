@@ -45,7 +45,10 @@ public abstract class AbstractRedstoneGateBlockMixin
 			//#else
 			//$$ World world,
 			//#endif
+
+			//#disable-remap
 			BlockPos pos, Random random
+			//#enable-remap
 	)
 	{
 		return this.getModifiedDelay(abstractRedstoneGateBlock, world, pos, state1);

@@ -24,10 +24,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class HUDControllerMixin
 {
 	//#if MC >= 11600
-	//$$
+ //$$
 	//$$ @Shadow(remap = false)
 	//$$ private static List<Consumer<MinecraftServer>> HUDListeners;
-	//$$
+ //$$
 	//$$ static
 	//$$ {
 	//$$ 	HUDListeners.add(TISAdditionHUDController::updateHUD);

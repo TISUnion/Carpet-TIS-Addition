@@ -19,7 +19,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 11900
+//#disable-remap
 //$$ import net.minecraft.util.math.random.Random;
+//#enable-remap
 //#else
 import java.util.Random;
 //#endif
@@ -29,7 +31,9 @@ public abstract class CommandBlockMixin
 {
 	@Shadow public abstract void
 	//#if MC >= 11500
+	//#disable-remap
 	scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
+	//#enable-remap
 	//#else
 	//$$ onScheduledTick(BlockState state, World world, BlockPos pos, Random random);
 	//#endif

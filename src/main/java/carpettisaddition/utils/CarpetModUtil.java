@@ -12,7 +12,9 @@ public class CarpetModUtil
 	 */
 	public static boolean canUseCommand(ServerCommandSource source, Object commandLevel)
 	{
-		//#if MC >= 11600
+		//#if MC >= 11901
+		//$$ return carpet.utils.CommandHelper.canUseCommand(source, commandLevel);
+		//#elseif MC >= 11600
 		//$$ return carpet.settings.SettingsManager.canUseCommand(source, commandLevel);
 		//#else
 		if (commandLevel instanceof Boolean) return (Boolean) commandLevel;

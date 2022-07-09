@@ -2,16 +2,20 @@ package carpettisaddition.utils.settings;
 
 import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;
-import carpet.settings.Validator;
-import carpettisaddition.mixins.utils.settings.ParsedRuleAccessor;
 import carpettisaddition.mixins.utils.settings.SettingsManagerAccessor;
-import carpettisaddition.translations.TISAdditionTranslations;
 import com.google.common.collect.Lists;
-
-import javax.annotation.Nullable;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
+
+//#if MC >= 11901
+//$$ import java.lang.reflect.Constructor;
+//#else
+import carpet.settings.Validator;
+import carpettisaddition.mixins.utils.settings.ParsedRuleAccessor;
+import carpettisaddition.translations.TISAdditionTranslations;
+import javax.annotation.Nullable;
+import java.lang.annotation.Annotation;
+//#endif
 
 public class CarpetRuleRegistrar
 {
@@ -44,6 +48,26 @@ public class CarpetRuleRegistrar
 
 	private void parseRule(Field field, Rule rule)
 	{
+		//#if MC >= 11901
+		//$$ try
+		//$$ {
+		//$$ 	Class<?> ruleAnnotationClass = Class.forName("carpet.settings.ParsedRule$RuleAnnotation");
+		//$$ 	Constructor<?> ctr1 = ruleAnnotationClass.getDeclaredConstructors()[0];
+		//$$ 	ctr1.setAccessible(true);
+		//$$ 	Object ruleAnnotation = ctr1.newInstance(false, null, null, null, rule.categories(), rule.options(), rule.strict(), "", rule.validators());
+  //$$
+		//$$ 	Class<?> parsedRuleClass = Class.forName("carpet.settings.ParsedRule");
+		//$$ 	Constructor<?> ctr2 = parsedRuleClass.getDeclaredConstructors()[0];
+		//$$ 	ctr2.setAccessible(true);
+		//$$ 	Object carpetRule = ctr2.newInstance(field, ruleAnnotation, this.settingsManager);
+  //$$
+		//$$ 	this.rules.add((CarpetRule<?>)carpetRule);
+		//$$ }
+		//$$ catch (Exception e)
+		//$$ {
+		//$$ 	throw new RuntimeException(e);
+		//$$ }
+		//#else
 		carpet.settings.Rule cmRule = new carpet.settings.Rule()
 		{
 			private final String basedKey = TISAdditionTranslations.CARPET_TRANSLATIONS_KEY_PREFIX + "rule." + this.name() + ".";
@@ -102,13 +126,21 @@ public class CarpetRuleRegistrar
 				//#endif
 		);
 		this.rules.add(parsedRule);
+		//#endif
 	}
 
 	public void registerToCarpet()
 	{
 		for (ParsedRule<?> rule : this.rules)
 		{
-			((SettingsManagerAccessor)this.settingsManager).getRules$TISCM().put(rule.name, rule);
+			((SettingsManagerAccessor)this.settingsManager).getRules$TISCM().put(
+					//#if MC >= 11901
+					//$$ rule.name(),
+					//#else
+					rule.name,
+					//#endif
+					rule
+			);
 		}
 	}
 }

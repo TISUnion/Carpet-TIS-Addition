@@ -18,6 +18,8 @@ public class SettingsManagerMixin
 {
 	@Inject(
 			method = "listAllSettings",
+
+			//#if MC < 11901
 			slice = @Slice(
 					from = @At(
 							value = "CONSTANT",
@@ -31,9 +33,13 @@ public class SettingsManagerMixin
 							ordinal = 0
 					)
 			),
+			//#endif
+
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11600
+					//#if MC >= 11901
+					//$$ target = "Lcarpet/api/settings/SettingsManager;getCategories()Ljava/lang/Iterable;"
+					//#elseif MC >= 11600
 					//$$ target = "Lcarpet/settings/SettingsManager;getCategories()Ljava/lang/Iterable;",
 					//$$ ordinal = 0
 					//#else

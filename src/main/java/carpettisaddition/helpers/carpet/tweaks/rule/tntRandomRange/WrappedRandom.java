@@ -3,6 +3,9 @@ package carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange;
 import carpet.CarpetSettings;
 import carpettisaddition.utils.GameUtil;
 
+// don't do the "net.minecraft.util.math.random.Random <-> net.minecraft.world.gen.random.AbstractRandom" remap thing
+//#disable-remap
+
 //#if MC >= 11900
 //$$ import net.minecraft.util.math.random.Random;
 //$$ import net.minecraft.util.math.random.RandomSplitter;
@@ -64,3 +67,5 @@ public class WrappedRandom
 	//$$ @Override public double nextGaussian() {return this.random.nextGaussian();}
 	//#endif
 }
+
+//#enable-remap

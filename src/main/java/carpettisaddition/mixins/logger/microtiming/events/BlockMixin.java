@@ -34,50 +34,50 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BlockMixin
 {
 	//#if MC >= 11900
-	@Inject(
+	//$$ @Inject(
 			//#if MC >= 11600
 			//$$ method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
 			//#else
-			method = "updateNeighborStates",
+			//$$ method = "updateNeighborStates",
 			//#endif
-			at = @At("HEAD")
-	)
-	private void startStateUpdate(
+	//$$ 		at = @At("HEAD")
+	//$$ )
+	//$$ private void startStateUpdate(
 			//#if MC >= 11600
 			//$$ WorldAccess world, BlockPos pos, int flags, int maxUpdateDepth,
 			//#else
-			BlockState state, IWorld world, BlockPos pos, int flags,
+			//$$ BlockState state, IWorld world, BlockPos pos, int flags,
 			//#endif
-			CallbackInfo ci
-	)
-	{
-		if (world instanceof World)
-		{
-			MicroTimingLoggerManager.onBlockUpdate((World)world, pos, world.getBlockState(pos).getBlock(), BlockUpdateType.STATE_UPDATE, null, EventType.ACTION_START);
-		}
-	}
-
-	@Inject(
+	//$$ 		CallbackInfo ci
+	//$$ )
+	//$$ {
+	//$$ 	if (world instanceof World)
+	//$$ 	{
+	//$$ 		MicroTimingLoggerManager.onBlockUpdate((World)world, pos, world.getBlockState(pos).getBlock(), BlockUpdateType.STATE_UPDATE, null, EventType.ACTION_START);
+	//$$ 	}
+	//$$ }
+ //$$
+	//$$ @Inject(
 			//#if MC >= 11600
 			//$$ method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
 			//#else
-			method = "updateNeighborStates",
+			//$$ method = "updateNeighborStates",
 			//#endif
-			at = @At("RETURN")
-	)
-	private void endStateUpdate(
+	//$$ 		at = @At("RETURN")
+	//$$ )
+	//$$ private void endStateUpdate(
 			//#if MC >= 11600
 			//$$ WorldAccess world, BlockPos pos, int flags, int maxUpdateDepth,
 			//#else
-			BlockState state, IWorld world, BlockPos pos, int flags,
+			//$$ BlockState state, IWorld world, BlockPos pos, int flags,
 			//#endif
-			CallbackInfo ci
-	)
-	{
-		if (world instanceof World)
-		{
-			MicroTimingLoggerManager.onBlockUpdate((World)world, pos, world.getBlockState(pos).getBlock(), BlockUpdateType.STATE_UPDATE, null, EventType.ACTION_END);
-		}
-	}
+	//$$ 		CallbackInfo ci
+	//$$ )
+	//$$ {
+	//$$ 	if (world instanceof World)
+	//$$ 	{
+	//$$ 		MicroTimingLoggerManager.onBlockUpdate((World)world, pos, world.getBlockState(pos).getBlock(), BlockUpdateType.STATE_UPDATE, null, EventType.ACTION_END);
+	//$$ 	}
+	//$$ }
 	//#endif
 }

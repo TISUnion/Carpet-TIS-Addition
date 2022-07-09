@@ -71,13 +71,13 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 		//$$ 	this.withLocalMobcapContext(
 		//$$ 			serverPlayerEntity,
 		//$$ 			() -> {
-		//$$ 				//#if MC >= 11900
-		//$$ 				//$$ List<Text> lines =
-		//$$ 				//#else
-		//$$ 				List<BaseText> lines =
-		//$$ 				//#endif
+						//#if MC >= 11900
+						//$$ List<Text> lines =
+						//#else
+						//$$ List<BaseText> lines =
+						//#endif
 		//$$ 						SpawnReporter.printMobcapsForDimension(serverPlayerEntity.getWorld(), false);
-		//$$
+  //$$
 		//$$ 				result.append(lines.get(0));
 		//$$ 				if (option != null)
 		//$$ 				{
@@ -117,13 +117,13 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	//$$ {
 	//$$ 	this.capperMap.put(dim, capper);
 	//$$ }
-	//$$
+ //$$
 	//$$ @Nullable
 	//$$ public Object2IntMap<SpawnGroup> getMobcapsMap()
 	//$$ {
 	//$$ 	return mobcapsMap.get();
 	//$$ }
-	//$$
+ //$$
 	//$$ public void withLocalMobcapContext(ServerPlayerEntity player, Runnable runnable, Runnable failureCallback)
 	//$$ {
 	//$$ 	SpawnDensityCapper capper = this.capperMap.get(DimensionWrapper.of(player));

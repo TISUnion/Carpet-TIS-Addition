@@ -27,7 +27,7 @@ public class FormattedTextValue extends StringValue
         BaseText text;
         if (left instanceof FormattedTextValue)
         {
-            text = (BaseText) ((FormattedTextValue) left).getText().copy();
+            text = Messenger.copy((BaseText)((FormattedTextValue) left).getText());
         }
         else
         {
@@ -38,7 +38,7 @@ public class FormattedTextValue extends StringValue
 
         if (right instanceof FormattedTextValue)
         {
-            text.append(((FormattedTextValue) right).getText().copy());
+            text.append(Messenger.copy((BaseText)((FormattedTextValue) right).getText()));
             return new FormattedTextValue(text);
         }
         else

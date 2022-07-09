@@ -24,10 +24,10 @@ public abstract class SpawnReporterMixin
 {
 	//#if MC >= 11800
 	//$$ @Shadow(remap = false) @Final public static int MAGIC_NUMBER;
-	//$$
+ //$$
 	//$$ @Unique
 	//$$ private static SpawnGroup currentSpawnGroup$TISCM = null;
-	//$$
+ //$$
 	//$$ @ModifyVariable(
 	//$$ 		method = "printMobcapsForDimension",
 	//$$ 		at = @At(
@@ -47,7 +47,7 @@ public abstract class SpawnReporterMixin
 	//$$ 	}
 	//$$ 	return chunkcount;
 	//$$ }
-	//$$
+ //$$
 	//$$ @ModifyArg(
 	//$$ 		method = "printMobcapsForDimension",
 	//$$ 		at = @At(
@@ -66,7 +66,7 @@ public abstract class SpawnReporterMixin
 	//$$ 	}
 	//$$ 	return spawnGroup;
 	//$$ }
-	//$$
+ //$$
 	//$$ @ModifyVariable(
 	//$$ 		method = "printMobcapsForDimension",
 	//$$ 		at = @At(

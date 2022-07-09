@@ -29,7 +29,7 @@ public interface EntityListAccessor
 	//#if MC >= 11700
 	//$$ @Invoker
 	//$$ void invokeEnsureSafe();
-	//$$
+ //$$
 	//$$ @Accessor
 	//$$ Int2ObjectMap<Entity> getEntities();
 	//#endif

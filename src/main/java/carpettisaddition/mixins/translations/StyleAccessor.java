@@ -21,13 +21,7 @@ public interface StyleAccessor
 	@Accessor("italic")
 	Boolean getItalicField();
 
-	@Accessor(
-			//#if MC >= 11600
-			//$$ "underlined"
-			//#else
-			"underline"
-			//#endif
-	)
+	@Accessor("underline")
 	Boolean getUnderlineField();
 
 	@Accessor("strikethrough")
@@ -40,7 +34,9 @@ public interface StyleAccessor
 	//#if MC >= 11600
 	//$$ TextColor getColorField();
 	//#else
+	//#disable-remap
 	Formatting getColorField();
+	//#enable-remap
 	//#endif
 
 	@Accessor("hoverEvent")
@@ -50,11 +46,11 @@ public interface StyleAccessor
 	//$$ @Mutable
 	//$$ @Accessor("underlined")
 	//$$ void setUnderlinedField(Boolean value);
-	//$$
+ //$$
 	//$$ @Mutable
 	//$$ @Accessor("strikethrough")
 	//$$ void setStrikethroughField(Boolean value);
-	//$$
+ //$$
 	//$$ @Mutable
 	//$$ @Accessor("obfuscated")
 	//$$ void setObfuscatedField(Boolean value);

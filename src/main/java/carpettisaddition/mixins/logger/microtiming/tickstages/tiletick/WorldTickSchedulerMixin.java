@@ -34,13 +34,13 @@ public abstract class WorldTickSchedulerMixin<T>
 {
 	//#if MC >= 11800
 	//$$ private int tileTickOrderCounter;
-	//$$
+ //$$
 	//$$ @Inject(method = "tick(Ljava/util/function/BiConsumer;)V", at = @At("HEAD"))
 	//$$ private void startExecutingTileTickEvents(CallbackInfo ci)
 	//$$ {
 	//$$ 	this.tileTickOrderCounter = 0;
 	//$$ }
-	//$$
+ //$$
 	//$$ @Inject(
 	//$$ 		method = "tick(Ljava/util/function/BiConsumer;)V",
 	//$$ 		at = @At(
@@ -57,7 +57,7 @@ public abstract class WorldTickSchedulerMixin<T>
 	//$$ 		MicroTimingLoggerManager.setSubTickStage(serverWorld, new TileTickSubStage(serverWorld, orderedTick, this.tileTickOrderCounter++));
 	//$$ 	}
 	//$$ }
-	//$$
+ //$$
 	//$$ @Inject(
 	//$$ 		method = "tick(Ljava/util/function/BiConsumer;)V",
 	//$$ 		at = @At(

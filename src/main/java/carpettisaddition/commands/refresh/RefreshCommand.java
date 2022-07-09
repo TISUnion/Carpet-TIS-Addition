@@ -31,7 +31,9 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 //#if MC >= 11900
+//#if MC < 11901
 //$$ import carpettisaddition.mixins.command.refresh.ServerPlayerEntityAccessor;
+//#endif
 //$$ import net.minecraft.command.CommandRegistryAccess;
 //#endif
 
@@ -44,9 +46,9 @@ import net.minecraft.network.Packet;
 
 //#if MC >= 11600
 //$$ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
-//$$ //#if MC < 11900
+//#if MC < 11900
 //$$ import net.minecraft.util.Util;
-//$$ //#endif
+//#endif
 //#else
 import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 //#endif
@@ -194,7 +196,9 @@ public class RefreshCommand extends AbstractCommand
 		}
 		BaseText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
 		player.networkHandler.sendPacket(
-				//#if MC >= 11900
+				//#if MC >= 11901
+				//$$ new GameMessageS2CPacket(message, false),
+				//#elseif MC >= 11900
 				//$$ new GameMessageS2CPacket(message, ((ServerPlayerEntityAccessor)player).invokeGetMessageTypeId(MessageType.SYSTEM)),
 				//#elseif MC >= 11600
 				//$$ new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),

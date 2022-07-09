@@ -32,8 +32,20 @@ public class TileTickSubStage extends AbstractSubStage
 	@Override
 	public BaseText toText()
 	{
-		BlockPos pos = this.nextTickListEntry.pos;
-		TickPriority priority = this.nextTickListEntry.priority;
+		BlockPos pos =
+				//#if MC >= 11800
+				//$$ this.nextTickListEntry.pos();
+				//#else
+				this.nextTickListEntry.pos;
+				//#endif
+
+		TickPriority priority =
+				//#if MC >= 11800
+				//$$ this.nextTickListEntry.priority();
+				//#else
+				this.nextTickListEntry.priority;
+				//#endif
+
 		Object target = this.nextTickListEntry.getObject();
 		List<Object> list = Lists.newArrayList();
 
@@ -57,6 +69,13 @@ public class TileTickSubStage extends AbstractSubStage
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.nextTickListEntry.pos, DimensionWrapper.of(this.world)));
+		BlockPos pos =
+				//#if MC >= 11800
+				//$$ this.nextTickListEntry.pos();
+				//#else
+				this.nextTickListEntry.pos;
+				//#endif
+
+		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(pos, DimensionWrapper.of(this.world)));
 	}
 }

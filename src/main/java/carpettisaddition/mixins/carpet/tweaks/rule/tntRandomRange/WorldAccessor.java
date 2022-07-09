@@ -16,5 +16,7 @@ public interface WorldAccessor
 {
 	@Mutable
 	@Accessor
+	//#disable-remap
 	void setRandom(Random random);
+	//#enable-remap
 }

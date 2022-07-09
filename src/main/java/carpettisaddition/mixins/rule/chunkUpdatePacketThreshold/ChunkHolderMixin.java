@@ -35,7 +35,7 @@ public abstract class ChunkHolderMixin
 	private boolean ruleEnabled$CUPT;
 	private int ruleValue$CUPT;
 	private final Set<Short> blockUpdatePositionsSet$CUPT = Sets.newLinkedHashSet();
-	
+
 	private void updateRuleStatus$CUPT()
 	{
 		this.ruleValue$CUPT = CarpetTISAdditionSettings.chunkUpdatePacketThreshold;

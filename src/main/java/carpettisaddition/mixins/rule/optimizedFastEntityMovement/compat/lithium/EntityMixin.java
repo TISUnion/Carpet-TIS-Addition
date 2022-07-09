@@ -43,10 +43,10 @@ public abstract class EntityMixin
 	//#if MC >= 11800
 	//$$ @Unique
 	//$$ private static final ThreadLocal<OFEMContext> context = ThreadLocal.withInitial(() -> null);
-	//$$
+ //$$
 	//$$ @Unique
 	//$$ private static final List<VoxelShape> EMPTY_BLOCK_COLLECTIONS = Lists.newArrayList();
-	//$$
+ //$$
 	//$$ @Dynamic("Should be added by lithium")
 	//$$ @Redirect(
 	//$$ 		method = "lithiumCollideMultiAxisMovement",
@@ -68,7 +68,7 @@ public abstract class EntityMixin
 	//$$ 	// vanilla lithium
 	//$$ 	return LithiumEntityCollisions.getBlockCollisions(world, entity, box);
 	//$$ }
-	//$$
+ //$$
 	//$$ @Dynamic
 	//$$ @ModifyArgs(
 	//$$ 		method = "lithiumCollideMultiAxisMovement",
@@ -88,11 +88,11 @@ public abstract class EntityMixin
 	//$$ 		Box entityBoundingBox = args.get(1);
 	//$$ 		Iterable<VoxelShape> blockCollisions = args.get(2);
 	//$$ 		double maxDist = args.get(3);
-	//$$
+ //$$
 	//$$ 		ctx.axis = axis;
 	//$$ 		ctx.movementOnAxis = maxDist;
 	//$$ 		ctx.entityBoundingBox = entityBoundingBox;
-	//$$
+ //$$
 	//$$ 		// make sure now we are calculating max offset via blockCollisions
 	//$$ 		// we don't want to touch the world border stuff
 	//$$ 		if (blockCollisions == EMPTY_BLOCK_COLLECTIONS)

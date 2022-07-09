@@ -4,6 +4,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
+import net.minecraft.world.TickPriority;
 import net.minecraft.world.ScheduledTick;
 
 import java.util.List;
@@ -28,6 +29,13 @@ public class ExecuteTileTickEvent<T> extends BaseEvent
 	@Override
 	public BaseText toText()
 	{
+		TickPriority priority =
+				//#if MC >= 11800
+				//$$ this.tileTickEntry.priority();
+				//#else
+				this.tileTickEntry.priority;
+				//#endif
+
 		List<Object> list = Lists.newArrayList();
 		list.add(Messenger.formatting(tr("execute"), COLOR_ACTION));
 		list.add(Messenger.getSpaceText());
@@ -35,7 +43,7 @@ public class ExecuteTileTickEvent<T> extends BaseEvent
 				Messenger.formatting(tr("tiletick_event"), COLOR_TARGET),
 				Messenger.c(
 						tr("priority"),
-						String.format("w : %d (%s)", this.tileTickEntry.priority.getIndex(), this.tileTickEntry.priority)
+						String.format("w : %d (%s)", priority.getIndex(), priority)
 				),
 				null
 		));

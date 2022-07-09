@@ -33,7 +33,7 @@ public abstract class AbstractBlockStateMixin
 {
 	//#if MC >= 11600
 	//$$ @Shadow public abstract Block getBlock();
-	//$$
+ //$$
 	//$$ /**
 	//$$  * Lithium block.flatten_states sets up immutable hasRandomTicks cache, and the cache may not match the actual value
 	//$$  * since whether dragon egg block has random tick is changeable

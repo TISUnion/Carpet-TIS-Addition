@@ -44,7 +44,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	//#endif
 
 	//#if MC >= 11700
-	//$$
+ //$$
 	//$$ @Shadow
 	//$$ private static boolean insert(World world, BlockPos blockPos, BlockState blockState, Inventory inventory)
 	//$$ {
@@ -105,14 +105,14 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				// vanilla copy starts
 
 				//#if MC >= 11700
-				//$$if (!hopperBlockEntity.isEmpty())
-				//$${
-				//$$	flag = insert(world, blockPos, blockState, hopperBlockEntity);
-				//$$}
-				//$$if (!((HopperBlockEntityAccessor)hopperBlockEntity).invokeIsFull())
-				//$${
-				//$$	flag |= booleanSupplier.getAsBoolean();
-				//$$}
+				//$$ if (!hopperBlockEntity.isEmpty())
+				//$$ {
+				//$$ 	flag = insert(world, blockPos, blockState, hopperBlockEntity);
+				//$$ }
+				//$$ if (!((HopperBlockEntityAccessor)hopperBlockEntity).invokeIsFull())
+				//$$ {
+				//$$ 	flag |= booleanSupplier.getAsBoolean();
+				//$$ }
 				//#else
 				if (!this.isInvEmpty())
 				{

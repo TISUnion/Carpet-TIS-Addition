@@ -31,7 +31,7 @@ public interface SpawnDensityCapperDensityCapAccessor
 	//$$ {
 	//$$ 	throw new AssertionError();
 	//$$ }
-	//$$
+ //$$
 	//$$ @Accessor
 	//$$ Object2IntMap<SpawnGroup> getSpawnGroupsToDensity();
 	//#endif

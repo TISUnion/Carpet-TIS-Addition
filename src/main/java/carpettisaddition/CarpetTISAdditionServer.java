@@ -65,13 +65,19 @@ public class CarpetTISAdditionServer implements CarpetExtension
         CarpetServer.manageExtension(INSTANCE);
     }
 
+    /**
+     * Just before carpet's onGameStarted
+     * since some of TISCM's stuffs needs to be loaded earlier, e.g. translation
+     */
+    public void onGameStartedPre()
+    {
+        StackTraceDeobfuscator.fetchMapping();
+        TISAdditionTranslations.loadTranslations();
+    }
+
     @Override
     public void onGameStarted()
     {
-        StackTraceDeobfuscator.fetchMapping();
-
-        TISAdditionTranslations.loadTranslations();
-
         // rule description & extras depend on translation
         CarpetRuleRegistrar.register(CarpetServer.settingsManager, CarpetTISAdditionSettings.class);
 
@@ -82,8 +88,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
 
         // scarpet things
         //#if MC >= 11600
-        //$$ AnnotationParser.parseFunctionClass(Functions.class);
-        //$$ MicroTimingEvent.noop();  //to register event properly
+//$$         AnnotationParser.parseFunctionClass(Functions.class);
+//$$         MicroTimingEvent.noop();  //to register event properly
         //#endif
     }
 
@@ -130,7 +136,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
     public void registerCommands(
             CommandDispatcher<ServerCommandSource> dispatcher
             //#if MC >= 11900
-            //$$ , CommandRegistryAccess commandBuildContext
+//$$             , CommandRegistryAccess commandBuildContext
             //#endif
     )
     {
@@ -144,7 +150,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
         ).forEach(command -> command.registerCommand(
                 dispatcher
                 //#if MC >= 11900
-                //$$ , commandBuildContext
+//$$                 , commandBuildContext
                 //#endif
         ));
     }
@@ -164,7 +170,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
         TISAdditionTranslations.getTranslationFromResourcePath(lang).forEach((key, value) -> {
             if (key.startsWith(prefix))
             {
-                trimmedTranslation.put(key.substring(prefix.length()), value);
+                String newKey = key.substring(prefix.length());
+                //#if MC >= 11901
+//$$                 newKey = "carpet." + newKey;
+                //#endif
+                trimmedTranslation.put(newKey, value);
             }
         });
         return trimmedTranslation;

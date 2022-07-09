@@ -16,6 +16,7 @@ import net.minecraft.server.world.BlockAction;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
 import java.util.Collection;
@@ -110,10 +111,24 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 			result.add(Messenger.s(String.format(" - %s * %d", title, tileTickList.size())));
 			for (ScheduledTick<T> tt : tileTickList)
 			{
+				long time =
+						//#if MC >= 11800
+						//$$ tt.triggerTick();
+						//#else
+						tt.time;
+						//#endif
+
+				TickPriority priority =
+						//#if MC >= 11800
+						//$$ tt.priority();
+						//#else
+						tt.priority;
+						//#endif
+
 				result.add(Messenger.c(
 						"w     ",
 						nameGetter.apply(tt.getObject()),
-						String.format("w : time = %d (+%dgt), priority = %d", tt.time, tt.time - currentTime, tt.priority.getIndex())
+						String.format("w : time = %d (+%dgt), priority = %d", time, time - currentTime, priority.getIndex())
 				));
 			}
 		}

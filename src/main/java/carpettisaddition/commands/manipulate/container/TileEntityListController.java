@@ -68,7 +68,7 @@ public class TileEntityListController extends AbstractEntityListController
 	//$$ 			filter(Objects::nonNull).
 	//$$ 			collect(Collectors.toList());
 	//$$ }
-	//$$
+ //$$
 	//$$ private static List<BlockEntity> getTickingBlockEntities(ServerWorld world)
 	//$$ {
 	//$$ 	return extractFromTicker(((WorldAccessor)world).getBlockEntityTickers());

@@ -176,7 +176,7 @@ public abstract class EmitBlockUpdateMixins
 		}
 
 		//#if MC >= 11600
-		//$$
+  //$$
 		//$$ @Inject(
 		//$$ 		method = "update",
 		//$$ 		at = @At(

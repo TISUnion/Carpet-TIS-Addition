@@ -7,10 +7,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(ItemEntity.class)
 public interface ItemEntityAccessor
 {
-	@Accessor(
-			//#if MC >= 11700
-			//$$ "itemAge"
-			//#endif
-	)
+	@Accessor
 	int getAge();
 }

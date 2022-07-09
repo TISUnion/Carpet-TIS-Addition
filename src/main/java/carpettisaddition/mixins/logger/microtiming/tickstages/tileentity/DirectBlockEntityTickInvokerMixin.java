@@ -33,7 +33,7 @@ public abstract class DirectBlockEntityTickInvokerMixin<T extends BlockEntity>
 {
 	//#if MC >= 11700
 	//$$ @Shadow @Final private T blockEntity;
-	//$$
+ //$$
 	//$$ @Inject(method = "tick()V", at = @At("HEAD"))
 	//$$ private void startTileEntitySection(CallbackInfo ci)
 	//$$ {

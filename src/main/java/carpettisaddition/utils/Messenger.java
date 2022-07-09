@@ -162,25 +162,25 @@ public class Messenger
 
 			return Messenger.c(
 					//#if MC >= 11600
-					//$$ //#if MC >= 11800
-					//$$ //$$ segments.
-					//$$ //#else
+					//#if MC >= 11800
+					//$$ segments.
+					//#else
 					//$$ dummy.getTranslations().
-					//$$ //#endif
+					//#endif
 					//$$ 		stream().map(stringVisitable -> {
 					//$$ 			if (stringVisitable instanceof
-					//$$ 					//#if MC >= 11900
-					//$$ 					//$$ Text
-					//$$ 					//#else
-					//$$ 					BaseText
-					//$$ 					//#endif
+										//#if MC >= 11900
+										//$$ Text
+										//#else
+										//$$ BaseText
+										//#endif
 					//$$ 			)
 					//$$ 			{
-					//$$ 				//#if MC >= 11900
-					//$$ 				//$$ return (Text)stringVisitable;
-					//$$ 				//#else
-					//$$ 				return (BaseText)stringVisitable;
-					//$$ 				//#endif
+									//#if MC >= 11900
+									//$$ return (Text)stringVisitable;
+									//#else
+									//$$ return (BaseText)stringVisitable;
+									//#endif
 					//$$ 			}
 					//$$ 			return Messenger.s(stringVisitable.getString());
 					//$$ 		}).toArray()
@@ -414,7 +414,7 @@ public class Messenger
 	public static BaseText copy(BaseText text)
 	{
 		//#if MC >= 11600
-		//$$ return (BaseText)text.shallowCopy();
+		//$$ return (BaseText)text.copy();
 		//#else
 		return (BaseText)text.deepCopy();
 		//#endif

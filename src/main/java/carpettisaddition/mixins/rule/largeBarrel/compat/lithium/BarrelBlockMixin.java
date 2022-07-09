@@ -41,8 +41,8 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	//$$  * based on {@link me.jellysquid.mods.lithium.mixin.block.hopper.BlockEntityMixin}
 	//$$  */
 	//$$ private static final boolean LITHIUM_HOPPER_OPTIMIZATION_LOADED = RemovableBlockEntity.class.isAssignableFrom(BlockEntity.class);
-	//$$
-	//$$
+ //$$
+ //$$
 	//$$ @SuppressWarnings("deprecation")
 	//$$ @Override
 	//$$ public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean moved)
@@ -53,7 +53,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	//$$ 		resetLithiumHopperCache(world, pos, state);
 	//$$ 	}
 	//$$ }
-	//$$
+ //$$
 	//$$ @Inject(method = "onStateReplaced", at = @At("RETURN"))
 	//$$ public void resetLithiumHopperCacheForLargeBarrel(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved, CallbackInfo ci)
 	//$$ {
@@ -62,7 +62,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	//$$ 		resetLithiumHopperCache(world, pos, state);
 	//$$ 	}
 	//$$ }
-	//$$
+ //$$
 	//$$ private static void resetLithiumHopperCache(WorldAccess world, BlockPos changedBarrelPos, BlockState changedBarrelState)
 	//$$ {
 	//$$ 	if (LITHIUM_HOPPER_OPTIMIZATION_LOADED && !world.isClient())

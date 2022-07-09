@@ -43,12 +43,12 @@ public abstract class ArmorStandItemItemMixin
 	//$$ 	// vanilla
 	//$$ 	return world.isSpaceEmpty(
 	//$$  			entity, box
-	//$$  			//#if MC < 11800
+	 			//#if MC < 11800
 	//$$  			, predicate
-	//$$  			//#endif
+	 			//#endif
 	//$$ 	);
 	//$$ }
-	//$$
+ //$$
 	//$$ @Redirect(
 	//$$ 		method = "useOnBlock",
 	//$$ 		at = @At(
@@ -67,7 +67,7 @@ public abstract class ArmorStandItemItemMixin
 	//$$ 	// vanilla
 	//$$ 	return entityList.isEmpty();
 	//$$ }
-	//$$
+ //$$
 	//#else
 
 	private static final ThreadLocal<ItemPlacementContext> currentContext$TISCM = ThreadLocal.withInitial(() -> null);

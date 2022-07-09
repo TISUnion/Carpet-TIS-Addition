@@ -44,10 +44,10 @@ public abstract class EntityTrackingSectionMixin<
 	//#if MC >= 11700
 	//$$ // just like WorldChunk#entitySections in 1.16- but it's per chunk section and it uses genericity
 	//$$ @Shadow @Final private TypeFilterableList<T> collection;
-	//$$
+ //$$
 	//$$ private TypeFilterableList<T> hardHitBoxEntitySections;
 	//$$ private boolean optimizedHHBECEnabled;  // optimizedHardHitBoxEntityCollisionEnabled
-	//$$
+ //$$
 	//$$ /**
 	//$$  * Enable only if {@param entityClass} is Entity.class
 	//$$  * See the return type of ServerWorld#getEntityLookup() for the reason of using Entity.class as judgement
@@ -61,7 +61,7 @@ public abstract class EntityTrackingSectionMixin<
 	//$$ 	this.hardHitBoxEntitySections = new TypeFilterableList<>(entityClass);
 	//$$ 	this.optimizedHHBECEnabled = CarpetTISAdditionSettings.optimizedHardHitBoxEntityCollision && entityClass == Entity.class;
 	//$$ }
-	//$$
+ //$$
 	//$$ @Inject(method = "add", at = @At("TAIL"))
 	//$$ private void onAddEntity(T entity, CallbackInfo ci)
 	//$$ {
@@ -73,7 +73,7 @@ public abstract class EntityTrackingSectionMixin<
 	//$$ 		}
 	//$$ 	}
 	//$$ }
-	//$$
+ //$$
 	//$$ @Inject(method = "remove", at = @At("TAIL"))
 	//$$ private void onRemoveEntity(T entity, CallbackInfoReturnable<Boolean> ci)
 	//$$ {
@@ -82,7 +82,7 @@ public abstract class EntityTrackingSectionMixin<
 	//$$ 		this.hardHitBoxEntitySections.remove(entity);
 	//$$ 	}
 	//$$ }
-	//$$
+ //$$
 	//$$ /**
 	//$$  * Invoke path:
 	//$$  * - {@link EntityView#getEntityCollisions}
@@ -96,11 +96,11 @@ public abstract class EntityTrackingSectionMixin<
 	//$$  * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	//$$  */
 	//$$ @Redirect(
-	//$$ 		//#if MC >= 11800
-	//$$ 		//$$ method = "forEach(Lnet/minecraft/util/math/Box;Ljava/util/function/Consumer;)V",
-	//$$ 		//#else
-	//$$ 		method = "forEach(Ljava/util/function/Predicate;Ljava/util/function/Consumer;)V",
-	//$$ 		//#endif
+			//#if MC >= 11800
+			//$$ method = "forEach(Lnet/minecraft/util/math/Box;Ljava/util/function/Consumer;)V",
+			//#else
+			//$$ method = "forEach(Ljava/util/function/Predicate;Ljava/util/function/Consumer;)V",
+			//#endif
 	//$$ 		at = @At(
 	//$$ 				value = "FIELD",
 	//$$ 				target = "Lnet/minecraft/world/entity/EntityTrackingSection;collection:Lnet/minecraft/util/collection/TypeFilterableList;"

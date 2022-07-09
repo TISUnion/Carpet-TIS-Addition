@@ -17,7 +17,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.List;
 
 //#if MC >= 11900
+//#disable-remap
 //$$ import net.minecraft.util.math.random.Random;
+//#enable-remap
 //#else
 import java.util.Random;
 //#endif
@@ -43,7 +45,9 @@ public abstract class DragonEggBlockMixin extends Block
 	@Intrinsic
 	@Override
 	//#if MC >= 11500
+	//#disable-remap
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
+	//#enable-remap
 	//#else
 	//$$ public void onRandomTick(BlockState state, World world, BlockPos pos, Random random)
 	//#endif

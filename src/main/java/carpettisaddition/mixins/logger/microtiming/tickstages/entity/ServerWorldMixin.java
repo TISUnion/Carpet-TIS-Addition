@@ -17,11 +17,11 @@ public abstract class ServerWorldMixin
 			at = @At(
 					//#if MC >= 11600
 					//$$ value = "FIELD",
-					//$$ //#if MC >= 11700
-					//$$ //$$ target = "Lnet/minecraft/server/world/ServerWorld;entityList:Lnet/minecraft/world/EntityList;",
-					//$$ //#else
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;entityList:Lnet/minecraft/world/EntityList;",
+					//#else
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;inEntityTick:Z",
-					//$$ //#endif
+					//#endif
 					//$$ ordinal = 0
 					//#else
 					value = "CONSTANT",

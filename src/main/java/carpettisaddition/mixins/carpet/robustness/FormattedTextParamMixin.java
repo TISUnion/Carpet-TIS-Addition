@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class FormattedTextParamMixin
 {
 	//#if MC >= 11600
-	//$$
+ //$$
 	//$$ /**
 	//$$  * @reason Added try-catch in case it deserialize failed
 	//$$  * Might happen e.g. when client receive text tag from 1.15.2 server with old fabric carpet, since the content would

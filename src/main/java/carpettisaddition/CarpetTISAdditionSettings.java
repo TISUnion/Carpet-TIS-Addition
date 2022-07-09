@@ -1,8 +1,11 @@
 package carpettisaddition;
 
+//#if MC < 11600
+import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
+//#endif
+
 import carpet.settings.ParsedRule;
 import carpet.settings.Validator;
-import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
@@ -11,6 +14,7 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
 import carpettisaddition.utils.settings.Rule;
+import carpettisaddition.utils.settings.Validators;
 import com.google.common.collect.Maps;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
@@ -34,7 +38,7 @@ public class CarpetTISAdditionSettings
 
 	public static final double VANILLA_BLOCK_EVENT_PACKET_RANGE = 64.0D;
 	@Rule(
-			validators = Validator.NONNEGATIVE_NUMBER.class,
+			validators = Validators.NonNegativeNumber.class,
 			options = {"0", "16", "64", "128"},
 			strict = false,
 			categories = {TIS, OPTIMIZATION}
@@ -71,7 +75,7 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			options = {"0", "1", "10", "100", "1000"},
-			validators = Validator.NONNEGATIVE_NUMBER.class,
+			validators = Validators.NonNegativeNumber.class,
 			strict = false,
 			categories = {TIS, CREATIVE}
 	)
@@ -129,7 +133,7 @@ public class CarpetTISAdditionSettings
 
 	public static final double VANILLA_EXPLOSION_PACKET_RANGE = 64.0D;  // sqrt(4096)
 	@Rule(
-			validators = Validator.NONNEGATIVE_NUMBER.class,
+			validators = Validators.NonNegativeNumber.class,
 			options = {"0", "16", "64", "128", "2048"},
 			strict = false,
 			categories = {TIS, CREATIVE}
@@ -168,7 +172,14 @@ public class CarpetTISAdditionSettings
 			if (!newValue.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue) && source != null)
 			{
 				Consumer<BaseText> messenger = msg -> Messenger.tell(source, Messenger.s(msg.getString(), "r"));
-				messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.found", newValue, currentRule.name));
+				messenger.accept(translator.tr(
+						"_validator.ValidateFakePlayerNameExtra.warn.found", newValue,
+						//#if MC >= 11901
+						//$$ currentRule.name()
+						//#else
+						currentRule.name
+						//#endif
+				));
 				if (!Objects.equals(this.lastDangerousInput.get(currentRule), newValue))
 				{
 					messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.blocked"));
@@ -406,7 +417,7 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			options = {"0", "0.2", "1"},
 			//#if MC >= 11500
-			validators = Validator.PROBABILITY.class,
+			validators = Validators.Probablity.class,
 			//#else
 			//$$ validators = ValidatePossibility.class,
 			//#endif
@@ -425,7 +436,7 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			options = {"0", "10", "12"},
 			strict = false,
-			validators = Validator.NONNEGATIVE_NUMBER.class,
+			validators = Validators.NonNegativeNumber.class,
 			categories = {TIS, CREATIVE}
 	)
 	public static int snowMeltMinLightLevel = VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL;

@@ -23,7 +23,7 @@ public abstract class ServerChunkManagerMixin
 {
 	//#if MC >= 11800
 	//$$ @Shadow @Final ServerWorld world;
-	//$$
+ //$$
 	//$$ @ModifyArg(
 	//$$ 		method = "tickChunks",
 	//$$ 		at = @At(
