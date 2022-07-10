@@ -18,7 +18,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCa
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
-import carpettisaddition.utils.settings.CarpetRuleRegistrar;
+import carpettisaddition.settings.CarpetRuleRegistrar;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;

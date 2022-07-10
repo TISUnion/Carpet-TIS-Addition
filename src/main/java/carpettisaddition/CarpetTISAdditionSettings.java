@@ -5,19 +5,21 @@ import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChan
 //#endif
 
 import carpet.settings.ParsedRule;
-import carpet.settings.Validator;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
+import carpettisaddition.settings.Rule;
+import carpettisaddition.settings.validator.AbstractValidator;
+import carpettisaddition.settings.validator.RangedNumberValidator;
+import carpettisaddition.settings.validator.ValidationContext;
+import carpettisaddition.settings.validator.Validators;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
-import carpettisaddition.utils.settings.Rule;
-import carpettisaddition.utils.settings.Validators;
 import com.google.common.collect.Maps;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Objects;
@@ -60,16 +62,11 @@ public class CarpetTISAdditionSettings
 			categories = {TIS, OPTIMIZATION, EXPERIMENTAL}
 	)
 	public static int chunkUpdatePacketThreshold = VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD;
-	private static class ValidateChunkUpdatePacketThreshold extends Validator<Integer>
+	private static class ValidateChunkUpdatePacketThreshold extends RangedNumberValidator<Integer>
 	{
-		@Override
-		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		public ValidateChunkUpdatePacketThreshold()
 		{
-			return (newValue >= 2 && newValue <= MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD) ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a value from 2 to " + MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD;
+			super(2, MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD);
 		}
 	}
 
@@ -162,38 +159,33 @@ public class CarpetTISAdditionSettings
 	)
 	public static String fakePlayerNameSuffix = fakePlayerNameNoExtra;
 
-	private static class ValidateFakePlayerNameExtra extends Validator<String>
+	private static class ValidateFakePlayerNameExtra extends AbstractValidator<String>
 	{
 		private final Map<ParsedRule<?>, String> lastDangerousInput = Maps.newHashMap();
 
 		@Override
-		public String validate(ServerCommandSource source, ParsedRule<String> currentRule, String newValue, String string)
+		protected @Nullable String validate(ValidationContext<String> ctx)
 		{
-			if (!newValue.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", newValue) && source != null)
+			if (!ctx.value.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", ctx.value) && ctx.source != null)
 			{
-				Consumer<BaseText> messenger = msg -> Messenger.tell(source, Messenger.s(msg.getString(), "r"));
-				messenger.accept(translator.tr(
-						"_validator.ValidateFakePlayerNameExtra.warn.found", newValue,
-						//#if MC >= 11901
-						//$$ currentRule.name()
-						//#else
-						currentRule.name
-						//#endif
-				));
-				if (!Objects.equals(this.lastDangerousInput.get(currentRule), newValue))
+				Consumer<BaseText> messenger = msg -> Messenger.tell(ctx.source, Messenger.s(msg.getString(), "r"));
+				messenger.accept(tr("fake_player_name_extra.warn.found", ctx.value, ctx.ruleName()));
+				if (!Objects.equals(this.lastDangerousInput.get(ctx.rule), ctx.value))
 				{
-					messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.blocked"));
-					this.lastDangerousInput.put(currentRule, newValue);
+					messenger.accept(tr("fake_player_name_extra.warn.blocked"));
+					this.lastDangerousInput.put(ctx.rule, ctx.value);
 					return null;
 				}
-				messenger.accept(translator.tr("_validator.ValidateFakePlayerNameExtra.warn.applied"));
+				messenger.accept(tr("fake_player_name_extra.warn.applied"));
 			}
-			this.lastDangerousInput.remove(currentRule);
-			return newValue;
+			this.lastDangerousInput.remove(ctx.rule);
+			return ctx.value;
 		}
-		public String description()
+
+		@Override
+		public BaseText errorMessage(ValidationContext<String> ctx)
 		{
-			return "You must give a string without special characters and with a length from 1 to 16";
+			return tr("fake_player_name_extra.message");
 		}
 	}
 
@@ -216,16 +208,11 @@ public class CarpetTISAdditionSettings
 			categories = {TIS, CARPET_MOD}
 	)
 	public static int HUDLoggerUpdateInterval = 20;
-	private static class ValidateHUDLoggerUpdateInterval extends Validator<Integer>
+	private static class ValidateHUDLoggerUpdateInterval extends RangedNumberValidator<Integer>
 	{
-		@Override
-		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		public ValidateHUDLoggerUpdateInterval()
 		{
-			return (1 <= newValue && newValue <= 1000) ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must give a integer from 1 to 1000";
+			super(1, 1000);
 		}
 	}
 
@@ -256,23 +243,18 @@ public class CarpetTISAdditionSettings
 	)
 	public static int lightEngineMaxBatchSize = 5;
 
-	public static class LightBatchValidator extends Validator<Integer>
+	public static class LightBatchValidator extends Validators.PositiveNumber<Integer>
 	{
 		@Override
-		public Integer validate(ServerCommandSource serverCommandSource, ParsedRule<Integer> parsedRule, Integer newValue, String string)
+		public void onValidationSuccess(ValidationContext<Integer> ctx, Integer newValue)
 		{
-			if (newValue > 0)
-			{
-				LightBatchSizeChanger.setSize(newValue);
-				return newValue;
-			}
-			return null;
+			LightBatchSizeChanger.setSize(newValue);
 		}
 	}
 	//#endif
 
 	@Rule(
-			validators = ValidatePositive.class,
+			validators = Validators.PositiveNumber.class,
 			options = {"1", "20", "60", "100", "6000"},
 			strict = false,
 			categories = {TIS}
@@ -285,12 +267,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static LightUpdateOptions lightUpdates = LightUpdateOptions.ON;
 
-	private static class ValidateLightUpdates extends Validator<Enum<LightUpdateOptions>>
+	private static class ValidateLightUpdates extends AbstractValidator<LightUpdateOptions>
 	{
 		@Override
-		public Enum<LightUpdateOptions> validate(ServerCommandSource source, ParsedRule<Enum<LightUpdateOptions>> currentRule, Enum<LightUpdateOptions> newValue, String string)
+		protected @Nullable LightUpdateOptions validate(ValidationContext<LightUpdateOptions> ctx)
 		{
-			return LightThreadSynchronizer.checkRuleSafety(source, synchronizedLightThread, (LightUpdateOptions)newValue) ? newValue : null;
+			return LightThreadSynchronizer.checkRuleSafety(ctx.source, synchronizedLightThread, ctx.value) ? ctx.value : null;
 		}
 	}
 
@@ -344,21 +326,21 @@ public class CarpetTISAdditionSettings
 	)
 	public static String microTimingDyeMarker = "true";
 
-	private static class ValidateMicroTimingDyeMarker extends Validator<String>
+	private static class ValidateMicroTimingDyeMarker extends AbstractValidator<String>
 	{
 		@Override
-		public String validate(ServerCommandSource source, ParsedRule<String> currentRule, String newValue, String string)
+		protected @Nullable String validate(ValidationContext<String> ctx)
 		{
-			if ("clear".equals(newValue))
+			if ("clear".equals(ctx.value))
 			{
 				MicroTimingMarkerManager.getInstance().clear();
-				if (source != null)
+				if (ctx.source != null)
 				{
-					Messenger.tell(source, MicroTimingMarkerManager.getInstance().getTranslator().tr("cleared"));
+					Messenger.tell(ctx.source, MicroTimingMarkerManager.getInstance().getTranslator().tr("cleared"));
 				}
-				return currentRule.get();
+				return ctx.rule.get();
 			}
-			return newValue;
+			return ctx.value;
 		}
 	}
 
@@ -416,7 +398,7 @@ public class CarpetTISAdditionSettings
 	@Rule(
 			options = {"0", "0.2", "1"},
 			//#if MC >= 11500
-			validators = Validators.Probablity.class,
+			validators = Validators.Probability.class,
 			//#else
 			//$$ validators = ValidatePossibility.class,
 			//#endif
@@ -454,16 +436,11 @@ public class CarpetTISAdditionSettings
 			categories = {TIS, CREATIVE}
 	)
 	public static int structureBlockLimit = 32;
-	private static class ValidateStructureBlockLimit extends Validator<Integer>
+	private static class ValidateStructureBlockLimit extends RangedNumberValidator<Integer>
 	{
-		@Override
-		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		public ValidateStructureBlockLimit()
 		{
-			return (newValue > 0 && newValue <= 65536) ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a value from 1 to 127";
+			super(1, 65536);
 		}
 	}
 	//#endif
@@ -481,7 +458,7 @@ public class CarpetTISAdditionSettings
 					//#endif
 			},
 			strict = false,
-			validators = Validator.NONNEGATIVE_NUMBER.class
+			validators = Validators.NonNegativeNumber.class
 	)
 	public static double structureBlockOutlineDistance = 96.0D;
 	//#endif
@@ -492,18 +469,18 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean synchronizedLightThread = false;
 
-	private static class ValidateSynchronizedLightThread extends Validator<Boolean>
+	private static class ValidateSynchronizedLightThread extends AbstractValidator<Boolean>
 	{
 		@Override
-		public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string)
+		protected @Nullable Boolean validate(ValidationContext<Boolean> ctx)
 		{
-			return LightThreadSynchronizer.checkRuleSafety(source, newValue, lightUpdates) ? newValue : null;
+			return LightThreadSynchronizer.checkRuleSafety(ctx.source, ctx.value, lightUpdates) ? ctx.value : null;
 		}
 	}
 
 	@Rule(
 			options = {"1024", "65536", "2147483647"},
-			validators = ValidatePositive.class,
+			validators = Validators.PositiveNumber.class,
 			strict = false,
 			categories = {TIS, CREATIVE}
 	)
@@ -520,16 +497,11 @@ public class CarpetTISAdditionSettings
 	)
 	public static int tntFuseDuration = 80;
 
-	private static class ValidateTNTFuseDuration extends Validator<Integer>
+	private static class ValidateTNTFuseDuration extends RangedNumberValidator<Integer>
 	{
-		@Override
-		public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string)
+		public ValidateTNTFuseDuration()
 		{
-			return 0 <= newValue && newValue <= 32767 ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a integer from 0 to 32767";
+			super(0, (int)Short.MAX_VALUE);
 		}
 	}
 
@@ -559,17 +531,17 @@ public class CarpetTISAdditionSettings
 			categories = {TIS, EXPERIMENTAL}
 	)
 	public static String ultraSecretSetting = "false";
-	private static class ValidateUltraSecretSetting extends Validator<String>
+	private static class ValidateUltraSecretSetting extends AbstractValidator<String>
 	{
 		@Override
-		public String validate(ServerCommandSource source, ParsedRule<String> currentRule, String newValue, String string)
+		protected @Nullable String validate(ValidationContext<String> ctx)
 		{
-			if (newValue.equals("mixin_audit"))
+			if (ctx.value.equals("mixin_audit"))
 			{
-				MixinUtil.audit(source);
-				return currentRule.get();
+				MixinUtil.audit(ctx.source);
+				return ctx.rule.get();
 			}
-			return newValue;
+			return ctx.value;
 		}
 	}
 
@@ -578,7 +550,7 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			options = {"-64", "-512", "-4096"},
-			validators = ValidateNegative.class,
+			validators = Validators.NegativeNumber.class,
 			strict = false,
 			categories = {TIS, CREATIVE}
 	)
@@ -594,64 +566,11 @@ public class CarpetTISAdditionSettings
 			categories = {TIS, CREATIVE}
 	)
 	public static double xpTrackingDistance = 8.0F;
-	private static class ValidateXPTrackingDistance extends Validator<Double>
+	private static class ValidateXPTrackingDistance extends RangedNumberValidator<Double>
 	{
-		@Override
-		public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
+		public ValidateXPTrackingDistance()
 		{
-			return (newValue >= 0 && newValue <= 128) ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a value from 0 to 128";
-		}
-	}
-
-	/*
-	 *   Declare rules above this
-	 *   General validators down below
-	 */
-
-	// just use Validator.PROBABILITY in 1.15+
-	// it doesn't exist in fabric-carpet 1.14.4 though
-	//#if MC < 11500
-	//$$ private static class ValidatePossibility extends Validator<Double>
-	//$$ {
-	//$$ 	@Override
-	//$$ 	public Double validate(ServerCommandSource source, ParsedRule<Double> currentRule, Double newValue, String string)
-	//$$ 	{
-	//$$ 		return (newValue >= 0.0D && newValue <= 1.0D) ? newValue : null;
-	//$$ 	}
-	//$$ 	public String description()
-	//$$ 	{
-	//$$ 		return "You must choose a value from 0 to 1";
-	//$$ 	}
-	//$$ }
-	//#endif
-
-	private static class ValidatePositive extends Validator<Number>
-	{
-		@Override
-		public Number validate(ServerCommandSource source, ParsedRule<Number> currentRule, Number newValue, String string)
-		{
-			return newValue.doubleValue() > 0.0D ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a positive value";
-		}
-	}
-
-	private static class ValidateNegative extends Validator<Number>
-	{
-		@Override
-		public Number validate(ServerCommandSource source, ParsedRule<Number> currentRule, Number newValue, String string)
-		{
-			return newValue.doubleValue() < 0.0D ? newValue : null;
-		}
-		public String description()
-		{
-			return "You must choose a negative value";
+			super(0.0D, 128.0D);
 		}
 	}
 }

@@ -1,16 +1,33 @@
 carpettisaddition:
   rule:
-    _validator:
-      validatefakeplayernameextra:
-        warn:
-          found: "Unexpected character found in value \"%1$s\" when applying rule %2$s"
-          blocked: "Re-enter the command again if you do want to use this value"
-          applied: "Accepted anyway cuz you insisted"
     synchronizedLightThread:
       safety_warning:
         '0': "Dangerous combination between rule synchronizedLightThread and rule lightUpdates detected"
         '1': "Rule modification has been cancelled to prevent infinite waiting in lighting synchronization"
         '2': "Related rule values to be set:"
+
+  validator:
+    # common validators
+    basic:
+      failure: "Wrong value for rule %1$s: %2$s"
+    positive_number:
+      message: Must be a positive number
+    negative_number:
+      message: Must be a negative number
+    non_negative_number:
+      message: Must be a positive number or 0
+    non_positive_number:
+      message: Must be a negative number or 0
+    ranged_number:
+      message: Must be a number between %1$s and %2$s
+
+    # custom validators
+    fake_player_name_extra:
+      message: You must give a string without special characters and with a length from 1 to 16
+      warn:
+        found: "Unexpected character found in value \"%1$s\" when applying rule %2$s"
+        blocked: "Re-enter the command again if you do want to use this value"
+        applied: "Accepted anyway cuz you insisted"
 
   logger:
     commandBlock:

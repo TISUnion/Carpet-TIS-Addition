@@ -327,8 +327,9 @@
     "utils.entityfilter.EntitySelectorAccessor",
     "utils.entityfilter.EntitySelectorMixin",
     "utils.entityfilter.EntitySelectorReaderMixin",
-    "utils.settings.ParsedRuleAccessor",
-    "utils.settings.SettingsManagerAccessor"
+    "settings.ParsedRuleAccessor",
+    "settings.ParsedRuleMixin",
+    "settings.SettingsManagerAccessor"
   ],
   "client": [
     "carpet.events.onServerLoadedWorlds.IntegratedServerMixin",

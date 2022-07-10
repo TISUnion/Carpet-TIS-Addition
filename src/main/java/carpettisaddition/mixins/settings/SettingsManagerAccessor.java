@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.utils.settings;
+package carpettisaddition.mixins.settings;
 
 import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;

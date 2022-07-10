@@ -1,6 +1,6 @@
-package carpettisaddition.utils.settings;
+package carpettisaddition.settings;
 
-import carpet.settings.Validator;
+import carpettisaddition.settings.validator.AbstractValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -17,5 +17,5 @@ public @interface Rule
 
 	boolean strict() default true;
 
-	Class<? extends Validator>[] validators() default {};
+	Class<? extends AbstractValidator>[] validators() default {};
 }

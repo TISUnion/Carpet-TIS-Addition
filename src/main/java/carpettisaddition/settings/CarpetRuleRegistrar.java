@@ -1,8 +1,8 @@
-package carpettisaddition.utils.settings;
+package carpettisaddition.settings;
 
 import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;
-import carpettisaddition.mixins.utils.settings.SettingsManagerAccessor;
+import carpettisaddition.mixins.settings.SettingsManagerAccessor;
 import com.google.common.collect.Lists;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 //$$ import java.lang.reflect.Constructor;
 //#else
 import carpet.settings.Validator;
-import carpettisaddition.mixins.utils.settings.ParsedRuleAccessor;
+import carpettisaddition.mixins.settings.ParsedRuleAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
