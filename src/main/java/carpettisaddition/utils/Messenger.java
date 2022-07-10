@@ -413,8 +413,10 @@ public class Messenger
 
 	public static BaseText copy(BaseText text)
 	{
-		//#if MC >= 11600
-		//$$ return (BaseText)text.copy();
+		//#if MC >= 11900
+		//$$ return text.copy();
+		//#elseif MC >= 11600
+		//$$ return (BaseText)text.shallowCopy();
 		//#else
 		return (BaseText)text.deepCopy();
 		//#endif
