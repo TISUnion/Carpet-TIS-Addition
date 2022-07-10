@@ -397,11 +397,7 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			options = {"0", "0.2", "1"},
-			//#if MC >= 11500
 			validators = Validators.Probability.class,
-			//#else
-			//$$ validators = ValidatePossibility.class,
-			//#endif
 			strict = false,
 			categories = {TIS, FEATURE}
 	)
