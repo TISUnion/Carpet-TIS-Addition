@@ -2,7 +2,7 @@ package carpettisaddition.settings;
 
 import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;
-import carpettisaddition.mixins.settings.SettingsManagerAccessor;
+import carpettisaddition.CarpetTISAdditionServer;
 import com.google.common.collect.Lists;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.List;
 //#else
 import carpet.settings.Validator;
 import carpettisaddition.mixins.settings.ParsedRuleAccessor;
+import carpettisaddition.mixins.settings.SettingsManagerAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
@@ -133,14 +134,22 @@ public class CarpetRuleRegistrar
 	{
 		for (ParsedRule<?> rule : this.rules)
 		{
-			((SettingsManagerAccessor)this.settingsManager).getRules$TISCM().put(
-					//#if MC >= 11901
-					//$$ rule.name(),
-					//#else
-					rule.name,
-					//#endif
-					rule
-			);
+			//#if MC >= 11901
+			//$$ try
+			//$$ {
+			//$$ 	this.settingsManager.addCarpetRule(rule);
+			//$$ }
+			//$$ catch (UnsupportedOperationException e)
+			//$$ {
+			//$$ 	CarpetTISAdditionServer.LOGGER.warn("[TISCM] Failed to register rule {} to fabric carpet: {}", rule.name(), e);
+			//$$ }
+			//#else
+			Object existingRule = ((SettingsManagerAccessor)this.settingsManager).getRules$TISCM().put(rule.name, rule);
+			if (existingRule != null)
+			{
+				CarpetTISAdditionServer.LOGGER.warn("[TISCM] Overwriting existing rule {}", existingRule);
+			}
+			//#endif
 		}
 	}
 }
