@@ -2,22 +2,24 @@ package carpettisaddition.mixins.rule.lightUpdates;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.server.world.ServerLightingProvider;
-import net.minecraft.world.chunk.Chunk;
-import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Group;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.concurrent.CompletableFuture;
-
-// method light is overwritten by mc-fix_mc-170012 with priority 1000, so the priority needs to be greater than 1000
 @Mixin(value = ServerLightingProvider.class, priority = 1500)
 public abstract class ServerLightingProviderMixin
 {
-	private final ThreadLocal<Boolean> enqueueImportant = ThreadLocal.withInitial(() -> false);
+	private final ThreadLocal<Boolean> enqueueNotImportant = ThreadLocal.withInitial(() -> false);
+
+	/**
+	 * Regular light updates can be discard safely without potentially blocking the server
+	 */
+	@Inject(method = "checkBlock", at = @At("HEAD"))
+	private void thisEnqueueIsNotImportant(CallbackInfo ci)
+	{
+		this.enqueueNotImportant.set(true);
+	}
 
 	@Inject(
 			//#if MC >= 11500
@@ -30,15 +32,16 @@ public abstract class ServerLightingProviderMixin
 	)
 	private void onEnqueueingLightUpdateTask(CallbackInfo ci)
 	{
-		if (this.enqueueImportant.get())
+		CarpetTISAdditionSettings.LightUpdateOptions rule = CarpetTISAdditionSettings.lightUpdates;
+		if (rule.shouldEnqueueLightTask())
 		{
-			this.enqueueImportant.set(false);
 			return;
 		}
-		if (!CarpetTISAdditionSettings.lightUpdates.shouldEnqueueLightTask())
+		if (this.enqueueNotImportant.get() || rule == CarpetTISAdditionSettings.LightUpdateOptions.OFF)
 		{
 			ci.cancel();
 		}
+		this.enqueueNotImportant.set(false);
 	}
 
 	/**
@@ -51,37 +54,5 @@ public abstract class ServerLightingProviderMixin
 		{
 			Thread.yield();
 		}
-	}
-
-	/**
-	 * Treat mixin to generate a ref map for the method light, since the injection below has remap = false
-	 * for no compilation warning
-	 */
-	@Inject(method = "light", at = @At("HEAD"))
-	private void dummyInjectionForObfRefMap(CallbackInfoReturnable<CompletableFuture<Chunk>> cir)
-	{
-	}
-
-	/**
-	 * If you dont want to block the server forever when player entering not-loaded chunks
-	 */
-	@Dynamic
-	@Group(min = 1, max = 2)
-	@Inject(
-			method = {
-					"light",  // its ref map is generated in the injection "dummyInjectionForObfRefMap" above
-					"setupLightmaps"  // mc-fix_mc-170012, or phosphor mod
-			},
-			at = @At(
-					value = "INVOKE",
-					target = "Ljava/util/concurrent/CompletableFuture;supplyAsync(Ljava/util/function/Supplier;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
-					remap = false
-			),
-			remap = false,
-			require = 0
-	)
-	private void thisEnqueueIsImportant(CallbackInfoReturnable<CompletableFuture<Chunk>> cir)
-	{
-		this.enqueueImportant.set(true);
 	}
 }
