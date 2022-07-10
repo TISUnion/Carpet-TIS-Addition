@@ -23,6 +23,7 @@ carpettisaddition:
 
     # custom validators
     fake_player_name_extra:
+      message: 你需要给出一个不含特殊字符的，长度从1至16的字符串
       warn:
         found: 在应用规则 %2$s 时在值 "%1$s" 中发现了意料之外的字符
         blocked: 如果你真的要应用这个值，请再输入一次该指令

@@ -23,7 +23,7 @@ carpettisaddition:
 
     # custom validators
     fake_player_name_extra:
-      message: You must give a string without special characters and with a length from 1 to 16
+      message: You need to give a string without special characters and with a length from 1 to 16
       warn:
         found: "Unexpected character found in value \"%1$s\" when applying rule %2$s"
         blocked: "Re-enter the command again if you do want to use this value"
