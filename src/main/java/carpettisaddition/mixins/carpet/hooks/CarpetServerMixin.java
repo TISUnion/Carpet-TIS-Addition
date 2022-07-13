@@ -15,13 +15,8 @@ public abstract class CarpetServerMixin
 			at = @At(value = "HEAD"),
 			remap = false
 	)
-	private static void onGameStartedPreHook(CallbackInfo ci)
+	private static void onGameStartedPreHook$TISCM(CallbackInfo ci)
 	{
-		// in mc 1.19+ TISCM is registered in carpettisaddition.CarpetTISAdditionMod.onInitialize
-		//#if MC < 11900
-		CarpetTISAdditionServer.registerExtension();
-		//#endif
-
 		CarpetTISAdditionServer.getInstance().onGameStartedPre();
 	}
 }
