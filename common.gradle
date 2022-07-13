@@ -82,6 +82,7 @@ processResources {
 				"version": fullModVersion,
 				"carpet_dependency": project.carpet_dependency,
 				"minecraft_dependency": project.minecraft_dependency,
+				"lithium_confliction": project.getProperties().getOrDefault('lithium_confliction', '<0.0.0')
 		]
 		expand valueMap
 	}
