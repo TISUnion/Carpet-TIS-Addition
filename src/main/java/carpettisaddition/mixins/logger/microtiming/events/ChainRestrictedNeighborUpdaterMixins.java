@@ -99,14 +99,14 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 		//$$ @Shadow @Final private BlockPos pos;
 		//$$ @Shadow @Final private Direction except;
   //$$
-		//$$ private boolean hasTriggeredStartEvent$CTA = false;
+		//$$ private boolean hasTriggeredStartEvent$TISCM = false;
   //$$
 		//$$ @Inject(method = "update", at = @At("HEAD"))
 		//$$ private void startBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
 		//$$ {
-		//$$ 	if (!this.hasTriggeredStartEvent$CTA)
+		//$$ 	if (!this.hasTriggeredStartEvent$TISCM)
 		//$$ 	{
-		//$$ 		this.hasTriggeredStartEvent$CTA = true;
+		//$$ 		this.hasTriggeredStartEvent$TISCM = true;
 		//$$ 		if (this.except == null)
 		//$$ 		{
 		//$$ 			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_START);
