@@ -12,20 +12,19 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-
 @Mixin(DispenserBlock.class)
 public abstract class DispenserBlockMixin
 {
-    @Inject(method = "getBehaviorForItem", at = @At("HEAD"), cancellable = true)
-    private void registerCarpetBehaviors(ItemStack stack, CallbackInfoReturnable<DispenserBehavior> cir)
-    {
-        if (CarpetTISAdditionSettings.dispensersFireDragonBreath)
-        {
-            Item item = stack.getItem();
-            if (item == Items.DRAGON_BREATH)
-            {
-                cir.setReturnValue(FireDragonBreathDispenserBehaviour.INSTANCE);
-            }
-        }
-    }
+	@Inject(method = "getBehaviorForItem", at = @At("HEAD"), cancellable = true)
+	private void registerCarpetBehaviors(ItemStack stack, CallbackInfoReturnable<DispenserBehavior> cir)
+	{
+		if (CarpetTISAdditionSettings.dispensersFireDragonBreath)
+		{
+			Item item = stack.getItem();
+			if (item == Items.DRAGON_BREATH)
+			{
+				cir.setReturnValue(FireDragonBreathDispenserBehaviour.INSTANCE);
+			}
+		}
+	}
 }

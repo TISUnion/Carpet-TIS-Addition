@@ -42,142 +42,142 @@ import java.util.Map;
 
 public class CarpetTISAdditionServer implements CarpetExtension
 {
-    private static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
-    public static final String name = CarpetTISAdditionMod.getModId();
-    public static final String fancyName = "Carpet TIS Addition";
-    public static final String compactName = name.replace("-","");  // carpettisaddition
-    public static final Logger LOGGER = LogManager.getLogger(fancyName);
-    public static MinecraftServer minecraft_server;
+	private static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
+	public static final String name = CarpetTISAdditionMod.getModId();
+	public static final String fancyName = "Carpet TIS Addition";
+	public static final String compactName = name.replace("-","");  // carpettisaddition
+	public static final Logger LOGGER = LogManager.getLogger(fancyName);
+	public static MinecraftServer minecraft_server;
 
-    @Override
-    public String version()
-    {
-        return name;
-    }
+	@Override
+	public String version()
+	{
+		return name;
+	}
 
-    public static CarpetTISAdditionServer getInstance()
-    {
-        return INSTANCE;
-    }
+	public static CarpetTISAdditionServer getInstance()
+	{
+		return INSTANCE;
+	}
 
-    public static void registerExtension()
-    {
-        CarpetServer.manageExtension(INSTANCE);
-    }
+	public static void registerExtension()
+	{
+		CarpetServer.manageExtension(INSTANCE);
+	}
 
-    /**
-     * Just before carpet's onGameStarted
-     * since some of TISCM's stuffs needs to be loaded earlier, e.g. translation
-     */
-    public void onGameStartedPre()
-    {
-        StackTraceDeobfuscator.fetchMapping();
-        TISAdditionTranslations.loadTranslations();
-    }
+	/**
+	 * Just before carpet's onGameStarted
+	 * since some of TISCM's stuffs needs to be loaded earlier, e.g. translation
+	 */
+	public void onGameStartedPre()
+	{
+		StackTraceDeobfuscator.fetchMapping();
+		TISAdditionTranslations.loadTranslations();
+	}
 
-    @Override
-    public void onGameStarted()
-    {
-        // rule description & extras depend on translation
-        CarpetRuleRegistrar.register(CarpetServer.settingsManager, CarpetTISAdditionSettings.class);
+	@Override
+	public void onGameStarted()
+	{
+		// rule description & extras depend on translation
+		CarpetRuleRegistrar.register(CarpetServer.settingsManager, CarpetTISAdditionSettings.class);
 
-        // Let's do some logging things
-        //#if MC < 11500
-        //$$ TISAdditionLoggerRegistry.registerLoggers();
-        //#endif
+		// Let's do some logging things
+		//#if MC < 11500
+		//$$ TISAdditionLoggerRegistry.registerLoggers();
+		//#endif
 
-        // scarpet things
-        //#if MC >= 11600
-//$$         AnnotationParser.parseFunctionClass(Functions.class);
-//$$         MicroTimingEvent.noop();  //to register event properly
-        //#endif
-    }
+		// scarpet things
+		//#if MC >= 11600
+		//$$ AnnotationParser.parseFunctionClass(Functions.class);
+		//$$ MicroTimingEvent.noop();  //to register event properly
+		//#endif
+	}
 
-    @Override
-    public void onServerLoaded(MinecraftServer server)
-    {
-        minecraft_server = server;
-    }
+	@Override
+	public void onServerLoaded(MinecraftServer server)
+	{
+		minecraft_server = server;
+	}
 
-    /**
-     * Carpet has issue (bug) to call onServerLoadedWorlds in IntegratedServer, so just do it myself to make sure it works properly
-     * Only in <= 1.15.x
-     */
-    public void onServerLoadedWorlds$TISCM(MinecraftServer server)
-    {
-        MicroTimingLoggerManager.attachServer(server);
-        LifeTimeTracker.attachServer(server);
-        LightQueueHUDLogger.getInstance().attachServer(server);
-        MicroTimingMarkerManager.getInstance().clear();
-    }
+	/**
+	 * Carpet has issue (bug) to call onServerLoadedWorlds in IntegratedServer, so just do it myself to make sure it works properly
+	 * Only in <= 1.15.x
+	 */
+	public void onServerLoadedWorlds$TISCM(MinecraftServer server)
+	{
+		MicroTimingLoggerManager.attachServer(server);
+		LifeTimeTracker.attachServer(server);
+		LightQueueHUDLogger.getInstance().attachServer(server);
+		MicroTimingMarkerManager.getInstance().clear();
+	}
 
-    @Override
-    public void onServerClosed(MinecraftServer server)
-    {
-        RaidTracker.getInstance().stop();
-        MicroTimingLoggerManager.detachServer();
-        LifeTimeTracker.detachServer();
-    }
+	@Override
+	public void onServerClosed(MinecraftServer server)
+	{
+		RaidTracker.getInstance().stop();
+		MicroTimingLoggerManager.detachServer();
+		LifeTimeTracker.detachServer();
+	}
 
-    @Override
-    public void onTick(MinecraftServer server)
-    {
-        LightQueueHUDLogger.getInstance().tick();
-        MicroTimingMarkerManager.getInstance().tick();
-        PhantomLogger.getInstance().tick();
-    }
+	@Override
+	public void onTick(MinecraftServer server)
+	{
+		LightQueueHUDLogger.getInstance().tick();
+		MicroTimingMarkerManager.getInstance().tick();
+		PhantomLogger.getInstance().tick();
+	}
 
-    public void onCarpetClientHello(ServerPlayerEntity player)
-    {
-        MicroTimingStandardCarpetLogger.getInstance().onCarpetClientHello(player);
-    }
+	public void onCarpetClientHello(ServerPlayerEntity player)
+	{
+		MicroTimingStandardCarpetLogger.getInstance().onCarpetClientHello(player);
+	}
 
-    @Override
-    public void registerCommands(
-            CommandDispatcher<ServerCommandSource> dispatcher
-            //#if MC >= 11900
-//$$             , CommandRegistryAccess commandBuildContext
-            //#endif
-    )
-    {
-        Lists.newArrayList(
-                LifeTimeCommand.getInstance(),
-                ManipulateCommand.getInstance(),
-                RefreshCommand.getInstance(),
-                RaidCommand.getInstance(),
-                RemoveEntityCommand.getInstance(),
-                SupplierCounterCommand.getInstance()
-        ).forEach(command -> command.registerCommand(
-                dispatcher
-                //#if MC >= 11900
-//$$                 , commandBuildContext
-                //#endif
-        ));
-    }
+	@Override
+	public void registerCommands(
+			CommandDispatcher<ServerCommandSource> dispatcher
+			//#if MC >= 11900
+			//$$ , CommandRegistryAccess commandBuildContext
+			//#endif
+	)
+	{
+		Lists.newArrayList(
+				LifeTimeCommand.getInstance(),
+				ManipulateCommand.getInstance(),
+				RefreshCommand.getInstance(),
+				RaidCommand.getInstance(),
+				RemoveEntityCommand.getInstance(),
+				SupplierCounterCommand.getInstance()
+		).forEach(command -> command.registerCommand(
+				dispatcher
+				//#if MC >= 11900
+				//$$ , commandBuildContext
+				//#endif
+		));
+	}
 
-    //#if MC >= 11500
-    @Override
-    public void registerLoggers()
-    {
-        TISAdditionLoggerRegistry.registerLoggers();
-    }
+	//#if MC >= 11500
+	@Override
+	public void registerLoggers()
+	{
+		TISAdditionLoggerRegistry.registerLoggers();
+	}
 
-    @Override
-    public Map<String, String> canHasTranslations(String lang)
-    {
-        Map<String, String> trimmedTranslation = Maps.newHashMap();
-        String prefix = TISAdditionTranslations.CARPET_TRANSLATIONS_KEY_PREFIX;
-        TISAdditionTranslations.getTranslationFromResourcePath(lang).forEach((key, value) -> {
-            if (key.startsWith(prefix))
-            {
-                String newKey = key.substring(prefix.length());
-                //#if MC >= 11901
-//$$                 newKey = "carpet." + newKey;
-                //#endif
-                trimmedTranslation.put(newKey, value);
-            }
-        });
-        return trimmedTranslation;
-    }
-    //#endif
+	@Override
+	public Map<String, String> canHasTranslations(String lang)
+	{
+		Map<String, String> trimmedTranslation = Maps.newHashMap();
+		String prefix = TISAdditionTranslations.CARPET_TRANSLATIONS_KEY_PREFIX;
+		TISAdditionTranslations.getTranslationFromResourcePath(lang).forEach((key, value) -> {
+			if (key.startsWith(prefix))
+			{
+				String newKey = key.substring(prefix.length());
+				//#if MC >= 11901
+				//$$ newKey = "carpet." + newKey;
+				//#endif
+				trimmedTranslation.put(newKey, value);
+			}
+		});
+		return trimmedTranslation;
+	}
+	//#endif
 }

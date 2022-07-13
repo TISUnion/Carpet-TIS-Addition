@@ -30,8 +30,8 @@ import static carpet.settings.RuleCategory.*;
 
 public class CarpetTISAdditionSettings
 {
-    public static final String TIS = "TIS";
-    public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space or you can't /carpet list this
+	public static final String TIS = "TIS";
+	public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space or you can't /carpet list this
 
 	private static final Translator translator = new Translator("rule");
 
