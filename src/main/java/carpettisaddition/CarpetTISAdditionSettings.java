@@ -14,7 +14,6 @@ import carpettisaddition.settings.validator.AbstractValidator;
 import carpettisaddition.settings.validator.RangedNumberValidator;
 import carpettisaddition.settings.validator.ValidationContext;
 import carpettisaddition.settings.validator.Validators;
-import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
 import com.google.common.collect.Maps;
@@ -31,9 +30,7 @@ import static carpet.settings.RuleCategory.*;
 public class CarpetTISAdditionSettings
 {
 	public static final String TIS = "TIS";
-	public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space or you can't /carpet list this
-
-	private static final Translator translator = new Translator("rule");
+	public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space, or you can't /carpet list this
 
 	@Rule(categories = {TIS, CREATIVE, SURVIVAL})
 	public static boolean antiSpamDisabled = false;

@@ -12,7 +12,8 @@ package carpettisaddition.script;
 //$$ import java.util.stream.Collectors;
 //#endif
 
-public class Functions {
+public class Functions
+{
 	//#if MC >= 11600
 	//$$ @ScarpetFunction(maxParams = 3)
 	//$$ public boolean register_block(@Locator.Block BlockPos pos) {
