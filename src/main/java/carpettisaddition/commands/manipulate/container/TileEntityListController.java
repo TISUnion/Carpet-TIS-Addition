@@ -1,5 +1,6 @@
 package carpettisaddition.commands.manipulate.container;
 
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.mixins.command.manipulate.WorldAccessor;
 import carpettisaddition.utils.IdentifierUtil;
 import carpettisaddition.utils.Messenger;
@@ -22,10 +23,6 @@ import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
 import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 //#if MC >= 11700
 //$$ import carpettisaddition.utils.GameUtil;
@@ -150,17 +147,9 @@ public class TileEntityListController extends AbstractEntityListController
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(
-			//#if MC >= 11900
-			//$$ CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandTreeContext context)
 	{
-		return super.getCommandNode(
-						//#if MC >= 11900
-						//$$ commandBuildContext
-						//#endif
-				).
+		return super.getCommandNode(context).
 				then(literal("statistic").
 						executes(c -> this.showStatistic(c.getSource()))
 				).

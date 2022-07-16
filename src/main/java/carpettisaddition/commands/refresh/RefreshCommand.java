@@ -2,11 +2,11 @@ package carpettisaddition.commands.refresh;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.network.MessageType;
@@ -30,11 +30,8 @@ import static net.minecraft.command.arguments.EntityArgumentType.players;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-//#if MC >= 11900
-//#if MC < 11901
+//#if MC >= 11900 && MC < 11901
 //$$ import carpettisaddition.mixins.command.refresh.ServerPlayerEntityAccessor;
-//#endif
-//$$ import net.minecraft.command.CommandRegistryAccess;
 //#endif
 
 //#if MC >= 11800
@@ -75,12 +72,7 @@ public class RefreshCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(
-			CommandDispatcher<ServerCommandSource> dispatcher
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public void registerCommand(CommandTreeContext.Register context)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
 				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRefresh)).
@@ -111,7 +103,7 @@ public class RefreshCommand extends AbstractCommand
 								)
 						)
 				);
-		dispatcher.register(builder);
+		context.dispatcher.register(builder);
 	}
 
 	/*

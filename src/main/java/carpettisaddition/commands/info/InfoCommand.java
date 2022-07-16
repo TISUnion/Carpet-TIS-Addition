@@ -2,13 +2,12 @@ package carpettisaddition.commands.info;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.mixins.command.info.ServerWorldAccessor;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.server.command.ServerCommandSource;
@@ -24,10 +23,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 //#if MC >= 11800
 //$$ import carpettisaddition.mixins.command.info.ChunkTickSchedulerAccessor;
@@ -60,23 +55,14 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 	}
 
 	@Override
-	public void registerCommand(
-			CommandDispatcher<ServerCommandSource> dispatcher
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public void registerCommand(CommandTreeContext.Register context)
 	{
 	}
 
-	public void extendCommand(
-			LiteralArgumentBuilder<ServerCommandSource> builder
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	@Override
+	public void extendCommand(CommandTreeContext.Extend context)
 	{
-		builder.then(
+		context.node.then(
 				literal("world").
 				then(
 						literal("ticking_order").

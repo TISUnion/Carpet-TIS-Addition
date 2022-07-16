@@ -1,6 +1,7 @@
 package carpettisaddition.logging.loggers.tickwarp;
 
 import carpettisaddition.commands.CommandExtender;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
@@ -11,10 +12,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 
 import java.util.List;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -153,14 +150,10 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		return new BaseText[]{Messenger.c(list.toArray(new Object[0]))};
 	}
 
-	public void extendCommand(
-			LiteralArgumentBuilder<ServerCommandSource> builder
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	@Override
+	public void extendCommand(CommandTreeContext.Extend context)
 	{
-		builder.then(
+		context.node.then(
 				literal("warp").then(
 						literal("status").
 						executes(c -> this.showTickWarpInfo(c.getSource()))

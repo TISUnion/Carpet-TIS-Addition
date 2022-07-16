@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 //#if MC >= 11700
 //$$ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+//$$ import carpettisaddition.commands.CommandTreeContext;
 //$$ import carpettisaddition.commands.info.entity.EntityInfoCommand;
 //$$ import net.minecraft.server.command.ServerCommandSource;
 //$$ import org.spongepowered.asm.mixin.injection.At;
@@ -53,10 +54,12 @@ public abstract class InfoCommandMixin
 	//$$ private static LiteralArgumentBuilder<ServerCommandSource> registerInfoEntity(LiteralArgumentBuilder<ServerCommandSource> builder)
 	//$$ {
 	//$$ 	EntityInfoCommand.getInstance().extendCommand(
-	//$$ 			builder
-				//#if MC >= 11900
-				//$$ , currentCommandBuildContext$TISCM
-				//#endif
+	//$$ 			CommandTreeContext.of(
+	//$$ 					builder
+						//#if MC >= 11900
+						//$$ , currentCommandBuildContext$TISCM
+						//#endif
+	//$$ 			)
 	//$$ 	);
 	//$$ 	return builder;
 	//$$ }

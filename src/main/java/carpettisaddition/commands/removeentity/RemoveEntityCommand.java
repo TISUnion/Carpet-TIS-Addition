@@ -2,9 +2,9 @@ package carpettisaddition.commands.removeentity;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,10 +18,6 @@ import static net.minecraft.command.arguments.EntityArgumentType.entities;
 import static net.minecraft.command.arguments.EntityArgumentType.getEntities;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 public class RemoveEntityCommand extends AbstractCommand
 {
@@ -39,12 +35,7 @@ public class RemoveEntityCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(
-			CommandDispatcher<ServerCommandSource> dispatcher
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public void registerCommand(CommandTreeContext.Register context)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> node = literal(NAME).
 				requires(
@@ -54,7 +45,7 @@ public class RemoveEntityCommand extends AbstractCommand
 						executes(c -> removeEntities(c.getSource(), getEntities(c, "target")))
 				);
 
-		dispatcher.register(node);
+		context.dispatcher.register(node);
 	}
 
 	private int removeEntities(ServerCommandSource source, Collection<? extends Entity> entities)

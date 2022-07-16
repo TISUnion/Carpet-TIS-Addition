@@ -3,6 +3,7 @@ package carpettisaddition.commands.raid;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.mixins.command.raid.RaidAccessor;
 import carpettisaddition.mixins.command.raid.RaidManagerAccessor;
 import carpettisaddition.utils.CarpetModUtil;
@@ -11,7 +12,6 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;
@@ -23,10 +23,6 @@ import net.minecraft.text.ClickEvent;
 import java.util.*;
 
 import static net.minecraft.server.command.CommandManager.literal;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 public class RaidCommand extends AbstractCommand
 {
@@ -43,12 +39,7 @@ public class RaidCommand extends AbstractCommand
 	}
 
 	@Override
-	public void registerCommand(
-			CommandDispatcher<ServerCommandSource> dispatcher
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public void registerCommand(CommandTreeContext.Register context)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal("raid")
 			.requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRaid))
@@ -59,7 +50,7 @@ public class RaidCommand extends AbstractCommand
 					)
 			)
 			.then(RaidTracker.getInstance().getTrackingArgumentBuilder());
-		dispatcher.register(builder);
+		context.dispatcher.register(builder);
 	}
 
 	public int listRaid(ServerCommandSource source, boolean fullMode)

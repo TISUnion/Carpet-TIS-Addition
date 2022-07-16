@@ -1,5 +1,6 @@
 package carpettisaddition.commands.manipulate.container;
 
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
@@ -10,10 +11,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static net.minecraft.server.command.CommandManager.literal;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 public abstract class AbstractEntityListController extends AbstractContainerController
 {
@@ -57,17 +54,9 @@ public abstract class AbstractEntityListController extends AbstractContainerCont
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(
-			//#if MC >= 11900
-			//$$ CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandTreeContext context)
 	{
-		return super.getCommandNode(
-						//#if MC >= 11900
-						//$$ commandBuildContext
-						//#endif
-				).
+		return super.getCommandNode(context).
 				then(literal("shuffle").executes(c -> this.shuffle(c.getSource()))).
 				then(literal("revert").executes(c -> this.revert(c.getSource())));
 	}

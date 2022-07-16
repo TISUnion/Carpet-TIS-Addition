@@ -2,10 +2,10 @@ package carpettisaddition.commands.scounter;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.ServerCommandSource;
@@ -24,10 +24,6 @@ import static com.mojang.brigadier.arguments.StringArgumentType.word;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 import static net.minecraft.server.command.CommandSource.suggestMatching;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 public class SupplierCounterCommand extends AbstractCommand
 {
@@ -57,13 +53,9 @@ public class SupplierCounterCommand extends AbstractCommand
 		return INSTANCE;
 	}
 
+
 	@Override
-	public void registerCommand(
-			CommandDispatcher<ServerCommandSource> dispatcher
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public void registerCommand(CommandTreeContext.Register context)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> root = literal(PREFIX).
 				requires(s -> CarpetModUtil.canUseCommand(s, CarpetTISAdditionSettings.hopperNoItemCost)).
@@ -81,7 +73,7 @@ public class SupplierCounterCommand extends AbstractCommand
 								executes(c -> resetSingle(c.getSource(), getString(c, "color")))
 						)
 				);
-		dispatcher.register(root);
+		context.dispatcher.register(root);
 	}
 
 	public void record(DyeColor color, ItemStack previousStack, ItemStack currentStack)

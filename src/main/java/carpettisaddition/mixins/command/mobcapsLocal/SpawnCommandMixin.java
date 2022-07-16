@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.command.mobcapsLocal;
 
 import carpet.commands.SpawnCommand;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.spawn.mobcapsLocal.MobcapsLocalCommand;
 import carpettisaddition.utils.ModIds;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -44,10 +45,12 @@ public abstract class SpawnCommandMixin
 	private static LiteralArgumentBuilder<ServerCommandSource> appendLocalArgumentOnSpawnMobcaps(LiteralArgumentBuilder<ServerCommandSource> rootNode)
 	{
 		MobcapsLocalCommand.getInstance().extendCommand(
-				rootNode
-				//#if MC >= 11900
-				//$$ , currentCommandBuildContext$TISCM
-				//#endif
+				CommandTreeContext.of(
+						rootNode
+						//#if MC >= 11900
+						//$$ , currentCommandBuildContext$TISCM
+						//#endif
+				)
 		);
 		return rootNode;
 	}

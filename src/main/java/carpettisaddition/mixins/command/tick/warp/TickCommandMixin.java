@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.command.tick.warp;
 
 import carpet.commands.TickCommand;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
@@ -40,11 +41,13 @@ public abstract class TickCommandMixin
 	private static LiteralArgumentBuilder<ServerCommandSource> registerTickWarpInfo(LiteralArgumentBuilder<ServerCommandSource> builder)
 	{
 		TickWarpHUDLogger.getInstance().extendCommand(
-				builder
-				//#if MC >= 11900
-				//$$ , currentCommandBuildContext$TISCM
-				//#endif
-		);;
+				CommandTreeContext.of(
+						builder
+						//#if MC >= 11900
+						//$$ , currentCommandBuildContext$TISCM
+						//#endif
+				)
+		);
 		return builder;
 	}
 }

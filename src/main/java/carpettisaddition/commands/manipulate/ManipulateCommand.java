@@ -2,20 +2,16 @@ package carpettisaddition.commands.manipulate;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.container.*;
 import carpettisaddition.utils.CarpetModUtil;
 import com.google.common.collect.ImmutableList;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.literal;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 public class ManipulateCommand extends AbstractCommand
 {
@@ -38,27 +34,19 @@ public class ManipulateCommand extends AbstractCommand
 		return INSTANCE;
 	}
 
+
 	@Override
-	public void registerCommand(
-			CommandDispatcher<ServerCommandSource> dispatcher
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public void registerCommand(CommandTreeContext.Register context)
 	{
 		LiteralArgumentBuilder<ServerCommandSource> containerNode = literal("container");
 		COLLECTION_CONTROLLERS.forEach(
-				controller -> containerNode.then(controller.getCommandNode(
-						//#if MC >= 11900
-						//$$ commandBuildContext
-						//#endif
-				))
+				controller -> containerNode.then(controller.getCommandNode(context))
 		);
 
 		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
 			requires(player -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandManipulate)).
 			then(containerNode);
 
-		dispatcher.register(builder);
+		context.dispatcher.register(builder);
 	}
 }

@@ -1,5 +1,6 @@
 package carpettisaddition.commands.manipulate.container;
 
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.ManipulateCommand;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
@@ -9,10 +10,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
 
 import static net.minecraft.server.command.CommandManager.literal;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 public abstract class AbstractContainerController extends TranslationContext
 {
@@ -30,11 +27,7 @@ public abstract class AbstractContainerController extends TranslationContext
 		return tr("name");
 	}
 
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(
-			//#if MC >= 11900
-			//$$ CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandTreeContext context)
 	{
 		return literal(this.commandPrefix).executes(c -> this.showHelp(c.getSource()));
 	}

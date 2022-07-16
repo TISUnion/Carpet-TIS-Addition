@@ -1,5 +1,6 @@
 package carpettisaddition.commands.manipulate.container;
 
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.microtiming.events.ExecuteBlockEventEvent;
 import carpettisaddition.mixins.command.manipulate.ServerWorldAccessor;
 import carpettisaddition.utils.Messenger;
@@ -22,10 +23,6 @@ import static net.minecraft.command.arguments.BlockStateArgumentType.blockState;
 import static net.minecraft.command.arguments.BlockStateArgumentType.getBlockState;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 public class BlockEventQueueController extends AbstractContainerController
 {
@@ -70,17 +67,9 @@ public class BlockEventQueueController extends AbstractContainerController
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(
-			//#if MC >= 11900
-			//$$ CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandTreeContext context)
 	{
-		return super.getCommandNode(
-						//#if MC >= 11900
-						//$$ commandBuildContext
-						//#endif
-				).
+		return super.getCommandNode(context).
 				then(literal("remove").
 						then(argument("pos", blockPos()).
 								executes(c -> this.removeAt(c.getSource(), getLoadedBlockPos(c, "pos")))
@@ -90,7 +79,7 @@ public class BlockEventQueueController extends AbstractContainerController
 						then(argument("pos", blockPos()).
 								then(argument("block", blockState(
 												//#if MC >= 11900
-												//$$ commandBuildContext
+												//$$ context.commandBuildContext
 												//#endif
 										)).
 										then(argument("type", integer()).

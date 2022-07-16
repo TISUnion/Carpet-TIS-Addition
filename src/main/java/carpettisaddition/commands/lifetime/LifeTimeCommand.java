@@ -2,11 +2,11 @@ package carpettisaddition.commands.lifetime;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.CarpetModUtil;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
@@ -26,10 +26,6 @@ import static com.mojang.brigadier.arguments.StringArgumentType.string;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 import static net.minecraft.server.command.CommandSource.suggestMatching;
-
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
 
 public class LifeTimeCommand extends AbstractCommand
 {
@@ -120,12 +116,7 @@ public class LifeTimeCommand extends AbstractCommand
 	 */
 
 	@Override
-	public void registerCommand(
-			CommandDispatcher<ServerCommandSource> dispatcher
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public void registerCommand(CommandTreeContext.Register context)
 	{
 		final String entityTypeArg = "entity_type";
 		final String detailModeArg = "detail";
@@ -165,6 +156,6 @@ public class LifeTimeCommand extends AbstractCommand
 						literal("help").
 								executes(c -> LifeTimeTracker.getInstance().showHelp(c.getSource()))
 				);
-		dispatcher.register(builder);
+		context.dispatcher.register(builder);
 	}
 }

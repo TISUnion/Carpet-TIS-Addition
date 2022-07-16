@@ -1,8 +1,8 @@
 package carpettisaddition.commands.info.entity;
 
 import carpettisaddition.commands.CommandExtender;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.Messenger;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.arguments.EntityArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -19,10 +19,6 @@ import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-//#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
-//#endif
-
 /**
  * Logic ports from fabric-carpet 1.4.54
  * Newer carpet remove entity info framework, so we need to keep a copy of that
@@ -38,14 +34,9 @@ public class EntityInfoCommand implements CommandExtender
 	}
 
 	@Override
-	public void extendCommand(
-			LiteralArgumentBuilder<ServerCommandSource> builder
-			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
-			//#endif
-	)
+	public void extendCommand(CommandTreeContext.Extend context)
 	{
-		builder.then(literal("entity").
+		context.node.then(literal("entity").
 				then(argument("entity selector", EntityArgumentType.entities()).
 						executes((c) -> infoEntities(
 								c.getSource(), EntityArgumentType.getEntities(c, "entity selector"), null)

@@ -2,6 +2,7 @@ package carpettisaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
+import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.lifetime.LifeTimeCommand;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.manipulate.ManipulateCommand;
@@ -140,6 +141,12 @@ public class CarpetTISAdditionServer implements CarpetExtension
 			//#endif
 	)
 	{
+		CommandTreeContext.Register context = CommandTreeContext.of(
+				dispatcher
+				//#if MC >= 11900
+				//$$ , commandBuildContext
+				//#endif
+		);
 		Lists.newArrayList(
 				LifeTimeCommand.getInstance(),
 				ManipulateCommand.getInstance(),
@@ -147,12 +154,9 @@ public class CarpetTISAdditionServer implements CarpetExtension
 				RaidCommand.getInstance(),
 				RemoveEntityCommand.getInstance(),
 				SupplierCounterCommand.getInstance()
-		).forEach(command -> command.registerCommand(
-				dispatcher
-				//#if MC >= 11900
-				//$$ , commandBuildContext
-				//#endif
-		));
+		).forEach(command ->
+				command.registerCommand(context)
+		);
 	}
 
 	//#if MC >= 11500
