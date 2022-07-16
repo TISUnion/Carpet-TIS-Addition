@@ -288,6 +288,20 @@ carpettisaddition:
           item_name: 方块事件
           scheduled: 已添加%1$s @ %2$s
           removed: 已移除%1$s个方块事件
+      entity:
+        entity_message: '%1$s个实体'
+        rename:
+          renamed: 已将%1$s重命名为%2$s
+          cleared: 已清除%1$s的自定义名称
+        persistent:
+          not_found: 未找到目标实体，需选择生物
+          title: '持久标签状态:'
+          set: 已将%1$s的持久标签状态设置为%2$s
+        mounted: 已将%1$s骑乘于%2$s之上
+        dismounted: 已取消%1$s的骑乘状态
+        velocity:
+          added: 已将%1$s的速度增加%2$s
+          set: 已将%1$s的速度设为%2$s
     raid:
       raid_count: "袭击数量: %1$s"
       status:

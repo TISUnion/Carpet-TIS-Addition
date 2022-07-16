@@ -1,7 +1,7 @@
-package carpettisaddition.commands.manipulate.container;
+package carpettisaddition.commands.manipulate.container.controller;
 
 import carpettisaddition.commands.CommandTreeContext;
-import carpettisaddition.mixins.command.manipulate.WorldAccessor;
+import carpettisaddition.mixins.command.manipulate.container.WorldAccessor;
 import carpettisaddition.utils.IdentifierUtil;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;

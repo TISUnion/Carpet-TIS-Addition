@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.command.manipulate;
+package carpettisaddition.mixins.command.manipulate.container;
 
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;

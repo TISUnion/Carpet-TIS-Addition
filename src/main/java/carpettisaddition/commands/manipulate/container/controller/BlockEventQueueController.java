@@ -1,8 +1,8 @@
-package carpettisaddition.commands.manipulate.container;
+package carpettisaddition.commands.manipulate.container.controller;
 
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.microtiming.events.ExecuteBlockEventEvent;
-import carpettisaddition.mixins.command.manipulate.ServerWorldAccessor;
+import carpettisaddition.mixins.command.manipulate.container.ServerWorldAccessor;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.mojang.brigadier.builder.ArgumentBuilder;

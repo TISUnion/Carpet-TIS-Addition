@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.command.manipulate;
+package carpettisaddition.mixins.command.manipulate.container;
 
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;

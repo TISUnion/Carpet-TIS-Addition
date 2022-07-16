@@ -14,6 +14,12 @@ public abstract class CommandTreeContext
 	//$$ public final CommandRegistryAccess commandBuildContext;
 	//#endif
 
+	/*
+	 * ---------------------
+	 *       Factories
+	 * ---------------------
+	 */
+
 	protected CommandTreeContext(
 			//#if MC >= 11900
 			//$$ CommandRegistryAccess commandBuildContext
@@ -40,14 +46,33 @@ public abstract class CommandTreeContext
 		);
 	}
 
-	public static Extend of(
+	public static Node of(
 			LiteralArgumentBuilder<ServerCommandSource> node
 			//#if MC >= 11900
 			//$$ , CommandRegistryAccess commandBuildContext
 			//#endif
 	)
 	{
-		return new Extend(
+		return new Node(
+				node
+				//#if MC >= 11900
+				//$$ , commandBuildContext
+				//#endif
+		);
+	}
+
+	/*
+	 * ---------------------
+	 *      Convertors
+	 * ---------------------
+	 */
+
+	/**
+	 * Creates a {@link Node} context based on self's basic information
+	 */
+	public Node node(LiteralArgumentBuilder<ServerCommandSource> node)
+	{
+		return of(
 				node
 				//#if MC >= 11900
 				//$$ , commandBuildContext
@@ -75,11 +100,17 @@ public abstract class CommandTreeContext
 		}
 	}
 
-	public static class Extend extends CommandTreeContext
+	/*
+	 * ---------------------
+	 * Detailed sub-classes
+	 * ---------------------
+	 */
+
+	public static class Node extends CommandTreeContext
 	{
 		public final LiteralArgumentBuilder<ServerCommandSource> node;
 
-		private Extend(
+		private Node(
 				LiteralArgumentBuilder<ServerCommandSource> node
 				//#if MC >= 11900
 				//$$ , CommandRegistryAccess commandBuildContext

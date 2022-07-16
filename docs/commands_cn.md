@@ -128,6 +128,41 @@
 /manipulate container blockevent remove <pos>
 ```
 
+### entity
+
+操控目标实体
+
+`/manipulate entity <实体选择器> [各类操作]`
+
+指令列表：
+
+目标实体自定义名称设置/清楚
+
+```
+/manipulate entity <目标> rename <名称文本>
+/manipulate entity <目标> rename clear
+```
+
+目标实体的持久标签状态查询/修改
+
+```
+/manipulate entity <目标> persistent
+/manipulate entity <目标> persistent set <持久标签状态>
+```
+
+目标实体载具逻辑控制
+
+```
+/manipulate entity <目标> mount <载具>
+/manipulate entity <目标> dismount
+```
+
+目标实体速度控制
+
+```
+/manipulate entity <目标> velocity [add|set] <x> <y> <z>
+```
+
 
 ## 袭击 (raid)
 

@@ -5,7 +5,6 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -151,7 +150,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 	}
 
 	@Override
-	public void extendCommand(CommandTreeContext.Extend context)
+	public void extendCommand(CommandTreeContext.Node context)
 	{
 		context.node.then(
 				literal("warp").then(

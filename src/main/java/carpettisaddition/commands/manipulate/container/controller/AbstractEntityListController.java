@@ -1,4 +1,4 @@
-package carpettisaddition.commands.manipulate.container;
+package carpettisaddition.commands.manipulate.container.controller;
 
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.Messenger;

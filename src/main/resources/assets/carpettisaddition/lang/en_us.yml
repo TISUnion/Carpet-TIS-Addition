@@ -288,6 +288,20 @@ carpettisaddition:
           item_name: block event
           scheduled: Scheduled %1$s @ %2$s
           removed: Removed %1$s block events
+      entity:
+        entity_message: '%1$s entities'
+        rename:
+          renamed: Renamed %1$s to %2$s
+          cleared: Cleared custom name of %1$s
+        persistent:
+          not_found: No targets found, please select creature entities
+          title: 'Persistent states:'
+          set: Set persistent state of %1$s to %2$s
+        mounted: Mounted %1$s onto %2$s
+        dismounted: Dismounted %1$s from their vehicles
+        velocity:
+          added: Added velocity of %1$s with %2$s
+          set: Set velocity of %1$s to %2$s
     raid:
       raid_count: "Raid Count: %1$s"
       status:

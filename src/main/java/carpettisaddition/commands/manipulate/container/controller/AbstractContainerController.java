@@ -1,7 +1,8 @@
-package carpettisaddition.commands.manipulate.container;
+package carpettisaddition.commands.manipulate.container.controller;
 
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.ManipulateCommand;
+import carpettisaddition.commands.manipulate.container.ContainerManipulator;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
@@ -13,7 +14,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public abstract class AbstractContainerController extends TranslationContext
 {
-	protected static final Translator basicTranslator = ManipulateCommand.getInstance().getTranslator().getDerivedTranslator("container");
+	protected static final Translator basicTranslator = ContainerManipulator.getInstance().getTranslator();
 	protected final String commandPrefix;
 
 	public AbstractContainerController(String translationName)

@@ -1,6 +1,6 @@
-package carpettisaddition.commands.manipulate.container;
+package carpettisaddition.commands.manipulate.container.controller;
 
-import carpettisaddition.mixins.command.manipulate.ServerWorldAccessor;
+import carpettisaddition.mixins.command.manipulate.container.ServerWorldAccessor;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.entity.Entity;
@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 //#if MC >= 11700
-//$$ import carpettisaddition.mixins.command.manipulate.EntityListAccessor;
+//$$ import carpettisaddition.mixins.command.manipulate.container.EntityListAccessor;
 //#endif
 
 public class EntityListController extends AbstractEntityListController

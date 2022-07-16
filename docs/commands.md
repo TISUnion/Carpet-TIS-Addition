@@ -128,6 +128,41 @@ Command lists:
 /manipulate container blockevent remove <pos>
 ```
 
+### entity
+
+Manipulate target entities
+
+`/manipulate entity <entity_selector> [actions]`
+
+Command lists:
+
+Set / Clear target entities custom name
+
+```
+/manipulate entity <target> rename <name_text>
+/manipulate entity <target> rename clear
+```
+
+Query / Set target entities persistent tag state
+
+```
+/manipulate entity <target> persistent
+/manipulate entity <target> persistent set <state>
+```
+
+Target entities vehicle logic control
+
+```
+/manipulate entity <target> mount <vehicle>
+/manipulate entity <target> dismount
+```
+
+Target entities velocity logic control
+
+```
+/manipulate entity <target> velocity [add|set] <x> <y> <z>
+```
+
 
 ## raid
 

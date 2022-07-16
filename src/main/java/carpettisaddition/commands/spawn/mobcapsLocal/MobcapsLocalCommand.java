@@ -32,7 +32,7 @@ public class MobcapsLocalCommand extends TranslationContext implements CommandEx
 	}
 
 	@Override
-	public void extendCommand(CommandTreeContext.Extend context)
+	public void extendCommand(CommandTreeContext.Node context)
 	{
 		//#if MC >= 11800
 		//$$ context.node.then(literal("mobcapsLocal").

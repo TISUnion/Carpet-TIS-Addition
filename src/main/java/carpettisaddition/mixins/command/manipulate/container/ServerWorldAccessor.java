@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.command.manipulate;
+package carpettisaddition.mixins.command.manipulate.container;
 
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.server.world.BlockAction;

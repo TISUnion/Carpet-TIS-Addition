@@ -60,7 +60,7 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 	}
 
 	@Override
-	public void extendCommand(CommandTreeContext.Extend context)
+	public void extendCommand(CommandTreeContext.Node context)
 	{
 		context.node.then(
 				literal("world").

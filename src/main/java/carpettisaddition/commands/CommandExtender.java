@@ -2,5 +2,5 @@ package carpettisaddition.commands;
 
 public interface CommandExtender
 {
-	void extendCommand(CommandTreeContext.Extend context);
+	void extendCommand(CommandTreeContext.Node context);
 }

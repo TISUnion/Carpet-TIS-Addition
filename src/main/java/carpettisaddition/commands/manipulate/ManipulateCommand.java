@@ -3,7 +3,8 @@ package carpettisaddition.commands.manipulate;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
-import carpettisaddition.commands.manipulate.container.*;
+import carpettisaddition.commands.manipulate.container.ContainerManipulator;
+import carpettisaddition.commands.manipulate.entity.EntityManipulator;
 import carpettisaddition.utils.CarpetModUtil;
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -17,11 +18,10 @@ public class ManipulateCommand extends AbstractCommand
 {
 	private static final String NAME = "manipulate";
 	private static final ManipulateCommand INSTANCE = new ManipulateCommand();
-	private static final List<AbstractContainerController> COLLECTION_CONTROLLERS = ImmutableList.of(
-			new EntityListController(),
-			new TileEntityListController(),
-			new TileTickQueueController(),
-			new BlockEventQueueController()
+
+	private static final List<AbstractManipulator> MANIPULATORS = ImmutableList.of(
+			ContainerManipulator.getInstance(),
+			new EntityManipulator()
 	);
 
 	public ManipulateCommand()
@@ -34,19 +34,18 @@ public class ManipulateCommand extends AbstractCommand
 		return INSTANCE;
 	}
 
-
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{
-		LiteralArgumentBuilder<ServerCommandSource> containerNode = literal("container");
-		COLLECTION_CONTROLLERS.forEach(
-				controller -> containerNode.then(controller.getCommandNode(context))
-		);
+		LiteralArgumentBuilder<ServerCommandSource> root = literal(NAME).
+			requires(player -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandManipulate));
 
-		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
-			requires(player -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandManipulate)).
-			then(containerNode);
+		MANIPULATORS.forEach(m -> {
+			LiteralArgumentBuilder<ServerCommandSource> child = literal(m.getName());
+			m.buildSubCommand(context.node(child));
+			root.then(child);
+		});
 
-		context.dispatcher.register(builder);
+		context.dispatcher.register(root);
 	}
 }

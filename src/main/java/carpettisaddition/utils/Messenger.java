@@ -201,6 +201,11 @@ public class Messenger
 	 * -------------------------------
 	 */
 
+	public static BaseText bool(boolean value)
+	{
+		return s(String.valueOf(value), value ? Formatting.GREEN : Formatting.RED);
+	}
+
 	private static BaseText getTeleportHint(BaseText dest)
 	{
 		return translator.tr("teleport_hint", dest);
