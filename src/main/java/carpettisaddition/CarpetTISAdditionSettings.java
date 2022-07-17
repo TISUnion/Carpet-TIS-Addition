@@ -361,6 +361,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CARPET_MOD})
 	public static boolean mobcapsDisplayIgnoreMisc = false;
 
+	@Rule(categories = {TIS, CREATIVE})
+	public static boolean observerNoDetection = false;
+
 	@Rule(categories = {TIS, SURVIVAL, COMMAND})
 	public static boolean opPlayerNoCheat = false;
 

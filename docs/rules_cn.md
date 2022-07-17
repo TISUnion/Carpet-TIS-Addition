@@ -568,6 +568,18 @@
 - 分类: `TIS`, `CARPET_MOD`
 
 
+## 禁用侦测器检测功能 (observerNoDetection)
+
+不准侦测器在受状态更新时添加计划刻事件
+
+可以认为这条规则禁用了观察者的检测功能
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## op玩家不准作弊 (opPlayerNoCheat)
 
 禁用部分指令以避免op玩家意外地作弊

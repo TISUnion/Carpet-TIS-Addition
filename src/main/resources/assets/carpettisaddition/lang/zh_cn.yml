@@ -711,6 +711,11 @@ carpettisaddition:
         extra:
           '0': 因为它既占空间还没用：杂项生物类型不参与刷怪循环，在统计怪物容量时也被游戏忽略
           '1': 影响mobcaps记录器以及/spawn mobcaps指令
+      observerNoDetection:
+        name: 禁用侦测器检测功能
+        desc: 不准侦测器在受状态更新时添加计划刻事件
+        extra:
+          '0': 可以认为这条规则禁用了观察者的检测功能
       opPlayerNoCheat:
         name: op玩家不准作弊
         desc: 禁用部分指令以避免op玩家意外地作弊

@@ -53,6 +53,7 @@
 - [微时序游戏刻划分](rules_cn.md#微时序游戏刻划分-microtimingtickdivision)
 - [矿车搭载乘客最小速度](rules_cn.md#矿车搭载乘客最小速度-minecarttakepassengerminvelocity)
 - [怪物容量显示忽略杂项](rules_cn.md#怪物容量显示忽略杂项-mobcapsdisplayignoremisc)
+- [禁用侦测器检测功能](rules.md#禁用侦测器检测功能-observernodetection)
 - [op玩家不准作弊](rules_cn.md#op玩家不准作弊-opplayernocheat)
 - [优化高速实体移动](rules_cn.md#优化高速实体移动-optimizedfastentitymovement)
 - [优化硬碰撞箱实体碰撞](rules_cn.md#优化硬碰撞箱实体碰撞-optimizedhardhitboxentitycollision)

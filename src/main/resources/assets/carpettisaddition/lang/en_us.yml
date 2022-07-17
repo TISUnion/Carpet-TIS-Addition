@@ -711,6 +711,11 @@ carpettisaddition:
         extra:
           '0': "Since it's useless: Nothing in misc category spawns, and it's ignored when calculating mobcap"
           '1': Affects mobcaps logger and /spawn mobcap command
+      observerNoDetection:
+        name: observerNoDetection
+        desc: Stop observer from scheduling tile tick event after it receives a state update
+        extra:
+          '0': Basically this rule disables the detection functionality of observers
       opPlayerNoCheat:
         name: opPlayerNoCheat
         desc: Disable some command to prevent accidentally cheating

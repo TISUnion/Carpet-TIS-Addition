@@ -53,6 +53,7 @@
 - [microTimingTickDivision](rules.md#microtimingtarget)
 - [minecartTakePassengerMinVelocity](rules.md#minecarttakepassengerminvelocity)
 - [mobcapsDisplayIgnoreMisc](rules.md#mobcapsdisplayignoremisc)
+- [observerNoDetection](rules.md#observernodetection)
 - [opPlayerNoCheat](rules.md#opplayernocheat)
 - [optimizedFastEntityMovement](rules.md#optimizedfastentitymovement)
 - [optimizedHardHitBoxEntityCollision](rules.md#optimizedhardhitboxentitycollision)

@@ -568,6 +568,18 @@ Affects mobcaps logger and `/spawn mobcap command`
 - Categories: `TIS`, `CARPET_MOD`
 
 
+## observerNoDetection
+
+Stop observer from scheduling tile tick event after it receives a state update
+
+Basically this rule disables the detection functionality of observers
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## opPlayerNoCheat
 
 Disable some command to prevent accidentally cheating

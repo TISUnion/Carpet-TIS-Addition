@@ -262,6 +262,7 @@
     "rule.lightUpdates.ServerLightingProviderMixin",
     "rule.minecartTakePassengerMinVelocity.AbstractMinecartEntityMixin",
     "rule.mobcapsDisplayIgnoreMisc.SpawnReporterMixin",
+    "rule.observerNoDetection.ObserverBlockMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",
     "rule.opPlayerNoCheat.SetBlockCommandMixin",
