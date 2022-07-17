@@ -300,6 +300,7 @@ carpettisaddition:
         mounted: 已将%1$s骑乘于%2$s之上
         dismounted: 已取消%1$s的骑乘状态
         velocity:
+          title: '实体速度矢量:'
           added: 已将%1$s的速度增加%2$s
           set: 已将%1$s的速度设为%2$s
     raid:

@@ -168,8 +168,9 @@ public class EntityManipulator extends AbstractManipulator
 
 	private int queryVelocity(ServerCommandSource source, Collection<? extends Entity> target)
 	{
+		Messenger.tell(source, tr("velocity.title"));
 		target.forEach(e -> {
-			Messenger.tell(source, Messenger.format("%1$s: %2$s", Messenger.entity(e), Messenger.vector(e.getVelocity())));
+			Messenger.tell(source, Messenger.format("  %1$s: %2$s", Messenger.entity(e), Messenger.vector(e.getVelocity())));
 		});
 		return target.size();
 	}

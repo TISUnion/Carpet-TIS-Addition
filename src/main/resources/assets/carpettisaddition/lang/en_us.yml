@@ -300,6 +300,7 @@ carpettisaddition:
         mounted: Mounted %1$s onto %2$s
         dismounted: Dismounted %1$s from their vehicles
         velocity:
+          title: 'Velocity vectors:'
           added: Added velocity of %1$s with %2$s
           set: Set velocity of %1$s to %2$s
     raid:
