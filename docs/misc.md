@@ -56,7 +56,11 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
 ## Carpet Rule Tweaks
 
 - Make carpet rule `tntRandomRange` works without carpet rule `optimizedTNT` or with lithium mod
-- Enhanced rule `creativeNoClip`: Dispenser block placement and xp orb tracking now ignore players in creativeNoClip state
+- Enhanced rule `creativeNoClip`: Following actions now ignore players in creativeNoClip state
+  - Dispenser block placement
+  - Xp orb tracking
+  - Tripwire and pressure plate detecting
+  - Entity movement caused by block change, e.g. farmland being broken
 
 ## Carpet Command Tweaks
 

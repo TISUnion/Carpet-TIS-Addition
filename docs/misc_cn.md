@@ -56,7 +56,11 @@
 ## Carpet 相关规则修改
 
 - 使 carpet 规则 `tntRandomRange` 能在不开启 `optimizedTNT` 规则或存在 lithium mod 时正常工作
-- 增强规则 `creativeNoClip`：发射器放置方块、经验球追踪时无视处于 creativeNoClip 状态下的玩家
+- 增强规则 `creativeNoClip`，在以下动作中忽略处于 creativeNoClip 状态下的玩家
+  - 发射器放置方块
+  - 经验球追踪玩家
+  - 拌线、压力板检测实体
+  - 方块变化导致的实体移动，如踩坏耕地
 
 ## Carpet 相关指令修改
 
