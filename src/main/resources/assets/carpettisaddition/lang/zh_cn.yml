@@ -471,7 +471,7 @@ carpettisaddition:
     player_mount_anything_permission_denied: 只有OP玩家才被允许骑乘任意实体
 
   # ------------------------------------------------------
-  #   Translation below will be passed to fabric carpet
+  #   Translations below will be passed to fabric carpet
   # ------------------------------------------------------
 
   carpet_translations:
