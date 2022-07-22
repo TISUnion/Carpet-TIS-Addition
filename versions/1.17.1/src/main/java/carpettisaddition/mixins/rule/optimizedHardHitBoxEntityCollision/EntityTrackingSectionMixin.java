@@ -10,7 +10,10 @@ import net.minecraft.util.collection.TypeFilterableList;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityTrackingSection;
+import net.minecraft.world.entity.EntityTrackingStatus;
+import net.minecraft.world.entity.SectionedEntityCache;
+import net.minecraft.world.entity.SimpleEntityLookup;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,9 +25,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
 
+//#if MC >= 11800
+//$$ import net.minecraft.world.entity.EntityLike;
+//#endif
+
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
 @Mixin(EntityTrackingSection.class)
-public abstract class EntityTrackingSectionMixin<T extends EntityLike>
+public abstract class EntityTrackingSectionMixin<
+		T
+		//#if MC >= 11800
+		//$$ extends EntityLike
+		//#endif
+>
 {
 	// just like WorldChunk#entitySections in 1.16- but it's per chunk section and it uses genericity
 	@Shadow @Final private TypeFilterableList<T> collection;
