@@ -13,7 +13,7 @@ public class AutoMixinAuditExecutor
 		{
 			CarpetTISAdditionServer.LOGGER.info("Triggered auto mixin audit");
 			boolean ok = MixinUtil.audit(null);
-			CarpetTISAdditionServer.LOGGER.info("Mixin audit result: " + (ok ? "success" : "failed"));
+			CarpetTISAdditionServer.LOGGER.info("Mixin audit result: " + (ok ? "successful" : "failed"));
 			System.exit(ok ? 0 : 1);
 		}
 	}
