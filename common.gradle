@@ -125,3 +125,9 @@ publishing {
 		// mavenLocal()
 	}
 }
+
+task mixinAudit {
+	dependsOn runServer {
+		jvmArgs '-Dcarpettisaddition.mixin_audit=true'
+	}
+}
