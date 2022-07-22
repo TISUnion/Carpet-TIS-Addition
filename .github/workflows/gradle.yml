@@ -6,6 +6,7 @@ on:
       - "*.gradle"
       - "gradle.properties"
       - "src/**"
+      - "versions/**"
       - ".github/**"
   pull_request:
 
