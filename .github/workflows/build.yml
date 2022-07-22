@@ -7,6 +7,10 @@ on:
         type: boolean
         required: false
         default: false
+      mixin_audit:
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   build:
@@ -38,6 +42,11 @@ jobs:
         env:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
+
+      - name: Do mixin audit
+        if: ${{ inputs.mixin_audit }}
+        run: |
+          ./gradlew mixinAudit
 
       - uses: actions/upload-artifact@v2
         with:
