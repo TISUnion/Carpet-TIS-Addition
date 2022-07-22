@@ -52,6 +52,13 @@ loom {
 		runDir '../../run'
 		vmArgs '-Dmixin.debug.export=true'
 	}
+
+	runs {
+		mixinAudit {
+			server()
+			vmArgs '-Dcarpettisaddition.mixin_audit=true'
+		}
+	}
 }
 
 remapJar {
@@ -123,11 +130,5 @@ publishing {
 	repositories {
 		// uncomment to publish to the local maven
 		// mavenLocal()
-	}
-}
-
-task mixinAudit {
-	dependsOn runServer {
-		jvmArgs '-Dcarpettisaddition.mixin_audit=true'
 	}
 }

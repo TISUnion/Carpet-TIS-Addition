@@ -44,10 +44,13 @@ jobs:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
 
-      - name: Do Mixin Audit Check
+      - name: Run Mixin Audit Check
         if: ${{ inputs.mixin_audit }}
+        timeout-minutes: 10
         run: |
-          ./gradlew mixinAudit
+          mkdir -p ./run
+          echo eula=true > ./run/eula.txt
+          ./gradlew runMixinAudit
 
       - uses: actions/upload-artifact@v2
         with:
