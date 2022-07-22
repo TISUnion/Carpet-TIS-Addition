@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(ServerPlayerEntity.class)
 public interface ServerPlayerEntityAccessor
 {
+	// TODO: drop support for 1.19 and remove this class when 1.19.1 releases
 	//#if MC >= 11900 && MC < 11901
 	//$$ @Invoker
 	//$$ int invokeGetMessageTypeId(RegistryKey<MessageType> registryKey);

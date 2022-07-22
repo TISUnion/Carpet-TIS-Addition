@@ -5,9 +5,6 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 
-//#if MC >= 11800
-//$$ import carpettisaddition.utils.compat.DummyClass;
-//#else
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
 import me.jellysquid.mods.lithium.common.world.scheduler.TickEntry;
@@ -26,26 +23,14 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-//#endif
 
 @Restriction(require = {
 		@Condition(value = ModIds.minecraft, versionPredicates = "<1.18"),
 		@Condition(ModIds.lithium)
 })
-@Mixin(
-		//#if MC >= 11800
-		//$$ value = DummyClass.class
-		//#else
-		value = LithiumServerTickScheduler.class
-		//#endif
-)
-public abstract class LithiumTileTickListMixin
-		//#if MC < 11800
-		<T> extends ServerTickScheduler<T>
-		//#endif
+@Mixin(LithiumServerTickScheduler.class)
+public abstract class LithiumTileTickListMixin<T> extends ServerTickScheduler<T>
 {
-	//#if MC < 11800
-
 	@Shadow(remap = false) @Final private ServerWorld world;
 
 	private boolean scheduleSuccess;
@@ -114,6 +99,4 @@ public abstract class LithiumTileTickListMixin
 	{
 		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduleSuccess);
 	}
-
-	//#endif
 }

@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(AnimalMateGoal.class)
 public abstract class AnimalMateGoalMixin
 {
-	//#if MC < 11600
 	@ModifyArg(
 			method = "breed",
 			at = @At(
@@ -32,5 +31,4 @@ public abstract class AnimalMateGoalMixin
 		}
 		return entity;
 	}
-	//#endif
 }

@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(UpdateStructureBlockC2SPacket.class)
 public abstract class UpdateStructureBlockC2SPacketMixin
 {
-	//#if MC < 11600
 	@ModifyConstant(
 			method = "read",
 			require = 3,
@@ -86,5 +85,4 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 			buf.writeInt(this.size.getZ());
 		}
 	}
-	//#endif
 }

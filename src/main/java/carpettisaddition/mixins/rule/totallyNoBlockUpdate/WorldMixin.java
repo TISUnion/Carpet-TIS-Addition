@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(World.class)
 public abstract class WorldMixin
 {
-	//#if MC < 11900
 	@Inject(method = "updateNeighbor", at = @At("HEAD"), cancellable = true)
 	private void disableBlockUpdateMaybe(CallbackInfo ci)
 	{
@@ -23,5 +22,4 @@ public abstract class WorldMixin
 			ci.cancel();
 		}
 	}
-	//#endif
 }

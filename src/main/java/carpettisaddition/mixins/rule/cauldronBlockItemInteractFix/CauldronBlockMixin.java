@@ -20,7 +20,6 @@ import net.minecraft.util.ActionResult;
 @Mixin(CauldronBlock.class)
 public abstract class CauldronBlockMixin
 {
-	//#if MC < 11700
 	@Inject(
 			//#if MC >= 11500
 			method = "onUse",
@@ -63,5 +62,4 @@ public abstract class CauldronBlockMixin
 			);
 		}
 	}
-	//#endif
 }

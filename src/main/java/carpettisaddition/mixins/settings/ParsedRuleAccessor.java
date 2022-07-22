@@ -1,26 +1,19 @@
 package carpettisaddition.mixins.settings;
 
-import org.spongepowered.asm.mixin.Mixin;
-
-//#if MC >= 11901
-//$$ import carpettisaddition.utils.compat.DummyClass;
-//#else
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import java.lang.reflect.Field;
-//#endif
 
-@Mixin(
-		//#if MC >= 11901
-		//$$ DummyClass.class
-		//#else
-		ParsedRule.class
-		//#endif
-)
+import java.lang.reflect.Field;
+
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.19"))
+@Mixin(ParsedRule.class)
 public interface ParsedRuleAccessor
 {
-	//#if MC < 11901
 	@SuppressWarnings("rawtypes")
 	@Invoker(value = "<init>", remap = false)
 	static ParsedRule invokeConstructor(
@@ -32,5 +25,4 @@ public interface ParsedRuleAccessor
 	{
 		throw new RuntimeException();
 	}
-	//#endif
 }

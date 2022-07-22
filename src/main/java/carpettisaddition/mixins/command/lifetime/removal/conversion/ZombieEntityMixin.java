@@ -29,7 +29,6 @@ public abstract class ZombieEntityMixin extends HostileEntity
 		super(type, world);
 	}
 
-	//#if MC < 11600
 	@ModifyArg(
 			method = "convertTo",
 			at = @At(
@@ -37,15 +36,12 @@ public abstract class ZombieEntityMixin extends HostileEntity
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-
 	private Entity recordSelfRemoval$LifeTimeTracker(Entity zombieVariant)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(zombieVariant.getType()));
 		return zombieVariant;
 	}
-	//#endif
 
-	//#if MC < 11600
 	@Inject(
 			method = "onKilledOther",
 			at = @At(
@@ -58,5 +54,4 @@ public abstract class ZombieEntityMixin extends HostileEntity
 	{
 		((LifetimeTrackerTarget)villagerEntity).recordRemoval(new MobConversionRemovalReason(zombieVillagerEntity.getType()));
 	}
-	//#endif
 }

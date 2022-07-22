@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerLightingProvider.class)
 public abstract class ServerLightingProviderMixin
 {
-	//#if MC < 11600
 	@Shadow public abstract void setTaskBatchSize(int taskBatchSize);
 
 	@Inject(method = "<init>", at = @At("TAIL"))
@@ -23,5 +22,4 @@ public abstract class ServerLightingProviderMixin
 	{
 		this.setTaskBatchSize(CarpetTISAdditionSettings.lightEngineMaxBatchSize);
 	}
-	//#endif
 }

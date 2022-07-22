@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(RedstoneWireBlock.class)
 public abstract class RedstoneWireBlockMixin
 {
-	//#if MC < 11900
 	// method to update wire connection
 	@Inject(
 			//#if MC >= 11600
@@ -32,5 +31,4 @@ public abstract class RedstoneWireBlockMixin
 			ci.cancel();
 		}
 	}
-	//#endif
 }

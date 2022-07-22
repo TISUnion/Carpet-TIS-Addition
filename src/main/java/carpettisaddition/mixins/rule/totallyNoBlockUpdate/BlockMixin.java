@@ -25,7 +25,6 @@ import net.minecraft.block.Block;
 )
 public abstract class BlockMixin
 {
-	//#if MC < 11900
 	@Inject(
 			//#if MC >= 11600
 			//$$ method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
@@ -42,5 +41,4 @@ public abstract class BlockMixin
 			ci.cancel();
 		}
 	}
-	//#endif
 }

@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
-	//#if MC < 11600
 	@ModifyArg(
 			method = "prepareStartRegion",
 			slice = @Slice(
@@ -34,5 +33,4 @@ public abstract class MinecraftServerMixin
 	{
 		return CarpetTISAdditionSettings.lightEngineMaxBatchSize;
 	}
-	//#endif
 }

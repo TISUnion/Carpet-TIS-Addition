@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(StructureBlockBlockEntity.class)
 public abstract class StructureBlockBlockEntityMixin
 {
-	//#if MC < 11600
 	@ModifyConstant(
 			method = "fromTag",
 			require = 3,
@@ -33,5 +32,4 @@ public abstract class StructureBlockBlockEntityMixin
 	{
 		return CarpetTISAdditionSettings.structureBlockLimit;
 	}
-	//#endif
 }

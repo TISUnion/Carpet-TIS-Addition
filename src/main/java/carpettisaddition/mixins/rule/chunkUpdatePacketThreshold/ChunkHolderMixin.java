@@ -24,8 +24,6 @@ import java.util.Set;
 @Mixin(ChunkHolder.class)
 public abstract class ChunkHolderMixin
 {
-	//#if MC < 11600
-
 	@Mutable
 	@Shadow @Final private short[] blockUpdatePositions;
 
@@ -113,6 +111,4 @@ public abstract class ChunkHolderMixin
 	{
 		this.updateRuleStatus$CUPT();
 	}
-
-	//#endif
 }

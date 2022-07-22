@@ -2,30 +2,24 @@ package carpettisaddition.mixins.carpet.shape.texthack;
 
 import carpet.script.utils.ShapeDispatcher;
 import carpet.script.utils.ShapesRenderer;
+import carpettisaddition.helpers.carpet.shape.IShapeDispatcherText;
 import carpettisaddition.utils.ModIds;
+import com.mojang.blaze3d.systems.RenderSystem;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import org.spongepowered.asm.mixin.Mixin;
-
-//#if MC >= 11500
-import carpettisaddition.helpers.carpet.shape.IShapeDispatcherText;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-//#endif
 
-//#if MC >= 11500
 @SuppressWarnings("SimplifiableConditionalExpression")
-//#endif
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"))
 @Mixin(ShapesRenderer.RenderedText.class)
 public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.RenderedShape<ShapeDispatcher.Text>
 {
-	//#if MC >= 11500
 	protected ShapesRendererRenderedTextMixin(MinecraftClient client, ShapeDispatcher.Text shape)
 	{
 		super(client, shape);
@@ -109,5 +103,4 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			RenderSystem.enableDepthTest();
 		}
 	}
-	//#endif
 }

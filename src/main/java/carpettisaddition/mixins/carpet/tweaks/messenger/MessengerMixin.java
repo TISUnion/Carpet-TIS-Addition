@@ -1,17 +1,20 @@
 package carpettisaddition.mixins.carpet.tweaks.messenger;
 
 import carpet.utils.Messenger;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.text.Style;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @SuppressWarnings({"ConstantConditions", "DefaultAnnotationParam"})
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
 @Mixin(Messenger.class)
 public abstract class MessengerMixin
 {
 	// these tweaks are only necessary for old carpet versions
-	//#if MC < 11600
 
 	@Redirect(
 			//#if MC >= 11500
@@ -102,6 +105,4 @@ public abstract class MessengerMixin
 	{
 		return value ? style.setObfuscated(value) : style;
 	}
-
-	//#endif
 }

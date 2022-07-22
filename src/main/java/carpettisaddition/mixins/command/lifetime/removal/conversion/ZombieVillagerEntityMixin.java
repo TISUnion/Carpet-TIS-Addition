@@ -26,7 +26,6 @@ public abstract class ZombieVillagerEntityMixin extends ZombieEntity
 		super(type, world);
 	}
 
-	//#if MC < 11600
 	@Inject(
 			method = "finishConversion",
 			at = @At(
@@ -39,5 +38,4 @@ public abstract class ZombieVillagerEntityMixin extends ZombieEntity
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(villager.getType()));
 	}
-	//#endif
 }

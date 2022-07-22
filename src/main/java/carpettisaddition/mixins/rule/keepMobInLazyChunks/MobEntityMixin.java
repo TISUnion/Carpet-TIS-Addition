@@ -1,6 +1,9 @@
 package carpettisaddition.mixins.rule.keepMobInLazyChunks;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
@@ -10,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"))
 @Mixin(MobEntity.class)
 public abstract class MobEntityMixin extends LivingEntity
 {
@@ -18,7 +22,6 @@ public abstract class MobEntityMixin extends LivingEntity
 		super(entityType_1, world_1);
 	}
 
-	//#if MC >= 11500
 	@Inject(
 			method = "tickNewAi",
 			at = @At(
@@ -34,5 +37,4 @@ public abstract class MobEntityMixin extends LivingEntity
 			this.checkDespawn();
 		}
 	}
-	//#endif
 }

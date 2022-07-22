@@ -18,7 +18,6 @@ import java.util.Map;
 @Mixin(ShapeDispatcher.Text.class)
 public abstract class ShapeDispatcherTextMixin implements IShapeDispatcherText
 {
-	//#if MC >= 11500
 	private boolean isMicroTimingMarkerText = false;
 
 	@Override
@@ -47,5 +46,4 @@ public abstract class ShapeDispatcherTextMixin implements IShapeDispatcherText
 			}
 		}
 	}
-	//#endif
 }

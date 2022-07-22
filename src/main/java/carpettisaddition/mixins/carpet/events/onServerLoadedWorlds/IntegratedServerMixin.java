@@ -14,11 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(IntegratedServer.class)
 public abstract class IntegratedServerMixin
 {
-	//#if MC < 11600
 	@Inject(method = "loadWorld", at = @At("TAIL"))
 	private void onSetupServerIntegrated(CallbackInfo ci)
 	{
 		CarpetTISAdditionServer.getInstance().onServerLoadedWorlds$TISCM((IntegratedServer) (Object) this);
 	}
-	//#endif
 }

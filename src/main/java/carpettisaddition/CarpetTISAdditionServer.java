@@ -103,6 +103,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	/**
 	 * Carpet has issue (bug) to call onServerLoadedWorlds in IntegratedServer, so just do it myself to make sure it works properly
 	 * Only in <= 1.15.x
+	 * In MC 1.16+ it doesn't need to inject into IntegratedServer class, but we keep our onServerLoadedWorlds hook for easier compat
 	 */
 	public void onServerLoadedWorlds$TISCM(MinecraftServer server)
 	{

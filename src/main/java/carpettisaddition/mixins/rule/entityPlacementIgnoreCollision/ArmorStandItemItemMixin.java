@@ -1,75 +1,27 @@
 package carpettisaddition.mixins.rule.entityPlacementIgnoreCollision;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.GameUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ArmorStandItem;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
 
-//#if MC >= 11600
-//$$ import net.minecraft.util.math.Box;
-//$$ import java.util.function.Predicate;
-//#else
-import carpettisaddition.utils.GameUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.util.math.BlockPos;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-//#endif
-
+/**
+ * 1.16+ mixin is handled in the version-specified class
+ */
 @Mixin(ArmorStandItem.class)
 public abstract class ArmorStandItemItemMixin
 {
-	//#if MC >= 11600
-	//$$ @Redirect(
-	//$$ 		method = "useOnBlock",
-	//$$ 		at = @At(
-	//$$ 				value = "INVOKE",
-	//$$ 				target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Z"
-	//$$ 		),
-	//$$ 		require = 0
-	//$$ )
-	//$$ private boolean entityPlacementIgnoreCollision_makeIfCondition1true(World world, Entity entity, Box box, Predicate<Entity> predicate)
-	//$$ {
-	//$$ 	if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
-	//$$ 	{
-	//$$ 		return true;
-	//$$ 	}
-	//$$ 	// vanilla
-	//$$ 	return world.isSpaceEmpty(
-	//$$  			entity, box
-	 			//#if MC < 11800
-	//$$  			, predicate
-	 			//#endif
-	//$$ 	);
-	//$$ }
- //$$
-	//$$ @Redirect(
-	//$$ 		method = "useOnBlock",
-	//$$ 		at = @At(
-	//$$ 				value = "INVOKE",
-	//$$ 				target = "Ljava/util/List;isEmpty()Z",
-	//$$ 				remap = false
-	//$$ 		),
-	//$$ 		require = 0
-	//$$ )
-	//$$ private boolean entityPlacementIgnoreCollision_makeIfCondition2true(List<Entity> entityList)
-	//$$ {
-	//$$ 	if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
-	//$$ 	{
-	//$$ 		return true;
-	//$$ 	}
-	//$$ 	// vanilla
-	//$$ 	return entityList.isEmpty();
-	//$$ }
- //$$
-	//#else
-
 	private static final ThreadLocal<ItemPlacementContext> currentContext$TISCM = ThreadLocal.withInitial(() -> null);
 
 	/**
@@ -155,5 +107,4 @@ public abstract class ArmorStandItemItemMixin
 		}
 		return pos;
 	}
-	//#endif
 }

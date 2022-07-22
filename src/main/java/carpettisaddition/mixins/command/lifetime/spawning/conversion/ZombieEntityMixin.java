@@ -29,7 +29,6 @@ public abstract class ZombieEntityMixin extends HostileEntity
 		super(type, world);
 	}
 
-	//#if MC < 11600
 	@ModifyArg(
 			method = "convertTo",
 			at = @At(
@@ -43,9 +42,7 @@ public abstract class ZombieEntityMixin extends HostileEntity
 		((LifetimeTrackerTarget)zombieVariant).recordSpawning(new MobConversionSpawningReason(this.getType()));
 		return zombieVariant;
 	}
-	//#endif
 
-	//#if MC < 11600
 	@Inject(
 			method = "onKilledOther",
 			at = @At(
@@ -58,5 +55,4 @@ public abstract class ZombieEntityMixin extends HostileEntity
 	{
 		((LifetimeTrackerTarget)zombieVillagerEntity).recordSpawning(new MobConversionSpawningReason(villagerEntity.getType()));
 	}
-	//#endif
 }

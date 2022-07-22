@@ -14,7 +14,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Restriction(require = @Condition(ModIds.malilib))
+@Restriction(require = {
+		@Condition(ModIds.malilib),
+		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.15")
+})
 @Mixin(BlockEntityType.class)
 public abstract class BlockEntityTypeMixin
 {
@@ -22,7 +25,6 @@ public abstract class BlockEntityTypeMixin
 	// the related target codes are ported so we just need to apply modification there
 	// see carpettisaddition.helpers.rule.largeBarrel.DoubleBlockProperties.getBlockEntity
 
-	//#if MC >= 11500
 	@ModifyVariable(
 			method = "get",
 			at = @At(
@@ -42,5 +44,4 @@ public abstract class BlockEntityTypeMixin
 		}
 		return blockEntity;
 	}
-	//#endif
 }
