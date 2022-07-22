@@ -38,6 +38,7 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x gradlew
+          ./gradlew classes --parallel
           ./gradlew build
         env:
           BUILD_ID: ${{ github.run_number }}
