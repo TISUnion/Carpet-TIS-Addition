@@ -38,12 +38,12 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x gradlew
-          ./gradlew build --no-daemon
+          ./gradlew build
         env:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
 
-      - name: Do mixin audit
+      - name: Do Mixin Audit Check
         if: ${{ inputs.mixin_audit }}
         run: |
           ./gradlew mixinAudit
