@@ -1,5 +1,6 @@
 package carpettisaddition.commands.lifetime.removal;
 
+import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.EntityType;
 import net.minecraft.text.BaseText;
 
@@ -14,6 +15,6 @@ public class MobPickupRemovalReason extends MobRelatedRemovalReason
 	@Override
 	public BaseText toText()
 	{
-		return tr("mob_pickup", this.entityType.getName());
+		return tr("mob_pickup", Messenger.entityType(this.entityType));
 	}
 }

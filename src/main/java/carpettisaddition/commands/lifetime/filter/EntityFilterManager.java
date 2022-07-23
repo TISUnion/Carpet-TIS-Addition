@@ -53,7 +53,7 @@ public class EntityFilterManager extends TranslationContext
 
 	public void setEntityFilter(ServerCommandSource source, @Nullable EntityType<?> entityType, @Nullable EntitySelector entitySelector)
 	{
-		BaseText typeName = entityType != null ? (BaseText)entityType.getName() : tr("global");
+		BaseText typeName = this.getEntityTypeText(entityType);
 		if (entitySelector != null)
 		{
 			if (!entitySelector.includesNonPlayers() || ((EntitySelectorAccessor)entitySelector).getPlayerName() != null)
@@ -90,7 +90,7 @@ public class EntityFilterManager extends TranslationContext
 
 	public BaseText getEntityTypeText(@Nullable EntityType<?> entityType)
 	{
-		return entityType != null ? (BaseText)entityType.getName() : tr("global");
+		return entityType != null ? Messenger.entityType(entityType) : tr("global");
 	}
 
 	public void displayFilter(ServerCommandSource source, @Nullable EntityType<?> entityType)

@@ -144,7 +144,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 							"g - [",
 							Messenger.fancy(
 									null,
-									(BaseText)entityType.getName(),
+									Messenger.entityType(entityType),
 									Messenger.c(
 											tr("filter_info_header"), "w : ",
 											EntityFilterManager.getInstance().getEntityFilterText(entityType),

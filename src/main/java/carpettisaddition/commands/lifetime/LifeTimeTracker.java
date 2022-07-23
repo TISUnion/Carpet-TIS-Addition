@@ -144,7 +144,7 @@ public class LifeTimeTracker extends AbstractTracker
 
 			long ticks = this.sendTrackedTime(source, realtime);
 			EntityType<?> entityType = entityTypeOptional.get();
-			Messenger.tell(source, tr("specific_result", entityType.getName()));
+			Messenger.tell(source, tr("specific_result", Messenger.entityType(entityType)));
 			SpecificDetailMode finalDetailMode = detailMode;
 			int count = this.trackers.values().stream().
 					mapToInt(tracker -> tracker.print(source, ticks, entityType, finalDetailMode)).

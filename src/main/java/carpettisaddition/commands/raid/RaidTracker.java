@@ -82,7 +82,7 @@ public class RaidTracker extends AbstractTracker
 		result.add(Messenger.c(RaidCommand.getInstance().getTranslator().tr("raiders"), "w : ", Messenger.s(CounterUtil.ratePerHour(raiderCountSum, ticks))));
 		this.raiderCounter.forEach((raiderType, count) -> result.add(Messenger.c(
 				"g - ",
-				raiderType.getName(),
+				Messenger.entityType(raiderType),
 				String.format("w : %s, %.1f%%", CounterUtil.ratePerHour(count, ticks), (double) count / raiderCountSum * 100))
 		));
 

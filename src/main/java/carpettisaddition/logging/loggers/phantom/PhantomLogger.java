@@ -26,6 +26,7 @@ public class PhantomLogger extends AbstractLogger
 	private static final PhantomLogger INSTANCE = new PhantomLogger();
 	private static final int PHANTOM_SPAWNING_TIME = 72000;
 	private static final List<Integer> REMINDER_TICKS = Lists.newArrayList(PHANTOM_SPAWNING_TIME * 3 / 4, PHANTOM_SPAWNING_TIME);
+	private static final BaseText PHANTOM_NAME = Messenger.entityType(EntityType.PHANTOM);
 
 	private PhantomLogger()
 	{
@@ -72,7 +73,7 @@ public class PhantomLogger extends AbstractLogger
 			if (LoggingOption.SPAWNING.isContainedIn(option))
 			{
 				return new BaseText[]{
-						pack(tr("summon", Messenger.entity("b", spawnerPlayer), phantomAmount, EntityType.PHANTOM.getName()))
+						pack(tr("summon", Messenger.entity("b", spawnerPlayer), phantomAmount, PHANTOM_NAME))
 				};
 			}
 			return null;
@@ -98,7 +99,7 @@ public class PhantomLogger extends AbstractLogger
 					String untilSpawn = StringUtil.fractionDigit(CounterUtil.tickToMinute(timeUntilSpawn), 0);
 					return new BaseText[]{
 							pack(tr("reminder.time_since_rest", sinceRest)),
-							pack(tr(timeUntilSpawn != 0 ? "reminder.regular" : "reminder.now", EntityType.PHANTOM.getName(), untilSpawn))
+							pack(tr(timeUntilSpawn != 0 ? "reminder.regular" : "reminder.now", PHANTOM_NAME, untilSpawn))
 					};
 				}
 			}

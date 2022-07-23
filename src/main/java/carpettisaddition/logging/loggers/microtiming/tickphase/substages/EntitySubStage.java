@@ -26,7 +26,7 @@ public class EntitySubStage extends AbstractSubStage
 	{
 		return Messenger.c(
 				MicroTimingLoggerManager.tr("common.entity"), "w : ", this.entity.getDisplayName(), "w \n",
-				MicroTimingLoggerManager.tr("common.type"), "w : ", this.entity.getType().getName(), "w \n",
+				MicroTimingLoggerManager.tr("common.type"), "w : ", Messenger.entityType(this.entity), "w \n",
 				MicroTimingLoggerManager.tr("common.order"), String.format("w : %d\n", this.order),
 				MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtil.coord(this.pos))
 		);

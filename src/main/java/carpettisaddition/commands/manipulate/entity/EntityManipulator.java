@@ -96,7 +96,7 @@ public class EntityManipulator extends AbstractManipulator
 		Messenger.s("\n"),
 		entities.stream().
 				limit(LIMIT).
-				map(e -> Messenger.format("%1$s (%2$s)", e.getType().getName(), e.getUuidAsString())).
+				map(e -> Messenger.format("%1$s (%2$s)", Messenger.entityType(e), e.getUuidAsString())).
 				toArray(BaseText[]::new)
 		);
 		if (entities.size() > LIMIT)

@@ -245,9 +245,18 @@ public class Messenger
 	public static BaseText vector(String style, Vec3d vec) {return __vector(style, TextUtil.vector(vec), TextUtil.vector(vec, 6));}
 	public static BaseText vector(Vec3d vec) {return vector(null, vec);}
 
+	public static BaseText entityType(EntityType<?> entityType)
+	{
+		return (BaseText)entityType.getName();
+	}
+	public static BaseText entityType(Entity entity)
+	{
+		return entityType(entity.getType());
+	}
+
 	public static BaseText entity(String style, Entity entity)
 	{
-		BaseText entityBaseName = (BaseText)entity.getType().getName();
+		BaseText entityBaseName = entityType(entity);
 		BaseText entityDisplayName = (BaseText)entity.getName();
 		BaseText hoverText = Messenger.c(
 				translator.tr("entity_type", entityBaseName, s(EntityType.getId(entity.getType()).toString())), newLine(),
@@ -336,7 +345,10 @@ public class Messenger
 	public static BaseText blockEntity(BlockEntity blockEntity)
 	{
 		Identifier id = IdentifierUtil.id(blockEntity.getType());
-		return s(id != null ? id.toString() : blockEntity.getClass().getSimpleName());
+		return s(id != null ?
+				id.toString() : // vanilla block entity
+				blockEntity.getClass().getSimpleName()  // modded block entity, assuming the class name is not obfuscated
+		);
 	}
 
 	public static BaseText item(Item item)
