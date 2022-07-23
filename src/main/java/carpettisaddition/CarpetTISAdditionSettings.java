@@ -10,10 +10,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.settings.Rule;
-import carpettisaddition.settings.validator.AbstractValidator;
-import carpettisaddition.settings.validator.RangedNumberValidator;
-import carpettisaddition.settings.validator.ValidationContext;
-import carpettisaddition.settings.validator.Validators;
+import carpettisaddition.settings.validator.*;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
 import com.google.common.collect.Maps;
@@ -156,12 +153,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static String fakePlayerNameSuffix = fakePlayerNameNoExtra;
 
-	private static class ValidateFakePlayerNameExtra extends AbstractValidator<String>
+	private static class ValidateFakePlayerNameExtra extends AbstractCheckerValidator<String>
 	{
 		private final Map<ParsedRule<?>, String> lastDangerousInput = Maps.newHashMap();
 
 		@Override
-		protected @Nullable String validate(ValidationContext<String> ctx)
+		protected boolean validateContext(ValidationContext<String> ctx)
 		{
 			if (!ctx.value.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", ctx.value) && ctx.source != null)
 			{
@@ -171,12 +168,12 @@ public class CarpetTISAdditionSettings
 				{
 					messenger.accept(tr("fake_player_name_extra.warn.blocked"));
 					this.lastDangerousInput.put(ctx.rule, ctx.value);
-					return null;
+					return false;
 				}
 				messenger.accept(tr("fake_player_name_extra.warn.applied"));
 			}
 			this.lastDangerousInput.remove(ctx.rule);
-			return ctx.value;
+			return true;
 		}
 
 		@Override
@@ -264,12 +261,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static LightUpdateOptions lightUpdates = LightUpdateOptions.ON;
 
-	private static class ValidateLightUpdates extends AbstractValidator<LightUpdateOptions>
+	private static class ValidateLightUpdates extends AbstractCheckerValidator<LightUpdateOptions>
 	{
 		@Override
-		protected @Nullable LightUpdateOptions validate(ValidationContext<LightUpdateOptions> ctx)
+		protected boolean validateContext(ValidationContext<LightUpdateOptions> ctx)
 		{
-			return LightThreadSynchronizer.checkRuleSafety(ctx.source, synchronizedLightThread, ctx.value) ? ctx.value : null;
+			return LightThreadSynchronizer.checkRuleSafety(ctx.source, synchronizedLightThread, ctx.value);
 		}
 	}
 
@@ -465,12 +462,12 @@ public class CarpetTISAdditionSettings
 	)
 	public static boolean synchronizedLightThread = false;
 
-	private static class ValidateSynchronizedLightThread extends AbstractValidator<Boolean>
+	private static class ValidateSynchronizedLightThread extends AbstractCheckerValidator<Boolean>
 	{
 		@Override
-		protected @Nullable Boolean validate(ValidationContext<Boolean> ctx)
+		protected boolean validateContext(ValidationContext<Boolean> ctx)
 		{
-			return LightThreadSynchronizer.checkRuleSafety(ctx.source, ctx.value, lightUpdates) ? ctx.value : null;
+			return LightThreadSynchronizer.checkRuleSafety(ctx.source, ctx.value, lightUpdates);
 		}
 	}
 

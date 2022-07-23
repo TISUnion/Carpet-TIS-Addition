@@ -2,6 +2,9 @@ package carpettisaddition.settings.validator;
 
 import net.minecraft.text.BaseText;
 
+/**
+ * Validators for general usages
+ */
 public class Validators
 {
 	public static class NegativeNumber<T extends Number> extends AbstractCheckerValidator<T>
