@@ -15,8 +15,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 //#if MC >= 11900
 //$$ import com.mojang.brigadier.CommandDispatcher;
 //$$ import net.minecraft.command.CommandRegistryAccess;
-//$$ import org.spongepowered.asm.mixin.injection.Inject;
-//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
 /**
@@ -27,16 +25,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(InfoCommand.class)
 public abstract class InfoCommandMixin
 {
-	//#if MC >= 11900
-	//$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
-
-	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
-	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext, CallbackInfo ci)
-	//$$ {
-	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
-	//$$ }
-	//#endif
-
 	@ModifyVariable(
 			method = "register",
 			at = @At(
@@ -46,13 +34,18 @@ public abstract class InfoCommandMixin
 			ordinal = 0,
 			remap = false
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> registerInfoEntity(LiteralArgumentBuilder<ServerCommandSource> builder)
+	private static LiteralArgumentBuilder<ServerCommandSource> registerInfoEntity(
+			LiteralArgumentBuilder<ServerCommandSource> builder
+			//#if MC >= 11900
+			//$$ , CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext
+			//#endif
+	)
 	{
 		EntityInfoCommand.getInstance().extendCommand(
 				CommandTreeContext.of(
 						builder
 						//#if MC >= 11900
-						//$$ , currentCommandBuildContext$TISCM
+						//$$ , commandBuildContext
 						//#endif
 				)
 		);
