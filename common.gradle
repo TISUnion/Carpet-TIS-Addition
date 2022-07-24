@@ -47,16 +47,16 @@ loom {
 	accessWidenerPath = file("carpet-tis-addition.accesswidener")
 
 	runConfigs.all {
-		// to make sure it generates all "Minecraft Client (:subproject_name)" applications
-		ideConfigGenerated = true
 		runDir '../../run'
 		vmArgs '-Dmixin.debug.export=true'
+		ideConfigGenerated true
 	}
 
 	runs {
 		mixinAudit {
 			server()
 			vmArgs '-Dcarpettisaddition.mixin_audit=true'
+			ideConfigGenerated false
 		}
 	}
 }
