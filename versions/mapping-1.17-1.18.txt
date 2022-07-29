@@ -4,3 +4,6 @@ net.minecraft.server.world.BlockEvent getBlock() block()
 net.minecraft.server.world.BlockEvent getData() data()
 net.minecraft.server.world.BlockEvent getPos() pos()
 net.minecraft.server.world.BlockEvent getType() type()
+
+me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity me.jellysquid.mods.lithium.common.hopper.RemovalCounter
+me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity increaseRemoveCounter() me.jellysquid.mods.lithium.common.hopper.RemovalCounter increaseRemovedCounter()
