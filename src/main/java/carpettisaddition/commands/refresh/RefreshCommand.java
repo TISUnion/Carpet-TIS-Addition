@@ -30,6 +30,10 @@ import static net.minecraft.command.arguments.EntityArgumentType.players;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
+//#if MC >= 11901
+//$$ import net.minecraft.class_7648;
+//#endif
+
 //#if MC >= 11900 && MC < 11901
 //$$ import carpettisaddition.mixins.command.refresh.ServerPlayerEntityAccessor;
 //#endif
@@ -197,12 +201,21 @@ public class RefreshCommand extends AbstractCommand
 				//#else
 				new ChatMessageS2CPacket(message, MessageType.SYSTEM),
 				//#endif
+
+				//#if MC >= 11901
+				//$$ class_7648.method_45084(() -> {
+				//#else
 				future -> {
+				//#endif
 					synchronized (this.refreshingChunkPlayers)
 					{
 						this.refreshingChunkPlayers.remove(player);
 					}
+				//#if MC >= 11901
+				//$$ })
+				//#else
 				}
+				//#endif
 		);
 		return counter.getValue();
 	}
