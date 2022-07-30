@@ -16,7 +16,9 @@ public abstract class ServerPlayNetworkHandlerMixin
 	@Shadow private int creativeItemDropThreshold;
 
 	@Inject(
-			//#if MC >= 11600
+			//#if MC >= 11900
+			//$$ method = "checkForSpam",
+			//#elseif MC >= 11600
 			//$$ method = "onGameMessage",
 			//#else
 			method = "onChatMessage",
