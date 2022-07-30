@@ -131,7 +131,6 @@
     "command.raid.RaidAccessor",
     "command.raid.RaidManagerAccessor",
     "command.raid.RaidMixin",
-    "command.refresh.ServerPlayerEntityAccessor",
     "command.refresh.ThreadedAnvilChunkStorageAccessor",
     "command.tick.warp.TickCommandMixin",
     "logger.commandblock.CommandBlockExecutorMixin",

@@ -34,10 +34,6 @@ import static net.minecraft.server.command.CommandManager.literal;
 //$$ import net.minecraft.class_7648;
 //#endif
 
-//#if MC >= 11900 && MC < 11901
-//$$ import carpettisaddition.mixins.command.refresh.ServerPlayerEntityAccessor;
-//#endif
-
 //#if MC >= 11800
 //$$ import net.minecraft.util.math.ChunkSectionPos;
 //$$ import org.apache.commons.lang3.mutable.MutableObject;
@@ -194,8 +190,6 @@ public class RefreshCommand extends AbstractCommand
 		player.networkHandler.sendPacket(
 				//#if MC >= 11901
 				//$$ new GameMessageS2CPacket(message, false),
-				//#elseif MC >= 11900
-				//$$ new GameMessageS2CPacket(message, ((ServerPlayerEntityAccessor)player).invokeGetMessageTypeId(MessageType.SYSTEM)),
 				//#elseif MC >= 11600
 				//$$ new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
 				//#else
