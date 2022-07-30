@@ -10,7 +10,6 @@
     "carpet.bugfixes.fakePlayerNoKnockBack.PlayerEntityMixin",
     "carpet.events.onCarpetClientHello.ServerNetworkHandlerMixin",
     "carpet.events.onServerLoadedWorlds.MinecraftServerMixin",
-    "carpet.hooks.CarpetServerMixin",
     "carpet.hooks.HUDControllerMixin",
     "carpet.hooks.SettingsManagerMixin",
     "carpet.robustness.FormattedTextParamMixin",

@@ -61,17 +61,9 @@ public class CarpetTISAdditionServer implements CarpetExtension
 		return INSTANCE;
 	}
 
-	public static void registerExtension()
+	public static void init()
 	{
 		CarpetServer.manageExtension(INSTANCE);
-	}
-
-	/**
-	 * Just before carpet's onGameStarted
-	 * since some of TISCM's stuffs needs to be loaded earlier, e.g. translation
-	 */
-	public void onGameStartedPre()
-	{
 		StackTraceDeobfuscator.fetchMapping();
 		TISAdditionTranslations.loadTranslations();
 	}

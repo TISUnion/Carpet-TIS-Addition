@@ -14,7 +14,7 @@ public class CarpetTISAdditionMod implements ModInitializer
 	{
 		version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(RuntimeException::new).getMetadata().getVersion().getFriendlyString();
 
-		CarpetTISAdditionServer.registerExtension();
+		CarpetTISAdditionServer.init();
 		AutoMixinAuditExecutor.run();
 	}
 
