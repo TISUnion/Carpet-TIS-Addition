@@ -31,7 +31,7 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 //#if MC >= 11901
-//$$ import net.minecraft.class_7648;
+//$$ import net.minecraft.network.PacketCallbacks;
 //#endif
 
 //#if MC >= 11800
@@ -197,7 +197,7 @@ public class RefreshCommand extends AbstractCommand
 				//#endif
 
 				//#if MC >= 11901
-				//$$ class_7648.method_45084(() -> {
+				//$$ PacketCallbacks.always(() -> {
 				//#else
 				future -> {
 				//#endif
