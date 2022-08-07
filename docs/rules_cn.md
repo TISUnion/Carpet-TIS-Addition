@@ -249,6 +249,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 爆炸不影响实体 (explosionNoEntityInfluence)
+
+爆炸不会影响任何实体
+
+这里的影响包括伤害、加速等效果
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 爆炸数据包广播范围 (explosionPacketRange)
 
 设置在爆炸发生时，爆炸数据包对玩家的广播范围

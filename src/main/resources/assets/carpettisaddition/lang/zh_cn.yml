@@ -573,6 +573,11 @@ carpettisaddition:
           '0': 如果设为一个较小的数值，如1，服务器将每1gt都同步实体信息至客户端，这能减小客户端发生实体不同步现象的概率
           '1': 将其设为一个非正值以使用原版逻辑
           '2': 需要重新加载区块以将新的规则数值应用到实体上
+      explosionNoEntityInfluence:
+        name: 爆炸不影响实体
+        desc: 爆炸不会影响任何实体
+        extra:
+          '0': 这里的影响包括伤害、加速等效果
       explosionPacketRange:
         name: 爆炸数据包广播范围
         desc: 设置在爆炸发生时，爆炸数据包对玩家的广播范围

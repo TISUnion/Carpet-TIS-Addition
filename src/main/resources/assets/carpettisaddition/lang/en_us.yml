@@ -573,6 +573,11 @@ carpettisaddition:
           '0': With a small number e.g. 1, entity information will be synced to the client every 1 gametick, resulting in less-likely client-side entity desync
           '1': Set it to a non-positive value to use vanilla logic
           '2': Requires chunk reloading to set the new rule value to entities
+      explosionNoEntityInfluence:
+        name: explosionNoEntityInfluence
+        desc: Explosions won't affect any entity
+        extra:
+          '0': Influences here include damage, acceleration etc.
       explosionPacketRange:
         name: explosionPacketRange
         desc: Set the range where player will receive an explosion packet when an explosion happens

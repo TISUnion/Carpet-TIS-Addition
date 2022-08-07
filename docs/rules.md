@@ -249,6 +249,18 @@ Requires chunk reloading to set the new rule value to entities
 - Categories: `TIS`, `CREATIVE`
 
 
+## explosionNoEntityInfluence
+
+Explosions won't affect any entity
+
+Influences here include damage, acceleration etc.
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## explosionPacketRange
 
 Set the range where player will receive an explosion packet when an explosion happens

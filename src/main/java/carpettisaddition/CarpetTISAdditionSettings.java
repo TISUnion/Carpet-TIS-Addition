@@ -122,6 +122,9 @@ public class CarpetTISAdditionSettings
 	)
 	public static int entityTrackerInterval = -1;
 
+	@Rule(categories = {TIS, CREATIVE})
+	public static boolean explosionNoEntityInfluence = false;
+
 	public static final double VANILLA_EXPLOSION_PACKET_RANGE = 64.0D;  // sqrt(4096)
 	@Rule(
 			validators = Validators.NonNegativeNumber.class,
@@ -131,9 +134,7 @@ public class CarpetTISAdditionSettings
 	)
 	public static double explosionPacketRange = VANILLA_EXPLOSION_PACKET_RANGE;
 
-	@Rule(
-			categories = {TIS, CREATIVE}
-	)
+	@Rule(categories = {TIS, CREATIVE})
 	public static boolean failSoftBlockStateParsing = false;
 
 	public static final String fakePlayerNameNoExtra = "#none";

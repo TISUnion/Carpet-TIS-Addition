@@ -31,6 +31,7 @@
 - [entityPlacementIgnoreCollision](rules.md#entityplacementignorecollision)
 - [entityTrackerDistance](rules.md#entitytrackerdistance)
 - [entityTrackerInterval](rules.md#entitytrackerinterval)
+- [explosionNoEntityInfluence](rules.md#explosionnoentityinfluence)
 - [explosionPacketRange](rules.md#explosionpacketrange)
 - [failSoftBlockStateParsing](rules.md#failsoftblockstateparsing)
 - [fakePlayerNamePrefix](rules.md#fakeplayernameprefix)

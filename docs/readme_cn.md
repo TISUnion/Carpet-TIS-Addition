@@ -31,6 +31,7 @@
 - [实体放置无视碰撞](rules_cn.md#实体放置无视碰撞-entityplacementignorecollision)
 - [实体同步距离](rules_cn.md#实体同步距离-entitytrackerdistance)
 - [实体同步间隔](rules_cn.md#实体同步间隔-entitytrackerinterval)
+- [爆炸不影响实体](rules_cn.md#爆炸不影响实体-explosionnoentityinfluence)
 - [爆炸数据包广播范围](rules_cn.md#爆炸数据包广播范围-explosionpacketrange)
 - [方块状态解析忽略失败](rules_cn.md#方块状态解析忽略失败-failsoftblockstateparsing)
 - [假人名称前缀](rules_cn.md#假人名称前缀-fakeplayernameprefix)
