@@ -254,6 +254,8 @@
     "rule.largeBarrel.BarrelBlockMixin",
     "rule.largeBarrel.DoubleBlockPropertiesMixin",
     "rule.largeBarrel.HopperBlockEntityMixin",
+    "rule.largeBarrel.compat.fabricapi.DoubleInventoryAccessor",
+    "rule.largeBarrel.compat.fabricapi.ItemStorageMixin",
     "rule.largeBarrel.compat.lithium.BarrelBlockMixin",
     "rule.largeBarrel.compat.lithium.HopperHelperMixin",
     "rule.largeBarrel.compat.malilib.BlockEntityTypeMixin",
