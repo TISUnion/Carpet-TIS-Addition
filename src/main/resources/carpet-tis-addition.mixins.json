@@ -331,6 +331,7 @@
     "translations.TranslatableTextAccessor",
     "translations.TranslatableTextMixin",
     "utils.DirectBlockEntityTickInvokerAccessor",
+    "utils.ServerCommandSourceAccessor",
     "utils.WrappedBlockEntityTickInvokerAccessor",
     "utils.entityfilter.EntitySelectorAccessor",
     "utils.entityfilter.EntitySelectorMixin",
