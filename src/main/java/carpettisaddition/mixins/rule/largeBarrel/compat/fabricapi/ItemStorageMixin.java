@@ -49,11 +49,11 @@ public abstract class ItemStorageMixin
 							Object first = invoker.apply(null, new Object[]{accessor.getFirst(), direction});
 							Object second = invoker.apply(null, new Object[]{accessor.getSecond(), direction});
 
-							if (ReflectionUtil.returnNormally(first, second))
+							if (ReflectionUtil.invokeNormally(first, second))
 							{
 								ret[0] = ReflectionUtil.constructor("net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage", List.class).
 										map(ctr -> ctr.apply(new Object[]{Lists.newArrayList(first, second)})).
-										filter(ReflectionUtil::returnNormally).
+										filter(ReflectionUtil::invokeNormally).
 										orElse(null);
 							}
 						});

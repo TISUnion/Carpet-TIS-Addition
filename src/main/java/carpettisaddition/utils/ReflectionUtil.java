@@ -9,13 +9,13 @@ import java.util.function.Predicate;
 
 public class ReflectionUtil
 {
-	private static final Object FAILURE_RETURN_VALUE = new Object();
+	private static final Object INVOKE_FAILURE = new Object();
 
-	public static boolean returnNormally(Object... returnValues)
+	public static boolean invokeNormally(Object... returnValues)
 	{
 		for (Object returnValue : returnValues)
 		{
-			if (returnValue == FAILURE_RETURN_VALUE)
+			if (returnValue == INVOKE_FAILURE)
 			{
 				return false;
 			}
@@ -50,7 +50,7 @@ public class ReflectionUtil
 						}
 						catch (Exception e)
 						{
-							return FAILURE_RETURN_VALUE;
+							return INVOKE_FAILURE;
 						}
 					};
 				}
@@ -84,7 +84,7 @@ public class ReflectionUtil
 				}
 				catch (Exception e)
 				{
-					return FAILURE_RETURN_VALUE;
+					return INVOKE_FAILURE;
 				}
 			};
 		});
