@@ -22,7 +22,7 @@ See the `docs/` folder
 - [Rules](docs/rules.md)
 - [Loggers](docs/loggers.md)
 - [Commands](docs/commands.md)
-- [Misc](docs/commands.md)
+- [Misc](docs/misc.md)
 - [Development](docs/development.md)
 
 ## Contact
