@@ -316,6 +316,11 @@ carpettisaddition:
           title: 'Velocity vectors:'
           added: Added velocity of %1$s with %2$s
           set: Set velocity of %1$s to %2$s
+    sleep:
+      help: Immediately Block the current thread for given duration, can be used to create lag
+      usage: 'Usage: %1$s'
+      warning_header: Warning
+      warning_content: Durations greater than 15s might disconnect clients or even disturb server watch dog
     stop:
       double_confirmation:
         message: Execute this command again to confirm the shutdown of the server
@@ -553,6 +558,9 @@ carpettisaddition:
       commandRemoveEntity:
         name: commandRemoveEntity
         desc: Enables /removeentity command for directly erase target entities from the world
+      commandSleep:
+        name: commandSleep
+        desc: Enables /sleep command for creating lag
       creativeNetherWaterPlacement:
         name: creativeNetherWaterPlacement
         desc: Allow creative players place water via water bucket in nether

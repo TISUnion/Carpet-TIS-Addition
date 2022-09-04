@@ -149,6 +149,16 @@
 - 分类: `TIS`, `COMMAND`, `CREATIVE`
 
 
+## 睡眠命令开关 (commandSleep)
+
+启用 `/sleep` 命令用于制造卡顿
+
+- 类型: `String`
+- 默认值: `ops`
+- 参考选项: `false`, `true`, `ops`
+- 分类: `TIS`, `COMMAND`, `CREATIVE`
+
+
 ## 创造玩家地狱放水 (creativeNetherWaterPlacement)
 
 允许创造模式的玩家在地狱通过水桶放出水

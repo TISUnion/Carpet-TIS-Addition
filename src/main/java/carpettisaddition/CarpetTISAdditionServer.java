@@ -11,6 +11,7 @@ import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.commands.refresh.RefreshCommand;
 import carpettisaddition.commands.removeentity.RemoveEntityCommand;
 import carpettisaddition.commands.scounter.SupplierCounterCommand;
+import carpettisaddition.commands.sleep.SleepCommand;
 import carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced.InstantBlockUpdaterChanger;
 import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
@@ -150,6 +151,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 				RefreshCommand.getInstance(),
 				RaidCommand.getInstance(),
 				RemoveEntityCommand.getInstance(),
+				SleepCommand.getInstance(),
 				SupplierCounterCommand.getInstance()
 		).forEach(command ->
 				command.registerCommand(context)

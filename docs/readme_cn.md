@@ -23,6 +23,7 @@
 - [袭击追踪器](rules_cn.md#袭击追踪器-commandraid)
 - [刷新命令开关](rules_cn.md#刷新命令开关-commandrefresh)
 - [移除实体命令开关](rules_cn.md#移除实体命令开关-commandremoveentity)
+- [睡眠命令开关](rules_cn.md#睡眠命令开关-commandsleep)
 - [创造玩家地狱放水](rules_cn.md#创造玩家地狱放水-creativenetherwaterplacement)
 - [创造玩家强制打开容器](rules_cn.md#创造玩家强制打开容器-creativeopencontainerforcibly)
 - [创造玩家无物品冷却](rules_cn.md#创造玩家无物品冷却-creativenoitemcooldown)
@@ -131,6 +132,7 @@
 - [刷新](commands_cn.md#刷新-refresh)
 - [移除实体](commands_cn.md#移除实体-removeentity)
 - [供给计数器](commands_cn.md#供给计数器-scounter)
+- [睡眠](commands_cn.md#睡眠-sleep)
 - [spawn](commands_cn.md#spawn)
 - [tick](commands_cn.md#tick)
 

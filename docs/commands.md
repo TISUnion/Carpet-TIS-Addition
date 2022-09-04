@@ -222,6 +222,23 @@ Similar to carpet's `/counter` command for its hopper counter, this command is u
 `/scounter <color> reset`: Reset specified supplier counter
 
 
+## sleep
+
+Immediately Block the current thread for given duration, can be used to create lag
+
+Use this command in command block with rule [instantCommandBlock](rules.md#instantcommandblock) to create lag at any time you want
+
+`/sleep`: Show help
+
+`/sleep <duration> (s|ms|us)`: Sleep for given time duration in given time unit
+
+Available time units:
+
+- `s`: Second, 1 * 10 ^ 0s
+- `ms`: Milli-second, 1 * 10 ^ -3s
+- `us`: Micro-second, 1 * 10 ^ -6s
+
+
 ## spawn
 
 ### mobcapsLocal

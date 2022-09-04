@@ -149,6 +149,16 @@ Enables `/removeentity` command for directly erase target entities from the worl
 - Categories: `TIS`, `COMMAND`, `CREATIVE`
 
 
+## commandSleep
+
+Enables `/sleep` command for creating lag
+
+- Type: `String`
+- Default value: `ops`
+- Suggested options: `false`, `true`, `ops`
+- Categories: `TIS`, `COMMAND`, `CREATIVE`
+
+
 ## creativeNetherWaterPlacement
 
 Allow creative players place water via water bucket in nether

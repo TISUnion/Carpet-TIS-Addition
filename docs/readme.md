@@ -23,6 +23,7 @@
 - [commandRaid](rules.md#commandraid)
 - [commandRefresh](rules.md#commandrefresh)
 - [commandRemoveEntity](rules.md#commandremoveentity)
+- [commandSleep](rules.md#commandsleep)
 - [creativeNetherWaterPlacement](rules.md#creativenetherwaterplacement)
 - [creativeNoItemCooldown](rules.md#creativenoitemcooldown)
 - [creativeOpenContainerForcibly](rules.md#creativeopencontainerforcibly)
@@ -129,6 +130,7 @@
 - [raid](commands.md#raid)
 - [refresh](commands.md#refresh)
 - [removeentity](commands.md#removeentity)
+- [sleep](commands.md#sleep)
 - [spawn](commands.md#spawn)
 - [tick](commands.md#tick)
 

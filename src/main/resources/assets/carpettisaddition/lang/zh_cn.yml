@@ -316,6 +316,11 @@ carpettisaddition:
           title: '实体速度矢量:'
           added: 已将%1$s的速度增加%2$s
           set: 已将%1$s的速度设为%2$s
+    sleep:
+      help: 即时阻塞当前线程给定持续时间，可用于制造卡顿
+      usage: '使用方法: %1$s'
+      warning_header: 警告
+      warning_content: 超过15s的持续时间将断开客户端的连接，甚至可能会惊扰服务端看门狗
     stop:
       double_confirmation:
         message: 再次执行此条指令以确认关闭服务器操作
@@ -553,6 +558,9 @@ carpettisaddition:
       commandRemoveEntity:
         name: 移除实体命令开关
         desc: 启用/removeentity命令用于直接在世界中抹除目标实体
+      commandSleep:
+        name: 睡眠命令开关
+        desc: 启用/sleep命令用于制造卡顿
       creativeNetherWaterPlacement:
         name: 创造玩家地狱放水
         desc: 允许创造模式的玩家在地狱通过水桶放出水

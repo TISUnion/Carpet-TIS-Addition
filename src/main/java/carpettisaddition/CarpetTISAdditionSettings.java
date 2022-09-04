@@ -102,6 +102,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, COMMAND, CREATIVE})
 	public static String commandRemoveEntity = "ops";
 
+	@Rule(categories = {TIS, COMMAND, CREATIVE})
+	public static String commandSleep = "ops";
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean creativeNetherWaterPlacement = false;
 

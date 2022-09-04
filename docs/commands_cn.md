@@ -222,6 +222,23 @@
 `/scounter <color> reset`: 重置指定供给计数器
 
 
+## 睡眠 (sleep)
+
+即时阻塞当前线程给定持续时间，可用于制造卡顿
+
+你可以将本条指令与命令方块以及规则 [瞬时命令方块](rules_cn.md#瞬时命令方块-instantcommandblock) 配合使用，以在任意你想要的时间点制造卡顿
+
+`/sleep`: 显示帮助信息
+
+`/sleep <duration> (s|ms|us)`: 使用给定的时间单位，睡眠给定持续时间
+
+可用的时间单位：
+
+- `s`: 秒，1 * 10 ^ 0s
+- `ms`: 毫秒，1 * 10 ^ -3s
+- `us`: 微秒，1 * 10 ^ -6s
+
+
 ## spawn
 
 ### mobcapsLocal
