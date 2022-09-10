@@ -24,6 +24,7 @@
 - [刷新命令开关](rules_cn.md#刷新命令开关-commandrefresh)
 - [移除实体命令开关](rules_cn.md#移除实体命令开关-commandremoveentity)
 - [创造玩家强制打开容器](rules_cn.md#创造玩家强制打开容器-creativeopencontainerforcibly)
+- [反混淆崩溃报告堆栈追踪](rules_cn.md#反混淆崩溃报告堆栈追踪-deobfuscatecrashreportstacktrace)
 - [发射器不消耗物品](rules_cn.md#发射器不消耗物品-dispensernoitemcost)
 - [发射器发射龙息](rules_cn.md#发射器发射龙息-dispensersfiredragonbreath)
 - [enchant指令约束移除](rules_cn.md#enchant指令约束移除-enchantcommandnorestriction)

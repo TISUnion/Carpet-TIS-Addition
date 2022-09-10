@@ -538,6 +538,9 @@ carpettisaddition:
       creativeOpenContainerForcibly:
         name: 创造玩家强制打开容器
         desc: 允许创造模式的玩家打开被阻挡的容器，如潜影盒
+      deobfuscateCrashReportStackTrace:
+        name: 反混淆崩溃报告堆栈追踪
+        desc: 反混淆崩溃报告中输出的堆栈追踪
       dispenserNoItemCost:
         name: 发射器不消耗物品
         desc: 开启后，发射器发射不再消耗物品

@@ -159,6 +159,16 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 反混淆崩溃报告堆栈追踪 (deobfuscateCrashReportStackTrace)
+
+反混淆崩溃报告中输出的堆栈追踪
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
+
+
 ## 发射器不消耗物品 (dispenserNoItemCost)
 
 开启后，发射器和投掷器使用被激活时不再消耗物品

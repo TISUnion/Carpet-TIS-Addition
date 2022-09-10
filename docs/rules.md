@@ -159,6 +159,16 @@ Allow creative players to open a container even if the container is blocked. e.g
 - Categories: `TIS`, `CREATIVE`
 
 
+## deobfuscateCrashReportStackTrace
+
+Deobfuscate stack traces in crash report
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
+
+
 ## dispenserNoItemCost
 
 Dispensers and droppers execute without having the itemstack inside decreased

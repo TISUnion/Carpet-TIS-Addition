@@ -538,6 +538,9 @@ carpettisaddition:
       creativeOpenContainerForcibly:
         name: creativeOpenContainerForcibly
         desc: Allow creative players to open a container even if the container is blocked. e.g. for shulker box
+      deobfuscateCrashReportStackTrace:
+        name: deobfuscateCrashReportStackTrace
+        desc: Deobfuscate stack traces in crash report
       dispenserNoItemCost:
         name: dispenserNoItemCost
         desc: Dispensers and droppers execute without having the itemstack inside decreased

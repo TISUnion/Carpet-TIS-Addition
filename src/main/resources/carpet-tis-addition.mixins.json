@@ -221,6 +221,8 @@
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
     "rule.creativeOpenContainerForcibly.EnderChestBlockMixin",
     "rule.creativeOpenContainerForcibly.ShulkerBoxBlockMixin",
+    "rule.deobfuscateCrashReportStackTrace.CrashReportMixin",
+    "rule.deobfuscateCrashReportStackTrace.CrashReportSectionMixin",
     "rule.dispenserNoItemCost.ItemDispenserBehaviorMixin",
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
     "rule.enchantCommandNoRestriction.EnchantCommandMixin",

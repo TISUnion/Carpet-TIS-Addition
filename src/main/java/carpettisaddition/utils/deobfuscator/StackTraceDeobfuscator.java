@@ -9,6 +9,7 @@ import net.fabricmc.mapping.reader.v2.MappingGetter;
 import net.fabricmc.mapping.reader.v2.TinyMetadata;
 import net.fabricmc.mapping.reader.v2.TinyV2Factory;
 import net.fabricmc.mapping.reader.v2.TinyVisitor;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -56,7 +57,7 @@ public class StackTraceDeobfuscator
 		}
 	}
 
-	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements, String ignoreClassPath)
+	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements, @Nullable String ignoreClassPath)
 	{
 		List<StackTraceElement> list = Lists.newArrayList();
 		for (StackTraceElement element : stackTraceElements)
@@ -76,6 +77,11 @@ public class StackTraceDeobfuscator
 			}
 		}
 		return list.toArray(new StackTraceElement[0]);
+	}
+
+	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements)
+	{
+		return deobfuscateStackTrace(stackTraceElements, null);
 	}
 
 	private static String getFileName(String className)
