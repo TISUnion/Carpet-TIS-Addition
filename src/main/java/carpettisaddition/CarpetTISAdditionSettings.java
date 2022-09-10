@@ -545,6 +545,15 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean visualizeProjectileLoggerEnabled = false;
 
+	public static final double VANILLA_VOID_DAMAGE_AMOUNT = 4.0;
+	@Rule(
+			options = {"0", "4", "1000"},
+			validators = Validators.NonNegativeNumber.class,
+			strict = false,
+			categories = {TIS, CREATIVE}
+	)
+	public static double voidDamageAmount = VANILLA_VOID_DAMAGE_AMOUNT;
+
 	@Rule(
 			options = {"-64", "-512", "-4096"},
 			validators = Validators.NegativeNumber.class,

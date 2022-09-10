@@ -871,6 +871,9 @@ carpettisaddition:
         desc: Enable visualize projectile logger
         extra:
           '0': Try /log projectiles visualize
+      voidDamageAmount:
+        name: voidDamageAmount
+        desc: Modify the amount of void damage
       voidRelatedAltitude:
         name: voidRelatedAltitude
         desc: Modify the related altitude between the bottom of the world and the void where entities will receive void damages

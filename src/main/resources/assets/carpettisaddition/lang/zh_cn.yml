@@ -871,6 +871,9 @@ carpettisaddition:
         desc: 启用可视化投掷物记录器
         extra:
           '0': 试试/log projectiles visualize吧
+      voidDamageAmount:
+        name: 虚空伤害数值
+        desc: 修改虚空伤害的数值
       voidRelatedAltitude:
         name: 虚空相对海拔高度
         desc: 修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域

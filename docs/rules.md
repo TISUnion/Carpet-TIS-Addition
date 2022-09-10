@@ -938,6 +938,16 @@ Try `/log projectiles visualize`
 - Categories: `TIS`, `CREATIVE`
 
 
+## voidDamageAmount
+
+Modify the amount of void damage
+
+- Type: `double`
+- Default value: `4`
+- Suggested options: `0`, `4`, `-1000`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## voidRelatedAltitude
 
 Modify the related altitude between the bottom of the world and the void where entities will receive void damages

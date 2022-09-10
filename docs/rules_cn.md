@@ -938,6 +938,16 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 虚空伤害数值 (voidDamageAmount)
+
+修改虚空伤害的数值
+
+- 类型: `double`
+- 默认值: `4`
+- 参考选项: `0`, `4`, `1000`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 虚空相对海拔高度 (voidRelatedAltitude)
 
 修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域

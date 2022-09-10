@@ -82,6 +82,7 @@
 - [totallyNoBlockUpdate](rules.md#totallynoblockupdate)
 - [turtleEggTrampledDisabled](rules.md#turtleeggtrampleddisabled)
 - [visualizeProjectileLoggerEnabled](rules.md#visualizeprojectileloggerenabled)
+- [voidDamageAmount](rules.md#voiddamageamount)
 - [voidRelatedAltitude](rules.md#voidrelatedaltitude)
 - [witherSpawnedSoundDisabled](rules.md#witherspawnedsounddisabled)
 - [xpTrackingDistance](rules.md#xptrackingdistance)
