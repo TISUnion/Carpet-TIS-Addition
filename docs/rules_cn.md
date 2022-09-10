@@ -948,6 +948,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 虚空伤害忽略玩家 (voidDamageIgnorePlayer)
+
+阻止玩家受到任何虚空伤害
+
+对玩家完全无害的虚空，好耶！
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 虚空相对海拔高度 (voidRelatedAltitude)
 
 修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域

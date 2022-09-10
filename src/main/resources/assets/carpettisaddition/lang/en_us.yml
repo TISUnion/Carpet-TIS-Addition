@@ -874,6 +874,11 @@ carpettisaddition:
       voidDamageAmount:
         name: voidDamageAmount
         desc: Modify the amount of void damage
+      voidDamageIgnorePlayer:
+        name: voidDamageIgnorePlayer
+        desc: Prevent players from taking void damage
+        extra:
+          '0': Completely harmless void for players, yay!
       voidRelatedAltitude:
         name: voidRelatedAltitude
         desc: Modify the related altitude between the bottom of the world and the void where entities will receive void damages

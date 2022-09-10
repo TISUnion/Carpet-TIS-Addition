@@ -554,6 +554,9 @@ public class CarpetTISAdditionSettings
 	)
 	public static double voidDamageAmount = VANILLA_VOID_DAMAGE_AMOUNT;
 
+	@Rule(categories = {TIS, CREATIVE})
+	public static boolean voidDamageIgnorePlayer = false;
+
 	@Rule(
 			options = {"-64", "-512", "-4096"},
 			validators = Validators.NegativeNumber.class,

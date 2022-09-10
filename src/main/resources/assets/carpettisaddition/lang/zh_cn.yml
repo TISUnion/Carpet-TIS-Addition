@@ -874,6 +874,11 @@ carpettisaddition:
       voidDamageAmount:
         name: 虚空伤害数值
         desc: 修改虚空伤害的数值
+      voidDamageIgnorePlayer:
+        name: 虚空伤害忽略玩家
+        desc: 阻止玩家受到任何虚空伤害
+        extra:
+          '0': 对玩家完全无害的虚空，好耶！
       voidRelatedAltitude:
         name: 虚空相对海拔高度
         desc: 修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域

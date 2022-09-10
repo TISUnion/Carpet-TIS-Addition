@@ -948,6 +948,18 @@ Modify the amount of void damage
 - Categories: `TIS`, `CREATIVE`
 
 
+## voidDamageIgnorePlayer
+
+Prevent players from taking void damage
+
+Completely harmless void for players, yay!
+
+- Type: `boolean`
+- Default value: `false `
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## voidRelatedAltitude
 
 Modify the related altitude between the bottom of the world and the void where entities will receive void damages

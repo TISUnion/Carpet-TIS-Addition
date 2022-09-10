@@ -83,6 +83,7 @@
 - [turtleEggTrampledDisabled](rules.md#turtleeggtrampleddisabled)
 - [visualizeProjectileLoggerEnabled](rules.md#visualizeprojectileloggerenabled)
 - [voidDamageAmount](rules.md#voiddamageamount)
+- [voidDamageIgnorePlayer](rules.md#voiddamageignoreplayer)
 - [voidRelatedAltitude](rules.md#voidrelatedaltitude)
 - [witherSpawnedSoundDisabled](rules.md#witherspawnedsounddisabled)
 - [xpTrackingDistance](rules.md#xptrackingdistance)
