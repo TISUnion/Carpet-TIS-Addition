@@ -92,6 +92,7 @@
 
 - [lightEngineMaxBatchSize](rules.md#lightenginemaxbatchsize)
 - [structureBlockOutlineDistance](rules.md#structureblockoutlinedistance)
+- [yeetUpdateSuppressionCrash](rules.md#yeetupdatesuppressioncrash)
 
 ## [Loggers](loggers.md)
 

@@ -5,6 +5,9 @@ carpettisaddition:
         '0': "Dangerous combination between rule synchronizedLightThread and rule lightUpdates detected"
         '1': "Rule modification has been cancelled to prevent infinite waiting in lighting synchronization"
         '2': "Related rule values to be set:"
+    yeetUpdateSuppressionCrash:
+      exception_detail: 'Update Suppression in %1$s at %2$s'
+      report_message: 'You just caused a server crash: %1$s'
 
   validator:
     # common validators
@@ -890,3 +893,8 @@ carpettisaddition:
         desc: Overwrite the tracking distance of xp orb
         extra:
           '0': Change it to 0 to disable tracking
+      yeetUpdateSuppressionCrash:
+        name: yeetUpdateSuppressionCrash
+        desc: Prevent the server from crashing due to stack overflow
+        extra:
+          '0': Do the same thing as fabric carpet's updateSuppressionCrashFix rule, but with more information

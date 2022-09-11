@@ -1005,3 +1005,10 @@
 
 - 移植自：fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25)
 - 移植的分支：1.14.4, 1.15.2
+
+## yeetUpdateSuppressionCrash
+
+- 移植自：
+    - fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50) 的规则 `updateSuppressionCrashFix`
+    - TISCarpet13 [build238](https://github.com/TISUnion/TISCarpet113/releases/tag/build238) 的规则 `yeetUpdateSuppressionCrash`
+- 移植的分支：1.14.4, 1.15.2, 1.16.5

@@ -92,6 +92,7 @@
 
 - [光照引擎最大任务组数](rules_cn.md#光照引擎最大任务组数-lightenginemaxbatchsize)
 - [结构方块轮廓距离](rules_cn.md#结构方块轮廓距离-structureblockoutlinedistance)
+- [阻止更新抑制崩溃](rules_cn.md#阻止更新抑制崩溃-yeetupdatesuppressioncrash)
 
 ## [记录器](loggers_cn.md)
 

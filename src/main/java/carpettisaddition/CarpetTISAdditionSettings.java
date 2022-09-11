@@ -582,4 +582,13 @@ public class CarpetTISAdditionSettings
 			super(0.0D, 128.0D);
 		}
 	}
+
+	/**
+	 * Do the same thing as rule updateSuppressionCrashFix from fabric carpet 1.4.50
+	 * TODO: find a way to make both rules work at the same time without breaking any functionalities. (@Redirect conflicts)
+	 */
+	//#if MC < 11700
+	@Rule(categories = {TIS, BUGFIX})
+	public static boolean yeetUpdateSuppressionCrash = false;
+	//#endif
 }

@@ -495,7 +495,7 @@ public class Messenger
 				(text, true);
 	}
 
-	public static void broadcast(BaseText text)
+	public static void sendToConsole(BaseText text)
 	{
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
@@ -506,7 +506,14 @@ public class Messenger
 			//#else
 			CarpetTISAdditionServer.minecraft_server.sendMessage(text);
 			//#endif
+		}
+	}
 
+	public static void broadcast(BaseText text)
+	{
+		sendToConsole(text);
+		if (CarpetTISAdditionServer.minecraft_server != null)
+		{
 			CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayerList().forEach(player -> tell(player, text));
 		}
 	}
