@@ -1,5 +1,6 @@
 package carpettisaddition.commands.spawn.mobcapsLocal;
 
+import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
@@ -15,13 +16,13 @@ import static net.minecraft.command.argument.EntityArgumentType.getPlayer;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class MobcapsLocalCommand extends TranslationContext implements CommandExtender
+public class MobcapsLocalCommand extends AbstractCommand implements CommandExtender
 {
 	private static final MobcapsLocalCommand INSTANCE = new MobcapsLocalCommand();
 
 	private MobcapsLocalCommand()
 	{
-		super("command.spawn.mobcapsLocal");
+		super("spawn.mobcapsLocal");
 	}
 
 	public static MobcapsLocalCommand getInstance()

@@ -11,6 +11,7 @@ import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.commands.refresh.RefreshCommand;
 import carpettisaddition.commands.removeentity.RemoveEntityCommand;
 import carpettisaddition.commands.scounter.SupplierCounterCommand;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
@@ -66,6 +67,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 		CarpetServer.manageExtension(INSTANCE);
 		StackTraceDeobfuscator.fetchMapping();
 		TISAdditionTranslations.loadTranslations();
+		UpdateSuppressionException.noop();
 	}
 
 	@Override

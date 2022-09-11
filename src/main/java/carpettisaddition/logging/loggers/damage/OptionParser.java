@@ -14,6 +14,7 @@ public class OptionParser
 	private final Target fromTarget;
 	private final Target toTarget;
 	private final boolean matchesAny;
+	private final boolean biDirection;
 
 	/**
 	 * Regular options:
@@ -22,6 +23,7 @@ public class OptionParser
 	 * "vex->": damages dealt from vex
 	 * "zombie": damages from / to zombie
 	 * "me->zombie": damages from me to zombie
+	 * "me<->zombie": damages between me and zombie
 	 *
 	 * Entity selector options:
 	 * "->@e[distance=..20]": this works too, but requires permission level 2 like vanilla
@@ -30,25 +32,46 @@ public class OptionParser
 	 */
 	public OptionParser(String option)
 	{
-		String[] parts = option.split("->", -1);
-		if (parts.length > 1)
+		String[] parts;
+		parts = option.split("<->", -1);
+		if (parts.length > 1)  // a<->b, a<->, <->a
+		{
+			this.fromTarget = Target.of(parts[0]);
+			this.toTarget = Target.of(parts[1]);
+			this.matchesAny = false;
+			this.biDirection = true;
+			return;
+		}
+
+		this.biDirection = false;
+		parts = option.split("->", -1);
+		if (parts.length > 1)  // a->b, ->a, a->
 		{
 			this.fromTarget = Target.of(parts[0]);
 			this.toTarget = Target.of(parts[1]);
 			this.matchesAny = false;
 		}
-		else
+		else  // a
 		{
 			this.fromTarget = this.toTarget = Target.of(option);
 			this.matchesAny = true;
 		}
 	}
 
-	public boolean accepts(PlayerEntity player, Entity from, Entity to)
+	public boolean accepts(PlayerEntity player, @Nullable Entity from, @Nullable Entity to)
 	{
-		boolean fromMatches = this.fromTarget.matches(player, from);
-		boolean toMatches = this.toTarget.matches(player, to);
-		return this.matchesAny ? (fromMatches || toMatches) : (fromMatches && toMatches);
+		if (this.biDirection)
+		{
+			return
+					(this.fromTarget.matches(player, from) && this.toTarget.matches(player, to)) ||
+					(this.fromTarget.matches(player, to) && this.toTarget.matches(player, from));
+		}
+		else
+		{
+			boolean fromMatches = this.fromTarget.matches(player, from);
+			boolean toMatches = this.toTarget.matches(player, to);
+			return this.matchesAny ? (fromMatches || toMatches) : (fromMatches && toMatches);
+		}
 	}
 
 	@FunctionalInterface
@@ -58,7 +81,7 @@ public class OptionParser
 
 		static Target of(String option)
 		{
-			return option.isEmpty() ? WILDCARD : new StringTarget(option);
+			return option.isEmpty() || "*".equals(option) ? WILDCARD : new StringTarget(option);
 		}
 
 		boolean matches(PlayerEntity player, @Nullable Entity entity);

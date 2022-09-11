@@ -1,7 +1,7 @@
 package carpettisaddition.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 
 //#if MC >= 11900
@@ -47,7 +47,7 @@ public abstract class CommandTreeContext
 	}
 
 	public static Node of(
-			LiteralArgumentBuilder<ServerCommandSource> node
+			ArgumentBuilder<ServerCommandSource, ?> node
 			//#if MC >= 11900
 			//$$ , CommandRegistryAccess commandBuildContext
 			//#endif
@@ -70,7 +70,7 @@ public abstract class CommandTreeContext
 	/**
 	 * Creates a {@link Node} context based on self's basic information
 	 */
-	public Node node(LiteralArgumentBuilder<ServerCommandSource> node)
+	public Node node(ArgumentBuilder<ServerCommandSource, ?> node)
 	{
 		return of(
 				node
@@ -108,10 +108,10 @@ public abstract class CommandTreeContext
 
 	public static class Node extends CommandTreeContext
 	{
-		public final LiteralArgumentBuilder<ServerCommandSource> node;
+		public final ArgumentBuilder<ServerCommandSource, ?> node;
 
 		private Node(
-				LiteralArgumentBuilder<ServerCommandSource> node
+				ArgumentBuilder<ServerCommandSource, ?> node
 				//#if MC >= 11900
 				//$$ , CommandRegistryAccess commandBuildContext
 				//#endif

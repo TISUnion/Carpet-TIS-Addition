@@ -56,6 +56,7 @@ public class CarpetTISAdditionSettings
 			categories = {TIS, OPTIMIZATION, EXPERIMENTAL}
 	)
 	public static int chunkUpdatePacketThreshold = VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD;
+
 	private static class ValidateChunkUpdatePacketThreshold extends RangedNumberValidator<Integer>
 	{
 		public ValidateChunkUpdatePacketThreshold()
@@ -93,6 +94,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean creativeOpenContainerForcibly = false;
 
+    @Rule(categories = {TIS, FEATURE})
+    public static boolean deobfuscateCrashReportStackTrace = false;
+
 	@Rule(categories = {TIS, DISPENSER, CREATIVE})
 	public static boolean dispenserNoItemCost = false;
 
@@ -122,6 +126,9 @@ public class CarpetTISAdditionSettings
 	)
 	public static int entityTrackerInterval = -1;
 
+	@Rule(categories = {TIS, CREATIVE})
+	public static boolean explosionNoEntityInfluence = false;
+
 	public static final double VANILLA_EXPLOSION_PACKET_RANGE = 64.0D;  // sqrt(4096)
 	@Rule(
 			validators = Validators.NonNegativeNumber.class,
@@ -131,9 +138,7 @@ public class CarpetTISAdditionSettings
 	)
 	public static double explosionPacketRange = VANILLA_EXPLOSION_PACKET_RANGE;
 
-	@Rule(
-			categories = {TIS, CREATIVE}
-	)
+	@Rule(categories = {TIS, CREATIVE})
 	public static boolean failSoftBlockStateParsing = false;
 
 	public static final String fakePlayerNameNoExtra = "#none";
@@ -185,6 +190,9 @@ public class CarpetTISAdditionSettings
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean farmlandTrampledDisabled = false;
+
+	@Rule(categories = {TIS, CREATIVE, COMMAND})
+	public static String fillCommandModeEnhance = "true";
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean fluidDestructionDisabled = false;
@@ -541,6 +549,18 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean visualizeProjectileLoggerEnabled = false;
 
+	public static final double VANILLA_VOID_DAMAGE_AMOUNT = 4.0;
+	@Rule(
+			options = {"0", "4", "1000"},
+			validators = Validators.NonNegativeNumber.class,
+			strict = false,
+			categories = {TIS, CREATIVE}
+	)
+	public static double voidDamageAmount = VANILLA_VOID_DAMAGE_AMOUNT;
+
+	@Rule(categories = {TIS, CREATIVE})
+	public static boolean voidDamageIgnorePlayer = false;
+
 	@Rule(
 			options = {"-64", "-512", "-4096"},
 			validators = Validators.NegativeNumber.class,
@@ -566,4 +586,13 @@ public class CarpetTISAdditionSettings
 			super(0.0D, 128.0D);
 		}
 	}
+
+	/**
+	 * Do the same thing as rule updateSuppressionCrashFix from fabric carpet 1.4.50
+	 * TODO: find a way to make both rules work at the same time without breaking any functionalities. (@Redirect conflicts)
+	 */
+	//#if MC < 11700
+	@Rule(categories = {TIS, BUGFIX})
+	public static boolean yeetUpdateSuppressionCrash = false;
+	//#endif
 }

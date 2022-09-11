@@ -24,6 +24,7 @@
 - [commandRefresh](rules.md#commandrefresh)
 - [commandRemoveEntity](rules.md#commandremoveentity)
 - [creativeOpenContainerForcibly](rules.md#creativeopencontainerforcibly)
+- [deobfuscateCrashReportStackTrace](rules.md#deobfuscatecrashreportstacktrace)
 - [dispenserNoItemCost](rules.md#dispensernoitemcost)
 - [dispensersFireDragonBreath](rules.md#dispensersfiredragonbreath)
 - [enchantCommandNoRestriction](rules.md#enchantcommandnorestriction)
@@ -31,11 +32,13 @@
 - [entityPlacementIgnoreCollision](rules.md#entityplacementignorecollision)
 - [entityTrackerDistance](rules.md#entitytrackerdistance)
 - [entityTrackerInterval](rules.md#entitytrackerinterval)
+- [explosionNoEntityInfluence](rules.md#explosionnoentityinfluence)
 - [explosionPacketRange](rules.md#explosionpacketrange)
 - [failSoftBlockStateParsing](rules.md#failsoftblockstateparsing)
 - [fakePlayerNamePrefix](rules.md#fakeplayernameprefix)
 - [fakePlayerNameSuffix](rules.md#fakeplayernamesuffix)
 - [farmlandTrampledDisabled](rules.md#farmlandtrampleddisabled)
+- [fillCommandModeEnhance](rules.md#fillcommandmodeenhance)
 - [fluidDestructionDisabled](rules.md#fluiddestructiondisabled)
 - [hopperCountersUnlimitedSpeed](rules.md#hoppercountersunlimitedspeed)
 - [hopperNoItemCost](rules.md#hoppernoitemcost)
@@ -80,6 +83,8 @@
 - [totallyNoBlockUpdate](rules.md#totallynoblockupdate)
 - [turtleEggTrampledDisabled](rules.md#turtleeggtrampleddisabled)
 - [visualizeProjectileLoggerEnabled](rules.md#visualizeprojectileloggerenabled)
+- [voidDamageAmount](rules.md#voiddamageamount)
+- [voidDamageIgnorePlayer](rules.md#voiddamageignoreplayer)
 - [voidRelatedAltitude](rules.md#voidrelatedaltitude)
 - [witherSpawnedSoundDisabled](rules.md#witherspawnedsounddisabled)
 - [xpTrackingDistance](rules.md#xptrackingdistance)
@@ -88,6 +93,7 @@
 
 - [lightEngineMaxBatchSize](rules.md#lightenginemaxbatchsize)
 - [structureBlockOutlineDistance](rules.md#structureblockoutlinedistance)
+- [yeetUpdateSuppressionCrash](rules.md#yeetupdatesuppressioncrash)
 
 ## [Loggers](loggers.md)
 

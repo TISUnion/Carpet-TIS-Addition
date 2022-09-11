@@ -37,6 +37,8 @@ Additionally,
 - If you append a `->` in front of the target string, only damage dealt to the target will be logged
 - If you contact 2 target strings with a `->`, only damage dealt from the former target to the latter target will be logged
 
+Besides `->`, you can also use `<->` as a bidirectional target connector to log damages between the two targets
+
 Target examples:
 - `->me`: Damage dealt to the subscriber itself
 - `->creeper`: Damage dealt to creeper
@@ -44,6 +46,7 @@ Target examples:
 - `zombie`: Damage from / to zombies
 - `minecraft:zombie`: The same as `zombie`
 - `me->zombie`: Damage from the subscriber to zombies
+- `me<->zombie`: Damage between the subscriber and zombies
 - `->@e[distance=..10]`: Damage dealt to entities within 10m of the subscriber 
 
 Attributes:

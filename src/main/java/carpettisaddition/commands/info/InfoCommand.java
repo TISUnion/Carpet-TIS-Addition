@@ -55,11 +55,6 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 	}
 
 	@Override
-	public void registerCommand(CommandTreeContext.Register context)
-	{
-	}
-
-	@Override
 	public void extendCommand(CommandTreeContext.Node context)
 	{
 		context.node.then(

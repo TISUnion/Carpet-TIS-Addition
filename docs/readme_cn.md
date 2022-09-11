@@ -24,6 +24,7 @@
 - [刷新命令开关](rules_cn.md#刷新命令开关-commandrefresh)
 - [移除实体命令开关](rules_cn.md#移除实体命令开关-commandremoveentity)
 - [创造玩家强制打开容器](rules_cn.md#创造玩家强制打开容器-creativeopencontainerforcibly)
+- [反混淆崩溃报告堆栈追踪](rules_cn.md#反混淆崩溃报告堆栈追踪-deobfuscatecrashreportstacktrace)
 - [发射器不消耗物品](rules_cn.md#发射器不消耗物品-dispensernoitemcost)
 - [发射器发射龙息](rules_cn.md#发射器发射龙息-dispensersfiredragonbreath)
 - [enchant指令约束移除](rules_cn.md#enchant指令约束移除-enchantcommandnorestriction)
@@ -31,11 +32,13 @@
 - [实体放置无视碰撞](rules_cn.md#实体放置无视碰撞-entityplacementignorecollision)
 - [实体同步距离](rules_cn.md#实体同步距离-entitytrackerdistance)
 - [实体同步间隔](rules_cn.md#实体同步间隔-entitytrackerinterval)
+- [爆炸不影响实体](rules_cn.md#爆炸不影响实体-explosionnoentityinfluence)
 - [爆炸数据包广播范围](rules_cn.md#爆炸数据包广播范围-explosionpacketrange)
 - [方块状态解析忽略失败](rules_cn.md#方块状态解析忽略失败-failsoftblockstateparsing)
 - [假人名称前缀](rules_cn.md#假人名称前缀-fakeplayernameprefix)
 - [假人名称后缀](rules_cn.md#假人名称后缀-fakeplayernamesuffix)
 - [禁用耕地被踩踏](rules_cn.md#禁用耕地被踩踏-farmlandtrampleddisabled)
+- [fill指令模式增强](rules_cn.md#fill指令模式增强-fillcommandmodeenhance)
 - [禁用流体破坏](rules_cn.md#禁用流体破坏-fluiddestructiondisabled)
 - [漏斗计数器无限速度](rules_cn.md#漏斗计数器无限速度-hoppercountersunlimitedspeed)
 - [漏斗不消耗物品](rules_cn.md#漏斗不消耗物品-hoppernoitemcost)
@@ -80,6 +83,8 @@
 - [完全没有方块更新](rules_cn.md#完全没有方块更新-totallynoblockupdate)
 - [禁用海龟蛋被践踏](rules_cn.md#禁用海龟蛋被践踏-turtleeggtrampleddisabled)
 - [可视化投掷物记录器](rules_cn.md#可视化投掷物记录器-visualizeprojectileloggerenabled)
+- [虚空伤害数值](rules_cn.md#虚空伤害数值-voiddamageamount)
+- [虚空伤害忽略玩家](rules_cn.md#虚空伤害忽略玩家-voiddamageignoreplayer)
 - [虚空相对海拔高度](rules_cn.md#虚空相对海拔高度-voidrelatedaltitude)
 - [禁用凋灵生成音效](rules_cn.md#禁用凋灵生成音效-witherspawnedsounddisabled)
 - [经验球追踪距离](rules_cn.md#经验球追踪距离-xptrackingdistance)
@@ -88,6 +93,7 @@
 
 - [光照引擎最大任务组数](rules_cn.md#光照引擎最大任务组数-lightenginemaxbatchsize)
 - [结构方块轮廓距离](rules_cn.md#结构方块轮廓距离-structureblockoutlinedistance)
+- [阻止更新抑制崩溃](rules_cn.md#阻止更新抑制崩溃-yeetupdatesuppressioncrash)
 
 ## [记录器](loggers_cn.md)
 

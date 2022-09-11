@@ -2,6 +2,8 @@ package carpettisaddition.commands.lifetime.trackeddata;
 
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
+import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerContext;
+import carpettisaddition.utils.CommandUtil;
 import carpettisaddition.utils.CounterUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
@@ -35,11 +37,19 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 
 	private BaseText attachExtraCountHoverText(BaseText text, long extraCount, long ticks)
 	{
-		return Messenger.hover(text, Messenger.c(
+		BaseText extra = Messenger.c(
 				this.getCountDisplayText(),
 				"g : ",
 				CounterUtil.ratePerHourText(extraCount, ticks, "wgg")
-		));
+		);
+		Messenger.hover(text, extra);
+
+		// console cannot display hover text, so we append the extra count text to the end of the line
+		if (CommandUtil.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
+		{
+			text = Messenger.c(text, "g  [", extra, "g ]");
+		}
+		return text;
 	}
 
 	@Override

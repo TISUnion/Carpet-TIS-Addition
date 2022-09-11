@@ -102,7 +102,7 @@ public class DamageLogger extends AbstractLogger
 			}
 		}
 
-		private BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, Entity from, Entity to, Supplier<BaseText[]> messageFuture)
+		private BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, @Nullable Entity from, @Nullable Entity to, Supplier<BaseText[]> messageFuture)
 		{
 			OptionParser parser = new OptionParser(option);
 			if (parser.accepts(player, from, to))

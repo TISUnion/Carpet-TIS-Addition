@@ -159,6 +159,16 @@ Allow creative players to open a container even if the container is blocked. e.g
 - Categories: `TIS`, `CREATIVE`
 
 
+## deobfuscateCrashReportStackTrace
+
+Deobfuscate stack traces in crash report
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
+
+
 ## dispenserNoItemCost
 
 Dispensers and droppers execute without having the itemstack inside decreased
@@ -249,6 +259,18 @@ Requires chunk reloading to set the new rule value to entities
 - Categories: `TIS`, `CREATIVE`
 
 
+## explosionNoEntityInfluence
+
+Explosions won't affect any entity
+
+Influences here include damage, acceleration etc.
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## explosionPacketRange
 
 Set the range where player will receive an explosion packet when an explosion happens
@@ -307,6 +329,18 @@ Disable farmland being able to be trampled into dirt by mobs
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
+
+
+## fillCommandModeEnhance
+
+Enhance modes in the `/fill` command
+
+Add `softreplace` mode: Keep the block state of the original block as much as possible. You can use it to replace block type of stairs / slabs etc.
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `COMMAND`
 
 
 ## fluidDestructionDisabled
@@ -916,6 +950,28 @@ Try `/log projectiles visualize`
 - Categories: `TIS`, `CREATIVE`
 
 
+## voidDamageAmount
+
+Modify the amount of void damage
+
+- Type: `double`
+- Default value: `4`
+- Suggested options: `0`, `4`, `-1000`
+- Categories: `TIS`, `CREATIVE`
+
+
+## voidDamageIgnorePlayer
+
+Prevent players from taking void damage
+
+Completely harmless void for players, yay!
+
+- Type: `boolean`
+- Default value: `false `
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## voidRelatedAltitude
 
 Modify the related altitude between the bottom of the world and the void where entities will receive void damages
@@ -961,3 +1017,10 @@ Change it to 0 to disable tracking
 
 - Source: fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25)
 - Target branches: 1.14.4, 1.15.2
+
+## yeetUpdateSuppressionCrash
+
+- Source: 
+  - rule `updateSuppressionCrashFix` from fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50)
+  - rule `yeetUpdateSuppressionCrash` from TISCarpet13 [build238](https://github.com/TISUnion/TISCarpet113/releases/tag/build238)
+- Target branches: 1.14.4, 1.15.2, 1.16.5

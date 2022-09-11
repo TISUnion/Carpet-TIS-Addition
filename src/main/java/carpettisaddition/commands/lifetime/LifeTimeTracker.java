@@ -3,6 +3,7 @@ package carpettisaddition.commands.lifetime;
 import carpettisaddition.commands.AbstractTracker;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
+import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerContext;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.Messenger;
@@ -101,6 +102,7 @@ public class LifeTimeTracker extends AbstractTracker
 	@Override
 	protected void printTrackingResult(ServerCommandSource source, boolean realtime)
 	{
+		LifeTimeTrackerContext.commandSource.set(source);
 		try
 		{
 			long ticks = this.sendTrackedTime(source, realtime);
@@ -123,8 +125,10 @@ public class LifeTimeTracker extends AbstractTracker
 		Messenger.tell(source, Messenger.formatting(tr("unknown_entity_type", entityTypeString), "r"));
 	}
 
-	private void printTrackingResultSpecificInner(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
+	private void printTrackingResultSpecificImpl(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
 	{
+		LifeTimeTrackerContext.commandSource.set(source);
+
 		Optional<EntityType<?>> entityTypeOptional = LifeTimeTrackerUtil.getEntityTypeFromName(entityTypeString);
 		if (entityTypeOptional.isPresent())
 		{
@@ -162,7 +166,7 @@ public class LifeTimeTracker extends AbstractTracker
 
 	public int printTrackingResultSpecific(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
 	{
-		return this.doWhenTracking(source, () -> this.printTrackingResultSpecificInner(source, entityTypeString, detailModeString, realtime));
+		return this.doWhenTracking(source, () -> this.printTrackingResultSpecificImpl(source, entityTypeString, detailModeString, realtime));
 	}
 
 

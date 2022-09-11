@@ -5,6 +5,9 @@ carpettisaddition:
         '0': "Dangerous combination between rule synchronizedLightThread and rule lightUpdates detected"
         '1': "Rule modification has been cancelled to prevent infinite waiting in lighting synchronization"
         '2': "Related rule values to be set:"
+    yeetUpdateSuppressionCrash:
+      exception_detail: 'Update Suppression in %1$s at %2$s'
+      report_message: 'You just caused a server crash: %1$s'
 
   validator:
     # common validators
@@ -538,6 +541,9 @@ carpettisaddition:
       creativeOpenContainerForcibly:
         name: creativeOpenContainerForcibly
         desc: Allow creative players to open a container even if the container is blocked. e.g. for shulker box
+      deobfuscateCrashReportStackTrace:
+        name: deobfuscateCrashReportStackTrace
+        desc: Deobfuscate stack traces in crash report
       dispenserNoItemCost:
         name: dispenserNoItemCost
         desc: Dispensers and droppers execute without having the itemstack inside decreased
@@ -573,6 +579,11 @@ carpettisaddition:
           '0': With a small number e.g. 1, entity information will be synced to the client every 1 gametick, resulting in less-likely client-side entity desync
           '1': Set it to a non-positive value to use vanilla logic
           '2': Requires chunk reloading to set the new rule value to entities
+      explosionNoEntityInfluence:
+        name: explosionNoEntityInfluence
+        desc: Explosions won't affect any entity
+        extra:
+          '0': Influences here include damage, acceleration etc.
       explosionPacketRange:
         name: explosionPacketRange
         desc: Set the range where player will receive an explosion packet when an explosion happens
@@ -596,6 +607,11 @@ carpettisaddition:
       farmlandTrampledDisabled:
         name: farmlandTrampledDisabled
         desc: Disable farmland being able to be trampled into dirt by mobs
+      fillCommandModeEnhance:
+        name: fillCommandModeEnhance
+        desc: Enhance modes in the /fill command
+        extra:
+          '0': 'Add softreplace mode: Keep the block state of the original block as much as possible. You can use it to replace block type of stairs / slabs etc.'
       fluidDestructionDisabled:
         name: fluidDestructionDisabled
         desc: Disable block destruction by fluid flowing
@@ -863,6 +879,14 @@ carpettisaddition:
         desc: Enable visualize projectile logger
         extra:
           '0': Try /log projectiles visualize
+      voidDamageAmount:
+        name: voidDamageAmount
+        desc: Modify the amount of void damage
+      voidDamageIgnorePlayer:
+        name: voidDamageIgnorePlayer
+        desc: Prevent players from taking void damage
+        extra:
+          '0': Completely harmless void for players, yay!
       voidRelatedAltitude:
         name: voidRelatedAltitude
         desc: Modify the related altitude between the bottom of the world and the void where entities will receive void damages
@@ -874,3 +898,8 @@ carpettisaddition:
         desc: Overwrite the tracking distance of xp orb
         extra:
           '0': Change it to 0 to disable tracking
+      yeetUpdateSuppressionCrash:
+        name: yeetUpdateSuppressionCrash
+        desc: Prevent the server from crashing due to stack overflow
+        extra:
+          '0': Do the same thing as fabric carpet's updateSuppressionCrashFix rule, but with more information

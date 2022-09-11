@@ -159,6 +159,16 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 反混淆崩溃报告堆栈追踪 (deobfuscateCrashReportStackTrace)
+
+反混淆崩溃报告中输出的堆栈追踪
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
+
+
 ## 发射器不消耗物品 (dispenserNoItemCost)
 
 开启后，发射器和投掷器使用被激活时不再消耗物品
@@ -249,6 +259,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 爆炸不影响实体 (explosionNoEntityInfluence)
+
+爆炸不会影响任何实体
+
+这里的影响包括伤害、加速等效果
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 爆炸数据包广播范围 (explosionPacketRange)
 
 设置在爆炸发生时，爆炸数据包对玩家的广播范围
@@ -302,6 +324,18 @@
 ## 禁用耕地被踩踏 (farmlandTrampledDisabled)
 
 阻止耕地被生物踩成泥土
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
+## fill指令模式增强 (fillCommandModeEnhance)
+
+增加 `/fill` 指令中各种模式的功能
+
+增加 `softreplace` 模式: 尽可能地保留原方块的方块状态，可用于替换楼梯/半砖的材质等
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -916,6 +950,28 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 虚空伤害数值 (voidDamageAmount)
+
+修改虚空伤害的数值
+
+- 类型: `double`
+- 默认值: `4`
+- 参考选项: `0`, `4`, `1000`
+- 分类: `TIS`, `CREATIVE`
+
+
+## 虚空伤害忽略玩家 (voidDamageIgnorePlayer)
+
+阻止玩家受到任何虚空伤害
+
+对玩家完全无害的虚空，好耶！
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 虚空相对海拔高度 (voidRelatedAltitude)
 
 修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域
@@ -961,3 +1017,10 @@
 
 - 移植自：fabric carpet [1.4.25](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25)
 - 移植的分支：1.14.4, 1.15.2
+
+## yeetUpdateSuppressionCrash
+
+- 移植自：
+    - fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50) 的规则 `updateSuppressionCrashFix`
+    - TISCarpet13 [build238](https://github.com/TISUnion/TISCarpet113/releases/tag/build238) 的规则 `yeetUpdateSuppressionCrash`
+- 移植的分支：1.14.4, 1.15.2, 1.16.5
