@@ -1,17 +1,17 @@
 package carpettisaddition.commands.spawn.mobcapsLocal;
 
+import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.commands.CommandTreeContext;
-import carpettisaddition.translations.TranslationContext;
 
 // a placeholder class, its implementation is in 1.18+
-public class MobcapsLocalCommand extends TranslationContext implements CommandExtender
+public class MobcapsLocalCommand extends AbstractCommand implements CommandExtender
 {
 	private static final MobcapsLocalCommand INSTANCE = new MobcapsLocalCommand();
 
 	private MobcapsLocalCommand()
 	{
-		super("command.spawn.mobcapsLocal");
+		super("spawn.mobcapsLocal");
 	}
 
 	public static MobcapsLocalCommand getInstance()

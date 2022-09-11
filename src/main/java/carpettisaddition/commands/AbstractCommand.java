@@ -8,4 +8,10 @@ public abstract class AbstractCommand extends TranslationContext implements Comm
 	{
 		super("command." + name);
 	}
+
+	@Override
+	public void registerCommand(CommandTreeContext.Register context)
+	{
+		throw new UnsupportedOperationException();
+	}
 }
