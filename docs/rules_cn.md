@@ -331,6 +331,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## fill指令模式增强 (fillCommandModeEnhance)
+
+增加 `/fill` 指令中各种模式的功能
+
+增加 `softreplace` 模式: 尽可能地保留原方块的方块状态，可用于替换楼梯/半砖的材质等
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 禁用流体破坏 (fluidDestructionDisabled)
 
 禁用流体流动造成的方块破坏

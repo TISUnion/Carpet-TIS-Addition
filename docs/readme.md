@@ -38,6 +38,7 @@
 - [fakePlayerNamePrefix](rules.md#fakeplayernameprefix)
 - [fakePlayerNameSuffix](rules.md#fakeplayernamesuffix)
 - [farmlandTrampledDisabled](rules.md#farmlandtrampleddisabled)
+- [fillCommandModeEnhance](rules.md#fillcommandmodeenhance)
 - [fluidDestructionDisabled](rules.md#fluiddestructiondisabled)
 - [hopperCountersUnlimitedSpeed](rules.md#hoppercountersunlimitedspeed)
 - [hopperNoItemCost](rules.md#hoppernoitemcost)

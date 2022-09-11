@@ -331,6 +331,18 @@ Disable farmland being able to be trampled into dirt by mobs
 - Categories: `TIS`, `CREATIVE`
 
 
+## fillCommandModeEnhance
+
+Enhance modes in the `/fill` command
+
+Add `softreplace` mode: Keep the block state of the original block as much as possible. You can use it to replace block type of stairs / slabs etc.
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `COMMAND`
+
+
 ## fluidDestructionDisabled
 
 Disable block destruction by liquid flowing

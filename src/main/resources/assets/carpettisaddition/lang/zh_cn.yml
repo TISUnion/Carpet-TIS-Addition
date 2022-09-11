@@ -607,6 +607,11 @@ carpettisaddition:
       farmlandTrampledDisabled:
         name: 禁用耕地被踩踏
         desc: 阻止耕地被生物踩成泥土
+      fillCommandModeEnhance:
+        name: fill指令模式增强
+        desc: 增加/fill指令中各种模式的功能
+        extra:
+          '0': '增加softreplace模式: 尽可能地保留原方块的方块状态，可用于替换楼梯/半砖的材质等'
       fluidDestructionDisabled:
         name: 禁用流体破坏
         desc: 禁用流体流动造成的方块破坏

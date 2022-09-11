@@ -56,6 +56,7 @@ public class CarpetTISAdditionSettings
 			categories = {TIS, OPTIMIZATION, EXPERIMENTAL}
 	)
 	public static int chunkUpdatePacketThreshold = VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD;
+
 	private static class ValidateChunkUpdatePacketThreshold extends RangedNumberValidator<Integer>
 	{
 		public ValidateChunkUpdatePacketThreshold()
@@ -189,6 +190,9 @@ public class CarpetTISAdditionSettings
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean farmlandTrampledDisabled = false;
+
+	@Rule(categories = {TIS, CREATIVE, COMMAND})
+	public static String fillCommandModeEnhance = "true";
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean fluidDestructionDisabled = false;
