@@ -538,6 +538,11 @@ carpettisaddition:
       commandRemoveEntity:
         name: 移除实体命令开关
         desc: 启用/removeentity命令用于直接在世界中抹除目标实体
+      creativeNetherWaterPlacement:
+        name: 创造玩家地狱放水
+        desc: 允许创造模式的玩家在地狱通过水桶放出水
+        extra:
+          '0': 技术上来讲，本条规则对所有ultrawarm的维度都生效
       creativeOpenContainerForcibly:
         name: 创造玩家强制打开容器
         desc: 允许创造模式的玩家打开被阻挡的容器，如潜影盒

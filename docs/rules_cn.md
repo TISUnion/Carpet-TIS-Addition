@@ -149,6 +149,18 @@
 - 分类: `TIS`, `COMMAND`, `CREATIVE`
 
 
+## 创造玩家地狱放水 (creativeNetherWaterPlacement)
+
+允许创造模式的玩家在地狱通过水桶放出水
+
+技术上来讲，本条规则对所有 ultrawarm 的维度都生效
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 创造玩家强制打开容器 (creativeOpenContainerForcibly)
 
 允许创造模式的玩家打开被阻挡的容器，如潜影盒

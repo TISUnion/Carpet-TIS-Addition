@@ -149,6 +149,18 @@ Enables `/removeentity` command for directly erase target entities from the worl
 - Categories: `TIS`, `COMMAND`, `CREATIVE`
 
 
+## creativeNetherWaterPlacement
+
+Allow creative players place water via water bucket in nether
+
+Technically this rule applies to all ultrawarm dimensions
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## creativeOpenContainerForcibly
 
 Allow creative players to open a container even if the container is blocked. e.g. for shulker box

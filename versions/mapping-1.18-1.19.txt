@@ -5,3 +5,4 @@ carpet.settings.SettingsManager carpet.api.settings.SettingsManager
 carpet.settings.Validator carpet.api.settings.Validator
 
 net.minecraft.text.BaseText net.minecraft.text.MutableText
+net.minecraft.world.dimension.DimensionType isUltrawarm() ultrawarm()

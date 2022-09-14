@@ -538,6 +538,11 @@ carpettisaddition:
       commandRemoveEntity:
         name: commandRemoveEntity
         desc: Enables /removeentity command for directly erase target entities from the world
+      creativeNetherWaterPlacement:
+        name: creativeNetherWaterPlacement
+        desc: Allow creative players place water via water bucket in nether
+        extra:
+          '0': Technically this rule applies to all ultrawarm dimensions
       creativeOpenContainerForcibly:
         name: creativeOpenContainerForcibly
         desc: Allow creative players to open a container even if the container is blocked. e.g. for shulker box

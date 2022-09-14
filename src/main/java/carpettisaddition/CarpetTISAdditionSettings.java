@@ -92,6 +92,9 @@ public class CarpetTISAdditionSettings
 	public static String commandRemoveEntity = "ops";
 
 	@Rule(categories = {TIS, CREATIVE})
+	public static boolean creativeNetherWaterPlacement = false;
+
+	@Rule(categories = {TIS, CREATIVE})
 	public static boolean creativeOpenContainerForcibly = false;
 
     @Rule(categories = {TIS, FEATURE})

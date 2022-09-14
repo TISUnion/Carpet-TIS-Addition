@@ -23,6 +23,7 @@
 - [commandRaid](rules.md#commandraid)
 - [commandRefresh](rules.md#commandrefresh)
 - [commandRemoveEntity](rules.md#commandremoveentity)
+- [creativeNetherWaterPlacement](rules.md#creativenetherwaterplacement)
 - [creativeOpenContainerForcibly](rules.md#creativeopencontainerforcibly)
 - [deobfuscateCrashReportStackTrace](rules.md#deobfuscatecrashreportstacktrace)
 - [dispenserNoItemCost](rules.md#dispensernoitemcost)
