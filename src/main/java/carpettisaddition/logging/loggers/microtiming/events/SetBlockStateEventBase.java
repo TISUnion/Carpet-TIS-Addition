@@ -6,6 +6,7 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.text.BaseText;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,6 +16,8 @@ import java.util.Objects;
 
 public abstract class SetBlockStateEventBase extends BaseEvent
 {
+	protected final BlockState oldBlockState;
+	protected final BlockState newBlockState;
 	protected final int flags;
 	@Nullable
 	protected Boolean returnValue;
@@ -40,9 +43,11 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 		SET_BLOCK_STATE_FLAGS.add(FlagData.dummy());
 	}
 
-	protected SetBlockStateEventBase(EventType eventType, String translateKey, Block eventSourceBlock, @Nullable Boolean returnValue, int flags)
+	protected SetBlockStateEventBase(EventType eventType, String translateKey, BlockState oldBlockState, BlockState newBlockState, @Nullable Boolean returnValue, int flags)
 	{
-		super(eventType, translateKey, eventSourceBlock);
+		super(eventType, translateKey, oldBlockState.getBlock());
+		this.oldBlockState = oldBlockState;
+		this.newBlockState = newBlockState;
 		this.returnValue = returnValue;
 		this.flags = flags;
 	}
@@ -87,13 +92,13 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 		if (o == null || getClass() != o.getClass()) return false;
 		if (!super.equals(o)) return false;
 		SetBlockStateEventBase that = (SetBlockStateEventBase) o;
-		return flags == that.flags && Objects.equals(returnValue, that.returnValue);
+		return flags == that.flags && Objects.equals(oldBlockState, that.oldBlockState) && Objects.equals(newBlockState, that.newBlockState) && Objects.equals(returnValue, that.returnValue);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(super.hashCode(), flags, returnValue);
+		return Objects.hash(super.hashCode(), oldBlockState, newBlockState, flags, returnValue);
 	}
 
 	private static class FlagData

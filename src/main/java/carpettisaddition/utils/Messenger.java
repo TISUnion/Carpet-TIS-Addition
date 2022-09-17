@@ -5,7 +5,6 @@ import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.mixins.translations.TranslatableTextAccessor;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -79,14 +78,46 @@ public class Messenger
 	}
 
 	// Simple Text with formatting
-	public static BaseText s(Object text, Formatting textFormatting)
+	public static BaseText s(Object text, Formatting ...textFormattings)
 	{
-		return formatting(s(text), textFormatting);
+		return formatting(s(text), textFormattings);
 	}
 
 	public static BaseText newLine()
 	{
 		return s("\n");
+	}
+
+	public static BaseText colored(BaseText text, Object value)
+	{
+		Formatting color = null;
+		if (Boolean.TRUE.equals(value))
+		{
+			color = Formatting.GREEN;
+		}
+		else if (Boolean.FALSE.equals(value))
+		{
+			color = Formatting.RED;
+		}
+		if (value instanceof Number)
+		{
+			color = Formatting.GOLD;
+		}
+		if (color != null)
+		{
+			formatting(text, color);
+		}
+		return text;
+	}
+
+	public static BaseText colored(Object value)
+	{
+		return colored(s(value), value);
+	}
+
+	public static BaseText property(Property<?> property, Object value)
+	{
+		return colored(s(TextUtil.property(property, value)), value);
 	}
 
 	// Translation Text
@@ -318,18 +349,26 @@ public class Messenger
 
 	public static BaseText block(Block block)
 	{
-		return hover(tr(block.getTranslationKey()), s(IdentifierUtil.id(block).toString()));
+		return hover(tr(block.getTranslationKey()), s(TextUtil.block(block)));
 	}
 
 	public static BaseText block(BlockState blockState)
 	{
-		List<String> hovers = Lists.newArrayList();
-		hovers.add(IdentifierUtil.id(blockState.getBlock()).toString());
+		List<BaseText> hovers = Lists.newArrayList();
+		hovers.add(s(TextUtil.block(blockState.getBlock())));
 		for (Property<?> property: blockState.getProperties())
 		{
-			hovers.add(String.format("%s=%s", property.getName(), blockState.get(property)));
+			hovers.add(Messenger.c(
+					Messenger.s(property.getName()),
+					"g : ",
+					property(property, blockState.get(property))
+			));
 		}
-		return hover(block(blockState.getBlock()), s(Joiner.on('\n').join(hovers)));
+		return fancy(
+				block(blockState.getBlock()),
+				join(s("\n"), hovers.toArray(new BaseText[0])),
+				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.block(blockState))
+		);
 	}
 
 	public static BaseText fluid(Fluid fluid)

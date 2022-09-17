@@ -89,25 +89,7 @@ public class MicroTimingUtil
 
 	public static BaseText getColoredValue(Object value)
 	{
-		BaseText text = Messenger.s(value.toString());
-		Formatting color = null;
-		if (Boolean.TRUE.equals(value))
-		{
-			color = Formatting.GREEN;
-		}
-		else if (Boolean.FALSE.equals(value))
-		{
-			color = Formatting.RED;
-		}
-		if (value instanceof Number)
-		{
-			color = Formatting.GOLD;
-		}
-		if (color != null)
-		{
-			Messenger.formatting(text, color);
-		}
-		return text;
+		return Messenger.colored(value);
 	}
 
 	public static BaseText getSuccessText(boolean value, boolean showReturnValue, BaseText hoverExtra)

@@ -142,7 +142,7 @@ carpettisaddition:
             '6': "caused by piston"
         block_state_change:
           state_change: State Change
-          changed_states: Changed BlockStates
+          state_change_details: Block state changes details
           finished: finished
         block_replace:
           block_replace: Block Replace

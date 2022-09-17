@@ -4,21 +4,16 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.text.BaseText;
 
 import java.util.List;
 
 public class BlockReplaceEvent extends SetBlockStateEventBase
 {
-	private final Block oldBlock;
-	private final Block newBlock;
-
-	public BlockReplaceEvent(EventType eventType, Block oldBlock, Block newBlock, Boolean returnValue,  int flags)
+	public BlockReplaceEvent(EventType eventType, BlockState oldBlockState, BlockState newBlockState, Boolean returnValue,  int flags)
 	{
-		super(eventType, "block_replace", oldBlock, returnValue, flags);
-		this.oldBlock = oldBlock;
-		this.newBlock = newBlock;
+		super(eventType, "block_replace", oldBlockState, newBlockState, returnValue, flags);
 	}
 
 	@Override
@@ -31,9 +26,9 @@ public class BlockReplaceEvent extends SetBlockStateEventBase
 				null
 		);
 		BaseText infoText = Messenger.c(
-				Messenger.block(this.oldBlock),
+				Messenger.block(this.oldBlockState),
 				"g ->",
-				Messenger.block(this.newBlock)
+				Messenger.block(this.newBlockState)
 		);
 		if (this.getEventType() != EventType.ACTION_END)
 		{

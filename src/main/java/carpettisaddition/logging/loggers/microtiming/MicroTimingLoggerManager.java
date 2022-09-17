@@ -14,6 +14,7 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.substages.Abstrac
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
+import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -39,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -169,11 +171,10 @@ public class MicroTimingLoggerManager
 		{
 			return;
 		}
-		onEvent(
-				MicroTimingContext.create().
-						withWorld(world).withBlockPos(pos).
-						withEventSupplier(() -> new ScheduleBlockUpdateEvent(sourceBlock, updateType, exceptSide)).
-						withWoolGetter(MicroTimingUtil::blockUpdateColorGetter)
+		onEvent(MicroTimingContext.create().
+				withWorld(world).withBlockPos(pos).
+				withEventSupplier(() -> new ScheduleBlockUpdateEvent(sourceBlock, updateType, exceptSide)).
+				withWoolGetter(MicroTimingUtil::blockUpdateColorGetter)
 		);
 	}
 
@@ -183,11 +184,10 @@ public class MicroTimingLoggerManager
 		{
 			return;
 		}
-		onEvent(
-				MicroTimingContext.create().
-						withWorld(world).withBlockPos(pos).
-						withEventSupplier(() -> new DetectBlockUpdateEvent(eventType, sourceBlock, updateType, exceptSide)).
-						withWoolGetter(MicroTimingUtil::blockUpdateColorGetter)
+		onEvent(MicroTimingContext.create().
+				withWorld(world).withBlockPos(pos).
+				withEventSupplier(() -> new DetectBlockUpdateEvent(eventType, sourceBlock, updateType, exceptSide)).
+				withWoolGetter(MicroTimingUtil::blockUpdateColorGetter)
 		);
 	}
 	
@@ -201,7 +201,7 @@ public class MicroTimingLoggerManager
 		{
 			// lazy loading
 			DyeColor color = null;
-			BlockStateChangeEvent event = new BlockStateChangeEvent(eventType, newState.getBlock(), returnValue, flags);
+			List<BlockStateChangeEvent.PropertyChange> changes = Lists.newArrayList();
 
 			for (Property<?> property: newState.getProperties())
 			{
@@ -214,24 +214,29 @@ public class MicroTimingLoggerManager
 					}
 					color = optionalDyeColor.get();
 				}
-				event.addIfChanges(property.getName(), oldState.get(property), newState.get(property));
+				if (oldState.get(property) != newState.get(property))
+				{
+					changes.add(new BlockStateChangeEvent.PropertyChange(property, oldState.get(property), newState.get(property)));
+				}
 			}
-			if (event.hasChanges())
+			if (!changes.isEmpty())
 			{
-				onEvent(
-						MicroTimingContext.create().
-								withWorld(world).withBlockPos(pos).withColor(color).
-								withEvent(event)
+				onEvent(MicroTimingContext.create().
+						withWorld(world).withBlockPos(pos).withColor(color).
+						withEventSupplier(() -> {
+							BlockStateChangeEvent event = new BlockStateChangeEvent(eventType, oldState, newState, returnValue, flags);
+							event.setChanges(changes);
+							return event;
+						})
 				);
 			}
 		}
 		else
 		{
-			onEvent(
-					MicroTimingContext.create().
-							withWorld(world).withBlockPos(pos).
-							withEventSupplier(() -> new BlockReplaceEvent(eventType, oldState.getBlock(), newState.getBlock(), returnValue, flags)).
-							withWoolGetter(MicroTimingUtil::defaultColorGetter)
+			onEvent(MicroTimingContext.create().
+					withWorld(world).withBlockPos(pos).
+					withEventSupplier(() -> new BlockReplaceEvent(eventType, oldState, newState, returnValue, flags)).
+					withWoolGetter(MicroTimingUtil::defaultColorGetter)
 			);
 		}
 	}
@@ -288,10 +293,9 @@ public class MicroTimingLoggerManager
 		{
 			return;
 		}
-		onEvent(
-				MicroTimingContext.create().
-						withWorld(world).withBlockPos(blockAction.getPos()).
-						withEvent(new ExecuteBlockEventEvent(eventType, blockAction, returnValue, failInfo))
+		onEvent(MicroTimingContext.create().
+				withWorld(world).withBlockPos(blockAction.getPos()).
+				withEvent(new ExecuteBlockEventEvent(eventType, blockAction, returnValue, failInfo))
 		);
 	}
 
@@ -301,10 +305,9 @@ public class MicroTimingLoggerManager
 		{
 			return;
 		}
-		onEvent(
-				MicroTimingContext.create().
-						withWorld(world).withBlockPos(blockAction.getPos()).
-						withEvent(new ScheduleBlockEventEvent(blockAction, success))
+		onEvent(MicroTimingContext.create().
+				withWorld(world).withBlockPos(blockAction.getPos()).
+				withEvent(new ScheduleBlockEventEvent(blockAction, success))
 		);
 	}
 
@@ -320,10 +323,9 @@ public class MicroTimingLoggerManager
 		{
 			return;
 		}
-		onEvent(
-				MicroTimingContext.create().
-						withWorld(world).withBlockPos(pos).
-						withEvent(new EmitBlockUpdateEvent(eventType, block, methodName))
+		onEvent(MicroTimingContext.create().
+				withWorld(world).withBlockPos(pos).
+				withEvent(new EmitBlockUpdateEvent(eventType, block, methodName))
 		);
 	}
 
@@ -333,10 +335,9 @@ public class MicroTimingLoggerManager
 		{
 			return;
 		}
-		onEvent(
-				MicroTimingContext.create().
-						withWorld(world).withBlockPos(pos).
-						withEvent(new EmitBlockUpdateRedstoneDustEvent(eventType, block, methodName, pos, updateOrder))
+		onEvent(MicroTimingContext.create().
+				withWorld(world).withBlockPos(pos).
+				withEvent(new EmitBlockUpdateRedstoneDustEvent(eventType, block, methodName, pos, updateOrder))
 		);
 	}
 

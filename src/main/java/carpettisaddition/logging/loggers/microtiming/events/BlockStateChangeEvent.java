@@ -4,55 +4,69 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
+import com.google.common.collect.Maps;
+import net.minecraft.block.BlockState;
+import net.minecraft.state.property.Property;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.Formatting;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Function;
 
 public class BlockStateChangeEvent extends SetBlockStateEventBase
 {
-	private final Block block;
-	private final List<PropertyChanges> changes = Lists.newArrayList();
+	private final Map<Property<?>, PropertyChange> changes = Maps.newLinkedHashMap();
 
-	public BlockStateChangeEvent(EventType eventType, Block block, Boolean returnValue, int flags)
+	public BlockStateChangeEvent(EventType eventType, BlockState oldBlockState, BlockState newBlockState, Boolean returnValue, int flags)
 	{
-		super(eventType, "block_state_change", block, returnValue, flags);
-		this.block = block;
+		super(eventType, "block_state_change", oldBlockState, newBlockState, returnValue, flags);
 	}
 
-	private BaseText getChangesText(char header, boolean justShowMeDetail)
+	public void setChanges(Collection<PropertyChange> changes)
 	{
-		List<Object> changes = Lists.newArrayList();
-		boolean isFirst = true;
-		for (PropertyChanges change : this.changes)
+		this.changes.clear();
+		changes.forEach(change -> this.changes.put(change.property, change));
+	}
+
+	private BaseText getChangesText(boolean isHover)
+	{
+		Function<@Nullable Property<?>, BaseText> hoverMaker = currentProperty -> {
+			List<BaseText> lines = Lists.newArrayList();
+			lines.add(Messenger.formatting(tr("state_change_details"), Formatting.BOLD));
+			this.oldBlockState.getProperties().stream().
+					map(property -> {
+						BaseText text = Optional.ofNullable(this.changes.get(property)).
+								map(PropertyTexts::change).
+								orElseGet(() -> {
+									Object value = this.oldBlockState.get(property);
+									return PropertyTexts.value(": ", property, value);
+								});
+						if (property.equals(currentProperty))
+						{
+							text.append(Messenger.s("    <---", Formatting.GRAY));
+						}
+						return text;
+					}).
+					forEach(lines::add);
+			return Messenger.join(Messenger.s("\n"), lines.toArray(new BaseText[0]));
+		};
+		if (isHover)
 		{
-			if (!isFirst)
-			{
-				changes.add("w " + header);
-			}
-			isFirst = false;
-			BaseText simpleText = Messenger.c(
-					String.format("w %s", change.name),
-					"g =",
-					MicroTimingUtil.getColoredValue(change.newValue)
-			);
-			BaseText detailText = Messenger.c(
-					String.format("w %s: ", change.name),
-					MicroTimingUtil.getColoredValue(change.oldValue),
-					"g ->",
-					MicroTimingUtil.getColoredValue(change.newValue)
-			);
-			if (justShowMeDetail)
-			{
-				changes.add(detailText);
-			}
-			else
-			{
-				changes.add(Messenger.fancy(null, simpleText, detailText, null));
-			}
+			return hoverMaker.apply(null);
 		}
-		return Messenger.c(changes.toArray(new Object[0]));
+		else
+		{
+			return Messenger.join(
+					Messenger.s(" "),
+					this.changes.values().stream().
+							map(change -> Messenger.hover(
+									PropertyTexts.value("=", change.property, change.newValue),
+									hoverMaker.apply(change.property)
+							)).
+							toArray(BaseText[]::new)
+			);
+		}
 	}
 
 	@Override
@@ -70,14 +84,14 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 			list.add(Messenger.c(
 					titleText,
 					"g : ",
-					this.getChangesText(' ', false)
+					this.getChangesText(false)
 			));
 		}
 		else
 		{
 			list.add(Messenger.fancy(
 					Messenger.c(titleText, Messenger.getSpaceText(), Messenger.formatting(tr("finished"), COLOR_RESULT)),
-					Messenger.c(tr("changed_states"), "w :\n", this.getChangesText('\n', true)),
+					this.getChangesText(true),
 					null
 			));
 		}
@@ -89,19 +103,6 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 		return Messenger.c(list.toArray(new Object[0]));
 	}
 
-	public void addIfChanges(String name, Object oldValue, Object newValue)
-	{
-		if (!oldValue.equals(newValue))
-		{
-			this.changes.add(new PropertyChanges(name, oldValue, newValue));
-		}
-	}
-
-	public boolean hasChanges()
-	{
-		return !this.changes.isEmpty();
-	}
-
 	@Override
 	public boolean equals(Object o)
 	{
@@ -109,24 +110,54 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 		if (o == null || getClass() != o.getClass()) return false;
 		if (!super.equals(o)) return false;
 		BlockStateChangeEvent that = (BlockStateChangeEvent) o;
-		return Objects.equals(block, that.block) && Objects.equals(changes, that.changes);
+		return Objects.equals(changes, that.changes);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(super.hashCode(), block, changes);
+		return Objects.hash(super.hashCode(), changes);
 	}
 
-	public static class PropertyChanges
+	public static class PropertyTexts
 	{
-		public final String name;
+		// xxx${divider}aaa
+		public static BaseText value(String divider, Property<?> property, Object value)
+		{
+			return Messenger.c(
+					Messenger.s(property.getName()),
+					"g " + divider,
+					Messenger.property(property, value)
+			);
+		}
+
+		// xxx: aaa->bbb
+		public static BaseText change(Property<?> property, Object oldValue, Object newValue)
+		{
+			return Messenger.c(
+					Messenger.s(property.getName()),
+					"g : ",
+					Messenger.property(property, oldValue),
+					"g ->",
+					Messenger.property(property, newValue)
+			);
+		}
+
+		public static BaseText change(PropertyChange propertyChange)
+		{
+			return change(propertyChange.property, propertyChange.oldValue, propertyChange.newValue);
+		}
+	}
+
+	public static class PropertyChange
+	{
+		public final Property<?> property;
 		public final Object oldValue;
 		public final Object newValue;
 
-		public PropertyChanges(String name, Object oldValue, Object newValue)
+		public PropertyChange(Property<?> property, Object oldValue, Object newValue)
 		{
-			this.name = name;
+			this.property = property;
 			this.oldValue = oldValue;
 			this.newValue = newValue;
 		}
@@ -135,9 +166,9 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 		public boolean equals(Object o)
 		{
 			if (this == o) return true;
-			if (!(o instanceof PropertyChanges)) return false;
-			PropertyChanges changes = (PropertyChanges) o;
-			return Objects.equals(name, changes.name) &&
+			if (!(o instanceof PropertyChange)) return false;
+			PropertyChange changes = (PropertyChange) o;
+			return Objects.equals(property, changes.property) &&
 					Objects.equals(oldValue, changes.oldValue) &&
 					Objects.equals(newValue, changes.newValue);
 		}
@@ -145,7 +176,7 @@ public class BlockStateChangeEvent extends SetBlockStateEventBase
 		@Override
 		public int hashCode()
 		{
-			return Objects.hash(name, oldValue, newValue);
+			return Objects.hash(property, oldValue, newValue);
 		}
 	}
 }

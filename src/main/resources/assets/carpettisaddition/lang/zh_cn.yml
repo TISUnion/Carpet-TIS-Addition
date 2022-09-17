@@ -142,7 +142,7 @@ carpettisaddition:
             '6': 由活塞引起
         block_state_change:
           state_change: 状态改变
-          changed_states: 变化的状态
+          state_change_details: 方块状态变化详情
           finished: 结束
         block_replace:
           block_replace: 方块替换

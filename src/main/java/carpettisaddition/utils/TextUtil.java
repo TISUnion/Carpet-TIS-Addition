@@ -1,12 +1,19 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.utils.compat.DimensionWrapper;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.command.arguments.BlockArgumentParser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.state.property.Property;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
+/**
+ * Minecraft related stuffs -> String
+ */
 public class TextUtil
 {
 	public static String tp(Vec3d pos) {return String.format("/tp %s %s %s", pos.getX(), pos.getY(), pos.getZ());}
@@ -36,4 +43,20 @@ public class TextUtil
 		return String.format("(%s, %s, %s)", StringUtil.fractionDigit(vec.getX(), digits), StringUtil.fractionDigit(vec.getY(), digits), StringUtil.fractionDigit(vec.getZ(), digits));
 	}
 	public static String vector(Vec3d vec) {return vector(vec, 2);}
+
+	public static String block(Block block)
+	{
+		return IdentifierUtil.id(block).toString();
+	}
+
+	public static String block(BlockState blockState)
+	{
+		return BlockArgumentParser.stringifyBlockState(blockState);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends Comparable<T>> String property(Property<T> property, Object value)
+	{
+		return property.name((T)value);
+	}
 }
