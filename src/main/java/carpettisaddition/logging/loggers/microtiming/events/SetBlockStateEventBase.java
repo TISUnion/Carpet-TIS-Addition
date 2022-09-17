@@ -33,14 +33,14 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 
 	static
 	{
-		SET_BLOCK_STATE_FLAGS.add(FlagData.of(0, false));
-		SET_BLOCK_STATE_FLAGS.add(FlagData.of(1, false));
-		SET_BLOCK_STATE_FLAGS.add(FlagData.of(2, true));
-		SET_BLOCK_STATE_FLAGS.add(FlagData.dummy());
-		SET_BLOCK_STATE_FLAGS.add(FlagData.of(4, true));
-		SET_BLOCK_STATE_FLAGS.add(FlagData.dummy());
-		SET_BLOCK_STATE_FLAGS.add(FlagData.of(6, false));
-		SET_BLOCK_STATE_FLAGS.add(FlagData.dummy());
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(0, false));  // NOTIFY_NEIGHBORS = 1
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(1, false));  // NOTIFY_LISTENERS = 2
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(2, true));   // NO_REDRAW = 4
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(3, false));  // REDRAW_ON_MAIN_THREAD = 8
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(4, true));   // FORCE_STATE = 16
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(5, true));   // SKIP_DROPS = 32
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(6, false));  // MOVED = 64
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(7, true));   // SKIP_LIGHTING_UPDATES = 128
 	}
 
 	protected SetBlockStateEventBase(EventType eventType, String translateKey, BlockState oldBlockState, BlockState newBlockState, @Nullable Boolean returnValue, int flags)

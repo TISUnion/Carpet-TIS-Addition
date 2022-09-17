@@ -138,8 +138,11 @@ carpettisaddition:
             '0': "emits block updates"
             '1': "updates listeners"
             '2': "updates client listeners"
+            '3': "immediately redraws on client"
             '4': "emits state updates"
+            '5': "drops items in block entity"
             '6': "caused by piston"
+            '7': "emits light updates"
         block_state_change:
           state_change: State Change
           state_change_details: Block state changes details

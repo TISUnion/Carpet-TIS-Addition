@@ -138,8 +138,11 @@ carpettisaddition:
             '0': 发出方块更新
             '1': 更新listener
             '2': 更新客户端listener
+            '3': 客户端立即重绘
             '4': 发出状态更新
+            '5': 掉落方块实体中的物品
             '6': 由活塞引起
+            '7': 发出光照更新
         block_state_change:
           state_change: 状态改变
           state_change_details: 方块状态变化详情
