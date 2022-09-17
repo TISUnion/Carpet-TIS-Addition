@@ -950,6 +950,18 @@ Disable turtle egg trampled to broken
 - Categories: `TIS`, `CREATIVE`
 
 
+## undeadDontBurnInSunlight
+
+Prevent undead creatures burning in sunlight
+
+Their helmets will still get damaged in sunlight though
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## visualizeProjectileLoggerEnabled
 
 Enable visualize projectile logger

@@ -550,6 +550,9 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(categories = {TIS, CREATIVE})
+	public static boolean undeadDontBurnInSunlight = false;
+
+	@Rule(categories = {TIS, CREATIVE})
 	public static boolean visualizeProjectileLoggerEnabled = false;
 
 	public static final double VANILLA_VOID_DAMAGE_AMOUNT = 4.0;

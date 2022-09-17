@@ -83,6 +83,7 @@
 - [tooledTNT](rules.md#tooledtnt)
 - [totallyNoBlockUpdate](rules.md#totallynoblockupdate)
 - [turtleEggTrampledDisabled](rules.md#turtleeggtrampleddisabled)
+- [undeadDontBurnInSunlight](rules.md#undeaddontburninsunlight)
 - [visualizeProjectileLoggerEnabled](rules.md#visualizeprojectileloggerenabled)
 - [voidDamageAmount](rules.md#voiddamageamount)
 - [voidDamageIgnorePlayer](rules.md#voiddamageignoreplayer)

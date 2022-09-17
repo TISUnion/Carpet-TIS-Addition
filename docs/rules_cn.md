@@ -950,6 +950,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 亡灵生物别在阳光下着火 (undeadDontBurnInSunlight)
+
+阻止亡灵生物在阳光下着火
+
+不过他们的头盔依然会在阳光下损失耐久
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 可视化投掷物记录器 (visualizeProjectileLoggerEnabled)
 
 启用可视化投掷物记录器

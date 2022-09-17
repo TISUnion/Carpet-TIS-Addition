@@ -882,6 +882,11 @@ carpettisaddition:
       ultraSecretSetting:
         name: ultraSecretSetting
         desc: qOf DSh hwg ORRWHW Cb
+      undeadDontBurnInSunlight:
+        name: undeadDontBurnInSunlight
+        desc: Prevent undead creatures burning in sunlight
+        extra:
+          '0': Their helmets will still get damaged in sunlight though
       visualizeProjectileLoggerEnabled:
         name: visualizeProjectileLoggerEnabled
         desc: Enable visualize projectile logger
