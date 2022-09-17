@@ -1,6 +1,6 @@
 plugins {
     id 'maven-publish'
-    id 'fabric-loom' version '0.12-SNAPSHOT' apply false
+    id 'fabric-loom' version '1.0-SNAPSHOT' apply false
 
     // https://github.com/Juuxel/LoomQuiltflower
     id 'io.github.juuxel.loom-quiltflower' version '1.7.0' apply false

@@ -14,7 +14,7 @@ import carpet.settings.Validator;
 import carpettisaddition.mixins.settings.ParsedRuleAccessor;
 import carpettisaddition.mixins.settings.SettingsManagerAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.lang.annotation.Annotation;
 //#endif
 
