@@ -1,5 +1,7 @@
 carpettisaddition:
   rule:
+    microTimingTarget:
+      deprecate_not_marker_warning: '[Warning] Not marker_only target types are deprecated and will be removed in the future'
     synchronizedLightThread:
       safety_warning:
         '0': "Dangerous combination between rule synchronizedLightThread and rule lightUpdates detected"
@@ -692,14 +694,16 @@ carpettisaddition:
         name: microTiming
         desc: Enable the function of MicroTick logger
         extra:
-          '0': Display redstone components actions, block updates and stacktrace with a wool block
+          '0': Log and display redstone components actions, block updates and stacktrace with dye item
           '1': Use /log microTiming to start logging
           '2': Might impact the server performance when it's on
-          '3': EndRods will detect block updates and redstone components will show their actions
-          '4': '- Observer, Piston, EndRod: pointing towards wool'
-          '5': '- Repeater, Comparator, Rail, Button, etc.: placed on wool'
-          '6': Beside that, a universal block actions logging method is using EndRod on wool block to point on the block you want to log
-          '7': Check rule microTimingTarget to see how to switch logging method
+          '3': See description of rule microTimingDyeMarker for instructions of dye markers
+          '4': '[deprecated] Use wool blocks and end rods to mark blocks that need to be logged'
+          '5': '[deprecated] End rods will detect block updates and redstone components will show their actions'
+          '6': '[deprecated] - Observer, Piston, EndRod: pointing towards wool'
+          '7': '[deprecated] - Repeater, Comparator, Rail, Button, etc.: placed on wool'
+          '8': '[deprecated] Beside that, a universal block actions logging method is using EndRod on wool block to point on the block you want to log'
+          '9': '[deprecated] Check rule microTimingTarget to see how to switch logging method'
       microTimingDyeMarker:
         name: microTimingDyeMarker
         desc: Allow player to right click with dye item to mark a block to be logged by microTiming logger
@@ -714,9 +718,9 @@ carpettisaddition:
         name: microTimingTarget
         desc: Modify the way to specify events to be logged in microTiming logger. Events labelled with dye marker are always logged
         extra:
-          '0': 'labelled: Logs events labelled with wool'
-          '1': 'in_range: Logs events within 32m of any player'
-          '2': 'all: Logs every event. Use with caution'
+          '0': 'labelled: Logs events labelled with wool. Deprecated'
+          '1': 'in_range: Logs events within 32m of any player. Deprecated'
+          '2': 'all: Logs every event. Use with caution. Deprecated'
           '3': 'marker_only: Logs event labelled with dye marker only. Use it with rule microTimingDyeMarker'
       microTimingTickDivision:
         name: microTimingTickDivision

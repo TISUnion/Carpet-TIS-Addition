@@ -65,7 +65,7 @@ public class MicroTimingStandardCarpetLogger extends
 			{
 				if (CarpetTISAdditionSettings.microTimingTarget != MicroTimingTarget.MARKER_ONLY)
 				{
-
+					MicroTimingTarget.deprecatedWarning(player.getCommandSource());
 				}
 			}
 			else

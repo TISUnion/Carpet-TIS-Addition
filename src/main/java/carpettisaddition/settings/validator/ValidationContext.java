@@ -4,6 +4,8 @@ import carpet.settings.ParsedRule;
 import net.minecraft.server.command.ServerCommandSource;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class ValidationContext<T>
 {
 	@Nullable
@@ -28,5 +30,10 @@ public class ValidationContext<T>
 				//#else
 				this.rule.name;
 		//#endif
+	}
+
+	public Optional<ServerCommandSource> optionalSource()
+	{
+		return Optional.ofNullable(this.source);
 	}
 }

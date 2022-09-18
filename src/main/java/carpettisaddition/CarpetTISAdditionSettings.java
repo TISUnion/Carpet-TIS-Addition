@@ -349,8 +349,20 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
-	@Rule(categories = {TIS, CREATIVE})
+	@Rule(categories = {TIS, CREATIVE},  validators = MicroTimingTargetValidator.class)
 	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.MARKER_ONLY;
+
+	public static class MicroTimingTargetValidator extends DefaultValidator<MicroTimingTarget>
+	{
+		@Override
+		public void onValidationSuccess(ValidationContext<MicroTimingTarget> ctx, MicroTimingTarget newValue)
+		{
+			if (newValue != MicroTimingTarget.MARKER_ONLY)
+			{
+				ctx.optionalSource().ifPresent(MicroTimingTarget::deprecatedWarning);
+			}
+		}
+	}
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static TickDivision microTimingTickDivision = TickDivision.WORLD_TIMER;

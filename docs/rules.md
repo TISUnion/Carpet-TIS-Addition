@@ -507,11 +507,17 @@ If set to off, no light update can be scheduled or executed
 
 Enable the function of [MicroTiming logger](#microTiming-1)
 
-Display redstone components actions, block updates and stacktrace with a wool block
+Log and display redstone components actions, block updates and stacktrace with dye item
 
 Use `/log microTiming` to start logging
 
 Might impact the server performance when it's on
+
+See description of rule [microTimingDyeMarker](#microtimingdyemarker) for instructions of dye markers
+
+**Following stuffs are deprecated and will be removed in the future**
+
+Use wool blocks and end rods to mark blocks that need to be logged
 
 EndRods will detect block updates and redstone components will show their actions
 
@@ -558,11 +564,11 @@ You can see boxes at marked blocks with fabric-carpet installed on your client. 
 
 Modify the way to specify events to be logged in microTiming logger. Events labelled with dye marker are always logged
 
-`labelled`: Logs events labelled with wool
+`labelled`: Logs events labelled with wool. **Deprecated**
 
-`in_range`: Logs events within 32m of any player
+`in_range`: Logs events within 32m of any player. **Deprecated**
 
-`all`: Logs every event. **Use with caution**
+`all`: Logs every event. **Use with caution**. **Deprecated**
 
 `marker_only`: Logs event labelled with dye marker only. Use it with rule [microTimingDyeMarker](#microTimingDyeMarker)
 
