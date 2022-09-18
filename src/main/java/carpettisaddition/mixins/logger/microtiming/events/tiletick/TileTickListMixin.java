@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.microtiming.events;
+package carpettisaddition.mixins.logger.microtiming.events.tiletick;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import net.minecraft.server.world.ServerTickScheduler;

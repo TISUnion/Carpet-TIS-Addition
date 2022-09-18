@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.microtiming.events;
+package carpettisaddition.mixins.logger.microtiming.events.blockupdate;
 
 import carpettisaddition.utils.ModIds;
 import carpettisaddition.utils.compat.DummyClass;

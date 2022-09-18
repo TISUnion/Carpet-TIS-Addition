@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.logger.microtiming.events;
+package carpettisaddition.mixins.logger.microtiming.events.blockupdate;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
