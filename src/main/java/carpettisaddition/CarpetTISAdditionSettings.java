@@ -350,7 +350,7 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(categories = {TIS, CREATIVE})
-	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.LABELLED;
+	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.MARKER_ONLY;
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static TickDivision microTimingTickDivision = TickDivision.WORLD_TIMER;

@@ -6,9 +6,11 @@ import carpet.logging.Logger;
 //$$ import carpettisaddition.logging.compat.ExtensionLogger;
 //#endif
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
@@ -59,7 +61,14 @@ public class MicroTimingStandardCarpetLogger extends
 		ServerPlayerEntity player = this.playerFromName(playerName);
 		if (player != null)
 		{
-			if (!MicroTimingLoggerManager.isLoggerActivated())
+			if (MicroTimingLoggerManager.isLoggerActivated())
+			{
+				if (CarpetTISAdditionSettings.microTimingTarget != MicroTimingTarget.MARKER_ONLY)
+				{
+
+				}
+			}
+			else
 			{
 				String command = "/carpet microTiming true";
 				Messenger.tell(

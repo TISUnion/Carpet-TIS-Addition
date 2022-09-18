@@ -567,8 +567,8 @@ Modify the way to specify events to be logged in microTiming logger. Events labe
 `marker_only`: Logs event labelled with dye marker only. Use it with rule [microTimingDyeMarker](#microTimingDyeMarker)
 
 - Type: `enum`
-- Default value: `labelled`
-- Suggested options: `labelled`, `in_range`, `all`
+- Default value: `marker_only`
+- Suggested options: `labelled`, `in_range`, `all`, `marker_only`
 - Categories: `TIS`, `CREATIVE`
 
 
