@@ -44,19 +44,22 @@ public abstract class ItemStorageMixin
 				DoubleInventoryAccessor accessor = (DoubleInventoryAccessor)largeBarrelInventory;
 				Object[] ret = new Object[]{null};
 
-				ReflectionUtil.invoker("net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage", "of").
-						ifPresent(invoker -> {
-							Object first = invoker.apply(null, new Object[]{accessor.getFirst(), direction});
-							Object second = invoker.apply(null, new Object[]{accessor.getSecond(), direction});
+				try
+				{
+					ReflectionUtil.invoker("net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage", "of").
+							ifPresent(invoker -> {
+								Object first = invoker.apply(null, new Object[]{accessor.getFirst(), direction});
+								Object second = invoker.apply(null, new Object[]{accessor.getSecond(), direction});
 
-							if (ReflectionUtil.invokeNormally(first, second))
-							{
+
 								ret[0] = ReflectionUtil.constructor("net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage", List.class).
 										map(ctr -> ctr.apply(new Object[]{Lists.newArrayList(first, second)})).
-										filter(ReflectionUtil::invokeNormally).
 										orElse(null);
-							}
-						});
+							});
+				}
+				catch (ReflectionUtil.InvocationException ignored)
+				{
+				}
 
 				if (ret[0] != null)
 				{

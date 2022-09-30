@@ -494,6 +494,9 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
+	@Rule(categories = {TIS, CLIENT})
+	public static boolean syncServerMsptMetricsData = false;
+
 	@Rule(
 			options = {"1024", "65536", "2147483647"},
 			validators = Validators.PositiveNumber.class,

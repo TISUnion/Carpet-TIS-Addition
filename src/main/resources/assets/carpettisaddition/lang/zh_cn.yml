@@ -850,6 +850,9 @@ carpettisaddition:
           '0': 这样光照线程就不会于落后主线程而失去同步
           '1': 服务器将会在每个世界开始运算时等待光照线程的任务完成
           '2': 你可以借此安全地 /tick warp 而不用担心潜在的光照抑制或光照不同步
+      syncServerMsptMetricsData:
+        name: syncServerMsptMetricsData
+        desc: www
       tileTickLimit:
         name: 计划刻上限
         desc: 修改每游戏刻中计划刻事件的执行次数上限

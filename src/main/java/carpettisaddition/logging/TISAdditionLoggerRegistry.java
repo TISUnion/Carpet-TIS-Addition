@@ -10,7 +10,7 @@ import carpet.logging.LoggerRegistry;
 
 import carpet.logging.HUDLogger;
 import carpet.logging.Logger;
-import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
@@ -95,7 +95,7 @@ public class TISAdditionLoggerRegistry
 		}
 		catch (NoSuchFieldException e)
 		{
-			throw new RuntimeException(String.format("Failed to get logger field \"%s\" @ %s", logName, CarpetTISAdditionServer.fancyName));
+			throw new RuntimeException(String.format("Failed to get logger field \"%s\" @ %s", logName, CarpetTISAdditionMod.MOD_NAME));
 		}
 	}
 

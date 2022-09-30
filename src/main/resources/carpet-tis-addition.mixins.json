@@ -217,6 +217,10 @@
     "logger.turtleegg.TurtleEggBlockMixin",
     "logger.xporb.ExperienceOrbEntityAccessor",
     "logger.xporb.ExperienceOrbEntityMixin",
+    "network.CustomPayloadC2SPacketAccessor",
+    "network.CustomPayloadS2CPacketAccessor",
+    "network.ServerPlayNetworkHandlerAccessor",
+    "network.ServerPlayNetworkHandlerMixin",
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
@@ -309,6 +313,7 @@
     "rule.synchronizedLightThread.ServerLightingProviderAccessor",
     "rule.synchronizedLightThread.ServerWorldMixin",
     "rule.synchronizedLightThread.TaskExecutorAccessor",
+    "rule.syncServerMsptMetricsData.MinecraftServerMixin",
     "rule.tileTickLimit.ServerTickSchedulerMixin",
     "rule.tileTickLimit.ServerWorldMixin",
     "rule.tileTickLimit.compat.lithium.LithiumServerTickSchedulerMixin",
@@ -357,7 +362,11 @@
   "client": [
     "carpet.events.onServerLoadedWorlds.IntegratedServerMixin",
     "carpet.shape.texthack.ShapesRendererRenderedTextMixin",
-    "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin"
+    "core.MinecraftClientMixin",
+    "network.ClientPlayNetworkHandlerAccessor",
+    "network.ClientPlayNetworkHandlerMixin",
+    "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin",
+    "rule.syncServerMsptMetricsData.DebugHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

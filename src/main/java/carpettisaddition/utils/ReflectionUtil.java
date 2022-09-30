@@ -1,6 +1,7 @@
 package carpettisaddition.utils;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -9,18 +10,12 @@ import java.util.function.Predicate;
 
 public class ReflectionUtil
 {
-	private static final Object INVOKE_FAILURE = new Object();
-
-	public static boolean invokeNormally(Object... returnValues)
+	public static class InvocationException extends RuntimeException
 	{
-		for (Object returnValue : returnValues)
+		public InvocationException(Throwable cause)
 		{
-			if (returnValue == INVOKE_FAILURE)
-			{
-				return false;
-			}
+			super(cause);
 		}
-		return true;
 	}
 
 	public static Optional<Class<?>> getClass(String className)
@@ -35,6 +30,21 @@ public class ReflectionUtil
 		}
 	}
 
+	public static BiFunction<Object, Object[], Object> invoker(Method method)
+	{
+		method.setAccessible(true);
+		return (obj, args) -> {
+			try
+			{
+				return method.invoke(obj, args);
+			}
+			catch (InvocationTargetException | IllegalAccessException e)
+			{
+				throw new InvocationException(e);
+			}
+		};
+	}
+
 	public static Optional<BiFunction<Object, Object[], Object>> invoker(String className, String methodName, Predicate<Method> methodPredicate)
 	{
 		return getClass(className).map(clazz -> {
@@ -42,17 +52,7 @@ public class ReflectionUtil
 			{
 				if (method.getName().equals(methodName) && methodPredicate.test(method))
 				{
-					method.setAccessible(true);
-					return (obj, args) -> {
-						try
-						{
-							return method.invoke(obj, args);
-						}
-						catch (Exception e)
-						{
-							return INVOKE_FAILURE;
-						}
-					};
+					return invoker(method);
 				}
 			}
 			return null;
@@ -82,9 +82,9 @@ public class ReflectionUtil
 				{
 					return constructor.newInstance(args);
 				}
-				catch (Exception e)
+				catch (InvocationTargetException | InstantiationException | IllegalAccessException e)
 				{
-					return INVOKE_FAILURE;
+					return new InvocationException(e);
 				}
 			};
 		});

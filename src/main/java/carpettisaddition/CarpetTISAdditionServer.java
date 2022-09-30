@@ -18,9 +18,9 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
+import carpettisaddition.settings.CarpetRuleRegistrar;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
-import carpettisaddition.settings.CarpetRuleRegistrar;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
@@ -45,16 +45,14 @@ import java.util.Map;
 public class CarpetTISAdditionServer implements CarpetExtension
 {
 	private static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
-	public static final String name = CarpetTISAdditionMod.getModId();
-	public static final String fancyName = "Carpet TIS Addition";
-	public static final String compactName = name.replace("-","");  // carpettisaddition
-	public static final Logger LOGGER = LogManager.getLogger(fancyName);
+	public static final String compactName = CarpetTISAdditionMod.MOD_ID.replace("-","");  // carpettisaddition
+	public static final Logger LOGGER = LogManager.getLogger(CarpetTISAdditionMod.MOD_NAME);
 	public static MinecraftServer minecraft_server;
 
 	@Override
 	public String version()
 	{
-		return name;
+		return CarpetTISAdditionMod.MOD_ID;
 	}
 
 	public static CarpetTISAdditionServer getInstance()

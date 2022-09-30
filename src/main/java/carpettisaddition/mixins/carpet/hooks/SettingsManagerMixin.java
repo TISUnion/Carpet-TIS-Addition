@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static carpettisaddition.CarpetTISAdditionServer.fancyName;
+import static carpettisaddition.CarpetTISAdditionMod.MOD_NAME;
 
 @Mixin(SettingsManager.class)
 public class SettingsManagerMixin
@@ -54,7 +54,7 @@ public class SettingsManagerMixin
 		Messenger.tell(
 				source,
 				Messenger.c(
-						String.format("g %s ", fancyName),
+						String.format("g %s ", MOD_NAME),
 						String.format("g %s: ", Translations.tr("ui.version",  "version")),
 						String.format("g %s", CarpetTISAdditionMod.getVersion())
 				)

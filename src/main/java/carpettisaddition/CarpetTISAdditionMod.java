@@ -6,7 +6,8 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public class CarpetTISAdditionMod implements ModInitializer
 {
-	private static final String MOD_ID = "carpet-tis-addition";
+	public static final String MOD_ID = "carpet-tis-addition";
+	public static final String MOD_NAME = "Carpet TIS Addition";
 	private static String version;
 
 	@Override
@@ -16,11 +17,6 @@ public class CarpetTISAdditionMod implements ModInitializer
 
 		CarpetTISAdditionServer.init();
 		AutoMixinAuditExecutor.run();
-	}
-
-	public static String getModId()
-	{
-		return MOD_ID;
 	}
 
 	public static String getVersion()

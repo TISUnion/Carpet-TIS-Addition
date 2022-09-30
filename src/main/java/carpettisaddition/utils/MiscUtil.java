@@ -13,4 +13,12 @@ public class MiscUtil
 		thread.start();
 		return thread;
 	}
+
+	public static void assertTrue(boolean value)
+	{
+		if (!value)
+		{
+			throw new IllegalStateException("Assertion failed");
+		}
+	}
 }
