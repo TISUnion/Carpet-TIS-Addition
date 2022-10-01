@@ -107,7 +107,7 @@ public class TISCMClientPacketHandler
 	{
 		String platformName = ctx.buf.readString();
 		String platformVersion = ctx.buf.readString();
-		LOGGER.info("Serverside TISCM protocol supported with platform {} @ {} detected", platformName, platformVersion);
+		LOGGER.info("Serverside TISCM protocol supported with platform {} @ {}", platformName, platformVersion);
 
 		List<String> ids = Lists.newArrayList(TISCMProtocol.S2C.ID_MAP.keySet());
 		ctx.send(TISCMProtocol.C2S.SUPPORTED_S2C_PACKETS, buf -> buf.
