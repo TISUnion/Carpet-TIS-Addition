@@ -11,14 +11,16 @@ public class ValidationContext<T>
 	@Nullable
 	public final ServerCommandSource source;
 	public final ParsedRule<T> rule;
-	public final T value;
+	public final T oldValue;
+	public final T inputValue;
 	public final String valueString;
 
-	public ValidationContext(@Nullable ServerCommandSource source, ParsedRule<T> rule, T value, String valueString)
+	public ValidationContext(@Nullable ServerCommandSource source, ParsedRule<T> rule, T inputValue, String valueString)
 	{
 		this.source = source;
 		this.rule = rule;
-		this.value = value;
+		this.oldValue = rule.get();
+		this.inputValue = inputValue;
 		this.valueString = valueString;
 	}
 

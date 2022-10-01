@@ -6,6 +6,7 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractValidator<T> extends Validator<T>
@@ -19,19 +20,23 @@ public abstract class AbstractValidator<T> extends Validator<T>
 
 	@Deprecated
 	@Override
-	public final T validate(ServerCommandSource source, ParsedRule<T> currentRule, T newValue, String string)
+	public final T validate(ServerCommandSource source, ParsedRule<T> currentRule, T inputValue, String string)
 	{
-		ValidationContext<T> ctx = new ValidationContext<>(source, currentRule, newValue, string);
-		T ret = this.validate(ctx);
-		if (ret != null)
+		ValidationContext<T> ctx = new ValidationContext<>(source, currentRule, inputValue, string);
+		T newValue = this.validate(ctx);
+		if (newValue != null)
 		{
-			this.onValidationSuccess(ctx, ret);
+			this.onRuleSet(ctx, newValue);
+			if (ctx.oldValue != newValue)
+			{
+				this.onRuleChanged(ctx, newValue);
+			}
 		}
 		else
 		{
 			this.onValidationFailure(ctx);
 		}
-		return ret;
+		return newValue;
 	}
 
 	@Deprecated
@@ -41,7 +46,11 @@ public abstract class AbstractValidator<T> extends Validator<T>
 		return null;
 	}
 
-	public void onValidationSuccess(ValidationContext<T> ctx, T newValue)
+	public void onRuleSet(ValidationContext<T> ctx, T newValue)
+	{
+	}
+
+	public void onRuleChanged(ValidationContext<T> ctx, T newValue)
 	{
 	}
 
@@ -49,7 +58,7 @@ public abstract class AbstractValidator<T> extends Validator<T>
 	{
 		Messenger.tell(
 				ctx.source,
-				Messenger.formatting(tr("basic.failure", ctx.ruleName(), ctx.value), "r"),
+				Messenger.formatting(tr("basic.failure", ctx.ruleName(), ctx.inputValue), "r"),
 				true
 		);
 

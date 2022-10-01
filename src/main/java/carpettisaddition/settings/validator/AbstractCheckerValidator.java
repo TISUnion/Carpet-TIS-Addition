@@ -10,13 +10,13 @@ public abstract class AbstractCheckerValidator<T> extends AbstractValidator<T>
 		boolean result;
 		try
 		{
-			result = this.validateValue(ctx.value);
+			result = this.validateValue(ctx.inputValue);
 		}
 		catch (UnsupportedOperationException e)
 		{
 			result = this.validateContext(ctx);
 		}
-		return result ? ctx.value : null;
+		return result ? ctx.inputValue : null;
 	}
 
 	// Implement one of the following methods

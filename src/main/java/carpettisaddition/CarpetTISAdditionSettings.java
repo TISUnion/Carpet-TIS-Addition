@@ -1,20 +1,18 @@
 package carpettisaddition;
 
-//#if MC < 11600
-import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
-//#endif
-
 import carpet.settings.ParsedRule;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
+import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingRuleListener;
 import carpettisaddition.settings.Rule;
 import carpettisaddition.settings.validator.*;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.text.BaseText;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -23,6 +21,14 @@ import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import static carpet.settings.RuleCategory.*;
+
+//#if MC >= 11900
+//$$ import carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced.InstantBlockUpdaterReintroducedRuleListener;
+//#endif
+
+//#if MC < 11600
+import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
+//#endif
 
 public class CarpetTISAdditionSettings
 {
@@ -172,14 +178,14 @@ public class CarpetTISAdditionSettings
 		@Override
 		protected boolean validateContext(ValidationContext<String> ctx)
 		{
-			if (!ctx.value.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", ctx.value) && ctx.source != null)
+			if (!ctx.inputValue.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", ctx.inputValue) && ctx.source != null)
 			{
 				Consumer<BaseText> messenger = msg -> Messenger.tell(ctx.source, Messenger.s(msg.getString(), "r"));
-				messenger.accept(tr("fake_player_name_extra.warn.found", ctx.value, ctx.ruleName()));
-				if (!Objects.equals(this.lastDangerousInput.get(ctx.rule), ctx.value))
+				messenger.accept(tr("fake_player_name_extra.warn.found", ctx.inputValue, ctx.ruleName()));
+				if (!Objects.equals(this.lastDangerousInput.get(ctx.rule), ctx.inputValue))
 				{
 					messenger.accept(tr("fake_player_name_extra.warn.blocked"));
-					this.lastDangerousInput.put(ctx.rule, ctx.value);
+					this.lastDangerousInput.put(ctx.rule, ctx.inputValue);
 					return false;
 				}
 				messenger.accept(tr("fake_player_name_extra.warn.applied"));
@@ -225,6 +231,11 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
+	//#if MC >= 11900
+	//$$ @Rule(categories = {TIS, CREATIVE}, validators = InstantBlockUpdaterReintroducedRuleListener.class)
+	//$$ public static boolean instantBlockUpdaterReintroduced = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean instantCommandBlock = false;
 
@@ -255,7 +266,7 @@ public class CarpetTISAdditionSettings
 	public static class LightBatchValidator extends Validators.PositiveNumber<Integer>
 	{
 		@Override
-		public void onValidationSuccess(ValidationContext<Integer> ctx, Integer newValue)
+		public void onRuleSet(ValidationContext<Integer> ctx, @NotNull Integer newValue)
 		{
 			LightBatchSizeChanger.setSize(newValue);
 		}
@@ -281,7 +292,7 @@ public class CarpetTISAdditionSettings
 		@Override
 		protected boolean validateContext(ValidationContext<LightUpdateOptions> ctx)
 		{
-			return LightThreadSynchronizer.checkRuleSafety(ctx.source, synchronizedLightThread, ctx.value);
+			return LightThreadSynchronizer.checkRuleSafety(ctx.source, synchronizedLightThread, ctx.inputValue);
 		}
 	}
 
@@ -325,7 +336,7 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
-	@Rule(categories = {TIS, CREATIVE})
+	@Rule(categories = {TIS, CREATIVE}, validators = MicroTimingRuleListener.class)
 	public static boolean microTiming = false;
 
 	@Rule(
@@ -340,7 +351,7 @@ public class CarpetTISAdditionSettings
 		@Override
 		protected @Nullable String validate(ValidationContext<String> ctx)
 		{
-			if ("clear".equals(ctx.value))
+			if ("clear".equals(ctx.inputValue))
 			{
 				MicroTimingMarkerManager.getInstance().clear();
 				if (ctx.source != null)
@@ -349,17 +360,17 @@ public class CarpetTISAdditionSettings
 				}
 				return ctx.rule.get();
 			}
-			return ctx.value;
+			return ctx.inputValue;
 		}
 	}
 
 	@Rule(categories = {TIS, CREATIVE},  validators = MicroTimingTargetValidator.class)
 	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.MARKER_ONLY;
 
-	public static class MicroTimingTargetValidator extends DefaultValidator<MicroTimingTarget>
+	public static class MicroTimingTargetValidator extends RuleChangeListener<MicroTimingTarget>
 	{
 		@Override
-		public void onValidationSuccess(ValidationContext<MicroTimingTarget> ctx, MicroTimingTarget newValue)
+		public void onRuleSet(ValidationContext<MicroTimingTarget> ctx, @NotNull MicroTimingTarget newValue)
 		{
 			if (newValue != MicroTimingTarget.MARKER_ONLY)
 			{
@@ -489,7 +500,7 @@ public class CarpetTISAdditionSettings
 		@Override
 		protected boolean validateContext(ValidationContext<Boolean> ctx)
 		{
-			return LightThreadSynchronizer.checkRuleSafety(ctx.source, ctx.value, lightUpdates);
+			return LightThreadSynchronizer.checkRuleSafety(ctx.source, ctx.inputValue, lightUpdates);
 		}
 	}
 
@@ -554,12 +565,12 @@ public class CarpetTISAdditionSettings
 		@Override
 		protected @Nullable String validate(ValidationContext<String> ctx)
 		{
-			if (ctx.value.equals("mixin_audit"))
+			if (ctx.inputValue.equals("mixin_audit"))
 			{
 				MixinUtil.audit(ctx.source);
 				return ctx.rule.get();
 			}
-			return ctx.value;
+			return ctx.inputValue;
 		}
 	}
 

@@ -20,7 +20,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -30,6 +29,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+//#if MC >= 11900
+//$$ import carpettisaddition.mixins.logger.microtiming.utils.WorldAccessor;
+//$$ import net.minecraft.world.block.SimpleNeighborUpdater;
+//#endif
 
 //#if MC >= 11800
 //$$ import carpettisaddition.mixins.logger.microtiming.tickstages.ServerWorldAccessor;
@@ -127,6 +131,15 @@ public class MicroTimingUtil
 				//#else
 				world.getChunkManager().shouldTickBlock(pos);
 				//#endif
+	}
+
+	public static boolean isBlockUpdateInstant(World world)
+	{
+		//#if MC >= 11900
+		//$$ return ((WorldAccessor)world).getNeighborUpdater$TISCM() instanceof SimpleNeighborUpdater;
+		//#else
+		return true;
+		//#endif
 	}
 
 	private static Optional<DyeColor> getWoolColor(World world, BlockPos pos)

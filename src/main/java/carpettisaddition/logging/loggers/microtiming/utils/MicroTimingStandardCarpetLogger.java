@@ -15,7 +15,9 @@ import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerMan
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.util.Formatting;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

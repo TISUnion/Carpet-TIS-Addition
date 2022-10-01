@@ -11,6 +11,8 @@ import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.commands.refresh.RefreshCommand;
 import carpettisaddition.commands.removeentity.RemoveEntityCommand;
 import carpettisaddition.commands.scounter.SupplierCounterCommand;
+import carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced.InstantBlockUpdaterChanger;
+import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
@@ -100,9 +102,11 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	public void onServerLoadedWorlds$TISCM(MinecraftServer server)
 	{
 		MicroTimingLoggerManager.attachServer(server);
-		LifeTimeTracker.attachServer(server);
-		LightQueueHUDLogger.getInstance().attachServer(server);
 		MicroTimingMarkerManager.getInstance().clear();
+		InstantBlockUpdaterChanger.apply();
+		LifeTimeTracker.attachServer(server);
+		LightBatchSizeChanger.apply();
+		LightQueueHUDLogger.getInstance().attachServer(server);
 	}
 
 	@Override

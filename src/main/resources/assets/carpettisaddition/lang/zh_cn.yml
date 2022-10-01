@@ -189,6 +189,11 @@ carpettisaddition:
       carpet_logger:
         rule_hint: 使用%1$s指令来启动记录器
         click_to_execute: 点击以执行
+      rule_listener:
+        instant_block_updater_promote: |-
+          貌似世界中的方块更新逻辑不是瞬时类型，这可能会导致涉及到方块更新的日志难以阅读
+          你可以开启规则%1$s来启用1.19-的瞬时方块更新逻辑
+        click_to_see_rule: 点击以查看规则
       marker:
         on_mark: '已§a添加§r微时序记号: %1$s'
         on_unmark: '已§c移除§r微时序记号: %1$s'
@@ -647,6 +652,12 @@ carpettisaddition:
         desc: 令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行
         extra:
           '0': 仅影响普通命令方块
+      instantBlockUpdaterReintroduced:
+        name: 启用瞬时方块更新逻辑
+        desc: Bring back 1.19- instant block update behavior
+        extra:
+          '0': With that 1.19- update suppression is doable again
+          '1': It also provides a better logging results with more clear logic for microTiming logger
       itemEntitySkipMovementDisabled:
         name: 禁用物品实体跳过移动运算
         desc: 移除物品实体跳过移动运算的机制
