@@ -118,7 +118,7 @@ public class TISCMServerPacketHandler
 	public void handleSupportPackets(HandlerContext.C2S ctx)
 	{
 		List<String> ids = NbtUtil.nbt2StringList(Objects.requireNonNull(ctx.buf.readCompoundTag()));
-		LOGGER.info("Player {} clientside supported TISCM S2C packet ids: {}", ctx.playerName, ids);
+		LOGGER.debug("Player {} clientside supported TISCM S2C packet ids: {}", ctx.playerName, ids);
 		Set<TISCMProtocol.S2C> packetIds = ids.stream().
 				map(TISCMProtocol.S2C::fromId).
 				filter(Optional::isPresent).
@@ -131,7 +131,7 @@ public class TISCMServerPacketHandler
 	public void handleMsptMetricsSubscribe(HandlerContext.C2S ctx)
 	{
 		boolean	subscribe = ctx.buf.readBoolean();
-		LOGGER.info("{} MSPT_METRICS_SUBSCRIBE {}", ctx.playerName, subscribe);
+		LOGGER.debug("{} MSPT_METRICS_SUBSCRIBE {}", ctx.playerName, subscribe);
 		Consumer<ServerPlayNetworkHandler> consumer = subscribe ?
 				ServerMsptMetricsDataSyncer.getInstance()::addClient :
 				ServerMsptMetricsDataSyncer.getInstance()::removeClient;

@@ -362,7 +362,8 @@
   "client": [
     "carpet.events.onServerLoadedWorlds.IntegratedServerMixin",
     "carpet.shape.texthack.ShapesRendererRenderedTextMixin",
-    "core.MinecraftClientMixin",
+    "core.client.MinecraftClientGameMixin",
+    "core.client.MinecraftClientMixin",
     "network.ClientPlayNetworkHandlerAccessor",
     "network.ClientPlayNetworkHandlerMixin",
     "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin",

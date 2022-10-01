@@ -119,7 +119,7 @@ public class TISCMClientPacketHandler
 	public void handleSupportPackets(HandlerContext.S2C ctx)
 	{
 		List<String> ids = NbtUtil.nbt2StringList(Objects.requireNonNull(ctx.buf.readCompoundTag()));
-		LOGGER.info("Serverside supported TISCM C2S packet ids: {}", ids);
+		LOGGER.debug("Serverside supported TISCM C2S packet ids: {}", ids);
 		ctx.runSynced(() -> {
 			for (String id : ids)
 			{

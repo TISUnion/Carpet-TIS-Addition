@@ -19,4 +19,9 @@ public class CarpetTISAdditionClient
 	{
 		ServerMsptMetricsDataStorage.getInstance().clientTick();
 	}
+
+	public void onClientDisconnected(MinecraftClient client)
+	{
+		ServerMsptMetricsDataStorage.getInstance().reset();
+	}
 }

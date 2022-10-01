@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.core;
+package carpettisaddition.mixins.core.client;
 
 import carpettisaddition.CarpetTISAdditionClient;
 import net.minecraft.client.MinecraftClient;

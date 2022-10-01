@@ -13,7 +13,7 @@ public class ServerMsptMetricsDataStorage
 {
 	private static final ServerMsptMetricsDataStorage INSTANCE = new ServerMsptMetricsDataStorage();
 
-	private final MetricsData metricsData;
+	private MetricsData metricsData;
 	private boolean prevDebugTpsEnabled;
 
 	private ServerMsptMetricsDataStorage()
@@ -35,6 +35,11 @@ public class ServerMsptMetricsDataStorage
 	public MetricsData getMetricsData()
 	{
 		return this.metricsData;
+	}
+
+	public void reset()
+	{
+		this.metricsData = new MetricsData();
 	}
 
 	public boolean isEnabled()

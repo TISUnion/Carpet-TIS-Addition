@@ -25,7 +25,8 @@ public class TISCMProtocol
 	{
 		HI(true),
 		SUPPORTED_S2C_PACKETS(true),
-		MSPT_METRICS_SUBSCRIBE,
+
+		MSPT_METRICS_SUBSCRIBE,  // syncServerMsptMetricsData
 		;
 
 		public static final Map<String, C2S> ID_MAP = createIdMap(values());
@@ -58,7 +59,8 @@ public class TISCMProtocol
 	{
 		HELLO(true),
 		SUPPORTED_C2S_PACKETS(true),
-		MSPT_METRICS_SAMPLE,
+
+		MSPT_METRICS_SAMPLE,  // syncServerMsptMetricsData
 		;
 
 		public static final Map<String, S2C> ID_MAP = createIdMap(values());
