@@ -76,6 +76,7 @@
 - [structureBlockDoNotPreserveFluid](rules.md#structureblockdonotpreservefluid)
 - [structureBlockLimit](rules.md#structureblocklimit)
 - [synchronizedLightThread](rules.md#synchronizedlightthread)
+- [syncServerMsptMetricsData](rules.md#syncservermsptmetricsdata)
 - [tileTickLimit](rules.md#tileticklimit)
 - [tntDupingFix](rules.md#tntdupingfix)
 - [tntFuseDuration](rules.md#tntfuseduration)

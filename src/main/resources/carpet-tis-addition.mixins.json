@@ -165,7 +165,6 @@
     "logger.microtiming.events.blockupdate.ChainRestrictedNeighborUpdaterMixins$StateReplacementEntryMixin",
     "logger.microtiming.events.blockupdate.WorldMixin",
     "logger.microtiming.events.compat.lithium.LithiumTileTickListMixin",
-    "logger.microtiming.events.tiletick.ChunkTickSchedulerAccessor",
     "logger.microtiming.events.tiletick.ServerWorldMixin",
     "logger.microtiming.events.tiletick.TileTickListMixin",
     "logger.microtiming.hooks.ServerTickSchedulerMixin",

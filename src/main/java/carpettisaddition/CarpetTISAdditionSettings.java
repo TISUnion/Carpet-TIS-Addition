@@ -29,6 +29,10 @@ public class CarpetTISAdditionSettings
 	public static final String TIS = "TIS";
 	public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space, or you can't /carpet list this
 
+	//#if MC < 11500
+	//$$ private static final String CLIENT = "client";
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE, SURVIVAL})
 	public static boolean antiSpamDisabled = false;
 
@@ -467,12 +471,7 @@ public class CarpetTISAdditionSettings
 	//#if MC < 11600
 	@Rule(
 			options = {"96", "192", "2048"},
-			categories = {
-					CREATIVE,
-					//#if MC >= 11500
-					CLIENT,
-					//#endif
-			},
+			categories = {CREATIVE, CLIENT},
 			strict = false,
 			validators = Validators.NonNegativeNumber.class
 	)

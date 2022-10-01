@@ -870,6 +870,18 @@
 - 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
+## 同步服务端mspt指标数据 (syncServerMsptMetricsData)
+
+向客户端同步服务端的 mspt 指标数据，借此，玩家可使用 F3 + ALT 在调试界面中看到这一服务端的指标
+
+需要在客户端中安装 Carpet TIS Addition 模组
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CLIENT`
+
+
 ## 计划刻上限 (tileTickLimit)
 
 修改每游戏刻中计划刻事件的执行次数上限

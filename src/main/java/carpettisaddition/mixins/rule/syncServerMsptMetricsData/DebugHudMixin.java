@@ -12,10 +12,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+//#if MC >= 11600
+//$$ import net.minecraft.client.util.math.MatrixStack;
+//#endif
+
 @Mixin(DebugHud.class)
 public abstract class DebugHudMixin
 {
-	@Shadow protected abstract void drawMetricsData(MetricsData metricsData, int startY, int firstSample, boolean isClient);
+	@Shadow protected abstract void drawMetricsData(
+			//#if MC >= 11600
+			//$$ MatrixStack matrixStack,
+			//#endif
+			MetricsData metricsData, int startY, int firstSample, boolean isClient
+	);
 
 	@Inject(
 			method = "render",
@@ -26,19 +35,28 @@ public abstract class DebugHudMixin
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void syncServerMsptMetricsData_drawIfPossible(CallbackInfo ci, Entity entity, int i, IntegratedServer integratedServer)
+	private void syncServerMsptMetricsData_drawIfPossible(
+			//#if MC >= 11600
+			//$$ MatrixStack matrixStack,
+			//#endif
+			CallbackInfo ci,
+			Entity entity, int i, IntegratedServer integratedServer
+	)
 	{
 		if (integratedServer == null)
 		{
 			if (ServerMsptMetricsDataStorage.getInstance().isEnabled())
 			{
 				MetricsData metricsData = ServerMsptMetricsDataStorage.getInstance().getMetricsData();
+
 				// vanilla copy
-				this.drawMetricsData(metricsData, i - Math.min(i / 2, 240), i / 2, false);
+				this.drawMetricsData(
+						//#if MC >= 11600
+						//$$ matrixStack,
+						//#endif
+						metricsData, i - Math.min(i / 2, 240), i / 2, false
+				);
 			}
-
-
-			// TODO: modify text -> TPS (server)
 		}
 	}
 }

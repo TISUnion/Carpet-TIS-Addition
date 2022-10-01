@@ -852,7 +852,9 @@ carpettisaddition:
           '2': With this rule you can safely /tick warp without potential light suppression or lighting desynchronization
       syncServerMsptMetricsData:
         name: syncServerMsptMetricsData
-        desc: www
+        desc: Sync server's mspt metrics data to the client, so players can see that in the debug screen with F3 + ALT
+        extra:
+          '0': Carpet TIS Addition is required to be installed on the client
       tileTickLimit:
         name: tileTickLimit
         desc: Modify the limit of executed tile tick events per game tick

@@ -76,6 +76,7 @@
 - [结构方块不保留流体](rules_cn.md#结构方块不保留流体-structureblockdonotpreservefluid)
 - [结构方块范围限制](rules_cn.md#结构方块范围限制-structureblocklimit)
 - [同步光照线程](rules_cn.md#同步光照线程-synchronizedlightthread)
+- [同步服务端mspt指标数据](rules_cn.md#同步服务端mspt指标数据-syncservermsptmetricsdata)
 - [计划刻上限](rules_cn.md#计划刻上限-tileticklimit)
 - [TNT复制修复](rules_cn.md#TNT复制修复-tntdupingfix)
 - [TNT引信时长](rules_cn.md#TNT引信时长-tntfuseduration)

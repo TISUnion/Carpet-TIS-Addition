@@ -870,6 +870,18 @@ With this rule you can safely `/tick warp` without potential light suppression o
 - Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
+## syncServerMsptMetricsData
+
+Sync server's mspt metrics data to the client, so players can see that in the debug screen with F3 + ALT
+
+Carpet TIS Addition is required to be installed on the client
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CLIENT`
+
+
 ## tileTickLimit
 
 Modify the limit of executed tile tick events per game tick

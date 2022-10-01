@@ -58,6 +58,11 @@ loom {
 			vmArgs '-Dcarpettisaddition.mixin_audit=true'
 			ideConfigGenerated false
 		}
+		mixinAuditClient {
+			client()
+			vmArgs '-Dcarpettisaddition.mixin_audit=true'
+			ideConfigGenerated false
+		}
 	}
 }
 
