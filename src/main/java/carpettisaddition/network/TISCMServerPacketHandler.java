@@ -3,20 +3,14 @@ package carpettisaddition.network;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
 import carpettisaddition.utils.NbtUtil;
-import carpettisaddition.utils.ReflectionUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.util.PacketByteBuf;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
-import static carpettisaddition.utils.MiscUtil.assertTrue;
 
 public class TISCMServerPacketHandler
 {
@@ -28,13 +22,9 @@ public class TISCMServerPacketHandler
 
 	private TISCMServerPacketHandler()
 	{
-		Arrays.asList(this.getClass().getDeclaredMethods()).forEach(method ->
-				Optional.ofNullable(method.getAnnotation(Handler.class)).ifPresent(a -> {
-					BiFunction<Object, Object[], Object> invoker = ReflectionUtil.invoker(method);
-					assertTrue( method.getParameterCount() == 1 && method.getParameters()[0].getType() == HandlerContext.C2S.class);
-					this.handlers.put(a.value(), ctx -> invoker.apply(this, new Object[]{ctx}));
-				})
-		);
+		this.handlers.put(TISCMProtocol.C2S.HI, this::handleHi);
+		this.handlers.put(TISCMProtocol.C2S.SUPPORTED_S2C_PACKETS, this::handleSupportPackets);
+		this.handlers.put(TISCMProtocol.C2S.MSPT_METRICS_SUBSCRIBE, this::handleMsptMetricsSubscribe);
 		if (this.handlers.size() < TISCMProtocol.C2S.ID_MAP.size())
 		{
 			throw new RuntimeException("TISCMServerPacketDispatcher doesn't handle all C2S packets");
@@ -90,13 +80,6 @@ public class TISCMServerPacketHandler
 	 * -------------------------
 	 */
 
-	@Retention(RetentionPolicy.RUNTIME)
-	private @interface Handler
-	{
-		TISCMProtocol.C2S value();
-	}
-
-	@Handler(TISCMProtocol.C2S.HI)
 	public void handleHi(HandlerContext.C2S ctx)
 	{
 		String platformName = ctx.buf.readString(Short.MAX_VALUE);
@@ -114,7 +97,6 @@ public class TISCMServerPacketHandler
 		);
 	}
 
-	@Handler(value = TISCMProtocol.C2S.SUPPORTED_S2C_PACKETS)
 	public void handleSupportPackets(HandlerContext.C2S ctx)
 	{
 		List<String> ids = NbtUtil.nbt2StringList(Objects.requireNonNull(ctx.buf.readCompoundTag()));
@@ -127,7 +109,6 @@ public class TISCMServerPacketHandler
 		ctx.runSynced(() -> this.clientSupportedPacketsMap.put(ctx.networkHandler, packetIds));
 	}
 
-	@Handler(value = TISCMProtocol.C2S.MSPT_METRICS_SUBSCRIBE)
 	public void handleMsptMetricsSubscribe(HandlerContext.C2S ctx)
 	{
 		boolean	subscribe = ctx.buf.readBoolean();

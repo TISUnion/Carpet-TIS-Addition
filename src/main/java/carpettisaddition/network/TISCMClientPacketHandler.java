@@ -3,7 +3,6 @@ package carpettisaddition.network;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataStorage;
 import carpettisaddition.utils.NbtUtil;
-import carpettisaddition.utils.ReflectionUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.client.MinecraftClient;
@@ -11,13 +10,8 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.util.PacketByteBuf;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
-
-import static carpettisaddition.utils.MiscUtil.assertTrue;
 
 public class TISCMClientPacketHandler
 {
@@ -29,13 +23,9 @@ public class TISCMClientPacketHandler
 
 	private TISCMClientPacketHandler()
 	{
-		Arrays.asList(this.getClass().getDeclaredMethods()).forEach(method ->
-				Optional.ofNullable(method.getAnnotation(Handler.class)).ifPresent(a -> {
-					BiFunction<Object, Object[], Object> invoker = ReflectionUtil.invoker(method);
-					assertTrue( method.getParameterCount() == 1 && method.getParameters()[0].getType() == HandlerContext.S2C.class);
-					this.handlers.put(a.value(), ctx -> invoker.apply(this, new Object[]{ctx}));
-				})
-		);
+		this.handlers.put(TISCMProtocol.S2C.HELLO, this::handleHello);
+		this.handlers.put(TISCMProtocol.S2C.SUPPORTED_C2S_PACKETS, this::handleSupportPackets);
+		this.handlers.put(TISCMProtocol.S2C.MSPT_METRICS_SAMPLE, this::handleMsptMetricsSample);
 		if (this.handlers.size() < TISCMProtocol.S2C.ID_MAP.size())
 		{
 			throw new RuntimeException("TISCMServerPacketDispatcher doesn't handle all C2S packets");
@@ -89,12 +79,6 @@ public class TISCMClientPacketHandler
 	 * -------------------------
 	 */
 
-	@Retention(RetentionPolicy.RUNTIME)
-	private @interface Handler
-	{
-		TISCMProtocol.S2C value();
-	}
-
 	/*
 	 * Handshake process:
 	 * 1. client --hi--> server
@@ -102,7 +86,6 @@ public class TISCMClientPacketHandler
 	 * 3. client --packet_ids-> server
 	 */
 
-	@Handler(TISCMProtocol.S2C.HELLO)
 	public void handleHello(HandlerContext.S2C ctx)
 	{
 		String platformName = ctx.buf.readString();
@@ -115,7 +98,6 @@ public class TISCMClientPacketHandler
 		);
 	}
 
-	@Handler(TISCMProtocol.S2C.SUPPORTED_C2S_PACKETS)
 	public void handleSupportPackets(HandlerContext.S2C ctx)
 	{
 		List<String> ids = NbtUtil.nbt2StringList(Objects.requireNonNull(ctx.buf.readCompoundTag()));
@@ -128,7 +110,6 @@ public class TISCMClientPacketHandler
 		});
 	}
 
-	@Handler(value = TISCMProtocol.S2C.MSPT_METRICS_SAMPLE)
 	public void handleMsptMetricsSample(HandlerContext.S2C ctx)
 	{
 		long msThisTick = ctx.buf.readLong();
