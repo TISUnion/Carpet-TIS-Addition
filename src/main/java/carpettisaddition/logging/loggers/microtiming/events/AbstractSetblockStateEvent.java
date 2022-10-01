@@ -5,7 +5,6 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.text.BaseText;
 import org.jetbrains.annotations.Nullable;
@@ -14,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class SetBlockStateEventBase extends BaseEvent
+public abstract class AbstractSetblockStateEvent extends BaseEvent
 {
 	protected final BlockState oldBlockState;
 	protected final BlockState newBlockState;
@@ -43,7 +42,7 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 		SET_BLOCK_STATE_FLAGS.add(FlagData.of(7, true));   // SKIP_LIGHTING_UPDATES = 128
 	}
 
-	protected SetBlockStateEventBase(EventType eventType, String translateKey, BlockState oldBlockState, BlockState newBlockState, @Nullable Boolean returnValue, int flags)
+	protected AbstractSetblockStateEvent(EventType eventType, String translateKey, BlockState oldBlockState, BlockState newBlockState, @Nullable Boolean returnValue, int flags)
 	{
 		super(eventType, translateKey, oldBlockState.getBlock());
 		this.oldBlockState = oldBlockState;
@@ -79,9 +78,9 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 	public void mergeQuitEvent(BaseEvent quitEvent)
 	{
 		super.mergeQuitEvent(quitEvent);
-		if (quitEvent instanceof SetBlockStateEventBase)
+		if (quitEvent instanceof AbstractSetblockStateEvent)
 		{
-			this.returnValue = ((SetBlockStateEventBase)quitEvent).returnValue;
+			this.returnValue = ((AbstractSetblockStateEvent)quitEvent).returnValue;
 		}
 	}
 
@@ -91,7 +90,7 @@ public abstract class SetBlockStateEventBase extends BaseEvent
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		if (!super.equals(o)) return false;
-		SetBlockStateEventBase that = (SetBlockStateEventBase) o;
+		AbstractSetblockStateEvent that = (AbstractSetblockStateEvent) o;
 		return flags == that.flags && Objects.equals(oldBlockState, that.oldBlockState) && Objects.equals(newBlockState, that.newBlockState) && Objects.equals(returnValue, that.returnValue);
 	}
 

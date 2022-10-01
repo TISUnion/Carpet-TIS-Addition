@@ -9,7 +9,7 @@ import net.minecraft.text.BaseText;
 
 import java.util.List;
 
-public class BlockReplaceEvent extends SetBlockStateEventBase
+public class BlockReplaceEvent extends AbstractSetblockStateEvent
 {
 	public BlockReplaceEvent(EventType eventType, BlockState oldBlockState, BlockState newBlockState, Boolean returnValue,  int flags)
 	{

@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Function;
 
-public class BlockStateChangeEvent extends SetBlockStateEventBase
+public class BlockStateChangeEvent extends AbstractSetblockStateEvent
 {
 	private final Map<Property<?>, PropertyChange> changes = Maps.newLinkedHashMap();
 
