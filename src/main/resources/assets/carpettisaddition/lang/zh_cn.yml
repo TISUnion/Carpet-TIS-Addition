@@ -653,11 +653,11 @@ carpettisaddition:
         extra:
           '0': 仅影响普通命令方块
       instantBlockUpdaterReintroduced:
-        name: 启用瞬时方块更新逻辑
-        desc: Bring back 1.19- instant block update behavior
+        name: 重新引入瞬时方块更新逻辑
+        desc: 重新引入1.19以前的瞬时方块更新逻辑
         extra:
-          '0': With that 1.19- update suppression is doable again
-          '1': It also provides a better logging results with more clear logic for microTiming logger
+          '0': 本规则让更新抑制在1.19+中再次可行
+          '1': 它还可以让微时序记录器的记录结果更加清晰具有逻辑，如1.19以前的版本一样的清晰
       itemEntitySkipMovementDisabled:
         name: 禁用物品实体跳过移动运算
         desc: 移除物品实体跳过移动运算的机制

@@ -654,10 +654,10 @@ carpettisaddition:
           '0': Only affects normal command blocks
       instantBlockUpdaterReintroduced:
         name: instantBlockUpdaterReintroduced
-        desc: Bring back 1.19- instant block update behavior
+        desc: Reintroduce the instant block update behavior from versions before 1.19
         extra:
-          '0': With that 1.19- update suppression is doable again
-          '1': It also provides a better logging results with more clear logic for microTiming logger
+          '0': With that update suppression is doable in 1.19+ again
+          '1': It also provides a better logging results with more clear logic for microTiming logger, as clean as versions before 1.19
       itemEntitySkipMovementDisabled:
         name: itemEntitySkipMovementDisabled
         desc: Removed the movement skipping mechanism when ticking of item entity

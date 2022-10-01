@@ -405,6 +405,20 @@
 - 分类: `TIS`, `CARPET_MOD`
 
 
+## 重新引入瞬时方块更新逻辑 (instantBlockUpdaterReintroduced)
+
+重新引入 1.19 以前的瞬时方块更新逻辑
+
+本规则让更新抑制在 1.19+ 中再次可行
+
+它还可以让[微时序记录器](loggers_cn.md#微时序-microTiming)的记录结果更加清晰具有逻辑，如 1.19 以前的版本一样的清晰
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 瞬时命令方块 (instantCommandBlock)
 
 令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行

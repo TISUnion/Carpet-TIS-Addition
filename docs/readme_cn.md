@@ -44,6 +44,7 @@
 - [漏斗计数器无限速度](rules_cn.md#漏斗计数器无限速度-hoppercountersunlimitedspeed)
 - [漏斗不消耗物品](rules_cn.md#漏斗不消耗物品-hoppernoitemcost)
 - [hud记录器更新间隔](rules_cn.md#hud记录器更新间隔-hudloggerupdateinterval)
+- [重新引入瞬时方块更新逻辑](rules_cn.md#重新引入瞬时方块更新逻辑-instantblockupdaterreintroduced)
 - [瞬时命令方块](rules_cn.md#瞬时命令方块-instantcommandblock)
 - [禁用物品实体跳过移动运算](rules_cn.md#禁用物品实体跳过移动运算-itementityskipmovementdisabled)
 - [保持弱加载区块的怪物](rules_cn.md#保持弱加载区块的怪物-keepmobinlazychunks)

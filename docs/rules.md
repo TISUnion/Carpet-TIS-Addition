@@ -405,6 +405,20 @@ Overwrite HUD loggers update interval (gametick)
 - Categories: `TIS`, `CARPET_MOD`
 
 
+## instantBlockUpdaterReintroduced
+
+Reintroduce the instant block update behavior from versions before 1.19
+
+With that update suppression is doable in 1.19+ again
+
+It also provides a better logging results with more clear logic for [microTiming logger](./loggers.md#microtiming), as clean as versions before 1.19
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## instantCommandBlock
 
 Make command blocks on redstone ores execute command instantly instead of scheduling a 1gt delay TileTick event for execution

@@ -44,6 +44,7 @@
 - [hopperCountersUnlimitedSpeed](rules.md#hoppercountersunlimitedspeed)
 - [hopperNoItemCost](rules.md#hoppernoitemcost)
 - [HUDLoggerUpdateInterval](rules.md#hudloggerupdateinterval)
+- [instantBlockUpdaterReintroduced](rules.md#instantblockupdaterreintroduced)
 - [instantCommandBlock](rules.md#instantcommandblock)
 - [itemEntitySkipMovementDisabled](rules.md#itementityskipmovementdisabled)
 - [keepMobInLazyChunks](rules.md#keepmobinlazychunks)
