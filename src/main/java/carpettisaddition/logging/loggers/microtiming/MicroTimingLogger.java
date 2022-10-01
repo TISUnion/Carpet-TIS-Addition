@@ -103,17 +103,14 @@ public class MicroTimingLogger extends AbstractLogger
 
 	private BaseText getMergedResult(int count, IndentedMessage previousMessage)
 	{
-		return Messenger.c(
-				MicroTimingMessage.getIndentationText(previousMessage.getIndentation()),
-				Messenger.fancy(
-						"g",
-						Messenger.s(String.format("  +%dx", count)),
-						Messenger.c(
-								tr("merged_message", count), "w \n",
-								previousMessage.getMessage().toText(0, true)
-						),
-						null
-				)
+		return Messenger.fancy(
+				"g",
+				Messenger.s(String.format(" +%dx", count)),
+				Messenger.c(
+						tr("merged_message", count), "w \n",
+						previousMessage.getMessage().toText(0, true)
+				),
+				null
 		);
 	}
 
@@ -153,9 +150,9 @@ public class MicroTimingLogger extends AbstractLogger
 			}
 			if (showThisMessage)
 			{
-				if (option == LoggingOption.MERGED && previousMessage != null && skipCount > 0)
+				if (option == LoggingOption.MERGED && previousMessage != null && skipCount > 0 && !msg.isEmpty())
 				{
-					msg.add(this.getMergedResult(skipCount, previousMessage));
+					msg.get(msg.size() - 1).append(getMergedResult(skipCount, previousMessage));
 				}
 				msg.add(message.toText());
 				previousMessage = message;
@@ -165,9 +162,9 @@ public class MicroTimingLogger extends AbstractLogger
 			{
 				skipCount++;
 			}
-			if (!iterator.hasNext() && option == LoggingOption.MERGED && skipCount > 0)
+			if (!iterator.hasNext() && option == LoggingOption.MERGED && skipCount > 0 && !msg.isEmpty())
 			{
-				msg.add(this.getMergedResult(skipCount, previousMessage));
+				msg.get(msg.size() - 1).append(this.getMergedResult(skipCount, previousMessage));
 			}
 		}
 		return msg.toArray(new BaseText[0]);
