@@ -1,5 +1,6 @@
 package carpettisaddition.mixins.network;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.network.TISCMClientPacketHandler;
 import carpettisaddition.network.TISCMProtocol;
 import net.fabricmc.api.EnvType;
@@ -27,11 +28,14 @@ public abstract class ClientPlayNetworkHandlerMixin
 	)
 	private void onCustomPayload$TISCM(CustomPayloadS2CPacket packet, CallbackInfo ci)
 	{
-		Identifier channel = ((CustomPayloadS2CPacketAccessor)packet).getChannel();
-		if (TISCMProtocol.CHANNEL.equals(channel))
+		if (CarpetTISAdditionSettings.tiscmNetworkProtocol)
 		{
-			TISCMClientPacketHandler.getInstance().dispatch((ClientPlayNetworkHandler)(Object)this, ((CustomPayloadS2CPacketAccessor)packet).getData());
-			ci.cancel();
+			Identifier channel = ((CustomPayloadS2CPacketAccessor) packet).getChannel();
+			if (TISCMProtocol.CHANNEL.equals(channel))
+			{
+				TISCMClientPacketHandler.getInstance().dispatch((ClientPlayNetworkHandler) (Object) this, ((CustomPayloadS2CPacketAccessor) packet).getData());
+				ci.cancel();
+			}
 		}
 	}
 

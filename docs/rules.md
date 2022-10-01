@@ -906,6 +906,16 @@ Modify the limit of executed tile tick events per game tick
 - Categories: `TIS`, `CREATIVE`
 
 
+## tiscmNetworkProtocol
+
+The switch of the TISCM network protocol
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CLIENT`
+
+
 ## tntDupingFix
 
 Disable TNT, carpet and part of rail dupers

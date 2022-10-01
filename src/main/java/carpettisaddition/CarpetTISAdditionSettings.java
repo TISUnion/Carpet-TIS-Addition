@@ -515,6 +515,9 @@ public class CarpetTISAdditionSettings
 	)
 	public static int tileTickLimit = 65536;
 
+	@Rule(categories = {TIS, CLIENT})
+	public static boolean tiscmNetworkProtocol = true;
+
 	@Rule(categories = {TIS, BUGFIX, EXPERIMENTAL})
 	public static boolean tntDupingFix = false;
 

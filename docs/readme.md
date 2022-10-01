@@ -79,6 +79,7 @@
 - [synchronizedLightThread](rules.md#synchronizedlightthread)
 - [syncServerMsptMetricsData](rules.md#syncservermsptmetricsdata)
 - [tileTickLimit](rules.md#tileticklimit)
+- [tiscmNetworkProtocol](rules.md#tiscmnetworkprotocol)
 - [tntDupingFix](rules.md#tntdupingfix)
 - [tntFuseDuration](rules.md#tntfuseduration)
 - [tntIgnoreRedstoneSignal](rules.md#tntignoreredstonesignal)

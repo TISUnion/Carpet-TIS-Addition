@@ -1,5 +1,6 @@
 package carpettisaddition.mixins.network;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
@@ -16,11 +17,14 @@ public abstract class ServerPlayNetworkHandlerMixin
 	@Inject(method = "onCustomPayload", at = @At("HEAD"), cancellable = true)
 	private void onCustomPayload$TISCM(CustomPayloadC2SPacket packet, CallbackInfo ci)
 	{
-		Identifier channel = ((CustomPayloadC2SPacketAccessor)packet).getChannel();
-		if (TISCMProtocol.CHANNEL.equals(channel))
+		if (CarpetTISAdditionSettings.tiscmNetworkProtocol)
 		{
-			TISCMServerPacketHandler.getInstance().dispatch((ServerPlayNetworkHandler)(Object)this, ((CustomPayloadC2SPacketAccessor)packet).getData());
-			ci.cancel();
+			Identifier channel = ((CustomPayloadC2SPacketAccessor)packet).getChannel();
+			if (TISCMProtocol.CHANNEL.equals(channel))
+			{
+				TISCMServerPacketHandler.getInstance().dispatch((ServerPlayNetworkHandler)(Object)this, ((CustomPayloadC2SPacketAccessor)packet).getData());
+				ci.cancel();
+			}
 		}
 	}
 }

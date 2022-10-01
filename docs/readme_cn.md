@@ -79,6 +79,7 @@
 - [同步光照线程](rules_cn.md#同步光照线程-synchronizedlightthread)
 - [同步服务端mspt指标数据](rules_cn.md#同步服务端mspt指标数据-syncservermsptmetricsdata)
 - [计划刻上限](rules_cn.md#计划刻上限-tileticklimit)
+- [TISCM网络协议](rules_cn.md#tiscm网络协议-tiscmnetworkprotocol)
 - [TNT复制修复](rules_cn.md#TNT复制修复-tntdupingfix)
 - [TNT引信时长](rules_cn.md#TNT引信时长-tntfuseduration)
 - [TNT忽略红石信号](rules_cn.md#TNT忽略红石信号-tntignoreredstonesignal)

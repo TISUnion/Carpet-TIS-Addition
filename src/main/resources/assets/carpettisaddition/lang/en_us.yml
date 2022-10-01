@@ -869,6 +869,9 @@ carpettisaddition:
       tileTickLimit:
         name: tileTickLimit
         desc: Modify the limit of executed tile tick events per game tick
+      tiscmNetworkProtocol:
+        name: tiscmNetworkProtocol
+        desc: The switch of the TISCM network protocol
       tntDupingFix:
         name: tntDupingFix
         desc: Disable TNT, carpet and part of rail dupers

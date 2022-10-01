@@ -1,6 +1,7 @@
 package carpettisaddition.network;
 
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataStorage;
 import carpettisaddition.utils.NbtUtil;
 import com.google.common.collect.Lists;
@@ -66,11 +67,14 @@ public class TISCMClientPacketHandler
 
 	public void onConnectedToNewServer()
 	{
-		this.serverSupportedPackets.clear();
-		sendPacket(TISCMProtocol.C2S.HI, buf -> buf.
-				writeString(TISCMProtocol.PLATFORM_NAME).
-				writeString(TISCMProtocol.PLATFORM_VERSION)
-		);
+		if (CarpetTISAdditionSettings.tiscmNetworkProtocol)
+		{
+			this.serverSupportedPackets.clear();
+			sendPacket(TISCMProtocol.C2S.HI, buf -> buf.
+					writeString(TISCMProtocol.PLATFORM_NAME).
+					writeString(TISCMProtocol.PLATFORM_VERSION)
+			);
+		}
 	}
 
 	/*

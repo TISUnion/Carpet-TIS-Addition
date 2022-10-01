@@ -869,6 +869,9 @@ carpettisaddition:
       tileTickLimit:
         name: 计划刻上限
         desc: 修改每游戏刻中计划刻事件的执行次数上限
+      tiscmNetworkProtocol:
+        name: TISCM网络协议
+        desc: TISCM网络协议的开关
       tntDupingFix:
         name: TNT复制修复
         desc: 禁用TNT、地毯以及部分铁轨的复制机
