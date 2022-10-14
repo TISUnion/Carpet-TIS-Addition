@@ -35,13 +35,17 @@ public class TISCMServerPacketHandler
 		return INSTANCE;
 	}
 
+	/**
+	 * Invoked on network thread
+	 */
 	public void dispatch(ServerPlayNetworkHandler networkHandler, PacketByteBuf packetByteBuf)
 	{
 		String packetId = packetByteBuf.readString(Short.MAX_VALUE);
 		CompoundTag payload = packetByteBuf.readCompoundTag();
-		TISCMProtocol.C2S.fromId(packetId).
+		HandlerContext.C2S ctx = new HandlerContext.C2S(networkHandler, payload);
+		ctx.runSynced(() -> TISCMProtocol.C2S.fromId(packetId).
 				map(this.handlers::get).
-				ifPresent( handler -> handler.accept(new HandlerContext.C2S(networkHandler, payload)));
+				ifPresent( handler -> handler.accept(ctx)));
 	}
 
 	public boolean doesClientSupport(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId)
@@ -107,6 +111,6 @@ public class TISCMServerPacketHandler
 				filter(Optional::isPresent).
 				map(Optional::get).
 				collect(Collectors.toSet());
-		ctx.runSynced(() -> this.clientSupportedPacketsMap.put(ctx.networkHandler, packetIds));
+		this.clientSupportedPacketsMap.put(ctx.networkHandler, packetIds);
 	}
 }

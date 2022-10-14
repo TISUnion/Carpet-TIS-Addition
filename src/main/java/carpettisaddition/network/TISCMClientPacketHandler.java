@@ -38,6 +38,9 @@ public class TISCMClientPacketHandler
 		return INSTANCE;
 	}
 
+	/**
+	 * Invoked on main thread
+	 */
 	public void dispatch(ClientPlayNetworkHandler networkHandler, PacketByteBuf packetByteBuf)
 	{
 		String packetId = packetByteBuf.readString();
@@ -110,16 +113,14 @@ public class TISCMClientPacketHandler
 	{
 		List<String> ids = NbtUtil.nbt2StringList(ctx.payload.getCompound("supported_c2s_packets"));
 		LOGGER.debug("Serverside supported TISCM C2S packet ids: {}", ids);
-		ctx.runSynced(() -> {
-			for (String id : ids)
-			{
-				TISCMProtocol.C2S.fromId(id).ifPresent(this.serverSupportedPackets::add);
-			}
-		});
+		for (String id : ids)
+		{
+			TISCMProtocol.C2S.fromId(id).ifPresent(this.serverSupportedPackets::add);
+		}
 	}
 
 	public void handleMsptMetricsSample(HandlerContext.S2C ctx)
 	{
-		ctx.runSynced(() -> ServerMsptMetricsDataSyncer.getInstance().receiveMetricData(ctx.payload));
+		ServerMsptMetricsDataSyncer.getInstance().receiveMetricData(ctx.payload);
 	}
 }
