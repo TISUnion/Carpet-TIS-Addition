@@ -491,7 +491,8 @@ carpettisaddition:
   carpet_translations:
     category:
       TIS: TIS
-      CARPET_MOD: carpet_mod
+      TISCM_PROTOCOL: TISCM网络协议
+      CARPET_MOD: CARPET_MOD
 
     rule:
       antiSpamDisabled:
