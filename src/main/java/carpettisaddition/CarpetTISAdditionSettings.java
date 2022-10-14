@@ -33,6 +33,7 @@ import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChan
 public class CarpetTISAdditionSettings
 {
 	public static final String TIS = "TIS";
+	public static final String TISCM_PROTOCOL = "TISCM_Protocol";
 	public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space, or you can't /carpet list this
 
 	//#if MC < 11500
@@ -515,8 +516,8 @@ public class CarpetTISAdditionSettings
 	)
 	public static int tileTickLimit = 65536;
 
-	@Rule(categories = {TIS, CLIENT})
-	public static boolean tiscmNetworkProtocol = true;
+	@Rule(categories = {TIS, TISCM_PROTOCOL})
+	public static boolean tiscmNetworkProtocol = false;
 
 	@Rule(categories = {TIS, BUGFIX, EXPERIMENTAL})
 	public static boolean tntDupingFix = false;

@@ -1,13 +1,13 @@
 package carpettisaddition.network;
 
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataStorage;
+import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
 import carpettisaddition.utils.NbtUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.PacketByteBuf;
 import org.apache.logging.log4j.Logger;
 
@@ -40,9 +40,16 @@ public class TISCMClientPacketHandler
 
 	public void dispatch(ClientPlayNetworkHandler networkHandler, PacketByteBuf packetByteBuf)
 	{
-		TISCMProtocol.S2C.fromId(packetByteBuf.readString()).
+		String packetId = packetByteBuf.readString();
+		CompoundTag payload = packetByteBuf.readCompoundTag();
+		TISCMProtocol.S2C.fromId(packetId).
 				map(this.handlers::get).
-				ifPresent( handler -> handler.accept(new HandlerContext.S2C(networkHandler, packetByteBuf)));
+				ifPresent( handler -> handler.accept(new HandlerContext.S2C(networkHandler, payload)));
+	}
+
+	public boolean isProtocolEnabled()
+	{
+		return !this.serverSupportedPackets.isEmpty();
 	}
 
 	public boolean doesServerSupport(TISCMProtocol.C2S packetId)
@@ -50,12 +57,12 @@ public class TISCMClientPacketHandler
 		return packetId.isHandshake || this.serverSupportedPackets.contains(packetId);
 	}
 
-	public void sendPacket(TISCMProtocol.C2S packetId, Consumer<PacketByteBuf> byteBufBuilder)
+	public void sendPacket(TISCMProtocol.C2S packetId, Consumer<CompoundTag> payloadBuilder)
 	{
 		if (this.doesServerSupport(packetId))
 		{
 			Optional.ofNullable(MinecraftClient.getInstance().getNetworkHandler()).
-					ifPresent(networkHandler -> networkHandler.sendPacket(packetId.packet(byteBufBuilder)));
+					ifPresent(networkHandler -> networkHandler.sendPacket(packetId.packet(payloadBuilder)));
 		}
 	}
 
@@ -70,10 +77,10 @@ public class TISCMClientPacketHandler
 		if (CarpetTISAdditionSettings.tiscmNetworkProtocol)
 		{
 			this.serverSupportedPackets.clear();
-			sendPacket(TISCMProtocol.C2S.HI, buf -> buf.
-					writeString(TISCMProtocol.PLATFORM_NAME).
-					writeString(TISCMProtocol.PLATFORM_VERSION)
-			);
+			sendPacket(TISCMProtocol.C2S.HI, nbt -> {
+				nbt.putString("platform_name", TISCMProtocol.PLATFORM_NAME);
+				nbt.putString("platform_version", TISCMProtocol.PLATFORM_VERSION);
+			});
 		}
 	}
 
@@ -92,19 +99,19 @@ public class TISCMClientPacketHandler
 
 	public void handleHello(HandlerContext.S2C ctx)
 	{
-		String platformName = ctx.buf.readString();
-		String platformVersion = ctx.buf.readString();
+		String platformName = ctx.payload.getString("platform_name");
+		String platformVersion = ctx.payload.getString("platform_version");
 		LOGGER.info("Serverside TISCM protocol supported with platform {} @ {}", platformName, platformVersion);
 
 		List<String> ids = Lists.newArrayList(TISCMProtocol.S2C.ID_MAP.keySet());
-		ctx.send(TISCMProtocol.C2S.SUPPORTED_S2C_PACKETS, buf -> buf.
-				writeCompoundTag(NbtUtil.stringList2Nbt(ids))
-		);
+		ctx.send(TISCMProtocol.C2S.SUPPORTED_S2C_PACKETS, nbt -> {
+			nbt.put("supported_s2c_packets", NbtUtil.stringList2Nbt(ids));
+		});
 	}
 
 	public void handleSupportPackets(HandlerContext.S2C ctx)
 	{
-		List<String> ids = NbtUtil.nbt2StringList(Objects.requireNonNull(ctx.buf.readCompoundTag()));
+		List<String> ids = NbtUtil.nbt2StringList(ctx.payload.getCompound("supported_c2s_packets"));
 		LOGGER.debug("Serverside supported TISCM C2S packet ids: {}", ids);
 		ctx.runSynced(() -> {
 			for (String id : ids)
@@ -116,7 +123,6 @@ public class TISCMClientPacketHandler
 
 	public void handleMsptMetricsSample(HandlerContext.S2C ctx)
 	{
-		long msThisTick = ctx.buf.readLong();
-		ctx.runSynced(() -> ServerMsptMetricsDataStorage.getInstance().receiveMetricData(msThisTick));
+		ctx.runSynced(() -> ServerMsptMetricsDataSyncer.getInstance().receiveMetricData(ctx.payload));
 	}
 }

@@ -1,6 +1,6 @@
 package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
-import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataStorage;
+import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
 import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.integrated.IntegratedServer;
@@ -45,9 +45,9 @@ public abstract class DebugHudMixin
 	{
 		if (integratedServer == null)
 		{
-			if (ServerMsptMetricsDataStorage.getInstance().isEnabled())
+			if (ServerMsptMetricsDataSyncer.getInstance().isServerSupportOk())
 			{
-				MetricsData metricsData = ServerMsptMetricsDataStorage.getInstance().getMetricsData();
+				MetricsData metricsData = ServerMsptMetricsDataSyncer.getInstance().getMetricsData();
 
 				// vanilla copy
 				this.drawMetricsData(

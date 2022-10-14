@@ -1,44 +1,60 @@
 package carpettisaddition.helpers.rule.syncServerMsptMetricsData;
 
+import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.network.TISCMClientPacketHandler;
 import carpettisaddition.network.TISCMProtocol;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import carpettisaddition.network.TISCMServerPacketHandler;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.MetricsData;
 
-import java.util.Collections;
-import java.util.Set;
-import java.util.WeakHashMap;
-
-/**
- * Serverside data syncer
- */
 public class ServerMsptMetricsDataSyncer
 {
 	private static final ServerMsptMetricsDataSyncer INSTANCE = new ServerMsptMetricsDataSyncer();
 
-	private final Set<ServerPlayNetworkHandler> clientsToSync = Collections.newSetFromMap(new WeakHashMap<>());
+	private MetricsData metricsData;
 
-	private ServerMsptMetricsDataSyncer() {}
+	private ServerMsptMetricsDataSyncer()
+	{
+		this.metricsData = new MetricsData();
+	}
 
 	public static ServerMsptMetricsDataSyncer getInstance()
 	{
 		return INSTANCE;
 	}
 
-	public void addClient(ServerPlayNetworkHandler networkHandler)
+	public void broadcastSample(long timeStamp, long msThisTick)
 	{
-		this.clientsToSync.add(networkHandler);
+		TISCMServerPacketHandler.getInstance().broadcast(TISCMProtocol.S2C.MSPT_METRICS_SAMPLE, nbt -> {
+			nbt.putLong("time_stamp", timeStamp);
+			nbt.putLong("millisecond", msThisTick);
+		});
 	}
 
-	public void removeClient(ServerPlayNetworkHandler networkHandler)
+	public void receiveMetricData(CompoundTag nbt)
 	{
-		this.clientsToSync.remove(networkHandler);
+		long timeStamp = nbt.getLong("time_stamp");
+		long msThisTick = nbt.getLong("millisecond");
+		this.metricsData.pushSample(msThisTick);
 	}
 
-	public void broadcastSample(long msThisTick)
+	public MetricsData getMetricsData()
 	{
-		this.clientsToSync.forEach(networkHandler ->
-			networkHandler.sendPacket(TISCMProtocol.S2C.MSPT_METRICS_SAMPLE.packet(buf -> buf.
-					writeLong(msThisTick)
-			))
-		);
+		return this.metricsData;
+	}
+
+	public void reset()
+	{
+		this.metricsData = new MetricsData();
+	}
+
+	public boolean isServerSupportOk()
+	{
+		return CarpetTISAdditionSettings.syncServerMsptMetricsData && TISCMClientPacketHandler.getInstance().isProtocolEnabled();
+	}
+
+	public void clientTick()
+	{
+		// maybe
 	}
 }
