@@ -28,14 +28,11 @@ public abstract class ClientPlayNetworkHandlerMixin
 	)
 	private void onCustomPayload$TISCM(CustomPayloadS2CPacket packet, CallbackInfo ci)
 	{
-		if (CarpetTISAdditionSettings.tiscmNetworkProtocol)
+		Identifier channel = ((CustomPayloadS2CPacketAccessor) packet).getChannel();
+		if (TISCMProtocol.CHANNEL.equals(channel))
 		{
-			Identifier channel = ((CustomPayloadS2CPacketAccessor) packet).getChannel();
-			if (TISCMProtocol.CHANNEL.equals(channel))
-			{
-				TISCMClientPacketHandler.getInstance().dispatch((ClientPlayNetworkHandler) (Object) this, ((CustomPayloadS2CPacketAccessor) packet).getData());
-				ci.cancel();
-			}
+			TISCMClientPacketHandler.getInstance().dispatch((ClientPlayNetworkHandler) (Object) this, ((CustomPayloadS2CPacketAccessor) packet).getData());
+			ci.cancel();
 		}
 	}
 

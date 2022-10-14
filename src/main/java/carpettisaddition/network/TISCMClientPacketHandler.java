@@ -74,14 +74,11 @@ public class TISCMClientPacketHandler
 
 	public void onConnectedToNewServer()
 	{
-		if (CarpetTISAdditionSettings.tiscmNetworkProtocol)
-		{
-			this.serverSupportedPackets.clear();
-			sendPacket(TISCMProtocol.C2S.HI, nbt -> {
-				nbt.putString("platform_name", TISCMProtocol.PLATFORM_NAME);
-				nbt.putString("platform_version", TISCMProtocol.PLATFORM_VERSION);
-			});
-		}
+		this.serverSupportedPackets.clear();
+		sendPacket(TISCMProtocol.C2S.HI, nbt -> {
+			nbt.putString("platform_name", TISCMProtocol.PLATFORM_NAME);
+			nbt.putString("platform_version", TISCMProtocol.PLATFORM_VERSION);
+		});
 	}
 
 	/*
