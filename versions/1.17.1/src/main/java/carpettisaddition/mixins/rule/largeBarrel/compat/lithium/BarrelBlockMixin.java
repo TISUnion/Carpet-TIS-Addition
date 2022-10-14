@@ -1,22 +1,21 @@
 package carpettisaddition.mixins.rule.largeBarrel.compat.lithium;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.BlockWithEntity;
-import org.spongepowered.asm.mixin.Mixin;
-
-import carpettisaddition.CarpetTISAdditionSettings;
 import me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity;
 import me.jellysquid.mods.lithium.common.world.blockentity.BlockEntityGetter;
+import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -35,9 +34,11 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 
 	/**
 	 * aka "block.hopper" optimization in lithium
-	 * based on {@link me.jellysquid.mods.lithium.mixin.block.hopper.BlockEntityMixin}
+	 * reference:
+	 * - lithium < 0.9.0: {@link me.jellysquid.mods.lithium.mixin.block.hopper.BlockEntityMixin}
+	 * - lithium >= 0.9.0 (>=1.19): {@link me.jellysquid.mods.lithium.mixin.util.inventory_change_listening.BlockEntityMixin}
 	 */
-	private static final boolean LITHIUM_HOPPER_OPTIMIZATION_LOADED = RemovableBlockEntity.class.isAssignableFrom(BlockEntity.class);
+	private static final boolean LITHIUM_HOPPER_OPTIMIZATION_LOADED = RemovableBlockEntity.class.isAssignableFrom(BarrelBlockEntity.class);
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -69,10 +70,10 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 			if (affectedBarrelState.getBlock() instanceof BarrelBlock && affectedBarrelState.get(BarrelBlock.FACING) == changedBarrelDirection.getOpposite())
 			{
 				BlockEntity barrelBlockEntity = ((BlockEntityGetter)world).getLoadedExistingBlockEntity(affectedBarrelPos);
-				if (barrelBlockEntity instanceof BarrelBlockEntity && barrelBlockEntity instanceof RemovableBlockEntity)
+				if (barrelBlockEntity instanceof BarrelBlockEntity)
 				{
 					// let lithium re-calculate the target inventory via HopperHelper#vanillaGetBlockInventory
-					// we have a nice mixin injection there to handle largeBarrel like vanilla
+					// we have a nice mixin injection there (HopperHelperMixin) to handle largeBarrel like vanilla
 					((RemovableBlockEntity)barrelBlockEntity).increaseRemoveCounter();
 				}
 			}
