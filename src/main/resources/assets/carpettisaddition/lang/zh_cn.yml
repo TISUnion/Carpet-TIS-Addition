@@ -629,7 +629,7 @@ carpettisaddition:
         extra:
           '0': '增加softreplace模式: 尽可能地保留原方块的方块状态，可用于替换楼梯/半砖的材质等'
       flattenTriangularDistribution:
-        name: 按扁三角形分布
+        name: 拍扁三角形分布
         desc: 把Minecraft随机数发生器的三角形分布改为均匀分布
         extra:
           '0': 借此，边界情况就更有可能发生了

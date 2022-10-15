@@ -355,7 +355,7 @@
 - 分类: `TIS`, `CREATIVE`
 
 
-## 按扁三角形分布 (flattenTriangularDistribution)
+## 拍扁三角形分布 (flattenTriangularDistribution)
 
 **本规则仅在 Minecraft >= 1.19 中存在**
 
