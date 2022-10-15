@@ -355,6 +355,20 @@ Add `softreplace` mode: Keep the block state of the original block as much as po
 - Categories: `TIS`, `CREATIVE`, `COMMAND`
 
 
+## flattenTriangularDistribution
+
+**Minecraft >= 1.19 only**
+
+Change all triangle distribution in Minecraft randomizers into uniform distribution
+
+With that edge cases are more likely to happen
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## fluidDestructionDisabled
 
 Disable block destruction by liquid flowing
@@ -406,6 +420,8 @@ Overwrite HUD loggers update interval (gametick)
 
 
 ## instantBlockUpdaterReintroduced
+
+**Minecraft >= 1.19 only**
 
 Reintroduce the instant block update behavior from versions before 1.19
 

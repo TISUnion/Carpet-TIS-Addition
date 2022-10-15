@@ -40,6 +40,7 @@
 - [fakePlayerNameSuffix](rules.md#fakeplayernamesuffix)
 - [farmlandTrampledDisabled](rules.md#farmlandtrampleddisabled)
 - [fillCommandModeEnhance](rules.md#fillcommandmodeenhance)
+- [flattenTriangularDistribution](rules.md#flattentriangulardistribution)
 - [fluidDestructionDisabled](rules.md#fluiddestructiondisabled)
 - [hopperCountersUnlimitedSpeed](rules.md#hoppercountersunlimitedspeed)
 - [hopperNoItemCost](rules.md#hoppernoitemcost)

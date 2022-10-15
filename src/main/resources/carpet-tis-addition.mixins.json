@@ -256,6 +256,7 @@
     "rule.failSoftBlockStateParsing.BlockArgumentParserMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
     "rule.farmlandTrampledDisabled.FarmLandBlockMixin",
+    "rule.flattenTriangularDistribution.RandomMixin",
     "rule.fluidDestructionDisabled.BaseFluidMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityAccessor",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",

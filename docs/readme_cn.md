@@ -40,6 +40,7 @@
 - [假人名称后缀](rules_cn.md#假人名称后缀-fakeplayernamesuffix)
 - [禁用耕地被踩踏](rules_cn.md#禁用耕地被踩踏-farmlandtrampleddisabled)
 - [fill指令模式增强](rules_cn.md#fill指令模式增强-fillcommandmodeenhance)
+- [按扁三角形分布](rules_cn.md#按扁三角形分布-flattentriangulardistribution)
 - [禁用流体破坏](rules_cn.md#禁用流体破坏-fluiddestructiondisabled)
 - [漏斗计数器无限速度](rules_cn.md#漏斗计数器无限速度-hoppercountersunlimitedspeed)
 - [漏斗不消耗物品](rules_cn.md#漏斗不消耗物品-hoppernoitemcost)

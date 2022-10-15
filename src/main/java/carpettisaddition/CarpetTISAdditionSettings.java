@@ -208,6 +208,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE, COMMAND})
 	public static String fillCommandModeEnhance = "true";
 
+	//#if MC >= 11900
+	//$$ @Rule(categories = {TIS, CREATIVE})
+	//$$ public static boolean flattenTriangularDistribution = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean fluidDestructionDisabled = false;
 

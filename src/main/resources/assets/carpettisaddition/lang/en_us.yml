@@ -628,6 +628,11 @@ carpettisaddition:
         desc: Enhance modes in the /fill command
         extra:
           '0': 'Add softreplace mode: Keep the block state of the original block as much as possible. You can use it to replace block type of stairs / slabs etc.'
+      flattenTriangularDistribution:
+        name: flattenTriangularDistribution
+        desc: Change all triangle distribution in Minecraft randomizers into uniform distribution
+        extra:
+          '0': With that edge cases are more likely to happen
       fluidDestructionDisabled:
         name: fluidDestructionDisabled
         desc: Disable block destruction by fluid flowing

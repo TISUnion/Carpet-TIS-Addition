@@ -355,6 +355,20 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 按扁三角形分布 (flattenTriangularDistribution)
+
+**本规则仅在 Minecraft >= 1.19 中存在**
+
+把 Minecraft 随机数发生器的三角形分布改为均匀分布
+
+借此，边界情况就更有可能发生了
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 禁用流体破坏 (fluidDestructionDisabled)
 
 禁用流体流动造成的方块破坏
@@ -406,6 +420,8 @@
 
 
 ## 重新引入瞬时方块更新逻辑 (instantBlockUpdaterReintroduced)
+
+**本规则仅在 Minecraft >= 1.19 中存在**
 
 重新引入 1.19 以前的瞬时方块更新逻辑
 
