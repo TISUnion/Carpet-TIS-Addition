@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.carpet.tweaks.logger.explosion;
 
 import carpet.logging.logHelpers.ExplosionLogHelper;
+import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ExplosionLogHelperWithEntity;
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ITntEntity;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
@@ -9,10 +10,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -20,9 +20,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(ExplosionLogHelper.class)
-public abstract class ExplosionLogHelperMixin
+public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithEntity
 {
-	@Shadow(remap = false) @Final public Entity entity;
+	// fabric carpet 1.4.84 removes the entity fields, but we need that
+	// so here's comes another one
+	private Entity entity$TISCM = null;
+
+	@Override
+	public void setEntity$TISCM(Entity entity$TISCM)
+	{
+		this.entity$TISCM = entity$TISCM;
+	}
 
 	/**
 	 * velocity -> angle in [0, 2pi)
@@ -63,15 +71,29 @@ public abstract class ExplosionLogHelperMixin
 			//#else
 			List<BaseText> messages_, String option,
 			//#endif
+
+			//#if MC >= 11900
+			//$$ CallbackInfoReturnable<Text[]> cir
+			//#else
 			CallbackInfoReturnable<BaseText[]> cir
+			//#endif
 	)
 	{
-		if (this.entity instanceof TntEntity)
+		if (this.entity$TISCM instanceof TntEntity)
 		{
-			ITntEntity iTntEntity = (ITntEntity)this.entity;
+			ITntEntity iTntEntity = (ITntEntity)this.entity$TISCM;
 			if (iTntEntity.dataRecorded())
 			{
-				List<BaseText> messages = Lists.newArrayList(cir.getReturnValue());
+				List<BaseText> messages = Lists.newArrayList();
+				for (Text text : cir.getReturnValue())
+				{
+					if (text instanceof BaseText)
+					{
+						// for easier 1.19 compact
+						//noinspection CastCanBeRemovedNarrowingVariableType
+						messages.add((BaseText)text);
+					}
+				}
 
 				String angleString = String.valueOf(this.calculateAngle(iTntEntity.getInitializedVelocity()));
 				String posString = TextUtil.coord(iTntEntity.getInitializedPosition());

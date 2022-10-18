@@ -26,6 +26,7 @@
     "carpet.tweaks.command.tickWarpMaximumDuration.TickCommandMixin",
     "carpet.tweaks.freezeActionPackTicking.EntityPlayerActionPackMixin",
     "carpet.tweaks.logger.explosion.ExplosionLogHelperMixin",
+    "carpet.tweaks.logger.explosion.ExplosionMixin",
     "carpet.tweaks.logger.explosion.TntEntityMixin",
     "carpet.tweaks.logger.projectile.EntityMixin",
     "carpet.tweaks.logger.projectile.LoggerRegistryMixin",
