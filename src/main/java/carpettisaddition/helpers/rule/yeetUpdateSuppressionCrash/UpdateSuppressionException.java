@@ -19,27 +19,14 @@ import net.minecraft.world.World;
 
 import java.util.function.Supplier;
 
-//#if MC >= 11700
-//$$ import carpet.helpers.ThrowableSuppression;
-//#endif
-
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"))
-public class UpdateSuppressionException extends
-		//#if MC >= 11700
-		//$$ ThrowableSuppression
-		//#else
-		RuntimeException
-		//#endif
+public class UpdateSuppressionException extends RuntimeException
 {
 	private static final Translator tr = new Translator("rule.yeetUpdateSuppressionCrash");
 	private final Supplier<BaseText> textHolder;
 
 	public UpdateSuppressionException(World world, BlockPos pos)
 	{
-		//#if MC >= 11700
-		//$$ super("", pos);
-		//#endif
-
 		DimensionWrapper dimension = DimensionWrapper.of(world);
 		TickPhase tickPhase = MicroTimingAccess.getTickPhase((ServerWorld)world);
 		this.textHolder = Suppliers.memoize(() ->  tr.tr("exception_detail",
