@@ -13,6 +13,10 @@ import net.minecraft.nbt.Tag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
+//#if MC >= 11903
+//$$ import net.minecraft.world.World;
+//#endif
+
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
 @Mixin(ShapeDispatcher.FormattedTextParam.class)
 public abstract class FormattedTextParamMixin
@@ -24,7 +28,12 @@ public abstract class FormattedTextParamMixin
 	 * @author Fallen_Breath
 	 */
 	@Overwrite(remap = false)
-	public Value decode(Tag tag)
+	public Value decode(
+			Tag tag
+			//#if MC >= 11903
+			//$$ , World world
+			//#endif
+	)
 	{
 		String str = tag.asString();
 		try

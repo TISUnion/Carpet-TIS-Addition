@@ -12,13 +12,22 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class CarvedPumpkinBlockMixin
 {
 	@ModifyArg(
+			//#if MC >= 11903
+			//$$ method = "method_45455",
+			//#else
 			method = "trySpawnEntity",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			),
-			require = 2
+			)
+			//#if MC < 11903
+			, require = 2
+			//#endif
 	)
+	//#if MC >= 11903
+	//$$ static
+	//#endif
 	private Entity onGolemSummonedLifeTimeTracker(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON);
