@@ -554,6 +554,11 @@ carpettisaddition:
         desc: Allow creative players place water via water bucket in nether
         extra:
           '0': Technically this rule applies to all ultrawarm dimensions
+      creativeNoItemCooldown:
+        name: creativeNoItemCooldown
+        desc: Remove the cooldown of items used by the creative players
+        extra:
+          '0': e.g. the 20gt cooldown after throwing an ender pearl
       creativeOpenContainerForcibly:
         name: creativeOpenContainerForcibly
         desc: Allow creative players to open a container even if the container is blocked. e.g. for shulker box

@@ -161,6 +161,18 @@ Technically this rule applies to all ultrawarm dimensions
 - Categories: `TIS`, `CREATIVE`
 
 
+## creativeNoItemCooldown
+
+Remove the cooldown of items used by the creative players
+
+e.g. the 20gt cooldown after throwing an ender pearl
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## creativeOpenContainerForcibly
 
 Allow creative players to open a container even if the container is blocked. e.g. for shulker box

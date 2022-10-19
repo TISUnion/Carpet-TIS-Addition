@@ -554,6 +554,11 @@ carpettisaddition:
         desc: 允许创造模式的玩家在地狱通过水桶放出水
         extra:
           '0': 技术上来讲，本条规则对所有ultrawarm的维度都生效
+      creativeNoItemCooldown:
+        name: 创造玩家无物品冷却
+        desc: 取消创造模式玩家的任何物品使用冷却
+        extra:
+          '0': 例如使用末影珍珠的 20gt 冷却
       creativeOpenContainerForcibly:
         name: 创造玩家强制打开容器
         desc: 允许创造模式的玩家打开被阻挡的容器，如潜影盒

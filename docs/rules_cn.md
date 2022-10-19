@@ -161,6 +161,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 创造玩家无物品冷却 (creativeNoItemCooldown)
+
+取消创造模式玩家的任何物品使用冷却
+
+例如使用末影珍珠的 20gt 冷却
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 创造玩家强制打开容器 (creativeOpenContainerForcibly)
 
 允许创造模式的玩家打开被阻挡的容器，如潜影盒

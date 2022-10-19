@@ -236,6 +236,8 @@
     "rule.chunkUpdatePacketThreshold.ChunkHolderMixin",
     "rule.clientSettingsLostOnRespawnFix.ServerPlayerEntityMixin",
     "rule.creativeNetherWaterPlacement.BucketItemMixin",
+    "rule.creativeNoItemCooldown.ItemCooldownManagerMixin",
+    "rule.creativeNoItemCooldown.PlayerEntityMixin",
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
     "rule.creativeOpenContainerForcibly.EnderChestBlockMixin",
     "rule.creativeOpenContainerForcibly.ShulkerBoxBlockMixin",

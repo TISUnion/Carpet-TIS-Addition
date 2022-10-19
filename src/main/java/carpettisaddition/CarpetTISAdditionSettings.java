@@ -106,6 +106,9 @@ public class CarpetTISAdditionSettings
 	public static boolean creativeNetherWaterPlacement = false;
 
 	@Rule(categories = {TIS, CREATIVE})
+	public static boolean creativeNoItemCooldown = false;
+
+	@Rule(categories = {TIS, CREATIVE})
 	public static boolean creativeOpenContainerForcibly = false;
 
     @Rule(categories = {TIS, FEATURE})
