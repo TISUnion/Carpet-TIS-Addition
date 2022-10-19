@@ -8,10 +8,6 @@ pluginManagement {
             name = 'Jitpack'
             url = "https://jitpack.io"
         }
-        maven {
-            name = 'Cotton'
-            url = 'https://server.bbkr.space/artifactory/libs-release/'
-        }
         mavenCentral()
         gradlePluginPortal()
     }
