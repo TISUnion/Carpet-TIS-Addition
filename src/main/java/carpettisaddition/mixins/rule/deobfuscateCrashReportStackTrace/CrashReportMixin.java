@@ -39,7 +39,10 @@ public abstract class CrashReportMixin
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/io/StringWriter;<init>()V"
-			)
+			),
+			// this is needed for optifine compact
+			// since optifine appends another Throwable local var in 1.17.1+ (at least e.g. 1.17.1 HD U H1)
+			ordinal = 0
 	)
 	private Throwable deobfuscateCrashReportStackTrace_applyCrashReport2(Throwable throwable)
 	{
