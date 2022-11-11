@@ -26,7 +26,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity
 {
-	//#if MC >= 11900
+	//#if MC >= 11903
+	//$$ public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile)
+	//$$ {
+	//$$ 	super(world, pos, yaw, gameProfile);
+	//$$ }
+	//#elseif MC >= 11900
 	//$$ public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile, @Nullable PlayerPublicKey playerPublicKey)
 	//$$ {
 	//$$ 	super(world, pos, yaw, profile, playerPublicKey);

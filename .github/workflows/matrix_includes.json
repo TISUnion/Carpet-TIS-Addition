@@ -22,5 +22,9 @@
   {
     "subproject_dir": "1.19.x",
     "game_versions": "1.19.2"
+  },
+  {
+    "subproject_dir": "future",
+    "game_versions": "22w45a"
   }
 ]
