@@ -874,6 +874,18 @@ You can modify gamerule `randomTickSpeed` to speed up the melting progress, or m
 - Categories: `TIS`, `CREATIVE`
 
 
+## stopCommandDoubleConfirmation
+
+Add a double confirmation for `/stop` command to prevent stopping server accidentally
+
+You need to enter `/stop` twice within 1 minute to stop the server
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `COMMAND`
+
+
 ## structureBlockDoNotPreserveFluid
 
 Structure block do not preserve existed fluid when placing waterlogged-able blocks

@@ -874,6 +874,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## stop指令两步确认 (stopCommandDoubleConfirmation)
+
+为 `/stop` 指令添加两步确认机制，以防止误触导致意外地关掉了服务器
+
+你需要在1分钟内输入两次 `/stop` 指令来关闭服务器
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `COMMAND`
+
+
 ## 结构方块不保留流体 (structureBlockDoNotPreserveFluid)
 
 结构方块在放置含水方块时，不保留已存在的流体
@@ -883,7 +895,7 @@
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `BUGFIX`
+- 分类: `TIS`, `CREATIVE`, `BUGFIX`
 
 
 ## 结构方块范围限制 (structureBlockLimit)

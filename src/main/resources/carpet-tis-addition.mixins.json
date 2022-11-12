@@ -137,6 +137,7 @@
     "command.raid.RaidManagerAccessor",
     "command.raid.RaidMixin",
     "command.refresh.ThreadedAnvilChunkStorageAccessor",
+    "command.stop.StopCommandMixin",
     "command.tick.warp.TickCommandMixin",
     "logger.commandblock.CommandBlockExecutorMixin",
     "logger.commandblock.CommandBlockMinecartEntityMixin",

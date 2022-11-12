@@ -76,6 +76,7 @@
 - [repeaterHalfDelay](rules.md#repeaterhalfdelay)
 - [sandDupingFix](rules.md#sanddupingfix)
 - [snowMeltMinLightLevel](rules.md#snowmeltminlightlevel)
+- [stopCommandDoubleConfirmation](rules.md#stopcommanddoubleconfirmation)
 - [structureBlockDoNotPreserveFluid](rules.md#structureblockdonotpreservefluid)
 - [structureBlockLimit](rules.md#structureblocklimit)
 - [synchronizedLightThread](rules.md#synchronizedlightthread)

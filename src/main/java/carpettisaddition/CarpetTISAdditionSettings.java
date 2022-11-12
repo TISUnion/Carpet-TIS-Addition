@@ -462,6 +462,9 @@ public class CarpetTISAdditionSettings
 	)
 	public static int snowMeltMinLightLevel = VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL;
 
+	@Rule(categories = {TIS, COMMAND})
+	public static boolean stopCommandDoubleConfirmation = false;
+
 	@Rule(categories = {TIS, CREATIVE, BUGFIX})
 	public static boolean structureBlockDoNotPreserveFluid = false;
 

@@ -316,6 +316,10 @@ carpettisaddition:
           title: 'Velocity vectors:'
           added: Added velocity of %1$s with %2$s
           set: Set velocity of %1$s to %2$s
+    stop:
+      double_confirmation:
+        message: Execute this command again to confirm the shutdown of the server
+        hover_hint: Double confirmation provided by rule stopCommandDoubleConfirmation to prevent unintended activation
     raid:
       raid_count: "Raid Count: %1$s"
       status:
@@ -850,6 +854,11 @@ carpettisaddition:
           '1': Set it to 0 to melt all annoying snow on your builds
           '2': Set it to the same level as the minimum light level for snow to not fall on block (light level 10) to easily test if your build is snow-proof with light or not
           '3': You can modify gamerule randomTickSpeed to speed up the melting progress, or modify carpet rule chunkTickSpeed to speed up the snowfall progress
+      stopCommandDoubleConfirmation:
+        name: stopCommandDoubleConfirmation
+        desc: Add a double confirmation for /stop command to prevent stopping server accidentally
+        extra:
+          '0': You need to enter /stop twice within 1 minute to stop the server
       structureBlockDoNotPreserveFluid:
         name: structureBlockDoNotPreserveFluid
         desc: Structure block do not preserve existed fluid when placing waterlogged-able blocks
