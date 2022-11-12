@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.carpet.tweaks.logger.projectile;
 
 import carpet.logging.logHelpers.TrajectoryLogHelper;
+import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.ProjectileLoggerTarget;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.TrajectoryLoggerUtil;
@@ -12,6 +13,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -98,9 +100,31 @@ public abstract class TrajectoryLogHelperMixin
 	 * lambda method in {@link TrajectoryLogHelper#onFinish}
 	 */
 	@Inject(method = "lambda$onFinish$0", at = @At("TAIL"), remap = false, cancellable = true)
-	private void projectileLoggerEnhance(String option, CallbackInfoReturnable<BaseText[]> cir)
+	private void projectileLoggerEnhance(
+			String option,
+			//#if MC >= 11900
+			//$$ CallbackInfoReturnable<Text[]> cir
+			//#else
+			CallbackInfoReturnable<BaseText[]> cir
+			//#endif
+	)
 	{
-		List<BaseText> comp = Lists.newArrayList(cir.getReturnValue());
+		List<BaseText> comp = Lists.newArrayList();
+		for (Text text : cir.getReturnValue())
+		{
+			if (text instanceof BaseText)
+			{
+				// easier 1.19 compact
+				//noinspection CastCanBeRemovedNarrowingVariableType
+				comp.add((BaseText)text);
+			}
+			else
+			{
+				CarpetTISAdditionServer.LOGGER.warn("Unsupported text type {} found in return value in TrajectoryLogHelperMixin#projectileLoggerEnhance", text.getClass());
+				return;
+			}
+		}
+
 		Optional<HitResult> hitResultOptional = getHitResult();
 		Vec3d hitPos = null;
 		BaseText hitType = null;
@@ -182,6 +206,12 @@ public abstract class TrajectoryLogHelperMixin
 				}
 				break;
 		}
-		cir.setReturnValue(comp.toArray(new BaseText[0]));
+		cir.setReturnValue(comp.toArray(
+				//#if MC >= 11900
+				//$$ new Text[0]
+				//#else
+				new BaseText[0]
+				//#endif
+		));
 	}
 }
