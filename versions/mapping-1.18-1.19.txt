@@ -6,6 +6,3 @@ carpet.settings.Validator carpet.api.settings.Validator
 
 net.minecraft.text.BaseText net.minecraft.text.MutableText
 net.minecraft.world.dimension.DimensionType isUltrawarm() ultrawarm()
-
-me.jellysquid.mods.lithium.common.hopper.RemovalCounter me.jellysquid.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeEmitter
-me.jellysquid.mods.lithium.common.hopper.RemovalCounter increaseRemovedCounter() me.jellysquid.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeEmitter emitRemoved()
