@@ -2,27 +2,31 @@ package carpettisaddition.tests;
 
 import carpettisaddition.translations.TISAdditionTranslations;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class TranslationTest extends TestCase
 {
+	// only test our maintaining languages
 	private static final Set<String> TESTING_LANGUAGES = ImmutableSet.of("en_us", "zh_cn");
 
 	public void testTranslationConsistency()
 	{
 		TISAdditionTranslations.loadTranslations();
-		Map<String, List<String>> translationKeys = Maps.newLinkedHashMap();
-		TISAdditionTranslations.translationStorage.forEach((lang, translations) -> translationKeys.put(
-				lang, new ArrayList<>(translations.keySet())
-		));
 
-		// only test our maintaining languages
+		// lang -> list of keys
+		Map<String, List<String>> translationKeys = Maps.newLinkedHashMap();
+		for (String lang : TISAdditionTranslations.getLanguages())
+		{
+			Set<String> keys = TISAdditionTranslations.getTranslations(lang).keySet();
+			translationKeys.put(lang, Lists.newArrayList(keys));
+		}
+
 		TESTING_LANGUAGES.forEach(lang -> assertTrue(translationKeys.containsKey(lang)));
 		translationKeys.keySet().removeIf(lang -> !TESTING_LANGUAGES.contains(lang));
 		System.out.printf("Testing %d languages: %s\n", translationKeys.size(), translationKeys.keySet());

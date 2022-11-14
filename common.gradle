@@ -2,6 +2,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'fabric-loom'
 apply plugin: 'io.github.juuxel.loom-quiltflower'
 apply plugin: 'com.replaymod.preprocess'
+apply plugin: 'me.fallenbreath.yamlang'
 
 int mcVersion = 1
 
@@ -39,7 +40,6 @@ dependencies {
 	include(modImplementation("com.github.Fallen-Breath:conditional-mixin:${project.conditionalmixin_version}"))
 
 	// libraries
-	include(implementation("org.yaml:snakeyaml:${project.snakeyaml_version}"))
 	testImplementation "junit:junit:${project.junit_version}"
 }
 
@@ -108,6 +108,11 @@ processResources {
 		]
 		expand valueMap
 	}
+}
+
+yamlang {
+	targetSourceSets = [sourceSets.main]
+	inputDir = 'assets/carpettisaddition/lang'
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is

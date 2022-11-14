@@ -34,7 +34,7 @@ public abstract class TranslatableTextMixin
 	{
 		if (this.key.startsWith(TranslationConstants.TRANSLATION_KEY_PREFIX) && vanillaTranslatedFormattingString.equals(this.key))
 		{
-			String tiscmTranslated = TISAdditionTranslations.translateKeyToFormattingString(TISAdditionTranslations.getServerLanguage(), this.key);
+			String tiscmTranslated = TISAdditionTranslations.getTranslationString(TISAdditionTranslations.getServerLanguage(), this.key);
 			if (tiscmTranslated != null)
 			{
 				return tiscmTranslated;

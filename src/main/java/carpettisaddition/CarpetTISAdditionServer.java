@@ -171,7 +171,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	{
 		Map<String, String> trimmedTranslation = Maps.newHashMap();
 		String prefix = TranslationConstants.CARPET_TRANSLATIONS_KEY_PREFIX;
-		TISAdditionTranslations.getTranslationFromResourcePath(lang).forEach((key, value) -> {
+		TISAdditionTranslations.getTranslations(lang).forEach((key, value) -> {
 			if (key.startsWith(prefix))
 			{
 				String newKey = key.substring(prefix.length());

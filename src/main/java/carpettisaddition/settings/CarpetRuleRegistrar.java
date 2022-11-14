@@ -77,7 +77,7 @@ public class CarpetRuleRegistrar
 			@Nullable
 			private String tr(String key)
 			{
-				return TISAdditionTranslations.translateKeyToFormattingString(TranslationConstants.DEFAULT_LANGUAGE, this.basedKey + key);
+				return TISAdditionTranslations.getTranslationString(TranslationConstants.DEFAULT_LANGUAGE, this.basedKey + key);
 			}
 
 			@Override

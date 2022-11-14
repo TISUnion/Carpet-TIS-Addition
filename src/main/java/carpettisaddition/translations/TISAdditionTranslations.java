@@ -15,8 +15,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.VisibleForTesting;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -25,16 +25,27 @@ import static carpettisaddition.translations.TranslationConstants.*;
 
 public class TISAdditionTranslations
 {
-	@VisibleForTesting
-	public static final Map<String, Map<String, String>> translationStorage = Maps.newLinkedHashMap();
+	/**
+	 * language -> (key -> content)
+	 */
+	private static final Map<String, Map<String, String>> translationStorage = Maps.newLinkedHashMap();
 
 	public static void loadTranslations()
 	{
 		TranslationLoader.loadTranslations(translationStorage);
 	}
 
+	public static Collection<String> getLanguages()
+	{
+		return Collections.unmodifiableSet(translationStorage.keySet());
+	}
+
+	/**
+	 * @param lang the language
+	 * @return key -> translated content (translated formatting string)
+	 */
 	@NotNull
-	public static Map<String, String> getTranslationFromResourcePath(String lang)
+	public static Map<String, String> getTranslations(String lang)
 	{
 		return translationStorage.getOrDefault(lang, Collections.emptyMap());
 	}
@@ -48,9 +59,9 @@ public class TISAdditionTranslations
 	 * key -> translated formatting string
 	 */
 	@Nullable
-	public static String translateKeyToFormattingString(String lang, String key)
+	public static String getTranslationString(String lang, String key)
 	{
-		return getTranslationFromResourcePath(lang.toLowerCase()).get(key);
+		return getTranslations(lang.toLowerCase()).get(key);
 	}
 
 	public static BaseText translate(BaseText text, String lang)
@@ -155,10 +166,10 @@ public class TISAdditionTranslations
 			// do translation logic
 			if (translatableText.getKey().startsWith(TRANSLATION_KEY_PREFIX))
 			{
-				String msgKeyString = translateKeyToFormattingString(lang, translatableText.getKey());
+				String msgKeyString = getTranslationString(lang, translatableText.getKey());
 				if (msgKeyString == null && !lang.equals(DEFAULT_LANGUAGE))
 				{
-					msgKeyString = translateKeyToFormattingString(DEFAULT_LANGUAGE, translatableText.getKey());
+					msgKeyString = getTranslationString(DEFAULT_LANGUAGE, translatableText.getKey());
 				}
 				text = modifier.apply(
 						//#if MC >= 11900

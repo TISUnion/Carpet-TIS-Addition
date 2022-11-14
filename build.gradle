@@ -8,6 +8,9 @@ plugins {
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
     id 'com.replaymod.preprocess' version '897c4096e2'
+
+    // https://github.com/Fallen-Breath/yamlang
+    id 'me.fallenbreath.yamlang' version '1.0.0' apply false
 }
 
 preprocess {
