@@ -1032,6 +1032,20 @@ Disable all block updates and state updates
 - Categories: `TIS`, `CREATIVE`
 
 
+## toughWitherRose
+
+Birth from death, wither rose is tough enough to be planted on any surface
+
+This rule removes all placement requirement of wither rose block, which means you're able to place wither rose at anywhere
+
+It's useful when you want to play around with update suppressed wither roses for wither skeleton farms
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## turtleEggTrampledDisabled
 
 Disable turtle egg trampled to broken

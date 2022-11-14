@@ -927,6 +927,12 @@ carpettisaddition:
       totallyNoBlockUpdate:
         name: totallyNoBlockUpdate
         desc: Disable all block updates and state updates
+      toughWitherRose:
+        name: toughWitherRose
+        desc: Birth from death, wither rose is tough enough to be planted on any surface
+        extra:
+          '0': This rule removes all placement requirement of wither rose block, which means you're able to place wither rose at anywhere
+          '1': It's useful when you want to play around with update suppressed wither roses for wither skeleton farms
       turtleEggTrampledDisabled:
         name: turtleEggTrampledDisabled
         desc: Disable turtle egg trampled to broken

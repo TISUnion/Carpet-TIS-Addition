@@ -89,6 +89,7 @@
 - [TNT忽略红石信号](rules_cn.md#TNT忽略红石信号-tntignoreredstonesignal)
 - [工具化TNT](rules_cn.md#工具化TNT-tooledtnt)
 - [完全没有方块更新](rules_cn.md#完全没有方块更新-totallynoblockupdate)
+- [坚韧的凋零玫瑰](rules_cn.md#坚韧的凋零玫瑰-toughwitherrose)
 - [禁用海龟蛋被践踏](rules_cn.md#禁用海龟蛋被践踏-turtleeggtrampleddisabled)
 - [亡灵生物别在阳光下着火](rules_cn.md#亡灵生物别在阳光下着火-undeaddontburninsunlight)
 - [可视化投掷物记录器](rules_cn.md#可视化投掷物记录器-visualizeprojectileloggerenabled)

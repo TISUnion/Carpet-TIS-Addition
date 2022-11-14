@@ -562,6 +562,9 @@ public class CarpetTISAdditionSettings
 	public static boolean totallyNoBlockUpdate = false;
 
 	@Rule(categories = {TIS, CREATIVE})
+	public static boolean toughWitherRose = false;
+
+	@Rule(categories = {TIS, CREATIVE})
 	public static boolean turtleEggTrampledDisabled = false;
 
 	/**

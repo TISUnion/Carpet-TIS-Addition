@@ -89,6 +89,7 @@
 - [tntIgnoreRedstoneSignal](rules.md#tntignoreredstonesignal)
 - [tooledTNT](rules.md#tooledtnt)
 - [totallyNoBlockUpdate](rules.md#totallynoblockupdate)
+- [toughWitherRose](rules.md#toughwitherrose)
 - [turtleEggTrampledDisabled](rules.md#turtleeggtrampleddisabled)
 - [undeadDontBurnInSunlight](rules.md#undeaddontburninsunlight)
 - [visualizeProjectileLoggerEnabled](rules.md#visualizeprojectileloggerenabled)
