@@ -1,6 +1,7 @@
 package carpettisaddition.mixins.translations;
 
 import carpettisaddition.translations.TISAdditionTranslations;
+import carpettisaddition.translations.TranslationConstants;
 import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,7 +32,7 @@ public abstract class TranslatableTextMixin
 	)
 	private String applyTISCarpetTranslation(String vanillaTranslatedFormattingString)
 	{
-		if (this.key.startsWith(TISAdditionTranslations.TRANSLATION_KEY_PREFIX) && vanillaTranslatedFormattingString.equals(this.key))
+		if (this.key.startsWith(TranslationConstants.TRANSLATION_KEY_PREFIX) && vanillaTranslatedFormattingString.equals(this.key))
 		{
 			String tiscmTranslated = TISAdditionTranslations.translateKeyToFormattingString(TISAdditionTranslations.getServerLanguage(), this.key);
 			if (tiscmTranslated != null)

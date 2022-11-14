@@ -23,6 +23,7 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCa
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
 import carpettisaddition.settings.CarpetRuleRegistrar;
 import carpettisaddition.translations.TISAdditionTranslations;
+import carpettisaddition.translations.TranslationConstants;
 import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -169,7 +170,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	public Map<String, String> canHasTranslations(String lang)
 	{
 		Map<String, String> trimmedTranslation = Maps.newHashMap();
-		String prefix = TISAdditionTranslations.CARPET_TRANSLATIONS_KEY_PREFIX;
+		String prefix = TranslationConstants.CARPET_TRANSLATIONS_KEY_PREFIX;
 		TISAdditionTranslations.getTranslationFromResourcePath(lang).forEach((key, value) -> {
 			if (key.startsWith(prefix))
 			{

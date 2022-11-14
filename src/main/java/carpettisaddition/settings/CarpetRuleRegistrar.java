@@ -3,6 +3,7 @@ package carpettisaddition.settings;
 import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.translations.TranslationConstants;
 import com.google.common.collect.Lists;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -71,12 +72,12 @@ public class CarpetRuleRegistrar
 		//#else
 		carpet.settings.Rule cmRule = new carpet.settings.Rule()
 		{
-			private final String basedKey = TISAdditionTranslations.CARPET_TRANSLATIONS_KEY_PREFIX + "rule." + this.name() + ".";
+			private final String basedKey = TranslationConstants.CARPET_TRANSLATIONS_KEY_PREFIX + "rule." + this.name() + ".";
 
 			@Nullable
 			private String tr(String key)
 			{
-				return TISAdditionTranslations.translateKeyToFormattingString(TISAdditionTranslations.DEFAULT_LANGUAGE, this.basedKey + key);
+				return TISAdditionTranslations.translateKeyToFormattingString(TranslationConstants.DEFAULT_LANGUAGE, this.basedKey + key);
 			}
 
 			@Override

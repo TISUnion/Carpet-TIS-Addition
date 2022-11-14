@@ -29,7 +29,7 @@ public class Translator
 
 	public BaseText tr(String key, Object... args)
 	{
-		String translationKey = TISAdditionTranslations.TRANSLATION_KEY_PREFIX + this.translationPath + "." + key;
+		String translationKey = TranslationConstants.TRANSLATION_KEY_PREFIX + this.translationPath + "." + key;
 		return Messenger.tr(translationKey, args);
 	}
 }
