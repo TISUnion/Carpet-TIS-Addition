@@ -48,7 +48,7 @@ public class ParsedRuleMixin<T>
 			, cancellable = true
 			//#endif
 	)
-	private void TISCMValidatorLogic(
+	private void TISCMValidatorFailureLogicOverride(
 			ServerCommandSource source, T value, String stringValue,
 			//#if MC >= 11901
 			//$$ CallbackInfo ci,
