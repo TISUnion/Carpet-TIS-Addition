@@ -33,6 +33,8 @@ carpettisaddition:
         found: 在应用规则 %2$s 时在值 "%1$s" 中发现了意料之外的字符
         blocked: 如果你真的要应用这个值，请再输入一次该指令
         applied: 接受该值，因为你坚持这样做
+    tiscm_protocol:
+      protocol_not_enabled: '[警告] TISCM网络协议未启用，你需要将规则tiscmNetworkProtocol设置为true才能让规则%1$s正常工作'
 
   logger:
     commandBlock:

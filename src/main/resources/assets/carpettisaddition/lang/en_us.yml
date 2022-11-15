@@ -33,6 +33,8 @@ carpettisaddition:
         found: "Unexpected character found in value \"%1$s\" when applying rule %2$s"
         blocked: "Re-enter the command again if you do want to use this value"
         applied: "Accepted anyway cuz you insisted"
+    tiscm_protocol:
+      protocol_not_enabled: '[Warning] TISCM network protocol is not enabled. You need to set rule tiscmNetworkProtocol to true to make rule %1$s work'
 
   logger:
     commandBlock:

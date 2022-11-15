@@ -3,9 +3,13 @@ package carpettisaddition.settings;
 import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.network.TISCMProtocolRuleListener;
+import carpettisaddition.settings.validator.AbstractValidator;
 import carpettisaddition.translations.TranslationConstants;
 import com.google.common.collect.Lists;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 
 //#if MC >= 11901
@@ -48,15 +52,29 @@ public class CarpetRuleRegistrar
 		}
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	private static Class<? extends AbstractValidator>[] extractValidators(Rule rule)
+	{
+		List<Class<? extends AbstractValidator>> validators = Lists.newArrayList(rule.validators());
+		if (Arrays.asList(rule.categories()).contains(CarpetTISAdditionSettings.TISCM_PROTOCOL))
+		{
+			validators.add(TISCMProtocolRuleListener.class);
+		}
+		return validators.toArray(new Class[0]);
+	}
+
+	@SuppressWarnings("rawtypes")
 	private void parseRule(Field field, Rule rule)
 	{
+		Class<? extends AbstractValidator>[] validators = extractValidators(rule);
+
 		//#if MC >= 11901
 		//$$ try
 		//$$ {
 		//$$ 	Class<?> ruleAnnotationClass = Class.forName("carpet.settings.ParsedRule$RuleAnnotation");
 		//$$ 	Constructor<?> ctr1 = ruleAnnotationClass.getDeclaredConstructors()[0];
 		//$$ 	ctr1.setAccessible(true);
-		//$$ 	Object ruleAnnotation = ctr1.newInstance(false, null, null, null, rule.categories(), rule.options(), rule.strict(), "", rule.validators());
+		//$$ 	Object ruleAnnotation = ctr1.newInstance(false, null, null, null, rule.categories(), rule.options(), rule.strict(), "", validators);
   //$$
 		//$$ 	Class<?> parsedRuleClass = Class.forName("carpet.settings.ParsedRule");
 		//$$ 	Constructor<?> ctr2 = parsedRuleClass.getDeclaredConstructors()[0];
@@ -111,7 +129,7 @@ public class CarpetRuleRegistrar
 			@Override public String[] category() {return rule.categories();}
 			@Override public String[] options() {return rule.options();}
 			@Override public boolean strict() {return rule.strict();}
-			@SuppressWarnings("rawtypes") @Override public Class<? extends Validator>[] validate() {return rule.validators();}
+			@Override public Class<? extends Validator>[] validate() {return validators;}
 			@Override public Class<? extends Annotation> annotationType() {return rule.annotationType();}
 
 			//#if MC >= 11600
