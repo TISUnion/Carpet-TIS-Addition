@@ -18,6 +18,9 @@ public abstract class AbstractValidator<T> extends Validator<T>
 		return translator.tr(key, args);
 	}
 
+	/**
+	 * Carpet interface
+	 */
 	@Deprecated
 	@Override
 	public final T validate(ServerCommandSource source, ParsedRule<T> currentRule, T inputValue, String string)
@@ -39,6 +42,9 @@ public abstract class AbstractValidator<T> extends Validator<T>
 		return newValue;
 	}
 
+	/**
+	 * Carpet interface
+	 */
 	@Deprecated
 	@Override
 	public final String description()
@@ -46,16 +52,39 @@ public abstract class AbstractValidator<T> extends Validator<T>
 		return null;
 	}
 
+	/**
+	 * When validation succeeded, it's about to be set to a value to the rule. The new value might equal to the old value
+	 * @param newValue The new value to be set. Use this as a replacement of accessing the rule field, since the rule field is not updated yet
+	 */
 	public void onRuleSet(ValidationContext<T> ctx, T newValue)
 	{
 	}
 
+	/**
+	 * When validation succeeded, it's about to be set to a value to the rule, and the value is changed
+	 * @param newValue The new value to be set. Use this as a replacement of accessing the rule field, since the rule field is not updated yet
+	 */
 	public void onRuleChanged(ValidationContext<T> ctx, T newValue)
 	{
 	}
 
+	/**
+	 * When validation failed
+	 * <p>
+	 * The default implementation sent a validation failure report to the command source, if the command source exists
+	 * Remember to invoke a super call if you override this method, unless you don't want the error message to be sent
+	 * <p>
+	 * Messages will be like:
+	 *   Wrong value for rule myRule: myValue
+	 *   Some extra error message provided by the validator
+	 */
 	public void onValidationFailure(ValidationContext<T> ctx)
 	{
+		if (ctx.source == null)
+		{
+			return;
+		}
+
 		Messenger.tell(
 				ctx.source,
 				Messenger.formatting(tr("basic.failure", ctx.ruleName(), ctx.inputValue), "r"),
@@ -69,9 +98,16 @@ public abstract class AbstractValidator<T> extends Validator<T>
 		}
 	}
 
+	/**
+	 * Validate implementation
+	 */
 	@Nullable
 	protected abstract T validate(ValidationContext<T> ctx);
 
+	/**
+	 * Provide an extra validation error message as a detailed description when validate fails
+	 * If null is returned, no extra line of the error message will be sent
+	 */
 	public BaseText errorMessage(ValidationContext<T> ctx)
 	{
 		return null;
