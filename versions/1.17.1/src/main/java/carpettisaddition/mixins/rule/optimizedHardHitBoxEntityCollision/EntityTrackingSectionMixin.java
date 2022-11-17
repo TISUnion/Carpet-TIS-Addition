@@ -92,7 +92,9 @@ public abstract class EntityTrackingSectionMixin<
 	 * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	 */
 	@Redirect(
-			//#if MC >= 11800
+			//#if MC >= 11903
+			//$$ method = "forEach(Lnet/minecraft/util/math/Box;Lnet/minecraft/class_7927;)Lnet/minecraft/class_7927$class_7928;",
+			//#elseif MC >= 11800
 			//$$ method = "forEach(Lnet/minecraft/util/math/Box;Ljava/util/function/Consumer;)V",
 			//#else
 			method = "forEach(Ljava/util/function/Predicate;Ljava/util/function/Consumer;)V",

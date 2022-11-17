@@ -1,1 +1,1 @@
-net.minecraft.util.registry.Registry net.minecraft.util.registry.Registries
+net.minecraft.util.registry.Registry net.minecraft.registry.Registries
