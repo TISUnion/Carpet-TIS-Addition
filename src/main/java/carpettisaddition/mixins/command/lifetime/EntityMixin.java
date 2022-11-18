@@ -111,6 +111,10 @@ public abstract class EntityMixin implements LifetimeTrackerTarget
 	{
 		if (this.doLifeTimeTracking && this.recordedSpawning && this.spawningPos != null && !this.recordedRemoval)
 		{
+			if (!reason.getRemovalType().isValid())
+			{
+				return;
+			}
 			this.recordedRemoval = true;
 			this.removalPos = this.getPos();
 			((ServerWorldWithLifeTimeTracker)this.world).getLifeTimeWorldTracker().onEntityRemove((Entity)(Object)this, reason);

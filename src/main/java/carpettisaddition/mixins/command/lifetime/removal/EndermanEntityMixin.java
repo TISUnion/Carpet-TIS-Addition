@@ -1,6 +1,5 @@
 package carpettisaddition.mixins.command.lifetime.removal;
 
-import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import carpettisaddition.utils.ModIds;
@@ -20,12 +19,9 @@ public abstract class EndermanEntityMixin
 	@Inject(method = "setCarriedBlock", at = @At("TAIL"))
 	private void noMoreCountingTowardsMobcapLifetimeTracker(BlockState state, CallbackInfo ci)
 	{
-		if (CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap)
+		if (state != null)
 		{
-			if (state != null)
-			{
-				((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PICKUP_BLOCK);
-			}
+			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PICKUP_BLOCK);
 		}
 	}
 }
