@@ -1,5 +1,6 @@
 package carpettisaddition.commands.lifetime;
 
+import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
@@ -13,17 +14,22 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.Objects;
+
 public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 {
 	private final Entity entity;
 	private final LifeTimeWorldTracker tracker;
 	private final int trackId;
 	private final boolean doLifeTimeTracking;
+
+	private boolean recordedSpawning;
 	private long spawnTime;
 	private Vec3d spawningPos;
-	private Vec3d removalPos;
-	private boolean recordedSpawning;
+
 	private boolean recordedRemoval;
+	private long removalTime;
+	private Vec3d removalPos;
 
 	public LifetimeTrackerTargetImpl(Entity entity)
 	{
@@ -49,9 +55,12 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 		// dont track
 		this.tracker = null;
 		this.trackId = -1;
-		this.spawnTime = -1;
-		this.spawningPos = null;
 		this.doLifeTimeTracking = false;
+	}
+
+	public boolean isActivated()
+	{
+		return this.doLifeTimeTracking;
 	}
 
 	@Override
@@ -63,19 +72,24 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 	@Override
 	public long getLifeTime()
 	{
-		return this.tracker.getSpawnStageCounter() - this.spawnTime;
+		if (this.recordedSpawning && this.recordedRemoval)
+		{
+			return this.removalTime - this.spawnTime;
+		}
+		CarpetTISAdditionServer.LOGGER.warn("Try to query lifetime of {} without recording spawning or removal {} {}", this.entity, this.recordedSpawning, this.recordedRemoval);
+		return -1;
 	}
 
 	@Override
 	public Vec3d getSpawningPosition()
 	{
-		return this.spawningPos;
+		return Objects.requireNonNull(this.spawningPos, "Spawning is not recorded");
 	}
 
 	@Override
 	public Vec3d getRemovalPosition()
 	{
-		return this.removalPos;
+		return Objects.requireNonNull(this.removalPos, "Removal is not recorded");
 	}
 
 	@Override
@@ -113,6 +127,7 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 			}
 			this.recordedRemoval = true;
 			this.removalPos = this.entity.getPos();
+			this.removalTime = this.tracker.getSpawnStageCounter();
 			this.tracker.onEntityRemove(this.entity, reason);
 		}
 	}
