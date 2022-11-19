@@ -48,7 +48,7 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 				// do track
 				this.tracker = tracker;
 				this.trackId = LifeTimeTracker.getInstance().getCurrentTrackId();
-				this.doLifeTimeTracking = LifeTimeTracker.getInstance().willTrackEntity(entity);
+				this.doLifeTimeTracking = LifeTimeTracker.getInstance().willTrackEntity(entity, false);
 				return;
 			}
 		}

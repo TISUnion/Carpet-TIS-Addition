@@ -66,10 +66,10 @@ public class LifeTimeTracker extends AbstractTracker
 		return attachedServer && INSTANCE.isTracking();
 	}
 
-	public boolean willTrackEntity(Entity entity)
+	public boolean willTrackEntity(Entity entity, boolean checkTrackId)
 	{
 		return isActivated() &&
-				((LifetimeTrackerTarget)entity).getTrackId() == this.getCurrentTrackId() &&
+				(!checkTrackId || ((LifetimeTrackerTarget)entity).getTrackId() == this.getCurrentTrackId()) &&
 				LifeTimeTrackerUtil.isTrackedEntityClass(entity);
 	}
 
