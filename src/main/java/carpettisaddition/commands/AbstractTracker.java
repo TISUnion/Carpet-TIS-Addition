@@ -111,12 +111,14 @@ public abstract class AbstractTracker extends TranslationContext
 				this.reportTracking(source, false);
 				if (showFeedback)
 				{
-					Messenger.tell(source, Messenger.c(Messenger.newLine(), baseTranslator.tr("tracking_stopped", this.getTranslatedNameFull())), true);
+					Messenger.tell(source, Messenger.s(" "));
+					Messenger.tell(source, baseTranslator.tr("tracking_stopped", this.getTranslatedNameFull()), true);
 				}
 			}
 			else if (showFeedback)
 			{
-				Messenger.tell(source, Messenger.c(Messenger.newLine(), Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), Formatting.RED)));
+				Messenger.tell(source, Messenger.s(" "));
+				Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), Formatting.RED));
 			}
 		}
 		this.tracking = false;
