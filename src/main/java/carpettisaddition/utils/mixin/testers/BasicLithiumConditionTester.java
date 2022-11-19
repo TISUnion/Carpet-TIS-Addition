@@ -18,7 +18,7 @@ public abstract class BasicLithiumConditionTester implements ConditionTester
 	}
 
 	@Override
-	public boolean isSatisfied(String mixinClassName)
+	public final boolean isSatisfied(String mixinClassName)
 	{
 		return this.isLithiumRuleEnabled();
 	}

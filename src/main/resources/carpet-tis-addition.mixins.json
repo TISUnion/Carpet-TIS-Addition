@@ -54,6 +54,7 @@
     "command.info.InfoCommandMixin",
     "command.info.ServerWorldAccessor",
     "command.info.WorldTickSchedulerAccessor",
+    "command.info.compat.lithium.ChunkTickSchedulerMixin",
     "command.info.entity.EntityAccessor",
     "command.info.entity.EntityInfoMixin",
     "command.info.entity.ExperienceOrbEntityAccessor",
