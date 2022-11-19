@@ -1,4 +1,4 @@
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.spawning.placeblock;
 
 import carpettisaddition.utils.ModIds;
 import carpettisaddition.utils.compat.DummyClass;
@@ -10,5 +10,4 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(DummyClass.class)
 public abstract class EndermanEntityMixin
 {
-	// impl in 1.16
 }

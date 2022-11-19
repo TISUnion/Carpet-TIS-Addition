@@ -58,6 +58,15 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 		this.doLifeTimeTracking = false;
 	}
 
+	private void reset()
+	{
+		if (this.doLifeTimeTracking)
+		{
+			this.recordedSpawning = false;
+			this.recordedRemoval = false;
+		}
+	}
+
 	public boolean isActivated()
 	{
 		return this.doLifeTimeTracking;
@@ -95,7 +104,17 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 	@Override
 	public void recordSpawning(SpawningReason reason)
 	{
-		if (this.doLifeTimeTracking && !this.recordedSpawning)
+		if (!this.doLifeTimeTracking)
+		{
+			return;
+		}
+
+		// already finished lifetime recording, now do another recording
+		if (this.recordedSpawning && this.recordedRemoval && reason.getSpawningType().isDoubleRecordSupported())
+		{
+			this.reset();
+		}
+		if (!this.recordedSpawning)
 		{
 			if (!EntityFilterManager.getInstance().test(this.entity))
 			{

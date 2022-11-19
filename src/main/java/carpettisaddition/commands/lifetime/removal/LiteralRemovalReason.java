@@ -29,7 +29,7 @@ public class LiteralRemovalReason extends RemovalReason
 	public static final LiteralRemovalReason VOID = regular("void");
 
 	// for 1.16+, general
-	public static final LiteralRemovalReason ON_VEHICLE = yeetedFromCap("on_vehicle");
+	public static final LiteralRemovalReason VEHICLE_MOUNTING = yeetedFromCap("vehicle_mounting");
 
 	// for 1.16+, enderman
 	public static final LiteralRemovalReason PICKUP_BLOCK = yeetedFromCap("pickup_block");

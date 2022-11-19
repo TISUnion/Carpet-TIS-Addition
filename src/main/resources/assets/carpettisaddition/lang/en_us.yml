@@ -399,18 +399,20 @@ carpettisaddition:
       removal_position: Removal Position
       spawn_reason:
         # LiteralSpawningReason starts
-        natural: Natural spawning
-        portal_pigman: Nether portal pigman spawning
-        command: /summon command
-        item: Spawned by item
         block_drop: Block drop
-        slime: Slime division
-        zombie_reinforce: Zombie Reinforce
-        spawner: Spawned by spawner
-        raid: Spawned in raid as raider
-        summon: Be summoned by entity or block
         breeding: Breeding
+        command: /summon command
         dispensed: Dispensed by block
+        item: Spawned by item
+        natural: Natural spawning
+        place_block: Placed down a block
+        portal_pigman: Nether portal pigman spawning
+        raid: Spawned in raid as raider
+        slime: Slime division
+        spawner: Spawned by spawner
+        summon: Be summoned by entity or block
+        vehicle_dismounting: Dismounts from a vehicle
+        zombie_reinforce: Zombie Reinforce
         # LiteralSpawningReason ends
         mob_drop: Dropped by %1$s
         mob_throw: Thrown by %1$s
@@ -429,7 +431,7 @@ carpettisaddition:
         merge: Entity merging
         hopper: Collected by hopper
         void: Entering void
-        on_vehicle: Rides on a vehicle
+        vehicle_mounting: Rides on a vehicle
         pickup_block: Picked up a block
         mob_pickup: Picked up by %1$s
         mob_conversion: Converted to %1$s
@@ -706,7 +708,7 @@ carpettisaddition:
         desc: Strategy for lifetime tracker to deal with mob that doesn't count towards mobcap
         extra:
           '0': "true: Don't track mobs that don't count towards mobcap, and treat mobs as removal as soon as they don't affect mobcap e.g. right when they pick up some items. Good for mob farm designing"
-          '1': 'false: Tracks everything it can track and mark mobs as removal when they actually get removed. Good for raid testing Good for raid testing or non-mobfarms'
+          '1': "false: Tracks everything it can track and mark mobs as removal when they actually get removed. Good for raid testing Good for raid testing or non-mobfarms"
       lightEngineMaxBatchSize:
         name: lightEngineMaxBatchSize
         desc: Changes maximum light tasks batch size

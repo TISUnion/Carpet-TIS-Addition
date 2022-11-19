@@ -90,12 +90,9 @@ public abstract class EntityMixin
 	//$$ @Inject(method = "startRiding(Lnet/minecraft/entity/Entity;Z)Z", at = @At("RETURN"))
 	//$$ private void onEntityStartRidingLifeTimeTracker(CallbackInfoReturnable<Boolean> cir)
 	//$$ {
-	//$$ 	if (CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap)
+	//$$ 	if (this.hasVehicle())
 	//$$ 	{
-	//$$ 		if (this.hasVehicle())
-	//$$ 		{
-	//$$ 			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.ON_VEHICLE);
-	//$$ 		}
+	//$$ 		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.VEHICLE_MOUNTING);
 	//$$ 	}
 	//$$ }
 	//#endif

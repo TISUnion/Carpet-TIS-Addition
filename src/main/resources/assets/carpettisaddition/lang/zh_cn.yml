@@ -399,18 +399,20 @@ carpettisaddition:
       removal_position: 移除位置
       spawn_reason:
         # LiteralSpawningReason starts
-        natural: 自然刷新
-        portal_pigman: 地狱门僵尸猪人生成
-        command: /summon指令
-        item: 怪物蛋等
         block_drop: 方块掉落
-        slime: 史莱姆分裂
-        zombie_reinforce: 僵尸增援
-        spawner: 刷怪笼
-        raid: 袭击
-        summon: 被生物或方块召唤
         breeding: 繁殖
+        command: /summon指令
         dispensed: 被方块投出
+        item: 怪物蛋等
+        natural: 自然刷新
+        place_block: 放下方块
+        portal_pigman: 地狱门僵尸猪人生成
+        raid: 袭击
+        slime: 史莱姆分裂
+        spawner: 刷怪笼
+        summon: 被生物或方块召唤
+        vehicle_dismounting: 离开载具
+        zombie_reinforce: 僵尸增援
         # LiteralSpawningReason ends
         mob_drop: 由%1$s掉落
         mob_throw: 由%1$s扔出
@@ -429,7 +431,7 @@ carpettisaddition:
         merge: 实体合并
         hopper: 漏斗收集
         void: 进入虚空
-        on_vehicle: 骑上载具
+        vehicle_mounting: 骑上载具
         pickup_block: 捡起方块
         mob_pickup: 被%1$s捡起
         mob_conversion: 转换为%1$s

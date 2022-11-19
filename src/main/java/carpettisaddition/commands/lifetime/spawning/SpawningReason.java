@@ -8,4 +8,9 @@ public abstract class SpawningReason extends AbstractReason
 	{
 		super("spawn_reason");
 	}
+
+	public SpawningType getSpawningType()
+	{
+		return SpawningType.ADDED_TO_WORLD;
+	}
 }
