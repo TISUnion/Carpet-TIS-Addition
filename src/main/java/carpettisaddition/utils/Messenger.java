@@ -45,6 +45,31 @@ public class Messenger
 
 	/*
 	 * ----------------------------
+	 *    Text Factories - Utils
+	 * ----------------------------
+	 */
+
+	/**
+	 * MC 1.19 +- compatibility
+	 * Get the object of the text object that indicates variable kind of text type
+	 */
+	public static
+	//#if MC >= 11900
+	//$$ TextContent
+	//#else
+	BaseText
+	//#endif
+	getTextContent(BaseText text)
+	{
+		//#if MC >= 11900
+		//$$ return text.getContent();
+		//#else
+		return text;
+		//#endif
+	}
+
+	/*
+	 * ----------------------------
 	 *    Text Factories - Basic
 	 * ----------------------------
 	 */
@@ -469,13 +494,35 @@ public class Messenger
 
 	public static BaseText copy(BaseText text)
 	{
+		BaseText copied;
+
 		//#if MC >= 11900
-		//$$ return text.copy();
+		//$$ copied = text.copy();
 		//#elseif MC >= 11600
-		//$$ return (BaseText)text.shallowCopy();
+		//$$ copied = (BaseText)text.shallowCopy();
 		//#else
-		return (BaseText)text.deepCopy();
+		copied = (BaseText)text.deepCopy();
 		//#endif
+
+		// mc1.16+ doesn't make a copy of args of a TranslatableText,
+		// so we need to copy that by ourselves
+		//#if MC >= 11600
+		//$$ if (getTextContent(copied) instanceof TranslatableText)
+		//$$ {
+		//$$ 	TranslatableText translatableText = (TranslatableText)getTextContent(copied);
+		//$$ 	Object[] args = translatableText.getArgs().clone();
+		//$$ 	for (int i = 0; i < args.length; i++)
+		//$$ 	{
+		//$$ 		if (args[i] instanceof BaseText)
+		//$$ 		{
+		//$$ 			args[i] = copy((BaseText)args[i]);
+		//$$ 		}
+		//$$ 	}
+		//$$ 	copied = tr(translatableText.getKey(), args.clone());
+		//$$ }
+		//#endif
+
+		return copied;
 	}
 
 	/*
