@@ -34,7 +34,7 @@ Check rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmob
 Control the lifetime tracker
 
 Tracked entity types:
-- All kinds of mob (MobEntity)
+- All kinds of mob (MobEntity) which count towards mobcap or rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) is false
 - Item Entity
 - Experience Orb Entity
 
@@ -53,6 +53,8 @@ Tracked entity spawning reasons
 - Dispensed by block
 - Mob drop (item and xp orb only)
 - Mob throw (item only)
+- Dismounts from a vehicle (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
+- Enderman placed down a block (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
 - Mob conversion
 - Trans-dimension from portal
 
@@ -61,16 +63,16 @@ Note that only entities that have been tracked spawning will be counted to the s
 Tracked entity removal reasons
 - Despawn, including immediately despawn, random despawn, difficulty despawn and timeout despawn
 - Damaged to death
-- Becomes persistent. Note that the entity is still not removed from the world
-- Rides on a vehicle (1.16+). Note that the entity is still not removed from the world
-- Enderman picked up a block (1.16+). Note that the entity is still not removed from the world
+- Becomes persistent. Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
+- Rides on a vehicle (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
+- Enderman picked up a block (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
 - Entity merged (item and xp orb only)
 - Collected up by hopper or hopper minecart (item only)
 - Entering void
 - Picked up by player or mob (item and xp orb only)
 - Mob conversion
 - Trans-dimension through portal
-- Other (anything else not in the list)
+- Other (anything else not in the list). If some other important reason is not tracked, feel free to make a feature request issue
 
 The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
 
