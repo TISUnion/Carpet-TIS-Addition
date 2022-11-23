@@ -100,6 +100,13 @@ jobs:
           path: ${{ format('versions/{0}/gradle.properties', matrix.subproject_dir) }}
           property: minecraft_version
 
+      - name: Read Properties game_versions
+        id: game_versions
+        uses: christian-draeger/read-properties@1.0.1
+        with:
+          path: ${{ format('versions/{0}/gradle.properties', matrix.subproject_dir) }}
+          property: game_versions
+
       - name: Publish Minecraft Mods
         uses: Kir-Antipov/mc-publish@v2.1
         with:
@@ -121,7 +128,7 @@ jobs:
           changelog: ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}  # one of them should be an empty string (null)
 
           loaders: fabric
-          game-versions: ${{ matrix.game_versions }}
+          game-versions: ${{ steps.game_versions.outputs.value }}
           dependencies: 'carpet | depends'
           version-resolver: exact
 
