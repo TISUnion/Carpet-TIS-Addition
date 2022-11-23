@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+import java.util.function.Consumer;
+
 //#if MC >= 11600
 //$$ import net.minecraft.server.world.ServerWorld;
 //#endif
@@ -23,7 +25,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class EntityTypeMixin<T extends Entity>
 {
 	@ModifyVariable(
-			//#if MC >= 11700
+			//#if MC >= 11903
+			//$$ method = "create(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/nbt/NbtCompound;Ljava/util/function/Consumer;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;",
+			//#elseif MC >= 11700
 			//$$ method = "create(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/nbt/NbtCompound;Lnet/minecraft/text/Text;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;",
 			//#elseif MC >= 11600
 			//$$ method = "create(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/text/Text;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;",
@@ -45,7 +49,15 @@ public abstract class EntityTypeMixin<T extends Entity>
 			World world,
 			//#endif
 
-			@Nullable CompoundTag itemTag, @Nullable Text name, @Nullable PlayerEntity player, BlockPos pos, SpawnType spawnType, boolean alignPosition, boolean invertY
+			@Nullable CompoundTag itemTag,
+
+			//#if MC >= 11903
+			//$$ @Nullable Consumer<T> afterConsumer,
+			//#else
+			@Nullable Text name, @Nullable PlayerEntity player,
+			//#endif
+
+			BlockPos pos, SpawnType spawnType, boolean alignPosition, boolean invertY
 	)
 	{
 		// there's an extra spawnEggTargetPos null check in the method PreciseEntityPlacer#adjustEntityFromSpawnEgg

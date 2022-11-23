@@ -86,14 +86,15 @@ public abstract class EntityTrackingSectionMixin<
 	 * - {@link SimpleEntityLookup#forEachIntersects(net.minecraft.util.math.Box, java.util.function.Consumer)}
 	 * - {@link SectionedEntityCache#forEachIntersects(net.minecraft.util.math.Box, java.util.function.Consumer)}
 	 * -
-	 *   (<=1.17) {@link EntityTrackingSection#forEach(java.util.function.Predicate, java.util.function.Consumer)}
-	 *   (>=1.18) {@link EntityTrackingSection#forEach(net.minecraft.util.math.Box, java.util.function.Consumer)}
+	 *   (<=1.17)         {@link EntityTrackingSection#forEach(java.util.function.Predicate, java.util.function.Consumer)}
+	 *   (>=1.18 <1.19.3) {@link EntityTrackingSection#forEach(net.minecraft.util.math.Box, java.util.function.Consumer)}
+	 *   (>=1.19.3)       {@link EntityTrackingSection#forEach(Box, net.minecraft.util.function.LazyIterationConsumer)}
 	 *
 	 * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	 */
 	@Redirect(
 			//#if MC >= 11903
-			//$$ method = "forEach(Lnet/minecraft/util/math/Box;Lnet/minecraft/class_7927;)Lnet/minecraft/class_7927$class_7928;",
+			//$$ method = "forEach(Lnet/minecraft/util/math/Box;Lnet/minecraft/util/function/LazyIterationConsumer;)Lnet/minecraft/util/function/LazyIterationConsumer$NextIteration;",
 			//#elseif MC >= 11800
 			//$$ method = "forEach(Lnet/minecraft/util/math/Box;Ljava/util/function/Consumer;)V",
 			//#else
