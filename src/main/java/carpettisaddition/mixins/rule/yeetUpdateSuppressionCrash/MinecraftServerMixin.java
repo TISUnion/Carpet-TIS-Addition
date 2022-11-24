@@ -14,7 +14,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.function.BooleanSupplier;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"))
+@Restriction(
+		require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"),
+		conflict = @Condition(value = ModIds.carpet_extra, versionPredicates = ">=1.4.14 <=1.4.43")
+)
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
