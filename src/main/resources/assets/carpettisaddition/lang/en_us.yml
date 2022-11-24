@@ -871,6 +871,7 @@ carpettisaddition:
         desc: Add a double confirmation for /stop command to prevent stopping server accidentally
         extra:
           '0': You need to enter /stop twice within 1 minute to stop the server
+          '1': This mechanics only works for players
       structureBlockDoNotPreserveFluid:
         name: structureBlockDoNotPreserveFluid
         desc: Structure block do not preserve existed fluid when placing waterlogged-able blocks

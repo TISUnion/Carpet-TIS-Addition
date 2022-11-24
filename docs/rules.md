@@ -890,6 +890,8 @@ Add a double confirmation for `/stop` command to prevent stopping server acciden
 
 You need to enter `/stop` twice within 1 minute to stop the server
 
+This mechanics only works for players
+
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`

@@ -1,6 +1,7 @@
 package carpettisaddition.commands.stop;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.CommandUtil;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.server.command.ServerCommandSource;
@@ -16,6 +17,12 @@ public class StopCommandDoubleConfirmation
 	public static void handleDoubleConfirmation(CommandContext<ServerCommandSource> commandContext, CallbackInfoReturnable<Integer> cir)
 	{
 		if (!CarpetTISAdditionSettings.stopCommandDoubleConfirmation)
+		{
+			return;
+		}
+
+		// only apply this double command on player
+		if (!CommandUtil.isPlayerCommandSource(commandContext.getSource()))
 		{
 			return;
 		}
