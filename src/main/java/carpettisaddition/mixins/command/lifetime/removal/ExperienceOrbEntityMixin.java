@@ -57,7 +57,7 @@ public abstract class ExperienceOrbEntityMixin extends Entity
 	}
 
 	//#if MC >= 11700
-	//$$ @Inject(method = "merge", at = @At("TAIL"))
+	//$$ @Inject(method = "merge", at = @At("HEAD"))
 	//$$ private void onMergedLifeTimeTracker(ExperienceOrbEntity other, CallbackInfo ci)
 	//$$ {
 	//$$ 	int amountBackup = ((ExperienceOrbEntityAccessor)other).getAmount$TISCM();
