@@ -84,6 +84,14 @@ jobs:
           path: ${{ format('versions/{0}/gradle.properties', matrix.subproject_dir) }}
           properties: 'minecraft_version game_versions'
 
+      - name: Fix game version
+        id: game_versions
+        run: |
+          # Fixed \n in game_versions isn't parsed by christian-draeger/read-properties as a line separator
+          echo 'value<<EOF' >> $GITHUB_OUTPUT
+          echo -e "${{ steps.properties_v.outputs.game_versions }}" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+
       - name: Publish Minecraft Mods
         uses: Kir-Antipov/mc-publish@v3.2
         with:
@@ -105,7 +113,7 @@ jobs:
           changelog: ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}  # one of them should be an empty string (null)
 
           loaders: fabric
-          game-versions: ${{ steps.properties_v.outputs.game_versions }}
+          game-versions: ${{ steps.game_versions.outputs.value }}
           dependencies: 'carpet | depends'
           version-resolver: exact
 
