@@ -114,7 +114,9 @@ Attributes:
 
 `/log memory`
 
-Display current consumed and total memory of the server in HUD
+Display current memory usage of the server in HUD
+
+Format: `Used memory` / `Allocated memory` | `Max memory`
 
 Attributes:
 - Default option: N/A

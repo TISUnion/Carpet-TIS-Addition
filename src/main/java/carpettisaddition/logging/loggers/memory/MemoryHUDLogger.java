@@ -25,10 +25,15 @@ public class MemoryHUDLogger extends AbstractHUDLogger
 	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
 		final long bytesPerMB = 1024 * 1024;
-		long occupiedMemoryMB = (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / bytesPerMB;
-		long totalMemoryMB = Runtime.getRuntime().maxMemory() / bytesPerMB;
+		long free = Runtime.getRuntime().freeMemory();
+		long total = Runtime.getRuntime().totalMemory();
+		long max = Runtime.getRuntime().maxMemory();
+
+		long usedMB = Math.max(total - free, 0) / bytesPerMB;
+		long allocatedMB = total / bytesPerMB;
+		long maxMB = max != Long.MAX_VALUE ? max / bytesPerMB : -1;
 		return new BaseText[]{
-				Messenger.c(String.format("g %dM / %dM", occupiedMemoryMB, totalMemoryMB))
+				Messenger.c(String.format("g %dM / %dM | %dM", usedMB, allocatedMB, maxMB))
 		};
 	}
 }
