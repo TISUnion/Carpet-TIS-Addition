@@ -44,7 +44,7 @@ public class StopCommandDoubleConfirmation
 				Messenger.tr("carpettisaddition.command.stop.double_confirmation.message"),
 				Messenger.tr("carpettisaddition.command.stop.double_confirmation.hover_hint"),
 				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/carpet stopCommandDoubleConfirmation")
-		));
+		), true);
 		cir.setReturnValue(0);
 	}
 }
