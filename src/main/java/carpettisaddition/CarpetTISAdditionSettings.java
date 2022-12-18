@@ -569,7 +569,7 @@ public class CarpetTISAdditionSettings
 
 	/**
 	 * TISCM debugging rule
-	 * - translation: Use fabric-carpet's rule "language" as the target langauge when translating text for a player
+	 * - translation: Use fabric-carpet's rule "language" as the target language when translating text for a player
 	 * - optimizedFastEntityMovement: Apply optimizedFastEntityMovement's logic to all entities while ignoring the velocity of the entity
 	 *   by default the rule only applies to entities travel faster than a threshold value
 	 * - mixin_audit: Triggers MixinEnvironment.getCurrentEnvironment().audit() which force-load all mixin targeted classes
