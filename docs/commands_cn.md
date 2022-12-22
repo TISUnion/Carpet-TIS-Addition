@@ -12,6 +12,12 @@
 
 显示游戏中所有维度运算的顺序
 
+### world weather
+
+`/info world weather`
+
+显示当前的世界中天气相关变量的数据，并将其整理成一份天气预报
+
 
 ## 存活时间 (lifetime)
 

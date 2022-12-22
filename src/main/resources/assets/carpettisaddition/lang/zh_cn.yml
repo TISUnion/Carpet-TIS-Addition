@@ -271,6 +271,33 @@ carpettisaddition:
   command:
     info:
       ticking_order: 游戏中%1$s个维度的运算顺序：
+      weather:
+        data:
+          title: 天气遥测数据
+          clearWeatherTime: 净空计时器
+          rainTime: 降雨计时器
+          raining: 正在降雨
+          thunderTime: 雷暴计时器
+          thundering: 正在雷暴
+        forecast:
+          title: 天气预报
+          current: '当前天气: %1$s'
+          clear_sky_duration: 净空时长
+          rain_duration: 降雨时长
+          thunder_duration: 雷暴时长
+          thunder_in: 将于%1$s后发生雷暴
+          no_thunder: 这场降雨过程中不存在雷暴
+          rain_in:
+            .: 将于%1$s后发生降雨
+            with_thunder: 将有持续至少%1$s的雷暴
+            thunder_unknown: 雷暴预报不可用，你可以在%1$s后重试
+            no_thunder_for_now: 至少%1$s内不会有雷暴
+            maybe_thunder: 有可能伴随着雷暴。在%1$s后重试以获得进一步的数据
+        weathers:
+          clear_sky: 晴天
+          raining: 降雨
+          thundering: 雷暴
+
     manipulate:
       container:
         help: 操控%1$s

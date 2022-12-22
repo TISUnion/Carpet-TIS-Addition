@@ -12,6 +12,12 @@
 
 Show the ticking order of current dimensions in the game
 
+### world weather
+
+`/info world weather`
+
+Show weather properties of the world, and organize it into a nice weather forecast
+
 
 ## lifetime
 
