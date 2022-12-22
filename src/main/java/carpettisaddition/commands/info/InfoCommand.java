@@ -138,11 +138,11 @@ public class InfoCommand extends AbstractCommand implements CommandExtender
 	//$$ 	ChunkTickScheduler<T> cts = ((WorldTickSchedulerAccessor<T>)wts).getChunkTickSchedulers().get(ChunkPos.toLong(pos));
 	//$$ 	if (cts != null)
 	//$$ 	{
-	//$$		Queue<OrderedTick<T>> queue = ((QueueAccessibleChunkTickScheduler<T>)cts).getTickQueue$TISCM();
-	//$$		if (queue != null)
-	//$$		{
-	//$$			return queue.stream().filter(t -> t.pos().equals(pos)).sorted(OrderedTick.TRIGGER_TICK_COMPARATOR).collect(Collectors.toList());
-	//$$		}
+	//$$ 		Queue<OrderedTick<T>> queue = ((QueueAccessibleChunkTickScheduler<T>)cts).getTickQueue$TISCM();
+	//$$ 		if (queue != null)
+	//$$ 		{
+	//$$ 			return queue.stream().filter(t -> t.pos().equals(pos)).sorted(OrderedTick.TRIGGER_TICK_COMPARATOR).collect(Collectors.toList());
+	//$$ 		}
 	//$$ 	}
 	//$$ 	return Collections.emptyList();
 	//$$ }

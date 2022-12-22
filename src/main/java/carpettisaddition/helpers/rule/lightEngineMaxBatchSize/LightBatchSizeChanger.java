@@ -19,8 +19,8 @@ public class LightBatchSizeChanger
 
 	public static void apply()
 	{
-		//#if MC <= 11600
-		//$$ setSize(CarpetTISAdditionSettings.lightEngineMaxBatchSize);
+		//#if MC < 11600
+		setSize(CarpetTISAdditionSettings.lightEngineMaxBatchSize);
 		//#endif
 	}
 }

@@ -177,7 +177,7 @@ public abstract class WorldMixins
 		//$$ 		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, blockPos, block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null);
 		//$$ 	}
 		//$$ }
-		//$$
+  //$$
 		//$$ @Inject(method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V", at = @At("TAIL"))
 		//$$ private void endUpdateSingleBlock2(BlockState blockState, BlockPos blockPos, Block block, BlockPos sourceBlock, boolean bl, CallbackInfo ci)
 		//$$ {
