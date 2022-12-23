@@ -292,7 +292,7 @@ carpettisaddition:
             with_thunder: It will be a thunderstorm which will last up to %1$s
             thunder_unknown: Thunderstorm forecast unavailable, you can retry in %1$s
             no_thunder_for_now: No thunderstorm for at least %1$s
-            maybe_thunder: Potential rain with thunderstorm. Retry in %1$s for further data
+            maybe_thunder: Potential thunderstorm. Retry in %1$s for further data
         weathers:
           thundering: Thunderstorm
           raining: Raining
