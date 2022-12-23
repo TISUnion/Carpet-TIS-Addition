@@ -1,7 +1,7 @@
 package carpettisaddition.mixins.command.info;
 
 import carpet.utils.BlockInfo;
-import carpettisaddition.commands.info.InfoCommand;
+import carpettisaddition.commands.info.InfoCommandExtension;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -24,6 +24,6 @@ public abstract class BlockInfoMixin
 	@Inject(method = "blockInfo", at = @At("TAIL"), remap = false)
 	private static void showMoreBlockInfo(BlockPos pos, @Coerce World world, CallbackInfoReturnable<List<BaseText>> cir)
 	{
-		cir.getReturnValue().addAll(InfoCommand.getInstance().showMoreBlockInfo(pos, world));
+		cir.getReturnValue().addAll(InfoCommandExtension.getInstance().showMoreBlockInfo(pos, world));
 	}
 }

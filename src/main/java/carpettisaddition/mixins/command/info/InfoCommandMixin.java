@@ -2,6 +2,7 @@ package carpettisaddition.mixins.command.info;
 
 import carpet.commands.InfoCommand;
 import carpettisaddition.commands.CommandTreeContext;
+import carpettisaddition.commands.info.InfoCommandExtension;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,7 +33,7 @@ public abstract class InfoCommandMixin
 			//#endif
 	)
 	{
-		carpettisaddition.commands.info.InfoCommand.getInstance().extendCommand(
+		InfoCommandExtension.getInstance().extendCommand(
 				CommandTreeContext.of(
 						builder
 						//#if MC >= 11900
