@@ -294,9 +294,9 @@ carpettisaddition:
             no_thunder_for_now: No thunderstorm for at least %1$s
             maybe_thunder: Potential thunderstorm. Retry in %1$s for further data
         weathers:
-          thundering: Thunderstorm
-          raining: Raining
           clear_sky: Clear sky
+          raining: Raining
+          thundering: Thunderstorm
 
     manipulate:
       container:
