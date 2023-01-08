@@ -75,7 +75,7 @@ jobs:
         uses: christian-draeger/read-properties@1.1.1
         with:
           path: gradle.properties
-          properties: 'mod_version'
+          properties: 'mod_name mod_version'
 
       - name: Read version-specific properties
         id: properties_v
@@ -107,7 +107,7 @@ jobs:
           files-primary: ${{ format('build-artifacts/{0}/build/libs/!(*-@(dev|sources)).jar', matrix.subproject_dir) }}
           files-secondary: ''
 
-          name: ${{ format('Carpet TIS Addition v{0} for mc{1}', steps.properties_g.outputs.mod_version, steps.properties_v.outputs.minecraft_version) }}
+          name: ${{ format('{0} v{1} for mc{2}', steps.properties_g.outputs.mod_name, steps.properties_g.outputs.mod_version, steps.properties_v.outputs.minecraft_version) }}
           version: ${{ format('mc{0}-v{1}', steps.properties_v.outputs.minecraft_version, steps.properties_g.outputs.mod_version) }}
           version-type: release
           changelog: ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}  # one of them should be an empty string (null)

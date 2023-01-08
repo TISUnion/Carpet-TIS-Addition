@@ -1,5 +1,6 @@
 plugins {
     id 'maven-publish'
+    id 'com.github.hierynomus.license' version '0.16.1' apply false
     id 'fabric-loom' version '1.0-SNAPSHOT' apply false
 
     // https://github.com/Juuxel/LoomQuiltflower

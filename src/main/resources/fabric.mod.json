@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "carpet-tis-addition",
+  "id": "${id}",
   "version": "${version}",
 
-  "name": "Carpet TIS Addition",
+  "name": "${name}",
   "description": "More useful tools and interesting features",
   "authors": [
     "Fallen_Breath ..."
