@@ -29,9 +29,13 @@ import java.nio.charset.StandardCharsets;
 
 public class FileUtil
 {
-	public static void prepareFileDirectories(File file) throws IOException
+	public static void touchFileDirectory(File file) throws IOException
 	{
-		File dir = file.getParentFile();
+		touchDirectory(file.getParentFile());
+	}
+
+	public static void touchDirectory(File dir) throws IOException
+	{
 		if (!dir.exists())
 		{
 			if (!dir.mkdirs())

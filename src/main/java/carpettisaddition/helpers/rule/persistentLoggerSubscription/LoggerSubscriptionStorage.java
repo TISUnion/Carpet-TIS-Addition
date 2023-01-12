@@ -91,7 +91,7 @@ public class LoggerSubscriptionStorage
 		File file = new File(STORAGE_FILE_PATH);
 		try
 		{
-			FileUtil.prepareFileDirectories(file);
+			FileUtil.touchFileDirectory(file);
 		}
 		catch (IOException e)
 		{

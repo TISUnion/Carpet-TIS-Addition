@@ -36,12 +36,12 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OnlineMappingProvider
 {
@@ -58,7 +58,7 @@ public class OnlineMappingProvider
 	public static final String YARN_META_URL = "https://meta.fabricmc.net/v2/versions/yarn/" + MINECRAFT_VERSION;
 	public static final String YARN_MAPPING_URL_BASE = "https://maven.fabricmc.net/net/fabricmc/yarn/";
 	public static final String MAPPINGS_JAR_LOCATION = "mappings/mappings.tiny";
-	public static final String STORAGE_DIRECTORY = String.format("./config/%s/", CarpetTISAdditionServer.compactName);
+	public static final String STORAGE_DIRECTORY = String.format("./config/%s/mapping/", CarpetTISAdditionServer.compactName);
 	public static final String YARN_VERSION_CACHE_FILE = STORAGE_DIRECTORY + "yarn_version.json";
 
 	private static String getMappingFileName(String yarnVersion)
@@ -98,7 +98,7 @@ public class OnlineMappingProvider
 		File file = new File(YARN_VERSION_CACHE_FILE);
 		if (FileUtil.isFile(file))
 		{
-			YarnVersionCache[] caches = new Gson().fromJson(new InputStreamReader(new FileInputStream(file)), YarnVersionCache[].class);
+			YarnVersionCache[] caches = new Gson().fromJson(new InputStreamReader(Files.newInputStream(file.toPath())), YarnVersionCache[].class);
 			cacheList.addAll(Arrays.asList(caches));
 		}
 
@@ -124,8 +124,8 @@ public class OnlineMappingProvider
 		cacheList.add(new YarnVersionCache(OnlineMappingProvider.MINECRAFT_VERSION, yarnVersion));
 
 		// store
-		FileUtil.prepareFileDirectories(file);
-		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(file));
+		FileUtil.touchFileDirectory(file);
+		OutputStreamWriter writer = new OutputStreamWriter(Files.newOutputStream(file.toPath()));
 		writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(cacheList));
 		writer.flush();
 		writer.close();
@@ -146,8 +146,10 @@ public class OnlineMappingProvider
 			File jarFile = new File(STORAGE_DIRECTORY + mappingJar);
 			FileUtils.copyURLToFile(new URL(escapedUrl), jarFile);
 
-			FileSystem jar = FileSystems.newFileSystem(jarFile.toPath(), (ClassLoader)null);
-			Files.copy(jar.getPath(MAPPINGS_JAR_LOCATION), mappingFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			try (FileSystem jar = FileSystems.newFileSystem(jarFile.toPath(), (ClassLoader) null))
+			{
+				Files.copy(jar.getPath(MAPPINGS_JAR_LOCATION), mappingFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+ 			}
 			Files.delete(jarFile.toPath());
 		}
 		return new FileInputStream(mappingFile);
@@ -161,10 +163,13 @@ public class OnlineMappingProvider
 		}
 	}
 
-	private static void getMappingInner()
+	private static void getMappingThreaded()
 	{
 		try
 		{
+			// 0. Migrate
+			moveFilesIntoMappingDir();
+
 			// 1. Get yarn version
 			String yarnVersion = getYarnVersion(true);
 			LOGGER.debug("Got yarn version for Minecraft {}: {}", MINECRAFT_VERSION, yarnVersion);
@@ -184,6 +189,7 @@ public class OnlineMappingProvider
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void checkYarnVersionUpdate(String currentYarnVersion)
 	{
 		try
@@ -207,10 +213,42 @@ public class OnlineMappingProvider
 	}
 
 	/**
+	 * A migration method for <= v1.44
+	 * Moved mapping stuffs at config root to a mapping folder
+	 */
+	private static void moveFilesIntoMappingDir() throws IOException
+	{
+		final String MAPPING_STORAGE_DIRECTORY_OLD = String.format("./config/%s/", CarpetTISAdditionServer.compactName);
+		final String MAPPING_CONFIG = "yarn_version.json";
+		final String MAPPING_SUFFIX = "-v2.tiny";
+
+		List<File> targets = null;
+		try (Stream<Path> paths = Files.list(new File(MAPPING_STORAGE_DIRECTORY_OLD).toPath()))
+		{
+			targets = paths.map(Path::toFile).
+					filter(File::isFile).
+					filter(file -> file.getName().equals(MAPPING_CONFIG) || file.getName().endsWith(MAPPING_SUFFIX)).
+					collect(Collectors.toList());
+		}
+		catch (NoSuchFileException ignored)
+		{
+		}
+
+		if (targets != null && !targets.isEmpty())
+		{
+			FileUtil.touchDirectory(new File(STORAGE_DIRECTORY));
+			for (File file : targets)
+			{
+				Files.move(file.toPath(), new File(STORAGE_DIRECTORY).toPath().resolve(file.getName()));
+			}
+		}
+	}
+
+	/**
 	 * Entry point
 	 */
 	public static void getMapping()
 	{
-		MiscUtil.startThread("TISCM Mapping", OnlineMappingProvider::getMappingInner);
+		MiscUtil.startThread("TISCM Mapping", OnlineMappingProvider::getMappingThreaded);
 	}
 }
