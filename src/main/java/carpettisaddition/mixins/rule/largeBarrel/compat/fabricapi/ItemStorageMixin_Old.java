@@ -34,14 +34,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Restriction(require = @Condition(value = "fabric-transfer-api-v1", versionPredicates = ">=1.5.0"))
+@Restriction(require = @Condition(value = "fabric-transfer-api-v1", versionPredicates = "<1.5.0"))
 @Pseudo
 @Mixin(targets = "net.fabricmc.fabric.api.transfer.v1.item.ItemStorage")
-public abstract class ItemStorageMixin
+public abstract class ItemStorageMixin_Old
 {
 	@SuppressWarnings({"UnresolvedMixinReference", "rawtypes"})
 	@Inject(
-			method = "lambda$static$2",  // lambda method in clinit, Register Inventory fallback.
+			method = "lambda$static$1",  // lambda method in clinit, Register Inventory fallback.
 			at = @At("HEAD"),
 			remap = false,
 			cancellable = true
