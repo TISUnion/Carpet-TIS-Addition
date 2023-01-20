@@ -187,6 +187,31 @@ List information of all current raids
 Start a raid tracking to gather statistics from ongoing raids
 
 
+## raycast
+
+`/raycast block <x1> <y1> <z1> <x2> <y2> <z2> [<shapeMode>] [<fluidMode>]`
+
+Perform a block raycast from (x1, y1, z1) to (x2, y2, z2) with given shape mode and fluid mode, then show the raycast result
+
+Argument `<shapeMode>` and `<fluidMode>` are optional. See below for their default values
+
+Shape mode (see `net.minecraft.world.RaycastContext.ShapeType`):
+
+- `collider` (default value)
+- `outline`
+- `visual` (mc1.16+)
+- `falldamage_resetting` (mc1.18.2+)
+
+Fluid mode (see `net.minecraft.world.RaycastContext.FluidHandling`):
+
+- `none` (default value)
+- `source_only`
+- `any`
+- `water` (mc1.18.2+)
+
+**WARNING**: Raycast between 2 coordinate that are too far apart might cause unexpected chunk loading
+
+
 ## refresh
 
 ### inventory

@@ -368,6 +368,12 @@ carpettisaddition:
       raiders: 袭击者
       none: 无
       no_raid: 不存在袭击
+    raycast:
+      missed: 射线未命中
+      hit: 射线命中
+      unknown_enum:
+        shapeMode: 未知的形状模式 %1$s
+        fluidMode: 未知的流体模式 %1$s
     refresh:
       inventory:
         done: 已刷新物品栏
@@ -583,6 +589,9 @@ carpettisaddition:
       commandRaid:
         name: 袭击追踪器
         desc: 启用/raid命令用于列出或追踪袭击信息
+      commandRaycast:
+        name: 射线追踪命令开关
+        desc: 启用/raycast命令用于分析射线追踪
       commandRefresh:
         name: 刷新命令开关
         desc: 启用/refresh命令让你的客户端与服务端保持同步

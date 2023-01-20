@@ -368,6 +368,12 @@ carpettisaddition:
       raiders: Raiders
       none: None
       no_raid: No raid exists
+    raycast:
+      missed: Raycast missed
+      hit: Raycast hit
+      unknown_enum:
+        shapeMode: Unknown shape mode %1$s
+        fluidMode: Unknown fluid mode %1$s
     refresh:
       inventory:
         done: Inventory refreshed
@@ -583,6 +589,9 @@ carpettisaddition:
       commandRaid:
         name: commandRaid
         desc: Enables /raid command for raid listing and tracking
+      commandRaycast:
+        name: commandRaycast
+        desc: Enables /raycast command for debugging raycast
       commandRefresh:
         name: commandRefresh
         desc: Enables /refresh command for synchronizing your client to the server

@@ -129,6 +129,16 @@ Enables `/raid` command for raid listing and tracking
 - Categories: `TIS`, `COMMAND`
 
 
+## commandRaycast
+
+Enables `/raycast` command for debugging raycast
+
+- Type: `String`
+- Default value: `ops`
+- Suggested options: `false`, `true`, `ops`
+- Categories: `TIS`, `COMMAND`
+
+
 ## commandRefresh
 
 Enables `/refresh` command for synchronizing your client to the server

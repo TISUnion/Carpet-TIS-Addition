@@ -21,10 +21,8 @@
 package carpettisaddition.commands.info.world;
 
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.commands.CommandTreeContext;
-import carpettisaddition.commands.info.InfoCommandExtension;
-import carpettisaddition.translations.TranslationContext;
+import carpettisaddition.commands.info.InfoSubcommand;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
@@ -46,14 +44,9 @@ import net.minecraft.world.level.LevelProperties;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class InfoWorldCommand extends TranslationContext implements CommandExtender
+public class InfoWorldCommand extends InfoSubcommand
 {
 	private static final InfoWorldCommand INSTANCE = new InfoWorldCommand();
-
-	private InfoWorldCommand()
-	{
-		super(InfoCommandExtension.getInstance().getTranslator());
-	}
 
 	public static InfoWorldCommand getInstance()
 	{

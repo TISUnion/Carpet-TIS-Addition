@@ -28,6 +28,7 @@ import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.manipulate.ManipulateCommand;
 import carpettisaddition.commands.raid.RaidCommand;
 import carpettisaddition.commands.raid.RaidTracker;
+import carpettisaddition.commands.raycast.RaycastCommand;
 import carpettisaddition.commands.refresh.RefreshCommand;
 import carpettisaddition.commands.removeentity.RemoveEntityCommand;
 import carpettisaddition.commands.scounter.SupplierCounterCommand;
@@ -52,7 +53,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
@@ -172,6 +172,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 				ManipulateCommand.getInstance(),
 				RefreshCommand.getInstance(),
 				RaidCommand.getInstance(),
+				RaycastCommand.getInstance(),
 				RemoveEntityCommand.getInstance(),
 				SleepCommand.getInstance(),
 				SupplierCounterCommand.getInstance()

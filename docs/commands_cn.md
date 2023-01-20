@@ -187,6 +187,31 @@
 开启一个袭击追踪器以收集并统计进行中的袭击的状态信息
 
 
+### 射线追踪 (raycast)
+
+`/raycast block <x1> <y1> <z1> <x2> <y2> <z2> [<shapeMode>] [<fluidMode>]`
+
+使用给定的形状模式（shapeMode）以及流体模式（fluidMode），执行一次从 (x1, y1, z1) 到 (x2, y2, z2) 的方块射线追踪，然后显示射线追踪结果
+
+参数 `<shapeMode>` 和 `<fluidMode>` 是可选的。它们的默认值见下文
+
+形状模式（见 `net.minecraft.world.RaycastContext.ShapeType`）：
+
+- `collider`（默认值）
+- `outline`
+- `visual`（mc1.16+）
+- `falldamage_resetting`（mc1.18.2+）
+
+流体模式（见 `net.minecraft.world.RaycastContext.FluidHandling`）：
+
+- `none`（默认值）
+- `source_only`
+- `any`
+- `water`（mc1.18.2+）
+
+**警告**：两个相距过远的点之间的射线追踪可能会触发意料之外的区块加载
+
+
 ## 刷新 (refresh)
 
 ### inventory

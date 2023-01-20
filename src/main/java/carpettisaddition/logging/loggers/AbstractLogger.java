@@ -97,14 +97,9 @@ public abstract class AbstractLogger extends TranslationContext
 		);
 	}
 
-	public Logger getLogger()
-	{
-		return LoggerRegistry.getLogger(this.getName());
-	}
-
 	protected void actionWithLogger(Consumer<Logger> action)
 	{
-		Logger logger = getLogger();
+		Logger logger = LoggerRegistry.getLogger(this.getName());
 		if (logger != null)
 		{
 			action.accept(logger);

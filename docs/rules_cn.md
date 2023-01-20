@@ -139,6 +139,16 @@
 - 分类: `TIS`, `COMMAND`
 
 
+## 射线追踪命令开关 (commandRaycast)
+
+启用 `/raycast` 命令用于分析射线追踪
+
+- 类型: `String`
+- 默认值: `ops`
+- 参考选项: `false`, `true`, `ops`
+- 分类: `TIS`, `COMMAND`
+
+
 ## 移除实体命令开关 (commandRemoveEntity)
 
 启用 `/removeentity` 命令用于直接在世界中抹除目标实体

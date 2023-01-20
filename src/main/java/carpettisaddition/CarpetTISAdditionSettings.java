@@ -117,6 +117,9 @@ public class CarpetTISAdditionSettings
 	public static String commandRaid = "true";
 
 	@Rule(categories = {TIS, COMMAND})
+	public static String commandRaycast = "ops";
+
+	@Rule(categories = {TIS, COMMAND})
 	public static String commandRefresh = "true";
 
 	@Rule(categories = {TIS, COMMAND, CREATIVE})
@@ -598,7 +601,7 @@ public class CarpetTISAdditionSettings
 			options = {"false"},
 			validators = ValidateUltraSecretSetting.class,
 			strict = false,
-			categories = {TIS, EXPERIMENTAL}
+			categories = {TIS, COMMAND, EXPERIMENTAL}
 	)
 	public static String ultraSecretSetting = "false";
 	private static class ValidateUltraSecretSetting extends AbstractValidator<String>

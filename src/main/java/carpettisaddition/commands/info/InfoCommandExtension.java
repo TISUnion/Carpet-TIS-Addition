@@ -41,6 +41,7 @@ import net.minecraft.world.World;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -77,9 +78,12 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 	@Override
 	public void extendCommand(CommandTreeContext.Node context)
 	{
-		LiteralArgumentBuilder<ServerCommandSource> worldNode = literal("world");
-		InfoWorldCommand.getInstance().extendCommand(context.node(worldNode));
-		context.node.then(worldNode);
+		BiConsumer<String, InfoSubcommand> extend = (name, subcommand) -> {
+			LiteralArgumentBuilder<ServerCommandSource> worldNode = literal(name);
+			subcommand.extendCommand(context.node(worldNode));
+			context.node.then(worldNode);
+		};
+		extend.accept("world", InfoWorldCommand.getInstance());
 	}
 
 	private <T> void appendTileTickInfo(List<BaseText> result, List<ScheduledTick<T>> tileTickList, String title, long currentTime, Function<T, BaseText> nameGetter)

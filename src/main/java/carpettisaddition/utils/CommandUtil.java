@@ -21,10 +21,18 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.mixins.utils.ServerCommandSourceAccessor;
+import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
+
+import java.util.Arrays;
+
+import static com.mojang.brigadier.arguments.StringArgumentType.word;
+import static net.minecraft.server.command.CommandManager.argument;
+import static net.minecraft.server.command.CommandSource.suggestMatching;
 
 public class CommandUtil
 {
@@ -53,5 +61,15 @@ public class CommandUtil
 			}
 		}
 		return false;
+	}
+
+	public static ArgumentBuilder<ServerCommandSource, ?> enumArg(String name, Class<? extends Enum<?>> enumClass)
+	{
+		return argument(name, word()).
+				suggests((c, b) -> suggestMatching(
+						Arrays.stream(enumClass.getEnumConstants()).
+								map(e -> e.name().toLowerCase()),
+						b)
+				);
 	}
 }
