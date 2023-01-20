@@ -27,9 +27,22 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.Map;
 
+//#if MC >= 11904
+//$$ import net.minecraft.registry.DynamicRegistryManager;
+//#endif
+
 @Mixin(ShapeDispatcher.ExpiringShape.class)
 public interface ExpiringShapeInvoker
 {
-	@Invoker(remap = false)
-	void callInit(Map<String, Value> options);
+	@Invoker(
+			//#if MC < 11904
+			remap = false
+			//#endif
+	)
+	void callInit(
+			Map<String, Value> options
+			//#if MC >= 11904
+			//$$ , DynamicRegistryManager regs
+			//#endif
+	);
 }

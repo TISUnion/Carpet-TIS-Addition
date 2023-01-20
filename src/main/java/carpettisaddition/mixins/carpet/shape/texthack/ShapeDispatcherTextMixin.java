@@ -34,6 +34,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
+//#if MC >= 11904
+//$$ import org.spongepowered.asm.mixin.injection.Coerce;
+//#endif
+
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"))
 @Mixin(ShapeDispatcher.Text.class)
 public abstract class ShapeDispatcherTextMixin implements IShapeDispatcherText
@@ -55,7 +59,13 @@ public abstract class ShapeDispatcherTextMixin implements IShapeDispatcherText
 			),
 			remap = false
 	)
-	private void checkScarpetDisplayedTextHack(Map<String, Value> options, CallbackInfo ci)
+	private void checkScarpetDisplayedTextHack(
+			Map<String, Value> options,
+			//#if MC >= 11904
+			//$$ @Coerce Object regs,
+			//#endif
+			CallbackInfo ci
+	)
 	{
 		if (options.containsKey("align"))
 		{

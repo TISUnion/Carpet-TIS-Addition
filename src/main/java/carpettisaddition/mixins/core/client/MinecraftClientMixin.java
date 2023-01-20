@@ -35,4 +35,16 @@ public abstract class MinecraftClientMixin
 	{
 		CarpetTISAdditionClient.getInstance().onClientTick((MinecraftClient)(Object)this);
 	}
+
+	@Inject(
+			method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/resource/ClientBuiltinResourcePackProvider;clear()V"
+			)
+	)
+	private void onClientDisconnected(CallbackInfo ci)
+	{
+		CarpetTISAdditionClient.getInstance().onClientDisconnected((MinecraftClient)(Object)this);
+	}
 }
