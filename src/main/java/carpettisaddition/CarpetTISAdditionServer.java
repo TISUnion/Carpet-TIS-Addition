@@ -71,7 +71,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 {
 	private static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
 	public static final String compactName = CarpetTISAdditionMod.MOD_ID.replace("-","");  // carpettisaddition
-	public static final Logger LOGGER = LogManager.getLogger(CarpetTISAdditionMod.MOD_NAME);
+	public static final Logger LOGGER = CarpetTISAdditionMod.LOGGER;
 	public static MinecraftServer minecraft_server;
 
 	@Override

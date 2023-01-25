@@ -20,6 +20,7 @@
 
 package carpettisaddition.utils.mixin;
 
+import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.utils.ModIds;
 import me.jellysquid.mods.lithium.common.config.LithiumConfig;
 import net.fabricmc.loader.api.FabricLoader;
@@ -34,7 +35,7 @@ import java.io.File;
 public class LithiumConfigAccess
 {
 	@Nullable
-	private static final Object config;
+	private static final Object config = loadLithiumConfig();
 
 	private static boolean isLithiumLoaded()
 	{
@@ -69,15 +70,22 @@ public class LithiumConfigAccess
 		//#endif
 	}
 
-	static
+	@Nullable
+	private static Object loadLithiumConfig()
 	{
-		if (isLithiumLoaded())
+		if (!isLithiumLoaded())
 		{
-			config = LithiumConfig.load(new File("./config/lithium.properties"));
+			return null;
 		}
-		else
+
+		try
 		{
-			config = null;
+			return LithiumConfig.load(new File("./config/lithium.properties"));
+		}
+		catch (Exception e)
+		{
+			CarpetTISAdditionMod.LOGGER.error("Failed to load lithium config", e);
+			return null;
 		}
 	}
 }

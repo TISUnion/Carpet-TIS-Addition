@@ -23,12 +23,16 @@ package carpettisaddition;
 import carpettisaddition.utils.AutoMixinAuditExecutor;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CarpetTISAdditionMod implements ModInitializer
 {
 	public static final String MOD_ID = "carpet-tis-addition";
 	public static final String MOD_NAME = "Carpet TIS Addition";
 	private static String version;
+
+	public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
 	@Override
 	public void onInitialize()
