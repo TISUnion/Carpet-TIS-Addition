@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
-//#if MC >= 11904
+//#if MC >= 11903
 //$$ import org.spongepowered.asm.mixin.injection.Coerce;
 //#endif
 
@@ -61,7 +61,7 @@ public abstract class ShapeDispatcherTextMixin implements IShapeDispatcherText
 	)
 	private void checkScarpetDisplayedTextHack(
 			Map<String, Value> options,
-			//#if MC >= 11904
+			//#if MC >= 11903
 			//$$ @Coerce Object regs,
 			//#endif
 			CallbackInfo ci

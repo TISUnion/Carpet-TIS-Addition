@@ -28,7 +28,7 @@ import com.google.common.collect.Maps;
 
 import java.util.Map;
 
-//#if MC >= 11904
+//#if MC >= 11903
 //$$ import carpettisaddition.CarpetTISAdditionServer;
 //#endif
 
@@ -56,7 +56,7 @@ public class ShapeHolder<T extends ShapeDispatcher.ExpiringShape>
 		// the shape instance is useful for non-carpet players
 		((ExpiringShapeInvoker)this.shape).callInit(
 				this.params
-				//#if MC >= 11904
+				//#if MC >= 11903
 				//$$ , CarpetTISAdditionServer.minecraft_server.getRegistryManager()
 				//#endif
 		);
