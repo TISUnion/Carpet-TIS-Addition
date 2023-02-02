@@ -22,12 +22,13 @@ package carpettisaddition.mixins.translations;
 
 import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 //#if MC >= 11800
 //$$ import java.util.function.Consumer;
 //#else
-import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.List;
 //#endif
 
@@ -40,6 +41,10 @@ import net.minecraft.text.Text;
 @Mixin(TranslatableText.class)
 public interface TranslatableTextAccessor
 {
+	@Accessor
+	@Mutable
+	void setArgs(Object[] args);
+
 	//#if MC < 11800
 
 	@Accessor

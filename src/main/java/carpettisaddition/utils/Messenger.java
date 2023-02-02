@@ -538,7 +538,7 @@ public class Messenger
 		//$$ 			args[i] = copy((BaseText)args[i]);
 		//$$ 		}
 		//$$ 	}
-		//$$ 	copied = tr(translatableText.getKey(), args.clone());
+		//$$ 	((TranslatableTextAccessor)translatableText).setArgs(args);
 		//$$ }
 		//#endif
 
