@@ -40,6 +40,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
+//#if MC >= 11904
+//$$ import net.minecraft.class_8103;
+//#endif
+
 public class DamageLogger extends AbstractLogger
 {
 	public static final String NAME = "damage";
@@ -106,11 +110,18 @@ public class DamageLogger extends AbstractLogger
 		public void modifyDamage(float newAmount, ModifyReason reason)
 		{
 			// to avoid spamming
-			if (this.damageSource.isFire() && (this.entity.isFireImmune() || this.entity.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)))
+			boolean isFire =
+					//#if MC >= 11904
+					//$$ this.damageSource.method_48789(class_8103.IS_FIRE);
+					//#else
+					this.damageSource.isFire();
+					//#endif
+			if (isFire && (this.entity.isFireImmune() || this.entity.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)))
 			{
 				this.valid = false;
 				return;
 			}
+
 			if (newAmount != this.currentAmount)
 			{
 				this.modificationList.add(new Modification(this.currentAmount, newAmount, reason));

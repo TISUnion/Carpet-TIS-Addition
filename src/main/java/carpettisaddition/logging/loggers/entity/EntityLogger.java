@@ -130,7 +130,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 				Messenger.fancy(
 						null,
 						Messenger.tr(
-								"death.attack." + source.name,
+								"death.attack." + source.getName(),
 								Messenger.formatting(getNameTextRich(entity), Formatting.WHITE)
 						),
 						Messenger.c(
