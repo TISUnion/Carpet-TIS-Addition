@@ -62,6 +62,7 @@
 - [microTimingTickDivision](rules.md#microtimingtarget)
 - [minecartTakePassengerMinVelocity](rules.md#minecarttakepassengerminvelocity)
 - [mobcapsDisplayIgnoreMisc](rules.md#mobcapsdisplayignoremisc)
+- [oakBalloonPercent](rules.md#oakballoonpercent)
 - [observerNoDetection](rules.md#observernodetection)
 - [opPlayerNoCheat](rules.md#opplayernocheat)
 - [optimizedFastEntityMovement](rules.md#optimizedfastentitymovement)

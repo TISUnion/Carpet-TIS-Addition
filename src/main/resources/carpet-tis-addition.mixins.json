@@ -295,6 +295,7 @@
     "rule.lightUpdates.ServerLightingProviderMixin",
     "rule.minecartTakePassengerMinVelocity.AbstractMinecartEntityMixin",
     "rule.mobcapsDisplayIgnoreMisc.SpawnReporterMixin",
+    "rule.oakBalloonPercent.OakSaplingGeneratorMixin",
     "rule.observerNoDetection.ObserverBlockMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",

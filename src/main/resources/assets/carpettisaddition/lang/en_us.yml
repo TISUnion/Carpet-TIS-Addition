@@ -814,6 +814,12 @@ carpettisaddition:
         extra:
           '0': "Since it's useless: Nothing in misc category spawns, and it's ignored when calculating mobcap"
           '1': Affects mobcaps logger and /spawn mobcap command
+      oakBalloonPercent:
+        name: oakBalloonPercent
+        desc: The chance for oak sapling top grow into a balloon oak (fancy_oak) in percent
+        extra:
+          '0': e.g. 0 means no balloon oak, 50 means 50% balloon oak, 100 means always balloon oak
+          '1': Set it to -1 to disable the rule and use vanilla logic (10% balloon oak)
       observerNoDetection:
         name: observerNoDetection
         desc: Stop observer from scheduling tile tick event after it receives a state update

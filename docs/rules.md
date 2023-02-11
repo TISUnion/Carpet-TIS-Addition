@@ -682,6 +682,20 @@ Affects mobcaps logger and `/spawn mobcap command`
 - Categories: `TIS`, `CARPET_MOD`
 
 
+## oakBalloonPercent
+
+The chance for oak sapling top grow into a balloon oak (fancy_oak) in percent
+
+e.g. 0 means no balloon oak, 50 means 50% balloon oak, 100 means always balloon oak
+
+Set it to -1 to disable the rule and use vanilla logic (10% balloon oak)
+
+- Type: `int`
+- Default value: `-1`
+- Suggested options: `-1`, `0`, `50`, `100`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## observerNoDetection
 
 Stop observer from scheduling tile tick event after it receives a state update

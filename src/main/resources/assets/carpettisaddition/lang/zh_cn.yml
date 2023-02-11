@@ -814,6 +814,12 @@ carpettisaddition:
         extra:
           '0': 因为它既占空间还没用：杂项生物类型不参与刷怪循环，在统计怪物容量时也被游戏忽略
           '1': 影响mobcaps记录器以及/spawn mobcaps指令
+      oakBalloonPercent:
+        name: 橡树长成鸡腿树百分率
+        desc: 橡树树苗长成鸡腿树（fancy_oak）的概率，使用百分率作为值
+        extra:
+          '0': 如，0代表没有鸡腿树，50代表有50%的概率长成鸡腿树，100代表总长成鸡腿树
+          '1': 将其设为-1以禁用本规则并使用原版逻辑（10%概率长成鸡腿树）
       observerNoDetection:
         name: 禁用侦测器检测功能
         desc: 不准侦测器在受状态更新时添加计划刻事件

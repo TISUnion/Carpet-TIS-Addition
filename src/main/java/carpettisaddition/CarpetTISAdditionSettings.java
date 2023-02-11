@@ -294,11 +294,11 @@ public class CarpetTISAdditionSettings
 			categories = {EXPERIMENTAL, OPTIMIZATION},  // no TIS since it's a fabric-carpet backport
 			strict = false,
 			options = {"5", "50", "100", "200"},
-			validators = LightBatchValidator.class
+			validators = ValidateLightBatch.class
 	)
 	public static int lightEngineMaxBatchSize = 5;
 
-	public static class LightBatchValidator extends Validators.PositiveNumber<Integer>
+	public static class ValidateLightBatch extends Validators.PositiveNumber<Integer>
 	{
 		@Override
 		public void onRuleSet(ValidationContext<Integer> ctx, @NotNull Integer newValue)
@@ -399,10 +399,10 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
-	@Rule(categories = {TIS, CREATIVE},  validators = MicroTimingTargetValidator.class)
+	@Rule(categories = {TIS, CREATIVE},  validators = ValidateMicroTimingTarget.class)
 	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.MARKER_ONLY;
 
-	public static class MicroTimingTargetValidator extends RuleChangeListener<MicroTimingTarget>
+	public static class ValidateMicroTimingTarget extends RuleChangeListener<MicroTimingTarget>
 	{
 		@Override
 		public void onRuleSet(ValidationContext<MicroTimingTarget> ctx, @NotNull MicroTimingTarget newValue)
@@ -427,6 +427,21 @@ public class CarpetTISAdditionSettings
 
 	@Rule(categories = {TIS, CARPET_MOD})
 	public static boolean mobcapsDisplayIgnoreMisc = false;
+
+	@Rule(
+			categories = {TIS, CREATIVE},
+			validators = ValidateOakBalloonPercent.class,
+			options = {"-1", "0", "50", "100"},
+			strict = false
+	)
+	public static int oakBalloonPercent = -1;
+	public static class ValidateOakBalloonPercent extends RangedNumberValidator<Integer>
+	{
+		public ValidateOakBalloonPercent()
+		{
+			super(-1, 100);
+		}
+	}
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean observerNoDetection = false;
