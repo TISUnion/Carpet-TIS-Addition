@@ -656,7 +656,7 @@ Determine the way to divide game ticks
 
 ## minecartTakePassengerMinVelocity
 
-Determine the minimum required horizontal velocity for a minecart to pick up nearby entity as its passenger
+Determine the minimum required horizontal velocity (m/gt) for a minecart to pick up nearby entity as its passenger
 
 Set it to 0 to let minecart always take passenger no matter how fast it is, just like a boat
 

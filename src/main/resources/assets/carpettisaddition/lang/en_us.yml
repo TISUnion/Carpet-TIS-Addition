@@ -804,7 +804,7 @@ carpettisaddition:
           '1': 'player_action: Divides at the beginning of player action'
       minecartTakePassengerMinVelocity:
         name: minecartTakePassengerMinVelocity
-        desc: Determine the minimum required horizontal velocity for a minecart to pick up nearby entity as its passenger
+        desc: Determine the minimum required horizontal velocity (m/gt) for a minecart to pick up nearby entity as its passenger
         extra:
           '0': Set it to 0 to let minecart always take passenger no matter how fast it is, just like a boat
           '1': Set it to NaN to let minecart never takes passenger
