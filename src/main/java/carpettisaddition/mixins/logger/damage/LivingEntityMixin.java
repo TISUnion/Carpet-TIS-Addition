@@ -108,7 +108,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 			at = @At(
 					//#if MC >= 11904
 					//$$ value = "FIELD",
-					//$$ target = "Lnet/minecraft/class_8103;IS_PROJECTILE:Lnet/minecraft/registry/tag/TagKey;",
+					//$$ target = "Lnet/minecraft/registry/tag/DamageTypeTags;IS_PROJECTILE:Lnet/minecraft/registry/tag/TagKey;",
 					//#else
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/damage/DamageSource;isProjectile()Z",

@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 //#if MC >= 11904
-//$$ import net.minecraft.class_8103;
+//$$ import net.minecraft.registry.tag.DamageTypeTags;
 //#endif
 
 public class DamageLogger extends AbstractLogger
@@ -112,7 +112,7 @@ public class DamageLogger extends AbstractLogger
 			// to avoid spamming
 			boolean isFire =
 					//#if MC >= 11904
-					//$$ this.damageSource.method_48789(class_8103.IS_FIRE);
+					//$$ this.damageSource.isIn(DamageTypeTags.IS_FIRE);
 					//#else
 					this.damageSource.isFire();
 					//#endif
