@@ -35,7 +35,13 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 11904
+//$$ import net.minecraft.client.font.TextRenderer;
+//#endif
+
+//#if MC < 11904
 @SuppressWarnings("SimplifiableConditionalExpression")
+//#endif
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"))
 @Mixin(ShapesRenderer.RenderedText.class)
 public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.RenderedShape<ShapeDispatcher.Text>
@@ -86,7 +92,9 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			method = "renderLines",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11903
+					//#if MC >= 11904
+					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/font/TextRenderer$TextLayerType;II)I",
+					//#elseif MC >= 11903
 					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLnet/minecraft/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
@@ -98,9 +106,27 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			index = 7,
 			remap = false
 	)
-	private boolean seeThroughWhenNecessary(boolean value)
+	private
+	//#if MC >= 11904
+	//$$ TextRenderer.TextLayerType
+	//#else
+	boolean
+	//#endif
+	seeThroughWhenNecessary(
+			//#if MC >= 11904
+			//$$ TextRenderer.TextLayerType value
+			//#else
+			boolean value
+			//#endif
+	)
 	{
-		return this.isMicroTimingMarkerText() ? true : value;
+		return this.isMicroTimingMarkerText() ?
+				//#if MC >= 11904
+				//$$ TextRenderer.TextLayerType.SEE_THROUGH :
+				//#else
+				true :
+				//#endif
+				value;
 	}
 
 
