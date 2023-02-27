@@ -20,6 +20,7 @@
 
 package carpettisaddition.utils.deobfuscator.yarn;
 
+import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.utils.FileUtil;
 import carpettisaddition.utils.MiscUtil;
@@ -98,8 +99,19 @@ public class OnlineMappingProvider
 		File file = new File(YARN_VERSION_CACHE_FILE);
 		if (FileUtil.isFile(file))
 		{
-			YarnVersionCache[] caches = new Gson().fromJson(new InputStreamReader(Files.newInputStream(file.toPath())), YarnVersionCache[].class);
-			cacheList.addAll(Arrays.asList(caches));
+			YarnVersionCache[] caches = null;
+			try
+			{
+				caches = new Gson().fromJson(new InputStreamReader(Files.newInputStream(file.toPath())), YarnVersionCache[].class);
+			}
+			catch (Exception e)
+			{
+				CarpetTISAdditionMod.LOGGER.warn("Failed to deserialize data from {}: {}", YARN_VERSION_CACHE_FILE, e);
+			}
+			if (caches != null)
+			{
+				cacheList.addAll(Arrays.asList(caches));
+			}
 		}
 
 		// scan
