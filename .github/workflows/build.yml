@@ -43,7 +43,7 @@ jobs:
       - name: Get subproject name to build
         id: subproject_info
         run: |
-          if [ ${{ inputs.target_subproject }} != '' ]
+          if [ "${{ inputs.target_subproject }}" != "" ]
           then
               echo "prefix=${{ inputs.target_subproject }}:" >> $GITHUB_OUTPUT
           else
@@ -70,3 +70,22 @@ jobs:
         with:
           name: build-artifacts
           path: versions/*/build/libs/
+
+  summary:
+    runs-on: ubuntu-22.04
+    needs:
+      - build
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: build-artifacts
+
+      - name: Make build summary
+        run: python3 .github/workflows/scripts/summary.py  # Python 3.10.6
+        env:
+          TARGET_SUBPROJECT: ${{ inputs.target_subproject }}
