@@ -1,14 +1,14 @@
 plugins {
     id 'maven-publish'
     id 'com.github.hierynomus.license' version '0.16.1' apply false
-    id 'fabric-loom' version '1.0-SNAPSHOT' apply false
+    id 'fabric-loom' version '1.1-SNAPSHOT' apply false
 
     // https://github.com/Juuxel/LoomQuiltflower
     id 'io.github.juuxel.loom-quiltflower' version '1.8.0' apply false
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
-    id 'com.replaymod.preprocess' version '897c4096e2'
+    id 'com.replaymod.preprocess' version 'e1050f4d72'
 
     // https://github.com/Fallen-Breath/yamlang
     id 'me.fallenbreath.yamlang' version '1.1.0' apply false
@@ -31,7 +31,7 @@ preprocess {
     mc119.link(mcFuture, file('versions/mapping-1.19-future.txt'))
 }
 
-task buildAndGather {
+tasks.register('buildAndGather') {
     subprojects {
         dependsOn project.name + ':build'
     }
