@@ -656,7 +656,7 @@ Determine the way to divide game ticks
 
 ## minecartTakePassengerMinVelocity
 
-Determine the minimum required horizontal velocity for a minecart to pick up nearby entity as its passenger
+Determine the minimum required horizontal velocity (m/gt) for a minecart to pick up nearby entity as its passenger
 
 Set it to 0 to let minecart always take passenger no matter how fast it is, just like a boat
 
@@ -680,6 +680,20 @@ Affects mobcaps logger and `/spawn mobcap command`
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CARPET_MOD`
+
+
+## oakBalloonPercent
+
+The chance for oak sapling top grow into a balloon oak (fancy_oak) in percent
+
+e.g. 0 means no balloon oak, 50 means 50% balloon oak, 100 means always balloon oak
+
+Set it to -1 to disable the rule and use vanilla logic (10% balloon oak)
+
+- Type: `int`
+- Default value: `-1`
+- Suggested options: `-1`, `0`, `50`, `100`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## observerNoDetection

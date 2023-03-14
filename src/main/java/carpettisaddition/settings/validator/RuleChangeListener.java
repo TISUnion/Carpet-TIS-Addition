@@ -23,7 +23,7 @@ package carpettisaddition.settings.validator;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A validator that always says ok == A rule change listener
+ * A validator that always says ok. i.e. A rule change listener
  */
 public abstract class RuleChangeListener<T> extends AbstractValidator<T>
 {
