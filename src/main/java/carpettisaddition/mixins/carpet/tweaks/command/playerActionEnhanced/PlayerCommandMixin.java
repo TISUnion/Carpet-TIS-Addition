@@ -78,11 +78,20 @@ public abstract class PlayerCommandMixin
 		RandomizedActionIntervalCommand.getInstance().extendCommand(cir.getReturnValue(), type, PlayerCommandMixin::action$TISCM);
 
 		final String delay = "delay";
+		final String perTick = "perTick";
+
 		cir.getReturnValue().
 				then(literal("after").
 						then(argument(delay, integer(1)).
 								executes(
 										c -> action$TISCM(c, type, PlayerActionPackHelper.after(getInteger(c, delay)))
+								)
+						)
+				).
+				then(literal("perTick").
+						then(argument(perTick, integer(1, 64)).
+								executes(
+										c -> action$TISCM(c, type, PlayerActionPackHelper.perTick(getInteger(c, perTick)))
 								)
 						)
 				);

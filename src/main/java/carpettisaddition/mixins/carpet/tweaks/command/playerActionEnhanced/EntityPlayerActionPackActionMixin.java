@@ -23,6 +23,7 @@ package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackAction;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -34,6 +35,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityPlayerActionPack.Action.class)
 public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayerActionPackAction
 {
+	///////////////////////////////// randomly /////////////////////////////////
+
 	@Mutable
 	@Shadow(remap = false) @Final public int interval;
 
@@ -61,6 +64,41 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 		if (this.intervalRandomGen != null)
 		{
 			this.interval = this.intervalRandomGen.generateRandomInterval();
+		}
+	}
+
+	///////////////////////////////// perTick /////////////////////////////////
+
+	private Integer perTick = null;
+
+	@Override
+	public void setPerTickMultiplier(int perTick)
+	{
+		this.perTick = perTick;
+	}
+
+	@Inject(
+			method = "tick",
+			at = @At(
+					value = "INVOKE",
+					target = "Lcarpet/helpers/EntityPlayerActionPack$ActionType;execute(Lnet/minecraft/server/network/ServerPlayerEntity;Lcarpet/helpers/EntityPlayerActionPack$Action;)Z",
+					remap = true
+			),
+			remap = false
+	)
+	private void perTickMultiplier(EntityPlayerActionPack actionPack, EntityPlayerActionPack.ActionType type, CallbackInfoReturnable<Boolean> cir)
+	{
+		if (this.perTick != null)
+		{
+			for (int i = 0; i < this.perTick - 1; i++)
+			{
+				EntityPlayerActionPackActionTypeAccessor typeAccessor = ((EntityPlayerActionPackActionTypeAccessor)(Object)type);
+				ServerPlayerEntity player = ((EntityPlayerActionPackAccessor)actionPack).getPlayer();
+				EntityPlayerActionPack.Action self = (EntityPlayerActionPack.Action)(Object)this;
+
+				typeAccessor.invokeExecute(player, self);
+				typeAccessor.invokeInactiveTick(player, self);
+			}
 		}
 	}
 }

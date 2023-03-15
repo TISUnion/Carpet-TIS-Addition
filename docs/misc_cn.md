@@ -72,6 +72,7 @@
   - 支持带 `--simulate` 参数来测试运行
   - 使用 `/player someone someaction randomly` 来获取更多帮助
 - 为 `/player` 指令添加 `after` 参数。如 `/player Steve use after 10` 将使 Steve 在 10gt 的延迟后点击右键
+- 为 `/player` 指令添加 `perTick` 参数。如 `/player Steve use perTick 4` 将使 Steve 每游戏刻点击右键 4 次
 - 添加懒人最爱的 `/spawn tracking restart`
 - 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
 - 为操控其他玩家的记录器订阅的 `/log <loggerName> <option> <playerName>` 和 `/log clean <playerName>` 指令添加 OP 权限检查
