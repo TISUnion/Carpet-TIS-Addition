@@ -20,6 +20,7 @@
 
 package carpettisaddition;
 
+import carpet.CarpetServer;
 import carpet.settings.ParsedRule;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
@@ -616,7 +617,7 @@ public class CarpetTISAdditionSettings
 			options = {"false"},
 			validators = ValidateUltraSecretSetting.class,
 			strict = false,
-			categories = {TIS, COMMAND, EXPERIMENTAL}
+			categories = {TIS, EXPERIMENTAL}
 	)
 	public static String ultraSecretSetting = "false";
 	private static class ValidateUltraSecretSetting extends AbstractValidator<String>
@@ -628,6 +629,12 @@ public class CarpetTISAdditionSettings
 			{
 				MixinUtil.audit(ctx.source);
 				return ctx.rule.get();
+			}
+			// stupid COMMAND category will add a _COMMAND_LEVEL_VALIDATOR to the rule which is bad,
+			// so we'll rather do the command tree sync ourselves
+			if (CarpetServer.settingsManager != null && ctx.source != null)
+			{
+				CarpetServer.settingsManager.notifyPlayersCommandsChanged();
 			}
 			return ctx.inputValue;
 		}
