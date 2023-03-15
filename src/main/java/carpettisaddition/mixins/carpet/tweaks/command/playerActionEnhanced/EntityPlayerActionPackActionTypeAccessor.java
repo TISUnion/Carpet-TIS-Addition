@@ -18,11 +18,19 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.playerActionEnhanced;
+package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
-public interface IEntityPlayerActionPackAction
+import carpet.helpers.EntityPlayerActionPack;
+import net.minecraft.server.network.ServerPlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Invoker;
+
+@Mixin(EntityPlayerActionPack.ActionType.class)
+public interface EntityPlayerActionPackActionTypeAccessor
 {
-	void setRandomlyRange(int lower, int upper);
+	@Invoker
+	boolean invokeExecute(ServerPlayerEntity player, EntityPlayerActionPack.Action action);
 
-	void setPerTickMultiplier(int perTick);
+	@Invoker
+	void invokeInactiveTick(ServerPlayerEntity player, EntityPlayerActionPack.Action action);
 }

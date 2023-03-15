@@ -68,6 +68,7 @@
 - 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
 - 为 `/player` 指令添加 `randomly` 参数。如 `/player Steve use randomly 10 20` 将使 Steve 以动态变化的随机间隔点击右键，间隔区间为 \[10, 20]
 - 为 `/player` 指令添加 `after` 参数。如 `/player Steve use after 10` 将使 Steve 在 10gt 的延迟后点击右键
+- 为 `/player` 指令添加 `perTick` 参数。如 `/player Steve use perTick 4` 将使 Steve 每游戏刻点击右键 4 次
 - 添加懒人最爱的 `/spawn tracking restart`
 - 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
 - 使指令 `/info entity` 能正常地运行

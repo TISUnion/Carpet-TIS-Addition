@@ -41,6 +41,7 @@ public class PlayerActionPackHelper
 		((IEntityPlayerActionPackAction) action).setRandomlyRange(lower, upper);
 		return action;
 	}
+
 	public static EntityPlayerActionPack.Action after(int delay)
 	{
 		return EntityPlayerActionPackActionAccessor.invokeConstructor(
@@ -49,5 +50,12 @@ public class PlayerActionPackHelper
 				//$$ , false
 				//#endif
 		);
+	}
+
+	public static EntityPlayerActionPack.Action perTick(int perTick)
+	{
+		EntityPlayerActionPack.Action action = EntityPlayerActionPack.Action.interval(1);
+		((IEntityPlayerActionPackAction)action).setPerTickMultiplier(perTick);
+		return action;
 	}
 }
