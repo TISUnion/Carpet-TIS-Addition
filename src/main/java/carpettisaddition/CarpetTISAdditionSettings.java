@@ -20,7 +20,6 @@
 
 package carpettisaddition;
 
-import carpet.CarpetServer;
 import carpet.settings.ParsedRule;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
@@ -632,9 +631,16 @@ public class CarpetTISAdditionSettings
 			}
 			// stupid COMMAND category will add a _COMMAND_LEVEL_VALIDATOR to the rule which is bad,
 			// so we'll rather do the command tree sync ourselves
-			if (CarpetServer.settingsManager != null && ctx.source != null)
+			if (ctx.source != null)
 			{
-				CarpetServer.settingsManager.notifyPlayersCommandsChanged();
+				//#if MC >= 11901
+				//$$ carpet.utils.CommandHelper.notifyPlayersCommandsChanged(CarpetTISAdditionServer.minecraft_server);
+				//#else
+				if (carpet.CarpetServer.settingsManager != null)
+				{
+					carpet.CarpetServer.settingsManager.notifyPlayersCommandsChanged();
+				}
+				//#endif
 			}
 			return ctx.inputValue;
 		}
