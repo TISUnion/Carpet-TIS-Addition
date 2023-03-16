@@ -3,7 +3,7 @@ package carpettisaddition.helpers.rule.optimizedFastEntityMovement;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.CollisionView;
+import net.minecraft.world.World;
 
 import java.util.stream.Stream;
 
@@ -15,5 +15,5 @@ public interface CollisionBoxGetter
 	//#else
 	Stream<VoxelShape>
 	//#endif
-	get(CollisionView world, Entity entity, Box box);
+	get(World world, Entity entity, Box box);
 }
