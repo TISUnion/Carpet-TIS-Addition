@@ -33,7 +33,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.CollisionView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Dynamic;
@@ -45,6 +44,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.util.List;
+
+//#if MC < 11900
+import net.minecraft.world.CollisionView;
+//#endif
 
 /**
  * Lithium's optimization `entity.collisions.movement` uses default priority 1000
@@ -68,12 +71,26 @@ public abstract class EntityMixin
 			method = "lithiumCollideMultiAxisMovement",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11900
+					//$$ target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
+					//#else
 					target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/CollisionView;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
+					//#endif
 					remap = true
 			),
 			remap = false
 	)
-	private static List<VoxelShape> dontUseThatLargeBlockCollisions(CollisionView world, Entity entity, Box box, /* parent method parameters -> */ @Nullable Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam)
+	private static List<VoxelShape> dontUseThatLargeBlockCollisions(
+			// lithium 0.11.1 changed the world param type from CollisionView to World
+			//#if MC >= 11900
+			//$$ World world,
+			//#else
+			CollisionView world,
+			//#endif
+			Entity entity, Box box,
+			/* parent method parameters -> */
+			@Nullable Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam
+	)
 	{
 		OFEMContext ctx = OFEMUtil.checkAndCreateContext((World)world, entity, movement);
 		context.set(ctx);
