@@ -24,6 +24,11 @@ repositories {
 	}
 }
 
+// https://github.com/FabricMC/fabric-loader/issues/783
+configurations {
+	modRuntimeOnly.exclude group: 'net.fabricmc', module: 'fabric-loader'
+}
+
 dependencies {
 	// loom
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
