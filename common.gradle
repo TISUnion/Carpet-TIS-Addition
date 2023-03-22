@@ -36,7 +36,11 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// mods
-	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+	if (mcVersion < 12000) {
+		modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+	} else {
+		modImplementation "com.github.gnembon:fabric-carpet:1.4.102"
+	}
 	modCompileOnly "${project.lithium_dependency}"
 
 	// runtime mods
