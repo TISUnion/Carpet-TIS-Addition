@@ -68,14 +68,7 @@ public abstract class TrajectoryLogHelperMixin
 	private boolean hasCreatedVisualizer;
 	private final Translator translator = new Translator("logger.projectiles.visualized");
 
-	@Inject(
-			method = "<init>", at = @At("TAIL")
-			// idk why only in >=1.19.4 will throw a "warning: Unable to locate obfuscation mapping".
-			// whatever, disable remap for >=1.19.4 for now
-			//#if MC >= 11904
-			//$$ , remap = false
-			//#endif
-	)
+	@Inject(method = "<init>", at = @At("TAIL"), remap = false)
 	private void initTISCMStuffs(String logName, CallbackInfo ci)
 	{
 		this.doVisualizeLogging = false;
