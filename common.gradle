@@ -39,7 +39,7 @@ dependencies {
 	if (mcVersion < 12000) {
 		modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 	} else {
-		modImplementation "com.github.gnembon:fabric-carpet:1.4.102"
+		modImplementation "com.github.gnembon:fabric-carpet:4171f9b784"
 	}
 	modCompileOnly "${project.lithium_dependency}"
 

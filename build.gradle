@@ -30,7 +30,7 @@ preprocess {
     mc117.link(mc118    , file('versions/mapping-1.17-1.18.txt'))
     mc118.link(mc119    , file('versions/mapping-1.18-1.19.txt'))
     mc119.link(mc119x   , null)
-    mc119x.link(mcFuture, null)
+    mc119x.link(mcFuture, file('versions/mapping-1.19.x-future.txt'))
 }
 
 tasks.register('buildAndGather') {

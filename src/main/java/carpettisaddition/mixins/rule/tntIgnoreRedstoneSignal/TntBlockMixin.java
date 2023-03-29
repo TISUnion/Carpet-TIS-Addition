@@ -42,11 +42,7 @@ public abstract class TntBlockMixin
 			},
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12000
-					//$$ target = "Lnet/minecraft/world/World;method_49803(Lnet/minecraft/util/math/BlockPos;)Z"
-					//#else
 					target = "Lnet/minecraft/world/World;isReceivingRedstonePower(Lnet/minecraft/util/math/BlockPos;)Z"
-					//#endif
 			)
 	)
 	private BlockPos tntIgnoreRedstoneSignalImpl(BlockPos pos)
