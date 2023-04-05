@@ -31,6 +31,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -72,13 +73,20 @@ public abstract class DragonEggBlockMixin extends Block
 	//$$ public void onRandomTick(BlockState state, World world, BlockPos pos, Random random)
 	//#endif
 	{
+		renewableDragonEggImpl(state, world, pos, random);
+	}
+
+	//#disable-remap
+	private void renewableDragonEggImpl(BlockState state, World world, BlockPos pos, Random random)
+	//#enable-remap
+	{
 		if (CarpetTISAdditionSettings.renewableDragonEgg && random.nextInt(64) == 0)
 		{
 			List<AreaEffectCloudEntity> list =
 					//#if MC >= 11600
 					//$$ world.getEntitiesByClass
 					//#else
-					world.getWorld().getEntities
+					world.getEntities
 					//#endif
 							(AreaEffectCloudEntity.class, new Box(pos, pos.add(1, 1, 1)), (entity) -> {return entity != null && entity.isAlive();});
 			List<AreaEffectCloudEntity> dragonBreath = Lists.newArrayList();
