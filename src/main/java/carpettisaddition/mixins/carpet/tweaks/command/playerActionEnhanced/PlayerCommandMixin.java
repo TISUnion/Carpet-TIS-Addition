@@ -37,17 +37,42 @@ import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
+//#if MC >= 11200
+//$$ import java.util.function.Consumer;
+//#endif
+
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
 {
+	//#if MC >= 11200
+	//$$ @Shadow(remap = false)
+	//$$ private static int manipulate(CommandContext<ServerCommandSource> context, Consumer<EntityPlayerActionPack> action)
+	//$$ {
+	//$$ 	return 0;
+	//$$ }
+	//#else
 	@Shadow(remap = false)
 	private static int action(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action)
 	{
 		return 0;
 	}
+	//#endif
+
+	/**
+	 * fabric carpet 1.4.104 makes a refactor on PlayerCommand and removes the {@link PlayerCommand#action} method.
+	 * We need to use our own copy, so we don't have to change the usage in the {@link #applyPlayerActionEnhancements} below
+	 */
+	private static int action$TISCM(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action)
+	{
+		//#if MC >= 11200
+		//$$ return manipulate(context, ap -> ap.start(type, action));
+		//#else
+		return action(context, type, action);
+		//#endif
+	}
 
 	@Inject(method = "makeActionCommand", at = @At("RETURN"), remap = false)
-	private static void addRandomlyArgument(String actionName, EntityPlayerActionPack.ActionType type, CallbackInfoReturnable<LiteralArgumentBuilder<ServerCommandSource>> cir)
+	private static void applyPlayerActionEnhancements(String actionName, EntityPlayerActionPack.ActionType type, CallbackInfoReturnable<LiteralArgumentBuilder<ServerCommandSource>> cir)
 	{
 		final String lower = "lower_bound";
 		final String upper = "upper_bound";
@@ -58,7 +83,7 @@ public abstract class PlayerCommandMixin
 						then(argument(lower, integer(1)).
 								then(argument(upper, integer(1)).
 										executes(
-												c -> action(c, type, PlayerActionPackHelper.randomly(getInteger(c, lower), getInteger(c, upper)))
+												c -> action$TISCM(c, type, PlayerActionPackHelper.randomly(getInteger(c, lower), getInteger(c, upper)))
 										)
 								)
 						)
@@ -66,7 +91,7 @@ public abstract class PlayerCommandMixin
 				then(literal("after").
 						then(argument(delay, integer(1)).
 								executes(
-										c -> action(c, type, PlayerActionPackHelper.after(getInteger(c, delay)))
+										c -> action$TISCM(c, type, PlayerActionPackHelper.after(getInteger(c, delay)))
 								)
 						)
 				);
