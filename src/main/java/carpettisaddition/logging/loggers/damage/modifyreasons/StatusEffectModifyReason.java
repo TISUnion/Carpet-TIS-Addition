@@ -34,7 +34,7 @@ public class StatusEffectModifyReason extends ModifyReason
 
 	public StatusEffectModifyReason(StatusEffect statusEffect, Integer amplifier)
 	{
-		super("Status effect");
+		super("status_effect");
 		this.statusEffect = statusEffect;
 		this.amplifier = amplifier;
 	}

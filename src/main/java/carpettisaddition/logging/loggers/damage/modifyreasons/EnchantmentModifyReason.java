@@ -29,7 +29,7 @@ public class EnchantmentModifyReason extends ModifyReason
 
 	public EnchantmentModifyReason(int point)
 	{
-		super("Enchantment");
+		super("enchantment");
 		this.point = point;
 	}
 

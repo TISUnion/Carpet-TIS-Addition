@@ -32,7 +32,7 @@ public class ArmorModifyReason extends ModifyReason
 
 	public ArmorModifyReason(float armor, float toughness)
 	{
-		super("Armor");
+		super("armor");
 		this.armor = armor;
 		this.toughness = toughness;
 	}
