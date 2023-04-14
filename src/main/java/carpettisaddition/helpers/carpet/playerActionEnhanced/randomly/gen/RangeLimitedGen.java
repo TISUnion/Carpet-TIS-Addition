@@ -18,11 +18,30 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.playerActionEnhanced;
+package carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen;
 
-import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
-
-public interface IEntityPlayerActionPackAction
+public class RangeLimitedGen extends RandomGen
 {
-	void setIntervalRandomGenerator(RandomGen gen);
+	private final RandomGen delegate;
+	private final int lowerBound;
+	private final int upperBound;
+
+	public RangeLimitedGen(RandomGen delegate, int lowerBound, int upperBound)
+	{
+		this.delegate = delegate;
+		this.lowerBound = lowerBound;
+		this.upperBound = Math.max(lowerBound, upperBound);
+	}
+
+	@Override
+	protected double generate()
+	{
+		return this.delegate.generate();
+	}
+
+	@Override
+	public int generateInt()
+	{
+		return Math.min(Math.max(this.lowerBound, super.generateInt()), this.upperBound);
+	}
 }

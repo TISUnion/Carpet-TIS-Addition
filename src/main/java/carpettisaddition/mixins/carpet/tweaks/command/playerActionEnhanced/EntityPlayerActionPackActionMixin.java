@@ -22,7 +22,7 @@ package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
 import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackAction;
-import carpettisaddition.helpers.carpet.playerActionEnhanced.PlayerActionPackHelper;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -37,16 +37,12 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 	@Mutable
 	@Shadow(remap = false) @Final public int interval;
 
-	private boolean randomly = false;
-	private int randomlyLowerBound;
-	private int randomlyUpperBound;
+	private RandomGen intervalRandomGen = null;
 
 	@Override
-	public void setRandomlyRange(int lower, int upper)
+	public void setIntervalRandomGenerator(RandomGen gen)
 	{
-		this.randomly = true;
-		this.randomlyLowerBound = lower;
-		this.randomlyUpperBound = upper;
+		this.intervalRandomGen = gen;
 	}
 
 	@Inject(
@@ -62,9 +58,9 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 	)
 	private void changeIntervalRandomly(CallbackInfoReturnable<Boolean> cir)
 	{
-		if (this.randomly)
+		if (this.intervalRandomGen != null)
 		{
-			this.interval = PlayerActionPackHelper.getRandomInt(this.randomlyLowerBound, this.randomlyUpperBound);
+			this.interval = Math.max(1, this.intervalRandomGen.generateInt());
 		}
 	}
 }

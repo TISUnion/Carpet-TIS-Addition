@@ -18,11 +18,43 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.playerActionEnhanced;
+package carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen;
 
-import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
-
-public interface IEntityPlayerActionPackAction
+public class PoissonGen extends RandomGen
 {
-	void setIntervalRandomGenerator(RandomGen gen);
+	private final double offset;
+	private final double lambda;
+
+	public PoissonGen(double offset, double lambda)
+	{
+		if (lambda <= 0)
+		{
+			throw new RuntimeException("lambda < 0");
+		}
+		this.offset = offset;
+		this.lambda = lambda;
+	}
+
+	// https://stackoverflow.com/a/1241605
+	private int getPoisson(double lambda)
+	{
+		double L = Math.exp(-lambda);
+		double p = 1.0;
+		int k = 0;
+
+		do
+		{
+			k++;
+			p *= this.random.nextDouble();
+		}
+		while (p > L);
+
+		return k - 1;
+	}
+
+	@Override
+	protected double generate()
+	{
+		return this.offset + this.getPoisson(this.lambda);
+	}
 }

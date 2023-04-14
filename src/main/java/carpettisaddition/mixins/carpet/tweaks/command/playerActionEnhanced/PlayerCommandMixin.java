@@ -23,6 +23,7 @@ package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 import carpet.commands.PlayerCommand;
 import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.PlayerActionPackHelper;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.RandomizedActionIntervalCommand;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.server.command.ServerCommandSource;
@@ -74,20 +75,10 @@ public abstract class PlayerCommandMixin
 	@Inject(method = "makeActionCommand", at = @At("RETURN"), remap = false)
 	private static void applyPlayerActionEnhancements(String actionName, EntityPlayerActionPack.ActionType type, CallbackInfoReturnable<LiteralArgumentBuilder<ServerCommandSource>> cir)
 	{
-		final String lower = "lower_bound";
-		final String upper = "upper_bound";
-		final String delay = "delay";
+		RandomizedActionIntervalCommand.getInstance().extendCommand(cir.getReturnValue(), type, PlayerCommandMixin::action$TISCM);
 
+		final String delay = "delay";
 		cir.getReturnValue().
-				then(literal("randomly").
-						then(argument(lower, integer(1)).
-								then(argument(upper, integer(1)).
-										executes(
-												c -> action$TISCM(c, type, PlayerActionPackHelper.randomly(getInteger(c, lower), getInteger(c, upper)))
-										)
-								)
-						)
-				).
 				then(literal("after").
 						then(argument(delay, integer(1)).
 								executes(

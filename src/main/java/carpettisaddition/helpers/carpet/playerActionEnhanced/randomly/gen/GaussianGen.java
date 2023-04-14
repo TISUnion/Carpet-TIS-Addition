@@ -18,11 +18,26 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.playerActionEnhanced;
+package carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen;
 
-import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
-
-public interface IEntityPlayerActionPackAction
+public class GaussianGen extends RandomGen
 {
-	void setIntervalRandomGenerator(RandomGen gen);
+	private final double mu;
+	private final double sigma;
+
+	public GaussianGen(double mu, double sigma2)
+	{
+		if (sigma2 <= 0)
+		{
+			throw new RuntimeException("sigma2 < 0");
+		}
+		this.mu = mu;
+		this.sigma = Math.sqrt(sigma2);
+	}
+
+	@Override
+	protected double generate()
+	{
+		return this.mu + this.sigma * this.random.nextGaussian();
+	}
 }

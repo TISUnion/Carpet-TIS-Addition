@@ -18,11 +18,13 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.playerActionEnhanced;
+package carpettisaddition.helpers.carpet.playerActionEnhanced.randomly;
 
-import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
+import carpet.helpers.EntityPlayerActionPack;
+import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.server.command.ServerCommandSource;
 
-public interface IEntityPlayerActionPackAction
+public interface CommandActionMaker
 {
-	void setIntervalRandomGenerator(RandomGen gen);
+	int action(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action);
 }

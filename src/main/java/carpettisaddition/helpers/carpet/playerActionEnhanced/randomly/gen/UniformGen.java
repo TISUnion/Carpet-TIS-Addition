@@ -18,11 +18,22 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.playerActionEnhanced;
+package carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen;
 
-import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
-
-public interface IEntityPlayerActionPackAction
+public class UniformGen extends RandomGen
 {
-	void setIntervalRandomGenerator(RandomGen gen);
+	private final int lower;
+	private final int upper;
+
+	public UniformGen(int lower, int upper)
+	{
+		this.lower = lower;
+		this.upper = Math.max(lower, upper);
+	}
+
+	@Override
+	protected double generate()
+	{
+		return this.lower + this.random.nextInt(this.upper - this.lower + 1);
+	}
 }
