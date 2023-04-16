@@ -25,12 +25,19 @@ import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerAction
 import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.*;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
+import com.google.common.base.Strings;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.util.Formatting;
 
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -47,7 +54,7 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 
 	private RandomizedActionIntervalCommand()
 	{
-		super("command.TODO");
+		super("command.player.action.randomly");
 	}
 
 	public static RandomizedActionIntervalCommand getInstance()
@@ -60,49 +67,68 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 		Function<Boolean, Command<ServerCommandSource>> uniformCmd = bool -> c -> actionMaker.action(c, type, uniformImpl(c, bool));
 		Command<ServerCommandSource> poissonCmd = c -> actionMaker.action(c, type, poissonImpl(c));
 		Command<ServerCommandSource> gaussianCmd = c -> actionMaker.action(c, type, gaussianImpl(c));
+		EndpointCmdMaker endpoint = (n, cmd, g) -> n.
+				executes(cmd).
+				then(literal("--simulate").
+						executes(c -> simulateRun(c, g.get(c)))
+				);
 
 		node.
 				then(literal("randomly").
 						executes(c -> randomlyHelp(c.getSource())).
-						then(argument("lower_bound", integer(1)).
-								then(argument("upper_bound", integer(1)).
+						// deprecated, remove this in mc1.21
+						then(argument("min", integer(1)).
+								then(argument("max", integer(1)).
 										executes(uniformCmd.apply(true))
 								)
 						).
 						then(literal("uniform").
 								executes(c -> uniformHelp(c.getSource())).
-								then(argument("lower_bound", integer(1)).
-										then(argument("upper_bound", integer(1)).
-												executes(uniformCmd.apply(false))
-										)
+								then(argument("min", integer(1)).
+										then(endpoint.make(argument("max", integer(1)),
+												uniformCmd.apply(false),
+												this::uniformGen
+										))
 								)
 						).
 						then(literal("poisson").
 								executes(c -> poissonHelp(c.getSource())).
 								then(argument("origin", doubleArg()).
-										then(argument("maxima", doubleArg()).
-												executes(poissonCmd).
-												then(argument("upper_bound", integer(1)).
-														executes(poissonCmd)
-												)
-										)
+										then(endpoint.make(argument("maxima", doubleArg()).
+												then(endpoint.make(argument("upper_bound", integer(1)),
+														poissonCmd, this::poissonGen
+												)),
+												poissonCmd, this::poissonGen
+										))
 								)
 						).
 						then(literal("gaussian").
 								executes(c -> gaussianHelp(c.getSource())).
 								then(argument("mu", doubleArg()).
-										then(argument("sigma2", doubleArg()).
-												executes(gaussianCmd).
-												then(argument("lower_bound", integer(1)).
-														executes(gaussianCmd).
-														then(argument("upper_bound", integer(1)).
-																executes(gaussianCmd)
-														)
-												)
-										)
+										then(endpoint.make(argument("sigma", doubleArg(0)).
+												then(endpoint.make(argument("lower_bound", integer(1)).
+														then(endpoint.make(argument("upper_bound", integer(1)),
+																gaussianCmd, this::gaussianGen
+														)),
+														gaussianCmd, this::gaussianGen
+												)),
+												gaussianCmd, this::gaussianGen
+										))
 								)
 						)
 				);
+	}
+
+	@FunctionalInterface
+	private interface RandomGenSupplier
+	{
+		RandomGen get(CommandContext<ServerCommandSource> c) throws CommandSyntaxException;
+	}
+
+	@FunctionalInterface
+	private interface EndpointCmdMaker
+	{
+		ArgumentBuilder<ServerCommandSource, ?> make(ArgumentBuilder<ServerCommandSource, ?> node, Command<ServerCommandSource> cmd, RandomGenSupplier genSupplier);
 	}
 
 	private static Optional<Integer> getOptionalInteger(CommandContext<?> c, String name)
@@ -119,46 +145,115 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 
 	private EntityPlayerActionPack.Action actionFromRandomGen(RandomGen gen)
 	{
-		EntityPlayerActionPack.Action action = EntityPlayerActionPack.Action.interval(gen.generateInt());
-		((IEntityPlayerActionPackAction) action).setIntervalRandomGenerator(gen);
+		EntityPlayerActionPack.Action action = EntityPlayerActionPack.Action.interval(gen.generateRandomInterval());
+		((IEntityPlayerActionPackAction)action).setIntervalRandomGenerator(gen);
 		return action;
 	}
 
 	private int randomlyHelp(ServerCommandSource source)
 	{
-		Messenger.tell(source, Messenger.tr("randomlyHelp random gen help"));
+		Messenger.tell(source, tr("root.help"));
 		return 0;
 	}
 
+	private int simulateRun(CommandContext<ServerCommandSource> c, RandomGen gen)
+	{
+		final int CHAR_COUNT = 40;
+		final int MIN_N = 10000;
+		final int MAX_N = 1000000;
+		final long MAX_MILLI = 500;  // 500ms
+
+		ServerCommandSource source = c.getSource();
+		Int2IntOpenHashMap counter = new Int2IntOpenHashMap();
+		int n = 0;
+
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < MAX_N; i++)
+		{
+			if (i >= MIN_N && i % 100 == 0)
+			{
+				long now = System.currentTimeMillis();
+				if (now - start > MAX_MILLI)
+				{
+					break;
+				}
+			}
+			counter.addTo(gen.generateRandomInterval(), 1);
+			n++;
+		}
+
+		int maxCount = counter.values().
+				//#if MC >= 11800
+				//$$ intStream().
+				//#else
+				stream().mapToInt(x -> x).
+				//#endif
+				max().orElse(1);
+		int maxKeyWidth = counter.keySet().
+				//#if MC >= 11800
+				//$$ intStream().map
+				//#else
+				stream().mapToInt
+				//#endif
+						(x -> String.valueOf(x).length()).max().orElse(3);
+
+		Messenger.tell(source, Messenger.click(
+				tr("simulate.command", c.getInput()),
+				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, c.getInput())
+		));
+		Messenger.tell(source, tr("simulate.samples", n));
+		Messenger.tell(source, Messenger.formatting(tr("simulate.divider"), Formatting.GRAY));
+		int finalN = n;
+		counter.int2IntEntrySet().stream().
+				sorted(Comparator.comparing(Int2IntMap.Entry::getIntKey)).
+				forEach(e -> {
+					final String fmt = "%" + maxKeyWidth + "d %5.1f%% %s";
+					Messenger.tell(source, Messenger.s(String.format(
+							fmt,
+							e.getIntKey(), 100.0 * e.getIntValue() / finalN,
+							Strings.repeat("#", CHAR_COUNT * e.getIntValue() / maxCount)
+					)));
+				});
+		Messenger.tell(source, Messenger.formatting(tr("simulate.divider"), Formatting.GRAY));
+
+		return n;
+	}
+
+	// ========================== uniform ==========================
+
 	private int uniformHelp(ServerCommandSource source)
 	{
-		Messenger.tell(source, Messenger.tr("uniform random gen help"));
+		Messenger.tell(source, tr("uniform.help"));
 		return 0;
+	}
+
+	private RandomGen uniformGen(CommandContext<ServerCommandSource> c)
+	{
+		int lower = getInteger(c, "min");
+		int upper = getInteger(c, "max");
+		upper = Math.max(lower, upper);
+
+		return new UniformGen(lower, upper);
 	}
 
 	private EntityPlayerActionPack.Action uniformImpl(CommandContext<ServerCommandSource> c, boolean showDeprecation)
 	{
 		if (showDeprecation)
 		{
-			// TODO text
-			Messenger.tell(c.getSource(), Messenger.s("deprecated, go use uniform subcommand, will be removed when mc1.21 is out", Formatting.DARK_RED));
+			Messenger.tell(c.getSource(), Messenger.s(tr("root.uniform_deprecation"), Formatting.DARK_RED));
 		}
-		int lower = getInteger(c, "lower_bound");
-		int upper = getInteger(c, "upper_bound");
-		upper = Math.max(lower, upper);
-
-		RandomGen gen = new UniformGen(lower, upper);
-		return actionFromRandomGen(gen);
+		return actionFromRandomGen(uniformGen(c));
 	}
+
+	// ========================== poisson ==========================
 
 	private int poissonHelp(ServerCommandSource source)
 	{
-		Messenger.tell(source, Messenger.tr("poisson random gen help"));
-		Messenger.tell(source, Messenger.tr("λ = maxima - origin"));
+		Messenger.tell(source, tr("poisson.help"));
 		return 0;
 	}
 
-	private EntityPlayerActionPack.Action poissonImpl(CommandContext<ServerCommandSource> c)
+	private RandomGen poissonGen(CommandContext<ServerCommandSource> c) throws CommandSyntaxException
 	{
 		double origin = getDouble(c, "origin");
 		double maxima = getDouble(c, "maxima");
@@ -167,29 +262,44 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 		double lambda = maxima - origin;
 		if (lambda < 0)
 		{
-			Messenger.tell(c.getSource(), tr("origin should be smaller than maxima"));
+			throw new SimpleCommandExceptionType(tr("poisson.large_origin")).create();
 		}
 
-		RandomGen gen = new RangeLimitedGen(new PoissonGen(origin, lambda), 1, upper);
-		return actionFromRandomGen(gen);
+		// poisson gen with lambda >= 50 is almost equal to gaussian gen
+		// we do the replacement here, cuz the poisson gen impl is slow when lambda is large
+		RandomGen gen =
+				lambda <= 50 ?
+				new PoissonGen(origin, lambda) :
+				new RangeLimitedGen(new GaussianGen(origin + lambda, Math.sqrt(lambda)), (int)Math.round(origin), Integer.MAX_VALUE);
+
+		return new RangeLimitedGen(gen, Integer.MIN_VALUE, upper);
 	}
+
+	private EntityPlayerActionPack.Action poissonImpl(CommandContext<ServerCommandSource> c) throws CommandSyntaxException
+	{
+		return actionFromRandomGen(poissonGen(c));
+	}
+
+	// ========================== gaussian ==========================
 
 	private int gaussianHelp(ServerCommandSource source)
 	{
-		Messenger.tell(source, Messenger.tr("gaussian random gen help"));
-		Messenger.tell(source, Messenger.tr("sigma2: σ^2"));
-		Messenger.tell(source, Messenger.tr("mu: μ"));
+		Messenger.tell(source, tr("gaussian.help"));
 		return 0;
+	}
+
+	private RandomGen gaussianGen(CommandContext<ServerCommandSource> c)
+	{
+		double mu = getDouble(c, "mu");
+		double sigma = getDouble(c, "sigma");
+		int lower = getOptionalInteger(c, "lower_bound").orElse(Integer.MIN_VALUE);
+		int upper = getOptionalInteger(c, "upper_bound").orElse(Integer.MAX_VALUE);
+
+		return new RangeLimitedGen(new GaussianGen(mu, sigma), lower, upper);
 	}
 
 	private EntityPlayerActionPack.Action gaussianImpl(CommandContext<ServerCommandSource> c)
 	{
-		double mu = getDouble(c, "mu");
-		double sigma2 = getDouble(c, "sigma2");
-		int lower = getOptionalInteger(c, "lower_bound").orElse(1);
-		int upper = getOptionalInteger(c, "upper_bound").orElse(Integer.MAX_VALUE);
-
-		RandomGen gen = new RangeLimitedGen(new GaussianGen(mu, sigma2), lower, upper);
-		return actionFromRandomGen(gen);
+		return actionFromRandomGen(gaussianGen(c));
 	}
 }

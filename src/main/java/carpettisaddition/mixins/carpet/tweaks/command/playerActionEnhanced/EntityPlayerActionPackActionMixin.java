@@ -60,7 +60,7 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 	{
 		if (this.intervalRandomGen != null)
 		{
-			this.interval = Math.max(1, this.intervalRandomGen.generateInt());
+			this.interval = this.intervalRandomGen.generateRandomInterval();
 		}
 	}
 }

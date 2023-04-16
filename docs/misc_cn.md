@@ -66,7 +66,10 @@
 
 - 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
 - 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
-- 为 `/player` 指令添加 `randomly` 参数。如 `/player Steve use randomly 10 20` 将使 Steve 以动态变化的随机间隔点击右键，间隔区间为 \[10, 20]
+- 为 `/player` 指令添加 `randomly` 子命令，使玩家以动态变化的随机间隔执行给定操作
+  - 支持的随机数发生器：均匀分布、泊松分布、正态分布
+  - 支持带 `--simulate` 参数来测试运行
+  - 使用 `/player someone someaction randomly` 来获取更多帮助
 - 为 `/player` 指令添加 `after` 参数。如 `/player Steve use after 10` 将使 Steve 在 10gt 的延迟后点击右键
 - 添加懒人最爱的 `/spawn tracking restart`
 - 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查

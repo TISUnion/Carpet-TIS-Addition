@@ -28,8 +28,13 @@ public abstract class RandomGen
 
 	protected abstract double generate();
 
-	public int generateInt()
+	protected int generateInt()
 	{
 		return (int)Math.round(this.generate());
+	}
+
+	public int generateRandomInterval()
+	{
+		return Math.max(this.generateInt(), 1);
 	}
 }

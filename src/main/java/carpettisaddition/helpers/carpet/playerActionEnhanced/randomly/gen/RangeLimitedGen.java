@@ -40,7 +40,7 @@ public class RangeLimitedGen extends RandomGen
 	}
 
 	@Override
-	public int generateInt()
+	protected int generateInt()
 	{
 		return Math.min(Math.max(this.lowerBound, super.generateInt()), this.upperBound);
 	}

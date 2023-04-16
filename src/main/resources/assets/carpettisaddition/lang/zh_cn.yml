@@ -297,7 +297,6 @@ carpettisaddition:
           clear_sky: 晴天
           raining: 降雨
           thundering: 雷暴
-
     manipulate:
       container:
         help: 操控%1$s
@@ -345,6 +344,47 @@ carpettisaddition:
           title: '实体速度矢量:'
           added: 已将%1$s的速度增加%2$s
           set: 已将%1$s的速度设为%2$s
+    player:
+      action:
+        randomly:
+          root:
+            help: |-
+              一组用于令玩家以随机间隔执行指令的随机数发生器
+              可用的随机数发生器：
+                uniform: 均匀分布
+                poisson: 泊松分布
+                gaussian: 高斯分布 / 正态分布
+              你可以给目标命令添加一个 §7--simulate§r 后缀，以使用给定的随机发生器执行一次模拟运行
+            uniform_deprecation: 弃用，将在 mc1.21 发布时删除。请使用 §7uniform§r 子命令
+          simulate:
+            command: '指令: %1$s'
+            samples: '模拟次数: %1$s'
+            divider: '======================'
+          uniform:
+            help: |-
+              §l均匀分布§r，从 §7<min>§r 到 §7<max>§r，闭区间
+              [min, max] 范围内的所有整数有着相同的被选中概率: 1 / (max - min + 1)
+          poisson:
+            help: |-
+              §l泊松分布§r，由偏移后的原点、最值点确定
+              该随机数生成器通过以下步骤实现：
+              1. 构造一个泊松分布随机数生成器，其 λ = §7<maxima>§r - §7<origin>§r
+              2. 把概率密度函数往 x 轴正方向平移 §7<origin>§r 单位长度
+              3. 完成。此时概率密度函数的起点为 x = §7<maxima>§r，最值点为 x = §7<maxima>§r
+              随机数生成器生成的实数将被四舍五入为整数，并被限制在 [1, +∞) 中，毕竟 /player 指令的动作间隔是个正整数
+              可选的，你可以使用 §7<upper_bound>§r 参数指定随机值的上界。所有超出上界的值将被替换成上界值
+            large_origin: §7<origin>§r 不能大于 §7<maxima>§r
+          gaussian:
+            help: |-
+              §l高斯分布 / 正态分布§r，由 μ (§7<mu>§r) 和 σ (§7<sigma>§r) 确定
+              概率分布备忘录 (结果在 [μ - r, μ + r] 范围内的概率): 
+                r = 0.32σ: 25.0%
+                r = 0.67σ: 50.0%
+                r = 1σ: 68.3%
+                r = 2σ: 95.4%
+                r = 3σ: 99.7%
+              随机数生成器生成的实数将被四舍五入为整数，并被限制在 [1, +∞) 中，毕竟 /player 指令的动作间隔是个正整数
+              可选的，你可以使用 §7<lower_bound>§r 或 §7<upper_bound>§r 参数指定随机值的上下界。所有超出界限的值将被替换成上界 / 下界值
     sleep:
       help: 即时阻塞当前线程给定持续时间，可用于制造卡顿
       usage: '使用方法: %1$s'

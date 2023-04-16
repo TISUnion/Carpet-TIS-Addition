@@ -27,7 +27,7 @@ public class PoissonGen extends RandomGen
 
 	public PoissonGen(double offset, double lambda)
 	{
-		if (lambda <= 0)
+		if (lambda < 0)
 		{
 			throw new RuntimeException("lambda < 0");
 		}
@@ -36,6 +36,7 @@ public class PoissonGen extends RandomGen
 	}
 
 	// https://stackoverflow.com/a/1241605
+	// O(lambda)
 	private int getPoisson(double lambda)
 	{
 		double L = Math.exp(-lambda);

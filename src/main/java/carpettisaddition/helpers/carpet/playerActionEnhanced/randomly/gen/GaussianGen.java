@@ -25,14 +25,10 @@ public class GaussianGen extends RandomGen
 	private final double mu;
 	private final double sigma;
 
-	public GaussianGen(double mu, double sigma2)
+	public GaussianGen(double mu, double sigma)
 	{
-		if (sigma2 <= 0)
-		{
-			throw new RuntimeException("sigma2 < 0");
-		}
 		this.mu = mu;
-		this.sigma = Math.sqrt(sigma2);
+		this.sigma = sigma;
 	}
 
 	@Override
