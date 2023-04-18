@@ -251,7 +251,7 @@ public class OnlineMappingProvider
 			FileUtil.touchDirectory(new File(STORAGE_DIRECTORY));
 			for (File file : targets)
 			{
-				Files.move(file.toPath(), new File(STORAGE_DIRECTORY).toPath().resolve(file.getName()));
+				Files.move(file.toPath(), new File(STORAGE_DIRECTORY).toPath().resolve(file.getName()), StandardCopyOption.REPLACE_EXISTING);
 			}
 		}
 	}
