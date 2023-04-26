@@ -914,10 +914,6 @@ Mob spawn and despawn algorithm will ignore players in the `spawnAlgIgnore` team
 
 Mobs can spawn and despawn around players, so checking and modifying mob farms can be easier
 
-After enabled, the game will create the `spawnAlgIgnore` team
-
-Run `/team join spawnAlgIgnore <player>` to add specified player to the team, then spawn algorithm will ignore them
-
 Affected algorithms:
 
 - Nature mob spawn
@@ -928,6 +924,9 @@ Affected algorithms:
 - Zombie reinforcements spawn
 - Cat spawn in a village
 
+After enabled, the game will create the `spawnAlgIgnore` team
+
+Run `/team join spawnAlgIgnore <player>` to add specified player to the team, then spawn algorithm will ignore them
 
 - Type: `boolean`
 - Default value: `false`
