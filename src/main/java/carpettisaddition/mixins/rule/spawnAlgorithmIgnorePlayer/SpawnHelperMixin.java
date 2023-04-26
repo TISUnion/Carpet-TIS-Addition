@@ -23,6 +23,9 @@ package carpettisaddition.mixins.rule.spawnAlgorithmIgnorePlayer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.spawnAlgorithmIgnorePlayer.GetValidPlayer;
 import net.minecraft.entity.player.PlayerEntity;
+//#if MC < 11500
+//$$ import net.minecraft.world.World;
+//#endif
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.SpawnHelper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class SpawnHelperMixin {
     @Redirect(
             //#if MC < 11500
-            //$$ method = "spawnEntitiesInChunk",
+            //$$ method = "spawnEntitiesInChunk(Lnet/minecraft/entity/EntityCategory;Lnet/minecraft/world/World;Lnet/minecraft/world/chunk/WorldChunk;Lnet/minecraft/util/math/BlockPos;)V",
             //#elseif MC >= 11600
             //$$ method = "spawnEntitiesInChunk(Lnet/minecraft/entity/SpawnGroup;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/world/chunk/Chunk;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/SpawnHelper$Checker;Lnet/minecraft/world/SpawnHelper$Runner;)V",
             //#else
@@ -43,6 +46,8 @@ public abstract class SpawnHelperMixin {
                     value = "INVOKE",
                     //#if MC >= 11600
                     //$$ target = "Lnet/minecraft/server/world/ServerWorld;getClosestPlayer(DDDDZ)Lnet/minecraft/entity/player/PlayerEntity;"
+                    //#elseif MC < 11500
+                    //$$ target = "Lnet/minecraft/world/World;getClosestPlayer(DDD)Lnet/minecraft/entity/player/PlayerEntity;"
                     //#else
                     target = "Lnet/minecraft/server/world/ServerWorld;getClosestPlayer(DDD)Lnet/minecraft/entity/player/PlayerEntity;"
                     //#endif
@@ -51,6 +56,8 @@ public abstract class SpawnHelperMixin {
     private static PlayerEntity getClosestPlayer(
             //#if MC >= 11600
             //$$ ServerWorld world, double x, double y, double z, double maxDistance, boolean ignoreCreative
+            //#elseif MC < 11500
+            //$$ World world, double x, double z, double maxDistance
             //#else
             ServerWorld world, double x, double z, double maxDistance
             //#endif
@@ -58,6 +65,8 @@ public abstract class SpawnHelperMixin {
         if (CarpetTISAdditionSettings.spawnAlgorithmIgnorePlayer) {
             //#if MC >= 11600
             //$$ return GetValidPlayer.getClosestValidPlayer(world, x, y, z);
+            //#elseif MC < 11500
+            //$$ return GetValidPlayer.getHorizontallyClosestValidPlayer((ServerWorld)world, x, z);
             //#else
             // Yes, MC <= 1.15 Minecraft finds horizontally closest player instead of closest player in a straight line while spawn a mob
             // 是的，你没看错，1.15及以下版本，Minecraft在刷怪时，选择的是水平距离最近的玩家，而非直线距离最近的玩家
