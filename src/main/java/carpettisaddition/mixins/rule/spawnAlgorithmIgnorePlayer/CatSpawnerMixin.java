@@ -37,7 +37,7 @@ public class CatSpawnerMixin {
                     target = "Lnet/minecraft/server/world/ServerWorld;getRandomAlivePlayer()Lnet/minecraft/server/network/ServerPlayerEntity;"
             )
     )
-    private static ServerPlayerEntity getRandomAlivePlayer(net.minecraft.server.world.ServerWorld serverWorld) {
+    private ServerPlayerEntity getRandomAlivePlayer(net.minecraft.server.world.ServerWorld serverWorld) {
         if (CarpetTISAdditionSettings.spawnAlgorithmIgnorePlayer) {
             return GetValidPlayer.getRandomValidAlivePlayer(serverWorld);
         }
