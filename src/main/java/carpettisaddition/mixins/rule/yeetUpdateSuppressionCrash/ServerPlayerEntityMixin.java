@@ -22,14 +22,20 @@ package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.crash.CrashException;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+@Restriction(conflict = {
+		@Condition(value = ModIds.carpet, versionPredicates = ">=1.4.49 <=1.4.76"),
+		@Condition(value = ModIds.carpet_extra, versionPredicates = ">=1.4.14 <=1.4.43"),
+})
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin
 {
@@ -50,20 +56,10 @@ public abstract class ServerPlayerEntityMixin
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
-			UpdateSuppressionException updateSuppressionException = null;
-			if (throwable instanceof CrashException && throwable.getCause() instanceof UpdateSuppressionException)
-			{
-				updateSuppressionException = (UpdateSuppressionException)throwable.getCause();
-			}
-			if (throwable instanceof UpdateSuppressionException)
-			{
-				updateSuppressionException = (UpdateSuppressionException)throwable;
-			}
-			if (updateSuppressionException != null)
-			{
-				UpdateSuppressionException.report(updateSuppressionException);
+			UpdateSuppressionException.extractInCauses(throwable).ifPresent(use -> {
+				use.report();
 				ci.cancel();
-			}
+			});
 		}
 	}
 }

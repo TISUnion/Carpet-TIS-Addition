@@ -32,10 +32,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Restriction(
-		require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"),
-		conflict = @Condition(value = ModIds.carpet_extra, versionPredicates = ">=1.4.14 <=1.4.43")
-)
+@Restriction(conflict = {
+		@Condition(value = ModIds.carpet, versionPredicates = ">=1.4.49 <=1.4.76"),
+		@Condition(value = ModIds.carpet_extra, versionPredicates = ">=1.4.14 <=1.4.43"),
+})
 @Mixin(World.class)
 public abstract class WorldMixin
 {
@@ -51,9 +51,13 @@ public abstract class WorldMixin
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
-			if (throwable instanceof StackOverflowError || throwable instanceof UpdateSuppressionException)
+			if (throwable instanceof UpdateSuppressionException)
 			{
-				throw new UpdateSuppressionException((World)(Object)this, neighborPos);
+				throw (UpdateSuppressionException)throwable;
+			}
+			if (throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError)
+			{
+				throw new UpdateSuppressionException(throwable, (World)(Object)this, neighborPos);
 			}
 		}
 		return throwable;

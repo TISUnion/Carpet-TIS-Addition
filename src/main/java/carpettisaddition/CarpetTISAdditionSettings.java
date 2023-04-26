@@ -691,11 +691,9 @@ public class CarpetTISAdditionSettings
 	}
 
 	/**
-	 * Do the same thing as rule updateSuppressionCrashFix from fabric carpet 1.4.50
-	 * TODO: find a way to make both rules work at the same time without breaking any functionalities. (@Redirect conflicts)
+	 * Do the same thing as rule updateSuppressionCrashFix from fabric carpet [1.4.49, 1.4.76]
+	 * TODO: find a way to make both rules work at the same time without breaking any functionalities: (@Redirect conflicts at {@link carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.MinecraftServerMixin})
 	 */
-	//#if MC < 11700
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean yeetUpdateSuppressionCrash = false;
-	//#endif
 }
