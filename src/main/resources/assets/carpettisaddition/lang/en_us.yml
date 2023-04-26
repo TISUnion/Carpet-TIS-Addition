@@ -908,6 +908,21 @@ carpettisaddition:
           '1': Set it to 0 to melt all annoying snow on your builds
           '2': Set it to the same level as the minimum light level for snow to not fall on block (light level 10) to easily test if your build is snow-proof with light or not
           '3': You can modify gamerule randomTickSpeed to speed up the melting progress, or modify carpet rule chunkTickSpeed to speed up the snowfall progress
+      spawnAlgorithmIgnorePlayer:
+        name: spawnAlgorithmIgnorePlayer
+        desc: Mob spawn and despawn algorithm will ignore players in the "spawnAlgIgnore" team
+        extra:
+          '0': Mobs can spawn and despawn around players, so checking and modifying mob farms can be easier
+          '1': After enabled, the game will create the "spawnAlgIgnore" team
+          '2': Run /team join spawnAlgIgnore <player> to add specified player to the team, then spawn algorithm will ignore them
+          '3': 'Affected algorithms:'
+          '4': '  - Nature mob spawn'
+          '5': '  - Mob despawn'
+          '6': '  - Spawner finds nearby players'
+          '7': '  - Phantom spawn'
+          '8': '  - Wandering trader spawn'
+          '9': '  - Zombie reinforcements spawn'
+          '10': '  - Cat spawn in a village'
       stopCommandDoubleConfirmation:
         name: stopCommandDoubleConfirmation
         desc: Add a double confirmation for /stop command to prevent stopping server accidentally

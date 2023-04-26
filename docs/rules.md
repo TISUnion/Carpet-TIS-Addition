@@ -908,6 +908,33 @@ You can modify gamerule `randomTickSpeed` to speed up the melting progress, or m
 - Categories: `TIS`, `CREATIVE`
 
 
+## spawnAlgorithmIgnorePlayer
+
+Mob spawn and despawn algorithm will ignore players in the `spawnAlgIgnore` team
+
+Mobs can spawn and despawn around players, so checking and modifying mob farms can be easier
+
+After enabled, the game will create the `spawnAlgIgnore` team
+
+Run `/team join spawnAlgIgnore <player>` to add specified player to the team, then spawn algorithm will ignore them
+
+Affected algorithms:
+
+- Nature mob spawn
+- Mob despawn
+- Spawner finds nearby players
+- Phantom spawn
+- Wandering trader spawn
+- Zombie reinforcements spawn
+- Cat spawn in a village
+
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## stopCommandDoubleConfirmation
 
 Add a double confirmation for `/stop` command to prevent stopping server accidentally

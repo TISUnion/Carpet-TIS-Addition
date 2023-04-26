@@ -503,6 +503,9 @@ public class CarpetTISAdditionSettings
 	)
 	public static int snowMeltMinLightLevel = VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL;
 
+	@Rule(categories = {TIS, CREATIVE})
+	public static boolean spawnAlgorithmIgnorePlayer = false;
+
 	@Rule(categories = {TIS, COMMAND})
 	public static boolean stopCommandDoubleConfirmation = false;
 

@@ -909,6 +909,30 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 刷怪算法忽略玩家 (spawnAlgorithmIgnorePlayer)
+
+刷怪算法将会忽略`spawnAlgIgnore`队伍中的玩家
+
+生物可以在这些玩家周围刷出、消失，方便玩家观察、修改刷怪塔
+
+开启该选项后,游戏会自动创建`spawnAlgIgnore`队伍
+
+运行指令`/team join spawnAlgIgnore <玩家>`将特定玩家加入该队伍，刷怪算法就会忽略他们的存在
+
+受影响的算法：
+
+- 自然刷怪算法
+- 怪物消失算法
+- 刷怪笼检测玩家算法
+- 幻翼、流浪商人、僵尸增援生成算法
+- 村庄刷猫算法
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## stop指令两步确认 (stopCommandDoubleConfirmation)
 
 为 `/stop` 指令添加两步确认机制，以防止误触导致意外地关掉了服务器
