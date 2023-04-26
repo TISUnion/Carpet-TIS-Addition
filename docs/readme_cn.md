@@ -79,6 +79,7 @@
 - [中继器延迟折半](rules_cn.md#中继器延迟折半-repeaterhalfdelay)
 - [刷沙机修复](rules_cn.md#刷沙机修复-sanddupingfix)
 - [融雪最小亮度](rules_cn.md#融雪最小亮度-snowmeltminlightlevel)
+- [刷怪算法忽略玩家](rules_cn.md#刷怪算法忽略玩家-spawnalgorithmignoreplayer)
 - [stop指令两步确认](rules_cn.md#stop指令两步确认-stopcommanddoubleconfirmation)
 - [结构方块不保留流体](rules_cn.md#结构方块不保留流体-structureblockdonotpreservefluid)
 - [结构方块范围限制](rules_cn.md#结构方块范围限制-structureblocklimit)
