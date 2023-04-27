@@ -24,10 +24,16 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.server.world.ServerWorld;
 
+/**
+ * Used in MC < 1.16 only
+ * MC >= 1.16 fabric carpet introduces the lightEngineMaxBatchSize rule
+ * MC 23w17a (1.20 snapshot) changes batch size to 1000, and fabric carpet disables the rule (at least for now)
+ */
 public class LightBatchSizeChanger
 {
 	public static void setSize(int newSize)
 	{
+		//#if MC < 11600
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
 			for (ServerWorld serverWorld : CarpetTISAdditionServer.minecraft_server.getWorlds())
@@ -35,6 +41,7 @@ public class LightBatchSizeChanger
 				serverWorld.getChunkManager().getLightingProvider().setTaskBatchSize(newSize);
 			}
 		}
+		//#endif
 	}
 
 	public static void apply()

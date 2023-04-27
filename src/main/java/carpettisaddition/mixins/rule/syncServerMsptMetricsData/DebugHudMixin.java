@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 12000
-//$$ import net.minecraft.client.gui.DrawableHelper;
+//$$ import net.minecraft.client.gui.DrawContext;
 //#elseif MC >= 11600
 //$$ import net.minecraft.client.util.math.MatrixStack;
 //#endif
@@ -43,7 +43,7 @@ public abstract class DebugHudMixin
 {
 	@Shadow protected abstract void drawMetricsData(
 			//#if MC >= 12000
-			//$$ DrawableHelper drawableHelper,
+			//$$ DrawContext ctx,
 			//#elseif MC >= 11600
 			//$$ MatrixStack matrixStack,
 			//#endif
@@ -61,7 +61,7 @@ public abstract class DebugHudMixin
 	)
 	private void syncServerMsptMetricsData_drawIfPossible(
 			//#if MC >= 12000
-			//$$ DrawableHelper arg0,
+			//$$ DrawContext arg0,
 			//#elseif MC >= 11600
 			//$$ MatrixStack arg0,
 			//#endif

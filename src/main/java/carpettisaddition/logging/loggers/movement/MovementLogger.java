@@ -66,7 +66,7 @@ public class MovementLogger extends AbstractLogger
 
 	public void create(Entity entity, MovementType movementType, Vec3d originalMovement)
 	{
-		if (isLoggerActivated() && entity.world instanceof ServerWorld)
+		if (isLoggerActivated() && entity.getEntityWorld() instanceof ServerWorld)
 		{
 			MovementLoggerTarget target = (MovementLoggerTarget)entity;
 			if (!target.getMovementTracker().isPresent())
@@ -102,7 +102,7 @@ public class MovementLogger extends AbstractLogger
 		{
 			this.entity = entity;
 			this.originalPos = entity.getPos();
-			this.world = (ServerWorld)entity.world;
+			this.world = (ServerWorld)entity.getEntityWorld();
 			this.movementType = movementType;
 			this.originalMovement = originalMovement;
 			this.currentMovement = originalMovement;

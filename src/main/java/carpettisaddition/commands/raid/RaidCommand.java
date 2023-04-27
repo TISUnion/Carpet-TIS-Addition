@@ -120,7 +120,7 @@ public class RaidCommand extends AbstractCommand
 						BaseText raiderMessage = Messenger.c(
 								raiderName,
 								"g  @ ",
-								Messenger.coord("w", raider.getPos(), DimensionWrapper.of(raider.world))
+								Messenger.coord("w", raider.getPos(), DimensionWrapper.of(raider))
 						);
 						if (fullMode)
 						{

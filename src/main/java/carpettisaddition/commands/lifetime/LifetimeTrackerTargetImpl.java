@@ -54,7 +54,7 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 	public LifetimeTrackerTargetImpl(Entity entity)
 	{
 		this.entity = entity;
-		World world = entity.world;
+		World world = entity.getEntityWorld();
 
 		this.recordedSpawning = false;
 		this.recordedRemoval = false;

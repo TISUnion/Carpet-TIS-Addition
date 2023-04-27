@@ -95,7 +95,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	private void onLoggingEvent(T entity, LoggingType loggingType, Supplier<BaseText[]> supplier)
 	{
-		if (this.getAcceleratorBoolean() && entity.world != null && !entity.world.isClient())
+		if (this.getAcceleratorBoolean() && entity.getEntityWorld() != null && !entity.getEntityWorld().isClient())
 		{
 			LoggerRegistry.getLogger(this.getName()).log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
 		}
@@ -104,7 +104,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	public void onEntityCreated(T entity)
 	{
 		this.onLoggingEvent(entity, LoggingType.CREATE, () -> new BaseText[]{Messenger.c(
-				this.getWorldTimeText(entity.world),
+				this.getWorldTimeText(entity.getEntityWorld()),
 				translator.tr("created", getNameTextRich(entity)),
 				"g  @ ",
 				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity)),
@@ -116,7 +116,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	public void onEntityDespawn(T entity)
 	{
 		this.onLoggingEvent(entity, LoggingType.DESPAWN, () -> new BaseText[]{Messenger.c(
-				this.getWorldTimeText(entity.world),
+				this.getWorldTimeText(entity.getEntityWorld()),
 				translator.tr("despawned", getNameTextRich(entity)),
 				"g  @ ",
 				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity))
@@ -126,7 +126,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	public void onEntityDied(T entity, DamageSource source, float amount)
 	{
 		this.onLoggingEvent(entity, LoggingType.DIE, () -> new BaseText[]{Messenger.c(
-				this.getWorldTimeText(entity.world),
+				this.getWorldTimeText(entity.getEntityWorld()),
 				Messenger.fancy(
 						null,
 						Messenger.tr(
