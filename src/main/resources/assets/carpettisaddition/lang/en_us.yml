@@ -35,6 +35,8 @@ carpettisaddition:
         applied: "Accepted anyway cuz you insisted"
     tiscm_protocol:
       protocol_not_enabled: '[Warning] TISCM network protocol is not enabled. You need to set rule tiscmNetworkProtocol to true to make rule %1$s work'
+    logger_switch:
+      message: Invalid value for a logger switch rule
 
   logger:
     commandBlock:
@@ -805,6 +807,9 @@ carpettisaddition:
           '1': If set to ignored, no light update can be scheduled. It's useful for creating light errors
           '2': If set to off, no light update can be scheduled or executed
           '3': '[WARNING] If set to suppressed or off, new chunks cannot be loaded. Then if the server tries to load chunk for player movement or whatever reason the server will be stuck forever'
+      loggerMovement:
+        name: loggerMovement
+        desc: The switch of movement logger
       microTiming:
         name: microTiming
         desc: Enable the function of MicroTick logger

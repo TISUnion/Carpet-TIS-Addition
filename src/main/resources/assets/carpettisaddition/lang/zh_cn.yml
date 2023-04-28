@@ -35,6 +35,8 @@ carpettisaddition:
         applied: 接受该值，因为你坚持这样做
     tiscm_protocol:
       protocol_not_enabled: '[警告] TISCM网络协议未启用，你需要将规则tiscmNetworkProtocol设置为true才能让规则%1$s正常工作'
+    logger_switch:
+      message: 无效的记录器开关规则值
 
   logger:
     commandBlock:
@@ -804,6 +806,9 @@ carpettisaddition:
           '1': 若被设为忽略(ignored)，光照更新不会被计划，这常用于在创造模式中制造光照错误
           '2': 若被设为关闭(off)，光照更新不会被计划或被执行
           '3': 【警告】若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环
+      loggerMovement:
+        name: 移动记录器
+        desc: 移动记录器的开关
       microTiming:
         name: 微时序
         desc: 启用微时序记录器的功能

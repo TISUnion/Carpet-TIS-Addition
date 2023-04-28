@@ -20,8 +20,10 @@
 
 package carpettisaddition.helpers.rule.persistentLoggerSubscription;
 
+import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.helpers.carpet.loggerRestriction.CarpetLoggerRestriction;
 import carpettisaddition.utils.FileUtil;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
@@ -132,9 +134,15 @@ public class LoggerSubscriptionStorage
 		{
 			String playerName = player.getName().getString();
 			playerEntry.forEach((loggerName, option) -> {
-				if (LoggerRegistry.getLogger(loggerName) != null)
+				Logger logger = LoggerRegistry.getLogger(loggerName);
+				if (logger != null)
 				{
 					CarpetTISAdditionServer.LOGGER.debug("Restore {} {} for {}", loggerName, option, playerName);
+					if (!CarpetLoggerRestriction.isLoggerSubscribable(logger, player, option))
+					{
+						CarpetTISAdditionServer.LOGGER.debug("Logger {} {} is not subscribable for {}", loggerName, option, playerName);
+						return;
+					}
 					LoggerRegistry.subscribePlayer(playerName, loggerName, option);
 				}
 			});

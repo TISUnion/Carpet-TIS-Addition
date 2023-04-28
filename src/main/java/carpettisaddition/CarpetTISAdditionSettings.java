@@ -50,10 +50,12 @@ import static carpet.settings.RuleCategory.*;
 import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 //#endif
 
+@SuppressWarnings("unused")
 public class CarpetTISAdditionSettings
 {
 	public static final String TIS = "TIS";
 	public static final String TISCM_PROTOCOL = "TISCM_PROTOCOL";
+	public static final String LOGGER = "logger";
 	public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space, or you can't /carpet list this
 
 	//#if MC < 11500
@@ -370,6 +372,9 @@ public class CarpetTISAdditionSettings
 			return this.shouldExecute;
 		}
 	}
+
+	@Rule(categories = {TIS, LOGGER})
+	public static String loggerMovement = "ops";
 
 	@Rule(categories = {TIS, CREATIVE}, validators = MicroTimingRuleListener.class)
 	public static boolean microTiming = false;

@@ -18,39 +18,15 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.settings.validator;
+package carpettisaddition.helpers.carpet.loggerRestriction;
 
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.entity.player.PlayerEntity;
 
-public abstract class AbstractCheckerValidator<T> extends AbstractValidator<T>
+@FunctionalInterface
+public interface SubscriptionChecker
 {
-	@Override
-	protected final @Nullable T validate(ValidationContext<T> ctx)
-	{
-		Boolean result = null;
-		try
-		{
-			result = this.validateValue(ctx.inputValue);
-		}
-		catch (UnsupportedOperationException ignored)
-		{
-		}
-		if (result == null)
-		{
-			result = this.validateContext(ctx);
-		}
-		return result ? ctx.ok() : ctx.failed();
-	}
-
-	// Implement one of the following methods
-
-	protected boolean validateContext(ValidationContext<T> ctx)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	protected boolean validateValue(T value)
-	{
-		throw new UnsupportedOperationException();
-	}
+	/**
+	 * @return null: ok, otherwise: error message
+	 */
+	RestrictionCheckResult check(PlayerEntity player, String option);
 }

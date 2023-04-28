@@ -120,6 +120,10 @@ public abstract class AbstractValidator<T> extends Validator<T>
 
 	/**
 	 * Validate implementation
+	 *
+	 * @return The validation result:
+	 * - null: validation failed
+	 * - non-null: the modified new rule value
 	 */
 	@Nullable
 	protected abstract T validate(ValidationContext<T> ctx);

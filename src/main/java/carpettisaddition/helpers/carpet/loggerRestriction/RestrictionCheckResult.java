@@ -18,39 +18,47 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.settings.validator;
+package carpettisaddition.helpers.carpet.loggerRestriction;
 
+import net.minecraft.text.BaseText;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractCheckerValidator<T> extends AbstractValidator<T>
+public class RestrictionCheckResult
 {
-	@Override
-	protected final @Nullable T validate(ValidationContext<T> ctx)
+	private final boolean passed;
+	@Nullable
+	private final BaseText errorMessage;
+
+	private RestrictionCheckResult(boolean passed, @Nullable BaseText errorMessage)
 	{
-		Boolean result = null;
-		try
-		{
-			result = this.validateValue(ctx.inputValue);
-		}
-		catch (UnsupportedOperationException ignored)
-		{
-		}
-		if (result == null)
-		{
-			result = this.validateContext(ctx);
-		}
-		return result ? ctx.ok() : ctx.failed();
+		this.passed = passed;
+		this.errorMessage = errorMessage;
 	}
 
-	// Implement one of the following methods
-
-	protected boolean validateContext(ValidationContext<T> ctx)
+	public static RestrictionCheckResult ok()
 	{
-		throw new UnsupportedOperationException();
+		return new RestrictionCheckResult(true, null);
 	}
 
-	protected boolean validateValue(T value)
+	public static RestrictionCheckResult failed(BaseText errorMessage)
 	{
-		throw new UnsupportedOperationException();
+		return new RestrictionCheckResult(false, errorMessage);
+	}
+
+	public static RestrictionCheckResult bool(boolean condition, BaseText errorMessage)
+	{
+		return new RestrictionCheckResult(condition, errorMessage);
+	}
+
+	public boolean isPassed()
+	{
+		return this.passed;
+	}
+
+	// not null iff. isPassed() == true
+	@Nullable
+	public BaseText getErrorMessage()
+	{
+		return this.errorMessage;
 	}
 }

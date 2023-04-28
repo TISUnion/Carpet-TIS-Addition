@@ -18,39 +18,24 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.settings.validator;
+package carpettisaddition.helpers.carpet.loggerRestriction.ruleSwitch;
 
-import org.jetbrains.annotations.Nullable;
+import carpettisaddition.settings.validator.AbstractCheckerValidator;
+import carpettisaddition.settings.validator.ValidationContext;
+import com.google.common.base.Joiner;
+import net.minecraft.text.BaseText;
 
-public abstract class AbstractCheckerValidator<T> extends AbstractValidator<T>
+public class LoggerSwitchValidator extends AbstractCheckerValidator<String>
 {
 	@Override
-	protected final @Nullable T validate(ValidationContext<T> ctx)
+	protected boolean validateValue(String value)
 	{
-		Boolean result = null;
-		try
-		{
-			result = this.validateValue(ctx.inputValue);
-		}
-		catch (UnsupportedOperationException ignored)
-		{
-		}
-		if (result == null)
-		{
-			result = this.validateContext(ctx);
-		}
-		return result ? ctx.ok() : ctx.failed();
+		return LoggerSwitchRuleCommon.OPTIONS.contains(value.toLowerCase());
 	}
 
-	// Implement one of the following methods
-
-	protected boolean validateContext(ValidationContext<T> ctx)
+	@Override
+	public BaseText errorMessage(ValidationContext<String> ctx)
 	{
-		throw new UnsupportedOperationException();
-	}
-
-	protected boolean validateValue(T value)
-	{
-		throw new UnsupportedOperationException();
+		return tr("logger_switch.message", Joiner.on(", ").join(LoggerSwitchRuleCommon.OPTIONS));
 	}
 }

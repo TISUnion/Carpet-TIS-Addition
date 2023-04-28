@@ -44,6 +44,16 @@ public class ValidationContext<T>
 		this.valueString = valueString;
 	}
 
+	public T ok()
+	{
+		return this.inputValue;
+	}
+
+	public T failed()
+	{
+		return null;
+	}
+
 	public String ruleName()
 	{
 		return
