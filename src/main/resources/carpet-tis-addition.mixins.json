@@ -36,6 +36,7 @@
     "carpet.tweaks.logger.projectile.TrajectoryLogHelperMixin",
     "carpet.tweaks.loggerRestriction.LogCommandMixin",
     "carpet.tweaks.loggerRestriction.LoggerMixin",
+    "carpet.tweaks.loggerRestriction.LoggerRegistryMixin",
     "carpet.tweaks.loggerRestriction.ParsedRuleMixin",
     "carpet.tweaks.messenger.MessengerMixin",
     "carpet.tweaks.rule.creativeNoClip.BlockMixin",

@@ -27,11 +27,11 @@ import carpet.settings.ParsedRule;
 //#enable-remap
 import carpet.settings.Validator;
 import carpettisaddition.CarpetTISAdditionMod;
-import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.carpet.loggerRestriction.CarpetLoggerRestriction;
 import carpettisaddition.helpers.carpet.loggerRestriction.ruleSwitch.LoggerSwitchRuleCommon;
 import carpettisaddition.helpers.carpet.loggerRestriction.ruleSwitch.LoggerSwitchValidator;
+import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -109,30 +109,26 @@ public abstract class ParsedRuleMixin<T>
 				CarpetTISAdditionMod.LOGGER.warn("TISCM logger switch rule {} has invalid name", this.name);
 				return;
 			}
-			String loggerName = this.name.substring(SUFFIX.length());
-			if (!loggerName.isEmpty())
-			{
-				loggerName = loggerName.substring(0, 1).toLowerCase() + loggerName.substring(1);
-			}
-			Logger logger = LoggerRegistry.getLogger(loggerName);
-			if (logger == null)
-			{
-				CarpetTISAdditionMod.LOGGER.warn("TISCM logger switch rule {} has its logger {} not found", this.name, loggerName);
-				return;
-			}
+			String ruleNameRemaining = this.name.substring(SUFFIX.length());
+			String loggerName = !ruleNameRemaining.isEmpty() ?
+					ruleNameRemaining.substring(0, 1).toLowerCase() + ruleNameRemaining.substring(1) :
+					ruleNameRemaining;
 
 			this.isStrict = false;
 			this.validators.add((Validator<T>)new LoggerSwitchValidator());
 			this.options = LoggerSwitchRuleCommon.OPTIONS;
 
-			// TISAdditionLoggerRegistry#registerLoggers might have not been invoked yet
-			// delay a bit
-			// FIXME
-			CarpetTISAdditionServer.minecraft_server.submit(() -> {
-				CarpetLoggerRestriction.addLoggerRuleSwitch(logger, this.name, () -> (String) this.get());
-			});
+			TISAdditionLoggerRegistry.addLoggerRegisteredCallback(() -> {
+				Logger logger = LoggerRegistry.getLogger(loggerName);
+				if (logger == null)
+				{
+					CarpetTISAdditionMod.LOGGER.warn("TISCM logger switch rule {} has its logger {} not found", this.name, loggerName);
+					return;
+				}
 
-			CarpetTISAdditionMod.LOGGER.warn("TISCM logger switch rule {} enabled for logger {}", this.name, loggerName);
+				CarpetLoggerRestriction.addLoggerRuleSwitch(logger, this.name, () -> (String) this.get());
+				CarpetTISAdditionMod.LOGGER.debug("TISCM logger switch rule {} enabled for logger {}", this.name, loggerName);
+			});
 		}
 	}
 }

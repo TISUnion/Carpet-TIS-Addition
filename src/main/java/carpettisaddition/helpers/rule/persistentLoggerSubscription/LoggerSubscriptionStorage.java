@@ -138,12 +138,10 @@ public class LoggerSubscriptionStorage
 				if (logger != null)
 				{
 					CarpetTISAdditionServer.LOGGER.debug("Restore {} {} for {}", loggerName, option, playerName);
-					if (!CarpetLoggerRestriction.isLoggerSubscribable(logger, player, option))
+					if (CarpetLoggerRestriction.isLoggerSubscribable(logger, player, option))
 					{
-						CarpetTISAdditionServer.LOGGER.debug("Logger {} {} is not subscribable for {}", loggerName, option, playerName);
-						return;
+						LoggerRegistry.subscribePlayer(playerName, loggerName, option);
 					}
-					LoggerRegistry.subscribePlayer(playerName, loggerName, option);
 				}
 			});
 			return true;

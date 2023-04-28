@@ -56,6 +56,7 @@
 - [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap)
 - [lightQueueLoggerSamplingDuration](rules.md#lightqueueloggersamplingduration)
 - [lightUpdates](rules.md#lightupdates)
+- [loggerMovement](rules.md#loggermovement)
 - [microTiming](rules.md#microtiming)
 - [microTimingDyeMarker](rules.md#microtimingdyemarker)
 - [microTimingTarget](rules.md#microtimingtarget)

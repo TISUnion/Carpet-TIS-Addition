@@ -572,6 +572,9 @@ carpettisaddition:
 
   misc:
     player_mount_anything_permission_denied: Only OP players are allowed to mount anything
+    logger_rule_switch:
+      permission_denied: Permission denied, you cannot subscribe logger %1$s
+      rule_hint: See rule %1$s for more details
 
   # ------------------------------------------------------
   #   Translations below will be passed to fabric carpet
@@ -809,7 +812,7 @@ carpettisaddition:
           '3': '[WARNING] If set to suppressed or off, new chunks cannot be loaded. Then if the server tries to load chunk for player movement or whatever reason the server will be stuck forever'
       loggerMovement:
         name: loggerMovement
-        desc: The switch of movement logger
+        desc: The switch / permission requirement of movement logger
       microTiming:
         name: microTiming
         desc: Enable the function of MicroTick logger

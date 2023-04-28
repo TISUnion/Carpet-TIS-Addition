@@ -162,6 +162,8 @@ Attributes:
 
 `/log movement <target>`
 
+Switch: rule [loggerMovement](rules.md#loggermovement)
+
 Info when a living entity tries to move and display how the actual movement gets calculated
 
 `<target>` is an entity selector. Make sure you have selector the necessary targets or expect log spam (`@` selector requires permission level 2)

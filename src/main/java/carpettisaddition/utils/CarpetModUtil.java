@@ -20,6 +20,7 @@
 
 package carpettisaddition.utils;
 
+import carpet.CarpetSettings;
 import net.minecraft.server.command.ServerCommandSource;
 
 public class CarpetModUtil
@@ -53,5 +54,18 @@ public class CarpetModUtil
 		}
 		return false;
 		//#endif
+	}
+
+	public static boolean canUseCarpetCommand(ServerCommandSource source)
+	{
+		// rule carpetCommandPermissionLevel is added in fabric carpet v1.4.55
+		Object level =
+				//#if MC >= 11700
+				//$$ CarpetSettings.carpetCommandPermissionLevel;
+				//#else
+				2;
+				//#endif
+
+		return canUseCommand(source, level);
 	}
 }

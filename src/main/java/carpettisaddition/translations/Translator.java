@@ -30,7 +30,12 @@ public class Translator
 
 	public Translator(String translationPath)
 	{
-		if (Strings.isNullOrEmpty(translationPath) || translationPath.startsWith(".") || translationPath.endsWith("."))
+		if (
+				Strings.isNullOrEmpty(translationPath) ||
+				translationPath.startsWith(".") ||
+				translationPath.endsWith(".") ||
+				translationPath.startsWith(TranslationConstants.TRANSLATION_KEY_PREFIX)
+		)
 		{
 			throw new RuntimeException("Invalid translation path: " + translationPath);
 		}

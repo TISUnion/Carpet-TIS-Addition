@@ -49,7 +49,7 @@ public abstract class LogCommandMixin
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private static void switchableLogger_1(ServerCommandSource source, String player_name, String logName, CallbackInfoReturnable<Integer> cir, PlayerEntity player)
+	private static void switchableLogger_toggleCommand(ServerCommandSource source, String player_name, String logName, CallbackInfoReturnable<Integer> cir, PlayerEntity player)
 	{
 		checkLoggerRestriction(source, LoggerRegistry.getLogger(logName), player, null, cir);
 	}
@@ -64,7 +64,7 @@ public abstract class LogCommandMixin
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private static void switchableLogger_2(ServerCommandSource source, String player_name, String logName, String option, CallbackInfoReturnable<Integer> cir, PlayerEntity player)
+	private static void switchableLogger_subscribeCommand(ServerCommandSource source, String player_name, String logName, String option, CallbackInfoReturnable<Integer> cir, PlayerEntity player)
 	{
 		checkLoggerRestriction(source, LoggerRegistry.getLogger(logName), player, option, cir);
 	}

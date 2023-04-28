@@ -565,6 +565,16 @@
 - 分类: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
+## 移动记录器 (loggerMovement)
+
+移动记录器的开关 / 权限等级需求
+
+- 类型: `string`
+- 默认值: `ops`
+- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- 分类: `TIS`, `LOGGER`
+
+
 ## 微时序 (microTiming)
 
 启用[微时序记录器](loggers_cn.md#微时序-microTiming)的功能

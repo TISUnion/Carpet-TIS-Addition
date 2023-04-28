@@ -56,6 +56,7 @@
 - [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap)
 - [光照队列记录器采样时长](rules_cn.md#光照队列记录器采样时长-lightqueueloggersamplingduration)
 - [光照更新](rules_cn.md#光照更新-lightupdates)
+- [移动记录器](rules_cn.md#移动记录器-loggermovement)
 - [微时序](rules_cn.md#微时序-microtiming)
 - [微时序染料记号](rules_cn.md#微时序染料记号-microtimingdyemarker)
 - [微时序目标](rules_cn.md#微时序目标-microtimingtarget)

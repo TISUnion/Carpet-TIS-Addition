@@ -565,6 +565,16 @@ If set to off, no light update can be scheduled or executed
 - Categories: `TIS`, `CREATIVE`, `EXPERIMENTAL`
 
 
+## loggerMovement
+
+The switch / permission requirement of movement logger
+
+- Type: `string`
+- Default value: `ops`
+- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- Categories: `TIS`, `LOGGER`
+
+
 ## microTiming
 
 Enable the function of [MicroTiming logger](#microTiming-1)

@@ -21,14 +21,19 @@
 package carpettisaddition.helpers.carpet.loggerRestriction;
 
 import carpet.logging.Logger;
+import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.ClickEvent;
 
 import java.util.function.Supplier;
 
 public class CarpetLoggerRestriction
 {
+	private static final Translator translator = new Translator("misc.logger_rule_switch");
+
 	public static RestrictionCheckResult checkLoggerSubscribable(Logger logger, PlayerEntity player, String option)
 	{
 		return ((RestrictiveLogger)logger).canPlayerSubscribe(player, option);
@@ -42,9 +47,20 @@ public class CarpetLoggerRestriction
 	public static void addLoggerRuleSwitch(Logger logger, String ruleName, Supplier<String> ruleValueProvider)
 	{
 		((RestrictiveLogger)logger).addSubscriptionRestriction((player, option) -> {
+			BaseText message = Messenger.hover(
+					translator.tr("permission_denied", logger.getLogName()),
+					translator.tr("rule_hint", ruleName)
+			);
+			if (CarpetModUtil.canUseCarpetCommand(player.getCommandSource()))
+			{
+				Messenger.click(
+						message,
+						new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/carpet " + ruleName)
+				);
+			}
 			return RestrictionCheckResult.bool(
 					CarpetModUtil.canUseCommand(player.getCommandSource(), ruleValueProvider.get()),
-					Messenger.tr("TODO")
+					message
 			);
 		});
 	}

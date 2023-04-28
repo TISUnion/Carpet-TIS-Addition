@@ -47,8 +47,10 @@ import carpettisaddition.logging.loggers.scounter.SupplierCounterHUDLogger;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
+import com.google.common.collect.Lists;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 //#if MC >= 11800
 //$$ import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
@@ -56,6 +58,8 @@ import java.lang.reflect.Field;
 
 public class TISAdditionLoggerRegistry
 {
+	private static final List<Runnable> onRegisteredCallbacks = Lists.newArrayList();
+
 	public static boolean __commandBlock;
 	public static boolean __damage;
 	public static boolean __item;
@@ -95,6 +99,8 @@ public class TISAdditionLoggerRegistry
 		register(TickWarpHUDLogger.getInstance());
 		register(TurtleEggLogger.getInstance());
 		register(XPOrbLogger.getInstance());
+
+		onRegisteredCallbacks.forEach(Runnable::run);
 	}
 
 	private static void register(AbstractLogger logger)
@@ -159,5 +165,10 @@ public class TISAdditionLoggerRegistry
 						//$$ , strictOptions
 						//#endif
 				);
+	}
+
+	public static void addLoggerRegisteredCallback(Runnable callback)
+	{
+		onRegisteredCallbacks.add(callback);
 	}
 }
