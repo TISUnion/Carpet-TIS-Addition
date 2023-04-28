@@ -583,8 +583,9 @@ carpettisaddition:
   carpet_translations:
     category:
       TIS: TIS
-      TISCM_PROTOCOL: TISCM Network Protocol
-      CARPET_MOD: CARPET_MOD
+      TISCM_protocol: TISCM Network Protocol
+      logger: logger
+      carpet_mod: CARPET MOD
 
     rule:
       antiSpamDisabled:

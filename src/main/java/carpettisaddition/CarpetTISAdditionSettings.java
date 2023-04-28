@@ -53,9 +53,10 @@ import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChan
 @SuppressWarnings("unused")
 public class CarpetTISAdditionSettings
 {
+	// TISCM Rule Categories
 	public static final String TIS = "TIS";
-	public static final String TISCM_PROTOCOL = "TISCM_PROTOCOL";
-	public static final String LOGGER = "logger";
+	public static final String TISCM_PROTOCOL = "TISCM_protocol";
+	public static final String LOGGER = "logger";  // see carpettisaddition.mixins.carpet.tweaks.loggerRestriction.ParsedRuleMixin
 	public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space, or you can't /carpet list this
 
 	//#if MC < 11500

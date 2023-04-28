@@ -979,7 +979,7 @@ Carpet TIS Addition is required to be installed on the client
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `CLIENT`
+- Categories: `TIS`, `TISCM_PROTOCOL`
 
 
 ## tileTickLimit
@@ -999,7 +999,7 @@ The switch of the TISCM network protocol
 - Type: `boolean`
 - Default value: `true`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `CLIENT`
+- Categories: `TIS`, `TISCM_PROTOCOL`
 
 
 ## tntDupingFix

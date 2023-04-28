@@ -582,8 +582,9 @@ carpettisaddition:
   carpet_translations:
     category:
       TIS: TIS
-      TISCM_PROTOCOL: TISCM网络协议
-      CARPET_MOD: CARPET_MOD
+      TISCM_protocol: TISCM网络协议
+      logger: 记录器
+      carpet_mod: carpet mod
 
     rule:
       antiSpamDisabled:
