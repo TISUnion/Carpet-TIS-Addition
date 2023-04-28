@@ -73,6 +73,7 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
 - Add `after` argument for `/player` command. e.g. `/player Steve use after 10` will make Steve right-click after a 10gt delay
 - Add `/spawn tracking restart` for lazy man
 - Add OP permission check to cheaty command `/player <someone> mount anything`
+- Add OP permission check to command `/log <loggerName> <option> <playerName>` and `/log clean <playerName>` that controls logger subscription for other players
 - Make `/info entity` work again
 - Show tile tick events & block events in `/info block` command
 

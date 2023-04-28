@@ -18,6 +18,7 @@
     "carpet.shape.ShapeDispatcherLineAccessor",
     "carpet.shape.ShapeDispatcherSphereAccessor",
     "carpet.shape.texthack.ShapeDispatcherTextMixin",
+    "carpet.tweaks.command.dontSubscribeLoggerForOther.LogCommandMixin",
     "carpet.tweaks.command.noPlayerMountAbuse.EntityPlayerActionPackMixin",
     "carpet.tweaks.command.playerActionEnhanced.EntityPlayerActionPackActionAccessor",
     "carpet.tweaks.command.playerActionEnhanced.EntityPlayerActionPackActionMixin",

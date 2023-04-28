@@ -571,6 +571,7 @@ carpettisaddition:
 
   misc:
     player_mount_anything_permission_denied: 只有OP玩家才被允许骑乘任意实体
+    log_subscribe_for_other_permission_denied: 只有OP玩家才被允许操控其他玩家的记录器订阅
     logger_rule_switch:
       permission_denied: 权限不足，无法订阅记录器%1$s
       rule_hint: 见规则%1$s以获得更多信息

@@ -572,6 +572,7 @@ carpettisaddition:
 
   misc:
     player_mount_anything_permission_denied: Only OP players are allowed to mount anything
+    log_subscribe_for_other_permission_denied: Only OP players are allowed to control logger subscription for other players
     logger_rule_switch:
       permission_denied: Permission denied, you cannot subscribe logger %1$s
       rule_hint: See rule %1$s for more details

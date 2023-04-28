@@ -71,6 +71,11 @@ public abstract class LogCommandMixin
 
 	private static void checkLoggerRestriction(ServerCommandSource source, Logger logger, PlayerEntity player, String option, CallbackInfoReturnable<Integer> cir)
 	{
+		if (logger == null)
+		{
+			// just in case
+			return;
+		}
 		RestrictionCheckResult result = CarpetLoggerRestriction.checkLoggerSubscribable(logger, player, option);
 		if (!result.isPassed())
 		{

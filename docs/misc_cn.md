@@ -73,6 +73,7 @@
 - 为 `/player` 指令添加 `after` 参数。如 `/player Steve use after 10` 将使 Steve 在 10gt 的延迟后点击右键
 - 添加懒人最爱的 `/spawn tracking restart`
 - 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
+- 为操控其他玩家的记录器订阅的 `/log <loggerName> <option> <playerName>` 和 `/log clean <playerName>` 指令添加 OP 权限检查
 - 使指令 `/info entity` 能正常地运行
 - 在指令 `/info block` 中显示目标位置的计划刻事件及方块事件
 
