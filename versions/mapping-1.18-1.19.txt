@@ -1,5 +1,6 @@
 carpet.settings.ParsedRule carpet.api.settings.CarpetRule
 carpet.settings.ParsedRule get() carpet.api.settings.CarpetRule value()
+carpet.settings.ParsedRule validators realValidators
 carpet.settings.RuleCategory carpet.api.settings.RuleCategory
 carpet.settings.SettingsManager carpet.api.settings.SettingsManager
 carpet.settings.Validator carpet.api.settings.Validator
