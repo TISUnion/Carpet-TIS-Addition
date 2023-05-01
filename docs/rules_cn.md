@@ -1190,4 +1190,6 @@ TISCM网络协议的开关
 - 移植自：
     - fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50) 的规则 `updateSuppressionCrashFix`
     - TISCarpet13 [build238](https://github.com/TISUnion/TISCarpet113/releases/tag/build238) 的规则 `yeetUpdateSuppressionCrash`
-- 移植的分支：1.14.4, 1.15.2, 1.16.5
+- 冲突 mod：
+  - fabric carpet: `[1.4.49, 1.4.76]`
+  - carpet extra: `[1.4.14, 1.4.43]`

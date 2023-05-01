@@ -365,6 +365,7 @@
     "rule.witherSpawnedSoundDisabled.WitherEntityMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
     "rule.yeetUpdateSuppressionCrash.MinecraftServerMixin",
+    "rule.yeetUpdateSuppressionCrash.NeighborUpdaterMixin",
     "rule.yeetUpdateSuppressionCrash.ServerPlayerEntityMixin",
     "rule.yeetUpdateSuppressionCrash.WorldMixin",
     "settings.ParsedRuleAccessor",

@@ -26,6 +26,10 @@ carpettisaddition:
     ranged_number:
       message: 必须是一个介于%1$s到%2$s之间的数
 
+    # rule validators
+    yeetUpdateSuppressionCrash:
+      message: 与fabric-carpet或carpet-extra的updateSuppressionCrashFix规则冲突
+
     # custom validators
     fake_player_name_extra:
       message: 你需要给出一个不含特殊字符的，长度从1至16的字符串

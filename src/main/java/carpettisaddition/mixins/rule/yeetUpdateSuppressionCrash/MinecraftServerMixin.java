@@ -22,7 +22,7 @@ package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
-import carpettisaddition.utils.ModIds;
+import carpettisaddition.utils.mixin.testers.YeetUpdateSuppressionCrashTester;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.MinecraftServer;
@@ -34,10 +34,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
-@Restriction(conflict = {
-		@Condition(value = ModIds.carpet, versionPredicates = ">=1.4.49 <=1.4.76"),
-		@Condition(value = ModIds.carpet_extra, versionPredicates = ">=1.4.14 <=1.4.43"),
-})
+@Restriction(require = @Condition(type = Condition.Type.TESTER, tester = YeetUpdateSuppressionCrashTester.class))
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {

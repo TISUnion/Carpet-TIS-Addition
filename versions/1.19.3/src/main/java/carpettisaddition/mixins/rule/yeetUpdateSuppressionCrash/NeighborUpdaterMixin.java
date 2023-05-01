@@ -26,27 +26,27 @@ import carpettisaddition.utils.mixin.testers.YeetUpdateSuppressionCrashTester;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.block.NeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Restriction(require = @Condition(type = Condition.Type.TESTER, tester = YeetUpdateSuppressionCrashTester.class))
-@Mixin(World.class)
-public abstract class WorldMixin
+@Mixin(NeighborUpdater.class)
+public interface NeighborUpdaterMixin
 {
-	// use in < mc1.19
-
 	@SuppressWarnings("ConstantConditions")
 	@ModifyVariable(
-			method = "updateNeighbor",
+			method = "tryNeighborUpdate",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/util/crash/CrashReport;create(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/util/crash/CrashReport;"
 			)
 	)
-	private Throwable yeetUpdateSuppressionCrash_wrapStackOverflow(Throwable throwable, BlockPos sourcePos, Block sourceBlock, BlockPos neighborPos)
+	private static Throwable yeetUpdateSuppressionCrash_wrapStackOverflow(Throwable throwable, World world, BlockState state, BlockPos neighborPos, Block sourceBlock, BlockPos sourcePos, boolean notify)
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
@@ -56,7 +56,7 @@ public abstract class WorldMixin
 			}
 			if (throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError)
 			{
-				throw new UpdateSuppressionException(throwable, (World)(Object)this, neighborPos);
+				throw new UpdateSuppressionException(throwable, world, neighborPos);
 			}
 		}
 		return throwable;

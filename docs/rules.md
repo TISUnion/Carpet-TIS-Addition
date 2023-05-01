@@ -1189,4 +1189,6 @@ Change it to 0 to disable tracking
 - Source: 
   - rule `updateSuppressionCrashFix` from fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50)
   - rule `yeetUpdateSuppressionCrash` from TISCarpet13 [build238](https://github.com/TISUnion/TISCarpet113/releases/tag/build238)
-- Target branches: 1.14.4, 1.15.2, 1.16.5
+- Conflicted mods:
+  - fabric carpet: `[1.4.49, 1.4.76]`
+  - carpet extra: `[1.4.14, 1.4.43]`

@@ -21,11 +21,14 @@
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
 
 import carpettisaddition.utils.compat.DummyClass;
+import carpettisaddition.utils.mixin.testers.YeetUpdateSuppressionCrashTester;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 
+@Restriction(require = @Condition(type = Condition.Type.TESTER, tester = YeetUpdateSuppressionCrashTester.class))
 @Mixin(DummyClass.class)
-public abstract class ServerPlayerEntityMixin
+public abstract class WorldMixin
 {
-	// fabric carpet already has rule updateSuppressionCrashFix in 1.17+
-	// so we disable our rule yeetUpdateSuppressionCrash
+	// impl moves to NeighborUpdaterMixin in mc1.19+
 }
