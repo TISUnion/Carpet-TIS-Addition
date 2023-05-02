@@ -74,7 +74,7 @@ public class CommandUtil
 				orElse(false);
 	}
 
-	public static boolean isOperator(ServerCommandSource source)
+	public static boolean isOperatorPlayer(ServerCommandSource source)
 	{
 		return getPlayer(source).
 				map(player -> source.getMinecraftServer().getPlayerManager().isOperator(player.getGameProfile())).

@@ -76,6 +76,7 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
 - Add OP permission check to command `/log <loggerName> <option> <playerName>` and `/log clean <playerName>` that controls logger subscription for other players
 - Make `/info entity` work again
 - Show tile tick events & block events in `/info block` command
+- Add chunk loading state check for `/info block` command. Player with permission level < 2 cannot query block in unloaded chunk
 
 ## Misc
 

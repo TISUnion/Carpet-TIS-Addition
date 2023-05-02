@@ -76,6 +76,7 @@
 - 为操控其他玩家的记录器订阅的 `/log <loggerName> <option> <playerName>` 和 `/log clean <playerName>` 指令添加 OP 权限检查
 - 使指令 `/info entity` 能正常地运行
 - 在指令 `/info block` 中显示目标位置的计划刻事件及方块事件
+- 为指令 `/info block` 添加区块加载状态检查。权限等级小于 2 的玩家不可用查询未加载区块中的方块信息
 
 ## 杂项
 
