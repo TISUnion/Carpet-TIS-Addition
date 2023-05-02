@@ -56,6 +56,12 @@ public class CarpetModUtil
 		//#endif
 	}
 
+	// alias of canUseCommand
+	public static boolean hasEnoughPermission(ServerCommandSource source, String permissionRuleValue)
+	{
+		return canUseCommand(source, permissionRuleValue);
+	}
+
 	public static boolean canUseCarpetCommand(ServerCommandSource source)
 	{
 		// rule carpetCommandPermissionLevel is added in fabric carpet v1.4.55

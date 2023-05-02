@@ -20,19 +20,13 @@
 
 package carpettisaddition.helpers.carpet.loggerRestriction.ruleSwitch;
 
-import carpettisaddition.settings.validator.AbstractCheckerValidator;
+import carpettisaddition.settings.validator.PermissionLevelValidator;
 import carpettisaddition.settings.validator.ValidationContext;
 import com.google.common.base.Joiner;
 import net.minecraft.text.BaseText;
 
-public class LoggerSwitchValidator extends AbstractCheckerValidator<String>
+public class LoggerSwitchValidator extends PermissionLevelValidator
 {
-	@Override
-	protected boolean validateValue(String value)
-	{
-		return LoggerSwitchRuleCommon.OPTIONS.contains(value.toLowerCase());
-	}
-
 	@Override
 	public BaseText errorMessage(ValidationContext<String> ctx)
 	{

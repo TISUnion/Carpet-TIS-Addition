@@ -365,6 +365,18 @@
 - 分类: `TIS`, `CARPET_MOD`
 
 
+## 假人名称后缀 (fakePlayerRemoteSpawning)
+
+使用/player指令远程召唤假人的权限需求
+
+在这里，“远程”指的是被召唤的假人位于16m以外，或另一个维度
+
+- 类型: `String`
+- 默认值: `true`
+- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- 分类: `TIS`, `CARPET_MOD`
+
+
 ## 禁用耕地被踩踏 (farmlandTrampledDisabled)
 
 阻止耕地被生物踩成泥土

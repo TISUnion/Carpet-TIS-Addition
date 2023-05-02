@@ -235,6 +235,9 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
+	@Rule(categories = {TIS, CARPET_MOD}, validators = PermissionLevelValidator.class)
+	public static String fakePlayerRemoteSpawning = "true";
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean farmlandTrampledDisabled = false;
 

@@ -22,13 +22,14 @@ package carpettisaddition.utils;
 
 import carpettisaddition.mixins.utils.ServerCommandSourceAccessor;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
 import static net.minecraft.server.command.CommandManager.argument;
@@ -46,21 +47,43 @@ public class CommandUtil
 		return false;
 	}
 
-	public static boolean isPlayerCommandSource(ServerCommandSource commandSource)
+	public static Optional<ServerPlayerEntity> getPlayer(ServerCommandSource source)
 	{
-		if (commandSource != null)
+		if (source != null)
 		{
 			try
 			{
-				commandSource.getPlayer();
-				return true;
+				return Optional.ofNullable(source.getPlayer());
 			}
-			catch (CommandSyntaxException e)
+			catch (CommandSyntaxException ignored)
 			{
-				return false;
 			}
 		}
-		return false;
+		return Optional.empty();
+	}
+
+	public static boolean isPlayerCommandSource(ServerCommandSource source)
+	{
+		return getPlayer(source).isPresent();
+	}
+
+	public static boolean isCreativePlayer(ServerCommandSource source)
+	{
+		return getPlayer(source).
+				map(ServerPlayerEntity::isCreative).
+				orElse(false);
+	}
+
+	public static boolean isOperator(ServerCommandSource source)
+	{
+		return getPlayer(source).
+				map(player -> source.getMinecraftServer().getPlayerManager().isOperator(player.getGameProfile())).
+				orElse(false);
+	}
+
+	public static boolean canCheat(ServerCommandSource source)
+	{
+		return source.hasPermissionLevel(2);  // commonly used in cheaty commands
 	}
 
 	public static ArgumentBuilder<ServerCommandSource, ?> enumArg(String name, Class<? extends Enum<?>> enumClass)

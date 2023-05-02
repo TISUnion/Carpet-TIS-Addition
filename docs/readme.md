@@ -41,6 +41,7 @@
 - [failSoftBlockStateParsing](rules.md#failsoftblockstateparsing)
 - [fakePlayerNamePrefix](rules.md#fakeplayernameprefix)
 - [fakePlayerNameSuffix](rules.md#fakeplayernamesuffix)
+- [fakePlayerRemoteSpawning](rules.md#fakeplayerremotespawning)
 - [farmlandTrampledDisabled](rules.md#farmlandtrampleddisabled)
 - [fillCommandModeEnhance](rules.md#fillcommandmodeenhance)
 - [flattenTriangularDistribution](rules.md#flattentriangulardistribution)

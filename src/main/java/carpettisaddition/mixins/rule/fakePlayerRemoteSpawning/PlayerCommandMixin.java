@@ -1,0 +1,113 @@
+/*
+ * This file is part of the Carpet TIS Addition project, licensed under the
+ * GNU Lesser General Public License v3.0
+ *
+ * Copyright (C) 2023  Fallen_Breath and contributors
+ *
+ * Carpet TIS Addition is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Carpet TIS Addition is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+package carpettisaddition.mixins.rule.fakePlayerRemoteSpawning;
+
+import carpet.commands.PlayerCommand;
+import carpet.utils.Messenger;
+import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.CommandUtil;
+import carpettisaddition.utils.compat.DimensionWrapper;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameMode;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+//#if MC >= 11600
+//$$ import net.minecraft.util.registry.RegistryKey;
+//$$ import net.minecraft.world.World;
+//#else
+import net.minecraft.world.dimension.DimensionType;
+//#endif
+
+@Mixin(PlayerCommand.class)
+public abstract class PlayerCommandMixin
+{
+	@Shadow(remap = false)
+	private static int spawn(CommandContext<ServerCommandSource> context) throws CommandSyntaxException
+	{
+		return 0;
+	}
+
+	@Inject(
+			method = "spawn",
+			at = @At(
+					value = "INVOKE",
+					//#if MC >= 12000
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/registry/RegistryKey;Lnet/minecraft/world/GameMode;Z)Lcarpet/patches/EntityPlayerMPFake;"
+					//#elseif MC >= 11600
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;DDDDDLnet/minecraft/util/registry/RegistryKey;Lnet/minecraft/world/GameMode;Z)Lcarpet/patches/EntityPlayerMPFake;"
+					//#else
+					target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;DDDDDLnet/minecraft/world/dimension/DimensionType;Lnet/minecraft/world/GameMode;)Lcarpet/patches/EntityPlayerMPFake;"
+					//#endif
+			),
+			locals = LocalCapture.CAPTURE_FAILHARD,
+			cancellable = true
+	)
+	private static void fakePlayerRemoteSpawning_permissionCheck(
+			CommandContext<ServerCommandSource> context, CallbackInfoReturnable<Integer> cir,
+			ServerCommandSource source, Vec3d botPos, Vec2f facing,
+			//#if MC >= 11600
+			//$$ RegistryKey<World> dim,
+			//#else
+			DimensionType dim,
+			//#endif
+			GameMode mode,
+			//#if MC >= 11600
+			//$$ boolean flying,
+			//#endif
+			String playerName
+			//#if MC < 12000
+			, MinecraftServer server
+			//#endif
+	)
+	{
+		if (CarpetModUtil.hasEnoughPermission(source, CarpetTISAdditionSettings.fakePlayerRemoteSpawning))
+		{
+			return;
+		}
+
+		final int MAX_ALLOWED_REMOTE_RANGE = 16;
+		boolean allowRemoteSpawn = CommandUtil.canCheat(source) || CommandUtil.isCreativePlayer(source);
+		if (!allowRemoteSpawn)
+		{
+			Vec3d sourcePos = source.getPosition();
+			DimensionWrapper sourceDimension = DimensionWrapper.of(source.getWorld());
+			DimensionWrapper botDimension = DimensionWrapper.of(dim);
+
+			// only allow remote bot spawning iif. the bot pos is closed enough to the player
+			if (!sourceDimension.equals(botDimension) || botPos.distanceTo(sourcePos) >= MAX_ALLOWED_REMOTE_RANGE)
+			{
+				Messenger.m(source, "rb Remote player spawning is not allowed");
+				cir.setReturnValue(1);
+			}
+		}
+	}
+}

@@ -728,6 +728,11 @@ carpettisaddition:
         desc: 为/player指令召唤出来的假人名称添加指定后缀
         extra:
           '0': 将其设置为#none以阻止添加后缀
+      fakePlayerRemoteSpawning:
+        name: 假人远程召唤
+        desc: 使用/player指令远程召唤假人的权限需求
+        extra:
+          '0': 在这里，“远程”指的是被召唤的假人位于16m以外，或另一个维度
       farmlandTrampledDisabled:
         name: 禁用耕地被踩踏
         desc: 阻止耕地被生物踩成泥土

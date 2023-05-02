@@ -18,12 +18,17 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.loggerRestriction.ruleSwitch;
+package carpettisaddition.settings.validator;
 
-import carpettisaddition.settings.validator.PermissionLevelValidator;
 import com.google.common.collect.ImmutableList;
 
-public class LoggerSwitchRuleCommon
+public class PermissionLevelValidator extends AbstractCheckerValidator<String>
 {
-	public static final ImmutableList<String> OPTIONS = PermissionLevelValidator.OPTIONS;
+	public static final ImmutableList<String> OPTIONS = ImmutableList.of("true", "false", "ops", "0", "1", "2", "3", "4");
+
+	@Override
+	protected boolean validateValue(String value)
+	{
+		return OPTIONS.contains(value.toLowerCase());
+	}
 }

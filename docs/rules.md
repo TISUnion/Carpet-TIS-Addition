@@ -364,6 +364,17 @@ Set it to `#none` to stop adding a suffix
 - Suggested options: `#none`, `_fake`
 - Categories: `TIS`, `CARPET_MOD`
 
+## fakePlayerRemoteSpawning
+
+The permission requirement for spawning remotely a fake player with `/player` command
+
+Here "remotely" means spawning a fake player at more than 16m away, or in other dimension
+
+- Type: `String`
+- Default value: `true`
+- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- Categories: `TIS`, `CARPET_MOD`
+
 
 ## farmlandTrampledDisabled
 

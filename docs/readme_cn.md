@@ -41,6 +41,7 @@
 - [方块状态解析忽略失败](rules_cn.md#方块状态解析忽略失败-failsoftblockstateparsing)
 - [假人名称前缀](rules_cn.md#假人名称前缀-fakeplayernameprefix)
 - [假人名称后缀](rules_cn.md#假人名称后缀-fakeplayernamesuffix)
+- [假人远程召唤](rules_cn.md#假人远程召唤-fakeplayerremotespawning)
 - [禁用耕地被踩踏](rules_cn.md#禁用耕地被踩踏-farmlandtrampleddisabled)
 - [fill指令模式增强](rules_cn.md#fill指令模式增强-fillcommandmodeenhance)
 - [拍扁三角形分布](rules_cn.md#拍扁三角形分布-flattentriangulardistribution)

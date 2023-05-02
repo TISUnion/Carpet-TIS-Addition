@@ -268,6 +268,7 @@
     "rule.explosionPacketRange.ServerWorldMixin",
     "rule.failSoftBlockStateParsing.BlockArgumentParserMixin",
     "rule.fakePlayerName.PlayerCommandMixin",
+    "rule.fakePlayerRemoteSpawning.PlayerCommandMixin",
     "rule.farmlandTrampledDisabled.FarmLandBlockMixin",
     "rule.flattenTriangularDistribution.RandomMixin",
     "rule.fluidDestructionDisabled.BaseFluidMixin",
