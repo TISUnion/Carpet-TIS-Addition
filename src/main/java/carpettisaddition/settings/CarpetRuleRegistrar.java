@@ -22,6 +22,7 @@ package carpettisaddition.settings;
 
 import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;
+import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.network.TISCMProtocolRuleListener;
@@ -124,9 +125,9 @@ public class CarpetRuleRegistrar
 				String desc = this.tr("desc");
 				if (desc == null)
 				{
-					throw new NullPointerException(String.format("Rule %s has no translated desc", this.name()));
+					CarpetTISAdditionMod.LOGGER.warn("Rule {} has no translated desc", this.name());
 				}
-				return desc;
+				return desc != null ? desc : "";
 			}
 
 			@Override
