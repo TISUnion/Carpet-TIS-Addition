@@ -42,7 +42,7 @@ public abstract class LoggerRegistryMixin
 			remap = false,
 			cancellable = true
 	)
-	private static void switchableLogger_finalCheck(String playerName, String logName, String option, CallbackInfo ci)
+	private static void switchableLogger_lastCheck(String playerName, String logName, String option, CallbackInfo ci)
 	{
 		Logger logger = LoggerRegistry.getLogger(logName);
 		Optional<ServerPlayerEntity> opt = Optional.ofNullable(CarpetTISAdditionServer.minecraft_server).
