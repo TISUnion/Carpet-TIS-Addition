@@ -61,6 +61,7 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
   - Xp orb tracking
   - Tripwire and pressure plate detecting
   - Entity movement caused by block change, e.g. farmland being broken
+  - Calculation of collision boxes from entities, which will be used in e.g. entity (especially minecart and boat) movement calculation, boat placement
 
 ## Carpet Command Tweaks
 

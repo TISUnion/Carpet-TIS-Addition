@@ -18,10 +18,9 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.optimizedHardHitBoxEntityCollision;
+package carpettisaddition.mixins.helpers.mixin;
 
-import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.optimizedHardHitBoxEntityCollision.OptimizedHardHitBoxEntityCollisionHelper;
+import carpettisaddition.helpers.mixin.IWorldOverrides;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
@@ -77,32 +76,27 @@ public interface IWorldMixin extends EntityView
 	//$$ default Stream<VoxelShape> method_20743(Entity entity, Box box, Set<Entity> excluded)
 	//#endif
 	{
+		IWorldOverrides.getEntityCollisionsPre(entity, box);
 		try
 		{
-			if (CarpetTISAdditionSettings.optimizedHardHitBoxEntityCollision)
-			{
-				if (!OptimizedHardHitBoxEntityCollisionHelper.treatsGeneralEntityAsHardHitBox(entity))
-				{
-					OptimizedHardHitBoxEntityCollisionHelper.checkHardHitBoxEntityOnly.set(true);
-				}
-			}
-
-			// vanilla copy
-			return EntityView.super.
-					//#if MC >= 11800
-					//$$ getEntityCollisions(entity, box);
-					//#elseif MC >= 11600
-					//$$ getEntityCollisions(entity, box, predicate);
-					//#elseif MC >= 11500
-					getEntityCollisions(entity, box, excluded);
-					//#else
-					//$$ method_20743(entity, box, excluded);
-					//#endif
-
+			return IWorldOverrides.getEntityCollisionsModifyResult(
+					entity, box,
+					// vanilla copy
+					EntityView.super.
+							//#if MC >= 11800
+							//$$ getEntityCollisions(entity, box)
+							//#elseif MC >= 11600
+							//$$ getEntityCollisions(entity, box, predicate)
+							//#elseif MC >= 11500
+							getEntityCollisions(entity, box, excluded)
+							//#else
+							//$$ method_20743(entity, box, excluded)
+							//#endif
+			);
 		}
 		finally
 		{
-			OptimizedHardHitBoxEntityCollisionHelper.checkHardHitBoxEntityOnly.set(false);
+			IWorldOverrides.getEntityCollisionsPost(entity, box);
 		}
 	}
 }
