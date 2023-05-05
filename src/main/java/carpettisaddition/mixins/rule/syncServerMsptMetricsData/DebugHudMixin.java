@@ -51,7 +51,12 @@ public abstract class DebugHudMixin
 	);
 
 	@Inject(
+			//#if MC >= 12000
+			//$$ // lambda method in method render()
+			//$$ method = "method_51746",
+			//#else
 			method = "render",
+			//#endif
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					target = "Lnet/minecraft/client/MinecraftClient;getServer()Lnet/minecraft/server/integrated/IntegratedServer;",
@@ -66,7 +71,10 @@ public abstract class DebugHudMixin
 			//$$ MatrixStack arg0,
 			//#endif
 			CallbackInfo ci,
-			Entity entity, int i, IntegratedServer integratedServer
+			//#if MC < 12000
+			Entity entity,
+			//#endif
+			int i, IntegratedServer integratedServer
 	)
 	{
 		if (integratedServer == null)
