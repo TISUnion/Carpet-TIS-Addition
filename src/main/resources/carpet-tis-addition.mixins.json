@@ -45,6 +45,7 @@
     "carpet.tweaks.messenger.MessengerMixin",
     "carpet.tweaks.rule.creativeNoClip.BlockMixin",
     "carpet.tweaks.rule.creativeNoClip.BlockPlacementDispenserBehaviorMixin",
+    "carpet.tweaks.rule.creativeNoClip.EndGatewayBlockEntityMixin",
     "carpet.tweaks.rule.creativeNoClip.EntityPredicatesMixin",
     "carpet.tweaks.rule.creativeNoClip.ExperienceOrbEntityMixin",
     "carpet.tweaks.rule.creativeNoClip.IWorldOverridesMixin",
