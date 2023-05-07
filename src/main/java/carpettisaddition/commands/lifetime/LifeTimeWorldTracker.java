@@ -108,7 +108,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 		return this.spawnStageCounter;
 	}
 
-	private List<BaseText> addIfEmpty(List<BaseText> list, BaseText text)
+	private static List<BaseText> addIfEmpty(List<BaseText> list, BaseText text)
 	{
 		if (list.isEmpty())
 		{
@@ -156,10 +156,24 @@ public class LifeTimeWorldTracker extends TranslationContext
 				forEach((entry) -> {
 					EntityType<?> entityType = entry.getKey();
 					BasicTrackedData data = entry.getValue();
-					List<BaseText> spawningReasons = data.getSpawningReasonsTexts(ticks, true);
-					List<BaseText> removalReasons = data.getRemovalReasonsTexts(ticks, true);
+
+					List<BaseText> spawningHover = Lists.newArrayList();  // list of lines
+					spawningHover.add(data.getSpawningCountText(ticks));
+					if (data.hasSpawning())
+					{
+						spawningHover.add(Messenger.formatting(tr("reasons_for_spawning"), "e"));
+						spawningHover.addAll(data.getSpawningReasonsLines(ticks));
+					}
+					List<BaseText> removalHover = Lists.newArrayList();  // list of lines
+					removalHover.add(data.getRemovalCountText(ticks));
+					if (data.hasRemoval())
+					{
+						removalHover.add(Messenger.formatting(tr("reasons_for_removal"), "r"));
+						removalHover.addAll(data.getRemovalReasonsLines(ticks, false));
+					}
+
 					String currentCommandBase = String.format("/%s %s", LifeTimeTracker.getInstance().getCommandPrefix(), LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType));
-					// [Creeper] S/R: 21/8, L: 145/145/145.00 (gt)
+					// - [Creeper] S/R: 21/8, L: 145/145/145.00 (gt)
 					result.add(Messenger.c(
 							"g - [",
 							Messenger.fancy(
@@ -190,22 +204,14 @@ public class LifeTimeWorldTracker extends TranslationContext
 							Messenger.fancy(
 									null,
 									Messenger.c("e " + data.getSpawningCount()),
-									Messenger.c(
-											data.getSpawningCountText(ticks),
-											"w " + (spawningReasons.isEmpty() ? "" : "\n"),
-											Messenger.c(spawningReasons.toArray(new Object[0]))
-									),
+									Messenger.join(Messenger.s("\n"), spawningHover),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.SPAWNING))
 							),
 							"g /",
 							Messenger.fancy(
 									null,
 									Messenger.c("r " + data.getRemovalCount()),
-									Messenger.c(
-											data.getRemovalCountText(ticks),
-											"w " + (removalReasons.isEmpty() ? "" : "\n"),
-											Messenger.c(removalReasons.toArray(new Object[0]))
-									),
+									Messenger.join(Messenger.s("\n"), removalHover),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.REMOVAL))
 							),
 							"g , ",
@@ -217,7 +223,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 									),
 									Messenger.c(
 											Messenger.formatting(tr("lifetime_overview"), "q"), "w \n",
-											data.lifeTimeStatistic.getResult("", true)
+											Messenger.join(Messenger.s("\n"), data.lifeTimeStatistic.getResult("  ", false))
 									),
 									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.LIFETIME))
 							)
@@ -254,17 +260,17 @@ public class LifeTimeWorldTracker extends TranslationContext
 					tr("lifetime_explain"),
 					null
 			));
-			result.add(specificData.lifeTimeStatistic.getResult("", false));
+			result.addAll(specificData.lifeTimeStatistic.getResult("  ", true));
 		}
 		if (showSpawning)
 		{
 			result.add(Messenger.formatting(tr("reasons_for_spawning"), "e"));
-			result.addAll(this.addIfEmpty(specificData.getSpawningReasonsTexts(ticks, false), Messenger.s("  N/A", "g")));
+			result.addAll(addIfEmpty(specificData.getSpawningReasonsLines(ticks), Messenger.s("  N/A", "g")));
 		}
 		if (showRemoval)
 		{
 			result.add(Messenger.formatting(tr("reasons_for_removal"), "r"));
-			result.addAll(this.addIfEmpty(specificData.getRemovalReasonsTexts(ticks, false), Messenger.s("  N/A", "g")));
+			result.addAll(addIfEmpty(specificData.getRemovalReasonsLines(ticks, true), Messenger.s("  N/A", "g")));
 		}
 	}
 }

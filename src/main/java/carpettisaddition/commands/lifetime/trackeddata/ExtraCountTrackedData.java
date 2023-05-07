@@ -29,6 +29,7 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -55,44 +56,101 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 
 	protected abstract BaseText getCountDisplayText();
 
-	private BaseText attachExtraCountHoverText(BaseText text, long extraCount, long ticks)
+	/**
+	 * $text
+	 *    ^
+	 *    Item Count: zzz, (rrr/h)
+	 *
+	 * or
+	 *
+	 * $text [Item Count: zzz, (rrr/h)]
+	 */
+	private BaseText attachExtraCountHoverText(BaseText text, long extraCount, @Nullable Long extraTotal, long ticks)
 	{
 		BaseText extra = Messenger.c(
 				this.getCountDisplayText(),
 				"g : ",
 				CounterUtil.ratePerHourText(extraCount, ticks, "wgg")
 		);
-		Messenger.hover(text, extra);
+		if (extraTotal != null)
+		{
+			double percentage = 100.0D * extraCount / extraTotal;
+			extra.append(Messenger.c("w  ", Messenger.s(String.format("%.1f%%", percentage))));  // no need to hover
+		}
 
 		// console cannot display hover text, so we append the extra count text to the end of the line
 		if (CommandUtil.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
 		{
 			text = Messenger.c(text, "g  [", extra, "g ]");
 		}
+		else  // otherwise hover it
+		{
+			Messenger.hover(text, extra);
+		}
 		return text;
 	}
 
+	/**
+	 * Spawn Count: xxx, (yyy/h)
+	 *        ^
+	 *        Item Count: zzz, (rrr/h)
+	 */
 	@Override
 	public BaseText getSpawningCountText(long ticks)
 	{
-		return this.attachExtraCountHoverText(super.getSpawningCountText(ticks), getLongMapSum(this.spawningExtraCountMap), ticks);
+		return this.attachExtraCountHoverText(
+				super.getSpawningCountText(ticks),
+				getLongMapSum(this.spawningExtraCountMap),
+				null,
+				ticks
+		);
 	}
 
+	/**
+	 * Removal Count: xxx, (yyy/h)
+	 *        ^
+	 *        Item Count: zzz, (rrr/h)
+	 */
 	@Override
 	public BaseText getRemovalCountText(long ticks)
 	{
-		return this.attachExtraCountHoverText(super.getRemovalCountText(ticks), getLongMapSum(this.removalExtraCountMap), ticks);
+		return this.attachExtraCountHoverText(
+				super.getRemovalCountText(ticks),
+				getLongMapSum(this.removalExtraCountMap),
+				null,
+				ticks
+		);
 	}
 
+	/**
+	 * AAA: 50, (100/h) 25%
+	 *       ^
+	 *       Item Count: zzz, (rrr/h) ppp%
+	 */
 	@Override
-	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total)
+	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total, String indent)
 	{
-		return this.attachExtraCountHoverText(super.getSpawningReasonWithRate(reason, ticks, count, total), this.spawningExtraCountMap.getOrDefault(reason, 0L), ticks);
+		return this.attachExtraCountHoverText(
+				super.getSpawningReasonWithRate(reason, ticks, count, total, indent),
+				this.spawningExtraCountMap.getOrDefault(reason, 0L),
+				getLongMapSum(this.spawningExtraCountMap),
+				ticks
+		);
 	}
 
+	/**
+	 * BBB: 150, (300/h) 75%
+	 *       ^
+	 *       Item Count: zzz, (rrr/h) ppp%
+	 */
 	@Override
-	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total)
+	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total, String indent)
 	{
-		return this.attachExtraCountHoverText(super.getRemovalReasonWithRate(reason, ticks, count, total), this.removalExtraCountMap.getOrDefault(reason, 0L), ticks);
+		return this.attachExtraCountHoverText(
+				super.getRemovalReasonWithRate(reason, ticks, count, total, indent),
+				this.removalExtraCountMap.getOrDefault(reason, 0L),
+				getLongMapSum(this.removalExtraCountMap),
+				ticks
+		);
 	}
 }

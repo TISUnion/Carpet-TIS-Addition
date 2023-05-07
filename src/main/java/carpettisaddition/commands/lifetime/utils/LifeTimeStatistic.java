@@ -26,10 +26,14 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.compat.DimensionWrapper;
+import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.List;
+import java.util.function.Consumer;
 
 public class LifeTimeStatistic extends TranslationContext
 {
@@ -78,36 +82,42 @@ public class LifeTimeStatistic extends TranslationContext
 	}
 
 	/**
-	 * - Minimum lifetime: xx gt
-	 * - Maximum lifetime: yy gt
-	 * - Average lifetime: zz gt
+	 * Minimum lifetime: xx gt [S] [R]
+	 * Maximum lifetime: yy gt [S] [R]
+	 * Average lifetime: zz gt
+	 *
+	 * or
+	 *
+	 * N/A
 	 *
 	 * @param indentString spaces for indent
 	 */
-	public BaseText getResult(String indentString, boolean hoverMode)
+	public List<BaseText> getResult(String indentString, boolean showButton)
 	{
-		BaseText indent = Messenger.s(indentString, "g");
-		BaseText newLine = Messenger.s("\n");
-		if (!this.isValid())
+		List<BaseText> result = Lists.newArrayList();
+		Consumer<BaseText> f = text -> result.add(Messenger.c(Messenger.s(indentString), text));
+		if (this.isValid())
 		{
-			return Messenger.c(indent, "g   N/A");
+			f.accept(this.minTimeElement.getTimeWithPos(tr("minimum_lifetime"), COLOR_MIN_TIME, showButton));
+			f.accept(this.maxTimeElement.getTimeWithPos(tr("maximum_lifetime"), COLOR_MAX_TIME, showButton));
+			f.accept(Messenger.c(
+					tr("average_lifetime"),
+					"g : ",
+					COLOR_AVG_TIME + String.format("%.4f", (double)this.timeSum / this.count),
+					"g  gt"
+			));
 		}
-		indent = Messenger.c(indent, "g - ");
-		return Messenger.c(
-				indent,
-				this.minTimeElement.getTimeWithPos(tr("minimum_lifetime"), COLOR_MIN_TIME, hoverMode),
-				newLine,
-				indent,
-				this.maxTimeElement.getTimeWithPos(tr("maximum_lifetime"), COLOR_MAX_TIME, hoverMode),
-				newLine,
-				indent,
-				tr("average_lifetime"),
-				"g : ",
-				COLOR_AVG_TIME + String.format("%.4f", (double)this.timeSum / this.count),
-				"g  gt"
-		);
+		else
+		{
+			f.accept(Messenger.s("N/A", "g"));
+		}
+		return result;
 	}
 
+	/**
+	 * 10/20/30
+	 * 10/20/30 (gt)
+	 */
 	public BaseText getCompressedResult(boolean showGtSuffix)
 	{
 		if (!this.isValid())
@@ -147,7 +157,7 @@ public class LifeTimeStatistic extends TranslationContext
 		 * [hint]: 123 gt
 		 * [hint]: 123 gt [S] [R]
 		 */
-		private BaseText getTimeWithPos(BaseText hint, String fmt, boolean hoverMode)
+		private BaseText getTimeWithPos(BaseText hint, String fmt, boolean showButton)
 		{
 			BaseText text = Messenger.c(
 					hint,
@@ -155,7 +165,7 @@ public class LifeTimeStatistic extends TranslationContext
 					fmt + this.time,
 					"g  gt"
 			);
-			if (!hoverMode)
+			if (showButton)
 			{
 				text.append(Messenger.c(
 						"w  ",

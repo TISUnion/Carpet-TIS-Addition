@@ -45,7 +45,7 @@ public class BasicTrackedData extends TranslationContext
 {
 	public final Map<SpawningReason, Long> spawningReasons = Maps.newHashMap();
 	public final Map<RemovalReason, LifeTimeStatistic> removalReasons = Maps.newHashMap();
-	public final LifeTimeStatistic lifeTimeStatistic = new LifeTimeStatistic();
+	public final LifeTimeStatistic lifeTimeStatistic = new LifeTimeStatistic();  // sum of removalReasons.values()
 
 	public BasicTrackedData()
 	{
@@ -68,6 +68,16 @@ public class BasicTrackedData extends TranslationContext
 		return longMap.values().stream().mapToLong(v -> v).sum();
 	}
 
+	public boolean hasSpawning()
+	{
+		return !this.spawningReasons.isEmpty();
+	}
+
+	public boolean hasRemoval()
+	{
+		return !this.removalReasons.isEmpty();
+	}
+
 	public long getSpawningCount()
 	{
 		return getLongMapSum(this.spawningReasons);
@@ -79,7 +89,7 @@ public class BasicTrackedData extends TranslationContext
 	}
 
 	/**
-	 * Spawn Count: xxxxx
+	 * Spawn Count: xxx, (yyy/h)
 	 */
 	public BaseText getSpawningCountText(long ticks)
 	{
@@ -91,7 +101,7 @@ public class BasicTrackedData extends TranslationContext
 	}
 
 	/**
-	 * Removal Count: xxxxx
+	 * Removal Count: xxx, (yyy/h)
 	 */
 	public BaseText getRemovalCountText(long ticks)
 	{
@@ -103,14 +113,15 @@ public class BasicTrackedData extends TranslationContext
 	}
 
 	/**
-	 * - AAA: 50, (100/h) 25%
+	 * AAA: 50, (100/h) 25%
+	 *
 	 * @param reason spawning reason or removal reason
 	 */
-	private static BaseText getReasonWithRate(AbstractReason reason, long ticks, long count, long total)
+	private static BaseText getReasonWithRate(AbstractReason reason, long ticks, long count, long total, String indent)
 	{
 		double percentage = 100.0D * count / total;
 		return Messenger.c(
-				"g - ",
+				Messenger.s(indent, "g"),
 				reason.toText(),
 				"g : ",
 				CounterUtil.ratePerHourText(count, ticks, "wgg"),
@@ -119,95 +130,69 @@ public class BasicTrackedData extends TranslationContext
 		);
 	}
 
-	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total)
+	/**
+	 * AAA: 50, (100/h) 25%
+ 	 */
+	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total, String indent)
 	{
-		return getReasonWithRate(reason, ticks, count, total);
+		return getReasonWithRate(reason, ticks, count, total, indent);
 	}
 
-	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total)
+	/**
+	 * BBB: 150, (300/h) 75%
+	 */
+	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total, String indent)
 	{
-		return getReasonWithRate(reason, ticks, count, total);
+		return getReasonWithRate(reason, ticks, count, total, indent);
 	}
 
 	/**
 	 * Reasons for spawning
-	 * - AAA: 50, (100/h) 25%
-	 * - BBB: 150, (300/h) 75%
+	 *   AAA: 50, (100/h) 25%
+	 *   BBB: 150, (300/h) 75%
 	 *
-	 * @param hoverMode automatically insert a new line text between lines or not for hover text display
-	 * @return might be a empty list
+	 * @return might be an empty list
 	 */
-	public List<BaseText> getSpawningReasonsTexts(long ticks, boolean hoverMode)
+	public List<BaseText> getSpawningReasonsLines(long ticks)
 	{
 		List<BaseText> result = Lists.newArrayList();
-		List<Map.Entry<SpawningReason, Long>> entryList = Lists.newArrayList(this.spawningReasons.entrySet());
-		entryList.sort(Collections.reverseOrder(Comparator.comparingLong(Map.Entry::getValue)));
+		long total = this.getSpawningCount();
+		this.spawningReasons.entrySet().stream().
+				sorted(Collections.reverseOrder(Comparator.comparingLong(Map.Entry::getValue))).
+				forEach(entry -> {
+					SpawningReason reason = entry.getKey();
+					Long statistic = entry.getValue();
 
-		// Title for hover mode
-		if (!entryList.isEmpty() && hoverMode)
-		{
-			result.add(Messenger.formatting(tr("reasons_for_spawning"), "e"));
-		}
-
-		entryList.forEach(entry -> {
-			SpawningReason reason = entry.getKey();
-			Long statistic = entry.getValue();
-
-			// added to upper result which will be sent by Messenger.send
-			// so each element will be in a separate line
-			if (hoverMode)
-			{
-				result.add(Messenger.s("\n"));
-			}
-
-			result.add(this.getSpawningReasonWithRate(reason, ticks, statistic, this.getSpawningCount()));
-		});
+					result.add(this.getSpawningReasonWithRate(reason, ticks, statistic, total, "  "));
+				});
 		return result;
 	}
 
 	/**
 	 * Reasons for removal
-	 * - AAA: 50, (100/h) 25%
-	 *   - Minimum lifetime: xx1 gt
-	 *   - Maximum lifetime: yy1 gt
-	 *   - Average lifetime: zz1 gt
-	 * - BBB: 150, (300/h) 75%
-	 *   - Minimum lifetime: xx2 gt
-	 *   - Maximum lifetime: yy2 gt
-	 *   - Average lifetime: zz2 gt
+	 *   AAA: 50, (100/h) 25%
+	 *     Minimum lifetime: xxx gt [S] [R]
+	 *     Maximum lifetime: xxx gt [S] [R]
+	 *     Average lifetime: xxx gt
+	 *   BBB: 150, (300/h) 75%
+	 *     Minimum lifetime: yyy gt [S] [R]
+	 *     Maximum lifetime: yyy gt [S] [R]
+	 *     Average lifetime: yyy0 gt
 	 *
-	 * @param hoverMode automatically insert a new line text between lines or not for hover text display
-	 * @return might be a empty list
+	 * @return might be an empty list
 	 */
-	public List<BaseText> getRemovalReasonsTexts(long ticks, boolean hoverMode)
+	public List<BaseText> getRemovalReasonsLines(long ticks, boolean showButton)
 	{
 		List<BaseText> result = Lists.newArrayList();
-		List<Map.Entry<RemovalReason, LifeTimeStatistic>> entryList = Lists.newArrayList(this.removalReasons.entrySet());
-		entryList.sort(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().count)));
+		this.removalReasons.entrySet().stream().
+				sorted(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().count))).
+				forEach(entry -> {
+					RemovalReason reason = entry.getKey();
+					LifeTimeStatistic statistic = entry.getValue();
 
-		// Title for hover mode
-		if (!entryList.isEmpty() && hoverMode)
-		{
-			result.add(Messenger.formatting(tr("reasons_for_removal"), "r"));
-		}
-
-		entryList.forEach(entry -> {
-			RemovalReason reason = entry.getKey();
-			LifeTimeStatistic statistic = entry.getValue();
-
-			// added to upper result which will be sent by Messenger.send
-			// so each element will be in a separate line
-			if (hoverMode)
-			{
-				result.add(Messenger.s("\n"));
-			}
-
-			result.add(Messenger.c(
-					this.getRemovalReasonWithRate(reason, ticks, statistic.count, this.lifeTimeStatistic.count),
-					"w \n",
-					statistic.getResult("  ", hoverMode)
-			));
-		});
+					result.add(this.getRemovalReasonWithRate(reason, ticks, statistic.count, this.lifeTimeStatistic.count, "  "));
+					result.addAll(statistic.getResult("    ", showButton));
+				});
 		return result;
 	}
 }

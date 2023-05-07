@@ -49,6 +49,7 @@ import net.minecraft.util.math.Vec3i;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
 
 //#if MC >= 11600 && MC < 11900
@@ -203,18 +204,25 @@ public class Messenger
 		return fancy(null, displayText, hoverText, clickEvent);
 	}
 
-	public static BaseText join(BaseText joiner, BaseText... items)
+	public static BaseText join(BaseText joiner, Iterable<BaseText> items)
 	{
 		BaseText text = s("");
-		for (int i = 0; i < items.length; i++)
+		boolean first = true;
+		for (BaseText item : items)
 		{
-			if (i > 0)
+			if (!first)
 			{
 				text.append(joiner);
 			}
-			text.append(items[i]);
+			first = false;
+			text.append(item);
 		}
 		return text;
+	}
+
+	public static BaseText join(BaseText joiner, BaseText... items)
+	{
+		return join(joiner, Arrays.asList(items));
 	}
 
 	public static BaseText format(String formatter, Object... args)
