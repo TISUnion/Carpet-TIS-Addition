@@ -67,7 +67,8 @@ public class LiteralRemovalReason extends RemovalReason
 	{
 		return new LiteralRemovalReason(translationKey, RemovalType.REMOVED_FROM_WORLD);
 	}
-	
+
+	// it gets "removed" because it's yeeted from the mobcap
 	private static LiteralRemovalReason yeetedFromCap(String translationKey)
 	{
 		return new LiteralRemovalReason(translationKey, RemovalType.REMOVED_FROM_MOBCAP);

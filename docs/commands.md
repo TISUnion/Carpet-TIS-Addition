@@ -50,6 +50,7 @@ Tracked entity spawning reasons
 - `/summon` command
 - Spawned by item
 - Block drop (item only)
+- Dropped from container (item only)
 - Slime division
 - Zombie Reinforce
 - Spawned by spawner

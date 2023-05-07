@@ -482,6 +482,7 @@ carpettisaddition:
         block_drop: Block drop
         breeding: Breeding
         command: /summon command
+        container: Dropped from container
         dispensed: Dispensed by block
         item: Spawned by item
         natural: Natural spawning

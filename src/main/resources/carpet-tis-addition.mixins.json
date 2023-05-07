@@ -107,6 +107,7 @@
     "command.lifetime.spawning.breeding.TurtleEggBlockMixin",
     "command.lifetime.spawning.breeding.VillagerBreedTaskMixin",
     "command.lifetime.spawning.command.SummonCommandMixin",
+    "command.lifetime.spawning.container.ItemScattererMixin",
     "command.lifetime.spawning.conversion.MobEntityMixin",
     "command.lifetime.spawning.conversion.MooshroomEntityMixin",
     "command.lifetime.spawning.conversion.PigEntityMixin",

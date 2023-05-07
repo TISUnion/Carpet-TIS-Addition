@@ -29,6 +29,7 @@ public class LiteralSpawningReason extends SpawningReason
 	public static final LiteralSpawningReason COMMAND = regular("command");
 	public static final LiteralSpawningReason ITEM = regular("item");
 	public static final LiteralSpawningReason BLOCK_DROP = regular("block_drop");
+	public static final LiteralSpawningReason CONTAINER = regular("container");
 	public static final LiteralSpawningReason SLIME = regular("slime");
 	public static final LiteralSpawningReason ZOMBIE_REINFORCE = regular("zombie_reinforce");
 	public static final LiteralSpawningReason SPAWNER = regular("spawner");
@@ -57,6 +58,7 @@ public class LiteralSpawningReason extends SpawningReason
 		return new LiteralSpawningReason(translationKey, SpawningType.ADDED_TO_WORLD);
 	}
 
+	// it "spawns" because it's not back to the mobcap
 	private static LiteralSpawningReason backToCap(String translationKey)
 	{
 		return new LiteralSpawningReason(translationKey, SpawningType.ADDED_TO_MOBCAP);
