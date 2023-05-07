@@ -37,4 +37,10 @@ public class ItemTrackedData extends ExtraCountTrackedData
 	{
 		return tr("item_count");
 	}
+
+	@Override
+	protected String getCountButtonString()
+	{
+		return "I";
+	}
 }

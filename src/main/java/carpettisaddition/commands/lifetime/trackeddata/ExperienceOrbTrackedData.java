@@ -50,4 +50,10 @@ public class ExperienceOrbTrackedData extends ExtraCountTrackedData
 	{
 		return tr("experience_amount");
 	}
+
+	@Override
+	protected String getCountButtonString()
+	{
+		return "E";
+	}
 }

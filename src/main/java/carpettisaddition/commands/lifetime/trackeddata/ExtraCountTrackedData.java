@@ -56,16 +56,18 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 
 	protected abstract BaseText getCountDisplayText();
 
+	protected abstract String getCountButtonString();
+
 	/**
-	 * $text
-	 *    ^
-	 *    Item Count: zzz, (rrr/h)
+	 * $text [I]
+	 *        ^
+	 *        Item Count: zzz, (rrr/h)
 	 *
-	 * or
-	 *
-	 * $text [Item Count: zzz, (rrr/h)]
+	 * $text [I]
+	 *        ^
+	 *        Item Count: zzz, (rrr/h) ppp%
 	 */
-	private BaseText attachExtraCountHoverText(BaseText text, long extraCount, @Nullable Long extraTotal, long ticks)
+	private BaseText attachExtraCount(BaseText text, long extraCount, @Nullable Long extraTotal, long ticks)
 	{
 		BaseText extra = Messenger.c(
 				this.getCountDisplayText(),
@@ -75,30 +77,31 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 		if (extraTotal != null)
 		{
 			double percentage = 100.0D * extraCount / extraTotal;
-			extra.append(Messenger.c("w  ", Messenger.s(String.format("%.1f%%", percentage))));  // no need to hover
+			extra.append(Messenger.c("w  ", Messenger.hover(Messenger.s(String.format("%.1f%%", percentage)), Messenger.s(String.format("%.6f%%", percentage)))));
 		}
 
 		// console cannot display hover text, so we append the extra count text to the end of the line
 		if (CommandUtil.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
 		{
-			text = Messenger.c(text, "g  [", extra, "g ]");
+			text = Messenger.c(text, "y  [", extra, "y ]");
 		}
-		else  // otherwise hover it
+		else  // otherwise make a hover button
 		{
-			Messenger.hover(text, extra);
+			text = Messenger.c(
+					text, Messenger.s(" "),
+					Messenger.hover(Messenger.s("[" + getCountButtonString() + "]", "y"), extra)
+			);
 		}
 		return text;
 	}
 
 	/**
-	 * Spawn Count: xxx, (yyy/h)
-	 *        ^
-	 *        Item Count: zzz, (rrr/h)
+	 * Spawn Count: xxx, (yyy/h) [Item Count: zzz, (rrr/h)]
 	 */
 	@Override
 	public BaseText getSpawningCountText(long ticks)
 	{
-		return this.attachExtraCountHoverText(
+		return this.attachExtraCount(
 				super.getSpawningCountText(ticks),
 				getLongMapSum(this.spawningExtraCountMap),
 				null,
@@ -107,14 +110,12 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	}
 
 	/**
-	 * Removal Count: xxx, (yyy/h)
-	 *        ^
-	 *        Item Count: zzz, (rrr/h)
+	 * Removal Count: xxx, (yyy/h) [Item Count: zzz, (rrr/h)]
 	 */
 	@Override
 	public BaseText getRemovalCountText(long ticks)
 	{
-		return this.attachExtraCountHoverText(
+		return this.attachExtraCount(
 				super.getRemovalCountText(ticks),
 				getLongMapSum(this.removalExtraCountMap),
 				null,
@@ -123,14 +124,12 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	}
 
 	/**
-	 * AAA: 50, (100/h) 25%
-	 *       ^
-	 *       Item Count: zzz, (rrr/h) ppp%
+	 * AAA: 50, (100/h) 25% [Item Count: zzz, (rrr/h) ppp%]
 	 */
 	@Override
 	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total, String indent)
 	{
-		return this.attachExtraCountHoverText(
+		return this.attachExtraCount(
 				super.getSpawningReasonWithRate(reason, ticks, count, total, indent),
 				this.spawningExtraCountMap.getOrDefault(reason, 0L),
 				getLongMapSum(this.spawningExtraCountMap),
@@ -139,14 +138,12 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	}
 
 	/**
-	 * BBB: 150, (300/h) 75%
-	 *       ^
-	 *       Item Count: zzz, (rrr/h) ppp%
+	 * BBB: 150, (300/h) 75% [Item Count: zzz, (rrr/h) ppp%]
 	 */
 	@Override
 	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total, String indent)
 	{
-		return this.attachExtraCountHoverText(
+		return this.attachExtraCount(
 				super.getRemovalReasonWithRate(reason, ticks, count, total, indent),
 				this.removalExtraCountMap.getOrDefault(reason, 0L),
 				getLongMapSum(this.removalExtraCountMap),
