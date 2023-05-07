@@ -63,7 +63,7 @@ public class TISAdditionLoggerRegistry
 	public static boolean __commandBlock;
 	public static boolean __damage;
 	public static boolean __item;
-	public static boolean __lifeTime;
+	public static boolean __lifetime;
 	public static boolean __lightQueue;
 	public static boolean __memory;
 	public static boolean __microTiming;

@@ -40,7 +40,7 @@ import java.util.Optional;
  */
 public class LifeTimeHUDLogger extends AbstractHUDLogger
 {
-	public static final String NAME = "lifeTime";
+	public static final String NAME = "lifetime";
 
 	private static final LifeTimeHUDLogger INSTANCE = new LifeTimeHUDLogger();
 

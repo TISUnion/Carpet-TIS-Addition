@@ -74,9 +74,9 @@
 - 参考选项: `despawn`, `die`, `despawn,die`
 
 
-## 存活时间 (lifeTime)
+## 存活时间 (lifetime)
 
-`/log lifeTime <实体类型>`
+`/log lifetime <实体类型>`
 
 一个 HUD 记录器
 

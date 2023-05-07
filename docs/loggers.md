@@ -74,9 +74,9 @@ Attributes:
 - Suggested options: `despawn`, `die`, `despawn,die`
 
 
-## lifeTime
+## lifetime
 
-`/log lifeTime <entity_type>`
+`/log lifetime <entity_type>`
 
 A HUD Logger
 

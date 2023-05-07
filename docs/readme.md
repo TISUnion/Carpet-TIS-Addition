@@ -114,7 +114,7 @@
 - [commandBlock](loggers.md#commandblock)
 - [damage](loggers.md#damage)
 - [item](loggers.md#item)
-- [lifeTime](loggers.md#lifetime)
+- [lifetime](loggers.md#lifetime)
 - [lightQueue](loggers.md#lightqueue)
 - [memory](loggers.md#memory)
 - [microTiming](loggers.md#microtiming)
