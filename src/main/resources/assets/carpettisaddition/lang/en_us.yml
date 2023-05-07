@@ -456,9 +456,9 @@ carpettisaddition:
     real_time: real time
     in_game: in game
     lifetime:
-      name: LifeTime
+      name: Lifetime
       no_result: No result yet
-      specific_result: Life time result for %1$s
+      specific_result: Lifetime result for %1$s
       invalid_detail: Invalid statistic detail "%1$s"
       unknown_entity_type: Unknown entity type "%1$s"
       filter_info_header: Filter
@@ -467,14 +467,14 @@ carpettisaddition:
       removal_count: Removal Count
       item_count: "Item Count"
       experience_amount: "Experience Amount"
-      life_time: Life Time
-      life_time_overview: Life Time Overview
-      life_time_explain: "The amount of spawning stage passing between entity spawning and entity removal"
+      lifetime: Lifetime
+      lifetime_overview: Lifetime Overview
+      lifetime_explain: "The amount of spawning stage passing between entity spawning and entity removal"
       reasons_for_spawning: Reasons for spawning
       reasons_for_removal: Reasons for removal
-      minimum_life_time: Minimum life time
-      maximum_life_time: Maximum life time
-      average_life_time: Average life time
+      minimum_lifetime: Minimum lifetime
+      maximum_lifetime: Maximum lifetime
+      average_lifetime: Average lifetime
       spawning_position: Spawning Position
       removal_position: Removal Position
       spawn_reason:

@@ -78,9 +78,9 @@ public class LifeTimeStatistic extends TranslationContext
 	}
 
 	/**
-	 * - Minimum life time: xx gt
-	 * - Maximum life time: yy gt
-	 * - Average life time: zz gt
+	 * - Minimum lifetime: xx gt
+	 * - Maximum lifetime: yy gt
+	 * - Average lifetime: zz gt
 	 *
 	 * @param indentString spaces for indent
 	 */
@@ -95,13 +95,13 @@ public class LifeTimeStatistic extends TranslationContext
 		indent = Messenger.c(indent, "g - ");
 		return Messenger.c(
 				indent,
-				this.minTimeElement.getTimeWithPos(tr("minimum_life_time"), COLOR_MIN_TIME, hoverMode),
+				this.minTimeElement.getTimeWithPos(tr("minimum_lifetime"), COLOR_MIN_TIME, hoverMode),
 				newLine,
 				indent,
-				this.maxTimeElement.getTimeWithPos(tr("maximum_life_time"), COLOR_MAX_TIME, hoverMode),
+				this.maxTimeElement.getTimeWithPos(tr("maximum_lifetime"), COLOR_MAX_TIME, hoverMode),
 				newLine,
 				indent,
-				tr("average_life_time"),
+				tr("average_lifetime"),
 				"g : ",
 				COLOR_AVG_TIME + String.format("%.4f", (double)this.timeSum / this.count),
 				"g  gt"

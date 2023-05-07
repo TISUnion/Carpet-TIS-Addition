@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 public enum SpecificDetailMode
 {
-	LIFE_TIME,
+	LIFETIME,
 	SPAWNING,
 	REMOVAL;
 

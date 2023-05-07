@@ -50,7 +50,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 	private final ServerWorld world;
 	private final Map<EntityType<?>, BasicTrackedData> dataMap = Maps.newHashMap();
 	// a counter which accumulates when spawning stage occurs
-	// it's used to determine life time
+	// it's used to determine lifetime
 	private long spawnStageCounter;
 
 	public LifeTimeWorldTracker(ServerWorld world)
@@ -150,7 +150,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 	private void printAll(long ticks, List<BaseText> result)
 	{
 		// sorted by spawn count
-		// will being sorting by avg life time better?
+		// will being sorting by avg lifetime better?
 		this.dataMap.entrySet().stream().
 				sorted(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().getSpawningCount()))).
 				forEach((entry) -> {
@@ -216,10 +216,10 @@ public class LifeTimeWorldTracker extends TranslationContext
 											data.lifeTimeStatistic.getCompressedResult(true)
 									),
 									Messenger.c(
-											Messenger.formatting(tr("life_time_overview"), "q"), "w \n",
+											Messenger.formatting(tr("lifetime_overview"), "q"), "w \n",
 											data.lifeTimeStatistic.getResult("", true)
 									),
-									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.LIFE_TIME))
+									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.LIFETIME))
 							)
 					));
 				});
@@ -235,7 +235,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 				"g  ",
 				EntityFilterManager.getInstance().getEntityFilterText(null)
 		));
-		boolean showLifeTime = detailMode == null || detailMode == SpecificDetailMode.LIFE_TIME;
+		boolean showLifeTime = detailMode == null || detailMode == SpecificDetailMode.LIFETIME;
 		boolean showSpawning = detailMode == null || detailMode == SpecificDetailMode.SPAWNING;
 		boolean showRemoval = detailMode == null || detailMode == SpecificDetailMode.REMOVAL;
 		if (showSpawning)
@@ -250,8 +250,8 @@ public class LifeTimeWorldTracker extends TranslationContext
 		{
 			result.add(Messenger.fancy(
 					"q",
-					tr("life_time_overview"),
-					tr("life_time_explain"),
+					tr("lifetime_overview"),
+					tr("lifetime_explain"),
 					null
 			));
 			result.add(specificData.lifeTimeStatistic.getResult("", false));

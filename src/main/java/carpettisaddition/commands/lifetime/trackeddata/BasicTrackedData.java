@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A lifetime tracking tracked data per mob type
+ * A lifetime-tracking tracked data per mob type
  */
 public class BasicTrackedData extends TranslationContext
 {
@@ -168,13 +168,13 @@ public class BasicTrackedData extends TranslationContext
 	/**
 	 * Reasons for removal
 	 * - AAA: 50, (100/h) 25%
-	 *   - Minimum life time: xx1 gt
-	 *   - Maximum life time: yy1 gt
-	 *   - Average life time: zz1 gt
+	 *   - Minimum lifetime: xx1 gt
+	 *   - Maximum lifetime: yy1 gt
+	 *   - Average lifetime: zz1 gt
 	 * - BBB: 150, (300/h) 75%
-	 *   - Minimum life time: xx2 gt
-	 *   - Maximum life time: yy2 gt
-	 *   - Average life time: zz2 gt
+	 *   - Minimum lifetime: xx2 gt
+	 *   - Maximum lifetime: yy2 gt
+	 *   - Average lifetime: zz2 gt
 	 *
 	 * @param hoverMode automatically insert a new line text between lines or not for hover text display
 	 * @return might be a empty list

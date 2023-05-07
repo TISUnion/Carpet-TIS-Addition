@@ -466,14 +466,14 @@ carpettisaddition:
       removal_count: 移除数量
       item_count: 物品数
       experience_amount: 经验数
-      life_time: 存活时间
-      life_time_overview: 存活时间概览
-      life_time_explain: 实体生成时刻与移除时刻间的经过的自然生物刷新阶段的数量
+      lifetime: 存活时间
+      lifetime_overview: 存活时间概览
+      lifetime_explain: 实体生成时刻与移除时刻间的经过的自然生物刷新阶段的数量
       reasons_for_spawning: 生成原因
       reasons_for_removal: 移除原因
-      minimum_life_time: 最小存活时间
-      maximum_life_time: 最大存活时间
-      average_life_time: 平均存活时间
+      minimum_lifetime: 最小存活时间
+      maximum_lifetime: 最大存活时间
+      average_lifetime: 平均存活时间
       spawning_position: 生成位置
       removal_position: 移除位置
       spawn_reason:
