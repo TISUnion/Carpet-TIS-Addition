@@ -75,7 +75,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 
 	private static boolean checkServerSide(PlayerEntity playerEntity)
 	{
-		return playerEntity instanceof ServerPlayerEntity && !playerEntity.world.isClient() && playerEntity.world instanceof ServerWorld;
+		return playerEntity instanceof ServerPlayerEntity && !playerEntity.getEntityWorld().isClient() && playerEntity.getEntityWorld() instanceof ServerWorld;
 	}
 
 	private void removeMarker(MicroTimingMarker marker)
@@ -100,7 +100,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 	{
 		if (checkServerSide(playerEntity))
 		{
-			StorageKey key = new StorageKey(playerEntity.world, blockPos);
+			StorageKey key = new StorageKey(playerEntity.getEntityWorld(), blockPos);
 			MicroTimingMarker existedMarker = this.markers.get(key);
 			boolean removeExistedMarker = false;
 			boolean createNewMarker = false;
@@ -140,7 +140,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 			}
 			if (createNewMarker)
 			{
-				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.world, blockPos, color, name);
+				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.getEntityWorld(), blockPos, color, name);
 				this.addMarker(newMarker);
 				Messenger.reminder(playerEntity, tr("on_mark", newMarker.toFullText()));
 			}
@@ -226,7 +226,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 	{
 		if (checkServerSide(playerEntity))
 		{
-			StorageKey key = new StorageKey(playerEntity.world, blockPos);
+			StorageKey key = new StorageKey(playerEntity.getEntityWorld(), blockPos);
 			MicroTimingMarker marker = this.markers.get(key);
 			if (marker != null)
 			{

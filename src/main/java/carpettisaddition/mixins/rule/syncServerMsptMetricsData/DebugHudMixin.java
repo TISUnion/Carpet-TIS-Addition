@@ -32,7 +32,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-//#if MC >= 11600
+//#if MC >= 12000
+//$$ import net.minecraft.client.gui.DrawContext;
+//#elseif MC >= 11600
 //$$ import net.minecraft.client.util.math.MatrixStack;
 //#endif
 
@@ -40,14 +42,21 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class DebugHudMixin
 {
 	@Shadow protected abstract void drawMetricsData(
-			//#if MC >= 11600
+			//#if MC >= 12000
+			//$$ DrawContext ctx,
+			//#elseif MC >= 11600
 			//$$ MatrixStack matrixStack,
 			//#endif
 			MetricsData metricsData, int startY, int firstSample, boolean isClient
 	);
 
 	@Inject(
+			//#if MC >= 12000
+			//$$ // lambda method in method render()
+			//$$ method = "method_51746",
+			//#else
 			method = "render",
+			//#endif
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					target = "Lnet/minecraft/client/MinecraftClient;getServer()Lnet/minecraft/server/integrated/IntegratedServer;",
@@ -56,11 +65,16 @@ public abstract class DebugHudMixin
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	private void syncServerMsptMetricsData_drawIfPossible(
-			//#if MC >= 11600
-			//$$ MatrixStack matrixStack,
+			//#if MC >= 12000
+			//$$ DrawContext arg0,
+			//#elseif MC >= 11600
+			//$$ MatrixStack arg0,
 			//#endif
 			CallbackInfo ci,
-			Entity entity, int i, IntegratedServer integratedServer
+			//#if MC < 12000
+			Entity entity,
+			//#endif
+			int i, IntegratedServer integratedServer
 	)
 	{
 		if (integratedServer == null)
@@ -72,7 +86,7 @@ public abstract class DebugHudMixin
 				// vanilla copy
 				this.drawMetricsData(
 						//#if MC >= 11600
-						//$$ matrixStack,
+						//$$ arg0,
 						//#endif
 						metricsData, i - Math.min(i / 2, 240), i / 2, false
 				);
