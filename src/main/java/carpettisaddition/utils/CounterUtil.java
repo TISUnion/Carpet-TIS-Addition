@@ -41,41 +41,45 @@ public class CounterUtil
 		return ticks / (20.0 * 60.0 * 60.0);
 	}
 
-	private static double getRatePerHourValue(long rate, long ticks)
+	private static double getRatePerHourValue(long amount, long ticks)
 	{
-		return (double)rate / tickToHour(ticks);
+		return (double)amount / tickToHour(ticks);
 	}
 
-	public static String ratePerHour(long rate, long ticks)
+	public static String ratePerHour(long amount, long ticks)
 	{
-		return String.format("%d, (%.1f/h)", rate, getRatePerHourValue(rate, ticks));
+		return String.format("%d, (%.1f/h)", amount, getRatePerHourValue(amount, ticks));
 	}
 
-	public static String ratePerHour(int rate, long ticks)
+	public static String ratePerHour(int amount, long ticks)
 	{
-		return ratePerHour((long)rate, ticks);
+		return ratePerHour((long)amount, ticks);
 	}
 
 	/**
+	 * fmt == "aBc"
+	 * text == "123, (456.7/h)"
+	 *          aaaBBBcccccBBB
+	 *
+	 * @return "%d, (%.1f/h)".formatted(amount, rate)
 	 * @param fmt a carpet color formatting string with 3 chars, for example "wgg"
-	 *            for a result of "%d, (%.1f/h)"
 	 *            "%d" uses fmt[0]
 	 *            ",", "(", "/h)" uses fmt[1]
 	 *            "%.1f uses fmt[2]
  	 */
-	public static BaseText ratePerHourText(long rate, long ticks, String fmt)
+	public static BaseText ratePerHourText(long amount, long ticks, String fmt)
 	{
 		assert fmt.length() == 3;
 		return Messenger.c(
-				fmt.charAt(0) + " " + rate,
+				fmt.charAt(0) + " " + amount,
 				fmt.charAt(1) + " , (",
-				String.format("%s %.1f", fmt.charAt(2), getRatePerHourValue(rate, ticks)),
+				String.format("%s %.1f", fmt.charAt(2), getRatePerHourValue(amount, ticks)),
 				fmt.charAt(1) + " /h)"
 		);
 	}
 
-	public static BaseText ratePerHourText(int rate, long ticks, String fmt)
+	public static BaseText ratePerHourText(int amount, long ticks, String fmt)
 	{
-		return ratePerHourText((long)rate, ticks, fmt);
+		return ratePerHourText((long)amount, ticks, fmt);
 	}
 }
