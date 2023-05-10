@@ -41,7 +41,7 @@ public abstract class MinecraftClientMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
-					//$$ target = "Lnet/minecraft/client/resource/ServerResourcePackProvider;clear()Ljava/util/concurrent/CompletableFuture;"
+					//$$ target = "Lnet/minecraft/client/resource/ClientBuiltinResourcePackProvider;clear()Ljava/util/concurrent/CompletableFuture;"
 					//#else
 					target = "Lnet/minecraft/client/resource/ClientBuiltinResourcePackProvider;clear()V"
 					//#endif
