@@ -25,8 +25,8 @@ jobs:
         run: |
           cat <<EOF > $GITHUB_STEP_SUMMARY
           ## Action Parameters
-          - target_subproject: `${{ github.event.inputs.target_subproject }}`
-          - target_release_tag: `${{ github.event.inputs.target_release_tag }}`
+          - target_subproject: \`${{ github.event.inputs.target_subproject }}\`
+          - target_release_tag: \`${{ github.event.inputs.target_release_tag }}\`
           EOF
 
   matrix_prep:
