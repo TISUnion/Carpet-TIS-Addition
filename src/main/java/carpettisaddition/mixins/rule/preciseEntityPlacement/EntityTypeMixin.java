@@ -60,7 +60,7 @@ public abstract class EntityTypeMixin<T extends Entity>
 					shift = At.Shift.AFTER
 			)
 	)
-	private T preciseEntityPlacement(
+	private T preciseEntityPlacement_spawnEggPlacementModify(
 			T entity,
 
 			//#if MC >= 11600

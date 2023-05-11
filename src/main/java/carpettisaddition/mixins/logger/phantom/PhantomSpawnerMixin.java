@@ -27,6 +27,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+//#if MC >= 11200
+//$$ import net.minecraft.server.network.ServerPlayerEntity;
+//#endif
+
 @Mixin(PhantomSpawner.class)
 public abstract class PhantomSpawnerMixin
 {
@@ -39,7 +43,11 @@ public abstract class PhantomSpawnerMixin
 					target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"
 			)
 	)
+	//#if MC >= 12000
+	//$$ private ServerPlayerEntity recordsCurrentPlayer$phantomLogger(ServerPlayerEntity player)
+	//#else
 	private PlayerEntity recordsCurrentPlayer$phantomLogger(PlayerEntity player)
+	//#endif
 	{
 		this.currentPlayer$TISCM$phantomLogger = player;
 		return player;

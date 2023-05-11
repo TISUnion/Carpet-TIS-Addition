@@ -69,7 +69,7 @@ public abstract class ArmorStandItemItemMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private ArmorStandEntity preciseEntityPlacement(ArmorStandEntity armorStandEntity, ItemUsageContext context)
+	private ArmorStandEntity preciseEntityPlacement_armorStandPlacement(ArmorStandEntity armorStandEntity, ItemUsageContext context)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{

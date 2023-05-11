@@ -46,7 +46,7 @@ public abstract class SpawnEggItemMixin
 					//#endif
 			)
 	)
-	private void preciseEntityPlacement(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir)
+	private void preciseEntityPlacement_spawnEgg1(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{
@@ -59,9 +59,10 @@ public abstract class SpawnEggItemMixin
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/util/hit/BlockHitResult;getBlockPos()Lnet/minecraft/util/math/BlockPos;"
-			)
+			),
+			ordinal = 0  // 1.20-pre1 says there are 2 candidates, idk why but whatever here's the fix
 	)
-	private BlockHitResult preciseEntityPlacement(BlockHitResult blockHitResult)
+	private BlockHitResult preciseEntityPlacement_spawnEgg2(BlockHitResult blockHitResult)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{

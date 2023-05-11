@@ -43,7 +43,7 @@ public abstract class EndCrystalItemMixin
 					//#endif
 			)
 	)
-	private EnderCrystalEntity preciseEntityPlacement(EnderCrystalEntity enderCrystalEntity, ItemUsageContext context)
+	private EnderCrystalEntity preciseEntityPlacement_endCrystalPlacement(EnderCrystalEntity enderCrystalEntity, ItemUsageContext context)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{
