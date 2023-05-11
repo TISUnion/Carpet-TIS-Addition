@@ -115,6 +115,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	public void onServerLoaded(MinecraftServer server)
 	{
 		minecraft_server = server;
+		CarpetTISAdditionSettings.onWorldLoadingStarted();
 	}
 
 	/**

@@ -722,4 +722,16 @@ public class CarpetTISAdditionSettings
 			return tr("yeetUpdateSuppressionCrash.message");
 		}
 	}
+
+	/**
+	 * Some rule checks to ensure that the worlds can be loaded normally
+	 */
+	public static void onWorldLoadingStarted()
+	{
+		if (!lightUpdates.shouldExecuteLightTask())
+		{
+			CarpetTISAdditionMod.LOGGER.warn("The rule lightUpdates is set to {} before the worlds are loaded", lightUpdates);
+			CarpetTISAdditionMod.LOGGER.warn("This might cause the server to be blocked indefinitely");
+		}
+	}
 }
