@@ -1,0 +1,25 @@
+name: Feature Request
+description: Suggest an idea for this project
+labels: []
+body:
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why do you want this feature? What problem do you want to solve? How can the suggested feature help with that?
+      placeholder: Tell us what you want!
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the feature you want, as detailed as possible
+      placeholder: I want to see a fancy starry sky when I look up at midnight.
+    validations:
+      required: true
+  - type: textarea
+    id: other-information
+    attributes:
+      label: Other information
+      description: Other useful information to this feature request. Leave empty if there is none.

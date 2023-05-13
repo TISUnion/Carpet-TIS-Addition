@@ -1,0 +1,87 @@
+name: Bug Report
+description: Something doesn't seem correct and it might be a bug
+labels: []
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      description: |
+        A clear and concise description of what the bug is.
+        Is it a game crash, an unexpected behavior, or has something gone wrong?
+        If applicable, add screenshots to help explain the bug.
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: textarea
+    id: to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Steps to reproduce the bug
+      placeholder: |
+        1. Create a world
+        2. Wait until midnight
+        3. Hug a creeper
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+      placeholder: The creeper explodes
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual behavior
+      description: What actually happened?
+      placeholder: The creeper launches itself into the sky
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: |-
+        If it's a crash, send the corresponding Minecraft log in the `logs` folder, or crash report in the `crash-reports` folder, here.
+        Please upload the log file as an attachment, or upload the log to [pastebin](https://pastebin.com/) / [mclo.gs](https://mclo.gs/) and paste the url here.
+        Please refrain from pasting the entire log file directly.
+        Leave empty if there is none.
+      placeholder: https://pastebin.com/J6b7lKxR 
+  - type: input
+    id: minecraft-version
+    attributes:
+      label: Minecraft version
+      description: The Minecraft version(s) where this bug occurs in.
+      placeholder: 1.15.2
+    validations:
+      required: true
+  - type: input
+    id: mod-version
+    attributes:
+      label: Carpet TIS Addition version
+      description: The Carpet TIS Addition version(s) where this bug occurs in.
+      placeholder: 1.41.1
+    validations:
+      required: true
+  - type: input
+    id: carpet-version
+    attributes:
+      label: Fabric Carpet version
+      description: The Fabric Carpet version(s) where this bug occurs with.
+      placeholder: 1.4.77
+    validations:
+      required: true
+  - type: textarea
+    id: other-information
+    attributes:
+      label: Other information
+      description: Other useful information to this bug report, e.g. other related mod version(s). Leave empty if there is none.
+      placeholder: The issue only occurs if the player is in survival mode
+  - type: checkboxes
+    id: check-list
+    attributes:
+      label: Check list
+      options:
+        - label: I have verified that the issue persists in the latest version of the mod.
+          required: true
+        - label: I have searched the existing issues and confirmed that this is not a duplicate.
+          required: true

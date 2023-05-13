@@ -1,50 +1,50 @@
 pluginManagement {
-    repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-        maven {
-            name = 'Jitpack'
-            url = "https://jitpack.io"
-        }
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    resolutionStrategy {
-        eachPlugin {
-            switch (requested.id.id) {
-                case "com.replaymod.preprocess": {
-                    useModule("com.github.Fallen-Breath:preprocessor:${requested.version}")
-                    break
-                }
-                case "me.fallenbreath.yamlang": {
-                    useModule("com.github.Fallen-Breath:yamlang:${requested.version}")
-                    break
-                }
-            }
-        }
-    }
+	repositories {
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		maven {
+			name = 'Jitpack'
+			url = "https://jitpack.io"
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+	resolutionStrategy {
+		eachPlugin {
+			switch (requested.id.id) {
+				case "com.replaymod.preprocess": {
+					useModule("com.github.Fallen-Breath:preprocessor:${requested.version}")
+					break
+				}
+				case "me.fallenbreath.yamlang": {
+					useModule("com.github.Fallen-Breath:yamlang:${requested.version}")
+					break
+				}
+			}
+		}
+	}
 }
 
 // Starting from mc1.19.3, Minecraft minor version change might contain larger changes,
 // so we might need to maintain not-latest minor versions longer
 // See: https://help.minecraft.net/hc/en-us/articles/9971900758413
 def versions = Arrays.asList(
-        "1.14.4",
-        "1.15.2",
-        "1.16.5",
-        "1.17.1",
-        "1.18.2",
-        "1.19.2",  // TODO: drop support when mc1.21 is out
-        "1.19.3",  // TODO: drop support when mc1.21 is out
-        "1.19.x",
-        "future",
+		"1.14.4",
+		"1.15.2",
+		"1.16.5",
+		"1.17.1",
+		"1.18.2",
+		"1.19.2",  // TODO: drop support when mc1.21 is out
+		"1.19.3",  // TODO: drop support when mc1.21 is out
+		"1.19.x",
+		"future",
 )
 for (String version : versions) {
-    include(":$version")
+	include(":$version")
 
-    def proj = project(":$version")
-    proj.projectDir = file("versions/$version")
-    proj.buildFileName = "../../common.gradle"
+	def proj = project(":$version")
+	proj.projectDir = file("versions/$version")
+	proj.buildFileName = "../../common.gradle"
 }

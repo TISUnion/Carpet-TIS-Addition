@@ -1,3 +1,9 @@
+"""
+A script to scan through all valid mod jars in build-artifacts.zip/$version/build/libs,
+and generate an artifact summary table for that to GitHub action step summary
+"""
+__author__ = 'Fallen_Breath'
+
 import glob
 import json
 import os

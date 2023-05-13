@@ -1,56 +1,60 @@
 plugins {
-    id 'maven-publish'
-    id 'com.github.hierynomus.license' version '0.16.1' apply false
-    id 'fabric-loom' version '1.2-SNAPSHOT' apply false
+	id 'maven-publish'
+	id 'com.github.hierynomus.license' version '0.16.1' apply false
+	id 'fabric-loom' version '1.2-SNAPSHOT' apply false
 
-    // https://github.com/Juuxel/LoomQuiltflower
-    id 'io.github.juuxel.loom-quiltflower' version '1.8.0' apply false
+	// https://github.com/Juuxel/LoomQuiltflower
+	// loom-quiltflower doesn't work in gradle 8+, disable for now
+	// id 'io.github.juuxel.loom-quiltflower' version '1.8.0' apply false
 
-    // https://github.com/ReplayMod/preprocessor
-    // https://github.com/Fallen-Breath/preprocessor
-    id 'com.replaymod.preprocess' version 'e1050f4d72'
+	// https://github.com/ReplayMod/preprocessor
+	// https://github.com/Fallen-Breath/preprocessor
+	id 'com.replaymod.preprocess' version 'e1050f4d72'
 
-    // https://github.com/Fallen-Breath/yamlang
-    id 'me.fallenbreath.yamlang' version '1.2.1' apply false
+	// https://github.com/Fallen-Breath/yamlang
+	id 'me.fallenbreath.yamlang' version '1.2.1' apply false
 }
 
 preprocess {
-    def mc114    = createNode('1.14.4' , 1_14_04, 'yarn')
-    def mc115    = createNode('1.15.2' , 1_15_02, 'yarn')
-    def mc116    = createNode('1.16.5' , 1_16_05, 'yarn')
-    def mc117    = createNode('1.17.1' , 1_17_01, 'yarn')
-    def mc118    = createNode('1.18.2' , 1_18_02, 'yarn')
-    def mc1192   = createNode('1.19.2' , 1_19_02, 'yarn')
-    def mc1193   = createNode('1.19.3' , 1_19_03, 'yarn')
-    def mc119x   = createNode('1.19.x' , 1_19_04, 'yarn')
-    def mcFuture = createNode('future' , 1_20_00, 'yarn')
+	def mc114    = createNode('1.14.4' , 1_14_04, 'yarn')
+	def mc115    = createNode('1.15.2' , 1_15_02, 'yarn')
+	def mc116    = createNode('1.16.5' , 1_16_05, 'yarn')
+	def mc117    = createNode('1.17.1' , 1_17_01, 'yarn')
+	def mc118    = createNode('1.18.2' , 1_18_02, 'yarn')
+	def mc1192   = createNode('1.19.2' , 1_19_02, 'yarn')
+	def mc1193   = createNode('1.19.3' , 1_19_03, 'yarn')
+	def mc119x   = createNode('1.19.x' , 1_19_04, 'yarn')
+	def mcFuture = createNode('future' , 1_20_00, 'yarn')
 
-    mc115 .link(mc114   , file('versions/mapping-1.15-1.14.txt'))
-    mc115 .link(mc116   , file('versions/mapping-1.15-1.16.txt'))
-    mc116 .link(mc117   , file('versions/mapping-1.16-1.17.txt'))
-    mc117 .link(mc118   , file('versions/mapping-1.17-1.18.txt'))
-    mc118 .link(mc1192  , file('versions/mapping-1.18-1.19.txt'))
-    mc1192.link(mc1193  , file('versions/mapping-1.19.2-1.19.3.txt'))
-    mc1193.link(mc119x  , file('versions/mapping-1.19.3-1.19.x.txt'))
-    mc119x.link(mcFuture, file('versions/mapping-1.19.x-future.txt'))
+	mc115 .link(mc114   , file('versions/mapping-1.15-1.14.txt'))
+	mc115 .link(mc116   , file('versions/mapping-1.15-1.16.txt'))
+	mc116 .link(mc117   , file('versions/mapping-1.16-1.17.txt'))
+	mc117 .link(mc118   , file('versions/mapping-1.17-1.18.txt'))
+	mc118 .link(mc1192  , file('versions/mapping-1.18-1.19.txt'))
+	mc1192.link(mc1193  , file('versions/mapping-1.19.2-1.19.3.txt'))
+	mc1193.link(mc119x  , file('versions/mapping-1.19.3-1.19.x.txt'))
+	mc119x.link(mcFuture, file('versions/mapping-1.19.x-future.txt'))
 }
 
 tasks.register('buildAndGather') {
-    subprojects {
-        dependsOn project.name + ':build'
-    }
-    doFirst {
-        println 'Gathering builds'
-        copy {
-            subprojects {
-                def libDir = project.projectDir.toPath().resolve('build/libs')
-                from(libDir) {
-                    include '*.jar'
-                    exclude '*-dev.jar', '*-sources.jar'
-                }
-                into 'build/libs/'
-                duplicatesStrategy DuplicatesStrategy.INCLUDE
-            }
-        }
-    }
+	subprojects {
+		dependsOn project.name + ':build'
+	}
+	doFirst {
+		println 'Gathering builds'
+		delete fileTree(project.projectDir.toPath().resolve('build/libs')) {
+			include '*'
+		}
+		copy {
+			subprojects {
+				def libDir = project.projectDir.toPath().resolve('build/libs')
+				from(libDir) {
+					include '*.jar'
+					exclude '*-dev.jar', '*-sources.jar'
+				}
+				into 'build/libs/'
+				duplicatesStrategy DuplicatesStrategy.INCLUDE
+			}
+		}
+	}
 }
