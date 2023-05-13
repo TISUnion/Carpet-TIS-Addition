@@ -58,7 +58,7 @@ public class LiteralSpawningReason extends SpawningReason
 		return new LiteralSpawningReason(translationKey, SpawningType.ADDED_TO_WORLD);
 	}
 
-	// it "spawns" because it's not back to the mobcap
+	// it "spawns" because it's now back to the mobcap
 	private static LiteralSpawningReason backToCap(String translationKey)
 	{
 		return new LiteralSpawningReason(translationKey, SpawningType.ADDED_TO_MOBCAP);
