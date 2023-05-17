@@ -562,7 +562,12 @@ public class Messenger
 	private static void __tell(ServerCommandSource source, BaseText text, boolean broadcastToOps)
 	{
 		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
-		source.sendFeedback(text, broadcastToOps);
+		source.sendFeedback(
+				//#if MC >= 12000
+				//$$ () ->
+				//#endif
+				text, broadcastToOps
+		);
 	}
 
 	public static void tell(ServerCommandSource source, BaseText text, boolean broadcastToOps)

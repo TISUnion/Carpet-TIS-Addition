@@ -20,37 +20,64 @@
 
 package carpettisaddition.logging.loggers.tickwarp;
 
-import carpet.helpers.TickSpeed;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+import java.util.Optional;
+
+//#if MC >= 12000
+//$$ import carpet.fakes.MinecraftServerInterface;
+//$$ import carpet.helpers.TickRateManager;
+//$$ import carpettisaddition.CarpetTISAdditionServer;
+//#else
+import carpet.helpers.TickSpeed;
+//#endif
+
+//#if MC < 12000
+@SuppressWarnings("AccessStaticViaInstance")
+//#endif
 public class TickWarpInfo
 {
+	//#if MC >= 12000
+	//$$ protected static Optional<TickRateManager> trm()
+	//$$ {
+	//$$ 	return Optional.ofNullable(CarpetTISAdditionServer.minecraft_server).
+	//$$ 			filter(svr -> svr instanceof MinecraftServerInterface).
+	//$$ 			map(svr -> ((MinecraftServerInterface)svr).getTickRateManager());
+	//$$ }
+	//#else
+	@SuppressWarnings("InstantiationOfUtilityClass")
+	protected static Optional<TickSpeed> trm()
+	{
+		return Optional.of(new TickSpeed());
+	}
+	//#endif
+
 	public boolean isWarping()
 	{
-		return TickSpeed.time_bias > 0;
+		return trm().map(m -> m.time_bias > 0).orElse(false);
 	}
 
 	public long getTotalTicks()
 	{
-		return TickSpeed.time_warp_scheduled_ticks;
+		return trm().map(m -> m.time_warp_scheduled_ticks).orElse(0L);
 	}
 
 	public long getRemainingTicks()
 	{
-		return TickSpeed.time_bias;
+		return trm().map(m -> m.time_bias).orElse(0L);
 	}
 
 	public long getStartTime()
 	{
-		return TickSpeed.time_warp_start_time;
+		return trm().map(m -> m.time_warp_start_time).orElse(0L);
 	}
 
 	public ServerPlayerEntity getTimeAdvancer()
 	{
 		//#if MC >= 11500
-		return TickSpeed.time_advancerer;
+		return trm().map(m -> m.time_advancerer).orElse(null);
 		//#else
-		//$$ return TickSpeed.time_advancerer instanceof ServerPlayerEntity ? (ServerPlayerEntity)TickSpeed.time_advancerer : null;
+		//$$ return trm().filter(m -> m.time_advancerer instanceof ServerPlayerEntity).map(m -> (ServerPlayerEntity)m.time_advancerer).orElse(null);
 		//#endif
 	}
 

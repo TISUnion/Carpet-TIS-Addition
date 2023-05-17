@@ -33,7 +33,13 @@ public abstract class EntityPlayerActionPackMixin
 	@Inject(method = "onUpdate", at = @At("HEAD"), cancellable = true, remap = false)
 	private void stopUpdatingWhenTickFrozen(CallbackInfo ci)
 	{
-		if (!TickSpeed.process_entities)
+		if (!
+				//#if MC >= 12000
+				//$$ TickSpeed.process_entities()
+				//#else
+				TickSpeed.process_entities
+				//#endif
+		)
 		{
 			ci.cancel();
 		}
