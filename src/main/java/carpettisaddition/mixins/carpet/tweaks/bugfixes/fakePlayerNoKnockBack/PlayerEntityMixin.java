@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.carpet.bugfixes.fakePlayerNoKnockBack;
+package carpettisaddition.mixins.carpet.tweaks.bugfixes.fakePlayerNoKnockBack;
 
 import carpet.patches.EntityPlayerMPFake;
 import carpettisaddition.utils.ModIds;

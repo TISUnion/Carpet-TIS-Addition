@@ -18,25 +18,21 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.carpet.events.onServerLoadedWorlds;
+package carpettisaddition.mixins.carpet.hooks.onServerLoadedWorlds;
 
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.utils.ModIds;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(IntegratedServer.class)
-public abstract class IntegratedServerMixin
+@Mixin(MinecraftServer.class)
+public abstract class MinecraftServerMixin
 {
 	@Inject(method = "loadWorld", at = @At("TAIL"))
 	private void onSetupServerIntegrated(CallbackInfo ci)
 	{
-		CarpetTISAdditionServer.getInstance().onServerLoadedWorlds$TISCM((IntegratedServer) (Object) this);
+		CarpetTISAdditionServer.getInstance().onServerLoadedWorlds$TISCM((MinecraftServer) (Object) this);
 	}
 }
