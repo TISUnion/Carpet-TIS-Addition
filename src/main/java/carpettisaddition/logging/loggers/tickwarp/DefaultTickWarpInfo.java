@@ -20,50 +20,49 @@
 
 package carpettisaddition.logging.loggers.tickwarp;
 
-import carpet.fakes.MinecraftServerInterface;
-import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.mixins.logger.tickwarp.ServerTickRateManagerAccessor;
+import carpet.helpers.TickSpeed;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import java.util.Optional;
-
-// TickWarpInfo impl for mc >= 1.20
-public class TickWarpInfo
+/**
+ * The TickWarpInfo impl that extracts information from carpet mod (mc < 1.20 version-specific impl)
+ */
+public class DefaultTickWarpInfo implements TickWarpInfo
 {
-	protected static Optional<ServerTickRateManagerAccessor> trm()
-	{
-		return Optional.ofNullable(CarpetTISAdditionServer.minecraft_server).
-				filter(svr -> svr instanceof MinecraftServerInterface).
-				map(svr -> ((MinecraftServerInterface)svr).getTickRateManager()).
-				filter(m -> m instanceof ServerTickRateManagerAccessor).
-				map(m -> (ServerTickRateManagerAccessor)m);
-	}
-
+	@Override
 	public boolean isWarping()
 	{
-		return trm().map(m -> m.getRemainingWarpTicks() > 0).orElse(false);
+		return TickSpeed.time_bias > 0;
 	}
 
+	@Override
 	public long getTotalTicks()
 	{
-		return trm().map(ServerTickRateManagerAccessor::getScheduledCurrentWarpTicks).orElse(0L);
+		return TickSpeed.time_warp_scheduled_ticks;
 	}
 
+	@Override
 	public long getRemainingTicks()
 	{
-		return trm().map(ServerTickRateManagerAccessor::getRemainingWarpTicks).orElse(0L);
+		return TickSpeed.time_bias;
 	}
 
+	@Override
 	public long getStartTime()
 	{
-		return trm().map(ServerTickRateManagerAccessor::getTickWarpStartTime).orElse(0L);
+		return TickSpeed.time_warp_start_time;
 	}
 
+	@Override
 	public ServerPlayerEntity getTimeAdvancer()
 	{
-		return trm().map(ServerTickRateManagerAccessor::getWarpResponsiblePlayer).orElse(null);
+		//#if MC >= 11500
+		return TickSpeed.time_advancerer;
+		//#else
+		//$$ return TickSpeed.time_advancerer instanceof ServerPlayerEntity ? (ServerPlayerEntity)TickSpeed.time_advancerer : null;
+		//#endif
 	}
 
+	@Override
 	public long getCurrentTime()
 	{
 		return System.nanoTime();

@@ -39,8 +39,8 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 	public static final String NAME = "tickWarp";
 	private static final TickWarpHUDLogger INSTANCE = new TickWarpHUDLogger();
 
-	private TickWarpInfo info = new TickWarpInfo();
-	private final MemorizedTickWarpInfo historyInfo = new MemorizedTickWarpInfo();
+	private TickWarpInfo info = new DefaultTickWarpInfo();
+	private final MemorizedTickWarpInfo historyInfo = new MemorizedTickWarpInfo(new DefaultTickWarpInfo());
 
 	private TickWarpHUDLogger()
 	{
