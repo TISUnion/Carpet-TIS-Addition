@@ -18,45 +18,33 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.logging.loggers.tickwarp;
+package carpettisaddition.mixins.logger.tickwarp;
 
-import carpet.helpers.TickSpeed;
+import carpet.helpers.ServerTickRateManager;
+import carpettisaddition.utils.compat.DummyClass;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-// TickWarpInfo impl for mc < 1.20
-public class TickWarpInfo
+@Mixin(ServerTickRateManager.class)
+public interface ServerTickRateManagerAccessor
 {
-	public boolean isWarping()
-	{
-		return TickSpeed.time_bias > 0;
-	}
+	@Accessor(remap = false)
+	long getRemainingWarpTicks();
 
-	public long getTotalTicks()
-	{
-		return TickSpeed.time_warp_scheduled_ticks;
-	}
+	@Accessor(remap = false)
+	long getTickWarpStartTime();
 
-	public long getRemainingTicks()
-	{
-		return TickSpeed.time_bias;
-	}
+	@Accessor(remap = false)
+	long getScheduledCurrentWarpTicks();
 
-	public long getStartTime()
-	{
-		return TickSpeed.time_warp_start_time;
-	}
+	@Accessor(remap = false)
+	ServerPlayerEntity getWarpResponsiblePlayer();
 
-	public ServerPlayerEntity getTimeAdvancer()
-	{
-		//#if MC >= 11500
-		return TickSpeed.time_advancerer;
-		//#else
-		//$$ return TickSpeed.time_advancerer instanceof ServerPlayerEntity ? (ServerPlayerEntity)TickSpeed.time_advancerer : null;
-		//#endif
-	}
+	@Accessor(remap = false)
+	String getTickWarpCallback();
 
-	public long getCurrentTime()
-	{
-		return System.nanoTime();
-	}
+	@Accessor(remap = false)
+	ServerCommandSource getWarpResponsibleSource();
 }

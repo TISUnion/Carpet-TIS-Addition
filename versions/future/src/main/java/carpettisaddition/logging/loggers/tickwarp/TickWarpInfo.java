@@ -20,39 +20,48 @@
 
 package carpettisaddition.logging.loggers.tickwarp;
 
-import carpet.helpers.TickSpeed;
+import carpet.fakes.MinecraftServerInterface;
+import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.mixins.logger.tickwarp.ServerTickRateManagerAccessor;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-// TickWarpInfo impl for mc < 1.20
+import java.util.Optional;
+
+// TickWarpInfo impl for mc >= 1.20
 public class TickWarpInfo
 {
+	protected static Optional<ServerTickRateManagerAccessor> trm()
+	{
+		return Optional.ofNullable(CarpetTISAdditionServer.minecraft_server).
+				filter(svr -> svr instanceof MinecraftServerInterface).
+				map(svr -> ((MinecraftServerInterface)svr).getTickRateManager()).
+				filter(m -> m instanceof ServerTickRateManagerAccessor).
+				map(m -> (ServerTickRateManagerAccessor)m);
+	}
+
 	public boolean isWarping()
 	{
-		return TickSpeed.time_bias > 0;
+		return trm().map(m -> m.getRemainingWarpTicks() > 0).orElse(false);
 	}
 
 	public long getTotalTicks()
 	{
-		return TickSpeed.time_warp_scheduled_ticks;
+		return trm().map(ServerTickRateManagerAccessor::getScheduledCurrentWarpTicks).orElse(0L);
 	}
 
 	public long getRemainingTicks()
 	{
-		return TickSpeed.time_bias;
+		return trm().map(ServerTickRateManagerAccessor::getRemainingWarpTicks).orElse(0L);
 	}
 
 	public long getStartTime()
 	{
-		return TickSpeed.time_warp_start_time;
+		return trm().map(ServerTickRateManagerAccessor::getTickWarpStartTime).orElse(0L);
 	}
 
 	public ServerPlayerEntity getTimeAdvancer()
 	{
-		//#if MC >= 11500
-		return TickSpeed.time_advancerer;
-		//#else
-		//$$ return TickSpeed.time_advancerer instanceof ServerPlayerEntity ? (ServerPlayerEntity)TickSpeed.time_advancerer : null;
-		//#endif
+		return trm().map(ServerTickRateManagerAccessor::getWarpResponsiblePlayer).orElse(null);
 	}
 
 	public long getCurrentTime()

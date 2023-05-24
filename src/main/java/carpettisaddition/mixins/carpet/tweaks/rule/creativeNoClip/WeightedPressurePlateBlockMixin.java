@@ -27,12 +27,19 @@ import carpet.CarpetSettings;
 //#endif
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.WeightedPressurePlateBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+/**
+ * see {@link AbstractPressurePlateBlockMixin} in mc1.20+
+ */
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20"))
 @Mixin(WeightedPressurePlateBlock.class)
 public abstract class WeightedPressurePlateBlockMixin
 {

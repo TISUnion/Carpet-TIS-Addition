@@ -21,21 +21,32 @@
 package carpettisaddition.mixins.carpet.tweaks.freezeActionPackTicking;
 
 import carpet.helpers.EntityPlayerActionPack;
-import carpet.helpers.TickSpeed;
+import net.minecraft.server.network.ServerPlayerEntity;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12000
+//$$ import carpet.fakes.LevelInterface;
+//$$ import carpettisaddition.CarpetTISAdditionServer;
+//#else
+import carpet.helpers.TickSpeed;
+//#endif
+
 @Mixin(EntityPlayerActionPack.class)
 public abstract class EntityPlayerActionPackMixin
 {
+	@Shadow @Final private ServerPlayerEntity player;
+
 	@Inject(method = "onUpdate", at = @At("HEAD"), cancellable = true, remap = false)
 	private void stopUpdatingWhenTickFrozen(CallbackInfo ci)
 	{
 		if (!
 				//#if MC >= 12000
-				//$$ TickSpeed.process_entities()
+				//$$ ((LevelInterface)this.player.getServerWorld()).tickRateManager().runsNormally()
 				//#else
 				TickSpeed.process_entities
 				//#endif

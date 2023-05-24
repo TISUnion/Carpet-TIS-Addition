@@ -29,21 +29,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 12000
-//$$ import carpet.helpers.TickRateManager;
+//$$ import carpet.helpers.ServerTickRateManager;
 //#else
 import carpet.helpers.TickSpeed;
 //#endif
 
 @Mixin(
 		//#if MC >= 12000
-		//$$ TickRateManager.class
+		//$$ ServerTickRateManager.class
 		//#else
 		TickSpeed.class
 		//#endif
 )
 public abstract class TickSpeedMixin
 {
-	@Inject(method = "tickrate_advance", at = @At("TAIL"), remap = false)
+	@Inject(
+			//#if MC >= 12000
+			//$$ method = "requestGameToWarpSpeed",
+			//#else
+			method = "tickrate_advance",
+			//#endif
+			at = @At("TAIL"),
+			remap = false
+	)
 	private
 	//#if MC < 12000
 	static
@@ -53,7 +61,15 @@ public abstract class TickSpeedMixin
 		TickWarpHUDLogger.getInstance().recordTickWarpAdvancer();
 	}
 
-	@Inject(method = "finish_time_warp", at = @At("HEAD"), remap = false)
+	@Inject(
+			//#if MC >= 12000
+			//$$ method = "finishTickWarp",
+			//#else
+			method = "finish_time_warp",
+			//#endif
+			at = @At("HEAD"),
+			remap = false
+	)
 	private
 	//#if MC < 12000
 	static
