@@ -24,6 +24,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 
 public interface TickWarpInfo
 {
+	// ----------------------- basic information -----------------------
+
 	boolean isWarping();
 
 	long getTotalTicks();
@@ -35,4 +37,28 @@ public interface TickWarpInfo
 	ServerPlayerEntity getTimeAdvancer();
 
 	long getCurrentTime();
+
+	// ----------------------- utilities methods -----------------------
+
+	default long getCompletedTicks()
+	{
+		return this.getTotalTicks() - this.getRemainingTicks();
+	}
+
+	default double getAverageMSPT()
+	{
+		double milliSeconds = Math.max(this.getCurrentTime() - this.getStartTime(), 1) / 1e6;
+		return milliSeconds / this.getCompletedTicks();
+	}
+
+	default double getAverageTPS()
+	{
+		double secondPerTick = this.getAverageMSPT() / 1e3;
+		return 1.0 / secondPerTick;
+	}
+
+	default double getProgressRate()
+	{
+		return (double)this.getCompletedTicks() / Math.max(this.getTotalTicks(), 1);
+	}
 }
