@@ -27,14 +27,12 @@ import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.CommandUtil;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -50,12 +48,6 @@ import net.minecraft.world.dimension.DimensionType;
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
 {
-	@Shadow(remap = false)
-	private static int spawn(CommandContext<ServerCommandSource> context) throws CommandSyntaxException
-	{
-		return 0;
-	}
-
 	@Inject(
 			method = "spawn",
 			at = @At(
@@ -106,7 +98,7 @@ public abstract class PlayerCommandMixin
 			if (!sourceDimension.equals(botDimension) || botPos.distanceTo(sourcePos) >= MAX_ALLOWED_REMOTE_RANGE)
 			{
 				Messenger.m(source, "rb Remote player spawning is not allowed");
-				cir.setReturnValue(1);
+				cir.setReturnValue(0);
 			}
 		}
 	}
