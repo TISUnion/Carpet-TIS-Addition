@@ -36,6 +36,7 @@ import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.logging.loggers.entity.ItemLogger;
 import carpettisaddition.logging.loggers.entity.XPOrbLogger;
+import carpettisaddition.logging.loggers.ghostPlayer.GhostPlayerLogger;
 import carpettisaddition.logging.loggers.lifetime.LifeTimeHUDLogger;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.memory.MemoryHUDLogger;
@@ -63,6 +64,7 @@ public class TISAdditionLoggerRegistry
 	public static boolean __commandBlock;
 	public static boolean __damage;
 	public static boolean __item;
+	public static boolean __ghostPlayer;
 	public static boolean __lifetime;
 	public static boolean __lightQueue;
 	public static boolean __memory;
@@ -84,6 +86,7 @@ public class TISAdditionLoggerRegistry
 		register(CommandBlockLogger.getInstance());
 		register(DamageLogger.getInstance());
 		register(ItemLogger.getInstance());
+		register(GhostPlayerLogger.getInstance());
 		register(LifeTimeHUDLogger.getInstance());
 		register(LightQueueHUDLogger.getInstance());
 		register(MemoryHUDLogger.getInstance());

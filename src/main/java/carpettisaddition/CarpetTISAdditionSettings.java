@@ -379,6 +379,9 @@ public class CarpetTISAdditionSettings
 	}
 
 	@Rule(categories = {TIS, LOGGER})
+	public static String loggerGhostPlayer = "ops";
+
+	@Rule(categories = {TIS, LOGGER})
 	public static String loggerMovement = "ops";
 
 	@Rule(categories = {TIS, CREATIVE}, validators = MicroTimingRuleListener.class)
