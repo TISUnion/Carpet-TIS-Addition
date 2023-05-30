@@ -1197,6 +1197,10 @@ Change it to 0 to disable tracking
 
 ## yeetUpdateSuppressionCrash
 
+Prevent the server from crashing due to stack overflow
+
+Do the same thing as fabric carpet's `updateSuppressionCrashFix` rule, but with more information
+
 - Source: 
   - rule `updateSuppressionCrashFix` from fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50)
   - rule `yeetUpdateSuppressionCrash` from TISCarpet13 [build238](https://github.com/TISUnion/TISCarpet113/releases/tag/build238)
