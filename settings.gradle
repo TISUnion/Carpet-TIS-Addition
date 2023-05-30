@@ -18,10 +18,6 @@ pluginManagement {
 					useModule("com.github.Fallen-Breath:preprocessor:${requested.version}")
 					break
 				}
-				case "me.fallenbreath.yamlang": {
-					useModule("com.github.Fallen-Breath:yamlang:${requested.version}")
-					break
-				}
 			}
 		}
 	}
