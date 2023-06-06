@@ -365,7 +365,7 @@
 - 分类: `TIS`, `CARPET_MOD`
 
 
-## 假人名称后缀 (fakePlayerRemoteSpawning)
+## 假人远程召唤 (fakePlayerRemoteSpawning)
 
 使用/player指令远程召唤假人的权限需求
 
