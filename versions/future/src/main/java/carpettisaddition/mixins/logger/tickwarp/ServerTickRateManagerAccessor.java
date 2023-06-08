@@ -18,47 +18,33 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.logging.loggers.tickwarp;
+package carpettisaddition.mixins.logger.tickwarp;
 
+import carpet.helpers.ServerTickRateManager;
+import carpettisaddition.utils.compat.DummyClass;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-public interface TickWarpInfo
+@Mixin(ServerTickRateManager.class)
+public interface ServerTickRateManagerAccessor
 {
-	// ----------------------- basic information -----------------------
+	@Accessor(remap = false)
+	long getRemainingWarpTicks();
 
-	boolean isWarping();
+	@Accessor(remap = false)
+	long getTickWarpStartTime();
 
-	long getTotalTicks();
+	@Accessor(remap = false)
+	long getScheduledCurrentWarpTicks();
 
-	long getRemainingTicks();
+	@Accessor(remap = false)
+	ServerPlayerEntity getWarpResponsiblePlayer();
 
-	long getStartTime();
+	@Accessor(remap = false)
+	String getTickWarpCallback();
 
-	ServerPlayerEntity getTimeAdvancer();
-
-	long getCurrentTime();
-
-	// ----------------------- utilities methods -----------------------
-
-	default long getCompletedTicks()
-	{
-		return this.getTotalTicks() - this.getRemainingTicks();
-	}
-
-	default double getAverageMSPT()
-	{
-		double milliSeconds = Math.max(this.getCurrentTime() - this.getStartTime(), 1) / 1e6;
-		return milliSeconds / this.getCompletedTicks();
-	}
-
-	default double getAverageTPS()
-	{
-		double secondPerTick = this.getAverageMSPT() / 1e3;
-		return 1.0 / secondPerTick;
-	}
-
-	default double getProgressRate()
-	{
-		return (double)this.getCompletedTicks() / Math.max(this.getTotalTicks(), 1);
-	}
+	@Accessor(remap = false)
+	ServerCommandSource getWarpResponsibleSource();
 }

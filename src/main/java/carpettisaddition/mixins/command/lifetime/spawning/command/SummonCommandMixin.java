@@ -35,7 +35,12 @@ public abstract class SummonCommandMixin
 			method = "execute",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12000
+					//$$ target = "Lnet/minecraft/server/command/ServerCommandSource;sendFeedback(Ljava/util/function/Supplier;Z)V",
+					//#else
 					target = "Lnet/minecraft/server/command/ServerCommandSource;sendFeedback(Lnet/minecraft/text/Text;Z)V",
+					//#endif
+
 					//#if MC >= 11600
 					//$$ ordinal = 0
 					//#else

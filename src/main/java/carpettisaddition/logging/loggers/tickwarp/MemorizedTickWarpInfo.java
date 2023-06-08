@@ -23,8 +23,9 @@ package carpettisaddition.logging.loggers.tickwarp;
 import carpet.helpers.TickSpeed;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public class MemorizedTickWarpInfo extends TickWarpInfo
+public class MemorizedTickWarpInfo implements TickWarpInfo
 {
+	private final TickWarpInfo delegate;
 	private long totalTicks;
 	private long timeRemaining;
 	private long startTime;
@@ -32,13 +33,18 @@ public class MemorizedTickWarpInfo extends TickWarpInfo
 	private boolean recordedSomething = false;
 	private long lastRecordingTime;
 
+	public MemorizedTickWarpInfo(TickWarpInfo delegate)
+	{
+		this.delegate = delegate;
+	}
+
 	/**
 	 * Should be called at the end of {@link TickSpeed#tickrate_advance}
 	 * Carpet mod might reset the advancer field before {@link TickSpeed#finish_time_warp} so we record it at the beginning
 	 */
 	public void recordTickWarpAdvancer()
 	{
-		this.timeAdvancer = super.getTimeAdvancer();
+		this.timeAdvancer = this.delegate.getTimeAdvancer();
 	}
 
 	/**
@@ -47,14 +53,20 @@ public class MemorizedTickWarpInfo extends TickWarpInfo
 	 */
 	public void recordResultIfsuitable()
 	{
-		if (super.getStartTime() != 0)
+		if (this.delegate.getStartTime() != 0)
 		{
-			this.totalTicks = super.getTotalTicks();
-			this.timeRemaining = super.getRemainingTicks();
-			this.startTime = super.getStartTime();
+			this.totalTicks = this.delegate.getTotalTicks();
+			this.timeRemaining = this.delegate.getRemainingTicks();
+			this.startTime = this.delegate.getStartTime();
 			this.recordedSomething = true;
 			this.lastRecordingTime = System.nanoTime();
 		}
+	}
+
+	@Override
+	public boolean isWarping()
+	{
+		return this.delegate.isWarping();
 	}
 
 	@Override

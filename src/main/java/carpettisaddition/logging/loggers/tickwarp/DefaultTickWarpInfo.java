@@ -20,45 +20,51 @@
 
 package carpettisaddition.logging.loggers.tickwarp;
 
+import carpet.helpers.TickSpeed;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public interface TickWarpInfo
+/**
+ * The TickWarpInfo impl that extracts information from carpet mod (mc < 1.20 version-specific impl)
+ */
+public class DefaultTickWarpInfo implements TickWarpInfo
 {
-	// ----------------------- basic information -----------------------
-
-	boolean isWarping();
-
-	long getTotalTicks();
-
-	long getRemainingTicks();
-
-	long getStartTime();
-
-	ServerPlayerEntity getTimeAdvancer();
-
-	long getCurrentTime();
-
-	// ----------------------- utilities methods -----------------------
-
-	default long getCompletedTicks()
+	@Override
+	public boolean isWarping()
 	{
-		return this.getTotalTicks() - this.getRemainingTicks();
+		return TickSpeed.time_bias > 0;
 	}
 
-	default double getAverageMSPT()
+	@Override
+	public long getTotalTicks()
 	{
-		double milliSeconds = Math.max(this.getCurrentTime() - this.getStartTime(), 1) / 1e6;
-		return milliSeconds / this.getCompletedTicks();
+		return TickSpeed.time_warp_scheduled_ticks;
 	}
 
-	default double getAverageTPS()
+	@Override
+	public long getRemainingTicks()
 	{
-		double secondPerTick = this.getAverageMSPT() / 1e3;
-		return 1.0 / secondPerTick;
+		return TickSpeed.time_bias;
 	}
 
-	default double getProgressRate()
+	@Override
+	public long getStartTime()
 	{
-		return (double)this.getCompletedTicks() / Math.max(this.getTotalTicks(), 1);
+		return TickSpeed.time_warp_start_time;
+	}
+
+	@Override
+	public ServerPlayerEntity getTimeAdvancer()
+	{
+		//#if MC >= 11500
+		return TickSpeed.time_advancerer;
+		//#else
+		//$$ return TickSpeed.time_advancerer instanceof ServerPlayerEntity ? (ServerPlayerEntity)TickSpeed.time_advancerer : null;
+		//#endif
+	}
+
+	@Override
+	public long getCurrentTime()
+	{
+		return System.nanoTime();
 	}
 }

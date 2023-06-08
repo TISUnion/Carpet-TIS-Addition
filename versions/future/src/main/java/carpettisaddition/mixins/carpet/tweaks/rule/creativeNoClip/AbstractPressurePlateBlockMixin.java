@@ -20,44 +20,34 @@
 
 package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip;
 
-//#if MC >= 11500
-import carpet.CarpetSettings;
-//#else
-//$$ import carpettisaddition.utils.compat.carpet.CarpetSettings;
-//#endif
-
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.PressurePlateBlock;
+import net.minecraft.block.AbstractPressurePlateBlock;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import java.util.List;
+import java.util.function.Predicate;
 
 /**
- * see {@link AbstractPressurePlateBlockMixin} in mc1.20+
+ * mc1.20+ replacement for {@link PressurePlateBlockMixin} and {@link WeightedPressurePlateBlockMixin}
  */
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20"))
-@Mixin(PressurePlateBlock.class)
-public abstract class PressurePlateBlockMixin
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.20"))
+@Mixin(AbstractPressurePlateBlock.class)
+public abstract class AbstractPressurePlateBlockMixin
 {
-	@ModifyVariable(
-			method = "getRedstoneOutput(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)I",
+	@ModifyArg(
+			method = "getEntityCount",
 			at = @At(
 					value = "INVOKE",
-					target = "Ljava/util/List;isEmpty()Z"
+					target = "Lnet/minecraft/world/World;getEntitiesByClass(Ljava/lang/Class;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;"
 			)
 	)
-	private List<Entity> dontDetectCreativeNoClipPlayers(List<Entity> entities)
+	private static Predicate<Entity> dontDetectCreativeNoClipPlayers(Predicate<Entity> predicate)
 	{
-		if (CarpetSettings.creativeNoClip)
-		{
-			entities.removeIf(CreativeNoClipHelper::isNoClipPlayer);
-		}
-		return entities;
+		return predicate.and(entity -> !CreativeNoClipHelper.isNoClipPlayer(entity));
 	}
 }

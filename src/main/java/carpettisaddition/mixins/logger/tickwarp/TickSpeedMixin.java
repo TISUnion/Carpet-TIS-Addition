@@ -20,7 +20,6 @@
 
 package carpettisaddition.mixins.logger.tickwarp;
 
-import carpet.helpers.TickSpeed;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import net.minecraft.text.BaseText;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,17 +28,53 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(TickSpeed.class)
+//#if MC >= 12000
+//$$ import carpet.helpers.ServerTickRateManager;
+//#else
+import carpet.helpers.TickSpeed;
+//#endif
+
+@Mixin(
+		//#if MC >= 12000
+		//$$ ServerTickRateManager.class
+		//#else
+		TickSpeed.class
+		//#endif
+)
 public abstract class TickSpeedMixin
 {
-	@Inject(method = "tickrate_advance", at = @At("TAIL"), remap = false)
-	private static void recordTickWarpAdvancer(CallbackInfoReturnable<BaseText> cir)
+	@Inject(
+			//#if MC >= 12000
+			//$$ method = "requestGameToWarpSpeed",
+			//#else
+			method = "tickrate_advance",
+			//#endif
+			at = @At("TAIL"),
+			remap = false
+	)
+	private
+	//#if MC < 12000
+	static
+	//#endif
+	void recordTickWarpAdvancer(CallbackInfoReturnable<BaseText> cir)
 	{
 		TickWarpHUDLogger.getInstance().recordTickWarpAdvancer();
 	}
 
-	@Inject(method = "finish_time_warp", at = @At("HEAD"), remap = false)
-	private static void recordTickWarpResult(CallbackInfo ci)
+	@Inject(
+			//#if MC >= 12000
+			//$$ method = "finishTickWarp",
+			//#else
+			method = "finish_time_warp",
+			//#endif
+			at = @At("HEAD"),
+			remap = false
+	)
+	private
+	//#if MC < 12000
+	static
+	//#endif
+	void recordTickWarpResult(CallbackInfo ci)
 	{
 		TickWarpHUDLogger.getInstance().recordTickWarpResult();
 	}
