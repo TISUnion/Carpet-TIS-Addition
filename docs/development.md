@@ -10,7 +10,7 @@ Thanks to [preprocessor](https://github.com/ReplayMod/preprocessor) we have the 
 
 Common branches usages:
 
-- `master`: stable, release version
+- `master`: stable, release version, and the preferred target for PRs
 - `dev`: feature development
 - `future`: snapshot migration
 
