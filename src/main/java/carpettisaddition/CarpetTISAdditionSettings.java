@@ -150,6 +150,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, FEATURE, DISPENSER})
 	public static boolean dispensersFireDragonBreath = false;
 
+	@Rule(categories = {TIS, BUGFIX})
+	public static boolean entityBrainMemoryUnfreedFix = false;
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean enchantCommandNoRestriction = false;
 

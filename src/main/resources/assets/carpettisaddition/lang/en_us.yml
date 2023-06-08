@@ -678,6 +678,12 @@ carpettisaddition:
       dispensersFireDragonBreath:
         name: dispensersFireDragonBreath
         desc: Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
+      entityBrainMemoryUnfreedFix:
+        name: entityBrainMemoryUnfreedFix
+        desc: Fix brain memory of living entity staying unfreed after the entity has been removed
+        extra:
+          '0': This could lead to a memory leak if living entities remember other and then get removed continuously and create an endless memory chain in their brains
+          '1': Fixed MC-260605, using the same fix that Mojang implemented in 1.19.4-pre3
       enchantCommandNoRestriction:
         name: enchantCommandNoRestriction
         desc: Remove all enchantment restriction checks inside /enchant command

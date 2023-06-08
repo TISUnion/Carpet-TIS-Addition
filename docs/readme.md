@@ -31,6 +31,7 @@
 - [deobfuscateCrashReportStackTrace](rules.md#deobfuscatecrashreportstacktrace)
 - [dispenserNoItemCost](rules.md#dispensernoitemcost)
 - [dispensersFireDragonBreath](rules.md#dispensersfiredragonbreath)
+- [entityBrainMemoryUnfreedFix](rules.md#entitybrainmemoryunfreedfix)
 - [enchantCommandNoRestriction](rules.md#enchantcommandnorestriction)
 - [entityMomentumLoss](rules.md#entitymomentumloss)
 - [entityPlacementIgnoreCollision](rules.md#entityplacementignorecollision)

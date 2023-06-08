@@ -235,6 +235,20 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 - Categories: `TIS`, `FEATURE`, `DISPENSER`
 
 
+## entityBrainMemoryUnfreedFix
+
+Fix brain memory of living entity staying unfreed after the entity has been removed
+
+This could lead to a memory leak if living entities remember other and then get removed continuously and create an endless memory chain in their brains
+
+Fixed [MC-260605](https://bugs.mojang.com/browse/MC-260605), using the same fix that Mojang implemented in 1.19.4-pre3
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
+
 ## enchantCommandNoRestriction
 
 Remove all enchantment restriction checks inside `/enchant` command

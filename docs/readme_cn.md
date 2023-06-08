@@ -31,6 +31,7 @@
 - [反混淆崩溃报告堆栈追踪](rules_cn.md#反混淆崩溃报告堆栈追踪-deobfuscatecrashreportstacktrace)
 - [发射器不消耗物品](rules_cn.md#发射器不消耗物品-dispensernoitemcost)
 - [发射器发射龙息](rules_cn.md#发射器发射龙息-dispensersfiredragonbreath)
+- [实体大脑记忆未释放修复](rules_cn.md#实体大脑记忆未释放修复-entitybrainmemoryunfreedfix)
 - [enchant指令约束移除](rules_cn.md#enchant指令约束移除-enchantcommandnorestriction)
 - [实体速度丢失](rules_cn.md#实体速度丢失-entitymomentumloss)
 - [实体放置无视碰撞](rules_cn.md#实体放置无视碰撞-entityplacementignorecollision)

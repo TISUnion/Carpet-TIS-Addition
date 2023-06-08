@@ -235,6 +235,20 @@
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
 
 
+## 实体大脑记忆未释放修复 (entityBrainMemoryUnfreedFix)
+
+修复了生物实体被移除出世界后，其大脑记忆依然未被释放的bug
+
+如果有一个接连不断生物流，其中的生物在被移除前记住其他先被移除的生物，那么就有可能创建出无限长的大脑记忆链，并导致游戏出现内存泄漏
+
+修复了 [MC-260605](https://bugs.mojang.com/browse/MC-260605)。本规则使用了 Mojang 在 1.19.4-pre3 中采取的同款修复方式
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
 ## enchant指令约束移除 (enchantCommandNoRestriction)
 
 移除 `/enchant` 指令中所有对目标附魔的约束

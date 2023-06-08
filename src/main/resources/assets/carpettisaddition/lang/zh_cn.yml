@@ -677,6 +677,12 @@ carpettisaddition:
       dispensersFireDragonBreath:
         name: 发射器发射龙息
         desc: 发射器可使用龙息瓶创造出龙息效果云
+      entityBrainMemoryUnfreedFix:
+        name: 实体大脑记忆未释放修复
+        desc: 修复了生物实体被移除出世界后，其大脑记忆依然未被释放的bug
+        extra:
+          '0': 如果有一个接连不断生物流，其中的生物在被移除前记住其他先被移除的生物，那么就有可能创建出无限长的大脑记忆链，并导致游戏出现内存泄漏
+          '1': 修复了MC-260605。本规则使用了Mojang在1.19.4-pre3中采取的同款修复方式
       enchantCommandNoRestriction:
         name: enchant指令约束移除
         desc: 移除/enchant指令中所有对目标附魔的约束
