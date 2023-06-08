@@ -34,8 +34,8 @@ def versions = Arrays.asList(
 		"1.18.2",
 		"1.19.2",  // TODO: drop support when mc1.21 is out
 		"1.19.3",  // TODO: drop support when mc1.21 is out
-		"1.19.x",
-		"future",
+		"1.19.4",
+		"1.20",
 )
 for (String version : versions) {
 	include(":$version")
