@@ -1,7 +1,7 @@
 apply plugin: 'maven-publish'
 apply plugin: 'com.github.hierynomus.license'
 apply plugin: 'fabric-loom'
-// apply plugin: 'io.github.juuxel.loom-quiltflower'
+apply plugin: 'io.github.juuxel.loom-quiltflower'
 apply plugin: 'com.replaymod.preprocess'
 apply plugin: 'me.fallenbreath.yamlang'
 
