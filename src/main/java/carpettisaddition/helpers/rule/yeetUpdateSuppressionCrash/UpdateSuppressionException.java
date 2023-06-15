@@ -22,6 +22,7 @@ package carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash;
 
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingAccess;
 import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import carpettisaddition.translations.Translator;
@@ -76,6 +77,21 @@ public class UpdateSuppressionException extends RuntimeException
 	{
 		// load this class in advanced
 		// to prevent NoClassDefFoundError due to stack overflow again when loading this class
+	}
+
+	public static void wrapAndThrow(Throwable throwable, World world, BlockPos pos)
+	{
+		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
+		{
+			if (throwable instanceof UpdateSuppressionException)
+			{
+				throw (UpdateSuppressionException)throwable;
+			}
+			if (throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError || throwable instanceof ClassCastException)
+			{
+				throw new UpdateSuppressionException(throwable, world, pos);
+			}
+		}
 	}
 
 	public void report()

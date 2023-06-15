@@ -1084,6 +1084,6 @@ carpettisaddition:
           '0': Change it to 0 to disable tracking
       yeetUpdateSuppressionCrash:
         name: yeetUpdateSuppressionCrash
-        desc: Prevent the server from crashing due to stack overflow
+        desc: Prevent the server from crashing due to StackOverflowError, OutOfMemoryError or ClassCastException
         extra:
           '0': Do the same thing as fabric carpet's updateSuppressionCrashFix rule, but with more information

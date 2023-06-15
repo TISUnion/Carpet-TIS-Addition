@@ -48,17 +48,7 @@ public interface NeighborUpdaterMixin
 	)
 	private static Throwable yeetUpdateSuppressionCrash_wrapStackOverflow(Throwable throwable, World world, BlockState state, BlockPos neighborPos, Block sourceBlock, BlockPos sourcePos, boolean notify)
 	{
-		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
-		{
-			if (throwable instanceof UpdateSuppressionException)
-			{
-				throw (UpdateSuppressionException)throwable;
-			}
-			if (throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError)
-			{
-				throw new UpdateSuppressionException(throwable, world, neighborPos);
-			}
-		}
+		UpdateSuppressionException.wrapAndThrow(throwable, world, neighborPos);
 		return throwable;
 	}
 }

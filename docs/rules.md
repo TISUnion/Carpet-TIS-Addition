@@ -1211,7 +1211,7 @@ Change it to 0 to disable tracking
 
 ## yeetUpdateSuppressionCrash
 
-Prevent the server from crashing due to stack overflow
+Prevent the server from crashing due to `StackOverflowError`, `OutOfMemoryError` or `ClassCastException`
 
 Do the same thing as fabric carpet's `updateSuppressionCrashFix` rule, but with more information
 

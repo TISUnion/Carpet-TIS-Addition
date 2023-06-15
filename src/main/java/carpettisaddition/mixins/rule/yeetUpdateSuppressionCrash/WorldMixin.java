@@ -20,7 +20,6 @@
 
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
 
-import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.utils.mixin.testers.YeetUpdateSuppressionCrashTester;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
@@ -46,19 +45,9 @@ public abstract class WorldMixin
 					target = "Lnet/minecraft/util/crash/CrashReport;create(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/util/crash/CrashReport;"
 			)
 	)
-	private Throwable yeetUpdateSuppressionCrash_wrapStackOverflow(Throwable throwable, BlockPos sourcePos, Block sourceBlock, BlockPos neighborPos)
+	private Throwable yeetUpdateSuppressionCrash_wrapSuppressionExceptions(Throwable throwable, BlockPos sourcePos, Block sourceBlock, BlockPos neighborPos)
 	{
-		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
-		{
-			if (throwable instanceof UpdateSuppressionException)
-			{
-				throw (UpdateSuppressionException)throwable;
-			}
-			if (throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError)
-			{
-				throw new UpdateSuppressionException(throwable, (World)(Object)this, neighborPos);
-			}
-		}
+		UpdateSuppressionException.wrapAndThrow(throwable, (World)(Object)this, neighborPos);
 		return throwable;
 	}
 }

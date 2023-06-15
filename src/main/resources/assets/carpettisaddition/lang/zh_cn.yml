@@ -1083,6 +1083,6 @@ carpettisaddition:
           '0': 将其调至0以禁用追踪
       yeetUpdateSuppressionCrash:
         name: 阻止更新抑制崩溃
-        desc: 阻止服务端因栈溢出异常造成崩溃
+        desc: 阻止服务端因StackOverflowError、OutOfMemoryError或ClassCastException异常而造成的服务器崩溃
         extra:
           '0': 具体功能实现类似carpet的updateSuppressionCrashFix规则，但包含更多信息
