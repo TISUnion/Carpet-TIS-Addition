@@ -18,6 +18,9 @@
 
   "environment": "*",
   "entrypoints": {
+    "preLaunch": [
+      "carpettisaddition.CarpetTISAdditionPreLaunch"
+    ],
     "main": [
       "carpettisaddition.CarpetTISAdditionMod"
     ]

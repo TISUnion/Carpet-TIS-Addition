@@ -46,6 +46,7 @@ dependencies {
 
 	// library mods
 	include(modImplementation("com.github.Fallen-Breath:conditional-mixin:${project.conditionalmixin_version}"))
+	include(annotationProcessor(implementation("com.github.LlamaLad7:MixinExtras:${project.mixinextras_version}")))
 
 	// libraries
 	testImplementation "junit:junit:${project.junit_version}"
@@ -145,7 +146,7 @@ java {
 
 jar {
 	from(rootProject.file('LICENSE')) {
-		rename { it }
+		rename { "${it}_${project.archives_base_name}" }
 	}
 }
 
