@@ -21,17 +21,11 @@
 package carpettisaddition.mixins.rule.entityPlacementIgnoreCollision;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.Entity;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.item.ArmorStandItem;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-
-import java.util.List;
-
-import net.minecraft.util.math.Box;
-import java.util.function.Predicate;
 
 /**
  * 1.15- mixin is handled in the version-specified class
@@ -39,7 +33,12 @@ import java.util.function.Predicate;
 @Mixin(ArmorStandItem.class)
 public abstract class ArmorStandItemItemMixin
 {
-	@Redirect(
+	/**
+	 * Make the 1st segment of the if statement below always returns true
+	 * if (world.isSpaceEmpty(...) && world.getOtherEntities(...).isEmpty())
+	 *                ^ modifying this
+	 */
+	@ModifyExpressionValue(
 			method = "useOnBlock",
 			at = @At(
 					value = "INVOKE",
@@ -48,45 +47,36 @@ public abstract class ArmorStandItemItemMixin
 					//#else
 					target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Z"
 					//#endif
-			),
-			require = 0
+			)
 	)
-	private boolean entityPlacementIgnoreCollision_makeIfCondition1true(
-			World world, Entity entity, Box box
-			//#if MC < 11800
-			, Predicate<Entity> predicate
-			//#endif
-	)
+	private boolean entityPlacementIgnoreCollision_makeIfCondition1True(boolean notCollided)
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
-			return true;
+			notCollided = true;
 		}
-		// vanilla
-		return world.isSpaceEmpty(
-	 			entity, box
-				//#if MC < 11800
-				, predicate
-				//#endif
-		);
+		return notCollided;
 	}
 
-	@Redirect(
+	/**
+	 * Make the 2nd segment of the if statement below always returns true
+	 * if (world.isSpaceEmpty(...) && world.getOtherEntities(...).isEmpty())
+	 *                                                               ^ modifying this
+	 */
+	@ModifyExpressionValue(
 			method = "useOnBlock",
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/List;isEmpty()Z",
 					remap = false
-			),
-			require = 0
+			)
 	)
-	private boolean entityPlacementIgnoreCollision_makeIfCondition2true(List<Entity> entityList)
+	private boolean entityPlacementIgnoreCollision_makeIfCondition2True(boolean isEmpty)
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
-			return true;
+			isEmpty = true;
 		}
-		// vanilla
-		return entityList.isEmpty();
+		return isEmpty;
 	}
 }

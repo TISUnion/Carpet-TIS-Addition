@@ -21,14 +21,12 @@
 package carpettisaddition.mixins.rule.entityPlacementIgnoreCollision;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.BoatItem;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
 
@@ -56,7 +54,7 @@ public abstract class BoatItemMixin
 		return entities;
 	}
 
-	@Redirect(
+	@ModifyExpressionValue(
 			method = "use",
 			at = @At(
 					value = "INVOKE",
@@ -68,13 +66,12 @@ public abstract class BoatItemMixin
 			),
 			require = 0
 	)
-	private boolean entityPlacementIgnoreCollision_skipCollisionCheck(World world, Entity entity, Box box)
+	private boolean entityPlacementIgnoreCollision_skipCollisionCheck(boolean notCollided)
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
-			return true;
+			notCollided = true;
 		}
-		// vanilla
-		return world.doesNotCollide(entity, box);
+		return notCollided;
 	}
 }

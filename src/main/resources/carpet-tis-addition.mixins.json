@@ -271,7 +271,6 @@
     "rule.entityPlacementIgnoreCollision.ArmorStandItemItemMixin",
     "rule.entityPlacementIgnoreCollision.BoatItemMixin",
     "rule.entityPlacementIgnoreCollision.EndCrystalItemMixin",
-    "rule.entityPlacementIgnoreCollision.ItemPlacementContextAccessor",
     "rule.entityTrackerDistance.EntityTypeMixin",
     "rule.entityTrackerInterval.EntityTypeMixin",
     "rule.explosionNoEntityInfluence.ExplosionMixin",
