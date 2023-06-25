@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.creativeNetherWaterPlacement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
 import net.minecraft.util.hit.BlockHitResult;
@@ -29,18 +30,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
-
-//#if MC >= 11600
-//$$ import net.minecraft.world.dimension.DimensionType;
-//#else
-import net.minecraft.world.dimension.Dimension;
-//#endif
 
 @Mixin(BucketItem.class)
 public abstract class BucketItemMixin
 {
-	@Redirect(
+	@ModifyExpressionValue(
 			method = "placeFluid",
 			at = @At(
 					value = "INVOKE",
@@ -53,11 +47,7 @@ public abstract class BucketItemMixin
 			require = 0
 	)
 	private boolean creativeNetherWaterPlacement(
-			//#if MC >= 11600
-			//$$ DimensionType dimension,
-			//#else
-			Dimension dimension,
-			//#endif
+			boolean doesWaterVaporize,
 			/* parent method parameters v */
 			@Nullable PlayerEntity player, World world, BlockPos pos, @Nullable BlockHitResult hitResult
 	)
@@ -66,14 +56,9 @@ public abstract class BucketItemMixin
 		{
 			if (player != null && player.isCreative())
 			{
-				return false;
+				doesWaterVaporize = false;
 			}
 		}
-		// vanilla
-		//#if MC >= 11600
-		//$$ return dimension.isUltrawarm();
-		//#else
-		return dimension.doesWaterVaporize();
-		//#endif
+		return doesWaterVaporize;
 	}
 }
