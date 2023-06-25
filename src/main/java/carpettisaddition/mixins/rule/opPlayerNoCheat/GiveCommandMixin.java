@@ -20,32 +20,24 @@
 
 package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
-import carpettisaddition.helpers.rule.opPlayerNoCheat.CommandPermissionHelper;
+import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.server.command.GiveCommand;
 import net.minecraft.server.command.ServerCommandSource;
-import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 // JEI? REI? TMI? NEI?
 @Mixin(GiveCommand.class)
 public abstract class GiveCommandMixin
 {
-	@Dynamic
-	@SuppressWarnings("DefaultAnnotationParam")
-	@Redirect(
+	@ModifyReturnValue(
 			method = "method_13404",  // lambda method
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/server/command/ServerCommandSource;hasPermissionLevel(I)Z",
-					remap = true
-			),
-			allow = 1,
+			at = @At("TAIL"),
 			remap = false
 	)
-	private static boolean checkIfAllowCheating(ServerCommandSource source, int level)
+	private static boolean checkIfAllowCheating_giveCommand(boolean permissionEnough, ServerCommandSource source)
 	{
-		return CommandPermissionHelper.canCheat(source, level);
+		return permissionEnough && OpPlayerNoCheatHelper.canCheat(source);
 	}
 }
