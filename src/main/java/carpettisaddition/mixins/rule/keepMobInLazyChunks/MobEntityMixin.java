@@ -42,6 +42,10 @@ public abstract class MobEntityMixin extends LivingEntity
 		super(entityType_1, world_1);
 	}
 
+	/**
+	 * Do the skipped despawn check iff. the keepMobInLazyChunks is set to true
+	 * See also {@link ServerWorldMixin}
+	 */
 	@Inject(
 			method = "tickNewAi",
 			at = @At(

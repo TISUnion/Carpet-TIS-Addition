@@ -22,19 +22,24 @@ package carpettisaddition.mixins.rule.keepMobInLazyChunks;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"))
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
-	@Redirect(
+	/**
+	 * Do the despawn check iff. the keepMobInLazyChunks == false
+	 * The skipped despawn check will be executed in the injection of {@link MobEntityMixin}
+	 */
+	@WrapOperation(
 			//#if MC >= 11700
 			//$$ method = "method_31420",  // lambda method in method ServerWorld#tick
 			//$$ at = @At(
@@ -51,11 +56,11 @@ public abstract class ServerWorldMixin
 			)
 			//#endif
 	)
-	private void keepMobInLazyChunks_optionalCheckDespawn(Entity entity)
+	private void keepMobInLazyChunks_optionalCheckDespawn(Entity entity, Operation<Void> original)
 	{
 		if (!CarpetTISAdditionSettings.keepMobInLazyChunks)
 		{
-			entity.checkDespawn();
+			original.call(entity);
 		}
 	}
 }
