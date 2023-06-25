@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.optimizedHardHitBoxEntityCollision;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.optimizedHardHitBoxEntityCollision.OptimizedHardHitBoxEntityCollisionHelper;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
@@ -39,7 +40,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -49,6 +49,9 @@ import java.util.function.Predicate;
 //$$ import net.minecraft.world.entity.EntityLike;
 //#endif
 
+/**
+ * See {@link WorldChunkMixin} for impl for mc < 1.17
+ */
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
 @Mixin(EntityTrackingSection.class)
 public abstract class EntityTrackingSectionMixin<
@@ -112,7 +115,7 @@ public abstract class EntityTrackingSectionMixin<
 	 *
 	 * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	 */
-	@Redirect(
+	@ModifyExpressionValue(
 			//#if MC >= 11903
 			//$$ method = "forEach(Lnet/minecraft/util/math/Box;Lnet/minecraft/util/function/LazyIterationConsumer;)Lnet/minecraft/util/function/LazyIterationConsumer$NextIteration;",
 			//#elseif MC >= 11800
@@ -126,13 +129,12 @@ public abstract class EntityTrackingSectionMixin<
 			),
 			require = 1
 	)
-	private TypeFilterableList<T> redirectEntitySections(EntityTrackingSection<T> section)
+	private TypeFilterableList<T> redirectEntitySections(TypeFilterableList<T> collection)
 	{
 		if (this.optimizedHHBECEnabled && OptimizedHardHitBoxEntityCollisionHelper.checkHardHitBoxEntityOnly.get())
 		{
-			return this.hardHitBoxEntitySections;
+			collection = this.hardHitBoxEntitySections;
 		}
-		// vanilla
-		return this.collection;
+		return collection;
 	}
 }

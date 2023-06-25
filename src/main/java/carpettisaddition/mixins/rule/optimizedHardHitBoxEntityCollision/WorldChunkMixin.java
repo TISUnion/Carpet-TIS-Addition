@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.optimizedHardHitBoxEntityCollision;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.optimizedHardHitBoxEntityCollision.OptimizedHardHitBoxEntityCollisionHelper;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
@@ -36,12 +37,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.function.Predicate;
 
+/**
+ * See {@link EntityTrackingSectionMixin} for impl for mc >= 1.17
+ */
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"))
 @Mixin(WorldChunk.class)
 public abstract class WorldChunkMixin
@@ -99,7 +102,7 @@ public abstract class WorldChunkMixin
 	 *   (>=1.15) {@link EntityView#getEntityCollisions}
 	 *   (<=1.14) {@link EntityView#method_20743}
 	 */
-	@Redirect(
+	@ModifyExpressionValue(
 			//#if MC >= 11600
 			//$$ method = "collectOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/List;Ljava/util/function/Predicate;)V",
 			//#else
@@ -119,13 +122,12 @@ public abstract class WorldChunkMixin
 			require = 4
 			//#endif
 	)
-	private TypeFilterableList<Entity>[] optimizedHardHitBoxEntityCollision_redirectEntitySections(WorldChunk chunk)
+	private TypeFilterableList<Entity>[] optimizedHardHitBoxEntityCollision_redirectEntitySections(TypeFilterableList<Entity>[] entitySections)
 	{
 		if (this.optimizedHHBECEnabled && OptimizedHardHitBoxEntityCollisionHelper.checkHardHitBoxEntityOnly.get())
 		{
-			return this.hardHitBoxEntitySections;
+			entitySections = this.hardHitBoxEntitySections;
 		}
-		// vanilla
-		return this.entitySections;
+		return entitySections;
 	}
 }
