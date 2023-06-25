@@ -21,36 +21,17 @@
 package carpettisaddition.mixins.rule.creativeOpenContainerForcibly;
 
 import carpettisaddition.helpers.rule.creativeOpenContainerForcibly.CreativeOpenContainerForciblyHelper;
-import net.minecraft.block.BlockState;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
-
-//#if MC >= 11700
-//$$ import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-//$$ import org.spongepowered.asm.mixin.Shadow;
-//#else
-import net.minecraft.util.math.Box;
-//#endif
+import org.spongepowered.asm.mixin.injection.Coerce;
 
 @Mixin(ShulkerBoxBlock.class)
 public abstract class ShulkerBoxBlockMixin
 {
-	//#if MC >= 11700
-	//$$ @Shadow
-	//$$ private static boolean canOpen(BlockState state, World world, BlockPos pos, ShulkerBoxBlockEntity entity)
-	//$$ {
-	//$$ 	return false;
-	//$$ }
-	//#endif
-
-	@Redirect(
+	@ModifyExpressionValue(
 			//#if MC >= 11500
 			method = "onUse",
 			//#else
@@ -68,23 +49,15 @@ public abstract class ShulkerBoxBlockMixin
 			)
 	)
 	private boolean noCollideOrCreative(
-			//#if MC >= 11700
-			//$$ BlockState state, World world, BlockPos pos, ShulkerBoxBlockEntity shulkerBoxBlockEntity, /* parent method parameters -> */ BlockState state2, World world2, BlockPos pos2, PlayerEntity player, Hand hand, BlockHitResult hit
-			//#else
-			World world, Box box, /* parent method parameters -> */ BlockState state, World world2, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit
-			//#endif
+			boolean notCollided,
+			/* parent method parameters vvv */
+			@Coerce Object state, @Coerce Object world, @Coerce Object pos, PlayerEntity player, @Coerce Object hand, @Coerce Object hit
 	)
 	{
 		if (CreativeOpenContainerForciblyHelper.canOpenForcibly(player))
 		{
-			return true;
+			notCollided = true;
 		}
-
-		// vanilla
-		//#if MC >= 11700
-		//$$ return canOpen(state, world, pos, shulkerBoxBlockEntity);
-		//#else
-		return world.doesNotCollide(box);
-		//#endif
+		return notCollided;
 	}
 }

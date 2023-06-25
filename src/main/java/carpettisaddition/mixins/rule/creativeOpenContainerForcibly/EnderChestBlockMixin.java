@@ -21,22 +21,17 @@
 package carpettisaddition.mixins.rule.creativeOpenContainerForcibly;
 
 import carpettisaddition.helpers.rule.creativeOpenContainerForcibly.CreativeOpenContainerForciblyHelper;
-import net.minecraft.block.BlockState;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.EnderChestBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Coerce;
 
 @Mixin(EnderChestBlock.class)
 public abstract class EnderChestBlockMixin
 {
-	@Redirect(
+	@ModifyExpressionValue(
 			//#if MC >= 11500
 			method = "onUse",
 			//#else
@@ -52,18 +47,16 @@ public abstract class EnderChestBlockMixin
 			),
 			require = 0
 	)
-	private boolean isSimpleFullBlockAndNotCreative(BlockState blockState, BlockView view, BlockPos pos, /* parent method parameters -> */ BlockState state, World world, BlockPos pos2, PlayerEntity player, Hand hand, BlockHitResult hit)
+	private boolean isSimpleFullBlockAndNotCreative(
+			boolean isFullBlock,
+			/* parent method parameters vvv */
+			@Coerce Object state, @Coerce Object world, @Coerce Object pos2, PlayerEntity player, @Coerce Object hand, @Coerce Object hit
+	)
 	{
 		if (CreativeOpenContainerForciblyHelper.canOpenForcibly(player))
 		{
-			return false;
+			isFullBlock = true;
 		}
-
-		// vanilla
-		//#if MC >= 11600
-		//$$ return blockState.isSolidBlock(view, pos);
-		//#else
-		return blockState.isSimpleFullBlock(view, pos);
-		//#endif
+		return isFullBlock;
 	}
 }
