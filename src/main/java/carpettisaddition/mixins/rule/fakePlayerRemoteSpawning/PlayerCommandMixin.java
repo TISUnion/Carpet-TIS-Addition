@@ -94,7 +94,7 @@ public abstract class PlayerCommandMixin
 			DimensionWrapper sourceDimension = DimensionWrapper.of(source.getWorld());
 			DimensionWrapper botDimension = DimensionWrapper.of(dim);
 
-			// only allow remote bot spawning iif. the bot pos is closed enough to the player
+			// only allow remote bot spawning iff. the bot pos is closed enough to the player
 			if (!sourceDimension.equals(botDimension) || botPos.distanceTo(sourcePos) >= MAX_ALLOWED_REMOTE_RANGE)
 			{
 				Messenger.m(source, "rb Remote player spawning is not allowed");
