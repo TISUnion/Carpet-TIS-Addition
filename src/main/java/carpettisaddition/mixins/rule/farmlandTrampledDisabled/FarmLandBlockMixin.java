@@ -21,29 +21,28 @@
 package carpettisaddition.mixins.rule.farmlandTrampledDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.FarmlandBlock;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(FarmlandBlock.class)
 public abstract class FarmLandBlockMixin
 {
-	@Redirect(
+	@ModifyExpressionValue(
 			method = "onLandedUpon",
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/world/World;isClient:Z"
 			)
 	)
-	private boolean farmlandTrampledDisabled(World world)
+	private boolean farmlandTrampledDisabled_cancelIfStatement(boolean isClient)
 	{
 		if (CarpetTISAdditionSettings.farmlandTrampledDisabled)
 		{
 			// world.isClient returning true -> if predicate fails -> farmland protected
-			return true;
+			isClient = true;
 		}
-		return world.isClient;
+		return isClient;
 	}
 }
