@@ -21,17 +21,14 @@
 package carpettisaddition.mixins.rule.instantCommandBlock;
 
 import carpettisaddition.helpers.rule.instantCommandBlock.ICommandBlockExecutor;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.world.CommandBlockExecutor;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(CommandBlockExecutor.class)
 public abstract class CommandBlockExecutorMixin implements ICommandBlockExecutor
 {
-	@Shadow private long lastExecution;
-
 	private boolean	ignoreWorldTimeCheck = false;
 
 	@Override
@@ -40,7 +37,7 @@ public abstract class CommandBlockExecutorMixin implements ICommandBlockExecutor
 		this.ignoreWorldTimeCheck = ignoreWorldTimeCheck;
 	}
 
-	@Redirect(
+	@ModifyExpressionValue(
 			method = "execute",
 			at = @At(
 					value = "FIELD",
@@ -48,12 +45,12 @@ public abstract class CommandBlockExecutorMixin implements ICommandBlockExecutor
 					ordinal = 0
 			)
 	)
-	private long dontCheckLastExecutionTimeIfItsInstant(CommandBlockExecutor executor)
+	private long dontCheckLastExecutionTimeIfItsInstant(long lastExecution)
 	{
 		if (this.ignoreWorldTimeCheck)
 		{
-			return -1;
+			lastExecution = -1;
 		}
-		return this.lastExecution;
+		return lastExecution;
 	}
 }
