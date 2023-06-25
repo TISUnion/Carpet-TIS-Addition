@@ -21,10 +21,10 @@
 package carpettisaddition.mixins.rule.oakBalloonPercent;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.sapling.OakSaplingGenerator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 //#if MC >= 11900
 //$$ import net.minecraft.util.math.random.Random;
@@ -35,7 +35,7 @@ import java.util.Random;
 @Mixin(OakSaplingGenerator.class)
 public abstract class OakSaplingGeneratorMixin
 {
-	@Redirect(
+	@ModifyExpressionValue(
 			//#if MC >= 11700
 			//$$ method = "getTreeFeature",
 			//#else
@@ -50,17 +50,18 @@ public abstract class OakSaplingGeneratorMixin
 					//#endif
 			)
 	)
-	private int oakBalloonPercent_modifyRandomResult(Random random, int bound)
+	private int oakBalloonPercent_modifyRandomResult(
+			int randomResult, Random random
+			//#if MC >= 11500
+			, boolean bee
+			//#endif
+	)
 	{
 		if (CarpetTISAdditionSettings.oakBalloonPercent > 0)
 		{
 			boolean balloon = random.nextInt(100) < CarpetTISAdditionSettings.oakBalloonPercent;
-			return balloon ? 0 : 1;
+			randomResult = balloon ? 0 : 1;
 		}
-		else
-		{
-			// vanilla
-			return random.nextInt(bound);
-		}
+		return randomResult;
 	}
 }
