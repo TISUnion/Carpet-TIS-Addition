@@ -25,6 +25,8 @@ import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMUtil;
 import carpettisaddition.utils.ModIds;
 import carpettisaddition.utils.mixin.testers.LithiumEntityMovementOptimizationTester;
 import com.google.common.collect.Lists;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.entity.LithiumEntityCollisions;
@@ -40,7 +42,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.util.List;
@@ -66,8 +67,8 @@ public abstract class EntityMixin
 	@Unique
 	private static final List<VoxelShape> EMPTY_BLOCK_COLLECTIONS = Lists.newArrayList();
 
-	@Dynamic("Should be added by lithium")
-	@Redirect(
+	@Dynamic("Should be added by lithium entity.collisions.movement")
+	@WrapOperation(
 			method = "lithiumCollideMultiAxisMovement",
 			at = @At(
 					value = "INVOKE",
@@ -87,7 +88,7 @@ public abstract class EntityMixin
 			//#else
 			CollisionView world,
 			//#endif
-			Entity entity, Box box,
+			Entity entity, Box box, Operation<List<VoxelShape>> original,
 			/* parent method parameters -> */
 			@Nullable Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam
 	)
@@ -99,10 +100,10 @@ public abstract class EntityMixin
 			return EMPTY_BLOCK_COLLECTIONS;
 		}
 		// vanilla lithium
-		return LithiumEntityCollisions.getBlockCollisions(world, entity, box);
+		return original.call(world, entity, box);
 	}
 
-	@Dynamic
+	@Dynamic("Should be added by lithium entity.collisions.movement")
 	@ModifyArgs(
 			method = "lithiumCollideMultiAxisMovement",
 			at = @At(

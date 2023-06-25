@@ -23,6 +23,8 @@ package carpettisaddition.mixins.rule.optimizedFastEntityMovement;
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMContext;
 import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMUtil;
 import carpettisaddition.utils.mixin.testers.LithiumEntityMovementOptimizationTester;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
@@ -31,15 +33,16 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 //#if MC >= 11800
 //$$ import com.google.common.collect.Lists;
+//$$ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 //$$ import java.util.Collections;
 //$$ import java.util.List;
 //#else
@@ -54,7 +57,7 @@ public abstract class EntityMixin
 	@Unique
 	private static final ThreadLocal<OFEMContext> ofemContext = ThreadLocal.withInitial(() -> null);
 
-	@Redirect(
+	@WrapOperation(
 			//#if MC >= 11800
 			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
 			//#elseif MC >= 11600
@@ -81,6 +84,13 @@ public abstract class EntityMixin
 	//#endif
 	dontUseThatLargeBlockCollisions(
 			World world, Entity entity, Box box,
+			Operation<
+					//#if MC >= 11800
+					//$$ Iterable<VoxelShape>
+					//#else
+					Stream<VoxelShape>
+					//#endif
+			> original,
 			/* parent method parameters vvv */
 
 			Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam,
@@ -97,18 +107,18 @@ public abstract class EntityMixin
 		if (ctx != null)
 		{
 			//#if MC >= 11800
-			//$$ Collections.emptyList();
+			//$$ return Collections.emptyList();
 			//#else
 			return Stream.empty();
 			//#endif
 		}
 
 		// vanilla
-		return world.getBlockCollisions(entity, box);
+		return original.call(world, entity, box);
 	}
 
 	//#if MC >= 11800
-	//$$ @Redirect(
+	//$$ @ModifyExpressionValue(
 	//$$ 		method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
@@ -116,17 +126,17 @@ public abstract class EntityMixin
 	//$$ 				ordinal = 0
 	//$$ 		)
 	//$$ )
-	//$$ private static boolean theCollisionsListParameterIsIncompleteSoDontReturnEvenIfItIsEmpty(List<VoxelShape> voxelShapeList)
+	//$$ private static boolean theCollisionsListParameterIsIncompleteSoDontReturnEvenIfItIsEmpty(boolean isEmpty)
 	//$$ {
 	//$$ 	if (ofemContext.get() != null)
 	//$$ 	{
-	//$$ 		return false;
+	//$$ 		isEmpty = false;
 	//$$ 	}
-	//$$ 	return voxelShapeList.isEmpty();
+	//$$ 	return isEmpty;
 	//$$ }
 	//#endif
 
-	@Redirect(
+	@ModifyArgs(
 			//#if MC >= 11800
 			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
 			//#elseif MC >= 11600
@@ -146,30 +156,22 @@ public abstract class EntityMixin
 			),
 			require = 4
 	)
-	private static double useAxisOnlyBlockCollisions(
-			Direction.Axis axis, Box box,
-
-			//#if MC >= 11800
-			//$$ Iterable<VoxelShape> shapes,
-			//#else
-			Stream<VoxelShape> shapes,
-			//#endif
-
-			double maxDist,
-			/* parent method parameters vvv */
-
-			Vec3d movement, Box entityBoundingBox,
-
-			//#if MC >= 11800
-			//$$ List<VoxelShape> collisionsExceptBlockCollisions
-			//#else
-			ReusableStream<VoxelShape> collisions
-			//#endif
-	)
+	private static void useAxisOnlyBlockCollisions(Args args)
 	{
 		OFEMContext ctx = ofemContext.get();
 		if (ctx != null)
 		{
+			// Direction.Axis axis, Box box, (Iterable<VoxelShape> | Stream<VoxelShape>) shapes, double maxDist
+			Direction.Axis axis = args.get(0);
+			Box entityBoundingBox = args.get(1);
+			//#if MC >= 11800
+			//$$ List<VoxelShape>
+			//#else
+			Stream<VoxelShape>
+			//#endif
+					entityAndBorderCollisions = args.get(2);
+			double maxDist = args.get(3);
+
 			ctx.axis = axis;
 			ctx.movementOnAxis = maxDist;
 			ctx.entityBoundingBox = entityBoundingBox;
@@ -184,13 +186,12 @@ public abstract class EntityMixin
 			// order: (entity, border), block
 			//#if MC >= 11800
 			//$$ List<VoxelShape> voxelShapeList = Lists.newArrayList();
-			//$$ collisionsExceptBlockCollisions.forEach(voxelShapeList::add);
+			//$$ voxelShapeList.addAll(entityAndBorderCollisions);
 			//$$ blockCollisions.forEach(voxelShapeList::add);
-			//$$ shapes = voxelShapeList;
+			//$$ args.set(2, voxelShapeList);
 			//#else
-			shapes = Stream.concat(collisions.stream(), blockCollisions);
+			args.set(2, Stream.concat(entityAndBorderCollisions, blockCollisions));
 			//#endif
 		}
-		return VoxelShapes.calculateMaxOffset(axis, box, shapes, maxDist);
 	}
 }
