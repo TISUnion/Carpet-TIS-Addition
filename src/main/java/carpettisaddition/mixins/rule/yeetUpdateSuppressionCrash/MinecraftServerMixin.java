@@ -22,36 +22,33 @@ package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
-import carpettisaddition.utils.mixin.testers.YeetUpdateSuppressionCrashTester;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
-@Restriction(require = @Condition(type = Condition.Type.TESTER, tester = YeetUpdateSuppressionCrashTester.class))
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
-	@Redirect(
+	@WrapOperation(
 			method = "tickWorlds",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V"
 			)
 	)
-	private void yeetUpdateSuppressionCrash_implOnTickWorlds(ServerWorld serverWorld, BooleanSupplier shouldKeepTicking)
+	private void yeetUpdateSuppressionCrash_implOnTickWorlds(ServerWorld serverWorld, BooleanSupplier shouldKeepTicking, Operation<Void> original)
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
 			try
 			{
-				serverWorld.tick(shouldKeepTicking);
+				original.call(serverWorld, shouldKeepTicking);
 			}
 			catch (Throwable throwable)
 			{
@@ -69,7 +66,7 @@ public abstract class MinecraftServerMixin
 		else
 		{
 			// vanilla
-			serverWorld.tick(shouldKeepTicking);
+			original.call(serverWorld, shouldKeepTicking);
 		}
 	}
 }

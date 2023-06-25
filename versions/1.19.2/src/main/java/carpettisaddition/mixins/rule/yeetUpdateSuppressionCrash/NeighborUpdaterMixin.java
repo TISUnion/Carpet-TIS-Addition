@@ -20,11 +20,7 @@
 
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
 
-import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
-import carpettisaddition.utils.mixin.testers.YeetUpdateSuppressionCrashTester;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -34,7 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Restriction(require = @Condition(type = Condition.Type.TESTER, tester = YeetUpdateSuppressionCrashTester.class))
 @Mixin(NeighborUpdater.class)
 public interface NeighborUpdaterMixin
 {

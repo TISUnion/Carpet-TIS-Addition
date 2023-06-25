@@ -26,10 +26,6 @@ carpettisaddition:
     ranged_number:
       message: Must be a number between %1$s and %2$s
 
-    # rule validators
-    yeetUpdateSuppressionCrash:
-      message: Conflicted with rule "updateSuppressionCrashFix" from fabric-carpet or carpet-extra
-
     # custom validators
     fake_player_name_extra:
       message: You need to give a string without special characters and with a length from 1 to 16
