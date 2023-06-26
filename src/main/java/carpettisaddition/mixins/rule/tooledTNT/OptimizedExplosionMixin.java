@@ -22,11 +22,11 @@ package carpettisaddition.mixins.rule.tooledTNT;
 
 import carpet.helpers.OptimizedExplosion;
 import carpettisaddition.helpers.rule.tooledTNT.TooledTNTHelper;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(OptimizedExplosion.class)
 public abstract class OptimizedExplosionMixin
@@ -34,7 +34,7 @@ public abstract class OptimizedExplosionMixin
 	/**
 	 * See {@link ExplosionMixin} for mixin at vanilla in for this rule
 	 */
-	@Redirect(
+	@ModifyExpressionValue(
 			method = "doExplosionB",
 			at = @At(
 					value = "FIELD",
@@ -46,7 +46,7 @@ public abstract class OptimizedExplosionMixin
 			allow = 1
 			//#endif
 	)
-	private static ItemStack useTheToolInYourHand(Explosion e, boolean spawnParticles)
+	private static ItemStack useTheToolInYourHand(ItemStack itemStack, Explosion e, boolean spawnParticles)
 	{
 		return TooledTNTHelper.getMainHandItemOfCausingEntity(e);
 	}
