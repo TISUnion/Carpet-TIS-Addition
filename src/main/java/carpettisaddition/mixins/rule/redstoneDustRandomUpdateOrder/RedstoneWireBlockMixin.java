@@ -30,7 +30,8 @@ import java.util.*;
 
 //#if MC >= 11600
 //$$ import com.google.common.collect.Lists;
-//$$ import org.spongepowered.asm.mixin.injection.Redirect;
+//$$ import com.google.common.collect.Sets;
+//$$ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 //#else
 import net.minecraft.block.BlockState;
 import net.minecraft.world.World;
@@ -45,22 +46,22 @@ public abstract class RedstoneWireBlockMixin
 	private final Random random$TISCM = new Random();
 
 	//#if MC >= 11600
-	//$$ @Redirect(
+	//$$ @ModifyVariable(
 	//$$ 		method = "update",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
 	//$$ 				target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
 	//$$ 		)
 	//$$ )
-	//$$ private Iterator<BlockPos> letsMakeTheOrderUnpredictable(Set<BlockPos> set)
+	//$$ private Set<BlockPos> letsMakeTheOrderUnpredictable(Set<BlockPos> set)
 	//$$ {
 	//$$ 	if (CarpetTISAdditionSettings.redstoneDustRandomUpdateOrder)
 	//$$ 	{
 	//$$ 		List<BlockPos> list = Lists.newArrayList(set);
 	//$$ 		Collections.shuffle(list, this.random$TISCM);
-	//$$ 		return list.iterator();
+	//$$ 		set = Sets.newLinkedHashSet(list);
 	//$$ 	}
-	//$$ 	return set.iterator();
+	//$$ 	return set;
 	//$$ }
 	//#else
 	@Inject(

@@ -168,7 +168,11 @@ public abstract class EmitBlockUpdateMixins
 		}
 	}
 
-	@Mixin(RedstoneWireBlock.class)
+	/**
+	 * Use larger priority, so it injects after the @ModifyVariable in
+	 * {@link carpettisaddition.mixins.rule.redstoneDustRandomUpdateOrder.RedstoneWireBlockMixin}
+	 */
+	@Mixin(value = RedstoneWireBlock.class, priority = 2000)
 	public static abstract class RedstoneWireBlockMixin
 	{
 		@Inject(
@@ -196,7 +200,6 @@ public abstract class EmitBlockUpdateMixins
 		}
 
 		//#if MC >= 11600
-  //$$
 		//$$ @Inject(
 		//$$ 		method = "update",
 		//$$ 		at = @At(
