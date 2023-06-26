@@ -375,6 +375,7 @@
     "rule.voidRelatedAltitude.EntityMixin",
     "rule.witherSpawnedSoundDisabled.WitherEntityMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
+    "rule.yeetUpdateSuppressionCrash.ChainRestrictedNeighborUpdaterSixWayEntryMixin",
     "rule.yeetUpdateSuppressionCrash.MinecraftServerMixin",
     "rule.yeetUpdateSuppressionCrash.NeighborUpdaterMixin",
     "rule.yeetUpdateSuppressionCrash.ServerPlayerEntityMixin",
