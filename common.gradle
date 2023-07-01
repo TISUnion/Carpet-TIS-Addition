@@ -5,10 +5,9 @@ apply plugin: 'io.github.juuxel.loom-quiltflower'
 apply plugin: 'com.replaymod.preprocess'
 apply plugin: 'me.fallenbreath.yamlang'
 
-int mcVersion = 1
+int mcVersion = project.mcVersion
 
 preprocess {
-	mcVersion = vars.get()["MC"] as int
 	tabIndentation = true
 }
 
@@ -82,12 +81,10 @@ remapJar {
 if (mcVersion >= 11800) {
 	sourceCompatibility = JavaVersion.VERSION_17
 	targetCompatibility = JavaVersion.VERSION_17
-}
-else if (mcVersion >= 11700) {
+} else if (mcVersion >= 11700) {
 	sourceCompatibility = JavaVersion.VERSION_16
 	targetCompatibility = JavaVersion.VERSION_16
-}
-else {
+} else {
 	sourceCompatibility = JavaVersion.VERSION_1_8
 	targetCompatibility = JavaVersion.VERSION_1_8
 }
@@ -105,10 +102,15 @@ version = 'v' + fullModVersion
 group = project.maven_group
 archivesBaseName = project.archives_base_name + '-mc' + project.minecraft_version
 
+// See https://youtrack.jetbrains.com/issue/IDEA-296490
+// if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
 processResources {
 	from "carpet-tis-addition.accesswidener"
 
+	inputs.property "id", project.mod_id
+	inputs.property "name", project.mod_name
 	inputs.property "version", fullModVersion
+	inputs.property "minecraft_dependency", project.minecraft_dependency
 
 	filesMatching("fabric.mod.json") {
 		def valueMap = [
@@ -132,7 +134,7 @@ yamlang {
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
 	options.encoding = "UTF-8"
 	options.compilerArgs << "-Xlint:deprecation"
 }

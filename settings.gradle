@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 pluginManagement {
 	repositories {
 		maven {
@@ -23,21 +25,8 @@ pluginManagement {
 	}
 }
 
-// Starting from mc1.19.3, Minecraft minor version change might contain larger changes,
-// so we might need to maintain not-latest minor versions longer
-// See: https://help.minecraft.net/hc/en-us/articles/9971900758413
-def versions = Arrays.asList(
-		"1.14.4",
-		"1.15.2",
-		"1.16.5",
-		"1.17.1",
-		"1.18.2",
-		"1.19.2",  // TODO: drop support when mc1.21 is out
-		"1.19.3",  // TODO: drop support when mc1.21 is out
-		"1.19.4",
-		"1.20.1",
-)
-for (String version : versions) {
+def settings = new JsonSlurper().parseText(file('settings.json').text)
+for (String version : settings.versions) {
 	include(":$version")
 
 	def proj = project(":$version")

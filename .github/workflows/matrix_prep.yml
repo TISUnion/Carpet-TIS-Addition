@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       target_subproject:
-        description: The subproject name of the specified Minecraft version for generating matrix entry
+        description: see release.yml, for generating matrix entries
         type: string
         required: false
         default: ''
@@ -16,24 +16,14 @@ on:
 
 jobs:
   matrix_prep:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
 
-      - name: Display context
-        run: | 
-          echo ref_name = ${{ github.ref_name }}
-          echo target_subproject = ${{ github.event.inputs.target_subproject }}
-          echo target_release_tag = ${{ github.event.inputs.target_release_tag }}
-
       - id: setmatrix
-        uses: JoshuaTheMiller/conditional-build-matrix@v1.0.1
-        with:
-          # inputFile: '.github/workflows/matrix_includes.json' # Default input file path
-          filter: '[? `${{ github.event_name }}` == `release` || `${{ github.event.inputs.target_subproject }}` == `` || `"${{ github.event.inputs.target_subproject }}"` == subproject_dir ]'
-
-      - name: Print matrix
-        run: echo ${{ steps.setmatrix.outputs.matrix }}
+        run: python3 .github/workflows/scripts/matrix.py  # ubuntu-22.04 uses Python 3.10.6
+        env:
+          TARGET_SUBPROJECT: ${{ inputs.target_subproject }}
 
     outputs:
       matrix: ${{ steps.setmatrix.outputs.matrix }}

@@ -8,7 +8,7 @@ plugins {
 
 	// https://github.com/ReplayMod/preprocessor
 	// https://github.com/Fallen-Breath/preprocessor
-	id 'com.replaymod.preprocess' version '1e9695716f'
+	id 'com.replaymod.preprocess' version '20c7ec554a'
 
 	// https://github.com/Fallen-Breath/yamlang
 	id 'me.fallenbreath.yamlang' version '1.3.0' apply false
@@ -20,8 +20,8 @@ preprocess {
 	def mc116    = createNode('1.16.5' , 1_16_05, 'yarn')
 	def mc117    = createNode('1.17.1' , 1_17_01, 'yarn')
 	def mc118    = createNode('1.18.2' , 1_18_02, 'yarn')
-	def mc1192   = createNode('1.19.2' , 1_19_02, 'yarn')
-	def mc1193   = createNode('1.19.3' , 1_19_03, 'yarn')
+	def mc1192   = createNode('1.19.2' , 1_19_02, 'yarn')  // TODO: drop support when mc1.21 is out
+	def mc1193   = createNode('1.19.3' , 1_19_03, 'yarn')  // TODO: drop support when mc1.21 is out
 	def mc1194   = createNode('1.19.4' , 1_19_04, 'yarn')
 	def mc120    = createNode('1.20.1' , 1_20_01, 'yarn')
 
@@ -37,21 +37,23 @@ preprocess {
 
 tasks.register('buildAndGather') {
 	subprojects {
-		dependsOn project.name + ':build'
+		dependsOn project.tasks.named('build').get()
 	}
 	doFirst {
 		println 'Gathering builds'
-		delete fileTree(project.projectDir.toPath().resolve('build/libs')) {
+		def buildLibs = {
+			p -> p.buildDir.toPath().resolve('libs')
+		}
+		delete fileTree(buildLibs(rootProject)) {
 			include '*'
 		}
-		copy {
-			subprojects {
-				def libDir = project.projectDir.toPath().resolve('build/libs')
-				from(libDir) {
+		subprojects {
+			copy {
+				from(buildLibs(project)) {
 					include '*.jar'
 					exclude '*-dev.jar', '*-sources.jar'
 				}
-				into 'build/libs/'
+				into buildLibs(rootProject)
 				duplicatesStrategy DuplicatesStrategy.INCLUDE
 			}
 		}

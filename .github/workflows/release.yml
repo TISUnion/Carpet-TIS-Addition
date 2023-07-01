@@ -7,7 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       target_subproject:
-        description: The subproject name of the specified Minecraft version to be released.
+        description: |-
+          The subproject name(s) of the specified Minecraft version to be released, seperated with ",".
+          By default all subprojects will be released
         type: string
         required: false
         default: ''
@@ -46,11 +48,22 @@ jobs:
       - build
     runs-on: ubuntu-latest
 
+    # allow the mod publish step to add asserts to release
+    # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
+    permissions:
+      contents: write
+
     strategy:
       matrix: ${{ fromJson(needs.matrix_prep.outputs.matrix) }}
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Display context
+        run: |
+          echo ref_name = ${{ github.ref_name }}
+          echo target_subproject = ${{ github.event.inputs.target_subproject }}
+          echo target_release_tag = ${{ github.event.inputs.target_release_tag }}
 
       - name: Download build artifacts
         uses: actions/download-artifact@v3
@@ -72,7 +85,8 @@ jobs:
         run: |
           if [ $GITHUB_EVENT_NAME == 'release' ]
           then
-              echo "tag_name=" >> $GITHUB_OUTPUT  # leave an empty value here so softprops/action-gh-release will use the default value
+              # Leave an empty value here, so Kir-Antipov/mc-publish will infer the tag from the action context
+              echo "tag_name=" >> $GITHUB_OUTPUT
           elif [ $GITHUB_EVENT_NAME == 'workflow_dispatch' ]
           then
               echo "tag_name=${{ github.event.inputs.target_release_tag }}" >> $GITHUB_OUTPUT
@@ -92,7 +106,7 @@ jobs:
         id: properties_v
         uses: christian-draeger/read-properties@1.1.1
         with:
-          path: ${{ format('versions/{0}/gradle.properties', matrix.subproject_dir) }}
+          path: ${{ format('versions/{0}/gradle.properties', matrix.subproject) }}
           properties: 'minecraft_version game_versions'
 
       - name: Fix game version
@@ -107,7 +121,7 @@ jobs:
         id: file_info
         run: |
           shopt -s extglob
-          FILE_PATHS=$(ls ${{ format('build-artifacts/{0}/build/libs/!(*-@(dev|sources)).jar', matrix.subproject_dir) }})
+          FILE_PATHS=$(ls ${{ format('build-artifacts/{0}/build/libs/!(*-@(dev|sources)).jar', matrix.subproject) }})
           if (( ${#FILE_PATHS[@]} != 1 )); then
               echo "Error: Found ${#FILE_PATHS[@]} files, expected exactly 1"
               exit 1
@@ -122,25 +136,14 @@ jobs:
           echo "hash=$FILE_HASH" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
 
-      - name: Publish Minecraft Mods
-        uses: Kir-Antipov/mc-publish@v3.2
+      - name: Prepare changelog
+        uses: actions/github-script@v6
+        id: changelog
         with:
-          modrinth-id: jE0SjGuf  # https://modrinth.com/mod/carpet-tis-addition
-          modrinth-token: ${{ secrets.MODRINTH_API_TOKEN }}
-
-          curseforge-id: 397510  # https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition
-          curseforge-token: ${{ secrets.CF_API_TOKEN }}
-
-          github-tag: ${{ steps.release_info.outputs.tag_name }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-          files-primary: ${{ steps.file_info.outputs.path }}
-          files-secondary: ''
-
-          name: ${{ format('{0} v{1} for mc{2}', steps.properties_g.outputs.mod_name, steps.properties_g.outputs.mod_version, steps.properties_v.outputs.minecraft_version) }}
-          version: ${{ format('mc{0}-v{1}', steps.properties_v.outputs.minecraft_version, steps.properties_g.outputs.mod_version) }}
-          version-type: release
-          changelog: |-
+          script: return process.env.CHANGELOG
+          result-encoding: string
+        env:
+          CHANGELOG: |-
             ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}
             
             -------
@@ -151,10 +154,32 @@ jobs:
             - SHA-256: `${{ steps.file_info.outputs.hash }}`
             - Built from: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
+      - name: Publish Minecraft Mods
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: jE0SjGuf  # https://modrinth.com/mod/carpet-tis-addition
+          modrinth-token: ${{ secrets.MODRINTH_API_TOKEN }}
+
+          curseforge-id: 397510  # https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition
+          curseforge-token: ${{ secrets.CF_API_TOKEN }}
+
+          github-tag: ${{ steps.release_info.outputs.tag_name }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          files: ${{ steps.file_info.outputs.path }}
+
+          name: ${{ format('{0} v{1} for mc{2}', steps.properties_g.outputs.mod_name, steps.properties_g.outputs.mod_version, steps.properties_v.outputs.minecraft_version) }}
+          version: ${{ format('mc{0}-v{1}', steps.properties_v.outputs.minecraft_version, steps.properties_g.outputs.mod_version) }}
+          version-type: release
+
           loaders: fabric
           game-versions: ${{ steps.game_versions.outputs.value }}
-          dependencies: 'carpet | depends'
-          version-resolver: exact
+          game-version-filter: any
+          dependencies: |-  # declare the dependencies explicitly, so mc-publish won't try to load from fabric.mod.json
+            carpet(required)
+
+          modrinth-changelog: ${{ steps.changelog.outputs.result }}
+          curseforge-changelog: ${{ steps.changelog.outputs.result }}
 
           retry-attempts: 3
           retry-delay: 10000

@@ -30,18 +30,22 @@ def get_sha256_hash(file_path: str) -> str:
 
 
 def main():
-	target_subproject = os.environ.get('TARGET_SUBPROJECT', '')
-	with open('.github/workflows/matrix_includes.json') as f:
-		matrix: list[dict] = json.load(f)
+	target_subproject_env = os.environ.get('TARGET_SUBPROJECT', '')
+	target_subprojects = list(filter(None, target_subproject_env.split(',') if target_subproject_env != '' else []))
+	print('target_subprojects: {}'.format(target_subprojects))
+
+	with open('settings.json') as f:
+		settings: dict = json.load(f)
 
 	with open(os.environ['GITHUB_STEP_SUMMARY'], 'w') as f:
 		f.write('## Build Artifacts Summary\n\n')
-		f.write('| Subproject | for Minecraft | Files | SHA-256 |\n')
-		f.write('| --- | --- | --- | --- |\n')
+		f.write('| Subproject | for Minecraft | File | Size | SHA-256 |\n')
+		f.write('| --- | --- | --- | --- | --- |\n')
 
-		for m in matrix:
-			subproject = m['subproject_dir']
-			if target_subproject != '' and subproject != target_subproject:
+		warnings = []
+		for subproject in settings['versions']:
+			if len(target_subprojects) > 0 and subproject not in target_subprojects:
+				print('skipping {}'.format(subproject))
 				continue
 			game_versions = read_prop('versions/{}/gradle.properties'.format(subproject), 'game_versions')
 			game_versions = game_versions.strip().replace('\\n', ', ')
@@ -52,8 +56,17 @@ def main():
 				sha256 = '*N/A*'
 			else:
 				file_name = '`{}`'.format(os.path.basename(file_paths[0]))
+				file_size = '{} B'.format(os.path.getsize(file_paths[0]))
 				sha256 = '`{}`'.format(get_sha256_hash(file_paths[0]))
-			f.write('| {} | {} | {} | {} |\n'.format(subproject, game_versions, file_name, sha256))
+				if len(file_paths) > 1:
+					warnings.append('Found too many build files in subproject {}: {}'.format(subproject, ', '.join(file_paths)))
+
+			f.write('| {} | {} | {} | {} | {} |\n'.format(subproject, game_versions, file_name, file_size, sha256))
+
+		if len(warnings) > 0:
+			f.write('\n### Warnings\n\n')
+			for warning in warnings:
+				f.write('- {}\n'.format(warning))
 
 
 if __name__ == '__main__':
