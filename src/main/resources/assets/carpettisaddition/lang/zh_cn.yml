@@ -507,6 +507,7 @@ carpettisaddition:
         merge: 实体合并
         hopper: 漏斗收集
         void: 进入虚空
+        exploded: 爆炸了
         vehicle_mounting: 骑上载具
         pickup_block: 捡起方块
         mob_pickup: 被%1$s捡起

@@ -76,6 +76,7 @@ Tracked entity removal reasons
 - Entity merged (item and xp orb only)
 - Collected up by hopper or hopper minecart (item only)
 - Entering void
+- Self-exploded (e.g. creeper)
 - Picked up by player or mob (item and xp orb only)
 - Mob conversion
 - Trans-dimension through portal

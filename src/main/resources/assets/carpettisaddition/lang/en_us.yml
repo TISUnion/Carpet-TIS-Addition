@@ -508,6 +508,7 @@ carpettisaddition:
         merge: Entity merging
         hopper: Collected by hopper
         void: Entering void
+        exploded: Exploded
         vehicle_mounting: Rides on a vehicle
         pickup_block: Picked up a block
         mob_pickup: Picked up by %1$s

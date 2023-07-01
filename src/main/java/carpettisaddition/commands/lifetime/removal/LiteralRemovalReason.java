@@ -48,6 +48,9 @@ public class LiteralRemovalReason extends RemovalReason
 	// fall down to y=-64 and below
 	public static final LiteralRemovalReason VOID = regular("void");
 
+	// the entity, e.g. creeper, explodes
+	public static final LiteralRemovalReason EXPLODED = regular("exploded");
+
 	// for 1.16+, general
 	public static final LiteralRemovalReason VEHICLE_MOUNTING = yeetedFromCap("vehicle_mounting");
 
@@ -62,7 +65,7 @@ public class LiteralRemovalReason extends RemovalReason
 		this.translationKey = translationKey;
 		this.removalType = removalType;
 	}
-	
+
 	private static LiteralRemovalReason regular(String translationKey)
 	{
 		return new LiteralRemovalReason(translationKey, RemovalType.REMOVED_FROM_WORLD);

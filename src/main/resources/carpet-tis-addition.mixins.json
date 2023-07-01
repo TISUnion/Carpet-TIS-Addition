@@ -99,6 +99,7 @@
     "command.lifetime.removal.conversion.VillagerEntityMixin",
     "command.lifetime.removal.conversion.ZombieEntityMixin",
     "command.lifetime.removal.conversion.ZombieVillagerEntityMixin",
+    "command.lifetime.removal.exploded.CreeperEntityMixin",
     "command.lifetime.spawning.ExperienceOrbEntityMixin",
     "command.lifetime.spawning.blockdrop.BlockMixin",
     "command.lifetime.spawning.blockdrop.ShulkerBoxBlockMixin",
