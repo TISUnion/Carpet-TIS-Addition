@@ -55,7 +55,8 @@ public abstract class EnderChestBlockMixin
 	{
 		if (CreativeOpenContainerForciblyHelper.canOpenForcibly(player))
 		{
-			isFullBlock = true;
+			// not full block -> can open
+			isFullBlock = false;
 		}
 		return isFullBlock;
 	}

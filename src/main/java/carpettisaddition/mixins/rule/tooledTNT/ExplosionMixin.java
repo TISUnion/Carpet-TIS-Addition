@@ -47,6 +47,6 @@ public abstract class ExplosionMixin
 	)
 	private ItemStack useTheToolInYourHand(ItemStack itemStack)
 	{
-		return TooledTNTHelper.getMainHandItemOfCausingEntity((Explosion)(Object)this);
+		return TooledTNTHelper.getMainHandItemOfCausingEntity((Explosion)(Object)this).orElse(itemStack);
 	}
 }

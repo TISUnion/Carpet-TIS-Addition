@@ -48,6 +48,6 @@ public abstract class OptimizedExplosionMixin
 	)
 	private static ItemStack useTheToolInYourHand(ItemStack itemStack, Explosion e, boolean spawnParticles)
 	{
-		return TooledTNTHelper.getMainHandItemOfCausingEntity(e);
+		return TooledTNTHelper.getMainHandItemOfCausingEntity(e).orElse(itemStack);
 	}
 }

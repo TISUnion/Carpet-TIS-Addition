@@ -30,6 +30,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.explosion.Explosion;
 
+import java.util.Optional;
+
 public class TooledTNTHelper
 {
 	/**
@@ -38,17 +40,17 @@ public class TooledTNTHelper
 	 * See also {@link net.minecraft.block.Block#getDroppedStacks(BlockState, ServerWorld, BlockPos, BlockEntity, Entity, ItemStack)}
 	 * for loot table building for regular entity block mining
 	 */
-	public static ItemStack getMainHandItemOfCausingEntity(Explosion explosion)
+	public static Optional<ItemStack> getMainHandItemOfCausingEntity(Explosion explosion)
 	{
 		if (CarpetTISAdditionSettings.tooledTNT)
 		{
 			LivingEntity causingEntity = explosion.getCausingEntity();
 			if (causingEntity != null)
 			{
-				return causingEntity.getMainHandStack();
+				return Optional.of(causingEntity.getMainHandStack());
 			}
 		}
 		// vanilla
-		return ItemStack.EMPTY;
+		return Optional.empty();
 	}
 }
