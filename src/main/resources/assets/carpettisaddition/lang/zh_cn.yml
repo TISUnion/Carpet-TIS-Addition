@@ -1055,6 +1055,12 @@ carpettisaddition:
         desc: 阻止亡灵生物在阳光下着火
         extra:
           '0': 不过他们的头盔依然会在阳光下损失耐久
+      updateSuppressionSimulator:
+        name: 更新抑制模拟器
+        desc: 红石矿石上方的激活/充能铁轨可模拟更新抑制器
+        extra:
+          '0': 在红石矿石上已亮起的激活/充能铁轨将要熄灭时，抛出所提供的JVM异常
+          '1': 'false: 关闭规则; true: 启用规则并使用StackOverflowError; 其他: 启用规则并使用所给异常'
       visualizeProjectileLoggerEnabled:
         name: 可视化投掷物记录器
         desc: 启用可视化投掷物记录器

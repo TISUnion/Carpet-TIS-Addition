@@ -369,6 +369,7 @@
     "rule.undeadDontBurnInSunlight.AbstractSkeletonEntityMixin",
     "rule.undeadDontBurnInSunlight.PhantomEntityMixin",
     "rule.undeadDontBurnInSunlight.ZombieEntityMixin",
+    "rule.updateSuppressionSimulator.PoweredRailBlockMixin",
     "rule.voidDamageAmount.LivingEntityMixin",
     "rule.voidDamageIgnorePlayer.LivingEntityMixin",
     "rule.voidRelatedAltitude.AbstractDecorationEntityMixin",

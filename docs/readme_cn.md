@@ -97,6 +97,7 @@
 - [坚韧的凋零玫瑰](rules_cn.md#坚韧的凋零玫瑰-toughwitherrose)
 - [禁用海龟蛋被践踏](rules_cn.md#禁用海龟蛋被践踏-turtleeggtrampleddisabled)
 - [亡灵生物别在阳光下着火](rules_cn.md#亡灵生物别在阳光下着火-undeaddontburninsunlight)
+- [更新抑制模拟器](rules_cn.md#更新抑制模拟器-updatesuppressionsimulator)
 - [可视化投掷物记录器](rules_cn.md#可视化投掷物记录器-visualizeprojectileloggerenabled)
 - [虚空伤害数值](rules_cn.md#虚空伤害数值-voiddamageamount)
 - [虚空伤害忽略玩家](rules_cn.md#虚空伤害忽略玩家-voiddamageignoreplayer)

@@ -97,6 +97,7 @@
 - [toughWitherRose](rules.md#toughwitherrose)
 - [turtleEggTrampledDisabled](rules.md#turtleeggtrampleddisabled)
 - [undeadDontBurnInSunlight](rules.md#undeaddontburninsunlight)
+- [updateSuppressionSimulator](rules.md#updatesuppressionsimulator)
 - [visualizeProjectileLoggerEnabled](rules.md#visualizeprojectileloggerenabled)
 - [voidDamageAmount](rules.md#voiddamageamount)
 - [voidDamageIgnorePlayer](rules.md#voiddamageignoreplayer)

@@ -1131,6 +1131,20 @@ TISCM网络协议的开关
 - 分类: `TIS`, `CREATIVE`
 
 
+## 更新抑制模拟器 (updateSuppressionSimulator)
+
+红石矿石上方的激活 / 充能铁轨可模拟更新抑制器
+
+在红石矿石上已亮起的激活 / 充能铁轨将要熄灭时，抛出所提供的 JVM 异常
+
+`false`: 关闭规则; `true`: 启用规则并使用 `StackOverflowError`; 其他: 启用规则并使用所给异常
+
+- 类型: `String`
+- 默认值: `false`
+- 参考选项: `false`, `true`, `StackOverflowError`, `OutOfMemoryError`, `ClassCastException`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 可视化投掷物记录器 (visualizeProjectileLoggerEnabled)
 
 启用可视化投掷物记录器

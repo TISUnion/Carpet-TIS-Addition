@@ -1055,6 +1055,12 @@ carpettisaddition:
         desc: Prevent undead creatures burning in sunlight
         extra:
           '0': Their helmets will still get damaged in sunlight though
+      updateSuppressionSimulator:
+        name: updateSuppressionSimulator
+        desc: Activator / Powered rail on a redstone ore simulates an update suppressor
+        extra:
+          '0': Right before a powered activator / powered rail on a redstone ore setting its powered state to false, throw the given JVM throwable
+          '1': 'false: rule disabled; true: rule enable and use StackOverflowError; others: feature enable and use given throwable'
       visualizeProjectileLoggerEnabled:
         name: visualizeProjectileLoggerEnabled
         desc: Enable visualize projectile logger

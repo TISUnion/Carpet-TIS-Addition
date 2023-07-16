@@ -21,7 +21,9 @@
 package carpettisaddition;
 
 import carpet.settings.ParsedRule;
+import carpet.settings.Validator;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
+import carpettisaddition.helpers.rule.updateSuppressionSimulator.UpdateSuppressionSimulator;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
@@ -491,7 +493,6 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, FEATURE})
 	public static boolean renewableDragonHead = false;
 
-
 	@Rule(
 			options = {"0", "0.2", "1"},
 			validators = Validators.Probability.class,
@@ -660,6 +661,27 @@ public class CarpetTISAdditionSettings
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean undeadDontBurnInSunlight = false;
+
+    @Rule(
+            categories = {TIS, CREATIVE},
+		    validators = UpdateSuppressionSimulatorValidator.class,
+            options = {"false", "true", "StackOverflowError", "OutOfMemoryError", "ClassCastException"}
+    )
+    public static String updateSuppressionSimulator = "false";
+    private static class UpdateSuppressionSimulatorValidator extends AbstractCheckerValidator<String>
+    {
+	    @Override
+	    protected boolean validateValue(String value)
+	    {
+            return UpdateSuppressionSimulator.checkRule(value);
+	    }
+
+	    @Override
+	    public void onRuleSet(ValidationContext<String> ctx, String newValue)
+	    {
+		    UpdateSuppressionSimulator.acceptRule(newValue);
+	    }
+    }
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean visualizeProjectileLoggerEnabled = false;
