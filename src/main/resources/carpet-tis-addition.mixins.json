@@ -310,6 +310,8 @@
     "rule.lightEngineMaxBatchSize.MinecraftServerMixin",
     "rule.lightEngineMaxBatchSize.ServerLightingProviderMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",
+    "rule.minecartFullDropBackport.AbstractMinecartEntityMixin",
+    "rule.minecartFullDropBackport.MinecartVariablesMixin",
     "rule.minecartTakePassengerMinVelocity.AbstractMinecartEntityMixin",
     "rule.mobcapsDisplayIgnoreMisc.SpawnReporterMixin",
     "rule.oakBalloonPercent.OakSaplingGeneratorMixin",

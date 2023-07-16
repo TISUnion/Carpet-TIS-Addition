@@ -21,7 +21,6 @@
 package carpettisaddition;
 
 import carpet.settings.ParsedRule;
-import carpet.settings.Validator;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.helpers.rule.updateSuppressionSimulator.UpdateSuppressionSimulator;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
@@ -430,6 +429,9 @@ public class CarpetTISAdditionSettings
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static TickDivision microTimingTickDivision = TickDivision.WORLD_TIMER;
+
+	@Rule(categories = {TIS, FEATURE})
+	public static boolean minecartFullDropBackport = false;
 
 	public static final double VANILLA_MINECART_TAKE_PASSENGER_MIN_VELOCITY = 0.1D;  // sqrt(0.01)
 	@Rule(

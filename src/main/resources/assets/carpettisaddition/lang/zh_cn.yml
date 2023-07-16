@@ -866,6 +866,11 @@ carpettisaddition:
         extra:
           '0': 'world_timer: 划分于世界计时器自增时'
           '1': 'player_action: 划分于玩家操作阶段开始前'
+      minecartFullDropBackport:
+        name: 矿车完整掉落移植
+        desc: 移植 Minecraft 1.19+ 版本中的特性：矿车实体在被破坏时会掉落完整的矿车物品
+        extra:
+          '0': 本规则仅在 Minecraft < 1.19 中有效
       minecartTakePassengerMinVelocity:
         name: 矿车搭载乘客最小速度
         desc: 决定矿车将其附近实体作为乘客搭载上车所需的最低水平方向速度（m/gt）

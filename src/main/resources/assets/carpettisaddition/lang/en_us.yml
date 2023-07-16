@@ -866,6 +866,11 @@ carpettisaddition:
         extra:
           '0': 'world_timer: Divides at Overworld timer increment'
           '1': 'player_action: Divides at the beginning of player action'
+      minecartFullDropBackport:
+        name: minecartFullDropBackport
+        desc: Backport the feature from Minecraft 1.19+ that minecart entity drops the full cart item on destroy
+        extra:
+          '0': Only works in Minecraft < 1.19
       minecartTakePassengerMinVelocity:
         name: minecartTakePassengerMinVelocity
         desc: Determine the minimum required horizontal velocity (m/gt) for a minecart to pick up nearby entity as its passenger

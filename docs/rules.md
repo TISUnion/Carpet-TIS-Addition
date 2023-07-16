@@ -689,6 +689,18 @@ Determine the way to divide game ticks
 - Categories: `TIS`, `CREATIVE`
 
 
+## minecartFullDropBackport
+
+Backport the feature from Minecraft 1.19+ that minecart entity drops the full cart item on destroy
+
+Only works in Minecraft < 1.19
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
+
+
 ## minecartTakePassengerMinVelocity
 
 Determine the minimum required horizontal velocity (m/gt) for a minecart to pick up nearby entity as its passenger

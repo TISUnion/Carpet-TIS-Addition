@@ -63,6 +63,7 @@
 - [微时序染料记号](rules_cn.md#微时序染料记号-microtimingdyemarker)
 - [微时序目标](rules_cn.md#微时序目标-microtimingtarget)
 - [微时序游戏刻划分](rules_cn.md#微时序游戏刻划分-microtimingtickdivision)
+- [矿车完整掉落移植](rules_cn.md#矿车完整掉落移植-minecartfulldropbackport)
 - [矿车搭载乘客最小速度](rules_cn.md#矿车搭载乘客最小速度-minecarttakepassengerminvelocity)
 - [怪物容量显示忽略杂项](rules_cn.md#怪物容量显示忽略杂项-mobcapsdisplayignoremisc)
 - [橡树长成鸡腿树百分率](rules.md#橡树长成鸡腿树百分率-oakballoonpercent)

@@ -690,6 +690,18 @@
 - 分类: `TIS`, `CREATIVE`
 
 
+## 矿车完整掉落移植 (minecartFullDropBackport)
+
+移植 Minecraft 1.19+ 版本中的特性：矿车实体在被破坏时会掉落完整的矿车物品
+
+本规则仅在 Minecraft < 1.19 中有效
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
+
+
 ## 矿车搭载乘客最小速度 (minecartTakePassengerMinVelocity)
 
 决定矿车将其附近实体作为乘客搭载上车所需的最低水平方向速度（m/gt）
