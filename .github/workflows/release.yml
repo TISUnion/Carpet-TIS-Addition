@@ -160,7 +160,7 @@ jobs:
           modrinth-id: jE0SjGuf  # https://modrinth.com/mod/carpet-tis-addition
           modrinth-token: ${{ secrets.MODRINTH_API_TOKEN }}
 
-          curseforge-id: 397510  # https://www.curseforge.com/minecraft/mc-mods/carpet-tis-addition
+          curseforge-id: 397510  # https://legacy.curseforge.com/minecraft/mc-mods/carpet-tis-addition
           curseforge-token: ${{ secrets.CF_API_TOKEN }}
 
           github-tag: ${{ steps.release_info.outputs.tag_name }}
