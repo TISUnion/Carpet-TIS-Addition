@@ -21,7 +21,9 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.mixins.utils.ServerCommandSourceAccessor;
-import com.mojang.brigadier.builder.ArgumentBuilder;
+import carpettisaddition.utils.command.BuilderFactory;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandOutput;
@@ -31,6 +33,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import java.util.Arrays;
 import java.util.Optional;
 
+import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandSource.suggestMatching;
@@ -86,7 +89,29 @@ public class CommandUtil
 		return source.hasPermissionLevel(2);  // commonly used in cheaty commands
 	}
 
-	public static ArgumentBuilder<ServerCommandSource, ?> enumArg(String name, Class<? extends Enum<?>> enumClass)
+	@FunctionalInterface
+	public interface ArgumentGetter<T>
+	{
+		T get() throws CommandSyntaxException;
+	}
+
+	/**
+	 * Suppressed the {@link IllegalArgumentException} in {@link com.mojang.brigadier.context.CommandContext#getArgument}
+	 * But {@link CommandSyntaxException} is allowed
+	 */
+	public static <T> Optional<T> getOptArg(ArgumentGetter<T> argGetter) throws CommandSyntaxException
+	{
+		try
+		{
+			return Optional.of(argGetter.get());
+		}
+		catch (IllegalArgumentException e)
+		{
+			return Optional.empty();
+		}
+	}
+
+	public static RequiredArgumentBuilder<ServerCommandSource, String> enumArg(String name, Class<? extends Enum<?>> enumClass)
 	{
 		return argument(name, word()).
 				suggests((c, b) -> suggestMatching(
@@ -94,5 +119,27 @@ public class CommandUtil
 								map(e -> e.name().toLowerCase()),
 						b)
 				);
+	}
+
+	public static BuilderFactory<RequiredArgumentBuilder<ServerCommandSource, String>> enumArg(Class<? extends Enum<?>> enumClass)
+	{
+		return name -> enumArg(name, enumClass);
+	}
+
+	/**
+	 * @return the corresponding enum, or Optional.empty() on invalid enum
+	 * @throws IllegalArgumentException on arg not found
+	 */
+	public static <T extends Enum<T>> Optional<T> getEnum(CommandContext<?> context, String argName, Class<T> enumClass)
+	{
+		String enumString = getString(context, argName);
+		try
+		{
+			return Optional.of(Enum.valueOf(enumClass, enumString.toUpperCase()));
+		}
+		catch (IllegalArgumentException e)
+		{
+			return Optional.empty();
+		}
 	}
 }

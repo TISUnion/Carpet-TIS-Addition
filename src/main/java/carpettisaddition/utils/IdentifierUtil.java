@@ -26,6 +26,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.poi.PointOfInterestType;
 
 public class IdentifierUtil
 {
@@ -47,5 +48,10 @@ public class IdentifierUtil
 	public static Identifier id(BlockEntityType<?> blockEntityType)
 	{
 		return Registry.BLOCK_ENTITY_TYPE.getId(blockEntityType);
+	}
+
+	public static Identifier id(PointOfInterestType poiType)
+	{
+		return Registry.POINT_OF_INTEREST_TYPE.getId(poiType);
 	}
 }
