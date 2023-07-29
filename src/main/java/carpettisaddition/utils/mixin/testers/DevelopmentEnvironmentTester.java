@@ -18,15 +18,16 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.utils;
+package carpettisaddition.utils.mixin.testers;
 
-public class ModIds
+import me.fallenbreath.conditionalmixin.api.mixin.ConditionTester;
+import net.fabricmc.loader.api.FabricLoader;
+
+public class DevelopmentEnvironmentTester implements ConditionTester
 {
-	public static final String carpet = "carpet";
-	public static final String carpet_extra = "carpet-extra";
-	public static final String lithium = "lithium";
-	public static final String malilib = "malilib";
-	public static final String mc_tester = "mctester";
-	public static final String minecraft = "minecraft";
-	public static final String tic_tacs = "tic_tacs";
+	@Override
+	public boolean isSatisfied(String mixinClassName)
+	{
+		return FabricLoader.getInstance().isDevelopmentEnvironment();
+	}
 }

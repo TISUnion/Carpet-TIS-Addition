@@ -18,15 +18,21 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.utils;
+package carpettisaddition.mixins.misc.devqol.mctester;
 
-public class ModIds
+import carpettisaddition.utils.ModIds;
+import carpettisaddition.utils.compat.DummyClass;
+import carpettisaddition.utils.mixin.testers.DevelopmentEnvironmentTester;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import org.spongepowered.asm.mixin.Mixin;
+
+@Restriction(require = {
+		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"),
+		@Condition(ModIds.mc_tester),
+		@Condition(type = Condition.Type.TESTER, tester = DevelopmentEnvironmentTester.class),
+})
+@Mixin(DummyClass.class)
+public abstract class TestCommandMixin
 {
-	public static final String carpet = "carpet";
-	public static final String carpet_extra = "carpet-extra";
-	public static final String lithium = "lithium";
-	public static final String malilib = "malilib";
-	public static final String mc_tester = "mctester";
-	public static final String minecraft = "minecraft";
-	public static final String tic_tacs = "tic_tacs";
 }

@@ -244,6 +244,8 @@
     "logger.turtleegg.TurtleEggBlockMixin",
     "logger.xporb.ExperienceOrbEntityAccessor",
     "logger.xporb.ExperienceOrbEntityMixin",
+    "misc.devqol.mctester.McTesterConfigMixin",
+    "misc.devqol.mctester.TestCommandMixin",
     "network.CustomPayloadC2SPacketAccessor",
     "network.CustomPayloadS2CPacketAccessor",
     "network.ServerPlayNetworkHandlerAccessor",
