@@ -23,7 +23,8 @@ preprocess {
 	def mc1192   = createNode('1.19.2' , 1_19_02, 'yarn')  // TODO: drop support when mc1.21 is out
 	def mc1193   = createNode('1.19.3' , 1_19_03, 'yarn')  // TODO: drop support when mc1.21 is out
 	def mc1194   = createNode('1.19.4' , 1_19_04, 'yarn')
-	def mc120    = createNode('1.20.1' , 1_20_01, 'yarn')
+	def mc1201   = createNode('1.20.1' , 1_20_01, 'yarn')
+	def mc1202   = createNode('1.20.2' , 1_20_02, 'yarn')
 
 	mc115 .link(mc114   , file('versions/mapping-1.15-1.14.txt'))
 	mc115 .link(mc116   , file('versions/mapping-1.15-1.16.txt'))
@@ -32,7 +33,8 @@ preprocess {
 	mc118 .link(mc1192  , file('versions/mapping-1.18-1.19.txt'))
 	mc1192.link(mc1193  , file('versions/mapping-1.19.2-1.19.3.txt'))
 	mc1193.link(mc1194  , file('versions/mapping-1.19.3-1.19.4.txt'))
-	mc1194.link(mc120   , file('versions/mapping-1.19.4-1.20.txt'))
+	mc1194.link(mc1201  , file('versions/mapping-1.19.4-1.20.1.txt'))
+	mc1201.link(mc1202  , file('versions/mapping-1.20.1-1.20.2.txt'))
 }
 
 tasks.register('buildAndGather') {

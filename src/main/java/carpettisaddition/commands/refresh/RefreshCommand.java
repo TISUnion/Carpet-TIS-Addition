@@ -33,13 +33,15 @@ import net.minecraft.network.MessageType;
 import net.minecraft.network.PacketDeflater;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ChunkHolder;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.chunk.WorldChunk;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -49,6 +51,10 @@ import static net.minecraft.command.arguments.EntityArgumentType.getPlayers;
 import static net.minecraft.command.arguments.EntityArgumentType.players;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
+
+//#if MC >= 12002
+//$$ import carpettisaddition.mixins.command.refresh.ChunkDataSenderAccessor;
+//#endif
 
 //#if MC >= 11901
 //$$ import net.minecraft.network.PacketCallbacks;
@@ -159,6 +165,7 @@ public class RefreshCommand extends AbstractCommand
 	private int refreshChunks(ServerCommandSource source, @Nullable ChunkPos chunkPos, @Nullable Predicate<ChunkPos> predicate) throws CommandSyntaxException
 	{
 		ServerPlayerEntity player = source.getPlayer();
+		ServerWorld world = player.getServerWorld();
 		synchronized (this.refreshingChunkPlayers)
 		{
 			if (this.refreshingChunkPlayers.contains(player))
@@ -167,9 +174,15 @@ public class RefreshCommand extends AbstractCommand
 				return 0;
 			}
 		}
-		ThreadedAnvilChunkStorageAccessor chunkStorage = (ThreadedAnvilChunkStorageAccessor)source.getPlayer().getServerWorld().getChunkManager().threadedAnvilChunkStorage;
+		ThreadedAnvilChunkStorageAccessor chunkStorage = (ThreadedAnvilChunkStorageAccessor)world.getChunkManager().threadedAnvilChunkStorage;
 		MutableInt counter = new MutableInt(0);
-		Consumer<ChunkPos> chunkRefresher = pos -> {
+
+		// in mc < 1.20.2, only the "pos" arg is used
+		// in mc >= 1.20.2, only the "chunk" arg is used
+		BiConsumer<WorldChunk, ChunkPos> chunkRefresher = (chunk, pos) -> {
+			//#if MC >= 12002
+			//$$ ChunkDataSenderAccessor.invokeSendChunkPacket(player.networkHandler, world, chunk);
+			//#else
 			chunkStorage.invokeSendWatchPackets(
 					player, pos,
 					//#if MC >= 11800
@@ -179,6 +192,7 @@ public class RefreshCommand extends AbstractCommand
 					//#endif
 					false, true
 			);
+			//#endif
 			counter.add(1);
 		};
 
@@ -187,7 +201,14 @@ public class RefreshCommand extends AbstractCommand
 		{
 			if (inPlayerViewDistance.test(chunkPos))
 			{
-				chunkRefresher.accept(chunkPos);
+				chunkRefresher.accept(
+						//#if MC >= 12002
+						//$$ world.getChunk(chunkPos.x, chunkPos.z),
+						//#else
+						null,
+						//#endif
+						chunkPos
+				);
 			}
 			else
 			{
@@ -198,16 +219,20 @@ public class RefreshCommand extends AbstractCommand
 		{
 			Objects.requireNonNull(predicate);
 			chunkStorage.getCurrentChunkHolders().values().stream().
-					map(ChunkHolder::getPos).
-					filter(inPlayerViewDistance.and(predicate)).
-					forEach(chunkRefresher);
+					filter(h -> inPlayerViewDistance.and(predicate).test(h.getPos())).
+					forEach(h -> chunkRefresher.accept(h.getWorldChunk(), h.getPos()));
 			synchronized (this.refreshingChunkPlayers)
 			{
 				this.refreshingChunkPlayers.add(player);
 			}
 		}
 		BaseText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
+
+		//#if MC >= 12002
+		//$$ player.networkHandler.send(
+		//#else
 		player.networkHandler.sendPacket(
+		//#endif
 				//#if MC >= 11901
 				//$$ new GameMessageS2CPacket(message, false),
 				//#elseif MC >= 11600
@@ -229,6 +254,10 @@ public class RefreshCommand extends AbstractCommand
 				//$$ })
 				//#else
 				}
+				//#endif
+
+				//#if MC >= 12002
+				//$$ , true
 				//#endif
 		);
 		return counter.getValue();
@@ -263,7 +292,7 @@ public class RefreshCommand extends AbstractCommand
 	{
 		//#if MC >= 11800
 		//$$ ChunkSectionPos watchedSection = player.getWatchedSection();
-		//$$ return ThreadedAnvilChunkStorageAccessor.invokeIsChunkWithinEuclideanDistanceRange(chunkPos.x, chunkPos.z, watchedSection.getSectionX(), watchedSection.getSectionZ(), distance);
+		//$$ return EuclideanDistanceHelper.isWithinDistance(chunkPos.x, chunkPos.z, watchedSection.getSectionX(), watchedSection.getSectionZ(), distance);
 		//#else
 		return ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(chunkPos, player, true) <= distance;
 		//#endif

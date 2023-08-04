@@ -36,7 +36,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class AnimalEntityMixin
 {
 	@ModifyArg(
+			//#if MC >= 12002
+			//$$ method = "breed(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/passive/AnimalEntity;)V",
+			//#else
 			method = "breed",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V",

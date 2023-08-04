@@ -23,10 +23,10 @@ package carpettisaddition.mixins.carpet.tweaks.command.spawnTrackingRestart;
 import carpet.commands.SpawnCommand;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -43,9 +43,23 @@ public abstract class SpawnCommandMixin
 	}
 
 	@Shadow(remap = false)
-	private static int startTracking(ServerCommandSource source, BlockPos a, BlockPos b)
+	//#if MC >= 12002
+	//$$ private static int startTracking(ServerCommandSource source, net.minecraft.util.math.BlockBox filter)
+	//#else
+	private static int startTracking(ServerCommandSource source, net.minecraft.util.math.BlockPos a, net.minecraft.util.math.BlockPos b)
+	//#endif
 	{
 		return 0;
+	}
+
+	@Unique
+	private static int startTrackingWithoutFilter(ServerCommandSource source)
+	{
+		//#if MC >= 12002
+		//$$ return startTracking(source, null);
+		//#else
+		return startTracking(source, null, null);
+		//#endif
 	}
 
 	/**
@@ -81,7 +95,7 @@ public abstract class SpawnCommandMixin
 						executes(c -> {
 							int result = 0;
 							result += stopTracking(c.getSource());
-							result += startTracking(c.getSource(), null, null);
+							result += startTrackingWithoutFilter(c.getSource());
 							return result > 0 ? 1 : 0;
 						})
 		);

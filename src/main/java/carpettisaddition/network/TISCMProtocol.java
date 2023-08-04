@@ -35,6 +35,10 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
+//#if MC >= 12002
+//$$ import java.util.function.Function;
+//#endif
+
 public class TISCMProtocol
 {
 	public static final String ID = "tiscm";
@@ -109,14 +113,26 @@ public class TISCMProtocol
 		default String getId() { return this.name().toLowerCase(); }
 	}
 
-	private static <T> T makePacket(BiFunction<Identifier, PacketByteBuf, T> packetConstructor, PacketId packetId, Consumer<CompoundTag> payloadBuilder)
+	private static <T> T makePacket(
+			//#if MC >= 12002
+			//$$ Function<TISCMCustomPayload, T> packetConstructor,
+			//#else
+			BiFunction<Identifier, PacketByteBuf, T> packetConstructor,
+			//#endif
+			PacketId packetId, Consumer<CompoundTag> payloadBuilder
+	)
 	{
 		CompoundTag nbt = new CompoundTag();
 		payloadBuilder.accept(nbt);
+
+		//#if MC >= 12002
+		//$$ return packetConstructor.apply(new TISCMCustomPayload(packetId.getId(), nbt));
+		//#else
 		PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
 		packetByteBuf.writeString(packetId.getId());
 		packetByteBuf.writeCompoundTag(nbt);
 		return packetConstructor.apply(TISCMProtocol.CHANNEL, packetByteBuf);
+		//#endif
 	}
 
 	private static <T extends PacketId> Map<String, T> createIdMap(T[] values)

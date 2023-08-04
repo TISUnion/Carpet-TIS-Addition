@@ -61,13 +61,11 @@ public class TISCMClientPacketHandler
 	/**
 	 * Invoked on main thread
 	 */
-	public void dispatch(ClientPlayNetworkHandler networkHandler, PacketByteBuf packetByteBuf)
+	public void dispatch(ClientPlayNetworkHandler networkHandler, TISCMCustomPayload tiscmCustomPayload)
 	{
-		String packetId = packetByteBuf.readString();
-		CompoundTag payload = packetByteBuf.readCompoundTag();
-		TISCMProtocol.S2C.fromId(packetId).
+		TISCMProtocol.S2C.fromId(tiscmCustomPayload.getPacketId()).
 				map(this.handlers::get).
-				ifPresent( handler -> handler.accept(new HandlerContext.S2C(networkHandler, payload)));
+				ifPresent( handler -> handler.accept(new HandlerContext.S2C(networkHandler, tiscmCustomPayload.getNbt())));
 	}
 
 	public boolean isProtocolEnabled()

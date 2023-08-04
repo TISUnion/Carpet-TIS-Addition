@@ -18,24 +18,25 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.network;
+package carpettisaddition.commands.refresh;
 
-import carpettisaddition.utils.ModIds;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+//#if MC >= 12002
+//$$ import net.minecraft.class_8603;
+//#elseif MC >= 11800
+//$$ import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
+//#endif
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20.2-alpha.0"))
-@Mixin(CustomPayloadC2SPacket.class)
-public interface CustomPayloadC2SPacketAccessor
+// used in mc1.18+
+public class EuclideanDistanceHelper
 {
-	@Accessor
-	Identifier getChannel();
-
-	@Accessor
-	PacketByteBuf getData();
+	public static boolean isWithinDistance(int chunkX, int chunkZ, int playerSectionX, int playerSectionZ, int distance)
+	{
+		//#if MC >= 12002
+		//$$ return class_8603.method_52358(chunkX, chunkZ, playerSectionX, playerSectionZ, distance, true);
+		//#elseif MC >= 11800
+		//$$ return ThreadedAnvilChunkStorageAccessor.invokeIsChunkWithinEuclideanDistanceRange(chunkX, chunkZ, playerSectionX, playerSectionZ, distance);
+		//#else
+		throw new RuntimeException();
+		//#endif
+	}
 }

@@ -18,24 +18,51 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.network;
+package carpettisaddition.network;
 
-import carpettisaddition.utils.ModIds;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
+import carpettisaddition.utils.compat.CustomPayload;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20.2-alpha.0"))
-@Mixin(CustomPayloadC2SPacket.class)
-public interface CustomPayloadC2SPacketAccessor
+public class TISCMCustomPayload implements CustomPayload
 {
-	@Accessor
-	Identifier getChannel();
+	public static final Identifier ID = TISCMProtocol.CHANNEL;
 
-	@Accessor
-	PacketByteBuf getData();
+	private final String packetId;
+	private final CompoundTag nbt;
+
+	public TISCMCustomPayload(String packetId, CompoundTag nbt)
+	{
+		this.packetId = packetId;
+		this.nbt = nbt;
+	}
+
+	public TISCMCustomPayload(PacketByteBuf buf)
+	{
+		this(buf.readString(), buf.readCompoundTag());
+	}
+
+	@Override
+	public void write(PacketByteBuf buf)
+	{
+		buf.writeString(this.packetId);
+		buf.writeCompoundTag(this.nbt);
+	}
+
+	@Override
+	public Identifier id()
+	{
+		return ID;
+	}
+
+	public String getPacketId()
+	{
+		return packetId;
+	}
+
+	public CompoundTag getNbt()
+	{
+		return nbt;
+	}
 }

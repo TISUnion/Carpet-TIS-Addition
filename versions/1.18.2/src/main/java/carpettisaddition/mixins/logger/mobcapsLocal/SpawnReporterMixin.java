@@ -23,6 +23,7 @@ package carpettisaddition.mixins.logger.mobcapsLocal;
 import carpet.utils.SpawnReporter;
 import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -83,14 +84,13 @@ public abstract class SpawnReporterMixin
 		return spawnGroup;
 	}
 
-	@ModifyVariable(
+	@ModifyExpressionValue(
 			method = "printMobcapsForDimension",
 			at = @At(
-					value = "INVOKE_ASSIGN",
+					value = "INVOKE",
 					target = "Lit/unimi/dsi/fastutil/objects/Object2IntMap;getOrDefault(Ljava/lang/Object;I)I",
 					ordinal = 0
 			),
-			ordinal = 3,  // chunkcount, var10 (loop index), var11 (loop limit), cur
 			remap = false
 	)
 	private static int applyMobcapsLocalLoggerValueOverrideForCurrentMobCount(int cur)

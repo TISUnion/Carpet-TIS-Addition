@@ -45,7 +45,7 @@ public interface ThreadedAnvilChunkStorageAccessor
 	@Accessor
 	int getWatchDistance();
 
-	//#if MC >= 11800
+	//#if MC >= 11800 && MC < 12002
 	//$$ // isChunkWithinEuclideanDistanceRange or whatever
 	//$$ @Invoker("isWithinDistance")
 	//$$ static boolean invokeIsChunkWithinEuclideanDistanceRange(int chunkX, int chunkZ, int playerSectionX, int playerSectionZ, int distance)
@@ -62,6 +62,7 @@ public interface ThreadedAnvilChunkStorageAccessor
 	}
 	//#endif
 
+	//#if MC < 12002
 	@Invoker
 	void invokeSendWatchPackets(
 			ServerPlayerEntity player, ChunkPos pos,
@@ -72,4 +73,5 @@ public interface ThreadedAnvilChunkStorageAccessor
 			//#endif
 			boolean withinMaxWatchDistance, boolean withinViewDistance
 	);
+	//#endif
 }

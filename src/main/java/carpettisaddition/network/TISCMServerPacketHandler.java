@@ -59,12 +59,10 @@ public class TISCMServerPacketHandler
 	/**
 	 * Invoked on network thread
 	 */
-	public void dispatch(ServerPlayNetworkHandler networkHandler, PacketByteBuf packetByteBuf)
+	public void dispatch(ServerPlayNetworkHandler networkHandler, TISCMCustomPayload tiscmCustomPayload)
 	{
-		String packetId = packetByteBuf.readString(Short.MAX_VALUE);
-		CompoundTag payload = packetByteBuf.readCompoundTag();
-		HandlerContext.C2S ctx = new HandlerContext.C2S(networkHandler, payload);
-		ctx.runSynced(() -> TISCMProtocol.C2S.fromId(packetId).
+		HandlerContext.C2S ctx = new HandlerContext.C2S(networkHandler, tiscmCustomPayload.getNbt());
+		ctx.runSynced(() -> TISCMProtocol.C2S.fromId(tiscmCustomPayload.getPacketId()).
 				map(this.handlers::get).
 				ifPresent( handler -> handler.accept(ctx)));
 	}

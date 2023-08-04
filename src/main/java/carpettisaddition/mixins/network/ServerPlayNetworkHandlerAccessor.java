@@ -21,11 +21,22 @@
 package carpettisaddition.mixins.network;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(ServerPlayNetworkHandler.class)
+//#if MC >= 12002
+//$$ import net.minecraft.server.network.ServerCommonNetworkHandler;
+//#else
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+//#endif
+
+@Mixin(
+		//#if MC >= 12002
+		//$$ ServerCommonNetworkHandler.class
+		//#else
+		ServerPlayNetworkHandler.class
+		//#endif
+)
 public interface ServerPlayNetworkHandlerAccessor
 {
 	@Accessor

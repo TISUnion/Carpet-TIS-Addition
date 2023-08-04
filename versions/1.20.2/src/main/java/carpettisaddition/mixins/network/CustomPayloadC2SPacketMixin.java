@@ -20,22 +20,30 @@
 
 package carpettisaddition.mixins.network;
 
-import carpettisaddition.utils.ModIds;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
+import carpettisaddition.network.TISCMCustomPayload;
+import com.google.common.collect.ImmutableMap;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20.2-alpha.0"))
+import java.util.Map;
+
 @Mixin(CustomPayloadC2SPacket.class)
-public interface CustomPayloadC2SPacketAccessor
+public abstract class CustomPayloadC2SPacketMixin
 {
-	@Accessor
-	Identifier getChannel();
+	@Mutable @Shadow @Final
+	private static Map<Identifier, PacketByteBuf.PacketReader<? extends CustomPayload>> ID_TO_READER;
 
-	@Accessor
-	PacketByteBuf getData();
+	static
+	{
+		ID_TO_READER = ImmutableMap.<Identifier, PacketByteBuf.PacketReader<? extends CustomPayload>>builder().
+				putAll(ID_TO_READER).
+				put(TISCMCustomPayload.ID, TISCMCustomPayload::new).
+				build();
+	}
 }

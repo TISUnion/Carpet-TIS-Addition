@@ -35,7 +35,11 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// mods
-	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+	if (project.carpet_core_version.startsWith('com.github.gnembon:fabric-carpet:')) {
+		modImplementation project.carpet_core_version  // jitpack
+	} else {
+		modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
+	}
 	modCompileOnly "${project.lithium_dependency}"
 
 	// runtime mods
