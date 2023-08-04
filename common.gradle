@@ -36,7 +36,7 @@ dependencies {
 
 	// mods
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-	modCompileOnly "${project.lithium_dependency}"
+	modImplementation "${project.lithium_dependency}"
 
 	// runtime mods
 	if (mcVersion < 11904) {

@@ -637,6 +637,11 @@ public class Messenger
 		}
 	}
 
+	public static void broadcast(String text)
+	{
+		broadcast(s(text));
+	}
+
 
 	/*
 	 * ----------

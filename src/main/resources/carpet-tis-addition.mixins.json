@@ -306,6 +306,7 @@
     "rule.largeBarrel.compat.fabricapi.ItemStorageMixin",
     "rule.largeBarrel.compat.fabricapi.ItemStorageMixin_Old",
     "rule.largeBarrel.compat.lithium.BarrelBlockMixin",
+    "rule.largeBarrel.compat.lithium.HopperBlockEntityMixin",
     "rule.largeBarrel.compat.lithium.HopperHelperMixin",
     "rule.largeBarrel.compat.malilib.BlockEntityTypeMixin",
     "rule.largeBarrel.compat.malilib.InventoryUtilsMixin",
