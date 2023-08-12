@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(ChunkDataSender.class)
 public interface ChunkDataSenderAccessor
 {
-	@Invoker("method_52388")
+	@Invoker("sendChunkData")
 	static void invokeSendChunkPacket(ServerPlayNetworkHandler serverPlayNetworkHandler, ServerWorld serverWorld, WorldChunk worldChunk)
 	{
 	}

@@ -1,1 +1,4 @@
+net.minecraft.util.MetricsData net.minecraft.util.profiler.PerformanceLog
+net.minecraft.util.MetricsData pushSample() net.minecraft.util.profiler.PerformanceLog push()
+
 carpettisaddition.utils.compat.CustomPayload net.minecraft.network.packet.CustomPayload

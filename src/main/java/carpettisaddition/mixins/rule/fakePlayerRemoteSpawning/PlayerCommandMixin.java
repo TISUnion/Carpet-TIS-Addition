@@ -52,7 +52,9 @@ public abstract class PlayerCommandMixin
 			method = "spawn",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12000
+					//#if MC >= 12002
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/registry/RegistryKey;Lnet/minecraft/world/GameMode;ZLjava/lang/Runnable;)V"
+					//#elseif MC >= 12000
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/registry/RegistryKey;Lnet/minecraft/world/GameMode;Z)Lcarpet/patches/EntityPlayerMPFake;"
 					//#elseif MC >= 11600
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;DDDDDLnet/minecraft/util/registry/RegistryKey;Lnet/minecraft/world/GameMode;Z)Lcarpet/patches/EntityPlayerMPFake;"

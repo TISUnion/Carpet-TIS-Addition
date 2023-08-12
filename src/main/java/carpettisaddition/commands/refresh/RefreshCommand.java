@@ -255,10 +255,6 @@ public class RefreshCommand extends AbstractCommand
 				//#else
 				}
 				//#endif
-
-				//#if MC >= 12002
-				//$$ , true
-				//#endif
 		);
 		return counter.getValue();
 	}
