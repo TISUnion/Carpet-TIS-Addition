@@ -40,7 +40,11 @@ public class TISCMCustomPayload implements CustomPayload
 
 	public TISCMCustomPayload(PacketByteBuf buf)
 	{
-		this(buf.readString(), buf.readCompoundTag());
+		this(buf.readString(
+				//#if MC < 11700
+				Short.MAX_VALUE
+				//#endifs
+		), buf.readCompoundTag());
 	}
 
 	@Override
