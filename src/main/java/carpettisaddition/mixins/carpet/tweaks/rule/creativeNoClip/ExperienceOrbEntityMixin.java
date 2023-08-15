@@ -51,7 +51,7 @@ public abstract class ExperienceOrbEntityMixin
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
-			CreativeNoClipHelper.ignoreNoClipPlayersFlag.set(true);
+			CreativeNoClipHelper.exceptSpectatorPredicateIgnoreNoClipPlayers.set(true);
 		}
 	}
 
@@ -71,7 +71,7 @@ public abstract class ExperienceOrbEntityMixin
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
-			CreativeNoClipHelper.ignoreNoClipPlayersFlag.set(false);
+			CreativeNoClipHelper.exceptSpectatorPredicateIgnoreNoClipPlayers.set(false);
 		}
 	}
 }

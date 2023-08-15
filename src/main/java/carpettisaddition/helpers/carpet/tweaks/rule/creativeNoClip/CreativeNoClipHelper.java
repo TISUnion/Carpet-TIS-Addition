@@ -31,7 +31,7 @@ import net.minecraft.entity.Entity;
 
 public class CreativeNoClipHelper
 {
-	public static final ThreadLocal<Boolean> ignoreNoClipPlayersFlag = ThreadLocal.withInitial(() -> false);
+	public static final ThreadLocal<Boolean> exceptSpectatorPredicateIgnoreNoClipPlayers = ThreadLocal.withInitial(() -> false);
 
 	public static boolean isNoClipPlayer(Entity entity)
 	{

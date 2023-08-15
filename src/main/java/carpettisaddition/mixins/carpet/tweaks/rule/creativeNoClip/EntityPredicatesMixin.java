@@ -27,13 +27,12 @@ import carpet.CarpetSettings;
 //#endif
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.entity.Entity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPredicates.class)
 public abstract class EntityPredicatesMixin
@@ -42,21 +41,26 @@ public abstract class EntityPredicatesMixin
 	 * The lambda method with the declaration of {@link EntityPredicates#EXCEPT_SPECTATOR}
 	 */
 	@Dynamic
-	@Inject(
+	@ModifyReturnValue(
 			//#if MC >= 11700
 			//$$ method = "method_24517",
 			//#else
 			method = "method_5907",
 			//#endif
 			at = @At("TAIL"),
-			remap = false,
-			cancellable = true
+			remap = false
 	)
-	private static void creativeNoClipEnhancement(Entity entity, CallbackInfoReturnable<Boolean> cir)
+	private static boolean creativeNoClipEnhancement(boolean ret, Entity entity)
 	{
-		if (CarpetSettings.creativeNoClip && CreativeNoClipHelper.ignoreNoClipPlayersFlag.get())
+		if (CarpetSettings.creativeNoClip && CreativeNoClipHelper.exceptSpectatorPredicateIgnoreNoClipPlayers.get())
 		{
-			cir.setReturnValue(cir.getReturnValue() && !CreativeNoClipHelper.isNoClipPlayer(entity));
+			// return true: attempt to collide with this entity
+			// return false: skip this entity
+			if (CreativeNoClipHelper.isNoClipPlayer(entity))
+			{
+				ret = false;
+			}
 		}
+		return ret;
 	}
 }
