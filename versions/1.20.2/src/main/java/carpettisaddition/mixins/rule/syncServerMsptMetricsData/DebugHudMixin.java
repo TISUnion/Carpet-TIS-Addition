@@ -21,32 +21,46 @@
 package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.class_8759;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.DebugHud;
+import net.minecraft.client.gui.hud.debug.TickChart;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(DebugHud.class)
 public abstract class DebugHudMixin
 {
-	@Shadow @Final
-	private TextRenderer textRenderer;
+	@Shadow @Final private TextRenderer textRenderer;
+	@Shadow @Final private MinecraftClient client;
 
-	@ModifyReturnValue(method = "method_53467", at = @At(value = "RETURN", ordinal = 1))
-	private class_8759 syncServerMsptMetricsData_drawIfPossible(class_8759 ret)
+	@Inject(
+			method = "method_51746",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/MinecraftClient;getServer()Lnet/minecraft/server/integrated/IntegratedServer;"
+			),
+			locals = LocalCapture.CAPTURE_FAILHARD
+	)
+	private void syncServerMsptMetricsData_drawIfPossible(DrawContext drawContext, CallbackInfo ci, int windowWidth, int centerX)
 	{
-		if (ret == null)
+		if (this.client.getServer() == null)
 		{
 			if (ServerMsptMetricsDataSyncer.getInstance().isServerSupportOk())
 			{
 				var data = ServerMsptMetricsDataSyncer.getInstance().getMetricsData();
-				ret = new class_8759(this.textRenderer, data);
+				var chart = new TickChart(this.textRenderer, data);
+
+				// vanilla copy
+				int width = chart.getWidth(centerX);
+				chart.render(drawContext, windowWidth - width, width);
 			}
 		}
-		return ret;
 	}
 }

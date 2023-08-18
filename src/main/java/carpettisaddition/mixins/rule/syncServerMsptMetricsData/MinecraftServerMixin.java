@@ -37,7 +37,11 @@ public abstract class MinecraftServerMixin
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12002
+					//$$ target = "Lnet/minecraft/server/MinecraftServer;method_53620(J)V"
+					//#else
 					target = "Lnet/minecraft/util/MetricsData;pushSample(J)V"
+					//#endif
 			)
 	)
 	private long sendServerTpsMetricsData_getMsThisTick(long msThisTick)
