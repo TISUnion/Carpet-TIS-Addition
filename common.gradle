@@ -16,6 +16,9 @@ repositories {
 		url 'https://masa.dy.fi/maven'
 	}
 	maven {
+		url 'https://maven.fallenbreath.me/releases'
+	}
+	maven {
 		url 'https://jitpack.io'
 	}
 	maven {
@@ -48,7 +51,7 @@ dependencies {
 	}
 
 	// library mods
-	include(modImplementation("com.github.Fallen-Breath:conditional-mixin:${project.conditionalmixin_version}"))
+	include(modImplementation("me.fallenbreath:conditional-mixin:${project.conditionalmixin_version}"))
 	include(annotationProcessor(implementation("com.github.LlamaLad7:MixinExtras:${project.mixinextras_version}")))
 
 	// libraries
