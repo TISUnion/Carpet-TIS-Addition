@@ -40,16 +40,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build with Gradle
+      - name: Build with gradle
         run: |
           chmod +x gradlew
           if [ -z "${{ inputs.target_subproject }}" ]; then
               echo "Building all subprojects"
-              ./gradlew build --no-daemon
+              ./gradlew build
           else
               args=$(echo "${{ inputs.target_subproject }}" | tr ',' '\n' | sed 's/$/:build/' | paste -sd ' ')
-              echo "Building $args"
-              ./gradlew $args --no-daemon
+              echo "Building with arguments=$args"
+              ./gradlew $args
           fi
         env:
           BUILD_ID: ${{ github.run_number }}
@@ -63,10 +63,25 @@ jobs:
           echo eula=true > ./run/eula.txt
           ./gradlew runMixinAudit
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
           path: versions/*/build/libs/
+
+      - name: Publish with gradle
+        run: |
+          if [ -z "${{ inputs.target_subproject }}" ]; then
+              echo "Publishing all subprojects"
+              ./gradlew publish
+          else
+              args=$(echo "${{ inputs.target_subproject }}" | tr ',' '\n' | sed 's/$/:publish/' | paste -sd ' ')
+              echo "Publishing with arguments=$args"
+              ./gradlew $args
+          fi
+        env:
+          BUILD_RELEASE: ${{ inputs.release }}
+          FALLENS_MAVEN_TOKEN: ${{ secrets.FALLENS_MAVEN_TOKEN }}
 
   summary:
     runs-on: ubuntu-22.04
