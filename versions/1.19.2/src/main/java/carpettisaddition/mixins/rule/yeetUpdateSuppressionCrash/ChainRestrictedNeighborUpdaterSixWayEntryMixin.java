@@ -31,6 +31,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+// used in 1.19 <= mc < 1.20.2
 @Mixin(targets = "net.minecraft.world.block.ChainRestrictedNeighborUpdater$SixWayEntry")
 public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
 {
