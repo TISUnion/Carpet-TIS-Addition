@@ -179,6 +179,7 @@ jobs:
           dependencies: |-  # declare the dependencies explicitly, so mc-publish won't try to load from fabric.mod.json
             carpet(required)
 
+          github-changelog: ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}
           modrinth-changelog: ${{ steps.changelog.outputs.result }}
           curseforge-changelog: ${{ steps.changelog.outputs.result }}
 
