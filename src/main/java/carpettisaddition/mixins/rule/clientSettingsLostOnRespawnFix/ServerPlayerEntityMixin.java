@@ -21,7 +21,6 @@
 package carpettisaddition.mixins.rule.clientSettingsLostOnRespawnFix;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,20 +29,48 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12002
+//$$ import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
+//#else
+import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
+//#endif
+
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin
 {
-	@Shadow public abstract void setClientSettings(ClientSettingsC2SPacket clientSettingsC2SPacket);
+	@Shadow public abstract void
+			//#if MC >= 12002
+			//$$ setClientOptions(SyncedClientOptions settings);
+			//#else
+			setClientSettings(ClientSettingsC2SPacket settings);
+			//#endif
 
 	@Nullable
-	private ClientSettingsC2SPacket lastClientSettingsC2SPacket = null;
+	//#if MC >= 12002
+	//$$ private SyncedClientOptions lastClientSettings$TISCM = null;
+	//#else
+	private ClientSettingsC2SPacket lastClientSettings$TISCM = null;
+	//#endif
 
-	@Inject(method = "setClientSettings", at = @At("TAIL"))
-	private void storeClientSettingsC2SPacket(ClientSettingsC2SPacket clientSettingsC2SPacket, CallbackInfo ci)
+	@Inject(
+			//#if MC >= 12002
+			//$$ method = "setClientOptions",
+			//#else
+			method = "setClientSettings",
+			//#endif
+			at = @At("TAIL")
+	)
+	private void storeClientSettingsC2SPacket(
+			//#if MC >= 12002
+			//$$ SyncedClientOptions settings,
+			//#else
+			ClientSettingsC2SPacket settings,
+			//#endif
+			CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.clientSettingsLostOnRespawnFix)
 		{
-			this.lastClientSettingsC2SPacket = clientSettingsC2SPacket;
+			this.lastClientSettings$TISCM = settings;
 		}
 	}
 
@@ -52,10 +79,19 @@ public abstract class ServerPlayerEntityMixin
 	{
 		if (CarpetTISAdditionSettings.clientSettingsLostOnRespawnFix)
 		{
-			ClientSettingsC2SPacket packet = ((ServerPlayerEntityMixin)(Object)oldPlayer).lastClientSettingsC2SPacket;
-			if (packet != null)
+			//#if MC >= 12002
+			//$$ var
+			//#else
+			ClientSettingsC2SPacket
+			//#endif
+					settings = ((ServerPlayerEntityMixin)(Object)oldPlayer).lastClientSettings$TISCM;
+			if (settings != null)
 			{
-				this.setClientSettings(packet);
+				//#if MC >= 12002
+				//$$ this.setClientOptions(settings);
+				//#else
+				this.setClientSettings(settings);
+				//#endif
 			}
 		}
 	}

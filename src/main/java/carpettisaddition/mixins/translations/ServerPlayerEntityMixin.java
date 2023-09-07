@@ -22,7 +22,6 @@ package carpettisaddition.mixins.translations;
 
 import carpettisaddition.translations.ServerPlayerEntityWithClientLanguage;
 import carpettisaddition.translations.TISAdditionTranslations;
-import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.Text;
@@ -32,16 +31,37 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12002
+//$$ import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
+//#else
+import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
+//#endif
+
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithClientLanguage
 {
 	private String clientLanguage$TISCM = "en_US";
 
-	@Inject(method = "setClientSettings", at = @At("HEAD"))
-	private void recordClientLanguage(ClientSettingsC2SPacket packet, CallbackInfo ci)
+	@Inject(
+			//#if MC >= 12002
+			//$$ method = "setClientOptions",
+			//#else
+			method = "setClientSettings",
+			//#endif
+			at = @At("HEAD")
+	)
+	private void recordClientLanguage(
+			//#if MC >= 12002
+			//$$ SyncedClientOptions settings,
+			//#else
+			ClientSettingsC2SPacket packet,
+			//#endif
+			CallbackInfo ci)
 	{
 		this.clientLanguage$TISCM =
-				//#if MC >= 11800
+				//#if MC >= 12002
+				//$$ settings.language();
+				//#elseif MC >= 11800
 				//$$ packet.language();
 				//#else
 				((ClientSettingsC2SPacketAccessor)packet).getLanguage$TISCM();
