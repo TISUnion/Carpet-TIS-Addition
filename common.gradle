@@ -19,7 +19,7 @@ repositories {
 		url 'https://maven.fallenbreath.me/releases'
 	}
 	maven {
-		url 'https://jitpack.io'
+		url "https://maven.fallenbreath.me/mcdev-aio"
 	}
 	maven {
 		url 'https://www.cursemaven.com'
