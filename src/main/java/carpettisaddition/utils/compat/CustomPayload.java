@@ -24,7 +24,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
 /**
- * Backported from mc1.12.2, for easier networking coding
+ * Backported from mc1.20.2, for easier networking coding
  */
 public interface CustomPayload
 {
