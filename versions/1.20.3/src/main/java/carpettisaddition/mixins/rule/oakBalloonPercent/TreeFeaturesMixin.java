@@ -25,47 +25,31 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.sapling.OakSaplingGenerator;
+import net.minecraft.class_8813;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-//#if MC >= 11900
-//$$ import net.minecraft.util.math.random.Random;
-//#else
-import java.util.Random;
-//#endif
-
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.20.2"))
-@Mixin(OakSaplingGenerator.class)
-public abstract class OakSaplingGeneratorMixin
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">1.20.2"))
+@Mixin(class_8813.class)
+public abstract class TreeFeaturesMixin
 {
 	@ModifyExpressionValue(
-			//#if MC >= 11700
-			//$$ method = "getTreeFeature",
-			//#else
-			method = "createTreeFeature",
-			//#endif
+			method = "method_54087",
 			at = @At(
-					value = "INVOKE",
-					//#if MC >= 11900
-					//$$ target = "Lnet/minecraft/util/math/random/Random;nextInt(I)I"
-					//#else
-					target = "Ljava/util/Random;nextInt(I)I"
-					//#endif
+					value = "FIELD",
+					target = "Lnet/minecraft/class_8813;field_46522:F"
 			)
 	)
-	private int oakBalloonPercent_modifyRandomResult(
-			int randomResult, Random random
-			//#if MC >= 11500
-			, boolean bee
-			//#endif
-	)
+	private float oakBalloonPercent_modifyChance(float chance)
 	{
 		if (CarpetTISAdditionSettings.oakBalloonPercent > 0)
 		{
-			boolean balloon = random.nextInt(100) < CarpetTISAdditionSettings.oakBalloonPercent;
-			randomResult = balloon ? 0 : 1;
+			class_8813 self = (class_8813)(Object)this;
+			if (self == class_8813.OAK)
+			{
+				chance = CarpetTISAdditionSettings.oakBalloonPercent / 100.0f;
+			}
 		}
-		return randomResult;
+		return chance;
 	}
 }

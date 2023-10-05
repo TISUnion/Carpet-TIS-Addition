@@ -27,7 +27,6 @@ import carpettisaddition.utils.Messenger;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 
 /**

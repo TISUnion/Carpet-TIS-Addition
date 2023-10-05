@@ -156,15 +156,39 @@ public abstract class EmitBlockUpdateMixins
 	public static abstract class TripwireHookBlockMixin
 	{
 		@Inject(method = "updateNeighborsOnAxis", at = @At("HEAD"))
-		private void startEmitBlockUpdate(World world, BlockPos pos, Direction direction, CallbackInfo ci)
+		private
+		//#if MC >= 12003
+		//$$ static
+		//#endif
+		void startEmitBlockUpdate(
+				//#if MC >= 12003
+				//$$ Block block,
+				//#endif
+				World world, BlockPos pos, Direction direction, CallbackInfo ci
+		)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (TripwireHookBlock)(Object)this, pos, EventType.ACTION_START, "updateNeighborsOnAxis");
+			//#if MC < 12003
+			Block block = (TripwireHookBlock)(Object)this;
+			//#endif
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, block, pos, EventType.ACTION_START, "updateNeighborsOnAxis");
 		}
 
 		@Inject(method = "updateNeighborsOnAxis", at = @At("RETURN"))
-		private void endEmitBlockUpdate(World world, BlockPos pos, Direction direction, CallbackInfo ci)
+		private
+		//#if MC >= 12003
+		//$$ static
+		//#endif
+		void endEmitBlockUpdate(
+				//#if MC >= 12003
+				//$$ Block block,
+				//#endif
+				World world, BlockPos pos, Direction direction, CallbackInfo ci
+		)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (TripwireHookBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighborsOnAxis");
+			//#if MC < 12003
+			Block block = (TripwireHookBlock)(Object)this;
+			//#endif
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, block, pos, EventType.ACTION_END, "updateNeighborsOnAxis");
 		}
 	}
 
