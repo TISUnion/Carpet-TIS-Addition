@@ -78,12 +78,12 @@ loom {
 	}
 
 	runs {
-		mixinAudit {
+		serverMixinAudit {
 			server()
 			vmArgs '-Dcarpettisaddition.mixin_audit=true'
 			ideConfigGenerated false
 		}
-		mixinAuditClient {
+		clientMixinAudit {
 			client()
 			vmArgs '-Dcarpettisaddition.mixin_audit=true'
 			ideConfigGenerated false
