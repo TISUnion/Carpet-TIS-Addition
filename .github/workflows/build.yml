@@ -70,6 +70,7 @@ jobs:
           path: versions/*/build/libs/
 
       - name: Publish with gradle
+        if: inputs.release || github.ref == 'refs/heads/dev'
         run: |
           if [ -z "${{ inputs.target_subproject }}" ]; then
               echo "Publishing all subprojects"

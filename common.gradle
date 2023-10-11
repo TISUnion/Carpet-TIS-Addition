@@ -1,7 +1,6 @@
 apply plugin: 'maven-publish'
 apply plugin: 'com.github.hierynomus.license'
 apply plugin: 'fabric-loom'
-apply plugin: 'io.github.juuxel.loom-quiltflower'
 apply plugin: 'com.replaymod.preprocess'
 apply plugin: 'me.fallenbreath.yamlang'
 
@@ -22,7 +21,7 @@ repositories {
 		url 'https://jitpack.io'
 	}
 	maven {
-		url 'https://www.cursemaven.com'
+        url 'https://www.cursemaven.com'
 	}
 }
 
@@ -58,10 +57,21 @@ dependencies {
 	testImplementation "junit:junit:${project.junit_version}"
 }
 
+String MIXIN_CONFIG_PATH = 'carpet-tis-addition.mixins.json'
+String LANG_DIR = 'assets/carpettisaddition/lang'
+JavaVersion JAVA_COMPATIBILITY
+if (mcVersion >= 11800) {
+	JAVA_COMPATIBILITY = JavaVersion.VERSION_17
+} else if (mcVersion >= 11700) {
+	JAVA_COMPATIBILITY = JavaVersion.VERSION_16
+} else {
+	JAVA_COMPATIBILITY = JavaVersion.VERSION_1_8
+}
+
 loom {
 	accessWidenerPath = file("carpet-tis-addition.accesswidener")
 
-	runConfigs.all {
+	runConfigs.configureEach {
 		runDir '../../run'
 		vmArgs '-Dmixin.debug.export=true'
 		ideConfigGenerated true
@@ -85,17 +95,6 @@ remapJar {
 	remapperIsolation = true
 }
 
-if (mcVersion >= 11800) {
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
-} else if (mcVersion >= 11700) {
-	sourceCompatibility = JavaVersion.VERSION_16
-	targetCompatibility = JavaVersion.VERSION_16
-} else {
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
-}
-
 String versionSuffix = ''
 // detect github action environment variables
 // https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
@@ -107,7 +106,7 @@ String fullModVersion = project.mod_version + versionSuffix
 
 version = 'v' + fullModVersion
 group = project.maven_group
-archivesBaseName = project.archives_base_name + '-mc' + project.minecraft_version
+base.archivesName = project.archives_base_name + '-mc' + project.minecraft_version
 
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
 // if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
@@ -130,12 +129,16 @@ processResources {
 		]
 		expand valueMap
 	}
+
+	filesMatching(MIXIN_CONFIG_PATH) {
+		expand "compatibility_level": "JAVA_${JAVA_COMPATIBILITY.ordinal() + 1}"
+	}
 }
 
 // https://github.com/Fallen-Breath/yamlang
 yamlang {
 	targetSourceSets = [sourceSets.main]
-	inputDir = "assets/carpettisaddition/lang"
+    inputDir = LANG_DIR
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
@@ -147,6 +150,9 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
+	sourceCompatibility = JAVA_COMPATIBILITY
+	targetCompatibility = JAVA_COMPATIBILITY
+
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
 	// If you remove this line, sources will not be generated.
@@ -198,7 +204,7 @@ testClasses.dependsOn licenseFormatTest
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			artifactId archivesBaseName
+			artifactId base.archivesName.get()
 
 			from components.java
 		}
