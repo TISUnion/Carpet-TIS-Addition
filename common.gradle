@@ -131,7 +131,7 @@ processResources {
 	}
 
 	filesMatching(MIXIN_CONFIG_PATH) {
-		expand "compatibility_level": "JAVA_${JAVA_COMPATIBILITY.ordinal() + 1}"
+		filter { s -> s.replace('{{COMPATIBILITY_LEVEL}}', "JAVA_${JAVA_COMPATIBILITY.ordinal() + 1}") }
 	}
 }
 
