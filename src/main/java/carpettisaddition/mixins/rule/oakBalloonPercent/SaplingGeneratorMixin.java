@@ -28,6 +28,6 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">1.20.2"))
 @Mixin(DummyClass.class)
-public abstract class TreeFeaturesMixin
+public abstract class SaplingGeneratorMixin
 {
 }

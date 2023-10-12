@@ -320,7 +320,7 @@
     "rule.minecartTakePassengerMinVelocity.AbstractMinecartEntityMixin",
     "rule.mobcapsDisplayIgnoreMisc.SpawnReporterMixin",
     "rule.oakBalloonPercent.OakSaplingGeneratorMixin",
-    "rule.oakBalloonPercent.TreeFeaturesMixin",
+    "rule.oakBalloonPercent.SaplingGeneratorMixin",
     "rule.observerNoDetection.ObserverBlockMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",
