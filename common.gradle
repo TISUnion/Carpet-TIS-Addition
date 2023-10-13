@@ -104,9 +104,15 @@ if (System.getenv("BUILD_RELEASE") != "true") {
 }
 String fullModVersion = project.mod_version + versionSuffix
 
-version = 'v' + fullModVersion
 group = project.maven_group
-base.archivesName = project.archives_base_name + '-mc' + project.minecraft_version
+if (System.getenv("JITPACK") == "true") {
+	// move mc version into archivesBaseName, so jitpack will be able to organize archives from multiple subprojects correctly
+    base.archivesName = project.archives_base_name + '-mc' + project.minecraft_version
+	version = 'v' + fullModVersion
+} else {
+    base.archivesName = project.archives_base_name
+	version = 'mc' + project.minecraft_version + '-v' + fullModVersion
+}
 
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
 // if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
