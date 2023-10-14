@@ -27,17 +27,15 @@ package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 import carpet.helpers.Tracer;
 import carpet.fakes.ServerPlayerEntityInterface;
 //#endif
-import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPack;
-import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackAction;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.hit.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(targets = "carpet.helpers.EntityPlayerActionPack$ActionType$1")
-public class EntityPlayerActionPackActionTypeUseMixin
+@Mixin(targets = "carpet.helpers.EntityPlayerActionPack$ActionType$2")
+public class EntityPlayerActionPackActionTypeAttackMixin
 {
 	@Redirect(
 		method = "execute",
@@ -53,11 +51,11 @@ public class EntityPlayerActionPackActionTypeUseMixin
 	{
 		double reach = player.interactionManager.isCreative() ? 5 : 4.5f;
 		float tickPart = ((IEntityPlayerActionPack)(Object)((
-			//#if MC > 11903
-			//$$ ServerPlayerInterface
-			//#else
-			ServerPlayerEntityInterface
-			//#endif
+				//#if MC > 11903
+				//$$ ServerPlayerInterface
+				//#else
+				ServerPlayerEntityInterface
+				//#endif
 			)(Object)player).getActionPack()).getTickPart();
 		return Tracer.rayTrace(player, tickPart, reach, false);
 	}

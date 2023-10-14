@@ -21,11 +21,13 @@
 package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
 import carpet.helpers.EntityPlayerActionPack;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPack;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackAction;
-import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackActionTypeUse;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.IServerPlayerEntity;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -72,11 +74,20 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 	///////////////////////////////// perTick /////////////////////////////////
 
 	private Integer perTick = null;
+	private Vec3d posLastTick = null;
+	private Vec2f rotLastTick = null;
 
 	@Override
 	public void setPerTickMultiplier(int perTick)
 	{
 		this.perTick = perTick;
+	}
+
+	@Override
+	public void savePosAndRot(ServerPlayerEntity player)
+	{
+		posLastTick = player.getPos();
+		rotLastTick = player.getRotationClient();
 	}
 
 	@Inject(
@@ -93,23 +104,23 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 		if (this.perTick != null)
 		{
 			ServerPlayerEntity player = ((EntityPlayerActionPackAccessor)actionPack).getPlayer();
-			IServerPlayerEntity iplayer = (IServerPlayerEntity)(Object)player;
-			EntityPlayerActionPackActionTypeAccessor typeAccessor = ((EntityPlayerActionPackActionTypeAccessor)(Object)type);
+			EntityPlayerActionPackActionTypeAccessor typeAccessor = (EntityPlayerActionPackActionTypeAccessor)(Object)type;
 			EntityPlayerActionPack.Action self = (EntityPlayerActionPack.Action)(Object)this;
-			IEntityPlayerActionPackActionTypeUse actionTypeUSE = (IEntityPlayerActionPackActionTypeUse)(Object)EntityPlayerActionPack.ActionType.USE;
 
-			iplayer.swapOldPosRot(true);
+			((IServerPlayerEntity)(Object)player).pushOldPosRot(posLastTick, rotLastTick);
 
 			for (int i = 0; i < this.perTick - 1; i++)
 			{
-				actionTypeUSE.setTickPart((i + 1) / (float)perTick);
+				((IEntityPlayerActionPack)(Object)actionPack).setTickPart((i + 1) / (float)perTick);
 				typeAccessor.invokeExecute(player, self);
 				typeAccessor.invokeInactiveTick(player, self);
 			}
 
-			actionTypeUSE.setTickPart(1.0f);
-			iplayer.swapOldPosRot(false);
-			iplayer.pushOldPosRot();
+			((IEntityPlayerActionPack)(Object)actionPack).setTickPart(1.0f);
+			((IServerPlayerEntity)(Object)player).popOldPosRot();
+			savePosAndRot(player);
+			posLastTick = player.getPos();
+			rotLastTick = player.getRotationClient();
 		}
 	}
 }

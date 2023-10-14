@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
 import carpet.helpers.EntityPlayerActionPack;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackAction;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.IServerPlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,6 +35,6 @@ public class EntityPlayerActionPackActionTypeMixin
 	@Inject(method = "start", at = @At("HEAD"), remap = false)
 	private void onStart(ServerPlayerEntity player, EntityPlayerActionPack.Action action, CallbackInfo info)
 	{
-		((IServerPlayerEntity)(Object)player).pushOldPosRot();
+		((IEntityPlayerActionPackAction)(Object)action).savePosAndRot(player);
 	}
 }

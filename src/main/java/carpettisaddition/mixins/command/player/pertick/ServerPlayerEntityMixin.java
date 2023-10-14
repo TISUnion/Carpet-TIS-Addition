@@ -29,31 +29,23 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin implements IServerPlayerEntity
 {
-	private Vec3d posLastTick;
-	private Vec2f rotLastTick;
-
-	public void pushOldPosRot()
+	public void pushOldPosRot(Vec3d pos, Vec2f rot)
 	{
 		ServerPlayerEntity self = (ServerPlayerEntity)(Object)this;
-		posLastTick = self.getPos();
-		rotLastTick = self.getRotationClient();
+		self.prevX = pos.x;
+		self.prevY = pos.y;
+		self.prevZ = pos.z;
+		self.prevPitch = rot.x;
+		self.prevYaw = rot.y;
 	}
 
-	public void swapOldPosRot(boolean lastTickValues)
+	public void popOldPosRot()
 	{
 		ServerPlayerEntity self = (ServerPlayerEntity)(Object)this;
-		if (lastTickValues) {
-			self.prevX = posLastTick.x;
-			self.prevY = posLastTick.y;
-			self.prevZ = posLastTick.z;
-			self.prevPitch = rotLastTick.x;
-			self.prevYaw = rotLastTick.y;
-		} else {
-			self.prevX = self.getPos().x;
-			self.prevY = self.getPos().y;
-			self.prevZ = self.getPos().z;
-			self.prevPitch = self.getPitch(1.0f);
-			self.prevYaw = self.getYaw(1.0f);
-		}
+		self.prevX = self.getPos().x;
+		self.prevY = self.getPos().y;
+		self.prevZ = self.getPos().z;
+		self.prevPitch = self.getPitch(1.0f);
+		self.prevYaw = self.getYaw(1.0f);
 	}
 }

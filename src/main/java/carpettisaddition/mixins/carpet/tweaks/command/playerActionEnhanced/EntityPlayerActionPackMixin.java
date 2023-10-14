@@ -18,14 +18,24 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.playerActionEnhanced;
+package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
+import carpet.helpers.EntityPlayerActionPack;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPack;
+import org.spongepowered.asm.mixin.Mixin;
 
-public interface IServerPlayerEntity
+@Mixin(EntityPlayerActionPack.class)
+public class EntityPlayerActionPackMixin implements IEntityPlayerActionPack
 {
-	void pushOldPosRot(Vec3d pos, Vec2f rot);
+	private float tickPart = 1.0f;
 
-	void popOldPosRot();
+	public void setTickPart(float tp)
+	{
+		tickPart = tp;
+	}
+
+	public float getTickPart()
+	{
+		return tickPart;
+	}
 }

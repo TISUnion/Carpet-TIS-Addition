@@ -20,7 +20,8 @@
 
 package carpettisaddition.helpers.carpet.playerActionEnhanced;
 
-public interface IEntityPlayerActionPackActionTypeUse
+public interface IEntityPlayerActionPack
 {
-	void setTickPart(float f);
+	void setTickPart(float tp);
+	float getTickPart();
 }
