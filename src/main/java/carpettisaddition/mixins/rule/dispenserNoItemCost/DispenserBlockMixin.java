@@ -21,20 +21,23 @@
 package carpettisaddition.mixins.rule.dispenserNoItemCost;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.entity.DispenserBlockEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ItemDispenserBehavior.class)
-public abstract class ItemDispenserBehaviorMixin
+@Mixin(DispenserBlock.class)
+public abstract class DispenserBlockMixin
 {
 	@ModifyArg(
 			method = "dispense",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/dispenser/ItemDispenserBehavior;dispenseSilently(Lnet/minecraft/util/math/BlockPointer;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"
+					target = "Lnet/minecraft/block/dispenser/DispenserBehavior;dispense(Lnet/minecraft/util/math/BlockPointer;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"
 			)
 	)
 	private ItemStack dispenserNoItemCost_useACopySoItCostNothing(ItemStack stack)
@@ -44,5 +47,23 @@ public abstract class ItemDispenserBehaviorMixin
 			stack = stack.copy();
 		}
 		return stack;
+	}
+
+	@WrapOperation(
+			method = "dispense",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/block/entity/DispenserBlockEntity;setInvStack(ILnet/minecraft/item/ItemStack;)V"
+			)
+	)
+	private void dispenserNoItemCost_dontSetBackTheConsumedStack(DispenserBlockEntity blockEntity, int slot, ItemStack stack, Operation<Void> original)
+	{
+		if (CarpetTISAdditionSettings.dispenserNoItemCost)
+		{
+			return;
+		}
+
+		// vanilla call
+		original.call(blockEntity, slot, stack);
 	}
 }
