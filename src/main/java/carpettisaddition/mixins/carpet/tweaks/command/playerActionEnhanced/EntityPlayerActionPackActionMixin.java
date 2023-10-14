@@ -22,6 +22,8 @@ package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
 import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackAction;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackActionTypeUse;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.IServerPlayerEntity;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Final;
@@ -90,15 +92,24 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 	{
 		if (this.perTick != null)
 		{
+			ServerPlayerEntity player = ((EntityPlayerActionPackAccessor)actionPack).getPlayer();
+			IServerPlayerEntity iplayer = (IServerPlayerEntity)(Object)player;
+			EntityPlayerActionPackActionTypeAccessor typeAccessor = ((EntityPlayerActionPackActionTypeAccessor)(Object)type);
+			EntityPlayerActionPack.Action self = (EntityPlayerActionPack.Action)(Object)this;
+			IEntityPlayerActionPackActionTypeUse actionTypeUSE = (IEntityPlayerActionPackActionTypeUse)(Object)EntityPlayerActionPack.ActionType.USE;
+
+			iplayer.swapOldPosRot(true);
+
 			for (int i = 0; i < this.perTick - 1; i++)
 			{
-				EntityPlayerActionPackActionTypeAccessor typeAccessor = ((EntityPlayerActionPackActionTypeAccessor)(Object)type);
-				ServerPlayerEntity player = ((EntityPlayerActionPackAccessor)actionPack).getPlayer();
-				EntityPlayerActionPack.Action self = (EntityPlayerActionPack.Action)(Object)this;
-
+				actionTypeUSE.setTickPart((i + 1) / (float)perTick);
 				typeAccessor.invokeExecute(player, self);
 				typeAccessor.invokeInactiveTick(player, self);
 			}
+
+			actionTypeUSE.setTickPart(1.0f);
+			iplayer.swapOldPosRot(false);
+			iplayer.pushOldPosRot();
 		}
 	}
 }
