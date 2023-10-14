@@ -241,7 +241,11 @@
 
 ## 移除实体 (removeentity)
 
-`/removeentity <target>`: 将选中实体直接从世界中移除。对玩家无效
+`/removeentity <target>`: 将选中实体直接从世界中移除
+
+注意，对于储存型载具实体，它们不会掉落所包含的物品
+
+该指令对玩家无效
 
 
 ## 供给计数器 (scounter)

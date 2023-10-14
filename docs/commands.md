@@ -241,7 +241,11 @@ Multiple chunk refreshing creates lags on server's network thread due to packet 
 
 ## removeentity
 
-`/removeentity <target>`: Removed target entities from the world directly. Does not affect players
+`/removeentity <target>`: Removed target entities from the world directly and cleanly
+
+Notes that for storage vehicle entities, they won't drop the containing items
+
+This command does not affect players at all
 
 
 ## scounter

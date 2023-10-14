@@ -73,13 +73,17 @@ public class RemoveEntityCommand extends AbstractCommand
 		List<? extends Entity> nonPlayerEntities = entities.stream().
 				filter(entity -> !(entity instanceof PlayerEntity)).
 				collect(Collectors.toList());
-		nonPlayerEntities.forEach(
-				//#if MC >= 11700
-				//$$ Entity::discard
-				//#else
-				Entity::remove
-				//#endif
-		);
+		nonPlayerEntities.forEach(entity -> {
+			if (entity instanceof EntityToBeCleanlyRemoved)
+			{
+				((EntityToBeCleanlyRemoved)entity).setToBeCleanlyRemoved$TISCM();
+			}
+			//#if MC >= 11700
+			//$$ entity.discard();
+			//#else
+			entity.remove();
+			//#endif
+		});
 		Messenger.tell(source, tr("success", nonPlayerEntities.size()), true);
 		return nonPlayerEntities.size();
 	}

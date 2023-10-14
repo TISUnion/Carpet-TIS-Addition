@@ -155,6 +155,8 @@
     "command.raid.RaidMixin",
     "command.refresh.ChunkDataSenderAccessor",
     "command.refresh.ThreadedAnvilChunkStorageAccessor",
+    "command.removeentity.ChestBoatEntityMixin",
+    "command.removeentity.StorageMinecartEntityMixin",
     "command.stop.StopCommandMixin",
     "command.tick.warp.TickCommandMixin",
     "helpers.mixin.IWorldMixin",
