@@ -47,6 +47,7 @@ import carpettisaddition.logging.loggers.scounter.SupplierCounterHUDLogger;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
+import carpettisaddition.logging.loggers.wanderingTrader.WanderingTraderLogger;
 import com.google.common.collect.Lists;
 
 import java.lang.reflect.Field;
@@ -77,6 +78,7 @@ public class TISAdditionLoggerRegistry
 	public static boolean __ticket;
 	public static boolean __tickWarp;
 	public static boolean __turtleEgg;
+	public static boolean __wanderingTrader;
 	public static boolean __xporb;
 
 	public static void registerLoggers()
@@ -98,6 +100,7 @@ public class TISAdditionLoggerRegistry
 		register(TicketLogger.getInstance());
 		register(TickWarpHUDLogger.getInstance());
 		register(TurtleEggLogger.getInstance());
+		register(WanderingTraderLogger.getInstance());
 		register(XPOrbLogger.getInstance());
 
 		onRegisteredCallbacks.forEach(Runnable::run);

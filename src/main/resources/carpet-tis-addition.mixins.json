@@ -245,6 +245,7 @@
     "logger.tickwarp.TickSpeedMixin",
     "logger.turtleegg.StepAndDestroyBlockGoalMixin",
     "logger.turtleegg.TurtleEggBlockMixin",
+    "logger.wanderingTrader.WanderingTraderManagerMixin",
     "logger.xporb.ExperienceOrbEntityAccessor",
     "logger.xporb.ExperienceOrbEntityMixin",
     "misc.devqol.mctester.McTesterConfigMixin",

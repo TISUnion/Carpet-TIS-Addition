@@ -129,6 +129,7 @@
 - [加载票](loggers_cn.md#加载票-ticket)
 - [tickWarp](loggers_cn.md#tickwarp)
 - [海龟蛋](loggers_cn.md#海龟蛋-turtleegg)
+- [流浪商人](loggers_cn.md#流浪商人-wanderingtrader)
 - [经验球](loggers_cn.md#经验球-xporb)
 
 ## [指令](commands_cn.md)

@@ -260,6 +260,14 @@
 - 参考选项: N/A
 
 
+## 流浪商人 (wanderingTrader)
+
+`/log wanderingTrader`
+
+在玩家召唤出了（事实上基于随机玩家的特殊刷怪）流浪商人时，输出记录信息
+
+
+
 ## 经验球 (xporb)
 
 `/log xporb <events>`

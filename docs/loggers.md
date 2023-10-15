@@ -260,6 +260,13 @@ Attributes:
 - Suggested options: N/A
 
 
+## wanderingTrader
+
+`/log wanderingTrader`
+
+Logs when someone summon (actually, special natural spawning based on randomly chosen player) a wandering trader
+
+
 ## xporb
 
 `/log xporb <events>`

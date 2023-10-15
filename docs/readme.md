@@ -128,6 +128,7 @@
 - [ticket](loggers.md#ticket)
 - [tickWarp](loggers.md#tickwarp)
 - [turtleEgg](loggers.md#turtleegg)
+- [wanderingTrader](loggers.md#wanderingtrader)
 - [xporb](loggers.md#xporb)
 
 ## [Commands](commands.md)

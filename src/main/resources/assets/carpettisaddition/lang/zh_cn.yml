@@ -267,6 +267,9 @@ carpettisaddition:
       elapsed_time: 已流逝时间
       estimated_time: 剩余时间
       show_history_header: 上一次tick warp的结果 (%1$smin前)
+    wanderingTrader:
+      header_hover: 流浪商人记录器
+      summon: '%1$s召唤了%2$s，位置：%3$s'
     xporb:
       xp_amount: 经验值
 
