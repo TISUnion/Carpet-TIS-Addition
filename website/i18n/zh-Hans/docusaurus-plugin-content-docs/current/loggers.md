@@ -1,6 +1,6 @@
-[English](loggers.md) | **中文**
-
-\>\>\> [返回索引](readme_cn.md)
+---
+sidebar_position: 2
+---
 
 # 记录器
 
@@ -80,7 +80,7 @@
 
 一个 HUD 记录器
 
-显示玩家所处在的维度中指定实体类型当前于 [存活时间追踪器](commands_cn.md#存活时间-lifetime) 中的数据
+显示玩家所处在的维度中指定实体类型当前于 [存活时间追踪器](commands.md#存活时间-lifetime) 中的数据
 
 记录器选项需要为一个合法的实体类型
 
@@ -101,7 +101,7 @@
 - 光照更新任务平均每游戏刻执行速度。用符号 `O` 表示
 - 光照更新任务平均每游戏刻积累速度
 
-计算平均值的采样时长可通过规则 [lightQueueLoggerSamplingDuration](rules_cn.md#光照队列记录器采样时长-lightqueueloggersamplingduration) 指定，默认值为 60gt
+计算平均值的采样时长可通过规则 [lightQueueLoggerSamplingDuration](rules.md#光照队列记录器采样时长-lightqueueloggersamplingduration) 指定，默认值为 60gt
 
 类似 `/log mobcaps`， 你可以通过记录器选项来指定你想要记录光照队列的世界。
 
@@ -129,7 +129,7 @@
 
 记录元件的微时序，元件所在区块的加载票等级需至少为弱加载 (加载票等级 32)
 
-见规则 [微时序](rules_cn.md#微时序-microtiming) 以获得详细信息，记得使用 `/carpet microTiming true` 启用记录器功能
+见规则 [微时序](rules.md#微时序-microtiming) 以获得详细信息，记得使用 `/carpet microTiming true` 启用记录器功能
 
 可用的类型选项:
 - `all`: 默认值，输出所有事件
@@ -162,7 +162,7 @@
 
 `/log movement <目标>`
 
-开关：规则 [移动记录器](rules_cn.md#移动记录器-loggermovement)
+开关：规则 [移动记录器](rules.md#移动记录器-loggermovement)
 
 记录实体的移动尝试，以及计算最终移动矢量的具体流程
 
@@ -210,7 +210,7 @@
 
 这是一个 HUD 记录器
 
-类似 carpet 的漏斗计数器对应的 `counter` 记录器，该记录器用于展示使用规则 [hopperNoItemCost](rules_cn.md#漏斗不消耗物品-hoppernoitemcost) 创建的漏斗无限物品供给器所输出的物品数量
+类似 carpet 的漏斗计数器对应的 `counter` 记录器，该记录器用于展示使用规则 [hopperNoItemCost](rules.md#漏斗不消耗物品-hoppernoitemcost) 创建的漏斗无限物品供给器所输出的物品数量
 
 属性:
 - 默认选项: N/A
@@ -242,7 +242,7 @@
 
 它仅在服务器正在 tick warp 时显示出来
 
-见指令 [/tick warp status](commands_cn.md#warp-status) 以查询更多 tick warp 的信息
+见指令 [/tick warp status](commands.md#warp-status) 以查询更多 tick warp 的信息
 
 属性:
 - 默认选项: `bar`

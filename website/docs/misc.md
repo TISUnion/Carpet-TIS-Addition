@@ -1,6 +1,8 @@
-**English** | [中文](misc_cn.md)
+---
+sidebar_position: 4
+---
 
-\>\>\> [Back to index](readme.md)
+# Miscellaneous
 
 # Scarpet
 
@@ -80,7 +82,7 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
 - Show tile tick events & block events in `/info block` command
 - Add chunk loading state check for `/info block` command. Player with permission level < 2 cannot query block in unloaded chunk
 
-## Misc
+## Others
 
 - Set the maximum length of fake player's markerName to 16 to prevent kicking out other players (Works before fabric-carpet v1.4.38, fabric-carpet v1.4.38 implemented the same check)
 - Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`

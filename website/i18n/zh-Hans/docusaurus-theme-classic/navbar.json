@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "Carpet TIS Addition",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Carpet TIS Addition Icon",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Documents": {
+    "message": "文档",
+    "description": "Navbar item with label Documents"
+  }
+}

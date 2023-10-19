@@ -1,7 +1,3 @@
-[English](development.md) | **中文**
-
-\>\>\> [返回索引](readme_cn.md)
-
 # 开发
 
 当前主开发 MC 版本：**1.15.2** (与 `versions/mainProject` 相同)

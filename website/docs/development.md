@@ -1,7 +1,3 @@
-**English** | [中文](development_cn.md)
-
-\>\>\> [Back to index](readme.md)
-
 # Development
 
 Current main development mc version: **1.15.2** (The same as `versions/mainProject`)

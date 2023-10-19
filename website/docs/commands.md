@@ -1,6 +1,6 @@
-**English** | [中文](commands_cn.md)
-
-\>\>\> [Back to index](readme.md)
+---
+sidebar_position: 3
+---
 
 # Commands
 

@@ -1,0 +1,46 @@
+{
+  "link.title.Download": {
+    "message": "下载",
+    "description": "The title of the footer links column with title=Download in the footer"
+  },
+  "link.title.Contact": {
+    "message": "联系",
+    "description": "The title of the footer links column with title=Contact in the footer"
+  },
+  "link.title.Related Projects": {
+    "message": "相关项目",
+    "description": "The title of the footer links column with title=Related Projects in the footer"
+  },
+  "link.item.label.GitHub Releases": {
+    "message": "GitHub Releases",
+    "description": "The label of footer link with label=GitHub Releases linking to https://github.com/TISUnion/Carpet-TIS-Addition/releases"
+  },
+  "link.item.label.CurseForge": {
+    "message": "CurseForge",
+    "description": "The label of footer link with label=CurseForge linking to https://legacy.curseforge.com/minecraft/mc-mods/carpet-tis-addition/files"
+  },
+  "link.item.label.Modrinth": {
+    "message": "Modrinth",
+    "description": "The label of footer link with label=Modrinth linking to https://modrinth.com/mod/carpet-tis-addition/versions"
+  },
+  "link.item.label.GitHub Repository": {
+    "message": "GitHub Repository",
+    "description": "The label of footer link with label=GitHub Repository linking to https://github.com/TISUnion/Carpet-TIS-Addition"
+  },
+  "link.item.label.Carpet Mod Discord": {
+    "message": "Carpet Mod Discord",
+    "description": "The label of footer link with label=Carpet Mod Discord linking to https://discord.gg/gn99m4QRY4"
+  },
+  "link.item.label.TIS Carpet for 1.13.2": {
+    "message": "TIS Carpet for 1.13.2",
+    "description": "The label of footer link with label=TIS Carpet for 1.13.2 linking to https://github.com/TISUnion/TISCarpet113"
+  },
+  "link.item.label.Fabric Carpet": {
+    "message": "Fabric Carpet",
+    "description": "The label of footer link with label=Fabric Carpet linking to https://github.com/gnembon/fabric-carpet"
+  },
+  "copyright": {
+    "message": "Copyright © 2023 Carpet TIS Addition. Built with Docusaurus.",
+    "description": "The footer copyright"
+  }
+}

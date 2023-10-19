@@ -1,6 +1,6 @@
-**English** | [中文](rules_cn.md)
-
-\>\>\> [Back to index](readme.md)
+---
+sidebar_position: 1
+---
 
 # Rules
 

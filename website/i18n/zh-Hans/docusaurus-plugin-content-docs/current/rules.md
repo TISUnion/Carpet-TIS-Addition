@@ -1,6 +1,6 @@
-[English](rules.md) | **中文**
-
-\>\>\> [返回索引](readme_cn.md)
+---
+sidebar_position: 1
+---
 
 # 规则
 
@@ -485,7 +485,7 @@
 
 本规则让更新抑制在 1.19+ 中再次可行
 
-它还可以让[微时序记录器](loggers_cn.md#微时序-microTiming)的记录结果更加清晰具有逻辑，如 1.19 以前的版本一样的清晰
+它还可以让[微时序记录器](loggers.md#微时序-microTiming)的记录结果更加清晰具有逻辑，如 1.19 以前的版本一样的清晰
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -603,7 +603,7 @@
 
 ## 微时序 (microTiming)
 
-启用[微时序记录器](loggers_cn.md#微时序-microTiming)的功能
+启用[微时序记录器](loggers.md#微时序-microTiming)的功能
 
 使用染料物品来标记并输出红石元件的动作、方块更新与堆栈跟踪
 

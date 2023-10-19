@@ -1,6 +1,6 @@
-[English](commands.md) | **中文**
-
-\>\>\> [返回索引](readme_cn.md)
+---
+sidebar_position: 3
+---
 
 # 指令
 
@@ -31,7 +31,7 @@
 
 给指令添加 `realtime` 后缀可将速率结果从基于游戏时间转换为基于现实时间
 
-如果你需要切换对不占用怪物容量的生物的策略，可以去看看规则 [lifeTimeTrackerConsidersMobcap](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap)
+如果你需要切换对不占用怪物容量的生物的策略，可以去看看规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap)
 
 ### tracking
 
@@ -40,7 +40,7 @@
 控制存活时间追踪器
 
 追踪的实体类型：
-- 所有种类的生物 (MobEntity)。生物需占用刷怪上限才可被追踪（可将规则 [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 设置为 false 以跳过这个刷怪上限占用检查）
+- 所有种类的生物 (MobEntity)。生物需占用刷怪上限才可被追踪（可将规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 设置为 false 以跳过这个刷怪上限占用检查）
 - 掉落物实体
 - 经验球实体
 
@@ -60,8 +60,8 @@
 - 被方块投出
 - 生物掉落（仅掉落物及经验球）
 - 生物扔出（仅掉落物）
-- 离开载具（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
-- 末影人放下方块（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
+- 离开载具（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
+- 末影人放下方块（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
 - 生物转换
 - 因传送门跨维度到来
 
@@ -70,9 +70,9 @@
 追踪的实体移除原因
 - 消失，包括立即消失、随机消失、因游戏难度的消失以及超时消失
 - 受伤致死
-- 获取持久（persistent）标签。需要规则 [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
-- 骑上载具（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
-- 末影人捡起方块（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules_cn.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
+- 获取持久（persistent）标签。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
+- 骑上载具（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
+- 末影人捡起方块（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
 - 实体合并（仅掉落物及经验球）
 - 被漏斗或漏斗矿车收集（仅掉落物）
 - 进入虚空
@@ -250,7 +250,7 @@
 
 ## 供给计数器 (scounter)
 
-类似 carpet 的漏斗计数器对应的 `/counter` 指令，该指令用于统计使用规则 [hopperNoItemCost](rules_cn.md#漏斗不消耗物品-hoppernoitemcost) 创建的漏斗无限物品供给器所输出的物品数量
+类似 carpet 的漏斗计数器对应的 `/counter` 指令，该指令用于统计使用规则 [hopperNoItemCost](rules.md#漏斗不消耗物品-hoppernoitemcost) 创建的漏斗无限物品供给器所输出的物品数量
 
 `/scounter`: 查看所有供给计数器的统计数据
 
@@ -265,7 +265,7 @@
 
 即时阻塞当前线程给定持续时间，可用于制造卡顿
 
-你可以将本条指令与命令方块以及规则 [瞬时命令方块](rules_cn.md#瞬时命令方块-instantcommandblock) 配合使用，以在任意你想要的时间点制造卡顿
+你可以将本条指令与命令方块以及规则 [瞬时命令方块](rules.md#瞬时命令方块-instantcommandblock) 配合使用，以在任意你想要的时间点制造卡顿
 
 `/sleep`: 显示帮助信息
 
@@ -290,7 +290,7 @@
 
 若未指定玩家，则它将显示指令源的局部怪物容量
 
-另见: [mobcapslocal记录器](loggers_cn.md#局部怪物容量-mobcapslocal)
+另见: [mobcapslocal记录器](loggers.md#局部怪物容量-mobcapslocal)
 
 
 ## tick
@@ -301,4 +301,4 @@
 
 显示当前 tick warp 的状态信息，如启动者、估计剩余时间等
 
-见 [tickWarp 记录器](loggers_cn.md#tickwarp) 以了解更方便地查询信息的方法
+见 [tickWarp 记录器](loggers.md#tickwarp) 以了解更方便地查询信息的方法

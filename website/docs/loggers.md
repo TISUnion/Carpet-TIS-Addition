@@ -1,6 +1,6 @@
-**English** | [中文](loggers_cn.md)
-
-\>\>\> [Back to index](readme.md)
+---
+sidebar_position: 2
+---
 
 # Loggers
 
