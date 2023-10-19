@@ -45,11 +45,11 @@ If you are using GitHub pages for hosting, this command is a convenient way to b
 Generate translation files:
 
 ```bash
-npm run write-translations -- --locale zh-Hans
+npm run write-translations-zh-Hans
 ```
 
 Start dev server for zh-Hans
 
 ```bash
-npm run start -- --locale zh-Hans
+npm run start-zh-Hans
 ```
