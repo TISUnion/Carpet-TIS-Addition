@@ -526,7 +526,7 @@ carpettisaddition:
         doc_summary: "A tracker to track lifetime and spawn / removal reasons from all newly spawned and removed entities"
         complete_doc_hint: "Complete doc %1$s"
         here: here
-        doc_link: https://github.com/TISUnion/Carpet-TIS-Addition/blob/master/docs/commands.md#lifetime
+        doc_link: https://tisunion.github.io/Carpet-TIS-Addition/docs/commands#lifetime
       filter:
         global: Global
         unsupported:
