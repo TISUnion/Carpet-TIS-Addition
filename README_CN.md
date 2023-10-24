@@ -16,6 +16,8 @@
 
 ## 文档
 
+见文档网页：https://tisunion.github.io/Carpet-TIS-Addition/zh-Hans/docs/intro
+
 见 `docs/` 文件夹
 
 - [索引](docs/readme_cn.md)

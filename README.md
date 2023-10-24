@@ -16,14 +16,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 
 ## Document
 
-See the `docs/` folder
-
-- [Index](docs/readme.md)
-- [Rules](docs/rules.md)
-- [Loggers](docs/loggers.md)
-- [Commands](docs/commands.md)
-- [Misc](docs/misc.md)
-- [Development](docs/development.md)
+See the document website: https://tisunion.github.io/Carpet-TIS-Addition/docs/intro
 
 ## Contact
 
