@@ -1,0 +1,31 @@
+.brandsContainer {
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.brandsContainer div {
+  margin: 1.5em 0;
+}
+
+.downloadSvg {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
+
+.brandContainer {
+  display: flex;
+  border-radius: 10px;
+  width: 240px;
+  margin: 10px auto;
+}
+
+.brandContainer:hover {
+  text-decoration: none;
+}
+
+.brandContainer p {
+  color: white;
+  font-size: 1.2rem;
+  margin: auto 0 auto 1rem;
+}
