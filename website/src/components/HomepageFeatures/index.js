@@ -6,6 +6,7 @@ import Translate, {translate} from '@docusaurus/Translate';
 const FeatureList = [
   {
     title: translate({id: 'homepage.feature.rich.message', message: 'Rich Features & Tools'}),
+    Svg: require('@site/static/img/toolbox.svg').default,
     description: (
       <>
         <Translate id="homepage.feature.rich.description">
@@ -18,6 +19,7 @@ const FeatureList = [
   },
   {
     title: translate({id: 'homepage.feature.vanilla.message', message: 'Keep the game vanilla'}),
+    Svg: require('@site/static/img/vanilla.svg').default,
     description: (
       <>
         <Translate id="homepage.feature.vanilla.description">
@@ -29,6 +31,7 @@ const FeatureList = [
   },
   {
     title: translate({id: 'homepage.feature.versions.message', message: 'Extensive Version Support'}),
+    Svg: require('@site/static/img/checkmark.svg').default,
     description: (
       <>
         <Translate id="homepage.feature.versions.description">
@@ -43,6 +46,9 @@ const FeatureList = [
 function Feature({Svg, title, description}) {
   return (
     <div className={clsx('col col--4')}>
+      <div className="text--center">
+        <Svg className={styles.featureSvg} role="img" />
+      </div>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
