@@ -66,6 +66,10 @@ const config = {
         },
         items: [
           {
+            type: 'search',
+            position: 'right',
+          },
+          {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
@@ -81,10 +85,6 @@ const config = {
             'aria-label': 'GitHub repository',
             position: 'right',
           },
-          // {
-          //   type: 'search',
-          //   position: 'right',
-          // },
         ],
       },
       footer: {
@@ -139,6 +139,13 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      // https://docusaurus.io/docs/search#using-algolia-docsearch
+      algolia: {
+        appId: 'U1J6M8YHJ6',
+        apiKey: 'd3602f9d3f867570f410fb63a08b46c5',
+        indexName: 'carpet-tis-addition',
+        contextualSearch: true,
       },
     }),
 };
