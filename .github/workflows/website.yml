@@ -7,6 +7,8 @@ on:
       # TODO: set to master when dev done
 #      - master
       - website
+    paths:
+      - "website/**"
 
 permissions:
   contents: write
