@@ -16,7 +16,7 @@ Use with carpet mod in the same Minecraft version. Use newer carpet mod versions
 
 ## Document
 
-See the document website: https://tisunion.github.io/Carpet-TIS-Addition/docs/intro
+See the document website: https://tisunion.github.io/Carpet-TIS-Addition/docs
 
 ## Contact
 
