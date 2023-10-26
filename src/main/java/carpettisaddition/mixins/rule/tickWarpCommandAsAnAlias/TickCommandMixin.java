@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.tickCommandEnhance;
+package carpettisaddition.mixins.rule.tickWarpCommandAsAnAlias;
 
 import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;

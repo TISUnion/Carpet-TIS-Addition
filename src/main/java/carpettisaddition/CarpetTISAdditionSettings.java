@@ -578,6 +578,9 @@ public class CarpetTISAdditionSettings
 	//#if MC >= 12003
 	@Rule(categories = {TIS, CARPET_MOD, COMMAND})
 	public static boolean tickCommandEnhance = false;
+
+	@Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	public static boolean tickWarpCommandAsAnAlias = false;
 	//#endif
 
 	@Rule(

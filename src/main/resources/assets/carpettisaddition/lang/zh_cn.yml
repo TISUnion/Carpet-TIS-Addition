@@ -1015,6 +1015,9 @@ carpettisaddition:
         desc: Enable the enhancements for the /tick command from carpet mod before mc1.20.3
         extra:
           '1': '- Enable the "/tick sprint status" command (previously it was "/tick warp status")'
+      tickWarpCommandAsAnAlias:
+        name: tickWarp指令重现
+        desc: 带回"/tick warp"子命令。现在它将时原版"/tick sprint"指令的一个别名
       tileTickLimit:
         name: 计划刻上限
         desc: 修改每游戏刻中计划刻事件的执行次数上限

@@ -18,23 +18,24 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.tickCommandEnhance;
+package carpettisaddition.mixins.rule.tickWarpCommandAsAnAlias;
 
-import carpettisaddition.commands.CommandTreeContext;
-import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
+import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
+
+import static net.minecraft.server.command.CommandManager.literal;
 
 @Mixin(net.minecraft.class_8916.class)
 public abstract class TickCommandMixin
 {
-	/**
-	 * Hook at the `literal("sprint")` object
-	 */
+	private static LiteralArgumentBuilder<ServerCommandSource> sprintNode$TISCM = null;
+
 	@ModifyExpressionValue(
 			method = "method_54687",
 			slice = @Slice(
@@ -49,9 +50,32 @@ public abstract class TickCommandMixin
 					ordinal = 0
 			)
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> registerTickSprintInfo(LiteralArgumentBuilder<ServerCommandSource> sprintNode)
+	private static LiteralArgumentBuilder<ServerCommandSource> storeTheSprintNode(LiteralArgumentBuilder<ServerCommandSource> sprintNode)
 	{
-		TickWarpHUDLogger.getInstance().extendCommand(CommandTreeContext.ofNonContext(sprintNode));
+		sprintNode$TISCM = sprintNode;
 		return sprintNode;
+	}
+
+	@ModifyArg(
+			method = "method_54687",
+			at = @At(
+					value = "INVOKE",
+					target = "Lcom/mojang/brigadier/CommandDispatcher;register(Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;)Lcom/mojang/brigadier/tree/LiteralCommandNode;",
+					remap = false
+			)
+	)
+	private static LiteralArgumentBuilder<ServerCommandSource> registerTickSprintInfo(LiteralArgumentBuilder<ServerCommandSource> rootNode)
+	{
+		addTickWarpAlias(rootNode);
+		return rootNode;
+	}
+
+	private static void addTickWarpAlias(LiteralArgumentBuilder<ServerCommandSource> rootNode)
+	{
+		rootNode.then(
+				literal("warp").
+				requires(s -> CarpetTISAdditionSettings.tickWarpCommandAsAnAlias).
+				redirect(sprintNode$TISCM.build())
+		);
 	}
 }
