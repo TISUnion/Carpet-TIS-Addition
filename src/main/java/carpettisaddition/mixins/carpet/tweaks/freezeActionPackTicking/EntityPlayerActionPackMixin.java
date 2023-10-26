@@ -30,7 +30,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 12000
+//#if MC < 12003
 //$$ import carpet.fakes.LevelInterface;
+//#endif
 //$$ import carpettisaddition.CarpetTISAdditionServer;
 //#else
 import carpet.helpers.TickSpeed;
@@ -45,7 +47,9 @@ public abstract class EntityPlayerActionPackMixin
 	private void stopUpdatingWhenTickFrozen(CallbackInfo ci)
 	{
 		if (!
-				//#if MC >= 12000
+				//#if MC >= 12003
+				//$$ this.player.getServerWorld().method_54719().method_54751()
+				//#elseif MC >= 12000
 				//$$ ((LevelInterface)this.player.getServerWorld()).tickRateManager().runsNormally()
 				//#else
 				TickSpeed.process_entities

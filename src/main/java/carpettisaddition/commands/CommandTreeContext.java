@@ -81,6 +81,23 @@ public abstract class CommandTreeContext
 		);
 	}
 
+	/**
+	 * For mc1.19+
+	 * Warning: {@link #commandBuildContext} will be null
+	 * <p>
+	 * TODO: make an interface with getCommandBuildContext() method.
+	 * then make this method returns a impl that getCommandBuildContext() throws
+	 */
+	public static Node ofNonContext(ArgumentBuilder<ServerCommandSource, ?> node)
+	{
+		return of(
+				node
+				//#if MC >= 11900
+				//$$ , null
+				//#endif
+		);
+	}
+
 	/*
 	 * ---------------------
 	 *      Convertors

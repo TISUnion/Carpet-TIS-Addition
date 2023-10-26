@@ -20,8 +20,12 @@
 
 package carpettisaddition.logging.loggers.tickwarp;
 
+import net.minecraft.server.command.ServerCommandSource;
+import org.jetbrains.annotations.Nullable;
+
+//#if MC < 12003
 import carpet.helpers.TickSpeed;
-import net.minecraft.server.network.ServerPlayerEntity;
+//#endif
 
 public class MemorizedTickWarpInfo implements TickWarpInfo
 {
@@ -29,9 +33,9 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 	private long totalTicks;
 	private long timeRemaining;
 	private long startTime;
-	private ServerPlayerEntity timeAdvancer;
 	private boolean recordedSomething = false;
 	private long lastRecordingTime;
+	private ServerCommandSource lastTimeAdvancer;
 
 	public MemorizedTickWarpInfo(TickWarpInfo delegate)
 	{
@@ -42,9 +46,10 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 	 * Should be called at the end of {@link TickSpeed#tickrate_advance}
 	 * Carpet mod might reset the advancer field before {@link TickSpeed#finish_time_warp} so we record it at the beginning
 	 */
-	public void recordTickWarpAdvancer()
+	@Override
+	public void setTimeAdvancer(@Nullable ServerCommandSource timeAdvancer)
 	{
-		this.timeAdvancer = this.delegate.getTimeAdvancer();
+		this.delegate.setTimeAdvancer(timeAdvancer);
 	}
 
 	/**
@@ -58,6 +63,7 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 			this.totalTicks = this.delegate.getTotalTicks();
 			this.timeRemaining = this.delegate.getRemainingTicks();
 			this.startTime = this.delegate.getStartTime();
+			this.lastTimeAdvancer = this.delegate.getTimeAdvancer();
 			this.recordedSomething = true;
 			this.lastRecordingTime = System.nanoTime();
 		}
@@ -88,9 +94,10 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 	}
 
 	@Override
-	public ServerPlayerEntity getTimeAdvancer()
+	@Nullable
+	public ServerCommandSource getTimeAdvancer()
 	{
-		return this.timeAdvancer;
+		return this.lastTimeAdvancer;
 	}
 
 	@Override

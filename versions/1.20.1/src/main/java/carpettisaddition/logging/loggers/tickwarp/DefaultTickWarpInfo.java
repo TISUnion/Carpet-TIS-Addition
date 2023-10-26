@@ -20,23 +20,48 @@
 
 package carpettisaddition.logging.loggers.tickwarp;
 
-import carpet.fakes.MinecraftServerInterface;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.mixins.logger.tickwarp.ServerTickRateManagerAccessor;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.command.ServerCommandSource;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+
+//#if MC >= 12003
+//$$ import net.minecraft.server.MinecraftServer;
+//#else
+import carpet.fakes.MinecraftServerInterface;
+//#endif
 
 /**
  * The TickWarpInfo impl that extracts information from carpet mod (mc >= 1.20 version-specific impl)
  */
 public class DefaultTickWarpInfo implements TickWarpInfo
 {
+	private ServerCommandSource timeAdvancer;
+
+	@Override
+	@Nullable
+	public ServerCommandSource getTimeAdvancer()
+	{
+		return this.timeAdvancer;
+	}
+
+	@Override
+	public void setTimeAdvancer(@Nullable ServerCommandSource timeAdvancer)
+	{
+		this.timeAdvancer = timeAdvancer;
+	}
+
 	protected static Optional<ServerTickRateManagerAccessor> trm()
 	{
 		return Optional.ofNullable(CarpetTISAdditionServer.minecraft_server).
+				//#if MC >= 12003
+				//$$ map(MinecraftServer::method_54833).
+				//#else
 				filter(svr -> svr instanceof MinecraftServerInterface).
 				map(svr -> ((MinecraftServerInterface)svr).getTickRateManager()).
+				//#endif
 				filter(m -> m instanceof ServerTickRateManagerAccessor).
 				map(m -> (ServerTickRateManagerAccessor)m);
 	}
@@ -63,12 +88,6 @@ public class DefaultTickWarpInfo implements TickWarpInfo
 	public long getStartTime()
 	{
 		return trm().map(ServerTickRateManagerAccessor::getTickWarpStartTime).orElse(0L);
-	}
-
-	@Override
-	public ServerPlayerEntity getTimeAdvancer()
-	{
-		return trm().map(ServerTickRateManagerAccessor::getWarpResponsiblePlayer).orElse(null);
 	}
 
 	@Override

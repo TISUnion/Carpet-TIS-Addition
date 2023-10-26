@@ -41,10 +41,4 @@ public interface ServerTickRateManagerAccessor
 
 	@Accessor(remap = false)
 	ServerPlayerEntity getWarpResponsiblePlayer();
-
-	@Accessor(remap = false)
-	String getTickWarpCallback();
-
-	@Accessor(remap = false)
-	ServerCommandSource getWarpResponsibleSource();
 }

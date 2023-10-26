@@ -575,6 +575,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, TISCM_PROTOCOL})
 	public static boolean syncServerMsptMetricsData = false;
 
+	//#if MC >= 12003
+	@Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	public static boolean tickCommandEnhance = false;
+	//#endif
+
 	@Rule(
 			options = {"1024", "65536", "2147483647"},
 			validators = Validators.PositiveNumber.class,

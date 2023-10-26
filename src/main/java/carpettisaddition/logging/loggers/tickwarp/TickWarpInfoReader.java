@@ -20,57 +20,41 @@
 
 package carpettisaddition.logging.loggers.tickwarp;
 
-import carpet.helpers.TickSpeed;
-import net.minecraft.server.command.ServerCommandSource;
-import org.jetbrains.annotations.Nullable;
-
-/**
- * The TickWarpInfo impl that extracts information from carpet mod (mc < 1.20 version-specific impl)
- */
-public class DefaultTickWarpInfo implements TickWarpInfo
+public interface TickWarpInfoReader
 {
-	private ServerCommandSource timeAdvancer;
+	// ----------------------- basic information -----------------------
 
-	@Override
-	@Nullable
-	public ServerCommandSource getTimeAdvancer()
+	boolean isWarping();
+
+	long getTotalTicks();
+
+	long getRemainingTicks();
+
+	long getStartTime();
+
+	long getCurrentTime();
+
+	// ----------------------- utilities methods -----------------------
+
+	default long getCompletedTicks()
 	{
-		return this.timeAdvancer;
+		return this.getTotalTicks() - this.getRemainingTicks();
 	}
 
-	@Override
-	public void setTimeAdvancer(@Nullable ServerCommandSource timeAdvancer)
+	default double getAverageMSPT()
 	{
-		this.timeAdvancer = timeAdvancer;
+		double milliSeconds = Math.max(this.getCurrentTime() - this.getStartTime(), 1) / 1e6;
+		return milliSeconds / this.getCompletedTicks();
 	}
 
-	@Override
-	public boolean isWarping()
+	default double getAverageTPS()
 	{
-		return TickSpeed.time_bias > 0;
+		double secondPerTick = this.getAverageMSPT() / 1e3;
+		return 1.0 / secondPerTick;
 	}
 
-	@Override
-	public long getTotalTicks()
+	default double getProgressRate()
 	{
-		return TickSpeed.time_warp_scheduled_ticks;
-	}
-
-	@Override
-	public long getRemainingTicks()
-	{
-		return TickSpeed.time_bias;
-	}
-
-	@Override
-	public long getStartTime()
-	{
-		return TickSpeed.time_warp_start_time;
-	}
-
-	@Override
-	public long getCurrentTime()
-	{
-		return System.nanoTime();
+		return (double)this.getCompletedTicks() / Math.max(this.getTotalTicks(), 1);
 	}
 }

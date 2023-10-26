@@ -1010,6 +1010,11 @@ carpettisaddition:
         desc: Sync server's mspt metrics data to the client, so players can see that in the debug screen with F3 + ALT
         extra:
           '0': Carpet TIS Addition is required to be installed on the client
+      tickCommandEnhance:
+        name: tickCommandEnhance
+        desc: Enable the enhancements for the /tick command from carpet mod before mc1.20.3
+        extra:
+          '1': '- Enable the "/tick sprint status" command (previously it was "/tick warp status")'
       tileTickLimit:
         name: tileTickLimit
         desc: Modify the limit of executed tile tick events per game tick

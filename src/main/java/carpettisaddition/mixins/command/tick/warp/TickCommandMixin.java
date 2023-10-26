@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-//#if MC >= 11900
+//#if 11900 <= MC && MC < 12003
 //$$ import com.mojang.brigadier.CommandDispatcher;
 //$$ import net.minecraft.command.CommandRegistryAccess;
 //$$ import org.spongepowered.asm.mixin.injection.Inject;
@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
-	//#if MC >= 11900
+	//#if 11900 <= MC && MC < 12003
 	//$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
  //$$
 	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)

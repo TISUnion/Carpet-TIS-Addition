@@ -82,13 +82,20 @@ public abstract class DragonEggBlockMixin extends Block
 	{
 		if (CarpetTISAdditionSettings.renewableDragonEgg && random.nextInt(64) == 0)
 		{
+			Box box =
+					//#if MC >= 12003
+					//$$ Box.create
+					//#else
+					new Box
+					//#endif
+							(pos, pos.add(1, 1, 1));
 			List<AreaEffectCloudEntity> list =
 					//#if MC >= 11600
 					//$$ world.getEntitiesByClass
 					//#else
 					world.getEntities
 					//#endif
-							(AreaEffectCloudEntity.class, new Box(pos, pos.add(1, 1, 1)), (entity) -> {return entity != null && entity.isAlive();});
+							(AreaEffectCloudEntity.class, box, (entity) -> {return entity != null && entity.isAlive();});
 			List<AreaEffectCloudEntity> dragonBreath = Lists.newArrayList();
 			for (AreaEffectCloudEntity areaEffectCloudEntity : list)
 				if (areaEffectCloudEntity.getParticleType() == ParticleTypes.DRAGON_BREATH)
