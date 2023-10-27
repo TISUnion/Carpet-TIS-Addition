@@ -4,8 +4,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      # TODO: set to master when dev done
-#      - master
+      # TODO: reserve master only, after dev done
+      - master
+      - dev
       - website
     paths:
       - "website/**"
