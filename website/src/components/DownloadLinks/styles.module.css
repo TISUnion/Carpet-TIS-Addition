@@ -17,7 +17,7 @@
   display: flex;
   border-radius: 10px;
   width: 240px;
-  margin: 10px auto;
+  margin: 1rem auto;
 }
 
 .brandContainer:hover {

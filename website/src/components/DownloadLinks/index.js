@@ -26,7 +26,7 @@ const DownloadWebsites = [
 function DownloadLink({name, Svg, url, color}) {
   return (
     <>
-      <a href={url} className={styles.brandContainer} style={{background: color}}>
+      <a href={url} target="_blank" className={styles.brandContainer} style={{background: color}}>
         <Svg className={styles.downloadSvg}/>
         <p>{name}</p>
       </a>
