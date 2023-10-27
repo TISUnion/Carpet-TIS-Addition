@@ -360,6 +360,7 @@
     "rule.syncServerMsptMetricsData.MinecraftServerMixin",
     "rule.syncServerMsptMetricsData.TickChartAccessor",
     "rule.tickCommandEnhance.TickCommandMixin",
+    "rule.tickCommandPermission.TickCommandMixin",
     "rule.tickWarpCommandAsAnAlias.TickCommandMixin",
     "rule.tileTickLimit.ServerTickSchedulerMixin",
     "rule.tileTickLimit.ServerWorldMixin",

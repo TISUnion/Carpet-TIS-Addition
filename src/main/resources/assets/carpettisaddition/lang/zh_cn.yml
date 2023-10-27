@@ -1014,7 +1014,13 @@ carpettisaddition:
         name: tick指令增强
         desc: Enable the enhancements for the /tick command from carpet mod before mc1.20.3
         extra:
-          '1': '- Enable the "/tick sprint status" command (previously it was "/tick warp status")'
+          '0': '- Enable the "/tick sprint status" command (previously it was "/tick warp status")'
+      tickCommandPermission:
+        name: tick指令权限
+        desc: 覆盖原版"/tick"指令的权限等级需求
+        extra:
+          '0': 将其设为"2"或"ops"以还原carpet模组在mc1.20.3之前的默认表现
+          '1': 如果你想在例如命令方块中执行"/tick"命令，本规则将会很有用
       tickWarpCommandAsAnAlias:
         name: tickWarp指令重现
         desc: 带回"/tick warp"子命令。现在它将时原版"/tick sprint"指令的一个别名

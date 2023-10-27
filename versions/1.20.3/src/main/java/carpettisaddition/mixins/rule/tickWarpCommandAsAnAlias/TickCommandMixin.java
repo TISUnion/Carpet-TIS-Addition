@@ -25,6 +25,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -64,12 +65,13 @@ public abstract class TickCommandMixin
 					remap = false
 			)
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> registerTickSprintInfo(LiteralArgumentBuilder<ServerCommandSource> rootNode)
+	private static LiteralArgumentBuilder<ServerCommandSource> addTickWarpNode(LiteralArgumentBuilder<ServerCommandSource> rootNode)
 	{
 		addTickWarpAlias(rootNode);
 		return rootNode;
 	}
 
+	@Unique
 	private static void addTickWarpAlias(LiteralArgumentBuilder<ServerCommandSource> rootNode)
 	{
 		rootNode.then(

@@ -576,11 +576,15 @@ public class CarpetTISAdditionSettings
 	public static boolean syncServerMsptMetricsData = false;
 
 	//#if MC >= 12003
-	@Rule(categories = {TIS, CARPET_MOD, COMMAND})
-	public static boolean tickCommandEnhance = false;
-
-	@Rule(categories = {TIS, CARPET_MOD, COMMAND})
-	public static boolean tickWarpCommandAsAnAlias = false;
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	//$$ public static boolean tickCommandEnhance = false;
+	//$$
+	//$$ public static final String VANILLA_TICK_COMMAND_PERMISSION = "3";
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	//$$ public static String tickCommandPermission = VANILLA_TICK_COMMAND_PERMISSION;
+	//$$
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	//$$ public static boolean tickWarpCommandAsAnAlias = false;
 	//#endif
 
 	@Rule(
