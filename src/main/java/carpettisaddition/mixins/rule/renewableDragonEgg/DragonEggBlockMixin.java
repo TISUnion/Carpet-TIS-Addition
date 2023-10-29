@@ -84,7 +84,7 @@ public abstract class DragonEggBlockMixin extends Block
 		{
 			Box box =
 					//#if MC >= 12003
-					//$$ Box.create
+					//$$ Box.enclosing
 					//#else
 					new Box
 					//#endif

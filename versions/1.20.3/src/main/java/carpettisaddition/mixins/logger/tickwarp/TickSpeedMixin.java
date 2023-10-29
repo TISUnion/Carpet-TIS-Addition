@@ -21,21 +21,16 @@
 package carpettisaddition.mixins.logger.tickwarp;
 
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
-import net.minecraft.class_8916;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.command.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(class_8916.class)  // TickCommand.class
+@Mixin(TickCommand.class)
 public abstract class TickSpeedMixin
 {
-	@ModifyVariable(
-			method = "method_54692",
-			at = @At("TAIL"),
-			remap = false,
-			argsOnly = true
-	)
+	@ModifyVariable(method = "executeSprint", at = @At("TAIL"), argsOnly = true)
 	private static ServerCommandSource recordTickWarpAdvancer(ServerCommandSource source)
 	{
 		TickWarpHUDLogger.getInstance().recordTickWarpAdvancer(source);

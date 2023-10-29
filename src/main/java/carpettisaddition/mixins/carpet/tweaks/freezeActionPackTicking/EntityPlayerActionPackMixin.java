@@ -48,7 +48,7 @@ public abstract class EntityPlayerActionPackMixin
 	{
 		if (!
 				//#if MC >= 12003
-				//$$ this.player.getServerWorld().method_54719().method_54751()
+				//$$ this.player.getServerWorld().getTickManager().shouldTick()
 				//#elseif MC >= 12000
 				//$$ ((LevelInterface)this.player.getServerWorld()).tickRateManager().runsNormally()
 				//#else

@@ -21,9 +21,6 @@
 package carpettisaddition.mixins.logger.tickwarp;
 
 import carpet.helpers.ServerTickRateManager;
-import carpettisaddition.utils.compat.DummyClass;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -38,7 +35,4 @@ public interface ServerTickRateManagerAccessor
 
 	@Accessor(remap = false)
 	long getScheduledCurrentWarpTicks();
-
-	@Accessor(remap = false)
-	ServerPlayerEntity getWarpResponsiblePlayer();
 }

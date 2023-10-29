@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.command.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,13 +33,13 @@ import org.spongepowered.asm.mixin.injection.Slice;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-@Mixin(net.minecraft.class_8916.class)
+@Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
 	private static LiteralArgumentBuilder<ServerCommandSource> sprintNode$TISCM = null;
 
 	@ModifyExpressionValue(
-			method = "method_54687",
+			method = "register",
 			slice = @Slice(
 					from = @At(
 							value = "CONSTANT",
@@ -58,7 +59,7 @@ public abstract class TickCommandMixin
 	}
 
 	@ModifyArg(
-			method = "method_54687",
+			method = "register",
 			at = @At(
 					value = "INVOKE",
 					target = "Lcom/mojang/brigadier/CommandDispatcher;register(Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;)Lcom/mojang/brigadier/tree/LiteralCommandNode;",

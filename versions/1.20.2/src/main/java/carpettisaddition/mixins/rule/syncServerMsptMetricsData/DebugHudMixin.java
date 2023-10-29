@@ -66,7 +66,7 @@ public abstract class DebugHudMixin
 				var chart = new TickChart(
 						this.textRenderer, data
 						//#if MC >= 12003
-						//$$ , ((TickChartAccessor)this.tickChart).getMsptSupplier()
+						//$$ , ((TickChartAccessor)this.tickChart).getMillisPerTickSupplier()
 						//#endif
 				);
 

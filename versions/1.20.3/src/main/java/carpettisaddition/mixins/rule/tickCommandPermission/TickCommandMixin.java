@@ -23,14 +23,19 @@ package carpettisaddition.mixins.rule.tickCommandPermission;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.CarpetModUtil;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.command.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(net.minecraft.class_8916.class)
+@Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
+	/**
+	 * the lambda in the {@link com.mojang.brigadier.builder.ArgumentBuilder#requires} methods
+	 * for the node builder in the {@link TickCommand#register} method
+	 */
 	@Inject(method = "method_54709", at = @At("HEAD"), cancellable = true)
 	private static void overrideTickCommandPermission(ServerCommandSource source, CallbackInfoReturnable<Boolean> cir)
 	{

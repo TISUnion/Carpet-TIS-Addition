@@ -25,18 +25,19 @@ import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.command.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-@Mixin(net.minecraft.class_8916.class)
+@Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
 	/**
 	 * Hook at the `literal("sprint")` object
 	 */
 	@ModifyExpressionValue(
-			method = "method_54687",
+			method = "register",
 			slice = @Slice(
 					from = @At(
 							value = "CONSTANT",

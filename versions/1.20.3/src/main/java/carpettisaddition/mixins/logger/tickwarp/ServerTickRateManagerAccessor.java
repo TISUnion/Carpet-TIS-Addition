@@ -20,19 +20,19 @@
 
 package carpettisaddition.mixins.logger.tickwarp;
 
-import net.minecraft.class_8915;
+import net.minecraft.server.ServerTickManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(class_8915.class)
+@Mixin(ServerTickManager.class)
 public interface ServerTickRateManagerAccessor
 {
-	@Accessor(value = "field_46919", remap = false)
+	@Accessor(value = "sprintTicks")
 	long getRemainingWarpTicks();
 
-	@Accessor(value = "field_46920", remap = false)
+	@Accessor(value = "sprintStartTime")
 	long getTickWarpStartTime();
 
-	@Accessor(value = "field_46922", remap = false)
+	@Accessor(value = "scheduledSprintTicks")
 	long getScheduledCurrentWarpTicks();
 }

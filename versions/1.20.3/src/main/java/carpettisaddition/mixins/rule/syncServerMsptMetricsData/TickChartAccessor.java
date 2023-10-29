@@ -21,7 +21,6 @@
 package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
 import carpettisaddition.utils.ModIds;
-import carpettisaddition.utils.compat.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.client.gui.hud.debug.TickChart;
@@ -34,6 +33,6 @@ import java.util.function.Supplier;
 @Mixin(TickChart.class)
 public interface TickChartAccessor
 {
-	@Accessor("field_47117")
-	Supplier<Float> getMsptSupplier();
+	@Accessor
+	Supplier<Float> getMillisPerTickSupplier();
 }
