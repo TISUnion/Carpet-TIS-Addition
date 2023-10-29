@@ -38,14 +38,14 @@ import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-//#if MC >= 11200
+//#if MC >= 12000
 //$$ import java.util.function.Consumer;
 //#endif
 
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
 {
-	//#if MC >= 11200
+	//#if MC >= 12000
 	//$$ @Shadow(remap = false)
 	//$$ private static int manipulate(CommandContext<ServerCommandSource> context, Consumer<EntityPlayerActionPack> action)
 	//$$ {
@@ -65,7 +65,7 @@ public abstract class PlayerCommandMixin
 	 */
 	private static int action$TISCM(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action)
 	{
-		//#if MC >= 11200
+		//#if MC >= 12000
 		//$$ return manipulate(context, ap -> ap.start(type, action));
 		//#else
 		return action(context, type, action);

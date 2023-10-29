@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-//#if MC >= 11200
+//#if MC >= 12000
 //$$ import net.minecraft.server.network.ServerPlayerEntity;
 //#endif
 
