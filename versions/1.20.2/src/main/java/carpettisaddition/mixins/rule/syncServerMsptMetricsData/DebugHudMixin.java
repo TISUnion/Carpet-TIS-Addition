@@ -34,11 +34,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+/**
+ * mc1.14 ~ mc1.20.1: subproject 1.15.2 (main project)
+ * mc1.20.2+        : subproject 1.20.2        <--------
+ */
 @Mixin(DebugHud.class)
 public abstract class DebugHudMixin
 {
 	@Shadow @Final private TextRenderer textRenderer;
 	@Shadow @Final private MinecraftClient client;
+
+	//#if MC >= 12003
+	//$$ @Shadow @Final private TickChart tickChart;
+	//#endif
 
 	@Inject(
 			method = "method_51746",
@@ -55,7 +63,12 @@ public abstract class DebugHudMixin
 			if (ServerMsptMetricsDataSyncer.getInstance().isServerSupportOk())
 			{
 				var data = ServerMsptMetricsDataSyncer.getInstance().getMetricsData();
-				var chart = new TickChart(this.textRenderer, data);
+				var chart = new TickChart(
+						this.textRenderer, data
+						//#if MC >= 12003
+						//$$ , ((TickChartAccessor)this.tickChart).getMsptSupplier()
+						//#endif
+				);
 
 				// vanilla copy
 				int width = chart.getWidth(centerX);

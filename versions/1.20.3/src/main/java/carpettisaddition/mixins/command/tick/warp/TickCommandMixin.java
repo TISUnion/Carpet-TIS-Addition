@@ -18,15 +18,19 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.logging.loggers.tickwarp;
+package carpettisaddition.mixins.command.tick.warp;
 
-import net.minecraft.server.command.ServerCommandSource;
-import org.jetbrains.annotations.Nullable;
+import carpettisaddition.utils.ModIds;
+import carpettisaddition.utils.compat.DummyClass;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import org.spongepowered.asm.mixin.Mixin;
 
-public interface TickWarpInfo extends TickWarpInfoReader
+/**
+ * Migrated to rule tickSprintEnhanced. See {@link carpettisaddition.mixins.rule.tickCommandEnhance.TickCommandMixin}
+ */
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20.3"))
+@Mixin(DummyClass.class)
+public abstract class TickCommandMixin
 {
-	@Nullable ServerCommandSource getTimeAdvancer();
-
-	// we need to store the advancer by ourselves for mc1.20.3
-	void setTimeAdvancer(@Nullable ServerCommandSource timeAdvancer);
 }

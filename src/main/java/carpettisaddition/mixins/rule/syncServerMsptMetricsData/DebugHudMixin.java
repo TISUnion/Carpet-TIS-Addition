@@ -38,6 +38,10 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 //$$ import net.minecraft.client.util.math.MatrixStack;
 //#endif
 
+/**
+ * mc1.14 ~ mc1.20.1: subproject 1.15.2 (main project)        <--------
+ * mc1.20.2+        : subproject 1.20.2
+ */
 @Mixin(DebugHud.class)
 public abstract class DebugHudMixin
 {

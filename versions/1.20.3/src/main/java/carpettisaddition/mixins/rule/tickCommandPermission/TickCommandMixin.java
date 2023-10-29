@@ -18,15 +18,25 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.logging.loggers.tickwarp;
+package carpettisaddition.mixins.rule.tickCommandPermission;
 
+import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.CarpetModUtil;
 import net.minecraft.server.command.ServerCommandSource;
-import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-public interface TickWarpInfo extends TickWarpInfoReader
+@Mixin(net.minecraft.class_8916.class)
+public abstract class TickCommandMixin
 {
-	@Nullable ServerCommandSource getTimeAdvancer();
-
-	// we need to store the advancer by ourselves for mc1.20.3
-	void setTimeAdvancer(@Nullable ServerCommandSource timeAdvancer);
+	@Inject(method = "method_54709", at = @At("HEAD"), cancellable = true)
+	private static void overrideTickCommandPermission(ServerCommandSource source, CallbackInfoReturnable<Boolean> cir)
+	{
+		if (!CarpetTISAdditionSettings.VANILLA_TICK_COMMAND_PERMISSION.equals(CarpetTISAdditionSettings.tickCommandPermission))
+		{
+			cir.setReturnValue(CarpetModUtil.canUseCommand(source, CarpetTISAdditionSettings.tickCommandPermission));
+		}
+	}
 }

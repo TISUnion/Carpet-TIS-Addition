@@ -18,15 +18,21 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.logging.loggers.tickwarp;
+package carpettisaddition.mixins.logger.tickwarp;
 
-import net.minecraft.server.command.ServerCommandSource;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.class_8915;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-public interface TickWarpInfo extends TickWarpInfoReader
+@Mixin(class_8915.class)
+public interface ServerTickRateManagerAccessor
 {
-	@Nullable ServerCommandSource getTimeAdvancer();
+	@Accessor(value = "field_46919", remap = false)
+	long getRemainingWarpTicks();
 
-	// we need to store the advancer by ourselves for mc1.20.3
-	void setTimeAdvancer(@Nullable ServerCommandSource timeAdvancer);
+	@Accessor(value = "field_46920", remap = false)
+	long getTickWarpStartTime();
+
+	@Accessor(value = "field_46922", remap = false)
+	long getScheduledCurrentWarpTicks();
 }
