@@ -20,48 +20,43 @@
 
 package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip;
 
-//#if MC >= 11500
 import carpet.CarpetSettings;
-//#else
-//$$ import carpettisaddition.utils.compat.carpet.CarpetSettings;
-//#endif
-
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
 import carpettisaddition.utils.ModIds;
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
-import net.minecraft.predicate.entity.EntityPredicates;
-import org.spongepowered.asm.mixin.Dynamic;
+import net.minecraft.world.EntityView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+
+import java.util.function.Predicate;
 
 /**
- * See {@link EntityViewMixin} for the implementation for >= mc1.17
+ * See {@link EntityPredicatesMixin} for the implementation for < mc1.17
  */
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"))
-@Mixin(EntityPredicates.class)
-public abstract class EntityPredicatesMixin
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
+@Mixin(EntityView.class)
+public interface EntityViewMixin
 {
-	/**
-	 * The lambda method with the declaration of {@link EntityPredicates#EXCEPT_SPECTATOR}
-	 *
-	 * Modify its return value to modify the result of {@link net.minecraft.world.EntityView#getEntities(net.minecraft.entity.Entity, net.minecraft.util.math.Box)}
-	 */
-	@Dynamic
-	@ModifyReturnValue(method = "method_5907", at = @At("TAIL"), remap = false)
-	private static boolean creativeNoClipEnhancementImpl_checkNoClipInEntityPredicatesExceptSpectator(boolean ret, Entity entity)
+	@ModifyArg(
+			method = "getEntityCollisions",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/EntityView;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;"
+			)
+	)
+	private Predicate<Entity> creativeNoClipEnhancementImpl_addNoClipCheckToPredicate(Predicate<Entity> predicate)
 	{
 		if (CarpetSettings.creativeNoClip && CreativeNoClipHelper.exceptSpectatorPredicateIgnoreNoClipPlayers.get())
 		{
-			// return true: attempt to collide with this entity
-			// return false: skip this entity
-			if (CreativeNoClipHelper.isNoClipPlayer(entity))
-			{
-				ret = false;
-			}
+			predicate = predicate.and(entity -> {
+				// return true: attempt to collide with this entity
+				// return false: skip this entity
+				return !CreativeNoClipHelper.isNoClipPlayer(entity);
+			});
 		}
-		return ret;
+		return predicate;
 	}
 }
