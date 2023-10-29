@@ -105,7 +105,7 @@ Useful for mob farm debugging etc.
 
 - Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`, `ops`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -115,7 +115,7 @@ Enables `/manipulate` command for world related manipulation command
 
 - Type: `String`
 - Default value: `false`
-- Suggested options: `false`, `true`, `ops`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `TIS`, `COMMAND`, `EXPERIMENTAL`
 
 
@@ -125,7 +125,7 @@ Enables `/raid` command for raid listing and tracking
 
 - Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`, `ops`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -135,7 +135,7 @@ Enables `/raycast` command for debugging raycast
 
 - Type: `String`
 - Default value: `ops`
-- Suggested options: `false`, `true`, `ops`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -145,7 +145,7 @@ Enables `/refresh` command for synchronizing your client to the server
 
 - Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`, `ops`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `TIS`, `COMMAND`
 
 
@@ -155,7 +155,7 @@ Enables `/removeentity` command for directly erase target entities from the worl
 
 - Type: `String`
 - Default value: `ops`
-- Suggested options: `false`, `true`, `ops`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `TIS`, `COMMAND`, `CREATIVE`
 
 
@@ -165,7 +165,7 @@ Enables `/sleep` command for creating lag
 
 - Type: `String`
 - Default value: `ops`
-- Suggested options: `false`, `true`, `ops`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `TIS`, `COMMAND`, `CREATIVE`
 
 
@@ -378,6 +378,7 @@ Set it to `#none` to stop adding a suffix
 - Suggested options: `#none`, `_fake`
 - Categories: `TIS`, `CARPET_MOD`
 
+
 ## fakePlayerRemoteSpawning
 
 The permission requirement for spawning remotely a fake player with `/player` command
@@ -386,7 +387,7 @@ Here "remotely" means spawning a fake player at more than 16m away, or in other 
 
 - Type: `String`
 - Default value: `true`
-- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`, `0`, `1`, `2`, `3`, `4`
 - Categories: `TIS`, `CARPET_MOD`
 
 
@@ -596,7 +597,7 @@ The switch / permission requirement of movement logger
 
 - Type: `string`
 - Default value: `ops`
-- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`, `0`, `1`, `2`, `3`, `4`
 - Categories: `TIS`, `LOGGER`
 
 

@@ -105,7 +105,7 @@ sidebar_position: 1
 
 - 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`, `ops`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -115,7 +115,7 @@ sidebar_position: 1
 
 - 类型: `String`
 - 默认值: `false`
-- 参考选项: `false`, `true`, `ops`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `COMMAND`, `EXPERIMENTAL`
 
 
@@ -125,7 +125,7 @@ sidebar_position: 1
 
 - 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`, `ops`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -135,7 +135,7 @@ sidebar_position: 1
 
 - 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`, `ops`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -145,7 +145,7 @@ sidebar_position: 1
 
 - 类型: `String`
 - 默认值: `ops`
-- 参考选项: `false`, `true`, `ops`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `COMMAND`
 
 
@@ -155,7 +155,7 @@ sidebar_position: 1
 
 - 类型: `String`
 - 默认值: `ops`
-- 参考选项: `false`, `true`, `ops`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `COMMAND`, `CREATIVE`
 
 
@@ -165,7 +165,7 @@ sidebar_position: 1
 
 - 类型: `String`
 - 默认值: `ops`
-- 参考选项: `false`, `true`, `ops`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `COMMAND`, `CREATIVE`
 
 
@@ -387,7 +387,7 @@ sidebar_position: 1
 
 - 类型: `String`
 - 默认值: `true`
-- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `CARPET_MOD`
 
 
@@ -597,7 +597,7 @@ sidebar_position: 1
 
 - 类型: `string`
 - 默认值: `ops`
-- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `LOGGER`
 
 
@@ -731,7 +731,6 @@ sidebar_position: 1
 
 
 ## 橡树长成鸡腿树百分率 (oakBalloonPercent)
-
 
 橡树树苗长成鸡腿树（fancy_oak）的概率，使用百分率作为值
 
