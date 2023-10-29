@@ -1021,6 +1021,50 @@ sidebar_position: 1
 - 分类: `TIS`, `TISCM_PROTOCOL`
 
 
+## tick指令增强 (tickCommandEnhance)
+
+**Minecraft >= 1.20.3 only**
+
+重新启用那些mc1.20.3前，用于增强carpet模组"/tick"指令功能的特性
+
+启用的增强功能：
+
+1. 启用 `/tick sprint status` 指令（即以前的 `/tick warp status` 指令）
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
+## tick指令权限 (tickCommandPermission)
+
+**Minecraft >= 1.20.3 only**
+
+覆盖原版 `/tick` 指令的权限等级需求
+
+将其设为 `2` 或 `ops` 以还原 carpet 模组在 mc1.20.3 之前的默认表现
+
+如果你想在例如命令方块中执行 `/tick` 命令，本规则将会很有用
+
+- 类型: `String`
+- 默认值: `3`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
+## tickWarp指令别名重现 (tickWarpCommandAsAnAlias)
+
+**Minecraft >= 1.20.3 only**
+
+带回 `/tick warp` 子命令，让它变成原版 `/tick sprint` 指令的一个别名
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
 ## 计划刻上限 (tileTickLimit)
 
 修改每游戏刻中计划刻事件的执行次数上限

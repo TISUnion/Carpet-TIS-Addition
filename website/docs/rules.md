@@ -1019,6 +1019,50 @@ Carpet TIS Addition is required to be installed on the client
 - Categories: `TIS`, `TISCM_PROTOCOL`
 
 
+## tickCommandEnhance
+
+**Minecraft >= 1.20.3 only**
+
+Enable the enhancements for the /tick command from carpet mod before mc1.20.3
+
+Enhancement list:
+
+1. Enable the `/tick sprint status` command (previously it was "/tick warp status")
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
+## tickCommandPermission
+
+**Minecraft >= 1.20.3 only**
+
+Override the permission level requirement for the  `/tick` command
+
+Set it to `2` or `ops` to restore the default carpet mod behavior before mc1.20.3
+
+It's useful if you want to execute the `/tick` command in e.g. command blocks
+
+- Type: `String`
+- Default value: `3`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
+## tickWarpCommandAsAnAlias
+
+**Minecraft >= 1.20.3 only**
+
+Bring back the `/tick warp` subcommand, as an alias of the vanilla `/tick sprint` command
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
 ## tileTickLimit
 
 Modify the limit of executed tile tick events per game tick

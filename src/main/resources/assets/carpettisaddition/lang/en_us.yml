@@ -1017,7 +1017,8 @@ carpettisaddition:
         name: tickCommandEnhance
         desc: Enable the enhancements for the /tick command from carpet mod before mc1.20.3
         extra:
-          '0': '- Enable the "/tick sprint status" command (previously it was "/tick warp status")'
+          '0': 'Enhancement list:'
+          '1': '1. Enable the "/tick sprint status" command (previously it was "/tick warp status")'
       tickCommandPermission:
         name: tickCommandPermission
         desc: Override the permission level requirement for the "/tick" command
