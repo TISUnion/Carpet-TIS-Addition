@@ -6,6 +6,13 @@
 
 import {themes as prismThemes} from 'prism-react-renderer';
 
+let url = 'https://tisunion.github.io'
+let baseUrl = '/Carpet-TIS-Addition/'
+if (process.env.VERCEL === '1') {
+  url = `https://${process.env.VERCEL_URL}`
+  baseUrl = '/'
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Carpet TIS Addition',
@@ -13,10 +20,10 @@ const config = {
   favicon: 'img/icon.png',
 
   // Set the production url of your site here
-  url: 'https://tisunion.github.io',
+  url: url,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/Carpet-TIS-Addition/',
+  baseUrl: baseUrl,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
