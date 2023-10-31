@@ -86,7 +86,7 @@ The definition of lifetime is: **The amount of spawning stage passing between en
 
 Statistics are sorted by the proportion of the amount
 
-### <entity_type>
+### \<entity_type\>
 
 `/lifetime <entity_type> [<life_time|removal|spawning>]`
 

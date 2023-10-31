@@ -1,4 +1,3 @@
-import React from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -7,6 +6,7 @@ import Layout from '@theme/Layout';
 import DownloadLinks from '@site/src/components/DownloadLinks';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
+import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
 function HomepageHeader() {
@@ -14,7 +14,9 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
+        <Heading as="h1" className="hero__title">
+          {siteConfig.title}
+        </Heading>
         <p className="hero__subtitle">
           <Translate id="homepage.header.subtitle">
             A Carpet mod (fabric-carpet) extension, a collection of carpet mod style useful tools and interesting features

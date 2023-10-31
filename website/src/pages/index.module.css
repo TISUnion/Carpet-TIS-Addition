@@ -18,12 +18,6 @@
 
 .buttons {
   display: flex;
-  gap: 20px;
   align-items: center;
   justify-content: center;
-}
-
-.downloadsContainer {
-  text-align: center;
-  text-decoration: none;
 }

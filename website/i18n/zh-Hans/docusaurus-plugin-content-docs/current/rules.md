@@ -42,7 +42,7 @@ sidebar_position: 1
 
 让玩家可以对着填充有水的炼药锅放置方块
 
-仅对 Minecraft <= 1.16.x 有效。这个烦人的机制已经在 1.17+ 中被修复了
+仅对 Minecraft \<= 1.16.x 有效。这个烦人的机制已经在 1.17+ 中被修复了
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -694,7 +694,7 @@ sidebar_position: 1
 
 移植 Minecraft 1.19+ 版本中的特性：矿车实体在被破坏时会掉落完整的矿车物品
 
-本规则仅在 Minecraft < 1.19 中有效
+本规则仅在 Minecraft \< 1.19 中有效
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -1022,7 +1022,7 @@ sidebar_position: 1
 
 ## tick指令增强 (tickCommandEnhance)
 
-**Minecraft >= 1.20.3 only**
+**本规则仅在 Minecraft >= 1.20.3 中存在**
 
 重新启用那些mc1.20.3前，用于增强carpet模组"/tick"指令功能的特性
 
@@ -1038,7 +1038,7 @@ sidebar_position: 1
 
 ## tick指令权限 (tickCommandPermission)
 
-**Minecraft >= 1.20.3 only**
+**本规则仅在 Minecraft >= 1.20.3 中存在**
 
 覆盖原版 `/tick` 指令的权限等级需求
 
@@ -1054,7 +1054,7 @@ sidebar_position: 1
 
 ## tickWarp指令别名重现 (tickWarpCommandAsAnAlias)
 
-**Minecraft >= 1.20.3 only**
+**本规则仅在 Minecraft >= 1.20.3 中存在**
 
 带回 `/tick warp` 子命令，让它变成原版 `/tick sprint` 指令的一个别名
 

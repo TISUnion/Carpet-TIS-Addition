@@ -42,7 +42,7 @@ Works with creative mode players only
 
 Make player be able to place block against cauldron block with any filled level
 
-Affected Minecraft <= 1.16.x. This annoying behavior is already been fixed in 1.17+
+Affected Minecraft \<= 1.16.x. This annoying behavior is already been fixed in 1.17+
 
 - Type: `boolean`
 - Default value: `false`
@@ -58,7 +58,7 @@ Increasing this value might reduce network bandwidth usage, and boost client's f
 
 Set it to really high to simulate 1.16+ behavior, which is no chunk packet but only multiple block change packet
 
-This rule is only available in <1.16
+This rule is only available in \<1.16
 
 - Type: `int`
 - Default value: `64`
@@ -509,7 +509,7 @@ Only affects normal command blocks
 
 Removed the movement skipping mechanism when ticking of item entity
 
-Brings back <=1.13 item entity behavior, where item entities with low velocity on ground still tick movement every gt instead of every 4gt
+Brings back \<=1.13 item entity behavior, where item entities with low velocity on ground still tick movement every gt instead of every 4gt
 
 Useful when you require precise item entity movement timing
 
@@ -694,7 +694,7 @@ Determine the way to divide game ticks
 
 Backport the feature from Minecraft 1.19+ that minecart entity drops the full cart item on destroy
 
-Only works in Minecraft < 1.19
+Only works in Minecraft \< 1.19
 
 - Type: `boolean`
 - Default value: `false`
