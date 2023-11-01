@@ -7,6 +7,7 @@ on:
       - master
     paths:
       - "website/**"
+      - ".github/workflows/website.yml"
 
 permissions:
   contents: write
@@ -28,6 +29,14 @@ jobs:
           cd website
           yarn install --frozen-lockfile
           yarn build
+
+      # https://github.com/vercel/vercel/issues/3166#issuecomment-1508928585
+      # Make sure the ./website dir exists in the github page branch, or vercel's git branch detection script won't work
+      - name: Fix vercel
+        run: |-
+          cd website/build
+          mkdir website
+          touch website/.gitkeep
 
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
       - name: Deploy to GitHub Pages
