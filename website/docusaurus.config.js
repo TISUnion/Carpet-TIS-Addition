@@ -6,11 +6,16 @@
 
 import {themes as prismThemes} from 'prism-react-renderer';
 
-let url = 'https://tisunion.github.io'
-let baseUrl = '/Carpet-TIS-Addition/'
-if (process.env.VERCEL === '1') {
+const isVercel = process.env.VERCEL === '1'
+let url, baseUrl, commitUrl, commitShaShort
+if (isVercel) {
   url = `https://${process.env.VERCEL_URL}`
   baseUrl = '/'
+  commitUrl = `https://github.com/${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}/commit/${process.env.VERCEL_GIT_COMMIT_SHA}`
+  commitShaShort = process.env.VERCEL_GIT_COMMIT_SHA.substring(0, 7)
+} else {
+  url = 'https://tisunion.github.io'
+  baseUrl = '/Carpet-TIS-Addition/'
 }
 
 /** @type {import('@docusaurus/types').Config} */
@@ -65,8 +70,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
       navbar: {
         title: 'Carpet TIS Addition',
         logo: {
@@ -149,6 +152,13 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+      announcementBar: isVercel ? {
+        id: 'test_environment',
+        content: `⚠️ This is the test environment of the Carpet TIS Addition website. Built for commit <a href="${commitUrl}">${commitShaShort}</a>. ⚠️`,
+        backgroundColor: '#ffdf76',
+        textColor: '#091E42',
+        isCloseable: false,
+      } : undefined,
     }),
 };
 

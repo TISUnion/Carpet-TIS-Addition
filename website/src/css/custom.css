@@ -29,6 +29,11 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+div[class^='announcementBar_'] {
+  font-size: 20px;
+  height: 2em;
+}
+
 /* https://github.com/facebook/docusaurus/issues/2634#issuecomment-1159596930 */
 .header-github-link:hover {
   opacity: 0.6;
