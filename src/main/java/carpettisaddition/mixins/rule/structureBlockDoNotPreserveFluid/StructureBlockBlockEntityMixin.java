@@ -31,7 +31,9 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class StructureBlockBlockEntityMixin
 {
 	@ModifyArg(
-			//#if MC >= 11500
+			//#if MC >= 12003
+			//$$ method = "loadAndPlaceStructure(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/structure/StructureTemplate;)V",
+			//#elseif MC >= 11500
 			method = "place",
 			//#else
 			//$$ method = "loadStructure(Z)Z",

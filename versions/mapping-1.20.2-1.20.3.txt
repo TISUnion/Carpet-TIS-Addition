@@ -1,1 +1,1 @@
-carpet.commands.TickCommand net.minecraft.class_8916
+net.minecraft.block.entity.LootableContainerBlockEntity checkLootInteraction() net.minecraft.inventory.LootableInventory generateLoot()
