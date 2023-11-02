@@ -18,10 +18,11 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.yeet;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.server.MinecraftServer;
@@ -52,10 +53,10 @@ public abstract class MinecraftServerMixin
 			}
 			catch (Throwable throwable)
 			{
-				Optional<UpdateSuppressionException> opt = UpdateSuppressionException.extractInCauses(throwable);
+				Optional<UpdateSuppressionException> opt = UpdateSuppressionYeeter.extractInCauses(throwable);
 				if (opt.isPresent())
 				{
-					opt.get().report();
+					opt.get().getSuppressionContext().report();
 				}
 				else
 				{

@@ -18,32 +18,42 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 
-import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.block.NeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(NeighborUpdater.class)
-public interface NeighborUpdaterMixin
+@Mixin(World.class)
+public abstract class WorldMixin
 {
+	// use in < mc1.19
+
+	/**
+	 * ModifyVariable applies too late, so we need to use ModifyArg.
+	 * We still modify the local var, in case other mod wants to use it
+	 */
 	@SuppressWarnings("ConstantConditions")
-	@ModifyVariable(
-			method = "tryNeighborUpdate",
+	@ModifyArg(
+			method = "updateNeighbor",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/util/crash/CrashReport;create(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/util/crash/CrashReport;"
 			)
 	)
-	private static Throwable yeetUpdateSuppressionCrash_wrapStackOverflow(Throwable throwable, World world, BlockState state, BlockPos neighborPos, Block sourceBlock, BlockPos sourcePos, boolean notify)
+	private Throwable yeetUpdateSuppressionCrash_wrapSuppressionExceptions(
+			Throwable throwable,
+			@Local(ordinal = 1, argsOnly = true) BlockPos neighborPos,
+			@Local LocalRef<Throwable> ref
+	)
 	{
-		UpdateSuppressionException.wrapAndThrow(throwable, world, neighborPos);
+		throwable = UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, (World)(Object)this, neighborPos);
+		ref.set(throwable);
 		return throwable;
 	}
 }

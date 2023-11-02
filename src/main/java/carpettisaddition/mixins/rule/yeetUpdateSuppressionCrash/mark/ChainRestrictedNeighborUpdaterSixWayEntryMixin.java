@@ -18,13 +18,13 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 
 import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(DummyClass.class)
-public abstract class NeighborUpdaterMixin
+public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
 {
-	// used in mc1.19+
+	// used in 1.19 <= mc < 1.20.2
 }

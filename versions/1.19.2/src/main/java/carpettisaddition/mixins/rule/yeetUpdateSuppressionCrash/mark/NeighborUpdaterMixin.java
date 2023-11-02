@@ -18,41 +18,42 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 
-import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
-import net.minecraft.server.network.ServerPlayerEntity;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.block.NeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin
+@Mixin(NeighborUpdater.class)
+public interface NeighborUpdaterMixin
 {
-	@Inject(
-			//#if MC >= 11500
-			method = "playerTick",
-			//#else
-			//$$ method = "method_14226",
-			//#endif
+	/**
+	 * ModifyVariable applies too late, so we need to use ModifyArg.
+	 * We still modify the local var, in case other mod wants to use it
+	 */
+	@SuppressWarnings("ConstantConditions")
+	@ModifyArg(
+			method = "tryNeighborUpdate",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/util/crash/CrashReport;create(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/util/crash/CrashReport;"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
-			cancellable = true
+			)
 	)
-	private void yeetUpdateSuppressionCrash_implForPlayerEntityTicking(CallbackInfo ci, Throwable throwable)
+	private static Throwable yeetUpdateSuppressionCrash_wrapStackOverflow(
+			Throwable throwable,
+			@Local(ordinal = 0, argsOnly = true) World world,
+			@Local(ordinal = 0, argsOnly = true) BlockPos neighborPos,
+			@Local LocalRef<Throwable> ref
+	)
 	{
-		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
-		{
-			UpdateSuppressionException.extractInCauses(throwable).ifPresent(use -> {
-				use.report();
-				ci.cancel();
-			});
-		}
+		throwable = UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, neighborPos);
+		ref.set(throwable);
+		return throwable;
 	}
 }

@@ -35,7 +35,7 @@ import carpettisaddition.commands.scounter.SupplierCounterCommand;
 import carpettisaddition.commands.sleep.SleepCommand;
 import carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced.InstantBlockUpdaterChanger;
 import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
-import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
@@ -90,7 +90,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 		CarpetServer.manageExtension(INSTANCE);
 		StackTraceDeobfuscator.fetchMapping();
 		TISAdditionTranslations.loadTranslations();
-		UpdateSuppressionException.noop();
+		UpdateSuppressionYeeter.noop();
 	}
 
 	@Override

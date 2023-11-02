@@ -18,32 +18,41 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.yeet;
 
-import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
-import net.minecraft.block.Block;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(World.class)
-public abstract class WorldMixin
+@Mixin(ServerPlayerEntity.class)
+public abstract class ServerPlayerEntityMixin
 {
-	// use in < mc1.19
-
-	@SuppressWarnings("ConstantConditions")
-	@ModifyVariable(
-			method = "updateNeighbor",
+	@Inject(
+			//#if MC >= 11500
+			method = "playerTick",
+			//#else
+			//$$ method = "method_14226",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/util/crash/CrashReport;create(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/util/crash/CrashReport;"
-			)
+			),
+			locals = LocalCapture.CAPTURE_FAILHARD,
+			cancellable = true
 	)
-	private Throwable yeetUpdateSuppressionCrash_wrapSuppressionExceptions(Throwable throwable, BlockPos sourcePos, Block sourceBlock, BlockPos neighborPos)
+	private void yeetUpdateSuppressionCrash_implForPlayerEntityTicking(CallbackInfo ci, Throwable throwable)
 	{
-		UpdateSuppressionException.wrapAndThrow(throwable, (World)(Object)this, neighborPos);
-		return throwable;
+		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
+		{
+			UpdateSuppressionYeeter.extractInCauses(throwable).ifPresent(use -> {
+				use.getSuppressionContext().report();
+				ci.cancel();
+			});
+		}
 	}
 }

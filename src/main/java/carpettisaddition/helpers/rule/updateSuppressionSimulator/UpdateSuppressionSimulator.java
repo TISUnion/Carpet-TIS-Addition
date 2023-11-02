@@ -27,15 +27,16 @@ import java.util.Optional;
 
 public class UpdateSuppressionSimulator
 {
+	private static final String ERROR_MESSAGE = "TISCM UpdateSuppressionSimulator";
 	private static final Map<String, Runnable> SUPPORTED_ERRORS = ImmutableMap.of(
 			"StackOverflowError", () -> {
-				throw new StackOverflowError("TISCM UpdateSuppressionSimulator");
+				throw new StackOverflowError(ERROR_MESSAGE);
 			},
 			"OutOfMemoryError", () -> {
-				throw new OutOfMemoryError("TISCM UpdateSuppressionSimulator");
+				throw new OutOfMemoryError(ERROR_MESSAGE);
 			},
 			"ClassCastException", () -> {
-				throw new ClassCastException("TISCM UpdateSuppressionSimulator");
+				throw new ClassCastException(ERROR_MESSAGE);
 			}
 	);
 

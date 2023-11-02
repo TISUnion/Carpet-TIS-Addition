@@ -18,10 +18,10 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.block.Block;
@@ -45,7 +45,7 @@ public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
 	private void yeetUpdateSuppressionCrash_implOnSixWayEntryUpdate(
 			BlockState instance, World world, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean notify,
 			Operation<Void> original
-	)
+	) throws Throwable
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
@@ -55,9 +55,7 @@ public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
 			}
 			catch (Throwable throwable)
 			{
-				UpdateSuppressionException.wrapAndThrow(throwable, world, pos);
-				// if the code runs here, it means the throwable is not caused by update suppression. Re-throw it
-				throw throwable;
+				throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
 			}
 		}
 		else
