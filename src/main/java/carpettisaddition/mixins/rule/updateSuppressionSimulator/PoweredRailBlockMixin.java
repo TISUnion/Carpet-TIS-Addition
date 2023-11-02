@@ -47,7 +47,7 @@ public abstract class PoweredRailBlockMixin
 	{
 		if (UpdateSuppressionSimulator.isActivated())
 		{
-			if (!newPoweredState && world.getBlockState(pos).getBlock() == Blocks.REDSTONE_ORE)
+			if (!newPoweredState && world.getBlockState(pos.down()).getBlock() == Blocks.REDSTONE_ORE)
 			{
 				UpdateSuppressionSimulator.kaboom();
 			}
