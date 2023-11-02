@@ -1188,9 +1188,9 @@ Their helmets will still get damaged in sunlight though
 
 ## updateSuppressionSimulator
 
-Activator / Powered rail on a redstone ore simulates an update suppressor
+Activator / Powered rail on a lapis ore simulates an update suppressor
 
-Right before a powered activator / powered rail on a redstone ore setting its powered state to false, throw the given JVM throwable
+Right before a powered activator / powered rail on a lapis ore setting its powered state to false, throw the given JVM throwable
 
 `false`: rule disabled; `true`: rule enable and use `StackOverflowError`; others: feature enable and use given throwable
 
