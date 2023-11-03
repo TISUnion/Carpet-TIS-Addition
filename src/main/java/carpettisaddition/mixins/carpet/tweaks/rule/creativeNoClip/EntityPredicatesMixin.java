@@ -27,20 +27,13 @@ import carpet.CarpetSettings;
 //#endif
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
-import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-/**
- * See {@link EntityViewMixin} for the implementation for >= mc1.17
- */
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"))
 @Mixin(EntityPredicates.class)
 public abstract class EntityPredicatesMixin
 {
@@ -50,7 +43,15 @@ public abstract class EntityPredicatesMixin
 	 * Modify its return value to modify the result of {@link net.minecraft.world.EntityView#getEntities(net.minecraft.entity.Entity, net.minecraft.util.math.Box)}
 	 */
 	@Dynamic
-	@ModifyReturnValue(method = "method_5907", at = @At("TAIL"), remap = false)
+	@ModifyReturnValue(
+			//#if MC >= 11700
+			//$$ method = "method_24517",
+			//#else
+			method = "method_5907",
+			//#endif
+			at = @At("TAIL"),
+			remap = false
+	)
 	private static boolean creativeNoClipEnhancementImpl_checkNoClipInEntityPredicatesExceptSpectator(boolean ret, Entity entity)
 	{
 		if (CarpetSettings.creativeNoClip && CreativeNoClipHelper.exceptSpectatorPredicateIgnoreNoClipPlayers.get())
