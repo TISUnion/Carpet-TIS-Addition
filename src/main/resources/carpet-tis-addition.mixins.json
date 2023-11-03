@@ -54,6 +54,7 @@
     "carpet.tweaks.rule.creativeNoClip.PressurePlateBlockMixin",
     "carpet.tweaks.rule.creativeNoClip.TripwireBlockMixin",
     "carpet.tweaks.rule.creativeNoClip.WeightedPressurePlateBlockMixin",
+    "carpet.tweaks.rule.creativeNoClip.compat.lithium.WorldHelperMixin",
     "carpet.tweaks.rule.tntRandomRange.CheckOptimizedTntEnabledValidatorMixin",
     "carpet.tweaks.rule.tntRandomRange.ExplosionMixin",
     "carpet.tweaks.rule.tntRandomRange.WorldAccessor",
