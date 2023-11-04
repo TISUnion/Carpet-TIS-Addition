@@ -32,7 +32,7 @@ public class EuclideanDistanceHelper
 	public static boolean isWithinDistance(int chunkX, int chunkZ, int playerSectionX, int playerSectionZ, int distance)
 	{
 		//#if MC >= 12002
-		//$$ return ChunkFilter.isWithinDistance(chunkX, chunkZ, playerSectionX, playerSectionZ, distance, true);
+		//$$ return ChunkFilter.isWithinDistance(chunkX, chunkZ, distance, playerSectionX, playerSectionZ, true);
 		//#elseif MC >= 11800
 		//$$ return ThreadedAnvilChunkStorageAccessor.invokeIsChunkWithinEuclideanDistanceRange(chunkX, chunkZ, playerSectionX, playerSectionZ, distance);
 		//#else
