@@ -180,6 +180,10 @@ public class RefreshCommand extends AbstractCommand
 		// in mc < 1.20.2, only the "pos" arg is used
 		// in mc >= 1.20.2, only the "chunk" arg is used
 		BiConsumer<WorldChunk, ChunkPos> chunkRefresher = (chunk, pos) -> {
+			if (chunk == null)
+			{
+				return;
+			}
 			//#if MC >= 12002
 			//$$ ChunkDataSenderAccessor.invokeSendChunkPacket(player.networkHandler, world, chunk);
 			//#else
