@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.chunkUpdatePacketThreshold;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import com.google.common.collect.Sets;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.world.ChunkHolder;
@@ -36,7 +37,6 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Set;
 
@@ -92,14 +92,13 @@ public abstract class ChunkHolderMixin
 					target = "Lnet/minecraft/server/world/ChunkHolder;blockUpdateCount:I",
 					ordinal = 1
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private void useSetToStoreUpdatePos(int x, int y, int z, CallbackInfo ci, short s, int i)
+	private void useSetToStoreUpdatePos(int x, int y, int z, CallbackInfo ci, @Local short packedPos)
 	{
 		if (this.ruleEnabled$CUPT)
 		{
-			this.blockUpdatePositionsSet$CUPT.add(s);
+			this.blockUpdatePositionsSet$CUPT.add(packedPos);
 			this.blockUpdateCount = this.blockUpdatePositionsSet$CUPT.size();
 			ci.cancel();
 		}

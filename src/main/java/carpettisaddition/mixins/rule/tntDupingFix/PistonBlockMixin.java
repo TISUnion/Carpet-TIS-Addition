@@ -21,10 +21,12 @@
 package carpettisaddition.mixins.rule.tntDupingFix;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PistonBlock;
-import net.minecraft.block.piston.PistonHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -37,7 +39,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 //#if MC < 11500
 //$$ import com.google.common.collect.Maps;
@@ -47,7 +48,12 @@ import java.util.Set;
 @Mixin(PistonBlock.class)
 public abstract class PistonBlockMixin
 {
-	private final ThreadLocal<Boolean> isDupeFixed = ThreadLocal.withInitial(() -> false);
+	@Inject(method = "move", at = @At("HEAD"))
+	private void storeRuleValueInCaseItChanges(CallbackInfoReturnable<Boolean> cir, @Share("isDupeFixed") LocalBooleanRef isDupeFixed)
+	{
+		// just in case the rule gets changed halfway
+		isDupeFixed.set(CarpetTISAdditionSettings.tntDupingFix);
+	}
 
 	/**
 	 * Set all blocks to be moved to air without any kind of update first (yeeted attached block updater like dead coral),
@@ -72,25 +78,20 @@ public abstract class PistonBlockMixin
 					target = "Ljava/util/List;size()I",
 					shift = At.Shift.AFTER,  // to make sure this will be injected after onMove in PistonBlock_movableTEMixin in fabric-carpet
 					ordinal = 0
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
 	private void setAllToBeMovedBlockToAirFirst(
 			World world, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir,
-			//#if MC >= 11600
-			//$$ BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState blockStates[], Direction direction, int j
-			//#elseif MC >= 11500
-			BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState blockStates[], Direction direction
-			//#else
-			//$$ BlockPos blockPos, PistonHandler pistonHandler, List<BlockPos> list, List<BlockState> list2, List list3, int j, BlockState blockStates[], Direction direction, Set set
+			//#if MC >= 11500
+			@Local Map<BlockPos, BlockState> map,
 			//#endif
+			@Local(ordinal = 0) List<BlockPos> list,  // pistonHandler.getMovedBlocks()
+			@Local(ordinal = 1) List<BlockState> list2,   // states of list
+			@Share("isDupeFixed") LocalBooleanRef isDupeFixed
 	)
 	{
-		// just in case the rule gets changed halfway
-		this.isDupeFixed.set(CarpetTISAdditionSettings.tntDupingFix);
-
-		if (this.isDupeFixed.get())
+		if (isDupeFixed.get())
 		{
 			// vanilla iterating order
 			for (int l = list.size() - 1; l >= 0; --l)
@@ -127,7 +128,7 @@ public abstract class PistonBlockMixin
 	 *   ...
 	 * The block pos matches wrongly with block state, so mojang uses the wrong block as the source block to emit block updates :thonk:
 	 * EDITED in 1.16.4: mojang has fixed it now
-	 *
+	 * <p>
 	 * Whatever, just make it behave like vanilla
 	 */
 	@Inject(
@@ -156,16 +157,20 @@ public abstract class PistonBlockMixin
 	private void makeSureStatesInBlockStatesIsCorrect(
 			World world, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir,
+			@Local(ordinal = 0) List<BlockPos> list,  // pistonHandler.getMovedBlocks()
+			@Local(ordinal = 1) List<BlockState> list2,  // states of list
 			//#if MC >= 11600
-			//$$ BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, BlockState[] blockStates, BlockState blockState6
-			//#elseif MC >= 11500
-			BlockPos blockPos, PistonHandler pistonHandler, Map<BlockPos, BlockState> map, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState[] blockStates
-			//#else
-			//$$ BlockPos blockPos, PistonHandler pistonHandler, List<BlockPos> list, List<BlockState> list2, List<BlockPos> list3, int j, BlockState[] blockStates, Direction direction, Set<BlockPos> set
+			//$$ @Local(ordinal = 2) List<BlockPos> list3,  // pistonHandler.getBrokenBlocks()
 			//#endif
+			@Local BlockState[] blockStates,
+			@Local(ordinal = 0) int j,
+			//#if MC < 11500
+			//$$ @Local(ordinal = 0) Set<BlockPos> set,
+			//#endif
+			@Share("isDupeFixed") LocalBooleanRef isDupeFixed
 	)
 	{
-		if (this.isDupeFixed.get())
+		if (isDupeFixed.get())
 		{
 			// since blockState8 = world.getBlockState(blockPos4) always return AIR due to the changes above
 			// some states value in blockStates array need to be corrected

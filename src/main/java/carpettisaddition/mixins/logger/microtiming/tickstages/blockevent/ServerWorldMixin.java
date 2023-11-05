@@ -50,7 +50,7 @@ public abstract class ServerWorldMixin
 			method = "sendBlockActions",
 			at = @At("HEAD")
 	)
-	private void enterBlockEventStage(CallbackInfo ci)
+	private void enterBlockEventStage_updateTickPhase(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.BLOCK_EVENT);
 		this.blockEventOrderCounter = 0;
@@ -63,7 +63,7 @@ public abstract class ServerWorldMixin
 			method = "sendBlockActions",
 			at = @At("TAIL")
 	)
-	private void exitBlockEventStage(CallbackInfo ci)
+	private void exitBlockEventStage_updateTickPhase(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.UNKNOWN);
 	}
@@ -76,7 +76,7 @@ public abstract class ServerWorldMixin
 			//#endif
 			at = @At("HEAD")
 	)
-	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	private void beforeBlockEventExecuted_updateTickPhase(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(this.blockEventDepth));
 		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, new BlockEventSubStage((ServerWorld)(Object)this, blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
@@ -90,7 +90,7 @@ public abstract class ServerWorldMixin
 			//#endif
 			at = @At("RETURN")
 	)
-	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	private void afterBlockEventExecuted_updateTickPhase(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
 		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, null);

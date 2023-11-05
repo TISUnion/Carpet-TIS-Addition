@@ -22,6 +22,7 @@ package carpettisaddition.mixins.logger.microtiming.events;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -208,15 +209,14 @@ public abstract class EmitBlockUpdateMixins
 						//#else
 						target = "Ljava/util/List;iterator()Ljava/util/Iterator;"
 						//#endif
-				),
-				locals = LocalCapture.CAPTURE_FAILHARD
+				)
 		)
 		private void startEmitBlockUpdate(
 				World world, BlockPos pos, BlockState state,
 				//#if MC >= 11600
-				//$$ CallbackInfo ci, Set<BlockPos> collection
+				//$$ CallbackInfo ci, @Local Set<BlockPos> collection
 				//#else
-				CallbackInfoReturnable<BlockState> cir, List<BlockPos> collection
+				CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> collection
 				//#endif
 		)
 		{
@@ -229,10 +229,9 @@ public abstract class EmitBlockUpdateMixins
 		//$$ 		at = @At(
 		//$$ 				value = "INVOKE",
 		//$$ 				target = "Ljava/util/Iterator;hasNext()Z"
-		//$$ 		),
-		//$$ 		locals = LocalCapture.CAPTURE_FAILHARD
+		//$$ 		)
 		//$$ )
-		//$$ private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci, Set<BlockPos> set, Iterator<BlockPos> iterator)
+		//$$ private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci, @Local Iterator<BlockPos> iterator)
 		//$$ {
 		//$$ 	if (!iterator.hasNext())
 		//$$ 	{

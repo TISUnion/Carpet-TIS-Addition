@@ -23,6 +23,9 @@ package carpettisaddition.mixins.logger.microtiming.events.blockevent;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.events.ExecuteBlockEventEvent;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -36,7 +39,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 /**
  * Block Event
@@ -49,13 +51,13 @@ public abstract class ServerWorldMixin
 	private int oldBlockActionQueueSize;
 
 	@Inject(method = "addBlockAction", at = @At("HEAD"))
-	private void startScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
+	private void startScheduleBlockEvent_storeEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
 		this.oldBlockActionQueueSize = this.pendingBlockActions.size();
 	}
 
 	@Inject(method = "addBlockAction", at = @At("RETURN"))
-	private void endScheduleBlockEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
+	private void endScheduleBlockEvent_storeEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
 	}
@@ -71,9 +73,47 @@ public abstract class ServerWorldMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private void beforeBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	private void beforeBlockEventExecuted_storeEvent(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, null, EventType.ACTION_START);
+	}
+
+	@ModifyExpressionValue(
+			//#if MC >= 11600
+			//$$ method = "processBlockEvent",
+			//#else
+			method = "method_14174",
+			//#endif
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/server/world/ServerWorld;getBlockState(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;"
+			)
+	)
+	private BlockState recordBlockState(BlockState blockState, @Share("currentBlock") LocalRef<BlockState> currentBlock)
+	{
+		currentBlock.set(blockState);
+		return blockState;
+	}
+
+	@ModifyExpressionValue(
+			//#if MC >= 11600
+			//$$ method = "processBlockEvent",
+			//#else
+			method = "method_14174",
+			//#endif
+			at = @At(
+					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/block/BlockState;onSyncedBlockEvent(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;II)Z"
+					//#else
+					target = "Lnet/minecraft/block/BlockState;onBlockAction(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;II)Z"
+					//#endif
+			)
+	)
+	private boolean recordOnBlockActionReturnValue(boolean ret, @Share("retStore") LocalRef<Boolean> retStore)
+	{
+		retStore.set(ret);
+		return ret;
 	}
 
 	@Inject(
@@ -82,12 +122,31 @@ public abstract class ServerWorldMixin
 			//#else
 			method = "method_14174",
 			//#endif
-			at = @At("RETURN"),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			at = @At("RETURN")
 	)
-	private void afterBlockEventExecuted(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir, BlockState blockState)
+	private void afterBlockEventExecuted_storeEvent(
+			BlockAction blockAction, CallbackInfoReturnable<Boolean> cir,
+			@Share("retStore") LocalRef<Boolean> retStore, @Share("currentBlock") LocalRef<BlockState> currentBlock
+	)
 	{
-		ExecuteBlockEventEvent.FailInfo failInfo = new ExecuteBlockEventEvent.FailInfo(blockState.getBlock() != blockAction.getBlock() ? ExecuteBlockEventEvent.FailReason.BLOCK_CHANGED : ExecuteBlockEventEvent.FailReason.EVENT_FAIL, blockState.getBlock());
+		ExecuteBlockEventEvent.FailInfo failInfo;
+		Boolean ret = retStore.get();
+		if (ret == null)
+		{
+			// not invoked onBlockAction() at all, due to block change
+			failInfo = new ExecuteBlockEventEvent.FailInfo(ExecuteBlockEventEvent.FailReason.BLOCK_CHANGED, currentBlock.get().getBlock());
+		}
+		else if (ret)
+		{
+			// onBlockAction() returns true
+			failInfo = null;
+		}
+		else
+		{
+			// onBlockAction() returns false
+			failInfo = new ExecuteBlockEventEvent.FailInfo(ExecuteBlockEventEvent.FailReason.EVENT_FAIL, currentBlock.get().getBlock());
+		}
+
 		MicroTimingLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), failInfo, EventType.ACTION_END);
 	}
 }
