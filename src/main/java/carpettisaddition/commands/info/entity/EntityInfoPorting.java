@@ -94,7 +94,11 @@ public class EntityInfoPorting
 		if (netherPortalCooldown> 0) { lst.add(Messenger.c("w  - Portal cooldown for ","wb "+netherPortalCooldown," ticks")); }
 
 		if (e.isInvulnerable()) { lst.add(Messenger.c("w  - Invulnerable")); }
+
+		// TODO: find a good way to make it work in 1.20.3+, where Entity#isImmuneToExplosion requires an "Explosion" object as the arg
+		//#if MC < 12003
 		if (e.isImmuneToExplosion()) { lst.add(Messenger.c("w  - Immune to explosions")); }
+		//#endif
 
 		if (e instanceof ItemEntity)
 		{

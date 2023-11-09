@@ -22,7 +22,6 @@ package carpettisaddition.mixins.carpet.tweaks.logger.projectile;
 
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.VisualizeTrajectoryHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.thrown.SnowballEntity;
 import net.minecraft.entity.thrown.ThrownItemEntity;
@@ -30,6 +29,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
+
+//#if MC >= 12003
+//$$ import net.minecraft.world.explosion.Explosion;
+//#endif
 
 @Mixin(SnowballEntity.class)
 public abstract class SnowBallEntityMixin extends ThrownItemEntity
@@ -82,12 +85,20 @@ public abstract class SnowBallEntityMixin extends ThrownItemEntity
 
 	@Intrinsic
 	@Override
-	public boolean isImmuneToExplosion()
+	public boolean isImmuneToExplosion(
+			//#if MC >= 12003
+			//$$ Explosion explosion
+			//#endif
+	)
 	{
 		if (VisualizeTrajectoryHelper.isVisualizeProjectile(this))
 		{
 			return true;
 		}
-		return super.isImmuneToExplosion();
+		return super.isImmuneToExplosion(
+				//#if MC >= 12003
+				//$$ explosion
+				//#endif
+		);
 	}
 }

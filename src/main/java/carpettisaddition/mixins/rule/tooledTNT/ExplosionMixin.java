@@ -27,14 +27,29 @@ import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(Explosion.class)
+//#if MC >= 12003
+//$$ import com.llamalad7.mixinextras.sugar.Local;
+//$$ import net.minecraft.block.AbstractBlock;
+//#endif
+
+@Mixin(
+		//#if MC >= 12003
+		//$$ AbstractBlock.class
+		//#else
+		Explosion.class
+		//#endif
+)
 public abstract class ExplosionMixin
 {
 	/**
 	 * See {@link OptimizedExplosionMixin} for mixin at carpet in for this rule
 	 */
 	@ModifyExpressionValue(
+			//#if MC >= 12003
+			//$$ method = "method_55124",
+			//#else
 			method = "affectWorld",
+			//#endif
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/item/ItemStack;EMPTY:Lnet/minecraft/item/ItemStack;"
@@ -45,8 +60,17 @@ public abstract class ExplosionMixin
 			allow = 1
 			//#endif
 	)
-	private ItemStack useTheToolInYourHand(ItemStack itemStack)
+	private ItemStack useTheToolInYourHand(
+			ItemStack itemStack
+			//#if MC >= 12003
+			//$$ , @Local(argsOnly = true) Explosion explosion
+			//#endif
+	)
 	{
-		return TooledTNTHelper.getMainHandItemOfCausingEntity((Explosion)(Object)this).orElse(itemStack);
+		//#if MC < 12003
+		Explosion explosion = (Explosion)(Object)this;
+		//#endif
+
+		return TooledTNTHelper.getMainHandItemOfCausingEntity(explosion).orElse(itemStack);
 	}
 }
