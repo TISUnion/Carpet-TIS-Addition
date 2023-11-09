@@ -78,14 +78,19 @@ const config = {
         },
         items: [
           {
-            type: 'search',
-            position: 'right',
-          },
-          {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Documents',
+          },
+          {
+            to: 'eol',
+            position: 'left',
+            label: 'EOL',
+          },
+          {
+            type: 'search',
+            position: 'right',
           },
           {
             type: 'localeDropdown',
