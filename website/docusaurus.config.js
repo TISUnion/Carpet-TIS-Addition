@@ -157,6 +157,13 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+      // https://docusaurus.io/docs/search#using-algolia-docsearch
+      algolia: {
+        appId: 'U1J6M8YHJ6',
+        apiKey: 'd3602f9d3f867570f410fb63a08b46c5',
+        indexName: 'carpet-tis-addition',
+        contextualSearch: true,
+      },
       announcementBar: isVercel ? {
         id: 'test_environment',
         content: `⚠️ This is the test environment of the Carpet TIS Addition website. Built for commit <a href="${commitUrl}">${commitShaShort}</a>. ⚠️`,
