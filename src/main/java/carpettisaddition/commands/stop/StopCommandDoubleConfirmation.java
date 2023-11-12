@@ -34,6 +34,11 @@ public class StopCommandDoubleConfirmation
 	private static final long CONFIRM_WAIT_DURATION_MS = 60 * 1000;  // 60s
 	private static long previousExecuteMs = -1;
 
+	public static void noop()
+	{
+		// load the class in advanced to prevent NoClassDefFoundError if "/stop" the sever after replacing the mod.jar
+	}
+
 	public static void handleDoubleConfirmation(CommandContext<ServerCommandSource> commandContext, CallbackInfoReturnable<Integer> cir)
 	{
 		if (!CarpetTISAdditionSettings.stopCommandDoubleConfirmation)
