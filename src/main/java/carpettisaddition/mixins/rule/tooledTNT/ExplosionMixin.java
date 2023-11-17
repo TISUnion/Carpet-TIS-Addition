@@ -46,7 +46,7 @@ public abstract class ExplosionMixin
 	 */
 	@ModifyExpressionValue(
 			//#if MC >= 12003
-			//$$ method = "method_55124",
+			//$$ method = "onExploded",
 			//#else
 			method = "affectWorld",
 			//#endif

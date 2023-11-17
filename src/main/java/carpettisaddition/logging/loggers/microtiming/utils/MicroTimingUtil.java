@@ -308,7 +308,7 @@ public class MicroTimingUtil
 
 	public static boolean isPlayerSubscribed(PlayerEntity playerEntity)
 	{
-		Map<String, String> map = LoggerRegistry.getPlayerSubscriptions(playerEntity.getEntityName());
+		Map<String, String> map = LoggerRegistry.getPlayerSubscriptions(playerEntity.getGameProfile().getName());
 		return map != null && map.containsKey(MicroTimingLogger.NAME);
 	}
 
