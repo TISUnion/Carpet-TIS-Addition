@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.optimizedHardHitBoxEntityCollision.OptimizedHardHitBoxEntityCollisionHelper;
 import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
@@ -38,7 +39,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.function.Predicate;
 
@@ -73,8 +73,8 @@ public abstract class WorldChunkMixin
 		this.optimizedHHBECEnabled = CarpetTISAdditionSettings.optimizedHardHitBoxEntityCollision;
 	}
 
-	@Inject(method = "addEntity", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void optimizedHardHitBoxEntityCollision_onAddEntity(Entity entity, CallbackInfo ci, int k)
+	@Inject(method = "addEntity", at = @At("TAIL"))
+	private void optimizedHardHitBoxEntityCollision_onAddEntity(Entity entity, CallbackInfo ci, @Local(ordinal = 2) int k)
 	{
 		if (this.optimizedHHBECEnabled)
 		{
