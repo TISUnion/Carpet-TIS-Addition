@@ -35,7 +35,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 import java.util.Map;
@@ -151,8 +150,7 @@ public abstract class PistonBlockMixin
 					//$$ target = "Ljava/util/Set;iterator()Ljava/util/Iterator;",
 					//#endif
 					ordinal = 0
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
 	private void makeSureStatesInBlockStatesIsCorrect(
 			World world, BlockPos pos, Direction dir, boolean retract,
