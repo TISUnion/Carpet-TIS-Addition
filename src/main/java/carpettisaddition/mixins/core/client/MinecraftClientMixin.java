@@ -40,11 +40,7 @@ public abstract class MinecraftClientMixin
 			method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11900
-					//$$ target = "Lnet/minecraft/client/resource/ClientBuiltinResourcePackProvider;clear()Ljava/util/concurrent/CompletableFuture;"
-					//#else
-					target = "Lnet/minecraft/client/resource/ClientBuiltinResourcePackProvider;clear()V"
-					//#endif
+					target = "Lnet/minecraft/client/gui/hud/InGameHud;clear()V"
 			)
 	)
 	private void onClientDisconnected(CallbackInfo ci)
