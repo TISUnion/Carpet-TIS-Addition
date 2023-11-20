@@ -33,6 +33,7 @@ import carpettisaddition.commands.refresh.RefreshCommand;
 import carpettisaddition.commands.removeentity.RemoveEntityCommand;
 import carpettisaddition.commands.scounter.SupplierCounterCommand;
 import carpettisaddition.commands.sleep.SleepCommand;
+import carpettisaddition.commands.speedtest.SpeedTestCommand;
 import carpettisaddition.commands.stop.StopCommandDoubleConfirmation;
 import carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced.InstantBlockUpdaterChanger;
 import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
@@ -139,9 +140,10 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	@Override
 	public void onServerClosed(MinecraftServer server)
 	{
-		RaidTracker.getInstance().stop();
-		MicroTimingLoggerManager.detachServer();
 		LifeTimeTracker.detachServer();
+		MicroTimingLoggerManager.detachServer();
+		RaidTracker.getInstance().stop();
+		SpeedTestCommand.getInstance().onServerClosed();
 	}
 
 	@Override
@@ -179,6 +181,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 				RaycastCommand.getInstance(),
 				RemoveEntityCommand.getInstance(),
 				SleepCommand.getInstance(),
+				SpeedTestCommand.getInstance(),
 				SupplierCounterCommand.getInstance()
 		).forEach(command ->
 				command.registerCommand(context)
@@ -189,6 +192,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	public void onPlayerLoggedOut(ServerPlayerEntity player)
 	{
 		TISCMServerPacketHandler.getInstance().onPlayerDisconnected(player.networkHandler);
+		SpeedTestCommand.getInstance().onPlayerDisconnected(player);
 	}
 
 	//#if MC >= 11500

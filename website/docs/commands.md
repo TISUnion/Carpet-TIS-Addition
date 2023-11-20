@@ -174,6 +174,71 @@ Target entities velocity logic control
 ```
 
 
+## speedtest
+
+Test the network connection between the client and the server, including download / upload speed, and average ping
+
+### help
+
+```
+/speedtest
+```
+
+Show some information of speed test command, including:
+
+- A simple command description
+- The current maximum test size
+- The client support status
+
+### download
+
+```
+/speedtest download [<size_mib>]
+```
+
+Test the download speed, i.e. traffic from the server to the client
+
+Arguments:
+
+- `size_mib`: The amount of speed test traffic. Unit: MiB. Default: 10
+
+### upload
+
+```
+/speedtest upload [<size_mib>]
+```
+
+Test the upload speed, i.e. traffic from the client to the server
+
+Arguments:
+
+- `size_mib`: The amount of speed test traffic. Unit: MiB. Default: 10
+
+### ping
+
+```
+/speedtest ping [<count>] [<interval>]
+```
+
+Test the ping between the server and the client for given amount of rounds
+
+The server will send a ping to the client, then the client will send a pong back to the server. 
+Then the ping for this round is the time interval between the server sending ping and receiving pong
+
+Arguments:
+
+- `count`: The amount of ping test rounds. Default: 4
+- `interval`: The minimum interval between 2 pings. Unit: second. Default: 1
+
+### abort
+
+```
+/speedtest abort [<size_mib>]
+```
+
+Abort the current ongoing test (download, upload or ping)
+
+
 ## raid
 
 ### list

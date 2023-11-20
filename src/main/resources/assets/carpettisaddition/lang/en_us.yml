@@ -396,6 +396,36 @@ carpettisaddition:
       usage: 'Usage: %1$s'
       warning_header: Warning
       warning_content: Durations greater than 15s might disconnect clients or even disturb server watch dog
+    speedtest:
+      help:
+        .: 'Test the network connection speed and ping. Test size limit: %sMiB; Client supported: %s'
+        test_size_rule_hint: Configured by rule speedTestCommandMaxTestSize
+        support_state:
+          'no': 'no'
+          partial: partial
+          'yes': 'yes'
+      test_type:
+        download: ↓Download
+        upload: ↑Upload
+        ping: Ping
+      command:
+        abort_no_test: No ongoing speed test session, no need to abort
+        abort_test: Aborting speed test
+        test_size_too_large: Test size %sMiB too large. Should not be greater than %sMiB
+        tiscm_protocol_disabled: Rule tiscmNetworkProtocol is disabled. You need to enable it to start a speed test
+        client_not_supported: Client does not support TISCM speed test. Please install or update the Carpet TIS Addition mod
+        has_ongoing: You have ongoing speed test, please wait until existing test finishes
+      messenger:
+        abort_hover: Click me to abort the test
+        header_hover: TISCM network speed test command %s
+      speed_test:
+        start: 'Test start, size: %sMiB'
+        progress: '[%s] %s%% %sMiB/s'
+        done: 'Test completed, processed %sMiB, cost: %ss, speed: %sMiB/s'
+      ping_test:
+        start: 'Test start, count: %s, interval %sms'
+        pinging: '#%s Pinging client ... %sms'
+        done: 'Test completed, count: %s, average ping: %sms'
     stop:
       double_confirmation:
         message: Execute this command again to confirm the shutdown of the server
@@ -654,6 +684,11 @@ carpettisaddition:
       commandSleep:
         name: commandSleep
         desc: Enables /sleep command for creating lag
+      commandSpeedTest:
+        name: commandSpeedTest
+        desc: Enables /speedtest command for network speed test
+        extra:
+          '0': You can change the maximum allowed test size with rule speedTestCommandMaxTestSize
       creativeNetherWaterPlacement:
         name: creativeNetherWaterPlacement
         desc: Allow creative players place water via water bucket in nether
@@ -980,6 +1015,9 @@ carpettisaddition:
           '1': Set it to 0 to melt all annoying snow on your builds
           '2': Set it to the same level as the minimum light level for snow to not fall on block (light level 10) to easily test if your build is snow-proof with light or not
           '3': You can modify gamerule randomTickSpeed to speed up the melting progress, or modify carpet rule chunkTickSpeed to speed up the snowfall progress
+      speedTestCommandMaxTestSize:
+        name: speedTestCommandMaxTestSize
+        desc: The max test size in MiB when using the /speedtest command for network speed test
       stopCommandDoubleConfirmation:
         name: stopCommandDoubleConfirmation
         desc: Add a double confirmation for /stop command to prevent stopping server accidentally

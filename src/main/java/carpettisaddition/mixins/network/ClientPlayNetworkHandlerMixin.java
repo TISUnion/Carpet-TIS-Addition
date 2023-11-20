@@ -22,8 +22,6 @@ package carpettisaddition.mixins.network;
 
 import carpettisaddition.network.TISCMClientPacketHandler;
 import carpettisaddition.network.TISCMCustomPayload;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
 import net.minecraft.util.Identifier;
@@ -34,55 +32,36 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 12002
-//$$ import net.minecraft.client.MinecraftClient;
 //$$ import net.minecraft.client.network.ClientCommonNetworkHandler;
-//$$ import net.minecraft.client.network.ClientConnectionState;
-//$$ import net.minecraft.network.ClientConnection;
-//$$ import net.minecraft.network.packet.CustomPayload;
+//$$ import net.minecraft.client.MinecraftClient;
+//$$ import org.spongepowered.asm.mixin.Final;
 //$$ import org.spongepowered.asm.mixin.Shadow;
 //#endif
 
-@Environment(EnvType.CLIENT)
-@Mixin(ClientPlayNetworkHandler.class)
-public abstract class ClientPlayNetworkHandlerMixin
+@Mixin(
 		//#if MC >= 12002
-		//$$ extends ClientCommonNetworkHandler
+		//$$ ClientCommonNetworkHandler.class
+		//#else
+		ClientPlayNetworkHandler.class
 		//#endif
+)
+public abstract class ClientPlayNetworkHandlerMixin
 {
-	//#if MC >= 12002
-	//$$ protected ClientPlayNetworkHandlerMixin(MinecraftClient client, ClientConnection connection, ClientConnectionState connectionState)
-	//$$ {
-	//$$ 	super(client, connection, connectionState);
-	//$$ }
-	//#endif
-
 	@Inject(
-			method = "onCustomPayload",
 			//#if MC >= 12002
-			//$$ at = @At("HEAD"),
+			//$$ method = "onCustomPayload(Lnet/minecraft/network/packet/s2c/common/CustomPayloadS2CPacket;)V",
 			//#else
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/network/packet/s2c/play/CustomPayloadS2CPacket;getChannel()Lnet/minecraft/util/Identifier;",
-					ordinal = 0
-			),
+			method = "onCustomPayload",
 			//#endif
+			at = @At("HEAD"),
 			cancellable = true
 	)
-	private void onCustomPayload$TISCM(
-			//#if MC >= 12002
-			//$$ CustomPayload payload,
-			//#else
-			CustomPayloadS2CPacket packet,
-			//#endif
-			CallbackInfo ci
-	)
+	private void onCustomPayload$TISCM(CustomPayloadS2CPacket packet, CallbackInfo ci)
 	{
 		//#if MC >= 12002
-		//$$ if (payload instanceof TISCMCustomPayload tiscmCustomPayload)
+		//$$ if (packet.payload() instanceof TISCMCustomPayload tiscmCustomPayload && (Object)this instanceof ClientPlayNetworkHandler self)
 		//$$ {
-		//$$ 	// Notes: no NetworkThreadUtils.forceMainThread in mc1.20.2+, so we need to do that ourselves
-		//$$ 	this.client.execute(() -> TISCMClientPacketHandler.getInstance().dispatch((ClientPlayNetworkHandler)(Object)this, tiscmCustomPayload));
+		//$$ 	TISCMClientPacketHandler.getInstance().dispatch(self, tiscmCustomPayload);
 		//$$ 	ci.cancel();
 		//$$ }
 		//#else
@@ -103,17 +82,5 @@ public abstract class ClientPlayNetworkHandlerMixin
 			}
 		}
 		//#endif
-	}
-
-	@Inject(method = "onGameJoin", at = @At("RETURN"))
-	private void playerJoinClientHookOnGameJoin$TISCM(CallbackInfo ci)
-	{
-		TISCMClientPacketHandler.getInstance().onConnectedToNewServer();
-	}
-
-	@Inject(method = "onPlayerRespawn", at = @At("RETURN"))
-	private void playerJoinClientHookOnPlayerRespawn$TISCM(CallbackInfo ci)
-	{
-		TISCMClientPacketHandler.getInstance().onConnectedToNewServer();
 	}
 }

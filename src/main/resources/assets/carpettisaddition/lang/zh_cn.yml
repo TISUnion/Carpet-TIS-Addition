@@ -396,6 +396,36 @@ carpettisaddition:
       usage: '使用方法: %1$s'
       warning_header: 警告
       warning_content: 超过15s的持续时间将断开客户端的连接，甚至可能会惊扰服务端看门狗
+    speedtest:
+      help:
+        .: '测试网络连接速度及延迟。测试大小限制: %sMiB; 客户端支持: %s'
+        test_size_rule_hint: 由规则speedTestCommandMaxTestSize配置
+        support_state:
+          'no': 否
+          partial: 部分
+          'yes': 是
+      test_type:
+        download: ↓下载测试
+        upload: ↑上传测试
+        ping: Ping测试
+      command:
+        abort_no_test: 没有进行中的测速，无需终止
+        abort_test: 正在终止测速
+        test_size_too_large: 测试大小%sMiB过大。应不超过%sMiB
+        tiscm_protocol_disabled: 规则tiscmNetworkProtocol已被禁用。需要启用这条规则才能开始测速
+        client_not_supported: 客户端不支持TISCM测速功能，请安装或者升级你的Carpet TIS Addition模组
+        has_ongoing: 你有正在进行的测速，请等待测试完成
+      messenger:
+        abort_hover: 点击以终止测试
+        header_hover: TISCM网络测速指令 %s
+      speed_test:
+        start: '测速开始, 测试大小: %sMiB'
+        progress: '[%s] %s%% %sMiB/s'
+        done: '测速完成, 已处理%sMiB数据, 耗时: %ss, 速度: %sMiB/s'
+      ping_test:
+        start: '测试开始, 数量: %s, 间隔: %sms'
+        pinging: '#%s 正在Ping客户端 ... %sms'
+        done: '测试完成, 数量: %s, 平均延迟: %sms'
     stop:
       double_confirmation:
         message: 再次执行此条指令以确认关闭服务器操作
@@ -654,6 +684,11 @@ carpettisaddition:
       commandSleep:
         name: 睡眠命令开关
         desc: 启用/sleep命令用于制造卡顿
+      commandSpeedTest:
+        name: 网络测速指令开关
+        desc: 启用/speedtest命令用于网络速度测试
+        extra:
+          '0': 可以使用选项speedTestCommandMaxTestSize来调整最大允许的测试大小
       creativeNetherWaterPlacement:
         name: 创造玩家地狱放水
         desc: 允许创造模式的玩家在地狱通过水桶放出水
@@ -980,6 +1015,9 @@ carpettisaddition:
           '1': 将其设为0以将所有位于你建筑上的烦人的雪片融化
           '2': 将其设为与防止降雪的最小亮度等级(12)来方便地测试你的建筑是否能借助亮度来防降雪
           '3': 你可以修改游戏规则randomTickSpeed来加速雪的融化，也可以修改地毯规则chunkTickSpeed来加速降雪的过程
+      speedTestCommandMaxTestSize:
+        name: 测速指令最大测试大小
+        desc: 在使用/speedtest测速指令进行网络速度测试时，最大的测试数据大小，单位MiB
       stopCommandDoubleConfirmation:
         name: stop指令两步确认
         desc: 为/stop指令添加两步确认机制，以防止误触导致意外地关掉了服务器

@@ -21,12 +21,13 @@
 package carpettisaddition.network;
 
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.commands.speedtest.SpeedTestCommand;
 import carpettisaddition.utils.NbtUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.util.PacketByteBuf;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
@@ -39,15 +40,24 @@ public class TISCMServerPacketHandler
 	private static final TISCMServerPacketHandler INSTANCE = new TISCMServerPacketHandler();
 
 	private final Map<TISCMProtocol.C2S, Consumer<HandlerContext.C2S>> handlers = new EnumMap<>(TISCMProtocol.C2S.class);
+	private final Map<TISCMProtocol.C2S, Consumer<HandlerContext.C2S>> asyncHandlers = new EnumMap<>(TISCMProtocol.C2S.class);
 	private final Map<ServerPlayNetworkHandler, Set<TISCMProtocol.S2C>> clientSupportedPacketsMap = Maps.newLinkedHashMap();
 
 	private TISCMServerPacketHandler()
 	{
 		this.handlers.put(TISCMProtocol.C2S.HI, this::handleHi);
 		this.handlers.put(TISCMProtocol.C2S.SUPPORTED_S2C_PACKETS, this::handleSupportPackets);
-		if (this.handlers.size() < TISCMProtocol.C2S.ID_MAP.size())
+
+		this.asyncHandlers.put(TISCMProtocol.C2S.SPEED_TEST_UPLOAD_PAYLOAD, SpeedTestCommand.getInstance()::handleClientSpeedTestUploadPayload);
+		this.asyncHandlers.put(TISCMProtocol.C2S.SPEED_TEST_PING, SpeedTestCommand.getInstance()::handleClientPing);
+
+		Set<TISCMProtocol.C2S> missingIds = Sets.newHashSet();
+		missingIds.addAll(TISCMProtocol.C2S.ID_MAP.values());
+		missingIds.removeAll(this.handlers.keySet());
+		missingIds.removeAll(this.asyncHandlers.keySet());
+		if (!missingIds.isEmpty())
 		{
-			throw new RuntimeException("TISCMServerPacketDispatcher doesn't handle all C2S packets");
+			throw new RuntimeException("TISCMServerPacketDispatcher doesn't handle all C2S packets: " + missingIds);
 		}
 	}
 
@@ -62,9 +72,10 @@ public class TISCMServerPacketHandler
 	public void dispatch(ServerPlayNetworkHandler networkHandler, TISCMCustomPayload tiscmCustomPayload)
 	{
 		HandlerContext.C2S ctx = new HandlerContext.C2S(networkHandler, tiscmCustomPayload.getNbt());
-		ctx.runSynced(() -> TISCMProtocol.C2S.fromId(tiscmCustomPayload.getPacketId()).
-				map(this.handlers::get).
-				ifPresent( handler -> handler.accept(ctx)));
+		Optional<TISCMProtocol.C2S> packetId = TISCMProtocol.C2S.fromId(tiscmCustomPayload.getPacketId());
+
+		packetId.map(this.asyncHandlers::get).ifPresent(handler -> handler.accept(ctx));
+		ctx.runSynced(() -> packetId.map(this.handlers::get).ifPresent(handler -> handler.accept(ctx)));
 	}
 
 	public void onPlayerDisconnected(ServerPlayNetworkHandler networkHandler)
@@ -84,9 +95,25 @@ public class TISCMServerPacketHandler
 
 	public void sendPacket(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder)
 	{
+		this.sendPacket(networkHandler, packetId, payloadBuilder, () -> {});
+	}
+
+	public void sendPacket(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder, Runnable doneCallback)
+	{
 		if (this.doesClientSupport(networkHandler, packetId))
 		{
-			networkHandler.sendPacket(packetId.packet(payloadBuilder));
+			//#if MC >= 12002
+			//$$ networkHandler.send(
+			//#else
+			networkHandler.sendPacket(
+			//#endif
+					packetId.packet(payloadBuilder),
+					//#if MC >= 11900
+					//$$ net.minecraft.network.PacketCallbacks.always(doneCallback::run)
+					//#else
+					f -> doneCallback.run()
+					//#endif
+			);
 		}
 	}
 

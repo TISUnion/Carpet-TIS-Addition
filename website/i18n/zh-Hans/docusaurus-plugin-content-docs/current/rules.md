@@ -169,6 +169,18 @@ sidebar_position: 1
 - 分类: `TIS`, `COMMAND`, `CREATIVE`
 
 
+## 网络测速指令开关 (commandSpeedTest)
+
+启用 `/speedtest` 命令用于网络速度测试
+
+可以使用选项 [speedTestCommandMaxTestSize](#测速指令最大测试大小-speedtestcommandmaxtestsize) 来调整最大允许的测试大小
+
+- 类型: `String`
+- 默认值: `ops`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
+- 分类: `TIS`, `COMMAND`, `TISCM_PROTOCOL`
+
+
 ## 创造玩家地狱放水 (creativeNetherWaterPlacement)
 
 允许创造模式的玩家在地狱通过水桶放出水
@@ -954,6 +966,16 @@ sidebar_position: 1
 - 默认值: `12`
 - 参考选项: `0`, `10`, `12`
 - 分类: `TIS`, `CREATIVE`
+
+
+## 测速指令最大测试大小 (speedTestCommandMaxTestSize)
+
+在使用 `/speedtest` 测速指令进行网络速度测试时，最大的测试数据大小，单位 MiB
+
+- 类型: `int`
+- 默认值: `10`
+- 参考选项: `10`, `100`, `1024`, `10240`
+- 分类: `TIS`, `COMMAND`
 
 
 ## stop指令两步确认 (stopCommandDoubleConfirmation)

@@ -132,6 +132,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, COMMAND, CREATIVE})
 	public static String commandSleep = "ops";
 
+	@Rule(categories = {TIS, COMMAND, TISCM_PROTOCOL})
+	public static String commandSpeedTest = "false";
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean creativeNetherWaterPlacement = false;
 
@@ -517,6 +520,14 @@ public class CarpetTISAdditionSettings
 			categories = {TIS, CREATIVE}
 	)
 	public static int snowMeltMinLightLevel = VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL;
+
+	@Rule(
+			options = {"10", "100", "1024", "10240"},
+			strict = false,
+			validators = Validators.PositiveNumber.class,
+			categories = {TIS, COMMAND}
+	)
+	public static int speedTestCommandMaxTestSize = 10;
 
 	@Rule(categories = {TIS, COMMAND})
 	public static boolean stopCommandDoubleConfirmation = false;

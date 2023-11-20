@@ -50,6 +50,10 @@ public class TISCMProtocol
 	{
 		HI(true),
 		SUPPORTED_S2C_PACKETS(true),
+
+		// speedtest command
+		SPEED_TEST_UPLOAD_PAYLOAD,
+		SPEED_TEST_PING,
 		;
 
 		public static final Map<String, C2S> ID_MAP = createIdMap(values());
@@ -84,6 +88,12 @@ public class TISCMProtocol
 		SUPPORTED_C2S_PACKETS(true),
 
 		MSPT_METRICS_SAMPLE,  // syncServerMsptMetricsData
+
+		// speedtest command
+		SPEED_TEST_DOWNLOAD_PAYLOAD,
+		SPEED_TEST_UPLOAD_REQUEST,
+		SPEED_TEST_PING,
+		SPEED_TEST_ABORT,
 		;
 
 		public static final Map<String, S2C> ID_MAP = createIdMap(values());

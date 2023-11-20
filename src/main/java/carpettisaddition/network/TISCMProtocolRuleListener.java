@@ -30,12 +30,12 @@ import net.minecraft.util.Formatting;
  * A rule value listener for those feature rules using TISCM protocol
  * It will show a warning message if the feature rule is on but the rule tiscmNetworkProtocol is off
  */
-public class TISCMProtocolRuleListener extends RuleChangeListener<Boolean>
+public class TISCMProtocolRuleListener extends RuleChangeListener<Object>
 {
 	@Override
-	public void onRuleSet(ValidationContext<Boolean> ctx, Boolean newValue)
+	public void onRuleSet(ValidationContext<Object> ctx, Object newValue)
 	{
-		if (ctx.source != null && newValue && !ctx.ruleName().equals("tiscmNetworkProtocol"))
+		if (ctx.source != null && (newValue instanceof Boolean && (boolean)newValue) && !ctx.ruleName().equals("tiscmNetworkProtocol"))
 		{
 			if (!CarpetTISAdditionSettings.tiscmNetworkProtocol)
 			{

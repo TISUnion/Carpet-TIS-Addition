@@ -21,14 +21,16 @@
 package carpettisaddition.network;
 
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.commands.speedtest.SpeedTestCommand;
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
 import carpettisaddition.utils.NbtUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.PacketByteBuf;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
@@ -40,16 +42,28 @@ public class TISCMClientPacketHandler
 	private static final TISCMClientPacketHandler INSTANCE = new TISCMClientPacketHandler();
 
 	private final Map<TISCMProtocol.S2C, Consumer<HandlerContext.S2C>> handlers = new EnumMap<>(TISCMProtocol.S2C.class);
+	private final Map<TISCMProtocol.S2C, Consumer<HandlerContext.S2C>> asyncHandlers = new EnumMap<>(TISCMProtocol.S2C.class);
 	private final Set<TISCMProtocol.C2S> serverSupportedPackets = Sets.newHashSet();
 
 	private TISCMClientPacketHandler()
 	{
 		this.handlers.put(TISCMProtocol.S2C.HELLO, this::handleHello);
 		this.handlers.put(TISCMProtocol.S2C.SUPPORTED_C2S_PACKETS, this::handleSupportPackets);
+
 		this.handlers.put(TISCMProtocol.S2C.MSPT_METRICS_SAMPLE, this::handleMsptMetricsSample);
-		if (this.handlers.size() < TISCMProtocol.S2C.ID_MAP.size())
+
+		this.asyncHandlers.put(TISCMProtocol.S2C.SPEED_TEST_DOWNLOAD_PAYLOAD, TISCMNetworkUtils::blackHole);
+		this.handlers.put(TISCMProtocol.S2C.SPEED_TEST_UPLOAD_REQUEST, SpeedTestCommand.getInstance()::handleServerUploadRequest);
+		this.asyncHandlers.put(TISCMProtocol.S2C.SPEED_TEST_PING, SpeedTestCommand.getInstance()::handleServerPing);
+		this.handlers.put(TISCMProtocol.S2C.SPEED_TEST_ABORT, SpeedTestCommand.getInstance()::handleServerTestAbort);
+
+		Set<TISCMProtocol.S2C> missingIds = Sets.newHashSet();
+		missingIds.addAll(TISCMProtocol.S2C.ID_MAP.values());
+		missingIds.removeAll(this.handlers.keySet());
+		missingIds.removeAll(this.asyncHandlers.keySet());
+		if (!missingIds.isEmpty())
 		{
-			throw new RuntimeException("TISCMServerPacketDispatcher doesn't handle all C2S packets");
+			throw new RuntimeException("TISCMClientPacketHandler doesn't handle all S2C packets: " + missingIds);
 		}
 	}
 
@@ -59,13 +73,15 @@ public class TISCMClientPacketHandler
 	}
 
 	/**
-	 * Invoked on main thread
+	 * Invoked on network thread
 	 */
 	public void dispatch(ClientPlayNetworkHandler networkHandler, TISCMCustomPayload tiscmCustomPayload)
 	{
-		TISCMProtocol.S2C.fromId(tiscmCustomPayload.getPacketId()).
-				map(this.handlers::get).
-				ifPresent( handler -> handler.accept(new HandlerContext.S2C(networkHandler, tiscmCustomPayload.getNbt())));
+		HandlerContext.S2C ctx = new HandlerContext.S2C(networkHandler, tiscmCustomPayload.getNbt());
+		Optional<TISCMProtocol.S2C> packetId = TISCMProtocol.S2C.fromId(tiscmCustomPayload.getPacketId());
+
+		packetId.map(this.asyncHandlers::get).ifPresent(handler -> handler.accept(ctx));
+		ctx.runSynced(() -> packetId.map(this.handlers::get).ifPresent(handler -> handler.accept(ctx)));
 	}
 
 	public boolean isProtocolEnabled()
@@ -78,13 +94,34 @@ public class TISCMClientPacketHandler
 		return packetId.isHandshake || this.serverSupportedPackets.contains(packetId);
 	}
 
-	public void sendPacket(TISCMProtocol.C2S packetId, Consumer<CompoundTag> payloadBuilder)
+	public boolean sendPacket(TISCMProtocol.C2S packetId, Consumer<CompoundTag> payloadBuilder)
 	{
+		return this.sendPacket(packetId, payloadBuilder, () -> {});
+	}
+
+	public boolean sendPacket(TISCMProtocol.C2S packetId, Consumer<CompoundTag> payloadBuilder, Runnable doneCallback)
+	{
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER)
+		{
+			throw new RuntimeException("Trying to send TISCM C2S packet on a dedicated server");
+		}
 		if (this.doesServerSupport(packetId))
 		{
-			Optional.ofNullable(MinecraftClient.getInstance().getNetworkHandler()).
-					ifPresent(networkHandler -> networkHandler.sendPacket(packetId.packet(payloadBuilder)));
+			ClientPlayNetworkHandler networkHandler = MinecraftClient.getInstance().getNetworkHandler();
+			if (networkHandler != null)
+			{
+				networkHandler.getConnection().send(
+						packetId.packet(payloadBuilder),
+						//#if MC >= 11900
+						//$$ net.minecraft.network.PacketCallbacks.always(doneCallback::run)
+						//#else
+						f -> doneCallback.run()
+						//#endif
+				);
+				return true;
+			}
 		}
+		return false;
 	}
 
 	/*

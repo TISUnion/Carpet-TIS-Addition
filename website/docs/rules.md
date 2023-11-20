@@ -169,6 +169,18 @@ Enables `/sleep` command for creating lag
 - Categories: `TIS`, `COMMAND`, `CREATIVE`
 
 
+## commandSpeedTest
+
+Enables `/speedtest` command for network speed test
+
+You can change the maximum allowed test size with rule [speedTestCommandMaxTestSize](#speedtestcommandmaxtestsize)
+
+- Type: `String`
+- Default value: `ops`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
+- Categories: `TIS`, `COMMAND`, `TISCM_PROTOCOL`
+
+
 ## creativeNetherWaterPlacement
 
 Allow creative players place water via water bucket in nether
@@ -954,6 +966,16 @@ You can modify gamerule `randomTickSpeed` to speed up the melting progress, or m
 - Default value: `12`
 - Suggested options: `0`, `10`, `12`
 - Categories: `TIS`, `CREATIVE`
+
+
+## speedTestCommandMaxTestSize
+
+The max test size in MiB when using the `/speedtest` command for network speed test
+
+- Type: `int`
+- Default value: `10`
+- Suggested options: `10`, `100`, `1024`, `10240`
+- Categories: `TIS`, `COMMAND`
 
 
 ## stopCommandDoubleConfirmation
