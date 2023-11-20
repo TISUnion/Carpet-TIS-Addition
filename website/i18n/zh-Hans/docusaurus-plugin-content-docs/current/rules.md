@@ -1074,6 +1074,20 @@ sidebar_position: 1
 - 分类: `TIS`, `CARPET_MOD`, `COMMAND`
 
 
+## tick性能分析指令重现 (tickProfilerCommandsReintroduced)
+
+**本规则仅在 Minecraft >= 1.20.3 中存在**
+
+带回 carpet 模组的 `/tick health`、`/tick entities` 这两个子命令
+
+与 mc1.20.3 前一样，这两个指令的功能将与 carpet 模组的 `/profile [health|entities]` 子命令一致
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
 ## tickWarp指令别名重现 (tickWarpCommandAsAnAlias)
 
 **本规则仅在 Minecraft >= 1.20.3 中存在**

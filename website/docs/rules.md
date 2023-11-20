@@ -1074,6 +1074,20 @@ It's useful if you want to execute the `/tick` command in e.g. command blocks
 - Categories: `TIS`, `CARPET_MOD`, `COMMAND`
 
 
+## tickProfilerCommandsReintroduced
+
+**Minecraft >= 1.20.3 only**
+
+Bring back the `/tick health` and `/tick entities` subcommands from carpet mod
+
+Just like pre-mc1.20.3, these 2 subcommands have the same behavior as `/profile [health|entities]` subcommands
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
 ## tickWarpCommandAsAnAlias
 
 **Minecraft >= 1.20.3 only**

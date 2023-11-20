@@ -1063,6 +1063,11 @@ carpettisaddition:
         extra:
           '0': Set it to "2" or "ops" to restore the default carpet mod behavior before mc1.20.3
           '1': It's useful if you want to execute the "/tick" command in e.g. command blocks
+      tickProfilerCommandsReintroduced:
+        name: tickProfilerCommandsReintroduced
+        desc: Bring back the "/tick health" and "/tick entities" subcommands from carpet mod
+        extra:
+          '0': Just like pre-mc1.20.3, these 2 subcommands have the same behavior as "/profile [health|entities]" subcommands
       tickWarpCommandAsAnAlias:
         name: tickWarpCommandAsAnAlias
         desc: Bring back the "/tick warp" subcommand, as an alias of the vanilla "/tick sprint" command

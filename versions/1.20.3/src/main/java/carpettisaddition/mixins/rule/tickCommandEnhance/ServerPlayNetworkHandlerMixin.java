@@ -29,6 +29,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+import java.util.List;
+
 @Mixin(ServerPlayNetworkHandler.class)
 public abstract class ServerPlayNetworkHandlerMixin
 {
@@ -76,7 +78,11 @@ public abstract class ServerPlayNetworkHandlerMixin
 			command = command.substring(1);
 		}
 
-		// yeet the "status" suggestion for "/tick sprint" (and "/tick warp", provided by rule tickWarpCommandAsAnAlias)
+		// yeet those unrelated suggestions for "/tick sprint" (and "/tick warp", provided by rule tickWarpCommandAsAnAlias)
+		List<String> badSuggestions = List.of(
+				"status",  // provided by rule tickCommandEnhance
+				"health", "entities"  // provided by rule tickProfilerCommandsReintroduced
+		);
 		if (command.startsWith("tick sprint ") || (CarpetTISAdditionSettings.tickWarpCommandAsAnAlias && command.startsWith("tick warp ")))
 		{
 			if (!CarpetTISAdditionSettings.tickCommandEnhance)
@@ -85,7 +91,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 				if (spaces == 2)  // still entering the 3rd segment, might have the "status" suggestion
 				{
 					var filtered = suggestions.getList().stream().
-							filter(s -> !s.getText().equals("status")).
+							filter(s -> !badSuggestions.contains(s.getText())).
 							toList();
 					suggestions = new Suggestions(suggestions.getRange(), filtered);
 				}

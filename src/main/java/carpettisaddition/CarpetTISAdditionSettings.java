@@ -595,6 +595,9 @@ public class CarpetTISAdditionSettings
 	//$$ public static String tickCommandPermission = VANILLA_TICK_COMMAND_PERMISSION;
 	//$$
 	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	//$$ public static boolean tickProfilerCommandsReintroduced = false;
+	//$$
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
 	//$$ public static boolean tickWarpCommandAsAnAlias = false;
 	//#endif
 
