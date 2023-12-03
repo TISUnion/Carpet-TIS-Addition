@@ -1,6 +1,7 @@
 plugins {
 	id 'maven-publish'
 	id 'com.github.hierynomus.license' version '0.16.1' apply false
+	id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id 'fabric-loom' version '1.4-SNAPSHOT' apply false
 
 	// https://github.com/ReplayMod/preprocessor
@@ -52,7 +53,7 @@ tasks.register('buildAndGather') {
 			copy {
 				from(buildLibs(project)) {
 					include '*.jar'
-					exclude '*-dev.jar', '*-sources.jar'
+					exclude '*-dev.jar', '*-sources.jar', '*-shadow.jar'
 				}
 				into buildLibs(rootProject)
 				duplicatesStrategy DuplicatesStrategy.INCLUDE
