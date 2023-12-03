@@ -22,13 +22,11 @@ package carpettisaddition.utils.deobfuscator;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.deobfuscator.mapping.MappingReader;
+import carpettisaddition.utils.deobfuscator.mapping.TinyMappingV2Reader;
 import carpettisaddition.utils.deobfuscator.yarn.OnlineMappingProvider;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.fabricmc.mapping.reader.v2.MappingGetter;
-import net.fabricmc.mapping.reader.v2.TinyMetadata;
-import net.fabricmc.mapping.reader.v2.TinyV2Factory;
-import net.fabricmc.mapping.reader.v2.TinyVisitor;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
@@ -55,26 +53,21 @@ public class StackTraceDeobfuscator
 
 	public static boolean loadMappings(InputStream inputStream, String mappingVersion)
 	{
-		Map<String, String> mappings = Maps.newHashMap();
-		try (BufferedReader mappingReader = new BufferedReader(new InputStreamReader(inputStream)))
+		Map<String, String> mappings;
+		MappingReader mappingReader = new TinyMappingV2Reader();
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream)))
 		{
-			TinyV2Factory.visit(mappingReader, new MappingVisitor(mappings));
+			mappings = mappingReader.readMapping(reader);
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
-		}
-		if (mappings.isEmpty())
-		{
-			CarpetTISAdditionServer.LOGGER.warn("Fail to load mapping {}", mappingVersion);
+			CarpetTISAdditionServer.LOGGER.error("Fail to load mapping {}", mappingVersion, e);
 			return false;
 		}
-		else
-		{
-			MAPPING = mappings;
-			MAPPING_VERSION = mappingVersion;
-			return true;
-		}
+
+		MAPPING = mappings;
+		MAPPING_VERSION = mappingVersion;
+		return true;
 	}
 
 	public static StackTraceElement[] deobfuscateStackTrace(StackTraceElement[] stackTraceElements, @Nullable String ignoreClassPath)
@@ -111,49 +104,5 @@ public class StackTraceDeobfuscator
 			return className;
 		}
 		return className.substring(className.lastIndexOf('.') + 1).split("\\$",2)[0] + ".java";
-	}
-
-	private static class MappingVisitor implements TinyVisitor
-	{
-		private final Map<String, String> mappings;
-		private int intermediaryIndex;
-		private int namedIndex;
-
-		public MappingVisitor(Map<String, String> mappings)
-		{
-			this.mappings = mappings;
-		}
-
-		private void putMappings(MappingGetter name)
-		{
-			String intermediaryName = name.get(this.intermediaryIndex).replace('/', '.');
-			String remappedName = name.get(this.namedIndex).replace('/', '.');
-			this.mappings.put(intermediaryName, remappedName);
-		}
-
-		@Override
-		public void start(TinyMetadata metadata)
-		{
-			this.intermediaryIndex = metadata.index("intermediary");
-			this.namedIndex = metadata.index("named");
-		}
-
-		@Override
-		public void pushClass(MappingGetter name)
-		{
-			this.putMappings(name);
-		}
-
-		@Override
-		public void pushField(MappingGetter name, String descriptor)
-		{
-			this.putMappings(name);
-		}
-
-		@Override
-		public void pushMethod(MappingGetter name, String descriptor)
-		{
-			this.putMappings(name);
-		}
 	}
 }
