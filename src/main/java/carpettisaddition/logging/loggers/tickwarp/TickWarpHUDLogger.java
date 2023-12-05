@@ -135,7 +135,6 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		//$$ var warpNode = context.node;
 		//#else
 		LiteralArgumentBuilder<ServerCommandSource> warpNode = literal("warp");
-		context.node.then(warpNode);
 		//#endif
 
 		warpNode.then(literal("status").
@@ -144,6 +143,10 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 				//#endif
 				executes(c -> this.showTickWarpInfo(c.getSource()))
 		);
+
+		//#if MC < 12003
+		context.node.then(warpNode);
+		//#endif
 	}
 
 	private static void addLine(List<BaseText> list, BaseText name, Object data)
