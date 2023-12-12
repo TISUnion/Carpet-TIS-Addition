@@ -27,6 +27,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TntEntity.class)
@@ -48,14 +49,32 @@ public abstract class TntEntityMixin
 
 	@ModifyArg(
 			method = "initDataTracker",
+			slice = @Slice(
+					from = @At(
+							value = "FIELD",
+							target = "Lnet/minecraft/entity/TntEntity;FUSE:Lnet/minecraft/entity/data/TrackedData;"
+					)
+			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/data/DataTracker;startTracking(Lnet/minecraft/entity/data/TrackedData;Ljava/lang/Object;)V"
+					target = "Lnet/minecraft/entity/data/DataTracker;startTracking(Lnet/minecraft/entity/data/TrackedData;Ljava/lang/Object;)V",
+					ordinal = 0
 			),
 			index = 1
 	)
-	private Object getCustomFuseTimer(Object oldValue)
+	private Object getCustomFuseTimer_tntFuseDuration(Object oldValue)
 	{
-		return CarpetTISAdditionSettings.tntFuseDuration;
+		if (oldValue instanceof Integer)
+		{
+			if (CarpetTISAdditionSettings.tntFuseDuration != CarpetTISAdditionSettings.VANILLA_TNT_FUSE_DURATION)
+			{
+				return CarpetTISAdditionSettings.tntFuseDuration;
+			}
+			return oldValue;
+		}
+		else
+		{
+			throw new RuntimeException("getCustomFuseTimer_tntFuseDuration is modifying a wrong argument. Please report this bug to Carpet TIS Addition");
+		}
 	}
 }

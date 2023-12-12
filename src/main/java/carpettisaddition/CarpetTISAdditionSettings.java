@@ -615,13 +615,14 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, BUGFIX, EXPERIMENTAL})
 	public static boolean tntDupingFix = false;
 
+	public static final int VANILLA_TNT_FUSE_DURATION = 80;
 	@Rule(
 			options = {"0", "80", "32767"},
 			validators = ValidateTNTFuseDuration.class,
 			strict = false,
 			categories = {TIS, CREATIVE}
 	)
-	public static int tntFuseDuration = 80;
+	public static int tntFuseDuration = VANILLA_TNT_FUSE_DURATION;
 
 	private static class ValidateTNTFuseDuration extends RangedNumberValidator<Integer>
 	{
