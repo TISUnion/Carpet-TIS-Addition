@@ -181,6 +181,18 @@ You can change the maximum allowed test size with rule [speedTestCommandMaxTestS
 - Categories: `TIS`, `COMMAND`, `TISCM_PROTOCOL`
 
 
+## creativeInstantTame
+
+Let create player tame animals instantly
+
+Affects cat, wolf, parrot and horse-like animals
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## creativeNetherWaterPlacement
 
 Allow creative players place water via water bucket in nether

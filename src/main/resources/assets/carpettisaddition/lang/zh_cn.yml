@@ -689,6 +689,11 @@ carpettisaddition:
         desc: 启用/speedtest命令用于网络速度测试
         extra:
           '0': 可以使用选项speedTestCommandMaxTestSize来调整最大允许的测试大小
+      creativeInstantTame:
+        name: 创造模式瞬间驯服动物
+        desc: 让创造模式的玩家可以瞬间驯服各种动物
+        extra:
+          '0': 影响范围：猫、狼、鹦鹉、驯服行为类似马的所有动物
       creativeNetherWaterPlacement:
         name: 创造玩家地狱放水
         desc: 允许创造模式的玩家在地狱通过水桶放出水

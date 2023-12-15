@@ -136,6 +136,9 @@ public class CarpetTISAdditionSettings
 	public static String commandSpeedTest = "false";
 
 	@Rule(categories = {TIS, CREATIVE})
+	public static boolean creativeInstantTame = false;
+
+	@Rule(categories = {TIS, CREATIVE})
 	public static boolean creativeNetherWaterPlacement = false;
 
 	@Rule(categories = {TIS, CREATIVE})

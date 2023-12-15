@@ -181,6 +181,18 @@ sidebar_position: 1
 - 分类: `TIS`, `COMMAND`, `TISCM_PROTOCOL`
 
 
+## 创造模式瞬间驯服动物 (creativeInstantTame)
+
+让创造模式的玩家可以瞬间驯服各种动物
+
+影响范围：猫、狼、鹦鹉、驯服行为类似马的所有动物
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 创造玩家地狱放水 (creativeNetherWaterPlacement)
 
 允许创造模式的玩家在地狱通过水桶放出水

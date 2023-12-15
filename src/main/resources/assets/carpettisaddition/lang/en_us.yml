@@ -689,6 +689,11 @@ carpettisaddition:
         desc: Enables /speedtest command for network speed test
         extra:
           '0': You can change the maximum allowed test size with rule speedTestCommandMaxTestSize
+      creativeInstantTame:
+        name: creativeInstantTame
+        desc: Let create player tame animals instantly
+        extra:
+          '0': Affects cat, wolf, parrot and horse-like animals
       creativeNetherWaterPlacement:
         name: creativeNetherWaterPlacement
         desc: Allow creative players place water via water bucket in nether
