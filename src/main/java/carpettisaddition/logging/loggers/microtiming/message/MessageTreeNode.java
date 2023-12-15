@@ -177,6 +177,7 @@ public class MessageTreeNode
 		}
 		catch (Exception e)
 		{
+			//noinspection CallToPrintStackTrace
 			e.printStackTrace();
 		}
 	}

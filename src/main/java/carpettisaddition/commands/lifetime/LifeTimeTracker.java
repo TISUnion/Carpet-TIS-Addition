@@ -20,6 +20,7 @@
 
 package carpettisaddition.commands.lifetime;
 
+import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.commands.AbstractTracker;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
@@ -136,7 +137,7 @@ public class LifeTimeTracker extends AbstractTracker
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			CarpetTISAdditionMod.LOGGER.error("Lifetime tracker report failed", e);
 		}
 	}
 

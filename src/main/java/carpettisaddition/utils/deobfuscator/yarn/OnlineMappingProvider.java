@@ -197,7 +197,7 @@ public class OnlineMappingProvider
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			LOGGER.error("Failed to get yarn mapping, the stack trace deobfuscator will not work: {}", e.toString());
 		}
 	}
 
@@ -220,7 +220,7 @@ public class OnlineMappingProvider
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			LOGGER.error("Check yarn version update failed: {}", e.toString());
 		}
 	}
 
