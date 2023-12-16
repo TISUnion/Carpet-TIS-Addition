@@ -374,6 +374,7 @@
     "rule.tickCommandEnhance.ServerPlayNetworkHandlerMixin",
     "rule.tickCommandEnhance.TickCommandMixin",
     "rule.tickCommandPermission.TickCommandMixin",
+    "rule.tickFreezeCommandToggleable.TickCommandMixin",
     "rule.tickProfilerCommandsReintroduced.TickCommandMixin",
     "rule.tickWarpCommandAsAnAlias.TickCommandMixin",
     "rule.tileTickLimit.ServerTickSchedulerMixin",

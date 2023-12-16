@@ -1068,6 +1068,11 @@ carpettisaddition:
         extra:
           '0': Set it to "2" or "ops" to restore the default carpet mod behavior before mc1.20.3
           '1': It's useful if you want to execute the "/tick" command in e.g. command blocks
+      tickFreezeCommandToggleable:
+        name: tickFreezeCommandToggleable
+        desc: Make the "/tick freeze" command toggleable again, just like how carpet mode behaved before
+        extra:
+          '0': i.e. Make the "/tick freeze" command unfreeze the game if the game is already frozen
       tickProfilerCommandsReintroduced:
         name: tickProfilerCommandsReintroduced
         desc: Bring back the "/tick health" and "/tick entities" subcommands from carpet mod

@@ -1086,6 +1086,20 @@ It's useful if you want to execute the `/tick` command in e.g. command blocks
 - Categories: `TIS`, `CARPET_MOD`, `COMMAND`
 
 
+## tickFreezeCommandToggleable
+
+**Minecraft >= 1.20.3 only**
+
+Make the `/tick freeze` command toggleable again, just like how carpet mode behaved before
+
+i.e. Make the `/tick freeze` command unfreeze the game if the game is already frozen
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
 ## tickProfilerCommandsReintroduced
 
 **Minecraft >= 1.20.3 only**

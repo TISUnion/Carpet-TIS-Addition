@@ -1086,6 +1086,20 @@ sidebar_position: 1
 - 分类: `TIS`, `CARPET_MOD`, `COMMAND`
 
 
+## 切换式tickFreeze指令 (tickFreezeCommandToggleable)
+
+**本规则仅在 Minecraft >= 1.20.3 中存在**
+
+让 `/tick freeze` 像以前的 carpet 模组一样，切换式地设置游戏的冻结状态
+
+也就是说，若游戏运行已冻结，则再次输入 `/tick freeze` 将解除冻结状态
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
 ## tick性能分析指令重现 (tickProfilerCommandsReintroduced)
 
 **本规则仅在 Minecraft >= 1.20.3 中存在**

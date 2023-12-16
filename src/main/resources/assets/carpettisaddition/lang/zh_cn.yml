@@ -1068,6 +1068,11 @@ carpettisaddition:
         extra:
           '0': 将其设为"2"或"ops"以还原carpet模组在mc1.20.3之前的默认表现
           '1': 如果你想在例如命令方块中执行"/tick"命令，本规则将会很有用
+      tickFreezeCommandToggleable:
+        name: 切换式tickFreeze指令
+        desc: 让"/tick freeze"像以前的carpet模组一样，切换式地设置游戏的冻结状态
+        extra:
+          '0': 也就是说，若游戏运行已冻结，则再次输入"/tick freeze"将解除冻结状态
       tickProfilerCommandsReintroduced:
         name: tick性能分析指令重现
         desc: 带回carpet模组的"/tick health"、"/tick entities"这两个子命令
