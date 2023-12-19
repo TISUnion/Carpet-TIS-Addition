@@ -259,6 +259,16 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 - Categories: `TIS`, `FEATURE`, `DISPENSER`
 
 
+## enchantCommandNoRestriction
+
+Remove all enchantment restriction checks inside `/enchant` command
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## entityBrainMemoryUnfreedFix
 
 Fix brain memory of living entity staying unfreed after the entity has been removed
@@ -273,12 +283,14 @@ Fixed [MC-260605](https://bugs.mojang.com/browse/MC-260605), using the same fix 
 - Categories: `TIS`, `BUGFIX`
 
 
-## enchantCommandNoRestriction
+## entityInstantDeathRemoval
 
-Remove all enchantment restriction checks inside `/enchant` command
+Remove the 20gt delay before living entity removal after death
+
+When enabled, living entities will despawn immediately after their death
 
 - Type: `boolean`
-- Default value: `false`
+- Default value: `true`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 

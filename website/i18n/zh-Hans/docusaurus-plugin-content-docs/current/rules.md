@@ -259,6 +259,16 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
 
 
+## enchant指令约束移除 (enchantCommandNoRestriction)
+
+移除 `/enchant` 指令中所有对目标附魔的约束
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 实体大脑记忆未释放修复 (entityBrainMemoryUnfreedFix)
 
 修复了生物实体被移除出世界后，其大脑记忆依然未被释放的bug
@@ -273,9 +283,11 @@ sidebar_position: 1
 - 分类: `TIS`, `BUGFIX`
 
 
-## enchant指令约束移除 (enchantCommandNoRestriction)
+## 生物死亡立即移除 (entityInstantDeathRemoval)
 
-移除 `/enchant` 指令中所有对目标附魔的约束
+移除生物实体死亡前的 20gt 等待时间
+
+启用时，生物实体将在死亡后立即消失
 
 - 类型: `boolean`
 - 默认值: `false`
