@@ -36,7 +36,8 @@
   "depends": {
     "fabricloader": ">=0.14.25",
     "carpet": "${carpet_dependency}",
-    "minecraft": "${minecraft_dependency}"
+    "minecraft": "${minecraft_dependency}",
+    "mixinextras": ">=0.3.0"
   },
   "custom": {
     "modmenu:parent": "carpet"
