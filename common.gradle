@@ -30,6 +30,9 @@ repositories {
 configurations {
 	modRuntimeOnly.exclude group: 'net.fabricmc', module: 'fabric-loader'
 }
+configurations {
+	modCompileOnly.exclude group: 'com.github.2No2Name', module: 'McTester'
+}
 
 dependencies {
 	// loom
