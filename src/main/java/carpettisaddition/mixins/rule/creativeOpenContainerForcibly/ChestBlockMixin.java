@@ -21,17 +21,13 @@
 package carpettisaddition.mixins.rule.creativeOpenContainerForcibly;
 
 import carpettisaddition.helpers.rule.creativeOpenContainerForcibly.CreativeOpenContainerForciblyHelper;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChestBlock.class)
@@ -39,7 +35,7 @@ public abstract class ChestBlockMixin
 {
 	private static final ThreadLocal<Boolean> ignoreChestBlockedCheck = ThreadLocal.withInitial(() -> false);
 
-	@Inject(
+	@ModifyVariable(
 			//#if MC >= 11500
 			method = "onUse",
 			//#else
@@ -52,11 +48,13 @@ public abstract class ChestBlockMixin
 					//#else
 					target = "Lnet/minecraft/block/ChestBlock;createContainerFactory(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/container/NameableContainerFactory;"
 					//#endif
-			)
+			),
+			argsOnly = true
 	)
-	private void noCollideOrCreative(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
+	private PlayerEntity noCollideOrCreative(PlayerEntity player)
 	{
 		ignoreChestBlockedCheck.set(CreativeOpenContainerForciblyHelper.canOpenForcibly(player));
+		return player;
 	}
 
 	@Inject(

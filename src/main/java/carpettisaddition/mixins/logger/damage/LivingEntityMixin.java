@@ -43,6 +43,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
+//#if MC >= 12005
+//$$ import net.minecraft.registry.entry.RegistryEntry;
+//#endif
+
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin implements DamageLoggerTarget
 {
@@ -53,7 +57,13 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 			//$$ field_6253;
 			//#endif
 
-	@Shadow public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
+	@Shadow public abstract StatusEffectInstance getStatusEffect(
+			//#if MC >= 12005
+			//$$ RegistryEntry<StatusEffect> effect
+			//#else
+			StatusEffect effect
+			//#endif
+	);
 
 	@Shadow public abstract Iterable<ItemStack> getArmorItems();
 

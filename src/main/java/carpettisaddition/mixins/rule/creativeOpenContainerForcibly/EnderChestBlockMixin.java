@@ -22,11 +22,11 @@ package carpettisaddition.mixins.rule.creativeOpenContainerForcibly;
 
 import carpettisaddition.helpers.rule.creativeOpenContainerForcibly.CreativeOpenContainerForciblyHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.EnderChestBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Coerce;
 
 @Mixin(EnderChestBlock.class)
 public abstract class EnderChestBlockMixin
@@ -47,11 +47,7 @@ public abstract class EnderChestBlockMixin
 			),
 			require = 0
 	)
-	private boolean isSimpleFullBlockAndNotCreative(
-			boolean isFullBlock,
-			/* parent method parameters vvv */
-			@Coerce Object state, @Coerce Object world, @Coerce Object pos2, PlayerEntity player, @Coerce Object hand, @Coerce Object hit
-	)
+	private boolean isSimpleFullBlockAndNotCreative(boolean isFullBlock, @Local(argsOnly = true) PlayerEntity player)
 	{
 		if (CreativeOpenContainerForciblyHelper.canOpenForcibly(player))
 		{

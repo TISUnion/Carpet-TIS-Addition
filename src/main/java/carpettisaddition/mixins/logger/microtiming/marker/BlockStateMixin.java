@@ -59,7 +59,11 @@ public abstract class BlockStateMixin
 			cancellable = true
 	)
 	private void onUseOnBlock$MicroTimingLoggerMarker(
-			World world, PlayerEntity player, Hand hand, BlockHitResult hit,
+			World world, PlayerEntity player,
+			//#if MC < 12005
+			Hand hand,
+			//#endif
+			BlockHitResult hit,
 			//#if MC >= 11500
 			CallbackInfoReturnable<ActionResult> cir
 			//#else
@@ -67,6 +71,11 @@ public abstract class BlockStateMixin
 			//#endif
 	)
 	{
+		//#if MC >= 12005
+		//$$ // It's always the main hand
+		//$$ var hand = Hand.MAIN_HAND;
+		//#endif
+
 		// client side is allowed here so the client wont desync
 		boolean accepted = MicroTimingLoggerManager.onPlayerRightClick(player, hand, hit.getBlockPos());
 		if (accepted)

@@ -52,6 +52,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
+//#if MC >= 12005
+//$$ import net.minecraft.registry.entry.RegistryEntry;
+//#endif
+
 //#if MC >= 11600 && MC < 11900
 //$$ import net.minecraft.util.Util;
 //#endif
@@ -364,6 +368,12 @@ public class Messenger
 				//#endif
 		);
 	}
+	//#if MC >= 12005
+	//$$ public static MutableText attribute(RegistryEntry<EntityAttribute> attribute)
+	//$$ {
+	//$$ 	return attribute(attribute.value());
+	//$$ }
+	//#endif
 
 	private static final ImmutableMap<DimensionWrapper, BaseText> DIMENSION_NAME = ImmutableMap.of(
 			DimensionWrapper.OVERWORLD, tr(

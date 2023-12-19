@@ -63,7 +63,11 @@ public abstract class RaidMixin implements IRaid
 			method = "start",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12005
+					//$$ target = "Lnet/minecraft/entity/player/PlayerEntity;getStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Lnet/minecraft/entity/effect/StatusEffectInstance;"
+					//#else
 					target = "Lnet/minecraft/entity/player/PlayerEntity;getStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Lnet/minecraft/entity/effect/StatusEffectInstance;"
+					//#endif
 			)
 	)
 	private void onStartBeforeCalculated(PlayerEntity player, CallbackInfo ci)

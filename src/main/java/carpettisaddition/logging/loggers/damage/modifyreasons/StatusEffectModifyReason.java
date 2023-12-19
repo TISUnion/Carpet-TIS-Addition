@@ -27,6 +27,10 @@ import net.minecraft.text.BaseText;
 
 import java.util.List;
 
+//#if MC >= 12005
+//$$ import net.minecraft.registry.entry.RegistryEntry;
+//#endif
+
 public class StatusEffectModifyReason extends ModifyReason
 {
 	private final StatusEffect statusEffect;
@@ -42,6 +46,16 @@ public class StatusEffectModifyReason extends ModifyReason
 	{
 		this(statusEffect, null);
 	}
+	//#if MC >= 12005
+	//$$ public StatusEffectModifyReason(RegistryEntry<StatusEffect> statusEffect, Integer amplifier)
+	//$$ {
+	//$$ 	this(statusEffect.value(), amplifier);
+	//$$ }
+	//$$ public StatusEffectModifyReason(RegistryEntry<StatusEffect> statusEffect)
+	//$$ {
+	//$$ 	this(statusEffect.value());
+	//$$ }
+	//#endif
 
 	@Override
 	public BaseText toText()

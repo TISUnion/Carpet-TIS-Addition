@@ -22,11 +22,11 @@ package carpettisaddition.mixins.rule.creativeOpenContainerForcibly;
 
 import carpettisaddition.helpers.rule.creativeOpenContainerForcibly.CreativeOpenContainerForciblyHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Coerce;
 
 @Mixin(ShulkerBoxBlock.class)
 public abstract class ShulkerBoxBlockMixin
@@ -48,11 +48,7 @@ public abstract class ShulkerBoxBlockMixin
 					//#endif
 			)
 	)
-	private boolean noCollideOrCreative(
-			boolean notCollided,
-			/* parent method parameters vvv */
-			@Coerce Object state, @Coerce Object world, @Coerce Object pos, PlayerEntity player, @Coerce Object hand, @Coerce Object hit
-	)
+	private boolean noCollideOrCreative(boolean notCollided, @Local(argsOnly = true) PlayerEntity player)
 	{
 		if (CreativeOpenContainerForciblyHelper.canOpenForcibly(player))
 		{
