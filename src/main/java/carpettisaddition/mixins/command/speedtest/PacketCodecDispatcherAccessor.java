@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,17 +18,13 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.network;
+package carpettisaddition.mixins.command.speedtest;
 
-public class TISCMNetworkUtils
+import carpettisaddition.utils.compat.DummyClass;
+import org.spongepowered.asm.mixin.Mixin;
+
+@Mixin(DummyClass.class)
+public abstract class PacketCodecDispatcherAccessor
 {
-	// a ctx handler that does nothing
-	public static void blackHole(HandlerContext.S2C ctx)
-	{
-	}
-
-	// a ctx handler that does nothing
-	public static void blackHole(HandlerContext.C2S ctx)
-	{
-	}
+	// used in mc1.20.5+
 }

@@ -33,6 +33,13 @@ import net.minecraft.util.Util;
 import java.util.Arrays;
 import java.util.Objects;
 
+//#if MC >= 12005
+//$$ import carpettisaddition.mixins.command.speedtest.PacketCodecDispatcherAccessor;
+//$$ import net.minecraft.network.RegistryByteBuf;
+//$$ import net.minecraft.network.packet.CommonPackets;
+//$$ import net.minecraft.network.state.PlayStateFactories;
+//#endif
+
 public class SpeedTestCompressionSkipper
 {
 	private static final byte[] DOWNLOAD_PACKET_BYTES_PREFIX = Util.make(() -> {
@@ -69,7 +76,24 @@ public class SpeedTestCompressionSkipper
 	{
 		try
 		{
-			//#if MC >= 12002
+			//#if MC >= 12005
+			//$$ var factory = side == NetworkSide.SERVERBOUND ? PlayStateFactories.S2C : PlayStateFactories.C2S;
+			//$$ var type = side == NetworkSide.SERVERBOUND ? CommonPackets.CUSTOM_PAYLOAD_S2C : CommonPackets.CUSTOM_PAYLOAD_C2S;
+			//$$ var codec = factory.bind(buf -> new RegistryByteBuf(buf, null)).codec();
+			//$$ if (codec instanceof PacketCodecDispatcherAccessor<?> packetCodecDispatcher)
+			//$$ {
+			//$$ 	var packetId = packetCodecDispatcher.getTypeToIndex().getOrDefault(type, -1);
+			//$$ 	if (packetId == -1)
+			//$$ 	{
+			//$$ 		throw new IndexOutOfBoundsException("Failed to get packet id for %s from %s".formatted(type, packetCodecDispatcher));
+			//$$ 	}
+			//$$ 	return packetId;
+			//$$ }
+			//$$ else
+			//$$ {
+			//$$ 	throw new RuntimeException("codec is not a PacketCodecDispatcherAccessor");
+			//$$ }
+			//#elseif MC >= 12002
 			//$$ return NetworkState.PLAY.getHandler(side).getId(packet);
 			//#else
 			return Objects.requireNonNull(NetworkState.PLAY.getPacketId(side, packet));

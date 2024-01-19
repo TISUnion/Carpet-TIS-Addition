@@ -25,9 +25,19 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
+//#if MC >= 12005
+//$$ import net.minecraft.network.codec.PacketCodec;
+//$$ import net.minecraft.network.packet.CustomPayload;
+//#endif
+
 public class TISCMCustomPayload implements CustomPayload
 {
 	public static final Identifier ID = TISCMProtocol.CHANNEL;
+
+	//#if MC >= 12005
+	//$$ public static final CustomPayload.Id<TISCMCustomPayload> KEY = new CustomPayload.Id<>(ID);
+	//$$ public static final PacketCodec<PacketByteBuf, TISCMCustomPayload> CODEC = CustomPayload.codecOf(TISCMCustomPayload::write, TISCMCustomPayload::new);
+	//#endif
 
 	private final String packetId;
 	private final CompoundTag nbt;
@@ -47,18 +57,30 @@ public class TISCMCustomPayload implements CustomPayload
 		), buf.readCompoundTag());
 	}
 
+	//#if MC < 12005
 	@Override
+	//#endif
 	public void write(PacketByteBuf buf)
 	{
 		buf.writeString(this.packetId);
 		buf.writeCompoundTag(this.nbt);
 	}
 
+	//#if MC < 12005
 	@Override
+	//#endif
 	public Identifier id()
 	{
 		return ID;
 	}
+
+	//#if MC >= 12005
+	//$$ @Override
+	//$$ public Id<? extends CustomPayload> getId()
+	//$$ {
+	//$$ 	return KEY;
+	//$$ }
+	//#endif
 
 	public String getPacketId()
 	{
