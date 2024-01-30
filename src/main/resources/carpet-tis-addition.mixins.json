@@ -372,7 +372,6 @@
     "rule.synchronizedLightThread.ServerWorldMixin",
     "rule.synchronizedLightThread.TaskExecutorAccessor",
     "rule.syncServerMsptMetricsData.MinecraftServerMixin",
-    "rule.syncServerMsptMetricsData.TickChartAccessor",
     "rule.tickCommandEnhance.ServerPlayNetworkHandlerMixin",
     "rule.tickCommandEnhance.TickCommandMixin",
     "rule.tickCommandPermission.TickCommandMixin",
@@ -437,7 +436,8 @@
     "network.ClientPlayNetworkHandlerAccessor",
     "network.ClientPlayNetworkHandlerMixin",
     "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin",
-    "rule.syncServerMsptMetricsData.DebugHudMixin"
+    "rule.syncServerMsptMetricsData.DebugHudMixin",
+    "rule.syncServerMsptMetricsData.TickChartAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
