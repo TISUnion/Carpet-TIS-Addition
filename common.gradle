@@ -13,7 +13,8 @@ preprocess {
 
 repositories {
 	maven {
-		url 'https://masa.dy.fi/maven'
+//		url 'https://masa.dy.fi/maven'
+		url 'https://maven.fallenbreath.me/mcdev-aio'
 	}
 	maven {
 		url 'https://maven.fallenbreath.me/releases'
