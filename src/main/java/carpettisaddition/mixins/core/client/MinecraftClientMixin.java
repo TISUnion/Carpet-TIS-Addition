@@ -37,7 +37,11 @@ public abstract class MinecraftClientMixin
 	}
 
 	@Inject(
+			//#if MC >= 12005
+			//$$ method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;Z)V",
+			//#else
 			method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/client/gui/hud/InGameHud;clear()V"
