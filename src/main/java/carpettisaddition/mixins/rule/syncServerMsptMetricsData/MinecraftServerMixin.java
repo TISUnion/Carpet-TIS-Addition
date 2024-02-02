@@ -28,6 +28,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+/**
+ * mc1.14 ~ mc1.20.4: subproject 1.15.2 (main project)        <--------
+ * mc1.20.5+        : subproject 1.20.5
+ */
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
@@ -44,7 +48,7 @@ public abstract class MinecraftServerMixin
 					//#endif
 			)
 	)
-	private long sendServerTpsMetricsData_getMsThisTick(long msThisTick)
+	private long sendServerTpsMetricsData_broadcastTickServer(long msThisTick)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
