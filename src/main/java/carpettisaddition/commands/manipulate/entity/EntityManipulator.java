@@ -62,7 +62,11 @@ public class EntityManipulator extends AbstractManipulator
 								then(literal("clear").
 										executes(c -> clearRename(c.getSource(), getEntities(c, "target")))
 								).
-								then(argument("name", text()).
+								then(argument("name", text(
+												//#if MC >= 12005
+												//$$ context.commandBuildContext
+												//#endif
+										)).
 										executes(c -> rename(c.getSource(), getEntities(c, "target"), getTextArgument(c, "name")))
 								)
 						).

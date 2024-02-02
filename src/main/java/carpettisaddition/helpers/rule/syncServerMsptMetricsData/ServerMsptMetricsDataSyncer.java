@@ -31,12 +31,22 @@ import net.minecraft.util.MetricsData;
 
 import java.util.Set;
 
+//#if MC >= 12005
+//$$ import net.minecraft.util.profiler.MultiValueDebugSampleLogImpl;
+//#endif
+
 public class ServerMsptMetricsDataSyncer
 {
 	private static final ServerMsptMetricsDataSyncer INSTANCE = new ServerMsptMetricsDataSyncer();
 	private static final ServerTickType SERVER_TICK_TYPE_FALLBACK = ServerTickType.TICK_SERVER_METHOD;
 
-	private MetricsData metricsData;
+	//#if MC >= 12005
+	//$$ private MultiValueDebugSampleLogImpl
+	//#else
+	private MetricsData
+	//#endif
+			metricsData;
+
 	private final Set<ServerTickType> sentTypesThisTick = Sets.newHashSet();
 	private long tickCounterThisTick = -1;
 
@@ -101,18 +111,30 @@ public class ServerMsptMetricsDataSyncer
 		//#endif
 	}
 
-	public MetricsData getMetricsData()
+	public
+	//#if MC >= 12005
+	//$$ MultiValueDebugSampleLogImpl
+	//#else
+	MetricsData
+	//#endif
+	getMetricsData()
 	{
 		return this.metricsData;
 	}
 
 	public void reset()
 	{
-		this.metricsData = new MetricsData(
+		this.metricsData =
 				//#if MC >= 12005
-				//$$ net.minecraft.util.profiler.ServerTickType.values().length
+				//$$ new MultiValueDebugSampleLogImpl
+				//#else
+				new MetricsData
 				//#endif
-		);
+				(
+						//#if MC >= 12005
+						//$$ net.minecraft.util.profiler.ServerTickType.values().length
+						//#endif
+				);
 	}
 
 	public boolean isServerSupportOk()

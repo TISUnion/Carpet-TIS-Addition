@@ -42,7 +42,7 @@ public abstract class MinecraftServerMixin
 			method = "pushTickLog",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/profiler/PerformanceLog;push(JI)V"
+					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(JI)V"
 			)
 	)
 	private long sendServerTpsMetricsData_broadcastTickServer(long milli)
@@ -58,7 +58,7 @@ public abstract class MinecraftServerMixin
 			method = "pushFullTickLog",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/profiler/PerformanceLog;push(J)V"
+					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(J)V"
 			)
 	)
 	private long sendServerTpsMetricsData_broadcastFullTick(long milli)
@@ -74,7 +74,7 @@ public abstract class MinecraftServerMixin
 			method = "pushPerformanceLogs",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/profiler/PerformanceLog;push(JI)V",
+					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(JI)V",
 					ordinal = 0
 			)
 	)
@@ -91,7 +91,7 @@ public abstract class MinecraftServerMixin
 			method = "pushPerformanceLogs",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/profiler/PerformanceLog;push(JI)V",
+					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(JI)V",
 					ordinal = 1
 			)
 	)

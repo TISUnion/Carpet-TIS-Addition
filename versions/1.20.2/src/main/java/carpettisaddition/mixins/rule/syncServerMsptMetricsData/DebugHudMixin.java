@@ -34,6 +34,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+//#if MC >= 12005
+//$$ import net.minecraft.util.profiler.MultiValueDebugSampleLogImpl;
+//#endif
+
 /**
  * mc1.14 ~ mc1.20.1: subproject 1.15.2 (main project)
  * mc1.20.2+        : subproject 1.20.2        <--------
@@ -48,21 +52,42 @@ public abstract class DebugHudMixin
 	//$$ @Shadow @Final private TickChart tickChart;
 	//#endif
 
+	//#if MC >= 12005
+	//$$ @Shadow @Final private MultiValueDebugSampleLogImpl tickNanosLog;
+	//#endif
+
 	@Inject(
 			method = "method_51746",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12005
+					//$$ target = "Lnet/minecraft/util/profiler/MultiValueDebugSampleLogImpl;getLength()I"
+					//#else
 					target = "Lnet/minecraft/client/MinecraftClient;getServer()Lnet/minecraft/server/integrated/IntegratedServer;"
+					//#endif
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	private void syncServerMsptMetricsData_drawIfPossible(DrawContext drawContext, CallbackInfo ci, int windowWidth, int centerX)
 	{
-		if (this.client.getServer() == null)
+		boolean shouldDraw =
+				//#if MC >= 12005
+				//$$ this.tickNanosLog.getLength() > 0;
+				//#else
+				this.client.getServer() == null;
+				//#endif
+		if (shouldDraw)
 		{
 			if (ServerMsptMetricsDataSyncer.getInstance().isServerSupportOk())
 			{
 				var data = ServerMsptMetricsDataSyncer.getInstance().getMetricsData();
+				//#if MC >= 12005
+				//$$ if (data.getLength() <= 0)
+				//$$ {
+				//$$ 	return;
+				//$$ }
+				//#endif
+
 				var chart = new TickChart(
 						this.textRenderer, data
 						//#if MC >= 12003
