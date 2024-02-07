@@ -20,22 +20,28 @@
 
 package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip;
 
+import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 //#if MC >= 11500
 import carpet.CarpetSettings;
 //#else
 //$$ import carpettisaddition.utils.compat.carpet.CarpetSettings;
 //#endif
 
-import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
-import net.minecraft.entity.ExperienceOrbEntity;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 @Mixin(ExperienceOrbEntity.class)
 public abstract class ExperienceOrbEntityMixin
 {
+	@Shadow
+	private PlayerEntity target;
+
 	@Inject(
 			//#if MC >= 11700
 			//$$ method = "expensiveUpdate",
@@ -47,7 +53,7 @@ public abstract class ExperienceOrbEntityMixin
 					target = "Lnet/minecraft/world/World;getClosestPlayer(Lnet/minecraft/entity/Entity;D)Lnet/minecraft/entity/player/PlayerEntity;"
 			)
 	)
-	private void creativeNoClipEnhancementEnter(CallbackInfo ci)
+	private void creativeNoClipEnhancement_doNotFindNoCreateClipPlayer_enter(CallbackInfo ci)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
@@ -67,11 +73,28 @@ public abstract class ExperienceOrbEntityMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private void creativeNoClipEnhancementExit(CallbackInfo ci)
+	private void creativeNoClipEnhancement_doNotFindCreateNoClipPlayer_exit(CallbackInfo ci)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
 			CreativeNoClipHelper.exceptSpectatorPredicateIgnoreNoClipPlayers.set(false);
 		}
+	}
+
+	@ModifyExpressionValue(
+			method = "tick",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/player/PlayerEntity;isSpectator()Z",
+					ordinal = 0
+			)
+	)
+	private boolean creativeNoClipEnhancement_forgetCreateNoClipPlayer(boolean isSpectator)
+	{
+		if (this.target != null && CreativeNoClipHelper.isNoClipPlayer(this.target))
+		{
+			isSpectator = true;
+		}
+		return isSpectator;
 	}
 }
