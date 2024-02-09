@@ -77,8 +77,9 @@ public class SpeedTestCompressionSkipper
 		try
 		{
 			//#if MC >= 12005
-			//$$ var factory = side == NetworkSide.SERVERBOUND ? PlayStateFactories.S2C : PlayStateFactories.C2S;
-			//$$ var type = side == NetworkSide.SERVERBOUND ? CommonPackets.CUSTOM_PAYLOAD_S2C : CommonPackets.CUSTOM_PAYLOAD_C2S;
+			//$$ // side == server means receiving c2s packet
+			//$$ var factory = side == NetworkSide.SERVERBOUND ? PlayStateFactories.C2S : PlayStateFactories.S2C;
+			//$$ var type = side == NetworkSide.SERVERBOUND ? CommonPackets.CUSTOM_PAYLOAD_C2S : CommonPackets.CUSTOM_PAYLOAD_S2C;
 			//$$ var codec = factory.bind(buf -> new RegistryByteBuf(buf, null)).codec();
 			//$$ if (codec instanceof PacketCodecDispatcherAccessor<?> packetCodecDispatcher)
 			//$$ {
