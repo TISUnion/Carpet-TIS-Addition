@@ -247,6 +247,9 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
+	@Rule(categories = {TIS, CARPET_MOD})
+	public static boolean fakePlayerTicksLikeRealPlayer = false;
+
 	@Rule(categories = {TIS, CARPET_MOD}, validators = PermissionLevelValidator.class)
 	public static String fakePlayerRemoteSpawning = "true";
 

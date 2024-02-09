@@ -415,6 +415,22 @@ sidebar_position: 1
 - 分类: `TIS`, `CARPET_MOD`
 
 
+## 假人像真人一样运算 (fakePlayerTicksLikeRealPlayer)
+
+调整 carpet 执行假人运算和 `/player` 动作所位于的游戏阶段，
+使它们的表现尽可能与真实玩家一致
+
+调整前的 carpet 逻辑 -> 调整后的逻辑:
+
+1. 假人的实体相关运算: 实体阶段 -> 网络阶段逻辑
+2. `/player` 指令的玩家动作包: 实体阶段 -> 异步任务阶段
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`
+
+
 ## 假人远程召唤 (fakePlayerRemoteSpawning)
 
 使用/player指令远程召唤假人的权限需求

@@ -121,6 +121,7 @@ carpettisaddition:
       sub_stage:
         player: 玩家
         player_action: 执行来自客户端的玩家动作
+        player_action_pack: 执行来自/player指令的玩家动作包
         ticking_weather_effect_entities: 运算天气实体
         ticking_regular_entities: 运算普通实体
         ticking_player_entity: 运算玩家实体
@@ -781,6 +782,15 @@ carpettisaddition:
         desc: 为/player指令召唤出来的假人名称添加指定后缀
         extra:
           '0': 将其设置为#none以阻止添加后缀
+      fakePlayerTicksLikeRealPlayer:
+        name: 假人像真人一样运算
+        desc:
+          调整carpet执行假人运算和/player动作所位于的游戏阶段，
+          使它们的表现尽可能与真实玩家一致
+        extra:
+          '0': '调整前的carpet逻辑 -> 调整后的逻辑:'
+          '1': '1. 假人的实体相关运算: 实体阶段 -> 网络阶段逻辑'
+          '2': '2. /player指令的玩家动作包: 实体阶段 -> 异步任务阶段'
       fakePlayerRemoteSpawning:
         name: 假人远程召唤
         desc: 使用/player指令远程召唤假人的权限需求

@@ -21,14 +21,17 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.mixins.utils.ThreadExecutorAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.thread.ThreadExecutor;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 
 //#if MC >= 11700
@@ -42,6 +45,7 @@ import java.util.Objects;
 import net.minecraft.world.dimension.DimensionType;
 //#endif
 
+@SuppressWarnings("UnusedReturnValue")
 public class GameUtil
 {
 	public static long getGameTime()
@@ -58,6 +62,12 @@ public class GameUtil
 	public static boolean isOnServerThread()
 	{
 		return CarpetTISAdditionServer.minecraft_server != null && CarpetTISAdditionServer.minecraft_server.isOnThread();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <R extends Runnable> void submitAsyncTask(ThreadExecutor<R> executor, Runnable runnable)
+	{
+		executor.send(((ThreadExecutorAccessor<R>)executor).invokeCreateTask(runnable));
 	}
 
 	/**

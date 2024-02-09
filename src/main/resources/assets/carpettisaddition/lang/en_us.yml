@@ -121,6 +121,7 @@ carpettisaddition:
       sub_stage:
         player: Player
         player_action: Executing player actions sent by clients
+        player_action_pack: Executing action packs from the /player command
         ticking_weather_effect_entities: Ticking weather effect entities
         ticking_regular_entities: Ticking regular entities
         ticking_player_entity: Ticking player entity
@@ -781,6 +782,15 @@ carpettisaddition:
         desc: Add a name suffix for fake players spawned with /player command
         extra:
           '0': 'Set it to #none to stop adding a suffix'
+      fakePlayerTicksLikeRealPlayer:
+        name: fakePlayerTicksLikeRealPlayer
+        desc:
+          Adjust the game phase where carpet's fake player logic and /player action packs are ticked, 
+          to make their behavior as close to real players as possible
+        extra:
+          '0': 'Adjustments, before -> after:'
+          '1': '1. Fake player entity-related ticking: Entity Phase -> Network Phase'
+          '2': '2. /player command action packs: Entity Phase -> Asynchronous Task Phase'
       fakePlayerRemoteSpawning:
         name: fakePlayerRemoteSpawning
         desc: The permission requirement for spawning remotely a fake player with /player command

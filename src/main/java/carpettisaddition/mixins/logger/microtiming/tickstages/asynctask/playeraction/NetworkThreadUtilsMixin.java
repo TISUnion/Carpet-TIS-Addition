@@ -50,6 +50,7 @@ public abstract class NetworkThreadUtilsMixin<T>
 		{
 			if (listener instanceof ServerPlayNetworkHandler)
 			{
+				// reset at carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.MinecraftServerMixin
 				ServerPlayNetworkHandler handler = (ServerPlayNetworkHandler) listener;
 				MicroTimingLoggerManager.setTickStage(TickStage.PLAYER_ACTION);
 				MicroTimingLoggerManager.setSubTickStage(new PlayerActionSubStage(handler.player));

@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,32 +18,24 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.logger.microtiming.tickstages.entity;
+package carpettisaddition.mixins.rule.fakePlayerTicksLikeRealPlayer;
 
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.logging.loggers.microtiming.tickphase.substages.PlayerEntitySubStage;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import carpet.helpers.EntityPlayerActionPack;
+import carpettisaddition.helpers.rule.fakePlayerTicksLikeRealPlayer.PlayerActionPackCanceller;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerPlayNetworkHandler.class)
-public abstract class ServerPlayNetworkHandlerMixin
+@Mixin(EntityPlayerActionPack.class)
+public abstract class EntityPlayerActionPackMixin
 {
-	@Shadow public ServerPlayerEntity player;
-
-	@Inject(method = "tick", at = @At("HEAD"))
-	void startStageDetailTickPlayer(CallbackInfo ci)
+	@Inject(method = "onUpdate", at = @At("HEAD"), cancellable = true, remap = false)
+	private void fakePlayerTicksLikeRealPlayer_dontTickAtEntityPhase(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setSubTickStage(new PlayerEntitySubStage(this.player));
-	}
-
-	@Inject(method = "tick", at = @At("RETURN"))
-	void endStageDetailTickPlayer(CallbackInfo ci)
-	{
-		MicroTimingLoggerManager.setSubTickStage(null);
+		if (PlayerActionPackCanceller.cancelled.get())
+		{
+			ci.cancel();
+		}
 	}
 }

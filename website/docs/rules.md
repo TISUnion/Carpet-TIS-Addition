@@ -415,6 +415,22 @@ Set it to `#none` to stop adding a suffix
 - Categories: `TIS`, `CARPET_MOD`
 
 
+## fakePlayerTicksLikeRealPlayer
+
+Adjust the game phase where carpet's fake player logic and `/player` action packs are ticked, 
+to make their behavior as close to real players as possible
+
+Adjustments, before -> after:
+
+1. Fake player entity-related ticking: Entity Phase -> Network Phase
+2. `/player` command action packs: Entity Phase -> Asynchronous Task Phase
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`
+
+
 ## fakePlayerRemoteSpawning
 
 The permission requirement for spawning remotely a fake player with `/player` command
