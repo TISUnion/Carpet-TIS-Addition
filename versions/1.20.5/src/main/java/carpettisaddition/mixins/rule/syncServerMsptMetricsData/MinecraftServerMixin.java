@@ -22,6 +22,7 @@ package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.profiler.ServerTickType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,13 +46,13 @@ public abstract class MinecraftServerMixin
 					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(JI)V"
 			)
 	)
-	private long sendServerTpsMetricsData_broadcastTickServer(long milli)
+	private long sendServerTpsMetricsData_broadcastTickServer(long nanosecond)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, milli, ServerTickType.TICK_SERVER_METHOD);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, ServerTickType.TICK_SERVER_METHOD);
 		}
-		return milli;
+		return nanosecond;
 	}
 
 	@ModifyArg(
@@ -61,13 +62,13 @@ public abstract class MinecraftServerMixin
 					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(J)V"
 			)
 	)
-	private long sendServerTpsMetricsData_broadcastFullTick(long milli)
+	private long sendServerTpsMetricsData_broadcastFullTick(long nanosecond)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, milli, ServerTickType.FULL_TICK);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, ServerTickType.FULL_TICK);
 		}
-		return milli;
+		return nanosecond;
 	}
 
 	@ModifyArg(
@@ -78,13 +79,13 @@ public abstract class MinecraftServerMixin
 					ordinal = 0
 			)
 	)
-	private long sendServerTpsMetricsData_broadcastScheduledTask(long milli)
+	private long sendServerTpsMetricsData_broadcastScheduledTask(long nanosecond)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, milli, ServerTickType.SCHEDULED_TASKS);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, ServerTickType.SCHEDULED_TASKS);
 		}
-		return milli;
+		return nanosecond;
 	}
 
 	@ModifyArg(
@@ -95,12 +96,12 @@ public abstract class MinecraftServerMixin
 					ordinal = 1
 			)
 	)
-	private long sendServerTpsMetricsData_broadcastIdle(long milli)
+	private long sendServerTpsMetricsData_broadcastIdle(long nanosecond)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, milli, ServerTickType.IDLE);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, ServerTickType.IDLE);
 		}
-		return milli;
+		return nanosecond;
 	}
 }

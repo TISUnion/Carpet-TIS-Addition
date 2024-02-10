@@ -378,6 +378,7 @@
     "rule.synchronizedLightThread.ServerLightingProviderAccessor",
     "rule.synchronizedLightThread.ServerWorldMixin",
     "rule.synchronizedLightThread.TaskExecutorAccessor",
+    "rule.syncServerMsptMetricsData.MinecraftDedicatedServerMixin",
     "rule.syncServerMsptMetricsData.MinecraftServerMixin",
     "rule.tickCommandEnhance.ServerPlayNetworkHandlerMixin",
     "rule.tickCommandEnhance.TickCommandMixin",

@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,39 +21,22 @@
 package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
-import net.minecraft.server.MinecraftServer;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.minecraft.server.dedicated.MinecraftDedicatedServer;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-/**
- * mc1.14 ~ mc1.20.4: subproject 1.15.2 (main project)        <--------
- * mc1.20.5+        : subproject 1.20.5
- */
-@Mixin(MinecraftServer.class)
-public abstract class MinecraftServerMixin
+// used in mc1.20.5+
+@Mixin(MinecraftDedicatedServer.class)
+public abstract class MinecraftDedicatedServerMixin
 {
-	@Shadow private int ticks;
-
-	@ModifyArg(
-			method = "tick",
-			at = @At(
-					value = "INVOKE",
-					//#if MC >= 12002
-					//$$ target = "Lnet/minecraft/server/MinecraftServer;tickTickLog(J)V"
-					//#else
-					target = "Lnet/minecraft/util/MetricsData;pushSample(J)V"
-					//#endif
-			)
-	)
-	private long sendServerTpsMetricsData_broadcastTickServer(long msThisTick)
+	@ModifyReturnValue(method = "shouldPushTickTimeLog", at = @At("TAIL"))
+	private boolean sendServerTpsMetricsData_alwaysPushTickTimeLog(boolean ret)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSampleLegacy(this.ticks, msThisTick);
+			ret = true;
 		}
-		return msThisTick;
+		return ret;
 	}
 }

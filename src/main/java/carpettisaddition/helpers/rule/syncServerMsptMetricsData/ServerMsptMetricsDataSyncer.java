@@ -39,6 +39,7 @@ public class ServerMsptMetricsDataSyncer
 {
 	private static final ServerMsptMetricsDataSyncer INSTANCE = new ServerMsptMetricsDataSyncer();
 	private static final ServerTickType SERVER_TICK_TYPE_FALLBACK = ServerTickType.TICK_SERVER_METHOD;
+	private static final long M = 1_000_000;
 
 	//#if MC >= 12005
 	//$$ private MultiValueDebugSampleLogImpl
@@ -60,7 +61,7 @@ public class ServerMsptMetricsDataSyncer
 		return INSTANCE;
 	}
 
-	public void broadcastSample(long tickCounter, long millisecond, ServerTickType serverTickType)
+	public void broadcastSample(long tickCounter, long nanosecond, ServerTickType serverTickType)
 	{
 		if (tickCounter != this.tickCounterThisTick)
 		{
@@ -73,19 +74,25 @@ public class ServerMsptMetricsDataSyncer
 		}
 
 		TISCMServerPacketHandler.getInstance().broadcast(TISCMProtocol.S2C.MSPT_METRICS_SAMPLE, nbt -> {
-			nbt.putLong("millisecond", millisecond);
+			nbt.putInt("version", 2);
+			nbt.putLong("millisecond", nanosecond / M);  // old tiscm (<=1.55) only uses the millisecond
+			nbt.putLong("nanosecond", nanosecond);
 			nbt.putString("type", serverTickType.toString().toLowerCase());
 		});
 	}
 
-	public void broadcastSample(long tickCounter, long millisecond)
+	public void broadcastSampleLegacy(long tickCounter, long millisecond)
 	{
-		broadcastSample(tickCounter, millisecond, SERVER_TICK_TYPE_FALLBACK);
+		broadcastSample(tickCounter, millisecond * M, SERVER_TICK_TYPE_FALLBACK);
 	}
 
 	public void receiveMetricData(CompoundTag nbt)
 	{
-		long millisecond = nbt.getLong("millisecond");
+		long nanosecond = nbt.getLong("millisecond") * M;
+		if (nbt.contains("nanosecond"))
+		{
+			nanosecond = nbt.getLong("nanosecond");
+		}
 
 		ServerTickType type;
 		try
@@ -100,14 +107,14 @@ public class ServerMsptMetricsDataSyncer
 		//#if MC >= 12005
 		//$$ if (type.ordinal() == 0)  // FULL_TICK
 		//$$ {
-		//$$ 	this.metricsData.push(millisecond);
+		//$$ 	this.metricsData.push(nanosecond);
 		//$$ }
 		//$$ else
 		//$$ {
-		//$$ 	this.metricsData.push(millisecond, type.ordinal());
+		//$$ 	this.metricsData.push(nanosecond, type.ordinal());
 		//$$ }
 		//#else
-		this.metricsData.pushSample(millisecond);
+		this.metricsData.pushSample(nanosecond / M);
 		//#endif
 	}
 
@@ -132,7 +139,7 @@ public class ServerMsptMetricsDataSyncer
 				//#endif
 				(
 						//#if MC >= 12005
-						//$$ net.minecraft.util.profiler.ServerTickType.values().length
+						//$$ ServerTickType.values().length
 						//#endif
 				);
 	}

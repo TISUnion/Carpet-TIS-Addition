@@ -70,13 +70,13 @@ public abstract class DebugHudMixin
 	)
 	private void syncServerMsptMetricsData_drawIfPossible(DrawContext drawContext, CallbackInfo ci, int windowWidth, int centerX)
 	{
-		boolean shouldDraw =
+		boolean shouldVanillaChartDraw =
 				//#if MC >= 12005
 				//$$ this.tickNanosLog.getLength() > 0;
 				//#else
-				this.client.getServer() == null;
+				this.client.getServer() != null;
 				//#endif
-		if (shouldDraw)
+		if (!shouldVanillaChartDraw)
 		{
 			if (ServerMsptMetricsDataSyncer.getInstance().isServerSupportOk())
 			{
