@@ -73,7 +73,6 @@ public class SupplierCounterCommand extends AbstractCommand
 		return INSTANCE;
 	}
 
-
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{

@@ -267,9 +267,16 @@ public class EntityInfoPorting
 									EntityInfoUtil.get_speed(elb.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue()),
 									EntityInfoUtil.get_horse_speed_percent(elb.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue())
 							)));
+
+							double strength =
+									//#if MC >= 12005
+									//$$ ah.getAttributeValue(EntityAttributes.GENERIC_JUMP_STRENGTH);
+									//#else
+									ah.getJumpStrength();
+									//#endif
 							lst.add(Messenger.c(String.format("w  - Horse Jump: %.2f b/s (%.1f%%%%)",
-									EntityInfoUtil.get_horse_jump(ah.getJumpStrength()),
-									EntityInfoUtil.get_horse_jump_percent(ah.getJumpStrength())
+									EntityInfoUtil.get_horse_jump(strength),
+									EntityInfoUtil.get_horse_jump_percent(strength)
 							)));
 						}
 					}

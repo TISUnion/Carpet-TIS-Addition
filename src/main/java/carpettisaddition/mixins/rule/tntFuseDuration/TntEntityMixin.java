@@ -57,7 +57,11 @@ public abstract class TntEntityMixin
 			),
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12005
+					//$$ target = "Lnet/minecraft/entity/data/DataTracker$Builder;add(Lnet/minecraft/entity/data/TrackedData;Ljava/lang/Object;)Lnet/minecraft/entity/data/DataTracker$Builder;",
+					//#else
 					target = "Lnet/minecraft/entity/data/DataTracker;startTracking(Lnet/minecraft/entity/data/TrackedData;Ljava/lang/Object;)V",
+					//#endif
 					ordinal = 0
 			),
 			index = 1
@@ -74,7 +78,7 @@ public abstract class TntEntityMixin
 		}
 		else
 		{
-			throw new RuntimeException("getCustomFuseTimer_tntFuseDuration is modifying a wrong argument. Please report this bug to Carpet TIS Addition");
+			throw new RuntimeException(String.format("getCustomFuseTimer_tntFuseDuration is modifying a wrong argument, oldValue = %s (%s). Please report this bug to Carpet TIS Addition", oldValue, oldValue.getClass()));
 		}
 	}
 }

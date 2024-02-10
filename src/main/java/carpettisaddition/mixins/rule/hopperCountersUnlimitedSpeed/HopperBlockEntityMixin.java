@@ -24,6 +24,7 @@ import carpet.CarpetSettings;
 import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.HopperBlockEntity;
@@ -64,9 +65,12 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	//#endif
 
 	//#if MC >= 11700
- //$$
 	//$$ @Shadow
+	//$$ //#if MC >= 12005
+	//$$ //$$ private static boolean insert(World world, BlockPos blockPos, HopperBlockEntity hopper)
+	//$$ //#else
 	//$$ private static boolean insert(World world, BlockPos blockPos, BlockState blockState, Inventory inventory)
+	//$$ //#endif
 	//$$ {
 	//$$ 	return false;
 	//$$ }
@@ -92,9 +96,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			)
 	)
 	//#if MC >= 11700
-	//$$ private static void doHopperCountersUnlimitedSpeed(World world, BlockPos blockPos, BlockState blockState, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
+	//$$ private static void hopperCountersUnlimitedSpeed_impl(World world, BlockPos blockPos, BlockState blockState, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
 	//#else
-	private void doHopperCountersUnlimitedSpeed(Supplier<Boolean> extractMethod, CallbackInfoReturnable<Boolean> cir)
+	private void hopperCountersUnlimitedSpeed_impl(Supplier<Boolean> extractMethod, CallbackInfoReturnable<Boolean> cir)
 	//#endif
 	{
 		if (CarpetSettings.hopperCounters && CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed)
@@ -127,7 +131,11 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				//#if MC >= 11700
 				//$$ if (!hopperBlockEntity.isEmpty())
 				//$$ {
+				//$$    //#if MC >= 12005
+				//$$    //$$ flag = insert(world, blockPos, hopperBlockEntity);
+				//$$    //#else
 				//$$ 	flag = insert(world, blockPos, blockState, hopperBlockEntity);
+				//$$ 	//#endif
 				//$$ }
 				//$$ if (!((HopperBlockEntityAccessor)hopperBlockEntity).invokeIsFull())
 				//$$ {
@@ -174,10 +182,10 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	// to avoid repeatedly extraction an item entity in onEntityCollided
 	@Inject(
 			method = "extract(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/ItemEntity;)Z",
-			at = @At(value = "HEAD"),
+			at = @At("HEAD"),
 			cancellable = true
 	)
-	private static void dontExtractRemovedItem(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
+	private static void hopperCountersUnlimitedSpeed_dontExtractRemovedItem(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed)
 		{

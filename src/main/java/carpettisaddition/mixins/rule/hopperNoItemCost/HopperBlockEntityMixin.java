@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.hopperNoItemCost;
 import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.scounter.SupplierCounterCommand;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
@@ -71,49 +72,71 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 					value = "INVOKE",
 					target = "Lnet/minecraft/inventory/Inventory;markDirty()V",
 					shift = At.Shift.AFTER
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
 	//#if MC >= 11700
-	//$$ private static void hopperNoItemCost(World world, BlockPos pos, BlockState state, Inventory inventory, CallbackInfoReturnable<Boolean> cir, Inventory inventory2, Direction direction, int i, ItemStack itemStack, ItemStack itemStack2)
+	//$$ private static
 	//#else
-	private void hopperNoItemCost(CallbackInfoReturnable<Boolean> cir, Inventory inventory, Direction direction, int i, ItemStack itemStack, ItemStack itemStack2)
+	private
 	//#endif
-	{
-		if (CarpetTISAdditionSettings.hopperNoItemCost)
-		{
-			//#if MC < 11700
-			World world = this.getWorld();
+	void hopperNoItemCost_hopperOutputHook(
+			CallbackInfoReturnable<Boolean> cir,
+			//#if MC >= 11700
+			//$$ @Local(argsOnly = true) World world, @Local(argsOnly = true) BlockPos pos,
+			//$$ //#if MC >= 12005
+			//$$ //$$ @Local(argsOnly = true) HopperBlockEntity hopperInventory,
+			//$$ //#else
+			//$$ @Local(argsOnly = true) Inventory hopperInventory,
+			//$$ //#endif
 			//#endif
-
-			if (world != null)
-			{
-				BlockPos hopperPos =
-						//#if MC >= 11700
-						//$$ pos;
-						//#else
-						new BlockPos(this.getHopperX(), this.getHopperY(), this.getHopperZ());
-						//#endif
-
-				DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperPos.offset(Direction.UP));
-				if (wool_color != null)
-				{
-					Inventory hopperInventory =
-							//#if MC >= 11700
-							//$$ inventory;
-							//#else
-							this;
-							//#endif
-
-					if (SupplierCounterCommand.isActivated())
-					{
-						SupplierCounterCommand.getInstance().record(wool_color, itemStack, hopperInventory.getInvStack(i));
-					}
-
-					// restore the hopper inventory slot
-					hopperInventory.setInvStack(i, itemStack);
-				}
-			}
+			@Local(ordinal = 0) int index, @Local(ordinal = 0) ItemStack itemStack
+			//#if MC >= 12005
+			//$$ , @Local(ordinal = 1) int prevCount
+			//#endif
+	)
+	{
+		if (!CarpetTISAdditionSettings.hopperNoItemCost)
+		{
+			return;
 		}
+
+		//#if MC < 11700
+		World world = this.getWorld();
+		Inventory hopperInventory = this;
+		//#endif
+
+		if (world == null)
+		{
+			return;
+		}
+		BlockPos hopperPos =
+				//#if MC >= 11700
+				//$$ pos;
+				//#else
+				new BlockPos(this.getHopperX(), this.getHopperY(), this.getHopperZ());
+				//#endif
+		DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperPos.offset(Direction.UP));
+		if (wool_color == null)
+		{
+			return;
+		}
+
+		//#if MC >= 12005
+		//$$ int currentCount = itemStack.getCount();
+		//$$ itemStack.setCount(prevCount);  // NOTES: empty_stack.copy() == EMPTY, so we need to setCount() before copy()
+		//$$ ItemStack prevStack = itemStack.copy();
+		//$$ itemStack.setCount(currentCount);
+		//#else
+		ItemStack prevStack = itemStack;  // itemStack is already a copy, see vanilla insert() method
+		//#endif
+		ItemStack currentStack = hopperInventory.getInvStack(index);
+
+		if (SupplierCounterCommand.isActivated())
+		{
+			SupplierCounterCommand.getInstance().record(wool_color, prevStack, currentStack);
+		}
+
+		// restore the hopper inventory slot to the previous stack
+		hopperInventory.setInvStack(index, prevStack);
 	}
 }

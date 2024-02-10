@@ -22,6 +22,7 @@ package carpettisaddition.mixins.rule.largeBarrel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -33,28 +34,34 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(HopperBlockEntity.class)
 public abstract class HopperBlockEntityMixin
 {
 	@Inject(
+			//#if MC >= 12005
+			//$$ method = "getBlockInventoryAt",
+			//#else
 			method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;getBlockEntity(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/entity/BlockEntity;"
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private static void useLargeBarrelInventoryMaybe(World world, double x, double y, double z, CallbackInfoReturnable<Inventory> cir, BlockPos blockPos, BlockState blockState, Block block)
-	{
+	private static void largeBarrel_useLargeBarrelInventoryIfPossible(
+			CallbackInfoReturnable<Inventory> cir,
+			@Local(argsOnly = true) World world,
+			@Local BlockPos pos, @Local BlockState state,  // no argsOnly for mc < 1.20.5
+			@Local Block block
+	){
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			// inventory var not captured, so no inventory instanceof BarrelBlockEntity check, should be fine
 			if (block instanceof BarrelBlock)
 			{
-				Inventory largeBarrel = LargeBarrelHelper.getInventory(blockState, world, blockPos);
+				Inventory largeBarrel = LargeBarrelHelper.getInventory(state, world, pos);
 				if (largeBarrel != null)
 				{
 					cir.setReturnValue(largeBarrel);
