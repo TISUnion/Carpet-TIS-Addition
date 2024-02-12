@@ -13,6 +13,8 @@ tl;dr, just input the following commands to configure the related rules:
 /carpet tickWarpCommandAsAnAlias true
 ```
 
+Requires Carpet TIS Addition v1.55.0 or higher
+
 <!-- truncate -->
 
 Below is a further explanation on what these rules do:

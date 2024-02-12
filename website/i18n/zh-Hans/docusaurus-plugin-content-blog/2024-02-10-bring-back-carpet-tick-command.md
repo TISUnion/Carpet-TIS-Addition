@@ -13,6 +13,8 @@ slug: bring-back-carpet-tick-command
 /carpet tickWarpCommandAsAnAlias true
 ```
 
+需要 Carpet TIS Addition v1.55.0 及以上
+
 <!-- truncate -->
 
 下面将进一步解释这些规则的作用：
