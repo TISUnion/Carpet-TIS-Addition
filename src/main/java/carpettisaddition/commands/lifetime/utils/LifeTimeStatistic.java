@@ -50,11 +50,6 @@ public class LifeTimeStatistic extends TranslationContext
 	public LifeTimeStatistic()
 	{
 		super(LifeTimeTracker.getInstance().getTranslator());
-		this.clear();
-	}
-
-	public void clear()
-	{
 		this.count = 0;
 		this.timeSum = 0;
 		this.minTimeElement = new StatisticElement(Integer.MAX_VALUE, null, null, null);
@@ -139,7 +134,7 @@ public class LifeTimeStatistic extends TranslationContext
 		return text;
 	}
 
-	private class StatisticElement
+	public static class StatisticElement
 	{
 		private final long time;
 		private final DimensionWrapper dimensionType;
@@ -168,36 +163,12 @@ public class LifeTimeStatistic extends TranslationContext
 			);
 			if (showButton)
 			{
-				BaseText spawningPosHover = Messenger.c(tr("spawning_position"), "g : ", "w " + TextUtil.coord(this.spawningPos));
-				BaseText removalPosHover = Messenger.c(tr("removal_position"), "g : ", "w " + TextUtil.coord(this.removalPos));
-
-				// console cannot display hover text, so we flattern the button texts
-				if (CommandUtil.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
-				{
-					text.append(Messenger.c(
-							"w  ", "e [", spawningPosHover, "e ]",
-							"w  ", "r [", removalPosHover, "r ]"
-					));
-				}
-				else
-				{
-					text.append(Messenger.c(
-							"w  ",
-							Messenger.fancy(
-									null,
-									Messenger.s("[S]", "e"),
-									spawningPosHover,
-									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.spawningPos, this.dimensionType))
-							),
-							"w  ",
-							Messenger.fancy(
-									null,
-									Messenger.s("[R]", "r"),
-									removalPosHover,
-									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.removalPos, this.dimensionType))
-							)
-					));
-				}
+				text = Messenger.join(
+						Messenger.s(" "),
+						text,
+						LifetimeTexts.spawningPosButton(this.spawningPos, this.dimensionType),
+						LifetimeTexts.removalPosButton(this.removalPos, this.dimensionType)
+				);
 			}
 			return text;
 		}

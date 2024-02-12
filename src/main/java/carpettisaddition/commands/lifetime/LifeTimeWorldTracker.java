@@ -162,7 +162,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 					if (data.hasSpawning())
 					{
 						spawningHover.add(Messenger.formatting(tr("reasons_for_spawning"), "e"));
-						spawningHover.addAll(data.getSpawningReasonsLines(ticks));
+						spawningHover.addAll(data.getSpawningReasonsLines(ticks, false));
 					}
 					List<BaseText> removalHover = Lists.newArrayList();  // list of lines
 					removalHover.add(data.getRemovalCountText(ticks));
@@ -265,7 +265,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 		if (showSpawning)
 		{
 			result.add(Messenger.formatting(tr("reasons_for_spawning"), "e"));
-			result.addAll(addIfEmpty(specificData.getSpawningReasonsLines(ticks), Messenger.s("  N/A", "g")));
+			result.addAll(addIfEmpty(specificData.getSpawningReasonsLines(ticks, true), Messenger.s("  N/A", "g")));
 		}
 		if (showRemoval)
 		{

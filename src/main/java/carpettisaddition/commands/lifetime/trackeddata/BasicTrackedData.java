@@ -25,6 +25,8 @@ import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.commands.lifetime.utils.AbstractReason;
 import carpettisaddition.commands.lifetime.utils.LifeTimeStatistic;
+import carpettisaddition.commands.lifetime.utils.LifetimeTexts;
+import carpettisaddition.commands.lifetime.utils.SpawningStatistic;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.CounterUtil;
 import carpettisaddition.utils.Messenger;
@@ -43,7 +45,7 @@ import java.util.Map;
  */
 public class BasicTrackedData extends TranslationContext
 {
-	public final Map<SpawningReason, Long> spawningReasons = Maps.newHashMap();
+	public final Map<SpawningReason, SpawningStatistic> spawningReasons = Maps.newHashMap();
 	public final Map<RemovalReason, LifeTimeStatistic> removalReasons = Maps.newHashMap();
 	public final LifeTimeStatistic lifeTimeStatistic = new LifeTimeStatistic();  // sum of removalReasons.values()
 
@@ -54,7 +56,7 @@ public class BasicTrackedData extends TranslationContext
 
 	public void updateSpawning(Entity entity, SpawningReason reason)
 	{
-		this.spawningReasons.put(reason, this.spawningReasons.getOrDefault(reason, 0L) + 1);
+		this.spawningReasons.computeIfAbsent(reason, k -> new SpawningStatistic()).update(entity);
 	}
 
 	public void updateRemoval(Entity entity, RemovalReason reason)
@@ -63,6 +65,7 @@ public class BasicTrackedData extends TranslationContext
 		this.removalReasons.computeIfAbsent(reason, r -> new LifeTimeStatistic()).update(entity);
 	}
 
+	// utils
 	protected static long getLongMapSum(Map<?, Long> longMap)
 	{
 		return longMap.values().stream().mapToLong(v -> v).sum();
@@ -80,7 +83,7 @@ public class BasicTrackedData extends TranslationContext
 
 	public long getSpawningCount()
 	{
-		return getLongMapSum(this.spawningReasons);
+		return this.spawningReasons.values().stream().mapToLong(v -> v.count).sum();
 	}
 
 	public long getRemovalCount()
@@ -148,22 +151,35 @@ public class BasicTrackedData extends TranslationContext
 
 	/**
 	 * Reasons for spawning
-	 *   AAA: 50, (100/h) 25%
-	 *   BBB: 150, (300/h) 75%
+	 *   AAA: 50, (100/h) 25% [S]
+	 *   BBB: 150, (300/h) 75% [S]
 	 *
 	 * @return might be an empty list
 	 */
-	public List<BaseText> getSpawningReasonsLines(long ticks)
+	public List<BaseText> getSpawningReasonsLines(long ticks, boolean showButton)
 	{
 		List<BaseText> result = Lists.newArrayList();
 		long total = this.getSpawningCount();
 		this.spawningReasons.entrySet().stream().
-				sorted(Collections.reverseOrder(Comparator.comparingLong(Map.Entry::getValue))).
+				sorted(Collections.reverseOrder(Comparator.comparingLong(e -> e.getValue().count))).
 				forEach(entry -> {
 					SpawningReason reason = entry.getKey();
-					Long statistic = entry.getValue();
+					SpawningStatistic statistic = entry.getValue();
+					if (!statistic.isValid())
+					{
+						return;
+					}
 
-					result.add(this.getSpawningReasonWithRate(reason, ticks, statistic, total, "  "));
+					BaseText line = this.getSpawningReasonWithRate(reason, ticks, statistic.count , total, "  ");
+					if (showButton)
+					{
+						line = Messenger.join(
+								Messenger.s(" "),
+								line,
+								LifetimeTexts.spawningPosButton(statistic.spawningPosSample, statistic.dimensionSample, "spawning_position_mr")
+						);
+					}
+					result.add(line);
 				});
 		return result;
 	}

@@ -506,6 +506,7 @@ carpettisaddition:
       maximum_lifetime: Maximum lifetime
       average_lifetime: Average lifetime
       spawning_position: Spawning Position
+      spawning_position_mr: Spawning Position (most recent)
       removal_position: Removal Position
       spawn_reason:
         # LiteralSpawningReason starts
