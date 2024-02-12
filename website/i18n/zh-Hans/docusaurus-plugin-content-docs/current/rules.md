@@ -564,7 +564,7 @@ sidebar_position: 1
 
 本规则让更新抑制在 1.19+ 中再次可行
 
-它还可以让[微时序记录器](loggers.md#微时序-microTiming)的记录结果更加清晰具有逻辑，如 1.19 以前的版本一样的清晰
+它还可以让[微时序记录器](loggers#微时序-microtiming)的记录结果更加清晰具有逻辑，如 1.19 以前的版本一样的清晰
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -682,7 +682,7 @@ sidebar_position: 1
 
 ## 微时序 (microTiming)
 
-启用[微时序记录器](loggers.md#微时序-microTiming)的功能
+启用[微时序记录器](loggers.md#微时序-microtiming)的功能
 
 使用染料物品来标记并输出红石元件的动作、方块更新与堆栈跟踪
 
@@ -705,7 +705,7 @@ sidebar_position: 1
 
 除此之外，一种通用的记录方块动作的手段是使用羊毛块上的末地烛指向需记录的方块
 
-可通过操控规则 [微时序目标](#微时序目标-microTimingTarget) 以切换记录方法
+可通过操控规则 [微时序目标](#微时序目标-microtimingtarget) 以切换记录方法
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -747,7 +747,7 @@ sidebar_position: 1
 
 `all`: 记录所有事件。**谨慎使用**。**已弃用**
 
-`marker_only`: 仅记录被染料记号标记的方块。将其与规则 [microTimingDyeMarker（微时序染料记号）](#微时序染料记号-microTimingDyeMarker) 一起使用
+`marker_only`: 仅记录被染料记号标记的方块。将其与规则 [microTimingDyeMarker（微时序染料记号）](#微时序染料记号-microtimingdyemarker) 一起使用
 
 - 类型: `enum`
 - 默认值: `marker_only`

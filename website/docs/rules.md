@@ -669,7 +669,7 @@ The switch / permission requirement of movement logger
 
 ## microTiming
 
-Enable the function of [MicroTiming logger](#microTiming-1)
+Enable the function of [MicroTiming logger](./loggers#microtiming)
 
 Log and display redstone components actions, block updates and stacktrace with dye item
 
@@ -692,7 +692,7 @@ EndRods will detect block updates and redstone components will show their action
 
 Beside that, a universal block actions logging method is using EndRod on wool block to point on the block you want to log
 
-Check rule [microTimingTarget](#microTimingTarget) to see how to switch logging method
+Check rule [microTimingTarget](#microtimingtarget) to see how to switch logging method
 
 - Type: `boolean`
 - Default value: `false`
@@ -734,7 +734,7 @@ Modify the way to specify events to be logged in microTiming logger. Events labe
 
 `all`: Logs every event. **Use with caution**. **Deprecated**
 
-`marker_only`: Logs event labelled with dye marker only. Use it with rule [microTimingDyeMarker](#microTimingDyeMarker)
+`marker_only`: Logs event labelled with dye marker only. Use it with rule [microTimingDyeMarker](#microtimingdyemarker)
 
 - Type: `enum`
 - Default value: `marker_only`

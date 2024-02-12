@@ -49,7 +49,7 @@ sidebar_position: 4
 - `'scheduled_block_event'`
 - `'scheduled_tile_tick'`
 
-规则 [微时序](rules.md#微时序-microTiming) 需要被设置为 true 来使这些事件能被触发
+规则 [微时序](rules.md#微时序-microtiming) 需要被设置为 true 来使这些事件能被触发
 
 -----------
 
