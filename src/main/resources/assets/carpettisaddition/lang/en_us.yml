@@ -1086,6 +1086,16 @@ carpettisaddition:
         desc: Sync server's mspt metrics data to the client, so players can see that in the debug screen with F3 + ALT
         extra:
           '0': Carpet TIS Addition is required to be installed on the client
+      tickCommandCarpetfied:
+        name: tickCommandCarpetfied
+        desc: The only rule you need to bring back the /tick command from carpet mod before mc1.20.3
+        extra:
+          '0': 'Enabling this rule equals to setting the following rules to the following values:'
+          '1': '- tickCommandEnhance = true'
+          '2': '- tickCommandPermission = 2'
+          '3': '- tickFreezeCommandToggleable = true'
+          '4': '- tickProfilerCommandsReintroduced = true'
+          '5': '- tickWarpCommandAsAnAlias = true'
       tickCommandEnhance:
         name: tickCommandEnhance
         desc: Enable the enhancements for the /tick command from carpet mod before mc1.20.3

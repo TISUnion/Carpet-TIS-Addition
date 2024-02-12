@@ -20,7 +20,7 @@
 
 package carpettisaddition.mixins.rule.tickWarpCommandAsAnAlias;
 
-import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
@@ -77,7 +77,7 @@ public abstract class TickCommandMixin
 	{
 		rootNode.then(
 				literal("warp").
-				requires(s -> CarpetTISAdditionSettings.tickWarpCommandAsAnAlias).
+				requires(s -> TickCommandCarpetfiedRules.tickWarpCommandAsAnAlias()).
 				redirect(sprintNode$TISCM.build())
 		);
 	}

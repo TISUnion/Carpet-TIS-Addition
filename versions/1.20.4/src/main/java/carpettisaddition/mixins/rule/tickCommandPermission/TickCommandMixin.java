@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.tickCommandPermission;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import carpettisaddition.utils.CarpetModUtil;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.command.TickCommand;
@@ -39,9 +40,10 @@ public abstract class TickCommandMixin
 	@Inject(method = "method_54709", at = @At("HEAD"), cancellable = true)
 	private static void overrideTickCommandPermission(ServerCommandSource source, CallbackInfoReturnable<Boolean> cir)
 	{
-		if (!CarpetTISAdditionSettings.VANILLA_TICK_COMMAND_PERMISSION.equals(CarpetTISAdditionSettings.tickCommandPermission))
+		var ruleValue = TickCommandCarpetfiedRules.tickCommandPermission();
+		if (!CarpetTISAdditionSettings.VANILLA_TICK_COMMAND_PERMISSION.equals(ruleValue))
 		{
-			cir.setReturnValue(CarpetModUtil.canUseCommand(source, CarpetTISAdditionSettings.tickCommandPermission));
+			cir.setReturnValue(CarpetModUtil.canUseCommand(source, ruleValue));
 		}
 	}
 }

@@ -1086,6 +1086,16 @@ carpettisaddition:
         desc: 向客户端同步服务端的mspt指标数据，借此，玩家可使用F3+ALT在调试界面中看到这一服务端的指标
         extra:
           '0': 需要在客户端中安装Carpet TIS Addition模组
+      tickCommandCarpetfied:
+        name: tick指令carpet化
+        desc: 只需这一条规则，即可将地毯模组中的/tick命令恢复到mc1.20.3之前的版本
+        extra:
+          '0': '启用这条规则相当于将以下规则设置为以下值:'
+          '1': '- tickCommandEnhance = true'
+          '2': '- tickCommandPermission = 2'
+          '3': '- tickFreezeCommandToggleable = true'
+          '4': '- tickProfilerCommandsReintroduced = true'
+          '5': '- tickWarpCommandAsAnAlias = true'
       tickCommandEnhance:
         name: tick指令增强
         desc: 重新启用那些mc1.20.3前，用于增强carpet模组"/tick"指令功能的特性

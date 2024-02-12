@@ -20,7 +20,7 @@
 
 package carpettisaddition.mixins.rule.tickFreezeCommandToggleable;
 
-import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.ServerTickManager;
 import net.minecraft.server.command.TickCommand;
@@ -43,7 +43,7 @@ public abstract class TickCommandMixin
 	)
 	private static boolean tickFreezeCommandToggleable_unfreezeIfAlreadyFrozen(boolean frozen, @Local ServerTickManager serverTickManager)
 	{
-		if (CarpetTISAdditionSettings.tickFreezeCommandToggleable)
+		if (TickCommandCarpetfiedRules.tickFreezeCommandToggleable())
 		{
 			if (frozen && serverTickManager.isFrozen())
 			{

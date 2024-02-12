@@ -20,7 +20,7 @@
 
 package carpettisaddition.mixins.rule.tickCommandEnhance;
 
-import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import com.mojang.brigadier.suggestion.Suggestions;
 import net.minecraft.network.packet.c2s.play.RequestCommandCompletionsC2SPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -83,9 +83,9 @@ public abstract class ServerPlayNetworkHandlerMixin
 				"status",  // provided by rule tickCommandEnhance
 				"health", "entities"  // provided by rule tickProfilerCommandsReintroduced
 		);
-		if (command.startsWith("tick sprint ") || (CarpetTISAdditionSettings.tickWarpCommandAsAnAlias && command.startsWith("tick warp ")))
+		if (command.startsWith("tick sprint ") || (TickCommandCarpetfiedRules.tickWarpCommandAsAnAlias() && command.startsWith("tick warp ")))
 		{
-			if (!CarpetTISAdditionSettings.tickCommandEnhance)
+			if (!TickCommandCarpetfiedRules.tickCommandEnhance())
 			{
 				int spaces = StringUtils.countMatches(command, " ");
 				if (spaces == 2)  // still entering the 3rd segment, might have the "status" suggestion

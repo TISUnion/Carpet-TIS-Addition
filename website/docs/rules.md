@@ -1124,6 +1124,26 @@ Carpet TIS Addition is required to be installed on the client
 - Categories: `TIS`, `TISCM_PROTOCOL`
 
 
+## tickCommandCarpetfied
+
+**Minecraft >= 1.20.3 only**
+
+The only rule you need to bring back the `/tick` command from carpet mod before mc1.20.3
+
+Enabling this rule equals to setting the following rules to the following values:
+
+- [tickCommandEnhance](#tickcommandenhance) = `true`
+- [tickCommandPermission](#tickcommandpermission) = `2`
+- [tickFreezeCommandToggleable](#tickfreezecommandtoggleable) = `true`
+- [tickProfilerCommandsReintroduced](#tickprofilercommandsreintroduced) = `true`
+- [tickWarpCommandAsAnAlias](#tickwarpcommandasanalias) = `true`
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
 ## tickCommandEnhance
 
 **Minecraft >= 1.20.3 only**

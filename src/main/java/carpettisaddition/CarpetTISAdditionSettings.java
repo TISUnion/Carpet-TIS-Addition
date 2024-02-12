@@ -606,6 +606,9 @@ public class CarpetTISAdditionSettings
 
 	//#if MC >= 12003
 	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	//$$ public static boolean tickCommandCarpetfied = false;
+	//$$
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
 	//$$ public static boolean tickCommandEnhance = false;
 	//$$
 	//$$ public static final String VANILLA_TICK_COMMAND_PERMISSION = "3";

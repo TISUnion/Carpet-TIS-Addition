@@ -34,6 +34,10 @@ import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
+//#if MC >= 12003
+//$$ import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
+//#endif
+
 public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExtender
 {
 	public static final String NAME = "tickWarp";
@@ -139,7 +143,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 
 		warpNode.then(literal("status").
 				//#if MC >= 12003
-				//$$ requires(s -> carpettisaddition.CarpetTISAdditionSettings.tickCommandEnhance).
+				//$$ requires(s -> TickCommandCarpetfiedRules.tickCommandEnhance()).
 				//#endif
 				executes(c -> this.showTickWarpInfo(c.getSource()))
 		);

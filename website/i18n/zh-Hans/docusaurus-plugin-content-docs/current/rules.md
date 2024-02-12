@@ -1109,11 +1109,31 @@ sidebar_position: 1
 - 分类: `TIS`, `TISCM_PROTOCOL`
 
 
+## tick指令carpet化 (tickCommandCarpetfied)
+
+**本规则仅在 Minecraft >= 1.20.3 中存在**
+
+只需这一条规则，即可将地毯模组中的 `/tick` 命令恢复到 mc1.20.3 之前的版本
+
+启用这条规则相当于将以下规则设置为以下值:
+
+- [tickCommandEnhance](#tick指令增强-tickcommandenhance) = `true`
+- [tickCommandPermission](#tick指令权限-tickcommandpermission) = `2`
+- [tickFreezeCommandToggleable](#切换式tickfreeze指令-tickfreezecommandtoggleable) = `true`
+- [tickProfilerCommandsReintroduced](#tick性能分析指令重现-tickprofilercommandsreintroduced) = `true`
+- [tickWarpCommandAsAnAlias](#tickwarp指令别名重现-tickwarpcommandasanalias) = `true`
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+
+
 ## tick指令增强 (tickCommandEnhance)
 
 **本规则仅在 Minecraft >= 1.20.3 中存在**
 
-重新启用那些mc1.20.3前，用于增强carpet模组"/tick"指令功能的特性
+重新启用那些 mc1.20.3 前，用于增强 carpet 模组 `/tick` 指令功能的特性
 
 启用的增强功能：
 
