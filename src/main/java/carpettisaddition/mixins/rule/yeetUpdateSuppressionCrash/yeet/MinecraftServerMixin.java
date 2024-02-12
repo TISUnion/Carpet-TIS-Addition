@@ -43,7 +43,7 @@ public abstract class MinecraftServerMixin
 					target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V"
 			)
 	)
-	private void yeetUpdateSuppressionCrash_implOnTickWorlds_thisIsNotTheLagSourceIfYouSeeThisOnSparkPlzSeeTisCMIssue136(ServerWorld serverWorld, BooleanSupplier shouldKeepTicking, Operation<Void> original)
+	private void yeetUpdateSuppressionCrash_implOnTickWorlds(ServerWorld serverWorld, BooleanSupplier shouldKeepTicking, Operation<Void> original)
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
