@@ -59,7 +59,11 @@ const config = {
           editUrl:
             'https://github.com/TISUnion/Carpet-TIS-Addition/tree/master/website/',
         },
-        blog: false,
+        blog: {
+          routeBasePath: '/posts',
+          blogTitle: 'Posts | Carpet TIS Addition',
+          blogDescription: 'Posts of Carpet TIS Addition',
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -82,6 +86,11 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Documents',
+          },
+          {
+            to: 'posts',
+            position: 'left',
+            label: 'Posts',
           },
           {
             to: 'eol',

@@ -11,6 +11,10 @@
     "message": "文档",
     "description": "Navbar item with label Documents"
   },
+  "item.label.Posts": {
+    "message": "文章",
+    "description": "Navbar item with label Posts"
+  },
   "item.label.EOL": {
     "message": "EOL",
     "description": "Navbar item with label EOL"
