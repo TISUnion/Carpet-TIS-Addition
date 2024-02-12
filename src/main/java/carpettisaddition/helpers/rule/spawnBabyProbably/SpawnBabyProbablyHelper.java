@@ -18,16 +18,33 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.settings.validator;
+package carpettisaddition.helpers.rule.spawnBabyProbably;
 
-/**
- * < 0 means disabled
- * >=0 means enabled
- */
-public class OptionalPercentValidator extends RangedNumberValidator<Integer>
+import carpettisaddition.CarpetTISAdditionSettings;
+
+import java.util.Random;
+
+public class SpawnBabyProbablyHelper
 {
-	public OptionalPercentValidator()
+	public static final Random RANDOM = new Random();
+
+	public static boolean isEnabled()
 	{
-		super(-1, 100);
+		return CarpetTISAdditionSettings.spawnBabyProbably >= 0;
+	}
+
+	public static boolean shouldSpawnJockey()
+	{
+		double p = CarpetTISAdditionSettings.spawnBabyProbably;
+		return p > 0 && RANDOM.nextFloat() <= p;
+	}
+
+	public static <T> T tweak(T originalValue, T babyValue, T notBabyValue)
+	{
+		if (isEnabled())
+		{
+			return shouldSpawnJockey() ? babyValue : notBabyValue;
+		}
+		return originalValue;
 	}
 }

@@ -4,6 +4,20 @@ sidebar_position: 1
 
 # Rules
 
+## alwaysSpawnJockey
+
+When spawning mobs, if jockey variant exists, always spawn the jockey variant
+
+Affected jockeys: chicken jockey, spider jockey, strider jockey
+
+For striders, the spawn ratio between zombified piglin and baby strider is 1:3
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## antiSpamDisabled
 
 Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown
@@ -1016,6 +1030,18 @@ The max test size in MiB when using the `/speedtest` command for network speed t
 - Default value: `10`
 - Suggested options: `10`, `100`, `1024`, `10240`
 - Categories: `TIS`, `COMMAND`
+
+
+## spawnBabyProbably
+
+When spawning mobs, if baby variant exists, spawn the jockey variant with given probably
+
+Set it to `-1` to disable the rule and use vanilla logic
+
+- Type: `double`
+- Default value: `-1`
+- Suggested options: `-1`, `0`, `0.5`, `1`
+- Categories: `TIS`, `CREATIVE`
 
 
 ## spawnJockeyProbably

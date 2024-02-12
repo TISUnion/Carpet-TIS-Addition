@@ -529,6 +529,14 @@ public class CarpetTISAdditionSettings
 			options = {"-1", "0", "0.5", "1"},
 			strict = false
 	)
+	public static double spawnBabyProbably = -1;
+
+	@Rule(
+			categories = {TIS, CREATIVE},
+			validators = OptionalProbablyValidator.class,
+			options = {"-1", "0", "0.5", "1"},
+			strict = false
+	)
 	public static double spawnJockeyProbably = -1;
 
 	@Rule(

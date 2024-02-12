@@ -180,6 +180,17 @@ sidebar_position: 1
 - 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `TIS`, `COMMAND`, `TISCM_PROTOCOL`
 
+## 生成幼年生物概率 (spawnBabyProbably)
+
+调整刷怪时生成幼年生物变种的概率
+
+将其设为 `-1` 以禁用本规则并使用原版逻辑
+
+- 类型: `double`
+- 默认值: `-1`
+- 参考选项: `-1`, `0`, `0.5`, `1`
+- 分类: `TIS`, `CREATIVE`
+
 
 ## 生成骑手概率 (spawnJockeyProbably)
 

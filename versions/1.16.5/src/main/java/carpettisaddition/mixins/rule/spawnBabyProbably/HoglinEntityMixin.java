@@ -18,16 +18,30 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.settings.validator;
+package carpettisaddition.mixins.rule.spawnBabyProbably;
 
-/**
- * < 0 means disabled
- * >=0 means enabled
- */
-public class OptionalPercentValidator extends RangedNumberValidator<Integer>
+import carpettisaddition.helpers.rule.spawnBabyProbably.SpawnBabyProbablyHelper;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.minecraft.entity.mob.HoglinEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+@Mixin(HoglinEntity.class)
+public abstract class HoglinEntityMixin
 {
-	public OptionalPercentValidator()
+	@ModifyExpressionValue(
+			method = "initialize",
+			at = @At(
+					value = "INVOKE",
+					//#if MC >= 11900
+					//$$ target = "Lnet/minecraft/util/math/random/Random;nextFloat()F"
+					//#else
+					target = "Ljava/util/Random;nextFloat()F"
+					//#endif
+			)
+	)
+	private float spawnBabyProbably_hoglin(float chance)
 	{
-		super(-1, 100);
+		return SpawnBabyProbablyHelper.tweak(chance, 0.0F, 1.0F);
 	}
 }

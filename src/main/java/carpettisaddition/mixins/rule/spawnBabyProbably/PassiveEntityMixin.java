@@ -18,16 +18,30 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.settings.validator;
+package carpettisaddition.mixins.rule.spawnBabyProbably;
 
-/**
- * < 0 means disabled
- * >=0 means enabled
- */
-public class OptionalPercentValidator extends RangedNumberValidator<Integer>
+import carpettisaddition.helpers.rule.spawnBabyProbably.SpawnBabyProbablyHelper;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.minecraft.entity.passive.PassiveEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+@Mixin(PassiveEntity.class)
+public abstract class PassiveEntityMixin
 {
-	public OptionalPercentValidator()
+	// introduced in mc1.15 (https://minecraft.net/article/minecraft-snapshot-19w37a)
+
+	//#if MC >= 11500
+	@ModifyExpressionValue(
+			method = "initialize",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/passive/PassiveEntity$EntityData;getBabyChance()F"
+			)
+	)
+	private float spawnBabyProbably_passiveEntities(float chance)
 	{
-		super(-1, 100);
+		return SpawnBabyProbablyHelper.tweak(chance, 1.0F, -1.0F);
 	}
+	//#endif
 }

@@ -18,16 +18,13 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.settings.validator;
+package carpettisaddition.mixins.rule.spawnBabyProbably;
 
-/**
- * < 0 means disabled
- * >=0 means enabled
- */
-public class OptionalPercentValidator extends RangedNumberValidator<Integer>
+import carpettisaddition.utils.compat.DummyClass;
+import org.spongepowered.asm.mixin.Mixin;
+
+@Mixin(DummyClass.class)
+public abstract class PiglinEntityMixin
 {
-	public OptionalPercentValidator()
-	{
-		super(-1, 100);
-	}
+	// impl in mc1.16+
 }
