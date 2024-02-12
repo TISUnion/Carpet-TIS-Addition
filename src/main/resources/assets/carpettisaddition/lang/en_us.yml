@@ -515,6 +515,8 @@ carpettisaddition:
         container: Dropped from container
         dispensed: Dispensed by block
         item: Spawned by item
+        jockey: Jockey
+        jockey_mount: Jockey mount
         natural: Natural spawning
         place_block: Placed down a block
         portal_pigman: Nether portal pigman spawning

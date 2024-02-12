@@ -515,6 +515,8 @@ carpettisaddition:
         container: 从容器中掉出
         dispensed: 被方块投出
         item: 怪物蛋等
+        jockey: 骑手
+        jockey_mount: 骑手的坐骑
         natural: 自然刷新
         place_block: 放下方块
         portal_pigman: 地狱门僵尸猪人生成

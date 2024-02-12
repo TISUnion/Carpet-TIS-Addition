@@ -45,25 +45,27 @@ Tracked entity types:
 - Experience Orb Entity
 
 Tracked entity spawning reasons
-- Natural spawning
-- Nether portal pigman spawning
-- `/summon` command
-- Spawned by item
 - Block drop (item only)
-- Dropped from container (item only)
-- Slime division
-- Zombie Reinforce
-- Spawned by spawner
-- Spawned in raid as raider
-- Be summoned by entity or block
 - Breeding
+- `/summon` command
+- Dropped from container (item only)
 - Dispensed by block
+- Spawned by item
+- Jockey
+- Jockey mount
+- Natural spawning
+- Enderman placed down a block (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
+- Nether portal pigman spawning
+- Spawned in raid as raider
+- Slime division
+- Spawned by spawner
+- Be summoned by entity or block
+- Dismounts from a vehicle (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
+- Zombie Reinforce
 - Mob drop (item and xp orb only)
 - Mob throw (item only)
-- Dismounts from a vehicle (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
-- Enderman placed down a block (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
 - Mob conversion
-- Trans-dimension from portal
+- Trans-dimension
 
 Note that only entities that have been tracked spawning will be counted to the statistic
 
@@ -79,7 +81,7 @@ Tracked entity removal reasons
 - Self-exploded (e.g. creeper)
 - Picked up by player or mob (item and xp orb only)
 - Mob conversion
-- Trans-dimension through portal
+- Trans-dimension
 - Other (anything else not in the list). If some other important reason is not tracked, feel free to make a feature request issue
 
 The definition of lifetime is: **The amount of spawning stage passing between entity spawning and entity removal**, in other words, how many gameticks does the entity counts towards mobcap. Technically the injection point for the passing spawning stage counter increment is right before the world recalculating the mobcap
