@@ -458,18 +458,11 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			categories = {TIS, CREATIVE},
-			validators = ValidateOakBalloonPercent.class,
+			validators = OptionalPercentValidator.class,
 			options = {"-1", "0", "50", "100"},
 			strict = false
 	)
 	public static int oakBalloonPercent = -1;
-	public static class ValidateOakBalloonPercent extends RangedNumberValidator<Integer>
-	{
-		public ValidateOakBalloonPercent()
-		{
-			super(-1, 100);
-		}
-	}
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean observerNoDetection = false;
@@ -529,6 +522,14 @@ public class CarpetTISAdditionSettings
 			categories = {TIS, CREATIVE}
 	)
 	public static int snowMeltMinLightLevel = VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL;
+
+	@Rule(
+			categories = {TIS, CREATIVE},
+			validators = OptionalProbablyValidator.class,
+			options = {"-1", "0", "0.5", "1"},
+			strict = false
+	)
+	public static double spawnJockeyProbably = -1;
 
 	@Rule(
 			options = {"10", "100", "1024", "10240"},

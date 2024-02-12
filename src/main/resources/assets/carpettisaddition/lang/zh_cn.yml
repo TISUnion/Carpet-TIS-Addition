@@ -1038,6 +1038,13 @@ carpettisaddition:
           '1': 将其设为0以将所有位于你建筑上的烦人的雪片融化
           '2': 将其设为与防止降雪的最小亮度等级(12)来方便地测试你的建筑是否能借助亮度来防降雪
           '3': 你可以修改游戏规则randomTickSpeed来加速雪的融化，也可以修改地毯规则chunkTickSpeed来加速降雪的过程
+      spawnJockeyProbably:
+        name: 生成骑手概率
+        desc: 调整刷怪时生成骑手变种的概率
+        extra:
+          '0': '影响的骑手类型: 鸡骑士、蜘蛛骑士、炽足兽骑手'
+          '1': '对于炽足兽，生成僵尸猪灵、幼年炽足兽的概率比将保持1:3'
+          '2': 将其设为-1以禁用本规则并使用原版逻辑
       speedTestCommandMaxTestSize:
         name: 测速指令最大测试大小
         desc: 在使用/speedtest测速指令进行网络速度测试时，最大的测试数据大小，单位MiB

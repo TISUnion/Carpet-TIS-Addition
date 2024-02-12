@@ -1018,6 +1018,22 @@ The max test size in MiB when using the `/speedtest` command for network speed t
 - Categories: `TIS`, `COMMAND`
 
 
+## spawnJockeyProbably
+
+When spawning mobs, if jockey variant exists, spawn the jockey variant with given probably
+
+Affected jockeys: chicken jockey, spider jockey, strider jockey
+
+For striders, the spawn ratio between zombified piglin and baby strider is still 1:3
+
+Set it to `-1` to disable the rule and use vanilla logic
+
+- Type: `double`
+- Default value: `-1`
+- Suggested options: `-1`, `0`, `0.5`, `1`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## stopCommandDoubleConfirmation
 
 Add a double confirmation for `/stop` command to prevent stopping server accidentally
