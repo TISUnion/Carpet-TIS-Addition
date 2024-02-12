@@ -82,7 +82,7 @@ public abstract class TrajectoryLogHelperMixin
 		if ("projectiles".equals(logName))
 		{
 			this.entity = TrajectoryLoggerUtil.currentEntity.get();
-			TrajectoryLoggerUtil.currentEntity.set(null);
+			TrajectoryLoggerUtil.currentEntity.remove();
 			if (this.entity != null)
 			{
 				this.world = this.entity.getEntityWorld();

@@ -65,7 +65,7 @@ public class LoggerSubscriptionStorage
 		File file = new File(STORAGE_FILE_PATH);
 		if (FileUtil.isFile(file))
 		{
-			try (InputStreamReader isr = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))
+			try (InputStreamReader isr = new InputStreamReader(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8))
 			{
 				this.storage = new Gson().fromJson(isr, DataStorage.class);
 			}
