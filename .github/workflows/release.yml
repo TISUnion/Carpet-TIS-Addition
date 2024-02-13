@@ -1,5 +1,11 @@
 name: Release
 
+# release: <default> (release title)
+# dispatch (all): Manual release for $target_release_tag
+# dispatch (specified): Manual release for $target_release_tag (subproject: $target_subproject)
+run-name: |-
+  ${{ github.event_name == 'workflow_dispatch' && format('Manual release for {0}{1}', inputs.target_release_tag, inputs.target_subproject && format(' (subproject: {0})', inputs.target_subproject) || '') || '' }}
+
 on:
   release:
     types:
