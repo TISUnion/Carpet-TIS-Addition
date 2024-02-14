@@ -42,7 +42,8 @@ public abstract class FakePlayerTickerMixin
 			method = "addActionPackTick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lcarpettisaddition/utils/GameUtil;submitAsyncTask(Lnet/minecraft/util/thread/ThreadExecutor;Ljava/lang/Runnable;)V"
+					target = "Lcarpettisaddition/helpers/rule/fakePlayerTicksLikeRealPlayer/FakePlayerTicker;transformActionPackTickTask(Ljava/lang/Runnable;)Ljava/lang/Runnable;",
+					remap = false
 			),
 			remap = false
 	)

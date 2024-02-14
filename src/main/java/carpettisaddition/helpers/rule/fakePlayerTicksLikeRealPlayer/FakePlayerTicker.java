@@ -28,6 +28,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class FakePlayerTicker
 {
@@ -57,8 +58,14 @@ public class FakePlayerTicker
 		MinecraftServer server = player.getServer();
 		if (server != null)
 		{
-			GameUtil.submitAsyncTask(server, actionPack::onUpdate);
+			GameUtil.submitAsyncTask(server, transformActionPackTickTask(actionPack::onUpdate));
 		}
+	}
+
+	private static Runnable transformActionPackTickTask(Runnable task)
+	{
+		// microtiming do your mixin here
+		return task;
 	}
 
 	/**
