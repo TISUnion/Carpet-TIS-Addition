@@ -1403,6 +1403,16 @@ TISCM网络协议的开关
 - 分类: `TIS`, `CREATIVE`
 
 
+## 阻止乱序聊天数据包踢出 (yeetOutOfOrderChatKick)
+
+阻止玩家被服务器以“接收到了乱序的聊天数据包...”为由踢出游戏
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`
+
+
 -----------
 
 # 移植的规则列表

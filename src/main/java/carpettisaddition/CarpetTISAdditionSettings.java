@@ -777,6 +777,11 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
+	//#if MC >= 11900
+	//$$ @Rule(categories = {TIS})
+	//$$ public static boolean yeetOutOfOrderChatKick = false;
+	//#endif
+
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean yeetUpdateSuppressionCrash = false;
 

@@ -1418,6 +1418,18 @@ Change it to 0 to disable tracking
 - Categories: `TIS`, `CREATIVE`
 
 
+## yeetOutOfOrderChatKick
+
+**Minecraft >= 1.19 only**
+
+Prevent players being kicked with message "Out-of-order chat packet received..." caused by whatever reason
+
+- Type: `boolean`
+- Default value: `false `
+- Suggested options: `false`, `true`
+- Categories: `TIS`
+
+
 -----------
 
 # Ported rules

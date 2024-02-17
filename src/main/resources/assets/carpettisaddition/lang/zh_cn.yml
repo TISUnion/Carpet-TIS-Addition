@@ -1201,6 +1201,9 @@ carpettisaddition:
         desc: 修改经验球检测并追踪玩家的距离
         extra:
           '0': 将其调至0以禁用追踪
+      yeetOutOfOrderChatKick:
+        name: 阻止乱序聊天数据包踢出
+        desc: 阻止玩家被服务器以“接收到了乱序的聊天数据包...”为由踢出游戏
       yeetUpdateSuppressionCrash:
         name: 阻止更新抑制崩溃
         desc: 阻止服务端因StackOverflowError、OutOfMemoryError或ClassCastException异常而造成的服务器崩溃

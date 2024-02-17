@@ -425,6 +425,8 @@
     "rule.voidRelatedAltitude.EntityMixin",
     "rule.witherSpawnedSoundDisabled.WitherEntityMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
+    "rule.yeetOutOfOrderChatKick.MessageVerifierImplMixin",
+    "rule.yeetOutOfOrderChatKick.ServerPlayNetworkHandlerMixin",
     "rule.yeetUpdateSuppressionCrash.mark.ChainRestrictedNeighborUpdaterSixWayEntryMixin",
     "rule.yeetUpdateSuppressionCrash.mark.NeighborUpdaterMixin",
     "rule.yeetUpdateSuppressionCrash.mark.WorldMixin",

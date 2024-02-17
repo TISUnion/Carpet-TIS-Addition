@@ -1201,6 +1201,9 @@ carpettisaddition:
         desc: Overwrite the tracking distance of xp orb
         extra:
           '0': Change it to 0 to disable tracking
+      yeetOutOfOrderChatKick:
+        name: yeetOutOfOrderChatKick
+        desc: Prevent players being kicked with message "Out-of-order chat packet received..." caused by whatever reason
       yeetUpdateSuppressionCrash:
         name: yeetUpdateSuppressionCrash
         desc: Prevent the server from crashing due to StackOverflowError, OutOfMemoryError or ClassCastException
