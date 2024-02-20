@@ -59,6 +59,7 @@ public class CarpetTISAdditionSettings
 	public static final String TISCM_PROTOCOL = "TISCM_protocol";
 	public static final String LOGGER = "logger";  // see carpettisaddition.mixins.carpet.tweaks.loggerRestriction.ParsedRuleMixin
 	public static final String CARPET_MOD = "carpet_mod";  // _ cannot be replaced by space, or you can't /carpet list this
+	public static final String PORTING = "porting";
 
 	//#if MC < 11500
 	//$$ private static final String CLIENT = "client";
@@ -289,7 +290,7 @@ public class CarpetTISAdditionSettings
 	}
 
 	//#if MC >= 11900
-	//$$ @Rule(categories = {TIS, CREATIVE}, validators = InstantBlockUpdaterReintroducedRuleListener.class)
+	//$$ @Rule(categories = {TIS, CREATIVE, PORTING}, validators = InstantBlockUpdaterReintroducedRuleListener.class)
 	//$$ public static boolean instantBlockUpdaterReintroduced = false;
 	//#endif
 
@@ -610,7 +611,7 @@ public class CarpetTISAdditionSettings
 	public static boolean syncServerMsptMetricsData = false;
 
 	//#if MC >= 12003
-	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND, PORTING})
 	//$$ public static boolean tickCommandCarpetfied = false;
 	//$$
 	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
@@ -620,13 +621,13 @@ public class CarpetTISAdditionSettings
 	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
 	//$$ public static String tickCommandPermission = VANILLA_TICK_COMMAND_PERMISSION;
 	//$$
-	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND, PORTING})
 	//$$ public static boolean tickFreezeCommandToggleable = false;
 	//$$
-	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND, PORTING})
 	//$$ public static boolean tickProfilerCommandsReintroduced = false;
 	//$$
-	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND})
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND, PORTING})
 	//$$ public static boolean tickWarpCommandAsAnAlias = false;
 	//#endif
 

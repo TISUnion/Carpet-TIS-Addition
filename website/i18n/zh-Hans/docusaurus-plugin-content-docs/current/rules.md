@@ -569,7 +569,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `CREATIVE`
+- 分类: `TIS`, `CREATIVE`, `PORTING`
 
 
 ## 瞬时命令方块 (instantCommandBlock)
@@ -1138,7 +1138,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
 
 
 ## tick指令增强 (tickCommandEnhance)
@@ -1184,7 +1184,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
 
 
 ## tick性能分析指令重现 (tickProfilerCommandsReintroduced)
@@ -1198,7 +1198,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
 
 
 ## tickWarp指令别名重现 (tickWarpCommandAsAnAlias)
@@ -1210,7 +1210,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `CARPET_MOD`, `COMMAND`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
 
 
 ## 计划刻上限 (tileTickLimit)

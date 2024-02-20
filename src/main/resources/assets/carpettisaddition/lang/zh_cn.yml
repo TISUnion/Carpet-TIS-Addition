@@ -626,6 +626,7 @@ carpettisaddition:
       TISCM_protocol: TISCM网络协议
       logger: 记录器
       carpet_mod: carpet mod
+      porting: 移植
 
     rule:
       antiSpamDisabled:

@@ -556,7 +556,7 @@ It also provides a better logging results with more clear logic for [microTiming
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`
+- Categories: `TIS`, `CREATIVE`, `PORTING`
 
 
 ## instantCommandBlock
@@ -1153,7 +1153,7 @@ Enabling this rule equals to setting the following rules to the following values
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
 
 
 ## tickCommandEnhance
@@ -1199,7 +1199,7 @@ i.e. Make the `/tick freeze` command unfreeze the game if the game is already fr
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
 
 
 ## tickProfilerCommandsReintroduced
@@ -1213,7 +1213,7 @@ Just like the previous carpet mod, these 2 subcommands have the same behavior as
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
 
 
 ## tickWarpCommandAsAnAlias
@@ -1225,7 +1225,7 @@ Bring back the `/tick warp` subcommand, as an alias of the vanilla `/tick sprint
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `CARPET_MOD`, `COMMAND`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
 
 
 ## tileTickLimit
