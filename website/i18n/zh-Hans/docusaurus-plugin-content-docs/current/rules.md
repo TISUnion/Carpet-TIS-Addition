@@ -286,6 +286,23 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
 
 
+## 粉板重新引入 (dustTrapdoorReintroduced)
+
+**本规则仅在 Minecraft >= 1.20 中存在**
+
+重新引入由红石粉 + 活板门组成的瞬时更新循环结构
+
+该规则实际上做了如下2件事情：
+
+1. 让打开的活板门无法重定向红石粉的朝向（还原 mc1.20 前的表现）
+2. 让红石粉忽略来自下方的状态更新（还原 mc1.20.3 前的表现）
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `PORTING`
+
+
 ## enchant指令约束移除 (enchantCommandNoRestriction)
 
 移除 `/enchant` 指令中所有对目标附魔的约束

@@ -273,6 +273,23 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 - Categories: `TIS`, `FEATURE`, `DISPENSER`
 
 
+## dustTrapdoorReintroduced
+
+**Minecraft >= 1.20 only**
+
+Reintroduced the dust-trapdoor instant update looper
+
+This rule actually does the following two things:
+
+1. Makes opened trapdoors unable to redirect redstone dust (reintroducing the behavior before mc1.20)
+2. Makes redstone dust ignore state updates from below (reintroducing the behavior before mc1.20.3)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `PORTING`
+
+
 ## enchantCommandNoRestriction
 
 Remove all enchantment restriction checks inside `/enchant` command

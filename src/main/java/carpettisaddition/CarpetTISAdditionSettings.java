@@ -157,6 +157,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, FEATURE, DISPENSER})
 	public static boolean dispensersFireDragonBreath = false;
 
+	//#if MC >= 12000
+	//$$ @Rule(categories = {TIS, PORTING})
+	//$$ public static boolean dustTrapdoorReintroduced = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean enchantCommandNoRestriction = false;
 

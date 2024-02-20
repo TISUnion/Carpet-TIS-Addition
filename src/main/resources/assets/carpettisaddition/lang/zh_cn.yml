@@ -723,6 +723,13 @@ carpettisaddition:
       dispensersFireDragonBreath:
         name: 发射器发射龙息
         desc: 发射器可使用龙息瓶创造出龙息效果云
+      dustTrapdoorReintroduced:
+        name: 粉板重新引入
+        desc: 重新引入由红石粉+活板门组成的瞬时更新循环结构
+        extra:
+          '0': '该规则实际上做了如下2件事情：'
+          '1': 1. 让打开的活板门无法重定向红石粉的朝向（还原mc1.20前的表现）
+          '2': 2. 让红石粉忽略来自下方的状态更新（还原mc1.20.3前的表现）
       enchantCommandNoRestriction:
         name: enchant指令约束移除
         desc: 移除/enchant指令中所有对目标附魔的约束
