@@ -456,6 +456,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CARPET_MOD})
 	public static boolean mobcapsDisplayIgnoreMisc = false;
 
+	//#if MC >= 11900
+	//$$ @Rule(categories = {TIS, FEATURE})
+	//$$ public static boolean moveableReinforcedDeepslate = false;
+	//#endif
+
 	@Rule(
 			categories = {TIS, CREATIVE},
 			validators = OptionalPercentValidator.class,

@@ -944,6 +944,9 @@ carpettisaddition:
         extra:
           '0': "Since it's useless: Nothing in misc category spawns, and it's ignored when calculating mobcap"
           '1': Affects mobcaps logger and /spawn mobcap command
+      moveableReinforcedDeepslate:
+        name: moveableReinforcedDeepslate
+        desc: Make reinforced deepslate movable by pistons
       oakBalloonPercent:
         name: oakBalloonPercent
         desc: The chance for oak sapling top grow into a balloon oak (fancy_oak) in percent

@@ -796,6 +796,18 @@ Affects mobcaps logger and `/spawn mobcap command`
 - Categories: `TIS`, `CARPET_MOD`
 
 
+## moveableReinforcedDeepslate
+
+**Minecraft >= 1.19 only**
+
+Make reinforced deepslate movable by pistons
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
+
+
 ## oakBalloonPercent
 
 The chance for oak sapling top grow into a balloon oak (fancy_oak) in percent

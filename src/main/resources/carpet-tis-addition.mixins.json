@@ -345,6 +345,7 @@
     "rule.minecartFullDropBackport.MinecartVariablesMixin",
     "rule.minecartTakePassengerMinVelocity.AbstractMinecartEntityMixin",
     "rule.mobcapsDisplayIgnoreMisc.SpawnReporterMixin",
+    "rule.moveableReinforcedDeepslate.PistonBlockMixin",
     "rule.oakBalloonPercent.OakSaplingGeneratorMixin",
     "rule.oakBalloonPercent.SaplingGeneratorMixin",
     "rule.observerNoDetection.ObserverBlockMixin",

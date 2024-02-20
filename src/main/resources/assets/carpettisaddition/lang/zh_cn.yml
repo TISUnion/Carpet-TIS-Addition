@@ -944,6 +944,9 @@ carpettisaddition:
         extra:
           '0': 因为它既占空间还没用：杂项生物类型不参与刷怪循环，在统计怪物容量时也被游戏忽略
           '1': 影响mobcaps记录器以及/spawn mobcaps指令
+      moveableReinforcedDeepslate:
+        name: 可移动强化深板岩
+        desc: 令强化深板岩可被活塞移动
       oakBalloonPercent:
         name: 橡树长成鸡腿树百分率
         desc: 橡树树苗长成鸡腿树（fancy_oak）的概率，使用百分率作为值

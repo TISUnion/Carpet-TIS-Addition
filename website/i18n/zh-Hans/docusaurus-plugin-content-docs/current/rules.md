@@ -809,6 +809,18 @@ sidebar_position: 1
 - 分类: `TIS`, `CARPET_MOD`
 
 
+## 可移动强化深板岩 (moveableReinforcedDeepslate)
+
+**本规则仅在 Minecraft >= 1.19 中存在**
+
+令强化深板岩可被活塞移动
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
+
+
 ## 橡树长成鸡腿树百分率 (oakBalloonPercent)
 
 橡树树苗长成鸡腿树（fancy_oak）的概率，使用百分率作为值
