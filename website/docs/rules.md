@@ -805,7 +805,7 @@ Ignore mob type "misc" in carpet mobcaps displays
 
 Since it's useless: Nothing in misc category spawns, and it's ignored when calculating mobcap
 
-Affects mobcaps logger and `/spawn mobcap command`
+Affects mobcaps logger and `/spawn mobcap` command
 
 - Type: `boolean`
 - Default value: `false`
