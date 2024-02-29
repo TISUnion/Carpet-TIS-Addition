@@ -193,12 +193,24 @@ public class MicroTimingMarker
 
 	public void sendShapeToAll()
 	{
-		ShapeDispatcher.sendShape(MicroTimingUtil.getSubscribedPlayers(), this.getShapeDataList(true));
+		ShapeDispatcher.sendShape(
+				MicroTimingUtil.getSubscribedPlayers(),
+				this.getShapeDataList(true)
+				//#if MC >= 12005
+				//$$ , this.serverWorld.getRegistryManager()
+				//#endif
+		);
 	}
 
 	public void cleanShapeToAll()
 	{
-		ShapeDispatcher.sendShape(MicroTimingUtil.getSubscribedPlayers(), this.getShapeDataList(false));
+		ShapeDispatcher.sendShape(
+				MicroTimingUtil.getSubscribedPlayers(),
+				this.getShapeDataList(false)
+				//#if MC >= 12005
+				//$$ , this.serverWorld.getRegistryManager()
+				//#endif
+		);
 	}
 
 	public StorageKey getStorageKey()
