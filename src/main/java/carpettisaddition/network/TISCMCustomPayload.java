@@ -20,6 +20,7 @@
 
 package carpettisaddition.network;
 
+import carpettisaddition.utils.NetworkUtil;
 import carpettisaddition.utils.compat.CustomPayload;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
@@ -50,11 +51,14 @@ public class TISCMCustomPayload implements CustomPayload
 
 	public TISCMCustomPayload(PacketByteBuf buf)
 	{
-		this(buf.readString(
-				//#if MC < 11700
-				Short.MAX_VALUE
-				//#endifs
-		), buf.readCompoundTag());
+		this(
+				buf.readString(
+						//#if MC < 11700
+						Short.MAX_VALUE
+						//#endif
+				),
+				NetworkUtil.readNbt(buf)
+		);
 	}
 
 	//#if MC < 12005
