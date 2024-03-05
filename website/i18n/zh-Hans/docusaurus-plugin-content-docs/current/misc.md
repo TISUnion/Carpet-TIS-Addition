@@ -68,23 +68,36 @@ sidebar_position: 4
 
 ## Carpet 相关指令修改
 
-- 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
-- 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
+### player
+
 - 为 `/player` 指令添加 `randomly` 子命令，使玩家以动态变化的随机间隔执行给定操作
   - 支持的随机数发生器：均匀分布、泊松分布、正态分布
   - 支持带 `--simulate` 参数来测试运行
   - 使用 `/player someone someaction randomly` 来获取更多帮助
-- 为 `/player` 指令添加 `after` 参数。如 `/player Steve use after 10` 将使 Steve 在 10gt 的延迟后点击右键
-- 为 `/player` 指令添加 `perTick` 参数。如 `/player Steve use perTick 4` 将使 Steve 每游戏刻点击右键 4 次
-- 添加懒人最爱的 `/spawn tracking restart`
+- 为 `/player` 指令添加 `rejoin` 参数。类似 `/player spawn`，但该指令会保留假人之前下线时所在的位置和朝向
+- 为 `/player` 动作包相关指令添加 `after` 参数。如 `/player Steve use after 10` 将使 Steve 在 10gt 的延迟后点击右键
+- 为 `/player` 动作包相关指令添加 `perTick` 参数。如 `/player Steve use perTick 4` 将使 Steve 每游戏刻点击右键 4 次
 - 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
-- 为操控其他玩家的记录器订阅的 `/log <loggerName> <option> <playerName>` 和 `/log clean <playerName>` 指令添加 OP 权限检查
+- 将假人的名字长度限制调整为 16 以防止真实玩家被踢出，对 v1.4.38 前的 fabric-carpet 有效（fabric-carpet v1.4.38 也实现了相关的约束）
+
+### tick
+
+- 将 `/tick warp` 最大时长限制调整为 `Integer.MAX_VALUE`，对 1.4.18 前的 fabric-carpet 有效（fabric-carpet 1.4.18 移除了 `/tick warp` 限制）
+- 增加 `/tick warp status` 以查看正在进行中/上次的 tick warp 的状态
+
+### info
+
 - 使指令 `/info entity` 能正常地运行
 - 在指令 `/info block` 中显示目标位置的计划刻事件及方块事件
 - 为指令 `/info block` 添加区块加载状态检查。权限等级小于 2 的玩家不可用查询未加载区块中的方块信息
 
-## 杂项
+### 其他
 
-- 将假人的名字长度限制调整为 16 以防止真实玩家被踢出，对 v1.4.38 前的 fabric-carpet 有效（fabric-carpet v1.4.38 也实现了相关的约束）
+- 在 `/carpet` 指令中显示 Carpet TIS Addition 的版本信息
+- 添加懒人最爱的 `/spawn tracking restart`
+- 为操控其他玩家的记录器订阅的 `/log <loggerName> <option> <playerName>` 和 `/log clean <playerName>` 指令添加 OP 权限检查
+
+## Carpet 相关其他修改
+
 - 取消玩家动作包（由 `/player` 指令触发的 PlayerActionPack）在 `/tick freeze` 时的更新
 - 修复地毯假人不响应玩家近战攻击的击退的 bug (https://github.com/gnembon/fabric-carpet/issues/745)，已于 fabric-carpet v1.4.33 修复

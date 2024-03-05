@@ -67,23 +67,36 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
 
 ## Carpet Command Tweaks
 
-- Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
-- Display the version of TIS Carpet Addition inside `/carpet` command
+### player
+
 - Add `randomly` argument for `/player` command to make the player perform action at dynamically varying random intervals
   - Supported random generators: uniform, poisson, gaussian
   - Support test run with `--simulate`
   - Use `/player someone someaction randomly` to get more help
-- Add `after` argument for `/player` command. e.g. `/player Steve use after 10` will make Steve right-click after a 10gt delay
-- Add `perTick` argument for `/player` command. e.g. `/player Steve use perTick 4` will make Steve right-click 4 times per gametick
-- Add `/spawn tracking restart` for lazy man
+- Add `rejoin` argument for `/player` command to spawn fake player. Like `/player spawn`, but it preserves the fake player's last-login position and rotation
+- Add `after` argument for `/player` action pack commands. e.g. `/player Steve use after 10` will make Steve right-click after a 10gt delay
+- Add `perTick` argument for `/player` action pack commands. e.g. `/player Steve use perTick 4` will make Steve right-click 4 times per gametick
 - Add OP permission check to cheaty command `/player <someone> mount anything`
-- Add OP permission check to command `/log <loggerName> <option> <playerName>` and `/log clean <playerName>` that controls logger subscription for other players
+- Set the maximum length of fake player's markerName to 16 to prevent kicking out other players (Works before fabric-carpet v1.4.38, fabric-carpet v1.4.38 implemented the same check)
+
+### tick
+
+- Set the maximum `/tick warp` duration to `Integer.MAX_VALUE` for fabric-carpet before v1.4.18 (fabric-carpet v1.4.18 removed the `/tick warp` limit)
+- Add `/tick warp status` command to show the ongoing / previous tick warp status
+
+### info
+
 - Make `/info entity` work again
 - Show tile tick events & block events in `/info block` command
 - Add chunk loading state check for `/info block` command. Player with permission level < 2 cannot query block in unloaded chunk
 
-## Others
+### other
 
-- Set the maximum length of fake player's markerName to 16 to prevent kicking out other players (Works before fabric-carpet v1.4.38, fabric-carpet v1.4.38 implemented the same check)
+- Display the version of TIS Carpet Addition inside `/carpet` command
+- Add `/spawn tracking restart` for lazy man
+- Add OP permission check to command `/log <loggerName> <option> <playerName>` and `/log clean <playerName>` that controls logger subscription for other players
+
+## Carpet Misc Tweaks
+
 - Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
 - Fixed carpet fake player not responding to knockback from player melee attack (https://github.com/gnembon/fabric-carpet/issues/745), which is fixed in fabric-carpet v1.4.33
