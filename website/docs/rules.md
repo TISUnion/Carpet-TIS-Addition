@@ -1063,16 +1063,6 @@ You can modify gamerule `randomTickSpeed` to speed up the melting progress, or m
 - Categories: `TIS`, `CREATIVE`
 
 
-## speedTestCommandMaxTestSize
-
-The max test size in MiB when using the `/speedtest` command for network speed test
-
-- Type: `int`
-- Default value: `10`
-- Suggested options: `10`, `100`, `1024`, `10240`
-- Categories: `TIS`, `COMMAND`
-
-
 ## spawnBabyProbably
 
 When spawning mobs, if baby variant exists, spawn the jockey variant with given probably
@@ -1099,6 +1089,16 @@ Set it to `-1` to disable the rule and use vanilla logic
 - Default value: `-1`
 - Suggested options: `-1`, `0`, `0.5`, `1`
 - Categories: `TIS`, `CREATIVE`
+
+
+## speedTestCommandMaxTestSize
+
+The max test size in MiB when using the `/speedtest` command for network speed test
+
+- Type: `int`
+- Default value: `10`
+- Suggested options: `10`, `100`, `1024`, `10240`
+- Categories: `TIS`, `COMMAND`
 
 
 ## stopCommandDoubleConfirmation
