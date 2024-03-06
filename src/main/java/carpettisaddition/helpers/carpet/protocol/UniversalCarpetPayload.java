@@ -50,8 +50,10 @@ class UniversalCarpetPayload
 		this.nbt = null;
 		this.version = CarpetNetworkProtocolVersion.UNKNOWN;
 
+		int prevReaderIndex;
+
 		// try v1
-		buf.markReaderIndex();
+		prevReaderIndex = buf.readerIndex();
 		try
 		{
 			// v1 format
@@ -83,11 +85,11 @@ class UniversalCarpetPayload
 		}
 		finally
 		{
-			buf.resetReaderIndex();
+			buf.readerIndex(prevReaderIndex);
 		}
 
 		// try v2
-		buf.markReaderIndex();
+		prevReaderIndex = buf.readerIndex();
 		try
 		{
 			this.action = -1;
@@ -112,7 +114,7 @@ class UniversalCarpetPayload
 		}
 		finally
 		{
-			buf.resetReaderIndex();
+			buf.readerIndex(prevReaderIndex);
 		}
 	}
 

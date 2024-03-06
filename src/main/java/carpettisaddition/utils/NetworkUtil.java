@@ -52,7 +52,7 @@ public class NetworkUtil
 	{
 		int n = buf.readableBytes();
 
-		buf.markReaderIndex();
+		int prevReaderIndex = buf.readerIndex();
 		try
 		{
 			if (n < 2)
@@ -94,7 +94,7 @@ public class NetworkUtil
 		}
 		finally
 		{
-			buf.resetReaderIndex();
+			buf.readerIndex(prevReaderIndex);
 		}
 
 		return NbtStyle.UNKNOWN;
@@ -115,12 +115,12 @@ public class NetworkUtil
 			// I'm < mc1.20.2 (OLD), trying to read a nbt in NEW style
 
 			//#if MC < 12002
-			buf.markReaderIndex();
+			int prevReaderIndex = buf.readerIndex();
 			PacketByteBuf tweakedBuf = new PacketByteBuf(Unpooled.buffer());
 			tweakedBuf.writeByte(buf.readByte());  // 0x0A, tag type
 			tweakedBuf.writeByte(0).writeByte(0);  // 2* 0x00
 			tweakedBuf.writeBytes(buf);
-			buf.resetReaderIndex();
+			buf.readerIndex(prevReaderIndex);
 
 			CompoundTag nbt = tweakedBuf.readCompoundTag();
 
@@ -134,12 +134,12 @@ public class NetworkUtil
 		{
 			// I'm >= mc1.20.2 (NEW), trying to read a nbt in OLD style
 
-			buf.markReaderIndex();
+			int prevReaderIndex = buf.readerIndex();
 			PacketByteBuf tweakedBuf = new PacketByteBuf(Unpooled.buffer());
 			tweakedBuf.writeByte(buf.readByte());  // 0x0A, tag type
 			buf.readBytes(2);  // consume the 2* 0x00
 			tweakedBuf.writeBytes(buf);
-			buf.resetReaderIndex();
+			buf.readerIndex(prevReaderIndex);
 
 			CompoundTag nbt = tweakedBuf.readCompoundTag();
 
