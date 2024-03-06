@@ -718,6 +718,12 @@ carpettisaddition:
       creativeOpenContainerForcibly:
         name: creativeOpenContainerForcibly
         desc: Allow creative players to open a container even if the container is blocked. e.g. for shulker box
+      debugNbtQueryNoPermission:
+        name: debugNbtQueryNoPermission
+        desc: Remove the permission requirement for the debug nbt request of client's F3+I action
+        extra:
+          '0': In vanilla, the request needs permission level 2 at least
+          '1': Carpet TIS Addition is required to be installed on the client
       deobfuscateCrashReportStackTrace:
         name: deobfuscateCrashReportStackTrace
         desc: Deobfuscate stack traces in crash report

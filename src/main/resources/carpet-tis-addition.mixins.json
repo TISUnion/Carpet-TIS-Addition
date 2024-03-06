@@ -293,6 +293,7 @@
     "rule.creativeOpenContainerForcibly.ChestBlockMixin",
     "rule.creativeOpenContainerForcibly.EnderChestBlockMixin",
     "rule.creativeOpenContainerForcibly.ShulkerBoxBlockMixin",
+    "rule.debugNbtQueryNoPermission.ServerPlayNetworkHandlerMixin",
     "rule.deobfuscateCrashReportStackTrace.CrashReportMixin",
     "rule.deobfuscateCrashReportStackTrace.CrashReportSectionMixin",
     "rule.dispenserNoItemCost.DispenserBlockMixin",
@@ -469,6 +470,7 @@
     "network.ClientPlayNetworkHandlerAccessor",
     "network.ClientPlayNetworkHandlerMixin",
     "rule.chatMessageLengthLimitUnlocked.ChatScreenMixin",
+    "rule.debugNbtQueryNoPermission.KeyboardMixin",
     "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin",
     "rule.syncServerMsptMetricsData.DebugHudMixin",
     "rule.syncServerMsptMetricsData.TickChartAccessor"

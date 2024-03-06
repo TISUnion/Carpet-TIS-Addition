@@ -4,20 +4,6 @@ sidebar_position: 1
 
 # Rules
 
-## alwaysSpawnJockey
-
-When spawning mobs, if jockey variant exists, always spawn the jockey variant
-
-Affected jockeys: chicken jockey, spider jockey, strider jockey
-
-For striders, the spawn ratio between zombified piglin and baby strider is 1:3
-
-- Type: `boolean`
-- Default value: `false`
-- Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`
-
-
 ## antiSpamDisabled
 
 Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown
@@ -253,6 +239,20 @@ Allow creative players to open a container even if the container is blocked. e.g
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
+
+
+## debugNbtQueryNoPermission
+
+Remove the permission requirement for the debug nbt request of client's F3 + I action
+
+In vanilla, the request needs permission level 2 at least
+
+Carpet TIS Addition is required to be installed on the client
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CLIENT`
 
 
 ## deobfuscateCrashReportStackTrace
@@ -1048,6 +1048,8 @@ In sand dupers sand will only get teleported to the other dimension
 
 
 ## shulkerBoxCCEReintroduced
+
+**Minecraft >= 1.20.2 only**
 
 Reintroduce the `ClassCastException` suppressor by reading comparator signal from a shulker block box with non `Inventory`-type block entity at it
 

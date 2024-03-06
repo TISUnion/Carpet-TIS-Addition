@@ -718,6 +718,12 @@ carpettisaddition:
       creativeOpenContainerForcibly:
         name: 创造玩家强制打开容器
         desc: 允许创造模式的玩家打开被阻挡的容器，如潜影盒
+      debugNbtQueryNoPermission:
+        name: NBT调试拉取请求无需权限
+        desc: 让客户端F3+I操作所触发的调试请求无需任何权限等级需求
+        extra:
+          '0': 在原版中，该操作需要权限等级至少为2
+          '1': 需要在客户端中安装Carpet TIS Addition模组
       deobfuscateCrashReportStackTrace:
         name: 反混淆崩溃报告堆栈追踪
         desc: 反混淆崩溃报告中输出的堆栈追踪

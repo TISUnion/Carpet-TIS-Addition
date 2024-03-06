@@ -241,6 +241,20 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## NBT调试拉取请求无需权限 (debugNbtQueryNoPermission)
+
+让客户端 F3 + I 操作所触发的调试请求无需任何权限等级需求
+
+在原版中，该操作需要权限等级至少为 2
+
+需要在客户端中安装 Carpet TIS Addition 模组
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CLIENT`
+
+
 ## 反混淆崩溃报告堆栈追踪 (deobfuscateCrashReportStackTrace)
 
 反混淆崩溃报告中输出的堆栈追踪
@@ -1462,6 +1476,8 @@ TISCM网络协议的开关
 
 
 ## 阻止乱序聊天数据包踢出 (yeetOutOfOrderChatKick)
+
+**本规则仅在 Minecraft >= 19 中存在**
 
 阻止玩家被服务器以“接收到了乱序的聊天数据包...”为由踢出游戏
 

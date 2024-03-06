@@ -151,6 +151,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean creativeOpenContainerForcibly = false;
 
+	@Rule(categories = {TIS, CLIENT})
+	public static boolean debugNbtQueryNoPermission = false;
+
     @Rule(categories = {TIS, FEATURE})
     public static boolean deobfuscateCrashReportStackTrace = false;
 
