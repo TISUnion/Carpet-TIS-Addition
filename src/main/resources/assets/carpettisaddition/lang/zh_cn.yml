@@ -647,6 +647,12 @@ carpettisaddition:
         desc: 让玩家可以对着填充有水的炼药锅放置方块
         extra:
           '0': 仅对Minecraft <= 1.16.x有效。这个烦人的机制已经在1.17+中被修复了
+      chatMessageLengthLimitUnlocked:
+        name: 聊天信息长度上限解锁
+        desc: 解锁在聊天信息/聊天栏指令串的长度限制
+        extra:
+          '0': 长度限制将从256提升至32000
+          '1': 需要在客户端中安装Carpet TIS Addition模组
       chunkUpdatePacketThreshold:
         name: 区块更新数据包阈值
         desc: 如果方块变化的数量大于这个阈值，则游戏将仅发送区块更新数据包而非若干个方块变更数据包

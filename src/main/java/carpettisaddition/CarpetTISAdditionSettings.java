@@ -83,6 +83,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean cauldronBlockItemInteractFix = false;
 
+	@Rule(categories = {TIS, CLIENT})
+	public static boolean chatMessageLengthLimitUnlocked = false;
+
 	public static final int VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD = 64;
 	public static final int MAXIMUM_CHUNK_UPDATE_PACKET_THRESHOLD = 65536;
 	@Rule(

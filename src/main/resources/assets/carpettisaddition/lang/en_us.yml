@@ -647,6 +647,12 @@ carpettisaddition:
         desc: Make player be able to place block against cauldron block with any filled level
         extra:
           '0': Affected Minecraft <= 1.16.x. This annoying behavior is already been fixed in 1.17+
+      chatMessageLengthLimitUnlocked:
+        name: chatMessageLengthLimitUnlocked
+        desc: Unlock the chat message / command string length limit
+        extra:
+          '0': The limit will be raised from 256 to 32000
+          '1': Carpet TIS Addition is required to be installed on the client
       chunkUpdatePacketThreshold:
         name: chunkUpdatePacketThreshold
         desc: The threshold which the game will just send an chunk data packet if the amount of block changes is more than it

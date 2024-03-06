@@ -277,6 +277,9 @@
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
     "rule.cauldronBlockItemInteractFix.CauldronBlockMixin",
+    "rule.chatMessageLengthLimitUnlocked.ChatMessageC2SPacketMixin",
+    "rule.chatMessageLengthLimitUnlocked.CommandExecutionC2SPacketMixin",
+    "rule.chatMessageLengthLimitUnlocked.StringHelperMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.chunkUpdatePacketThreshold.ChunkHolderMixin",
     "rule.clientSettingsLostOnRespawnFix.ServerPlayerEntityMixin",
@@ -465,6 +468,7 @@
     "network.ClientPlayNetworkHandler_HandshakeMixin",
     "network.ClientPlayNetworkHandlerAccessor",
     "network.ClientPlayNetworkHandlerMixin",
+    "rule.chatMessageLengthLimitUnlocked.ChatScreenMixin",
     "rule.structureBlockOutlineDistance.StructureBlockBlockEntityMixin",
     "rule.syncServerMsptMetricsData.DebugHudMixin",
     "rule.syncServerMsptMetricsData.TickChartAccessor"

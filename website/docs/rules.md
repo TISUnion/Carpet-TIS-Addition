@@ -64,6 +64,20 @@ Affected Minecraft \<= 1.16.x. This annoying behavior is already been fixed in 1
 - Categories: `TIS`, `CREATIVE`
 
 
+## chatMessageLengthLimitUnlocked
+
+Unlock the chat message / command string length limit
+
+The limit will be raised from `256` to `32000`
+
+Carpet TIS Addition is required to be installed on the client
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CLIENT`
+
+
 ## chunkUpdatePacketThreshold
 
 The threshold which the game will just send an chunk data packet if the amount of block changes is more than it

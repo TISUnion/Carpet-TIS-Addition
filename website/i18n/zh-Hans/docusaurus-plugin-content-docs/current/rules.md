@@ -50,6 +50,20 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 聊天信息长度上限解锁 (chatMessageLengthLimitUnlocked)
+
+解锁在聊天信息 / 聊天栏指令串的长度限制
+
+长度限制将从 `256` 提升至 `32000`
+
+需要在客户端中安装 Carpet TIS Addition 模组
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CLIENT`
+
+
 ## 区块更新数据包阈值 (chunkUpdatePacketThreshold)
 
 如果方块变化的数量大于这个阈值，则游戏将仅发送区块更新数据包而非若干个方块变更数据包
