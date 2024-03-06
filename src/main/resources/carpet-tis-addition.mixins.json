@@ -380,6 +380,7 @@
     "rule.renewableElytra.PhantomEntityMixin",
     "rule.repeaterHalfDelay.AbstractRedstoneGateBlockMixin",
     "rule.sandDupingFix.FallingBlockEntityMixin",
+    "rule.shulkerBoxCCEReintroduced.ShulkerBoxBlockMixin",
     "rule.snowMeltMinLightLevel.SnowBlockMixin",
     "rule.spawnBabyProbably.HoglinEntityMixin",
     "rule.spawnBabyProbably.PassiveEntityMixin",

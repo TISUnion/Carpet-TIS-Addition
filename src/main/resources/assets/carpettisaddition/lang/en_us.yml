@@ -1041,6 +1041,11 @@ carpettisaddition:
         extra:
           '0': Gravity block includes sand, anvil, dragon egg and so on
           '1': In sand dupers sand will only get teleported to the other dimension
+      shulkerBoxCCEReintroduced:
+        name: shulkerBoxCCEReintroduced
+        desc: Reintroduce the ClassCastException suppressor by reading comparator signal from a shulker block box with non Inventory-type block entity at it
+        extra:
+          '0': Long live void's magic box!
       snowMeltMinLightLevel:
         name: snowMeltMinLightLevel
         desc: The minimum light level allowed for snow to melt

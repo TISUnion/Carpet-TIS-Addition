@@ -1041,6 +1041,11 @@ carpettisaddition:
         extra:
           '0': 重力方块包括沙子、铁砧、龙蛋等
           '1': 在开启后刷沙机的沙子将会仅被传送至另一个纬度
+      shulkerBoxCCEReintroduced:
+        name: 重新引入潜影盒CCE抑制器
+        desc: 重新引入使用比较器读取带有非Inventory类方块实体的潜影盒方块而触发的ClassCastException更新抑制器
+        extra:
+          '0': 愿虚空的魔法盒永存！
       snowMeltMinLightLevel:
         name: 融雪最小亮度
         desc: 雪片融化所需的最小亮度等级

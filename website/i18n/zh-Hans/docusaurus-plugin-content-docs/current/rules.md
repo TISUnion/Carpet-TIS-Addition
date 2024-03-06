@@ -1046,6 +1046,20 @@ sidebar_position: 1
 - 分类: `TIS`, `BUGFIX`
 
 
+## 重新引入潜影盒CCE抑制器 (shulkerBoxCCEReintroduced)
+
+**本规则仅在 Minecraft >= 1.20.2 中存在**
+
+重新引入使用比较器读取带有非 `Inventory` 类方块实体的潜影盒方块而触发的 `ClassCastException` 更新抑制器
+
+愿虚空的魔法盒永存！
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `PORTING`
+
+
 ## 融雪最小亮度 (snowMeltMinLightLevel)
 
 雪片融化所需的最小亮度等级

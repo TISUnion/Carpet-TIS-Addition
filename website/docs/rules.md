@@ -1033,6 +1033,18 @@ In sand dupers sand will only get teleported to the other dimension
 - Categories: `TIS`, `BUGFIX`
 
 
+## shulkerBoxCCEReintroduced
+
+Reintroduce the `ClassCastException` suppressor by reading comparator signal from a shulker block box with non `Inventory`-type block entity at it
+
+Long live void's magic box!
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `PORTING`
+
+
 ## snowMeltMinLightLevel
 
 The minimum light level allowed for snow to melt
