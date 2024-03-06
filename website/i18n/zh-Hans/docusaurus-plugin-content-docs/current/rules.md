@@ -286,7 +286,7 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
 
 
-## 粉板重新引入 (dustTrapdoorReintroduced)
+## 重新引入粉板瞬时更新循环 (dustTrapdoorReintroduced)
 
 **本规则仅在 Minecraft >= 1.20 中存在**
 
@@ -1163,7 +1163,7 @@ sidebar_position: 1
 - [tickCommandEnhance](#tick指令增强-tickcommandenhance) = `true`
 - [tickCommandPermission](#tick指令权限-tickcommandpermission) = `2`
 - [tickFreezeCommandToggleable](#切换式tickfreeze指令-tickfreezecommandtoggleable) = `true`
-- [tickProfilerCommandsReintroduced](#tick性能分析指令重现-tickprofilercommandsreintroduced) = `true`
+- [tickProfilerCommandsReintroduced](#重新引入tick性能分析指令-tickprofilercommandsreintroduced) = `true`
 - [tickWarpCommandAsAnAlias](#tickwarp指令别名重现-tickwarpcommandasanalias) = `true`
 
 - 类型: `boolean`
@@ -1218,7 +1218,7 @@ sidebar_position: 1
 - 分类: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
 
 
-## tick性能分析指令重现 (tickProfilerCommandsReintroduced)
+## 重新引入tick性能分析指令 (tickProfilerCommandsReintroduced)
 
 **本规则仅在 Minecraft >= 1.20.3 中存在**
 

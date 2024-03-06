@@ -724,7 +724,7 @@ carpettisaddition:
         name: 发射器发射龙息
         desc: 发射器可使用龙息瓶创造出龙息效果云
       dustTrapdoorReintroduced:
-        name: 粉板重新引入
+        name: 重新引入粉板瞬时更新循环
         desc: 重新引入由红石粉+活板门组成的瞬时更新循环结构
         extra:
           '0': '该规则实际上做了如下2件事情：'
@@ -1130,7 +1130,7 @@ carpettisaddition:
         extra:
           '0': 也就是说，若游戏运行已冻结，则再次输入"/tick freeze"将解除冻结状态
       tickProfilerCommandsReintroduced:
-        name: tick性能分析指令重现
+        name: 重新引入tick性能分析指令
         desc: 带回carpet模组的"/tick health"、"/tick entities"这两个子命令
         extra:
           '0': 与以前的carpet模组一样，这两个指令的功能将与carpet模组的"/profile [health|entities]"子命令一致

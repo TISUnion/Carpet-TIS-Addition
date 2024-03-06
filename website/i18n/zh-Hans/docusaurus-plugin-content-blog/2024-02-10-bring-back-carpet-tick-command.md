@@ -51,7 +51,7 @@ slug: bring-back-carpet-tick-command
 - **"mc1.20.4 及以后原版表现**：`/tick freeze` 这条指令只能让游戏进入冻结状态。让游戏恢复正常运行的指令被单独放到了 `/tick unfreeze` 指令里
 - **使用场景**：像旧版本那样，只用一条 `/tick freeze` 指令就能进入或退出冻结状态
 
-## [tickProfilerCommandsReintroduced](/docs/rules#tick性能分析指令重现-tickprofilercommandsreintroduced)
+## [tickProfilerCommandsReintroduced](/docs/rules#重新引入tick性能分析指令-tickprofilercommandsreintroduced)
 
 ```
 /carpet tickWarpCommandAsAnAlias true
