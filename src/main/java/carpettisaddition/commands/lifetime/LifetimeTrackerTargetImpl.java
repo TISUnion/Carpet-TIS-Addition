@@ -160,7 +160,7 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 	{
 		if (this.doLifeTimeTracking && this.recordedSpawning && this.spawningPos != null && !this.recordedRemoval)
 		{
-			if (!reason.getRemovalType().isValid())
+			if (!reason.getRemovalType().isValid(this.entity))
 			{
 				return;
 			}

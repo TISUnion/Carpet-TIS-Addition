@@ -43,6 +43,7 @@ sidebar_position: 3
 - 所有种类的生物 (MobEntity)。生物需占用刷怪上限才可被追踪（可将规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 设置为 false 以跳过这个刷怪上限占用检查）
 - 掉落物实体
 - 经验球实体
+- 载具实体，包括矿车和船（及其变种）
 
 追踪的实体生成原因
 - 方块掉落（仅掉落物）

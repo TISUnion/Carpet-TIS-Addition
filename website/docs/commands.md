@@ -43,6 +43,7 @@ Tracked entity types:
 - All kinds of mob (MobEntity) which count towards mobcap or rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) is false
 - Item Entity
 - Experience Orb Entity
+- Vehicles, including minecarts and boats (and their variants)
 
 Tracked entity spawning reasons
 - Block drop (item only)

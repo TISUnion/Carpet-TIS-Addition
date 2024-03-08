@@ -26,6 +26,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.vehicle.AbstractMinecartEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Optional;
@@ -35,7 +37,7 @@ public class LifeTimeTrackerUtil
 {
 	public static boolean isTrackedEntityClass(Entity entity)
 	{
-		return entity instanceof MobEntity || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity;
+		return entity instanceof MobEntity || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof AbstractMinecartEntity || entity instanceof BoatEntity;
 	}
 
 	public static String getEntityTypeDescriptor(EntityType<?> entityType)

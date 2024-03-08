@@ -21,6 +21,8 @@
 package carpettisaddition.commands.lifetime.removal;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.MobEntity;
 
 import java.util.function.Supplier;
 
@@ -29,21 +31,29 @@ public enum RemovalType
 	/**
 	 * The mob is removed from the world and no longer exists
 	 */
-	REMOVED_FROM_WORLD(() -> true),
+	REMOVED_FROM_WORLD(entity -> true),
 	/**
 	 * The mob is removed from the mobcap, but still exists in the world
 	 */
-	REMOVED_FROM_MOBCAP(() -> CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap);
+	REMOVED_FROM_MOBCAP(entity -> {
+		// only MobEntity will be counted in mobcap
+		return CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap && entity instanceof MobEntity;
+	});
 
-	private final Supplier<Boolean> validSupplier;
+	private final Validator validSupplier;
 
-	RemovalType(Supplier<Boolean> validSupplier)
+	RemovalType(Validator validSupplier)
 	{
 		this.validSupplier = validSupplier;
 	}
 
-	public boolean isValid()
+	public boolean isValid(Entity entity)
 	{
-		return this.validSupplier.get();
+		return this.validSupplier.isValidFor(entity);
+	}
+
+	interface Validator
+	{
+		boolean isValidFor(Entity entity);
 	}
 }
