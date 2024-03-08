@@ -26,9 +26,9 @@ import net.minecraft.text.BaseText;
 
 public class MobConversionRemovalReason extends MobRelatedRemovalReason
 {
-	public MobConversionRemovalReason(EntityType<?> entityType)
+	public MobConversionRemovalReason(EntityType<?> targetEntityType)
 	{
-		super(entityType);
+		super(targetEntityType);
 	}
 
 	@Override

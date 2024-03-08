@@ -55,7 +55,7 @@ public abstract class MobEntityMixin extends LivingEntity
 			)
 	)
 
-	private Entity recordSelfRemoval$LifeTimeTracker(Entity targetEntity)
+	private Entity lifetimeTracker_recordRemoval_conversion_mobEntityCommon(Entity targetEntity)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(targetEntity.getType()));
 		return targetEntity;

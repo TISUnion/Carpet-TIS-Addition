@@ -42,7 +42,7 @@ public abstract class CreeperEntityMixin
 					//#endif
 			)
 	)
-	private void recordCreeperSelfExplodedRemovalLifetimeTracker(CallbackInfo ci)
+	private void lifetimeTracker_recordRemoval_exploded_creeper(CallbackInfo ci)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.EXPLODED);
 	}

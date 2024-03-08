@@ -53,7 +53,7 @@ public abstract class SpawnHelperMixin
 			index = 0,
 			allow = 1
 	)
-	private static Entity onEntitySpawnLifeTimeTracker(Entity entity)
+	private static Entity lifetimeTracker_recordSpawning_natualSpawning_natualSpawner(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.NATURAL);
 		return entity;

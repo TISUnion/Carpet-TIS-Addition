@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class SkeletonHorseTrapTriggerGoalMixin
 {
 	@ModifyReturnValue(method = "getSkeleton", at = @At("TAIL"))
-	private SkeletonEntity lifetimeTracker_recordSpiderJockeySpawning(SkeletonEntity entity)
+	private SkeletonEntity lifetimeTracker_recordSpawning_jockey_skeletonHorse(SkeletonEntity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.JOCKEY);
 		return entity;

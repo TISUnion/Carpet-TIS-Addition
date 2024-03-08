@@ -18,32 +18,38 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.removal.persistent;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.mob.MobEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(WitherEntity.class)
-public abstract class WitherEntityMixin
+@Mixin(MobEntity.class)
+public abstract class MobEntityMixin
 {
+	@Inject(method = "setPersistent", at = @At("HEAD"))
+	private void lifetimeTracker_recordRemoval_persistent_common(CallbackInfo ci)
+	{
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+	}
+
 	@Inject(
-			method = "checkDespawn",
+			//#if MC >= 11600
+			//$$ method = "equipLootStack",
+			//#else
+			method = "loot",
+			//#endif
 			at = @At(
-					value = "INVOKE",
-					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/boss/WitherEntity;discard()V"
-					//#else
-					target = "Lnet/minecraft/entity/boss/WitherEntity;remove()V"
-					//#endif
+					value = "FIELD",
+					target = "Lnet/minecraft/entity/mob/MobEntity;persistent:Z"
 			)
 	)
-	private void onDespawnLifeTimeTracker(CallbackInfo ci)
+	private void lifetimeTracker_recordRemoval_persistent_equipLoot(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
 	}
 }

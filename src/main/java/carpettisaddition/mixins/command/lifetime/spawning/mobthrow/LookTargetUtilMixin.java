@@ -48,7 +48,7 @@ public abstract class LookTargetUtilMixin
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private static ItemEntity onThrowItemEntityLifeTimeTracker(
+	private static ItemEntity lifetimeTracker_recordSpawning_mobThrow_common(
 			ItemEntity itemEntity, LivingEntity entity, ItemStack stack,
 			//#if MC >= 11600
 			//$$ Vec3d targetLocation

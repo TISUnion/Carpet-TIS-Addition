@@ -52,7 +52,7 @@ public abstract class VillagerBreedTaskMixin
 			//$$ , remap = false
 			//#endif
 	)
-	private Entity onAnimalBirthLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_breeding_villager(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.BREEDING);
 		return entity;

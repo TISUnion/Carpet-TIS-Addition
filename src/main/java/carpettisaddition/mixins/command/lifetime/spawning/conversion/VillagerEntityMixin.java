@@ -50,7 +50,7 @@ public abstract class VillagerEntityMixin extends AbstractTraderEntity
 					//#endif
 			)
 	)
-	private Entity recordWitchSpawning$LifeTimeTracker(Entity witch)
+	private Entity lifetimeTracker_recordSpawning_conversion_witchFromVillager(Entity witch)
 	{
 		((LifetimeTrackerTarget)witch).recordSpawning(new MobConversionSpawningReason(this.getType()));
 		return witch;

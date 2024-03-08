@@ -38,7 +38,7 @@ public abstract class ItemScattererMixin
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private static Entity onContainerDropsItemLifeTimeTracker(Entity itemEntity)
+	private static Entity lifetimeTracker_recordSpawning_container(Entity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.CONTAINER);
 		return itemEntity;

@@ -44,7 +44,7 @@ public abstract class ExperienceOrbEntityMixin implements DamageableEntity
 					//#endif
 			)
 	)
-	private	void onDeathLifeTimeTracker(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private	void lifetimeTracker_recordDeathDamageSource_xpOrb(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
 		this.deathDamageSource = source;
 	}

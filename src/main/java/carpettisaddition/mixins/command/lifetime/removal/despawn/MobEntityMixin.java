@@ -18,16 +18,11 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.removal.despawn;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -35,13 +30,8 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MobEntity.class)
-public abstract class MobEntityMixin extends LivingEntity
+public abstract class MobEntityMixin
 {
-	protected MobEntityMixin(EntityType<? extends LivingEntity> type, World world)
-	{
-		super(type, world);
-	}
-
 	//#if MC >= 11500
 	@Inject(
 			method = "checkDespawn",
@@ -55,7 +45,7 @@ public abstract class MobEntityMixin extends LivingEntity
 					ordinal = 0
 			)
 	)
-	private void onDifficultyDespawnLifeTimeTracker(CallbackInfo ci)
+	private void lifetimeTracker_recordRemoval_despawnDifficulty_mobEntity(CallbackInfo ci)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
 	}
@@ -81,7 +71,7 @@ public abstract class MobEntityMixin extends LivingEntity
 					ordinal = 0
 			)
 	)
-	private void onImmediatelyDespawnLifeTimeTracker(CallbackInfo ci)
+	private void lifetimeTracker_recordRemoval_despawnImmediately(CallbackInfo ci)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_IMMEDIATELY);
 	}
@@ -104,46 +94,8 @@ public abstract class MobEntityMixin extends LivingEntity
 					ordinal = 1
 			)
 	)
-	private void onRandomlyDespawnLifeTimeTracker(CallbackInfo ci)
+	private void lifetimeTracker_recordRemoval_despawnRandomly(CallbackInfo ci)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_RANDOMLY);
-	}
-
-	@Inject(method = "setPersistent", at = @At("HEAD"))
-	private void onEntityPersistentLifeTimeTracker(CallbackInfo ci)
-	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
-	}
-
-	@Inject(
-			//#if MC >= 11600
-			//$$ method = "equipLootStack",
-			//#else
-			method = "loot",
-			//#endif
-			at = @At(
-					value = "FIELD",
-					target = "Lnet/minecraft/entity/mob/MobEntity;persistent:Z"
-			)
-	)
-	private void onEntityPersistent2LifeTimeTracker(CallbackInfo ci)
-	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
-	}
-
-	@Inject(
-			method = "loot",
-			at = @At(
-					value = "INVOKE",
-					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
-					//#else
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
-					//#endif
-			)
-	)
-	private void onItemPickUpLifeTimeTracker(ItemEntity item, CallbackInfo ci)
-	{
-		((LifetimeTrackerTarget)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
 	}
 }

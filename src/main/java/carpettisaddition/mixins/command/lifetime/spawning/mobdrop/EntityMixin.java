@@ -40,7 +40,7 @@ public abstract class EntityMixin
 	@Shadow public abstract EntityType<?> getType();
 
 	@Inject(method = "dropStack(Lnet/minecraft/item/ItemStack;F)Lnet/minecraft/entity/ItemEntity;", at = @At("RETURN"))
-	private void onItemEntitySpawnedByDroppingLifeTimeTracker(CallbackInfoReturnable<ItemEntity> cir)
+	private void lifetimeTracker_recordSpawning_mobDrop_common(CallbackInfoReturnable<ItemEntity> cir)
 	{
 		ItemEntity itemEntity = cir.getReturnValue();
 		if (itemEntity != null)

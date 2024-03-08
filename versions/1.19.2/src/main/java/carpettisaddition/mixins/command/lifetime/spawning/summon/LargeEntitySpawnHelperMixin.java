@@ -39,7 +39,7 @@ import java.util.Optional;
 public abstract class LargeEntitySpawnHelperMixin
 {
 	@Inject(method = "trySpawnAt", at= @At("RETURN"))
-	private static <T extends MobEntity> void onEntitySummonLifeTimeTracker(CallbackInfoReturnable<Optional<T>> cir)
+	private static <T extends MobEntity> void lifetimeTracker_recordSpawning_summon_largeEntitySpawnHelper(CallbackInfoReturnable<Optional<T>> cir)
 	{
 		cir.getReturnValue().ifPresent(entity -> ((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON));
 	}

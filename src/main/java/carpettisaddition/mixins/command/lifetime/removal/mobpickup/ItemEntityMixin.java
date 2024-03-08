@@ -18,30 +18,40 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.removal.mobpickup;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
-import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import carpettisaddition.utils.ModIds;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.mob.EndermanEntity;
+import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
-@Mixin(EndermanEntity.class)
-public abstract class EndermanEntityMixin
+@Mixin(ItemEntity.class)
+public abstract class ItemEntityMixin
 {
-	@Inject(method = "setCarriedBlock", at = @At("TAIL"))
-	private void noMoreCountingTowardsMobcapLifetimeTracker(BlockState state, CallbackInfo ci)
+	@Inject(
+			method = "onPlayerCollision",
+			at = @At(
+					value = "INVOKE",
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//#else
+					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//#endif
+			),
+			locals = LocalCapture.CAPTURE_FAILHARD
+	)
+	private void lifetimeTracker_recordRemoval_mobPickup_playerPickupItem(PlayerEntity player, CallbackInfo ci, ItemStack itemStack, Item item, int i)
 	{
-		if (state != null)
-		{
-			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PICKUP_BLOCK);
-		}
+		int stackCount = itemStack.getCount();
+		itemStack.setCount(i);
+		((LifetimeTrackerTarget)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
+		itemStack.setCount(stackCount);
 	}
 }

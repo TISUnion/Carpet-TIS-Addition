@@ -38,7 +38,7 @@ public abstract class SlimeEntityMixin
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private Entity onSlimeDivisionLifeTimeTracker(Entity slimeEntity)
+	private Entity lifetimeTracker_recordSpawning_slimDivision(Entity slimeEntity)
 	{
 		((LifetimeTrackerTarget)slimeEntity).recordSpawning(LiteralSpawningReason.SLIME);
 		return slimeEntity;

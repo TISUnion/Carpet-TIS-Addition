@@ -42,7 +42,7 @@ public abstract class RaidMixin
 					//#endif
 			)
 	)
-	private Entity onSpawnRaiderLifeTimeTracker(Entity raiderEntity)
+	private Entity lifetimeTracker_recordSpawning_raid(Entity raiderEntity)
 	{
 		((LifetimeTrackerTarget)raiderEntity).recordSpawning(LiteralSpawningReason.RAID);
 		return raiderEntity;

@@ -39,7 +39,7 @@ public abstract class SpiderEntityMixin
 					target = "Lnet/minecraft/entity/mob/SkeletonEntity;startRiding(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private SkeletonEntity lifetimeTracker_recordSpiderJockeySpawning(SkeletonEntity skeleton, Entity spider)
+	private SkeletonEntity lifetimeTracker_recordSpawning_jockey_spider(SkeletonEntity skeleton, Entity spider)
 	{
 		((LifetimeTrackerTarget)skeleton).recordSpawning(LiteralSpawningReason.JOCKEY);
 		return skeleton;

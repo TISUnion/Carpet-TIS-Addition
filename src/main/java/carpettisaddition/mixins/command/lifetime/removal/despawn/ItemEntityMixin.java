@@ -18,37 +18,39 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.removal.despawn;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
-import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
+import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.passive.DolphinEntity;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(DolphinEntity.class)
-public abstract class DolphinEntityMixin extends Entity
+@Mixin(ItemEntity.class)
+public abstract class ItemEntityMixin
 {
-	public DolphinEntityMixin(EntityType<?> type, World world)
-	{
-		super(type, world);
-	}
-
 	@Inject(
-			method = "loot",
+			method = "tick",
+			slice = @Slice(
+					from = @At(
+							value = "CONSTANT",
+							args = "intValue=6000"
+					)
+			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/passive/DolphinEntity;sendPickup(Lnet/minecraft/entity/Entity;I)V"
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//#else
+					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//#endif
 			)
 	)
-	private void onDolphinPickUpItemLifeTimeTracker(ItemEntity item, CallbackInfo ci)
+	private void lifetimeTracker_recordRemoval_despawnTimeout_item(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
+		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_TIMEOUT);
 	}
 }

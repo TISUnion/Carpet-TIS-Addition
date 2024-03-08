@@ -42,7 +42,7 @@ public abstract class MobSpawnerLogicMixin
 			),
 			index = 0
 	)
-	private Entity onSpawnerLogicSpawnEntityLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_spawner(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SPAWNER);
 		return entity;

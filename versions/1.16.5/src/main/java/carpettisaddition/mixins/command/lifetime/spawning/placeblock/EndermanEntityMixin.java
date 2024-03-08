@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EndermanEntityMixin
 {
 	@Inject(method = "setCarriedBlock", at = @At("TAIL"))
-	private void itCountsTowardsMobcapAgainLifetimeTracker(BlockState state, CallbackInfo ci)
+	private void lifetimeTracker_recordSpawning_placeBlock_enderman(BlockState state, CallbackInfo ci)
 	{
 		if (state == null)
 		{

@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class VillagerEntityMixin
 {
 	@Inject(method = "spawnIronGolem", at= @At("RETURN"))
-	private void onVillagerSummonedIronGolemLifeTimeTracker(CallbackInfoReturnable<IronGolemEntity> cir)
+	private void lifetimeTracker_recordSpawning_summon_villagerSummonIronGolem(CallbackInfoReturnable<IronGolemEntity> cir)
 	{
 		if (cir.getReturnValue() != null)
 		{

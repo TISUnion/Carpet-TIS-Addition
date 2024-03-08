@@ -18,14 +18,17 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.removal.pickupblock;
 
+import carpettisaddition.utils.ModIds;
 import carpettisaddition.utils.compat.DummyClass;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
 @Mixin(DummyClass.class)
-public abstract class WitherEntityMixin
+public abstract class EndermanEntityMixin
 {
-	// in 1.14, wither entity despawn due to difficulty is not handled in WitherEntity class
-	// but in HostileEntity class
+	// impl in 1.16
 }

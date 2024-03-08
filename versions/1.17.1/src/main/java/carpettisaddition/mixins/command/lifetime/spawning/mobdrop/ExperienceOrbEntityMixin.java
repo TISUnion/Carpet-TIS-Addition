@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.spawning;
+package carpettisaddition.mixins.command.lifetime.spawning.mobdrop;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
@@ -46,7 +46,7 @@ public abstract class ExperienceOrbEntityMixin
 			index = 0,
 			allow = 1
 	)
-	private static Entity onXpOrbSpawnLifeTimeTracker(Entity entity)
+	private static Entity lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrb(Entity entity)
 	{
 		if (LifetimeMixinUtil.xpOrbSpawningReason.get() != null)
 		{
@@ -56,7 +56,7 @@ public abstract class ExperienceOrbEntityMixin
 	}
 
 	@Inject(method = "spawn", at = @At("TAIL"))
-	private static void onXpOrbSpawnEndLifeTimeTracker(CallbackInfo ci)
+	private static void lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrbHookClean(CallbackInfo ci)
 	{
 		LifetimeMixinUtil.xpOrbSpawningReason.remove();
 	}

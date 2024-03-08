@@ -48,7 +48,7 @@ public abstract class CarvedPumpkinBlockMixin
 	//#if MC >= 11903
 	//$$ static
 	//#endif
-	private Entity onGolemSummonedLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_summon_pumpkinGolem(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON);
 		return entity;

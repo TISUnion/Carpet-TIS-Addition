@@ -56,7 +56,7 @@ public abstract class LivingEntityMixin extends Entity
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private Entity onMobDroppedItemLifeTimeTracker(Entity itemEntity)
+	private Entity lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_item(Entity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
 		return itemEntity;
@@ -64,7 +64,7 @@ public abstract class LivingEntityMixin extends Entity
 
 	//#if MC >= 11700
 	//$$ @Inject(method = "dropXp", at = @At("HEAD"))
-	//$$ private void onMobDroppedXpLifeTimeTrackerPre(CallbackInfo ci)
+	//$$ private void lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrbHook(CallbackInfo ci)
 	//$$ {
 	//$$ 	LifetimeMixinUtil.xpOrbSpawningReason.set(new MobDropSpawningReason(this.getType()));
 	//$$ }
@@ -81,7 +81,7 @@ public abstract class LivingEntityMixin extends Entity
 			),
 			index = 0
 	)
-	private Entity onMobDroppedXpLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrb(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(new MobDropSpawningReason(this.getType()));
 		return entity;

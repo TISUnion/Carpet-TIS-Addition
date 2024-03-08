@@ -48,7 +48,7 @@ public abstract class ItemUsageMixin
 			),
 			remap = false
 	)
-	private static Entity recordItemEntitySpawnedByItemEntityDestroyedLifeTimeTracker(Entity itemEntity)
+	private static Entity lifetimeTracker_recordSpawning_mobDrop_onItemEntityDestroyed(Entity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobDropSpawningReason(EntityType.ITEM));
 		return itemEntity;

@@ -44,7 +44,7 @@ public abstract class ItemEntityMixin implements DamageableEntity
 					//#endif
 			)
 	)
-	private void onDeathLifeTimeTracker(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void lifetimeTracker_recordDeathDamageSource_item(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
 	{
 		this.deathDamageSource = source;
 	}

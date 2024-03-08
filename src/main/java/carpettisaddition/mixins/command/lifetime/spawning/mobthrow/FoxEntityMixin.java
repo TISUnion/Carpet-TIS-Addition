@@ -49,7 +49,7 @@ public abstract class FoxEntityMixin extends Entity
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private ItemEntity onFoxThrowItemEntityLifeTimeTracker(ItemEntity itemEntity)
+	private ItemEntity lifetimeTracker_recordSpawning_mobThrow_fox(ItemEntity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobThrowSpawningReason(this.getType()));
 		return itemEntity;

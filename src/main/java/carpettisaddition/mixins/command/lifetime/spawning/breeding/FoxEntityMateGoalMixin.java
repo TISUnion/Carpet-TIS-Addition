@@ -38,7 +38,7 @@ public abstract class FoxEntityMateGoalMixin
 					ordinal = 0
 			)
 	)
-	private Entity onAnimalBirthLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_breeding_foxMateGoal(Entity entity)
 	{
 		if (entity != null)
 		{

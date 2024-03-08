@@ -43,7 +43,7 @@ public abstract class LivingEntityMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private void onLivingEntityStopRidingLifeTimeTracker(CallbackInfo ci)
+	private void lifetimeTracker_recordSpawning_vehicleDismounting_livingEntity(CallbackInfo ci)
 	{
 		((LifetimeTrackerTarget)this).recordSpawning(LiteralSpawningReason.VEHICLE_DISMOUNTING);
 	}

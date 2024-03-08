@@ -48,7 +48,7 @@ public abstract class EntityMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private void onEntityStopRidingLifeTimeTracker(CallbackInfo ci)
+	private void lifetimeTracker_recordSpawning_vehicleDismounting_common(CallbackInfo ci)
 	{
 		// for living entity, the logic is handled in LivingEntityMixin
 		// so the correct dismounting pos can be recorded

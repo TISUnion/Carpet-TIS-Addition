@@ -46,7 +46,7 @@ public abstract class ThrownExperienceBottleEntityMixin
 	//$$ 				target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"
 	//$$ 		)
 	//$$ )
-	//$$ private void onXPBottleDroppedXpLifeTimeTracker(CallbackInfo ci)
+	//$$ private void lifetimeTracker_recordSpawning_item_xpBottle(CallbackInfo ci)
 	//$$ {
 	//$$ 	LifetimeMixinUtil.xpOrbSpawningReason.set(LiteralSpawningReason.ITEM);
 	//$$ }
@@ -59,7 +59,7 @@ public abstract class ThrownExperienceBottleEntityMixin
 			),
 			index = 0
 	)
-	private Entity onXPBottleDroppedXpLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_item_xpBottle(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.ITEM);
 		return entity;

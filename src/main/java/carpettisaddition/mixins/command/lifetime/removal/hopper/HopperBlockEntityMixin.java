@@ -18,35 +18,43 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.removal.hopper;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
-import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
-import carpettisaddition.utils.ModIds;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.InventoryOwner;
+import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
+import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.inventory.Inventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-@Mixin(InventoryOwner.class)
-public interface InventoryOwnerMixin
+@Mixin(HopperBlockEntity.class)
+public abstract class HopperBlockEntityMixin
 {
-	// private static requires java9+
 	@Inject(
-			method = "pickUpItem",
+			method = "extract(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/ItemEntity;)Z",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//#if MC >= 11700
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//#else
+					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//#endif
 			)
 	)
-	private static void onInventoryOwnerPickUpItemLifeTimeTracker(MobEntity mobEntity, InventoryOwner inventoryOwner, ItemEntity itemEntity, CallbackInfo ci)
+	private static void lifetimeTracker_recordRemoval_hopper(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordRemoval(new MobPickupRemovalReason(mobEntity.getType()));
+		if (
+				//#if MC >= 11700
+				//$$ !itemEntity.isRemoved()
+				//#else
+				!itemEntity.removed
+				//#endif
+		)
+		{
+			((LifetimeTrackerTarget)itemEntity).recordRemoval(LiteralRemovalReason.HOPPER);
+		}
 	}
 }

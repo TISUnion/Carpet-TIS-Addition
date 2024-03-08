@@ -40,7 +40,7 @@ public abstract class LivingEntityMixin implements DamageableEntity
 					target = "Lnet/minecraft/entity/damage/DamageSource;getAttacker()Lnet/minecraft/entity/Entity;"
 			)
 	)
-	void onDeathLifeTimeTracker(DamageSource source, CallbackInfo ci)
+	private void lifetimeTracker_recordDeathDamageSource_livingEntity(DamageSource source, CallbackInfo ci)
 	{
 		this.deathDamageSource = source;
 	}

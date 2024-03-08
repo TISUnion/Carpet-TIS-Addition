@@ -54,7 +54,7 @@ public abstract class MobEntityMixin extends LivingEntity
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private Entity recordSelfRemoval$LifeTimeTracker(Entity targetEntity)
+	private Entity lifetimeTracker_recordSpawning_conversion_mobEntityCommon(Entity targetEntity)
 	{
 		((LifetimeTrackerTarget)targetEntity).recordSpawning(new MobConversionSpawningReason(this.getType()));
 		return targetEntity;

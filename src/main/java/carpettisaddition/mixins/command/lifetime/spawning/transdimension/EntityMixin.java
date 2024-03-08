@@ -47,7 +47,7 @@ public abstract class EntityMixin
 			//#endif
 			at = @At("RETURN")
 	)
-	private void onEntityTransDimensionSpawnedLifeTimeTracker(CallbackInfoReturnable<Entity> cir)
+	private void lifetimeTracker_recordSpawning_transDimension(CallbackInfoReturnable<Entity> cir)
 	{
 		Entity entity = cir.getReturnValue();
 		if (entity != null)

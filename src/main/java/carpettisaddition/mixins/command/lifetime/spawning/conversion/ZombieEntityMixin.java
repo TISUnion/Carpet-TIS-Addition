@@ -23,6 +23,7 @@ package carpettisaddition.mixins.command.lifetime.spawning.conversion;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobConversionSpawningReason;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
@@ -38,7 +39,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
 @Mixin(ZombieEntity.class)
@@ -57,7 +57,7 @@ public abstract class ZombieEntityMixin extends HostileEntity
 			)
 	)
 
-	private Entity recordZombieVariantSpawning$LifeTimeTracker(Entity zombieVariant)
+	private Entity lifetimeTracker_recordSpawning_conversion_variantFromZombie(Entity zombieVariant)
 	{
 		((LifetimeTrackerTarget)zombieVariant).recordSpawning(new MobConversionSpawningReason(this.getType()));
 		return zombieVariant;
@@ -68,10 +68,13 @@ public abstract class ZombieEntityMixin extends HostileEntity
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void recordZombieVillagerSpawning$LifeTimeTracker(LivingEntity other, CallbackInfo ci, VillagerEntity villagerEntity, ZombieVillagerEntity zombieVillagerEntity)
+	private void lifetimeTracker_recordSpawning_conversion_zombieInfection(
+			LivingEntity other, CallbackInfo ci,
+			@Local VillagerEntity villagerEntity,
+			@Local ZombieVillagerEntity zombieVillagerEntity
+	)
 	{
 		((LifetimeTrackerTarget)zombieVillagerEntity).recordSpawning(new MobConversionSpawningReason(villagerEntity.getType()));
 	}

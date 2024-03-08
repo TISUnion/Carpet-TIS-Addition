@@ -60,7 +60,7 @@ public abstract class MooshroomEntityMixin extends Entity
 					ordinal = 0
 			)
 	)
-	private void recordSelfRemoval$LifeTimeTracker(
+	private void lifetimeTracker_recordRemoval_conversion_mooshroomToCow(
 			//#if MC >= 11600
 			//$$ CallbackInfo ci
 			//#else

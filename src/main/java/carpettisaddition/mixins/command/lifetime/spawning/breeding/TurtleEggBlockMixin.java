@@ -48,7 +48,7 @@ public abstract class TurtleEggBlockMixin
 					//#endif
 			)
 	)
-	private Entity onAnimalBirthLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_breeding_turtleEgg(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.BREEDING);
 		return entity;

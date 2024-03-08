@@ -42,7 +42,7 @@ public abstract class BlockMixin
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private static Entity onBlockDropsItemLifeTimeTracker(Entity itemEntity)
+	private static Entity lifetimeTracker_recordSpawning_blockDrop_common(Entity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.BLOCK_DROP);
 		return itemEntity;

@@ -61,7 +61,7 @@ public abstract class MooshroomEntityMixin extends Entity
 					ordinal = 0
 			)
 	)
-	private Entity recordCowSpawning$LifeTimeTracker(Entity cow)
+	private Entity lifetimeTracker_recordSpawning_conversion_cowFromMooshroom(Entity cow)
 	{
 		((LifetimeTrackerTarget)cow).recordSpawning(new MobConversionSpawningReason(this.getType()));
 		return cow;

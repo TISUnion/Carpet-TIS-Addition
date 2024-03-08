@@ -43,7 +43,7 @@ public abstract class ZombieEntityMixin
 			),
 			allow = 1
 	)
-	private Entity onZombieReinforceSpawnedLifeTimeTracker(Entity zombieEntity)
+	private Entity lifetimeTracker_recordSpawning_zombieReinforce(Entity zombieEntity)
 	{
 		((LifetimeTrackerTarget)zombieEntity).recordSpawning(LiteralSpawningReason.ZOMBIE_REINFORCE);
 		return zombieEntity;

@@ -48,7 +48,7 @@ public abstract class SummonCommandMixin
 					//#endif
 			)
 	)
-	private static Entity onEntitySummonLifeTimeTracker(Entity entity)
+	private static Entity lifetimeTracker_recordSpawning_command_summon(Entity entity)
 	{
 		if (entity != null)
 		{

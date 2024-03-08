@@ -41,7 +41,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	}
 
 	@Inject(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;", at = @At("RETURN"))
-	private void onItemEntitySpawnedByDroppingLifeTimeTracker(CallbackInfoReturnable<ItemEntity> cir)
+	private void lifetimeTracker_recordSpawning_mobThrow_player(CallbackInfoReturnable<ItemEntity> cir)
 	{
 		ItemEntity itemEntity = cir.getReturnValue();
 		if (itemEntity != null)

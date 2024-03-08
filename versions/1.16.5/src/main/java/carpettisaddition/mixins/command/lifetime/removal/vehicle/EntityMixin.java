@@ -18,17 +18,28 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.removal.vehicle;
 
-import carpettisaddition.utils.ModIds;
-import carpettisaddition.utils.compat.DummyClass;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
+import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
+import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.15"))
-@Mixin(DummyClass.class)
-public abstract class HostileEntityMixin
+@Mixin(Entity.class)
+public abstract class EntityMixin
 {
-	// peaceful despawn thing for mc 1.14.4
+	@Shadow public abstract boolean hasVehicle();
+
+	@Inject(method = "startRiding(Lnet/minecraft/entity/Entity;Z)Z", at = @At("RETURN"))
+	private void lifetimeTracker_recordRemoval_vehicleMounting(CallbackInfoReturnable<Boolean> cir)
+	{
+		if (this.hasVehicle())
+		{
+			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.VEHICLE_MOUNTING);
+		}
+	}
 }

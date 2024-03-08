@@ -18,37 +18,30 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.removal.pickupblock;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
-import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.passive.FoxEntity;
-import net.minecraft.world.World;
+import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.mob.EndermanEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(FoxEntity.class)
-public abstract class FoxEntityMixin extends Entity
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
+@Mixin(EndermanEntity.class)
+public abstract class EndermanEntityMixin
 {
-	public FoxEntityMixin(EntityType<?> type, World world)
+	@Inject(method = "setCarriedBlock", at = @At("TAIL"))
+	private void lifetimeTracker_recordRemoval_pickupBlock_enderman(BlockState state, CallbackInfo ci)
 	{
-		super(type, world);
-	}
-
-	@Inject(
-			method = "loot",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/entity/passive/FoxEntity;sendPickup(Lnet/minecraft/entity/Entity;I)V"
-			)
-	)
-	private void onFoxPickUpItemLifeTimeTracker(ItemEntity item, CallbackInfo ci)
-	{
-		((LifetimeTrackerTarget)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
+		if (state != null)
+		{
+			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PICKUP_BLOCK);
+		}
 	}
 }

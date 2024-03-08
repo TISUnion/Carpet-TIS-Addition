@@ -50,7 +50,7 @@ public abstract class NetherPortalBlockMixin
 					//#endif
 			)
 	)
-	private Entity onPigmanSpawnedLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_portalPigman(Entity entity)
 	{
 		if (entity != null)
 		{

@@ -23,6 +23,7 @@ package carpettisaddition.mixins.command.lifetime.removal.conversion;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.MobConversionRemovalReason;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
@@ -38,7 +39,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
 @Mixin(ZombieEntity.class)
@@ -56,7 +56,7 @@ public abstract class ZombieEntityMixin extends HostileEntity
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private Entity recordSelfRemoval$LifeTimeTracker(Entity zombieVariant)
+	private Entity lifetimeTracker_recordRemoval_conversion_zombieToVariant(Entity zombieVariant)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(zombieVariant.getType()));
 		return zombieVariant;
@@ -67,10 +67,13 @@ public abstract class ZombieEntityMixin extends HostileEntity
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/passive/VillagerEntity;remove()V"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void recordVillagerRemoval$LifeTimeTracker(LivingEntity other, CallbackInfo ci, VillagerEntity villagerEntity, ZombieVillagerEntity zombieVillagerEntity)
+	private void lifetimeTracker_recordRemoval_conversion_zombieInfection(
+			LivingEntity other, CallbackInfo ci,
+			@Local VillagerEntity villagerEntity,
+			@Local ZombieVillagerEntity zombieVillagerEntity
+	)
 	{
 		((LifetimeTrackerTarget)villagerEntity).recordRemoval(new MobConversionRemovalReason(zombieVillagerEntity.getType()));
 	}

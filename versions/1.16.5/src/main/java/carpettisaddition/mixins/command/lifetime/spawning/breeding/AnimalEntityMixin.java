@@ -47,7 +47,7 @@ public abstract class AnimalEntityMixin
 					ordinal = 0
 			)
 	)
-	private Entity onAnimalBirthLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_breeding_animalEntity(Entity entity)
 	{
 		if (entity != null)
 		{

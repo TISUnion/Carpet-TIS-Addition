@@ -18,19 +18,13 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.removal;
+package carpettisaddition.mixins.command.lifetime.removal.vehicle;
 
-import net.minecraft.entity.ExperienceOrbEntity;
+import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
-// used in 1.17+
-@Mixin(ExperienceOrbEntity.class)
-public interface ExperienceOrbEntityAccessor
+@Mixin(DummyClass.class)
+public abstract class EntityMixin
 {
-	@Accessor(value = "amount")
-	int getAmount$TISCM();
-
-	@Accessor(value = "amount")
-	void setAmount$TISCM(int amount);
+	/// impl in mc1.16+
 }

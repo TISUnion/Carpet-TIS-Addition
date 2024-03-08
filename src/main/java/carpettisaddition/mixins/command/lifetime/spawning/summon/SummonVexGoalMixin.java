@@ -41,7 +41,7 @@ public abstract class SummonVexGoalMixin
 					//#endif
 			)
 	)
-	private Entity onVexSummonedLifeTimeTracker(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_summon_evokerVexSpell(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON);
 		return entity;

@@ -38,7 +38,7 @@ public abstract class ShulkerBoxBlockMixin
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private Entity onBlockDropsItemLifeTimeTracker(Entity itemEntity)
+	private Entity lifetimeTracker_recordSpawning_blockDrop_shulkerBox(Entity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.BLOCK_DROP);
 		return itemEntity;

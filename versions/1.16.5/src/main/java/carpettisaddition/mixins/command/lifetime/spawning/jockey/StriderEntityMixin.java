@@ -40,7 +40,7 @@ public abstract class StriderEntityMixin
 			at = @At("TAIL"),
 			argsOnly = true
 	)
-	private MobEntity lifetimeTracker_recordStriderJockeySpawning(MobEntity striderRider)
+	private MobEntity lifetimeTracker_recordSpawning_jockey_strider(MobEntity striderRider)
 	{
 		((LifetimeTrackerTarget)striderRider).recordSpawning(LiteralSpawningReason.JOCKEY);
 		return striderRider;

@@ -50,7 +50,7 @@ public abstract class ZombieVillagerEntityMixin extends ZombieEntity
 					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private Entity recordCuredVillagerSpawning$LifeTimeTracker(Entity villager)
+	private Entity lifetimeTracker_recordSpawning_conversion_zombieVillagerCure(Entity villager)
 	{
 		((LifetimeTrackerTarget)villager).recordSpawning(new MobConversionSpawningReason(this.getType()));
 		return villager;

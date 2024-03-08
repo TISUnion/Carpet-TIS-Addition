@@ -38,7 +38,7 @@ public abstract class ItemDispenserBehaviorMixin
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private static Entity recordItemEntityOnBlockDispenseLifeTimeTracker(Entity itemEntity)
+	private static Entity lifetimeTracker_recordSpawning_dispensed_item(Entity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.DISPENSED);
 		return itemEntity;

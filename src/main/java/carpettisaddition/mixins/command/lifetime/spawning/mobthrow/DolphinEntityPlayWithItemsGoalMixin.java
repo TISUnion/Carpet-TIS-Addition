@@ -44,7 +44,7 @@ public abstract class DolphinEntityPlayWithItemsGoalMixin
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 			)
 	)
-	private ItemEntity onDolphinThrowItemEntityLifeTimeTracker(ItemEntity itemEntity)
+	private ItemEntity lifetimeTracker_recordSpawning_mobThrow_dolphin(ItemEntity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobThrowSpawningReason(this.field_6757.getType()));
 		return itemEntity;
