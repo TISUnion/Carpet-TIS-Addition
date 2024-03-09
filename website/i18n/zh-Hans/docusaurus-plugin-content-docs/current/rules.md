@@ -796,7 +796,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `FEATURE`
+- 分类: `TIS`, `FEATURE`, `PORTING`
 
 
 ## 矿车搭载乘客最小速度 (minecartTakePassengerMinVelocity)

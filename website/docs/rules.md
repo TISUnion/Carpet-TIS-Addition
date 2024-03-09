@@ -796,7 +796,7 @@ Only works in Minecraft \< 1.19
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `FEATURE`
+- Categories: `TIS`, `FEATURE`, `PORTING`
 
 
 ## minecartTakePassengerMinVelocity
