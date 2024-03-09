@@ -24,6 +24,8 @@ import net.minecraft.text.BaseText;
 
 public class LiteralRemovalReason extends RemovalReason
 {
+	// ============================ Common ============================
+
 	// 32m ~ 128m randomly despawn
 	public static final LiteralRemovalReason DESPAWN_RANDOMLY = regular("despawn.randomly");
 	// > 128m immediately despawn
@@ -33,29 +35,32 @@ public class LiteralRemovalReason extends RemovalReason
 	// item/xp orb timeout
 	public static final LiteralRemovalReason DESPAWN_TIMEOUT = regular("despawn.timeout");
 
-	// when the persistent tag set to true, treat it as removed since it doesn't count towards mobcaps anymore
-	public static final LiteralRemovalReason PERSISTENT = yeetedFromCap("persistent");
-
-	// the fallback reason
-	public static final LiteralRemovalReason OTHER = regular("other");
-
-	// for item entity and xp orb entity
-	public static final LiteralRemovalReason MERGE = regular("merge");
+	// the entity, e.g. creeper, explodes
+	public static final LiteralRemovalReason EXPLODED = regular("exploded");
 
 	// for item entity
 	public static final LiteralRemovalReason HOPPER = regular("hopper");
 
-	// fall down to y=-64 and below
-	public static final LiteralRemovalReason VOID = regular("void");
+	// for item entity and xp orb entity
+	public static final LiteralRemovalReason MERGE = regular("merge");
 
-	// the entity, e.g. creeper, explodes
-	public static final LiteralRemovalReason EXPLODED = regular("exploded");
+	// the fallback reason
+	public static final LiteralRemovalReason OTHER = regular("other");
+
+	// when the persistent tag set to true, treat it as removed since it doesn't count towards mobcaps anymore
+	public static final LiteralRemovalReason PERSISTENT = yeetedFromCap("persistent");
+
+	// for 1.16+, enderman
+	public static final LiteralRemovalReason PICKUP_BLOCK = yeetedFromCap("pickup_block");
+
+	// player logging out, removing its vehicle
+	public static final LiteralRemovalReason PLAYER_LOGOUT = regular("player_logout");
 
 	// for 1.16+, general
 	public static final LiteralRemovalReason VEHICLE_MOUNTING = yeetedFromCap("vehicle_mounting");
 
-	// for 1.16+, enderman
-	public static final LiteralRemovalReason PICKUP_BLOCK = yeetedFromCap("pickup_block");
+	// fall down to y=-64 and below
+	public static final LiteralRemovalReason VOID = regular("void");
 
 	private final String translationKey;
 	private final RemovalType removalType;

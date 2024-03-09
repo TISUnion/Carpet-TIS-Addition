@@ -118,6 +118,8 @@
     "command.lifetime.removal.mobpickup.MobEntityMixin",
     "command.lifetime.removal.persistent.MobEntityMixin",
     "command.lifetime.removal.pickupblock.EndermanEntityMixin",
+    "command.lifetime.spawning.playerlogin.PlayerManagerMixin",
+    "command.lifetime.removal.playerlogout.PlayerManagerMixin",
     "command.lifetime.removal.transdimension.EntityMixin",
     "command.lifetime.removal.vehicle.EntityMixin",
     "command.lifetime.spawning.blockdrop.BlockMixin",

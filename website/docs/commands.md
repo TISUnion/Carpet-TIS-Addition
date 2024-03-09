@@ -45,7 +45,7 @@ Tracked entity types:
 - Experience Orb Entity
 - Vehicles, including minecarts and boats (and their variants)
 
-Tracked entity spawning reasons
+Tracked entity spawn reasons
 - Block drop (item only)
 - Breeding
 - `/summon` command
@@ -56,6 +56,7 @@ Tracked entity spawning reasons
 - Jockey mount
 - Natural spawning
 - Enderman placed down a block (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
+- Player login (for its vehicle)
 - Nether portal pigman spawning
 - Spawned in raid as raider
 - Slime division
@@ -72,16 +73,17 @@ Note that only entities that have been tracked spawning will be counted to the s
 
 Tracked entity removal reasons
 - Despawn, including immediately despawn, random despawn, difficulty despawn and timeout despawn
-- Damaged to death
-- Becomes persistent. Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
-- Rides on a vehicle (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
-- Enderman picked up a block (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
-- Entity merged (item and xp orb only)
-- Collected up by hopper or hopper minecart (item only)
-- Entering void
 - Self-exploded (e.g. creeper)
+- Collected up by hopper or hopper minecart (item only)
+- Entity merged (item and xp orb only)
+- Becomes persistent. Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
+- Enderman picked up a block (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
+- Player logout (for its vehicle)
+- Rides on a vehicle (1.16+). Requires rule [lifeTimeTrackerConsidersMobcap](rules.md#lifetimetrackerconsidersmobcap) being set to true
+- Entering void
 - Picked up by player or mob (item and xp orb only)
 - Mob conversion
+- Damaged to death
 - Trans-dimension
 - Other (anything else not in the list). If some other important reason is not tracked, feel free to make a feature request issue
 

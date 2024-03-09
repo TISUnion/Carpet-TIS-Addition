@@ -34,6 +34,7 @@ public class LiteralSpawningReason extends SpawningReason
 	public static final LiteralSpawningReason JOCKEY_MOUNT = regular("jockey_mount");
 	public static final LiteralSpawningReason NATURAL = regular("natural");
 	public static final LiteralSpawningReason PLACE_BLOCK = backToCap("place_block");  // 1.16+ enderman
+	public static final LiteralSpawningReason PLAYER_LOGIN = regular("player_login");  // player logging in, bringing back its vehicle
 	public static final LiteralSpawningReason PORTAL_PIGMAN = regular("portal_pigman");
 	public static final LiteralSpawningReason RAID = regular("raid");
 	public static final LiteralSpawningReason SLIME = regular("slime");

@@ -520,6 +520,7 @@ carpettisaddition:
         jockey_mount: 骑手的坐骑
         natural: 自然刷新
         place_block: 放下方块
+        player_login: 玩家上线
         portal_pigman: 地狱门僵尸猪人生成
         raid: 袭击
         slime: 史莱姆分裂
@@ -535,19 +536,22 @@ carpettisaddition:
           .: 跨维度
           from: 来自%1$s
       removal_reason:
+        # LiteralRemovalReason starts
         despawn:
           randomly: 随机消失
           immediately: 立即消失
           difficulty: 因游戏难度而消失
           timeout: 因超时而消失
-        persistent: 获取持久标签
-        other: 其他
-        merge: 实体合并
-        hopper: 漏斗收集
-        void: 进入虚空
         exploded: 自爆
-        vehicle_mounting: 骑上载具
+        hopper: 漏斗收集
+        merge: 实体合并
+        other: 其他
+        persistent: 获取持久标签
         pickup_block: 捡起方块
+        player_logout: 玩家下线
+        vehicle_mounting: 骑上载具
+        void: 进入虚空
+        # LiteralRemovalReason ends
         mob_pickup: 被%1$s捡起
         mob_conversion: 转换为%1$s
         death:

@@ -56,6 +56,7 @@ sidebar_position: 3
 - 骑手的坐骑
 - 自然刷新
 - 末影人放下方块（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
+- 玩家上线（针对其载具）
 - 地狱门僵尸猪人生成
 - 袭击
 - 史莱姆分裂
@@ -72,16 +73,17 @@ sidebar_position: 3
 
 追踪的实体移除原因
 - 消失，包括立即消失、随机消失、因游戏难度的消失以及超时消失
-- 受伤致死
-- 获取持久（persistent）标签。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
-- 骑上载具（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
-- 末影人捡起方块（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
-- 实体合并（仅掉落物及经验球）
-- 被漏斗或漏斗矿车收集（仅掉落物）
-- 进入虚空
 - 自爆（如苦力怕）
+- 被漏斗或漏斗矿车收集（仅掉落物）
+- 实体合并（仅掉落物及经验球）
+- 获取持久（persistent）标签。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
+- 末影人捡起方块（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
+- 玩家下线（针对其载具）
+- 骑上载具（1.16+）。需要规则 [存活时间追踪器考虑怪物容量](rules.md#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap) 的值为 true
+- 进入虚空
 - 被玩家或生物捡起（仅掉落物及经验球）
 - 生物转换
+- 受伤致死
 - 跨维度离开
 - 其他（其余未被统计的原因）。如果有些重要的移除原因未被统计，欢迎来提相关 feature request 的 issue
 

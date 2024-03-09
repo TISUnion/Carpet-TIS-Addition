@@ -520,6 +520,7 @@ carpettisaddition:
         jockey_mount: Jockey mount
         natural: Natural spawning
         place_block: Placed down a block
+        player_login: Player login
         portal_pigman: Nether portal pigman spawning
         raid: Spawned in raid as raider
         slime: Slime division
@@ -535,19 +536,22 @@ carpettisaddition:
           .: Trans-dimension
           from: from %1$s
       removal_reason:
+        # LiteralRemovalReason starts
         despawn:
           randomly: Randomly despawn
           immediately: Immediately despawn
           difficulty: Despawn for difficulty
           timeout: Despawn for timeout
-        persistent: Becomes persistent
-        other: Other
-        merge: Entity merging
+        exploded: Self-exploded
         hopper: Collected by hopper
-        void: Entering void
-        exploded: Exploded
-        vehicle_mounting: Rides on a vehicle
+        merge: Entity merging
+        other: Other
+        persistent: Becomes persistent
         pickup_block: Picked up a block
+        player_logout: Player logout
+        vehicle_mounting: Rides on a vehicle
+        void: Entering void
+        # LiteralRemovalReason ends
         mob_pickup: Picked up by %1$s
         mob_conversion: Converted to %1$s
         death:
