@@ -956,6 +956,9 @@ carpettisaddition:
         desc: Backport the feature from Minecraft 1.19+ that minecart entity drops the full cart item on destroy
         extra:
           '0': Only works in Minecraft < 1.19
+      minecartPlaceableOnGround:
+        name: minecartPlaceableOnGround
+        desc: Make minecart being able to be placed directly on ground without rails, like boat
       minecartTakePassengerMinVelocity:
         name: minecartTakePassengerMinVelocity
         desc: Determine the minimum required horizontal velocity (m/gt) for a minecart to pick up nearby entity as its passenger

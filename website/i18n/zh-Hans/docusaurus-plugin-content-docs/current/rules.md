@@ -799,6 +799,16 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`, `PORTING`
 
 
+## 矿车可在地面放置 (minecartPlaceableOnGround)
+
+让矿车可以被放置在非铁轨的普通地面上，就像船一样
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`, `FEATURE`
+
+
 ## 矿车搭载乘客最小速度 (minecartTakePassengerMinVelocity)
 
 决定矿车将其附近实体作为乘客搭载上车所需的最低水平方向速度（m/gt）

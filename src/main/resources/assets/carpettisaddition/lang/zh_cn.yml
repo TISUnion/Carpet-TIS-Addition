@@ -956,6 +956,9 @@ carpettisaddition:
         desc: 移植 Minecraft 1.19+ 版本中的特性：矿车实体在被破坏时会掉落完整的矿车物品
         extra:
           '0': 本规则仅在 Minecraft < 1.19 中有效
+      minecartPlaceableOnGround:
+        name: 矿车可在地面放置
+        desc: 让矿车可以被放置在非铁轨的普通地面上，就像船一样
       minecartTakePassengerMinVelocity:
         name: 矿车搭载乘客最小速度
         desc: 决定矿车将其附近实体作为乘客搭载上车所需的最低水平方向速度（m/gt）

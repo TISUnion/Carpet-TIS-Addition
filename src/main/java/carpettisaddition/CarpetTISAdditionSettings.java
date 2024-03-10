@@ -457,6 +457,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, FEATURE, PORTING})
 	public static boolean minecartFullDropBackport = false;
 
+	@Rule(categories = {TIS, CREATIVE, FEATURE})
+	public static boolean minecartPlaceableOnGround = false;
+
 	public static final double VANILLA_MINECART_TAKE_PASSENGER_MIN_VELOCITY = 0.1D;  // sqrt(0.01)
 	@Rule(
 			options = {"0", "0.1", "NaN"},

@@ -799,6 +799,16 @@ Only works in Minecraft \< 1.19
 - Categories: `TIS`, `FEATURE`, `PORTING`
 
 
+## minecartPlaceableOnGround
+
+Make minecart being able to be placed directly on ground without rails, like boat
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `FEATURE`
+
+
 ## minecartTakePassengerMinVelocity
 
 Determine the minimum required horizontal velocity (m/gt) for a minecart to pick up nearby entity as its passenger
