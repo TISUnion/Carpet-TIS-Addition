@@ -2,7 +2,7 @@ plugins {
 	id 'maven-publish'
 	id 'com.github.hierynomus.license' version '0.16.1' apply false
 	id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id 'fabric-loom' version '1.4-SNAPSHOT' apply false
+    id 'fabric-loom' version '1.5-SNAPSHOT' apply false
 
 	// https://github.com/ReplayMod/preprocessor
 	// https://github.com/Fallen-Breath/preprocessor
@@ -13,18 +13,18 @@ plugins {
 }
 
 preprocess {
-	def mc114    = createNode('1.14.4' , 1_14_04, 'yarn')
-	def mc115    = createNode('1.15.2' , 1_15_02, 'yarn')
-	def mc116    = createNode('1.16.5' , 1_16_05, 'yarn')
-	def mc117    = createNode('1.17.1' , 1_17_01, 'yarn')
-	def mc118    = createNode('1.18.2' , 1_18_02, 'yarn')
-	def mc1192   = createNode('1.19.2' , 1_19_02, 'yarn')  // TODO: drop support when mc1.21 is out
-	def mc1193   = createNode('1.19.3' , 1_19_03, 'yarn')  // TODO: drop support when mc1.21 is out
-	def mc1194   = createNode('1.19.4' , 1_19_04, 'yarn')
-	def mc1201   = createNode('1.20.1' , 1_20_01, 'yarn')
-	def mc1202   = createNode('1.20.2' , 1_20_02, 'yarn')
-	def mc1204   = createNode('1.20.4' , 1_20_04, 'yarn')
-	def mc1205   = createNode('1.20.5' , 1_20_05, 'yarn')
+	def mc114    = createNode('1.14.4' , 1_14_04, '')
+	def mc115    = createNode('1.15.2' , 1_15_02, '')
+	def mc116    = createNode('1.16.5' , 1_16_05, '')
+	def mc117    = createNode('1.17.1' , 1_17_01, '')
+	def mc118    = createNode('1.18.2' , 1_18_02, '')
+	def mc1192   = createNode('1.19.2' , 1_19_02, '')  // TODO: drop support when mc1.21 is out
+	def mc1193   = createNode('1.19.3' , 1_19_03, '')  // TODO: drop support when mc1.21 is out
+	def mc1194   = createNode('1.19.4' , 1_19_04, '')
+	def mc1201   = createNode('1.20.1' , 1_20_01, '')
+	def mc1202   = createNode('1.20.2' , 1_20_02, '')
+	def mc1204   = createNode('1.20.4' , 1_20_04, '')
+	def mc1205   = createNode('1.20.5' , 1_20_05, '')
 
 	mc115 .link(mc114   , file('versions/mapping-1.15-1.14.txt'))
 	mc115 .link(mc116   , file('versions/mapping-1.15-1.16.txt'))
