@@ -20,14 +20,8 @@
 
 package carpettisaddition.helpers.carpet.playerActionEnhanced;
 
-import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
-import net.minecraft.server.network.ServerPlayerEntity;
-
-public interface IEntityPlayerActionPackAction
+public interface IEntityPlayerActionPack
 {
-	void setIntervalRandomGenerator(RandomGen gen);
-
-	void setPerTickMultiplier(int perTick);
-
-	void savePosAndRot(ServerPlayerEntity player);
+	void setTickPart(float tp);
+	float getTickPart();
 }

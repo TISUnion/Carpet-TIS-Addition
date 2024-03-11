@@ -20,14 +20,12 @@
 
 package carpettisaddition.helpers.carpet.playerActionEnhanced;
 
-import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
 
-public interface IEntityPlayerActionPackAction
+public interface IServerPlayerEntity
 {
-	void setIntervalRandomGenerator(RandomGen gen);
+	void pushOldPosRot(Vec3d pos, Vec2f rot);
 
-	void setPerTickMultiplier(int perTick);
-
-	void savePosAndRot(ServerPlayerEntity player);
+	void popOldPosRot();
 }
