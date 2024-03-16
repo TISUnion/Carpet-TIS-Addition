@@ -33,7 +33,11 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class CatEntityMixin
 {
 	@ModifyExpressionValue(
+			//#if MC >= 12005
+			//$$ method = "method_58168",
+			//#else
 			method = "interactMob",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
