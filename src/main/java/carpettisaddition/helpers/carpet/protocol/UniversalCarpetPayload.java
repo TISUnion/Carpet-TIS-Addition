@@ -76,12 +76,12 @@ class UniversalCarpetPayload
 			}
 
 			this.version = CarpetNetworkProtocolVersion.V1;
-			CarpetTISAdditionMod.LOGGER.info("UniversalCarpetPayload read V1 success, action={} str={} nbt={}", this.action, this.string, this.nbt);
+			CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload read V1 success, action={} str={} nbt={}", this.action, this.string, this.nbt);
 			return;
 		}
 		catch (Exception e)
 		{
-			CarpetTISAdditionMod.LOGGER.info("UniversalCarpetPayload read V1 failed, err={}", e.toString());
+			CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload read V1 failed, err={}", e.toString());
 		}
 		finally
 		{
@@ -105,12 +105,12 @@ class UniversalCarpetPayload
 				this.nbt = new CompoundTag();
 			}
 			this.version = CarpetNetworkProtocolVersion.V2;
-			CarpetTISAdditionMod.LOGGER.info("UniversalCarpetPayload read V2 success, nbt={}", this.nbt);
+			CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload read V2 success, nbt={}", this.nbt);
 			return;
 		}
 		catch (Exception e)
 		{
-			CarpetTISAdditionMod.LOGGER.info("UniversalCarpetPayload read V2 failed, err={}", e.toString());
+			CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload read V2 failed, err={}", e.toString());
 		}
 		finally
 		{
@@ -138,7 +138,7 @@ class UniversalCarpetPayload
 					if (id.equals(V2_HI) || id.equals(V2_HELLO))
 					{
 						// v1 carpet hi / hello, format: varint (69 or 420) + string
-						CarpetTISAdditionMod.LOGGER.info("UniversalCarpetPayload write V1 HI / HELLO, id={}", id);
+						CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload write V1 HI / HELLO, id={}", id);
 						buf.writeVarInt(Integer.parseInt(id));
 						buf.writeString(this.nbt.getString(id));
 						return;
@@ -146,7 +146,7 @@ class UniversalCarpetPayload
 				}
 
 				// v1 carpet data, format: varint + nbt
-				CarpetTISAdditionMod.LOGGER.info("UniversalCarpetPayload write V1 DATA, nbt={}", this.nbt);
+				CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload write V1 DATA, nbt={}", this.nbt);
 				buf.writeVarInt(V1_DATA);
 				buf.writeCompoundTag(this.nbt);
 				break;
@@ -161,7 +161,7 @@ class UniversalCarpetPayload
 					tagToWrite.putString(String.valueOf(this.action), Objects.requireNonNull(this.string));
 				}
 
-				CarpetTISAdditionMod.LOGGER.info("UniversalCarpetPayload write V2, action={}, tag={}", this.action, tagToWrite);
+				CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload write V2, action={}, tag={}", this.action, tagToWrite);
 				buf.writeCompoundTag(Objects.requireNonNull(tagToWrite));
 				break;
 		}

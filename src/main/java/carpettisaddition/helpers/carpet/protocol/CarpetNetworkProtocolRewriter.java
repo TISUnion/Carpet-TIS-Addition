@@ -35,7 +35,7 @@ public class CarpetNetworkProtocolRewriter
 	// otherwise, return a new rewritten buf, and the input buf will be drained
 	public static PacketByteBuf rewrite(PacketByteBuf buf, CarpetNetworkProtocolVersion targetVersion)
 	{
-		CarpetTISAdditionMod.LOGGER.info("CarpetNetworkProtocolRewriter rewrite start, target={}", targetVersion);
+		CarpetTISAdditionMod.LOGGER.debug("CarpetNetworkProtocolRewriter rewrite start, target={}", targetVersion);
 
 		UniversalCarpetPayload payload = new UniversalCarpetPayload(buf);
 		CarpetNetworkProtocolVersion bufVersion = payload.getVersion();
@@ -44,7 +44,7 @@ public class CarpetNetworkProtocolRewriter
 			return buf;
 		}
 
-		CarpetTISAdditionMod.LOGGER.info("CarpetNetworkProtocolRewriter rewriting {} -> {}", bufVersion, targetVersion);
+		CarpetTISAdditionMod.LOGGER.debug("CarpetNetworkProtocolRewriter rewriting {} -> {}", bufVersion, targetVersion);
 
 		drain(buf);
 
