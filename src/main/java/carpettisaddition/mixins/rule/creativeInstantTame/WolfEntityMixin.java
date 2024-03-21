@@ -34,7 +34,7 @@ public abstract class WolfEntityMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 12005
-			//$$ method = "method_58169",
+			//$$ method = "tryTame",
 			//#else
 			method = "interactMob",
 			//#endif

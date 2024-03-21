@@ -34,7 +34,7 @@ public abstract class CatEntityMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 12005
-			//$$ method = "method_58168",
+			//$$ method = "tryTame",
 			//#else
 			method = "interactMob",
 			//#endif
