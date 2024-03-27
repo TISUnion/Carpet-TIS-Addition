@@ -849,6 +849,22 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`
 
 
+## 自然刷怪使用1.13风格的高度图 (natualSpawningUse13Heightmap)
+
+令自然刷怪中初始坐标选取时Y值上限变为该XZ最高的遮光方块
+
+基本上，本规则将自然刷怪中对高度图（heightmap）的使用，还原回了1.13及之前的版本
+
+除此之外，活塞、粘液块、蜂蜜块，会被这里的高度图计算忽略，以确保与1.13前表现的一致性
+
+注意：这将增加少许刷怪阶段的卡顿
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `PORTING`
+
+
 ## 橡树长成鸡腿树百分率 (oakBalloonPercent)
 
 橡树树苗长成鸡腿树（fancy_oak）的概率，使用百分率作为值

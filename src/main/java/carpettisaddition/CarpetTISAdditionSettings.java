@@ -476,6 +476,9 @@ public class CarpetTISAdditionSettings
 	//$$ public static boolean moveableReinforcedDeepslate = false;
 	//#endif
 
+	@Rule(categories = {TIS, FEATURE, PORTING})
+	public static boolean natualSpawningUse13Heightmap = false;
+
 	@Rule(
 			categories = {TIS, CREATIVE},
 			validators = OptionalPercentValidator.class,

@@ -974,6 +974,13 @@ carpettisaddition:
       moveableReinforcedDeepslate:
         name: moveableReinforcedDeepslate
         desc: Make reinforced deepslate movable by pistons
+      natualSpawningUse13Heightmap:
+        name: natualSpawningUse13Heightmap
+        desc: Change the upper limit of the Y value during the initial coordinate selection in natural mob spawning, to the highest block that blocks light at that XZ position
+        extra:
+          '0': Basically, this rule reverts the use of the heightmap during natural spawning back to version 1.13 and earlier
+          '1': In additional, piston block, slime block, honey block are ignored by this "1.13" heightmap, to keep the behavior unchanged from pre-1.13
+          '2': 'Note: This will slightly increase lag during the natual spawning phase'
       oakBalloonPercent:
         name: oakBalloonPercent
         desc: The chance for oak sapling top grow into a balloon oak (fancy_oak) in percent
