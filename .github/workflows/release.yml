@@ -42,9 +42,23 @@ jobs:
     with:
       target_subproject: ${{ github.event.inputs.target_subproject }}
 
+  # ensure the input release tag is valid
+  validate_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get github release information
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        uses: cardinalby/git-get-release-action@1.2.4
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag: ${{ github.event.inputs.target_release_tag }}
+
   build:
     uses: ./.github/workflows/build.yml
     secrets: inherit
+    needs:
+      - validate_release
     with:
       target_subproject: ${{ github.event.inputs.target_subproject }}
       release: true
@@ -144,7 +158,7 @@ jobs:
           cat $GITHUB_OUTPUT
 
       - name: Prepare changelog
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         id: changelog
         with:
           script: return process.env.CHANGELOG

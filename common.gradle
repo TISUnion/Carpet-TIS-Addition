@@ -54,7 +54,7 @@ dependencies {
 	}
 
 	// library mods
-	include(modImplementation("me.fallenbreath:conditional-mixin:${project.conditionalmixin_version}"))
+	include(modImplementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
 	include(annotationProcessor(implementation("io.github.llamalad7:mixinextras-fabric:${project.mixinextras_version}")))
 
 	// libraries
