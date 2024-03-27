@@ -855,9 +855,21 @@ Change the upper limit of the Y value during the initial coordinate selection in
 
 Basically, this rule reverts the use of the heightmap during natural spawning back to version 1.13 and earlier
 
-In additional, piston block, slime block, honey block are ignored by this "1.13" heightmap, to keep the behavior unchanged from pre-1.13
-
 Note: This will slightly increase lag during the natual spawning phase
+
+See also: rule [natualSpawningUse13HeightmapExtra](#natualspawninguse13heightmapextra)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `PORTING`
+
+
+## natualSpawningUse13HeightmapExtra
+
+Ignore piston block, slime block, honey block when calculating the modified heightmap in rule [natualSpawningUse13Heightmap](#natualspawninguse13heightmap)
+
+It's designed to keep the behavior unchanged from pre-1.13, but might introduce some unintended usage abuse
 
 - Type: `boolean`
 - Default value: `false`

@@ -20,6 +20,7 @@
 
 package carpettisaddition.helpers.rule.natualSpawningUse13Heightmap;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -63,12 +64,16 @@ public class NatualSpawningUse13HeightmapHelper
 
 	private static boolean isSpecialIgnoredBlock(Block block)
 	{
-		return
-				block instanceof PistonBlock || block instanceof PistonHeadBlock || block instanceof SlimeBlock
-				//#if MC >= 11500
-				|| block instanceof net.minecraft.block.HoneyBlock
-				//#endif
-				;
+		if (CarpetTISAdditionSettings.natualSpawningUse13HeightmapExtra)
+		{
+			return
+					block instanceof PistonBlock || block instanceof PistonHeadBlock || block instanceof SlimeBlock
+					//#if MC >= 11500
+					|| block instanceof net.minecraft.block.HoneyBlock
+					//#endif
+					;
+		}
+		return false;
 	}
 
 	/**

@@ -479,6 +479,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, FEATURE, PORTING})
 	public static boolean natualSpawningUse13Heightmap = false;
 
+	@Rule(categories = {TIS, FEATURE, PORTING})
+	public static boolean natualSpawningUse13HeightmapExtra = false;
+
 	@Rule(
 			categories = {TIS, CREATIVE},
 			validators = OptionalPercentValidator.class,

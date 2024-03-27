@@ -979,8 +979,13 @@ carpettisaddition:
         desc: 令自然刷怪中初始坐标选取时Y值上限变为该XZ最高的遮光方块
         extra:
           '0': 基本上，本规则将自然刷怪中对高度图（heightmap）的使用，还原回了1.13及之前的版本
-          '1': 除此之外，活塞、粘液块、蜂蜜块，会被这里的高度图计算忽略，以确保与1.13前表现的一致性
-          '2': 注意：这将增加少许刷怪阶段的卡顿
+          '1': 注意：这将增加少许刷怪阶段的卡顿
+          '2': 另见：规则natualSpawningUse13HeightmapExtra
+      natualSpawningUse13HeightmapExtra:
+        name: 自然刷怪使用1.13风格的高度图-额外选项
+        desc: 在计算规则natualSpawningUse13Heightmap中的修改版高度图时，忽略活塞、粘液块、蜂蜜块
+        extra:
+          '0': 本规则的目的是确保与1.13前表现的一致性，但可能会导致一些非预期的机制滥用行为
       oakBalloonPercent:
         name: 橡树长成鸡腿树百分率
         desc: 橡树树苗长成鸡腿树（fancy_oak）的概率，使用百分率作为值
