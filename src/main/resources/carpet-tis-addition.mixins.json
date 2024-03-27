@@ -46,7 +46,6 @@
     "carpet.tweaks.messenger.MessengerMixin",
     "carpet.tweaks.robustness.FormattedTextParamMixin",
     "carpet.tweaks.robustness.network.CarpetPayloadMixin",
-    "carpet.tweaks.robustness.network.ClientNetworkHandlerMixin",
     "carpet.tweaks.robustness.network.ServerNetworkHandlerMixin",
     "carpet.tweaks.rule.creativeNoClip.AbstractPressurePlateBlockMixin",
     "carpet.tweaks.rule.creativeNoClip.BlockMixin",
@@ -487,6 +486,7 @@
   "client": [
     "carpet.hooks.onServerLoadedWorlds.IntegratedServerMixin",
     "carpet.shape.texthack.ShapesRendererRenderedTextMixin",
+    "carpet.tweaks.robustness.network.ClientNetworkHandlerMixin",
     "core.client.MinecraftClientMixin",
     "network.ClientPlayNetworkHandler_HandshakeMixin",
     "network.ClientPlayNetworkHandlerAccessor",
