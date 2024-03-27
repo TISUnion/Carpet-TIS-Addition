@@ -32,6 +32,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
+//#if MC >= 12005
+//$$ import net.minecraft.potion.Potions;
+//$$ import net.minecraft.component.type.PotionContentsComponent;
+//#endif
+
 public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
 {
 	public static final FireDragonBreathDispenserBehaviour INSTANCE = new FireDragonBreathDispenserBehaviour();
@@ -52,7 +57,14 @@ public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
 		areaEffectCloudEntity.setRadiusGrowth((7.0F - areaEffectCloudEntity.getRadius()) / (float)areaEffectCloudEntity.getDuration());
 		areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1, 1));
 		// use event 2007 from ThrownPotionEntity.java#onCollision instead of event 2006 from DragonFireballEntity#onCollision
-		world.playLevelEvent(2007, blockpos, areaEffectCloudEntity.getColor());
+		world.playLevelEvent(
+				2007, blockpos,
+				//#if MC >= 12005
+				//$$ PotionContentsComponent.getColor(Potions.HARMING)
+				//#else
+				areaEffectCloudEntity.getColor()
+				//#endif
+		);
 		world.spawnEntity(areaEffectCloudEntity);
 		// Vanilla copy ends
 

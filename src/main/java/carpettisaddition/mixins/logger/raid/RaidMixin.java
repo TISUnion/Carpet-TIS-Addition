@@ -23,7 +23,6 @@ package carpettisaddition.mixins.logger.raid;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.loggers.raid.IRaid;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.Raid;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,6 +32,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12005
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//#endif
 
 @Mixin(Raid.class)
 public abstract class RaidMixin implements IRaid
@@ -64,13 +66,19 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12005
-					//$$ target = "Lnet/minecraft/entity/player/PlayerEntity;getStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Lnet/minecraft/entity/effect/StatusEffectInstance;"
+					//$$ target = "Lnet/minecraft/server/network/ServerPlayerEntity;getStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Lnet/minecraft/entity/effect/StatusEffectInstance;"
 					//#else
 					target = "Lnet/minecraft/entity/player/PlayerEntity;getStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Lnet/minecraft/entity/effect/StatusEffectInstance;"
 					//#endif
 			)
 	)
-	private void onStartBeforeCalculated(PlayerEntity player, CallbackInfo ci)
+	private void onStartBeforeCalculated(
+			//#if MC >= 12005
+			//$$ CallbackInfoReturnable<Boolean> cir
+			//#else
+			CallbackInfo ci
+			//#endif
+	)
 	{
 		this.previousBadOmenLevel = this.badOmenLevel;
 	}
@@ -83,7 +91,13 @@ public abstract class RaidMixin implements IRaid
 					target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"
 			)
 	)
-	private void onStarted(PlayerEntity player, CallbackInfo ci)
+	private void onStartedAfterCalculated(
+			//#if MC >= 12005
+			//$$ CallbackInfoReturnable<Boolean> cir
+			//#else
+			CallbackInfo ci
+			//#endif
+	)
 	{
 		if (this.badOmenLevel > 1 && this.badOmenLevel > this.previousBadOmenLevel)
 		{
