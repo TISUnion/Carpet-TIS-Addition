@@ -34,6 +34,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.FileSystem;
@@ -74,7 +75,7 @@ public class OnlineMappingProvider
 
 	private static String getYarnVersionOnline() throws IOException
 	{
-		URL url = new URL(YARN_META_URL);
+		URL url = URI.create(YARN_META_URL).toURL();
 		URLConnection request = url.openConnection();
 		List<Pair<Integer, String>> list = Lists.newArrayList();
 		JsonElement json =
@@ -156,7 +157,7 @@ public class OnlineMappingProvider
 
 			LOGGER.info("Downloading yarn mapping from {}", escapedUrl);
 			File jarFile = new File(STORAGE_DIRECTORY + mappingJar);
-			FileUtils.copyURLToFile(new URL(escapedUrl), jarFile);
+			FileUtils.copyURLToFile(URI.create(escapedUrl).toURL(), jarFile);
 
 			try (FileSystem jar = FileSystems.newFileSystem(jarFile.toPath(), (ClassLoader) null))
 			{
