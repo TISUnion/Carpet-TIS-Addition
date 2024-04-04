@@ -1,4 +1,3 @@
-# https://docs.jitpack.io/building/#java-version
 before_install:
-- sdk install java 17.0.8.1-tem
-- sdk use java 17.0.8.1-tem
+  - sdk install java 21.0.2-tem
+  - sdk use java 21.0.2-tem
