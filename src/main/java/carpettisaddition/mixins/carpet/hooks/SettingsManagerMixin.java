@@ -74,8 +74,12 @@ public class SettingsManagerMixin
 		Messenger.tell(
 				source,
 				Messenger.c(
-						String.format("g %s ", MOD_NAME),
+						String.format("g %s ", MOD_NAME), 
+					        //#if MC >= 11901
+					        //$$ String.format("g %s: ", Translations.tr("carpet.settings.command.version",  "version")),
+					        //#else
 						String.format("g %s: ", Translations.tr("ui.version",  "version")),
+					        //#endif
 						String.format("g %s", CarpetTISAdditionMod.getVersion())
 				)
 		);
