@@ -38,7 +38,7 @@ export default function DownloadLinks() {
   return (
     <>
       <section className={styles.brandsContainer}>
-        <h2 className="hero__title text--center">
+        <h2 className="hero__subtitle text--center">
           <Translate id="homepage.downloads.title">
             Download Mod
           </Translate>

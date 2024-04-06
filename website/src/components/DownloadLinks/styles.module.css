@@ -8,9 +8,9 @@
 }
 
 .downloadSvg {
-  width: 40px;
-  height: 40px;
-  margin: 10px;
+  width: 36px;
+  height: 36px;
+  margin: 12px 20px 12px 20px;
 }
 
 .brandContainer {
@@ -27,5 +27,5 @@
 .brandContainer p {
   color: white;
   font-size: 1.2rem;
-  margin: auto 0 auto 1rem;
+  margin: auto 0 auto 0;
 }
