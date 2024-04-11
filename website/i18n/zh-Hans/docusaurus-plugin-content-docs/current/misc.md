@@ -71,7 +71,7 @@ sidebar_position: 4
 ### player
 
 - 为 `/player` 指令添加 `randomly` 子命令，使玩家以动态变化的随机间隔执行给定操作
-  - 支持的随机数发生器：均匀分布、泊松分布、正态分布
+  - 支持的随机数发生器：均匀分布、泊松分布、正态分布、三角分布
   - 支持带 `--simulate` 参数来测试运行
   - 使用 `/player someone someaction randomly` 来获取更多帮助
 - 为 `/player` 指令添加 `rejoin` 参数。类似 `/player spawn`，但该指令会保留假人之前下线时所在的位置和朝向

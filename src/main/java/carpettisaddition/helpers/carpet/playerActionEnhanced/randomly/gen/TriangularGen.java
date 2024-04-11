@@ -20,28 +20,23 @@
 
 package carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen;
 
-public class RangeLimitedGen extends RandomGen
+/**
+ * [mode - deviation, mode + deviation]
+ */
+public class TriangularGen extends RandomGen
 {
-	private final RandomGen delegate;
-	private final int lowerBound;
-	private final int upperBound;
+	private final double mode;
+	private final double deviation;
 
-	public RangeLimitedGen(RandomGen delegate, int lowerBound, int upperBound)
+	public TriangularGen(double mode, double deviation)
 	{
-		this.delegate = delegate;
-		this.lowerBound = lowerBound;
-		this.upperBound = Math.max(lowerBound, upperBound);
+		this.mode = mode;
+		this.deviation = deviation;
 	}
 
 	@Override
 	protected double generate()
 	{
-		return Math.min(Math.max(this.lowerBound, this.delegate.generate()), this.upperBound);
-	}
-
-	@Override
-	protected int generateInt()
-	{
-		return Math.min(Math.max(this.lowerBound, (int)Math.round(this.delegate.generate())), this.upperBound);
+		return this.mode + this.deviation * (this.random.nextDouble() - this.random.nextDouble());
 	}
 }

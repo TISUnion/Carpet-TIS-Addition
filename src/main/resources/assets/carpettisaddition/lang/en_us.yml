@@ -357,9 +357,10 @@ carpettisaddition:
             help: |- 
               A set of random generators to make the player perform the action randomly
               Available random generators:
-                uniform: Uniform distribution
-                poisson: Poisson distribution
-                gaussian: Gaussian / Normal distribution
+                uniform: Uniform Distribution
+                poisson: Poisson Distribution
+                gaussian: Gaussian / Normal Distribution
+                triangular: Triangular Distribution
               You can add a §7--simulate§r suffix to the target command to perform a simulating run with the given random generator
             uniform_deprecation: Deprecated, will be removed when mc1.21 is out. Go use the §7uniform§r subcommand
           simulate:
@@ -368,11 +369,11 @@ carpettisaddition:
             divider: '======================'
           uniform:
             help: |-
-              §lUniform distribution§r, from §7<min>§r to §7<max>§r, closed interval
+              §lUniform Distribution§r, from §7<min>§r to §7<max>§r, closed interval
               All integers in the [min, max] range have the same probability of being selected: 1 / (max - min + 1)
           poisson:
             help: |-
-              §lPoisson distribution§r, determined by the offset origin point and the maxima point
+              §lPoisson Distribution§r, determined by the offset origin point and the maxima point
               The random generator is implemented with the following steps:
               1. Make a poisson generator whose λ = §7<maxima>§r - §7<origin>§r
               2. Shift the probability density function in the positive direction of X by §7<origin>§r
@@ -383,7 +384,7 @@ carpettisaddition:
             large_origin: §7<origin>§r cannot be greater than §7<maxima>§r
           gaussian:
             help: |-
-              §lGaussian / Normal distribution§r, determined by μ (§7<mu>§r) and σ (§7<sigma>§r)
+              §lGaussian / Normal Distribution§r, determined by μ (§7<mu>§r) and σ (§7<sigma>§r)
               Probability cheatsheet (in range [μ - r, μ + r]): 
                 r = 0.32σ: 25.0%
                 r = 0.67σ: 50.0%
@@ -391,6 +392,11 @@ carpettisaddition:
                 r = 2σ: 95.4%
                 r = 3σ: 99.7%
               The generated random real interval will be rounded to an integer and clamped to range [1, +∞), cuz after all, the player action interval is a positive integer
+              Optionally, you can specified §7<lower_bound>§r or §7<upper_bound>§r for the random value. All out-of-bound value will be clamped into the bound
+          triangular:
+            help: |-
+              §lTriangular Distribution§r, determined by §7<mode>§r and §7<deviation>§r
+              Value range: [§7<mode>§r - §7<deviation>§r, §7<mode>§r + §7<deviation>§r]
               Optionally, you can specified §7<lower_bound>§r or §7<upper_bound>§r for the random value. All out-of-bound value will be clamped into the bound
     sleep:
       help: Immediately Block the current thread for given duration, can be used to create lag

@@ -67,6 +67,7 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 		Function<Boolean, Command<ServerCommandSource>> uniformCmd = bool -> c -> actionMaker.action(c, type, uniformImpl(c, bool));
 		Command<ServerCommandSource> poissonCmd = c -> actionMaker.action(c, type, poissonImpl(c));
 		Command<ServerCommandSource> gaussianCmd = c -> actionMaker.action(c, type, gaussianImpl(c));
+		Command<ServerCommandSource> triangularCmd = c -> actionMaker.action(c, type, triangularImpl(c));
 		EndpointCmdMaker endpoint = (n, cmd, g) -> n.
 				executes(cmd).
 				then(literal("--simulate").
@@ -106,13 +107,27 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 								executes(c -> gaussianHelp(c.getSource())).
 								then(argument("mu", doubleArg()).
 										then(endpoint.make(argument("sigma", doubleArg(0)).
-												then(endpoint.make(argument("lower_bound", integer(1)).
-														then(endpoint.make(argument("upper_bound", integer(1)),
+														then(endpoint.make(argument("lower_bound", integer(1)).
+																		then(endpoint.make(argument("upper_bound", integer(1)),
+																				gaussianCmd, this::gaussianGen
+																		)),
 																gaussianCmd, this::gaussianGen
 														)),
-														gaussianCmd, this::gaussianGen
-												)),
 												gaussianCmd, this::gaussianGen
+										))
+								)
+						).
+						then(literal("triangular").
+								executes(c -> triangularHelp(c.getSource())).
+								then(argument("mode", doubleArg()).
+										then(endpoint.make(argument("deviation", doubleArg(0)).
+														then(endpoint.make(argument("lower_bound", integer(1)).
+																		then(endpoint.make(argument("upper_bound", integer(1)),
+																				triangularCmd, this::triangularGen
+																		)),
+																triangularCmd, this::triangularGen
+														)),
+												triangularCmd, this::triangularGen
 										))
 								)
 						)
@@ -301,5 +316,28 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 	private EntityPlayerActionPack.Action gaussianImpl(CommandContext<ServerCommandSource> c)
 	{
 		return actionFromRandomGen(gaussianGen(c));
+	}
+
+	// ========================== triangular ==========================
+
+	private int triangularHelp(ServerCommandSource source)
+	{
+		Messenger.tell(source, tr("triangular.help"));
+		return 0;
+	}
+
+	private RandomGen triangularGen(CommandContext<ServerCommandSource> c)
+	{
+		double mode = getDouble(c, "mode");
+		double deviation = getDouble(c, "deviation");
+		int lower = getOptionalInteger(c, "lower_bound").orElse(Integer.MIN_VALUE);
+		int upper = getOptionalInteger(c, "upper_bound").orElse(Integer.MAX_VALUE);
+
+		return new RangeLimitedGen(new TriangularGen(mode, deviation), lower, upper);
+	}
+
+	private EntityPlayerActionPack.Action triangularImpl(CommandContext<ServerCommandSource> c)
+	{
+		return actionFromRandomGen(triangularGen(c));
 	}
 }

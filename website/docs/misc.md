@@ -70,7 +70,7 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
 ### player
 
 - Add `randomly` argument for `/player` command to make the player perform action at dynamically varying random intervals
-  - Supported random generators: uniform, poisson, gaussian
+  - Supported random generators: uniform, poisson, gaussian, triangular
   - Support test run with `--simulate`
   - Use `/player someone someaction randomly` to get more help
 - Add `rejoin` argument for `/player` command to spawn fake player. Like `/player spawn`, but it preserves the fake player's last-login position and rotation

@@ -360,6 +360,7 @@ carpettisaddition:
                 uniform: 均匀分布
                 poisson: 泊松分布
                 gaussian: 高斯分布 / 正态分布
+                triangular: 三角分布
               你可以给目标命令添加一个 §7--simulate§r 后缀，以使用给定的随机发生器执行一次模拟运行
             uniform_deprecation: 弃用，将在 mc1.21 发布时删除。请使用 §7uniform§r 子命令
           simulate:
@@ -391,6 +392,11 @@ carpettisaddition:
                 r = 2σ: 95.4%
                 r = 3σ: 99.7%
               随机数生成器生成的实数将被四舍五入为整数，并被限制在 [1, +∞) 中，毕竟 /player 指令的动作间隔是个正整数
+              可选的，你可以使用 §7<lower_bound>§r 或 §7<upper_bound>§r 参数指定随机值的上下界。所有超出界限的值将被替换成上界 / 下界值
+          triangular:
+            help: |-
+              §l三角分布§r，由峰值x坐标 (§7<mode>§r) 和半宽度 (§7<deviation>§r) 确定
+              值域范围为 [§7<mode>§r - §7<deviation>§r, §7<mode>§r + §7<deviation>§r]
               可选的，你可以使用 §7<lower_bound>§r 或 §7<upper_bound>§r 参数指定随机值的上下界。所有超出界限的值将被替换成上界 / 下界值
     sleep:
       help: 即时阻塞当前线程给定持续时间，可用于制造卡顿
