@@ -499,6 +499,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, OPTIMIZATION, EXPERIMENTAL})
 	public static boolean optimizedTNTHighPriority = false;
 
+	//#if MC >= 11600
+	//$$ @Rule(categories = {TIS, PORTING})
+	//$$ public static boolean overspawningReintroduced = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean poiUpdates = true;
 

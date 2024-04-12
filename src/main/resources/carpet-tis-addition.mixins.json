@@ -391,6 +391,7 @@
     "rule.optimizedHardHitBoxEntityCollision.IWorldOverridesMixin",
     "rule.optimizedHardHitBoxEntityCollision.WorldChunkMixin",
     "rule.optimizedTNTHighPriority.ExplosionMixin",
+    "rule.overspawningReintroduced.SpawnHelperMixin",
     "rule.poiUpdates.ServerWorldMixin",
     "rule.preciseEntityPlacement.ArmorStandItemItemMixin",
     "rule.preciseEntityPlacement.EndCrystalItemMixin",

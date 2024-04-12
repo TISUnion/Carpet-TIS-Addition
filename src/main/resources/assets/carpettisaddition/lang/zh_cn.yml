@@ -1016,6 +1016,12 @@ carpettisaddition:
         extra:
           '0': 因此规则optimizedTNT可以覆盖lithium的爆炸优化
           '1': 当然，它需要规则optimizedTNT开启才能工作
+      overspawningReintroduced:
+        name: 重新引入过量生成
+        desc: 重新为mc1.16+引入过量生成机制
+        extra:
+          '0': 在过量生成开启时，游戏仅在自然刷怪阶段的开始时检查怪物容量/刷怪势能
+          '1': 这给刷怪塔带回了在忽略刷怪上限等限制因素的同时，完整利用单游戏刻内所有刷怪尝试的可能性，让高速的被动生物农场再次成为可能
       poiUpdates:
         name: POI更新开关
         desc: 方块变化时是否会更新POI

@@ -1016,6 +1016,12 @@ carpettisaddition:
         extra:
           '0': So the rule optimizedTNT can overwrite lithium's explosion optimization
           '1': Of course rule optimizedTNT needs to be on for it to work
+      overspawningReintroduced:
+        name: overspawningReintroduced
+        desc: Reintroduce the overspawning mechanism back to mc1.16+
+        extra:
+          '0': With overspawning on, the game only checks for mobcap / spawn potential at the beginning of the natural spawning phase
+          '1': This brings back the possibility for mob farms to utilize all spawning attempts with mobcap ignored in a single game tick, making fast passive mob farms possible again
       poiUpdates:
         name: poiUpdates
         desc: Whether block changes will cause POI to updates or not
