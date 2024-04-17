@@ -74,12 +74,7 @@ if (mcVersion >= 12005) {
 } else {
 	JAVA_COMPATIBILITY = JavaVersion.VERSION_1_8
 }
-
-// mixin does not support java 21 yet
 JavaVersion MIXIN_COMPATIBILITY_LEVEL = JAVA_COMPATIBILITY
-if (MIXIN_COMPATIBILITY_LEVEL > JavaVersion.VERSION_17) {
-	MIXIN_COMPATIBILITY_LEVEL = JavaVersion.VERSION_17
-}
 
 loom {
 	accessWidenerPath = file("carpet-tis-addition.accesswidener")

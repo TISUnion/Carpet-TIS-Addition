@@ -36,9 +36,14 @@ public class OFEMUtil
 	// set it to 0 or enable rule ultraSecretSetting to test vanilla behavior if you want
 	private static final double OPTIMIZE_THRESHOLD = 4.0D;
 
-	private static boolean checkMovement(Vec3d movement)
+	public static boolean checkMovement(Vec3d movement)
 	{
 		return movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD || CarpetTISAdditionSettings.ultraSecretSetting.equals("optimizedFastEntityMovement");
+	}
+
+	public static OFEMContext createContext(World world, Entity entity)
+	{
+		return new OFEMContext(world, entity);
 	}
 
 	@Nullable
@@ -46,7 +51,7 @@ public class OFEMUtil
 	{
 		if (CarpetTISAdditionSettings.optimizedFastEntityMovement && checkMovement(movement))
 		{
-			return new OFEMContext(world, entity);
+			return createContext(world, entity);
 		}
 		return null;
 	}
