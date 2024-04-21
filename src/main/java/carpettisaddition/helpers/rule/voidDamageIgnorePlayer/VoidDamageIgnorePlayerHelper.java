@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,33 +18,27 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.voidDamageIgnorePlayer;
+package carpettisaddition.helpers.rule.voidDamageIgnorePlayer;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.voidDamageIgnorePlayer.VoidDamageIgnorePlayerHelper;
-import net.minecraft.entity.LivingEntity;
+import carpettisaddition.utils.EntityUtil;
 import net.minecraft.entity.player.PlayerEntity;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.world.GameMode;
 
-@Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin
+public class VoidDamageIgnorePlayerHelper
 {
-	@SuppressWarnings("ConstantConditions")
-	@Inject(method = "destroy", at = @At("HEAD"), cancellable = true)
-	private void voidDamageAmount(CallbackInfo ci)
+	public static boolean shouldIgnoreDamage(PlayerEntity player)
 	{
-		if (!CarpetTISAdditionSettings.voidDamageIgnorePlayer.equals("false"))
+		String rule = CarpetTISAdditionSettings.voidDamageIgnorePlayer;
+		switch (rule)
 		{
-			if ((Object)this instanceof PlayerEntity)
-			{
-				if (VoidDamageIgnorePlayerHelper.shouldIgnoreDamage((PlayerEntity)(Object)this))
-				{
-					ci.cancel();
-				}
-			}
+			case "false":
+				return false;
+			case "true":
+				return true;
+			default:
+				GameMode gameMode = EntityUtil.getPlayerGameMode(player);
+				return gameMode != null && !gameMode.getName().isEmpty() && rule.contains(gameMode.getName());
 		}
 	}
 }

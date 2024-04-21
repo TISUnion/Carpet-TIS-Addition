@@ -20,11 +20,18 @@
 
 package carpettisaddition.utils;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.GameMode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class EntityUtil
 {
@@ -73,5 +80,25 @@ public class EntityUtil
 		//#else
 		return entity.pitch;
 		//#endif
+	}
+
+	@Nullable
+	public static GameMode getPlayerGameMode(PlayerEntity player)
+	{
+		if (player instanceof ServerPlayerEntity)
+		{
+			return ((ServerPlayerEntity)player).interactionManager.getGameMode();
+		}
+		else if (player instanceof AbstractClientPlayerEntity)
+		{
+			return Optional.ofNullable(MinecraftClient.getInstance().getNetworkHandler())
+					.map(h -> h.getPlayerListEntry(player.getGameProfile().getId()))
+					.map(PlayerListEntry::getGameMode)
+					.orElse(null);
+		}
+		else
+		{
+			return null;
+		}
 	}
 }

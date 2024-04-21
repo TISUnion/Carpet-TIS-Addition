@@ -1447,6 +1447,8 @@ Prevent players from taking void damage
 
 Completely harmless void for players, yay!
 
+If the rule value is set to a comma-separated game mode list, then only players in these game modes are immutable to void damage
+
 - Type: `boolean`
 - Default value: `false `
 - Suggested options: `false`, `true`

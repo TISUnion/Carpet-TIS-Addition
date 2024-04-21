@@ -1237,6 +1237,7 @@ carpettisaddition:
         desc: Prevent players from taking void damage
         extra:
           '0': Completely harmless void for players, yay!
+          '1': If the rule value is set to a comma-separated game mode list, then only players in these game modes are immutable to void damage
       voidRelatedAltitude:
         name: voidRelatedAltitude
         desc: Modify the related altitude between the bottom of the world and the void where entities will receive void damages

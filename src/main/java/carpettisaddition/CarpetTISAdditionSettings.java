@@ -23,6 +23,7 @@ package carpettisaddition;
 import carpet.settings.ParsedRule;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.helpers.rule.updateSuppressionSimulator.UpdateSuppressionSimulator;
+import carpettisaddition.helpers.rule.voidDamageIgnorePlayer.VoidDamageIgnorePlayerValidator;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
@@ -778,8 +779,13 @@ public class CarpetTISAdditionSettings
 	)
 	public static double voidDamageAmount = VANILLA_VOID_DAMAGE_AMOUNT;
 
-	@Rule(categories = {TIS, CREATIVE})
-	public static boolean voidDamageIgnorePlayer = false;
+	@Rule(
+			options = {"false", "true", "creative", "spectator", "creative,spectator"},
+			validators = VoidDamageIgnorePlayerValidator.class,
+			strict = false,
+			categories = {TIS, CREATIVE}
+	)
+	public static String voidDamageIgnorePlayer = "false";
 
 	@Rule(
 			options = {"-64", "-512", "-4096"},
