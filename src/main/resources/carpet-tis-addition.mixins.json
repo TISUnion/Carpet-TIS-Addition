@@ -377,6 +377,8 @@
     "rule.minecartTakePassengerMinVelocity.AbstractMinecartEntityMixin",
     "rule.mobcapsDisplayIgnoreMisc.SpawnReporterMixin",
     "rule.moveableReinforcedDeepslate.PistonBlockMixin",
+    "rule.natualSpawningUse13Heightmap.SpawnHelperMixin",
+    "rule.natualSpawningUse13Heightmap.SpawnReporterMixin",
     "rule.oakBalloonPercent.OakSaplingGeneratorMixin",
     "rule.oakBalloonPercent.SaplingGeneratorMixin",
     "rule.observerNoDetection.ObserverBlockMixin",
