@@ -27,9 +27,9 @@ import net.minecraft.world.World;
 import java.util.Objects;
 
 //#if MC >= 11600
-//$$ import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.RegistryKey;
 //#else
-import net.minecraft.world.dimension.DimensionType;
+//$$ import net.minecraft.world.dimension.DimensionType;
 //#endif
 
 /*
@@ -41,38 +41,38 @@ public class DimensionWrapper
 {
 	public static final DimensionWrapper OVERWORLD = of(
 			//#if MC >= 11600
-			//$$ World.OVERWORLD
+			World.OVERWORLD
 			//#else
-			DimensionType.OVERWORLD
+			//$$ DimensionType.OVERWORLD
 			//#endif
 	);
 	public static final DimensionWrapper THE_NETHER = of(
 			//#if MC >= 11600
-			//$$ World.NETHER
+			World.NETHER
 			//#else
-			DimensionType.THE_NETHER
+			//$$ DimensionType.THE_NETHER
 			//#endif
 	);
 	public static final DimensionWrapper THE_END = of(
 			//#if MC >= 11600
-			//$$ World.END
+			World.END
 			//#else
-			DimensionType.THE_END
+			//$$ DimensionType.THE_END
 			//#endif
 	);
 
 	//#if MC >= 11600
-	//$$ private final RegistryKey<World>
+	private final RegistryKey<World>
 	//#else
-	private final DimensionType
+	//$$ private final DimensionType
 	//#endif
 			dimensionType;
 
 	private DimensionWrapper(
 			//#if MC >= 11600
-			//$$ RegistryKey<World> dimensionType
+			RegistryKey<World> dimensionType
 			//#else
-			DimensionType dimensionType
+			//$$ DimensionType dimensionType
 			//#endif
 	)
 	{
@@ -84,9 +84,9 @@ public class DimensionWrapper
 	 */
 	public static DimensionWrapper of(
 			//#if MC >= 11600
-			//$$ RegistryKey<World> dimensionType
+			RegistryKey<World> dimensionType
 			//#else
-			DimensionType dimensionType
+			//$$ DimensionType dimensionType
 			//#endif
 	)
 	{
@@ -97,9 +97,9 @@ public class DimensionWrapper
 	{
 		return new DimensionWrapper(
 				//#if MC >= 11600
-				//$$ world.getRegistryKey()
+				world.getRegistryKey()
 				//#else
-				world.getDimension().getType()
+				//$$ world.getDimension().getType()
 				//#endif
 		);
 	}
@@ -113,9 +113,9 @@ public class DimensionWrapper
 	 * Warning: mc version dependent
 	 */
 	//#if MC >= 11600
-	//$$ public RegistryKey<World> getValue()
+	public RegistryKey<World> getValue()
 	//#else
-	public DimensionType getValue()
+	//$$ public DimensionType getValue()
 	//#endif
 	{
 		return this.dimensionType;
@@ -124,18 +124,18 @@ public class DimensionWrapper
 	public Identifier getIdentifier()
 	{
 		//#if MC >= 11600
-		//$$ return this.dimensionType.getValue();
+		return this.dimensionType.getValue();
 		//#else
-		return DimensionType.getId(this.dimensionType);
+		//$$ return DimensionType.getId(this.dimensionType);
 		//#endif
 	}
 
 	public String getIdentifierString()
 	{
 		//#if MC >= 11600
-		//$$ return this.getIdentifier().toString();
+		return this.getIdentifier().toString();
 		//#else
-		return this.dimensionType.toString();
+		//$$ return this.dimensionType.toString();
 		//#endif
 	}
 

@@ -20,15 +20,37 @@
 
 package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip.compat.lithium;
 
+import carpet.CarpetSettings;
+import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
 import carpettisaddition.utils.ModIds;
-import carpettisaddition.utils.compat.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import me.jellysquid.mods.lithium.common.world.WorldHelper;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-// in mc1.18.1+ only. see subproject 1.18.2
 @Restriction(require = @Condition(value = ModIds.lithium, versionPredicates = ">=0.7.6"))
-@Mixin(DummyClass.class)
+@Mixin(WorldHelper.class)
 public abstract class WorldHelperMixin
 {
+	@Inject(method = "getEntitiesForCollision", at = @At("HEAD"))
+	private static void creativeNoClipEnhancementEnter(CallbackInfoReturnable<ItemStack> cir)
+	{
+		if (CarpetSettings.creativeNoClip)
+		{
+			CreativeNoClipHelper.exceptSpectatorPredicateIgnoreNoClipPlayers.set(true);
+		}
+	}
+
+	@Inject(method = "getEntitiesForCollision", at = @At("RETURN"))
+	private static void creativeNoClipEnhancementExit(CallbackInfoReturnable<ItemStack> cir)
+	{
+		if (CarpetSettings.creativeNoClip)
+		{
+			CreativeNoClipHelper.exceptSpectatorPredicateIgnoreNoClipPlayers.set(false);
+		}
+	}
 }

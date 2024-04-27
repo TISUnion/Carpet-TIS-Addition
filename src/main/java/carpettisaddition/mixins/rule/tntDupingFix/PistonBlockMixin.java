@@ -66,9 +66,9 @@ public abstract class PistonBlockMixin
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11700
-							//$$ target = "Lnet/minecraft/block/BlockState;hasBlockEntity()Z"
+							target = "Lnet/minecraft/block/BlockState;hasBlockEntity()Z"
 							//#else
-							target = "Lnet/minecraft/block/Block;hasBlockEntity()Z"
+							//$$ target = "Lnet/minecraft/block/Block;hasBlockEntity()Z"
 							//#endif
 					)
 			),
@@ -136,9 +136,9 @@ public abstract class PistonBlockMixin
 					from = @At(
 							value = "FIELD",
 							//#if MC >= 11600
-							//$$ target = "Lnet/minecraft/block/PistonBlock;sticky:Z"
+							target = "Lnet/minecraft/block/PistonBlock;sticky:Z"
 							//#else
-							target = "Lnet/minecraft/block/PistonBlock;isSticky:Z"
+							//$$ target = "Lnet/minecraft/block/PistonBlock;isSticky:Z"
 							//#endif
 					)
 			),
@@ -158,7 +158,7 @@ public abstract class PistonBlockMixin
 			@Local(ordinal = 0) List<BlockPos> list,  // pistonHandler.getMovedBlocks()
 			@Local(ordinal = 1) List<BlockState> list2,  // states of list
 			//#if MC >= 11600
-			//$$ @Local(ordinal = 2) List<BlockPos> list3,  // pistonHandler.getBrokenBlocks()
+			@Local(ordinal = 2) List<BlockPos> list3,  // pistonHandler.getBrokenBlocks()
 			//#endif
 			@Local BlockState[] blockStates,
 			@Local(ordinal = 0) int j,
@@ -175,18 +175,18 @@ public abstract class PistonBlockMixin
 			// list and list2 has the same size and indicating the same block
 
 			//#if MC >= 11600
-			//$$ int j2 = list3.size();
+			int j2 = list3.size();
 			//#else
-			int j2 = j + list.size();
+			//$$ int j2 = j + list.size();
 			//#endif
 
 			for (int l2 = list.size() - 1; l2 >= 0; --l2)
 			{
 				//#if MC >= 11600
-				//$$ blockStates[j2++] = list2.get(l2);
+				blockStates[j2++] = list2.get(l2);
 				//#else
-				--j2;
-				blockStates[j2] = list2.get(l2);
+				//$$ --j2;
+				//$$ blockStates[j2] = list2.get(l2);
 				//#endif
 			}
 

@@ -29,7 +29,7 @@ import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 11600
-//$$ import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.AbstractBlock;
 //#endif
 
 /**
@@ -46,26 +46,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.19"))
 @Mixin(
 		//#if MC >= 11600
-		//$$ AbstractBlock.AbstractBlockState.class
+		AbstractBlock.AbstractBlockState.class
 		//#else
-		Block.class
+		//$$ Block.class
 		//#endif
 )
 public abstract class BlockMixin
 {
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
+			method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
 			//#else
-			method = "updateNeighborStates",
+			//$$ method = "updateNeighborStates",
 			//#endif
 			at = @At("HEAD")
 	)
 	private void startStateUpdate(
 			//#if MC >= 11600
-			//$$ WorldAccess world, BlockPos pos, int flags, int maxUpdateDepth,
+			WorldAccess world, BlockPos pos, int flags, int maxUpdateDepth,
 			//#else
-			BlockState state, IWorld world, BlockPos pos, int flags,
+			//$$ BlockState state, IWorld world, BlockPos pos, int flags,
 			//#endif
 			CallbackInfo ci
 	)
@@ -78,17 +78,17 @@ public abstract class BlockMixin
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
+			method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
 			//#else
-			method = "updateNeighborStates",
+			//$$ method = "updateNeighborStates",
 			//#endif
 			at = @At("RETURN")
 	)
 	private void endStateUpdate(
 			//#if MC >= 11600
-			//$$ WorldAccess world, BlockPos pos, int flags, int maxUpdateDepth,
+			WorldAccess world, BlockPos pos, int flags, int maxUpdateDepth,
 			//#else
-			BlockState state, IWorld world, BlockPos pos, int flags,
+			//$$ BlockState state, IWorld world, BlockPos pos, int flags,
 			//#endif
 			CallbackInfo ci
 	)

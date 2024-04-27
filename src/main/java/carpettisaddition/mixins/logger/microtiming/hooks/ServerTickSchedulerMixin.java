@@ -29,17 +29,17 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
 //#if MC >= 11800
-//$$ import net.minecraft.world.tick.WorldTickScheduler;
+import net.minecraft.world.tick.WorldTickScheduler;
 //#else
-import carpettisaddition.utils.compat.DummyClass;
+//$$ import carpettisaddition.utils.compat.DummyClass;
 //#endif
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"))
 @Mixin(
 		//#if MC >= 11800
-		//$$ WorldTickScheduler.class
+		WorldTickScheduler.class
 		//#else
-		DummyClass.class
+		//$$ DummyClass.class
 		//#endif
 )
 public abstract class ServerTickSchedulerMixin implements ITileTickListWithServerWorld

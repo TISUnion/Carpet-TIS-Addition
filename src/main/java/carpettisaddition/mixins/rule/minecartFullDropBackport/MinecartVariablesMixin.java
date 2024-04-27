@@ -45,7 +45,7 @@ public abstract class MinecartVariablesMixin
 			method = "dropItems",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$RuleKey;)Z"
+					target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$Key;)Z"
 			)
 	)
 	private boolean minecartFullDropBackport_cancelSeparatedDrop(boolean canDrop)

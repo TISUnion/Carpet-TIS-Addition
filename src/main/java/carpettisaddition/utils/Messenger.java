@@ -57,7 +57,7 @@ import java.util.List;
 //#endif
 
 //#if MC >= 11600 && MC < 11900
-//$$ import net.minecraft.util.Util;
+import net.minecraft.util.Util;
 //#endif
 
 //#if MC < 11500
@@ -241,39 +241,39 @@ public class Messenger
 		try
 		{
 			//#if MC >= 11800
-			//$$ List<StringVisitable> segments = Lists.newArrayList();
-			//$$ dummy.invokeForEachPart(formatter, segments::add);
+			List<StringVisitable> segments = Lists.newArrayList();
+			dummy.invokeForEachPart(formatter, segments::add);
 			//#else
-			dummy.getTranslations().clear();
-			dummy.invokeSetTranslation(formatter);
+			//$$ dummy.getTranslations().clear();
+			//$$ dummy.invokeSetTranslation(formatter);
 			//#endif
 
 			return Messenger.c(
 					//#if MC >= 11600
 					//#if MC >= 11800
-					//$$ segments.
+					segments.
 					//#else
 					//$$ dummy.getTranslations().
 					//#endif
-					//$$ 		stream().map(stringVisitable -> {
-					//$$ 			if (stringVisitable instanceof
+							stream().map(stringVisitable -> {
+								if (stringVisitable instanceof
 										//#if MC >= 11900
 										//$$ Text
 										//#else
-										//$$ BaseText
+										BaseText
 										//#endif
-					//$$ 			)
-					//$$ 			{
+								)
+								{
 									//#if MC >= 11900
 									//$$ return (Text)stringVisitable;
 									//#else
-									//$$ return (BaseText)stringVisitable;
+									return (BaseText)stringVisitable;
 									//#endif
-					//$$ 			}
-					//$$ 			return Messenger.s(stringVisitable.getString());
-					//$$ 		}).toArray()
+								}
+								return Messenger.s(stringVisitable.getString());
+							}).toArray()
 					//#else
-					dummy.getTranslations().toArray(new Object[0])
+					//$$ dummy.getTranslations().toArray(new Object[0])
 					//#endif
 			);
 		}
@@ -362,9 +362,9 @@ public class Messenger
 	{
 		return tr(
 				//#if MC >= 11600
-				//$$ attribute.getTranslationKey()
+				attribute.getTranslationKey()
 				//#else
-				"attribute.name." + attribute.getId()
+				//$$ "attribute.name." + attribute.getId()
 				//#endif
 		);
 	}
@@ -472,9 +472,9 @@ public class Messenger
 	public static BaseText hover(BaseText text, HoverEvent hoverEvent)
 	{
 		//#if MC >= 11600
-		//$$ style(text, text.getStyle().withHoverEvent(hoverEvent));
+		style(text, text.getStyle().withHoverEvent(hoverEvent));
 		//#else
-		text.getStyle().setHoverEvent(hoverEvent);
+		//$$ text.getStyle().setHoverEvent(hoverEvent);
 		//#endif
 		return text;
 	}
@@ -487,9 +487,9 @@ public class Messenger
 	public static BaseText click(BaseText text, ClickEvent clickEvent)
 	{
 		//#if MC >= 11600
-		//$$ style(text, text.getStyle().withClickEvent(clickEvent));
+		style(text, text.getStyle().withClickEvent(clickEvent));
 		//#else
-		text.getStyle().setClickEvent(clickEvent);
+		//$$ text.getStyle().setClickEvent(clickEvent);
 		//#endif
 		return text;
 	}
@@ -506,19 +506,19 @@ public class Messenger
 		StyleAccessor parsedStyle = (StyleAccessor)parseCarpetStyle(carpetStyle);
 
 		//#if MC >= 11600
-		//$$ textStyle = textStyle.withColor(parsedStyle.getColorField());
-		//$$ textStyle = textStyle.withBold(parsedStyle.getBoldField());
-		//$$ textStyle = textStyle.withItalic(parsedStyle.getItalicField());
-		//$$ ((StyleAccessor)textStyle).setUnderlinedField(parsedStyle.getUnderlineField());
-		//$$ ((StyleAccessor)textStyle).setStrikethroughField(parsedStyle.getStrikethroughField());
-		//$$ ((StyleAccessor)textStyle).setObfuscatedField(parsedStyle.getObfuscatedField());
+		textStyle = textStyle.withColor(parsedStyle.getColorField());
+		textStyle = textStyle.withBold(parsedStyle.getBoldField());
+		textStyle = textStyle.withItalic(parsedStyle.getItalicField());
+		((StyleAccessor)textStyle).setUnderlinedField(parsedStyle.getUnderlineField());
+		((StyleAccessor)textStyle).setStrikethroughField(parsedStyle.getStrikethroughField());
+		((StyleAccessor)textStyle).setObfuscatedField(parsedStyle.getObfuscatedField());
 		//#else
-		textStyle.setColor(parsedStyle.getColorField());
-		textStyle.setBold(parsedStyle.getBoldField());
-		textStyle.setItalic(parsedStyle.getItalicField());
-		textStyle.setUnderline(parsedStyle.getUnderlineField());
-		textStyle.setStrikethrough(parsedStyle.getStrikethroughField());
-		textStyle.setObfuscated(parsedStyle.getObfuscatedField());
+		//$$ textStyle.setColor(parsedStyle.getColorField());
+		//$$ textStyle.setBold(parsedStyle.getBoldField());
+		//$$ textStyle.setItalic(parsedStyle.getItalicField());
+		//$$ textStyle.setUnderline(parsedStyle.getUnderlineField());
+		//$$ textStyle.setStrikethrough(parsedStyle.getStrikethroughField());
+		//$$ textStyle.setObfuscated(parsedStyle.getObfuscatedField());
 		//#endif
 
 		return style(text, textStyle);
@@ -537,27 +537,27 @@ public class Messenger
 		//#if MC >= 11900
 		//$$ copied = text.copy();
 		//#elseif MC >= 11600
-		//$$ copied = (BaseText)text.shallowCopy();
+		copied = (BaseText)text.shallowCopy();
 		//#else
-		copied = (BaseText)text.deepCopy();
+		//$$ copied = (BaseText)text.deepCopy();
 		//#endif
 
 		// mc1.16+ doesn't make a copy of args of a TranslatableText,
 		// so we need to copy that by ourselves
 		//#if MC >= 11600
-		//$$ if (getTextContent(copied) instanceof TranslatableText)
-		//$$ {
-		//$$ 	TranslatableText translatableText = (TranslatableText)getTextContent(copied);
-		//$$ 	Object[] args = translatableText.getArgs().clone();
-		//$$ 	for (int i = 0; i < args.length; i++)
-		//$$ 	{
-		//$$ 		if (args[i] instanceof BaseText)
-		//$$ 		{
-		//$$ 			args[i] = copy((BaseText)args[i]);
-		//$$ 		}
-		//$$ 	}
-		//$$ 	((TranslatableTextAccessor)translatableText).setArgs(args);
-		//$$ }
+		if (getTextContent(copied) instanceof TranslatableText)
+		{
+			TranslatableText translatableText = (TranslatableText)getTextContent(copied);
+			Object[] args = translatableText.getArgs().clone();
+			for (int i = 0; i < args.length; i++)
+			{
+				if (args[i] instanceof BaseText)
+				{
+					args[i] = copy((BaseText)args[i]);
+				}
+			}
+			((TranslatableTextAccessor)translatableText).setArgs(args);
+		}
 		//#endif
 
 		return copied;
@@ -617,9 +617,9 @@ public class Messenger
 	{
 		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
 		//#if MC >= 11600
-		//$$ player.sendMessage
+		player.sendMessage
 		//#else
-		player.addChatMessage
+		//$$ player.addChatMessage
 		//#endif
 				(text, true);
 	}
@@ -631,9 +631,9 @@ public class Messenger
 			//#if MC >= 11900
 			//$$ CarpetTISAdditionServer.minecraft_server.sendMessage(text);
 			//#elseif MC >= 11600
-			//$$ CarpetTISAdditionServer.minecraft_server.sendSystemMessage(text, Util.NIL_UUID);
+			CarpetTISAdditionServer.minecraft_server.sendSystemMessage(text, Util.NIL_UUID);
 			//#else
-			CarpetTISAdditionServer.minecraft_server.sendMessage(text);
+			//$$ CarpetTISAdditionServer.minecraft_server.sendMessage(text);
 			//#endif
 		}
 	}

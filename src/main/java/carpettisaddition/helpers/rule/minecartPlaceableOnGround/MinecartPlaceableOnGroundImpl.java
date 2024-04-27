@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 //#endif
 
 //#if MC >= 11700
-//$$ import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.event.GameEvent;
 //#endif
 
 public class MinecartPlaceableOnGroundImpl
@@ -70,9 +70,9 @@ public class MinecartPlaceableOnGroundImpl
 			if (player != null)
 			{
 				//#if MC >= 11700
-				//$$ minecartEntity.setYaw(player.getYaw());
+				minecartEntity.setYaw(player.getYaw());
 				//#else
-				minecartEntity.yaw = player.yaw;
+				//$$ minecartEntity.yaw = player.yaw;
 				//#endif
 			}
 
@@ -84,7 +84,7 @@ public class MinecartPlaceableOnGroundImpl
 
 			world.spawnEntity(minecartEntity);
 			//#if MC >= 11700
-			//$$ world.emitGameEvent(context.getPlayer(), net.minecraft.world.event.GameEvent.ENTITY_PLACE, context.getBlockPos());
+			world.emitGameEvent(context.getPlayer(), net.minecraft.world.event.GameEvent.ENTITY_PLACE, context.getBlockPos());
 			//#endif
 		}
 		else
@@ -101,20 +101,20 @@ public class MinecartPlaceableOnGroundImpl
 		itemStack.decrement(1);
 
 		//#if MC >= 11600
-		//$$ return ActionResult.success(world.isClient);
+		return ActionResult.success(world.isClient);
 		//#else
-		return ActionResult.SUCCESS;
+		//$$ return ActionResult.SUCCESS;
 		//#endif
 	}
 
 	private static boolean isMinecartPositionValid(World world, AbstractMinecartEntity minecartEntity)
 	{
 		// reference: net.minecraft.item.BoatItem#use
-		return world.doesNotCollide(
+		return world.isSpaceEmpty(
 				minecartEntity,
 				minecartEntity.getBoundingBox()
 						//#if MC < 11800
-						.expand(-0.1D)
+						//$$ .expand(-0.1D)
 						//#endif
 		);
 	}

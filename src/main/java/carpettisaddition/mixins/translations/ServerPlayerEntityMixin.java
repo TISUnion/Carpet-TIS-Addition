@@ -62,9 +62,9 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 				//#if MC >= 12002
 				//$$ settings.language();
 				//#elseif MC >= 11800
-				//$$ packet.language();
+				packet.language();
 				//#else
-				((ClientSettingsC2SPacketAccessor)packet).getLanguage$TISCM();
+				//$$ ((ClientSettingsC2SPacketAccessor)packet).getLanguage$TISCM();
 				//#endif
 	}
 
@@ -82,11 +82,11 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 					//#if MC >= 11901
 					//$$ "sendMessageToClient",
 					//#elseif MC >= 11600
-					//$$ "sendMessage(Lnet/minecraft/text/Text;Z)V",
-					//$$ "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V",
+					"sendMessage(Lnet/minecraft/text/Text;Z)V",
+					"sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V",
 					//#else
-					"addChatMessage",
-					"sendChatMessage",
+					//$$ "addChatMessage",
+					//$$ "sendChatMessage",
 					//#endif
 			},
 			at = @At("HEAD"),

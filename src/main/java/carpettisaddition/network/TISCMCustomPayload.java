@@ -22,9 +22,9 @@ package carpettisaddition.network;
 
 import carpettisaddition.utils.NetworkUtil;
 import carpettisaddition.utils.compat.CustomPayload;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 
 //#if MC >= 12005
 //$$ import net.minecraft.network.codec.PacketCodec;
@@ -41,9 +41,9 @@ public class TISCMCustomPayload implements CustomPayload
 	//#endif
 
 	private final String packetId;
-	private final CompoundTag nbt;
+	private final NbtCompound nbt;
 
-	public TISCMCustomPayload(String packetId, CompoundTag nbt)
+	public TISCMCustomPayload(String packetId, NbtCompound nbt)
 	{
 		this.packetId = packetId;
 		this.nbt = nbt;
@@ -54,7 +54,7 @@ public class TISCMCustomPayload implements CustomPayload
 		this(
 				buf.readString(
 						//#if MC < 11700
-						Short.MAX_VALUE
+						//$$ Short.MAX_VALUE
 						//#endif
 				),
 				NetworkUtil.readNbt(buf)
@@ -67,7 +67,7 @@ public class TISCMCustomPayload implements CustomPayload
 	public void write(PacketByteBuf buf)
 	{
 		buf.writeString(this.packetId);
-		buf.writeCompoundTag(this.nbt);
+		buf.writeNbt(this.nbt);
 	}
 
 	//#if MC < 12005
@@ -91,7 +91,7 @@ public class TISCMCustomPayload implements CustomPayload
 		return packetId;
 	}
 
-	public CompoundTag getNbt()
+	public NbtCompound getNbt()
 	{
 		return nbt;
 	}

@@ -58,9 +58,9 @@ public class OFEMUtil
 
 	public static
 	//#if MC >= 11800
-	//$$ Iterable<VoxelShape>
+	Iterable<VoxelShape>
 	//#else
-	Stream<VoxelShape>
+	//$$ Stream<VoxelShape>
 	//#endif
 	getAxisOnlyBlockCollision(OFEMContext context, CollisionBoxGetter collisionBoxGetter)
 	{
@@ -82,9 +82,9 @@ public class OFEMUtil
 
 	public static
 	//#if MC >= 11800
-	//$$ Iterable<VoxelShape>
+	Iterable<VoxelShape>
 	//#else
-	Stream<VoxelShape>
+	//$$ Stream<VoxelShape>
 	//#endif
 	getAxisOnlyBlockCollision(OFEMContext context)
 	{

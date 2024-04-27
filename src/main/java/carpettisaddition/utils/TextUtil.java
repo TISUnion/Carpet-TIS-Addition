@@ -23,7 +23,7 @@ package carpettisaddition.utils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.command.arguments.BlockArgumentParser;
+import net.minecraft.command.argument.BlockArgumentParser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.property.Property;

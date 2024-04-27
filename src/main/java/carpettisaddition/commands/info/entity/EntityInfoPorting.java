@@ -37,7 +37,7 @@ import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.inventory.BasicInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
@@ -87,9 +87,9 @@ public class EntityInfoPorting
 
 		int netherPortalCooldown =
 				//#if MC >= 11600
-				//$$ ((EntityAccessor)e).getNetherPortalCooldown();
+				((EntityAccessor)e).getNetherPortalCooldown();
 				//#else
-				e.netherPortalCooldown;
+				//$$ e.netherPortalCooldown;
 				//#endif
 		if (netherPortalCooldown> 0) { lst.add(Messenger.c("w  - Portal cooldown for ","wb "+netherPortalCooldown," ticks")); }
 
@@ -137,14 +137,14 @@ public class EntityInfoPorting
 			LivingEntity elb = (LivingEntity)e;
 			lst.add(Messenger.c("w  - Despawn timer: ", "wb "+EntityInfoUtil.makeTime(elb.getDespawnCounter())));
 
-			lst.add(Messenger.c(String.format("w  - Health: %.2f/%.2f", elb.getHealth(), elb.getMaximumHealth())));
-			if (elb.getAttributeInstance(EntityAttributes.ARMOR).getValue() > 0.0)
+			lst.add(Messenger.c(String.format("w  - Health: %.2f/%.2f", elb.getHealth(), elb.getMaxHealth())));
+			if (elb.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).getValue() > 0.0)
 			{
-				lst.add(Messenger.c(String.format("w  - Armour: %.1f",elb.getAttributeInstance(EntityAttributes.ARMOR).getValue())));
+				lst.add(Messenger.c(String.format("w  - Armour: %.1f",elb.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).getValue())));
 			}
-			if (elb.getAttributeInstance(EntityAttributes.ARMOR_TOUGHNESS).getValue() > 0.0)
+			if (elb.getAttributeInstance(EntityAttributes.GENERIC_ARMOR_TOUGHNESS).getValue() > 0.0)
 			{
-				lst.add(Messenger.c(String.format("w  - Toughness: %.1f",elb.getAttributeInstance(EntityAttributes.ARMOR_TOUGHNESS).getValue())));
+				lst.add(Messenger.c(String.format("w  - Toughness: %.1f",elb.getAttributeInstance(EntityAttributes.GENERIC_ARMOR_TOUGHNESS).getValue())));
 			}
 			//lst.add(Messenger.c(String.format("w  - Base speed: %.1fb/s",get_speed(elb.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()))));
 
@@ -187,7 +187,7 @@ public class EntityInfoPorting
 			if (e instanceof MobEntity)  // EntityLiving
 			{
 				MobEntity el = (MobEntity)elb;
-				lst.add(Messenger.c(String.format("w  - Follow range: %.1f",el.getAttributeInstance(EntityAttributes.FOLLOW_RANGE).getValue())));
+				lst.add(Messenger.c(String.format("w  - Follow range: %.1f",el.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).getValue())));
 
 				lst.add(Messenger.c(String.format("w  - Movement speed factor: %.2f",el.getMoveControl().getSpeed())));
 
@@ -217,9 +217,9 @@ public class EntityInfoPorting
 					lst.add(Messenger.c("w  - Head 3 target: ", "wb "+EntityInfoUtil.entity_short_string(etarget) ));
 				}
 
-				if (e instanceof MobEntityWithAi)  // EntityCreature
+				if (e instanceof PathAwareEntity)  // EntityCreature
 				{
-					MobEntityWithAi ec = (MobEntityWithAi) e;
+					PathAwareEntity ec = (PathAwareEntity) e;
 					if (ec.hasPositionTarget())
 					{
 						BlockPos pos = ec.getPositionTarget();
@@ -241,11 +241,11 @@ public class EntityInfoPorting
 						{
 							VillagerEntity ev = (VillagerEntity) e;
 
-							BasicInventory vinv = ev.getInventory();
+							SimpleInventory vinv = ev.getInventory();
 							String inventory_content = "";
-							for (int i = 0; i < vinv.getInvSize(); ++i)
+							for (int i = 0; i < vinv.size(); ++i)
 							{
-								ItemStack vstack = vinv.getInvStack(i);
+								ItemStack vstack = vinv.getStack(i);
 								if (!vstack.isEmpty())
 								{
 									inventory_content += String.format("\n   * %d: %s", i, EntityInfoUtil.display_item(vstack));
@@ -264,8 +264,8 @@ public class EntityInfoPorting
 						{
 							HorseBaseEntity ah = (HorseBaseEntity) e;
 							lst.add(Messenger.c(String.format("w  - Horse Speed: %.2f b/s (%.1f%%%%)",
-									EntityInfoUtil.get_speed(elb.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue()),
-									EntityInfoUtil.get_horse_speed_percent(elb.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue())
+									EntityInfoUtil.get_speed(elb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue()),
+									EntityInfoUtil.get_horse_speed_percent(elb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue())
 							)));
 
 							double strength =
@@ -282,7 +282,7 @@ public class EntityInfoPorting
 					}
 					if (e instanceof HostileEntity)
 					{
-						lst.add(Messenger.c(String.format("w  - Base attack: %.1f",elb.getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).getValue())));
+						lst.add(Messenger.c(String.format("w  - Base attack: %.1f",elb.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue())));
 						if (e instanceof ZombieVillagerEntity)
 						{
 							ZombieVillagerEntityAccessor ezv = (ZombieVillagerEntityAccessor) e;

@@ -21,9 +21,9 @@
 package carpettisaddition.mixins.command.info.entity;
 
 //#if MC >= 11700
-//$$ import carpettisaddition.utils.compat.carpet.EntityInfo;
+import carpettisaddition.utils.compat.carpet.EntityInfo;
 //#else
-import carpet.utils.EntityInfo;
+//$$ import carpet.utils.EntityInfo;
 //#endif
 
 import carpettisaddition.commands.info.entity.EntityInfoPorting;

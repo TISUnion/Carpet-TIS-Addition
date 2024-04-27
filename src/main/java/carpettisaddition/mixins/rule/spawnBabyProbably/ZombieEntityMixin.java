@@ -34,13 +34,13 @@ public abstract class ZombieEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/entity/mob/ZombieEntity$ZombieData;<init>(ZZ)V"
+					target = "Lnet/minecraft/entity/mob/ZombieEntity$ZombieData;<init>(ZZ)V"
 					//#else
-					target = "Lnet/minecraft/entity/mob/ZombieEntity$Data;<init>(Lnet/minecraft/entity/mob/ZombieEntity;ZLnet/minecraft/entity/mob/ZombieEntity$1;)V"
+					//$$ target = "Lnet/minecraft/entity/mob/ZombieEntity$Data;<init>(Lnet/minecraft/entity/mob/ZombieEntity;ZLnet/minecraft/entity/mob/ZombieEntity$1;)V"
 					//#endif
 			)
 			//#if MC >= 11600
-			//$$ , index = 0
+			, index = 0
 			//#endif
 	)
 	private boolean spawnBabyProbably_zombie(boolean isBaby)

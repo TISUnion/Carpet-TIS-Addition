@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * with "java.lang.IllegalArgumentException: Unrecognized argument type net.minecraft.command.argument.TestClassArgumentType"
  * exception spamming in the console
  * <p>
- * Reason: {@link net.minecraft.command.arguments.ArgumentTypes#register} does not register those test argument types
+ * Reason: {@link net.minecraft.command.argument.ArgumentTypes#register} does not register those test argument types
  * used in the test command, resulting in a serializing failure when the server sends the command tree to the player
  */
 @Restriction(require = {

@@ -91,9 +91,9 @@ public abstract class DragonEggBlockMixin extends Block
 							(pos, pos.add(1, 1, 1));
 			List<AreaEffectCloudEntity> list =
 					//#if MC >= 11600
-					//$$ world.getEntitiesByClass
+					world.getEntitiesByClass
 					//#else
-					world.getEntities
+					//$$ world.getEntities
 					//#endif
 							(AreaEffectCloudEntity.class, box, (entity) -> {return entity != null && entity.isAlive();});
 			List<AreaEffectCloudEntity> dragonBreath = Lists.newArrayList();

@@ -59,7 +59,7 @@ public class MicroTimingStandardCarpetLogger extends
 		super(
 				acceleratorField, logName, def, options
 				//#if MC >= 11700
-				//$$ , true
+				, true
 				//#endif
 		);
 	}

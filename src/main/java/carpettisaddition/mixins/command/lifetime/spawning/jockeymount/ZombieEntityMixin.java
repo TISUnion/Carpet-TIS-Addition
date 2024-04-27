@@ -36,9 +36,9 @@ public abstract class ZombieEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/world/ServerWorldAccess;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/ServerWorldAccess;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 					//#else
-					target = "Lnet/minecraft/world/IWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//$$ target = "Lnet/minecraft/world/IWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 					//#endif
 			)
 	)

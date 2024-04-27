@@ -25,21 +25,21 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 11600
-//$$ import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.AbstractBlock;
 //#else
-import net.minecraft.block.Block;
+//$$ import net.minecraft.block.Block;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ AbstractBlock.class
+		AbstractBlock.class
 		//#else
-		Block.class
+		//$$ Block.class
 		//#endif
 )
 public interface BlockAccessor
 {
-	@Accessor("FACINGS")
+	@Accessor("DIRECTIONS")
 	static Direction[] getFACINGS()
 	{
 		throw new RuntimeException();

@@ -38,7 +38,7 @@ public abstract class EnchantCommandMixin
 			method = "execute",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/enchantment/Enchantment;getMaximumLevel()I"
+					target = "Lnet/minecraft/enchantment/Enchantment;getMaxLevel()I"
 			)
 	)
 	private static int enchantCommandNoRestriction_removeLevelRestriction(int maxLevel)
@@ -70,7 +70,7 @@ public abstract class EnchantCommandMixin
 			method = "execute",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/enchantment/EnchantmentHelper;contains(Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;)Z"
+					target = "Lnet/minecraft/enchantment/EnchantmentHelper;isCompatible(Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;)Z"
 			),
 			index = 0
 	)

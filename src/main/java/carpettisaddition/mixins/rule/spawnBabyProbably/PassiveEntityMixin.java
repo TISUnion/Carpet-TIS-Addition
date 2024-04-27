@@ -36,7 +36,7 @@ public abstract class PassiveEntityMixin
 			method = "initialize",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/passive/PassiveEntity$EntityData;getBabyChance()F"
+					target = "Lnet/minecraft/entity/passive/PassiveEntity$PassiveData;getBabyChance()F"
 			)
 	)
 	private float spawnBabyProbably_passiveEntities(float chance)

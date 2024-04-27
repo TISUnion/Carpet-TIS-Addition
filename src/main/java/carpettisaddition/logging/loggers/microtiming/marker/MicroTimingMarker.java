@@ -50,7 +50,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 //#if MC < 11700
-import org.apache.commons.lang3.tuple.Pair;
+//$$ import org.apache.commons.lang3.tuple.Pair;
 //#endif
 
 public class MicroTimingMarker
@@ -64,7 +64,7 @@ public class MicroTimingMarker
 	public final DyeColor color;
 	private final ShapeHolder<ShapeDispatcher.Box> box;
 	@Nullable
-	private final ShapeHolder<ShapeDispatcher.Text> text;
+	private final ShapeHolder<ShapeDispatcher.DisplayedText> text;
 	@Nullable
 	private final BaseText markerName;
 	private MicroTimingMarkerType markerType;
@@ -84,9 +84,9 @@ public class MicroTimingMarker
 
 		Function<BlockPos, Vec3d> fv =
 				//#if MC >= 11600
-				//$$ Vec3d::of;
+				Vec3d::of;
 				//#else
-				Vec3d::new;
+				//$$ Vec3d::new;
 				//#endif
 
 		this.box = ShapeUtil.createBox(
@@ -99,9 +99,9 @@ public class MicroTimingMarker
 		{
 			BaseText text = Messenger.c(
 					//#if MC >= 11600
-					//$$ MicroTimingUtil.getColorStyle(this.color) + " # ",
+					MicroTimingUtil.getColorStyle(this.color) + " # ",
 					//#else
-					Messenger.s(Messenger.parseCarpetStyle(MicroTimingUtil.getColorStyle(this.color)).getColor() + "# " + Formatting.RESET),
+					//$$ Messenger.s(Messenger.parseCarpetStyle(MicroTimingUtil.getColorStyle(this.color)).getColor() + "# " + Formatting.RESET),
 					//#endif
 					Messenger.copy(this.markerName)
 			);
@@ -170,16 +170,16 @@ public class MicroTimingMarker
 
 	public
 	//#if MC >= 11700
-	//$$ List<ShapeDispatcher.ShapeWithConfig>
+	List<ShapeDispatcher.ShapeWithConfig>
 	//#else
-	List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>>
+	//$$ List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>>
 	//#endif
 	getShapeDataList(boolean display)
 	{
 		//#if MC >= 11700
-		//$$ List<ShapeDispatcher.ShapeWithConfig>
+		List<ShapeDispatcher.ShapeWithConfig>
 		//#else
-		List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>>
+		//$$ List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>>
 		//#endif
 				result = Lists.newArrayList();
 
@@ -230,9 +230,9 @@ public class MicroTimingMarker
 	private BaseText withFormattingSymbol(String text)
 	{
 		//#if MC >= 11600
-		//$$ return Messenger.s(text, MicroTimingUtil.getColorStyle(this.color));
+		return Messenger.s(text, MicroTimingUtil.getColorStyle(this.color));
 		//#else
-		return Messenger.s(Messenger.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + text + Formatting.RESET);
+		//$$ return Messenger.s(Messenger.parseCarpetStyle(MicroTimingUtil.getColorStyle(color)).getColor() + text + Formatting.RESET);
 		//#endif
 	}
 

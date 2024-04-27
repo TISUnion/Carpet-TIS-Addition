@@ -63,9 +63,9 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Monste
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;remove(Lnet/minecraft/entity/Entity$RemovalReason;)V"
+					target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;remove(Lnet/minecraft/entity/Entity$RemovalReason;)V"
 					//#else
-					target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;remove()V"
+					//$$ target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;remove()V"
 					//#endif
 			)
 	)

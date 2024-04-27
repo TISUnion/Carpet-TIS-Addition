@@ -22,7 +22,7 @@ package carpettisaddition.mixins.command.fill.modeenhance;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.pattern.CachedBlockPosition;
-import net.minecraft.command.arguments.BlockStateArgument;
+import net.minecraft.command.argument.BlockStateArgument;
 import net.minecraft.server.command.FillCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.BlockBox;

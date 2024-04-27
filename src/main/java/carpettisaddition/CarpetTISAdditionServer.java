@@ -64,9 +64,9 @@ import java.util.Map;
 //#endif
 
 //#if MC >= 11600
-//$$ import carpet.script.annotation.AnnotationParser;
-//$$ import carpettisaddition.script.Functions;
-//$$ import carpettisaddition.script.MicroTimingEvent;
+import carpet.script.annotation.AnnotationParser;
+import carpettisaddition.script.Functions;
+import carpettisaddition.script.MicroTimingEvent;
 //#endif
 
 public class CarpetTISAdditionServer implements CarpetExtension
@@ -110,8 +110,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
 
 		// scarpet things
 		//#if MC >= 11600
-		//$$ AnnotationParser.parseFunctionClass(Functions.class);
-		//$$ MicroTimingEvent.noop();  //to register event properly
+		AnnotationParser.parseFunctionClass(Functions.class);
+		MicroTimingEvent.noop();  //to register event properly
 		//#endif
 	}
 

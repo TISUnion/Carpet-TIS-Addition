@@ -38,9 +38,9 @@ public abstract class HopperBlockEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;remove()V"
 					//#endif
 			)
 	)
@@ -48,9 +48,9 @@ public abstract class HopperBlockEntityMixin
 	{
 		if (
 				//#if MC >= 11700
-				//$$ !itemEntity.isRemoved()
+				!itemEntity.isRemoved()
 				//#else
-				!itemEntity.removed
+				//$$ !itemEntity.removed
 				//#endif
 		)
 		{

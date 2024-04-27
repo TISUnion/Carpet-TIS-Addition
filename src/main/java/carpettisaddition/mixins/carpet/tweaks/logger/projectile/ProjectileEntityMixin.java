@@ -32,17 +32,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // prevent ProjectileEntity(1.15) from being remapped into PersistentProjectileEntity(1.16)
 //#if MC >= 11600
-//$$ import net.minecraft.entity.projectile.ProjectileEntity;
-//#else
 import net.minecraft.entity.projectile.ProjectileEntity;
+//#else
+//$$ import net.minecraft.entity.projectile.ProjectileEntity;
 //#endif
 
 // smaller priority to make this execute before carpet's logger creation
 @Mixin(
 		//#if MC >= 11600
-		//$$ value = ProjectileEntity.class,
-		//#else
 		value = ProjectileEntity.class,
+		//#else
+		//$$ value = ProjectileEntity.class,
 		//#endif
 		priority = 500
 )
@@ -59,9 +59,9 @@ public abstract class ProjectileEntityMixin implements ProjectileLoggerTarget
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "onCollision(Lnet/minecraft/util/hit/HitResult;)V",
+			method = "onCollision(Lnet/minecraft/util/hit/HitResult;)V",
 			//#else
-			method = "onHit(Lnet/minecraft/util/hit/HitResult;)V",
+			//$$ method = "onHit(Lnet/minecraft/util/hit/HitResult;)V",
 			//#endif
 			at = @At("HEAD")
 	)

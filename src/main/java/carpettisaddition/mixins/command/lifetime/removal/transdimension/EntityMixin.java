@@ -31,10 +31,10 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11600
-//$$ import net.minecraft.server.world.ServerWorld;
-//$$ import org.jetbrains.annotations.Nullable;
+import net.minecraft.server.world.ServerWorld;
+import org.jetbrains.annotations.Nullable;
 //#else
-import net.minecraft.world.dimension.DimensionType;
+//$$ import net.minecraft.world.dimension.DimensionType;
 //#endif
 
 @Mixin(Entity.class)
@@ -42,9 +42,9 @@ public abstract class EntityMixin
 {
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "moveToWorld",
+			method = "moveToWorld",
 			//#else
-			method = "changeDimension",
+			//$$ method = "changeDimension",
 			//#endif
 			slice = @Slice(
 					from = @At(
@@ -58,24 +58,24 @@ public abstract class EntityMixin
 			),
 			at = @At(
 					//#if MC >= 11600
-					//$$ value = "INVOKE",
+					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/Entity;removeFromDimension()V"
+					target = "Lnet/minecraft/entity/Entity;removeFromDimension()V"
 					//#else
 					//$$ target = "Lnet/minecraft/entity/Entity;method_30076()V"
 					//#endif
 					//#else
-					value = "FIELD",
-					target = "Lnet/minecraft/entity/Entity;removed:Z"
+					//$$ value = "FIELD",
+					//$$ target = "Lnet/minecraft/entity/Entity;removed:Z"
 					//#endif
 			),
 			allow = 1
 	)
 	private void lifetimeTracker_recordRemoval_transDimension(
 			//#if MC >= 11600
-			//$$ ServerWorld destination, CallbackInfoReturnable<@Nullable Entity> cir
+			ServerWorld destination, CallbackInfoReturnable<@Nullable Entity> cir
 			//#else
-			DimensionType destination, CallbackInfoReturnable<Entity> cir
+			//$$ DimensionType destination, CallbackInfoReturnable<Entity> cir
 			//#endif
 	)
 	{

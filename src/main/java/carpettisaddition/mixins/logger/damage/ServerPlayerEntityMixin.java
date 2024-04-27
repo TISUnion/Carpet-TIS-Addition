@@ -40,7 +40,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos;
 //#endif
 
 @Mixin(ServerPlayerEntity.class)
@@ -57,15 +57,15 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 	//$$ 	super(world, pos, yaw, profile, playerPublicKey);
 	//$$ }
 	//#elseif MC >= 11600
-	//$$ public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile)
-	//$$ {
-	//$$ 	super(world, pos, yaw, profile);
-	//$$ }
-	//#else
-	public ServerPlayerEntityMixin(World world, GameProfile profile)
+	public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile)
 	{
-		super(world, profile);
+		super(world, pos, yaw, profile);
 	}
+	//#else
+	//$$ public ServerPlayerEntityMixin(World world, GameProfile profile)
+	//$$ {
+	//$$ 	super(world, profile);
+	//$$ }
 	//#endif
 
 	// at the start of player damage calculation

@@ -24,9 +24,9 @@ import carpettisaddition.utils.NetworkUtil;
 import com.google.common.collect.Lists;
 import io.netty.buffer.Unpooled;
 import junit.framework.TestCase;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.network.PacketByteBuf;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -44,17 +44,17 @@ public class NetworkUtilTest extends TestCase
 		assertEquals(expectedStyle, nbtStyle);
 	}
 
-	private static void assertStyle(CompoundTag nbt, NetworkUtil.NbtStyle expectedStyle)
+	private static void assertStyle(NbtCompound nbt, NetworkUtil.NbtStyle expectedStyle)
 	{
 		PacketByteBuf buf = newBuffer();
-		buf.writeCompoundTag(nbt);
+		buf.writeNbt(nbt);
 		NetworkUtil.NbtStyle nbtStyle = NetworkUtil.guessNbtStyle(buf);
 		assertEquals(expectedStyle, nbtStyle);
 	}
 
 	public void testNbtGuessStyle_valid()
 	{
-		List<Consumer<CompoundTag>> nbtMakers = Lists.newArrayList(
+		List<Consumer<NbtCompound>> nbtMakers = Lists.newArrayList(
 				nbt -> {},
 				nbt -> nbt.putByte("byte", (byte)123),
 				nbt -> nbt.putShort("short", (short)123),
@@ -65,20 +65,20 @@ public class NetworkUtilTest extends TestCase
 				nbt -> nbt.putByteArray("bytes", new byte[]{5, 6, 7}),
 				nbt -> nbt.putString("string", "foobar"),
 
-				nbt -> nbt.put("list", new ListTag()),
+				nbt -> nbt.put("list", new NbtList()),
 				nbt -> {
-					ListTag child = new ListTag();
-					CompoundTag e1 = new CompoundTag();
-					CompoundTag e2 = new CompoundTag();
+					NbtList child = new NbtList();
+					NbtCompound e1 = new NbtCompound();
+					NbtCompound e2 = new NbtCompound();
 					e1.putLongArray("foo", new long[]{999, 888});
 					child.add(e1);
 					child.add(e2);
 					nbt.put("list", child);
 				},
 
-				nbt -> nbt.put("compound", new CompoundTag()),
+				nbt -> nbt.put("compound", new NbtCompound()),
 				nbt -> {
-					CompoundTag child = new CompoundTag();
+					NbtCompound child = new NbtCompound();
 					child.putString("x", "X");
 					child.putInt("y", -1);
 					nbt.put("compound", child);
@@ -88,13 +88,13 @@ public class NetworkUtilTest extends TestCase
 				nbt -> nbt.putLongArray("longs", new long[]{5, 6, 7})
 		);
 
-		for (Consumer<CompoundTag> m1 : nbtMakers)
+		for (Consumer<NbtCompound> m1 : nbtMakers)
 		{
-			for (Consumer<CompoundTag> m2 : nbtMakers)
+			for (Consumer<NbtCompound> m2 : nbtMakers)
 			{
-				for (Consumer<CompoundTag> m3 : nbtMakers)
+				for (Consumer<NbtCompound> m3 : nbtMakers)
 				{
-					CompoundTag nbt = new CompoundTag();
+					NbtCompound nbt = new NbtCompound();
 					m1.accept(nbt);
 					m2.accept(nbt);
 					m3.accept(nbt);
@@ -117,12 +117,12 @@ public class NetworkUtilTest extends TestCase
 		}
 
 		{
-			CompoundTag nbt = new CompoundTag();
+			NbtCompound nbt = new NbtCompound();
 			nbt.putString("foo", "abc");
 			nbt.putInt("bar", 0);
 
 			PacketByteBuf buf = newBuffer();
-			buf.writeCompoundTag(nbt);
+			buf.writeNbt(nbt);
 			assertTrue(buf.readableBytes() >= 1);
 			assertEquals(0x0A, buf.readByte());
 

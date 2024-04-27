@@ -31,9 +31,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 //#if MC >= 11700
-//$$ import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
-//$$ import org.spongepowered.asm.mixin.injection.Inject;
-//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
 @Mixin(LivingEntity.class)
@@ -63,28 +63,28 @@ public abstract class LivingEntityMixin extends Entity
 	}
 
 	//#if MC >= 11700
-	//$$ @Inject(method = "dropXp", at = @At("HEAD"))
-	//$$ private void lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrbHook(CallbackInfo ci)
-	//$$ {
-	//$$ 	LifetimeMixinUtil.xpOrbSpawningReason.set(new MobDropSpawningReason(this.getType()));
-	//$$ }
+	@Inject(method = "dropXp", at = @At("HEAD"))
+	private void lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrbHook(CallbackInfo ci)
+	{
+		LifetimeMixinUtil.xpOrbSpawningReason.set(new MobDropSpawningReason(this.getType()));
+	}
 	//#else
-	@ModifyArg(
+	//$$ @ModifyArg(
 			//#if MC >= 11500
-			method = "dropXp",
+			//$$ method = "dropXp",
 			//#else
 			//$$ method = "updatePostDeath",
 			//#endif
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			),
-			index = 0
-	)
-	private Entity lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrb(Entity entity)
-	{
-		((LifetimeTrackerTarget)entity).recordSpawning(new MobDropSpawningReason(this.getType()));
-		return entity;
-	}
+	//$$ 		at = @At(
+	//$$ 				value = "INVOKE",
+	//$$ 				target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+	//$$ 		),
+	//$$ 		index = 0
+	//$$ )
+	//$$ private Entity lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrb(Entity entity)
+	//$$ {
+	//$$ 	((LifetimeTrackerTarget)entity).recordSpawning(new MobDropSpawningReason(this.getType()));
+	//$$ 	return entity;
+	//$$ }
 	//#endif
 }

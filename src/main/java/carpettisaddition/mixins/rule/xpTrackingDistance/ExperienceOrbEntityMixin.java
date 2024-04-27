@@ -31,9 +31,9 @@ public abstract class ExperienceOrbEntityMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 11700
-			//$$ method = {"tick", "expensiveUpdate"}, require = 1,
+			method = {"tick", "expensiveUpdate"}, require = 1,
 			//#else
-			method = "tick", require = 3,
+			//$$ method = "tick", require = 3,
 			//#endif
 			at = @At(
 					value = "CONSTANT",
@@ -47,9 +47,9 @@ public abstract class ExperienceOrbEntityMixin
 
 	@ModifyExpressionValue(
 			//#if MC >= 11700
-			//$$ method = {"tick", "expensiveUpdate"}, require = 1,
+			method = {"tick", "expensiveUpdate"}, require = 1,
 			//#else
-			method = "tick", require = 2,
+			//$$ method = "tick", require = 2,
 			//#endif
 			at = @At(
 					value = "CONSTANT",

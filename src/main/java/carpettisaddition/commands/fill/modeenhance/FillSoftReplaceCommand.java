@@ -35,10 +35,10 @@ import net.minecraft.util.math.BlockBox;
 
 import java.util.function.Predicate;
 
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
-import static net.minecraft.command.arguments.BlockPredicateArgumentType.blockPredicate;
-import static net.minecraft.command.arguments.BlockPredicateArgumentType.getBlockPredicate;
-import static net.minecraft.command.arguments.BlockStateArgumentType.getBlockState;
+import static net.minecraft.command.argument.BlockPosArgumentType.getLoadedBlockPos;
+import static net.minecraft.command.argument.BlockPredicateArgumentType.blockPredicate;
+import static net.minecraft.command.argument.BlockPredicateArgumentType.getBlockPredicate;
+import static net.minecraft.command.argument.BlockStateArgumentType.getBlockState;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -89,9 +89,9 @@ public class FillSoftReplaceCommand extends AbstractCommand implements CommandEx
 			return FillCommandAccessor.invokeExecute(
 					context.getSource(),
 					//#if MC >= 11700
-					//$$ BlockBox.create
+					BlockBox.create
 					//#else
-					new BlockBox
+					//$$ new BlockBox
 					//#endif
 							(getLoadedBlockPos(context, "from"), getLoadedBlockPos(context, "to")),
 					getBlockState(context, "block"),

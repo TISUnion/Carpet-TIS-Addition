@@ -42,9 +42,9 @@ public abstract class BoatEntityMixin implements DamageableEntity
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/vehicle/BoatEntity;discard()V"
+					target = "Lnet/minecraft/entity/vehicle/BoatEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/vehicle/BoatEntity;remove()V"
+					//$$ target = "Lnet/minecraft/entity/vehicle/BoatEntity;remove()V"
 					//#endif
 			),
 			argsOnly = true

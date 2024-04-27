@@ -58,9 +58,9 @@ public abstract class HUDControllerMixin
 			/* ----- parent method parameters vvv -----*/
 
 			//#if MC >= 11600
-			//$$ ServerPlayerEntity player,
+			ServerPlayerEntity player,
 			//#else
-			PlayerEntity player,
+			//$$ PlayerEntity player,
 			//#endif
 
 			//#if MC >= 11900

@@ -39,15 +39,15 @@ public abstract class PlayerCommandMixin
 	private static String getDecoratedString(final CommandContext<?> context, final String name)
 	{
 		//#if MC >= 11700
-		//$$ String playerName = StringArgumentType.getString(context, name);
-		//$$ if (!name.equals("player"))
-		//$$ {
-		//$$ 	// since carpet v1.4.48 or whatever:
-		//$$ 	// not <player> argument, might be <gamemode>, so return the value directly
-		//$$ 	return playerName;
-		//$$ }
-		//#else
 		String playerName = StringArgumentType.getString(context, name);
+		if (!name.equals("player"))
+		{
+			// since carpet v1.4.48 or whatever:
+			// not <player> argument, might be <gamemode>, so return the value directly
+			return playerName;
+		}
+		//#else
+		//$$ String playerName = StringArgumentType.getString(context, name);
 		//#endif
 
 		String rulePrefix = CarpetTISAdditionSettings.fakePlayerNamePrefix;
@@ -70,7 +70,7 @@ public abstract class PlayerCommandMixin
 					target = "Lcom/mojang/brigadier/arguments/StringArgumentType;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
 			),
 			//#if MC < 11700
-			require = 2,
+			//$$ require = 2,
 			//#endif
 			remap = false
 	)
@@ -95,16 +95,16 @@ public abstract class PlayerCommandMixin
 
 	//#if MC >= 11600
 	//#elseif MC >= 11500
-	@ModifyConstant(
-			method = "spawn",
-			constant = @Constant(intValue = 40),
-			require = 1,
-			remap = false
-	)
-	private static int nameLengthLimit(int value)
-	{
-		return 16;
-	}
+	//$$ @ModifyConstant(
+	//$$ 		method = "spawn",
+	//$$ 		constant = @Constant(intValue = 40),
+	//$$ 		require = 1,
+	//$$ 		remap = false
+	//$$ )
+	//$$ private static int nameLengthLimit(int value)
+	//$$ {
+	//$$ 	return 16;
+	//$$ }
 	//#else
 	//$$ @Inject(
 	//$$		method = "spawn",

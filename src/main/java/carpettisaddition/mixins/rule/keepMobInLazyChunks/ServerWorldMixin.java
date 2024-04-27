@@ -41,19 +41,19 @@ public abstract class ServerWorldMixin
 	 */
 	@WrapOperation(
 			//#if MC >= 11700
-			//$$ method = "method_31420",  // lambda method in method ServerWorld#tick
-			//$$ at = @At(
-			//$$ 		value = "INVOKE",
-			//$$ 		target = "Lnet/minecraft/entity/Entity;checkDespawn()V",
-			//$$ 		remap = true
-			//$$ ),
-			//$$ remap = false
-			//#else
-			method = "tick",
+			method = "method_31420",  // lambda method in method ServerWorld#tick
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/Entity;checkDespawn()V"
-			)
+					target = "Lnet/minecraft/entity/Entity;checkDespawn()V",
+					remap = true
+			),
+			remap = false
+			//#else
+			//$$ method = "tick",
+			//$$ at = @At(
+			//$$ 		value = "INVOKE",
+			//$$ 		target = "Lnet/minecraft/entity/Entity;checkDespawn()V"
+			//$$ )
 			//#endif
 	)
 	private void keepMobInLazyChunks_optionalCheckDespawn(Entity entity, Operation<Void> original)

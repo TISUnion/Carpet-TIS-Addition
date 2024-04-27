@@ -35,14 +35,14 @@ import java.util.concurrent.CompletableFuture;
 
 
 //#if MC >= 11700
-//$$ import carpettisaddition.mixins.utils.DirectBlockEntityTickInvokerAccessor;
-//$$ import carpettisaddition.mixins.utils.WrappedBlockEntityTickInvokerAccessor;
-//$$ import net.minecraft.block.entity.BlockEntity;
-//$$ import net.minecraft.world.chunk.BlockEntityTickInvoker;
+import carpettisaddition.mixins.utils.DirectBlockEntityTickInvokerAccessor;
+import carpettisaddition.mixins.utils.WrappedBlockEntityTickInvokerAccessor;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.chunk.BlockEntityTickInvoker;
 //#endif
 
 //#if MC < 11600
-import net.minecraft.world.dimension.DimensionType;
+//$$ import net.minecraft.world.dimension.DimensionType;
 //#endif
 
 @SuppressWarnings("UnusedReturnValue")
@@ -51,9 +51,9 @@ public class GameUtil
 	public static long getGameTime()
 	{
 		//#if MC >= 11600
-		//$$ World world = CarpetTISAdditionServer.minecraft_server.getWorld(World.OVERWORLD);
+		World world = CarpetTISAdditionServer.minecraft_server.getWorld(World.OVERWORLD);
 		//#else
-		World world = CarpetTISAdditionServer.minecraft_server.getWorld(DimensionType.OVERWORLD);
+		//$$ World world = CarpetTISAdditionServer.minecraft_server.getWorld(DimensionType.OVERWORLD);
 		//#endif
 
 		return Objects.requireNonNull(world).getTime();
@@ -100,21 +100,21 @@ public class GameUtil
 	}
 
 	//#if MC >= 11700
-	//$$ /**
-	//$$  * for mc 1.17+
-	//$$  */
-	//$$ @Nullable
-	//$$ public static BlockEntity getBlockEntityFromTickInvoker(BlockEntityTickInvoker blockEntityTickInvoker)
-	//$$ {
-	//$$ 	if (blockEntityTickInvoker instanceof DirectBlockEntityTickInvokerAccessor)
-	//$$ 	{
-	//$$ 		return ((DirectBlockEntityTickInvokerAccessor<?>) blockEntityTickInvoker).getBlockEntity();
-	//$$ 	}
-	//$$ 	else if (blockEntityTickInvoker instanceof WrappedBlockEntityTickInvokerAccessor)
-	//$$ 	{
-	//$$ 		return getBlockEntityFromTickInvoker(((WrappedBlockEntityTickInvokerAccessor<?>)blockEntityTickInvoker).getWrapped());
-	//$$ 	}
-	//$$ 	return null;
-	//$$ }
+	/**
+	 * for mc 1.17+
+	 */
+	@Nullable
+	public static BlockEntity getBlockEntityFromTickInvoker(BlockEntityTickInvoker blockEntityTickInvoker)
+	{
+		if (blockEntityTickInvoker instanceof DirectBlockEntityTickInvokerAccessor)
+		{
+			return ((DirectBlockEntityTickInvokerAccessor<?>) blockEntityTickInvoker).getBlockEntity();
+		}
+		else if (blockEntityTickInvoker instanceof WrappedBlockEntityTickInvokerAccessor)
+		{
+			return getBlockEntityFromTickInvoker(((WrappedBlockEntityTickInvokerAccessor<?>)blockEntityTickInvoker).getWrapped());
+		}
+		return null;
+	}
 	//#endif
 }

@@ -34,11 +34,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 11600
-//$$ import java.util.Iterator;
-//$$ import java.util.Set;
+import java.util.Iterator;
+import java.util.Set;
 //#else
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.List;
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//$$ import java.util.List;
 //#endif
 
 public abstract class EmitBlockUpdateMixins
@@ -205,18 +205,18 @@ public abstract class EmitBlockUpdateMixins
 				at = @At(
 						value = "INVOKE",
 						//#if MC >= 11600
-						//$$ target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
+						target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
 						//#else
-						target = "Ljava/util/List;iterator()Ljava/util/Iterator;"
+						//$$ target = "Ljava/util/List;iterator()Ljava/util/Iterator;"
 						//#endif
 				)
 		)
 		private void startEmitBlockUpdate(
 				World world, BlockPos pos, BlockState state,
 				//#if MC >= 11600
-				//$$ CallbackInfo ci, @Local Set<BlockPos> collection
+				CallbackInfo ci, @Local Set<BlockPos> collection
 				//#else
-				CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> collection
+				//$$ CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> collection
 				//#endif
 		)
 		{
@@ -224,26 +224,26 @@ public abstract class EmitBlockUpdateMixins
 		}
 
 		//#if MC >= 11600
-		//$$ @Inject(
-		//$$ 		method = "update",
-		//$$ 		at = @At(
-		//$$ 				value = "INVOKE",
-		//$$ 				target = "Ljava/util/Iterator;hasNext()Z"
-		//$$ 		)
-		//$$ )
-		//$$ private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci, @Local Iterator<BlockPos> iterator)
-		//$$ {
-		//$$ 	if (!iterator.hasNext())
-		//$$ 	{
-		//$$ 		MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock) (Object) this, pos, EventType.ACTION_END, "update", null);
-		//$$ 	}
-		//$$ }
-		//#else
-		@Inject(method = "update", at = @At("RETURN"))
-		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir)
+		@Inject(
+				method = "update",
+				at = @At(
+						value = "INVOKE",
+						target = "Ljava/util/Iterator;hasNext()Z"
+				)
+		)
+		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci, @Local Iterator<BlockPos> iterator)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_END, "update", null);
+			if (!iterator.hasNext())
+			{
+				MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock) (Object) this, pos, EventType.ACTION_END, "update", null);
+			}
 		}
+		//#else
+		//$$ @Inject(method = "update", at = @At("RETURN"))
+		//$$ private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir)
+		//$$ {
+		//$$ 	MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_END, "update", null);
+		//$$ }
 		//#endif
 	}
 }

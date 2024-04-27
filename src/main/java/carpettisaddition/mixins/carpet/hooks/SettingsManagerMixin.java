@@ -60,12 +60,12 @@ public class SettingsManagerMixin
 					//#if MC >= 11901
 					//$$ target = "Lcarpet/api/settings/SettingsManager;getCategories()Ljava/lang/Iterable;"
 					//#elseif MC >= 11600
-					//$$ target = "Lcarpet/settings/SettingsManager;getCategories()Ljava/lang/Iterable;",
-					//$$ ordinal = 0
+					target = "Lcarpet/settings/SettingsManager;getCategories()Ljava/lang/Iterable;",
+					ordinal = 0
 					//#else
-					target = "Lnet/minecraft/server/command/ServerCommandSource;getPlayer()Lnet/minecraft/server/network/ServerPlayerEntity;",
-					ordinal = 0,
-					remap = true
+					//$$ target = "Lnet/minecraft/server/command/ServerCommandSource;getPlayer()Lnet/minecraft/server/network/ServerPlayerEntity;",
+					//$$ ordinal = 0,
+					//$$ remap = true
 					//#endif
 			),
 			remap = false

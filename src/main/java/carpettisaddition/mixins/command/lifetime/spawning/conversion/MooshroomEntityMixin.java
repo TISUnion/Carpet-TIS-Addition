@@ -41,19 +41,19 @@ public abstract class MooshroomEntityMixin extends Entity
 
 	@ModifyArg(
 			//#if MC >= 11600
-			//$$ method = "sheared",
+			method = "sheared",
 			//#else
-			method = "interactMob",
-			slice = @Slice(
-					from = @At(
-							value = "FIELD",
-							target = "Lnet/minecraft/item/Items;SHEARS:Lnet/minecraft/item/Item;"
-					),
-					to = @At(
-							value = "FIELD",
-							target = "Lnet/minecraft/tag/ItemTags;SMALL_FLOWERS:Lnet/minecraft/tag/Tag;"
-					)
-			),
+			//$$ method = "interactMob",
+			//$$ slice = @Slice(
+			//$$ 		from = @At(
+			//$$ 				value = "FIELD",
+			//$$ 				target = "Lnet/minecraft/item/Items;SHEARS:Lnet/minecraft/item/Item;"
+			//$$ 		),
+			//$$ 		to = @At(
+			//$$ 				value = "FIELD",
+			//$$ 				target = "Lnet/minecraft/tag/ItemTags;SMALL_FLOWERS:Lnet/minecraft/tag/Tag;"
+			//$$ 		)
+			//$$ ),
 			//#endif
 			at = @At(
 					value = "INVOKE",

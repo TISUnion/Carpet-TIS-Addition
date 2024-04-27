@@ -20,12 +20,12 @@
 
 package carpettisaddition.commands.speedtest.ping;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 public interface PongReceiver
 {
 	/**
 	 * Invoked on network thread
 	 */
-	void onPongReceived(CompoundTag payload);
+	void onPongReceived(NbtCompound payload);
 }

@@ -37,9 +37,9 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 //#if MC >= 11600
-//$$ import net.minecraft.world.level.ServerWorldProperties;
+import net.minecraft.world.level.ServerWorldProperties;
 //#else
-import net.minecraft.world.level.LevelProperties;
+//$$ import net.minecraft.world.level.LevelProperties;
 //#endif
 
 import static net.minecraft.server.command.CommandManager.literal;
@@ -90,9 +90,9 @@ public class InfoWorldCommand extends InfoSubcommand
 		ServerWorld world = source.getWorld();
 
 		//#if MC >= 11600
-		//$$ ServerWorldProperties worldInfo = (ServerWorldProperties)world.getLevelProperties();
+		ServerWorldProperties worldInfo = (ServerWorldProperties)world.getLevelProperties();
 		//#else
-		LevelProperties worldInfo = world.getLevelProperties();
+		//$$ LevelProperties worldInfo = world.getLevelProperties();
 		//#endif
 
 		int clearTime = worldInfo.getClearWeatherTime();

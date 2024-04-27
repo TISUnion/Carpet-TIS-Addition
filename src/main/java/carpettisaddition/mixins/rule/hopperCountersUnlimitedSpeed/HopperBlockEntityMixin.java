@@ -41,10 +41,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11700
-//$$ import net.minecraft.block.BlockState;
-//$$ import java.util.function.BooleanSupplier;
+import net.minecraft.block.BlockState;
+import java.util.function.BooleanSupplier;
 //#else
-import java.util.function.Supplier;
+//$$ import java.util.function.Supplier;
 //#endif
 
 @Mixin(HopperBlockEntity.class)
@@ -53,34 +53,34 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	private static final int OPERATION_LIMIT = Short.MAX_VALUE;
 
 	//#if MC >= 11700
-	//$$ protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState)
-	//$$ {
-	//$$ 	super(blockEntityType, blockPos, blockState);
-	//$$ }
-	//#else
-	public HopperBlockEntityMixin()
+	protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState)
 	{
-		super(BlockEntityType.HOPPER);
+		super(blockEntityType, blockPos, blockState);
 	}
+	//#else
+	//$$ public HopperBlockEntityMixin()
+	//$$ {
+	//$$ 	super(BlockEntityType.HOPPER);
+	//$$ }
 	//#endif
 
 	//#if MC >= 11700
-	//$$ @Shadow
-	//$$ //#if MC >= 12005
-	//$$ //$$ private static boolean insert(World world, BlockPos blockPos, HopperBlockEntity hopper)
-	//$$ //#else
-	//$$ private static boolean insert(World world, BlockPos blockPos, BlockState blockState, Inventory inventory)
-	//$$ //#endif
-	//$$ {
-	//$$ 	return false;
-	//$$ }
+	@Shadow
+	//#if MC >= 12005
+	//$$ private static boolean insert(World world, BlockPos blockPos, HopperBlockEntity hopper)
 	//#else
-	@Shadow protected abstract boolean insert();
-	@Shadow protected abstract boolean isFull();
-	@Shadow public abstract double getHopperX();
-	@Shadow public abstract double getHopperY();
-	@Shadow public abstract double getHopperZ();
-	@Shadow protected abstract void setCooldown(int cooldown);
+	private static boolean insert(World world, BlockPos blockPos, BlockState blockState, Inventory inventory)
+	//#endif
+	{
+		return false;
+	}
+	//#else
+	//$$ @Shadow protected abstract boolean insert();
+	//$$ @Shadow protected abstract boolean isFull();
+	//$$ @Shadow public abstract double getHopperX();
+	//$$ @Shadow public abstract double getHopperY();
+	//$$ @Shadow public abstract double getHopperZ();
+	//$$ @Shadow protected abstract void setCooldown(int cooldown);
 	//#endif
 
 	@Inject(
@@ -88,31 +88,31 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/block/entity/HopperBlockEntity;setTransferCooldown(I)V",
+					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setTransferCooldown(I)V",
 					//#else
-					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V",
+					//$$ target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V",
 					//#endif
 					shift = At.Shift.AFTER
 			)
 	)
 	//#if MC >= 11700
-	//$$ private static void hopperCountersUnlimitedSpeed_impl(World world, BlockPos blockPos, BlockState blockState, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
+	private static void hopperCountersUnlimitedSpeed_impl(World world, BlockPos blockPos, BlockState blockState, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
 	//#else
-	private void hopperCountersUnlimitedSpeed_impl(Supplier<Boolean> extractMethod, CallbackInfoReturnable<Boolean> cir)
+	//$$ private void hopperCountersUnlimitedSpeed_impl(Supplier<Boolean> extractMethod, CallbackInfoReturnable<Boolean> cir)
 	//#endif
 	{
 		if (CarpetSettings.hopperCounters && CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed)
 		{
 			// hopper counter check
 			//#if MC >= 11700
-			//$$ DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperBlockEntity.getPos().offset(hopperBlockEntity.getCachedState().get(HopperBlock.FACING)));
+			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperBlockEntity.getPos().offset(hopperBlockEntity.getCachedState().get(HopperBlock.FACING)));
 			//#else
-			World world = getWorld();
-			if (world == null)
-			{
-				return;
-			}
-			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, new BlockPos(getHopperX(), getHopperY(), getHopperZ()).offset(this.getCachedState().get(HopperBlock.FACING)));
+			//$$ World world = getWorld();
+			//$$ if (world == null)
+			//$$ {
+			//$$ 	return;
+			//$$ }
+			//$$ DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, new BlockPos(getHopperX(), getHopperY(), getHopperZ()).offset(this.getCachedState().get(HopperBlock.FACING)));
 			//#endif
 
 			if (wool_color == null)
@@ -129,27 +129,27 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				// vanilla copy starts
 
 				//#if MC >= 11700
-				//$$ if (!hopperBlockEntity.isEmpty())
-				//$$ {
-				//$$    //#if MC >= 12005
-				//$$    //$$ flag = insert(world, blockPos, hopperBlockEntity);
-				//$$    //#else
-				//$$ 	flag = insert(world, blockPos, blockState, hopperBlockEntity);
-				//$$ 	//#endif
-				//$$ }
-				//$$ if (!((HopperBlockEntityAccessor)hopperBlockEntity).invokeIsFull())
-				//$$ {
-				//$$ 	flag |= booleanSupplier.getAsBoolean();
-				//$$ }
+				if (!hopperBlockEntity.isEmpty())
+				{
+				   //#if MC >= 12005
+				   //$$ flag = insert(world, blockPos, hopperBlockEntity);
+				   //#else
+					flag = insert(world, blockPos, blockState, hopperBlockEntity);
+					//#endif
+				}
+				if (!((HopperBlockEntityAccessor)hopperBlockEntity).invokeIsFull())
+				{
+					flag |= booleanSupplier.getAsBoolean();
+				}
 				//#else
-				if (!this.isInvEmpty())
-				{
-					flag = this.insert();
-				}
-				if (!this.isFull())
-				{
-					flag |= (Boolean)extractMethod.get();
-				}
+				//$$ if (!this.isEmpty())
+				//$$ {
+				//$$ 	flag = this.insert();
+				//$$ }
+				//$$ if (!this.isFull())
+				//$$ {
+				//$$ 	flag |= (Boolean)extractMethod.get();
+				//$$ }
 				//#endif
 				// vanilla copy ends
 
@@ -161,9 +161,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				{
 					BlockPos hopperPos =
 							//#if MC >= 11700
-							//$$ hopperBlockEntity.getPos();
+							hopperBlockEntity.getPos();
 							//#else
-							new BlockPos(getHopperX(), getHopperY(), getHopperZ());
+							//$$ new BlockPos(getHopperX(), getHopperY(), getHopperZ());
 							//#endif
 
 					CarpetTISAdditionServer.LOGGER.warn(String.format("Hopper at %s exceeded hopperCountersUnlimitedSpeed operation limit %d", hopperPos, OPERATION_LIMIT));
@@ -172,9 +172,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 
 			// no cooldown
 			//#if MC >= 11700
-			//$$ ((HopperBlockEntityAccessor)hopperBlockEntity).invokeSetCooldown(0);
+			((HopperBlockEntityAccessor)hopperBlockEntity).invokeSetCooldown(0);
 			//#else
-			this.setCooldown(0);
+			//$$ this.setCooldown(0);
 			//#endif
 		}
 	}
@@ -191,9 +191,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 		{
 			if (
 					//#if MC >= 11700
-					//$$ itemEntity.isRemoved()
+					itemEntity.isRemoved()
 					//#else
-					itemEntity.removed
+					//$$ itemEntity.removed
 					//#endif
 			)
 			{

@@ -40,7 +40,7 @@ public abstract class AbstractHUDLogger extends AbstractLogger
 		return TISAdditionLoggerRegistry.standardHUDLogger(
 				this.getName(), this.getDefaultLoggingOption(), this.getSuggestedLoggingOption()
 				//#if MC >= 11700
-				//$$ , true
+				, true
 				//#endif
 		);
 	}

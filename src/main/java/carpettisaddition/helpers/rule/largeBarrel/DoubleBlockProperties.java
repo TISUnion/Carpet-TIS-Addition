@@ -28,7 +28,7 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.World;
 
 import java.util.function.BiPredicate;
@@ -54,7 +54,7 @@ public class DoubleBlockProperties {
 		return blockEntity != null && blockEntity.getType() == blockEntityType ? (S)blockEntity : null;
 	}
 
-	public static <S extends BlockEntity> DoubleBlockProperties.PropertySource<S> toPropertySource(BlockEntityType<S> blockEntityType, Function<BlockState, DoubleBlockProperties.Type> typeMapper, Function<BlockState, Direction> function, DirectionProperty directionProperty, BlockState state, IWorld world, BlockPos pos, BiPredicate<IWorld, BlockPos> fallbackTester) {
+	public static <S extends BlockEntity> DoubleBlockProperties.PropertySource<S> toPropertySource(BlockEntityType<S> blockEntityType, Function<BlockState, DoubleBlockProperties.Type> typeMapper, Function<BlockState, Direction> function, DirectionProperty directionProperty, BlockState state, WorldAccess world, BlockPos pos, BiPredicate<WorldAccess, BlockPos> fallbackTester) {
 		S blockEntity = getBlockEntity(blockEntityType, world, pos);
 		if (blockEntity == null) {
 			return DoubleBlockProperties.PropertyRetriever::getFallback;

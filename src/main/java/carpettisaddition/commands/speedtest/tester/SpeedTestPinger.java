@@ -31,7 +31,7 @@ import carpettisaddition.commands.speedtest.session.SpeedTestSessionMessenger;
 import carpettisaddition.commands.speedtest.session.SpeedTestSessionMessengerImpl;
 import carpettisaddition.translations.TranslationContext;
 import com.google.common.collect.Lists;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
@@ -173,7 +173,7 @@ public class SpeedTestPinger extends TranslationContext implements SpeedTestServ
 	}
 
 	@Override
-	public void onPongReceived(CompoundTag payload)
+	public void onPongReceived(NbtCompound payload)
 	{
 		this.pingHandler.onPongReceived(payload);
 	}

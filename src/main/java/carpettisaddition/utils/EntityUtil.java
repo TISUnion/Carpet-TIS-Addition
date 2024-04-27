@@ -38,9 +38,9 @@ public class EntityUtil
 	public static PlayerAbilities getPlayerAbilities(@NotNull PlayerEntity player)
 	{
 		//#if MC >= 11700
-		//$$ return player.getAbilities();
+		return player.getAbilities();
 		//#else
-		return player.abilities;
+		//$$ return player.abilities;
 		//#endif
 	}
 
@@ -67,18 +67,18 @@ public class EntityUtil
 	public static float getYaw(@NotNull Entity entity)
 	{
 		//#if MC >= 11700
-		//$$ return entity.getYaw();
+		return entity.getYaw();
 		//#else
-		return entity.yaw;
+		//$$ return entity.yaw;
 		//#endif
 	}
 
 	public static float getPitch(@NotNull Entity entity)
 	{
 		//#if MC >= 11700
-		//$$ return entity.getPitch();
+		return entity.getPitch();
 		//#else
-		return entity.pitch;
+		//$$ return entity.pitch;
 		//#endif
 	}
 

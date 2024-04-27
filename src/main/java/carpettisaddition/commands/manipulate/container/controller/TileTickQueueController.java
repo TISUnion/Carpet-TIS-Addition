@@ -35,18 +35,18 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
-import static net.minecraft.command.arguments.BlockStateArgumentType.blockState;
-import static net.minecraft.command.arguments.BlockStateArgumentType.getBlockState;
+import static net.minecraft.command.argument.BlockPosArgumentType.blockPos;
+import static net.minecraft.command.argument.BlockPosArgumentType.getLoadedBlockPos;
+import static net.minecraft.command.argument.BlockStateArgumentType.blockState;
+import static net.minecraft.command.argument.BlockStateArgumentType.getBlockState;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 //#if MC >= 11800
-//$$ import net.minecraft.world.tick.WorldTickScheduler;
+import net.minecraft.world.tick.WorldTickScheduler;
 //#else
-import net.minecraft.server.world.ServerTickScheduler;
-import java.util.List;
+//$$ import net.minecraft.server.world.ServerTickScheduler;
+//$$ import java.util.List;
 //#endif
 
 public class TileTickQueueController extends AbstractContainerController
@@ -58,28 +58,28 @@ public class TileTickQueueController extends AbstractContainerController
 
 	private int remove(
 			//#if MC >= 11800
-			//$$ WorldTickScheduler<?> tickScheduler,
+			WorldTickScheduler<?> tickScheduler,
 			//#else
-			ServerTickScheduler<?> serverTickScheduler,
+			//$$ ServerTickScheduler<?> serverTickScheduler,
 			//#endif
 			BlockPos blockPos)
 	{
 		BlockBox blockBox =
 				//#if MC >= 11700
-				//$$ BlockBox.create
+				BlockBox.create
 				//#else
-				new BlockBox
+				//$$ new BlockBox
 				//#endif
 						(blockPos, blockPos.add(1, 1, 1));
 
 		//#if MC >= 11800
-		//$$ int sizeBefore = tickScheduler.getTickCount();
-		//$$ tickScheduler.clearNextTicks(blockBox);
-		//$$ int sizeAfter = tickScheduler.getTickCount();
-		//$$ return sizeBefore - sizeAfter;
+		int sizeBefore = tickScheduler.getTickCount();
+		tickScheduler.clearNextTicks(blockBox);
+		int sizeAfter = tickScheduler.getTickCount();
+		return sizeBefore - sizeAfter;
 		//#else
-		List<?> removed = serverTickScheduler.getScheduledTicks(blockBox, true, false);
-		return removed.size();
+		//$$ List<?> removed = serverTickScheduler.getScheduledTicks(blockBox, true, false);
+		//$$ return removed.size();
 		//#endif
 	}
 
@@ -110,9 +110,9 @@ public class TileTickQueueController extends AbstractContainerController
 
 		source.getWorld().
 				//#if MC >= 11800
-				//$$ createAndScheduleBlockTick
+				createAndScheduleBlockTick
 				//#else
-				getBlockTickScheduler().schedule
+				//$$ getBlockTickScheduler().schedule
 				//#endif
 				(blockPos, block, delay, priority);
 		Messenger.tell(source, tr(

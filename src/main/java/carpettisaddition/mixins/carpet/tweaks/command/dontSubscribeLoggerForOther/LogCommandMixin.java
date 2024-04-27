@@ -59,7 +59,7 @@ public abstract class LogCommandMixin
 
 	private static void dontSubscribeLoggerForOtherImpl(ServerCommandSource source, String playerName, CallbackInfoReturnable<Integer> cir)
 	{
-		MinecraftServer server = source.getMinecraftServer();
+		MinecraftServer server = source.getServer();
 		PlayerEntity playerToControl = server.getPlayerManager().getPlayer(playerName);
 
 		// source is player and is going to control a valid player

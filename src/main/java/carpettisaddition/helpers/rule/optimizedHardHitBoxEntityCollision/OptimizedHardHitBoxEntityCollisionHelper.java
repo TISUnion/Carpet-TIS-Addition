@@ -56,9 +56,9 @@ public class OptimizedHardHitBoxEntityCollisionHelper
 	public static boolean hasHardHitBox(Entity entity)
 	{
 		//#if MC >= 11600
-		//$$ return entity.isCollidable();
+		return entity.isCollidable();
 		//#else
-		return entity.getCollisionBox() != null || entity instanceof ShulkerEntity;
+		//$$ return entity.getCollisionBox() != null || entity instanceof ShulkerEntity;
 		//#endif
 	}
 }

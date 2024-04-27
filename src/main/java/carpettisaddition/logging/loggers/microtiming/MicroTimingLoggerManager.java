@@ -46,7 +46,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.BaseText;
@@ -54,7 +54,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.ScheduledTick;
+import net.minecraft.world.tick.OrderedTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -66,10 +66,10 @@ import java.util.Map;
 import java.util.Optional;
 
 //#if MC >= 11600
-//$$ import carpettisaddition.script.MicroTimingEvent;
-//$$ import com.google.common.collect.Sets;
-//$$ import java.util.Set;
-//$$ import java.util.function.Supplier;
+import carpettisaddition.script.MicroTimingEvent;
+import com.google.common.collect.Sets;
+import java.util.Set;
+import java.util.function.Supplier;
 //#endif
 
 public class MicroTimingLoggerManager
@@ -82,8 +82,8 @@ public class MicroTimingLoggerManager
 	public ThreadLocal<ServerWorld> currentWorld = ThreadLocal.withInitial(() -> null);
 
 	//#if MC >= 11600
-	//$$ // for scarpet event
-	//$$ public static final Set<BlockPos> trackedPositions = Sets.newHashSet();
+	// for scarpet event
+	public static final Set<BlockPos> trackedPositions = Sets.newHashSet();
 	//#endif
 
 	public static BaseText tr(String key, Object... args)
@@ -110,10 +110,10 @@ public class MicroTimingLoggerManager
 		if (CarpetTISAdditionSettings.microTiming && instance != null)
 		{
 			//#if MC >= 11600
-			//$$ if (!trackedPositions.isEmpty())
-			//$$ {
-			//$$ 	return true;
-			//$$ }
+			if (!trackedPositions.isEmpty())
+			{
+				return true;
+			}
 			//#endif
 
 			// has subscriber
@@ -158,23 +158,23 @@ public class MicroTimingLoggerManager
 	 */
 
 	//#if MC >= 11600
-	//$$ public static void dispatchScarpetEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier)
-	//$$ {
-	//$$ 	if (CarpetTISAdditionSettings.microTiming)
-	//$$ 	{
-	//$$ 		// For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
-	//$$ 		if (trackedPositions.contains(pos))
-	//$$ 		{
-	//$$ 			MicroTimingEvent.determineBlockEvent(supplier.get(), world, pos);
-	//$$ 		}
-	//$$ 	}
-	//$$ }
+	public static void dispatchScarpetEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier)
+	{
+		if (CarpetTISAdditionSettings.microTiming)
+		{
+			// For scarpet, checking if it's a block tracked by the scarpet bit. Separate from the rest cos idk how to works
+			if (trackedPositions.contains(pos))
+			{
+				MicroTimingEvent.determineBlockEvent(supplier.get(), world, pos);
+			}
+		}
+	}
 	//#endif
 
 	private static void onEvent(MicroTimingContext context)
 	{
 		//#if MC >= 11600
-		//$$ dispatchScarpetEvent(context.getWorld(), context.getBlockPos(), context.getEventSupplier());
+		dispatchScarpetEvent(context.getWorld(), context.getBlockPos(), context.getEventSupplier());
 		//#endif
 
 		getWorldLogger(context.getWorld()).ifPresent(logger -> logger.addMessage(context));
@@ -268,7 +268,7 @@ public class MicroTimingLoggerManager
 	 * -----------
 	 */
 
-	public static void onExecuteTileTickEvent(World world, ScheduledTick<?> tileTickEvent, EventType eventType)
+	public static void onExecuteTileTickEvent(World world, OrderedTick<?> tileTickEvent, EventType eventType)
 	{
 		if (!isLoggerActivated())
 		{
@@ -277,9 +277,9 @@ public class MicroTimingLoggerManager
 
 		BlockPos pos =
 				//#if MC >= 11800
-				//$$ tileTickEvent.pos();
+				tileTickEvent.pos();
 				//#else
-				tileTickEvent.pos;
+				//$$ tileTickEvent.pos;
 				//#endif
 
 		ExecuteTileTickEvent.createFrom(eventType, tileTickEvent).ifPresent(event -> onEvent(
@@ -308,26 +308,26 @@ public class MicroTimingLoggerManager
 	 * -------------
 	 */
 
-	public static void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, ExecuteBlockEventEvent.FailInfo failInfo, EventType eventType)
+	public static void onExecuteBlockEvent(World world, BlockEvent blockAction, Boolean returnValue, ExecuteBlockEventEvent.FailInfo failInfo, EventType eventType)
 	{
 		if (!isLoggerActivated())
 		{
 			return;
 		}
 		onEvent(MicroTimingContext.create().
-				withWorld(world).withBlockPos(blockAction.getPos()).
+				withWorld(world).withBlockPos(blockAction.pos()).
 				withEvent(new ExecuteBlockEventEvent(eventType, blockAction, returnValue, failInfo))
 		);
 	}
 
-	public static void onScheduleBlockEvent(World world, BlockAction blockAction, boolean success)
+	public static void onScheduleBlockEvent(World world, BlockEvent blockAction, boolean success)
 	{
 		if (!isLoggerActivated())
 		{
 			return;
 		}
 		onEvent(MicroTimingContext.create().
-				withWorld(world).withBlockPos(blockAction.getPos()).
+				withWorld(world).withBlockPos(blockAction.pos()).
 				withEvent(new ScheduleBlockEventEvent(blockAction, success))
 		);
 	}

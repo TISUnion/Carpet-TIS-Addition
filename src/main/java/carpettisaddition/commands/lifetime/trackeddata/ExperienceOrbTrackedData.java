@@ -25,7 +25,7 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.text.BaseText;
 
 //#if MC >= 11700
-//$$ import carpettisaddition.mixins.command.lifetime.data.ExperienceOrbEntityAccessor;
+import carpettisaddition.mixins.command.lifetime.data.ExperienceOrbEntityAccessor;
 //#endif
 
 public class ExperienceOrbTrackedData extends ExtraCountTrackedData
@@ -38,7 +38,7 @@ public class ExperienceOrbTrackedData extends ExtraCountTrackedData
 			return
 					((ExperienceOrbEntity)entity).getExperienceAmount()
 					//#if MC >= 11700
-					//$$ * ((ExperienceOrbEntityAccessor)entity).getPickingCount()
+					* ((ExperienceOrbEntityAccessor)entity).getPickingCount()
 					//#endif
 					;
 		}

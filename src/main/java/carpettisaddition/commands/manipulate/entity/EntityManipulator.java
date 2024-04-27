@@ -40,9 +40,9 @@ import static com.mojang.brigadier.arguments.BoolArgumentType.bool;
 import static com.mojang.brigadier.arguments.BoolArgumentType.getBool;
 import static com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg;
 import static com.mojang.brigadier.arguments.DoubleArgumentType.getDouble;
-import static net.minecraft.command.arguments.EntityArgumentType.*;
-import static net.minecraft.command.arguments.TextArgumentType.getTextArgument;
-import static net.minecraft.command.arguments.TextArgumentType.text;
+import static net.minecraft.command.argument.EntityArgumentType.*;
+import static net.minecraft.command.argument.TextArgumentType.getTextArgument;
+import static net.minecraft.command.argument.TextArgumentType.text;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 

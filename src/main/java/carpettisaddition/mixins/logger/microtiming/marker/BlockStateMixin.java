@@ -31,9 +31,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11600
-//$$ import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.AbstractBlock;
 //#else
-import net.minecraft.block.BlockState;
+//$$ import net.minecraft.block.BlockState;
 //#endif
 
 //#if MC >= 11500
@@ -42,9 +42,9 @@ import net.minecraft.util.ActionResult;
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ AbstractBlock.AbstractBlockState.class
+		AbstractBlock.AbstractBlockState.class
 		//#else
-		BlockState.class
+		//$$ BlockState.class
 		//#endif
 )
 public abstract class BlockStateMixin

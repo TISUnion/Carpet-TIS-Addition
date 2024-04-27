@@ -28,32 +28,32 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 11700
-//$$ import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 //#else
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+//$$ import org.spongepowered.asm.mixin.injection.ModifyArg;
 //#endif
 
 @Mixin(PlayerManager.class)
 public abstract class PlayerManagerMixin
 {
 	//#if MC >= 11700
-	//$$ @ModifyVariable(
-	//$$ 		method = "method_31441",  // lambda method in remove
-	//$$ 		at = @At("HEAD"),
-	//$$ 		argsOnly = true
-	//$$ )
-	//$$ private static
-	//#else
-	@ModifyArg(
-			method = "remove",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;removeEntity(Lnet/minecraft/entity/Entity;)V"
-			),
-			require = 2,
-			allow = 2
+	@ModifyVariable(
+			method = "method_31441",  // lambda method in remove
+			at = @At("HEAD"),
+			argsOnly = true
 	)
-	private
+	private static
+	//#else
+	//$$ @ModifyArg(
+	//$$ 		method = "remove",
+	//$$ 		at = @At(
+	//$$ 				value = "INVOKE",
+	//$$ 				target = "Lnet/minecraft/server/world/ServerWorld;removeEntity(Lnet/minecraft/entity/Entity;)V"
+	//$$ 		),
+	//$$ 		require = 2,
+	//$$ 		allow = 2
+	//$$ )
+	//$$ private
 	//#endif
 	Entity lifetimeTracker_recordRemoval_playerLogout(Entity entity)
 	{

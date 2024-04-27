@@ -31,9 +31,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
 //#if MC >= 11600
-//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#else
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
 
 @Mixin(MooshroomEntity.class)
@@ -46,25 +46,25 @@ public abstract class MooshroomEntityMixin extends Entity
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "sheared",
+			method = "sheared",
 			//#else
-			method = "interactMob",
+			//$$ method = "interactMob",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/passive/MooshroomEntity;discard()V",
+					target = "Lnet/minecraft/entity/passive/MooshroomEntity;discard()V",
 					//#else
-					target = "Lnet/minecraft/entity/passive/MooshroomEntity;remove()V",
+					//$$ target = "Lnet/minecraft/entity/passive/MooshroomEntity;remove()V",
 					//#endif
 					ordinal = 0
 			)
 	)
 	private void lifetimeTracker_recordRemoval_conversion_mooshroomToCow(
 			//#if MC >= 11600
-			//$$ CallbackInfo ci
+			CallbackInfo ci
 			//#else
-			CallbackInfoReturnable<Boolean> cir
+			//$$ CallbackInfoReturnable<Boolean> cir
 			//#endif
 	)
 	{

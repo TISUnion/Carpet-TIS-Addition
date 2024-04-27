@@ -25,9 +25,9 @@ import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.container.Container;
-import net.minecraft.container.GenericContainer;
-import net.minecraft.container.NameableContainerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.DoubleInventory;
@@ -118,22 +118,22 @@ public class LargeBarrelHelper
 		}
 	};
 
-	public static final DoubleBlockProperties.PropertyRetriever<BarrelBlockEntity, Optional<NameableContainerFactory>> NAME_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<BarrelBlockEntity, Optional<NameableContainerFactory>>()
+	public static final DoubleBlockProperties.PropertyRetriever<BarrelBlockEntity, Optional<NamedScreenHandlerFactory>> NAME_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<BarrelBlockEntity, Optional<NamedScreenHandlerFactory>>()
 	{
-		public Optional<NameableContainerFactory> getFromBoth(BarrelBlockEntity barrel1, BarrelBlockEntity barrel2)
+		public Optional<NamedScreenHandlerFactory> getFromBoth(BarrelBlockEntity barrel1, BarrelBlockEntity barrel2)
 		{
 			final Inventory inventory = new DoubleInventory(barrel1, barrel2);
-			return Optional.of(new NameableContainerFactory()
+			return Optional.of(new NamedScreenHandlerFactory()
 			{
 				@Nullable
 				@Override
-				public Container createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity playerEntity)
+				public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity playerEntity)
 				{
 					if (barrel1.checkUnlocked(playerEntity) && barrel2.checkUnlocked(playerEntity))
 					{
 						barrel1.checkLootInteraction(playerInventory.player);
 						barrel2.checkLootInteraction(playerInventory.player);
-						return GenericContainer.createGeneric9x6(syncId, playerInventory, inventory);
+						return GenericContainerScreenHandler.createGeneric9x6(syncId, playerInventory, inventory);
 					}
 					else
 					{
@@ -158,12 +158,12 @@ public class LargeBarrelHelper
 			});
 		}
 
-		public Optional<NameableContainerFactory> getFrom(BarrelBlockEntity barrelBlockEntity)
+		public Optional<NamedScreenHandlerFactory> getFrom(BarrelBlockEntity barrelBlockEntity)
 		{
 			return Optional.of(barrelBlockEntity);
 		}
 
-		public Optional<NameableContainerFactory> getFallback()
+		public Optional<NamedScreenHandlerFactory> getFallback()
 		{
 			return Optional.empty();
 		}

@@ -102,9 +102,9 @@ public class SupplierCounter extends TranslationContext
 	{
 		return this.counter.values().
 				//#if MC >= 11800
-				//$$ longStream().
+				longStream().
 				//#else
-				stream().mapToLong(x -> x).
+				//$$ stream().mapToLong(x -> x).
 				//#endif
 				sum();
 	}

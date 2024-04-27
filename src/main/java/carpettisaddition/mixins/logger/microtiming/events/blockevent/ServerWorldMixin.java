@@ -29,7 +29,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Final;
@@ -46,43 +46,43 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
-	@Shadow @Final private ObjectLinkedOpenHashSet<BlockAction> pendingBlockActions;
+	@Shadow @Final private ObjectLinkedOpenHashSet<BlockEvent> syncedBlockEventQueue;
 
 	private int oldBlockActionQueueSize;
 
-	@Inject(method = "addBlockAction", at = @At("HEAD"))
+	@Inject(method = "addSyncedBlockEvent", at = @At("HEAD"))
 	private void startScheduleBlockEvent_storeEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		this.oldBlockActionQueueSize = this.pendingBlockActions.size();
+		this.oldBlockActionQueueSize = this.syncedBlockEventQueue.size();
 	}
 
-	@Inject(method = "addBlockAction", at = @At("RETURN"))
+	@Inject(method = "addSyncedBlockEvent", at = @At("RETURN"))
 	private void endScheduleBlockEvent_storeEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
+		MicroTimingLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockEvent(pos, block, type, data), this.syncedBlockEventQueue.size() > this.oldBlockActionQueueSize);
 	}
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
+			method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			//$$ method = "method_14174",
 			//#endif
 			at = @At(
 					value = "HEAD",
 					shift = At.Shift.AFTER
 			)
 	)
-	private void beforeBlockEventExecuted_storeEvent(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	private void beforeBlockEventExecuted_storeEvent(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, null, EventType.ACTION_START);
 	}
 
 	@ModifyExpressionValue(
 			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
+			method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			//$$ method = "method_14174",
 			//#endif
 			at = @At(
 					value = "INVOKE",
@@ -97,16 +97,16 @@ public abstract class ServerWorldMixin
 
 	@ModifyExpressionValue(
 			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
+			method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			//$$ method = "method_14174",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/block/BlockState;onSyncedBlockEvent(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;II)Z"
+					target = "Lnet/minecraft/block/BlockState;onSyncedBlockEvent(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;II)Z"
 					//#else
-					target = "Lnet/minecraft/block/BlockState;onBlockAction(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;II)Z"
+					//$$ target = "Lnet/minecraft/block/BlockState;onBlockAction(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;II)Z"
 					//#endif
 			)
 	)
@@ -118,14 +118,14 @@ public abstract class ServerWorldMixin
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
+			method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			//$$ method = "method_14174",
 			//#endif
 			at = @At("RETURN")
 	)
 	private void afterBlockEventExecuted_storeEvent(
-			BlockAction blockAction, CallbackInfoReturnable<Boolean> cir,
+			BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir,
 			@Share("retStore") LocalRef<Boolean> retStore, @Share("currentBlock") LocalRef<BlockState> currentBlock
 	)
 	{

@@ -31,9 +31,9 @@ import java.util.stream.Stream;
 public interface CollisionBoxGetter
 {
 	//#if MC >= 11800
-	//$$ Iterable<VoxelShape>
+	Iterable<VoxelShape>
 	//#else
-	Stream<VoxelShape>
+	//$$ Stream<VoxelShape>
 	//#endif
 	get(World world, Entity entity, Box box);
 }

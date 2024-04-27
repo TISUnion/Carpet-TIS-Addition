@@ -87,9 +87,9 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 	)
 	private void attachBlockDestroyedWarning(
 			//#if MC >= 11700
-			//$$ long gametime, String option,
+			long gametime, String option,
 			//#else
-			List<BaseText> messages_, String option,
+			//$$ List<BaseText> messages_, String option,
 			//#endif
 
 			//#if MC >= 11900

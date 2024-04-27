@@ -41,9 +41,9 @@ public abstract class OakSaplingGeneratorMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 11700
-			//$$ method = "getTreeFeature",
+			method = "getTreeFeature",
 			//#else
-			method = "createTreeFeature",
+			//$$ method = "createTreeFeature",
 			//#endif
 			at = @At(
 					value = "INVOKE",

@@ -154,15 +154,15 @@ public class CarpetRuleRegistrar
 			@Override public Class<? extends Annotation> annotationType() {return rule.annotationType();}
 
 			//#if MC >= 11600
-			//$$ @Override public String appSource() {return "";}
-			//$$ @SuppressWarnings("unchecked") @Override public Class<? extends carpet.settings.Condition>[] condition() {return new Class[0];}
+			@Override public String appSource() {return "";}
+			@SuppressWarnings("unchecked") @Override public Class<? extends carpet.settings.Condition>[] condition() {return new Class[0];}
 			//#endif
 		};
 
 		ParsedRule<?> parsedRule = ParsedRuleAccessor.invokeConstructor(
 				field, cmRule
 				//#if MC >= 11600
-				//$$ , this.settingsManager
+				, this.settingsManager
 				//#else
 				//#endif
 		);

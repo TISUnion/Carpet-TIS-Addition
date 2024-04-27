@@ -53,7 +53,7 @@ public abstract class DispenserBlockMixin
 			method = "dispense",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/entity/DispenserBlockEntity;setInvStack(ILnet/minecraft/item/ItemStack;)V"
+					target = "Lnet/minecraft/block/entity/DispenserBlockEntity;setStack(ILnet/minecraft/item/ItemStack;)V"
 			)
 	)
 	private void dispenserNoItemCost_dontSetBackTheConsumedStack(DispenserBlockEntity blockEntity, int slot, ItemStack stack, Operation<Void> original)

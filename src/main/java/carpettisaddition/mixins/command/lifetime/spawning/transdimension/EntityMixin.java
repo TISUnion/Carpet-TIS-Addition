@@ -41,9 +41,9 @@ public abstract class EntityMixin
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "moveToWorld",
+			method = "moveToWorld",
 			//#else
-			method = "changeDimension",
+			//$$ method = "changeDimension",
 			//#endif
 			at = @At("RETURN")
 	)

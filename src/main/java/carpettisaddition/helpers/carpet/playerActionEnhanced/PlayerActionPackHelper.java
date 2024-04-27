@@ -30,7 +30,7 @@ public class PlayerActionPackHelper
 		return EntityPlayerActionPackActionAccessor.invokeConstructor(
 				1, 1, delay
 				//#if MC >= 11600
-				//$$ , false
+				, false
 				//#endif
 		);
 	}

@@ -20,11 +20,28 @@
 
 package carpettisaddition.mixins.rule.spawnBabyProbably;
 
-import carpettisaddition.utils.compat.DummyClass;
+import carpettisaddition.helpers.rule.spawnBabyProbably.SpawnBabyProbablyHelper;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.minecraft.entity.mob.HoglinEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(DummyClass.class)
+@Mixin(HoglinEntity.class)
 public abstract class HoglinEntityMixin
 {
-	// impl in mc1.16+
+	@ModifyExpressionValue(
+			method = "initialize",
+			at = @At(
+					value = "INVOKE",
+					//#if MC >= 11900
+					//$$ target = "Lnet/minecraft/util/math/random/Random;nextFloat()F"
+					//#else
+					target = "Ljava/util/Random;nextFloat()F"
+					//#endif
+			)
+	)
+	private float spawnBabyProbably_hoglin(float chance)
+	{
+		return SpawnBabyProbablyHelper.tweak(chance, 0.0F, 1.0F);
+	}
 }

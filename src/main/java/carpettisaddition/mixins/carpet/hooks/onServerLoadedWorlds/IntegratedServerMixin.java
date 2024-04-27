@@ -20,23 +20,14 @@
 
 package carpettisaddition.mixins.carpet.hooks.onServerLoadedWorlds;
 
-import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.utils.ModIds;
+import carpettisaddition.utils.compat.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.integrated.IntegratedServer;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(IntegratedServer.class)
+@Mixin(DummyClass.class)
 public abstract class IntegratedServerMixin
 {
-	@Inject(method = "loadWorld", at = @At("TAIL"))
-	private void onSetupServerIntegrated(CallbackInfo ci)
-	{
-		CarpetTISAdditionServer.getInstance().onServerLoadedWorlds$TISCM((IntegratedServer) (Object) this);
-	}
 }

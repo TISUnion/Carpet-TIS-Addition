@@ -39,9 +39,9 @@ public abstract class MobEntityMixin
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "equipLootStack",
+			method = "equipLootStack",
 			//#else
-			method = "loot",
+			//$$ method = "loot",
 			//#endif
 			at = @At(
 					value = "FIELD",

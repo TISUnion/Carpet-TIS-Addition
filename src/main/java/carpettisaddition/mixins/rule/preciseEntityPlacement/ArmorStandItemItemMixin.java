@@ -22,34 +22,41 @@ package carpettisaddition.mixins.rule.preciseEntityPlacement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.preciseEntityPlacement.PreciseEntityPlacer;
-import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.item.ArmorStandItem;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * mc1.14 ~ mc1.15.2: subproject 1.15.2 (main project)        <--------
- * mc1.16.5+        : subproject 1.16.5
+ * mc1.14 ~ mc1.15.2: subproject 1.15.2 (main project)
+ * mc1.16.5+        : subproject 1.16.5        <--------
  */
 @Mixin(ArmorStandItem.class)
 public abstract class ArmorStandItemItemMixin
 {
-	@ModifyVariable(
+	@Inject(
 			method = "useOnBlock",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/decoration/ArmorStandEntity;refreshPositionAndAngles(DDDFF)V",
-					shift = At.Shift.AFTER
+					//#if MC >= 12005
+					//$$ target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/server/world/ServerWorld;Ljava/util/function/Consumer;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;"
+					//#elseif MC >= 11903
+					//$$ target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/nbt/NbtCompound;Ljava/util/function/Consumer;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;"
+					//#elseif MC >= 11700
+					target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/nbt/NbtCompound;Lnet/minecraft/text/Text;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;"
+					//#else
+					//$$ target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/text/Text;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;"
+					//#endif
 			)
 	)
-	private ArmorStandEntity preciseEntityPlacement_armorStandPlacement(ArmorStandEntity armorStandEntity, ItemUsageContext context)
+	private void preciseEntityPlacement_armorStandPlacement(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{
-			PreciseEntityPlacer.adjustEntity(armorStandEntity, context);
+			PreciseEntityPlacer.spawnEggTargetPos.set(context.getHitPos());
 		}
-		return armorStandEntity;
 	}
 }

@@ -50,12 +50,12 @@ public class OnlineMappingProvider
 	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
 	public static final String MINECRAFT_VERSION =
 			//#if MC >= 11700
-			//$$ // Minecraft's version "1.18-experimental-4" is not the same as yarn format, so the version is handled trickily
-			//$$ MinecraftVersion.GAME_VERSION.getName().replace("-experimental-", "_experimental-snapshot-");
+			// Minecraft's version "1.18-experimental-4" is not the same as yarn format, so the version is handled trickily
+			MinecraftVersion.CURRENT.getName().replace("-experimental-", "_experimental-snapshot-");
 			//#elseif MC >= 11600
 			//$$ MinecraftVersion.field_25319.getName();
 			//#else
-			new MinecraftVersion().getName();
+			//$$ new MinecraftVersion().getName();
 			//#endif
 	public static final String YARN_META_URL = "https://meta.fabricmc.net/v2/versions/yarn/" + MINECRAFT_VERSION;
 	public static final String YARN_MAPPING_URL_BASE = "https://maven.fabricmc.net/net/fabricmc/yarn/";
@@ -80,9 +80,9 @@ public class OnlineMappingProvider
 		List<Pair<Integer, String>> list = Lists.newArrayList();
 		JsonElement json =
 				//#if MC >= 11800
-				//$$ JsonParser.parseReader
+				JsonParser.parseReader
 				//#else
-				(new JsonParser()).parse
+				//$$ (new JsonParser()).parse
 				//#endif
 						(new InputStreamReader(request.getInputStream()));
 		json.getAsJsonArray().forEach(e -> {

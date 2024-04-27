@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class LivingEntityMixin
 {
 	@SuppressWarnings("ConstantConditions")
-	@Inject(method = "destroy", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "tickInVoid", at = @At("HEAD"), cancellable = true)
 	private void voidDamageAmount(CallbackInfo ci)
 	{
 		if (!CarpetTISAdditionSettings.voidDamageIgnorePlayer.equals("false"))

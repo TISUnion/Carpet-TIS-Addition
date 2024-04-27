@@ -29,20 +29,20 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 //#if MC >= 11800
-//$$ import org.jetbrains.annotations.Nullable;
-//$$ import java.util.List;
+import org.jetbrains.annotations.Nullable;
+import java.util.List;
 //#else
-import java.util.stream.Stream;
+//$$ import java.util.stream.Stream;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.world.RegistryWorldView;
+import net.minecraft.world.RegistryWorldView;
 //#else
-import net.minecraft.world.IWorld;
+//$$ import net.minecraft.world.IWorld;
 //#endif
 
 //#if MC < 11600
-import java.util.Set;
+//$$ import java.util.Set;
 //#endif
 
 //#if MC >= 11600 && MC < 11800
@@ -51,9 +51,9 @@ import java.util.Set;
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ value = RegistryWorldView.class,
+		value = RegistryWorldView.class,
 		//#else
-		value = IWorld.class,
+		//$$ value = IWorld.class,
 		//#endif
 		priority = 2000
 )
@@ -67,11 +67,11 @@ public interface IWorldMixin extends EntityView
 	 */
 	@Overwrite
 	//#if MC >= 11800
-	//$$ default List<VoxelShape> getEntityCollisions(@Nullable Entity entity, Box box)
+	default List<VoxelShape> getEntityCollisions(@Nullable Entity entity, Box box)
 	//#elseif MC >= 11600
 	//$$ default Stream<VoxelShape> getEntityCollisions(Entity entity, Box box, Predicate<Entity> predicate)
 	//#elseif MC >= 11500
-	default Stream<VoxelShape> getEntityCollisions(Entity entity, Box box, Set<Entity> excluded)
+	//$$ default Stream<VoxelShape> getEntityCollisions(Entity entity, Box box, Set<Entity> excluded)
 	//#else
 	//$$ default Stream<VoxelShape> method_20743(Entity entity, Box box, Set<Entity> excluded)
 	//#endif
@@ -84,11 +84,11 @@ public interface IWorldMixin extends EntityView
 					// vanilla copy
 					EntityView.super.
 							//#if MC >= 11800
-							//$$ getEntityCollisions(entity, box)
+							getEntityCollisions(entity, box)
 							//#elseif MC >= 11600
 							//$$ getEntityCollisions(entity, box, predicate)
 							//#elseif MC >= 11500
-							getEntityCollisions(entity, box, excluded)
+							//$$ getEntityCollisions(entity, box, excluded)
 							//#else
 							//$$ method_20743(entity, box, excluded)
 							//#endif

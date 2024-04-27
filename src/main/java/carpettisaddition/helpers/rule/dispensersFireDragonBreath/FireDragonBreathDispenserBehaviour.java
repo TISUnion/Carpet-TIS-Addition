@@ -46,7 +46,7 @@ public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
 	{
 		Direction sourceFace = source.getBlockState().get(DispenserBlock.FACING);
 		World world = source.getWorld();
-		BlockPos blockpos = source.getBlockPos().offset(sourceFace);
+		BlockPos blockpos = source.getPos().offset(sourceFace);
 
 		// Vanilla copy of DragonFireballEntity#onCollision
 		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(world, blockpos.getX() + 0.5, blockpos.getY() + 0.5, blockpos.getZ() + 0.5);
@@ -57,7 +57,7 @@ public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
 		areaEffectCloudEntity.setRadiusGrowth((7.0F - areaEffectCloudEntity.getRadius()) / (float)areaEffectCloudEntity.getDuration());
 		areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1, 1));
 		// use event 2007 from ThrownPotionEntity.java#onCollision instead of event 2006 from DragonFireballEntity#onCollision
-		world.playLevelEvent(
+		world.syncWorldEvent(
 				2007, blockpos,
 				//#if MC >= 12005
 				//$$ PotionContentsComponent.getColor(Potions.HARMING)

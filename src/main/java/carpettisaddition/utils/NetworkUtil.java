@@ -21,8 +21,8 @@
 package carpettisaddition.utils;
 
 import io.netty.buffer.Unpooled;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import org.jetbrains.annotations.Nullable;
 
 public class NetworkUtil
@@ -106,7 +106,7 @@ public class NetworkUtil
 	 * Compatible with both mc >= 1.20.2 and mc < 1.20.2 formats
 	 */
 	@Nullable
-	public static CompoundTag readNbt(PacketByteBuf buf)
+	public static NbtCompound readNbt(PacketByteBuf buf)
 	{
 		NbtStyle nbtStyle = guessNbtStyle(buf);
 
@@ -122,7 +122,7 @@ public class NetworkUtil
 			tweakedBuf.writeBytes(buf);
 			buf.readerIndex(prevReaderIndex);
 
-			CompoundTag nbt = tweakedBuf.readCompoundTag();
+			NbtCompound nbt = tweakedBuf.readNbt();
 
 			int n = tweakedBuf.readerIndex();
 			buf.readBytes(Math.max(0, n - 2));
@@ -141,13 +141,13 @@ public class NetworkUtil
 			tweakedBuf.writeBytes(buf);
 			buf.readerIndex(prevReaderIndex);
 
-			CompoundTag nbt = tweakedBuf.readCompoundTag();
+			NbtCompound nbt = tweakedBuf.readNbt();
 
 			int n = tweakedBuf.readerIndex();
 			buf.readBytes(Math.max(0, n > 1 ? n + 2 : n));
 			return nbt;
 		}
 
-		return buf.readCompoundTag();
+		return buf.readNbt();
 	}
 }

@@ -30,7 +30,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RayTraceContext;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -56,11 +56,11 @@ public class RaycastSimulator
 
 	private boolean canTraceMelon(BlockPos start, BlockPos end)
 	{
-		BlockHitResult result = this.world.rayTrace(new RayTraceContext(
+		BlockHitResult result = this.world.raycast(new RaycastContext(
 				new Vec3d(start.getX() + 0.5D, start.getY() + 0.5D, start.getZ() + 0.5D),
 				new Vec3d(end.getX() + 0.5D, end.getY() + 0.5D, end.getZ() + 0.5D),
-				RayTraceContext.ShapeType.OUTLINE,
-				RayTraceContext.FluidHandling.NONE,
+				RaycastContext.ShapeType.OUTLINE,
+				RaycastContext.FluidHandling.NONE,
 				this.entity
 		));
 		if (result.getType() == HitResult.Type.BLOCK)

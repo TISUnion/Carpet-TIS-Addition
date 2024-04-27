@@ -22,7 +22,7 @@ package carpettisaddition.helpers.carpet.protocol;
 
 import carpettisaddition.CarpetTISAdditionMod;
 import io.netty.buffer.Unpooled;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 
 public class CarpetNetworkProtocolRewriter
 {

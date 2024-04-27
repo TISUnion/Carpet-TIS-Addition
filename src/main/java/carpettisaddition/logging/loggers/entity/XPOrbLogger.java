@@ -26,7 +26,7 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.text.BaseText;
 
 //#if MC >= 11700
-//$$ import carpettisaddition.mixins.logger.xporb.ExperienceOrbEntityAccessor;
+import carpettisaddition.mixins.logger.xporb.ExperienceOrbEntityAccessor;
 //#endif
 
 public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
@@ -47,12 +47,12 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 	protected BaseText getNameTextHoverText(ExperienceOrbEntity xp)
 	{
 		//#if MC >= 11700
-		//$$ int amount = xp.getExperienceAmount();
-		//$$ int count = ((ExperienceOrbEntityAccessor)xp).getPickingCount();
-		//$$ long total = (long)amount * count;
-		//$$ String amountStr = String.format("w : %dxp * %d = %d", amount, count, total);
+		int amount = xp.getExperienceAmount();
+		int count = ((ExperienceOrbEntityAccessor)xp).getPickingCount();
+		long total = (long)amount * count;
+		String amountStr = String.format("w : %dxp * %d = %d", amount, count, total);
 		//#else
-		String amountStr = String.format("w : %d", xp.getExperienceAmount());
+		//$$ String amountStr = String.format("w : %d", xp.getExperienceAmount());
 		//#endif
 
 		return Messenger.c(tr("xp_amount"), amountStr);

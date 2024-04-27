@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class LivingEntityMixin
 {
 	@ModifyArg(
-			method = "destroy",
+			method = "tickInVoid",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"

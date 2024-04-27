@@ -21,48 +21,48 @@
 package carpettisaddition.mixins.command.lifetime.spawning.item;
 
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.thrown.ThrownExperienceBottleEntity;
+import net.minecraft.entity.projectile.thrown.ExperienceBottleEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 //#if MC >= 11700
-//$$ import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
-//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-//$$ import org.spongepowered.asm.mixin.injection.Inject;
+import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Inject;
 //#else
-import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
-import net.minecraft.entity.Entity;
+//$$ import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
+//$$ import net.minecraft.entity.Entity;
 //#endif
 
-@Mixin(ThrownExperienceBottleEntity.class)
+@Mixin(ExperienceBottleEntity.class)
 public abstract class ThrownExperienceBottleEntityMixin
 {
 	//#if MC >= 11700
-	//$$ @Inject(
-	//$$ 		method = "onCollision",
-	//$$ 		at = @At(
-	//$$ 				value = "INVOKE",
-	//$$ 				target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"
-	//$$ 		)
-	//$$ )
-	//$$ private void lifetimeTracker_recordSpawning_item_xpBottle(CallbackInfo ci)
-	//$$ {
-	//$$ 	LifetimeMixinUtil.xpOrbSpawningReason.set(LiteralSpawningReason.ITEM);
-	//$$ }
-	//#else
-	@ModifyArg(
+	@Inject(
 			method = "onCollision",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
-			),
-			index = 0
+					target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"
+			)
 	)
-	private Entity lifetimeTracker_recordSpawning_item_xpBottle(Entity entity)
+	private void lifetimeTracker_recordSpawning_item_xpBottle(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.ITEM);
-		return entity;
+		LifetimeMixinUtil.xpOrbSpawningReason.set(LiteralSpawningReason.ITEM);
 	}
+	//#else
+	//$$ @ModifyArg(
+	//$$ 		method = "onCollision",
+	//$$ 		at = @At(
+	//$$ 				value = "INVOKE",
+	//$$ 				target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+	//$$ 		),
+	//$$ 		index = 0
+	//$$ )
+	//$$ private Entity lifetimeTracker_recordSpawning_item_xpBottle(Entity entity)
+	//$$ {
+	//$$ 	((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.ITEM);
+	//$$ 	return entity;
+	//$$ }
 	//#endif
 }

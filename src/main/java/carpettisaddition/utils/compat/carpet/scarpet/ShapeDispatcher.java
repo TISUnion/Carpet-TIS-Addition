@@ -27,23 +27,23 @@ import java.util.List;
 import java.util.Map;
 
 //#if MC < 11700
-import org.apache.commons.lang3.tuple.Pair;
+//$$ import org.apache.commons.lang3.tuple.Pair;
 //#endif
 
 public class ShapeDispatcher
 {
 	//#if MC >= 11700
-	//$$ public static class ShapeWithConfig
-	//$$ {
-	//$$ }
+	public static class ShapeWithConfig
+	{
+	}
 	//#endif
 
 	public static void sendShape(
 			List<ServerPlayerEntity> subscribedPlayers,
 			//#if MC >= 11700
-			//$$ List<ShapeWithConfig> shapeDataList
+			List<ShapeWithConfig> shapeDataList
 			//#else
-			List<Pair<ExpiringShape, Map<String, Value>>> shapeDataList
+			//$$ List<Pair<ExpiringShape, Map<String, Value>>> shapeDataList
 			//#endif
 	)
 	{

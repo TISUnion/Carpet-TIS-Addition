@@ -26,7 +26,7 @@ import carpettisaddition.utils.NbtUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import org.apache.logging.log4j.Logger;
 
@@ -93,12 +93,12 @@ public class TISCMServerPacketHandler
 		return packetIds != null && packetIds.contains(packetId);
 	}
 
-	public void sendPacket(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder)
+	public void sendPacket(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId, Consumer<NbtCompound> payloadBuilder)
 	{
 		this.sendPacket(networkHandler, packetId, payloadBuilder, () -> {});
 	}
 
-	public void sendPacket(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder, Runnable doneCallback)
+	public void sendPacket(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId, Consumer<NbtCompound> payloadBuilder, Runnable doneCallback)
 	{
 		if (this.doesClientSupport(networkHandler, packetId))
 		{
@@ -117,7 +117,7 @@ public class TISCMServerPacketHandler
 		}
 	}
 
-	public void broadcast(TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder)
+	public void broadcast(TISCMProtocol.S2C packetId, Consumer<NbtCompound> payloadBuilder)
 	{
 		this.clientSupportedPacketsMap.forEach((serverPlayNetworkHandler, supportedPackets) -> {
 			this.sendPacket(serverPlayNetworkHandler, packetId, payloadBuilder);

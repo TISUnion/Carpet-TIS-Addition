@@ -23,7 +23,7 @@ package carpettisaddition.mixins.logger.raid;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.loggers.raid.IRaid;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
-import net.minecraft.entity.raid.Raid;
+import net.minecraft.village.raid.Raid;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -122,9 +122,9 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
 					//#endif
 					ordinal = 0
 			)
@@ -145,9 +145,9 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
 					//#endif
 					ordinal = 0
 			)
@@ -169,9 +169,9 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
 					//#endif
 					ordinal = 0
 			)
@@ -187,18 +187,18 @@ public abstract class RaidMixin implements IRaid
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11600
-							//$$ target = "Lnet/minecraft/village/raid/Raid;playRaidHorn(Lnet/minecraft/util/math/BlockPos;)V"
+							target = "Lnet/minecraft/village/raid/Raid;playRaidHorn(Lnet/minecraft/util/math/BlockPos;)V"
 							//#else
-							target = "Lnet/minecraft/entity/raid/Raid;playRaidHorn(Lnet/minecraft/util/math/BlockPos;)V"
+							//$$ target = "Lnet/minecraft/entity/raid/Raid;playRaidHorn(Lnet/minecraft/util/math/BlockPos;)V"
 							//#endif
 					)
 			),
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
 					//#endif
 					ordinal = 0
 			)
@@ -219,9 +219,9 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
 					//#endif
 					ordinal = 0
 			)
@@ -246,9 +246,9 @@ public abstract class RaidMixin implements IRaid
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "setCenter",
+			method = "setCenter",
 			//#else
-			method = "method_20509",
+			//$$ method = "method_20509",
 			//#endif
 			at = @At(value = "HEAD")
 	)

@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class EntityMixin
 {
 	@ModifyConstant(
-			method = "fromTag",
+			method = "readNbt",
 			constant = @Constant(doubleValue = 10.0D),
 			require = 3
 	)

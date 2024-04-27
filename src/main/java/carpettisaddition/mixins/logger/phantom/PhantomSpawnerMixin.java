@@ -22,7 +22,7 @@ package carpettisaddition.mixins.logger.phantom;
 
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.gen.PhantomSpawner;
+import net.minecraft.world.spawner.PhantomSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;

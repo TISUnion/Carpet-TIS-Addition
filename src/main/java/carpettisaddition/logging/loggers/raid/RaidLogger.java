@@ -25,7 +25,7 @@ import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.entity.raid.Raid;
+import net.minecraft.village.raid.Raid;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.BlockPos;
 

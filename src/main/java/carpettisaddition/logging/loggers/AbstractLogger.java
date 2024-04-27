@@ -39,7 +39,7 @@ import java.util.function.Supplier;
 //#endif
 
 //#if MC >= 11600
-//$$ import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.StringReader;
 //#endif
 
 public abstract class AbstractLogger extends TranslationContext
@@ -92,7 +92,7 @@ public abstract class AbstractLogger extends TranslationContext
 				wrapOption(this.getDefaultLoggingOption()),
 				wrapOptions(this.getSuggestedLoggingOption())
 				//#if MC >= 11700
-				//$$ , this.strictOption
+				, this.strictOption
 				//#endif
 		);
 	}
@@ -140,23 +140,23 @@ public abstract class AbstractLogger extends TranslationContext
 	protected static String wrapOption(@Nullable String option)
 	{
 		//#if MC >= 11600
-		//$$ if (option == null)
-		//$$ {
-		//$$ 	return null;
-		//$$ }
-		//$$ boolean requiresQuotes = false;
-		//$$ for (int i = 0; i < option.length(); i++)
-		//$$ {
-		//$$ 	if (!StringReader.isAllowedInUnquotedString(option.charAt(i)))
-		//$$ 	{
-		//$$ 		requiresQuotes = true;
-		//$$ 		break;
-		//$$ 	}
-		//$$ }
-		//$$ if (requiresQuotes)
-		//$$ {
-		//$$ 	option = "\"" + option.replace("\"", "\"\"") + "\"";
-		//$$ }
+		if (option == null)
+		{
+			return null;
+		}
+		boolean requiresQuotes = false;
+		for (int i = 0; i < option.length(); i++)
+		{
+			if (!StringReader.isAllowedInUnquotedString(option.charAt(i)))
+			{
+				requiresQuotes = true;
+				break;
+			}
+		}
+		if (requiresQuotes)
+		{
+			option = "\"" + option.replace("\"", "\"\"") + "\"";
+		}
 		//#endif
 
 		return option;

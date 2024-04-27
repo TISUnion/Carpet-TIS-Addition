@@ -95,6 +95,6 @@ public class SpeedTestSessionMessengerImpl extends TranslationContext implements
 
 		BaseText textToSend = Messenger.c(parts.toArray(new Object[0]));
 
-		this.source.getMinecraftServer().execute(() -> Messenger.tell(this.source, textToSend));
+		this.source.getServer().execute(() -> Messenger.tell(this.source, textToSend));
 	}
 }

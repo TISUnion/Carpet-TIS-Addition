@@ -54,7 +54,7 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 					value = "FIELD",
 					target = "Lcarpet/helpers/EntityPlayerActionPack$Action;interval:I"
 					//#if MC >= 11600
-					//$$ , ordinal = 1
+					, ordinal = 1
 					//#endif
 			),
 			remap = false

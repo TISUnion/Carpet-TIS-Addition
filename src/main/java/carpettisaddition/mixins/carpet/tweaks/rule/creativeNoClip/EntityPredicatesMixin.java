@@ -45,9 +45,9 @@ public abstract class EntityPredicatesMixin
 	@Dynamic
 	@ModifyReturnValue(
 			//#if MC >= 11700
-			//$$ method = "method_24517",
+			method = "method_24517",
 			//#else
-			method = "method_5907",
+			//$$ method = "method_5907",
 			//#endif
 			at = @At("TAIL"),
 			remap = false

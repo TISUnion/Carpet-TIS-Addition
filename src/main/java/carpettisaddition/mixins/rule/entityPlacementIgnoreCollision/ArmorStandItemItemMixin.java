@@ -21,123 +21,62 @@
 package carpettisaddition.mixins.rule.entityPlacementIgnoreCollision;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.utils.GameUtil;
-import com.google.common.collect.Lists;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ArmorStandItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-
-import java.util.List;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 /**
- * 1.16+ mixin is handled in the version-specified class
+ * 1.15- mixin is handled in the version-specified class
  */
 @Mixin(ArmorStandItem.class)
 public abstract class ArmorStandItemItemMixin
 {
 	/**
 	 * Make the 1st segment of the if statement below always returns true
-	 * if (itemPlacementContext.canPlace() && world.getBlockState(blockPos2).canReplace(itemPlacementContext))
-	 *           ^ modifying this
+	 * if (world.isSpaceEmpty(...) && world.getOtherEntities(...).isEmpty())
+	 *                ^ modifying this
 	 */
 	@ModifyExpressionValue(
 			method = "useOnBlock",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/item/ItemPlacementContext;canPlace()Z"
+					//#if MC >= 11800
+					target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Z"
+					//#else
+					//$$ target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Z"
+					//#endif
 			)
 	)
-	private boolean entityPlacementIgnoreCollision_makeIfCondition1True(boolean canPlace)
+	private boolean entityPlacementIgnoreCollision_makeIfCondition1True(boolean notCollided)
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
-			canPlace = true;
+			notCollided = true;
 		}
-		return canPlace;
+		return notCollided;
 	}
 
 	/**
 	 * Make the 2nd segment of the if statement below always returns true
-	 * if (itemPlacementContext.canPlace() && world.getBlockState(blockPos2).canReplace(itemPlacementContext))
-	 *                                                                         ^ modifying this
+	 * if (world.isSpaceEmpty(...) && world.getOtherEntities(...).isEmpty())
+	 *                                                               ^ modifying this
 	 */
 	@ModifyExpressionValue(
 			method = "useOnBlock",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/BlockState;canReplace(Lnet/minecraft/item/ItemPlacementContext;)Z"
+					target = "Ljava/util/List;isEmpty()Z",
+					remap = false
 			)
 	)
-	private boolean entityPlacementIgnoreCollision_makeIfCondition2True(boolean canReplace)
+	private boolean entityPlacementIgnoreCollision_makeIfCondition2True(boolean isEmpty)
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
-			canReplace = true;
+			isEmpty = true;
 		}
-		return canReplace;
-	}
-
-	@ModifyVariable(
-			method = "useOnBlock",
-			at = @At(
-					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/world/World;getEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
-					shift = At.Shift.AFTER
-			)
-	)
-	private List<Entity> entityPlacementIgnoreCollision_skipEntityCheck(List<Entity> entities)
-	{
-		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
-		{
-			entities = Lists.newArrayList();
-		}
-		return entities;
-	}
-
-	private static final ThreadLocal<ItemPlacementContext> currentContext$TISCM = ThreadLocal.withInitial(() -> null);
-
-	@ModifyVariable(
-			method = "useOnBlock",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/item/ItemPlacementContext;canPlace()Z"
-			)
-	)
-	private ItemPlacementContext entityPlacementIgnoreCollision_storeItemPlacementContext(ItemPlacementContext itemPlacementContext)
-	{
-		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
-		{
-			currentContext$TISCM.set(itemPlacementContext);
-		}
-		return itemPlacementContext;
-	}
-
-	@ModifyArg(
-			method = "useOnBlock",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;removeBlock(Lnet/minecraft/util/math/BlockPos;Z)Z"
-			),
-			require = 2
-	)
-	private BlockPos entityPlacementIgnoreCollision_dontRemoveBlockIfNotReplaceable(BlockPos pos)
-	{
-		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
-		{
-			ItemPlacementContext ctx = currentContext$TISCM.get();
-			World world = ctx.getWorld();
-			if (!world.getBlockState(pos).canReplace(ctx))
-			{
-				pos = GameUtil.getInvalidBlockPos();
-			}
-		}
-		return pos;
+		return isEmpty;
 	}
 }

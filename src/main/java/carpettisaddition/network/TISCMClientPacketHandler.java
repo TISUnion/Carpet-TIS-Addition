@@ -30,7 +30,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
@@ -94,12 +94,12 @@ public class TISCMClientPacketHandler
 		return packetId.isHandshake || this.serverSupportedPackets.contains(packetId);
 	}
 
-	public boolean sendPacket(TISCMProtocol.C2S packetId, Consumer<CompoundTag> payloadBuilder)
+	public boolean sendPacket(TISCMProtocol.C2S packetId, Consumer<NbtCompound> payloadBuilder)
 	{
 		return this.sendPacket(packetId, payloadBuilder, () -> {});
 	}
 
-	public boolean sendPacket(TISCMProtocol.C2S packetId, Consumer<CompoundTag> payloadBuilder, Runnable doneCallback)
+	public boolean sendPacket(TISCMProtocol.C2S packetId, Consumer<NbtCompound> payloadBuilder, Runnable doneCallback)
 	{
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER)
 		{

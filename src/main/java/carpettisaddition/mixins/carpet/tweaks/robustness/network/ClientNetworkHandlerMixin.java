@@ -26,8 +26,8 @@ import carpettisaddition.helpers.carpet.protocol.CarpetNetworkProtocolVersion;
 import carpettisaddition.utils.NetworkUtil;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -52,10 +52,10 @@ public abstract class ClientNetworkHandlerMixin
 			method = "onSyncData",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/PacketByteBuf;readCompoundTag()Lnet/minecraft/nbt/CompoundTag;"
+					target = "Lnet/minecraft/network/PacketByteBuf;readNbt()Lnet/minecraft/nbt/NbtCompound;"
 			)
 	)
-	private static CompoundTag carpetProtocolCompatibilityFix_fixIncomingNbtRead_client(PacketByteBuf buf, Operation<CompoundTag> original)
+	private static NbtCompound carpetProtocolCompatibilityFix_fixIncomingNbtRead_client(PacketByteBuf buf, Operation<NbtCompound> original)
 	{
 		return NetworkUtil.readNbt(buf);
 	}

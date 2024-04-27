@@ -49,7 +49,7 @@ import static carpet.settings.RuleCategory.*;
 //#endif
 
 //#if MC < 11600
-import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
+//$$ import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 //#endif
 
 @SuppressWarnings("unused")
@@ -325,22 +325,22 @@ public class CarpetTISAdditionSettings
 	 * Ported from fabric carpet 1.4.23 to mc <1.16
 	 */
 	//#if MC < 11600
-	@Rule(
-			categories = {EXPERIMENTAL, OPTIMIZATION},  // no TIS since it's a fabric-carpet backport
-			strict = false,
-			options = {"5", "50", "100", "200"},
-			validators = ValidateLightBatch.class
-	)
-	public static int lightEngineMaxBatchSize = 5;
-
-	public static class ValidateLightBatch extends Validators.PositiveNumber<Integer>
-	{
-		@Override
-		public void onRuleSet(ValidationContext<Integer> ctx, @NotNull Integer newValue)
-		{
-			LightBatchSizeChanger.setSize(newValue);
-		}
-	}
+	//$$ @Rule(
+	//$$ 		categories = {EXPERIMENTAL, OPTIMIZATION},  // no TIS since it's a fabric-carpet backport
+	//$$ 		strict = false,
+	//$$ 		options = {"5", "50", "100", "200"},
+	//$$ 		validators = ValidateLightBatch.class
+	//$$ )
+	//$$ public static int lightEngineMaxBatchSize = 5;
+ //$$
+	//$$ public static class ValidateLightBatch extends Validators.PositiveNumber<Integer>
+	//$$ {
+	//$$ 	@Override
+	//$$ 	public void onRuleSet(ValidationContext<Integer> ctx, @NotNull Integer newValue)
+	//$$ 	{
+	//$$ 		LightBatchSizeChanger.setSize(newValue);
+	//$$ 	}
+	//$$ }
 	//#endif
 
 	@Rule(
@@ -501,8 +501,8 @@ public class CarpetTISAdditionSettings
 	public static boolean optimizedTNTHighPriority = false;
 
 	//#if MC >= 11600
-	//$$ @Rule(categories = {TIS, PORTING})
-	//$$ public static boolean overspawningReintroduced = false;
+	@Rule(categories = {TIS, PORTING})
+	public static boolean overspawningReintroduced = false;
 	//#endif
 
 	@Rule(categories = {TIS, CREATIVE})
@@ -588,33 +588,33 @@ public class CarpetTISAdditionSettings
 	 * Ported from fabric carpet 1.4.25 to mc <1.16
 	 */
 	//#if MC < 11600
-	@Rule(
-			validators = ValidateStructureBlockLimit.class,
-			options = {"32", "64", "96", "127"},
-			strict = false,
-			categories = {TIS, CREATIVE}
-	)
-	public static int structureBlockLimit = 32;
-	private static class ValidateStructureBlockLimit extends RangedNumberValidator<Integer>
-	{
-		public ValidateStructureBlockLimit()
-		{
-			super(1, 65536);
-		}
-	}
+	//$$ @Rule(
+	//$$ 		validators = ValidateStructureBlockLimit.class,
+	//$$ 		options = {"32", "64", "96", "127"},
+	//$$ 		strict = false,
+	//$$ 		categories = {TIS, CREATIVE}
+	//$$ )
+	//$$ public static int structureBlockLimit = 32;
+	//$$ private static class ValidateStructureBlockLimit extends RangedNumberValidator<Integer>
+	//$$ {
+	//$$ 	public ValidateStructureBlockLimit()
+	//$$ 	{
+	//$$ 		super(1, 65536);
+	//$$ 	}
+	//$$ }
 	//#endif
 
 	/**
 	 * Ported from fabric carpet 1.4.25 to mc <1.16
 	 */
 	//#if MC < 11600
-	@Rule(
-			options = {"96", "192", "2048"},
-			categories = {CREATIVE, CLIENT},
-			strict = false,
-			validators = Validators.NonNegativeNumber.class
-	)
-	public static double structureBlockOutlineDistance = 96.0D;
+	//$$ @Rule(
+	//$$ 		options = {"96", "192", "2048"},
+	//$$ 		categories = {CREATIVE, CLIENT},
+	//$$ 		strict = false,
+	//$$ 		validators = Validators.NonNegativeNumber.class
+	//$$ )
+	//$$ public static double structureBlockOutlineDistance = 96.0D;
 	//#endif
 
 	@Rule(

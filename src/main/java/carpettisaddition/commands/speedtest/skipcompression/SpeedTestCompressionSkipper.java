@@ -27,7 +27,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.network.NetworkSide;
 import net.minecraft.network.NetworkState;
 import net.minecraft.network.Packet;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Util;
 
 import java.util.Arrays;
@@ -51,10 +51,10 @@ public class SpeedTestCompressionSkipper
 		TISCMProtocol.C2S packetId = TISCMProtocol.C2S.SPEED_TEST_UPLOAD_PAYLOAD;
 		Packet<?> examplePacket =
 				//#if MC >= 11700
-				//$$ packetId.packet(nbt -> {});
+				packetId.packet(nbt -> {});
 				//#else
-				// the constructor used in TISCMProtocol.C2S#packet is not available on the serverside
-				new net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket();
+				//$$ // the constructor used in TISCMProtocol.C2S#packet is not available on the serverside
+				//$$ new net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket();
 				//#endif
 		return makeBytes(getMinecraftPacketId(NetworkSide.SERVERBOUND, examplePacket), packetId.getId());
 	});

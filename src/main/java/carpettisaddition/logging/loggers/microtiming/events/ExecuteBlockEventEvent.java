@@ -27,7 +27,7 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.PistonBlock;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.math.Direction;
 
@@ -36,13 +36,13 @@ import java.util.Objects;
 
 public class ExecuteBlockEventEvent extends BaseEvent
 {
-	private final BlockAction blockAction;
+	private final BlockEvent blockAction;
 	private Boolean returnValue;
 	private FailInfo failInfo;
 
-	public ExecuteBlockEventEvent(EventType eventType, BlockAction blockAction, Boolean returnValue, FailInfo failInfo)
+	public ExecuteBlockEventEvent(EventType eventType, BlockEvent blockAction, Boolean returnValue, FailInfo failInfo)
 	{
-		super(eventType, "execute_block_event", blockAction.getBlock());
+		super(eventType, "execute_block_event", blockAction.block());
 		this.blockAction = blockAction;
 		this.returnValue = returnValue;
 		this.failInfo = failInfo;
@@ -52,19 +52,19 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		}
 	}
 
-	public static BaseText getMessageExtraMessengerHoverText(BlockAction blockAction)
+	public static BaseText getMessageExtraMessengerHoverText(BlockEvent blockAction)
 	{
-		int eventID = blockAction.getType();
-		int eventParam = blockAction.getData();
+		int eventID = blockAction.type();
+		int eventParam = blockAction.data();
 		List<Object> builder = Lists.newArrayList();
 		builder.add(String.format("w eventID: %d", eventID));
-		if (blockAction.getBlock() instanceof PistonBlock)
+		if (blockAction.block() instanceof PistonBlock)
 		{
 			builder.add(Messenger.c(Messenger.s(" ("), PistonBlockEventType.fromId(eventID).toText(), Messenger.s(")")));
 		}
 		builder.add(Messenger.newLine());
 		builder.add(String.format("w eventParam: %d", eventParam));
-		if (blockAction.getBlock() instanceof PistonBlock)
+		if (blockAction.block() instanceof PistonBlock)
 		{
 			builder.add("w  (");
 			builder.add(MicroTimingUtil.getFormattedDirectionText(Direction.byId(eventParam)));
@@ -78,8 +78,8 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		List<Object> list = Lists.newArrayList();
 		list.add(Messenger.formatting(tr("execute"), COLOR_ACTION));
 		list.add(Messenger.getSpaceText());
-		BaseText eventName = this.blockAction.getBlock() instanceof PistonBlock ?
-				Messenger.formatting(PistonBlockEventType.fromId(blockAction.getType()).toText(), COLOR_TARGET) :
+		BaseText eventName = this.blockAction.block() instanceof PistonBlock ?
+				Messenger.formatting(PistonBlockEventType.fromId(blockAction.type()).toText(), COLOR_TARGET) :
 				Messenger.formatting(tr("blockevent"), COLOR_TARGET);
 		list.add(Messenger.fancy(eventName, getMessageExtraMessengerHoverText(this.blockAction), null));
 		if (this.getEventType() == EventType.ACTION_END)
@@ -148,7 +148,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 					return Messenger.c(
 							this.event.tr("fail_info.block_changed"),
 							"w : ",
-							Messenger.block(this.event.blockAction.getBlock()),
+							Messenger.block(this.event.blockAction.block()),
 							"g  -> ",
 							Messenger.block(this.actualBlock)
 					);

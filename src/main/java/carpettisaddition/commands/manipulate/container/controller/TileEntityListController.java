@@ -39,14 +39,14 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
+import static net.minecraft.command.argument.BlockPosArgumentType.blockPos;
+import static net.minecraft.command.argument.BlockPosArgumentType.getLoadedBlockPos;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 //#if MC >= 11700
-//$$ import carpettisaddition.utils.GameUtil;
-//$$ import net.minecraft.world.chunk.BlockEntityTickInvoker;
+import carpettisaddition.utils.GameUtil;
+import net.minecraft.world.chunk.BlockEntityTickInvoker;
 //#endif
 
 public class TileEntityListController extends AbstractEntityListController
@@ -68,28 +68,28 @@ public class TileEntityListController extends AbstractEntityListController
 	protected int processWholeList(ServerWorld world, Consumer<List<?>> collectionOperator)
 	{
 		//#if MC >= 11700
-		//$$ List<BlockEntityTickInvoker> blockEntityTickers = ((WorldAccessor)world).getBlockEntityTickers();
-		//$$ collectionOperator.accept(blockEntityTickers);
-		//$$ return blockEntityTickers.size();
+		List<BlockEntityTickInvoker> blockEntityTickers = ((WorldAccessor)world).getBlockEntityTickers();
+		collectionOperator.accept(blockEntityTickers);
+		return blockEntityTickers.size();
 		//#else
-		collectionOperator.accept(world.tickingBlockEntities);
-		return world.tickingBlockEntities.size();
+		//$$ collectionOperator.accept(world.tickingBlockEntities);
+		//$$ return world.tickingBlockEntities.size();
 		//#endif
 	}
 
 	//#if MC >= 11700
-	//$$ private static List<BlockEntity> extractFromTicker(Collection<BlockEntityTickInvoker> tickers)
-	//$$ {
-	//$$ 	return tickers.stream().
-	//$$ 			map(GameUtil::getBlockEntityFromTickInvoker).
-	//$$ 			filter(Objects::nonNull).
-	//$$ 			collect(Collectors.toList());
-	//$$ }
- //$$
-	//$$ private static List<BlockEntity> getTickingBlockEntities(ServerWorld world)
-	//$$ {
-	//$$ 	return extractFromTicker(((WorldAccessor)world).getBlockEntityTickers());
-	//$$ }
+	private static List<BlockEntity> extractFromTicker(Collection<BlockEntityTickInvoker> tickers)
+	{
+		return tickers.stream().
+				map(GameUtil::getBlockEntityFromTickInvoker).
+				filter(Objects::nonNull).
+				collect(Collectors.toList());
+	}
+
+	private static List<BlockEntity> getTickingBlockEntities(ServerWorld world)
+	{
+		return extractFromTicker(((WorldAccessor)world).getBlockEntityTickers());
+	}
 	//#endif
 
 	private int queryTileEntityInfo(ServerCommandSource source, BlockPos pos)
@@ -100,9 +100,9 @@ public class TileEntityListController extends AbstractEntityListController
 		{
 			List<BlockEntity> blockEntityList =
 					//#if MC >= 11700
-					//$$ getTickingBlockEntities(world);
+					getTickingBlockEntities(world);
 					//#else
-					world.tickingBlockEntities;
+					//$$ world.tickingBlockEntities;
 					//#endif
 
 			int index = blockEntityList.indexOf(blockEntity);
@@ -152,15 +152,15 @@ public class TileEntityListController extends AbstractEntityListController
 
 		// query to all block entity is not available in 1.17+
 		//#if MC < 11700
-		this.showTopNInCollection(source, tr("statistic.all"), world.blockEntities);
+		//$$ this.showTopNInCollection(source, tr("statistic.all"), world.blockEntities);
 		//#endif
 
 		this.showTopNInCollection(
 				source, tr("statistic.ticking"),
 				//#if MC >= 11700
-				//$$ getTickingBlockEntities(world)
+				getTickingBlockEntities(world)
 				//#else
-				world.tickingBlockEntities
+				//$$ world.tickingBlockEntities
 				//#endif
 		);
 		return 1;

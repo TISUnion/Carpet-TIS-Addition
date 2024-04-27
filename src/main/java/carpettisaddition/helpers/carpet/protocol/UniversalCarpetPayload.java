@@ -23,8 +23,8 @@ package carpettisaddition.helpers.carpet.protocol;
 import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.utils.NetworkUtil;
 import com.google.common.collect.Lists;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +39,7 @@ class UniversalCarpetPayload
 
 	public int action;  // v1 id
 	public String string;  // v1 HI / HELLO
-	public CompoundTag nbt;  // v1 DATA, v2 all
+	public NbtCompound nbt;  // v1 DATA, v2 all
 	public CarpetNetworkProtocolVersion version;
 
 	// Notes: buf readerIndex will remain unchanged
@@ -102,7 +102,7 @@ class UniversalCarpetPayload
 
 			if (this.nbt == null)
 			{
-				this.nbt = new CompoundTag();
+				this.nbt = new NbtCompound();
 			}
 			this.version = CarpetNetworkProtocolVersion.V2;
 			CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload read V2 success, nbt={}", this.nbt);
@@ -148,21 +148,21 @@ class UniversalCarpetPayload
 				// v1 carpet data, format: varint + nbt
 				CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload write V1 DATA, nbt={}", this.nbt);
 				buf.writeVarInt(V1_DATA);
-				buf.writeCompoundTag(this.nbt);
+				buf.writeNbt(this.nbt);
 				break;
 
 			case V2:
 				this.assertVersion(CarpetNetworkProtocolVersion.V1);
 
-				CompoundTag tagToWrite = this.nbt;
+				NbtCompound tagToWrite = this.nbt;
 				if (this.action == V1_HI || this.action == V1_HELLO)
 				{
-					tagToWrite = new CompoundTag();
+					tagToWrite = new NbtCompound();
 					tagToWrite.putString(String.valueOf(this.action), Objects.requireNonNull(this.string));
 				}
 
 				CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload write V2, action={}, tag={}", this.action, tagToWrite);
-				buf.writeCompoundTag(Objects.requireNonNull(tagToWrite));
+				buf.writeNbt(Objects.requireNonNull(tagToWrite));
 				break;
 		}
 	}

@@ -35,7 +35,7 @@ public abstract class ServerChunkManagerMixin
 {
 	@Shadow @Final
 	//#if MC < 11700
-	private
+	//$$ private
 	//#endif
 	ServerWorld world;
 
@@ -44,11 +44,11 @@ public abstract class ServerChunkManagerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/server/world/ChunkTicketManager;getTickedChunkCount()I"
+					target = "Lnet/minecraft/server/world/ChunkTicketManager;getTickedChunkCount()I"
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/server/world/ChunkTicketManager;getSpawningChunkCount()I"
 					//#else
-					target = "Lnet/minecraft/server/world/ServerWorld;getMobCountsByCategory()Lit/unimi/dsi/fastutil/objects/Object2IntMap;"
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;getMobCountsByCategory()Lit/unimi/dsi/fastutil/objects/Object2IntMap;"
 					//#endif
 			)
 	)

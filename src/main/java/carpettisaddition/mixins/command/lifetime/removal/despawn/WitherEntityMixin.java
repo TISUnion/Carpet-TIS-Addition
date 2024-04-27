@@ -37,9 +37,9 @@ public abstract class WitherEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/boss/WitherEntity;discard()V"
+					target = "Lnet/minecraft/entity/boss/WitherEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/boss/WitherEntity;remove()V"
+					//$$ target = "Lnet/minecraft/entity/boss/WitherEntity;remove()V"
 					//#endif
 			)
 	)

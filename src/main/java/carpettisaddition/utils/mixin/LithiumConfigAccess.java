@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 
 //#if MC >= 11600
-//$$ import me.jellysquid.mods.lithium.common.config.Option;
+import me.jellysquid.mods.lithium.common.config.Option;
 //#endif
 
 public class LithiumConfigAccess
@@ -57,16 +57,16 @@ public class LithiumConfigAccess
 		}
 
 		//#if MC >= 11600
-		//$$ // in lithium's usage, the passed argument is something like "block.stone.StoneOptimizationMixin"
-		//$$ // so we need to attach a fake class name as suffix, to make sure lithium's logic works correctly
-		//$$ Option option = ((LithiumConfig)config).getEffectiveOptionForMixin(mixinRule + ".TISCM_DummyMixin");
-		//$$ return option != null && option.isEnabled();
+		// in lithium's usage, the passed argument is something like "block.stone.StoneOptimizationMixin"
+		// so we need to attach a fake class name as suffix, to make sure lithium's logic works correctly
+		Option option = ((LithiumConfig)config).getEffectiveOptionForMixin(mixinRule + ".TISCM_DummyMixin");
+		return option != null && option.isEnabled();
 		//#else
-		switch (mixinRule)
-		{
-			default:
-				return false;
-		}
+		//$$ switch (mixinRule)
+		//$$ {
+		//$$ 	default:
+		//$$ 		return false;
+		//$$ }
 		//#endif
 	}
 

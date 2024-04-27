@@ -23,7 +23,7 @@ package carpettisaddition.mixins.carpet.tweaks.command.noInfoBlockChunkLoading;
 import carpet.commands.InfoCommand;
 import carpettisaddition.utils.CommandUtil;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.arguments.BlockPosArgumentType;
+import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;

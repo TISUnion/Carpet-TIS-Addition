@@ -36,16 +36,16 @@ public abstract class ServerWorldMixin
 			method = "tick",
 			at = @At(
 					//#if MC >= 11600
-					//$$ value = "FIELD",
+					value = "FIELD",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;entityList:Lnet/minecraft/world/EntityList;",
+					target = "Lnet/minecraft/server/world/ServerWorld;entityList:Lnet/minecraft/world/EntityList;",
 					//#else
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;inEntityTick:Z",
 					//#endif
-					//$$ ordinal = 0
+					ordinal = 0
 					//#else
-					value = "CONSTANT",
-					args = "stringValue=global"
+					//$$ value = "CONSTANT",
+					//$$ args = "stringValue=global"
 					//#endif
 			)
 	)

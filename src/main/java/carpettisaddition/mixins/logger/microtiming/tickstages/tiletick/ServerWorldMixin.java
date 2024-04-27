@@ -37,9 +37,9 @@ public abstract class ServerWorldMixin
 			at = @At(
 					value = "FIELD",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
+					target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
 					//#else
-					target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
 					//#endif
 			)
 	)
@@ -54,18 +54,18 @@ public abstract class ServerWorldMixin
 					from = @At(
 							value = "FIELD",
 							//#if MC >= 11800
-							//$$ target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
+							target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
 							//#else
-							target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+							//$$ target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
 							//#endif
 					)
 			),
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/world/tick/WorldTickScheduler;tick(JILjava/util/function/BiConsumer;)V",
+					target = "Lnet/minecraft/world/tick/WorldTickScheduler;tick(JILjava/util/function/BiConsumer;)V",
 					//#else
-					target = "Lnet/minecraft/server/world/ServerTickScheduler;tick()V",
+					//$$ target = "Lnet/minecraft/server/world/ServerTickScheduler;tick()V",
 					//#endif
 					shift = At.Shift.AFTER
 			)

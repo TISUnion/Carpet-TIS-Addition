@@ -23,7 +23,7 @@ package carpettisaddition.mixins.command.fill.modeenhance;
 import carpettisaddition.commands.fill.modeenhance.FillModeEnhanceContext;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
-import net.minecraft.command.arguments.BlockStateArgument;
+import net.minecraft.command.argument.BlockStateArgument;
 import net.minecraft.server.command.FillCommand;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Property;

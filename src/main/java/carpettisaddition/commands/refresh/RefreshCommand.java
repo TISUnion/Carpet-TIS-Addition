@@ -47,8 +47,8 @@ import java.util.function.Predicate;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.command.arguments.EntityArgumentType.getPlayers;
-import static net.minecraft.command.arguments.EntityArgumentType.players;
+import static net.minecraft.command.argument.EntityArgumentType.getPlayers;
+import static net.minecraft.command.argument.EntityArgumentType.players;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -61,19 +61,19 @@ import static net.minecraft.server.command.CommandManager.literal;
 //#endif
 
 //#if MC >= 11800
-//$$ import net.minecraft.util.math.ChunkSectionPos;
-//$$ import org.apache.commons.lang3.mutable.MutableObject;
+import net.minecraft.util.math.ChunkSectionPos;
+import org.apache.commons.lang3.mutable.MutableObject;
 //#else
-import net.minecraft.network.Packet;
+//$$ import net.minecraft.network.Packet;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 //#if MC < 11900
-//$$ import net.minecraft.util.Util;
+import net.minecraft.util.Util;
 //#endif
 //#else
-import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
+//$$ import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 //#endif
 
 public class RefreshCommand extends AbstractCommand
@@ -140,7 +140,7 @@ public class RefreshCommand extends AbstractCommand
 
 	private void refreshPlayerInventory(ServerCommandSource source, ServerPlayerEntity player)
 	{
-		source.getMinecraftServer().getPlayerManager().method_14594(player);
+		source.getServer().getPlayerManager().sendPlayerStatus(player);
 		Messenger.tell(player, tr("inventory.done"));
 	}
 
@@ -165,7 +165,7 @@ public class RefreshCommand extends AbstractCommand
 	private int refreshChunks(ServerCommandSource source, @Nullable ChunkPos chunkPos, @Nullable Predicate<ChunkPos> predicate) throws CommandSyntaxException
 	{
 		ServerPlayerEntity player = source.getPlayer();
-		ServerWorld world = player.getServerWorld();
+		ServerWorld world = player.getWorld();
 		synchronized (this.refreshingChunkPlayers)
 		{
 			if (this.refreshingChunkPlayers.contains(player))
@@ -190,9 +190,9 @@ public class RefreshCommand extends AbstractCommand
 			chunkStorage.invokeSendWatchPackets(
 					player, pos,
 					//#if MC >= 11800
-					//$$ new MutableObject<>(),
+					new MutableObject<>(),
 					//#else
-					new Packet[2],
+					//$$ new Packet[2],
 					//#endif
 					false, true
 			);
@@ -240,9 +240,9 @@ public class RefreshCommand extends AbstractCommand
 				//#if MC >= 11901
 				//$$ new GameMessageS2CPacket(message, false),
 				//#elseif MC >= 11600
-				//$$ new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
+				new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
 				//#else
-				new ChatMessageS2CPacket(message, MessageType.SYSTEM),
+				//$$ new ChatMessageS2CPacket(message, MessageType.SYSTEM),
 				//#endif
 
 				//#if MC >= 11901
@@ -291,10 +291,10 @@ public class RefreshCommand extends AbstractCommand
 	private static boolean isChunkInsideRange(ChunkPos chunkPos, ServerPlayerEntity player, int distance)
 	{
 		//#if MC >= 11800
-		//$$ ChunkSectionPos watchedSection = player.getWatchedSection();
-		//$$ return EuclideanDistanceHelper.isWithinDistance(chunkPos.x, chunkPos.z, watchedSection.getSectionX(), watchedSection.getSectionZ(), distance);
+		ChunkSectionPos watchedSection = player.getWatchedSection();
+		return EuclideanDistanceHelper.isWithinDistance(chunkPos.x, chunkPos.z, watchedSection.getSectionX(), watchedSection.getSectionZ(), distance);
 		//#else
-		return ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(chunkPos, player, true) <= distance;
+		//$$ return ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(chunkPos, player, true) <= distance;
 		//#endif
 	}
 }

@@ -45,9 +45,9 @@ public abstract class MobEntityMixin extends LivingEntity
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//$$ target = "Lnet/minecraft/entity/ItemEntity;remove()V"
 					//#endif
 			)
 	)

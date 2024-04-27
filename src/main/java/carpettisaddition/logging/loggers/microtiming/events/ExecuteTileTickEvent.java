@@ -25,7 +25,7 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import net.minecraft.text.BaseText;
 import net.minecraft.world.TickPriority;
-import net.minecraft.world.ScheduledTick;
+import net.minecraft.world.tick.OrderedTick;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,17 +33,17 @@ import java.util.Optional;
 
 public class ExecuteTileTickEvent<T> extends BaseEvent
 {
-	private final ScheduledTick<T> tileTickEntry;
+	private final OrderedTick<T> tileTickEntry;
 
-	private ExecuteTileTickEvent(EventType eventType, ScheduledTick<T> tileTickEntry, EventSource source)
+	private ExecuteTileTickEvent(EventType eventType, OrderedTick<T> tileTickEntry, EventSource source)
 	{
 		super(eventType, "execute_tile_tick", source);
 		this.tileTickEntry = tileTickEntry;
 	}
 
-	public static Optional<ExecuteTileTickEvent<?>> createFrom(EventType eventType, ScheduledTick<?> tileTickEntry)
+	public static Optional<ExecuteTileTickEvent<?>> createFrom(EventType eventType, OrderedTick<?> tileTickEntry)
 	{
-		return EventSource.fromObject(tileTickEntry.getObject()).map(eventSource -> new ExecuteTileTickEvent<>(eventType, tileTickEntry, eventSource));
+		return EventSource.fromObject(tileTickEntry.type()).map(eventSource -> new ExecuteTileTickEvent<>(eventType, tileTickEntry, eventSource));
 	}
 
 	@Override
@@ -51,9 +51,9 @@ public class ExecuteTileTickEvent<T> extends BaseEvent
 	{
 		TickPriority priority =
 				//#if MC >= 11800
-				//$$ this.tileTickEntry.priority();
+				this.tileTickEntry.priority();
 				//#else
-				this.tileTickEntry.priority;
+				//$$ this.tileTickEntry.priority;
 				//#endif
 
 		List<Object> list = Lists.newArrayList();

@@ -36,9 +36,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 //#if MC >= 11700
-//$$ import net.minecraft.util.TypeFilter;
+import net.minecraft.util.TypeFilter;
 //#else
-import net.minecraft.entity.EntityType;
+//$$ import net.minecraft.entity.EntityType;
 //#endif
 
 @Mixin(EntitySelector.class)
@@ -75,11 +75,11 @@ public interface EntitySelectorAccessor extends IEntitySelector
 	UUID getUuid();
 
 	@Nullable
-	@Accessor("type")
+	@Accessor("entityFilter")
 	//#if MC >= 11700
-	//$$ TypeFilter<Entity, ?> getEntityFilter();
+	TypeFilter<Entity, ?> getEntityFilter();
 	//#else
-	EntityType<?> getType();
+	//$$ EntityType<?> getType();
 	//#endif
 
 	@Accessor

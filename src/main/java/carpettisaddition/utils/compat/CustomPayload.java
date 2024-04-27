@@ -21,7 +21,7 @@
 package carpettisaddition.utils.compat;
 
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 
 /**
  * Backported from mc1.20.2, for easier networking coding

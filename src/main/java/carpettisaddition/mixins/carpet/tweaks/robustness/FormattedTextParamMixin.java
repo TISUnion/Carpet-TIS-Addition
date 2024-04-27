@@ -20,14 +20,60 @@
 
 package carpettisaddition.mixins.carpet.tweaks.robustness;
 
+import carpet.script.utils.ShapeDispatcher;
+import carpet.script.value.FormattedTextValue;
+import carpet.utils.Messenger;
+import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.utils.ModIds;
-import carpettisaddition.utils.compat.DummyClass;
+import com.google.gson.JsonParseException;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+//#if MC >= 12005
+//$$ import net.minecraft.registry.DynamicRegistryManager;
+//#endif
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
-@Mixin(DummyClass.class)
+@Mixin(ShapeDispatcher.FormattedTextParam.class)
 public abstract class FormattedTextParamMixin
 {
+	/**
+	 * Added try-catch in case it deserialize failed
+	 * Might happen e.g. when client receive text tag from 1.15.2 server with old fabric carpet, since the content would
+	 * be a raw string instead of a serialized text string
+	 */
+	@WrapOperation(
+			method = "decode",
+			at = @At(
+					value = "INVOKE",
+					//#if MC >= 12005
+					//$$ target = "Lcarpet/script/value/FormattedTextValue;deserialize(Ljava/lang/String;Lnet/minecraft/registry/DynamicRegistryManager;)Lcarpet/script/value/FormattedTextValue;"
+					//#else
+					target = "Lcarpet/script/value/FormattedTextValue;deserialize(Ljava/lang/String;)Lcarpet/script/value/FormattedTextValue;",
+					remap = false
+					//#endif
+			)
+	)
+	public FormattedTextValue makeItFailsafe(
+			String str,
+			//#if MC >= 12005
+			//$$ DynamicRegistryManager regs,
+			//#endif
+			Operation<FormattedTextValue> original
+	)
+	{
+		try
+		{
+			return original.call(str);
+		}
+		catch (JsonParseException e)
+		{
+			CarpetTISAdditionServer.LOGGER.warn("Fail to decode incoming tag in FormattedTextParam, text \"{}\" is not deserialize-able", str);
+			return new FormattedTextValue(Messenger.s(str));
+		}
+	}
 }

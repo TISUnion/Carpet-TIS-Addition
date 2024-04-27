@@ -199,16 +199,16 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 
 		int maxCount = counter.values().
 				//#if MC >= 11800
-				//$$ intStream().
+				intStream().
 				//#else
-				stream().mapToInt(x -> x).
+				//$$ stream().mapToInt(x -> x).
 				//#endif
 				max().orElse(1);
 		int maxKeyWidth = counter.keySet().
 				//#if MC >= 11800
-				//$$ intStream().map
+				intStream().map
 				//#else
-				stream().mapToInt
+				//$$ stream().mapToInt
 				//#endif
 						(x -> String.valueOf(x).length()).max().orElse(3);
 

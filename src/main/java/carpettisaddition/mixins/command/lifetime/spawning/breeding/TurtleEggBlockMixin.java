@@ -33,9 +33,9 @@ public abstract class TurtleEggBlockMixin
 {
 	@ModifyArg(
 			//#if MC >= 11600
-			//$$ method = "randomTick",
+			method = "randomTick",
 			//#elseif MC >= 11500
-			method = "scheduledTick",
+			//$$ method = "scheduledTick",
 			//#else
 			//$$ method = "onScheduledTick",
 			//#endif

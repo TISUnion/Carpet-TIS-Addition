@@ -39,7 +39,7 @@ import java.util.Map;
 //#endif
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"))
-@Mixin(ShapeDispatcher.Text.class)
+@Mixin(ShapeDispatcher.DisplayedText.class)
 public abstract class ShapeDispatcherTextMixin implements IShapeDispatcherText
 {
 	private boolean isMicroTimingMarkerText = false;

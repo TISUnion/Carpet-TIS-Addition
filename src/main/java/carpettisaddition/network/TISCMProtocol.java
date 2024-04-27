@@ -24,11 +24,11 @@ import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.utils.RegistryUtil;
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 
 import java.util.Map;
 import java.util.Optional;
@@ -71,7 +71,7 @@ public class TISCMProtocol
 			return Optional.ofNullable(ID_MAP.get(id));
 		}
 
-		public CustomPayloadC2SPacket packet(Consumer<CompoundTag> payloadBuilder)
+		public CustomPayloadC2SPacket packet(Consumer<NbtCompound> payloadBuilder)
 		{
 			return makePacket(CustomPayloadC2SPacket::new, this, payloadBuilder);
 		}
@@ -111,7 +111,7 @@ public class TISCMProtocol
 			return Optional.ofNullable(ID_MAP.get(id));
 		}
 
-		public CustomPayloadS2CPacket packet(Consumer<CompoundTag> payloadBuilder)
+		public CustomPayloadS2CPacket packet(Consumer<NbtCompound> payloadBuilder)
 		{
 			return makePacket(CustomPayloadS2CPacket::new, this, payloadBuilder);
 		}
@@ -129,10 +129,10 @@ public class TISCMProtocol
 			//#else
 			BiFunction<Identifier, PacketByteBuf, T> packetConstructor,
 			//#endif
-			PacketId packetId, Consumer<CompoundTag> payloadBuilder
+			PacketId packetId, Consumer<NbtCompound> payloadBuilder
 	)
 	{
-		CompoundTag nbt = new CompoundTag();
+		NbtCompound nbt = new NbtCompound();
 		payloadBuilder.accept(nbt);
 
 		//#if MC >= 12002
@@ -140,7 +140,7 @@ public class TISCMProtocol
 		//#else
 		PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
 		packetByteBuf.writeString(packetId.getId());
-		packetByteBuf.writeCompoundTag(nbt);
+		packetByteBuf.writeNbt(nbt);
 		return packetConstructor.apply(TISCMProtocol.CHANNEL, packetByteBuf);
 		//#endif
 	}

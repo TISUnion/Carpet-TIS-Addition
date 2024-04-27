@@ -30,7 +30,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ScheduledTick;
+import net.minecraft.world.tick.OrderedTick;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
@@ -39,10 +39,10 @@ import java.util.List;
 public class TileTickSubStage extends AbstractSubStage
 {
 	private final World world;
-	private final ScheduledTick<?> nextTickListEntry;
+	private final OrderedTick<?> nextTickListEntry;
 	private final int order;
 
-	public TileTickSubStage(World world, ScheduledTick<?> nextTickListEntry, int order)
+	public TileTickSubStage(World world, OrderedTick<?> nextTickListEntry, int order)
 	{
 		this.world = world;
 		this.nextTickListEntry = nextTickListEntry;
@@ -54,19 +54,19 @@ public class TileTickSubStage extends AbstractSubStage
 	{
 		BlockPos pos =
 				//#if MC >= 11800
-				//$$ this.nextTickListEntry.pos();
+				this.nextTickListEntry.pos();
 				//#else
-				this.nextTickListEntry.pos;
+				//$$ this.nextTickListEntry.pos;
 				//#endif
 
 		TickPriority priority =
 				//#if MC >= 11800
-				//$$ this.nextTickListEntry.priority();
+				this.nextTickListEntry.priority();
 				//#else
-				this.nextTickListEntry.priority;
+				//$$ this.nextTickListEntry.priority;
 				//#endif
 
-		Object target = this.nextTickListEntry.getObject();
+		Object target = this.nextTickListEntry.type();
 		List<Object> list = Lists.newArrayList();
 
 		if (target instanceof Block)
@@ -91,9 +91,9 @@ public class TileTickSubStage extends AbstractSubStage
 	{
 		BlockPos pos =
 				//#if MC >= 11800
-				//$$ this.nextTickListEntry.pos();
+				this.nextTickListEntry.pos();
 				//#else
-				this.nextTickListEntry.pos;
+				//$$ this.nextTickListEntry.pos;
 				//#endif
 
 		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(pos, DimensionWrapper.of(this.world)));

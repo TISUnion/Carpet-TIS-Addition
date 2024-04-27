@@ -32,15 +32,15 @@ import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import net.minecraft.block.Block;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.util.math.BlockPos;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
-import static net.minecraft.command.arguments.BlockStateArgumentType.blockState;
-import static net.minecraft.command.arguments.BlockStateArgumentType.getBlockState;
+import static net.minecraft.command.argument.BlockPosArgumentType.blockPos;
+import static net.minecraft.command.argument.BlockPosArgumentType.getLoadedBlockPos;
+import static net.minecraft.command.argument.BlockStateArgumentType.blockState;
+import static net.minecraft.command.argument.BlockStateArgumentType.getBlockState;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -54,11 +54,11 @@ public class BlockEventQueueController extends AbstractContainerController
 	public int removeAt(ServerCommandSource source, BlockPos blockPos)
 	{
 		int counter = 0;
-		ObjectLinkedOpenHashSet<BlockAction> queue = ((ServerWorldAccessor)source.getWorld()).getPendingBlockActions();
-		for (ObjectListIterator<BlockAction> iterator = queue.iterator(); iterator.hasNext(); )
+		ObjectLinkedOpenHashSet<BlockEvent> queue = ((ServerWorldAccessor)source.getWorld()).getPendingBlockActions();
+		for (ObjectListIterator<BlockEvent> iterator = queue.iterator(); iterator.hasNext(); )
 		{
-			BlockAction be = iterator.next();
-			if (be.getPos().equals(blockPos))
+			BlockEvent be = iterator.next();
+			if (be.pos().equals(blockPos))
 			{
 				iterator.remove();
 				counter++;
@@ -75,14 +75,14 @@ public class BlockEventQueueController extends AbstractContainerController
 		Block block = getBlockState(context, "block").getBlockState().getBlock();
 		int type = getInteger(context, "type");
 		int data = getInteger(context, "data");
-		BlockAction blockAction = new BlockAction(blockPos, block, type, data);
+		BlockEvent blockAction = new BlockEvent(blockPos, block, type, data);
 
 		Messenger.tell(source, tr(
 				"scheduled",
 				Messenger.fancy(tr("item_name"), ExecuteBlockEventEvent.getMessageExtraMessengerHoverText(blockAction), null),
 				Messenger.coord(blockPos, DimensionWrapper.of(source.getWorld()))
 		), true);
-		source.getWorld().addBlockAction(blockPos, block, type, data);
+		source.getWorld().addSyncedBlockEvent(blockPos, block, type, data);
 		return 1;
 	}
 

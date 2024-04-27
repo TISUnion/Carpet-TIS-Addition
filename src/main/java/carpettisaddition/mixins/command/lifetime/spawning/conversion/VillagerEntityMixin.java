@@ -24,7 +24,7 @@ import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobConversionSpawningReason;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.AbstractTraderEntity;
+import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,9 +32,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(VillagerEntity.class)
-public abstract class VillagerEntityMixin extends AbstractTraderEntity
+public abstract class VillagerEntityMixin extends MerchantEntity
 {
-	public VillagerEntityMixin(EntityType<? extends AbstractTraderEntity> entityType, World world)
+	public VillagerEntityMixin(EntityType<? extends MerchantEntity> entityType, World world)
 	{
 		super(entityType, world);
 	}
@@ -44,9 +44,9 @@ public abstract class VillagerEntityMixin extends AbstractTraderEntity
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
+					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 					//#else
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//$$ target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 					//#endif
 			)
 	)

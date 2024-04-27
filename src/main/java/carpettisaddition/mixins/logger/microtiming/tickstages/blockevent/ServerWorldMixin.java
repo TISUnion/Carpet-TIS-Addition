@@ -24,7 +24,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.BlockEventSubStage;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,7 +39,7 @@ public abstract class ServerWorldMixin
 {
 	@Shadow
 	@Final
-	private ObjectLinkedOpenHashSet<BlockAction> pendingBlockActions;
+	private ObjectLinkedOpenHashSet<BlockEvent> syncedBlockEventQueue;
 
 	private int blockEventOrderCounter;
 	private int blockEventDepth;
@@ -47,7 +47,7 @@ public abstract class ServerWorldMixin
 	private int blockEventCurrentDepthSize;
 
 	@Inject(
-			method = "sendBlockActions",
+			method = "processSyncedBlockEvents",
 			at = @At("HEAD")
 	)
 	private void enterBlockEventStage_updateTickPhase(CallbackInfo ci)
@@ -56,11 +56,11 @@ public abstract class ServerWorldMixin
 		this.blockEventOrderCounter = 0;
 		this.blockEventCurrentDepthCounter = 0;
 		this.blockEventDepth = 0;
-		this.blockEventCurrentDepthSize = this.pendingBlockActions.size();
+		this.blockEventCurrentDepthSize = this.syncedBlockEventQueue.size();
 	}
 
 	@Inject(
-			method = "sendBlockActions",
+			method = "processSyncedBlockEvents",
 			at = @At("TAIL")
 	)
 	private void exitBlockEventStage_updateTickPhase(CallbackInfo ci)
@@ -70,13 +70,13 @@ public abstract class ServerWorldMixin
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
+			method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			//$$ method = "method_14174",
 			//#endif
 			at = @At("HEAD")
 	)
-	private void beforeBlockEventExecuted_updateTickPhase(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	private void beforeBlockEventExecuted_updateTickPhase(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(this.blockEventDepth));
 		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, new BlockEventSubStage((ServerWorld)(Object)this, blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
@@ -84,13 +84,13 @@ public abstract class ServerWorldMixin
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
+			method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			//$$ method = "method_14174",
 			//#endif
 			at = @At("RETURN")
 	)
-	private void afterBlockEventExecuted_updateTickPhase(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	private void afterBlockEventExecuted_updateTickPhase(BlockEvent blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
 		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, null);
@@ -98,7 +98,7 @@ public abstract class ServerWorldMixin
 		if (this.blockEventCurrentDepthCounter == this.blockEventCurrentDepthSize)
 		{
 			this.blockEventDepth++;
-			this.blockEventCurrentDepthSize = this.pendingBlockActions.size();
+			this.blockEventCurrentDepthSize = this.syncedBlockEventQueue.size();
 			this.blockEventCurrentDepthCounter = 0;
 		}
 	}

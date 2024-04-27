@@ -47,16 +47,16 @@ public abstract class WorldMixin
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z",
+			method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z",
 			//#else
-			method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
+			//$$ method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
 			//#endif
 			at = @At("HEAD")
 	)
 	private void startSetBlockState(
 			BlockPos pos, BlockState newState, int flags,
 			//#if MC >= 11600
-			//$$ int maxUpdateDepth,
+			int maxUpdateDepth,
 			//#endif
 			CallbackInfoReturnable<Boolean> cir
 	)
@@ -71,16 +71,16 @@ public abstract class WorldMixin
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z",
+			method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z",
 			//#else
-			method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
+			//$$ method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
 			//#endif
 			at = @At("RETURN")
 	)
 	private void endSetBlockState(
 			BlockPos pos, BlockState newState, int flags,
 			//#if MC >= 11600
-			//$$ int maxUpdateDepth,
+			int maxUpdateDepth,
 			//#endif
 			CallbackInfoReturnable<Boolean> cir
 	)
@@ -95,9 +95,9 @@ public abstract class WorldMixin
 	// To avoid leaking memory after update suppression or whatever thing
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "tickBlockEntities",
+			method = "tickBlockEntities",
 			//#else
-			method = "tickTime",
+			//$$ method = "tickTime",
 			//#endif
 			at = @At("HEAD")
 	)

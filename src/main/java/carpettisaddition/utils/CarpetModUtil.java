@@ -36,23 +36,23 @@ public class CarpetModUtil
 		//#if MC >= 11901
 		//$$ return carpet.utils.CommandHelper.canUseCommand(source, commandLevel);
 		//#elseif MC >= 11600
-		//$$ return carpet.settings.SettingsManager.canUseCommand(source, commandLevel);
+		return carpet.settings.SettingsManager.canUseCommand(source, commandLevel);
 		//#else
-		if (commandLevel instanceof Boolean) return (Boolean) commandLevel;
-		String commandLevelString = commandLevel.toString();
-		switch (commandLevelString)
-		{
-			case "true": return true;
-			case "false": return false;
-			case "ops": return source.hasPermissionLevel(2); // typical for other cheaty commands
-			case "0":
-			case "1":
-			case "2":
-			case "3":
-			case "4":
-				return source.hasPermissionLevel(Integer.parseInt(commandLevelString));
-		}
-		return false;
+		//$$ if (commandLevel instanceof Boolean) return (Boolean) commandLevel;
+		//$$ String commandLevelString = commandLevel.toString();
+		//$$ switch (commandLevelString)
+		//$$ {
+		//$$ 	case "true": return true;
+		//$$ 	case "false": return false;
+		//$$ 	case "ops": return source.hasPermissionLevel(2); // typical for other cheaty commands
+		//$$ 	case "0":
+		//$$ 	case "1":
+		//$$ 	case "2":
+		//$$ 	case "3":
+		//$$ 	case "4":
+		//$$ 		return source.hasPermissionLevel(Integer.parseInt(commandLevelString));
+		//$$ }
+		//$$ return false;
 		//#endif
 	}
 
@@ -67,9 +67,9 @@ public class CarpetModUtil
 		// rule carpetCommandPermissionLevel is added in fabric carpet v1.4.55
 		Object level =
 				//#if MC >= 11700
-				//$$ CarpetSettings.carpetCommandPermissionLevel;
+				CarpetSettings.carpetCommandPermissionLevel;
 				//#else
-				2;
+				//$$ 2;
 				//#endif
 
 		return canUseCommand(source, level);

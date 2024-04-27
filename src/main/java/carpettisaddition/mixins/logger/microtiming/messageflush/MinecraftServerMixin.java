@@ -34,9 +34,9 @@ public abstract class MinecraftServerMixin
 {
 	@Inject(
 			//#if MC >= 11700
-			//$$ method = "runTasksTillTickEnd",
+			method = "runTasksTillTickEnd",
 			//#else
-			method = "method_16208",
+			//$$ method = "method_16208",
 			//#endif
 			at = @At("HEAD")
 	)

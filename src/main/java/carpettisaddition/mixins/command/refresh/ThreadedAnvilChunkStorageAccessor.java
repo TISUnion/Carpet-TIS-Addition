@@ -30,10 +30,10 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 //#if MC >= 11800
-//$$ import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
-//$$ import org.apache.commons.lang3.mutable.MutableObject;
+import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
+import org.apache.commons.lang3.mutable.MutableObject;
 //#else
-import net.minecraft.network.Packet;
+//$$ import net.minecraft.network.Packet;
 //#endif
 
 @Mixin(ThreadedAnvilChunkStorage.class)
@@ -46,20 +46,20 @@ public interface ThreadedAnvilChunkStorageAccessor
 	int getWatchDistance();
 
 	//#if MC >= 11800 && MC < 12002
-	//$$ // isChunkWithinEuclideanDistanceRange or whatever
-	//$$ @Invoker("isWithinDistance")
-	//$$ static boolean invokeIsChunkWithinEuclideanDistanceRange(int chunkX, int chunkZ, int playerSectionX, int playerSectionZ, int distance)
-	//$$ {
-	//$$ 	return false;
-	//$$ }
+	// isChunkWithinEuclideanDistanceRange or whatever
+	@Invoker("isWithinDistance")
+	static boolean invokeIsChunkWithinEuclideanDistanceRange(int chunkX, int chunkZ, int playerSectionX, int playerSectionZ, int distance)
+	{
+		return false;
+	}
 	//#endif
 
 	//#if MC < 11800
-	@Invoker
-	static int invokeGetChebyshevDistance(ChunkPos pos, ServerPlayerEntity player, boolean useCameraPosition)
-	{
-		return 0;
-	}
+	//$$ @Invoker
+	//$$ static int invokeGetChebyshevDistance(ChunkPos pos, ServerPlayerEntity player, boolean useCameraPosition)
+	//$$ {
+	//$$ 	return 0;
+	//$$ }
 	//#endif
 
 	//#if MC < 12002
@@ -67,9 +67,9 @@ public interface ThreadedAnvilChunkStorageAccessor
 	void invokeSendWatchPackets(
 			ServerPlayerEntity player, ChunkPos pos,
 			//#if MC >= 11800
-			//$$ MutableObject<ChunkDataS2CPacket> mutableObject,
+			MutableObject<ChunkDataS2CPacket> mutableObject,
 			//#else
-			Packet<?>[] packets,
+			//$$ Packet<?>[] packets,
 			//#endif
 			boolean withinMaxWatchDistance, boolean withinViewDistance
 	);

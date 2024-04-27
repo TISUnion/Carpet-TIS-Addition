@@ -54,9 +54,9 @@ public abstract class ExperienceOrbEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
+					target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
 					//#endif
 			)
 	)
@@ -74,9 +74,9 @@ public abstract class ExperienceOrbEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
+					target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
 					//#endif
 			)
 	)

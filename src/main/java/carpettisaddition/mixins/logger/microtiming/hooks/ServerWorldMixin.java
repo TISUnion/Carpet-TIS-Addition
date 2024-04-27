@@ -29,12 +29,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 11800
-//$$ import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
-//$$ import net.minecraft.block.Block;
-//$$ import net.minecraft.fluid.Fluid;
-//$$ import net.minecraft.world.tick.WorldTickScheduler;
-//$$ import org.spongepowered.asm.mixin.Final;
-//$$ import org.spongepowered.asm.mixin.Shadow;
+import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
+import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.world.tick.WorldTickScheduler;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Shadow;
 //#endif
 
 @Mixin(ServerWorld.class)
@@ -43,8 +43,8 @@ public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogg
 	private MicroTimingLogger microTimingLogger;
 
 	//#if MC >= 11800
-	//$$ @Shadow @Final private WorldTickScheduler<Block> blockTickScheduler;
-	//$$ @Shadow @Final private WorldTickScheduler<Fluid> fluidTickScheduler;
+	@Shadow @Final private WorldTickScheduler<Block> blockTickScheduler;
+	@Shadow @Final private WorldTickScheduler<Fluid> fluidTickScheduler;
 	//#endif
 
 	@Inject(
@@ -56,8 +56,8 @@ public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogg
 		this.microTimingLogger = new MicroTimingLogger((ServerWorld)(Object)this);
 
 		//#if MC >= 11800
-		//$$ ((ITileTickListWithServerWorld)this.blockTickScheduler).setServerWorld((ServerWorld)(Object)this);
-		//$$ ((ITileTickListWithServerWorld)this.fluidTickScheduler).setServerWorld((ServerWorld)(Object)this);
+		((ITileTickListWithServerWorld)this.blockTickScheduler).setServerWorld((ServerWorld)(Object)this);
+		((ITileTickListWithServerWorld)this.fluidTickScheduler).setServerWorld((ServerWorld)(Object)this);
 		//#endif
 	}
 

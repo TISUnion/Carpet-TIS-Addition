@@ -44,7 +44,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 //#if MC < 11700
-import com.google.common.collect.ImmutableList;
+//$$ import com.google.common.collect.ImmutableList;
 //#endif
 
 //#if MC >= 11901
@@ -57,11 +57,11 @@ public abstract class ParsedRuleMixin<T>
 {
 	@Shadow(remap = false) @Final public String name;
 	//#if MC >= 11700
-	//$$ @Shadow(remap = false) @Final public List<String> categories;
-	//$$ @Shadow(remap = false) @Final @Mutable public List<String> options;
+	@Shadow(remap = false) @Final public List<String> categories;
+	@Shadow(remap = false) @Final @Mutable public List<String> options;
 	//#else
-	@Shadow(remap = false) @Final public ImmutableList<String> categories;
-	@Shadow(remap = false) @Final @Mutable public ImmutableList<String> options;
+	//$$ @Shadow(remap = false) @Final public ImmutableList<String> categories;
+	//$$ @Shadow(remap = false) @Final @Mutable public ImmutableList<String> options;
 	//#endif
 	@Shadow(remap = false) public abstract T get();
 	@Shadow(remap = false) @Final public Class<T> type;
@@ -75,18 +75,18 @@ public abstract class ParsedRuleMixin<T>
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11700
-							//$$ target = "Ljava/util/List;of()Ljava/util/List;"
+							target = "Ljava/util/List;of()Ljava/util/List;"
 							//#else
-							target = "Lcom/google/common/collect/ImmutableList;of()Lcom/google/common/collect/ImmutableList;"
+							//$$ target = "Lcom/google/common/collect/ImmutableList;of()Lcom/google/common/collect/ImmutableList;"
 							//#endif
 					)
 			),
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Ljava/util/List;isEmpty()Z",
+					target = "Ljava/util/List;isEmpty()Z",
 					//#else
-					target = "Lcom/google/common/collect/ImmutableList;isEmpty()Z",
+					//$$ target = "Lcom/google/common/collect/ImmutableList;isEmpty()Z",
 					//#endif
 					ordinal = 0
 			),

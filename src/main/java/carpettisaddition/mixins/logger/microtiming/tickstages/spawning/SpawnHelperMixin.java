@@ -38,9 +38,9 @@ public abstract class SpawnHelperMixin
 {
 	@ModifyVariable(
 			//#if MC >= 11600
-			//$$ method = "spawn",
+			method = "spawn",
 			//#else
-			method = "spawnEntitiesInChunk",
+			//$$ method = "spawnEntitiesInChunk",
 			//#endif
 			at = @At("HEAD"), argsOnly = true
 	)
@@ -56,9 +56,9 @@ public abstract class SpawnHelperMixin
 
 	@ModifyVariable(
 			//#if MC >= 11600
-			//$$ method = "spawn",
+			method = "spawn",
 			//#else
-			method = "spawnEntitiesInChunk",
+			//$$ method = "spawnEntitiesInChunk",
 			//#endif
 			at = @At("TAIL"),
 			argsOnly = true

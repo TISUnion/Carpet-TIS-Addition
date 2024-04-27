@@ -39,7 +39,7 @@ public class ArmorModifyReason extends ModifyReason
 
 	public ArmorModifyReason(LivingEntity entity)
 	{
-		this((float)entity.getArmor(), (float)entity.getAttributeInstance(EntityAttributes.ARMOR_TOUGHNESS).getValue());
+		this((float)entity.getArmor(), (float)entity.getAttributeInstance(EntityAttributes.GENERIC_ARMOR_TOUGHNESS).getValue());
 	}
 
 	@Override
@@ -52,10 +52,10 @@ public class ArmorModifyReason extends ModifyReason
 						String.format("w  %.1f + %.1f", this.armor, this.toughness)
 				),
 				Messenger.c(
-						Messenger.attribute(EntityAttributes.ARMOR),
+						Messenger.attribute(EntityAttributes.GENERIC_ARMOR),
 						"w : " + String.format("%.1f", this.armor),
 						"w \n",
-						Messenger.attribute(EntityAttributes.ARMOR_TOUGHNESS),
+						Messenger.attribute(EntityAttributes.GENERIC_ARMOR_TOUGHNESS),
 						"w : " + String.format("%.1f", this.toughness)
 				),
 				null

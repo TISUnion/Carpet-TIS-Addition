@@ -54,7 +54,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 //#if MC >= 11800
-//$$ import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
+import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
 //#endif
 
 public class TISAdditionLoggerRegistry
@@ -69,7 +69,7 @@ public class TISAdditionLoggerRegistry
 	public static boolean __memory;
 	public static boolean __microTiming;
 	//#if MC >= 11800
-	//$$ public static boolean __mobcapsLocal;
+	public static boolean __mobcapsLocal;
 	//#endif
 	public static boolean __movement;
 	public static boolean __phantom;
@@ -91,7 +91,7 @@ public class TISAdditionLoggerRegistry
 		register(MemoryHUDLogger.getInstance());
 		register(MicroTimingStandardCarpetLogger.getInstance());
 		//#if MC >= 11800
-		//$$ register(MobcapsLocalLogger.getInstance());
+		register(MobcapsLocalLogger.getInstance());
 		//#endif
 		register(MovementLogger.getInstance());
 		register(PhantomLogger.getInstance());
@@ -131,7 +131,7 @@ public class TISAdditionLoggerRegistry
 	public static Logger standardLogger(
 			String logName, String def, String[] options
 			//#if MC >= 11700
-			//$$ , boolean strictOptions
+			, boolean strictOptions
 			//#endif
 	)
 	{
@@ -144,7 +144,7 @@ public class TISAdditionLoggerRegistry
 				(
 						getLoggerField(logName), logName, def, options
 						//#if MC >= 11700
-						//$$ , strictOptions
+						, strictOptions
 						//#endif
 				);
 	}
@@ -152,7 +152,7 @@ public class TISAdditionLoggerRegistry
 	public static HUDLogger standardHUDLogger(
 			String logName, String def, String [] options
 			//#if MC >= 11700
-			//$$ , boolean strictOptions
+			, boolean strictOptions
 			//#endif
 	)
 	{
@@ -165,7 +165,7 @@ public class TISAdditionLoggerRegistry
 				(
 						getLoggerField(logName), logName, def, options
 						//#if MC >= 11700
-						//$$ , strictOptions
+						, strictOptions
 						//#endif
 				);
 	}

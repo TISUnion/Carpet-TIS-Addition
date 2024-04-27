@@ -26,7 +26,7 @@ import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
 import carpettisaddition.utils.compat.ServerTickType;
 import com.google.common.collect.Sets;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.MetricsData;
 
 import java.util.Set;
@@ -86,7 +86,7 @@ public class ServerMsptMetricsDataSyncer
 		broadcastSample(tickCounter, millisecond * M, SERVER_TICK_TYPE_FALLBACK);
 	}
 
-	public void receiveMetricData(CompoundTag nbt)
+	public void receiveMetricData(NbtCompound nbt)
 	{
 		long nanosecond = nbt.getLong("millisecond") * M;
 		if (nbt.contains("nanosecond"))

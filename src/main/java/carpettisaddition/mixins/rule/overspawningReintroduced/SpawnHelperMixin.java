@@ -20,11 +20,28 @@
 
 package carpettisaddition.mixins.rule.overspawningReintroduced;
 
-import carpettisaddition.utils.compat.DummyClass;
+import carpettisaddition.CarpetTISAdditionSettings;
+import net.minecraft.world.SpawnHelper;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(DummyClass.class)
+@Mixin(SpawnHelper.class)
 public abstract class SpawnHelperMixin
 {
-	// impl in 1.16+
+	@ModifyArg(
+			method = "spawn",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/SpawnHelper;spawnEntitiesInChunk(Lnet/minecraft/entity/SpawnGroup;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/world/chunk/WorldChunk;Lnet/minecraft/world/SpawnHelper$Checker;Lnet/minecraft/world/SpawnHelper$Runner;)V"
+			)
+	)
+	private static SpawnHelper.Runner overspawningReintroduced_ReplaceWithAnEmptyOne(SpawnHelper.Runner runner)
+	{
+		if (CarpetTISAdditionSettings.overspawningReintroduced)
+		{
+			runner = (entity, chunk) -> {};
+		}
+		return runner;
+	}
 }

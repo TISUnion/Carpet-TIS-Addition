@@ -26,7 +26,7 @@ import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.thrown.ThrownEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.util.hit.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -53,7 +53,7 @@ public abstract class ThrownEntityMixin implements ProjectileLoggerTarget
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/thrown/ThrownEntity;onCollision(Lnet/minecraft/util/hit/HitResult;)V"
+					target = "Lnet/minecraft/entity/projectile/thrown/ThrownEntity;onCollision(Lnet/minecraft/util/hit/HitResult;)V"
 			),
 			index = 0
 	)

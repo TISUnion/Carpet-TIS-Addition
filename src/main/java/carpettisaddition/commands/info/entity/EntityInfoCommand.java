@@ -23,7 +23,7 @@ package carpettisaddition.commands.info.entity;
 import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.command.arguments.EntityArgumentType;
+import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;

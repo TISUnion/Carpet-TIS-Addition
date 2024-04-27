@@ -44,9 +44,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"))
 @Mixin(ShapesRenderer.RenderedText.class)
-public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.RenderedShape<ShapeDispatcher.Text>
+public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.RenderedShape<ShapeDispatcher.DisplayedText>
 {
-	protected ShapesRendererRenderedTextMixin(MinecraftClient client, ShapeDispatcher.Text shape)
+	protected ShapesRendererRenderedTextMixin(MinecraftClient client, ShapeDispatcher.DisplayedText shape)
 	{
 		super(client, shape);
 	}
@@ -62,18 +62,18 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 					from = @At(
 							value = "FIELD",
 							//#if MC >= 11600
-							//$$ target = "Lcarpet/script/utils/ShapeDispatcher$DisplayedText;indent:F"
+							target = "Lcarpet/script/utils/ShapeDispatcher$DisplayedText;indent:F"
 							//#else
-							target = "Lcarpet/script/utils/ShapeDispatcher$Text;indent:F"
+							//$$ target = "Lcarpet/script/utils/ShapeDispatcher$Text;indent:F"
 							//#endif
 					)
 			),
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/client/util/math/MatrixStack;scale(FFF)V",
+					target = "Lnet/minecraft/client/util/math/MatrixStack;scale(FFF)V",
 					//#else
-					target = "Lcom/mojang/blaze3d/systems/RenderSystem;scalef(FFF)V",
+					//$$ target = "Lcom/mojang/blaze3d/systems/RenderSystem;scalef(FFF)V",
 					//#endif
 					ordinal = 0,
 					remap = true
@@ -97,9 +97,9 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 					//#elseif MC >= 11903
 					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLnet/minecraft/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
+					target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLnet/minecraft/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
 					//#else
-					target = "Lnet/minecraft/client/font/TextRenderer;draw(Ljava/lang/String;FFIZLnet/minecraft/client/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
+					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Ljava/lang/String;FFIZLnet/minecraft/client/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
 					//#endif
 					remap = true
 			),
@@ -135,9 +135,9 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/client/util/math/MatrixStack;pop()V",
+					target = "Lnet/minecraft/client/util/math/MatrixStack;pop()V",
 					//#else
-					target = "Lcom/mojang/blaze3d/systems/RenderSystem;popMatrix()V",
+					//$$ target = "Lcom/mojang/blaze3d/systems/RenderSystem;popMatrix()V",
 					//#endif
 					ordinal = 0,
 					remap = true

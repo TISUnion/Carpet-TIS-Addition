@@ -20,17 +20,50 @@
 
 package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip;
 
+import carpet.CarpetSettings;
+import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
 import carpettisaddition.utils.ModIds;
-import carpettisaddition.utils.compat.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.EntityView;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
 
-/**
- * See {@link EntityPredicatesMixin} for the implementation for < mc1.17
- */
+import java.util.function.Predicate;
+
+//#if MC >= 11800
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+//#else
+//$$ import org.spongepowered.asm.mixin.injection.ModifyVariable;
+//#endif
+
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
-@Mixin(DummyClass.class)
+@Mixin(EntityView.class)
 public interface EntityViewMixin
 {
+	// lithium in mc1.16, mc1.17 overwrites the entire method, so it's more simple to just `@ModifyVariable` at HEAD
+	//#if MC >= 11800
+	@ModifyArg(
+			method = "getEntityCollisions",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/EntityView;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;"
+			)
+	)
+	//#else
+	//$$ @ModifyVariable(method = "getEntityCollisions", at = @At("HEAD"), argsOnly = true)
+	//#endif
+	private Predicate<Entity> creativeNoClipEnhancementImpl_addNoClipCheckToPredicate(Predicate<Entity> predicate)
+	{
+		if (CarpetSettings.creativeNoClip && CreativeNoClipHelper.exceptSpectatorPredicateIgnoreNoClipPlayers.get())
+		{
+			predicate = predicate.and(entity -> {
+				// return true: attempt to collide with this entity
+				// return false: skip this entity
+				return !CreativeNoClipHelper.isNoClipPlayer(entity);
+			});
+		}
+		return predicate;
+	}
 }

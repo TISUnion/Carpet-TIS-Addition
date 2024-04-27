@@ -38,17 +38,17 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RayTraceContext;
+import net.minecraft.world.RaycastContext;
 
 import java.util.function.Function;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
-import static net.minecraft.command.arguments.Vec3ArgumentType.getVec3;
-import static net.minecraft.command.arguments.Vec3ArgumentType.vec3;
+import static net.minecraft.command.argument.BlockPosArgumentType.blockPos;
+import static net.minecraft.command.argument.BlockPosArgumentType.getLoadedBlockPos;
+import static net.minecraft.command.argument.Vec3ArgumentType.getVec3;
+import static net.minecraft.command.argument.Vec3ArgumentType.vec3;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -89,9 +89,9 @@ public class RaycastCommand extends AbstractCommand
 						then(argument("start", vec3()).
 								then(argument("end", vec3()).
 										executes(this::performRaycast).
-										then(CommandUtil.enumArg("shapeMode", RayTraceContext.ShapeType.class).
+										then(CommandUtil.enumArg("shapeMode", RaycastContext.ShapeType.class).
 												executes(this::performRaycast).
-												then(CommandUtil.enumArg("fluidMode", RayTraceContext.FluidHandling.class).
+												then(CommandUtil.enumArg("fluidMode", RaycastContext.FluidHandling.class).
 														executes(this::performRaycast)
 												)
 										)
@@ -134,12 +134,12 @@ public class RaycastCommand extends AbstractCommand
 	{
 		Vec3d start = getVec3(c, "start");
 		Vec3d end = getVec3(c, "end");
-		RayTraceContext.ShapeType shapeMode = getEnumArg(c, "shapeMode", RayTraceContext.ShapeType.COLLIDER);
-		RayTraceContext.FluidHandling fluidMode = getEnumArg(c, "fluidMode", RayTraceContext.FluidHandling.NONE);
+		RaycastContext.ShapeType shapeMode = getEnumArg(c, "shapeMode", RaycastContext.ShapeType.COLLIDER);
+		RaycastContext.FluidHandling fluidMode = getEnumArg(c, "fluidMode", RaycastContext.FluidHandling.NONE);
 		ServerCommandSource source = c.getSource();
 		ServerWorld world = source.getWorld();
 
-		BlockHitResult result = world.rayTrace(new RayTraceContext(start, end, shapeMode, fluidMode, source.getEntityOrThrow()));
+		BlockHitResult result = world.raycast(new RaycastContext(start, end, shapeMode, fluidMode, source.getEntityOrThrow()));
 		if (result.getType() == HitResult.Type.MISS)
 		{
 			Messenger.tell(source, Messenger.formatting(tr("missed"), Formatting.DARK_RED));

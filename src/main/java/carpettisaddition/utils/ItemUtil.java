@@ -55,7 +55,7 @@ public class ItemUtil
 		//$$ }
 		//$$ return enchantments;
 		//#else
-		return EnchantmentHelper.getEnchantments(itemStack);
+		return EnchantmentHelper.get(itemStack);
 		//#endif
 	}
 }

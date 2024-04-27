@@ -33,7 +33,7 @@ import java.util.Map;
 //#endif
 
 //#if MC < 11700
-import org.apache.commons.lang3.tuple.Pair;
+//$$ import org.apache.commons.lang3.tuple.Pair;
 //#endif
 
 public class ShapeHolder<T extends ShapeDispatcher.ExpiringShape>
@@ -64,17 +64,17 @@ public class ShapeHolder<T extends ShapeDispatcher.ExpiringShape>
 
 	public
 	//#if MC >= 11700
-	//$$ ShapeDispatcher.ShapeWithConfig
+	ShapeDispatcher.ShapeWithConfig
 	//#else
-	Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>
+	//$$ Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>
 	//#endif
 	toPair(boolean display)
 	{
 		return
 				//#if MC >= 11700
-				//$$ new ShapeDispatcher.ShapeWithConfig
+				new ShapeDispatcher.ShapeWithConfig
 				//#else
-				Pair.of
+				//$$ Pair.of
 				//#endif
 						(this.shape, display ? this.params : this.emptyParams);
 	}

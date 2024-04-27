@@ -25,11 +25,11 @@ import carpettisaddition.mixins.network.ServerPlayNetworkHandlerAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 
 import java.util.function.Consumer;
 
@@ -38,11 +38,11 @@ public class HandlerContext
 	public static class S2C
 	{
 		public final ClientPlayNetworkHandler networkHandler;
-		public final CompoundTag payload;
+		public final NbtCompound payload;
 		public final MinecraftClient client;
 		public final ClientPlayerEntity player;
 
-		public S2C(ClientPlayNetworkHandler networkHandler, CompoundTag payload)
+		public S2C(ClientPlayNetworkHandler networkHandler, NbtCompound payload)
 		{
 			this.payload = payload;
 			this.networkHandler = networkHandler;
@@ -55,7 +55,7 @@ public class HandlerContext
 			this.client.execute(runnable);
 		}
 
-		public void send(TISCMProtocol.C2S packetId, Consumer<CompoundTag> payloadBuilder)
+		public void send(TISCMProtocol.C2S packetId, Consumer<NbtCompound> payloadBuilder)
 		{
 			TISCMClientPacketHandler.getInstance().sendPacket(packetId, payloadBuilder);
 		}
@@ -64,12 +64,12 @@ public class HandlerContext
 	public static class C2S
 	{
 		public final ServerPlayNetworkHandler networkHandler;
-		public final CompoundTag payload;
+		public final NbtCompound payload;
 		public final MinecraftServer server;
 		public final ServerPlayerEntity player;
 		public final String playerName;
 
-		public C2S(ServerPlayNetworkHandler networkHandler, CompoundTag payload)
+		public C2S(ServerPlayNetworkHandler networkHandler, NbtCompound payload)
 		{
 			this.networkHandler = networkHandler;
 			this.payload = payload;
@@ -83,7 +83,7 @@ public class HandlerContext
 			this.server.execute(runnable);
 		}
 
-		public void send(TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder)
+		public void send(TISCMProtocol.S2C packetId, Consumer<NbtCompound> payloadBuilder)
 		{
 			TISCMServerPacketHandler.getInstance().sendPacket(this.networkHandler, packetId, payloadBuilder);
 		}

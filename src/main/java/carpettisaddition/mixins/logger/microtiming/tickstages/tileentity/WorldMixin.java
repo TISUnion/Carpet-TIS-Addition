@@ -66,17 +66,17 @@ public abstract class WorldMixin implements IWorldTileEntity
 	}
 
 	//#if MC < 11700
-	@Inject(
-			method = "tickBlockEntities",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/util/Tickable;tick()V"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
-	)
-	private void onTickTileEntity(CallbackInfo ci, Profiler profiler, Iterator<?> iterator, BlockEntity blockEntity)
-	{
-		MicroTimingLoggerManager.setSubTickStage((World)(Object)this, new TileEntitySubStage(blockEntity, this.tileEntityOrderCounter++));  // TISCM Micro Tick logger
-	}
+	//$$ @Inject(
+	//$$ 		method = "tickBlockEntities",
+	//$$ 		at = @At(
+	//$$ 				value = "INVOKE",
+	//$$ 				target = "Lnet/minecraft/util/Tickable;tick()V"
+	//$$ 		),
+	//$$ 		locals = LocalCapture.CAPTURE_FAILHARD
+	//$$ )
+	//$$ private void onTickTileEntity(CallbackInfo ci, Profiler profiler, Iterator<?> iterator, BlockEntity blockEntity)
+	//$$ {
+	//$$ 	MicroTimingLoggerManager.setSubTickStage((World)(Object)this, new TileEntitySubStage(blockEntity, this.tileEntityOrderCounter++));  // TISCM Micro Tick logger
+	//$$ }
 	//#endif
 }

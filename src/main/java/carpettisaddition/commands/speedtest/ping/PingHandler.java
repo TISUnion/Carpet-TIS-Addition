@@ -24,7 +24,7 @@ import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.network.TISCMClientPacketHandler;
 import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,7 +51,7 @@ public class PingHandler implements PongReceiver
 		this.pingTasks.clear();
 	}
 
-	private void makePingPayload(CompoundTag nbt, long magic)
+	private void makePingPayload(NbtCompound nbt, long magic)
 	{
 		nbt.putString("type", "ping");
 		nbt.putLong("magic", magic);
@@ -88,7 +88,7 @@ public class PingHandler implements PongReceiver
 	 * Invoked on network thread
 	 */
 	@Override
-	public void onPongReceived(CompoundTag payload)
+	public void onPongReceived(NbtCompound payload)
 	{
 		PingTask pingTask = this.readPongImpl(payload);
 		if (pingTask != null && pingTask.pongCallback != null)
@@ -101,7 +101,7 @@ public class PingHandler implements PongReceiver
 		}
 	}
 
-	private PingTask readPongImpl(CompoundTag payload)
+	private PingTask readPongImpl(NbtCompound payload)
 	{
 		String pingType = payload.getString("type");
 		if (!pingType.equals("pong"))
@@ -138,7 +138,7 @@ public class PingHandler implements PongReceiver
 	@FunctionalInterface
 	public interface PongCallback
 	{
-		void onPongReceived(CompoundTag payload, long pingNs);
+		void onPongReceived(NbtCompound payload, long pingNs);
 	}
 
 	@FunctionalInterface

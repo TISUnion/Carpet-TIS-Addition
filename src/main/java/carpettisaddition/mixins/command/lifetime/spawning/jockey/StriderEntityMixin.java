@@ -20,11 +20,29 @@
 
 package carpettisaddition.mixins.command.lifetime.spawning.jockey;
 
-import carpettisaddition.utils.compat.DummyClass;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
+import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.StriderEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(DummyClass.class)
+@Mixin(StriderEntity.class)
 public abstract class StriderEntityMixin
 {
-	// impl in mc1.16+
+	@ModifyVariable(
+			//#if MC >= 11700
+			method = "initializeRider",
+			//#else
+			//$$ method = "method_30336",
+			//#endif
+			at = @At("TAIL"),
+			argsOnly = true
+	)
+	private MobEntity lifetimeTracker_recordSpawning_jockey_strider(MobEntity striderRider)
+	{
+		((LifetimeTrackerTarget)striderRider).recordSpawning(LiteralSpawningReason.JOCKEY);
+		return striderRider;
+	}
 }

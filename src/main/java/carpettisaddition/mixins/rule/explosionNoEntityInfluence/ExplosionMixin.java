@@ -37,7 +37,7 @@ public abstract class ExplosionMixin
 			method = "collectBlocksAndDamageEntities",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
+					target = "Lnet/minecraft/world/World;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
 			)
 	)
 	private List<Entity> explosionNoEntityInfluence(List<Entity> entities)

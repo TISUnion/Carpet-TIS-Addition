@@ -113,9 +113,9 @@ public abstract class WorldMixins
 	{
 		@Inject(
 				//#if MC >= 11600
-				//$$ method = "updateComparators",
+				method = "updateComparators",
 				//#else
-				method = "updateHorizontalAdjacent",
+				//$$ method = "updateHorizontalAdjacent",
 				//#endif
 				at = @At("HEAD")
 		)
@@ -133,9 +133,9 @@ public abstract class WorldMixins
 
 		@Inject(
 				//#if MC >= 11600
-				//$$ method = "updateComparators",
+				method = "updateComparators",
 				//#else
-				method = "updateHorizontalAdjacent",
+				//$$ method = "updateHorizontalAdjacent",
 				//#endif
 				at = @At("RETURN")
 		)

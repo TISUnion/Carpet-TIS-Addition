@@ -20,8 +20,8 @@
 
 package carpettisaddition.mixins.command.fill.modeenhance;
 
-import net.minecraft.command.arguments.BlockStateArgument;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.command.argument.BlockStateArgument;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.state.property.Property;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -35,5 +35,5 @@ public interface BlockStateArgumentAccessor
 	Set<Property<?>> getProperties();
 
 	@Accessor
-	CompoundTag getData();
+	NbtCompound getData();
 }

@@ -26,8 +26,8 @@ import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.container.Container;
-import net.minecraft.container.NameableContainerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -54,13 +54,13 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/entity/player/PlayerEntity;openHandledScreen(Lnet/minecraft/screen/NamedScreenHandlerFactory;)Ljava/util/OptionalInt;"
+					target = "Lnet/minecraft/entity/player/PlayerEntity;openHandledScreen(Lnet/minecraft/screen/NamedScreenHandlerFactory;)Ljava/util/OptionalInt;"
 					//#else
-					target = "Lnet/minecraft/entity/player/PlayerEntity;openContainer(Lnet/minecraft/container/NameableContainerFactory;)Ljava/util/OptionalInt;"
+					//$$ target = "Lnet/minecraft/entity/player/PlayerEntity;openContainer(Lnet/minecraft/container/NameableContainerFactory;)Ljava/util/OptionalInt;"
 					//#endif
 			)
 	)
-	private NameableContainerFactory largeBarrel(NameableContainerFactory nameableContainerFactory)
+	private NamedScreenHandlerFactory largeBarrel(NamedScreenHandlerFactory nameableContainerFactory)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
@@ -69,9 +69,9 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 				BarrelBlockEntity barrelBlockEntity = (BarrelBlockEntity) nameableContainerFactory;
 				return this.
 						//#if MC >= 11600
-						//$$ createScreenHandlerFactory
+						createScreenHandlerFactory
 						//#else
-						createContainerFactory
+						//$$ createContainerFactory
 						//#endif
 								(barrelBlockEntity.getCachedState(), barrelBlockEntity.getWorld(), barrelBlockEntity.getPos());
 			}
@@ -86,19 +86,19 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	 */
 	@Nullable
 	@Override
-	public NameableContainerFactory
+	public NamedScreenHandlerFactory
 	//#if MC >= 11600
-	//$$ createScreenHandlerFactory
+	createScreenHandlerFactory
 	//#else
-	createContainerFactory
+	//$$ createContainerFactory
 	//#endif
 	(BlockState state, World world, BlockPos pos)
 	{
-		NameableContainerFactory vanillaResult = super.
+		NamedScreenHandlerFactory vanillaResult = super.
 				//#if MC >= 11600
-				//$$ createScreenHandlerFactory
+				createScreenHandlerFactory
 				//#else
-				createContainerFactory
+				//$$ createContainerFactory
 				//#endif
 						(state, world, pos);
 		if (CarpetTISAdditionSettings.largeBarrel)
@@ -113,7 +113,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
-			cir.setReturnValue(Container.calculateComparatorOutput(LargeBarrelHelper.getInventory(state, world, pos)));
+			cir.setReturnValue(ScreenHandler.calculateComparatorOutput(LargeBarrelHelper.getInventory(state, world, pos)));
 		}
 	}
 }

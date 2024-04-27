@@ -44,9 +44,9 @@ public abstract class ExperienceOrbEntityMixin
 
 	@Inject(
 			//#if MC >= 11700
-			//$$ method = "expensiveUpdate",
+			method = "expensiveUpdate",
 			//#else
-			method = "tick",
+			//$$ method = "tick",
 			//#endif
 			at = @At(
 					value = "INVOKE",
@@ -63,9 +63,9 @@ public abstract class ExperienceOrbEntityMixin
 
 	@Inject(
 			//#if MC >= 11700
-			//$$ method = "expensiveUpdate",
+			method = "expensiveUpdate",
 			//#else
-			method = "tick",
+			//$$ method = "tick",
 			//#endif
 			at = @At(
 					value = "INVOKE",

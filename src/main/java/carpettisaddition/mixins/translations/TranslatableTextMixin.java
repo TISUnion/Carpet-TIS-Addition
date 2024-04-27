@@ -44,9 +44,9 @@ public abstract class TranslatableTextMixin
 					//#if MC >= 11900
 					//$$ target = "Lnet/minecraft/text/TranslatableTextContent;forEachPart(Ljava/lang/String;Ljava/util/function/Consumer;)V"
 					//#elseif MC >= 11800
-					//$$ target = "Lnet/minecraft/text/TranslatableText;forEachPart(Ljava/lang/String;Ljava/util/function/Consumer;)V"
+					target = "Lnet/minecraft/text/TranslatableText;forEachPart(Ljava/lang/String;Ljava/util/function/Consumer;)V"
 					//#else
-					target = "Lnet/minecraft/text/TranslatableText;setTranslation(Ljava/lang/String;)V"
+					//$$ target = "Lnet/minecraft/text/TranslatableText;setTranslation(Ljava/lang/String;)V"
 					//#endif
 			)
 	)

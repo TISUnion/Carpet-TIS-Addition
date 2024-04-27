@@ -40,30 +40,30 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 11700
-//$$ import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 //#else
-import org.spongepowered.asm.mixin.Shadow;
+//$$ import org.spongepowered.asm.mixin.Shadow;
 //#endif
 
 @Mixin(HopperBlockEntity.class)
 public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntity
 {
 	//#if MC >= 11700
-	//$$ protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState)
-	//$$ {
-	//$$ 	super(blockEntityType, blockPos, blockState);
-	//$$ }
-	//#else
-	protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType)
+	protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState)
 	{
-		super(blockEntityType);
+		super(blockEntityType, blockPos, blockState);
 	}
+	//#else
+	//$$ protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType)
+	//$$ {
+	//$$ 	super(blockEntityType);
+	//$$ }
 	//#endif
 
 	//#if MC < 11700
-	@Shadow public abstract double getHopperX();
-	@Shadow public abstract double getHopperY();
-	@Shadow public abstract double getHopperZ();
+	//$$ @Shadow public abstract double getHopperX();
+	//$$ @Shadow public abstract double getHopperY();
+	//$$ @Shadow public abstract double getHopperZ();
 	//#endif
 
 	@Inject(
@@ -75,19 +75,19 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			)
 	)
 	//#if MC >= 11700
-	//$$ private static
+	private static
 	//#else
-	private
+	//$$ private
 	//#endif
 	void hopperNoItemCost_hopperOutputHook(
 			CallbackInfoReturnable<Boolean> cir,
 			//#if MC >= 11700
-			//$$ @Local(argsOnly = true) World world, @Local(argsOnly = true) BlockPos pos,
-			//$$ //#if MC >= 12005
-			//$$ //$$ @Local(argsOnly = true) HopperBlockEntity hopperInventory,
-			//$$ //#else
-			//$$ @Local(argsOnly = true) Inventory hopperInventory,
-			//$$ //#endif
+			@Local(argsOnly = true) World world, @Local(argsOnly = true) BlockPos pos,
+			//#if MC >= 12005
+			//$$ @Local(argsOnly = true) HopperBlockEntity hopperInventory,
+			//#else
+			@Local(argsOnly = true) Inventory hopperInventory,
+			//#endif
 			//#endif
 			@Local(ordinal = 0) int index, @Local(ordinal = 0) ItemStack itemStack
 			//#if MC >= 12005
@@ -101,8 +101,8 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 		}
 
 		//#if MC < 11700
-		World world = this.getWorld();
-		Inventory hopperInventory = this;
+		//$$ World world = this.getWorld();
+		//$$ Inventory hopperInventory = this;
 		//#endif
 
 		if (world == null)
@@ -111,9 +111,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 		}
 		BlockPos hopperPos =
 				//#if MC >= 11700
-				//$$ pos;
+				pos;
 				//#else
-				new BlockPos(this.getHopperX(), this.getHopperY(), this.getHopperZ());
+				//$$ new BlockPos(this.getHopperX(), this.getHopperY(), this.getHopperZ());
 				//#endif
 		DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperPos.offset(Direction.UP));
 		if (wool_color == null)
@@ -129,7 +129,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 		//#else
 		ItemStack prevStack = itemStack;  // itemStack is already a copy, see vanilla insert() method
 		//#endif
-		ItemStack currentStack = hopperInventory.getInvStack(index);
+		ItemStack currentStack = hopperInventory.getStack(index);
 
 		if (SupplierCounterCommand.isActivated())
 		{
@@ -137,6 +137,6 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 		}
 
 		// restore the hopper inventory slot to the previous stack
-		hopperInventory.setInvStack(index, prevStack);
+		hopperInventory.setStack(index, prevStack);
 	}
 }

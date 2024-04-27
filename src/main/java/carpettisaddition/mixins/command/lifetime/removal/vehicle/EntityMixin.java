@@ -20,11 +20,26 @@
 
 package carpettisaddition.mixins.command.lifetime.removal.vehicle;
 
-import carpettisaddition.utils.compat.DummyClass;
+import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
+import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
+import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(DummyClass.class)
+@Mixin(Entity.class)
 public abstract class EntityMixin
 {
-	/// impl in mc1.16+
+	@Shadow public abstract boolean hasVehicle();
+
+	@Inject(method = "startRiding(Lnet/minecraft/entity/Entity;Z)Z", at = @At("RETURN"))
+	private void lifetimeTracker_recordRemoval_vehicleMounting(CallbackInfoReturnable<Boolean> cir)
+	{
+		if (this.hasVehicle())
+		{
+			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.VEHICLE_MOUNTING);
+		}
+	}
 }

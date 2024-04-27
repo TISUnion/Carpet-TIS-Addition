@@ -56,8 +56,8 @@ import java.util.stream.Collectors;
 //#endif
 
 //#if MC >= 11800
-//$$ import carpettisaddition.mixins.logger.microtiming.tickstages.ServerWorldAccessor;
-//$$ import net.minecraft.util.math.ChunkPos;
+import carpettisaddition.mixins.logger.microtiming.tickstages.ServerWorldAccessor;
+import net.minecraft.util.math.ChunkPos;
 //#endif
 
 public class MicroTimingUtil
@@ -68,9 +68,9 @@ public class MicroTimingUtil
 			put(DyeColor.WHITE, "w").
 
 			//#if MC >= 11600
-			//$$ put(DyeColor.ORANGE, "#F9801D").  // DyeColor.ORANGE.color
+			put(DyeColor.ORANGE, "#F9801D").  // DyeColor.ORANGE.color
 			//#else
-			put(DyeColor.ORANGE, "d").
+			//$$ put(DyeColor.ORANGE, "d").
 			//#endif
 
 			put(DyeColor.MAGENTA, "m").
@@ -79,9 +79,9 @@ public class MicroTimingUtil
 			put(DyeColor.LIME, "l").
 
 			//#if MC >= 11600
-			//$$ put(DyeColor.PINK, "#F38BAA").  // DyeColor.PINK.color
+			put(DyeColor.PINK, "#F38BAA").  // DyeColor.PINK.color
 			//#else
-			put(DyeColor.PINK, "r").
+			//$$ put(DyeColor.PINK, "r").
 			//#endif
 
 			put(DyeColor.GRAY, "f").
@@ -91,9 +91,9 @@ public class MicroTimingUtil
 			put(DyeColor.BLUE, "v").
 
 			//#if MC >= 11600
-			//$$ put(DyeColor.BROWN, "#835432").  // DyeColor.BROWN.color
+			put(DyeColor.BROWN, "#835432").  // DyeColor.BROWN.color
 			//#else
-			put(DyeColor.BROWN, "n").
+			//$$ put(DyeColor.BROWN, "n").
 			//#endif
 
 			put(DyeColor.GREEN, "e").
@@ -145,11 +145,11 @@ public class MicroTimingUtil
 	{
 		return world instanceof ServerWorld &&
 				//#if MC >= 11800
-				//$$ ((ServerWorldAccessor)world).invokeIsTickingFutureReady(ChunkPos.toLong(pos));
+				((ServerWorldAccessor)world).invokeIsTickingFutureReady(ChunkPos.toLong(pos));
 				//#elseif MC >= 11700
 				//$$ ((ServerWorld)world).method_37117(pos);
 				//#else
-				world.getChunkManager().shouldTickBlock(pos);
+				//$$ world.getChunkManager().shouldTickBlock(pos);
 				//#endif
 	}
 
@@ -172,7 +172,7 @@ public class MicroTimingUtil
 		Block block = state.getBlock();
 		BlockPos woolPos;
 
-		if (block instanceof ObserverBlock || block instanceof EndRodBlock ||
+		if (block instanceof ObserverBlock || block instanceof RodBlock ||
 				block instanceof PistonBlock || block instanceof PistonExtensionBlock)
 		{
 			woolPos = pos.offset(state.get(Properties.FACING).getOpposite());

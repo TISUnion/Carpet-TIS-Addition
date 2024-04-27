@@ -33,9 +33,9 @@ public abstract class BlockMixin
 {
 	@ModifyArg(
 			//#if MC >= 11700
-			//$$ method = "dropStack(Lnet/minecraft/world/World;Ljava/util/function/Supplier;Lnet/minecraft/item/ItemStack;)V",
+			method = "dropStack(Lnet/minecraft/world/World;Ljava/util/function/Supplier;Lnet/minecraft/item/ItemStack;)V",
 			//#else
-			method = "dropStack",
+			//$$ method = "dropStack",
 			//#endif
 			at = @At(
 					value = "INVOKE",

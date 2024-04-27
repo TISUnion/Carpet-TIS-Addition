@@ -24,7 +24,7 @@ import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.commands.speedtest.SpeedTestPacketUtils;
 import carpettisaddition.commands.speedtest.ping.PingHandler;
 import carpettisaddition.commands.speedtest.ping.PongReceiver;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 public abstract class SpeedTesterPayloadSenderBase extends SpeedTesterBase implements PongReceiver
 {
@@ -64,7 +64,7 @@ public abstract class SpeedTesterPayloadSenderBase extends SpeedTesterBase imple
 	}
 
 	@Override
-	public void onPongReceived(CompoundTag payload)
+	public void onPongReceived(NbtCompound payload)
 	{
 		this.pingHandler.onPongReceived(payload);
 	}

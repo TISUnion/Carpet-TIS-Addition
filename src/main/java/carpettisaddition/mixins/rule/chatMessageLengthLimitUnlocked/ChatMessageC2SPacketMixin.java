@@ -60,13 +60,13 @@ public abstract class ChatMessageC2SPacketMixin
 
 	@ModifyArg(
 			//#if MC >= 11700
-			//$$ method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
+			method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
 			//#else
-			method = "read",
+			//$$ method = "read",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/PacketByteBuf;readString(I)Ljava/lang/String;"
+					target = "Lnet/minecraft/network/PacketByteBuf;readString(I)Ljava/lang/String;"
 			)
 	)
 	private

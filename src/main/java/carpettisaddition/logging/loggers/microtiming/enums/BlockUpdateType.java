@@ -38,9 +38,9 @@ import java.util.List;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.AbstractBlock;
 //#else
-import net.minecraft.block.Block;
+//$$ import net.minecraft.block.Block;
 //#endif
 
 public enum BlockUpdateType
@@ -98,7 +98,7 @@ public enum BlockUpdateType
 	}
 
 	//#if MC < 11600
-	@SuppressWarnings("deprecation")
+	//$$ @SuppressWarnings("deprecation")
 	//#endif
 	private static class Constants
 	{

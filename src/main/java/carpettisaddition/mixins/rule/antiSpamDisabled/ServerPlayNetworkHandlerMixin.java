@@ -39,9 +39,9 @@ public abstract class ServerPlayNetworkHandlerMixin
 			//#if MC >= 11900
 			//$$ method = "checkForSpam",
 			//#elseif MC >= 11600
-			//$$ method = "onGameMessage",
-			//#else
 			method = "onChatMessage",
+			//#else
+			//$$ method = "onChatMessage",
 			//#endif
 			at = @At("TAIL")
 	)

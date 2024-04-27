@@ -39,7 +39,7 @@ public interface ParsedRuleAccessor
 	static ParsedRule invokeConstructor(
 			Field field, Rule rule
 			//#if MC >= 11600
-			//$$ , carpet.settings.SettingsManager settingsManager
+			, carpet.settings.SettingsManager settingsManager
 			//#endif
 	)
 	{

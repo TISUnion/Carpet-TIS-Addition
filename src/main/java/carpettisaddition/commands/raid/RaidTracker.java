@@ -27,7 +27,7 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.raid.Raid;
+import net.minecraft.village.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;

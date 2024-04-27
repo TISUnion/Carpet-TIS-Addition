@@ -41,9 +41,9 @@ public abstract class TntMinecartEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/vehicle/TntMinecartEntity;discard()V"
+					target = "Lnet/minecraft/entity/vehicle/TntMinecartEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/vehicle/TntMinecartEntity;remove()V"
+					//$$ target = "Lnet/minecraft/entity/vehicle/TntMinecartEntity;remove()V"
 					//#endif
 			)
 	)

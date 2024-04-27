@@ -29,16 +29,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11600
-//$$ import net.minecraft.state.State;
+import net.minecraft.state.State;
 //#else
-import net.minecraft.state.AbstractState;
+//$$ import net.minecraft.state.AbstractState;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ State.class
+		State.class
 		//#else
-		AbstractState.class
+		//$$ AbstractState.class
 		//#endif
 )
 public abstract class AbstractStateMixin

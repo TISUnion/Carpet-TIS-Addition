@@ -33,7 +33,7 @@ import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.entity.raid.Raid;
+import net.minecraft.village.raid.Raid;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -131,9 +131,9 @@ public class RaidCommand extends AbstractCommand
 							BaseText x = Messenger.s(String.format("[%s] ", IdentifierUtil.id(raider.getType()).getPath().substring(0, 1).toUpperCase()));
 							x.setStyle(
 									//#if MC >= 11600
-									//$$ raiderName.getStyle()
+									raiderName.getStyle()
 									//#else
-									raiderName.getStyle().copy()
+									//$$ raiderName.getStyle().copy()
 									//#endif
 							);
 							Messenger.hover(x, raiderMessage);

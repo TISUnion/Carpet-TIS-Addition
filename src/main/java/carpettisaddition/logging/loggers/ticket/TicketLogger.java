@@ -86,7 +86,7 @@ public class TicketLogger extends AbstractLogger
 				(
 						TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null
 						//#if MC >= 11700
-						//$$ , false
+						, false
 						//#endif
 				)
 		{

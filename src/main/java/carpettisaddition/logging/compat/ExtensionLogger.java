@@ -41,7 +41,7 @@ public class ExtensionLogger extends Logger implements IExtensionLogger
 				logName, def, options
 
 				//#if MC >= 11700
-				//$$ , false
+				, false
 				//#endif
 		);
 		this.acceleratorField = acceleratorField;

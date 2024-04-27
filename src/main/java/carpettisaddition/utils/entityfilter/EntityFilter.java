@@ -85,12 +85,12 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		}
 		if (this.entitySelector.getPlayerName() != null)
 		{
-			ServerPlayerEntity serverPlayerEntity = this.serverCommandSource.getMinecraftServer().getPlayerManager().getPlayer(this.entitySelector.getPlayerName());
+			ServerPlayerEntity serverPlayerEntity = this.serverCommandSource.getServer().getPlayerManager().getPlayer(this.entitySelector.getPlayerName());
 			return testEntity == serverPlayerEntity;
 		} 
 		else if (this.entitySelector.getUuid() != null) 
 		{
-			for (ServerWorld serverWorld : this.serverCommandSource.getMinecraftServer().getWorlds())
+			for (ServerWorld serverWorld : this.serverCommandSource.getServer().getWorlds())
 			{
 				Entity entity = serverWorld.getEntity(this.entitySelector.getUuid());
 				if (testEntity == entity)
@@ -112,9 +112,9 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		}
 		if (
 				//#if MC >= 11700
-				//$$ this.entitySelector.getEntityFilter() != null && this.entitySelector.getEntityFilter().downcast(testEntity) == null
+				this.entitySelector.getEntityFilter() != null && this.entitySelector.getEntityFilter().downcast(testEntity) == null
 				//#else
-				this.entitySelector.getType() != null && testEntity.getType() != this.entitySelector.getType()
+				//$$ this.entitySelector.getType() != null && testEntity.getType() != this.entitySelector.getType()
 				//#endif
 		)
 		{

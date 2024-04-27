@@ -23,7 +23,7 @@ package carpettisaddition.commands.refresh;
 //#if MC >= 12002
 //$$ import net.minecraft.server.network.ChunkFilter;
 //#elseif MC >= 11800
-//$$ import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
+import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
 //#endif
 
 // used in mc1.18+
@@ -34,9 +34,9 @@ public class EuclideanDistanceHelper
 		//#if MC >= 12002
 		//$$ return ChunkFilter.isWithinDistance(chunkX, chunkZ, distance, playerSectionX, playerSectionZ, true);
 		//#elseif MC >= 11800
-		//$$ return ThreadedAnvilChunkStorageAccessor.invokeIsChunkWithinEuclideanDistanceRange(chunkX, chunkZ, playerSectionX, playerSectionZ, distance);
+		return ThreadedAnvilChunkStorageAccessor.invokeIsChunkWithinEuclideanDistanceRange(chunkX, chunkZ, playerSectionX, playerSectionZ, distance);
 		//#else
-		throw new RuntimeException();
+		//$$ throw new RuntimeException();
 		//#endif
 	}
 }

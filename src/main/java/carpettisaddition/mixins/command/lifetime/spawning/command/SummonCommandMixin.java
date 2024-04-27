@@ -42,9 +42,9 @@ public abstract class SummonCommandMixin
 					//#endif
 
 					//#if MC >= 11600
-					//$$ ordinal = 0
+					ordinal = 0
 					//#else
-					ordinal = 1
+					//$$ ordinal = 1
 					//#endif
 			)
 	)

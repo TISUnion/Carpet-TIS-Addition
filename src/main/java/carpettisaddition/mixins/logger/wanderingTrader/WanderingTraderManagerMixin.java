@@ -35,9 +35,9 @@ public abstract class WanderingTraderManagerMixin
 {
 	@Inject(
 			//#if MC >= 11700
-			//$$ method = "trySpawn",
+			method = "trySpawn",
 			//#else
-			method = "method_18018",
+			//$$ method = "method_18018",
 			//#endif
 			at = @At(
 					value = "INVOKE",

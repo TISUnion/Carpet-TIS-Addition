@@ -33,9 +33,9 @@ public abstract class EntityMixin
 {
 	@Inject(
 			//#if MC >= 11700
-			//$$ method = "tickInVoid",
+			method = "tickInVoid",
 			//#else
-			method = "destroy",
+			//$$ method = "destroy",
 			//#endif
 			at = @At("HEAD")
 	)

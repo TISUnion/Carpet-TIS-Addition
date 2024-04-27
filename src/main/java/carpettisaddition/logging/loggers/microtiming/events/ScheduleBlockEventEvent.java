@@ -23,19 +23,19 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.server.world.BlockAction;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.text.BaseText;
 
 import java.util.Objects;
 
 public class ScheduleBlockEventEvent extends BaseEvent
 {
-	private final BlockAction blockAction;
+	private final BlockEvent blockAction;
 	private final boolean success;
 
-	public ScheduleBlockEventEvent(BlockAction blockAction, boolean success)
+	public ScheduleBlockEventEvent(BlockEvent blockAction, boolean success)
 	{
-		super(EventType.EVENT, "schedule_block_event", blockAction.getBlock());
+		super(EventType.EVENT, "schedule_block_event", blockAction.block());
 		this.blockAction = blockAction;
 		this.success = success;
 	}

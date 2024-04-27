@@ -37,9 +37,9 @@ public abstract class RedstoneWireBlockMixin
 	// method to update wire connection
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "prepare",
+			method = "prepare",
 			//#else
-			method = "method_9517",
+			//$$ method = "method_9517",
 			//#endif
 			at = @At("HEAD"),
 			cancellable = true

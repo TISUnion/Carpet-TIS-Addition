@@ -31,7 +31,7 @@ public interface EntityPlayerActionPackActionAccessor
 	static EntityPlayerActionPack.Action invokeConstructor(
 			int limit, int interval, int offset
 			//#if MC >= 11600
-			//$$ , boolean continuous
+			, boolean continuous
 			//#endif
 	)
 	{
