@@ -1,1 +1,4 @@
 carpettisaddition.utils.compat.ServerTickType net.minecraft.util.profiler.ServerTickType
+
+me.jellysquid.mods.lithium.common.world.blockentity.BlockEntityGetter getLoadedExistingBlockEntity() lithium$getLoadedExistingBlockEntity()
+me.jellysquid.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeEmitter emitRemoved() lithium$emitRemoved()

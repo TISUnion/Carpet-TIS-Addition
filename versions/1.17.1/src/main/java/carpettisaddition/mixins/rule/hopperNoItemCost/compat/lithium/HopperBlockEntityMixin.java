@@ -51,7 +51,11 @@ public abstract class HopperBlockEntityMixin
 			method = "insertAndExtract",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12005
+					//$$ target = "Lnet/minecraft/block/entity/HopperBlockEntity;insert(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/HopperBlockEntity;)Z"
+					//#else
 					target = "Lnet/minecraft/block/entity/HopperBlockEntity;insert(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/inventory/Inventory;)Z"
+					//#endif
 			)
 	)
 	private static void TISCMLithiumCompact$beforeInsert(World world, BlockPos pos, BlockState state, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
@@ -73,7 +77,11 @@ public abstract class HopperBlockEntityMixin
 			method = "insertAndExtract",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12005
+					//$$ target = "Lnet/minecraft/block/entity/HopperBlockEntity;insert(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/HopperBlockEntity;)Z",
+					//#else
 					target = "Lnet/minecraft/block/entity/HopperBlockEntity;insert(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/inventory/Inventory;)Z",
+					//#endif
 					shift = At.Shift.AFTER
 			)
 	)
@@ -81,7 +89,7 @@ public abstract class HopperBlockEntityMixin
 	{
 		if (CarpetTISAdditionSettings.hopperNoItemCost)
 		{
-			HopperNoItemCostHelper.woolColor.set(null);
+			HopperNoItemCostHelper.woolColor.remove();
 		}
 	}
 }

@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Restriction(require = {
-		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"),
+		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.17 < 1.20.5"),
 		@Condition(ModIds.lithium)
 })
 @Mixin(HopperHelper.class)

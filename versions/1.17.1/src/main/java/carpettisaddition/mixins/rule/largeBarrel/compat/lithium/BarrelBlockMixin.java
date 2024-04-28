@@ -36,6 +36,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -58,6 +59,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	 * - lithium < 0.9.0: {@link me.jellysquid.mods.lithium.mixin.block.hopper.BlockEntityMixin}
 	 * - lithium >= 0.9.0 (>=1.19): {@link me.jellysquid.mods.lithium.mixin.util.inventory_change_listening.BlockEntityMixin}
 	 */
+	@Unique
 	private static final boolean LITHIUM_HOPPER_OPTIMIZATION_LOADED = RemovableBlockEntity.class.isAssignableFrom(BarrelBlockEntity.class);
 
 	@SuppressWarnings("deprecation")
@@ -80,6 +82,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 		}
 	}
 
+	@Unique
 	private static void resetLithiumHopperCache(WorldAccess world, BlockPos changedBarrelPos, BlockState changedBarrelState)
 	{
 		if (LITHIUM_HOPPER_OPTIMIZATION_LOADED && !world.isClient())
@@ -92,8 +95,10 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 				BlockEntity barrelBlockEntity = ((BlockEntityGetter)world).getLoadedExistingBlockEntity(affectedBarrelPos);
 				if (barrelBlockEntity instanceof BarrelBlockEntity)
 				{
-					// let lithium re-calculate the target inventory via HopperHelper#vanillaGetBlockInventory
-					// we have a nice mixin injection there (HopperHelperMixin) to handle largeBarrel like vanilla
+					// let lithium re-calculate the target inventory
+					// - (< mc1.20.5) via HopperHelper#vanillaGetBlockInventory
+					// - (>= mc1.20.5) directly using HopperBlockEntity#getBlockInventoryAt
+					// we have a nice mixin injection there to handle largeBarrel like vanilla
 					((RemovableBlockEntity)barrelBlockEntity).increaseRemoveCounter();
 				}
 			}

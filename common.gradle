@@ -32,6 +32,7 @@ configurations {
 }
 configurations {
 	modCompileOnly.exclude group: 'com.github.2No2Name', module: 'McTester'
+	modImplementation.exclude group: 'com.github.2No2Name', module: 'McTester'
 }
 
 dependencies {
