@@ -27,6 +27,7 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -43,6 +44,7 @@ import net.minecraft.text.*;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -51,6 +53,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 //#if MC >= 12005
 //$$ import net.minecraft.registry.entry.RegistryEntry;
@@ -58,6 +62,10 @@ import java.util.List;
 
 //#if MC >= 11600 && MC < 11900
 //$$ import net.minecraft.util.Util;
+//#endif
+
+//#if MC >= 11600
+//$$ import net.minecraft.text.TextColor;
 //#endif
 
 //#if MC < 11500
@@ -136,6 +144,49 @@ public class Messenger
 	public static BaseText newLine()
 	{
 		return s("\n");
+	}
+
+	private static final ImmutableMap<DyeColor, Consumer<BaseText>> DYE_COLOR_APPLIER = Util.make(() -> {
+		Map<DyeColor, Formatting> map = Maps.newHashMap();
+		map.put(DyeColor.WHITE, Formatting.WHITE);
+		map.put(DyeColor.LIGHT_GRAY, Formatting.GRAY);
+		map.put(DyeColor.GRAY, Formatting.DARK_GRAY);
+		map.put(DyeColor.BLACK, Formatting.BLACK);
+		map.put(DyeColor.RED, Formatting.RED);
+		map.put(DyeColor.YELLOW, Formatting.YELLOW);
+		map.put(DyeColor.LIME, Formatting.GREEN);
+		map.put(DyeColor.GREEN, Formatting.DARK_GREEN);
+		map.put(DyeColor.CYAN, Formatting.DARK_AQUA);
+		map.put(DyeColor.LIGHT_BLUE, Formatting.AQUA);
+		map.put(DyeColor.BLUE, Formatting.DARK_BLUE);
+		map.put(DyeColor.PURPLE, Formatting.DARK_PURPLE);
+		map.put(DyeColor.MAGENTA, Formatting.LIGHT_PURPLE);
+
+		//#if MC < 11600
+		map.put(DyeColor.BROWN, Formatting.DARK_RED);
+		map.put(DyeColor.PINK, Formatting.RED);
+		map.put(DyeColor.ORANGE, Formatting.GOLD);
+		//#endif
+
+		ImmutableMap.Builder<DyeColor, Consumer<BaseText>> builder = new ImmutableMap.Builder<>();
+		map.forEach((dyeColor, fmt) -> builder.put(dyeColor, text -> formatting(text, fmt)));
+		//#if MC >= 11600
+		//$$ Arrays.stream(DyeColor.values())
+		//$$ 		.filter(dyeColor -> !map.containsKey(dyeColor))
+		//$$ 		.forEach(dyeColor -> builder.put(dyeColor, text -> text.setStyle(text.getStyle().withColor(TextColor.fromRgb(dyeColor.getSignColor())))));
+		//#endif
+		return builder.build();
+	});
+
+	public static BaseText colored(BaseText text, DyeColor value)
+	{
+		// TODO: make microtiming utils use this too
+		Consumer<BaseText> consumer = DYE_COLOR_APPLIER.get(value);
+		if (consumer != null)
+		{
+			consumer.accept(text);
+		}
+		return text;
 	}
 
 	public static BaseText colored(BaseText text, Object value)

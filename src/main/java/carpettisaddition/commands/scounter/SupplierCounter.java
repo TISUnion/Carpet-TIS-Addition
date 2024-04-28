@@ -53,7 +53,7 @@ public class SupplierCounter extends TranslationContext
 		this.color = color;
 		this.counter.defaultReturnValue(0);
 		this.prettyName = Messenger.fancy(
-				Messenger.color(color),
+				Messenger.colored(Messenger.color(color), color),
 				Messenger.s(color.getName()),
 				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, this.getCommandBase())
 		);
