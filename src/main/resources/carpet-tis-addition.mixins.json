@@ -4,6 +4,7 @@
   "compatibilityLevel": "{{COMPATIBILITY_LEVEL}}",
   "plugin": "carpettisaddition.utils.mixin.CarpetTISAdditionMixinPlugin",
   "mixins": [
+    "SpawnHelperMixin",
     "carpet.access.LoggerRegistryInvoker",
     "carpet.access.LoggerRegistryMixin",
     "carpet.access.MessengerInvoker",

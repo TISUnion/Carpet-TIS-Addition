@@ -44,6 +44,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
+import carpettisaddition.commands.WtCommand;
 import carpettisaddition.network.TISCMServerPacketHandler;
 import carpettisaddition.settings.CarpetRuleRegistrar;
 import carpettisaddition.translations.TISAdditionTranslations;
@@ -182,7 +183,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
 				RemoveEntityCommand.getInstance(),
 				SleepCommand.getInstance(),
 				SpeedTestCommand.getInstance(),
-				SupplierCounterCommand.getInstance()
+				SupplierCounterCommand.getInstance(),
+				WtCommand.getInstance()
 		).forEach(command ->
 				command.registerCommand(context)
 		);
