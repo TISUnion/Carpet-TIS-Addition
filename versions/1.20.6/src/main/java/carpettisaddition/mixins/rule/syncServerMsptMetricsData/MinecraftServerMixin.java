@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 /**
  * mc1.14 ~ mc1.20.4: subproject 1.15.2 (main project)
- * mc1.20.5+        : subproject 1.20.5        <--------
+ * mc1.20.5+        : subproject 1.20.6        <--------
  */
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
