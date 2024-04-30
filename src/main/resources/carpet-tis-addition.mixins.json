@@ -344,6 +344,7 @@
     "rule.farmlandTrampledDisabled.FarmLandBlockMixin",
     "rule.flattenTriangularDistribution.RandomMixin",
     "rule.fluidDestructionDisabled.BaseFluidMixin",
+    "rule.fortressNetherBricksPackSpawningFix.SpawnHelperMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityAccessor",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
     "rule.hopperNoItemCost.HopperBlockEntityMixin",

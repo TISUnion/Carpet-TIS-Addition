@@ -837,6 +837,12 @@ carpettisaddition:
         desc: 增加/fill指令中各种模式的功能
         extra:
           '0': '增加softreplace模式: 尽可能地保留原方块的方块状态，可用于替换楼梯/半砖的材质等'
+      fortressNetherBricksPackSpawningFix:
+        name: 地狱堡垒地狱砖刷怪游走修复
+        desc: 修复 mc1.18.2+ 后，地狱堡垒怪物在地狱
+        extra:
+          '0': 该问题引入自 1.18.2-pre1。对于首次游走结束后位于地狱砖上的成群生成，游走至内结构非地狱砖上后无法刷出怪物，反之亦然
+          '1': '问题影响例子：带基岩天花板的凋灵玫瑰凋灵骷髅塔的效率，在增加了地狱砖游走地板延伸后，效率有可能会不升反降'
       flattenTriangularDistribution:
         name: 拍扁三角形分布
         desc: 把Minecraft随机数发生器的三角形分布改为均匀分布

@@ -272,6 +272,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE, COMMAND})
 	public static String fillCommandModeEnhance = "true";
 
+	//#if MC >= 11802
+	//$$ @Rule(categories = {TIS, BUGFIX})
+	//$$ public static boolean fortressNetherBricksPackSpawningFix = false;
+	//#endif
+
 	//#if MC >= 11900
 	//$$ @Rule(categories = {TIS, CREATIVE})
 	//$$ public static boolean flattenTriangularDistribution = false;

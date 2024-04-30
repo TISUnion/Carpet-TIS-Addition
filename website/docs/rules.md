@@ -510,6 +510,20 @@ Add `softreplace` mode: Keep the block state of the original block as much as po
 - Categories: `TIS`, `CREATIVE`, `COMMAND`
 
 
+## fortressNetherBricksPackSpawningFix
+
+Fixed fortress mobs pack spawning isolation issue introduced in mc1.18.2+
+
+Introduced in 1.18.2-pre1. For pack spawning with first attempt on nether bricks, if the spawning attempt location shifts onto a non-nether brick within the inner bounding box, fortress mobs will not able to spawn, and vice versa
+
+Example issue impact: rate of wither rose based wither skeleton farm with bedrock ceiling might have the rate decreased if nether bricks pack spawning floor extension is built
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
+
 ## flattenTriangularDistribution
 
 **Minecraft >= 1.19 only**

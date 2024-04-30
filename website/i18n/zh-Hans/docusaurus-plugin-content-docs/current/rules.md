@@ -510,6 +510,20 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 地狱堡垒地狱砖刷怪游走修复 (fortressNetherBricksPackSpawningFix)
+
+修复 mc1.18.2+ 后，地狱堡垒怪物在地狱
+
+该问题引入自 1.18.2-pre1。对于首次游走结束后位于地狱砖上的成群生成，游走至内结构非地狱砖上后无法刷出怪物，反之亦然
+
+问题影响例子：带基岩天花板的凋灵玫瑰凋灵骷髅塔的效率，在增加了地狱砖游走地板延伸后，效率有可能会不升反降
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
 ## 拍扁三角形分布 (flattenTriangularDistribution)
 
 **本规则仅在 Minecraft >= 1.19 中存在**
