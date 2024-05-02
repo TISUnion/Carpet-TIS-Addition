@@ -33,9 +33,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
+	// tickTime() call is still the most accurate place to hook at
+	// but mc1.20.3+ vanilla /tick freeze wraps tickTime() with an if-statement, making it no longer stable
 	@Inject(
 			method = "tick",
-			at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tickTime()V")
+			at = @At(
+					value = "INVOKE",
+					//#if MC >= 12003
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;calculateAmbientDarkness()V",
+					//$$ shift = At.Shift.AFTER
+					//#else
+					target = "Lnet/minecraft/server/world/ServerWorld;tickTime()V"
+					//#endif
+			)
 	)
 	private void flushMessageOnTimeUpdate(CallbackInfo ci)
 	{
