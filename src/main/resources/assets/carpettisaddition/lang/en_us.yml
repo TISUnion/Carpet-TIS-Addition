@@ -1101,6 +1101,11 @@ carpettisaddition:
         desc: Reintroduce the ClassCastException suppressor by reading comparator signal from a shulker block box with non Inventory-type block entity at it
         extra:
           '0': Long live void's magic box!
+      shulkerBoxContentDropBackport:
+        name: shulkerBoxContentDropBackport
+        desc: Backport the feature that item entity of skulker box drops all of its contents when the item entity is damaged to die
+        extra:
+          '0': This feature is introduced to vanilla Minecraft in mc1.17
       snowMeltMinLightLevel:
         name: snowMeltMinLightLevel
         desc: The minimum light level allowed for snow to melt

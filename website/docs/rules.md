@@ -1127,6 +1127,20 @@ Long live void's magic box!
 - Categories: `TIS`, `PORTING`
 
 
+## shulkerBoxContentDropBackport
+
+**Minecraft < 1.17 only**
+
+Backport the feature that item entity of skulker box drops all of its contents when the item entity is damaged to die
+
+This feature is introduced to vanilla Minecraft in mc1.17
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `PORTING`
+
+
 ## snowMeltMinLightLevel
 
 The minimum light level allowed for snow to melt

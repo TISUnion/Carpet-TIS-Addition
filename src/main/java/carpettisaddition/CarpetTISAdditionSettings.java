@@ -561,6 +561,11 @@ public class CarpetTISAdditionSettings
 	//$$ public static boolean shulkerBoxCCEReintroduced = false;
 	//#endif
 
+	//#if MC < 11700
+	@Rule(categories = {TIS, PORTING})
+	public static boolean shulkerBoxContentDropBackport = false;
+	//#endif
+
 	public static final int VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL = 12;
 	@Rule(
 			options = {"0", "10", "12"},

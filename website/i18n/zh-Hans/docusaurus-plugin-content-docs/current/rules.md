@@ -1127,6 +1127,20 @@ sidebar_position: 1
 - 分类: `TIS`, `PORTING`
 
 
+## 潜影盒内容物掉落移植 (shulkerBoxContentDropBackport)
+
+**本规则仅在 Minecraft < 1.17 中存在**
+
+移植潜影盒物品在被伤害摧毁后掉落其内含的全部物品的特性
+
+该特性引入于 Minecraft 1.17
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `PORTING`
+
+
 ## 融雪最小亮度 (snowMeltMinLightLevel)
 
 雪片融化所需的最小亮度等级

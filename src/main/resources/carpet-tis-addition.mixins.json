@@ -413,6 +413,7 @@
     "rule.repeaterHalfDelay.AbstractRedstoneGateBlockMixin",
     "rule.sandDupingFix.FallingBlockEntityMixin",
     "rule.shulkerBoxCCEReintroduced.ShulkerBoxBlockMixin",
+    "rule.shulkerBoxContentDropBackport.ItemEntityMixin",
     "rule.snowMeltMinLightLevel.SnowBlockMixin",
     "rule.spawnBabyProbably.HoglinEntityMixin",
     "rule.spawnBabyProbably.PassiveEntityMixin",
