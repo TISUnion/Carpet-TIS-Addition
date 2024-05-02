@@ -28,14 +28,8 @@ import net.minecraft.block.RedstoneWireBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-//#if MC >= 12002
-//$$ import net.minecraft.block.BlockState;
-//$$ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-//$$ import com.llamalad7.mixinextras.sugar.Local;
-//#endif
-
 @Mixin(RedstoneWireBlock.class)
-public abstract class RedstoneWireMixin
+public abstract class RedstoneWireBlockMixin
 {
 	// This changed is introduced in 1.20-pre2, let's revert it
 	@ModifyExpressionValue(
@@ -58,18 +52,21 @@ public abstract class RedstoneWireMixin
 
 	//#if MC >= 12002
 	//$$ // This changed is introduced in 23w35a (1.20.2 snapshot), let's revert it
-	//$$ @ModifyReturnValue(
+	//$$ @ModifyExpressionValue(
 	//$$ 		method = "getStateForNeighborUpdate",
-	//$$ 		at = @At(value = "RETURN", ordinal = 0)
+	//$$ 		at = @At(
+	//$$ 				value = "INVOKE",
+	//$$ 				target = "Lnet/minecraft/block/RedstoneWireBlock;canRunOnTop(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"
+	//$$ 		),
+	//$$ 		allow = 1
 	//$$ )
-	//$$ private BlockState dustTrapdoorReintroduced_makeDustSurviveOnOpenedTrapdoorAgain(BlockState ret, @Local(argsOnly = true, ordinal = 0) BlockState state)
+	//$$ private boolean dustTrapdoorReintroduced_makeDustSurviveOnOpenedTrapdoorAgain(boolean canRunOnTop)
 	//$$ {
 	//$$ 	if (CarpetTISAdditionSettings.dustTrapdoorReintroduced)
 	//$$ 	{
-	//$$ 		// let it ignore state updates from below, once again
-	//$$ 		ret = state;
+	//$$ 		canRunOnTop = true;
 	//$$ 	}
-	//$$ 	return ret;
+	//$$ 	return canRunOnTop;
 	//$$ }
 	//#endif
 }

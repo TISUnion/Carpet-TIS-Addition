@@ -318,7 +318,7 @@
     "rule.dispenserNoItemCost.DispenserBlockMixin",
     "rule.dispenserNoItemCost.DropperBlockMixin",
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
-    "rule.dustTrapdoorReintroduced.RedstoneWireMixin",
+    "rule.dustTrapdoorReintroduced.RedstoneWireBlockMixin",
     "rule.enchantCommandNoRestriction.EnchantCommandMixin",
     "rule.entityBrainMemoryUnfreedFix.BrainAccessor",
     "rule.entityBrainMemoryUnfreedFix.EntityMixin",
