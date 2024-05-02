@@ -531,6 +531,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean redstoneDustRandomUpdateOrder = false;
 
+	//#if MC >= 12002
+	//$$ @Rule(categories = {TIS, PORTING})
+	//$$ public static boolean redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate = false;
+	//#endif
+
 	@Rule(categories = {TIS, FEATURE})
 	public static boolean renewableDragonEgg = false;
 

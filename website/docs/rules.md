@@ -1037,6 +1037,20 @@ Does not work with rule `fastRedstoneDust`
 - Categories: `TIS`, `CREATIVE`
 
 
+## redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate
+
+Make redstone dust, redstone repeater and redstone comparator ignore state updates from below
+
+This reverts the change introduced in 23w35a (1.20.2 snapshot). With the rule, floating comparator can be easily created once
+
+Notes: rule `dustTrapdoorReintroduced` implements the same revert for redstone dust
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `PORTING`
+
+
 ## renewableDragonEgg
 
 Make dragon egg renewable

@@ -1037,6 +1037,20 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 红石粉中继器比较器 (redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate)
+
+让红石粉、红石中继器和红石比较器忽略来自下方的状态更新
+
+这将撤销在 23w35a (1.20.2 快照) 中引入的更改。这一规则可帮你再次轻松地创建浮空比较器
+
+备注：规则 `dustTrapdoorReintroduced` 对红石粉方块实现了同款更改撤销
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `PORTING`
+
+
 ## 可再生龙蛋 (renewableDragonEgg)
 
 让龙蛋变得可再生

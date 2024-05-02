@@ -1065,6 +1065,12 @@ carpettisaddition:
         extra:
           '0': It's useful to test if your contraption is locational or not
           '1': Does not work with rule fastRedstoneDust
+      redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate:
+        name: redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate
+        desc: Make redstone dust, redstone repeater and redstone comparator ignore state updates from below
+        extra:
+          '0': This reverts the change introduced in 23w35a (1.20.2 snapshot). With the rule, floating comparator can be easily created once
+          '1': 'Notes: rule dustTrapdoorReintroduced implements the same revert for redstone dust'
       renewableDragonEgg:
         name: renewableDragonEgg
         desc: Make dragon egg renewable
