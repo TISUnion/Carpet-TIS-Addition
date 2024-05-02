@@ -512,6 +512,8 @@ Add `softreplace` mode: Keep the block state of the original block as much as po
 
 ## fortressNetherBricksPackSpawningFix
 
+**Minecraft >= 1.18.2 only**
+
 Fixed fortress mobs pack spawning isolation issue introduced in mc1.18.2+
 
 Introduced in 1.18.2-pre1. For pack spawning with first attempt on nether bricks, if the spawning attempt location shifts onto a non-nether brick within the inner bounding box, fortress mobs will not able to spawn, and vice versa
@@ -1038,6 +1040,8 @@ Does not work with rule `fastRedstoneDust`
 
 
 ## redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate
+
+**Minecraft >= 1.20.2 only**
 
 Make redstone dust, redstone repeater and redstone comparator ignore state updates from below
 

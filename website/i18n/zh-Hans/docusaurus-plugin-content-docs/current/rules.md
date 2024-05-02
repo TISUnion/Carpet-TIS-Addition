@@ -512,6 +512,8 @@ sidebar_position: 1
 
 ## 地狱堡垒地狱砖刷怪游走修复 (fortressNetherBricksPackSpawningFix)
 
+**Minecraft >= 1.18.2 only**
+
 修复 mc1.18.2+ 后，地狱堡垒怪物在地狱
 
 该问题引入自 1.18.2-pre1。对于首次游走结束后位于地狱砖上的成群生成，游走至内结构非地狱砖上后无法刷出怪物，反之亦然
@@ -1038,6 +1040,8 @@ sidebar_position: 1
 
 
 ## 红石粉中继器比较器 (redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate)
+
+**Minecraft >= 1.20.2 only**
 
 让红石粉、红石中继器和红石比较器忽略来自下方的状态更新
 
