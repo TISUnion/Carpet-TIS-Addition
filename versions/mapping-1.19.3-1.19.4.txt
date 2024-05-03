@@ -1,1 +1,0 @@
-carpet.fakes.ServerPlayerEntityInterface carpet.fakes.ServerPlayerInterface

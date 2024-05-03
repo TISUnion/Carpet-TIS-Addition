@@ -1,3 +1,4 @@
+carpet.fakes.ServerPlayerEntityInterface carpet.fakes.ServerPlayerInterface
 carpet.settings.ParsedRule carpet.api.settings.CarpetRule
 carpet.settings.ParsedRule get() carpet.api.settings.CarpetRule value()
 carpet.settings.ParsedRule validators realValidators
@@ -6,4 +7,5 @@ carpet.settings.SettingsManager carpet.api.settings.SettingsManager
 carpet.settings.Validator carpet.api.settings.Validator
 
 net.minecraft.text.BaseText net.minecraft.text.MutableText
+net.minecraft.util.registry.Registry net.minecraft.registry.Registries
 net.minecraft.world.dimension.DimensionType isUltrawarm() ultrawarm()
