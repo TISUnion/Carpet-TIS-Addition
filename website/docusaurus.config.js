@@ -14,8 +14,8 @@ if (isVercel) {
   commitUrl = `https://github.com/${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}/commit/${process.env.VERCEL_GIT_COMMIT_SHA}`
   commitShaShort = process.env.VERCEL_GIT_COMMIT_SHA.substring(0, 7)
 } else {
-  url = 'https://tisunion.github.io'
-  baseUrl = '/Carpet-TIS-Addition/'
+  url = 'https://carpet.tis.world'
+  baseUrl = '/'
 }
 
 /** @type {import('@docusaurus/types').Config} */
