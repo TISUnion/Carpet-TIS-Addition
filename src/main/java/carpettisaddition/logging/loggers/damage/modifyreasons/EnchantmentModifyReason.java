@@ -25,9 +25,9 @@ import net.minecraft.text.BaseText;
 
 public class EnchantmentModifyReason extends ModifyReason
 {
-	private final int point;
+	private final double point;
 
-	public EnchantmentModifyReason(int point)
+	public EnchantmentModifyReason(double point)
 	{
 		super("enchantment");
 		this.point = point;
@@ -36,6 +36,7 @@ public class EnchantmentModifyReason extends ModifyReason
 	@Override
 	public BaseText toText()
 	{
-		return Messenger.c(super.toText(), String.format("w  (EPF=%d)", this.point));
+		String epf = String.format(this.point == Math.floor(this.point) ? "%.0f" : "%.2f", this.point);
+		return Messenger.c(super.toText(), String.format("w  (EPF=%s)", epf));
 	}
 }

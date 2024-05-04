@@ -43,6 +43,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
+//#if MC >= 12100
+//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.world.World;
+//#endif
+
 //#if MC >= 12005
 //$$ import net.minecraft.registry.entry.RegistryEntry;
 //#endif
@@ -189,8 +194,24 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	private void onEnchantmentReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
 	{
 		this.getDamageTracker().ifPresent(tracker -> {
-			int epf = EnchantmentHelper.getProtectionAmount(this.getArmorItems(), source);  // vanilla copy
-			tracker.modifyDamage(amount, new EnchantmentModifyReason(epf));
+			//#if MC >= 12100
+			//$$ LivingEntity self = (LivingEntity)(Object)this;
+			//$$ World world = self.getEntityWorld();
+			//$$ if (world instanceof ServerWorld serverWorld)
+			//#endif
+			{
+				// vanilla copy
+				// ref: net.minecraft.entity.LivingEntity#applyEnchantmentsToDamage
+				// notes: epf is float after mc1.21
+				double epf = EnchantmentHelper.getProtectionAmount(
+						//#if MC >= 12100
+						//$$ serverWorld,  self, source
+						//#else
+						this.getArmorItems(), source
+						//#endif
+				);
+				tracker.modifyDamage(amount, new EnchantmentModifyReason(epf));
+			}
 		});
 	}
 }

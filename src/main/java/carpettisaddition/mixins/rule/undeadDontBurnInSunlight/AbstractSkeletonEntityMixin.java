@@ -33,10 +33,18 @@ public abstract class AbstractSkeletonEntityMixin
 			method = "tickMovement",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12100
+					//$$ target = "Lnet/minecraft/entity/mob/AbstractSkeletonEntity;setOnFireFor(F)V"
+					//#else
 					target = "Lnet/minecraft/entity/mob/AbstractSkeletonEntity;setOnFireFor(I)V"
+					//#endif
 			)
 	)
+	//#if MC >= 12100
+	//$$ private float undeadDontBurnInSunlight_skeleton(float duration)
+	//#else
 	private int undeadDontBurnInSunlight_skeleton(int duration)
+	//#endif
 	{
 		if (CarpetTISAdditionSettings.undeadDontBurnInSunlight)
 		{

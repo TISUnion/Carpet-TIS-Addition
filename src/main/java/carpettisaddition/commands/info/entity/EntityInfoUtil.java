@@ -23,9 +23,14 @@ package carpettisaddition.commands.info.entity;
 import carpettisaddition.utils.ItemUtil;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 import java.util.Map;
+
+//#if MC >= 12100
+//$$ import net.minecraft.registry.entry.RegistryEntry;
+//#endif
 
 /**
  * Logic ports from fabric-carpet 1.4.54
@@ -48,7 +53,7 @@ public class EntityInfoUtil
 		return String.format("%dh%d'%d\"", secs/60/60, (secs % (60*60))/60,(secs % (60*60))%60 );
 	}
 
-	public static String display_item(ItemStack item)
+	public static String display_item(LivingEntity owner /*used in mc1.21+*/, ItemStack item)
 	{
 		if (item == null)
 		{
@@ -61,7 +66,12 @@ public class EntityInfoUtil
 		String stackname = item.getCount()>1?String.format("%dx%s",item.getCount(), item.getName().getString()):item.getName().getString();
 		if (item.isDamaged())
 		{
-			stackname += String.format(" %d/%d", item.getMaxUseTime()-item.getDamage(), item.getMaxUseTime());
+			//#if MC >= 12100
+			//$$ int maxUseTime = item.getMaxUseTime(owner);
+			//#else
+			int maxUseTime = item.getMaxUseTime();
+			//#endif
+			stackname += String.format(" %d/%d", maxUseTime - item.getDamage(), maxUseTime);
 		}
 		if (item.hasEnchantments())
 		{
@@ -70,7 +80,11 @@ public class EntityInfoUtil
 			for (Enchantment e: enchants.keySet())
 			{
 				int level = enchants.get(e);
+				//#if MC >= 12100
+				//$$ String enstring = Enchantment.getName(RegistryEntry.of(e), level).getString();
+				//#else
 				String enstring = e.getName(level).getString();
+				//#endif
 				stackname += enstring+" ";
 			}
 			stackname += ")";

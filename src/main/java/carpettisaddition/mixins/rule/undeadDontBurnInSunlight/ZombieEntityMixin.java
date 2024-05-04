@@ -33,10 +33,18 @@ public abstract class ZombieEntityMixin
 			method = "tickMovement",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12100
+					//$$ target = "Lnet/minecraft/entity/mob/ZombieEntity;setOnFireFor(F)V"
+					//#else
 					target = "Lnet/minecraft/entity/mob/ZombieEntity;setOnFireFor(I)V"
+					//#endif
 			)
 	)
+	//#if MC >= 12100
+	//$$ private float undeadDontBurnInSunlight_zombie(float duration)
+	//#else
 	private int undeadDontBurnInSunlight_zombie(int duration)
+	//#endif
 	{
 		if (CarpetTISAdditionSettings.undeadDontBurnInSunlight)
 		{

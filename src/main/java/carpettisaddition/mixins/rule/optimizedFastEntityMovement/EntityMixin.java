@@ -41,6 +41,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
+//#if MC >= 12100
+//$$ import org.spongepowered.asm.mixin.injection.ModifyVariable;
+//#endif
+
 //#if MC >= 11800
 //$$ import com.google.common.collect.Lists;
 //$$ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
@@ -57,8 +61,29 @@ public abstract class EntityMixin
 	@Unique
 	private static final ThreadLocal<OFEMContext> ofemContext = ThreadLocal.withInitial(() -> null);
 
+	//#if MC >= 12100
+	//$$ @Unique
+	//$$ private static final ThreadLocal<Boolean> movementOk = ThreadLocal.withInitial(() -> false);
+	//$$
+	//$$ @ModifyVariable(
+	//$$ 		method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
+	//$$ 		at = @At("HEAD"),
+	//$$ 		argsOnly = true
+	//$$ )
+	//$$ private static Vec3d optimizedFastEntityMovement_checkMovement(Vec3d movement)
+	//$$ {
+	//$$ 	if (CarpetTISAdditionSettings.optimizedFastEntityMovement)
+	//$$ 	{
+	//$$ 		movementOk.set(OFEMUtil.checkMovement(movement));
+	//$$ 	}
+	//$$ 	return movement;
+	//$$ }
+	//#endif
+
 	@WrapOperation(
-			//#if MC >= 11800
+			//#if MC >= 12100
+			//$$ method = "method_59920",
+			//#elseif MC >= 11800
 			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
 			//#elseif MC >= 11600
 			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/block/ShapeContext;Lnet/minecraft/util/collection/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
@@ -82,7 +107,7 @@ public abstract class EntityMixin
 	//#else
 	Stream<VoxelShape>
 	//#endif
-	dontUseThatLargeBlockCollisions(
+	optimizedFastEntityMovement_dontUseThatLargeBlockCollisions(
 			World world, Entity entity, Box box,
 			Operation<
 					//#if MC >= 11800
@@ -90,13 +115,20 @@ public abstract class EntityMixin
 					//#else
 					Stream<VoxelShape>
 					//#endif
-			> original,
-			@Local(argsOnly = true) Vec3d movement
+			> original
+			//#if MC < 12100
+			, @Local(argsOnly = true) Vec3d movement
+			//#endif
 	)
 	{
 		if (CarpetTISAdditionSettings.optimizedFastEntityMovement)
 		{
-			if (OFEMUtil.checkMovement(movement))
+			//#if MC >= 12100
+			//$$ boolean ok = movementOk.get();
+			//#else
+			boolean ok = OFEMUtil.checkMovement(movement);
+			//#endif
+			if (ok)
 			{
 				ofemContext.set(OFEMUtil.createContext(world, entity));
 				//#if MC >= 11800
@@ -121,7 +153,7 @@ public abstract class EntityMixin
 	//$$ 				ordinal = 0
 	//$$ 		)
 	//$$ )
-	//$$ private static boolean theCollisionsListParameterIsIncompleteSoDontReturnEvenIfItIsEmpty(boolean isEmpty)
+	//$$ private static boolean optimizedFastEntityMovement_theCollisionsListParameterIsIncompleteSoDontReturnEvenIfItIsEmpty(boolean isEmpty)
 	//$$ {
 	//$$ 	if (ofemContext.get() != null)
 	//$$ 	{
@@ -151,7 +183,7 @@ public abstract class EntityMixin
 			),
 			require = 4
 	)
-	private static void useAxisOnlyBlockCollisions(Args args)
+	private static void optimizedFastEntityMovement_useTheAxisOnlyBlockCollisionsForSpeed(Args args)
 	{
 		OFEMContext ctx = ofemContext.get();
 		if (ctx != null)

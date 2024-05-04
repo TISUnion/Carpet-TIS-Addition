@@ -70,7 +70,11 @@ public abstract class EnchantCommandMixin
 			method = "execute",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12100
+					//$$ target = "Lnet/minecraft/enchantment/EnchantmentHelper;isCompatible(Ljava/util/Collection;Lnet/minecraft/registry/entry/RegistryEntry;)Z"
+					//#else
 					target = "Lnet/minecraft/enchantment/EnchantmentHelper;contains(Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;)Z"
+					//#endif
 			),
 			index = 0
 	)

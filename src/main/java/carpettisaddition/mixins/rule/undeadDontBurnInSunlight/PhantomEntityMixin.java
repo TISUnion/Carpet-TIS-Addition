@@ -33,10 +33,18 @@ public abstract class PhantomEntityMixin
 			method = "tickMovement",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12100
+					//$$ target = "Lnet/minecraft/entity/mob/PhantomEntity;setOnFireFor(F)V"
+					//#else
 					target = "Lnet/minecraft/entity/mob/PhantomEntity;setOnFireFor(I)V"
+					//#endif
 			)
 	)
+	//#if MC >= 12100
+	//$$ private float undeadDontBurnInSunlight_phantom(float duration)
+	//#else
 	private int undeadDontBurnInSunlight_phantom(int duration)
+	//#endif
 	{
 		if (CarpetTISAdditionSettings.undeadDontBurnInSunlight)
 		{

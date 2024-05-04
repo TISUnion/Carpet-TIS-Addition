@@ -165,19 +165,19 @@ public class EntityInfoPorting
 			ItemStack mainhand = elb.getMainHandStack();
 			if (!(mainhand.isEmpty()))
 			{
-				lst.add(Messenger.c("w  - Main hand: ", "wb "+EntityInfoUtil.display_item(mainhand)));
+				lst.add(Messenger.c("w  - Main hand: ", "wb "+EntityInfoUtil.display_item(elb, mainhand)));
 			}
 			ItemStack offhand = elb.getOffHandStack();
 			if (!(offhand.isEmpty()))
 			{
-				lst.add(Messenger.c("w  - Off hand: ", "wb "+EntityInfoUtil.display_item(offhand)));
+				lst.add(Messenger.c("w  - Off hand: ", "wb "+EntityInfoUtil.display_item(elb, offhand)));
 			}
 			String armour = "";
 			for (ItemStack armourpiece: elb.getArmorItems())
 			{
 				if (!(armourpiece.isEmpty()))
 				{
-					armour += String.format("\n   * %s", EntityInfoUtil.display_item(armourpiece));
+					armour += String.format("\n   * %s", EntityInfoUtil.display_item(elb, armourpiece));
 				}
 			}
 			if (!("".equals(armour)))
@@ -248,7 +248,7 @@ public class EntityInfoPorting
 								ItemStack vstack = vinv.getInvStack(i);
 								if (!vstack.isEmpty())
 								{
-									inventory_content += String.format("\n   * %d: %s", i, EntityInfoUtil.display_item(vstack));
+									inventory_content += String.format("\n   * %d: %s", i, EntityInfoUtil.display_item(ev, vstack));
 								}
 							}
 							if (!("".equals(inventory_content)))
