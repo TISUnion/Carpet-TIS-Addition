@@ -181,6 +181,19 @@ const config = {
         isCloseable: false,
       } : undefined,
     }),
+  plugins: [
+    [
+      // https://github.com/dipakparmar/docusaurus-plugin-umami
+      "@dipakparmar/docusaurus-plugin-umami",
+      /** @type {import('@dipakparmar/docusaurus-plugin-umami').Options} */
+      ({
+        websiteID: "8f313322-46d9-411f-8435-fedd3cfec0b8", // Required
+        analyticsDomain: "umami.fallenbreath.me", // Required
+        scriptName: "script.js", // Optional
+        dataDomains: "carpet.tis.world", // comma separated list of domains, *Recommended*
+      }),
+    ],
+  ],
 };
 
 export default config;
