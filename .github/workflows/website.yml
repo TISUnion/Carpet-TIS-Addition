@@ -20,15 +20,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: yarn
+          node-version: 20
+          cache: npm
           cache-dependency-path: website/package-lock.json
 
       - name: Build website
         run: |-
           cd website
-          yarn install --frozen-lockfile
-          yarn build
+          npm ci
+          npm run build
 
       # https://github.com/vercel/vercel/issues/3166#issuecomment-1508928585
       # Make sure the ./website dir exists in the github page branch, or vercel's git branch detection script won't work

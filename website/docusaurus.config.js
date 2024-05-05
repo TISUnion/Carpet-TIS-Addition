@@ -172,6 +172,10 @@ const config = {
         apiKey: 'd3602f9d3f867570f410fb63a08b46c5',
         indexName: 'carpet-tis-addition',
         contextualSearch: true,
+        replaceSearchResultPathname: {
+          from: '/Carpet-TIS-Addition/', // or as RegExp: /\/docs\//
+          to: '/',
+        },
       },
       announcementBar: isVercel ? {
         id: 'test_environment',
