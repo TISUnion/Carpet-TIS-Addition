@@ -15,6 +15,8 @@
   --ifm-color-primary-lightest: #4298cc;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --ifm-navbar-padding-horizontal: 1.5rem;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,6 +29,14 @@
   --ifm-color-primary-lighter: #6cbff4;
   --ifm-color-primary-lightest: #97d2f7;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  --ifm-navbar-padding-horizontal: 1.5rem;
+}
+
+body {
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page/39289453#39289453 */
+  overflow-x: hidden !important;
+  margin-right: calc(100% - 100vw);
 }
 
 div[class^='announcementBar_'] {
