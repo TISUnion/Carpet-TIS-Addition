@@ -168,14 +168,10 @@ const config = {
       },
       // https://docusaurus.io/docs/search#using-algolia-docsearch
       algolia: {
-        appId: 'U1J6M8YHJ6',
-        apiKey: 'd3602f9d3f867570f410fb63a08b46c5',
-        indexName: 'carpet-tis-addition',
+        appId: 'QTOCT8J8BF',
+        apiKey: 'd4a208f2dbf4c6d504053ff3cf8f8284',
+        indexName: 'carpet-tis',
         contextualSearch: true,
-        replaceSearchResultPathname: {
-          from: '/Carpet-TIS-Addition/', // or as RegExp: /\/docs\//
-          to: '/',
-        },
       },
       announcementBar: isVercel ? {
         id: 'test_environment',
