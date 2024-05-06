@@ -23,10 +23,9 @@ package carpettisaddition.commands;
 import carpet.script.utils.ShapeDispatcher;
 import carpettisaddition.helpers.carpet.shape.ShapeHolder;
 import carpettisaddition.helpers.carpet.shape.ShapeUtil;
-import carpettisaddition.mixins.logger.microtiming.marker.DyeColorAccessor;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.google.common.collect.Lists;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.entity.SpawnGroup;
@@ -37,7 +36,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.SpawnHelper;
-import org.apache.commons.compress.utils.Lists;
+import org.apache.commons.lang3.mutable.MutableInt;
 
 import java.util.Collections;
 import java.util.List;
@@ -89,6 +88,7 @@ public class WtCommand extends AbstractCommand
 		BlockPos pos2 = new BlockPos(-53, 80, 75);
 
 		this.clear(ctx);
+		MutableInt counter = new MutableInt(0);
 		BlockPos.iterate(pos1, pos2).forEach(pos -> {
 			boolean wiske = SpawnHelper.shouldUseNetherFortressSpawns(pos, source.getWorld(), SpawnGroup.MONSTER, world.getStructureAccessor());
 			if (wiske)
@@ -99,9 +99,11 @@ public class WtCommand extends AbstractCommand
 						DimensionWrapper.of(world),
 						null
 				));
+				counter.add(1);
 			}
 		});
 		ShapeDispatcher.sendShape(Collections.singleton(player), this.shapes.stream().map(h -> h.toPair(true)).toList());
+		Messenger.tell(source, Messenger.s("shouldUseNetherFortressSpawns hit " + counter.getValue()));
 		return 0;
 	}
 }
