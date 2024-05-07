@@ -16,7 +16,7 @@
 
 ## 文档
 
-见文档网页：https://tisunion.github.io/Carpet-TIS-Addition/zh-Hans/docs
+见文档网页：https://carpet.tis.world/zh-Hans/docs
 
 ## 联系方式
 

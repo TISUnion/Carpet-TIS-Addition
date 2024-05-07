@@ -14,8 +14,8 @@ if (isVercel) {
   commitUrl = `https://github.com/${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}/commit/${process.env.VERCEL_GIT_COMMIT_SHA}`
   commitShaShort = process.env.VERCEL_GIT_COMMIT_SHA.substring(0, 7)
 } else {
-  url = 'https://tisunion.github.io'
-  baseUrl = '/Carpet-TIS-Addition/'
+  url = 'https://carpet.tis.world'
+  baseUrl = '/'
 }
 
 /** @type {import('@docusaurus/types').Config} */
@@ -168,9 +168,9 @@ const config = {
       },
       // https://docusaurus.io/docs/search#using-algolia-docsearch
       algolia: {
-        appId: 'U1J6M8YHJ6',
-        apiKey: 'd3602f9d3f867570f410fb63a08b46c5',
-        indexName: 'carpet-tis-addition',
+        appId: 'QTOCT8J8BF',
+        apiKey: 'd4a208f2dbf4c6d504053ff3cf8f8284',
+        indexName: 'carpet-tis',
         contextualSearch: true,
       },
       announcementBar: isVercel ? {
@@ -181,6 +181,19 @@ const config = {
         isCloseable: false,
       } : undefined,
     }),
+  plugins: [
+    [
+      // https://github.com/dipakparmar/docusaurus-plugin-umami
+      "@dipakparmar/docusaurus-plugin-umami",
+      /** @type {import('@dipakparmar/docusaurus-plugin-umami').Options} */
+      ({
+        websiteID: "8f313322-46d9-411f-8435-fedd3cfec0b8", // Required
+        analyticsDomain: "umami.fallenbreath.me", // Required
+        scriptName: "script.js", // Optional
+        dataDomains: "carpet.tis.world", // comma separated list of domains, *Recommended*
+      }),
+    ],
+  ],
 };
 
 export default config;
