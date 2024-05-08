@@ -125,12 +125,12 @@ Manipulate the world
 
 Manipulate data structure containers of the world, including:
 
-| Container name | Command prefix | Support operations                                                   |
-| --- | --- |----------------------------------------------------------------------|
-| Entity list | `entity` | reverting, shuffling                                                 |
-| Tickable tile entity list | `tileentity` | reverting, shuffling, query overall / specified position information |
-| Tile tick queue | `tiletick` | add item, remove items at position                                   |
-| Block event queue | `blockevent` | add item, remove items at position                                   |
+| Container name            | Command prefix | Support operations                                                   |
+|---------------------------|----------------|----------------------------------------------------------------------|
+| Entity list               | `entity`       | reverting, shuffling                                                 |
+| Tickable tile entity list | `tileentity`   | reverting, shuffling, query overall / specified position information |
+| Tile tick queue           | `tiletick`     | add item, remove items at position                                   |
+| Block event queue         | `blockevent`   | add item, remove items at position                                   |
 
 Command lists:
 
@@ -172,7 +172,7 @@ Target entities vehicle logic control
 /manipulate entity <target> dismount
 ```
 
-Target entities velocity logic control
+Target entities velocity logic control. `nan` and `inf` can be used as the velocity values
 
 ```
 /manipulate entity <target> velocity [add|set] <x> <y> <z>

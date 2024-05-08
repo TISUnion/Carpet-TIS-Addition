@@ -24,6 +24,7 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.AbstractManipulator;
 import carpettisaddition.mixins.command.manipulate.entity.MobEntityAccessor;
 import carpettisaddition.utils.Messenger;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -40,6 +41,8 @@ import static com.mojang.brigadier.arguments.BoolArgumentType.bool;
 import static com.mojang.brigadier.arguments.BoolArgumentType.getBool;
 import static com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg;
 import static com.mojang.brigadier.arguments.DoubleArgumentType.getDouble;
+import static com.mojang.brigadier.arguments.StringArgumentType.getString;
+import static com.mojang.brigadier.arguments.StringArgumentType.word;
 import static net.minecraft.command.arguments.EntityArgumentType.*;
 import static net.minecraft.command.arguments.TextArgumentType.getTextArgument;
 import static net.minecraft.command.arguments.TextArgumentType.text;
@@ -89,19 +92,59 @@ public class EntityManipulator extends AbstractManipulator
 								then(literal("add").
 										then(argument("x", doubleArg()).then(argument("y", doubleArg()).then(argument("z", doubleArg()).
 												executes(
-														c -> addVelocity(c.getSource(), getEntities(c, "target"), new Vec3d(getDouble(c, "x"), getDouble(c, "y"), getDouble(c, "z")))
+														c -> addVelocity(
+																c.getSource(),
+																getEntities(c, "target"),
+																new Vec3d(
+																		getDouble(c, "x"),
+																		getDouble(c, "y"),
+																		getDouble(c, "z")
+																))
 												)
 										)))
 								).
 								then(literal("set").
-										then(argument("x", doubleArg()).then(argument("y", doubleArg()).then(argument("z", doubleArg()).
+										then(argument("x", word()).then(argument("y", word()).then(argument("z", word()).
 												executes(
-														c -> setVelocity(c.getSource(), getEntities(c, "target"), new Vec3d(getDouble(c, "x"), getDouble(c, "y"), getDouble(c, "z")))
+														c -> setVelocity(
+																c.getSource(),
+																getEntities(c, "target"),
+																new Vec3d(
+																		s2d(getString(c, "x")),
+																		s2d(getString(c, "y")),
+																		s2d(getString(c, "z"))
+																))
 												)
 										)))
 								)
 						)
 				);
+	}
+
+	private static double s2d(String s) throws CommandSyntaxException
+	{
+		switch (s.toLowerCase())
+		{
+			case "nan":
+				s = "NaN";
+				break;
+			case "inf":
+			case "infinity":
+				s = "Infinity";
+				break;
+			case "-inf":
+			case "-infinity":
+				s = "-Infinity";
+				break;
+		}
+		try
+		{
+			return Double.parseDouble(s);
+		}
+		catch (NumberFormatException e)
+		{
+			throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerInvalidDouble().create(s);
+		}
 	}
 
 	@SuppressWarnings({"unchecked", "SameParameterValue"})
