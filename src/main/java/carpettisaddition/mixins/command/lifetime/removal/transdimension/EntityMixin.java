@@ -23,14 +23,22 @@ package carpettisaddition.mixins.command.lifetime.removal.transdimension;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.TransDimensionRemovalReason;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
-import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+//#if MC >= 12100
+//$$ import com.llamalad7.mixinextras.sugar.Local;
+//#endif
+
+//#if MC >= 11600
+//$$ import net.minecraft.server.world.ServerWorld;
+//#else
+import net.minecraft.world.dimension.DimensionType;
+//#endif
 
 @Mixin(Entity.class)
 public abstract class EntityMixin
@@ -67,8 +75,17 @@ public abstract class EntityMixin
 			allow = 1
 	)
 	private void lifetimeTracker_recordRemoval_transDimension(
-			CallbackInfoReturnable<Entity> cir,
-			@Local ServerWorld destination
+			//#if 11600 <= MC && MC < 12100
+			//$$ ServerWorld destination,
+			//#elseif MC < 11600
+			DimensionType destination,
+			//#endif
+
+			CallbackInfoReturnable<Entity> cir
+
+			//#if MC >= 12100
+			//$$ , @Local ServerWorld destination
+			//#endif
 	)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(new TransDimensionRemovalReason(DimensionWrapper.of(destination)));
