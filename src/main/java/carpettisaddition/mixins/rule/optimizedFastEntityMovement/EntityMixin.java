@@ -82,7 +82,7 @@ public abstract class EntityMixin
 
 	@WrapOperation(
 			//#if MC >= 12100
-			//$$ method = "method_59920",
+			//$$ method = "findCollisionsForMovement",
 			//#elseif MC >= 11800
 			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
 			//#elseif MC >= 11600
