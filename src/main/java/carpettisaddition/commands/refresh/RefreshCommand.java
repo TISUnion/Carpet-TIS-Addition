@@ -223,21 +223,8 @@ public class RefreshCommand extends AbstractCommand
 		{
 			Objects.requireNonNull(predicate);
 			chunkStorage.getCurrentChunkHolders().values().stream().
-					filter(h -> inPlayerViewDistance.and(predicate).test(
-							//#if MC >= 12100
-							//$$ h.method_60473()
-							//#else
-							h.getPos()
-							//#endif
-					)).
-					forEach(h -> chunkRefresher.accept(
-							h.getWorldChunk(),
-							//#if MC >= 12100
-							//$$ h.method_60473()
-							//#else
-							h.getPos()
-							//#endif
-					));
+					filter(h -> inPlayerViewDistance.and(predicate).test(h.getPos())).
+					forEach(h -> chunkRefresher.accept(h.getWorldChunk(), h.getPos()));
 			synchronized (this.refreshingChunkPlayers)
 			{
 				this.refreshingChunkPlayers.add(player);
