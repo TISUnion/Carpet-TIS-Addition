@@ -40,7 +40,9 @@ public abstract class EntityMixin
 	@Shadow public abstract EntityType<?> getType();
 
 	@Inject(
-			//#if MC >= 11600
+			//#if MC >= 12100
+			//$$ method = "teleportTo",
+			//#elseif MC >= 11600
 			//$$ method = "moveToWorld",
 			//#else
 			method = "changeDimension",

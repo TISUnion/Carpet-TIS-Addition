@@ -44,11 +44,16 @@ import net.minecraft.world.dimension.DimensionType;
 public abstract class EntityMixin
 {
 	@Inject(
-			//#if MC >= 11600
+			//#if MC >= 12100
+			//$$ method = "teleportTo",
+			//#elseif MC >= 11600
 			//$$ method = "moveToWorld",
 			//#else
 			method = "changeDimension",
 			//#endif
+
+			//#if MC < 11600
+			// useful if @At is targeting the this.removed field
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
@@ -59,6 +64,8 @@ public abstract class EntityMixin
 							//#endif
 					)
 			),
+			//#endif
+
 			at = @At(
 					//#if MC >= 11600
 					//$$ value = "INVOKE",
@@ -84,7 +91,7 @@ public abstract class EntityMixin
 			CallbackInfoReturnable<Entity> cir
 
 			//#if MC >= 12100
-			//$$ , @Local ServerWorld destination
+			//$$ , @Local(ordinal = 1) ServerWorld destination
 			//#endif
 	)
 	{

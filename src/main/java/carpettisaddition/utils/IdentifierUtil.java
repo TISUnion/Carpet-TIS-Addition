@@ -30,6 +30,24 @@ import net.minecraft.world.poi.PointOfInterestType;
 
 public class IdentifierUtil
 {
+	public static Identifier of(String id)
+	{
+		//#if MC >= 12100
+		//$$ return Identifier.of(id);
+		//#else
+		return new Identifier(id);
+		//#endif
+	}
+
+	public static Identifier of(String namespace, String path)
+	{
+		//#if MC >= 12100
+		//$$ return Identifier.of(namespace, path);
+		//#else
+		return new Identifier(namespace, path);
+		//#endif
+	}
+
 	public static Identifier id(Block block)
 	{
 		return Registry.BLOCK.getId(block);

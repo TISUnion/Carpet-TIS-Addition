@@ -20,6 +20,7 @@
 
 package carpettisaddition.logging.loggers.damage;
 
+import carpettisaddition.utils.IdentifierUtil;
 import carpettisaddition.utils.entityfilter.EntityFilter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -120,7 +121,7 @@ public class OptionParser
 			EntityType<?> entityType;
 			try
 			{
-				entityType = Registry.ENTITY_TYPE.getOrEmpty(new Identifier(this.targetString)).orElse(null);
+				entityType = Registry.ENTITY_TYPE.getOrEmpty(IdentifierUtil.of(this.targetString)).orElse(null);
 			}
 			catch (InvalidIdentifierException e)
 			{
