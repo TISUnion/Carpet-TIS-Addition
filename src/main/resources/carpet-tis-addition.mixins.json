@@ -484,6 +484,7 @@
     "translations.TranslatableTextAccessor",
     "translations.TranslatableTextMixin",
     "utils.DirectBlockEntityTickInvokerAccessor",
+    "utils.DyeColorAccessor",
     "utils.ServerCommandSourceAccessor",
     "utils.ThreadExecutorAccessor",
     "utils.WrappedBlockEntityTickInvokerAccessor",

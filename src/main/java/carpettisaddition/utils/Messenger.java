@@ -65,6 +65,7 @@ import java.util.function.Consumer;
 //#endif
 
 //#if MC >= 11600
+//$$ import carpettisaddition.mixins.utils.DyeColorAccessor;
 //$$ import net.minecraft.text.TextColor;
 //#endif
 
@@ -173,7 +174,10 @@ public class Messenger
 		//#if MC >= 11600
 		//$$ Arrays.stream(DyeColor.values())
 		//$$ 		.filter(dyeColor -> !map.containsKey(dyeColor))
-		//$$ 		.forEach(dyeColor -> builder.put(dyeColor, text -> text.setStyle(text.getStyle().withColor(TextColor.fromRgb(dyeColor.getSignColor())))));
+		//$$ 		.forEach(dyeColor -> builder.put(dyeColor, text -> {
+		//$$ 				TextColor color = TextColor.fromRgb(((DyeColorAccessor)(Object)dyeColor).getSignColor$TISCM());
+		//$$ 				text.setStyle(text.getStyle().withColor(color));
+		//$$ 		}));
 		//#endif
 		return builder.build();
 	});
