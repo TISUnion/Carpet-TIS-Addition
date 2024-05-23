@@ -36,11 +36,18 @@ public abstract class HopperBlockEntityMixin
 	@Inject(
 			method = "extract(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/ItemEntity;)Z",
 			at = @At(
+					//#if MC >= 12002
+					//$$ // record before being set to EMPTY
+					//$$ value = "FIELD",
+					//$$ target = "Lnet/minecraft/item/ItemStack;EMPTY:Lnet/minecraft/item/ItemStack;"
+					//#else
+
 					value = "INVOKE",
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 					//#else
 					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					//#endif
 					//#endif
 			)
 	)
