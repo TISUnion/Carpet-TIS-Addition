@@ -1,4 +1,4 @@
-name: step.build
+name: _step.build
 
 on:
   workflow_call:

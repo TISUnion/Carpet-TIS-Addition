@@ -1,4 +1,4 @@
-name: step.matrix_prepare
+name: _step.matrix_prepare
 
 on:
   workflow_call:
