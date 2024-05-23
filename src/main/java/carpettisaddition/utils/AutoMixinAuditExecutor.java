@@ -27,9 +27,14 @@ public class AutoMixinAuditExecutor
 {
 	private static final String KEYWORD_PROPERTY = "carpettisaddition.mixin_audit";
 
+	public static boolean isEnabled()
+	{
+		return FabricLoader.getInstance().isDevelopmentEnvironment() && "true".equals(System.getProperty(KEYWORD_PROPERTY));
+	}
+
 	public static void run()
 	{
-		if (FabricLoader.getInstance().isDevelopmentEnvironment() && "true".equals(System.getProperty(KEYWORD_PROPERTY)))
+		if (isEnabled())
 		{
 			CarpetTISAdditionServer.LOGGER.info("Triggered auto mixin audit");
 			boolean ok = MixinUtil.audit(null);
