@@ -20,6 +20,7 @@
 
 package carpettisaddition.mixins.carpet.hooks;
 
+import carpet.CarpetServer;
 import carpet.settings.SettingsManager;
 import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionMod;
@@ -71,12 +72,17 @@ public class SettingsManagerMixin
 			remap = false
 	)
 	private void printAdditionVersion(ServerCommandSource source, CallbackInfoReturnable<Integer> cir) {
+		SettingsManager self = (SettingsManager)(Object)this;
+		if (self != CarpetServer.settingsManager)
+		{
+			return;
+		}
 		Messenger.tell(
 				source,
 				Messenger.c(
 						String.format("g %s ", MOD_NAME),
 						//#if MC >= 11901
-						//$$ String.format("g %s: ", Translations.tr("carpet.settings.command.version",  "version")),
+						//$$ String.format("g %s: ", Translations.tr("carpet.settings.command.version", "version")),
 						//#else
 						String.format("g %s: ", Translations.tr("ui.version",  "version")),
 						//#endif
