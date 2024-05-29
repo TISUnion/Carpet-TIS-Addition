@@ -556,9 +556,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean sandDupingFix = false;
 
+	@Rule(categories = {TIS, PORTING})
 	//#if MC >= 12002
-	//$$ @Rule(categories = {TIS, PORTING})
 	//$$ public static boolean shulkerBoxCCEReintroduced = false;
+	//#else
+	public static boolean shulkerBoxCCEReintroduced = true;
 	//#endif
 
 	//#if MC < 11700

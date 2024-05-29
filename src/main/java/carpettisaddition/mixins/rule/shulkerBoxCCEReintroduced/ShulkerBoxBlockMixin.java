@@ -20,11 +20,36 @@
 
 package carpettisaddition.mixins.rule.shulkerBoxCCEReintroduced;
 
-import carpettisaddition.utils.compat.DummyClass;
+import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ShulkerBoxBlock;
+import net.minecraft.container.Container;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(DummyClass.class)
+@Mixin(ShulkerBoxBlock.class)
 public abstract class ShulkerBoxBlockMixin
 {
-	// impl in mc1.20.2
+    @WrapMethod(method = "getComparatorOutput")
+	private int shulkerBoxCCEReintroduced_castIt(BlockState state, World world, BlockPos pos, Operation<Integer> original)
+    {
+        try
+        {
+           return original.call(state, world, pos);
+        }
+        catch (ClassCastException classCastException)
+        {
+            if (CarpetTISAdditionSettings.shulkerBoxCCEReintroduced)
+            {
+                throw classCastException;
+            }
+            else
+            {
+                return Container.calculateComparatorOutput(world.getBlockEntity(pos));
+            }
+        }
+    }
 }
