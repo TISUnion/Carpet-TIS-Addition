@@ -24,6 +24,7 @@ import net.minecraft.structure.StructurePlacementData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
+// mc <1.17 only
 @Mixin(StructurePlacementData.class)
 public interface StructurePlacementDataAccessor
 {

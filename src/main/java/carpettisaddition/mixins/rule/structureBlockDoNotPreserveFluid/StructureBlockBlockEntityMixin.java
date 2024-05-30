@@ -27,6 +27,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+//#if MC >= 12100
+//$$ import net.minecraft.structure.StructureLiquidSettings;
+//#endif
+
 @Mixin(StructureBlockBlockEntity.class)
 public abstract class StructureBlockBlockEntityMixin
 {
@@ -55,7 +59,13 @@ public abstract class StructureBlockBlockEntityMixin
 	{
 		if (CarpetTISAdditionSettings.structureBlockDoNotPreserveFluid)
 		{
+			//#if MC >= 12100
+			//$$ structurePlacementData.setLiquidSettings(StructureLiquidSettings.IGNORE_WATERLOGGING);
+			//#elseif MC >= 11700
+			//$$ structurePlacementData.setPlaceFluids(false);
+			//#else
 			((StructurePlacementDataAccessor)structurePlacementData).setPlaceFluids(false);
+			//#endif
 		}
 		return structurePlacementData;
 	}
