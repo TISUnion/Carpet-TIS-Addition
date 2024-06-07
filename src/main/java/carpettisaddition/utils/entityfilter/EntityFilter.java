@@ -34,8 +34,10 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -76,6 +78,13 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		return this.entitySelector.getPositionOffset().apply(this.serverCommandSource.getPosition());
 	}
 
+	@Nullable
+	private Box getOffsetBox(Vec3d anchorPos)
+	{
+		Box box = this.entitySelector.getBox();
+		return box == null ? null : box.offset(anchorPos);
+	}
+
 	@Override
 	public boolean test(Entity testEntity)
 	{
@@ -101,7 +110,13 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 			return false;
 		}
 		Vec3d anchorPos = this.getAnchorPos();
-		Predicate<Entity> predicate = this.entitySelector.invokeGetPositionPredicate(anchorPos);
+		Box offsetBox = this.getOffsetBox(anchorPos);
+		Predicate<Entity> predicate = this.entitySelector.invokeGetPositionPredicate(
+				anchorPos
+				//#if MC >= 12100
+				//$$ , offsetBox, this.serverCommandSource.getEnabledFeatures()
+				//#endif
+		);
 		if (this.entitySelector.getSenderOnly() && testEntity != this.serverCommandSource.getEntity())
 		{
 			return false;
@@ -120,7 +135,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		{
 			return false;
 		}
-		if (this.entitySelector.getBox() != null && !testEntity.getBoundingBox().intersects(this.entitySelector.getBox().offset(anchorPos)))
+		if (offsetBox != null && !testEntity.getBoundingBox().intersects(offsetBox))
 		{
 			return false;
 		}

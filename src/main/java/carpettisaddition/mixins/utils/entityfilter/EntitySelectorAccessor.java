@@ -23,7 +23,6 @@ package carpettisaddition.mixins.utils.entityfilter;
 import carpettisaddition.utils.entityfilter.IEntitySelector;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.entity.Entity;
-import net.minecraft.predicate.NumberRange;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
@@ -35,6 +34,10 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+//#if MC >= 12100
+//$$ import net.minecraft.resource.featuretoggle.FeatureSet;
+//#endif
+
 //#if MC >= 11700
 //$$ import net.minecraft.util.TypeFilter;
 //#else
@@ -45,16 +48,7 @@ import net.minecraft.entity.EntityType;
 public interface EntitySelectorAccessor extends IEntitySelector
 {
 	@Accessor
-	boolean getIncludesNonPlayers();
-
-	@Accessor
 	boolean getLocalWorldOnly();
-
-	@Accessor
-	Predicate<Entity> getBasePredicate();
-
-	@Accessor
-	NumberRange.FloatRange getDistance();
 
 	@Accessor
 	Function<Vec3d, Vec3d> getPositionOffset();
@@ -82,9 +76,11 @@ public interface EntitySelectorAccessor extends IEntitySelector
 	EntityType<?> getType();
 	//#endif
 
-	@Accessor
-	boolean getUsesAt();
-
 	@Invoker
-	Predicate<Entity> invokeGetPositionPredicate(Vec3d vec3d);
+	Predicate<Entity> invokeGetPositionPredicate(
+			Vec3d vec3d
+			//#if MC >= 12100
+			//$$ , @Nullable Box box, @Nullable FeatureSet enabledFeatures
+			//#endif
+	);
 }
