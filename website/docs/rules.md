@@ -1165,7 +1165,7 @@ You can modify gamerule `randomTickSpeed` to speed up the melting progress, or m
 
 ## spawnBabyProbably
 
-When spawning mobs, if baby variant exists, spawn the jockey variant with given probably
+When spawning mobs, if baby variant exists, spawn the baby variant with given probably
 
 Set it to `-1` to disable the rule and use vanilla logic
 
