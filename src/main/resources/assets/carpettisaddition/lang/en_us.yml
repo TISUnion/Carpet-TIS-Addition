@@ -1116,7 +1116,7 @@ carpettisaddition:
           '3': You can modify gamerule randomTickSpeed to speed up the melting progress, or modify carpet rule chunkTickSpeed to speed up the snowfall progress
       spawnBabyProbably:
         name: spawnBabyProbably
-        desc: When spawning mobs, if baby variant exists, spawn the jockey variant with given probably
+        desc: When spawning mobs, if baby variant exists, spawn the baby variant with given probably
         extra:
           '0': Set it to -1 to disable the rule and use vanilla logic
       spawnJockeyProbably:
