@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -25,13 +25,14 @@ import carpettisaddition.helpers.rule.optimizedFastEntityMovement.OFEMUtil;
 import carpettisaddition.utils.ModIds;
 import carpettisaddition.utils.mixin.testers.LithiumEntityMovementOptimizationTester;
 import com.google.common.collect.Lists;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import me.jellysquid.mods.lithium.common.entity.LithiumEntityCollisions;
+import me.jellysquid.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper;
+import me.jellysquid.mods.lithium.common.util.collections.LazyList;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -46,66 +47,55 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import java.util.List;
-
-//#if MC < 11900
-import net.minecraft.world.CollisionView;
-//#endif
+import java.util.Collections;
 
 /**
  * Lithium's optimization `entity.collisions.movement` uses default priority 1000
  * We need to mixin into its merged static method, so here comes priority 2000
  */
 @Restriction(require = {
-		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"),
+		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.21"),
+		@Condition(value = ModIds.lithium, versionPredicates = ">=0.12.5"),
 		@Condition(type = Condition.Type.TESTER, tester = LithiumEntityMovementOptimizationTester.class)
 })
 @Mixin(value = Entity.class, priority = 2000)
 public abstract class EntityMixin
 {
 	@Unique
-	private static final List<VoxelShape> EMPTY_BLOCK_COLLECTIONS = Lists.newArrayList();
+	private static final LazyList<VoxelShape> EMPTY_BLOCK_COLLECTIONS = new LazyList<>(Lists.newArrayList(), Collections.emptyIterator());
 
 	@Dynamic("Should be added by lithium entity.collisions.movement")
-	@WrapOperation(
-			method = "lithiumCollideMultiAxisMovement",
+	@ModifyExpressionValue(
+			method = "lithium$CollideMovement",
 			at = @At(
-					value = "INVOKE",
-					//#if MC >= 11900
-					//$$ target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
-					//#else
-					target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/CollisionView;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
-					//#endif
-					remap = true
+					value = "NEW",
+					target = "(Ljava/util/ArrayList;Ljava/util/Iterator;)Lme/jellysquid/mods/lithium/common/util/collections/LazyList;",
+					remap = false
 			),
 			remap = false
 	)
-	private static List<VoxelShape> dontUseThatLargeBlockCollisions(
-			// lithium 0.11.1 changed the world param type from CollisionView to World
-			//#if MC >= 11900
-			//$$ World world,
-			//#else
-			CollisionView world,
-			//#endif
-			Entity entity, Box box, Operation<List<VoxelShape>> original,
+	private static LazyList<VoxelShape> dontUseThatLargeBlockCollisions(
+			LazyList<VoxelShape> originalList,
 			/* parent method parameters -> */
-			@Nullable Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam,
+			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true) @Nullable Entity entity,
+			@Local(argsOnly = true) Vec3d movement,
 			@Share("OFEMContext") LocalRef<OFEMContext> context
 	)
 	{
-		OFEMContext ctx = OFEMUtil.checkAndCreateContext((World)world, entity, movement);
+		OFEMContext ctx = OFEMUtil.checkAndCreateContext(world, entity, movement);
 		context.set(ctx);
 		if (ctx != null)
 		{
 			return EMPTY_BLOCK_COLLECTIONS;
 		}
 		// vanilla lithium
-		return original.call(world, entity, box);
+		return originalList;
 	}
 
 	@Dynamic("Should be added by lithium entity.collisions.movement")
 	@ModifyArgs(
-			method = "lithiumCollideMultiAxisMovement",
+			method = "lithium$CollideMovement",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/util/shape/VoxelShapes;calculateMaxOffset(Lnet/minecraft/util/math/Direction$Axis;Lnet/minecraft/util/math/Box;Ljava/lang/Iterable;D)D",
@@ -134,7 +124,13 @@ public abstract class EntityMixin
 		// we don't want to touch the world border stuff
 		if (blockCollisions == EMPTY_BLOCK_COLLECTIONS)
 		{
-			args.set(2, OFEMUtil.getAxisOnlyBlockCollision(ctx, LithiumEntityCollisions::getBlockCollisions));
+			var newList = OFEMUtil.getAxisOnlyBlockCollision(ctx, (world, entity, box) -> {
+				// ref: me.jellysquid.mods.lithium.mixin.entity.collisions.movement.EntityMixin#lithium$CollideMovement
+				// Don't need hide the last collision here, cuz the collision order with rule on is already not that vanilla XD
+				var blockCollisionSweeper = new ChunkAwareBlockCollisionSweeper(world, entity, box, false);
+				return new LazyList<>(Lists.newArrayList(), blockCollisionSweeper);
+			});
+			args.set(2, newList);
 		}
 	}
 }

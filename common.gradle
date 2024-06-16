@@ -47,7 +47,17 @@ dependencies {
 	} else {
 		modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
 	}
-	modCompileOnly "${project.lithium_dependency}"
+	final enableLithiumInRuntime = false
+	if (mcVersion >= 11500 && enableLithiumInRuntime) {
+		modImplementation "${project.lithium_dependency}"
+		if (11500 <= mcVersion && mcVersion < 11600) {
+			// https://github.com/CaffeineMC/lithium-fabric/blob/1.15.x/fabric/build.gradle#L50
+			runtimeOnly "com.moandjiezana.toml:toml4j:0.7.2"
+			runtimeOnly "com.github.Chocohead:Fabric-ASM:v2.0.1"  // v2.0 build fails
+		}
+	} else {
+		modCompileOnly "${project.lithium_dependency}"
+	}
 
 	// runtime mods
 	if (mcVersion < 11904) {
