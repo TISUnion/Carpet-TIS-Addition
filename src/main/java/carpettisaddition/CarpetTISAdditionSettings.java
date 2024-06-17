@@ -496,6 +496,11 @@ public class CarpetTISAdditionSettings
 	)
 	public static int oakBalloonPercent = -1;
 
+	//#if MC < 12100
+	@Rule(categories = {TIS, FEATURE, PORTING})
+	public static boolean obsidianPlatformBlockBreakerBackport = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean observerNoDetection = false;
 

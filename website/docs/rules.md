@@ -919,6 +919,18 @@ Basically this rule disables the detection functionality of observers
 - Categories: `TIS`, `CREATIVE`
 
 
+## obsidianPlatformBlockBreakerBackport
+
+Backport the feature from Minecraft 1.21+ that the creation of the obsidian platform in the end dimension can break existing blocks
+
+Notes: block iterating order for obsidian platform creation for normal entity in vanilla [1.16, 1.21) is different from mc1.21+
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `PORTING`
+
+
 ## opPlayerNoCheat
 
 Disable some command to prevent accidentally cheating

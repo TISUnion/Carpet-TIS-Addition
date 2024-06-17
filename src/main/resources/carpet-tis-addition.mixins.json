@@ -383,6 +383,8 @@
     "rule.oakBalloonPercent.OakSaplingGeneratorMixin",
     "rule.oakBalloonPercent.SaplingGeneratorMixin",
     "rule.observerNoDetection.ObserverBlockMixin",
+    "rule.obsidianPlatformBlockBreakerBackport.ServerPlayerEntityMixin",
+    "rule.obsidianPlatformBlockBreakerBackport.ServerWorldMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",
     "rule.opPlayerNoCheat.SetBlockCommandMixin",

@@ -919,6 +919,18 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 黑曜石平台方块破坏器移植 (obsidianPlatformBlockBreakerBackport)
+
+移植 Minecraft 1.21+ 版本中的特性：末地黑曜石平台的生成可以破坏已存在的方块
+
+值得注意，在原版 MC [1.16, 1.21) 里，普通实体创建黑曜石平台时的方块遍历顺序，和原版 mc1.21+ 的顺序，是不一样的
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `PORTING`
+
+
 ## op玩家不准作弊 (opPlayerNoCheat)
 
 禁用部分指令以避免op玩家意外地作弊

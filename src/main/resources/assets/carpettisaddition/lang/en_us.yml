@@ -1009,6 +1009,11 @@ carpettisaddition:
         desc: Stop observer from scheduling tile tick event after it receives a state update
         extra:
           '0': Basically this rule disables the detection functionality of observers
+      obsidianPlatformBlockBreakerBackport:
+        name: obsidianPlatformBlockBreakerBackport
+        desc: Backport the feature from Minecraft 1.21+ that the creation of the obsidian platform in the end dimension can break existing blocks
+        extra:
+          '0': 'Notes: block iterating order for obsidian platform creation for normal entity in vanilla [1.16, 1.21) is different from mc1.21+'
       opPlayerNoCheat:
         name: opPlayerNoCheat
         desc: Disable some command to prevent accidentally cheating

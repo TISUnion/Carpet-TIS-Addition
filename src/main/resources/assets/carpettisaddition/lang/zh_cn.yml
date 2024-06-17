@@ -1009,6 +1009,11 @@ carpettisaddition:
         desc: 不准侦测器在受状态更新时添加计划刻事件
         extra:
           '0': 可以认为这条规则禁用了观察者的检测功能
+      obsidianPlatformBlockBreakerBackport:
+        name: 黑曜石平台方块破坏器移植
+        desc: 移植 Minecraft 1.21+ 版本中的特性：末地黑曜石平台的生成可以破坏已存在的方块
+        extra:
+          '0': '值得注意，在原版 MC [1.16, 1.21) 里，普通实体创建黑曜石平台时的方块遍历顺序，和原版 mc1.21+ 的顺序，是不一样的'
       opPlayerNoCheat:
         name: op玩家不准作弊
         desc: 禁用部分指令以避免op玩家意外地作弊
