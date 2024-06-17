@@ -301,7 +301,7 @@ This rule actually does the following two things:
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `PORTING`
+- Categories: `TIS`, `FEATURE`, `PORTING`
 
 
 ## enchantCommandNoRestriction
@@ -1052,7 +1052,7 @@ Notes: rule `dustTrapdoorReintroduced` implements the same revert for redstone d
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `PORTING`
+- Categories: `TIS`, `FEATURE`, `PORTING`
 
 
 ## renewableDragonEgg
@@ -1128,7 +1128,7 @@ Long live void's magic box!
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `PORTING`
+- Categories: `TIS`, `FEATURE`, `PORTING`
 
 
 ## shulkerBoxContentDropBackport
@@ -1142,7 +1142,7 @@ This feature is introduced to vanilla Minecraft in mc1.17
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `PORTING`
+- Categories: `TIS`, `FEATURE`, `PORTING`
 
 
 ## snowMeltMinLightLevel

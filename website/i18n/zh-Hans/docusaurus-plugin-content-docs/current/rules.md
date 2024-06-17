@@ -301,7 +301,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `PORTING`
+- 分类: `TIS`, `FEATURE`, `PORTING`
 
 
 ## enchant指令约束移除 (enchantCommandNoRestriction)
@@ -1052,7 +1052,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `PORTING`
+- 分类: `TIS`, `FEATURE`, `PORTING`
 
 
 ## 可再生龙蛋 (renewableDragonEgg)
@@ -1128,7 +1128,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `PORTING`
+- 分类: `TIS`, `FEATURE`, `PORTING`
 
 
 ## 潜影盒内容物掉落移植 (shulkerBoxContentDropBackport)
@@ -1142,7 +1142,7 @@ sidebar_position: 1
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `PORTING`
+- 分类: `TIS`, `FEATURE`, `PORTING`
 
 
 ## 融雪最小亮度 (snowMeltMinLightLevel)

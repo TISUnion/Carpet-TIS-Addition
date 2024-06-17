@@ -165,7 +165,7 @@ public class CarpetTISAdditionSettings
 	public static boolean dispensersFireDragonBreath = false;
 
 	//#if MC >= 12000
-	//$$ @Rule(categories = {TIS, PORTING})
+	//$$ @Rule(categories = {TIS, FEATURE, PORTING})
 	//$$ public static boolean dustTrapdoorReintroduced = false;
 	//#endif
 
@@ -512,7 +512,7 @@ public class CarpetTISAdditionSettings
 	public static boolean optimizedTNTHighPriority = false;
 
 	//#if MC >= 11600
-	//$$ @Rule(categories = {TIS, PORTING})
+	//$$ @Rule(categories = {TIS, FEATURE, PORTING})
 	//$$ public static boolean overspawningReintroduced = false;
 	//#endif
 
@@ -532,7 +532,7 @@ public class CarpetTISAdditionSettings
 	public static boolean redstoneDustRandomUpdateOrder = false;
 
 	//#if MC >= 12002
-	//$$ @Rule(categories = {TIS, PORTING})
+	//$$ @Rule(categories = {TIS, FEATURE, PORTING})
 	//$$ public static boolean redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate = false;
 	//#endif
 
@@ -557,12 +557,12 @@ public class CarpetTISAdditionSettings
 	public static boolean sandDupingFix = false;
 
 	//#if MC >= 12002
-	//$$ @Rule(categories = {TIS, PORTING})
+	//$$ @Rule(categories = {TIS, FEATURE, PORTING})
 	//$$ public static boolean shulkerBoxCCEReintroduced = false;
 	//#endif
 
 	//#if MC < 11700
-	@Rule(categories = {TIS, PORTING})
+	@Rule(categories = {TIS, FEATURE, PORTING})
 	public static boolean shulkerBoxContentDropBackport = false;
 	//#endif
 
