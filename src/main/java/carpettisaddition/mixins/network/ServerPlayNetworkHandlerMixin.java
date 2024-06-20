@@ -31,12 +31,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//#if MC >= 12002
+//#if 12002 <= MC && MC < 12005
 //$$ import net.minecraft.server.network.ServerCommonNetworkHandler;
 //#endif
 
 @Mixin(
-		//#if MC >= 12002
+		//#if 12002 <= MC && MC < 12005
 		//$$ ServerCommonNetworkHandler.class
 		//#else
 		ServerPlayNetworkHandler.class
