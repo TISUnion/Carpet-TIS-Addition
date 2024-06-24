@@ -18,16 +18,23 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.playerActionEnhanced;
+package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
-import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
+import carpet.helpers.EntityPlayerActionPack;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackAction;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.IServerPlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-public interface IEntityPlayerActionPackAction
+@Mixin(EntityPlayerActionPack.ActionType.class)
+public class EntityPlayerActionPackActionTypeMixin
 {
-	void setIntervalRandomGenerator(RandomGen gen);
-
-	void setPerTickMultiplier(int perTick);
-
-	void savePosAndRot(ServerPlayerEntity player);
+	@Inject(method = "start", at = @At("HEAD"), remap = false)
+	private void onStart(ServerPlayerEntity player, EntityPlayerActionPack.Action action, CallbackInfo info)
+	{
+		((IEntityPlayerActionPackAction)(Object)action).savePosAndRot(player);
+	}
 }
