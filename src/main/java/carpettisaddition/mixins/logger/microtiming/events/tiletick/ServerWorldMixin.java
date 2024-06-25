@@ -59,10 +59,11 @@ public abstract class ServerWorldMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11500
-					target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V"
+					target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V",
 					//#else
-					//$$ target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V"
+					//$$ target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V",
 					//#endif
+					shift = At.Shift.AFTER
 			)
 	)
 	private void postExecuteBlockTileTickEvent(ScheduledTick<Block> event, CallbackInfo ci)
@@ -86,7 +87,8 @@ public abstract class ServerWorldMixin
 			method = "tickFluid",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/fluid/FluidState;onScheduledTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
+					target = "Lnet/minecraft/fluid/FluidState;onScheduledTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+					shift = At.Shift.AFTER
 			)
 	)
 	private void postExecuteFluidTileTickEvent(ScheduledTick<Fluid> event, CallbackInfo ci)
