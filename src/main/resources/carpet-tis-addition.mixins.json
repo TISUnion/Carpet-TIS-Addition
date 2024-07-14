@@ -166,6 +166,8 @@
     "command.lifetime.spawning.raid.RaidMixin",
     "command.lifetime.spawning.slime.SlimeEntityMixin",
     "command.lifetime.spawning.spawner.MobSpawnerLogicMixin",
+    "command.lifetime.spawning.statuseffect.InfestedStatusEffectMixin",
+    "command.lifetime.spawning.statuseffect.OozingStatusEffectMixin",
     "command.lifetime.spawning.summon.CarvedPumpkinBlockMixin",
     "command.lifetime.spawning.summon.LargeEntitySpawnHelperMixin",
     "command.lifetime.spawning.summon.SummonVexGoalMixin",

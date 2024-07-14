@@ -538,6 +538,7 @@ carpettisaddition:
         mob_drop: Dropped by %1$s
         mob_throw: Thrown by %1$s
         mob_conversion: Converted from %1$s
+        status_effect: Status effect (%1$s)
         trans_dimension:
           .: Trans-dimension
           from: from %1$s

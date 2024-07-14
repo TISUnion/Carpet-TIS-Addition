@@ -67,6 +67,7 @@ Tracked entity spawn reasons
 - Mob drop (item and xp orb only)
 - Mob throw (item only)
 - Mob conversion
+- Status effect (e.g. oozing and infested in mc1.20.5+)
 - Trans-dimension
 
 Note that only entities that have been tracked spawning will be counted to the statistic

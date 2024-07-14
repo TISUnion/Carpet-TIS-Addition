@@ -538,6 +538,7 @@ carpettisaddition:
         mob_drop: 由%1$s掉落
         mob_throw: 由%1$s扔出
         mob_conversion: 转换自%1$s
+        status_effect: 状态效果 (%1$s)
         trans_dimension:
           .: 跨维度
           from: 来自%1$s
