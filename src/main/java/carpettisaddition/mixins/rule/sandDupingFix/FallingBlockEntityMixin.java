@@ -44,7 +44,7 @@ public abstract class FallingBlockEntityMixin extends Entity
 			at = @At(
 					value = "INVOKE",
 					shift = At.Shift.AFTER,
-					target = "Lnet/minecraft/entity/FallingBlockEntity;move(Lnet/minecraft/entity/MovementType;Lnet/minecraft/util/math/Vec3d;)V"
+                    target = "Lnet/minecraft/entity/FallingBlockEntity;tickPortalTeleportation()V"
 			),
 			cancellable = true
 	)
