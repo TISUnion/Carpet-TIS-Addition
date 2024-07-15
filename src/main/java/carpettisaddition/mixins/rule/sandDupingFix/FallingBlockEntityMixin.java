@@ -48,7 +48,7 @@ public abstract class FallingBlockEntityMixin extends Entity
 			),
 			cancellable = true
 	)
-	private void afterMove(CallbackInfo ci)
+	private void afterPortalTeleportation(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.sandDupingFix)
 		{
