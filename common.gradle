@@ -132,32 +132,35 @@ remapJar {
 
 String modVersionSuffix = ''
 String artifactVersion = project.mod_version
+String artifactVersionSuffix = ''
 // detect github action environment variables
 // https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
 if (System.getenv("BUILD_RELEASE") != "true") {
 	String buildNumber = System.getenv("BUILD_ID")
 	modVersionSuffix += buildNumber != null ? ('+build.' + buildNumber) : '-SNAPSHOT'
-	artifactVersion += '-SNAPSHOT'  // A non-release artifact is always a SNAPSHOT artifact
+	artifactVersionSuffix = '-SNAPSHOT'  // A non-release artifact is always a SNAPSHOT artifact
 }
-String finalModVersion = project.mod_version + modVersionSuffix
+String fullModVersion = project.mod_version + modVersionSuffix
 String fullProjectVersion, fullArtifactVersion
 
 // Example version values:
-//   project.mod_version   1.0.3                      (the base mod version)
-//   finalModVersion       1.0.3+build.88             (the actual mod version to use)
-//   fullProjectVersion    mc1.15.2-v1.0.3+build.88   (in build output jar name)
-//   fullArtifactVersion   mc1.15.2-v1.0.3-SNAPSHOT   (maven artifact version)
+//   project.mod_version     1.0.3                      (the base mod version)
+//   modVersionSuffix        +build.88                  (use github action build number if possible)
+//   artifactVersionSuffix   -SNAPSHOT
+//   fullModVersion          1.0.3+build.88             (the actual mod version to use in the mod)
+//   fullProjectVersion      v1.0.3-mc1.15.2+build.88   (in build output jar name)
+//   fullArtifactVersion     1.0.3-mc1.15.2-SNAPSHOT    (maven artifact version)
 
 group = project.maven_group
 if (System.getenv("JITPACK") == "true") {
 	// move mc version into archivesBaseName, so jitpack will be able to organize archives from multiple subprojects correctly
 	base.archivesName = project.archives_base_name + '-mc' + project.minecraft_version
-	fullProjectVersion = 'v' + finalModVersion
-	fullArtifactVersion = 'v' + artifactVersion
+	fullProjectVersion = 'v' + project.mod_version + modVersionSuffix
+	fullArtifactVersion = artifactVersion + artifactVersionSuffix
 } else {
 	base.archivesName = project.archives_base_name
-	fullProjectVersion = 'mc' + project.minecraft_version + '-v' + finalModVersion
-	fullArtifactVersion = 'mc' + project.minecraft_version + '-v' + artifactVersion
+	fullProjectVersion = 'v' + project.mod_version + '-mc' + project.minecraft_version + modVersionSuffix
+	fullArtifactVersion = artifactVersion + '-mc' + project.minecraft_version + artifactVersionSuffix
 }
 version = fullProjectVersion
 
@@ -168,14 +171,14 @@ processResources {
 
 	inputs.property "id", project.mod_id
 	inputs.property "name", project.mod_name
-	inputs.property "version", finalModVersion
+	inputs.property "version", fullModVersion
 	inputs.property "minecraft_dependency", project.minecraft_dependency
 
 	filesMatching("fabric.mod.json") {
 		def valueMap = [
 				"id": project.mod_id,
 				"name": project.mod_name,
-				"version": finalModVersion,
+				"version": fullModVersion,
 				"carpet_dependency": project.carpet_dependency,
 				"minecraft_dependency": project.minecraft_dependency,
 				"lithium_confliction": project.getProperties().getOrDefault('lithium_confliction', '<0.0.0')
