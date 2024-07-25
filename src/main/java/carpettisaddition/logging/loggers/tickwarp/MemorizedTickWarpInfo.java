@@ -32,7 +32,7 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 	private final TickWarpInfo delegate;
 	private long totalTicks;
 	private long timeRemaining;
-	private long startTime;
+	private long elapsedTime;
 	private boolean recordedSomething = false;
 	private long lastRecordingTime;
 	private ServerCommandSource lastTimeAdvancer;
@@ -58,11 +58,11 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 	 */
 	public void recordResultIfsuitable()
 	{
-		if (this.delegate.getStartTime() != 0)
+		if (this.delegate.getTotalTicks() != 0)
 		{
 			this.totalTicks = this.delegate.getTotalTicks();
 			this.timeRemaining = this.delegate.getRemainingTicks();
-			this.startTime = this.delegate.getStartTime();
+			this.elapsedTime = this.delegate.getElapsedTime();
 			this.lastTimeAdvancer = this.delegate.getTimeAdvancer();
 			this.recordedSomething = true;
 			this.lastRecordingTime = System.nanoTime();
@@ -88,9 +88,9 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 	}
 
 	@Override
-	public long getStartTime()
+	public long getElapsedTime()
 	{
-		return this.startTime;
+		return this.elapsedTime;
 	}
 
 	@Override
@@ -98,12 +98,6 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 	public ServerCommandSource getTimeAdvancer()
 	{
 		return this.lastTimeAdvancer;
-	}
-
-	@Override
-	public long getCurrentTime()
-	{
-		return this.lastRecordingTime;
 	}
 
 	public boolean hasData()

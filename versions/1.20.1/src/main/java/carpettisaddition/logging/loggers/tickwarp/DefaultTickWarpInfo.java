@@ -85,14 +85,14 @@ public class DefaultTickWarpInfo implements TickWarpInfo
 	}
 
 	@Override
-	public long getStartTime()
+	public long getElapsedTime()
 	{
-		return trm().map(ServerTickRateManagerAccessor::getTickWarpStartTime).orElse(0L);
-	}
-
-	@Override
-	public long getCurrentTime()
-	{
-		return System.nanoTime();
+		return trm().map(m -> {
+			//#if MC >= 12003
+			//$$ return m.getTickWarpElapsedTime();
+			//#else
+			return System.nanoTime() - m.getTickWarpStartTime();
+			//#endif
+		}).orElse(0L);
 	}
 }

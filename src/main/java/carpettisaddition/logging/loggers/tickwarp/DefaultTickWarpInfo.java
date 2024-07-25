@@ -63,14 +63,8 @@ public class DefaultTickWarpInfo implements TickWarpInfo
 	}
 
 	@Override
-	public long getStartTime()
+	public long getElapsedTime()
 	{
-		return TickSpeed.time_warp_start_time;
-	}
-
-	@Override
-	public long getCurrentTime()
-	{
-		return System.nanoTime();
+		return System.nanoTime() - TickSpeed.time_warp_start_time;
 	}
 }

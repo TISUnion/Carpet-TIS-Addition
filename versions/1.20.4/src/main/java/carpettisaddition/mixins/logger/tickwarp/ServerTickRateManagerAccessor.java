@@ -30,8 +30,8 @@ public interface ServerTickRateManagerAccessor
 	@Accessor(value = "sprintTicks")
 	long getRemainingWarpTicks();
 
-	@Accessor(value = "sprintStartTime")
-	long getTickWarpStartTime();
+	@Accessor(value = "sprintTime")
+	long getTickWarpElapsedTime();
 
 	@Accessor(value = "scheduledSprintTicks")
 	long getScheduledCurrentWarpTicks();

@@ -30,9 +30,7 @@ public interface TickWarpInfoReader
 
 	long getRemainingTicks();
 
-	long getStartTime();
-
-	long getCurrentTime();
+	long getElapsedTime();
 
 	// ----------------------- utilities methods -----------------------
 
@@ -43,7 +41,7 @@ public interface TickWarpInfoReader
 
 	default double getAverageMSPT()
 	{
-		double milliSeconds = Math.max(this.getCurrentTime() - this.getStartTime(), 1) / 1e6;
+		double milliSeconds = Math.max(this.getElapsedTime(), 1) / 1e6;
 		return milliSeconds / this.getCompletedTicks();
 	}
 
