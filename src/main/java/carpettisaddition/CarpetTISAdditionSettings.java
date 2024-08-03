@@ -172,6 +172,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean enchantCommandNoRestriction = false;
 
+	@Rule(categories = {TIS, CREATIVE})
+	public static boolean endPortalOpenedSoundDisabled = false;
+
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean entityBrainMemoryUnfreedFix = false;
 

@@ -314,6 +314,16 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 禁用末地门开启音效 (endPortalOpenedSoundDisabled)
+
+禁用末地门开启时发出的音效
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 实体大脑记忆未释放修复 (entityBrainMemoryUnfreedFix)
 
 修复了生物实体被移除出世界后，其大脑记忆依然未被释放的bug

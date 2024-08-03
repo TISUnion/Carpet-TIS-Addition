@@ -314,6 +314,16 @@ Remove all enchantment restriction checks inside `/enchant` command
 - Categories: `TIS`, `CREATIVE`
 
 
+## endPortalOpenedSoundDisabled
+
+Disable the sound emitted when opening an end portal
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## entityBrainMemoryUnfreedFix
 
 Fix brain memory of living entity staying unfreed after the entity has been removed

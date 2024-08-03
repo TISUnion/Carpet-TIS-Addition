@@ -756,6 +756,9 @@ carpettisaddition:
       enchantCommandNoRestriction:
         name: enchant指令约束移除
         desc: 移除/enchant指令中所有对目标附魔的约束
+      endPortalOpenedSoundDisabled:
+        name: 禁用末地门开启音效
+        desc: 禁用末地门开启时发出的音效
       entityBrainMemoryUnfreedFix:
         name: 实体大脑记忆未释放修复
         desc: 修复了生物实体被移除出世界后，其大脑记忆依然未被释放的bug

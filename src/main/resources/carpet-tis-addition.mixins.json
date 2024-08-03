@@ -322,6 +322,7 @@
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
     "rule.dustTrapdoorReintroduced.RedstoneWireBlockMixin",
     "rule.enchantCommandNoRestriction.EnchantCommandMixin",
+    "rule.endPortalOpenedSoundDisabled.witherSpawnedSoundDisabled.EnderEyeItemMixin",
     "rule.entityBrainMemoryUnfreedFix.BrainAccessor",
     "rule.entityBrainMemoryUnfreedFix.EntityMixin",
     "rule.entityInstantDeathRemoval.LivingEntityMixin",
