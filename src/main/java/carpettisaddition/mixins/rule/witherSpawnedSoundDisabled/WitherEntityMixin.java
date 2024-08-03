@@ -21,15 +21,17 @@
 package carpettisaddition.mixins.rule.witherSpawnedSoundDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(WitherEntity.class)
 public abstract class WitherEntityMixin
 {
-	@ModifyArg(
+	@WrapWithCondition(
 			method = "mobTick",
 			at = @At(
 					value = "INVOKE",
@@ -38,15 +40,10 @@ public abstract class WitherEntityMixin
 					//#else
 					target = "Lnet/minecraft/world/World;playGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
 					//#endif
-			),
-			index = 0
+			)
 	)
-	private int witherSpawnedSoundDisabled(int eventId)
+	private boolean witherSpawnedSoundDisabled_conditionCheck(World instance, int type, BlockPos blockPos, int data)
 	{
-		if (CarpetTISAdditionSettings.witherSpawnedSoundDisabled)
-		{
-			eventId = -1;
-		}
-		return eventId;
+		return !CarpetTISAdditionSettings.witherSpawnedSoundDisabled;
 	}
 }
