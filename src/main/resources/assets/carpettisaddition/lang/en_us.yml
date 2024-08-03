@@ -1262,6 +1262,13 @@ carpettisaddition:
         extra:
           '0': Right before a powered activator / powered rail on a lapis ore setting its powered state to false, throw the given JVM throwable
           '1': 'false: rule disabled; true: rule enable and use StackOverflowError; others: feature enable and use given throwable'
+      vaultBlacklistDisabled:
+        name: vaultBlacklistDisabled
+        desc: Disable functionalities related to the vault block's player blacklist
+        extra:
+          '0': 'After enabling this rule:'
+          '1': 1. When players open the vault, their UUIDs will not be added to the vault blacklist
+          '2': 2. Regardless of whether players are on the vault blacklist, they can activate or open the vault
       visualizeProjectileLoggerEnabled:
         name: visualizeProjectileLoggerEnabled
         desc: Enable visualize projectile logger

@@ -464,6 +464,8 @@
     "rule.undeadDontBurnInSunlight.PhantomEntityMixin",
     "rule.undeadDontBurnInSunlight.ZombieEntityMixin",
     "rule.updateSuppressionSimulator.PoweredRailBlockMixin",
+    "rule.vaultBlacklistDisabled.VaultServerDataMixin",
+    "rule.vaultBlacklistDisabled.VaultSharedDataMixin",
     "rule.voidDamageAmount.LivingEntityMixin",
     "rule.voidDamageIgnorePlayer.LivingEntityMixin",
     "rule.voidRelatedAltitude.AbstractDecorationEntityMixin",

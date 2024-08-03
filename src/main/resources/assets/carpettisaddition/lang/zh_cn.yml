@@ -1262,6 +1262,13 @@ carpettisaddition:
         extra:
           '0': 在青金石矿石上已亮起的激活/充能铁轨将要熄灭时，抛出所提供的JVM异常
           '1': 'false: 关闭规则; true: 启用规则并使用StackOverflowError; 其他: 启用规则并使用所给异常'
+      vaultBlacklistDisabled:
+        name: 禁用宝库黑名单
+        desc: 禁用宝库方块实体中储存的玩家黑名单的相关功能
+        extra:
+          '0': 在本规则启用后：
+          '1': 1. 玩家开启宝库后，玩家的UUID不会被添加到宝库黑名单中
+          '2': 2. 无论玩家是否位于宝库黑名单中，玩家均可激活、开启宝库
       visualizeProjectileLoggerEnabled:
         name: 可视化投掷物记录器
         desc: 启用可视化投掷物记录器

@@ -796,6 +796,11 @@ public class CarpetTISAdditionSettings
 	    }
     }
 
+	//#if MC >= 12006
+	//$$ @Rule(categories = {TIS, CREATIVE})
+	//$$ public static boolean vaultBlacklistDisabled = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean visualizeProjectileLoggerEnabled = false;
 

@@ -1515,6 +1515,21 @@ Right before a powered activator / powered rail on a lapis ore setting its power
 - Categories: `TIS`, `CREATIVE`
 
 
+## vaultBlacklistDisabled
+
+Disable functionalities related to the vault block's player blacklist
+
+After enabling this rule:
+
+1. When players open the vault, their UUIDs will not be added to the vault blacklist
+2. Regardless of whether players are on the vault blacklist, they can activate or open the vault
+
+- Type: `boolean`
+- Default value: `false `
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## visualizeProjectileLoggerEnabled
 
 Enable visualize projectile logger

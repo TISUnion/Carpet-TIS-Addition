@@ -1515,6 +1515,23 @@ TISCM网络协议的开关
 - 分类: `TIS`, `CREATIVE`
 
 
+## 禁用宝库黑名单 (vaultBlacklistDisabled)
+
+禁用宝库方块实体中储存的玩家黑名单的相关功能
+
+在本规则启用后：
+
+1. 玩家开启宝库后，玩家的 UUID 不会被添加到宝库黑名单中
+2. 无论玩家是否位于宝库黑名单中，玩家均可激活、开启宝库
+
+试试 `/log projectiles visualize` 吧
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 可视化投掷物记录器 (visualizeProjectileLoggerEnabled)
 
 启用可视化投掷物记录器
