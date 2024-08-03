@@ -21,52 +21,68 @@
 package carpettisaddition.mixins.logger.phantom;
 
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
-import net.minecraft.entity.player.PlayerEntity;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.world.gen.PhantomSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 12000
 //$$ import net.minecraft.server.network.ServerPlayerEntity;
+//#else
+import net.minecraft.entity.player.PlayerEntity;
 //#endif
 
 @Mixin(PhantomSpawner.class)
 public abstract class PhantomSpawnerMixin
 {
-	private PlayerEntity currentPlayer$TISCM$phantomLogger = null;
-
-	@ModifyVariable(
+	@Inject(
 			method = "spawn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"
+					target = "Lnet/minecraft/world/LocalDifficulty;getGlobalDifficulty()Lnet/minecraft/world/Difficulty;",
+					ordinal = 0
 			)
 	)
-	//#if MC >= 12000
-	//$$ private ServerPlayerEntity recordsCurrentPlayer$phantomLogger(ServerPlayerEntity player)
-	//#else
-	private PlayerEntity recordsCurrentPlayer$phantomLogger(PlayerEntity player)
-	//#endif
+	private void resetFlag_phantomLogger(CallbackInfoReturnable<Integer> cir, @Share("once") LocalBooleanRef hasLogged)
 	{
-		this.currentPlayer$TISCM$phantomLogger = player;
-		return player;
+		hasLogged.set(false);
 	}
 
 	@ModifyVariable(
 			method = "spawn",
-			at = @At(
-					value = "FIELD",
-					target = "Lnet/minecraft/entity/EntityType;PHANTOM:Lnet/minecraft/entity/EntityType;"
+			slice = @Slice(
+					from = @At(
+							value = "INVOKE",
+							target = "Lnet/minecraft/world/LocalDifficulty;getGlobalDifficulty()Lnet/minecraft/world/Difficulty;",
+							ordinal = 0
+					)
 			),
-			ordinal = 1
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/world/World;)Lnet/minecraft/entity/Entity;"
+			),
+			ordinal = 3
 	)
-	private int logPlayerSpawningPhantoms(int amount)
+	private int doLog_phantomLogger(
+			int amount,
+			@Share("once") LocalBooleanRef hasLogged,
+			//#if MC >= 12000
+			//$$ @Local ServerPlayerEntity player
+			//#else
+			@Local PlayerEntity player
+			//#endif
+	)
 	{
-		if (this.currentPlayer$TISCM$phantomLogger != null)
+		if (!hasLogged.get())
 		{
-			PhantomLogger.getInstance().onPhantomSpawn(this.currentPlayer$TISCM$phantomLogger, amount);
-			this.currentPlayer$TISCM$phantomLogger = null;
+			PhantomLogger.getInstance().onPhantomSpawn(player, amount);
+			hasLogged.set(true);
 		}
 		return amount;
 	}
