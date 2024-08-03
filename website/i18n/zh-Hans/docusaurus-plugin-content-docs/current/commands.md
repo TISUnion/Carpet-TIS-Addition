@@ -349,6 +349,20 @@ sidebar_position: 3
 - `us`: 微秒，1 * 10 ^ -6s
 
 
+## 经验计数器 (xcounter)
+
+类似 carpet 的漏斗计数器对应的 `/counter` 指令，该指令用于展示使用规则 [hopperXpCounters](rules.md#漏斗经验计数器-hopperxpcounters) 创建的漏斗经验计数器的统计结果
+
+`/xcounter`: 查看所有经验计数器的统计数据
+
+`/xcounter reset`: 重置所有经验计数器
+
+`/xcounter <color> [realtime]`: 查看指定经验计数器的统计数据，带上后缀 ` realtime` 则基于现实时间输出速率。
+将按照经验球所含的经验值，以每行为一组，分组输出统计信息
+
+`/xcounter <color> reset`: 重置指定经验计数器
+
+
 ## spawn
 
 ### mobcapsLocal

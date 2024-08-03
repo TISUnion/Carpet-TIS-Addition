@@ -275,6 +275,16 @@ carpettisaddition:
       xp_amount: 经验值
 
   command:
+    dye_counter:
+      unknown_color: '未知的颜色: %1$s'
+      no_item_yet: 还没有%1$s被统计
+      restart_single: '%1$s%2$s已重置'
+      restart_all: 所有%1$s已重置
+      counter:
+        not_started: '%1$s%2$s无统计数据'
+        summary: '%2$s%3$s的%1$s统计 (%4$s min%5$s), 总计: %6$s, (%7$s/h):'
+        realtime: 现实时间
+        reset: 重置
     info:
       ticking_order: 游戏中%1$s个维度的运算顺序：
       weather:
@@ -470,16 +480,16 @@ carpettisaddition:
       mobcapsLocal:
         info: '玩家%1$s的局部怪物容量:'
     supplier_counter:
-      hover_name: 供给计数器
-      unknown_color: '未知的颜色: %1$s'
-      no_item_yet: 还没有物品被统计
-      restart_single: '%1$s供给计数器已重置'
-      restart_all: '所有供给计数器已重置'
-      counter:
-        not_started: '%1$s供给计数器无统计数据'
-        summary: '%1$s供给计数器的物品统计 (%2$s min%3$s), 总计: %4$s, (%5$s/h):'
-        realtime: 现实时间
-        reset: 重置
+      counter_name: 供给计数器
+      key_name: 物品
+      key_name_pc: 物品
+    xp_counter:
+      counter_name: 经验计数器
+      key_name: 经验
+      key_name_pc: 经验
+      key_hover: |-
+        经验值: %1$s
+        经验球大小: %2$s
 
   tracker:
     tracker_name_full: '%1$s追踪器'
@@ -868,7 +878,14 @@ carpettisaddition:
         desc: 上方放有羊毛方块的漏斗可不消耗物品地无限输出储存的物品
         extra:
           '0': 你可以使用/scounter指令，或者订阅scounter记录器，来追踪这类漏斗的物品输出数量
-          '1': 该规则同时是/scounter指令的开关
+          '1': 该规则同时也是/scounter指令的开关
+      hopperXpCounters:
+        name: 漏斗经验计数器
+        desc: 使漏斗计数器能够统计经验球中的经验值
+        extra:
+          '0': 启用后，漏斗计数器将可以“吸收”经验球并统计它们的经验值
+          '1': 你可以使用/xcounter指令，或者订阅xcounter记录器，来查看经验计数器的统计结果
+          '2': 该规则同时也是/xcounter指令的开关
       HUDLoggerUpdateInterval:
         name: HUD记录器更新间隔
         desc: 覆写Carpet Mod HUD记录器的更新间隔，单位为gametick

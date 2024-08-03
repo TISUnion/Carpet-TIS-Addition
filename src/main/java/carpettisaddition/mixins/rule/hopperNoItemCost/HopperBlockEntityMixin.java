@@ -37,12 +37,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 11700
 //$$ import net.minecraft.block.BlockState;
-//#else
-import org.spongepowered.asm.mixin.Shadow;
 //#endif
 
 @Mixin(HopperBlockEntity.class)
@@ -58,12 +55,6 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	{
 		super(blockEntityType);
 	}
-	//#endif
-
-	//#if MC < 11700
-	@Shadow public abstract double getHopperX();
-	@Shadow public abstract double getHopperY();
-	@Shadow public abstract double getHopperZ();
 	//#endif
 
 	@Inject(
@@ -113,7 +104,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				//#if MC >= 11700
 				//$$ pos;
 				//#else
-				new BlockPos(this.getHopperX(), this.getHopperY(), this.getHopperZ());
+				this.getPos();
 				//#endif
 		DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperPos.offset(Direction.UP));
 		if (wool_color == null)
@@ -131,7 +122,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 		//#endif
 		ItemStack currentStack = hopperInventory.getInvStack(index);
 
-		if (SupplierCounterCommand.isActivated())
+		if (SupplierCounterCommand.getInstance().isActivated())
 		{
 			SupplierCounterCommand.getInstance().record(wool_color, prevStack, currentStack);
 		}

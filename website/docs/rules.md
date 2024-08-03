@@ -580,14 +580,30 @@ Only works when hopperCounters option in Carpet Mod is on
 
 Hopper with wool block on top outputs item infinitely without having its item decreased
 
-You can use `/scounter` command or subscribe to the `scounter` logger to track the amount of the output items
+You can use [`/scounter` command](commands.md#scounter) or subscribe to the [`scounter` logger](loggers.md#scounter) to track the amount of the output items
 
-This rule is also the switch of the `/scounter` command
+This rule is also the switch of the [`/scounter` command](commands.md#scounter)
 
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`, `CREATIVE`
+- Categories: `TIS`, `CREATIVE`, `COMMAND`
+
+
+## hopperXpCounters
+
+Make hopper counters be able to count experience amount from XP orbs
+
+When enabled, hopper counters will be able to "absorb" XP orbs and count their XP values
+
+You can use the [`/xcounter` command](commands.md#xcounter) command or subscribe to the [`xcounter` logger](loggers.md#xcounter) to see the XP counter results
+
+This rule is also the switch of the [`/xcounter` command](commands.md#xcounter)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`, `COMMAND`
 
 
 ## HUDLoggerUpdateInterval

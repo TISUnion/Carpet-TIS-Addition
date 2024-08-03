@@ -21,11 +21,9 @@
 package carpettisaddition.mixins.rule.hopperCountersUnlimitedSpeed;
 
 import carpet.CarpetSettings;
-import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HopperBlock;
+import carpettisaddition.utils.HopperCounterUtil;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
@@ -33,7 +31,6 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,6 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11700
 //$$ import net.minecraft.block.BlockState;
+//$$ import net.minecraft.world.World;
 //$$ import java.util.function.BooleanSupplier;
 //#else
 import java.util.function.Supplier;
@@ -77,9 +75,6 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	//#else
 	@Shadow protected abstract boolean insert();
 	@Shadow protected abstract boolean isFull();
-	@Shadow public abstract double getHopperX();
-	@Shadow public abstract double getHopperY();
-	@Shadow public abstract double getHopperZ();
 	@Shadow protected abstract void setCooldown(int cooldown);
 	//#endif
 
@@ -103,23 +98,22 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	{
 		if (CarpetSettings.hopperCounters && CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed)
 		{
-			// hopper counter check
-			//#if MC >= 11700
-			//$$ DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperBlockEntity.getPos().offset(hopperBlockEntity.getCachedState().get(HopperBlock.FACING)));
-			//#else
-			World world = getWorld();
-			if (world == null)
-			{
-				return;
-			}
-			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, new BlockPos(getHopperX(), getHopperY(), getHopperZ()).offset(this.getCachedState().get(HopperBlock.FACING)));
-			//#endif
+			HopperBlockEntity self =
+					//#if MC >= 11700
+					//$$ hopperBlockEntity;
+					//#else
+					(HopperBlockEntity)(Object)this;
+					//#endif
 
+			// hopper counter check
+			DyeColor wool_color = HopperCounterUtil.getWoolColorForHopper(self);
 			if (wool_color == null)
 			{
 				return;
 			}
 			// hopper counter check ends
+
+			BlockPos hopperPos = self.getPos();
 
 			// unlimited speed
 			for (int i = OPERATION_LIMIT - 1; i >= 0; i--)
@@ -159,13 +153,6 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				}
 				if (i == 0)
 				{
-					BlockPos hopperPos =
-							//#if MC >= 11700
-							//$$ hopperBlockEntity.getPos();
-							//#else
-							new BlockPos(getHopperX(), getHopperY(), getHopperZ());
-							//#endif
-
 					CarpetTISAdditionServer.LOGGER.warn(String.format("Hopper at %s exceeded hopperCountersUnlimitedSpeed operation limit %d", hopperPos, OPERATION_LIMIT));
 				}
 			}

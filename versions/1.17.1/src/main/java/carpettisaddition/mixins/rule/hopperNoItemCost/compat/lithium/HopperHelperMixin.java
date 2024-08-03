@@ -71,7 +71,7 @@ public abstract class HopperHelperMixin
 			DyeColor woolColor = HopperNoItemCostHelper.woolColor.get();
 			if (woolColor != null && originalTransferStack$TISCM != null)
 			{
-				if (SupplierCounterCommand.isActivated())
+				if (SupplierCounterCommand.getInstance().isActivated())
 				{
 					SupplierCounterCommand.getInstance().record(woolColor, originalTransferStack$TISCM, transferStack);
 				}

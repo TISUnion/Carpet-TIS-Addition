@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,54 +18,48 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.commands.scounter;
+package carpettisaddition.commands.xcounter;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.common.counter.DyeCounterCommand;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 
-public class SupplierCounterCommand extends DyeCounterCommand<SupplierCounterKey, SupplierCounter>
+public class XpCounterCommand extends DyeCounterCommand<XpCounterKey, XpCounter>
 {
-	private static final SupplierCounterCommand INSTANCE = new SupplierCounterCommand();
-	private static final String NAME = "supplier_counter";
-	public static final String PREFIX = "scounter";
+	private static final XpCounterCommand INSTANCE = new XpCounterCommand();
+	private static final String NAME = "xp_counter";
+	public static final String PREFIX = "xcounter";
 
-	public SupplierCounterCommand()
+	public XpCounterCommand()
 	{
 		super(NAME, PREFIX);
 	}
 
-	public static SupplierCounterCommand getInstance()
+	public static XpCounterCommand getInstance()
 	{
 		return INSTANCE;
 	}
 
 	@Override
-	protected SupplierCounter createCounterForColor(DyeColor color)
+	protected XpCounter createCounterForColor(DyeColor color)
 	{
-		return new SupplierCounter(color, this.getTranslator());
+		return new XpCounter(color, this.getTranslator());
 	}
 
 	@Override
 	public Object getRuleValue()
 	{
-		return CarpetTISAdditionSettings.hopperNoItemCost;
+		return CarpetTISAdditionSettings.hopperXpCounters;
 	}
 
 	@Override
 	public boolean isActivated()
 	{
-		return CarpetTISAdditionSettings.hopperNoItemCost;
+		return CarpetTISAdditionSettings.hopperXpCounters;
 	}
 
-	public void record(DyeColor color, ItemStack previousStack, ItemStack currentStack)
+	public void record(DyeColor color, int xpAmount, int count)
 	{
-		int delta = currentStack.getCount() - previousStack.getCount();
-		// previous -> current == more -> less, so delta < 0
-		if (delta < 0)
-		{
-			this.addFor(color, new SupplierCounterKey(previousStack.getItem()), -delta);
-		}
+		this.addFor(color, new XpCounterKey(xpAmount), (long)xpAmount * count);
 	}
 }

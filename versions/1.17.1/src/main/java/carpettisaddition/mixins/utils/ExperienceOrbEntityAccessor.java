@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.logger.xporb;
+package carpettisaddition.mixins.utils;
 
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;

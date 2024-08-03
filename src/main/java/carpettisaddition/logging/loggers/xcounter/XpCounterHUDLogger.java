@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,19 +18,30 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.data;
+package carpettisaddition.logging.loggers.xcounter;
 
-import carpettisaddition.utils.ModIds;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.ExperienceOrbEntity;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import carpettisaddition.commands.common.counter.DyeCounterProvider;
+import carpettisaddition.commands.xcounter.XpCounterCommand;
+import carpettisaddition.logging.common.counter.DyeCounterHudLogger;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
-@Mixin(ExperienceOrbEntity.class)
-public interface ExperienceOrbEntityAccessor
+public class XpCounterHUDLogger extends DyeCounterHudLogger
 {
-	@Accessor
-	int getPickingCount();
+	private static final XpCounterHUDLogger INSTANCE = new XpCounterHUDLogger();
+	public static final String NAME = "xcounter";
+
+	public XpCounterHUDLogger()
+	{
+		super(NAME);
+	}
+
+	public static XpCounterHUDLogger getInstance()
+	{
+		return INSTANCE;
+	}
+
+	@Override
+	protected DyeCounterProvider<?, ?> getCounterProvider()
+	{
+		return XpCounterCommand.getInstance();
+	}
 }

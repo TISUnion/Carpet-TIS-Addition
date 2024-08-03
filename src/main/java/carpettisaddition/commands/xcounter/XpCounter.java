@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,42 +18,35 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.commands.lifetime.trackeddata;
+package carpettisaddition.commands.xcounter;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
+import carpettisaddition.commands.common.counter.DyeCounter;
+import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.Messenger;
+import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 
-//#if MC >= 11700
-//$$ import carpettisaddition.utils.EntityUtil;
-//#endif
+import java.util.Collections;
+import java.util.Comparator;
 
-public class ExperienceOrbTrackedData extends ExtraCountTrackedData
+public class XpCounter extends DyeCounter<XpCounterKey>
 {
-	@Override
-	protected long getExtraCount(Entity entity)
+	public XpCounter(DyeColor color, Translator translator)
 	{
-		if (entity instanceof ExperienceOrbEntity)
-		{
-			return
-					((ExperienceOrbEntity)entity).getExperienceAmount()
-					//#if MC >= 11700
-					//$$ * EntityUtil.getXpOrbPickingCount(((ExperienceOrbEntity)entity))
-					//#endif
-					;
-		}
-		return 0L;
+		super(color, translator, XpCounterCommand.PREFIX);
 	}
 
 	@Override
-	protected BaseText getCountDisplayText()
+	protected Comparator<Object2LongMap.Entry<XpCounterKey>> getReportOrderComparator()
 	{
-		return tr("experience_amount");
+		return Collections.reverseOrder(Comparator.comparingLong(e -> e.getKey().getXpAmount()));
 	}
 
 	@Override
-	protected String getCountButtonString()
+	protected BaseText getSymbolText()
 	{
-		return "E";
+		return Messenger.s("X", Formatting.GRAY);
 	}
 }

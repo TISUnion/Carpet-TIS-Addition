@@ -35,6 +35,7 @@ import carpettisaddition.commands.scounter.SupplierCounterCommand;
 import carpettisaddition.commands.sleep.SleepCommand;
 import carpettisaddition.commands.speedtest.SpeedTestCommand;
 import carpettisaddition.commands.stop.StopCommandDoubleConfirmation;
+import carpettisaddition.commands.xcounter.XpCounterCommand;
 import carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced.InstantBlockUpdaterChanger;
 import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
@@ -182,7 +183,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
 				RemoveEntityCommand.getInstance(),
 				SleepCommand.getInstance(),
 				SpeedTestCommand.getInstance(),
-				SupplierCounterCommand.getInstance()
+				SupplierCounterCommand.getInstance(),
+				XpCounterCommand.getInstance()
 		).forEach(command ->
 				command.registerCommand(context)
 		);

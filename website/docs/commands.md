@@ -349,6 +349,20 @@ Available time units:
 - `us`: Micro-second, 1 * 10 ^ -6s
 
 
+## xcounter
+
+Similar to carpet's `/counter` command for its hopper counter, this command is used for showing xp statistic xp counters created by rule [hopperXpCounters](rules.md#hopperxpcounters)
+
+`/xcounter`: View statistics for all supplier counters
+
+`/xcounter reset`: Reset all supplier counters
+
+`/xcounter <color> [realtime]`: View statistics for specified supplier counter. Append suffix ` realtime` to display the rate using real time.
+Statistics are grouped by the XP amount of XP orbs
+
+`/scounter <color> reset`: Reset specified supplier counter
+
+
 ## spawn
 
 ### mobcapsLocal

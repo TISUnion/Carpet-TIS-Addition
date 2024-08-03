@@ -275,6 +275,16 @@ carpettisaddition:
       xp_amount: XP amount
 
   command:
+    dye_counter:
+      unknown_color: 'Unknown color: %1$s'
+      no_item_yet: No %1$s have been counted yet
+      restart_single: Restarted %1$s %2$s
+      restart_all: Restarted all %1$s
+      counter:
+        not_started: "%1$s %2$s hasn't started counting yet"
+        summary: '%1$s for %2$s %3$s (%4$s min%5$s), total: %6$s, (%7$s/h):'
+        realtime: real time
+        reset: reset
     info:
       ticking_order: "Ticking order of %1$s dimensions in the game:"
       weather:
@@ -470,16 +480,16 @@ carpettisaddition:
       mobcapsLocal:
         info: 'Local mobcaps of player %1$s:'
     supplier_counter:
-      hover_name: Supplier counter
-      unknown_color: 'Unknown color: %1$s'
-      no_item_yet: No items have been counted yet.
-      restart_single: Restarted %1$s supplier counter
-      restart_all: Restarted all supplier counter
-      counter:
-        not_started: "%1$s hasn't started counting yet"
-        summary: 'Items for %1$s (%2$s min%3$s), total: %4$s, (%5$s/h):'
-        realtime: real time
-        reset: reset
+      counter_name: supplier counter
+      key_name: item
+      key_name_pc: Items
+    xp_counter:
+      counter_name: XP counter
+      key_name: XP
+      key_name_pc: XP
+      key_hover: |-
+        XP orb value: %1$s
+        XP orb size: %2$s
 
   tracker:
     tracker_name_full: '%1$s Tracker'
@@ -867,8 +877,15 @@ carpettisaddition:
         name: hopperNoItemCost
         desc: Hopper with wool block on top outputs item infinitely without having its item decreased
         extra:
-          '0': You can use /scounter command or subscribe to the scounter logger to track the amount of the output items
+          '0': You can use the /scounter command or subscribe to the scounter logger to track the amount of the output items
           '1': This rule is also the switch of the /scounter command
+      hopperXpCounters:
+        name: hopperXpCounters
+        desc: Make hopper counters be able to count experience amount from XP orbs
+        extra:
+          '0': When enabled, hopper counters will be able to "absorb" XP orbs and count their XP values
+          '1': You can use the /xcounter command or subscribe to the xcounter logger to see the XP counter results
+          '2': This rule is also the switch of the /xcounter command
       HUDLoggerUpdateInterval:
         name: HUDLoggerUpdateInterval
         desc: Overwrite HUD loggers update interval (gametick)

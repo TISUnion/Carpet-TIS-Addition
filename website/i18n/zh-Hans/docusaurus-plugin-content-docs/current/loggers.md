@@ -206,7 +206,7 @@ sidebar_position: 2
 
 ## 供给计数器 (scounter)
 
-`/log scounter <color>`
+`/log scounter <颜色>`
 
 这是一个 HUD 记录器
 
@@ -236,7 +236,7 @@ sidebar_position: 2
 
 ## tickWarp
 
-`/log tickWarp <option>`
+`/log tickWarp <展示类型>`
 
 一个用于展示当前 tick warp 进度信息的 HUD 记录器
 
@@ -267,9 +267,22 @@ sidebar_position: 2
 在玩家召唤出了（事实上基于随机玩家的特殊刷怪）流浪商人时，输出记录信息
 
 
+## 经验计数器 (xcounter)
+
+`/log xcounter <颜色>`
+
+这是一个 HUD 记录器
+
+类似 carpet 的漏斗计数器对应的 `counter` 记录器，该记录器用于展示使用规则 [hopperXpCounters](rules.md#漏斗经验计数器-hopperxpcounters) 创建的漏斗经验计数器的统计结果
+
+属性:
+- 默认选项: N/A
+- 参考选项: 所有染料颜色名
+
+
 
 ## 经验球 (xporb)
 
-`/log xporb <events>`
+`/log xporb <事件>`
 
 基本上与 [掉落物记录器](#掉落物-item) 相同，只不过监视的是经验球实体

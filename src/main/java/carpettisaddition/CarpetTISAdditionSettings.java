@@ -294,6 +294,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE, COMMAND})
 	public static boolean hopperNoItemCost = false;
 
+	@Rule(categories = {TIS, CREATIVE, COMMAND})
+	public static boolean hopperXpCounters = false;
+
 	@Rule(
 			options = {"1", "5", "20", "100"},
 			validators = ValidateHUDLoggerUpdateInterval.class,

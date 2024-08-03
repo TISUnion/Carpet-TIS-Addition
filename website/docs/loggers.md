@@ -267,6 +267,19 @@ Attributes:
 Logs when someone summon (actually, special natural spawning based on randomly chosen player) a wandering trader
 
 
+## xcounter
+
+`/log xcounter <color>`
+
+It's a HUD logger
+
+Similar to carpet's `counter` logger for its hopper counter, this logger is used for showing xp statistic xp counters created by rule [hopperXpCounters](rules.md#hopperxpcounters)
+
+Attributes:
+- Default option: N/A
+- Suggested options: All dye color names
+
+
 ## xporb
 
 `/log xporb <events>`

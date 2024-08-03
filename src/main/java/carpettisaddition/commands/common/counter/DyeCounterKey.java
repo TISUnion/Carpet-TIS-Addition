@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,42 +18,11 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.commands.lifetime.trackeddata;
+package carpettisaddition.commands.common.counter;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.text.BaseText;
 
-//#if MC >= 11700
-//$$ import carpettisaddition.utils.EntityUtil;
-//#endif
-
-public class ExperienceOrbTrackedData extends ExtraCountTrackedData
+public interface DyeCounterKey
 {
-	@Override
-	protected long getExtraCount(Entity entity)
-	{
-		if (entity instanceof ExperienceOrbEntity)
-		{
-			return
-					((ExperienceOrbEntity)entity).getExperienceAmount()
-					//#if MC >= 11700
-					//$$ * EntityUtil.getXpOrbPickingCount(((ExperienceOrbEntity)entity))
-					//#endif
-					;
-		}
-		return 0L;
-	}
-
-	@Override
-	protected BaseText getCountDisplayText()
-	{
-		return tr("experience_amount");
-	}
-
-	@Override
-	protected String getCountButtonString()
-	{
-		return "E";
-	}
+	BaseText getText();
 }

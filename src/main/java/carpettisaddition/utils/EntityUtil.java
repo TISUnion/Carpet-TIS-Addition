@@ -24,6 +24,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -32,6 +33,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+
+//#if MC >= 11700
+//$$ import carpettisaddition.mixins.utils.ExperienceOrbEntityAccessor;
+//#endif
 
 public class EntityUtil
 {
@@ -100,5 +105,15 @@ public class EntityUtil
 		{
 			return null;
 		}
+	}
+
+	public static int getXpOrbPickingCount(ExperienceOrbEntity experienceOrbEntity)
+	{
+		return
+				//#if MC >= 11700
+				//$$ ((ExperienceOrbEntityAccessor)experienceOrbEntity).getPickingCount();
+				//#else
+				1;
+				//#endif
 	}
 }

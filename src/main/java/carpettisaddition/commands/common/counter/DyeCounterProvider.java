@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,16 +18,29 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.lifetime.data;
+package carpettisaddition.commands.common.counter;
 
-import carpettisaddition.utils.ModIds;
-import carpettisaddition.utils.compat.DummyClass;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import org.spongepowered.asm.mixin.Mixin;
+import net.minecraft.util.DyeColor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
-@Mixin(DummyClass.class)
-public interface ExperienceOrbEntityAccessor
+public interface DyeCounterProvider<Key extends DyeCounterKey, Counter extends DyeCounter<Key>>
 {
+	@NotNull
+	Counter getCounter(@NotNull DyeColor color);
+
+	@Nullable
+	default Counter getCounter(String color)
+	{
+		DyeColor dyeColor;
+		try
+		{
+			dyeColor = DyeColor.valueOf(color.toUpperCase());
+		}
+		catch (IllegalArgumentException e)
+		{
+			return null;
+		}
+		return this.getCounter(dyeColor);
+	}
 }

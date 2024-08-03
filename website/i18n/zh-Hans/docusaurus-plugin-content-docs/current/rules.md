@@ -580,14 +580,30 @@ sidebar_position: 1
 
 上方放有羊毛方块的漏斗可不消耗物品地无限输出储存的物品
 
-你可以使用 `/scounter` 指令，或者订阅 `scounter` 记录器，来追踪这类漏斗的物品输出数量
+你可以使用 [`/scounter` 指令](commands.md#供给计数器-scounter)，或者订阅 [`scounter` 记录器](loggers.md#供给计数器-scounter)，来追踪这类漏斗的物品输出数量
 
-该规则同时是 `/scounter` 指令的开关
+该规则同时是 [`/scounter` 指令](commands.md#供给计数器-scounter) 的开关
 
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `TIS`, `CREATIVE`
+- 分类: `TIS`, `CREATIVE`, `COMMAND`
+
+
+## 漏斗经验计数器 (hopperXpCounters)
+
+使漏斗计数器能够统计经验球中的经验值
+
+启用后，漏斗计数器将可以“吸收”经验球并统计它们的经验值
+
+你可以使用 [`/xcounter` 指令](commands.md#经验计数器-xcounter)，或者订阅 [`xcounter` 记录器](loggers.md#经验计数器-xcounter)，来查看经验计数器的统计结果
+
+该规则同时也是 [`/xcounter` 指令](commands.md#经验计数器-xcounter) 指令的开关
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`, `COMMAND`
 
 
 ## HUD记录器更新间隔 (HUDLoggerUpdateInterval)

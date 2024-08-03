@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,42 +18,42 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.commands.lifetime.trackeddata;
+package carpettisaddition.commands.scounter;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
+import carpettisaddition.commands.common.counter.DyeCounterKey;
+import carpettisaddition.utils.Messenger;
+import net.minecraft.item.Item;
 import net.minecraft.text.BaseText;
 
-//#if MC >= 11700
-//$$ import carpettisaddition.utils.EntityUtil;
-//#endif
+import java.util.Objects;
 
-public class ExperienceOrbTrackedData extends ExtraCountTrackedData
+public class SupplierCounterKey implements DyeCounterKey
 {
-	@Override
-	protected long getExtraCount(Entity entity)
+	private final Item item;
+
+	public SupplierCounterKey(Item item)
 	{
-		if (entity instanceof ExperienceOrbEntity)
-		{
-			return
-					((ExperienceOrbEntity)entity).getExperienceAmount()
-					//#if MC >= 11700
-					//$$ * EntityUtil.getXpOrbPickingCount(((ExperienceOrbEntity)entity))
-					//#endif
-					;
-		}
-		return 0L;
+		this.item = item;
 	}
 
 	@Override
-	protected BaseText getCountDisplayText()
+	public BaseText getText()
 	{
-		return tr("experience_amount");
+		return Messenger.item(this.item);
 	}
 
 	@Override
-	protected String getCountButtonString()
+	public boolean equals(Object o)
 	{
-		return "E";
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		SupplierCounterKey that = (SupplierCounterKey)o;
+		return Objects.equals(item, that.item);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hashCode(item);
 	}
 }
