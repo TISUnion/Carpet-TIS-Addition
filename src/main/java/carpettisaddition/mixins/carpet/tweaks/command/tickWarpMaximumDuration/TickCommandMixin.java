@@ -31,7 +31,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20.3"))
+@Restriction(require = {
+		@Condition(value = ModIds.minecraft, versionPredicates = "<1.20.3"),
+		@Condition(value = ModIds.carpet, versionPredicates = "<1.4.18"),
+})
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {

@@ -90,21 +90,29 @@ JavaVersion MIXIN_COMPATIBILITY_LEVEL = JAVA_COMPATIBILITY
 loom {
 	accessWidenerPath = file("carpet-tis-addition.accesswidener")
 
+	def commonVmArgs = ['-Dmixin.debug.export=true']
+	if (mcVersion < 11904) {
+		// carpet 1.4.100+v230314 for mc1.19.4 and above
+		// fail to pass the check on at MinecraftServer_pingPlayerSampleLimit#modifyPlayerSampleLimit
+		// see https://github.com/gnembon/fabric-carpet/pull/1938
+		commonVmArgs.add('-Dmixin.debug.countInjections=true')
+	}
 	runConfigs.configureEach {
 		runDir '../../run'
-		vmArgs '-Dmixin.debug.export=true'
+		vmArgs commonVmArgs
 		ideConfigGenerated true
 	}
 
 	runs {
+		def auditVmArgs = ['-Dcarpettisaddition.mixin_audit=true']
 		serverMixinAudit {
 			server()
-			vmArgs '-Dcarpettisaddition.mixin_audit=true'
+			vmArgs auditVmArgs
 			ideConfigGenerated false
 		}
 		clientMixinAudit {
 			client()
-			vmArgs '-Dcarpettisaddition.mixin_audit=true'
+			vmArgs auditVmArgs
 			ideConfigGenerated false
 		}
 	}
