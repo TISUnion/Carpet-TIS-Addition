@@ -25,6 +25,7 @@ import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
+import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
@@ -165,7 +166,8 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		static
 		{
 			List<String> list = Arrays.stream(LoggingType.values()).map(LoggingType::getName).collect(Collectors.toList());
-			list.add(createCompoundOption(list));
+			list.add(createCompoundOption(list));  // all types
+			list.add(createCompoundOption(Lists.newArrayList(DESPAWN.getName(), DIE.getName())));  // useful
 			LOGGING_SUGGESTIONS = list.toArray(new String[0]);
 		}
 	}
