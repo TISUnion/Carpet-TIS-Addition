@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcarpet_tis_addition_website=self.webpackChunkcarpet_tis_addition_website||[]).push([[894],{8894:(e,t,i)=>{i.r(t)}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcarpet_tis_addition_website=self.webpackChunkcarpet_tis_addition_website||[]).push([[393],{1838:t=>{t.exports=JSON.parse('{"blogBasePath":"/posts","blogTitle":"Posts | Carpet TIS Addition"}')}}]);
