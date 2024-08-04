@@ -24,11 +24,13 @@ import carpettisaddition.utils.IdentifierUtil;
 import carpettisaddition.utils.entityfilter.EntityFilter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.InvalidIdentifierException;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 public class OptionParser
 {
@@ -39,17 +41,44 @@ public class OptionParser
 
 	/**
 	 * Regular options:
-	 * "->me": damages dealt to me
-	 * "->creeper": damages dealt to creeper entities
-	 * "vex->": damages dealt from vex
-	 * "zombie": damages from / to zombie
-	 * "me->zombie": damages from me to zombie
-	 * "me<->zombie": damages between me and zombie
-	 *
-	 * Entity selector options:
-	 * "->@e[distance=..20]": this works too, but requires permission level 2 like vanilla
-	 * "Steve": works if Steve is online
-	 * "some-uuid-string": just like a entity selector in command
+	 *   "->me":
+	 *     damages dealt to me
+	 *     target is me
+	 *   "->creeper":
+	 *     damages dealt to creeper entities
+	 *     target is creeper
+	 *   "vex->":
+	 *     damages dealt from vex
+	 *     source is vex
+	 *   "zombie":
+	 *     damages from / to zombie
+	 *     source is zombie, or target is zombie
+	 *   "me->zombie":
+	 *     damages from me to zombie
+	 *     source is me, target is zombie
+	 *   "me<->zombie":
+	 *     damages between me and zombie
+	 *     source is me, target is zombie, or source is zombie, target is me
+	 * Source / Target syntax (try parsing from top to down):
+	 *   Hardcoded:
+	 *     "", "*", "all": Matches all
+	 *     "me": Matches the subscriber itself
+	 *     "players: Matches player
+	 *   Entity type (matches given type of entities):
+	 *     "cat": Matches cat. Same as below
+	 *     "minecraft:cat"
+	 *     "entity_type/cat"
+	 *   Damage name:
+	 *     "hotFloor": Matches if damage msg ID is hotFloor (i.e. damage type "minecraft:hot_floor")
+	 *     "damage_name/hotFloor"
+	 *   Damage type (available in mc1.19.4+, matches source only):
+	 *     "hot_floor": Matches if damage type is "minecraft:hot_floor"
+	 *     "minecraft:hot_floor"
+	 *     "damage_type/hot_floor"
+	 *   Entity selector:
+	 *     "@e[distance=..20]": this works too, but requires permission level 2 like vanilla
+	 *     "Steve": works if player Steve is online
+	 *     "some-uuid-string": just like an entity selector in command
 	 */
 	public OptionParser(String option)
 	{
@@ -79,77 +108,135 @@ public class OptionParser
 		}
 	}
 
-	public boolean accepts(PlayerEntity player, @Nullable Entity from, @Nullable Entity to)
+	public boolean accepts(PlayerEntity player, DamageContext ctx)
 	{
 		if (this.biDirection)
 		{
 			return
-					(this.fromTarget.matches(player, from) && this.toTarget.matches(player, to)) ||
-					(this.fromTarget.matches(player, to) && this.toTarget.matches(player, from));
+					(this.fromTarget.matchFrom(player, ctx.source, ctx.from) && this.toTarget.matchTo(player, ctx.source, ctx.to)) ||
+					(this.fromTarget.matchTo(player, ctx.source, ctx.to) && this.toTarget.matchFrom(player, ctx.source, ctx.from));
 		}
 		else
 		{
-			boolean fromMatches = this.fromTarget.matches(player, from);
-			boolean toMatches = this.toTarget.matches(player, to);
+			boolean fromMatches = this.fromTarget.matchFrom(player, ctx.source, ctx.from);
+			boolean toMatches = this.toTarget.matchTo(player, ctx.source, ctx.to);
 			return this.matchesAny ? (fromMatches || toMatches) : (fromMatches && toMatches);
 		}
 	}
 
-	@FunctionalInterface
 	private interface Target
 	{
-		Target WILDCARD = (player, entity) -> true;
+		boolean matchFrom(PlayerEntity player, DamageSource source, @Nullable Entity from);
+
+		boolean matchTo(PlayerEntity player, DamageSource source, @Nullable Entity to);
 
 		static Target of(String option)
 		{
-			return option.isEmpty() || "*".equals(option) ? WILDCARD : new StringTarget(option);
-		}
+			switch (option)
+			{
+				case "":
+				case "*":
+				case "all":
+					return (SimpleTarget)(player, entity) -> true;
+				case "me":
+					return (SimpleTarget)(player, entity) -> entity == player;
+				case "players":
+					return (SimpleTarget)(player, entity) -> entity instanceof PlayerEntity;
+			}
 
-		boolean matches(PlayerEntity player, @Nullable Entity entity);
+			// <catalogue>/<identifier>
+			// <catalogue>/<identifier>
+			// entity_type/minecraft:cat
+			// damage_type/minecraft:out_of_world
+			// damage_name/xxx
+
+			Identifier catalogue;
+			Identifier identifier;
+			String namePart;
+			String[] parts = option.split("/", -1);
+			if (parts.length == 1)
+			{
+				catalogue = null;
+				identifier = Identifier.tryParse(parts[0]);
+				namePart = parts[0];
+			}
+			else if (parts.length == 2)
+			{
+				catalogue = Identifier.tryParse(parts[0]);
+				identifier = Identifier.tryParse(parts[1]);
+				namePart = parts[1];
+			}
+			else
+			{
+				catalogue = identifier = null;
+				namePart = option;
+			}
+
+			if ((catalogue == null || catalogue.equals(IdentifierUtil.ofVanilla("entity_type"))) && identifier != null)
+			{
+				EntityType<?> entityType = Registry.ENTITY_TYPE.getOrEmpty(identifier).orElse(null);
+				if (entityType != null)
+				{
+					return (SimpleTarget)(player, entity) -> entity != null && entity.getType() == entityType;
+				}
+			}
+
+			return new Target()
+			{
+				private final SimpleTarget entityFilterTarget = (player, entity) ->
+						EntityFilter.createOptional(player, option).
+								map(filter -> filter.test(entity)).
+								orElse(false);
+
+				@Override
+				public boolean matchFrom(PlayerEntity player, DamageSource source, @Nullable Entity from)
+				{
+					if (catalogue == null || catalogue.equals(IdentifierUtil.ofVanilla("damage_name")))
+					{
+						if (Objects.equals(source.getName(), namePart))
+						{
+							return true;
+						}
+					}
+					//#if MC >= 11904
+					//$$ if (catalogue == null || catalogue.equals(IdentifierUtil.ofVanilla("damage_type")))
+					//$$ {
+					//$$ 	if (identifier != null && Objects.equals(source.getTypeRegistryEntry().getKey().map(k -> k.getValue()).orElse(null), identifier))
+					//$$ 	{
+					//$$ 		return true;
+					//$$ 	}
+					//$$ }
+					//#endif
+					return this.entityFilterTarget.matchFrom(player, source, from);
+				}
+
+				@Override
+				public boolean matchTo(PlayerEntity player, DamageSource source, @Nullable Entity to)
+				{
+					return this.entityFilterTarget.matchTo(player, source, to);
+				}
+			};
+		}
 	}
 
-	private static class StringTarget implements Target
+	/**
+	 * Does not care if it's matching from or to entity
+	 */
+	@FunctionalInterface
+	private interface SimpleTarget extends Target
 	{
-		private final String targetString;
-		@Nullable
-		private final EntityType<?> entityType;
+		boolean matchEntity(PlayerEntity player, @Nullable Entity entity);
 
-		private StringTarget(String targetString)
+		@Override
+		default boolean matchFrom(PlayerEntity player, DamageSource source, @Nullable Entity from)
 		{
-			this.targetString = targetString;
-
-			EntityType<?> entityType;
-			try
-			{
-				entityType = Registry.ENTITY_TYPE.getOrEmpty(IdentifierUtil.of(this.targetString)).orElse(null);
-			}
-			catch (InvalidIdentifierException e)
-			{
-				entityType = null;
-			}
-			this.entityType = entityType;
+			return this.matchEntity(player, from);
 		}
 
 		@Override
-		public boolean matches(PlayerEntity player, @Nullable Entity entity)
+		default boolean matchTo(PlayerEntity player, DamageSource source, @Nullable Entity to)
 		{
-			switch (this.targetString)
-			{
-				case "all":
-					return true;
-				case "me":
-					return entity == player;
-				case "players":
-					return entity instanceof PlayerEntity;
-				default:
-					if (this.entityType != null)
-					{
-						return entity != null && entity.getType() == this.entityType;
-					}
-					return EntityFilter.createOptional(player, this.targetString).
-							map(filter -> filter.test(entity)).
-							orElse(false);
-			}
+			return this.matchEntity(player, to);
 		}
 	}
 }

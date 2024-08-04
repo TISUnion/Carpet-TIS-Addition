@@ -21,25 +21,45 @@ Attributes:
 
 ## damage
 
-`/log damage <target>`
+`/log damage <selector>`
 
 Info when a living entity gets damage and display how the damage gets calculated
 
-Available logging targets:
-- `all`: Log damage from all living entities
-- `players`: Log damage with player participation
-- `me`: Log damage related to subscriber itself
-- `<entity_type>`: Log damage related to specified entity type. e.g. `creeper`
-- `<entity_selector>`：Log damage related to entities satisfies the given selector. e.g. `Steve` (player name), `@e[distance=..10]` (`@` selector, requires permission level 2)
+The `<selector>` option consist of 1 or 2 object declaration strings
+and an optional `->` or `<->` direction indicator
 
-Additionally,
-- If you append a `->` behind the target string, only damage dealt from the target will be logged
-- If you append a `->` in front of the target string, only damage dealt to the target will be logged
-- If you contact 2 target strings with a `->`, only damage dealt from the former target to the latter target will be logged
+Example structures for the `<selector>` where `A` and `B` are 2 object declarations:
 
-Besides `->`, you can also use `<->` as a bidirectional target connector to log damages between the two targets
+- `A`: damage source is `A` or damage target is `A`
+- `->A`: damage target is `A`
+- `A->`: damage source is `A`
+- `A->B`: damage source is `A`, and damage target is `B` (`A` just dealt some damages to `B`)
+- `A<->B`: damage source is `A` and damage target is `B`, or damage source is `B` and damage target is `A`
 
-Target examples:
+To declare an object, you can choose any of the following syntaxes:
+
+- Hardcoded:
+  - *empty*, `*` or `all`: Matches anything
+  - `me`: Matches the subscriber itself
+  - `players`: Matches player
+- Entity type (matches given type of entities):
+  - `cat`: Matches cat
+  - `minecraft:cat`: same as above
+  - `entity_type/cat`: same as above
+- Damage name (matches source only):
+  - `hotFloor`: Matches if damage msg ID is hotFloor (i.e. damage type `minecraft:hot_floor`)
+  - `damage_name/hotFloor`: same as above
+- Damage type (available in mc1.19.4+, matches source only):
+  - `hot_floor`: Matches if damage type is `minecraft:hot_floor`
+  - `minecraft:hot_floor`: same as above
+  - `damage_type/hot_floor`: same as above
+- Entity selector:
+  - `@e[distance=..20]`: this works too, but requires permission level 2 like vanilla
+  - `Steve`: works if player Steve is online
+  - `some-uuid-string`: just like an entity selector in command
+
+`<selector>` examples:
+
 - `->me`: Damage dealt to the subscriber itself
 - `->creeper`: Damage dealt to creeper
 - `vex->`: Damage dealt from vex
@@ -47,11 +67,12 @@ Target examples:
 - `minecraft:zombie`: The same as `zombie`
 - `me->zombie`: Damage from the subscriber to zombies
 - `me<->zombie`: Damage between the subscriber and zombies
-- `->@e[distance=..10]`: Damage dealt to entities within 10m of the subscriber 
+- `hotFloor->zombie`: Damage from magma block to zombies
+- `->@e[distance=..10]`: Damage dealt to entities within 10m of the subscriber
 
 Attributes:
 - Default option: `all`
-- Suggested options: `all`, `players`, `me`, `->creeper`, `vex->`, `me->zombie`, `Steve`, `@e[distance=..10]`
+- Suggested options: `all`, `players`, `me`, `->creeper`, `vex->`, `me->zombie`, `hotFloor->zombie`, `Steve`, `@e[distance=..10]`
 
 
 ## item

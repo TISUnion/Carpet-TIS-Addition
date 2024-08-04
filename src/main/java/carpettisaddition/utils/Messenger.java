@@ -284,6 +284,16 @@ public class Messenger
 		return join(joiner, Arrays.asList(items));
 	}
 
+	public static BaseText joinLines(Iterable<BaseText> items)
+	{
+		return join(newLine(), items);
+	}
+
+	public static BaseText joinLines(BaseText... items)
+	{
+		return join(newLine(), items);
+	}
+
 	public static BaseText format(String formatter, Object... args)
 	{
 		TranslatableTextAccessor dummy =

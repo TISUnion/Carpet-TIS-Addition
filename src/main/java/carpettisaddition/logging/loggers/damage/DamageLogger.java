@@ -62,7 +62,7 @@ public class DamageLogger extends AbstractLogger
 	@Override
 	public @Nullable String[] getSuggestedLoggingOption()
 	{
-		return new String[]{"all", "players", "me", "->creeper", "vex->", "me->zombie", "Steve", "@e[distance=..10]"};
+		return new String[]{"all", "players", "me", "->creeper", "vex->", "me->zombie", "hotFloor->zombie", "Steve", "@e[distance=..10]"};
 	}
 
 	public static boolean isLoggerActivated()
@@ -133,10 +133,10 @@ public class DamageLogger extends AbstractLogger
 			}
 		}
 
-		private BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, @Nullable Entity from, @Nullable Entity to, Supplier<BaseText[]> messageFuture)
+		private BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, DamageContext ctx, Supplier<BaseText[]> messageFuture)
 		{
 			OptionParser parser = new OptionParser(option);
-			if (parser.accepts(player, from, to))
+			if (parser.accepts(player, ctx))
 			{
 				return messageFuture.get();
 			}
@@ -165,22 +165,26 @@ public class DamageLogger extends AbstractLogger
 			Entity attacker = this.damageSource.getAttacker();
 			Entity source = this.damageSource.getSource();
 			LivingEntity target = this.entity;
+			DamageContext ctx = new DamageContext(this.damageSource, attacker, target);
 			DamageLogger.this.log((option, player) ->
-					this.verifyAndProduceMessage(option, player, attacker, target, () -> {
+					this.verifyAndProduceMessage(option, player, ctx, () -> {
 						List<Object> lines = Lists.newArrayList();
 						lines.add(Messenger.s(" "));
 						BaseText targetName = Messenger.entity("b", target);
-						List<Object> sourceHoverTextList = Lists.newArrayList();
+						List<BaseText> sourceHoverTextList = Lists.newArrayList();
+						//#if MC >= 11904
+						//$$ sourceHoverTextList.add(Messenger.c(
+						//$$ 		tr("type"),
+						//$$ 		"w : ",
+						//$$ 		Messenger.s(this.damageSource.getTypeRegistryEntry().getKey().map(key -> key.getValue().toString()).orElse("[unregistered]"))
+						//$$ ));
+						//#endif
 						if (source != null)
 						{
 							sourceHoverTextList.add(Messenger.c(tr("source"), "w : ", Messenger.entity(source)));
 						}
 						if (attacker != null)
 						{
-							if (!sourceHoverTextList.isEmpty())
-							{
-								sourceHoverTextList.add("w \n");
-							}
 							sourceHoverTextList.add(Messenger.c(tr("attacker"), "w : ", Messenger.entity(attacker)));
 						}
 						lines.add(tr(
@@ -190,7 +194,7 @@ public class DamageLogger extends AbstractLogger
 								Messenger.fancy(
 										"w",
 										Messenger.s(this.damageSource.getName()),
-										sourceHoverTextList.isEmpty() ? null : Messenger.c(sourceHoverTextList.toArray(new Object[0])),
+										sourceHoverTextList.isEmpty() ? null : Messenger.joinLines(sourceHoverTextList),
 										attacker != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(attacker)) : null
 								),
 								getAmountText(null, this.initialHealth)

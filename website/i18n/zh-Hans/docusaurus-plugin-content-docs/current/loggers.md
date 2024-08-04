@@ -21,25 +21,45 @@ sidebar_position: 2
 
 ## 伤害 (damage)
 
-`/log damage <目标>`
+`/log damage <选择器>`
 
 记录生物的受伤，以及伤害结算的具体流程
 
-可选的记录目标:
-- `all`: 记录所有生物
-- `players`: 记录有玩家参与的生物伤害
-- `me`: 记录与订阅者自己相关的伤害
-- `<实体类型>`：记录与指定实体类型相关的伤害。例如 `creeper`
-- `<实体选择器>`：记录与符合实体选择器所述实体相关的伤害。例如 `Steve`（玩家名）、`@e[distance=..10]`（`@` 选择器，需要权限等级 2）
+`<选择器>` 选项由 1 或 2 个对象定义串，
+及一个可选的 `->` 或 `<->` 方向指示符构成
 
-此外，
-- 如果在目标字符串后面附加一个 `->`，则只会记录由目标造成的伤害
-- 如果在目标字符串前面附加一个 `->`，则只会记录对目标造成的伤害
-- 可以使用 `->` 拼接两个目标字符串，表示只记录由前者对后者造成的伤害
+选择器结构例子，其中 `A` 和 `B` 分别代表两个对象定义串:
 
-除了 `->` 外，你还可以使用 `<->` 作为两个目标的连接符，来记录两个目标之间的互相伤害
+- `A`: 伤害来源或目标是 `A`
+- `->A`: 伤害来源是 `A`
+- `A->`: 伤害目标是 `A`
+- `A->B`: 伤害来源是 `A`，伤害目标是 `B` (`A` 对 `B` 造成了一些伤害)
+- `A<->B`: 伤害来源是 `A` 且伤害目标是 `B`，或伤害来源是 `B` 且伤害目标是 `A`
 
-目标示例：
+要定义一个对象，你可以选择下述任意一种语法：
+
+- 硬编码串:
+  - *空*, `*` or `all`: 匹配所有情况
+  - `me`: 匹配记录器订阅者自身
+  - `players`: 匹配玩家实体
+- 实体类型 (matches given type of entities):
+  - `cat`: 匹配所有的猫
+  - `minecraft:cat`: 同上
+  - `entity_type/cat`: 同上
+- 伤害名（仅可匹配伤害来源）:
+  - `hotFloor`: 匹配那些伤害的消息 ID 为 `hotFloor` 的伤害源 (即伤害类型为 `minecraft:hot_floor`)
+  - `damage_name/hotFloor`: 同上
+- 伤害类型 (在 mc1.19.4+ 中可用，仅可匹配伤害来源):
+  - `hot_floor`: 匹配那些伤害类型为 `minecraft:hot_floor` 的伤害源
+  - `minecraft:hot_floor`: 同上
+  - `damage_type/hot_floor`: 同上
+- 实体选择器:
+  - `@e[distance=..20]`: 订阅者 10m 范围内实体
+  - `Steve`: 匹配名字为 `Steve` 的玩家
+  - `some-uuid-string`: 匹配 UUID 为给定串的实体
+
+`<选择器>` 的一些例子:
+
 - `->me`: 对订阅者自己造成的伤害
 - `->creeper`: 对爬行者造成的伤害
 - `vex->`: 由恼鬼造成的伤害
@@ -47,11 +67,12 @@ sidebar_position: 2
 - `minecraft:zombie`: 同 `zombie`
 - `me->zombie`: 由订阅者对僵尸造成的伤害
 - `me<->zombie`: 订阅者与僵尸之间的伤害
+- `hotFloor->zombie`: 僵尸被岩浆块烫脚
 - `->@e[distance=..10]`: 对订阅者 10m 范围内实体造成的伤害
 
 属性:
 - 默认选项: `all`
-- 参考选项: `all`, `players`, `me`, `->creeper`, `vex->`, `me->zombie`, `Steve`, `@e[distance=..10]`
+- 参考选项: `all`, `players`, `me`, `->creeper`, `vex->`, `me->zombie`, `hotFloor->zombie`, `Steve`, `@e[distance=..10]`
 
 
 ## 掉落物 (item)

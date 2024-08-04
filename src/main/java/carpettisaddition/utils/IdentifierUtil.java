@@ -30,7 +30,7 @@ import net.minecraft.world.poi.PointOfInterestType;
 
 public class IdentifierUtil
 {
-	public static Identifier of(String id)
+	public static Identifier ofVanilla(String id)
 	{
 		//#if MC >= 12100
 		//$$ return Identifier.of(id);
