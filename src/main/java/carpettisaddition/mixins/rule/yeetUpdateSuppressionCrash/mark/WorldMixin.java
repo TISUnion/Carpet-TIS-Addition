@@ -46,7 +46,7 @@ public abstract class WorldMixin
 					target = "Lnet/minecraft/util/crash/CrashReport;create(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/util/crash/CrashReport;"
 			)
 	)
-	private Throwable yeetUpdateSuppressionCrash_wrapSuppressionExceptions(
+	private Throwable yeetUpdateSuppressionCrash_wrapSoundSuppression(
 			Throwable throwable,
 			@Local(ordinal = 1, argsOnly = true) BlockPos neighborPos,
 			@Local LocalRef<Throwable> ref

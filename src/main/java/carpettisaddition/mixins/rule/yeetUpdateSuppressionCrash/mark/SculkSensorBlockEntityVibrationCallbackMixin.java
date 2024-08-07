@@ -20,42 +20,11 @@
 
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 
-import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BlockState;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(targets = "net.minecraft.block.entity.SculkSensorBlockEntity$VibrationCallback")
-public class SculkSensorBlockEntityVibrationCallbackMixin {
-	@WrapOperation(
-		method = {"accepts", "accept"},
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/block/SculkSensorBlock;isInactive(Lnet/minecraft/block/BlockState;)Z"
-		)
-	)
-	private boolean yeetUpdateSuppressionCrash_wrapSuppressionExceptions(BlockState instance, Operation<Boolean> original, @Local(argsOnly = true) ServerWorld world, @Local(argsOnly = true) BlockPos pos) throws Throwable {
-		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
-		{
-			try
-			{
-				return original.call(instance);
-			}
-			catch (Throwable throwable)
-			{
-				throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
-			}
-		}
-		else
-		{
-			// vanilla
-			return original.call(instance);
-		}
-	}
+@Mixin(DummyClass.class)
+public abstract class SculkSensorBlockEntityVibrationCallbackMixin
+{
+	// impl in mc1.18.2 subproject
 }

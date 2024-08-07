@@ -20,43 +20,11 @@
 
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 
-import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(targets = "net.minecraft.block.entity.CalibratedSculkSensorBlockEntity$Callback")
-public class CalibratedSculkSensorBlockEntityCallBackMixin {
-	@WrapOperation(
-		method = "getCalibrationFrequency",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/block/BlockState;get(Lnet/minecraft/state/property/Property;)Ljava/lang/Comparable;"
-		)
-	)
-	private <T extends Comparable<T>> T yeetUpdateSuppressionCrash_wrapSuppressionExceptions(BlockState instance, Property<T> property, Operation<T> original, @Local(argsOnly = true) World world, @Local(argsOnly = true) BlockPos pos) throws Throwable {
-		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
-		{
-			try
-			{
-				return original.call(instance, property);
-			}
-			catch (Throwable throwable)
-			{
-				throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
-			}
-		}
-		else
-		{
-			// vanilla
-			return original.call(instance, property);
-		}
-	}
+@Mixin(DummyClass.class)
+public abstract class CalibratedSculkSensorBlockEntityCallBackMixin
+{
+	// impl in mc1.20.1 subproject
 }
