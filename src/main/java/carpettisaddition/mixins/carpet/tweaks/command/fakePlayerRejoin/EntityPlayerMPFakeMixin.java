@@ -28,6 +28,11 @@ import com.llamalad7.mixinextras.sugar.Local;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+//#if MC >= 12002
+//$$ import org.spongepowered.asm.mixin.injection.ModifyArg;
+//$$ import java.util.function.Consumer;
+//#endif
+
 //#if MC >= 11600
 //$$ import net.minecraft.server.world.ServerWorld;
 //#else
@@ -54,6 +59,40 @@ public abstract class EntityPlayerMPFakeMixin
 	{
 		return !FakePlayerRejoinHelper.isRejoin.get();
 	}
+
+	//#if MC >= 12002
+	//$$ @ModifyArg(
+	//$$ 		method = "createFake",
+	//$$ 		at = @At(
+	//$$ 				value = "INVOKE",
+	//$$ 				//#if MC >= 12005
+	//$$ 				//$$ target = "Ljava/util/concurrent/CompletableFuture;thenAcceptAsync(Ljava/util/function/Consumer;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
+	//$$ 				//#else
+	//$$ 				target = "Ljava/util/concurrent/CompletableFuture;thenAccept(Ljava/util/function/Consumer;)Ljava/util/concurrent/CompletableFuture;",
+	//$$ 				//#endif
+	//$$ 				remap = false
+	//$$ 		),
+	//$$ 		remap = true
+	//$$ )
+	//$$ private static <T> Consumer<? super T> fakePlayerRejoin_forwardTheFlag(Consumer<? super T> action)
+	//$$ {
+	//$$ 	boolean isRejoin = FakePlayerRejoinHelper.isRejoin.get();
+	//$$ 	return value -> {
+	//$$ 		if (isRejoin)
+	//$$ 		{
+	//$$ 			FakePlayerRejoinHelper.isRejoin.set(true);
+	//$$ 		}
+	//$$ 		try
+	//$$ 		{
+	//$$ 			action.accept(value);
+	//$$ 		}
+	//$$ 		finally
+	//$$ 		{
+	//$$ 			FakePlayerRejoinHelper.isRejoin.remove();
+	//$$ 		}
+	//$$ 	};
+	//$$ }
+	//#endif
 
 	//#if MC <= 11500
 	@ModifyExpressionValue(
@@ -93,7 +132,6 @@ public abstract class EntityPlayerMPFakeMixin
 			)
 	)
 	private static boolean fakePlayerRejoin_dontRequestTeleport(
-
 			//#if MC >= 11600
 			//$$ EntityPlayerMPFake instance, ServerWorld serverWorld, double x, double y, double z, float yaw, float pitch
 			//#else
