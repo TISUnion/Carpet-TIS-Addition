@@ -155,8 +155,8 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CLIENT})
 	public static boolean debugNbtQueryNoPermission = false;
 
-    @Rule(categories = {TIS, FEATURE})
-    public static boolean deobfuscateCrashReportStackTrace = false;
+	@Rule(categories = {TIS, FEATURE})
+	public static boolean deobfuscateCrashReportStackTrace = false;
 
 	@Rule(categories = {TIS, DISPENSER, CREATIVE})
 	public static boolean dispenserNoItemCost = false;
@@ -778,26 +778,26 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean undeadDontBurnInSunlight = false;
 
-    @Rule(
+	@Rule(
             categories = {TIS, CREATIVE},
-		    validators = UpdateSuppressionSimulatorValidator.class,
+			validators = UpdateSuppressionSimulatorValidator.class,
             options = {"false", "true", "StackOverflowError", "OutOfMemoryError", "ClassCastException", "IllegalArgumentException"}
-    )
-    public static String updateSuppressionSimulator = "false";
-    private static class UpdateSuppressionSimulatorValidator extends AbstractCheckerValidator<String>
-    {
-	    @Override
-	    protected boolean validateValue(String value)
-	    {
+	)
+	public static String updateSuppressionSimulator = "false";
+	private static class UpdateSuppressionSimulatorValidator extends AbstractCheckerValidator<String>
+	{
+		@Override
+		protected boolean validateValue(String value)
+		{
             return UpdateSuppressionSimulator.checkRule(value);
-	    }
+		}
 
-	    @Override
-	    public void onRuleSet(ValidationContext<String> ctx, String newValue)
-	    {
-		    UpdateSuppressionSimulator.acceptRule(newValue);
-	    }
-    }
+		@Override
+		public void onRuleSet(ValidationContext<String> ctx, String newValue)
+		{
+			UpdateSuppressionSimulator.acceptRule(newValue);
+		}
+	}
 
 	//#if MC >= 12006
 	//$$ @Rule(categories = {TIS, CREATIVE})

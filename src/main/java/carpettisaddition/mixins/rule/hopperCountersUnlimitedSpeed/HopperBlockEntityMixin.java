@@ -125,9 +125,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				//#if MC >= 11700
 				//$$ if (!hopperBlockEntity.isEmpty())
 				//$$ {
-				//$$    //#if MC >= 12005
-				//$$    //$$ flag = insert(world, blockPos, hopperBlockEntity);
-				//$$    //#else
+				//$$ 	//#if MC >= 12005
+				//$$ 	//$$ flag = insert(world, blockPos, hopperBlockEntity);
+				//$$ 	//#else
 				//$$ 	flag = insert(world, blockPos, blockState, hopperBlockEntity);
 				//$$ 	//#endif
 				//$$ }
