@@ -43,7 +43,11 @@ public abstract class HopperHelperMixin
 	private static ItemStack originalTransferStack$TISCM = null;
 
 	@ModifyVariable(
+			//#if MC >= 12101
+			//$$ method = "tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/SidedInventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z",
+			//#else
 			method = "tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/SidedInventory;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z",
+			//#endif
 			at = @At(value = "HEAD"),
 			argsOnly = true,
 			index = 2
@@ -59,7 +63,11 @@ public abstract class HopperHelperMixin
 	}
 
 	@ModifyVariable(
+			//#if MC >= 12101
+			//$$ method = "tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/SidedInventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z",
+			//#else
 			method = "tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/SidedInventory;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z",
+			//#endif
 			at = @At(value = "RETURN"),
 			argsOnly = true,
 			index = 2
