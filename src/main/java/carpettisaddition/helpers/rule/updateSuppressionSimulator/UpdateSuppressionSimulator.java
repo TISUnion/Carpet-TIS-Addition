@@ -37,6 +37,9 @@ public class UpdateSuppressionSimulator
 			},
 			"ClassCastException", () -> {
 				throw new ClassCastException(ERROR_MESSAGE);
+			},
+			"IllegalArgumentException", () -> {
+				throw new IllegalArgumentException(ERROR_MESSAGE);
 			}
 	);
 

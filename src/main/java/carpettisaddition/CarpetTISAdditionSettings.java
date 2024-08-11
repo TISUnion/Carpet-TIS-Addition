@@ -781,7 +781,7 @@ public class CarpetTISAdditionSettings
     @Rule(
             categories = {TIS, CREATIVE},
 		    validators = UpdateSuppressionSimulatorValidator.class,
-            options = {"false", "true", "StackOverflowError", "OutOfMemoryError", "ClassCastException"}
+            options = {"false", "true", "StackOverflowError", "OutOfMemoryError", "ClassCastException", "IllegalArgumentException"}
     )
     public static String updateSuppressionSimulator = "false";
     private static class UpdateSuppressionSimulatorValidator extends AbstractCheckerValidator<String>
