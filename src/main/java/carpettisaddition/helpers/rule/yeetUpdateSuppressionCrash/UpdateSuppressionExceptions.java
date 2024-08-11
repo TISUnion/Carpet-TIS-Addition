@@ -41,6 +41,10 @@ public class UpdateSuppressionExceptions
 		{
 			return new OutOfMemorySuppression(cause, world, pos);
 		}
+		if (cause instanceof IllegalArgumentException)
+		{
+			return new IllegalArgumentSuppression(cause, world, pos);
+		}
 		return null;
 	}
 
@@ -51,6 +55,7 @@ public class UpdateSuppressionExceptions
 		StackOverflowSuppression.class.getClass();
 		ClassCastSuppression.class.getClass();
 		OutOfMemorySuppression.class.getClass();
+		IllegalArgumentSuppression.class.getClass();
 	}
 
 	public static class StackOverflowSuppression extends StackOverflowError implements UpdateSuppressionException
@@ -102,6 +107,28 @@ public class UpdateSuppressionExceptions
 		private final UpdateSuppressionContext context;
 
 		public OutOfMemorySuppression(Throwable cause, World world, BlockPos pos)
+		{
+			this.context = new UpdateSuppressionContext(cause, world, pos);
+		}
+
+		@Override
+		public synchronized Throwable getCause()
+		{
+			return this.context.getCause();
+		}
+
+		@Override
+		public UpdateSuppressionContext getSuppressionContext()
+		{
+			return this.context;
+		}
+	}
+
+	public static class IllegalArgumentSuppression extends IllegalArgumentException implements UpdateSuppressionException
+	{
+		private final UpdateSuppressionContext context;
+
+		public IllegalArgumentSuppression(Throwable cause, World world, BlockPos pos)
 		{
 			this.context = new UpdateSuppressionContext(cause, world, pos);
 		}
