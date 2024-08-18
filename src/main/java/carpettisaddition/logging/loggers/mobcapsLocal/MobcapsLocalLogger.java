@@ -52,4 +52,8 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	{
 		throw new RuntimeException("MobcapsLocal logger can only be used in mc1.18+");
 	}
+
+	public void onServerClosed()
+	{
+	}
 }

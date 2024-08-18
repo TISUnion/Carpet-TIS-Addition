@@ -44,6 +44,7 @@ import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
+import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
 import carpettisaddition.network.TISCMServerPacketHandler;
 import carpettisaddition.settings.CarpetRuleRegistrar;
@@ -145,6 +146,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 		MicroTimingLoggerManager.detachServer();
 		RaidTracker.getInstance().stop();
 		SpeedTestCommand.getInstance().onServerClosed();
+		MobcapsLocalLogger.getInstance().onServerClosed();
 	}
 
 	@Override

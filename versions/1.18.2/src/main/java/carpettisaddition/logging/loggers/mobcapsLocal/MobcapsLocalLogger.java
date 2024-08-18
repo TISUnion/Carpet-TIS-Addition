@@ -125,6 +125,11 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 		this.capperMap.put(dim, capper);
 	}
 
+	public void onServerClosed()
+	{
+		this.capperMap.clear();
+	}
+
 	@Nullable
 	public Object2IntMap<SpawnGroup> getMobcapsMap()
 	{
