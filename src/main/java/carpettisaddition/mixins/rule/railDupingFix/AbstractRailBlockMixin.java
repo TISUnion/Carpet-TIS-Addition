@@ -21,16 +21,14 @@
 package carpettisaddition.mixins.rule.railDupingFix;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.AbstractRailBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 
 @Mixin(AbstractRailBlock.class)
 public abstract class AbstractRailBlockMixin
@@ -44,7 +42,11 @@ public abstract class AbstractRailBlockMixin
 			require = 1,
 			cancellable = true
 	)
-	private void checkIfRailStillExists(BlockState state, World world, BlockPos pos, Block block, BlockPos neighborPos, boolean moved, CallbackInfo ci)
+	private void checkIfRailStillExists(
+			CallbackInfo ci,
+			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true, ordinal = 0) BlockPos pos
+	)
 	{
 		if (CarpetTISAdditionSettings.railDupingFix)
 		{

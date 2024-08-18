@@ -124,7 +124,9 @@ public abstract class EntityPlayerMPFakeMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11600
+					//#if MC >= 12200
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleport(Lnet/minecraft/server/world/ServerWorld;DDDFFZ)V"
+					//#elseif MC >= 11600
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V"
 					//#else
 					target = "Lnet/minecraft/server/network/ServerPlayNetworkHandler;requestTeleport(DDDFF)V"
@@ -134,6 +136,9 @@ public abstract class EntityPlayerMPFakeMixin
 	private static boolean fakePlayerRejoin_dontRequestTeleport(
 			//#if MC >= 11600
 			//$$ EntityPlayerMPFake instance, ServerWorld serverWorld, double x, double y, double z, float yaw, float pitch
+			//$$ //#if MC >= 12200
+			//$$ //$$ , boolean resetCamera
+			//$$ //#endif
 			//#else
 			ServerPlayNetworkHandler instance, double x, double y, double z, float yaw, float pitch
 			//#endif

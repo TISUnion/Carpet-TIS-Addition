@@ -41,7 +41,11 @@ public abstract class ServerChunkManagerMixin
 	ServerWorld world;
 
 	@Inject(
+			//#if MC >= 12200
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
+			//#else
 			method = "tickChunks",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
@@ -57,7 +61,11 @@ public abstract class ServerChunkManagerMixin
 	}
 
 	@Inject(
+			//#if MC >= 12200
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
+			//#else
 			method = "tickChunks",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600

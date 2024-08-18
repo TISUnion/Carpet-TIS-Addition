@@ -33,6 +33,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+//#if MC >= 12200
+//$$ import net.minecraft.world.DefaultRedstoneController;
+//#endif
+
 //#if MC >= 11600
 //$$ import java.util.Iterator;
 //$$ import java.util.Set;
@@ -197,9 +201,18 @@ public abstract class EmitBlockUpdateMixins
 	 * Use larger priority, so it injects after the @ModifyVariable in
 	 * {@link carpettisaddition.mixins.rule.redstoneDustRandomUpdateOrder.RedstoneWireBlockMixin}
 	 */
-	@Mixin(value = RedstoneWireBlock.class, priority = 2000)
+	@Mixin(
+			//#if MC >= 12200
+			//$$ value = DefaultRedstoneController.class,
+			//#else
+			value = RedstoneWireBlock.class,
+			//#endif
+			priority = 2000
+	)
 	public static abstract class RedstoneWireBlockMixin
 	{
+		// TODO: support ExperimentalRedstoneController in mc 1.21.2+
+
 		@Inject(
 				method = "update",
 				at = @At(
@@ -212,12 +225,12 @@ public abstract class EmitBlockUpdateMixins
 				)
 		)
 		private void startEmitBlockUpdate(
-				World world, BlockPos pos, BlockState state,
 				//#if MC >= 11600
-				//$$ CallbackInfo ci, @Local Set<BlockPos> collection
+				//$$ CallbackInfo ci, @Local Set<BlockPos> collection,
 				//#else
-				CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> collection
+				CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> collection,
 				//#endif
+				@Local(argsOnly = true) World world, @Local(argsOnly = true) BlockPos pos
 		)
 		{
 			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_START, "update", collection);
@@ -231,7 +244,12 @@ public abstract class EmitBlockUpdateMixins
 		//$$ 				target = "Ljava/util/Iterator;hasNext()Z"
 		//$$ 		)
 		//$$ )
-		//$$ private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci, @Local Iterator<BlockPos> iterator)
+		//$$ private void endEmitBlockUpdate(
+		//$$ 		CallbackInfo ci,
+		//$$ 		@Local(argsOnly = true) World world,
+		//$$ 		@Local(argsOnly = true) BlockPos pos,
+		//$$ 		@Local Iterator<BlockPos> iterator
+		//$$ )
 		//$$ {
 		//$$ 	if (!iterator.hasNext())
 		//$$ 	{

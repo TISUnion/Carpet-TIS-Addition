@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -57,7 +58,11 @@ public abstract class DebugHudMixin
 	//#endif
 
 	@Inject(
-			method = "method_51746",
+			//#if MC >= 12200
+			//$$ method = "render",
+			//#else
+			method = "method_51746",  // lambda method in render()
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12005
@@ -65,10 +70,13 @@ public abstract class DebugHudMixin
 					//#else
 					target = "Lnet/minecraft/client/MinecraftClient;getServer()Lnet/minecraft/server/integrated/IntegratedServer;"
 					//#endif
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void syncServerMsptMetricsData_drawIfPossible(DrawContext drawContext, CallbackInfo ci, int windowWidth, int centerX)
+	private void syncServerMsptMetricsData_drawIfPossible(
+			DrawContext drawContext, CallbackInfo ci,
+			@Local(ordinal = 0) int windowWidth,
+			@Local(ordinal = 1) int centerX
+	)
 	{
 		boolean shouldVanillaChartDraw =
 				//#if MC >= 12005

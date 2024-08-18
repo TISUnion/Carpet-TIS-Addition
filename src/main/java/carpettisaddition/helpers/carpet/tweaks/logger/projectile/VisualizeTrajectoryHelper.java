@@ -34,6 +34,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+//#if MC >= 12200
+//$$ import net.minecraft.item.ItemStack;
+//$$ import net.minecraft.item.Items;
+//#endif
+
 public class VisualizeTrajectoryHelper
 {
 	public static final String TISCM_VISPROJ_LOGGER = "##TISCM_VISPROJ_LOGGER##";
@@ -67,7 +72,12 @@ public class VisualizeTrajectoryHelper
 	public static void createVisualizer(World world, Vec3d pos, String name)
 	{
 		TrajectoryLoggerUtil.isVisualizer.set(true);
-		SnowballEntity snowball = new SnowballEntity(world, pos.getX(), pos.getY(), pos.getZ());
+		SnowballEntity snowball = new SnowballEntity(
+				world, pos.getX(), pos.getY(), pos.getZ()
+				//#if MC >= 12200
+				//$$ , new ItemStack(Items.SNOWBALL)
+				//#endif
+		);
 		snowball.setNoGravity(true);
 		snowball.setCustomName(Messenger.s(name));
 		snowball.setCustomNameVisible(true);

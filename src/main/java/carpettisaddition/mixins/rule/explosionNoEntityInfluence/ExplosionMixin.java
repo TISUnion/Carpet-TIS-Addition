@@ -23,21 +23,40 @@ package carpettisaddition.mixins.rule.explosionNoEntityInfluence;
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.entity.Entity;
-import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Collections;
 import java.util.List;
 
-@Mixin(Explosion.class)
+//#if MC >= 12200
+//$$ import net.minecraft.world.explosion.ExplosionImpl;
+//#else
+import net.minecraft.world.explosion.Explosion;
+//#endif
+
+@Mixin(
+		//#if MC >= 12200
+		//$$ ExplosionImpl.class
+		//#else
+		Explosion.class
+		//#endif
+)
 public abstract class ExplosionMixin
 {
 	@ModifyExpressionValue(
+			//#if MC >= 12200
+			//$$ method = "damageEntities",
+			//#else
 			method = "collectBlocksAndDamageEntities",
+			//#endif
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12200
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
+					//#else
 					target = "Lnet/minecraft/world/World;getEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
+					//#endif
 			)
 	)
 	private List<Entity> explosionNoEntityInfluence(List<Entity> entities)

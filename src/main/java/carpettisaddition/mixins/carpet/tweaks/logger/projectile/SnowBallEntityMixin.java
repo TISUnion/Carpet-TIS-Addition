@@ -31,7 +31,9 @@ import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 
 //#if MC >= 12003
+//#disable-remap
 //$$ import net.minecraft.world.explosion.Explosion;
+//#enable-remap
 //#endif
 
 @Mixin(SnowballEntity.class)
@@ -87,7 +89,9 @@ public abstract class SnowBallEntityMixin extends ThrownItemEntity
 	@Override
 	public boolean isImmuneToExplosion(
 			//#if MC >= 12003
+			//#disable-remap
 			//$$ Explosion explosion
+			//#enable-remap
 			//#endif
 	)
 	{

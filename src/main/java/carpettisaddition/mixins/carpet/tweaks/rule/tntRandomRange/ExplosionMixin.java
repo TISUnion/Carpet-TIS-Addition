@@ -22,21 +22,41 @@ package carpettisaddition.mixins.carpet.tweaks.rule.tntRandomRange;
 
 import carpet.CarpetSettings;
 import carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange.WrappedRandom;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+
+//#if MC >= 12200
+//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.world.explosion.ExplosionImpl;
+//$$ import net.minecraft.util.math.BlockPos;
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//$$ import java.util.List;
+//#else
+import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//#endif
 
 // increase priority to make the wrapWorldRandom injection be in front of other cancellable injections
-@Mixin(value = Explosion.class, priority = 800)
+@Mixin(
+		//#if MC >= 12200
+		//$$ value = ExplosionImpl.class,
+		//#else
+		value = Explosion.class,
+		//#endif
+		priority = 800
+)
 public class ExplosionMixin
 {
 	@Shadow @Final
+	//#if MC >= 12200
+	//$$ private ServerWorld world;
+	//#else
 	private World world;
+	//#endif
 
 	private void tryUnWrapWorldRandom()
 	{
@@ -46,8 +66,21 @@ public class ExplosionMixin
 		}
 	}
 
-	@Inject(method = "collectBlocksAndDamageEntities", at = @At("HEAD"))
-	private void wrapWorldRandom(CallbackInfo ci)
+	@Inject(
+			//#if MC >= 12200
+			//$$ method = "getBlocksToDestroy",
+			//#else
+			method = "collectBlocksAndDamageEntities",
+			//#endif
+			at = @At("HEAD")
+	)
+	private void wrapWorldRandom(
+			//#if MC >= 12200
+			//$$ CallbackInfoReturnable<List<BlockPos>> cir
+			//#else
+			CallbackInfo ci
+			//#endif
+	)
 	{
 		// Do wrapping thing server side only
 		if (!this.world.isClient())
@@ -60,8 +93,21 @@ public class ExplosionMixin
 		}
 	}
 
-	@Inject(method = "collectBlocksAndDamageEntities", at = @At("RETURN"))
-	private void unwrapWorldRandom(CallbackInfo ci)
+	@Inject(
+			//#if MC >= 12200
+			//$$ method = "getBlocksToDestroy",
+			//#else
+			method = "collectBlocksAndDamageEntities",
+			//#endif
+			at = @At("RETURN")
+	)
+	private void unwrapWorldRandom(
+			//#if MC >= 12200
+			//$$ CallbackInfoReturnable<List<BlockPos>> cir
+			//#else
+			CallbackInfo ci
+			//#endif
+	)
 	{
 		this.tryUnWrapWorldRandom();
 	}

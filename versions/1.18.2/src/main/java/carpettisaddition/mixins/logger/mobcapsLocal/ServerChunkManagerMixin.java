@@ -41,7 +41,11 @@ public abstract class ServerChunkManagerMixin
 	@Shadow @Final ServerWorld world;
 
 	@ModifyArg(
+			//#if MC >= 12200
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
+			//#else
 			method = "tickChunks",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;Lnet/minecraft/world/SpawnHelper$ChunkSource;Lnet/minecraft/world/SpawnDensityCapper;)Lnet/minecraft/world/SpawnHelper$Info;"

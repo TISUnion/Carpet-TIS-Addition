@@ -28,9 +28,17 @@ import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.lang.reflect.Field;
+
+//#if MC >= 12200
+//$$ import net.minecraft.util.math.BlockPos;
+//$$ import net.minecraft.world.explosion.ExplosionImpl;
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//$$ import java.util.List;
+//#else
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//#endif
 
 /**
  * priority value restrictions:
@@ -43,7 +51,14 @@ import java.lang.reflect.Field;
  * - more than 800 ({@link carpettisaddition.mixins.carpet.tweaks.rule.tntRandomRange.ExplosionMixin}, priority = 800)
  * so it injects after wrapping world.random but before lithium explosion optimization
  */
-@Mixin(value = Explosion.class, priority = 900)
+@Mixin(
+		//#if MC >= 12200
+		//$$ value = ExplosionImpl.class,
+		//#else
+		value = Explosion.class,
+		//#endif
+		priority = 900
+)
 public abstract class ExplosionMixin
 {
 	private static final Field EXPLOSION_LOGGER_FIELD;
@@ -71,8 +86,22 @@ public abstract class ExplosionMixin
 	}
 
 	@SuppressWarnings("ConstantConditions")
-	@Inject(method = "collectBlocksAndDamageEntities", at = @At("HEAD"), cancellable = true)
-	private void onExplosionAButWithHighPriority(CallbackInfo ci)
+	@Inject(
+			//#if MC >= 12200
+			//$$ method = "getBlocksToDestroy",
+			//#else
+			method = "collectBlocksAndDamageEntities",
+			//#endif
+			at = @At("HEAD"),
+			cancellable = true
+	)
+	private void onExplosionAButWithHighPriority(
+			//#if MC >= 12200
+			//$$ CallbackInfoReturnable<List<BlockPos>> cir
+			//#else
+			CallbackInfo ci
+			//#endif
+	)
 	{
 		if (CarpetTISAdditionSettings.optimizedTNTHighPriority)
 		{
@@ -88,8 +117,12 @@ public abstract class ExplosionMixin
 				// copy of carpet's onExplosionA method in ExplosionMixin begins
 				if (CarpetSettings.optimizedTNT)
 				{
-					OptimizedExplosion.doExplosionA((Explosion) (Object) this, eLogger);
+					//#if MC >= 12200
+					//$$ cir.setReturnValue(OptimizedExplosion.doExplosionA((Explosion)(Object)this, eLogger));
+					//#else
+					OptimizedExplosion.doExplosionA((Explosion)(Object)this, eLogger);
 					ci.cancel();
+					//#endif
 				}
 				// copy ends
 			}

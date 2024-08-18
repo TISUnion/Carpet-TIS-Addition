@@ -25,6 +25,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.Block;
@@ -56,22 +57,31 @@ public abstract class WorldMixins
 		@Inject(method = "updateNeighborsAlways", at = @At("HEAD"))
 		private void startUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
 		{
-			if (MicroTimingUtil.isBlockUpdateInstant((World) (Object) this))
+			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
-				MicroTimingLoggerManager.onBlockUpdate((World) (Object) this, pos, block, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_START);
+				MicroTimingLoggerManager.onBlockUpdate(
+						(World)(Object)this, pos, block,
+						BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_START
+				);
 			}
 			else
 			{
-				MicroTimingLoggerManager.onScheduleBlockUpdate((World) (Object) this, pos, block, BlockUpdateType.BLOCK_UPDATE, null);
+				MicroTimingLoggerManager.onScheduleBlockUpdate(
+						(World)(Object)this, pos, block,
+						BlockUpdateType.BLOCK_UPDATE, null
+				);
 			}
 		}
 
 		@Inject(method = "updateNeighborsAlways", at = @At("RETURN"))
 		private void endUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
 		{
-			if (MicroTimingUtil.isBlockUpdateInstant((World) (Object) this))
+			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
-				MicroTimingLoggerManager.onBlockUpdate((World) (Object) this, pos, block, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_END);
+				MicroTimingLoggerManager.onBlockUpdate(
+						(World)(Object)this, pos, block,
+						BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_END
+				);
 			}
 		}
 	}
@@ -85,25 +95,46 @@ public abstract class WorldMixins
 	)
 	public static class BlockUpdateExceptMixin
 	{
+		// TODO: support logging WireOrientation in mc 1.21.2+
+
 		@Inject(method = "updateNeighborsExcept", at = @At("HEAD"))
-		private void startUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
+		private void startUpdateNeighborsExcept(
+				CallbackInfo ci,
+				@Local(argsOnly = true) BlockPos pos,
+				@Local(argsOnly = true) Block sourceBlock,
+				@Local(argsOnly = true) Direction direction
+		)
 		{
-			if (MicroTimingUtil.isBlockUpdateInstant((World) (Object) this))
+			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
-				MicroTimingLoggerManager.onBlockUpdate((World) (Object) this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_START);
+				MicroTimingLoggerManager.onBlockUpdate(
+						(World)(Object)this, pos, sourceBlock,
+						BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_START
+				);
 			}
 			else
 			{
-				MicroTimingLoggerManager.onScheduleBlockUpdate((World) (Object) this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction);
+				MicroTimingLoggerManager.onScheduleBlockUpdate(
+						(World)(Object)this, pos, sourceBlock,
+						BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction
+				);
 			}
 		}
 
 		@Inject(method = "updateNeighborsExcept", at = @At("RETURN"))
-		private void endUpdateNeighborsExcept(BlockPos pos, Block sourceBlock, Direction direction, CallbackInfo ci)
+		private void endUpdateNeighborsExcept(
+				CallbackInfo ci,
+				@Local(argsOnly = true) BlockPos pos,
+				@Local(argsOnly = true) Block sourceBlock,
+				@Local(argsOnly = true) Direction direction
+		)
 		{
-			if (MicroTimingUtil.isBlockUpdateInstant((World) (Object) this))
+			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
-				MicroTimingLoggerManager.onBlockUpdate((World) (Object) this, pos, sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_END);
+				MicroTimingLoggerManager.onBlockUpdate(
+						(World)(Object)this, pos, sourceBlock,
+						BlockUpdateType.BLOCK_UPDATE_EXCEPT, direction, EventType.ACTION_END
+				);
 			}
 		}
 	}
@@ -121,13 +152,19 @@ public abstract class WorldMixins
 		)
 		private void startUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)
 		{
-			if (MicroTimingUtil.isBlockUpdateInstant((World) (Object) this))
+			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
-				MicroTimingLoggerManager.onBlockUpdate((World) (Object) this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_START);
+				MicroTimingLoggerManager.onBlockUpdate(
+						(World)(Object)this, pos, block,
+						BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_START
+				);
 			}
 			else
 			{
-				MicroTimingLoggerManager.onScheduleBlockUpdate((World) (Object) this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null);
+				MicroTimingLoggerManager.onScheduleBlockUpdate(
+						(World)(Object)this, pos, block,
+						BlockUpdateType.COMPARATOR_UPDATE, null
+				);
 			}
 		}
 
@@ -141,9 +178,12 @@ public abstract class WorldMixins
 		)
 		private void endUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)
 		{
-			if (MicroTimingUtil.isBlockUpdateInstant((World) (Object) this))
+			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
-				MicroTimingLoggerManager.onBlockUpdate((World) (Object) this, pos, block, BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_END);
+				MicroTimingLoggerManager.onBlockUpdate(
+						(World)(Object)this, pos, block,
+						BlockUpdateType.COMPARATOR_UPDATE, null, EventType.ACTION_END
+				);
 			}
 		}
 	}
@@ -157,25 +197,48 @@ public abstract class WorldMixins
 	)
 	public static class SingleBlockUpdateMixin
 	{
-		@Inject(method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V", at = @At("HEAD"))
-		private void startUpdateSingleBlock(BlockPos sourcePos, Block sourceBlock, BlockPos neighborPos, CallbackInfo ci)
+		@Inject(
+				//#if MC >= 12200
+				//$$ method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//#else
+				method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V",
+				//#endif
+				at = @At("HEAD")
+		)
+		private void startUpdateSingleBlock(CallbackInfo ci, @Local(argsOnly = true, ordinal = 0) BlockPos sourcePos, @Local(argsOnly = true) Block sourceBlock)
 		{
-			if (MicroTimingUtil.isBlockUpdateInstant((World) (Object) this))
+			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
-				MicroTimingLoggerManager.onBlockUpdate((World) (Object) this, sourcePos, sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
+				MicroTimingLoggerManager.onBlockUpdate(
+						(World)(Object)this, sourcePos, sourceBlock,
+						BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START
+				);
 			}
 			else
 			{
-				MicroTimingLoggerManager.onScheduleBlockUpdate((World) (Object) this, sourcePos, sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null);
+				MicroTimingLoggerManager.onScheduleBlockUpdate(
+						(World)(Object)this, sourcePos, sourceBlock,
+						BlockUpdateType.SINGLE_BLOCK_UPDATE, null
+				);
 			}
 		}
 
-		@Inject(method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V", at = @At("RETURN"))
-		private void endUpdateSingleBlock(BlockPos sourcePos, Block sourceBlock, BlockPos neighborPos, CallbackInfo ci)
+		@Inject(
+				//#if MC >= 12200
+				//$$ method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//#else
+				method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V",
+				//#endif
+				at = @At("TAIL")
+		)
+		private void endUpdateSingleBlock(CallbackInfo ci, @Local(argsOnly = true, ordinal = 0) BlockPos sourcePos, @Local(argsOnly = true) Block sourceBlock)
 		{
-			if (MicroTimingUtil.isBlockUpdateInstant((World) (Object) this))
+			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
-				MicroTimingLoggerManager.onBlockUpdate((World) (Object) this, sourcePos, sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
+				MicroTimingLoggerManager.onBlockUpdate(
+						(World)(Object)this, sourcePos, sourceBlock,
+						BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END
+				);
 			}
 		}
 	}
@@ -185,25 +248,56 @@ public abstract class WorldMixins
 	public static class SingleBlockUpdate2Mixin
 	{
 		//#if MC >= 11900
-		//$$ @Inject(method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V", at = @At("HEAD"))
-		//$$ private void startUpdateSingleBlock2(BlockState blockState, BlockPos blockPos, Block block, BlockPos sourceBlock, boolean bl, CallbackInfo ci)
+		//$$ @Inject(
+		//$$ 		//#if MC >= 12200
+		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
+		//$$ 		//#else
+		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V",
+		//$$ 		//#endif
+		//$$ 		at = @At("HEAD")
+		//$$ )
+		//$$ private void startUpdateSingleBlock2(
+		//$$ 		CallbackInfo ci,
+		//$$ 		@Local(argsOnly = true, ordinal = 0) BlockPos blockPos,
+		//$$ 		@Local(argsOnly = true) Block block
+		//$$ )
 		//$$ {
 		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 		//$$ 	{
-		//$$ 		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, blockPos, block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
+		//$$ 		MicroTimingLoggerManager.onBlockUpdate(
+		//$$ 				(World)(Object)this, blockPos, block,
+		//$$ 				BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START
+		//$$ 		);
 		//$$ 	}
 		//$$ 	else
 		//$$ 	{
-		//$$ 		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, blockPos, block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null);
+		//$$ 		MicroTimingLoggerManager.onScheduleBlockUpdate(
+		//$$ 				(World)(Object)this, blockPos, block,
+		//$$ 				BlockUpdateType.SINGLE_BLOCK_UPDATE, null
+		//$$ 		);
 		//$$ 	}
 		//$$ }
   //$$
-		//$$ @Inject(method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V", at = @At("TAIL"))
-		//$$ private void endUpdateSingleBlock2(BlockState blockState, BlockPos blockPos, Block block, BlockPos sourceBlock, boolean bl, CallbackInfo ci)
+		//$$ @Inject(
+		//$$ 		//#if MC >= 12200
+		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
+		//$$ 		//#else
+		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V",
+		//$$ 		//#endif
+		//$$ 		at = @At("TAIL")
+		//$$ )
+		//$$ private void endUpdateSingleBlock2(
+		//$$ 		CallbackInfo ci,
+		//$$ 		@Local(argsOnly = true, ordinal = 0) BlockPos blockPos,
+		//$$ 		@Local(argsOnly = true) Block block
+		//$$ )
 		//$$ {
 		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 		//$$ 	{
-		//$$ 		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, blockPos, block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
+		//$$ 		MicroTimingLoggerManager.onBlockUpdate(
+		//$$ 				(World)(Object)this, blockPos, block,
+		//$$ 				BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END
+		//$$ 		);
 		//$$ 	}
 		//$$ }
 		//#endif
@@ -219,11 +313,17 @@ public abstract class WorldMixins
 		//$$ {
 		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 		//$$ 	{
-		//$$ 		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, sourcePos, blockState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START);
+		//$$ 		MicroTimingLoggerManager.onBlockUpdate(
+		//$$ 				(World)(Object)this, sourcePos, blockState.getBlock(),
+		//$$ 				BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START
+		//$$ 		);
 		//$$ 	}
 		//$$ 	else
 		//$$ 	{
-		//$$ 		MicroTimingLoggerManager.onScheduleBlockUpdate((World)(Object)this, sourcePos, blockState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null);
+		//$$ 		MicroTimingLoggerManager.onScheduleBlockUpdate(
+		//$$ 				(World)(Object)this, sourcePos, blockState.getBlock(),
+		//$$ 				BlockUpdateType.SINGLE_STATE_UPDATE, null
+		//$$ 		);
 		//$$ 	}
 		//$$ }
 		//$$ @Inject(method = "replaceWithStateForNeighborUpdate", at = @At("HEAD"))
@@ -231,7 +331,10 @@ public abstract class WorldMixins
 		//$$ {
 		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 		//$$ 	{
-		//$$ 		MicroTimingLoggerManager.onBlockUpdate((World)(Object)this, sourcePos, blockState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END);
+		//$$ 		MicroTimingLoggerManager.onBlockUpdate(
+		//$$ 				(World)(Object)this, sourcePos, blockState.getBlock(),
+		//$$ 				BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END
+		//$$ 		);
 		//$$ 	}
 		//$$ }
 		//#endif

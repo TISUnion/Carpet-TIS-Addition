@@ -23,7 +23,6 @@ package carpettisaddition.mixins.carpet.tweaks.logger.explosion;
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ExplosionLogHelperWithEntity;
 import carpettisaddition.utils.ReflectionUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,19 +30,34 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12200
+//$$ import net.minecraft.world.explosion.ExplosionImpl;
+//#else
+import net.minecraft.world.explosion.Explosion;
+//#endif
+
 /**
  * Inject after than fabric carpet's mixin
  *   <1.4.59: {@link carpet.mixins.ExplosionMixin}
  *   >=1.4.59: {@link carpet.mixins.Explosion_optimizedTntMixin}
  * So the eLogger field is constructed
  */
-@Mixin(value = Explosion.class, priority = 2000)
+@Mixin(
+		//#if MC >= 12200
+		//$$ value = ExplosionImpl.class,
+		//#else
+		value = Explosion.class,
+		//#endif
+		priority = 2000
+)
 public abstract class ExplosionMixin
 {
 	@Shadow @Final private Entity entity;
 
 	@Inject(
-			//#if MC >= 12005
+			//#if MC >= 12200
+			//$$ method = "<init>",
+			//#elseif MC >= 12005
 			//$$ method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;Lnet/minecraft/world/explosion/ExplosionBehavior;DDDFZLnet/minecraft/world/explosion/Explosion$DestructionType;Lnet/minecraft/particle/ParticleEffect;Lnet/minecraft/particle/ParticleEffect;Lnet/minecraft/registry/entry/RegistryEntry;)V",
 			//#elseif MC >= 12003
 			//$$ method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;Lnet/minecraft/world/explosion/ExplosionBehavior;DDDFZLnet/minecraft/world/explosion/Explosion$DestructionType;Lnet/minecraft/particle/ParticleEffect;Lnet/minecraft/particle/ParticleEffect;Lnet/minecraft/sound/SoundEvent;)V",

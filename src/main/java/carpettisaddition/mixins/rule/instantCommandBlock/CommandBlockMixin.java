@@ -22,11 +22,11 @@ package carpettisaddition.mixins.rule.instantCommandBlock;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.instantCommandBlock.ICommandBlockExecutor;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CommandBlock;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CommandBlockBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +36,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 11900
 //#disable-remap
@@ -59,7 +58,11 @@ public abstract class CommandBlockMixin
 	//#endif
 
 	@Inject(
+			//#if MC >= 12200
+			//$$ method = "method_61744",
+			//#else
 			method = "neighborUpdate",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
@@ -68,15 +71,35 @@ public abstract class CommandBlockMixin
 					target = "Lnet/minecraft/world/TickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"
 					//#endif
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private void justExecuteRightNow(BlockState state, World world, BlockPos pos, Block block, BlockPos neighborPos, boolean moved, CallbackInfo ci, BlockEntity blockEntity, CommandBlockBlockEntity commandBlockBlockEntity)
+	private void justExecuteRightNow(
+			CallbackInfo ci,
+			//#if MC < 12200
+			@Local(argsOnly = true) BlockState state,
+			//#endif
+			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true, ordinal = 0) BlockPos pos,
+			@Local(
+					//#if MC >= 12200
+					//$$ argsOnly = true
+					//#endif
+			)
+			CommandBlockBlockEntity commandBlockBlockEntity
+	)
 	{
 		if (CarpetTISAdditionSettings.instantCommandBlock)
 		{
 			if (world instanceof ServerWorld && commandBlockBlockEntity.getCommandBlockType() == CommandBlockBlockEntity.Type.REDSTONE)
 			{
+				//#if MC >= 12200
+				//$$ BlockState state = world.getBlockState(pos);
+				//$$ if (!(state.getBlock() instanceof CommandBlock))
+				//$$ {
+				//$$ 	return;
+				//$$ }
+				//#endif
+
 				ServerWorld serverWorld = (ServerWorld)world;
 				Block blockBelow = world.getBlockState(pos.down()).getBlock();
 				if (blockBelow == Blocks.REDSTONE_ORE)

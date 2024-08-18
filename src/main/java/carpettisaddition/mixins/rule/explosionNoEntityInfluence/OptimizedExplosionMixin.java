@@ -21,11 +21,12 @@
 package carpettisaddition.mixins.rule.explosionNoEntityInfluence;
 
 import carpet.helpers.OptimizedExplosion;
-import carpet.logging.logHelpers.ExplosionLogHelper;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.rule.tooledTNT.ExplosionMixin;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
-import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,6 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Collections;
 import java.util.List;
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.21.2"))
 @Mixin(OptimizedExplosion.class)
 public abstract class OptimizedExplosionMixin
 {

@@ -84,8 +84,18 @@ public class NatualSpawningUse13HeightmapHelper
 		boolean hasDirectionalOpacity = blockState.isOpaque() && blockState.hasSidedTransparency();
 		if (hasDirectionalOpacity)
 		{
-			VoxelShape voxelUp = blockState.getCullingFace(world, pos, Direction.UP);
-			VoxelShape voxelDown = blockState.getCullingFace(world, pos, Direction.DOWN);
+			VoxelShape voxelUp = blockState.getCullingFace(
+					//#if MC < 12200
+					world, pos,
+					//#endif
+					Direction.UP
+			);
+			VoxelShape voxelDown = blockState.getCullingFace(
+					//#if MC < 12200
+					world, pos,
+					//#endif
+					Direction.DOWN
+			);
 			//#if MC >= 11500
 			return !VoxelShapes.unionCoversFullCube(voxelUp, voxelDown);
 			//#else
@@ -94,7 +104,11 @@ public class NatualSpawningUse13HeightmapHelper
 		}
 		else
 		{
-			return blockState.getOpacity(world, pos) == 0;
+			return blockState.getOpacity(
+					//#if MC < 12200
+					world, pos
+					//#endif
+			) == 0;
 		}
 	}
 

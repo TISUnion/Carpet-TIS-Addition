@@ -28,19 +28,29 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.*;
 
+//#if MC >= 12200
+//$$ import net.minecraft.world.DefaultRedstoneController;
+//#endif
+
 //#if MC >= 11600
 //$$ import com.google.common.collect.Lists;
 //$$ import com.google.common.collect.Sets;
 //$$ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 //#else
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 //#endif
 
-@Mixin(RedstoneWireBlock.class)
+@Mixin(
+		//#if MC >= 12200
+		//$$ DefaultRedstoneController.class
+		//#else
+		RedstoneWireBlock.class
+		//#endif
+)
 public abstract class RedstoneWireBlockMixin
 {
 	private final Random random$TISCM = new Random();
@@ -69,10 +79,9 @@ public abstract class RedstoneWireBlockMixin
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/Set;clear()V"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void letsMakeTheOrderUnpredictable(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir, List<BlockPos> list)
+	private void letsMakeTheOrderUnpredictable(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> list)
 	{
 		if (CarpetTISAdditionSettings.redstoneDustRandomUpdateOrder)
 		{
