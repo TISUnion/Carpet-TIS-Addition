@@ -59,7 +59,7 @@ public abstract class CommandBlockMixin
 
 	@Inject(
 			//#if MC >= 12200
-			//$$ method = "method_61744",
+			//$$ method = "update",
 			//#else
 			method = "neighborUpdate",
 			//#endif

@@ -54,8 +54,15 @@ public abstract class WorldMixins
 	)
 	public static class BlockUpdateMixin
 	{
-		@Inject(method = "updateNeighborsAlways", at = @At("HEAD"))
-		private void startUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
+		@Inject(
+				//#if MC >= 12200
+				//$$ method = "updateNeighborsAlways(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//#else
+				method = "updateNeighborsAlways",
+				//#endif
+				at = @At("HEAD")
+		)
+		private void startUpdateNeighborsAlways(CallbackInfo ci, @Local(argsOnly = true) BlockPos pos, @Local(argsOnly = true) Block block)
 		{
 			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
@@ -73,8 +80,15 @@ public abstract class WorldMixins
 			}
 		}
 
-		@Inject(method = "updateNeighborsAlways", at = @At("RETURN"))
-		private void endUpdateNeighborsAlways(BlockPos pos, Block block, CallbackInfo ci)
+		@Inject(
+				//#if MC >= 12200
+				//$$ method = "updateNeighborsAlways(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//#else
+				method = "updateNeighborsAlways",
+				//#endif
+				at = @At("RETURN")
+		)
+		private void endUpdateNeighborsAlways(CallbackInfo ci, @Local(argsOnly = true) BlockPos pos, @Local(argsOnly = true) Block block)
 		{
 			if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 			{
@@ -309,7 +323,11 @@ public abstract class WorldMixins
 	{
 		//#if MC >= 11900
 		//$$ @Inject(method = "replaceWithStateForNeighborUpdate", at = @At("HEAD"))
-		//$$ private void startStateUpdateSingleBlock(Direction direction, BlockState blockState, BlockPos blockPos, BlockPos sourcePos, int flags, int maxUpdateDepth, CallbackInfo ci)
+		//$$ private void startStateUpdateSingleBlock(
+		//$$ 		CallbackInfo ci,
+		//$$ 		@Local(argsOnly = true) BlockState blockState,
+		//$$ 		@Local(argsOnly = true, ordinal = 1) BlockPos sourcePos
+		//$$ )
 		//$$ {
 		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 		//$$ 	{
@@ -327,7 +345,11 @@ public abstract class WorldMixins
 		//$$ 	}
 		//$$ }
 		//$$ @Inject(method = "replaceWithStateForNeighborUpdate", at = @At("HEAD"))
-		//$$ private void endStateUpdateSingleBlock(Direction direction, BlockState blockState, BlockPos blockPos, BlockPos sourcePos, int flags, int maxUpdateDepth, CallbackInfo ci)
+		//$$ private void endStateUpdateSingleBlock(
+		//$$ 		CallbackInfo ci,
+		//$$ 		@Local(argsOnly = true) BlockState blockState,
+		//$$ 		@Local(argsOnly = true, ordinal = 1) BlockPos sourcePos
+		//$$ )
 		//$$ {
 		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
 		//$$ 	{
