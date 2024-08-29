@@ -22,12 +22,12 @@ package carpettisaddition.mixins.rule.tileTickLimit.compat.lithium;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.At;
 
 @Restriction(require = {
 		@Condition(value = ModIds.minecraft, versionPredicates = "<1.18"),
@@ -36,16 +36,17 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(value = LithiumServerTickScheduler.class, priority = 998)
 public abstract class LithiumServerTickSchedulerMixin
 {
-	@ModifyConstant(
+	@SuppressWarnings("MixinAnnotationTarget")
+	@ModifyExpressionValue(
 			method = "selectTicks",
-			constant = {
-					@Constant(intValue = 65536),  // vanilla value
-					@Constant(intValue = 65565),  // value in lithium (<=0.6.0)
+			at = {
+					@At(value = "CONSTANT", args = "intValue=65536"),  // vanilla value
+					@At(value = "CONSTANT", args = "intValue=65565"),  // value in lithium (<=0.6.0)
 			},
 			require = 1,
 			remap = false
 	)
-	private static int modifyTileTickLimit(int value)
+	private int modifyTileTickLimit(int value)
 	{
 		return CarpetTISAdditionSettings.tileTickLimit;
 	}

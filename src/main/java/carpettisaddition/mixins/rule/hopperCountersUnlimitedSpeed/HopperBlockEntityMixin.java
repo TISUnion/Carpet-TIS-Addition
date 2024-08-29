@@ -153,7 +153,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				}
 				if (i == 0)
 				{
-					CarpetTISAdditionServer.LOGGER.warn(String.format("Hopper at %s exceeded hopperCountersUnlimitedSpeed operation limit %d", hopperPos, OPERATION_LIMIT));
+					CarpetTISAdditionServer.LOGGER.warn("Hopper at {} exceeded hopperCountersUnlimitedSpeed operation limit {}", hopperPos, OPERATION_LIMIT);
 				}
 			}
 

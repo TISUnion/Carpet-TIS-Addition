@@ -38,6 +38,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(HopperBlockEntity.class)
 public abstract class HopperBlockEntityMixin
 {
+	//#if MC >= 12005
+	//$$ @SuppressWarnings("LocalMayBeArgsOnly")
+	//#endif
 	@Inject(
 			//#if MC >= 12005
 			//$$ method = "getBlockInventoryAt",

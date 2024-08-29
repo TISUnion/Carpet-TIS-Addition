@@ -28,11 +28,13 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.NetworkSide;
 import net.minecraft.network.PacketDeflater;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(PacketDeflater.class)
 public abstract class PacketDeflaterMixin implements PacketDeflaterWithNetworkSide
 {
+	@Unique
 	private NetworkSide networkSide$TISCM = null;
 
 	@Override
@@ -58,7 +60,7 @@ public abstract class PacketDeflaterMixin implements PacketDeflaterWithNetworkSi
 					ordinal = 0
 			)
 	)
-	private int dontCompressSpeedTestPayloadPackets(int compressionThreshold, @Local(ordinal = 0) ByteBuf bufInput)
+	private int dontCompressSpeedTestPayloadPackets(int compressionThreshold, @Local(argsOnly = true, ordinal = 0) ByteBuf bufInput)
 	{
 		if (SpeedTestCompressionSkipper.isSpeedTestPayloadPacket(this, bufInput))
 		{

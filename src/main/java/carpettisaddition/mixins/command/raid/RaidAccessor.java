@@ -28,22 +28,21 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.Map;
 import java.util.Set;
 
-
 @Mixin(Raid.class)
 public interface RaidAccessor
 {
 	@Accessor
-	public int getWavesSpawned();
+	int getWavesSpawned();
 
 	@Accessor
-	public int getWaveCount();
+	int getWaveCount();
 
 	@Accessor
-	public Raid.Status getStatus();
+	Raid.Status getStatus();
 
 	@Accessor
-	public Map<Integer, RaiderEntity> getWaveToCaptain();
+	Map<Integer, RaiderEntity> getWaveToCaptain();
 
 	@Accessor
-	public Map<Integer, Set<RaiderEntity>> getWaveToRaiders();
+	Map<Integer, Set<RaiderEntity>> getWaveToRaiders();
 }
