@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 
 import java.lang.reflect.Field;
 
-//#if MC >= 12200
+//#if MC >= 12102
 //$$ import net.minecraft.util.math.BlockPos;
 //$$ import net.minecraft.world.explosion.ExplosionImpl;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -52,7 +52,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * so it injects after wrapping world.random but before lithium explosion optimization
  */
 @Mixin(
-		//#if MC >= 12200
+		//#if MC >= 12102
 		//$$ value = ExplosionImpl.class,
 		//#else
 		value = Explosion.class,
@@ -87,7 +87,7 @@ public abstract class ExplosionMixin
 
 	@SuppressWarnings("ConstantConditions")
 	@Inject(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ method = "getBlocksToDestroy",
 			//#else
 			method = "collectBlocksAndDamageEntities",
@@ -96,7 +96,7 @@ public abstract class ExplosionMixin
 			cancellable = true
 	)
 	private void onExplosionAButWithHighPriority(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ CallbackInfoReturnable<List<BlockPos>> cir
 			//#else
 			CallbackInfo ci
@@ -117,7 +117,7 @@ public abstract class ExplosionMixin
 				// copy of carpet's onExplosionA method in ExplosionMixin begins
 				if (CarpetSettings.optimizedTNT)
 				{
-					//#if MC >= 12200
+					//#if MC >= 12102
 					//$$ cir.setReturnValue(OptimizedExplosion.doExplosionA((Explosion)(Object)this, eLogger));
 					//#else
 					OptimizedExplosion.doExplosionA((Explosion)(Object)this, eLogger);

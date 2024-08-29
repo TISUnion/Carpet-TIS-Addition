@@ -58,7 +58,7 @@ public abstract class DebugHudMixin
 	//#endif
 
 	@Inject(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ method = "render",
 			//#else
 			method = "method_51746",  // lambda method in render()

@@ -58,7 +58,7 @@ public abstract class CommandBlockMixin
 	//#endif
 
 	@Inject(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ method = "update",
 			//#else
 			method = "neighborUpdate",
@@ -75,13 +75,13 @@ public abstract class CommandBlockMixin
 	)
 	private void justExecuteRightNow(
 			CallbackInfo ci,
-			//#if MC < 12200
+			//#if MC < 12102
 			@Local(argsOnly = true) BlockState state,
 			//#endif
 			@Local(argsOnly = true) World world,
 			@Local(argsOnly = true, ordinal = 0) BlockPos pos,
 			@Local(
-					//#if MC >= 12200
+					//#if MC >= 12102
 					//$$ argsOnly = true
 					//#endif
 			)
@@ -92,7 +92,7 @@ public abstract class CommandBlockMixin
 		{
 			if (world instanceof ServerWorld && commandBlockBlockEntity.getCommandBlockType() == CommandBlockBlockEntity.Type.REDSTONE)
 			{
-				//#if MC >= 12200
+				//#if MC >= 12102
 				//$$ BlockState state = world.getBlockState(pos);
 				//$$ if (!(state.getBlock() instanceof CommandBlock))
 				//$$ {

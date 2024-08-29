@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-//#if MC >= 12200
+//#if MC >= 12102
 //$$ import net.minecraft.item.ItemStack;
 //$$ import net.minecraft.item.Items;
 //#endif
@@ -74,7 +74,7 @@ public class VisualizeTrajectoryHelper
 		TrajectoryLoggerUtil.isVisualizer.set(true);
 		SnowballEntity snowball = new SnowballEntity(
 				world, pos.getX(), pos.getY(), pos.getZ()
-				//#if MC >= 12200
+				//#if MC >= 12102
 				//$$ , new ItemStack(Items.SNOWBALL)
 				//#endif
 		);

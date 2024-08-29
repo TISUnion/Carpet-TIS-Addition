@@ -41,7 +41,7 @@ public abstract class ServerChunkManagerMixin
 	@Shadow @Final ServerWorld world;
 
 	@ModifyArg(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
 			//#else
 			method = "tickChunks",

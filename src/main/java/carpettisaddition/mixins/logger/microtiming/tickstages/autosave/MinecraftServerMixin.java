@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
-	//#if MC >= 12200
+	//#if MC >= 12102
 	//$$ @Inject(method = "runAutosave", at = @At(value = "HEAD"))
 	//#else
 	@Inject(
@@ -47,7 +47,7 @@ public abstract class MinecraftServerMixin
 		MicroTimingLoggerManager.setTickStage(TickStage.AUTO_SAVE);
 	}
 
-	//#if MC >= 12200
+	//#if MC >= 12102
 	//$$ @Inject(method = "runAutosave", at = @At(value = "TAIL"))
 	//#else
 	@Inject(

@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-//#if MC >= 12200
+//#if MC >= 12102
 //$$ import net.minecraft.world.DefaultRedstoneController;
 //#endif
 
@@ -202,7 +202,7 @@ public abstract class EmitBlockUpdateMixins
 	 * {@link carpettisaddition.mixins.rule.redstoneDustRandomUpdateOrder.RedstoneWireBlockMixin}
 	 */
 	@Mixin(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ value = DefaultRedstoneController.class,
 			//#else
 			value = RedstoneWireBlock.class,

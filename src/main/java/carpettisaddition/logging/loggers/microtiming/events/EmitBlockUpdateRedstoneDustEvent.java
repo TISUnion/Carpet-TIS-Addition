@@ -60,7 +60,7 @@ public class EmitBlockUpdateRedstoneDustEvent extends EmitBlockUpdateEvent
 				Vec3i vec = target.subtract(this.pos);
 				Direction direction = Direction.fromVector(
 						vec.getX(), vec.getY(), vec.getZ()
-						//#if MC >= 12200
+						//#if MC >= 12102
 						//$$ , null
 						//#endif
 				);

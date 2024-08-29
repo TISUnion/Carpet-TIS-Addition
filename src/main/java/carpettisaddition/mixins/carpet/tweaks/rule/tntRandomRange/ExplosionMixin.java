@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
-//#if MC >= 12200
+//#if MC >= 12102
 //$$ import net.minecraft.server.world.ServerWorld;
 //$$ import net.minecraft.world.explosion.ExplosionImpl;
 //$$ import net.minecraft.util.math.BlockPos;
@@ -42,7 +42,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // increase priority to make the wrapWorldRandom injection be in front of other cancellable injections
 @Mixin(
-		//#if MC >= 12200
+		//#if MC >= 12102
 		//$$ value = ExplosionImpl.class,
 		//#else
 		value = Explosion.class,
@@ -52,7 +52,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ExplosionMixin
 {
 	@Shadow @Final
-	//#if MC >= 12200
+	//#if MC >= 12102
 	//$$ private ServerWorld world;
 	//#else
 	private World world;
@@ -67,7 +67,7 @@ public class ExplosionMixin
 	}
 
 	@Inject(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ method = "getBlocksToDestroy",
 			//#else
 			method = "collectBlocksAndDamageEntities",
@@ -75,7 +75,7 @@ public class ExplosionMixin
 			at = @At("HEAD")
 	)
 	private void wrapWorldRandom(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ CallbackInfoReturnable<List<BlockPos>> cir
 			//#else
 			CallbackInfo ci
@@ -94,7 +94,7 @@ public class ExplosionMixin
 	}
 
 	@Inject(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ method = "getBlocksToDestroy",
 			//#else
 			method = "collectBlocksAndDamageEntities",
@@ -102,7 +102,7 @@ public class ExplosionMixin
 			at = @At("RETURN")
 	)
 	private void unwrapWorldRandom(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ CallbackInfoReturnable<List<BlockPos>> cir
 			//#else
 			CallbackInfo ci

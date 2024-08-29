@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//#if MC >= 12200
+//#if MC >= 12102
 //$$ import net.minecraft.world.explosion.ExplosionImpl;
 //#else
 import net.minecraft.world.explosion.Explosion;
@@ -43,7 +43,7 @@ import net.minecraft.world.explosion.Explosion;
  * So the eLogger field is constructed
  */
 @Mixin(
-		//#if MC >= 12200
+		//#if MC >= 12102
 		//$$ value = ExplosionImpl.class,
 		//#else
 		value = Explosion.class,
@@ -55,7 +55,7 @@ public abstract class ExplosionMixin
 	@Shadow @Final private Entity entity;
 
 	@Inject(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ method = "<init>",
 			//#elseif MC >= 12005
 			//$$ method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;Lnet/minecraft/world/explosion/ExplosionBehavior;DDDFZLnet/minecraft/world/explosion/Explosion$DestructionType;Lnet/minecraft/particle/ParticleEffect;Lnet/minecraft/particle/ParticleEffect;Lnet/minecraft/registry/entry/RegistryEntry;)V",

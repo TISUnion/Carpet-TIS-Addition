@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.*;
 
-//#if MC >= 12200
+//#if MC >= 12102
 //$$ import net.minecraft.world.DefaultRedstoneController;
 //#endif
 
@@ -45,7 +45,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
 
 @Mixin(
-		//#if MC >= 12200
+		//#if MC >= 12102
 		//$$ DefaultRedstoneController.class
 		//#else
 		RedstoneWireBlock.class

@@ -65,7 +65,7 @@ public abstract class PhantomSpawnerMixin
 			),
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12200
+					//#if MC >= 12102
 					//$$ target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/world/World;Lnet/minecraft/entity/SpawnReason;)Lnet/minecraft/entity/Entity;"
 					//#else
 					target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/world/World;)Lnet/minecraft/entity/Entity;"

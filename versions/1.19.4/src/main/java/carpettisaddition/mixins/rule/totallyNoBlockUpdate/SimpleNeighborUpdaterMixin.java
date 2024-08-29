@@ -37,7 +37,7 @@ public abstract class SimpleNeighborUpdaterMixin
 	@Inject(
 			method = {
 					"replaceWithStateForNeighborUpdate",
-					//#if MC >= 12200
+					//#if MC >= 12102
 					//$$ "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 					//$$ "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
 					//#else

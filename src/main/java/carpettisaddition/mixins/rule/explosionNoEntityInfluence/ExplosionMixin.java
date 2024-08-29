@@ -29,14 +29,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.Collections;
 import java.util.List;
 
-//#if MC >= 12200
+//#if MC >= 12102
 //$$ import net.minecraft.world.explosion.ExplosionImpl;
 //#else
 import net.minecraft.world.explosion.Explosion;
 //#endif
 
 @Mixin(
-		//#if MC >= 12200
+		//#if MC >= 12102
 		//$$ ExplosionImpl.class
 		//#else
 		Explosion.class
@@ -45,14 +45,14 @@ import net.minecraft.world.explosion.Explosion;
 public abstract class ExplosionMixin
 {
 	@ModifyExpressionValue(
-			//#if MC >= 12200
+			//#if MC >= 12102
 			//$$ method = "damageEntities",
 			//#else
 			method = "collectBlocksAndDamageEntities",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12200
+					//#if MC >= 12102
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
 					//#else
 					target = "Lnet/minecraft/world/World;getEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;"

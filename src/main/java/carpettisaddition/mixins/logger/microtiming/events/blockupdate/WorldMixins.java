@@ -55,7 +55,7 @@ public abstract class WorldMixins
 	public static class BlockUpdateMixin
 	{
 		@Inject(
-				//#if MC >= 12200
+				//#if MC >= 12102
 				//$$ method = "updateNeighborsAlways(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
 				method = "updateNeighborsAlways",
@@ -81,7 +81,7 @@ public abstract class WorldMixins
 		}
 
 		@Inject(
-				//#if MC >= 12200
+				//#if MC >= 12102
 				//$$ method = "updateNeighborsAlways(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
 				method = "updateNeighborsAlways",
@@ -212,7 +212,7 @@ public abstract class WorldMixins
 	public static class SingleBlockUpdateMixin
 	{
 		@Inject(
-				//#if MC >= 12200
+				//#if MC >= 12102
 				//$$ method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
 				method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V",
@@ -238,7 +238,7 @@ public abstract class WorldMixins
 		}
 
 		@Inject(
-				//#if MC >= 12200
+				//#if MC >= 12102
 				//$$ method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
 				method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V",
@@ -263,7 +263,7 @@ public abstract class WorldMixins
 	{
 		//#if MC >= 11900
 		//$$ @Inject(
-		//$$ 		//#if MC >= 12200
+		//$$ 		//#if MC >= 12102
 		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
 		//$$ 		//#else
 		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V",
@@ -293,7 +293,7 @@ public abstract class WorldMixins
 		//$$ }
   //$$
 		//$$ @Inject(
-		//$$ 		//#if MC >= 12200
+		//$$ 		//#if MC >= 12102
 		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
 		//$$ 		//#else
 		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V",

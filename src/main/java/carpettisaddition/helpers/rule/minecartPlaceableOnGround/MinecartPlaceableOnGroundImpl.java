@@ -100,7 +100,7 @@ public class MinecartPlaceableOnGroundImpl
 
 		itemStack.decrement(1);
 
-		//#if MC >= 12200
+		//#if MC >= 12102
 		//$$ return world.isClient ? ActionResult.SUCCESS : ActionResult.SUCCESS_SERVER;
 		//#elseif MC >= 11600
 		//$$ return ActionResult.success(world.isClient);
