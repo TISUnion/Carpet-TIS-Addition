@@ -25,7 +25,6 @@ import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.text.BaseText;
 
-
 public class ItemLogger extends EntityLogger<ItemEntity>
 {
 	private static final ItemLogger INSTANCE = new ItemLogger();
@@ -44,7 +43,13 @@ public class ItemLogger extends EntityLogger<ItemEntity>
 	protected BaseText getNameText(ItemEntity item)
 	{
 		BaseText text = super.getNameText(item);
-		text.append("(").append(Messenger.tr(item.getStack().getTranslationKey())).append(")");
+		text.append("(").append(
+				//#if MC >= 12102
+				//$$ item.getStack().getItemName()
+				//#else
+				Messenger.tr(item.getStack().getTranslationKey())
+				//#endif
+		).append(")");
 		return text;
 	}
 

@@ -31,7 +31,7 @@ import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.21.2"))
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
 @Mixin(OptimizedExplosion.class)
 public abstract class OptimizedExplosionMixin
 {

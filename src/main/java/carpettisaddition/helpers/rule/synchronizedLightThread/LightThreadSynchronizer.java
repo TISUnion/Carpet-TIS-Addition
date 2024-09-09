@@ -63,7 +63,12 @@ public class LightThreadSynchronizer
 		{
 			TaskExecutor<?> processor = ((ServerLightingProviderAccessor) lightingProvider).getProcessor();
 			// the task queue of the executor of the light thread
-			TaskQueue<?, ?> queue = ((TaskExecutorAccessor<?>)processor).getQueue();
+			//#if MC >= 12102
+			//$$ TaskQueue<?> queue
+			//#else
+			TaskQueue<?, ?> queue
+			//#endif
+					= ((TaskExecutorAccessor<?>)processor).getQueue();
 			while (!queue.isEmpty())
 			{
 				Thread.yield();

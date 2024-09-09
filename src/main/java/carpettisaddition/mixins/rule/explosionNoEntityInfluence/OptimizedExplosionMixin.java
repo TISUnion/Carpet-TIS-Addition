@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Collections;
 import java.util.List;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.21.2"))
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
 @Mixin(OptimizedExplosion.class)
 public abstract class OptimizedExplosionMixin
 {

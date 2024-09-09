@@ -22,6 +22,9 @@ package carpettisaddition.mixins.command.lifetime.spawning.conversion;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobConversionSpawningReason;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AbstractTraderEntity;
@@ -31,6 +34,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
 @Mixin(VillagerEntity.class)
 public abstract class VillagerEntityMixin extends AbstractTraderEntity
 {

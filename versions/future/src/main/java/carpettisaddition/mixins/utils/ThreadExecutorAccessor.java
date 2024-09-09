@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,26 +18,13 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.synchronizedLightThread;
+package carpettisaddition.mixins.utils;
 
-import net.minecraft.server.world.ServerLightingProvider;
+import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
-//#if MC >= 12102
-//$$ import net.minecraft.util.thread.SimpleConsecutiveExecutor;
-//#else
-import net.minecraft.util.thread.TaskExecutor;
-//#endif
-
-@Mixin(ServerLightingProvider.class)
-public interface ServerLightingProviderAccessor
+// only needed in mc < 1.21.2
+@Mixin(DummyClass.class)
+public abstract class ThreadExecutorAccessor
 {
-	@Accessor
-	//#if MC >= 12102
-	//$$ SimpleConsecutiveExecutor
-	//#else
-	TaskExecutor<Runnable>
-	//#endif
-	getProcessor();
 }

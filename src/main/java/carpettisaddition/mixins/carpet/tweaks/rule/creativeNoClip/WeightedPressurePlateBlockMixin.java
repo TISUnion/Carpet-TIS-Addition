@@ -50,7 +50,7 @@ public abstract class WeightedPressurePlateBlockMixin
 					target = "Lnet/minecraft/world/World;getNonSpectatingEntities(Ljava/lang/Class;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
 			)
 	)
-	private void dontDetectCreativeNoClipPlayers_enter(CallbackInfoReturnable<Integer> cir)
+	private void dontDetectCreativeNoClipPlayers_weightedPressurePlate_enter(CallbackInfoReturnable<Integer> cir)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
@@ -66,7 +66,7 @@ public abstract class WeightedPressurePlateBlockMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private void dontDetectCreativeNoClipPlayers_exit(CallbackInfoReturnable<Integer> cir)
+	private void dontDetectCreativeNoClipPlayers_weightedPressurePlate_exit(CallbackInfoReturnable<Integer> cir)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{

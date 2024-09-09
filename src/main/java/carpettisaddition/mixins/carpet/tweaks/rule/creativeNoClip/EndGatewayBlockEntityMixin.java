@@ -47,7 +47,7 @@ public abstract class EndGatewayBlockEntityMixin
 					target = "Lnet/minecraft/world/World;getNonSpectatingEntities(Ljava/lang/Class;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
 			)
 	)
-	private void dontTeleportCreativeNoClipPlayer_enter(CallbackInfo ci)
+	private void dontTeleportCreativeNoClipPlayer_endGateway_enter(CallbackInfo ci)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
@@ -63,7 +63,7 @@ public abstract class EndGatewayBlockEntityMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private void dontTeleportCreativeNoClipPlayer_exit(CallbackInfo ci)
+	private void dontTeleportCreativeNoClipPlayer_endGateway_exit(CallbackInfo ci)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{

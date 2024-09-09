@@ -52,7 +52,7 @@ public abstract class PressurePlateBlockMixin
 					target = "Ljava/util/List;isEmpty()Z"
 			)
 	)
-	private List<Entity> dontDetectCreativeNoClipPlayers(List<Entity> entities)
+	private List<Entity> dontDetectCreativeNoClipPlayers_pressurePlate(List<Entity> entities)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{

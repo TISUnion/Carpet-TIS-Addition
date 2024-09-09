@@ -50,7 +50,7 @@ public abstract class BlockMixin
 					//#endif
 			)
 	)
-	private static void dontMoveCreativeNoClipPlayers_enter(CallbackInfoReturnable<BlockState> cir)
+	private static void dontMoveCreativeNoClipPlayers_blockPushEntity_enter(CallbackInfoReturnable<BlockState> cir)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
@@ -72,7 +72,7 @@ public abstract class BlockMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private static void dontMoveCreativeNoClipPlayers_exit(CallbackInfoReturnable<BlockState> cir)
+	private static void dontMoveCreativeNoClipPlayers_blockPushEntity_exit(CallbackInfoReturnable<BlockState> cir)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{

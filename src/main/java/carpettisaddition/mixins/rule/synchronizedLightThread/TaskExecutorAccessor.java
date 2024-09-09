@@ -25,6 +25,10 @@ import net.minecraft.util.thread.TaskQueue;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
+/**
+ * mc1.14 ~ mc1.21.1: subproject 1.15.2 (main project)        <--------
+ * mc1.21.2+        : subproject future
+ */
 @Mixin(TaskExecutor.class)
 public interface TaskExecutorAccessor<T>
 {

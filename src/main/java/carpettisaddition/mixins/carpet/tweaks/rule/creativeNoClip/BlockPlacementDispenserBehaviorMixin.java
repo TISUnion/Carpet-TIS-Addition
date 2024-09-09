@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BlockPlacementDispenserBehaviorMixin
 {
 	@Inject(method = "dispenseSilently", at = @At("HEAD"))
-	private void creativeNoClipEnhancementEnter(CallbackInfoReturnable<ItemStack> cir)
+	private void creativeNoClipEnhancement_dispenserBlockPlacement_enter(CallbackInfoReturnable<ItemStack> cir)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
@@ -47,7 +47,7 @@ public abstract class BlockPlacementDispenserBehaviorMixin
 	}
 
 	@Inject(method = "dispenseSilently", at = @At("TAIL"))
-	private void creativeNoClipEnhancementExit(CallbackInfoReturnable<ItemStack> cir)
+	private void creativeNoClipEnhancement_dispenserBlockPlacement_exit(CallbackInfoReturnable<ItemStack> cir)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{

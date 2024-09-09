@@ -44,14 +44,20 @@ public abstract class MobEntityMixin extends LivingEntity
 	}
 
 	@ModifyArg(
-			//#if MC >= 11700
+			//#if MC >= 12102
+			//$$ method = "convertTo(Lnet/minecraft/entity/EntityType;Lnet/minecraft/entity/conversion/EntityConversionContext;Lnet/minecraft/entity/SpawnReason;Lnet/minecraft/entity/conversion/EntityConversionContext$Finalizer;)Lnet/minecraft/entity/mob/MobEntity;",
+			//#elseif MC >= 11700
 			//$$ method = "convertTo",
 			//#else
 			method = "method_29243",  // convertTo
 			//#endif
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12102
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
+					//#else
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//#endif
 			)
 	)
 

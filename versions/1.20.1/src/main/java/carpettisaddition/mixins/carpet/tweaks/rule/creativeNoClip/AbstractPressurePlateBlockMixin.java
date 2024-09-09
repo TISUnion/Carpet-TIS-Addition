@@ -46,7 +46,7 @@ public abstract class AbstractPressurePlateBlockMixin
 					target = "Lnet/minecraft/world/World;getEntitiesByClass(Ljava/lang/Class;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;"
 			)
 	)
-	private static Predicate<Entity> dontDetectCreativeNoClipPlayers(Predicate<Entity> predicate)
+	private static Predicate<Entity> dontDetectCreativeNoClipPlayers_pressurePlate(Predicate<Entity> predicate)
 	{
 		return predicate.and(entity -> !CreativeNoClipHelper.isNoClipPlayer(entity));
 	}

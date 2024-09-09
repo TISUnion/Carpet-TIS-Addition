@@ -22,12 +22,16 @@ package carpettisaddition.mixins.command.lifetime.removal.conversion;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.MobConversionRemovalReason;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.VillagerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
 @Mixin(VillagerEntity.class)
 public abstract class VillagerEntityMixin
 {

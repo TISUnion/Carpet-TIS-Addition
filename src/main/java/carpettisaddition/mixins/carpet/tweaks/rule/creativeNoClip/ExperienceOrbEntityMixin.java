@@ -53,7 +53,7 @@ public abstract class ExperienceOrbEntityMixin
 					target = "Lnet/minecraft/world/World;getClosestPlayer(Lnet/minecraft/entity/Entity;D)Lnet/minecraft/entity/player/PlayerEntity;"
 			)
 	)
-	private void creativeNoClipEnhancement_doNotFindNoCreateClipPlayer_enter(CallbackInfo ci)
+	private void creativeNoClipEnhancement_doNotFindNoCreateClipPlayer_xpOrb_enter(CallbackInfo ci)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
@@ -73,7 +73,7 @@ public abstract class ExperienceOrbEntityMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private void creativeNoClipEnhancement_doNotFindCreateNoClipPlayer_exit(CallbackInfo ci)
+	private void creativeNoClipEnhancement_doNotFindCreateNoClipPlayer_xpOrb_exit(CallbackInfo ci)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
@@ -89,7 +89,7 @@ public abstract class ExperienceOrbEntityMixin
 					ordinal = 0
 			)
 	)
-	private boolean creativeNoClipEnhancement_forgetCreateNoClipPlayer(boolean isSpectator)
+	private boolean creativeNoClipEnhancement_xpOrbForgetCreateNoClipPlayer(boolean isSpectator)
 	{
 		if (this.target != null && CreativeNoClipHelper.isNoClipPlayer(this.target))
 		{

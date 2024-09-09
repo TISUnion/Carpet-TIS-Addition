@@ -20,24 +20,18 @@
 
 package carpettisaddition.mixins.rule.synchronizedLightThread;
 
-import net.minecraft.server.world.ServerLightingProvider;
+import net.minecraft.util.thread.ConsecutiveExecutor;
+import net.minecraft.util.thread.TaskQueue;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-//#if MC >= 12102
-//$$ import net.minecraft.util.thread.SimpleConsecutiveExecutor;
-//#else
-import net.minecraft.util.thread.TaskExecutor;
-//#endif
-
-@Mixin(ServerLightingProvider.class)
-public interface ServerLightingProviderAccessor
+/**
+ * mc1.14 ~ mc1.21.1: subproject 1.15.2 (main project)
+ * mc1.21.2+        : subproject future        <--------
+ */
+@Mixin(ConsecutiveExecutor.class)
+public interface TaskExecutorAccessor<T extends Runnable>
 {
 	@Accessor
-	//#if MC >= 12102
-	//$$ SimpleConsecutiveExecutor
-	//#else
-	TaskExecutor<Runnable>
-	//#endif
-	getProcessor();
+	TaskQueue<T> getQueue();
 }

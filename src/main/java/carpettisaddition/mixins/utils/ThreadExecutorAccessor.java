@@ -20,12 +20,17 @@
 
 package carpettisaddition.mixins.utils;
 
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.util.thread.ThreadExecutor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.concurrent.CompletableFuture;
 
+// only needed in mc < 1.21.2
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
 @Mixin(ThreadExecutor.class)
 public interface ThreadExecutorAccessor<R extends Runnable>
 {

@@ -39,13 +39,18 @@ import java.util.List;
 public abstract class TripwireBlockMixin
 {
 	@ModifyVariable(
+			//#if MC >= 12102
+			//$$ method = "updatePowered(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Ljava/util/List;)V",
+			//$$ argsOnly = true,
+			//#else
 			method = "updatePowered",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/List;isEmpty()Z"
 			)
 	)
-	private List<? extends Entity> dontDetectCreativeNoClipPlayers(List<? extends Entity> entities)
+	private List<? extends Entity> dontDetectCreativeNoClipPlayers_tripwire(List<? extends Entity> entities)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
