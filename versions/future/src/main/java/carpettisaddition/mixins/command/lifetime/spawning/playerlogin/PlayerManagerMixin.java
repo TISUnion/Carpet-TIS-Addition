@@ -20,32 +20,17 @@
 
 package carpettisaddition.mixins.command.lifetime.spawning.playerlogin;
 
-import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
-import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import carpettisaddition.utils.ModIds;
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import carpettisaddition.utils.compat.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.PlayerManager;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
+/**
+ * See {@link ServerPlayerEntityMixin} for impl for this mc version
+ */
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
-@Mixin(PlayerManager.class)
+@Mixin(DummyClass.class)
 public abstract class PlayerManagerMixin
 {
-	@ModifyReturnValue(
-			// The lambda function argument for EntityType.loadEntityWithPassengers
-			method = "method_18241",  // lambda method in onPlayerConnect
-			at = @At("TAIL")
-	)
-	private static Entity lifetimeTracker_recordSpawning_playerLogin(Entity entity)
-	{
-		if (entity != null)
-		{
-			((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.PLAYER_LOGIN);
-		}
-		return entity;
-	}
 }

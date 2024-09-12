@@ -30,11 +30,16 @@ import com.google.common.collect.Lists;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.thread.TaskExecutor;
 import net.minecraft.util.thread.TaskQueue;
 import net.minecraft.world.chunk.light.LightingProvider;
 
 import java.util.List;
+
+//#if MC >= 12102
+//$$ import net.minecraft.class_10209;
+//#endif
 
 public class LightThreadSynchronizer
 {
@@ -49,7 +54,14 @@ public class LightThreadSynchronizer
 
 	public static void waitForLightThread(ServerWorld serverWorld)
 	{
-		serverWorld.getProfiler().push(SECTION_NAME);
+		Profiler profiler =
+				//#if MC >= 12102
+				//$$ class_10209.method_64146();
+				//#else
+				serverWorld.getProfiler();
+				//#endif
+
+		profiler.push(SECTION_NAME);
 		CarpetProfiler.ProfilerToken token = CarpetProfiler.start_section(serverWorld, SECTION_NAME, CarpetProfiler.TYPE.GENERAL);
 
 		LightingProvider lightingProvider =
@@ -81,7 +93,7 @@ public class LightThreadSynchronizer
 			}
 		}
 
-		serverWorld.getProfiler().pop();
+		profiler.pop();
 		CarpetProfiler.end_current_section(token);
 	}
 

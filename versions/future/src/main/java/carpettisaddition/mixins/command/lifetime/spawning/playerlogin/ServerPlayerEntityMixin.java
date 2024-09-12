@@ -28,16 +28,20 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.PlayerManager;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
-@Mixin(PlayerManager.class)
-public abstract class PlayerManagerMixin
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">1.21.1"))
+@Mixin(ServerPlayerEntity.class)
+public abstract class ServerPlayerEntityMixin
 {
 	@ModifyReturnValue(
 			// The lambda function argument for EntityType.loadEntityWithPassengers
-			method = "method_18241",  // lambda method in onPlayerConnect
+			method = {
+					"method_64132",  // in method readRootVehicle
+					"method_64129"   // in method readEnderPearls
+			},
 			at = @At("TAIL")
 	)
 	private static Entity lifetimeTracker_recordSpawning_playerLogin(Entity entity)

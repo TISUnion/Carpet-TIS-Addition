@@ -161,6 +161,7 @@
     "command.lifetime.spawning.natural.ZombieSiegeManagerMixin",
     "command.lifetime.spawning.placeblock.EndermanEntityMixin",
     "command.lifetime.spawning.playerlogin.PlayerManagerMixin",
+    "command.lifetime.spawning.playerlogin.ServerPlayerEntityMixin",
     "command.lifetime.spawning.portalpigman.NetherPortalBlockMixin",
     "command.lifetime.spawning.raid.RaidMixin",
     "command.lifetime.spawning.slime.SlimeEntityMixin",
