@@ -68,7 +68,12 @@ public abstract class FormattedTextParamMixin
 	{
 		try
 		{
-			return original.call(str);
+			return original.call(
+					str
+					//#if MC >= 12005
+					//$$ , regs
+					//#endif
+			);
 		}
 		catch (JsonParseException e)
 		{
