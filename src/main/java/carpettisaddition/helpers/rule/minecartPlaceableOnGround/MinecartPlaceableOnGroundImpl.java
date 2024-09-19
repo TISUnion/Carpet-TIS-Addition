@@ -29,6 +29,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+//#if MC >= 12102
+//$$ import net.minecraft.entity.EntityType;
+//$$ import net.minecraft.entity.SpawnReason;
+//#endif
+
 //#if MC >= 12004
 //$$ import net.minecraft.server.world.ServerWorld;
 //#endif
@@ -42,7 +47,14 @@ public class MinecartPlaceableOnGroundImpl
 	/**
 	 * Reference: {@link net.minecraft.item.MinecartItem#useOnBlock}
 	 */
-	public static ActionResult placeMinecartOnGround(ItemUsageContext context, AbstractMinecartEntity.Type minecartType)
+	public static ActionResult placeMinecartOnGround(
+			ItemUsageContext context,
+			//#if MC >= 12102
+			//$$ EntityType<? extends AbstractMinecartEntity> minecartType
+			//#else
+			AbstractMinecartEntity.Type minecartType
+			//#endif
+	)
 	{
 		PlayerEntity player = context.getPlayer();
 		World world = context.getWorld();
@@ -57,7 +69,9 @@ public class MinecartPlaceableOnGroundImpl
 				//#endif
 		)
 		{
-			//#if MC >= 12004
+			//#if MC >= 12102
+			//$$ AbstractMinecartEntity minecartEntity = AbstractMinecartEntity.create(serverWorld, vec3d.getX(), vec3d.getY(), vec3d.getZ(), minecartType, SpawnReason.DISPENSER, itemStack, player);
+			//#elseif MC >= 12004
 			//$$ AbstractMinecartEntity minecartEntity = AbstractMinecartEntity.create(serverWorld, vec3d.getX(), vec3d.getY(), vec3d.getZ(), minecartType, itemStack, player);
 			//#else
 			AbstractMinecartEntity minecartEntity = AbstractMinecartEntity.create(world, vec3d.getX(), vec3d.getY(), vec3d.getZ(), minecartType);
@@ -92,7 +106,14 @@ public class MinecartPlaceableOnGroundImpl
 			// For proper client swing-hand animation. AbstractMinecartEntity.create() needs ServerWorld in mc1.20.4+, we can't use it on the clientside
 			// Assumption: The simply-initialized minecart entity has the same size of the serverside-created one,
 			// i.e., no nbt scaling tricks, modded new minecart variant
+
+			//#if MC >= 12102
+			//$$ MinecartEntity minecartEntity = new MinecartEntity(minecartType, world);
+			//$$ minecartEntity.setPos(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			//$$ if (!isMinecartPositionValid(world, minecartEntity))
+			//#else
 			if (!isMinecartPositionValid(world, new MinecartEntity(world, vec3d.getX(), vec3d.getY(), vec3d.getZ())))
+			//#endif
 			{
 				return ActionResult.FAIL;
 			}

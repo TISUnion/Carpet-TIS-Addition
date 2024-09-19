@@ -38,7 +38,7 @@ import net.minecraft.world.chunk.light.LightingProvider;
 import java.util.List;
 
 //#if MC >= 12102
-//$$ import net.minecraft.class_10209;
+//$$ import net.minecraft.util.profiler.Profilers;
 //#endif
 
 public class LightThreadSynchronizer
@@ -56,7 +56,7 @@ public class LightThreadSynchronizer
 	{
 		Profiler profiler =
 				//#if MC >= 12102
-				//$$ class_10209.method_64146();
+				//$$ Profilers.get();
 				//#else
 				serverWorld.getProfiler();
 				//#endif

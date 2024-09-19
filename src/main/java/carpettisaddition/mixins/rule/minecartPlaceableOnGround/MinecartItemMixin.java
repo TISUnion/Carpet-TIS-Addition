@@ -33,10 +33,20 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
+//#if MC >= 12102
+//$$ import net.minecraft.entity.EntityType;
+//#endif
+
 @Mixin(MinecartItem.class)
 public abstract class MinecartItemMixin
 {
-	@Shadow @Final private AbstractMinecartEntity.Type type;
+	@Shadow @Final
+	//#if MC >= 12102
+	//$$ private EntityType<? extends AbstractMinecartEntity>
+	//#else
+	private AbstractMinecartEntity.Type
+	//#endif
+			type;
 
 	@ModifyReturnValue(
 			method = "useOnBlock",
@@ -56,7 +66,7 @@ public abstract class MinecartItemMixin
 			// if not, in case other mod is doing their thing, then cancel the rule impl for safety
 			if (actionResult == ActionResult.FAIL)
 			{
-				actionResult = MinecartPlaceableOnGroundImpl.placeMinecartOnGround(context,this.type);
+				actionResult = MinecartPlaceableOnGroundImpl.placeMinecartOnGround(context, this.type);
 			}
 		}
 		return actionResult;

@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,48 +21,35 @@
 package carpettisaddition.mixins.rule.antiSpamDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.util.Cooldown;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * mc1.14 ~ mc1.21.1: subproject 1.15.2 (main project)        <--------
- * mc1.21.2+        : subproject future
+ * mc1.14 ~ mc1.21.1: subproject 1.15.2 (main project)
+ * mc1.21.2+        : subproject future        <--------
  */
 @Mixin(ServerPlayNetworkHandler.class)
 public abstract class ServerPlayNetworkHandlerMixin
 {
-	@Shadow private int messageCooldown;
-
-	@Shadow private int creativeItemDropThreshold;
-
-	@Inject(
-			//#if MC >= 11900
-			//$$ method = "checkForSpam",
-			//#elseif MC >= 11600
-			//$$ method = "onGameMessage",
-			//#else
-			method = "onChatMessage",
-			//#endif
-			at = @At("TAIL")
+	@WrapWithCondition(
+			method = {
+					"checkForSpam",
+					"onCreativeInventoryAction",
+			},
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/util/Cooldown;increment()V"
+			)
 	)
-	private void resetMessageCooldown(CallbackInfo ci)
+	private boolean resetCreativeItemDropThreshold(Cooldown cooldown)
 	{
 		if (CarpetTISAdditionSettings.antiSpamDisabled)
 		{
-			this.messageCooldown = 0;
+			return false;
 		}
-	}
-
-	@Inject(method = "onCreativeInventoryAction", at = @At("TAIL"))
-	private void resetCreativeItemDropThreshold(CallbackInfo ci)
-	{
-		if (CarpetTISAdditionSettings.antiSpamDisabled)
-		{
-			this.creativeItemDropThreshold = 0;
-		}
+		return true;
 	}
 }

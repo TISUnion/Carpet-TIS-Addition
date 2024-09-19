@@ -27,11 +27,25 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(targets = "net/minecraft/item/MinecartItem$1")
+//#if MC >= 12102
+//$$ import net.minecraft.item.MinecartItem;
+//#endif
+
+@Mixin(
+		//#if MC >= 12102
+		//$$ MinecartItem.class
+		//#else
+		targets = "net/minecraft/item/MinecartItem$1"
+		//#endif
+)
 public abstract class MinecartItemDispenseBehaviorMixin
 {
 	@ModifyArg(
+			//#if MC >= 12102
+			//$$ method = "useOnBlock",
+			//#else
 			method = "dispenseSilently",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12004
