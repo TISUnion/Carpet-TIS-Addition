@@ -28,6 +28,10 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+//#if MC >= 12102
+//$$ import net.minecraft.server.world.ServerWorld;
+//#endif
+
 @Mixin(WitherEntity.class)
 public abstract class WitherEntityMixin
 {
@@ -35,14 +39,23 @@ public abstract class WitherEntityMixin
 			method = "mobTick",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11600
+					//#if MC >= 12102
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;syncGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/world/World;syncGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
 					//#else
 					target = "Lnet/minecraft/world/World;playGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
 					//#endif
 			)
 	)
-	private boolean witherSpawnedSoundDisabled_conditionCheck(World instance, int type, BlockPos blockPos, int data)
+	private boolean witherSpawnedSoundDisabled_conditionCheck(
+			//#if MC >= 12102
+			//$$ ServerWorld instance,
+			//#else
+			World instance,
+			//#endif
+			int type, BlockPos blockPos, int data
+	)
 	{
 		return !CarpetTISAdditionSettings.witherSpawnedSoundDisabled;
 	}

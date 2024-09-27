@@ -36,9 +36,9 @@ public abstract class LoggerMixin implements RestrictiveLogger
 {
 	private final List<SubscriptionChecker> subscriptionCheckers = Lists.newArrayList();
 
-	public void addSubscriptionRestriction(SubscriptionChecker subscriptionValidator)
+	public void addSubscriptionRestriction(SubscriptionChecker subscriptionChecker)
 	{
-		this.subscriptionCheckers.add(subscriptionValidator);
+		this.subscriptionCheckers.add(subscriptionChecker);
 	}
 
 	@Override

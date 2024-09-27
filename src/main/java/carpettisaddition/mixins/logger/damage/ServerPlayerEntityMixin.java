@@ -23,6 +23,7 @@ package carpettisaddition.mixins.logger.damage;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -76,7 +77,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 					target = "Lnet/minecraft/server/MinecraftServer;isDedicated()Z"
 			)
 	)
-	private void onDamageStarted(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onDamageStarted(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount)
 	{
 		DamageLogger.create(this, source, amount);
 	}
@@ -91,7 +92,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 			),
 			at = @At(value = "RETURN", ordinal = 0, shift = At.Shift.BEFORE) // before onDamageEnded in LivingEntityAndPlayerEntityMixins$DamageMixin
 	)
-	private void onRespawnProtectionCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onRespawnProtectionCancelledDamage(CallbackInfoReturnable<Boolean> cir)
 	{
 		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 				0.0F, ModifyReason.RESPAWN_PROTECTION
@@ -113,7 +114,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 					@At(value = "RETURN", ordinal = 1, shift = At.Shift.BEFORE)
 			}
 	)
-	private void onPVPDisabledCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onPVPDisabledCancelledDamage(CallbackInfoReturnable<Boolean> cir)
 	{
 		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 				0.0F, ModifyReason.PVP_DISABLED

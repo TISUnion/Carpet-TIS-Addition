@@ -21,28 +21,39 @@
 package carpettisaddition.mixins.rule.farmlandTrampledDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+
+//#if MC >= 11900
+//$$ import net.minecraft.entity.Entity;
+//#endif
 
 @Mixin(FarmlandBlock.class)
 public abstract class FarmLandBlockMixin
 {
-	@ModifyExpressionValue(
+	@WrapWithCondition(
 			method = "onLandedUpon",
 			at = @At(
-					value = "FIELD",
-					target = "Lnet/minecraft/world/World;isClient:Z"
+					value = "INVOKE",
+					//#if MC >= 11900
+					//$$ target = "Lnet/minecraft/block/FarmlandBlock;setToDirt(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
+					//#else
+					target = "Lnet/minecraft/block/FarmlandBlock;setToDirt(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"
+					//#endif
 			)
 	)
-	private boolean farmlandTrampledDisabled_cancelIfStatement(boolean isClient)
+	private boolean farmlandTrampledDisabled_cancel(
+			//#if MC >= 11900
+			//$$ Entity entity,
+			//#endif
+			BlockState state, World world, BlockPos pos
+	)
 	{
-		if (CarpetTISAdditionSettings.farmlandTrampledDisabled)
-		{
-			// world.isClient returning true -> if predicate fails -> farmland protected
-			isClient = true;
-		}
-		return isClient;
+		return !CarpetTISAdditionSettings.farmlandTrampledDisabled;
 	}
 }

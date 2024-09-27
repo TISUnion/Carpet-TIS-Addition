@@ -29,8 +29,12 @@ import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 
+//#if MC >= 12102
+//$$ import net.minecraft.server.world.ServerWorld;
+//#endif
 
 @Mixin(PhantomEntity.class)
 public abstract class PhantomEntityMixin extends FlyingEntity
@@ -40,15 +44,31 @@ public abstract class PhantomEntityMixin extends FlyingEntity
 		super(entityType, world);
 	}
 
+	@Intrinsic
 	@Override
-	protected void dropLoot(DamageSource source, boolean causedByPlayer)
+	protected void dropLoot(
+			//#if MC >= 12102
+			//$$ ServerWorld world,
+			//#endif
+			DamageSource source, boolean causedByPlayer
+	)
 	{
-		super.dropLoot(source, causedByPlayer);
+		super.dropLoot(
+				//#if MC >= 12102
+				//$$ world,
+				//#endif
+				source, causedByPlayer
+		);
 		if (CarpetTISAdditionSettings.renewableElytra > 0.0D)
 		{
 			if (source.getAttacker() instanceof ShulkerEntity && this.random.nextDouble() < CarpetTISAdditionSettings.renewableElytra)
 			{
-				this.dropStack(new ItemStack(Items.ELYTRA));
+				this.dropStack(
+						//#if MC >= 12102
+						//$$ world,
+						//#endif
+						new ItemStack(Items.ELYTRA)
+				);
 			}
 		}
 	}

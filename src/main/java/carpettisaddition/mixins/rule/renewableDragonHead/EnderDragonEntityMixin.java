@@ -21,10 +21,10 @@
 package carpettisaddition.mixins.rule.renewableDragonHead;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.mob.MobEntity;
@@ -38,6 +38,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//#if MC >= 12102
+//$$ import net.minecraft.server.world.ServerWorld;
+//#endif
 
 @Mixin(EnderDragonEntity.class)
 public abstract class EnderDragonEntityMixin extends MobEntity implements Monster
@@ -71,10 +74,17 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Monste
 	)
 	private void dropHead(CallbackInfo ci)
 	{
+		//#if MC >= 12102
+		//$$ if (this.flagDropHead && this.getWorld() instanceof ServerWorld serverWorld)
+		//$$ {
+		//$$ 	this.dropStack(serverWorld, new ItemStack(Items.DRAGON_HEAD));
+		//$$ }
+		//#else
 		if (this.flagDropHead)
 		{
 			this.dropStack(new ItemStack(Items.DRAGON_HEAD));
 		}
+		//#endif
 	}
 
 	@Inject(
@@ -84,7 +94,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Monste
 					target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;setHealth(F)V"
 			)
 	)
-	private void onTakingDeathDamage(EnderDragonPart enderDragonPart, DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir)
+	private void onTakingDeathDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource damageSource)
 	{
 		if (CarpetTISAdditionSettings.renewableDragonHead)
 		{

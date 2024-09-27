@@ -31,6 +31,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12102
+//$$ import net.minecraft.server.world.ServerWorld;
+//#endif
+
 @Mixin(CommandBlock.class)
 public abstract class CommandBlockMixin
 {
@@ -42,7 +46,16 @@ public abstract class CommandBlockMixin
 					shift = At.Shift.AFTER
 			)
 	)
-	private void onCommandBlockExecutedCommandBlockLogger(BlockState state, World world, BlockPos pos, CommandBlockExecutor executor, boolean hasCommand, CallbackInfo ci)
+	private void onCommandBlockExecutedCommandBlockLogger(
+			BlockState state,
+			//#if MC >= 12102
+			//$$ ServerWorld world,
+			//#else
+			World world,
+			//#endif
+			BlockPos pos, CommandBlockExecutor executor, boolean hasCommand,
+			CallbackInfo ci
+	)
 	{
 		CommandBlockLogger.getInstance().onCommandBlockActivated(world, pos, state, executor);
 	}

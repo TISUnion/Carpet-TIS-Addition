@@ -33,7 +33,11 @@ public abstract class LivingEntityMixin
 			method = "destroy",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12102
+					//$$ target = "Lnet/minecraft/entity/LivingEntity;serverDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"
+					//#else
 					target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"
+					//#endif
 			)
 	)
 	private float voidDamageAmount(float amount)

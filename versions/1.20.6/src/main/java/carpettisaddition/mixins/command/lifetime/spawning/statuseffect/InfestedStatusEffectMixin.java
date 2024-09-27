@@ -35,10 +35,14 @@ public abstract class InfestedStatusEffectMixin
 			method = "spawnSilverfish",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12102
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//#else
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//#endif
 			)
 	)
-	private Entity lifetimeTracker_recordSpawning_statusEffect_oozing(Entity entity)
+	private Entity lifetimeTracker_recordSpawning_statusEffect_infested(Entity entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(new StatusEffectSpawningReason((StatusEffect)(Object)this));
 		return entity;

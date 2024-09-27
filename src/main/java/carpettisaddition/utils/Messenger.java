@@ -39,6 +39,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.*;
 import net.minecraft.util.DyeColor;
@@ -651,7 +652,11 @@ public class Messenger
 	}
 	public static void tell(PlayerEntity player, BaseText text, boolean broadcastToOps)
 	{
-		tell(player.getCommandSource(), text, broadcastToOps);
+		if (player instanceof ServerPlayerEntity)
+		{
+			ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;  // for mc1.21.2+, where getCommandSource requires being on the server-side
+			tell(serverPlayer.getCommandSource(), text, broadcastToOps);
+		}
 	}
 	public static void tell(ServerCommandSource source, BaseText text)
 	{

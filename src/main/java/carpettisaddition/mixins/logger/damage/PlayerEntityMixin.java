@@ -23,6 +23,7 @@ package carpettisaddition.mixins.logger.damage;
 import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -50,7 +51,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 					target = "Lnet/minecraft/entity/player/PlayerEntity;dropShoulderEntities()V"
 			)
 	)
-	private void onDamageStarted(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onDamageStarted(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount)
 	{
 		DamageLogger.create(this, source, amount);
 	}
@@ -69,7 +70,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 					ordinal = 0
 			)
 	)
-	private void onInvulnerableAbilityCancelledDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onInvulnerableAbilityCancelledDamage(CallbackInfoReturnable<Boolean> cir)
 	{
 		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(0.0F, ModifyReason.INVULNERABLE));
 	}
@@ -88,7 +89,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 					ordinal = 0
 			)
 	)
-	private void onDifficultyModifiedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onDifficultyModifiedDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 	{
 		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount, ModifyReason.DIFFICULTY));
 	}

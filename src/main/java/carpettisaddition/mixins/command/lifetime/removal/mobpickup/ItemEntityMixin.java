@@ -22,6 +22,7 @@ package carpettisaddition.mixins.command.lifetime.removal.mobpickup;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -44,10 +45,9 @@ public abstract class ItemEntityMixin
 					//#else
 					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
 					//#endif
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void lifetimeTracker_recordRemoval_mobPickup_playerPickupItem(PlayerEntity player, CallbackInfo ci, ItemStack itemStack, Item item, int i)
+	private void lifetimeTracker_recordRemoval_mobPickup_playerPickupItem(PlayerEntity player, CallbackInfo ci, @Local ItemStack itemStack, @Local int i)
 	{
 		int stackCount = itemStack.getCount();
 		itemStack.setCount(i);

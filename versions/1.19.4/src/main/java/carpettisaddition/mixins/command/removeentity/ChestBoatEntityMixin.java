@@ -25,12 +25,23 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.vehicle.ChestBoatEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+//#if MC >= 12102
+//$$ import net.minecraft.entity.vehicle.AbstractChestBoatEntity;
+//#else
+import net.minecraft.entity.vehicle.ChestBoatEntity;
+//#endif
+
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-@Mixin(ChestBoatEntity.class)
+@Mixin(
+		//#if MC >= 12102
+		//$$ AbstractChestBoatEntity.class
+		//#else
+		ChestBoatEntity.class
+		//#endif
+)
 public abstract class ChestBoatEntityMixin implements EntityToBeCleanlyRemoved
 {
 	private boolean toBeCleanlyRemoved$TISCM = false;

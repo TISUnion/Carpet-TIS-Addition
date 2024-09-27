@@ -54,7 +54,11 @@ public abstract class VehicleEntityMixin implements DamageableEntity
 			method = "damage",
 			at =@At(
 					value = "INVOKE",
+					//#if MC >= 12102
+					//$$ target = "Lnet/minecraft/entity/vehicle/VehicleEntity;killAndDropSelf(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;)V"
+					//#else
 					target = "Lnet/minecraft/entity/vehicle/VehicleEntity;killAndDropSelf(Lnet/minecraft/entity/damage/DamageSource;)V"
+					//#endif
 			),
 			argsOnly = true
 	)

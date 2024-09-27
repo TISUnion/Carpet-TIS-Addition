@@ -29,6 +29,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.EntitySelectorReader;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -54,18 +55,22 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		this.serverCommandSource = serverCommandSource;
 	}
 
-	public static EntityFilter create(Entity entity, String filterDescriptor) throws CommandSyntaxException
+	public static EntityFilter create(ServerPlayerEntity player, String filterDescriptor) throws CommandSyntaxException
 	{
-		ServerCommandSource source = entity.getCommandSource();
+		ServerCommandSource source = player.getCommandSource();
 		EntitySelectorReader reader = new EntitySelectorReader(new StringReader(filterDescriptor), source.hasPermissionLevel(2));
 		return new EntityFilter(source, reader.read());
 	}
 
-	public static Optional<EntityFilter> createOptional(Entity entity, String filterDescriptor)
+	public static Optional<EntityFilter> createOptional(PlayerEntity player, String filterDescriptor)
 	{
+		if (!(player instanceof ServerPlayerEntity))
+		{
+			return Optional.empty();
+		}
 		try
 		{
-			return Optional.of(create(entity, filterDescriptor));
+			return Optional.of(create((ServerPlayerEntity)player, filterDescriptor));
 		}
 		catch (CommandSyntaxException e)
 		{

@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.command.lifetime.deathdamage;
 
 import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.damage.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,7 +45,7 @@ public abstract class ExperienceOrbEntityMixin implements DamageableEntity
 					//#endif
 			)
 	)
-	private	void lifetimeTracker_recordDeathDamageSource_xpOrb(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private	void lifetimeTracker_recordDeathDamageSource_xpOrb(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source)
 	{
 		this.deathDamageSource = source;
 	}

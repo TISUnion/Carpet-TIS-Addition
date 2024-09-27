@@ -22,6 +22,7 @@ package carpettisaddition.mixins.command.lifetime.removal.mobpickup;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -47,7 +48,7 @@ public abstract class FoxEntityMixin extends Entity
 					target = "Lnet/minecraft/entity/passive/FoxEntity;sendPickup(Lnet/minecraft/entity/Entity;I)V"
 			)
 	)
-	private void lifetimeTracker_recordRemoval_mobPickup_foxPickupItem(ItemEntity item, CallbackInfo ci)
+	private void lifetimeTracker_recordRemoval_mobPickup_foxPickupItem(CallbackInfo ci, @Local(argsOnly = true) ItemEntity item)
 	{
 		((LifetimeTrackerTarget)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
 	}

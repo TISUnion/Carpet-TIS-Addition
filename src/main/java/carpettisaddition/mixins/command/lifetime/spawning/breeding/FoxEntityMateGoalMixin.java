@@ -34,8 +34,12 @@ public abstract class FoxEntityMateGoalMixin
 			method = "breed",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 11600
+					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
+					//#else
 					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
 					ordinal = 0
+					//#endif
 			)
 	)
 	private Entity lifetimeTracker_recordSpawning_breeding_foxMateGoal(Entity entity)

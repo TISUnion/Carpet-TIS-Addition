@@ -30,6 +30,7 @@ import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 public class LifeTimeStandardCarpetHUDLogger extends
 		//#if MC >= 11500
@@ -52,8 +53,8 @@ public class LifeTimeStandardCarpetHUDLogger extends
 	public void addPlayer(String playerName, String option)
 	{
 		super.addPlayer(playerName, option);
-		PlayerEntity player = this.playerFromName(playerName);
-		if (player != null)
+		ServerPlayerEntity player = this.playerFromName(playerName);
+		if (player instanceof ServerPlayerEntity)
 		{
 			if (!LifeTimeTrackerUtil.getEntityTypeFromName(option).isPresent())
 			{

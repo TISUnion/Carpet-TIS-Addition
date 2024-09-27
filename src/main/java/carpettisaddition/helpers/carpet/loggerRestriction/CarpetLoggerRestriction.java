@@ -21,10 +21,12 @@
 package carpettisaddition.helpers.carpet.loggerRestriction;
 
 import carpet.logging.Logger;
+import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
 
@@ -51,7 +53,14 @@ public class CarpetLoggerRestriction
 					translator.tr("permission_denied", logger.getLogName()),
 					translator.tr("rule_hint", ruleName)
 			);
-			if (CarpetModUtil.canUseCarpetCommand(player.getCommandSource()))
+			if (!(player instanceof ServerPlayerEntity))
+			{
+				CarpetTISAdditionMod.LOGGER.warn("subscriptionChecker receives a player {} that is not a ServerPlayerEntity", player);
+				return RestrictionCheckResult.ok();
+			}
+
+			ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;  // for mc1.21.2+, where getCommandSource requires being on the server-side
+			if (CarpetModUtil.canUseCarpetCommand(serverPlayer.getCommandSource()))
 			{
 				Messenger.click(
 						message,
@@ -59,7 +68,7 @@ public class CarpetLoggerRestriction
 				);
 			}
 			return RestrictionCheckResult.bool(
-					CarpetModUtil.canUseCommand(player.getCommandSource(), ruleValueProvider.get()),
+					CarpetModUtil.canUseCommand(serverPlayer.getCommandSource(), ruleValueProvider.get()),
 					message
 			);
 		});

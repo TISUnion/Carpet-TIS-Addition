@@ -23,6 +23,7 @@ package carpettisaddition.mixins.command.lifetime.removal.mobpickup;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.InventoryOwner;
@@ -45,7 +46,7 @@ public interface InventoryOwnerMixin
 					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 			)
 	)
-	private static void lifetimeTracker_recordRemoval_mobPickup_inventoryOwnerItem(MobEntity mobEntity, InventoryOwner inventoryOwner, ItemEntity itemEntity, CallbackInfo ci)
+	private static void lifetimeTracker_recordRemoval_mobPickup_inventoryOwnerItem(CallbackInfo ci, @Local(argsOnly = true) MobEntity mobEntity, @Local(argsOnly = true) ItemEntity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordRemoval(new MobPickupRemovalReason(mobEntity.getType()));
 	}

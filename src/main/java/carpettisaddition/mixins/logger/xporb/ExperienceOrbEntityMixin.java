@@ -21,24 +21,25 @@
 package carpettisaddition.mixins.logger.xporb;
 
 import carpettisaddition.logging.loggers.entity.XPOrbLogger;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.damage.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-
 @Mixin(ExperienceOrbEntity.class)
 public abstract class ExperienceOrbEntityMixin
 {
-	private boolean flagDied = false;
-	private boolean flagDespawned = false;
+	@Unique private boolean flagDied = false;
+	@Unique private boolean flagDespawned = false;
 
 	@Inject(method = "<init>(Lnet/minecraft/world/World;DDDI)V", at = @At("TAIL"))
-	private void onCreated(CallbackInfo ci)
+	private void xpOrbLogger_onCreated(CallbackInfo ci)
 	{
 		XPOrbLogger.getInstance().onEntityCreated((ExperienceOrbEntity)(Object)this);
 	}
@@ -60,7 +61,7 @@ public abstract class ExperienceOrbEntityMixin
 					//#endif
 			)
 	)
-	void onDespawned(CallbackInfo ci)
+	private void xpOrbLogger_onDespawned(CallbackInfo ci)
 	{
 		if (!this.flagDespawned)
 		{
@@ -80,7 +81,7 @@ public abstract class ExperienceOrbEntityMixin
 					//#endif
 			)
 	)
-	void onDied(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void xpOrbLogger_onDied(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount)
 	{
 		if (!this.flagDied)
 		{

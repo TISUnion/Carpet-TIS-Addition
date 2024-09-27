@@ -21,24 +21,25 @@
 package carpettisaddition.mixins.logger.item;
 
 import carpettisaddition.logging.loggers.entity.ItemLogger;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.damage.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin
 {
-	private boolean flagDied = false;
-	private boolean flagDespawned = false;
+	@Unique private boolean flagDied = false;
+	@Unique private boolean flagDespawned = false;
 
 	@Inject(method = "<init>(Lnet/minecraft/world/World;DDDLnet/minecraft/item/ItemStack;)V", at = @At("TAIL"))
-	private void onCreated(CallbackInfo ci)
+	private void itemLogger_onCreated(CallbackInfo ci)
 	{
 		ItemLogger.getInstance().onEntityCreated((ItemEntity)(Object)this);
 	}
@@ -60,7 +61,7 @@ public abstract class ItemEntityMixin
 					//#endif
 			)
 	)
-	void onDespawned(CallbackInfo ci)
+	private void itemLogger_onDespawned(CallbackInfo ci)
 	{
 		if (!this.flagDespawned)
 		{
@@ -80,7 +81,7 @@ public abstract class ItemEntityMixin
 					//#endif
 			)
 	)
-	void onDied(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void itemLogger_onDied(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount)
 	{
 		if (!this.flagDied)
 		{

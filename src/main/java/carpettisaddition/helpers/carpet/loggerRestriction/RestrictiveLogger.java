@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 public interface RestrictiveLogger
 {
-	void addSubscriptionRestriction(SubscriptionChecker subscriptionValidator);
+	void addSubscriptionRestriction(SubscriptionChecker subscriptionChecker);
 
 	RestrictionCheckResult canPlayerSubscribe(PlayerEntity player, @Nullable String option);
 }

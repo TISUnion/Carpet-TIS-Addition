@@ -24,6 +24,7 @@ import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.StatusEffectModifyReason;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
@@ -36,6 +37,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
+
+//#if MC >= 12102
+//$$ import net.minecraft.server.world.ServerWorld;
+//#endif
 
 // some same mixins
 public abstract class LivingEntityAndPlayerEntityMixins
@@ -50,7 +55,7 @@ public abstract class LivingEntityAndPlayerEntityMixins
 						target = "Ljava/lang/Math;max(FF)F"
 				)
 		)
-		private void onAbsorptionReducedDamage(DamageSource source, float amount, CallbackInfo ci)
+		private void onAbsorptionReducedDamage(CallbackInfo ci, @Local(argsOnly = true) float amount)
 		{
 			((DamageLoggerTarget) this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 					amount, new StatusEffectModifyReason(StatusEffects.ABSORPTION)
@@ -59,13 +64,23 @@ public abstract class LivingEntityAndPlayerEntityMixins
 
 		// at the end of damage calculation
 		@Inject(method = "applyDamage", at = @At("RETURN"))
-		private void onDamageApplyDone(DamageSource source, float amount, CallbackInfo ci)
+		private void onDamageApplyDone(
+				CallbackInfo ci, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount
+				//#if MC >= 12102
+				//$$ , @Local(argsOnly = true) ServerWorld serverWorld
+				//#endif
+		)
 		{
 			if (DamageLogger.isLoggerActivated())
 			{
 				LivingEntity entity = (LivingEntity) (Object) this;
 				Optional<DamageLogger.Tracker> logger = ((DamageLoggerTarget) this).getDamageTracker();
-				if (entity.isInvulnerableTo(source))
+				if (entity.isInvulnerableTo(
+						//#if MC >= 12102
+						//$$ serverWorld,
+						//#endif
+						source
+				))
 				{
 					amount = 0.0F;
 					logger.ifPresent(tracker -> tracker.modifyDamage(0.0F, ModifyReason.IMMUNE));
@@ -80,7 +95,7 @@ public abstract class LivingEntityAndPlayerEntityMixins
 	public static class DamageMixin
 	{
 		@Inject(method = "damage", at = @At(value = "RETURN"))
-		private void onDamageEnded(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+		private void onDamageEnded(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 		{
 			if (DamageLogger.isLoggerActivated())
 			{

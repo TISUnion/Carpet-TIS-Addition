@@ -26,6 +26,7 @@ import carpettisaddition.logging.loggers.damage.modifyreasons.ArmorModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.EnchantmentModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.StatusEffectModifyReason;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -95,7 +96,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 					target = "Lnet/minecraft/entity/LivingEntity;isSleeping()Z"
 			)
 	)
-	private void onDamageStarted(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onDamageStarted(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount)
 	{
 		DamageLogger.create((LivingEntity)(Object)this, source, amount);
 	}
@@ -107,7 +108,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 					args = "floatValue=0.75F"
 			)
 	)
-	private void onHelmetReducedAnvilDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onHelmetReducedAnvilDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 	{
 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount * 0.75F, ModifyReason.HELMET));
 	}
@@ -131,7 +132,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 					ordinal = 0
 			)
 	)
-	private void onShieldReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onShieldReducedDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 	{
 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount, ModifyReason.SHIELD));
 	}
@@ -148,7 +149,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 					ordinal = 0
 			)
 	)
-	private void onRecentHintReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
+	private void onRecentHintReducedDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 	{
 		final float last =
 				//#if MC >= 11500
