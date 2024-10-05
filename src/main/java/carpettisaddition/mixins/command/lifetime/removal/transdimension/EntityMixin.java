@@ -44,7 +44,9 @@ import net.minecraft.world.dimension.DimensionType;
 public abstract class EntityMixin
 {
 	@Inject(
-			//#if MC >= 12100
+			//#if MC >= 12102
+			//$$ method = "teleportCrossDimension",
+			//#elseif MC >= 12100
 			//$$ method = "teleportTo",
 			//#elseif MC >= 11600
 			//$$ method = "moveToWorld",
@@ -90,7 +92,9 @@ public abstract class EntityMixin
 
 			CallbackInfoReturnable<Entity> cir
 
-			//#if MC >= 12100
+			//#if MC >= 12102
+			//$$ , @Local(argsOnly = true) ServerWorld destination
+			//#elseif MC >= 12100
 			//$$ , @Local(ordinal = 1) ServerWorld destination
 			//#endif
 	)
