@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionServer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.thread.ThreadExecutor;
 import net.minecraft.world.World;
@@ -49,15 +50,23 @@ import net.minecraft.world.dimension.DimensionType;
 @SuppressWarnings("UnusedReturnValue")
 public class GameUtil
 {
-	public static long getGameTime()
+	public static World getOverworld(MinecraftServer server)
 	{
 		//#if MC >= 11600
-		//$$ World world = CarpetTISAdditionServer.minecraft_server.getWorld(World.OVERWORLD);
+		//$$ return server.getWorld(World.OVERWORLD);
 		//#else
-		World world = CarpetTISAdditionServer.minecraft_server.getWorld(DimensionType.OVERWORLD);
+		return server.getWorld(DimensionType.OVERWORLD);
 		//#endif
+	}
 
-		return Objects.requireNonNull(world).getTime();
+	public static World getOverworld()
+	{
+		return getOverworld(CarpetTISAdditionServer.minecraft_server);
+	}
+
+	public static long getGameTime()
+	{
+		return Objects.requireNonNull(getOverworld()).getTime();
 	}
 
 	public static boolean isOnServerThread()

@@ -637,6 +637,15 @@ public class Messenger
 
 	private static void __tell(ServerCommandSource source, BaseText text, boolean broadcastToOps)
 	{
+		if (GameUtil.getOverworld(source.getMinecraftServer()) == null)
+		{
+			// Broadcasting to OP requires accessing the SEND_COMMAND_FEEDBACK gamerule,
+			// and MinecraftServer#getGameRules requires the overworld to be loaded,
+			// otherwise a NPE will raise during the getGameRules() call
+			// Here's a simple bruteforce patch for that
+			broadcastToOps = false;
+		}
+
 		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
 		source.sendFeedback(
 				//#if MC >= 12000
