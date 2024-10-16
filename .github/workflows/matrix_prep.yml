@@ -16,12 +16,15 @@ on:
 
 jobs:
   matrix_prep:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
 
       - id: setmatrix
-        run: python3 .github/workflows/scripts/matrix.py  # ubuntu-22.04 uses Python 3.10.6
+        run: python .github/workflows/scripts/matrix.py
         env:
           TARGET_SUBPROJECT: ${{ inputs.target_subproject }}
 

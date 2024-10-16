@@ -118,25 +118,17 @@ jobs:
 
       - name: Read common properties
         id: properties_g
-        uses: christian-draeger/read-properties@1.1.1
+        uses: BrycensRanch/read-properties-action@v1
         with:
-          path: gradle.properties
-          properties: 'mod_name mod_version'
+          file: gradle.properties
+          all: true
 
       - name: Read version-specific properties
         id: properties_v
-        uses: christian-draeger/read-properties@1.1.1
+        uses: BrycensRanch/read-properties-action@v1
         with:
-          path: ${{ format('versions/{0}/gradle.properties', matrix.subproject) }}
-          properties: 'minecraft_version game_versions'
-
-      - name: Fix game version
-        id: game_versions
-        run: |
-          # Fixed \n in game_versions isn't parsed by christian-draeger/read-properties as a line separator
-          echo 'value<<EOF' >> $GITHUB_OUTPUT
-          echo -e "${{ steps.properties_v.outputs.game_versions }}" >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
+          file: ${{ format('versions/{0}/gradle.properties', matrix.subproject) }}
+          all: true
 
       - name: Prepare file information
         id: file_info
@@ -194,7 +186,7 @@ jobs:
           version-type: release
 
           loaders: fabric
-          game-versions: ${{ steps.game_versions.outputs.value }}
+          game-versions: ${{ steps.properties_v.outputs.game_versions }}
           game-version-filter: any
           dependencies: |-  # declare the dependencies explicitly, so mc-publish won't try to load from fabric.mod.json
             carpet(required)

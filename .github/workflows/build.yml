@@ -86,12 +86,15 @@ jobs:
           FALLENS_MAVEN_TOKEN: ${{ secrets.FALLENS_MAVEN_TOKEN }}
 
   summary:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs:
       - build
 
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4
@@ -100,6 +103,8 @@ jobs:
           path: build-artifacts
 
       - name: Make build summary
-        run: python3 .github/workflows/scripts/summary.py  # ubuntu-22.04 uses Python 3.10.6
+        run: |
+          pip install jproperties
+          python .github/workflows/scripts/summary.py
         env:
           TARGET_SUBPROJECT: ${{ inputs.target_subproject }}

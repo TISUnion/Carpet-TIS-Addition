@@ -10,13 +10,14 @@ import hashlib
 import json
 import os
 
+import jproperties
+
 
 def read_prop(file_name: str, key: str) -> str:
-	with open(file_name) as prop:
-		return next(filter(
-			lambda l: l.split('=', 1)[0].strip() == key,
-			prop.readlines()
-		)).split('=', 1)[1].lstrip()
+	configs = jproperties.Properties()
+	with open(file_name, 'rb') as f:
+		configs.load(f)
+	return configs[key].data
 
 
 def get_sha256_hash(file_path: str) -> str:
@@ -48,7 +49,7 @@ def main():
 				print('skipping {}'.format(subproject))
 				continue
 			game_versions = read_prop('versions/{}/gradle.properties'.format(subproject), 'game_versions')
-			game_versions = game_versions.strip().replace('\\n', ', ')
+			game_versions = game_versions.strip().replace('\r', '').replace('\n', ', ')
 			file_paths = glob.glob('build-artifacts/{}/build/libs/*.jar'.format(subproject))
 			file_paths = list(filter(lambda fp: not fp.endswith('-sources.jar') and not fp.endswith('-dev.jar') and not fp.endswith('-shadow.jar'), file_paths))
 			if len(file_paths) == 0:

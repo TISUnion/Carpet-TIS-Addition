@@ -104,7 +104,7 @@ loom {
 	}
 
 	runs {
-		def auditVmArgs = ['-Dcarpettisaddition.mixin_audit=true']
+		def auditVmArgs = [*commonVmArgs, '-Dcarpettisaddition.mixin_audit=true']
 		serverMixinAudit {
 			server()
 			vmArgs auditVmArgs
@@ -131,8 +131,6 @@ tasks.withType(ShadowJar).configureEach {
 }
 
 remapJar {
-	remapperIsolation = true
-
 	dependsOn(shadowJar)
 	mustRunAfter(shadowJar)
 	inputFile = shadowJar.archiveFile
