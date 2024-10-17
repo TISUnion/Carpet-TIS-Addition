@@ -42,7 +42,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// mods
-	if (project.carpet_core_version.startsWith('com.github.Fallen-Breath:fabric-carpet:')) {
+	if (project.carpet_core_version.matches('^com.github.[a-zA-Z0-9_-]+:fabric-carpet:[a-z0-9]+$')) {
 		modImplementation project.carpet_core_version  // jitpack
 	} else {
 		modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
