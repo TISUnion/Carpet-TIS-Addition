@@ -187,8 +187,16 @@ processResources {
 				"version": fullModVersion,
 				"carpet_dependency": project.carpet_dependency,
 				"minecraft_dependency": project.minecraft_dependency,
-				"lithium_confliction": project.getProperties().getOrDefault('lithium_confliction', '<0.0.0')
 		]
+
+		String lc = project.getProperties().getOrDefault('lithium_confliction', '<0.0.0')
+		if (lc.contains(',')) {
+			def arr = '[' + lc.split(',').collect { s -> '"' + s + '"'}.join(', ') + ']'
+			filter { s -> s.replace('"${lithium_confliction}"', arr) }
+		} else {
+			valueMap.put('lithium_confliction', lc)
+		}
+
 		expand valueMap
 	}
 
