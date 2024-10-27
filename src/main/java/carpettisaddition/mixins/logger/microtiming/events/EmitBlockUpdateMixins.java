@@ -230,10 +230,21 @@ public abstract class EmitBlockUpdateMixins
 				//#else
 				CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> collection,
 				//#endif
+				//#if MC >= 12102
+				//$$ @Local(argsOnly = true) BlockState state,
+				//#endif
 				@Local(argsOnly = true) World world, @Local(argsOnly = true) BlockPos pos
 		)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_START, "update", collection);
+			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(
+					world,
+					//#if MC >= 12102
+					//$$ state.getBlock(),
+					//#else
+					(RedstoneWireBlock)(Object)this,
+					//#endif
+					pos, EventType.ACTION_START, "update", collection
+			);
 		}
 
 		//#if MC >= 11600
@@ -248,12 +259,23 @@ public abstract class EmitBlockUpdateMixins
 		//$$ 		CallbackInfo ci,
 		//$$ 		@Local(argsOnly = true) World world,
 		//$$ 		@Local(argsOnly = true) BlockPos pos,
+		//$$ 		//#if MC >= 12102
+		//$$ 		//$$ @Local(argsOnly = true) BlockState state,
+		//$$ 		//#endif
 		//$$ 		@Local Iterator<BlockPos> iterator
 		//$$ )
 		//$$ {
 		//$$ 	if (!iterator.hasNext())
 		//$$ 	{
-		//$$ 		MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock) (Object) this, pos, EventType.ACTION_END, "update", null);
+		//$$ 		MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(
+		//$$ 				world,
+		//$$ 				//#if MC >= 12102
+		//$$ 				//$$ state.getBlock(),
+		//$$ 				//#else
+		//$$ 				(RedstoneWireBlock)(Object)this,
+		//$$ 				//#endif
+		//$$ 				pos, EventType.ACTION_END, "update", null
+		//$$ 		);
 		//$$ 	}
 		//$$ }
 		//#else
