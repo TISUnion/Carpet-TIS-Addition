@@ -36,7 +36,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(DispenserBlock.class)
 public abstract class DispenserBlockMixin
 {
-	@Inject(method = "getBehaviorForItem", at = @At("HEAD"), cancellable = true)
+	@Inject(
+			//#if MC >= 12006
+			//$$ method = "getBehaviorForItem(Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/block/dispenser/DispenserBehavior;",
+			//#else
+			method = "getBehaviorForItem(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/block/dispenser/DispenserBehavior;",
+			//#endif
+			at = @At("HEAD"),
+			cancellable = true
+	)
 	private void registerNewBehaviors_dispensersFireDragonBreath(CallbackInfoReturnable<DispenserBehavior> cir, @Local(argsOnly = true) ItemStack stack)
 	{
 		if (CarpetTISAdditionSettings.dispensersFireDragonBreath)
