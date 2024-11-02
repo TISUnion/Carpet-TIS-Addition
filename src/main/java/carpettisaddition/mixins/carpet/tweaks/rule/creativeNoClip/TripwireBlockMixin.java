@@ -27,6 +27,7 @@ import carpet.CarpetSettings;
 //#endif
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
+import carpettisaddition.utils.CollectionUtils;
 import net.minecraft.block.TripwireBlock;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,20 +42,21 @@ public abstract class TripwireBlockMixin
 	@ModifyVariable(
 			//#if MC >= 12102
 			//$$ method = "updatePowered(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Ljava/util/List;)V",
-			//$$ argsOnly = true,
+			//$$ at = @At("HEAD"),
+			//$$ argsOnly = true
 			//#else
 			method = "updatePowered",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/List;isEmpty()Z"
 			)
+			//#endif
 	)
 	private List<? extends Entity> dontDetectCreativeNoClipPlayers_tripwire(List<? extends Entity> entities)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
-			entities.removeIf(CreativeNoClipHelper::isNoClipPlayer);
+			entities = CollectionUtils.copyAndRemoveIf(entities, CreativeNoClipHelper::isNoClipPlayer);
 		}
 		return entities;
 	}

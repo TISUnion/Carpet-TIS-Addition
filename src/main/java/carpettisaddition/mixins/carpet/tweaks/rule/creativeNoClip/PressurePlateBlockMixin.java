@@ -27,6 +27,7 @@ import carpet.CarpetSettings;
 //#endif
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
+import carpettisaddition.utils.CollectionUtils;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -56,7 +57,7 @@ public abstract class PressurePlateBlockMixin
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
-			entities.removeIf(CreativeNoClipHelper::isNoClipPlayer);
+			entities = CollectionUtils.copyAndRemoveIf(entities, CreativeNoClipHelper::isNoClipPlayer);
 		}
 		return entities;
 	}
