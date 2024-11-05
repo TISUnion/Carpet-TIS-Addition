@@ -18,11 +18,11 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.natualSpawningUse13Heightmap;
+package carpettisaddition.mixins.rule.naturalSpawningUse13Heightmap;
 
 import carpet.utils.SpawnReporter;
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.natualSpawningUse13Heightmap.NatualSpawningUse13HeightmapHelper;
+import carpettisaddition.helpers.rule.naturalSpawningUse13Heightmap.NaturalSpawningUse13HeightmapHelper;
 import carpettisaddition.utils.Messenger;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.world.ServerWorld;
@@ -51,7 +51,7 @@ public abstract class SpawnReporterMixin
 					args = "stringValue=Spawns:"
 			)
 	)
-	private static void natualSpawningUse13Heightmap_reportTheNewHeightmapAsWell(
+	private static void naturalSpawningUse13Heightmap_reportTheNewHeightmapAsWell(
 			CallbackInfoReturnable<List<Text>> cir,
 			@Local(argsOnly = true)
 			//#if MC >= 11500
@@ -66,9 +66,9 @@ public abstract class SpawnReporterMixin
 			@Local Chunk chunk
 	)
 	{
-		if (CarpetTISAdditionSettings.natualSpawningUse13Heightmap)
+		if (CarpetTISAdditionSettings.naturalSpawningUse13Heightmap)
 		{
-			int lc = NatualSpawningUse13HeightmapHelper.sampleHeightmap(world, chunk, x, z) + 1;
+			int lc = NaturalSpawningUse13HeightmapHelper.sampleHeightmap(world, chunk, x, z) + 1;
 			String relativeHeight = (y == lc) ? "right at it." : String.format("%d blocks %s it.", MathHelper.abs(y - lc), (y >= lc) ? "above" : "below");
 			rep.add(Messenger.s(String.format("Maximum spawn Y value for (%+d, %+d) is %d. You are %s (13 ver)", x, z, lc, relativeHeight)));
 		}

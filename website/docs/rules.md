@@ -891,7 +891,7 @@ Make reinforced deepslate movable by pistons
 - Categories: `TIS`, `FEATURE`
 
 
-## natualSpawningUse13Heightmap
+## naturalSpawningUse13Heightmap
 
 Change the upper limit of the Y value during the initial coordinate selection in natural mob spawning, to the highest block that blocks light at that XZ position
 
@@ -899,7 +899,7 @@ Basically, this rule reverts the use of the heightmap during natural spawning ba
 
 Note: This will slightly increase lag during the natual spawning phase
 
-See also: rule [natualSpawningUse13HeightmapExtra](#natualspawninguse13heightmapextra)
+See also: rule [naturalSpawningUse13HeightmapExtra](#naturalSpawningUse13Heightmapextra)
 
 - Type: `boolean`
 - Default value: `false`
@@ -907,9 +907,9 @@ See also: rule [natualSpawningUse13HeightmapExtra](#natualspawninguse13heightmap
 - Categories: `TIS`, `FEATURE`, `PORTING`
 
 
-## natualSpawningUse13HeightmapExtra
+## naturalSpawningUse13HeightmapExtra
 
-Ignore piston block, slime block, honey block when calculating the modified heightmap in rule [natualSpawningUse13Heightmap](#natualspawninguse13heightmap)
+Ignore piston block, slime block, honey block when calculating the modified heightmap in rule [naturalSpawningUse13Heightmap](#naturalSpawningUse13Heightmap)
 
 It's designed to keep the behavior unchanged from pre-1.13, but might introduce some unintended usage abuse
 

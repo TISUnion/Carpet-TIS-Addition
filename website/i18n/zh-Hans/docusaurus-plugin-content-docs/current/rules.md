@@ -891,7 +891,7 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`
 
 
-## 自然刷怪使用1.13风格的高度图 (natualSpawningUse13Heightmap)
+## 自然刷怪使用1.13风格的高度图 (naturalSpawningUse13Heightmap)
 
 令自然刷怪中初始坐标选取时Y值上限变为该XZ最高的遮光方块
 
@@ -899,7 +899,7 @@ sidebar_position: 1
 
 注意：这将增加少许刷怪阶段的卡顿
 
-另见：规则 [natualSpawningUse13HeightmapExtra](#自然刷怪使用113风格的高度图-额外选项-natualspawninguse13heightmapextra)
+另见：规则 [naturalSpawningUse13HeightmapExtra](#自然刷怪使用113风格的高度图-额外选项-naturalSpawningUse13Heightmapextra)
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -907,9 +907,9 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`, `PORTING`
 
 
-## 自然刷怪使用1.13风格的高度图-额外选项 (natualSpawningUse13HeightmapExtra)
+## 自然刷怪使用1.13风格的高度图-额外选项 (naturalSpawningUse13HeightmapExtra)
 
-在计算规则 [natualSpawningUse13Heightmap](#自然刷怪使用113风格的高度图-natualspawninguse13heightmap) 中的修改版高度图时，忽略活塞、粘液块、蜂蜜块
+在计算规则 [naturalSpawningUse13Heightmap](#自然刷怪使用113风格的高度图-naturalSpawningUse13Heightmap) 中的修改版高度图时，忽略活塞、粘液块、蜂蜜块
 
 本规则的目的是确保与 1.13 前表现的一致性，但可能会导致一些非预期的机制滥用行为
 

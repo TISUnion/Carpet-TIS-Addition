@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.rule.natualSpawningUse13Heightmap;
+package carpettisaddition.helpers.rule.naturalSpawningUse13Heightmap;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.block.*;
@@ -30,7 +30,7 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
-public class NatualSpawningUse13HeightmapHelper
+public class NaturalSpawningUse13HeightmapHelper
 {
 	public static int sampleHeightmap(World world, Chunk chunk, int x, int z, int initY)
 	{
@@ -64,7 +64,7 @@ public class NatualSpawningUse13HeightmapHelper
 
 	private static boolean isSpecialIgnoredBlock(Block block)
 	{
-		if (CarpetTISAdditionSettings.natualSpawningUse13HeightmapExtra)
+		if (CarpetTISAdditionSettings.naturalSpawningUse13HeightmapExtra)
 		{
 			return
 					block instanceof PistonBlock || block instanceof PistonHeadBlock || block instanceof SlimeBlock

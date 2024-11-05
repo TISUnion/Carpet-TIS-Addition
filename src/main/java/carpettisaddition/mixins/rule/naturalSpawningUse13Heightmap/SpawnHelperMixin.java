@@ -18,10 +18,10 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.natualSpawningUse13Heightmap;
+package carpettisaddition.mixins.rule.naturalSpawningUse13Heightmap;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.helpers.rule.natualSpawningUse13Heightmap.NatualSpawningUse13HeightmapHelper;
+import carpettisaddition.helpers.rule.naturalSpawningUse13Heightmap.NaturalSpawningUse13HeightmapHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.SpawnHelper;
@@ -44,7 +44,7 @@ public abstract class SpawnHelperMixin
 					target = "Lnet/minecraft/world/chunk/WorldChunk;sampleHeightmap(Lnet/minecraft/world/Heightmap$Type;II)I"
 			)
 	)
-	private static int natualSpawningUse13Heightmap_useTheHighestNonOpaqueBlock(
+	private static int naturalSpawningUse13Heightmap_useTheHighestNonOpaqueBlock(
 			int y,
 			@Local(argsOnly = true) World world,
 			@Local(argsOnly = true) WorldChunk chunk,
@@ -52,9 +52,9 @@ public abstract class SpawnHelperMixin
 			@Local(ordinal = 1) int z
 	)
 	{
-		if (CarpetTISAdditionSettings.natualSpawningUse13Heightmap)
+		if (CarpetTISAdditionSettings.naturalSpawningUse13Heightmap)
 		{
-			return NatualSpawningUse13HeightmapHelper.sampleHeightmap(world, chunk, x, z, y);
+			return NaturalSpawningUse13HeightmapHelper.sampleHeightmap(world, chunk, x, z, y);
 		}
 		return y;
 	}
