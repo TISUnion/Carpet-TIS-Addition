@@ -24,7 +24,9 @@ import carpet.CarpetServer;
 import carpet.settings.SettingsManager;
 import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionMod;
+import carpettisaddition.settings.SettingsMigration;
 import carpettisaddition.utils.Messenger;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -89,5 +91,24 @@ public class SettingsManagerMixin
 						String.format("g %s", CarpetTISAdditionMod.getVersion())
 				)
 		);
+	}
+
+	@ModifyExpressionValue(
+			method = "readSettingsFromConf",
+			at = @At(
+					value = "INVOKE",
+					target = "Ljava/lang/String;split(Ljava/lang/String;I)[Ljava/lang/String;",
+					ordinal = 0,
+					remap = false
+			),
+			remap = false
+	)
+	private String[] applyTiscmSettingsMigration(String[] fields)
+	{
+		if (fields.length > 1)
+		{
+			SettingsMigration.migrate(fields);
+		}
+		return fields;
 	}
 }
