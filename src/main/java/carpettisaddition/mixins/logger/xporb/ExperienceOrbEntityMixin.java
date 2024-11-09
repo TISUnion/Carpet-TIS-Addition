@@ -71,7 +71,9 @@ public abstract class ExperienceOrbEntityMixin
 	}
 
 	@Inject(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700

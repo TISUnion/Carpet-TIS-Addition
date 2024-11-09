@@ -71,7 +71,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 
 	// at the start of player damage calculation
 	@Inject(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12104
@@ -88,7 +90,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 
 	//#if MC < 12104
 	@Inject(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			slice = @Slice(
 					from = @At(
 							//#if MC >= 11900
@@ -111,7 +115,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 	//#endif
 
 	@Inject(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",

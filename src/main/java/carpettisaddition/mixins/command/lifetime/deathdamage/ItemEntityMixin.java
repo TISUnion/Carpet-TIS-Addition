@@ -37,7 +37,9 @@ public abstract class ItemEntityMixin implements DamageableEntity
 	private DamageSource deathDamageSource;
 
 	@Inject(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700

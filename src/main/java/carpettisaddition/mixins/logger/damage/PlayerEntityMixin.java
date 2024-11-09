@@ -45,7 +45,9 @@ public abstract class PlayerEntityMixin extends LivingEntity
 
 	// at the start of player damage calculation
 	@Inject(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/player/PlayerEntity;dropShoulderEntities()V"
@@ -57,7 +59,9 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	}
 
 	@Inject(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
@@ -76,7 +80,9 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	}
 
 	@Inject(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",

@@ -94,7 +94,12 @@ public abstract class LivingEntityAndPlayerEntityMixins
 	@Mixin({LivingEntity.class, PlayerEntity.class, ServerPlayerEntity.class})
 	public static class DamageMixin
 	{
-		@Inject(method = "damage", at = @At(value = "RETURN"))
+		@Inject(
+				//#disable-remap
+				method = "damage",
+				//#enable-remap
+				at = @At(value = "RETURN")
+		)
 		private void onDamageEnded(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 		{
 			if (DamageLogger.isLoggerActivated())

@@ -37,7 +37,9 @@ public abstract class VehicleEntityMixin implements DamageableEntity
 	private DamageSource deathDamageSource;
 
 	@ModifyVariable(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			at =@At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/vehicle/VehicleEntity;discard()V"
@@ -51,7 +53,9 @@ public abstract class VehicleEntityMixin implements DamageableEntity
 	}
 
 	@ModifyVariable(
+			//#disable-remap
 			method = "damage",
+			//#enable-remap
 			at =@At(
 					value = "INVOKE",
 					//#if MC >= 12102
