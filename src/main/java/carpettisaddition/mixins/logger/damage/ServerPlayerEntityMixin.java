@@ -74,7 +74,11 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 			method = "damage",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 12104
+					//$$ target = "Lnet/minecraft/entity/damage/DamageSource;getAttacker()Lnet/minecraft/entity/Entity;"
+					//#else
 					target = "Lnet/minecraft/server/MinecraftServer;isDedicated()Z"
+					//#endif
 			)
 	)
 	private void onDamageStarted(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount)
@@ -82,12 +86,18 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 		DamageLogger.create(this, source, amount);
 	}
 
+	//#if MC < 12104
 	@Inject(
 			method = "damage",
 			slice = @Slice(
 					from = @At(
+							//#if MC >= 11900
+							//$$ value = "FIELD",
+							//$$ target = "Lnet/minecraft/registry/tag/DamageTypeTags;IS_FALL:Lnet/minecraft/registry/tag/TagKey;"
+							//#else
 							value = "CONSTANT",
 							args = "stringValue=fall"
+							//#endif
 					)
 			),
 			at = @At(value = "RETURN", ordinal = 0, shift = At.Shift.BEFORE) // before onDamageEnded in LivingEntityAndPlayerEntityMixins$DamageMixin
@@ -98,6 +108,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 				0.0F, ModifyReason.RESPAWN_PROTECTION
 		));
 	}
+	//#endif
 
 	@Inject(
 			method = "damage",
