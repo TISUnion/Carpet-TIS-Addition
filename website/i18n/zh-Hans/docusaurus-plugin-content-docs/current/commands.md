@@ -120,6 +120,44 @@ sidebar_position: 3
 
 操控世界
 
+### block
+
+操控世界中的方块
+
+`/manipulate block <x> <y> <z> [action]`
+
+#### execute
+
+`/manipulate block <x> <y> <z> execute [what]`
+
+令目标方块立即执行给定的游戏逻辑
+
+指令列表：
+
+令目标方块立即执行一次方块事件
+
+```
+/manipulate block <x> <y> <z> execute blockevent
+```
+
+令目标方块立即执行一次计划刻
+
+```
+/manipulate block <x> <y> <z> execute tiletick
+```
+
+令目标方块立即执行一次随机刻
+
+```
+/manipulate block <x> <y> <z> execute randomtick
+```
+
+令目标方块立即执行一次降雨刻（precipitation）
+
+```
+/manipulate block <x> <y> <z> execute precipitationtick
+```
+
 ### container
 
 `/manipulate container`

@@ -315,6 +315,12 @@ carpettisaddition:
           raining: 降雨
           thundering: 雷暴
     manipulate:
+      block:
+        execute:
+          block_event: 已对位于%2$s的%1$s执行了一次方块事件，type=%3$s data=%4$s
+          random_tick: 已对位于%2$s的%1$s执行了一次随机刻
+          tile_tick: 已对位于%2$s的%1$s执行了一次计划刻
+          precipitation_tick: 已对位于%2$s的%1$s执行了一次降雨刻
       container:
         help: 操控%1$s
         cannot_manipulate: '%1$s现在不能被操控，你可能需要在其他游戏阶段里执行这个指令'

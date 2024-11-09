@@ -120,6 +120,44 @@ Use `/lifetime filter` to display current activated filters
 
 Manipulate the world
 
+### block
+
+Manipulate block / blocks in the world
+
+`/manipulate block <x> <y> <z> [actions]`
+
+#### execute
+
+`/manipulate block <x> <y> <z> execute [what]`
+
+Execute a given game logic on the target block immediately
+
+Command lists:
+
+Execute a block event on the target block
+
+```
+/manipulate block <x> <y> <z> execute blockevent
+```
+
+Execute a tile tick on the target block
+
+```
+/manipulate block <x> <y> <z> execute tiletick
+```
+
+Execute a random tick on the target block
+
+```
+/manipulate block <x> <y> <z> execute randomtick
+```
+
+Execute a precipitation tick (rain tick) on the target block
+
+```
+/manipulate block <x> <y> <z> execute precipitationtick
+```
+
 ### container
 
 `/manipulate container`
