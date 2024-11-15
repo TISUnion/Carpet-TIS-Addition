@@ -6,13 +6,15 @@ plugins {
 
 	// https://github.com/ReplayMod/preprocessor
 	// https://github.com/Fallen-Breath/preprocessor
-	id 'com.replaymod.preprocess' version 'ce1aeb2b'
+	id 'com.replaymod.preprocess' version '8de9ff8bf3'
 
 	// https://github.com/Fallen-Breath/yamlang
 	id 'me.fallenbreath.yamlang' version '1.4.0' apply false
 }
 
 preprocess {
+	strictExtraMappings = false
+
 	def mc114  = createNode('1.14.4', 1_14_04, '')
 	def mc115  = createNode('1.15.2', 1_15_02, '')
 	def mc116  = createNode('1.16.5', 1_16_05, '')

@@ -7,10 +7,6 @@ apply plugin: 'me.fallenbreath.yamlang'
 
 int mcVersion = project.mcVersion
 
-preprocess {
-	tabIndentation = true
-}
-
 repositories {
 	maven {
 		url 'https://masa.dy.fi/maven'
