@@ -1541,7 +1541,7 @@ After enabling this rule:
 2. Regardless of whether players are on the vault blacklist, they can activate or open the vault
 
 - Type: `boolean`
-- Default value: `false `
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
@@ -1553,7 +1553,7 @@ Enable visualize projectile logger
 Try `/log projectiles visualize`
 
 - Type: `boolean`
-- Default value: `false `
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
@@ -1577,7 +1577,7 @@ Completely harmless void for players, yay!
 If the rule value is set to a comma-separated game mode list, then only players in these game modes are immutable to void damage
 
 - Type: `boolean`
-- Default value: `false `
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
@@ -1597,7 +1597,7 @@ Modify the related altitude between the bottom of the world and the void where e
 Disable the wither spawned sound emitted when a wither fully reset its health after summoned
 
 - Type: `boolean`
-- Default value: `false `
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
 
@@ -1621,7 +1621,7 @@ Change it to 0 to disable tracking
 Prevent players being kicked with message "Out-of-order chat packet received..." caused by whatever reason
 
 - Type: `boolean`
-- Default value: `false `
+- Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`
 
