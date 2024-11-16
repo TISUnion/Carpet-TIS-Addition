@@ -1558,6 +1558,22 @@ Try `/log projectiles visualize`
 - Categories: `TIS`, `CREATIVE`
 
 
+## violentNetherPortalCreation
+
+Allows nether portal creation to ignore blocks already inside the frame, directly forcefully open the nether portal
+
+`false`: Rule disabled. The vanilla behavior
+
+`replaceable`: Only allow ignoring replaceable blocks (e.g., fluids, grass)
+
+`all`: Allow ignoring any blocks except obsidian. Obsidian cannot be ignored due to how portal frame is calculated
+
+- Type: `enum`
+- Default value: `false`
+- Suggested options: `false`, `replaceable`, `all`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## voidDamageAmount
 
 Modify the amount of void damage

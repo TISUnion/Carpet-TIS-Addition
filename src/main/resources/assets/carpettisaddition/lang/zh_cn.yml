@@ -1293,6 +1293,13 @@ carpettisaddition:
           '0': 在本规则启用后：
           '1': 1. 玩家开启宝库后，玩家的UUID不会被添加到宝库黑名单中
           '2': 2. 无论玩家是否位于宝库黑名单中，玩家均可激活、开启宝库
+      violentNetherPortalCreation:
+        name: 大力地狱门创建
+        desc: 允许地狱门创建时无视门框内已存在的方块，直接强制开启地狱门
+        extra:
+          '0': false：关闭此规则，原版表现
+          '1': replaceable：仅允许无视那些可替换的方块（如流体、草）
+          '2': all：允许无视任何方块，除了黑曜石。黑曜石因涉及门框计算逻辑，不能被无视
       visualizeProjectileLoggerEnabled:
         name: 可视化投掷物记录器
         desc: 启用可视化投掷物记录器

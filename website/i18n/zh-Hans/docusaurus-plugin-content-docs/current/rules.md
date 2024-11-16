@@ -1558,6 +1558,22 @@ TISCM网络协议的开关
 - 分类: `TIS`, `CREATIVE`
 
 
+## 大力地狱门创建 (violentNetherPortalCreation)
+
+允许地狱门创建时无视门框内已存在的方块，直接强制开启地狱门
+
+`false`：关闭此规则，原版表现
+
+`replaceable`：仅允许无视那些可替换的方块（如流体、草）
+
+`all`：允许无视任何方块，除了黑曜石。黑曜石因涉及门框计算逻辑，不能被无视
+
+- 类型: `enum`
+- 默认值: `false`
+- 参考选项: `false`, `replaceable`, `all`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 虚空伤害数值 (voidDamageAmount)
 
 修改虚空伤害的数值

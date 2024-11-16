@@ -466,6 +466,7 @@
     "rule.updateSuppressionSimulator.PoweredRailBlockMixin",
     "rule.vaultBlacklistDisabled.VaultServerDataMixin",
     "rule.vaultBlacklistDisabled.VaultSharedDataMixin",
+    "rule.violentNetherPortalCreation.NetherPortalBlockAreaHelperMixin",
     "rule.voidDamageAmount.LivingEntityMixin",
     "rule.voidDamageIgnorePlayer.LivingEntityMixin",
     "rule.voidRelatedAltitude.AbstractDecorationEntityMixin",

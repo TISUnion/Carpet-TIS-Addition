@@ -805,6 +805,14 @@ public class CarpetTISAdditionSettings
 	//#endif
 
 	@Rule(categories = {TIS, CREATIVE})
+	public static ViolentNetherPortalCreationOptions violentNetherPortalCreation = ViolentNetherPortalCreationOptions.FALSE;
+
+	public enum ViolentNetherPortalCreationOptions
+	{
+		FALSE, REPLACEABLE, ALL
+	}
+
+	@Rule(categories = {TIS, CREATIVE})
 	public static boolean visualizeProjectileLoggerEnabled = false;
 
 	public static final double VANILLA_VOID_DAMAGE_AMOUNT = 4.0;

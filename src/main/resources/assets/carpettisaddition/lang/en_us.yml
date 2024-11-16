@@ -1293,6 +1293,13 @@ carpettisaddition:
           '0': 'After enabling this rule:'
           '1': 1. When players open the vault, their UUIDs will not be added to the vault blacklist
           '2': 2. Regardless of whether players are on the vault blacklist, they can activate or open the vault
+      violentNetherPortalCreation:
+        name: violentNetherPortalCreation
+        desc: Allows nether portal creation to ignore blocks already inside the frame, directly forcefully open the nether portal
+        extra:
+          '0': 'false: Rule disabled. The vanilla behavior'
+          '1': 'replaceable: Only allow ignoring replaceable blocks (e.g., fluids, grass)'
+          '2': 'all: Allow ignoring any blocks except obsidian. Obsidian cannot be ignored due to how portal frame is calculated'
       visualizeProjectileLoggerEnabled:
         name: visualizeProjectileLoggerEnabled
         desc: Enable visualize projectile logger
