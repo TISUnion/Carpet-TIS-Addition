@@ -21,6 +21,7 @@
 package carpettisaddition.settings;
 
 import carpettisaddition.settings.validator.AbstractValidator;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -38,4 +39,7 @@ public @interface Rule
 	boolean strict() default true;
 
 	Class<? extends AbstractValidator>[] validators() default {};
+
+	// Any of these restrictions satisfied means rule enabled
+	Restriction[] restrictions() default {};
 }

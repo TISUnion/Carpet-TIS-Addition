@@ -643,6 +643,9 @@ carpettisaddition:
     logger_rule_switch:
       permission_denied: Permission denied, you cannot subscribe logger %1$s
       rule_hint: See rule %1$s for more details
+    rule_disabling:
+      unmatched_minecraft: Disabled by unmatched MC version
+      unsatisfied_restriction: Disabled by unsatisfied mod restrictions
 
   # ------------------------------------------------------
   #   Translations below will be passed to fabric carpet

@@ -643,6 +643,9 @@ carpettisaddition:
     logger_rule_switch:
       permission_denied: 权限不足，无法订阅记录器%1$s
       rule_hint: 见规则%1$s以获得更多信息
+    rule_disabling:
+      unmatched_minecraft: 因 Minecraft 版本不匹配而禁用
+      unsatisfied_restriction: 因模组约束条件为满足而禁用
 
   # ------------------------------------------------------
   #   Translations below will be passed to fabric carpet

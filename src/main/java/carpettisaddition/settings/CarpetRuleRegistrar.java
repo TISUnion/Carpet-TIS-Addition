@@ -29,6 +29,7 @@ import carpettisaddition.network.TISCMProtocolRuleListener;
 import carpettisaddition.settings.validator.AbstractValidator;
 import carpettisaddition.translations.TranslationConstants;
 import com.google.common.collect.Lists;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
@@ -46,8 +47,10 @@ import java.lang.annotation.Annotation;
 
 public class CarpetRuleRegistrar
 {
+	private static boolean hasRegistered = false;
+
 	private final SettingsManager settingsManager;
-	private final List<ParsedRule<?>> rules = Lists.newArrayList();
+	private final List<TISCMRule> rules = Lists.newArrayList();
 
 	private CarpetRuleRegistrar(SettingsManager settingsManager)
 	{
@@ -56,9 +59,16 @@ public class CarpetRuleRegistrar
 
 	public static void register(SettingsManager settingsManager, Class<?> settingsClass)
 	{
+		if (hasRegistered)
+		{
+			throw new IllegalStateException("Already registered");
+		}
+
 		CarpetRuleRegistrar registrar = new CarpetRuleRegistrar(settingsManager);
 		registrar.parseSettingsClass(settingsClass);
 		registrar.registerToCarpet();
+		TISCMRules.store(registrar.rules);
+		hasRegistered = true;
 	}
 
 	public void parseSettingsClass(Class<?> settingsClass)
@@ -90,19 +100,18 @@ public class CarpetRuleRegistrar
 		Class<? extends AbstractValidator>[] validators = extractValidators(rule);
 
 		//#if MC >= 11901
+		//$$ CarpetRule<?> carpetRule = null;
 		//$$ try
 		//$$ {
 		//$$ 	Class<?> ruleAnnotationClass = Class.forName("carpet.settings.ParsedRule$RuleAnnotation");
 		//$$ 	Constructor<?> ctr1 = ruleAnnotationClass.getDeclaredConstructors()[0];
 		//$$ 	ctr1.setAccessible(true);
 		//$$ 	Object ruleAnnotation = ctr1.newInstance(false, null, null, null, rule.categories(), rule.options(), rule.strict(), "", validators);
-  //$$
+		//$$
 		//$$ 	Class<?> parsedRuleClass = Class.forName("carpet.settings.ParsedRule");
 		//$$ 	Constructor<?> ctr2 = parsedRuleClass.getDeclaredConstructors()[0];
 		//$$ 	ctr2.setAccessible(true);
-		//$$ 	Object carpetRule = ctr2.newInstance(field, ruleAnnotation, this.settingsManager);
-  //$$
-		//$$ 	this.rules.add((CarpetRule<?>)carpetRule);
+		//$$ 	carpetRule = (CarpetRule<?>)ctr2.newInstance(field, ruleAnnotation, this.settingsManager);
 		//$$ }
 		//$$ catch (Exception e)
 		//$$ {
@@ -159,32 +168,33 @@ public class CarpetRuleRegistrar
 			//#endif
 		};
 
-		ParsedRule<?> parsedRule = ParsedRuleAccessor.invokeConstructor(
+		ParsedRule<?> carpetRule = ParsedRuleAccessor.invokeConstructor(
 				field, cmRule
 				//#if MC >= 11600
 				//$$ , this.settingsManager
 				//#else
 				//#endif
 		);
-		this.rules.add(parsedRule);
 		//#endif
+
+		this.rules.add(new TISCMRule(rule, field, carpetRule));
 	}
 
 	public void registerToCarpet()
 	{
-		for (ParsedRule<?> rule : this.rules)
+		for (TISCMRule rule : this.rules)
 		{
 			//#if MC >= 11901
 			//$$ try
 			//$$ {
-			//$$ 	this.settingsManager.addCarpetRule(rule);
+			//$$ 	this.settingsManager.addCarpetRule(rule.getCarpetRule());
 			//$$ }
 			//$$ catch (UnsupportedOperationException e)
 			//$$ {
-			//$$ 	CarpetTISAdditionServer.LOGGER.warn("[TISCM] Failed to register rule {} to fabric carpet: {}", rule.name(), e);
+			//$$ 	CarpetTISAdditionServer.LOGGER.warn("[TISCM] Failed to register rule {} to fabric carpet: {}", rule.getName(), e);
 			//$$ }
 			//#else
-			Object existingRule = ((SettingsManagerAccessor)this.settingsManager).getRules$TISCM().put(rule.name, rule);
+			Object existingRule = ((SettingsManagerAccessor)this.settingsManager).getRules$TISCM().put(rule.getName(), rule.getCarpetRule());
 			if (existingRule != null)
 			{
 				CarpetTISAdditionServer.LOGGER.warn("[TISCM] Overwriting existing rule {}", existingRule);
