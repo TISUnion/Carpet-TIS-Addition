@@ -1029,6 +1029,11 @@ carpettisaddition:
         desc: 在计算规则naturalSpawningUse13Heightmap中的修改版高度图时，忽略活塞、粘液块、蜂蜜块
         extra:
           '0': 本规则的目的是确保与1.13前表现的一致性，但可能会导致一些非预期的机制滥用行为
+      netherPortalMaxSize:
+        name: 地狱门最大尺寸
+        desc: 修改地狱门的最大尺寸限制
+        extra:
+          '0': 如果将其设置为了一个较大值，请小心使用
       oakBalloonPercent:
         name: 橡树长成鸡腿树百分率
         desc: 橡树树苗长成鸡腿树（fancy_oak）的概率，使用百分率作为值

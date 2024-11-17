@@ -1029,6 +1029,11 @@ carpettisaddition:
         desc: Ignore piston block, slime block, honey block when calculating the modified heightmap in rule naturalSpawningUse13Heightmap
         extra:
           '0': It's designed to keep the behavior unchanged from pre-1.13, but might introduce some unintended usage abuse
+      netherPortalMaxSize:
+        name: netherPortalMaxSize
+        desc: Modify the maximum size limit of the nether portal
+        extra:
+          '0': Use with caution If you set it to a large value
       oakBalloonPercent:
         name: oakBalloonPercent
         desc: The chance for oak sapling top grow into a balloon oak (fancy_oak) in percent

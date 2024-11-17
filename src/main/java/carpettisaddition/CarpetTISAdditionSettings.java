@@ -497,6 +497,22 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, FEATURE, PORTING})
 	public static boolean naturalSpawningUse13HeightmapExtra = false;
 
+	public static final int VANILLA_NETHER_PORTAL_MAX_SIZE = 21;
+	@Rule(
+			categories = {TIS, CREATIVE},
+			validators = ValidateNetherPortalMaxSize.class,
+			options = {"21", "64", "128", "384"},
+			strict = false
+	)
+	public static int netherPortalMaxSize = VANILLA_NETHER_PORTAL_MAX_SIZE;
+	private static class ValidateNetherPortalMaxSize extends RangedNumberValidator<Integer>
+	{
+		public ValidateNetherPortalMaxSize()
+		{
+			super(2, 384);
+		}
+	}
+
 	@Rule(
 			categories = {TIS, CREATIVE},
 			validators = OptionalPercentValidator.class,

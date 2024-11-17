@@ -385,6 +385,7 @@
     "rule.moveableReinforcedDeepslate.PistonBlockMixin",
     "rule.naturalSpawningUse13Heightmap.SpawnHelperMixin",
     "rule.naturalSpawningUse13Heightmap.SpawnReporterMixin",
+    "rule.netherPortalMaxSize.NetherPortalBlockAreaHelperMixin",
     "rule.oakBalloonPercent.OakSaplingGeneratorMixin",
     "rule.oakBalloonPercent.SaplingGeneratorMixin",
     "rule.observerNoDetection.ObserverBlockMixin",

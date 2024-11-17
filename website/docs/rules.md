@@ -919,6 +919,18 @@ It's designed to keep the behavior unchanged from pre-1.13, but might introduce 
 - Categories: `TIS`, `FEATURE`, `PORTING`
 
 
+## netherPortalMaxSize
+
+Modify the maximum size limit of the nether portal
+
+Use with caution If you set it to a large value
+
+- Type: `int`
+- Default value: `21`
+- Suggested options: `21`, `64`, `128`, `384`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## oakBalloonPercent
 
 The chance for oak sapling top grow into a balloon oak (fancy_oak) in percent

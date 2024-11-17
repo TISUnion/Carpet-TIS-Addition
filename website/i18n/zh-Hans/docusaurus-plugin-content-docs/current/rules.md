@@ -919,6 +919,18 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`, `PORTING`
 
 
+## 地狱门最大尺寸 (netherPortalMaxSize)
+
+修改地狱门的最大尺寸限制
+
+如果将其设置为了一个较大值，请小心使用
+
+- 类型: `int`
+- 默认值: `21`
+- 参考选项: `21`, `64`, `128`, `384`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 橡树长成鸡腿树百分率 (oakBalloonPercent)
 
 橡树树苗长成鸡腿树（fancy_oak）的概率，使用百分率作为值
