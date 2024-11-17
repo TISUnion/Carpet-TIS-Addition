@@ -1300,6 +1300,7 @@ carpettisaddition:
           '0': false：关闭此规则，原版表现
           '1': replaceable：仅允许无视那些可替换的方块（如流体、草）
           '2': all：允许无视任何方块，除了黑曜石。黑曜石因涉及门框计算逻辑，不能被无视
+          '3': '注意: 强制开门过程中的方块替换不会造成方块更新，与原版的表现一致'
       visualizeProjectileLoggerEnabled:
         name: 可视化投掷物记录器
         desc: 启用可视化投掷物记录器

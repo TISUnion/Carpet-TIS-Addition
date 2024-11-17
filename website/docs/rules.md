@@ -1568,6 +1568,8 @@ Allows nether portal creation to ignore blocks already inside the frame, directl
 
 `all`: Allow ignoring any blocks except obsidian. Obsidian cannot be ignored due to how portal frame is calculated
 
+The forceful block replacements will cause no block updates, just like what vanilla does
+
 - Type: `enum`
 - Default value: `false`
 - Suggested options: `false`, `replaceable`, `all`
