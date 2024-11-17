@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 public class UpdateSuppressionExceptions
 {
 	@Nullable
-	public static UpdateSuppressionException createWrapper(Throwable cause, World world, BlockPos pos)
+	public static UpdateSuppressionException createWrapper(Throwable cause, @Nullable World world, BlockPos pos)
 	{
 		if (cause instanceof StackOverflowError)
 		{
@@ -62,7 +62,7 @@ public class UpdateSuppressionExceptions
 	{
 		private final UpdateSuppressionContext context;
 
-		public StackOverflowSuppression(Throwable cause, World world, BlockPos pos)
+		public StackOverflowSuppression(Throwable cause, @Nullable World world, BlockPos pos)
 		{
 			this.context = new UpdateSuppressionContext(cause, world, pos);
 		}
@@ -84,7 +84,7 @@ public class UpdateSuppressionExceptions
 	{
 		private final UpdateSuppressionContext context;
 
-		public ClassCastSuppression(Throwable cause, World world, BlockPos pos)
+		public ClassCastSuppression(Throwable cause, @Nullable World world, BlockPos pos)
 		{
 			this.context = new UpdateSuppressionContext(cause, world, pos);
 		}
@@ -106,7 +106,7 @@ public class UpdateSuppressionExceptions
 	{
 		private final UpdateSuppressionContext context;
 
-		public OutOfMemorySuppression(Throwable cause, World world, BlockPos pos)
+		public OutOfMemorySuppression(Throwable cause, @Nullable World world, BlockPos pos)
 		{
 			this.context = new UpdateSuppressionContext(cause, world, pos);
 		}
@@ -128,7 +128,7 @@ public class UpdateSuppressionExceptions
 	{
 		private final UpdateSuppressionContext context;
 
-		public IllegalArgumentSuppression(Throwable cause, World world, BlockPos pos)
+		public IllegalArgumentSuppression(Throwable cause, @Nullable World world, BlockPos pos)
 		{
 			this.context = new UpdateSuppressionContext(cause, world, pos);
 		}

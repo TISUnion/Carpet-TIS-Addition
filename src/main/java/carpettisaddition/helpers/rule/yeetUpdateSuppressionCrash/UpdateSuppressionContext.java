@@ -33,6 +33,7 @@ import net.minecraft.text.ClickEvent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -42,16 +43,16 @@ public class UpdateSuppressionContext
 	private final Supplier<BaseText> textHolder;
 	private final Throwable cause;
 
-	public UpdateSuppressionContext(Throwable cause, World world, BlockPos pos)
+	public UpdateSuppressionContext(Throwable cause, @Nullable World world, BlockPos pos)
 	{
 		this.cause = cause;
-		DimensionWrapper dimension = DimensionWrapper.of(world);
-		TickPhase tickPhase = MicroTimingAccess.getTickPhase(world);
+		DimensionWrapper dimension = world != null ? DimensionWrapper.of(world) : null;
+		TickPhase tickPhase = world != null ? MicroTimingAccess.getTickPhase(world) : MicroTimingAccess.getTickPhase();
 		this.textHolder = Suppliers.memoize(() -> {
 			String hover = cause.getClass().getSimpleName() + ": " + cause.getMessage();
 			return Messenger.fancy(
 					tr.tr("exception_detail",
-							Messenger.coord(pos, dimension),
+							dimension != null ? Messenger.coord(pos, dimension) : Messenger.coord(pos),
 							tickPhase.toText()
 					),
 					Messenger.s(hover),

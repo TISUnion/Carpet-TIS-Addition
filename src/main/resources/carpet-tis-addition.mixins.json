@@ -479,6 +479,7 @@
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
     "rule.yeetOutOfOrderChatKick.MessageVerifierImplMixin",
     "rule.yeetOutOfOrderChatKick.ServerPlayNetworkHandlerMixin",
+    "rule.yeetUpdateSuppressionCrash.mark.BlockStateMixin",
     "rule.yeetUpdateSuppressionCrash.mark.CalibratedSculkSensorBlockEntityCallBackMixin",
     "rule.yeetUpdateSuppressionCrash.mark.ChainRestrictedNeighborUpdaterSixWayEntryMixin",
     "rule.yeetUpdateSuppressionCrash.mark.NeighborUpdaterMixin",
