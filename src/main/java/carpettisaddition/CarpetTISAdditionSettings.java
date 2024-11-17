@@ -32,7 +32,10 @@ import carpettisaddition.settings.Rule;
 import carpettisaddition.settings.validator.*;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
+import carpettisaddition.utils.ModIds;
 import com.google.common.collect.Maps;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.text.BaseText;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -516,7 +519,10 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, OPTIMIZATION, EXPERIMENTAL})
 	public static boolean optimizedFastEntityMovement = false;
 
-	@Rule(categories = {TIS, OPTIMIZATION, EXPERIMENTAL})
+	@Rule(
+			categories = {TIS, OPTIMIZATION, EXPERIMENTAL},
+			restrictions = @Restriction(conflict = @Condition(ModIds.async))  // https://github.com/TISUnion/Carpet-TIS-Addition/issues/182
+	)
 	public static boolean optimizedHardHitBoxEntityCollision = false;
 
 	@Rule(categories = {TIS, OPTIMIZATION, EXPERIMENTAL})

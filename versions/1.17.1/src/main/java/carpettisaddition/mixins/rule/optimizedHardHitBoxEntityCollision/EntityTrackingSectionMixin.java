@@ -52,7 +52,10 @@ import java.util.function.Predicate;
 /**
  * See {@link WorldChunkMixin} for impl for mc < 1.17
  */
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
+@Restriction(
+		require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"),
+		conflict = @Condition(ModIds.async)
+)
 @Mixin(EntityTrackingSection.class)
 public abstract class EntityTrackingSectionMixin<
 		T

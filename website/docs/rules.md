@@ -995,6 +995,8 @@ Enable it before loading the chunk to make it work. ~20% performance boost in po
 
 Might not work with other mods that add new entities
 
+Known conflicted mods: [async](https://modrinth.com/mod/async)
+
 - Type: `boolean`
 - Default value: `true`
 - Suggested options: `false`, `true`

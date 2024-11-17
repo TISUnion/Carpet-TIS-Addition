@@ -1064,6 +1064,7 @@ carpettisaddition:
           '1': 它能在实体移动并搜索路径上的带有硬碰撞箱的实体时减少大量无用的运算，因为世界里船和潜影贝的数量总是少数
           '2': 在加载区块前开启它以使其工作，在地狱门刷怪塔中有~20%的性能提升
           '3': 与添加了新实体的 mod 可能不兼容
+          '4': '已知不兼容的 mod: async'
       optimizedTNTHighPriority:
         name: TNT优化高优先级
         desc: 用带有更高优先级的Mixin注入来实现carpet规则optimizedTNT

@@ -23,6 +23,9 @@ package carpettisaddition.mixins.rule.optimizedHardHitBoxEntityCollision;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.mixin.IWorldOverrides;
 import carpettisaddition.helpers.rule.optimizedHardHitBoxEntityCollision.OptimizedHardHitBoxEntityCollisionHelper;
+import carpettisaddition.utils.ModIds;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@SuppressWarnings("UnresolvedMixinReference")
+@Restriction(conflict = @Condition(ModIds.async))
 @Mixin(IWorldOverrides.class)
 public abstract class IWorldOverridesMixin
 {

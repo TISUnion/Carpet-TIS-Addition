@@ -1064,6 +1064,7 @@ carpettisaddition:
           '1': It reduces quite a lot of unnecessary iterating when an entity is moving and trying to search entities with hard hit box on the way,since the world is always not filled with boats and shulkers
           '2': Enable it before loading the chunk to make it work. ~20% performance boost in portal mob farms
           '3': Might not work with other mods that add new entities
+          '4': 'Known conflicted mods: async'
       optimizedTNTHighPriority:
         name: optimizedTNTHighPriority
         desc: Use a Mixin injection with higher priority for carpet rule optimizedTNT

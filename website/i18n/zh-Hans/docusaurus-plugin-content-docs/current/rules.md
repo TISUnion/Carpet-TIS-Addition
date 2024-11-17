@@ -995,6 +995,8 @@ sidebar_position: 1
 
 与添加了新实体的 mod 可能不兼容
 
+已知不兼容的 mod: [async](https://modrinth.com/mod/async)
+
 - 类型: `boolean`
 - 默认值: `true`
 - 参考选项: `false`, `true`
