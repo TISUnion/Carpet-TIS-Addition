@@ -1,0 +1,10 @@
+me.jellysquid.mods.lithium.api.inventory.LithiumInventory net.caffeinemc.mods.lithium.api.inventory.LithiumInventory
+me.jellysquid.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeEmitter net.caffeinemc.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeEmitter
+me.jellysquid.mods.lithium.common.config.LithiumConfig net.caffeinemc.mods.lithium.common.config.LithiumConfig
+me.jellysquid.mods.lithium.common.config.Option net.caffeinemc.mods.lithium.common.config.Option
+me.jellysquid.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper net.caffeinemc.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper
+me.jellysquid.mods.lithium.common.hopper.HopperHelper net.caffeinemc.mods.lithium.common.hopper.HopperHelper
+me.jellysquid.mods.lithium.common.util.collections.LazyList net.caffeinemc.mods.lithium.common.util.collections.LazyList
+me.jellysquid.mods.lithium.common.world.WorldHelper net.caffeinemc.mods.lithium.common.world.WorldHelper
+me.jellysquid.mods.lithium.common.world.WorldHelper net.caffeinemc.mods.lithium.common.world.WorldHelper
+me.jellysquid.mods.lithium.common.world.blockentity.BlockEntityGetter net.caffeinemc.mods.lithium.common.world.blockentity.BlockEntityGetter

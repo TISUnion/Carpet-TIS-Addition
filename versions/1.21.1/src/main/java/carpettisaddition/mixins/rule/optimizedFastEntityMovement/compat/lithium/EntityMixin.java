@@ -31,8 +31,8 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import me.jellysquid.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper;
-import me.jellysquid.mods.lithium.common.util.collections.LazyList;
+import net.caffeinemc.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper;
+import net.caffeinemc.mods.lithium.common.util.collections.LazyList;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -69,7 +69,7 @@ public abstract class EntityMixin
 			method = "lithium$CollideMovement",
 			at = @At(
 					value = "NEW",
-					target = "(Ljava/util/ArrayList;Ljava/util/Iterator;)Lme/jellysquid/mods/lithium/common/util/collections/LazyList;",
+					target = "(Ljava/util/ArrayList;Ljava/util/Iterator;)Lnet/caffeinemc/mods/lithium/common/util/collections/LazyList;",
 					remap = false
 			),
 			remap = false
