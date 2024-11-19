@@ -20,8 +20,8 @@
 
 package carpettisaddition;
 
-import carpet.settings.ParsedRule;
 import carpettisaddition.commands.xcounter.HopperXpCountersRuleListener;
+import carpettisaddition.helpers.rule.fakePlayerNameExtra.FakePlayerNameExtraValidator;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.helpers.rule.updateSuppressionSimulator.UpdateSuppressionSimulator;
 import carpettisaddition.helpers.rule.voidDamageIgnorePlayer.VoidDamageIgnorePlayerValidator;
@@ -34,17 +34,10 @@ import carpettisaddition.settings.validator.*;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
 import carpettisaddition.utils.ModIds;
-import com.google.common.collect.Maps;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.text.BaseText;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.regex.Pattern;
 
 import static carpet.settings.RuleCategory.*;
 
@@ -228,7 +221,7 @@ public class CarpetTISAdditionSettings
 	public static final String fakePlayerNameNoExtra = "#none";
 	@Rule(
 			options = {fakePlayerNameNoExtra, "bot_"},
-			validators = ValidateFakePlayerNameExtra.class,
+			validators = FakePlayerNameExtraValidator.class,
 			strict = false,
 			categories = {TIS, CARPET_MOD}
 	)
@@ -236,41 +229,11 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			options = {fakePlayerNameNoExtra, "_fake"},
-			validators = ValidateFakePlayerNameExtra.class,
+			validators = FakePlayerNameExtraValidator.class,
 			strict = false,
 			categories = {TIS, CARPET_MOD}
 	)
 	public static String fakePlayerNameSuffix = fakePlayerNameNoExtra;
-
-	private static class ValidateFakePlayerNameExtra extends AbstractCheckerValidator<String>
-	{
-		private final Map<ParsedRule<?>, String> lastDangerousInput = Maps.newHashMap();
-
-		@Override
-		protected boolean validateContext(ValidationContext<String> ctx)
-		{
-			if (!ctx.inputValue.equals(fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", ctx.inputValue) && ctx.source != null)
-			{
-				Consumer<BaseText> messenger = msg -> Messenger.tell(ctx.source, Messenger.s(msg.getString(), "r"));
-				messenger.accept(tr("fake_player_name_extra.warn.found", ctx.inputValue, ctx.ruleName()));
-				if (!Objects.equals(this.lastDangerousInput.get(ctx.rule), ctx.inputValue))
-				{
-					messenger.accept(tr("fake_player_name_extra.warn.blocked"));
-					this.lastDangerousInput.put(ctx.rule, ctx.inputValue);
-					return false;
-				}
-				messenger.accept(tr("fake_player_name_extra.warn.applied"));
-			}
-			this.lastDangerousInput.remove(ctx.rule);
-			return true;
-		}
-
-		@Override
-		public BaseText errorMessage(ValidationContext<String> ctx)
-		{
-			return tr("fake_player_name_extra.message");
-		}
-	}
 
 	@Rule(categories = {TIS, CARPET_MOD})
 	public static boolean fakePlayerTicksLikeRealPlayer = false;

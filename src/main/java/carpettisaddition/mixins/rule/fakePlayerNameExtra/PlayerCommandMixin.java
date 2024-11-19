@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.fakePlayerName;
+package carpettisaddition.mixins.rule.fakePlayerNameExtra;
 
 import carpet.commands.PlayerCommand;
 import carpettisaddition.CarpetTISAdditionSettings;

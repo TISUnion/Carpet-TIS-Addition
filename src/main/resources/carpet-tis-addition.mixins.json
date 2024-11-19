@@ -341,7 +341,7 @@
     "rule.explosionNoEntityInfluence.OptimizedExplosionMixin",
     "rule.explosionPacketRange.ServerWorldMixin",
     "rule.failSoftBlockStateParsing.BlockArgumentParserMixin",
-    "rule.fakePlayerName.PlayerCommandMixin",
+    "rule.fakePlayerNameExtra.PlayerCommandMixin",
     "rule.fakePlayerRemoteSpawning.PlayerCommandMixin",
     "rule.fakePlayerTicksLikeRealPlayer.EntityPlayerActionPackMixin",
     "rule.fakePlayerTicksLikeRealPlayer.EntityPlayerMPFakeMixin",
