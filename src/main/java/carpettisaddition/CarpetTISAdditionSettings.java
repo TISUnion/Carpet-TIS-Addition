@@ -27,11 +27,10 @@ import carpettisaddition.helpers.rule.updateSuppressionSimulator.UpdateSuppressi
 import carpettisaddition.helpers.rule.voidDamageIgnorePlayer.VoidDamageIgnorePlayerValidator;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.enums.TickDivision;
-import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
+import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingDyeMarkerRuleValidator;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingRuleListener;
 import carpettisaddition.settings.Rule;
 import carpettisaddition.settings.validator.*;
-import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.MixinUtil;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
@@ -400,28 +399,10 @@ public class CarpetTISAdditionSettings
 
 	@Rule(
 			options = {"false", "true", "clear"},
-			validators = ValidateMicroTimingDyeMarker.class,
+			validators = MicroTimingDyeMarkerRuleValidator.class,
 			categories = {TIS, CREATIVE}
 	)
 	public static String microTimingDyeMarker = "true";
-
-	private static class ValidateMicroTimingDyeMarker extends AbstractValidator<String>
-	{
-		@Override
-		protected @Nullable String validate(ValidationContext<String> ctx)
-		{
-			if ("clear".equals(ctx.inputValue))
-			{
-				MicroTimingMarkerManager.getInstance().clear();
-				if (ctx.source != null)
-				{
-					Messenger.tell(ctx.source, MicroTimingMarkerManager.getInstance().getTranslator().tr("cleared"));
-				}
-				return ctx.rule.get();
-			}
-			return ctx.inputValue;
-		}
-	}
 
 	@Rule(categories = {TIS, CREATIVE},  validators = ValidateMicroTimingTarget.class)
 	public static MicroTimingTarget microTimingTarget = MicroTimingTarget.MARKER_ONLY;
