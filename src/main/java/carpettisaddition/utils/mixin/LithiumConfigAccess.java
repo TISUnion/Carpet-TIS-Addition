@@ -56,6 +56,11 @@ public class LithiumConfigAccess
 			return false;
 		}
 
+		if (mixinRule.startsWith("mixin."))
+		{
+			mixinRule = mixinRule.substring("mixin.".length());
+		}
+
 		//#if MC >= 11600
 		//$$ // in lithium's usage, the passed argument is something like "block.stone.StoneOptimizationMixin"
 		//$$ // so we need to attach a fake class name as suffix, to make sure lithium's logic works correctly

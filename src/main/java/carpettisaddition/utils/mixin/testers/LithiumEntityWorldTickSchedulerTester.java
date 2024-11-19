@@ -24,7 +24,7 @@ public class LithiumEntityWorldTickSchedulerTester extends BasicLithiumCondition
 {
 	public LithiumEntityWorldTickSchedulerTester()
 	{
-		super("world.tick_scheduler");
+		super("mixin.world.tick_scheduler");
 	}
 
 	public static class Inverted extends LithiumEntityWorldTickSchedulerTester

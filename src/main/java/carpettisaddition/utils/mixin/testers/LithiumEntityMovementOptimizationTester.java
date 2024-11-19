@@ -24,6 +24,6 @@ public class LithiumEntityMovementOptimizationTester extends BasicLithiumConditi
 {
 	public LithiumEntityMovementOptimizationTester()
 	{
-		super("entity.collisions.movement");
+		super("mixin.entity.collisions.movement");
 	}
 }
