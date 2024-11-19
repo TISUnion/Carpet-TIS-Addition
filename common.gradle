@@ -31,6 +31,8 @@ configurations {
 	modImplementation.exclude group: 'com.github.2No2Name', module: 'McTester'
 }
 
+final enableLithiumInRuntime = false
+
 dependencies {
 	// loom
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -43,8 +45,7 @@ dependencies {
 	} else {
 		modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
 	}
-	final enableLithiumInRuntime = false
-	if (mcVersion >= 11500 && enableLithiumInRuntime) {
+	if (enableLithiumInRuntime && 11500 <= mcVersion && mcVersion < 12104) {
 		modImplementation "${project.lithium_dependency}"
 		if (11500 <= mcVersion && mcVersion < 11600) {
 			// https://github.com/CaffeineMC/lithium-fabric/blob/1.15.x/fabric/build.gradle#L50
@@ -87,10 +88,13 @@ loom {
 	accessWidenerPath = file("carpet-tis-addition.accesswidener")
 
 	def commonVmArgs = ['-Dmixin.debug.export=true']
-	if (mcVersion < 11904) {
-		// carpet 1.4.100+v230314 for mc1.19.4 and above
+	if (mcVersion < 11904 && !(enableLithiumInRuntime && 11700 <= mcVersion && mcVersion < 12006)) {
+		// Carpet 1.4.100+v230314 for mc1.19.4 and above
 		// fail to pass the check on at MinecraftServer_pingPlayerSampleLimit#modifyPlayerSampleLimit
 		// see https://github.com/gnembon/fabric-carpet/pull/1938
+		// Lithium in mc [1.17.1, 1.20.6) do not add `expect = 0` on its `mixin.block.hopper.TypeFilterableListMixin`
+		// which will cause the failure since the `getAllOfType` method
+		// is overwritten by its `mixin.collections.entity_filtering.TypeFilterableListMixin`
 		commonVmArgs.add('-Dmixin.debug.countInjections=true')
 	}
 	runConfigs.configureEach {
