@@ -58,7 +58,10 @@ import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChan
 @SuppressWarnings("unused")
 public class CarpetTISAdditionSettings
 {
-	// TISCM Rule Categories
+	public static boolean isLoadingRulesFromConfig = false;
+
+	// ============================== TISCM Rule Categories ==============================
+
 	public static final String TIS = "TIS";
 	public static final String TISCM_PROTOCOL = "TISCM_protocol";
 	public static final String LOGGER = "logger";  // see carpettisaddition.mixins.carpet.tweaks.loggerRestriction.ParsedRuleMixin
@@ -68,6 +71,8 @@ public class CarpetTISAdditionSettings
 	//#if MC < 11500
 	//$$ private static final String CLIENT = "client";
 	//#endif
+
+	// ============================== TISCM Rules ==============================
 
 	@Rule(categories = {TIS, CREATIVE, SURVIVAL})
 	public static boolean antiSpamDisabled = false;
@@ -887,6 +892,8 @@ public class CarpetTISAdditionSettings
 
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean yeetUpdateSuppressionCrash = false;
+
+	// ============================== TISCM Rules end ==============================
 
 	/**
 	 * Some rule checks to ensure that the worlds can be loaded normally
