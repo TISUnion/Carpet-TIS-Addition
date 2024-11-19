@@ -497,6 +497,7 @@ carpettisaddition:
       key_hover: |-
         经验值: %1$s
         经验球大小: %2$s
+      lithium_hopper_sleeping_notice: '[注意] Lithium 的漏斗睡眠优化已启用。你可能需要手动唤醒那些睡着的漏斗经验计数器，比如拆掉重放漏斗方块'
 
   tracker:
     tracker_name_full: '%1$s追踪器'

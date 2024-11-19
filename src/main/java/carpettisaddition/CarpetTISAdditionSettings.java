@@ -21,6 +21,7 @@
 package carpettisaddition;
 
 import carpet.settings.ParsedRule;
+import carpettisaddition.commands.xcounter.HopperXpCountersRuleListener;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.helpers.rule.updateSuppressionSimulator.UpdateSuppressionSimulator;
 import carpettisaddition.helpers.rule.voidDamageIgnorePlayer.VoidDamageIgnorePlayerValidator;
@@ -302,7 +303,10 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE, COMMAND})
 	public static boolean hopperNoItemCost = false;
 
-	@Rule(categories = {TIS, CREATIVE, COMMAND})
+	@Rule(
+			categories = {TIS, CREATIVE, COMMAND},
+			validators = HopperXpCountersRuleListener.class
+	)
 	public static boolean hopperXpCounters = false;
 
 	@Rule(

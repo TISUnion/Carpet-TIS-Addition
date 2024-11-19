@@ -497,6 +497,7 @@ carpettisaddition:
       key_hover: |-
         XP orb value: %1$s
         XP orb size: %2$s
+      lithium_hopper_sleeping_notice: '[Notes] Lithium hopper sleeping optimization is enabled. You might need to wake up those sleeping xp counter hoppers manually, e.g. by re-placing the hopper'
 
   tracker:
     tracker_name_full: '%1$s Tracker'
