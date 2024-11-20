@@ -304,6 +304,7 @@
     "rule.cauldronBlockItemInteractFix.CauldronBlockMixin",
     "rule.chatMessageLengthLimitUnlocked.ChatMessageC2SPacketMixin",
     "rule.chatMessageLengthLimitUnlocked.CommandExecutionC2SPacketMixin",
+    "rule.chatMessageLengthLimitUnlocked.MessageBodySerializedMixin",
     "rule.chatMessageLengthLimitUnlocked.StringHelperMixin",
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.chunkUpdatePacketThreshold.ChunkHolderMixin",
