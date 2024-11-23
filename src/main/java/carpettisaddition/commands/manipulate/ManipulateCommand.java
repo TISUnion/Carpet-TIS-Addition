@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.block.BlockManipulator;
+import carpettisaddition.commands.manipulate.chunk.ChunkManipulator;
 import carpettisaddition.commands.manipulate.container.ContainerManipulator;
 import carpettisaddition.commands.manipulate.entity.EntityManipulator;
 import carpettisaddition.utils.CarpetModUtil;
@@ -42,6 +43,7 @@ public class ManipulateCommand extends AbstractCommand
 
 	private static final List<AbstractManipulator> MANIPULATORS = ImmutableList.of(
 			new BlockManipulator(),
+			new ChunkManipulator(),
 			ContainerManipulator.getInstance(),
 			new EntityManipulator()
 	);

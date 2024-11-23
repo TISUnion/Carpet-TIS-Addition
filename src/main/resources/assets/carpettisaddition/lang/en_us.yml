@@ -321,6 +321,17 @@ carpettisaddition:
           random_tick: Executed a random tick on %1$s at %2$s
           tile_tick: Executed a random tick on %1$s at %2$s
           precipitation_tick: Executed a precipitation tick on %1$s at %2$s
+      chunk:
+        common:
+          throttled: Please wait until the ongoing operation finishes
+        erase:
+          matter_summary: Erased %s chunks, removed %s entities, %s tile entities, %s tile ticks, %s block events, %s chunk sections
+          erase_light: Resetting lights within erased chunks, this might take a while
+          all_done: 'Light reset done. Total cost: %1$ss'
+        relight:
+          relighting: Relighting %1$s chunks, please wait for the lighting engine to process these updates
+          done: 'Relighted %1$s chunks. Total cost: %2$ss'
+          hint: You can use command "/refresh chunk" to refresh lighting updates outside of those given chunks
       container:
         help: Manipulate %1$s
         cannot_manipulate: '%1$s cannot be manipulate now, you may try executing this command in another game phase'

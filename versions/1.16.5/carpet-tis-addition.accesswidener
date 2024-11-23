@@ -2,3 +2,4 @@ accessWidener	v1	named
 
 accessible  class   net/minecraft/village/raid/Raid$Status
 accessible  class   net/minecraft/server/command/FillCommand$Mode
+accessible  class   net/minecraft/server/world/ServerLightingProvider$Stage

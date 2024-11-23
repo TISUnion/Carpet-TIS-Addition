@@ -158,6 +158,53 @@ sidebar_position: 3
 /manipulate block <x> <y> <z> execute precipitationtick
 ```
 
+### chunk
+
+操作世界中的区块
+
+#### erase
+
+擦除给定区块，将其擦除至空置域环境
+
+:::danger
+
+擦除操作无法撤回，请在操作前备份，三思而后行
+
+:::
+
+会擦除的东西：
+
+- 方块
+- 实体
+- 方块实体
+- 方块事件
+- 光照
+
+不受影响的东西:
+
+- 结构
+
+| 指令                                               | 效果                                  |
+|--------------------------------------------------|-------------------------------------|
+| `/manipulate chunk erase`                        | 同 `/manipulate chunk erase current` |
+| `/manipulate chunk erase current`                | 擦除你所在的区块                            |
+| `/manipulate chunk erase square\|chebyshev <半径>` | 擦除给定半径内的所有区块（切比雪夫距离）                |
+| `/manipulate chunk erase circle\|euclidean <半径>` | 擦除给定半径内的所有区块（欧几里得距离）                |
+| `/manipulate chunk erase at <区块X> <区块Z>`         | 擦除指定位置的区块。给定区块需已被加载                 |
+
+#### relight
+
+重新计算给定区块的光照。这将对区块内的所有方块触发光照更新
+
+| 指令                                                 | 效果                                    |
+|----------------------------------------------------|---------------------------------------|
+| `/manipulate chunk relight`                        | 同 `/manipulate chunk relight current` |
+| `/manipulate chunk relight current`                | 重新计算你所在的区块的光照                         |
+| `/manipulate chunk relight square\|chebyshev <半径>` | 重新计算给定半径内的所有区块的光照（切比雪夫距离）             |
+| `/manipulate chunk relight circle\|euclidean <半径>` | 重新计算给定半径内的所有区块的光照（欧几里得距离）             |
+| `/manipulate chunk relight at <区块X> <区块Z>`         | 重新计算指定位置的区块的光照。给定区块需已被加载              |
+
+
 ### container
 
 `/manipulate container`

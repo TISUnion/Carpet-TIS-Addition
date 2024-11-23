@@ -158,6 +158,53 @@ Execute a precipitation tick (rain tick) on the target block
 /manipulate block <x> <y> <z> execute precipitationtick
 ```
 
+### chunk
+
+Manipulate chunks in the world
+
+#### erase
+
+Erase the given chunks, voiding them into a perimeter condition
+
+:::danger
+
+This action cannot be undone. Please back up and think twice before execute
+
+:::
+
+What it will erase:
+
+- Blocks
+- Entities
+- Tile entities
+- Block events
+- Lighting
+
+What it will not affect:
+
+- Structures
+
+| Command                                               | Effect                                                             |
+|-------------------------------------------------------|--------------------------------------------------------------------|
+| `/manipulate chunk erase`                             | The same as `/manipulate chunk erase current`                      |
+| `/manipulate chunk erase current`                     | Erase the current chunk you are in                                 |
+| `/manipulate chunk erase square\|chebyshev <radius>`  | Erase chunks in the given range (chebyshev distance)               |
+| `/manipulate chunk erase circle\|euclidean  <radius>` | Erase chunks in the given range (euclidean distance)               |
+| `/manipulate chunk erase at <chunkX> <chunkZ>`        | Erase the chunk at given position, the given chunk needs be loaded |
+
+#### relight
+
+Recalculate the lighting for the given chunk. This will trigger lighting updates for all blocks within the chunk
+
+| Command                                                 | Effect                                                               |
+|---------------------------------------------------------|----------------------------------------------------------------------|
+| `/manipulate chunk relight`                             | The same as `/manipulate chunk relight current`                      |
+| `/manipulate chunk relight current`                     | Relight the current chunk you are in                                 |
+| `/manipulate chunk relight square\|chebyshev <radius>`  | Relight chunks in the given range (chebyshev distance)               |
+| `/manipulate chunk relight circle\|euclidean  <radius>` | Relight chunks in the given range (euclidean distance)               |
+| `/manipulate chunk relight at <chunkX> <chunkZ>`        | Relight the chunk at given position, the given chunk needs be loaded |
+
+
 ### container
 
 `/manipulate container`
