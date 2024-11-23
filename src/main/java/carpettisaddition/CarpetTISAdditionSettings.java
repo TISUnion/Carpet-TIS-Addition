@@ -82,6 +82,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean blockPlacementIgnoreEntity = false;
 
+	@Rule(categories = {TIS, CREATIVE})
+	public static boolean breedingCooldownDisabled = false;
+
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean cauldronBlockItemInteractFix = false;
 

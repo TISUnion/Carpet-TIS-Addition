@@ -674,6 +674,9 @@ carpettisaddition:
         desc: Disable entity collision check before block placement, aka you can place blocks inside entities
         extra:
           '0': Works with creative mode players only
+      breedingCooldownDisabled:
+        name: breedingCooldownDisabled
+        desc: Remove breeding cooldown of all kinds of mobs
       cauldronBlockItemInteractFix:
         name: cauldronBlockItemInteractFix
         desc: Make player be able to place block against cauldron block with any filled level

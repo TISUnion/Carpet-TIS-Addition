@@ -38,6 +38,16 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 禁用繁殖冷却 (breedingCooldownDisabled)
+
+移除所有生物的繁殖冷却时间
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 炼药锅方块类物品交互修复 (cauldronBlockItemInteractFix)
 
 让玩家可以对着填充有水的炼药锅放置方块

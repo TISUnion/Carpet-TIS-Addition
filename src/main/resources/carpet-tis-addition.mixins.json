@@ -301,6 +301,7 @@
     "rule.antiSpamDisabled.ServerPlayNetworkHandlerMixin",
     "rule.blockEventPacketRange.ServerWorldMixin",
     "rule.blockPlacementIgnoreEntity.BlockItemMixin",
+    "rule.breedingCooldownDisabled.PassiveEntityMixin",
     "rule.cauldronBlockItemInteractFix.CauldronBlockMixin",
     "rule.chatMessageLengthLimitUnlocked.ChatMessageC2SPacketMixin",
     "rule.chatMessageLengthLimitUnlocked.CommandExecutionC2SPacketMixin",

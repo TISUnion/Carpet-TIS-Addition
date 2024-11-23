@@ -674,6 +674,9 @@ carpettisaddition:
         desc: 方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内
         extra:
           '0': 仅对创造模式玩家有效
+      breedingCooldownDisabled:
+        name: 禁用繁殖冷却
+        desc: 移除所有生物的繁殖冷却时间
       cauldronBlockItemInteractFix:
         name: 炼药锅方块类物品交互修复
         desc: 让玩家可以对着填充有水的炼药锅放置方块

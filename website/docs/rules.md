@@ -38,6 +38,16 @@ Works with creative mode players only
 - Categories: `TIS`, `CREATIVE`
 
 
+## breedingCooldownDisabled
+
+Remove breeding cooldown of all kinds of mobs
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## cauldronBlockItemInteractFix
 
 Make player be able to place block against cauldron block with any filled level
