@@ -26,6 +26,7 @@ import carpet.logging.logHelpers.ExplosionLogHelper;
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
@@ -68,6 +69,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 )
 public abstract class ExplosionMixin
 {
+	@Unique
 	private static final Field EXPLOSION_LOGGER_FIELD;
 
 	//#if MC >= 11600
@@ -129,25 +131,29 @@ public abstract class ExplosionMixin
 			{
 				return;
 			}
+
+			ExplosionLogHelper eLogger;
 			try
 			{
-				ExplosionLogHelper eLogger = (ExplosionLogHelper)EXPLOSION_LOGGER_FIELD.get(this);
-
-				// copy of carpet's onExplosionA method in ExplosionMixin begins
-				if (CarpetSettings.optimizedTNT)
-				{
-					//#if MC >= 12102
-					//$$ cir.setReturnValue(OptimizedExplosion.doExplosionA((Explosion)(Object)this, eLogger));
-					//#else
-					OptimizedExplosion.doExplosionA((Explosion)(Object)this, eLogger);
-					ci.cancel();
-					//#endif
-				}
-				// copy ends
+				eLogger = (ExplosionLogHelper)EXPLOSION_LOGGER_FIELD.get(this);
 			}
 			catch (IllegalAccessException ignored)
 			{
+				return;
 			}
+
+			// copy of carpet's onExplosionA method in ExplosionMixin begins
+			if (CarpetSettings.optimizedTNT)
+			{
+				//#if MC >= 12102
+				//$$ cir.setReturnValue(OptimizedExplosion.doExplosionA((Explosion)(Object)this, eLogger));
+				//#else
+				OptimizedExplosion.doExplosionA((Explosion)(Object)this, eLogger);
+				ci.cancel();
+				//#endif
+			}
+			// copy ends
+
 			//#else
 			//$$ // copy of carpet's onExplosionA method in ExplosionMixin begins
 			//$$ if (CarpetSettings.optimizedTNT)
