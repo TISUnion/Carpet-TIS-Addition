@@ -40,6 +40,13 @@ import java.lang.reflect.Field;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
+//#if MC >= 11600
+//$$ import net.minecraft.world.explosion.EntityExplosionBehavior;
+//$$ import net.minecraft.world.explosion.ExplosionBehavior;
+//$$ import org.spongepowered.asm.mixin.Final;
+//$$ import org.spongepowered.asm.mixin.Shadow;
+//#endif
+
 /**
  * priority value restrictions:
  * - less than 1000 (
@@ -62,6 +69,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ExplosionMixin
 {
 	private static final Field EXPLOSION_LOGGER_FIELD;
+
+	//#if MC >= 11600
+	//$$ @Shadow @Final
+	//$$ private ExplosionBehavior behavior;
+	//#endif
 
 	static
 	{
@@ -106,6 +118,13 @@ public abstract class ExplosionMixin
 		if (CarpetTISAdditionSettings.optimizedTNTHighPriority)
 		{
 			//#if MC >= 11500
+			//#if MC >= 11600
+			//$$ if (this.behavior.getClass() != ExplosionBehavior.class && this.behavior.getClass() != EntityExplosionBehavior.class)
+			//$$ {
+			//$$ 	// carpet's optimizedTNT cannot handle those non-classic explosion behavior
+			//$$ 	return;
+			//$$ }
+			//#endif
 			if (EXPLOSION_LOGGER_FIELD == null)
 			{
 				return;
