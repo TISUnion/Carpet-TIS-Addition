@@ -316,6 +316,10 @@ carpettisaddition:
           thundering: Thunderstorm
     manipulate:
       block:
+        emit:
+          block_update: Emitted a block update on %1$s at %2$s
+          state_update: Emitted a state update on %1$s at %2$s
+          light_update: Emitted a light update on %1$s at %2$s
         execute:
           block_event: Executed a block event on %1$s at %2$s with type=%3$s data=%4$s
           random_tick: Executed a random tick on %1$s at %2$s

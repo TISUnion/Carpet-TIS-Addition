@@ -122,41 +122,36 @@ Manipulate the world
 
 ### block
 
-Manipulate block / blocks in the world
+Manipulate blocks in the world
 
-`/manipulate block <x> <y> <z> [actions]`
+`/manipulate block <from> <to> [actions]`, where `<from>` and `<to>` are block positions consisting of `<x> <y> <z>`
 
 #### execute
 
-`/manipulate block <x> <y> <z> execute [what]`
+`/manipulate block <from> <to> execute [what]`
 
 Execute a given game logic on the target block immediately
 
-Command lists:
+| Command                                                           | What to execute                |
+|-------------------------------------------------------------------|--------------------------------|
+| `/manipulate block <from> <to> execute block_event <type> <data>` | block event                    |
+| `/manipulate block <from> <to> execute tile_tick`                 | tile tick                      |
+| `/manipulate block <from> <to> execute random_tick`               | random tick                    |
+| `/manipulate block <from> <to> execute precipitation_tick`        | precipitation tick (rain tick) |
 
-Execute a block event on the target block
+If you need to schedule execution rather than execute immediately, you can take a look at the `/manipulate container` command
 
-```
-/manipulate block <x> <y> <z> execute blockevent
-```
+#### emit
 
-Execute a tile tick on the target block
+`/manipulate block <from> <to> emit [what]`
 
-```
-/manipulate block <x> <y> <z> execute tiletick
-```
+Emit events like updates on given blocks immediately
 
-Execute a random tick on the target block
-
-```
-/manipulate block <x> <y> <z> execute randomtick
-```
-
-Execute a precipitation tick (rain tick) on the target block
-
-```
-/manipulate block <x> <y> <z> execute precipitationtick
-```
+| Command                                                 | What to emit      |
+|---------------------------------------------------------|-------------------|
+| `/manipulate block <from> <to> emit block_update`       | block update (NC) |
+| `/manipulate block <from> <to> emit state_update`       | state update (PP) |
+| `/manipulate block <from> <to> emit light_update`       | light update      |
 
 ### chunk
 

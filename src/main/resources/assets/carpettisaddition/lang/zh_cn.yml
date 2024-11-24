@@ -316,6 +316,10 @@ carpettisaddition:
           thundering: 雷暴
     manipulate:
       block:
+        emit:
+          block_update: 已令位于%2$s的%1$s发出了一次方块更新
+          state_update: 已令位于%2$s的%1$s发出了一次状态更新
+          light_update: 已令位于%2$s的%1$s发出了一次光照更新
         execute:
           block_event: 已对位于%2$s的%1$s执行了一次方块事件，type=%3$s data=%4$s
           random_tick: 已对位于%2$s的%1$s执行了一次随机刻

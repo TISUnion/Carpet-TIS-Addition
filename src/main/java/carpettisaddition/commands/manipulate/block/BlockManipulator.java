@@ -20,162 +20,53 @@
 
 package carpettisaddition.commands.manipulate.block;
 
-import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.AbstractManipulator;
-import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.block.BlockState;
-import net.minecraft.network.packet.s2c.play.BlockActionS2CPacket;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.command.arguments.BlockPosArgumentType.*;
 import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
-
-//#if MC >= 11700
-//$$ import net.minecraft.block.Blocks;
-//$$ import net.minecraft.world.biome.Biome;
-//#endif
 
 public class BlockManipulator extends AbstractManipulator
 {
+	private final BlockManipulatorImplEmit emitImpl;
+	private final BlockManipulatorImplExecute executeImpl;
+
 	public BlockManipulator()
 	{
 		super("block");
+		this.emitImpl = new BlockManipulatorImplEmit(this.getTranslator());
+		this.executeImpl = new BlockManipulatorImplExecute(this.getTranslator());
 	}
 
 	@Override
 	public void buildSubCommand(CommandTreeContext.Node context)
 	{
-		context.node.
-				then(argument("target", blockPos()).
-						then(literal("execute").
-								then(literal("blockevent").
-										then(argument("type", integer()).
-												then(argument("data", integer()).
-														executes(c -> triggerBlockEvent(
-																c.getSource(),
-																getBlockPos(c, "target"),
-																getInteger(c, "type"),
-																getInteger(c, "data")
-														))
-												)
-										)
-								).
-								then(
-										literal("tiletick").
-												executes(c -> triggerTileTick(c.getSource(), getBlockPos(c, "target")))
-								).
-								then(
-										literal("randomtick").
-												executes(c -> triggerRandomTick(c.getSource(), getBlockPos(c, "target")))
-								).
-								then(
-										literal("precipitationtick").
-												executes(c -> triggerPrecipitationTick(c.getSource(), getBlockPos(c, "target")))
+		CommandBuilder builder = new CommandBuilder();
+
+		builder.add(
+				"execute", "block_event",
+				(node, cmd) ->
+						node.then(argument("type", integer()).
+								then(argument("data", integer()).
+										executes(cmd)
 								)
-						)
-				);
-	}
-
-	private int triggerBlockEvent(ServerCommandSource source, BlockPos blockPos, int type, int data)
-	{
-		ServerWorld world = source.getWorld();
-		BlockState blockState = world.getBlockState(blockPos);
-		//#if MC >= 11600
-		//$$ blockState.onSyncedBlockEvent
-		//#else
-		blockState.onBlockAction
-		//#endif
-				(world, blockPos, type, data);
-		source.getMinecraftServer().getPlayerManager().sendToAround(
-				null,
-				blockPos.getX(),
-				blockPos.getY(),
-				blockPos.getZ(),
-				CarpetTISAdditionSettings.blockEventPacketRange,
-				//#if MC >= 11600
-				//$$ world.getRegistryKey(),
-				//#else
-				world.getDimension().getType(),
-				//#endif
-				new BlockActionS2CPacket(blockPos, blockState.getBlock(), type, data)
+						),
+				(c, pos) -> this.executeImpl.executeBlockEvent(
+						c.getSource(),
+						pos,
+						getInteger(c, "type"),
+						getInteger(c, "data")
+				)
 		);
+		builder.add("execute", "tile_tick", this.executeImpl::executeTileTickAt);
+		builder.add("execute", "random_tick", this.executeImpl::executeRandomTickAt);
+		builder.add("execute", "precipitation_tick", this.executeImpl::executePrecipitationTickAt);
 
-		Messenger.tell(source, tr("execute.block_event", Messenger.block(blockState), Messenger.coord(blockPos, DimensionWrapper.of(world)), type, data));
-		return 1;
-	}
+		builder.add("emit", "block_update", this.emitImpl::emitBlockUpdateAt);
+		builder.add("emit", "state_update", this.emitImpl::emitStateUpdateAt);
+		builder.add("emit", "light_update", this.emitImpl::emitLightUpdateAt);
 
-	private int triggerTileTick(ServerCommandSource source, BlockPos blockPos)
-	{
-		ServerWorld world = source.getWorld();
-		BlockState blockState = world.getBlockState(blockPos);
-		blockState.scheduledTick(world, blockPos, world.getRandom());
-		Messenger.tell(source, tr("execute.tile_tick", Messenger.block(blockState), Messenger.coord(blockPos, DimensionWrapper.of(world))));
-		return 1;
-	}
-
-	private int triggerRandomTick(ServerCommandSource source, BlockPos blockPos)
-	{
-		ServerWorld world = source.getWorld();
-		BlockState blockState = world.getBlockState(blockPos);
-
-		// ref: net.minecraft.server.world.ServerWorld#tickChunk
-		//#if MC >= 11500
-		blockState.randomTick
-		//#else
-		//$$ blockState.onRandomTick
-		//#endif
-				(world, blockPos, world.getRandom());
-
-		Messenger.tell(source, tr("execute.random_tick", Messenger.block(blockState), Messenger.coord(blockPos, DimensionWrapper.of(world))));
-		return 1;
-	}
-
-	private int triggerPrecipitationTick(ServerCommandSource source, BlockPos blockPos)
-	{
-		ServerWorld world = source.getWorld();
-		BlockState blockState = world.getBlockState(blockPos);
-
-		// ref: net.minecraft.server.world.ServerWorld#tickChunk
-		//#if MC >= 11700
-		//$$ //#if MC >= 11800
-		//$$ //$$ Biome biome = world.getBiome(blockPos.up()).value();
-		//$$ //#else
-		//$$ Biome biome = world.getBiome(blockPos.up());
-		//$$ //#endif
-		//$$
-		//$$ Biome.Precipitation precipitation = biome.getPrecipitation(
-		//$$ 		//#if MC >= 11900
-		//$$ 		//$$ blockPos
-		//$$ 		//#endif
-		//$$ 		//#if MC >= 12103
-		//$$ 		//$$ , world.getSeaLevel()
-		//$$ 		//#endif
-		//$$ );
-		//$$
-		//$$ //#if MC >= 11900
-		//$$ //$$ if (precipitation != Biome.Precipitation.NONE)
-		//$$ //$$ {
-		//$$ //$$ 	blockState.getBlock().precipitationTick(blockState, world, blockPos, precipitation);
-		//$$ //$$ }
-		//$$ //#else
-		//$$ if (precipitation == Biome.Precipitation.RAIN && biome.isCold(blockPos))
-		//$$ {
-		//$$ 	precipitation = Biome.Precipitation.SNOW;
-		//$$ }
-		//$$ blockState.getBlock().precipitationTick(blockState, world, blockPos, precipitation);
-		//$$ //#endif
-		//#else
-		blockState.getBlock().rainTick(world, blockPos);
-		//#endif
-
-		Messenger.tell(source, tr("execute.precipitation_tick", Messenger.block(blockState), Messenger.coord(blockPos, DimensionWrapper.of(world))));
-		return 1;
+		builder.build(context.node);
 	}
 }

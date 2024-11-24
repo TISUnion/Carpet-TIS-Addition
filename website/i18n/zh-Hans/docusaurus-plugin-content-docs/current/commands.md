@@ -128,35 +128,30 @@ sidebar_position: 3
 
 #### execute
 
-`/manipulate block <x> <y> <z> execute [what]`
+`/manipulate block <from> <to> [actions]`，其中 `<from>` 和 `<to>` 均为由 `<x> <y> <z>` 组成的方块坐标
 
 令目标方块立即执行给定的游戏逻辑
 
-指令列表：
+| 指令                                                                | 执行的逻辑              |
+|-------------------------------------------------------------------|--------------------|
+| `/manipulate block <from> <to> execute block_event <type> <data>` | 方块事件               |
+| `/manipulate block <from> <to> execute tile_tick`                 | 计划刻                |
+| `/manipulate block <from> <to> execute random_tick`               | 随机刻                |
+| `/manipulate block <from> <to> execute precipitation_tick`        | 降雨刻（precipitation） |
 
-令目标方块立即执行一次方块事件
+若需计划执行而非立即执行，可以去看看 `/manipulate container` 指令
 
-```
-/manipulate block <x> <y> <z> execute blockevent
-```
+#### emit
 
-令目标方块立即执行一次计划刻
+`/manipulate block <from> <to> emit [what]`
 
-```
-/manipulate block <x> <y> <z> execute tiletick
-```
+令目标方块立即发出给定事件，如各种更新等
 
-令目标方块立即执行一次随机刻
-
-```
-/manipulate block <x> <y> <z> execute randomtick
-```
-
-令目标方块立即执行一次降雨刻（precipitation）
-
-```
-/manipulate block <x> <y> <z> execute precipitationtick
-```
+| 指令                                                | 发出的事件    |
+|---------------------------------------------------|----------|
+| `/manipulate block <from> <to> emit block_update` | 方块更新（NC） |
+| `/manipulate block <from> <to> emit state_update` | 状态更新（PP） |
+| `/manipulate block <from> <to> emit light_update` | 光照更新     |
 
 ### chunk
 

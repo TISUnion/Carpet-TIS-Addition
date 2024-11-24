@@ -22,6 +22,7 @@ package carpettisaddition.commands.manipulate.chunk;
 
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.PositionUtils;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.arguments.BlockPosArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
@@ -72,14 +73,14 @@ class ThrottledOperator extends TranslationContext
 
 	public int operateInSquare(ServerCommandSource source, int radius)
 	{
-		ChunkPos center = new ChunkPos(flooredBlockPos(source.getPosition()));
+		ChunkPos center = new ChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
 		List<ChunkPos> chunkPosList = ChunkPos.stream(center, radius).collect(Collectors.toList());
 		return this.operate(source, chunkPosList);
 	}
 
 	public int operateInCircle(ServerCommandSource source, int radius)
 	{
-		ChunkPos center = new ChunkPos(flooredBlockPos(source.getPosition()));
+		ChunkPos center = new ChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
 		List<ChunkPos> chunkPosList = ChunkPos.stream(center, radius).
 				filter(chunkPos -> (chunkPos.x - center.x) * (chunkPos.x - center.x) + (chunkPos.z - center.z) * (chunkPos.z - center.z) <= radius * radius).
 				collect(Collectors.toList());
@@ -89,14 +90,5 @@ class ThrottledOperator extends TranslationContext
 	public int operateCurrent(ServerCommandSource source)
 	{
 		return this.operateInCircle(source, 0);
-	}
-
-	private static BlockPos flooredBlockPos(Vec3d vec3d)
-	{
-		//#if MC >= 11904
-		//$$ return BlockPos.ofFloored(vec3d);
-		//#else
-		return new BlockPos(vec3d);
-		//#endif
 	}
 }

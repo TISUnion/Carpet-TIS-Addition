@@ -179,6 +179,7 @@
     "command.lifetime.spawning.vehicledismounting.EntityMixin",
     "command.lifetime.spawning.vehicledismounting.LivingEntityMixin",
     "command.lifetime.spawning.zombiereinforce.ZombieEntityMixin",
+    "command.manipulate.block.FillCommandAccessor",
     "command.manipulate.chunk.HeightmapAccessor",
     "command.manipulate.chunk.PalettedContainerAccessor",
     "command.manipulate.chunk.ServerEntityManagerAccessor",
