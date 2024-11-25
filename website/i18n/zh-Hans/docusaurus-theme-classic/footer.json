@@ -38,9 +38,5 @@
   "link.item.label.Fabric Carpet": {
     "message": "Fabric Carpet",
     "description": "The label of footer link with label=Fabric Carpet linking to https://github.com/gnembon/fabric-carpet"
-  },
-  "copyright": {
-    "message": "Copyright © 2023 Carpet TIS Addition. Built with Docusaurus.",
-    "description": "The footer copyright"
   }
 }
