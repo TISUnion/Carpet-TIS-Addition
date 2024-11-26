@@ -193,6 +193,12 @@ What it will not affect:
 
 Recalculate the lighting for the given chunk. This will trigger lighting updates for all blocks within the chunk
 
+:::note
+
+Currently, this command is achieved by checking lighting at all block positions inside given chunks, which is not that efficient
+
+:::
+
 | Command                                                 | Effect                                                               |
 |---------------------------------------------------------|----------------------------------------------------------------------|
 | `/manipulate chunk relight`                             | The same as `/manipulate chunk relight current`                      |
