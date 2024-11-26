@@ -317,14 +317,14 @@ carpettisaddition:
     manipulate:
       block:
         emit:
-          block_update: Emitted a block update on %1$s at %2$s
-          state_update: Emitted a state update on %1$s at %2$s
-          light_update: Emitted a light update on %1$s at %2$s
+          block_update: Emitted %1$s block updates
+          state_update: Emitted %1$s state updates
+          light_update: Emitted %1$s light updates
         execute:
-          block_event: Executed a block event on %1$s at %2$s with type=%3$s data=%4$s
-          random_tick: Executed a random tick on %1$s at %2$s
-          tile_tick: Executed a random tick on %1$s at %2$s
-          precipitation_tick: Executed a precipitation tick on %1$s at %2$s
+          block_event: Executed %1$s block events (type=%2$s data=%3$s)
+          random_tick: Executed %1$s random ticks
+          tile_tick: Executed %1$s random ticks
+          precipitation_tick: Executed %1$s precipitation tick
       chunk:
         common:
           throttled: Please wait until the ongoing operation finishes

@@ -22,11 +22,10 @@ package carpettisaddition.commands.manipulate.block;
 
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.world.ServerLightingProvider;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 
@@ -49,8 +48,6 @@ class BlockManipulatorImplEmit extends TranslationContext
 		{
 			world.updateHorizontalAdjacent(blockPos, block);
 		}
-
-		Messenger.tell(source, tr("emit.block_update", Messenger.block(blockState), Messenger.coord(blockPos, DimensionWrapper.of(world))));
 	}
 
 	public void emitStateUpdateAt(ServerCommandSource source, BlockPos blockPos)
@@ -68,17 +65,11 @@ class BlockManipulatorImplEmit extends TranslationContext
 		blockState.updateNeighborStates(world, blockPos, flags);
 		blockState.method_11637(world, blockPos, flags);
 		//#endif
-
-		Messenger.tell(source, tr("emit.state_update", Messenger.block(blockState), Messenger.coord(blockPos, DimensionWrapper.of(world))));
 	}
 
 	public void emitLightUpdateAt(ServerCommandSource source, BlockPos blockPos)
 	{
-		ServerWorld world = source.getWorld();
-		BlockState blockState = world.getBlockState(blockPos);
-
-		world.getChunkManager().getLightingProvider().checkBlock(blockPos);
-
-		Messenger.tell(source, tr("emit.light_update", Messenger.block(blockState), Messenger.coord(blockPos, DimensionWrapper.of(world))));
+		ServerLightingProvider lightingProvider = source.getWorld().getChunkManager().getLightingProvider();
+		lightingProvider.checkBlock(blockPos);
 	}
 }

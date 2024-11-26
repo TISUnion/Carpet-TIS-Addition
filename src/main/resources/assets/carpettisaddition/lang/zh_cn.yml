@@ -317,14 +317,14 @@ carpettisaddition:
     manipulate:
       block:
         emit:
-          block_update: 已令位于%2$s的%1$s发出了一次方块更新
-          state_update: 已令位于%2$s的%1$s发出了一次状态更新
-          light_update: 已令位于%2$s的%1$s发出了一次光照更新
+          block_update: 已于%1$s个方块位置发出了方块更新
+          state_update: 已于%1$s个方块位置出了状态更新
+          light_update: 已于%1$s个方块位置出了光照更新
         execute:
-          block_event: 已对位于%2$s的%1$s执行了一次方块事件，type=%3$s data=%4$s
-          random_tick: 已对位于%2$s的%1$s执行了一次随机刻
-          tile_tick: 已对位于%2$s的%1$s执行了一次计划刻
-          precipitation_tick: 已对位于%2$s的%1$s执行了一次降水刻
+          block_event: 已对%1$s个方块执行了方块事件 (type=%2$s data=%3$s)
+          random_tick: 已对%1$s个方块执行了随机刻
+          tile_tick: 已对%1$s个方块执行了计划刻
+          precipitation_tick: 已对%1$s个方块执行了降水刻
       chunk:
         common:
           throttled: 请等待当前操作完成

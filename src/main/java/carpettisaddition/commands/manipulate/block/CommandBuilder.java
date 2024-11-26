@@ -28,7 +28,6 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
 import static net.minecraft.server.command.CommandManager.argument;
@@ -38,6 +37,12 @@ class CommandBuilder
 {
 	private final ArgumentBuilder<ServerCommandSource, ?> rangedRoot;
 	private final Map<String, ArgumentBuilder<ServerCommandSource, ?>> actionNodes = Maps.newHashMap();
+
+	@FunctionalInterface
+	public interface LeafBuilder
+	{
+		ArgumentBuilder<ServerCommandSource, ?> build(ArgumentBuilder<ServerCommandSource, ?> node, Command<ServerCommandSource> cmd);
+	}
 
 	public CommandBuilder()
 	{
@@ -52,14 +57,15 @@ class CommandBuilder
 
 	public void add(
 			String action, String name,
-			BiFunction<ArgumentBuilder<ServerCommandSource, ?>, Command<ServerCommandSource>, ArgumentBuilder<ServerCommandSource, ?>> leafBuilder,
-			BlockExecutor.ExecuteImpl impl
+			LeafBuilder leafBuilder,
+			BlockExecutor.ExecuteImpl impl,
+			BlockExecutor.MessageExtraArgsGetter messageExtraArgsGetter
 	)
 	{
-		BlockExecutor executor = new BlockExecutor(impl);
+		BlockExecutor executor = new BlockExecutor(impl, action + "." + name, messageExtraArgsGetter);
 		this.actionNodes.
 				computeIfAbsent(action, k -> literal(action)).
-				then(leafBuilder.apply(literal(name), executor::process));
+				then(leafBuilder.build(literal(name), executor::process));
 	}
 
 	public void add(String action, String name, BiConsumer<ServerCommandSource, BlockPos> impl)
@@ -67,7 +73,8 @@ class CommandBuilder
 		this.add(
 				action, name,
 				ArgumentBuilder::executes,
-				(ctx, pos) -> impl.accept(ctx.getSource(), pos)
+				(ctx, pos) -> impl.accept(ctx.getSource(), pos),
+				BlockExecutor.MessageExtraArgsGetter.NONE
 		);
 	}
 }

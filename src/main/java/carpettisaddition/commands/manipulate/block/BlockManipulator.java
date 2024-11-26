@@ -29,14 +29,18 @@ import static net.minecraft.server.command.CommandManager.argument;
 
 public class BlockManipulator extends AbstractManipulator
 {
-	private final BlockManipulatorImplEmit emitImpl;
-	private final BlockManipulatorImplExecute executeImpl;
+	private static final BlockManipulator INSTANCE = new BlockManipulator();
+	private final BlockManipulatorImplEmit emitImpl = new BlockManipulatorImplEmit(this.getTranslator());
+	private final BlockManipulatorImplExecute executeImpl = new BlockManipulatorImplExecute(this.getTranslator());
 
-	public BlockManipulator()
+	private BlockManipulator()
 	{
 		super("block");
-		this.emitImpl = new BlockManipulatorImplEmit(this.getTranslator());
-		this.executeImpl = new BlockManipulatorImplExecute(this.getTranslator());
+	}
+
+	public static BlockManipulator getInstance()
+	{
+		return INSTANCE;
 	}
 
 	@Override
@@ -57,7 +61,8 @@ public class BlockManipulator extends AbstractManipulator
 						pos,
 						getInteger(c, "type"),
 						getInteger(c, "data")
-				)
+				),
+				c -> new Object[]{getInteger(c, "type"), getInteger(c, "data")}
 		);
 		builder.add("execute", "tile_tick", this.executeImpl::executeTileTickAt);
 		builder.add("execute", "random_tick", this.executeImpl::executeRandomTickAt);

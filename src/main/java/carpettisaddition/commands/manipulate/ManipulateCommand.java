@@ -42,7 +42,7 @@ public class ManipulateCommand extends AbstractCommand
 	private static final ManipulateCommand INSTANCE = new ManipulateCommand();
 
 	private static final List<AbstractManipulator> MANIPULATORS = ImmutableList.of(
-			new BlockManipulator(),
+			BlockManipulator.getInstance(),
 			new ChunkManipulator(),
 			ContainerManipulator.getInstance(),
 			new EntityManipulator()
