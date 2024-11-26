@@ -397,6 +397,14 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, LOGGER})
 	public static String loggerMovement = "ops";
 
+	@Rule(
+			categories = {TIS, COMMAND, EXPERIMENTAL},
+			validators = Validators.PositiveNumber.class,
+			options = {"1000", "1000000", "1000000000"},
+			strict = false
+	)
+	public static int manipulateBlockLimit = 1000000;
+
 	@Rule(categories = {TIS, CREATIVE}, validators = MicroTimingRuleListener.class)
 	public static boolean microTiming = false;
 

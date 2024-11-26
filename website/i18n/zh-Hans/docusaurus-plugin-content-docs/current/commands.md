@@ -126,6 +126,8 @@ sidebar_position: 3
 
 `/manipulate block <x> <y> <z> [action]`
 
+可使用规则 [操纵方块指令数量上限](rules.md#操纵方块指令数量上限-manipulateblocklimit) 来调整可操纵的方块数上限
+
 #### execute
 
 `/manipulate block <from> <to> [actions]`，其中 `<from>` 和 `<to>` 均为由 `<x> <y> <z>` 组成的方块坐标

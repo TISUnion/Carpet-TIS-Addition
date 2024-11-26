@@ -750,6 +750,16 @@ The switch / permission requirement of movement logger
 - Categories: `TIS`, `LOGGER`
 
 
+## manipulateBlockLimit
+
+The maximum amount of affected block of the `/manipulate block` commands
+
+- Type: `int`
+- Default value: `1000000`
+- Suggested options:`1000`, `1000000`, `1000000000`
+- Categories: `TIS`, `COMMAND`, `EXPERIMENTAL`
+
+
 ## microTiming
 
 Enable the function of [MicroTiming logger](./loggers#microtiming)

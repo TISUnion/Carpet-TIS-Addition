@@ -975,6 +975,9 @@ carpettisaddition:
       loggerMovement:
         name: loggerMovement
         desc: The switch / permission requirement of movement logger
+      manipulateBlockLimit:
+        manipulateBlockLimit: manipulateBlockLimit
+        desc: The maximum amount of affected block of the /manipulate block commands
       microTiming:
         name: microTiming
         desc: Enable the function of MicroTick logger

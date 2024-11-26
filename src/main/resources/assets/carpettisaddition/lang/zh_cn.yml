@@ -975,6 +975,9 @@ carpettisaddition:
       loggerMovement:
         name: 移动记录器
         desc: 移动记录器的开关 / 权限等级需求
+      manipulateBlockLimit:
+        manipulateBlockLimit: 操纵方块指令数量上限
+        desc: /manipulate block 系列指令可操作的方块数量上限
       microTiming:
         name: 微时序
         desc: 启用微时序记录器的功能

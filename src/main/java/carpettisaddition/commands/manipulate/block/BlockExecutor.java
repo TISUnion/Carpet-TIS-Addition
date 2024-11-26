@@ -20,6 +20,7 @@
 
 package carpettisaddition.commands.manipulate.block;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.command.manipulate.block.FillCommandAccessor;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
@@ -56,7 +57,7 @@ public class BlockExecutor extends TranslationContext
 
 	public BlockExecutor(ExecuteImpl impl, String messageKey, MessageExtraArgsGetter messageExtraArgsGetter)
 	{
-		this(impl, 1000000, messageKey, messageExtraArgsGetter);  // TODO, configure-able with rule
+		this(impl, CarpetTISAdditionSettings.manipulateBlockLimit, messageKey, messageExtraArgsGetter);
 	}
 
 	@FunctionalInterface

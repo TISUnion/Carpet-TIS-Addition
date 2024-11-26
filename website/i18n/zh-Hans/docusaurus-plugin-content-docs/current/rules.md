@@ -750,6 +750,16 @@ sidebar_position: 1
 - 分类: `TIS`, `LOGGER`
 
 
+## 操纵方块指令数量上限 (manipulateBlockLimit)
+
+`/manipulate block` 系列指令可操作的方块数量上限
+
+- 类型: `int`
+- 默认值: `1000000`
+- 参考选项:`1000`, `1000000`, `1000000000`
+- 分类: `TIS`, `COMMAND`, `EXPERIMENTAL`
+
+
 ## 微时序 (microTiming)
 
 启用[微时序记录器](loggers.md#微时序-microtiming)的功能

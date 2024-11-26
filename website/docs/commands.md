@@ -124,6 +124,8 @@ Manipulate the world
 
 Manipulate blocks in the world
 
+You can use the rule [manipulateBlockLimit](rules.md#manipulateblocklimit) to alternative the maximum amount of affected blocks
+
 `/manipulate block <from> <to> [actions]`, where `<from>` and `<to>` are block positions consisting of `<x> <y> <z>`
 
 #### execute
