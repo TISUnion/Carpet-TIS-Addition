@@ -130,14 +130,14 @@ sidebar_position: 3
 
 `/manipulate block <from> <to> [actions]`，其中 `<from>` 和 `<to>` 均为由 `<x> <y> <z>` 组成的方块坐标
 
-令目标方块立即执行给定的游戏逻辑
+令目标方块（和流体）立即执行给定的游戏逻辑
 
-| 指令                                                                | 执行的逻辑              |
-|-------------------------------------------------------------------|--------------------|
-| `/manipulate block <from> <to> execute block_event <type> <data>` | 方块事件               |
-| `/manipulate block <from> <to> execute tile_tick`                 | 计划刻                |
-| `/manipulate block <from> <to> execute random_tick`               | 随机刻                |
-| `/manipulate block <from> <to> execute precipitation_tick`        | 降水刻（precipitation） |
+| 指令                                                                | 执行的逻辑              | 包含流体 |
+|-------------------------------------------------------------------|--------------------|------|
+| `/manipulate block <from> <to> execute block_event <type> <data>` | 方块事件               | ❌    |
+| `/manipulate block <from> <to> execute precipitation_tick`        | 降水刻（precipitation） | ❌    |
+| `/manipulate block <from> <to> execute random_tick`               | 随机刻                | ✔️   |
+| `/manipulate block <from> <to> execute tile_tick`                 | 计划刻                | ✔️   |
 
 若需计划执行而非立即执行，可以去看看 `/manipulate container` 指令
 

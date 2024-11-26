@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import net.minecraft.block.BlockState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.network.packet.s2c.play.BlockActionS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -70,13 +71,22 @@ class BlockManipulatorImplExecute extends TranslationContext
 	{
 		ServerWorld world = source.getWorld();
 		BlockState blockState = world.getBlockState(blockPos);
+		FluidState fluidState = world.getFluidState(blockPos);
+
 		blockState.scheduledTick(world, blockPos, world.getRandom());
+		fluidState.onScheduledTick(
+				world, blockPos
+				//#if MC >= 12103
+				//$$ , blockState
+				//#endif
+		);
 	}
 
 	public void executeRandomTickAt(ServerCommandSource source, BlockPos blockPos)
 	{
 		ServerWorld world = source.getWorld();
 		BlockState blockState = world.getBlockState(blockPos);
+		FluidState fluidState = world.getFluidState(blockPos);
 
 		// ref: net.minecraft.server.world.ServerWorld#tickChunk
 		//#if MC >= 11500
@@ -85,6 +95,8 @@ class BlockManipulatorImplExecute extends TranslationContext
 				//$$ blockState.onRandomTick
 				//#endif
 						(world, blockPos, world.getRandom());
+
+		fluidState.onRandomTick(world, blockPos, world.getRandom());
 	}
 
 	public void executePrecipitationTickAt(ServerCommandSource source, BlockPos blockPos)

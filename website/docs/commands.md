@@ -132,12 +132,12 @@ Manipulate blocks in the world
 
 Execute a given game logic on the target block immediately
 
-| Command                                                           | What to execute                |
-|-------------------------------------------------------------------|--------------------------------|
-| `/manipulate block <from> <to> execute block_event <type> <data>` | block event                    |
-| `/manipulate block <from> <to> execute tile_tick`                 | tile tick                      |
-| `/manipulate block <from> <to> execute random_tick`               | random tick                    |
-| `/manipulate block <from> <to> execute precipitation_tick`        | precipitation tick (rain tick) |
+| Command                                                           | What to execute                | Include fluid |
+|-------------------------------------------------------------------|--------------------------------|---------------|
+| `/manipulate block <from> <to> execute block_event <type> <data>` | block event                    | ❌             |
+| `/manipulate block <from> <to> execute precipitation_tick`        | precipitation tick (rain tick) | ❌             |
+| `/manipulate block <from> <to> execute random_tick`               | random tick                    | ✔️            |
+| `/manipulate block <from> <to> execute tile_tick`                 | tile tick                      | ✔️            |
 
 If you need to schedule execution rather than execute immediately, you can take a look at the `/manipulate container` command
 
