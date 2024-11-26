@@ -137,7 +137,7 @@ sidebar_position: 3
 | `/manipulate block <from> <to> execute block_event <type> <data>` | 方块事件               |
 | `/manipulate block <from> <to> execute tile_tick`                 | 计划刻                |
 | `/manipulate block <from> <to> execute random_tick`               | 随机刻                |
-| `/manipulate block <from> <to> execute precipitation_tick`        | 降雨刻（precipitation） |
+| `/manipulate block <from> <to> execute precipitation_tick`        | 降水刻（precipitation） |
 
 若需计划执行而非立即执行，可以去看看 `/manipulate container` 指令
 

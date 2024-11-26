@@ -324,7 +324,7 @@ carpettisaddition:
           block_event: 已对位于%2$s的%1$s执行了一次方块事件，type=%3$s data=%4$s
           random_tick: 已对位于%2$s的%1$s执行了一次随机刻
           tile_tick: 已对位于%2$s的%1$s执行了一次计划刻
-          precipitation_tick: 已对位于%2$s的%1$s执行了一次降雨刻
+          precipitation_tick: 已对位于%2$s的%1$s执行了一次降水刻
       chunk:
         common:
           throttled: 请等待当前操作完成
