@@ -28,6 +28,10 @@ import com.llamalad7.mixinextras.sugar.Local;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+//#if MC >= 12104
+//$$ import java.util.function.BiConsumer;
+//#endif
+
 //#if MC >= 12002
 //$$ import org.spongepowered.asm.mixin.injection.ModifyArg;
 //$$ import java.util.function.Consumer;
@@ -65,7 +69,9 @@ public abstract class EntityPlayerMPFakeMixin
 	//$$ 		method = "createFake",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
-	//$$ 				//#if MC >= 12005
+	//$$ 				//#if MC >= 12104
+	//$$ 				//$$ target = "Ljava/util/concurrent/CompletableFuture;whenCompleteAsync(Ljava/util/function/BiConsumer;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
+	//$$ 				//#elseif MC >= 12005
 	//$$ 				//$$ target = "Ljava/util/concurrent/CompletableFuture;thenAcceptAsync(Ljava/util/function/Consumer;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
 	//$$ 				//#else
 	//$$ 				target = "Ljava/util/concurrent/CompletableFuture;thenAccept(Ljava/util/function/Consumer;)Ljava/util/concurrent/CompletableFuture;",
@@ -74,17 +80,29 @@ public abstract class EntityPlayerMPFakeMixin
 	//$$ 		),
 	//$$ 		remap = true
 	//$$ )
+	//$$ //#if MC >= 12104
+	//$$ //$$ private static <T> BiConsumer<? super T, ? super Throwable> fakePlayerRejoin_forwardTheFlag(BiConsumer<? super T, ? super Throwable> action)
+	//$$ //#else
 	//$$ private static <T> Consumer<? super T> fakePlayerRejoin_forwardTheFlag(Consumer<? super T> action)
+	//$$ //#endif
 	//$$ {
 	//$$ 	boolean isRejoin = FakePlayerRejoinHelper.isRejoin.get();
+	//$$ 	//#if MC >= 12104
+	//$$ 	//$$ return (value, t) -> {
+	//$$ 	//#else
 	//$$ 	return value -> {
+	//$$ 	//#endif
 	//$$ 		if (isRejoin)
 	//$$ 		{
 	//$$ 			FakePlayerRejoinHelper.isRejoin.set(true);
 	//$$ 		}
 	//$$ 		try
 	//$$ 		{
+	//$$ 			//#if MC >= 12104
+	//$$ 			//$$ action.accept(value, t);
+	//$$ 			//#else
 	//$$ 			action.accept(value);
+	//$$ 			//#endif
 	//$$ 		}
 	//$$ 		finally
 	//$$ 		{
