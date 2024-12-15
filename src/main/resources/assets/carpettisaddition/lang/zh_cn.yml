@@ -1357,6 +1357,13 @@ carpettisaddition:
         desc: 修改经验球检测并追踪玩家的距离
         extra:
           '0': 将其调至0以禁用追踪
+      yeetIdleMspt:
+        name: 抑制空闲mspt
+        desc: 抑制空闲mspt的出现
+        extra:
+          '0': 一些操作，比如区块卸载和兴趣点保存，可能会造成空闲mspt开销
+          '1': 只有当前gt的耗时尚未达到掉刻极限时（mspt还没到50，同时没在tick warp），空闲mspt才会出现
+          '2': 当启用此规则时，空闲mspt将被抑制。若服务器未掉刻也未tick warp，其mspt可能会有所降低
       yeetOutOfOrderChatKick:
         name: 阻止乱序聊天数据包踢出
         desc: 阻止玩家被服务器以“接收到了乱序的聊天数据包...”为由踢出游戏

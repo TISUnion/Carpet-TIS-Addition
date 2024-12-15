@@ -490,6 +490,7 @@
     "rule.voidRelatedAltitude.EntityMixin",
     "rule.witherSpawnedSoundDisabled.WitherEntityMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
+    "rule.yeetIdleMspt.MinecraftServerMixin",
     "rule.yeetOutOfOrderChatKick.MessageVerifierImplMixin",
     "rule.yeetOutOfOrderChatKick.ServerPlayNetworkHandlerMixin",
     "rule.yeetUpdateSuppressionCrash.mark.BlockStateMixin",

@@ -1357,6 +1357,13 @@ carpettisaddition:
         desc: Overwrite the tracking distance of xp orb
         extra:
           '0': Change it to 0 to disable tracking
+      yeetIdleMspt:
+        name: yeetIdleMspt
+        desc: Suppress the appearance of idle mspt
+        extra:
+          '0': Some operations, such as chunk unloading and POI saving, may introduce idle mspt overhead
+          '1': Idle mspt will only appear when the current game tick cost has not yet reached the lag limit (i.e., mspt is still below 50, and the server is not in tick warp)
+          '2': When this rule is enabled, idle mspt will be suppressed. If the server is neither dropping ticks nor in tick warp, its mspt may be slightly reduced
       yeetOutOfOrderChatKick:
         name: yeetOutOfOrderChatKick
         desc: Prevent players being kicked with message "Out-of-order chat packet received..." caused by whatever reason

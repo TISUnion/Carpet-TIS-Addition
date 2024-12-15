@@ -1666,6 +1666,22 @@ Change it to 0 to disable tracking
 - Categories: `TIS`, `CREATIVE`
 
 
+## yeetIdleMspt
+
+Suppress the appearance of idle mspt
+
+Some operations, such as chunk unloading and POI saving, may introduce idle mspt overhead
+
+Idle mspt will only appear when the current game tick cost has not yet reached the lag limit (i.e., mspt is still below 50, and the server is not in tick warp)
+
+When this rule is enabled, idle mspt will be suppressed. If the server is neither dropping ticks nor in tick warp, its mspt may be slightly reduced
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`
+
+
 ## yeetOutOfOrderChatKick
 
 **Minecraft >= 1.19 only**
