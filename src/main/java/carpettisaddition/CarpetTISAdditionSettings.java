@@ -844,6 +844,9 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
+	@Rule(categories = {TIS})
+	public static boolean yeetIdleMspt = false;
+
 	//#if MC >= 11900
 	//$$ @Rule(categories = {TIS})
 	//$$ public static boolean yeetOutOfOrderChatKick = false;

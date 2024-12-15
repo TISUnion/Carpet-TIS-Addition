@@ -1666,6 +1666,22 @@ TISCM网络协议的开关
 - 分类: `TIS`, `CREATIVE`
 
 
+## 抑制空闲mspt (yeetIdleMspt)
+
+抑制空闲 mspt 的出现
+
+一些操作，比如区块卸载和兴趣点保存，可能会造成空闲 mspt 开销
+
+只有当前 gt 的耗时尚未达到掉刻极限时（mspt 还没到50，同时没在 tick warp），空闲mspt才会出现
+
+当启用此规则时，空闲 mspt 将被抑制。若服务器未掉刻也未 tick warp，其 mspt 可能会有所降低
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`
+
+
 ## 阻止乱序聊天数据包踢出 (yeetOutOfOrderChatKick)
 
 **本规则仅在 Minecraft >= 19 中存在**
