@@ -47,6 +47,7 @@ import net.minecraft.world.chunk.ChunkNibbleArray;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.chunk.PalettedContainer;
 import net.minecraft.world.chunk.WorldChunk;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -57,6 +58,7 @@ import java.util.stream.Collectors;
 //#endif
 
 //#if MC >= 11800
+//$$ import carpettisaddition.mixins.command.manipulate.chunk.ChunkTickSchedulerAccessor;
 //$$ import carpettisaddition.mixins.command.manipulate.chunk.WorldTickSchedulerAccessor;
 //$$ import net.minecraft.block.Blocks;
 //$$ import net.minecraft.world.tick.ChunkTickScheduler;
@@ -140,6 +142,14 @@ public class ChunkEraser extends TranslationContext
 		this.eraseDataStructures();
 	}
 
+	private static void clearCollection(@Nullable Collection<?> collection)
+	{
+		if (collection != null)
+		{
+			collection.clear();
+		}
+	}
+
 	//#if MC >= 11700
 	//$$ @SuppressWarnings("unchecked")
 	//#endif
@@ -173,8 +183,14 @@ public class ChunkEraser extends TranslationContext
 		//#if MC >= 11800
 		//$$ Consumer<WorldTickScheduler<?>> eraseTileTicks = scheduler -> {
 		//$$ 	ChunkTickScheduler<?> chunkTickScheduler = ((WorldTickSchedulerAccessor<?>)scheduler).getChunkTickSchedulers().get(chunk.getPos().toLong());
-		//$$ 	this.stats.tileTick += chunkTickScheduler != null ? chunkTickScheduler.getTickCount() : 0;
-		//$$ 	scheduler.removeChunkTickScheduler(chunk.getPos());
+		//$$ 	if (chunkTickScheduler != null)
+		//$$ 	{
+		//$$ 		ChunkTickSchedulerAccessor<?> ctsAccess = (ChunkTickSchedulerAccessor<?>)chunkTickScheduler;
+		//$$ 		this.stats.tileTick += chunkTickScheduler.getTickCount();
+		//$$ 		clearCollection(ctsAccess.getQueuedTicks());
+		//$$ 		clearCollection(ctsAccess.getTicks());
+		//$$ 		clearCollection(ctsAccess.getTickQueue());
+		//$$ 	}
 		//$$ };
 		//$$ eraseTileTicks.accept(this.world.getBlockTickScheduler());
 		//$$ eraseTileTicks.accept(this.world.getFluidTickScheduler());
