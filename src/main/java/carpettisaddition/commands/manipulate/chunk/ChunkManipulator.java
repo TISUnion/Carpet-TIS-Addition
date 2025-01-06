@@ -78,7 +78,7 @@ public class ChunkManipulator extends AbstractManipulator
 	{
 		// TODO copy relight to block manipulator for block box impl
 		context.node.
-				then(makeBatchOperationNode("erase", 24, this::doEraseChunks)).
+				then(makeBatchOperationNode("erase", 32, this::doEraseChunks)).
 				then(makeBatchOperationNode("relight", 2, this::doRelightChunks));
 	}
 
