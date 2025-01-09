@@ -22,14 +22,16 @@ package carpettisaddition.mixins.rule.creativeNetherWaterPlacement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+
+//#if MC >= 12105
+//$$ import net.minecraft.entity.LivingEntity;
+//#endif
 
 @Mixin(BucketItem.class)
 public abstract class BucketItemMixin
@@ -48,13 +50,20 @@ public abstract class BucketItemMixin
 	)
 	private boolean creativeNetherWaterPlacement(
 			boolean doesWaterVaporize,
-			/* parent method parameters v */
-			@Nullable PlayerEntity player, World world, BlockPos pos, @Nullable BlockHitResult hitResult
+			//#if MC >= 12105
+			//$$ @Local(argsOnly = true) @Nullable LivingEntity entity
+			//#else
+			@Local(argsOnly = true) @Nullable PlayerEntity player
+			//#endif
 	)
 	{
 		if (CarpetTISAdditionSettings.creativeNetherWaterPlacement)
 		{
+			//#if MC >= 12105
+			//$$ if (entity instanceof PlayerEntity player && player.isCreative())
+			//#else
 			if (player != null && player.isCreative())
+			//#endif
 			{
 				doesWaterVaporize = false;
 			}

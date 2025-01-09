@@ -53,7 +53,7 @@ public class WanderingTraderLogger extends AbstractLogger
 				Messenger.fancy(
 						Messenger.c("g [", Messenger.s("WTL"), "g ] "),
 						Messenger.c(tr("header_hover"), "w \n", Messenger.s(command)),
-						new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command)
+						Messenger.ClickEvents.suggestCommand(command)
 				),
 				message
 		);

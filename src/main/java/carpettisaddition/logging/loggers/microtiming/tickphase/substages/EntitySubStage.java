@@ -55,6 +55,6 @@ public class EntitySubStage extends AbstractSubStage
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.entity));
+		return Messenger.ClickEvents.suggestCommand(TextUtil.tp(this.entity));
 	}
 }

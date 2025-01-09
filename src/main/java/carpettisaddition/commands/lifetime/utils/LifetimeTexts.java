@@ -47,7 +47,7 @@ public class LifetimeTexts
 					null,
 					Messenger.s("[S]", "e"),
 					spawningPosHover,
-					new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(spawningPos, dimension))
+					Messenger.ClickEvents.suggestCommand(TextUtil.tp(spawningPos, dimension))
 			);
 		}
 	}
@@ -69,7 +69,7 @@ public class LifetimeTexts
 					null,
 					Messenger.s("[R]", "r"),
 					removalPosHover,
-					new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(removalPos, dimension))
+					Messenger.ClickEvents.suggestCommand(TextUtil.tp(removalPos, dimension))
 			);
 		}
 	}

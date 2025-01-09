@@ -68,6 +68,7 @@
     "command.fill.modeenhance.BlockStateArgumentAccessor",
     "command.fill.modeenhance.FillCommandAccessor",
     "command.fill.modeenhance.FillCommandMixin",
+    "command.fill.modeenhance.FillCommandModeAccessor",
     "command.fill.modeenhance.FillCommandModeMixin",
     "command.info.BlockInfoMixin",
     "command.info.ChunkTickSchedulerAccessor",

@@ -98,7 +98,7 @@ public class MicroTimingStandardCarpetLogger extends
 						Messenger.fancy(
 								translator.tr("rule_hint", command),
 								translator.tr("click_to_execute"),
-								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command)
+								Messenger.ClickEvents.suggestCommand(command)
 						)
 				);
 			}

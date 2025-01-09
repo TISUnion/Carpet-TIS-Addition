@@ -30,8 +30,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin
 {
-	@Inject(method = "onBlockChanged", at = @At("HEAD"), cancellable = true)
-	void disablePOIUpdates(CallbackInfo ci)
+	@Inject(
+			//#if MC >= 12105
+			//$$ method = "method_66016",
+			//#else
+			method = "onBlockChanged",
+			//#endif
+			at = @At("HEAD"),
+			cancellable = true
+	)
+	private void poiUpdates_disablePOIUpdates(CallbackInfo ci)
 	{
 		if (!CarpetTISAdditionSettings.poiUpdates)
 		{

@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 /**
  * mc1.14 ~ mc1.21.1: subproject 1.15.2 (main project)
- * mc1.21.2+        : subproject future        <--------
+ * mc1.21.2+        : subproject 1.21.3        <--------
  */
 @Mixin(ConsecutiveExecutor.class)
 public interface TaskExecutorAccessor<T extends Runnable>

@@ -125,7 +125,7 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 								String.format("w - Position: %s\n", posString),
 								String.format("w - Angle: %s", angleString)
 						),
-						new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, posString + " " + angleString)
+						Messenger.ClickEvents.suggestCommand(posString + " " + angleString)
 				);
 				switch (option)
 				{

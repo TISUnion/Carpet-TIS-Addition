@@ -151,6 +151,7 @@ carpettisaddition:
             '5': "drops items in block entity"
             '6': "caused by piston"
             '7': "emits light updates"
+            '8': "triggers side effects"
         block_state_change:
           state_change: State Change
           state_change_details: Block state changes details

@@ -126,7 +126,7 @@ public class MicroTimingMessage
 						tr("common.color"), Messenger.s(": "), Messenger.s(this.color.toString()), Messenger.newLine(),
 						tr("common.indentation"), Messenger.s(": "), Messenger.s(String.valueOf(indentation))
 				),
-				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.pos, this.dimensionType))
+				Messenger.ClickEvents.suggestCommand(TextUtil.tp(this.pos, this.dimensionType))
 		);
 	}
 

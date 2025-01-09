@@ -60,6 +60,7 @@ public abstract class AbstractSetblockStateEvent extends BaseEvent
 		SET_BLOCK_STATE_FLAGS.add(FlagData.of(5, true));   // SKIP_DROPS = 32
 		SET_BLOCK_STATE_FLAGS.add(FlagData.of(6, false));  // MOVED = 64
 		SET_BLOCK_STATE_FLAGS.add(FlagData.of(7, true));   // SKIP_LIGHTING_UPDATES = 128
+		SET_BLOCK_STATE_FLAGS.add(FlagData.of(8, true));   // SKIP_BLOCK_ENTITY_SIDEEFFECTS = 256
 	}
 
 	protected AbstractSetblockStateEvent(EventType eventType, String translateKey, BlockState oldBlockState, BlockState newBlockState, @Nullable Boolean returnValue, int flags)

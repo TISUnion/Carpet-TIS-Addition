@@ -59,6 +59,6 @@ public class TileEntitySubStage extends AbstractSubStage
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.pos, DimensionWrapper.of(this.world)));
+		return Messenger.ClickEvents.suggestCommand(TextUtil.tp(this.pos, DimensionWrapper.of(this.world)));
 	}
 }

@@ -37,8 +37,12 @@ import org.spongepowered.asm.mixin.injection.Slice;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
+/**
+ * mc1.14 ~ mc1.21.4: subproject 1.15.2 (main project)        <--------
+ * mc1.21.5+        : subproject 1.21.5
+ */
 @Mixin(FillCommand.class)
-public class FillCommandMixin
+public abstract class FillCommandMixin
 {
 	//#if MC >= 11900
 	//$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;

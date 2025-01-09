@@ -20,7 +20,7 @@
 
 package carpettisaddition.mixins.logger.ticket;
 
-import carpettisaddition.logging.loggers.ticket.IChunkTicketManager;
+import carpettisaddition.logging.loggers.ticket.TicketManagerWithServerWorld;
 import net.minecraft.server.world.ChunkTicketManager;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
@@ -31,20 +31,32 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12105
+//$$ import net.minecraft.class_10592;
+//#endif
+
 @Mixin(ServerChunkManager.class)
 public abstract class ServerChunkManagerMixin
 {
+	//#if MC >= 12105
+	//$$ @Shadow @Final private class_10592 field_55594;
+	//#else
 	@Shadow @Final private ChunkTicketManager ticketManager;
+	//#endif
 
 	@Shadow @Final
-	//#if MC < 11700
+	//#if MC < 11700 || MC >= 12103
 	private
 	//#endif
 	ServerWorld world;
 
-	@Inject(method = "<init>", at = @At(value = "RETURN"))
-	private void onConstructedTicketLogger(CallbackInfo ci)
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void ticketLogger_attachServerWorldToTicketManager(CallbackInfo ci)
 	{
-		((IChunkTicketManager)this.ticketManager).setServerWorld(this.world);
+		//#if MC >= 12105
+		//$$ ((TicketManagerWithServerWorld)this.field_55594).setServerWorld$TISCM(this.world);
+		//#else
+		((TicketManagerWithServerWorld)this.ticketManager).setServerWorld$TISCM(this.world);
+		//#endif
 	}
 }

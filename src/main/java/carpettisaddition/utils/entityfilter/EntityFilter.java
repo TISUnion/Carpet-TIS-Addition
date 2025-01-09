@@ -160,7 +160,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 						tr("anchor_pos"), "w : ",
 						Messenger.s(this.getAnchorPos().toString())
 				),
-				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, inputText)
+				Messenger.ClickEvents.suggestCommand(inputText)
 		);
 	}
 }

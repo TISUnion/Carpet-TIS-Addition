@@ -76,7 +76,7 @@ public class SpeedTestSessionMessengerImpl extends TranslationContext implements
 		return Messenger.fancy(
 				Messenger.s("[X]", Formatting.RED),
 				tr("abort_hover"),
-				new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/%s abort", SpeedTestCommand.NAME))
+				Messenger.ClickEvents.runCommand(String.format("/%s abort", SpeedTestCommand.NAME))
 		);
 	}
 

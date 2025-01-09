@@ -58,6 +58,6 @@ public class BlockEventSubStage extends AbstractSubStage
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(this.blockEventData.getPos(), DimensionWrapper.of(this.world)));
+		return Messenger.ClickEvents.suggestCommand(TextUtil.tp(this.blockEventData.getPos(), DimensionWrapper.of(this.world)));
 	}
 }

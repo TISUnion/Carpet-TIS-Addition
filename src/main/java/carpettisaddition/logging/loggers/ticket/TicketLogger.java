@@ -44,12 +44,19 @@ import java.util.stream.Collectors;
 
 import static java.lang.Math.max;
 
+/**
+ * Raw type {@link ChunkTicketType} usages here are to make the version compatibility earlier
+ * Since in MC 1.21.5+, {@link ChunkTicketType} are no longer generic
+ */
+//#if MC < 12105
+@SuppressWarnings("rawtypes")
+//#endif
 public class TicketLogger extends AbstractLogger
 {
 	public static final String NAME = "ticket";
 	private static final TicketLogger INSTANCE = new TicketLogger();
 
-	private final List<ChunkTicketType<?>> tickTypes = Lists.newArrayList();
+	private final List<ChunkTicketType> tickTypes = Lists.newArrayList();
 
 	public TicketLogger()
 	{
@@ -61,7 +68,7 @@ public class TicketLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
-	public void addTicketType(ChunkTicketType<?> ticketType)
+	public void addTicketType(ChunkTicketType ticketType)
 	{
 		this.tickTypes.add(ticketType);
 	}
@@ -69,7 +76,14 @@ public class TicketLogger extends AbstractLogger
 	private String[] getLoggingSuggestions()
 	{
 		List<String> suggestions = this.tickTypes.stream().map(ChunkTicketType::toString).collect(Collectors.toList());
-		suggestions.add(createCompoundOption(ChunkTicketType.PORTAL.toString(), ChunkTicketType.PLAYER.toString()));
+		suggestions.add(createCompoundOption(
+				ChunkTicketType.PORTAL.toString(),
+				//#if MC >= 12105
+				//$$ ChunkTicketType.PLAYER_SIMULATION.toString()
+				//#else
+				ChunkTicketType.PLAYER.toString()
+				//#endif
+		));
 		suggestions.add(createCompoundOption(ChunkTicketType.PORTAL.toString(), ChunkTicketType.DRAGON.toString()));
 		return wrapOptions(suggestions.toArray(new String[0]));
 	}
@@ -105,11 +119,11 @@ public class TicketLogger extends AbstractLogger
 		return String.format("%d * %d", length, length);
 	}
 
-	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket, ActionType actionType)
+	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket chunkTicket, ActionType actionType)
 	{
 		this.log((option) ->
 		{
-			ChunkTicketType<?> chunkTicketType = chunkTicket.getType();
+			ChunkTicketType chunkTicketType = chunkTicket.getType();
 			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicketType.toString()))
 			{
 				long expiryTicks = chunkTicketType.getExpiryTicks();
@@ -146,7 +160,7 @@ public class TicketLogger extends AbstractLogger
 		});
 	}
 
-	public static void onAddTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
+	public static void onAddTicket(ServerWorld world, long position, ChunkTicket chunkTicket)
 	{
 		if (TISAdditionLoggerRegistry.__ticket)
 		{
@@ -154,7 +168,7 @@ public class TicketLogger extends AbstractLogger
 		}
 	}
 
-	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket<?> chunkTicket)
+	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket chunkTicket)
 	{
 		if (TISAdditionLoggerRegistry.__ticket)
 		{

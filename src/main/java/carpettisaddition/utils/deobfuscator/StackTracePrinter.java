@@ -112,7 +112,7 @@ public class StackTracePrinter
 
 				// no COPY_TO_CLIPBOARD in 1.14
 				//#if MC >= 11500
-				new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, baseText.getString())
+				Messenger.ClickEvents.copyToClipBoard(baseText.getString())
 				//#else
 				//$$ null
 				//#endif

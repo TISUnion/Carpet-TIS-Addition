@@ -68,7 +68,7 @@ public class StopCommandDoubleConfirmation
 		Messenger.tell(commandContext.getSource(), Messenger.fancy(
 				Messenger.tr("carpettisaddition.command.stop.double_confirmation.message"),
 				Messenger.tr("carpettisaddition.command.stop.double_confirmation.hover_hint"),
-				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/carpet stopCommandDoubleConfirmation")
+				Messenger.ClickEvents.suggestCommand("/carpet stopCommandDoubleConfirmation")
 		), true);
 		cir.setReturnValue(0);
 	}

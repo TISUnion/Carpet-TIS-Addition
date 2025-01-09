@@ -30,7 +30,9 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class ExperienceOrbEntityMixin
 {
 	@ModifyExpressionValue(
-			//#if MC >= 11700
+			//#if MC >= 12105
+			//$$ method = "method_66264",
+			//#elseif MC >= 11700
 			//$$ method = {"tick", "expensiveUpdate"}, require = 1,
 			//#else
 			method = "tick", require = 3,
@@ -40,13 +42,15 @@ public abstract class ExperienceOrbEntityMixin
 					args = "doubleValue=8.0D"
 			)
 	)
-	private double modifyGiveUpDistance(double value)
+	private double xpTrackingDistance_modifyGiveUpDistance(double value)
 	{
 		return CarpetTISAdditionSettings.xpTrackingDistance;
 	}
 
 	@ModifyExpressionValue(
-			//#if MC >= 11700
+			//#if MC >= 12105
+			//$$ method = "method_66264",
+			//#elseif MC >= 11700
 			//$$ method = {"tick", "expensiveUpdate"}, require = 1,
 			//#else
 			method = "tick", require = 2,
@@ -56,19 +60,23 @@ public abstract class ExperienceOrbEntityMixin
 					args = "doubleValue=64.0D"
 			)
 	)
-	private double modifyGiveUpDistanceSquare(double value)
+	private double xpTrackingDistance_modifyGiveUpDistanceSquare(double value)
 	{
 		return CarpetTISAdditionSettings.xpTrackingDistance * CarpetTISAdditionSettings.xpTrackingDistance;
 	}
 
 	@ModifyExpressionValue(
+			//#if MC >= 12105
+			//$$ method = "method_66264",
+			//#else
 			method = "tick",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/player/PlayerEntity;isSpectator()Z"
 			)
 	)
-	private boolean isSpectatorOrTrackingDistanceIsZero(boolean isSpectator)
+	private boolean xpTrackingDistance_isSpectatorOrTrackingDistanceIsZero(boolean isSpectator)
 	{
 		return isSpectator || CarpetTISAdditionSettings.xpTrackingDistance == 0;
 	}

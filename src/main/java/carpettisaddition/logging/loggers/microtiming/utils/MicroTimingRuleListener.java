@@ -45,7 +45,7 @@ public class MicroTimingRuleListener extends RuleChangeListener<Boolean>
 				BaseText ruleText = Messenger.fancy(
 						Messenger.s(ruleName),
 						translator.tr("click_to_see_rule"),
-						new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/carpet " + ruleName)
+						Messenger.ClickEvents.suggestCommand("/carpet " + ruleName)
 				);
 				Messenger.tell(ctx.source, Messenger.formatting(
 						translator.tr("instant_block_updater_promote", ruleText),

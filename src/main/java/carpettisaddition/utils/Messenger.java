@@ -57,6 +57,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+//#if MC >= 12105
+//$$ import java.net.URI;
+//#endif
+
 //#if MC >= 12005
 //$$ import net.minecraft.registry.entry.RegistryEntry;
 //#endif
@@ -376,7 +380,7 @@ public class Messenger
 			hoverText.append(": ");
 			hoverText.append(dimension(dim));
 		}
-		return fancy(style, Messenger.s(posStr), hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
+		return fancy(style, Messenger.s(posStr), hoverText, Messenger.ClickEvents.suggestCommand(command));
 	}
 
 	public static BaseText coord(String style, Vec3d pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
@@ -394,7 +398,7 @@ public class Messenger
 
 	private static BaseText __vector(String style, String displayText, String detailedText)
 	{
-		return fancy(style, Messenger.s(displayText), Messenger.s(detailedText), new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, detailedText));
+		return fancy(style, Messenger.s(displayText), Messenger.s(detailedText), Messenger.ClickEvents.suggestCommand(detailedText));
 	}
 	public static BaseText vector(String style, Vec3d vec) {return __vector(style, TextUtil.vector(vec), TextUtil.vector(vec, 6));}
 	public static BaseText vector(Vec3d vec) {return vector(null, vec);}
@@ -416,7 +420,7 @@ public class Messenger
 				translator.tr("entity_type", entityBaseName, s(EntityType.getId(entity.getType()).toString())), newLine(),
 				getTeleportHint(entityDisplayName)
 		);
-		return fancy(style, entityDisplayName, hoverText, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(entity)));
+		return fancy(style, entityDisplayName, hoverText, Messenger.ClickEvents.suggestCommand(TextUtil.tp(entity)));
 	}
 
 	public static BaseText entity(Entity entity)
@@ -496,7 +500,7 @@ public class Messenger
 		return fancy(
 				block(blockState.getBlock()),
 				join(s("\n"), hovers.toArray(new BaseText[0])),
-				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.block(blockState))
+				Messenger.ClickEvents.suggestCommand(TextUtil.block(blockState))
 		);
 	}
 
@@ -547,7 +551,7 @@ public class Messenger
 
 	public static BaseText hover(BaseText text, BaseText hoverText)
 	{
-		return hover(text, new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+		return hover(text, HoverEvents.showText(hoverText));
 	}
 
 	public static BaseText click(BaseText text, ClickEvent clickEvent)
@@ -726,6 +730,64 @@ public class Messenger
 		}
 	}
 
+	/*
+	 * -------------------------
+	 *    Click / Hover Events
+	 * -------------------------
+	 */
+
+	public static class ClickEvents
+	{
+		public static ClickEvent runCommand(String command)
+		{
+			//#if MC >= 12105
+			//$$ return new ClickEvent.RunCommand(command);
+			//#else
+			return new ClickEvent(ClickEvent.Action.RUN_COMMAND, command);
+			//#endif
+		}
+
+		public static ClickEvent suggestCommand(String command)
+		{
+			//#if MC >= 12105
+			//$$ return new ClickEvent.SuggestCommand(command);
+			//#else
+			return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command);
+			//#endif
+		}
+
+		public static ClickEvent openUrl(String url)
+		{
+			//#if MC >= 12105
+			//$$ return new ClickEvent.OpenUrl(URI.create(url));
+			//#else
+			return new ClickEvent(ClickEvent.Action.OPEN_URL, url);
+			//#endif
+		}
+
+		//#if MC >= 11500
+		public static ClickEvent copyToClipBoard(String value)
+		{
+			//#if MC >= 12105
+			//$$ return new ClickEvent.CopyToClipboard(value);
+			//#else
+			return new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, value);
+			//#endif
+		}
+		//#endif
+	}
+
+	public static class HoverEvents
+	{
+		public static HoverEvent showText(Text text)
+		{
+			//#if MC >= 12105
+			//$$ return new HoverEvent.ShowText(text);
+			//#else
+			return new HoverEvent(HoverEvent.Action.SHOW_TEXT, text);
+			//#endif
+		}
+	}
 
 	/*
 	 * ----------

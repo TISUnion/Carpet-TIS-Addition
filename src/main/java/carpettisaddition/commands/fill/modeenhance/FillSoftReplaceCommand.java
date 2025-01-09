@@ -97,6 +97,9 @@ public class FillSoftReplaceCommand extends AbstractCommand implements CommandEx
 					getBlockState(context, "block"),
 					FillCommand.Mode.REPLACE,
 					filter
+					//#if MC >= 12105
+					//$$ , false
+					//#endif
 			);
 		}
 		finally

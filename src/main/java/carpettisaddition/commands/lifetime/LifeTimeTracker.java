@@ -204,7 +204,7 @@ public class LifeTimeTracker extends AbstractTracker
 								null,
 								Messenger.formatting(tr("help.here"), "ut"),
 								docLink,
-								new ClickEvent(ClickEvent.Action.OPEN_URL, docLink.getString())
+								Messenger.ClickEvents.openUrl(docLink.getString())
 						)
 				)
 		));

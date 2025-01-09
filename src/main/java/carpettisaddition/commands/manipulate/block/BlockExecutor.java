@@ -94,7 +94,7 @@ public class BlockExecutor extends TranslationContext
 		Messenger.tell(ctx.getSource(), Messenger.fancy(
 				tr(this.messageKey, trArgs.toArray()),
 				Messenger.s(hoverText),
-				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, hoverText)
+				Messenger.ClickEvents.suggestCommand(hoverText)
 		));
 
 		return (int)blockCount;

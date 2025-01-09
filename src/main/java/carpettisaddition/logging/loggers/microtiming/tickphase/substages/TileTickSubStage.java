@@ -96,6 +96,6 @@ public class TileTickSubStage extends AbstractSubStage
 				this.nextTickListEntry.pos;
 				//#endif
 
-		return new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(pos, DimensionWrapper.of(this.world)));
+		return Messenger.ClickEvents.suggestCommand(TextUtil.tp(pos, DimensionWrapper.of(this.world)));
 	}
 }

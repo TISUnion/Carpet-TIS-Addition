@@ -59,7 +59,7 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 		this.colorText = Messenger.fancy(
 				Messenger.colored(Messenger.color(color), color),
 				Messenger.s(color.getName()),
-				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, this.getSelfCommandBase())
+				Messenger.ClickEvents.suggestCommand(this.getSelfCommandBase())
 		);
 	}
 
@@ -170,7 +170,7 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 						"nb",
 						Messenger.s("[X]"),
 						this.baseTr.tr("reset", this.colorText),
-						new ClickEvent(ClickEvent.Action.RUN_COMMAND, this.getSelfCommandBase() + " reset")
+						Messenger.ClickEvents.runCommand(this.getSelfCommandBase() + " reset")
 				)
 		));
 		this.counter.object2LongEntrySet().stream().

@@ -93,7 +93,7 @@ public class CommandBlockLogger extends AbstractLogger
 									"c",
 									Messenger.s(finalCommandPreview),
 									Messenger.s(executor.getCommand()),
-									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, executor.getCommand())
+									Messenger.ClickEvents.suggestCommand(executor.getCommand())
 							)
 					),
 					"g  @ ",
@@ -103,7 +103,7 @@ public class CommandBlockLogger extends AbstractLogger
 							"r",
 							Messenger.s("[×]"),
 							tr("remove_executor", nameText),
-							new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, removeCommand)
+							Messenger.ClickEvents.suggestCommand(removeCommand)
 					)
 			)};
 		});

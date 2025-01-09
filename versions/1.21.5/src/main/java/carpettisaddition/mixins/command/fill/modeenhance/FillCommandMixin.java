@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -20,29 +20,31 @@
 
 package carpettisaddition.mixins.command.fill.modeenhance;
 
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.block.pattern.CachedBlockPosition;
-import net.minecraft.command.arguments.BlockStateArgument;
+import carpettisaddition.commands.CommandTreeContext;
+import carpettisaddition.commands.fill.modeenhance.FillSoftReplaceCommand;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.brigadier.builder.ArgumentBuilder;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.FillCommand;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.BlockBox;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import org.spongepowered.asm.mixin.injection.At;
 
-import java.util.function.Predicate;
-
+/**
+ * mc1.14 ~ mc1.21.4: subproject 1.15.2 (main project)
+ * mc1.21.5+        : subproject 1.21.5        <--------
+ */
 @Mixin(FillCommand.class)
-public interface FillCommandAccessor
+public abstract class FillCommandMixin
 {
-	@Invoker
-	static int invokeExecute(
-			ServerCommandSource source, BlockBox range, BlockStateArgument block, FillCommand.Mode mode, @Nullable Predicate<CachedBlockPosition> filter
-			//#if MC >= 12105
-			//$$ , boolean bl
-			//#endif
-	) throws CommandSyntaxException
+	@ModifyReturnValue(method = "buildModeTree", at = @At("TAIL"))
+	private static ArgumentBuilder<ServerCommandSource, ?> registerSoftReplaceFillMode(
+			ArgumentBuilder<ServerCommandSource, ?> node,
+			@Local(argsOnly = true) CommandRegistryAccess currentCommandBuildContext
+	)
 	{
-		throw new RuntimeException();
+		FillSoftReplaceCommand.getInstance().extendCommand(CommandTreeContext.of(node, currentCommandBuildContext));
+		return node;
 	}
 }

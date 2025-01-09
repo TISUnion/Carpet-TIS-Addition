@@ -30,10 +30,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ChunkTicketType.class)
 public abstract class ChunkTicketTypeMixin<T>
 {
-	@SuppressWarnings({"ConstantConditions", "unchecked"})
+	@SuppressWarnings({"ConstantConditions", "rawtypes"})  // ChunkTicket is not a generic in mc1.21.5+
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void recordTicketType(CallbackInfo ci)
 	{
-		TicketLogger.getInstance().addTicketType((ChunkTicketType<T>)(Object)this);
+		TicketLogger.getInstance().addTicketType((ChunkTicketType)(Object)this);
 	}
 }

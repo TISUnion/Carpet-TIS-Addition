@@ -137,7 +137,7 @@ public class RaidCommand extends AbstractCommand
 									//#endif
 							);
 							Messenger.hover(x, raiderMessage);
-							Messenger.click(x, new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(raider)));
+							Messenger.click(x, Messenger.ClickEvents.suggestCommand(TextUtil.tp(raider)));
 							line.add(x);
 							counter++;
 							if (counter == 10 || !iter.hasNext())

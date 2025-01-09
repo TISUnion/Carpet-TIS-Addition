@@ -151,6 +151,7 @@ carpettisaddition:
             '5': 掉落方块实体中的物品
             '6': 由活塞引起
             '7': 发出光照更新
+            '8': 触发副作用
         block_state_change:
           state_change: 状态改变
           state_change_details: 方块状态变化详情

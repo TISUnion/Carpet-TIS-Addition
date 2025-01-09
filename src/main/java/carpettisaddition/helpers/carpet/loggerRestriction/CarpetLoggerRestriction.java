@@ -64,7 +64,7 @@ public class CarpetLoggerRestriction
 			{
 				Messenger.click(
 						message,
-						new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/carpet " + ruleName)
+						Messenger.ClickEvents.suggestCommand("/carpet " + ruleName)
 				);
 			}
 			return RestrictionCheckResult.bool(

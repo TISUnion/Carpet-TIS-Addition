@@ -137,7 +137,7 @@ public class EntityFilterManager extends TranslationContext
 								null,
 								Messenger.s("[×]", "r"),
 								tr("click_to_clear"),
-								new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format(
+								Messenger.ClickEvents.runCommand(String.format(
 										"/%s filter %s clear",
 										LifeTimeTracker.getInstance().getCommandPrefix(),
 										entityType != null ? LifeTimeTrackerUtil.getEntityTypeDescriptor(entityType) : tr("global")

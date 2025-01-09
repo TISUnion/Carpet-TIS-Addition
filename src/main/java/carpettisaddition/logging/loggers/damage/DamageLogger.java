@@ -151,7 +151,7 @@ public class DamageLogger extends AbstractLogger
 					style,
 					Messenger.s(display),
 					Messenger.s(detail),
-					new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, detail)
+					Messenger.ClickEvents.suggestCommand(detail)
 			);
 		}
 
@@ -195,7 +195,7 @@ public class DamageLogger extends AbstractLogger
 										"w",
 										Messenger.s(this.damageSource.getName()),
 										sourceHoverTextList.isEmpty() ? null : Messenger.joinLines(sourceHoverTextList),
-										attacker != null ? new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, TextUtil.tp(attacker)) : null
+										attacker != null ? Messenger.ClickEvents.suggestCommand(TextUtil.tp(attacker)) : null
 								),
 								getAmountText(null, this.initialHealth)
 						));

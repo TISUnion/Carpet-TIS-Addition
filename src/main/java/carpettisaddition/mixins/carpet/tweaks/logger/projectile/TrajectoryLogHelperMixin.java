@@ -220,7 +220,7 @@ public abstract class TrajectoryLogHelperMixin
 								"w",
 								this.translator.tr("not_enabled.warn"),
 								this.translator.tr("not_enabled.hint"),
-								new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/carpet visualizeProjectileLoggerEnabled true")
+								Messenger.ClickEvents.suggestCommand("/carpet visualizeProjectileLoggerEnabled true")
 						));
 					}
 				}

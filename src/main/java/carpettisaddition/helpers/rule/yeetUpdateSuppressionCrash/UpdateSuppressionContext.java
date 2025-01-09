@@ -57,7 +57,7 @@ public class UpdateSuppressionContext
 					),
 					Messenger.s(hover),
 					//#if MC >= 11500
-					new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, hover)
+					Messenger.ClickEvents.copyToClipBoard(hover)
 					//#else
 					//$$ null
 					//#endif

@@ -43,7 +43,9 @@ public abstract class ExperienceOrbEntityMixin
 	private PlayerEntity target;
 
 	@Inject(
-			//#if MC >= 11700
+			//#if MC >= 12105
+			//$$ method = "method_66264",
+			//#elseif MC >= 11700
 			//$$ method = "expensiveUpdate",
 			//#else
 			method = "tick",
@@ -62,7 +64,9 @@ public abstract class ExperienceOrbEntityMixin
 	}
 
 	@Inject(
-			//#if MC >= 11700
+			//#if MC >= 12105
+			//$$ method = "method_66264",
+			//#elseif MC >= 11700
 			//$$ method = "expensiveUpdate",
 			//#else
 			method = "tick",
@@ -82,7 +86,11 @@ public abstract class ExperienceOrbEntityMixin
 	}
 
 	@ModifyExpressionValue(
+			//#if MC >= 12105
+			//$$ method = "method_66264",
+			//#else
 			method = "tick",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/player/PlayerEntity;isSpectator()Z",

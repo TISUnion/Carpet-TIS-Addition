@@ -18,21 +18,11 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.synchronizedLightThread;
+package carpettisaddition.logging.loggers.ticket;
 
-import net.minecraft.util.thread.TaskExecutor;
-import net.minecraft.util.thread.TaskQueue;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import net.minecraft.server.world.ServerWorld;
 
-/**
- * mc1.14 ~ mc1.21.1: subproject 1.15.2 (main project)        <--------
- * mc1.21.2+        : subproject 1.21.3
- */
-@Mixin(TaskExecutor.class)
-public interface TaskExecutorAccessor<T>
+public interface TicketManagerWithServerWorld
 {
-	// it's not public in mc1.17+
-	@Accessor
-	TaskQueue<? super T, ? extends Runnable> getQueue();
+	void setServerWorld$TISCM(ServerWorld world);
 }

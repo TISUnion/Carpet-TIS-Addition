@@ -22,6 +22,7 @@ package carpettisaddition.mixins.rule.largeBarrel.compat.lithium;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity;
@@ -38,8 +39,7 @@ import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Restriction(require = {
 		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"),
@@ -73,13 +73,26 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 		}
 	}
 
-	@Inject(method = "onStateReplaced", at = @At("RETURN"))
-	public void resetLithiumHopperCacheForLargeBarrel(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved, CallbackInfo ci)
+	@ModifyVariable(
+			//#if MC >= 12105
+			//$$ method = "method_66388",
+			//#else
+			method = "onStateReplaced",
+			//#endif
+			at = @At("TAIL"),
+			argsOnly = true
+	)
+	public World resetLithiumHopperCacheForLargeBarrel(
+			World world,
+			@Local(argsOnly = true, ordinal = 0) BlockState state,
+			@Local(argsOnly = true)  BlockPos pos
+	)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			resetLithiumHopperCache(world, pos, state);
 		}
+		return world;
 	}
 
 	@Unique

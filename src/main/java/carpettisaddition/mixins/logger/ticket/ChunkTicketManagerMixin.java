@@ -20,43 +20,74 @@
 
 package carpettisaddition.mixins.logger.ticket;
 
-import carpettisaddition.logging.loggers.ticket.IChunkTicketManager;
+import carpettisaddition.logging.loggers.ticket.TicketManagerWithServerWorld;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ChunkTicketManager;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+//#if MC >= 12105
+//$$ import net.minecraft.class_10592;
+//#endif
 
-@Mixin(ChunkTicketManager.class)
-public abstract class ChunkTicketManagerMixin implements IChunkTicketManager
+@Mixin(
+		//#if MC >= 12105
+		//$$ class_10592.class
+		//#else
+		ChunkTicketManager.class
+		//#endif
+)
+public abstract class ChunkTicketManagerMixin implements TicketManagerWithServerWorld
 {
-	private ServerWorld world;
+	@Unique
+	private ServerWorld world$TISCM = null;
 
 	@Override
-	public void setServerWorld(ServerWorld world)
+	public void setServerWorld$TISCM(ServerWorld world)
 	{
-		this.world = world;
+		this.world$TISCM = world;
 	}
 
-	@Inject(
+	@SuppressWarnings("rawtypes")  // ChunkTicket is no longer a generic in mc1.21.5+
+	@ModifyVariable(
+			//#if MC >= 12105
+			//$$ method = "method_66353",
+			//#else
 			method = "addTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
-			at = @At(value = "HEAD")
+			//#endif
+			at = @At("HEAD"),
+			argsOnly = true
 	)
-	private void onAddTicket(long position, ChunkTicket<?> chunkTicket, CallbackInfo ci)
+	private long ticketLogger_onAddTicket(long position, @Local(argsOnly = true) ChunkTicket chunkTicket)
 	{
-		TicketLogger.onAddTicket(this.world, position, chunkTicket);
+		if (this.world$TISCM != null)
+		{
+			TicketLogger.onAddTicket(this.world$TISCM, position, chunkTicket);
+		}
+		return position;
 	}
 
-	@Inject(
+	@SuppressWarnings("rawtypes")  // ChunkTicket is no longer a generic in mc1.21.5+
+	@ModifyVariable(
+			//#if MC >= 12105
+			//$$ method = "method_66369",
+			//#else
 			method = "removeTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
-			at = @At(value = "HEAD")
+			//#endif
+			at = @At("HEAD"),
+			argsOnly = true
 	)
-	private void onRemoveTicket(long position, ChunkTicket<?> chunkTicket, CallbackInfo ci)
+	private long ticketLogger_onRemoveTicket(long position, @Local(argsOnly = true) ChunkTicket chunkTicket)
 	{
-		TicketLogger.onRemoveTicket(this.world, position, chunkTicket);
+		if (this.world$TISCM != null)
+		{
+			TicketLogger.onRemoveTicket(this.world$TISCM, position, chunkTicket);
+		}
+		return position;
 	}
 }

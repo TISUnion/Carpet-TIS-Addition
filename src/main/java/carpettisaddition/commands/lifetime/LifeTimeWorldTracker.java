@@ -187,7 +187,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 											"w \n",
 											tr("detail_hint")
 									),
-									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, currentCommandBase)
+									Messenger.ClickEvents.suggestCommand(currentCommandBase)
 							),
 							"g ] ",
 							Messenger.fancy(
@@ -205,14 +205,14 @@ public class LifeTimeWorldTracker extends TranslationContext
 									null,
 									Messenger.c("e " + data.getSpawningCount()),
 									Messenger.join(Messenger.s("\n"), spawningHover),
-									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.SPAWNING))
+									Messenger.ClickEvents.suggestCommand(String.format("%s %s", currentCommandBase, SpecificDetailMode.SPAWNING))
 							),
 							"g /",
 							Messenger.fancy(
 									null,
 									Messenger.c("r " + data.getRemovalCount()),
 									Messenger.join(Messenger.s("\n"), removalHover),
-									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.REMOVAL))
+									Messenger.ClickEvents.suggestCommand(String.format("%s %s", currentCommandBase, SpecificDetailMode.REMOVAL))
 							),
 							"g , ",
 							Messenger.fancy(
@@ -225,7 +225,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 											Messenger.formatting(tr("lifetime_overview"), "q"), "w \n",
 											Messenger.join(Messenger.s("\n"), data.lifeTimeStatistic.getResult("  ", false))
 									),
-									new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("%s %s", currentCommandBase, SpecificDetailMode.LIFETIME))
+									Messenger.ClickEvents.suggestCommand(String.format("%s %s", currentCommandBase, SpecificDetailMode.LIFETIME))
 							)
 					));
 				});

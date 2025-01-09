@@ -72,6 +72,12 @@ public abstract class SpawnHelperMixin
 	{
 		if (a == b) return true;
 		if (a == null || b == null) return false;
+
+		//#if MC >= 12105
+		//$$ // XXX: check if vanilla has already fixed this issue, since now it's a record class
+		//$$ return Objects.equals(a.type(), b.type()) && a.minGroupSize() == b.maxGroupSize() && a.maxGroupSize() == b.maxGroupSize();
+		//#else
 		return Objects.equals(a.type, b.type) && a.minGroupSize == b.minGroupSize && a.maxGroupSize == b.maxGroupSize;
+		//#endif
 	}
 }

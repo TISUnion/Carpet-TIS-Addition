@@ -25,32 +25,41 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
 import net.minecraft.command.arguments.BlockStateArgument;
 import net.minecraft.server.command.FillCommand;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collection;
 import java.util.Set;
 
+//#if MC < 12105
+import net.minecraft.server.command.SetBlockCommand;
+//#endif
+
 @Mixin(FillCommand.Mode.class)
 public class FillCommandModeMixin
 {
-	@Inject(
-			method = "method_13358",  // lambda method in constructor parameter of FillCommand.Mode.REPLACE
-			at = @At("HEAD"),
-			remap = false,
-			cancellable = true
-	)
-	private static <T extends Comparable<T>> void fillSoftReplaceLogic(BlockBox blockBox, BlockPos blockPos, BlockStateArgument blockStateArgument, ServerWorld serverWorld, CallbackInfoReturnable<BlockStateArgument> cir)
+	static
 	{
-		if (FillModeEnhanceContext.isSoftReplace.get())
-		{
-			BlockState existedBlockState = serverWorld.getBlockState(blockPos);
+		fillSoftReplaceModeHijack();
+	}
+
+	private static <T extends Comparable<T>> void fillSoftReplaceModeHijack()
+	{
+		FillCommand.Mode replaceMode = FillCommand.Mode.REPLACE;
+		//#if MC >= 12105
+		//$$ FillCommand.Filter
+		//#else
+		SetBlockCommand.Filter
+		//#endif
+				oldFilter = replaceMode.filter;
+
+		((FillCommandModeAccessor)(Object)replaceMode).setFilter((box, pos, blockStateArgument, world) -> {
+			if (!FillModeEnhanceContext.isSoftReplace.get())
+			{
+				return oldFilter.filter(box, pos, blockStateArgument, world);
+			}
+
+			BlockState existedBlockState = world.getBlockState(pos);
 			BlockState targetBlockState = blockStateArgument.getBlockState();
 			Collection<Property<?>> existedProperties = existedBlockState.getProperties();
 			Collection<Property<?>> targetProperties = targetBlockState.getProperties();
@@ -70,7 +79,7 @@ public class FillCommandModeMixin
 				}
 			}
 
-			cir.setReturnValue(new BlockStateArgument(mergedBlockState, mergedProperties, ((BlockStateArgumentAccessor)blockStateArgument).getData()));
-		}
+			return new BlockStateArgument(mergedBlockState, mergedProperties, ((BlockStateArgumentAccessor)blockStateArgument).getData());
+		});
 	}
 }

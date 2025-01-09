@@ -214,7 +214,7 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 
 		Messenger.tell(source, Messenger.click(
 				tr("simulate.command", c.getInput()),
-				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, c.getInput())
+				Messenger.ClickEvents.suggestCommand(c.getInput())
 		));
 		Messenger.tell(source, tr("simulate.samples", n));
 		Messenger.tell(source, Messenger.formatting(tr("simulate.divider"), Formatting.GRAY));

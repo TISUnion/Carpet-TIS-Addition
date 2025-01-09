@@ -77,7 +77,7 @@ public class PhantomLogger extends AbstractLogger
 				Messenger.fancy(
 						Messenger.c("g [", tr("header"), "g ] "),
 						Messenger.s(command),
-						new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command)
+						Messenger.ClickEvents.suggestCommand(command)
 				),
 				message
 		);
