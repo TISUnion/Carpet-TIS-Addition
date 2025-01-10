@@ -329,9 +329,16 @@ carpettisaddition:
         common:
           throttled: Please wait until the ongoing operation finishes
         erase:
-          matter_summary: Erased %s chunks, removed %s entities, %s tile entities, %s tile ticks, %s block events, %s chunk sections
+          loading_summary: Loaded %s chunks for erasing, cost %ss
+          matter_summary: Erased %s chunks, cost %ss, removed %s entities, %s tile entities, %s tile ticks, %s block events, %s chunk sections
           erase_light: Resetting lights within erased chunks, this might take a while
-          all_done: 'Light reset done. Total cost: %1$ss'
+          light_summary: 'Light reset done, cost: %1$ss'
+          all_done: 'Chunk erase manipulation done. Total cost: %1$ss'
+          all_done_hover: |-
+            Time cost stats:
+            Chunk loading: %ss
+            Content erasing: %ss
+            Light resetting: %ss
         relight:
           relighting: Relighting %1$s chunks, please wait for the lighting engine to process these updates
           done: 'Relighted %1$s chunks. Total cost: %2$ss'

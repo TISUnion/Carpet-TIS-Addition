@@ -26,6 +26,7 @@ import carpettisaddition.mixins.command.manipulate.chunk.ServerWorldAccessor;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.NanoTimer;
 import carpettisaddition.utils.StringUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -88,6 +89,15 @@ public class ChunkEraser extends TranslationContext
 		this.stats = new Stats();
 	}
 
+	private static class TimeCosts
+	{
+		// in seconds
+		public double loading = 0;
+		public double eraseMatter = 0;
+		public double eraseLight = 0;
+		public double total = 0;
+	}
+
 	private static class Stats
 	{
 		public int entity = 0;
@@ -99,24 +109,42 @@ public class ChunkEraser extends TranslationContext
 
 	public CompletableFuture<Void> erase()
 	{
-		long startTime = System.currentTimeMillis();
+		NanoTimer timer = new NanoTimer();
+		TimeCosts timeCosts = new TimeCosts();
 		for (ChunkPos chunkPos : this.chunkPosList)
 		{
 			this.chunks.put(chunkPos, this.world.getChunk(chunkPos.x, chunkPos.z));
 		}
+		timeCosts.loading = timer.getElapsedSecRestart();
+		this.reportChunkLoadingStats(timeCosts);
 
 		this.eraseMatter();
-		this.reportMatterStats();
+		timeCosts.eraseMatter = timer.getElapsedSecRestart();
+		this.reportMatterStats(timeCosts);
+
 		return this.eraseLight().thenRunAsync(
-				() -> this.reportFinalStats(System.currentTimeMillis() - startTime),
+				() -> {
+					timeCosts.eraseLight = timer.getElapsedSecRestart();
+					this.reportLightStats(timeCosts);
+					timeCosts.total = timer.getTotalElapsedSec();
+					this.reportFinalStats(timeCosts);
+				},
 				this.world.getServer()
 		);
 	}
 
-	private void reportMatterStats()
+	private void reportChunkLoadingStats(TimeCosts timeCosts)
+	{
+		if (timeCosts.loading >= 1)
+		{
+			Messenger.tell(this.source, tr("loading_summary", this.chunks.size(), StringUtil.fractionDigit(timeCosts.loading, 1)));
+		}
+	}
+
+	private void reportMatterStats(TimeCosts timeCosts)
 	{
 		Messenger.tell(this.source, tr(
-				"matter_summary", this.chunks.size(),
+				"matter_summary", this.chunks.size(), StringUtil.fractionDigit(timeCosts.eraseMatter, 1),
 				this.stats.entity, this.stats.blockEntity, this.stats.tileTick, this.stats.blockEvent, this.stats.chunkSection
 		));
 		if (this.chunks.size() > 50)
@@ -125,10 +153,22 @@ public class ChunkEraser extends TranslationContext
 		}
 	}
 
-	private void reportFinalStats(long totalCostMs)
+	private void reportLightStats(TimeCosts timeCosts)
 	{
-		double costSec = totalCostMs / 1000.0;
-		Messenger.tell(this.source, tr("all_done", StringUtil.fractionDigit(costSec, 1)));
+		Messenger.tell(this.source, tr("light_summary", StringUtil.fractionDigit(timeCosts.eraseLight, 1)));
+	}
+
+	private void reportFinalStats(TimeCosts timeCosts)
+	{
+		Messenger.tell(this.source, Messenger.hover(
+				tr("all_done", StringUtil.fractionDigit(timeCosts.total, 1)),
+				tr(
+						"all_done_hover",
+						StringUtil.fractionDigit(timeCosts.loading, 2),
+						StringUtil.fractionDigit(timeCosts.eraseMatter, 2),
+						StringUtil.fractionDigit(timeCosts.eraseLight, 2)
+				)
+		));
 	}
 
 	// ============================== Matter Eraser ==============================

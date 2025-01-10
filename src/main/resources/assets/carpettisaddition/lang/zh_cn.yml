@@ -329,9 +329,16 @@ carpettisaddition:
         common:
           throttled: 请等待当前操作完成
         erase:
-          matter_summary: 已擦除%s个区块。共移除 %s个实体、%s个方块实体、%s个计划刻、%s个方块事件、%s个区段
+          loading_summary: 已加载%s个将被擦除的区块，耗时%ss
+          matter_summary: 已擦除%s个区块，耗时%ss。共移除 %s个实体、%s个方块实体、%s个计划刻、%s个方块事件、%s个区段
           erase_light: 正在重置被擦除区块的光照，这可能需要花费一定时间
-          all_done: '光照更新重置完成。总耗时: %1$ss'
+          light_summary: 光照更新重置完成，耗时%ss
+          all_done: '区块擦除操作结束。总耗时: %1$ss'
+          all_done_hover: |-
+            耗时统计
+            区块加载：%ss
+            内容擦除：%ss
+            光照重置：%ss
         relight:
           relighting: 正在重新计算%1$s个区块的光照，请等待光照引擎完成这些光照更新
           done: '已重新计算%1$s个区块的光照。总耗时: %2$ss'
