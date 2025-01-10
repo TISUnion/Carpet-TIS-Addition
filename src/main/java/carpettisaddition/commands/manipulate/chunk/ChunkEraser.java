@@ -188,8 +188,8 @@ public class ChunkEraser extends TranslationContext
 		//$$ 		ChunkTickSchedulerAccessor<?> ctsAccess = (ChunkTickSchedulerAccessor<?>)chunkTickScheduler;
 		//$$ 		this.stats.tileTick += chunkTickScheduler.getTickCount();
 		//$$ 		clearCollection(ctsAccess.getQueuedTicks());
-		//$$ 		clearCollection(ctsAccess.getTicks());
 		//$$ 		clearCollection(ctsAccess.getTickQueue());
+		//$$ 		ctsAccess.setTicks(null);  // the list might be immutable and we can't clear() it
 		//$$ 	}
 		//$$ };
 		//$$ eraseTileTicks.accept(this.world.getBlockTickScheduler());
