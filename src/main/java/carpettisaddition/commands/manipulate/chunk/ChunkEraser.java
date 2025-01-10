@@ -23,6 +23,7 @@ package carpettisaddition.commands.manipulate.chunk;
 import carpettisaddition.mixins.command.manipulate.chunk.HeightmapAccessor;
 import carpettisaddition.mixins.command.manipulate.chunk.PalettedContainerAccessor;
 import carpettisaddition.mixins.command.manipulate.chunk.ServerWorldAccessor;
+import carpettisaddition.mixins.command.manipulate.chunk.WorldChunkAccessor;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
@@ -32,6 +33,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
+import it.unimi.dsi.fastutil.shorts.ShortList;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -241,6 +243,17 @@ public class ChunkEraser extends TranslationContext
 
 		// block events
 		// done in eraseDataStructures()
+
+		// post-processing stuffs
+		// see what net.minecraft.world.chunk.WorldChunk#runPostProcessing will do
+		((WorldChunkAccessor)chunk).getPendingBlockEntityTags().clear();
+		for (ShortList postProcessingList : chunk.getPostProcessingLists())
+		{
+			if (postProcessingList != null)
+			{
+				postProcessingList.clear();
+			}
+		}
 
 		// block
 		for (ChunkSection chunkSection : chunk.getSectionArray())
