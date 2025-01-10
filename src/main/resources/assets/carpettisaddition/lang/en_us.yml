@@ -326,6 +326,14 @@ carpettisaddition:
           tile_tick: Executed %1$s random ticks
           precipitation_tick: Executed %1$s precipitation tick
       chunk:
+        help:
+          danger_notice: '[NOTICE] Chunk manipulations cannot be undone. Please back up and think twice before execute'
+          root: |-
+            Parameter Descriptions:
+            current: Manipulate the chunk you are in
+            square|chebyshev <r>: Manipulate chunks in a square centered at the player. The length of the square will be 2r + 1
+            circle|euclidean <r>: Manipulate chunks in a circle centered at the player. The diameter of the circle will be 2r + 1
+            at <chunkX> <chunkZ>: Manipulate chunk at given position. The chunk must be loaded
         common:
           throttled: Please wait until the ongoing operation finishes
         erase:

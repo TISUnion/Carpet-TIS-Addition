@@ -326,6 +326,14 @@ carpettisaddition:
           tile_tick: 已对%1$s个方块执行了计划刻
           precipitation_tick: 已对%1$s个方块执行了降水刻
       chunk:
+        help:
+          danger_notice: '[注意] 区块操纵命令无法撤回，请在操作前备份，三思而后行'
+          root: |-
+            参数说明：
+            current: 操作你所在的区块  
+            square|chebyshev <r>: 操作以玩家为中心的正方形范围内的区块。正方形的边长为 2r + 1
+            circle|euclidean <r>: 操作以玩家为中心的圆形范围内的区块。圆形的直径为 2r + 1
+            at <chunkX> <chunkZ>: 操作指定位置的区块。该区块必须已加载
         common:
           throttled: 请等待当前操作完成
         erase:

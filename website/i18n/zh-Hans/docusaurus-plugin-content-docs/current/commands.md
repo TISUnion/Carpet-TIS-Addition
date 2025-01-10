@@ -183,7 +183,6 @@ sidebar_position: 3
 
 | 指令                                               | 效果                                  |
 |--------------------------------------------------|-------------------------------------|
-| `/manipulate chunk erase`                        | 同 `/manipulate chunk erase current` |
 | `/manipulate chunk erase current`                | 擦除你所在的区块                            |
 | `/manipulate chunk erase square\|chebyshev <半径>` | 擦除给定半径内的所有区块（切比雪夫距离）                |
 | `/manipulate chunk erase circle\|euclidean <半径>` | 擦除给定半径内的所有区块（欧几里得距离）                |

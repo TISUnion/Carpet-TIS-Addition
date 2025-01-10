@@ -22,8 +22,10 @@ package carpettisaddition.commands.manipulate.chunk;
 
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.AbstractManipulator;
+import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.ChunkPos;
 
 import java.util.List;
@@ -54,7 +56,11 @@ public class ChunkManipulator extends AbstractManipulator
 						);
 
 		return literal(subcommand).
-				executes(c -> operator.operateCurrent(c.getSource())).
+				executes(c -> {
+					Messenger.tell(c.getSource(), Messenger.formatting(tr("help.danger_notice"), Formatting.RED));
+					Messenger.tell(c.getSource(), tr("help.root"));
+					return 0;
+				}).
 				then(literal("current").
 						executes(c -> operator.operateCurrent(c.getSource()))
 				).
