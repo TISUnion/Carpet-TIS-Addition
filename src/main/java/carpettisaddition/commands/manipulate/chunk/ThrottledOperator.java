@@ -20,15 +20,14 @@
 
 package carpettisaddition.commands.manipulate.chunk;
 
+import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.PositionUtils;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.arguments.BlockPosArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec3d;
 
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +58,16 @@ class ThrottledOperator extends TranslationContext
 			Messenger.tell(source, this.tr("common.throttled"));
 			return 0;
 		}
-		return this.operateImpl.call(source, chunkPosList, this.semaphore::release);
+		try
+		{
+			return this.operateImpl.call(source, chunkPosList, this.semaphore::release);
+		}
+		catch (Throwable e)
+		{
+			CarpetTISAdditionMod.LOGGER.error("Manipulation error", e);
+			this.semaphore.release();
+			throw e;
+		}
 	}
 
 	public int operateAt(ServerCommandSource source, ChunkPos chunkPos) throws CommandSyntaxException

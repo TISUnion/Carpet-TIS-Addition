@@ -20,11 +20,32 @@
 
 package carpettisaddition.mixins.command.manipulate.chunk;
 
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(WorldChunk.class)
+import java.util.Map;
+
+//#if MC >= 11800
+//$$ import net.minecraft.world.chunk.Chunk;
+//#else
+import net.minecraft.world.chunk.WorldChunk;
+//#endif
+
+@Mixin(
+		//#if MC >= 11800
+		//$$ Chunk.class
+		//#else
+		WorldChunk.class
+		//#endif
+)
 public interface WorldChunkAccessor
 {
+	//#if MC >= 11800
+	//$$ @Accessor("blockEntityNbts")
+	//#else
+	@Accessor
+	//#endif
+	Map<BlockPos, CompoundTag> getPendingBlockEntityTags();
 }

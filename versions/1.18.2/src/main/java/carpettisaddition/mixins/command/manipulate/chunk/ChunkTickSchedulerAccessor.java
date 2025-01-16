@@ -23,6 +23,7 @@ package carpettisaddition.mixins.command.manipulate.chunk;
 import net.minecraft.world.tick.ChunkTickScheduler;
 import net.minecraft.world.tick.OrderedTick;
 import net.minecraft.world.tick.Tick;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -37,7 +38,7 @@ public interface ChunkTickSchedulerAccessor<T>
 	Queue<OrderedTick<T>> getTickQueue();
 
 	@Accessor
-	List<Tick<T>> getTicks();
+	void setTicks(@Nullable List<Tick<T>> ticks);
 
 	@Accessor
 	Set<OrderedTick<?>> getQueuedTicks();

@@ -183,7 +183,6 @@ What it will not affect:
 
 | Command                                               | Effect                                                             |
 |-------------------------------------------------------|--------------------------------------------------------------------|
-| `/manipulate chunk erase`                             | The same as `/manipulate chunk erase current`                      |
 | `/manipulate chunk erase current`                     | Erase the current chunk you are in                                 |
 | `/manipulate chunk erase square\|chebyshev <radius>`  | Erase chunks in the given range (chebyshev distance)               |
 | `/manipulate chunk erase circle\|euclidean  <radius>` | Erase chunks in the given range (euclidean distance)               |
