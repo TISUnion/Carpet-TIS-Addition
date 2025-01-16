@@ -35,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.List;
 import java.util.Objects;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18.2"))
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18.2 <1.21.5"))
 @Mixin(SpawnHelper.class)
 public abstract class SpawnHelperMixin
 {

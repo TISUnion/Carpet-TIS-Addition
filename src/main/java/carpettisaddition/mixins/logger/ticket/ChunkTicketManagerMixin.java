@@ -24,24 +24,18 @@ import carpettisaddition.logging.loggers.ticket.TicketManagerWithServerWorld;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.world.ChunkTicket;
-import net.minecraft.server.world.ChunkTicketManager;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-//#if MC >= 12105
-//$$ import net.minecraft.class_10592;
-//#endif
+// don't remap ChunkTicketManager to ChunkLevelManager in mc1.21.5+
+//#disable-remap
+import net.minecraft.server.world.ChunkTicketManager;
 
-@Mixin(
-		//#if MC >= 12105
-		//$$ class_10592.class
-		//#else
-		ChunkTicketManager.class
-		//#endif
-)
+@Mixin(ChunkTicketManager.class)
+//#enable-remap
 public abstract class ChunkTicketManagerMixin implements TicketManagerWithServerWorld
 {
 	@Unique
@@ -56,7 +50,7 @@ public abstract class ChunkTicketManagerMixin implements TicketManagerWithServer
 	@SuppressWarnings("rawtypes")  // ChunkTicket is no longer a generic in mc1.21.5+
 	@ModifyVariable(
 			//#if MC >= 12105
-			//$$ method = "method_66353",
+			//$$ method = "addTicket(JLnet/minecraft/server/world/ChunkTicket;)Z",
 			//#else
 			method = "addTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
 			//#endif
@@ -75,7 +69,7 @@ public abstract class ChunkTicketManagerMixin implements TicketManagerWithServer
 	@SuppressWarnings("rawtypes")  // ChunkTicket is no longer a generic in mc1.21.5+
 	@ModifyVariable(
 			//#if MC >= 12105
-			//$$ method = "method_66369",
+			//$$ method = "removeTicket(JLnet/minecraft/server/world/ChunkTicket;)Z",
 			//#else
 			method = "removeTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
 			//#endif

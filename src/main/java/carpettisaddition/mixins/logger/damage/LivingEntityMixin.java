@@ -71,7 +71,9 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 			//#endif
 	);
 
+	//#if MC < 12100
 	@Shadow public abstract Iterable<ItemStack> getArmorItems();
+	//#endif
 
 	@Nullable
 	private DamageLogger.Tracker damageTracker$TISCM = null;

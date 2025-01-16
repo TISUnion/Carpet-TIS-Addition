@@ -21,7 +21,6 @@
 package carpettisaddition.mixins.logger.ticket;
 
 import carpettisaddition.logging.loggers.ticket.TicketManagerWithServerWorld;
-import net.minecraft.server.world.ChunkTicketManager;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Final;
@@ -31,18 +30,17 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//#if MC >= 12105
-//$$ import net.minecraft.class_10592;
-//#endif
+// don't remap ChunkTicketManager to ChunkLevelManager in mc1.21.5+
+//#disable-remap
+import net.minecraft.server.world.ChunkTicketManager;
+//#enable-remap
 
 @Mixin(ServerChunkManager.class)
 public abstract class ServerChunkManagerMixin
 {
-	//#if MC >= 12105
-	//$$ @Shadow @Final private class_10592 field_55594;
-	//#else
+	//#disable-remap
 	@Shadow @Final private ChunkTicketManager ticketManager;
-	//#endif
+	//#enable-remap
 
 	@Shadow @Final
 	//#if MC < 11700 || MC >= 12103
@@ -53,10 +51,8 @@ public abstract class ServerChunkManagerMixin
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void ticketLogger_attachServerWorldToTicketManager(CallbackInfo ci)
 	{
-		//#if MC >= 12105
-		//$$ ((TicketManagerWithServerWorld)this.field_55594).setServerWorld$TISCM(this.world);
-		//#else
+		//#disable-remap
 		((TicketManagerWithServerWorld)this.ticketManager).setServerWorld$TISCM(this.world);
-		//#endif
+		//#enable-remap
 	}
 }

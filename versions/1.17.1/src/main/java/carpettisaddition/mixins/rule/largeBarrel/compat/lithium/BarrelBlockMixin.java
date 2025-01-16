@@ -74,11 +74,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	}
 
 	@ModifyVariable(
-			//#if MC >= 12105
-			//$$ method = "method_66388",
-			//#else
 			method = "onStateReplaced",
-			//#endif
 			at = @At("TAIL"),
 			argsOnly = true
 	)

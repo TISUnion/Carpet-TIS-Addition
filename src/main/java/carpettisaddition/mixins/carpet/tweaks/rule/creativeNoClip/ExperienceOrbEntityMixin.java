@@ -44,7 +44,7 @@ public abstract class ExperienceOrbEntityMixin
 
 	@Inject(
 			//#if MC >= 12105
-			//$$ method = "method_66264",
+			//$$ method = "moveTowardsPlayer",
 			//#elseif MC >= 11700
 			//$$ method = "expensiveUpdate",
 			//#else
@@ -65,7 +65,7 @@ public abstract class ExperienceOrbEntityMixin
 
 	@Inject(
 			//#if MC >= 12105
-			//$$ method = "method_66264",
+			//$$ method = "moveTowardsPlayer",
 			//#elseif MC >= 11700
 			//$$ method = "expensiveUpdate",
 			//#else
@@ -87,7 +87,7 @@ public abstract class ExperienceOrbEntityMixin
 
 	@ModifyExpressionValue(
 			//#if MC >= 12105
-			//$$ method = "method_66264",
+			//$$ method = "moveTowardsPlayer",
 			//#else
 			method = "tick",
 			//#endif

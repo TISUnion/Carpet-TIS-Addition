@@ -24,10 +24,7 @@ import carpettisaddition.mixins.command.info.entity.*;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
@@ -173,6 +170,19 @@ public class EntityInfoPorting
 				lst.add(Messenger.c("w  - Off hand: ", "wb "+EntityInfoUtil.display_item(elb, offhand)));
 			}
 			String armour = "";
+			//#if MC >= 12105
+			//$$ for (EquipmentSlot equipmentSlot : EquipmentSlot.values())
+			//$$ {
+			//$$ 	if (equipmentSlot.isArmorSlot())
+			//$$ 	{
+			//$$ 		ItemStack armourpiece = elb.getEquippedStack(equipmentSlot);
+			//$$ 		if (!(armourpiece.isEmpty()))
+			//$$ 		{
+			//$$ 			armour += String.format("\n   * %s", EntityInfoUtil.display_item(elb, armourpiece));
+			//$$ 		}
+			//$$ 	}
+			//$$ }
+			//#else
 			for (ItemStack armourpiece: elb.getArmorItems())
 			{
 				if (!(armourpiece.isEmpty()))
@@ -180,6 +190,7 @@ public class EntityInfoPorting
 					armour += String.format("\n   * %s", EntityInfoUtil.display_item(elb, armourpiece));
 				}
 			}
+			//#endif
 			if (!("".equals(armour)))
 			{
 				lst.add(Messenger.c("w  - Armour:"+ armour));

@@ -8,11 +8,11 @@
 
 **English** | [中文](README_CN.md)
 
-A [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) extension, a collection of carpet mod style useful tools and interesting features
+A [Carpet mod](https://github.com/gnembon/fabric-carpet) (fabric-carpet) extension, consisting of a collection of useful tools and interesting features in the carpet mod style
 
-Under the default configuration conditions, this mod will not change any vanilla behavior at all
+Under the default configuration, this mod does not alter any vanilla behavior
 
-Use with carpet mod in the same Minecraft version. Use newer carpet mod versions whenever possible
+Use it with the carpet mod in the same version of Minecraft. Always use the latest version of the Carpet mod when possible
 
 ## Document
 

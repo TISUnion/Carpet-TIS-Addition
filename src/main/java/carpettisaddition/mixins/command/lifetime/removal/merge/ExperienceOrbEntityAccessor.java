@@ -22,15 +22,28 @@ package carpettisaddition.mixins.command.lifetime.removal.merge;
 
 import net.minecraft.entity.ExperienceOrbEntity;
 import org.spongepowered.asm.mixin.Mixin;
+
+//#if MC >= 12105
+//$$ import org.spongepowered.asm.mixin.gen.Invoker;
+//#else
 import org.spongepowered.asm.mixin.gen.Accessor;
+//#endif
 
 // used in 1.17+
 @Mixin(ExperienceOrbEntity.class)
 public interface ExperienceOrbEntityAccessor
 {
-	@Accessor(value = "amount")
+	//#if MC >= 12105
+	//$$ @Invoker("getExperienceAmount")
+	//#else
+	@Accessor("amount")
+	//#endif
 	int getAmount$TISCM();
 
-	@Accessor(value = "amount")
+	//#if MC >= 12105
+	//$$ @Invoker("method_66666")
+	//#else
+	@Accessor("amount")
+	//#endif
 	void setAmount$TISCM(int amount);
 }
