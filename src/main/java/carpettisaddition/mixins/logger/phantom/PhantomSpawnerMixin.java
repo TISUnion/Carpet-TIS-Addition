@@ -24,13 +24,12 @@ import carpettisaddition.logging.loggers.phantom.PhantomLogger;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.gen.PhantomSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 12000
 //$$ import net.minecraft.server.network.ServerPlayerEntity;
@@ -41,17 +40,19 @@ import net.minecraft.entity.player.PlayerEntity;
 @Mixin(PhantomSpawner.class)
 public abstract class PhantomSpawnerMixin
 {
-	@Inject(
+	@ModifyVariable(
 			method = "spawn",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/LocalDifficulty;getGlobalDifficulty()Lnet/minecraft/world/Difficulty;",
 					ordinal = 0
-			)
+			),
+			argsOnly = true
 	)
-	private void resetFlag_phantomLogger(CallbackInfoReturnable<Integer> cir, @Share("once") LocalBooleanRef hasLogged)
+	private ServerWorld resetFlag_phantomLogger(ServerWorld serverWorld, @Share("once") LocalBooleanRef hasLogged)
 	{
 		hasLogged.set(false);
+		return serverWorld;
 	}
 
 	@ModifyVariable(

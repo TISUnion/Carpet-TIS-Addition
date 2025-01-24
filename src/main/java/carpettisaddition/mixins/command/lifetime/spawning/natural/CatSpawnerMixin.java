@@ -32,7 +32,9 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class CatSpawnerMixin
 {
 	@ModifyArg(
-			//#if MC >= 11600
+			//#if MC >= 12105
+			//$$ method = "spawn(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/server/world/ServerWorld;Z)V",
+			//#elseif MC >= 11600
 			//$$ method = "spawn(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/server/world/ServerWorld;)I",
 			//#else
 			method = "spawn(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/World;)I",

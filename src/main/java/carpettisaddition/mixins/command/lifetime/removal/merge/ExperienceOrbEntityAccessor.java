@@ -34,14 +34,14 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface ExperienceOrbEntityAccessor
 {
 	//#if MC >= 12105
-	//$$ @Invoker("getExperienceAmount")
+	//$$ @Invoker("getValue")
 	//#else
 	@Accessor("amount")
 	//#endif
 	int getAmount$TISCM();
 
 	//#if MC >= 12105
-	//$$ @Invoker("method_66666")
+	//$$ @Invoker("setValue")
 	//#else
 	@Accessor("amount")
 	//#endif
