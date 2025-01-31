@@ -44,6 +44,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
+//#if MC >= 12105
+//$$ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+//#endif
+
 //#if MC >= 12100
 //$$ import net.minecraft.server.world.ServerWorld;
 //$$ import net.minecraft.world.World;
@@ -119,6 +123,23 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount * 0.75F, ModifyReason.HELMET));
 	}
 
+	//#if MC >= 12105
+	//$$ @ModifyExpressionValue(
+	//$$ 		method = "damage",
+	//$$ 		at = @At(
+	//$$ 				value = "INVOKE",
+	//$$ 				target = "Lnet/minecraft/entity/LivingEntity;getDamageBlockedAmount(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)F"
+	//$$ 		)
+	//$$ )
+	//$$ private float onShieldReducedDamage(float damageBlockedAmount, @Local(argsOnly = true) float amount)
+	//$$ {
+	//$$ 	if (damageBlockedAmount > 0)
+	//$$ 	{
+	//$$ 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount - damageBlockedAmount, ModifyReason.SHIELD));
+	//$$ 	}
+	//$$ 	return damageBlockedAmount;
+	//$$ }
+	//#else
 	@Inject(
 			//#disable-remap
 			method = "damage",
@@ -144,6 +165,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	{
 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount, ModifyReason.SHIELD));
 	}
+	//#endif
 
 	@Inject(
 			//#disable-remap

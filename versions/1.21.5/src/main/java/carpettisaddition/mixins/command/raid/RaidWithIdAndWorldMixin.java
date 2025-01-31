@@ -20,24 +20,43 @@
 
 package carpettisaddition.mixins.command.raid;
 
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.entity.raid.RaidManager;
+import carpettisaddition.commands.raid.RaidWithIdAndWorld;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.village.raid.Raid;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.Unique;
 
-//#if MC >= 12105
-//$$ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-//#else
-import java.util.Map;
-//#endif
-
-@Mixin(RaidManager.class)
-public interface RaidManagerAccessor
+/**
+ * mc1.14 ~ mc1.21.4: subproject 1.15.2 (main project)
+ * mc1.21.5+        : subproject 1.21.5        <--------
+ */
+@Mixin(Raid.class)
+public abstract class RaidWithIdAndWorldMixin implements RaidWithIdAndWorld
 {
-	@Accessor
-	//#if MC >= 12105
-	//$$ Int2ObjectMap<Raid> getRaids();
-	//#else
-	Map<Integer, Raid> getRaids();
-	//#endif
+	@Unique private int id$TISCM;
+	@Unique private ServerWorld world$TISCM;
+
+	@Override
+	public int getRaidId$TISCM()
+	{
+		return this.id$TISCM;
+	}
+
+	@Override
+	public void setRaidId$TISCM(int id)
+	{
+		this.id$TISCM = id;
+	}
+
+	@Override
+	public ServerWorld getRaidWorld$TISCM()
+	{
+		return this.world$TISCM;
+	}
+
+	@Override
+	public void setRaidWorld$TISCM(ServerWorld world)
+	{
+		this.world$TISCM = world;
+	}
 }

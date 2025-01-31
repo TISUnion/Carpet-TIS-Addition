@@ -24,27 +24,44 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import net.minecraft.entity.raid.RaidManager;
 import net.minecraft.server.world.ServerWorld;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12105
+//$$ import com.llamalad7.mixinextras.sugar.Local;
+//#else
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Shadow;
+//#endif
+
 @Mixin(RaidManager.class)
 public abstract class RaidManagerMixin
 {
+	//#if MC < 12105
 	@Shadow @Final private ServerWorld world;
+	//#endif
 
 	@Inject(method = "tick", at = @At("HEAD"))
-	private void enterStageRaid(CallbackInfo ci)
+	private void enterStageRaid(
+			CallbackInfo ci
+			//#if MC >= 12105
+			//$$ , @Local ServerWorld world
+			//#endif
+	)
 	{
-		MicroTimingLoggerManager.setTickStage(this.world, TickStage.RAID);
+		MicroTimingLoggerManager.setTickStage(world, TickStage.RAID);
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
-	private void exitStageRaid(CallbackInfo ci)
+	private void exitStageRaid(
+			CallbackInfo ci
+			//#if MC >= 12105
+			//$$ , @Local ServerWorld world
+			//#endif
+	)
 	{
-		MicroTimingLoggerManager.setTickStage(this.world, TickStage.UNKNOWN);
+		MicroTimingLoggerManager.setTickStage(world, TickStage.UNKNOWN);
 	}
 }

@@ -20,8 +20,7 @@
 
 package carpettisaddition.logging.loggers.raid;
 
-
 public interface IRaid
 {
-	void onRaidInvalidated(RaidLogger.InvalidateReason reason);
+	void onRaidInvalidated$TISCM(RaidLogger.InvalidateReason reason);
 }

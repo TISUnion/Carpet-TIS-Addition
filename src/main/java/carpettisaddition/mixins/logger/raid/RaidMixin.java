@@ -46,16 +46,20 @@ public abstract class RaidMixin implements IRaid
 	private int previousBadOmenLevel;
 
 	@Inject(
+			//#if MC >= 12105
+			//$$ method = "<init>(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/Difficulty;)V",
+			//#else
 			method = "<init>(ILnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)V",
+			//#endif
 			at = @At(value = "RETURN")
 	)
-	private void onConstruct(CallbackInfo ci)
+	private void raidLogger_onConstruct(CallbackInfo ci)
 	{
 		RaidLogger.getInstance().onRaidCreated((Raid)(Object)this);
 	}
 
 	@Override
-	public void onRaidInvalidated(RaidLogger.InvalidateReason reason)
+	public void onRaidInvalidated$TISCM(RaidLogger.InvalidateReason reason)
 	{
 		RaidLogger.getInstance().onRaidInvalidated((Raid)(Object)this, reason);
 		RaidTracker.getInstance().trackRaidInvalidated(reason);
@@ -72,7 +76,7 @@ public abstract class RaidMixin implements IRaid
 					//#endif
 			)
 	)
-	private void onStartBeforeCalculated(
+	private void raidLogger_onStartBeforeCalculated(
 			//#if MC >= 12005
 			//$$ CallbackInfoReturnable<Boolean> cir
 			//#else
@@ -91,7 +95,7 @@ public abstract class RaidMixin implements IRaid
 					target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"
 			)
 	)
-	private void onStartedAfterCalculated(
+	private void raidLogger_onStartedAfterCalculated(
 			//#if MC >= 12005
 			//$$ CallbackInfoReturnable<Boolean> cir
 			//#else
@@ -129,9 +133,9 @@ public abstract class RaidMixin implements IRaid
 					ordinal = 0
 			)
 	)
-	private void onInvalidatedByDifficulty(CallbackInfo ci)
+	private void raidLogger_onInvalidatedByDifficulty(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogger.InvalidateReason.DIFFICULTY_PEACEFUL);
+		onRaidInvalidated$TISCM(RaidLogger.InvalidateReason.DIFFICULTY_PEACEFUL);
 	}
 
 	@Inject(
@@ -152,9 +156,9 @@ public abstract class RaidMixin implements IRaid
 					ordinal = 0
 			)
 	)
-	private void onInvalidatedByPOINotFound(CallbackInfo ci)
+	private void raidLogger_onInvalidatedByPOINotFound(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogger.InvalidateReason.POI_REMOVED_BEFORE_SPAWN);
+		onRaidInvalidated$TISCM(RaidLogger.InvalidateReason.POI_REMOVED_BEFORE_SPAWN);
 	}
 
 	@Inject(
@@ -176,9 +180,9 @@ public abstract class RaidMixin implements IRaid
 					ordinal = 0
 			)
 	)
-	private void onInvalidatedByTimeOut(CallbackInfo ci)
+	private void raidLogger_onInvalidatedByTimeOut(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogger.InvalidateReason.TIME_OUT);
+		onRaidInvalidated$TISCM(RaidLogger.InvalidateReason.TIME_OUT);
 	}
 
 	@Inject(
@@ -203,9 +207,9 @@ public abstract class RaidMixin implements IRaid
 					ordinal = 0
 			)
 	)
-	private void onInvalidatedByRaiderCannotSpawn(CallbackInfo ci)
+	private void raidLogger_onInvalidatedByRaiderCannotSpawn(CallbackInfo ci)
 	{
-		onRaidInvalidated(RaidLogger.InvalidateReason.RAIDER_CANNOT_SPAWN);
+		onRaidInvalidated$TISCM(RaidLogger.InvalidateReason.RAIDER_CANNOT_SPAWN);
 	}
 
 	@Inject(
@@ -226,15 +230,15 @@ public abstract class RaidMixin implements IRaid
 					ordinal = 0
 			)
 	)
-	private void onInvalidatedByFinished(CallbackInfo ci)
+	private void raidLogger_onInvalidatedByFinished(CallbackInfo ci)
 	{
 		if (this.hasWon())
 		{
-			onRaidInvalidated(RaidLogger.InvalidateReason.RAID_VICTORY);
+			onRaidInvalidated$TISCM(RaidLogger.InvalidateReason.RAID_VICTORY);
 		}
 		else
 		{
-			onRaidInvalidated(RaidLogger.InvalidateReason.RAID_DEFEAT);
+			onRaidInvalidated$TISCM(RaidLogger.InvalidateReason.RAID_DEFEAT);
 		}
 	}
 
@@ -252,7 +256,7 @@ public abstract class RaidMixin implements IRaid
 			//#endif
 			at = @At(value = "HEAD")
 	)
-	private void onCenterMoved(BlockPos blockPos, CallbackInfo ci)
+	private void raidLogger_onCenterMoved(BlockPos blockPos, CallbackInfo ci)
 	{
 		RaidLogger.getInstance().onCenterMoved((Raid)(Object)this, blockPos);
 	}

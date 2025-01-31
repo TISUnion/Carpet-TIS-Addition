@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -20,24 +20,11 @@
 
 package carpettisaddition.mixins.command.raid;
 
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.entity.raid.RaidManager;
+import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
-//#if MC >= 12105
-//$$ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-//#else
-import java.util.Map;
-//#endif
-
-@Mixin(RaidManager.class)
-public interface RaidManagerAccessor
+@Mixin(DummyClass.class)
+public abstract class RaidManagerMixin
 {
-	@Accessor
-	//#if MC >= 12105
-	//$$ Int2ObjectMap<Raid> getRaids();
-	//#else
-	Map<Integer, Raid> getRaids();
-	//#endif
+	// impl in mc1.21.5+
 }

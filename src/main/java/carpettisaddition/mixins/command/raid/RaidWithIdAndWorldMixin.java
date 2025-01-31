@@ -20,41 +20,44 @@
 
 package carpettisaddition.mixins.command.raid;
 
-import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.commands.raid.RaidWithIdAndWorld;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.raid.Raid;
-import net.minecraft.entity.raid.RaiderEntity;
+import net.minecraft.server.world.ServerWorld;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.Shadow;
 
+/**
+ * mc1.14 ~ mc1.21.4: subproject 1.15.2 (main project)        <--------
+ * mc1.21.5+        : subproject 1.21.5
+ */
 @Mixin(Raid.class)
-public abstract class RaidMixin implements RaidWithIdAndWorld
+public abstract class RaidWithIdAndWorldMixin implements RaidWithIdAndWorld
 {
-	@Inject(
-			//#if MC >= 12105
-			//$$ method = "<init>(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/Difficulty;)V",
-			//#else
-			method = "<init>(ILnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)V",
-			//#endif
-			at = @At(value = "RETURN")
-	)
-	private void raidCommand_onConstruct(CallbackInfo ci)
+	@Shadow @Final private int id;
+	@Shadow @Final private ServerWorld world;
+
+	@Override
+	public int getRaidId$TISCM()
 	{
-		RaidTracker.getInstance().trackRaidGenerated((Raid)(Object)this);
+		return this.id;
 	}
 
-	@Inject(
-			method = "addRaider",
-			at = @At(value = "RETURN")
-	)
-	private void raidCommand_onAddedRaider(CallbackInfo ci, @Local(argsOnly = true) RaiderEntity raider, @Local(argsOnly = true) boolean existing)
+	@Override
+	public void setRaidId$TISCM(int id)
 	{
-		if (!existing)
-		{
-			RaidTracker.getInstance().trackNewRaider(raider);
-		}
+		throw new RuntimeException("TISCM assertion error: not implemented in mc < 1.21.5");
+	}
+
+	@Override
+	public ServerWorld getRaidWorld$TISCM()
+	{
+		return this.world;
+	}
+
+	@Override
+	public void setRaidWorld$TISCM(ServerWorld world)
+	{
+		throw new RuntimeException("TISCM assertion error: not implemented in mc < 1.21.5");
 	}
 }

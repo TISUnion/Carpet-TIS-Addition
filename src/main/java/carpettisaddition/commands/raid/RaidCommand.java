@@ -38,7 +38,6 @@ import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 
 import java.util.*;
 
@@ -97,10 +96,16 @@ public class RaidCommand extends AbstractCommand
 			for (Map.Entry<Integer, Raid> entry : raids.entrySet())
 			{
 				Raid raid = entry.getValue();
+				int raidId = ((RaidWithIdAndWorld)raid).getRaidId$TISCM();
 				RaidAccessor raidAccessor = (RaidAccessor) raid;
 				int currentWave = raidAccessor.getWavesSpawned();
-				String status = raidAccessor.getStatus().getName();
-				result.add(Messenger.c("g - ", Messenger.tr("event.minecraft.raid"), String.format("w  #%d", raid.getRaidId())));
+				String status = raidAccessor.getStatus()
+						//#if MC >= 12105
+						//$$ .asString();
+						//#else
+						.getName();
+						//#endif
+				result.add(Messenger.c("g - ", Messenger.tr("event.minecraft.raid"), String.format("w  #%d", raidId)));
 				result.add(Messenger.c("g   ", tr("status"), "w : ", tr("status." + status)));
 				result.add(Messenger.c("g   ", tr("center"), "w : ", Messenger.coord("w", raid.getCenter(), DimensionWrapper.of(world))));
 				result.add(Messenger.c("g   ", tr("bad_omen_level"), "w : ", Messenger.s(raid.getBadOmenLevel())));

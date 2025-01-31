@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -20,24 +20,30 @@
 
 package carpettisaddition.mixins.command.raid;
 
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.entity.raid.RaidManager;
+import carpettisaddition.commands.raid.RaidWithIdAndWorld;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.village.raid.Raid;
+import net.minecraft.village.raid.RaidManager;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
-
-//#if MC >= 12105
-//$$ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-//#else
-import java.util.Map;
-//#endif
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(RaidManager.class)
-public interface RaidManagerAccessor
+public abstract class RaidManagerMixin
 {
-	@Accessor
-	//#if MC >= 12105
-	//$$ Int2ObjectMap<Raid> getRaids();
-	//#else
-	Map<Integer, Raid> getRaids();
-	//#endif
+	@ModifyArg(
+			method = "startRaid",
+			at = @At(
+					value = "INVOKE",
+					target = "Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;put(ILjava/lang/Object;)Ljava/lang/Object;",
+					remap = false
+			)
+	)
+	private int raidCommand_recordRaidFields(int raidId, @Local Raid raid, @Local ServerWorld serverWorld)
+	{
+		((RaidWithIdAndWorld)raid).setRaidId$TISCM(raidId);
+		((RaidWithIdAndWorld)raid).setRaidWorld$TISCM(serverWorld);
+		return raidId;
+	}
 }

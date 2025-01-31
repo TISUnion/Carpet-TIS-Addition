@@ -20,6 +20,7 @@
 
 package carpettisaddition.logging.loggers.raid;
 
+import carpettisaddition.commands.raid.RaidWithIdAndWorld;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
@@ -53,9 +54,9 @@ public class RaidLogger extends AbstractLogger
 		}
 		this.log(() -> {
 			return new BaseText[]{Messenger.c(
-					tr("created", raid.getRaidId()),
+					tr("created", ((RaidWithIdAndWorld)raid).getRaidId$TISCM()),
 					"g  @ ",
-					Messenger.coord("w", raid.getCenter(), DimensionWrapper.of(raid.getWorld()))
+					Messenger.coord("w", raid.getCenter(), DimensionWrapper.of(((RaidWithIdAndWorld)raid).getRaidWorld$TISCM()))
 			)};
 		});
 	}
@@ -68,7 +69,7 @@ public class RaidLogger extends AbstractLogger
 		}
 		this.log(() -> {
 			return new BaseText[]{Messenger.c(
-					tr("invalidated", raid.getRaidId(), reason.toText())
+					tr("invalidated", ((RaidWithIdAndWorld)raid).getRaidId$TISCM(), reason.toText())
 			)};
 		});
 	}
@@ -81,7 +82,7 @@ public class RaidLogger extends AbstractLogger
 		}
 		this.log(() -> {
 			return new BaseText[]{Messenger.c(
-					tr("bad_omen_level_increased", raid.getRaidId(), badOmenLevel)
+					tr("bad_omen_level_increased", ((RaidWithIdAndWorld)raid).getRaidId$TISCM(), badOmenLevel)
 			)};
 		});
 	}
@@ -94,7 +95,7 @@ public class RaidLogger extends AbstractLogger
 		}
 		this.log(() -> {
 			return new BaseText[]{Messenger.c(
-					tr("center_moved", raid.getRaidId(), Messenger.coord(pos, DimensionWrapper.of(raid.getWorld())))
+					tr("center_moved", ((RaidWithIdAndWorld)raid).getRaidId$TISCM(), Messenger.coord(pos, DimensionWrapper.of(((RaidWithIdAndWorld)raid).getRaidWorld$TISCM())))
 			)};
 		});
 	}
