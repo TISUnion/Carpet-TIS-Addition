@@ -48,9 +48,9 @@ public abstract class ServerChunkManagerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/server/world/ChunkTicketManager;getTickedChunkCount()I"
+					//$$ target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;Lnet/minecraft/world/SpawnHelper$ChunkSource;Lnet/minecraft/world/SpawnDensityCapper;)Lnet/minecraft/world/SpawnHelper$Info;"
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/server/world/ChunkTicketManager;getSpawningChunkCount()I"
+					//$$ target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;L;)L;"
 					//#else
 					target = "Lnet/minecraft/server/world/ServerWorld;getMobCountsByCategory()Lit/unimi/dsi/fastutil/objects/Object2IntMap;"
 					//#endif
