@@ -43,6 +43,19 @@ public abstract class ServerWorldMixin
 		MicroTimingLoggerManager.setTickStage(TickStage.UNKNOWN);
 	}
 
+	//#if MC >= 12105
+	//$$ @Inject(method = "tickThunder", at = @At("HEAD"))
+	//$$ private void enterStageDetailThunder(CallbackInfo ci)
+	//$$ {
+	//$$ 	MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, "Thunder");
+	//$$ }
+	//$$
+	//$$ @Inject(method = "tickThunder", at = @At("TAIL"))
+	//$$ private void exitStageDetailThunder(CallbackInfo ci)
+	//$$ {
+	//$$ 	MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
+	//$$ }
+	//#else
 	@Inject(
 			method = "tickChunk",
 			at = @At(
@@ -54,6 +67,7 @@ public abstract class ServerWorldMixin
 	{
 		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, "Thunder");
 	}
+	//#endif
 
 	@Inject(
 			method = "tickChunk",

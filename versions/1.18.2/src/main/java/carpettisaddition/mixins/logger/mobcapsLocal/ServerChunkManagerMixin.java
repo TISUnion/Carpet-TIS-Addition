@@ -38,10 +38,16 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(ServerChunkManager.class)
 public abstract class ServerChunkManagerMixin
 {
-	@Shadow @Final ServerWorld world;
+	@Shadow @Final
+	//#if MC >= 12105
+	//$$ private
+	//#endif
+	ServerWorld world;
 
 	@ModifyArg(
-			//#if MC >= 12102
+			//#if MC >= 12105
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;J)V",
+			//#elseif MC >= 12102
 			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
 			//#else
 			method = "tickChunks",

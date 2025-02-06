@@ -22,31 +22,35 @@ package carpettisaddition.mixins.command.lifetime.spawning.mobthrow;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobThrowSpawningReason;
-import net.minecraft.entity.EntityType;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity
+//#if MC >= 12105
+//$$ import net.minecraft.entity.LivingEntity;
+//#else
+import net.minecraft.entity.player.PlayerEntity;
+//#endif
+
+@Mixin(
+		//#if MC >= 12105
+		//$$ LivingEntity.class
+		//#else
+		PlayerEntity.class
+		//#endif
+)
+public abstract class PlayerEntityMixin
 {
-	protected PlayerEntityMixin(EntityType<? extends LivingEntity> type, World world)
+	@ModifyReturnValue(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;", at = @At("RETURN"))
+	private ItemEntity lifetimeTracker_recordSpawning_mobThrow_player(ItemEntity itemEntity)
 	{
-		super(type, world);
-	}
-
-	@Inject(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;", at = @At("RETURN"))
-	private void lifetimeTracker_recordSpawning_mobThrow_player(CallbackInfoReturnable<ItemEntity> cir)
-	{
-		ItemEntity itemEntity = cir.getReturnValue();
 		if (itemEntity != null)
 		{
-			((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobThrowSpawningReason(this.getType()));
+			Entity self = (Entity)(Object)this;
+			((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobThrowSpawningReason(self.getType()));
 		}
+		return itemEntity;
 	}
 }

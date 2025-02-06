@@ -41,6 +41,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.DyeColor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -71,7 +72,7 @@ public class MicroTimingLogger extends AbstractLogger
 		this.tickPhase = this.tickPhase.withMainStage(stage);
 	}
 
-	public void setTickStageDetail(String stageDetail)
+	public void setTickStageDetail(@Nullable String stageDetail)
 	{
 		this.tickPhase = this.tickPhase.withDetailed(stageDetail);
 	}

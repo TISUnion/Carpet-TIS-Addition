@@ -34,13 +34,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ServerChunkManagerMixin
 {
 	@Shadow @Final
-	//#if MC < 11700
+	//#if MC < 11700 || MC >= 12105
 	private
 	//#endif
 	ServerWorld world;
 
 	@Inject(
-			//#if MC >= 12102
+			//#if MC >= 12105
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;J)V",
+			//#elseif MC >= 12102
 			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
 			//#else
 			method = "tickChunks",
@@ -50,7 +52,7 @@ public abstract class ServerChunkManagerMixin
 					//#if MC >= 11800
 					//$$ target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;Lnet/minecraft/world/SpawnHelper$ChunkSource;Lnet/minecraft/world/SpawnDensityCapper;)Lnet/minecraft/world/SpawnHelper$Info;"
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;L;)L;"
+					//$$ target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;Lnet/minecraft/world/SpawnHelper$ChunkSource;)Lnet/minecraft/world/SpawnHelper$Info;"
 					//#else
 					target = "Lnet/minecraft/server/world/ServerWorld;getMobCountsByCategory()Lit/unimi/dsi/fastutil/objects/Object2IntMap;"
 					//#endif

@@ -35,13 +35,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ServerChunkManagerMixin
 {
 	@Shadow @Final
-	//#if MC < 11700
+	//#if MC < 11700 || MC >= 12105
 	private
 	//#endif
 	ServerWorld world;
 
 	@Inject(
-			//#if MC >= 12102
+			//#if MC >= 12105
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;J)V",
+			//#elseif MC >= 12102
 			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
 			//#else
 			method = "tickChunks",
@@ -61,7 +63,9 @@ public abstract class ServerChunkManagerMixin
 	}
 
 	@Inject(
-			//#if MC >= 12102
+			//#if MC >= 12105
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;J)V",
+			//#elseif MC >= 12102
 			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
 			//#else
 			method = "tickChunks",

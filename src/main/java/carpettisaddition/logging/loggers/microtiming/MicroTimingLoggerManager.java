@@ -385,7 +385,7 @@ public class MicroTimingLoggerManager
 		}
 	}
 
-	public static void setTickStageDetail(World world, String detail)
+	public static void setTickStageDetail(World world, @Nullable String detail)
 	{
 		getWorldLogger(world).ifPresent(logger -> logger.setTickStageDetail(detail));
 	}
