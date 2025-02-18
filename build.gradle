@@ -2,14 +2,14 @@ plugins {
 	id 'maven-publish'
 	id 'com.github.hierynomus.license' version '0.16.1' apply false
 	id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id 'fabric-loom' version '1.9-SNAPSHOT' apply false
+    id 'fabric-loom' version '1.10-SNAPSHOT' apply false
 
 	// https://github.com/ReplayMod/preprocessor
 	// https://github.com/Fallen-Breath/preprocessor
 	id 'com.replaymod.preprocess' version '9d21b334a7'
 
 	// https://github.com/Fallen-Breath/yamlang
-	id 'me.fallenbreath.yamlang' version '1.4.0' apply false
+	id 'me.fallenbreath.yamlang' version '1.4.1' apply false
 }
 
 preprocess {
@@ -64,7 +64,7 @@ tasks.register('buildAndGather') {
 					exclude '*-dev.jar', '*-sources.jar', '*-shadow.jar'
 				}
 				into buildLibs(rootProject)
-				duplicatesStrategy DuplicatesStrategy.INCLUDE
+				duplicatesStrategy = DuplicatesStrategy.INCLUDE
 			}
 		}
 	}

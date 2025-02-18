@@ -9,16 +9,16 @@ int mcVersion = project.mcVersion
 
 repositories {
 	maven {
-		url 'https://masa.dy.fi/maven'
+		url = 'https://masa.dy.fi/maven'
 	}
 	maven {
-		url 'https://maven.fallenbreath.me/releases'
+		url = 'https://maven.fallenbreath.me/releases'
 	}
 	maven {
-		url 'https://jitpack.io'
+		url = 'https://jitpack.io'
 	}
 	maven {
-        url 'https://www.cursemaven.com'
+        url = 'https://www.cursemaven.com'
 	}
 }
 
@@ -278,8 +278,8 @@ testClasses.dependsOn licenseFormatTest
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			artifactId base.archivesName.get()
 			from components.java
+            artifactId = base.archivesName.get()
 			version = fullArtifactVersion
 		}
 	}
