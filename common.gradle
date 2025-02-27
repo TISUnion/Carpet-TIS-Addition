@@ -15,7 +15,7 @@ repositories {
 		url = 'https://maven.fallenbreath.me/releases'
 	}
 	maven {
-		url = 'https://jitpack.io'
+		url = 'https://maven.fallenbreath.me/jitpack'
 	}
 	maven {
         url = 'https://www.cursemaven.com'
@@ -50,7 +50,7 @@ dependencies {
 		if (11500 <= mcVersion && mcVersion < 11600) {
 			// https://github.com/CaffeineMC/lithium-fabric/blob/1.15.x/fabric/build.gradle#L50
 			runtimeOnly "com.moandjiezana.toml:toml4j:0.7.2"
-			runtimeOnly "com.github.Chocohead:Fabric-ASM:v2.0.1"  // v2.0 build fails
+			runtimeOnly "com.github.Fallen-Breath:Fabric-ASM:v2.0.1"  // v2.0 build fails
 		}
 	} else {
 		modCompileOnly "${project.lithium_dependency}"
@@ -58,7 +58,7 @@ dependencies {
 
 	// runtime mods
 	if (mcVersion < 11904) {
-		modRuntimeOnly(mcVersion < 11900 ? "com.github.astei:lazydfu:0.1.2" : "com.github.Fallen-Breath:lazydfu:a7cfc44c0c")
+		modRuntimeOnly("com.github.Fallen-Breath:lazydfu:${mcVersion < 11900 ? "0.1.2" : "a7cfc44c0c"}")
 	}
 
 	// library mods
