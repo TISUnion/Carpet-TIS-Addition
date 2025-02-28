@@ -27,7 +27,6 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.Entity;
-import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,7 +39,11 @@ public abstract class ServerPlayerEntityMixin
 			// The lambda function argument for EntityType.loadEntityWithPassengers
 			method = {
 					"method_64132",  // in method readRootVehicle
-					"method_64129"   // in method readEnderPearls
+					//#if MC >= 12105
+					//$$ "method_68174"  // in method method_68175 (probably another readEnderPearls)
+					//#else
+					"method_64129"  // in method readEnderPearls
+					//#endif
 			},
 			at = @At("TAIL")
 	)

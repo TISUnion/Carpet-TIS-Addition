@@ -27,6 +27,46 @@ import java.util.List;
 
 public class NbtUtils
 {
+	// ============= Element Accessors =============
+
+	public static String getStringOrEmpty(CompoundTag nbt, String key)
+	{
+		//#if MC >= 12105
+		//$$ return nbt.getString(key, "");
+		//#else
+		return nbt.getString(key);
+		//#endif
+	}
+
+	public static int getIntOrZero(CompoundTag nbt, String key)
+	{
+		//#if MC >= 12105
+		//$$ return nbt.getInt(key, 0);
+		//#else
+		return nbt.getInt(key);
+		//#endif
+	}
+
+	public static long getLongOrZero(CompoundTag nbt, String key)
+	{
+		//#if MC >= 12105
+		//$$ return nbt.getLong(key, 0);
+		//#else
+		return nbt.getLong(key);
+		//#endif
+	}
+
+	public static CompoundTag getNbtOrEmpty(CompoundTag nbt, String key)
+	{
+		//#if MC >= 12105
+		//$$ return nbt.getCompound(key).orElseGet(NbtCompound::new);
+		//#else
+		return nbt.getCompound(key);
+		//#endif
+	}
+
+	// ============= Conversion Utils =============
+
 	public static CompoundTag stringList2Nbt(List<String> list)
 	{
 		CompoundTag nbt = new CompoundTag();
@@ -41,10 +81,10 @@ public class NbtUtils
 	public static List<String> nbt2StringList(CompoundTag nbt)
 	{
 		List<String> list = Lists.newArrayList();
-		int length = nbt.getInt("length");
+		int length = getIntOrZero(nbt, "length");
 		for (int i = 0; i < length; i++)
 		{
-			list.add(nbt.getString(String.valueOf(i)));
+			list.add(getStringOrEmpty(nbt, String.valueOf(i)));
 		}
 		return list;
 	}

@@ -180,8 +180,10 @@ public abstract class EntityMixin
 					//#else
 					target = "Lnet/minecraft/util/shape/VoxelShapes;calculateMaxOffset(Lnet/minecraft/util/math/Direction$Axis;Lnet/minecraft/util/math/Box;Ljava/util/stream/Stream;D)D"
 					//#endif
-			),
-			require = 4
+			)
+			//#if MC < 12105
+			, require = 4
+			//#endif
 	)
 	private static void optimizedFastEntityMovement_useTheAxisOnlyBlockCollisionsForSpeed(Args args)
 	{

@@ -21,6 +21,7 @@
 package carpettisaddition.helpers.carpet.protocol;
 
 import carpettisaddition.CarpetTISAdditionMod;
+import carpettisaddition.utils.NbtUtils;
 import carpettisaddition.utils.NetworkUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.nbt.CompoundTag;
@@ -140,7 +141,7 @@ class UniversalCarpetPayload
 						// v1 carpet hi / hello, format: varint (69 or 420) + string
 						CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload write V1 HI / HELLO, id={}", id);
 						buf.writeVarInt(Integer.parseInt(id));
-						buf.writeString(this.nbt.getString(id));
+						buf.writeString(NbtUtils.getStringOrEmpty(this.nbt, id));
 						return;
 					}
 				}

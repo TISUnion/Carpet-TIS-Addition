@@ -22,7 +22,7 @@ package carpettisaddition.network;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.commands.speedtest.SpeedTestCommand;
-import carpettisaddition.utils.NbtUtil;
+import carpettisaddition.utils.NbtUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -138,8 +138,8 @@ public class TISCMServerPacketHandler
 
 	public void handleHi(HandlerContext.C2S ctx)
 	{
-		String platformName = ctx.payload.getString("platform_name");
-		String platformVersion = ctx.payload.getString("platform_version");
+		String platformName = NbtUtils.getStringOrEmpty(ctx.payload, "platform_name");
+		String platformVersion = NbtUtils.getStringOrEmpty(ctx.payload, "platform_version");
 		LOGGER.info("Player {} connected with TISCM protocol support ({} @ {})", ctx.playerName, platformName, platformVersion);
 
 		ctx.send(TISCMProtocol.S2C.HELLO, nbt -> {
@@ -149,13 +149,13 @@ public class TISCMServerPacketHandler
 
 		List<String> ids = Lists.newArrayList(TISCMProtocol.C2S.ID_MAP.keySet());
 		ctx.send(TISCMProtocol.S2C.SUPPORTED_C2S_PACKETS, nbt -> {
-			nbt.put("supported_c2s_packets", NbtUtil.stringList2Nbt(ids));
+			nbt.put("supported_c2s_packets", NbtUtils.stringList2Nbt(ids));
 		});
 	}
 
 	public void handleSupportPackets(HandlerContext.C2S ctx)
 	{
-		List<String> ids = NbtUtil.nbt2StringList(ctx.payload.getCompound("supported_s2c_packets"));
+		List<String> ids = NbtUtils.nbt2StringList(NbtUtils.getNbtOrEmpty(ctx.payload, "supported_s2c_packets"));
 		LOGGER.debug("Player {} clientside supported TISCM S2C packet ids: {}", ctx.playerName, ids);
 		Set<TISCMProtocol.S2C> packetIds = ids.stream().
 				map(TISCMProtocol.S2C::fromId).

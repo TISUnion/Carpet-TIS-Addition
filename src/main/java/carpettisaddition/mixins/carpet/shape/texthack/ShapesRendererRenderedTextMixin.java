@@ -35,6 +35,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12105
+//$$ import com.mojang.blaze3d.platform.GlStateManager;
+//#endif
+
 //#if MC >= 11904
 //$$ import net.minecraft.client.font.TextRenderer;
 //#endif
@@ -84,7 +88,11 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	{
 		if (this.isMicroTimingMarkerText())
 		{
+			//#if MC >= 12105
+			//$$ GlStateManager._disableDepthTest();
+			//#else
 			RenderSystem.disableDepthTest();
+			//#endif
 		}
 	}
 
@@ -148,7 +156,11 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	{
 		if (this.isMicroTimingMarkerText())
 		{
+			//#if MC >= 12105
+			//$$ GlStateManager._enableDepthTest();
+			//#else
 			RenderSystem.enableDepthTest();
+			//#endif
 		}
 	}
 }

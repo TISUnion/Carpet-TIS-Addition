@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.network.TISCMClientPacketHandler;
 import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
+import carpettisaddition.utils.NbtUtils;
 import carpettisaddition.utils.compat.ServerTickType;
 import com.google.common.collect.Sets;
 import net.minecraft.nbt.CompoundTag;
@@ -88,16 +89,16 @@ public class ServerMsptMetricsDataSyncer
 
 	public void receiveMetricData(CompoundTag nbt)
 	{
-		long nanosecond = nbt.getLong("millisecond") * M;
+		long nanosecond = NbtUtils.getLongOrZero(nbt, "millisecond") * M;
 		if (nbt.contains("nanosecond"))
 		{
-			nanosecond = nbt.getLong("nanosecond");
+			nanosecond = NbtUtils.getLongOrZero(nbt, "nanosecond");
 		}
 
 		ServerTickType type;
 		try
 		{
-			type = ServerTickType.valueOf(nbt.getString("type").toUpperCase());
+			type = ServerTickType.valueOf(NbtUtils.getStringOrEmpty(nbt, "type").toUpperCase());
 		}
 		catch (IllegalArgumentException e)
 		{

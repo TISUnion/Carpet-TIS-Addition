@@ -35,6 +35,7 @@ import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.NbtUtils;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.ServerCommandSource;
@@ -264,7 +265,7 @@ public class SpeedTestCommand extends AbstractCommand
 
 	public void handleServerUploadRequest(HandlerContext.S2C ctx)
 	{
-		int testSizeMb = ctx.payload.getInt("size_mb");
+		int testSizeMb = NbtUtils.getIntOrZero(ctx.payload, "size_mb");
 		if (this.clientSessionHolder.getUploader() != null)
 		{
 			CarpetTISAdditionMod.LOGGER.error("Received upload speed test request, but there's ongoing test. Overriding");
@@ -276,7 +277,7 @@ public class SpeedTestCommand extends AbstractCommand
 
 	public void handleServerPing(HandlerContext.S2C ctx)
 	{
-		String pingType = ctx.payload.getString("type");
+		String pingType = NbtUtils.getStringOrEmpty(ctx.payload, "type");
 		switch (pingType)
 		{
 			case "ping":
@@ -293,7 +294,7 @@ public class SpeedTestCommand extends AbstractCommand
 				}
 				break;
 			default:
-				CarpetTISAdditionMod.LOGGER.warn("Received unknown ping type '{}'", pingType);
+				CarpetTISAdditionMod.LOGGER.warn("Received unknown ping type '{}' from server", pingType);
 		}
 	}
 
@@ -313,7 +314,7 @@ public class SpeedTestCommand extends AbstractCommand
 
 	public void handleClientPing(HandlerContext.C2S ctx)
 	{
-		String pingType = ctx.payload.getString("type");
+		String pingType = NbtUtils.getStringOrEmpty(ctx.payload, "type");
 		switch (pingType)
 		{
 			case "ping":
@@ -330,7 +331,7 @@ public class SpeedTestCommand extends AbstractCommand
 				}
 				break;
 			default:
-				CarpetTISAdditionMod.LOGGER.warn("Received unknown ping type '{}'", pingType);
+				CarpetTISAdditionMod.LOGGER.warn("Received unknown ping type '{}' from client", pingType);
 		}
 	}
 }

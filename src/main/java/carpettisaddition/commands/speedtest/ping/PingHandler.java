@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.network.TISCMClientPacketHandler;
 import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
+import carpettisaddition.utils.NbtUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import org.jetbrains.annotations.Nullable;
@@ -103,14 +104,14 @@ public class PingHandler implements PongReceiver
 
 	private PingTask readPongImpl(CompoundTag payload)
 	{
-		String pingType = payload.getString("type");
+		String pingType = NbtUtils.getStringOrEmpty(payload, "type");
 		if (!pingType.equals("pong"))
 		{
 			CarpetTISAdditionMod.LOGGER.warn("bad ping type, found {}, should be pong", pingType);
 			return null;
 		}
 
-		long magic = payload.getLong("magic");
+		long magic = NbtUtils.getLongOrZero(payload, "magic");
 		PingTask pingTask = this.pingTasks.remove(magic);
 		if (pingTask == null)
 		{
@@ -118,7 +119,7 @@ public class PingHandler implements PongReceiver
 			return null;
 		}
 
-		pingTask.costNs = System.nanoTime() - payload.getLong("timestamp");
+		pingTask.costNs = System.nanoTime() - NbtUtils.getLongOrZero(payload, "timestamp");
 		return pingTask;
 	}
 
