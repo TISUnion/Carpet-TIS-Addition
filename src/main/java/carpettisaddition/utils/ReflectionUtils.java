@@ -29,7 +29,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class ReflectionUtil
+public class ReflectionUtils
 {
 	public static Optional<Object> getField(Object object, String fieldName)
 	{

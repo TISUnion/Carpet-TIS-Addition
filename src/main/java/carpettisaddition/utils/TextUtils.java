@@ -34,7 +34,7 @@ import net.minecraft.util.math.Vec3i;
 /**
  * Minecraft related stuffs -> String
  */
-public class TextUtil
+public class TextUtils
 {
 	public static String tp(Vec3d pos) {return String.format("/tp %s %s %s", pos.getX(), pos.getY(), pos.getZ());}
 	public static String tp(Vec3i pos) {return String.format("/tp %d %d %d", pos.getX(), pos.getY(), pos.getZ());}
@@ -60,13 +60,13 @@ public class TextUtil
 
 	public static String vector(Vec3d vec, int digits)
 	{
-		return String.format("(%s, %s, %s)", StringUtil.fractionDigit(vec.getX(), digits), StringUtil.fractionDigit(vec.getY(), digits), StringUtil.fractionDigit(vec.getZ(), digits));
+		return String.format("(%s, %s, %s)", StringUtils.fractionDigit(vec.getX(), digits), StringUtils.fractionDigit(vec.getY(), digits), StringUtils.fractionDigit(vec.getZ(), digits));
 	}
 	public static String vector(Vec3d vec) {return vector(vec, 2);}
 
 	public static String block(Block block)
 	{
-		return IdentifierUtil.id(block).toString();
+		return IdentifierUtils.id(block).toString();
 	}
 
 	public static String block(BlockState blockState)

@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.carpet.tweaks.logger.explosion;
 
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ExplosionLogHelperWithEntity;
-import carpettisaddition.utils.ReflectionUtil;
+import carpettisaddition.utils.ReflectionUtils;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -70,7 +70,7 @@ public abstract class ExplosionMixin
 	)
 	private void hackCarpetExplosionLogHelper(CallbackInfo ci)
 	{
-		ReflectionUtil.getField(this, "eLogger").ifPresent(eLogger -> {
+		ReflectionUtils.getField(this, "eLogger").ifPresent(eLogger -> {
 			if (eLogger instanceof ExplosionLogHelperWithEntity)
 			{
 				((ExplosionLogHelperWithEntity)eLogger).setEntity$TISCM(this.entity);

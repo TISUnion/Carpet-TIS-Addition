@@ -21,13 +21,13 @@
 package carpettisaddition.commands.xcounter;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.utils.HopperCounterUtil;
+import carpettisaddition.utils.HopperCounterUtils;
 import net.minecraft.block.entity.HopperBlockEntity;
 
 public class XpCounterUtils
 {
 	public static boolean isXpCounterHopper(HopperBlockEntity hopper)
 	{
-		return CarpetTISAdditionSettings.hopperXpCounters && HopperCounterUtil.getWoolColorForHopper(hopper) != null;
+		return CarpetTISAdditionSettings.hopperXpCounters && HopperCounterUtils.getWoolColorForHopper(hopper) != null;
 	}
 }

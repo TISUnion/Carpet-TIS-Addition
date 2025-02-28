@@ -23,7 +23,7 @@ package carpettisaddition.mixins.rule.hopperCountersUnlimitedSpeed;
 import carpet.CarpetSettings;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.utils.HopperCounterUtil;
+import carpettisaddition.utils.HopperCounterUtils;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
@@ -106,7 +106,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 					//#endif
 
 			// hopper counter check
-			DyeColor wool_color = HopperCounterUtil.getWoolColorForHopper(self);
+			DyeColor wool_color = HopperCounterUtils.getWoolColorForHopper(self);
 			if (wool_color == null)
 			{
 				return;

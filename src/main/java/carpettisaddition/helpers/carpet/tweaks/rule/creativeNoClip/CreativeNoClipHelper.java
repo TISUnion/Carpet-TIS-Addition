@@ -26,7 +26,7 @@ import carpet.CarpetSettings;
 //$$ import carpettisaddition.utils.compat.carpet.CarpetSettings;
 //#endif
 
-import carpettisaddition.utils.EntityUtil;
+import carpettisaddition.utils.EntityUtils;
 import net.minecraft.entity.Entity;
 
 public class CreativeNoClipHelper
@@ -35,6 +35,6 @@ public class CreativeNoClipHelper
 
 	public static boolean isNoClipPlayer(Entity entity)
 	{
-		return CarpetSettings.creativeNoClip && EntityUtil.isFlyingCreativePlayer(entity);
+		return CarpetSettings.creativeNoClip && EntityUtils.isFlyingCreativePlayer(entity);
 	}
 }

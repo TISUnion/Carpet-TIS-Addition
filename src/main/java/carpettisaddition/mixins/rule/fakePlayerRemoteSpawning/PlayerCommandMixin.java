@@ -24,7 +24,7 @@ import carpet.commands.PlayerCommand;
 import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.CarpetModUtil;
-import carpettisaddition.utils.CommandUtil;
+import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.brigadier.context.CommandContext;
@@ -80,7 +80,7 @@ public abstract class PlayerCommandMixin
 		}
 
 		final int MAX_ALLOWED_REMOTE_RANGE = 16;
-		boolean allowRemoteSpawn = CommandUtil.canCheat(source) || CommandUtil.isCreativePlayer(source);
+		boolean allowRemoteSpawn = CommandUtils.canCheat(source) || CommandUtils.isCreativePlayer(source);
 		if (!allowRemoteSpawn)
 		{
 			Vec3d sourcePos = source.getPosition();

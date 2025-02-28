@@ -34,7 +34,7 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.substages.Abstrac
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.ItemUtil;
+import carpettisaddition.utils.ItemUtils;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.block.Block;
@@ -464,7 +464,7 @@ public class MicroTimingLoggerManager
 			if (holdingItem instanceof DyeItem)
 			{
 				BaseText name = null;
-				if (ItemUtil.hasCustomName(itemStack))
+				if (ItemUtils.hasCustomName(itemStack))
 				{
 					name = (BaseText)itemStack.getName();
 				}

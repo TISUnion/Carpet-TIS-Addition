@@ -23,7 +23,7 @@ package carpettisaddition.commands.manipulate.chunk;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.StringUtil;
+import carpettisaddition.utils.StringUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerLightingProvider;
@@ -73,7 +73,7 @@ public class ChunkRelighter extends TranslationContext
 					{
 						this.refreshChunkLight(chunkPos);
 					}
-					Messenger.tell(this.source, tr("done", chunkPosList.size(), StringUtil.fractionDigit(costSec, 1)));
+					Messenger.tell(this.source, tr("done", chunkPosList.size(), StringUtils.fractionDigit(costSec, 1)));
 					Messenger.tell(this.source, tr("hint"));
 				},
 				this.source.getMinecraftServer()

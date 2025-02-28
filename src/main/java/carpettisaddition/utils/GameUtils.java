@@ -48,7 +48,7 @@ import net.minecraft.world.dimension.DimensionType;
 //#endif
 
 @SuppressWarnings("UnusedReturnValue")
-public class GameUtil
+public class GameUtils
 {
 	public static World getOverworld(MinecraftServer server)
 	{

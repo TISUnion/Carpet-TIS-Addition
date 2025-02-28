@@ -22,13 +22,13 @@ package carpettisaddition.utils;
 
 import net.minecraft.text.BaseText;
 
-public class CounterUtil
+public class CounterUtils
 {
 	private static final int MS_PER_TICK = 50;
 
 	public static long getTimeElapsed(long startTick, long startMillis, boolean realtime)
 	{
-		return Math.max(1, realtime ? (System.currentTimeMillis() - startMillis) / MS_PER_TICK : GameUtil.getGameTime() - startTick);
+		return Math.max(1, realtime ? (System.currentTimeMillis() - startMillis) / MS_PER_TICK : GameUtils.getGameTime() - startTick);
 	}
 
 	public static double tickToMinute(long ticks)

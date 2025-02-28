@@ -21,7 +21,7 @@
 package carpettisaddition.network;
 
 import carpettisaddition.CarpetTISAdditionMod;
-import carpettisaddition.utils.IdentifierUtil;
+import carpettisaddition.utils.IdentifierUtils;
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
 import net.minecraft.nbt.CompoundTag;
@@ -44,7 +44,7 @@ public class TISCMProtocol
 	public static final String ID = "tiscm";
 	public static final String PLATFORM_NAME = CarpetTISAdditionMod.MOD_NAME;
 	public static final String PLATFORM_VERSION = CarpetTISAdditionMod.getVersion();
-	public static final Identifier CHANNEL = IdentifierUtil.of(ID, "network/v1");
+	public static final Identifier CHANNEL = IdentifierUtils.of(ID, "network/v1");
 
 	public enum C2S implements PacketId
 	{

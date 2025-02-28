@@ -22,12 +22,11 @@ package carpettisaddition.commands.lifetime.utils;
 
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.CommandUtil;
+import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
 
 public class LifetimeTexts
@@ -36,8 +35,8 @@ public class LifetimeTexts
 
 	public static BaseText spawningPosButton(Vec3d spawningPos, DimensionWrapper dimension, String keyOverride)
 	{
-		BaseText spawningPosHover = Messenger.c(t.tr(keyOverride), "g : ", "w " + TextUtil.coord(spawningPos));
-		if (CommandUtil.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
+		BaseText spawningPosHover = Messenger.c(t.tr(keyOverride), "g : ", "w " + TextUtils.coord(spawningPos));
+		if (CommandUtils.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
 		{
 			return Messenger.c("e [", spawningPosHover, "e ]");
 		}
@@ -47,7 +46,7 @@ public class LifetimeTexts
 					null,
 					Messenger.s("[S]", "e"),
 					spawningPosHover,
-					Messenger.ClickEvents.suggestCommand(TextUtil.tp(spawningPos, dimension))
+					Messenger.ClickEvents.suggestCommand(TextUtils.tp(spawningPos, dimension))
 			);
 		}
 	}
@@ -58,8 +57,8 @@ public class LifetimeTexts
 
 	public static BaseText removalPosButton(Vec3d removalPos, DimensionWrapper dimension)
 	{
-		BaseText removalPosHover = Messenger.c(t.tr("removal_position"), "g : ", "w " + TextUtil.coord(removalPos));
-		if (CommandUtil.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
+		BaseText removalPosHover = Messenger.c(t.tr("removal_position"), "g : ", "w " + TextUtils.coord(removalPos));
+		if (CommandUtils.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
 		{
 			return Messenger.c("r [", removalPosHover, "r ]");
 		}
@@ -69,7 +68,7 @@ public class LifetimeTexts
 					null,
 					Messenger.s("[R]", "r"),
 					removalPosHover,
-					Messenger.ClickEvents.suggestCommand(TextUtil.tp(removalPos, dimension))
+					Messenger.ClickEvents.suggestCommand(TextUtils.tp(removalPos, dimension))
 			);
 		}
 	}

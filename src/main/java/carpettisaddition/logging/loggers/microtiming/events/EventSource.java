@@ -20,7 +20,7 @@
 
 package carpettisaddition.logging.loggers.microtiming.events;
 
-import carpettisaddition.utils.IdentifierUtil;
+import carpettisaddition.utils.IdentifierUtils;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
@@ -89,7 +89,7 @@ public abstract class EventSource
 		@Override
 		public Identifier getId()
 		{
-			return IdentifierUtil.id(this.block);
+			return IdentifierUtils.id(this.block);
 		}
 	}
 
@@ -117,7 +117,7 @@ public abstract class EventSource
 		@Override
 		public Identifier getId()
 		{
-			return IdentifierUtil.id(this.fluid);
+			return IdentifierUtils.id(this.fluid);
 		}
 	}
 }

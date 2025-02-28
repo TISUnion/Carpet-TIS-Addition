@@ -22,9 +22,9 @@ package carpettisaddition.logging.loggers.phantom;
 
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
-import carpettisaddition.utils.CounterUtil;
+import carpettisaddition.utils.CounterUtils;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.StringUtil;
+import carpettisaddition.utils.StringUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +32,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.ServerStatHandler;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -115,8 +114,8 @@ public class PhantomLogger extends AbstractLogger
 				if (REMINDER_TICKS.contains(timeSinceRest))
 				{
 					int timeUntilSpawn = PHANTOM_SPAWNING_TIME - timeSinceRest;
-					String sinceRest = StringUtil.fractionDigit(CounterUtil.tickToMinute(timeSinceRest), 0);
-					String untilSpawn = StringUtil.fractionDigit(CounterUtil.tickToMinute(timeUntilSpawn), 0);
+					String sinceRest = StringUtils.fractionDigit(CounterUtils.tickToMinute(timeSinceRest), 0);
+					String untilSpawn = StringUtils.fractionDigit(CounterUtils.tickToMinute(timeUntilSpawn), 0);
 					return new BaseText[]{
 							pack(tr("reminder.time_since_rest", sinceRest)),
 							pack(tr(timeUntilSpawn != 0 ? "reminder.regular" : "reminder.now", PHANTOM_NAME, untilSpawn))

@@ -22,7 +22,7 @@ package carpettisaddition.mixins.rule.creativeNoItemCooldown;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.creativeNoItemCooldown.ItemCooldownManagerWithPlayer;
-import carpettisaddition.utils.EntityUtil;
+import carpettisaddition.utils.EntityUtils;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -48,7 +48,7 @@ public abstract class ItemCooldownManagerMixin implements ItemCooldownManagerWit
 	{
 		if (CarpetTISAdditionSettings.creativeNoItemCooldown)
 		{
-			if (EntityUtil.isCreativePlayer(this.player$TISCM))
+			if (EntityUtils.isCreativePlayer(this.player$TISCM))
 			{
 				ci.cancel();
 			}

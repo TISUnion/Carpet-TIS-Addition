@@ -28,7 +28,7 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.NanoTimer;
-import carpettisaddition.utils.StringUtil;
+import carpettisaddition.utils.StringUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
@@ -139,14 +139,14 @@ public class ChunkEraser extends TranslationContext
 	{
 		if (timeCosts.loading >= 1)
 		{
-			Messenger.tell(this.source, tr("loading_summary", this.chunks.size(), StringUtil.fractionDigit(timeCosts.loading, 1)));
+			Messenger.tell(this.source, tr("loading_summary", this.chunks.size(), StringUtils.fractionDigit(timeCosts.loading, 1)));
 		}
 	}
 
 	private void reportMatterStats(TimeCosts timeCosts)
 	{
 		Messenger.tell(this.source, tr(
-				"matter_summary", this.chunks.size(), StringUtil.fractionDigit(timeCosts.eraseMatter, 1),
+				"matter_summary", this.chunks.size(), StringUtils.fractionDigit(timeCosts.eraseMatter, 1),
 				this.stats.entity, this.stats.blockEntity, this.stats.tileTick, this.stats.blockEvent, this.stats.chunkSection
 		));
 		if (this.chunks.size() > 50)
@@ -157,18 +157,18 @@ public class ChunkEraser extends TranslationContext
 
 	private void reportLightStats(TimeCosts timeCosts)
 	{
-		Messenger.tell(this.source, tr("light_summary", StringUtil.fractionDigit(timeCosts.eraseLight, 1)));
+		Messenger.tell(this.source, tr("light_summary", StringUtils.fractionDigit(timeCosts.eraseLight, 1)));
 	}
 
 	private void reportFinalStats(TimeCosts timeCosts)
 	{
 		Messenger.tell(this.source, Messenger.hover(
-				tr("all_done", StringUtil.fractionDigit(timeCosts.total, 1)),
+				tr("all_done", StringUtils.fractionDigit(timeCosts.total, 1)),
 				tr(
 						"all_done_hover",
-						StringUtil.fractionDigit(timeCosts.loading, 2),
-						StringUtil.fractionDigit(timeCosts.eraseMatter, 2),
-						StringUtil.fractionDigit(timeCosts.eraseLight, 2)
+						StringUtils.fractionDigit(timeCosts.loading, 2),
+						StringUtils.fractionDigit(timeCosts.eraseMatter, 2),
+						StringUtils.fractionDigit(timeCosts.eraseLight, 2)
 				)
 		));
 	}

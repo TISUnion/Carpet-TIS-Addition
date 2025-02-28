@@ -20,8 +20,8 @@
 
 package carpettisaddition.commands.xcounter;
 
-import carpettisaddition.utils.EntityUtil;
-import carpettisaddition.utils.HopperCounterUtil;
+import carpettisaddition.utils.EntityUtils;
+import carpettisaddition.utils.HopperCounterUtils;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
@@ -36,7 +36,7 @@ public class XpCounterHopperTicker
 {
 	public static void tickHopper(HopperBlockEntity hopper)
 	{
-		DyeColor color = HopperCounterUtil.getWoolColorForHopper(hopper);
+		DyeColor color = HopperCounterUtils.getWoolColorForHopper(hopper);
 		if (color == null)
 		{
 			return;
@@ -47,7 +47,7 @@ public class XpCounterHopperTicker
 			XpCounterCommand.getInstance().record(
 					color,
 					xpOrb.getExperienceAmount(),
-					EntityUtil.getXpOrbPickingCount(xpOrb)
+					EntityUtils.getXpOrbPickingCount(xpOrb)
 			);
 			//#if MC >= 11700
 			//$$ xpOrb.discard();

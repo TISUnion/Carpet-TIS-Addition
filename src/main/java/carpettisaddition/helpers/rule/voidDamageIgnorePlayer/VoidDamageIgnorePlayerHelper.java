@@ -21,7 +21,7 @@
 package carpettisaddition.helpers.rule.voidDamageIgnorePlayer;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.utils.EntityUtil;
+import carpettisaddition.utils.EntityUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.GameMode;
 
@@ -37,7 +37,7 @@ public class VoidDamageIgnorePlayerHelper
 			case "true":
 				return true;
 			default:
-				GameMode gameMode = EntityUtil.getPlayerGameMode(player);
+				GameMode gameMode = EntityUtils.getPlayerGameMode(player);
 				return gameMode != null && !gameMode.getName().isEmpty() && rule.contains(gameMode.getName());
 		}
 	}

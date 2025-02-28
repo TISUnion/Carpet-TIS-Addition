@@ -21,7 +21,7 @@
 package carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange;
 
 import carpet.CarpetSettings;
-import carpettisaddition.utils.GameUtil;
+import carpettisaddition.utils.GameUtils;
 
 // don't do the "net.minecraft.util.math.random.Random <-> net.minecraft.world.gen.random.AbstractRandom" remap thing
 //#disable-remap
@@ -72,7 +72,7 @@ public class WrappedRandom
 	public float nextFloat()
 	{
 		float vanillaResult = this.random.nextFloat();  // to make sure world random gets triggered too
-		return CarpetSettings.tntRandomRange >= 0 && GameUtil.isOnServerThread() ? (float)CarpetSettings.tntRandomRange : vanillaResult;
+		return CarpetSettings.tntRandomRange >= 0 && GameUtils.isOnServerThread() ? (float)CarpetSettings.tntRandomRange : vanillaResult;
 	}
 
 	//#if MC >= 11900

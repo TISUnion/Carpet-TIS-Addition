@@ -23,7 +23,7 @@ package carpettisaddition.mixins.carpet.tweaks.robustness.network;
 import carpet.network.ClientNetworkHandler;
 import carpettisaddition.helpers.carpet.protocol.CarpetNetworkProtocolRewriter;
 import carpettisaddition.helpers.carpet.protocol.CarpetNetworkProtocolVersion;
-import carpettisaddition.utils.NetworkUtil;
+import carpettisaddition.utils.NetworkUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.nbt.CompoundTag;
@@ -57,6 +57,6 @@ public abstract class ClientNetworkHandlerMixin
 	)
 	private static CompoundTag carpetProtocolCompatibilityFix_fixIncomingNbtRead_client(PacketByteBuf buf, Operation<CompoundTag> original)
 	{
-		return NetworkUtil.readNbt(buf);
+		return NetworkUtils.readNbt(buf);
 	}
 }

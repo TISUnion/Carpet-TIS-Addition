@@ -20,34 +20,39 @@
 
 package carpettisaddition.utils;
 
-import carpettisaddition.CarpetTISAdditionServer;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.MixinEnvironment;
+import java.text.NumberFormat;
 
-public class MixinUtil
+public class StringUtils
 {
-	public static boolean audit(@Nullable ServerCommandSource source)
+	public static String removePrefix(String string, String... prefixes)
 	{
-		boolean ok;
-		BaseText response;
-		try
+		for (String prefix : prefixes)
 		{
-			MixinEnvironment.getCurrentEnvironment().audit();
-			response = Messenger.s("Mixin environment audited successfully");
-			ok = true;
+			if (string.startsWith(prefix))
+			{
+				string = string.substring(prefix.length());
+			}
 		}
-		catch (Exception e)
+		return string;
+	}
+
+	public static String removeSuffix(String string, String... suffixes)
+	{
+		for (String suffix : suffixes)
 		{
-			CarpetTISAdditionServer.LOGGER.error("Error when auditing mixin", e);
-			response = Messenger.s(String.format("Mixin environment auditing failed, check console for more information (%s)", e));
-			ok = false;
+			if (string.endsWith(suffix))
+			{
+				string = string.substring(0, string.length() - suffix.length());
+			}
 		}
-		if (source != null)
-		{
-			Messenger.tell(source, response);
-		}
-		return ok;
+		return string;
+	}
+
+	public static String fractionDigit(double value, int digit)
+	{
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMinimumFractionDigits(digit);
+		nf.setMaximumFractionDigits(digit);
+		return nf.format(value);
 	}
 }

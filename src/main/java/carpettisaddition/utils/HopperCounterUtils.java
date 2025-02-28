@@ -28,7 +28,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class HopperCounterUtil
+public class HopperCounterUtils
 {
 	@Nullable
 	public static DyeColor getWoolColorForHopper(World world, HopperBlockEntity hopper)

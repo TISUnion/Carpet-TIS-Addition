@@ -23,8 +23,8 @@ package carpettisaddition.commands.lifetime.trackeddata;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerContext;
-import carpettisaddition.utils.CommandUtil;
-import carpettisaddition.utils.CounterUtil;
+import carpettisaddition.utils.CommandUtils;
+import carpettisaddition.utils.CounterUtils;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
@@ -72,7 +72,7 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 		BaseText extra = Messenger.c(
 				this.getCountDisplayText(),
 				"g : ",
-				CounterUtil.ratePerHourText(extraCount, ticks, "wgg")
+				CounterUtils.ratePerHourText(extraCount, ticks, "wgg")
 		);
 		if (extraTotal != null)
 		{
@@ -81,7 +81,7 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 		}
 
 		// console cannot display hover text, so we append the extra count text to the end of the line
-		if (CommandUtil.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
+		if (CommandUtils.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
 		{
 			text = Messenger.c(text, "y  [", extra, "y ]");
 		}

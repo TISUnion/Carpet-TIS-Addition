@@ -22,7 +22,7 @@ package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.server.world.BlockAction;
 import net.minecraft.text.BaseText;
@@ -51,13 +51,13 @@ public class BlockEventSubStage extends AbstractSubStage
 				MicroTimingLoggerManager.tr("common.block"), "w : ", Messenger.block(this.blockEventData.getBlock()), Messenger.newLine(),
 				MicroTimingLoggerManager.tr("common.order"), String.format("w : %d\n", this.order),
 				MicroTimingLoggerManager.tr("common.depth"), String.format("w : %d\n", this.depth),
-				MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtil.coord(this.blockEventData.getPos()))
+				MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtils.coord(this.blockEventData.getPos()))
 		);
 	}
 
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return Messenger.ClickEvents.suggestCommand(TextUtil.tp(this.blockEventData.getPos(), DimensionWrapper.of(this.world)));
+		return Messenger.ClickEvents.suggestCommand(TextUtils.tp(this.blockEventData.getPos(), DimensionWrapper.of(this.world)));
 	}
 }

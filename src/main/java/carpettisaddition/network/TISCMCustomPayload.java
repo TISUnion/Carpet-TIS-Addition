@@ -20,7 +20,7 @@
 
 package carpettisaddition.network;
 
-import carpettisaddition.utils.NetworkUtil;
+import carpettisaddition.utils.NetworkUtils;
 import carpettisaddition.utils.compat.CustomPayload;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
@@ -57,7 +57,7 @@ public class TISCMCustomPayload implements CustomPayload
 						Short.MAX_VALUE
 						//#endif
 				),
-				NetworkUtil.readNbt(buf)
+				NetworkUtils.readNbt(buf)
 		);
 	}
 

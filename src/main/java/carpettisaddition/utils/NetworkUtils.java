@@ -25,7 +25,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.PacketByteBuf;
 import org.jetbrains.annotations.Nullable;
 
-public class NetworkUtil
+public class NetworkUtils
 {
 	/**
 	 * See <a href="https://wiki.vg/NBT">https://wiki.vg/NBT</a>

@@ -22,7 +22,7 @@ package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
@@ -48,13 +48,13 @@ public class EntitySubStage extends AbstractSubStage
 				MicroTimingLoggerManager.tr("common.entity"), "w : ", this.entity.getDisplayName(), "w \n",
 				MicroTimingLoggerManager.tr("common.type"), "w : ", Messenger.entityType(this.entity), "w \n",
 				MicroTimingLoggerManager.tr("common.order"), String.format("w : %d\n", this.order),
-				MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtil.coord(this.pos))
+				MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtils.coord(this.pos))
 		);
 	}
 
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return Messenger.ClickEvents.suggestCommand(TextUtil.tp(this.entity));
+		return Messenger.ClickEvents.suggestCommand(TextUtils.tp(this.entity));
 	}
 }

@@ -33,7 +33,7 @@ import carpettisaddition.helpers.carpet.shape.ShapeUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.mixins.logger.microtiming.marker.DyeColorAccessor;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import net.minecraft.server.world.ServerWorld;
@@ -239,14 +239,14 @@ public class MicroTimingMarker
 	// [1, 2, 3]
 	public BaseText toShortText()
 	{
-		return this.withFormattingSymbol(TextUtil.coord(this.blockPos));
+		return this.withFormattingSymbol(TextUtils.coord(this.blockPos));
 	}
 
 	// [1, 2, 3] red
 	public BaseText toFullText()
 	{
 		return Messenger.c(
-				Messenger.s(TextUtil.coord(this.blockPos)),
+				Messenger.s(TextUtils.coord(this.blockPos)),
 				this.withFormattingSymbol(" " + this.color.toString())
 		);
 	}

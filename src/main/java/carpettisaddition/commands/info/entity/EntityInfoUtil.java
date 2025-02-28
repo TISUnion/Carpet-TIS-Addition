@@ -20,7 +20,7 @@
 
 package carpettisaddition.commands.info.entity;
 
-import carpettisaddition.utils.ItemUtil;
+import carpettisaddition.utils.ItemUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -76,7 +76,7 @@ public class EntityInfoUtil
 		if (item.hasEnchantments())
 		{
 			stackname += " ( ";
-			Map<Enchantment, Integer> enchants = ItemUtil.getEnchantments(item);
+			Map<Enchantment, Integer> enchants = ItemUtils.getEnchantments(item);
 			for (Enchantment e: enchants.keySet())
 			{
 				int level = enchants.get(e);

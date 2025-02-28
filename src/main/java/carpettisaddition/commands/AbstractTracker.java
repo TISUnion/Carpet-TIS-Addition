@@ -22,8 +22,8 @@ package carpettisaddition.commands;
 
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.CounterUtil;
-import carpettisaddition.utils.GameUtil;
+import carpettisaddition.utils.CounterUtils;
+import carpettisaddition.utils.GameUtils;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
@@ -112,7 +112,7 @@ public abstract class AbstractTracker extends TranslationContext
 			return 1;
 		}
 		this.tracking = true;
-		this.startTick = GameUtil.getGameTime();
+		this.startTick = GameUtils.getGameTime();
 		this.startMillis = System.currentTimeMillis();
 		if (showFeedback)
 		{
@@ -202,7 +202,7 @@ public abstract class AbstractTracker extends TranslationContext
 
 	protected long getTrackedTick(boolean realtime)
 	{
-		return CounterUtil.getTimeElapsed(this.getStartTick(), this.getStartMillis(), realtime);
+		return CounterUtils.getTimeElapsed(this.getStartTick(), this.getStartMillis(), realtime);
 	}
 
 	// send general header for tracking report and return the processed "ticks"

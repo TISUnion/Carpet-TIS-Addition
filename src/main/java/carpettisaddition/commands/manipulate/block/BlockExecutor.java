@@ -25,12 +25,11 @@ import carpettisaddition.mixins.command.manipulate.block.FillCommandAccessor;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.PositionUtils;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 
@@ -87,7 +86,7 @@ public class BlockExecutor extends TranslationContext
 
 		BlockPos.stream(from, to).forEach(blockPos -> this.impl.executeAt(ctx, blockPos));
 
-		String hoverText = TextUtil.coord(from) + " -> " + TextUtil.coord(to);
+		String hoverText = TextUtils.coord(from) + " -> " + TextUtils.coord(to);
 		List<Object> trArgs = Lists.newArrayList();
 		trArgs.add(blockCount);
 		Collections.addAll(trArgs, this.messageExtraArgsGetter.get(ctx));

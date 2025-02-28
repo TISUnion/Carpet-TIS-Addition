@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.carpet.tweaks.command.noInfoBlockChunkLoading;
 
 import carpet.commands.InfoCommand;
-import carpettisaddition.utils.CommandUtil;
+import carpettisaddition.utils.CommandUtils;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.arguments.BlockPosArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
@@ -38,7 +38,7 @@ public abstract class InfoCommandMixin
 	@Inject(method = "infoBlock", at = @At("HEAD"))
 	private static void stopUsingInfoBlockCommandAsARemoteChunkLoader(ServerCommandSource source, BlockPos pos, String grep, CallbackInfoReturnable<Integer> cir) throws CommandSyntaxException
 	{
-		if (CommandUtil.canCheat(source))
+		if (CommandUtils.canCheat(source))
 		{
 			return;
 		}

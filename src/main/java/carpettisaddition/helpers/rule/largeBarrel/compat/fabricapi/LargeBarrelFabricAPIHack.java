@@ -23,7 +23,7 @@ package carpettisaddition.helpers.rule.largeBarrel.compat.fabricapi;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
 import carpettisaddition.mixins.rule.largeBarrel.compat.fabricapi.DoubleInventoryAccessor;
-import carpettisaddition.utils.ReflectionUtil;
+import carpettisaddition.utils.ReflectionUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BarrelBlockEntity;
@@ -52,17 +52,17 @@ public class LargeBarrelFabricAPIHack
 
 				try
 				{
-					ReflectionUtil.invoker("net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage", "of").
+					ReflectionUtils.invoker("net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage", "of").
 							ifPresent(invoker -> {
 								Object first = invoker.apply(null, new Object[]{accessor.getFirst(), direction});
 								Object second = invoker.apply(null, new Object[]{accessor.getSecond(), direction});
 
-								ret[0] = ReflectionUtil.constructor("net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage", List.class).
+								ret[0] = ReflectionUtils.constructor("net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage", List.class).
 										map(ctr -> ctr.apply(new Object[]{Lists.newArrayList(first, second)})).
 										orElse(null);
 							});
 				}
-				catch (ReflectionUtil.InvocationException ignored)
+				catch (ReflectionUtils.InvocationException ignored)
 				{
 				}
 

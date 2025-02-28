@@ -22,15 +22,14 @@ package carpettisaddition.utils.deobfuscator.yarn;
 
 import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.utils.FileUtil;
-import carpettisaddition.utils.MiscUtil;
+import carpettisaddition.utils.FileUtils;
+import carpettisaddition.utils.MiscUtils;
 import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 import com.google.common.collect.Lists;
 import com.google.common.net.UrlEscapers;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.MinecraftVersion;
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
@@ -98,7 +97,7 @@ public class OnlineMappingProvider
 
 		// read
 		File file = new File(YARN_VERSION_CACHE_FILE);
-		if (FileUtil.isFile(file))
+		if (FileUtils.isFile(file))
 		{
 			YarnVersionCache[] caches = null;
 			try
@@ -137,7 +136,7 @@ public class OnlineMappingProvider
 		cacheList.add(new YarnVersionCache(OnlineMappingProvider.MINECRAFT_VERSION, yarnVersion));
 
 		// store
-		FileUtil.touchFileDirectory(file);
+		FileUtils.touchFileDirectory(file);
 		OutputStreamWriter writer = new OutputStreamWriter(Files.newOutputStream(file.toPath()));
 		writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(cacheList));
 		writer.flush();
@@ -149,7 +148,7 @@ public class OnlineMappingProvider
 	synchronized private static FileInputStream getYarnMappingStream(String yarnVersion) throws IOException
 	{
 		File mappingFile = new File(STORAGE_DIRECTORY + getMappingFileNameFull(yarnVersion));
-		if (!FileUtil.isFile(mappingFile))
+		if (!FileUtils.isFile(mappingFile))
 		{
 			String mappingJar = String.format("%s.jar", getMappingFileName(yarnVersion));
 			String mappingJarUrl = String.format("%s%s/%s", YARN_MAPPING_URL_BASE, yarnVersion, mappingJar);
@@ -157,7 +156,7 @@ public class OnlineMappingProvider
 
 			LOGGER.info("Downloading yarn mapping from {}", escapedUrl);
 			File jarFile = new File(STORAGE_DIRECTORY + mappingJar);
-			FileUtils.copyURLToFile(URI.create(escapedUrl).toURL(), jarFile);
+			org.apache.commons.io.FileUtils.copyURLToFile(URI.create(escapedUrl).toURL(), jarFile);
 
 			try (FileSystem jar = FileSystems.newFileSystem(jarFile.toPath(), (ClassLoader) null))
 			{
@@ -194,7 +193,7 @@ public class OnlineMappingProvider
 			loadMappings(mappingStream, yarnVersion);
 
 			// 4. Schedule yarn version updating
-//			MiscUtil.startThread("Yarn Version Updater", () -> checkYarnVersionUpdate(yarnVersion));
+//			MiscUtils.startThread("Yarn Version Updater", () -> checkYarnVersionUpdate(yarnVersion));
 		}
 		catch (IOException e)
 		{
@@ -249,7 +248,7 @@ public class OnlineMappingProvider
 
 		if (targets != null && !targets.isEmpty())
 		{
-			FileUtil.touchDirectory(new File(STORAGE_DIRECTORY));
+			FileUtils.touchDirectory(new File(STORAGE_DIRECTORY));
 			for (File file : targets)
 			{
 				Files.move(file.toPath(), new File(STORAGE_DIRECTORY).toPath().resolve(file.getName()), StandardCopyOption.REPLACE_EXISTING);
@@ -262,6 +261,6 @@ public class OnlineMappingProvider
 	 */
 	public static void getMapping()
 	{
-		MiscUtil.startThread("TISCM Mapping", OnlineMappingProvider::getMappingThreaded);
+		MiscUtils.startThread("TISCM Mapping", OnlineMappingProvider::getMappingThreaded);
 	}
 }

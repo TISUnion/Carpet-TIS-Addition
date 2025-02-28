@@ -21,11 +21,10 @@
 package carpettisaddition.commands.stop;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.utils.CommandUtil;
+import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.ClickEvent;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public class StopCommandDoubleConfirmation
@@ -47,7 +46,7 @@ public class StopCommandDoubleConfirmation
 		}
 
 		// only apply this double command on player
-		if (!CommandUtil.isPlayerCommandSource(commandContext.getSource()))
+		if (!CommandUtils.isPlayerCommandSource(commandContext.getSource()))
 		{
 			return;
 		}

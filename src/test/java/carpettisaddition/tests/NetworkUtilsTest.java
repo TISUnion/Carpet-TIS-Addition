@@ -20,7 +20,7 @@
 
 package carpettisaddition.tests;
 
-import carpettisaddition.utils.NetworkUtil;
+import carpettisaddition.utils.NetworkUtils;
 import com.google.common.collect.Lists;
 import io.netty.buffer.Unpooled;
 import junit.framework.TestCase;
@@ -31,24 +31,24 @@ import net.minecraft.util.PacketByteBuf;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class NetworkUtilTest extends TestCase
+public class NetworkUtilsTest extends TestCase
 {
 	private static PacketByteBuf newBuffer()
 	{
 		return new PacketByteBuf(Unpooled.buffer());
 	}
 
-	private static void assertStyle(PacketByteBuf buf, NetworkUtil.NbtStyle expectedStyle)
+	private static void assertStyle(PacketByteBuf buf, NetworkUtils.NbtStyle expectedStyle)
 	{
-		NetworkUtil.NbtStyle nbtStyle = NetworkUtil.guessNbtStyle(buf);
+		NetworkUtils.NbtStyle nbtStyle = NetworkUtils.guessNbtStyle(buf);
 		assertEquals(expectedStyle, nbtStyle);
 	}
 
-	private static void assertStyle(CompoundTag nbt, NetworkUtil.NbtStyle expectedStyle)
+	private static void assertStyle(CompoundTag nbt, NetworkUtils.NbtStyle expectedStyle)
 	{
 		PacketByteBuf buf = newBuffer();
 		buf.writeCompoundTag(nbt);
-		NetworkUtil.NbtStyle nbtStyle = NetworkUtil.guessNbtStyle(buf);
+		NetworkUtils.NbtStyle nbtStyle = NetworkUtils.guessNbtStyle(buf);
 		assertEquals(expectedStyle, nbtStyle);
 	}
 
@@ -98,7 +98,7 @@ public class NetworkUtilTest extends TestCase
 					m1.accept(nbt);
 					m2.accept(nbt);
 					m3.accept(nbt);
-					assertStyle(nbt, NetworkUtil.NbtStyle.CURRENT);
+					assertStyle(nbt, NetworkUtils.NbtStyle.CURRENT);
 				}
 			}
 		}
@@ -113,7 +113,7 @@ public class NetworkUtilTest extends TestCase
 		{
 			PacketByteBuf buf = newBuffer();
 			buf.writeBytes(new byte[i]);
-			assertStyle(buf, NetworkUtil.NbtStyle.UNKNOWN);
+			assertStyle(buf, NetworkUtils.NbtStyle.UNKNOWN);
 		}
 
 		{
@@ -130,7 +130,7 @@ public class NetworkUtilTest extends TestCase
 			bufBad.writeByte(0x0B);  // not 0x0A
 			bufBad.writeBytes(buf);
 
-			assertStyle(bufBad, NetworkUtil.NbtStyle.UNKNOWN);
+			assertStyle(bufBad, NetworkUtils.NbtStyle.UNKNOWN);
 		}
 	}
 }

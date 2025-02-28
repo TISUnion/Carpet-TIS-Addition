@@ -23,7 +23,7 @@ package carpettisaddition.mixins.carpet.tweaks.robustness.network;
 import carpet.network.CarpetClient;
 import carpettisaddition.helpers.carpet.protocol.CarpetNetworkProtocolRewriter;
 import carpettisaddition.helpers.carpet.protocol.CarpetNetworkProtocolVersion;
-import carpettisaddition.utils.NetworkUtil;
+import carpettisaddition.utils.NetworkUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.nbt.NbtCompound;
@@ -57,7 +57,7 @@ public abstract class CarpetPayloadMixin
 	)
 	private static NbtCompound carpetProtocolCompatibilityFix_fixIncomingNbtRead(PacketByteBuf buf, Operation<NbtCompound> original)
 	{
-		return NetworkUtil.readNbt(buf);
+		return NetworkUtils.readNbt(buf);
 	}
 
 	// no need for rewriting the S->C packet

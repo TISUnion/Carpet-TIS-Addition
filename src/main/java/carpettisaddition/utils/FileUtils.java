@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-public class FileUtil
+public class FileUtils
 {
 	public static void touchFileDirectory(File file) throws IOException
 	{
@@ -61,7 +61,7 @@ public class FileUtil
 
 	public static String readResourceFileAsString(String path) throws IOException
 	{
-		InputStream inputStream = FileUtil.class.getClassLoader().getResourceAsStream(path);
+		InputStream inputStream = FileUtils.class.getClassLoader().getResourceAsStream(path);
 		if (inputStream == null)
 		{
 			throw new IOException("Null input stream from path " + path);

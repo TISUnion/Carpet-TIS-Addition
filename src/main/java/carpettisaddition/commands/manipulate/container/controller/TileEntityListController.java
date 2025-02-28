@@ -22,7 +22,7 @@ package carpettisaddition.commands.manipulate.container.controller;
 
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.mixins.command.manipulate.container.WorldAccessor;
-import carpettisaddition.utils.IdentifierUtil;
+import carpettisaddition.utils.IdentifierUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.HashMultiset;
@@ -45,7 +45,7 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 //#if MC >= 11700
-//$$ import carpettisaddition.utils.GameUtil;
+//$$ import carpettisaddition.utils.GameUtils;
 //$$ import net.minecraft.world.chunk.BlockEntityTickInvoker;
 //#endif
 
@@ -81,7 +81,7 @@ public class TileEntityListController extends AbstractEntityListController
 	//$$ private static List<BlockEntity> extractFromTicker(Collection<BlockEntityTickInvoker> tickers)
 	//$$ {
 	//$$ 	return tickers.stream().
-	//$$ 			map(GameUtil::getBlockEntityFromTickInvoker).
+	//$$ 			map(GameUtils::getBlockEntityFromTickInvoker).
 	//$$ 			filter(Objects::nonNull).
 	//$$ 			collect(Collectors.toList());
 	//$$ }
@@ -136,7 +136,7 @@ public class TileEntityListController extends AbstractEntityListController
 			Messenger.tell(source, Messenger.formatting(Messenger.format(
 					"%1$s. %2$s: %3$sx",
 					i + 1,
-					IdentifierUtil.id(entry.getElement()),
+					IdentifierUtils.id(entry.getElement()),
 					entry.getCount()
 			), "g"));
 		}

@@ -23,14 +23,11 @@ package carpettisaddition.commands.lifetime.utils;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.translations.TranslationContext;
-import carpettisaddition.utils.CommandUtil;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;

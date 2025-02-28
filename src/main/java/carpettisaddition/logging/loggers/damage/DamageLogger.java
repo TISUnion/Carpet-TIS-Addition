@@ -26,7 +26,7 @@ import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.Modification;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -34,7 +34,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -195,7 +194,7 @@ public class DamageLogger extends AbstractLogger
 										"w",
 										Messenger.s(this.damageSource.getName()),
 										sourceHoverTextList.isEmpty() ? null : Messenger.joinLines(sourceHoverTextList),
-										attacker != null ? Messenger.ClickEvents.suggestCommand(TextUtil.tp(attacker)) : null
+										attacker != null ? Messenger.ClickEvents.suggestCommand(TextUtils.tp(attacker)) : null
 								),
 								getAmountText(null, this.initialHealth)
 						));

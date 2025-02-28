@@ -227,7 +227,7 @@ public class Messenger
 
 	public static BaseText property(Property<?> property, Object value)
 	{
-		return colored(s(TextUtil.property(property, value)), value);
+		return colored(s(TextUtils.property(property, value)), value);
 	}
 
 	// Translation Text
@@ -383,12 +383,12 @@ public class Messenger
 		return fancy(style, Messenger.s(posStr), hoverText, Messenger.ClickEvents.suggestCommand(command));
 	}
 
-	public static BaseText coord(String style, Vec3d pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
-	public static BaseText coord(String style, Vec3i pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
-	public static BaseText coord(String style, ChunkPos pos, DimensionWrapper dim) {return __coord(style, dim, TextUtil.coord(pos), TextUtil.tp(pos, dim));}
-	public static BaseText coord(String style, Vec3d pos) {return __coord(style, null, TextUtil.coord(pos), TextUtil.tp(pos));}
-	public static BaseText coord(String style, Vec3i pos) {return __coord(style, null, TextUtil.coord(pos), TextUtil.tp(pos));}
-	public static BaseText coord(String style, ChunkPos pos) {return __coord(style, null, TextUtil.coord(pos), TextUtil.tp(pos));}
+	public static BaseText coord(String style, Vec3d pos, DimensionWrapper dim) {return __coord(style, dim, TextUtils.coord(pos), TextUtils.tp(pos, dim));}
+	public static BaseText coord(String style, Vec3i pos, DimensionWrapper dim) {return __coord(style, dim, TextUtils.coord(pos), TextUtils.tp(pos, dim));}
+	public static BaseText coord(String style, ChunkPos pos, DimensionWrapper dim) {return __coord(style, dim, TextUtils.coord(pos), TextUtils.tp(pos, dim));}
+	public static BaseText coord(String style, Vec3d pos) {return __coord(style, null, TextUtils.coord(pos), TextUtils.tp(pos));}
+	public static BaseText coord(String style, Vec3i pos) {return __coord(style, null, TextUtils.coord(pos), TextUtils.tp(pos));}
+	public static BaseText coord(String style, ChunkPos pos) {return __coord(style, null, TextUtils.coord(pos), TextUtils.tp(pos));}
 	public static BaseText coord(Vec3d pos, DimensionWrapper dim) {return coord(null, pos, dim);}
 	public static BaseText coord(Vec3i pos, DimensionWrapper dim) {return coord(null, pos, dim);}
 	public static BaseText coord(ChunkPos pos, DimensionWrapper dim) {return coord(null, pos, dim);}
@@ -400,7 +400,7 @@ public class Messenger
 	{
 		return fancy(style, Messenger.s(displayText), Messenger.s(detailedText), Messenger.ClickEvents.suggestCommand(detailedText));
 	}
-	public static BaseText vector(String style, Vec3d vec) {return __vector(style, TextUtil.vector(vec), TextUtil.vector(vec, 6));}
+	public static BaseText vector(String style, Vec3d vec) {return __vector(style, TextUtils.vector(vec), TextUtils.vector(vec, 6));}
 	public static BaseText vector(Vec3d vec) {return vector(null, vec);}
 
 	public static BaseText entityType(EntityType<?> entityType)
@@ -420,7 +420,7 @@ public class Messenger
 				translator.tr("entity_type", entityBaseName, s(EntityType.getId(entity.getType()).toString())), newLine(),
 				getTeleportHint(entityDisplayName)
 		);
-		return fancy(style, entityDisplayName, hoverText, Messenger.ClickEvents.suggestCommand(TextUtil.tp(entity)));
+		return fancy(style, entityDisplayName, hoverText, Messenger.ClickEvents.suggestCommand(TextUtils.tp(entity)));
 	}
 
 	public static BaseText entity(Entity entity)
@@ -482,13 +482,13 @@ public class Messenger
 
 	public static BaseText block(Block block)
 	{
-		return hover(tr(block.getTranslationKey()), s(TextUtil.block(block)));
+		return hover(tr(block.getTranslationKey()), s(TextUtils.block(block)));
 	}
 
 	public static BaseText block(BlockState blockState)
 	{
 		List<BaseText> hovers = Lists.newArrayList();
-		hovers.add(s(TextUtil.block(blockState.getBlock())));
+		hovers.add(s(TextUtils.block(blockState.getBlock())));
 		for (Property<?> property: blockState.getProperties())
 		{
 			hovers.add(Messenger.c(
@@ -500,13 +500,13 @@ public class Messenger
 		return fancy(
 				block(blockState.getBlock()),
 				join(s("\n"), hovers.toArray(new BaseText[0])),
-				Messenger.ClickEvents.suggestCommand(TextUtil.block(blockState))
+				Messenger.ClickEvents.suggestCommand(TextUtils.block(blockState))
 		);
 	}
 
 	public static BaseText fluid(Fluid fluid)
 	{
-		return hover(block(fluid.getDefaultState().getBlockState().getBlock()), s(IdentifierUtil.id(fluid).toString()));
+		return hover(block(fluid.getDefaultState().getBlockState().getBlock()), s(IdentifierUtils.id(fluid).toString()));
 	}
 
 	public static BaseText fluid(FluidState fluid)
@@ -516,7 +516,7 @@ public class Messenger
 
 	public static BaseText blockEntity(BlockEntity blockEntity)
 	{
-		Identifier id = IdentifierUtil.id(blockEntity.getType());
+		Identifier id = IdentifierUtils.id(blockEntity.getType());
 		return s(id != null ?
 				id.toString() : // vanilla block entity
 				blockEntity.getClass().getSimpleName()  // modded block entity, assuming the class name is not obfuscated
@@ -641,7 +641,7 @@ public class Messenger
 
 	private static void __tell(ServerCommandSource source, BaseText text, boolean broadcastToOps)
 	{
-		if (GameUtil.getOverworld(source.getMinecraftServer()) == null)
+		if (GameUtils.getOverworld(source.getMinecraftServer()) == null)
 		{
 			// Broadcasting to OP requires accessing the SEND_COMMAND_FEEDBACK gamerule,
 			// and MinecraftServer#getGameRules requires the overworld to be loaded,

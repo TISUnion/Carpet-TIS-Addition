@@ -29,14 +29,13 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 
@@ -126,7 +125,7 @@ public class MicroTimingMessage
 						tr("common.color"), Messenger.s(": "), Messenger.s(this.color.toString()), Messenger.newLine(),
 						tr("common.indentation"), Messenger.s(": "), Messenger.s(String.valueOf(indentation))
 				),
-				Messenger.ClickEvents.suggestCommand(TextUtil.tp(this.pos, this.dimensionType))
+				Messenger.ClickEvents.suggestCommand(TextUtils.tp(this.pos, this.dimensionType))
 		);
 	}
 

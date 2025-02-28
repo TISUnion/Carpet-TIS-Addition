@@ -31,7 +31,7 @@ import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingDyeMarker
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingRuleListener;
 import carpettisaddition.settings.Rule;
 import carpettisaddition.settings.validator.*;
-import carpettisaddition.utils.MixinUtil;
+import carpettisaddition.utils.MixinUtils;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -741,7 +741,7 @@ public class CarpetTISAdditionSettings
 		{
 			if (ctx.inputValue.equals("mixin_audit"))
 			{
-				MixinUtil.audit(ctx.source);
+				MixinUtils.audit(ctx.source);
 				return ctx.rule.get();
 			}
 			// stupid COMMAND category will add a _COMMAND_LEVEL_VALIDATOR to the rule which is bad,

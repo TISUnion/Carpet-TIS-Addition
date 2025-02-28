@@ -28,7 +28,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.poi.PointOfInterestType;
 
-public class IdentifierUtil
+public class IdentifierUtils
 {
 	public static Identifier ofVanilla(String id)
 	{

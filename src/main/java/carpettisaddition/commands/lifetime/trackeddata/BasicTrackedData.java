@@ -28,7 +28,7 @@ import carpettisaddition.commands.lifetime.utils.LifeTimeStatistic;
 import carpettisaddition.commands.lifetime.utils.LifetimeTexts;
 import carpettisaddition.commands.lifetime.utils.SpawningStatistic;
 import carpettisaddition.translations.TranslationContext;
-import carpettisaddition.utils.CounterUtil;
+import carpettisaddition.utils.CounterUtils;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -99,7 +99,7 @@ public class BasicTrackedData extends TranslationContext
 		return Messenger.c(
 				Messenger.formatting(tr("spawn_count"), "q"),
 				"g : ",
-				CounterUtil.ratePerHourText(this.getSpawningCount(), ticks, "wgg")
+				CounterUtils.ratePerHourText(this.getSpawningCount(), ticks, "wgg")
 		);
 	}
 
@@ -111,7 +111,7 @@ public class BasicTrackedData extends TranslationContext
 		return Messenger.c(
 				Messenger.formatting(tr("removal_count"), "q "),
 				"g : ",
-				CounterUtil.ratePerHourText(this.getRemovalCount(), ticks, "wgg")
+				CounterUtils.ratePerHourText(this.getRemovalCount(), ticks, "wgg")
 		);
 	}
 
@@ -127,7 +127,7 @@ public class BasicTrackedData extends TranslationContext
 				Messenger.s(indent, "g"),
 				reason.toText(),
 				"g : ",
-				CounterUtil.ratePerHourText(count, ticks, "wgg"),
+				CounterUtils.ratePerHourText(count, ticks, "wgg"),
 				"w  ",
 				Messenger.hover(Messenger.s(String.format("%.1f%%", percentage)), Messenger.s(String.format("%.6f%%", percentage)))
 		);

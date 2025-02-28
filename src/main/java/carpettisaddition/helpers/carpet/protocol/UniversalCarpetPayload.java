@@ -22,7 +22,7 @@ package carpettisaddition.helpers.carpet.protocol;
 
 import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.utils.NbtUtils;
-import carpettisaddition.utils.NetworkUtil;
+import carpettisaddition.utils.NetworkUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.PacketByteBuf;
@@ -65,7 +65,7 @@ class UniversalCarpetPayload
 			}
 			else if (this.action == V1_DATA)
 			{
-				this.nbt = Objects.requireNonNull(NetworkUtil.readNbt(buf));
+				this.nbt = Objects.requireNonNull(NetworkUtils.readNbt(buf));
 			}
 			else
 			{
@@ -95,7 +95,7 @@ class UniversalCarpetPayload
 		{
 			this.action = -1;
 			this.string = null;
-			this.nbt = NetworkUtil.readNbt(buf);
+			this.nbt = NetworkUtils.readNbt(buf);
 			if (buf.readableBytes() != 0)
 			{
 				throw new Exception(String.format("too many data, nbt=%s remained=%d", this.nbt, buf.readableBytes()));

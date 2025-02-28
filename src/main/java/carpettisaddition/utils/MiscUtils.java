@@ -20,7 +20,7 @@
 
 package carpettisaddition.utils;
 
-public class MiscUtil
+public class MiscUtils
 {
 	public static Thread startThread(String threadName, Runnable runnable)
 	{

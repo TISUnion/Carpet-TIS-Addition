@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.rule.creativeInstantTame;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.utils.EntityUtil;
+import carpettisaddition.utils.EntityUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.HorseBondWithPlayerGoal;
@@ -62,7 +62,7 @@ public abstract class HorseBondWithPlayerGoalMixin
 	)
 	private int creativeInstantTame_horseLike_instantTame(int value)
 	{
-		if (CarpetTISAdditionSettings.creativeInstantTame && EntityUtil.isCreativePlayer(this.getCurrentPassenger()))
+		if (CarpetTISAdditionSettings.creativeInstantTame && EntityUtils.isCreativePlayer(this.getCurrentPassenger()))
 		{
 			value = 0;
 		}
@@ -83,7 +83,7 @@ public abstract class HorseBondWithPlayerGoalMixin
 	)
 	private int creativeInstantTame_horseLike_alwaysTame(int value)
 	{
-		if (CarpetTISAdditionSettings.creativeInstantTame && EntityUtil.isCreativePlayer(this.getCurrentPassenger()))
+		if (CarpetTISAdditionSettings.creativeInstantTame && EntityUtils.isCreativePlayer(this.getCurrentPassenger()))
 		{
 			value = -1;
 		}

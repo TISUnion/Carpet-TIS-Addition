@@ -21,7 +21,7 @@
 package carpettisaddition.translations;
 
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.utils.FileUtil;
+import carpettisaddition.utils.FileUtils;
 import com.google.gson.Gson;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -39,7 +39,7 @@ public class TranslationLoader
 
 		try
 		{
-			String fileContent = FileUtil.readResourceFileAsString(RESOURCE_DIR + "/meta/languages.json");
+			String fileContent = FileUtils.readResourceFileAsString(RESOURCE_DIR + "/meta/languages.json");
 			languageList = new Gson().fromJson(fileContent, LanguageList.class);
 		}
 		catch (Exception e)
@@ -57,7 +57,7 @@ public class TranslationLoader
 	{
 		try
 		{
-			String fileContent = FileUtil.readResourceFileAsString(String.format("%s/%s.json", RESOURCE_DIR, lang));
+			String fileContent = FileUtils.readResourceFileAsString(String.format("%s/%s.json", RESOURCE_DIR, lang));
 			return new Gson().fromJson(fileContent, TranslationMapping.class);
 		}
 		catch (Exception e)

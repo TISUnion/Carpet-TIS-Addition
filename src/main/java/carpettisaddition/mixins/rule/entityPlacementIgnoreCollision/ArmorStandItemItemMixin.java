@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.rule.entityPlacementIgnoreCollision;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.utils.GameUtil;
+import carpettisaddition.utils.GameUtils;
 import com.google.common.collect.Lists;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.entity.Entity;
@@ -135,7 +135,7 @@ public abstract class ArmorStandItemItemMixin
 			World world = ctx.getWorld();
 			if (!world.getBlockState(pos).canReplace(ctx))
 			{
-				pos = GameUtil.getInvalidBlockPos();
+				pos = GameUtils.getInvalidBlockPos();
 			}
 		}
 		return pos;

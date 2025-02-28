@@ -20,7 +20,7 @@
 
 package carpettisaddition.logging.loggers.damage;
 
-import carpettisaddition.utils.IdentifierUtil;
+import carpettisaddition.utils.IdentifierUtils;
 import carpettisaddition.utils.entityfilter.EntityFilter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -172,7 +172,7 @@ public class OptionParser
 				namePart = option;
 			}
 
-			if ((catalogue == null || catalogue.equals(IdentifierUtil.ofVanilla("entity_type"))) && identifier != null)
+			if ((catalogue == null || catalogue.equals(IdentifierUtils.ofVanilla("entity_type"))) && identifier != null)
 			{
 				EntityType<?> entityType = Registry.ENTITY_TYPE.getOrEmpty(identifier).orElse(null);
 				if (entityType != null)
@@ -191,7 +191,7 @@ public class OptionParser
 				@Override
 				public boolean matchFrom(PlayerEntity player, DamageSource source, @Nullable Entity from)
 				{
-					if (catalogue == null || catalogue.equals(IdentifierUtil.ofVanilla("damage_name")))
+					if (catalogue == null || catalogue.equals(IdentifierUtils.ofVanilla("damage_name")))
 					{
 						if (Objects.equals(source.getName(), namePart))
 						{
@@ -199,7 +199,7 @@ public class OptionParser
 						}
 					}
 					//#if MC >= 11904
-					//$$ if (catalogue == null || catalogue.equals(IdentifierUtil.ofVanilla("damage_type")))
+					//$$ if (catalogue == null || catalogue.equals(IdentifierUtils.ofVanilla("damage_type")))
 					//$$ {
 					//$$ 	if (identifier != null && Objects.equals(source.getTypeRegistryEntry().getKey().map(k -> k.getValue()).orElse(null), identifier))
 					//$$ 	{

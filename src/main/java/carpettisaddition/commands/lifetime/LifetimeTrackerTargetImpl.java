@@ -27,7 +27,7 @@ import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
-import carpettisaddition.utils.GameUtil;
+import carpettisaddition.utils.GameUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -143,7 +143,7 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 			if (
 					CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap &&
 					this.entity instanceof MobEntity &&
-					!GameUtil.countsTowardsMobcap(this.entity)
+					!GameUtils.countsTowardsMobcap(this.entity)
 			)
 			{
 				return;

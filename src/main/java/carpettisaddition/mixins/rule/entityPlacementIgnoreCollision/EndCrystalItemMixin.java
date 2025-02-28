@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.rule.entityPlacementIgnoreCollision;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.utils.GameUtil;
+import carpettisaddition.utils.GameUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EndCrystalItem;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +46,7 @@ public abstract class EndCrystalItemMixin
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
-			pos = GameUtil.getInvalidBlockPos();
+			pos = GameUtils.getInvalidBlockPos();
 		}
 		return pos;
 	}

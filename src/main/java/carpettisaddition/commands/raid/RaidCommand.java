@@ -27,9 +27,9 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.mixins.command.raid.RaidAccessor;
 import carpettisaddition.mixins.command.raid.RaidManagerAccessor;
 import carpettisaddition.utils.CarpetModUtil;
-import carpettisaddition.utils.IdentifierUtil;
+import carpettisaddition.utils.IdentifierUtils;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -133,7 +133,7 @@ public class RaidCommand extends AbstractCommand
 						}
 						else
 						{
-							BaseText x = Messenger.s(String.format("[%s] ", IdentifierUtil.id(raider.getType()).getPath().substring(0, 1).toUpperCase()));
+							BaseText x = Messenger.s(String.format("[%s] ", IdentifierUtils.id(raider.getType()).getPath().substring(0, 1).toUpperCase()));
 							x.setStyle(
 									//#if MC >= 11600
 									//$$ raiderName.getStyle()
@@ -142,7 +142,7 @@ public class RaidCommand extends AbstractCommand
 									//#endif
 							);
 							Messenger.hover(x, raiderMessage);
-							Messenger.click(x, Messenger.ClickEvents.suggestCommand(TextUtil.tp(raider)));
+							Messenger.click(x, Messenger.ClickEvents.suggestCommand(TextUtils.tp(raider)));
 							line.add(x);
 							counter++;
 							if (counter == 10 || !iter.hasNext())

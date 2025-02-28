@@ -24,7 +24,7 @@ import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.helpers.carpet.loggerRestriction.CarpetLoggerRestriction;
-import carpettisaddition.utils.FileUtil;
+import carpettisaddition.utils.FileUtils;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -63,7 +63,7 @@ public class LoggerSubscriptionStorage
 	{
 		this.storage = null;
 		File file = new File(STORAGE_FILE_PATH);
-		if (FileUtil.isFile(file))
+		if (FileUtils.isFile(file))
 		{
 			try (InputStreamReader isr = new InputStreamReader(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8))
 			{
@@ -93,7 +93,7 @@ public class LoggerSubscriptionStorage
 		File file = new File(STORAGE_FILE_PATH);
 		try
 		{
-			FileUtil.touchFileDirectory(file);
+			FileUtils.touchFileDirectory(file);
 		}
 		catch (IOException e)
 		{

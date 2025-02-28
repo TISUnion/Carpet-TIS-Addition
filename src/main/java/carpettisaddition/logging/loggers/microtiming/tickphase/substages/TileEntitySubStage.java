@@ -22,7 +22,7 @@ package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -52,13 +52,13 @@ public class TileEntitySubStage extends AbstractSubStage
 		return Messenger.c(
 				MicroTimingLoggerManager.tr("common.block"), "w : ", Messenger.block(this.block), Messenger.newLine(),
 				MicroTimingLoggerManager.tr("common.order"), String.format("w : %d\n", this.order),
-				MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtil.coord(this.pos))
+				MicroTimingLoggerManager.tr("common.position"), String.format("w : %s", TextUtils.coord(this.pos))
 		);
 	}
 
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return Messenger.ClickEvents.suggestCommand(TextUtil.tp(this.pos, DimensionWrapper.of(this.world)));
+		return Messenger.ClickEvents.suggestCommand(TextUtils.tp(this.pos, DimensionWrapper.of(this.world)));
 	}
 }

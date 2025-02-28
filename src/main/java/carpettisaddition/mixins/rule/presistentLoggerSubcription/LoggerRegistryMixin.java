@@ -23,7 +23,7 @@ package carpettisaddition.mixins.rule.presistentLoggerSubcription;
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.persistentLoggerSubscription.LoggerSubscriptionStorage;
-import carpettisaddition.utils.GameUtil;
+import carpettisaddition.utils.GameUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -81,7 +81,7 @@ public abstract class LoggerRegistryMixin
 	@Inject(method = "subscribePlayer", at = @At("HEAD"), remap = false)
 	private static void onPlayerLogSomething(String playerName, String logName, String option, CallbackInfo ci)
 	{
-		PlayerEntity player = GameUtil.getPlayerFromName(playerName);
+		PlayerEntity player = GameUtils.getPlayerFromName(playerName);
 		if (player != null)
 		{
 			LoggerSubscriptionStorage.getInstance().addSubscription(player, logName, option);
@@ -91,7 +91,7 @@ public abstract class LoggerRegistryMixin
 	@Inject(method = "unsubscribePlayer", at = @At("HEAD"), remap = false)
 	private static void onPlayerUnlogSomething(String playerName, String logName, CallbackInfo ci)
 	{
-		PlayerEntity player = GameUtil.getPlayerFromName(playerName);
+		PlayerEntity player = GameUtils.getPlayerFromName(playerName);
 		if (player != null)
 		{
 			LoggerSubscriptionStorage.getInstance().removeSubscription(player, logName);

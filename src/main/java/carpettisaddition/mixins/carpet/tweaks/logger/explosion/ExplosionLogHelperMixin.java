@@ -24,12 +24,11 @@ import carpet.logging.logHelpers.ExplosionLogHelper;
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ExplosionLogHelperWithEntity;
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ITntEntity;
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -116,7 +115,7 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 				}
 
 				String angleString = String.valueOf(this.calculateAngle(iTntEntity.getInitializedVelocity()));
-				String posString = TextUtil.coord(iTntEntity.getInitializedPosition());
+				String posString = TextUtils.coord(iTntEntity.getInitializedPosition());
 				BaseText tntText = Messenger.fancy(
 						"r",
 						Messenger.s("[TNT]"),

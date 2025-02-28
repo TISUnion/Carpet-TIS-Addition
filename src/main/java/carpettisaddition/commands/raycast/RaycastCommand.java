@@ -24,7 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.CarpetModUtil;
-import carpettisaddition.utils.CommandUtil;
+import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.mojang.brigadier.context.CommandContext;
@@ -89,9 +89,9 @@ public class RaycastCommand extends AbstractCommand
 						then(argument("start", vec3()).
 								then(argument("end", vec3()).
 										executes(this::performRaycast).
-										then(CommandUtil.enumArg("shapeMode", RayTraceContext.ShapeType.class).
+										then(CommandUtils.enumArg("shapeMode", RayTraceContext.ShapeType.class).
 												executes(this::performRaycast).
-												then(CommandUtil.enumArg("fluidMode", RayTraceContext.FluidHandling.class).
+												then(CommandUtils.enumArg("fluidMode", RayTraceContext.FluidHandling.class).
 														executes(this::performRaycast)
 												)
 										)

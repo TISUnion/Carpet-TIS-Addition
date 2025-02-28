@@ -31,7 +31,7 @@ import java.util.Map;
 //$$ import net.minecraft.component.DataComponentTypes;
 //#endif
 
-public class ItemUtil
+public class ItemUtils
 {
 	public static boolean hasCustomName(ItemStack itemStack)
 	{

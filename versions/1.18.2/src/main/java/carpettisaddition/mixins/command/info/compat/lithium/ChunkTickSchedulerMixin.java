@@ -22,7 +22,7 @@ package carpettisaddition.mixins.command.info.compat.lithium;
 
 import carpettisaddition.commands.info.QueueAccessibleChunkTickScheduler;
 import carpettisaddition.utils.ModIds;
-import carpettisaddition.utils.ReflectionUtil;
+import carpettisaddition.utils.ReflectionUtils;
 import carpettisaddition.utils.mixin.testers.LithiumEntityWorldTickSchedulerTester;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -43,6 +43,6 @@ public abstract class ChunkTickSchedulerMixin<T> implements QueueAccessibleChunk
 	@Override
 	public Queue<OrderedTick<T>> getTickQueue$TISCM()
 	{
-		return (Queue<OrderedTick<T>>)ReflectionUtil.getField(this, "nextTickQueue").orElse(null);
+		return (Queue<OrderedTick<T>>)ReflectionUtils.getField(this, "nextTickQueue").orElse(null);
 	}
 }

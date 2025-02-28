@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.rule.creativeInstantTame;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import carpettisaddition.utils.EntityUtil;
+import carpettisaddition.utils.EntityUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.passive.WolfEntity;
@@ -50,7 +50,7 @@ public abstract class WolfEntityMixin
 	)
 	private int creativeInstantTame_wolf(int value, @Local(argsOnly = true) PlayerEntity player)
 	{
-		if (CarpetTISAdditionSettings.creativeInstantTame && EntityUtil.isCreativePlayer(player))
+		if (CarpetTISAdditionSettings.creativeInstantTame && EntityUtils.isCreativePlayer(player))
 		{
 			value = 0;
 		}

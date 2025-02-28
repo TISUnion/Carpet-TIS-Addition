@@ -38,7 +38,7 @@ import static com.mojang.brigadier.arguments.StringArgumentType.word;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandSource.suggestMatching;
 
-public class CommandUtil
+public class CommandUtils
 {
 	public static boolean isConsoleCommandSource(ServerCommandSource commandSource)
 	{

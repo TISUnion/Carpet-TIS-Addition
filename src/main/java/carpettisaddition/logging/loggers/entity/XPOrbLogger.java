@@ -26,7 +26,7 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.text.BaseText;
 
 //#if MC >= 11700
-//$$ import carpettisaddition.utils.EntityUtil;
+//$$ import carpettisaddition.utils.EntityUtils;
 //#endif
 
 public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
@@ -48,7 +48,7 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 	{
 		//#if MC >= 11700
 		//$$ int amount = xp.getExperienceAmount();
-		//$$ int count = EntityUtil.getXpOrbPickingCount(xp);
+		//$$ int count = EntityUtils.getXpOrbPickingCount(xp);
 		//$$ long total = (long)amount * count;
 		//$$ String amountStr = String.format("w : %dxp * %d = %d", amount, count, total);
 		//#else

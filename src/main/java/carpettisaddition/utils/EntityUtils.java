@@ -38,7 +38,7 @@ import java.util.Optional;
 //$$ import carpettisaddition.mixins.utils.ExperienceOrbEntityAccessor;
 //#endif
 
-public class EntityUtil
+public class EntityUtils
 {
 	public static PlayerAbilities getPlayerAbilities(@NotNull PlayerEntity player)
 	{

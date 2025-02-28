@@ -22,14 +22,13 @@ package carpettisaddition.commands.common.counter;
 
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.CounterUtil;
-import carpettisaddition.utils.GameUtil;
+import carpettisaddition.utils.CounterUtils;
+import carpettisaddition.utils.GameUtils;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2LongLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.DyeColor;
 
 import java.util.Collections;
@@ -90,7 +89,7 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 
 	private void start()
 	{
-		this.startTick = GameUtil.getGameTime();
+		this.startTick = GameUtils.getGameTime();
 		this.startMillis = System.currentTimeMillis();
 		this.counter.clear();
 		this.running = true;
@@ -122,9 +121,9 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 		BaseText content;
 		if (this.isRunning())
 		{
-			long ticks = CounterUtil.getTimeElapsed(this.startTick, this.startMillis, realTime);
+			long ticks = CounterUtils.getTimeElapsed(this.startTick, this.startMillis, realTime);
 			long total = this.getTotal();
-			content = Messenger.s(String.format("%d, %.1f/h, %.1f min", total, total / CounterUtil.tickToHour(ticks), CounterUtil.tickToMinute(ticks)));
+			content = Messenger.s(String.format("%d, %.1f/h, %.1f min", total, total / CounterUtils.tickToHour(ticks), CounterUtils.tickToMinute(ticks)));
 		}
 		else
 		{
@@ -147,7 +146,7 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 			return Collections.singletonList(this.baseTr.tr("not_started", this.colorText, counterNameText));
 		}
 
-		long ticks = CounterUtil.getTimeElapsed(this.startTick, this.startMillis, realTime);
+		long ticks = CounterUtils.getTimeElapsed(this.startTick, this.startMillis, realTime);
 		long total = this.getTotal();
 
 		BaseText realtimeSuffix = realTime ?
@@ -160,10 +159,10 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 						tr("key_name_pc"),
 						this.colorText,
 						counterNameText,
-						Messenger.c(String.format("w %.2f", CounterUtil.tickToMinute(ticks))),
+						Messenger.c(String.format("w %.2f", CounterUtils.tickToMinute(ticks))),
 						realtimeSuffix,
 						total,
-						Messenger.c(String.format("w %.2f", total / CounterUtil.tickToHour(ticks)))
+						Messenger.c(String.format("w %.2f", total / CounterUtils.tickToHour(ticks)))
 				),
 				"w  ",
 				Messenger.fancy(
@@ -182,7 +181,7 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 							"g - ",
 							key.getText(),
 							"g : ",
-							CounterUtil.ratePerHourText(count, ticks, "www")
+							CounterUtils.ratePerHourText(count, ticks, "www")
 					));
 				});
 		return lines;

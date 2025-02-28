@@ -21,7 +21,7 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpettisaddition.utils.Messenger;
-import carpettisaddition.utils.TextUtil;
+import carpettisaddition.utils.TextUtils;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.ClickEvent;
@@ -47,6 +47,6 @@ public abstract class AbstractPlayerRelatedSubStage extends AbstractSubStage
 	@Override
 	public ClickEvent getClickEvent()
 	{
-		return Messenger.ClickEvents.suggestCommand(TextUtil.tp(this.player));
+		return Messenger.ClickEvents.suggestCommand(TextUtils.tp(this.player));
 	}
 }
