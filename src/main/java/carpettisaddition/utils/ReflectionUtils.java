@@ -80,18 +80,21 @@ public class ReflectionUtils
 		};
 	}
 
+	public static Optional<BiFunction<Object, Object[], Object>> invoker(Class<?> clazz, String methodName, Predicate<Method> methodPredicate)
+	{
+		for (Method method : clazz.getDeclaredMethods())
+		{
+			if (method.getName().equals(methodName) && methodPredicate.test(method))
+			{
+				return Optional.of(invoker(method));
+			}
+		}
+		return Optional.empty();
+	}
+
 	public static Optional<BiFunction<Object, Object[], Object>> invoker(String className, String methodName, Predicate<Method> methodPredicate)
 	{
-		return getClass(className).map(clazz -> {
-			for (Method method : clazz.getDeclaredMethods())
-			{
-				if (method.getName().equals(methodName) && methodPredicate.test(method))
-				{
-					return invoker(method);
-				}
-			}
-			return null;
-		});
+		return getClass(className).flatMap(clazz -> invoker(clazz, methodName, methodPredicate));
 	}
 
 	public static Optional<BiFunction<Object, Object[], Object>> invoker(String className, String methodName)

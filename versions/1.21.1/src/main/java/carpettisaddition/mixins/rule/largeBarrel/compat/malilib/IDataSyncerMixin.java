@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -32,19 +32,34 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(ModIds.malilib))
+@Restriction(require = {
+		// Added in malilib (sakura-ryoko's fork) version:
+		//   1.21-0.21.6
+		//   1.21.3-0.22.4
+		//   1.21.4-0.23.1
+		@Condition(value = ModIds.malilib, versionPredicates = {
+				">=0.21.6 <0.22",
+				">=0.22.4 <0.23",
+				">=0.23.1 <0.24",
+		}),
+		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.21")
+})
 @Pseudo
-@Mixin(targets = "fi.dy.masa.malilib.util.InventoryUtils")
-public abstract class InventoryUtilsMixin
+@Mixin(targets = "fi.dy.masa.malilib.interfaces.IDataSyncer")
+public interface IDataSyncerMixin
 {
 	@SuppressWarnings("UnresolvedMixinReference")
 	@ModifyReturnValue(
-			method = "getInventory",
-			at = @At(value = "RETURN", ordinal = 1),
+			method = "getBlockInventory",
+			at = @At("RETURN"),
 			remap = false
 	)
-	private static Inventory letMalilibRecognizeLargeBarrel(Inventory inventory, World world, BlockPos pos)
+	private Inventory syncTheOtherSideOfTheLargeBarrel(Inventory inventory, World world, BlockPos pos, boolean useNbt)
 	{
-		return LargeBarrelMasaModUtils.modifyGetBlockInventoryReturnValue(inventory, world, pos);
+		if (!useNbt)
+		{
+			return LargeBarrelMasaModUtils.modifyGetBlockInventoryReturnValueForIDataSyncer(this, inventory, world, pos);
+		}
+		return inventory;
 	}
 }

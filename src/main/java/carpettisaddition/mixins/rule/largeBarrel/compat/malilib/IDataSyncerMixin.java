@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,17 +18,13 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.utils;
+package carpettisaddition.mixins.rule.largeBarrel.compat.malilib;
 
-public class ModIds
+import carpettisaddition.utils.compat.DummyClass;
+import org.spongepowered.asm.mixin.Mixin;
+
+@Mixin(DummyClass.class)
+public abstract class IDataSyncerMixin
 {
-	public static final String async = "async";
-	public static final String carpet = "carpet";
-	public static final String carpet_extra = "carpet-extra";
-	public static final String lithium = "lithium";
-	public static final String malilib = "malilib";
-	public static final String mc_tester = "mctester";
-	public static final String minecraft = "minecraft";
-	public static final String minihud = "minihud";
-	public static final String tic_tacs = "tic_tacs";
+	// impl in mc1.21+
 }

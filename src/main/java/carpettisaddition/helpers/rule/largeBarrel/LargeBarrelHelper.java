@@ -96,6 +96,31 @@ public class LargeBarrelHelper
 		return getBlockEntitySource(state, world, pos).apply(LargeBarrelHelper.INVENTORY_RETRIEVER).orElse(null);
 	}
 
+	public static boolean isLargeBarrel(BlockState state, World world, BlockPos pos)
+	{
+		return getOtherPos(state, world, pos) != null;
+	}
+
+	@Nullable
+	public static BlockPos getOtherPos(BlockState state, World world, BlockPos pos)
+	{
+		if (state.getBlock() instanceof BarrelBlock)
+		{
+			Direction facing = state.get(BarrelBlock.FACING);
+			BlockPos otherPos = pos.offset(facing.getOpposite());
+			BlockState otherState = world.getBlockState(otherPos);
+			if (otherState.getBlock() instanceof BarrelBlock)
+			{
+				Direction otherFacing = otherState.get(BarrelBlock.FACING);
+				if (otherFacing == facing.getOpposite())
+				{
+					return otherPos;
+				}
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * INVENTORY_RETRIEVER and NAME_RETRIEVER are totally not stolen from {@link net.minecraft.block.ChestBlock} XD
 	 */
