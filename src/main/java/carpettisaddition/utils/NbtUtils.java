@@ -25,7 +25,7 @@ import net.minecraft.nbt.CompoundTag;
 
 import java.util.List;
 
-public class NbtUtil
+public class NbtUtils
 {
 	public static CompoundTag stringList2Nbt(List<String> list)
 	{
