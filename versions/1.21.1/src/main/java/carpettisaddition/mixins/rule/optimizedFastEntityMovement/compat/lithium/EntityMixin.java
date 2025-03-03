@@ -50,6 +50,10 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import java.util.Collections;
 
 /**
+ * mc1.14 ~ mc1.17.x: subproject 1.15.2 (main project)
+ * mc1.18 ~ mc1.20.x: subproject 1.18.2
+ * mc1.21+          : subproject 1.21.1        <--------
+ * <p>
  * Lithium's optimization `entity.collisions.movement` uses default priority 1000
  * We need to mixin into its merged static method, so here comes priority 2000
  */

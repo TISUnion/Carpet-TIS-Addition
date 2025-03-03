@@ -27,6 +27,11 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 
+/**
+ * mc1.14 ~ mc1.17.x: subproject 1.15.2 (main project)        <--------
+ * mc1.18 ~ mc1.20.x: subproject 1.18.2
+ * mc1.21+          : subproject 1.21.1
+ */
 @Restriction(require = {
 		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"),
 		@Condition(type = Condition.Type.TESTER, tester = LithiumEntityMovementOptimizationTester.class)
