@@ -612,7 +612,7 @@ carpettisaddition:
         mob_conversion: Converted to %1$s
         death:
           .: Death
-          damage_source: Damage source
+          damage_source: Death damage source
         trans_dimension:
           .: Trans-dimension
           to: to %1$s

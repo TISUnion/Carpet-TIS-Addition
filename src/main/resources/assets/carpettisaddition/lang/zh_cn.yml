@@ -612,7 +612,7 @@ carpettisaddition:
         mob_conversion: 转换为%1$s
         death:
           .: 死亡
-          damage_source: 伤害来源
+          damage_source: 致死伤害源
         trans_dimension:
           .: 跨维度
           to: 前往%1$s

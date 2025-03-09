@@ -20,8 +20,11 @@
 
 package carpettisaddition.mixins.command.lifetime.removal.despawn;
 
+import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
+import carpettisaddition.commands.lifetime.removal.DespawnImmediatelyRemovalReason;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -73,7 +76,12 @@ public abstract class MobEntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_despawnImmediately(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_IMMEDIATELY);
+		DamageSource damageSource = null;
+		if (this instanceof DamageableEntity)
+		{
+			damageSource = ((DamageableEntity)this).getDeathDamageSource();
+		}
+		((LifetimeTrackerTarget)this).recordRemoval(new DespawnImmediatelyRemovalReason(damageSource));
 	}
 
 	@Inject(

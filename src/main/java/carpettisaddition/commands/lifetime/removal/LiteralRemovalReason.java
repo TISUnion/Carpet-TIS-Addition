@@ -29,7 +29,7 @@ public class LiteralRemovalReason extends RemovalReason
 	// 32m ~ 128m randomly despawn
 	public static final LiteralRemovalReason DESPAWN_RANDOMLY = regular("despawn.randomly");
 	// > 128m immediately despawn
-	public static final LiteralRemovalReason DESPAWN_IMMEDIATELY = regular("despawn.immediately");
+	// see carpettisaddition.commands.lifetime.removal.LiteralRemovalReason
 	// difficulty peaceful
 	public static final LiteralRemovalReason DESPAWN_DIFFICULTY = regular("despawn.difficulty");
 	// item/xp orb timeout
