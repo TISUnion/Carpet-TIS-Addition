@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 12105
-//$$ import com.mojang.blaze3d.platform.GlStateManager;
+//$$ import com.mojang.blaze3d.opengl.GlStateManager;
 //#endif
 
 //#if MC >= 11904
