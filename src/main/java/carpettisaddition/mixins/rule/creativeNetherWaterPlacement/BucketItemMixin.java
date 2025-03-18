@@ -60,7 +60,7 @@ public abstract class BucketItemMixin
 		if (CarpetTISAdditionSettings.creativeNetherWaterPlacement)
 		{
 			//#if MC >= 12105
-			//$$ if (entity instanceof PlayerEntity player && player.isCreative())
+			//$$ if (entity instanceof PlayerEntity player && player.isInCreativeMode())
 			//#else
 			if (player != null && player.isCreative())
 			//#endif

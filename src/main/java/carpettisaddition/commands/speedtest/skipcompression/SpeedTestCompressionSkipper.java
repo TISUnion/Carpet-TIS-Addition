@@ -81,8 +81,8 @@ public class SpeedTestCompressionSkipper
 			//$$ //#if MC >= 12105
 			//$$ //$$ var codec = switch (side)
 			//$$ //$$ {
-			//$$ //$$ 	case SERVERBOUND -> PlayStateFactories.C2S.method_68875(buf -> new RegistryByteBuf(buf, null), () -> true).codec();
-			//$$ //$$ 	case CLIENTBOUND -> PlayStateFactories.S2C.method_68874(buf -> new RegistryByteBuf(buf, null)).codec();
+			//$$ //$$ 	case SERVERBOUND -> PlayStateFactories.C2S.bind(buf -> new RegistryByteBuf(buf, null), () -> true).codec();
+			//$$ //$$ 	case CLIENTBOUND -> PlayStateFactories.S2C.bind(buf -> new RegistryByteBuf(buf, null)).codec();
 			//$$ //$$ };
 			//$$ //#else
 			//$$ var factory = side == NetworkSide.SERVERBOUND ? PlayStateFactories.C2S : PlayStateFactories.S2C;

@@ -1,1 +1,2 @@
+net.minecraft.entity.player.PlayerEntity isCreative() isInCreativeMode()
 net.minecraft.server.world.ChunkTicketType getExpiryTicks() expiryTicks()
