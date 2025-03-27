@@ -45,7 +45,7 @@ dependencies {
 	} else {
 		modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
 	}
-	if (enableLithiumInRuntime && 11500 <= mcVersion && mcVersion < 12104) {
+	if (enableLithiumInRuntime && 11500 <= mcVersion) {
 		modImplementation "${project.lithium_dependency}"
 		if (11500 <= mcVersion && mcVersion < 11600) {
 			// https://github.com/CaffeineMC/lithium-fabric/blob/1.15.x/fabric/build.gradle#L50

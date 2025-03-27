@@ -41,6 +41,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+//#if MC >= 12105
+//$$ import net.minecraft.server.world.ServerWorld;
+//#endif
+
 @Restriction(require = {
 		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"),
 		@Condition(ModIds.lithium)
@@ -78,8 +82,13 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 			at = @At("TAIL"),
 			argsOnly = true
 	)
+	//#if MC >= 12105
+	//$$ public ServerWorld resetLithiumHopperCacheForLargeBarrel(
+	//$$ ServerWorld world,
+	//#else
 	public World resetLithiumHopperCacheForLargeBarrel(
 			World world,
+	//#endif
 			@Local(argsOnly = true, ordinal = 0) BlockState state,
 			@Local(argsOnly = true)  BlockPos pos
 	)
