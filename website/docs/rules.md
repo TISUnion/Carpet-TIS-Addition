@@ -939,6 +939,22 @@ It's designed to keep the behavior unchanged from pre-1.13, but might introduce 
 - Categories: `TIS`, `FEATURE`, `PORTING`
 
 
+## netherPortalEntityInteractionCheckUseFullBlockShape
+
+**Minecraft >= 1.21.5 only**
+
+Change the voxel shape used in the entity-inside check for the nether portal block to a full cube
+
+Basically, this rule change the nether portal teleport range, from the portal outline box, to a full cube
+
+It reverts the behavior back to mc < 25w04a (1.21.5 snapshot) and unfixes [MC-101556](https://bugs.mojang.com/browse/MC-101556)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `PORTING`
+
+
 ## netherPortalMaxSize
 
 Modify the maximum size limit of the nether portal

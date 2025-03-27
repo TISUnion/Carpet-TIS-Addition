@@ -939,6 +939,22 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`, `PORTING`
 
 
+## 地狱门实体交互检测使用完整方块形状 (netherPortalEntityInteractionCheckUseFullBlockShape)
+
+**本规则仅在 Minecraft >= 1.21.5 中存在**
+
+将地狱门方块在实体移动交互检测中使用的形状修改为完整方块
+
+基本上，这条规则会将下界传送门的传送范围从传送门轮廓框改为一个完整的立方体
+
+它将相关表现还原回了 MC < 25w04a（1.21.5 的快照）的表现，撤销了 [MC-101556](https://bugs.mojang.com/browse/MC-101556) 的修复
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `PORTING`
+
+
 ## 地狱门最大尺寸 (netherPortalMaxSize)
 
 修改地狱门的最大尺寸限制
@@ -1113,7 +1129,7 @@ sidebar_position: 1
 
 ## 红石粉中继器比较器 (redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate)
 
-**Minecraft >= 1.20.2 only**
+**本规则仅在 Minecraft >= 1.20.2 only 中存在**
 
 让红石粉、红石中继器和红石比较器忽略来自下方的状态更新
 

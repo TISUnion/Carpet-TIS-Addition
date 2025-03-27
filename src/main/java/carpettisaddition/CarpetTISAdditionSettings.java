@@ -461,6 +461,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, FEATURE, PORTING})
 	public static boolean naturalSpawningUse13HeightmapExtra = false;
 
+	//#if MC >= 12105
+	//$$ @Rule(categories = {TIS, FEATURE, PORTING})
+	//$$ public static boolean netherPortalEntityInteractionCheckUseFullBlockShape = false;
+	//#endif
+
 	public static final int VANILLA_NETHER_PORTAL_MAX_SIZE = 21;
 	@Rule(
 			categories = {TIS, CREATIVE},

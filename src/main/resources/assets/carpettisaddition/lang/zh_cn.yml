@@ -1067,6 +1067,12 @@ carpettisaddition:
         desc: 在计算规则naturalSpawningUse13Heightmap中的修改版高度图时，忽略活塞、粘液块、蜂蜜块
         extra:
           '0': 本规则的目的是确保与1.13前表现的一致性，但可能会导致一些非预期的机制滥用行为
+      netherPortalEntityInteractionCheckUseFullBlockShape:
+        name: 地狱门实体交互检测使用完整方块形状
+        desc: 将地狱门方块在实体移动交互检测中使用的形状修改为完整方块
+        extra:
+          '0': 基本上，这条规则会将下界传送门的传送范围从传送门轮廓框改为一个完整的立方体
+          '1': 它将相关表现还原回了 MC < 25w04a（1.21.5 的快照）的表现，撤销了 MC-101556 的修复
       netherPortalMaxSize:
         name: 地狱门最大尺寸
         desc: 修改地狱门的最大尺寸限制
