@@ -18,16 +18,34 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.playerActionEnhanced;
+package carpettisaddition.mixins.command.player.pertick;
 
-import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
+import carpettisaddition.helpers.carpet.playerActionEnhanced.IServerPlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
+import org.spongepowered.asm.mixin.Mixin;
 
-public interface IEntityPlayerActionPackAction
+@Mixin(ServerPlayerEntity.class)
+public abstract class ServerPlayerEntityMixin implements IServerPlayerEntity
 {
-	void setIntervalRandomGenerator(RandomGen gen);
+	public void pushOldPosRot(Vec3d pos, Vec2f rot)
+	{
+		ServerPlayerEntity self = (ServerPlayerEntity)(Object)this;
+		self.prevX = pos.x;
+		self.prevY = pos.y;
+		self.prevZ = pos.z;
+		self.prevPitch = rot.x;
+		self.prevYaw = rot.y;
+	}
 
-	void setPerTickMultiplier(int perTick);
-
-	void savePosAndRot(ServerPlayerEntity player);
+	public void popOldPosRot()
+	{
+		ServerPlayerEntity self = (ServerPlayerEntity)(Object)this;
+		self.prevX = self.getPos().x;
+		self.prevY = self.getPos().y;
+		self.prevZ = self.getPos().z;
+		self.prevPitch = self.getPitch(1.0f);
+		self.prevYaw = self.getYaw(1.0f);
+	}
 }
