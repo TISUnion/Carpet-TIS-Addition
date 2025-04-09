@@ -23,7 +23,7 @@ package carpettisaddition.mixins.rule.renewableElytra;
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.FlyingEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PhantomEntity;
 import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.item.ItemStack;
@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.Mixin;
 //#endif
 
 @Mixin(PhantomEntity.class)
-public abstract class PhantomEntityMixin extends FlyingEntity
+public abstract class PhantomEntityMixin extends MobEntity
 {
 	public PhantomEntityMixin(EntityType<? extends PhantomEntity> entityType, World world)
 	{

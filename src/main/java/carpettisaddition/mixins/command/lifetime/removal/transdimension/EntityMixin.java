@@ -92,7 +92,9 @@ public abstract class EntityMixin
 
 			CallbackInfoReturnable<Entity> cir
 
-			//#if MC >= 12102
+			//#if MC >= 12106
+			//$$ , @Local(argsOnly = true, ordinal = 1) ServerWorld destination
+			//#elseif MC >= 12102
 			//$$ , @Local(argsOnly = true) ServerWorld destination
 			//#elseif MC >= 12100
 			//$$ , @Local(ordinal = 1) ServerWorld destination
