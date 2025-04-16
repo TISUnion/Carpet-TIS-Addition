@@ -941,7 +941,7 @@ It's designed to keep the behavior unchanged from pre-1.13, but might introduce 
 
 ## netherPortalEntityInteractionCheckUseFullBlockShape
 
-**Minecraft >= 1.21.5 only**
+**Minecraft [1.21.5, 1.21.6) only**
 
 Change the voxel shape used in the entity-inside check for the nether portal block to a full cube
 

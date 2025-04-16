@@ -941,7 +941,7 @@ sidebar_position: 1
 
 ## 地狱门实体交互检测使用完整方块形状 (netherPortalEntityInteractionCheckUseFullBlockShape)
 
-**本规则仅在 Minecraft >= 1.21.5 中存在**
+**本规则仅在 Minecraft [1.21.5, 1.21.6) 中存在**
 
 将地狱门方块在实体移动交互检测中使用的形状修改为完整方块
 

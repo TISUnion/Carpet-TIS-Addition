@@ -30,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+// impl in mc [1.21.5, 1.21.6)
 @Mixin(NetherPortalBlock.class)
 public abstract class NetherPortalBlockMixin extends Block
 {
