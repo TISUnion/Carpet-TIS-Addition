@@ -38,7 +38,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ExperienceOrbEntityMixin
 {
 	@ModifyArg(
+			//#if MC >= 12106
+			//$$ method = "spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;I)V",
+			//#else
 			method = "spawn",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
@@ -55,7 +59,14 @@ public abstract class ExperienceOrbEntityMixin
 		return entity;
 	}
 
-	@Inject(method = "spawn", at = @At("TAIL"))
+	@Inject(
+			//#if MC >= 12106
+			//$$ method = "spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;I)V",
+			//#else
+			method = "spawn",
+			//#endif
+			at = @At("TAIL")
+	)
 	private static void lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrbHookClean(CallbackInfo ci)
 	{
 		LifetimeMixinUtil.xpOrbSpawningReason.remove();

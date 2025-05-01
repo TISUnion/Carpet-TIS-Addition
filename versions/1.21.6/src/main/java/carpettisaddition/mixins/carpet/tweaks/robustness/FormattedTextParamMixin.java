@@ -20,24 +20,18 @@
 
 package carpettisaddition.mixins.carpet.tweaks.robustness;
 
+import carpet.script.exception.InternalExpressionException;
 import carpet.script.utils.ShapeDispatcher;
 import carpet.script.value.FormattedTextValue;
 import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.utils.ModIds;
-import com.google.gson.JsonParseException;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.registry.DynamicRegistryManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-//#if MC >= 12005
-//$$ import net.minecraft.registry.DynamicRegistryManager;
-//#endif
-
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
 @Mixin(ShapeDispatcher.FormattedTextParam.class)
 public abstract class FormattedTextParamMixin
 {
@@ -47,40 +41,25 @@ public abstract class FormattedTextParamMixin
 	 * <p>
 	 * Data formats in different versions:
 	 * - (~, 1.16)      : string, as a literal text value
-	 * - [1.16, 1.21.5) : string, as a serialized text json        <--------
-	 * - [1.21.5, ~)    : nbt element, as a serialized text nbt
+	 * - [1.16, 1.21.5) : string, as a serialized text json
+	 * - [1.21.5, ~)    : nbt element, as a serialized text nbt        <--------
 	 */
 	@WrapOperation(
 			method = "decode",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12005
-					//$$ target = "Lcarpet/script/value/FormattedTextValue;deserialize(Ljava/lang/String;Lnet/minecraft/registry/DynamicRegistryManager;)Lcarpet/script/value/FormattedTextValue;"
-					//#else
-					target = "Lcarpet/script/value/FormattedTextValue;deserialize(Ljava/lang/String;)Lcarpet/script/value/FormattedTextValue;",
-					remap = false
-					//#endif
+					target = "Lcarpet/script/value/FormattedTextValue;deserialize(Lnet/minecraft/nbt/NbtElement;Lnet/minecraft/registry/DynamicRegistryManager;)Lcarpet/script/value/FormattedTextValue;"
 			)
 	)
-	public FormattedTextValue makeItFailsafe(
-			String str,
-			//#if MC >= 12005
-			//$$ DynamicRegistryManager regs,
-			//#endif
-			Operation<FormattedTextValue> original
-	)
+	public FormattedTextValue makeItFailsafe(NbtElement nbtElement, DynamicRegistryManager regs, Operation<FormattedTextValue> original)
 	{
 		try
 		{
-			return original.call(
-					str
-					//#if MC >= 12005
-					//$$ , regs
-					//#endif
-			);
+			return original.call(nbtElement, regs);
 		}
-		catch (JsonParseException e)
+		catch (InternalExpressionException e)
 		{
+			String str = nbtElement.toString();
 			CarpetTISAdditionServer.LOGGER.warn("Fail to decode incoming tag in FormattedTextParam, text \"{}\" is not deserialize-able", str);
 			return new FormattedTextValue(Messenger.s(str));
 		}

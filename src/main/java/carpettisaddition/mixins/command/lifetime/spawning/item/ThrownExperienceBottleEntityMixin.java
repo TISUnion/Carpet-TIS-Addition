@@ -43,7 +43,11 @@ public abstract class ThrownExperienceBottleEntityMixin
 	//$$ 		method = "onCollision",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
+	//$$ 				//#if MC >= 12106
+	//$$ 				//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;I)V"
+	//$$ 				//#else
 	//$$ 				target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"
+	//$$ 				//#endif
 	//$$ 		)
 	//$$ )
 	//$$ private void lifetimeTracker_recordSpawning_item_xpBottle(CallbackInfo ci)
