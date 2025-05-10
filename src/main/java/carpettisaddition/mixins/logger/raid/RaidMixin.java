@@ -31,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 12005
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -259,5 +260,13 @@ public abstract class RaidMixin implements IRaid
 	private void raidLogger_onCenterMoved(BlockPos blockPos, CallbackInfo ci)
 	{
 		RaidLogger.getInstance().onCenterMoved((Raid)(Object)this, blockPos);
+	}
+
+	@Inject(
+			method = "method_20510", at = @At(value = "RETURN")
+	)
+	private void onPOIDetected(BlockPos blockPos, CallbackInfoReturnable<Double> cir)
+	{
+		RaidLogger.getInstance().onPOIDetected((Raid)(Object)this, blockPos, cir.getReturnValueD());
 	}
 }

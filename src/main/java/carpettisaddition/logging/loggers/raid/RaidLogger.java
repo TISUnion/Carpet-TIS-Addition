@@ -100,6 +100,19 @@ public class RaidLogger extends AbstractLogger
 		});
 	}
 
+	public void onPOIDetected(Raid raid, BlockPos pos, double distance)
+	{
+		if (!TISAdditionLoggerRegistry.__raid)
+		{
+			return;
+		}
+		this.log(() -> {
+			return new BaseText[]{Messenger.c(
+					tr("poi_detected", raid.getRaidId(), Messenger.coord(pos, DimensionWrapper.of(raid.getWorld())), distance)
+			)};
+		});
+	}
+
 	public enum InvalidateReason
 	{
 		DIFFICULTY_PEACEFUL,
