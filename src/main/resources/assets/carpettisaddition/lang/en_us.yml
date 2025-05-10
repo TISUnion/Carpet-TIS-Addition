@@ -245,6 +245,7 @@ carpettisaddition:
       invalidated: 'Raid (id: %1$s) invalidated, reason: %2$s'
       bad_omen_level_increased: 'Raid (id: %1$s) increased its bad omen level to %2$s'
       center_moved: 'Raid (id: %1$s) moves its center to %2$s'
+      poi_detected: 'Raid (id: %1$s) detected POI at %2$s which is %3$s block(s) away from its center'
       raid_invalidate_reason:
         difficulty_peaceful: difficulty peaceful
         gamerule_disable: gamerule disable

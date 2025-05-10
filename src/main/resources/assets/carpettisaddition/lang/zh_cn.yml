@@ -245,6 +245,7 @@ carpettisaddition:
       invalidated: '袭击(id: %1$s)结束，原因为: %2$s'
       bad_omen_level_increased: '袭击(id: %1$s)不祥之兆等级提升为%2$s'
       center_moved: '袭击(id: %1$s)的中心点移动至%2$s'
+      poi_detected: '袭击(id: %1$s)在%2$s处检测到POI，距离其中心点%3$s个方块'
       raid_invalidate_reason:
         difficulty_peaceful: 难度被设为和平
         gamerule_disable: 被游戏规则禁用
