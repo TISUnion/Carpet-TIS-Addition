@@ -27,7 +27,12 @@ import net.minecraft.server.command.TeleportCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-// Click and teleport in VoxelMap or whatever Minimap mod
+/**
+ * Click and teleport in VoxelMap or whatever Minimap mod
+ * <p>
+ * mc1.14 ~ mc1.21.5: subproject 1.15.2 (main project)        <--------
+ * mc1.21.6+        : subproject 1.21.6
+ */
 @Mixin(TeleportCommand.class)
 public abstract class TeleportCommandMixin
 {

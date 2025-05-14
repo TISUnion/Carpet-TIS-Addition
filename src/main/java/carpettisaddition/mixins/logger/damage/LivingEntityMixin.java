@@ -49,6 +49,7 @@ import java.util.Optional;
 //#endif
 
 //#if MC >= 12100
+//$$ import carpettisaddition.utils.EntityUtils;
 //$$ import net.minecraft.server.world.ServerWorld;
 //$$ import net.minecraft.world.World;
 //#endif
@@ -229,7 +230,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 		this.getDamageTracker().ifPresent(tracker -> {
 			//#if MC >= 12100
 			//$$ LivingEntity self = (LivingEntity)(Object)this;
-			//$$ World world = self.getEntityWorld();
+			//$$ World world = EntityUtils.getEntityWorld(self);
 			//$$ if (world instanceof ServerWorld serverWorld)
 			//#endif
 			{

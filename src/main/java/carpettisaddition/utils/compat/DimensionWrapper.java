@@ -20,6 +20,7 @@
 
 package carpettisaddition.utils.compat;
 
+import carpettisaddition.utils.EntityUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -106,7 +107,7 @@ public class DimensionWrapper
 
 	public static DimensionWrapper of(Entity entity)
 	{
-		return of(entity.getEntityWorld());
+		return of(EntityUtils.getEntityWorld(entity));
 	}
 
 	/**

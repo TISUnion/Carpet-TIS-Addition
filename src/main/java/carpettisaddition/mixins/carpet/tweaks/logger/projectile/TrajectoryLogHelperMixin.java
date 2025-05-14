@@ -27,6 +27,7 @@ import carpettisaddition.helpers.carpet.tweaks.logger.projectile.ProjectileLogge
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.TrajectoryLoggerUtil;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.VisualizeTrajectoryHelper;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
@@ -85,7 +86,7 @@ public abstract class TrajectoryLogHelperMixin
 			TrajectoryLoggerUtil.currentEntity.remove();
 			if (this.entity != null)
 			{
-				this.world = this.entity.getEntityWorld();
+				this.world = EntityUtils.getEntityWorld(this.entity);
 				this.doVisualizeLogging = this.world != null;
 			}
 		}

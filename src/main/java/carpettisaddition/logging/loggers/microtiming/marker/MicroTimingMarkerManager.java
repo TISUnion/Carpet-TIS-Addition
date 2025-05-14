@@ -30,6 +30,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.TranslationContext;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.PlayerEntity;
@@ -75,7 +76,8 @@ public class MicroTimingMarkerManager extends TranslationContext
 
 	private static boolean checkServerSide(PlayerEntity playerEntity)
 	{
-		return playerEntity instanceof ServerPlayerEntity && !playerEntity.getEntityWorld().isClient() && playerEntity.getEntityWorld() instanceof ServerWorld;
+		World playerWorld = EntityUtils.getEntityWorld(playerEntity);
+		return playerEntity instanceof ServerPlayerEntity && !playerWorld.isClient() && playerWorld instanceof ServerWorld;
 	}
 
 	private void removeMarker(MicroTimingMarker marker)
@@ -100,7 +102,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 	{
 		if (checkServerSide(playerEntity))
 		{
-			StorageKey key = new StorageKey(playerEntity.getEntityWorld(), blockPos);
+			StorageKey key = new StorageKey(EntityUtils.getEntityWorld(playerEntity), blockPos);
 			MicroTimingMarker existedMarker = this.markers.get(key);
 			boolean removeExistedMarker = false;
 			boolean createNewMarker = false;
@@ -140,7 +142,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 			}
 			if (createNewMarker)
 			{
-				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)playerEntity.getEntityWorld(), blockPos, color, name);
+				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)EntityUtils.getEntityWorld(playerEntity), blockPos, color, name);
 				this.addMarker(newMarker);
 				Messenger.reminder(playerEntity, tr("on_mark", newMarker.toFullText()));
 			}
@@ -229,7 +231,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 	{
 		if (checkServerSide(playerEntity))
 		{
-			StorageKey key = new StorageKey(playerEntity.getEntityWorld(), blockPos);
+			StorageKey key = new StorageKey(EntityUtils.getEntityWorld(playerEntity), blockPos);
 			MicroTimingMarker marker = this.markers.get(key);
 			if (marker != null)
 			{

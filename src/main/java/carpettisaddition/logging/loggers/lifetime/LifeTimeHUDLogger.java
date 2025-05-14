@@ -26,6 +26,7 @@ import carpettisaddition.commands.lifetime.LifeTimeWorldTracker;
 import carpettisaddition.commands.lifetime.trackeddata.BasicTrackedData;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -64,7 +65,7 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 	@Override
 	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
-		LifeTimeWorldTracker tracker = LifeTimeTracker.getInstance().getTracker(playerEntity.getEntityWorld());
+		LifeTimeWorldTracker tracker = LifeTimeTracker.getInstance().getTracker(EntityUtils.getEntityWorld(playerEntity));
 		if (tracker != null)
 		{
 			Optional<EntityType<?>> entityTypeOptional = LifeTimeTrackerUtil.getEntityTypeFromName(option);

@@ -29,6 +29,7 @@ import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.GameMode;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,6 +41,15 @@ import java.util.Optional;
 
 public class EntityUtils
 {
+	public static World getEntityWorld(@NotNull Entity entity)
+	{
+		//#if MC >= 12106
+		//$$ return entity.getWorld();
+		//#else
+		return entity.getEntityWorld();
+		//#endif
+	}
+
 	public static PlayerAbilities getPlayerAbilities(@NotNull PlayerEntity player)
 	{
 		//#if MC >= 11700

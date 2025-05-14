@@ -22,6 +22,7 @@ package carpettisaddition.utils.entityfilter;
 
 import carpettisaddition.mixins.utils.entityfilter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslationContext;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.mojang.brigadier.StringReader;
@@ -126,7 +127,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		{
 			return false;
 		}
-		if (this.entitySelector.getLocalWorldOnly() && testEntity.getEntityWorld() != this.serverCommandSource.getWorld())
+		if (this.entitySelector.getLocalWorldOnly() && EntityUtils.getEntityWorld(testEntity) != this.serverCommandSource.getWorld())
 		{
 			return false;
 		}

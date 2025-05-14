@@ -22,6 +22,7 @@ package carpettisaddition.logging.loggers.commandblock;
 
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.block.BlockState;
@@ -127,7 +128,7 @@ public class CommandBlockLogger extends AbstractLogger
 			return;
 		}
 		this.logCommandBlockExecution(
-				entity.getEntityWorld(),
+				EntityUtils.getEntityWorld(entity),
 				Messenger.entity(null, entity),
 				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity)),
 				entity.getCommandExecutor(),

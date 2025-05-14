@@ -23,6 +23,7 @@ package carpettisaddition.logging.loggers.movement;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingAccess;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.entityfilter.EntityFilter;
@@ -66,7 +67,7 @@ public class MovementLogger extends AbstractLogger
 
 	public void create(Entity entity, MovementType movementType, Vec3d originalMovement)
 	{
-		if (isLoggerActivated() && entity.getEntityWorld() instanceof ServerWorld)
+		if (isLoggerActivated() && EntityUtils.getEntityWorld(entity) instanceof ServerWorld)
 		{
 			MovementLoggerTarget target = (MovementLoggerTarget)entity;
 			if (!target.getMovementTracker().isPresent())
@@ -102,7 +103,7 @@ public class MovementLogger extends AbstractLogger
 		{
 			this.entity = entity;
 			this.originalPos = entity.getPos();
-			this.world = (ServerWorld)entity.getEntityWorld();
+			this.world = (ServerWorld)EntityUtils.getEntityWorld(entity);
 			this.movementType = movementType;
 			this.originalMovement = originalMovement;
 			this.currentMovement = originalMovement;

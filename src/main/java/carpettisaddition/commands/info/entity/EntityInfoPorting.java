@@ -21,6 +21,7 @@
 package carpettisaddition.commands.info.entity;
 
 import carpettisaddition.mixins.command.info.entity.*;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
@@ -54,7 +55,7 @@ public class EntityInfoPorting
 	public static List<BaseText> entityInfo(Entity e, World source_world)
 	{
 		List<BaseText> lst = Lists.newArrayList();
-		World world = e.getEntityWorld();
+		World world = EntityUtils.getEntityWorld(e);
 		lst.add(Messenger.c("w " + EntityInfoUtil.entity_short_string(e)));
 		if (e.hasVehicle()) { lst.add(Messenger.c("w  - Rides: ", "wb "+e.getVehicle().getDisplayName().getString())); }
 		if (e.hasPassengers())

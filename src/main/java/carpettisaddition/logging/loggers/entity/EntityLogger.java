@@ -22,6 +22,7 @@ package carpettisaddition.logging.loggers.entity;
 
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
@@ -96,7 +97,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	private void onLoggingEvent(T entity, LoggingType loggingType, Supplier<BaseText[]> supplier)
 	{
-		if (this.getAcceleratorBoolean() && entity.getEntityWorld() != null && !entity.getEntityWorld().isClient())
+		if (this.getAcceleratorBoolean() && EntityUtils.getEntityWorld(entity) != null && !EntityUtils.getEntityWorld(entity).isClient())
 		{
 			LoggerRegistry.getLogger(this.getName()).log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
 		}
@@ -105,7 +106,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	public void onEntityCreated(T entity)
 	{
 		this.onLoggingEvent(entity, LoggingType.CREATE, () -> new BaseText[]{Messenger.c(
-				this.getWorldTimeText(entity.getEntityWorld()),
+				this.getWorldTimeText(EntityUtils.getEntityWorld(entity)),
 				translator.tr("created", getNameTextRich(entity)),
 				"g  @ ",
 				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity)),
@@ -117,7 +118,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	public void onEntityDespawn(T entity)
 	{
 		this.onLoggingEvent(entity, LoggingType.DESPAWN, () -> new BaseText[]{Messenger.c(
-				this.getWorldTimeText(entity.getEntityWorld()),
+				this.getWorldTimeText(EntityUtils.getEntityWorld(entity)),
 				translator.tr("despawned", getNameTextRich(entity)),
 				"g  @ ",
 				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity))
@@ -127,7 +128,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	public void onEntityDied(T entity, DamageSource source, float amount)
 	{
 		this.onLoggingEvent(entity, LoggingType.DIE, () -> new BaseText[]{Messenger.c(
-				this.getWorldTimeText(entity.getEntityWorld()),
+				this.getWorldTimeText(EntityUtils.getEntityWorld(entity)),
 				Messenger.fancy(
 						null,
 						Messenger.tr(

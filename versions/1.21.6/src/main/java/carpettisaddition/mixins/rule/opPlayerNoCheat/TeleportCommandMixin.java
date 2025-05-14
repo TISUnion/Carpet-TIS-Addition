@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,28 +21,35 @@
 package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.server.command.GiveCommand;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.command.TeleportCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+
+import java.util.function.Predicate;
 
 /**
- * JEI? REI? TMI? NEI?
+ * Click and teleport in VoxelMap or whatever Minimap mod
  * <p>
- * mc1.14 ~ mc1.21.5: subproject 1.15.2 (main project)        <--------
- * mc1.21.6+        : subproject 1.21.6
+ * mc1.14 ~ mc1.21.5: subproject 1.15.2 (main project)
+ * mc1.21.6+        : subproject 1.21.6        <--------
  */
-@Mixin(GiveCommand.class)
-public abstract class GiveCommandMixin
+@Mixin(TeleportCommand.class)
+public abstract class TeleportCommandMixin
 {
-	@ModifyReturnValue(
-			method = "method_13404",  // lambda method
-			at = @At("TAIL"),
-			remap = false
+	@ModifyArg(
+			method = "register",
+			at = @At(
+					value = "INVOKE",
+					target = "Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;requires(Ljava/util/function/Predicate;)Lcom/mojang/brigadier/builder/ArgumentBuilder;",
+					remap = false
+			),
+			require = 2,
+			allow = 2
 	)
-	private static boolean checkIfAllowCheating_giveCommand(boolean permissionEnough, ServerCommandSource source)
+	private static Predicate<ServerCommandSource> checkIfAllowCheating_teleportCommand(Predicate<ServerCommandSource> predicate)
 	{
-		return permissionEnough && OpPlayerNoCheatHelper.canCheat(source);
+		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
 	}
 }

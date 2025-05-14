@@ -22,6 +22,7 @@ package carpettisaddition.logging.loggers.lightqueue;
 
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Maps;
@@ -29,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.light.LightingProvider;
 
 import java.util.Deque;
@@ -98,11 +100,12 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 	@Override
 	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
 	{
-		if (!(playerEntity.getEntityWorld() instanceof ServerWorld))
+		World playerWorld = EntityUtils.getEntityWorld(playerEntity);
+		if (!(playerWorld instanceof ServerWorld))
 		{
 			return new BaseText[]{Messenger.s("not ServerWorld")};
 		}
-		ServerWorld serverWorld = this.nameToWorldMap.getOrDefault(option, (ServerWorld)playerEntity.getEntityWorld());
+		ServerWorld serverWorld = this.nameToWorldMap.getOrDefault(option, (ServerWorld)playerWorld);
 		WindowedDataRecorder recorder = this.dataMap.get(serverWorld);
 		Deque<RecordedData> deque = recorder.getQueue();
 

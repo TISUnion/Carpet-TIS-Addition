@@ -27,6 +27,7 @@ import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
+import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.GameUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
@@ -54,7 +55,7 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 	public LifetimeTrackerTargetImpl(Entity entity)
 	{
 		this.entity = entity;
-		World world = entity.getEntityWorld();
+		World world = EntityUtils.getEntityWorld(entity);
 
 		this.recordedSpawning = false;
 		this.recordedRemoval = false;
