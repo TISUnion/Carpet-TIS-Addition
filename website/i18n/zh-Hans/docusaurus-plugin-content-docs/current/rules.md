@@ -1660,6 +1660,22 @@ TISCM网络协议的开关
 - 分类: `TIS`, `CREATIVE`
 
 
+## 重新引入水爆 (wetExplosionReintroduced)
+
+重新引入了 MC 版本 1.21.2 ~ 1.21.5 中的“水爆”机制
+
+如果一个爆炸由实体产生（例如点燃的 TNT），并且该实体正与水接触，那么该爆炸将不会对物品实体、盔甲架实体以及所有装饰性实体造成伤害
+
+该规则在 MC 1.21.2 ~ 1.21.5 中无任何效果
+
+另见：[MC-3697](https://bugs.mojang.com/browse/MC-3697)
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `PORTING`
+
+
 ## 禁用凋灵生成音效 (witherSpawnedSoundDisabled)
 
 禁用凋灵在召唤后生命值回满时发出的世界中所有玩家都能听到的音效

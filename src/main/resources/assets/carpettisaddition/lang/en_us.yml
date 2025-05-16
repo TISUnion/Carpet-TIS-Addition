@@ -1371,6 +1371,13 @@ carpettisaddition:
       voidRelatedAltitude:
         name: voidRelatedAltitude
         desc: Modify the related altitude between the bottom of the world and the void where entities will receive void damages
+      wetExplosionReintroduced:
+        name: wetExplosionReintroduced
+        desc: Reintroduced the wet-explosion from MC version 1.21.2 ~ 1.21.5
+        extra:
+          '0': If an explosion is created by an entity (e.g. primed TNT) and the entity is touching water, then the explosion does no damage to item entities, armor stand entities and all kinds of decoration entities
+          '1': 'This rule has no effect in MC 1.21.2 ~ 1.21.5'
+          '2': '另见 MC-3697'
       witherSpawnedSoundDisabled:
         name: witherSpawnedSoundDisabled
         desc: Disable the wither spawned sound emitted when a wither fully reset its health after summoned

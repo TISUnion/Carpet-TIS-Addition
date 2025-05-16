@@ -831,6 +831,9 @@ public class CarpetTISAdditionSettings
 	)
 	public static double voidRelatedAltitude = -64.0D;
 
+	@Rule(categories = {TIS, FEATURE, PORTING})
+	public static boolean wetExplosionReintroduced;
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean witherSpawnedSoundDisabled = false;
 

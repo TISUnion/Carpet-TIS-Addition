@@ -1371,6 +1371,13 @@ carpettisaddition:
       voidRelatedAltitude:
         name: 虚空相对海拔高度
         desc: 修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域
+      wetExplosionReintroduced:
+        name: 重新引入水爆
+        desc: 重新引入了 MC 版本 1.21.2 ~ 1.21.5 中的“水爆”机制
+        extra:
+          '0': 如果一个爆炸由实体产生（例如点燃的 TNT），并且该实体正与水接触，那么该爆炸将不会对物品实体、盔甲架实体以及所有装饰性实体造成伤害
+          '1': '该规则在 MC 1.21.2 ~ 1.21.5 中无任何效果'
+          '2': '另见：MC-3697'
       witherSpawnedSoundDisabled:
         name: 禁用凋灵生成音效
         desc: 禁用凋灵在召唤后生命值回满时发出的世界中所有玩家都能听到的音效

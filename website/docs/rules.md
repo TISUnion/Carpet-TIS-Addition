@@ -1660,6 +1660,22 @@ Modify the related altitude between the bottom of the world and the void where e
 - Categories: `TIS`, `CREATIVE`
 
 
+## wetExplosionReintroduced
+
+Reintroduced the wet-explosion from MC version 1.21.2 ~ 1.21.5
+
+If an explosion is created by an entity (e.g. primed TNT) and the entity is touching water, then the explosion does no damage to item entities, armor stand entities and all kinds of decoration entities
+
+This rule has no effect in MC 1.21.2 ~ 1.21.5
+
+See also: [MC-3697](https://bugs.mojang.com/browse/MC-3697)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `PORTING`
+
+
 ## witherSpawnedSoundDisabled
 
 Disable the wither spawned sound emitted when a wither fully reset its health after summoned
