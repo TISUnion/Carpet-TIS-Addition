@@ -647,7 +647,8 @@ carpettisaddition:
       space: ''
     stack_trace:
       deobfuscated_stack_trace: 反混淆后的堆栈跟踪
-      n_more_lines: 等%1$s行
+      deobfuscated_stack_trace_hover: 反混淆后的堆栈跟踪（点击复制详情）
+      n_more_lines: '...等%1$s行'
     entity_filter:
       dimension: 维度
       anchor_pos: 锚点坐标

@@ -22,28 +22,26 @@ package carpettisaddition.utils.deobfuscator;
 
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
-import com.google.common.base.Joiner;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Util;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.regex.Pattern;
 
 import static java.lang.Integer.min;
 
 public class StackTracePrinter
 {
-	private static final int DEFAULT_MAX_STACK_TRACE_SIZE = 64;
+	private static final int MAX_COPY_STACK_TRACE_SIZE = 64;
+	private static final int MAX_HOVER_STACK_TRACE_SIZE = 16;
 	private static final Translator translator = StackTraceDeobfuscator.translator;
 
 	private StackTraceElement[] stackTrace;
-	private int maxStackTraceSize;
 	private String ignorePackagePath;
 
 	private StackTracePrinter()
 	{
 		this.stackTrace = Thread.currentThread().getStackTrace();
-		this.maxStackTraceSize = DEFAULT_MAX_STACK_TRACE_SIZE;
 	}
 
 	public static StackTracePrinter create()
@@ -54,13 +52,6 @@ public class StackTracePrinter
 	public static BaseText makeSymbol(Class<?> ignoreClass)
 	{
 		return create().ignore(ignoreClass).deobfuscate().toSymbolText();
-	}
-
-	// limits the maximum display line
-	public StackTracePrinter limit(int maxStackTraceSize)
-	{
-		this.maxStackTraceSize = maxStackTraceSize;
-		return this;
 	}
 
 	// all StackTraceElements before any StackTraceElement with package starts with given path will be ignored
@@ -81,38 +72,119 @@ public class StackTracePrinter
 		return this;
 	}
 
-	public StackTraceElement[] toStackTraceElements()
+	private String createClipboardString()
 	{
-		return this.stackTrace;
-	}
+		int num = min(this.stackTrace.length, MAX_COPY_STACK_TRACE_SIZE);
 
-	@SuppressWarnings("DeprecatedIsStillUsed")
-	@Deprecated
-	public BaseText toBaseText()
-	{
-		List<StackTraceElement> list = Arrays.asList(this.stackTrace).subList(0, min(this.stackTrace.length, this.maxStackTraceSize));
-		int restLineCount = this.stackTrace.length - this.maxStackTraceSize;
-		BaseText text = Messenger.c(translator.tr("deobfuscated_stack_trace"), Messenger.s(String.format(" (%s)\n", StackTraceDeobfuscator.MAPPING_VERSION)));
-		text.append(Messenger.s(Joiner.on("\n").join(list)));
+		StringBuilder builder = new StringBuilder();
+		builder.append(translator.tr("deobfuscated_stack_trace").getString());
+		builder.append(String.format(" (%s)", StackTraceDeobfuscator.MAPPING_VERSION));
+
+		for (int i = 0; i < num; i++)
+		{
+			builder.append("\n");
+			builder.append(this.stackTrace[i].toString());
+		}
+
+		int restLineCount = this.stackTrace.length - num;
 		if (restLineCount > 0)
 		{
-			text.append(Messenger.c("w \n", translator.tr("n_more_lines", restLineCount)));
+			builder.append("\n");
+			builder.append(translator.tr("n_more_lines", restLineCount).getString());
 		}
+
+		return builder.toString();
+	}
+
+	private static final Pattern MIXIN_METHOD_NAME_UID_PATTERN = Pattern.compile("^[a-z]{3}[0-9a-f]{3}$");
+
+	// https://github.com/search?q=repo%3ALlamaLad7%2FMixinExtras+getUniqueMethodName&type=code
+	private static final Pattern MIXIN_EXTRAS_METHOD_PATTERN_1 = Pattern.compile("^mixinextras\\$bridge\\$.+");
+	private static final Pattern MIXIN_EXTRAS_METHOD_PATTERN_2 = Pattern.compile(".+\\$mixinextras\\$wrapped$");
+
+	private static boolean shouldObscureMethod(String methodName)
+	{
+		return MIXIN_EXTRAS_METHOD_PATTERN_1.matcher(methodName).matches() || MIXIN_EXTRAS_METHOD_PATTERN_2.matcher(methodName).matches();
+	}
+
+	private BaseText createHoverText()
+	{
+		BaseText text = translator.tr("deobfuscated_stack_trace_hover");
+		int num = min(this.stackTrace.length, MAX_HOVER_STACK_TRACE_SIZE);
+
+		for (int i = 0; i < num; i++)
+		{
+			StackTraceElement ste = this.stackTrace[i];
+			BaseText line = Messenger.s("");
+
+			String className = ste.getClassName();
+			String[] classNameParts = className.split("\\.");
+			if (classNameParts.length >= 1)
+			{
+				line.append(Messenger.s(classNameParts[classNameParts.length - 1], Formatting.WHITE));
+				line.append(Messenger.s(".", Formatting.DARK_GRAY));
+			}
+
+			// Fabric mixin handler method name: "$".join([prefix, classUID + methodUID, modId, methodName])
+			// The "modId" is introduced in fabric mixin 0.12.0
+			// Example method names:
+			// - handler$bah000$$modifiedRunLoop
+			// - handler$bah000$carpet$modifiedRunLoop
+			// - wrapOperation$dag000$yeetUpdateSuppressionCrash_implOnTickWorlds
+			// - wrapOperation$dag000$carpet-tis-addition$yeetUpdateSuppressionCrash_implOnTickWorlds
+			line.append(Util.make(() -> {
+				String methodName = ste.getMethodName();
+				if (shouldObscureMethod(methodName))
+				{
+					return Messenger.s(methodName, Formatting.DARK_GRAY);
+				}
+				String[] methodNameParts = methodName.split("\\$");
+				if (methodNameParts.length == 3 || methodNameParts.length == 4)
+				{
+					String prefix = methodNameParts[0];
+					String uid = methodNameParts[1];
+					String modId = methodNameParts.length == 4 ? methodNameParts[2] : "";
+					String originName = methodNameParts[methodNameParts.length - 1];
+					if (MIXIN_METHOD_NAME_UID_PATTERN.matcher(uid).matches())
+					{
+						return Messenger.join(
+								Messenger.s("$", Formatting.DARK_GRAY),
+								Messenger.s(prefix, Formatting.DARK_GRAY),
+								Messenger.s(uid, Formatting.DARK_GRAY),
+								Messenger.s(modId, Formatting.GOLD),
+								Messenger.s(originName, Formatting.YELLOW)
+						);
+					}
+				}
+				return Messenger.s(methodName, Formatting.YELLOW);
+			}));
+			line.append(Messenger.s("()", Formatting.GRAY));
+
+			text.append(Messenger.newLine());
+			text.append(line);
+		}
+
+		int restLineCount = this.stackTrace.length - num;
+		if (restLineCount > 0)
+		{
+			text.append(Messenger.newLine());
+			text.append(Messenger.formatting(translator.tr("n_more_lines", restLineCount), Formatting.GRAY));
+		}
+
 		return text;
 	}
 
 	// a $ symbol with hover text showing the stack trace
 	public BaseText toSymbolText()
 	{
-		BaseText baseText = this.toBaseText();
 		return Messenger.fancy(
 				"f",
 				Messenger.s("$"),
-				baseText,
+				this.createHoverText(),
 
 				// no COPY_TO_CLIPBOARD in 1.14
 				//#if MC >= 11500
-				Messenger.ClickEvents.copyToClipBoard(baseText.getString())
+				Messenger.ClickEvents.copyToClipBoard(this.createClipboardString())
 				//#else
 				//$$ null
 				//#endif

@@ -647,7 +647,8 @@ carpettisaddition:
       space: ' '
     stack_trace:
       deobfuscated_stack_trace: Deobfuscated stack trace
-      n_more_lines: '%1$s more lines'
+      deobfuscated_stack_trace_hover: Deobfuscated stack trace (click to copy details)
+      n_more_lines: '... %1$s more lines'
     entity_filter:
       dimension: Dimension
       anchor_pos: Anchor Pos
@@ -1377,7 +1378,7 @@ carpettisaddition:
         extra:
           '0': If an explosion is created by an entity (e.g. primed TNT) and the entity is touching water, then the explosion does no damage to item entities, armor stand entities and all kinds of decoration entities
           '1': 'This rule has no effect in MC 1.21.2 ~ 1.21.5'
-          '2': '另见 MC-3697'
+          '2': 'See also: MC-3697'
       witherSpawnedSoundDisabled:
         name: witherSpawnedSoundDisabled
         desc: Disable the wither spawned sound emitted when a wither fully reset its health after summoned
