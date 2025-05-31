@@ -36,7 +36,7 @@ import net.minecraft.util.math.Vec3i;
  */
 public class TextUtils
 {
-	public static String tp(Vec3d pos) {return String.format("/tp %s %s %s", pos.getX(), pos.getY(), pos.getZ());}
+	public static String tp(Vec3d pos) {return String.format("/tp %s %s %s", StringUtils.dts(pos.getX()), StringUtils.dts(pos.getY()), StringUtils.dts(pos.getZ()));}
 	public static String tp(Vec3i pos) {return String.format("/tp %d %d %d", pos.getX(), pos.getY(), pos.getZ());}
 	public static String tp(ChunkPos pos) {return String.format("/tp %d ~ %d", pos.x * 16 + 8, pos.z * 16 + 8);}
 	public static String tp(Vec3d pos, DimensionWrapper dimensionType) {return String.format("/execute in %s run", dimensionType) + tp(pos).replace('/', ' ');}

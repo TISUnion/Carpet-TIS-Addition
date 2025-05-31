@@ -55,4 +55,32 @@ public class StringUtils
 		nf.setMaximumFractionDigits(digit);
 		return nf.format(value);
 	}
+
+	// Double.toString() might return scientific notation which is bad
+	public static String dts(double number)
+	{
+		String s = Double.toString(number);
+		if (s.contains("E"))
+		{
+			s = String.format("%.15f", number);
+			int idx = s.indexOf('.');
+			if (idx != -1 && idx < s.length() - 1)
+			{
+				String integer = s.substring(0, idx);
+				String fraction = s.substring(idx + 1);
+				while (fraction.length() > 1 && fraction.charAt(fraction.length() - 1) == '0')
+				{
+					fraction = fraction.substring(0, fraction.length() - 1);
+				}
+				int wantedFractionalLen = Math.max(1, 15 - integer.length());
+				if (fraction.length() > wantedFractionalLen)
+				{
+					fraction = fraction.substring(0, wantedFractionalLen);
+				}
+				s = integer + "." + fraction;
+			}
+		}
+
+		return s;
+	}
 }
