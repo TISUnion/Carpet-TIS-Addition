@@ -21,15 +21,15 @@
 package carpettisaddition.mixins.rule.snowMeltMinLightLevel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.SnowBlock;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(SnowBlock.class)
 public abstract class SnowBlockMixin
 {
-	@ModifyConstant(
+	@ModifyExpressionValue(
 			//#if MC >= 11600
 			//$$ method = "randomTick",
 			//#elseif MC >= 11500
@@ -37,7 +37,10 @@ public abstract class SnowBlockMixin
 			//#else
 			//$$ method = "onScheduledTick",
 			//#endif
-			constant = @Constant(intValue = CarpetTISAdditionSettings.VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL - 1),
+			at = @At(
+					value = "CONSTANT",
+					args = "intValue=" + (CarpetTISAdditionSettings.VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL - 1)
+			),
 			require = 0
 	)
 	private int snowMeltMinLightLevel(int lightLevel)

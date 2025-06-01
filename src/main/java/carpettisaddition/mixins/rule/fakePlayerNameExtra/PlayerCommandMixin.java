@@ -22,6 +22,8 @@ package carpettisaddition.mixins.rule.fakePlayerNameExtra;
 
 import carpet.commands.PlayerCommand;
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import org.spongepowered.asm.mixin.Mixin;
@@ -63,7 +65,7 @@ public abstract class PlayerCommandMixin
 		return playerName;
 	}
 
-	@Redirect(
+	@ModifyExpressionValue(
 			method = "spawn",
 			at = @At(
 					value = "INVOKE",
@@ -74,12 +76,12 @@ public abstract class PlayerCommandMixin
 			//#endif
 			remap = false
 	)
-	private static String getStringWithPrefixAtSpawn(final CommandContext<?> context, final String name)
+	private static String getStringWithPrefixAtSpawn(String name, @Local(argsOnly = true) CommandContext<?> context)
 	{
 		return getDecoratedString(context, name);
 	}
 
-	@Redirect(
+	@ModifyExpressionValue(
 			method = "cantSpawn",
 			at = @At(
 					value = "INVOKE",
@@ -88,16 +90,19 @@ public abstract class PlayerCommandMixin
 			require = 1,
 			remap = false
 	)
-	private static String getStringWithPrefixAtCantSpawn(final CommandContext<?> context, final String name)
+	private static String getStringWithPrefixAtCantSpawn(String name, @Local(argsOnly = true) CommandContext<?> context)
 	{
 		return getDecoratedString(context, name);
 	}
 
 	//#if MC >= 11600
 	//#elseif MC >= 11500
-	@ModifyConstant(
+	@ModifyExpressionValue(
 			method = "spawn",
-			constant = @Constant(intValue = 40),
+			at = @At(
+					value = "CONSTANT",
+					args = "intValue=40"
+			),
 			require = 1,
 			remap = false
 	)

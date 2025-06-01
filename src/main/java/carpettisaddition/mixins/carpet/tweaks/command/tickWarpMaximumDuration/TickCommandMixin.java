@@ -22,14 +22,13 @@ package carpettisaddition.mixins.carpet.tweaks.command.tickWarpMaximumDuration;
 
 import carpet.commands.TickCommand;
 import carpettisaddition.utils.ModIds;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Restriction(require = {
 		@Condition(value = ModIds.minecraft, versionPredicates = "<1.20.3"),
@@ -38,8 +37,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
-	@Dynamic
-	@Redirect(
+	@ModifyArgs(
 			method = "register",
 			// should be accurate enough
 			slice = @Slice(
@@ -62,15 +60,15 @@ public abstract class TickCommandMixin
 			require = 0,
 			remap = false
 	)
-	private static IntegerArgumentType restrictInRange(int min, int max)
+	private static void restrictInRange(Args args)
 	{
 		// fabric carpet removed the 4000000 upper limit in version 1.4.18
 		// so here's an extra check to make sure it's what we want
+		int min = args.get(0);
+		int max = args.get(1);
 		if (min == 0 && max == 4000000)
 		{
-			max = Integer.MAX_VALUE;
+			args.set(1, Integer.MAX_VALUE);
 		}
-		return IntegerArgumentType.integer(min, max);
 	}
-
 }

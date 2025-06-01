@@ -22,18 +22,18 @@ package carpettisaddition.mixins.rule.HUDLoggerUpdateInterval;
 
 import carpet.logging.HUDController;
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
-
+import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(HUDController.class)
 public abstract class HUDControllerMixin
 {
-	@ModifyConstant(
+	@ModifyExpressionValue(
 			method = "update_hud",
-			constant = @Constant(
-					intValue = 20,
+			at = @At(
+					value = "CONSTANT",
+					args = "intValue=20",
 					ordinal = 0
 			),
 			remap = false

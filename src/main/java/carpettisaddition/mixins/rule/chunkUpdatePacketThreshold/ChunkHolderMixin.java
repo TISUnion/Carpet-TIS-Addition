@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.chunkUpdatePacketThreshold;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import com.google.common.collect.Sets;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -33,9 +34,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Set;
@@ -71,9 +70,12 @@ public abstract class ChunkHolderMixin
 		this.updateRuleStatus$CUPT();
 	}
 
-	@ModifyConstant(
+	@ModifyExpressionValue(
 			method = {"markForBlockUpdate", "flushUpdates"},
-			constant = @Constant(intValue = 64),
+			at = @At(
+					value = "CONSTANT",
+					args = "intValue=64"
+			),
 			expect = 3
 	)
 	private int modifyChunkUpdatePacketThreshold(int value)

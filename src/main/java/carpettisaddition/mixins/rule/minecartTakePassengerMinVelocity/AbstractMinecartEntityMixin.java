@@ -21,18 +21,21 @@
 package carpettisaddition.mixins.rule.minecartTakePassengerMinVelocity;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(AbstractMinecartEntity.class)
 public abstract class AbstractMinecartEntityMixin
 {
-	@ModifyConstant(
+	@ModifyExpressionValue(
 			method = "tick",
 			// cannot use our 0.1D constant value here, since 0.1D * 0.1D != 0.01D
-			constant = @Constant(doubleValue = 0.01D),
+			at = @At(
+					value = "CONSTANT",
+					args = "doubleValue=0.01"
+			),
 			require = 0
 	)
 	private double minecartTakePassengerMinVelocity(double squaredThreshold)

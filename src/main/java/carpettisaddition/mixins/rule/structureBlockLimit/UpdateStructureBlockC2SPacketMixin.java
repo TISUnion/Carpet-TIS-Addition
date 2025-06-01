@@ -22,6 +22,7 @@ package carpettisaddition.mixins.rule.structureBlockLimit;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.network.packet.c2s.play.UpdateStructureBlockC2SPacket;
@@ -31,29 +32,33 @@ import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
 @Mixin(UpdateStructureBlockC2SPacket.class)
 public abstract class UpdateStructureBlockC2SPacketMixin
 {
-	@ModifyConstant(
+	@ModifyExpressionValue(
 			method = "read",
 			require = 3,
-			constant = @Constant(intValue = -32)
+			at = @At(
+					value = "CONSTANT",
+					args = "intValue=-32"
+			)
 	)
 	private int structureBlockLimitNegative(int value)
 	{
 		return -CarpetTISAdditionSettings.structureBlockLimit;
 	}
 
-	@ModifyConstant(
+	@ModifyExpressionValue(
 			method = "read",
 			require = 6,
-			constant = @Constant(intValue = 32)
+			at = @At(
+					value = "CONSTANT",
+					args = "intValue=32"
+			)
 	)
 	private int structureBlockLimitPositive(int value)
 	{
