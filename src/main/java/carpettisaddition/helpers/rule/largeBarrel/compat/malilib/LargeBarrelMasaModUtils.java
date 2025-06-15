@@ -58,7 +58,7 @@ public class LargeBarrelMasaModUtils
 		return inventory;
 	}
 
-	private static void invokeIDataSyncerRequestBlockEntity(Object ds, World world, BlockPos pos)
+	public static void invokeIDataSyncerRequestBlockEntity(Object ds, World world, BlockPos pos)
 	{
 		Predicate<Method> methodPredicate = m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{World.class, BlockPos.class});
 

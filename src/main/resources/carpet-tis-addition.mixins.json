@@ -390,6 +390,7 @@
     "rule.largeBarrel.compat.lithium.HopperHelperMixin",
     "rule.largeBarrel.compat.malilib.BlockEntityTypeMixin",
     "rule.largeBarrel.compat.malilib.IDataSyncerMixin",
+    "rule.largeBarrel.compat.malilib.IInventoryOverlayHandlerMixin",
     "rule.largeBarrel.compat.malilib.InventoryUtilsMixin",
     "rule.largeBarrel.compat.minihud.EntitiesDataManagerMixin",
     "rule.lightEngineMaxBatchSize.MinecraftServerMixin",
