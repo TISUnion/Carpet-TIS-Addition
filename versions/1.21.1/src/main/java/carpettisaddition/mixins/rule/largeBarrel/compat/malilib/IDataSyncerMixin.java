@@ -40,7 +40,7 @@ import org.spongepowered.asm.mixin.injection.At;
 		@Condition(value = ModIds.malilib, versionPredicates = {
 				">=0.21.6 <0.22",
 				">=0.22.4 <0.23",
-				">=0.23.1 <0.24",
+				">=0.23.1",
 		}),
 		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.21")
 })
