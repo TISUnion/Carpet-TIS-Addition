@@ -63,7 +63,9 @@ dependencies {
 
 	// library mods
 	include(modImplementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
-	include(annotationProcessor(implementation("io.github.llamalad7:mixinextras-fabric:${project.mixinextras_version}")))
+	if (mcVersion < 12005) {
+		include("io.github.llamalad7:mixinextras-fabric:${project.mixinextras_version}")
+	}
 
 	// libraries
 	shadow(implementation("net.fabricmc:tiny-mappings-parser:0.3.0+build.17"))  // not included in fabric loader 0.15.0+, so we need to shadow it
