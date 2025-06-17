@@ -527,8 +527,10 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean preciseEntityPlacement = false;
 
+	//#if MC < 11602
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean railDupingFix = false;
+	//#endif
 
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean redstoneDustRandomUpdateOrder = false;

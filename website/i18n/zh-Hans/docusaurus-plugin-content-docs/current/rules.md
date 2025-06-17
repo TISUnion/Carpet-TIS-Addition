@@ -1105,6 +1105,8 @@ sidebar_position: 1
 
 ## 刷铁轨机修复 (railDupingFix)
 
+**本规则仅在 Minecraft < 1.16.2 中存在**
+
 禁用老式的移动点亮的充能或激活铁轨的刷铁轨机
 
 - 类型: `boolean`

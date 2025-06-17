@@ -1105,6 +1105,8 @@ Affected items: Spawn eggs, armorstand, ender crystal
 
 ## railDupingFix
 
+**Minecraft < 1.16.2 only**
+
 Disable rail duping using old school pushing lit powered or activator rail method
 
 - Type: `boolean`
