@@ -41,7 +41,7 @@ public abstract class PlayerCommandMixin
 	private static String getDecoratedString(final CommandContext<?> context, final String name)
 	{
 		//#if MC >= 11700
-		//$$ String playerName = StringArgumentType.getString(context, name);
+		//$$ String playerName = StringArgumentType.getString(context, "player");
 		//$$ if (!name.equals("player"))
 		//$$ {
 		//$$ 	// since carpet v1.4.48 or whatever:
