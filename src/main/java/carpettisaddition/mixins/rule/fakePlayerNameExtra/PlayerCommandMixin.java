@@ -38,20 +38,9 @@ import org.spongepowered.asm.mixin.injection.*;
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
 {
-	private static String getDecoratedString(final CommandContext<?> context, final String name)
+	private static String getDecoratedString(final String originalName)
 	{
-		//#if MC >= 11700
-		//$$ String playerName = StringArgumentType.getString(context, "player");
-		//$$ if (!name.equals("player"))
-		//$$ {
-		//$$ 	// since carpet v1.4.48 or whatever:
-		//$$ 	// not <player> argument, might be <gamemode>, so return the value directly
-		//$$ 	return playerName;
-		//$$ }
-		//#else
-		String playerName = StringArgumentType.getString(context, name);
-		//#endif
-
+		String playerName = originalName;
 		String rulePrefix = CarpetTISAdditionSettings.fakePlayerNamePrefix;
 		String ruleSuffix = CarpetTISAdditionSettings.fakePlayerNameSuffix;
 		if (!rulePrefix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra) && !playerName.startsWith(rulePrefix))
@@ -76,9 +65,9 @@ public abstract class PlayerCommandMixin
 			//#endif
 			remap = false
 	)
-	private static String getStringWithPrefixAtSpawn(String name, @Local(argsOnly = true) CommandContext<?> context)
+	private static String getStringWithPrefixAtSpawn(String value)
 	{
-		return getDecoratedString(context, name);
+		return getDecoratedString(value);
 	}
 
 	@ModifyExpressionValue(
@@ -90,9 +79,9 @@ public abstract class PlayerCommandMixin
 			require = 1,
 			remap = false
 	)
-	private static String getStringWithPrefixAtCantSpawn(String name, @Local(argsOnly = true) CommandContext<?> context)
+	private static String getStringWithPrefixAtCantSpawn(String value)
 	{
-		return getDecoratedString(context, name);
+		return getDecoratedString(value);
 	}
 
 	//#if MC >= 11600
