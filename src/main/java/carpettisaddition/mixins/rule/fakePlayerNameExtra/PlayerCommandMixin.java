@@ -23,14 +23,14 @@ package carpettisaddition.mixins.rule.fakePlayerNameExtra;
 import carpet.commands.PlayerCommand;
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.context.CommandContext;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 
 //#if MC < 11500
 //$$ import carpet.utils.Messenger;
+//$$ import com.mojang.brigadier.arguments.StringArgumentType;
+//$$ import com.mojang.brigadier.context.CommandContext;
 //$$ import net.minecraft.server.command.ServerCommandSource;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
@@ -38,20 +38,9 @@ import org.spongepowered.asm.mixin.injection.*;
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
 {
-	private static String getDecoratedString(final CommandContext<?> context, final String name)
+	@Unique
+	private static String getDecoratedPlayerName(String playerName)
 	{
-		//#if MC >= 11700
-		//$$ String playerName = StringArgumentType.getString(context, name);
-		//$$ if (!name.equals("player"))
-		//$$ {
-		//$$ 	// since carpet v1.4.48 or whatever:
-		//$$ 	// not <player> argument, might be <gamemode>, so return the value directly
-		//$$ 	return playerName;
-		//$$ }
-		//#else
-		String playerName = StringArgumentType.getString(context, name);
-		//#endif
-
 		String rulePrefix = CarpetTISAdditionSettings.fakePlayerNamePrefix;
 		String ruleSuffix = CarpetTISAdditionSettings.fakePlayerNameSuffix;
 		if (!rulePrefix.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra) && !playerName.startsWith(rulePrefix))
@@ -76,9 +65,9 @@ public abstract class PlayerCommandMixin
 			//#endif
 			remap = false
 	)
-	private static String getStringWithPrefixAtSpawn(String name, @Local(argsOnly = true) CommandContext<?> context)
+	private static String getStringWithPrefixAtSpawn(String value)
 	{
-		return getDecoratedString(context, name);
+		return getDecoratedPlayerName(value);
 	}
 
 	@ModifyExpressionValue(
@@ -90,9 +79,9 @@ public abstract class PlayerCommandMixin
 			require = 1,
 			remap = false
 	)
-	private static String getStringWithPrefixAtCantSpawn(String name, @Local(argsOnly = true) CommandContext<?> context)
+	private static String getStringWithPrefixAtCantSpawn(String value)
 	{
-		return getDecoratedString(context, name);
+		return getDecoratedPlayerName(value);
 	}
 
 	//#if MC >= 11600
@@ -119,7 +108,7 @@ public abstract class PlayerCommandMixin
 	//$$ )
 	//$$ private static void checkNameLengthLimit(CommandContext<ServerCommandSource> context, CallbackInfoReturnable<Integer> cir)
 	//$$ {
-	//$$ 	String playerName = getDecoratedString(context, "player");
+	//$$ 	String playerName = getDecoratedPlayerName(StringArgumentType.getString(context, "player"));
 	//$$ 	if (playerName.length() > 16)
 	//$$ 	{
 	//$$ 		Messenger.m(context.getSource(), "rb Player name: " + playerName + " is too long");
