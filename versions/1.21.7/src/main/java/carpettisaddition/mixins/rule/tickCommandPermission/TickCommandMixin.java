@@ -52,11 +52,15 @@ public abstract class TickCommandMixin
 	)
 	private static Predicate<ServerCommandSource> overrideTickCommandPermission(Predicate<ServerCommandSource> predicate)
 	{
-		var ruleValue = TickCommandCarpetfiedRules.tickCommandPermission();
-		if (!CarpetTISAdditionSettings.VANILLA_TICK_COMMAND_PERMISSION.equals(ruleValue))
-		{
-			predicate = source -> CarpetModUtil.canUseCommand(source, ruleValue);
-		}
-		return predicate;
+		return source -> {
+			var ruleValue = TickCommandCarpetfiedRules.tickCommandPermission();
+			if (!CarpetTISAdditionSettings.VANILLA_TICK_COMMAND_PERMISSION.equals(ruleValue))
+			{
+				return CarpetModUtil.canUseCommand(source, ruleValue);
+			}
+
+			// vanilla
+			return predicate.test(source);
+		};
 	}
 }
