@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
  * Stop F3 + N
  * <p>
  * mc1.14 ~ mc1.21.5: subproject 1.15.2 (main project)        <--------
- * mc1.21.6+        : subproject 1.21.6
+ * mc1.21.6+        : subproject 1.21.7
  */
 @Mixin(GameModeCommand.class)
 public abstract class GameModeCommandMixin

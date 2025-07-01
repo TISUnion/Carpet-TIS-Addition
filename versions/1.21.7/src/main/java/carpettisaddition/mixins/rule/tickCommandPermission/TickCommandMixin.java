@@ -34,7 +34,7 @@ import java.util.function.Predicate;
 /**
  * mc1.14   ~ mc1.20.3: subproject 1.15.2 (main project)
  * mc1.20.4 ~ mc1.21.5: subproject 1.20.4
- * mc1.21.6+          : subproject 1.21.6        <--------
+ * mc1.21.6+          : subproject 1.21.7        <--------
  */
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
