@@ -31,6 +31,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 12105
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//#endif
+
 @Mixin(RaidManager.class)
 public abstract class RaidManagerMixin
 {
@@ -56,8 +60,29 @@ public abstract class RaidManagerMixin
 					ordinal = 0
 			)
 	)
-	private void onInvalidatedByGamerule(CallbackInfo ci, @Local Raid raid)
+	private void raidLogger_onInvalidatedByGameRule(CallbackInfo ci, @Local Raid raid)
 	{
 		((IRaid)raid).onRaidInvalidated$TISCM(RaidLogger.InvalidateReason.GAMERULE_DISABLE);
 	}
+
+	//#if MC >= 12105
+	//$$ /**
+	//$$  * Call `onRaidCreated()` after {@link carpettisaddition.commands.raid.RaidWithIdAndWorld#setRaidId$TISCM} and {@link carpettisaddition.commands.raid.RaidWithIdAndWorld#setRaidWorld$TISCM} was called
+	//$$  * in {@link carpettisaddition.mixins.command.raid.RaidManagerMixin#raidCommand_recordRaidFields},
+	//$$  * to make sure `getRaidId$TISCM()` and `getRaidWorld$TISCM()` can be used
+	//$$  */
+	//$$ @Inject(
+	//$$ 		method = "startRaid",
+	//$$ 		at = @At(
+	//$$ 				value = "INVOKE",
+	//$$ 				target = "Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;put(ILjava/lang/Object;)Ljava/lang/Object;",
+	//$$ 				shift = At.Shift.AFTER,
+	//$$ 				remap = false
+	//$$ 		)
+	//$$ )
+	//$$ private void raidLogger_onRaidAddToManager(CallbackInfoReturnable<Raid> cir, @Local Raid raid)
+	//$$ {
+	//$$ 	RaidLogger.getInstance().onRaidCreated(raid);
+	//$$ }
+	//#endif
 }

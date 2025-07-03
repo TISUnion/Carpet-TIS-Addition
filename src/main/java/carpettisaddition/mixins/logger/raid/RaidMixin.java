@@ -45,18 +45,15 @@ public abstract class RaidMixin implements IRaid
 
 	private int previousBadOmenLevel;
 
-	@Inject(
-			//#if MC >= 12105
-			//$$ method = "<init>(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/Difficulty;)V",
-			//#else
-			method = "<init>(ILnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)V",
-			//#endif
-			at = @At(value = "RETURN")
-	)
+	//#if MC >= 12105
+	//$$ // `onRaidCreated` is called in {@link RaidManagerMixin#raidLogger_onRaidAddToManager}
+	//#else
+	@Inject(method = "<init>(ILnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)V", at = @At("TAIL"))
 	private void raidLogger_onConstruct(CallbackInfo ci)
 	{
 		RaidLogger.getInstance().onRaidCreated((Raid)(Object)this);
 	}
+	//#endif
 
 	@Override
 	public void onRaidInvalidated$TISCM(RaidLogger.InvalidateReason reason)
