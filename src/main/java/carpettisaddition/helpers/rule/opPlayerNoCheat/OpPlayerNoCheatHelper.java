@@ -36,4 +36,15 @@ public class OpPlayerNoCheatHelper
 		}
 		return true;
 	}
+
+	@SuppressWarnings("RedundantIfStatement")
+	public static boolean canCheat(ServerPlayerEntity serverPlayerEntity)
+	{
+		// disallow if rule enabled
+		if (CarpetTISAdditionSettings.opPlayerNoCheat)
+		{
+			return false;
+		}
+		return true;
+	}
 }

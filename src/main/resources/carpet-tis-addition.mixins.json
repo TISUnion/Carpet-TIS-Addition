@@ -413,6 +413,7 @@
     "rule.obsidianPlatformBlockBreakerBackport.ServerWorldMixin",
     "rule.opPlayerNoCheat.GameModeCommandMixin",
     "rule.opPlayerNoCheat.GiveCommandMixin",
+    "rule.opPlayerNoCheat.ServerPlayNetworkHandlerMixin",
     "rule.opPlayerNoCheat.SetBlockCommandMixin",
     "rule.opPlayerNoCheat.SummonCommandMixin",
     "rule.opPlayerNoCheat.TeleportCommandMixin",
