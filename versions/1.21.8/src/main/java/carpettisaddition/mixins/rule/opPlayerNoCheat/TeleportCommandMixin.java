@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
-import net.minecraft.server.command.GiveCommand;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.command.TeleportCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -30,13 +30,13 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import java.util.function.Predicate;
 
 /**
- * JEI? REI? TMI? NEI?
+ * Click and teleport in VoxelMap or whatever Minimap mod
  * <p>
  * mc1.14 ~ mc1.21.5: subproject 1.15.2 (main project)
- * mc1.21.6+        : subproject 1.21.7        <--------
+ * mc1.21.6+        : subproject 1.21.8        <--------
  */
-@Mixin(GiveCommand.class)
-public abstract class GiveCommandMixin
+@Mixin(TeleportCommand.class)
+public abstract class TeleportCommandMixin
 {
 	@ModifyArg(
 			method = "register",
@@ -45,10 +45,10 @@ public abstract class GiveCommandMixin
 					target = "Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;requires(Ljava/util/function/Predicate;)Lcom/mojang/brigadier/builder/ArgumentBuilder;",
 					remap = false
 			),
-			require = 1,
-			allow = 1
+			require = 2,
+			allow = 2
 	)
-	private static Predicate<ServerCommandSource> checkIfAllowCheating_giveCommand(Predicate<ServerCommandSource> predicate)
+	private static Predicate<ServerCommandSource> checkIfAllowCheating_teleportCommand(Predicate<ServerCommandSource> predicate)
 	{
 		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
 	}

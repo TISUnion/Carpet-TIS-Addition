@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
+import net.minecraft.server.command.GiveCommand;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.SetBlockCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -30,13 +30,13 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import java.util.function.Predicate;
 
 /**
- * Stop pasting schematic in SMP
+ * JEI? REI? TMI? NEI?
  * <p>
  * mc1.14 ~ mc1.21.5: subproject 1.15.2 (main project)
- * mc1.21.6+        : subproject 1.21.7        <--------
+ * mc1.21.6+        : subproject 1.21.8        <--------
  */
-@Mixin(SetBlockCommand.class)
-public abstract class SetBlockCommandMixin
+@Mixin(GiveCommand.class)
+public abstract class GiveCommandMixin
 {
 	@ModifyArg(
 			method = "register",
@@ -48,7 +48,7 @@ public abstract class SetBlockCommandMixin
 			require = 1,
 			allow = 1
 	)
-	private static Predicate<ServerCommandSource> checkIfAllowCheating_setblockCommand(Predicate<ServerCommandSource> predicate)
+	private static Predicate<ServerCommandSource> checkIfAllowCheating_giveCommand(Predicate<ServerCommandSource> predicate)
 	{
 		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
 	}

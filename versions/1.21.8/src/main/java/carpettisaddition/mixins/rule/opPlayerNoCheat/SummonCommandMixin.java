@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
-import net.minecraft.server.command.GameModeCommand;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.command.SummonCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -30,13 +30,13 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import java.util.function.Predicate;
 
 /**
- * Stop F3 + N
+ * Stop pasting schematic in SMP
  * <p>
  * mc1.14 ~ mc1.21.5: subproject 1.15.2 (main project)
- * mc1.21.6+        : subproject 1.21.7        <--------
+ * mc1.21.6+        : subproject 1.21.8        <--------
  */
-@Mixin(GameModeCommand.class)
-public abstract class GameModeCommandMixin
+@Mixin(SummonCommand.class)
+public abstract class SummonCommandMixin
 {
 	@ModifyArg(
 			method = "register",
@@ -48,7 +48,7 @@ public abstract class GameModeCommandMixin
 			require = 1,
 			allow = 1
 	)
-	private static Predicate<ServerCommandSource> checkIfAllowCheating_gamemodeCommand(Predicate<ServerCommandSource> predicate)
+	private static Predicate<ServerCommandSource> checkIfAllowCheating_summonCommand(Predicate<ServerCommandSource> predicate)
 	{
 		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
 	}

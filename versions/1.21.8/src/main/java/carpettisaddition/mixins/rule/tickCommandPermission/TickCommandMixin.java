@@ -18,11 +18,13 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.opPlayerNoCheat;
+package carpettisaddition.mixins.rule.tickCommandPermission;
 
-import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
+import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
+import carpettisaddition.utils.CarpetModUtil;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.TeleportCommand;
+import net.minecraft.server.command.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -30,26 +32,35 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import java.util.function.Predicate;
 
 /**
- * Click and teleport in VoxelMap or whatever Minimap mod
- * <p>
- * mc1.14 ~ mc1.21.5: subproject 1.15.2 (main project)
- * mc1.21.6+        : subproject 1.21.7        <--------
+ * mc1.14   ~ mc1.20.3: subproject 1.15.2 (main project)
+ * mc1.20.4 ~ mc1.21.5: subproject 1.20.4
+ * mc1.21.6+          : subproject 1.21.8        <--------
  */
-@Mixin(TeleportCommand.class)
-public abstract class TeleportCommandMixin
+@Mixin(TickCommand.class)
+public abstract class TickCommandMixin
 {
 	@ModifyArg(
 			method = "register",
 			at = @At(
 					value = "INVOKE",
 					target = "Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;requires(Ljava/util/function/Predicate;)Lcom/mojang/brigadier/builder/ArgumentBuilder;",
+					ordinal = 0,
 					remap = false
 			),
-			require = 2,
-			allow = 2
+			require = 1,
+			allow = 1
 	)
-	private static Predicate<ServerCommandSource> checkIfAllowCheating_teleportCommand(Predicate<ServerCommandSource> predicate)
+	private static Predicate<ServerCommandSource> overrideTickCommandPermission(Predicate<ServerCommandSource> predicate)
 	{
-		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
+		return source -> {
+			var ruleValue = TickCommandCarpetfiedRules.tickCommandPermission();
+			if (!CarpetTISAdditionSettings.VANILLA_TICK_COMMAND_PERMISSION.equals(ruleValue))
+			{
+				return CarpetModUtil.canUseCommand(source, ruleValue);
+			}
+
+			// vanilla
+			return predicate.test(source);
+		};
 	}
 }
