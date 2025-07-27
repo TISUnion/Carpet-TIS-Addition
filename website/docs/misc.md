@@ -100,3 +100,4 @@ Rule [microTiming](rules.md#microtiming) is required to be true for dispatching 
 
 - Cancelled player action pack (triggered by `/player` command) ticking during `/tick freeze`
 - Fixed carpet fake player not responding to knockback from player melee attack (https://github.com/gnembon/fabric-carpet/issues/745), which is fixed in fabric-carpet v1.4.33
+- Fixed scarpet shape crash when sending shapes to non-carpet clients using alternative particles, affecting MC version 1.20.5 ~ 1.21.4. It's fixed in fabric-carpet v1.4.169 at [da5b937](https://github.com/gnembon/fabric-carpet/commit/da5b937e78c949ecea743cf607fb3d31249b48e6)

@@ -20,6 +20,7 @@
     "carpet.shape.ShapeDispatcherSphereAccessor",
     "carpet.shape.texthack.ShapeDispatcherTextMixin",
     "carpet.tweaks.bugfixes.fakePlayerNoKnockBack.PlayerEntityMixin",
+    "carpet.tweaks.bugfixes.scarpetShapeReplacementParticle.ShapeDispatcherExpiringShapeMixin",
     "carpet.tweaks.command.dontSubscribeLoggerForOther.LogCommandMixin",
     "carpet.tweaks.command.fakePlayerRejoin.EntityPlayerMPFakeMixin",
     "carpet.tweaks.command.fakePlayerRejoin.PlayerCommandMixin",
