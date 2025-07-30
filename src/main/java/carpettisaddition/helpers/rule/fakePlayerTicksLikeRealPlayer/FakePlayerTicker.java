@@ -22,17 +22,19 @@ package carpettisaddition.helpers.rule.fakePlayerTicksLikeRealPlayer;
 
 import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.CarpetTISAdditionMod;
-import carpettisaddition.utils.GameUtils;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Queues;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.List;
+import java.util.Queue;
 
 public class FakePlayerTicker
 {
 	private static final FakePlayerTicker INSTANCE = new FakePlayerTicker();
 
+	private final Queue<ActionPackTickTask> pendingActionPackTasks = Queues.newConcurrentLinkedQueue();
 	private final List<ServerPlayerEntity> pendingPlayersToBeEntityTicked = Lists.newArrayList();
 
 	public static FakePlayerTicker getInstance()
@@ -57,7 +59,9 @@ public class FakePlayerTicker
 		MinecraftServer server = player.getServer();
 		if (server != null)
 		{
-			GameUtils.submitAsyncTask(server, transformActionPackTickTask(actionPack::onUpdate));
+			Runnable runnable = transformActionPackTickTask(actionPack::onUpdate);
+			ActionPackTickTask task = new ActionPackTickTask(player, runnable);
+			this.pendingActionPackTasks.add(task);
 		}
 	}
 
@@ -93,8 +97,50 @@ public class FakePlayerTicker
 			}
 			catch (Exception e)
 			{
-				CarpetTISAdditionMod.LOGGER.warn("Failed to entity tick for carpet fake player {}", player.getName(), e);
+				CarpetTISAdditionMod.LOGGER.warn("Failed to perform entity tick for carpet fake player {}", player.getName(), e);
 			}
+		}
+	}
+
+	/**
+	 * The implementation of submitting task to the MinecraftServer task executor does not work correctly,
+	 * since tasks submitted there are not guaranteed to be executed at the next async task phase,
+	 * especially when tick warping
+	 * <p>
+	 * See also: {@link net.minecraft.server.MinecraftServer#canExecute}. There may be up to a 4-tick delay
+	 */
+	public void asyncTaskPhaseTick()
+	{
+		while (true)
+		{
+			ActionPackTickTask task = this.pendingActionPackTasks.poll();
+			if (task == null)
+			{
+				break;
+			}
+
+			ServerPlayerEntity player = task.player;
+			Runnable runnable = task.runnable;
+			try
+			{
+				runnable.run();
+			}
+			catch (Exception e)
+			{
+				CarpetTISAdditionMod.LOGGER.error("Failed to perform player action pack tick for player {}", player.getName(), e);
+			}
+		}
+	}
+
+	private static class ActionPackTickTask
+	{
+		public final ServerPlayerEntity player;
+		public final Runnable runnable;
+
+		public ActionPackTickTask(ServerPlayerEntity player, Runnable runnable)
+		{
+			this.player = player;
+			this.runnable = runnable;
 		}
 	}
 }

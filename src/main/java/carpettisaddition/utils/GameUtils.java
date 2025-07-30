@@ -26,15 +26,10 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.thread.ThreadExecutor;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
-
-//#if MC < 12102
-import carpettisaddition.mixins.utils.ThreadExecutorAccessor;
-//#endif
 
 //#if MC >= 11700
 //$$ import carpettisaddition.mixins.utils.DirectBlockEntityTickInvokerAccessor;
@@ -72,18 +67,6 @@ public class GameUtils
 	public static boolean isOnServerThread()
 	{
 		return CarpetTISAdditionServer.minecraft_server != null && CarpetTISAdditionServer.minecraft_server.isOnThread();
-	}
-
-	//#if MC < 12102
-	@SuppressWarnings("unchecked")
-	//#endif
-	public static <R extends Runnable> void submitAsyncTask(ThreadExecutor<R> executor, Runnable runnable)
-	{
-		//#if MC >= 12102
-		//$$ executor.send(executor.createTask(runnable));
-		//#else
-		executor.send(((ThreadExecutorAccessor<R>)executor).invokeCreateTask(runnable));
-		//#endif
 	}
 
 	/**

@@ -22,38 +22,37 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.playera
 
 import carpettisaddition.helpers.rule.fakePlayerTicksLikeRealPlayer.FakePlayerTicker;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.PlayerActionPackSubStage;
-import carpettisaddition.logging.loggers.microtiming.tickphase.substages.PlayerActionSubStage;
-import carpettisaddition.logging.loggers.microtiming.tickphase.substages.PlayerEntitySubStage;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FakePlayerTicker.class)
 public abstract class FakePlayerTickerMixin
 {
-	@ModifyArg(
-			method = "addActionPackTick",
+	// don't set TickStage.PLAYER_ACTION here, cuz it does not deserve it
+
+	@ModifyVariable(
+			method = "asyncTaskPhaseTick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lcarpettisaddition/helpers/rule/fakePlayerTicksLikeRealPlayer/FakePlayerTicker;transformActionPackTickTask(Ljava/lang/Runnable;)Ljava/lang/Runnable;",
+					target = "Ljava/lang/Runnable;run()V",
 					remap = false
 			),
 			remap = false
 	)
-	private Runnable tiscmFakePlayerTicker_startProcessActionPack(Runnable runnable, @Local(argsOnly = true) ServerPlayerEntity player)
+	private ServerPlayerEntity tiscmFakePlayerTicker_startProcessActionPack(ServerPlayerEntity player)
 	{
-		return () -> {
-			// reset at carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.MinecraftServerMixin
-			// don't set TickStage.PLAYER_ACTION here, cuz it does not deserve it
-			MicroTimingLoggerManager.setSubTickStage(new PlayerActionPackSubStage(player));
-			runnable.run();
-		};
+		MicroTimingLoggerManager.setSubTickStage(new PlayerActionPackSubStage(player));
+		return player;
+	}
+
+	@Inject(method = "asyncTaskPhaseTick", at = @At("RETURN"), remap = false)
+	private void tiscmFakePlayerTicker_endProcessActionPack(CallbackInfo ci)
+	{
+		MicroTimingLoggerManager.setSubTickStage(null);
 	}
 }
