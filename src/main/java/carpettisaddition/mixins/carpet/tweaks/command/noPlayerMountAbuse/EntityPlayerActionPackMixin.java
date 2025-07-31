@@ -23,6 +23,8 @@ package carpettisaddition.mixins.carpet.tweaks.command.noPlayerMountAbuse;
 import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.PlayerUtils;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -32,7 +34,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 
@@ -47,17 +48,16 @@ public abstract class EntityPlayerActionPackMixin
 					value = "INVOKE",
 					target = "Ljava/util/List;size()I"
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			remap = false
 	)
-	private void pleaseDoSomePermissionCheck(boolean onlyRideables, CallbackInfoReturnable<EntityPlayerActionPack> cir, List<Entity> entities)
+	private void pleaseDoSomePermissionCheck(boolean onlyRideables, CallbackInfoReturnable<EntityPlayerActionPack> cir, @Local List<Entity> entities)
 	{
 		if (!onlyRideables)  // mount anything
 		{
 			MinecraftServer minecraftServer = this.player.getServer();
 			if (minecraftServer != null)
 			{
-				if (!minecraftServer.getPlayerManager().isOperator(this.player.getGameProfile()))  // not op
+				if (!PlayerUtils.isOperator(minecraftServer, this.player))  // not op
 				{
 					// hey that's illegal
 					Messenger.tell(this.player, Messenger.formatting(new Translator("misc").tr("player_mount_anything_permission_denied"), "r"));

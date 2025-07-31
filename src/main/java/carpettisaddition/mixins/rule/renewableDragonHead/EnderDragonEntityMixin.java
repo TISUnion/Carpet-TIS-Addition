@@ -33,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -45,7 +46,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EnderDragonEntity.class)
 public abstract class EnderDragonEntityMixin extends MobEntity implements Monster
 {
-	private boolean flagDropHead;
+	@Unique
+	private boolean flagDropHead$TISCM;
 
 	public EnderDragonEntityMixin(EntityType<? extends EnderDragonEntity> entityType, World world)
 	{
@@ -58,7 +60,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Monste
 	)
 	private void onConstructed(EntityType<? extends EnderDragonEntity> entityType, World world, CallbackInfo ci)
 	{
-		this.flagDropHead = false;
+		this.flagDropHead$TISCM = false;
 	}
 
 	@Inject(
@@ -75,12 +77,12 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Monste
 	private void dropHead(CallbackInfo ci)
 	{
 		//#if MC >= 12102
-		//$$ if (this.flagDropHead && this.getWorld() instanceof ServerWorld serverWorld)
+		//$$ if (this.flagDropHead$TISCM && this.getWorld() instanceof ServerWorld serverWorld)
 		//$$ {
 		//$$ 	this.dropStack(serverWorld, new ItemStack(Items.DRAGON_HEAD));
 		//$$ }
 		//#else
-		if (this.flagDropHead)
+		if (this.flagDropHead$TISCM)
 		{
 			this.dropStack(new ItemStack(Items.DRAGON_HEAD));
 		}
@@ -101,12 +103,21 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Monste
 			Entity entity = damageSource.getAttacker();
 			if (entity instanceof CreeperEntity)
 			{
-				CreeperEntity creeperEntity = (CreeperEntity) entity;
+				//#if MC >= 1.21.9
+				//$$ CreeperEntityAccessor creeperEntity = (CreeperEntityAccessor)entity;
+				//$$ if (!creeperEntity.getHeadsDropped$TISCM())
+				//$$ {
+				//$$ 	creeperEntity.setHeadsDropped$TISCM(true);
+				//$$ 	this.flagDropHead$TISCM = true;
+				//$$ }
+				//#else
+				CreeperEntity creeperEntity = (CreeperEntity)entity;
 				if (creeperEntity.shouldDropHead())
 				{
 					creeperEntity.onHeadDropped();
-					this.flagDropHead = true;
+					this.flagDropHead$TISCM = true;
 				}
+				//#endif
 			}
 		}
 	}

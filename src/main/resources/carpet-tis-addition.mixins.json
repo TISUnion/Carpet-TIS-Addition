@@ -439,6 +439,7 @@
     "rule.redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate.RepeaterBlockMixin",
     "rule.renewableDragonEgg.AbstractBlockStateMixin",
     "rule.renewableDragonEgg.DragonEggBlockMixin",
+    "rule.renewableDragonHead.CreeperEntityAccessor",
     "rule.renewableDragonHead.EnderDragonEntityMixin",
     "rule.renewableElytra.PhantomEntityMixin",
     "rule.repeaterHalfDelay.AbstractRedstoneGateBlockMixin",

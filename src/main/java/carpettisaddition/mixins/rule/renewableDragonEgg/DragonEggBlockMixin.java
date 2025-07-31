@@ -108,7 +108,7 @@ public abstract class DragonEggBlockMixin extends Block
 				BlockPos blockPos = pos.add(random.nextInt(16) - random.nextInt(16), random.nextInt(8) - random.nextInt(8), random.nextInt(16) - random.nextInt(16));
 				if (world.getBlockState(blockPos).isAir())
 				{
-					if (world.isClient)
+					if (world.isClient())
 						for (int j = 0; j < 128; ++j)
 						{
 							double d = random.nextDouble();

@@ -34,7 +34,14 @@ public abstract class EntityMixin
 {
 	@Shadow public abstract boolean hasVehicle();
 
-	@Inject(method = "startRiding(Lnet/minecraft/entity/Entity;Z)Z", at = @At("RETURN"))
+	@Inject(
+			//#if MC >= 1.21.9
+			//$$ method = "startRiding(Lnet/minecraft/entity/Entity;ZZ)Z",
+			//#else
+			method = "startRiding(Lnet/minecraft/entity/Entity;Z)Z",
+			//#endif
+			at = @At("RETURN")
+	)
 	private void lifetimeTracker_recordRemoval_vehicleMounting(CallbackInfoReturnable<Boolean> cir)
 	{
 		if (this.hasVehicle())

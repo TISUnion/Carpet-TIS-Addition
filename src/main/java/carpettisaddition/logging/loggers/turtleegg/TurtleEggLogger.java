@@ -53,7 +53,7 @@ public class TurtleEggLogger extends AbstractLogger
 
 	public void onBreakingEgg(World world, BlockPos pos, BlockState state, Entity entity)
 	{
-		if (world.isClient)
+		if (world.isClient())
 		{
 			return;
 		}

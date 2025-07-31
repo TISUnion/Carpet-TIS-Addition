@@ -47,7 +47,7 @@ public class ShulkerBoxFullDropBackportHelper
 			CompoundTag compoundTag = itemEntity.getStack().getTag();
 			World world = itemEntity.world;
 
-			if (compoundTag != null && !world.isClient)
+			if (compoundTag != null && !world.isClient())
 			{
 				ListTag listTag = compoundTag.getCompound("BlockEntityTag").getList("Items", 10);
 				listTag.stream()

@@ -23,6 +23,7 @@ package carpettisaddition.mixins.carpet.tweaks.command.dontSubscribeLoggerForOth
 import carpet.commands.LogCommand;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.PlayerUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -67,7 +68,7 @@ public abstract class LogCommandMixin
 		{
 			ServerPlayerEntity player = (ServerPlayerEntity)source.getEntity();
 			// source player is not op, and is not the player-to-control
-			if (!player.getUuid().equals(playerToControl.getUuid()) && !server.getPlayerManager().isOperator(player.getGameProfile()))
+			if (!player.getUuid().equals(playerToControl.getUuid()) && !PlayerUtils.isOperator(server, player))
 			{
 				Messenger.tell(source, Messenger.formatting(new Translator("misc").tr("log_subscribe_for_other_permission_denied"), "r"));
 				cir.setReturnValue(0);

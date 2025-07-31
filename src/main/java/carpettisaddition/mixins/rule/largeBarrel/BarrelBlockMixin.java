@@ -22,6 +22,7 @@ package carpettisaddition.mixins.rule.largeBarrel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -109,7 +110,12 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	}
 
 	@Inject(method = "getComparatorOutput", at = @At("HEAD"), cancellable = true)
-	private void getLargeBarrelComparatorOutputMaybe(BlockState state, World world, BlockPos pos, CallbackInfoReturnable<Integer> cir)
+	private void getLargeBarrelComparatorOutputMaybe(
+			CallbackInfoReturnable<Integer> cir,
+			@Local(argsOnly = true) BlockState state,
+			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true) BlockPos pos
+	)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{

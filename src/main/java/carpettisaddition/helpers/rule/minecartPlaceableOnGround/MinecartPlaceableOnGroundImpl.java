@@ -65,7 +65,7 @@ public class MinecartPlaceableOnGroundImpl
 				//#if MC >= 12004
 				//$$ world instanceof ServerWorld serverWorld
 				//#else
-				!world.isClient
+				!world.isClient()
 				//#endif
 		)
 		{
@@ -122,9 +122,9 @@ public class MinecartPlaceableOnGroundImpl
 		itemStack.decrement(1);
 
 		//#if MC >= 12102
-		//$$ return world.isClient ? ActionResult.SUCCESS : ActionResult.SUCCESS_SERVER;
+		//$$ return world.isClient() ? ActionResult.SUCCESS : ActionResult.SUCCESS_SERVER;
 		//#elseif MC >= 11600
-		//$$ return ActionResult.success(world.isClient);
+		//$$ return ActionResult.success(world.isClient());
 		//#else
 		return ActionResult.SUCCESS;
 		//#endif

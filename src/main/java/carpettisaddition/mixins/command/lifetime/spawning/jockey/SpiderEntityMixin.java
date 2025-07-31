@@ -36,10 +36,19 @@ public abstract class SpiderEntityMixin
 			method = "initialize",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 1.21.9
+					//$$ target = "Lnet/minecraft/entity/mob/SkeletonEntity;startRiding(Lnet/minecraft/entity/Entity;ZZ)Z"
+					//#else
 					target = "Lnet/minecraft/entity/mob/SkeletonEntity;startRiding(Lnet/minecraft/entity/Entity;)Z"
+					//#endif
 			)
 	)
-	private SkeletonEntity lifetimeTracker_recordSpawning_jockey_spider(SkeletonEntity skeleton, Entity spider)
+	private SkeletonEntity lifetimeTracker_recordSpawning_jockey_spider(
+			SkeletonEntity skeleton, Entity spider
+			//#if MC >= 1.21.9
+			//$$ , boolean b1, boolean b2
+			//#endif
+	)
 	{
 		((LifetimeTrackerTarget)skeleton).recordSpawning(LiteralSpawningReason.JOCKEY);
 		return skeleton;

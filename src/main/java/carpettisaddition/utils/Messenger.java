@@ -570,18 +570,20 @@ public class Messenger
 		return text;
 	}
 
+	@SuppressWarnings("RedundantCast")  // in mc1.21.9+, Style is a final class, so we need to cast it to Object first
 	public static BaseText formatting(BaseText text, String carpetStyle)
 	{
 		Style textStyle = text.getStyle();
-		StyleAccessor parsedStyle = (StyleAccessor)parseCarpetStyle(carpetStyle);
+		StyleAccessor parsedStyle = (StyleAccessor)(Object)parseCarpetStyle(carpetStyle);
 
 		//#if MC >= 11600
+		//$$ StyleAccessor textStyleAccessor = (StyleAccessor)(Object)textStyle;
 		//$$ textStyle = textStyle.withColor(parsedStyle.getColorField());
 		//$$ textStyle = textStyle.withBold(parsedStyle.getBoldField());
 		//$$ textStyle = textStyle.withItalic(parsedStyle.getItalicField());
-		//$$ ((StyleAccessor)textStyle).setUnderlinedField(parsedStyle.getUnderlineField());
-		//$$ ((StyleAccessor)textStyle).setStrikethroughField(parsedStyle.getStrikethroughField());
-		//$$ ((StyleAccessor)textStyle).setObfuscatedField(parsedStyle.getObfuscatedField());
+		//$$ textStyleAccessor.setUnderlinedField(parsedStyle.getUnderlineField());
+		//$$ textStyleAccessor.setStrikethroughField(parsedStyle.getStrikethroughField());
+		//$$ textStyleAccessor.setObfuscatedField(parsedStyle.getObfuscatedField());
 		//#else
 		textStyle.setColor(parsedStyle.getColorField());
 		textStyle.setBold(parsedStyle.getBoldField());

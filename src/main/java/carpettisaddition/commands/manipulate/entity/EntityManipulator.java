@@ -217,7 +217,12 @@ public class EntityManipulator extends AbstractManipulator
 	private int mount(ServerCommandSource source, Collection<? extends Entity> target, Entity vehicle)
 	{
 		List<? extends Entity> passengers = target.stream().
-				filter(e -> !e.equals(vehicle) && e.startRiding(vehicle, true)).
+				filter(e -> !e.equals(vehicle) && e.startRiding(
+						vehicle, true
+						//#if MC >= 1.21.9
+						//$$ , true
+						//#endif
+				)).
 				collect(Collectors.toList());
 		Messenger.tell(source, tr("mounted", entitiesText(passengers), Messenger.entity(vehicle)));
 		return passengers.size();

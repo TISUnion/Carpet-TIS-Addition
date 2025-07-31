@@ -204,7 +204,8 @@ public class TISAdditionTranslations
 		}
 
 		// translate hover text
-		HoverEvent hoverEvent = ((StyleAccessor)text.getStyle()).getHoverEventField();
+		@SuppressWarnings("RedundantCast")  // in mc1.21.9+, Style is a final class, so we need to cast it to Object first
+		HoverEvent hoverEvent = ((StyleAccessor)(Object)text.getStyle()).getHoverEventField();
 		if (hoverEvent != null)
 		{
 			BaseText oldHoverText = Util.make(() -> {
