@@ -1700,6 +1700,20 @@ TISCM网络协议的开关
 - 分类: `TIS`, `CREATIVE`
 
 
+## 去除异步任务执行延迟 (yeetAsyncTaskExecutionDelay)
+
+让 MinecraftServer 的异步任务不被延迟，尽早执行
+
+在原版中，当服务器发生卡顿或进行 tick warp 时，异步任务的执行最多可能被延迟 4 tick
+
+此规则开启后，可确保异步任务总会在最近的异步任务阶段被执行
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`
+
+
 ## 抑制空闲mspt (yeetIdleMspt)
 
 抑制空闲 mspt 的出现

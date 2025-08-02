@@ -1387,6 +1387,12 @@ carpettisaddition:
         desc: Overwrite the tracking distance of xp orb
         extra:
           '0': Change it to 0 to disable tracking
+      yeetAsyncTaskExecutionDelay:
+        name: yeetAsyncTaskExecutionDelay
+        desc: Ensure MinecraftServer's async server tasks are executed as soon as possible
+        extra:
+          '0': In vanilla, execution of async tasks can be skipped for up to 4 ticks when the server is lagging or tick-warping
+          '1': This rule ensures async tasks are always executed at the nearest async-task phase
       yeetIdleMspt:
         name: yeetIdleMspt
         desc: Suppress the appearance of idle mspt

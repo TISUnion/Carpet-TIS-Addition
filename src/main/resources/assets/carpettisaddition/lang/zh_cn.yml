@@ -1387,6 +1387,12 @@ carpettisaddition:
         desc: 修改经验球检测并追踪玩家的距离
         extra:
           '0': 将其调至0以禁用追踪
+      yeetAsyncTaskExecutionDelay:
+        name: 去除异步任务执行延迟
+        desc: 让 MinecraftServer 的异步任务不被延迟，尽早执行
+        extra:
+          '0': 在原版中，当服务器发生卡顿或进行tick warp时，异步任务的执行最多可能被延迟4 tick
+          '1': 此规则开启后，可确保异步任务总会在最近的异步任务阶段被执行
       yeetIdleMspt:
         name: 抑制空闲mspt
         desc: 抑制空闲mspt的出现

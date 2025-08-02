@@ -1700,6 +1700,20 @@ Change it to 0 to disable tracking
 - Categories: `TIS`, `CREATIVE`
 
 
+## yeetAsyncTaskExecutionDelay
+
+Ensure MinecraftServer's async server tasks are executed as soon as possible
+
+In vanilla, execution of async tasks can be skipped for up to 4 ticks when the server is lagging or tick-warping
+
+This rule ensures async tasks are always executed at the nearest async-task phase
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`
+
+
 ## yeetIdleMspt
 
 Suppress the appearance of idle mspt

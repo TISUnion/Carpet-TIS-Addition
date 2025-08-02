@@ -504,6 +504,7 @@
     "rule.wetExplosionReintroduced.compat.carpet.OptimizedExplosionMixin",
     "rule.witherSpawnedSoundDisabled.WitherEntityMixin",
     "rule.xpTrackingDistance.ExperienceOrbEntityMixin",
+    "rule.yeetAsyncTaskExecutionDelay.MinecraftServerMixin",
     "rule.yeetIdleMspt.MinecraftServerMixin",
     "rule.yeetOutOfOrderChatKick.MessageVerifierImplMixin",
     "rule.yeetOutOfOrderChatKick.ServerPlayNetworkHandlerMixin",
