@@ -43,7 +43,7 @@ public class EntityUtils
 {
 	public static World getEntityWorld(@NotNull Entity entity)
 	{
-		//#if MC >= 12106
+		//#if 1.21.6 <= MC && MC < 1.21.9
 		//$$ return entity.getWorld();
 		//#else
 		return entity.getEntityWorld();

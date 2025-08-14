@@ -40,6 +40,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 12102
+//$$ import carpettisaddition.utils.EntityUtils;
 //$$ import net.minecraft.server.world.ServerWorld;
 //#endif
 
@@ -77,7 +78,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Monste
 	private void dropHead(CallbackInfo ci)
 	{
 		//#if MC >= 12102
-		//$$ if (this.flagDropHead$TISCM && this.getWorld() instanceof ServerWorld serverWorld)
+		//$$ if (this.flagDropHead$TISCM && EntityUtils.getEntityWorld(this) instanceof ServerWorld serverWorld)
 		//$$ {
 		//$$ 	this.dropStack(serverWorld, new ItemStack(Items.DRAGON_HEAD));
 		//$$ }
