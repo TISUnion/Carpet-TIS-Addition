@@ -314,6 +314,18 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`, `PORTING`
 
 
+## 鞘翅状态对方块使用烟花可推进移植 (elytraFireworkBoostOnBlockBackport)
+
+**本规则仅在 Minecraft < 1.21.6 中存在**
+
+移植 Minecraft 1.21.6+ 版本中的特性：在鞘翅飞行状态下，对着方块使用烟花火箭物品时，会推进玩家而非发射烟花
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`
+
+
 ## enchant指令约束移除 (enchantCommandNoRestriction)
 
 移除 `/enchant` 指令中所有对目标附魔的约束

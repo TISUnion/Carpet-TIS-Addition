@@ -809,6 +809,11 @@ carpettisaddition:
           '0': '该规则实际上做了如下2件事情：'
           '1': 1. 让打开的活板门无法重定向红石粉的朝向（还原mc1.20前的表现）
           '2': 2. 让红石粉忽略来自下方的状态更新（还原mc1.20.3前的表现）
+      elytraFireworkBoostOnBlockBackport:
+        name: 鞘翅状态对方块使用烟花可推进移植
+        desc: 移植 Minecraft 1.21.6+ 版本中的特性：在鞘翅飞行状态下，对着方块使用烟花火箭物品时，会推进玩家而非发射烟花
+        extra:
+          '0': 本规则仅在 Minecraft < 1.21.6 中有效
       enchantCommandNoRestriction:
         name: enchant指令约束移除
         desc: 移除/enchant指令中所有对目标附魔的约束

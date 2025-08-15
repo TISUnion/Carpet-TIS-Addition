@@ -809,6 +809,11 @@ carpettisaddition:
           '0': 'This rule actually does the following two things:'
           '1': 1. Makes opened trapdoors unable to redirect redstone dust (reintroducing the behavior before mc1.20)
           '2': 2. Makes redstone dust ignore state updates from below (reintroducing the behavior before mc1.20.3)
+      elytraFireworkBoostOnBlockBackport:
+        name: elytraFireworkBoostOnBlockBackport
+        desc: Backport the feature from Minecraft 1.21.6+ where using a firework item on a block while in elytra state will boost the player, instead of launching a firework
+        extra:
+          '0': Only works in Minecraft < 1.21.6
       enchantCommandNoRestriction:
         name: enchantCommandNoRestriction
         desc: Remove all enchantment restriction checks inside /enchant command

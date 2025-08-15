@@ -314,6 +314,18 @@ This rule actually does the following two things:
 - Categories: `TIS`, `FEATURE`, `PORTING`
 
 
+## elytraFireworkBoostOnBlockBackport
+
+**Minecraft < 1.21.6 only**
+
+Backport the feature from Minecraft 1.21.6+ where using a firework item on a block while in elytra state will boost the player, instead of launching a firework
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`
+
+
 ## enchantCommandNoRestriction
 
 Remove all enchantment restriction checks inside `/enchant` command
