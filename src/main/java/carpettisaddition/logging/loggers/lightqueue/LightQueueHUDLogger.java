@@ -30,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.light.LightingProvider;
 
@@ -41,7 +42,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 	public static final String NAME = "lightQueue";
 	private static final LightQueueHUDLogger INSTANCE = new LightQueueHUDLogger();
 	private final Map<ServerWorld, WindowedDataRecorder> dataMap = Maps.newHashMap();
-	private final Map<String, ServerWorld> nameToWorldMap = Maps.newHashMap();
+	private final Map<Identifier, ServerWorld> nameToWorldMap = Maps.newHashMap();
 
 	public LightQueueHUDLogger()
 	{
@@ -60,7 +61,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 		for (ServerWorld world: minecraftServer.getWorlds())
 		{
 			this.dataMap.put(world, new WindowedDataRecorder());
-			this.nameToWorldMap.put(DimensionWrapper.of(world).getIdentifierString(), world);
+			this.nameToWorldMap.put(DimensionWrapper.of(world).getIdentifier(), world);
 		}
 	}
 
@@ -105,7 +106,8 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 		{
 			return new BaseText[]{Messenger.s("not ServerWorld")};
 		}
-		ServerWorld serverWorld = this.nameToWorldMap.getOrDefault(option, (ServerWorld)playerWorld);
+		Identifier optionId = Identifier.tryParse(option);
+		ServerWorld serverWorld = this.nameToWorldMap.getOrDefault(optionId, (ServerWorld)playerWorld);
 		WindowedDataRecorder recorder = this.dataMap.get(serverWorld);
 		Deque<RecordedData> deque = recorder.getQueue();
 
