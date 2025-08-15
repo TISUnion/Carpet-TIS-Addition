@@ -326,6 +326,22 @@ sidebar_position: 1
 - 分类: `TIS`
 
 
+## 鞘翅烟花加速别断栓绳 (elytraFireworkKeepLeashConnection)
+
+**本规则仅在 Minecraft >= 1.21.6 中存在**
+
+启用时，鞘翅飞行中使用烟花不再会断开已有的栓绳连接，即还原mc1.21.6前的表现
+
+注意：该规则不会阻止因相对距离过远而导致的栓绳断开
+
+本规则仅在 Minecraft >= 1.21.6 中有效
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`
+
+
 ## enchant指令约束移除 (enchantCommandNoRestriction)
 
 移除 `/enchant` 指令中所有对目标附魔的约束

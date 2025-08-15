@@ -341,6 +341,7 @@
     "rule.dispensersFireDragonBreath.DispenserBlockMixin",
     "rule.dustTrapdoorReintroduced.RedstoneWireBlockMixin",
     "rule.elytraFireworkBoostOnBlockBackport.FireworkItemMixin",
+    "rule.elytraFireworkKeepLeashConnection.FireworkItemMixin",
     "rule.enchantCommandNoRestriction.EnchantCommandMixin",
     "rule.endPortalOpenedSoundDisabled.witherSpawnedSoundDisabled.EnderEyeItemMixin",
     "rule.entityBrainMemoryUnfreedFix.BrainAccessor",

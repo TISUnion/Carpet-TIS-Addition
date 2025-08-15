@@ -814,6 +814,12 @@ carpettisaddition:
         desc: 移植 Minecraft 1.21.6+ 版本中的特性：在鞘翅飞行状态下，对着方块使用烟花火箭物品时，会推进玩家而非发射烟花
         extra:
           '0': 本规则仅在 Minecraft < 1.21.6 中有效
+      elytraFireworkKeepLeashConnection:
+        name: 鞘翅烟花加速别断栓绳
+        desc: 启用时，鞘翅飞行中使用烟花不再会断开已有的栓绳连接，即还原mc1.21.6前的表现
+        extra:
+          '0': 注意：该规则不会阻止因相对距离过远而导致的栓绳断开
+          '1': 本规则仅在 Minecraft >= 1.21.6 中有效
       enchantCommandNoRestriction:
         name: enchant指令约束移除
         desc: 移除/enchant指令中所有对目标附魔的约束

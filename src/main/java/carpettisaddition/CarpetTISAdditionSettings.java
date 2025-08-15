@@ -178,6 +178,11 @@ public class CarpetTISAdditionSettings
 	public static boolean elytraFireworkBoostOnBlockBackport = false;
 	//#endif
 
+	//#if MC >= 1.21.6
+	//$$ @Rule(categories = {TIS, PORTING})
+	//$$ public static boolean elytraFireworkKeepLeashConnection = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean enchantCommandNoRestriction = false;
 

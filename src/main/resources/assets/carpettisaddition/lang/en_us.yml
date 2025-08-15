@@ -814,6 +814,12 @@ carpettisaddition:
         desc: Backport the feature from Minecraft 1.21.6+ where using a firework item on a block while in elytra state will boost the player, instead of launching a firework
         extra:
           '0': Only works in Minecraft < 1.21.6
+      elytraFireworkKeepLeashConnection:
+        name: elytraFireworkKeepLeashConnection
+        desc: When enabled, using fireworks during elytra flight will no longer break existing leash connections, restoring the behavior from before mc1.21.6
+        extra:
+          '0': 'Note: This rule does not prevent leash disconnection caused by excessive distance'
+          '1': Only works in Minecraft >= 1.21.6
       enchantCommandNoRestriction:
         name: enchantCommandNoRestriction
         desc: Remove all enchantment restriction checks inside /enchant command

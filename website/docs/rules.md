@@ -326,6 +326,22 @@ Backport the feature from Minecraft 1.21.6+ where using a firework item on a blo
 - Categories: `TIS`
 
 
+## elytraFireworkKeepLeashConnection
+
+**Minecraft >= 1.21.6 only**
+
+When enabled, using fireworks during elytra flight will no longer break existing leash connections, restoring the behavior from before mc1.21.6
+
+Note: This rule does not prevent leash disconnection caused by excessive distance
+
+Only works in Minecraft >= 1.21.6
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`
+
+
 ## enchantCommandNoRestriction
 
 Remove all enchantment restriction checks inside `/enchant` command
