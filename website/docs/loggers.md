@@ -8,7 +8,7 @@ sidebar_position: 2
 
 `/log commandBlock <option>`
 
-Info when a command block or command block minecart executes command
+Inform when a command block or command block minecart executes command
 
 It's useful to find out where the annoying hidden running command block is
 
@@ -23,7 +23,7 @@ Attributes:
 
 `/log damage <selector>`
 
-Info when a living entity gets damage and display how the damage gets calculated
+Inform when a living entity gets damage and display how the damage gets calculated
 
 The `<selector>` option consist of 1 or 2 object declaration strings
 and an optional `->` or `<->` direction indicator
@@ -79,7 +79,7 @@ Attributes:
 
 `/log item <events>`
 
-Info when something happens to an item entity, for example item despawned after 5min
+Inform when something happens to an item entity, for example item despawned after 5min
 
 Available events:
 - `create`: An item entity is created in the world for any kinds of reason. Stack trace is included in the message
@@ -185,7 +185,7 @@ Attributes:
 
 Switch: rule [loggerMovement](rules.md#loggermovement)
 
-Info when a living entity tries to move and display how the actual movement gets calculated
+Inform when a living entity tries to move and display how the actual movement gets calculated
 
 `<target>` is an entity selector. Make sure you have selector the necessary targets or expect log spam (`@` selector requires permission level 2)
 
@@ -213,7 +213,7 @@ Attributes:
 
 `/log raid`
 
-Info when these raid related events happen:
+Inform when these raid related events happen:
 
 - A raid has been created
 - A raid has been invalidated
@@ -242,7 +242,7 @@ Attributes:
 
 `/log ticket <types>`
 
-Info when a ticket is created or removed
+Inform when a ticket is created or removed
 
 Use csv format, like `portal,dragon` for logging multiple types of ticket
 
