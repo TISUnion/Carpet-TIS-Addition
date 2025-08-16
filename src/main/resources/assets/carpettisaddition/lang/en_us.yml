@@ -274,7 +274,7 @@ carpettisaddition:
       show_history_header: Last tick warp result (%1$smin ago)
     wanderingTrader:
       header_hover: Wandering Trader Logger
-      summon: '%1$s summoned %2$sx at %3$s'
+      summon: '%1$s summoned %2$s at %3$s'
     xporb:
       xp_amount: XP amount
 
