@@ -42,6 +42,7 @@ import carpettisaddition.logging.loggers.memory.MemoryHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingStandardCarpetLogger;
 import carpettisaddition.logging.loggers.movement.MovementLogger;
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
+import carpettisaddition.logging.loggers.portalCreation.PortalCreationLogger;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
 import carpettisaddition.logging.loggers.scounter.SupplierCounterHUDLogger;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
@@ -74,6 +75,7 @@ public class TISAdditionLoggerRegistry
 	//#endif
 	public static boolean __movement;
 	public static boolean __phantom;
+	public static boolean __portalCreation;
 	public static boolean __raid;
 	public static boolean __scounter;
 	public static boolean __ticket;
@@ -97,6 +99,7 @@ public class TISAdditionLoggerRegistry
 		//#endif
 		register(MovementLogger.getInstance());
 		register(PhantomLogger.getInstance());
+		register(PortalCreationLogger.getInstance());
 		register(RaidLogger.getInstance());
 		register(SupplierCounterHUDLogger.getInstance());
 		register(TicketLogger.getInstance());

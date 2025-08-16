@@ -209,6 +209,19 @@ Attributes:
 - Suggested options: `spawning`, `reminder`, `spawning,reminder`
 
 
+## portalCreation
+
+`/log portalCreation <options>`
+
+Inform when an entity creates a new nether portal
+
+The logging option can be an entity selector, restricting what the portal creator can be
+
+Attributes:
+- Default option: `all`
+- Suggested options: `all`, `players`, `me`, `@e[type=creeper]`, `@e[type=!player]`
+
+
 ## raid
 
 `/log raid`

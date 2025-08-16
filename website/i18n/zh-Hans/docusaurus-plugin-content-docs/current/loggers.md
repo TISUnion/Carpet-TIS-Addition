@@ -209,6 +209,19 @@ sidebar_position: 2
 - 参考选项: `spawning`, `reminder`, `spawning,reminder`
 
 
+## 地狱门创建 (portalCreation)
+
+`/log portalCreation <options>`
+
+当有实体创建新的下界传送门时，输出记录信息
+
+选项可以是一个实体选择器，用于限制哪些实体创建的传送门才会被记录
+
+属性:
+- 默认选项: `all`
+- 参考选项: `all`, `players`, `me`, `@e[type=creeper]`, `@e[type=!player]`
+
+
 ## 袭击 (raid)
 
 `/log raid`

@@ -463,21 +463,55 @@ public class Messenger
 		return dimText != null ? copy(dimText) : Messenger.s(dim.getIdentifierString());
 	}
 
-	public static BaseText getColoredDimensionSymbol(DimensionWrapper dimensionType)
+	public static BaseText dimensionColored(BaseText text, DimensionWrapper dimensionType)
+	{
+		return formatting(text, getDimensionColor(dimensionType));
+	}
+	
+	public static Formatting getDimensionColor(DimensionWrapper dimensionType)
 	{
 		if (dimensionType.equals(DimensionWrapper.OVERWORLD))
 		{
-			return s("O", Formatting.DARK_GREEN);  // DARK_GREEN
+			return Formatting.DARK_GREEN;
 		}
-		if (dimensionType.equals(DimensionWrapper.THE_NETHER))
+		else if (dimensionType.equals(DimensionWrapper.THE_NETHER))
 		{
-			return s("N", Formatting.DARK_RED);  // DARK_RED
+			return Formatting.DARK_RED;
 		}
-		if (dimensionType.equals(DimensionWrapper.THE_END))
+		else if (dimensionType.equals(DimensionWrapper.THE_END))
 		{
-			return s("E", Formatting.DARK_PURPLE);  // DARK_PURPLE
+			return Formatting.DARK_PURPLE;
 		}
-		return s(dimensionType.getIdentifierString().toUpperCase().substring(0, 1));
+		else
+		{
+			return Formatting.WHITE;
+		}
+	}
+
+	public static BaseText getColoredDimensionSymbol(DimensionWrapper dimensionType)
+	{
+		String symbol = "?";
+		if (dimensionType.equals(DimensionWrapper.OVERWORLD))
+		{
+			symbol = "O";
+		}
+		else if (dimensionType.equals(DimensionWrapper.THE_NETHER))
+		{
+			symbol = "N";
+		}
+		else if (dimensionType.equals(DimensionWrapper.THE_END))
+		{
+			symbol = "E";
+		}
+		else
+		{
+			String id = dimensionType.getIdentifierString().toUpperCase();
+			if (!id.isEmpty())
+			{
+				symbol = id.substring(0, 1);
+			}
+		}
+		return s(symbol, getDimensionColor(dimensionType));
 	}
 
 	public static BaseText block(Block block)

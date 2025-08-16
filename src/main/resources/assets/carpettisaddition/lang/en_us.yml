@@ -234,6 +234,8 @@ carpettisaddition:
         time_since_rest: You haven't slept for %1$s minutes
         regular: '%1$s might spawn after %2$s minutes'
         now: '%1$s might spawn since now'
+    portalCreation:
+      created: '%1$s created a nether portal at %2$s, time %3$s'
     projectiles:
       visualized:
         info: 'Visualize projectile logger: visualized %1$s tick(s)'
