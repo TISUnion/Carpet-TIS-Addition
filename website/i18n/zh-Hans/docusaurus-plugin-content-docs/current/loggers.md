@@ -18,6 +18,8 @@ sidebar_position: 2
 - 默认选项: `throttled`
 - 参考选项: `throttled`, `all`
 
+![commandBlock](images/logger/commandBlock.png)
+
 
 ## 伤害 (damage)
 
@@ -74,6 +76,8 @@ sidebar_position: 2
 - 默认选项: `all`
 - 参考选项: `all`, `players`, `me`, `->creeper`, `vex->`, `me->zombie`, `hotFloor->zombie`, `Steve`, `@e[distance=..10]`
 
+![damage](images/logger/damage.png)
+
 
 ## 掉落物 (item)
 
@@ -92,7 +96,9 @@ sidebar_position: 2
 
 属性:
 - 默认选项: `despawn`
-- 参考选项: `despawn`, `die`, `despawn,die`
+- 参考选项: `despawn`, `die`, `create`, `despawn,die`, `despawn,die,create`
+
+![item](images/logger/item.png)
 
 
 ## 存活时间 (lifetime)
@@ -108,6 +114,8 @@ sidebar_position: 2
 属性:
 - 默认选项: N/A
 - 参考选项: 所有在当前追踪中可用的实体类型
+
+![lifetime](images/logger/lifetime.png)
 
 
 ## 光照队列 (lightQueue)
@@ -130,6 +138,8 @@ sidebar_position: 2
 - 默认选项: `dynamic`
 - 参考选项: `dynamic`, `overworld`, `the_nether`, `the_end`
 
+![lightQueue](images/logger/lightQueue.png)
+
 
 ## 内存 (memory)
 
@@ -142,6 +152,8 @@ sidebar_position: 2
 属性:
 - 默认选项: N/A
 - 参考选项: N/A
+
+![memory](images/logger/memory.png)
 
 
 ## 微时序 (microTiming)
@@ -161,6 +173,8 @@ sidebar_position: 2
 - 默认选项: `merged`
 - 参考选项: `all`, `merged` `unique`
 
+![microTiming](images/logger/microTiming.png)
+
 
 ## 局部怪物容量 (mobcapsLocal)
 
@@ -177,6 +191,8 @@ sidebar_position: 2
 属性:
 - 默认选项: N/A
 - 参考选项: 所有在线玩家的玩家名
+
+![mobcapsLocal](images/logger/mobcapsLocal.png)
 
 
 ## 移动 (movement)
@@ -195,6 +211,8 @@ sidebar_position: 2
 - 默认选项: `non_zero:@a[distance=..10]`
 - 参考选项: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`
 
+![movement](images/logger/movement.png)
+
 
 ## 幻翼 (phantom)
 
@@ -208,6 +226,8 @@ sidebar_position: 2
 - 默认选项: `spawning`
 - 参考选项: `spawning`, `reminder`, `spawning,reminder`
 
+![phantom](images/logger/phantom.png)
+
 
 ## 地狱门创建 (portalCreation)
 
@@ -220,6 +240,8 @@ sidebar_position: 2
 属性:
 - 默认选项: `all`
 - 参考选项: `all`, `players`, `me`, `@e[type=creeper]`, `@e[type=!player]`
+
+![portalCreation](images/logger/portalCreation.png)
 
 
 ## 袭击 (raid)
@@ -237,6 +259,8 @@ sidebar_position: 2
 - 默认选项: N/A
 - 参考选项: N/A
 
+![raid](images/logger/raid.png)
+
 
 ## 供给计数器 (scounter)
 
@@ -247,8 +271,10 @@ sidebar_position: 2
 类似 carpet 的漏斗计数器对应的 `counter` 记录器，该记录器用于展示使用规则 [hopperNoItemCost](rules.md#漏斗不消耗物品-hoppernoitemcost) 创建的漏斗无限物品供给器所输出的物品数量
 
 属性:
-- 默认选项: N/A
+- 默认选项: `white`
 - 参考选项: 所有染料颜色名
+
+![scounter](images/logger/scounter.png)
 
 
 ## 加载票 (ticket)
@@ -267,6 +293,8 @@ sidebar_position: 2
 - 默认选项: `portal`
 - 参考选项: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
 
+![ticket](images/logger/ticket.png)
+
 
 ## tickWarp
 
@@ -282,6 +310,8 @@ sidebar_position: 2
 - 默认选项: `bar`
 - 参考选项: `bar`, `value`
 
+![tickWarp](images/logger/tickWarp.png)
+
 
 ## 海龟蛋 (turtleEgg)
 
@@ -293,12 +323,20 @@ sidebar_position: 2
 - 默认选项: N/A
 - 参考选项: N/A
 
+![turtleEgg](images/logger/turtleEgg.png)
+
 
 ## 流浪商人 (wanderingTrader)
 
 `/log wanderingTrader`
 
-在玩家召唤出了（事实上基于随机玩家的特殊刷怪）流浪商人时，输出记录信息
+在玩家召唤出了（事实上这是基于随机玩家的特殊刷怪）流浪商人时，输出记录信息
+
+属性:
+- 默认选项: N/A
+- 参考选项: N/A
+
+![wanderingTrader](images/logger/wanderingTrader.png)
 
 
 ## 经验计数器 (xcounter)
@@ -310,9 +348,10 @@ sidebar_position: 2
 类似 carpet 的漏斗计数器对应的 `counter` 记录器，该记录器用于展示使用规则 [hopperXpCounters](rules.md#漏斗经验计数器-hopperxpcounters) 创建的漏斗经验计数器的统计结果
 
 属性:
-- 默认选项: N/A
+- 默认选项: `white`
 - 参考选项: 所有染料颜色名
 
+![xcounter](images/logger/xcounter.png)
 
 
 ## 经验球 (xporb)
@@ -320,3 +359,5 @@ sidebar_position: 2
 `/log xporb <事件>`
 
 基本上与 [掉落物记录器](#掉落物-item) 相同，只不过监视的是经验球实体
+
+![xporb](images/logger/xporb.png)

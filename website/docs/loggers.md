@@ -18,6 +18,8 @@ Attributes:
 - Default option: `throttled`
 - Suggested options: `throttled`, `all`
 
+![commandBlock](images/logger/commandBlock.png)
+
 
 ## damage
 
@@ -74,6 +76,8 @@ Attributes:
 - Default option: `all`
 - Suggested options: `all`, `players`, `me`, `->creeper`, `vex->`, `me->zombie`, `hotFloor->zombie`, `Steve`, `@e[distance=..10]`
 
+![damage](images/logger/damage.png)
+
 
 ## item
 
@@ -92,7 +96,9 @@ Available option separators: `,`, `.` and ` ` (`.` is the only choice in 1.14.4 
 
 Attributes:
 - Default option: `despawn`
-- Suggested options: `despawn`, `die`, `despawn,die`
+- Suggested options: `despawn`, `die`, `create`, `despawn,die`, `despawn,die,create`
+
+![item](images/logger/item.png)
 
 
 ## lifetime
@@ -108,6 +114,8 @@ The logging options is required to be an available entity type
 Attributes:
 - Default option: N/A
 - Suggested options: All available entity types in current's lifetime tracking
+
+![lifetime](images/logger/lifetime.png)
 
 
 ## lightQueue
@@ -130,6 +138,8 @@ Attributes:
 - Default option: `dynamic`
 - Suggested options: `dynamic`, `overworld`, `the_nether`, `the_end`
 
+![lightQueue](images/logger/lightQueue.png)
+
 
 ## memory
 
@@ -142,6 +152,8 @@ Format: `Used memory` / `Allocated memory` | `Max memory`
 Attributes:
 - Default option: N/A
 - Suggested options: N/A
+
+![memory](images/logger/memory.png)
 
 
 ## microTiming
@@ -161,6 +173,8 @@ Attributes:
 - Default option: `merged`
 - Suggested options: `all`, `merged`, `unique`
 
+![microTiming](images/logger/microTiming.png)
+
 
 ## mobcapsLocal
 
@@ -177,6 +191,8 @@ If no player is specified, it will display the local mobcap of the subscriber
 Attributes:
 - Default option: N/A
 - Suggested options: Names of all online players
+
+![mobcapsLocal](images/logger/mobcapsLocal.png)
 
 
 ## movement
@@ -195,6 +211,8 @@ Attributes:
 - Default option: `non_zero:@a[distance=..10]`
 - Suggested options: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`
 
+![movement](images/logger/movement.png)
+
 
 ## phantom
 
@@ -208,6 +226,8 @@ Attributes:
 - Default option: `spawning`
 - Suggested options: `spawning`, `reminder`, `spawning,reminder`
 
+![phantom](images/logger/phantom.png)
+
 
 ## portalCreation
 
@@ -220,6 +240,8 @@ The logging option can be an entity selector, restricting what the portal creato
 Attributes:
 - Default option: `all`
 - Suggested options: `all`, `players`, `me`, `@e[type=creeper]`, `@e[type=!player]`
+
+![portalCreation](images/logger/portalCreation.png)
 
 
 ## raid
@@ -237,6 +259,8 @@ Attributes:
 - Default option: N/A
 - Suggested options: N/A
 
+![raid](images/logger/raid.png)
+
 
 ## scounter
 
@@ -247,8 +271,10 @@ It's a HUD logger
 Similar to carpet's `counter` logger for its hopper counter, this logger is used for showing items output from infinity item supplier hoppers created by rule [hopperNoItemCost](rules.md#hoppernoitemcost)
 
 Attributes:
-- Default option: N/A
+- Default option: `white`
 - Suggested options: All dye color names
+
+![scounter](images/logger/scounter.png)
 
 
 ## ticket
@@ -267,6 +293,8 @@ Attributes:
 - Default option: `portal`
 - Suggested options: `portal,dragon`, `start`, `dragon`, `player`, `forced`, `light`, `portal`, `post_teleport`, `unknown`
 
+![ticket](images/logger/ticket.png)
+
 
 ## tickWarp
 
@@ -282,6 +310,8 @@ Attributes:
 - Default option: `bar`
 - Suggested options: `bar`, `value`
 
+![tickWarp](images/logger/tickWarp.png)
+
 
 ## turtleEgg
 
@@ -293,12 +323,20 @@ Attributes:
 - Default option: N/A
 - Suggested options: N/A
 
+![turtleEgg](images/logger/turtleEgg.png)
+
 
 ## wanderingTrader
 
 `/log wanderingTrader`
 
-Logs when someone summon (actually, special natural spawning based on randomly chosen player) a wandering trader
+Logs when someone summon (actually, it's a special natural spawning based on randomly chosen player) a wandering trader
+
+Attributes:
+- Default option: N/A
+- Suggested options: N/A
+
+![wanderingTrader](images/logger/wanderingTrader.png)
 
 
 ## xcounter
@@ -310,8 +348,10 @@ It's a HUD logger
 Similar to carpet's `counter` logger for its hopper counter, this logger is used for showing xp statistic xp counters created by rule [hopperXpCounters](rules.md#hopperxpcounters)
 
 Attributes:
-- Default option: N/A
+- Default option: `white`
 - Suggested options: All dye color names
+
+![xcounter](images/logger/xcounter.png)
 
 
 ## xporb
@@ -319,3 +359,5 @@ Attributes:
 `/log xporb <events>`
 
 Basically the same as [item logger](#item) but logs experience orb entities
+
+![xporb](images/logger/xporb.png)
