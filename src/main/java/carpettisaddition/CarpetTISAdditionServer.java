@@ -74,7 +74,7 @@ import java.util.Map;
 public class CarpetTISAdditionServer implements CarpetExtension
 {
 	private static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
-	public static final String compactName = CarpetTISAdditionMod.MOD_ID.replace("-","");  // carpettisaddition
+	public static final String compactName = CarpetTISAdditionMod.COMPACT_NAME;
 	public static final Logger LOGGER = CarpetTISAdditionMod.LOGGER;
 	public static MinecraftServer minecraft_server;
 

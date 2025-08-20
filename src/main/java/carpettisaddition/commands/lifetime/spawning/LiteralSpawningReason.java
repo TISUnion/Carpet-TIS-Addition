@@ -20,6 +20,7 @@
 
 package carpettisaddition.commands.lifetime.spawning;
 
+import com.google.gson.JsonObject;
 import net.minecraft.text.BaseText;
 
 public class LiteralSpawningReason extends SpawningReason
@@ -67,6 +68,18 @@ public class LiteralSpawningReason extends SpawningReason
 	public BaseText toText()
 	{
 		return tr(this.translationKey);
+	}
+
+	@Override
+	public String getRecordId()
+	{
+		return this.translationKey.replace('.', '_');
+	}
+
+	@Override
+	public JsonObject getRecordData()
+	{
+		return new JsonObject();
 	}
 
 	@Override

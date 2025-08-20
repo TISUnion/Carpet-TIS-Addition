@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.commands.AbstractTracker;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
+import carpettisaddition.commands.lifetime.recorder.LifetimeRecorder;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerContext;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
@@ -35,8 +36,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Optional;
@@ -66,6 +68,7 @@ public class LifeTimeTracker extends AbstractTracker
 		return world instanceof ServerWorld ? this.trackers.get(world) : null;
 	}
 
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static void attachServer(MinecraftServer minecraftServer)
 	{
 		attachedServer = true;
@@ -74,6 +77,7 @@ public class LifeTimeTracker extends AbstractTracker
 		{
 			INSTANCE.trackers.put(world, ((ServerWorldWithLifeTimeTracker)world).getLifeTimeWorldTracker());
 		}
+		LifetimeRecorder.getInstance();  // ensure config loaded
 	}
 
 	public static void detachServer()
@@ -111,6 +115,36 @@ public class LifeTimeTracker extends AbstractTracker
 	public int getCurrentTrackId()
 	{
 		return this.currentTrackId;
+	}
+
+	@Override
+	public int startTracking(@NotNull ServerCommandSource source, boolean isRestart, boolean showFeedback)
+	{
+		int ret = super.startTracking(source, isRestart, showFeedback);
+		if (!isRestart && ret == START_TRACKING_OK)
+		{
+			LifetimeRecorder.getInstance().start(source, this.currentTrackId);
+		}
+		return ret;
+	}
+
+	@Override
+	public int stopTracking(@Nullable ServerCommandSource source, boolean isRestart, boolean showFeedback)
+	{
+		int ret = super.stopTracking(source, isRestart, showFeedback);
+		if (!isRestart && ret == STOP_TRACKING_OK)
+		{
+			LifetimeRecorder.getInstance().stop(source);
+		}
+		return ret;
+	}
+
+	@Override
+	public int restartTracking(ServerCommandSource source)
+	{
+		int ret = super.restartTracking(source);
+		LifetimeRecorder.getInstance().start(source, this.currentTrackId);
+		return ret;
 	}
 
 	@Override
@@ -189,7 +223,6 @@ public class LifeTimeTracker extends AbstractTracker
 	{
 		return this.doWhenTracking(source, () -> this.printTrackingResultSpecificImpl(source, entityTypeString, detailModeString, realtime));
 	}
-
 
 	protected int showHelp(ServerCommandSource source)
 	{

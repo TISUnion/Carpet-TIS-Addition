@@ -29,6 +29,8 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.Formatting;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -101,7 +103,10 @@ public abstract class AbstractTracker extends TranslationContext
 	 * ------------------------
 	 */
 
-	public int startTracking(ServerCommandSource source, boolean showFeedback)
+	protected static final int START_TRACKING_NO_OP = 0;
+	protected static final int START_TRACKING_OK = 1;
+
+	public int startTracking(@NotNull ServerCommandSource source, boolean isRestart, boolean showFeedback)
 	{
 		if (this.isTracking())
 		{
@@ -109,7 +114,7 @@ public abstract class AbstractTracker extends TranslationContext
 			{
 				Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_already_started", this.getTranslatedNameFull()), Formatting.RED));
 			}
-			return 1;
+			return START_TRACKING_NO_OP;
 		}
 		this.tracking = true;
 		this.startTick = GameUtils.getGameTime();
@@ -119,14 +124,18 @@ public abstract class AbstractTracker extends TranslationContext
 			Messenger.tell(source, baseTranslator.tr("tracking_started", this.getTranslatedNameFull()), true);
 		}
 		this.initTracker();
-		return 1;
+		return START_TRACKING_OK;
 	}
 
-	public int stopTracking(ServerCommandSource source, boolean showFeedback)
+	protected static final int STOP_TRACKING_NO_OP = 0;
+	protected static final int STOP_TRACKING_OK = 1;
+
+	public int stopTracking(@Nullable ServerCommandSource source, boolean isRestart, boolean showFeedback)
 	{
+		boolean wasTracking = this.isTracking();
 		if (source != null)
 		{
-			if (this.isTracking())
+			if (wasTracking)
 			{
 				this.reportTracking(source, false);
 				if (showFeedback)
@@ -142,14 +151,14 @@ public abstract class AbstractTracker extends TranslationContext
 			}
 		}
 		this.tracking = false;
-		return 1;
+		return wasTracking ? STOP_TRACKING_OK : STOP_TRACKING_NO_OP;
 	}
 
 	public int restartTracking(ServerCommandSource source)
 	{
 		boolean wasTracking = this.isTracking();
-		this.stopTracking(source, false);
-		this.startTracking(source, false);
+		this.stopTracking(source, true, false);
+		this.startTracking(source, true, false);
 		if (wasTracking)
 		{
 			Messenger.tell(source, Messenger.s(" "));
@@ -181,10 +190,10 @@ public abstract class AbstractTracker extends TranslationContext
 		return literal("tracking").
 				executes(c -> this.reportTracking(c.getSource(), false)).
 				then(literal("start").
-						executes(c -> this.startTracking(c.getSource(), true))
+						executes(c -> this.startTracking(c.getSource(), false, true))
 				).
 				then(literal("stop")
-						.executes(c -> this.stopTracking(c.getSource(), true))
+						.executes(c -> this.stopTracking(c.getSource(), false, true))
 				).
 				then(literal("restart").
 						executes(c -> this.restartTracking(c.getSource()))
@@ -236,7 +245,7 @@ public abstract class AbstractTracker extends TranslationContext
 	 */
 	public void stop()
 	{
-		this.stopTracking(null, false);
+		this.stopTracking(null, false, false);
 	}
 
 	/**
@@ -247,6 +256,7 @@ public abstract class AbstractTracker extends TranslationContext
 
 	/**
 	 * Show tracking result to the command source
+	 *
 	 * @param realtime use real time or not. if not, use in-game time
 	 */
 	protected abstract void printTrackingResult(ServerCommandSource source, boolean realtime);

@@ -26,12 +26,18 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 
 public class FileUtils
 {
 	public static void touchFileDirectory(File file) throws IOException
 	{
 		touchDirectory(file.getParentFile());
+	}
+
+	public static void touchFileDirectory(Path file) throws IOException
+	{
+		touchFileDirectory(file.toFile());
 	}
 
 	public static void touchDirectory(File dir) throws IOException
@@ -47,6 +53,11 @@ public class FileUtils
 		{
 			throw new IOException("Directory exists but it's not a directory");
 		}
+	}
+
+	public static void touchDirectory(Path file) throws IOException
+	{
+		touchDirectory(file.toFile());
 	}
 
 	public static boolean isFile(File file)

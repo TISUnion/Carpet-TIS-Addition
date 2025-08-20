@@ -21,6 +21,7 @@
 package carpettisaddition.commands.lifetime.removal;
 
 import carpettisaddition.utils.Messenger;
+import com.google.gson.JsonObject;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
 import org.jetbrains.annotations.Nullable;
@@ -71,5 +72,19 @@ public class DespawnImmediatelyRemovalReason extends RemovalReason
 				),
 				"g )"
 		);
+	}
+
+	@Override
+	public String getRecordId()
+	{
+		return "despawn_immediately";
+	}
+
+	@Override
+	public JsonObject getRecordData()
+	{
+		JsonObject data = new JsonObject();
+		data.addProperty("damageSource", this.damageSourceName);
+		return data;
 	}
 }

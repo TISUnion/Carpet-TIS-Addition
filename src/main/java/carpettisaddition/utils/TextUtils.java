@@ -79,4 +79,43 @@ public class TextUtils
 	{
 		return property.name((T)value);
 	}
+
+	public static String byteSizeSi(long size)
+	{
+		return byteSizeSi(size, 1);
+	}
+
+	public static String byteSizeSi(long size, int digit)
+	{
+		if (size == Long.MIN_VALUE)
+		{
+			// byteSizeSi is not a 100% precise function anyway, XD
+			size = Long.MIN_VALUE + 1;
+		}
+		if (size < 0)
+		{
+			return "-" + byteSizeSi(-size);
+		}
+
+		if (size < 1024)
+		{
+			return size + "B";
+		}
+		else if (size < 1024 * 1024)
+		{
+			return StringUtils.fractionDigit(size / 1024.0, digit) + "KiB";
+		}
+		else if (size < 1024L * 1024 * 1024)
+		{
+			return StringUtils.fractionDigit(size / 1024.0 / 1024.0, digit) + "MiB";
+		}
+		else if (size < 1024L * 1024 * 1024 * 1024)
+		{
+			return StringUtils.fractionDigit(size / 1024.0 / 1024.0 / 1024.0, digit) + "GiB";
+		}
+		else
+		{
+			return StringUtils.fractionDigit(size / 1024.0 / 1024.0 / 1024.0 / 1024.0, digit) + "TiB";
+		}
+	}
 }

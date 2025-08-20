@@ -115,6 +115,84 @@ Filter is input as an `@e` style Minecraft entity selector. e.g. `@e[distance=..
 
 Use `/lifetime filter` to display current activated filters
 
+### recorder
+
+Lifetime Data Recorder: writes spawn/removal events of every entity into files for later statistical analysis
+
+| Command                        | Effect                                          |
+|--------------------------------|-------------------------------------------------|
+| `/lifetime recorder`           | Shows the status of the data recorder           |
+| `/lifetime recorder status`    | Same as above                                   |
+| `/lifetime recorder reload`    | Reload the recorder configuration file          |
+| `/lifetime recorder enable`    | Enable the data recorder and update the config  |
+| `/lifetime recorder disable`   | Disable the data recorder and update the config |
+
+If the data recorder is enabled, recording will start the next time lifetime tracking (`/lifetime tracking`) begins
+
+Recording stops when lifetime tracking is stopped or when the data recorder is disabled
+
+:::note
+
+Since the Lifetime Data Recorder writes files to the server, only the server owner has permission to operate it by default.  
+To loosen the permission restriction, you can adjust it in the configuration file
+
+:::
+
+Config file path: `config/carpettisaddition/lifetime/recorder_config.json`
+
+Default config with explanations:
+
+```json
+{
+  // Whether the lifetime data recorder is enabled
+  // Can be toggled via `/lifetime recorder enable|disable`
+  "enabled": false,  
+  
+  // Extra permission level required to use `/lifetime recorder` commands
+  "requiredPermissionLevel": 4,  // Minimum permission level required
+  "consoleOrSinglePlayerOwnerOnly": true,  // If true, only the server console or singleplayer owner can use it
+  
+  // Output settings
+  "outputDirectory": "config/carpettisaddition/lifetime/records",  // Output folder
+  "maxOutputRecordCount": -1,       // Max record count per file. Recording pauses once exceeded
+  "maxOutputFileBytes": 104857600,  // Max size per file (bytes). Recording pauses once exceeded
+  "maxTotalOutputFileCount": 500,         // Max number of record files in the folder. No new records once exceeded
+  "maxTotalOutputFileBytes": 1073741824,  // Max total size of record files in the folder. No new records once exceeded
+  
+  // Recording details
+  "sampleRate": 1.0  // Sampling rate, a real number between 0 and 1
+}
+```
+
+Output files are named as `rec_${yyyyMMddHHmmss}_${id}.jsonl`, e.g. `rec_20250818015654_1.jsonl`.
+The format is JSON Lines (jsonl), with each line representing one record
+
+JSON field description:
+
+```json
+{
+  // Server info
+  "serverTick": 704,   // MinecraftServer tick counter
+  "gameTime": 483897,  // Game time of the Overworld
+  
+  // Event info
+  "eventType": "removal",  // Event category: "spawning" or "removal"
+  "eventId": "death",      // Specific event type (spawn reason / removal reason)
+  "eventPosition": [156.55, 80.0, 567.45],  // Position where the event occurred (usually same as entity position)
+  "eventData": {  // Extra data for the event; fields depend on event type, may be empty
+    "damageSource": "player"  // e.g. for a "death" event, records the damage source
+  },
+  
+  // Entity info
+  "entityType": "minecraft:llama",  // Entity type
+  "entityId": 159,  // Entity ID (network ID)
+  "entityUuid": "9503642c-2d5f-4a27-9b91-c09853538397",  // Entity UUID
+  "entityPosition": [156.55, 80.0, 567.45],  // Entity position
+  "entityDimension": "minecraft:overworld",  // Entity dimension
+  "entityLifetime": 190  // Entity lifetime (ticks)
+}
+```
+
 
 ## manipulate
 

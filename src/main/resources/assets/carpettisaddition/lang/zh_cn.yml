@@ -634,6 +634,33 @@ carpettisaddition:
         display_total: 共有%1$s个激活的筛选器
         none: 无
         click_to_clear: 点击以清除筛选器
+      recorder:
+        enabled: 存活时间数据记录器已启用
+        already_enabled: 存活时间数据记录器已经处于启用状态了
+        need_rerun_to_start: '注意: 你需要重新启动存活时间追踪器，来启动存活时间数据记录器'
+        disabled: 存活时间数据记录器已禁用
+        already_disabled: 存活时间数据记录器已经处于禁用状态了
+        started: '存活时间数据记录器已启动, 输出文件: %1$s'
+        total_output_count_too_many: 跳过存活时间数据记录器的启动，因为输出文件的总数(%1$s)超出了配置限制(%2$s)
+        total_output_size_too_large: 跳过存活时间数据记录器的启动，因为输出文件的总体积(%1$s)超出了配置限制(%2$s)
+        total_output_size_unknown: 跳过存活时间数据记录器的启动，因为输出文件的总体积获取失败
+        stopped: 存活时间数据记录器已停止, 共记录%1$s条数据 (%2$s)
+        reload_config_failed: '存活时间数据记录器配置文件重载失败: %s'
+        reload_config_ok: 存活时间数据记录器配置文件已重载
+        status:
+          title: 存活时间数据记录器
+          status: '状态: %1$s, %2$s'
+          enabled: '已启用'
+          disabled: '已禁用'
+          running: '运行中'
+          paused: '超限暂停'
+          stopped: '已停止'
+          output_file: '输出文件: %1$s'
+          record_written: '已记录数据条数: %1$s (%2$s)'
+          bytes_written: '已输出字节数: %1$s (%2$s)'
+          sample_rate: '采样率: %1$s'
+          capped: '上限%1$s, %2$s'
+          unlimited: 无限制
     raid:
       name: 袭击
       raid_generated: 袭击生成统计

@@ -21,6 +21,7 @@
 package carpettisaddition.commands.lifetime.spawning;
 
 import carpettisaddition.utils.Messenger;
+import com.google.gson.JsonObject;
 import net.minecraft.entity.EntityType;
 import net.minecraft.text.BaseText;
 
@@ -35,5 +36,19 @@ public class MobConversionSpawningReason extends MobRelatedSpawningReason
 	public BaseText toText()
 	{
 		return tr("mob_conversion", Messenger.entityType(this.entityType));
+	}
+
+	@Override
+	public String getRecordId()
+	{
+		return "mob_conversion";
+	}
+
+	@Override
+	public JsonObject getRecordData()
+	{
+		JsonObject data = new JsonObject();
+		data.addProperty("fromType", EntityType.getId(this.entityType).toString());
+		return data;
 	}
 }

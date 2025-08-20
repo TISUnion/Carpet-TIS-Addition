@@ -21,6 +21,7 @@
 package carpettisaddition.commands.lifetime;
 
 import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
+import carpettisaddition.commands.lifetime.recorder.LifetimeRecorder;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.commands.lifetime.trackeddata.BasicTrackedData;
@@ -40,7 +41,6 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.Formatting;
 
 import java.util.*;
@@ -91,11 +91,13 @@ public class LifeTimeWorldTracker extends TranslationContext
 	public void onEntitySpawn(Entity entity, SpawningReason reason)
 	{
 		this.getTrackedData(entity).ifPresent(data -> data.updateSpawning(entity, reason));
+		LifetimeRecorder.getInstance().addRecord(entity, reason);
 	}
 
 	public void onEntityRemove(Entity entity, RemovalReason reason)
 	{
 		this.getTrackedData(entity).ifPresent(data -> data.updateRemoval(entity, reason));
+		LifetimeRecorder.getInstance().addRecord(entity, reason);
 	}
 
 	public void increaseSpawnStageCounter()

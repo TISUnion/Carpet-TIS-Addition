@@ -20,6 +20,7 @@
 
 package carpettisaddition.commands.lifetime.removal;
 
+import com.google.gson.JsonObject;
 import net.minecraft.text.BaseText;
 
 public class LiteralRemovalReason extends RemovalReason
@@ -86,6 +87,18 @@ public class LiteralRemovalReason extends RemovalReason
 	public BaseText toText()
 	{
 		return tr(this.translationKey);
+	}
+
+	@Override
+	public String getRecordId()
+	{
+		return this.translationKey.replace('.', '_');
+	}
+
+	@Override
+	public JsonObject getRecordData()
+	{
+		return new JsonObject();
 	}
 
 	@Override

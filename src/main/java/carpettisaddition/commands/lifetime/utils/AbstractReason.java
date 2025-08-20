@@ -22,6 +22,7 @@ package carpettisaddition.commands.lifetime.utils;
 
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.translations.TranslationContext;
+import com.google.gson.JsonObject;
 import net.minecraft.text.BaseText;
 
 public abstract class AbstractReason extends TranslationContext
@@ -32,4 +33,7 @@ public abstract class AbstractReason extends TranslationContext
 	}
 
 	public abstract BaseText toText();
+
+	public abstract String getRecordId();
+	public abstract JsonObject getRecordData();
 }

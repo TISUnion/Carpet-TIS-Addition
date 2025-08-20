@@ -634,6 +634,33 @@ carpettisaddition:
         display_total: "There are %1$s activated filters"
         none: None
         click_to_clear: "Click to clear filter"
+      recorder:
+        enabled: Lifetime data recorder enabled
+        already_enabled: Lifetime data recorder is already enabled
+        need_rerun_to_start: 'Note: You need to restart the current lifetime tracking to start recording'
+        disabled: Lifetime data recorder disabled
+        already_disabled: Lifetime data recorder is already disabled
+        started: 'Lifetime data recorder started, output file: %1$s'
+        total_output_count_too_many: Skipping lifetime data recorder startup, since the total output file count (%1$s) exceeds the configured limit (%2$s)
+        total_output_size_too_large: Skipping lifetime data recorder startup, since the total output file size (%1$s) exceeds the configured limit (%2$s)
+        total_output_size_unknown: Skipping lifetime data recorder startup, since the total output files size could not be retrieved
+        stopped: Lifetime data recorder stopped, recorded %1$s data (%2$s)
+        reload_config_failed: 'Failed to reload lifetime data recorder config: %s'
+        reload_config_ok: Reloaded lifetime data recorder config
+        status:
+          title: Lifetime data recorder
+          status: 'Status: %1$s, %2$s'
+          enabled: 'enabled'
+          disabled: 'disabled'
+          running: 'running'
+          paused: 'paused'
+          stopped: 'stopped'
+          output_file: 'Output file: %1$s'
+          record_written: 'Recorded data: %1$s (%2$s)'
+          bytes_written: 'Written bytes: %1$s (%2$s)'
+          sample_rate: 'Sample rate: %1$s'
+          capped: '%1$s max, %2$s'
+          unlimited: unlimited
     raid:
       name: Raid
       raid_generated: Raid generated

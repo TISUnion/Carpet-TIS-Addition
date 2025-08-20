@@ -30,6 +30,7 @@ public class CarpetTISAdditionMod implements ModInitializer
 {
 	public static final String MOD_ID = "carpet-tis-addition";
 	public static final String MOD_NAME = "Carpet TIS Addition";
+	public static final String COMPACT_NAME = MOD_ID.replace("-","");  // carpettisaddition
 	private static String version;
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);

@@ -115,6 +115,84 @@ sidebar_position: 3
 
 使用 `/lifetime filter` 来显示激活的实体筛选器
 
+### recorder
+
+存活时间数据记录器：将每个实体的生成/移除流水事件写入文件，以供后续统计分析
+
+| 指令                           | 效果               |
+|------------------------------|------------------|
+| `/lifetime recorder`         | 展示数据记录器的状态       |
+| `/lifetime recorder status`  | 同上               |
+| `/lifetime recorder reload`  | 重新加载数据记录器的配置文件   |
+| `/lifetime recorder enable`  | 启用数据记录器，并更新配置文件。 |
+| `/lifetime recorder disable` | 禁用数据记录器，并更新配置文件。 |
+
+若数据记录器已启动，下一次存活时间记录器（`/lifetime tracking`）开始时，将开始记录数据
+
+在存活时间记录器停止，或数据记录器被禁用时，本次数据记录过程将被停止
+
+:::note
+
+由于“存活时间数据记录器”功能涉及写服务端的文件，因此默认情况下只有服务器所有者才有权进行操作。
+若需放开权限控制，可以通过配置文件调节
+
+:::
+
+配置文件路径：`config/carpettisaddition/lifetime/recorder_config.json`
+
+默认配置以及解释如下：
+
+```json
+{
+  // 存活时间数据记录器启用状态
+  // 可通过 `/lifetime recorder enable|disable` 来调整
+  "enabled": false,  
+  
+  // 使用 `/lifetime recorder` 的控制命令所需的额外权限等级
+  "requiredPermissionLevel": 4,  // 使用该命令所需的最低权限等级
+  "consoleOrSinglePlayerOwnerOnly": true,  // 若为 true，则只有服务端控制台，或单人游戏房主，可使用
+  
+  // 数据记录输出相关配置
+  "outputDirectory": "config/carpettisaddition/lifetime/records",  // 输出文件夹
+  "maxOutputRecordCount": -1,       // 单个记录文件最大记录数。超出限制后本次记录将暂停
+  "maxOutputFileBytes": 104857600,  // 单个记录文件最大字节数。超出限制后本次记录将暂停
+  "maxTotalOutputFileCount": 500,         // 输出文件夹里记录文件的数量限制。超出后将不再触发新的记录
+  "maxTotalOutputFileBytes": 1073741824,  // 输出文件夹里记录文件的总大小限制。超出后将不再触发新的记录
+  
+  // 数据记录相关
+  "sampleRate": 1.0  // 采样率，一个0~1 的实数
+}
+```
+
+输出文件将命名为 `rec_${yyyyMMddHHmmss}_${id}.jsonl`，如 `rec_20250818015654_1.jsonl`。
+格式为 jsonl，每行一个 jsonl 代表一条记录数据
+
+json 字段说明如下：
+
+```json
+{
+  // 服务器相关信息
+  "serverTick": 704,   // MinecraftServer 的 tick 计数器
+  "gameTime": 483897,  // 主世界的 game time
+  
+  // 事件相关信息
+  "eventType": "removal",  // 事件大类。可能为 "spawning"（生成）或 "removal"（移除）
+  "eventId": "death",      // 事件种类。对应着不同的生成原因 / 移除原因
+  "eventPosition": [156.55, 80.0, 567.45],  // 发生事件时的实体坐标。大概率和下面的实体坐标一样
+  "eventData": {  // 事件的额外数据。内部的字段取决于具体的事件种类，也可能什么都没有
+    "damageSource": "player"  // 如 death 事件会有个 damageSource 字段，表示致死伤害源
+  },
+  
+  // 实体相关信息
+  "entityType": "minecraft:llama",  // 实体类型
+  "entityId": 159,  // 实体 ID（网络 ID）
+  "entityUuid": "9503642c-2d5f-4a27-9b91-c09853538397",  // 实体 UUID
+  "entityPosition": [156.55, 80.0, 567.45],  // 实体坐标
+  "entityDimension": "minecraft:overworld",  // 实体所在维度
+  "entityLifetime": 190  // 实体的存活时间（gt）
+}
+```
+
 
 ## 操控世界 (manipulate)
 

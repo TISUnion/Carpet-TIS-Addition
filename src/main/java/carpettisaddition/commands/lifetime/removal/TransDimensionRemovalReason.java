@@ -22,6 +22,7 @@ package carpettisaddition.commands.lifetime.removal;
 
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
+import com.google.gson.JsonObject;
 import net.minecraft.text.BaseText;
 
 import java.util.Objects;
@@ -59,5 +60,19 @@ public class TransDimensionRemovalReason extends RemovalReason
 				Messenger.formatting(tr("trans_dimension.to", Messenger.dimension(this.newDimension)), "g"),
 				"g )"
 		);
+	}
+
+	@Override
+	public String getRecordId()
+	{
+		return "trans_dimension";
+	}
+
+	@Override
+	public JsonObject getRecordData()
+	{
+		JsonObject data = new JsonObject();
+		data.addProperty("toDimension", this.newDimension.getIdentifierString());
+		return data;
 	}
 }

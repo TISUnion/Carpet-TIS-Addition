@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,37 +18,35 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.commands.lifetime.removal;
+package carpettisaddition.utils.gson;
 
-import carpettisaddition.utils.Messenger;
-import com.google.gson.JsonObject;
-import net.minecraft.entity.EntityType;
-import net.minecraft.text.BaseText;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import net.minecraft.util.math.Vec3d;
 
-public class MobConversionRemovalReason extends MobRelatedRemovalReason
+import java.io.IOException;
+
+public class Vec3dAdaptor extends TypeAdapter<Vec3d>
 {
-	public MobConversionRemovalReason(EntityType<?> targetEntityType)
+	@Override
+	public void write(JsonWriter writer, Vec3d value) throws IOException
 	{
-		super(targetEntityType);
+		if (value == null)
+		{
+			writer.nullValue();
+			return;
+		}
+		writer.beginArray();
+		writer.value(value.x);
+		writer.value(value.y);
+		writer.value(value.z);
+		writer.endArray();
 	}
 
 	@Override
-	public BaseText toText()
+	public Vec3d read(JsonReader reader) throws IOException
 	{
-		return tr("mob_conversion", Messenger.entityType(this.entityType));
-	}
-
-	@Override
-	public String getRecordId()
-	{
-		return "mob_conversion";
-	}
-
-	@Override
-	public JsonObject getRecordData()
-	{
-		JsonObject data = new JsonObject();
-		data.addProperty("toType", EntityType.getId(this.entityType).toString());
-		return data;
+		throw new UnsupportedOperationException("Not supported yet");
 	}
 }

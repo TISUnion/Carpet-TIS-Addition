@@ -20,10 +20,14 @@
 
 package carpettisaddition.commands.lifetime.spawning;
 
+import com.google.gson.JsonObject;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.text.BaseText;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class StatusEffectSpawningReason extends SpawningReason
 {
@@ -60,5 +64,20 @@ public class StatusEffectSpawningReason extends SpawningReason
 				//$$ this.effect.method_5560()
 				//#endif
 		);
+	}
+
+	@Override
+	public String getRecordId()
+	{
+		return "status_effect";
+	}
+
+	@Override
+	public JsonObject getRecordData()
+	{
+		JsonObject data = new JsonObject();
+		String s = Optional.ofNullable(Registry.STATUS_EFFECT.getId(this.effect)).map(Identifier::toString).orElse(null);
+		data.addProperty("effect", s);
+		return data;
 	}
 }

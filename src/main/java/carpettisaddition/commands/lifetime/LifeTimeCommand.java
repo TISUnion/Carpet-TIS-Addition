@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.lifetime.filter.EntityFilterManager;
+import carpettisaddition.commands.lifetime.recorder.LifetimeRecorder;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.CarpetModUtil;
@@ -49,7 +50,7 @@ import static net.minecraft.server.command.CommandSource.suggestMatching;
 
 public class LifeTimeCommand extends AbstractCommand
 {
-	private static final String NAME = "lifetime";
+	public static final String NAME = "lifetime";
 	private static final LifeTimeCommand INSTANCE = new LifeTimeCommand();
 
 	private LifeTimeCommand()
@@ -172,6 +173,25 @@ public class LifeTimeCommand extends AbstractCommand
 								c.getSource(), getString(c, entityTypeArg), null, realtime
 						)
 				)).
+				// lifetime record
+				then(literal("recorder").
+						executes(c -> LifetimeRecorder.getInstance().showStatus(c.getSource())).
+						then(literal("status").
+								executes(c -> LifetimeRecorder.getInstance().showStatus(c.getSource()))
+						).
+						then(literal("reload").
+								requires(LifetimeRecorder.getInstance()::hasPermission).
+								executes(c -> LifetimeRecorder.getInstance().reloadConfig(c.getSource()))
+						).
+						then(literal("enable").
+								requires(LifetimeRecorder.getInstance()::hasPermission).
+								executes(c -> LifetimeRecorder.getInstance().enableRecording(c.getSource()))
+						).
+						then(literal("disable").
+								requires(LifetimeRecorder.getInstance()::hasPermission).
+								executes(c -> LifetimeRecorder.getInstance().disableRecording(c.getSource()))
+						)
+				).
 				then(
 						literal("help").
 								executes(c -> LifeTimeTracker.getInstance().showHelp(c.getSource()))

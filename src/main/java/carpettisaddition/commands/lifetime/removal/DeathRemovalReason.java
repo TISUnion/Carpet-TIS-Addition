@@ -21,6 +21,7 @@
 package carpettisaddition.commands.lifetime.removal;
 
 import carpettisaddition.utils.Messenger;
+import com.google.gson.JsonObject;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.BaseText;
 
@@ -64,5 +65,19 @@ public class DeathRemovalReason extends RemovalReason
 				),
 				"g )"
 		);
+	}
+
+	@Override
+	public String getRecordId()
+	{
+		return "death";
+	}
+
+	@Override
+	public JsonObject getRecordData()
+	{
+		JsonObject data = new JsonObject();
+		data.addProperty("damageSource", this.damageSourceName);
+		return data;
 	}
 }

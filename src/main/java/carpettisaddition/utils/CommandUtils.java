@@ -84,6 +84,24 @@ public class CommandUtils
 				orElse(false);
 	}
 
+	public static boolean isSinglePlayerOwner(ServerCommandSource source)
+	{
+		MinecraftServer server = source.getMinecraftServer();
+		//#if MC >= 1.16.0
+		//$$ return getPlayer(source).
+		//$$ 		//#if MC >= 1.21.9
+		//$$ 		//$$ map(player -> server.isHost(player.getPlayerConfigEntry())).
+		//$$ 		//#else
+		//$$ 		map(player -> server.isHost(player.getGameProfile())).
+		//$$ 		//#endif
+		//$$ 		orElse(false);
+		//#else
+		return server.isSinglePlayer() && getPlayer(source).
+				map(player -> player.getName().getString().equals(server.getUserName())).
+				orElse(false);
+		//#endif
+	}
+
 	public static boolean canCheat(ServerCommandSource source)
 	{
 		return source.hasPermissionLevel(2);  // commonly used in cheaty commands
