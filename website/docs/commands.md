@@ -119,13 +119,13 @@ Use `/lifetime filter` to display current activated filters
 
 Lifetime Data Recorder: writes spawn/removal events of every entity into files for later statistical analysis
 
-| Command                        | Effect                                          |
-|--------------------------------|-------------------------------------------------|
-| `/lifetime recorder`           | Shows the status of the data recorder           |
-| `/lifetime recorder status`    | Same as above                                   |
-| `/lifetime recorder reload`    | Reload the recorder configuration file          |
-| `/lifetime recorder enable`    | Enable the data recorder and update the config  |
-| `/lifetime recorder disable`   | Disable the data recorder and update the config |
+| Command                      | Effect                                          |
+|------------------------------|-------------------------------------------------|
+| `/lifetime recorder`         | Shows the status of the data recorder           |
+| `/lifetime recorder status`  | Same as above                                   |
+| `/lifetime recorder reload`  | Reload the recorder configuration file          |
+| `/lifetime recorder enable`  | Enable the data recorder and update the config  |
+| `/lifetime recorder disable` | Disable the data recorder and update the config |
 
 If the data recorder is enabled, recording will start the next time lifetime tracking (`/lifetime tracking`) begins
 
@@ -145,7 +145,7 @@ Default config with explanations:
 ```json
 {
   // Whether the lifetime data recorder is enabled
-  // Can be toggled via `/lifetime recorder enable|disable`
+  // Can be toggled via `/lifetime recorder [enable|disable]`
   "enabled": false,  
   
   // Extra permission level required to use `/lifetime recorder` commands

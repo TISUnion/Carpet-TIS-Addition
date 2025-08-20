@@ -145,7 +145,7 @@ sidebar_position: 3
 ```json
 {
   // 存活时间数据记录器启用状态
-  // 可通过 `/lifetime recorder enable|disable` 来调整
+  // 可通过 `/lifetime recorder [enable|disable]` 来调整
   "enabled": false,  
   
   // 使用 `/lifetime recorder` 的控制命令所需的额外权限等级
@@ -160,7 +160,7 @@ sidebar_position: 3
   "maxTotalOutputFileBytes": 1073741824,  // 输出文件夹里记录文件的总大小限制。超出后将不再触发新的记录
   
   // 数据记录相关
-  "sampleRate": 1.0  // 采样率，一个0~1 的实数
+  "sampleRate": 1.0  // 采样率，一个 0~1 的实数
 }
 ```
 
