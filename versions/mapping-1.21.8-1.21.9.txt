@@ -1,0 +1,2 @@
+com.mojang.authlib.GameProfile getId() id()
+com.mojang.authlib.GameProfile getName() name()
