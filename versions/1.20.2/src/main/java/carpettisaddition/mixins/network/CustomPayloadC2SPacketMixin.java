@@ -37,8 +37,11 @@ public abstract class CustomPayloadC2SPacketMixin
 			method = "<clinit>",
 			at = @At(
 					value = "INVOKE",
-					target = "Lcom/google/common/collect/ImmutableMap;builder()Lcom/google/common/collect/ImmutableMap$Builder;"
-			)
+					target = "Lcom/google/common/collect/ImmutableMap;builder()Lcom/google/common/collect/ImmutableMap$Builder;",
+					ordinal = 0,
+					remap = false
+			),
+			remap = true
 	)
 	private static ImmutableMap.Builder<Identifier, PacketByteBuf.PacketReader<? extends CustomPayload>> registerTISCMC2SPackets(ImmutableMap.Builder<Identifier, PacketByteBuf.PacketReader<? extends CustomPayload>> builder)
 	{
