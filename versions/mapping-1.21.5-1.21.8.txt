@@ -1,1 +1,1 @@
-net.minecraft.GameVersion getName() name()
+net.minecraft.GameVersion getId() id()

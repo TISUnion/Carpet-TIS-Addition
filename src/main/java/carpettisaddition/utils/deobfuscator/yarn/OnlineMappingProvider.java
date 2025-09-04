@@ -29,15 +29,16 @@ import com.google.common.collect.Lists;
 import com.google.common.net.UrlEscapers;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.MinecraftVersion;
+import net.minecraft.SharedConstants;
+import net.minecraft.util.Util;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.FileSystem;
 import java.nio.file.*;
+import java.nio.file.FileSystem;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -47,15 +48,12 @@ import java.util.stream.Stream;
 public class OnlineMappingProvider
 {
 	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
-	public static final String MINECRAFT_VERSION =
-			//#if MC >= 11700
-			//$$ // Minecraft's version "1.18-experimental-4" is not the same as yarn format, so the version is handled trickily
-			//$$ MinecraftVersion.GAME_VERSION.getName().replace("-experimental-", "_experimental-snapshot-");
-			//#elseif MC >= 11600
-			//$$ MinecraftVersion.field_25319.getName();
-			//#else
-			new MinecraftVersion().getName();
-			//#endif
+	public static final String MINECRAFT_VERSION = Util.make(() -> {
+		//#if MC >= 1.17.1
+		//$$ SharedConstants.createGameVersion();
+		//#endif
+		return SharedConstants.getGameVersion().getId();
+	});
 	public static final String YARN_META_URL = "https://meta.fabricmc.net/v2/versions/yarn/" + MINECRAFT_VERSION;
 	public static final String YARN_MAPPING_URL_BASE = "https://maven.fabricmc.net/net/fabricmc/yarn/";
 	public static final String MAPPINGS_JAR_LOCATION = "mappings/mappings.tiny";
