@@ -28,11 +28,16 @@ import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.PacketListener;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.util.thread.ThreadExecutor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+//#if MC >= 1.21.9
+//$$ import net.minecraft.network.PacketApplyBatcher;
+//#else
+import net.minecraft.util.thread.ThreadExecutor;
+//#endif
 
 @Mixin(NetworkThreadUtils.class)
 public abstract class NetworkThreadUtilsMixin<T>
@@ -41,10 +46,22 @@ public abstract class NetworkThreadUtilsMixin<T>
 	 * Stage reset happens in {@link MinecraftServerMixin}
 	 */
 	@Inject(
+			//#if MC >= 1.21.9
+			//$$ method = "forceMainThread(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;Lnet/minecraft/network/PacketApplyBatcher;)V",
+			//#else
 			method = "forceMainThread(Lnet/minecraft/network/Packet;Lnet/minecraft/network/listener/PacketListener;Lnet/minecraft/util/thread/ThreadExecutor;)V",
+			//#endif
 			at = @At("HEAD")
 	)
-	private static <T extends PacketListener> void startProcessPacket(Packet<T> packet, T listener, ThreadExecutor<?> engine, CallbackInfo ci)
+	private static <T extends PacketListener> void startProcessPacket(
+			Packet<T> packet, T listener,
+			//#if MC >= 1.21.9
+			//$$ PacketApplyBatcher engine,
+			//#else
+			ThreadExecutor<?> engine,
+			//#endif
+			CallbackInfo ci
+	)
 	{
 		if (engine.isOnThread())
 		{

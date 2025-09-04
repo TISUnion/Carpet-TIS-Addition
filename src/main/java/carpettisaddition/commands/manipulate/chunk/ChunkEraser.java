@@ -300,7 +300,12 @@ public class ChunkEraser extends TranslationContext
 		container.lock();
 		//#if MC >= 11800
 		//$$ PalettedContainer.Data<BlockState> data = accessor.invokeGetCompatibleData(null, 0);
-		//$$ data.palette().index(Blocks.AIR.getDefaultState());
+		//$$ data.palette().index(
+		//$$ 		Blocks.AIR.getDefaultState()
+		//$$ 		//#if MC >= 1.21.9
+		//$$ 		//$$ , container
+		//$$ 		//#endif
+		//$$ );
 		//$$ accessor.setData(data);
 		//#else
 		accessor.invokeSetPaletteSize(0);

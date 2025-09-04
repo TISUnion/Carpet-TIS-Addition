@@ -22,6 +22,7 @@ package carpettisaddition.helpers.rule.fakePlayerTicksLikeRealPlayer;
 
 import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.CarpetTISAdditionMod;
+import carpettisaddition.utils.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import net.minecraft.server.MinecraftServer;
@@ -56,7 +57,7 @@ public class FakePlayerTicker
 	 */
 	public void addActionPackTick(ServerPlayerEntity player, EntityPlayerActionPack actionPack)
 	{
-		MinecraftServer server = player.getServer();
+		MinecraftServer server = PlayerUtils.getServerFromPlayer(player);
 		if (server != null)
 		{
 			Runnable runnable = transformActionPackTickTask(actionPack::onUpdate);

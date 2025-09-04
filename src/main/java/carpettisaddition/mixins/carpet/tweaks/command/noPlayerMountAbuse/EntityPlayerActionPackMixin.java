@@ -54,7 +54,7 @@ public abstract class EntityPlayerActionPackMixin
 	{
 		if (!onlyRideables)  // mount anything
 		{
-			MinecraftServer minecraftServer = this.player.getServer();
+			MinecraftServer minecraftServer = PlayerUtils.getServerFromPlayer(this.player);
 			if (minecraftServer != null)
 			{
 				if (!PlayerUtils.isOperator(minecraftServer, this.player))  // not op

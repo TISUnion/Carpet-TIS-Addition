@@ -32,6 +32,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
+//#if MC >= 12109
+//$$ import net.minecraft.class_11978;
+//#endif
+
 //#if MC >= 12104
 //$$ import java.util.Collections;
 //#endif
@@ -55,7 +59,13 @@ public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
 		// Vanilla copy of DragonFireballEntity#onCollision
 		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(world, blockpos.getX() + 0.5, blockpos.getY() + 0.5, blockpos.getZ() + 0.5);
 		areaEffectCloudEntity.setOwner(null);  // it doesn't have an entity owner
-		areaEffectCloudEntity.setParticleType(ParticleTypes.DRAGON_BREATH);
+		areaEffectCloudEntity.setParticleType(
+				//#if MC >= 1.21.9
+				//$$ class_11978.method_74410(ParticleTypes.DRAGON_BREATH, 1.0F)
+				//#else
+				ParticleTypes.DRAGON_BREATH
+				//#endif
+		);
 		areaEffectCloudEntity.setRadius(3.0F);
 		areaEffectCloudEntity.setDuration(600);
 		areaEffectCloudEntity.setRadiusGrowth((7.0F - areaEffectCloudEntity.getRadius()) / (float)areaEffectCloudEntity.getDuration());

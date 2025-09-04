@@ -22,6 +22,8 @@ package carpettisaddition.utils;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class PlayerUtils
 {
@@ -34,5 +36,15 @@ public class PlayerUtils
 				player.getGameProfile()
 				//#endif
 		);
+	}
+
+	@NotNull
+	public static MinecraftServer getServerFromPlayer(ServerPlayerEntity player)
+	{
+		//#if MC >= 1.21.9
+		//$$ return player.getEntityWorld().getServer();
+		//#else
+		return player.getServerWorld().getServer();
+		//#endif
 	}
 }
