@@ -52,7 +52,6 @@ import java.util.stream.Collectors;
 
 //#if MC >= 11900
 //$$ import carpettisaddition.mixins.logger.microtiming.utils.WorldAccessor;
-//$$ import net.minecraft.world.block.SimpleNeighborUpdater;
 //#endif
 
 //#if MC >= 11800
@@ -156,7 +155,7 @@ public class MicroTimingUtil
 	public static boolean isBlockUpdateInstant(World world)
 	{
 		//#if MC >= 11900
-		//$$ return ((WorldAccessor)world).getNeighborUpdater$TISCM() instanceof SimpleNeighborUpdater;
+		//$$ return ((WorldAccessor)world).getNeighborUpdater$TISCM() instanceof InstantNeighborUpdater;
 		//#else
 		return true;
 		//#endif

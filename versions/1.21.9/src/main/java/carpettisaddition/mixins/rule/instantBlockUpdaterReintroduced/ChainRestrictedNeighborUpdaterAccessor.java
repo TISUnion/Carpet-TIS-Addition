@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,29 +18,21 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.logger.microtiming.utils;
+package carpettisaddition.mixins.rule.instantBlockUpdaterReintroduced;
 
-import carpettisaddition.utils.ModIds;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.block.ChainRestrictedNeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-//#if MC >= 1.21.9
-//$$ import net.minecraft.world.block.ChainRestrictedNeighborUpdater;
-//#else
-import net.minecraft.world.block.NeighborUpdater;
-//#endif
+import java.util.function.Consumer;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-@Mixin(World.class)
-public interface WorldAccessor
+@Mixin(ChainRestrictedNeighborUpdater.class)
+public interface ChainRestrictedNeighborUpdaterAccessor
 {
-	@Accessor("neighborUpdater")
-	//#if MC >= 1.21.9
-	//$$ ChainRestrictedNeighborUpdater getNeighborUpdater$TISCM();
-	//#else
-	NeighborUpdater getNeighborUpdater$TISCM();
-	//#endif
+	@Accessor("maxChainDepth")
+	int getMaxChainDepth$TISCM();
+
+	@Accessor("field_62924")
+	Consumer<BlockPos> getBlockUpdateListener$TISCM();
 }

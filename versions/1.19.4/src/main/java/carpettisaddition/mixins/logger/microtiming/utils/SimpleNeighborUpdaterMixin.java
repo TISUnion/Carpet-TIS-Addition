@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -20,27 +20,11 @@
 
 package carpettisaddition.mixins.logger.microtiming.utils;
 
-import carpettisaddition.utils.ModIds;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.World;
+import carpettisaddition.logging.loggers.microtiming.utils.InstantNeighborUpdater;
+import net.minecraft.world.block.SimpleNeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
-//#if MC >= 1.21.9
-//$$ import net.minecraft.world.block.ChainRestrictedNeighborUpdater;
-//#else
-import net.minecraft.world.block.NeighborUpdater;
-//#endif
-
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-@Mixin(World.class)
-public interface WorldAccessor
+@Mixin(SimpleNeighborUpdater.class)
+public abstract class SimpleNeighborUpdaterMixin implements InstantNeighborUpdater
 {
-	@Accessor("neighborUpdater")
-	//#if MC >= 1.21.9
-	//$$ ChainRestrictedNeighborUpdater getNeighborUpdater$TISCM();
-	//#else
-	NeighborUpdater getNeighborUpdater$TISCM();
-	//#endif
 }

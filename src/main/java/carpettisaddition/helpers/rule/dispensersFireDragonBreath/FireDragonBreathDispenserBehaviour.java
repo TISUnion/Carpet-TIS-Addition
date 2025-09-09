@@ -33,7 +33,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 //#if MC >= 12109
-//$$ import net.minecraft.class_11978;
+//$$ import net.minecraft.particle.DragonBreathParticleEffect;
 //#endif
 
 //#if MC >= 12104
@@ -61,7 +61,7 @@ public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
 		areaEffectCloudEntity.setOwner(null);  // it doesn't have an entity owner
 		areaEffectCloudEntity.setParticleType(
 				//#if MC >= 1.21.9
-				//$$ class_11978.method_74410(ParticleTypes.DRAGON_BREATH, 1.0F)
+				//$$ DragonBreathParticleEffect.of(ParticleTypes.DRAGON_BREATH, 1.0F)
 				//#else
 				ParticleTypes.DRAGON_BREATH
 				//#endif
