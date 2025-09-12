@@ -376,6 +376,20 @@ sidebar_position: 1
 - 分类: `TIS`, `BUGFIX`
 
 
+## 实体范围查询区段索引X上溢修复 (entityChunkSectionIndexXOverflowFix)
+
+**本规则仅在 Minecraft >= 1.17 中存在**
+
+修复在尝试调用 `getEntities` 时，若查询范围与满足 `(chunkX + 1) % (2 ^ 22) == 2 ^ 21` 的任意区块相交，则会抛出IllegalArgumentException的bug
+
+本规则仅在 Minecraft >= 1.17 中有效，因为此 bug 是在 1.17 中引入的
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `BUGFIX`
+
+
 ## 生物死亡立即移除 (entityInstantDeathRemoval)
 
 移除生物实体死亡前的 20gt 等待时间

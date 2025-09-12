@@ -350,6 +350,7 @@
     "rule.endPortalOpenedSoundDisabled.witherSpawnedSoundDisabled.EnderEyeItemMixin",
     "rule.entityBrainMemoryUnfreedFix.BrainAccessor",
     "rule.entityBrainMemoryUnfreedFix.EntityMixin",
+    "rule.entityChunkSectionIndexXOverflowFix.SectionedEntityCacheMixin",
     "rule.entityInstantDeathRemoval.LivingEntityMixin",
     "rule.entityMomentumLoss.EntityMixin",
     "rule.entityPlacementIgnoreCollision.ArmorStandItemItemMixin",

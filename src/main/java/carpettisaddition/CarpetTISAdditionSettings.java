@@ -192,6 +192,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean entityBrainMemoryUnfreedFix = false;
 
+	//#if MC >= 1.17.0
+	//$$ @Rule(categories = {TIS, BUGFIX})
+	//$$ public static boolean entityChunkSectionIndexXOverflowFix = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean entityInstantDeathRemoval = false;
 

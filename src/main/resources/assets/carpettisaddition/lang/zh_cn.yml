@@ -861,6 +861,11 @@ carpettisaddition:
         extra:
           '0': 如果有一个接连不断生物流，其中的生物在被移除前记住其他先被移除的生物，那么就有可能创建出无限长的大脑记忆链，并导致游戏出现内存泄漏
           '1': 修复了MC-260605。本规则使用了Mojang在1.19.4-pre3中采取的同款修复方式
+      entityChunkSectionIndexXOverflowFix:
+        name: 实体范围查询区段索引X上溢修复
+        desc: 修复在范围查询实体时，若查询范围与满足 `(chunkX + 1) % (2 ^ 22) == 2 ^ 21` 的任意区块相交，则会抛出IllegalArgumentException的bug
+        extra:
+          '0': 本规则仅在 Minecraft >= 1.17 中有效，因为此 bug 是在 1.17 中引入的
       entityInstantDeathRemoval:
         name: 生物死亡立即移除
         desc: 移除生物实体死亡前的20gt等待时间

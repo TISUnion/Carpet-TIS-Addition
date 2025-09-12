@@ -376,6 +376,18 @@ Fixed [MC-260605](https://bugs.mojang.com/browse/MC-260605), using the same fix 
 - Categories: `TIS`, `BUGFIX`
 
 
+## entityChunkSectionIndexXOverflowFix
+
+Fix a bug where IllegalArgumentException will be thrown during entity range queries if the query range intersects any chunk satisfying `(chunkX + 1) % (2 ^ 22) == 2 ^ 21`
+
+Only works in Minecraft >= 1.17, since the bug was introduced in 1.17
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `BUGFIX`
+
+
 ## entityInstantDeathRemoval
 
 Remove the 20gt delay before living entity removal after death
