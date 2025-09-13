@@ -20,7 +20,6 @@
 
 package carpettisaddition.commands.info.world;
 
-import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.info.InfoSubcommand;
 import carpettisaddition.utils.Messenger;
@@ -67,7 +66,7 @@ public class InfoWorldCommand extends InfoSubcommand
 
 	private int showWorldTickOrder(ServerCommandSource source)
 	{
-		List<World> worlds = Lists.newArrayList(CarpetTISAdditionServer.minecraft_server.getWorlds());
+		List<World> worlds = Lists.newArrayList(source.getMinecraftServer().getWorlds());
 		Messenger.tell(source, tr("ticking_order", worlds.size()));
 		int order = 0;
 		for (World world : worlds)
