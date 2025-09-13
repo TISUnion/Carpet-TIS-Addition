@@ -22,23 +22,37 @@ package carpettisaddition.mixins.rule.minecartTakePassengerMinVelocity;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(AbstractMinecartEntity.class)
+//#if MC >= 1.21.2
+//$$ import net.minecraft.entity.vehicle.DefaultMinecartController;
+//#else
+import net.minecraft.entity.vehicle.AbstractMinecartEntity;
+//#endif
+
+@Mixin(
+		//#if MC >= 1.21.2
+		//$$ DefaultMinecartController.class
+		//#else
+		AbstractMinecartEntity.class
+		//#endif
+)
 public abstract class AbstractMinecartEntityMixin
 {
 	@ModifyExpressionValue(
+			//#if MC >= 1.21.2
+			//$$ method = "handleCollision",
+			//#else
 			method = "tick",
+			//#endif
 			// cannot use our 0.1D constant value here, since 0.1D * 0.1D != 0.01D
 			at = @At(
 					value = "CONSTANT",
 					args = "doubleValue=0.01"
-			),
-			require = 0
+			)
 	)
-	private double minecartTakePassengerMinVelocity(double squaredThreshold)
+	private double minecartTakePassengerMinVelocity_impl(double squaredThreshold)
 	{
 		if (CarpetTISAdditionSettings.minecartTakePassengerMinVelocity != CarpetTISAdditionSettings.VANILLA_MINECART_TAKE_PASSENGER_MIN_VELOCITY)
 		{
