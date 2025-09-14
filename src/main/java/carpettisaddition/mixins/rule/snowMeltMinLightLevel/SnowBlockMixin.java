@@ -40,8 +40,7 @@ public abstract class SnowBlockMixin
 			at = @At(
 					value = "CONSTANT",
 					args = "intValue=" + (CarpetTISAdditionSettings.VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL - 1)
-			),
-			require = 0
+			)
 	)
 	private int snowMeltMinLightLevel(int lightLevel)
 	{

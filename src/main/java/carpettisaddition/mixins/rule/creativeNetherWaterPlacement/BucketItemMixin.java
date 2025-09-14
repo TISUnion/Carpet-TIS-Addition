@@ -45,8 +45,7 @@ public abstract class BucketItemMixin
 					//#else
 					target = "Lnet/minecraft/world/dimension/Dimension;doesWaterVaporize()Z"
 					//#endif
-			),
-			require = 0
+			)
 	)
 	private boolean creativeNetherWaterPlacement(
 			boolean doesWaterVaporize,

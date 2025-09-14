@@ -45,8 +45,7 @@ public abstract class PlayerEntityMixin
 					value = "FIELD",
 					target = "Lnet/minecraft/entity/Entity;velocityModified:Z",
 					ordinal = 0
-			),
-			require = 0  // in case it's fixed in fabric carpet using the same redirect
+			)
 	)
 	private boolean velocityModifiedAndNotCarpetFakePlayer(boolean velocityModified, @Local(argsOnly = true) Entity target)
 	{

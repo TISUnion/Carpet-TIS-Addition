@@ -44,8 +44,7 @@ public abstract class EnderChestBlockMixin
 					//#else
 					target = "Lnet/minecraft/block/BlockState;isSimpleFullBlock(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z"
 					//#endif
-			),
-			require = 0
+			)
 	)
 	private boolean isSimpleFullBlockAndNotCreative(boolean isFullBlock, @Local(argsOnly = true) PlayerEntity player)
 	{

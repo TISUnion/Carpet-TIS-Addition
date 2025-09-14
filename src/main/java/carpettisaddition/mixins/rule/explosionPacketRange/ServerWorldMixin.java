@@ -36,8 +36,7 @@ public abstract class ServerWorldMixin
 			at = @At(
 					value = "CONSTANT",
 					args = "doubleValue=4096.0" // VANILLA_EXPLOSION_PACKET_RANGE * VANILLA_EXPLOSION_PACKET_RANGE
-			),
-			require = 0
+			)
 	)
 	private double modifyExplosionPacketRange(double value)
 	{

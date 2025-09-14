@@ -63,8 +63,7 @@ public abstract class BoatItemMixin
 					//#else
 					target = "Lnet/minecraft/world/World;doesNotCollide(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Z"
 					//#endif
-			),
-			require = 0
+			)
 	)
 	private boolean entityPlacementIgnoreCollision_skipCollisionCheck(boolean notCollided)
 	{
