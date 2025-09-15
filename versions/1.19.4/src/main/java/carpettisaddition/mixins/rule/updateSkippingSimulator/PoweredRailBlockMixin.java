@@ -21,37 +21,42 @@
 package carpettisaddition.mixins.rule.updateSkippingSimulator;
 
 import carpettisaddition.helpers.rule.updateSkippingSimulator.UpdateSkippingSimulator;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PoweredRailBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PoweredRailBlock.class)
 public abstract class PoweredRailBlockMixin
 {
-	@ModifyVariable(
+	@Inject(
 			method = "updateBlockState",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
 					ordinal = 0
 			),
-			ordinal = 1
+			cancellable = true
 	)
-	private boolean updateSkippingSimulatorImpl(boolean newPoweredState, BlockState state, World world, BlockPos pos, Block neighbor)
+	private void updateSkippingSimulatorImpl(
+			CallbackInfo ci,
+			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true) BlockPos pos,
+			@Local(ordinal = 1) boolean newPoweredState
+	)
 	{
 		if (UpdateSkippingSimulator.isActivated())
 		{
 			if (!newPoweredState && world.getBlockState(pos.down()).getBlock() == Blocks.DEEPSLATE_LAPIS_ORE)
 			{
 				UpdateSkippingSimulator.kaboom(world, pos);
+				ci.cancel();
 			}
 		}
-		return newPoweredState;
 	}
 }

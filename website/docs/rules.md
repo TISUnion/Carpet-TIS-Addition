@@ -1617,7 +1617,8 @@ Their helmets will still get damaged in sunlight though
 
 Activator / Powered rail on a deepslate lapis ore simulates an update skipper
 
-Right before a powered activator / powered rail on a deepslate lapis ore sets its powered state to false, set the updator counter to max value to trigger update skipping
+Right before a powered activator / powered rail on a deepslate lapis ore sets its powered state to false,
+set the updater counter to its maximum value to trigger update skipping and cancel the current change of the powered state
 
 - Type: `boolean`
 - Default value: `false`

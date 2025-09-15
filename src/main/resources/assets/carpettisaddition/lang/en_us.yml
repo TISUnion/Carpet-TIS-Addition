@@ -1383,7 +1383,7 @@ carpettisaddition:
         name: updateSkippingSimulator
         desc: Activator / Powered rail on a deepslate lapis ore simulates an update skipper
         extra:
-          '0': Right before a powered activator / powered rail on a deepslate lapis ore sets its powered state to false, set the updator counter to max value to trigger update skipping
+          '0': Right before a powered activator / powered rail on a deepslate lapis ore sets its powered state to false, set the updater counter to its maximum value to trigger update skipping and cancel the current change of the powered state
       updateSuppressionSimulator:
         name: updateSuppressionSimulator
         desc: Activator / Powered rail on a lapis ore simulates an update suppressor
