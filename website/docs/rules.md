@@ -378,6 +378,8 @@ Fixed [MC-260605](https://bugs.mojang.com/browse/MC-260605), using the same fix 
 
 ## entityChunkSectionIndexXOverflowFix
 
+**Minecraft >= 1.17 only**
+
 Fix a bug where IllegalArgumentException will be thrown during entity range queries if the query range intersects any chunk satisfying `(chunkX + 1) % (2 ^ 22) == 2 ^ 21`
 
 Only works in Minecraft >= 1.17, since the bug was introduced in 1.17
