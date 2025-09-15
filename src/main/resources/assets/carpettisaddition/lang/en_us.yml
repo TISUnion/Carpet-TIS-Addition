@@ -1379,11 +1379,16 @@ carpettisaddition:
         desc: Prevent undead creatures burning in sunlight
         extra:
           '0': Their helmets will still get damaged in sunlight though
+      updateSkippingSimulator:
+        name: updateSkippingSimulator
+        desc: Activator / Powered rail on a deepslate lapis ore simulates an update skipper
+        extra:
+          '0': Right before a powered activator / powered rail on a deepslate lapis ore sets its powered state to false, set the updator counter to max value to trigger update skipping
       updateSuppressionSimulator:
         name: updateSuppressionSimulator
         desc: Activator / Powered rail on a lapis ore simulates an update suppressor
         extra:
-          '0': Right before a powered activator / powered rail on a lapis ore setting its powered state to false, throw the given JVM throwable
+          '0': Right before a powered activator / powered rail on a lapis ore sets its powered state to false, throw the given JVM throwable
           '1': 'false: rule disabled; true: rule enable and use StackOverflowError; others: feature enable and use given throwable'
       vaultBlacklistDisabled:
         name: vaultBlacklistDisabled

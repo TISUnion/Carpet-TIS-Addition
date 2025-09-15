@@ -1379,6 +1379,11 @@ carpettisaddition:
         desc: 阻止亡灵生物在阳光下着火
         extra:
           '0': 不过他们的头盔依然会在阳光下损失耐久
+      updateSkippingSimulator:
+        name: 更新跳略模拟器
+        desc: 深层青金石矿石上方的激活/充能铁轨可模拟跳略模拟器
+        extra:
+          '0': 在深层青金石矿石上已亮起的激活/充能铁轨将要熄灭时，将当前更新链的更新计数器设置为单次更新链的最大值，触发更新跳略
       updateSuppressionSimulator:
         name: 更新抑制模拟器
         desc: 青金石矿石上方的激活/充能铁轨可模拟更新抑制器

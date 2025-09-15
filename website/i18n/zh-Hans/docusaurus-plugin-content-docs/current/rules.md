@@ -1611,6 +1611,20 @@ TISCM网络协议的开关
 - 分类: `TIS`, `CREATIVE`
 
 
+## 更新跳略模拟器 (updateSkippingSimulator)
+
+**本规则仅在 Minecraft >= 1.19 中存在**
+
+深层青金石矿石上方的激活 / 充能铁轨可模拟跳略模拟器
+
+在深层青金石矿石上已亮起的激活/充能铁轨将要熄灭时，将当前更新链的更新计数器设置为单次更新链的最大值，触发更新跳略
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 更新抑制模拟器 (updateSuppressionSimulator)
 
 青金石矿石上方的激活 / 充能铁轨可模拟更新抑制器

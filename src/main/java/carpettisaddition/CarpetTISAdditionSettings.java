@@ -786,6 +786,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean undeadDontBurnInSunlight = false;
 
+	//#if MC >= 1.19.0
+	//$$ @Rule(categories = {TIS, CREATIVE})
+	//$$ public static boolean updateSkippingSimulator = false;
+	//#endif
+
 	@Rule(
             categories = {TIS, CREATIVE},
 			validators = UpdateSuppressionSimulatorValidator.class,
