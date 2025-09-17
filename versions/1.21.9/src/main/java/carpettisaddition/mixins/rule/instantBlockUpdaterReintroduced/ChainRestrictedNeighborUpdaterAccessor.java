@@ -33,6 +33,6 @@ public interface ChainRestrictedNeighborUpdaterAccessor
 	@Accessor("maxChainDepth")
 	int getMaxChainDepth$TISCM();
 
-	@Accessor("field_62924")
-	Consumer<BlockPos> getBlockUpdateListener$TISCM();
+	@Accessor("neighborUpdateCallback")
+	Consumer<BlockPos> getNeighborUpdateCallback$TISCM();
 }

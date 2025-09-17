@@ -49,10 +49,10 @@ public class InstantChainRestrictedNeighborUpdater extends ChainRestrictedNeighb
 
 	private void onBlockUpdate(BlockPos blockPos)
 	{
-		var listener = ((ChainRestrictedNeighborUpdaterAccessor)this).getBlockUpdateListener$TISCM();
-		if (listener != null)
+		var callback = ((ChainRestrictedNeighborUpdaterAccessor)this).getNeighborUpdateCallback$TISCM();
+		if (callback != null)
 		{
-			listener.accept(blockPos);
+			callback.accept(blockPos);
 		}
 	}
 
