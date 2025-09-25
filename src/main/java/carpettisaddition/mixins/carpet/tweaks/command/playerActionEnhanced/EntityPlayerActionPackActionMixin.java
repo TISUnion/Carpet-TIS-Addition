@@ -24,10 +24,7 @@ import carpet.helpers.EntityPlayerActionPack;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.IEntityPlayerActionPackAction;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.RandomGen;
 import net.minecraft.server.network.ServerPlayerEntity;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -40,10 +37,11 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 	@Mutable
 	@Shadow(remap = false) @Final public int interval;
 
+	@Unique
 	private RandomGen intervalRandomGen = null;
 
 	@Override
-	public void setIntervalRandomGenerator(RandomGen gen)
+	public void setIntervalRandomGenerator$TISCM(RandomGen gen)
 	{
 		this.intervalRandomGen = gen;
 	}
@@ -69,10 +67,11 @@ public abstract class EntityPlayerActionPackActionMixin implements IEntityPlayer
 
 	///////////////////////////////// perTick /////////////////////////////////
 
+	@Unique
 	private Integer perTick = null;
 
 	@Override
-	public void setPerTickMultiplier(int perTick)
+	public void setPerTickMultiplier$TISCM(int perTick)
 	{
 		this.perTick = perTick;
 	}

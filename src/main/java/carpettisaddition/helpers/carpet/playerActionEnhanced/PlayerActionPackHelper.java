@@ -38,7 +38,7 @@ public class PlayerActionPackHelper
 	public static EntityPlayerActionPack.Action perTick(int perTick)
 	{
 		EntityPlayerActionPack.Action action = EntityPlayerActionPack.Action.interval(1);
-		((IEntityPlayerActionPackAction)action).setPerTickMultiplier(perTick);
+		((IEntityPlayerActionPackAction)action).setPerTickMultiplier$TISCM(perTick);
 		return action;
 	}
 }

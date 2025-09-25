@@ -24,7 +24,7 @@ import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.gen.Random
 
 public interface IEntityPlayerActionPackAction
 {
-	void setIntervalRandomGenerator(RandomGen gen);
+	void setIntervalRandomGenerator$TISCM(RandomGen gen);
 
-	void setPerTickMultiplier(int perTick);
+	void setPerTickMultiplier$TISCM(int perTick);
 }

@@ -34,7 +34,6 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.Formatting;
 
 import java.util.Comparator;
@@ -161,7 +160,7 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 	private EntityPlayerActionPack.Action actionFromRandomGen(RandomGen gen)
 	{
 		EntityPlayerActionPack.Action action = EntityPlayerActionPack.Action.interval(gen.generateRandomInterval());
-		((IEntityPlayerActionPackAction)action).setIntervalRandomGenerator(gen);
+		((IEntityPlayerActionPackAction)action).setIntervalRandomGenerator$TISCM(gen);
 		return action;
 	}
 
