@@ -402,6 +402,8 @@ carpettisaddition:
           set: Set velocity of %1$s to %2$s
     player:
       action:
+        perTick:
+          disabled: The "perTick" action mode is disabled. See rule commandPlayerActionPerTick for more information
         randomly:
           root:
             help: |- 
@@ -776,6 +778,12 @@ carpettisaddition:
       commandManipulate:
         name: commandManipulate
         desc: Enables /manipulate command for world related manipulation command
+      commandPlayerActionPerTick:
+        name: commandPlayerActionPerTick
+        desc: Enables the "perTick" action mode for the /player <name> <action> command
+        extra:
+          '0': 'This rule is disabled by default since the "perTick" action mode exceeds the capabilities of vanilla behavior: vanilla clients can only perform one action input per tick'
+          '1': However, you can still enable the "perTick" action mode or restrict it to operator players only with this rule
       commandRaid:
         name: commandRaid
         desc: Enables /raid command for raid listing and tracking

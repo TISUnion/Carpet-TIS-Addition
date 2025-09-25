@@ -76,7 +76,7 @@ sidebar_position: 4
   - 使用 `/player someone someaction randomly` 来获取更多帮助
 - 为 `/player` 指令添加 `rejoin` 参数。类似 `/player spawn`，但该指令会保留假人之前下线时所在的位置和朝向
 - 为 `/player` 动作包相关指令添加 `after` 参数。如 `/player Steve use after 10` 将使 Steve 在 10gt 的延迟后点击右键
-- 为 `/player` 动作包相关指令添加 `perTick` 参数。如 `/player Steve use perTick 4` 将使 Steve 每游戏刻点击右键 4 次
+- 为 `/player` 动作包相关指令添加 `perTick` 参数。如 `/player Steve use perTick 4` 将使 Steve 每游戏刻点击右键 4 次。另见：规则 [commandPlayerActionPerTick](rules.md#玩家动作包pertick模式开关-commandplayeractionpertick)
 - 为有作弊嫌疑的 `/player <someone> mount anything` 指令添加 OP 权限检查
 - 将假人的名字长度限制调整为 16 以防止真实玩家被踢出，对 v1.4.38 前的 fabric-carpet 有效（fabric-carpet v1.4.38 也实现了相关的约束）
 

@@ -126,6 +126,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, COMMAND, EXPERIMENTAL})
 	public static String commandManipulate = "false";
 
+	@Rule(categories = {TIS, COMMAND, CREATIVE})
+	public static String commandPlayerActionPerTick = "false";
+
 	@Rule(categories = {TIS, COMMAND})
 	public static String commandRaid = "true";
 

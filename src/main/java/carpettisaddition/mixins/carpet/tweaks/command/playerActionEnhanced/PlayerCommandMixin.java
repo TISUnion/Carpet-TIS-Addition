@@ -22,13 +22,18 @@ package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
 import carpet.commands.PlayerCommand;
 import carpet.helpers.EntityPlayerActionPack;
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.PlayerActionPackHelper;
 import carpettisaddition.helpers.carpet.playerActionEnhanced.randomly.RandomizedActionIntervalCommand;
+import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -63,6 +68,7 @@ public abstract class PlayerCommandMixin
 	 * fabric carpet 1.4.104 makes a refactor on PlayerCommand and removes the {@link PlayerCommand#action} method.
 	 * We need to use our own copy, so we don't have to change the usage in the {@link #applyPlayerActionEnhancements} below
 	 */
+	@Unique
 	private static int action$TISCM(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action)
 	{
 		//#if MC >= 12000
@@ -90,10 +96,23 @@ public abstract class PlayerCommandMixin
 				).
 				then(literal("perTick").
 						then(argument(perTick, integer(1, 64)).
+								requires(CarpetModUtil::canUseCarpetCommand).
 								executes(
-										c -> action$TISCM(c, type, PlayerActionPackHelper.perTick(getInteger(c, perTick)))
+										c -> handlePerTick$TISCM(c, type, getInteger(c, perTick))
 								)
 						)
 				);
+	}
+
+	@Unique
+	private static int handlePerTick$TISCM(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, int perTick)
+	{
+		if (!CarpetModUtil.canUseCommand(context.getSource(), CarpetTISAdditionSettings.commandPlayerActionPerTick))
+		{
+			Messenger.tell(context.getSource(), Messenger.formatting(Messenger.tr("carpettisaddition.command.player.action.perTick.disabled"), Formatting.GOLD));
+			return 0;
+		}
+
+		return action$TISCM(context, type, PlayerActionPackHelper.perTick(perTick));
 	}
 }

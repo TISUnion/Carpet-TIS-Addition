@@ -143,6 +143,20 @@ Enables `/manipulate` command for world related manipulation command
 - Categories: `TIS`, `COMMAND`, `EXPERIMENTAL`
 
 
+## commandPlayerActionPerTick
+
+Enables the "perTick" action mode for the `/player <name> <action>` command
+
+This rule is disabled by default since the "perTick" action mode exceeds the capabilities of vanilla behavior: vanilla clients can only perform one action input per tick
+
+However, you can still enable the "perTick" action mode or restrict it to operator players only with this rule
+
+- Type: `String`
+- Default value: `false`
+- Suggested options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
+- Categories: `TIS`, `COMMAND`, `CREATIVE`
+
+
 ## commandRaid
 
 Enables `/raid` command for raid listing and tracking

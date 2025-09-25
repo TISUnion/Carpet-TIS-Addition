@@ -143,6 +143,20 @@ sidebar_position: 1
 - 分类: `TIS`, `COMMAND`, `EXPERIMENTAL`
 
 
+## 玩家动作包perTick模式开关 (commandPlayerActionPerTick)
+
+启用 `/player <name> <action>` 命令的“perTick”动作模式
+
+该规则默认关闭，因为“perTick”的表现已经超出了原版可能的范畴：原版客户端无法在单游戏刻内执行多个动作输入
+
+不过你扔可以通过该选项启用“perTick”动作模式，或限制其仅允许管理员玩家使用
+
+- 类型: `String`
+- 默认值: `false`
+- 参考选项: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`
+- 分类: `TIS`, `COMMAND`, `CREATIVE`
+
+
 ## 袭击追踪器 (commandRaid)
 
 启用 `/raid` 命令用于列出或追踪袭击信息
