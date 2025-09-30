@@ -47,7 +47,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get github release information
-        if: ${{ github.event_name == 'workflow_dispatch' }}
         uses: cardinalby/git-get-release-action@1.2.5
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -93,7 +92,6 @@ jobs:
           path: build-artifacts
 
       - name: Get github release information
-        if: ${{ github.event_name == 'workflow_dispatch' }}
         id: get_release
         uses: cardinalby/git-get-release-action@1.2.5
         env:
@@ -157,7 +155,7 @@ jobs:
           result-encoding: string
         env:
           CHANGELOG: |-
-            ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}
+            ${{ steps.get_release.outputs.body }}
             
             -------
             
@@ -168,7 +166,7 @@ jobs:
             - Built from: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Publish Minecraft Mods
-        uses: Kir-Antipov/mc-publish@v3.3
+        uses: Kira-NT/mc-publish@v3.3
         with:
           modrinth-id: jE0SjGuf  # https://modrinth.com/mod/carpet-tis-addition
           modrinth-token: ${{ secrets.MODRINTH_API_TOKEN }}
@@ -191,7 +189,7 @@ jobs:
           dependencies: |-  # declare the dependencies explicitly, so mc-publish won't try to load from fabric.mod.json
             carpet(required)
 
-          github-changelog: ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}
+          github-changelog: ${{ steps.get_release.outputs.body }}
           modrinth-changelog: ${{ steps.changelog.outputs.result }}
           curseforge-changelog: ${{ steps.changelog.outputs.result }}
 
