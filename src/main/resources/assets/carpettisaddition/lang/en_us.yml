@@ -1466,3 +1466,8 @@ carpettisaddition:
         desc: Prevent the server from crashing due to StackOverflowError, OutOfMemoryError or ClassCastException
         extra:
           '0': Do the same thing as fabric carpet's updateSuppressionCrashFix rule, but with more information
+      zombifiedPiglinDropLootIfAngryReintroduced:
+        name: zombifiedPiglinDropLootIfAngryReintroduced
+        desc: When enabled, zombified piglins that die within 100 game ticks of becoming angry or targeting a player will drop loot and xp orbs as if killed by a player
+        extra:
+          '0': It reverts the behavior back to mc < 25w02a (1.21.5 snapshot) and unfixes MC-56653

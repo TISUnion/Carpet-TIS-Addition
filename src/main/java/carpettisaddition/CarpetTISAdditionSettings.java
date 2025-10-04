@@ -891,6 +891,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean yeetUpdateSuppressionCrash = false;
 
+	//#if MC >= 1.21.9
+	//$$ @Rule(categories = {TIS, FEATURE, PORTING})
+	//$$ public static boolean zombifiedPiglinDropLootIfAngryReintroduced = false;
+	//#endif
+
 	// ============================== TISCM Rules end ==============================
 
 	/**

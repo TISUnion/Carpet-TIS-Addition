@@ -528,6 +528,7 @@
     "rule.yeetUpdateSuppressionCrash.yeet.MinecraftServerMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.ReentrantThreadExecutorMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.ServerPlayerEntityMixin",
+    "rule.zombifiedPiglinDropLootIfAngryReintroduced.ZombifiedPiglinEntityMixin",
     "settings.ParsedRuleAccessor",
     "settings.ParsedRuleMixin",
     "settings.SettingsManagerAccessor",
