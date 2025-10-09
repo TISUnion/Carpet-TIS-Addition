@@ -25,6 +25,7 @@ import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingAccess;
 import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.entityfilter.EntityFilter;
 import com.google.common.collect.Lists;
@@ -160,7 +161,7 @@ public class MovementLogger extends AbstractLogger
 						"header_details",
 						Messenger.formatting(tr("movement_type." + this.movementType.name().toLowerCase(), ""), "c"),
 						Messenger.c(
-								Messenger.s(this.world.getTime(), "q"),
+								Messenger.s(WorldUtils.getWorldTime(this.world), "q"),
 								"w  ",
 								MicroTimingAccess.getTickPhase(this.world).toText("q")
 						)

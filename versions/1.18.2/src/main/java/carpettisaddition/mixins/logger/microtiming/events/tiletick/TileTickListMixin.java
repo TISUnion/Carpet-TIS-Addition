@@ -23,6 +23,7 @@ package carpettisaddition.mixins.logger.microtiming.events.tiletick;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
+import carpettisaddition.utils.WorldUtils;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.tick.ChunkTickScheduler;
 import net.minecraft.world.tick.OrderedTick;
@@ -66,7 +67,7 @@ public abstract class TileTickListMixin<T>
 		ServerWorld serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld();
 		if (serverWorld != null)
 		{
-			int delay = (int)(tt.triggerTick() - serverWorld.getTime());
+			int delay = (int)(tt.triggerTick() - WorldUtils.getWorldTime(serverWorld));
 			MicroTimingLoggerManager.onScheduleTileTickEvent(serverWorld, tt.type(), tt.pos(), delay, tt.priority(), chunkTickScheduler.getTickCount() > this.oldListSize);
 		}
 	}

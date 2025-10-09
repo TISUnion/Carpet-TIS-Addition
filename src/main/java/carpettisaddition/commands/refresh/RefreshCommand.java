@@ -26,6 +26,7 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -99,7 +100,7 @@ public class RefreshCommand extends AbstractCommand
 						executes(c -> refreshSelfInventory(c.getSource())).
 						then(
 								argument("players", players()).
-								requires(s -> s.hasPermissionLevel(2)).
+								requires(s -> CommandUtils.hasPermissionLevel(s, 2)).
 								executes(c -> refreshSelectedPlayerInventory(c.getSource(), getPlayers(c, "players")))
 						)
 				).

@@ -26,6 +26,7 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.info.world.InfoWorldCommand;
 import carpettisaddition.mixins.command.info.ServerWorldAccessor;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.WorldUtils;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.block.Block;
@@ -172,8 +173,8 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 		List<ScheduledTick<Fluid>> liquidTileTicks = ((ServerTickScheduler<Fluid>)world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
 		//#endif
 
-		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", world.getTime(), Messenger::block);
-		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", world.getTime(), Messenger::fluid);
+		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", WorldUtils.getWorldTime(world), Messenger::block);
+		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", WorldUtils.getWorldTime(world), Messenger::fluid);
 		List<BlockAction> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.getPos().equals(pos)).collect(Collectors.toList());
 		this.appendBlockEventInfo(result, blockEvents);
 		return result;

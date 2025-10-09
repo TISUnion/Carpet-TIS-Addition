@@ -22,6 +22,7 @@ package carpettisaddition.utils.entityfilter;
 
 import carpettisaddition.mixins.utils.entityfilter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslationContext;
+import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
@@ -59,7 +60,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 	public static EntityFilter create(ServerPlayerEntity player, String filterDescriptor) throws CommandSyntaxException
 	{
 		ServerCommandSource source = player.getCommandSource();
-		EntitySelectorReader reader = new EntitySelectorReader(new StringReader(filterDescriptor), source.hasPermissionLevel(2));
+		EntitySelectorReader reader = new EntitySelectorReader(new StringReader(filterDescriptor), CommandUtils.hasPermissionLevel(source, 2));
 		return new EntityFilter(source, reader.read());
 	}
 

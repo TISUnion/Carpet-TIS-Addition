@@ -86,7 +86,7 @@ public class LifetimeRecorder extends TranslationContext
 				return false;
 			}
 		}
-		return source.hasPermissionLevel(this.config.requiredPermissionLevel);
+		return CommandUtils.hasPermissionLevel(source, this.config.requiredPermissionLevel);
 	}
 
 	public void addRecord(Entity entity, AbstractReason reason)

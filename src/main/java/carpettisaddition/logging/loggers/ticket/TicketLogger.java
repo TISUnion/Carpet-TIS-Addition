@@ -29,6 +29,7 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
@@ -132,8 +133,8 @@ public class TicketLogger extends AbstractLogger
 
 				return new BaseText[]{Messenger.c(
 						Messenger.fancy(
-								Messenger.s(String.format("[%s] ", world.getTime()), "g"),
-								tr("time_detail", DimensionWrapper.of(world).getIdentifierString(), world.getTime()),
+								Messenger.s(String.format("[%s] ", WorldUtils.getWorldTime(world)), "g"),
+								tr("time_detail", DimensionWrapper.of(world).getIdentifierString(), WorldUtils.getWorldTime(world)),
 								null
 						),
 						tr("message",

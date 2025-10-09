@@ -38,6 +38,13 @@ import static com.mojang.brigadier.arguments.StringArgumentType.word;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandSource.suggestMatching;
 
+//#if MC >= 1.21.11
+//$$ import net.minecraft.class_12087;
+//$$ import net.minecraft.class_12090;
+//$$ import net.minecraft.class_12094;
+//$$ import net.minecraft.server.command.CommandManager;
+//#endif
+
 public class CommandUtils
 {
 	public static boolean isConsoleCommandSource(ServerCommandSource commandSource)
@@ -102,9 +109,22 @@ public class CommandUtils
 		//#endif
 	}
 
+	/**
+	 * aka source has permission level 2 (commonly used in cheaty commands)
+	 */
 	public static boolean canCheat(ServerCommandSource source)
 	{
-		return source.hasPermissionLevel(2);  // commonly used in cheaty commands
+		return hasPermissionLevel(source, 2);
+	}
+
+	public static boolean hasPermissionLevel(ServerCommandSource source, int level)
+	{
+		//#if MC >= 1.21.11
+		//$$ var permission = new class_12087.class_12089(class_12094.method_75027(level));
+		//$$ return new class_12090.class_12092(permission).method_75022(source.method_75037());
+		//#else
+		return source.hasPermissionLevel(level);
+		//#endif
 	}
 
 	@FunctionalInterface

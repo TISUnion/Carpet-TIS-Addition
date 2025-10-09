@@ -24,6 +24,7 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
@@ -92,7 +93,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	// e.g. "[12000] " for gt 12000, note the space at the end
 	private BaseText getWorldTimeText(World world)
 	{
-		return Messenger.s(String.format("[%s] ", world.getTime()), "g");
+		return Messenger.s(String.format("[%s] ", WorldUtils.getWorldTime(world)), "g");
 	}
 
 	private void onLoggingEvent(T entity, LoggingType loggingType, Supplier<BaseText[]> supplier)

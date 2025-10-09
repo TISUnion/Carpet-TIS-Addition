@@ -61,7 +61,7 @@ public class GameUtils
 
 	public static long getGameTime()
 	{
-		return Objects.requireNonNull(getOverworld()).getTime();
+		return WorldUtils.getWorldTime(Objects.requireNonNull(getOverworld()));
 	}
 
 	public static boolean isOnServerThread()

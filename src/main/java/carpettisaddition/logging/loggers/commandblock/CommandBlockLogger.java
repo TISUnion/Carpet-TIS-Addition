@@ -24,12 +24,12 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.vehicle.CommandBlockMinecartEntity;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.ChatUtil;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -68,7 +68,7 @@ public class CommandBlockLogger extends AbstractLogger
 		}
 
 		ICommandBlockExecutor iExecutor = (ICommandBlockExecutor)executor;
-		long time = world.getTime();
+		long time = WorldUtils.getWorldTime(world);
 		String commandPreview = executor.getCommand();
 		if (commandPreview.length() > MAXIMUM_PREVIEW_LENGTH)
 		{

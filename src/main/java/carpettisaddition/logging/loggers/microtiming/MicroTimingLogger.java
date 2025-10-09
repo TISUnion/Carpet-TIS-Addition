@@ -34,6 +34,7 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.substages.Abstrac
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -144,7 +145,7 @@ public class MicroTimingLogger extends AbstractLogger
 				"f [",
 				Messenger.formatting(tr("gametime"), "f"),
 				"^w world.getTime()",
-				"g  " + this.world.getTime(),
+				"g  " + WorldUtils.getWorldTime(this.world),
 				"f  @ ",
 				Messenger.fancy(
 						"g",
