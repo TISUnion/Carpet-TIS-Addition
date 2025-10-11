@@ -36,7 +36,11 @@ public abstract class ServerPlayNetworkHandlerMixin
 			},
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 1.21.11
+					//$$ target = "Lnet/minecraft/command/permission/PermissionPredicate;hasPermission(Lnet/minecraft/command/permission/Permission;)Z"
+					//#else
 					target = "Lnet/minecraft/server/network/ServerPlayerEntity;allowsPermissionLevel(I)Z"
+					//#endif
 			)
 	)
 	private boolean debugNbtQueryNoPermission_removeServersideCheck(boolean hasPermission)

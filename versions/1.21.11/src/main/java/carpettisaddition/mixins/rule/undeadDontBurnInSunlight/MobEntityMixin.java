@@ -31,7 +31,7 @@ public abstract class MobEntityMixin
 {
 	@SuppressWarnings("RedundantIfStatement")
 	@WrapWithCondition(
-			method = "method_75128",
+			method = "tickBurnInDaylight",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/entity/mob/MobEntity;setOnFireFor(F)V"

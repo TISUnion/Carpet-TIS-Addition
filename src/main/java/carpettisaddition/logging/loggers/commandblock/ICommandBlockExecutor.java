@@ -22,7 +22,7 @@ package carpettisaddition.logging.loggers.commandblock;
 
 public interface ICommandBlockExecutor
 {
-	long getLastLoggedTime();
+	long getLastLoggedTime$TISCM();
 
-	void setLastLoggedTime(long time);
+	void setLastLoggedTime$TISCM(long time);
 }

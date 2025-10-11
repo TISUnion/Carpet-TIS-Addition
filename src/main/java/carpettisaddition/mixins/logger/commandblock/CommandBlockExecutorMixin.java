@@ -24,21 +24,23 @@ import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
 import carpettisaddition.logging.loggers.commandblock.ICommandBlockExecutor;
 import net.minecraft.world.CommandBlockExecutor;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(CommandBlockExecutor.class)
 public abstract class CommandBlockExecutorMixin implements ICommandBlockExecutor
 {
-	private long lastLoggedTime = -CommandBlockLogger.MINIMUM_LOG_INTERVAL;
+	@Unique
+	private long lastLoggedTime$TISCM = -CommandBlockLogger.MINIMUM_LOG_INTERVAL;
 
 	@Override
-	public long getLastLoggedTime()
+	public long getLastLoggedTime$TISCM()
 	{
-		return this.lastLoggedTime;
+		return this.lastLoggedTime$TISCM;
 	}
 
 	@Override
-	public void setLastLoggedTime(long time)
+	public void setLastLoggedTime$TISCM(long time)
 	{
-		this.lastLoggedTime = time;
+		this.lastLoggedTime$TISCM = time;
 	}
 }

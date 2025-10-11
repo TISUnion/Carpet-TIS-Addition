@@ -78,13 +78,13 @@ public class CommandBlockLogger extends AbstractLogger
 
 		this.log((option) -> {
 			boolean isThrottledLogging = !option.equals("all");
-			if (time - iExecutor.getLastLoggedTime() < MINIMUM_LOG_INTERVAL && isThrottledLogging)
+			if (time - iExecutor.getLastLoggedTime$TISCM() < MINIMUM_LOG_INTERVAL && isThrottledLogging)
 			{
 				return null;
 			}
 			if (isThrottledLogging)
 			{
-				iExecutor.setLastLoggedTime(time);
+				iExecutor.setLastLoggedTime$TISCM(time);
 			}
 			return new BaseText[]{Messenger.c(
 					tr(

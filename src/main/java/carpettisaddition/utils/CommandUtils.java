@@ -39,9 +39,9 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandSource.suggestMatching;
 
 //#if MC >= 1.21.11
-//$$ import net.minecraft.class_12087;
-//$$ import net.minecraft.class_12090;
-//$$ import net.minecraft.class_12094;
+//$$ import net.minecraft.command.permission.Permission;
+//$$ import net.minecraft.command.permission.PermissionCheck;
+//$$ import net.minecraft.command.permission.PermissionLevel;
 //$$ import net.minecraft.server.command.CommandManager;
 //#endif
 
@@ -120,8 +120,8 @@ public class CommandUtils
 	public static boolean hasPermissionLevel(ServerCommandSource source, int level)
 	{
 		//#if MC >= 1.21.11
-		//$$ var permission = new class_12087.class_12089(class_12094.method_75027(level));
-		//$$ return new class_12090.class_12092(permission).method_75022(source.method_75037());
+		//$$ var permission = new Permission.Level(PermissionLevel.fromLevel(level));
+		//$$ return new PermissionCheck.Single(permission).allows(source.getPermissions());
 		//#else
 		return source.hasPermissionLevel(level);
 		//#endif

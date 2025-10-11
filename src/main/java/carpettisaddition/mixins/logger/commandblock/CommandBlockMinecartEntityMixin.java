@@ -34,7 +34,11 @@ public abstract class CommandBlockMinecartEntityMixin
 			method = "onActivatorRail",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 1.21.11
+					//$$ target = "Lnet/minecraft/world/CommandBlockExecutor;execute(Lnet/minecraft/server/world/ServerWorld;)Z",
+					//#else
 					target = "Lnet/minecraft/world/CommandBlockExecutor;execute(Lnet/minecraft/world/World;)Z",
+					//#endif
 					shift = At.Shift.AFTER
 			)
 	)
