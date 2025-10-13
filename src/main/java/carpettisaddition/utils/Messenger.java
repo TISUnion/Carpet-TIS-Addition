@@ -619,10 +619,9 @@ public class Messenger
 		//$$ //$$ textStyle = textStyle.withStrikethrough(parsedStyle.getStrikethrough$TISCM());
 		//$$ //$$ textStyle = textStyle.obfuscated(parsedStyle.getObfuscated$TISCM());
 		//$$ //#else
-		//$$ StyleExt textStyleExt = (StyleExt)(Object)textStyle;
-		//$$ textStyle = textStyleExt.withUnderline$TISCM(parsedStyle.getUnderline$TISCM());
-		//$$ textStyle = textStyleExt.withStrikethrough$TISCM(parsedStyle.getStrikethrough$TISCM());
-		//$$ textStyle = textStyleExt.withObfuscated$TISCM(parsedStyle.getObfuscated$TISCM());
+		//$$ textStyle = ((StyleExt)(Object)textStyle).withUnderline$TISCM(parsedStyle.getUnderline$TISCM());
+		//$$ textStyle = ((StyleExt)(Object)textStyle).withStrikethrough$TISCM(parsedStyle.getStrikethrough$TISCM());
+		//$$ textStyle = ((StyleExt)(Object)textStyle).withObfuscated$TISCM(parsedStyle.getObfuscated$TISCM());
 		//$$ //#endif
 		//#else
 		textStyle.setColor(parsedStyle.getColor$TISCM());
