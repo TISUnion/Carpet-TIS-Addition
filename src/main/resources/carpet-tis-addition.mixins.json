@@ -537,7 +537,6 @@
     "translations.HUDControllerMixin",
     "translations.ServerPlayerEntityMixin",
     "translations.StyleAccessor",
-    "translations.TranslatableTextAccessor",
     "translations.TranslatableTextMixin",
     "utils.DirectBlockEntityTickInvokerAccessor",
     "utils.DyeColorAccessor",
@@ -547,7 +546,9 @@
     "utils.entityfilter.EntitySelectorAccessor",
     "utils.entityfilter.EntitySelectorMixin",
     "utils.entityfilter.EntitySelectorReaderMixin",
-    "utils.messenger.StyleMixin"
+    "utils.messenger.StyleAccessor",
+    "utils.messenger.StyleMixin",
+    "utils.messenger.TranslatableTextAccessor"
   ],
   "client": [
     "carpet.hooks.onServerLoadedWorlds.IntegratedServerMixin",

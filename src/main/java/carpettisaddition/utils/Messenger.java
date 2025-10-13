@@ -21,8 +21,8 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
-import carpettisaddition.mixins.translations.StyleAccessor;
-import carpettisaddition.mixins.translations.TranslatableTextAccessor;
+import carpettisaddition.mixins.utils.messenger.StyleAccessor;
+import carpettisaddition.mixins.utils.messenger.TranslatableTextAccessor;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.ImmutableMap;
@@ -611,26 +611,26 @@ public class Messenger
 		StyleAccessor parsedStyle = (StyleAccessor)(Object)parseCarpetStyle(carpetStyle);
 
 		//#if MC >= 11600
-		//$$ textStyle = textStyle.withColor(parsedStyle.getColorField());
-		//$$ textStyle = textStyle.withBold(parsedStyle.getBoldField());
-		//$$ textStyle = textStyle.withItalic(parsedStyle.getItalicField());
+		//$$ textStyle = textStyle.withColor(parsedStyle.getColor$TISCM());
+		//$$ textStyle = textStyle.withBold(parsedStyle.getBold$TISCM());
+		//$$ textStyle = textStyle.withItalic(parsedStyle.getItalic$TISCM());
 		//$$ //#if MC >= 11700
-		//$$ //$$ textStyle = textStyle.withUnderline(parsedStyle.getUnderlineField());
-		//$$ //$$ textStyle = textStyle.withStrikethrough(parsedStyle.getStrikethroughField());
-		//$$ //$$ textStyle = textStyle.obfuscated(parsedStyle.getObfuscatedField());
+		//$$ //$$ textStyle = textStyle.withUnderline(parsedStyle.getUnderline$TISCM());
+		//$$ //$$ textStyle = textStyle.withStrikethrough(parsedStyle.getStrikethrough$TISCM());
+		//$$ //$$ textStyle = textStyle.obfuscated(parsedStyle.getObfuscated$TISCM());
 		//$$ //#else
 		//$$ StyleExt textStyleExt = (StyleExt)(Object)textStyle;
-		//$$ textStyle = textStyleExt.withUnderline$TISCM(parsedStyle.getUnderlineField());
-		//$$ textStyle = textStyleExt.withStrikethrough$TISCM(parsedStyle.getStrikethroughField());
-		//$$ textStyle = textStyleExt.withObfuscated$TISCM(parsedStyle.getObfuscatedField());
+		//$$ textStyle = textStyleExt.withUnderline$TISCM(parsedStyle.getUnderline$TISCM());
+		//$$ textStyle = textStyleExt.withStrikethrough$TISCM(parsedStyle.getStrikethrough$TISCM());
+		//$$ textStyle = textStyleExt.withObfuscated$TISCM(parsedStyle.getObfuscated$TISCM());
 		//$$ //#endif
 		//#else
-		textStyle.setColor(parsedStyle.getColorField());
-		textStyle.setBold(parsedStyle.getBoldField());
-		textStyle.setItalic(parsedStyle.getItalicField());
-		textStyle.setUnderline(parsedStyle.getUnderlineField());
-		textStyle.setStrikethrough(parsedStyle.getStrikethroughField());
-		textStyle.setObfuscated(parsedStyle.getObfuscatedField());
+		textStyle.setColor(parsedStyle.getColor$TISCM());
+		textStyle.setBold(parsedStyle.getBold$TISCM());
+		textStyle.setItalic(parsedStyle.getItalic$TISCM());
+		textStyle.setUnderline(parsedStyle.getUnderline$TISCM());
+		textStyle.setStrikethrough(parsedStyle.getStrikethrough$TISCM());
+		textStyle.setObfuscated(parsedStyle.getObfuscated$TISCM());
 		//#endif
 
 		return style(text, textStyle);

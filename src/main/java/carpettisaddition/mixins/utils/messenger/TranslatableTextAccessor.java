@@ -18,16 +18,49 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.translations;
+package carpettisaddition.mixins.utils.messenger;
 
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.Style;
+import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(Style.class)
-public interface StyleAccessor
+//#if MC >= 11800
+//$$ import java.util.function.Consumer;
+//#else
+import java.util.List;
+//#endif
+
+//#if MC >= 11600
+//$$ import net.minecraft.text.StringVisitable;
+//#else
+import net.minecraft.text.Text;
+//#endif
+
+@Mixin(TranslatableText.class)
+public interface TranslatableTextAccessor
 {
-	@Accessor("hoverEvent")
-	HoverEvent getHoverEvent$TISCM();
+	@Accessor
+	@Mutable
+	void setArgs(Object[] args);
+
+	//#if MC < 11800
+
+	@Accessor
+	//#if MC >= 11600
+	//$$ List<StringVisitable> getTranslations();
+	//#else
+	List<Text> getTranslations();
+	//#endif
+
+	//#endif
+
+
+	@Invoker
+	//#if MC >= 11800
+	//$$ void invokeForEachPart(String translation, Consumer<StringVisitable> partsConsumer);
+	//#else
+	void invokeSetTranslation(String translation);
+	//#endif
 }

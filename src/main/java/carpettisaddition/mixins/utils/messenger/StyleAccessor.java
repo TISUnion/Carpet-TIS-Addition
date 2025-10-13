@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,49 +18,42 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.translations;
+package carpettisaddition.mixins.utils.messenger;
 
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Style;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import org.spongepowered.asm.mixin.gen.Invoker;
-
-//#if MC >= 11800
-//$$ import java.util.function.Consumer;
-//#else
-import java.util.List;
-//#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.text.StringVisitable;
+//$$ import net.minecraft.text.TextColor;
 //#else
-import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 //#endif
 
-@Mixin(TranslatableText.class)
-public interface TranslatableTextAccessor
+@Mixin(Style.class)
+public interface StyleAccessor
 {
-	@Accessor
-	@Mutable
-	void setArgs(Object[] args);
+	@Accessor("bold")
+	Boolean getBold$TISCM();
 
-	//#if MC < 11800
+	@Accessor("italic")
+	Boolean getItalic$TISCM();
 
-	@Accessor
+	@Accessor("underline")
+	Boolean getUnderline$TISCM();
+
+	@Accessor("strikethrough")
+	Boolean getStrikethrough$TISCM();
+
+	@Accessor("obfuscated")
+	Boolean getObfuscated$TISCM();
+
+	@Accessor("color")
 	//#if MC >= 11600
-	//$$ List<StringVisitable> getTranslations();
+	//$$ TextColor getColor$TISCM();
 	//#else
-	List<Text> getTranslations();
-	//#endif
-
-	//#endif
-
-
-	@Invoker
-	//#if MC >= 11800
-	//$$ void invokeForEachPart(String translation, Consumer<StringVisitable> partsConsumer);
-	//#else
-	void invokeSetTranslation(String translation);
+	//#disable-remap
+	Formatting getColor$TISCM();
+	//#enable-remap
 	//#endif
 }
