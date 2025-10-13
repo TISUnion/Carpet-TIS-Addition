@@ -611,13 +611,19 @@ public class Messenger
 		StyleAccessor parsedStyle = (StyleAccessor)(Object)parseCarpetStyle(carpetStyle);
 
 		//#if MC >= 11600
-		//$$ StyleAccessor textStyleAccessor = (StyleAccessor)(Object)textStyle;
 		//$$ textStyle = textStyle.withColor(parsedStyle.getColorField());
 		//$$ textStyle = textStyle.withBold(parsedStyle.getBoldField());
 		//$$ textStyle = textStyle.withItalic(parsedStyle.getItalicField());
-		//$$ textStyleAccessor.setUnderlinedField(parsedStyle.getUnderlineField());
-		//$$ textStyleAccessor.setStrikethroughField(parsedStyle.getStrikethroughField());
-		//$$ textStyleAccessor.setObfuscatedField(parsedStyle.getObfuscatedField());
+		//$$ //#if MC >= 11700
+		//$$ //$$ textStyle = textStyle.withUnderline(parsedStyle.getUnderlineField());
+		//$$ //$$ textStyle = textStyle.withStrikethrough(parsedStyle.getStrikethroughField());
+		//$$ //$$ textStyle = textStyle.obfuscated(parsedStyle.getObfuscatedField());
+		//$$ //#else
+		//$$ StyleExt textStyleExt = (StyleExt)(Object)textStyle;
+		//$$ textStyle = textStyleExt.withUnderline$TISCM(parsedStyle.getUnderlineField());
+		//$$ textStyle = textStyleExt.withStrikethrough$TISCM(parsedStyle.getStrikethroughField());
+		//$$ textStyle = textStyleExt.withObfuscated$TISCM(parsedStyle.getObfuscatedField());
+		//$$ //#endif
 		//#else
 		textStyle.setColor(parsedStyle.getColorField());
 		textStyle.setBold(parsedStyle.getBoldField());

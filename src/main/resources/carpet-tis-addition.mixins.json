@@ -546,7 +546,8 @@
     "utils.WrappedBlockEntityTickInvokerAccessor",
     "utils.entityfilter.EntitySelectorAccessor",
     "utils.entityfilter.EntitySelectorMixin",
-    "utils.entityfilter.EntitySelectorReaderMixin"
+    "utils.entityfilter.EntitySelectorReaderMixin",
+    "utils.messenger.StyleMixin"
   ],
   "client": [
     "carpet.hooks.onServerLoadedWorlds.IntegratedServerMixin",
