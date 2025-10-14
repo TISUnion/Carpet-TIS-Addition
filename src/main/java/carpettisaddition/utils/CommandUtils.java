@@ -121,7 +121,7 @@ public class CommandUtils
 	{
 		//#if MC >= 1.21.11
 		//$$ var permission = new Permission.Level(PermissionLevel.fromLevel(level));
-		//$$ return new PermissionCheck.Single(permission).allows(source.getPermissions());
+		//$$ return new PermissionCheck.Require(permission).allows(source.getPermissions());
 		//#else
 		return source.hasPermissionLevel(level);
 		//#endif

@@ -40,15 +40,20 @@ public abstract class BucketItemMixin
 			method = "placeFluid",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11600
+					//#if MC >= 12111
+					//$$ target = "Lnet/minecraft/class_12205;method_75697(Lnet/minecraft/class_12197;Lnet/minecraft/util/math/BlockPos;)Ljava/lang/Object;"
+					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/world/dimension/DimensionType;isUltrawarm()Z"
 					//#else
 					target = "Lnet/minecraft/world/dimension/Dimension;doesWaterVaporize()Z"
 					//#endif
 			)
 	)
-	private boolean creativeNetherWaterPlacement(
-			boolean doesWaterVaporize,
+	//#if MC >= 12111
+	//$$ private Object creativeNetherWaterPlacement_impl(Object /* Boolean */ doesWaterVaporize,
+	//#else
+	private boolean creativeNetherWaterPlacement_impl(boolean doesWaterVaporize,
+	//#endif
 			//#if MC >= 12105
 			//$$ @Local(argsOnly = true) @Nullable LivingEntity entity
 			//#else
