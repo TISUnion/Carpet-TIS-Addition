@@ -201,7 +201,7 @@ public class RefreshCommand extends AbstractCommand
 				this.refreshingChunkPlayers.add(player);
 			}
 		}
-		BaseText message = TISAdditionTranslations.translate(tr("chunk.done", counter.getValue()), player);
+		BaseText message = TISAdditionTranslations.translate(tr("chunk.done", counter.intValue()), player);
 
 		//#if MC >= 12002
 		//$$ player.networkHandler.send(
@@ -231,7 +231,7 @@ public class RefreshCommand extends AbstractCommand
 				}
 				//#endif
 		);
-		return counter.getValue();
+		return counter.intValue();
 	}
 	private int refreshSingleChunk(ServerCommandSource source, @Nullable ChunkPos chunkPos) throws CommandSyntaxException
 	{
