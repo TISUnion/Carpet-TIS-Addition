@@ -29,21 +29,26 @@ public class UpdateSuppressionExceptions
 	@Nullable
 	public static UpdateSuppressionException createWrapper(Throwable cause, @Nullable World world, BlockPos pos)
 	{
-		if (cause instanceof StackOverflowError)
-		{
-			return new StackOverflowSuppression(cause, world, pos);
-		}
 		if (cause instanceof ClassCastException)
 		{
 			return new ClassCastSuppression(cause, world, pos);
 		}
-		if (cause instanceof OutOfMemoryError)
-		{
-			return new OutOfMemorySuppression(cause, world, pos);
-		}
 		if (cause instanceof IllegalArgumentException)
 		{
 			return new IllegalArgumentSuppression(cause, world, pos);
+		}
+
+		// StackOverflowError or OutOfMemoryError could get wrapped when Minecraft is handling it after being firstly thrown
+		for (; cause != null; cause = cause.getCause())
+		{
+			if (cause instanceof StackOverflowError)
+			{
+				return new StackOverflowSuppression(cause, world, pos);
+			}
+			if (cause instanceof OutOfMemoryError)
+			{
+				return new OutOfMemorySuppression(cause, world, pos);
+			}
 		}
 		return null;
 	}
@@ -130,6 +135,7 @@ public class UpdateSuppressionExceptions
 
 		public IllegalArgumentSuppression(Throwable cause, @Nullable World world, BlockPos pos)
 		{
+			super(cause);
 			this.context = new UpdateSuppressionContext(cause, world, pos);
 		}
 

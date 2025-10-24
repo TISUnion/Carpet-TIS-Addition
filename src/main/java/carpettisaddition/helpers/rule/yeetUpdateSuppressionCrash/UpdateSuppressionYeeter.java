@@ -39,7 +39,7 @@ public class UpdateSuppressionYeeter
 	}
 
 	@NotNull
-	public static Throwable tryReplaceWithWrapper(Throwable throwable, @Nullable World world, BlockPos pos)
+	public static Throwable tryReplaceWithWrapper(@NotNull Throwable throwable, @Nullable World world, BlockPos pos)
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
