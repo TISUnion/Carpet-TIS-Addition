@@ -27,8 +27,8 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.world.ChunkHolder;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.server.level.ChunkHolder;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -44,9 +44,9 @@ import java.util.Set;
 public abstract class ChunkHolderMixin
 {
 	@Mutable
-	@Shadow @Final private short[] blockUpdatePositions;
+	@Shadow @Final private short[] changedBlocks;
 
-	@Shadow private int blockUpdateCount;
+	@Shadow private int changes;
 
 	// CUPT = chunkUpdatePacketThreshold
 	private boolean ruleEnabled$CUPT;
@@ -58,9 +58,9 @@ public abstract class ChunkHolderMixin
 		this.ruleValue$CUPT = CarpetTISAdditionSettings.chunkUpdatePacketThreshold;
 		this.ruleEnabled$CUPT = this.ruleValue$CUPT != CarpetTISAdditionSettings.VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD;
 		// rollback to vanilla array when rule disabled and array length is incorrect
-		if (!this.ruleEnabled$CUPT && this.blockUpdatePositions.length != CarpetTISAdditionSettings.VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD)
+		if (!this.ruleEnabled$CUPT && this.changedBlocks.length != CarpetTISAdditionSettings.VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD)
 		{
-			this.blockUpdatePositions = new short[CarpetTISAdditionSettings.VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD];
+			this.changedBlocks = new short[CarpetTISAdditionSettings.VANILLA_CHUNK_UPDATE_PACKET_THRESHOLD];
 		}
 	}
 
@@ -71,7 +71,7 @@ public abstract class ChunkHolderMixin
 	}
 
 	@ModifyExpressionValue(
-			method = {"markForBlockUpdate", "flushUpdates"},
+			method = {"blockChanged", "broadcastChanges"},
 			at = @At(
 					value = "CONSTANT",
 					args = "intValue=64"
@@ -88,10 +88,10 @@ public abstract class ChunkHolderMixin
 	}
 
 	@Inject(
-			method = "markForBlockUpdate",
+			method = "blockChanged",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/server/world/ChunkHolder;blockUpdateCount:I",
+					target = "Lnet/minecraft/server/level/ChunkHolder;changes:I",
 					ordinal = 1
 			),
 			cancellable = true
@@ -101,34 +101,34 @@ public abstract class ChunkHolderMixin
 		if (this.ruleEnabled$CUPT)
 		{
 			this.blockUpdatePositionsSet$CUPT.add(packedPos);
-			this.blockUpdateCount = this.blockUpdatePositionsSet$CUPT.size();
+			this.changes = this.blockUpdatePositionsSet$CUPT.size();
 			ci.cancel();
 		}
 	}
 
 	@Inject(
-			method = "flushUpdates",
+			method = "broadcastChanges",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/chunk/WorldChunk;getWorld()Lnet/minecraft/world/World;"
+					target = "Lnet/minecraft/world/level/chunk/LevelChunk;getLevel()Lnet/minecraft/world/level/Level;"
 			)
 	)
-	private void flushUpdatePosFromSet(WorldChunk worldChunk, CallbackInfo ci)
+	private void flushUpdatePosFromSet(LevelChunk worldChunk, CallbackInfo ci)
 	{
 		if (this.ruleEnabled$CUPT)
 		{
-			this.blockUpdatePositions = new short[this.blockUpdatePositionsSet$CUPT.size()];
+			this.changedBlocks = new short[this.blockUpdatePositionsSet$CUPT.size()];
 			int i = 0;
 			for (short s : this.blockUpdatePositionsSet$CUPT)
 			{
-				this.blockUpdatePositions[i++] = s;
+				this.changedBlocks[i++] = s;
 			}
 			this.blockUpdatePositionsSet$CUPT.clear();
 		}
 	}
 
-	@Inject(method = "flushUpdates", at = @At("TAIL"))
-	private void recheckRuleChunkUpdatePacketThresholdIfEnabled(WorldChunk worldChunk, CallbackInfo ci)
+	@Inject(method = "broadcastChanges", at = @At("TAIL"))
+	private void recheckRuleChunkUpdatePacketThresholdIfEnabled(LevelChunk worldChunk, CallbackInfo ci)
 	{
 		this.updateRuleStatus$CUPT();
 	}

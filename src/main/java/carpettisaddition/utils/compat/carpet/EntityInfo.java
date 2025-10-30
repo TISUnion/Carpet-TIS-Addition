@@ -20,9 +20,9 @@
 
 package carpettisaddition.utils.compat.carpet;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class EntityInfo
 {
-	public static List<BaseText> entityInfo(Entity entity, World world)
+	public static List<BaseComponent> entityInfo(Entity entity, Level world)
 	{
 		return null;
 	}

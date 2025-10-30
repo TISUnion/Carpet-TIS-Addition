@@ -24,7 +24,7 @@ import carpet.CarpetSettings;
 import carpet.helpers.OptimizedExplosion;
 import carpet.logging.logHelpers.ExplosionLogHelper;
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.level.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -104,7 +104,7 @@ public abstract class ExplosionMixin
 			//#if MC >= 12102
 			//$$ method = "getBlocksToDestroy",
 			//#else
-			method = "collectBlocksAndDamageEntities",
+			method = "explode",
 			//#endif
 			at = @At("HEAD"),
 			cancellable = true

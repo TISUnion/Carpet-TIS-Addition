@@ -25,20 +25,20 @@ import carpettisaddition.commands.lifetime.spawning.MobConversionSpawningReason;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.MooshroomEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
-@Mixin(MooshroomEntity.class)
+@Mixin(MushroomCow.class)
 public abstract class MooshroomEntityMixin extends Entity
 {
-	public MooshroomEntityMixin(EntityType<?> type, World world)
+	public MooshroomEntityMixin(EntityType<?> type, Level world)
 	{
 		super(type, world);
 	}
@@ -47,21 +47,21 @@ public abstract class MooshroomEntityMixin extends Entity
 			//#if MC >= 11600
 			//$$ method = "sheared",
 			//#else
-			method = "interactMob",
+			method = "mobInteract",
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
-							target = "Lnet/minecraft/item/Items;SHEARS:Lnet/minecraft/item/Item;"
+							target = "Lnet/minecraft/world/item/Items;SHEARS:Lnet/minecraft/world/item/Item;"
 					),
 					to = @At(
 							value = "FIELD",
-							target = "Lnet/minecraft/tag/ItemTags;SMALL_FLOWERS:Lnet/minecraft/tag/Tag;"
+							target = "Lnet/minecraft/tags/ItemTags;SMALL_FLOWERS:Lnet/minecraft/tags/Tag;"
 					)
 			),
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z",
 					ordinal = 0
 			)
 	)

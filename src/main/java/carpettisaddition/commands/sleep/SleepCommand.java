@@ -26,16 +26,16 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
 
 import java.util.Arrays;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class SleepCommand extends AbstractCommand
 {
@@ -55,7 +55,7 @@ public class SleepCommand extends AbstractCommand
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{
-		RequiredArgumentBuilder<ServerCommandSource, Integer> durationNode = argument("duration", integer(0, 60_000));
+		RequiredArgumentBuilder<CommandSourceStack, Integer> durationNode = argument("duration", integer(0, 60_000));
 		for (TimeUnit timeUnit : TimeUnit.values())
 		{
 			durationNode.then(literal(timeUnit.name).
@@ -71,30 +71,30 @@ public class SleepCommand extends AbstractCommand
 		);
 	}
 
-	private int showHelp(ServerCommandSource source)
+	private int showHelp(CommandSourceStack source)
 	{
-		BaseText usage = Messenger.c(
+		BaseComponent usage = Messenger.c(
 				"w /" + NAME,
 				"g  <", "w duration", "g > (",
 				Messenger.join(
-						Messenger.s("|", Formatting.GRAY),
+						Messenger.s("|", ChatFormatting.GRAY),
 						Arrays.stream(TimeUnit.values()).
 								map(tu -> Messenger.s(tu.name)).
-								toArray(BaseText[]::new)
+								toArray(BaseComponent[]::new)
 				),
 				"g )"
 		);
 		Messenger.tell(source, tr("help"));
 		Messenger.tell(source, tr("usage", usage));
 		Messenger.tell(source, Messenger.c(
-				Messenger.formatting(tr("warning_header"), Formatting.BOLD),
+				Messenger.formatting(tr("warning_header"), ChatFormatting.BOLD),
 				Messenger.s(": "),
 				tr("warning_content")
 		));
 		return 0;
 	}
 
-	private int doLag(ServerCommandSource source, TimeUnit timeUnit, int duration)
+	private int doLag(CommandSourceStack source, TimeUnit timeUnit, int duration)
 	{
 		try
 		{

@@ -22,7 +22,7 @@ package carpettisaddition.mixins.command.lifetime.spawning.dispensed;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -35,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 		//#if MC >= 12102
 		//$$ MinecartItem.class
 		//#else
-		targets = "net/minecraft/item/MinecartItem$1"
+		targets = "net.minecraft.world.item.MinecartItem$1"
 		//#endif
 )
 public abstract class MinecartItemDispenseBehaviorMixin
@@ -44,14 +44,14 @@ public abstract class MinecartItemDispenseBehaviorMixin
 			//#if MC >= 12102
 			//$$ method = "useOnBlock",
 			//#else
-			method = "dispenseSilently",
+			method = "execute",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12004
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 					//#else
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif
 			)
 	)

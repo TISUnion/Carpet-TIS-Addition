@@ -27,17 +27,17 @@ import carpet.CarpetSettings;
 //#endif
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
-import net.minecraft.block.dispenser.BlockPlacementDispenserBehavior;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.dispenser.ShulkerBoxDispenseBehavior;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(BlockPlacementDispenserBehavior.class)
+@Mixin(ShulkerBoxDispenseBehavior.class)
 public abstract class BlockPlacementDispenserBehaviorMixin
 {
-	@Inject(method = "dispenseSilently", at = @At("HEAD"))
+	@Inject(method = "execute", at = @At("HEAD"))
 	private void creativeNoClipEnhancement_dispenserBlockPlacement_enter(CallbackInfoReturnable<ItemStack> cir)
 	{
 		if (CarpetSettings.creativeNoClip)
@@ -46,7 +46,7 @@ public abstract class BlockPlacementDispenserBehaviorMixin
 		}
 	}
 
-	@Inject(method = "dispenseSilently", at = @At("TAIL"))
+	@Inject(method = "execute", at = @At("TAIL"))
 	private void creativeNoClipEnhancement_dispenserBlockPlacement_exit(CallbackInfoReturnable<ItemStack> cir)
 	{
 		if (CarpetSettings.creativeNoClip)

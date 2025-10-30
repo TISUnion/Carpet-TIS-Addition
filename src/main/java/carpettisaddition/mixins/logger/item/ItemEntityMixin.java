@@ -22,8 +22,8 @@ package carpettisaddition.mixins.logger.item;
 
 import carpettisaddition.logging.loggers.entity.ItemLogger;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.damagesource.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,7 +38,7 @@ public abstract class ItemEntityMixin
 	@Unique private boolean flagDied = false;
 	@Unique private boolean flagDespawned = false;
 
-	@Inject(method = "<init>(Lnet/minecraft/world/World;DDDLnet/minecraft/item/ItemStack;)V", at = @At("TAIL"))
+	@Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V", at = @At("TAIL"))
 	private void itemLogger_onCreated(CallbackInfo ci)
 	{
 		ItemLogger.getInstance().onEntityCreated((ItemEntity)(Object)this);
@@ -57,7 +57,7 @@ public abstract class ItemEntityMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/item/ItemEntity;remove()V"
 					//#endif
 			)
 	)
@@ -72,14 +72,14 @@ public abstract class ItemEntityMixin
 
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/item/ItemEntity;remove()V"
 					//#endif
 			)
 	)

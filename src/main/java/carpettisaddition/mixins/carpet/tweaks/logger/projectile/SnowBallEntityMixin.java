@@ -22,11 +22,11 @@ package carpettisaddition.mixins.carpet.tweaks.logger.projectile;
 
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.VisualizeTrajectoryHelper;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.thrown.SnowballEntity;
-import net.minecraft.entity.thrown.ThrownItemEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -36,10 +36,10 @@ import org.spongepowered.asm.mixin.Mixin;
 //#enable-remap
 //#endif
 
-@Mixin(SnowballEntity.class)
-public abstract class SnowBallEntityMixin extends ThrownItemEntity
+@Mixin(Snowball.class)
+public abstract class SnowBallEntityMixin extends ThrowableItemProjectile
 {
-	public SnowBallEntityMixin(EntityType<? extends ThrownItemEntity> type, World world)
+	public SnowBallEntityMixin(EntityType<? extends ThrowableItemProjectile> type, Level world)
 	{
 		super(type, world);
 	}
@@ -52,10 +52,10 @@ public abstract class SnowBallEntityMixin extends ThrownItemEntity
 		{
 			if (LoggerRegistry.getLogger("projectiles").hasOnlineSubscribers())
 			{
-				if (this.getVelocity().lengthSquared() > 0)
+				if (this.getDeltaMovement().lengthSqr() > 0)
 				{
-					this.velocityDirty = true;
-					this.setVelocity(Vec3d.ZERO);
+					this.hasImpulse = true;
+					this.setDeltaMovement(Vec3.ZERO);
 				}
 				VisualizeTrajectoryHelper.addVisualizer(this);
 			}
@@ -76,18 +76,18 @@ public abstract class SnowBallEntityMixin extends ThrownItemEntity
 
 	@Intrinsic
 	@Override
-	public boolean canAvoidTraps()
+	public boolean isIgnoringBlockTriggers()
 	{
 		if (VisualizeTrajectoryHelper.isVisualizeProjectile(this))
 		{
 			return true;
 		}
-		return super.canAvoidTraps();
+		return super.isIgnoringBlockTriggers();
 	}
 
 	@Intrinsic
 	@Override
-	public boolean isImmuneToExplosion(
+	public boolean ignoreExplosion(
 			//#if MC >= 12003
 			//#disable-remap
 			//$$ Explosion explosion
@@ -99,7 +99,7 @@ public abstract class SnowBallEntityMixin extends ThrownItemEntity
 		{
 			return true;
 		}
-		return super.isImmuneToExplosion(
+		return super.ignoreExplosion(
 				//#if MC >= 12003
 				//$$ explosion
 				//#endif

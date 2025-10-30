@@ -21,10 +21,10 @@
 package carpettisaddition.commands.info.entity;
 
 import carpettisaddition.utils.ItemUtils;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Map;
 
@@ -63,17 +63,17 @@ public class EntityInfoUtil
 		{
 			return null;
 		} // func_190916_E()
-		String stackname = item.getCount()>1?String.format("%dx%s",item.getCount(), item.getName().getString()):item.getName().getString();
+		String stackname = item.getCount()>1?String.format("%dx%s",item.getCount(), item.getHoverName().getString()):item.getHoverName().getString();
 		if (item.isDamaged())
 		{
 			//#if MC >= 12100
 			//$$ int maxUseTime = item.getMaxUseTime(owner);
 			//#else
-			int maxUseTime = item.getMaxUseTime();
+			int maxUseTime = item.getUseDuration();
 			//#endif
-			stackname += String.format(" %d/%d", maxUseTime - item.getDamage(), maxUseTime);
+			stackname += String.format(" %d/%d", maxUseTime - item.getDamageValue(), maxUseTime);
 		}
-		if (item.hasEnchantments())
+		if (item.isEnchanted())
 		{
 			stackname += " ( ";
 			Map<Enchantment, Integer> enchants = ItemUtils.getEnchantments(item);
@@ -83,7 +83,7 @@ public class EntityInfoUtil
 				//#if MC >= 12100
 				//$$ String enstring = Enchantment.getName(RegistryEntry.of(e), level).getString();
 				//#else
-				String enstring = e.getName(level).getString();
+				String enstring = e.getFullname(level).getString();
 				//#endif
 				stackname += enstring+" ";
 			}

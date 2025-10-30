@@ -23,13 +23,13 @@ package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(World.class)
+@Mixin(Level.class)
 public abstract class WorldMixin
 {
 	// use in < mc1.19
@@ -40,10 +40,10 @@ public abstract class WorldMixin
 	 */
 	@SuppressWarnings("ConstantConditions")
 	@ModifyArg(
-			method = "updateNeighbor",
+			method = "neighborChanged",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/crash/CrashReport;create(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/util/crash/CrashReport;"
+					target = "Lnet/minecraft/CrashReport;forThrowable(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/CrashReport;"
 			)
 	)
 	private Throwable yeetUpdateSuppressionCrash_wrapSoundSuppression(
@@ -52,7 +52,7 @@ public abstract class WorldMixin
 			@Local LocalRef<Throwable> ref
 	)
 	{
-		throwable = UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, (World)(Object)this, neighborPos);
+		throwable = UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, (Level)(Object)this, neighborPos);
 		ref.set(throwable);
 		return throwable;
 	}

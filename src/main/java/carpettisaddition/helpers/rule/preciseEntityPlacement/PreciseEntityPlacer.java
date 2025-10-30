@@ -21,21 +21,21 @@
 package carpettisaddition.helpers.rule.preciseEntityPlacement;
 
 import carpettisaddition.utils.EntityUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.UseOnContext;
+import net.minecraft.world.phys.Vec3;
 
 public class PreciseEntityPlacer
 {
-	public static final ThreadLocal<Vec3d> spawnEggTargetPos = ThreadLocal.withInitial(() -> null);
+	public static final ThreadLocal<Vec3> spawnEggTargetPos = ThreadLocal.withInitial(() -> null);
 
-	public static void adjustEntity(Entity entity, Vec3d targetPos)
+	public static void adjustEntity(Entity entity, Vec3 targetPos)
 	{
-		entity.refreshPositionAndAngles(targetPos.getX(), targetPos.getY(), targetPos.getZ(), EntityUtils.getYaw(entity), EntityUtils.getPitch(entity));
+		entity.moveTo(targetPos.x(), targetPos.y(), targetPos.z(), EntityUtils.getYaw(entity), EntityUtils.getPitch(entity));
 	}
-	public static void adjustEntity(Entity entity, ItemUsageContext context)
+	public static void adjustEntity(Entity entity, UseOnContext context)
 	{
-		adjustEntity(entity, context.getHitPos());
+		adjustEntity(entity, context.getClickLocation());
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class PreciseEntityPlacer
 	 */
 	public static void adjustEntityFromSpawnEgg(Entity entity)
 	{
-		Vec3d vec3d = spawnEggTargetPos.get();
+		Vec3 vec3d = spawnEggTargetPos.get();
 		if (vec3d != null)
 		{
 			adjustEntity(entity, vec3d);

@@ -24,9 +24,9 @@ import carpettisaddition.commands.common.counter.DyeCounter;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.ChatFormatting;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,8 +45,8 @@ public class XpCounter extends DyeCounter<XpCounterKey>
 	}
 
 	@Override
-	protected BaseText getSymbolText()
+	protected BaseComponent getSymbolText()
 	{
-		return Messenger.s("X", Formatting.GRAY);
+		return Messenger.s("X", ChatFormatting.GRAY);
 	}
 }

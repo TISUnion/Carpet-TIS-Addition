@@ -33,11 +33,11 @@ import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
-import net.minecraft.server.world.ChunkTicket;
-import net.minecraft.server.world.ChunkTicketType;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.server.level.Ticket;
+import net.minecraft.server.level.TicketType;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.level.ChunkPos;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,8 +46,8 @@ import java.util.stream.Collectors;
 import static java.lang.Math.max;
 
 /**
- * Raw type {@link ChunkTicketType} usages here are to make the version compatibility earlier
- * Since in MC 1.21.5+, {@link ChunkTicketType} are no longer generic
+ * Raw type {@link TicketType} usages here are to make the version compatibility earlier
+ * Since in MC 1.21.5+, {@link TicketType} are no longer generic
  */
 //#if MC < 12105
 @SuppressWarnings("rawtypes")
@@ -57,7 +57,7 @@ public class TicketLogger extends AbstractLogger
 	public static final String NAME = "ticket";
 	private static final TicketLogger INSTANCE = new TicketLogger();
 
-	private final List<ChunkTicketType> tickTypes = Lists.newArrayList();
+	private final List<TicketType> tickTypes = Lists.newArrayList();
 
 	public TicketLogger()
 	{
@@ -69,23 +69,23 @@ public class TicketLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
-	public void addTicketType(ChunkTicketType ticketType)
+	public void addTicketType(TicketType ticketType)
 	{
 		this.tickTypes.add(ticketType);
 	}
 
 	private String[] getLoggingSuggestions()
 	{
-		List<String> suggestions = this.tickTypes.stream().map(ChunkTicketType::toString).collect(Collectors.toList());
+		List<String> suggestions = this.tickTypes.stream().map(TicketType::toString).collect(Collectors.toList());
 		suggestions.add(createCompoundOption(
-				ChunkTicketType.PORTAL.toString(),
+				TicketType.PORTAL.toString(),
 				//#if MC >= 12105
 				//$$ ChunkTicketType.PLAYER_SIMULATION.toString()
 				//#else
-				ChunkTicketType.PLAYER.toString()
+				TicketType.PLAYER.toString()
 				//#endif
 		));
-		suggestions.add(createCompoundOption(ChunkTicketType.PORTAL.toString(), ChunkTicketType.DRAGON.toString()));
+		suggestions.add(createCompoundOption(TicketType.PORTAL.toString(), TicketType.DRAGON.toString()));
 		return wrapOptions(suggestions.toArray(new String[0]));
 	}
 
@@ -99,7 +99,7 @@ public class TicketLogger extends AbstractLogger
 				Logger
 				//#endif
 				(
-						TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, ChunkTicketType.PORTAL.toString(), null
+						TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, TicketType.PORTAL.toString(), null
 						//#if MC >= 11700
 						//$$ , false
 						//#endif
@@ -120,18 +120,18 @@ public class TicketLogger extends AbstractLogger
 		return String.format("%d * %d", length, length);
 	}
 
-	private void onManipulateTicket(ServerWorld world, long position, ChunkTicket chunkTicket, ActionType actionType)
+	private void onManipulateTicket(ServerLevel world, long position, Ticket chunkTicket, ActionType actionType)
 	{
 		this.log((option) ->
 		{
-			ChunkTicketType chunkTicketType = chunkTicket.getType();
+			TicketType chunkTicketType = chunkTicket.getType();
 			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicketType.toString()))
 			{
-				long expiryTicks = chunkTicketType.getExpiryTicks();
+				long expiryTicks = chunkTicketType.timeout();
 				ChunkPos pos = new ChunkPos(position);
-				int level = chunkTicket.getLevel();
+				int level = chunkTicket.getTicketLevel();
 
-				return new BaseText[]{Messenger.c(
+				return new BaseComponent[]{Messenger.c(
 						Messenger.fancy(
 								Messenger.s(String.format("[%s] ", WorldUtils.getWorldTime(world)), "g"),
 								tr("time_detail", DimensionWrapper.of(world).getIdentifierString(), WorldUtils.getWorldTime(world)),
@@ -142,7 +142,7 @@ public class TicketLogger extends AbstractLogger
 										Messenger.s(chunkTicketType.toString(), "d"),
 										tr(
 												"ticket_detail",
-												chunkTicket.getLevel(), expiryTicks > 0 ? Messenger.s(expiryTicks + " gt") : tr("permanent"),
+												chunkTicket.getTicketLevel(), expiryTicks > 0 ? Messenger.s(expiryTicks + " gt") : tr("permanent"),
 												formatSize(32 - level), formatSize(33 - level), formatSize(34 - level)
 										),
 										null
@@ -161,7 +161,7 @@ public class TicketLogger extends AbstractLogger
 		});
 	}
 
-	public static void onAddTicket(ServerWorld world, long position, ChunkTicket chunkTicket)
+	public static void onAddTicket(ServerLevel world, long position, Ticket chunkTicket)
 	{
 		if (TISAdditionLoggerRegistry.__ticket)
 		{
@@ -169,7 +169,7 @@ public class TicketLogger extends AbstractLogger
 		}
 	}
 
-	public static void onRemoveTicket(ServerWorld world, long position, ChunkTicket chunkTicket)
+	public static void onRemoveTicket(ServerLevel world, long position, Ticket chunkTicket)
 	{
 		if (TISAdditionLoggerRegistry.__ticket)
 		{
@@ -191,7 +191,7 @@ public class TicketLogger extends AbstractLogger
 			this.translation = translation;
 		}
 
-		private BaseText getText(Translator translator)
+		private BaseComponent getText(Translator translator)
 		{
 			return Messenger.formatting(translator.tr(this.translation), this.color);
 		}

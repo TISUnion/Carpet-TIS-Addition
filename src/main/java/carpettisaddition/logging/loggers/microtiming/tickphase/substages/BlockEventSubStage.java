@@ -24,19 +24,19 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.world.World;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.world.level.Level;
 
 public class BlockEventSubStage extends AbstractSubStage
 {
-	private final World world;
-	private final BlockAction blockEventData;
+	private final Level world;
+	private final BlockEventData blockEventData;
 	private final int order;
 	private final int depth;
 
-	public BlockEventSubStage(World world, BlockAction blockEventData, int order, int depth)
+	public BlockEventSubStage(Level world, BlockEventData blockEventData, int order, int depth)
 	{
 		this.world = world;
 		this.blockEventData = blockEventData;
@@ -45,7 +45,7 @@ public class BlockEventSubStage extends AbstractSubStage
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return Messenger.c(
 				MicroTimingLoggerManager.tr("common.block"), "w : ", Messenger.block(this.blockEventData.getBlock()), Messenger.newLine(),

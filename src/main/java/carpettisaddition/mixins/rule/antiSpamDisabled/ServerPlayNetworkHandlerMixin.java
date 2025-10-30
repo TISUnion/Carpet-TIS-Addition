@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.rule.antiSpamDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,12 +32,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * mc1.14 ~ mc1.21.1: subproject 1.15.2 (main project)        <--------
  * mc1.21.2+        : subproject 1.21.3
  */
-@Mixin(ServerPlayNetworkHandler.class)
+@Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ServerPlayNetworkHandlerMixin
 {
-	@Shadow private int messageCooldown;
+	@Shadow private int chatSpamTickCount;
 
-	@Shadow private int creativeItemDropThreshold;
+	@Shadow private int dropSpamTickCount;
 
 	@Inject(
 			//#if MC >= 11900
@@ -45,7 +45,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 			//#elseif MC >= 11600
 			//$$ method = "onGameMessage",
 			//#else
-			method = "onChatMessage",
+			method = "handleChat",
 			//#endif
 			at = @At("TAIL")
 	)
@@ -53,16 +53,16 @@ public abstract class ServerPlayNetworkHandlerMixin
 	{
 		if (CarpetTISAdditionSettings.antiSpamDisabled)
 		{
-			this.messageCooldown = 0;
+			this.chatSpamTickCount = 0;
 		}
 	}
 
-	@Inject(method = "onCreativeInventoryAction", at = @At("TAIL"))
+	@Inject(method = "handleSetCreativeModeSlot", at = @At("TAIL"))
 	private void resetCreativeItemDropThreshold(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.antiSpamDisabled)
 		{
-			this.creativeItemDropThreshold = 0;
+			this.dropSpamTickCount = 0;
 		}
 	}
 }

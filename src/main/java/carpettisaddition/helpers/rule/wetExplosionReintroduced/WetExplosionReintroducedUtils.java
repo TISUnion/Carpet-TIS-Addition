@@ -22,11 +22,11 @@ package carpettisaddition.helpers.rule.wetExplosionReintroduced;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.rule.wetExplosionReintroduced.ExplosionAccessor;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.decoration.AbstractDecorationEntity;
-import net.minecraft.entity.decoration.ArmorStandEntity;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.decoration.HangingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.level.Explosion;
 
 public class WetExplosionReintroducedUtils
 {
@@ -42,12 +42,12 @@ public class WetExplosionReintroducedUtils
 			return false;
 		}
 		Entity explodingEntity = ((ExplosionAccessor)explosion).getEntity();
-		return explodingEntity != null && explodingEntity.isTouchingWater();
+		return explodingEntity != null && explodingEntity.isInWater();
 	}
 
 	public static boolean isBenefitedEntity(Entity entity)
 	{
-		return entity instanceof ItemEntity || entity instanceof ArmorStandEntity || entity instanceof AbstractDecorationEntity;
+		return entity instanceof ItemEntity || entity instanceof ArmorStand || entity instanceof HangingEntity;
 	}
 
 	public static boolean check(Explosion explosion, Entity entity)

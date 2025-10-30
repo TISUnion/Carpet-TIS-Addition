@@ -22,12 +22,12 @@ package carpettisaddition.mixins.command.lifetime.spawning.breeding;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(targets = "net.minecraft.entity.passive.FoxEntity$MateGoal")
+@Mixin(targets = "net.minecraft.world.entity.animal.Fox$FoxBreedGoal")
 public abstract class FoxEntityMateGoalMixin
 {
 	@ModifyArg(
@@ -37,7 +37,7 @@ public abstract class FoxEntityMateGoalMixin
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 					//#else
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z",
 					ordinal = 0
 					//#endif
 			)

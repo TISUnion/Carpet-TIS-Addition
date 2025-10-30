@@ -20,7 +20,7 @@
 
 package carpettisaddition.commands.speedtest;
 
-import net.minecraft.util.Util;
+import net.minecraft.Util;
 
 import java.util.Random;
 

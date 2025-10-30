@@ -22,23 +22,23 @@ package carpettisaddition.mixins.command.lifetime.spawning.natural;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.village.ZombieSiegeManager;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.village.VillageSiege;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ZombieSiegeManager.class)
+@Mixin(VillageSiege.class)
 public abstract class ZombieSiegeManagerMixin
 {
 	@ModifyArg(
-			method = "trySpawnZombie",
+			method = "trySpawn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 					//#else
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif
 			)
 	)

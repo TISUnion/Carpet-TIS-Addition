@@ -29,8 +29,8 @@ import carpet.logging.HUDLogger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 
 public class LifeTimeStandardCarpetHUDLogger extends
 		//#if MC >= 11500
@@ -53,12 +53,12 @@ public class LifeTimeStandardCarpetHUDLogger extends
 	public void addPlayer(String playerName, String option)
 	{
 		super.addPlayer(playerName, option);
-		ServerPlayerEntity player = this.playerFromName(playerName);
-		if (player instanceof ServerPlayerEntity)
+		ServerPlayer player = this.playerFromName(playerName);
+		if (player instanceof ServerPlayer)
 		{
 			if (!LifeTimeTrackerUtil.getEntityTypeFromName(option).isPresent())
 			{
-				LifeTimeTracker.getInstance().sendUnknownEntity(player.getCommandSource(), option);
+				LifeTimeTracker.getInstance().sendUnknownEntity(player.createCommandSourceStack(), option);
 			}
 		}
 	}

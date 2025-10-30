@@ -22,7 +22,7 @@ package carpettisaddition.mixins.rule.itemEntitySkipMovementDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.ItemEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -38,7 +38,7 @@ public abstract class ItemEntityMixin
 							//#if MC >= 11700
 							//$$ target = "Lnet/minecraft/entity/ItemEntity;getId()I"
 							//#else
-							target = "Lnet/minecraft/entity/ItemEntity;getEntityId()I"
+							target = "Lnet/minecraft/world/entity/item/ItemEntity;getId()I"
 							//#endif
 					)
 			),

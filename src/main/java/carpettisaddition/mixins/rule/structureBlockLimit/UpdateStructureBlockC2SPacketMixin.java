@@ -25,10 +25,10 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.packet.c2s.play.UpdateStructureBlockC2SPacket;
-import net.minecraft.util.PacketByteBuf;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.network.protocol.game.ServerboundSetStructureBlockPacket;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(UpdateStructureBlockC2SPacket.class)
+@Mixin(ServerboundSetStructureBlockPacket.class)
 public abstract class UpdateStructureBlockC2SPacketMixin
 {
 	@ModifyExpressionValue(
@@ -76,19 +76,19 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 	@Shadow private BlockPos size;
 
 	@Inject(method = "read", at = @At("TAIL"))
-	private void structureBlockLimitsRead(PacketByteBuf buf, CallbackInfo ci)
+	private void structureBlockLimitsRead(FriendlyByteBuf buf, CallbackInfo ci)
 	{
 		if (buf.readableBytes() == 6 * 4)
 		{
 			this.offset = new BlockPos(
-					MathHelper.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
-					MathHelper.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
-					MathHelper.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit)
+					Mth.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
+					Mth.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
+					Mth.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit)
 			);
 			this.size = new BlockPos(
-					MathHelper.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
-					MathHelper.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
-					MathHelper.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit)
+					Mth.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
+					Mth.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
+					Mth.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit)
 			);
 		}
 	}
@@ -97,7 +97,7 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 			method = "write",
 			at = @At("TAIL")
 	)
-	private void structureBlockLimitsWrite(PacketByteBuf buf, CallbackInfo ci)
+	private void structureBlockLimitsWrite(FriendlyByteBuf buf, CallbackInfo ci)
 	{
 		// client method, only applicable if with carpet is on the server, or running locally
 		if (CarpetTISAdditionSettings.structureBlockLimit >= 128)

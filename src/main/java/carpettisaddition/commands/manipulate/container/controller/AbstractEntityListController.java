@@ -23,14 +23,14 @@ package carpettisaddition.commands.manipulate.container.controller;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 public abstract class AbstractEntityListController extends AbstractContainerController
 {
@@ -39,29 +39,29 @@ public abstract class AbstractEntityListController extends AbstractContainerCont
 		super(translationName);
 	}
 
-	protected abstract int processWholeList(ServerWorld world, Consumer<List<?>> collectionOperator);
+	protected abstract int processWholeList(ServerLevel world, Consumer<List<?>> collectionOperator);
 
-	public int revert(ServerCommandSource source)
+	public int revert(CommandSourceStack source)
 	{
 		return this.manipulate(source, () -> {
-			int size = this.processWholeList(source.getWorld(), Collections::reverse);
+			int size = this.processWholeList(source.getLevel(), Collections::reverse);
 			Messenger.tell(source, tr("revert", this.getName(), size), true);
 		});
 	}
 
-	public int shuffle(ServerCommandSource source)
+	public int shuffle(CommandSourceStack source)
 	{
 		return this.manipulate(source, () -> {
-			int size = this.processWholeList(source.getWorld(), Collections::shuffle);
+			int size = this.processWholeList(source.getLevel(), Collections::shuffle);
 			Messenger.tell(source, tr("shuffle", this.getName(), size), true);
 		});
 	}
 
-	protected abstract boolean canManipulate(ServerWorld world);
+	protected abstract boolean canManipulate(ServerLevel world);
 
-	protected int manipulate(ServerCommandSource source, Runnable task)
+	protected int manipulate(CommandSourceStack source, Runnable task)
 	{
-		if (this.canManipulate(source.getWorld()))
+		if (this.canManipulate(source.getLevel()))
 		{
 			task.run();
 			return 1;
@@ -74,7 +74,7 @@ public abstract class AbstractEntityListController extends AbstractContainerCont
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandTreeContext context)
+	public ArgumentBuilder<CommandSourceStack, ?> getCommandNode(CommandTreeContext context)
 	{
 		return super.getCommandNode(context).
 				then(literal("shuffle").executes(c -> this.shuffle(c.getSource()))).

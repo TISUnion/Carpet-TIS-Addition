@@ -38,10 +38,10 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.NbtUtils;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -50,8 +50,8 @@ import static com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg;
 import static com.mojang.brigadier.arguments.DoubleArgumentType.getDouble;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class SpeedTestCommand extends AbstractCommand
 {
@@ -113,16 +113,16 @@ public class SpeedTestCommand extends AbstractCommand
 		this.serverSessionHolder.reset();
 	}
 
-	public void onPlayerDisconnected(ServerPlayerEntity player)
+	public void onPlayerDisconnected(ServerPlayer player)
 	{
 		this.serverSessionHolder.abortAndClearFor(player);
 	}
 
 	// ============================ commands ============================
 
-	private int showHelp(ServerCommandSource source) throws CommandSyntaxException
+	private int showHelp(CommandSourceStack source) throws CommandSyntaxException
 	{
-		ServerPlayerEntity player = source.getPlayer();
+		ServerPlayer player = source.getPlayerOrException();
 
 		List<TISCMProtocol.S2C> idToCheck = Lists.newArrayList(
 				TISCMProtocol.S2C.SPEED_TEST_DOWNLOAD_PAYLOAD,
@@ -132,22 +132,22 @@ public class SpeedTestCommand extends AbstractCommand
 		);
 
 		int cnt = idToCheck.stream().mapToInt(id -> {
-			boolean ok = TISCMServerPacketHandler.getInstance().doesClientSupport(player.networkHandler, id);
+			boolean ok = TISCMServerPacketHandler.getInstance().doesClientSupport(player.connection, id);
 			return ok ? 1 : 0;
 		}).sum();
 
-		BaseText supportState;
+		BaseComponent supportState;
 		if (cnt == 0)
 		{
-			supportState = Messenger.formatting(tr("help.support_state.no"), Formatting.RED);
+			supportState = Messenger.formatting(tr("help.support_state.no"), ChatFormatting.RED);
 		}
 		else if (cnt < idToCheck.size())
 		{
-			supportState = Messenger.formatting(tr("help.support_state.partial"), Formatting.YELLOW);
+			supportState = Messenger.formatting(tr("help.support_state.partial"), ChatFormatting.YELLOW);
 		}
 		else
 		{
-			supportState = Messenger.formatting(tr("help.support_state.yes"), Formatting.GREEN);
+			supportState = Messenger.formatting(tr("help.support_state.yes"), ChatFormatting.GREEN);
 		}
 
 		Messenger.tell(player, tr(
@@ -161,9 +161,9 @@ public class SpeedTestCommand extends AbstractCommand
 		return 0;
 	}
 
-	private int abortTest(ServerCommandSource source) throws CommandSyntaxException
+	private int abortTest(CommandSourceStack source) throws CommandSyntaxException
 	{
-		ServerPlayerEntity player = source.getPlayer();
+		ServerPlayer player = source.getPlayerOrException();
 
 		SpeedTestServerSession session = this.serverSessionHolder.getFor(player);
 		if (session == null)
@@ -178,9 +178,9 @@ public class SpeedTestCommand extends AbstractCommand
 		return 1;
 	}
 
-	private int testDownload(ServerCommandSource source, int testSizeMb) throws CommandSyntaxException
+	private int testDownload(CommandSourceStack source, int testSizeMb) throws CommandSyntaxException
 	{
-		ServerPlayerEntity player = source.getPlayer();
+		ServerPlayer player = source.getPlayerOrException();
 
 		if (!checkSpeedTestRequirements(player, testSizeMb, TISCMProtocol.S2C.SPEED_TEST_DOWNLOAD_PAYLOAD))
 		{
@@ -195,9 +195,9 @@ public class SpeedTestCommand extends AbstractCommand
 		return 1;
 	}
 
-	private int testUpload(ServerCommandSource source, int testSizeMb) throws CommandSyntaxException
+	private int testUpload(CommandSourceStack source, int testSizeMb) throws CommandSyntaxException
 	{
-		ServerPlayerEntity player = source.getPlayer();
+		ServerPlayer player = source.getPlayerOrException();
 
 		if (!checkSpeedTestRequirements(player, testSizeMb, TISCMProtocol.S2C.SPEED_TEST_UPLOAD_REQUEST))
 		{
@@ -212,9 +212,9 @@ public class SpeedTestCommand extends AbstractCommand
 		return 1;
 	}
 
-	private int testPing(ServerCommandSource source, int count, double interval) throws CommandSyntaxException
+	private int testPing(CommandSourceStack source, int count, double interval) throws CommandSyntaxException
 	{
-		ServerPlayerEntity player = source.getPlayer();
+		ServerPlayer player = source.getPlayerOrException();
 
 		if (!checkSpeedTestRequirements(player, null, TISCMProtocol.S2C.SPEED_TEST_PING))
 		{
@@ -229,7 +229,7 @@ public class SpeedTestCommand extends AbstractCommand
 	// ============================ utils ============================
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	private boolean checkSpeedTestRequirements(ServerPlayerEntity player, @Nullable Integer testSizeMb, TISCMProtocol.S2C ...packetIds)
+	private boolean checkSpeedTestRequirements(ServerPlayer player, @Nullable Integer testSizeMb, TISCMProtocol.S2C ...packetIds)
 	{
 		if (testSizeMb != null && testSizeMb > CarpetTISAdditionSettings.speedTestCommandMaxTestSize)
 		{
@@ -245,7 +245,7 @@ public class SpeedTestCommand extends AbstractCommand
 
 		for (TISCMProtocol.S2C packetId : packetIds)
 		{
-			if (!TISCMServerPacketHandler.getInstance().doesClientSupport(player.networkHandler, packetId))
+			if (!TISCMServerPacketHandler.getInstance().doesClientSupport(player.connection, packetId))
 			{
 				Messenger.tell(player, tr("command.client_not_supported"));
 				return false;
@@ -282,7 +282,7 @@ public class SpeedTestCommand extends AbstractCommand
 		{
 			case "ping":
 				TISCMClientPacketHandler.getInstance().sendPacket(TISCMProtocol.C2S.SPEED_TEST_PING, nbt -> {
-					nbt.copyFrom(ctx.payload);
+					nbt.merge(ctx.payload);
 					nbt.putString("type", "pong");
 				});
 				break;
@@ -319,7 +319,7 @@ public class SpeedTestCommand extends AbstractCommand
 		{
 			case "ping":
 				TISCMServerPacketHandler.getInstance().sendPacket(ctx.networkHandler, TISCMProtocol.S2C.SPEED_TEST_PING, nbt -> {
-					nbt.copyFrom(ctx.payload);
+					nbt.merge(ctx.payload);
 					nbt.putString("type", "pong");
 				});
 				break;

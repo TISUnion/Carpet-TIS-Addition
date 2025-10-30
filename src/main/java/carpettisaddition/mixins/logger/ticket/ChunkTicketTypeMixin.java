@@ -21,19 +21,19 @@
 package carpettisaddition.mixins.logger.ticket;
 
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
-import net.minecraft.server.world.ChunkTicketType;
+import net.minecraft.server.level.TicketType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ChunkTicketType.class)
+@Mixin(TicketType.class)
 public abstract class ChunkTicketTypeMixin<T>
 {
 	@SuppressWarnings({"ConstantConditions", "rawtypes"})  // ChunkTicket is not a generic in mc1.21.5+
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void recordTicketType(CallbackInfo ci)
 	{
-		TicketLogger.getInstance().addTicketType((ChunkTicketType)(Object)this);
+		TicketLogger.getInstance().addTicketType((TicketType)(Object)this);
 	}
 }

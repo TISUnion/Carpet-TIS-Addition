@@ -21,7 +21,7 @@
 package carpettisaddition.utils;
 
 import carpet.CarpetSettings;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 
 public class CarpetModUtil
 {
@@ -31,7 +31,7 @@ public class CarpetModUtil
 	 * for backwards compatibility for Minecraft 1.16.4 and some 1.17 snapshots
 	 * Firstly try to use carpet's method, if failed, use our own copied implementation
 	 */
-	public static boolean canUseCommand(ServerCommandSource source, Object commandLevel)
+	public static boolean canUseCommand(CommandSourceStack source, Object commandLevel)
 	{
 		//#if MC >= 11901
 		//$$ return carpet.utils.CommandHelper.canUseCommand(source, commandLevel);
@@ -44,25 +44,25 @@ public class CarpetModUtil
 		{
 			case "true": return true;
 			case "false": return false;
-			case "ops": return source.hasPermissionLevel(2); // typical for other cheaty commands
+			case "ops": return source.hasPermission(2); // typical for other cheaty commands
 			case "0":
 			case "1":
 			case "2":
 			case "3":
 			case "4":
-				return source.hasPermissionLevel(Integer.parseInt(commandLevelString));
+				return source.hasPermission(Integer.parseInt(commandLevelString));
 		}
 		return false;
 		//#endif
 	}
 
 	// alias of canUseCommand
-	public static boolean hasEnoughPermission(ServerCommandSource source, String permissionRuleValue)
+	public static boolean hasEnoughPermission(CommandSourceStack source, String permissionRuleValue)
 	{
 		return canUseCommand(source, permissionRuleValue);
 	}
 
-	public static boolean canUseCarpetCommand(ServerCommandSource source)
+	public static boolean canUseCarpetCommand(CommandSourceStack source)
 	{
 		// rule carpetCommandPermissionLevel is added in fabric carpet v1.4.55
 		Object level =

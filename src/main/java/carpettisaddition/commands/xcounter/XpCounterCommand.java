@@ -22,7 +22,7 @@ package carpettisaddition.commands.xcounter;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.common.counter.DyeCounterCommand;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
 
 public class XpCounterCommand extends DyeCounterCommand<XpCounterKey, XpCounter>
 {

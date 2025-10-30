@@ -23,10 +23,10 @@ package carpettisaddition.mixins.command.lifetime.removal.mobpickup;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,17 +37,17 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class ItemEntityMixin
 {
 	@Inject(
-			method = "onPlayerCollision",
+			method = "playerTouch",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/item/ItemEntity;remove()V"
 					//#endif
 			)
 	)
-	private void lifetimeTracker_recordRemoval_mobPickup_playerPickupItem(PlayerEntity player, CallbackInfo ci, @Local ItemStack itemStack, @Local int i)
+	private void lifetimeTracker_recordRemoval_mobPickup_playerPickupItem(Player player, CallbackInfo ci, @Local ItemStack itemStack, @Local int i)
 	{
 		int stackCount = itemStack.getCount();
 		itemStack.setCount(i);

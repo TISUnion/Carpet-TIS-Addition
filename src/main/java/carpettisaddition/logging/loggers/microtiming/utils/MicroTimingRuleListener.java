@@ -25,9 +25,9 @@ import carpettisaddition.settings.validator.RuleChangeListener;
 import carpettisaddition.settings.validator.ValidationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.util.Formatting;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.ChatFormatting;
 import org.jetbrains.annotations.NotNull;
 
 public class MicroTimingRuleListener extends RuleChangeListener<Boolean>
@@ -37,19 +37,19 @@ public class MicroTimingRuleListener extends RuleChangeListener<Boolean>
 	@Override
 	public void onRuleChanged(ValidationContext<Boolean> ctx, @NotNull Boolean newValue)
 	{
-		if (ctx.source != null && ctx.source.getWorld() != null && newValue)
+		if (ctx.source != null && ctx.source.getLevel() != null && newValue)
 		{
-			if (!MicroTimingUtil.isBlockUpdateInstant(ctx.source.getWorld()))
+			if (!MicroTimingUtil.isBlockUpdateInstant(ctx.source.getLevel()))
 			{
 				String ruleName = "instantBlockUpdaterReintroduced";
-				BaseText ruleText = Messenger.fancy(
+				BaseComponent ruleText = Messenger.fancy(
 						Messenger.s(ruleName),
 						translator.tr("click_to_see_rule"),
 						Messenger.ClickEvents.suggestCommand("/carpet " + ruleName)
 				);
 				Messenger.tell(ctx.source, Messenger.formatting(
 						translator.tr("instant_block_updater_promote", ruleText),
-						Formatting.GRAY, Formatting.ITALIC
+						ChatFormatting.GRAY, ChatFormatting.ITALIC
 				));
 			}
 		}

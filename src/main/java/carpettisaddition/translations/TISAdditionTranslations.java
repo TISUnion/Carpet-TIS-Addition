@@ -31,9 +31,12 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.translations.StyleAccessor;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.*;
-import net.minecraft.util.Util;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.Util;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -85,17 +88,17 @@ public class TISAdditionTranslations
 		return getTranslations(lang.toLowerCase()).get(key);
 	}
 
-	public static BaseText translate(BaseText text, String lang)
+	public static BaseComponent translate(BaseComponent text, String lang)
 	{
 		return translateText(text, lang);
 	}
 
-	public static BaseText translate(BaseText text)
+	public static BaseComponent translate(BaseComponent text)
 	{
 		return translate(text, getServerLanguage());
 	}
 
-	public static BaseText translate(BaseText text, ServerPlayerEntity player)
+	public static BaseComponent translate(BaseComponent text, ServerPlayer player)
 	{
 		if (CarpetTISAdditionSettings.ultraSecretSetting.equals("translation"))
 		{
@@ -104,7 +107,7 @@ public class TISAdditionTranslations
 		return translate(text, ((ServerPlayerEntityWithClientLanguage)player).getClientLanguage$TISCM());
 	}
 
-	private static BaseText translateText(BaseText text, @NotNull String lang)
+	private static BaseComponent translateText(BaseComponent text, @NotNull String lang)
 	{
 		// quick scan to check if any required translation exists
 		boolean[] translationRequired = new boolean[]{false};
@@ -135,7 +138,7 @@ public class TISAdditionTranslations
 				return txt;
 			}
 
-			BaseText newText;
+			BaseComponent newText;
 			try
 			{
 				newText = Messenger.format(msgKeyString, txtArgs);
@@ -153,20 +156,20 @@ public class TISAdditionTranslations
 		});
 	}
 
-	private static BaseText forEachTISCMTranslationText(BaseText text, @NotNull String lang, TextModifier modifier)
+	private static BaseComponent forEachTISCMTranslationText(BaseComponent text, @NotNull String lang, TextModifier modifier)
 	{
 		if (
 				//#if MC >= 11900
 				//$$ text.getContent() instanceof TranslatableTextContent
 				//#else
-				text instanceof TranslatableText
+				text instanceof TranslatableComponent
 				//#endif
 		)
 		{
 			//#if MC >= 11900
 			//$$ TranslatableTextContent translatableText = (TranslatableTextContent)text.getContent();
 			//#else
-			TranslatableText translatableText = (TranslatableText)text;
+			TranslatableComponent translatableText = (TranslatableComponent)text;
 			//#endif
 
 			// translate arguments
@@ -174,9 +177,9 @@ public class TISAdditionTranslations
 			for (int i = 0; i < args.length; i++)
 			{
 				Object arg = args[i];
-				if (arg instanceof BaseText)
+				if (arg instanceof BaseComponent)
 				{
-					BaseText newText = forEachTISCMTranslationText((BaseText)arg, lang, modifier);
+					BaseComponent newText = forEachTISCMTranslationText((BaseComponent)arg, lang, modifier);
 					if (newText != arg)
 					{
 						args[i] = newText;
@@ -208,7 +211,7 @@ public class TISAdditionTranslations
 		HoverEvent hoverEvent = ((StyleAccessor)(Object)text.getStyle()).getHoverEvent$TISCM();
 		if (hoverEvent != null)
 		{
-			BaseText oldHoverText = Util.make(() -> {
+			BaseComponent oldHoverText = Util.make(() -> {
 				//#if MC >= 12105
 				//$$ if (hoverEvent instanceof HoverEvent.ShowText(Text hoverEventText) && hoverEventText instanceof MutableText)
 				//$$ {
@@ -221,10 +224,10 @@ public class TISAdditionTranslations
 				//$$ 	 return (BaseText)hoverEventValue;
 				//$$ }
 				//#else
-				Text hoverEventText = hoverEvent.getValue();
-				if (hoverEvent.getAction() == HoverEvent.Action.SHOW_TEXT && hoverEventText instanceof BaseText)
+				Component hoverEventText = hoverEvent.getValue();
+				if (hoverEvent.getAction() == HoverEvent.Action.SHOW_TEXT && hoverEventText instanceof BaseComponent)
 				{
-					return (BaseText)hoverEventText;
+					return (BaseComponent)hoverEventText;
 				}
 				//#endif
 				return null;
@@ -232,7 +235,7 @@ public class TISAdditionTranslations
 
 			if (oldHoverText != null)
 			{
-				BaseText newHoverText = forEachTISCMTranslationText(oldHoverText, lang, modifier);
+				BaseComponent newHoverText = forEachTISCMTranslationText(oldHoverText, lang, modifier);
 				if (newHoverText != oldHoverText)
 				{
 					Messenger.hover(text, newHoverText);
@@ -241,11 +244,11 @@ public class TISAdditionTranslations
 		}
 
 		// translate sibling texts
-		List<Text> siblings = text.getSiblings();
+		List<Component> siblings = text.getSiblings();
 		for (int i = 0; i < siblings.size(); i++)
 		{
-			Text sibling = siblings.get(i);
-			BaseText newText = forEachTISCMTranslationText((BaseText)sibling, lang, modifier);
+			Component sibling = siblings.get(i);
+			BaseComponent newText = forEachTISCMTranslationText((BaseComponent)sibling, lang, modifier);
 			if (newText != sibling)
 			{
 				siblings.set(i, newText);
@@ -257,11 +260,11 @@ public class TISAdditionTranslations
 	@FunctionalInterface
 	private interface TextModifier
 	{
-		BaseText apply(
+		BaseComponent apply(
 				//#if MC >= 11900
 				//$$ MutableText translatableText,
 				//#else
-				TranslatableText translatableText,
+				TranslatableComponent translatableText,
 				//#endif
 				@Nullable String msgKeyString
 		);

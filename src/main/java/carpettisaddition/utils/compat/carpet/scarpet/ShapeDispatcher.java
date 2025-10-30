@@ -21,7 +21,7 @@
 package carpettisaddition.utils.compat.carpet.scarpet;
 
 import carpet.script.value.Value;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.List;
 import java.util.Map;
@@ -39,7 +39,7 @@ public class ShapeDispatcher
 	//#endif
 
 	public static void sendShape(
-			List<ServerPlayerEntity> subscribedPlayers,
+			List<ServerPlayer> subscribedPlayers,
 			//#if MC >= 11700
 			//$$ List<ShapeWithConfig> shapeDataList
 			//#else

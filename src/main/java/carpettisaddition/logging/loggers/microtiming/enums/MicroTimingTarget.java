@@ -21,9 +21,9 @@
 package carpettisaddition.logging.loggers.microtiming.enums;
 
 import carpettisaddition.utils.Messenger;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
 import org.jetbrains.annotations.Nullable;
 
 public enum MicroTimingTarget
@@ -35,12 +35,12 @@ public enum MicroTimingTarget
 
 	public static final double IN_RANGE_RADIUS = 32.0D;
 
-	public static void deprecatedWarning(@Nullable ServerCommandSource source)
+	public static void deprecatedWarning(@Nullable CommandSourceStack source)
 	{
 		if (source != null)
 		{
-			BaseText text = Messenger.tr("carpettisaddition.rule.microTimingTarget.deprecate_not_marker_warning");
-			Messenger.tell(source, Messenger.formatting(text, Formatting.DARK_RED, Formatting.ITALIC));
+			BaseComponent text = Messenger.tr("carpettisaddition.rule.microTimingTarget.deprecate_not_marker_warning");
+			Messenger.tell(source, Messenger.formatting(text, ChatFormatting.DARK_RED, ChatFormatting.ITALIC));
 		}
 	}
 }

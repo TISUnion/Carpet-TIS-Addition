@@ -25,10 +25,10 @@ import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -44,8 +44,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //$$ import net.minecraft.util.math.BlockPos;
 //#endif
 
-@Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin extends PlayerEntity
+@Mixin(ServerPlayer.class)
+public abstract class ServerPlayerEntityMixin extends Player
 {
 	//#if MC >= 12106
 	//$$ public ServerPlayerEntityMixin(World world, GameProfile gameProfile)
@@ -68,7 +68,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 	//$$ 	super(world, pos, yaw, profile);
 	//$$ }
 	//#else
-	public ServerPlayerEntityMixin(World world, GameProfile profile)
+	public ServerPlayerEntityMixin(Level world, GameProfile profile)
 	{
 		super(world, profile);
 	}
@@ -77,14 +77,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 	// at the start of player damage calculation
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12104
 					//$$ target = "Lnet/minecraft/entity/damage/DamageSource;getAttacker()Lnet/minecraft/entity/Entity;"
 					//#else
-					target = "Lnet/minecraft/server/MinecraftServer;isDedicated()Z"
+					target = "Lnet/minecraft/server/MinecraftServer;isDedicatedServer()Z"
 					//#endif
 			)
 	)
@@ -96,7 +96,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 	//#if MC < 12104
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			slice = @Slice(
 					from = @At(
@@ -121,12 +121,12 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity
 
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/server/network/ServerPlayerEntity;shouldDamagePlayer(Lnet/minecraft/entity/player/PlayerEntity;)Z",
+							target = "Lnet/minecraft/server/level/ServerPlayer;canHarmPlayer(Lnet/minecraft/world/entity/player/Player;)Z",
 							ordinal = 0
 					)
 			),

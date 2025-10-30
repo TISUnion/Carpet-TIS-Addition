@@ -21,11 +21,11 @@
 package carpettisaddition.mixins.carpet.tweaks.logger.explosion;
 
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ITntEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.TntEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,25 +34,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * priority 2000 to make sure it injects after carpet's modifyTNTAngle injection
  */
-@Mixin(value = TntEntity.class, priority = 2000)
+@Mixin(value = PrimedTnt.class, priority = 2000)
 public abstract class TntEntityMixin extends Entity implements ITntEntity
 {
-	private Vec3d initializedVelocity;
-	private Vec3d initializedPosition;
+	private Vec3 initializedVelocity;
+	private Vec3 initializedPosition;
 
-	public TntEntityMixin(EntityType<?> type, World world)
+	public TntEntityMixin(EntityType<?> type, Level world)
 	{
 		super(type, world);
 	}
 
 	@Inject(
-			method = "<init>(Lnet/minecraft/world/World;DDDLnet/minecraft/entity/LivingEntity;)V",
+			method = "<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/entity/LivingEntity;)V",
 			at = @At("TAIL")
 	)
 	private void recordInitializedAngle(CallbackInfo ci)
 	{
-		this.initializedVelocity = this.getVelocity();
-		this.initializedPosition = this.getPos();
+		this.initializedVelocity = this.getDeltaMovement();
+		this.initializedPosition = this.position();
 	}
 
 	@Override
@@ -62,13 +62,13 @@ public abstract class TntEntityMixin extends Entity implements ITntEntity
 	}
 
 	@Override
-	public Vec3d getInitializedVelocity()
+	public Vec3 getInitializedVelocity()
 	{
 		return this.initializedVelocity;
 	}
 
 	@Override
-	public Vec3d getInitializedPosition()
+	public Vec3 getInitializedPosition()
 	{
 		return this.initializedPosition;
 	}

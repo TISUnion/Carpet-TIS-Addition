@@ -22,8 +22,8 @@ package carpettisaddition.logging.loggers;
 
 import carpet.logging.HUDLogger;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.BaseComponent;
 
 public abstract class AbstractHUDLogger extends AbstractLogger
 {
@@ -32,7 +32,7 @@ public abstract class AbstractHUDLogger extends AbstractLogger
 		super(name, strictOption);
 	}
 
-	public abstract BaseText[] onHudUpdate(String option, PlayerEntity playerEntity);
+	public abstract BaseComponent[] onHudUpdate(String option, Player playerEntity);
 
 	@Override
 	public HUDLogger createCarpetLogger()

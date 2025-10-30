@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.tooledTNT;
 
 import carpettisaddition.helpers.rule.tooledTNT.TooledTNTHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -48,11 +48,11 @@ public abstract class ExplosionMixin
 			//#if MC >= 12003
 			//$$ method = "onExploded",
 			//#else
-			method = "affectWorld",
+			method = "finalizeExplosion",
 			//#endif
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/item/ItemStack;EMPTY:Lnet/minecraft/item/ItemStack;"
+					target = "Lnet/minecraft/world/item/ItemStack;EMPTY:Lnet/minecraft/world/item/ItemStack;"
 			),
 			//#if MC >= 11900
 			//$$ allow = 2

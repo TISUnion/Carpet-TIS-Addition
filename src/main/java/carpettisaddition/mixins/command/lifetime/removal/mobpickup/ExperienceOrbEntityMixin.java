@@ -22,24 +22,24 @@ package carpettisaddition.mixins.command.lifetime.removal.mobpickup;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ExperienceOrbEntity.class)
+@Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin
 {
 	@Inject(
-			method = "onPlayerCollision",
+			method = "playerTouch",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/player/PlayerEntity;sendPickup(Lnet/minecraft/entity/Entity;I)V"
+					target = "Lnet/minecraft/world/entity/player/Player;take(Lnet/minecraft/world/entity/Entity;I)V"
 			)
 	)
-	private void lifetimeTracker_recordRemoval_mobPickup_xpOrb(PlayerEntity player, CallbackInfo ci)
+	private void lifetimeTracker_recordRemoval_mobPickup_xpOrb(Player player, CallbackInfo ci)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
 	}

@@ -21,10 +21,10 @@
 package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
-import net.minecraft.client.gui.hud.DebugHud;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.integrated.IntegratedServer;
-import net.minecraft.util.MetricsData;
+import net.minecraft.client.gui.components.DebugScreenOverlay;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.util.FrameTimer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,16 +42,16 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
  * mc1.14 ~ mc1.20.1: subproject 1.15.2 (main project)        <--------
  * mc1.20.2+        : subproject 1.20.2
  */
-@Mixin(DebugHud.class)
+@Mixin(DebugScreenOverlay.class)
 public abstract class DebugHudMixin
 {
-	@Shadow protected abstract void drawMetricsData(
+	@Shadow protected abstract void drawChart(
 			//#if MC >= 12000
 			//$$ DrawContext ctx,
 			//#elseif MC >= 11600
 			//$$ MatrixStack matrixStack,
 			//#endif
-			MetricsData metricsData, int startY, int firstSample, boolean isClient
+			FrameTimer metricsData, int startY, int firstSample, boolean isClient
 	);
 
 	@Inject(
@@ -63,7 +63,7 @@ public abstract class DebugHudMixin
 			//#endif
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/client/MinecraftClient;getServer()Lnet/minecraft/server/integrated/IntegratedServer;",
+					target = "Lnet/minecraft/client/Minecraft;getSingleplayerServer()Lnet/minecraft/client/server/IntegratedServer;",
 					shift = At.Shift.AFTER
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
@@ -85,10 +85,10 @@ public abstract class DebugHudMixin
 		{
 			if (ServerMsptMetricsDataSyncer.getInstance().isServerSupportOk())
 			{
-				MetricsData metricsData = ServerMsptMetricsDataSyncer.getInstance().getMetricsData();
+				FrameTimer metricsData = ServerMsptMetricsDataSyncer.getInstance().getMetricsData();
 
 				// vanilla copy
-				this.drawMetricsData(
+				this.drawChart(
 						//#if MC >= 11600
 						//$$ arg0,
 						//#endif

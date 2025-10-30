@@ -24,7 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.settings.validator.RuleChangeListener;
 import carpettisaddition.settings.validator.ValidationContext;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
 
 /**
  * A rule value listener for those feature rules using TISCM protocol
@@ -41,7 +41,7 @@ public class TISCMProtocolRuleListener extends RuleChangeListener<Object>
 			{
 				Messenger.tell(ctx.source, Messenger.formatting(
 						tr("tiscm_protocol.protocol_not_enabled", ctx.ruleName()),
-						Formatting.GRAY, Formatting.ITALIC
+						ChatFormatting.GRAY, ChatFormatting.ITALIC
 				));
 			}
 		}

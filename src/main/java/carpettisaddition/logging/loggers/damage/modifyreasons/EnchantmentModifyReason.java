@@ -21,7 +21,7 @@
 package carpettisaddition.logging.loggers.damage.modifyreasons;
 
 import carpettisaddition.utils.Messenger;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public class EnchantmentModifyReason extends ModifyReason
 {
@@ -34,7 +34,7 @@ public class EnchantmentModifyReason extends ModifyReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		String epf = String.format(this.point == Math.floor(this.point) ? "%.0f" : "%.2f", this.point);
 		return Messenger.c(super.toText(), String.format("w  (EPF=%s)", epf));

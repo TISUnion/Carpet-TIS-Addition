@@ -24,11 +24,11 @@ import carpettisaddition.commands.speedtest.SpeedTestPacketUtils;
 import carpettisaddition.network.TISCMProtocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import net.minecraft.network.NetworkSide;
-import net.minecraft.network.NetworkState;
-import net.minecraft.network.Packet;
-import net.minecraft.util.PacketByteBuf;
-import net.minecraft.util.Util;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.network.ConnectionProtocol;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.Util;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -44,7 +44,7 @@ public class SpeedTestCompressionSkipper
 {
 	private static final byte[] DOWNLOAD_PACKET_BYTES_PREFIX = Util.make(() -> {
 		TISCMProtocol.S2C packetId = TISCMProtocol.S2C.SPEED_TEST_DOWNLOAD_PAYLOAD;
-		return makeBytes(getMinecraftPacketId(NetworkSide.CLIENTBOUND, packetId.packet(nbt -> {})), packetId.getId());
+		return makeBytes(getMinecraftPacketId(PacketFlow.CLIENTBOUND, packetId.packet(nbt -> {})), packetId.getId());
 	});
 
 	private static final byte[] UPLOAD_PACKET_BYTES_PREFIX = Util.make(() -> {
@@ -54,17 +54,17 @@ public class SpeedTestCompressionSkipper
 				//$$ packetId.packet(nbt -> {});
 				//#else
 				// the constructor used in TISCMProtocol.C2S#packet is not available on the serverside
-				new net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket();
+				new net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket();
 				//#endif
-		return makeBytes(getMinecraftPacketId(NetworkSide.SERVERBOUND, examplePacket), packetId.getId());
+		return makeBytes(getMinecraftPacketId(PacketFlow.SERVERBOUND, examplePacket), packetId.getId());
 	});
 
 	private static byte[] makeBytes(int mcPacketId, String tiscmPacketId)
 	{
-		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
 		buf.writeVarInt(mcPacketId);
-		buf.writeIdentifier(TISCMProtocol.CHANNEL);
-		buf.writeString(tiscmPacketId);
+		buf.writeResourceLocation(TISCMProtocol.CHANNEL);
+		buf.writeUtf(tiscmPacketId);
 
 		byte[] result = new byte[buf.readableBytes()];
 		buf.readBytes(result);
@@ -72,7 +72,7 @@ public class SpeedTestCompressionSkipper
 		return result;
 	}
 
-	private static int getMinecraftPacketId(NetworkSide side, Packet<?> packet)
+	private static int getMinecraftPacketId(PacketFlow side, Packet<?> packet)
 	{
 		try
 		{
@@ -105,7 +105,7 @@ public class SpeedTestCompressionSkipper
 			//#elseif MC >= 12002
 			//$$ return NetworkState.PLAY.getHandler(side).getId(packet);
 			//#else
-			return Objects.requireNonNull(NetworkState.PLAY.getPacketId(side, packet));
+			return Objects.requireNonNull(ConnectionProtocol.PLAY.getPacketId(side, packet));
 			//#endif
 		}
 		catch (Exception e)
@@ -116,7 +116,7 @@ public class SpeedTestCompressionSkipper
 
 	public static boolean isSpeedTestPayloadPacket(PacketDeflaterWithNetworkSide deflater, ByteBuf byteBuf)
 	{
-		NetworkSide side = deflater.getNetworkSide$TISCM();
+		PacketFlow side = deflater.getNetworkSide$TISCM();
 		if (side == null)
 		{
 			return false;

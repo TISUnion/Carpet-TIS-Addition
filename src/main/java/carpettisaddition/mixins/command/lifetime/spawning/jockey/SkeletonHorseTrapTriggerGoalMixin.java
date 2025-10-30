@@ -23,16 +23,16 @@ package carpettisaddition.mixins.command.lifetime.spawning.jockey;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.entity.ai.goal.SkeletonHorseTrapTriggerGoal;
-import net.minecraft.entity.mob.SkeletonEntity;
+import net.minecraft.world.entity.animal.horse.SkeletonTrapGoal;
+import net.minecraft.world.entity.monster.Skeleton;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(SkeletonHorseTrapTriggerGoal.class)
+@Mixin(SkeletonTrapGoal.class)
 public abstract class SkeletonHorseTrapTriggerGoalMixin
 {
-	@ModifyReturnValue(method = "getSkeleton", at = @At("TAIL"))
-	private SkeletonEntity lifetimeTracker_recordSpawning_jockey_skeletonHorse(SkeletonEntity entity)
+	@ModifyReturnValue(method = "createSkeleton", at = @At("TAIL"))
+	private Skeleton lifetimeTracker_recordSpawning_jockey_skeletonHorse(Skeleton entity)
 	{
 		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.JOCKEY);
 		return entity;

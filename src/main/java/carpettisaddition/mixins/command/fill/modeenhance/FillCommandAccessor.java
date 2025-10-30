@@ -21,11 +21,11 @@
 package carpettisaddition.mixins.command.fill.modeenhance;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.block.pattern.CachedBlockPosition;
-import net.minecraft.command.arguments.BlockStateArgument;
-import net.minecraft.server.command.FillCommand;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.BlockBox;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.commands.arguments.blocks.BlockInput;
+import net.minecraft.server.commands.FillCommand;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -35,9 +35,9 @@ import java.util.function.Predicate;
 @Mixin(FillCommand.class)
 public interface FillCommandAccessor
 {
-	@Invoker
+	@Invoker("fillBlocks")
 	static int invokeExecute(
-			ServerCommandSource source, BlockBox range, BlockStateArgument block, FillCommand.Mode mode, @Nullable Predicate<CachedBlockPosition> filter
+			CommandSourceStack source, BoundingBox range, BlockInput block, FillCommand.Mode mode, @Nullable Predicate<BlockInWorld> filter
 			//#if MC >= 12105
 			//$$ , boolean bl
 			//#endif

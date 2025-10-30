@@ -23,9 +23,9 @@ package carpettisaddition.mixins.rule.dispenserNoItemCost;
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.entity.DispenserBlockEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.entity.DispenserBlockEntity;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -34,10 +34,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class DispenserBlockMixin
 {
 	@ModifyArg(
-			method = "dispense",
+			method = "dispenseFrom",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/dispenser/DispenserBehavior;dispense(Lnet/minecraft/util/math/BlockPointer;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"
+					target = "Lnet/minecraft/core/dispenser/DispenseItemBehavior;dispense(Lnet/minecraft/core/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"
 			)
 	)
 	private ItemStack dispenserNoItemCost_useACopySoItCostNothing(ItemStack stack)
@@ -50,10 +50,10 @@ public abstract class DispenserBlockMixin
 	}
 
 	@WrapOperation(
-			method = "dispense",
+			method = "dispenseFrom",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/entity/DispenserBlockEntity;setInvStack(ILnet/minecraft/item/ItemStack;)V"
+					target = "Lnet/minecraft/world/level/block/entity/DispenserBlockEntity;setItem(ILnet/minecraft/world/item/ItemStack;)V"
 			)
 	)
 	private void dispenserNoItemCost_dontSetBackTheConsumedStack(DispenserBlockEntity blockEntity, int slot, ItemStack stack, Operation<Void> original)

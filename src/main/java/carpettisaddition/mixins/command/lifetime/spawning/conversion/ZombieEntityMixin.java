@@ -26,14 +26,14 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.mob.ZombieVillagerEntity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -41,10 +41,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(ZombieEntity.class)
-public abstract class ZombieEntityMixin extends HostileEntity
+@Mixin(Zombie.class)
+public abstract class ZombieEntityMixin extends Monster
 {
-	protected ZombieEntityMixin(EntityType<? extends HostileEntity> type, World world)
+	protected ZombieEntityMixin(EntityType<? extends Monster> type, Level world)
 	{
 		super(type, world);
 	}
@@ -53,7 +53,7 @@ public abstract class ZombieEntityMixin extends HostileEntity
 			method = "convertTo",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 
@@ -64,16 +64,16 @@ public abstract class ZombieEntityMixin extends HostileEntity
 	}
 
 	@Inject(
-			method = "onKilledOther",
+			method = "killed",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private void lifetimeTracker_recordSpawning_conversion_zombieInfection(
 			LivingEntity other, CallbackInfo ci,
-			@Local VillagerEntity villagerEntity,
-			@Local ZombieVillagerEntity zombieVillagerEntity
+			@Local Villager villagerEntity,
+			@Local ZombieVillager zombieVillagerEntity
 	)
 	{
 		((LifetimeTrackerTarget)zombieVillagerEntity).recordSpawning(new MobConversionSpawningReason(villagerEntity.getType()));

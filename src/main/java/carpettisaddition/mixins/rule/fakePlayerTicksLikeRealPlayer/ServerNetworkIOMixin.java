@@ -21,13 +21,13 @@
 package carpettisaddition.mixins.rule.fakePlayerTicksLikeRealPlayer;
 
 import carpettisaddition.helpers.rule.fakePlayerTicksLikeRealPlayer.FakePlayerTicker;
-import net.minecraft.server.ServerNetworkIo;
+import net.minecraft.server.network.ServerConnectionListener;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerNetworkIo.class)
+@Mixin(ServerConnectionListener.class)
 public abstract class ServerNetworkIOMixin
 {
 	@Inject(

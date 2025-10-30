@@ -22,8 +22,8 @@ package carpettisaddition.mixins.command.lifetime.removal.playerlogout;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.PlayerManager;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.server.players.PlayerList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 //#endif
 
-@Mixin(PlayerManager.class)
+@Mixin(PlayerList.class)
 public abstract class PlayerManagerMixin
 {
 	//#if MC >= 11700
@@ -48,7 +48,7 @@ public abstract class PlayerManagerMixin
 			method = "remove",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;removeEntity(Lnet/minecraft/entity/Entity;)V"
+					target = "Lnet/minecraft/server/level/ServerLevel;despawn(Lnet/minecraft/world/entity/Entity;)V"
 			),
 			require = 2,
 			allow = 2

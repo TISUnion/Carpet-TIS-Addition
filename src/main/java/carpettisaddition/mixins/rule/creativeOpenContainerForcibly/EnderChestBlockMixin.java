@@ -23,8 +23,8 @@ package carpettisaddition.mixins.rule.creativeOpenContainerForcibly;
 import carpettisaddition.helpers.rule.creativeOpenContainerForcibly.CreativeOpenContainerForciblyHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.EnderChestBlock;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.level.block.EnderChestBlock;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -33,7 +33,7 @@ public abstract class EnderChestBlockMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 11500
-			method = "onUse",
+			method = "use",
 			//#else
 			//$$ method = "activate",
 			//#endif
@@ -42,11 +42,11 @@ public abstract class EnderChestBlockMixin
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/block/BlockState;isSolidBlock(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z"
 					//#else
-					target = "Lnet/minecraft/block/BlockState;isSimpleFullBlock(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z"
+					target = "Lnet/minecraft/world/level/block/state/BlockState;isRedstoneConductor(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z"
 					//#endif
 			)
 	)
-	private boolean isSimpleFullBlockAndNotCreative(boolean isFullBlock, @Local(argsOnly = true) PlayerEntity player)
+	private boolean isSimpleFullBlockAndNotCreative(boolean isFullBlock, @Local(argsOnly = true) Player player)
 	{
 		if (CreativeOpenContainerForciblyHelper.canOpenForcibly(player))
 		{

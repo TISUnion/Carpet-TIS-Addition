@@ -24,8 +24,8 @@ import carpettisaddition.commands.lifetime.LifetimeTrackerTargetImpl;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -55,13 +55,13 @@ public abstract class EntityMixin implements LifetimeTrackerTarget
 	}
 
 	@Override
-	public Vec3d getSpawningPosition()
+	public Vec3 getSpawningPosition()
 	{
 		return this.lifeTimeTrackerHook$TISCM.getSpawningPosition();
 	}
 
 	@Override
-	public Vec3d getRemovalPosition()
+	public Vec3 getRemovalPosition()
 	{
 		return this.lifeTimeTrackerHook$TISCM.getRemovalPosition();
 	}

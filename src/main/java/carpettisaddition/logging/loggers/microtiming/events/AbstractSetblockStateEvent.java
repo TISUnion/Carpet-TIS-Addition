@@ -25,8 +25,8 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.block.BlockState;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -43,7 +43,7 @@ public abstract class AbstractSetblockStateEvent extends BaseEvent
 
 	private static final Translator TRANSLATOR = (new BaseEvent(null, "set_block_state_event_base", (EventSource)null) {
 		@Override
-		public BaseText toText()
+		public BaseComponent toText()
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -72,7 +72,7 @@ public abstract class AbstractSetblockStateEvent extends BaseEvent
 		this.flags = flags;
 	}
 
-	protected BaseText getFlagsText()
+	protected BaseComponent getFlagsText()
 	{
 		String bits = Integer.toBinaryString(this.flags);
 		bits = String.join("", Collections.nCopies(Math.max(SET_BLOCK_STATE_FLAGS.size() - bits.length(), 0), "0")) + bits;

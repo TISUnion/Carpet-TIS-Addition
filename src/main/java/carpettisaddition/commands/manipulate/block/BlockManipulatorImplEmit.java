@@ -22,12 +22,12 @@ package carpettisaddition.commands.manipulate.block;
 
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerLightingProvider;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ThreadedLevelLightEngine;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
 
 class BlockManipulatorImplEmit extends TranslationContext
 {
@@ -36,23 +36,23 @@ class BlockManipulatorImplEmit extends TranslationContext
 		super(translator);
 	}
 
-	public void emitBlockUpdateAt(ServerCommandSource source, BlockPos blockPos)
+	public void emitBlockUpdateAt(CommandSourceStack source, BlockPos blockPos)
 	{
-		ServerWorld world = source.getWorld();
+		ServerLevel world = source.getLevel();
 		BlockState blockState = world.getBlockState(blockPos);
 		Block block = blockState.getBlock();
 
 		// ref: net.minecraft.world.World#setBlockState
-		world.updateNeighbors(blockPos, block);
-		if (blockState.hasComparatorOutput())
+		world.blockUpdated(blockPos, block);
+		if (blockState.hasAnalogOutputSignal())
 		{
-			world.updateHorizontalAdjacent(blockPos, block);
+			world.updateNeighbourForOutputSignal(blockPos, block);
 		}
 	}
 
-	public void emitStateUpdateAt(ServerCommandSource source, BlockPos blockPos)
+	public void emitStateUpdateAt(CommandSourceStack source, BlockPos blockPos)
 	{
-		ServerWorld world = source.getWorld();
+		ServerLevel world = source.getLevel();
 		BlockState blockState = world.getBlockState(blockPos);
 
 		// ref: net.minecraft.world.World#setBlockState
@@ -62,14 +62,14 @@ class BlockManipulatorImplEmit extends TranslationContext
 		//$$ blockState.updateNeighbors(world, blockPos, flags, maxUpdateDepth);
 		//$$ blockState.prepare(world, blockPos, flags , maxUpdateDepth);
 		//#else
-		blockState.updateNeighborStates(world, blockPos, flags);
-		blockState.method_11637(world, blockPos, flags);
+		blockState.updateNeighbourShapes(world, blockPos, flags);
+		blockState.updateIndirectNeighbourShapes(world, blockPos, flags);
 		//#endif
 	}
 
-	public void emitLightUpdateAt(ServerCommandSource source, BlockPos blockPos)
+	public void emitLightUpdateAt(CommandSourceStack source, BlockPos blockPos)
 	{
-		ServerLightingProvider lightingProvider = source.getWorld().getChunkManager().getLightingProvider();
+		ThreadedLevelLightEngine lightingProvider = source.getLevel().getChunkSource().getLightEngine();
 		lightingProvider.checkBlock(blockPos);
 	}
 }

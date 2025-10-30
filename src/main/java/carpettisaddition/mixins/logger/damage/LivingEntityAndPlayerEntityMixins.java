@@ -25,11 +25,11 @@ import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.StatusEffectModifyReason;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,11 +45,11 @@ import java.util.Optional;
 // some same mixins
 public abstract class LivingEntityAndPlayerEntityMixins
 {
-	@Mixin({LivingEntity.class, PlayerEntity.class})
+	@Mixin({LivingEntity.class, Player.class})
 	public static class ApplyDamageMixin
 	{
 		@Inject(
-				method = "applyDamage",
+				method = "actuallyHurt",
 				at = @At(
 						value = "INVOKE_ASSIGN",
 						target = "Ljava/lang/Math;max(FF)F"
@@ -58,12 +58,12 @@ public abstract class LivingEntityAndPlayerEntityMixins
 		private void onAbsorptionReducedDamage(CallbackInfo ci, @Local(argsOnly = true) float amount)
 		{
 			((DamageLoggerTarget) this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
-					amount, new StatusEffectModifyReason(StatusEffects.ABSORPTION)
+					amount, new StatusEffectModifyReason(MobEffects.ABSORPTION)
 			));
 		}
 
 		// at the end of damage calculation
-		@Inject(method = "applyDamage", at = @At("RETURN"))
+		@Inject(method = "actuallyHurt", at = @At("RETURN"))
 		private void onDamageApplyDone(
 				CallbackInfo ci, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount
 				//#if MC >= 12102
@@ -91,12 +91,12 @@ public abstract class LivingEntityAndPlayerEntityMixins
 		}
 	}
 
-	@Mixin({LivingEntity.class, PlayerEntity.class, ServerPlayerEntity.class})
+	@Mixin({LivingEntity.class, Player.class, ServerPlayer.class})
 	public static class DamageMixin
 	{
 		@Inject(
 				//#disable-remap
-				method = "damage",
+				method = "hurt",
 				//#enable-remap
 				at = @At(value = "RETURN")
 		)

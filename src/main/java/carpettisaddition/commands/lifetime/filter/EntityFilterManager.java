@@ -27,12 +27,12 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.entityfilter.EntityFilter;
 import com.google.common.collect.Maps;
-import net.minecraft.command.EntitySelector;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
+import net.minecraft.commands.arguments.selector.EntitySelector;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -71,12 +71,12 @@ public class EntityFilterManager extends TranslationContext
 		return this.getFilter(null).test(entity) && this.getFilter(entity.getType()).test(entity);
 	}
 
-	public void setEntityFilter(ServerCommandSource source, @Nullable EntityType<?> entityType, @Nullable EntitySelector entitySelector)
+	public void setEntityFilter(CommandSourceStack source, @Nullable EntityType<?> entityType, @Nullable EntitySelector entitySelector)
 	{
-		BaseText typeName = this.getEntityTypeText(entityType);
+		BaseComponent typeName = this.getEntityTypeText(entityType);
 		if (entitySelector != null)
 		{
-			if (!entitySelector.includesNonPlayers() || ((EntitySelectorAccessor)entitySelector).getPlayerName() != null)
+			if (!entitySelector.includesEntities() || ((EntitySelectorAccessor)entitySelector).getPlayerName() != null)
 			{
 				Messenger.tell(source, tr("unsupported.0"));
 				Messenger.tell(source, tr("unsupported.1"));
@@ -102,18 +102,18 @@ public class EntityFilterManager extends TranslationContext
 		}
 	}
 
-	public BaseText getEntityFilterText(@Nullable EntityType<?> entityType)
+	public BaseComponent getEntityFilterText(@Nullable EntityType<?> entityType)
 	{
 		Predicate<Entity> entityPredicate = this.getFilter(entityType);
 		return entityPredicate instanceof EntityFilter ? ((EntityFilter)entityPredicate).toText() : tr("none");
 	}
 
-	public BaseText getEntityTypeText(@Nullable EntityType<?> entityType)
+	public BaseComponent getEntityTypeText(@Nullable EntityType<?> entityType)
 	{
 		return entityType != null ? Messenger.entityType(entityType) : tr("global");
 	}
 
-	public void displayFilter(ServerCommandSource source, @Nullable EntityType<?> entityType)
+	public void displayFilter(CommandSourceStack source, @Nullable EntityType<?> entityType)
 	{
 		Messenger.tell(source, tr(
 				"display",
@@ -122,7 +122,7 @@ public class EntityFilterManager extends TranslationContext
 		));
 	}
 
-	public int displayAllFilters(ServerCommandSource source)
+	public int displayAllFilters(CommandSourceStack source)
 	{
 		Messenger.tell(source, tr("display_total", this.entityFilter.size()));
 		this.entityFilter.keySet().forEach(entityType -> Messenger.tell(

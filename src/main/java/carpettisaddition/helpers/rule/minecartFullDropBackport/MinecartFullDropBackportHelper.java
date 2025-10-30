@@ -20,30 +20,34 @@
 
 package carpettisaddition.helpers.rule.minecartFullDropBackport;
 
-import net.minecraft.entity.vehicle.*;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.MinecartChest;
+import net.minecraft.world.entity.vehicle.MinecartFurnace;
+import net.minecraft.world.entity.vehicle.MinecartHopper;
+import net.minecraft.world.entity.vehicle.MinecartTNT;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.Items;
 
 import java.util.Optional;
 
 public class MinecartFullDropBackportHelper
 {
-	public static Optional<ItemConvertible> getFullDropItem(AbstractMinecartEntity cart)
+	public static Optional<ItemLike> getFullDropItem(AbstractMinecart cart)
 	{
-		ItemConvertible item = null;
-		if (cart instanceof ChestMinecartEntity)
+		ItemLike item = null;
+		if (cart instanceof MinecartChest)
 		{
 			item = Items.CHEST_MINECART;
 		}
-		else if (cart instanceof FurnaceMinecartEntity)
+		else if (cart instanceof MinecartFurnace)
 		{
 			item = Items.FURNACE_MINECART;
 		}
-		else if (cart instanceof HopperMinecartEntity)
+		else if (cart instanceof MinecartHopper)
 		{
 			item = Items.HOPPER_MINECART;
 		}
-		else if (cart instanceof TntMinecartEntity)
+		else if (cart instanceof MinecartTNT)
 		{
 			item = Items.TNT_MINECART;
 		}

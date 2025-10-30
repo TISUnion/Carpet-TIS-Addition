@@ -26,13 +26,13 @@ import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Maps;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.light.LightingProvider;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.lighting.LevelLightEngine;
 
 import java.util.Deque;
 import java.util.Map;
@@ -41,8 +41,8 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 {
 	public static final String NAME = "lightQueue";
 	private static final LightQueueHUDLogger INSTANCE = new LightQueueHUDLogger();
-	private final Map<ServerWorld, WindowedDataRecorder> dataMap = Maps.newHashMap();
-	private final Map<Identifier, ServerWorld> nameToWorldMap = Maps.newHashMap();
+	private final Map<ServerLevel, WindowedDataRecorder> dataMap = Maps.newHashMap();
+	private final Map<ResourceLocation, ServerLevel> nameToWorldMap = Maps.newHashMap();
 
 	public LightQueueHUDLogger()
 	{
@@ -58,7 +58,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 	{
 		this.dataMap.clear();
 		this.nameToWorldMap.clear();
-		for (ServerWorld world: minecraftServer.getWorlds())
+		for (ServerLevel world: minecraftServer.getAllLevels())
 		{
 			this.dataMap.put(world, new WindowedDataRecorder());
 			this.nameToWorldMap.put(DimensionWrapper.of(world).getIdentifier(), world);
@@ -74,9 +74,9 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 	public void tick()
 	{
 		this.nameToWorldMap.values().forEach(world -> {
-			LightingProvider lightingProvider =
+			LevelLightEngine lightingProvider =
 					//#if MC >= 11500
-					world.getLightingProvider();
+					world.getLightEngine();
 					//#else
 					//$$ world.getChunkManager().getLightingProvider();
 					//#endif
@@ -99,15 +99,15 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public BaseComponent[] onHudUpdate(String option, Player playerEntity)
 	{
-		World playerWorld = EntityUtils.getEntityWorld(playerEntity);
-		if (!(playerWorld instanceof ServerWorld))
+		Level playerWorld = EntityUtils.getEntityWorld(playerEntity);
+		if (!(playerWorld instanceof ServerLevel))
 		{
-			return new BaseText[]{Messenger.s("not ServerWorld")};
+			return new BaseComponent[]{Messenger.s("not ServerWorld")};
 		}
-		Identifier optionId = Identifier.tryParse(option);
-		ServerWorld serverWorld = this.nameToWorldMap.getOrDefault(optionId, (ServerWorld)playerWorld);
+		ResourceLocation optionId = ResourceLocation.tryParse(option);
+		ServerLevel serverWorld = this.nameToWorldMap.getOrDefault(optionId, (ServerLevel)playerWorld);
 		WindowedDataRecorder recorder = this.dataMap.get(serverWorld);
 		Deque<RecordedData> deque = recorder.getQueue();
 
@@ -118,12 +118,12 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 		double executeSpeed = (double)executedCount / deque.size();
 		double increaseSpeed = enqueueSpeed - executeSpeed;
 
-		BaseText header = Messenger.c(
+		BaseComponent header = Messenger.c(
 				"g LQ(",
 				Messenger.getColoredDimensionSymbol(DimensionWrapper.of(serverWorld)),
 				"g ) "
 		);
-		return new BaseText[]{
+		return new BaseComponent[]{
 				Messenger.c(
 						header,
 						String.format("%s%.1f", increaseSpeed >= 0 ? "e +" : "n ", increaseSpeed),

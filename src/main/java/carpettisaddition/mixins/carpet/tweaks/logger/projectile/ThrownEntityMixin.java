@@ -25,9 +25,9 @@ import carpettisaddition.helpers.carpet.tweaks.logger.projectile.TrajectoryLogge
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.thrown.ThrownEntity;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,13 +37,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // smaller priority to make this execute before carpet's logger creation
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(value = ThrownEntity.class, priority = 500)
+@Mixin(value = ThrowableProjectile.class, priority = 500)
 public abstract class ThrownEntityMixin implements ProjectileLoggerTarget
 {
 	@Unique
 	private HitResult hitResult;
 
-	@Inject(method = "<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V", at = @At("TAIL"))
+	@Inject(method = "<init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V", at = @At("TAIL"))
 	private void recordEntityInfoForCarpetTrajectoryLogHelper(CallbackInfo ci)
 	{
 		TrajectoryLoggerUtil.currentEntity.set((Entity)(Object)this);
@@ -53,7 +53,7 @@ public abstract class ThrownEntityMixin implements ProjectileLoggerTarget
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/thrown/ThrownEntity;onCollision(Lnet/minecraft/util/hit/HitResult;)V"
+					target = "Lnet/minecraft/world/entity/projectile/ThrowableProjectile;onHit(Lnet/minecraft/world/phys/HitResult;)V"
 			),
 			index = 0
 	)

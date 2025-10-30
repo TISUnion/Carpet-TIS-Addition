@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.SetBlockCommand;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.commands.SetBlockCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -41,7 +41,7 @@ public abstract class SetBlockCommandMixin
 			at = @At("TAIL"),
 			remap = false
 	)
-	private static boolean checkIfAllowCheating_setblockCommand(boolean permissionEnough, ServerCommandSource source)
+	private static boolean checkIfAllowCheating_setblockCommand(boolean permissionEnough, CommandSourceStack source)
 	{
 		return permissionEnough && OpPlayerNoCheatHelper.canCheat(source);
 	}

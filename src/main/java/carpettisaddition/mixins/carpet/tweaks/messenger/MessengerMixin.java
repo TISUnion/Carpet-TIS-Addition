@@ -24,7 +24,7 @@ import carpet.utils.Messenger;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.text.Style;
+import net.minecraft.network.chat.Style;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -44,7 +44,7 @@ public abstract class MessengerMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/text/Style;setItalic(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",
+					target = "Lnet/minecraft/network/chat/Style;setItalic(Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Style;",
 					remap = true
 			),
 			remap = false
@@ -62,7 +62,7 @@ public abstract class MessengerMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/text/Style;setStrikethrough(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",
+					target = "Lnet/minecraft/network/chat/Style;setStrikethrough(Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Style;",
 					remap = true
 			),
 			remap = false
@@ -80,14 +80,14 @@ public abstract class MessengerMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/text/Style;setUnderline(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",
+					target = "Lnet/minecraft/network/chat/Style;setUnderlined(Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Style;",
 					remap = true
 			),
 			remap = false
 	)
 	private static Style doIfCheckPlease_setUnderline(Style style, Boolean value)
 	{
-		return value ? style.setUnderline(value) : style;
+		return value ? style.setUnderlined(value) : style;
 	}
 
 	@Redirect(
@@ -98,7 +98,7 @@ public abstract class MessengerMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/text/Style;setBold(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",
+					target = "Lnet/minecraft/network/chat/Style;setBold(Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Style;",
 					remap = true
 			),
 			remap = false
@@ -116,7 +116,7 @@ public abstract class MessengerMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/text/Style;setObfuscated(Ljava/lang/Boolean;)Lnet/minecraft/text/Style;",
+					target = "Lnet/minecraft/network/chat/Style;setObfuscated(Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Style;",
 					remap = true
 			),
 			remap = false

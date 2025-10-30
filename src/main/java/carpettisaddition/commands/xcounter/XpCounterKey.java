@@ -23,7 +23,7 @@ package carpettisaddition.commands.xcounter;
 import carpettisaddition.commands.common.counter.DyeCounterKey;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.Objects;
 
@@ -43,7 +43,7 @@ public class XpCounterKey implements DyeCounterKey
 	}
 
 	@Override
-	public BaseText getText()
+	public BaseComponent getText()
 	{
 		return Messenger.hover(
 				Messenger.s(this.xpAmount),
@@ -52,7 +52,7 @@ public class XpCounterKey implements DyeCounterKey
 	}
 
 	/**
-	 * Reference: {@link net.minecraft.entity.ExperienceOrbEntity#getOrbSize}
+	 * Reference: {@link net.minecraft.world.entity.ExperienceOrb#getOrbSize}
 	 */
 	private int getOrbSize()
 	{

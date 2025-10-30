@@ -24,7 +24,7 @@ import carpet.fakes.ServerPlayerEntityInterface;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.fakePlayerTicksLikeRealPlayer.FakePlayerTicker;
 import carpettisaddition.helpers.rule.fakePlayerTicksLikeRealPlayer.PlayerActionPackCanceller;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -40,7 +40,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 public abstract class ServerPlayerEntityMixin
 {
-	@Mixin(value = ServerPlayerEntity.class, priority = 100)
+	@Mixin(value = ServerPlayer.class, priority = 100)
 	public static abstract class Before
 	{
 		@Inject(method = "tick", at = @At("HEAD"))
@@ -48,7 +48,7 @@ public abstract class ServerPlayerEntityMixin
 		{
 			if (CarpetTISAdditionSettings.fakePlayerTicksLikeRealPlayer)
 			{
-				ServerPlayerEntity self = (ServerPlayerEntity)(Object)this;
+				ServerPlayer self = (ServerPlayer)(Object)this;
 				if (self instanceof ServerPlayerEntityInterface)
 				{
 					PlayerActionPackCanceller.cancelled.set(true);
@@ -58,7 +58,7 @@ public abstract class ServerPlayerEntityMixin
 		}
 	}
 
-	@Mixin(value = ServerPlayerEntity.class, priority = 10000)
+	@Mixin(value = ServerPlayer.class, priority = 10000)
 	public static abstract class After
 	{
 		@Inject(method = "tick", at = @At("HEAD"))

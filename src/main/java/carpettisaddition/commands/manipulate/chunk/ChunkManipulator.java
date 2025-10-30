@@ -24,17 +24,17 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.AbstractManipulator;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.level.ChunkPos;
 
 import java.util.List;
 import java.util.function.BiFunction;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class ChunkManipulator extends AbstractManipulator
 {
@@ -45,11 +45,11 @@ public class ChunkManipulator extends AbstractManipulator
 
 	// ============================== Command ==============================
 
-	private LiteralArgumentBuilder<ServerCommandSource> makeBatchOperationNode(String subcommand, int maxRangeRadius, ThrottledOperator.OperateImpl operateImpl)
+	private LiteralArgumentBuilder<CommandSourceStack> makeBatchOperationNode(String subcommand, int maxRangeRadius, ThrottledOperator.OperateImpl operateImpl)
 	{
 		ThrottledOperator operator = new ThrottledOperator(this, operateImpl);
 
-		BiFunction<String, BiFunction<ServerCommandSource, Integer, Integer>, LiteralArgumentBuilder<ServerCommandSource>> makeRadiusNode = (name, func) ->
+		BiFunction<String, BiFunction<CommandSourceStack, Integer, Integer>, LiteralArgumentBuilder<CommandSourceStack>> makeRadiusNode = (name, func) ->
 				literal(name).
 						then(argument("radius", integer(0, maxRangeRadius)).
 								executes(c -> func.apply(c.getSource(), getInteger(c, "radius")))
@@ -57,7 +57,7 @@ public class ChunkManipulator extends AbstractManipulator
 
 		return literal(subcommand).
 				executes(c -> {
-					Messenger.tell(c.getSource(), Messenger.formatting(tr("help.danger_notice"), Formatting.RED));
+					Messenger.tell(c.getSource(), Messenger.formatting(tr("help.danger_notice"), ChatFormatting.RED));
 					Messenger.tell(c.getSource(), tr("help.root"));
 					return 0;
 				}).
@@ -90,14 +90,14 @@ public class ChunkManipulator extends AbstractManipulator
 
 	// ============================== Impl ==============================
 
-	private int doEraseChunks(ServerCommandSource source, List<ChunkPos> chunkPosList, Runnable doneCallback)
+	private int doEraseChunks(CommandSourceStack source, List<ChunkPos> chunkPosList, Runnable doneCallback)
 	{
 		ChunkEraser chunkEraser = new ChunkEraser(this.getTranslator().getDerivedTranslator("erase"), chunkPosList, source);
 		chunkEraser.erase().thenRun(doneCallback);
 		return chunkPosList.size();
 	}
 
-	private int doRelightChunks(ServerCommandSource source, List<ChunkPos> chunkPosList, Runnable doneCallback)
+	private int doRelightChunks(CommandSourceStack source, List<ChunkPos> chunkPosList, Runnable doneCallback)
 	{
 		ChunkRelighter chunkRelighter = new ChunkRelighter(this.getTranslator().getDerivedTranslator("relight"), chunkPosList, source);
 		chunkRelighter.relight().thenRun(doneCallback);

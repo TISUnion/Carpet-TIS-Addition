@@ -22,9 +22,9 @@ package carpettisaddition.mixins.rule.preciseEntityPlacement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.preciseEntityPlacement.PreciseEntityPlacer;
-import net.minecraft.entity.decoration.ArmorStandEntity;
-import net.minecraft.item.ArmorStandItem;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.item.ArmorStandItem;
+import net.minecraft.world.item.UseOnContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -37,14 +37,14 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class ArmorStandItemItemMixin
 {
 	@ModifyVariable(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/decoration/ArmorStandEntity;refreshPositionAndAngles(DDDFF)V",
+					target = "Lnet/minecraft/world/entity/decoration/ArmorStand;moveTo(DDDFF)V",
 					shift = At.Shift.AFTER
 			)
 	)
-	private ArmorStandEntity preciseEntityPlacement_armorStandPlacement(ArmorStandEntity armorStandEntity, ItemUsageContext context)
+	private ArmorStand preciseEntityPlacement_armorStandPlacement(ArmorStand armorStandEntity, UseOnContext context)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{

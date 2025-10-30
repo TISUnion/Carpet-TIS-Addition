@@ -25,27 +25,27 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.vehicle.ChestMinecartEntity;
-import net.minecraft.entity.vehicle.FurnaceMinecartEntity;
-import net.minecraft.entity.vehicle.HopperMinecartEntity;
-import net.minecraft.entity.vehicle.TntMinecartEntity;
+import net.minecraft.world.entity.vehicle.MinecartChest;
+import net.minecraft.world.entity.vehicle.MinecartFurnace;
+import net.minecraft.world.entity.vehicle.MinecartHopper;
+import net.minecraft.world.entity.vehicle.MinecartTNT;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.19"))
 @Mixin(value = {
-		ChestMinecartEntity.class,
-		FurnaceMinecartEntity.class,
-		HopperMinecartEntity.class,
-		TntMinecartEntity.class,
+		MinecartChest.class,
+		MinecartFurnace.class,
+		MinecartHopper.class,
+		MinecartTNT.class,
 })
 public abstract class MinecartVariablesMixin
 {
 	@ModifyExpressionValue(
-			method = "dropItems",
+			method = "destroy",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$RuleKey;)Z"
+					target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
 			)
 	)
 	private boolean minecartFullDropBackport_cancelSeparatedDrop(boolean canDrop)

@@ -20,21 +20,21 @@
 
 package carpettisaddition.helpers.rule.shulkerBoxFullDropBackport;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class ShulkerBoxFullDropBackportHelper
 {
 	public static void onItemEntityDamagedToDie(ItemEntity itemEntity)
 	{
-		Item item = itemEntity.getStack().getItem();
+		Item item = itemEntity.getItem().getItem();
 		if (!(item instanceof BlockItem))
 		{
 			return;
@@ -44,17 +44,17 @@ public class ShulkerBoxFullDropBackportHelper
 		Block block = ((BlockItem)item).getBlock();
 		if (block instanceof ShulkerBoxBlock)
 		{
-			CompoundTag compoundTag = itemEntity.getStack().getTag();
-			World world = itemEntity.world;
+			CompoundTag compoundTag = itemEntity.getItem().getTag();
+			Level world = itemEntity.level;
 
-			if (compoundTag != null && !world.isClient())
+			if (compoundTag != null && !world.isClientSide())
 			{
 				ListTag listTag = compoundTag.getCompound("BlockEntityTag").getList("Items", 10);
 				listTag.stream()
 						.map(CompoundTag.class::cast)
-						.map(ItemStack::fromTag)
+						.map(ItemStack::of)
 						.forEach(stack -> {
-							world.spawnEntity(new ItemEntity(
+							world.addFreshEntity(new ItemEntity(
 									world,
 									//#if MC >= 11500
 									itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(),

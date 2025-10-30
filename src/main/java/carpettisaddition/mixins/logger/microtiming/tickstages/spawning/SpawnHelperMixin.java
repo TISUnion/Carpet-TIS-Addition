@@ -22,30 +22,30 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.spawning;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import net.minecraft.world.SpawnHelper;
+import net.minecraft.world.level.NaturalSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 //#if MC >= 11500
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 //#else
 //$$ import net.minecraft.world.World;
 //#endif
 
-@Mixin(SpawnHelper.class)
+@Mixin(NaturalSpawner.class)
 public abstract class SpawnHelperMixin
 {
 	@ModifyVariable(
 			//#if MC >= 11600
 			//$$ method = "spawn",
 			//#else
-			method = "spawnEntitiesInChunk",
+			method = "spawnCategoryForChunk",
 			//#endif
 			at = @At("HEAD"), argsOnly = true
 	)
 	//#if MC >= 11500
-	private static ServerWorld enterStageSpawn(ServerWorld world)
+	private static ServerLevel enterStageSpawn(ServerLevel world)
 	//#else
 	//$$ private static World enterStageSpawn(World world)
 	//#endif
@@ -58,13 +58,13 @@ public abstract class SpawnHelperMixin
 			//#if MC >= 11600
 			//$$ method = "spawn",
 			//#else
-			method = "spawnEntitiesInChunk",
+			method = "spawnCategoryForChunk",
 			//#endif
 			at = @At("TAIL"),
 			argsOnly = true
 	)
 	//#if MC >= 11500
-	private static ServerWorld exitStageSpawn(ServerWorld world)
+	private static ServerLevel exitStageSpawn(ServerLevel world)
 	//#else
 	//$$ private static World exitStageSpawn(World world)
 	//#endif

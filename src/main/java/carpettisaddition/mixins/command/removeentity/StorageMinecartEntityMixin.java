@@ -22,11 +22,11 @@ package carpettisaddition.mixins.command.removeentity;
 
 import carpettisaddition.commands.removeentity.EntityToBeCleanlyRemoved;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.vehicle.StorageMinecartEntity;
+import net.minecraft.world.entity.vehicle.AbstractMinecartContainer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(StorageMinecartEntity.class)
+@Mixin(AbstractMinecartContainer.class)
 public abstract class StorageMinecartEntityMixin implements EntityToBeCleanlyRemoved
 {
 	private boolean toBeCleanlyRemoved$TISCM = false;
@@ -45,7 +45,7 @@ public abstract class StorageMinecartEntityMixin implements EntityToBeCleanlyRem
 					//$$ target = "Lnet/minecraft/entity/Entity$RemovalReason;shouldDestroy()Z"
 					//#else
 					value = "FIELD",
-					target = "Lnet/minecraft/entity/vehicle/StorageMinecartEntity;field_7733:Z"
+					target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecartContainer;dropEquipment:Z"
 					//#endif
 			)
 	)

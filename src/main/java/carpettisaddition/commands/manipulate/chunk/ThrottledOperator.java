@@ -25,9 +25,9 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.PositionUtils;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.arguments.BlockPosArgumentType;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.level.ChunkPos;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,7 +42,7 @@ class ThrottledOperator extends TranslationContext
 	@FunctionalInterface
 	public interface OperateImpl
 	{
-		int call(ServerCommandSource source, List<ChunkPos> chunkPosList, Runnable doneCallback);
+		int call(CommandSourceStack source, List<ChunkPos> chunkPosList, Runnable doneCallback);
 	}
 
 	public ThrottledOperator(ChunkManipulator chunkManipulator, OperateImpl operateImpl)
@@ -51,7 +51,7 @@ class ThrottledOperator extends TranslationContext
 		this.operateImpl = operateImpl;
 	}
 
-	public int operate(ServerCommandSource source, List<ChunkPos> chunkPosList)
+	public int operate(CommandSourceStack source, List<ChunkPos> chunkPosList)
 	{
 		if (!this.semaphore.tryAcquire())
 		{
@@ -70,32 +70,32 @@ class ThrottledOperator extends TranslationContext
 		}
 	}
 
-	public int operateAt(ServerCommandSource source, ChunkPos chunkPos) throws CommandSyntaxException
+	public int operateAt(CommandSourceStack source, ChunkPos chunkPos) throws CommandSyntaxException
 	{
-		if (!source.getWorld().isChunkLoaded(chunkPos.x, chunkPos.z))
+		if (!source.getLevel().hasChunk(chunkPos.x, chunkPos.z))
 		{
-			throw BlockPosArgumentType.UNLOADED_EXCEPTION.create();
+			throw BlockPosArgument.ERROR_NOT_LOADED.create();
 		}
 		return this.operate(source, Collections.singletonList(chunkPos));
 	}
 
-	public int operateInSquare(ServerCommandSource source, int radius)
+	public int operateInSquare(CommandSourceStack source, int radius)
 	{
 		ChunkPos center = new ChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
-		List<ChunkPos> chunkPosList = ChunkPos.stream(center, radius).collect(Collectors.toList());
+		List<ChunkPos> chunkPosList = ChunkPos.rangeClosed(center, radius).collect(Collectors.toList());
 		return this.operate(source, chunkPosList);
 	}
 
-	public int operateInCircle(ServerCommandSource source, int radius)
+	public int operateInCircle(CommandSourceStack source, int radius)
 	{
 		ChunkPos center = new ChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
-		List<ChunkPos> chunkPosList = ChunkPos.stream(center, radius).
+		List<ChunkPos> chunkPosList = ChunkPos.rangeClosed(center, radius).
 				filter(chunkPos -> (chunkPos.x - center.x) * (chunkPos.x - center.x) + (chunkPos.z - center.z) * (chunkPos.z - center.z) <= radius * radius).
 				collect(Collectors.toList());
 		return this.operate(source, chunkPosList);
 	}
 
-	public int operateCurrent(ServerCommandSource source)
+	public int operateCurrent(CommandSourceStack source)
 	{
 		return this.operateInCircle(source, 0);
 	}

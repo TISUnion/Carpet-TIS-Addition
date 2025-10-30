@@ -28,14 +28,14 @@ import org.spongepowered.asm.mixin.injection.At;
 //#if MC >= 11600
 //$$ import net.minecraft.world.dimension.AreaHelper;
 //#else
-import net.minecraft.block.NetherPortalBlock;
+import net.minecraft.world.level.block.NetherPortalBlock;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
 		//$$ AreaHelper.class
 		//#else
-		NetherPortalBlock.AreaHelper.class
+		NetherPortalBlock.PortalShape.class
 		//#endif
 )
 public abstract class NetherPortalBlockAreaHelperMixin
@@ -55,7 +55,7 @@ public abstract class NetherPortalBlockAreaHelperMixin
 					//$$ "method_30490",
 					//#else
 					"<init>",
-					"findHeight",
+					"calculatePortalHeight",
 					//#endif
 			},
 			at = @At(
@@ -94,7 +94,7 @@ public abstract class NetherPortalBlockAreaHelperMixin
 
 	//#if MC < 11600
 	@ModifyExpressionValue(
-			method = "distanceToPortalEdge",
+			method = "getDistanceUntilEdge",
 			at = @At(value = "CONSTANT", args = "intValue=22")
 	)
 	private int netherPortalMaxSize_modifyLowerLimit(int limit)

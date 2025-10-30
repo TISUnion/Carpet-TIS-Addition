@@ -20,23 +20,23 @@
 
 package carpettisaddition.helpers.rule.optimizedFastEntityMovement;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 
 public class OFEMContext
 {
 	// basic info
-	public final World world;
+	public final Level world;
 	public final Entity entity;
 
 	// for per getAxisOnlyBlockCollision call
 	public Direction.Axis axis;
 	public double movementOnAxis;
-	public Box entityBoundingBox;
+	public AABB entityBoundingBox;
 
-	public OFEMContext(World world, Entity entity)
+	public OFEMContext(Level world, Entity entity)
 	{
 		this.world = world;
 		this.entity = entity;

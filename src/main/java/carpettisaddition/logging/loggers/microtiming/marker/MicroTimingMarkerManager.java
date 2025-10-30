@@ -33,14 +33,14 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -74,10 +74,10 @@ public class MicroTimingMarkerManager extends TranslationContext
 		return size;
 	}
 
-	private static boolean checkServerSide(PlayerEntity playerEntity)
+	private static boolean checkServerSide(Player playerEntity)
 	{
-		World playerWorld = EntityUtils.getEntityWorld(playerEntity);
-		return playerEntity instanceof ServerPlayerEntity && !playerWorld.isClient() && playerWorld instanceof ServerWorld;
+		Level playerWorld = EntityUtils.getEntityWorld(playerEntity);
+		return playerEntity instanceof ServerPlayer && !playerWorld.isClientSide() && playerWorld instanceof ServerLevel;
 	}
 
 	private void removeMarker(MicroTimingMarker marker)
@@ -98,7 +98,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 		this.markers.put(marker.getStorageKey(), marker);
 	}
 
-	public void addMarker(PlayerEntity playerEntity, BlockPos blockPos, DyeColor color, @Nullable BaseText name)
+	public void addMarker(Player playerEntity, BlockPos blockPos, DyeColor color, @Nullable BaseComponent name)
 	{
 		if (checkServerSide(playerEntity))
 		{
@@ -142,14 +142,14 @@ public class MicroTimingMarkerManager extends TranslationContext
 			}
 			if (createNewMarker)
 			{
-				MicroTimingMarker newMarker = new MicroTimingMarker((ServerWorld)EntityUtils.getEntityWorld(playerEntity), blockPos, color, name);
+				MicroTimingMarker newMarker = new MicroTimingMarker((ServerLevel)EntityUtils.getEntityWorld(playerEntity), blockPos, color, name);
 				this.addMarker(newMarker);
 				Messenger.reminder(playerEntity, tr("on_mark", newMarker.toFullText()));
 			}
 		}
 	}
 
-	public Optional<DyeColor> getColor(World world, BlockPos blockPos, MicroTimingMarkerType requiredMarkerType)
+	public Optional<DyeColor> getColor(Level world, BlockPos blockPos, MicroTimingMarkerType requiredMarkerType)
 	{
 		MicroTimingMarker marker = this.markers.get(new StorageKey(world, blockPos));
 		if (marker == null)
@@ -159,7 +159,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 		return Optional.ofNullable(marker.getMarkerType().ordinal() >= requiredMarkerType.ordinal() ? marker.color : null);
 	}
 
-	public Optional<String> getMarkerName(World world, BlockPos blockPos)
+	public Optional<String> getMarkerName(Level world, BlockPos blockPos)
 	{
 		return Optional.ofNullable(this.markers.get(new StorageKey(world, blockPos))).map(MicroTimingMarker::getMarkerNameString);
 	}
@@ -169,7 +169,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 	 * sendShapeToAll / cleanShapeToAll method, since it's able to send multiple shapes per packet
 	 */
 
-	private void sendMarkersForPlayerInner(List<ServerPlayerEntity> playerList, Predicate<MicroTimingMarker> markerPredicate, boolean display)
+	private void sendMarkersForPlayerInner(List<ServerPlayer> playerList, Predicate<MicroTimingMarker> markerPredicate, boolean display)
 	{
 		if (!playerList.isEmpty() && !this.markers.isEmpty())
 		{
@@ -185,12 +185,12 @@ public class MicroTimingMarkerManager extends TranslationContext
 		}
 	}
 
-	public void sendAllMarkersForPlayer(ServerPlayerEntity player)
+	public void sendAllMarkersForPlayer(ServerPlayer player)
 	{
 		this.sendMarkersForPlayerInner(Collections.singletonList(player), marker -> true, true);
 	}
 
-	public void cleanAllMarkersForPlayer(ServerPlayerEntity player)
+	public void cleanAllMarkersForPlayer(ServerPlayer player)
 	{
 		this.sendMarkersForPlayerInner(Collections.singletonList(player), marker -> true, false);
 	}
@@ -227,7 +227,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 	/**
 	 * return false if there is not a marker there, true otherwise
 	 */
-	public boolean tweakMarkerMobility(PlayerEntity playerEntity, BlockPos blockPos)
+	public boolean tweakMarkerMobility(Player playerEntity, BlockPos blockPos)
 	{
 		if (checkServerSide(playerEntity))
 		{
@@ -244,7 +244,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 		return false;
 	}
 
-	public void moveMarker(World world, BlockPos blockPos, Direction direction)
+	public void moveMarker(Level world, BlockPos blockPos, Direction direction)
 	{
 		MicroTimingMarker marker = this.markers.get(new StorageKey(world, blockPos));
 		if (marker != null && marker.isMovable())

@@ -33,8 +33,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.Formatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.ChatFormatting;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -44,8 +44,8 @@ import static com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg;
 import static com.mojang.brigadier.arguments.DoubleArgumentType.getDouble;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class RandomizedActionIntervalCommand extends TranslationContext
 {
@@ -61,12 +61,12 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 		return INSTANCE;
 	}
 
-	public void extendCommand(ArgumentBuilder<ServerCommandSource, ?> node, EntityPlayerActionPack.ActionType type, CommandActionMaker actionMaker)
+	public void extendCommand(ArgumentBuilder<CommandSourceStack, ?> node, EntityPlayerActionPack.ActionType type, CommandActionMaker actionMaker)
 	{
-		Function<Boolean, Command<ServerCommandSource>> uniformCmd = bool -> c -> actionMaker.action(c, type, uniformImpl(c, bool));
-		Command<ServerCommandSource> poissonCmd = c -> actionMaker.action(c, type, poissonImpl(c));
-		Command<ServerCommandSource> gaussianCmd = c -> actionMaker.action(c, type, gaussianImpl(c));
-		Command<ServerCommandSource> triangularCmd = c -> actionMaker.action(c, type, triangularImpl(c));
+		Function<Boolean, Command<CommandSourceStack>> uniformCmd = bool -> c -> actionMaker.action(c, type, uniformImpl(c, bool));
+		Command<CommandSourceStack> poissonCmd = c -> actionMaker.action(c, type, poissonImpl(c));
+		Command<CommandSourceStack> gaussianCmd = c -> actionMaker.action(c, type, gaussianImpl(c));
+		Command<CommandSourceStack> triangularCmd = c -> actionMaker.action(c, type, triangularImpl(c));
 		EndpointCmdMaker endpoint = (n, cmd, g) -> n.
 				executes(cmd).
 				then(literal("--simulate").
@@ -136,13 +136,13 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 	@FunctionalInterface
 	private interface RandomGenSupplier
 	{
-		RandomGen get(CommandContext<ServerCommandSource> c) throws CommandSyntaxException;
+		RandomGen get(CommandContext<CommandSourceStack> c) throws CommandSyntaxException;
 	}
 
 	@FunctionalInterface
 	private interface EndpointCmdMaker
 	{
-		ArgumentBuilder<ServerCommandSource, ?> make(ArgumentBuilder<ServerCommandSource, ?> node, Command<ServerCommandSource> cmd, RandomGenSupplier genSupplier);
+		ArgumentBuilder<CommandSourceStack, ?> make(ArgumentBuilder<CommandSourceStack, ?> node, Command<CommandSourceStack> cmd, RandomGenSupplier genSupplier);
 	}
 
 	private static Optional<Integer> getOptionalInteger(CommandContext<?> c, String name)
@@ -164,20 +164,20 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 		return action;
 	}
 
-	private int randomlyHelp(ServerCommandSource source)
+	private int randomlyHelp(CommandSourceStack source)
 	{
 		Messenger.tell(source, tr("root.help"));
 		return 0;
 	}
 
-	private int simulateRun(CommandContext<ServerCommandSource> c, RandomGen gen)
+	private int simulateRun(CommandContext<CommandSourceStack> c, RandomGen gen)
 	{
 		final int CHAR_COUNT = 40;
 		final int MIN_N = 10000;
 		final int MAX_N = 1000000;
 		final long MAX_MILLI = 500;  // 500ms
 
-		ServerCommandSource source = c.getSource();
+		CommandSourceStack source = c.getSource();
 		Int2IntOpenHashMap counter = new Int2IntOpenHashMap();
 		int n = 0;
 
@@ -216,7 +216,7 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 				Messenger.ClickEvents.suggestCommand(c.getInput())
 		));
 		Messenger.tell(source, tr("simulate.samples", n));
-		Messenger.tell(source, Messenger.formatting(tr("simulate.divider"), Formatting.GRAY));
+		Messenger.tell(source, Messenger.formatting(tr("simulate.divider"), ChatFormatting.GRAY));
 		int finalN = n;
 		counter.int2IntEntrySet().stream().
 				sorted(Comparator.comparing(Int2IntMap.Entry::getIntKey)).
@@ -228,20 +228,20 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 							Strings.repeat("#", CHAR_COUNT * e.getIntValue() / maxCount)
 					)));
 				});
-		Messenger.tell(source, Messenger.formatting(tr("simulate.divider"), Formatting.GRAY));
+		Messenger.tell(source, Messenger.formatting(tr("simulate.divider"), ChatFormatting.GRAY));
 
 		return n;
 	}
 
 	// ========================== uniform ==========================
 
-	private int uniformHelp(ServerCommandSource source)
+	private int uniformHelp(CommandSourceStack source)
 	{
 		Messenger.tell(source, tr("uniform.help"));
 		return 0;
 	}
 
-	private RandomGen uniformGen(CommandContext<ServerCommandSource> c)
+	private RandomGen uniformGen(CommandContext<CommandSourceStack> c)
 	{
 		int lower = getInteger(c, "min");
 		int upper = getInteger(c, "max");
@@ -250,24 +250,24 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 		return new UniformGen(lower, upper);
 	}
 
-	private EntityPlayerActionPack.Action uniformImpl(CommandContext<ServerCommandSource> c, boolean showDeprecation)
+	private EntityPlayerActionPack.Action uniformImpl(CommandContext<CommandSourceStack> c, boolean showDeprecation)
 	{
 		if (showDeprecation)
 		{
-			Messenger.tell(c.getSource(), Messenger.s(tr("root.uniform_deprecation"), Formatting.DARK_RED));
+			Messenger.tell(c.getSource(), Messenger.s(tr("root.uniform_deprecation"), ChatFormatting.DARK_RED));
 		}
 		return actionFromRandomGen(uniformGen(c));
 	}
 
 	// ========================== poisson ==========================
 
-	private int poissonHelp(ServerCommandSource source)
+	private int poissonHelp(CommandSourceStack source)
 	{
 		Messenger.tell(source, tr("poisson.help"));
 		return 0;
 	}
 
-	private RandomGen poissonGen(CommandContext<ServerCommandSource> c) throws CommandSyntaxException
+	private RandomGen poissonGen(CommandContext<CommandSourceStack> c) throws CommandSyntaxException
 	{
 		double origin = getDouble(c, "origin");
 		double maxima = getDouble(c, "maxima");
@@ -289,20 +289,20 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 		return new RangeLimitedGen(gen, Integer.MIN_VALUE, upper);
 	}
 
-	private EntityPlayerActionPack.Action poissonImpl(CommandContext<ServerCommandSource> c) throws CommandSyntaxException
+	private EntityPlayerActionPack.Action poissonImpl(CommandContext<CommandSourceStack> c) throws CommandSyntaxException
 	{
 		return actionFromRandomGen(poissonGen(c));
 	}
 
 	// ========================== gaussian ==========================
 
-	private int gaussianHelp(ServerCommandSource source)
+	private int gaussianHelp(CommandSourceStack source)
 	{
 		Messenger.tell(source, tr("gaussian.help"));
 		return 0;
 	}
 
-	private RandomGen gaussianGen(CommandContext<ServerCommandSource> c)
+	private RandomGen gaussianGen(CommandContext<CommandSourceStack> c)
 	{
 		double mu = getDouble(c, "mu");
 		double sigma = getDouble(c, "sigma");
@@ -312,20 +312,20 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 		return new RangeLimitedGen(new GaussianGen(mu, sigma), lower, upper);
 	}
 
-	private EntityPlayerActionPack.Action gaussianImpl(CommandContext<ServerCommandSource> c)
+	private EntityPlayerActionPack.Action gaussianImpl(CommandContext<CommandSourceStack> c)
 	{
 		return actionFromRandomGen(gaussianGen(c));
 	}
 
 	// ========================== triangular ==========================
 
-	private int triangularHelp(ServerCommandSource source)
+	private int triangularHelp(CommandSourceStack source)
 	{
 		Messenger.tell(source, tr("triangular.help"));
 		return 0;
 	}
 
-	private RandomGen triangularGen(CommandContext<ServerCommandSource> c)
+	private RandomGen triangularGen(CommandContext<CommandSourceStack> c)
 	{
 		double mode = getDouble(c, "mode");
 		double deviation = getDouble(c, "deviation");
@@ -335,7 +335,7 @@ public class RandomizedActionIntervalCommand extends TranslationContext
 		return new RangeLimitedGen(new TriangularGen(mode, deviation), lower, upper);
 	}
 
-	private EntityPlayerActionPack.Action triangularImpl(CommandContext<ServerCommandSource> c)
+	private EntityPlayerActionPack.Action triangularImpl(CommandContext<CommandSourceStack> c)
 	{
 		return actionFromRandomGen(triangularGen(c));
 	}

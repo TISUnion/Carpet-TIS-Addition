@@ -21,7 +21,7 @@
 package carpettisaddition.commands.lifetime.spawning;
 
 import com.google.gson.JsonObject;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public class LiteralSpawningReason extends SpawningReason
 {
@@ -65,7 +65,7 @@ public class LiteralSpawningReason extends SpawningReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return tr(this.translationKey);
 	}

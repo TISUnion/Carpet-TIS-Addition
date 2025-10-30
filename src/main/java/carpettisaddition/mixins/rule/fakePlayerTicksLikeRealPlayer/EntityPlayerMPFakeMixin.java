@@ -36,7 +36,7 @@ public abstract class EntityPlayerMPFakeMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11500
-					target = "Lcarpet/patches/EntityPlayerMPFake;playerTick()V"
+					target = "Lcarpet/patches/EntityPlayerMPFake;doTick()V"
 					//#else
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;method_14226()V"
 					//#endif

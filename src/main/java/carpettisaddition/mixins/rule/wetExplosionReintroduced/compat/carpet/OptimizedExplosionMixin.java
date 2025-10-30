@@ -27,8 +27,8 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -44,7 +44,7 @@ public abstract class OptimizedExplosionMixin
 					//#if MC >= 12004
 					//$$ target = "Lnet/minecraft/entity/Entity;isImmuneToExplosion(Lnet/minecraft/world/explosion/Explosion;)Z"
 					//#else
-					target = "Lnet/minecraft/entity/Entity;isImmuneToExplosion()Z"
+					target = "Lnet/minecraft/world/entity/Entity;ignoreExplosion()Z"
 					//#endif
 			)
 	)

@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.rule.structureBlockDoNotPreserveFluid;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.entity.StructureBlockBlockEntity;
-import net.minecraft.structure.StructurePlacementData;
+import net.minecraft.world.level.block.entity.StructureBlockEntity;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -31,14 +31,14 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 //$$ import net.minecraft.structure.StructureLiquidSettings;
 //#endif
 
-@Mixin(StructureBlockBlockEntity.class)
+@Mixin(StructureBlockEntity.class)
 public abstract class StructureBlockBlockEntityMixin
 {
 	@ModifyArg(
 			//#if MC >= 12003
 			//$$ method = "loadAndPlaceStructure(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/structure/StructureTemplate;)V",
 			//#elseif MC >= 11500
-			method = "place",
+			method = "loadStructure(ZLnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;)Z",
 			//#else
 			//$$ method = "loadStructure(Z)Z",
 			//#endif
@@ -51,11 +51,11 @@ public abstract class StructureBlockBlockEntityMixin
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/structure/Structure;place(Lnet/minecraft/world/ServerWorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/structure/StructurePlacementData;Ljava/util/Random;)V"
 					//#else
-					target = "Lnet/minecraft/structure/Structure;place(Lnet/minecraft/world/IWorld;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/structure/StructurePlacementData;)V"
+					target = "Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;placeInWorldChunk(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings;)V"
 					//#endif
 			)
 	)
-	private StructurePlacementData structureBlockDoNotPreserveFluid_setPlaceFluids(StructurePlacementData structurePlacementData)
+	private StructurePlaceSettings structureBlockDoNotPreserveFluid_setPlaceFluids(StructurePlaceSettings structurePlacementData)
 	{
 		if (CarpetTISAdditionSettings.structureBlockDoNotPreserveFluid)
 		{

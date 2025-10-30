@@ -23,14 +23,14 @@ package carpettisaddition.utils.gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.phys.Vec3;
 
 import java.io.IOException;
 
-public class Vec3dAdaptor extends TypeAdapter<Vec3d>
+public class Vec3dAdaptor extends TypeAdapter<Vec3>
 {
 	@Override
-	public void write(JsonWriter writer, Vec3d value) throws IOException
+	public void write(JsonWriter writer, Vec3 value) throws IOException
 	{
 		if (value == null)
 		{
@@ -45,7 +45,7 @@ public class Vec3dAdaptor extends TypeAdapter<Vec3d>
 	}
 
 	@Override
-	public Vec3d read(JsonReader reader) throws IOException
+	public Vec3 read(JsonReader reader) throws IOException
 	{
 		throw new UnsupportedOperationException("Not supported yet");
 	}

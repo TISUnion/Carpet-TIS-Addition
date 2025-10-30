@@ -22,7 +22,7 @@ package carpettisaddition.commands.lifetime.interfaces;
 
 import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.phys.Vec3;
 
 public interface LifetimeTrackerTarget
 {
@@ -30,9 +30,9 @@ public interface LifetimeTrackerTarget
 
 	long getLifeTime();
 
-	Vec3d getSpawningPosition();
+	Vec3 getSpawningPosition();
 
-	Vec3d getRemovalPosition();
+	Vec3 getRemovalPosition();
 
 	void recordSpawning(SpawningReason reason);
 

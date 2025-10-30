@@ -20,9 +20,9 @@
 
 package carpettisaddition.utils;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Map;
 
@@ -38,7 +38,7 @@ public class ItemUtils
 		//#if MC >= 12005
 		//$$ return itemStack.get(DataComponentTypes.CUSTOM_NAME) != null;
 		//#else
-		return itemStack.hasCustomName();
+		return itemStack.hasCustomHoverName();
 		//#endif
 	}
 

@@ -20,7 +20,7 @@
 
 package carpettisaddition.logging.loggers.microtiming.message;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public class IndentedMessage
 {
@@ -43,7 +43,7 @@ public class IndentedMessage
 		return indentation;
 	}
 
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return this.message.toText(this.indentation, this.indentation == 0);
 	}

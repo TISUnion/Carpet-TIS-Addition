@@ -29,14 +29,14 @@ import carpettisaddition.utils.TextUtils;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.core.BlockPos;
 
 import java.util.Collections;
 import java.util.List;
 
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.getLoadedBlockPos;
 
 public class BlockExecutor extends TranslationContext
 {
@@ -62,7 +62,7 @@ public class BlockExecutor extends TranslationContext
 	@FunctionalInterface
 	public interface ExecuteImpl
 	{
-		void executeAt(CommandContext<ServerCommandSource> ctx, BlockPos blockPos);
+		void executeAt(CommandContext<CommandSourceStack> ctx, BlockPos blockPos);
 	}
 
 	@FunctionalInterface
@@ -70,21 +70,21 @@ public class BlockExecutor extends TranslationContext
 	{
 		MessageExtraArgsGetter NONE = ctx -> new Object[0];
 
-		Object[] get(CommandContext<ServerCommandSource> ctx);
+		Object[] get(CommandContext<CommandSourceStack> ctx);
 	}
 
-	public int process(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException
+	public int process(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException
 	{
 		BlockPos from = getLoadedBlockPos(ctx, "from");
 		BlockPos to = getLoadedBlockPos(ctx, "to");
-		BlockBox box = PositionUtils.createBlockBox(from, to);
-		long blockCount = (long)box.getBlockCountX() * box.getBlockCountX() * box.getBlockCountZ();
+		BoundingBox box = PositionUtils.createBlockBox(from, to);
+		long blockCount = (long)box.getXSpan() * box.getXSpan() * box.getZSpan();
 		if (blockCount > this.limit)
 		{
 			throw FillCommandAccessor.getTooBigException().create(this.limit, blockCount);
 		}
 
-		BlockPos.stream(from, to).forEach(blockPos -> this.impl.executeAt(ctx, blockPos));
+		BlockPos.betweenClosedStream(from, to).forEach(blockPos -> this.impl.executeAt(ctx, blockPos));
 
 		String hoverText = TextUtils.coord(from) + " -> " + TextUtils.coord(to);
 		List<Object> trArgs = Lists.newArrayList();

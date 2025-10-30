@@ -22,11 +22,11 @@ package carpettisaddition.mixins.rule.instantCommandBlock;
 
 import carpettisaddition.helpers.rule.instantCommandBlock.ICommandBlockExecutor;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.world.CommandBlockExecutor;
+import net.minecraft.world.level.BaseCommandBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(CommandBlockExecutor.class)
+@Mixin(BaseCommandBlock.class)
 public abstract class CommandBlockExecutorMixin implements ICommandBlockExecutor
 {
 	private boolean	ignoreWorldTimeCheck = false;
@@ -38,10 +38,10 @@ public abstract class CommandBlockExecutorMixin implements ICommandBlockExecutor
 	}
 
 	@ModifyExpressionValue(
-			method = "execute",
+			method = "performCommand",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/world/CommandBlockExecutor;lastExecution:J",
+					target = "Lnet/minecraft/world/level/BaseCommandBlock;lastExecution:J",
 					ordinal = 0
 			)
 	)

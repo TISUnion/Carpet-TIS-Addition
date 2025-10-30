@@ -22,7 +22,7 @@ package carpettisaddition.mixins.carpet.tweaks.logger.explosion;
 
 import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ExplosionLogHelperWithEntity;
 import carpettisaddition.utils.ReflectionUtils;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#if MC >= 12102
 //$$ import net.minecraft.world.explosion.ExplosionImpl;
 //#else
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.level.Explosion;
 //#endif
 
 /**
@@ -52,7 +52,7 @@ import net.minecraft.world.explosion.Explosion;
 )
 public abstract class ExplosionMixin
 {
-	@Shadow @Final private Entity entity;
+	@Shadow @Final private Entity source;
 
 	@Inject(
 			//#if MC >= 12102
@@ -64,7 +64,7 @@ public abstract class ExplosionMixin
 			//#elseif MC >= 11600
 			//$$ method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;Lnet/minecraft/world/explosion/ExplosionBehavior;DDDFZLnet/minecraft/world/explosion/Explosion$DestructionType;)V",
 			//#else
-			method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;DDDFZLnet/minecraft/world/explosion/Explosion$DestructionType;)V",
+			method = "<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/Entity;DDDFZLnet/minecraft/world/level/Explosion$BlockInteraction;)V",
 			//#endif
 			at = @At("TAIL")
 	)
@@ -73,7 +73,7 @@ public abstract class ExplosionMixin
 		ReflectionUtils.getField(this, "eLogger").ifPresent(eLogger -> {
 			if (eLogger instanceof ExplosionLogHelperWithEntity)
 			{
-				((ExplosionLogHelperWithEntity)eLogger).setEntity$TISCM(this.entity);
+				((ExplosionLogHelperWithEntity)eLogger).setEntity$TISCM(this.source);
 			}
 		});
 	}

@@ -23,7 +23,7 @@ package carpettisaddition.mixins.rule.mobcapsDisplayIgnoreMisc;
 import carpet.utils.SpawnReporter;
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.EntityCategory;
+import net.minecraft.world.entity.MobCategory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -41,17 +41,17 @@ public abstract class SpawnReporterMixin
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/entity/SpawnGroup;values()[Lnet/minecraft/entity/SpawnGroup;"
 					//#else
-					target = "Lnet/minecraft/entity/EntityCategory;values()[Lnet/minecraft/entity/EntityCategory;"
+					target = "Lnet/minecraft/world/entity/MobCategory;values()[Lnet/minecraft/world/entity/MobCategory;"
 					//#endif
 			)
 	)
-	private static EntityCategory[] mobcapsDisplayIgnoreMisc(EntityCategory[] values)
+	private static MobCategory[] mobcapsDisplayIgnoreMisc(MobCategory[] values)
 	{
 		if (CarpetTISAdditionSettings.mobcapsDisplayIgnoreMisc)
 		{
 			values = Arrays.stream(values).
-					filter(entityCategory -> entityCategory != EntityCategory.MISC).
-					toArray(EntityCategory[]::new);
+					filter(entityCategory -> entityCategory != MobCategory.MISC).
+					toArray(MobCategory[]::new);
 		}
 		return values;
 	}

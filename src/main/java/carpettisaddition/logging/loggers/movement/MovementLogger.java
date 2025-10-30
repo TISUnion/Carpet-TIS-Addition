@@ -29,12 +29,12 @@ import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.entityfilter.EntityFilter;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MovementType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -66,9 +66,9 @@ public class MovementLogger extends AbstractLogger
 		return TISAdditionLoggerRegistry.__movement;
 	}
 
-	public void create(Entity entity, MovementType movementType, Vec3d originalMovement)
+	public void create(Entity entity, MoverType movementType, Vec3 originalMovement)
 	{
-		if (isLoggerActivated() && EntityUtils.getEntityWorld(entity) instanceof ServerWorld)
+		if (isLoggerActivated() && EntityUtils.getEntityWorld(entity) instanceof ServerLevel)
 		{
 			MovementLoggerTarget target = (MovementLoggerTarget)entity;
 			if (!target.getMovementTracker().isPresent())
@@ -93,24 +93,24 @@ public class MovementLogger extends AbstractLogger
 		private static final double MIN_DIFFERENCE = 1e-12;
 
 		private final Entity entity;
-		private final Vec3d originalPos;
-		private final ServerWorld world;
-		private final MovementType movementType;
-		private final Vec3d originalMovement;
-		private Vec3d currentMovement;
+		private final Vec3 originalPos;
+		private final ServerLevel world;
+		private final MoverType movementType;
+		private final Vec3 originalMovement;
+		private Vec3 currentMovement;
 		private final List<ModificationRecord> modifications = Lists.newArrayList();
 
-		public Tracker(Entity entity, MovementType movementType, Vec3d originalMovement)
+		public Tracker(Entity entity, MoverType movementType, Vec3 originalMovement)
 		{
 			this.entity = entity;
-			this.originalPos = entity.getPos();
-			this.world = (ServerWorld)EntityUtils.getEntityWorld(entity);
+			this.originalPos = entity.position();
+			this.world = (ServerLevel)EntityUtils.getEntityWorld(entity);
 			this.movementType = movementType;
 			this.originalMovement = originalMovement;
 			this.currentMovement = originalMovement;
 		}
 
-		public void recordModification(MovementModification modification, Vec3d newMovement)
+		public void recordModification(MovementModification modification, Vec3 newMovement)
 		{
 			if (this.currentMovement.subtract(newMovement).length() >= MIN_DIFFERENCE)
 			{
@@ -120,7 +120,7 @@ public class MovementLogger extends AbstractLogger
 		}
 
 		@SuppressWarnings("ConstantConditions")
-		public boolean shouldReportFor(PlayerEntity player, String option)
+		public boolean shouldReportFor(Player player, String option)
 		{
 			if (option.isEmpty())
 			{
@@ -131,7 +131,7 @@ public class MovementLogger extends AbstractLogger
 			boolean ok = true;
 			if (option.startsWith(NON_ZERO_HEADER))
 			{
-				ok &= this.currentMovement.lengthSquared() > 0;
+				ok &= this.currentMovement.lengthSqr() > 0;
 				option = option.substring(NON_ZERO_HEADER.length());
 			}
 			ok &= EntityFilter.createOptional(player, option).
@@ -148,8 +148,8 @@ public class MovementLogger extends AbstractLogger
 					return null;
 				}
 
-				BaseText entityName = Messenger.entity("b", this.entity);
-				List<BaseText> lines = Lists.newArrayList();
+				BaseComponent entityName = Messenger.entity("b", this.entity);
+				List<BaseComponent> lines = Lists.newArrayList();
 
 				lines.add(Messenger.s(""));
 				lines.add(Messenger.c(
@@ -169,7 +169,7 @@ public class MovementLogger extends AbstractLogger
 
 				for (ModificationRecord record : this.modifications)
 				{
-					BaseText delta = Messenger.vector(record.newMovement.subtract(record.oldMovement));
+					BaseComponent delta = Messenger.vector(record.newMovement.subtract(record.oldMovement));
 					lines.add(Messenger.c(
 							"g  - ",
 							Messenger.vector("y", record.oldMovement),
@@ -187,10 +187,10 @@ public class MovementLogger extends AbstractLogger
 				lines.add(Messenger.c(
 						tr("footer", entityName, Messenger.vector("d", this.currentMovement)),
 						"g  @ ",
-						Messenger.coord("g", this.entity.getPos(), DimensionWrapper.of(this.world))
+						Messenger.coord("g", this.entity.position(), DimensionWrapper.of(this.world))
 				));
 
-				return lines.toArray(new BaseText[0]);
+				return lines.toArray(new BaseComponent[0]);
 			});
 		}
 	}
@@ -198,10 +198,10 @@ public class MovementLogger extends AbstractLogger
 	private static class ModificationRecord
 	{
 		public final MovementModification reason;
-		public final Vec3d oldMovement;
-		public final Vec3d newMovement;
+		public final Vec3 oldMovement;
+		public final Vec3 newMovement;
 
-		public ModificationRecord(Vec3d oldMovement, Vec3d newMovement, MovementModification reason)
+		public ModificationRecord(Vec3 oldMovement, Vec3 newMovement, MovementModification reason)
 		{
 			this.reason = reason;
 			this.oldMovement = oldMovement;

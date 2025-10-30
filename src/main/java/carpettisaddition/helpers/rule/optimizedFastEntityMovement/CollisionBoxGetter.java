@@ -20,10 +20,10 @@
 
 package carpettisaddition.helpers.rule.optimizedFastEntityMovement;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.Level;
 
 import java.util.stream.Stream;
 
@@ -35,5 +35,5 @@ public interface CollisionBoxGetter
 	//#else
 	Stream<VoxelShape>
 	//#endif
-	get(World world, Entity entity, Box box);
+	get(Level world, Entity entity, AABB box);
 }

@@ -31,8 +31,8 @@ import carpettisaddition.utils.CollectionUtils;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.PressurePlateBlock;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -47,7 +47,7 @@ import java.util.List;
 public abstract class PressurePlateBlockMixin
 {
 	@ModifyVariable(
-			method = "getRedstoneOutput(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)I",
+			method = "getSignalStrength(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)I",
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/List;isEmpty()Z"

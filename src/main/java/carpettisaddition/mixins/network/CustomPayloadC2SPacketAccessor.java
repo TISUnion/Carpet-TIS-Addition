@@ -23,19 +23,19 @@ package carpettisaddition.mixins.network;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20.2-alpha.0"))
-@Mixin(CustomPayloadC2SPacket.class)
+@Mixin(ServerboundCustomPayloadPacket.class)
 public interface CustomPayloadC2SPacketAccessor
 {
-	@Accessor
-	Identifier getChannel();
+	@Accessor("identifier")
+	ResourceLocation getChannel();
 
 	@Accessor
-	PacketByteBuf getData();
+	FriendlyByteBuf getData();
 }

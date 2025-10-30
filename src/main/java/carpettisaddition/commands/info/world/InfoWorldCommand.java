@@ -25,11 +25,11 @@ import carpettisaddition.commands.info.InfoSubcommand;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -38,10 +38,10 @@ import java.util.function.Function;
 //#if MC >= 11600
 //$$ import net.minecraft.world.level.ServerWorldProperties;
 //#else
-import net.minecraft.world.level.LevelProperties;
+import net.minecraft.world.level.storage.LevelData;
 //#endif
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 public class InfoWorldCommand extends InfoSubcommand
 {
@@ -64,12 +64,12 @@ public class InfoWorldCommand extends InfoSubcommand
 		);
 	}
 
-	private int showWorldTickOrder(ServerCommandSource source)
+	private int showWorldTickOrder(CommandSourceStack source)
 	{
-		List<World> worlds = Lists.newArrayList(source.getMinecraftServer().getWorlds());
+		List<Level> worlds = Lists.newArrayList(source.getServer().getAllLevels());
 		Messenger.tell(source, tr("ticking_order", worlds.size()));
 		int order = 0;
-		for (World world : worlds)
+		for (Level world : worlds)
 		{
 			order++;
 			Messenger.tell(
@@ -84,14 +84,14 @@ public class InfoWorldCommand extends InfoSubcommand
 	}
 
 	@SuppressWarnings("ConstantConditions")
-	private int showWeather(ServerCommandSource source)
+	private int showWeather(CommandSourceStack source)
 	{
-		ServerWorld world = source.getWorld();
+		ServerLevel world = source.getLevel();
 
 		//#if MC >= 11600
 		//$$ ServerWorldProperties worldInfo = (ServerWorldProperties)world.getLevelProperties();
 		//#else
-		LevelProperties worldInfo = world.getLevelProperties();
+		LevelData worldInfo = world.getLevelData();
 		//#endif
 
 		int clearTime = worldInfo.getClearWeatherTime();
@@ -100,16 +100,16 @@ public class InfoWorldCommand extends InfoSubcommand
 		int rainTime = worldInfo.getRainTime();
 		int thunderTime = worldInfo.getThunderTime();
 
-		BiFunction<String, Object, BaseText> itemPrint = (key, value) -> Messenger.c(
+		BiFunction<String, Object, BaseComponent> itemPrint = (key, value) -> Messenger.c(
 				Messenger.hover(tr("weather.data." + key), Messenger.s(key)),
-				Messenger.s(" = ", Formatting.GRAY),
+				Messenger.s(" = ", ChatFormatting.GRAY),
 				Messenger.colored(value)
 		);
-		Function<Integer, BaseText> toMin = ticks -> Messenger.c(
+		Function<Integer, BaseComponent> toMin = ticks -> Messenger.c(
 				Messenger.hover(Messenger.s(String.format("%.1f", (double)ticks / 20 / 60)), Messenger.s(ticks + " ticks")),
 				"g min"
 		);
-		BiFunction<BaseText, Integer, BaseText> durationPrint = (name, ticks) -> Messenger.c(name, "g : ", toMin.apply(ticks));
+		BiFunction<BaseComponent, Integer, BaseComponent> durationPrint = (name, ticks) -> Messenger.c(name, "g : ", toMin.apply(ticks));
 
 		Messenger.tell(source, Messenger.s(""));
 		Messenger.tell(source, Messenger.c("g ======= ", tr("weather.data.title"), "g  ======="));
@@ -127,13 +127,13 @@ public class InfoWorldCommand extends InfoSubcommand
 		}
 		else if (raining && thundering)
 		{
-			Messenger.tell(source, tr("weather.forecast.current", Messenger.formatting(tr("weather.weathers.thundering"), Formatting.LIGHT_PURPLE)));
+			Messenger.tell(source, tr("weather.forecast.current", Messenger.formatting(tr("weather.weathers.thundering"), ChatFormatting.LIGHT_PURPLE)));
 			Messenger.tell(source, durationPrint.apply(tr("weather.forecast.rain_duration"), rainTime));
 			Messenger.tell(source, durationPrint.apply(tr("weather.forecast.thunder_duration"), Math.min(rainTime, thunderTime)));
 		}
 		else if (raining && !thundering)
 		{
-			Messenger.tell(source, tr("weather.forecast.current", Messenger.formatting(tr("weather.weathers.raining"), Formatting.BLUE)));
+			Messenger.tell(source, tr("weather.forecast.current", Messenger.formatting(tr("weather.weathers.raining"), ChatFormatting.BLUE)));
 			Messenger.tell(source, durationPrint.apply(tr("weather.forecast.rain_duration"), rainTime));
 			if (thunderTime < rainTime)
 			{
@@ -146,7 +146,7 @@ public class InfoWorldCommand extends InfoSubcommand
 		}
 		else
 		{
-			Messenger.tell(source, tr("weather.forecast.current", Messenger.formatting(tr("weather.weathers.clear_sky"), Formatting.WHITE)));
+			Messenger.tell(source, tr("weather.forecast.current", Messenger.formatting(tr("weather.weathers.clear_sky"), ChatFormatting.WHITE)));
 			Messenger.tell(source, tr("weather.forecast.rain_in", toMin.apply(rainTime)));
 			if (thundering)
 			{

@@ -35,16 +35,16 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public abstract class MinecraftServerMixin
 {
 	@ModifyArg(
-			method = "prepareStartRegion",
+			method = "prepareLevels",
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/world/dimension/DimensionType;getAll()Ljava/lang/Iterable;"
+							target = "Lnet/minecraft/world/level/dimension/DimensionType;getAllTypes()Ljava/lang/Iterable;"
 					)
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerLightingProvider;setTaskBatchSize(I)V",
+					target = "Lnet/minecraft/server/level/ThreadedLevelLightEngine;setTaskPerBatch(I)V",
 					ordinal = 0
 			),
 			index = 0

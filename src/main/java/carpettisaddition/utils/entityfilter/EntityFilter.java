@@ -28,17 +28,17 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.EntitySelector;
-import net.minecraft.command.EntitySelectorReader;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.commands.arguments.selector.EntitySelector;
+import net.minecraft.commands.arguments.selector.EntitySelectorParser;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,31 +48,31 @@ import java.util.function.Predicate;
 public class EntityFilter extends TranslationContext implements Predicate<Entity>
 {
 	private final EntitySelectorAccessor entitySelector;
-	private final ServerCommandSource serverCommandSource;
+	private final CommandSourceStack serverCommandSource;
 
-	public EntityFilter(@NotNull ServerCommandSource serverCommandSource, @NotNull EntitySelector entitySelector)
+	public EntityFilter(@NotNull CommandSourceStack serverCommandSource, @NotNull EntitySelector entitySelector)
 	{
 		super("util.entity_filter");
 		this.entitySelector = (EntitySelectorAccessor)entitySelector;
 		this.serverCommandSource = serverCommandSource;
 	}
 
-	public static EntityFilter create(ServerPlayerEntity player, String filterDescriptor) throws CommandSyntaxException
+	public static EntityFilter create(ServerPlayer player, String filterDescriptor) throws CommandSyntaxException
 	{
-		ServerCommandSource source = player.getCommandSource();
-		EntitySelectorReader reader = new EntitySelectorReader(new StringReader(filterDescriptor), CommandUtils.hasPermissionLevel(source, 2));
-		return new EntityFilter(source, reader.read());
+		CommandSourceStack source = player.createCommandSourceStack();
+		EntitySelectorParser reader = new EntitySelectorParser(new StringReader(filterDescriptor), CommandUtils.hasPermissionLevel(source, 2));
+		return new EntityFilter(source, reader.parse());
 	}
 
-	public static Optional<EntityFilter> createOptional(PlayerEntity player, String filterDescriptor)
+	public static Optional<EntityFilter> createOptional(Player player, String filterDescriptor)
 	{
-		if (!(player instanceof ServerPlayerEntity))
+		if (!(player instanceof ServerPlayer))
 		{
 			return Optional.empty();
 		}
 		try
 		{
-			return Optional.of(create((ServerPlayerEntity)player, filterDescriptor));
+			return Optional.of(create((ServerPlayer)player, filterDescriptor));
 		}
 		catch (CommandSyntaxException e)
 		{
@@ -80,16 +80,16 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		}
 	}
 
-	private Vec3d getAnchorPos()
+	private Vec3 getAnchorPos()
 	{
 		return this.entitySelector.getPositionOffset().apply(this.serverCommandSource.getPosition());
 	}
 
 	@Nullable
-	private Box getOffsetBox(Vec3d anchorPos)
+	private AABB getOffsetBox(Vec3 anchorPos)
 	{
-		Box box = this.entitySelector.getBox();
-		return box == null ? null : box.offset(anchorPos);
+		AABB box = this.entitySelector.getBox();
+		return box == null ? null : box.move(anchorPos);
 	}
 
 	@Override
@@ -101,12 +101,12 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		}
 		if (this.entitySelector.getPlayerName() != null)
 		{
-			ServerPlayerEntity serverPlayerEntity = this.serverCommandSource.getMinecraftServer().getPlayerManager().getPlayer(this.entitySelector.getPlayerName());
+			ServerPlayer serverPlayerEntity = this.serverCommandSource.getServer().getPlayerList().getPlayerByName(this.entitySelector.getPlayerName());
 			return testEntity == serverPlayerEntity;
 		} 
 		else if (this.entitySelector.getUuid() != null) 
 		{
-			for (ServerWorld serverWorld : this.serverCommandSource.getMinecraftServer().getWorlds())
+			for (ServerLevel serverWorld : this.serverCommandSource.getServer().getAllLevels())
 			{
 				Entity entity = serverWorld.getEntity(this.entitySelector.getUuid());
 				if (testEntity == entity)
@@ -116,8 +116,8 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 			}
 			return false;
 		}
-		Vec3d anchorPos = this.getAnchorPos();
-		Box offsetBox = this.getOffsetBox(anchorPos);
+		Vec3 anchorPos = this.getAnchorPos();
+		AABB offsetBox = this.getOffsetBox(anchorPos);
 		Predicate<Entity> predicate = this.entitySelector.invokeGetPositionPredicate(
 				anchorPos
 				//#if MC >= 12100
@@ -128,7 +128,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		{
 			return false;
 		}
-		if (this.entitySelector.getLocalWorldOnly() && EntityUtils.getEntityWorld(testEntity) != this.serverCommandSource.getWorld())
+		if (this.entitySelector.getLocalWorldOnly() && EntityUtils.getEntityWorld(testEntity) != this.serverCommandSource.getLevel())
 		{
 			return false;
 		}
@@ -149,7 +149,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		return predicate.test(testEntity);
 	}
 
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		String inputText = this.entitySelector.getInputText();
 		return Messenger.fancy(
@@ -157,7 +157,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 				Messenger.s(inputText),
 				Messenger.c(
 						tr("dimension"), "w : ",
-						Messenger.dimension(DimensionWrapper.of(this.serverCommandSource.getWorld())),
+						Messenger.dimension(DimensionWrapper.of(this.serverCommandSource.getLevel())),
 						"w \n",
 						tr("anchor_pos"), "w : ",
 						Messenger.s(this.getAnchorPos().toString())

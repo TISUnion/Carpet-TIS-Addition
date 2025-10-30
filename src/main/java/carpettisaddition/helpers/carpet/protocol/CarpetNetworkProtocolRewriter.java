@@ -22,18 +22,18 @@ package carpettisaddition.helpers.carpet.protocol;
 
 import carpettisaddition.CarpetTISAdditionMod;
 import io.netty.buffer.Unpooled;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 
 public class CarpetNetworkProtocolRewriter
 {
-	private static void drain(PacketByteBuf buf)
+	private static void drain(FriendlyByteBuf buf)
 	{
 		buf.readBytes(buf.readableBytes());
 	}
 
 	// if bufVersion == targetVersion, return the input buf directly
 	// otherwise, return a new rewritten buf, and the input buf will be drained
-	public static PacketByteBuf rewrite(PacketByteBuf buf, CarpetNetworkProtocolVersion targetVersion)
+	public static FriendlyByteBuf rewrite(FriendlyByteBuf buf, CarpetNetworkProtocolVersion targetVersion)
 	{
 		CarpetTISAdditionMod.LOGGER.debug("CarpetNetworkProtocolRewriter rewrite start, target={}", targetVersion);
 
@@ -48,7 +48,7 @@ public class CarpetNetworkProtocolRewriter
 
 		drain(buf);
 
-		PacketByteBuf heapBuf = new PacketByteBuf(Unpooled.buffer());
+		FriendlyByteBuf heapBuf = new FriendlyByteBuf(Unpooled.buffer());
 		payload.writeTo(heapBuf, targetVersion);
 		return heapBuf;
 	}

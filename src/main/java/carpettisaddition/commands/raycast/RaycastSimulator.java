@@ -21,34 +21,34 @@
 package carpettisaddition.commands.raycast;
 
 import com.google.common.collect.Lists;
-import net.minecraft.block.AbstractButtonBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.enums.WallMountLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RayTraceContext;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
 public class RaycastSimulator
 {
-	private static final BlockState AIR = Blocks.AIR.getDefaultState();
-	private static final BlockState FLOOR = Blocks.SMOOTH_STONE.getDefaultState();
-	private static final BlockState FLOOR2 = Blocks.WHITE_CONCRETE.getDefaultState();
-	private static final BlockState MELON = Blocks.MELON.getDefaultState();
-	private static final BlockState CENTER = Blocks.STONE_BUTTON.getDefaultState().with(AbstractButtonBlock.FACE, WallMountLocation.FLOOR);
-	private static final BlockState BARRIER = Blocks.POLISHED_GRANITE.getDefaultState();
-	private static final BlockState PARTIAL = Blocks.RED_CARPET.getDefaultState();
-	private final World world;
+	private static final BlockState AIR = Blocks.AIR.defaultBlockState();
+	private static final BlockState FLOOR = Blocks.SMOOTH_STONE.defaultBlockState();
+	private static final BlockState FLOOR2 = Blocks.WHITE_CONCRETE.defaultBlockState();
+	private static final BlockState MELON = Blocks.MELON.defaultBlockState();
+	private static final BlockState CENTER = Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR);
+	private static final BlockState BARRIER = Blocks.POLISHED_GRANITE.defaultBlockState();
+	private static final BlockState PARTIAL = Blocks.RED_CARPET.defaultBlockState();
+	private final Level world;
 	private final Entity entity;
 
-	public RaycastSimulator(World world, Entity entity)
+	public RaycastSimulator(Level world, Entity entity)
 	{
 		this.world = world;
 		this.entity = entity;
@@ -56,11 +56,11 @@ public class RaycastSimulator
 
 	private boolean canTraceMelon(BlockPos start, BlockPos end)
 	{
-		BlockHitResult result = this.world.rayTrace(new RayTraceContext(
-				new Vec3d(start.getX() + 0.5D, start.getY() + 0.5D, start.getZ() + 0.5D),
-				new Vec3d(end.getX() + 0.5D, end.getY() + 0.5D, end.getZ() + 0.5D),
-				RayTraceContext.ShapeType.OUTLINE,
-				RayTraceContext.FluidHandling.NONE,
+		BlockHitResult result = this.world.clip(new ClipContext(
+				new Vec3(start.getX() + 0.5D, start.getY() + 0.5D, start.getZ() + 0.5D),
+				new Vec3(end.getX() + 0.5D, end.getY() + 0.5D, end.getZ() + 0.5D),
+				ClipContext.Block.OUTLINE,
+				ClipContext.Fluid.NONE,
 				this.entity
 		));
 		if (result.getType() == HitResult.Type.BLOCK)
@@ -72,34 +72,34 @@ public class RaycastSimulator
 
 	private void simulate1Layer(BlockPos centerPos, int r)
 	{
-		this.world.setBlockState(centerPos, CENTER);
-		for (BlockPos pos : BlockPos.iterate(centerPos.add(-r, -1, -r), centerPos.add(r, -1, r)))
+		this.world.setBlockAndUpdate(centerPos, CENTER);
+		for (BlockPos pos : BlockPos.betweenClosed(centerPos.offset(-r, -1, -r), centerPos.offset(r, -1, r)))
 		{
-			this.world.setBlockState(pos, FLOOR);
+			this.world.setBlockAndUpdate(pos, FLOOR);
 		}
-		for (BlockPos pos : BlockPos.iterate(centerPos.add(-r, 0, -r), centerPos.add(r, 0, r)))
+		for (BlockPos pos : BlockPos.betweenClosed(centerPos.offset(-r, 0, -r), centerPos.offset(r, 0, r)))
 		{
-			this.world.setBlockState(pos, AIR);
+			this.world.setBlockAndUpdate(pos, AIR);
 		}
 
 		ArrayList<BlockPos> melonPos = Lists.newArrayList(
-				centerPos.add(-r, 0, -r),
-				centerPos.add(-r, 0, +r),
-				centerPos.add(+r, 0, -r),
-				centerPos.add(+r, 0, +r)
+				centerPos.offset(-r, 0, -r),
+				centerPos.offset(-r, 0, +r),
+				centerPos.offset(+r, 0, -r),
+				centerPos.offset(+r, 0, +r)
 		);
-		melonPos.forEach(pos -> this.world.setBlockState(pos, MELON));
+		melonPos.forEach(pos -> this.world.setBlockAndUpdate(pos, MELON));
 		Supplier<Long> counter = () -> melonPos.stream().filter(pos -> this.canTraceMelon(centerPos, pos)).count();
 
-		for (BlockPos pos : BlockPos.iterate(centerPos.add(-r, 0, -r), centerPos.add(r, 0, r)))
+		for (BlockPos pos : BlockPos.betweenClosed(centerPos.offset(-r, 0, -r), centerPos.offset(r, 0, r)))
 		{
 			if (this.world.getBlockState(pos).isAir())
 			{
-				this.world.setBlockState(pos, BARRIER);
+				this.world.setBlockAndUpdate(pos, BARRIER);
 				Long count = counter.get();
 				if (count < melonPos.size())
 				{
-					this.world.setBlockState(pos, AIR);
+					this.world.setBlockAndUpdate(pos, AIR);
 				}
 			}
 		}
@@ -113,15 +113,15 @@ public class RaycastSimulator
 			this.simulate1Layer(pos, r);
 			if (r < maxR)
 			{
-				pos = pos.add(0, 0, r * 2 + 4);
+				pos = pos.offset(0, 0, r * 2 + 4);
 			}
 		}
 
-		for (BlockPos p : BlockPos.iterate(startPos.add(-maxR - 1, -1, -2), pos.add(maxR + 1, -1, maxR + 1)))
+		for (BlockPos p : BlockPos.betweenClosed(startPos.offset(-maxR - 1, -1, -2), pos.offset(maxR + 1, -1, maxR + 1)))
 		{
 			if (this.world.getBlockState(p).isAir())
 			{
-				this.world.setBlockState(p, FLOOR2);
+				this.world.setBlockAndUpdate(p, FLOOR2);
 			}
 		}
 	}

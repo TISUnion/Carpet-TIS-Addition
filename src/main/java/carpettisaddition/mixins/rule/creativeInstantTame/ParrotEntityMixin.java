@@ -24,16 +24,16 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.EntityUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.passive.ParrotEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.animal.Parrot;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ParrotEntity.class)
+@Mixin(Parrot.class)
 public abstract class ParrotEntityMixin
 {
 	@ModifyExpressionValue(
-			method = "interactMob",
+			method = "mobInteract",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
@@ -44,7 +44,7 @@ public abstract class ParrotEntityMixin
 					ordinal = 0
 			)
 	)
-	private int creativeInstantTame_parrot(int value, @Local(argsOnly = true) PlayerEntity player)
+	private int creativeInstantTame_parrot(int value, @Local(argsOnly = true) Player player)
 	{
 		if (CarpetTISAdditionSettings.creativeInstantTame && EntityUtils.isCreativePlayer(player))
 		{

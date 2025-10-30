@@ -23,13 +23,13 @@ package carpettisaddition.mixins.rule.largeBarrel;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.Container;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,17 +45,17 @@ public abstract class HopperBlockEntityMixin
 			//#if MC >= 12005
 			//$$ method = "getBlockInventoryAt",
 			//#else
-			method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;",
+			method = "getContainerAt(Lnet/minecraft/world/level/Level;DDD)Lnet/minecraft/world/Container;",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getBlockEntity(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/entity/BlockEntity;"
+					target = "Lnet/minecraft/world/level/Level;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;"
 			),
 			cancellable = true
 	)
 	private static void largeBarrel_useLargeBarrelInventoryIfPossible(
-			CallbackInfoReturnable<Inventory> cir,
-			@Local(argsOnly = true) World world,
+			CallbackInfoReturnable<Container> cir,
+			@Local(argsOnly = true) Level world,
 			@Local BlockPos pos, @Local BlockState state,  // no argsOnly for mc < 1.20.5
 			@Local Block block
 	){
@@ -64,7 +64,7 @@ public abstract class HopperBlockEntityMixin
 			// inventory var not captured, so no inventory instanceof BarrelBlockEntity check, should be fine
 			if (block instanceof BarrelBlock)
 			{
-				Inventory largeBarrel = LargeBarrelHelper.getInventory(state, world, pos);
+				Container largeBarrel = LargeBarrelHelper.getInventory(state, world, pos);
 				if (largeBarrel != null)
 				{
 					cir.setReturnValue(largeBarrel);

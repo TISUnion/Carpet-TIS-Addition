@@ -23,12 +23,12 @@ package carpettisaddition.commands.manipulate.block;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
-import net.minecraft.block.BlockState;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.network.packet.s2c.play.BlockActionS2CPacket;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.network.protocol.game.ClientboundBlockEventPacket;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
 
 //#if MC >= 11700
 //$$ import net.minecraft.block.Blocks;
@@ -42,17 +42,17 @@ class BlockManipulatorImplExecute extends TranslationContext
 		super(translator);
 	}
 
-	public void executeBlockEvent(ServerCommandSource source, BlockPos blockPos, int type, int data)
+	public void executeBlockEvent(CommandSourceStack source, BlockPos blockPos, int type, int data)
 	{
-		ServerWorld world = source.getWorld();
+		ServerLevel world = source.getLevel();
 		BlockState blockState = world.getBlockState(blockPos);
 		//#if MC >= 11600
 		//$$ blockState.onSyncedBlockEvent
 		//#else
-		blockState.onBlockAction
+		blockState.triggerEvent
 				//#endif
 						(world, blockPos, type, data);
-		source.getMinecraftServer().getPlayerManager().sendToAround(
+		source.getServer().getPlayerList().broadcast(
 				null,
 				blockPos.getX(),
 				blockPos.getY(),
@@ -63,18 +63,18 @@ class BlockManipulatorImplExecute extends TranslationContext
 				//#else
 				world.getDimension().getType(),
 				//#endif
-				new BlockActionS2CPacket(blockPos, blockState.getBlock(), type, data)
+				new ClientboundBlockEventPacket(blockPos, blockState.getBlock(), type, data)
 		);
 	}
 
-	public void executeTileTickAt(ServerCommandSource source, BlockPos blockPos)
+	public void executeTileTickAt(CommandSourceStack source, BlockPos blockPos)
 	{
-		ServerWorld world = source.getWorld();
+		ServerLevel world = source.getLevel();
 		BlockState blockState = world.getBlockState(blockPos);
 		FluidState fluidState = world.getFluidState(blockPos);
 
-		blockState.scheduledTick(world, blockPos, world.getRandom());
-		fluidState.onScheduledTick(
+		blockState.tick(world, blockPos, world.getRandom());
+		fluidState.tick(
 				world, blockPos
 				//#if MC >= 12103
 				//$$ , blockState
@@ -82,9 +82,9 @@ class BlockManipulatorImplExecute extends TranslationContext
 		);
 	}
 
-	public void executeRandomTickAt(ServerCommandSource source, BlockPos blockPos)
+	public void executeRandomTickAt(CommandSourceStack source, BlockPos blockPos)
 	{
-		ServerWorld world = source.getWorld();
+		ServerLevel world = source.getLevel();
 		BlockState blockState = world.getBlockState(blockPos);
 		FluidState fluidState = world.getFluidState(blockPos);
 
@@ -96,12 +96,12 @@ class BlockManipulatorImplExecute extends TranslationContext
 				//#endif
 						(world, blockPos, world.getRandom());
 
-		fluidState.onRandomTick(world, blockPos, world.getRandom());
+		fluidState.randomTick(world, blockPos, world.getRandom());
 	}
 
-	public void executePrecipitationTickAt(ServerCommandSource source, BlockPos blockPos)
+	public void executePrecipitationTickAt(CommandSourceStack source, BlockPos blockPos)
 	{
-		ServerWorld world = source.getWorld();
+		ServerLevel world = source.getLevel();
 		BlockState blockState = world.getBlockState(blockPos);
 
 		// ref: net.minecraft.server.world.ServerWorld#tickChunk
@@ -134,7 +134,7 @@ class BlockManipulatorImplExecute extends TranslationContext
 		//$$ blockState.getBlock().precipitationTick(blockState, world, blockPos, precipitation);
 		//$$ //#endif
 		//#else
-		blockState.getBlock().rainTick(world, blockPos);
+		blockState.getBlock().handleRain(world, blockPos);
 		//#endif
 	}
 }

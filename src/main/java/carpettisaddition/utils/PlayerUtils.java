@@ -20,16 +20,16 @@
 
 package carpettisaddition.utils;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerUtils
 {
-	public static boolean isOperator(MinecraftServer server, PlayerEntity player)
+	public static boolean isOperator(MinecraftServer server, Player player)
 	{
-		return server.getPlayerManager().isOperator(
+		return server.getPlayerList().isOp(
 				//#if MC >= 1.21.9
 				//$$ player.getPlayerConfigEntry()
 				//#else
@@ -39,12 +39,12 @@ public class PlayerUtils
 	}
 
 	@NotNull
-	public static MinecraftServer getServerFromPlayer(ServerPlayerEntity player)
+	public static MinecraftServer getServerFromPlayer(ServerPlayer player)
 	{
 		//#if MC >= 1.21.9
 		//$$ return player.getEntityWorld().getServer();
 		//#else
-		return player.getServerWorld().getServer();
+		return player.getLevel().getServer();
 		//#endif
 	}
 }

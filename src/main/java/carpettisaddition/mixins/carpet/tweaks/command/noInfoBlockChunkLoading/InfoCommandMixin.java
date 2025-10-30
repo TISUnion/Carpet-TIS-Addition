@@ -23,10 +23,10 @@ package carpettisaddition.mixins.carpet.tweaks.command.noInfoBlockChunkLoading;
 import carpet.commands.InfoCommand;
 import carpettisaddition.utils.CommandUtils;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.arguments.BlockPosArgumentType;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,16 +36,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class InfoCommandMixin
 {
 	@Inject(method = "infoBlock", at = @At("HEAD"))
-	private static void stopUsingInfoBlockCommandAsARemoteChunkLoader(ServerCommandSource source, BlockPos pos, String grep, CallbackInfoReturnable<Integer> cir) throws CommandSyntaxException
+	private static void stopUsingInfoBlockCommandAsARemoteChunkLoader(CommandSourceStack source, BlockPos pos, String grep, CallbackInfoReturnable<Integer> cir) throws CommandSyntaxException
 	{
 		if (CommandUtils.canCheat(source))
 		{
 			return;
 		}
 		ChunkPos chunkPos = new ChunkPos(pos);
-		if (!source.getWorld().isChunkLoaded(chunkPos.x, chunkPos.z))
+		if (!source.getLevel().hasChunk(chunkPos.x, chunkPos.z))
 		{
-			throw BlockPosArgumentType.UNLOADED_EXCEPTION.create();
+			throw BlockPosArgument.ERROR_NOT_LOADED.create();
 		}
 	}
 }

@@ -25,22 +25,22 @@ import carpettisaddition.logging.loggers.microtiming.enums.PistonBlockEventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.block.PistonBlock;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.Direction;
 
 import java.util.List;
 import java.util.Objects;
 
 public class ExecuteBlockEventEvent extends BaseEvent
 {
-	private final BlockAction blockAction;
+	private final BlockEventData blockAction;
 	private Boolean returnValue;
 	private FailInfo failInfo;
 
-	public ExecuteBlockEventEvent(EventType eventType, BlockAction blockAction, Boolean returnValue, FailInfo failInfo)
+	public ExecuteBlockEventEvent(EventType eventType, BlockEventData blockAction, Boolean returnValue, FailInfo failInfo)
 	{
 		super(eventType, "execute_block_event", blockAction.getBlock());
 		this.blockAction = blockAction;
@@ -52,34 +52,34 @@ public class ExecuteBlockEventEvent extends BaseEvent
 		}
 	}
 
-	public static BaseText getMessageExtraMessengerHoverText(BlockAction blockAction)
+	public static BaseComponent getMessageExtraMessengerHoverText(BlockEventData blockAction)
 	{
-		int eventID = blockAction.getType();
-		int eventParam = blockAction.getData();
+		int eventID = blockAction.getParamA();
+		int eventParam = blockAction.getParamB();
 		List<Object> builder = Lists.newArrayList();
 		builder.add(String.format("w eventID: %d", eventID));
-		if (blockAction.getBlock() instanceof PistonBlock)
+		if (blockAction.getBlock() instanceof PistonBaseBlock)
 		{
 			builder.add(Messenger.c(Messenger.s(" ("), PistonBlockEventType.fromId(eventID).toText(), Messenger.s(")")));
 		}
 		builder.add(Messenger.newLine());
 		builder.add(String.format("w eventParam: %d", eventParam));
-		if (blockAction.getBlock() instanceof PistonBlock)
+		if (blockAction.getBlock() instanceof PistonBaseBlock)
 		{
 			builder.add("w  (");
-			builder.add(MicroTimingUtil.getFormattedDirectionText(Direction.byId(eventParam)));
+			builder.add(MicroTimingUtil.getFormattedDirectionText(Direction.from3DDataValue(eventParam)));
 			builder.add("w )");
 		}
 		return Messenger.c(builder.toArray(new Object[0]));
 	}
 
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(Messenger.formatting(tr("execute"), COLOR_ACTION));
 		list.add(Messenger.getSpaceText());
-		BaseText eventName = this.blockAction.getBlock() instanceof PistonBlock ?
-				Messenger.formatting(PistonBlockEventType.fromId(blockAction.getType()).toText(), COLOR_TARGET) :
+		BaseComponent eventName = this.blockAction.getBlock() instanceof PistonBaseBlock ?
+				Messenger.formatting(PistonBlockEventType.fromId(blockAction.getParamA()).toText(), COLOR_TARGET) :
 				Messenger.formatting(tr("blockevent"), COLOR_TARGET);
 		list.add(Messenger.fancy(eventName, getMessageExtraMessengerHoverText(this.blockAction), null));
 		if (this.getEventType() == EventType.ACTION_END)
@@ -140,7 +140,7 @@ public class ExecuteBlockEventEvent extends BaseEvent
 			this.event = event;
 		}
 
-		public BaseText toText()
+		public BaseComponent toText()
 		{
 			switch (this.reason)
 			{

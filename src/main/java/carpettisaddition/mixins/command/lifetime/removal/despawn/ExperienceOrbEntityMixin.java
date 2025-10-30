@@ -22,14 +22,14 @@ package carpettisaddition.mixins.command.lifetime.removal.despawn;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.world.entity.ExperienceOrb;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ExperienceOrbEntity.class)
+@Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin
 {
 	@Inject(
@@ -45,7 +45,7 @@ public abstract class ExperienceOrbEntityMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/ExperienceOrb;remove()V"
 					//#endif
 			)
 	)

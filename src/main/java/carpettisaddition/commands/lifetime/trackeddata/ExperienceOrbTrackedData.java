@@ -20,9 +20,9 @@
 
 package carpettisaddition.commands.lifetime.trackeddata;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.network.chat.BaseComponent;
 
 //#if MC >= 11700
 //$$ import carpettisaddition.utils.EntityUtils;
@@ -33,10 +33,10 @@ public class ExperienceOrbTrackedData extends ExtraCountTrackedData
 	@Override
 	protected long getExtraCount(Entity entity)
 	{
-		if (entity instanceof ExperienceOrbEntity)
+		if (entity instanceof ExperienceOrb)
 		{
 			return
-					((ExperienceOrbEntity)entity).getExperienceAmount()
+					((ExperienceOrb)entity).getValue()
 					//#if MC >= 11700
 					//$$ * EntityUtils.getXpOrbPickingCount(((ExperienceOrbEntity)entity))
 					//#endif
@@ -46,7 +46,7 @@ public class ExperienceOrbTrackedData extends ExtraCountTrackedData
 	}
 
 	@Override
-	protected BaseText getCountDisplayText()
+	protected BaseComponent getCountDisplayText()
 	{
 		return tr("experience_amount");
 	}

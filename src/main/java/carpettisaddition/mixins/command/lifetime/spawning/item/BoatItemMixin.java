@@ -22,8 +22,8 @@ package carpettisaddition.mixins.command.lifetime.spawning.item;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.BoatItem;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.BoatItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -35,7 +35,7 @@ public abstract class BoatItemMixin
 			method = "use",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private Entity lifetimeTracker_recordSpawning_item_boat(Entity boatEntity)

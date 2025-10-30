@@ -35,16 +35,16 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
-	@Shadow private int ticks;
+	@Shadow private int tickCount;
 
 	@ModifyArg(
-			method = "tick",
+			method = "tickServer",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12002
 					//$$ target = "Lnet/minecraft/server/MinecraftServer;tickTickLog(J)V"
 					//#else
-					target = "Lnet/minecraft/util/MetricsData;pushSample(J)V"
+					target = "Lnet/minecraft/util/FrameTimer;logFrameDuration(J)V"
 					//#endif
 			)
 	)
@@ -52,7 +52,7 @@ public abstract class MinecraftServerMixin
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSampleLegacy(this.ticks, msThisTick);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSampleLegacy(this.tickCount, msThisTick);
 		}
 		return msThisTick;
 	}

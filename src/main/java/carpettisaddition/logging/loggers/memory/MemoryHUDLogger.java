@@ -22,8 +22,8 @@ package carpettisaddition.logging.loggers.memory;
 
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.BaseComponent;
 
 public class MemoryHUDLogger extends AbstractHUDLogger
 {
@@ -42,7 +42,7 @@ public class MemoryHUDLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public BaseComponent[] onHudUpdate(String option, Player playerEntity)
 	{
 		final long bytesPerMB = 1024 * 1024;
 		long free = Runtime.getRuntime().freeMemory();
@@ -52,7 +52,7 @@ public class MemoryHUDLogger extends AbstractHUDLogger
 		long usedMB = Math.max(total - free, 0) / bytesPerMB;
 		long allocatedMB = total / bytesPerMB;
 		long maxMB = max != Long.MAX_VALUE ? max / bytesPerMB : -1;
-		return new BaseText[]{
+		return new BaseComponent[]{
 				Messenger.c(String.format("g %dM / %dM | %dM", usedMB, allocatedMB, maxMB))
 		};
 	}

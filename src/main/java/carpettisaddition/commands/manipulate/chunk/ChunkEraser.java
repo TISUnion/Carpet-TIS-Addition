@@ -34,22 +34,22 @@ import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import it.unimi.dsi.fastutil.shorts.ShortList;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.server.world.ServerLightingProvider;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.LightType;
-import net.minecraft.world.chunk.ChunkNibbleArray;
-import net.minecraft.world.chunk.ChunkSection;
-import net.minecraft.world.chunk.PalettedContainer;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.server.level.ThreadedLevelLightEngine;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.core.SectionPos;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.chunk.DataLayer;
+import net.minecraft.world.level.chunk.LevelChunkSection;
+import net.minecraft.world.level.chunk.PalettedContainer;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -76,18 +76,18 @@ import java.util.stream.Collectors;
 public class ChunkEraser extends TranslationContext
 {
 	private final List<ChunkPos> chunkPosList;
-	private final Map<ChunkPos, WorldChunk> chunks;
-	private final ServerCommandSource source;
-	private final ServerWorld world;
+	private final Map<ChunkPos, LevelChunk> chunks;
+	private final CommandSourceStack source;
+	private final ServerLevel world;
 	private final Stats stats;
 
-	protected ChunkEraser(Translator translator, List<ChunkPos> chunkPosList, ServerCommandSource source)
+	protected ChunkEraser(Translator translator, List<ChunkPos> chunkPosList, CommandSourceStack source)
 	{
 		super(translator);
 		this.chunks = Maps.newLinkedHashMap();
 		this.chunkPosList = chunkPosList;
 		this.source = source;
-		this.world = source.getWorld();
+		this.world = source.getLevel();
 		this.stats = new Stats();
 	}
 
@@ -197,7 +197,7 @@ public class ChunkEraser extends TranslationContext
 	//#endif
 	private void eraseOneChunk(ChunkPos chunkPos)
 	{
-		WorldChunk chunk = Objects.requireNonNull(this.chunks.get(chunkPos));
+		LevelChunk chunk = Objects.requireNonNull(this.chunks.get(chunkPos));
 
 		// entity
 		//#if MC >= 11700
@@ -208,9 +208,9 @@ public class ChunkEraser extends TranslationContext
 		//$$ 		forEach(section -> section.stream().filter(entity -> !(entity instanceof PlayerEntity)).forEach(entities::add));
 		//$$ entities.forEach(Entity::discard);
 		//#else
-		List<Entity> entities = Arrays.stream(chunk.getEntitySectionArray()).
+		List<Entity> entities = Arrays.stream(chunk.getEntitySections()).
 				flatMap(Collection::stream).
-				filter(entity -> !(entity instanceof PlayerEntity)).
+				filter(entity -> !(entity instanceof Player)).
 				collect(Collectors.toList());
 		entities.forEach(Entity::remove);
 		//#endif
@@ -237,8 +237,8 @@ public class ChunkEraser extends TranslationContext
 		//$$ eraseTileTicks.accept(this.world.getBlockTickScheduler());
 		//$$ eraseTileTicks.accept(this.world.getFluidTickScheduler());
 		//#else
-		this.stats.tileTick += this.world.getBlockTickScheduler().getScheduledTicksInChunk(chunk.getPos(), true, true).size();
-		this.stats.tileTick += this.world.getFluidTickScheduler().getScheduledTicksInChunk(chunk.getPos(), true, true).size();
+		this.stats.tileTick += this.world.getBlockTicks().fetchTicksInChunk(chunk.getPos(), true, true).size();
+		this.stats.tileTick += this.world.getLiquidTicks().fetchTicksInChunk(chunk.getPos(), true, true).size();
 		//#endif
 
 		// block events
@@ -247,7 +247,7 @@ public class ChunkEraser extends TranslationContext
 		// post-processing stuffs
 		// see what net.minecraft.world.chunk.WorldChunk#runPostProcessing will do
 		((WorldChunkAccessor)chunk).getPendingBlockEntityTags().clear();
-		for (ShortList postProcessingList : chunk.getPostProcessingLists())
+		for (ShortList postProcessingList : chunk.getPostProcessing())
 		{
 			if (postProcessingList != null)
 			{
@@ -256,7 +256,7 @@ public class ChunkEraser extends TranslationContext
 		}
 
 		// block
-		for (ChunkSection chunkSection : chunk.getSectionArray())
+		for (LevelChunkSection chunkSection : chunk.getSections())
 		{
 			if (chunkSection != null)
 			{
@@ -286,18 +286,18 @@ public class ChunkEraser extends TranslationContext
 		//#if MC >= 12102
 		//$$ chunk.markNeedsSaving();
 		//#else
-		chunk.setShouldSave(true);
+		chunk.setUnsaved(true);
 		//#endif
 		ChunkManipulatorUtils.refreshChunk(this.world, chunk);
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void eraseChunkSectionBlocks(ChunkSection chunkSection)
+	private static void eraseChunkSectionBlocks(LevelChunkSection chunkSection)
 	{
-		PalettedContainer<BlockState> container = chunkSection.getContainer();
+		PalettedContainer<BlockState> container = chunkSection.getStates();
 		PalettedContainerAccessor<BlockState> accessor = (PalettedContainerAccessor<BlockState>)container;
 
-		container.lock();
+		container.acquire();
 		//#if MC >= 11800
 		//$$ PalettedContainer.Data<BlockState> data = accessor.invokeGetCompatibleData(null, 0);
 		//$$ data.palette().index(
@@ -310,18 +310,18 @@ public class ChunkEraser extends TranslationContext
 		//#else
 		accessor.invokeSetPaletteSize(0);
 		//#endif
-		container.unlock();
+		container.release();
 
-		chunkSection.calculateCounts();
+		chunkSection.recalcBlockCounts();
 	}
 
 	private void eraseDataStructures()
 	{
 		// block events
-		ObjectLinkedOpenHashSet<BlockAction> blockEventQueue = ((ServerWorldAccessor)this.world).getPendingBlockActions();
-		for (ObjectListIterator<BlockAction> iterator = blockEventQueue.iterator(); iterator.hasNext(); )
+		ObjectLinkedOpenHashSet<BlockEventData> blockEventQueue = ((ServerWorldAccessor)this.world).getPendingBlockActions();
+		for (ObjectListIterator<BlockEventData> iterator = blockEventQueue.iterator(); iterator.hasNext(); )
 		{
-			BlockAction blockAction = iterator.next();
+			BlockEventData blockAction = iterator.next();
 			if (this.chunks.containsKey(new ChunkPos(blockAction.getPos())))
 			{
 				this.stats.blockEvent++;
@@ -335,21 +335,21 @@ public class ChunkEraser extends TranslationContext
 	private CompletableFuture<Void> eraseLight()
 	{
 		List<CompletableFuture<Void>> futures = Lists.newArrayList();
-		for (WorldChunk chunk : this.chunks.values())
+		for (LevelChunk chunk : this.chunks.values())
 		{
-			futures.add(relightChunk(this.world.getChunkManager().getLightingProvider(), chunk));
+			futures.add(relightChunk(this.world.getChunkSource().getLightEngine(), chunk));
 		}
 		return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
 	}
 
-	private static final ChunkNibbleArray FILLED_CHUNK_NIBBLE_ARRAY = Util.make(() -> {
+	private static final DataLayer FILLED_CHUNK_NIBBLE_ARRAY = Util.make(() -> {
 		// see ChunkNibbleArray#ChunkNibbleArray(byte[]) for the expected byte[] length
 		byte[] bytes = new byte[2048];
 		Arrays.fill( bytes, (byte)0xFF);
-		return new ChunkNibbleArray(bytes);
+		return new DataLayer(bytes);
 	});
 
-	private CompletableFuture<Void> relightChunk(ServerLightingProvider lightingProvider, WorldChunk chunk)
+	private CompletableFuture<Void> relightChunk(ThreadedLevelLightEngine lightingProvider, LevelChunk chunk)
 	{
 		ChunkPos chunkPos = chunk.getPos();
 
@@ -370,17 +370,17 @@ public class ChunkEraser extends TranslationContext
 		for (int y = minY; y < maxY; y++)
 		{
 			// TODO: figure out why this is costly
-			ChunkSectionPos chunkSectionPos = ChunkSectionPos.from(chunkPos, y);
-			lightingProvider.queueData(
-					LightType.BLOCK, chunkSectionPos, new ChunkNibbleArray()
+			SectionPos chunkSectionPos = SectionPos.of(chunkPos, y);
+			lightingProvider.queueSectionData(
+					LightLayer.BLOCK, chunkSectionPos, new DataLayer()
 					//#if 11600 <= MC && MC < 12000
 					//$$ , true
 					//#endif
 			);
-			lightingProvider.queueData(
+			lightingProvider.queueSectionData(
 					// there's no skyLightProvider in the nether, so this queueData() call will be ignored,
 					// so it's fine to fill the nether skylight
-					LightType.SKY, chunkSectionPos, FILLED_CHUNK_NIBBLE_ARRAY.copy()
+					LightLayer.SKY, chunkSectionPos, FILLED_CHUNK_NIBBLE_ARRAY.copy()
 					//#if 11600 <= MC && MC < 12000
 					//$$ , true
 					//#endif

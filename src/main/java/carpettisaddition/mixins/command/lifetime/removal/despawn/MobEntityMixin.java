@@ -24,15 +24,15 @@ import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.DespawnImmediatelyRemovalReason;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Mob;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MobEntity.class)
+@Mixin(Mob.class)
 public abstract class MobEntityMixin
 {
 	//#if MC >= 11500
@@ -43,7 +43,7 @@ public abstract class MobEntityMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
 					//#else
-					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					target = "Lnet/minecraft/world/entity/Mob;remove()V",
 					//#endif
 					ordinal = 0
 			)
@@ -61,7 +61,7 @@ public abstract class MobEntityMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/entity/Entity;squaredDistanceTo(Lnet/minecraft/entity/Entity;)D"
+							target = "Lnet/minecraft/world/entity/Entity;distanceToSqr(Lnet/minecraft/world/entity/Entity;)D"
 					)
 			),
 			at = @At(
@@ -69,7 +69,7 @@ public abstract class MobEntityMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
 					//#else
-					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					target = "Lnet/minecraft/world/entity/Mob;remove()V",
 					//#endif
 					ordinal = 0
 			)
@@ -89,7 +89,7 @@ public abstract class MobEntityMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/entity/Entity;squaredDistanceTo(Lnet/minecraft/entity/Entity;)D"
+							target = "Lnet/minecraft/world/entity/Entity;distanceToSqr(Lnet/minecraft/world/entity/Entity;)D"
 					)
 			),
 			at = @At(
@@ -97,7 +97,7 @@ public abstract class MobEntityMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
 					//#else
-					target = "Lnet/minecraft/entity/mob/MobEntity;remove()V",
+					target = "Lnet/minecraft/world/entity/Mob;remove()V",
 					//#endif
 					ordinal = 1
 			)

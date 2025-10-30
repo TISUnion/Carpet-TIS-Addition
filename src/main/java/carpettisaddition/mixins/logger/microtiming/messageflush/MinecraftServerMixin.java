@@ -36,7 +36,7 @@ public abstract class MinecraftServerMixin
 			//#if MC >= 11700
 			//$$ method = "runTasksTillTickEnd",
 			//#else
-			method = "method_16208",
+			method = "waitUntilNextTick",
 			//#endif
 			at = @At("HEAD")
 	)

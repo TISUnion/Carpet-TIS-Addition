@@ -21,14 +21,14 @@
 package carpettisaddition.helpers.rule.tooledTNT;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Explosion;
 
 import java.util.Optional;
 
@@ -37,17 +37,17 @@ public class TooledTNTHelper
 	/**
 	 * Attach the causing entity's main hand item onto the loot table builder
 	 *
-	 * See also {@link net.minecraft.block.Block#getDroppedStacks(BlockState, ServerWorld, BlockPos, BlockEntity, Entity, ItemStack)}
+	 * See also {@link net.minecraft.world.level.block.Block#getDroppedStacks(BlockState, ServerLevel, BlockPos, BlockEntity, Entity, ItemStack)}
 	 * for loot table building for regular entity block mining
 	 */
 	public static Optional<ItemStack> getMainHandItemOfCausingEntity(Explosion explosion)
 	{
 		if (CarpetTISAdditionSettings.tooledTNT)
 		{
-			LivingEntity causingEntity = explosion.getCausingEntity();
+			LivingEntity causingEntity = explosion.getSourceMob();
 			if (causingEntity != null)
 			{
-				return Optional.of(causingEntity.getMainHandStack());
+				return Optional.of(causingEntity.getMainHandItem());
 			}
 		}
 		// vanilla

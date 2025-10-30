@@ -28,21 +28,21 @@ import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.BlockPos;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.getLoadedBlockPos;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 11700
 //$$ import carpettisaddition.utils.GameUtils;
@@ -59,21 +59,21 @@ public class TileEntityListController extends AbstractEntityListController
 	}
 
 	@Override
-	protected boolean canManipulate(ServerWorld world)
+	protected boolean canManipulate(ServerLevel world)
 	{
 		return !((WorldAccessor)world).isIteratingTickingBlockEntities();
 	}
 
 	@Override
-	protected int processWholeList(ServerWorld world, Consumer<List<?>> collectionOperator)
+	protected int processWholeList(ServerLevel world, Consumer<List<?>> collectionOperator)
 	{
 		//#if MC >= 11700
 		//$$ List<BlockEntityTickInvoker> blockEntityTickers = ((WorldAccessor)world).getBlockEntityTickers();
 		//$$ collectionOperator.accept(blockEntityTickers);
 		//$$ return blockEntityTickers.size();
 		//#else
-		collectionOperator.accept(world.tickingBlockEntities);
-		return world.tickingBlockEntities.size();
+		collectionOperator.accept(world.tickableBlockEntities);
+		return world.tickableBlockEntities.size();
 		//#endif
 	}
 
@@ -92,9 +92,9 @@ public class TileEntityListController extends AbstractEntityListController
 	//$$ }
 	//#endif
 
-	private int queryTileEntityInfo(ServerCommandSource source, BlockPos pos)
+	private int queryTileEntityInfo(CommandSourceStack source, BlockPos pos)
 	{
-		ServerWorld world = source.getWorld();
+		ServerLevel world = source.getLevel();
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity != null)
 		{
@@ -102,7 +102,7 @@ public class TileEntityListController extends AbstractEntityListController
 					//#if MC >= 11700
 					//$$ getTickingBlockEntities(world);
 					//#else
-					world.tickingBlockEntities;
+					world.tickableBlockEntities;
 					//#endif
 
 			int index = blockEntityList.indexOf(blockEntity);
@@ -120,7 +120,7 @@ public class TileEntityListController extends AbstractEntityListController
 		}
 	}
 
-	private void showTopNInCollection(ServerCommandSource source, BaseText name, Collection<BlockEntity> blockEntities)
+	private void showTopNInCollection(CommandSourceStack source, BaseComponent name, Collection<BlockEntity> blockEntities)
 	{
 		Multiset<BlockEntityType<?>> counter = HashMultiset.create();
 		blockEntities.stream().map(BlockEntity::getType).forEach(counter::add);
@@ -142,9 +142,9 @@ public class TileEntityListController extends AbstractEntityListController
 		}
 	}
 
-	private int showStatistic(ServerCommandSource source)
+	private int showStatistic(CommandSourceStack source)
 	{
-		ServerWorld world = source.getWorld();
+		ServerLevel world = source.getLevel();
 		Messenger.tell(source, Messenger.format(
 				"===== %1$s =====",
 				tr("statistic.title", Messenger.dimension(DimensionWrapper.of(world)))
@@ -152,7 +152,7 @@ public class TileEntityListController extends AbstractEntityListController
 
 		// query to all block entity is not available in 1.17+
 		//#if MC < 11700
-		this.showTopNInCollection(source, tr("statistic.all"), world.blockEntities);
+		this.showTopNInCollection(source, tr("statistic.all"), world.blockEntityList);
 		//#endif
 
 		this.showTopNInCollection(
@@ -160,14 +160,14 @@ public class TileEntityListController extends AbstractEntityListController
 				//#if MC >= 11700
 				//$$ getTickingBlockEntities(world)
 				//#else
-				world.tickingBlockEntities
+				world.tickableBlockEntities
 				//#endif
 		);
 		return 1;
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandTreeContext context)
+	public ArgumentBuilder<CommandSourceStack, ?> getCommandNode(CommandTreeContext context)
 	{
 		return super.getCommandNode(context).
 				then(literal("statistic").

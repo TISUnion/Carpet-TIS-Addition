@@ -22,7 +22,7 @@ package carpettisaddition.mixins.rule.tntIgnoreRedstoneSignal;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.block.TntBlock;
+import net.minecraft.world.level.block.TntBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -34,12 +34,12 @@ public abstract class TntBlockMixin
 	 */
 	@ModifyExpressionValue(
 			method = {
-					"onBlockAdded",
-					"neighborUpdate"
+					"onPlace",
+					"neighborChanged"
 			},
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;isReceivingRedstonePower(Lnet/minecraft/util/math/BlockPos;)Z"
+					target = "Lnet/minecraft/world/level/Level;hasNeighborSignal(Lnet/minecraft/core/BlockPos;)Z"
 			)
 	)
 	private boolean tntIgnoreRedstoneSignalImpl(boolean isReceivingRedstonePower)

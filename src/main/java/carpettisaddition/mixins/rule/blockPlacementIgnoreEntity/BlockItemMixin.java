@@ -21,10 +21,10 @@
 package carpettisaddition.mixins.rule.blockPlacementIgnoreEntity;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BlockPlaceContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,18 +34,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockItem.class)
 public abstract class BlockItemMixin
 {
-	@Shadow protected abstract boolean checkStatePlacement();
+	@Shadow protected abstract boolean mustSurvive();
 
 	@Inject(method = "canPlace", at = @At(value = "HEAD"), cancellable = true)
-	void skipCollisionCheck(ItemPlacementContext context, BlockState state, CallbackInfoReturnable<Boolean> cir)
+	void skipCollisionCheck(BlockPlaceContext context, BlockState state, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (CarpetTISAdditionSettings.blockPlacementIgnoreEntity)
 		{
-			PlayerEntity player = context.getPlayer();
+			Player player = context.getPlayer();
 			if (player != null && player.isCreative())
 			{
 				// partially vanilla copy (removed entity collision check)
-				cir.setReturnValue(!this.checkStatePlacement() || state.canPlaceAt(context.getWorld(), context.getBlockPos()));
+				cir.setReturnValue(!this.mustSurvive() || state.canSurvive(context.getLevel(), context.getClickedPos()));
 			}
 		}
 	}

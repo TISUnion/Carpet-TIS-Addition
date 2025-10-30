@@ -20,56 +20,56 @@
 
 package carpettisaddition.utils;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 
 public class IdentifierUtils
 {
-	public static Identifier ofVanilla(String id)
+	public static ResourceLocation ofVanilla(String id)
 	{
 		//#if MC >= 12100
 		//$$ return Identifier.of(id);
 		//#else
-		return new Identifier(id);
+		return new ResourceLocation(id);
 		//#endif
 	}
 
-	public static Identifier of(String namespace, String path)
+	public static ResourceLocation of(String namespace, String path)
 	{
 		//#if MC >= 12100
 		//$$ return Identifier.of(namespace, path);
 		//#else
-		return new Identifier(namespace, path);
+		return new ResourceLocation(namespace, path);
 		//#endif
 	}
 
-	public static Identifier id(Block block)
+	public static ResourceLocation id(Block block)
 	{
-		return Registry.BLOCK.getId(block);
+		return Registry.BLOCK.getKey(block);
 	}
 
-	public static Identifier id(Fluid fluid)
+	public static ResourceLocation id(Fluid fluid)
 	{
-		return Registry.FLUID.getId(fluid);
+		return Registry.FLUID.getKey(fluid);
 	}
 
-	public static Identifier id(EntityType<?> entityType)
+	public static ResourceLocation id(EntityType<?> entityType)
 	{
-		return Registry.ENTITY_TYPE.getId(entityType);
+		return Registry.ENTITY_TYPE.getKey(entityType);
 	}
 
-	public static Identifier id(BlockEntityType<?> blockEntityType)
+	public static ResourceLocation id(BlockEntityType<?> blockEntityType)
 	{
-		return Registry.BLOCK_ENTITY_TYPE.getId(blockEntityType);
+		return Registry.BLOCK_ENTITY_TYPE.getKey(blockEntityType);
 	}
 
-	public static Identifier id(PointOfInterestType poiType)
+	public static ResourceLocation id(PoiType poiType)
 	{
-		return Registry.POINT_OF_INTEREST_TYPE.getId(poiType);
+		return Registry.POINT_OF_INTEREST_TYPE.getKey(poiType);
 	}
 }

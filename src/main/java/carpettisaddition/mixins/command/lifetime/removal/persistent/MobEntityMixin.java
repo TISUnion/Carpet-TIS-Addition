@@ -22,16 +22,16 @@ package carpettisaddition.mixins.command.lifetime.removal.persistent;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.world.entity.Mob;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MobEntity.class)
+@Mixin(Mob.class)
 public abstract class MobEntityMixin
 {
-	@Inject(method = "setPersistent", at = @At("HEAD"))
+	@Inject(method = "setPersistenceRequired", at = @At("HEAD"))
 	private void lifetimeTracker_recordRemoval_persistent_common(CallbackInfo ci)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
@@ -41,11 +41,11 @@ public abstract class MobEntityMixin
 			//#if MC >= 11600
 			//$$ method = "equipLootStack",
 			//#else
-			method = "loot",
+			method = "pickUpItem",
 			//#endif
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/entity/mob/MobEntity;persistent:Z"
+					target = "Lnet/minecraft/world/entity/Mob;persistenceRequired:Z"
 			)
 	)
 	private void lifetimeTracker_recordRemoval_persistent_equipLoot(CallbackInfo ci)

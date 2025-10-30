@@ -20,7 +20,7 @@
 
 package carpettisaddition.commands.raid;
 
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 // An adapter class for mc <1.21.5 and >=1.21.5
 public interface RaidWithIdAndWorld
@@ -29,7 +29,7 @@ public interface RaidWithIdAndWorld
 
 	void setRaidId$TISCM(int id);
 
-	ServerWorld getRaidWorld$TISCM();
+	ServerLevel getRaidWorld$TISCM();
 
-	void setRaidWorld$TISCM(ServerWorld world);
+	void setRaidWorld$TISCM(ServerLevel world);
 }

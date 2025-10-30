@@ -20,7 +20,7 @@
 
 package carpettisaddition.commands.lifetime.interfaces;
 
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.world.damagesource.DamageSource;
 
 public interface DamageableEntity
 {

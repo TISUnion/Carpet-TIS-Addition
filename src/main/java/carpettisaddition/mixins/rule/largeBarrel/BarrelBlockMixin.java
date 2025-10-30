@@ -23,14 +23,14 @@ package carpettisaddition.mixins.rule.largeBarrel;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.container.Container;
-import net.minecraft.container.NameableContainerFactory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,16 +39,16 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BarrelBlock.class)
-public abstract class BarrelBlockMixin extends BlockWithEntity
+public abstract class BarrelBlockMixin extends BaseEntityBlock
 {
-	protected BarrelBlockMixin(Settings settings)
+	protected BarrelBlockMixin(Properties settings)
 	{
 		super(settings);
 	}
 
 	@ModifyArg(
 			//#if MC >= 11500
-			method = "onUse",
+			method = "use",
 			//#else
 			//$$ method = "activate",
 			//#endif
@@ -57,11 +57,11 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/entity/player/PlayerEntity;openHandledScreen(Lnet/minecraft/screen/NamedScreenHandlerFactory;)Ljava/util/OptionalInt;"
 					//#else
-					target = "Lnet/minecraft/entity/player/PlayerEntity;openContainer(Lnet/minecraft/container/NameableContainerFactory;)Ljava/util/OptionalInt;"
+					target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;"
 					//#endif
 			)
 	)
-	private NameableContainerFactory largeBarrel(NameableContainerFactory nameableContainerFactory)
+	private MenuProvider largeBarrel(MenuProvider nameableContainerFactory)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
@@ -72,9 +72,9 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 						//#if MC >= 11600
 						//$$ createScreenHandlerFactory
 						//#else
-						createContainerFactory
+						getMenuProvider
 						//#endif
-								(barrelBlockEntity.getCachedState(), barrelBlockEntity.getWorld(), barrelBlockEntity.getPos());
+								(barrelBlockEntity.getBlockState(), barrelBlockEntity.getLevel(), barrelBlockEntity.getBlockPos());
 			}
 		}
 		// vanilla
@@ -82,24 +82,24 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	}
 
 	/**
-	 * (<=1.15) Just like {@link net.minecraft.block.ChestBlock#createContainerFactory}
-	 * (>=1.16) Just like {@link net.minecraft.block.ChestBlock#createScreenHandlerFactory}
+	 * (<=1.15) Just like {@link net.minecraft.world.level.block.ChestBlock#createContainerFactory}
+	 * (>=1.16) Just like {@link net.minecraft.world.level.block.ChestBlock#createScreenHandlerFactory}
 	 */
 	@Nullable
 	@Override
-	public NameableContainerFactory
+	public MenuProvider
 	//#if MC >= 11600
 	//$$ createScreenHandlerFactory
 	//#else
-	createContainerFactory
+	getMenuProvider
 	//#endif
-	(BlockState state, World world, BlockPos pos)
+	(BlockState state, Level world, BlockPos pos)
 	{
-		NameableContainerFactory vanillaResult = super.
+		MenuProvider vanillaResult = super.
 				//#if MC >= 11600
 				//$$ createScreenHandlerFactory
 				//#else
-				createContainerFactory
+				getMenuProvider
 				//#endif
 						(state, world, pos);
 		if (CarpetTISAdditionSettings.largeBarrel)
@@ -109,17 +109,17 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 		return vanillaResult;
 	}
 
-	@Inject(method = "getComparatorOutput", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "getAnalogOutputSignal", at = @At("HEAD"), cancellable = true)
 	private void getLargeBarrelComparatorOutputMaybe(
 			CallbackInfoReturnable<Integer> cir,
 			@Local(argsOnly = true) BlockState state,
-			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true) Level world,
 			@Local(argsOnly = true) BlockPos pos
 	)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
-			cir.setReturnValue(Container.calculateComparatorOutput(LargeBarrelHelper.getInventory(state, world, pos)));
+			cir.setReturnValue(AbstractContainerMenu.getRedstoneSignalFromContainer(LargeBarrelHelper.getInventory(state, world, pos)));
 		}
 	}
 }

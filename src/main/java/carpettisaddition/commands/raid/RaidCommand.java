@@ -33,15 +33,15 @@ import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.entity.raid.RaiderEntity;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.*;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 public class RaidCommand extends AbstractCommand
 {
@@ -60,7 +60,7 @@ public class RaidCommand extends AbstractCommand
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{
-		LiteralArgumentBuilder<ServerCommandSource> builder = literal("raid")
+		LiteralArgumentBuilder<CommandSourceStack> builder = literal("raid")
 			.requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRaid))
 			.then(literal("list")
 					.executes((c) -> listRaid(c.getSource(), false))
@@ -72,21 +72,21 @@ public class RaidCommand extends AbstractCommand
 		context.dispatcher.register(builder);
 	}
 
-	public int listRaid(ServerCommandSource source, boolean fullMode)
+	public int listRaid(CommandSourceStack source, boolean fullMode)
 	{
 		if (CarpetTISAdditionServer.minecraft_server == null)
 		{
 			return 0;
 		}
 		boolean hasRaid = false;
-		for (ServerWorld world : CarpetTISAdditionServer.minecraft_server.getWorlds())
+		for (ServerLevel world : CarpetTISAdditionServer.minecraft_server.getAllLevels())
 		{
-			Map<Integer, Raid> raids = ((RaidManagerAccessor) world.getRaidManager()).getRaids();
+			Map<Integer, Raid> raids = ((RaidManagerAccessor) world.getRaids()).getRaids();
 			if (raids.isEmpty())
 			{
 				continue;
 			}
-			List<BaseText> result = new ArrayList<>();
+			List<BaseComponent> result = new ArrayList<>();
 			result.add(Messenger.c(
 					Messenger.dimension(DimensionWrapper.of(world)),
 					"w  ", tr("raid_count", raids.size())
@@ -111,21 +111,21 @@ public class RaidCommand extends AbstractCommand
 				result.add(Messenger.c("g   ", tr("bad_omen_level"), "w : ", Messenger.s(raid.getBadOmenLevel())));
 				result.add(Messenger.c("g   ", tr("waves"), "w : ", String.format("w %d/%d", raidAccessor.getWavesSpawned(), raidAccessor.getWaveCount())));
 
-				Set<RaiderEntity> raiders = raidAccessor.getWaveToRaiders().get(currentWave);
+				Set<Raider> raiders = raidAccessor.getWaveToRaiders().get(currentWave);
 				boolean hasRaiders = raiders != null && !raiders.isEmpty();
 				result.add(Messenger.c("g   ", tr("raiders"), "w : ", hasRaiders ? Messenger.s(String.format("x%d", raiders.size())) : tr("none")));
 				if (hasRaiders)
 				{
 					int counter = 0;
 					List<Object> line = Lists.newArrayList();
-					for (Iterator<RaiderEntity> iter = raiders.iterator(); iter.hasNext(); )
+					for (Iterator<Raider> iter = raiders.iterator(); iter.hasNext(); )
 					{
-						RaiderEntity raider = iter.next();
-						BaseText raiderName = Messenger.entity(raider.equals(raidAccessor.getWaveToCaptain().get(currentWave)) ? "r" : "w", raider);
-						BaseText raiderMessage = Messenger.c(
+						Raider raider = iter.next();
+						BaseComponent raiderName = Messenger.entity(raider.equals(raidAccessor.getWaveToCaptain().get(currentWave)) ? "r" : "w", raider);
+						BaseComponent raiderMessage = Messenger.c(
 								raiderName,
 								"g  @ ",
-								Messenger.coord("w", raider.getPos(), DimensionWrapper.of(raider))
+								Messenger.coord("w", raider.position(), DimensionWrapper.of(raider))
 						);
 						if (fullMode)
 						{
@@ -133,12 +133,12 @@ public class RaidCommand extends AbstractCommand
 						}
 						else
 						{
-							BaseText x = Messenger.s(String.format("[%s] ", IdentifierUtils.id(raider.getType()).getPath().substring(0, 1).toUpperCase()));
+							BaseComponent x = Messenger.s(String.format("[%s] ", IdentifierUtils.id(raider.getType()).getPath().substring(0, 1).toUpperCase()));
 							x.setStyle(
 									//#if MC >= 11600
 									//$$ raiderName.getStyle()
 									//#else
-									raiderName.getStyle().copy()
+									raiderName.getStyle().flatCopy()
 									//#endif
 							);
 							Messenger.hover(x, raiderMessage);

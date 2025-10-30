@@ -28,7 +28,7 @@ import carpettisaddition.utils.FileUtils;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
@@ -126,10 +126,10 @@ public class LoggerSubscriptionStorage
 		}
 	}
 
-	public boolean restoreSubscription(PlayerEntity player)
+	public boolean restoreSubscription(Player player)
 	{
 		this.ensureStorageExists();
-		Map<String, String> playerEntry = this.storage.get(player.getUuidAsString());
+		Map<String, String> playerEntry = this.storage.get(player.getStringUUID());
 		if (playerEntry != null)
 		{
 			String playerName = player.getName().getString();
@@ -152,13 +152,13 @@ public class LoggerSubscriptionStorage
 		}
 	}
 
-	private DataStorage.PlayerEntry getEntry(PlayerEntity player)
+	private DataStorage.PlayerEntry getEntry(Player player)
 	{
 		this.ensureStorageExists();
-		return this.storage.computeIfAbsent(player.getUuidAsString(), uuid -> new DataStorage.PlayerEntry());
+		return this.storage.computeIfAbsent(player.getStringUUID(), uuid -> new DataStorage.PlayerEntry());
 	}
 
-	public void addSubscription(PlayerEntity player, String loggerName, @Nullable String option)
+	public void addSubscription(Player player, String loggerName, @Nullable String option)
 	{
 		DataStorage.PlayerEntry entry = this.getEntry(player);
 		if (!entry.containsKey(loggerName) || !Objects.equals(entry.get(loggerName), option))
@@ -168,7 +168,7 @@ public class LoggerSubscriptionStorage
 		}
 	}
 
-	public void removeSubscription(PlayerEntity player, String loggerName)
+	public void removeSubscription(Player player, String loggerName)
 	{
 		DataStorage.PlayerEntry entry = this.getEntry(player);
 		if (entry.containsKey(loggerName))

@@ -20,9 +20,9 @@
 
 package carpettisaddition.commands.common.counter;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public interface DyeCounterKey
 {
-	BaseText getText();
+	BaseComponent getText();
 }

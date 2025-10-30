@@ -22,9 +22,9 @@ package carpettisaddition.helpers.carpet.playerActionEnhanced.randomly;
 
 import carpet.helpers.EntityPlayerActionPack;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 
 public interface CommandActionMaker
 {
-	int action(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action);
+	int action(CommandContext<CommandSourceStack> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action);
 }

@@ -24,9 +24,9 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.portalCreation.PortalCreationLogger;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.PortalForcer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.PortalForcer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -42,7 +42,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 //$$ import org.spongepowered.asm.mixin.injection.ModifyArg;
 //#else
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 //#endif
 
 @Mixin(PortalForcer.class)
@@ -50,7 +50,7 @@ public abstract class PortalForcerMixin
 {
 	@Shadow
 	@Final
-	private ServerWorld world;
+	private ServerLevel level;
 
 	@Inject(
 			//#if 1.16.0 <= MC && MC < 1.17.0
@@ -60,7 +60,7 @@ public abstract class PortalForcerMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"
+					target = "Lnet/minecraft/util/Mth;clamp(III)I"
 			)
 	)
 	private void portalCreationLogger_recordIsFloatingPlatform(CallbackInfoReturnable<Boolean> cir, @Share("isFloatingPlatform") LocalBooleanRef isFloatingPlatform)
@@ -82,7 +82,7 @@ public abstract class PortalForcerMixin
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
-							target = "Lnet/minecraft/block/Blocks;NETHER_PORTAL:Lnet/minecraft/block/Block;"
+							target = "Lnet/minecraft/world/level/block/Blocks;NETHER_PORTAL:Lnet/minecraft/world/level/block/Block;"
 					)
 			),
 			at = @At(
@@ -90,7 +90,7 @@ public abstract class PortalForcerMixin
 					//#if MC >= 1.16.0
 					//$$ target = "Lnet/minecraft/util/math/BlockPos$Mutable;set(Lnet/minecraft/util/math/Vec3i;III)Lnet/minecraft/util/math/BlockPos$Mutable;",
 					//#else
-					target = "Lnet/minecraft/util/math/BlockPos$Mutable;set(III)Lnet/minecraft/util/math/BlockPos$Mutable;",
+					target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;",
 					//#endif
 					ordinal = 0
 			)
@@ -132,7 +132,7 @@ public abstract class PortalForcerMixin
 			//#else
 			BlockPos portalPos = new BlockPos(args.get(0), args.get(1), args.get(2));
 			//#endif
-			PortalCreationLogger.getInstance().onNetherPortalCreation(this.world, portalPos, isFloatingPlatform.get());
+			PortalCreationLogger.getInstance().onNetherPortalCreation(this.level, portalPos, isFloatingPlatform.get());
 		}
 		//#if MC < 1.16.0
 		finally

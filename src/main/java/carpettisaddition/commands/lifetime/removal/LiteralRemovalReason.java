@@ -21,7 +21,7 @@
 package carpettisaddition.commands.lifetime.removal;
 
 import com.google.gson.JsonObject;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public class LiteralRemovalReason extends RemovalReason
 {
@@ -84,7 +84,7 @@ public class LiteralRemovalReason extends RemovalReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return tr(this.translationKey);
 	}

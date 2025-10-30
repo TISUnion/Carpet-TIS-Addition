@@ -24,27 +24,27 @@ import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.vehicle.Boat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 // see VehicleEntityMixin for mc1.20.4+
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20.4"))
-@Mixin(BoatEntity.class)
+@Mixin(Boat.class)
 public abstract class BoatEntityMixin implements DamageableEntity
 {
 	private DamageSource deathDamageSource;
 
 	@ModifyVariable(
-			method = "damage",
+			method = "hurt",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/vehicle/BoatEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/vehicle/BoatEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/vehicle/Boat;remove()V"
 					//#endif
 			),
 			argsOnly = true

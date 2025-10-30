@@ -22,7 +22,7 @@ package carpettisaddition.mixins.rule.chatMessageLengthLimitUnlocked;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.chatMessageLengthLimitUnlocked.ChatMessageLengthLimitUnlockedHelper;
-import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screens.ChatScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -34,7 +34,7 @@ public abstract class ChatScreenMixin
 			method = "init",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/gui/widget/TextFieldWidget;setMaxLength(I)V"
+					target = "Lnet/minecraft/client/gui/components/EditBox;setMaxLength(I)V"
 			)
 	)
 	private int chatMessageLengthLimitUnlocked_unlockChatScreenLimit(int maxLength)

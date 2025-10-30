@@ -22,28 +22,28 @@ package carpettisaddition.mixins.command.lifetime.deathdamage;
 
 import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.damagesource.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ExperienceOrbEntity.class)
+@Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin implements DamageableEntity
 {
 	private DamageSource deathDamageSource;
 
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/ExperienceOrb;remove()V"
 					//#endif
 			)
 	)

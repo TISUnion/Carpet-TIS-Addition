@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.SummonCommand;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.commands.SummonCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -41,7 +41,7 @@ public abstract class SummonCommandMixin
 			at = @At("TAIL"),
 			remap = false
 	)
-	private static boolean checkIfAllowCheating_summonCommand(boolean permissionEnough, ServerCommandSource source)
+	private static boolean checkIfAllowCheating_summonCommand(boolean permissionEnough, CommandSourceStack source)
 	{
 		return permissionEnough && OpPlayerNoCheatHelper.canCheat(source);
 	}

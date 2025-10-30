@@ -21,7 +21,7 @@
 package carpettisaddition.helpers.rule.voidDamageIgnorePlayer;
 
 import carpettisaddition.settings.validator.AbstractCheckerValidator;
-import net.minecraft.world.GameMode;
+import net.minecraft.world.level.GameType;
 
 import java.util.Arrays;
 
@@ -35,7 +35,7 @@ public class VoidDamageIgnorePlayerValidator extends AbstractCheckerValidator<St
 			return true;
 		}
 		return !value.isEmpty() && Arrays.stream(value.split(",")).allMatch(part -> {
-			GameMode gameMode = GameMode.byName(part, null);
+			GameType gameMode = GameType.byName(part, null);
 			return gameMode != null && !gameMode.getName().isEmpty() /* exclude NOT_SET in mc <1.19.4 */;
 		});
 	}

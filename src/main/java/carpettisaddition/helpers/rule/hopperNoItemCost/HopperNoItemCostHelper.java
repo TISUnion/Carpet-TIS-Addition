@@ -20,7 +20,7 @@
 
 package carpettisaddition.helpers.rule.hopperNoItemCost;
 
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
 
 /**
  * Used in mc1.17+

@@ -32,17 +32,33 @@ import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerTyp
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.*;
-import net.minecraft.block.enums.WallMountLocation;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.BasePressurePlateBlock;
+import net.minecraft.world.level.block.BaseRailBlock;
+import net.minecraft.world.level.block.DiodeBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EndRodBlock;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.LeverBlock;
+import net.minecraft.world.level.block.ObserverBlock;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
+import net.minecraft.world.level.block.piston.MovingPistonBlock;
+import net.minecraft.world.level.block.RedstoneTorchBlock;
+import net.minecraft.world.level.block.RedStoneWireBlock;
+import net.minecraft.world.level.block.TripWireHookBlock;
+import net.minecraft.world.level.block.RedstoneWallTorchBlock;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 
 import java.util.Collections;
 import java.util.List;
@@ -105,19 +121,19 @@ public class MicroTimingUtil
 		return COLOR_STYLE.getOrDefault(color, "w");
 	}
 
-	private static BaseText tr(String key, Object... args)
+	private static BaseComponent tr(String key, Object... args)
 	{
 		return TRANSLATOR.tr(key, args);
 	}
 
-	public static BaseText getColoredValue(Object value)
+	public static BaseComponent getColoredValue(Object value)
 	{
 		return Messenger.colored(value);
 	}
 
-	public static BaseText getSuccessText(boolean value, boolean showReturnValue, BaseText hoverExtra)
+	public static BaseComponent getSuccessText(boolean value, boolean showReturnValue, BaseComponent hoverExtra)
 	{
-		BaseText hintText = value ?
+		BaseComponent hintText = value ?
 				Messenger.formatting(tr("successful"), "e") :
 				Messenger.formatting(tr("failed"), "r");
 		if (hoverExtra != null)
@@ -135,24 +151,24 @@ public class MicroTimingUtil
 				Messenger.fancy("e", Messenger.s("√"), hintText, null) :
 				Messenger.fancy("r", Messenger.s("×"), hintText, null);
 	}
-	public static BaseText getSuccessText(boolean bool, boolean showReturnValue)
+	public static BaseComponent getSuccessText(boolean bool, boolean showReturnValue)
 	{
 		return getSuccessText(bool, showReturnValue, null);
 	}
 
-	private static boolean isPositionAvailable(World world, BlockPos pos)
+	private static boolean isPositionAvailable(Level world, BlockPos pos)
 	{
-		return world instanceof ServerWorld &&
+		return world instanceof ServerLevel &&
 				//#if MC >= 11800
 				//$$ ((ServerWorldAccessor)world).invokeIsTickingFutureReady(ChunkPos.toLong(pos));
 				//#elseif MC >= 11700
 				//$$ ((ServerWorld)world).method_37117(pos);
 				//#else
-				world.getChunkManager().shouldTickBlock(pos);
+				world.getChunkSource().isTickingChunk(pos);
 				//#endif
 	}
 
-	public static boolean isBlockUpdateInstant(World world)
+	public static boolean isBlockUpdateInstant(Level world)
 	{
 		//#if MC >= 11900
 		//$$ return ((WorldAccessor)world).getNeighborUpdater$TISCM() instanceof InstantNeighborUpdater;
@@ -161,7 +177,7 @@ public class MicroTimingUtil
 		//#endif
 	}
 
-	private static Optional<DyeColor> getWoolColor(World world, BlockPos pos)
+	private static Optional<DyeColor> getWoolColor(Level world, BlockPos pos)
 	{
 		if (!MicroTimingLoggerManager.isLoggerActivated() || !isPositionAvailable(world, pos))
 		{
@@ -172,40 +188,40 @@ public class MicroTimingUtil
 		BlockPos woolPos;
 
 		if (block instanceof ObserverBlock || block instanceof EndRodBlock ||
-				block instanceof PistonBlock || block instanceof PistonExtensionBlock)
+				block instanceof PistonBaseBlock || block instanceof MovingPistonBlock)
 		{
-			woolPos = pos.offset(state.get(Properties.FACING).getOpposite());
+			woolPos = pos.relative(state.getValue(BlockStateProperties.FACING).getOpposite());
 		}
-		else if (block instanceof AbstractButtonBlock || block instanceof LeverBlock)
+		else if (block instanceof ButtonBlock || block instanceof LeverBlock)
 		{
 			Direction facing;
-			if (state.get(Properties.WALL_MOUNT_LOCATION) == WallMountLocation.FLOOR)
+			if (state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.FLOOR)
 			{
 				facing = Direction.UP;
 			}
-			else if (state.get(Properties.WALL_MOUNT_LOCATION) == WallMountLocation.CEILING)
+			else if (state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.CEILING)
 			{
 				facing = Direction.DOWN;
 			}
 			else
 			{
-				facing = state.get(Properties.HORIZONTAL_FACING);
+				facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
 			}
-			woolPos = pos.offset(facing.getOpposite());
+			woolPos = pos.relative(facing.getOpposite());
 		}
-		else if (block instanceof WallRedstoneTorchBlock || block instanceof TripwireHookBlock)
+		else if (block instanceof RedstoneWallTorchBlock || block instanceof TripWireHookBlock)
 		{
-			woolPos = pos.offset(state.get(Properties.HORIZONTAL_FACING).getOpposite());
+			woolPos = pos.relative(state.getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite());
 		}
 		else if (
-				block instanceof AbstractRailBlock ||
-				block instanceof AbstractRedstoneGateBlock ||
+				block instanceof BaseRailBlock ||
+				block instanceof DiodeBlock ||
 				block instanceof RedstoneTorchBlock ||
-				block instanceof RedstoneWireBlock ||
-				block instanceof AbstractPressurePlateBlock
+				block instanceof RedStoneWireBlock ||
+				block instanceof BasePressurePlateBlock
 		)  // on block
 		{
-			woolPos = pos.down();
+			woolPos = pos.below();
 		}
 		else
 		{
@@ -215,7 +231,7 @@ public class MicroTimingUtil
 		return Optional.ofNullable(WoolTool.getWoolColorAtPosition(world, woolPos));
 	}
 
-	private static Optional<DyeColor> getEndRodWoolColor(World world, BlockPos pos)
+	private static Optional<DyeColor> getEndRodWoolColor(Level world, BlockPos pos)
 	{
 		if (!MicroTimingLoggerManager.isLoggerActivated() || !isPositionAvailable(world, pos))
 		{
@@ -223,11 +239,11 @@ public class MicroTimingUtil
 		}
 		for (Direction facing: DIRECTION_VALUES)
 		{
-			BlockPos blockEndRodPos = pos.offset(facing);
+			BlockPos blockEndRodPos = pos.relative(facing);
 			BlockState iBlockState = world.getBlockState(blockEndRodPos);
-			if (iBlockState.getBlock() == Blocks.END_ROD && iBlockState.get(FacingBlock.FACING).getOpposite() == facing)
+			if (iBlockState.getBlock() == Blocks.END_ROD && iBlockState.getValue(DirectionalBlock.FACING).getOpposite() == facing)
 			{
-				BlockPos woolPos = blockEndRodPos.offset(facing);
+				BlockPos woolPos = blockEndRodPos.relative(facing);
 				DyeColor color = WoolTool.getWoolColorAtPosition(world, woolPos);
 				if (color != null)
 				{
@@ -238,7 +254,7 @@ public class MicroTimingUtil
 		return Optional.empty();
 	}
 
-	public static Optional<DyeColor> blockUpdateColorGetter(World world, BlockPos pos)
+	public static Optional<DyeColor> blockUpdateColorGetter(Level world, BlockPos pos)
 	{
 		Optional<DyeColor> optionalDyeColor = Optional.empty();
 		if (CarpetTISAdditionSettings.microTimingTarget != MicroTimingTarget.MARKER_ONLY)
@@ -252,7 +268,7 @@ public class MicroTimingUtil
 		return optionalDyeColor;
 	}
 
-	public static Optional<DyeColor> defaultColorGetter(World world, BlockPos pos)
+	public static Optional<DyeColor> defaultColorGetter(Level world, BlockPos pos)
 	{
 		Optional<DyeColor> optionalDyeColor = Optional.empty();
 		boolean usingFallbackColor = false;
@@ -268,7 +284,7 @@ public class MicroTimingUtil
 				switch (CarpetTISAdditionSettings.microTimingTarget)
 				{
 					case IN_RANGE:
-						usingFallbackColor = world.getClosestPlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, MicroTimingTarget.IN_RANGE_RADIUS, player -> true) != null;
+						usingFallbackColor = world.getNearestPlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, MicroTimingTarget.IN_RANGE_RADIUS, player -> true) != null;
 						break;
 					case ALL:
 						usingFallbackColor = true;
@@ -293,10 +309,10 @@ public class MicroTimingUtil
 		return optionalDyeColor;
 	}
 
-	public static BaseText getFormattedDirectionText(Direction direction)
+	public static BaseComponent getFormattedDirectionText(Direction direction)
 	{
-		BaseText translatedName = tr("direction." + direction.toString());
-		char sign = direction.getDirection().offset() > 0 ? '+' : '-';
+		BaseComponent translatedName = tr("direction." + direction.toString());
+		char sign = direction.getAxisDirection().getStep() > 0 ? '+' : '-';
 		return Messenger.c(translatedName, String.format("w (%c%s)", sign, direction.getAxis()));
 	}
 
@@ -305,17 +321,17 @@ public class MicroTimingUtil
 		return MicroTimingLoggerManager.isLoggerActivated() && CarpetTISAdditionSettings.microTimingDyeMarker.equals("true");
 	}
 
-	public static boolean isPlayerSubscribed(PlayerEntity playerEntity)
+	public static boolean isPlayerSubscribed(Player playerEntity)
 	{
 		Map<String, String> map = LoggerRegistry.getPlayerSubscriptions(playerEntity.getGameProfile().getName());
 		return map != null && map.containsKey(MicroTimingLogger.NAME);
 	}
 
-	public static List<ServerPlayerEntity> getSubscribedPlayers()
+	public static List<ServerPlayer> getSubscribedPlayers()
 	{
 		return CarpetTISAdditionServer.minecraft_server == null ?
 				Collections.emptyList() :
-				CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayerList().stream().
+				CarpetTISAdditionServer.minecraft_server.getPlayerList().getPlayers().stream().
 						filter(MicroTimingUtil::isPlayerSubscribed).
 						collect(Collectors.toList());
 	}

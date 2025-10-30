@@ -26,11 +26,11 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -57,7 +57,7 @@ public abstract class BlockMixin
 			//#if MC >= 11600
 			//$$ method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
 			//#else
-			method = "updateNeighborStates",
+			method = "updateNeighbourShapes",
 			//#endif
 			at = @At("HEAD")
 	)
@@ -65,14 +65,14 @@ public abstract class BlockMixin
 			//#if MC >= 11600
 			//$$ WorldAccess world, BlockPos pos, int flags, int maxUpdateDepth,
 			//#else
-			BlockState state, IWorld world, BlockPos pos, int flags,
+			BlockState state, LevelAccessor world, BlockPos pos, int flags,
 			//#endif
 			CallbackInfo ci
 	)
 	{
-		if (world instanceof World)
+		if (world instanceof Level)
 		{
-			MicroTimingLoggerManager.onBlockUpdate((World)world, pos, world.getBlockState(pos).getBlock(), BlockUpdateType.STATE_UPDATE, null, EventType.ACTION_START);
+			MicroTimingLoggerManager.onBlockUpdate((Level)world, pos, world.getBlockState(pos).getBlock(), BlockUpdateType.STATE_UPDATE, null, EventType.ACTION_START);
 		}
 	}
 
@@ -80,7 +80,7 @@ public abstract class BlockMixin
 			//#if MC >= 11600
 			//$$ method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
 			//#else
-			method = "updateNeighborStates",
+			method = "updateNeighbourShapes",
 			//#endif
 			at = @At("RETURN")
 	)
@@ -88,14 +88,14 @@ public abstract class BlockMixin
 			//#if MC >= 11600
 			//$$ WorldAccess world, BlockPos pos, int flags, int maxUpdateDepth,
 			//#else
-			BlockState state, IWorld world, BlockPos pos, int flags,
+			BlockState state, LevelAccessor world, BlockPos pos, int flags,
 			//#endif
 			CallbackInfo ci
 	)
 	{
-		if (world instanceof World)
+		if (world instanceof Level)
 		{
-			MicroTimingLoggerManager.onBlockUpdate((World)world, pos, world.getBlockState(pos).getBlock(), BlockUpdateType.STATE_UPDATE, null, EventType.ACTION_END);
+			MicroTimingLoggerManager.onBlockUpdate((Level)world, pos, world.getBlockState(pos).getBlock(), BlockUpdateType.STATE_UPDATE, null, EventType.ACTION_END);
 		}
 	}
 }

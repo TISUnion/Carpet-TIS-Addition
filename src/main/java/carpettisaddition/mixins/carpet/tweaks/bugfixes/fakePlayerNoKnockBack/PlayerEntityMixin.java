@@ -26,8 +26,8 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -36,14 +36,14 @@ import org.spongepowered.asm.mixin.injection.At;
  * this issue is fixed in fabric-carpet v1.4.33 (mc1.16)
  */
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(value = PlayerEntity.class, priority = 500)
+@Mixin(value = Player.class, priority = 500)
 public abstract class PlayerEntityMixin
 {
 	@ModifyExpressionValue(
 			method = "attack",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/entity/Entity;velocityModified:Z",
+					target = "Lnet/minecraft/world/entity/Entity;hurtMarked:Z",
 					ordinal = 0
 			)
 	)

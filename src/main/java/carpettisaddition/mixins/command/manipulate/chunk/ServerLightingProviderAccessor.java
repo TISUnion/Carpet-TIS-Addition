@@ -20,13 +20,13 @@
 
 package carpettisaddition.mixins.command.manipulate.chunk;
 
-import net.minecraft.server.world.ServerLightingProvider;
+import net.minecraft.server.level.ThreadedLevelLightEngine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(ServerLightingProvider.class)
+@Mixin(ThreadedLevelLightEngine.class)
 public interface ServerLightingProviderAccessor
 {
-	@Invoker
-	void invokeEnqueue(int x, int z, ServerLightingProvider.Stage stage, Runnable task);
+	@Invoker("addTask")
+	void invokeEnqueue(int x, int z, ThreadedLevelLightEngine.TaskType stage, Runnable task);
 }

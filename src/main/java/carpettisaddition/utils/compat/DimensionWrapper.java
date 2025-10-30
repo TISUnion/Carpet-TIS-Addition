@@ -21,16 +21,16 @@
 package carpettisaddition.utils.compat;
 
 import carpettisaddition.utils.EntityUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
 //#if MC >= 11600
 //$$ import net.minecraft.util.registry.RegistryKey;
 //#else
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.level.dimension.DimensionType;
 //#endif
 
 /*
@@ -51,7 +51,7 @@ public class DimensionWrapper
 			//#if MC >= 11600
 			//$$ World.NETHER
 			//#else
-			DimensionType.THE_NETHER
+			DimensionType.NETHER
 			//#endif
 	);
 	public static final DimensionWrapper THE_END = of(
@@ -94,7 +94,7 @@ public class DimensionWrapper
 		return new DimensionWrapper(dimensionType);
 	}
 
-	public static DimensionWrapper of(World world)
+	public static DimensionWrapper of(Level world)
 	{
 		return new DimensionWrapper(
 				//#if MC >= 11600
@@ -122,12 +122,12 @@ public class DimensionWrapper
 		return this.dimensionType;
 	}
 
-	public Identifier getIdentifier()
+	public ResourceLocation getIdentifier()
 	{
 		//#if MC >= 11600
 		//$$ return this.dimensionType.getValue();
 		//#else
-		return DimensionType.getId(this.dimensionType);
+		return DimensionType.getName(this.dimensionType);
 		//#endif
 	}
 

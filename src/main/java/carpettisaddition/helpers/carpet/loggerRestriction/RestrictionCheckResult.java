@@ -20,16 +20,16 @@
 
 package carpettisaddition.helpers.carpet.loggerRestriction;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.Nullable;
 
 public class RestrictionCheckResult
 {
 	private final boolean passed;
 	@Nullable
-	private final BaseText errorMessage;
+	private final BaseComponent errorMessage;
 
-	private RestrictionCheckResult(boolean passed, @Nullable BaseText errorMessage)
+	private RestrictionCheckResult(boolean passed, @Nullable BaseComponent errorMessage)
 	{
 		this.passed = passed;
 		this.errorMessage = errorMessage;
@@ -40,12 +40,12 @@ public class RestrictionCheckResult
 		return new RestrictionCheckResult(true, null);
 	}
 
-	public static RestrictionCheckResult failed(BaseText errorMessage)
+	public static RestrictionCheckResult failed(BaseComponent errorMessage)
 	{
 		return new RestrictionCheckResult(false, errorMessage);
 	}
 
-	public static RestrictionCheckResult bool(boolean condition, BaseText errorMessage)
+	public static RestrictionCheckResult bool(boolean condition, BaseComponent errorMessage)
 	{
 		return new RestrictionCheckResult(condition, errorMessage);
 	}
@@ -57,7 +57,7 @@ public class RestrictionCheckResult
 
 	// not null iff. isPassed() == true
 	@Nullable
-	public BaseText getErrorMessage()
+	public BaseComponent getErrorMessage()
 	{
 		return this.errorMessage;
 	}

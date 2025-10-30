@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
 import carpet.helpers.EntityPlayerActionPack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -29,5 +29,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface EntityPlayerActionPackAccessor
 {
 	@Accessor
-	ServerPlayerEntity getPlayer();
+	ServerPlayer getPlayer();
 }

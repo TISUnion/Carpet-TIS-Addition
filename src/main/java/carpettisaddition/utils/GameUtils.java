@@ -21,12 +21,12 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -39,22 +39,22 @@ import java.util.Objects;
 //#endif
 
 //#if MC < 11600
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.level.dimension.DimensionType;
 //#endif
 
 @SuppressWarnings("UnusedReturnValue")
 public class GameUtils
 {
-	public static World getOverworld(MinecraftServer server)
+	public static Level getOverworld(MinecraftServer server)
 	{
 		//#if MC >= 11600
 		//$$ return server.getWorld(World.OVERWORLD);
 		//#else
-		return server.getWorld(DimensionType.OVERWORLD);
+		return server.getLevel(DimensionType.OVERWORLD);
 		//#endif
 	}
 
-	public static World getOverworld()
+	public static Level getOverworld()
 	{
 		return getOverworld(CarpetTISAdditionServer.minecraft_server);
 	}
@@ -66,20 +66,20 @@ public class GameUtils
 
 	public static boolean isOnServerThread()
 	{
-		return CarpetTISAdditionServer.minecraft_server != null && CarpetTISAdditionServer.minecraft_server.isOnThread();
+		return CarpetTISAdditionServer.minecraft_server != null && CarpetTISAdditionServer.minecraft_server.isSameThread();
 	}
 
 	/**
 	 * See the exit point for the looping in
-	 *   (>=1.16) {@link net.minecraft.world.SpawnHelper#setupSpawn}
-	 *   (<=1.15) {@link net.minecraft.server.world.ServerWorld#getMobCountsByCategory}
+	 *   (>=1.16) {@link net.minecraft.world.level.NaturalSpawner#setupSpawn}
+	 *   (<=1.15) {@link net.minecraft.server.level.ServerLevel#getMobCountsByCategory}
 	 */
 	public static boolean countsTowardsMobcap(Entity entity)
 	{
-		if (entity instanceof MobEntity)
+		if (entity instanceof Mob)
 		{
-			MobEntity mobEntity = (MobEntity)entity;
-			return !mobEntity.isPersistent() && !mobEntity.cannotDespawn();
+			Mob mobEntity = (Mob)entity;
+			return !mobEntity.isPersistenceRequired() && !mobEntity.requiresCustomPersistence();
 		}
 		return false;
 	}
@@ -93,9 +93,9 @@ public class GameUtils
 	}
 
 	@Nullable
-	public static PlayerEntity getPlayerFromName(String playerName)
+	public static Player getPlayerFromName(String playerName)
 	{
-		return CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayer(playerName);
+		return CarpetTISAdditionServer.minecraft_server.getPlayerList().getPlayerByName(playerName);
 	}
 
 	//#if MC >= 11700

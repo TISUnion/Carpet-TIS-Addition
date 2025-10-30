@@ -22,7 +22,7 @@ package carpettisaddition.mixins.carpet.tweaks.command.spawnTrackingRestart;
 
 import carpet.commands.SpawnCommand;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,13 +31,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 @Mixin(SpawnCommand.class)
 public abstract class SpawnCommandMixin
 {
 	@Shadow(remap = false)
-	private static int stopTracking(ServerCommandSource source)
+	private static int stopTracking(CommandSourceStack source)
 	{
 		return 0;
 	}
@@ -46,14 +46,14 @@ public abstract class SpawnCommandMixin
 	//#if MC >= 12002
 	//$$ private static int startTracking(ServerCommandSource source, net.minecraft.util.math.BlockBox filter)
 	//#else
-	private static int startTracking(ServerCommandSource source, net.minecraft.util.math.BlockPos a, net.minecraft.util.math.BlockPos b)
+	private static int startTracking(CommandSourceStack source, net.minecraft.core.BlockPos a, net.minecraft.core.BlockPos b)
 	//#endif
 	{
 		return 0;
 	}
 
 	@Unique
-	private static int startTrackingWithoutFilter(ServerCommandSource source)
+	private static int startTrackingWithoutFilter(CommandSourceStack source)
 	{
 		//#if MC >= 12002
 		//$$ return startTracking(source, null);
@@ -88,7 +88,7 @@ public abstract class SpawnCommandMixin
 			index = 0,
 			remap = false
 	)
-	private static ArgumentBuilder<ServerCommandSource, ?> appendRestartArgumentOnSpawnTracking(ArgumentBuilder<ServerCommandSource, ?> builder)
+	private static ArgumentBuilder<CommandSourceStack, ?> appendRestartArgumentOnSpawnTracking(ArgumentBuilder<CommandSourceStack, ?> builder)
 	{
 		builder.then(
 				literal("restart").

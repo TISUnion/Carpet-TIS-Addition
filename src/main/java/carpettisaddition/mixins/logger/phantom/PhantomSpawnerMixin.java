@@ -24,8 +24,8 @@ import carpettisaddition.logging.loggers.phantom.PhantomLogger;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.gen.PhantomSpawner;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.levelgen.PhantomSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -34,33 +34,33 @@ import org.spongepowered.asm.mixin.injection.Slice;
 //#if MC >= 12000
 //$$ import net.minecraft.server.network.ServerPlayerEntity;
 //#else
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 //#endif
 
 @Mixin(PhantomSpawner.class)
 public abstract class PhantomSpawnerMixin
 {
 	@ModifyVariable(
-			method = "spawn",
+			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/LocalDifficulty;getGlobalDifficulty()Lnet/minecraft/world/Difficulty;",
+					target = "Lnet/minecraft/world/DifficultyInstance;getDifficulty()Lnet/minecraft/world/Difficulty;",
 					ordinal = 0
 			),
 			argsOnly = true
 	)
-	private ServerWorld resetFlag_phantomLogger(ServerWorld serverWorld, @Share("once") LocalBooleanRef hasLogged)
+	private ServerLevel resetFlag_phantomLogger(ServerLevel serverWorld, @Share("once") LocalBooleanRef hasLogged)
 	{
 		hasLogged.set(false);
 		return serverWorld;
 	}
 
 	@ModifyVariable(
-			method = "spawn",
+			method = "tick",
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/world/LocalDifficulty;getGlobalDifficulty()Lnet/minecraft/world/Difficulty;",
+							target = "Lnet/minecraft/world/DifficultyInstance;getDifficulty()Lnet/minecraft/world/Difficulty;",
 							ordinal = 0
 					)
 			),
@@ -69,7 +69,7 @@ public abstract class PhantomSpawnerMixin
 					//#if MC >= 12102
 					//$$ target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/world/World;Lnet/minecraft/entity/SpawnReason;)Lnet/minecraft/entity/Entity;"
 					//#else
-					target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/world/World;)Lnet/minecraft/entity/Entity;"
+					target = "Lnet/minecraft/world/entity/EntityType;create(Lnet/minecraft/world/level/Level;)Lnet/minecraft/world/entity/Entity;"
 					//#endif
 			),
 			ordinal = 3
@@ -80,7 +80,7 @@ public abstract class PhantomSpawnerMixin
 			//#if MC >= 12000
 			//$$ @Local ServerPlayerEntity player
 			//#else
-			@Local PlayerEntity player
+			@Local Player player
 			//#endif
 	)
 	{

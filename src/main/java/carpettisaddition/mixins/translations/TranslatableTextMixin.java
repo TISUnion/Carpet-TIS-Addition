@@ -22,14 +22,14 @@ package carpettisaddition.mixins.translations;
 
 import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.translations.TranslationConstants;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(TranslatableText.class)
+@Mixin(TranslatableComponent.class)
 public abstract class TranslatableTextMixin
 {
 	@Shadow @Final private String key;
@@ -38,7 +38,7 @@ public abstract class TranslatableTextMixin
 	 * This handles all TISCM translation when a TranslatableText is directly accessed as a String etc.
 	 */
 	@ModifyArg(
-			method = "updateTranslations",
+			method = "decompose",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
@@ -46,7 +46,7 @@ public abstract class TranslatableTextMixin
 					//#elseif MC >= 11800
 					//$$ target = "Lnet/minecraft/text/TranslatableText;forEachPart(Ljava/lang/String;Ljava/util/function/Consumer;)V"
 					//#else
-					target = "Lnet/minecraft/text/TranslatableText;setTranslation(Ljava/lang/String;)V"
+					target = "Lnet/minecraft/network/chat/TranslatableComponent;decomposeTemplate(Ljava/lang/String;)V"
 					//#endif
 			)
 	)

@@ -29,8 +29,8 @@ import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.Formatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.ChatFormatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -40,8 +40,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 12000
 //$$ import java.util.function.Consumer;
@@ -58,7 +58,7 @@ public abstract class PlayerCommandMixin
 	//$$ }
 	//#else
 	@Shadow(remap = false)
-	private static int action(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action)
+	private static int action(CommandContext<CommandSourceStack> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action)
 	{
 		return 0;
 	}
@@ -69,7 +69,7 @@ public abstract class PlayerCommandMixin
 	 * We need to use our own copy, so we don't have to change the usage in the {@link #applyPlayerActionEnhancements} below
 	 */
 	@Unique
-	private static int action$TISCM(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action)
+	private static int action$TISCM(CommandContext<CommandSourceStack> context, EntityPlayerActionPack.ActionType type, EntityPlayerActionPack.Action action)
 	{
 		//#if MC >= 12000
 		//$$ return manipulate(context, ap -> ap.start(type, action));
@@ -79,7 +79,7 @@ public abstract class PlayerCommandMixin
 	}
 
 	@Inject(method = "makeActionCommand", at = @At("RETURN"), remap = false)
-	private static void applyPlayerActionEnhancements(String actionName, EntityPlayerActionPack.ActionType type, CallbackInfoReturnable<LiteralArgumentBuilder<ServerCommandSource>> cir)
+	private static void applyPlayerActionEnhancements(String actionName, EntityPlayerActionPack.ActionType type, CallbackInfoReturnable<LiteralArgumentBuilder<CommandSourceStack>> cir)
 	{
 		RandomizedActionIntervalCommand.getInstance().extendCommand(cir.getReturnValue(), type, PlayerCommandMixin::action$TISCM);
 
@@ -105,11 +105,11 @@ public abstract class PlayerCommandMixin
 	}
 
 	@Unique
-	private static int handlePerTick$TISCM(CommandContext<ServerCommandSource> context, EntityPlayerActionPack.ActionType type, int perTick)
+	private static int handlePerTick$TISCM(CommandContext<CommandSourceStack> context, EntityPlayerActionPack.ActionType type, int perTick)
 	{
 		if (!CarpetModUtil.canUseCommand(context.getSource(), CarpetTISAdditionSettings.commandPlayerActionPerTick))
 		{
-			Messenger.tell(context.getSource(), Messenger.formatting(Messenger.tr("carpettisaddition.command.player.action.perTick.disabled"), Formatting.GOLD));
+			Messenger.tell(context.getSource(), Messenger.formatting(Messenger.tr("carpettisaddition.command.player.action.perTick.disabled"), ChatFormatting.GOLD));
 			return 0;
 		}
 

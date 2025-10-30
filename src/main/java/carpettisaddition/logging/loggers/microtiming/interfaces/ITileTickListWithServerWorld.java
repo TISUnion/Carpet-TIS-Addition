@@ -21,7 +21,7 @@
 package carpettisaddition.logging.loggers.microtiming.interfaces;
 
 import carpettisaddition.mixins.logger.microtiming.hooks.ServerWorldMixin;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -34,7 +34,7 @@ public interface ITileTickListWithServerWorld
 	 * Since only value in vanilla ServerTickScheduler (block, fluid) has been assigned in {@link ServerWorldMixin}
 	 */
 	@Nullable
-	ServerWorld getServerWorld();
+	ServerLevel getServerWorld();
 
-	void setServerWorld(ServerWorld serverWorld);
+	void setServerWorld(ServerLevel serverWorld);
 }

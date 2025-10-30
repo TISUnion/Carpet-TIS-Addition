@@ -25,63 +25,63 @@ import carpettisaddition.commands.speedtest.TestType;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.util.Formatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.ChatFormatting;
 
 import java.util.List;
 
 public class SpeedTestSessionMessengerImpl extends TranslationContext implements SpeedTestSessionMessenger
 {
 	private final TestType testType;
-	private final ServerCommandSource source;
+	private final CommandSourceStack source;
 
-	public SpeedTestSessionMessengerImpl(TestType testType, ServerCommandSource source)
+	public SpeedTestSessionMessengerImpl(TestType testType, CommandSourceStack source)
 	{
 		super(SpeedTestCommand.getInstance().getTranslator().getDerivedTranslator("messenger"));
 		this.testType = testType;
 		this.source = source;
 	}
 
-	private BaseText makeHeader()
+	private BaseComponent makeHeader()
 	{
-		Formatting color;
+		ChatFormatting color;
 		switch (this.testType)
 		{
 			case DOWNLOAD:
-				color = Formatting.AQUA;
+				color = ChatFormatting.AQUA;
 				break;
 			case UPLOAD:
-				color = Formatting.LIGHT_PURPLE;
+				color = ChatFormatting.LIGHT_PURPLE;
 				break;
 			case PING:
-				color = Formatting.BLUE;
+				color = ChatFormatting.BLUE;
 				break;
 			default:
 				throw new IllegalArgumentException("bad test type: " + this.testType);
 		}
 		return Messenger.hover(
 				Messenger.c(
-						Messenger.s("[", Formatting.GRAY),
+						Messenger.s("[", ChatFormatting.GRAY),
 						Messenger.formatting(this.testType.getNameText(), color),
-						Messenger.s("]", Formatting.GRAY)
+						Messenger.s("]", ChatFormatting.GRAY)
 				),
 				tr("header_hover", "/" + SpeedTestCommand.NAME)
 		);
 	}
 
-	private BaseText makeCancelButton()
+	private BaseComponent makeCancelButton()
 	{
 		return Messenger.fancy(
-				Messenger.s("[X]", Formatting.RED),
+				Messenger.s("[X]", ChatFormatting.RED),
 				tr("abort_hover"),
 				Messenger.ClickEvents.runCommand(String.format("/%s abort", SpeedTestCommand.NAME))
 		);
 	}
 
 	@Override
-	public void sendMessage(BaseText message, boolean withCancelButton)
+	public void sendMessage(BaseComponent message, boolean withCancelButton)
 	{
 		List<Object> parts = Lists.newArrayList();
 		parts.add(this.makeHeader());
@@ -93,8 +93,8 @@ public class SpeedTestSessionMessengerImpl extends TranslationContext implements
 		}
 		parts.add(message);
 
-		BaseText textToSend = Messenger.c(parts.toArray(new Object[0]));
+		BaseComponent textToSend = Messenger.c(parts.toArray(new Object[0]));
 
-		this.source.getMinecraftServer().execute(() -> Messenger.tell(this.source, textToSend));
+		this.source.getServer().execute(() -> Messenger.tell(this.source, textToSend));
 	}
 }

@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.command.manipulate.container;
 
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -30,10 +30,10 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 //$$ import net.minecraft.world.EntityList;
 //#else
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 //#endif
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public interface ServerWorldAccessor
 {
 	//#if MC >= 11700
@@ -45,10 +45,10 @@ public interface ServerWorldAccessor
 	@Accessor
 	Int2ObjectMap<Entity> getEntitiesById();
 
-	@Accessor("ticking")
+	@Accessor("tickingEntities")
 	boolean isTickingEntity();
 	//#endif
 
-	@Accessor
-	ObjectLinkedOpenHashSet<BlockAction> getPendingBlockActions();
+	@Accessor("blockEvents")
+	ObjectLinkedOpenHashSet<BlockEventData> getPendingBlockActions();
 }

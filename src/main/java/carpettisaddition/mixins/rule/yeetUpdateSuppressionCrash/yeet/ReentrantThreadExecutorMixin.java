@@ -26,24 +26,24 @@ import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressi
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.thread.ReentrantThreadExecutor;
+import net.minecraft.util.thread.ReentrantBlockableEventLoop;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Optional;
 
-@Mixin(ReentrantThreadExecutor.class)
+@Mixin(ReentrantBlockableEventLoop.class)
 public abstract class ReentrantThreadExecutorMixin<R extends Runnable>
 {
 	@SuppressWarnings("ConstantValue")
 	@WrapOperation(
-			method = "executeTask",
+			method = "doRunTask",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/thread/ThreadExecutor;executeTask(Ljava/lang/Runnable;)V"
+					target = "Lnet/minecraft/util/thread/BlockableEventLoop;doRunTask(Ljava/lang/Runnable;)V"
 			)
 	)
-	private void yeetUpdateSuppressionCrash_implForThreadExecutorTaskExecuting(ReentrantThreadExecutor<R> obj, R task, Operation<Void> original)
+	private void yeetUpdateSuppressionCrash_implForThreadExecutorTaskExecuting(ReentrantBlockableEventLoop<R> obj, R task, Operation<Void> original)
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash && (Object)this instanceof MinecraftServer)
 		{

@@ -22,8 +22,8 @@ package carpettisaddition.commands.lifetime.removal;
 
 import carpettisaddition.utils.Messenger;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.Objects;
 
@@ -33,7 +33,7 @@ public class DeathRemovalReason extends RemovalReason
 
 	public DeathRemovalReason(DamageSource damageSource)
 	{
-		this.damageSourceName = damageSource.getName();
+		this.damageSourceName = damageSource.getMsgId();
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class DeathRemovalReason extends RemovalReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return Messenger.c(
 				tr("death"),

@@ -21,10 +21,10 @@
 package carpettisaddition.mixins.command.refresh;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ChunkHolder;
-import net.minecraft.server.world.ThreadedAnvilChunkStorage;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ChunkHolder;
+import net.minecraft.server.level.ChunkMap;
+import net.minecraft.world.level.ChunkPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -33,16 +33,16 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 //$$ import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
 //$$ import org.apache.commons.lang3.mutable.MutableObject;
 //#else
-import net.minecraft.network.Packet;
+import net.minecraft.network.protocol.Packet;
 //#endif
 
-@Mixin(ThreadedAnvilChunkStorage.class)
+@Mixin(ChunkMap.class)
 public interface ThreadedAnvilChunkStorageAccessor
 {
-	@Accessor
+	@Accessor("updatingChunkMap")
 	Long2ObjectLinkedOpenHashMap<ChunkHolder> getCurrentChunkHolders();
 
-	@Accessor
+	@Accessor("viewDistance")
 	int getWatchDistance();
 
 	//#if MC >= 11800 && MC < 12002
@@ -55,17 +55,17 @@ public interface ThreadedAnvilChunkStorageAccessor
 	//#endif
 
 	//#if MC < 11800
-	@Invoker
-	static int invokeGetChebyshevDistance(ChunkPos pos, ServerPlayerEntity player, boolean useCameraPosition)
+	@Invoker("checkerboardDistance")
+	static int invokeGetChebyshevDistance(ChunkPos pos, ServerPlayer player, boolean useCameraPosition)
 	{
 		return 0;
 	}
 	//#endif
 
 	//#if MC < 12002
-	@Invoker
+	@Invoker("updateChunkTracking")
 	void invokeSendWatchPackets(
-			ServerPlayerEntity player, ChunkPos pos,
+			ServerPlayer player, ChunkPos pos,
 			//#if MC >= 11800
 			//$$ MutableObject<ChunkDataS2CPacket> mutableObject,
 			//#else

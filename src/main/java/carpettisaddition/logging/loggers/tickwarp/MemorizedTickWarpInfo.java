@@ -20,7 +20,7 @@
 
 package carpettisaddition.logging.loggers.tickwarp;
 
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.jetbrains.annotations.Nullable;
 
 //#if MC < 12003
@@ -35,7 +35,7 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 	private long elapsedTime;
 	private boolean recordedSomething = false;
 	private long lastRecordingTime;
-	private ServerCommandSource lastTimeAdvancer;
+	private CommandSourceStack lastTimeAdvancer;
 
 	public MemorizedTickWarpInfo(TickWarpInfo delegate)
 	{
@@ -47,7 +47,7 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 	 * Carpet mod might reset the advancer field before {@link TickSpeed#finish_time_warp} so we record it at the beginning
 	 */
 	@Override
-	public void setTimeAdvancer(@Nullable ServerCommandSource timeAdvancer)
+	public void setTimeAdvancer(@Nullable CommandSourceStack timeAdvancer)
 	{
 		this.delegate.setTimeAdvancer(timeAdvancer);
 	}
@@ -95,7 +95,7 @@ public class MemorizedTickWarpInfo implements TickWarpInfo
 
 	@Override
 	@Nullable
-	public ServerCommandSource getTimeAdvancer()
+	public CommandSourceStack getTimeAdvancer()
 	{
 		return this.lastTimeAdvancer;
 	}

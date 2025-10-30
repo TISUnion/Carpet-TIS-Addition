@@ -21,17 +21,17 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
 public class MixinUtils
 {
-	public static boolean audit(@Nullable ServerCommandSource source)
+	public static boolean audit(@Nullable CommandSourceStack source)
 	{
 		boolean ok;
-		BaseText response;
+		BaseComponent response;
 		try
 		{
 			MixinEnvironment.getCurrentEnvironment().audit();

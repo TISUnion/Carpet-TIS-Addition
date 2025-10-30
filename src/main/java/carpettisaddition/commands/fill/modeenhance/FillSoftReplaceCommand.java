@@ -28,19 +28,19 @@ import carpettisaddition.mixins.command.fill.modeenhance.FillCommandAccessor;
 import carpettisaddition.utils.CarpetModUtil;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.block.pattern.CachedBlockPosition;
-import net.minecraft.server.command.FillCommand;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.BlockBox;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.server.commands.FillCommand;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 
 import java.util.function.Predicate;
 
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
-import static net.minecraft.command.arguments.BlockPredicateArgumentType.blockPredicate;
-import static net.minecraft.command.arguments.BlockPredicateArgumentType.getBlockPredicate;
-import static net.minecraft.command.arguments.BlockStateArgumentType.getBlockState;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.getLoadedBlockPos;
+import static net.minecraft.commands.arguments.blocks.BlockPredicateArgument.blockPredicate;
+import static net.minecraft.commands.arguments.blocks.BlockPredicateArgument.getBlockPredicate;
+import static net.minecraft.commands.arguments.blocks.BlockStateArgument.getBlock;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class FillSoftReplaceCommand extends AbstractCommand implements CommandExtender
 {
@@ -72,12 +72,12 @@ public class FillSoftReplaceCommand extends AbstractCommand implements CommandEx
 		);
 	}
 
-	private int softReplace(CommandContext<ServerCommandSource> context) throws CommandSyntaxException
+	private int softReplace(CommandContext<CommandSourceStack> context) throws CommandSyntaxException
 	{
 		try
 		{
 			FillModeEnhanceContext.isSoftReplace.set(true);
-			Predicate<CachedBlockPosition> filter;
+			Predicate<BlockInWorld> filter;
 			try
 			{
 				filter = getBlockPredicate(context, "filter");
@@ -91,10 +91,10 @@ public class FillSoftReplaceCommand extends AbstractCommand implements CommandEx
 					//#if MC >= 11700
 					//$$ BlockBox.create
 					//#else
-					new BlockBox
+					new BoundingBox
 					//#endif
 							(getLoadedBlockPos(context, "from"), getLoadedBlockPos(context, "to")),
-					getBlockState(context, "block"),
+					getBlock(context, "block"),
 					FillCommand.Mode.REPLACE,
 					filter
 					//#if MC >= 12105

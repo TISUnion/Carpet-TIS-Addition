@@ -22,8 +22,8 @@ package carpettisaddition.mixins.logger.xporb;
 
 import carpettisaddition.logging.loggers.entity.XPOrbLogger;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.damagesource.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,16 +32,16 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ExperienceOrbEntity.class)
+@Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin
 {
 	@Unique private boolean flagDied = false;
 	@Unique private boolean flagDespawned = false;
 
-	@Inject(method = "<init>(Lnet/minecraft/world/World;DDDI)V", at = @At("TAIL"))
+	@Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDI)V", at = @At("TAIL"))
 	private void xpOrbLogger_onCreated(CallbackInfo ci)
 	{
-		XPOrbLogger.getInstance().onEntityCreated((ExperienceOrbEntity)(Object)this);
+		XPOrbLogger.getInstance().onEntityCreated((ExperienceOrb)(Object)this);
 	}
 
 	@Inject(
@@ -57,7 +57,7 @@ public abstract class ExperienceOrbEntityMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/ExperienceOrb;remove()V"
 					//#endif
 			)
 	)
@@ -65,21 +65,21 @@ public abstract class ExperienceOrbEntityMixin
 	{
 		if (!this.flagDespawned)
 		{
-			XPOrbLogger.getInstance().onEntityDespawn((ExperienceOrbEntity)(Object)this);
+			XPOrbLogger.getInstance().onEntityDespawn((ExperienceOrb)(Object)this);
 			this.flagDespawned = true;
 		}
 	}
 
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ExperienceOrbEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/ExperienceOrb;remove()V"
 					//#endif
 			)
 	)
@@ -87,7 +87,7 @@ public abstract class ExperienceOrbEntityMixin
 	{
 		if (!this.flagDied)
 		{
-			XPOrbLogger.getInstance().onEntityDied((ExperienceOrbEntity)(Object)this, source, amount);
+			XPOrbLogger.getInstance().onEntityDied((ExperienceOrb)(Object)this, source, amount);
 			this.flagDied = true;
 		}
 	}

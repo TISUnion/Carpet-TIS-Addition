@@ -21,22 +21,22 @@
 package carpettisaddition.mixins.rule.undeadDontBurnInSunlight;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.mob.PhantomEntity;
+import net.minecraft.world.entity.monster.Phantom;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(PhantomEntity.class)
+@Mixin(Phantom.class)
 public abstract class PhantomEntityMixin
 {
 	@ModifyArg(
-			method = "tickMovement",
+			method = "aiStep",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12100
 					//$$ target = "Lnet/minecraft/entity/mob/PhantomEntity;setOnFireFor(F)V"
 					//#else
-					target = "Lnet/minecraft/entity/mob/PhantomEntity;setOnFireFor(I)V"
+					target = "Lnet/minecraft/world/entity/monster/Phantom;setSecondsOnFire(I)V"
 					//#endif
 			)
 	)

@@ -20,8 +20,8 @@
 
 package carpettisaddition.mixins.translations;
 
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.Style;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.Style;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

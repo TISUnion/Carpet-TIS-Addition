@@ -22,8 +22,8 @@ package carpettisaddition.logging.loggers.entity;
 
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.network.chat.BaseComponent;
 
 public class ItemLogger extends EntityLogger<ItemEntity>
 {
@@ -40,23 +40,23 @@ public class ItemLogger extends EntityLogger<ItemEntity>
 	}
 
 	@Override
-	protected BaseText getNameText(ItemEntity item)
+	protected BaseComponent getNameText(ItemEntity item)
 	{
-		BaseText text = super.getNameText(item);
+		BaseComponent text = super.getNameText(item);
 		text.append("(").append(
 				//#if MC >= 12102
 				//$$ item.getStack().getItemName()
 				//#else
-				Messenger.tr(item.getStack().getTranslationKey())
+				Messenger.tr(item.getItem().getDescriptionId())
 				//#endif
 		).append(")");
 		return text;
 	}
 
 	@Override
-	protected BaseText getNameTextHoverText(ItemEntity item)
+	protected BaseComponent getNameTextHoverText(ItemEntity item)
 	{
-		return Messenger.c(tr("item_stack_size"), String.format("w : %d", item.getStack().getCount()));
+		return Messenger.c(tr("item_stack_size"), String.format("w : %d", item.getItem().getCount()));
 	}
 
 	@Override

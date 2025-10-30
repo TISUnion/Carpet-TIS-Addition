@@ -23,7 +23,7 @@ package carpettisaddition.commands.lifetime.spawning;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.gson.JsonObject;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.Objects;
 
@@ -52,7 +52,7 @@ public class TransDimensionSpawningReason extends SpawningReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return Messenger.c(
 				tr("trans_dimension"),

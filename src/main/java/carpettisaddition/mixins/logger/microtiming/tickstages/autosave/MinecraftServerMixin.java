@@ -35,7 +35,7 @@ public abstract class MinecraftServerMixin
 	//$$ @Inject(method = "runAutosave", at = @At(value = "HEAD"))
 	//#else
 	@Inject(
-			method = "tick",
+			method = "tickServer",
 			at = @At(
 					value = "CONSTANT",
 					args = "stringValue=save"
@@ -51,7 +51,7 @@ public abstract class MinecraftServerMixin
 	//$$ @Inject(method = "runAutosave", at = @At(value = "TAIL"))
 	//#else
 	@Inject(
-			method = "tick",
+			method = "tickServer",
 			at = @At(
 					value = "CONSTANT",
 					args = "stringValue=Autosave finished"

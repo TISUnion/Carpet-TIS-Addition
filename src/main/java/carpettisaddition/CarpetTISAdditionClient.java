@@ -21,7 +21,7 @@
 package carpettisaddition;
 
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,12 +35,12 @@ public class CarpetTISAdditionClient
 		return INSTANCE;
 	}
 
-	public void onClientTick(MinecraftClient client)
+	public void onClientTick(Minecraft client)
 	{
 		ServerMsptMetricsDataSyncer.getInstance().clientTick();
 	}
 
-	public void onClientDisconnected(MinecraftClient client)
+	public void onClientDisconnected(Minecraft client)
 	{
 		ServerMsptMetricsDataSyncer.getInstance().reset();
 	}

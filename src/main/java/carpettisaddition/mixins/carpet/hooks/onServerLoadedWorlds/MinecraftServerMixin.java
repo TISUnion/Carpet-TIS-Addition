@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
-	@Inject(method = "loadWorld", at = @At("TAIL"))
+	@Inject(method = "loadLevel", at = @At("TAIL"))
 	private void onSetupServerIntegrated(CallbackInfo ci)
 	{
 		CarpetTISAdditionServer.getInstance().onServerLoadedWorlds$TISCM((MinecraftServer) (Object) this);

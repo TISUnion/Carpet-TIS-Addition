@@ -27,7 +27,7 @@ import carpet.CarpetSettings;
 //#endif
 
 import carpettisaddition.utils.EntityUtils;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 
 public class CreativeNoClipHelper
 {

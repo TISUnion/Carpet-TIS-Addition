@@ -20,7 +20,7 @@
 
 package carpettisaddition.commands.common.counter;
 
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

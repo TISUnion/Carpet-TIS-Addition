@@ -27,13 +27,13 @@ import carpettisaddition.logging.loggers.damage.modifyreasons.EnchantmentModifyR
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.logging.loggers.damage.modifyreasons.StatusEffectModifyReason;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -63,21 +63,21 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 {
 	@Shadow protected float
 			//#if MC >= 11500
-			lastDamageTaken;
+			lastHurt;
 			//#else
 			//$$ field_6253;
 			//#endif
 
-	@Shadow public abstract StatusEffectInstance getStatusEffect(
+	@Shadow public abstract MobEffectInstance getEffect(
 			//#if MC >= 12005
 			//$$ RegistryEntry<StatusEffect> effect
 			//#else
-			StatusEffect effect
+			MobEffect effect
 			//#endif
 	);
 
 	//#if MC < 12100
-	@Shadow public abstract Iterable<ItemStack> getArmorItems();
+	@Shadow public abstract Iterable<ItemStack> getArmorSlots();
 	//#endif
 
 	@Nullable
@@ -98,11 +98,11 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	// at the start of general damage calculation
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/LivingEntity;isSleeping()Z"
+					target = "Lnet/minecraft/world/entity/LivingEntity;isSleeping()Z"
 			)
 	)
 	private void onDamageStarted(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount)
@@ -112,7 +112,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			at = @At(
 					value = "CONSTANT",
@@ -126,7 +126,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 
 	//#if MC >= 12105
 	//$$ @ModifyExpressionValue(
-	//$$ 		method = "damage",
+	//$$ 		method = "hurt",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
 	//$$ 				target = "Lnet/minecraft/entity/LivingEntity;getDamageBlockedAmount(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)F"
@@ -143,12 +143,12 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	//#else
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V"
+							target = "Lnet/minecraft/world/entity/LivingEntity;hurtCurrentlyUsedShield(F)V"
 					)
 			),
 			at = @At(
@@ -157,7 +157,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 					//$$ target = "Lnet/minecraft/registry/tag/DamageTypeTags;IS_PROJECTILE:Lnet/minecraft/registry/tag/TagKey;",
 					//#else
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/damage/DamageSource;isProjectile()Z",
+					target = "Lnet/minecraft/world/damagesource/DamageSource;isProjectile()Z",
 					//#endif
 					ordinal = 0
 			)
@@ -170,12 +170,12 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			at = @At(
 					value = "FIELD",
 					//#if MC >= 11500
-					target = "Lnet/minecraft/entity/LivingEntity;lastDamageTaken:F",
+					target = "Lnet/minecraft/world/entity/LivingEntity;lastHurt:F",
 					//#else
 					//$$ target = "Lnet/minecraft/entity/LivingEntity;field_6253:F",
 					//#endif
@@ -186,7 +186,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	{
 		final float last =
 				//#if MC >= 11500
-				this.lastDamageTaken;
+				this.lastHurt;
 				//#else
 				//$$ this.field_6253;
 				//#endif
@@ -196,7 +196,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 		));
 	}
 
-	@Inject(method = "applyArmorToDamage", at = @At("RETURN"))
+	@Inject(method = "getDamageAfterArmorAbsorb", at = @At("RETURN"))
 	private void onArmorReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
 	{
 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
@@ -205,7 +205,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	}
 
 	@Inject(
-			method = "applyEnchantmentsToDamage",
+			method = "getDamageAfterMagicAbsorb",
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					target = "Ljava/lang/Math;max(FF)F"
@@ -214,15 +214,15 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	private void onResistanceReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
 	{
 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
-				amount, new StatusEffectModifyReason(StatusEffects.RESISTANCE, this.getStatusEffect(StatusEffects.RESISTANCE).getAmplifier())
+				amount, new StatusEffectModifyReason(MobEffects.DAMAGE_RESISTANCE, this.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier())
 		));
 	}
 
 	@Inject(
-			method = "applyEnchantmentsToDamage",
+			method = "getDamageAfterMagicAbsorb",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/entity/DamageUtil;getInflictedDamage(FF)F"
+					target = "Lnet/minecraft/world/damagesource/CombatRules;getDamageAfterMagicAbsorb(FF)F"
 			)
 	)
 	private void onEnchantmentReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
@@ -237,11 +237,11 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 				// vanilla copy
 				// ref: net.minecraft.entity.LivingEntity#applyEnchantmentsToDamage
 				// notes: epf is float after mc1.21
-				double epf = EnchantmentHelper.getProtectionAmount(
+				double epf = EnchantmentHelper.getDamageProtection(
 						//#if MC >= 12100
 						//$$ serverWorld,  self, source
 						//#else
-						this.getArmorItems(), source
+						this.getArmorSlots(), source
 						//#endif
 				);
 				tracker.modifyDamage(amount, new EnchantmentModifyReason(epf));

@@ -21,34 +21,34 @@
 package carpettisaddition.helpers.rule.largeBarrel;
 
 import carpettisaddition.utils.Messenger;
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.container.Container;
-import net.minecraft.container.GenericContainer;
-import net.minecraft.container.NameableContainerFactory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.DoubleInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.CompoundContainer;
+import net.minecraft.world.Container;
+import net.minecraft.network.chat.Component;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 //#if MC >= 11500
-import net.minecraft.block.DoubleBlockProperties;
+import net.minecraft.world.level.block.DoubleBlockCombiner;
 //#endif
 
 public class LargeBarrelHelper
 {
 	/**
 	 * We want to have barrels facing on the same axis to be connected, but the 2 barrels will have opposite direction,
-	 * which cannot pass the "blockState.get(directionProperty) == state.get(directionProperty)" test in {@link DoubleBlockProperties#toPropertySource)}
+	 * which cannot pass the "blockState2.getValue(directionProperty) == blockState.getValue(directionProperty)" test in {@link DoubleBlockCombiner#combineWithNeigbour)}
 	 * This global flag is for enabling the mixin
 	 *   {@link carpettisaddition.mixins.rule.largeBarrel.DoubleBlockPropertiesMixin} and
 	 *   {@link carpettisaddition.mixins.rule.largeBarrel.AbstractStateMixin}
@@ -67,14 +67,14 @@ public class LargeBarrelHelper
 	 */
 	public static final ThreadLocal<Boolean> enabledOffThreadBlockEntityAccess = ThreadLocal.withInitial(() -> false);
 
-	public static DoubleBlockProperties.PropertySource<? extends BarrelBlockEntity> getBlockEntitySource(BlockState blockState, World world, BlockPos pos) {
+	public static DoubleBlockCombiner.NeighborCombineResult<? extends BarrelBlockEntity> getBlockEntitySource(BlockState blockState, Level world, BlockPos pos) {
 		gettingLargeBarrelPropertySource.set(true);
 		try
 		{
-			return DoubleBlockProperties.toPropertySource(
+			return DoubleBlockCombiner.combineWithNeigbour(
 					BlockEntityType.BARREL,
-					state -> state.get(BarrelBlock.FACING).getDirection() == Direction.AxisDirection.NEGATIVE ? DoubleBlockProperties.Type.FIRST : DoubleBlockProperties.Type.SECOND,
-					state -> state.get(BarrelBlock.FACING).getOpposite(),
+					state -> state.getValue(BarrelBlock.FACING).getAxisDirection() == Direction.AxisDirection.NEGATIVE ? DoubleBlockCombiner.BlockType.FIRST : DoubleBlockCombiner.BlockType.SECOND,
+					state -> state.getValue(BarrelBlock.FACING).getOpposite(),
 					BarrelBlock.FACING,
 					blockState, world, pos,
 					(iWorld, blockPos) -> false
@@ -88,30 +88,30 @@ public class LargeBarrelHelper
 	}
 
 	/**
-	 * Just like {@link net.minecraft.block.ChestBlock#getInventory}
+	 * Just like {@link net.minecraft.world.level.block.ChestBlock#getInventory}
 	 */
 	@Nullable
-	public static Inventory getInventory(BlockState state, World world, BlockPos pos)
+	public static Container getInventory(BlockState state, Level world, BlockPos pos)
 	{
 		return getBlockEntitySource(state, world, pos).apply(LargeBarrelHelper.INVENTORY_RETRIEVER).orElse(null);
 	}
 
-	public static boolean isLargeBarrel(BlockState state, World world, BlockPos pos)
+	public static boolean isLargeBarrel(BlockState state, Level world, BlockPos pos)
 	{
 		return getOtherPos(state, world, pos) != null;
 	}
 
 	@Nullable
-	public static BlockPos getOtherPos(BlockState state, World world, BlockPos pos)
+	public static BlockPos getOtherPos(BlockState state, Level world, BlockPos pos)
 	{
 		if (state.getBlock() instanceof BarrelBlock)
 		{
-			Direction facing = state.get(BarrelBlock.FACING);
-			BlockPos otherPos = pos.offset(facing.getOpposite());
+			Direction facing = state.getValue(BarrelBlock.FACING);
+			BlockPos otherPos = pos.relative(facing.getOpposite());
 			BlockState otherState = world.getBlockState(otherPos);
 			if (otherState.getBlock() instanceof BarrelBlock)
 			{
-				Direction otherFacing = otherState.get(BarrelBlock.FACING);
+				Direction otherFacing = otherState.getValue(BarrelBlock.FACING);
 				if (otherFacing == facing.getOpposite())
 				{
 					return otherPos;
@@ -122,43 +122,43 @@ public class LargeBarrelHelper
 	}
 
 	/**
-	 * INVENTORY_RETRIEVER and NAME_RETRIEVER are totally not stolen from {@link net.minecraft.block.ChestBlock} XD
+	 * INVENTORY_RETRIEVER and NAME_RETRIEVER are totally not stolen from {@link net.minecraft.world.level.block.ChestBlock} XD
 	 */
 
-	public static final DoubleBlockProperties.PropertyRetriever<BarrelBlockEntity, Optional<Inventory>> INVENTORY_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<BarrelBlockEntity, Optional<Inventory>>()
+	public static final DoubleBlockCombiner.Combiner<BarrelBlockEntity, Optional<Container>> INVENTORY_RETRIEVER = new DoubleBlockCombiner.Combiner<BarrelBlockEntity, Optional<Container>>()
 	{
-		public Optional<Inventory> getFromBoth(BarrelBlockEntity BarrelBlockEntity, BarrelBlockEntity BarrelBlockEntity2)
+		public Optional<Container> acceptDouble(BarrelBlockEntity BarrelBlockEntity, BarrelBlockEntity BarrelBlockEntity2)
 		{
-			return Optional.of(new DoubleInventory(BarrelBlockEntity, BarrelBlockEntity2));
+			return Optional.of(new CompoundContainer(BarrelBlockEntity, BarrelBlockEntity2));
 		}
 
-		public Optional<Inventory> getFrom(BarrelBlockEntity BarrelBlockEntity)
+		public Optional<Container> acceptSingle(BarrelBlockEntity BarrelBlockEntity)
 		{
 			return Optional.of(BarrelBlockEntity);
 		}
 
-		public Optional<Inventory> getFallback()
+		public Optional<Container> acceptNone()
 		{
 			return Optional.empty();
 		}
 	};
 
-	public static final DoubleBlockProperties.PropertyRetriever<BarrelBlockEntity, Optional<NameableContainerFactory>> NAME_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<BarrelBlockEntity, Optional<NameableContainerFactory>>()
+	public static final DoubleBlockCombiner.Combiner<BarrelBlockEntity, Optional<MenuProvider>> NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<BarrelBlockEntity, Optional<MenuProvider>>()
 	{
-		public Optional<NameableContainerFactory> getFromBoth(BarrelBlockEntity barrel1, BarrelBlockEntity barrel2)
+		public Optional<MenuProvider> acceptDouble(BarrelBlockEntity barrel1, BarrelBlockEntity barrel2)
 		{
-			final Inventory inventory = new DoubleInventory(barrel1, barrel2);
-			return Optional.of(new NameableContainerFactory()
+			final Container inventory = new CompoundContainer(barrel1, barrel2);
+			return Optional.of(new MenuProvider()
 			{
 				@Nullable
 				@Override
-				public Container createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity playerEntity)
+				public AbstractContainerMenu createMenu(int syncId, Inventory playerInventory, Player playerEntity)
 				{
-					if (barrel1.checkUnlocked(playerEntity) && barrel2.checkUnlocked(playerEntity))
+					if (barrel1.canOpen(playerEntity) && barrel2.canOpen(playerEntity))
 					{
-						barrel1.checkLootInteraction(playerInventory.player);
-						barrel2.checkLootInteraction(playerInventory.player);
-						return GenericContainer.createGeneric9x6(syncId, playerInventory, inventory);
+						barrel1.unpackLootTable(playerInventory.player);
+						barrel2.unpackLootTable(playerInventory.player);
+						return ChestMenu.sixRows(syncId, playerInventory, inventory);
 					}
 					else
 					{
@@ -167,7 +167,7 @@ public class LargeBarrelHelper
 				}
 
 				@Override
-				public Text getDisplayName()
+				public Component getDisplayName()
 				{
 					if (barrel1.hasCustomName())
 					{
@@ -183,12 +183,12 @@ public class LargeBarrelHelper
 			});
 		}
 
-		public Optional<NameableContainerFactory> getFrom(BarrelBlockEntity barrelBlockEntity)
+		public Optional<MenuProvider> acceptSingle(BarrelBlockEntity barrelBlockEntity)
 		{
 			return Optional.of(barrelBlockEntity);
 		}
 
-		public Optional<NameableContainerFactory> getFallback()
+		public Optional<MenuProvider> acceptNone()
 		{
 			return Optional.empty();
 		}

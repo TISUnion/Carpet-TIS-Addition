@@ -22,9 +22,9 @@ package carpettisaddition.mixins.logger.microtiming.events.blockstatechange;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,7 +38,7 @@ import java.util.Deque;
 /*
  * BlockState Change starts
  */
-@Mixin(World.class)
+@Mixin(Level.class)
 public abstract class WorldMixin
 {
 	@Shadow public abstract BlockState getBlockState(BlockPos pos);
@@ -49,7 +49,7 @@ public abstract class WorldMixin
 			//#if MC >= 11600
 			//$$ method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z",
 			//#else
-			method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
+			method = "setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
 			//#endif
 			at = @At("HEAD")
 	)
@@ -65,7 +65,7 @@ public abstract class WorldMixin
 		{
 			BlockState oldState = this.getBlockState(pos);
 			this.previousBlockState.get().push(oldState);
-			MicroTimingLoggerManager.onSetBlockState((World)(Object)this, pos, oldState, newState, null, flags, EventType.ACTION_START);
+			MicroTimingLoggerManager.onSetBlockState((Level)(Object)this, pos, oldState, newState, null, flags, EventType.ACTION_START);
 		}
 	}
 
@@ -73,7 +73,7 @@ public abstract class WorldMixin
 			//#if MC >= 11600
 			//$$ method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z",
 			//#else
-			method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
+			method = "setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
 			//#endif
 			at = @At("RETURN")
 	)
@@ -88,7 +88,7 @@ public abstract class WorldMixin
 		if (MicroTimingLoggerManager.isLoggerActivated() && !this.previousBlockState.get().isEmpty())
 		{
 			BlockState oldState = this.previousBlockState.get().pop();
-			MicroTimingLoggerManager.onSetBlockState((World)(Object)this, pos, oldState, newState, cir.getReturnValue(), flags, EventType.ACTION_END);
+			MicroTimingLoggerManager.onSetBlockState((Level)(Object)this, pos, oldState, newState, cir.getReturnValue(), flags, EventType.ACTION_END);
 		}
 	}
 

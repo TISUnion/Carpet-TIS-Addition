@@ -24,8 +24,8 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.text.BaseText;
-import net.minecraft.world.TickPriority;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.level.TickPriority;
 
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +45,7 @@ public class ScheduleTileTickEvent extends BaseEvent
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(Messenger.formatting(tr("scheduled"), COLOR_ACTION));
@@ -54,7 +54,7 @@ public class ScheduleTileTickEvent extends BaseEvent
 				Messenger.formatting(tr("tiletick_event"), COLOR_TARGET),
 				Messenger.c(
 						tr("delay"), String.format("w : %dgt\n", this.delay),
-						tr("priority"), String.format("w : %d (%s)", this.priority.getIndex(), this.priority)
+						tr("priority"), String.format("w : %d (%s)", this.priority.getValue(), this.priority)
 				),
 				null
 		));

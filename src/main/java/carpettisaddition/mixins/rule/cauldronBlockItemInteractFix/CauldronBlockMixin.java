@@ -24,14 +24,14 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.CauldronBlock;
+import net.minecraft.world.level.block.CauldronBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11500
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.InteractionResult;
 //#else
 //$$ import org.spongepowered.asm.mixin.injection.Slice;
 //#endif
@@ -42,7 +42,7 @@ public abstract class CauldronBlockMixin
 {
 	@Inject(
 			//#if MC >= 11500
-			method = "onUse",
+			method = "use",
 			//#else
 			//$$ method = "activate",
 			//$$ slice = @Slice(
@@ -55,7 +55,7 @@ public abstract class CauldronBlockMixin
 			at = @At(
 					//#if MC >= 11500
 					value = "FIELD",
-					target = "Lnet/minecraft/util/ActionResult;CONSUME:Lnet/minecraft/util/ActionResult;"
+					target = "Lnet/minecraft/world/InteractionResult;CONSUME:Lnet/minecraft/world/InteractionResult;"
 					//#else
 					//$$ value = "RETURN",
 					//$$ ordinal = 0
@@ -65,7 +65,7 @@ public abstract class CauldronBlockMixin
 	)
 	private void cauldronBlockItemInteractFix(
 			//#if MC >= 11500
-			CallbackInfoReturnable<ActionResult> cir
+			CallbackInfoReturnable<InteractionResult> cir
 			//#else
 			//$$ CallbackInfoReturnable<Boolean> cir
 			//#endif
@@ -75,7 +75,7 @@ public abstract class CauldronBlockMixin
 		{
 			cir.setReturnValue(
 					//#if MC >= 11500
-					ActionResult.PASS
+					InteractionResult.PASS
 					//#else
 					//$$ false
 					//#endif

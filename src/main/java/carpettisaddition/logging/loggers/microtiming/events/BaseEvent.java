@@ -23,8 +23,8 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.translations.TranslationContext;
-import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.Objects;
 
@@ -49,7 +49,7 @@ public abstract class BaseEvent extends TranslationContext
 		this(eventType, translateKey, new EventSource.BlockEventSource(eventSourceBlock));
 	}
 
-	public abstract BaseText toText();
+	public abstract BaseComponent toText();
 
 	// if it's not important, it can be ignored if it's on a leaf node
 	public boolean isImportant()

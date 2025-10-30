@@ -20,9 +20,9 @@
 
 package carpettisaddition.logging.loggers.ticket;
 
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 public interface TicketManagerWithServerWorld
 {
-	void setServerWorld$TISCM(ServerWorld world);
+	void setServerWorld$TISCM(ServerLevel world);
 }

@@ -38,9 +38,9 @@ import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.DyeColor;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,10 +52,10 @@ public class MicroTimingLogger extends AbstractLogger
 	public static final String NAME = "microTiming";
 
 	private TickPhase tickPhase;
-	private final ServerWorld world;
+	private final ServerLevel world;
 	public final MessageList messageList = new MessageList();
 
-	public MicroTimingLogger(@NotNull ServerWorld world)
+	public MicroTimingLogger(@NotNull ServerLevel world)
 	{
 		super(NAME, true);
 		this.world = world;
@@ -88,7 +88,7 @@ public class MicroTimingLogger extends AbstractLogger
 		return this.tickPhase;
 	}
 
-	public ServerWorld getWorld()
+	public ServerLevel getWorld()
 	{
 		return this.world;
 	}
@@ -123,7 +123,7 @@ public class MicroTimingLogger extends AbstractLogger
 		}
 	}
 
-	private BaseText getMergedResult(int count, IndentedMessage previousMessage)
+	private BaseComponent getMergedResult(int count, IndentedMessage previousMessage)
 	{
 		return Messenger.fancy(
 				"g",
@@ -136,9 +136,9 @@ public class MicroTimingLogger extends AbstractLogger
 		);
 	}
 
-	private BaseText[] getTrimmedMessages(List<IndentedMessage> flushedMessages, LoggingOption option)
+	private BaseComponent[] getTrimmedMessages(List<IndentedMessage> flushedMessages, LoggingOption option)
 	{
-		List<BaseText> msg = Lists.newArrayList();
+		List<BaseComponent> msg = Lists.newArrayList();
 		Set<MicroTimingMessage> messageHashSet = Sets.newHashSet();
 		msg.add(Messenger.s(" "));
 		msg.add(Messenger.c(
@@ -189,7 +189,7 @@ public class MicroTimingLogger extends AbstractLogger
 				msg.get(msg.size() - 1).append(this.getMergedResult(skipCount, previousMessage));
 			}
 		}
-		return msg.toArray(new BaseText[0]);
+		return msg.toArray(new BaseComponent[0]);
 	}
 
 	public void flushMessages()
@@ -199,7 +199,7 @@ public class MicroTimingLogger extends AbstractLogger
 			List<IndentedMessage> flushedMessages = this.messageList.flush();
 			if (!flushedMessages.isEmpty())
 			{
-				Map<LoggingOption, BaseText[]> flushedTrimmedMessages = new EnumMap<>(LoggingOption.class);
+				Map<LoggingOption, BaseComponent[]> flushedTrimmedMessages = new EnumMap<>(LoggingOption.class);
 				for (LoggingOption option : LoggingOption.values())
 				{
 					flushedTrimmedMessages.put(option, getTrimmedMessages(flushedMessages, option));

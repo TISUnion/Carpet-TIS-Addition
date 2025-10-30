@@ -28,12 +28,12 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.entityfilter.EntityFilter;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -60,7 +60,7 @@ public class PortalCreationLogger extends AbstractLogger
 		return new String[]{"all", "players", "me", "@e[type=creeper]", "@e[type=!player]"};
 	}
 
-	public void onNetherPortalCreation(ServerWorld world, BlockPos portalPos, boolean floating)
+	public void onNetherPortalCreation(ServerLevel world, BlockPos portalPos, boolean floating)
 	{
 		if (!TISAdditionLoggerRegistry.__portalCreation)
 		{
@@ -78,22 +78,22 @@ public class PortalCreationLogger extends AbstractLogger
 				return null;
 			}
 
-			List<BaseText> lines = Lists.newArrayList();
+			List<BaseComponent> lines = Lists.newArrayList();
 			lines.add(pack(tr(
 					"created",
-					Messenger.formatting(Messenger.entity(entity), Formatting.BOLD),
+					Messenger.formatting(Messenger.entity(entity), ChatFormatting.BOLD),
 					Messenger.dimensionColored(Messenger.coord(portalPos, DimensionWrapper.of(world)), DimensionWrapper.of(world)),
 					Messenger.c(
 							Messenger.s(GameUtils.getGameTime(), "q"),
-							Messenger.s(" ", Formatting.DARK_GRAY),
+							Messenger.s(" ", ChatFormatting.DARK_GRAY),
 							MicroTimingAccess.getTickPhase().toText("q")
 					)
 			)));
-			return lines.toArray(new BaseText[0]);
+			return lines.toArray(new BaseComponent[0]);
 		});
 	}
 
-	private BaseText pack(BaseText text)
+	private BaseComponent pack(BaseComponent text)
 	{
 		String command = String.format("/log %s", this.getName());
 		return Messenger.c(
@@ -106,7 +106,7 @@ public class PortalCreationLogger extends AbstractLogger
 		);
 	}
 
-	private boolean shouldReportFor(PlayerEntity player, String option, Entity entity)
+	private boolean shouldReportFor(Player player, String option, Entity entity)
 	{
 		switch (option)
 		{
@@ -115,7 +115,7 @@ public class PortalCreationLogger extends AbstractLogger
 			case "me":
 				return entity == player;
 			case "players":
-				return entity instanceof PlayerEntity;
+				return entity instanceof Player;
 			default:
 				break;
 		}

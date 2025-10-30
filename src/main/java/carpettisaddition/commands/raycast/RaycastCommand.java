@@ -30,27 +30,27 @@ import carpettisaddition.utils.compat.DimensionWrapper;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RayTraceContext;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.ClipContext;
 
 import java.util.function.Function;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
-import static net.minecraft.command.arguments.Vec3ArgumentType.getVec3;
-import static net.minecraft.command.arguments.Vec3ArgumentType.vec3;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.getLoadedBlockPos;
+import static net.minecraft.commands.arguments.coordinates.Vec3Argument.getVec3;
+import static net.minecraft.commands.arguments.coordinates.Vec3Argument.vec3;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class RaycastCommand extends AbstractCommand
 {
@@ -89,9 +89,9 @@ public class RaycastCommand extends AbstractCommand
 						then(argument("start", vec3()).
 								then(argument("end", vec3()).
 										executes(this::performRaycast).
-										then(CommandUtils.enumArg("shapeMode", RayTraceContext.ShapeType.class).
+										then(CommandUtils.enumArg("shapeMode", ClipContext.Block.class).
 												executes(this::performRaycast).
-												then(CommandUtils.enumArg("fluidMode", RayTraceContext.FluidHandling.class).
+												then(CommandUtils.enumArg("fluidMode", ClipContext.Fluid.class).
 														executes(this::performRaycast)
 												)
 										)
@@ -101,9 +101,9 @@ public class RaycastCommand extends AbstractCommand
 		);
 	}
 
-	private int endermenlonSimulate(ServerCommandSource source, BlockPos pos, int maxR) throws CommandSyntaxException
+	private int endermenlonSimulate(CommandSourceStack source, BlockPos pos, int maxR) throws CommandSyntaxException
 	{
-		new RaycastSimulator(source.getWorld(), source.getEntityOrThrow()).simulate(pos, maxR);
+		new RaycastSimulator(source.getLevel(), source.getEntityOrException()).simulate(pos, maxR);
 		return 0;
 	}
 
@@ -125,35 +125,35 @@ public class RaycastCommand extends AbstractCommand
 		}
 		catch (IllegalArgumentException e)
 		{
-			BaseText msg = Messenger.formatting(tr("unknown_enum." + argName, enumString), Formatting.RED);
+			BaseComponent msg = Messenger.formatting(tr("unknown_enum." + argName, enumString), ChatFormatting.RED);
 			throw new SimpleCommandExceptionType(msg).create();
 		}
 	}
 
-	private int performRaycast(CommandContext<ServerCommandSource> c) throws CommandSyntaxException
+	private int performRaycast(CommandContext<CommandSourceStack> c) throws CommandSyntaxException
 	{
-		Vec3d start = getVec3(c, "start");
-		Vec3d end = getVec3(c, "end");
-		RayTraceContext.ShapeType shapeMode = getEnumArg(c, "shapeMode", RayTraceContext.ShapeType.COLLIDER);
-		RayTraceContext.FluidHandling fluidMode = getEnumArg(c, "fluidMode", RayTraceContext.FluidHandling.NONE);
-		ServerCommandSource source = c.getSource();
-		ServerWorld world = source.getWorld();
+		Vec3 start = getVec3(c, "start");
+		Vec3 end = getVec3(c, "end");
+		ClipContext.Block shapeMode = getEnumArg(c, "shapeMode", ClipContext.Block.COLLIDER);
+		ClipContext.Fluid fluidMode = getEnumArg(c, "fluidMode", ClipContext.Fluid.NONE);
+		CommandSourceStack source = c.getSource();
+		ServerLevel world = source.getLevel();
 
-		BlockHitResult result = world.rayTrace(new RayTraceContext(start, end, shapeMode, fluidMode, source.getEntityOrThrow()));
+		BlockHitResult result = world.clip(new ClipContext(start, end, shapeMode, fluidMode, source.getEntityOrException()));
 		if (result.getType() == HitResult.Type.MISS)
 		{
-			Messenger.tell(source, Messenger.formatting(tr("missed"), Formatting.DARK_RED));
+			Messenger.tell(source, Messenger.formatting(tr("missed"), ChatFormatting.DARK_RED));
 			return 0;
 		}
 		else
 		{
-			BaseText coordText = Messenger.coord(result.getBlockPos(), DimensionWrapper.of(world));
-			BaseText blockText = Messenger.fancy(
+			BaseComponent coordText = Messenger.coord(result.getBlockPos(), DimensionWrapper.of(world));
+			BaseComponent blockText = Messenger.fancy(
 					Messenger.block(world.getBlockState(result.getBlockPos())),
 					coordText,
 					coordText.getStyle().getClickEvent()
 			);
-			Function<Vec3d, BaseText> c2t = coord -> Messenger.coord(coord, DimensionWrapper.of(world));
+			Function<Vec3, BaseComponent> c2t = coord -> Messenger.coord(coord, DimensionWrapper.of(world));
 			Messenger.tell(source,Messenger.c(
 					Messenger.fancy(
 							"l",
@@ -162,9 +162,9 @@ public class RaycastCommand extends AbstractCommand
 							null
 					),
 					Messenger.s(" "),
-					Messenger.formatting(blockText, Formatting.AQUA),
+					Messenger.formatting(blockText, ChatFormatting.AQUA),
 					"g  @ ",
-					c2t.apply(result.getPos())
+					c2t.apply(result.getLocation())
 			));
 			return 1;
 		}

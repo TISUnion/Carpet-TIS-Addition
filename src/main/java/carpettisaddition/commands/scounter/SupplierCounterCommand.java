@@ -22,8 +22,8 @@ package carpettisaddition.commands.scounter;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.common.counter.DyeCounterCommand;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.DyeColor;
 
 public class SupplierCounterCommand extends DyeCounterCommand<SupplierCounterKey, SupplierCounter>
 {

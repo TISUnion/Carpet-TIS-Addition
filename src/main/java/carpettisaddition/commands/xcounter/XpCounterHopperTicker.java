@@ -22,11 +22,11 @@ package carpettisaddition.commands.xcounter;
 
 import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.HopperCounterUtils;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.util.DyeColor;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.Level;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,11 +42,11 @@ public class XpCounterHopperTicker
 			return;
 		}
 
-		for (ExperienceOrbEntity xpOrb : getInputXpOrbEntities(hopper))
+		for (ExperienceOrb xpOrb : getInputXpOrbEntities(hopper))
 		{
 			XpCounterCommand.getInstance().record(
 					color,
-					xpOrb.getExperienceAmount(),
+					xpOrb.getValue(),
 					EntityUtils.getXpOrbPickingCount(xpOrb)
 			);
 			//#if MC >= 11700
@@ -58,11 +58,11 @@ public class XpCounterHopperTicker
 	}
 
 	/**
-	 * Reference: {@link net.minecraft.block.entity.HopperBlockEntity#getInputItemEntities}
+	 * Reference: {@link net.minecraft.world.level.block.entity.HopperBlockEntity#getInputItemEntities}
 	 */
-	private static List<ExperienceOrbEntity> getInputXpOrbEntities(HopperBlockEntity hopper)
+	private static List<ExperienceOrb> getInputXpOrbEntities(HopperBlockEntity hopper)
 	{
-		World world = hopper.getWorld();
+		Level world = hopper.getLevel();
 		if (world == null)
 		{
 			return Collections.emptyList();
@@ -73,14 +73,14 @@ public class XpCounterHopperTicker
 		//$$ var box = hopper.getInputAreaShape().offset(hopper.getHopperX() - 0.5, hopper.getHopperY() - 0.5, hopper.getHopperZ() - 0.5);
 		//$$ return world.getEntitiesByClass(ExperienceOrbEntity.class, box, EntityPredicates.VALID_ENTITY);
 		//#else
-		return hopper.getInputAreaShape()
-				.getBoundingBoxes()
+		return hopper.getSuckShape()
+				.toAabbs()
 				.stream()
 				.flatMap(box ->
-						world.getEntities(
-								ExperienceOrbEntity.class,
-								box.offset(hopper.getHopperX() - 0.5, hopper.getHopperY() - 0.5, hopper.getHopperZ() - 0.5),
-								EntityPredicates.VALID_ENTITY
+						world.getEntitiesOfClass(
+								ExperienceOrb.class,
+								box.move(hopper.getLevelX() - 0.5, hopper.getLevelY() - 0.5, hopper.getLevelZ() - 0.5),
+								EntitySelector.ENTITY_STILL_ALIVE
 						).stream()
 				)
 				.collect(Collectors.toList());

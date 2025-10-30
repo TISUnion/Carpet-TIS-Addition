@@ -22,9 +22,9 @@ package carpettisaddition.mixins.rule.entityPlacementIgnoreCollision;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.GameUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.EndCrystalItem;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.EndCrystalItem;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -36,10 +36,10 @@ import java.util.List;
 public abstract class EndCrystalItemMixin
 {
 	@ModifyArg(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;isAir(Lnet/minecraft/util/math/BlockPos;)Z"
+					target = "Lnet/minecraft/world/level/Level;isEmptyBlock(Lnet/minecraft/core/BlockPos;)Z"
 			)
 	)
 	private BlockPos entityPlacementIgnoreCollision_skipAirCheck(BlockPos pos)
@@ -52,13 +52,13 @@ public abstract class EndCrystalItemMixin
 	}
 
 	@ModifyVariable(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/world/World;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
 					//#else
-					target = "Lnet/minecraft/world/World;getEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
+					target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;",
 					//#endif
 					shift = At.Shift.AFTER
 			)

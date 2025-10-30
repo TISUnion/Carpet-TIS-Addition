@@ -22,8 +22,8 @@ package carpettisaddition.logging.loggers.damage.modifyreasons;
 
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.List;
 
@@ -33,16 +33,16 @@ import java.util.List;
 
 public class StatusEffectModifyReason extends ModifyReason
 {
-	private final StatusEffect statusEffect;
+	private final MobEffect statusEffect;
 	private final Integer amplifier;
 
-	public StatusEffectModifyReason(StatusEffect statusEffect, Integer amplifier)
+	public StatusEffectModifyReason(MobEffect statusEffect, Integer amplifier)
 	{
 		super("status_effect");
 		this.statusEffect = statusEffect;
 		this.amplifier = amplifier;
 	}
-	public StatusEffectModifyReason(StatusEffect statusEffect)
+	public StatusEffectModifyReason(MobEffect statusEffect)
 	{
 		this(statusEffect, null);
 	}
@@ -58,14 +58,14 @@ public class StatusEffectModifyReason extends ModifyReason
 	//#endif
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(super.toText());
 		list.add("w  ");
 		list.add(
 				//#if MC >= 11500
-				this.statusEffect.getName()
+				this.statusEffect.getDisplayName()
 				//#else
 				//$$ Messenger.tr(this.statusEffect.getTranslationKey())
 				//#endif

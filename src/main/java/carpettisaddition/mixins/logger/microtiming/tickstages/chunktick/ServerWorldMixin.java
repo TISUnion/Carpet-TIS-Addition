@@ -22,19 +22,19 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.chunktick;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin
 {
 	@Inject(method = "tickChunk", at = @At("HEAD"))
 	private void enterTickChunk(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.CHUNK_TICK);
+		MicroTimingLoggerManager.setTickStage((ServerLevel)(Object)this, TickStage.CHUNK_TICK);
 	}
 
 	@Inject(method = "tickChunk", at = @At("TAIL"))
@@ -65,7 +65,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageDetailThunder(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, "Thunder");
+		MicroTimingLoggerManager.setTickStageDetail((ServerLevel)(Object)this, "Thunder");
 	}
 	//#endif
 
@@ -78,7 +78,7 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageDetailIceAndSnow(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, "Ice&Snow");
+		MicroTimingLoggerManager.setTickStageDetail((ServerLevel)(Object)this, "Ice&Snow");
 	}
 
 	@Inject(
@@ -90,6 +90,6 @@ public abstract class ServerWorldMixin
 	)
 	private void onStageDetailRandomTick(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, "RandomTick");
+		MicroTimingLoggerManager.setTickStageDetail((ServerLevel)(Object)this, "RandomTick");
 	}
 }

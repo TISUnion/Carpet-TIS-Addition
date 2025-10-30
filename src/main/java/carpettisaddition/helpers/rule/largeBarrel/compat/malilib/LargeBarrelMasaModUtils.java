@@ -24,10 +24,10 @@ import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
 import carpettisaddition.utils.ReflectionUtils;
-import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
+import net.minecraft.world.Container;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -37,14 +37,14 @@ import java.util.function.Predicate;
 
 public class LargeBarrelMasaModUtils
 {
-	public static Inventory modifyGetBlockInventoryReturnValue(Inventory inventory, World world, BlockPos pos)
+	public static Container modifyGetBlockInventoryReturnValue(Container inventory, Level world, BlockPos pos)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel && inventory instanceof BarrelBlockEntity)
 		{
 			LargeBarrelHelper.enabledOffThreadBlockEntityAccess.set(true);
 			try
 			{
-				Inventory largeBarrelInventory = LargeBarrelHelper.getInventory(world.getBlockState(pos), world, pos);
+				Container largeBarrelInventory = LargeBarrelHelper.getInventory(world.getBlockState(pos), world, pos);
 				if (largeBarrelInventory != null)
 				{
 					inventory = largeBarrelInventory;
@@ -58,9 +58,9 @@ public class LargeBarrelMasaModUtils
 		return inventory;
 	}
 
-	public static void invokeIDataSyncerRequestBlockEntity(Object ds, World world, BlockPos pos)
+	public static void invokeIDataSyncerRequestBlockEntity(Object ds, Level world, BlockPos pos)
 	{
-		Predicate<Method> methodPredicate = m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{World.class, BlockPos.class});
+		Predicate<Method> methodPredicate = m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{Level.class, BlockPos.class});
 
 		Optional<BiFunction<Object, Object[], Object>> invoker;
 		invoker = ReflectionUtils.invoker(ds.getClass(), "requestBlockEntity", methodPredicate);
@@ -79,7 +79,7 @@ public class LargeBarrelMasaModUtils
 		}
 	}
 
-	public static Inventory modifyGetBlockInventoryReturnValueForIDataSyncer(Object ds, Inventory inventory, World world, BlockPos pos)
+	public static Container modifyGetBlockInventoryReturnValueForIDataSyncer(Object ds, Container inventory, Level world, BlockPos pos)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel && inventory instanceof BarrelBlockEntity)
 		{

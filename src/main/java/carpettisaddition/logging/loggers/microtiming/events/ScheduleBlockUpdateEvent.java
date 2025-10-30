@@ -24,9 +24,9 @@ import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.Direction;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class ScheduleBlockUpdateEvent extends AbstractBlockUpdateEvent
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		List<Object> list = Lists.newArrayList();
 		list.add(Messenger.formatting(tr("scheduled"), COLOR_ACTION));

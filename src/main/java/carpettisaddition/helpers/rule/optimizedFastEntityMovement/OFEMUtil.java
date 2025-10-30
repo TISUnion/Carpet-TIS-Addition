@@ -21,11 +21,11 @@
 package carpettisaddition.helpers.rule.optimizedFastEntityMovement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.CollisionView;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.CollisionGetter;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
@@ -36,18 +36,18 @@ public class OFEMUtil
 	// set it to 0 or enable rule ultraSecretSetting to test vanilla behavior if you want
 	private static final double OPTIMIZE_THRESHOLD = 4.0D;
 
-	public static boolean checkMovement(Vec3d movement)
+	public static boolean checkMovement(Vec3 movement)
 	{
-		return movement.lengthSquared() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD || CarpetTISAdditionSettings.ultraSecretSetting.equals("optimizedFastEntityMovement");
+		return movement.lengthSqr() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD || CarpetTISAdditionSettings.ultraSecretSetting.equals("optimizedFastEntityMovement");
 	}
 
-	public static OFEMContext createContext(World world, Entity entity)
+	public static OFEMContext createContext(Level world, Entity entity)
 	{
 		return new OFEMContext(world, entity);
 	}
 
 	@Nullable
-	public static OFEMContext checkAndCreateContext(World world, Entity entity, Vec3d movement)
+	public static OFEMContext checkAndCreateContext(Level world, Entity entity, Vec3 movement)
 	{
 		if (CarpetTISAdditionSettings.optimizedFastEntityMovement && checkMovement(movement))
 		{
@@ -64,20 +64,20 @@ public class OFEMUtil
 	//#endif
 	getAxisOnlyBlockCollision(OFEMContext context, CollisionBoxGetter collisionBoxGetter)
 	{
-		Vec3d axisOnlyMovement = null;
+		Vec3 axisOnlyMovement = null;
 		switch (context.axis)
 		{
 			case X:
-				axisOnlyMovement = new Vec3d(context.movementOnAxis, 0.0D, 0.0D);
+				axisOnlyMovement = new Vec3(context.movementOnAxis, 0.0D, 0.0D);
 				break;
 			case Y:
-				axisOnlyMovement = new Vec3d(0.0D, context.movementOnAxis, 0.0D);
+				axisOnlyMovement = new Vec3(0.0D, context.movementOnAxis, 0.0D);
 				break;
 			case Z:
-				axisOnlyMovement = new Vec3d(0.0D, 0.0D, context.movementOnAxis);
+				axisOnlyMovement = new Vec3(0.0D, 0.0D, context.movementOnAxis);
 				break;
 		}
-		return collisionBoxGetter.get(context.world, context.entity, context.entityBoundingBox.stretch(axisOnlyMovement));
+		return collisionBoxGetter.get(context.world, context.entity, context.entityBoundingBox.expandTowards(axisOnlyMovement));
 	}
 
 	public static
@@ -89,6 +89,6 @@ public class OFEMUtil
 	getAxisOnlyBlockCollision(OFEMContext context)
 	{
 		// using vanilla's method
-		return getAxisOnlyBlockCollision(context, CollisionView::getBlockCollisions);
+		return getAxisOnlyBlockCollision(context, CollisionGetter::getBlockCollisions);
 	}
 }

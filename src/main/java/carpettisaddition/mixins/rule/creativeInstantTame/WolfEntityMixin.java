@@ -24,19 +24,19 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.EntityUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(WolfEntity.class)
+@Mixin(Wolf.class)
 public abstract class WolfEntityMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 12005
 			//$$ method = "tryTame",
 			//#else
-			method = "interactMob",
+			method = "mobInteract",
 			//#endif
 			at = @At(
 					value = "INVOKE",
@@ -48,7 +48,7 @@ public abstract class WolfEntityMixin
 					ordinal = 0
 			)
 	)
-	private int creativeInstantTame_wolf(int value, @Local(argsOnly = true) PlayerEntity player)
+	private int creativeInstantTame_wolf(int value, @Local(argsOnly = true) Player player)
 	{
 		if (CarpetTISAdditionSettings.creativeInstantTame && EntityUtils.isCreativePlayer(player))
 		{

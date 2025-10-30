@@ -20,17 +20,17 @@
 
 package carpettisaddition.helpers.rule.obsidianPlatformBlockBreakerBackport;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class ObsidianPlatformBlockBreakerBackportHelper
 {
-	public static void onObsidianPlatformSetBlockPre(World world, BlockPos pos, BlockState state)
+	public static void onObsidianPlatformSetBlockPre(Level world, BlockPos pos, BlockState state)
 	{
 		if (world.getBlockState(pos).getBlock() != state.getBlock())
 		{
-			world.breakBlock(
+			world.destroyBlock(
 					pos, true
 					//#if MC >= 11500
 					, null

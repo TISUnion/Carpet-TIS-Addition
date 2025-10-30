@@ -32,8 +32,8 @@ import carpettisaddition.utils.CounterUtils;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -94,7 +94,7 @@ public class BasicTrackedData extends TranslationContext
 	/**
 	 * Spawn Count: xxx, (yyy/h)
 	 */
-	public BaseText getSpawningCountText(long ticks)
+	public BaseComponent getSpawningCountText(long ticks)
 	{
 		return Messenger.c(
 				Messenger.formatting(tr("spawn_count"), "q"),
@@ -106,7 +106,7 @@ public class BasicTrackedData extends TranslationContext
 	/**
 	 * Removal Count: xxx, (yyy/h)
 	 */
-	public BaseText getRemovalCountText(long ticks)
+	public BaseComponent getRemovalCountText(long ticks)
 	{
 		return Messenger.c(
 				Messenger.formatting(tr("removal_count"), "q "),
@@ -120,7 +120,7 @@ public class BasicTrackedData extends TranslationContext
 	 *
 	 * @param reason spawning reason or removal reason
 	 */
-	private static BaseText getReasonWithRate(AbstractReason reason, long ticks, long count, long total, String indent)
+	private static BaseComponent getReasonWithRate(AbstractReason reason, long ticks, long count, long total, String indent)
 	{
 		double percentage = 100.0D * count / total;
 		return Messenger.c(
@@ -136,7 +136,7 @@ public class BasicTrackedData extends TranslationContext
 	/**
 	 * AAA: 50, (100/h) 25%
  	 */
-	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total, String indent)
+	protected BaseComponent getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total, String indent)
 	{
 		return getReasonWithRate(reason, ticks, count, total, indent);
 	}
@@ -144,7 +144,7 @@ public class BasicTrackedData extends TranslationContext
 	/**
 	 * BBB: 150, (300/h) 75%
 	 */
-	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total, String indent)
+	protected BaseComponent getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total, String indent)
 	{
 		return getReasonWithRate(reason, ticks, count, total, indent);
 	}
@@ -156,9 +156,9 @@ public class BasicTrackedData extends TranslationContext
 	 *
 	 * @return might be an empty list
 	 */
-	public List<BaseText> getSpawningReasonsLines(long ticks, boolean showButton)
+	public List<BaseComponent> getSpawningReasonsLines(long ticks, boolean showButton)
 	{
-		List<BaseText> result = Lists.newArrayList();
+		List<BaseComponent> result = Lists.newArrayList();
 		long total = this.getSpawningCount();
 		this.spawningReasons.entrySet().stream().
 				sorted(Collections.reverseOrder(Comparator.comparingLong(e -> e.getValue().count))).
@@ -170,7 +170,7 @@ public class BasicTrackedData extends TranslationContext
 						return;
 					}
 
-					BaseText line = this.getSpawningReasonWithRate(reason, ticks, statistic.count , total, "  ");
+					BaseComponent line = this.getSpawningReasonWithRate(reason, ticks, statistic.count , total, "  ");
 					if (showButton)
 					{
 						line = Messenger.join(
@@ -197,9 +197,9 @@ public class BasicTrackedData extends TranslationContext
 	 *
 	 * @return might be an empty list
 	 */
-	public List<BaseText> getRemovalReasonsLines(long ticks, boolean showButton)
+	public List<BaseComponent> getRemovalReasonsLines(long ticks, boolean showButton)
 	{
-		List<BaseText> result = Lists.newArrayList();
+		List<BaseComponent> result = Lists.newArrayList();
 		this.removalReasons.entrySet().stream().
 				sorted(Collections.reverseOrder(Comparator.comparingLong(a -> a.getValue().count))).
 				forEach(entry -> {

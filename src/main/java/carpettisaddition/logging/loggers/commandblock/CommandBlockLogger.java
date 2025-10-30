@@ -26,16 +26,16 @@ import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.vehicle.CommandBlockMinecartEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.ChatUtil;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.CommandBlockExecutor;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.vehicle.MinecartCommandBlock;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.util.StringUtil;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.BaseCommandBlock;
+import net.minecraft.world.level.Level;
 
 public class CommandBlockLogger extends AbstractLogger
 {
@@ -60,7 +60,7 @@ public class CommandBlockLogger extends AbstractLogger
 		return new String[]{"throttled", "all"};
 	}
 
-	private void logCommandBlockExecution(World world, BaseText nameText, BaseText posText, CommandBlockExecutor executor, String removeCommand)
+	private void logCommandBlockExecution(Level world, BaseComponent nameText, BaseComponent posText, BaseCommandBlock executor, String removeCommand)
 	{
 		if (!TISAdditionLoggerRegistry.__commandBlock)
 		{
@@ -86,10 +86,10 @@ public class CommandBlockLogger extends AbstractLogger
 			{
 				iExecutor.setLastLoggedTime$TISCM(time);
 			}
-			return new BaseText[]{Messenger.c(
+			return new BaseComponent[]{Messenger.c(
 					tr(
 							"executed",
-							Messenger.formatting(Messenger.copy(nameText), Formatting.GOLD),
+							Messenger.formatting(Messenger.copy(nameText), ChatFormatting.GOLD),
 							Messenger.fancy(
 									"c",
 									Messenger.s(finalCommandPreview),
@@ -110,29 +110,29 @@ public class CommandBlockLogger extends AbstractLogger
 		});
 	}
 
-	public void onCommandBlockActivated(World world, BlockPos pos, BlockState state, CommandBlockExecutor executor)
+	public void onCommandBlockActivated(Level world, BlockPos pos, BlockState state, BaseCommandBlock executor)
 	{
 		this.logCommandBlockExecution(
 				world,
 				Messenger.block(state.getBlock()),
 				Messenger.coord("w", pos, DimensionWrapper.of(world)),
 				executor,
-				String.format("/execute in %s run setblock %d %d %d %s", DimensionWrapper.of(world).getIdentifier(), pos.getX(), pos.getY(), pos.getZ(), Registry.BLOCK.getId(Blocks.AIR))
+				String.format("/execute in %s run setblock %d %d %d %s", DimensionWrapper.of(world).getIdentifier(), pos.getX(), pos.getY(), pos.getZ(), Registry.BLOCK.getKey(Blocks.AIR))
 		);
 	}
 
-	public void onCommandBlockMinecartActivated(CommandBlockMinecartEntity entity)
+	public void onCommandBlockMinecartActivated(MinecartCommandBlock entity)
 	{
-		if (ChatUtil.isEmpty(entity.getCommandExecutor().getCommand()))
+		if (StringUtil.isNullOrEmpty(entity.getCommandBlock().getCommand()))
 		{
 			return;
 		}
 		this.logCommandBlockExecution(
 				EntityUtils.getEntityWorld(entity),
 				Messenger.entity(null, entity),
-				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity)),
-				entity.getCommandExecutor(),
-				String.format("/kill %s", entity.getUuidAsString())
+				Messenger.coord("w", entity.position(), DimensionWrapper.of(entity)),
+				entity.getCommandBlock(),
+				String.format("/kill %s", entity.getStringUUID())
 		);
 	}
 }

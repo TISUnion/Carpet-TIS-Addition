@@ -22,14 +22,14 @@ package carpettisaddition.network;
 
 import carpettisaddition.mixins.network.ClientPlayNetworkHandlerAccessor;
 import carpettisaddition.mixins.network.ServerPlayNetworkHandlerAccessor;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.function.Consumer;
 
@@ -37,12 +37,12 @@ public class HandlerContext
 {
 	public static class S2C
 	{
-		public final ClientPlayNetworkHandler networkHandler;
+		public final ClientPacketListener networkHandler;
 		public final CompoundTag payload;
-		public final MinecraftClient client;
-		public final ClientPlayerEntity player;
+		public final Minecraft client;
+		public final LocalPlayer player;
 
-		public S2C(ClientPlayNetworkHandler networkHandler, CompoundTag payload)
+		public S2C(ClientPacketListener networkHandler, CompoundTag payload)
 		{
 			this.payload = payload;
 			this.networkHandler = networkHandler;
@@ -63,13 +63,13 @@ public class HandlerContext
 
 	public static class C2S
 	{
-		public final ServerPlayNetworkHandler networkHandler;
+		public final ServerGamePacketListenerImpl networkHandler;
 		public final CompoundTag payload;
 		public final MinecraftServer server;
-		public final ServerPlayerEntity player;
+		public final ServerPlayer player;
 		public final String playerName;
 
-		public C2S(ServerPlayNetworkHandler networkHandler, CompoundTag payload)
+		public C2S(ServerGamePacketListenerImpl networkHandler, CompoundTag payload)
 		{
 			this.networkHandler = networkHandler;
 			this.payload = payload;

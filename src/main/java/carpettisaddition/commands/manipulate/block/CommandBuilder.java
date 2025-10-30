@@ -23,25 +23,25 @@ package carpettisaddition.commands.manipulate.block;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.BlockPos;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 class CommandBuilder
 {
-	private final ArgumentBuilder<ServerCommandSource, ?> rangedRoot;
-	private final Map<String, ArgumentBuilder<ServerCommandSource, ?>> actionNodes = Maps.newHashMap();
+	private final ArgumentBuilder<CommandSourceStack, ?> rangedRoot;
+	private final Map<String, ArgumentBuilder<CommandSourceStack, ?>> actionNodes = Maps.newHashMap();
 
 	@FunctionalInterface
 	public interface LeafBuilder
 	{
-		ArgumentBuilder<ServerCommandSource, ?> build(ArgumentBuilder<ServerCommandSource, ?> node, Command<ServerCommandSource> cmd);
+		ArgumentBuilder<CommandSourceStack, ?> build(ArgumentBuilder<CommandSourceStack, ?> node, Command<CommandSourceStack> cmd);
 	}
 
 	public CommandBuilder()
@@ -49,7 +49,7 @@ class CommandBuilder
 		this.rangedRoot = argument("to", blockPos());
 	}
 
-	public void build(ArgumentBuilder<ServerCommandSource, ?> node)
+	public void build(ArgumentBuilder<CommandSourceStack, ?> node)
 	{
 		this.actionNodes.values().forEach(this.rangedRoot::then);
 		node.then(argument("from", blockPos()).then(this.rangedRoot));
@@ -68,7 +68,7 @@ class CommandBuilder
 				then(leafBuilder.build(literal(name), executor::process));
 	}
 
-	public void add(String action, String name, BiConsumer<ServerCommandSource, BlockPos> impl)
+	public void add(String action, String name, BiConsumer<CommandSourceStack, BlockPos> impl)
 	{
 		this.add(
 				action, name,

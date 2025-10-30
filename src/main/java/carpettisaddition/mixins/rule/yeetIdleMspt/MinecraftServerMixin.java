@@ -39,7 +39,7 @@ public abstract class MinecraftServerMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/MinecraftServer;tick(Ljava/util/function/BooleanSupplier;)V"
+					target = "Lnet/minecraft/server/MinecraftServer;tickServer(Ljava/util/function/BooleanSupplier;)V"
 			)
 	)
 	private BooleanSupplier yeetIdleMspt_thereNoRemainingTime(BooleanSupplier shouldKeepTicking)

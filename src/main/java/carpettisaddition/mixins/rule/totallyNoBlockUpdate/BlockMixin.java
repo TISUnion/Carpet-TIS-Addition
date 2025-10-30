@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#if MC >= 11600
 //$$ import net.minecraft.block.AbstractBlock;
 //#else
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 //#endif
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.19"))
@@ -49,7 +49,7 @@ public abstract class BlockMixin
 			//#if MC >= 11600
 			//$$ method = "updateNeighbors(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;II)V",
 			//#else
-			method = "updateNeighborStates",
+			method = "updateNeighbourShapes",
 			//#endif
 			at = @At("HEAD"),
 			cancellable = true

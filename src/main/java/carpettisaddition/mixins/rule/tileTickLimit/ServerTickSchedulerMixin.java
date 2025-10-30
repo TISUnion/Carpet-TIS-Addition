@@ -25,12 +25,12 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.world.ServerTickScheduler;
+import net.minecraft.world.level.ServerTickList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.18"))
-@Mixin(value = ServerTickScheduler.class, priority = 998)
+@Mixin(value = ServerTickList.class, priority = 998)
 public abstract class ServerTickSchedulerMixin<T>
 {
 	@ModifyExpressionValue(

@@ -23,7 +23,7 @@ package carpettisaddition.mixins.command.lifetime.spawning.item.compat.tiscm;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import carpettisaddition.helpers.rule.minecartPlaceableOnGround.MinecartPlaceableOnGroundImpl;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -35,7 +35,7 @@ public abstract class MinecartPlaceableOnGroundImplMixin
 			method = "placeMinecartOnGround",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private static Entity lifetimeTracker_recordSpawning_item_minecart_tiscm(Entity minecartEntity)

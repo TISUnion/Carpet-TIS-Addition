@@ -24,12 +24,12 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PistonBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -44,10 +44,10 @@ import java.util.Map;
 //$$ import java.util.Set;
 //#endif
 
-@Mixin(PistonBlock.class)
+@Mixin(PistonBaseBlock.class)
 public abstract class PistonBlockMixin
 {
-	@Inject(method = "move", at = @At("HEAD"))
+	@Inject(method = "moveBlocks", at = @At("HEAD"))
 	private void storeRuleValueInCaseItChanges(CallbackInfoReturnable<Boolean> cir, @Share("isDupeFixed") LocalBooleanRef isDupeFixed)
 	{
 		// just in case the rule gets changed halfway
@@ -61,14 +61,14 @@ public abstract class PistonBlockMixin
 	 * will happen (yeeted onRemoved block updater like lit observer).
 	 */
 	@Inject(
-			method = "move",
+			method = "moveBlocks",
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11700
 							//$$ target = "Lnet/minecraft/block/BlockState;hasBlockEntity()Z"
 							//#else
-							target = "Lnet/minecraft/block/Block;hasBlockEntity()Z"
+							target = "Lnet/minecraft/world/level/block/Block;isEntityBlock()Z"
 							//#endif
 					)
 			),
@@ -80,7 +80,7 @@ public abstract class PistonBlockMixin
 			)
 	)
 	private void setAllToBeMovedBlockToAirFirst(
-			World world, BlockPos pos, Direction dir, boolean retract,
+			Level world, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir,
 			//#if MC >= 11500
 			@Local Map<BlockPos, BlockState> map,
@@ -103,7 +103,7 @@ public abstract class PistonBlockMixin
 				// Added 2 to the vanilla flag, so at those pos where will be air the listeners can be updated correctly
 				// Although this cannot yeet onRemoved updaters, but it can prevent attached blocks from breaking,
 				// which is nicer than just let them break imo
-				world.setBlockState(toBeMovedBlockPos, Blocks.AIR.getDefaultState(), 2 | 4 | 16 | 64);
+				world.setBlock(toBeMovedBlockPos, Blocks.AIR.defaultBlockState(), 2 | 4 | 16 | 64);
 
 				// Update containers which contain the old state
 				list2.set(l, toBeMovedBlockState);
@@ -131,14 +131,14 @@ public abstract class PistonBlockMixin
 	 * Whatever, just make it behave like vanilla
 	 */
 	@Inject(
-			method = "move",
+			method = "moveBlocks",
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
 							//#if MC >= 11600
 							//$$ target = "Lnet/minecraft/block/PistonBlock;sticky:Z"
 							//#else
-							target = "Lnet/minecraft/block/PistonBlock;isSticky:Z"
+							target = "Lnet/minecraft/world/level/block/piston/PistonBaseBlock;isSticky:Z"
 							//#endif
 					)
 			),
@@ -153,7 +153,7 @@ public abstract class PistonBlockMixin
 			)
 	)
 	private void makeSureStatesInBlockStatesIsCorrect(
-			World world, BlockPos pos, Direction dir, boolean retract,
+			Level world, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir,
 			@Local(ordinal = 0) List<BlockPos> list,  // pistonHandler.getMovedBlocks()
 			@Local(ordinal = 1) List<BlockState> list2,  // states of list

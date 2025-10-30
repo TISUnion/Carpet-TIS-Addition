@@ -20,13 +20,13 @@
 
 package carpettisaddition.helpers.carpet.tweaks.logger.explosion;
 
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.phys.Vec3;
 
 public interface ITntEntity
 {
 	boolean dataRecorded();
 
-	Vec3d getInitializedVelocity();
+	Vec3 getInitializedVelocity();
 
-	Vec3d getInitializedPosition();
+	Vec3 getInitializedPosition();
 }

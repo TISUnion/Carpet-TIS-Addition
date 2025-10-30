@@ -23,9 +23,9 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.text.BaseText;
-import net.minecraft.world.TickPriority;
-import net.minecraft.world.ScheduledTick;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.level.TickPriority;
+import net.minecraft.world.level.TickNextTickData;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,21 +33,21 @@ import java.util.Optional;
 
 public class ExecuteTileTickEvent<T> extends BaseEvent
 {
-	private final ScheduledTick<T> tileTickEntry;
+	private final TickNextTickData<T> tileTickEntry;
 
-	private ExecuteTileTickEvent(EventType eventType, ScheduledTick<T> tileTickEntry, EventSource source)
+	private ExecuteTileTickEvent(EventType eventType, TickNextTickData<T> tileTickEntry, EventSource source)
 	{
 		super(eventType, "execute_tile_tick", source);
 		this.tileTickEntry = tileTickEntry;
 	}
 
-	public static Optional<ExecuteTileTickEvent<?>> createFrom(EventType eventType, ScheduledTick<?> tileTickEntry)
+	public static Optional<ExecuteTileTickEvent<?>> createFrom(EventType eventType, TickNextTickData<?> tileTickEntry)
 	{
-		return EventSource.fromObject(tileTickEntry.getObject()).map(eventSource -> new ExecuteTileTickEvent<>(eventType, tileTickEntry, eventSource));
+		return EventSource.fromObject(tileTickEntry.getType()).map(eventSource -> new ExecuteTileTickEvent<>(eventType, tileTickEntry, eventSource));
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		TickPriority priority =
 				//#if MC >= 11800
@@ -63,7 +63,7 @@ public class ExecuteTileTickEvent<T> extends BaseEvent
 				Messenger.formatting(tr("tiletick_event"), COLOR_TARGET),
 				Messenger.c(
 						tr("priority"),
-						String.format("w : %d (%s)", priority.getIndex(), priority)
+						String.format("w : %d (%s)", priority.getValue(), priority)
 				),
 				null
 		));

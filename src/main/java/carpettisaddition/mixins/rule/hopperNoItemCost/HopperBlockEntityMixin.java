@@ -24,15 +24,15 @@ import carpet.utils.WoolTool;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.scounter.SupplierCounterCommand;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -43,7 +43,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
 
 @Mixin(HopperBlockEntity.class)
-public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntity
+public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockEntity
 {
 	//#if MC >= 11700
 	//$$ protected HopperBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState)
@@ -58,10 +58,10 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	//#endif
 
 	@Inject(
-			method = "insert",
+			method = "ejectItems",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/inventory/Inventory;markDirty()V",
+					target = "Lnet/minecraft/world/Container;setChanged()V",
 					shift = At.Shift.AFTER
 			)
 	)
@@ -92,8 +92,8 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 		}
 
 		//#if MC < 11700
-		World world = this.getWorld();
-		Inventory hopperInventory = this;
+		Level world = this.getLevel();
+		Container hopperInventory = this;
 		//#endif
 
 		if (world == null)
@@ -104,9 +104,9 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				//#if MC >= 11700
 				//$$ pos;
 				//#else
-				this.getPos();
+				this.getBlockPos();
 				//#endif
-		DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperPos.offset(Direction.UP));
+		DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, hopperPos.relative(Direction.UP));
 		if (wool_color == null)
 		{
 			return;
@@ -120,7 +120,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 		//#else
 		ItemStack prevStack = itemStack;  // itemStack is already a copy, see vanilla insert() method
 		//#endif
-		ItemStack currentStack = hopperInventory.getInvStack(index);
+		ItemStack currentStack = hopperInventory.getItem(index);
 
 		if (SupplierCounterCommand.getInstance().isActivated())
 		{
@@ -128,6 +128,6 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 		}
 
 		// restore the hopper inventory slot to the previous stack
-		hopperInventory.setInvStack(index, prevStack);
+		hopperInventory.setItem(index, prevStack);
 	}
 }

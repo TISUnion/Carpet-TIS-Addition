@@ -22,7 +22,7 @@ package carpettisaddition.commands.speedtest.session;
 
 import carpettisaddition.commands.speedtest.tester.SpeedTester;
 import com.google.common.collect.Maps;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -32,29 +32,29 @@ public class SpeedTestServerSessionHolder
 {
 	private final Map<UUID, SpeedTestServerSession> sessions = Maps.newConcurrentMap();
 
-	public void abortAndClearFor(ServerPlayerEntity player)
+	public void abortAndClearFor(ServerPlayer player)
 	{
-		SpeedTester tester = this.sessions.remove(player.getUuid());
+		SpeedTester tester = this.sessions.remove(player.getUUID());
 		if (tester != null)
 		{
 			tester.abort();
 		}
 	}
 
-	public void clearFor(ServerPlayerEntity player, SpeedTestServerSession expected)
+	public void clearFor(ServerPlayer player, SpeedTestServerSession expected)
 	{
-		this.sessions.remove(player.getUuid(), expected);
+		this.sessions.remove(player.getUUID(), expected);
 	}
 
-	public void setFor(ServerPlayerEntity player, SpeedTestServerSession session)
+	public void setFor(ServerPlayer player, SpeedTestServerSession session)
 	{
-		this.sessions.put(player.getUuid(), session);
+		this.sessions.put(player.getUUID(), session);
 	}
 
 	@Nullable
-	public SpeedTestServerSession getFor(ServerPlayerEntity player)
+	public SpeedTestServerSession getFor(ServerPlayer player)
 	{
-		return this.sessions.get(player.getUuid());
+		return this.sessions.get(player.getUUID());
 	}
 
 	public void reset()

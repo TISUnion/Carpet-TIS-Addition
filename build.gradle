@@ -49,6 +49,9 @@ preprocess {
 	mc1215.link(mc1218, file('versions/mapping-1.21.5-1.21.8.txt'))
 	mc1218.link(mc12110, file('versions/mapping-1.21.8-1.21.10.txt'))
 	mc12110.link(mc12111, file('versions/mapping-1.21.10-1.21.11.txt'))
+
+//	def mc115m = createNode('1.15.2-mojmap', 1_15_02, '')
+//	mc115.link(mc115m, null)
 }
 
 tasks.register('buildAndGather') {

@@ -22,26 +22,26 @@ package carpettisaddition.mixins.command.lifetime.spawning.mobthrow;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobThrowSpawningReason;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.passive.DolphinEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.animal.Dolphin;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(targets = "net.minecraft.entity.passive.DolphinEntity$PlayWithItemsGoal")
+@Mixin(targets = "net.minecraft.world.entity.animal.Dolphin$PlayWithItemsGoal")
 public abstract class DolphinEntityPlayWithItemsGoalMixin
 {
 	@SuppressWarnings("target")
 	@Shadow @Final
-	DolphinEntity field_6757;
+	Dolphin field_6757;
 
 	@ModifyVariable(
-			method = "spitOutItem",
+			method = "drop",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private ItemEntity lifetimeTracker_recordSpawning_mobThrow_dolphin(ItemEntity itemEntity)

@@ -25,7 +25,7 @@ import carpettisaddition.helpers.carpet.loggerRestriction.RestrictionCheckResult
 import carpettisaddition.helpers.carpet.loggerRestriction.RestrictiveLogger;
 import carpettisaddition.helpers.carpet.loggerRestriction.SubscriptionChecker;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -42,7 +42,7 @@ public abstract class LoggerMixin implements RestrictiveLogger
 	}
 
 	@Override
-	public RestrictionCheckResult canPlayerSubscribe(PlayerEntity player, @Nullable String option)
+	public RestrictionCheckResult canPlayerSubscribe(Player player, @Nullable String option)
 	{
 		for (SubscriptionChecker checker : this.subscriptionCheckers)
 		{

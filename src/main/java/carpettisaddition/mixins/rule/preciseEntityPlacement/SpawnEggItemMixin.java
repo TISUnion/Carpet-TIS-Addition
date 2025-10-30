@@ -22,10 +22,10 @@ package carpettisaddition.mixins.rule.preciseEntityPlacement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.preciseEntityPlacement.PreciseEntityPlacer;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.world.item.UseOnContext;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class SpawnEggItemMixin
 {
 	@Inject(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12109
@@ -46,15 +46,15 @@ public abstract class SpawnEggItemMixin
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/entity/EntityType;spawnFromItemStack(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;"
 					//#else
-					target = "Lnet/minecraft/entity/EntityType;spawnFromItemStack(Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnType;ZZ)Lnet/minecraft/entity/Entity;"
+					target = "Lnet/minecraft/world/entity/EntityType;spawn(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/MobSpawnType;ZZ)Lnet/minecraft/world/entity/Entity;"
 					//#endif
 			)
 	)
-	private void preciseEntityPlacement_spawnEgg1(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir)
+	private void preciseEntityPlacement_spawnEgg1(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{
-			PreciseEntityPlacer.spawnEggTargetPos.set(context.getHitPos());
+			PreciseEntityPlacer.spawnEggTargetPos.set(context.getClickLocation());
 		}
 	}
 
@@ -62,7 +62,7 @@ public abstract class SpawnEggItemMixin
 			method = "use",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/hit/BlockHitResult;getBlockPos()Lnet/minecraft/util/math/BlockPos;"
+					target = "Lnet/minecraft/world/phys/BlockHitResult;getBlockPos()Lnet/minecraft/core/BlockPos;"
 			),
 			ordinal = 0  // 1.20-pre1 says there are 2 candidates, idk why but whatever here's the fix
 	)
@@ -70,7 +70,7 @@ public abstract class SpawnEggItemMixin
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{
-			PreciseEntityPlacer.spawnEggTargetPos.set(blockHitResult.getPos());
+			PreciseEntityPlacer.spawnEggTargetPos.set(blockHitResult.getLocation());
 		}
 		return blockHitResult;
 	}

@@ -28,27 +28,34 @@ import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.item.Item;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.property.Property;
-import net.minecraft.text.*;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.item.Item;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.TranslatableFormatException;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.ChatFormatting;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.Util;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.core.Vec3i;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -96,9 +103,9 @@ public class Messenger
 	//#if MC >= 11900
 	//$$ TextContent
 	//#else
-	BaseText
+	BaseComponent
 	//#endif
-	getTextContent(BaseText text)
+	getTextContent(BaseComponent text)
 	{
 		//#if MC >= 11900
 		//$$ return text.getContent();
@@ -114,7 +121,7 @@ public class Messenger
 	 */
 
 	// Compound Text in carpet style
-	public static BaseText c(Object ... fields)
+	public static BaseComponent c(Object ... fields)
 	{
 		return
 				//#if MC >= 11900
@@ -124,57 +131,57 @@ public class Messenger
 	}
 
 	// Simple Text
-	public static BaseText s(Object text)
+	public static BaseComponent s(Object text)
 	{
 		return
 				//#if MC >= 11900
 				//$$ Text.literal
 				//#else
-				new LiteralText
+				new TextComponent
 				//#endif
 						(text.toString());
 	}
 
 	// Simple Text with carpet style
-	public static BaseText s(Object text, String carpetStyle)
+	public static BaseComponent s(Object text, String carpetStyle)
 	{
 		return formatting(s(text), carpetStyle);
 	}
 
 	// Simple Text with formatting
-	public static BaseText s(Object text, Formatting ...textFormattings)
+	public static BaseComponent s(Object text, ChatFormatting ...textFormattings)
 	{
 		return formatting(s(text), textFormattings);
 	}
 
-	public static BaseText newLine()
+	public static BaseComponent newLine()
 	{
 		return s("\n");
 	}
 
-	private static final ImmutableMap<DyeColor, Consumer<BaseText>> DYE_COLOR_APPLIER = Util.make(() -> {
-		Map<DyeColor, Formatting> map = Maps.newHashMap();
-		map.put(DyeColor.WHITE, Formatting.WHITE);
-		map.put(DyeColor.LIGHT_GRAY, Formatting.GRAY);
-		map.put(DyeColor.GRAY, Formatting.DARK_GRAY);
-		map.put(DyeColor.BLACK, Formatting.BLACK);
-		map.put(DyeColor.RED, Formatting.RED);
-		map.put(DyeColor.YELLOW, Formatting.YELLOW);
-		map.put(DyeColor.LIME, Formatting.GREEN);
-		map.put(DyeColor.GREEN, Formatting.DARK_GREEN);
-		map.put(DyeColor.CYAN, Formatting.DARK_AQUA);
-		map.put(DyeColor.LIGHT_BLUE, Formatting.AQUA);
-		map.put(DyeColor.BLUE, Formatting.DARK_BLUE);
-		map.put(DyeColor.PURPLE, Formatting.DARK_PURPLE);
-		map.put(DyeColor.MAGENTA, Formatting.LIGHT_PURPLE);
+	private static final ImmutableMap<DyeColor, Consumer<BaseComponent>> DYE_COLOR_APPLIER = Util.make(() -> {
+		Map<DyeColor, ChatFormatting> map = Maps.newHashMap();
+		map.put(DyeColor.WHITE, ChatFormatting.WHITE);
+		map.put(DyeColor.LIGHT_GRAY, ChatFormatting.GRAY);
+		map.put(DyeColor.GRAY, ChatFormatting.DARK_GRAY);
+		map.put(DyeColor.BLACK, ChatFormatting.BLACK);
+		map.put(DyeColor.RED, ChatFormatting.RED);
+		map.put(DyeColor.YELLOW, ChatFormatting.YELLOW);
+		map.put(DyeColor.LIME, ChatFormatting.GREEN);
+		map.put(DyeColor.GREEN, ChatFormatting.DARK_GREEN);
+		map.put(DyeColor.CYAN, ChatFormatting.DARK_AQUA);
+		map.put(DyeColor.LIGHT_BLUE, ChatFormatting.AQUA);
+		map.put(DyeColor.BLUE, ChatFormatting.DARK_BLUE);
+		map.put(DyeColor.PURPLE, ChatFormatting.DARK_PURPLE);
+		map.put(DyeColor.MAGENTA, ChatFormatting.LIGHT_PURPLE);
 
 		//#if MC < 11600
-		map.put(DyeColor.BROWN, Formatting.DARK_RED);
-		map.put(DyeColor.PINK, Formatting.RED);
-		map.put(DyeColor.ORANGE, Formatting.GOLD);
+		map.put(DyeColor.BROWN, ChatFormatting.DARK_RED);
+		map.put(DyeColor.PINK, ChatFormatting.RED);
+		map.put(DyeColor.ORANGE, ChatFormatting.GOLD);
 		//#endif
 
-		ImmutableMap.Builder<DyeColor, Consumer<BaseText>> builder = new ImmutableMap.Builder<>();
+		ImmutableMap.Builder<DyeColor, Consumer<BaseComponent>> builder = new ImmutableMap.Builder<>();
 		map.forEach((dyeColor, fmt) -> builder.put(dyeColor, text -> formatting(text, fmt)));
 		//#if MC >= 11600
 		//$$ Arrays.stream(DyeColor.values())
@@ -187,10 +194,10 @@ public class Messenger
 		return builder.build();
 	});
 
-	public static BaseText colored(BaseText text, DyeColor value)
+	public static BaseComponent colored(BaseComponent text, DyeColor value)
 	{
 		// TODO: make microtiming utils use this too
-		Consumer<BaseText> consumer = DYE_COLOR_APPLIER.get(value);
+		Consumer<BaseComponent> consumer = DYE_COLOR_APPLIER.get(value);
 		if (consumer != null)
 		{
 			consumer.accept(text);
@@ -198,20 +205,20 @@ public class Messenger
 		return text;
 	}
 
-	public static BaseText colored(BaseText text, Object value)
+	public static BaseComponent colored(BaseComponent text, Object value)
 	{
-		Formatting color = null;
+		ChatFormatting color = null;
 		if (Boolean.TRUE.equals(value))
 		{
-			color = Formatting.GREEN;
+			color = ChatFormatting.GREEN;
 		}
 		else if (Boolean.FALSE.equals(value))
 		{
-			color = Formatting.RED;
+			color = ChatFormatting.RED;
 		}
 		if (value instanceof Number)
 		{
-			color = Formatting.GOLD;
+			color = ChatFormatting.GOLD;
 		}
 		if (color != null)
 		{
@@ -220,24 +227,24 @@ public class Messenger
 		return text;
 	}
 
-	public static BaseText colored(Object value)
+	public static BaseComponent colored(Object value)
 	{
 		return colored(s(value), value);
 	}
 
-	public static BaseText property(Property<?> property, Object value)
+	public static BaseComponent property(Property<?> property, Object value)
 	{
 		return colored(s(TextUtils.property(property, value)), value);
 	}
 
 	// Translation Text
-	public static BaseText tr(String key, Object ... args)
+	public static BaseComponent tr(String key, Object ... args)
 	{
 		return
 				//#if MC >= 11900
 				//$$ Text.translatable
 				//#else
-				new TranslatableText
+				new TranslatableComponent
 				//#endif
 						(key, args);
 	}
@@ -245,9 +252,9 @@ public class Messenger
 	// Fancy text
 	// A copy will be made to make sure the original displayText will not be modified
 	// TODO: yeets style
-	public static BaseText fancy(@Nullable String carpetStyle, @NotNull BaseText displayText, @Nullable BaseText hoverText, @Nullable ClickEvent clickEvent)
+	public static BaseComponent fancy(@Nullable String carpetStyle, @NotNull BaseComponent displayText, @Nullable BaseComponent hoverText, @Nullable ClickEvent clickEvent)
 	{
-		BaseText text = copy(displayText);
+		BaseComponent text = copy(displayText);
 		if (carpetStyle != null)
 		{
 			text.setStyle(parseCarpetStyle(carpetStyle));
@@ -263,16 +270,16 @@ public class Messenger
 		return text;
 	}
 
-	public static BaseText fancy(BaseText displayText, BaseText hoverText, ClickEvent clickEvent)
+	public static BaseComponent fancy(BaseComponent displayText, BaseComponent hoverText, ClickEvent clickEvent)
 	{
 		return fancy(null, displayText, hoverText, clickEvent);
 	}
 
-	public static BaseText join(BaseText joiner, Iterable<BaseText> items)
+	public static BaseComponent join(BaseComponent joiner, Iterable<BaseComponent> items)
 	{
-		BaseText text = s("");
+		BaseComponent text = s("");
 		boolean first = true;
-		for (BaseText item : items)
+		for (BaseComponent item : items)
 		{
 			if (!first)
 			{
@@ -284,22 +291,22 @@ public class Messenger
 		return text;
 	}
 
-	public static BaseText join(BaseText joiner, BaseText... items)
+	public static BaseComponent join(BaseComponent joiner, BaseComponent... items)
 	{
 		return join(joiner, Arrays.asList(items));
 	}
 
-	public static BaseText joinLines(Iterable<BaseText> items)
+	public static BaseComponent joinLines(Iterable<BaseComponent> items)
 	{
 		return join(newLine(), items);
 	}
 
-	public static BaseText joinLines(BaseText... items)
+	public static BaseComponent joinLines(BaseComponent... items)
 	{
 		return join(newLine(), items);
 	}
 
-	public static BaseText format(String formatter, Object... args)
+	public static BaseComponent format(String formatter, Object... args)
 	{
 		TranslatableTextAccessor dummy =
 				(TranslatableTextAccessor)(
@@ -347,7 +354,7 @@ public class Messenger
 					//#endif
 			);
 		}
-		catch (TranslationException e)
+		catch (TranslatableFormatException e)
 		{
 			throw new IllegalArgumentException(formatter);
 		}
@@ -359,19 +366,19 @@ public class Messenger
 	 * -------------------------------
 	 */
 
-	public static BaseText bool(boolean value)
+	public static BaseComponent bool(boolean value)
 	{
-		return s(String.valueOf(value), value ? Formatting.GREEN : Formatting.RED);
+		return s(String.valueOf(value), value ? ChatFormatting.GREEN : ChatFormatting.RED);
 	}
 
-	private static BaseText getTeleportHint(BaseText dest)
+	private static BaseComponent getTeleportHint(BaseComponent dest)
 	{
 		return translator.tr("teleport_hint", dest);
 	}
 
-	private static BaseText __coord(String style, @Nullable DimensionWrapper dim, String posStr, String command)
+	private static BaseComponent __coord(String style, @Nullable DimensionWrapper dim, String posStr, String command)
 	{
-		BaseText hoverText = Messenger.s("");
+		BaseComponent hoverText = Messenger.s("");
 		hoverText.append(getTeleportHint(Messenger.s(posStr)));
 		if (dim != null)
 		{
@@ -383,58 +390,58 @@ public class Messenger
 		return fancy(style, Messenger.s(posStr), hoverText, Messenger.ClickEvents.suggestCommand(command));
 	}
 
-	public static BaseText coord(String style, Vec3d pos, DimensionWrapper dim) {return __coord(style, dim, TextUtils.coord(pos), TextUtils.tp(pos, dim));}
-	public static BaseText coord(String style, Vec3i pos, DimensionWrapper dim) {return __coord(style, dim, TextUtils.coord(pos), TextUtils.tp(pos, dim));}
-	public static BaseText coord(String style, ChunkPos pos, DimensionWrapper dim) {return __coord(style, dim, TextUtils.coord(pos), TextUtils.tp(pos, dim));}
-	public static BaseText coord(String style, Vec3d pos) {return __coord(style, null, TextUtils.coord(pos), TextUtils.tp(pos));}
-	public static BaseText coord(String style, Vec3i pos) {return __coord(style, null, TextUtils.coord(pos), TextUtils.tp(pos));}
-	public static BaseText coord(String style, ChunkPos pos) {return __coord(style, null, TextUtils.coord(pos), TextUtils.tp(pos));}
-	public static BaseText coord(Vec3d pos, DimensionWrapper dim) {return coord(null, pos, dim);}
-	public static BaseText coord(Vec3i pos, DimensionWrapper dim) {return coord(null, pos, dim);}
-	public static BaseText coord(ChunkPos pos, DimensionWrapper dim) {return coord(null, pos, dim);}
-	public static BaseText coord(Vec3d pos) {return coord(null, pos);}
-	public static BaseText coord(Vec3i pos) {return coord(null, pos);}
-	public static BaseText coord(ChunkPos pos) {return coord(null, pos);}
+	public static BaseComponent coord(String style, Vec3 pos, DimensionWrapper dim) {return __coord(style, dim, TextUtils.coord(pos), TextUtils.tp(pos, dim));}
+	public static BaseComponent coord(String style, Vec3i pos, DimensionWrapper dim) {return __coord(style, dim, TextUtils.coord(pos), TextUtils.tp(pos, dim));}
+	public static BaseComponent coord(String style, ChunkPos pos, DimensionWrapper dim) {return __coord(style, dim, TextUtils.coord(pos), TextUtils.tp(pos, dim));}
+	public static BaseComponent coord(String style, Vec3 pos) {return __coord(style, null, TextUtils.coord(pos), TextUtils.tp(pos));}
+	public static BaseComponent coord(String style, Vec3i pos) {return __coord(style, null, TextUtils.coord(pos), TextUtils.tp(pos));}
+	public static BaseComponent coord(String style, ChunkPos pos) {return __coord(style, null, TextUtils.coord(pos), TextUtils.tp(pos));}
+	public static BaseComponent coord(Vec3 pos, DimensionWrapper dim) {return coord(null, pos, dim);}
+	public static BaseComponent coord(Vec3i pos, DimensionWrapper dim) {return coord(null, pos, dim);}
+	public static BaseComponent coord(ChunkPos pos, DimensionWrapper dim) {return coord(null, pos, dim);}
+	public static BaseComponent coord(Vec3 pos) {return coord(null, pos);}
+	public static BaseComponent coord(Vec3i pos) {return coord(null, pos);}
+	public static BaseComponent coord(ChunkPos pos) {return coord(null, pos);}
 
-	private static BaseText __vector(String style, String displayText, String detailedText)
+	private static BaseComponent __vector(String style, String displayText, String detailedText)
 	{
 		return fancy(style, Messenger.s(displayText), Messenger.s(detailedText), Messenger.ClickEvents.suggestCommand(detailedText));
 	}
-	public static BaseText vector(String style, Vec3d vec) {return __vector(style, TextUtils.vector(vec), TextUtils.vector(vec, 6));}
-	public static BaseText vector(Vec3d vec) {return vector(null, vec);}
+	public static BaseComponent vector(String style, Vec3 vec) {return __vector(style, TextUtils.vector(vec), TextUtils.vector(vec, 6));}
+	public static BaseComponent vector(Vec3 vec) {return vector(null, vec);}
 
-	public static BaseText entityType(EntityType<?> entityType)
+	public static BaseComponent entityType(EntityType<?> entityType)
 	{
-		return (BaseText)entityType.getName();
+		return (BaseComponent)entityType.getDescription();
 	}
-	public static BaseText entityType(Entity entity)
+	public static BaseComponent entityType(Entity entity)
 	{
 		return entityType(entity.getType());
 	}
 
-	public static BaseText entity(String style, Entity entity)
+	public static BaseComponent entity(String style, Entity entity)
 	{
-		BaseText entityBaseName = entityType(entity);
-		BaseText entityDisplayName = (BaseText)entity.getName();
-		BaseText hoverText = Messenger.c(
-				translator.tr("entity_type", entityBaseName, s(EntityType.getId(entity.getType()).toString())), newLine(),
+		BaseComponent entityBaseName = entityType(entity);
+		BaseComponent entityDisplayName = (BaseComponent)entity.getName();
+		BaseComponent hoverText = Messenger.c(
+				translator.tr("entity_type", entityBaseName, s(EntityType.getKey(entity.getType()).toString())), newLine(),
 				getTeleportHint(entityDisplayName)
 		);
 		return fancy(style, entityDisplayName, hoverText, Messenger.ClickEvents.suggestCommand(TextUtils.tp(entity)));
 	}
 
-	public static BaseText entity(Entity entity)
+	public static BaseComponent entity(Entity entity)
 	{
 		return entity(null, entity);
 	}
 
-	public static BaseText attribute(EntityAttribute attribute)
+	public static BaseComponent attribute(Attribute attribute)
 	{
 		return tr(
 				//#if MC >= 11600
 				//$$ attribute.getTranslationKey()
 				//#else
-				"attribute.name." + attribute.getId()
+				"attribute.name." + attribute.getName()
 				//#endif
 		);
 	}
@@ -445,7 +452,7 @@ public class Messenger
 	//$$ }
 	//#endif
 
-	private static final ImmutableMap<DimensionWrapper, BaseText> DIMENSION_NAME = ImmutableMap.of(
+	private static final ImmutableMap<DimensionWrapper, BaseComponent> DIMENSION_NAME = ImmutableMap.of(
 			DimensionWrapper.OVERWORLD, tr(
 					//#if MC >= 11900
 					//$$ "flat_world_preset.minecraft.overworld"
@@ -457,38 +464,38 @@ public class Messenger
 			DimensionWrapper.THE_END, tr("advancements.end.root.title")
 	);
 
-	public static BaseText dimension(DimensionWrapper dim)
+	public static BaseComponent dimension(DimensionWrapper dim)
 	{
-		BaseText dimText = DIMENSION_NAME.get(dim);
+		BaseComponent dimText = DIMENSION_NAME.get(dim);
 		return dimText != null ? copy(dimText) : Messenger.s(dim.getIdentifierString());
 	}
 
-	public static BaseText dimensionColored(BaseText text, DimensionWrapper dimensionType)
+	public static BaseComponent dimensionColored(BaseComponent text, DimensionWrapper dimensionType)
 	{
 		return formatting(text, getDimensionColor(dimensionType));
 	}
 	
-	public static Formatting getDimensionColor(DimensionWrapper dimensionType)
+	public static ChatFormatting getDimensionColor(DimensionWrapper dimensionType)
 	{
 		if (dimensionType.equals(DimensionWrapper.OVERWORLD))
 		{
-			return Formatting.DARK_GREEN;
+			return ChatFormatting.DARK_GREEN;
 		}
 		else if (dimensionType.equals(DimensionWrapper.THE_NETHER))
 		{
-			return Formatting.DARK_RED;
+			return ChatFormatting.DARK_RED;
 		}
 		else if (dimensionType.equals(DimensionWrapper.THE_END))
 		{
-			return Formatting.DARK_PURPLE;
+			return ChatFormatting.DARK_PURPLE;
 		}
 		else
 		{
-			return Formatting.WHITE;
+			return ChatFormatting.WHITE;
 		}
 	}
 
-	public static BaseText getColoredDimensionSymbol(DimensionWrapper dimensionType)
+	public static BaseComponent getColoredDimensionSymbol(DimensionWrapper dimensionType)
 	{
 		String symbol = "?";
 		if (dimensionType.equals(DimensionWrapper.OVERWORLD))
@@ -514,55 +521,55 @@ public class Messenger
 		return s(symbol, getDimensionColor(dimensionType));
 	}
 
-	public static BaseText block(Block block)
+	public static BaseComponent block(Block block)
 	{
-		return hover(tr(block.getTranslationKey()), s(TextUtils.block(block)));
+		return hover(tr(block.getDescriptionId()), s(TextUtils.block(block)));
 	}
 
-	public static BaseText block(BlockState blockState)
+	public static BaseComponent block(BlockState blockState)
 	{
-		List<BaseText> hovers = Lists.newArrayList();
+		List<BaseComponent> hovers = Lists.newArrayList();
 		hovers.add(s(TextUtils.block(blockState.getBlock())));
 		for (Property<?> property: blockState.getProperties())
 		{
 			hovers.add(Messenger.c(
 					Messenger.s(property.getName()),
 					"g : ",
-					property(property, blockState.get(property))
+					property(property, blockState.getValue(property))
 			));
 		}
 		return fancy(
 				block(blockState.getBlock()),
-				join(s("\n"), hovers.toArray(new BaseText[0])),
+				join(s("\n"), hovers.toArray(new BaseComponent[0])),
 				Messenger.ClickEvents.suggestCommand(TextUtils.block(blockState))
 		);
 	}
 
-	public static BaseText fluid(Fluid fluid)
+	public static BaseComponent fluid(Fluid fluid)
 	{
-		return hover(block(fluid.getDefaultState().getBlockState().getBlock()), s(IdentifierUtils.id(fluid).toString()));
+		return hover(block(fluid.defaultFluidState().createLegacyBlock().getBlock()), s(IdentifierUtils.id(fluid).toString()));
 	}
 
-	public static BaseText fluid(FluidState fluid)
+	public static BaseComponent fluid(FluidState fluid)
 	{
-		return fluid(fluid.getFluid());
+		return fluid(fluid.getType());
 	}
 
-	public static BaseText blockEntity(BlockEntity blockEntity)
+	public static BaseComponent blockEntity(BlockEntity blockEntity)
 	{
-		Identifier id = IdentifierUtils.id(blockEntity.getType());
+		ResourceLocation id = IdentifierUtils.id(blockEntity.getType());
 		return s(id != null ?
 				id.toString() : // vanilla block entity
 				blockEntity.getClass().getSimpleName()  // modded block entity, assuming the class name is not obfuscated
 		);
 	}
 
-	public static BaseText item(Item item)
+	public static BaseComponent item(Item item)
 	{
-		return tr(item.getTranslationKey());
+		return tr(item.getDescriptionId());
 	}
 
-	public static BaseText color(DyeColor color)
+	public static BaseComponent color(DyeColor color)
 	{
 		return translator.tr("color." + color.getName().toLowerCase());
 	}
@@ -573,7 +580,7 @@ public class Messenger
 	 * --------------------
 	 */
 
-	public static BaseText hover(BaseText text, HoverEvent hoverEvent)
+	public static BaseComponent hover(BaseComponent text, HoverEvent hoverEvent)
 	{
 		//#if MC >= 11600
 		//$$ style(text, text.getStyle().withHoverEvent(hoverEvent));
@@ -583,12 +590,12 @@ public class Messenger
 		return text;
 	}
 
-	public static BaseText hover(BaseText text, BaseText hoverText)
+	public static BaseComponent hover(BaseComponent text, BaseComponent hoverText)
 	{
 		return hover(text, HoverEvents.showText(hoverText));
 	}
 
-	public static BaseText click(BaseText text, ClickEvent clickEvent)
+	public static BaseComponent click(BaseComponent text, ClickEvent clickEvent)
 	{
 		//#if MC >= 11600
 		//$$ style(text, text.getStyle().withClickEvent(clickEvent));
@@ -598,14 +605,14 @@ public class Messenger
 		return text;
 	}
 
-	public static BaseText formatting(BaseText text, Formatting... formattings)
+	public static BaseComponent formatting(BaseComponent text, ChatFormatting... formattings)
 	{
-		text.formatted(formattings);
+		text.withStyle(formattings);
 		return text;
 	}
 
 	@SuppressWarnings("RedundantCast")  // in mc1.21.9+, Style is a final class, so we need to cast it to Object first
-	public static BaseText formatting(BaseText text, String carpetStyle)
+	public static BaseComponent formatting(BaseComponent text, String carpetStyle)
 	{
 		Style textStyle = text.getStyle();
 		StyleAccessor parsedStyle = (StyleAccessor)(Object)parseCarpetStyle(carpetStyle);
@@ -627,7 +634,7 @@ public class Messenger
 		textStyle.setColor(parsedStyle.getColor$TISCM());
 		textStyle.setBold(parsedStyle.getBold$TISCM());
 		textStyle.setItalic(parsedStyle.getItalic$TISCM());
-		textStyle.setUnderline(parsedStyle.getUnderline$TISCM());
+		textStyle.setUnderlined(parsedStyle.getUnderline$TISCM());
 		textStyle.setStrikethrough(parsedStyle.getStrikethrough$TISCM());
 		textStyle.setObfuscated(parsedStyle.getObfuscated$TISCM());
 		//#endif
@@ -635,22 +642,22 @@ public class Messenger
 		return style(text, textStyle);
 	}
 
-	public static BaseText style(BaseText text, Style style)
+	public static BaseComponent style(BaseComponent text, Style style)
 	{
 		text.setStyle(style);
 		return text;
 	}
 
-	public static BaseText copy(BaseText text)
+	public static BaseComponent copy(BaseComponent text)
 	{
-		BaseText copied;
+		BaseComponent copied;
 
 		//#if MC >= 11900
 		//$$ copied = text.copy();
 		//#elseif MC >= 11600
 		//$$ copied = (BaseText)text.shallowCopy();
 		//#else
-		copied = (BaseText)text.deepCopy();
+		copied = (BaseComponent)text.deepCopy();
 		//#endif
 
 		// mc1.16+ doesn't make a copy of args of a TranslatableText,
@@ -680,9 +687,9 @@ public class Messenger
 	 * ------------------
 	 */
 
-	private static void __tell(ServerCommandSource source, BaseText text, boolean broadcastToOps)
+	private static void __tell(CommandSourceStack source, BaseComponent text, boolean broadcastToOps)
 	{
-		if (GameUtils.getOverworld(source.getMinecraftServer()) == null)
+		if (GameUtils.getOverworld(source.getServer()) == null)
 		{
 			// Broadcasting to OP requires accessing the SEND_COMMAND_FEEDBACK gamerule,
 			// and MinecraftServer#getGameRules requires the overworld to be loaded,
@@ -692,7 +699,7 @@ public class Messenger
 		}
 
 		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
-		source.sendFeedback(
+		source.sendSuccess(
 				//#if MC >= 12000
 				//$$ () ->
 				//#endif
@@ -700,55 +707,55 @@ public class Messenger
 		);
 	}
 
-	public static void tell(ServerCommandSource source, BaseText text, boolean broadcastToOps)
+	public static void tell(CommandSourceStack source, BaseComponent text, boolean broadcastToOps)
 	{
 		__tell(source, text, broadcastToOps);
 	}
-	public static void tell(PlayerEntity player, BaseText text, boolean broadcastToOps)
+	public static void tell(Player player, BaseComponent text, boolean broadcastToOps)
 	{
-		if (player instanceof ServerPlayerEntity)
+		if (player instanceof ServerPlayer)
 		{
-			ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;  // for mc1.21.2+, where getCommandSource requires being on the server-side
-			tell(serverPlayer.getCommandSource(), text, broadcastToOps);
+			ServerPlayer serverPlayer = (ServerPlayer)player;  // for mc1.21.2+, where getCommandSource requires being on the server-side
+			tell(serverPlayer.createCommandSourceStack(), text, broadcastToOps);
 		}
 	}
-	public static void tell(ServerCommandSource source, BaseText text)
+	public static void tell(CommandSourceStack source, BaseComponent text)
 	{
 		tell(source, text, false);
 	}
-	public static void tell(PlayerEntity player, BaseText text)
+	public static void tell(Player player, BaseComponent text)
 	{
 		tell(player, text, false);
 	}
-	public static void tell(ServerCommandSource source, Iterable<BaseText> texts, boolean broadcastToOps)
+	public static void tell(CommandSourceStack source, Iterable<BaseComponent> texts, boolean broadcastToOps)
 	{
 		texts.forEach(text -> tell(source, text, broadcastToOps));
 	}
-	public static void tell(PlayerEntity player, Iterable<BaseText> texts, boolean broadcastToOps)
+	public static void tell(Player player, Iterable<BaseComponent> texts, boolean broadcastToOps)
 	{
 		texts.forEach(text -> tell(player, text, broadcastToOps));
 	}
-	public static void tell(ServerCommandSource source, Iterable<BaseText> texts)
+	public static void tell(CommandSourceStack source, Iterable<BaseComponent> texts)
 	{
 		tell(source, texts, false);
 	}
-	public static void tell(PlayerEntity player, Iterable<BaseText> texts)
+	public static void tell(Player player, Iterable<BaseComponent> texts)
 	{
 		tell(player, texts, false);
 	}
 
-	public static void reminder(PlayerEntity player, BaseText text)
+	public static void reminder(Player player, BaseComponent text)
 	{
 		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
 		//#if MC >= 11600
 		//$$ player.sendMessage
 		//#else
-		player.addChatMessage
+		player.displayClientMessage
 		//#endif
 				(text, true);
 	}
 
-	public static void sendToConsole(BaseText text)
+	public static void sendToConsole(BaseComponent text)
 	{
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
@@ -762,12 +769,12 @@ public class Messenger
 		}
 	}
 
-	public static void broadcast(BaseText text)
+	public static void broadcast(BaseComponent text)
 	{
 		sendToConsole(text);
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
-			CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayerList().forEach(player -> tell(player, text));
+			CarpetTISAdditionServer.minecraft_server.getPlayerList().getPlayers().forEach(player -> tell(player, text));
 		}
 	}
 
@@ -820,7 +827,7 @@ public class Messenger
 
 	public static class HoverEvents
 	{
-		public static HoverEvent showText(Text text)
+		public static HoverEvent showText(Component text)
 		{
 			//#if MC >= 12105
 			//$$ return new HoverEvent.ShowText(text);
@@ -847,7 +854,7 @@ public class Messenger
 
 	// some language doesn't use space char to divide word
 	// so here comes the compatibility
-	public static BaseText getSpaceText()
+	public static BaseComponent getSpaceText()
 	{
 		return translator.tr("language.space");
 	}

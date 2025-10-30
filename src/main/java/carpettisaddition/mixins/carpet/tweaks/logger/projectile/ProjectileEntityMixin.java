@@ -22,8 +22,8 @@ package carpettisaddition.mixins.carpet.tweaks.logger.projectile;
 
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.ProjectileLoggerTarget;
 import carpettisaddition.helpers.carpet.tweaks.logger.projectile.TrajectoryLoggerUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#if MC >= 11600
 //$$ import net.minecraft.entity.projectile.ProjectileEntity;
 //#else
-import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 //#endif
 
 // smaller priority to make this execute before carpet's logger creation
@@ -42,7 +42,7 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 		//#if MC >= 11600
 		//$$ value = ProjectileEntity.class,
 		//#else
-		value = ProjectileEntity.class,
+		value = AbstractArrow.class,
 		//#endif
 		priority = 500
 )
@@ -51,7 +51,7 @@ public abstract class ProjectileEntityMixin implements ProjectileLoggerTarget
 	@Unique
 	private HitResult hitResult;
 
-	@Inject(method = "<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V", at = @At("TAIL"))
+	@Inject(method = "<init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V", at = @At("TAIL"))
 	private void recordEntityInfoForCarpetTrajectoryLogHelper(CallbackInfo ci)
 	{
 		TrajectoryLoggerUtil.currentEntity.set((Entity)(Object)this);
@@ -61,7 +61,7 @@ public abstract class ProjectileEntityMixin implements ProjectileLoggerTarget
 			//#if MC >= 11600
 			//$$ method = "onCollision(Lnet/minecraft/util/hit/HitResult;)V",
 			//#else
-			method = "onHit(Lnet/minecraft/util/hit/HitResult;)V",
+			method = "onHit(Lnet/minecraft/world/phys/HitResult;)V",
 			//#endif
 			at = @At("HEAD")
 	)

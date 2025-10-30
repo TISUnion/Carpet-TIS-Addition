@@ -24,30 +24,30 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class TileEntitySubStage extends AbstractSubStage
 {
-	private final World world;
+	private final Level world;
 	private final BlockPos pos;
 	private final Block block;
 	private final int order;
 
 	public TileEntitySubStage(BlockEntity tileEntity, int order)
 	{
-		this.world = tileEntity.getWorld();
-		this.pos = tileEntity.getPos().toImmutable();
-		this.block = tileEntity.getCachedState().getBlock();
+		this.world = tileEntity.getLevel();
+		this.pos = tileEntity.getBlockPos().immutable();
+		this.block = tileEntity.getBlockState().getBlock();
 		this.order = order;
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return Messenger.c(
 				MicroTimingLoggerManager.tr("common.block"), "w : ", Messenger.block(this.block), Messenger.newLine(),

@@ -20,25 +20,25 @@
 
 package carpettisaddition.mixins.network;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 12002
 //$$ import net.minecraft.client.network.ClientCommonNetworkHandler;
 //#else
-import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 //#endif
 
 @Mixin(
 		//#if MC >= 12002
 		//$$ ClientCommonNetworkHandler.class
 		//#else
-		ClientPlayNetworkHandler.class
+		ClientPacketListener.class
 		//#endif
 )
 public interface ClientPlayNetworkHandlerAccessor
 {
-	@Accessor
-	MinecraftClient getClient();
+	@Accessor("minecraft")
+	Minecraft getClient();
 }

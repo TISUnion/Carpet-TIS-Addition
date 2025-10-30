@@ -26,13 +26,13 @@ import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.List;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 12003
 //$$ import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
@@ -58,13 +58,13 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 
 	// ----------------------- TickWarpInfo processors -----------------------
 
-	private BaseText getSourceName(TickWarpInfo info)
+	private BaseComponent getSourceName(TickWarpInfo info)
 	{
-		ServerCommandSource advancer = info.getTimeAdvancer();
-		return advancer != null ? (BaseText)advancer.getDisplayName() : tr("server");
+		CommandSourceStack advancer = info.getTimeAdvancer();
+		return advancer != null ? (BaseComponent)advancer.getDisplayName() : tr("server");
 	}
 
-	private BaseText getProgressBar(TickWarpInfoReader info)
+	private BaseComponent getProgressBar(TickWarpInfoReader info)
 	{
 		double progressRate = info.getProgressRate();
 		List<Object> list = Lists.newArrayList();
@@ -77,7 +77,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		return Messenger.c(list.toArray(new Object[0]));
 	}
 
-	private BaseText getDurationRatio(TickWarpInfoReader info)
+	private BaseComponent getDurationRatio(TickWarpInfoReader info)
 	{
 		return Messenger.c(
 				String.format("g %d", info.getCompletedTicks()),
@@ -86,7 +86,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		);
 	}
 
-	private BaseText getProgressPercentage(TickWarpInfoReader info)
+	private BaseComponent getProgressPercentage(TickWarpInfoReader info)
 	{
 		return Messenger.c(String.format("g %.1f%%", info.getProgressRate() * 100));
 	}
@@ -100,7 +100,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public BaseComponent[] onHudUpdate(String option, Player playerEntity)
 	{
 		if (!this.realtimeInfo.isWarping())
 		{
@@ -122,7 +122,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		}
 		list.add("w  ");
 		list.add(this.getProgressPercentage(this.realtimeInfo));
-		return new BaseText[]{Messenger.c(list.toArray(new Object[0]))};
+		return new BaseComponent[]{Messenger.c(list.toArray(new Object[0]))};
 	}
 
 	// ----------------------- As a command extension -----------------------
@@ -138,7 +138,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		//#if MC >= 12003
 		//$$ var warpNode = context.node;
 		//#else
-		LiteralArgumentBuilder<ServerCommandSource> warpNode = literal("warp");
+		LiteralArgumentBuilder<CommandSourceStack> warpNode = literal("warp");
 		//#endif
 
 		warpNode.then(literal("status").
@@ -153,12 +153,12 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		//#endif
 	}
 
-	private static void addLine(List<BaseText> list, BaseText name, Object data)
+	private static void addLine(List<BaseComponent> list, BaseComponent name, Object data)
 	{
 		list.add(Messenger.c(name, "g : ", data));
 	}
 
-	private BaseText getTimeInfo(TickWarpInfoReader info, long ticks)
+	private BaseComponent getTimeInfo(TickWarpInfoReader info, long ticks)
 	{
 		return tr(
 				"time_info",
@@ -167,7 +167,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		);
 	}
 
-	private void generateTickWarpInfo(TickWarpInfo info, List<BaseText> result)
+	private void generateTickWarpInfo(TickWarpInfo info, List<BaseComponent> result)
 	{
 		result.add(Messenger.s(" "));
 		addLine(result, tr("starter"), this.getSourceName(info));
@@ -184,9 +184,9 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 		));
 	}
 
-	private int showTickWarpInfo(ServerCommandSource source)
+	private int showTickWarpInfo(CommandSourceStack source)
 	{
-		List<BaseText> result = Lists.newArrayList();
+		List<BaseComponent> result = Lists.newArrayList();
 		if (this.realtimeInfo.isWarping())
 		{
 			this.generateTickWarpInfo(this.realtimeInfo, result);
@@ -206,7 +206,7 @@ public class TickWarpHUDLogger extends AbstractHUDLogger implements CommandExten
 
 	// ----------------------- Hooks -----------------------
 
-	public void recordTickWarpAdvancer(ServerCommandSource advancer)
+	public void recordTickWarpAdvancer(CommandSourceStack advancer)
 	{
 		this.realtimeInfo.setTimeAdvancer(advancer);
 		this.historyInfo.setTimeAdvancer(advancer);

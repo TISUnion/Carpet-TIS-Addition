@@ -24,13 +24,13 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.StructureBlockBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.StructureBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(StructureBlockBlockEntity.class)
+@Mixin(StructureBlockEntity.class)
 public abstract class StructureBlockBlockEntityMixin extends BlockEntity
 {
 	public StructureBlockBlockEntityMixin(BlockEntityType<?> type)
@@ -39,7 +39,7 @@ public abstract class StructureBlockBlockEntityMixin extends BlockEntity
 	}
 
 	@Override
-	public double getSquaredRenderDistance()
+	public double getViewDistance()
 	{
 		return CarpetTISAdditionSettings.structureBlockOutlineDistance * CarpetTISAdditionSettings.structureBlockOutlineDistance;
 	}

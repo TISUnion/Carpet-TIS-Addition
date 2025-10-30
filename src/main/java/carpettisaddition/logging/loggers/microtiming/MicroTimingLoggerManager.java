@@ -37,26 +37,26 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.ItemUtils;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Property;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.ScheduledTick;
-import net.minecraft.world.TickPriority;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.TickNextTickData;
+import net.minecraft.world.level.TickPriority;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -76,30 +76,30 @@ public class MicroTimingLoggerManager
 {
 	private static MicroTimingLoggerManager instance;
 
-	private final Map<ServerWorld, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
+	private final Map<ServerLevel, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
 	public static final Translator TRANSLATOR = (new AbstractLogger(MicroTimingLogger.NAME, false){}).getTranslator();
 	private TickPhase offWorldTickPhase = new TickPhase(TickStage.UNKNOWN, null);
-	public ThreadLocal<ServerWorld> currentWorld = ThreadLocal.withInitial(() -> null);
+	public ThreadLocal<ServerLevel> currentWorld = ThreadLocal.withInitial(() -> null);
 
 	//#if MC >= 11600
 	//$$ // for scarpet event
 	//$$ public static final Set<BlockPos> trackedPositions = Sets.newHashSet();
 	//#endif
 
-	public static BaseText tr(String key, Object... args)
+	public static BaseComponent tr(String key, Object... args)
 	{
 		return TRANSLATOR.tr(key, args);
 	}
 
 	public MicroTimingLoggerManager(MinecraftServer minecraftServer)
 	{
-		for (ServerWorld world : minecraftServer.getWorlds())
+		for (ServerLevel world : minecraftServer.getAllLevels())
 		{
 			this.loggers.put(world, ((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger());
 		}
 	}
 
-	public Map<ServerWorld, MicroTimingLogger> getLoggers()
+	public Map<ServerLevel, MicroTimingLogger> getLoggers()
 	{
 		return this.loggers;
 	}
@@ -142,9 +142,9 @@ public class MicroTimingLoggerManager
 		return instance;
 	}
 
-	private static Optional<MicroTimingLogger> getWorldLogger(World world)
+	private static Optional<MicroTimingLogger> getWorldLogger(Level world)
 	{
-		if (instance != null && world instanceof ServerWorld)
+		if (instance != null && world instanceof ServerLevel)
 		{
 			return Optional.of(((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger());
 		}
@@ -186,7 +186,7 @@ public class MicroTimingLoggerManager
 	 * ----------------------------------
 	 */
 
-	public static void onScheduleBlockUpdate(World world, BlockPos pos, Block sourceBlock, BlockUpdateType updateType, Direction exceptSide)
+	public static void onScheduleBlockUpdate(Level world, BlockPos pos, Block sourceBlock, BlockUpdateType updateType, Direction exceptSide)
 	{
 		if (!isLoggerActivated())
 		{
@@ -199,7 +199,7 @@ public class MicroTimingLoggerManager
 		);
 	}
 
-	public static void onBlockUpdate(World world, BlockPos pos, Block sourceBlock, BlockUpdateType updateType, Direction exceptSide, EventType eventType)
+	public static void onBlockUpdate(Level world, BlockPos pos, Block sourceBlock, BlockUpdateType updateType, Direction exceptSide, EventType eventType)
 	{
 		if (!isLoggerActivated())
 		{
@@ -212,7 +212,7 @@ public class MicroTimingLoggerManager
 		);
 	}
 	
-	public static void onSetBlockState(World world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, int flags, EventType eventType)
+	public static void onSetBlockState(Level world, BlockPos pos, BlockState oldState, BlockState newState, Boolean returnValue, int flags, EventType eventType)
 	{
 		if (!isLoggerActivated())
 		{
@@ -235,9 +235,9 @@ public class MicroTimingLoggerManager
 					}
 					color = optionalDyeColor.get();
 				}
-				if (oldState.get(property) != newState.get(property))
+				if (oldState.getValue(property) != newState.getValue(property))
 				{
-					changes.add(new BlockStateChangeEvent.PropertyChange(property, oldState.get(property), newState.get(property)));
+					changes.add(new BlockStateChangeEvent.PropertyChange(property, oldState.getValue(property), newState.getValue(property)));
 				}
 			}
 			if (!changes.isEmpty())
@@ -268,7 +268,7 @@ public class MicroTimingLoggerManager
 	 * -----------
 	 */
 
-	public static void onExecuteTileTickEvent(World world, ScheduledTick<?> tileTickEvent, EventType eventType)
+	public static void onExecuteTileTickEvent(Level world, TickNextTickData<?> tileTickEvent, EventType eventType)
 	{
 		if (!isLoggerActivated())
 		{
@@ -289,7 +289,7 @@ public class MicroTimingLoggerManager
 		));
 	}
 
-	public static void onScheduleTileTickEvent(World world, Object object, BlockPos pos, int delay, TickPriority priority, Boolean success)
+	public static void onScheduleTileTickEvent(Level world, Object object, BlockPos pos, int delay, TickPriority priority, Boolean success)
 	{
 		if (!isLoggerActivated())
 		{
@@ -308,7 +308,7 @@ public class MicroTimingLoggerManager
 	 * -------------
 	 */
 
-	public static void onExecuteBlockEvent(World world, BlockAction blockAction, Boolean returnValue, ExecuteBlockEventEvent.FailInfo failInfo, EventType eventType)
+	public static void onExecuteBlockEvent(Level world, BlockEventData blockAction, Boolean returnValue, ExecuteBlockEventEvent.FailInfo failInfo, EventType eventType)
 	{
 		if (!isLoggerActivated())
 		{
@@ -320,7 +320,7 @@ public class MicroTimingLoggerManager
 		);
 	}
 
-	public static void onScheduleBlockEvent(World world, BlockAction blockAction, boolean success)
+	public static void onScheduleBlockEvent(Level world, BlockEventData blockAction, boolean success)
 	{
 		if (!isLoggerActivated())
 		{
@@ -338,7 +338,7 @@ public class MicroTimingLoggerManager
 	 * ------------------
 	 */
 
-	public static void onEmitBlockUpdate(World world, Block block, BlockPos pos, EventType eventType, String methodName)
+	public static void onEmitBlockUpdate(Level world, Block block, BlockPos pos, EventType eventType, String methodName)
 	{
 		if (!isLoggerActivated())
 		{
@@ -350,7 +350,7 @@ public class MicroTimingLoggerManager
 		);
 	}
 
-	public static void onEmitBlockUpdateRedstoneDust(World world, Block block, BlockPos pos, EventType eventType, String methodName, Collection<BlockPos> updateOrder)
+	public static void onEmitBlockUpdateRedstoneDust(Level world, Block block, BlockPos pos, EventType eventType, String methodName, Collection<BlockPos> updateOrder)
 	{
 		if (!isLoggerActivated())
 		{
@@ -368,7 +368,7 @@ public class MicroTimingLoggerManager
 	 * --------------------
 	 */
 
-	public static void setTickStage(World world, @NotNull TickStage stage)
+	public static void setTickStage(Level world, @NotNull TickStage stage)
 	{
 		getWorldLogger(world).ifPresent(logger -> logger.setTickStage(stage));
 	}
@@ -385,12 +385,12 @@ public class MicroTimingLoggerManager
 		}
 	}
 
-	public static void setTickStageDetail(World world, @Nullable String detail)
+	public static void setTickStageDetail(Level world, @Nullable String detail)
 	{
 		getWorldLogger(world).ifPresent(logger -> logger.setTickStageDetail(detail));
 	}
 
-	public static void setSubTickStage(World world, AbstractSubStage stage)
+	public static void setSubTickStage(Level world, AbstractSubStage stage)
 	{
 		getWorldLogger(world).ifPresent(logger -> logger.setSubTickStage(stage));
 	}
@@ -421,13 +421,13 @@ public class MicroTimingLoggerManager
 	 * ----------------
 	 */
 
-	public static void setCurrentWorld(ServerWorld world)
+	public static void setCurrentWorld(ServerLevel world)
 	{
 		getInstance().currentWorld.set(world);
 	}
 
 	@Nullable
-	public static ServerWorld getCurrentWorld()
+	public static ServerLevel getCurrentWorld()
 	{
 		return getInstance().currentWorld.get();
 	}
@@ -455,21 +455,21 @@ public class MicroTimingLoggerManager
 	 * ----------------
 	 */
 
-	public static boolean onPlayerRightClick(PlayerEntity playerEntity, Hand hand, BlockPos blockPos)
+	public static boolean onPlayerRightClick(Player playerEntity, InteractionHand hand, BlockPos blockPos)
 	{
-		if (MicroTimingUtil.isMarkerEnabled() && playerEntity instanceof ServerPlayerEntity && hand == Hand.MAIN_HAND && MicroTimingUtil.isPlayerSubscribed(playerEntity))
+		if (MicroTimingUtil.isMarkerEnabled() && playerEntity instanceof ServerPlayer && hand == InteractionHand.MAIN_HAND && MicroTimingUtil.isPlayerSubscribed(playerEntity))
 		{
-			ItemStack itemStack = playerEntity.getMainHandStack();
+			ItemStack itemStack = playerEntity.getMainHandItem();
 			Item holdingItem = itemStack.getItem();
 			if (holdingItem instanceof DyeItem)
 			{
-				BaseText name = null;
+				BaseComponent name = null;
 				if (ItemUtils.hasCustomName(itemStack))
 				{
-					name = (BaseText)itemStack.getName();
+					name = (BaseComponent)itemStack.getHoverName();
 				}
 				// server-side check will be in addMarker
-				MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, ((DyeItem)holdingItem).getColor(), name);
+				MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, ((DyeItem)holdingItem).getDyeColor(), name);
 				return true;
 			}
 			if (holdingItem == Items.SLIME_BALL)
@@ -480,7 +480,7 @@ public class MicroTimingLoggerManager
 		return false;
 	}
 
-	public static void moveMarker(World world, BlockPos blockPos, Direction direction)
+	public static void moveMarker(Level world, BlockPos blockPos, Direction direction)
 	{
 		if (MicroTimingUtil.isMarkerEnabled())
 		{

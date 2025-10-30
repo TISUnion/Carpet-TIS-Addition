@@ -22,7 +22,7 @@ package carpettisaddition.translations;
 
 import carpettisaddition.utils.Messenger;
 import com.google.common.base.Strings;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public class Translator
 {
@@ -52,7 +52,7 @@ public class Translator
 		return this.translationPath;
 	}
 
-	public BaseText tr(String key, Object... args)
+	public BaseComponent tr(String key, Object... args)
 	{
 		String translationKey = TranslationConstants.TRANSLATION_KEY_PREFIX + this.translationPath + "." + key;
 		return Messenger.tr(translationKey, args);

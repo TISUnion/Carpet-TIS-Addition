@@ -28,15 +28,15 @@ import carpet.CarpetSettings;
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
 import carpettisaddition.utils.CollectionUtils;
-import net.minecraft.block.TripwireBlock;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.level.block.TripWireBlock;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.List;
 
-@Mixin(TripwireBlock.class)
+@Mixin(TripWireBlock.class)
 public abstract class TripwireBlockMixin
 {
 	@ModifyVariable(
@@ -45,7 +45,7 @@ public abstract class TripwireBlockMixin
 			//$$ at = @At("HEAD"),
 			//$$ argsOnly = true
 			//#else
-			method = "updatePowered",
+			method = "checkPressed",
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/List;isEmpty()Z"

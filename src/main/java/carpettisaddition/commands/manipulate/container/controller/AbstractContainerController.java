@@ -27,10 +27,10 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 public abstract class AbstractContainerController extends TranslationContext
 {
@@ -43,17 +43,17 @@ public abstract class AbstractContainerController extends TranslationContext
 		this.commandPrefix = translationName.replace("_", "");
 	}
 
-	protected BaseText getName()
+	protected BaseComponent getName()
 	{
 		return tr("name");
 	}
 
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandTreeContext context)
+	public ArgumentBuilder<CommandSourceStack, ?> getCommandNode(CommandTreeContext context)
 	{
 		return literal(this.commandPrefix).executes(c -> this.showHelp(c.getSource()));
 	}
 
-	protected int showHelp(ServerCommandSource source)
+	protected int showHelp(CommandSourceStack source)
 	{
 		Messenger.tell(source, basicTranslator.tr("help", this.getName()));
 		return 1;

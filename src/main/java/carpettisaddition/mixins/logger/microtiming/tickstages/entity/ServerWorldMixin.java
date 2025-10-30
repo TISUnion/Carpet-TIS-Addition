@@ -23,13 +23,13 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.entity;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.interfaces.WorldWithEntityTickingOrder;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin
 {
 	@Inject(
@@ -51,7 +51,7 @@ public abstract class ServerWorldMixin
 	)
 	private void enterStageEntities(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.ENTITY);
+		MicroTimingLoggerManager.setTickStage((ServerLevel)(Object)this, TickStage.ENTITY);
 		((WorldWithEntityTickingOrder)this).setEntityOrderCounter(0);
 	}
 
@@ -59,11 +59,11 @@ public abstract class ServerWorldMixin
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;tickBlockEntities()V"
+					target = "Lnet/minecraft/server/level/ServerLevel;tickBlockEntities()V"
 			)
 	)
 	private void exitStageEntities(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.UNKNOWN);
+		MicroTimingLoggerManager.setTickStage((ServerLevel)(Object)this, TickStage.UNKNOWN);
 	}
 }

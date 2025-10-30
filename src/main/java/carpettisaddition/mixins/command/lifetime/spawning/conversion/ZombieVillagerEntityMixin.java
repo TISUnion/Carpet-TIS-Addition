@@ -25,20 +25,20 @@ import carpettisaddition.commands.lifetime.spawning.MobConversionSpawningReason;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.mob.ZombieVillagerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(ZombieVillagerEntity.class)
-public abstract class ZombieVillagerEntityMixin extends ZombieEntity
+@Mixin(ZombieVillager.class)
+public abstract class ZombieVillagerEntityMixin extends Zombie
 {
-	public ZombieVillagerEntityMixin(EntityType<? extends ZombieEntity> type, World world)
+	public ZombieVillagerEntityMixin(EntityType<? extends Zombie> type, Level world)
 	{
 		super(type, world);
 	}
@@ -47,7 +47,7 @@ public abstract class ZombieVillagerEntityMixin extends ZombieEntity
 			method = "finishConversion",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private Entity lifetimeTracker_recordSpawning_conversion_zombieVillagerCure(Entity villager)

@@ -26,8 +26,8 @@ import carpettisaddition.helpers.rule.optimizedHardHitBoxEntityCollision.Optimiz
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class IWorldOverridesMixin
 {
 	@Inject(method = "getEntityCollisionsPre", at = @At("HEAD"), remap = false)
-	private static void optimizedHardHitBoxEntityCollision_enableFlag(Entity entity, Box box, CallbackInfo ci)
+	private static void optimizedHardHitBoxEntityCollision_enableFlag(Entity entity, AABB box, CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.optimizedHardHitBoxEntityCollision)
 		{
@@ -50,7 +50,7 @@ public abstract class IWorldOverridesMixin
 	}
 
 	@Inject(method = "getEntityCollisionsPost", at = @At("HEAD"), remap = false)
-	private static void optimizedHardHitBoxEntityCollision_disableFlag(Entity entity, Box box, CallbackInfo ci)
+	private static void optimizedHardHitBoxEntityCollision_disableFlag(Entity entity, AABB box, CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.optimizedHardHitBoxEntityCollision)
 		{

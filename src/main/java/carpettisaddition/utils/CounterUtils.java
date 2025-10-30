@@ -20,7 +20,7 @@
 
 package carpettisaddition.utils;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public class CounterUtils
 {
@@ -67,7 +67,7 @@ public class CounterUtils
 	 *            ",", "(", "/h)" uses fmt[1]
 	 *            "%.1f uses fmt[2]
  	 */
-	public static BaseText ratePerHourText(long amount, long ticks, String fmt)
+	public static BaseComponent ratePerHourText(long amount, long ticks, String fmt)
 	{
 		assert fmt.length() == 3;
 		return Messenger.c(
@@ -78,7 +78,7 @@ public class CounterUtils
 		);
 	}
 
-	public static BaseText ratePerHourText(int amount, long ticks, String fmt)
+	public static BaseComponent ratePerHourText(int amount, long ticks, String fmt)
 	{
 		return ratePerHourText((long)amount, ticks, fmt);
 	}

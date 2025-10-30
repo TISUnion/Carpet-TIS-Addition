@@ -23,12 +23,12 @@ package carpettisaddition.helpers.carpet.loggerRestriction.ruleSwitch;
 import carpettisaddition.settings.validator.PermissionLevelValidator;
 import carpettisaddition.settings.validator.ValidationContext;
 import com.google.common.base.Joiner;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public class LoggerSwitchValidator extends PermissionLevelValidator
 {
 	@Override
-	public BaseText errorMessage(ValidationContext<String> ctx)
+	public BaseComponent errorMessage(ValidationContext<String> ctx)
 	{
 		return tr("logger_switch.message", Joiner.on(", ").join(LoggerSwitchRuleCommon.OPTIONS));
 	}

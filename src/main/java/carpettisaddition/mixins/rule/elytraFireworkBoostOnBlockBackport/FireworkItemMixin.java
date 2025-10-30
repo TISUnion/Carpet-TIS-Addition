@@ -24,30 +24,30 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.item.FireworkItem;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.item.FireworkRocketItem;
+import net.minecraft.world.item.UseOnContext;
+import net.minecraft.world.InteractionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.21.6"))
-@Mixin(FireworkItem.class)
+@Mixin(FireworkRocketItem.class)
 public abstract class FireworkItemMixin
 {
 	@Inject(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At("HEAD"),
 			cancellable = true
 	)
-	private void elytraFireworkBoostOnBlockBackport_disallowIfThePlayerIsFallFlying(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir)
+	private void elytraFireworkBoostOnBlockBackport_disallowIfThePlayerIsFallFlying(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir)
 	{
 		if (CarpetTISAdditionSettings.elytraFireworkBoostOnBlockBackport)
 		{
 			if (context.getPlayer() != null && context.getPlayer().isFallFlying())
 			{
-				cir.setReturnValue(ActionResult.PASS);
+				cir.setReturnValue(InteractionResult.PASS);
 			}
 		}
 	}

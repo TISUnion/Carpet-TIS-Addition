@@ -23,20 +23,20 @@ package carpettisaddition.utils.gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
 
-public class IdentifierAdaptor extends TypeAdapter<Identifier>
+public class IdentifierAdaptor extends TypeAdapter<ResourceLocation>
 {
 	@Override
-	public void write(JsonWriter writer, Identifier value) throws IOException
+	public void write(JsonWriter writer, ResourceLocation value) throws IOException
 	{
 		writer.value(value == null ? null : value.toString());
 	}
 
 	@Override
-	public Identifier read(JsonReader reader) throws IOException
+	public ResourceLocation read(JsonReader reader) throws IOException
 	{
 		throw new UnsupportedOperationException("Not supported yet");
 	}

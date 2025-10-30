@@ -21,14 +21,14 @@
 package carpettisaddition.mixins.command.manipulate.block;
 
 import com.mojang.brigadier.exceptions.Dynamic2CommandExceptionType;
-import net.minecraft.server.command.FillCommand;
+import net.minecraft.server.commands.FillCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(FillCommand.class)
 public interface FillCommandAccessor
 {
-	@Accessor("TOOBIG_EXCEPTION")
+	@Accessor("ERROR_AREA_TOO_LARGE")
 	static Dynamic2CommandExceptionType getTooBigException()
 	{
 		throw new RuntimeException();

@@ -25,12 +25,12 @@ import carpettisaddition.settings.validator.RuleChangeListener;
 import carpettisaddition.settings.validator.ValidationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.mixin.testers.LithiumBlockHopperTester;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
 
 public class HopperXpCountersRuleListener extends RuleChangeListener<Boolean>
 {
-	protected static BaseText tr(String key, Object... args)
+	protected static BaseComponent tr(String key, Object... args)
 	{
 		return XpCounterCommand.getInstance().getTranslator().tr(key, args);
 	}
@@ -44,7 +44,7 @@ public class HopperXpCountersRuleListener extends RuleChangeListener<Boolean>
 			{
 				Messenger.tell(ctx.source, Messenger.formatting(
 						tr("lithium_hopper_sleeping_notice"),
-						Formatting.GRAY, Formatting.ITALIC
+						ChatFormatting.GRAY, ChatFormatting.ITALIC
 				));
 			}
 		}

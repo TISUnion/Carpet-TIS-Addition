@@ -24,10 +24,10 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.PlayerActionSubStage;
 import carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.MinecraftServerMixin;
-import net.minecraft.network.NetworkThreadUtils;
-import net.minecraft.network.Packet;
-import net.minecraft.network.listener.PacketListener;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.network.protocol.PacketUtils;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.PacketListener;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,10 +36,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#if MC >= 1.21.9
 //$$ import net.minecraft.network.PacketApplyBatcher;
 //#else
-import net.minecraft.util.thread.ThreadExecutor;
+import net.minecraft.util.thread.BlockableEventLoop;
 //#endif
 
-@Mixin(NetworkThreadUtils.class)
+@Mixin(PacketUtils.class)
 public abstract class NetworkThreadUtilsMixin<T>
 {
 	/**
@@ -49,7 +49,7 @@ public abstract class NetworkThreadUtilsMixin<T>
 			//#if MC >= 1.21.9
 			//$$ method = "forceMainThread(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;Lnet/minecraft/network/PacketApplyBatcher;)V",
 			//#else
-			method = "forceMainThread(Lnet/minecraft/network/Packet;Lnet/minecraft/network/listener/PacketListener;Lnet/minecraft/util/thread/ThreadExecutor;)V",
+			method = "ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V",
 			//#endif
 			at = @At("HEAD")
 	)
@@ -58,17 +58,17 @@ public abstract class NetworkThreadUtilsMixin<T>
 			//#if MC >= 1.21.9
 			//$$ PacketApplyBatcher engine,
 			//#else
-			ThreadExecutor<?> engine,
+			BlockableEventLoop<?> engine,
 			//#endif
 			CallbackInfo ci
 	)
 	{
-		if (engine.isOnThread())
+		if (engine.isSameThread())
 		{
-			if (listener instanceof ServerPlayNetworkHandler)
+			if (listener instanceof ServerGamePacketListenerImpl)
 			{
 				// reset at carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.MinecraftServerMixin
-				ServerPlayNetworkHandler handler = (ServerPlayNetworkHandler) listener;
+				ServerGamePacketListenerImpl handler = (ServerGamePacketListenerImpl) listener;
 				MicroTimingLoggerManager.setTickStage(TickStage.PLAYER_ACTION);
 				MicroTimingLoggerManager.setSubTickStage(new PlayerActionSubStage(handler.player));
 			}

@@ -21,14 +21,14 @@
 package carpettisaddition.commands.lifetime.utils;
 
 import carpettisaddition.utils.IdentifierUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.entity.vehicle.BoatEntity;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.core.Registry;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -37,7 +37,7 @@ public class LifeTimeTrackerUtil
 {
 	public static boolean isTrackedEntityClass(Entity entity)
 	{
-		return entity instanceof MobEntity || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof AbstractMinecartEntity || entity instanceof BoatEntity;
+		return entity instanceof Mob || entity instanceof ItemEntity || entity instanceof ExperienceOrb || entity instanceof AbstractMinecart || entity instanceof Boat;
 	}
 
 	public static String getEntityTypeDescriptor(EntityType<?> entityType)

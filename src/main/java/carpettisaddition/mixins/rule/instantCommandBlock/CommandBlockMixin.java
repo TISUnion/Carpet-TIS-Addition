@@ -23,14 +23,14 @@ package carpettisaddition.mixins.rule.instantCommandBlock;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.instantCommandBlock.ICommandBlockExecutor;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CommandBlock;
-import net.minecraft.block.entity.CommandBlockBlockEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CommandBlock;
+import net.minecraft.world.level.block.entity.CommandBlockEntity;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,7 +51,7 @@ public abstract class CommandBlockMixin
 	@Shadow public abstract void
 	//#if MC >= 11500
 	//#disable-remap
-	scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
+	tick(BlockState state, ServerLevel world, BlockPos pos, Random random);
 	//#enable-remap
 	//#else
 	//$$ onScheduledTick(BlockState state, World world, BlockPos pos, Random random);
@@ -61,14 +61,14 @@ public abstract class CommandBlockMixin
 			//#if MC >= 12102
 			//$$ method = "update",
 			//#else
-			method = "neighborUpdate",
+			method = "neighborChanged",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
 					//$$ target = "Lnet/minecraft/world/World;createAndScheduleBlockTick(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;I)V"
 					//#else
-					target = "Lnet/minecraft/world/TickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"
+					target = "Lnet/minecraft/world/level/TickList;scheduleTick(Lnet/minecraft/core/BlockPos;Ljava/lang/Object;I)V"
 					//#endif
 			),
 			cancellable = true
@@ -78,19 +78,19 @@ public abstract class CommandBlockMixin
 			//#if MC < 12102
 			@Local(argsOnly = true) BlockState state,
 			//#endif
-			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true) Level world,
 			@Local(argsOnly = true, ordinal = 0) BlockPos pos,
 			@Local(
 					//#if MC >= 12102
 					//$$ argsOnly = true
 					//#endif
 			)
-			CommandBlockBlockEntity commandBlockBlockEntity
+			CommandBlockEntity commandBlockBlockEntity
 	)
 	{
 		if (CarpetTISAdditionSettings.instantCommandBlock)
 		{
-			if (world instanceof ServerWorld && commandBlockBlockEntity.getCommandBlockType() == CommandBlockBlockEntity.Type.REDSTONE)
+			if (world instanceof ServerLevel && commandBlockBlockEntity.getMode() == CommandBlockEntity.Mode.REDSTONE)
 			{
 				//#if MC >= 12102
 				//$$ BlockState state = world.getBlockState(pos);
@@ -100,15 +100,15 @@ public abstract class CommandBlockMixin
 				//$$ }
 				//#endif
 
-				ServerWorld serverWorld = (ServerWorld)world;
-				Block blockBelow = world.getBlockState(pos.down()).getBlock();
+				ServerLevel serverWorld = (ServerLevel)world;
+				Block blockBelow = world.getBlockState(pos.below()).getBlock();
 				if (blockBelow == Blocks.REDSTONE_ORE)
 				{
-					ICommandBlockExecutor icbe = (ICommandBlockExecutor)commandBlockBlockEntity.getCommandExecutor();
+					ICommandBlockExecutor icbe = (ICommandBlockExecutor)commandBlockBlockEntity.getCommandBlock();
 					icbe.setIgnoreWorldTimeCheck(true);
 
 					//#if MC >= 11500
-					this.scheduledTick
+					this.tick
 					//#else
 					//$$ this.onScheduledTick
 					//#endif

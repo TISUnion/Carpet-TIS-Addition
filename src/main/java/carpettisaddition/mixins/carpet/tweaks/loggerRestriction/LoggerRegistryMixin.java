@@ -25,7 +25,7 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.helpers.carpet.loggerRestriction.CarpetLoggerRestriction;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,9 +45,9 @@ public abstract class LoggerRegistryMixin
 	private static void switchableLogger_lastCheck(String playerName, String logName, String option, CallbackInfo ci)
 	{
 		Logger logger = LoggerRegistry.getLogger(logName);
-		Optional<ServerPlayerEntity> opt = Optional.ofNullable(CarpetTISAdditionServer.minecraft_server).
-				map(MinecraftServer::getPlayerManager).
-				map(pm -> pm.getPlayer(playerName));
+		Optional<ServerPlayer> opt = Optional.ofNullable(CarpetTISAdditionServer.minecraft_server).
+				map(MinecraftServer::getPlayerList).
+				map(pm -> pm.getPlayerByName(playerName));
 		if (logger != null && opt.isPresent())
 		{
 			if (!CarpetLoggerRestriction.isLoggerSubscribable(logger, opt.get(), option))

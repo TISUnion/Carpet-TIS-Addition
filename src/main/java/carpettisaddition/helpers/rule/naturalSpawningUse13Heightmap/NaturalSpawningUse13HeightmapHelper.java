@@ -21,20 +21,24 @@
 package carpettisaddition.helpers.rule.naturalSpawningUse13Heightmap;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
+import net.minecraft.world.level.block.piston.PistonHeadBlock;
+import net.minecraft.world.level.block.SlimeBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.ChunkAccess;
 
 public class NaturalSpawningUse13HeightmapHelper
 {
-	public static int sampleHeightmap(World world, Chunk chunk, int x, int z, int initY)
+	public static int sampleHeightmap(Level world, ChunkAccess chunk, int x, int z, int initY)
 	{
-		BlockPos.Mutable pos = new BlockPos.Mutable();
+		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
 		//#if MC >= 11700
 		//$$ final int minY = world.getBottomY();
@@ -67,9 +71,9 @@ public class NaturalSpawningUse13HeightmapHelper
 		if (CarpetTISAdditionSettings.naturalSpawningUse13HeightmapExtra)
 		{
 			return
-					block instanceof PistonBlock || block instanceof PistonHeadBlock || block instanceof SlimeBlock
+					block instanceof PistonBaseBlock || block instanceof PistonHeadBlock || block instanceof SlimeBlock
 					//#if MC >= 11500
-					|| block instanceof net.minecraft.block.HoneyBlock
+					|| block instanceof net.minecraft.world.level.block.HoneyBlock
 					//#endif
 					;
 		}
@@ -77,34 +81,34 @@ public class NaturalSpawningUse13HeightmapHelper
 	}
 
 	/**
-	 * {@link net.minecraft.world.chunk.light.ChunkLightProvider#getStateForLighting}
+	 * {@link net.minecraft.world.level.lighting.LayerLightEngine#getStateForLighting}
 	 */
-	private static boolean isIgnoredByHeightmap(World world, BlockPos pos, BlockState blockState)
+	private static boolean isIgnoredByHeightmap(Level world, BlockPos pos, BlockState blockState)
 	{
-		boolean hasDirectionalOpacity = blockState.isOpaque() && blockState.hasSidedTransparency();
+		boolean hasDirectionalOpacity = blockState.canOcclude() && blockState.useShapeForLightOcclusion();
 		if (hasDirectionalOpacity)
 		{
-			VoxelShape voxelUp = blockState.getCullingFace(
+			VoxelShape voxelUp = blockState.getFaceOcclusionShape(
 					//#if MC < 12102
 					world, pos,
 					//#endif
 					Direction.UP
 			);
-			VoxelShape voxelDown = blockState.getCullingFace(
+			VoxelShape voxelDown = blockState.getFaceOcclusionShape(
 					//#if MC < 12102
 					world, pos,
 					//#endif
 					Direction.DOWN
 			);
 			//#if MC >= 11500
-			return !VoxelShapes.unionCoversFullCube(voxelUp, voxelDown);
+			return !Shapes.faceShapeOccludes(voxelUp, voxelDown);
 			//#else
 			//$$ return !VoxelShapes.method_20713(voxelUp, voxelDown);
 			//#endif
 		}
 		else
 		{
-			return blockState.getOpacity(
+			return blockState.getLightBlock(
 					//#if MC < 12102
 					world, pos
 					//#endif
@@ -112,8 +116,8 @@ public class NaturalSpawningUse13HeightmapHelper
 		}
 	}
 
-	public static int sampleHeightmap(World world, Chunk chunk, int x, int z)
+	public static int sampleHeightmap(Level world, ChunkAccess chunk, int x, int z)
 	{
-		return sampleHeightmap(world, chunk, x, z, chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE, x, z));
+		return sampleHeightmap(world, chunk, x, z, chunk.getHeight(Heightmap.Types.WORLD_SURFACE, x, z));
 	}
 }

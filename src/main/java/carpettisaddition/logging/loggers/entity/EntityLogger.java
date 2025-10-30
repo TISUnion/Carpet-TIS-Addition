@@ -28,11 +28,11 @@ import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.level.Level;
 
 import java.util.Arrays;
 import java.util.List;
@@ -67,22 +67,22 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 		return LoggingType.LOGGING_SUGGESTIONS;
 	}
 
-	protected BaseText getNameText(T entity)
+	protected BaseComponent getNameText(T entity)
 	{
-		return Messenger.tr(entity.getType().getTranslationKey());
+		return Messenger.tr(entity.getType().getDescriptionId());
 	}
 
-	protected BaseText getNameTextHoverText(T entity)
+	protected BaseComponent getNameTextHoverText(T entity)
 	{
 		return null;
 	}
 
 	protected abstract boolean getAcceleratorBoolean();
 
-	private BaseText getNameTextRich(T entity)
+	private BaseComponent getNameTextRich(T entity)
 	{
-		BaseText text = getNameText(entity);
-		BaseText hoverText = getNameTextHoverText(entity);
+		BaseComponent text = getNameText(entity);
+		BaseComponent hoverText = getNameTextHoverText(entity);
 		if (hoverText != null)
 		{
 			Messenger.hover(text, hoverText);
@@ -91,14 +91,14 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 	}
 
 	// e.g. "[12000] " for gt 12000, note the space at the end
-	private BaseText getWorldTimeText(World world)
+	private BaseComponent getWorldTimeText(Level world)
 	{
 		return Messenger.s(String.format("[%s] ", WorldUtils.getWorldTime(world)), "g");
 	}
 
-	private void onLoggingEvent(T entity, LoggingType loggingType, Supplier<BaseText[]> supplier)
+	private void onLoggingEvent(T entity, LoggingType loggingType, Supplier<BaseComponent[]> supplier)
 	{
-		if (this.getAcceleratorBoolean() && EntityUtils.getEntityWorld(entity) != null && !EntityUtils.getEntityWorld(entity).isClient())
+		if (this.getAcceleratorBoolean() && EntityUtils.getEntityWorld(entity) != null && !EntityUtils.getEntityWorld(entity).isClientSide())
 		{
 			LoggerRegistry.getLogger(this.getName()).log((option) -> loggingType.isContainedIn(option) ? supplier.get() : null);
 		}
@@ -106,11 +106,11 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public void onEntityCreated(T entity)
 	{
-		this.onLoggingEvent(entity, LoggingType.CREATE, () -> new BaseText[]{Messenger.c(
+		this.onLoggingEvent(entity, LoggingType.CREATE, () -> new BaseComponent[]{Messenger.c(
 				this.getWorldTimeText(EntityUtils.getEntityWorld(entity)),
 				translator.tr("created", getNameTextRich(entity)),
 				"g  @ ",
-				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity)),
+				Messenger.coord("w", entity.position(), DimensionWrapper.of(entity)),
 				"w  ",
 				StackTracePrinter.makeSymbol(this.getClass())
 		)});
@@ -118,23 +118,23 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 	public void onEntityDespawn(T entity)
 	{
-		this.onLoggingEvent(entity, LoggingType.DESPAWN, () -> new BaseText[]{Messenger.c(
+		this.onLoggingEvent(entity, LoggingType.DESPAWN, () -> new BaseComponent[]{Messenger.c(
 				this.getWorldTimeText(EntityUtils.getEntityWorld(entity)),
 				translator.tr("despawned", getNameTextRich(entity)),
 				"g  @ ",
-				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity))
+				Messenger.coord("w", entity.position(), DimensionWrapper.of(entity))
 		)});
 	}
 
 	public void onEntityDied(T entity, DamageSource source, float amount)
 	{
-		this.onLoggingEvent(entity, LoggingType.DIE, () -> new BaseText[]{Messenger.c(
+		this.onLoggingEvent(entity, LoggingType.DIE, () -> new BaseComponent[]{Messenger.c(
 				this.getWorldTimeText(EntityUtils.getEntityWorld(entity)),
 				Messenger.fancy(
 						null,
 						Messenger.tr(
-								"death.attack." + source.getName(),
-								Messenger.formatting(getNameTextRich(entity), Formatting.WHITE)
+								"death.attack." + source.getMsgId(),
+								Messenger.formatting(getNameTextRich(entity), ChatFormatting.WHITE)
 						),
 						Messenger.c(
 								translator.tr("damage_amount", "Damage amount"),
@@ -143,7 +143,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 						null
 				),
 				"g  @ ",
-				Messenger.coord("w", entity.getPos(), DimensionWrapper.of(entity))
+				Messenger.coord("w", entity.position(), DimensionWrapper.of(entity))
 		)});
 	}
 

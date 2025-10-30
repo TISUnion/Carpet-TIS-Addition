@@ -31,10 +31,10 @@ import carpettisaddition.utils.CarpetModUtil;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.command.EntitySelector;
-import net.minecraft.command.arguments.EntityArgumentType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.arguments.selector.EntitySelector;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.commands.CommandSourceStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -44,9 +44,9 @@ import java.util.function.Function;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.string;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
-import static net.minecraft.server.command.CommandSource.suggestMatching;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
+import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 
 public class LifeTimeCommand extends AbstractCommand
 {
@@ -63,7 +63,7 @@ public class LifeTimeCommand extends AbstractCommand
 		return INSTANCE;
 	}
 
-	private int checkEntityTypeThen(ServerCommandSource source, @Nullable String entityTypeName, Consumer<EntityType<?>> entityTypeConsumer)
+	private int checkEntityTypeThen(CommandSourceStack source, @Nullable String entityTypeName, Consumer<EntityType<?>> entityTypeConsumer)
 	{
 		EntityType<?> entityType;
 		// global filter
@@ -89,14 +89,14 @@ public class LifeTimeCommand extends AbstractCommand
 		return 1;
 	}
 
-	private int setEntityFilter(ServerCommandSource source, @Nullable String entityTypeName, EntitySelector selector)
+	private int setEntityFilter(CommandSourceStack source, @Nullable String entityTypeName, EntitySelector selector)
 	{
 		return checkEntityTypeThen(source, entityTypeName, entityType ->
 				EntityFilterManager.getInstance().setEntityFilter(source, entityType, selector)
 		);
 	}
 
-	private int printEntityFilter(ServerCommandSource source, @Nullable String entityTypeName)
+	private int printEntityFilter(CommandSourceStack source, @Nullable String entityTypeName)
 	{
 		return checkEntityTypeThen(source, entityTypeName, entityType ->
 				EntityFilterManager.getInstance().displayFilter(source, entityType)
@@ -109,12 +109,12 @@ public class LifeTimeCommand extends AbstractCommand
 	 * ------------------
 	 */
 
-	private ArgumentBuilder<ServerCommandSource, ?> createFilterNode(ArgumentBuilder<ServerCommandSource, ?> node, Function<CommandContext<ServerCommandSource>, @Nullable String> entityTypeNameSupplier)
+	private ArgumentBuilder<CommandSourceStack, ?> createFilterNode(ArgumentBuilder<CommandSourceStack, ?> node, Function<CommandContext<CommandSourceStack>, @Nullable String> entityTypeNameSupplier)
 	{
 		return node.
 				executes(c -> printEntityFilter(c.getSource(), entityTypeNameSupplier.apply(c))).
 				then(literal("set").then(
-						argument("filter", EntityArgumentType.entities()).
+						argument("filter", EntityArgument.entities()).
 						executes(c -> setEntityFilter(c.getSource(), entityTypeNameSupplier.apply(c), c.getArgument("filter", EntitySelector.class)))
 				)).
 				then(literal("clear").executes(c -> setEntityFilter(c.getSource(), entityTypeNameSupplier.apply(c), null)));
@@ -124,7 +124,7 @@ public class LifeTimeCommand extends AbstractCommand
 	 * make the node execute something with realtime=false,
 	 * then with another extra literal "realtime" input it will execute something with realtime=true
 	 */
-	private ArgumentBuilder<ServerCommandSource, ?> realtimeActionNode(ArgumentBuilder<ServerCommandSource, ?> node, BiFunction<CommandContext<ServerCommandSource>, Boolean, Integer> action)
+	private ArgumentBuilder<CommandSourceStack, ?> realtimeActionNode(ArgumentBuilder<CommandSourceStack, ?> node, BiFunction<CommandContext<CommandSourceStack>, Boolean, Integer> action)
 	{
 		return node.executes(c -> action.apply(c, false)).
 				then(literal("realtime").executes(c -> action.apply(c, true)));
@@ -141,7 +141,7 @@ public class LifeTimeCommand extends AbstractCommand
 	{
 		final String entityTypeArg = "entity_type";
 		final String detailModeArg = "detail";
-		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
+		LiteralArgumentBuilder<CommandSourceStack> builder = literal(NAME).
 				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandLifeTime)).
 				executes(c -> LifeTimeTracker.getInstance().showHelp(c.getSource())).
 				// lifetime tracking [general tracker stuffs here]
@@ -154,15 +154,15 @@ public class LifeTimeCommand extends AbstractCommand
 						executes(c -> EntityFilterManager.getInstance().displayAllFilters(c.getSource())).
 						then(createFilterNode(literal("global"), c -> null)).
 						then(createFilterNode(
-								argument(entityTypeArg, string()).suggests((c, b) -> suggestMatching(LifeTimeTrackerUtil.getEntityTypeDescriptorStream(), b)),
+								argument(entityTypeArg, string()).suggests((c, b) -> suggest(LifeTimeTrackerUtil.getEntityTypeDescriptorStream(), b)),
 								c -> getString(c, entityTypeArg)
 						))
 				).
 				// lifetime result display
 				then(realtimeActionNode(
-						argument(entityTypeArg, string()).suggests((c, b) -> suggestMatching(LifeTimeTracker.getInstance().getAvailableEntityType(), b)).
+						argument(entityTypeArg, string()).suggests((c, b) -> suggest(LifeTimeTracker.getInstance().getAvailableEntityType(), b)).
 						then(realtimeActionNode(
-								argument(detailModeArg, string()).suggests((c, b) -> suggestMatching(SpecificDetailMode.getSuggestion(), b)),
+								argument(detailModeArg, string()).suggests((c, b) -> suggest(SpecificDetailMode.getSuggestion(), b)),
 								// lifetime creeper spawning
 								(c, realtime) -> LifeTimeTracker.getInstance().printTrackingResultSpecific(
 										c.getSource(), getString(c, entityTypeArg), getString(c, detailModeArg), realtime

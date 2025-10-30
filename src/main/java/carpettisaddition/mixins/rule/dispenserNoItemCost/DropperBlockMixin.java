@@ -23,10 +23,10 @@ package carpettisaddition.mixins.rule.dispenserNoItemCost;
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.block.DropperBlock;
-import net.minecraft.block.entity.DispenserBlockEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.level.block.DropperBlock;
+import net.minecraft.world.level.block.entity.DispenserBlockEntity;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -36,10 +36,10 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class DropperBlockMixin
 {
 	@ModifyArg(
-			method = "dispense",
+			method = "dispenseFrom",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/dispenser/DispenserBehavior;dispense(Lnet/minecraft/util/math/BlockPointer;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"
+					target = "Lnet/minecraft/core/dispenser/DispenseItemBehavior;dispense(Lnet/minecraft/core/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"
 			)
 	)
 	private ItemStack dispenserNoItemCost_useACopySoItCostNothing(ItemStack stack)
@@ -54,24 +54,24 @@ public abstract class DropperBlockMixin
 	private boolean currentDispenseIsItemDispense$TISCM = false;
 
 	@ModifyVariable(
-			method = "dispense",
+			method = "dispenseFrom",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/block/entity/HopperBlockEntity;getInventoryAt(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/inventory/Inventory;",
+					target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;getContainerAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/Container;",
 					shift = At.Shift.AFTER
 			)
 	)
-	private Inventory dispenserNoItemCost_checkIfInventoryIsNullToDetermineLogic(Inventory inventory)
+	private Container dispenserNoItemCost_checkIfInventoryIsNullToDetermineLogic(Container inventory)
 	{
 		this.currentDispenseIsItemDispense$TISCM = inventory == null;
 		return inventory;
 	}
 
 	@WrapOperation(
-			method = "dispense",
+			method = "dispenseFrom",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/entity/DispenserBlockEntity;setInvStack(ILnet/minecraft/item/ItemStack;)V"
+					target = "Lnet/minecraft/world/level/block/entity/DispenserBlockEntity;setItem(ILnet/minecraft/world/item/ItemStack;)V"
 			)
 	)
 	private void dispenserNoItemCost_dontSetBackTheConsumedStack(DispenserBlockEntity blockEntity, int slot, ItemStack stack, Operation<Void> original)

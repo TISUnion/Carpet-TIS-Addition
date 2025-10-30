@@ -37,7 +37,7 @@ public abstract class MinecraftServerMixin
 			//#if MC >= 11700
 			//$$ method = "runTasksTillTickEnd",
 			//#else
-			method = "method_16208",
+			method = "waitUntilNextTick",
 			//#endif
 			at = @At("HEAD")
 	)
@@ -50,7 +50,7 @@ public abstract class MinecraftServerMixin
 			//#if MC >= 11700
 			//$$ method = "runTasksTillTickEnd",
 			//#else
-			method = "method_16208",
+			method = "waitUntilNextTick",
 			//#endif
 			at = @At("TAIL")
 	)
@@ -62,7 +62,7 @@ public abstract class MinecraftServerMixin
 	/**
 	 * Reset potential tick stage (extra) set in {@link NetworkThreadUtilsMixin}
 	 */
-	@Inject(method = "runTask", at = @At("RETURN"))
+	@Inject(method = "pollTask", at = @At("RETURN"))
 	void cleanSubStageInStagePlayerAction(CallbackInfoReturnable<Boolean> cir)
 	{
 		MicroTimingLoggerManager.setTickStage(TickStage.ASYNC_TASK);

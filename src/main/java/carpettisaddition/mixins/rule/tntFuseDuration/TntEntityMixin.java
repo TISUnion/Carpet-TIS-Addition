@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.rule.tntFuseDuration;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.TntEntity;
+import net.minecraft.world.entity.item.PrimedTnt;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,15 +30,15 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(TntEntity.class)
+@Mixin(PrimedTnt.class)
 public abstract class TntEntityMixin
 {
 	@Shadow public abstract void setFuse(int fuse);
 
 	@Inject(
 			method = {
-					"<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V",
-					"<init>(Lnet/minecraft/world/World;DDDLnet/minecraft/entity/LivingEntity;)V"
+					"<init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V",
+					"<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/entity/LivingEntity;)V"
 			},
 			at = @At("TAIL")
 	)
@@ -48,11 +48,11 @@ public abstract class TntEntityMixin
 	}
 
 	@ModifyArg(
-			method = "initDataTracker",
+			method = "defineSynchedData",
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
-							target = "Lnet/minecraft/entity/TntEntity;FUSE:Lnet/minecraft/entity/data/TrackedData;"
+							target = "Lnet/minecraft/world/entity/item/PrimedTnt;DATA_FUSE_ID:Lnet/minecraft/network/syncher/EntityDataAccessor;"
 					)
 			),
 			at = @At(
@@ -60,7 +60,7 @@ public abstract class TntEntityMixin
 					//#if MC >= 12005
 					//$$ target = "Lnet/minecraft/entity/data/DataTracker$Builder;add(Lnet/minecraft/entity/data/TrackedData;Ljava/lang/Object;)Lnet/minecraft/entity/data/DataTracker$Builder;",
 					//#else
-					target = "Lnet/minecraft/entity/data/DataTracker;startTracking(Lnet/minecraft/entity/data/TrackedData;Ljava/lang/Object;)V",
+					target = "Lnet/minecraft/network/syncher/SynchedEntityData;define(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V",
 					//#endif
 					ordinal = 0
 			),

@@ -22,7 +22,7 @@ package carpettisaddition.helpers.rule.lightEngineMaxBatchSize;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 /**
  * Used in MC < 1.16 only
@@ -36,9 +36,9 @@ public class LightBatchSizeChanger
 		//#if MC < 11600
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
-			for (ServerWorld serverWorld : CarpetTISAdditionServer.minecraft_server.getWorlds())
+			for (ServerLevel serverWorld : CarpetTISAdditionServer.minecraft_server.getAllLevels())
 			{
-				serverWorld.getChunkManager().getLightingProvider().setTaskBatchSize(newSize);
+				serverWorld.getChunkSource().getLightEngine().setTaskPerBatch(newSize);
 			}
 		}
 		//#endif

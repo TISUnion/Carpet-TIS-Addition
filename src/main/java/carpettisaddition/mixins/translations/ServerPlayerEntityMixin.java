@@ -22,9 +22,9 @@ package carpettisaddition.mixins.translations;
 
 import carpettisaddition.translations.ServerPlayerEntityWithClientLanguage;
 import carpettisaddition.translations.TISAdditionTranslations;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.Text;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,10 +34,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#if MC >= 12002
 //$$ import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 //#else
-import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
+import net.minecraft.network.protocol.game.ServerboundClientInformationPacket;
 //#endif
 
-@Mixin(ServerPlayerEntity.class)
+@Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithClientLanguage
 {
 	private String clientLanguage$TISCM = "en_US";
@@ -46,7 +46,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 			//#if MC >= 12002
 			//$$ method = "setClientOptions",
 			//#else
-			method = "setClientSettings",
+			method = "updateOptions",
 			//#endif
 			at = @At("HEAD")
 	)
@@ -54,7 +54,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 			//#if MC >= 12002
 			//$$ SyncedClientOptions settings,
 			//#else
-			ClientSettingsC2SPacket packet,
+			ServerboundClientInformationPacket packet,
 			//#endif
 			CallbackInfo ci)
 	{
@@ -85,18 +85,18 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 					//$$ "sendMessage(Lnet/minecraft/text/Text;Z)V",
 					//$$ "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V",
 					//#else
-					"addChatMessage",
-					"sendChatMessage",
+					"displayClientMessage",
+					"sendMessage",
 					//#endif
 			},
 			at = @At("HEAD"),
 			argsOnly = true
 	)
-	private Text applyTISCarpetTranslationToChatMessage(Text message)
+	private Component applyTISCarpetTranslationToChatMessage(Component message)
 	{
-		if (message instanceof BaseText)
+		if (message instanceof BaseComponent)
 		{
-			message = TISAdditionTranslations.translate((BaseText)message, (ServerPlayerEntity)(Object)this);
+			message = TISAdditionTranslations.translate((BaseComponent)message, (ServerPlayer)(Object)this);
 		}
 		return message;
 	}

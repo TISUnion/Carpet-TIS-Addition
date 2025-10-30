@@ -20,11 +20,11 @@
 
 package carpettisaddition.commands.speedtest.skipcompression;
 
-import net.minecraft.network.NetworkSide;
+import net.minecraft.network.protocol.PacketFlow;
 
 public interface PacketDeflaterWithNetworkSide
 {
-	void setNetworkSide$TISCM(NetworkSide networkSide);
+	void setNetworkSide$TISCM(PacketFlow networkSide);
 
-	NetworkSide getNetworkSide$TISCM();
+	PacketFlow getNetworkSide$TISCM();
 }

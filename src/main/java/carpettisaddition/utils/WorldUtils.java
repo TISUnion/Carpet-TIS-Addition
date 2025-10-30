@@ -20,16 +20,16 @@
 
 package carpettisaddition.utils;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class WorldUtils
 {
-	public static long getWorldTime(World world)
+	public static long getWorldTime(Level world)
 	{
 		//#if MC >= 1.21.11
 		//$$ return world.getLevelProperties().getTime();
 		//#else
-		return world.getTime();
+		return world.getGameTime();
 		//#endif
 	}
 }

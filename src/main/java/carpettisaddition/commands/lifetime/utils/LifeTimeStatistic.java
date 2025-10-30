@@ -26,9 +26,9 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -85,10 +85,10 @@ public class LifeTimeStatistic extends TranslationContext
 	 *
 	 * @param indentString spaces for indent
 	 */
-	public List<BaseText> getResult(String indentString, boolean showButton)
+	public List<BaseComponent> getResult(String indentString, boolean showButton)
 	{
-		List<BaseText> result = Lists.newArrayList();
-		Consumer<BaseText> f = text -> result.add(Messenger.c(Messenger.s(indentString), text));
+		List<BaseComponent> result = Lists.newArrayList();
+		Consumer<BaseComponent> f = text -> result.add(Messenger.c(Messenger.s(indentString), text));
 		if (this.isValid())
 		{
 			f.accept(this.minTimeElement.getTimeWithPos(tr("minimum_lifetime"), COLOR_MIN_TIME, showButton));
@@ -111,13 +111,13 @@ public class LifeTimeStatistic extends TranslationContext
 	 * 10/20/30
 	 * 10/20/30 (gt)
 	 */
-	public BaseText getCompressedResult(boolean showGtSuffix)
+	public BaseComponent getCompressedResult(boolean showGtSuffix)
 	{
 		if (!this.isValid())
 		{
 			return Messenger.s("N/A", "g");
 		}
-		BaseText text = Messenger.c(
+		BaseComponent text = Messenger.c(
 				COLOR_MIN_TIME + this.minTimeElement.time,
 				"g /",
 				COLOR_MAX_TIME + this.maxTimeElement.time,
@@ -135,10 +135,10 @@ public class LifeTimeStatistic extends TranslationContext
 	{
 		private final long time;
 		private final DimensionWrapper dimensionType;
-		private final Vec3d spawningPos;
-		private final Vec3d removalPos;
+		private final Vec3 spawningPos;
+		private final Vec3 removalPos;
 
-		private StatisticElement(long time, DimensionWrapper dimensionType, Vec3d spawningPos, Vec3d removalPos)
+		private StatisticElement(long time, DimensionWrapper dimensionType, Vec3 spawningPos, Vec3 removalPos)
 		{
 			this.time = time;
 			this.dimensionType = dimensionType;
@@ -150,9 +150,9 @@ public class LifeTimeStatistic extends TranslationContext
 		 * [hint]: 123 gt
 		 * [hint]: 123 gt [S] [R]
 		 */
-		private BaseText getTimeWithPos(BaseText hint, String fmt, boolean showButton)
+		private BaseComponent getTimeWithPos(BaseComponent hint, String fmt, boolean showButton)
 		{
-			BaseText text = Messenger.c(
+			BaseComponent text = Messenger.c(
 					hint,
 					"g : ",
 					fmt + this.time,

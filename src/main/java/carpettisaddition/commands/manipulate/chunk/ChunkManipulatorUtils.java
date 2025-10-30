@@ -22,31 +22,31 @@ package carpettisaddition.commands.manipulate.chunk;
 
 import carpettisaddition.commands.refresh.ChunkRefresher;
 import carpettisaddition.mixins.command.manipulate.chunk.ServerLightingProviderAccessor;
-import net.minecraft.network.packet.s2c.play.LightUpdateS2CPacket;
-import net.minecraft.server.world.ServerLightingProvider;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.server.world.ThreadedAnvilChunkStorage;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.network.protocol.game.ClientboundLightUpdatePacket;
+import net.minecraft.server.level.ThreadedLevelLightEngine;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ChunkMap;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ChunkManipulatorUtils
 {
-	public static void refreshChunk(ServerWorld world, WorldChunk chunk)
+	public static void refreshChunk(ServerLevel world, LevelChunk chunk)
 	{
 		new ChunkRefresher(chunk).refreshForAllNearby(world);
 	}
 
-	public static void refreshChunkLight(ServerWorld world, WorldChunk chunk)
+	public static void refreshChunkLight(ServerLevel world, LevelChunk chunk)
 	{
 		refreshChunkLight(world, chunk.getPos());
 	}
 
-	public static void refreshChunkLight(ServerWorld world, ChunkPos chunkPos)
+	public static void refreshChunkLight(ServerLevel world, ChunkPos chunkPos)
 	{
-		LightUpdateS2CPacket packet = new LightUpdateS2CPacket(
-				chunkPos, world.getChunkManager().getLightingProvider()
+		ClientboundLightUpdatePacket packet = new ClientboundLightUpdatePacket(
+				chunkPos, world.getChunkSource().getLightEngine()
 				//#if MC >= 11700
 				//$$ , null, null
 				//#endif
@@ -54,16 +54,16 @@ public class ChunkManipulatorUtils
 				//$$ , true
 				//#endif
 		);
-		ThreadedAnvilChunkStorage chunkStorage = world.getChunkManager().threadedAnvilChunkStorage;
-		chunkStorage.getPlayersWatchingChunk(chunkPos, false).
-				forEach(player -> player.networkHandler.sendPacket(packet));
+		ChunkMap chunkStorage = world.getChunkSource().chunkMap;
+		chunkStorage.getPlayers(chunkPos, false).
+				forEach(player -> player.connection.send(packet));
 	}
 
-	public static CompletableFuture<Void> enqueueDummyLightingTask(ServerLightingProvider lightingProvider, ChunkPos chunkPos)
+	public static CompletableFuture<Void> enqueueDummyLightingTask(ThreadedLevelLightEngine lightingProvider, ChunkPos chunkPos)
 	{
 		CompletableFuture<Void> future = new CompletableFuture<>();
 		((ServerLightingProviderAccessor)lightingProvider).invokeEnqueue(
-				chunkPos.x, chunkPos.z, ServerLightingProvider.Stage.POST_UPDATE,
+				chunkPos.x, chunkPos.z, ThreadedLevelLightEngine.TaskType.POST_UPDATE,
 				() -> future.complete(null)
 		);
 		return future;

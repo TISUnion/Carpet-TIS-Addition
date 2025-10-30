@@ -22,7 +22,7 @@ package carpettisaddition.mixins.logger.microtiming.hooks;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.interfaces.ServerWorldWithMicroTimingLogger;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //$$ import org.spongepowered.asm.mixin.Shadow;
 //#endif
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogger
 {
 	private MicroTimingLogger microTimingLogger;
@@ -53,7 +53,7 @@ public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogg
 	)
 	private void onConstruct_microTimingLogger(CallbackInfo ci)
 	{
-		this.microTimingLogger = new MicroTimingLogger((ServerWorld)(Object)this);
+		this.microTimingLogger = new MicroTimingLogger((ServerLevel)(Object)this);
 
 		//#if MC >= 11800
 		//$$ ((ITileTickListWithServerWorld)this.blockTickScheduler).setServerWorld((ServerWorld)(Object)this);

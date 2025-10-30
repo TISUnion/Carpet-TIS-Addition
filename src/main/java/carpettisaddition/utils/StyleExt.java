@@ -20,7 +20,7 @@
 
 package carpettisaddition.utils;
 
-import net.minecraft.text.Style;
+import net.minecraft.network.chat.Style;
 
 // used in mc1.16, where Style is immutable but does not have these classes
 public interface StyleExt

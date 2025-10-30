@@ -23,27 +23,27 @@ package carpettisaddition.mixins.command.lifetime.spawning.mobthrow;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobThrowSpawningReason;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 12105
 //$$ import net.minecraft.entity.LivingEntity;
 //#else
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 //#endif
 
 @Mixin(
 		//#if MC >= 12105
 		//$$ LivingEntity.class
 		//#else
-		PlayerEntity.class
+		Player.class
 		//#endif
 )
 public abstract class PlayerEntityMixin
 {
-	@ModifyReturnValue(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;", at = @At("RETURN"))
+	@ModifyReturnValue(method = "drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;", at = @At("RETURN"))
 	private ItemEntity lifetimeTracker_recordSpawning_mobThrow_player(ItemEntity itemEntity)
 	{
 		if (itemEntity != null)

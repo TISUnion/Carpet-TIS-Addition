@@ -27,8 +27,8 @@ import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.CounterUtils;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
-import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -54,7 +54,7 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 		this.removalExtraCountMap.put(reason, this.removalExtraCountMap.getOrDefault(reason, 0L) + this.getExtraCount(entity));
 	}
 
-	protected abstract BaseText getCountDisplayText();
+	protected abstract BaseComponent getCountDisplayText();
 
 	protected abstract String getCountButtonString();
 
@@ -67,9 +67,9 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	 *        ^
 	 *        Item Count: zzz, (rrr/h) ppp%
 	 */
-	private BaseText attachExtraCount(BaseText text, long extraCount, @Nullable Long extraTotal, long ticks)
+	private BaseComponent attachExtraCount(BaseComponent text, long extraCount, @Nullable Long extraTotal, long ticks)
 	{
-		BaseText extra = Messenger.c(
+		BaseComponent extra = Messenger.c(
 				this.getCountDisplayText(),
 				"g : ",
 				CounterUtils.ratePerHourText(extraCount, ticks, "wgg")
@@ -99,7 +99,7 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	 * Spawn Count: xxx, (yyy/h) [Item Count: zzz, (rrr/h)]
 	 */
 	@Override
-	public BaseText getSpawningCountText(long ticks)
+	public BaseComponent getSpawningCountText(long ticks)
 	{
 		return this.attachExtraCount(
 				super.getSpawningCountText(ticks),
@@ -113,7 +113,7 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	 * Removal Count: xxx, (yyy/h) [Item Count: zzz, (rrr/h)]
 	 */
 	@Override
-	public BaseText getRemovalCountText(long ticks)
+	public BaseComponent getRemovalCountText(long ticks)
 	{
 		return this.attachExtraCount(
 				super.getRemovalCountText(ticks),
@@ -127,7 +127,7 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	 * AAA: 50, (100/h) 25% [Item Count: zzz, (rrr/h) ppp%]
 	 */
 	@Override
-	protected BaseText getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total, String indent)
+	protected BaseComponent getSpawningReasonWithRate(SpawningReason reason, long ticks, long count, long total, String indent)
 	{
 		return this.attachExtraCount(
 				super.getSpawningReasonWithRate(reason, ticks, count, total, indent),
@@ -141,7 +141,7 @@ public abstract class ExtraCountTrackedData extends BasicTrackedData
 	 * BBB: 150, (300/h) 75% [Item Count: zzz, (rrr/h) ppp%]
 	 */
 	@Override
-	protected BaseText getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total, String indent)
+	protected BaseComponent getRemovalReasonWithRate(RemovalReason reason, long ticks, long count, long total, String indent)
 	{
 		return this.attachExtraCount(
 				super.getRemovalReasonWithRate(reason, ticks, count, total, indent),

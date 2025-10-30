@@ -30,14 +30,14 @@ import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.network.MessageType;
-import net.minecraft.network.PacketDeflater;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.CompressionEncoder;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,10 +47,10 @@ import java.util.function.Predicate;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.command.arguments.EntityArgumentType.getPlayers;
-import static net.minecraft.command.arguments.EntityArgumentType.players;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.arguments.EntityArgument.getPlayers;
+import static net.minecraft.commands.arguments.EntityArgument.players;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 11901
 //$$ import net.minecraft.network.PacketCallbacks;
@@ -66,7 +66,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 //$$ import net.minecraft.util.Util;
 //#endif
 //#else
-import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
+import net.minecraft.network.protocol.game.ClientboundChatPacket;
 //#endif
 
 public class RefreshCommand extends AbstractCommand
@@ -75,10 +75,10 @@ public class RefreshCommand extends AbstractCommand
 	private static final RefreshCommand INSTANCE = new RefreshCommand();
 
 	/**
-	 * `/refresh chunk all` is costly on network thread due to packet compression in {@link PacketDeflater}
+	 * `/refresh chunk all` is costly on network thread due to packet compression in {@link CompressionEncoder}
 	 * Here's a check to see if the connection thread is already heavily-loaded
 	 */
-	private final Set<ServerPlayerEntity> refreshingChunkPlayers = Collections.newSetFromMap(new WeakHashMap<>());
+	private final Set<ServerPlayer> refreshingChunkPlayers = Collections.newSetFromMap(new WeakHashMap<>());
 
 	public RefreshCommand()
 	{
@@ -93,7 +93,7 @@ public class RefreshCommand extends AbstractCommand
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{
-		LiteralArgumentBuilder<ServerCommandSource> builder = literal(NAME).
+		LiteralArgumentBuilder<CommandSourceStack> builder = literal(NAME).
 				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRefresh)).
 				then(
 						literal("inventory").
@@ -106,8 +106,8 @@ public class RefreshCommand extends AbstractCommand
 				).
 				then(
 						literal("chunk").
-						executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayer())).
-						then(literal("current").executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayer()))).
+						executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayerOrException())).
+						then(literal("current").executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayerOrException()))).
 						then(literal("all").executes(c -> refreshAllChunks(c.getSource()))).
 						then(literal("inrange").then(
 								argument("chebyshevDistance", integer()).
@@ -131,19 +131,19 @@ public class RefreshCommand extends AbstractCommand
 	 * ---------------------
 	 */
 
-	private void refreshPlayerInventory(ServerCommandSource source, ServerPlayerEntity player)
+	private void refreshPlayerInventory(CommandSourceStack source, ServerPlayer player)
 	{
-		source.getMinecraftServer().getPlayerManager().method_14594(player);
+		source.getServer().getPlayerList().sendAllPlayerInfo(player);
 		Messenger.tell(player, tr("inventory.done"));
 	}
 
-	private int refreshSelfInventory(ServerCommandSource source) throws CommandSyntaxException
+	private int refreshSelfInventory(CommandSourceStack source) throws CommandSyntaxException
 	{
-		this.refreshPlayerInventory(source, source.getPlayer());
+		this.refreshPlayerInventory(source, source.getPlayerOrException());
 		return 1;
 	}
 
-	private int refreshSelectedPlayerInventory(ServerCommandSource source, Collection<ServerPlayerEntity> players)
+	private int refreshSelectedPlayerInventory(CommandSourceStack source, Collection<ServerPlayer> players)
 	{
 		players.forEach(player -> this.refreshPlayerInventory(source, player));
 		return players.size();
@@ -155,10 +155,10 @@ public class RefreshCommand extends AbstractCommand
 	 * ---------------------
 	 */
 
-	private int refreshChunks(ServerCommandSource source, @Nullable ChunkPos chunkPos, @Nullable Predicate<ChunkPos> predicate) throws CommandSyntaxException
+	private int refreshChunks(CommandSourceStack source, @Nullable ChunkPos chunkPos, @Nullable Predicate<ChunkPos> predicate) throws CommandSyntaxException
 	{
-		ServerPlayerEntity player = source.getPlayer();
-		ServerWorld world = player.getServerWorld();
+		ServerPlayer player = source.getPlayerOrException();
+		ServerLevel world = player.getLevel();
 		synchronized (this.refreshingChunkPlayers)
 		{
 			if (this.refreshingChunkPlayers.contains(player))
@@ -167,10 +167,10 @@ public class RefreshCommand extends AbstractCommand
 				return 0;
 			}
 		}
-		ThreadedAnvilChunkStorageAccessor chunkStorage = (ThreadedAnvilChunkStorageAccessor)world.getChunkManager().threadedAnvilChunkStorage;
+		ThreadedAnvilChunkStorageAccessor chunkStorage = (ThreadedAnvilChunkStorageAccessor)world.getChunkSource().chunkMap;
 		MutableInt counter = new MutableInt(0);
 
-		Consumer<WorldChunk> chunkRefresher = (chunk) -> {
+		Consumer<LevelChunk> chunkRefresher = (chunk) -> {
 			if (chunk != null)
 			{
 				new ChunkRefresher(chunk).refreshFor(player);
@@ -195,25 +195,25 @@ public class RefreshCommand extends AbstractCommand
 			Objects.requireNonNull(predicate);
 			chunkStorage.getCurrentChunkHolders().values().stream().
 					filter(h -> inPlayerViewDistance.and(predicate).test(h.getPos())).
-					forEach(h -> chunkRefresher.accept(h.getWorldChunk()));
+					forEach(h -> chunkRefresher.accept(h.getTickingChunk()));
 			synchronized (this.refreshingChunkPlayers)
 			{
 				this.refreshingChunkPlayers.add(player);
 			}
 		}
-		BaseText message = TISAdditionTranslations.translate(tr("chunk.done", counter.intValue()), player);
+		BaseComponent message = TISAdditionTranslations.translate(tr("chunk.done", counter.intValue()), player);
 
 		//#if MC >= 12002
 		//$$ player.networkHandler.send(
 		//#else
-		player.networkHandler.sendPacket(
+		player.connection.send(
 		//#endif
 				//#if MC >= 11901
 				//$$ new GameMessageS2CPacket(message, false),
 				//#elseif MC >= 11600
 				//$$ new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
 				//#else
-				new ChatMessageS2CPacket(message, MessageType.SYSTEM),
+				new ClientboundChatPacket(message, ChatType.SYSTEM),
 				//#endif
 
 				//#if MC >= 11901
@@ -233,33 +233,33 @@ public class RefreshCommand extends AbstractCommand
 		);
 		return counter.intValue();
 	}
-	private int refreshSingleChunk(ServerCommandSource source, @Nullable ChunkPos chunkPos) throws CommandSyntaxException
+	private int refreshSingleChunk(CommandSourceStack source, @Nullable ChunkPos chunkPos) throws CommandSyntaxException
 	{
 		return this.refreshChunks(source, chunkPos, null);
 	}
 
-	private int refreshAllChunks(ServerCommandSource source) throws CommandSyntaxException
+	private int refreshAllChunks(CommandSourceStack source) throws CommandSyntaxException
 	{
 		return this.refreshChunks(source, null, chunkPos -> true);
 	}
 
-	private int refreshCurrentChunk(ServerCommandSource source, ServerPlayerEntity player) throws CommandSyntaxException
+	private int refreshCurrentChunk(CommandSourceStack source, ServerPlayer player) throws CommandSyntaxException
 	{
-		return this.refreshSingleChunk(source, new ChunkPos(player.getBlockPos()));
+		return this.refreshSingleChunk(source, new ChunkPos(player.getCommandSenderBlockPosition()));
 	}
 
-	private int refreshSelectedChunk(ServerCommandSource source, int x, int z) throws CommandSyntaxException
+	private int refreshSelectedChunk(CommandSourceStack source, int x, int z) throws CommandSyntaxException
 	{
 		return this.refreshSingleChunk(source, new ChunkPos(x, z));
 	}
 
-	private int refreshChunksInRange(ServerCommandSource source, int distance) throws CommandSyntaxException
+	private int refreshChunksInRange(CommandSourceStack source, int distance) throws CommandSyntaxException
 	{
-		ServerPlayerEntity player = source.getPlayer();
+		ServerPlayer player = source.getPlayerOrException();
 		return this.refreshChunks(source, null, chunkPos -> isChunkInsideRange(chunkPos, player, distance));
 	}
 
-	private static boolean isChunkInsideRange(ChunkPos chunkPos, ServerPlayerEntity player, int distance)
+	private static boolean isChunkInsideRange(ChunkPos chunkPos, ServerPlayer player, int distance)
 	{
 		//#if MC >= 11800
 		//$$ ChunkSectionPos watchedSection = player.getWatchedSection();

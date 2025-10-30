@@ -23,7 +23,7 @@ package carpettisaddition.mixins.translations;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
+import net.minecraft.network.protocol.game.ServerboundClientInformationPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
  * in mc1.18+ ClientSettingsC2SPacket has become a record class, so it became useless
  */
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.18"))
-@Mixin(ClientSettingsC2SPacket.class)
+@Mixin(ServerboundClientInformationPacket.class)
 public interface ClientSettingsC2SPacketAccessor
 {
 	@Accessor("language")

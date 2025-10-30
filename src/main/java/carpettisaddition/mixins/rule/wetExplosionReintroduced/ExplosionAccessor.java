@@ -20,14 +20,14 @@
 
 package carpettisaddition.mixins.rule.wetExplosionReintroduced;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 12102
 //$$ import net.minecraft.world.explosion.ExplosionImpl;
 //#else
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.level.Explosion;
 //#endif
 
 @Mixin(
@@ -39,6 +39,6 @@ import net.minecraft.world.explosion.Explosion;
 )
 public interface ExplosionAccessor
 {
-	@Accessor
+	@Accessor("source")
 	Entity getEntity();
 }

@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.voidDamageIgnorePlayer;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.voidDamageIgnorePlayer.VoidDamageIgnorePlayerHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,14 +33,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class LivingEntityMixin
 {
 	@SuppressWarnings("ConstantConditions")
-	@Inject(method = "destroy", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "outOfWorld", at = @At("HEAD"), cancellable = true)
 	private void voidDamageAmount(CallbackInfo ci)
 	{
 		if (!CarpetTISAdditionSettings.voidDamageIgnorePlayer.equals("false"))
 		{
-			if ((Object)this instanceof PlayerEntity)
+			if ((Object)this instanceof Player)
 			{
-				if (VoidDamageIgnorePlayerHelper.shouldIgnoreDamage((PlayerEntity)(Object)this))
+				if (VoidDamageIgnorePlayerHelper.shouldIgnoreDamage((Player)(Object)this))
 				{
 					ci.cancel();
 				}

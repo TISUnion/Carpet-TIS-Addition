@@ -24,11 +24,11 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.GameUtils;
 import com.google.common.collect.Lists;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ArmorStandItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ArmorStandItem;
+import net.minecraft.world.item.BlockPlaceContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -48,10 +48,10 @@ public abstract class ArmorStandItemItemMixin
 	 *           ^ modifying this
 	 */
 	@ModifyExpressionValue(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/item/ItemPlacementContext;canPlace()Z"
+					target = "Lnet/minecraft/world/item/BlockPlaceContext;canPlace()Z"
 			)
 	)
 	private boolean entityPlacementIgnoreCollision_makeIfCondition1True(boolean canPlace)
@@ -69,10 +69,10 @@ public abstract class ArmorStandItemItemMixin
 	 *                                                                         ^ modifying this
 	 */
 	@ModifyExpressionValue(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/BlockState;canReplace(Lnet/minecraft/item/ItemPlacementContext;)Z"
+					target = "Lnet/minecraft/world/level/block/state/BlockState;canBeReplaced(Lnet/minecraft/world/item/BlockPlaceContext;)Z"
 			)
 	)
 	private boolean entityPlacementIgnoreCollision_makeIfCondition2True(boolean canReplace)
@@ -85,10 +85,10 @@ public abstract class ArmorStandItemItemMixin
 	}
 
 	@ModifyVariable(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/world/World;getEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
+					target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;",
 					shift = At.Shift.AFTER
 			)
 	)
@@ -101,16 +101,16 @@ public abstract class ArmorStandItemItemMixin
 		return entities;
 	}
 
-	private static final ThreadLocal<ItemPlacementContext> currentContext$TISCM = ThreadLocal.withInitial(() -> null);
+	private static final ThreadLocal<BlockPlaceContext> currentContext$TISCM = ThreadLocal.withInitial(() -> null);
 
 	@ModifyVariable(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/item/ItemPlacementContext;canPlace()Z"
+					target = "Lnet/minecraft/world/item/BlockPlaceContext;canPlace()Z"
 			)
 	)
-	private ItemPlacementContext entityPlacementIgnoreCollision_storeItemPlacementContext(ItemPlacementContext itemPlacementContext)
+	private BlockPlaceContext entityPlacementIgnoreCollision_storeItemPlacementContext(BlockPlaceContext itemPlacementContext)
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
@@ -120,10 +120,10 @@ public abstract class ArmorStandItemItemMixin
 	}
 
 	@ModifyArg(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;removeBlock(Lnet/minecraft/util/math/BlockPos;Z)Z"
+					target = "Lnet/minecraft/world/level/Level;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"
 			),
 			require = 2
 	)
@@ -131,9 +131,9 @@ public abstract class ArmorStandItemItemMixin
 	{
 		if (CarpetTISAdditionSettings.entityPlacementIgnoreCollision)
 		{
-			ItemPlacementContext ctx = currentContext$TISCM.get();
-			World world = ctx.getWorld();
-			if (!world.getBlockState(pos).canReplace(ctx))
+			BlockPlaceContext ctx = currentContext$TISCM.get();
+			Level world = ctx.getLevel();
+			if (!world.getBlockState(pos).canBeReplaced(ctx))
 			{
 				pos = GameUtils.getInvalidBlockPos();
 			}

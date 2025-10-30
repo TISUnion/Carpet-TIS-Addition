@@ -26,7 +26,7 @@ import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressi
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -37,13 +37,13 @@ import java.util.function.BooleanSupplier;
 public abstract class MinecraftServerMixin
 {
 	@WrapOperation(
-			method = "tickWorlds",
+			method = "tickChildren",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V"
+					target = "Lnet/minecraft/server/level/ServerLevel;tick(Ljava/util/function/BooleanSupplier;)V"
 			)
 	)
-	private void yeetUpdateSuppressionCrash_implOnTickWorlds(ServerWorld serverWorld, BooleanSupplier shouldKeepTicking, Operation<Void> original)
+	private void yeetUpdateSuppressionCrash_implOnTickWorlds(ServerLevel serverWorld, BooleanSupplier shouldKeepTicking, Operation<Void> original)
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{

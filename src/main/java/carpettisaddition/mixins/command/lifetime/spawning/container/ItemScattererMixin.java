@@ -22,20 +22,20 @@ package carpettisaddition.mixins.command.lifetime.spawning.container;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ItemScatterer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.Containers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ItemScatterer.class)
+@Mixin(Containers.class)
 public abstract class ItemScattererMixin
 {
 	@ModifyArg(
-			method = "spawn(Lnet/minecraft/world/World;DDDLnet/minecraft/item/ItemStack;)V",
+			method = "dropItemStack(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private static Entity lifetimeTracker_recordSpawning_container(Entity itemEntity)

@@ -25,10 +25,10 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.property.Property;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -49,27 +49,27 @@ public class BlockStateChangeEvent extends AbstractSetblockStateEvent
 		changes.forEach(change -> this.changes.put(change.property, change));
 	}
 
-	private BaseText getChangesText(boolean isHover)
+	private BaseComponent getChangesText(boolean isHover)
 	{
-		Function<@Nullable Property<?>, BaseText> hoverMaker = currentProperty -> {
-			List<BaseText> lines = Lists.newArrayList();
-			lines.add(Messenger.formatting(tr("state_change_details"), Formatting.BOLD));
+		Function<@Nullable Property<?>, BaseComponent> hoverMaker = currentProperty -> {
+			List<BaseComponent> lines = Lists.newArrayList();
+			lines.add(Messenger.formatting(tr("state_change_details"), ChatFormatting.BOLD));
 			this.oldBlockState.getProperties().stream().
 					map(property -> {
-						BaseText text = Optional.ofNullable(this.changes.get(property)).
+						BaseComponent text = Optional.ofNullable(this.changes.get(property)).
 								map(PropertyTexts::change).
 								orElseGet(() -> {
-									Object value = this.oldBlockState.get(property);
+									Object value = this.oldBlockState.getValue(property);
 									return PropertyTexts.value(": ", property, value);
 								});
 						if (property.equals(currentProperty))
 						{
-							text.append(Messenger.s("    <---", Formatting.GRAY));
+							text.append(Messenger.s("    <---", ChatFormatting.GRAY));
 						}
 						return text;
 					}).
 					forEach(lines::add);
-			return Messenger.join(Messenger.s("\n"), lines.toArray(new BaseText[0]));
+			return Messenger.join(Messenger.s("\n"), lines.toArray(new BaseComponent[0]));
 		};
 		if (isHover)
 		{
@@ -84,16 +84,16 @@ public class BlockStateChangeEvent extends AbstractSetblockStateEvent
 									PropertyTexts.value("=", change.property, change.newValue),
 									hoverMaker.apply(change.property)
 							)).
-							toArray(BaseText[]::new)
+							toArray(BaseComponent[]::new)
 			);
 		}
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		BaseText titleText = Messenger.fancy(
+		BaseComponent titleText = Messenger.fancy(
 				null,
 				Messenger.formatting(tr("state_change"), COLOR_ACTION),
 				this.getFlagsText(),
@@ -142,7 +142,7 @@ public class BlockStateChangeEvent extends AbstractSetblockStateEvent
 	public static class PropertyTexts
 	{
 		// xxx${divider}aaa
-		public static BaseText value(String divider, Property<?> property, Object value)
+		public static BaseComponent value(String divider, Property<?> property, Object value)
 		{
 			return Messenger.c(
 					Messenger.s(property.getName()),
@@ -152,7 +152,7 @@ public class BlockStateChangeEvent extends AbstractSetblockStateEvent
 		}
 
 		// xxx: aaa->bbb
-		public static BaseText change(Property<?> property, Object oldValue, Object newValue)
+		public static BaseComponent change(Property<?> property, Object oldValue, Object newValue)
 		{
 			return Messenger.c(
 					Messenger.s(property.getName()),
@@ -163,7 +163,7 @@ public class BlockStateChangeEvent extends AbstractSetblockStateEvent
 			);
 		}
 
-		public static BaseText change(PropertyChange propertyChange)
+		public static BaseComponent change(PropertyChange propertyChange)
 		{
 			return change(propertyChange.property, propertyChange.oldValue, propertyChange.newValue);
 		}

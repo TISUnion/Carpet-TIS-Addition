@@ -20,15 +20,15 @@
 
 package carpettisaddition.helpers.rule.optimizedHardHitBoxEntityCollision;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.Boat;
 
 //#if MC >= 12106
 //$$ import net.minecraft.entity.passive.HappyGhastEntity;
 //#elseif MC >= 11600
 //#else
-import net.minecraft.entity.mob.ShulkerEntity;
+import net.minecraft.world.entity.monster.Shulker;
 //#endif
 
 public class OptimizedHardHitBoxEntityCollisionHelper
@@ -44,7 +44,7 @@ public class OptimizedHardHitBoxEntityCollisionHelper
 	 */
 	public static boolean treatsGeneralEntityAsHardHitBox(Entity entity)
 	{
-		return entity instanceof BoatEntity || entity instanceof AbstractMinecartEntity;
+		return entity instanceof Boat || entity instanceof AbstractMinecart;
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class OptimizedHardHitBoxEntityCollisionHelper
 		//#elseif MC >= 11600
 		//$$ return entity.isCollidable();
 		//#else
-		return entity.getCollisionBox() != null || entity instanceof ShulkerEntity;
+		return entity.getCollideBox() != null || entity instanceof Shulker;
 		//#endif
 	}
 }

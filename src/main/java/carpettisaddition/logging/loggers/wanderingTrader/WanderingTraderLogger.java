@@ -24,17 +24,17 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.WanderingTraderEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
 
 public class WanderingTraderLogger extends AbstractLogger
 {
 	public static final String NAME = "wanderingTrader";
 	private static final WanderingTraderLogger INSTANCE = new WanderingTraderLogger();
-	private static final BaseText WANDERING_TRADER_NAME = Messenger.entityType(EntityType.WANDERING_TRADER);
+	private static final BaseComponent WANDERING_TRADER_NAME = Messenger.entityType(EntityType.WANDERING_TRADER);
 
 	private WanderingTraderLogger()
 	{
@@ -46,7 +46,7 @@ public class WanderingTraderLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
-	private BaseText pack(BaseText message)
+	private BaseComponent pack(BaseComponent message)
 	{
 		String command = String.format("/log %s", this.getName());
 		return Messenger.c(
@@ -59,19 +59,19 @@ public class WanderingTraderLogger extends AbstractLogger
 		);
 	}
 
-	public void onWanderingTraderSpawn(PlayerEntity spawnerPlayer, WanderingTraderEntity wanderingTraderEntity)
+	public void onWanderingTraderSpawn(Player spawnerPlayer, WanderingTrader wanderingTraderEntity)
 	{
 		if (!TISAdditionLoggerRegistry.__wanderingTrader)
 		{
 			return;
 		}
 		this.log(option -> {
-			return new BaseText[]{
+			return new BaseComponent[]{
 					pack(tr(
 							"summon",
 							Messenger.entity("b", spawnerPlayer),
 							WANDERING_TRADER_NAME,
-							Messenger.coord(wanderingTraderEntity.getPos(), DimensionWrapper.of(wanderingTraderEntity))
+							Messenger.coord(wanderingTraderEntity.position(), DimensionWrapper.of(wanderingTraderEntity))
 					))
 			};
 		});

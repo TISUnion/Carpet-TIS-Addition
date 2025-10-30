@@ -20,14 +20,14 @@
 
 package carpettisaddition.mixins.logger.microtiming.misc;
 
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 11600
 //$$ import net.minecraft.block.AbstractBlock;
 //#else
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 //#endif
 
 @Mixin(
@@ -39,7 +39,7 @@ import net.minecraft.block.Block;
 )
 public interface BlockAccessor
 {
-	@Accessor("FACINGS")
+	@Accessor("UPDATE_SHAPE_ORDER")
 	static Direction[] getFACINGS()
 	{
 		throw new RuntimeException();

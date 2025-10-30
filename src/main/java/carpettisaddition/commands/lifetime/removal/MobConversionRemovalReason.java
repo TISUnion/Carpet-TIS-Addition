@@ -22,8 +22,8 @@ package carpettisaddition.commands.lifetime.removal;
 
 import carpettisaddition.utils.Messenger;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.EntityType;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.network.chat.BaseComponent;
 
 public class MobConversionRemovalReason extends MobRelatedRemovalReason
 {
@@ -33,7 +33,7 @@ public class MobConversionRemovalReason extends MobRelatedRemovalReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return tr("mob_conversion", Messenger.entityType(this.entityType));
 	}
@@ -48,7 +48,7 @@ public class MobConversionRemovalReason extends MobRelatedRemovalReason
 	public JsonObject getRecordData()
 	{
 		JsonObject data = new JsonObject();
-		data.addProperty("toType", EntityType.getId(this.entityType).toString());
+		data.addProperty("toType", EntityType.getKey(this.entityType).toString());
 		return data;
 	}
 }

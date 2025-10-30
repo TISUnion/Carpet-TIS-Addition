@@ -22,25 +22,25 @@ package carpettisaddition.logging.loggers.microtiming;
 
 import carpettisaddition.logging.loggers.microtiming.interfaces.ServerWorldWithMicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class MicroTimingAccess
 {
-	public static TickPhase getTickPhase(@NotNull ServerWorld world)
+	public static TickPhase getTickPhase(@NotNull ServerLevel world)
 	{
 		return ((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger().getTickPhase();
 	}
 
-	public static TickPhase getTickPhase(@NotNull World world)
+	public static TickPhase getTickPhase(@NotNull Level world)
 	{
-		return world instanceof ServerWorld ? getTickPhase((ServerWorld)world) : getTickPhase();
+		return world instanceof ServerLevel ? getTickPhase((ServerLevel)world) : getTickPhase();
 	}
 
 	public static TickPhase getTickPhase()
 	{
-		ServerWorld serverWorld = MicroTimingLoggerManager.getCurrentWorld();
+		ServerLevel serverWorld = MicroTimingLoggerManager.getCurrentWorld();
 		if (serverWorld != null)
 		{
 			return getTickPhase(serverWorld);

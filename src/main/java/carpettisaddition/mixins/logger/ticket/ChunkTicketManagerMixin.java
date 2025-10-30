@@ -23,8 +23,8 @@ package carpettisaddition.mixins.logger.ticket;
 import carpettisaddition.logging.loggers.ticket.TicketManagerWithServerWorld;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.server.world.ChunkTicket;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.Ticket;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,17 +32,17 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 // don't remap ChunkTicketManager to ChunkLevelManager in mc1.21.5+
 //#disable-remap
-import net.minecraft.server.world.ChunkTicketManager;
+import net.minecraft.server.level.DistanceManager;
 
-@Mixin(ChunkTicketManager.class)
+@Mixin(DistanceManager.class)
 //#enable-remap
 public abstract class ChunkTicketManagerMixin implements TicketManagerWithServerWorld
 {
 	@Unique
-	private ServerWorld world$TISCM = null;
+	private ServerLevel world$TISCM = null;
 
 	@Override
-	public void setServerWorld$TISCM(ServerWorld world)
+	public void setServerWorld$TISCM(ServerLevel world)
 	{
 		this.world$TISCM = world;
 	}
@@ -52,12 +52,12 @@ public abstract class ChunkTicketManagerMixin implements TicketManagerWithServer
 			//#if MC >= 12105
 			//$$ method = "addTicket(JLnet/minecraft/server/world/ChunkTicket;)Z",
 			//#else
-			method = "addTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
+			method = "addTicket(JLnet/minecraft/server/level/Ticket;)V",
 			//#endif
 			at = @At("HEAD"),
 			argsOnly = true
 	)
-	private long ticketLogger_onAddTicket(long position, @Local(argsOnly = true) ChunkTicket chunkTicket)
+	private long ticketLogger_onAddTicket(long position, @Local(argsOnly = true) Ticket chunkTicket)
 	{
 		if (this.world$TISCM != null)
 		{
@@ -71,12 +71,12 @@ public abstract class ChunkTicketManagerMixin implements TicketManagerWithServer
 			//#if MC >= 12105
 			//$$ method = "removeTicket(JLnet/minecraft/server/world/ChunkTicket;)Z",
 			//#else
-			method = "removeTicket(JLnet/minecraft/server/world/ChunkTicket;)V",
+			method = "removeTicket(JLnet/minecraft/server/level/Ticket;)V",
 			//#endif
 			at = @At("HEAD"),
 			argsOnly = true
 	)
-	private long ticketLogger_onRemoveTicket(long position, @Local(argsOnly = true) ChunkTicket chunkTicket)
+	private long ticketLogger_onRemoveTicket(long position, @Local(argsOnly = true) Ticket chunkTicket)
 	{
 		if (this.world$TISCM != null)
 		{

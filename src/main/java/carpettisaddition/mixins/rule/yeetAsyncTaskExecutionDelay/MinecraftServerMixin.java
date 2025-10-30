@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class MinecraftServerMixin
 {
 	@ModifyReturnValue(
-			method = "canExecute(Lnet/minecraft/server/ServerTask;)Z",
+			method = "shouldRun(Lnet/minecraft/server/TickTask;)Z",
 			at = @At("TAIL")
 	)
 	private boolean yeetAsyncTaskExecutionDelay_overrideReturnValue(boolean canExecute)

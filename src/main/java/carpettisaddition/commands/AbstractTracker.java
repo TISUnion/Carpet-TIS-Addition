@@ -26,13 +26,13 @@ import carpettisaddition.utils.CounterUtils;
 import carpettisaddition.utils.GameUtils;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 public abstract class AbstractTracker extends TranslationContext
 {
@@ -65,13 +65,13 @@ public abstract class AbstractTracker extends TranslationContext
 	}
 
 	// Xxx
-	public BaseText getTranslatedName()
+	public BaseComponent getTranslatedName()
 	{
 		return tr("name");
 	}
 
 	// Xxx Tracker
-	public BaseText getTranslatedNameFull()
+	public BaseComponent getTranslatedNameFull()
 	{
 		return baseTranslator.tr("tracker_name_full", this.getTranslatedName());
 	}
@@ -106,13 +106,13 @@ public abstract class AbstractTracker extends TranslationContext
 	protected static final int START_TRACKING_NO_OP = 0;
 	protected static final int START_TRACKING_OK = 1;
 
-	public int startTracking(@NotNull ServerCommandSource source, boolean isRestart, boolean showFeedback)
+	public int startTracking(@NotNull CommandSourceStack source, boolean isRestart, boolean showFeedback)
 	{
 		if (this.isTracking())
 		{
 			if (showFeedback)
 			{
-				Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_already_started", this.getTranslatedNameFull()), Formatting.RED));
+				Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_already_started", this.getTranslatedNameFull()), ChatFormatting.RED));
 			}
 			return START_TRACKING_NO_OP;
 		}
@@ -130,7 +130,7 @@ public abstract class AbstractTracker extends TranslationContext
 	protected static final int STOP_TRACKING_NO_OP = 0;
 	protected static final int STOP_TRACKING_OK = 1;
 
-	public int stopTracking(@Nullable ServerCommandSource source, boolean isRestart, boolean showFeedback)
+	public int stopTracking(@Nullable CommandSourceStack source, boolean isRestart, boolean showFeedback)
 	{
 		boolean wasTracking = this.isTracking();
 		if (source != null)
@@ -147,14 +147,14 @@ public abstract class AbstractTracker extends TranslationContext
 			else if (showFeedback)
 			{
 				Messenger.tell(source, Messenger.s(" "));
-				Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), Formatting.RED));
+				Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), ChatFormatting.RED));
 			}
 		}
 		this.tracking = false;
 		return wasTracking ? STOP_TRACKING_OK : STOP_TRACKING_NO_OP;
 	}
 
-	public int restartTracking(ServerCommandSource source)
+	public int restartTracking(CommandSourceStack source)
 	{
 		boolean wasTracking = this.isTracking();
 		this.stopTracking(source, true, false);
@@ -167,7 +167,7 @@ public abstract class AbstractTracker extends TranslationContext
 		return 1;
 	}
 
-	protected int doWhenTracking(ServerCommandSource source, Runnable runnable)
+	protected int doWhenTracking(CommandSourceStack source, Runnable runnable)
 	{
 		if (this.isTracking())
 		{
@@ -175,17 +175,17 @@ public abstract class AbstractTracker extends TranslationContext
 		}
 		else
 		{
-			Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), Formatting.RED));
+			Messenger.tell(source, Messenger.formatting(baseTranslator.tr("tracking_not_started", this.getTranslatedNameFull()), ChatFormatting.RED));
 		}
 		return 1;
 	}
 
-	public int reportTracking(ServerCommandSource source, boolean realtime)
+	public int reportTracking(CommandSourceStack source, boolean realtime)
 	{
 		return this.doWhenTracking(source, () -> this.printTrackingResult(source, realtime));
 	}
 
-	public LiteralArgumentBuilder<ServerCommandSource> getTrackingArgumentBuilder()
+	public LiteralArgumentBuilder<CommandSourceStack> getTrackingArgumentBuilder()
 	{
 		return literal("tracking").
 				executes(c -> this.reportTracking(c.getSource(), false)).
@@ -215,7 +215,7 @@ public abstract class AbstractTracker extends TranslationContext
 	}
 
 	// send general header for tracking report and return the processed "ticks"
-	protected long sendTrackedTime(ServerCommandSource source, boolean realtime)
+	protected long sendTrackedTime(CommandSourceStack source, boolean realtime)
 	{
 		long ticks = this.getTrackedTick(realtime);
 		Messenger.tell(
@@ -259,5 +259,5 @@ public abstract class AbstractTracker extends TranslationContext
 	 *
 	 * @param realtime use real time or not. if not, use in-game time
 	 */
-	protected abstract void printTrackingResult(ServerCommandSource source, boolean realtime);
+	protected abstract void printTrackingResult(CommandSourceStack source, boolean realtime);
 }

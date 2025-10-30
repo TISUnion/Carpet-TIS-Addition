@@ -21,10 +21,10 @@
 package carpettisaddition.mixins.helpers.mixin;
 
 import carpettisaddition.helpers.mixin.IWorldOverrides;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.EntityView;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.EntityGetter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -38,7 +38,7 @@ import java.util.stream.Stream;
 //#if MC >= 11600
 //$$ import net.minecraft.world.RegistryWorldView;
 //#else
-import net.minecraft.world.IWorld;
+import net.minecraft.world.level.LevelAccessor;
 //#endif
 
 //#if MC < 11600
@@ -53,11 +53,11 @@ import java.util.Set;
 		//#if MC >= 11600
 		//$$ value = RegistryWorldView.class,
 		//#else
-		value = IWorld.class,
+		value = LevelAccessor.class,
 		//#endif
 		priority = 2000
 )
-public interface IWorldMixin extends EntityView
+public interface IWorldMixin extends EntityGetter
 {
 	/**
 	 * @reason Interface injection is not supported by Mixin yet
@@ -71,7 +71,7 @@ public interface IWorldMixin extends EntityView
 	//#elseif MC >= 11600
 	//$$ default Stream<VoxelShape> getEntityCollisions(Entity entity, Box box, Predicate<Entity> predicate)
 	//#elseif MC >= 11500
-	default Stream<VoxelShape> getEntityCollisions(Entity entity, Box box, Set<Entity> excluded)
+	default Stream<VoxelShape> getEntityCollisions(Entity entity, AABB box, Set<Entity> excluded)
 	//#else
 	//$$ default Stream<VoxelShape> method_20743(Entity entity, Box box, Set<Entity> excluded)
 	//#endif
@@ -82,7 +82,7 @@ public interface IWorldMixin extends EntityView
 			return IWorldOverrides.getEntityCollisionsModifyResult(
 					entity, box,
 					// vanilla copy
-					EntityView.super.
+					EntityGetter.super.
 							//#if MC >= 11800
 							//$$ getEntityCollisions(entity, box)
 							//#elseif MC >= 11600

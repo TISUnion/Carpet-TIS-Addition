@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.utils.entityfilter;
 
 import carpettisaddition.utils.entityfilter.IEntitySelector;
-import net.minecraft.command.EntitySelector;
+import net.minecraft.commands.arguments.selector.EntitySelector;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(EntitySelector.class)

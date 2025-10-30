@@ -26,18 +26,18 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.commands.CommandSourceStack;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static net.minecraft.command.arguments.EntityArgumentType.entities;
-import static net.minecraft.command.arguments.EntityArgumentType.getEntities;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.arguments.EntityArgument.entities;
+import static net.minecraft.commands.arguments.EntityArgument.getEntities;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class RemoveEntityCommand extends AbstractCommand
 {
@@ -57,7 +57,7 @@ public class RemoveEntityCommand extends AbstractCommand
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{
-		LiteralArgumentBuilder<ServerCommandSource> node = literal(NAME).
+		LiteralArgumentBuilder<CommandSourceStack> node = literal(NAME).
 				requires(
 						player -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRemoveEntity)
 				).
@@ -68,10 +68,10 @@ public class RemoveEntityCommand extends AbstractCommand
 		context.dispatcher.register(node);
 	}
 
-	private int removeEntities(ServerCommandSource source, Collection<? extends Entity> entities)
+	private int removeEntities(CommandSourceStack source, Collection<? extends Entity> entities)
 	{
 		List<? extends Entity> nonPlayerEntities = entities.stream().
-				filter(entity -> !(entity instanceof PlayerEntity)).
+				filter(entity -> !(entity instanceof Player)).
 				collect(Collectors.toList());
 		nonPlayerEntities.forEach(entity -> {
 			if (entity instanceof EntityToBeCleanlyRemoved)

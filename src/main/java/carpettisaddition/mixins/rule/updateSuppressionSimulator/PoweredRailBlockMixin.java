@@ -21,12 +21,12 @@
 package carpettisaddition.mixins.rule.updateSuppressionSimulator;
 
 import carpettisaddition.helpers.rule.updateSuppressionSimulator.UpdateSuppressionSimulator;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PoweredRailBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.PoweredRailBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -35,19 +35,19 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class PoweredRailBlockMixin
 {
 	@ModifyVariable(
-			method = "updateBlockState",
+			method = "updateState",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
+					target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
 					ordinal = 0
 			),
 			ordinal = 1
 	)
-	private boolean updateSuppressionSimulatorImpl(boolean newPoweredState, BlockState state, World world, BlockPos pos, Block neighbor)
+	private boolean updateSuppressionSimulatorImpl(boolean newPoweredState, BlockState state, Level world, BlockPos pos, Block neighbor)
 	{
 		if (UpdateSuppressionSimulator.isActivated())
 		{
-			if (!newPoweredState && world.getBlockState(pos.down()).getBlock() == Blocks.LAPIS_ORE)
+			if (!newPoweredState && world.getBlockState(pos.below()).getBlock() == Blocks.LAPIS_ORE)
 			{
 				UpdateSuppressionSimulator.kaboom();
 			}

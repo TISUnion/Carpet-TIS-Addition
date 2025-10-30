@@ -22,9 +22,9 @@ package carpettisaddition.mixins.command.info;
 
 import carpet.utils.BlockInfo;
 import carpettisaddition.commands.info.InfoCommandExtension;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;
@@ -42,7 +42,7 @@ public abstract class BlockInfoMixin
 	 * so we use a @Coerce for simplest compatibility
 	 **/
 	@Inject(method = "blockInfo", at = @At("TAIL"), remap = false)
-	private static void showMoreBlockInfo(BlockPos pos, @Coerce World world, CallbackInfoReturnable<List<BaseText>> cir)
+	private static void showMoreBlockInfo(BlockPos pos, @Coerce Level world, CallbackInfoReturnable<List<BaseComponent>> cir)
 	{
 		cir.getReturnValue().addAll(InfoCommandExtension.getInstance().showMoreBlockInfo(pos, world));
 	}

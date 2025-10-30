@@ -22,9 +22,9 @@ package carpettisaddition.utils.command;
 
 import carpettisaddition.commands.CommandTreeContext;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 
-public class SimpleCommandBuilder extends BrigadierCommandBuilder<ServerCommandSource>
+public class SimpleCommandBuilder extends BrigadierCommandBuilder<CommandSourceStack>
 {
 	@SuppressWarnings("unchecked")
 	public void registerCommand(CommandTreeContext.Register context)
@@ -32,7 +32,7 @@ public class SimpleCommandBuilder extends BrigadierCommandBuilder<ServerCommandS
 		this.build().forEach(builder -> {
 			if (builder instanceof LiteralArgumentBuilder)
 			{
-				context.dispatcher.register((LiteralArgumentBuilder<ServerCommandSource>)builder);
+				context.dispatcher.register((LiteralArgumentBuilder<CommandSourceStack>)builder);
 			}
 			else
 			{

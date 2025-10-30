@@ -21,18 +21,18 @@
 package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 
 import carpettisaddition.utils.Messenger;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.BaseComponent;
 
 public class PlayerActionSubStage extends AbstractPlayerRelatedSubStage
 {
-	public PlayerActionSubStage(ServerPlayerEntity player)
+	public PlayerActionSubStage(ServerPlayer player)
 	{
 		super(player);
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return Messenger.c(
 				tr("player_action"), Messenger.newLine(),

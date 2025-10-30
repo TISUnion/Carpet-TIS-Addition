@@ -21,22 +21,22 @@
 package carpettisaddition.mixins.rule.undeadDontBurnInSunlight;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(AbstractSkeletonEntity.class)
+@Mixin(AbstractSkeleton.class)
 public abstract class AbstractSkeletonEntityMixin
 {
 	@ModifyArg(
-			method = "tickMovement",
+			method = "aiStep",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12100
 					//$$ target = "Lnet/minecraft/entity/mob/AbstractSkeletonEntity;setOnFireFor(F)V"
 					//#else
-					target = "Lnet/minecraft/entity/mob/AbstractSkeletonEntity;setOnFireFor(I)V"
+					target = "Lnet/minecraft/world/entity/monster/AbstractSkeleton;setSecondsOnFire(I)V"
 					//#endif
 			)
 	)

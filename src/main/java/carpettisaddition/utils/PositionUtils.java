@@ -20,13 +20,13 @@
 
 package carpettisaddition.utils;
 
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 public class PositionUtils
 {
-	public static BlockPos flooredBlockPos(Vec3d vec3d)
+	public static BlockPos flooredBlockPos(Vec3 vec3d)
 	{
 		//#if MC >= 11904
 		//$$ return BlockPos.ofFloored(vec3d);
@@ -35,12 +35,12 @@ public class PositionUtils
 		//#endif
 	}
 
-	public static BlockBox createBlockBox(BlockPos pos1, BlockPos pos2)
+	public static BoundingBox createBlockBox(BlockPos pos1, BlockPos pos2)
 	{
 		//#if MC >= 11700
 		//$$ return BlockBox.create(pos1, pos2);
 		//#else
-		return new BlockBox(pos1, pos2);
+		return new BoundingBox(pos1, pos2);
 		//#endif
 	}
 }

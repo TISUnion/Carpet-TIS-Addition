@@ -23,7 +23,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.asynctask.playera
 import carpettisaddition.helpers.rule.fakePlayerTicksLikeRealPlayer.FakePlayerTicker;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.PlayerActionPackSubStage;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -44,7 +44,7 @@ public abstract class FakePlayerTickerMixin
 			),
 			remap = false
 	)
-	private ServerPlayerEntity tiscmFakePlayerTicker_startProcessActionPack(ServerPlayerEntity player)
+	private ServerPlayer tiscmFakePlayerTicker_startProcessActionPack(ServerPlayer player)
 	{
 		MicroTimingLoggerManager.setSubTickStage(new PlayerActionPackSubStage(player));
 		return player;

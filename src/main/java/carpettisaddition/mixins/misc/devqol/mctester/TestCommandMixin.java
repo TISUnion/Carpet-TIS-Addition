@@ -24,7 +24,7 @@ import carpettisaddition.utils.ModIds;
 import carpettisaddition.utils.mixin.testers.DevelopmentEnvironmentTester;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.command.TestCommand;
+import net.minecraft.gametest.framework.TestCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * with "java.lang.IllegalArgumentException: Unrecognized argument type net.minecraft.command.argument.TestClassArgumentType"
  * exception spamming in the console
  * <p>
- * Reason: {@link net.minecraft.command.arguments.ArgumentTypes#register} does not register those test argument types
+ * Reason: {@link net.minecraft.commands.synchronization.ArgumentTypes#register} does not register those test argument types
  * used in the test command, resulting in a serializing failure when the server sends the command tree to the player
  */
 @Restriction(require = {

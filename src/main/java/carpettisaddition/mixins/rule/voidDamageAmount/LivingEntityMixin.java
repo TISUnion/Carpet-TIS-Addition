@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.rule.voidDamageAmount;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -30,13 +30,13 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class LivingEntityMixin
 {
 	@ModifyArg(
-			method = "destroy",
+			method = "outOfWorld",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12102
 					//$$ target = "Lnet/minecraft/entity/LivingEntity;serverDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"
 					//#else
-					target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"
+					target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"
 					//#endif
 			)
 	)

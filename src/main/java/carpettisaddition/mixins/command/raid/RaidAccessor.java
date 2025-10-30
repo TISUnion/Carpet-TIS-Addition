@@ -20,8 +20,8 @@
 
 package carpettisaddition.mixins.command.raid;
 
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.entity.raid.RaiderEntity;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -31,18 +31,18 @@ import java.util.Set;
 @Mixin(Raid.class)
 public interface RaidAccessor
 {
-	@Accessor
+	@Accessor("groupsSpawned")
 	int getWavesSpawned();
 
-	@Accessor
+	@Accessor("numGroups")
 	int getWaveCount();
 
 	@Accessor
-	Raid.Status getStatus();
+	Raid.RaidStatus getStatus();
 
-	@Accessor
-	Map<Integer, RaiderEntity> getWaveToCaptain();
+	@Accessor("groupToLeaderMap")
+	Map<Integer, Raider> getWaveToCaptain();
 
-	@Accessor
-	Map<Integer, Set<RaiderEntity>> getWaveToRaiders();
+	@Accessor("groupRaiderMap")
+	Map<Integer, Set<Raider>> getWaveToRaiders();
 }

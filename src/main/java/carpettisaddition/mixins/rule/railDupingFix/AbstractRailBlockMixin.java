@@ -25,36 +25,36 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.AbstractRailBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.BaseRailBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16.2"))
-@Mixin(AbstractRailBlock.class)
+@Mixin(BaseRailBlock.class)
 public abstract class AbstractRailBlockMixin
 {
 	@Inject(
-			method = "neighborUpdate",
+			method = "neighborChanged",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/AbstractRailBlock;updateBlockState(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;)V"
+					target = "Lnet/minecraft/world/level/block/BaseRailBlock;updateState(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;)V"
 			),
 			require = 1,
 			cancellable = true
 	)
 	private void checkIfRailStillExists(
 			CallbackInfo ci,
-			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true) Level world,
 			@Local(argsOnly = true, ordinal = 0) BlockPos pos
 	)
 	{
 		if (CarpetTISAdditionSettings.railDupingFix)
 		{
-			if (!(world.getBlockState(pos).getBlock() instanceof AbstractRailBlock))
+			if (!(world.getBlockState(pos).getBlock() instanceof BaseRailBlock))
 			{
 				ci.cancel();
 			}

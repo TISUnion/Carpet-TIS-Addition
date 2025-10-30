@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.command.raid;
 
 import carpettisaddition.commands.raid.RaidWithIdAndWorld;
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,7 +35,7 @@ import org.spongepowered.asm.mixin.Shadow;
 public abstract class RaidWithIdAndWorldMixin implements RaidWithIdAndWorld
 {
 	@Shadow @Final private int id;
-	@Shadow @Final private ServerWorld world;
+	@Shadow @Final private ServerLevel level;
 
 	@Override
 	public int getRaidId$TISCM()
@@ -50,13 +50,13 @@ public abstract class RaidWithIdAndWorldMixin implements RaidWithIdAndWorld
 	}
 
 	@Override
-	public ServerWorld getRaidWorld$TISCM()
+	public ServerLevel getRaidWorld$TISCM()
 	{
-		return this.world;
+		return this.level;
 	}
 
 	@Override
-	public void setRaidWorld$TISCM(ServerWorld world)
+	public void setRaidWorld$TISCM(ServerLevel world)
 	{
 		throw new RuntimeException("TISCM assertion error: not implemented in mc < 1.21.5");
 	}

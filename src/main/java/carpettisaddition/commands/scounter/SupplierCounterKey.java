@@ -22,8 +22,8 @@ package carpettisaddition.commands.scounter;
 
 import carpettisaddition.commands.common.counter.DyeCounterKey;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.item.Item;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.item.Item;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.Objects;
 
@@ -37,7 +37,7 @@ public class SupplierCounterKey implements DyeCounterKey
 	}
 
 	@Override
-	public BaseText getText()
+	public BaseComponent getText()
 	{
 		return Messenger.item(this.item);
 	}

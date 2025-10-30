@@ -24,8 +24,8 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.BlockUtils;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,21 +35,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#if MC >= 11600
 //$$ import net.minecraft.world.dimension.AreaHelper;
 //#else
-import net.minecraft.block.NetherPortalBlock;
+import net.minecraft.world.level.block.NetherPortalBlock;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
 		//$$ AreaHelper.class
 		//#else
-		NetherPortalBlock.AreaHelper.class
+		NetherPortalBlock.PortalShape.class
 		//#endif
 )
 public abstract class NetherPortalBlockAreaHelperMixin
 {
-	@Shadow private int foundPortalBlocks;
+	@Shadow private int numPortalBlocks;
 
-	@ModifyReturnValue(method = "validStateInsidePortal", at = @At("TAIL"))
+	@ModifyReturnValue(method = "isEmpty", at = @At("TAIL"))
 	private
 	//#if MC >= 11600
 	//$$ static
@@ -76,7 +76,7 @@ public abstract class NetherPortalBlockAreaHelperMixin
 	{
 		if (CarpetTISAdditionSettings.violentNetherPortalCreation == CarpetTISAdditionSettings.ViolentNetherPortalCreationOptions.ALL)
 		{
-			this.foundPortalBlocks = 0;
+			this.numPortalBlocks = 0;
 		}
 	}
 }

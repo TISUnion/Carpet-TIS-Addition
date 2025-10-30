@@ -20,7 +20,7 @@
 
 package carpettisaddition.helpers.carpet.loggerRestriction;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 @FunctionalInterface
 public interface SubscriptionChecker
@@ -28,5 +28,5 @@ public interface SubscriptionChecker
 	/**
 	 * @return null: ok, otherwise: error message
 	 */
-	RestrictionCheckResult check(PlayerEntity player, String option);
+	RestrictionCheckResult check(Player player, String option);
 }

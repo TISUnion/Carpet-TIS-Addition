@@ -28,12 +28,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
 import me.jellysquid.mods.lithium.common.world.scheduler.TickEntry;
-import net.minecraft.server.world.ServerTickScheduler;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ScheduledTick;
-import net.minecraft.world.TickPriority;
+import net.minecraft.world.level.ServerTickList;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.TickNextTickData;
+import net.minecraft.world.level.TickPriority;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -49,18 +49,18 @@ import java.util.function.Predicate;
 		@Condition(ModIds.lithium)
 })
 @Mixin(LithiumServerTickScheduler.class)
-public abstract class LithiumTileTickListMixin<T> extends ServerTickScheduler<T>
+public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 {
-	@Shadow(remap = false) @Final private ServerWorld world;
+	@Shadow(remap = false) @Final private ServerLevel world;
 
 	private boolean scheduleSuccess;
 
 	public LithiumTileTickListMixin(
-			ServerWorld world, Predicate<T> invalidObjPredicate, Function<T, Identifier> idToName,
+			ServerLevel world, Predicate<T> invalidObjPredicate, Function<T, ResourceLocation> idToName,
 			//#if MC < 11600
-			Function<Identifier, T> nameToId,
+			Function<ResourceLocation, T> nameToId,
 			//#endif
-			Consumer<ScheduledTick<T>> scheduledTickConsumer
+			Consumer<TickNextTickData<T>> scheduledTickConsumer
 	)
 	{
 		super(
@@ -72,7 +72,7 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickScheduler<T>
 		);
 	}
 
-	@Inject(method = "schedule", at = @At("HEAD"))
+	@Inject(method = "scheduleTick", at = @At("HEAD"))
 	private void startScheduleTileTickEvent(CallbackInfo ci)
 	{
 		this.scheduleSuccess = false;
@@ -102,7 +102,7 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickScheduler<T>
 			//#if MC >= 11700
 			//$$ BlockPos pos, Object object, long time, TickPriority priority, CallbackInfo ci, TickEntry<T> tick, boolean added
 			//#else
-			ScheduledTick<T> tick, CallbackInfo ci, TickEntry<T> entry
+			TickNextTickData<T> tick, CallbackInfo ci, TickEntry<T> entry
 			//#endif
 	)
 	{
@@ -114,7 +114,7 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickScheduler<T>
 				//#endif
 	}
 
-	@Inject(method = "schedule", at = @At("RETURN"))
+	@Inject(method = "scheduleTick", at = @At("RETURN"))
 	private void endScheduleTileTickEvent(BlockPos pos, T object, int delay, TickPriority priority, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduleSuccess);

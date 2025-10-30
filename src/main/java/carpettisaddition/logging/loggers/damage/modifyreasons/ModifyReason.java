@@ -22,7 +22,7 @@ package carpettisaddition.logging.loggers.damage.modifyreasons;
 
 import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.translations.TranslationContext;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public class ModifyReason extends TranslationContext
 {
@@ -43,7 +43,7 @@ public class ModifyReason extends TranslationContext
 		this.translationName = translationName;
 	}
 
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return tr("modify_reason." + this.translationName);
 	}

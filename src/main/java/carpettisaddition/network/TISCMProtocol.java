@@ -25,10 +25,10 @@ import carpettisaddition.utils.IdentifierUtils;
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
-import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket;
+import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.Map;
 import java.util.Optional;
@@ -44,7 +44,7 @@ public class TISCMProtocol
 	public static final String ID = "tiscm";
 	public static final String PLATFORM_NAME = CarpetTISAdditionMod.MOD_NAME;
 	public static final String PLATFORM_VERSION = CarpetTISAdditionMod.getVersion();
-	public static final Identifier CHANNEL = IdentifierUtils.of(ID, "network/v1");
+	public static final ResourceLocation CHANNEL = IdentifierUtils.of(ID, "network/v1");
 
 	public enum C2S implements PacketId
 	{
@@ -71,9 +71,9 @@ public class TISCMProtocol
 			return Optional.ofNullable(ID_MAP.get(id));
 		}
 
-		public CustomPayloadC2SPacket packet(Consumer<CompoundTag> payloadBuilder)
+		public ServerboundCustomPayloadPacket packet(Consumer<CompoundTag> payloadBuilder)
 		{
-			return makePacket(CustomPayloadC2SPacket::new, this, payloadBuilder);
+			return makePacket(ServerboundCustomPayloadPacket::new, this, payloadBuilder);
 		}
 
 		public boolean isSupported()
@@ -111,9 +111,9 @@ public class TISCMProtocol
 			return Optional.ofNullable(ID_MAP.get(id));
 		}
 
-		public CustomPayloadS2CPacket packet(Consumer<CompoundTag> payloadBuilder)
+		public ClientboundCustomPayloadPacket packet(Consumer<CompoundTag> payloadBuilder)
 		{
-			return makePacket(CustomPayloadS2CPacket::new, this, payloadBuilder);
+			return makePacket(ClientboundCustomPayloadPacket::new, this, payloadBuilder);
 		}
 	}
 
@@ -127,7 +127,7 @@ public class TISCMProtocol
 			//#if MC >= 12002
 			//$$ Function<TISCMCustomPayload, T> packetConstructor,
 			//#else
-			BiFunction<Identifier, PacketByteBuf, T> packetConstructor,
+			BiFunction<ResourceLocation, FriendlyByteBuf, T> packetConstructor,
 			//#endif
 			PacketId packetId, Consumer<CompoundTag> payloadBuilder
 	)
@@ -138,9 +138,9 @@ public class TISCMProtocol
 		//#if MC >= 12002
 		//$$ return packetConstructor.apply(new TISCMCustomPayload(packetId.getId(), nbt));
 		//#else
-		PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
-		packetByteBuf.writeString(packetId.getId());
-		packetByteBuf.writeCompoundTag(nbt);
+		FriendlyByteBuf packetByteBuf = new FriendlyByteBuf(Unpooled.buffer());
+		packetByteBuf.writeUtf(packetId.getId());
+		packetByteBuf.writeNbt(nbt);
 		return packetConstructor.apply(TISCMProtocol.CHANNEL, packetByteBuf);
 		//#endif
 	}

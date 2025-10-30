@@ -29,11 +29,11 @@ import carpettisaddition.commands.lifetime.removal.RemovalReason;
 import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.GameUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
@@ -46,20 +46,20 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 
 	private boolean recordedSpawning;
 	private long spawnTime;
-	private Vec3d spawningPos;
+	private Vec3 spawningPos;
 
 	private boolean recordedRemoval;
 	private long removalTime;
-	private Vec3d removalPos;
+	private Vec3 removalPos;
 
 	public LifetimeTrackerTargetImpl(Entity entity)
 	{
 		this.entity = entity;
-		World world = EntityUtils.getEntityWorld(entity);
+		Level world = EntityUtils.getEntityWorld(entity);
 
 		this.recordedSpawning = false;
 		this.recordedRemoval = false;
-		if (world instanceof ServerWorld)
+		if (world instanceof ServerLevel)
 		{
 			// In case the entity is loaded when the world is being constructed
 			// Not sure if it's possible in vanilla, at least it happens in #29
@@ -111,13 +111,13 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 	}
 
 	@Override
-	public Vec3d getSpawningPosition()
+	public Vec3 getSpawningPosition()
 	{
 		return Objects.requireNonNull(this.spawningPos, "Spawning is not recorded");
 	}
 
 	@Override
-	public Vec3d getRemovalPosition()
+	public Vec3 getRemovalPosition()
 	{
 		return Objects.requireNonNull(this.removalPos, "Removal is not recorded");
 	}
@@ -143,14 +143,14 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 			}
 			if (
 					CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap &&
-					this.entity instanceof MobEntity &&
+					this.entity instanceof Mob &&
 					!GameUtils.countsTowardsMobcap(this.entity)
 			)
 			{
 				return;
 			}
 			this.recordedSpawning = true;
-			this.spawningPos = this.entity.getPos();
+			this.spawningPos = this.entity.position();
 			this.spawnTime = this.tracker.getSpawnStageCounter();
 			this.tracker.onEntitySpawn(this.entity, reason);
 		}
@@ -166,7 +166,7 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 				return;
 			}
 			this.recordedRemoval = true;
-			this.removalPos = this.entity.getPos();
+			this.removalPos = this.entity.position();
 			this.removalTime = this.tracker.getSpawnStageCounter();
 			this.tracker.onEntityRemove(this.entity, reason);
 		}

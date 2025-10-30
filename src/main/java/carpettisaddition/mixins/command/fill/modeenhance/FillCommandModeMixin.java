@@ -22,17 +22,17 @@ package carpettisaddition.mixins.command.fill.modeenhance;
 
 import carpettisaddition.commands.fill.modeenhance.FillModeEnhanceContext;
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockState;
-import net.minecraft.command.arguments.BlockStateArgument;
-import net.minecraft.server.command.FillCommand;
-import net.minecraft.state.property.Property;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.commands.arguments.blocks.BlockInput;
+import net.minecraft.server.commands.FillCommand;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Collection;
 import java.util.Set;
 
 //#if MC < 12105
-import net.minecraft.server.command.SetBlockCommand;
+import net.minecraft.server.commands.SetBlockCommand;
 //#endif
 
 @Mixin(FillCommand.Mode.class)
@@ -60,7 +60,7 @@ public class FillCommandModeMixin
 			}
 
 			BlockState existedBlockState = world.getBlockState(pos);
-			BlockState targetBlockState = blockStateArgument.getBlockState();
+			BlockState targetBlockState = blockStateArgument.getState();
 			Collection<Property<?>> existedProperties = existedBlockState.getProperties();
 			Collection<Property<?>> targetProperties = targetBlockState.getProperties();
 			Set<Property<?>> specifiedProperties = ((BlockStateArgumentAccessor)blockStateArgument).getProperties();
@@ -74,12 +74,12 @@ public class FillCommandModeMixin
 
 				if (targetProperties.contains(property) && !specifiedProperties.contains(property))
 				{
-					mergedBlockState = mergedBlockState.with(property, existedBlockState.get(property));
+					mergedBlockState = mergedBlockState.setValue(property, existedBlockState.getValue(property));
 					mergedProperties.add(property);
 				}
 			}
 
-			return new BlockStateArgument(mergedBlockState, mergedProperties, ((BlockStateArgumentAccessor)blockStateArgument).getData());
+			return new BlockInput(mergedBlockState, mergedProperties, ((BlockStateArgumentAccessor)blockStateArgument).getData());
 		});
 	}
 }

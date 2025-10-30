@@ -22,8 +22,8 @@ package carpettisaddition.logging.loggers.mobcapsLocal;
 
 import carpet.logging.HUDLogger;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.BaseComponent;
 
 // a placeholder class, its implementation is in 1.18+
 public class MobcapsLocalLogger extends AbstractHUDLogger
@@ -42,7 +42,7 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public BaseComponent[] onHudUpdate(String option, Player playerEntity)
 	{
 		return null;
 	}

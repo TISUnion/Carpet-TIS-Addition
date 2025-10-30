@@ -23,7 +23,7 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.network.compat.ti
 import carpettisaddition.helpers.rule.fakePlayerTicksLikeRealPlayer.FakePlayerTicker;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.PlayerEntitySubStage;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -38,13 +38,13 @@ public abstract class FakePlayerTickerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11500
-					target = "Lnet/minecraft/server/network/ServerPlayerEntity;playerTick()V"
+					target = "Lnet/minecraft/server/level/ServerPlayer;doTick()V"
 					//#else
 					//$$ target = "Lnet/minecraft/server/network/ServerPlayerEntity;method_14226()V"
 					//#endif
 			)
 	)
-	private ServerPlayerEntity tiscmFakePlayerTicker_startStageDetailTickPlayer(ServerPlayerEntity player)
+	private ServerPlayer tiscmFakePlayerTicker_startStageDetailTickPlayer(ServerPlayer player)
 	{
 		MicroTimingLoggerManager.setSubTickStage(new PlayerEntitySubStage(player));
 		return player;

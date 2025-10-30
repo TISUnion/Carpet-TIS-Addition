@@ -27,7 +27,7 @@ import carpettisaddition.utils.NetworkUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class ServerNetworkHandlerMixin
 {
 	@ModifyVariable(method = "handleData", at = @At("HEAD"), argsOnly = true)
-	private static PacketByteBuf carpetProtocolCompatibilityFix_fixIncomingPacket_server(PacketByteBuf data)
+	private static FriendlyByteBuf carpetProtocolCompatibilityFix_fixIncomingPacket_server(FriendlyByteBuf data)
 	{
 		if (data != null)
 		{
@@ -52,10 +52,10 @@ public abstract class ServerNetworkHandlerMixin
 			method = "onClientData",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/PacketByteBuf;readCompoundTag()Lnet/minecraft/nbt/CompoundTag;"
+					target = "Lnet/minecraft/network/FriendlyByteBuf;readNbt()Lnet/minecraft/nbt/CompoundTag;"
 			)
 	)
-	private static CompoundTag carpetProtocolCompatibilityFix_fixIncomingNbtRead_server(PacketByteBuf buf, Operation<CompoundTag> original)
+	private static CompoundTag carpetProtocolCompatibilityFix_fixIncomingNbtRead_server(FriendlyByteBuf buf, Operation<CompoundTag> original)
 	{
 		return NetworkUtils.readNbt(buf);
 	}

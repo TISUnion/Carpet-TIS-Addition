@@ -24,14 +24,14 @@ import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 
 public class SpawningStatistic extends TranslationContext
 {
 	public long count = 0;
 	public DimensionWrapper dimensionSample = null;
-	public Vec3d spawningPosSample = null;
+	public Vec3 spawningPosSample = null;
 
 	public SpawningStatistic()
 	{

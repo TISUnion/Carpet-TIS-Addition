@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.failSoftBlockStateParsing;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.failSoftBlockStateParsing.DummyPropertyEnum;
-import net.minecraft.command.arguments.BlockArgumentParser;
-import net.minecraft.state.property.Property;
+import net.minecraft.commands.arguments.blocks.BlockStateParser;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,11 +31,11 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // improves priority due to @ModifyVariable into locals
-@Mixin(value = BlockArgumentParser.class, priority = 500)
+@Mixin(value = BlockStateParser.class, priority = 500)
 public abstract class BlockArgumentParserMixin
 {
 	@Inject(
-			method = "parsePropertyValue",
+			method = "setValue",
 			at = @At(
 					value = "INVOKE",
 					target = "Lcom/mojang/brigadier/StringReader;setCursor(I)V",
@@ -58,10 +58,10 @@ public abstract class BlockArgumentParserMixin
 	 * in our @Inject above
 	 */
 	@ModifyVariable(
-			method = "parseBlockProperties",
+			method = "readProperties",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/state/StateManager;getProperty(Ljava/lang/String;)Lnet/minecraft/state/property/Property;"
+					target = "Lnet/minecraft/world/level/block/state/StateDefinition;getProperty(Ljava/lang/String;)Lnet/minecraft/world/level/block/state/properties/Property;"
 			),
 			index = 3
 	)

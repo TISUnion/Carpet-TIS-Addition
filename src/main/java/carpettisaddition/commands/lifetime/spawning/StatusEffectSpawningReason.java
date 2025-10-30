@@ -21,19 +21,19 @@
 package carpettisaddition.commands.lifetime.spawning;
 
 import com.google.gson.JsonObject;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
 
 import java.util.Objects;
 import java.util.Optional;
 
 public class StatusEffectSpawningReason extends SpawningReason
 {
-	private final StatusEffect effect;
+	private final MobEffect effect;
 
-	public StatusEffectSpawningReason(StatusEffect effect)
+	public StatusEffectSpawningReason(MobEffect effect)
 	{
 		this.effect = effect;
 	}
@@ -54,12 +54,12 @@ public class StatusEffectSpawningReason extends SpawningReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return tr(
 				"status_effect",
 				//#if MC >= 11500
-				this.effect.getName()
+				this.effect.getDisplayName()
 				//#else
 				//$$ this.effect.method_5560()
 				//#endif
@@ -76,7 +76,7 @@ public class StatusEffectSpawningReason extends SpawningReason
 	public JsonObject getRecordData()
 	{
 		JsonObject data = new JsonObject();
-		String s = Optional.ofNullable(Registry.STATUS_EFFECT.getId(this.effect)).map(Identifier::toString).orElse(null);
+		String s = Optional.ofNullable(Registry.MOB_EFFECT.getKey(this.effect)).map(ResourceLocation::toString).orElse(null);
 		data.addProperty("effect", s);
 		return data;
 	}

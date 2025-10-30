@@ -30,11 +30,11 @@ import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Util;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -77,7 +77,7 @@ public class LifetimeRecorder extends TranslationContext
 		return INSTANCE;
 	}
 
-	public boolean hasPermission(ServerCommandSource source)
+	public boolean hasPermission(CommandSourceStack source)
 	{
 		if (this.config.consoleOrSinglePlayerOwnerOnly)
 		{
@@ -115,38 +115,38 @@ public class LifetimeRecorder extends TranslationContext
 	}
 
 	// capped text func
-	private BaseText ctf(String key, long current, long limit, Function<Long, BaseText> fmt)
+	private BaseComponent ctf(String key, long current, long limit, Function<Long, BaseComponent> fmt)
 	{
-		BaseText text = tr(
+		BaseComponent text = tr(
 				key, fmt.apply(current),
 				limit > 0 ? tr("status.capped", fmt.apply(limit), String.format("%.1f%%", 100.0 * current / limit)) : tr("status.unlimited")
 		);
 		if (limit > 0 && current >= limit)
 		{
-			Messenger.formatting(text, Formatting.YELLOW);
+			Messenger.formatting(text, ChatFormatting.YELLOW);
 		}
 		return text;
 	}
 
-	public int showStatus(ServerCommandSource source)
+	public int showStatus(CommandSourceStack source)
 	{
 		RecordWriterThread rwt;
-		BaseText st1, st2;
+		BaseComponent st1, st2;
 		synchronized (this.lock)
 		{
 			rwt = this.recordWriterThread;
 			st1 = this.config.enabled ?
-					Messenger.formatting(tr("status.enabled"), Formatting.GREEN) :
-					Messenger.formatting(tr("status.disabled"), Formatting.RED);
+					Messenger.formatting(tr("status.enabled"), ChatFormatting.GREEN) :
+					Messenger.formatting(tr("status.disabled"), ChatFormatting.RED);
 			st2 = Util.make(() -> {
 				switch (this.recorderState)
 				{
 					case RUNNING:
-						return Messenger.formatting(tr("status.running"), Formatting.GREEN);
+						return Messenger.formatting(tr("status.running"), ChatFormatting.GREEN);
 					case PAUSED:
-						return Messenger.formatting(tr("status.paused"), Formatting.GOLD);
+						return Messenger.formatting(tr("status.paused"), ChatFormatting.GOLD);
 					case STOPPED:
-						return Messenger.formatting(tr("status.stopped"), Formatting.RED);
+						return Messenger.formatting(tr("status.stopped"), ChatFormatting.RED);
 					default:
 						throw new AssertionError();
 				}
@@ -154,7 +154,7 @@ public class LifetimeRecorder extends TranslationContext
 		}
 
 		Messenger.tell(source, Messenger.s(" "));
-		Messenger.tell(source, Messenger.formatting(tr("status.title"), Formatting.BOLD));
+		Messenger.tell(source, Messenger.formatting(tr("status.title"), ChatFormatting.BOLD));
 		Messenger.tell(source, tr("status.status", st1, st2));
 		if (!this.hasPermission(source))
 		{
@@ -163,15 +163,15 @@ public class LifetimeRecorder extends TranslationContext
 
 		if (rwt != null)
 		{
-			Messenger.tell(source, tr("status.output_file", Messenger.hover(Messenger.s(rwt.getOutputFile().getFileName(), Formatting.DARK_AQUA), Messenger.s(rwt.getOutputFile().toString()))));
+			Messenger.tell(source, tr("status.output_file", Messenger.hover(Messenger.s(rwt.getOutputFile().getFileName(), ChatFormatting.DARK_AQUA), Messenger.s(rwt.getOutputFile().toString()))));
 		}
-		Messenger.tell(source, ctf("status.record_written", rwt != null ? rwt.getRecordWritten() : 0, this.config.maxOutputRecordCount, n -> Messenger.s(n, Formatting.YELLOW)));
-		Messenger.tell(source, ctf("status.bytes_written", rwt != null ? rwt.getBytesWritten() : 0, this.config.maxOutputFileBytes, n -> Messenger.s(TextUtils.byteSizeSi(n), Formatting.GREEN)));
-		Messenger.tell(source, tr("status.sample_rate", Messenger.s(String.format("%.1f%%", this.config.sampleRate * 100), this.config.sampleRate < 1 ? Formatting.GOLD : Formatting.DARK_GREEN)));
+		Messenger.tell(source, ctf("status.record_written", rwt != null ? rwt.getRecordWritten() : 0, this.config.maxOutputRecordCount, n -> Messenger.s(n, ChatFormatting.YELLOW)));
+		Messenger.tell(source, ctf("status.bytes_written", rwt != null ? rwt.getBytesWritten() : 0, this.config.maxOutputFileBytes, n -> Messenger.s(TextUtils.byteSizeSi(n), ChatFormatting.GREEN)));
+		Messenger.tell(source, tr("status.sample_rate", Messenger.s(String.format("%.1f%%", this.config.sampleRate * 100), this.config.sampleRate < 1 ? ChatFormatting.GOLD : ChatFormatting.DARK_GREEN)));
 		return 0;
 	}
 
-	public int reloadConfig(ServerCommandSource source)
+	public int reloadConfig(CommandSourceStack source)
 	{
 		LifetimeRecorderConfig newConfig;
 		try
@@ -181,7 +181,7 @@ public class LifetimeRecorder extends TranslationContext
 		catch (IOException e)
 		{
 			CarpetTISAdditionServer.LOGGER.error("Failed to load lifetime recorder config file", e);
-			Messenger.tell(source, Messenger.formatting(tr("reload_config_failed", e), Formatting.RED));
+			Messenger.tell(source, Messenger.formatting(tr("reload_config_failed", e), ChatFormatting.RED));
 			return 0;
 		}
 
@@ -195,7 +195,7 @@ public class LifetimeRecorder extends TranslationContext
 		return 1;
 	}
 
-	public int enableRecording(ServerCommandSource source)
+	public int enableRecording(CommandSourceStack source)
 	{
 		if (this.config.enabled)
 		{
@@ -220,7 +220,7 @@ public class LifetimeRecorder extends TranslationContext
 		return 1;
 	}
 
-	public int disableRecording(ServerCommandSource source)
+	public int disableRecording(CommandSourceStack source)
 	{
 		if (!this.config.enabled)
 		{
@@ -236,7 +236,7 @@ public class LifetimeRecorder extends TranslationContext
 		return 1;
 	}
 
-	public void start(@NotNull ServerCommandSource source, int currentTrackId)
+	public void start(@NotNull CommandSourceStack source, int currentTrackId)
 	{
 		this.stop(source);
 
@@ -254,19 +254,19 @@ public class LifetimeRecorder extends TranslationContext
 				int count = st.get().getFirst();
 				if (count >= this.config.maxTotalOutputFileCount)
 				{
-					Messenger.tell(source, Messenger.formatting(tr("total_output_count_too_many", count, this.config.maxTotalOutputFileCount), Formatting.RED));
+					Messenger.tell(source, Messenger.formatting(tr("total_output_count_too_many", count, this.config.maxTotalOutputFileCount), ChatFormatting.RED));
 					return;
 				}
 				long sizeTotal = st.get().getSecond();
 				if (sizeTotal >= this.config.maxTotalOutputFileBytes)
 				{
-					Messenger.tell(source, Messenger.formatting(tr("total_output_size_too_large", TextUtils.byteSizeSi(sizeTotal), TextUtils.byteSizeSi(this.config.maxTotalOutputFileBytes)), Formatting.RED));
+					Messenger.tell(source, Messenger.formatting(tr("total_output_size_too_large", TextUtils.byteSizeSi(sizeTotal), TextUtils.byteSizeSi(this.config.maxTotalOutputFileBytes)), ChatFormatting.RED));
 					return;
 				}
 			}
 			else
 			{
-				Messenger.tell(source, Messenger.formatting(tr("total_output_size_unknown"), Formatting.RED));
+				Messenger.tell(source, Messenger.formatting(tr("total_output_size_unknown"), ChatFormatting.RED));
 				return;
 			}
 		}
@@ -292,10 +292,10 @@ public class LifetimeRecorder extends TranslationContext
 			this.recorderState = RecorderState.RUNNING;
 		}
 
-		Messenger.tell(source, tr("started", Messenger.s(fileName, Formatting.DARK_AQUA)));
+		Messenger.tell(source, tr("started", Messenger.s(fileName, ChatFormatting.DARK_AQUA)));
 	}
 
-	public boolean stop(@Nullable ServerCommandSource source)
+	public boolean stop(@Nullable CommandSourceStack source)
 	{
 		RecordWriterThread rwt = this.recordWriterThread;
 		synchronized (this.lock)
@@ -314,8 +314,8 @@ public class LifetimeRecorder extends TranslationContext
 		{
 			Messenger.tell(source, tr(
 					"stopped",
-					Messenger.s(rwt.getRecordWritten(), Formatting.YELLOW),
-					Messenger.s(TextUtils.byteSizeSi(rwt.getBytesWritten()), Formatting.GREEN)
+					Messenger.s(rwt.getRecordWritten(), ChatFormatting.YELLOW),
+					Messenger.s(TextUtils.byteSizeSi(rwt.getBytesWritten()), ChatFormatting.GREEN)
 			));
 		}
 		return true;

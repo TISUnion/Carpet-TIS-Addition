@@ -21,22 +21,22 @@
 package carpettisaddition.mixins.rule.spawnBabyProbably;
 
 import carpettisaddition.helpers.rule.spawnBabyProbably.SpawnBabyProbablyHelper;
-import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.world.entity.monster.Zombie;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ZombieEntity.class)
+@Mixin(Zombie.class)
 public abstract class ZombieEntityMixin
 {
 	@ModifyArg(
-			method = "initialize",
+			method = "finalizeSpawn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/entity/mob/ZombieEntity$ZombieData;<init>(ZZ)V"
 					//#else
-					target = "Lnet/minecraft/entity/mob/ZombieEntity$Data;<init>(Lnet/minecraft/entity/mob/ZombieEntity;ZLnet/minecraft/entity/mob/ZombieEntity$1;)V"
+					target = "Lnet/minecraft/world/entity/monster/Zombie$ZombieGroupData;<init>(Lnet/minecraft/world/entity/monster/Zombie;ZLnet/minecraft/world/entity/monster/Zombie$1;)V"
 					//#endif
 			)
 			//#if MC >= 11600

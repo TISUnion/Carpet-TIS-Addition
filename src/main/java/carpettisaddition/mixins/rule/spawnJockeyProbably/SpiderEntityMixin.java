@@ -22,15 +22,15 @@ package carpettisaddition.mixins.rule.spawnJockeyProbably;
 
 import carpettisaddition.helpers.rule.spawnJockeyProbably.SpawnJockeyProbablyRandomizer;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.mob.SpiderEntity;
+import net.minecraft.world.entity.monster.Spider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(SpiderEntity.class)
+@Mixin(Spider.class)
 public abstract class SpiderEntityMixin
 {
 	@ModifyExpressionValue(
-			method = "initialize",
+			method = "finalizeSpawn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900

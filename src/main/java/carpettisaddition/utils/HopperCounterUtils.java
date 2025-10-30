@@ -21,26 +21,26 @@
 package carpettisaddition.utils;
 
 import carpet.utils.WoolTool;
-import net.minecraft.block.HopperBlock;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.HopperBlock;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class HopperCounterUtils
 {
 	@Nullable
-	public static DyeColor getWoolColorForHopper(World world, HopperBlockEntity hopper)
+	public static DyeColor getWoolColorForHopper(Level world, HopperBlockEntity hopper)
 	{
-		Direction hopperFacing = hopper.getCachedState().get(HopperBlock.FACING);
-		return WoolTool.getWoolColorAtPosition(world, hopper.getPos().offset(hopperFacing));
+		Direction hopperFacing = hopper.getBlockState().getValue(HopperBlock.FACING);
+		return WoolTool.getWoolColorAtPosition(world, hopper.getBlockPos().relative(hopperFacing));
 	}
 
 	@Nullable
 	public static DyeColor getWoolColorForHopper(HopperBlockEntity hopper)
 	{
-		World world = hopper.getWorld();
+		Level world = hopper.getLevel();
 		if (world == null)
 		{
 			return null;

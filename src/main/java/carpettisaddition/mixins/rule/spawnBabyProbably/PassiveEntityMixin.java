@@ -22,21 +22,21 @@ package carpettisaddition.mixins.rule.spawnBabyProbably;
 
 import carpettisaddition.helpers.rule.spawnBabyProbably.SpawnBabyProbablyHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.world.entity.AgableMob;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(PassiveEntity.class)
+@Mixin(AgableMob.class)
 public abstract class PassiveEntityMixin
 {
 	// introduced in mc1.15 (https://minecraft.net/article/minecraft-snapshot-19w37a)
 
 	//#if MC >= 11500
 	@ModifyExpressionValue(
-			method = "initialize",
+			method = "finalizeSpawn",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/passive/PassiveEntity$EntityData;getBabyChance()F"
+					target = "Lnet/minecraft/world/entity/AgableMob$AgableMobGroupData;getBabySpawnChance()F"
 			)
 	)
 	private float spawnBabyProbably_passiveEntities(float chance)

@@ -23,11 +23,11 @@ package carpettisaddition.mixins.rule.dispensersFireDragonBreath;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.dispensersFireDragonBreath.FireDragonBreathDispenserBehaviour;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.DispenserBehavior;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -40,12 +40,12 @@ public abstract class DispenserBlockMixin
 			//#if MC >= 12006
 			//$$ method = "getBehaviorForItem(Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/block/dispenser/DispenserBehavior;",
 			//#else
-			method = "getBehaviorForItem(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/block/dispenser/DispenserBehavior;",
+			method = "getDispenseMethod(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/core/dispenser/DispenseItemBehavior;",
 			//#endif
 			at = @At("HEAD"),
 			cancellable = true
 	)
-	private void registerNewBehaviors_dispensersFireDragonBreath(CallbackInfoReturnable<DispenserBehavior> cir, @Local(argsOnly = true) ItemStack stack)
+	private void registerNewBehaviors_dispensersFireDragonBreath(CallbackInfoReturnable<DispenseItemBehavior> cir, @Local(argsOnly = true) ItemStack stack)
 	{
 		if (CarpetTISAdditionSettings.dispensersFireDragonBreath)
 		{

@@ -25,7 +25,7 @@ import carpettisaddition.utils.NbtUtils;
 import carpettisaddition.utils.NetworkUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.List;
 import java.util.Objects;
@@ -44,7 +44,7 @@ class UniversalCarpetPayload
 	public CarpetNetworkProtocolVersion version;
 
 	// Notes: buf readerIndex will remain unchanged
-	public UniversalCarpetPayload(PacketByteBuf buf)
+	public UniversalCarpetPayload(FriendlyByteBuf buf)
 	{
 		this.action = -1;
 		this.string = null;
@@ -61,7 +61,7 @@ class UniversalCarpetPayload
 			this.action = buf.readVarInt();
 			if (this.action == V1_HI || this.action == V1_HELLO)
 			{
-				this.string = buf.readString(64);
+				this.string = buf.readUtf(64);
 			}
 			else if (this.action == V1_DATA)
 			{
@@ -124,7 +124,7 @@ class UniversalCarpetPayload
 		return this.version;
 	}
 
-	public void writeTo(PacketByteBuf buf, CarpetNetworkProtocolVersion targetVersion)
+	public void writeTo(FriendlyByteBuf buf, CarpetNetworkProtocolVersion targetVersion)
 	{
 		switch (targetVersion)
 		{
@@ -132,7 +132,7 @@ class UniversalCarpetPayload
 				this.assertVersion(CarpetNetworkProtocolVersion.V2);
 				Objects.requireNonNull(this.nbt);
 
-				List<String> keys = Lists.newArrayList(this.nbt.getKeys());
+				List<String> keys = Lists.newArrayList(this.nbt.getAllKeys());
 				if (keys.size() == 1)  // for v2 HI / HELLO, there's only 1 key in the nbt
 				{
 					String id = keys.get(0);
@@ -141,7 +141,7 @@ class UniversalCarpetPayload
 						// v1 carpet hi / hello, format: varint (69 or 420) + string
 						CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload write V1 HI / HELLO, id={}", id);
 						buf.writeVarInt(Integer.parseInt(id));
-						buf.writeString(NbtUtils.getStringOrEmpty(this.nbt, id));
+						buf.writeUtf(NbtUtils.getStringOrEmpty(this.nbt, id));
 						return;
 					}
 				}
@@ -149,7 +149,7 @@ class UniversalCarpetPayload
 				// v1 carpet data, format: varint + nbt
 				CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload write V1 DATA, nbt={}", this.nbt);
 				buf.writeVarInt(V1_DATA);
-				buf.writeCompoundTag(this.nbt);
+				buf.writeNbt(this.nbt);
 				break;
 
 			case V2:
@@ -163,7 +163,7 @@ class UniversalCarpetPayload
 				}
 
 				CarpetTISAdditionMod.LOGGER.debug("UniversalCarpetPayload write V2, action={}, tag={}", this.action, tagToWrite);
-				buf.writeCompoundTag(Objects.requireNonNull(tagToWrite));
+				buf.writeNbt(Objects.requireNonNull(tagToWrite));
 				break;
 		}
 	}

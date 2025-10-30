@@ -24,13 +24,13 @@ import carpet.CarpetSettings;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.HopperCounterUtils;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -46,7 +46,7 @@ import java.util.function.Supplier;
 //#endif
 
 @Mixin(HopperBlockEntity.class)
-public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntity
+public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockEntity
 {
 	private static final int OPERATION_LIMIT = Short.MAX_VALUE;
 
@@ -73,19 +73,19 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 	//$$ 	return false;
 	//$$ }
 	//#else
-	@Shadow protected abstract boolean insert();
-	@Shadow protected abstract boolean isFull();
+	@Shadow protected abstract boolean ejectItems();
+	@Shadow protected abstract boolean inventoryFull();
 	@Shadow protected abstract void setCooldown(int cooldown);
 	//#endif
 
 	@Inject(
-			method = "insertAndExtract",
+			method = "tryMoveItems",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
 					//$$ target = "Lnet/minecraft/block/entity/HopperBlockEntity;setTransferCooldown(I)V",
 					//#else
-					target = "Lnet/minecraft/block/entity/HopperBlockEntity;setCooldown(I)V",
+					target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;setCooldown(I)V",
 					//#endif
 					shift = At.Shift.AFTER
 			)
@@ -113,7 +113,7 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 			}
 			// hopper counter check ends
 
-			BlockPos hopperPos = self.getPos();
+			BlockPos hopperPos = self.getBlockPos();
 
 			// unlimited speed
 			for (int i = OPERATION_LIMIT - 1; i >= 0; i--)
@@ -136,11 +136,11 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 				//$$ 	flag |= booleanSupplier.getAsBoolean();
 				//$$ }
 				//#else
-				if (!this.isInvEmpty())
+				if (!this.isEmpty())
 				{
-					flag = this.insert();
+					flag = this.ejectItems();
 				}
-				if (!this.isFull())
+				if (!this.inventoryFull())
 				{
 					flag |= (Boolean)extractMethod.get();
 				}
@@ -168,11 +168,11 @@ public abstract class HopperBlockEntityMixin extends LootableContainerBlockEntit
 
 	// to avoid repeatedly extraction an item entity in onEntityCollided
 	@Inject(
-			method = "extract(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/ItemEntity;)Z",
+			method = "addItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/entity/item/ItemEntity;)Z",
 			at = @At("HEAD"),
 			cancellable = true
 	)
-	private static void hopperCountersUnlimitedSpeed_dontExtractRemovedItem(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
+	private static void hopperCountersUnlimitedSpeed_dontExtractRemovedItem(Container inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (CarpetTISAdditionSettings.hopperCountersUnlimitedSpeed)
 		{

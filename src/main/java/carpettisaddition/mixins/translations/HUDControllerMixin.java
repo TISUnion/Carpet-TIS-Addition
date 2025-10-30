@@ -22,8 +22,8 @@ package carpettisaddition.mixins.translations;
 
 import carpet.logging.HUDController;
 import carpettisaddition.translations.TISAdditionTranslations;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 //$$ import net.minecraft.text.MutableText;
 //$$ import net.minecraft.text.Text;
 //#else
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 //#endif
 
 @Mixin(HUDController.class)
@@ -46,13 +46,13 @@ public abstract class HUDControllerMixin
 	//#if MC >= 11900
 	//$$ Text
 	//#else
-	BaseText
+	BaseComponent
 	//#endif
 	applyTISCarpetTranslationToHudLoggerMessage(
 			//#if MC >= 11900
 			//$$ Text hudMessage,
 			//#else
-			BaseText hudMessage,
+			BaseComponent hudMessage,
 			//#endif
 
 			/* ----- parent method parameters vvv -----*/
@@ -60,13 +60,13 @@ public abstract class HUDControllerMixin
 			//#if MC >= 11600
 			//$$ ServerPlayerEntity player,
 			//#else
-			PlayerEntity player,
+			Player player,
 			//#endif
 
 			//#if MC >= 11900
 			//$$ Text hudMessage_
 			//#else
-			BaseText hudMessage_
+			BaseComponent hudMessage_
 			//#endif
 	)
 	{
@@ -78,7 +78,7 @@ public abstract class HUDControllerMixin
 					//#else
 					hudMessage,
 					//#endif
-					(ServerPlayerEntity)player
+					(ServerPlayer)player
 			);
 		}
 		return hudMessage;

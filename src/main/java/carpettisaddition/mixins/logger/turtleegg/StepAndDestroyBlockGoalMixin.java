@@ -21,12 +21,12 @@
 package carpettisaddition.mixins.logger.turtleegg;
 
 import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.ai.goal.StepAndDestroyBlockGoal;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.ai.goal.RemoveBlockGoal;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,27 +35,27 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(StepAndDestroyBlockGoal.class)
+@Mixin(RemoveBlockGoal.class)
 public abstract class StepAndDestroyBlockGoalMixin
 {
-	@Shadow @Final private MobEntity stepAndDestroyMob;
+	@Shadow @Final private Mob removerMob;
 
 	@Inject(
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;removeBlock(Lnet/minecraft/util/math/BlockPos;Z)Z"
+					target = "Lnet/minecraft/world/level/Level;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void dontBreakTheEgg(CallbackInfo ci, World world, BlockPos blockPos, BlockPos blockPos2)
+	private void dontBreakTheEgg(CallbackInfo ci, Level world, BlockPos blockPos, BlockPos blockPos2)
 	{
 		if (TurtleEggLogger.getInstance().isActivated())
 		{
 			BlockState blockState = world.getBlockState(blockPos2);
 			if (blockState.getBlock() == Blocks.TURTLE_EGG)
 			{
-				TurtleEggLogger.getInstance().onBreakingEgg(world, blockPos2, blockState, this.stepAndDestroyMob);
+				TurtleEggLogger.getInstance().onBreakingEgg(world, blockPos2, blockState, this.removerMob);
 			}
 		}
 	}

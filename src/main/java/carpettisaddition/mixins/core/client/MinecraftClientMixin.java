@@ -21,34 +21,34 @@
 package carpettisaddition.mixins.core.client;
 
 import carpettisaddition.CarpetTISAdditionClient;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public abstract class MinecraftClientMixin
 {
 	@Inject(method = "tick", at = @At("RETURN"))
 	private void clientTickHook$TISCM(CallbackInfo ci)
 	{
-		CarpetTISAdditionClient.getInstance().onClientTick((MinecraftClient)(Object)this);
+		CarpetTISAdditionClient.getInstance().onClientTick((Minecraft)(Object)this);
 	}
 
 	@Inject(
 			//#if MC >= 12005
 			//$$ method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;Z)V",
 			//#else
-			method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V",
+			method = "clearLevel(Lnet/minecraft/client/gui/screens/Screen;)V",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/gui/hud/InGameHud;clear()V"
+					target = "Lnet/minecraft/client/gui/Gui;onDisconnected()V"
 			)
 	)
 	private void onClientDisconnected(CallbackInfo ci)
 	{
-		CarpetTISAdditionClient.getInstance().onClientDisconnected((MinecraftClient)(Object)this);
+		CarpetTISAdditionClient.getInstance().onClientDisconnected((Minecraft)(Object)this);
 	}
 }

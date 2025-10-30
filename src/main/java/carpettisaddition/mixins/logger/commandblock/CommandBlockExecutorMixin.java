@@ -22,11 +22,11 @@ package carpettisaddition.mixins.logger.commandblock;
 
 import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
 import carpettisaddition.logging.loggers.commandblock.ICommandBlockExecutor;
-import net.minecraft.world.CommandBlockExecutor;
+import net.minecraft.world.level.BaseCommandBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(CommandBlockExecutor.class)
+@Mixin(BaseCommandBlock.class)
 public abstract class CommandBlockExecutorMixin implements ICommandBlockExecutor
 {
 	@Unique

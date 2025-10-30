@@ -20,15 +20,15 @@
 
 package carpettisaddition.utils.compat;
 
-import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
 
 /**
  * Backported from mc1.20.2, for easier networking coding
  */
 public interface CustomPayload
 {
-	void write(PacketByteBuf buf);
+	void write(FriendlyByteBuf buf);
 
-	Identifier id();
+	ResourceLocation id();
 }

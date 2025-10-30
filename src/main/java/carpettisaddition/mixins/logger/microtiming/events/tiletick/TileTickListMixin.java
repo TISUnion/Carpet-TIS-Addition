@@ -21,11 +21,11 @@
 package carpettisaddition.mixins.logger.microtiming.events.tiletick;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import net.minecraft.server.world.ServerTickScheduler;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ScheduledTick;
-import net.minecraft.world.TickPriority;
+import net.minecraft.world.level.ServerTickList;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.TickNextTickData;
+import net.minecraft.world.level.TickPriority;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,23 +35,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Set;
 
-@Mixin(ServerTickScheduler.class)
+@Mixin(ServerTickList.class)
 public abstract class TileTickListMixin<T>
 {
-	@Shadow @Final private ServerWorld world;
-	@Shadow @Final private Set<ScheduledTick<T>> scheduledTickActions;
+	@Shadow @Final private ServerLevel level;
+	@Shadow @Final private Set<TickNextTickData<T>> tickNextTickSet;
 
 	private int oldListSize;
 
-	@Inject(method = "schedule", at = @At("HEAD"))
+	@Inject(method = "scheduleTick", at = @At("HEAD"))
 	private void startScheduleTileTickEvent(CallbackInfo ci)
 	{
-		this.oldListSize = this.scheduledTickActions.size();
+		this.oldListSize = this.tickNextTickSet.size();
 	}
 
-	@Inject(method = "schedule", at = @At("RETURN"))
+	@Inject(method = "scheduleTick", at = @At("RETURN"))
 	private void endScheduleTileTickEvent(BlockPos pos, T object, int delay, TickPriority priority, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduledTickActions.size() > this.oldListSize);
+		MicroTimingLoggerManager.onScheduleTileTickEvent(this.level, object, pos, delay, priority, this.tickNextTickSet.size() > this.oldListSize);
 	}
 }

@@ -28,8 +28,8 @@ import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2LongLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.DyeColor;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.item.DyeColor;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -40,7 +40,7 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 	private final Object2LongMap<Key> counter = new Object2LongLinkedOpenHashMap<>();
 
 	private final DyeColor color;
-	private final BaseText colorText;
+	private final BaseComponent colorText;
 	private final String commandPrefix;
 	private final Translator baseTr;
 	private long startTick;
@@ -64,9 +64,9 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 
 	protected abstract Comparator<? super Object2LongMap.Entry<Key>> getReportOrderComparator();
 
-	protected abstract BaseText getSymbolText();
+	protected abstract BaseComponent getSymbolText();
 
-	public BaseText getColorText()
+	public BaseComponent getColorText()
 	{
 		return this.colorText;
 	}
@@ -116,9 +116,9 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 				sum();
 	}
 
-	public BaseText reportBrief(boolean realTime)
+	public BaseComponent reportBrief(boolean realTime)
 	{
-		BaseText content;
+		BaseComponent content;
 		if (this.isRunning())
 		{
 			long ticks = CounterUtils.getTimeElapsed(this.startTick, this.startMillis, realTime);
@@ -138,9 +138,9 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 		);
 	}
 
-	public List<BaseText> report(boolean realTime)
+	public List<BaseComponent> report(boolean realTime)
 	{
-		BaseText counterNameText = Messenger.hover(tr("counter_name"), Messenger.s(this.commandPrefix));
+		BaseComponent counterNameText = Messenger.hover(tr("counter_name"), Messenger.s(this.commandPrefix));
 		if (!this.isRunning())
 		{
 			return Collections.singletonList(this.baseTr.tr("not_started", this.colorText, counterNameText));
@@ -149,11 +149,11 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 		long ticks = CounterUtils.getTimeElapsed(this.startTick, this.startMillis, realTime);
 		long total = this.getTotal();
 
-		BaseText realtimeSuffix = realTime ?
+		BaseComponent realtimeSuffix = realTime ?
 				Messenger.c("g (", Messenger.formatting(this.baseTr.tr("realtime"), "g"), "g )") :
 				Messenger.s("");
 
-		List<BaseText> lines = Lists.newArrayList();
+		List<BaseComponent> lines = Lists.newArrayList();
 		lines.add(Messenger.c(
 				this.baseTr.tr("summary",
 						tr("key_name_pc"),

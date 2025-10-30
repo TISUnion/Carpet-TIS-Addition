@@ -55,8 +55,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
@@ -157,14 +157,14 @@ public class CarpetTISAdditionServer implements CarpetExtension
 		PhantomLogger.getInstance().tick();
 	}
 
-	public void onCarpetClientHello(ServerPlayerEntity player)
+	public void onCarpetClientHello(ServerPlayer player)
 	{
 		MicroTimingStandardCarpetLogger.getInstance().onCarpetClientHello(player);
 	}
 
 	@Override
 	public void registerCommands(
-			CommandDispatcher<ServerCommandSource> dispatcher
+			CommandDispatcher<CommandSourceStack> dispatcher
 			//#if MC >= 11900
 			//$$ , CommandRegistryAccess commandBuildContext
 			//#endif
@@ -193,9 +193,9 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	}
 
 	@Override
-	public void onPlayerLoggedOut(ServerPlayerEntity player)
+	public void onPlayerLoggedOut(ServerPlayer player)
 	{
-		TISCMServerPacketHandler.getInstance().onPlayerDisconnected(player.networkHandler);
+		TISCMServerPacketHandler.getInstance().onPlayerDisconnected(player.connection);
 		SpeedTestCommand.getInstance().onPlayerDisconnected(player);
 	}
 

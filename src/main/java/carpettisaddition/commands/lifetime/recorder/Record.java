@@ -32,10 +32,10 @@ import carpettisaddition.utils.gson.Vec3dAdaptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
 
@@ -46,14 +46,14 @@ public class Record
 
 	public String eventType;
 	public String eventId;
-	public Vec3d eventPosition;
+	public Vec3 eventPosition;
 	public JsonElement eventData;
 
-	public Identifier entityType;
+	public ResourceLocation entityType;
 	public int entityId;
 	public UUID entityUuid;
-	public Vec3d entityPosition;
-	public Identifier entityDimension;
+	public Vec3 entityPosition;
+	public ResourceLocation entityDimension;
 	public long entityLifetime;
 
 	public enum EventType
@@ -81,7 +81,7 @@ public class Record
 	{
 		Record r = new Record();
 		LifetimeTrackerTarget ltt = (LifetimeTrackerTarget)entity;
-		r.serverTick = CarpetTISAdditionServer.minecraft_server.getTicks();
+		r.serverTick = CarpetTISAdditionServer.minecraft_server.getTickCount();
 		r.gameTime = GameUtils.getGameTime();
 
 		r.eventId = eventId;
@@ -89,14 +89,14 @@ public class Record
 		r.eventPosition = eventType == EventType.SPAWNING ? ltt.getSpawningPosition() : ltt.getRemovalPosition();
 		r.eventData = eventData;
 
-		r.entityType = EntityType.getId(entity.getType());
+		r.entityType = EntityType.getKey(entity.getType());
 		//#if MC >= 1.17.0
 		//$$ r.entityId = entity.getId();
 		//#else
-		r.entityId = entity.getEntityId();
+		r.entityId = entity.getId();
 		//#endif
-		r.entityUuid = entity.getUuid();
-		r.entityPosition = entity.getPos();
+		r.entityUuid = entity.getUUID();
+		r.entityPosition = entity.position();
 		r.entityDimension = DimensionWrapper.of(entity).getIdentifier();
 		r.entityLifetime = eventType == EventType.SPAWNING ? 0 : ltt.getLifeTime();
 		return r;
@@ -104,8 +104,8 @@ public class Record
 
 	public static final Gson gson = new GsonBuilder().
 			disableHtmlEscaping().
-			registerTypeAdapter(Identifier.class, new IdentifierAdaptor()).
-			registerTypeAdapter(Vec3d.class, new Vec3dAdaptor()).
+			registerTypeAdapter(ResourceLocation.class, new IdentifierAdaptor()).
+			registerTypeAdapter(Vec3.class, new Vec3dAdaptor()).
 			create();
 
 	public String toJson()

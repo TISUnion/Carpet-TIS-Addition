@@ -21,29 +21,29 @@
 package carpettisaddition.mixins.logger.commandblock;
 
 import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
-import net.minecraft.entity.vehicle.CommandBlockMinecartEntity;
+import net.minecraft.world.entity.vehicle.MinecartCommandBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(CommandBlockMinecartEntity.class)
+@Mixin(MinecartCommandBlock.class)
 public abstract class CommandBlockMinecartEntityMixin
 {
 	@Inject(
-			method = "onActivatorRail",
+			method = "activateMinecart",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.21.11
 					//$$ target = "Lnet/minecraft/world/CommandBlockExecutor;execute(Lnet/minecraft/server/world/ServerWorld;)Z",
 					//#else
-					target = "Lnet/minecraft/world/CommandBlockExecutor;execute(Lnet/minecraft/world/World;)Z",
+					target = "Lnet/minecraft/world/level/BaseCommandBlock;performCommand(Lnet/minecraft/world/level/Level;)Z",
 					//#endif
 					shift = At.Shift.AFTER
 			)
 	)
 	private void onCommandBlockMinecartExecutedCommandBlockLogger(CallbackInfo ci)
 	{
-		CommandBlockLogger.getInstance().onCommandBlockMinecartActivated((CommandBlockMinecartEntity)(Object)this);
+		CommandBlockLogger.getInstance().onCommandBlockMinecartActivated((MinecartCommandBlock)(Object)this);
 	}
 }

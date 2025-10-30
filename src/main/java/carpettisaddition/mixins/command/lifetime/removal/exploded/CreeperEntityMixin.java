@@ -22,23 +22,23 @@ package carpettisaddition.mixins.command.lifetime.removal.exploded;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import net.minecraft.entity.mob.CreeperEntity;
+import net.minecraft.world.entity.monster.Creeper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(CreeperEntity.class)
+@Mixin(Creeper.class)
 public abstract class CreeperEntityMixin
 {
 	@Inject(
-			method = "explode",
+			method = "explodeCreeper",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/mob/CreeperEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/mob/CreeperEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/monster/Creeper;remove()V"
 					//#endif
 			)
 	)

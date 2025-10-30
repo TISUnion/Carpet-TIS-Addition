@@ -21,15 +21,15 @@
 package carpettisaddition.mixins.rule.debugNbtQueryNoPermission;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.client.Keyboard;
+import net.minecraft.client.KeyboardHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(Keyboard.class)
+@Mixin(KeyboardHandler.class)
 public abstract class KeyboardMixin
 {
-	@ModifyVariable(method = "copyLookAt", at = @At("HEAD"), argsOnly = true, ordinal = 0)
+	@ModifyVariable(method = "copyRecreateCommand", at = @At("HEAD"), argsOnly = true, ordinal = 0)
 	private boolean debugNbtQueryNoPermission_persuadeTheClientThatYouHaveEnoughPermission(boolean hasQueryPermission)
 	{
 		if (CarpetTISAdditionSettings.debugNbtQueryNoPermission)

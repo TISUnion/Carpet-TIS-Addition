@@ -22,23 +22,23 @@ package carpettisaddition.mixins.command.lifetime.spawning.jockeymount;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Zombie;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ZombieEntity.class)
+@Mixin(Zombie.class)
 public abstract class ZombieEntityMixin
 {
 	@ModifyArg(
-			method = "initialize",
+			method = "finalizeSpawn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/world/ServerWorldAccess;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 					//#else
-					target = "Lnet/minecraft/world/IWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/LevelAccessor;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif
 			)
 	)

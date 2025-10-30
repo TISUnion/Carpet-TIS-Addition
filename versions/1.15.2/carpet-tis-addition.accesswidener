@@ -1,5 +1,5 @@
 accessWidener	v1	named
 
-accessible  class   net/minecraft/entity/raid/Raid$Status
-accessible  class   net/minecraft/server/command/FillCommand$Mode
-accessible  class   net/minecraft/server/world/ServerLightingProvider$Stage
+accessible  class   net/minecraft/world/entity/raid/Raid$RaidStatus
+accessible  class   net/minecraft/server/commands/FillCommand$Mode
+accessible  class   net/minecraft/server/level/ThreadedLevelLightEngine$TaskType

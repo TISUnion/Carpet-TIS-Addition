@@ -40,8 +40,8 @@ import org.spongepowered.asm.mixin.injection.At;
 //#if MC >= 11600
 //$$ import net.minecraft.server.world.ServerWorld;
 //#else
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 //#endif
 
 @Mixin(EntityPlayerMPFake.class)
@@ -113,25 +113,25 @@ public abstract class EntityPlayerMPFakeMixin
 	//#endif
 
 	//#if MC <= 11500
-	@ModifyExpressionValue(
-			method = "createFake",
-			at = @At(
-					value = "FIELD",
-					target = "Lcarpet/patches/EntityPlayerMPFake;dimension:Lnet/minecraft/world/dimension/DimensionType;",
-					ordinal = 0
-			)
-	)
-	private static DimensionType fakePlayerRejoin_dontDoTransdimensionTeleport(
-			DimensionType playerDimension,
-			@Local(argsOnly = true) DimensionType targetDimension
-	)
-	{
-		if (FakePlayerRejoinHelper.isRejoin.get())
-		{
-			playerDimension = targetDimension;
-		}
-		return playerDimension;
-	}
+	//$$ @ModifyExpressionValue(
+	//$$ 		method = "createFake",
+	//$$ 		at = @At(
+	//$$ 				value = "FIELD",
+	//$$ 				target = "Lcarpet/patches/EntityPlayerMPFake;dimension:Lnet/minecraft/world/dimension/DimensionType;",
+	//$$ 				ordinal = 0
+	//$$ 		)
+	//$$ )
+	//$$ private static DimensionType fakePlayerRejoin_dontDoTransdimensionTeleport(
+	//$$ 		DimensionType playerDimension,
+	//$$ 		@Local(argsOnly = true) DimensionType targetDimension
+	//$$ )
+	//$$ {
+	//$$ 	if (FakePlayerRejoinHelper.isRejoin.get())
+	//$$ 	{
+	//$$ 		playerDimension = targetDimension;
+	//$$ 	}
+	//$$ 	return playerDimension;
+	//$$ }
 	//#endif
 
 	@WrapWithCondition(
@@ -147,7 +147,7 @@ public abstract class EntityPlayerMPFakeMixin
 					//#elseif MC >= 11600
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V"
 					//#else
-					target = "Lnet/minecraft/server/network/ServerPlayNetworkHandler;requestTeleport(DDDFF)V"
+					target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;teleport(DDDFF)V"
 					//#endif
 			)
 	)
@@ -157,7 +157,7 @@ public abstract class EntityPlayerMPFakeMixin
 			//#elseif MC >= 11600
 			//$$ EntityPlayerMPFake instance, ServerWorld serverWorld, double x, double y, double z, float yaw, float pitch
 			//#else
-			ServerPlayNetworkHandler instance, double x, double y, double z, float yaw, float pitch
+			ServerGamePacketListenerImpl instance, double x, double y, double z, float yaw, float pitch
 			//#endif
 	)
 	{

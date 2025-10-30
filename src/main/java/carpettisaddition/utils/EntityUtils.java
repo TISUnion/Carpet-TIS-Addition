@@ -20,16 +20,16 @@
 
 package carpettisaddition.utils;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.player.PlayerAbilities;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.GameMode;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.player.Abilities;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,16 +41,16 @@ import java.util.Optional;
 
 public class EntityUtils
 {
-	public static World getEntityWorld(@NotNull Entity entity)
+	public static Level getEntityWorld(@NotNull Entity entity)
 	{
 		//#if 1.21.6 <= MC && MC < 1.21.9
 		//$$ return entity.getWorld();
 		//#else
-		return entity.getEntityWorld();
+		return entity.getCommandSenderWorld();
 		//#endif
 	}
 
-	public static PlayerAbilities getPlayerAbilities(@NotNull PlayerEntity player)
+	public static Abilities getPlayerAbilities(@NotNull Player player)
 	{
 		//#if MC >= 11700
 		//$$ return player.getAbilities();
@@ -61,9 +61,9 @@ public class EntityUtils
 
 	public static boolean isCreativePlayer(@Nullable Entity entity)
 	{
-		if (entity instanceof PlayerEntity)
+		if (entity instanceof Player)
 		{
-			PlayerEntity player = (PlayerEntity)entity;
+			Player player = (Player)entity;
 			return player.isCreative();
 		}
 		return false;
@@ -71,9 +71,9 @@ public class EntityUtils
 
 	public static boolean isFlyingCreativePlayer(@Nullable Entity entity)
 	{
-		if (entity instanceof PlayerEntity)
+		if (entity instanceof Player)
 		{
-			PlayerEntity player = (PlayerEntity)entity;
+			Player player = (Player)entity;
 			return isCreativePlayer(entity) && getPlayerAbilities(player).flying;
 		}
 		return false;
@@ -84,7 +84,7 @@ public class EntityUtils
 		//#if MC >= 11700
 		//$$ return entity.getYaw();
 		//#else
-		return entity.yaw;
+		return entity.yRot;
 		//#endif
 	}
 
@@ -93,22 +93,22 @@ public class EntityUtils
 		//#if MC >= 11700
 		//$$ return entity.getPitch();
 		//#else
-		return entity.pitch;
+		return entity.xRot;
 		//#endif
 	}
 
 	@Nullable
-	public static GameMode getPlayerGameMode(PlayerEntity player)
+	public static GameType getPlayerGameMode(Player player)
 	{
-		if (player instanceof ServerPlayerEntity)
+		if (player instanceof ServerPlayer)
 		{
-			return ((ServerPlayerEntity)player).interactionManager.getGameMode();
+			return ((ServerPlayer)player).gameMode.getGameModeForPlayer();
 		}
-		else if (player instanceof AbstractClientPlayerEntity)
+		else if (player instanceof AbstractClientPlayer)
 		{
-			return Optional.ofNullable(MinecraftClient.getInstance().getNetworkHandler())
-					.map(h -> h.getPlayerListEntry(player.getGameProfile().getId()))
-					.map(PlayerListEntry::getGameMode)
+			return Optional.ofNullable(Minecraft.getInstance().getConnection())
+					.map(h -> h.getPlayerInfo(player.getGameProfile().getId()))
+					.map(PlayerInfo::getGameMode)
 					.orElse(null);
 		}
 		else
@@ -117,7 +117,7 @@ public class EntityUtils
 		}
 	}
 
-	public static int getXpOrbPickingCount(ExperienceOrbEntity experienceOrbEntity)
+	public static int getXpOrbPickingCount(ExperienceOrb experienceOrbEntity)
 	{
 		return
 				//#if MC >= 11700

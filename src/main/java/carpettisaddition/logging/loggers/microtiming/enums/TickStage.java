@@ -22,7 +22,7 @@ package carpettisaddition.logging.loggers.microtiming.enums;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.translations.Translator;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public enum TickStage
 {
@@ -56,7 +56,7 @@ public enum TickStage
 		this.insideWorld = insideWorld;
 	}
 
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return translator.tr(this.translationKey);
 	}

@@ -22,8 +22,8 @@ package carpettisaddition.commands.lifetime.spawning;
 
 import carpettisaddition.utils.Messenger;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.EntityType;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.network.chat.BaseComponent;
 
 public class MobThrowSpawningReason extends MobRelatedSpawningReason
 {
@@ -33,7 +33,7 @@ public class MobThrowSpawningReason extends MobRelatedSpawningReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return tr("mob_throw", Messenger.entityType(this.entityType));
 	}
@@ -48,7 +48,7 @@ public class MobThrowSpawningReason extends MobRelatedSpawningReason
 	public JsonObject getRecordData()
 	{
 		JsonObject data = new JsonObject();
-		data.addProperty("throwerType", EntityType.getId(this.entityType).toString());
+		data.addProperty("throwerType", EntityType.getKey(this.entityType).toString());
 		return data;
 	}
 }

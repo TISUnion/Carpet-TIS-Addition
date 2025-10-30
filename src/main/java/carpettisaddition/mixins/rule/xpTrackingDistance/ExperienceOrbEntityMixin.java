@@ -22,11 +22,11 @@ package carpettisaddition.mixins.rule.xpTrackingDistance;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.world.entity.ExperienceOrb;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ExperienceOrbEntity.class)
+@Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin
 {
 	@ModifyExpressionValue(
@@ -73,7 +73,7 @@ public abstract class ExperienceOrbEntityMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/player/PlayerEntity;isSpectator()Z"
+					target = "Lnet/minecraft/world/entity/player/Player;isSpectator()Z"
 			)
 	)
 	private boolean xpTrackingDistance_isSpectatorOrTrackingDistanceIsZero(boolean isSpectator)

@@ -22,9 +22,9 @@ package carpettisaddition.mixins.rule.witherSpawnedSoundDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -32,11 +32,11 @@ import org.spongepowered.asm.mixin.injection.At;
 //$$ import net.minecraft.server.world.ServerWorld;
 //#endif
 
-@Mixin(WitherEntity.class)
+@Mixin(WitherBoss.class)
 public abstract class WitherEntityMixin
 {
 	@WrapWithCondition(
-			method = "mobTick",
+			method = "customServerAiStep",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12102
@@ -44,7 +44,7 @@ public abstract class WitherEntityMixin
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/world/World;syncGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
 					//#else
-					target = "Lnet/minecraft/world/World;playGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+					target = "Lnet/minecraft/world/level/Level;globalLevelEvent(ILnet/minecraft/core/BlockPos;I)V"
 					//#endif
 			)
 	)
@@ -52,7 +52,7 @@ public abstract class WitherEntityMixin
 			//#if MC >= 12102
 			//$$ ServerWorld instance,
 			//#else
-			World instance,
+			Level instance,
 			//#endif
 			int type, BlockPos blockPos, int data
 	)

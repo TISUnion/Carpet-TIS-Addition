@@ -21,8 +21,8 @@
 package carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +39,7 @@ public class UpdateSuppressionYeeter
 	}
 
 	@NotNull
-	public static Throwable tryReplaceWithWrapper(@NotNull Throwable throwable, @Nullable World world, BlockPos pos)
+	public static Throwable tryReplaceWithWrapper(@NotNull Throwable throwable, @Nullable Level world, BlockPos pos)
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{

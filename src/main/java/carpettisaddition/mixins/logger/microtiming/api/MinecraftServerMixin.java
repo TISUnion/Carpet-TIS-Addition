@@ -23,7 +23,7 @@ package carpettisaddition.mixins.logger.microtiming.api;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -35,22 +35,22 @@ import java.util.function.BooleanSupplier;
 public abstract class MinecraftServerMixin
 {
 	@Inject(
-			method = "tickWorlds",
+			method = "tickChildren",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V"
+					target = "Lnet/minecraft/server/level/ServerLevel;tick(Ljava/util/function/BooleanSupplier;)V"
 			)
 	)
-	private void beforeTickingWorld(BooleanSupplier shouldKeepTicking, CallbackInfo ci, @Local ServerWorld serverWorld)
+	private void beforeTickingWorld(BooleanSupplier shouldKeepTicking, CallbackInfo ci, @Local ServerLevel serverWorld)
 	{
 		MicroTimingLoggerManager.setCurrentWorld(serverWorld);
 	}
 
 	@Inject(
-			method = "tickWorlds",
+			method = "tickChildren",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V",
+					target = "Lnet/minecraft/server/level/ServerLevel;tick(Ljava/util/function/BooleanSupplier;)V",
 					shift = At.Shift.AFTER
 			)
 	)

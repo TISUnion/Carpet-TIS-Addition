@@ -25,10 +25,10 @@ import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
 
 import java.util.function.Supplier;
 
@@ -36,12 +36,12 @@ public class CarpetLoggerRestriction
 {
 	private static final Translator translator = new Translator("misc.logger_rule_switch");
 
-	public static RestrictionCheckResult checkLoggerSubscribable(Logger logger, PlayerEntity player, String option)
+	public static RestrictionCheckResult checkLoggerSubscribable(Logger logger, Player player, String option)
 	{
 		return ((RestrictiveLogger)logger).canPlayerSubscribe(player, option);
 	}
 
-	public static boolean isLoggerSubscribable(Logger logger, PlayerEntity player, String option)
+	public static boolean isLoggerSubscribable(Logger logger, Player player, String option)
 	{
 		return checkLoggerSubscribable(logger, player, option).isPassed();
 	}
@@ -49,18 +49,18 @@ public class CarpetLoggerRestriction
 	public static void addLoggerRuleSwitch(Logger logger, String ruleName, Supplier<String> ruleValueProvider)
 	{
 		((RestrictiveLogger)logger).addSubscriptionRestriction((player, option) -> {
-			BaseText message = Messenger.hover(
+			BaseComponent message = Messenger.hover(
 					translator.tr("permission_denied", logger.getLogName()),
 					translator.tr("rule_hint", ruleName)
 			);
-			if (!(player instanceof ServerPlayerEntity))
+			if (!(player instanceof ServerPlayer))
 			{
 				CarpetTISAdditionMod.LOGGER.warn("subscriptionChecker receives a player {} that is not a ServerPlayerEntity", player);
 				return RestrictionCheckResult.ok();
 			}
 
-			ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;  // for mc1.21.2+, where getCommandSource requires being on the server-side
-			if (CarpetModUtil.canUseCarpetCommand(serverPlayer.getCommandSource()))
+			ServerPlayer serverPlayer = (ServerPlayer)player;  // for mc1.21.2+, where getCommandSource requires being on the server-side
+			if (CarpetModUtil.canUseCarpetCommand(serverPlayer.createCommandSourceStack()))
 			{
 				Messenger.click(
 						message,
@@ -68,7 +68,7 @@ public class CarpetLoggerRestriction
 				);
 			}
 			return RestrictionCheckResult.bool(
-					CarpetModUtil.canUseCommand(serverPlayer.getCommandSource(), ruleValueProvider.get()),
+					CarpetModUtil.canUseCommand(serverPlayer.createCommandSourceStack(), ruleValueProvider.get()),
 					message
 			);
 		});

@@ -28,7 +28,7 @@ import carpettisaddition.utils.NbtUtils;
 import carpettisaddition.utils.compat.ServerTickType;
 import com.google.common.collect.Sets;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.MetricsData;
+import net.minecraft.util.FrameTimer;
 
 import java.util.Set;
 
@@ -45,7 +45,7 @@ public class ServerMsptMetricsDataSyncer
 	//#if MC >= 12005
 	//$$ private MultiValueDebugSampleLogImpl
 	//#else
-	private MetricsData
+	private FrameTimer
 	//#endif
 			metricsData;
 
@@ -115,7 +115,7 @@ public class ServerMsptMetricsDataSyncer
 		//$$ 	this.metricsData.push(nanosecond, type.ordinal());
 		//$$ }
 		//#else
-		this.metricsData.pushSample(nanosecond / M);
+		this.metricsData.logFrameDuration(nanosecond / M);
 		//#endif
 	}
 
@@ -123,7 +123,7 @@ public class ServerMsptMetricsDataSyncer
 	//#if MC >= 12005
 	//$$ MultiValueDebugSampleLogImpl
 	//#else
-	MetricsData
+	FrameTimer
 	//#endif
 	getMetricsData()
 	{
@@ -136,7 +136,7 @@ public class ServerMsptMetricsDataSyncer
 				//#if MC >= 12005
 				//$$ new MultiValueDebugSampleLogImpl
 				//#else
-				new MetricsData
+				new FrameTimer
 				//#endif
 				(
 						//#if MC >= 12005

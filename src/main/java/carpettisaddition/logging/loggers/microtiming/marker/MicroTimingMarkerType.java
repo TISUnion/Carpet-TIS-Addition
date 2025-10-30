@@ -20,23 +20,23 @@
 
 package carpettisaddition.logging.loggers.microtiming.marker;
 
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
 
 public enum MicroTimingMarkerType
 {
 	/**
 	 * Dont log block update
 	 */
-	REGULAR(2.5F, Formatting.GRAY),
+	REGULAR(2.5F, ChatFormatting.GRAY),
 	/**
 	 * Log everything
 	 */
-	END_ROD(7.0F, Formatting.LIGHT_PURPLE);
+	END_ROD(7.0F, ChatFormatting.LIGHT_PURPLE);
 
 	public final float lineWidth;
-	private final Formatting color;
+	private final ChatFormatting color;
 
-	MicroTimingMarkerType(float lineWidth, Formatting color)
+	MicroTimingMarkerType(float lineWidth, ChatFormatting color)
 	{
 		this.lineWidth = lineWidth;
 		this.color = color;
@@ -49,6 +49,6 @@ public enum MicroTimingMarkerType
 
 	public String getFancyString()
 	{
-		return this.color.toString() + super.toString() + Formatting.RESET;
+		return this.color.toString() + super.toString() + ChatFormatting.RESET;
 	}
 }

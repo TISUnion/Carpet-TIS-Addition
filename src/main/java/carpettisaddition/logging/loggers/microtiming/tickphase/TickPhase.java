@@ -26,7 +26,7 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.substages.Abstrac
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -70,19 +70,19 @@ public class TickPhase
 		return new TickPhase(this.mainStage, this.stageDetail, subStage, this.dimensionType);
 	}
 
-	private static BaseText tr(String key, Object... args)
+	private static BaseComponent tr(String key, Object... args)
 	{
 		return MicroTimingLoggerManager.TRANSLATOR.tr(key, args);
 	}
 
-	public BaseText toText(@Nullable String carpetStyle)
+	public BaseComponent toText(@Nullable String carpetStyle)
 	{
 		List<Object> stageText = Lists.newArrayList();
 		stageText.add(this.mainStage.toText());
 		if (this.stageDetail != null)
 		{
 			stageText.add(Messenger.s("."));
-			BaseText detailText;
+			BaseComponent detailText;
 			try
 			{
 				detailText = Messenger.s(String.valueOf(Integer.parseInt(this.stageDetail)));
@@ -106,7 +106,7 @@ public class TickPhase
 		);
 	}
 
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return this.toText(null);
 	}

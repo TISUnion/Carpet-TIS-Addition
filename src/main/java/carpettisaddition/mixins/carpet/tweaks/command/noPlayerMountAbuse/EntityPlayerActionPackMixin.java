@@ -25,9 +25,9 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.PlayerUtils;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -40,7 +40,7 @@ import java.util.List;
 @Mixin(EntityPlayerActionPack.class)
 public abstract class EntityPlayerActionPackMixin
 {
-	@Shadow(remap = false) @Final private ServerPlayerEntity player;
+	@Shadow(remap = false) @Final private ServerPlayer player;
 
 	@Inject(
 			method = "mount",

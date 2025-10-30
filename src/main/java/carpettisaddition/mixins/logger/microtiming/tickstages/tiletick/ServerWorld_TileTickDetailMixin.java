@@ -25,15 +25,15 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.substages.TileTic
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.ScheduledTick;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.TickNextTickData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.18"))
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public abstract class ServerWorld_TileTickDetailMixin
 {
 	private int tileTickOrderCounter = 0;
@@ -43,11 +43,11 @@ public abstract class ServerWorld_TileTickDetailMixin
 			at = {
 					@At(
 							value = "FIELD",
-							target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+							target = "Lnet/minecraft/server/level/ServerLevel;blockTicks:Lnet/minecraft/world/level/ServerTickList;"
 					),
 					@At(
 							value = "FIELD",
-							target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+							target = "Lnet/minecraft/server/level/ServerLevel;liquidTicks:Lnet/minecraft/world/level/ServerTickList;"
 					)
 			}
 	)
@@ -56,17 +56,17 @@ public abstract class ServerWorld_TileTickDetailMixin
 		this.tileTickOrderCounter = 0;
 	}
 
-	@Inject(method = {"tickBlock", "tickFluid"}, at = @At("HEAD"))
-	private void beforeExecuteTileTickEvent(ScheduledTick<?> event, CallbackInfo ci)
+	@Inject(method = {"tickBlock", "tickLiquid"}, at = @At("HEAD"))
+	private void beforeExecuteTileTickEvent(TickNextTickData<?> event, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(event.priority.getIndex()));
-		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, new TileTickSubStage((ServerWorld)(Object)this, event, this.tileTickOrderCounter++));
+		MicroTimingLoggerManager.setTickStageDetail((ServerLevel)(Object)this, String.valueOf(event.priority.getValue()));
+		MicroTimingLoggerManager.setSubTickStage((ServerLevel)(Object)this, new TileTickSubStage((ServerLevel)(Object)this, event, this.tileTickOrderCounter++));
 	}
 
-	@Inject(method = {"tickBlock", "tickFluid"}, at = @At("RETURN"))
-	private void afterExecuteTileTickEvent(ScheduledTick<?> event, CallbackInfo ci)
+	@Inject(method = {"tickBlock", "tickLiquid"}, at = @At("RETURN"))
+	private void afterExecuteTileTickEvent(TickNextTickData<?> event, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
-		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, null);
+		MicroTimingLoggerManager.setTickStageDetail((ServerLevel)(Object)this, null);
+		MicroTimingLoggerManager.setSubTickStage((ServerLevel)(Object)this, null);
 	}
 }

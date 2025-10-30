@@ -21,9 +21,9 @@
 package carpettisaddition.logging.loggers.damage.modifyreasons;
 
 import carpettisaddition.utils.Messenger;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.SharedMonsterAttributes;
+import net.minecraft.network.chat.BaseComponent;
 
 public class ArmorModifyReason extends ModifyReason
 {
@@ -39,11 +39,11 @@ public class ArmorModifyReason extends ModifyReason
 
 	public ArmorModifyReason(LivingEntity entity)
 	{
-		this((float)entity.getArmor(), (float)entity.getAttributeInstance(EntityAttributes.ARMOR_TOUGHNESS).getValue());
+		this((float)entity.getArmorValue(), (float)entity.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).getValue());
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return Messenger.fancy(
 				null,
@@ -52,10 +52,10 @@ public class ArmorModifyReason extends ModifyReason
 						String.format("w  %.1f + %.1f", this.armor, this.toughness)
 				),
 				Messenger.c(
-						Messenger.attribute(EntityAttributes.ARMOR),
+						Messenger.attribute(SharedMonsterAttributes.ARMOR),
 						"w : " + String.format("%.1f", this.armor),
 						"w \n",
-						Messenger.attribute(EntityAttributes.ARMOR_TOUGHNESS),
+						Messenger.attribute(SharedMonsterAttributes.ARMOR_TOUGHNESS),
 						"w : " + String.format("%.1f", this.toughness)
 				),
 				null

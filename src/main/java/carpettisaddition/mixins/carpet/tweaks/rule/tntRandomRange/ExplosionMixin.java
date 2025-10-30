@@ -35,8 +35,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //$$ import java.util.List;
 //#else
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Explosion;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
@@ -55,14 +55,14 @@ public class ExplosionMixin
 	//#if MC >= 12102
 	//$$ private ServerWorld world;
 	//#else
-	private World world;
+	private Level level;
 	//#endif
 
 	private void tryUnWrapWorldRandom()
 	{
-		if (this.world.random instanceof WrappedRandom)
+		if (this.level.random instanceof WrappedRandom)
 		{
-			((WorldAccessor)this.world).setRandom(((WrappedRandom)this.world.random).unwrap());
+			((WorldAccessor)this.level).setRandom(((WrappedRandom)this.level.random).unwrap());
 		}
 	}
 
@@ -70,7 +70,7 @@ public class ExplosionMixin
 			//#if MC >= 12102
 			//$$ method = "getBlocksToDestroy",
 			//#else
-			method = "collectBlocksAndDamageEntities",
+			method = "explode",
 			//#endif
 			at = @At("HEAD")
 	)
@@ -83,12 +83,12 @@ public class ExplosionMixin
 	)
 	{
 		// Do wrapping thing server side only
-		if (!this.world.isClient())
+		if (!this.level.isClientSide())
 		{
 			this.tryUnWrapWorldRandom();
 			if (CarpetSettings.tntRandomRange >= 0)
 			{
-				((WorldAccessor) this.world).setRandom(WrappedRandom.wrap(this.world.random));
+				((WorldAccessor) this.level).setRandom(WrappedRandom.wrap(this.level.random));
 			}
 		}
 	}
@@ -97,7 +97,7 @@ public class ExplosionMixin
 			//#if MC >= 12102
 			//$$ method = "getBlocksToDestroy",
 			//#else
-			method = "collectBlocksAndDamageEntities",
+			method = "explode",
 			//#endif
 			at = @At("RETURN")
 	)

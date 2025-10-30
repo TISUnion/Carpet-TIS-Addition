@@ -26,17 +26,17 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.CommandOutput;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandSource.suggestMatching;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 
 //#if MC >= 1.21.11
 //$$ import net.minecraft.command.permission.Permission;
@@ -47,23 +47,23 @@ import static net.minecraft.server.command.CommandSource.suggestMatching;
 
 public class CommandUtils
 {
-	public static boolean isConsoleCommandSource(ServerCommandSource commandSource)
+	public static boolean isConsoleCommandSource(CommandSourceStack commandSource)
 	{
 		if (commandSource != null)
 		{
-			CommandOutput output = ((ServerCommandSourceAccessor)commandSource).getOutput();
+			CommandSource output = ((ServerCommandSourceAccessor)commandSource).getOutput();
 			return output instanceof MinecraftServer;
 		}
 		return false;
 	}
 
-	public static Optional<ServerPlayerEntity> getPlayer(ServerCommandSource source)
+	public static Optional<ServerPlayer> getPlayer(CommandSourceStack source)
 	{
 		if (source != null)
 		{
 			try
 			{
-				return Optional.ofNullable(source.getPlayer());
+				return Optional.ofNullable(source.getPlayerOrException());
 			}
 			catch (CommandSyntaxException ignored)
 			{
@@ -72,28 +72,28 @@ public class CommandUtils
 		return Optional.empty();
 	}
 
-	public static boolean isPlayerCommandSource(ServerCommandSource source)
+	public static boolean isPlayerCommandSource(CommandSourceStack source)
 	{
 		return getPlayer(source).isPresent();
 	}
 
-	public static boolean isCreativePlayer(ServerCommandSource source)
+	public static boolean isCreativePlayer(CommandSourceStack source)
 	{
 		return getPlayer(source).
-				map(ServerPlayerEntity::isCreative).
+				map(ServerPlayer::isCreative).
 				orElse(false);
 	}
 
-	public static boolean isOperatorPlayer(ServerCommandSource source)
+	public static boolean isOperatorPlayer(CommandSourceStack source)
 	{
 		return getPlayer(source).
-				map(player -> PlayerUtils.isOperator(source.getMinecraftServer(), player)).
+				map(player -> PlayerUtils.isOperator(source.getServer(), player)).
 				orElse(false);
 	}
 
-	public static boolean isSinglePlayerOwner(ServerCommandSource source)
+	public static boolean isSinglePlayerOwner(CommandSourceStack source)
 	{
-		MinecraftServer server = source.getMinecraftServer();
+		MinecraftServer server = source.getServer();
 		//#if MC >= 1.16.0
 		//$$ return getPlayer(source).
 		//$$ 		//#if MC >= 1.21.9
@@ -103,8 +103,8 @@ public class CommandUtils
 		//$$ 		//#endif
 		//$$ 		orElse(false);
 		//#else
-		return server.isSinglePlayer() && getPlayer(source).
-				map(player -> player.getName().getString().equals(server.getUserName())).
+		return server.isSingleplayer() && getPlayer(source).
+				map(player -> player.getName().getString().equals(server.getSingleplayerName())).
 				orElse(false);
 		//#endif
 	}
@@ -112,18 +112,18 @@ public class CommandUtils
 	/**
 	 * aka source has permission level 2 (commonly used in cheaty commands)
 	 */
-	public static boolean canCheat(ServerCommandSource source)
+	public static boolean canCheat(CommandSourceStack source)
 	{
 		return hasPermissionLevel(source, 2);
 	}
 
-	public static boolean hasPermissionLevel(ServerCommandSource source, int level)
+	public static boolean hasPermissionLevel(CommandSourceStack source, int level)
 	{
 		//#if MC >= 1.21.11
 		//$$ var permission = new Permission.Level(PermissionLevel.fromLevel(level));
 		//$$ return new PermissionCheck.Require(permission).allows(source.getPermissions());
 		//#else
-		return source.hasPermissionLevel(level);
+		return source.hasPermission(level);
 		//#endif
 	}
 
@@ -149,17 +149,17 @@ public class CommandUtils
 		}
 	}
 
-	public static RequiredArgumentBuilder<ServerCommandSource, String> enumArg(String name, Class<? extends Enum<?>> enumClass)
+	public static RequiredArgumentBuilder<CommandSourceStack, String> enumArg(String name, Class<? extends Enum<?>> enumClass)
 	{
 		return argument(name, word()).
-				suggests((c, b) -> suggestMatching(
+				suggests((c, b) -> suggest(
 						Arrays.stream(enumClass.getEnumConstants()).
 								map(e -> e.name().toLowerCase()),
 						b)
 				);
 	}
 
-	public static BuilderFactory<RequiredArgumentBuilder<ServerCommandSource, String>> enumArg(Class<? extends Enum<?>> enumClass)
+	public static BuilderFactory<RequiredArgumentBuilder<CommandSourceStack, String>> enumArg(Class<? extends Enum<?>> enumClass)
 	{
 		return name -> enumArg(name, enumClass);
 	}

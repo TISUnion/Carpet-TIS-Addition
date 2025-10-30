@@ -21,23 +21,23 @@
 package carpettisaddition.mixins.rule.blockEventPacketRange;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 // Inject with lower priority, so it's invoked after g4mespeed's @ModifyArg
-@Mixin(value = ServerWorld.class, priority = 2000)
+@Mixin(value = ServerLevel.class, priority = 2000)
 public abstract class ServerWorldMixin
 {
 	@ModifyArg(
-			method = "sendBlockActions",
+			method = "runBlockEvents",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/server/PlayerManager;sendToAround(Lnet/minecraft/entity/player/PlayerEntity;DDDDLnet/minecraft/util/registry/RegistryKey;Lnet/minecraft/network/Packet;)V"
 					//#else
-					target = "Lnet/minecraft/server/PlayerManager;sendToAround(Lnet/minecraft/entity/player/PlayerEntity;DDDDLnet/minecraft/world/dimension/DimensionType;Lnet/minecraft/network/Packet;)V"
+					target = "Lnet/minecraft/server/players/PlayerList;broadcast(Lnet/minecraft/world/entity/player/Player;DDDDLnet/minecraft/world/level/dimension/DimensionType;Lnet/minecraft/network/protocol/Packet;)V"
 					//#endif
 			),
 			index = 4

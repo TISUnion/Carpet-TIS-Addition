@@ -22,14 +22,14 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.tiletick;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin
 {
 	@Inject(
@@ -39,13 +39,13 @@ public abstract class ServerWorldMixin
 					//#if MC >= 11800
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
 					//#else
-					target = "Lnet/minecraft/server/world/ServerWorld;blockTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+					target = "Lnet/minecraft/server/level/ServerLevel;blockTicks:Lnet/minecraft/world/level/ServerTickList;"
 					//#endif
 			)
 	)
 	private void enterStageTileTick(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.TILE_TICK);
+		MicroTimingLoggerManager.setTickStage((ServerLevel)(Object)this, TickStage.TILE_TICK);
 	}
 
 	@Inject(
@@ -56,7 +56,7 @@ public abstract class ServerWorldMixin
 							//#if MC >= 11800
 							//$$ target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/world/tick/WorldTickScheduler;"
 							//#else
-							target = "Lnet/minecraft/server/world/ServerWorld;fluidTickScheduler:Lnet/minecraft/server/world/ServerTickScheduler;"
+							target = "Lnet/minecraft/server/level/ServerLevel;liquidTicks:Lnet/minecraft/world/level/ServerTickList;"
 							//#endif
 					)
 			),
@@ -65,13 +65,13 @@ public abstract class ServerWorldMixin
 					//#if MC >= 11800
 					//$$ target = "Lnet/minecraft/world/tick/WorldTickScheduler;tick(JILjava/util/function/BiConsumer;)V",
 					//#else
-					target = "Lnet/minecraft/server/world/ServerTickScheduler;tick()V",
+					target = "Lnet/minecraft/world/level/ServerTickList;tick()V",
 					//#endif
 					shift = At.Shift.AFTER
 			)
 	)
 	private void exitStageTileTick(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.UNKNOWN);
+		MicroTimingLoggerManager.setTickStage((ServerLevel)(Object)this, TickStage.UNKNOWN);
 	}
 }

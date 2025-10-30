@@ -25,9 +25,9 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -43,7 +43,7 @@ public abstract class InventoryUtilsMixin
 			at = @At(value = "RETURN", ordinal = 1),
 			remap = false
 	)
-	private static Inventory letMalilibRecognizeLargeBarrel(Inventory inventory, World world, BlockPos pos)
+	private static Container letMalilibRecognizeLargeBarrel(Container inventory, Level world, BlockPos pos)
 	{
 		return LargeBarrelMasaModUtils.modifyGetBlockInventoryReturnValue(inventory, world, pos);
 	}

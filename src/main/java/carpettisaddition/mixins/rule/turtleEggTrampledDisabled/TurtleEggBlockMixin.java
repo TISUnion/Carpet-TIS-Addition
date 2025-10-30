@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.rule.turtleEggTrampledDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.TurtleEggBlock;
+import net.minecraft.world.level.block.TurtleEggBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,10 +31,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class TurtleEggBlockMixin
 {
 	@Inject(
-			method = "tryBreakEgg",
+			method = "destroyEgg",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/TurtleEggBlock;breakEgg(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V"
+					target = "Lnet/minecraft/world/level/block/TurtleEggBlock;decreaseEggs(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V"
 			),
 			cancellable = true
 	)

@@ -21,8 +21,8 @@
 package carpettisaddition.commands.lifetime.removal;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 
 import java.util.function.Supplier;
 
@@ -37,7 +37,7 @@ public enum RemovalType
 	 */
 	REMOVED_FROM_MOBCAP(entity -> {
 		// only MobEntity will be counted in mobcap
-		return CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap && entity instanceof MobEntity;
+		return CarpetTISAdditionSettings.lifeTimeTrackerConsidersMobcap && entity instanceof Mob;
 	});
 
 	private final Validator validSupplier;

@@ -22,18 +22,18 @@ package carpettisaddition.mixins.command.lifetime.spawning.breeding;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.brain.task.VillagerBreedTask;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.behavior.MakeLove;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(VillagerBreedTask.class)
+@Mixin(MakeLove.class)
 public abstract class VillagerBreedTaskMixin
 {
 	@ModifyArg(
 			//#if MC >= 11500
-			method = "createChild",
+			method = "breed",
 			//#else
 			//$$ method = "method_18970",
 			//#endif
@@ -42,7 +42,7 @@ public abstract class VillagerBreedTaskMixin
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 					//#elseif MC >= 11500
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#else
 					//$$ target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
 					//$$ remap = true

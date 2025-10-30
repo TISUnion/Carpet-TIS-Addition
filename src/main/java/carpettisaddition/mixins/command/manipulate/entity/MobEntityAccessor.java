@@ -20,13 +20,13 @@
 
 package carpettisaddition.mixins.command.manipulate.entity;
 
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.world.entity.Mob;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(MobEntity.class)
+@Mixin(Mob.class)
 public interface MobEntityAccessor
 {
-	@Accessor("persistent")
+	@Accessor("persistenceRequired")
 	void setPersistent$TISCM(boolean value);
 }

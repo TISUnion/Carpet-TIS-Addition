@@ -26,7 +26,7 @@ import carpettisaddition.utils.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.List;
 import java.util.Queue;
@@ -36,14 +36,14 @@ public class FakePlayerTicker
 	private static final FakePlayerTicker INSTANCE = new FakePlayerTicker();
 
 	private final Queue<ActionPackTickTask> pendingActionPackTasks = Queues.newConcurrentLinkedQueue();
-	private final List<ServerPlayerEntity> pendingPlayersToBeEntityTicked = Lists.newArrayList();
+	private final List<ServerPlayer> pendingPlayersToBeEntityTicked = Lists.newArrayList();
 
 	public static FakePlayerTicker getInstance()
 	{
 		return INSTANCE;
 	}
 
-	public void addPlayerEntityTick(ServerPlayerEntity player)
+	public void addPlayerEntityTick(ServerPlayer player)
 	{
 		synchronized (this.pendingPlayersToBeEntityTicked)
 		{
@@ -55,7 +55,7 @@ public class FakePlayerTicker
 	 * Player action packs are just like regular client packet inputs,
 	 * so tick them in the async-task phase
 	 */
-	public void addActionPackTick(ServerPlayerEntity player, EntityPlayerActionPack actionPack)
+	public void addActionPackTick(ServerPlayer player, EntityPlayerActionPack actionPack)
 	{
 		MinecraftServer server = PlayerUtils.getServerFromPlayer(player);
 		if (server != null)
@@ -74,24 +74,24 @@ public class FakePlayerTicker
 
 	/**
 	 * References:
-	 * - {@link net.minecraft.server.network.ServerPlayNetworkHandler#tick} for where {@link ServerPlayerEntity#playerTick} is invoked
-	 * - {@link net.minecraft.server.ServerNetworkIo#tick} for exception handling
+	 * - {@link net.minecraft.server.network.ServerGamePacketListenerImpl#tick} for where {@link ServerPlayer#playerTick} is invoked
+	 * - {@link net.minecraft.server.network.ServerConnectionListener#tick} for exception handling
 	 */
 	public void networkPhaseTick()
 	{
-		List<ServerPlayerEntity> players = Lists.newArrayList();
+		List<ServerPlayer> players = Lists.newArrayList();
 		synchronized (this.pendingPlayersToBeEntityTicked)
 		{
 			players.addAll(this.pendingPlayersToBeEntityTicked);
 			this.pendingPlayersToBeEntityTicked.clear();
 		}
 
-		for (ServerPlayerEntity player : players)
+		for (ServerPlayer player : players)
 		{
 			try
 			{
 				//#if MC >= 11500
-				player.playerTick();
+				player.doTick();
 				//#else
 				//$$ player.method_14226();
 				//#endif
@@ -120,7 +120,7 @@ public class FakePlayerTicker
 				break;
 			}
 
-			ServerPlayerEntity player = task.player;
+			ServerPlayer player = task.player;
 			Runnable runnable = task.runnable;
 			try
 			{
@@ -135,10 +135,10 @@ public class FakePlayerTicker
 
 	private static class ActionPackTickTask
 	{
-		public final ServerPlayerEntity player;
+		public final ServerPlayer player;
 		public final Runnable runnable;
 
-		public ActionPackTickTask(ServerPlayerEntity player, Runnable runnable)
+		public ActionPackTickTask(ServerPlayer player, Runnable runnable)
 		{
 			this.player = player;
 			this.runnable = runnable;

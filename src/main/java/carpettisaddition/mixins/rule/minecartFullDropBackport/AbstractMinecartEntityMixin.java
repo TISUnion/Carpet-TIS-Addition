@@ -25,8 +25,8 @@ import carpettisaddition.helpers.rule.minecartFullDropBackport.MinecartFullDropB
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.item.ItemConvertible;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.level.ItemLike;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -34,21 +34,21 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import java.util.Optional;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.19"))
-@Mixin(AbstractMinecartEntity.class)
+@Mixin(AbstractMinecart.class)
 public abstract class AbstractMinecartEntityMixin
 {
 	@ModifyArg(
-			method = "dropItems",
+			method = "destroy",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/item/ItemStack;<init>(Lnet/minecraft/item/ItemConvertible;)V"
+					target = "Lnet/minecraft/world/item/ItemStack;<init>(Lnet/minecraft/world/level/ItemLike;)V"
 			)
 	)
-	private ItemConvertible minecartFullDropBackport_modifyCartItem(ItemConvertible item)
+	private ItemLike minecartFullDropBackport_modifyCartItem(ItemLike item)
 	{
 		if (CarpetTISAdditionSettings.minecartFullDropBackport)
 		{
-			Optional<ItemConvertible> fullDropItem = MinecartFullDropBackportHelper.getFullDropItem((AbstractMinecartEntity)(Object)this);
+			Optional<ItemLike> fullDropItem = MinecartFullDropBackportHelper.getFullDropItem((AbstractMinecart)(Object)this);
 			if (fullDropItem.isPresent())
 			{
 				item = fullDropItem.get();

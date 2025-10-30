@@ -20,13 +20,13 @@
 
 package carpettisaddition.mixins.command.info.entity;
 
-import net.minecraft.entity.mob.ZombieVillagerEntity;
+import net.minecraft.world.entity.monster.ZombieVillager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(ZombieVillagerEntity.class)
+@Mixin(ZombieVillager.class)
 public interface ZombieVillagerEntityAccessor
 {
-	@Accessor
+	@Accessor("villagerConversionTime")
 	int getConversionTimer();
 }

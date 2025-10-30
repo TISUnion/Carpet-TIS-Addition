@@ -23,27 +23,27 @@ package carpettisaddition.mixins.rule.largeBarrel;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 11600
 //$$ import net.minecraft.state.State;
 //#else
-import net.minecraft.state.AbstractState;
+import net.minecraft.world.level.block.state.AbstractStateHolder;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
 		//$$ State.class
 		//#else
-		AbstractState.class
+		AbstractStateHolder.class
 		//#endif
 )
 public abstract class AbstractStateMixin
 {
 	@SuppressWarnings("unchecked")
-	@ModifyReturnValue(method = "get(Lnet/minecraft/state/property/Property;)Ljava/lang/Comparable;", at = @At("TAIL"))
+	@ModifyReturnValue(method = "getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", at = @At("TAIL"))
 	private <T extends Comparable<T>> T tweaksGetStateResultForLargeBarrel(T ret)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
@@ -53,7 +53,7 @@ public abstract class AbstractStateMixin
 				if (ret instanceof Direction)
 				{
 					Direction direction = (Direction)ret;
-					return (T)Direction.from(direction.getAxis(), Direction.AxisDirection.NEGATIVE);
+					return (T)Direction.fromAxisAndDirection(direction.getAxis(), Direction.AxisDirection.NEGATIVE);
 				}
 			}
 		}

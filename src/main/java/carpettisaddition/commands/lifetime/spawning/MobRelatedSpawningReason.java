@@ -20,7 +20,7 @@
 
 package carpettisaddition.commands.lifetime.spawning;
 
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 
 import java.util.Objects;
 

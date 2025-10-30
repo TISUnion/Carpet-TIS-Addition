@@ -22,10 +22,10 @@ package carpettisaddition.logging.loggers.microtiming.events;
 
 import carpettisaddition.utils.IdentifierUtils;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.block.Block;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Identifier;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -34,9 +34,9 @@ public abstract class EventSource
 {
 	public abstract Object getSourceObject();
 
-	public abstract BaseText getName();
+	public abstract BaseComponent getName();
 
-	public abstract Identifier getId();
+	public abstract ResourceLocation getId();
 
 	@Override
 	public boolean equals(Object o)
@@ -54,13 +54,13 @@ public abstract class EventSource
 
 	public static Optional<EventSource> fromObject(Object object)
 	{
-		if (object instanceof net.minecraft.block.Block)
+		if (object instanceof net.minecraft.world.level.block.Block)
 		{
 			return Optional.of(new BlockEventSource((Block)object));
 		}
-		else if (object instanceof net.minecraft.fluid.Fluid)
+		else if (object instanceof net.minecraft.world.level.material.Fluid)
 		{
-			return Optional.of(new FluidEventSource((net.minecraft.fluid.Fluid)object));
+			return Optional.of(new FluidEventSource((net.minecraft.world.level.material.Fluid)object));
 		}
 		return Optional.empty();
 	}
@@ -81,13 +81,13 @@ public abstract class EventSource
 		}
 
 		@Override
-		public BaseText getName()
+		public BaseComponent getName()
 		{
 			return Messenger.block(this.block);
 		}
 
 		@Override
-		public Identifier getId()
+		public ResourceLocation getId()
 		{
 			return IdentifierUtils.id(this.block);
 		}
@@ -109,13 +109,13 @@ public abstract class EventSource
 		}
 
 		@Override
-		public BaseText getName()
+		public BaseComponent getName()
 		{
 			return Messenger.fluid(this.fluid);
 		}
 
 		@Override
-		public Identifier getId()
+		public ResourceLocation getId()
 		{
 			return IdentifierUtils.id(this.fluid);
 		}

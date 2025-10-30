@@ -27,9 +27,9 @@ import carpettisaddition.settings.TISCMRules;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -62,7 +62,7 @@ public abstract class SettingsManagerMixin
 	)
 	private ParsedRule<?> addTiscmRuleDisablingMessage(
 			ParsedRule<?> carpetRule,
-			@Local(argsOnly = true) ServerCommandSource source
+			@Local(argsOnly = true) CommandSourceStack source
 	)
 	{
 		TISCMRules.get(carpetRule).
@@ -71,20 +71,20 @@ public abstract class SettingsManagerMixin
 		return carpetRule;
 	}
 
-	private static Optional<List<BaseText>> getTiscmRuleDisableMessage(TISCMRule tiscmRule)
+	private static Optional<List<BaseComponent>> getTiscmRuleDisableMessage(TISCMRule tiscmRule)
 	{
-		List<BaseText> lines = Lists.newArrayList();
+		List<BaseComponent> lines = Lists.newArrayList();
 		Consumer<List<String>> addReasons = reasons -> reasons.forEach(
-				reason -> lines.add(Messenger.formatting(Messenger.s("- " + reason), Formatting.DARK_RED))
+				reason -> lines.add(Messenger.formatting(Messenger.s("- " + reason), ChatFormatting.DARK_RED))
 		);
 		if (!tiscmRule.worksForCurrentMCVersion())
 		{
-			lines.add(Messenger.formatting(Messenger.tr("carpettisaddition.misc.rule_disabling.unmatched_minecraft"), Formatting.RED));
+			lines.add(Messenger.formatting(Messenger.tr("carpettisaddition.misc.rule_disabling.unmatched_minecraft"), ChatFormatting.RED));
 			addReasons.accept(tiscmRule.getMCVersionFailReasons());
 		}
 		else if (!tiscmRule.allRestrictionsSatisfied())
 		{
-			lines.add(Messenger.formatting(Messenger.tr("carpettisaddition.misc.rule_disabling.unsatisfied_restriction"), Formatting.RED));
+			lines.add(Messenger.formatting(Messenger.tr("carpettisaddition.misc.rule_disabling.unsatisfied_restriction"), ChatFormatting.RED));
 			addReasons.accept(tiscmRule.getAllRestrictionsFailReasons());
 		}
 		return lines.isEmpty() ? Optional.empty() : Optional.of(lines);

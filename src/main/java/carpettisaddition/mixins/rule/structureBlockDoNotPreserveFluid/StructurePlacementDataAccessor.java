@@ -20,14 +20,14 @@
 
 package carpettisaddition.mixins.rule.structureBlockDoNotPreserveFluid;
 
-import net.minecraft.structure.StructurePlacementData;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 // mc <1.17 only
-@Mixin(StructurePlacementData.class)
+@Mixin(StructurePlaceSettings.class)
 public interface StructurePlacementDataAccessor
 {
-	@Accessor
+	@Accessor("keepLiquids")
 	void setPlaceFluids(boolean value);
 }

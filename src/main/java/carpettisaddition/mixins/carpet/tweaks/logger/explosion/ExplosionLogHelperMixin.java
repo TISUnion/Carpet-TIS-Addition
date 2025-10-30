@@ -26,11 +26,11 @@ import carpettisaddition.helpers.carpet.tweaks.logger.explosion.ITntEntity;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.TntEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -55,9 +55,9 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 	 * velocity -> angle in [0, 2pi)
 	 * for carpet rule hardcodeTNTangle
 	 */
-	private double calculateAngle(Vec3d velocity)
+	private double calculateAngle(Vec3 velocity)
 	{
-		double vx = velocity.getX(), vz = velocity.getZ();
+		double vx = velocity.x(), vz = velocity.z();
 		double angle;
 		if (vz != 0)
 		{
@@ -88,35 +88,35 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 			//#if MC >= 11700
 			//$$ long gametime, String option,
 			//#else
-			List<BaseText> messages_, String option,
+			List<BaseComponent> messages_, String option,
 			//#endif
 
 			//#if MC >= 11900
 			//$$ CallbackInfoReturnable<Text[]> cir
 			//#else
-			CallbackInfoReturnable<BaseText[]> cir
+			CallbackInfoReturnable<BaseComponent[]> cir
 			//#endif
 	)
 	{
-		if (this.entity$TISCM instanceof TntEntity)
+		if (this.entity$TISCM instanceof PrimedTnt)
 		{
 			ITntEntity iTntEntity = (ITntEntity)this.entity$TISCM;
 			if (iTntEntity.dataRecorded())
 			{
-				List<BaseText> messages = Lists.newArrayList();
-				for (Text text : cir.getReturnValue())
+				List<BaseComponent> messages = Lists.newArrayList();
+				for (Component text : cir.getReturnValue())
 				{
-					if (text instanceof BaseText)
+					if (text instanceof BaseComponent)
 					{
 						// for easier 1.19 compact
 						//noinspection CastCanBeRemovedNarrowingVariableType
-						messages.add((BaseText)text);
+						messages.add((BaseComponent)text);
 					}
 				}
 
 				String angleString = String.valueOf(this.calculateAngle(iTntEntity.getInitializedVelocity()));
 				String posString = TextUtils.coord(iTntEntity.getInitializedPosition());
-				BaseText tntText = Messenger.fancy(
+				BaseComponent tntText = Messenger.fancy(
 						"r",
 						Messenger.s("[TNT]"),
 						Messenger.c(
@@ -129,7 +129,7 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 				switch (option)
 				{
 					case "brief":
-						BaseText lastMessage = messages.get(messages.size() - 1);
+						BaseComponent lastMessage = messages.get(messages.size() - 1);
 						messages.set(messages.size() - 1, Messenger.c(lastMessage, "w  ", tntText));
 						break;
 					case "full":
@@ -137,7 +137,7 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 						break;
 				}
 
-				cir.setReturnValue(messages.toArray(new BaseText[0]));
+				cir.setReturnValue(messages.toArray(new BaseComponent[0]));
 			}
 		}
 	}

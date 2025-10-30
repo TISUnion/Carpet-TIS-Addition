@@ -20,7 +20,7 @@
 
 package carpettisaddition.translations;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 /**
  * With this you can use {@link TranslationContext#tr} freely in your target class
@@ -44,7 +44,7 @@ public class TranslationContext
 		return translator;
 	}
 
-	protected BaseText tr(String key, Object ...args)
+	protected BaseComponent tr(String key, Object ...args)
 	{
 		return this.translator.tr(key, args);
 	}

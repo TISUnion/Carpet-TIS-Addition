@@ -21,7 +21,7 @@
 package carpettisaddition.commands.speedtest;
 
 import carpettisaddition.translations.Translator;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public enum TestType
 {
@@ -31,7 +31,7 @@ public enum TestType
 
 	private static final Translator translator = SpeedTestCommand.getInstance().getTranslator();
 
-	public BaseText getNameText()
+	public BaseComponent getNameText()
 	{
 		return translator.tr("test_type." + this.name().toLowerCase());
 	}

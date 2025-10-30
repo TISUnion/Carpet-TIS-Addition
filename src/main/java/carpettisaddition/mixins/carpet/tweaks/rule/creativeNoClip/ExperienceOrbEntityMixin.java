@@ -22,8 +22,8 @@ package carpettisaddition.mixins.carpet.tweaks.rule.creativeNoClip;
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,11 +36,11 @@ import carpet.CarpetSettings;
 //$$ import carpettisaddition.utils.compat.carpet.CarpetSettings;
 //#endif
 
-@Mixin(ExperienceOrbEntity.class)
+@Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin
 {
 	@Shadow
-	private PlayerEntity target;
+	private Player followingPlayer;
 
 	@Inject(
 			//#if MC >= 12105
@@ -52,7 +52,7 @@ public abstract class ExperienceOrbEntityMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getClosestPlayer(Lnet/minecraft/entity/Entity;D)Lnet/minecraft/entity/player/PlayerEntity;"
+					target = "Lnet/minecraft/world/level/Level;getNearestPlayer(Lnet/minecraft/world/entity/Entity;D)Lnet/minecraft/world/entity/player/Player;"
 			)
 	)
 	private void creativeNoClipEnhancement_doNotFindNoCreateClipPlayer_xpOrb_enter(CallbackInfo ci)
@@ -73,7 +73,7 @@ public abstract class ExperienceOrbEntityMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getClosestPlayer(Lnet/minecraft/entity/Entity;D)Lnet/minecraft/entity/player/PlayerEntity;",
+					target = "Lnet/minecraft/world/level/Level;getNearestPlayer(Lnet/minecraft/world/entity/Entity;D)Lnet/minecraft/world/entity/player/Player;",
 					shift = At.Shift.AFTER
 			)
 	)
@@ -93,13 +93,13 @@ public abstract class ExperienceOrbEntityMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/player/PlayerEntity;isSpectator()Z",
+					target = "Lnet/minecraft/world/entity/player/Player;isSpectator()Z",
 					ordinal = 0
 			)
 	)
 	private boolean creativeNoClipEnhancement_xpOrbForgetCreateNoClipPlayer(boolean isSpectator)
 	{
-		if (this.target != null && CreativeNoClipHelper.isNoClipPlayer(this.target))
+		if (this.followingPlayer != null && CreativeNoClipHelper.isNoClipPlayer(this.followingPlayer))
 		{
 			isSpectator = true;
 		}

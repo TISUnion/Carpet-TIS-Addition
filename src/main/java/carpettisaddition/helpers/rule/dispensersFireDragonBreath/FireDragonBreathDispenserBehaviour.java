@@ -20,17 +20,17 @@
 
 package carpettisaddition.helpers.rule.dispensersFireDragonBreath;
 
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.ItemDispenserBehavior;
-import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 
 //#if MC >= 12109
 //$$ import net.minecraft.particle.DragonBreathParticleEffect;
@@ -45,21 +45,21 @@ import net.minecraft.world.World;
 //$$ import net.minecraft.component.type.PotionContentsComponent;
 //#endif
 
-public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
+public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehavior
 {
 	public static final FireDragonBreathDispenserBehaviour INSTANCE = new FireDragonBreathDispenserBehaviour();
 
 	@Override
-	protected ItemStack dispenseSilently(BlockPointer source, ItemStack stack)
+	protected ItemStack execute(BlockSource source, ItemStack stack)
 	{
-		Direction sourceFace = source.getBlockState().get(DispenserBlock.FACING);
-		World world = source.getWorld();
-		BlockPos blockpos = source.getBlockPos().offset(sourceFace);
+		Direction sourceFace = source.getBlockState().getValue(DispenserBlock.FACING);
+		Level world = source.getLevel();
+		BlockPos blockpos = source.getPos().relative(sourceFace);
 
 		// Vanilla copy of DragonFireballEntity#onCollision
-		AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(world, blockpos.getX() + 0.5, blockpos.getY() + 0.5, blockpos.getZ() + 0.5);
+		AreaEffectCloud areaEffectCloudEntity = new AreaEffectCloud(world, blockpos.getX() + 0.5, blockpos.getY() + 0.5, blockpos.getZ() + 0.5);
 		areaEffectCloudEntity.setOwner(null);  // it doesn't have an entity owner
-		areaEffectCloudEntity.setParticleType(
+		areaEffectCloudEntity.setParticle(
 				//#if MC >= 1.21.9
 				//$$ DragonBreathParticleEffect.of(ParticleTypes.DRAGON_BREATH, 1.0F)
 				//#else
@@ -68,11 +68,11 @@ public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
 		);
 		areaEffectCloudEntity.setRadius(3.0F);
 		areaEffectCloudEntity.setDuration(600);
-		areaEffectCloudEntity.setRadiusGrowth((7.0F - areaEffectCloudEntity.getRadius()) / (float)areaEffectCloudEntity.getDuration());
-		StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1, 1);
+		areaEffectCloudEntity.setRadiusPerTick((7.0F - areaEffectCloudEntity.getRadius()) / (float)areaEffectCloudEntity.getDuration());
+		MobEffectInstance statusEffectInstance = new MobEffectInstance(MobEffects.HARM, 1, 1);
 		areaEffectCloudEntity.addEffect(statusEffectInstance);
 		// use event 2007 from ThrownPotionEntity.java#onCollision instead of event 2006 from DragonFireballEntity#onCollision
-		world.playLevelEvent(
+		world.levelEvent(
 				2007, blockpos,
 				//#if MC >= 12104
 				//$$ PotionContentsComponent.mixColors(Collections.singleton(statusEffectInstance)).orElse(0xFF385DC6)  // see also PotionContentsComponent.getColor
@@ -82,10 +82,10 @@ public class FireDragonBreathDispenserBehaviour extends ItemDispenserBehavior
 				areaEffectCloudEntity.getColor()
 				//#endif
 		);
-		world.spawnEntity(areaEffectCloudEntity);
+		world.addFreshEntity(areaEffectCloudEntity);
 		// Vanilla copy ends
 
-		stack.decrement(1);
+		stack.shrink(1);
 		return stack;
 	}
 }

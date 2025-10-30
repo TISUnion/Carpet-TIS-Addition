@@ -23,27 +23,28 @@ package carpettisaddition.mixins.rule.creativeNoItemCooldown;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.creativeNoItemCooldown.ItemCooldownManagerWithPlayer;
 import carpettisaddition.utils.EntityUtils;
-import net.minecraft.entity.player.ItemCooldownManager;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ItemCooldownManager.class)
+@Mixin(ItemCooldowns.class)
 public abstract class ItemCooldownManagerMixin implements ItemCooldownManagerWithPlayer
 {
 	@Unique
-	private PlayerEntity player$TISCM = null;
+	private Player player$TISCM = null;
 
 	@Override
-	public void setPlayer$TISCM(PlayerEntity player$TISCM)
+	public void setPlayer$TISCM(Player player$TISCM)
 	{
 		this.player$TISCM = player$TISCM;
 	}
 
-	@Inject(method = "set*", at = @At("HEAD"), cancellable = true)
+	// TODO: yarn uses `method = "set*"`, check if that matches multiple functions in mc > 1.15
+	@Inject(method = "addCooldown", at = @At("HEAD"), cancellable = true)
 	private void creativeNoItemCooldown_preventSettingCooldown(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.creativeNoItemCooldown)

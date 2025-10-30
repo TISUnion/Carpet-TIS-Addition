@@ -22,31 +22,31 @@ package carpettisaddition.mixins.command.speedtest;
 
 import carpettisaddition.commands.speedtest.skipcompression.PacketDeflaterWithNetworkSide;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.network.ClientConnection;
-import net.minecraft.network.NetworkSide;
-import net.minecraft.network.PacketDeflater;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.network.CompressionEncoder;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ClientConnection.class)
+@Mixin(Connection.class)
 public abstract class ClientConnectionMixin
 {
-	@Shadow @Final private NetworkSide side;
+	@Shadow @Final private PacketFlow receiving;
 
 	@ModifyExpressionValue(
-			method = "setCompressionThreshold",
+			method = "setupCompression",
 			at = @At(
 					value = "NEW",
-					target = "(I)Lnet/minecraft/network/PacketDeflater;"
+					target = "(I)Lnet/minecraft/network/CompressionEncoder;"
 			)
 	)
-	private PacketDeflater setPacketDeflaterNetworkSide(PacketDeflater deflater)
+	private CompressionEncoder setPacketDeflaterNetworkSide(CompressionEncoder deflater)
 	{
 		if (deflater instanceof PacketDeflaterWithNetworkSide)
 		{
-			((PacketDeflaterWithNetworkSide)deflater).setNetworkSide$TISCM(this.side);
+			((PacketDeflaterWithNetworkSide)deflater).setNetworkSide$TISCM(this.receiving);
 		}
 		return deflater;
 	}

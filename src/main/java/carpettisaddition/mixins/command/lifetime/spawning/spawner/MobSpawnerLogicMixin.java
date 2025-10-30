@@ -22,8 +22,8 @@ package carpettisaddition.mixins.command.lifetime.spawning.spawner;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.MobSpawnerLogic;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.BaseSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -31,14 +31,14 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 /**
  * 1.16+ mixin is handled in the version-specified class
  */
-@Mixin(MobSpawnerLogic.class)
+@Mixin(BaseSpawner.class)
 public abstract class MobSpawnerLogicMixin
 {
 	@ModifyArg(
-			method = "spawnEntity",
+			method = "addWithPassengers",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			),
 			index = 0
 	)

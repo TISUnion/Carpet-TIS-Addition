@@ -22,8 +22,8 @@ package carpettisaddition.mixins.command.lifetime.spawning.breeding;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.block.TurtleEggBlock;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.level.block.TurtleEggBlock;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -35,14 +35,14 @@ public abstract class TurtleEggBlockMixin
 			//#if MC >= 11600
 			//$$ method = "randomTick",
 			//#elseif MC >= 11500
-			method = "scheduledTick",
+			method = "tick",
 			//#else
 			//$$ method = "onScheduledTick",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11500
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#else
 					//$$ target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 					//#endif

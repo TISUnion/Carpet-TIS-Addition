@@ -21,9 +21,9 @@
 package carpettisaddition.logging.loggers.microtiming.utils;
 
 import carpettisaddition.logging.loggers.microtiming.events.BaseEvent;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -31,10 +31,10 @@ import java.util.function.Supplier;
 
 public class MicroTimingContext
 {
-	private World world;
+	private Level world;
 	private BlockPos blockPos;
 	private Supplier<BaseEvent> eventSupplier;
-	private BiFunction<World, BlockPos, Optional<DyeColor>> woolGetter;
+	private BiFunction<Level, BlockPos, Optional<DyeColor>> woolGetter;
 	private DyeColor color;
 	private String blockName;
 
@@ -43,7 +43,7 @@ public class MicroTimingContext
 		return new MicroTimingContext();
 	}
 
-	public World getWorld()
+	public Level getWorld()
 	{
 		return this.world;
 	}
@@ -58,7 +58,7 @@ public class MicroTimingContext
 		return this.eventSupplier;
 	}
 
-	public BiFunction<World, BlockPos, Optional<DyeColor>> getWoolGetter()
+	public BiFunction<Level, BlockPos, Optional<DyeColor>> getWoolGetter()
 	{
 		return this.woolGetter;
 	}
@@ -73,7 +73,7 @@ public class MicroTimingContext
 		return this.blockName;
 	}
 
-	public MicroTimingContext withWorld(World world)
+	public MicroTimingContext withWorld(Level world)
 	{
 		this.world = world;
 		return this;
@@ -81,7 +81,7 @@ public class MicroTimingContext
 
 	public MicroTimingContext withBlockPos(BlockPos blockPos)
 	{
-		this.blockPos = blockPos.toImmutable();
+		this.blockPos = blockPos.immutable();
 		return this;
 	}
 
@@ -96,7 +96,7 @@ public class MicroTimingContext
 		return this.withEventSupplier(() -> event);
 	}
 
-	public MicroTimingContext withWoolGetter(BiFunction<World, BlockPos, Optional<DyeColor>> woolGetter)
+	public MicroTimingContext withWoolGetter(BiFunction<Level, BlockPos, Optional<DyeColor>> woolGetter)
 	{
 		this.woolGetter = woolGetter;
 		return this;

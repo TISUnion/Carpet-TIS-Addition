@@ -25,8 +25,8 @@ import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.SlimeEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Slime;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -35,14 +35,14 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
  * For mc > 1.21.1, see {@link carpettisaddition.mixins.command.lifetime.spawning.conversion.MobEntityMixin}
  */
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
-@Mixin(SlimeEntity.class)
+@Mixin(Slime.class)
 public abstract class SlimeEntityMixin
 {
 	@ModifyArg(
 			method = "remove",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private Entity lifetimeTracker_recordSpawning_slimDivision(Entity slimeEntity)

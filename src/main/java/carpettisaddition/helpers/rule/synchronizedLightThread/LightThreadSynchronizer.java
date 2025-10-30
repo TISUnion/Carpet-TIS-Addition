@@ -27,13 +27,13 @@ import carpettisaddition.mixins.rule.synchronizedLightThread.TaskExecutorAccesso
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.thread.TaskExecutor;
-import net.minecraft.util.thread.TaskQueue;
-import net.minecraft.world.chunk.light.LightingProvider;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.util.thread.ProcessorMailbox;
+import net.minecraft.util.thread.StrictQueue;
+import net.minecraft.world.level.lighting.LevelLightEngine;
 
 import java.util.List;
 
@@ -52,9 +52,9 @@ public class LightThreadSynchronizer
 		return !(synchronizedLightThread && !lightUpdates.shouldExecuteLightTask());
 	}
 
-	public static void waitForLightThread(ServerWorld serverWorld)
+	public static void waitForLightThread(ServerLevel serverWorld)
 	{
-		Profiler profiler =
+		ProfilerFiller profiler =
 				//#if MC >= 12102
 				//$$ Profilers.get();
 				//#else
@@ -64,21 +64,21 @@ public class LightThreadSynchronizer
 		profiler.push(SECTION_NAME);
 		CarpetProfiler.ProfilerToken token = CarpetProfiler.start_section(serverWorld, SECTION_NAME, CarpetProfiler.TYPE.GENERAL);
 
-		LightingProvider lightingProvider =
+		LevelLightEngine lightingProvider =
 				//#if MC >= 11500
-				serverWorld.getLightingProvider();
+				serverWorld.getLightEngine();
 				//#else
 				//$$ serverWorld.getChunkManager().getLightingProvider();
 				//#endif
 
 		if (lightingProvider != null)
 		{
-			TaskExecutor<?> processor = ((ServerLightingProviderAccessor) lightingProvider).getProcessor();
+			ProcessorMailbox<?> processor = ((ServerLightingProviderAccessor) lightingProvider).getProcessor();
 			// the task queue of the executor of the light thread
 			//#if MC >= 12102
 			//$$ TaskQueue<?> queue
 			//#else
-			TaskQueue<?, ?> queue
+			StrictQueue<?, ?> queue
 			//#endif
 					= ((TaskExecutorAccessor<?>)processor).getQueue();
 			while (!queue.isEmpty())
@@ -97,7 +97,7 @@ public class LightThreadSynchronizer
 		CarpetProfiler.end_current_section(token);
 	}
 
-	public static boolean checkRuleSafety(ServerCommandSource source, boolean synchronizedLightThread, CarpetTISAdditionSettings.LightUpdateOptions lightUpdates)
+	public static boolean checkRuleSafety(CommandSourceStack source, boolean synchronizedLightThread, CarpetTISAdditionSettings.LightUpdateOptions lightUpdates)
 	{
 		if (isSafeToWait(synchronizedLightThread, lightUpdates))
 		{
@@ -105,7 +105,7 @@ public class LightThreadSynchronizer
 		}
 		if (source != null)
 		{
-			List<BaseText> list = Lists.newArrayList();
+			List<BaseComponent> list = Lists.newArrayList();
 			list.add(Messenger.formatting(translator.tr("safety_warning.0"), "r"));
 			list.add(Messenger.formatting(translator.tr("safety_warning.1"), "r"));
 			list.add(Messenger.formatting(translator.tr("safety_warning.2"), "r"));

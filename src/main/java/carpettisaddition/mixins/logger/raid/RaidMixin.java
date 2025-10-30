@@ -23,8 +23,8 @@ package carpettisaddition.mixins.logger.raid;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.loggers.raid.IRaid;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,14 +41,14 @@ public abstract class RaidMixin implements IRaid
 {
 	@Shadow private int badOmenLevel;
 
-	@Shadow public abstract boolean hasWon();
+	@Shadow public abstract boolean isVictory();
 
 	private int previousBadOmenLevel;
 
 	//#if MC >= 12105
 	//$$ // `onRaidCreated` is called in {@link RaidManagerMixin#raidLogger_onRaidAddToManager}
 	//#else
-	@Inject(method = "<init>(ILnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)V", at = @At("TAIL"))
+	@Inject(method = "<init>(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)V", at = @At("TAIL"))
 	private void raidLogger_onConstruct(CallbackInfo ci)
 	{
 		RaidLogger.getInstance().onRaidCreated((Raid)(Object)this);
@@ -63,13 +63,13 @@ public abstract class RaidMixin implements IRaid
 	}
 
 	@Inject(
-			method = "start",
+			method = "absorbBadOmen",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12005
 					//$$ target = "Lnet/minecraft/server/network/ServerPlayerEntity;getStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Lnet/minecraft/entity/effect/StatusEffectInstance;"
 					//#else
-					target = "Lnet/minecraft/entity/player/PlayerEntity;getStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Lnet/minecraft/entity/effect/StatusEffectInstance;"
+					target = "Lnet/minecraft/world/entity/player/Player;getEffect(Lnet/minecraft/world/effect/MobEffect;)Lnet/minecraft/world/effect/MobEffectInstance;"
 					//#endif
 			)
 	)
@@ -85,11 +85,11 @@ public abstract class RaidMixin implements IRaid
 	}
 
 	@Inject(
-			method = "start",
+			method = "absorbBadOmen",
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					shift = At.Shift.AFTER,
-					target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"
+					target = "Lnet/minecraft/util/Mth;clamp(III)I"
 			)
 	)
 	private void raidLogger_onStartedAfterCalculated(
@@ -117,7 +117,7 @@ public abstract class RaidMixin implements IRaid
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/server/world/ServerWorld;getDifficulty()Lnet/minecraft/world/Difficulty;"
+							target = "Lnet/minecraft/server/level/ServerLevel;getDifficulty()Lnet/minecraft/world/Difficulty;"
 					)
 			),
 			at = @At(
@@ -125,7 +125,7 @@ public abstract class RaidMixin implements IRaid
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif
 					ordinal = 0
 			)
@@ -140,7 +140,7 @@ public abstract class RaidMixin implements IRaid
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							target = "Lnet/minecraft/server/world/ServerWorld;isNearOccupiedPointOfInterest(Lnet/minecraft/util/math/BlockPos;)Z"
+							target = "Lnet/minecraft/server/level/ServerLevel;isVillage(Lnet/minecraft/core/BlockPos;)Z"
 					)
 			),
 			at = @At(
@@ -148,7 +148,7 @@ public abstract class RaidMixin implements IRaid
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif
 					ordinal = 0
 			)
@@ -172,7 +172,7 @@ public abstract class RaidMixin implements IRaid
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif
 					ordinal = 0
 			)
@@ -190,7 +190,7 @@ public abstract class RaidMixin implements IRaid
 							//#if MC >= 11600
 							//$$ target = "Lnet/minecraft/village/raid/Raid;playRaidHorn(Lnet/minecraft/util/math/BlockPos;)V"
 							//#else
-							target = "Lnet/minecraft/entity/raid/Raid;playRaidHorn(Lnet/minecraft/util/math/BlockPos;)V"
+							target = "Lnet/minecraft/world/entity/raid/Raid;playSound(Lnet/minecraft/core/BlockPos;)V"
 							//#endif
 					)
 			),
@@ -199,7 +199,7 @@ public abstract class RaidMixin implements IRaid
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif
 					ordinal = 0
 			)
@@ -222,14 +222,14 @@ public abstract class RaidMixin implements IRaid
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
 					//#else
-					target = "Lnet/minecraft/entity/raid/Raid;invalidate()V",
+					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif
 					ordinal = 0
 			)
 	)
 	private void raidLogger_onInvalidatedByFinished(CallbackInfo ci)
 	{
-		if (this.hasWon())
+		if (this.isVictory())
 		{
 			onRaidInvalidated$TISCM(RaidLogger.InvalidateReason.RAID_VICTORY);
 		}
@@ -249,7 +249,7 @@ public abstract class RaidMixin implements IRaid
 			//#if MC >= 11600
 			//$$ method = "setCenter",
 			//#else
-			method = "method_20509",
+			method = "setCenter",
 			//#endif
 			at = @At(value = "HEAD")
 	)

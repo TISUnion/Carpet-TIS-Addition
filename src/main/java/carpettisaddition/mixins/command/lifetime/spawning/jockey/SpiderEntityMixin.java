@@ -23,28 +23,28 @@ package carpettisaddition.mixins.command.lifetime.spawning.jockey;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import com.llamalad7.mixinextras.injector.ModifyReceiver;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.SkeletonEntity;
-import net.minecraft.entity.mob.SpiderEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Spider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(SpiderEntity.class)
+@Mixin(Spider.class)
 public abstract class SpiderEntityMixin
 {
 	@ModifyReceiver(
-			method = "initialize",
+			method = "finalizeSpawn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.21.9
 					//$$ target = "Lnet/minecraft/entity/mob/SkeletonEntity;startRiding(Lnet/minecraft/entity/Entity;ZZ)Z"
 					//#else
-					target = "Lnet/minecraft/entity/mob/SkeletonEntity;startRiding(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/entity/monster/Skeleton;startRiding(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif
 			)
 	)
-	private SkeletonEntity lifetimeTracker_recordSpawning_jockey_spider(
-			SkeletonEntity skeleton, Entity spider
+	private Skeleton lifetimeTracker_recordSpawning_jockey_spider(
+			Skeleton skeleton, Entity spider
 			//#if MC >= 1.21.9
 			//$$ , boolean b1, boolean b2
 			//#endif

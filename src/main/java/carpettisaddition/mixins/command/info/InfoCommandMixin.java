@@ -24,7 +24,7 @@ import carpet.commands.InfoCommand;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.info.InfoCommandExtension;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -46,8 +46,8 @@ public abstract class InfoCommandMixin
 			ordinal = 0,
 			remap = false
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> extendsInfoCommand(
-			LiteralArgumentBuilder<ServerCommandSource> builder
+	private static LiteralArgumentBuilder<CommandSourceStack> extendsInfoCommand(
+			LiteralArgumentBuilder<CommandSourceStack> builder
 			//#if MC >= 11900
 			//$$ , CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext
 			//#endif

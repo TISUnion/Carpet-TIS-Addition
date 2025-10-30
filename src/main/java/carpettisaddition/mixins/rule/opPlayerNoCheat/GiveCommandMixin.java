@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.server.command.GiveCommand;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.commands.GiveCommand;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -41,7 +41,7 @@ public abstract class GiveCommandMixin
 			at = @At("TAIL"),
 			remap = false
 	)
-	private static boolean checkIfAllowCheating_giveCommand(boolean permissionEnough, ServerCommandSource source)
+	private static boolean checkIfAllowCheating_giveCommand(boolean permissionEnough, CommandSourceStack source)
 	{
 		return permissionEnough && OpPlayerNoCheatHelper.canCheat(source);
 	}

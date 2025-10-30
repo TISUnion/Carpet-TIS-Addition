@@ -22,8 +22,8 @@ package carpettisaddition.commands.lifetime.removal;
 
 import carpettisaddition.utils.Messenger;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.EntityType;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.network.chat.BaseComponent;
 
 // for item entity and xp orb entity
 public class MobPickupRemovalReason extends MobRelatedRemovalReason
@@ -34,7 +34,7 @@ public class MobPickupRemovalReason extends MobRelatedRemovalReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return tr("mob_pickup", Messenger.entityType(this.entityType));
 	}
@@ -49,7 +49,7 @@ public class MobPickupRemovalReason extends MobRelatedRemovalReason
 	public JsonObject getRecordData()
 	{
 		JsonObject data = new JsonObject();
-		data.addProperty("pickerType", EntityType.getId(this.entityType).toString());
+		data.addProperty("pickerType", EntityType.getKey(this.entityType).toString());
 		return data;
 	}
 }

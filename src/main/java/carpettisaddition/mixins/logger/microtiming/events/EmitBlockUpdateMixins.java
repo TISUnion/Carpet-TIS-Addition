@@ -23,10 +23,19 @@ package carpettisaddition.mixins.logger.microtiming.events;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.BasePressurePlateBlock;
+import net.minecraft.world.level.block.DiodeBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.LeverBlock;
+import net.minecraft.world.level.block.ObserverBlock;
+import net.minecraft.world.level.block.PoweredRailBlock;
+import net.minecraft.world.level.block.RedStoneWireBlock;
+import net.minecraft.world.level.block.TripWireHookBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -47,33 +56,33 @@ import java.util.List;
 
 public abstract class EmitBlockUpdateMixins
 {
-	@Mixin(AbstractRedstoneGateBlock.class)
+	@Mixin(DiodeBlock.class)
 	public static abstract class AbstractRedstoneGateBlockMixin
 	{
-		@Inject(method = "updateTarget", at = @At("HEAD"))
-		private void startEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci)
+		@Inject(method = "updateNeighborsInFront", at = @At("HEAD"))
+		private void startEmitBlockUpdate(Level world, BlockPos pos, BlockState state, CallbackInfo ci)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (AbstractRedstoneGateBlock)(Object)this, pos, EventType.ACTION_START, "updateTarget");
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (DiodeBlock)(Object)this, pos, EventType.ACTION_START, "updateTarget");
 		}
 
-		@Inject(method = "updateTarget", at = @At("RETURN"))
-		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci)
+		@Inject(method = "updateNeighborsInFront", at = @At("RETURN"))
+		private void endEmitBlockUpdate(Level world, BlockPos pos, BlockState state, CallbackInfo ci)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (AbstractRedstoneGateBlock)(Object)this, pos, EventType.ACTION_END, "updateTarget");
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (DiodeBlock)(Object)this, pos, EventType.ACTION_END, "updateTarget");
 		}
 	}
 
 	@Mixin(ObserverBlock.class)
 	public static abstract class ObserverBlockMixin
 	{
-		@Inject(method = "updateNeighbors", at = @At("HEAD"))
-		private void startEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci)
+		@Inject(method = "updateNeighborsInFront", at = @At("HEAD"))
+		private void startEmitBlockUpdate(Level world, BlockPos pos, BlockState state, CallbackInfo ci)
 		{
 			MicroTimingLoggerManager.onEmitBlockUpdate(world, (ObserverBlock)(Object)this, pos, EventType.ACTION_START, "updateNeighbors");
 		}
 
-		@Inject(method = "updateNeighbors", at = @At("RETURN"))
-		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci)
+		@Inject(method = "updateNeighborsInFront", at = @At("RETURN"))
+		private void endEmitBlockUpdate(Level world, BlockPos pos, BlockState state, CallbackInfo ci)
 		{
 			MicroTimingLoggerManager.onEmitBlockUpdate(world, (ObserverBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighbors");
 		}
@@ -83,24 +92,24 @@ public abstract class EmitBlockUpdateMixins
 	public static abstract class PoweredRailBlockMixin
 	{
 		@Inject(
-				method = "updateBlockState",
+				method = "updateState",
 				at = @At(
 						value = "INVOKE",
 						shift = At.Shift.AFTER,
-						target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"
+						target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
 				)
 		)
-		private void startEmitBlockUpdate(BlockState state, World world, BlockPos pos, Block neighbor, CallbackInfo ci)
+		private void startEmitBlockUpdate(BlockState state, Level world, BlockPos pos, Block neighbor, CallbackInfo ci)
 		{
 			MicroTimingLoggerManager.onEmitBlockUpdate(world, (PoweredRailBlock)(Object)this, pos, EventType.ACTION_START, "updateBlockState");
 		}
 
 		@Inject(
-				method = "updateBlockState",
+				method = "updateState",
 				at = @At("RETURN"),
 				locals = LocalCapture.CAPTURE_FAILHARD
 		)
-		private void endEmitBlockUpdate(BlockState state, World world, BlockPos pos, Block neighbor, CallbackInfo ci, boolean bl, boolean bl2)
+		private void endEmitBlockUpdate(BlockState state, Level world, BlockPos pos, Block neighbor, CallbackInfo ci, boolean bl, boolean bl2)
 		{
 			if (bl2 != bl)  // vanilla copy, if power state should be changed
 			{
@@ -112,55 +121,55 @@ public abstract class EmitBlockUpdateMixins
 	@Mixin(LeverBlock.class)
 	public static abstract class LeverBlockMixin
 	{
-		@Inject(method = "updateNeighbors", at = @At("HEAD"))
-		private void startEmitBlockUpdate(BlockState state, World world, BlockPos pos, CallbackInfo ci)
+		@Inject(method = "updateNeighbours", at = @At("HEAD"))
+		private void startEmitBlockUpdate(BlockState state, Level world, BlockPos pos, CallbackInfo ci)
 		{
 			MicroTimingLoggerManager.onEmitBlockUpdate(world, (LeverBlock)(Object)this, pos, EventType.ACTION_START, "updateNeighbors");
 		}
 
-		@Inject(method = "updateNeighbors", at = @At("RETURN"))
-		private void endEmitBlockUpdate(BlockState state, World world, BlockPos pos, CallbackInfo ci)
+		@Inject(method = "updateNeighbours", at = @At("RETURN"))
+		private void endEmitBlockUpdate(BlockState state, Level world, BlockPos pos, CallbackInfo ci)
 		{
 			MicroTimingLoggerManager.onEmitBlockUpdate(world, (LeverBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighbors");
 		}
 	}
 
-	@Mixin(AbstractButtonBlock.class)
+	@Mixin(ButtonBlock.class)
 	public static abstract class AbstractButtonBlockMixin
 	{
-		@Inject(method = "updateNeighbors", at = @At("HEAD"))
-		private void startEmitBlockUpdate(BlockState state, World world, BlockPos pos, CallbackInfo ci)
+		@Inject(method = "updateNeighbours", at = @At("HEAD"))
+		private void startEmitBlockUpdate(BlockState state, Level world, BlockPos pos, CallbackInfo ci)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (AbstractButtonBlock)(Object)this, pos, EventType.ACTION_START, "updateNeighbors");
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (ButtonBlock)(Object)this, pos, EventType.ACTION_START, "updateNeighbors");
 		}
 
-		@Inject(method = "updateNeighbors", at = @At("RETURN"))
-		private void endEmitBlockUpdate(BlockState state, World world, BlockPos pos, CallbackInfo ci)
+		@Inject(method = "updateNeighbours", at = @At("RETURN"))
+		private void endEmitBlockUpdate(BlockState state, Level world, BlockPos pos, CallbackInfo ci)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (AbstractButtonBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighbors");
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (ButtonBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighbors");
 		}
 	}
 
-	@Mixin(AbstractPressurePlateBlock.class)
+	@Mixin(BasePressurePlateBlock.class)
 	public static abstract class AbstractPressurePlateBlockMixin
 	{
-		@Inject(method = "updateNeighbors", at = @At("HEAD"))
-		private void startEmitBlockUpdate(World world, BlockPos pos, CallbackInfo ci)
+		@Inject(method = "updateNeighbours", at = @At("HEAD"))
+		private void startEmitBlockUpdate(Level world, BlockPos pos, CallbackInfo ci)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (AbstractPressurePlateBlock)(Object)this, pos, EventType.ACTION_START, "updateNeighbors");
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (BasePressurePlateBlock)(Object)this, pos, EventType.ACTION_START, "updateNeighbors");
 		}
 
-		@Inject(method = "updateNeighbors", at = @At("RETURN"))
-		private void endEmitBlockUpdate(World world, BlockPos pos, CallbackInfo ci)
+		@Inject(method = "updateNeighbours", at = @At("RETURN"))
+		private void endEmitBlockUpdate(Level world, BlockPos pos, CallbackInfo ci)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdate(world, (AbstractPressurePlateBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighbors");
+			MicroTimingLoggerManager.onEmitBlockUpdate(world, (BasePressurePlateBlock)(Object)this, pos, EventType.ACTION_END, "updateNeighbors");
 		}
 	}
 
-	@Mixin(TripwireHookBlock.class)
+	@Mixin(TripWireHookBlock.class)
 	public static abstract class TripwireHookBlockMixin
 	{
-		@Inject(method = "updateNeighborsOnAxis", at = @At("HEAD"))
+		@Inject(method = "notifyNeighbors", at = @At("HEAD"))
 		private
 		//#if MC >= 12003
 		//$$ static
@@ -169,16 +178,16 @@ public abstract class EmitBlockUpdateMixins
 				//#if MC >= 12003
 				//$$ Block block,
 				//#endif
-				World world, BlockPos pos, Direction direction, CallbackInfo ci
+				Level world, BlockPos pos, Direction direction, CallbackInfo ci
 		)
 		{
 			//#if MC < 12003
-			Block block = (TripwireHookBlock)(Object)this;
+			Block block = (TripWireHookBlock)(Object)this;
 			//#endif
 			MicroTimingLoggerManager.onEmitBlockUpdate(world, block, pos, EventType.ACTION_START, "updateNeighborsOnAxis");
 		}
 
-		@Inject(method = "updateNeighborsOnAxis", at = @At("RETURN"))
+		@Inject(method = "notifyNeighbors", at = @At("RETURN"))
 		private
 		//#if MC >= 12003
 		//$$ static
@@ -187,11 +196,11 @@ public abstract class EmitBlockUpdateMixins
 				//#if MC >= 12003
 				//$$ Block block,
 				//#endif
-				World world, BlockPos pos, Direction direction, CallbackInfo ci
+				Level world, BlockPos pos, Direction direction, CallbackInfo ci
 		)
 		{
 			//#if MC < 12003
-			Block block = (TripwireHookBlock)(Object)this;
+			Block block = (TripWireHookBlock)(Object)this;
 			//#endif
 			MicroTimingLoggerManager.onEmitBlockUpdate(world, block, pos, EventType.ACTION_END, "updateNeighborsOnAxis");
 		}
@@ -205,7 +214,7 @@ public abstract class EmitBlockUpdateMixins
 			//#if MC >= 12102
 			//$$ value = DefaultRedstoneController.class,
 			//#else
-			value = RedstoneWireBlock.class,
+			value = RedStoneWireBlock.class,
 			//#endif
 			priority = 2000
 	)
@@ -214,7 +223,7 @@ public abstract class EmitBlockUpdateMixins
 		// TODO: support ExperimentalRedstoneController in mc 1.21.2+
 
 		@Inject(
-				method = "update",
+				method = "updatePowerStrength",
 				at = @At(
 						value = "INVOKE",
 						//#if MC >= 11600
@@ -233,7 +242,7 @@ public abstract class EmitBlockUpdateMixins
 				//#if MC >= 12102
 				//$$ @Local(argsOnly = true) BlockState state,
 				//#endif
-				@Local(argsOnly = true) World world, @Local(argsOnly = true) BlockPos pos
+				@Local(argsOnly = true) Level world, @Local(argsOnly = true) BlockPos pos
 		)
 		{
 			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(
@@ -241,7 +250,7 @@ public abstract class EmitBlockUpdateMixins
 					//#if MC >= 12102
 					//$$ state.getBlock(),
 					//#else
-					(RedstoneWireBlock)(Object)this,
+					(RedStoneWireBlock)(Object)this,
 					//#endif
 					pos, EventType.ACTION_START, "update", collection
 			);
@@ -249,7 +258,7 @@ public abstract class EmitBlockUpdateMixins
 
 		//#if MC >= 11600
 		//$$ @Inject(
-		//$$ 		method = "update",
+		//$$ 		method = "updatePowerStrength",
 		//$$ 		at = @At(
 		//$$ 				value = "INVOKE",
 		//$$ 				target = "Ljava/util/Iterator;hasNext()Z"
@@ -279,10 +288,10 @@ public abstract class EmitBlockUpdateMixins
 		//$$ 	}
 		//$$ }
 		//#else
-		@Inject(method = "update", at = @At("RETURN"))
-		private void endEmitBlockUpdate(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir)
+		@Inject(method = "updatePowerStrength", at = @At("RETURN"))
+		private void endEmitBlockUpdate(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir)
 		{
-			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedstoneWireBlock)(Object)this, pos, EventType.ACTION_END, "update", null);
+			MicroTimingLoggerManager.onEmitBlockUpdateRedstoneDust(world, (RedStoneWireBlock)(Object)this, pos, EventType.ACTION_END, "update", null);
 		}
 		//#endif
 	}

@@ -22,7 +22,7 @@ package carpettisaddition.mixins.command.xcounter;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.xcounter.XpCounterHopperTicker;
-import net.minecraft.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,11 +36,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class HopperBlockEntityMixin
 {
 	@Inject(
-			method = "insertAndExtract",
+			method = "tryMoveItems",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11500
-					target = "Lnet/minecraft/block/entity/HopperBlockEntity;isInvEmpty()Z",
+					target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;isEmpty()Z",
 					//#else
 					//$$ target = "Lnet/minecraft/block/entity/HopperBlockEntity;isEmpty()Z",
 					//#endif

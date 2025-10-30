@@ -27,7 +27,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
@@ -41,7 +41,7 @@ public class TISCMServerPacketHandler
 
 	private final Map<TISCMProtocol.C2S, Consumer<HandlerContext.C2S>> handlers = new EnumMap<>(TISCMProtocol.C2S.class);
 	private final Map<TISCMProtocol.C2S, Consumer<HandlerContext.C2S>> asyncHandlers = new EnumMap<>(TISCMProtocol.C2S.class);
-	private final Map<ServerPlayNetworkHandler, Set<TISCMProtocol.S2C>> clientSupportedPacketsMap = Maps.newLinkedHashMap();
+	private final Map<ServerGamePacketListenerImpl, Set<TISCMProtocol.S2C>> clientSupportedPacketsMap = Maps.newLinkedHashMap();
 
 	private TISCMServerPacketHandler()
 	{
@@ -69,7 +69,7 @@ public class TISCMServerPacketHandler
 	/**
 	 * Invoked on network thread
 	 */
-	public void dispatch(ServerPlayNetworkHandler networkHandler, TISCMCustomPayload tiscmCustomPayload)
+	public void dispatch(ServerGamePacketListenerImpl networkHandler, TISCMCustomPayload tiscmCustomPayload)
 	{
 		HandlerContext.C2S ctx = new HandlerContext.C2S(networkHandler, tiscmCustomPayload.getNbt());
 		Optional<TISCMProtocol.C2S> packetId = TISCMProtocol.C2S.fromId(tiscmCustomPayload.getPacketId());
@@ -78,12 +78,12 @@ public class TISCMServerPacketHandler
 		ctx.runSynced(() -> packetId.map(this.handlers::get).ifPresent(handler -> handler.accept(ctx)));
 	}
 
-	public void onPlayerDisconnected(ServerPlayNetworkHandler networkHandler)
+	public void onPlayerDisconnected(ServerGamePacketListenerImpl networkHandler)
 	{
 		this.clientSupportedPacketsMap.remove(networkHandler);
 	}
 
-	public boolean doesClientSupport(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId)
+	public boolean doesClientSupport(ServerGamePacketListenerImpl networkHandler, TISCMProtocol.S2C packetId)
 	{
 		if (packetId.isHandshake)
 		{
@@ -93,19 +93,19 @@ public class TISCMServerPacketHandler
 		return packetIds != null && packetIds.contains(packetId);
 	}
 
-	public void sendPacket(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder)
+	public void sendPacket(ServerGamePacketListenerImpl networkHandler, TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder)
 	{
 		this.sendPacket(networkHandler, packetId, payloadBuilder, () -> {});
 	}
 
-	public void sendPacket(ServerPlayNetworkHandler networkHandler, TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder, Runnable doneCallback)
+	public void sendPacket(ServerGamePacketListenerImpl networkHandler, TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder, Runnable doneCallback)
 	{
 		if (this.doesClientSupport(networkHandler, packetId))
 		{
 			//#if MC >= 12002
 			//$$ networkHandler.send(
 			//#else
-			networkHandler.sendPacket(
+			networkHandler.send(
 			//#endif
 					packetId.packet(payloadBuilder),
 					//#if MC >= 11900

@@ -20,9 +20,9 @@
 
 package carpettisaddition.helpers.rule.creativeNoItemCooldown;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 public interface ItemCooldownManagerWithPlayer
 {
-	void setPlayer$TISCM(PlayerEntity player);
+	void setPlayer$TISCM(Player player);
 }

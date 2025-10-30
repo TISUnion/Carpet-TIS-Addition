@@ -23,7 +23,7 @@ package carpettisaddition.mixins.command.lifetime.removal.transdimension;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.TransDimensionRemovalReason;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#if MC >= 11600
 //$$ import net.minecraft.server.world.ServerWorld;
 //#else
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.level.dimension.DimensionType;
 //#endif
 
 @Mixin(Entity.class)
@@ -60,7 +60,7 @@ public abstract class EntityMixin
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11500
-							target = "Lnet/minecraft/server/world/ServerWorld;onDimensionChanged(Lnet/minecraft/entity/Entity;)V"
+							target = "Lnet/minecraft/server/level/ServerLevel;addFromAnotherDimension(Lnet/minecraft/world/entity/Entity;)V"
 							//#else
 							//$$ target = "Lnet/minecraft/server/world/ServerWorld;method_18769(Lnet/minecraft/entity/Entity;)V"
 							//#endif
@@ -78,7 +78,7 @@ public abstract class EntityMixin
 					//#endif
 					//#else
 					value = "FIELD",
-					target = "Lnet/minecraft/entity/Entity;removed:Z"
+					target = "Lnet/minecraft/world/entity/Entity;removed:Z"
 					//#endif
 			),
 			allow = 1

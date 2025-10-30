@@ -22,16 +22,16 @@ package carpettisaddition.mixins.rule.breedingCooldownDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.world.entity.AgableMob;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PassiveEntity.class)
+@Mixin(AgableMob.class)
 public abstract class PassiveEntityMixin
 {
-	@Inject(method = "setBreedingAge", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "setAge", at = @At("HEAD"), cancellable = true)
 	private void breedingCooldownDisabled_cancelIfValueIsGreaterThanZero(CallbackInfo ci, @Local(argsOnly = true) int age)
 	{
 		if (CarpetTISAdditionSettings.breedingCooldownDisabled)

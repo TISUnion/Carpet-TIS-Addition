@@ -26,7 +26,7 @@ import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
 import carpettisaddition.utils.NbtUtils;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class PingHandler implements PongReceiver
 		return MAGIC_COUNTER.getAndIncrement() | ((long)this.random.nextInt() << 32);
 	}
 
-	public void pingClient(ServerPlayNetworkHandler networkHandler, PongCallback pongCallback)
+	public void pingClient(ServerGamePacketListenerImpl networkHandler, PongCallback pongCallback)
 	{
 		long magic = this.createMagic();
 		this.pingTasks.put(magic, new PingTask(magic, pongCallback));

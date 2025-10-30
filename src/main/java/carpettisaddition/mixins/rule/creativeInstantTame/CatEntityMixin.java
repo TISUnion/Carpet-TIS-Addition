@@ -24,19 +24,19 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.EntityUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.passive.CatEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(CatEntity.class)
+@Mixin(Cat.class)
 public abstract class CatEntityMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 12005
 			//$$ method = "tryTame",
 			//#else
-			method = "interactMob",
+			method = "mobInteract",
 			//#endif
 			at = @At(
 					value = "INVOKE",
@@ -48,7 +48,7 @@ public abstract class CatEntityMixin
 					ordinal = 0
 			)
 	)
-	private int creativeInstantTame_cat(int value, @Local(argsOnly = true) PlayerEntity player)
+	private int creativeInstantTame_cat(int value, @Local(argsOnly = true) Player player)
 	{
 		if (CarpetTISAdditionSettings.creativeInstantTame && EntityUtils.isCreativePlayer(player))
 		{

@@ -22,13 +22,13 @@ package carpettisaddition.mixins.command.lifetime.removal.exploded;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import net.minecraft.entity.vehicle.TntMinecartEntity;
+import net.minecraft.world.entity.vehicle.MinecartTNT;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(TntMinecartEntity.class)
+@Mixin(MinecartTNT.class)
 public abstract class TntMinecartEntityMixin
 {
 	@Inject(
@@ -43,7 +43,7 @@ public abstract class TntMinecartEntityMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/vehicle/TntMinecartEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/vehicle/TntMinecartEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/vehicle/MinecartTNT;remove()V"
 					//#endif
 			)
 	)

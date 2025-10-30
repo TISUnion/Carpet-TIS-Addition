@@ -22,8 +22,8 @@ package carpettisaddition.mixins.command.lifetime.spawning.summon;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.block.CarvedPumpkinBlock;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.level.block.CarvedPumpkinBlock;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -35,11 +35,11 @@ public abstract class CarvedPumpkinBlockMixin
 			//#if MC >= 11903
 			//$$ method = "spawnEntity",
 			//#else
-			method = "trySpawnEntity",
+			method = "trySpawnGolem",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 			//#if MC < 11903
 			, require = 2

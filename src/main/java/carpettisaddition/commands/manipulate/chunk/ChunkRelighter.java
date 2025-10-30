@@ -25,27 +25,27 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.StringUtils;
 import com.google.common.collect.Lists;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerLightingProvider;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ThreadedLevelLightEngine;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ChunkRelighter extends TranslationContext
 {
-	private final ServerWorld world;
+	private final ServerLevel world;
 	private final List<ChunkPos> chunkPosList;
-	private final ServerCommandSource source;
-	private final List<WorldChunk> chunks;
+	private final CommandSourceStack source;
+	private final List<LevelChunk> chunks;
 
-	protected ChunkRelighter(Translator translator, List<ChunkPos> chunkPosList, ServerCommandSource source)
+	protected ChunkRelighter(Translator translator, List<ChunkPos> chunkPosList, CommandSourceStack source)
 	{
 		super(translator);
-		this.world = source.getWorld();
+		this.world = source.getLevel();
 		this.chunkPosList = chunkPosList;
 		this.source = source;
 		this.chunks = Lists.newArrayList();
@@ -60,7 +60,7 @@ public class ChunkRelighter extends TranslationContext
 		}
 
 		List<CompletableFuture<Void>> relightFutures = Lists.newArrayList();
-		for (WorldChunk chunk : chunks)
+		for (LevelChunk chunk : chunks)
 		{
 			relightFutures.add(this.relightOneChunk(chunk));
 		}
@@ -76,7 +76,7 @@ public class ChunkRelighter extends TranslationContext
 					Messenger.tell(this.source, tr("done", chunkPosList.size(), StringUtils.fractionDigit(costSec, 1)));
 					Messenger.tell(this.source, tr("hint"));
 				},
-				this.source.getMinecraftServer()
+				this.source.getServer()
 		);
 	}
 
@@ -84,21 +84,21 @@ public class ChunkRelighter extends TranslationContext
 	//$$ // idk why mojang deprecates this, whatever, who care xd
 	//$$ @SuppressWarnings("removal")
 	//#endif
-	public CompletableFuture<Void> relightOneChunk(WorldChunk chunk)
+	public CompletableFuture<Void> relightOneChunk(LevelChunk chunk)
 	{
-		ServerLightingProvider lightingProvider = this.world.getChunkManager().getLightingProvider();
+		ThreadedLevelLightEngine lightingProvider = this.world.getChunkSource().getLightEngine();
 		ChunkPos chunkPos = chunk.getPos();
-		int startX = chunkPos.getStartX();
-		int endX = chunkPos.getEndX();
-		int startZ = chunkPos.getStartZ();
-		int endZ = chunkPos.getEndZ();
+		int startX = chunkPos.getMinBlockX();
+		int endX = chunkPos.getMaxBlockX();
+		int startZ = chunkPos.getMinBlockZ();
+		int endZ = chunkPos.getMaxBlockZ();
 
 		//#if MC >= 11904
 		//$$ int startY = chunk.getBottomY();
 		//#else
 		int startY = 0;
 		//#endif
-		int endY = chunk.getHighestNonEmptySectionYOffset() + 16 - 1;
+		int endY = chunk.getHighestSectionPosition() + 16 - 1;
 
 		for (int x = startX; x <= endX; x++)
 		{

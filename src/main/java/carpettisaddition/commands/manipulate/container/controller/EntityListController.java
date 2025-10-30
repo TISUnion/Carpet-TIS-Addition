@@ -23,8 +23,8 @@ package carpettisaddition.commands.manipulate.container.controller;
 import carpettisaddition.mixins.command.manipulate.container.ServerWorldAccessor;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -42,7 +42,7 @@ public class EntityListController extends AbstractEntityListController
 	}
 
 	@Override
-	protected boolean canManipulate(ServerWorld world)
+	protected boolean canManipulate(ServerLevel world)
 	{
 		//#if MC >= 11700
 		//$$ return true;
@@ -52,7 +52,7 @@ public class EntityListController extends AbstractEntityListController
 	}
 
 	@Override
-	protected int processWholeList(ServerWorld world, Consumer<List<?>> collectionOperator)
+	protected int processWholeList(ServerLevel world, Consumer<List<?>> collectionOperator)
 	{
 		//#if MC >= 11700
 		//$$ EntityListAccessor entityList = (EntityListAccessor)((ServerWorldAccessor)world).getEntityList();

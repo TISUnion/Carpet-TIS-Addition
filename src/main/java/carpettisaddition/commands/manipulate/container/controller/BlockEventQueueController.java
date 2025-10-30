@@ -30,19 +30,19 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
-import net.minecraft.block.Block;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.core.BlockPos;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
-import static net.minecraft.command.arguments.BlockStateArgumentType.blockState;
-import static net.minecraft.command.arguments.BlockStateArgumentType.getBlockState;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.getLoadedBlockPos;
+import static net.minecraft.commands.arguments.blocks.BlockStateArgument.block;
+import static net.minecraft.commands.arguments.blocks.BlockStateArgument.getBlock;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class BlockEventQueueController extends AbstractContainerController
 {
@@ -51,13 +51,13 @@ public class BlockEventQueueController extends AbstractContainerController
 		super("block_event");
 	}
 
-	public int removeAt(ServerCommandSource source, BlockPos blockPos)
+	public int removeAt(CommandSourceStack source, BlockPos blockPos)
 	{
 		int counter = 0;
-		ObjectLinkedOpenHashSet<BlockAction> queue = ((ServerWorldAccessor)source.getWorld()).getPendingBlockActions();
-		for (ObjectListIterator<BlockAction> iterator = queue.iterator(); iterator.hasNext(); )
+		ObjectLinkedOpenHashSet<BlockEventData> queue = ((ServerWorldAccessor)source.getLevel()).getPendingBlockActions();
+		for (ObjectListIterator<BlockEventData> iterator = queue.iterator(); iterator.hasNext(); )
 		{
-			BlockAction be = iterator.next();
+			BlockEventData be = iterator.next();
 			if (be.getPos().equals(blockPos))
 			{
 				iterator.remove();
@@ -68,26 +68,26 @@ public class BlockEventQueueController extends AbstractContainerController
 		return counter;
 	}
 
-	public int addEvent(CommandContext<ServerCommandSource> context) throws CommandSyntaxException
+	public int addEvent(CommandContext<CommandSourceStack> context) throws CommandSyntaxException
 	{
-		ServerCommandSource source = context.getSource();
+		CommandSourceStack source = context.getSource();
 		BlockPos blockPos = getLoadedBlockPos(context, "pos");
-		Block block = getBlockState(context, "block").getBlockState().getBlock();
+		Block block = getBlock(context, "block").getState().getBlock();
 		int type = getInteger(context, "type");
 		int data = getInteger(context, "data");
-		BlockAction blockAction = new BlockAction(blockPos, block, type, data);
+		BlockEventData blockAction = new BlockEventData(blockPos, block, type, data);
 
 		Messenger.tell(source, tr(
 				"scheduled",
 				Messenger.fancy(tr("item_name"), ExecuteBlockEventEvent.getMessageExtraMessengerHoverText(blockAction), null),
-				Messenger.coord(blockPos, DimensionWrapper.of(source.getWorld()))
+				Messenger.coord(blockPos, DimensionWrapper.of(source.getLevel()))
 		), true);
-		source.getWorld().addBlockAction(blockPos, block, type, data);
+		source.getLevel().blockEvent(blockPos, block, type, data);
 		return 1;
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandTreeContext context)
+	public ArgumentBuilder<CommandSourceStack, ?> getCommandNode(CommandTreeContext context)
 	{
 		return super.getCommandNode(context).
 				then(literal("remove").
@@ -97,7 +97,7 @@ public class BlockEventQueueController extends AbstractContainerController
 				).
 				then(literal("add").
 						then(argument("pos", blockPos()).
-								then(argument("block", blockState(
+								then(argument("block", block(
 												//#if MC >= 11900
 												//$$ context.commandBuildContext
 												//#endif

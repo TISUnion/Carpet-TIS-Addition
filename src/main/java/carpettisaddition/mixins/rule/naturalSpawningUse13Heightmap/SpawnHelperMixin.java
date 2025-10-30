@@ -24,30 +24,30 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.naturalSpawningUse13Heightmap.NaturalSpawningUse13HeightmapHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.world.SpawnHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.world.level.NaturalSpawner;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(SpawnHelper.class)
+@Mixin(NaturalSpawner.class)
 public abstract class SpawnHelperMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 11500
-			method = "getSpawnPos",
+			method = "getRandomPosWithin",
 			//#else
 			//$$ method = "method_8657",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/chunk/WorldChunk;sampleHeightmap(Lnet/minecraft/world/Heightmap$Type;II)I"
+					target = "Lnet/minecraft/world/level/chunk/LevelChunk;getHeight(Lnet/minecraft/world/level/levelgen/Heightmap$Types;II)I"
 			)
 	)
 	private static int naturalSpawningUse13Heightmap_useTheHighestNonOpaqueBlock(
 			int y,
-			@Local(argsOnly = true) World world,
-			@Local(argsOnly = true) WorldChunk chunk,
+			@Local(argsOnly = true) Level world,
+			@Local(argsOnly = true) LevelChunk chunk,
 			@Local(ordinal = 0) int x,
 			@Local(ordinal = 1) int z
 	)

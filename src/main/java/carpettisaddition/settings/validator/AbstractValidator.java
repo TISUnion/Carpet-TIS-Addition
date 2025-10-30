@@ -24,8 +24,8 @@ import carpet.settings.ParsedRule;
 import carpet.settings.Validator;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +33,7 @@ public abstract class AbstractValidator<T> extends Validator<T>
 {
 	private static final Translator translator = new Translator("validator");
 
-	protected static BaseText tr(String key, Object... args)
+	protected static BaseComponent tr(String key, Object... args)
 	{
 		return translator.tr(key, args);
 	}
@@ -43,7 +43,7 @@ public abstract class AbstractValidator<T> extends Validator<T>
 	 */
 	@Deprecated
 	@Override
-	public final T validate(ServerCommandSource source, ParsedRule<T> currentRule, T inputValue, String string)
+	public final T validate(CommandSourceStack source, ParsedRule<T> currentRule, T inputValue, String string)
 	{
 		ValidationContext<T> ctx = new ValidationContext<>(source, currentRule, inputValue, string);
 		T newValue = this.validate(ctx);
@@ -111,7 +111,7 @@ public abstract class AbstractValidator<T> extends Validator<T>
 				true
 		);
 
-		BaseText errorMessage = this.errorMessage(ctx);
+		BaseComponent errorMessage = this.errorMessage(ctx);
 		if (errorMessage != null)
 		{
 			Messenger.tell(ctx.source, Messenger.formatting(errorMessage, "r"), false);
@@ -132,7 +132,7 @@ public abstract class AbstractValidator<T> extends Validator<T>
 	 * Provide an extra validation error message as a detailed description when validate fails
 	 * If null is returned, no extra line of the error message will be sent
 	 */
-	public BaseText errorMessage(ValidationContext<T> ctx)
+	public BaseComponent errorMessage(ValidationContext<T> ctx)
 	{
 		return null;
 	}

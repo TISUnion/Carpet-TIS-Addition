@@ -30,9 +30,9 @@ import carpettisaddition.commands.info.entity.EntityInfoPorting;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,7 +45,7 @@ import java.util.List;
 public abstract class EntityInfoMixin
 {
 	@Inject(method = "entityInfo", at = @At("HEAD"), cancellable = true, remap = false)
-	private static void makeItWorkable(Entity e, World source_world, CallbackInfoReturnable<List<BaseText>> cir)
+	private static void makeItWorkable(Entity e, Level source_world, CallbackInfoReturnable<List<BaseComponent>> cir)
 	{
 		cir.setReturnValue(EntityInfoPorting.entityInfo(e, source_world));
 	}

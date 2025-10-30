@@ -20,12 +20,12 @@
 
 package carpettisaddition.helpers.carpet.loggerRestriction;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
 public interface RestrictiveLogger
 {
 	void addSubscriptionRestriction(SubscriptionChecker subscriptionChecker);
 
-	RestrictionCheckResult canPlayerSubscribe(PlayerEntity player, @Nullable String option);
+	RestrictionCheckResult canPlayerSubscribe(Player player, @Nullable String option);
 }

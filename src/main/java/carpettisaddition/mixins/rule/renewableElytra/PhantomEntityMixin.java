@@ -21,14 +21,14 @@
 package carpettisaddition.mixins.rule.renewableElytra;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PhantomEntity;
-import net.minecraft.entity.mob.ShulkerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Phantom;
+import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -36,24 +36,24 @@ import org.spongepowered.asm.mixin.Mixin;
 //$$ import net.minecraft.server.world.ServerWorld;
 //#endif
 
-@Mixin(PhantomEntity.class)
-public abstract class PhantomEntityMixin extends MobEntity
+@Mixin(Phantom.class)
+public abstract class PhantomEntityMixin extends Mob
 {
-	public PhantomEntityMixin(EntityType<? extends PhantomEntity> entityType, World world)
+	public PhantomEntityMixin(EntityType<? extends Phantom> entityType, Level world)
 	{
 		super(entityType, world);
 	}
 
 	@Intrinsic
 	@Override
-	protected void dropLoot(
+	protected void dropFromLootTable(
 			//#if MC >= 12102
 			//$$ ServerWorld world,
 			//#endif
 			DamageSource source, boolean causedByPlayer
 	)
 	{
-		super.dropLoot(
+		super.dropFromLootTable(
 				//#if MC >= 12102
 				//$$ world,
 				//#endif
@@ -61,9 +61,9 @@ public abstract class PhantomEntityMixin extends MobEntity
 		);
 		if (CarpetTISAdditionSettings.renewableElytra > 0.0D)
 		{
-			if (source.getAttacker() instanceof ShulkerEntity && this.random.nextDouble() < CarpetTISAdditionSettings.renewableElytra)
+			if (source.getEntity() instanceof Shulker && this.random.nextDouble() < CarpetTISAdditionSettings.renewableElytra)
 			{
-				this.dropStack(
+				this.spawnAtLocation(
 						//#if MC >= 12102
 						//$$ world,
 						//#endif

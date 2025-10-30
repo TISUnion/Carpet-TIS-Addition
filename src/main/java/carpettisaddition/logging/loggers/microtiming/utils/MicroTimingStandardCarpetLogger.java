@@ -34,10 +34,10 @@ import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.util.Formatting;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.ChatFormatting;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -80,14 +80,14 @@ public class MicroTimingStandardCarpetLogger extends
 	public void addPlayer(String playerName, String option)
 	{
 		super.addPlayer(playerName, option);
-		ServerPlayerEntity player = this.playerFromName(playerName);
+		ServerPlayer player = this.playerFromName(playerName);
 		if (player != null)
 		{
 			if (MicroTimingLoggerManager.isLoggerActivated())
 			{
 				if (CarpetTISAdditionSettings.microTimingTarget != MicroTimingTarget.MARKER_ONLY)
 				{
-					MicroTimingTarget.deprecatedWarning(player.getCommandSource());
+					MicroTimingTarget.deprecatedWarning(player.createCommandSourceStack());
 				}
 			}
 			else
@@ -110,14 +110,14 @@ public class MicroTimingStandardCarpetLogger extends
 	public void removePlayer(String playerName)
 	{
 		super.removePlayer(playerName);
-		ServerPlayerEntity player = this.playerFromName(playerName);
+		ServerPlayer player = this.playerFromName(playerName);
 		if (player != null)
 		{
 			MicroTimingMarkerManager.getInstance().cleanAllMarkersForPlayer(player);
 		}
 	}
 
-	public void onCarpetClientHello(ServerPlayerEntity player)
+	public void onCarpetClientHello(ServerPlayer player)
 	{
 		if (MicroTimingUtil.isPlayerSubscribed(player))
 		{

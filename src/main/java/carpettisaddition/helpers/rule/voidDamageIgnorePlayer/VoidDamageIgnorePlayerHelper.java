@@ -22,12 +22,12 @@ package carpettisaddition.helpers.rule.voidDamageIgnorePlayer;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.EntityUtils;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.GameMode;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameType;
 
 public class VoidDamageIgnorePlayerHelper
 {
-	public static boolean shouldIgnoreDamage(PlayerEntity player)
+	public static boolean shouldIgnoreDamage(Player player)
 	{
 		String rule = CarpetTISAdditionSettings.voidDamageIgnorePlayer;
 		switch (rule)
@@ -37,7 +37,7 @@ public class VoidDamageIgnorePlayerHelper
 			case "true":
 				return true;
 			default:
-				GameMode gameMode = EntityUtils.getPlayerGameMode(player);
+				GameType gameMode = EntityUtils.getPlayerGameMode(player);
 				return gameMode != null && !gameMode.getName().isEmpty() && rule.contains(gameMode.getName());
 		}
 	}

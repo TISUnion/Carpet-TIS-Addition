@@ -23,8 +23,8 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.entity;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.interfaces.WorldWithEntityTickingOrder;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.EntitySubStage;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Consumer;
 
-@Mixin(World.class)
+@Mixin(Level.class)
 public abstract class WorldMixin implements WorldWithEntityTickingOrder
 {
 	private int entityOrderCounter;
@@ -42,15 +42,15 @@ public abstract class WorldMixin implements WorldWithEntityTickingOrder
 		this.entityOrderCounter = value;
 	}
 
-	@Inject(method = "tickEntity", at = @At("HEAD"))
+	@Inject(method = "guardEntityTick", at = @At("HEAD"))
 	private void beforeTickEntity(Consumer<Entity> consumer, Entity entity, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setSubTickStage((World)(Object)this, new EntitySubStage(entity, this.entityOrderCounter++));
+		MicroTimingLoggerManager.setSubTickStage((Level)(Object)this, new EntitySubStage(entity, this.entityOrderCounter++));
 	}
 
-	@Inject(method = "tickEntity", at = @At("RETURN"))
+	@Inject(method = "guardEntityTick", at = @At("RETURN"))
 	private void afterTickEntity(Consumer<Entity> consumer, Entity entity, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setSubTickStage((World)(Object)this, null);
+		MicroTimingLoggerManager.setSubTickStage((Level)(Object)this, null);
 	}
 }

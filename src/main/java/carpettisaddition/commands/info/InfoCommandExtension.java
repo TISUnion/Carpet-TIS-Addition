@@ -29,15 +29,15 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.WorldUtils;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.TickPriority;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.TickPriority;
+import net.minecraft.world.level.Level;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -46,7 +46,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 11800
 //$$ import carpettisaddition.mixins.command.info.ChunkTickSchedulerAccessor;
@@ -57,9 +57,9 @@ import static net.minecraft.server.command.CommandManager.literal;
 //$$ import net.minecraft.world.tick.WorldTickScheduler;
 //$$ import java.util.Queue;
 //#else
-import net.minecraft.server.world.ServerTickScheduler;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.world.ScheduledTick;
+import net.minecraft.world.level.ServerTickList;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.TickNextTickData;
 //#endif
 
 public class InfoCommandExtension extends AbstractCommand implements CommandExtender
@@ -80,25 +80,25 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 	public void extendCommand(CommandTreeContext.Node context)
 	{
 		BiConsumer<String, InfoSubcommand> extend = (name, subcommand) -> {
-			LiteralArgumentBuilder<ServerCommandSource> worldNode = literal(name);
+			LiteralArgumentBuilder<CommandSourceStack> worldNode = literal(name);
 			subcommand.extendCommand(context.node(worldNode));
 			context.node.then(worldNode);
 		};
 		extend.accept("world", InfoWorldCommand.getInstance());
 	}
 
-	private <T> void appendTileTickInfo(List<BaseText> result, List<ScheduledTick<T>> tileTickList, String title, long currentTime, Function<T, BaseText> nameGetter)
+	private <T> void appendTileTickInfo(List<BaseComponent> result, List<TickNextTickData<T>> tileTickList, String title, long currentTime, Function<T, BaseComponent> nameGetter)
 	{
 		if (!tileTickList.isEmpty())
 		{
 			result.add(Messenger.s(String.format(" - %s * %d", title, tileTickList.size())));
-			for (ScheduledTick<T> tt : tileTickList)
+			for (TickNextTickData<T> tt : tileTickList)
 			{
 				long time =
 						//#if MC >= 11800
 						//$$ tt.triggerTick();
 						//#else
-						tt.time;
+						tt.delay;
 						//#endif
 
 				TickPriority priority =
@@ -110,24 +110,24 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 
 				result.add(Messenger.c(
 						"w     ",
-						nameGetter.apply(tt.getObject()),
-						String.format("w : time = %d (+%dgt), priority = %d", time, time - currentTime, priority.getIndex())
+						nameGetter.apply(tt.getType()),
+						String.format("w : time = %d (+%dgt), priority = %d", time, time - currentTime, priority.getValue())
 				));
 			}
 		}
 	}
 
-	private void appendBlockEventInfo(List<BaseText> result, List<BlockAction> blockEvents)
+	private void appendBlockEventInfo(List<BaseComponent> result, List<BlockEventData> blockEvents)
 	{
 		if (!blockEvents.isEmpty())
 		{
 			result.add(Messenger.s(" - Queued Block Events * " + blockEvents.size()));
-			for (BlockAction be : blockEvents)
+			for (BlockEventData be : blockEvents)
 			{
 				result.add(Messenger.c(
 						"w     ",
 						Messenger.block(be.getBlock()),
-						String.format("w : id = %d, param = %d", be.getType(), be.getData()))
+						String.format("w : id = %d, param = %d", be.getParamA(), be.getParamB()))
 				);
 			}
 		}
@@ -150,32 +150,32 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 	//$$ }
 	//#endif
 
-	public Collection<BaseText> showMoreBlockInfo(BlockPos pos, World world)
+	public Collection<BaseComponent> showMoreBlockInfo(BlockPos pos, Level world)
 	{
-		if (!(world instanceof ServerWorld))
+		if (!(world instanceof ServerLevel))
 		{
 			return Collections.emptyList();
 		}
-		List<BaseText> result = Lists.newArrayList();
+		List<BaseComponent> result = Lists.newArrayList();
 
 		//#if MC >= 11800
 		//$$ List<OrderedTick<Block>> blockTileTicks = this.getTileTicksAt((WorldTickScheduler<Block>)world.getBlockTickScheduler(), pos);
 		//$$ List<OrderedTick<Fluid>> liquidTileTicks = this.getTileTicksAt((WorldTickScheduler<Fluid>)world.getFluidTickScheduler(), pos);
 		//#else
-		BlockBox bound =
+		BoundingBox bound =
 				//#if MC >= 11700
 				//$$ BlockBox.create
 				//#else
-				new BlockBox
+				new BoundingBox
 				//#endif
-				(pos, pos.add(1, 1, 1));
-		List<ScheduledTick<Block>> blockTileTicks = ((ServerTickScheduler<Block>)world.getBlockTickScheduler()).getScheduledTicks(bound, false, false);
-		List<ScheduledTick<Fluid>> liquidTileTicks = ((ServerTickScheduler<Fluid>)world.getFluidTickScheduler()).getScheduledTicks(bound, false, false);
+				(pos, pos.offset(1, 1, 1));
+		List<TickNextTickData<Block>> blockTileTicks = ((ServerTickList<Block>)world.getBlockTicks()).fetchTicksInArea(bound, false, false);
+		List<TickNextTickData<Fluid>> liquidTileTicks = ((ServerTickList<Fluid>)world.getLiquidTicks()).fetchTicksInArea(bound, false, false);
 		//#endif
 
 		this.appendTileTickInfo(result, blockTileTicks, "Block Tile ticks", WorldUtils.getWorldTime(world), Messenger::block);
 		this.appendTileTickInfo(result, liquidTileTicks, "Fluid Tile ticks", WorldUtils.getWorldTime(world), Messenger::fluid);
-		List<BlockAction> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.getPos().equals(pos)).collect(Collectors.toList());
+		List<BlockEventData> blockEvents = ((ServerWorldAccessor)world).getPendingBlockActions().stream().filter(be -> be.getPos().equals(pos)).collect(Collectors.toList());
 		this.appendBlockEventInfo(result, blockEvents);
 		return result;
 	}

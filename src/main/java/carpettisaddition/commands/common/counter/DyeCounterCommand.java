@@ -27,9 +27,9 @@ import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.DyeColor;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,9 +39,9 @@ import java.util.stream.Collectors;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
-import static net.minecraft.server.command.CommandSource.suggestMatching;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
+import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 
 public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter extends DyeCounter<Key>> extends AbstractCommand implements DyeCounterProvider<Key, DyeCounter<Key>>
 {
@@ -99,14 +99,14 @@ public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter exten
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{
-		LiteralArgumentBuilder<ServerCommandSource> root = literal(this.commandPrefix).
+		LiteralArgumentBuilder<CommandSourceStack> root = literal(this.commandPrefix).
 				requires(s -> CarpetModUtil.canUseCommand(s, this.getRuleValue())).
 				executes(c -> reportAll(c.getSource())).
 				then(literal("reset").
 						executes(c -> resetAll(c.getSource()))
 				).
 				then(argument("color", word()).
-						suggests((c, b) -> suggestMatching(COLORS, b)).
+						suggests((c, b) -> suggest(COLORS, b)).
 						executes(c -> report(c.getSource(), getString(c, "color"), false)).
 						then(literal("realtime").
 								executes(c -> report(c.getSource(), getString(c, "color"), true))
@@ -118,7 +118,7 @@ public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter exten
 		context.dispatcher.register(root);
 	}
 
-	private int report(ServerCommandSource source, String color, boolean realtime)
+	private int report(CommandSourceStack source, String color, boolean realtime)
 	{
 		return this.doWithCounter(source, color, counter -> {
 			Messenger.tell(source, counter.report(realtime));
@@ -126,13 +126,13 @@ public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter exten
 		});
 	}
 
-	private int reportAll(ServerCommandSource source)
+	private int reportAll(CommandSourceStack source)
 	{
 		int printed = 0;
 
 		for (Counter counter : this.counter.values())
 		{
-			List<BaseText> lines = counter.report(false);
+			List<BaseComponent> lines = counter.report(false);
 
 			if (lines.size() > 1)
 			{
@@ -150,7 +150,7 @@ public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter exten
 		return printed;
 	}
 
-	private int doWithCounter(ServerCommandSource source, String color, Function<Counter, Integer> consumer)
+	private int doWithCounter(CommandSourceStack source, String color, Function<Counter, Integer> consumer)
 	{
 		return Optional.ofNullable(this.getCounter(color)).
 				map(consumer).
@@ -160,7 +160,7 @@ public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter exten
 				});
 	}
 
-	private int resetAll(ServerCommandSource source)
+	private int resetAll(CommandSourceStack source)
 	{
 		for (Counter counter : this.counter.values())
 		{
@@ -170,7 +170,7 @@ public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter exten
 		return 1;
 	}
 
-	private int resetSingle(ServerCommandSource source, String color)
+	private int resetSingle(CommandSourceStack source, String color)
 	{
 		return this.doWithCounter(source, color, counter -> {
 			counter.reset();

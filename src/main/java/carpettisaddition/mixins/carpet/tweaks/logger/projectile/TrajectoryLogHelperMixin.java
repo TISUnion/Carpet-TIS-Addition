@@ -31,15 +31,15 @@ import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.Text;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -56,13 +56,13 @@ import java.util.Optional;
 @Mixin(TrajectoryLogHelper.class)
 public abstract class TrajectoryLogHelperMixin
 {
-	@Shadow(remap = false) private ArrayList<Vec3d> positions;
+	@Shadow(remap = false) private ArrayList<Vec3> positions;
 	@Shadow(remap = false) private boolean doLog;
 	@Shadow(remap = false) @Final private static int MAX_TICKS_PER_LINE;
 
 	// visualize logging
 	@Unique
-	private World world;
+	private Level world;
 	@Unique
 	private Entity entity;
 	private boolean doVisualizeLogging;
@@ -126,18 +126,18 @@ public abstract class TrajectoryLogHelperMixin
 			//#if MC >= 11900
 			//$$ CallbackInfoReturnable<Text[]> cir
 			//#else
-			CallbackInfoReturnable<BaseText[]> cir
+			CallbackInfoReturnable<BaseComponent[]> cir
 			//#endif
 	)
 	{
-		List<BaseText> comp = Lists.newArrayList();
-		for (Text text : cir.getReturnValue())
+		List<BaseComponent> comp = Lists.newArrayList();
+		for (Component text : cir.getReturnValue())
 		{
-			if (text instanceof BaseText)
+			if (text instanceof BaseComponent)
 			{
 				// easier 1.19 compact
 				//noinspection CastCanBeRemovedNarrowingVariableType
-				comp.add((BaseText)text);
+				comp.add((BaseComponent)text);
 			}
 			else
 			{
@@ -147,11 +147,11 @@ public abstract class TrajectoryLogHelperMixin
 		}
 
 		Optional<HitResult> hitResultOptional = getHitResult();
-		Vec3d hitPos = null;
-		BaseText hitType = null;
+		Vec3 hitPos = null;
+		BaseComponent hitType = null;
 		if (hitResultOptional.isPresent())
 		{
-			hitPos = hitResultOptional.get().getPos();
+			hitPos = hitResultOptional.get().getLocation();
 			if (hitResultOptional.get() instanceof BlockHitResult)
 			{
 				hitType = Messenger.c("w block ", Messenger.coord(null, ((BlockHitResult)hitResultOptional.get()).getBlockPos(), DimensionWrapper.of(this.world)));
@@ -170,16 +170,16 @@ public abstract class TrajectoryLogHelperMixin
 			case "brief":
 				if (hitResultOptional.isPresent())
 				{
-					BaseText lastLine = comp.get(comp.size() - 1);
-					BaseText marker = Messenger.fancy(
+					BaseComponent lastLine = comp.get(comp.size() - 1);
+					BaseComponent marker = Messenger.fancy(
 							"g",
 							Messenger.s(" x"),
 							Messenger.c(
 									"w Hit: ",
 									hitType,
-									String.format("w \nx: %f", hitPos.getX()),
-									String.format("w \ny: %f", hitPos.getY()),
-									String.format("w \nz: %f", hitPos.getZ())
+									String.format("w \nx: %f", hitPos.x()),
+									String.format("w \ny: %f", hitPos.y()),
+									String.format("w \nz: %f", hitPos.z())
 							),
 							null
 					);
@@ -211,7 +211,7 @@ public abstract class TrajectoryLogHelperMixin
 							{
 								VisualizeTrajectoryHelper.createVisualizer(this.world, this.positions.get(i), String.valueOf(i));
 							}
-							hitResultOptional.ifPresent(hitResult -> VisualizeTrajectoryHelper.createVisualizer(this.world, hitResult.getPos(), "Hit"));
+							hitResultOptional.ifPresent(hitResult -> VisualizeTrajectoryHelper.createVisualizer(this.world, hitResult.getLocation(), "Hit"));
 							this.hasCreatedVisualizer = true;
 						}
 					}
@@ -231,7 +231,7 @@ public abstract class TrajectoryLogHelperMixin
 				//#if MC >= 11900
 				//$$ new Text[0]
 				//#else
-				new BaseText[0]
+				new BaseComponent[0]
 				//#endif
 		));
 	}

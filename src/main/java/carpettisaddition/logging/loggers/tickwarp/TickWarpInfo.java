@@ -20,13 +20,13 @@
 
 package carpettisaddition.logging.loggers.tickwarp;
 
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.jetbrains.annotations.Nullable;
 
 public interface TickWarpInfo extends TickWarpInfoReader
 {
-	@Nullable ServerCommandSource getTimeAdvancer();
+	@Nullable CommandSourceStack getTimeAdvancer();
 
 	// we need to store the advancer by ourselves for mc1.20.3
-	void setTimeAdvancer(@Nullable ServerCommandSource timeAdvancer);
+	void setTimeAdvancer(@Nullable CommandSourceStack timeAdvancer);
 }

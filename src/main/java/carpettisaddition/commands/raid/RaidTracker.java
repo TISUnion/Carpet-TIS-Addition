@@ -26,11 +26,11 @@ import carpettisaddition.utils.CounterUtils;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.entity.raid.RaiderEntity;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.List;
 import java.util.Map;
@@ -79,7 +79,7 @@ public class RaidTracker extends AbstractTracker
 		}
 	}
 
-	public void trackNewRaider(RaiderEntity raider)
+	public void trackNewRaider(Raider raider)
 	{
 		if (this.isTracking())
 		{
@@ -90,11 +90,11 @@ public class RaidTracker extends AbstractTracker
 	}
 
 	@Override
-	protected void printTrackingResult(ServerCommandSource source, boolean realtime)
+	protected void printTrackingResult(CommandSourceStack source, boolean realtime)
 	{
 		long ticks = this.sendTrackedTime(source, realtime);
 
-		List<BaseText> result = Lists.newArrayList();
+		List<BaseComponent> result = Lists.newArrayList();
 		int raiderCountSum = this.raiderCounter.values().stream().mapToInt(Integer::intValue).sum();
 		int invalidateCounterSum = this.raidInvalidateCounter.values().stream().mapToInt(Integer::intValue).sum();
 

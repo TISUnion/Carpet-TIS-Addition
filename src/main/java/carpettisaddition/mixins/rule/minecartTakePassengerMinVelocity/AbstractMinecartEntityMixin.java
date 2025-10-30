@@ -28,14 +28,14 @@ import org.spongepowered.asm.mixin.injection.At;
 //#if MC >= 1.21.2
 //$$ import net.minecraft.entity.vehicle.DefaultMinecartController;
 //#else
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
 //#endif
 
 @Mixin(
 		//#if MC >= 1.21.2
 		//$$ DefaultMinecartController.class
 		//#else
-		AbstractMinecartEntity.class
+		AbstractMinecart.class
 		//#endif
 )
 public abstract class AbstractMinecartEntityMixin

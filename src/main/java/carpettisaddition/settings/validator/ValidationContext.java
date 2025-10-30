@@ -21,7 +21,7 @@
 package carpettisaddition.settings.validator;
 
 import carpet.settings.ParsedRule;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -29,13 +29,13 @@ import java.util.Optional;
 public class ValidationContext<T>
 {
 	@Nullable
-	public final ServerCommandSource source;
+	public final CommandSourceStack source;
 	public final ParsedRule<T> rule;
 	public final T oldValue;
 	public final T inputValue;
 	public final String valueString;
 
-	public ValidationContext(@Nullable ServerCommandSource source, ParsedRule<T> rule, T inputValue, String valueString)
+	public ValidationContext(@Nullable CommandSourceStack source, ParsedRule<T> rule, T inputValue, String valueString)
 	{
 		this.source = source;
 		this.rule = rule;
@@ -64,7 +64,7 @@ public class ValidationContext<T>
 		//#endif
 	}
 
-	public Optional<ServerCommandSource> optionalSource()
+	public Optional<CommandSourceStack> optionalSource()
 	{
 		return Optional.ofNullable(this.source);
 	}

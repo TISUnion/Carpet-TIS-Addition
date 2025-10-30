@@ -23,8 +23,8 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.List;
 import java.util.Objects;
@@ -47,16 +47,16 @@ public class EmitBlockUpdateEvent extends BaseEvent
 		return false;
 	}
 
-	protected BaseText getUpdatesTextHoverText()
+	protected BaseComponent getUpdatesTextHoverText()
 	{
 		return Messenger.c(tr("method_name"), String.format("w : %s", this.methodName));
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		List<Object> list = Lists.newArrayList();
-		BaseText updatesText = Messenger.c(
+		BaseComponent updatesText = Messenger.c(
 				Messenger.formatting(tr("emit"), COLOR_ACTION),
 				Messenger.getSpaceText(),
 				Messenger.formatting(tr("updates"), COLOR_TARGET)

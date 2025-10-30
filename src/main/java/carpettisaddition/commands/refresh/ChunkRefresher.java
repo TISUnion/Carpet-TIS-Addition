@@ -22,11 +22,11 @@ package carpettisaddition.commands.refresh;
 
 import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
-import net.minecraft.network.Packet;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.server.world.ThreadedAnvilChunkStorage;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ChunkMap;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 //#if MC >= 12002
 //$$ import carpettisaddition.mixins.command.refresh.ChunkDataSenderAccessor;
@@ -40,7 +40,7 @@ import net.minecraft.world.chunk.WorldChunk;
 
 public class ChunkRefresher
 {
-	private final WorldChunk chunk;
+	private final LevelChunk chunk;
 
 	//#if MC >= 11800
 	//$$ private final MutableObject<ChunkDataS2CPacket> packetCache = new MutableObject<>();
@@ -48,36 +48,36 @@ public class ChunkRefresher
 	private final Packet<?>[] packetCache = new Packet[2];
 	//#endif
 
-	public ChunkRefresher(WorldChunk chunk)
+	public ChunkRefresher(LevelChunk chunk)
 	{
 		this.chunk = chunk;
 	}
 
-	public void refreshForAllNearby(ServerWorld world)
+	public void refreshForAllNearby(ServerLevel world)
 	{
-		if (world != this.chunk.getWorld())
+		if (world != this.chunk.getLevel())
 		{
-			CarpetTISAdditionMod.LOGGER.warn("ChunkRefresher world mismatch, given {}, chunk in {}", world, this.chunk.getWorld());
+			CarpetTISAdditionMod.LOGGER.warn("ChunkRefresher world mismatch, given {}, chunk in {}", world, this.chunk.getLevel());
 			return;
 		}
-		ThreadedAnvilChunkStorage chunkStorage = world.getChunkManager().threadedAnvilChunkStorage;
-		chunkStorage.getPlayersWatchingChunk(this.chunk.getPos(), false).
+		ChunkMap chunkStorage = world.getChunkSource().chunkMap;
+		chunkStorage.getPlayers(this.chunk.getPos(), false).
 				forEach(this::refreshFor);
 	}
 
-	public void refreshFor(ServerPlayerEntity player)
+	public void refreshFor(ServerPlayer player)
 	{
-		ServerWorld world = player.getServerWorld();
-		if (world != this.chunk.getWorld())
+		ServerLevel world = player.getLevel();
+		if (world != this.chunk.getLevel())
 		{
-			CarpetTISAdditionMod.LOGGER.warn("ChunkRefresher world mismatch, player in {}, chunk in {}", world, this.chunk.getWorld());
+			CarpetTISAdditionMod.LOGGER.warn("ChunkRefresher world mismatch, player in {}, chunk in {}", world, this.chunk.getLevel());
 			return;
 		}
 
 		//#if MC >= 12002
 		//$$ ChunkDataSenderAccessor.invokeSendChunkPacket(player.networkHandler, world, chunk);
 		//#else
-		((ThreadedAnvilChunkStorageAccessor)world.getChunkManager().threadedAnvilChunkStorage).invokeSendWatchPackets(
+		((ThreadedAnvilChunkStorageAccessor)world.getChunkSource().chunkMap).invokeSendWatchPackets(
 				player, this.chunk.getPos(),
 				this.packetCache,
 				false, true

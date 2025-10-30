@@ -24,7 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public class StopCommandDoubleConfirmation
@@ -38,7 +38,7 @@ public class StopCommandDoubleConfirmation
 		// load the class in advanced to prevent NoClassDefFoundError if "/stop" the sever after replacing the mod.jar
 	}
 
-	public static void handleDoubleConfirmation(CommandContext<ServerCommandSource> commandContext, CallbackInfoReturnable<Integer> cir)
+	public static void handleDoubleConfirmation(CommandContext<CommandSourceStack> commandContext, CallbackInfoReturnable<Integer> cir)
 	{
 		if (!CarpetTISAdditionSettings.stopCommandDoubleConfirmation)
 		{

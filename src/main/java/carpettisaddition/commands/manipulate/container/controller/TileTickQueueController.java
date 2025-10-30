@@ -26,26 +26,26 @@ import carpettisaddition.utils.compat.DimensionWrapper;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.block.Block;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.TickPriority;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.TickPriority;
 import org.jetbrains.annotations.Nullable;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.command.arguments.BlockPosArgumentType.blockPos;
-import static net.minecraft.command.arguments.BlockPosArgumentType.getLoadedBlockPos;
-import static net.minecraft.command.arguments.BlockStateArgumentType.blockState;
-import static net.minecraft.command.arguments.BlockStateArgumentType.getBlockState;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.getLoadedBlockPos;
+import static net.minecraft.commands.arguments.blocks.BlockStateArgument.block;
+import static net.minecraft.commands.arguments.blocks.BlockStateArgument.getBlock;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 11800
 //$$ import net.minecraft.world.tick.WorldTickScheduler;
 //#else
-import net.minecraft.server.world.ServerTickScheduler;
+import net.minecraft.world.level.ServerTickList;
 import java.util.List;
 //#endif
 
@@ -60,17 +60,17 @@ public class TileTickQueueController extends AbstractContainerController
 			//#if MC >= 11800
 			//$$ WorldTickScheduler<?> tickScheduler,
 			//#else
-			ServerTickScheduler<?> serverTickScheduler,
+			ServerTickList<?> serverTickScheduler,
 			//#endif
 			BlockPos blockPos)
 	{
-		BlockBox blockBox =
+		BoundingBox blockBox =
 				//#if MC >= 11700
 				//$$ BlockBox.create
 				//#else
-				new BlockBox
+				new BoundingBox
 				//#endif
-						(blockPos, blockPos.add(1, 1, 1));
+						(blockPos, blockPos.offset(1, 1, 1));
 
 		//#if MC >= 11800
 		//$$ int sizeBefore = tickScheduler.getTickCount();
@@ -78,25 +78,25 @@ public class TileTickQueueController extends AbstractContainerController
 		//$$ int sizeAfter = tickScheduler.getTickCount();
 		//$$ return sizeBefore - sizeAfter;
 		//#else
-		List<?> removed = serverTickScheduler.getScheduledTicks(blockBox, true, false);
+		List<?> removed = serverTickScheduler.fetchTicksInArea(blockBox, true, false);
 		return removed.size();
 		//#endif
 	}
 
-	private int removeAt(ServerCommandSource source, BlockPos blockPos)
+	private int removeAt(CommandSourceStack source, BlockPos blockPos)
 	{
 		int counter = 0;
-		counter += this.remove(source.getWorld().getBlockTickScheduler(), blockPos);
-		counter += this.remove(source.getWorld().getFluidTickScheduler(), blockPos);
+		counter += this.remove(source.getLevel().getBlockTicks(), blockPos);
+		counter += this.remove(source.getLevel().getLiquidTicks(), blockPos);
 		Messenger.tell(source, tr("removed", counter), true);
 		return counter;
 	}
 
-	private int addTileTickEvent(CommandContext<ServerCommandSource> context, @Nullable Object priorityArg) throws CommandSyntaxException
+	private int addTileTickEvent(CommandContext<CommandSourceStack> context, @Nullable Object priorityArg) throws CommandSyntaxException
 	{
-		ServerCommandSource source = context.getSource();
+		CommandSourceStack source = context.getSource();
 		BlockPos blockPos = getLoadedBlockPos(context, "pos");
-		Block block = getBlockState(context, "block").getBlockState().getBlock();
+		Block block = getBlock(context, "block").getState().getBlock();
 		int delay = getInteger(context, "delay");
 		TickPriority priority = TickPriority.NORMAL;
 		if (priorityArg instanceof TickPriority)
@@ -105,26 +105,26 @@ public class TileTickQueueController extends AbstractContainerController
 		}
 		if (priorityArg instanceof Integer)
 		{
-			priority = TickPriority.byIndex((Integer)priorityArg);
+			priority = TickPriority.byValue((Integer)priorityArg);
 		}
 
-		source.getWorld().
+		source.getLevel().
 				//#if MC >= 11800
 				//$$ createAndScheduleBlockTick
 				//#else
-				getBlockTickScheduler().schedule
+				getBlockTicks().scheduleTick
 				//#endif
 				(blockPos, block, delay, priority);
 		Messenger.tell(source, tr(
 				"scheduled",
-				Messenger.fancy(tr("item_name"), tr("item_description", Messenger.block(block), delay, priority.getIndex(), priority), null),
-				Messenger.coord(blockPos, DimensionWrapper.of(source.getWorld()))
+				Messenger.fancy(tr("item_name"), tr("item_description", Messenger.block(block), delay, priority.getValue(), priority), null),
+				Messenger.coord(blockPos, DimensionWrapper.of(source.getLevel()))
 		), true);
 		return 1;
 	}
 
 	@Override
-	public ArgumentBuilder<ServerCommandSource, ?> getCommandNode(CommandTreeContext context)
+	public ArgumentBuilder<CommandSourceStack, ?> getCommandNode(CommandTreeContext context)
 	{
 		return super.getCommandNode(context).
 				then(literal("remove").
@@ -134,14 +134,14 @@ public class TileTickQueueController extends AbstractContainerController
 				).
 				then(literal("add").
 						then(argument("pos", blockPos()).
-								then(argument("block", blockState(
+								then(argument("block", block(
 												//#if MC >= 11900
 												//$$ context.commandBuildContext
 												//#endif
 										)).
 										then(argument("delay", integer()).
 												executes(c -> this.addTileTickEvent(c, null)).
-												then(argument("priority", integer(TickPriority.EXTREMELY_HIGH.getIndex(), TickPriority.EXTREMELY_LOW.getIndex())).
+												then(argument("priority", integer(TickPriority.EXTREMELY_HIGH.getValue(), TickPriority.EXTREMELY_LOW.getValue())).
 														executes(c -> this.addTileTickEvent(c, getInteger(c, "priority")))
 												)
 										)

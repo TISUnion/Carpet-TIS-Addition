@@ -26,9 +26,9 @@ import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.entity.raid.Raid;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.BlockPos;
 
 
 public class RaidLogger extends AbstractLogger
@@ -53,7 +53,7 @@ public class RaidLogger extends AbstractLogger
 			return;
 		}
 		this.log(() -> {
-			return new BaseText[]{Messenger.c(
+			return new BaseComponent[]{Messenger.c(
 					tr("created", ((RaidWithIdAndWorld)raid).getRaidId$TISCM()),
 					"g  @ ",
 					Messenger.coord("w", raid.getCenter(), DimensionWrapper.of(((RaidWithIdAndWorld)raid).getRaidWorld$TISCM()))
@@ -68,7 +68,7 @@ public class RaidLogger extends AbstractLogger
 			return;
 		}
 		this.log(() -> {
-			return new BaseText[]{Messenger.c(
+			return new BaseComponent[]{Messenger.c(
 					tr("invalidated", ((RaidWithIdAndWorld)raid).getRaidId$TISCM(), reason.toText())
 			)};
 		});
@@ -81,7 +81,7 @@ public class RaidLogger extends AbstractLogger
 			return;
 		}
 		this.log(() -> {
-			return new BaseText[]{Messenger.c(
+			return new BaseComponent[]{Messenger.c(
 					tr("bad_omen_level_increased", ((RaidWithIdAndWorld)raid).getRaidId$TISCM(), badOmenLevel)
 			)};
 		});
@@ -94,7 +94,7 @@ public class RaidLogger extends AbstractLogger
 			return;
 		}
 		this.log(() -> {
-			return new BaseText[]{Messenger.c(
+			return new BaseComponent[]{Messenger.c(
 					tr("center_moved", ((RaidWithIdAndWorld)raid).getRaidId$TISCM(), Messenger.coord(pos, DimensionWrapper.of(((RaidWithIdAndWorld)raid).getRaidWorld$TISCM())))
 			)};
 		});
@@ -117,7 +117,7 @@ public class RaidLogger extends AbstractLogger
 			return this.name().toLowerCase();
 		}
 
-		public BaseText toText()
+		public BaseComponent toText()
 		{
 			return TRANSLATOR.tr(getName());
 		}

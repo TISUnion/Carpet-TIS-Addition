@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.rule.chunkTickSpeed;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,15 +31,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.BooleanSupplier;
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin
 {
-	@Shadow public abstract void tickChunk(WorldChunk chunk, int randomTickSpeed);
+	@Shadow public abstract void tickChunk(LevelChunk chunk, int randomTickSpeed);
 
 	private int depth;
 
 	@Inject(method = "tickChunk", at = @At("HEAD"), cancellable = true)
-	void checkIfCancelAndInitDepth(WorldChunk chunk, int randomTickSpeed, CallbackInfo ci)
+	void checkIfCancelAndInitDepth(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.chunkTickSpeed == 0)
 		{
@@ -50,7 +50,7 @@ public abstract class ServerWorldMixin
 	}
 
 	@Inject(method = "tickChunk", at = @At("RETURN"))
-	void tickMultipleTimes(WorldChunk chunk, int randomTickSpeed, CallbackInfo ci)
+	void tickMultipleTimes(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci)
 	{
 		if (this.depth == 1)
 		{
@@ -68,7 +68,7 @@ public abstract class ServerWorldMixin
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;getChunkManager()Lnet/minecraft/server/world/ServerChunkManager;"
+					target = "Lnet/minecraft/server/level/ServerLevel;getChunkSource()Lnet/minecraft/server/level/ServerChunkCache;"
 			)
 	)
 	void resetTickChunkDepth(BooleanSupplier shouldKeepTicking, CallbackInfo ci)

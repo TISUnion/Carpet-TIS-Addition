@@ -20,14 +20,14 @@
 
 package carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class UpdateSuppressionExceptions
 {
 	@Nullable
-	public static UpdateSuppressionException createWrapper(Throwable cause, @Nullable World world, BlockPos pos)
+	public static UpdateSuppressionException createWrapper(Throwable cause, @Nullable Level world, BlockPos pos)
 	{
 		if (cause instanceof ClassCastException)
 		{
@@ -67,7 +67,7 @@ public class UpdateSuppressionExceptions
 	{
 		private final UpdateSuppressionContext context;
 
-		public StackOverflowSuppression(Throwable cause, @Nullable World world, BlockPos pos)
+		public StackOverflowSuppression(Throwable cause, @Nullable Level world, BlockPos pos)
 		{
 			this.context = new UpdateSuppressionContext(cause, world, pos);
 		}
@@ -89,7 +89,7 @@ public class UpdateSuppressionExceptions
 	{
 		private final UpdateSuppressionContext context;
 
-		public ClassCastSuppression(Throwable cause, @Nullable World world, BlockPos pos)
+		public ClassCastSuppression(Throwable cause, @Nullable Level world, BlockPos pos)
 		{
 			this.context = new UpdateSuppressionContext(cause, world, pos);
 		}
@@ -111,7 +111,7 @@ public class UpdateSuppressionExceptions
 	{
 		private final UpdateSuppressionContext context;
 
-		public OutOfMemorySuppression(Throwable cause, @Nullable World world, BlockPos pos)
+		public OutOfMemorySuppression(Throwable cause, @Nullable Level world, BlockPos pos)
 		{
 			this.context = new UpdateSuppressionContext(cause, world, pos);
 		}
@@ -133,7 +133,7 @@ public class UpdateSuppressionExceptions
 	{
 		private final UpdateSuppressionContext context;
 
-		public IllegalArgumentSuppression(Throwable cause, @Nullable World world, BlockPos pos)
+		public IllegalArgumentSuppression(Throwable cause, @Nullable Level world, BlockPos pos)
 		{
 			super(cause);
 			this.context = new UpdateSuppressionContext(cause, world, pos);

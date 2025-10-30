@@ -34,26 +34,26 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
 
 import java.util.*;
 
 public class LifeTimeWorldTracker extends TranslationContext
 {
-	private final ServerWorld world;
+	private final ServerLevel world;
 	private final Map<EntityType<?>, BasicTrackedData> dataMap = Maps.newHashMap();
 	// a counter which accumulates when spawning stage occurs
 	// it's used to determine lifetime
 	private long spawnStageCounter;
 
-	public LifeTimeWorldTracker(ServerWorld world)
+	public LifeTimeWorldTracker(ServerLevel world)
 	{
 		super(LifeTimeTracker.getInstance().getTranslator());
 		this.world = world;
@@ -78,7 +78,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 				{
 					return new ItemTrackedData();
 				}
-				if (entity instanceof ExperienceOrbEntity)
+				if (entity instanceof ExperienceOrb)
 				{
 					return new ExperienceOrbTrackedData();
 				}
@@ -110,7 +110,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 		return this.spawnStageCounter;
 	}
 
-	private static List<BaseText> addIfEmpty(List<BaseText> list, BaseText text)
+	private static List<BaseComponent> addIfEmpty(List<BaseComponent> list, BaseComponent text)
 	{
 		if (list.isEmpty())
 		{
@@ -119,7 +119,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 		return list;
 	}
 
-	protected int print(ServerCommandSource source, long ticks, EntityType<?> specificType, SpecificDetailMode detailMode)
+	protected int print(CommandSourceStack source, long ticks, EntityType<?> specificType, SpecificDetailMode detailMode)
 	{
 		// existence check
 		BasicTrackedData specificData = this.dataMap.get(specificType);
@@ -130,10 +130,10 @@ public class LifeTimeWorldTracker extends TranslationContext
 
 		// dimension name header
 		// Overworld (minecraft:overworld)
-		List<BaseText> result = Lists.newArrayList();
+		List<BaseComponent> result = Lists.newArrayList();
 		result.add(Messenger.s(" "));
 		result.add(Messenger.c(
-				Messenger.formatting(Messenger.dimension(DimensionWrapper.of(this.world)), Formatting.BOLD, Formatting.GOLD),
+				Messenger.formatting(Messenger.dimension(DimensionWrapper.of(this.world)), ChatFormatting.BOLD, ChatFormatting.GOLD),
 				String.format("g  (%s)", DimensionWrapper.of(this.world).getIdentifier())
 		));
 
@@ -149,7 +149,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 		return 1;
 	}
 
-	private void printAll(long ticks, List<BaseText> result)
+	private void printAll(long ticks, List<BaseComponent> result)
 	{
 		// sorted by spawn count
 		// will being sorting by avg lifetime better?
@@ -159,14 +159,14 @@ public class LifeTimeWorldTracker extends TranslationContext
 					EntityType<?> entityType = entry.getKey();
 					BasicTrackedData data = entry.getValue();
 
-					List<BaseText> spawningHover = Lists.newArrayList();  // list of lines
+					List<BaseComponent> spawningHover = Lists.newArrayList();  // list of lines
 					spawningHover.add(data.getSpawningCountText(ticks));
 					if (data.hasSpawning())
 					{
 						spawningHover.add(Messenger.formatting(tr("reasons_for_spawning"), "e"));
 						spawningHover.addAll(data.getSpawningReasonsLines(ticks, false));
 					}
-					List<BaseText> removalHover = Lists.newArrayList();  // list of lines
+					List<BaseComponent> removalHover = Lists.newArrayList();  // list of lines
 					removalHover.add(data.getRemovalCountText(ticks));
 					if (data.hasRemoval())
 					{
@@ -233,7 +233,7 @@ public class LifeTimeWorldTracker extends TranslationContext
 				});
 	}
 
-	private void printSpecific(long ticks, EntityType<?> specificType, BasicTrackedData specificData, SpecificDetailMode detailMode, List<BaseText> result)
+	private void printSpecific(long ticks, EntityType<?> specificType, BasicTrackedData specificData, SpecificDetailMode detailMode, List<BaseComponent> result)
 	{
 		result.add(Messenger.c(
 				Messenger.formatting(Messenger.c(tr("filter_info_header"), Messenger.s(": ")), "c"),

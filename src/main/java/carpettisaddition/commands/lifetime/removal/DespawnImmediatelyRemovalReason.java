@@ -22,8 +22,8 @@ package carpettisaddition.commands.lifetime.removal;
 
 import carpettisaddition.utils.Messenger;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -35,7 +35,7 @@ public class DespawnImmediatelyRemovalReason extends RemovalReason
 
 	public DespawnImmediatelyRemovalReason(@Nullable DamageSource damageSource)
 	{
-		this.damageSourceName = damageSource != null ? damageSource.getName() : null;
+		this.damageSourceName = damageSource != null ? damageSource.getMsgId() : null;
 	}
 
 	@Override
@@ -53,9 +53,9 @@ public class DespawnImmediatelyRemovalReason extends RemovalReason
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
-		BaseText text = tr("despawn.immediately");
+		BaseComponent text = tr("despawn.immediately");
 		if (this.damageSourceName == null)
 		{
 			return text;

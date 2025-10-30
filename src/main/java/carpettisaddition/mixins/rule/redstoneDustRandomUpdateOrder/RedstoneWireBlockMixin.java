@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.rule.redstoneDustRandomUpdateOrder;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.RedstoneWireBlock;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.RedStoneWireBlock;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -38,8 +38,8 @@ import java.util.*;
 //$$ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 //#else
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
@@ -48,7 +48,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 		//#if MC >= 12102
 		//$$ DefaultRedstoneController.class
 		//#else
-		RedstoneWireBlock.class
+		RedStoneWireBlock.class
 		//#endif
 )
 public abstract class RedstoneWireBlockMixin
@@ -75,13 +75,13 @@ public abstract class RedstoneWireBlockMixin
 	//$$ }
 	//#else
 	@Inject(
-			method = "update",
+			method = "updatePowerStrength",
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/Set;clear()V"
 			)
 	)
-	private void letsMakeTheOrderUnpredictable(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> list)
+	private void letsMakeTheOrderUnpredictable(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> list)
 	{
 		if (CarpetTISAdditionSettings.redstoneDustRandomUpdateOrder)
 		{

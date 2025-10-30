@@ -26,13 +26,13 @@ import carpettisaddition.utils.CounterUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.StringUtils;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.stat.ServerStatHandler;
-import net.minecraft.stat.Stats;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.ServerStatsCounter;
+import net.minecraft.stats.Stats;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -45,7 +45,7 @@ public class PhantomLogger extends AbstractLogger
 	private static final PhantomLogger INSTANCE = new PhantomLogger();
 	private static final int PHANTOM_SPAWNING_TIME = 72000;
 	private static final List<Integer> REMINDER_TICKS = Lists.newArrayList(PHANTOM_SPAWNING_TIME * 3 / 4, PHANTOM_SPAWNING_TIME);
-	private static final BaseText PHANTOM_NAME = Messenger.entityType(EntityType.PHANTOM);
+	private static final BaseComponent PHANTOM_NAME = Messenger.entityType(EntityType.PHANTOM);
 
 	private PhantomLogger()
 	{
@@ -69,7 +69,7 @@ public class PhantomLogger extends AbstractLogger
 		return LoggingOption.getSuggestions();
 	}
 
-	private BaseText pack(BaseText message)
+	private BaseComponent pack(BaseComponent message)
 	{
 		String command = String.format("/log %s", this.getName());
 		return Messenger.c(
@@ -82,7 +82,7 @@ public class PhantomLogger extends AbstractLogger
 		);
 	}
 
-	public void onPhantomSpawn(PlayerEntity spawnerPlayer, int phantomAmount)
+	public void onPhantomSpawn(Player spawnerPlayer, int phantomAmount)
 	{
 		if (!TISAdditionLoggerRegistry.__phantom)
 		{
@@ -91,7 +91,7 @@ public class PhantomLogger extends AbstractLogger
 		this.log(option -> {
 			if (LoggingOption.SPAWNING.isContainedIn(option))
 			{
-				return new BaseText[]{
+				return new BaseComponent[]{
 						pack(tr("summon", Messenger.entity("b", spawnerPlayer), phantomAmount, PHANTOM_NAME))
 				};
 			}
@@ -109,14 +109,14 @@ public class PhantomLogger extends AbstractLogger
 		this.log((option, player) -> {
 			if (LoggingOption.REMINDER.isContainedIn(option))
 			{
-				ServerStatHandler serverStatHandler = ((ServerPlayerEntity)player).getStatHandler();
-				int timeSinceRest = MathHelper.clamp(serverStatHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.TIME_SINCE_REST)), 1, Integer.MAX_VALUE);
+				ServerStatsCounter serverStatHandler = ((ServerPlayer)player).getStats();
+				int timeSinceRest = Mth.clamp(serverStatHandler.getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_REST)), 1, Integer.MAX_VALUE);
 				if (REMINDER_TICKS.contains(timeSinceRest))
 				{
 					int timeUntilSpawn = PHANTOM_SPAWNING_TIME - timeSinceRest;
 					String sinceRest = StringUtils.fractionDigit(CounterUtils.tickToMinute(timeSinceRest), 0);
 					String untilSpawn = StringUtils.fractionDigit(CounterUtils.tickToMinute(timeUntilSpawn), 0);
-					return new BaseText[]{
+					return new BaseComponent[]{
 							pack(tr("reminder.time_since_rest", sinceRest)),
 							pack(tr(timeUntilSpawn != 0 ? "reminder.regular" : "reminder.now", PHANTOM_NAME, untilSpawn))
 					};

@@ -20,9 +20,9 @@
 
 package carpettisaddition.helpers.mixin;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 //#if MC >= 11800
@@ -33,16 +33,16 @@ import java.util.stream.Stream;
 
 /**
  * Interface injection is not valid in at least java8,
- * so here comes a helper class for multiple mixins targeting {@link net.minecraft.world.IWorld#getEntityCollisions}
+ * so here comes a helper class for multiple mixins targeting {@link net.minecraft.world.level.LevelAccessor#getEntityCollisions}
  */
 public class IWorldOverrides
 {
-	public static void getEntityCollisionsPre(@Nullable Entity entity, Box box)
+	public static void getEntityCollisionsPre(@Nullable Entity entity, AABB box)
 	{
 		// do mixin @Inject here
 	}
 
-	public static void getEntityCollisionsPost(@Nullable Entity entity, Box box)
+	public static void getEntityCollisionsPost(@Nullable Entity entity, AABB box)
 	{
 		// do mixin @Inject here
 	}
@@ -50,7 +50,7 @@ public class IWorldOverrides
 	//#if MC >= 11800
 	//$$ public static List<VoxelShape> getEntityCollisionsModifyResult(@Nullable Entity entity, Box box, List<VoxelShape> result)
 	//#else
-	public static Stream<VoxelShape> getEntityCollisionsModifyResult(@Nullable Entity entity, Box box, Stream<VoxelShape> result)
+	public static Stream<VoxelShape> getEntityCollisionsModifyResult(@Nullable Entity entity, AABB box, Stream<VoxelShape> result)
 	//#endif
 	{
 		// do mixin @ModifyVariable here

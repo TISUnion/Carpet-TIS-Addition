@@ -30,13 +30,13 @@ import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.Messenger;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.world.World;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,7 +51,7 @@ public class LifeTimeTracker extends AbstractTracker
 
 	private int currentTrackId = 0;
 
-	private final Map<ServerWorld, LifeTimeWorldTracker> trackers = new Reference2ObjectArrayMap<>();
+	private final Map<ServerLevel, LifeTimeWorldTracker> trackers = new Reference2ObjectArrayMap<>();
 
 	public LifeTimeTracker()
 	{
@@ -63,9 +63,9 @@ public class LifeTimeTracker extends AbstractTracker
 		return INSTANCE;
 	}
 
-	public LifeTimeWorldTracker getTracker(World world)
+	public LifeTimeWorldTracker getTracker(Level world)
 	{
-		return world instanceof ServerWorld ? this.trackers.get(world) : null;
+		return world instanceof ServerLevel ? this.trackers.get(world) : null;
 	}
 
 	@SuppressWarnings("ResultOfMethodCallIgnored")
@@ -73,7 +73,7 @@ public class LifeTimeTracker extends AbstractTracker
 	{
 		attachedServer = true;
 		INSTANCE.trackers.clear();
-		for (ServerWorld world : minecraftServer.getWorlds())
+		for (ServerLevel world : minecraftServer.getAllLevels())
 		{
 			INSTANCE.trackers.put(world, ((ServerWorldWithLifeTimeTracker)world).getLifeTimeWorldTracker());
 		}
@@ -118,7 +118,7 @@ public class LifeTimeTracker extends AbstractTracker
 	}
 
 	@Override
-	public int startTracking(@NotNull ServerCommandSource source, boolean isRestart, boolean showFeedback)
+	public int startTracking(@NotNull CommandSourceStack source, boolean isRestart, boolean showFeedback)
 	{
 		int ret = super.startTracking(source, isRestart, showFeedback);
 		if (!isRestart && ret == START_TRACKING_OK)
@@ -129,7 +129,7 @@ public class LifeTimeTracker extends AbstractTracker
 	}
 
 	@Override
-	public int stopTracking(@Nullable ServerCommandSource source, boolean isRestart, boolean showFeedback)
+	public int stopTracking(@Nullable CommandSourceStack source, boolean isRestart, boolean showFeedback)
 	{
 		int ret = super.stopTracking(source, isRestart, showFeedback);
 		if (!isRestart && ret == STOP_TRACKING_OK)
@@ -140,7 +140,7 @@ public class LifeTimeTracker extends AbstractTracker
 	}
 
 	@Override
-	public int restartTracking(ServerCommandSource source)
+	public int restartTracking(CommandSourceStack source)
 	{
 		int ret = super.restartTracking(source);
 		LifetimeRecorder.getInstance().start(source, this.currentTrackId);
@@ -155,7 +155,7 @@ public class LifeTimeTracker extends AbstractTracker
 	}
 
 	@Override
-	protected void printTrackingResult(ServerCommandSource source, boolean realtime)
+	protected void printTrackingResult(CommandSourceStack source, boolean realtime)
 	{
 		LifeTimeTrackerContext.commandSource.set(source);
 		try
@@ -175,12 +175,12 @@ public class LifeTimeTracker extends AbstractTracker
 		}
 	}
 
-	public void sendUnknownEntity(ServerCommandSource source, String entityTypeString)
+	public void sendUnknownEntity(CommandSourceStack source, String entityTypeString)
 	{
 		Messenger.tell(source, Messenger.formatting(tr("unknown_entity_type", entityTypeString), "r"));
 	}
 
-	private void printTrackingResultSpecificImpl(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
+	private void printTrackingResultSpecificImpl(CommandSourceStack source, String entityTypeString, String detailModeString, boolean realtime)
 	{
 		LifeTimeTrackerContext.commandSource.set(source);
 
@@ -219,14 +219,14 @@ public class LifeTimeTracker extends AbstractTracker
 		}
 	}
 
-	public int printTrackingResultSpecific(ServerCommandSource source, String entityTypeString, String detailModeString, boolean realtime)
+	public int printTrackingResultSpecific(CommandSourceStack source, String entityTypeString, String detailModeString, boolean realtime)
 	{
 		return this.doWhenTracking(source, () -> this.printTrackingResultSpecificImpl(source, entityTypeString, detailModeString, realtime));
 	}
 
-	protected int showHelp(ServerCommandSource source)
+	protected int showHelp(CommandSourceStack source)
 	{
-		BaseText docLink = Messenger.formatting(tr("help.doc_link"), "t");
+		BaseComponent docLink = Messenger.formatting(tr("help.doc_link"), "t");
 		Messenger.tell(source, Messenger.join(
 				Messenger.s("\n"),
 				Messenger.formatting(this.getTranslatedNameFull(), "wb"),

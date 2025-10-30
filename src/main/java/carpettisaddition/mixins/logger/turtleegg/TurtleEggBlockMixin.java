@@ -21,14 +21,14 @@
 package carpettisaddition.mixins.logger.turtleegg;
 
 import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TurtleEggBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.TurtleEggBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -39,8 +39,8 @@ public abstract class TurtleEggBlockMixin
 {
 	private final ThreadLocal<Entity> eggBreakingEntity = ThreadLocal.withInitial(() -> null);
 
-	@Inject(method = "breakEgg", at = @At("HEAD"))
-	private void onEggBrokenTurtleEggLogger(World world, BlockPos pos, BlockState state, CallbackInfo ci)
+	@Inject(method = "decreaseEggs", at = @At("HEAD"))
+	private void onEggBrokenTurtleEggLogger(Level world, BlockPos pos, BlockState state, CallbackInfo ci)
 	{
 		if (TurtleEggLogger.getInstance().isActivated())
 		{
@@ -48,12 +48,12 @@ public abstract class TurtleEggBlockMixin
 		}
 	}
 
-	@Inject(method = "tryBreakEgg", at = @At("HEAD"))
+	@Inject(method = "destroyEgg", at = @At("HEAD"))
 	private void recordEntityTurtleEggLogger(
 			//#if MC >= 11700
 			//$$ World world, BlockState blockState, BlockPos blockPos, Entity entity, int i,
 			//#else
-			World world, BlockPos pos, Entity entity, int inverseChance,
+			Level world, BlockPos pos, Entity entity, int inverseChance,
 			//#endif
 			CallbackInfo ci
 	)
@@ -64,8 +64,8 @@ public abstract class TurtleEggBlockMixin
 		}
 	}
 
-	@Inject(method = "afterBreak", at = @At("HEAD"))
-	private void recordEntityTurtleEggLogger(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo ci)
+	@Inject(method = "playerDestroy", at = @At("HEAD"))
+	private void recordEntityTurtleEggLogger(Level world, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo ci)
 	{
 		if (TurtleEggLogger.getInstance().isActivated())
 		{

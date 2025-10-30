@@ -28,12 +28,12 @@ import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -115,7 +115,7 @@ public class DamageLogger extends AbstractLogger
 					//#else
 					this.damageSource.isFire();
 					//#endif
-			if (isFire && (this.entity.isFireImmune() || this.entity.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)))
+			if (isFire && (this.entity.fireImmune() || this.entity.hasEffect(MobEffects.FIRE_RESISTANCE)))
 			{
 				this.valid = false;
 				return;
@@ -132,7 +132,7 @@ public class DamageLogger extends AbstractLogger
 			}
 		}
 
-		private BaseText[] verifyAndProduceMessage(String option, PlayerEntity player, DamageContext ctx, Supplier<BaseText[]> messageFuture)
+		private BaseComponent[] verifyAndProduceMessage(String option, Player player, DamageContext ctx, Supplier<BaseComponent[]> messageFuture)
 		{
 			OptionParser parser = new OptionParser(option);
 			if (parser.accepts(player, ctx))
@@ -142,7 +142,7 @@ public class DamageLogger extends AbstractLogger
 			return null;
 		}
 
-		private BaseText getAmountText(@Nullable String style, float amount)
+		private BaseComponent getAmountText(@Nullable String style, float amount)
 		{
 			String display = String.format("%.2f", amount);
 			String detail = String.format("%.6f", amount);
@@ -161,16 +161,16 @@ public class DamageLogger extends AbstractLogger
 				return;
 			}
 			this.valid = false;
-			Entity attacker = this.damageSource.getAttacker();
-			Entity source = this.damageSource.getSource();
+			Entity attacker = this.damageSource.getEntity();
+			Entity source = this.damageSource.getDirectEntity();
 			LivingEntity target = this.entity;
 			DamageContext ctx = new DamageContext(this.damageSource, attacker, target);
 			DamageLogger.this.log((option, player) ->
 					this.verifyAndProduceMessage(option, player, ctx, () -> {
 						List<Object> lines = Lists.newArrayList();
 						lines.add(Messenger.s(" "));
-						BaseText targetName = Messenger.entity("b", target);
-						List<BaseText> sourceHoverTextList = Lists.newArrayList();
+						BaseComponent targetName = Messenger.entity("b", target);
+						List<BaseComponent> sourceHoverTextList = Lists.newArrayList();
 						//#if MC >= 11904
 						//$$ sourceHoverTextList.add(Messenger.c(
 						//$$ 		tr("type"),
@@ -192,7 +192,7 @@ public class DamageLogger extends AbstractLogger
 								getAmountText("r", this.initialAmount),
 								Messenger.fancy(
 										"w",
-										Messenger.s(this.damageSource.getName()),
+										Messenger.s(this.damageSource.getMsgId()),
 										sourceHoverTextList.isEmpty() ? null : Messenger.joinLines(sourceHoverTextList),
 										attacker != null ? Messenger.ClickEvents.suggestCommand(TextUtils.tp(attacker)) : null
 								),
@@ -220,7 +220,7 @@ public class DamageLogger extends AbstractLogger
 								getAmountText(finalAmount > 0.0F ? "r" : "w", finalAmount),
 								getAmountText(remainingHealth > 0 ? "l" : "r", remainingHealth)
 						));
-						return lines.stream().map(Messenger::c).toArray(BaseText[]::new);
+						return lines.stream().map(Messenger::c).toArray(BaseComponent[]::new);
 					})
 			);
 		}

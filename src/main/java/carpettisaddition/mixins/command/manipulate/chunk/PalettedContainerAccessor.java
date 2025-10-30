@@ -20,13 +20,13 @@
 
 package carpettisaddition.mixins.command.manipulate.chunk;
 
-import net.minecraft.world.chunk.PalettedContainer;
+import net.minecraft.world.level.chunk.PalettedContainer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(PalettedContainer.class)
 public interface PalettedContainerAccessor<T>
 {
-	@Invoker
+	@Invoker("setBits")
 	void invokeSetPaletteSize(int size);
 }

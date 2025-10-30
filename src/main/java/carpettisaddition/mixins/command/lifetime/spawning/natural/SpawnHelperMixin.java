@@ -22,14 +22,14 @@ package carpettisaddition.mixins.command.lifetime.spawning.natural;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.SpawnHelper;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.NaturalSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 // use smaller priority so it @ModifyArg before fabric carpet's @Redirect
-@Mixin(value = SpawnHelper.class, priority = 500)
+@Mixin(value = NaturalSpawner.class, priority = 500)
 public abstract class SpawnHelperMixin
 {
 	// fabric-carpet used @Redirect so there goes @ModifyArg here xd
@@ -38,14 +38,14 @@ public abstract class SpawnHelperMixin
 			//#if MC >= 11600
 			//$$ method = "spawnEntitiesInChunk(Lnet/minecraft/entity/SpawnGroup;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/world/chunk/Chunk;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/SpawnHelper$Checker;Lnet/minecraft/world/SpawnHelper$Runner;)V",
 			//#else
-			method = "spawnEntitiesInChunk",
+			method = "spawnCategoryForChunk",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 					//#elseif MC >= 11500
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#else
 					//$$ target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 					//#endif

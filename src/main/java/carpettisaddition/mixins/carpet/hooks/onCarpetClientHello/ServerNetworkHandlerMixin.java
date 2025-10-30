@@ -25,7 +25,7 @@ import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;
@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ServerNetworkHandlerMixin
 {
 	@Inject(method = "onHello", at = @At("TAIL"), remap = false)
-	private static void onCarpetClientHello(ServerPlayerEntity playerEntity, @Coerce Object whatever, CallbackInfo ci)
+	private static void onCarpetClientHello(ServerPlayer playerEntity, @Coerce Object whatever, CallbackInfo ci)
 	{
 		CarpetTISAdditionServer.getInstance().onCarpetClientHello(playerEntity);
 	}

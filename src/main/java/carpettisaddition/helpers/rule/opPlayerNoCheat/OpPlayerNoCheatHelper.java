@@ -21,16 +21,16 @@
 package carpettisaddition.helpers.rule.opPlayerNoCheat;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
 
 public class OpPlayerNoCheatHelper
 {
 	@SuppressWarnings("RedundantIfStatement")
-	public static boolean canCheat(ServerCommandSource source)
+	public static boolean canCheat(CommandSourceStack source)
 	{
 		// disallow if source is player and rule enabled
-		if ((source.getEntity() instanceof ServerPlayerEntity) && CarpetTISAdditionSettings.opPlayerNoCheat)
+		if ((source.getEntity() instanceof ServerPlayer) && CarpetTISAdditionSettings.opPlayerNoCheat)
 		{
 			return false;
 		}
@@ -38,7 +38,7 @@ public class OpPlayerNoCheatHelper
 	}
 
 	@SuppressWarnings("RedundantIfStatement")
-	public static boolean canCheat(ServerPlayerEntity serverPlayerEntity)
+	public static boolean canCheat(ServerPlayer serverPlayerEntity)
 	{
 		// disallow if rule enabled
 		if (CarpetTISAdditionSettings.opPlayerNoCheat)

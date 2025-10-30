@@ -23,12 +23,12 @@ package carpettisaddition.mixins.rule.chatMessageLengthLimitUnlocked;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.chatMessageLengthLimitUnlocked.ChatMessageLengthLimitUnlockedHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
+import net.minecraft.network.protocol.game.ServerboundChatPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ChatMessageC2SPacket.class)
+@Mixin(ServerboundChatPacket.class)
 public abstract class ChatMessageC2SPacketMixin
 {
 	//#if MC >= 11900
@@ -66,7 +66,7 @@ public abstract class ChatMessageC2SPacketMixin
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/PacketByteBuf;readString(I)Ljava/lang/String;"
+					target = "Lnet/minecraft/network/FriendlyByteBuf;readUtf(I)Ljava/lang/String;"
 			)
 	)
 	private

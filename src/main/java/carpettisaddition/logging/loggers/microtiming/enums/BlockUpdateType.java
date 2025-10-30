@@ -27,9 +27,9 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ import java.util.List;
 //#if MC >= 11600
 //$$ import net.minecraft.block.AbstractBlock;
 //#else
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 //#endif
 
 public enum BlockUpdateType
@@ -64,12 +64,12 @@ public enum BlockUpdateType
 		this.updateOrder = updateOrder;
 	}
 
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return translator.tr(this.name.toLowerCase().replace(' ', '_'));
 	}
 
-	public BaseText getUpdateOrderList(Direction skipSide)
+	public BaseComponent getUpdateOrderList(Direction skipSide)
 	{
 		int counter = 0;
 		List<Object> builder = Lists.newArrayList();
@@ -103,7 +103,7 @@ public enum BlockUpdateType
 	private static class Constants
 	{
 		/**
-		 * See {@link World#updateNeighborsAlways} and {@link World#updateNeighborsExcept}
+		 * See {@link Level#updateNeighborsAlways} and {@link Level#updateNeighborsExcept}
 		 */
 		private static final Direction[] BLOCK_UPDATE_ORDER =
 				//#if MC >= 11900
@@ -119,9 +119,9 @@ public enum BlockUpdateType
 		private static final Direction[] STATE_UPDATE_ORDER = BlockAccessor.getFACINGS();
 
 		/**
-		 * (<=1.15) See {@link World#updateHorizontalAdjacent}
-		 * (>=1.16) See {@link World#updateComparators}
+		 * (<=1.15) See {@link Level#updateHorizontalAdjacent}
+		 * (>=1.16) See {@link Level#updateComparators}
 		 */
-		private static final Direction[] COMPARATOR_UPDATE_ORDER = Lists.newArrayList(Direction.Type.HORIZONTAL.iterator()).toArray(new Direction[0]);
+		private static final Direction[] COMPARATOR_UPDATE_ORDER = Lists.newArrayList(Direction.Plane.HORIZONTAL.iterator()).toArray(new Direction[0]);
 	}
 }

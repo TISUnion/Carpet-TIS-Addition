@@ -28,15 +28,15 @@ import carpettisaddition.commands.speedtest.session.SpeedTestServerSessionHolder
 import carpettisaddition.commands.speedtest.session.SpeedTestSessionMessenger;
 import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 public class SpeedTestDownloader extends SpeedTesterPayloadSenderBase implements SpeedTestServerSession
 {
-	private final ServerPlayerEntity player;
+	private final ServerPlayer player;
 	private final SpeedTestServerSessionHolder serverSessionHolder;
 	private final SpeedTestReporter reporter;
 
-	public SpeedTestDownloader(ServerPlayerEntity player, int totalSizeMb, SpeedTestServerSessionHolder serverSessionHolder, SpeedTestReporter reporter)
+	public SpeedTestDownloader(ServerPlayer player, int totalSizeMb, SpeedTestServerSessionHolder serverSessionHolder, SpeedTestReporter reporter)
 	{
 		super(totalSizeMb);
 		this.player = player;
@@ -62,7 +62,7 @@ public class SpeedTestDownloader extends SpeedTesterPayloadSenderBase implements
 	protected void sendOnePacket()
 	{
 		TISCMServerPacketHandler.getInstance().sendPacket(
-				this.player.networkHandler,
+				this.player.connection,
 				TISCMProtocol.S2C.SPEED_TEST_DOWNLOAD_PAYLOAD,
 				nbt -> nbt.putByteArray("buf", SpeedTestPacketUtils.getPayloadByteArray()),
 				this::onPayloadDone
@@ -72,7 +72,7 @@ public class SpeedTestDownloader extends SpeedTesterPayloadSenderBase implements
 	@Override
 	protected void sendPingPacket(PingHandler pingHandler, PingHandler.PongCallback pongCallback)
 	{
-		pingHandler.pingClient(this.player.networkHandler, pongCallback);
+		pingHandler.pingClient(this.player.connection, pongCallback);
 	}
 
 	@Override

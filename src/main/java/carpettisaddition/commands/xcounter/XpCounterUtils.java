@@ -22,7 +22,7 @@ package carpettisaddition.commands.xcounter;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.HopperCounterUtils;
-import net.minecraft.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 public class XpCounterUtils
 {

@@ -23,26 +23,26 @@ package carpettisaddition.logging.loggers.microtiming.tickphase.substages;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.world.phys.Vec3;
 
 public class EntitySubStage extends AbstractSubStage
 {
 	private final Entity entity;
 	private final int order;
-	private final Vec3d pos;
+	private final Vec3 pos;
 
 	public EntitySubStage(Entity entity, int order)
 	{
 		this.entity = entity;
 		this.order = order;
-		this.pos = entity.getPos();
+		this.pos = entity.position();
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return Messenger.c(
 				MicroTimingLoggerManager.tr("common.entity"), "w : ", this.entity.getDisplayName(), "w \n",

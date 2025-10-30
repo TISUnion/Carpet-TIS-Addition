@@ -30,7 +30,7 @@ import com.google.common.net.UrlEscapers;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.SharedConstants;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
@@ -52,7 +52,7 @@ public class OnlineMappingProvider
 		//#if MC >= 1.17.1
 		//$$ SharedConstants.createGameVersion();
 		//#endif
-		return SharedConstants.getGameVersion().getId();
+		return SharedConstants.getCurrentVersion().getId();
 	});
 	public static final String YARN_META_URL = "https://meta.fabricmc.net/v2/versions/yarn/" + MINECRAFT_VERSION;
 	public static final String YARN_MAPPING_URL_BASE = "https://maven.fabricmc.net/net/fabricmc/yarn/";

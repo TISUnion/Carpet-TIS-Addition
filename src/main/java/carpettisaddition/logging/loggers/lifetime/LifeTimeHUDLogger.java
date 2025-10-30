@@ -28,10 +28,10 @@ import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
 import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
 
 import java.util.Optional;
 
@@ -63,7 +63,7 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public BaseComponent[] onHudUpdate(String option, Player playerEntity)
 	{
 		LifeTimeWorldTracker tracker = LifeTimeTracker.getInstance().getTracker(EntityUtils.getEntityWorld(playerEntity));
 		if (tracker != null)
@@ -73,8 +73,8 @@ public class LifeTimeHUDLogger extends AbstractHUDLogger
 			{
 				EntityType<?> entityType = entityTypeOptional.get();
 				BasicTrackedData data = tracker.getDataMap().getOrDefault(entityType, new BasicTrackedData());
-				return new BaseText[]{Messenger.c(
-						Messenger.formatting(Messenger.copy(Messenger.entityType(entityType)), Formatting.GRAY),
+				return new BaseComponent[]{Messenger.c(
+						Messenger.formatting(Messenger.copy(Messenger.entityType(entityType)), ChatFormatting.GRAY),
 						"g : ",
 						"e " + data.getSpawningCount(),
 						"g /",

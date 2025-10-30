@@ -24,11 +24,11 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 
 import java.util.Collection;
 import java.util.List;
@@ -43,13 +43,13 @@ public class EmitBlockUpdateRedstoneDustEvent extends EmitBlockUpdateEvent
 	{
 		super(eventType, block, methodName);
 		this.updateOrder = updateOrder != null ? Lists.newArrayList(updateOrder) : null;
-		this.pos = pos.toImmutable();
+		this.pos = pos.immutable();
 	}
 
 	@Override
-	protected BaseText getUpdatesTextHoverText()
+	protected BaseComponent getUpdatesTextHoverText()
 	{
-		BaseText hover = super.getUpdatesTextHoverText();
+		BaseComponent hover = super.getUpdatesTextHoverText();
 		if (this.updateOrder != null)
 		{
 			List<Object> list = Lists.newArrayList();
@@ -58,7 +58,7 @@ public class EmitBlockUpdateRedstoneDustEvent extends EmitBlockUpdateEvent
 				list.add("w \n");
 				BlockPos target = this.updateOrder.get(i);
 				Vec3i vec = target.subtract(this.pos);
-				Direction direction = Direction.fromVector(
+				Direction direction = Direction.fromNormal(
 						vec.getX(), vec.getY(), vec.getZ()
 						//#if MC >= 12102
 						//$$ , null
@@ -66,7 +66,7 @@ public class EmitBlockUpdateRedstoneDustEvent extends EmitBlockUpdateEvent
 				);
 				list.add(String.format("w %d. ", i + 1));
 				list.add(Messenger.coord("w", target));
-				BaseText extra = null;
+				BaseComponent extra = null;
 				if (direction != null)
 				{
 					extra = MicroTimingUtil.getFormattedDirectionText(direction);

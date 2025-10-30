@@ -27,11 +27,11 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -43,50 +43,50 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Block Event
  */
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin
 {
-	@Shadow @Final private ObjectLinkedOpenHashSet<BlockAction> pendingBlockActions;
+	@Shadow @Final private ObjectLinkedOpenHashSet<BlockEventData> blockEvents;
 
 	private int oldBlockActionQueueSize;
 
-	@Inject(method = "addBlockAction", at = @At("HEAD"))
+	@Inject(method = "blockEvent", at = @At("HEAD"))
 	private void startScheduleBlockEvent_storeEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		this.oldBlockActionQueueSize = this.pendingBlockActions.size();
+		this.oldBlockActionQueueSize = this.blockEvents.size();
 	}
 
-	@Inject(method = "addBlockAction", at = @At("RETURN"))
+	@Inject(method = "blockEvent", at = @At("RETURN"))
 	private void endScheduleBlockEvent_storeEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onScheduleBlockEvent((ServerWorld)(Object)this, new BlockAction(pos, block, type, data), this.pendingBlockActions.size() > this.oldBlockActionQueueSize);
+		MicroTimingLoggerManager.onScheduleBlockEvent((ServerLevel)(Object)this, new BlockEventData(pos, block, type, data), this.blockEvents.size() > this.oldBlockActionQueueSize);
 	}
 
 	@Inject(
 			//#if MC >= 11600
 			//$$ method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			method = "doBlockEvent",
 			//#endif
 			at = @At(
 					value = "HEAD",
 					shift = At.Shift.AFTER
 			)
 	)
-	private void beforeBlockEventExecuted_storeEvent(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	private void beforeBlockEventExecuted_storeEvent(BlockEventData blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
-		MicroTimingLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, null, null, EventType.ACTION_START);
+		MicroTimingLoggerManager.onExecuteBlockEvent((ServerLevel)(Object)this, blockAction, null, null, EventType.ACTION_START);
 	}
 
 	@ModifyExpressionValue(
 			//#if MC >= 11600
 			//$$ method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			method = "doBlockEvent",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;getBlockState(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;"
+					target = "Lnet/minecraft/server/level/ServerLevel;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
 			)
 	)
 	private BlockState recordBlockState(BlockState blockState, @Share("currentBlock") LocalRef<BlockState> currentBlock)
@@ -99,14 +99,14 @@ public abstract class ServerWorldMixin
 			//#if MC >= 11600
 			//$$ method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			method = "doBlockEvent",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/block/BlockState;onSyncedBlockEvent(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;II)Z"
 					//#else
-					target = "Lnet/minecraft/block/BlockState;onBlockAction(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;II)Z"
+					target = "Lnet/minecraft/world/level/block/state/BlockState;triggerEvent(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;II)Z"
 					//#endif
 			)
 	)
@@ -120,12 +120,12 @@ public abstract class ServerWorldMixin
 			//#if MC >= 11600
 			//$$ method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			method = "doBlockEvent",
 			//#endif
 			at = @At("RETURN")
 	)
 	private void afterBlockEventExecuted_storeEvent(
-			BlockAction blockAction, CallbackInfoReturnable<Boolean> cir,
+			BlockEventData blockAction, CallbackInfoReturnable<Boolean> cir,
 			@Share("retStore") LocalRef<Boolean> retStore, @Share("currentBlock") LocalRef<BlockState> currentBlock
 	)
 	{
@@ -147,6 +147,6 @@ public abstract class ServerWorldMixin
 			failInfo = new ExecuteBlockEventEvent.FailInfo(ExecuteBlockEventEvent.FailReason.EVENT_FAIL, currentBlock.get().getBlock());
 		}
 
-		MicroTimingLoggerManager.onExecuteBlockEvent((ServerWorld)(Object)this, blockAction, cir.getReturnValue(), failInfo, EventType.ACTION_END);
+		MicroTimingLoggerManager.onExecuteBlockEvent((ServerLevel)(Object)this, blockAction, cir.getReturnValue(), failInfo, EventType.ACTION_END);
 	}
 }

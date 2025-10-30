@@ -27,19 +27,19 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 @Mixin(PlayerCommand.class)
 public abstract class PlayerCommandMixin
 {
 	@Shadow(remap = false)
-	private static int spawn(CommandContext<ServerCommandSource> context)
+	private static int spawn(CommandContext<CommandSourceStack> context)
 	{
 		return 0;
 	}
@@ -54,13 +54,13 @@ public abstract class PlayerCommandMixin
 			),
 			remap = false
 	)
-	private static RequiredArgumentBuilder<ServerCommandSource, ?> fakePlayerRejoin_addRejoinCommand(RequiredArgumentBuilder<ServerCommandSource, ?> node, SuggestionProvider<?> provider)
+	private static RequiredArgumentBuilder<CommandSourceStack, ?> fakePlayerRejoin_addRejoinCommand(RequiredArgumentBuilder<CommandSourceStack, ?> node, SuggestionProvider<?> provider)
 	{
 		return node.then(literal("rejoin").executes(PlayerCommandMixin::rejoin));
 	}
 
 	@Unique
-	private static int rejoin(CommandContext<ServerCommandSource> context) throws CommandSyntaxException
+	private static int rejoin(CommandContext<CommandSourceStack> context) throws CommandSyntaxException
 	{
 		FakePlayerRejoinHelper.isRejoin.set(true);
 		try

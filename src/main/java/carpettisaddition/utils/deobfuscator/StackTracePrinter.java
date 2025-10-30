@@ -22,9 +22,9 @@ package carpettisaddition.utils.deobfuscator;
 
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Util;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 
 import java.util.regex.Pattern;
 
@@ -49,7 +49,7 @@ public class StackTracePrinter
 		return new StackTracePrinter();
 	}
 
-	public static BaseText makeSymbol(Class<?> ignoreClass)
+	public static BaseComponent makeSymbol(Class<?> ignoreClass)
 	{
 		return create().ignore(ignoreClass).deobfuscate().toSymbolText();
 	}
@@ -107,22 +107,22 @@ public class StackTracePrinter
 		return MIXIN_EXTRAS_METHOD_PATTERN_1.matcher(methodName).matches() || MIXIN_EXTRAS_METHOD_PATTERN_2.matcher(methodName).matches();
 	}
 
-	private BaseText createHoverText()
+	private BaseComponent createHoverText()
 	{
-		BaseText text = translator.tr("deobfuscated_stack_trace_hover");
+		BaseComponent text = translator.tr("deobfuscated_stack_trace_hover");
 		int num = min(this.stackTrace.length, MAX_HOVER_STACK_TRACE_SIZE);
 
 		for (int i = 0; i < num; i++)
 		{
 			StackTraceElement ste = this.stackTrace[i];
-			BaseText line = Messenger.s("");
+			BaseComponent line = Messenger.s("");
 
 			String className = ste.getClassName();
 			String[] classNameParts = className.split("\\.");
 			if (classNameParts.length >= 1)
 			{
-				line.append(Messenger.s(classNameParts[classNameParts.length - 1], Formatting.WHITE));
-				line.append(Messenger.s(".", Formatting.DARK_GRAY));
+				line.append(Messenger.s(classNameParts[classNameParts.length - 1], ChatFormatting.WHITE));
+				line.append(Messenger.s(".", ChatFormatting.DARK_GRAY));
 			}
 
 			// Fabric mixin handler method name: "$".join([prefix, classUID + methodUID, modId, methodName])
@@ -136,7 +136,7 @@ public class StackTracePrinter
 				String methodName = ste.getMethodName();
 				if (shouldObscureMethod(methodName))
 				{
-					return Messenger.s(methodName, Formatting.DARK_GRAY);
+					return Messenger.s(methodName, ChatFormatting.DARK_GRAY);
 				}
 				String[] methodNameParts = methodName.split("\\$");
 				if (methodNameParts.length == 3 || methodNameParts.length == 4)
@@ -148,17 +148,17 @@ public class StackTracePrinter
 					if (MIXIN_METHOD_NAME_UID_PATTERN.matcher(uid).matches())
 					{
 						return Messenger.join(
-								Messenger.s("$", Formatting.DARK_GRAY),
-								Messenger.s(prefix, Formatting.DARK_GRAY),
-								Messenger.s(uid, Formatting.DARK_GRAY),
-								Messenger.s(modId, Formatting.GOLD),
-								Messenger.s(originName, Formatting.YELLOW)
+								Messenger.s("$", ChatFormatting.DARK_GRAY),
+								Messenger.s(prefix, ChatFormatting.DARK_GRAY),
+								Messenger.s(uid, ChatFormatting.DARK_GRAY),
+								Messenger.s(modId, ChatFormatting.GOLD),
+								Messenger.s(originName, ChatFormatting.YELLOW)
 						);
 					}
 				}
-				return Messenger.s(methodName, Formatting.YELLOW);
+				return Messenger.s(methodName, ChatFormatting.YELLOW);
 			}));
-			line.append(Messenger.s("()", Formatting.GRAY));
+			line.append(Messenger.s("()", ChatFormatting.GRAY));
 
 			text.append(Messenger.newLine());
 			text.append(line);
@@ -168,14 +168,14 @@ public class StackTracePrinter
 		if (restLineCount > 0)
 		{
 			text.append(Messenger.newLine());
-			text.append(Messenger.formatting(translator.tr("n_more_lines", restLineCount), Formatting.GRAY));
+			text.append(Messenger.formatting(translator.tr("n_more_lines", restLineCount), ChatFormatting.GRAY));
 		}
 
 		return text;
 	}
 
 	// a $ symbol with hover text showing the stack trace
-	public BaseText toSymbolText()
+	public BaseComponent toSymbolText()
 	{
 		return Messenger.fancy(
 				"f",

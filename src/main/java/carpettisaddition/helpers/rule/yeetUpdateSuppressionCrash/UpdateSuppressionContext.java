@@ -28,11 +28,11 @@ import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.base.Suppliers;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -40,10 +40,10 @@ import java.util.function.Supplier;
 public class UpdateSuppressionContext
 {
 	private static final Translator tr = new Translator("rule.yeetUpdateSuppressionCrash");
-	private final Supplier<BaseText> textHolder;
+	private final Supplier<BaseComponent> textHolder;
 	private final Throwable cause;
 
-	public UpdateSuppressionContext(Throwable cause, @Nullable World world, BlockPos pos)
+	public UpdateSuppressionContext(Throwable cause, @Nullable Level world, BlockPos pos)
 	{
 		this.cause = cause;
 		DimensionWrapper dimension = world != null ? DimensionWrapper.of(world) : null;
@@ -69,7 +69,7 @@ public class UpdateSuppressionContext
 	{
 	}
 
-	public BaseText getMessageText()
+	public BaseComponent getMessageText()
 	{
 		return this.textHolder.get();
 	}
@@ -86,9 +86,9 @@ public class UpdateSuppressionContext
 
 	public void report()
 	{
-		BaseText message = Messenger.formatting(
+		BaseComponent message = Messenger.formatting(
 				tr.tr("report_message", this.getMessageText()),
-				Formatting.RED, Formatting.ITALIC
+				ChatFormatting.RED, ChatFormatting.ITALIC
 		);
 
 		// fabric carpet 1.4.49 introduces rule updateSuppressionCrashFix with related logger
@@ -96,7 +96,7 @@ public class UpdateSuppressionContext
 		Logger logger = LoggerRegistry.getLogger("updateSuppressedCrashes");
 		if (logger != null)
 		{
-			logger.log(() -> new BaseText[]{message});
+			logger.log(() -> new BaseComponent[]{message});
 			Messenger.sendToConsole(message);
 		}
 		else

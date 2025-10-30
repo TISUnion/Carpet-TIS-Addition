@@ -22,12 +22,12 @@ package carpettisaddition.logging.loggers.damage;
 
 import carpettisaddition.utils.IdentifierUtils;
 import carpettisaddition.utils.entityfilter.EntityFilter;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -108,7 +108,7 @@ public class OptionParser
 		}
 	}
 
-	public boolean accepts(PlayerEntity player, DamageContext ctx)
+	public boolean accepts(Player player, DamageContext ctx)
 	{
 		if (this.biDirection)
 		{
@@ -126,9 +126,9 @@ public class OptionParser
 
 	private interface Target
 	{
-		boolean matchFrom(PlayerEntity player, DamageSource source, @Nullable Entity from);
+		boolean matchFrom(Player player, DamageSource source, @Nullable Entity from);
 
-		boolean matchTo(PlayerEntity player, DamageSource source, @Nullable Entity to);
+		boolean matchTo(Player player, DamageSource source, @Nullable Entity to);
 
 		static Target of(String option)
 		{
@@ -141,7 +141,7 @@ public class OptionParser
 				case "me":
 					return (SimpleTarget)(player, entity) -> entity == player;
 				case "players":
-					return (SimpleTarget)(player, entity) -> entity instanceof PlayerEntity;
+					return (SimpleTarget)(player, entity) -> entity instanceof Player;
 			}
 
 			// <catalogue>/<identifier>
@@ -150,20 +150,20 @@ public class OptionParser
 			// damage_type/minecraft:out_of_world
 			// damage_name/xxx
 
-			Identifier catalogue;
-			Identifier identifier;
+			ResourceLocation catalogue;
+			ResourceLocation identifier;
 			String namePart;
 			String[] parts = option.split("/", -1);
 			if (parts.length == 1)
 			{
 				catalogue = null;
-				identifier = Identifier.tryParse(parts[0]);
+				identifier = ResourceLocation.tryParse(parts[0]);
 				namePart = parts[0];
 			}
 			else if (parts.length == 2)
 			{
-				catalogue = Identifier.tryParse(parts[0]);
-				identifier = Identifier.tryParse(parts[1]);
+				catalogue = ResourceLocation.tryParse(parts[0]);
+				identifier = ResourceLocation.tryParse(parts[1]);
 				namePart = parts[1];
 			}
 			else
@@ -174,7 +174,7 @@ public class OptionParser
 
 			if ((catalogue == null || catalogue.equals(IdentifierUtils.ofVanilla("entity_type"))) && identifier != null)
 			{
-				EntityType<?> entityType = Registry.ENTITY_TYPE.getOrEmpty(identifier).orElse(null);
+				EntityType<?> entityType = Registry.ENTITY_TYPE.getOptional(identifier).orElse(null);
 				if (entityType != null)
 				{
 					return (SimpleTarget)(player, entity) -> entity != null && entity.getType() == entityType;
@@ -189,11 +189,11 @@ public class OptionParser
 								orElse(false);
 
 				@Override
-				public boolean matchFrom(PlayerEntity player, DamageSource source, @Nullable Entity from)
+				public boolean matchFrom(Player player, DamageSource source, @Nullable Entity from)
 				{
 					if (catalogue == null || catalogue.equals(IdentifierUtils.ofVanilla("damage_name")))
 					{
-						if (Objects.equals(source.getName(), namePart))
+						if (Objects.equals(source.getMsgId(), namePart))
 						{
 							return true;
 						}
@@ -211,7 +211,7 @@ public class OptionParser
 				}
 
 				@Override
-				public boolean matchTo(PlayerEntity player, DamageSource source, @Nullable Entity to)
+				public boolean matchTo(Player player, DamageSource source, @Nullable Entity to)
 				{
 					return this.entityFilterTarget.matchTo(player, source, to);
 				}
@@ -225,16 +225,16 @@ public class OptionParser
 	@FunctionalInterface
 	private interface SimpleTarget extends Target
 	{
-		boolean matchEntity(PlayerEntity player, @Nullable Entity entity);
+		boolean matchEntity(Player player, @Nullable Entity entity);
 
 		@Override
-		default boolean matchFrom(PlayerEntity player, DamageSource source, @Nullable Entity from)
+		default boolean matchFrom(Player player, DamageSource source, @Nullable Entity from)
 		{
 			return this.matchEntity(player, from);
 		}
 
 		@Override
-		default boolean matchTo(PlayerEntity player, DamageSource source, @Nullable Entity to)
+		default boolean matchTo(Player player, DamageSource source, @Nullable Entity to)
 		{
 			return this.matchEntity(player, to);
 		}

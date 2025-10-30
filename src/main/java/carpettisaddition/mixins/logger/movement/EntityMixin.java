@@ -23,9 +23,9 @@ package carpettisaddition.mixins.logger.movement;
 import carpettisaddition.logging.loggers.movement.MovementLogger;
 import carpettisaddition.logging.loggers.movement.MovementLoggerTarget;
 import carpettisaddition.logging.loggers.movement.MovementModification;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MovementType;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -61,7 +61,7 @@ public abstract class EntityMixin implements MovementLoggerTarget
 	// ============= Life cycle =============
 
 	@Inject(method = "move", at = @At("HEAD"))
-	private void onMovementStart_movementLogger(MovementType type, Vec3d movement, CallbackInfo ci)
+	private void onMovementStart_movementLogger(MoverType type, Vec3 movement, CallbackInfo ci)
 	{
 		MovementLogger.getInstance().create((Entity)(Object)this, type, movement);
 	}
@@ -78,11 +78,11 @@ public abstract class EntityMixin implements MovementLoggerTarget
 			method = "move",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/entity/Entity;adjustMovementForPiston(Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/util/math/Vec3d;",
+					target = "Lnet/minecraft/world/entity/Entity;limitPistonMovement(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;",
 					shift = At.Shift.AFTER
 			)
 	)
-	private void onMovementModified_piston(MovementType type, Vec3d movement, CallbackInfo ci)
+	private void onMovementModified_piston(MoverType type, Vec3 movement, CallbackInfo ci)
 	{
 		this.getMovementTracker().ifPresent(tracker -> tracker.recordModification(MovementModification.PISTON, movement));
 	}
@@ -91,11 +91,11 @@ public abstract class EntityMixin implements MovementLoggerTarget
 			method = "move",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/entity/Entity;adjustMovementForSneaking(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/entity/MovementType;)Lnet/minecraft/util/math/Vec3d;",
+					target = "Lnet/minecraft/world/entity/Entity;maybeBackOffFromEdge(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/MoverType;)Lnet/minecraft/world/phys/Vec3;",
 					shift = At.Shift.AFTER
 			)
 	)
-	private void onMovementModified_sneaking(MovementType type, Vec3d movement, CallbackInfo ci)
+	private void onMovementModified_sneaking(MoverType type, Vec3 movement, CallbackInfo ci)
 	{
 		this.getMovementTracker().ifPresent(tracker -> tracker.recordModification(MovementModification.SNEAKING, movement));
 	}
@@ -104,12 +104,12 @@ public abstract class EntityMixin implements MovementLoggerTarget
 			method = "move",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/entity/Entity;adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/util/math/Vec3d;",
+					target = "Lnet/minecraft/world/entity/Entity;collide(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;",
 					shift = At.Shift.AFTER
 			),
 			ordinal = 1
 	)
-	private Vec3d onMovementModified_collision(Vec3d movement)
+	private Vec3 onMovementModified_collision(Vec3 movement)
 	{
 		this.getMovementTracker().ifPresent(tracker -> tracker.recordModification(MovementModification.COLLISION, movement));
 		return movement;

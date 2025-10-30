@@ -27,7 +27,7 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import com.google.common.base.Joiner;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -114,7 +114,7 @@ public abstract class AbstractLogger extends TranslationContext
 			//#if MC >= 11900
 			//$$ Supplier<Text[]> messagePromise
 			//#else
-			Supplier<BaseText[]> messagePromise
+			Supplier<BaseComponent[]> messagePromise
 			//#endif
 	)
 	{

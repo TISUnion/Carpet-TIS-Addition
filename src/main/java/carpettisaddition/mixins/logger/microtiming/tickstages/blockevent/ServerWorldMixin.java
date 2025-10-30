@@ -24,8 +24,8 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.BlockEventSubStage;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,12 +34,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin
 {
 	@Shadow
 	@Final
-	private ObjectLinkedOpenHashSet<BlockAction> pendingBlockActions;
+	private ObjectLinkedOpenHashSet<BlockEventData> blockEvents;
 
 	private int blockEventOrderCounter;
 	private int blockEventDepth;
@@ -47,20 +47,20 @@ public abstract class ServerWorldMixin
 	private int blockEventCurrentDepthSize;
 
 	@Inject(
-			method = "sendBlockActions",
+			method = "runBlockEvents",
 			at = @At("HEAD")
 	)
 	private void enterBlockEventStage_updateTickPhase(CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setTickStage((ServerWorld)(Object)this, TickStage.BLOCK_EVENT);
+		MicroTimingLoggerManager.setTickStage((ServerLevel)(Object)this, TickStage.BLOCK_EVENT);
 		this.blockEventOrderCounter = 0;
 		this.blockEventCurrentDepthCounter = 0;
 		this.blockEventDepth = 0;
-		this.blockEventCurrentDepthSize = this.pendingBlockActions.size();
+		this.blockEventCurrentDepthSize = this.blockEvents.size();
 	}
 
 	@Inject(
-			method = "sendBlockActions",
+			method = "runBlockEvents",
 			at = @At("TAIL")
 	)
 	private void exitBlockEventStage_updateTickPhase(CallbackInfo ci)
@@ -72,33 +72,33 @@ public abstract class ServerWorldMixin
 			//#if MC >= 11600
 			//$$ method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			method = "doBlockEvent",
 			//#endif
 			at = @At("HEAD")
 	)
-	private void beforeBlockEventExecuted_updateTickPhase(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	private void beforeBlockEventExecuted_updateTickPhase(BlockEventData blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
-		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, String.valueOf(this.blockEventDepth));
-		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, new BlockEventSubStage((ServerWorld)(Object)this, blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
+		MicroTimingLoggerManager.setTickStageDetail((ServerLevel)(Object)this, String.valueOf(this.blockEventDepth));
+		MicroTimingLoggerManager.setSubTickStage((ServerLevel)(Object)this, new BlockEventSubStage((ServerLevel)(Object)this, blockAction, this.blockEventOrderCounter++, this.blockEventDepth));
 	}
 
 	@Inject(
 			//#if MC >= 11600
 			//$$ method = "processBlockEvent",
 			//#else
-			method = "method_14174",
+			method = "doBlockEvent",
 			//#endif
 			at = @At("RETURN")
 	)
-	private void afterBlockEventExecuted_updateTickPhase(BlockAction blockAction, CallbackInfoReturnable<Boolean> cir)
+	private void afterBlockEventExecuted_updateTickPhase(BlockEventData blockAction, CallbackInfoReturnable<Boolean> cir)
 	{
-		MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
-		MicroTimingLoggerManager.setSubTickStage((ServerWorld)(Object)this, null);
+		MicroTimingLoggerManager.setTickStageDetail((ServerLevel)(Object)this, null);
+		MicroTimingLoggerManager.setSubTickStage((ServerLevel)(Object)this, null);
 		this.blockEventCurrentDepthCounter++;
 		if (this.blockEventCurrentDepthCounter == this.blockEventCurrentDepthSize)
 		{
 			this.blockEventDepth++;
-			this.blockEventCurrentDepthSize = this.pendingBlockActions.size();
+			this.blockEventCurrentDepthSize = this.blockEvents.size();
 			this.blockEventCurrentDepthCounter = 0;
 		}
 	}

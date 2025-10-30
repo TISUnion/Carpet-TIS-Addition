@@ -26,8 +26,8 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.helpers.carpet.loggerRestriction.CarpetLoggerRestriction;
 import carpettisaddition.helpers.carpet.loggerRestriction.RestrictionCheckResult;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -49,7 +49,7 @@ public abstract class LogCommandMixin
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private static void switchableLogger_toggleCommand(ServerCommandSource source, String player_name, String logName, CallbackInfoReturnable<Integer> cir, PlayerEntity player)
+	private static void switchableLogger_toggleCommand(CommandSourceStack source, String player_name, String logName, CallbackInfoReturnable<Integer> cir, Player player)
 	{
 		checkLoggerRestriction(source, LoggerRegistry.getLogger(logName), player, null, cir);
 	}
@@ -64,12 +64,12 @@ public abstract class LogCommandMixin
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private static void switchableLogger_subscribeCommand(ServerCommandSource source, String player_name, String logName, String option, CallbackInfoReturnable<Integer> cir, PlayerEntity player)
+	private static void switchableLogger_subscribeCommand(CommandSourceStack source, String player_name, String logName, String option, CallbackInfoReturnable<Integer> cir, Player player)
 	{
 		checkLoggerRestriction(source, LoggerRegistry.getLogger(logName), player, option, cir);
 	}
 
-	private static void checkLoggerRestriction(ServerCommandSource source, Logger logger, PlayerEntity player, String option, CallbackInfoReturnable<Integer> cir)
+	private static void checkLoggerRestriction(CommandSourceStack source, Logger logger, Player player, String option, CallbackInfoReturnable<Integer> cir)
 	{
 		if (logger == null)
 		{

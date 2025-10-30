@@ -22,8 +22,8 @@ package carpettisaddition.mixins.command.lifetime.spawning.portalpigman;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.block.NetherPortalBlock;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.level.block.NetherPortalBlock;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -35,7 +35,7 @@ public abstract class NetherPortalBlockMixin
 			//#if MC >= 11600
 			//$$ method = "randomTick",
 			//#elseif MC >= 11500
-			method = "scheduledTick",
+			method = "tick",
 			//#else
 			//$$ method = "onScheduledTick",
 			//#endif
@@ -46,7 +46,7 @@ public abstract class NetherPortalBlockMixin
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/entity/EntityType;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/text/Text;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnReason;ZZ)Lnet/minecraft/entity/Entity;"
 					//#else
-					target = "Lnet/minecraft/entity/EntityType;spawn(Lnet/minecraft/world/World;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/text/Text;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/SpawnType;ZZ)Lnet/minecraft/entity/Entity;"
+					target = "Lnet/minecraft/world/entity/EntityType;spawn(Lnet/minecraft/world/level/Level;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/network/chat/Component;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/MobSpawnType;ZZ)Lnet/minecraft/world/entity/Entity;"
 					//#endif
 			)
 	)

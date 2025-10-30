@@ -28,19 +28,19 @@ import carpet.CarpetSettings;
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.entity.Entity;
-import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(EntityPredicates.class)
+@Mixin(EntitySelector.class)
 public abstract class EntityPredicatesMixin
 {
 	/**
-	 * The lambda method with the declaration of {@link EntityPredicates#EXCEPT_SPECTATOR}
+	 * The lambda method with the declaration of {@link EntitySelector#EXCEPT_SPECTATOR}
 	 *
-	 * Modify its return value to modify the result of {@link net.minecraft.world.EntityView#getEntities(net.minecraft.entity.Entity, net.minecraft.util.math.Box)}
+	 * Modify its return value to modify the result of {@link net.minecraft.world.level.EntityGetter#getEntities(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB)}
 	 */
 	@Dynamic
 	@ModifyReturnValue(

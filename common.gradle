@@ -39,8 +39,13 @@ final enableLithiumInRuntime = false
 dependencies {
 	// loom
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	if (project.name.endsWith("-mojmap") || project.name == '1.15.2') {
+		mappings loom.officialMojangMappings()
+	} else {
+		mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	}
 
 	// mods
 	if (project.carpet_core_version.matches('^com.github.[a-zA-Z0-9_-]+:fabric-carpet:[a-z0-9]+$')) {

@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.rule.clientSettingsLostOnRespawnFix;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,31 +32,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#if MC >= 12002
 //$$ import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 //#else
-import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
+import net.minecraft.network.protocol.game.ServerboundClientInformationPacket;
 //#endif
 
-@Mixin(ServerPlayerEntity.class)
+@Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin
 {
 	@Shadow public abstract void
 			//#if MC >= 12002
 			//$$ setClientOptions(SyncedClientOptions settings);
 			//#else
-			setClientSettings(ClientSettingsC2SPacket settings);
+			updateOptions(ServerboundClientInformationPacket settings);
 			//#endif
 
 	@Nullable
 	//#if MC >= 12002
 	//$$ private SyncedClientOptions lastClientSettings$TISCM = null;
 	//#else
-	private ClientSettingsC2SPacket lastClientSettings$TISCM = null;
+	private ServerboundClientInformationPacket lastClientSettings$TISCM = null;
 	//#endif
 
 	@Inject(
 			//#if MC >= 12002
 			//$$ method = "setClientOptions",
 			//#else
-			method = "setClientSettings",
+			method = "updateOptions",
 			//#endif
 			at = @At("TAIL")
 	)
@@ -64,7 +64,7 @@ public abstract class ServerPlayerEntityMixin
 			//#if MC >= 12002
 			//$$ SyncedClientOptions settings,
 			//#else
-			ClientSettingsC2SPacket settings,
+			ServerboundClientInformationPacket settings,
 			//#endif
 			CallbackInfo ci)
 	{
@@ -74,15 +74,15 @@ public abstract class ServerPlayerEntityMixin
 		}
 	}
 
-	@Inject(method = "copyFrom", at = @At("TAIL"))
-	private void clientSettingsLostOnRespawnFix(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci)
+	@Inject(method = "restoreFrom", at = @At("TAIL"))
+	private void clientSettingsLostOnRespawnFix(ServerPlayer oldPlayer, boolean alive, CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.clientSettingsLostOnRespawnFix)
 		{
 			//#if MC >= 12002
 			//$$ var
 			//#else
-			ClientSettingsC2SPacket
+			ServerboundClientInformationPacket
 			//#endif
 					settings = ((ServerPlayerEntityMixin)(Object)oldPlayer).lastClientSettings$TISCM;
 			if (settings != null)
@@ -90,7 +90,7 @@ public abstract class ServerPlayerEntityMixin
 				//#if MC >= 12002
 				//$$ this.setClientOptions(settings);
 				//#else
-				this.setClientSettings(settings);
+				this.updateOptions(settings);
 				//#endif
 			}
 		}

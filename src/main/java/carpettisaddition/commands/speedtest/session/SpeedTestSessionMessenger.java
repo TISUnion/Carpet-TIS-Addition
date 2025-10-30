@@ -20,9 +20,9 @@
 
 package carpettisaddition.commands.speedtest.session;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public interface SpeedTestSessionMessenger
 {
-	void sendMessage(BaseText message, boolean withCancelButton);
+	void sendMessage(BaseComponent message, boolean withCancelButton);
 }

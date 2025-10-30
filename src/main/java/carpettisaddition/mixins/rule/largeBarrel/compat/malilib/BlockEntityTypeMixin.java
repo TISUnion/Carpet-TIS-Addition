@@ -26,11 +26,11 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -46,19 +46,19 @@ public abstract class BlockEntityTypeMixin
 	// see carpettisaddition.helpers.rule.largeBarrel.DoubleBlockProperties.getBlockEntity
 
 	@ModifyExpressionValue(
-			method = "get",
+			method = "getBlockEntity",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/BlockView;getBlockEntity(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/entity/BlockEntity;"
+					target = "Lnet/minecraft/world/level/BlockGetter;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;"
 			)
 	)
-	private BlockEntity letsHaveAnOffThreadAccess(BlockEntity blockEntity, BlockView blockView, BlockPos pos)
+	private BlockEntity letsHaveAnOffThreadAccess(BlockEntity blockEntity, BlockGetter blockView, BlockPos pos)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel && LargeBarrelHelper.enabledOffThreadBlockEntityAccess.get())
 		{
-			if (blockView instanceof World)
+			if (blockView instanceof Level)
 			{
-				World world = (World)blockView;
+				Level world = (Level)blockView;
 				blockEntity = world.getChunk(pos).getBlockEntity(pos);
 			}
 		}

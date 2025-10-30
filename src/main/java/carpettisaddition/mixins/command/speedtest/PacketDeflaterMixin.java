@@ -25,26 +25,26 @@ import carpettisaddition.commands.speedtest.skipcompression.SpeedTestCompression
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.NetworkSide;
-import net.minecraft.network.PacketDeflater;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.network.CompressionEncoder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(PacketDeflater.class)
+@Mixin(CompressionEncoder.class)
 public abstract class PacketDeflaterMixin implements PacketDeflaterWithNetworkSide
 {
 	@Unique
-	private NetworkSide networkSide$TISCM = null;
+	private PacketFlow networkSide$TISCM = null;
 
 	@Override
-	public void setNetworkSide$TISCM(NetworkSide networkSide)
+	public void setNetworkSide$TISCM(PacketFlow networkSide)
 	{
 		this.networkSide$TISCM = networkSide;
 	}
 
 	@Override
-	public NetworkSide getNetworkSide$TISCM()
+	public PacketFlow getNetworkSide$TISCM()
 	{
 		return this.networkSide$TISCM;
 	}
@@ -56,7 +56,7 @@ public abstract class PacketDeflaterMixin implements PacketDeflaterWithNetworkSi
 			method = "encode(Lio/netty/channel/ChannelHandlerContext;Lio/netty/buffer/ByteBuf;Lio/netty/buffer/ByteBuf;)V",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/network/PacketDeflater;compressionThreshold:I",
+					target = "Lnet/minecraft/network/CompressionEncoder;threshold:I",
 					ordinal = 0
 			)
 	)

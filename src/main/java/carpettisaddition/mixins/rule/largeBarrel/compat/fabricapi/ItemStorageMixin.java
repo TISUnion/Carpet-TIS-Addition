@@ -23,11 +23,11 @@ package carpettisaddition.mixins.rule.largeBarrel.compat.fabricapi;
 import carpettisaddition.helpers.rule.largeBarrel.compat.fabricapi.LargeBarrelFabricAPIHack;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -46,7 +46,7 @@ public abstract class ItemStorageMixin
 			remap = false,
 			cancellable = true
 	)
-	private static void TISCM_largeBarrelLookupLogic(World world, BlockPos pos, BlockState state, BlockEntity blockEntity, Direction direction, CallbackInfoReturnable cir)
+	private static void TISCM_largeBarrelLookupLogic(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity, Direction direction, CallbackInfoReturnable cir)
 	{
 		LargeBarrelFabricAPIHack.largeBarrelLookupLogicInject(world, pos, state, blockEntity, direction, cir);
 	}

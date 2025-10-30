@@ -22,9 +22,9 @@ package carpettisaddition.logging.loggers.microtiming.events;
 
 import carpettisaddition.logging.loggers.microtiming.enums.BlockUpdateType;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import net.minecraft.block.Block;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.Direction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -35,7 +35,7 @@ public abstract class AbstractBlockUpdateEvent extends BaseEvent
 	protected final BlockUpdateType blockUpdateType;
 	protected final Direction exceptSide;
 	@Nullable
-	private BaseText updateTypeExtraMessageCache;
+	private BaseComponent updateTypeExtraMessageCache;
 
 	public AbstractBlockUpdateEvent(EventType eventType, String translateKey, Block sourceBlock, BlockUpdateType blockUpdateType, Direction exceptSide)
 	{
@@ -45,7 +45,7 @@ public abstract class AbstractBlockUpdateEvent extends BaseEvent
 		this.exceptSide = exceptSide;
 	}
 
-	protected BaseText getUpdateTypeExtraMessage()
+	protected BaseComponent getUpdateTypeExtraMessage()
 	{
 		if (this.updateTypeExtraMessageCache == null)
 		{

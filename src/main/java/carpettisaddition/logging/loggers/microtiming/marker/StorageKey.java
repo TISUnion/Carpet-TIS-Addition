@@ -21,8 +21,8 @@
 package carpettisaddition.logging.loggers.microtiming.marker;
 
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
@@ -37,7 +37,7 @@ public class StorageKey
 		this.blockPos = blockPos;
 	}
 
-	public StorageKey(World world, BlockPos blockPos)
+	public StorageKey(Level world, BlockPos blockPos)
 	{
 		this(DimensionWrapper.of(world), blockPos);
 	}

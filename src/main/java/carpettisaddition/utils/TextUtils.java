@@ -21,48 +21,48 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.command.arguments.BlockArgumentParser;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.commands.arguments.blocks.BlockStateParser;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.core.Vec3i;
 
 /**
  * Minecraft related stuffs -> String
  */
 public class TextUtils
 {
-	public static String tp(Vec3d pos) {return String.format("/tp %s %s %s", StringUtils.dts(pos.getX()), StringUtils.dts(pos.getY()), StringUtils.dts(pos.getZ()));}
+	public static String tp(Vec3 pos) {return String.format("/tp %s %s %s", StringUtils.dts(pos.x()), StringUtils.dts(pos.y()), StringUtils.dts(pos.z()));}
 	public static String tp(Vec3i pos) {return String.format("/tp %d %d %d", pos.getX(), pos.getY(), pos.getZ());}
 	public static String tp(ChunkPos pos) {return String.format("/tp %d ~ %d", pos.x * 16 + 8, pos.z * 16 + 8);}
-	public static String tp(Vec3d pos, DimensionWrapper dimensionType) {return String.format("/execute in %s run", dimensionType) + tp(pos).replace('/', ' ');}
+	public static String tp(Vec3 pos, DimensionWrapper dimensionType) {return String.format("/execute in %s run", dimensionType) + tp(pos).replace('/', ' ');}
 	public static String tp(Vec3i pos, DimensionWrapper dimensionType) {return String.format("/execute in %s run", dimensionType) + tp(pos).replace('/', ' ');}
 	public static String tp(ChunkPos pos, DimensionWrapper dimensionType) {return String.format("/execute in %s run", dimensionType) + tp(pos).replace('/', ' ');}
 
 	public static String tp(Entity entity)
 	{
-		if (entity instanceof PlayerEntity)
+		if (entity instanceof Player)
 		{
-			String name = ((PlayerEntity)entity).getGameProfile().getName();
+			String name = ((Player)entity).getGameProfile().getName();
 			return String.format("/tp %s", name);
 		}
-		String uuid = entity.getUuid().toString();
+		String uuid = entity.getUUID().toString();
 		return String.format("/tp %s", uuid);
 	}
 
-	public static String coord(Vec3d pos) {return String.format("[%.1f, %.1f, %.1f]", pos.getX(), pos.getY(), pos.getZ());}
+	public static String coord(Vec3 pos) {return String.format("[%.1f, %.1f, %.1f]", pos.x(), pos.y(), pos.z());}
 	public static String coord(Vec3i pos) {return String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());}
 	public static String coord(ChunkPos pos) {return String.format("[%d, %d]", pos.x, pos.z);}
 
-	public static String vector(Vec3d vec, int digits)
+	public static String vector(Vec3 vec, int digits)
 	{
-		return String.format("(%s, %s, %s)", StringUtils.fractionDigit(vec.getX(), digits), StringUtils.fractionDigit(vec.getY(), digits), StringUtils.fractionDigit(vec.getZ(), digits));
+		return String.format("(%s, %s, %s)", StringUtils.fractionDigit(vec.x(), digits), StringUtils.fractionDigit(vec.y(), digits), StringUtils.fractionDigit(vec.z(), digits));
 	}
-	public static String vector(Vec3d vec) {return vector(vec, 2);}
+	public static String vector(Vec3 vec) {return vector(vec, 2);}
 
 	public static String block(Block block)
 	{
@@ -71,13 +71,13 @@ public class TextUtils
 
 	public static String block(BlockState blockState)
 	{
-		return BlockArgumentParser.stringifyBlockState(blockState);
+		return BlockStateParser.serialize(blockState);
 	}
 
 	@SuppressWarnings("unchecked")
 	public static <T extends Comparable<T>> String property(Property<T> property, Object value)
 	{
-		return property.name((T)value);
+		return property.getName((T)value);
 	}
 
 	public static String byteSizeSi(long size)

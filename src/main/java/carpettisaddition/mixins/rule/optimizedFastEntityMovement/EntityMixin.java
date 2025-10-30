@@ -29,12 +29,12 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -88,14 +88,14 @@ public abstract class EntityMixin
 			//#elseif MC >= 11600
 			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/block/ShapeContext;Lnet/minecraft/util/collection/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
 			//#else
-			method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityContext;Lnet/minecraft/util/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
+			method = "collideBoundingBoxHeuristically(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/phys/shapes/CollisionContext;Lnet/minecraft/util/RewindableStream;)Lnet/minecraft/world/phys/Vec3;",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
 					//$$ target = "Lnet/minecraft/world/World;getBlockCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/lang/Iterable;"
 					//#elseif MC >= 11500
-					target = "Lnet/minecraft/world/World;getBlockCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/stream/Stream;"
+					target = "Lnet/minecraft/world/level/Level;getBlockCollisions(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/stream/Stream;"
 					//#else
 					//$$ target = "Lnet/minecraft/world/World;method_20812(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/stream/Stream;"
 					//#endif
@@ -108,7 +108,7 @@ public abstract class EntityMixin
 	Stream<VoxelShape>
 	//#endif
 	optimizedFastEntityMovement_dontUseThatLargeBlockCollisions(
-			World world, Entity entity, Box box,
+			Level world, Entity entity, AABB box,
 			Operation<
 					//#if MC >= 11800
 					//$$ Iterable<VoxelShape>
@@ -117,7 +117,7 @@ public abstract class EntityMixin
 					//#endif
 			> original
 			//#if MC < 12100
-			, @Local(argsOnly = true) Vec3d movement
+			, @Local(argsOnly = true) Vec3 movement
 			//#endif
 	)
 	{
@@ -169,7 +169,7 @@ public abstract class EntityMixin
 			//#elseif MC >= 11600
 			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/util/collection/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
 			//#elseif MC >= 11500
-			method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/util/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
+			method = "collideBoundingBoxLegacy(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Lnet/minecraft/util/RewindableStream;)Lnet/minecraft/world/phys/Vec3;",
 			//#else
 			//$$ method = "method_20737",
 			//#endif
@@ -178,7 +178,7 @@ public abstract class EntityMixin
 					//#if MC >= 11800
 					//$$ target = "Lnet/minecraft/util/shape/VoxelShapes;calculateMaxOffset(Lnet/minecraft/util/math/Direction$Axis;Lnet/minecraft/util/math/Box;Ljava/lang/Iterable;D)D"
 					//#else
-					target = "Lnet/minecraft/util/shape/VoxelShapes;calculateMaxOffset(Lnet/minecraft/util/math/Direction$Axis;Lnet/minecraft/util/math/Box;Ljava/util/stream/Stream;D)D"
+					target = "Lnet/minecraft/world/phys/shapes/Shapes;collide(Lnet/minecraft/core/Direction$Axis;Lnet/minecraft/world/phys/AABB;Ljava/util/stream/Stream;D)D"
 					//#endif
 			)
 			//#if MC < 12105
@@ -192,7 +192,7 @@ public abstract class EntityMixin
 		{
 			// Direction.Axis axis, Box box, (Iterable<VoxelShape> | Stream<VoxelShape>) shapes, double maxDist
 			Direction.Axis axis = args.get(0);
-			Box entityBoundingBox = args.get(1);
+			AABB entityBoundingBox = args.get(1);
 			//#if MC >= 11800
 			//$$ List<VoxelShape>
 			//#else

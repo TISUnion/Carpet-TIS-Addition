@@ -22,9 +22,9 @@ package carpettisaddition.mixins.rule.endPortalOpenedSoundDisabled.witherSpawned
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import net.minecraft.item.EnderEyeItem;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.item.EnderEyeItem;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -32,17 +32,17 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class EnderEyeItemMixin
 {
 	@WrapWithCondition(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/world/World;syncGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
 					//#else
-					target = "Lnet/minecraft/world/World;playGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+					target = "Lnet/minecraft/world/level/Level;globalLevelEvent(ILnet/minecraft/core/BlockPos;I)V"
 					//#endif
 			)
 	)
-	private boolean endPortalOpenedSoundDisabled_conditionCheck(World instance, int type, BlockPos blockPos, int data)
+	private boolean endPortalOpenedSoundDisabled_conditionCheck(Level instance, int type, BlockPos blockPos, int data)
 	{
 		return !CarpetTISAdditionSettings.endPortalOpenedSoundDisabled;
 	}

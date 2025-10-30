@@ -26,8 +26,8 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -42,7 +42,7 @@ public abstract class OptimizedExplosionMixin
 			method = "doExplosionB",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/item/ItemStack;EMPTY:Lnet/minecraft/item/ItemStack;"
+					target = "Lnet/minecraft/world/item/ItemStack;EMPTY:Lnet/minecraft/world/item/ItemStack;"
 			),
 			//#if MC >= 11900
 			//$$ allow = 2

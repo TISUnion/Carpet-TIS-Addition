@@ -25,7 +25,7 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.sapling.OakSaplingGenerator;
+import net.minecraft.world.level.block.grower.OakTreeGrower;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -36,14 +36,14 @@ import java.util.Random;
 //#endif
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.20.2"))
-@Mixin(OakSaplingGenerator.class)
+@Mixin(OakTreeGrower.class)
 public abstract class OakSaplingGeneratorMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 11700
 			//$$ method = "getTreeFeature",
 			//#else
-			method = "createTreeFeature",
+			method = "getConfiguredFeature",
 			//#endif
 			at = @At(
 					value = "INVOKE",

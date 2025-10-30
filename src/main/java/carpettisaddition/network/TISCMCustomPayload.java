@@ -23,8 +23,8 @@ package carpettisaddition.network;
 import carpettisaddition.utils.NetworkUtils;
 import carpettisaddition.utils.compat.CustomPayload;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
 
 //#if MC >= 12005
 //$$ import net.minecraft.network.codec.PacketCodec;
@@ -33,7 +33,7 @@ import net.minecraft.util.PacketByteBuf;
 
 public class TISCMCustomPayload implements CustomPayload
 {
-	public static final Identifier ID = TISCMProtocol.CHANNEL;
+	public static final ResourceLocation ID = TISCMProtocol.CHANNEL;
 
 	//#if MC >= 12005
 	//$$ public static final CustomPayload.Id<TISCMCustomPayload> KEY = new CustomPayload.Id<>(ID);
@@ -49,10 +49,10 @@ public class TISCMCustomPayload implements CustomPayload
 		this.nbt = nbt;
 	}
 
-	public TISCMCustomPayload(PacketByteBuf buf)
+	public TISCMCustomPayload(FriendlyByteBuf buf)
 	{
 		this(
-				buf.readString(
+				buf.readUtf(
 						//#if MC < 11700
 						Short.MAX_VALUE
 						//#endif
@@ -64,16 +64,16 @@ public class TISCMCustomPayload implements CustomPayload
 	//#if MC < 12005
 	@Override
 	//#endif
-	public void write(PacketByteBuf buf)
+	public void write(FriendlyByteBuf buf)
 	{
-		buf.writeString(this.packetId);
-		buf.writeCompoundTag(this.nbt);
+		buf.writeUtf(this.packetId);
+		buf.writeNbt(this.nbt);
 	}
 
 	//#if MC < 12005
 	@Override
 	//#endif
-	public Identifier id()
+	public ResourceLocation id()
 	{
 		return ID;
 	}

@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.carpet.tweaks.command.playerActionEnhanced;
 
 import carpet.helpers.EntityPlayerActionPack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
@@ -29,8 +29,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface EntityPlayerActionPackActionTypeAccessor
 {
 	@Invoker
-	boolean invokeExecute(ServerPlayerEntity player, EntityPlayerActionPack.Action action);
+	boolean invokeExecute(ServerPlayer player, EntityPlayerActionPack.Action action);
 
 	@Invoker
-	void invokeInactiveTick(ServerPlayerEntity player, EntityPlayerActionPack.Action action);
+	void invokeInactiveTick(ServerPlayer player, EntityPlayerActionPack.Action action);
 }

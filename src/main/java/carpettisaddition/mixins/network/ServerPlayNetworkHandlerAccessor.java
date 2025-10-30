@@ -27,14 +27,14 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 //#if MC >= 12002
 //$$ import net.minecraft.server.network.ServerCommonNetworkHandler;
 //#else
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 //#endif
 
 @Mixin(
 		//#if MC >= 12002
 		//$$ ServerCommonNetworkHandler.class
 		//#else
-		ServerPlayNetworkHandler.class
+		ServerGamePacketListenerImpl.class
 		//#endif
 )
 public interface ServerPlayNetworkHandlerAccessor

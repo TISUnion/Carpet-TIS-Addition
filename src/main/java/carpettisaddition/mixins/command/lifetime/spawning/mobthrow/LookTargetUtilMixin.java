@@ -22,10 +22,10 @@ package carpettisaddition.mixins.command.lifetime.spawning.mobthrow;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobThrowSpawningReason;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.brain.task.LookTargetUtil;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -34,18 +34,18 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 //$$ import net.minecraft.util.math.Vec3d;
 //#endif
 
-@Mixin(LookTargetUtil.class)
+@Mixin(BehaviorUtils.class)
 public abstract class LookTargetUtilMixin
 {
 	@ModifyVariable(
 			//#if MC >= 11900
 			//$$ method = "give(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;F)V",
 			//#else
-			method = "give",
+			method = "throwItem",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private static ItemEntity lifetimeTracker_recordSpawning_mobThrow_common(

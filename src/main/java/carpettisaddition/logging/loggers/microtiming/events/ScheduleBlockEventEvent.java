@@ -23,17 +23,17 @@ package carpettisaddition.logging.loggers.microtiming.events;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.server.world.BlockAction;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.level.BlockEventData;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.Objects;
 
 public class ScheduleBlockEventEvent extends BaseEvent
 {
-	private final BlockAction blockAction;
+	private final BlockEventData blockAction;
 	private final boolean success;
 
-	public ScheduleBlockEventEvent(BlockAction blockAction, boolean success)
+	public ScheduleBlockEventEvent(BlockEventData blockAction, boolean success)
 	{
 		super(EventType.EVENT, "schedule_block_event", blockAction.getBlock());
 		this.blockAction = blockAction;
@@ -41,7 +41,7 @@ public class ScheduleBlockEventEvent extends BaseEvent
 	}
 
 	@Override
-	public BaseText toText()
+	public BaseComponent toText()
 	{
 		return Messenger.c(
 				Messenger.formatting(tr("scheduled"), COLOR_ACTION),

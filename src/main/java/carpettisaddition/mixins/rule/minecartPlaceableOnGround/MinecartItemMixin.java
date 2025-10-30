@@ -24,10 +24,10 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.minecartPlaceableOnGround.MinecartPlaceableOnGroundImpl;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.MinecartItem;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.item.UseOnContext;
+import net.minecraft.world.item.MinecartItem;
+import net.minecraft.world.InteractionResult;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -44,27 +44,27 @@ public abstract class MinecartItemMixin
 	//#if MC >= 12102
 	//$$ private EntityType<? extends AbstractMinecartEntity>
 	//#else
-	private AbstractMinecartEntity.Type
+	private AbstractMinecart.Type
 	//#endif
 			type;
 
 	@ModifyReturnValue(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "RETURN",
 					ordinal = 0
 			)
 	)
-	private ActionResult minecartPlaceableOnGround_hook(
-			ActionResult actionResult,
-			@Local(argsOnly = true) ItemUsageContext context
+	private InteractionResult minecartPlaceableOnGround_hook(
+			InteractionResult actionResult,
+			@Local(argsOnly = true) UseOnContext context
 	)
 	{
 		if (CarpetTISAdditionSettings.minecartPlaceableOnGround)
 		{
 			// it should be FAIL for vanilla
 			// if not, in case other mod is doing their thing, then cancel the rule impl for safety
-			if (actionResult == ActionResult.FAIL)
+			if (actionResult == InteractionResult.FAIL)
 			{
 				actionResult = MinecartPlaceableOnGroundImpl.placeMinecartOnGround(context, this.type);
 			}

@@ -26,7 +26,7 @@ import carpettisaddition.settings.validator.AbstractCheckerValidator;
 import carpettisaddition.settings.validator.ValidationContext;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Maps;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.Map;
 import java.util.Objects;
@@ -48,7 +48,7 @@ public class FakePlayerNameExtraValidator extends AbstractCheckerValidator<Strin
 
 		if (!ctx.inputValue.equals(CarpetTISAdditionSettings.fakePlayerNameNoExtra) && !Pattern.matches("[a-zA-Z_0-9]{1,16}", ctx.inputValue))
 		{
-			Consumer<BaseText> messenger = msg -> Messenger.tell(ctx.source, Messenger.s(msg.getString(), "r"));
+			Consumer<BaseComponent> messenger = msg -> Messenger.tell(ctx.source, Messenger.s(msg.getString(), "r"));
 			messenger.accept(tr("fake_player_name_extra.warn.found", ctx.inputValue, ctx.ruleName()));
 			if (!Objects.equals(this.lastDangerousInput.get(ctx.rule), ctx.inputValue))
 			{
@@ -63,7 +63,7 @@ public class FakePlayerNameExtraValidator extends AbstractCheckerValidator<Strin
 	}
 
 	@Override
-	public BaseText errorMessage(ValidationContext<String> ctx)
+	public BaseComponent errorMessage(ValidationContext<String> ctx)
 	{
 		return tr("fake_player_name_extra.message");
 	}

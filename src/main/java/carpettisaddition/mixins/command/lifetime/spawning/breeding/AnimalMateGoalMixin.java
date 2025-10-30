@@ -25,21 +25,21 @@ import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.goal.AnimalMateGoal;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(AnimalMateGoal.class)
+@Mixin(BreedGoal.class)
 public abstract class AnimalMateGoalMixin
 {
 	@ModifyArg(
 			method = "breed",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z",
 					ordinal = 0
 			)
 	)

@@ -22,10 +22,10 @@ package carpettisaddition.mixins.command.lifetime.spawning.mobdrop;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobDropSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity
 {
-	public LivingEntityMixin(EntityType<?> type, World world)
+	public LivingEntityMixin(EntityType<?> type, Level world)
 	{
 		super(type, world);
 	}
@@ -47,13 +47,13 @@ public abstract class LivingEntityMixin extends Entity
 	// wither rose thing
 	@ModifyArg(
 			//#if MC >= 11500
-			method = "onKilledBy",
+			method = "createWitherRose",
 			//#else
 			//$$ method = "onDeath",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private Entity lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_item(Entity itemEntity)
@@ -71,13 +71,13 @@ public abstract class LivingEntityMixin extends Entity
 	//#else
 	@ModifyArg(
 			//#if MC >= 11500
-			method = "dropXp",
+			method = "dropExperience",
 			//#else
 			//$$ method = "updatePostDeath",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			),
 			index = 0
 	)

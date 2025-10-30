@@ -21,9 +21,9 @@
 package carpettisaddition.mixins.rule.creativeOpenContainerForcibly;
 
 import carpettisaddition.helpers.rule.creativeOpenContainerForcibly.CreativeOpenContainerForciblyHelper;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,7 +37,7 @@ public abstract class ChestBlockMixin
 
 	@ModifyVariable(
 			//#if MC >= 11500
-			method = "onUse",
+			method = "use",
 			//#else
 			//$$ method = "activate",
 			//#endif
@@ -46,12 +46,12 @@ public abstract class ChestBlockMixin
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/block/ChestBlock;createScreenHandlerFactory(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/screen/NamedScreenHandlerFactory;"
 					//#else
-					target = "Lnet/minecraft/block/ChestBlock;createContainerFactory(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/container/NameableContainerFactory;"
+					target = "Lnet/minecraft/world/level/block/ChestBlock;getMenuProvider(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/MenuProvider;"
 					//#endif
 			),
 			argsOnly = true
 	)
-	private PlayerEntity noCollideOrCreative(PlayerEntity player)
+	private Player noCollideOrCreative(Player player)
 	{
 		ignoreChestBlockedCheck.set(CreativeOpenContainerForciblyHelper.canOpenForcibly(player));
 		return player;
@@ -59,7 +59,7 @@ public abstract class ChestBlockMixin
 
 	@Inject(
 			//#if MC >= 11500
-			method = "onUse",
+			method = "use",
 			//#else
 			//$$ method = "activate",
 			//#endif
@@ -68,19 +68,19 @@ public abstract class ChestBlockMixin
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/block/ChestBlock;createScreenHandlerFactory(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/screen/NamedScreenHandlerFactory;",
 					//#else
-					target = "Lnet/minecraft/block/ChestBlock;createContainerFactory(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/container/NameableContainerFactory;",
+					target = "Lnet/minecraft/world/level/block/ChestBlock;getMenuProvider(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/MenuProvider;",
 					//#endif
 					shift = At.Shift.AFTER
 			)
 	)
-	private void noCollideOrCreativeReset(CallbackInfoReturnable<ActionResult> cir)
+	private void noCollideOrCreativeReset(CallbackInfoReturnable<InteractionResult> cir)
 	{
 		ignoreChestBlockedCheck.set(false);
 	}
 
 	// never try to target ChestBlock#getBlockEntitySource, yarn will not be happy with that at server-side runtime, no intermediary warning
 	// see #17
-	@Inject(method = "isChestBlocked", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "isChestBlockedAt", at = @At("HEAD"), cancellable = true)
 	private static void believeMeTheChestIsNotBlocked(CallbackInfoReturnable<Boolean> cir)
 	{
 		if (ignoreChestBlockedCheck.get())

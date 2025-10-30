@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.logger.lightqueue;
 
 import carpettisaddition.logging.loggers.lightqueue.IServerLightingProvider;
-import net.minecraft.server.world.ServerLightingProvider;
+import net.minecraft.server.level.ThreadedLevelLightEngine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-@Mixin(ServerLightingProvider.class)
+@Mixin(ThreadedLevelLightEngine.class)
 public abstract class ServerLightingProviderMixin implements IServerLightingProvider
 {
 	private final AtomicLong enqueuedTaskCount = new AtomicLong();
@@ -38,7 +38,7 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 
 	@Inject(
 			//#if MC >= 11500
-			method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$Stage;Ljava/lang/Runnable;)V",
+			method = "addTask(IILjava/util/function/IntSupplier;Lnet/minecraft/server/level/ThreadedLevelLightEngine$TaskType;Ljava/lang/Runnable;)V",
 			//#else
 			//$$ method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$class_3901;Ljava/lang/Runnable;)V",
 			//#endif
@@ -58,7 +58,7 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 	}
 
 	@Inject(
-			method = "runTasks",
+			method = "runUpdate",
 			at = @At(
 					value = "INVOKE",
 					target = "Lit/unimi/dsi/fastutil/objects/ObjectListIterator;remove()V",

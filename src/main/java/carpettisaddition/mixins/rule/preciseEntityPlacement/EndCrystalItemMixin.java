@@ -22,9 +22,9 @@ package carpettisaddition.mixins.rule.preciseEntityPlacement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.preciseEntityPlacement.PreciseEntityPlacer;
-import net.minecraft.entity.decoration.EnderCrystalEntity;
-import net.minecraft.item.EndCrystalItem;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
+import net.minecraft.world.item.EndCrystalItem;
+import net.minecraft.world.item.UseOnContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -33,17 +33,17 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class EndCrystalItemMixin
 {
 	@ModifyVariable(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/entity/decoration/EndCrystalEntity;setShowBottom(Z)V"
 					//#else
-					target = "Lnet/minecraft/entity/decoration/EnderCrystalEntity;setShowBottom(Z)V"
+					target = "Lnet/minecraft/world/entity/boss/enderdragon/EndCrystal;setShowBottom(Z)V"
 					//#endif
 			)
 	)
-	private EnderCrystalEntity preciseEntityPlacement_endCrystalPlacement(EnderCrystalEntity enderCrystalEntity, ItemUsageContext context)
+	private EndCrystal preciseEntityPlacement_endCrystalPlacement(EndCrystal enderCrystalEntity, UseOnContext context)
 	{
 		if (CarpetTISAdditionSettings.preciseEntityPlacement)
 		{

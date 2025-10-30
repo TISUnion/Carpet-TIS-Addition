@@ -27,16 +27,16 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
  * In versions of Minecraft prior to 1.16, stack overflow errors caused purely by state update chains
- * would not convert {@link StackOverflowError} into {@link net.minecraft.util.crash.CrashException}.
+ * would not convert {@link StackOverflowError} into {@link net.minecraft.ReportedException}.
  * This meant that the catch in TaskExecutor could not capture this stack overflow exception,
  * leading to a server crash.
  * <p>
@@ -50,13 +50,13 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class BlockStateMixin
 {
 	@WrapOperation(
-			method = "updateNeighborStates",
+			method = "updateNeighbourShapes",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/Block;updateNeighborStates(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/IWorld;Lnet/minecraft/util/math/BlockPos;I)V"
+					target = "Lnet/minecraft/world/level/block/Block;updateNeighbourShapes(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;I)V"
 			)
 	)
-	private void yeetUpdateSuppressionCrash_wrapStackOverflow_stateUpdate(Block instance, BlockState blockState, IWorld iWorld, BlockPos pos, int flags, Operation<Void> original) throws Throwable
+	private void yeetUpdateSuppressionCrash_wrapStackOverflow_stateUpdate(Block instance, BlockState blockState, LevelAccessor iWorld, BlockPos pos, int flags, Operation<Void> original) throws Throwable
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
@@ -66,7 +66,7 @@ public abstract class BlockStateMixin
 			}
 			catch (Throwable throwable)
 			{
-				throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, iWorld.getWorld(), pos);
+				throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, iWorld.getLevel(), pos);
 			}
 		}
 		else

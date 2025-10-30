@@ -24,7 +24,7 @@ import carpet.commands.TickCommand;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -58,7 +58,7 @@ public abstract class TickCommandMixin
 			index = 0,
 			remap = false
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> registerTickWarpInfo(LiteralArgumentBuilder<ServerCommandSource> builder)
+	private static LiteralArgumentBuilder<CommandSourceStack> registerTickWarpInfo(LiteralArgumentBuilder<CommandSourceStack> builder)
 	{
 		TickWarpHUDLogger.getInstance().extendCommand(
 				CommandTreeContext.of(

@@ -22,8 +22,8 @@ package carpettisaddition.mixins.utils.entityfilter;
 
 import carpettisaddition.utils.entityfilter.IEntitySelector;
 import com.mojang.brigadier.StringReader;
-import net.minecraft.command.EntitySelector;
-import net.minecraft.command.EntitySelectorReader;
+import net.minecraft.commands.arguments.selector.EntitySelector;
+import net.minecraft.commands.arguments.selector.EntitySelectorParser;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,17 +31,17 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(EntitySelectorReader.class)
+@Mixin(EntitySelectorParser.class)
 public abstract class EntitySelectorReaderMixin
 {
-	@Shadow private int startCursor;
+	@Shadow private int startPosition;
 
 	@Shadow @Final private StringReader reader;
 
-	@Inject(method = "read", at = @At("TAIL"))
+	@Inject(method = "parse", at = @At("TAIL"))
 	private void storeReadString(CallbackInfoReturnable<EntitySelector> cir)
 	{
 		int currentCursor = this.reader.getCursor();
-		((IEntitySelector)cir.getReturnValue()).setInputText(this.reader.getString().substring(this.startCursor, currentCursor));
+		((IEntitySelector)cir.getReturnValue()).setInputText(this.reader.getString().substring(this.startPosition, currentCursor));
 	}
 }

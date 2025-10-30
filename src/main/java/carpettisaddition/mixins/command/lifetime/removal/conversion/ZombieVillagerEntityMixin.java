@@ -26,22 +26,22 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.mob.ZombieVillagerEntity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(ZombieVillagerEntity.class)
-public abstract class ZombieVillagerEntityMixin extends ZombieEntity
+@Mixin(ZombieVillager.class)
+public abstract class ZombieVillagerEntityMixin extends Zombie
 {
-	public ZombieVillagerEntityMixin(EntityType<? extends ZombieEntity> type, World world)
+	public ZombieVillagerEntityMixin(EntityType<? extends Zombie> type, Level world)
 	{
 		super(type, world);
 	}
@@ -50,10 +50,10 @@ public abstract class ZombieVillagerEntityMixin extends ZombieEntity
 			method = "finishConversion",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/mob/ZombieVillagerEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/monster/ZombieVillager;remove()V"
 			)
 	)
-	private void lifetimeTracker_recordConversionRemoval_zombieVillagerCure(ServerWorld world, CallbackInfo ci, @Local VillagerEntity villager)
+	private void lifetimeTracker_recordConversionRemoval_zombieVillagerCure(ServerLevel world, CallbackInfo ci, @Local Villager villager)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(villager.getType()));
 	}

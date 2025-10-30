@@ -25,7 +25,7 @@ import carpet.settings.SettingsManager;
 import carpet.utils.Translations;
 import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -64,14 +64,14 @@ public abstract class SettingsManagerMixin
 					//$$ target = "Lcarpet/settings/SettingsManager;getCategories()Ljava/lang/Iterable;",
 					//$$ ordinal = 0
 					//#else
-					target = "Lnet/minecraft/server/command/ServerCommandSource;getPlayer()Lnet/minecraft/server/network/ServerPlayerEntity;",
+					target = "Lnet/minecraft/commands/CommandSourceStack;getPlayerOrException()Lnet/minecraft/server/level/ServerPlayer;",
 					ordinal = 0,
 					remap = true
 					//#endif
 			),
 			remap = false
 	)
-	private void printAdditionVersion(ServerCommandSource source, CallbackInfoReturnable<Integer> cir)
+	private void printAdditionVersion(CommandSourceStack source, CallbackInfoReturnable<Integer> cir)
 	{
 		SettingsManager self = (SettingsManager)(Object)this;
 		if (self != CarpetServer.settingsManager)

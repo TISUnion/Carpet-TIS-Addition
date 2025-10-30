@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.command.lifetime.deathdamage;
 
 import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.damagesource.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,10 +34,10 @@ public abstract class LivingEntityMixin implements DamageableEntity
 	private DamageSource deathDamageSource;
 
 	@Inject(
-			method = "onDeath",
+			method = "die",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/damage/DamageSource;getAttacker()Lnet/minecraft/entity/Entity;"
+					target = "Lnet/minecraft/world/damagesource/DamageSource;getEntity()Lnet/minecraft/world/entity/Entity;"
 			)
 	)
 	private void lifetimeTracker_recordDeathDamageSource_livingEntity(DamageSource source, CallbackInfo ci)

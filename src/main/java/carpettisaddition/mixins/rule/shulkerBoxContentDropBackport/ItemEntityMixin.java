@@ -22,7 +22,7 @@ package carpettisaddition.mixins.rule.shulkerBoxContentDropBackport;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.shulkerBoxFullDropBackport.ShulkerBoxFullDropBackportHelper;
-import net.minecraft.entity.ItemEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,10 +32,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ItemEntityMixin
 {
 	@Inject(
-			method = "damage",
+			method = "hurt",
 			at= @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/item/ItemEntity;remove()V"
 			)
 	)
 	private void shulkerBoxContentDropBackport_hookBeforeItemRemove(CallbackInfoReturnable<Boolean> cir)

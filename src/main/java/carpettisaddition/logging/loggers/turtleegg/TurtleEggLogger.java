@@ -24,11 +24,11 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class TurtleEggLogger extends AbstractLogger
 {
@@ -51,15 +51,15 @@ public class TurtleEggLogger extends AbstractLogger
 		return TISAdditionLoggerRegistry.__turtleEgg;
 	}
 
-	public void onBreakingEgg(World world, BlockPos pos, BlockState state, Entity entity)
+	public void onBreakingEgg(Level world, BlockPos pos, BlockState state, Entity entity)
 	{
-		if (world.isClient())
+		if (world.isClientSide())
 		{
 			return;
 		}
 		this.log(() -> {
 			// [O] xxx breaks egg @ {}
-			return new BaseText[]{Messenger.c(
+			return new BaseComponent[]{Messenger.c(
 					entity != null ? Messenger.entity(null, entity) : Messenger.s("?"),
 					"r  x ",
 					Messenger.block(state.getBlock()),

@@ -21,12 +21,12 @@
 package carpettisaddition.mixins.logger.microtiming.marker;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.PistonBlock;
-import net.minecraft.block.piston.PistonHandler;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
+import net.minecraft.world.level.block.piston.PistonStructureResolver;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,12 +42,12 @@ import java.util.Map;
 //$$ import java.util.Set;
 //#endif
 
-@Mixin(PistonBlock.class)
+@Mixin(PistonBaseBlock.class)
 public abstract class PistonBlockMixin
 {
 	@SuppressWarnings("rawtypes")
 	@Inject(
-			method = "move",
+			method = "moveBlocks",
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
@@ -63,7 +63,7 @@ public abstract class PistonBlockMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/world/World;addBlockEntity(Lnet/minecraft/block/entity/BlockEntity;)V",
 					//#else
-					target = "Lnet/minecraft/world/World;setBlockEntity(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/BlockEntity;)V",
+					target = "Lnet/minecraft/world/level/Level;setBlockEntity(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;)V",
 					//#endif
 					shift = At.Shift.AFTER,
 					ordinal = 0
@@ -71,17 +71,17 @@ public abstract class PistonBlockMixin
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	private void moveMicroTimingMarkerAsWell(
-			World world, BlockPos pos, Direction dir, boolean retract,
+			Level world, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir,
 			//#if MC >= 11600
 			//$$ BlockPos blockPos, PistonHandler pistonHandler, Map map, List list, List list2, List list3, BlockState[] blockStates, Direction direction, int j, int l, BlockPos blockPos4, BlockState blockState3
 			//#elseif MC >= 11500
-			BlockPos blockPos, PistonHandler pistonHandler, Map map, List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction, int l, BlockPos blockPos4, BlockState blockState3
+			BlockPos blockPos, PistonStructureResolver pistonHandler, Map map, List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction, int l, BlockPos blockPos4, BlockState blockState3
 			//#else
 			//$$ BlockPos blockPos, PistonHandler pistonHandler, List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction, Set set, int l, BlockPos blockPos4, BlockState blockState2
 			//#endif
 	)
 	{
-		MicroTimingLoggerManager.moveMarker(world, blockPos4.offset(direction.getOpposite()), direction);
+		MicroTimingLoggerManager.moveMarker(world, blockPos4.relative(direction.getOpposite()), direction);
 	}
 }

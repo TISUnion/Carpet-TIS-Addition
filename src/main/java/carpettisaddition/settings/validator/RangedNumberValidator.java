@@ -20,7 +20,7 @@
 
 package carpettisaddition.settings.validator;
 
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.BaseComponent;
 
 public abstract class RangedNumberValidator<T extends Number> extends AbstractCheckerValidator<T>
 {
@@ -40,7 +40,7 @@ public abstract class RangedNumberValidator<T extends Number> extends AbstractCh
 	}
 
 	@Override
-	public BaseText errorMessage(ValidationContext<T> ctx)
+	public BaseComponent errorMessage(ValidationContext<T> ctx)
 	{
 		return tr("ranged_number.message", this.lowerBound, this.upperBound);
 	}

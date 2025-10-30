@@ -32,8 +32,8 @@ import carpettisaddition.commands.speedtest.session.SpeedTestSessionMessengerImp
 import carpettisaddition.translations.TranslationContext;
 import com.google.common.collect.Lists;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class SpeedTestPinger extends TranslationContext implements SpeedTestServerSession, PongReceiver
 {
-	private final ServerPlayerEntity player;
+	private final ServerPlayer player;
 	private final int count;
 	private final double intervalSec;
 	private final SpeedTestServerSessionHolder sessionHolder;
@@ -53,7 +53,7 @@ public class SpeedTestPinger extends TranslationContext implements SpeedTestServ
 
 	private final List<Long> pingNsList = Lists.newArrayList();
 
-	public SpeedTestPinger(ServerCommandSource source, ServerPlayerEntity player, int count, double intervalSec, SpeedTestServerSessionHolder sessionHolder)
+	public SpeedTestPinger(CommandSourceStack source, ServerPlayer player, int count, double intervalSec, SpeedTestServerSessionHolder sessionHolder)
 	{
 		super(SpeedTestCommand.getInstance().getTranslator().getDerivedTranslator("ping_test"));
 		this.player = player;
@@ -99,7 +99,7 @@ public class SpeedTestPinger extends TranslationContext implements SpeedTestServ
 			int index = i;
 
 			this.pingHandler.pingClient(
-					this.player.networkHandler,
+					this.player.connection,
 					(payload, pingNs) -> {
 						synchronized (this.pingNsList)
 						{

@@ -28,8 +28,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.nbt.CompoundTag;
 import org.apache.logging.log4j.Logger;
 
@@ -75,7 +75,7 @@ public class TISCMClientPacketHandler
 	/**
 	 * Invoked on network thread
 	 */
-	public void dispatch(ClientPlayNetworkHandler networkHandler, TISCMCustomPayload tiscmCustomPayload)
+	public void dispatch(ClientPacketListener networkHandler, TISCMCustomPayload tiscmCustomPayload)
 	{
 		HandlerContext.S2C ctx = new HandlerContext.S2C(networkHandler, tiscmCustomPayload.getNbt());
 		Optional<TISCMProtocol.S2C> packetId = TISCMProtocol.S2C.fromId(tiscmCustomPayload.getPacketId());
@@ -107,7 +107,7 @@ public class TISCMClientPacketHandler
 		}
 		if (this.doesServerSupport(packetId))
 		{
-			ClientPlayNetworkHandler networkHandler = MinecraftClient.getInstance().getNetworkHandler();
+			ClientPacketListener networkHandler = Minecraft.getInstance().getConnection();
 			if (networkHandler != null)
 			{
 				networkHandler.getConnection().send(

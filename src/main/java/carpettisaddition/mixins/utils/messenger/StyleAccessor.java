@@ -20,14 +20,14 @@
 
 package carpettisaddition.mixins.utils.messenger;
 
-import net.minecraft.text.Style;
+import net.minecraft.network.chat.Style;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 11600
 //$$ import net.minecraft.text.TextColor;
 //#else
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
 //#endif
 
 @Mixin(Style.class)
@@ -39,7 +39,7 @@ public interface StyleAccessor
 	@Accessor("italic")
 	Boolean getItalic$TISCM();
 
-	@Accessor("underline")
+	@Accessor("underlined")
 	Boolean getUnderline$TISCM();
 
 	@Accessor("strikethrough")
@@ -53,7 +53,7 @@ public interface StyleAccessor
 	//$$ TextColor getColor$TISCM();
 	//#else
 	//#disable-remap
-	Formatting getColor$TISCM();
+	ChatFormatting getColor$TISCM();
 	//#enable-remap
 	//#endif
 }

@@ -22,14 +22,14 @@ package carpettisaddition.mixins.command.lifetime.removal.despawn;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // mc1.15+ only
-@Mixin(WitherEntity.class)
+@Mixin(WitherBoss.class)
 public abstract class WitherEntityMixin
 {
 	@Inject(
@@ -39,7 +39,7 @@ public abstract class WitherEntityMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/boss/WitherEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/boss/WitherEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/boss/wither/WitherBoss;remove()V"
 					//#endif
 			)
 	)

@@ -25,16 +25,16 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.entity.StructureBlockBlockEntity;
+import net.minecraft.world.level.block.entity.StructureBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
-@Mixin(StructureBlockBlockEntity.class)
+@Mixin(StructureBlockEntity.class)
 public abstract class StructureBlockBlockEntityMixin
 {
 	@ModifyExpressionValue(
-			method = "fromTag",
+			method = "load",
 			require = 3,
 			at = @At(
 					value = "CONSTANT",
@@ -47,7 +47,7 @@ public abstract class StructureBlockBlockEntityMixin
 	}
 
 	@ModifyExpressionValue(
-			method = "fromTag",
+			method = "load",
 			require = 6,
 			at = @At(
 					value = "CONSTANT",

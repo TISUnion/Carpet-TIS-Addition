@@ -24,7 +24,7 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.persistentLoggerSubscription.LoggerSubscriptionStorage;
 import carpettisaddition.utils.GameUtils;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -48,7 +48,7 @@ public abstract class LoggerRegistryMixin
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			remap = false
 	)
-	private static void tweaksLoggingOptions(PlayerEntity player, CallbackInfo ci, boolean firstTime)
+	private static void tweaksLoggingOptions(Player player, CallbackInfo ci, boolean firstTime)
 	{
 		if (CarpetTISAdditionSettings.persistentLoggerSubscription && firstTime)
 		{
@@ -81,7 +81,7 @@ public abstract class LoggerRegistryMixin
 	@Inject(method = "subscribePlayer", at = @At("HEAD"), remap = false)
 	private static void onPlayerLogSomething(String playerName, String logName, String option, CallbackInfo ci)
 	{
-		PlayerEntity player = GameUtils.getPlayerFromName(playerName);
+		Player player = GameUtils.getPlayerFromName(playerName);
 		if (player != null)
 		{
 			LoggerSubscriptionStorage.getInstance().addSubscription(player, logName, option);
@@ -91,7 +91,7 @@ public abstract class LoggerRegistryMixin
 	@Inject(method = "unsubscribePlayer", at = @At("HEAD"), remap = false)
 	private static void onPlayerUnlogSomething(String playerName, String logName, CallbackInfo ci)
 	{
-		PlayerEntity player = GameUtils.getPlayerFromName(playerName);
+		Player player = GameUtils.getPlayerFromName(playerName);
 		if (player != null)
 		{
 			LoggerSubscriptionStorage.getInstance().removeSubscription(player, logName);

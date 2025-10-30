@@ -20,13 +20,13 @@
 
 package carpettisaddition.mixins.command.fill.modeenhance;
 
-import net.minecraft.server.command.FillCommand;
+import net.minecraft.server.commands.FillCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC < 12105
-import net.minecraft.server.command.SetBlockCommand;
+import net.minecraft.server.commands.SetBlockCommand;
 //#endif
 
 @Mixin(FillCommand.Mode.class)

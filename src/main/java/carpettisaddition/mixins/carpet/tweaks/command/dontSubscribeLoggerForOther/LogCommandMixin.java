@@ -24,10 +24,10 @@ import carpet.commands.LogCommand;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.PlayerUtils;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,7 +42,7 @@ public abstract class LogCommandMixin
 			remap = false,
 			cancellable = true
 	)
-	private static void dontSubscribeLoggerForOther_logSubCommand(ServerCommandSource source, String player_name, String logname, String option, CallbackInfoReturnable<Integer> cir)
+	private static void dontSubscribeLoggerForOther_logSubCommand(CommandSourceStack source, String player_name, String logname, String option, CallbackInfoReturnable<Integer> cir)
 	{
 		dontSubscribeLoggerForOtherImpl(source, player_name, cir);
 	}
@@ -53,22 +53,22 @@ public abstract class LogCommandMixin
 			remap = false,
 			cancellable = true
 	)
-	private static void dontSubscribeLoggerForOther_cleanSubCommand(ServerCommandSource source, String player_name, CallbackInfoReturnable<Integer> cir)
+	private static void dontSubscribeLoggerForOther_cleanSubCommand(CommandSourceStack source, String player_name, CallbackInfoReturnable<Integer> cir)
 	{
 		dontSubscribeLoggerForOtherImpl(source, player_name, cir);
 	}
 
-	private static void dontSubscribeLoggerForOtherImpl(ServerCommandSource source, String playerName, CallbackInfoReturnable<Integer> cir)
+	private static void dontSubscribeLoggerForOtherImpl(CommandSourceStack source, String playerName, CallbackInfoReturnable<Integer> cir)
 	{
-		MinecraftServer server = source.getMinecraftServer();
-		PlayerEntity playerToControl = server.getPlayerManager().getPlayer(playerName);
+		MinecraftServer server = source.getServer();
+		Player playerToControl = server.getPlayerList().getPlayerByName(playerName);
 
 		// source is player and is going to control a valid player
-		if (playerToControl != null && source.getEntity() instanceof ServerPlayerEntity)
+		if (playerToControl != null && source.getEntity() instanceof ServerPlayer)
 		{
-			ServerPlayerEntity player = (ServerPlayerEntity)source.getEntity();
+			ServerPlayer player = (ServerPlayer)source.getEntity();
 			// source player is not op, and is not the player-to-control
-			if (!player.getUuid().equals(playerToControl.getUuid()) && !PlayerUtils.isOperator(server, player))
+			if (!player.getUUID().equals(playerToControl.getUUID()) && !PlayerUtils.isOperator(server, player))
 			{
 				Messenger.tell(source, Messenger.formatting(new Translator("misc").tr("log_subscribe_for_other_permission_denied"), "r"));
 				cir.setReturnValue(0);

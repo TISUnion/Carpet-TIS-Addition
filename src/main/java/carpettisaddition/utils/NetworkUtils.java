@@ -22,7 +22,7 @@ package carpettisaddition.utils;
 
 import io.netty.buffer.Unpooled;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.Nullable;
 
 public class NetworkUtils
@@ -48,7 +48,7 @@ public class NetworkUtils
 	private static final int TAG_ID_COMPOUND = 0x0A;
 
 	// Notes: reader index untouched
-	public static NbtStyle guessNbtStyle(PacketByteBuf buf)
+	public static NbtStyle guessNbtStyle(FriendlyByteBuf buf)
 	{
 		int n = buf.readableBytes();
 
@@ -101,12 +101,12 @@ public class NetworkUtils
 	}
 
 	/**
-	 * Read an NBT from a {@link PacketByteBuf}
+	 * Read an NBT from a {@link FriendlyByteBuf}
 	 *
 	 * Compatible with both mc >= 1.20.2 and mc < 1.20.2 formats
 	 */
 	@Nullable
-	public static CompoundTag readNbt(PacketByteBuf buf)
+	public static CompoundTag readNbt(FriendlyByteBuf buf)
 	{
 		NbtStyle nbtStyle = guessNbtStyle(buf);
 
@@ -116,13 +116,13 @@ public class NetworkUtils
 
 			//#if MC < 12002
 			int prevReaderIndex = buf.readerIndex();
-			PacketByteBuf tweakedBuf = new PacketByteBuf(Unpooled.buffer());
+			FriendlyByteBuf tweakedBuf = new FriendlyByteBuf(Unpooled.buffer());
 			tweakedBuf.writeByte(buf.readByte());  // 0x0A, tag type
 			tweakedBuf.writeByte(0).writeByte(0);  // 2* 0x00
 			tweakedBuf.writeBytes(buf);
 			buf.readerIndex(prevReaderIndex);
 
-			CompoundTag nbt = tweakedBuf.readCompoundTag();
+			CompoundTag nbt = tweakedBuf.readNbt();
 
 			int n = tweakedBuf.readerIndex();
 			buf.readBytes(Math.max(0, n - 2));
@@ -135,19 +135,19 @@ public class NetworkUtils
 			// I'm >= mc1.20.2 (NEW), trying to read a nbt in OLD style
 
 			int prevReaderIndex = buf.readerIndex();
-			PacketByteBuf tweakedBuf = new PacketByteBuf(Unpooled.buffer());
+			FriendlyByteBuf tweakedBuf = new FriendlyByteBuf(Unpooled.buffer());
 			tweakedBuf.writeByte(buf.readByte());  // 0x0A, tag type
 			buf.readBytes(2);  // consume the 2* 0x00
 			tweakedBuf.writeBytes(buf);
 			buf.readerIndex(prevReaderIndex);
 
-			CompoundTag nbt = tweakedBuf.readCompoundTag();
+			CompoundTag nbt = tweakedBuf.readNbt();
 
 			int n = tweakedBuf.readerIndex();
 			buf.readBytes(Math.max(0, n > 1 ? n + 2 : n));
 			return nbt;
 		}
 
-		return buf.readCompoundTag();
+		return buf.readNbt();
 	}
 }

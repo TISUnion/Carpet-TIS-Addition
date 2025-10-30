@@ -23,9 +23,9 @@ package carpettisaddition.mixins.rule.creativeInstantTame;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.EntityUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.goal.HorseBondWithPlayerGoal;
-import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.goal.RunAroundLikeCrazyGoal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,16 +35,16 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.List;
 
-@Mixin(HorseBondWithPlayerGoal.class)
+@Mixin(RunAroundLikeCrazyGoal.class)
 public abstract class HorseBondWithPlayerGoalMixin
 {
-	@Shadow @Final private HorseBaseEntity horse;
+	@Shadow @Final private AbstractHorse horse;
 
 	@Unique
 	@Nullable
 	private Entity getCurrentPassenger()
 	{
-		List<Entity> passengers = this.horse.getPassengerList();
+		List<Entity> passengers = this.horse.getPassengers();
 		return passengers.isEmpty() ? null : passengers.get(0);
 	}
 

@@ -20,7 +20,7 @@
 
 package carpettisaddition.helpers.carpet.tweaks.logger.projectile;
 
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.world.phys.HitResult;
 
 public interface ProjectileLoggerTarget
 {

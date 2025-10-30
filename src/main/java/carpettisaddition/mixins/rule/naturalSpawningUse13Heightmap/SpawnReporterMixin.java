@@ -25,11 +25,11 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.naturalSpawningUse13Heightmap.NaturalSpawningUse13HeightmapHelper;
 import carpettisaddition.utils.Messenger;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.chunk.Chunk;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.chunk.ChunkAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -52,24 +52,24 @@ public abstract class SpawnReporterMixin
 			)
 	)
 	private static void naturalSpawningUse13Heightmap_reportTheNewHeightmapAsWell(
-			CallbackInfoReturnable<List<Text>> cir,
+			CallbackInfoReturnable<List<Component>> cir,
 			@Local(argsOnly = true)
 			//#if MC >= 11500
-			ServerWorld world,
+			ServerLevel world,
 			//#else
 			//$$ World world,
 			//#endif
-			@Local List<BaseText> rep,
+			@Local List<BaseComponent> rep,
 			@Local(ordinal = 0) int x,
 			@Local(ordinal = 1) int y,
 			@Local(ordinal = 2) int z,
-			@Local Chunk chunk
+			@Local ChunkAccess chunk
 	)
 	{
 		if (CarpetTISAdditionSettings.naturalSpawningUse13Heightmap)
 		{
 			int lc = NaturalSpawningUse13HeightmapHelper.sampleHeightmap(world, chunk, x, z) + 1;
-			String relativeHeight = (y == lc) ? "right at it." : String.format("%d blocks %s it.", MathHelper.abs(y - lc), (y >= lc) ? "above" : "below");
+			String relativeHeight = (y == lc) ? "right at it." : String.format("%d blocks %s it.", Mth.abs(y - lc), (y >= lc) ? "above" : "below");
 			rep.add(Messenger.s(String.format("Maximum spawn Y value for (%+d, %+d) is %d. You are %s (13 ver)", x, z, lc, relativeHeight)));
 		}
 	}

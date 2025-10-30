@@ -25,32 +25,32 @@ import carpettisaddition.commands.lifetime.spawning.MobConversionSpawningReason;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.AbstractTraderEntity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<=1.21.1"))
-@Mixin(VillagerEntity.class)
-public abstract class VillagerEntityMixin extends AbstractTraderEntity
+@Mixin(Villager.class)
+public abstract class VillagerEntityMixin extends AbstractVillager
 {
-	public VillagerEntityMixin(EntityType<? extends AbstractTraderEntity> entityType, World world)
+	public VillagerEntityMixin(EntityType<? extends AbstractVillager> entityType, Level world)
 	{
 		super(entityType, world);
 	}
 
 	@ModifyArg(
-			method = "onStruckByLightning",
+			method = "thunderHit",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
 					//#else
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif
 			)
 	)

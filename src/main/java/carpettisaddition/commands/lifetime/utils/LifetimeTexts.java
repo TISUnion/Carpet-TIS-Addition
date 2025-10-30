@@ -26,16 +26,16 @@ import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.phys.Vec3;
 
 public class LifetimeTexts
 {
 	public static final Translator t = LifeTimeTracker.getInstance().getTranslator();
 
-	public static BaseText spawningPosButton(Vec3d spawningPos, DimensionWrapper dimension, String keyOverride)
+	public static BaseComponent spawningPosButton(Vec3 spawningPos, DimensionWrapper dimension, String keyOverride)
 	{
-		BaseText spawningPosHover = Messenger.c(t.tr(keyOverride), "g : ", "w " + TextUtils.coord(spawningPos));
+		BaseComponent spawningPosHover = Messenger.c(t.tr(keyOverride), "g : ", "w " + TextUtils.coord(spawningPos));
 		if (CommandUtils.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
 		{
 			return Messenger.c("e [", spawningPosHover, "e ]");
@@ -50,14 +50,14 @@ public class LifetimeTexts
 			);
 		}
 	}
-	public static BaseText spawningPosButton(Vec3d spawningPos, DimensionWrapper dimension)
+	public static BaseComponent spawningPosButton(Vec3 spawningPos, DimensionWrapper dimension)
 	{
 		return spawningPosButton(spawningPos, dimension, "spawning_position");
 	}
 
-	public static BaseText removalPosButton(Vec3d removalPos, DimensionWrapper dimension)
+	public static BaseComponent removalPosButton(Vec3 removalPos, DimensionWrapper dimension)
 	{
-		BaseText removalPosHover = Messenger.c(t.tr("removal_position"), "g : ", "w " + TextUtils.coord(removalPos));
+		BaseComponent removalPosHover = Messenger.c(t.tr("removal_position"), "g : ", "w " + TextUtils.coord(removalPos));
 		if (CommandUtils.isConsoleCommandSource(LifeTimeTrackerContext.commandSource.get()))
 		{
 			return Messenger.c("r [", removalPosHover, "r ]");

@@ -22,18 +22,18 @@ package carpettisaddition.mixins.rule.snowMeltMinLightLevel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.block.SnowBlock;
+import net.minecraft.world.level.block.SnowLayerBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(SnowBlock.class)
+@Mixin(SnowLayerBlock.class)
 public abstract class SnowBlockMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 11600
 			//$$ method = "randomTick",
 			//#elseif MC >= 11500
-			method = "scheduledTick",
+			method = "tick",
 			//#else
 			//$$ method = "onScheduledTick",
 			//#endif

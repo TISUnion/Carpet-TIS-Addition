@@ -21,16 +21,16 @@
 package carpettisaddition.mixins.network;
 
 import carpettisaddition.network.TISCMClientPacketHandler;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ClientPlayNetworkHandler.class)
+@Mixin(ClientPacketListener.class)
 public abstract class ClientPlayNetworkHandler_HandshakeMixin
 {
-	@Inject(method = "onGameJoin", at = @At("RETURN"))
+	@Inject(method = "handleLogin", at = @At("RETURN"))
 	private void sendTISCMProtocolHandshake(CallbackInfo ci)
 	{
 		TISCMClientPacketHandler.getInstance().onConnectedToNewServer();

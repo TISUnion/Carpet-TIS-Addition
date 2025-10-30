@@ -24,7 +24,7 @@ import carpettisaddition.logging.loggers.lightqueue.IServerLightingProvider;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.chunk.light.LightingProvider;
+import net.minecraft.world.level.lighting.LevelLightEngine;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -53,7 +53,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class LightingExecutorMixin
 {
 	@Shadow(remap = false)
-	private LightingProvider lightingProvider;
+	private LevelLightEngine lightingProvider;
 
 	@Dynamic
 	@Inject(

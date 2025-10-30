@@ -21,11 +21,11 @@
 package carpettisaddition.helpers.rule.creativeOpenContainerForcibly;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 public class CreativeOpenContainerForciblyHelper
 {
-	public static boolean canOpenForcibly(PlayerEntity player)
+	public static boolean canOpenForcibly(Player player)
 	{
 		return CarpetTISAdditionSettings.creativeOpenContainerForcibly && player.isCreative();
 	}

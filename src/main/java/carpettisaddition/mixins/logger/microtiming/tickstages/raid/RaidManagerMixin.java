@@ -22,8 +22,8 @@ package carpettisaddition.mixins.logger.microtiming.tickstages.raid;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
-import net.minecraft.entity.raid.RaidManager;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.entity.raid.Raids;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,11 +36,11 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Shadow;
 //#endif
 
-@Mixin(RaidManager.class)
+@Mixin(Raids.class)
 public abstract class RaidManagerMixin
 {
 	//#if MC < 12105
-	@Shadow @Final private ServerWorld world;
+	@Shadow @Final private ServerLevel level;
 	//#endif
 
 	@Inject(method = "tick", at = @At("HEAD"))
@@ -51,6 +51,9 @@ public abstract class RaidManagerMixin
 			//#endif
 	)
 	{
+		//#if MC < 12105
+		ServerLevel world = this.level;
+		//#endif
 		MicroTimingLoggerManager.setTickStage(world, TickStage.RAID);
 	}
 
@@ -62,6 +65,9 @@ public abstract class RaidManagerMixin
 			//#endif
 	)
 	{
+		//#if MC < 12105
+		ServerLevel world = this.level;
+		//#endif
 		MicroTimingLoggerManager.setTickStage(world, TickStage.UNKNOWN);
 	}
 }

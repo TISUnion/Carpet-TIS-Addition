@@ -23,9 +23,9 @@ package carpettisaddition.mixins.network;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.network.TISCMCustomPayload;
 import carpettisaddition.network.TISCMServerPacketHandler;
-import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -39,13 +39,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 		//#if 12002 <= MC && MC < 12005
 		//$$ ServerCommonNetworkHandler.class
 		//#else
-		ServerPlayNetworkHandler.class
+		ServerGamePacketListenerImpl.class
 		//#endif
 )
 public abstract class ServerPlayNetworkHandlerMixin
 {
-	@Inject(method = "onCustomPayload", at = @At("HEAD"), cancellable = true)
-	private void onCustomPayload$TISCM(CustomPayloadC2SPacket packet, CallbackInfo ci)
+	@Inject(method = "handleCustomPayload", at = @At("HEAD"), cancellable = true)
+	private void onCustomPayload$TISCM(ServerboundCustomPayloadPacket packet, CallbackInfo ci)
 	{
 		if (!CarpetTISAdditionSettings.tiscmNetworkProtocol)
 		{
@@ -59,11 +59,11 @@ public abstract class ServerPlayNetworkHandlerMixin
 		//$$ 	ci.cancel();
 		//$$ }
 		//#else
-		Identifier channel = ((CustomPayloadC2SPacketAccessor)packet).getChannel();
+		ResourceLocation channel = ((CustomPayloadC2SPacketAccessor)packet).getChannel();
 		if (TISCMCustomPayload.ID.equals(channel))
 		{
 			TISCMCustomPayload tiscmCustomPayload = new TISCMCustomPayload(((CustomPayloadC2SPacketAccessor)packet).getData());
-			TISCMServerPacketHandler.getInstance().dispatch((ServerPlayNetworkHandler)(Object)this, tiscmCustomPayload);
+			TISCMServerPacketHandler.getInstance().dispatch((ServerGamePacketListenerImpl)(Object)this, tiscmCustomPayload);
 			ci.cancel();
 		}
 		//#endif

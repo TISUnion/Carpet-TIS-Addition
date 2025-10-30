@@ -21,10 +21,10 @@
 package carpettisaddition.mixins.utils.entityfilter;
 
 import carpettisaddition.utils.entityfilter.IEntitySelector;
-import net.minecraft.command.EntitySelector;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.commands.arguments.selector.EntitySelector;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -41,23 +41,23 @@ import java.util.function.Predicate;
 //#if MC >= 11700
 //$$ import net.minecraft.util.TypeFilter;
 //#else
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 //#endif
 
 @Mixin(EntitySelector.class)
 public interface EntitySelectorAccessor extends IEntitySelector
 {
-	@Accessor
+	@Accessor("worldLimited")
 	boolean getLocalWorldOnly();
 
-	@Accessor
-	Function<Vec3d, Vec3d> getPositionOffset();
+	@Accessor("position")
+	Function<Vec3, Vec3> getPositionOffset();
 
 	@Nullable
-	@Accessor
-	Box getBox();
+	@Accessor("aabb")
+	AABB getBox();
 
-	@Accessor
+	@Accessor("currentEntity")
 	boolean getSenderOnly();
 
 	@Nullable
@@ -65,7 +65,7 @@ public interface EntitySelectorAccessor extends IEntitySelector
 	String getPlayerName();
 
 	@Nullable
-	@Accessor
+	@Accessor("entityUUID")
 	UUID getUuid();
 
 	@Nullable
@@ -76,9 +76,9 @@ public interface EntitySelectorAccessor extends IEntitySelector
 	EntityType<?> getType();
 	//#endif
 
-	@Invoker
+	@Invoker("getPredicate")
 	Predicate<Entity> invokeGetPositionPredicate(
-			Vec3d vec3d
+			Vec3 vec3d
 			//#if MC >= 12100
 			//$$ , @Nullable Box box, @Nullable FeatureSet enabledFeatures
 			//#endif

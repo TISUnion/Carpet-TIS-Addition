@@ -20,7 +20,7 @@
 
 package carpettisaddition.mixins.utils.messenger;
 
-import net.minecraft.text.TranslatableText;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -35,10 +35,10 @@ import java.util.List;
 //#if MC >= 11600
 //$$ import net.minecraft.text.StringVisitable;
 //#else
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 //#endif
 
-@Mixin(TranslatableText.class)
+@Mixin(TranslatableComponent.class)
 public interface TranslatableTextAccessor
 {
 	@Accessor
@@ -47,17 +47,17 @@ public interface TranslatableTextAccessor
 
 	//#if MC < 11800
 
-	@Accessor
+	@Accessor("decomposedParts")
 	//#if MC >= 11600
 	//$$ List<StringVisitable> getTranslations();
 	//#else
-	List<Text> getTranslations();
+	List<Component> getTranslations();
 	//#endif
 
 	//#endif
 
 
-	@Invoker
+	@Invoker("decomposeTemplate")
 	//#if MC >= 11800
 	//$$ void invokeForEachPart(String translation, Consumer<StringVisitable> partsConsumer);
 	//#else

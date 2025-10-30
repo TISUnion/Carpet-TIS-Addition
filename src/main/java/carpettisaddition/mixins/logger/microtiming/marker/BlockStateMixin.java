@@ -21,10 +21,10 @@
 package carpettisaddition.mixins.logger.microtiming.marker;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,11 +33,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#if MC >= 11600
 //$$ import net.minecraft.block.AbstractBlock;
 //#else
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 //#endif
 
 //#if MC >= 11500
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.InteractionResult;
 //#endif
 
 @Mixin(
@@ -51,7 +51,7 @@ public abstract class BlockStateMixin
 {
 	@Inject(
 			//#if MC >= 11500
-			method = "onUse",
+			method = "use",
 			//#else
 			//$$ method = "activate",
 			//#endif
@@ -59,13 +59,13 @@ public abstract class BlockStateMixin
 			cancellable = true
 	)
 	private void onUseOnBlock$MicroTimingLoggerMarker(
-			World world, PlayerEntity player,
+			Level world, Player player,
 			//#if MC < 12005
-			Hand hand,
+			InteractionHand hand,
 			//#endif
 			BlockHitResult hit,
 			//#if MC >= 11500
-			CallbackInfoReturnable<ActionResult> cir
+			CallbackInfoReturnable<InteractionResult> cir
 			//#else
 			//$$ CallbackInfoReturnable<Boolean> cir
 			//#endif
@@ -82,7 +82,7 @@ public abstract class BlockStateMixin
 		{
 			cir.setReturnValue(
 					//#if MC >= 11500
-					ActionResult.CONSUME
+					InteractionResult.CONSUME
 					//#else
 					//$$ true
 					//#endif

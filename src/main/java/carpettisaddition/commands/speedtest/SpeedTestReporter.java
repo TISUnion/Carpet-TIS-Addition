@@ -25,11 +25,11 @@ import carpettisaddition.commands.speedtest.session.SpeedTestSessionMessengerImp
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.util.Mth;
 
 import java.util.List;
 
@@ -41,14 +41,14 @@ public class SpeedTestReporter extends TranslationContext implements SpeedTestSe
 	private final SpeedTestSessionMessenger messenger;
 	private long lastReportNs = -1;
 
-	public SpeedTestReporter(TestType testType, ServerCommandSource source)
+	public SpeedTestReporter(TestType testType, CommandSourceStack source)
 	{
 		super(SpeedTestCommand.getInstance().getTranslator().getDerivedTranslator("speed_test"));
 		this.messenger = new SpeedTestSessionMessengerImpl(testType, source);
 	}
 
 	@Override
-	public void sendMessage(BaseText message, boolean withCancelButton)
+	public void sendMessage(BaseComponent message, boolean withCancelButton)
 	{
 		this.messenger.sendMessage(message, withCancelButton);
 	}
@@ -82,14 +82,14 @@ public class SpeedTestReporter extends TranslationContext implements SpeedTestSe
 	 */
 	public void reportProgress(long timeCostNs, long processedBytes, long totalBytes)
 	{
-		double percent = MathHelper.clamp(100.0 * processedBytes / totalBytes, 0.0, 100.0);
+		double percent = Mth.clamp(100.0 * processedBytes / totalBytes, 0.0, 100.0);
 
 		List<Object> list = Lists.newArrayList();
 		for (int i = 1; i <= BAR_WIDTH; i++)
 		{
-			list.add(percent >= i * 100.0 / BAR_WIDTH ? Messenger.s("#") : Messenger.s("-", Formatting.DARK_GRAY));
+			list.add(percent >= i * 100.0 / BAR_WIDTH ? Messenger.s("#") : Messenger.s("-", ChatFormatting.DARK_GRAY));
 		}
-		BaseText bar = Messenger.c(list.toArray(new Object[0]));
+		BaseComponent bar = Messenger.c(list.toArray(new Object[0]));
 
 		double timeCostSec = Math.max(1, timeCostNs) / 1e9;
 		double mbps = processedBytes / timeCostSec / BYTES_PER_MB;

@@ -23,29 +23,29 @@ package carpettisaddition.mixins.command.lifetime.removal.mobpickup;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.MobPickupRemovalReason;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.passive.FoxEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(FoxEntity.class)
+@Mixin(Fox.class)
 public abstract class FoxEntityMixin extends Entity
 {
-	public FoxEntityMixin(EntityType<?> type, World world)
+	public FoxEntityMixin(EntityType<?> type, Level world)
 	{
 		super(type, world);
 	}
 
 	@Inject(
-			method = "loot",
+			method = "pickUpItem",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/passive/FoxEntity;sendPickup(Lnet/minecraft/entity/Entity;I)V"
+					target = "Lnet/minecraft/world/entity/animal/Fox;take(Lnet/minecraft/world/entity/Entity;I)V"
 			)
 	)
 	private void lifetimeTracker_recordRemoval_mobPickup_foxPickupItem(CallbackInfo ci, @Local(argsOnly = true) ItemEntity item)

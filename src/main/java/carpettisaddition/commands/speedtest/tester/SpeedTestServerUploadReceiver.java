@@ -26,15 +26,15 @@ import carpettisaddition.commands.speedtest.session.SpeedTestServerSessionHolder
 import carpettisaddition.commands.speedtest.session.SpeedTestSessionMessenger;
 import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 public class SpeedTestServerUploadReceiver extends SpeedTesterBase implements SpeedTestServerSession
 {
-	private final ServerPlayerEntity player;
+	private final ServerPlayer player;
 	private final SpeedTestServerSessionHolder serverSessionHolder;
 	private final SpeedTestReporter reporter;
 
-	public SpeedTestServerUploadReceiver(ServerPlayerEntity player, int totalSizeMb, SpeedTestServerSessionHolder serverSessionHolder, SpeedTestReporter reporter)
+	public SpeedTestServerUploadReceiver(ServerPlayer player, int totalSizeMb, SpeedTestServerSessionHolder serverSessionHolder, SpeedTestReporter reporter)
 	{
 		super(totalSizeMb);
 		this.player = player;
@@ -54,7 +54,7 @@ public class SpeedTestServerUploadReceiver extends SpeedTesterBase implements Sp
 		this.reporter.start(this.totalSize);
 		super.start();
 		TISCMServerPacketHandler.getInstance().sendPacket(
-				this.player.networkHandler,
+				this.player.connection,
 				TISCMProtocol.S2C.SPEED_TEST_UPLOAD_REQUEST,
 				nbt -> nbt.putInt("size_mb", this.totalSizeMb)
 		);
@@ -66,7 +66,7 @@ public class SpeedTestServerUploadReceiver extends SpeedTesterBase implements Sp
 	{
 		super.abort();
 		TISCMServerPacketHandler.getInstance().sendPacket(
-				this.player.networkHandler,
+				this.player.connection,
 				TISCMProtocol.S2C.SPEED_TEST_ABORT,
 				nbt -> {}
 		);

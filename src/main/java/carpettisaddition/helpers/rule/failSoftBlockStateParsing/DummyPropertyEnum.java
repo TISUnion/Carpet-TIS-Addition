@@ -20,17 +20,17 @@
 
 package carpettisaddition.helpers.rule.failSoftBlockStateParsing;
 
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.util.StringRepresentable;
 
-public enum DummyPropertyEnum implements StringIdentifiable
+public enum DummyPropertyEnum implements StringRepresentable
 {
 	;
 	public static final String NAME = "$TISCM$DUMMY$";
-	public static final EnumProperty<DummyPropertyEnum> DUMMY_PROPERTY = EnumProperty.of(NAME, DummyPropertyEnum.class);
+	public static final EnumProperty<DummyPropertyEnum> DUMMY_PROPERTY = EnumProperty.create(NAME, DummyPropertyEnum.class);
 
 	@Override
-	public String asString()
+	public String getSerializedName()
 	{
 		return NAME;
 	}

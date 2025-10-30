@@ -22,14 +22,14 @@ package carpettisaddition.logging.loggers.entity;
 
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.utils.Messenger;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.network.chat.BaseComponent;
 
 //#if MC >= 11700
 //$$ import carpettisaddition.utils.EntityUtils;
 //#endif
 
-public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
+public class XPOrbLogger extends EntityLogger<ExperienceOrb>
 {
 	private static final XPOrbLogger INSTANCE = new XPOrbLogger();
 
@@ -44,7 +44,7 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 	}
 
 	@Override
-	protected BaseText getNameTextHoverText(ExperienceOrbEntity xp)
+	protected BaseComponent getNameTextHoverText(ExperienceOrb xp)
 	{
 		//#if MC >= 11700
 		//$$ int amount = xp.getExperienceAmount();
@@ -52,7 +52,7 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrbEntity>
 		//$$ long total = (long)amount * count;
 		//$$ String amountStr = String.format("w : %dxp * %d = %d", amount, count, total);
 		//#else
-		String amountStr = String.format("w : %d", xp.getExperienceAmount());
+		String amountStr = String.format("w : %d", xp.getValue());
 		//#endif
 
 		return Messenger.c(tr("xp_amount"), amountStr);

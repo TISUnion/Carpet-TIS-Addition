@@ -24,21 +24,21 @@ import carpettisaddition.logging.loggers.damage.DamageLogger;
 import carpettisaddition.logging.loggers.damage.interfaces.DamageLoggerTarget;
 import carpettisaddition.logging.loggers.damage.modifyreasons.ModifyReason;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity
 {
-	protected PlayerEntityMixin(EntityType<? extends LivingEntity> type, World world)
+	protected PlayerEntityMixin(EntityType<? extends LivingEntity> type, Level world)
 	{
 		super(type, world);
 	}
@@ -46,11 +46,11 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	// at the start of player damage calculation
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/player/PlayerEntity;dropShoulderEntities()V"
+					target = "Lnet/minecraft/world/entity/player/Player;removeEntitiesOnShoulder()V"
 			)
 	)
 	private void onDamageStarted(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount)
@@ -60,12 +60,12 @@ public abstract class PlayerEntityMixin extends LivingEntity
 
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
-							target = "Lnet/minecraft/entity/player/PlayerAbilities;invulnerable:Z"
+							target = "Lnet/minecraft/world/entity/player/Abilities;invulnerable:Z"
 					)
 			),
 			at = @At(
@@ -81,7 +81,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 
 	@Inject(
 			//#disable-remap
-			method = "damage",
+			method = "hurt",
 			//#enable-remap
 			slice = @Slice(
 					from = @At(

@@ -23,8 +23,8 @@ package carpettisaddition.utils.compat.carpet;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.entity.Entity;
-import net.minecraft.text.BaseText;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.BaseComponent;
 
 import java.util.List;
 import java.util.Map;
@@ -42,13 +42,13 @@ public class ExplosionLogHelper
 	private void onExplosionDone()
 	{
 		someMap.put(1, 2);
-		BiFunction<List<BaseText>, String, BaseText[]> doLog = (messages, options) -> {
+		BiFunction<List<BaseComponent>, String, BaseComponent[]> doLog = (messages, options) -> {
 			someMap.forEach((k, v) -> {
 				v = v + 1;
 			});
-			List<BaseText> list = Lists.newArrayList();
+			List<BaseComponent> list = Lists.newArrayList();
 			list.add(Messenger.s("fake"));
-			return list.toArray(new BaseText[0]);
+			return list.toArray(new BaseComponent[0]);
 		};
 	}
 }

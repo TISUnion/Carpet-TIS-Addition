@@ -22,8 +22,8 @@ package carpettisaddition.mixins.command.lifetime.spawning.command;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.command.SummonCommand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.server.commands.SummonCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -32,13 +32,13 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class SummonCommandMixin
 {
 	@ModifyVariable(
-			method = "execute",
+			method = "spawnEntity",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12000
 					//$$ target = "Lnet/minecraft/server/command/ServerCommandSource;sendFeedback(Ljava/util/function/Supplier;Z)V",
 					//#else
-					target = "Lnet/minecraft/server/command/ServerCommandSource;sendFeedback(Lnet/minecraft/text/Text;Z)V",
+					target = "Lnet/minecraft/commands/CommandSourceStack;sendSuccess(Lnet/minecraft/network/chat/Component;Z)V",
 					//#endif
 
 					//#if MC >= 11600

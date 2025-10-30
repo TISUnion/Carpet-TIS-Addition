@@ -22,9 +22,9 @@ package carpettisaddition.mixins.command.lifetime.removal.hopper;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.Container;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class HopperBlockEntityMixin
 {
 	@Inject(
-			method = "extract(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/ItemEntity;)Z",
+			method = "addItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/entity/item/ItemEntity;)Z",
 			at = @At(
 					//#if MC >= 12002
 					//$$ // record before being set to EMPTY
@@ -46,12 +46,12 @@ public abstract class HopperBlockEntityMixin
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
 					//#else
-					target = "Lnet/minecraft/entity/ItemEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/item/ItemEntity;remove()V"
 					//#endif
 					//#endif
 			)
 	)
-	private static void lifetimeTracker_recordRemoval_hopper(Inventory inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
+	private static void lifetimeTracker_recordRemoval_hopper(Container inventory, ItemEntity itemEntity, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (
 				//#if MC >= 11700

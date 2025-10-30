@@ -23,9 +23,9 @@ package carpettisaddition.logging.common.counter;
 import carpettisaddition.commands.common.counter.DyeCounter;
 import carpettisaddition.commands.common.counter.DyeCounterProvider;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -59,9 +59,9 @@ public abstract class DyeCounterHudLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public BaseComponent[] onHudUpdate(String option, Player playerEntity)
 	{
-		List<BaseText> lines = new ArrayList<>();
+		List<BaseComponent> lines = new ArrayList<>();
 		Arrays.asList(option.split(",")).forEach(color -> {
 			DyeCounter<?> counter = this.getCounterProvider().getCounter(color);
 			if (counter != null)
@@ -69,6 +69,6 @@ public abstract class DyeCounterHudLogger extends AbstractHUDLogger
 				lines.add(counter.reportBrief(false));
 			}
 		});
-		return lines.toArray(new BaseText[0]);
+		return lines.toArray(new BaseComponent[0]);
 	}
 }

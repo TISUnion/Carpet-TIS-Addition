@@ -20,14 +20,14 @@
 
 package carpettisaddition.helpers.rule.minecartPlaceableOnGround;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.entity.vehicle.MinecartEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.Minecart;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseOnContext;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 
 //#if MC >= 12102
 //$$ import net.minecraft.entity.EntityType;
@@ -45,27 +45,27 @@ import net.minecraft.world.World;
 public class MinecartPlaceableOnGroundImpl
 {
 	/**
-	 * Reference: {@link net.minecraft.item.MinecartItem#useOnBlock}
+	 * Reference: {@link net.minecraft.world.item.MinecartItem#useOnBlock}
 	 */
-	public static ActionResult placeMinecartOnGround(
-			ItemUsageContext context,
+	public static InteractionResult placeMinecartOnGround(
+			UseOnContext context,
 			//#if MC >= 12102
 			//$$ EntityType<? extends AbstractMinecartEntity> minecartType
 			//#else
-			AbstractMinecartEntity.Type minecartType
+			AbstractMinecart.Type minecartType
 			//#endif
 	)
 	{
-		PlayerEntity player = context.getPlayer();
-		World world = context.getWorld();
-		ItemStack itemStack = context.getStack();
-		Vec3d vec3d = context.getHitPos();
+		Player player = context.getPlayer();
+		Level world = context.getLevel();
+		ItemStack itemStack = context.getItemInHand();
+		Vec3 vec3d = context.getClickLocation();
 
 		if (
 				//#if MC >= 12004
 				//$$ world instanceof ServerWorld serverWorld
 				//#else
-				!world.isClient()
+				!world.isClientSide()
 				//#endif
 		)
 		{
@@ -74,10 +74,10 @@ public class MinecartPlaceableOnGroundImpl
 			//#elseif MC >= 12004
 			//$$ AbstractMinecartEntity minecartEntity = AbstractMinecartEntity.create(serverWorld, vec3d.getX(), vec3d.getY(), vec3d.getZ(), minecartType, itemStack, player);
 			//#else
-			AbstractMinecartEntity minecartEntity = AbstractMinecartEntity.create(world, vec3d.getX(), vec3d.getY(), vec3d.getZ(), minecartType);
-			if (itemStack.hasCustomName())
+			AbstractMinecart minecartEntity = AbstractMinecart.createMinecart(world, vec3d.x(), vec3d.y(), vec3d.z(), minecartType);
+			if (itemStack.hasCustomHoverName())
 			{
-				minecartEntity.setCustomName(itemStack.getName());
+				minecartEntity.setCustomName(itemStack.getHoverName());
 			}
 			//#endif
 
@@ -86,17 +86,17 @@ public class MinecartPlaceableOnGroundImpl
 				//#if MC >= 11700
 				//$$ minecartEntity.setYaw(player.getYaw());
 				//#else
-				minecartEntity.yaw = player.yaw;
+				minecartEntity.yRot = player.yRot;
 				//#endif
 			}
 
 			// check if the space of the minecart entity is occupied, like what boat placement does
 			if (!isMinecartPositionValid(world, minecartEntity))
 			{
-				return ActionResult.FAIL;
+				return InteractionResult.FAIL;
 			}
 
-			world.spawnEntity(minecartEntity);
+			world.addFreshEntity(minecartEntity);
 			//#if MC >= 11700
 			//$$ world.emitGameEvent(context.getPlayer(), net.minecraft.world.event.GameEvent.ENTITY_PLACE, context.getBlockPos());
 			//#endif
@@ -112,32 +112,32 @@ public class MinecartPlaceableOnGroundImpl
 			//$$ minecartEntity.setPos(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 			//$$ if (!isMinecartPositionValid(world, minecartEntity))
 			//#else
-			if (!isMinecartPositionValid(world, new MinecartEntity(world, vec3d.getX(), vec3d.getY(), vec3d.getZ())))
+			if (!isMinecartPositionValid(world, new Minecart(world, vec3d.x(), vec3d.y(), vec3d.z())))
 			//#endif
 			{
-				return ActionResult.FAIL;
+				return InteractionResult.FAIL;
 			}
 		}
 
-		itemStack.decrement(1);
+		itemStack.shrink(1);
 
 		//#if MC >= 12102
 		//$$ return world.isClient() ? ActionResult.SUCCESS : ActionResult.SUCCESS_SERVER;
 		//#elseif MC >= 11600
 		//$$ return ActionResult.success(world.isClient());
 		//#else
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 		//#endif
 	}
 
-	private static boolean isMinecartPositionValid(World world, AbstractMinecartEntity minecartEntity)
+	private static boolean isMinecartPositionValid(Level world, AbstractMinecart minecartEntity)
 	{
 		// reference: net.minecraft.item.BoatItem#use
-		return world.doesNotCollide(
+		return world.noCollision(
 				minecartEntity,
 				minecartEntity.getBoundingBox()
 						//#if MC < 11800
-						.expand(-0.1D)
+						.inflate(-0.1D)
 						//#endif
 		);
 	}

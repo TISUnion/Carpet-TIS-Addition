@@ -21,7 +21,7 @@
 package carpettisaddition.mixins.command.lifetime.spawning.item;
 
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.thrown.ThrownExperienceBottleEntity;
+import net.minecraft.world.entity.projectile.ThrownExperienceBottle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -32,10 +32,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 //$$ import org.spongepowered.asm.mixin.injection.Inject;
 //#else
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 //#endif
 
-@Mixin(ThrownExperienceBottleEntity.class)
+@Mixin(ThrownExperienceBottle.class)
 public abstract class ThrownExperienceBottleEntityMixin
 {
 	//#if MC >= 11700
@@ -56,10 +56,10 @@ public abstract class ThrownExperienceBottleEntityMixin
 	//$$ }
 	//#else
 	@ModifyArg(
-			method = "onCollision",
+			method = "onHit",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			),
 			index = 0
 	)

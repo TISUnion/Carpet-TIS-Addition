@@ -30,11 +30,11 @@ import carpettisaddition.commands.manipulate.entity.EntityManipulator;
 import carpettisaddition.utils.CarpetModUtil;
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 
 import java.util.List;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 public class ManipulateCommand extends AbstractCommand
 {
@@ -61,11 +61,11 @@ public class ManipulateCommand extends AbstractCommand
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{
-		LiteralArgumentBuilder<ServerCommandSource> root = literal(NAME).
+		LiteralArgumentBuilder<CommandSourceStack> root = literal(NAME).
 			requires(player -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandManipulate));
 
 		MANIPULATORS.forEach(m -> {
-			LiteralArgumentBuilder<ServerCommandSource> child = literal(m.getName());
+			LiteralArgumentBuilder<CommandSourceStack> child = literal(m.getName());
 			m.buildSubCommand(context.node(child));
 			root.then(child);
 		});

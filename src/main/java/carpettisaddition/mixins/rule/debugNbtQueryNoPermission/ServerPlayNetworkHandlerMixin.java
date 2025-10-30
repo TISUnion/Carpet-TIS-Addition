@@ -22,24 +22,24 @@ package carpettisaddition.mixins.rule.debugNbtQueryNoPermission;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ServerPlayNetworkHandler.class)
+@Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ServerPlayNetworkHandlerMixin
 {
 	@ModifyExpressionValue(
 			method = {
-					"onQueryBlockNbt",
-					"onQueryEntityNbt",
+					"handleBlockEntityTagQuery",
+					"handleEntityTagQuery",
 			},
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.21.11
 					//$$ target = "Lnet/minecraft/command/permission/PermissionPredicate;hasPermission(Lnet/minecraft/command/permission/Permission;)Z"
 					//#else
-					target = "Lnet/minecraft/server/network/ServerPlayerEntity;allowsPermissionLevel(I)Z"
+					target = "Lnet/minecraft/server/level/ServerPlayer;hasPermissions(I)Z"
 					//#endif
 			)
 	)

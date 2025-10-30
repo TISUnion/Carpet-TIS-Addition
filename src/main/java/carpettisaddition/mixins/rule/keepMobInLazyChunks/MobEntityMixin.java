@@ -24,20 +24,20 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"))
-@Mixin(MobEntity.class)
+@Mixin(Mob.class)
 public abstract class MobEntityMixin extends LivingEntity
 {
-	protected MobEntityMixin(EntityType<? extends LivingEntity> entityType_1, World world_1)
+	protected MobEntityMixin(EntityType<? extends LivingEntity> entityType_1, Level world_1)
 	{
 		super(entityType_1, world_1);
 	}
@@ -47,10 +47,10 @@ public abstract class MobEntityMixin extends LivingEntity
 	 * See also {@link ServerWorldMixin}
 	 */
 	@Inject(
-			method = "tickNewAi",
+			method = "serverAiStep",
 			at = @At(
 					value = "INVOKE_STRING",
-					target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V",
+					target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V",
 					args = "ldc=sensing"
 			)
 	)

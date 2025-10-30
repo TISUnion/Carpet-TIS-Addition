@@ -21,11 +21,11 @@
 package carpettisaddition.mixins.logger.commandblock;
 
 import carpettisaddition.logging.loggers.commandblock.CommandBlockLogger;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CommandBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.CommandBlockExecutor;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.CommandBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BaseCommandBlock;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,7 +45,7 @@ public abstract class CommandBlockMixin
 					//#if MC >= 1.21.11
 					//$$ target = "Lnet/minecraft/world/CommandBlockExecutor;execute(Lnet/minecraft/server/world/ServerWorld;)Z",
 					//#else
-					target = "Lnet/minecraft/world/CommandBlockExecutor;execute(Lnet/minecraft/world/World;)Z",
+					target = "Lnet/minecraft/world/level/BaseCommandBlock;performCommand(Lnet/minecraft/world/level/Level;)Z",
 					//#endif
 					shift = At.Shift.AFTER
 			)
@@ -55,9 +55,9 @@ public abstract class CommandBlockMixin
 			//#if MC >= 12102
 			//$$ ServerWorld world,
 			//#else
-			World world,
+			Level world,
 			//#endif
-			BlockPos pos, CommandBlockExecutor executor, boolean hasCommand,
+			BlockPos pos, BaseCommandBlock executor, boolean hasCommand,
 			CallbackInfo ci
 	)
 	{

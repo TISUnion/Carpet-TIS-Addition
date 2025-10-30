@@ -25,7 +25,7 @@ import carpettisaddition.commands.manipulate.AbstractManipulator;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.server.command.CommandManager.argument;
+import static net.minecraft.commands.Commands.argument;
 
 public class BlockManipulator extends AbstractManipulator
 {

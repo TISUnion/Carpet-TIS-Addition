@@ -30,7 +30,7 @@ import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoCli
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.WeightedPressurePlateBlock;
+import net.minecraft.world.level.block.WeightedPressurePlateBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -44,10 +44,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class WeightedPressurePlateBlockMixin
 {
 	@Inject(
-			method = "getRedstoneOutput(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)I",
+			method = "getSignalStrength(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)I",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getNonSpectatingEntities(Ljava/lang/Class;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
+					target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
 			)
 	)
 	private void dontDetectCreativeNoClipPlayers_weightedPressurePlate_enter(CallbackInfoReturnable<Integer> cir)
@@ -59,10 +59,10 @@ public abstract class WeightedPressurePlateBlockMixin
 	}
 
 	@Inject(
-			method = "getRedstoneOutput(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)I",
+			method = "getSignalStrength(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)I",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getNonSpectatingEntities(Ljava/lang/Class;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
+					target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;",
 					shift = At.Shift.AFTER
 			)
 	)
