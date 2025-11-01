@@ -1,13 +1,13 @@
 accessWidener	v1	named
 
-accessible  class   net/minecraft/village/raid/Raid$Status
-accessible  class   net/minecraft/server/command/FillCommand$Mode
-accessible  class   net/minecraft/server/world/ServerLightingProvider$Stage
-accessible  class   net/minecraft/world/SpawnDensityCapper$DensityCap
-accessible  class   net/minecraft/world/block/ChainRestrictedNeighborUpdater$Entry
-accessible  class   net/minecraft/world/chunk/PalettedContainer$Data
+accessible  class   net/minecraft/world/entity/raid/Raid$RaidStatus
+accessible  class   net/minecraft/server/commands/FillCommand$Mode
+accessible  class   net/minecraft/server/level/ThreadedLevelLightEngine$TaskType
+accessible  class   net/minecraft/world/level/LocalMobCapCalculator$MobCounts
+accessible  class   net/minecraft/world/level/redstone/CollectingNeighborUpdater$NeighborUpdates
+accessible  class   net/minecraft/world/level/chunk/PalettedContainer$Data
 
 # XXX: If without and use `targets = "xxxx"` instead, mixin will complain about "Mixin target xxxx is public and should be specified in value",
 # even if they are actually protected classes
-accessible  class   net/minecraft/block/entity/CalibratedSculkSensorBlockEntity$Callback
-accessible  class   net/minecraft/block/entity/SculkSensorBlockEntity$VibrationCallback
+accessible  class   net/minecraft/world/level/block/entity/CalibratedSculkSensorBlockEntity$VibrationUser
+accessible  class   net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
