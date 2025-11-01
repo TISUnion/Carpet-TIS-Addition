@@ -39,13 +39,8 @@ final enableLithiumInRuntime = false
 dependencies {
 	// loom
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.officialMojangMappings()
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	if (project.name.endsWith("-mojmap") || project.name == '1.15.2') {
-		mappings loom.officialMojangMappings()
-	} else {
-		mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	}
 
 	// mods
 	if (project.carpet_core_version.matches('^com.github.[a-zA-Z0-9_-]+:fabric-carpet:[a-z0-9]+$')) {
@@ -61,7 +56,9 @@ dependencies {
 			runtimeOnly "com.github.Fallen-Breath:Fabric-ASM:v2.0.1"  // v2.0 build fails
 		}
 	} else {
-		modCompileOnly "${project.lithium_dependency}"
+		modCompileOnly("${project.lithium_dependency}") {
+			exclude group: 'com.github.astei', module: 'lazydfu'
+		}
 	}
 
 	// runtime mods
