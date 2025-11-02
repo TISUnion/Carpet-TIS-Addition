@@ -52,7 +52,7 @@ public abstract class PlayerCommandMixin
 {
 	//#if MC >= 12000
 	//$$ @Shadow(remap = false)
-	//$$ private static int manipulate(CommandContext<ServerCommandSource> context, Consumer<EntityPlayerActionPack> action)
+	//$$ private static int manipulate(CommandContext<CommandSourceStack> context, Consumer<EntityPlayerActionPack> action)
 	//$$ {
 	//$$ 	return 0;
 	//$$ }

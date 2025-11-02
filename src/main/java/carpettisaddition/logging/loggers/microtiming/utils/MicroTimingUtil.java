@@ -171,7 +171,7 @@ public class MicroTimingUtil
 	public static boolean isBlockUpdateInstant(Level world)
 	{
 		//#if MC >= 11900
-		//$$ return ((WorldAccessor)world).getNeighborUpdater$TISCM() instanceof InstantNeighborUpdater;
+		//$$ return ((WorldAccessor)world).getNeighborUpdater$TISCM() instanceof ActualInstantNeighborUpdater;
 		//#else
 		return true;
 		//#endif

@@ -207,7 +207,7 @@ public abstract class WorldMixins
 				//#if MC >= 12102
 				//$$ method = "updateNeighbor(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
-				method = "neighborChanged",
+				method = "neighborChanged(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;)V",
 				//#endif
 				at = @At("HEAD")
 		)
@@ -233,7 +233,7 @@ public abstract class WorldMixins
 				//#if MC >= 12102
 				//$$ method = "updateNeighbor(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
-				method = "neighborChanged",
+				method = "neighborChanged(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;)V",
 				//#endif
 				at = @At("TAIL")
 		)
@@ -258,7 +258,7 @@ public abstract class WorldMixins
 		//$$ 		//#if MC >= 12102
 		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
 		//$$ 		//#else
-		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/core/BlockPos;Z)V",
+		//$$ 		method = "neighborChanged(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;Z)V",
 		//$$ 		//#endif
 		//$$ 		at = @At("HEAD")
 		//$$ )
@@ -288,7 +288,7 @@ public abstract class WorldMixins
 		//$$ 		//#if MC >= 12102
 		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
 		//$$ 		//#else
-		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/core/BlockPos;Z)V",
+		//$$ 		method = "neighborChanged(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;Z)V",
 		//$$ 		//#endif
 		//$$ 		at = @At("TAIL")
 		//$$ )
@@ -314,7 +314,7 @@ public abstract class WorldMixins
 	public static class SingleStateUpdateMixin
 	{
 		//#if MC >= 11900
-		//$$ @Inject(method = "replaceWithStateForNeighborUpdate", at = @At("HEAD"))
+		//$$ @Inject(method = "neighborShapeChanged", at = @At("HEAD"))
 		//$$ private void startStateUpdateSingleBlock(
 		//$$ 		CallbackInfo ci,
 		//$$ 		@Local(argsOnly = true) BlockState blockState,
@@ -336,7 +336,7 @@ public abstract class WorldMixins
 		//$$ 		);
 		//$$ 	}
 		//$$ }
-		//$$ @Inject(method = "replaceWithStateForNeighborUpdate", at = @At("HEAD"))
+		//$$ @Inject(method = "neighborShapeChanged", at = @At("HEAD"))
 		//$$ private void endStateUpdateSingleBlock(
 		//$$ 		CallbackInfo ci,
 		//$$ 		@Local(argsOnly = true) BlockState blockState,

@@ -44,7 +44,7 @@ public abstract class SpawnCommandMixin
 
 	@Shadow(remap = false)
 	//#if MC >= 12002
-	//$$ private static int startTracking(ServerCommandSource source, net.minecraft.util.math.BlockBox filter)
+	//$$ private static int startTracking(CommandSourceStack source, net.minecraft.util.math.BlockBox filter)
 	//#else
 	private static int startTracking(CommandSourceStack source, net.minecraft.core.BlockPos a, net.minecraft.core.BlockPos b)
 	//#endif

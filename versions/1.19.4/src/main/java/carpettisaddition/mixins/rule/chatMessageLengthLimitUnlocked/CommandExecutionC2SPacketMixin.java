@@ -47,7 +47,7 @@ public abstract class CommandExecutionC2SPacketMixin
 	}
 
 	@ModifyArg(
-			method = "<init>",
+			method = "<init>(Lnet/minecraft/network/FriendlyByteBuf;)V",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/network/FriendlyByteBuf;readUtf(I)Ljava/lang/String;"

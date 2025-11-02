@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(SignedMessageBody.Serialized.class)
+@Mixin(SignedMessageBody.Packed.class)
 public abstract class MessageBodySerializedMixin
 {
 	@ModifyArg(
@@ -47,7 +47,7 @@ public abstract class MessageBodySerializedMixin
 	}
 
 	@ModifyArg(
-			method = "<init>",
+			method = "<init>(Lnet/minecraft/network/FriendlyByteBuf;)V",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/network/FriendlyByteBuf;readUtf(I)Ljava/lang/String;"

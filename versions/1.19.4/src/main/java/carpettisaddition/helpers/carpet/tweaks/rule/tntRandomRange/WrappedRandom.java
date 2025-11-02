@@ -23,36 +23,37 @@ package carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange;
 import carpet.CarpetSettings;
 import carpettisaddition.utils.GameUtils;
 
-import java.util.Random;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.PositionalRandomFactory;
 
 /**
  * A wrapped Random class for controlling the result of nextFloat() during method collectBlocksAndDamageEntities
  * With this the tntRandomRange rule in Carpet works with/without any vanilla explosion optimization mod implementation
- *
+ * <p>
  * In vanilla it only invokes this.world.random.nextFloat() in method collectBlocksAndDamageEntities, so it's fine
  * to just override the nextFloat in this class
- *
+ * <p>
  * If other mods uses world random inside this method, the result might not be the same with vanilla, but it's
  * already modded so whatever
- *
- * mc1.14 ~ mc1.18.2: subproject 1.15.2 (main project)        <--------
- * mc1.19+          : subproject 1.19.4
+ * <p>
+ * mc1.14 ~ mc1.18.2: subproject 1.15.2 (main project)
+ * mc1.19+          : subproject 1.19.4        <--------
  */
-public class WrappedRandom extends Random
+public class WrappedRandom implements RandomSource
 {
-	private final Random random;
+	private final RandomSource random;
 
-	private WrappedRandom(Random random)
+	private WrappedRandom(RandomSource random)
 	{
 		this.random = random;
 	}
 
-	public static WrappedRandom wrap(Random random)
+	public static WrappedRandom wrap(RandomSource random)
 	{
 		return new WrappedRandom(random);
 	}
 
-	public Random unwrap()
+	public RandomSource unwrap()
 	{
 		return this.random;
 	}
@@ -62,5 +63,59 @@ public class WrappedRandom extends Random
 	{
 		float vanillaResult = this.random.nextFloat();  // to make sure world random gets triggered too
 		return CarpetSettings.tntRandomRange >= 0 && GameUtils.isOnServerThread() ? (float)CarpetSettings.tntRandomRange : vanillaResult;
+	}
+
+	@Override
+	public RandomSource fork()
+	{
+		return this.random.fork();
+	}
+
+	@Override
+	public PositionalRandomFactory forkPositional()
+	{
+		return this.random.forkPositional();
+	}
+
+	@Override
+	public void setSeed(long seed)
+	{
+		this.random.setSeed(seed);
+	}
+
+	@Override
+	public int nextInt()
+	{
+		return this.random.nextInt();
+	}
+
+	@Override
+	public int nextInt(int bound)
+	{
+		return this.random.nextInt(bound);
+	}
+
+	@Override
+	public long nextLong()
+	{
+		return this.random.nextLong();
+	}
+
+	@Override
+	public boolean nextBoolean()
+	{
+		return this.random.nextBoolean();
+	}
+
+	@Override
+	public double nextDouble()
+	{
+		return this.random.nextDouble();
+	}
+
+	@Override
+	public double nextGaussian()
+	{
+		return this.random.nextGaussian();
 	}
 }

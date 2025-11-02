@@ -65,6 +65,11 @@ import java.util.function.Consumer;
 //$$ import net.minecraft.core.Holder;
 //#endif
 
+//#if MC >= 11900
+//$$ import net.minecraft.network.chat.contents.TranslatableContents;
+//$$ import net.minecraft.network.chat.contents.TranslatableFormatException;
+//#endif
+
 //#if MC >= 11600 && MC < 11900
 //$$ import net.minecraft.Util;
 //#endif
@@ -93,14 +98,14 @@ public class Messenger
 	 */
 	public static
 	//#if MC >= 11900
-	//$$ TextContent
+	//$$ ComponentContents
 	//#else
 	BaseComponent
 	//#endif
 	getTextContent(BaseComponent text)
 	{
 		//#if MC >= 11900
-		//$$ return text.getContent();
+		//$$ return text.getContents();
 		//#else
 		return text;
 		//#endif
@@ -117,7 +122,7 @@ public class Messenger
 	{
 		return
 				//#if MC >= 11900
-				//$$ (MutableText)
+				//$$ (MutableComponent)
 				//#endif
 				carpet.utils.Messenger.c(fields);
 	}
@@ -127,7 +132,7 @@ public class Messenger
 	{
 		return
 				//#if MC >= 11900
-				//$$ Text.literal
+				//$$ Component.literal
 				//#else
 				new TextComponent
 				//#endif
@@ -234,7 +239,7 @@ public class Messenger
 	{
 		return
 				//#if MC >= 11900
-				//$$ Text.translatable
+				//$$ Component.translatable
 				//#else
 				new TranslatableComponent
 				//#endif
@@ -304,7 +309,7 @@ public class Messenger
 				(TranslatableTextAccessor)(
 						tr(formatter, args)
 						//#if MC >= 11900
-						//$$ .getContent()
+						//$$ .getContents()
 						//#endif
 				);
 		try
@@ -327,14 +332,14 @@ public class Messenger
 					//$$ 		stream().map(stringVisitable -> {
 					//$$ 			if (stringVisitable instanceof
 										//#if MC >= 11900
-										//$$ Text
+										//$$ Component
 										//#else
 										//$$ BaseComponent
 										//#endif
 					//$$ 			)
 					//$$ 			{
 									//#if MC >= 11900
-									//$$ return (Text)stringVisitable;
+									//$$ return (Component)stringVisitable;
 									//#else
 									//$$ return (BaseComponent)stringVisitable;
 									//#endif
@@ -747,7 +752,7 @@ public class Messenger
 		if (CarpetTISAdditionServer.minecraft_server != null)
 		{
 			//#if MC >= 11900
-			//$$ CarpetTISAdditionServer.minecraft_server.sendMessage(text);
+			//$$ CarpetTISAdditionServer.minecraft_server.sendSystemMessage(text);
 			//#elseif MC >= 11600
 			//$$ CarpetTISAdditionServer.minecraft_server.sendMessage(text, Util.NIL_UUID);
 			//#else

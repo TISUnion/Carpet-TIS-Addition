@@ -44,106 +44,106 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ChainRestrictedNeighborUpdaterMixins
 {
 	@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-	@Mixin(targets = "net.minecraft.world.block.ChainRestrictedNeighborUpdater$SimpleEntry")
+	@Mixin(targets = "net.minecraft.world.level.redstone.CollectingNeighborUpdater$SimpleNeighborUpdate")
 	public static class SimpleEntryMixin
 	{
-		@Shadow @Final private Block sourceBlock;
+		@Shadow @Final private Block block;
 		@Shadow @Final private BlockPos pos;
 
-		@Inject(method = "update", at = @At("HEAD"))
+		@Inject(method = "runNext", at = @At("HEAD"))
 		private void startBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
+			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
 		}
 
-		@Inject(method = "update", at = @At("TAIL"))
+		@Inject(method = "runNext", at = @At("TAIL"))
 		private void endBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
+			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
 		}
 	}
 
 	@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-	@Mixin(targets = "net.minecraft.world.block.ChainRestrictedNeighborUpdater$StatefulEntry")
+	@Mixin(targets = "net.minecraft.world.level.redstone.CollectingNeighborUpdater$FullNeighborUpdate")
 	public static class StatefulEntryMixin
 	{
-		@Shadow @Final private Block sourceBlock;
+		@Shadow @Final private Block block;
 		@Shadow @Final private BlockPos pos;
 
-		@Inject(method = "update", at = @At("HEAD"))
+		@Inject(method = "runNext", at = @At("HEAD"))
 		private void startBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
+			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
 		}
 
-		@Inject(method = "update", at = @At("TAIL"))
+		@Inject(method = "runNext", at = @At("TAIL"))
 		private void endBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
+			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.block, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
 		}
 	}
 
 	@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-	@Mixin(targets = "net.minecraft.world.block.ChainRestrictedNeighborUpdater$SixWayEntry")
+	@Mixin(targets = "net.minecraft.world.level.redstone.CollectingNeighborUpdater$MultiNeighborUpdate")
 	public static class SixWayEntryMixin
 	{
 		@Shadow @Final private Block sourceBlock;
-		@Shadow @Final private BlockPos pos;
-		@Shadow @Final private Direction except;
+		@Shadow @Final private BlockPos sourcePos;
+		@Shadow @Final private Direction skipDirection;
 
 		private boolean hasTriggeredStartEvent$TISCM = false;
 
-		@Inject(method = "update", at = @At("HEAD"))
+		@Inject(method = "runNext", at = @At("HEAD"))
 		private void startBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			if (!this.hasTriggeredStartEvent$TISCM)
 			{
 				this.hasTriggeredStartEvent$TISCM = true;
-				if (this.except == null)
+				if (this.skipDirection == null)
 				{
-					MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_START);
+					MicroTimingLoggerManager.onBlockUpdate(world, this.sourcePos, this.sourceBlock, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_START);
 				}
 				else
 				{
-					MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, this.except, EventType.ACTION_START);
+					MicroTimingLoggerManager.onBlockUpdate(world, this.sourcePos, this.sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, this.skipDirection, EventType.ACTION_START);
 				}
 			}
 		}
 
-		@Inject(method = "update", at = @At("TAIL"))
+		@Inject(method = "runNext", at = @At("TAIL"))
 		private void endBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			if (!cir.getReturnValue())  // it's finished, returning false
 			{
-				if (this.except == null)
+				if (this.skipDirection == null)
 				{
-					MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_END);
+					MicroTimingLoggerManager.onBlockUpdate(world, this.sourcePos, this.sourceBlock, BlockUpdateType.BLOCK_UPDATE, null, EventType.ACTION_END);
 				}
 				else
 				{
-					MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, this.except, EventType.ACTION_END);
+					MicroTimingLoggerManager.onBlockUpdate(world, this.sourcePos, this.sourceBlock, BlockUpdateType.BLOCK_UPDATE_EXCEPT, this.skipDirection, EventType.ACTION_END);
 				}
 			}
 		}
 	}
 
 	@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-	@Mixin(targets = "net.minecraft.world.block.ChainRestrictedNeighborUpdater$StateReplacementEntry")
+	@Mixin(targets = "net.minecraft.world.level.redstone.CollectingNeighborUpdater$ShapeUpdate")
 	public static class StateReplacementEntryMixin
 	{
-		@Shadow @Final private BlockState neighborState;
+		@Shadow @Final private BlockState state;
 		@Shadow @Final private BlockPos neighborPos;
 
-		@Inject(method = "update", at = @At("HEAD"))
+		@Inject(method = "runNext", at = @At("HEAD"))
 		private void startStateUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.neighborState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START);
+			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.state.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START);
 		}
 
-		@Inject(method = "update", at = @At("TAIL"))
+		@Inject(method = "runNext", at = @At("TAIL"))
 		private void endStateUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.neighborState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END);
+			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.state.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END);
 		}
 	}
 }

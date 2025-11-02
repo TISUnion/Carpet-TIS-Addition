@@ -33,7 +33,7 @@ public class InstantBlockUpdaterChanger
 		if (server != null)
 		{
 			server.execute(() -> {
-				for (ServerLevel world : server.getWorlds())
+				for (ServerLevel world : server.getAllLevels())
 				{
 					((NeighborUpdaterChangeableWorld)world).setUseInstantNeighborUpdater$TISCM(useInstant);
 				}

@@ -80,7 +80,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	@ModifyVariable(
 			method = {
 					//#if MC >= 11901
-					//$$ "sendMessageToClient",
+					//$$ "sendSystemMessage(Lnet/minecraft/network/chat/Component;Z)V",
 					//#elseif MC >= 11600
 					//$$ "displayClientMessage",
 					//$$ "sendMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V",

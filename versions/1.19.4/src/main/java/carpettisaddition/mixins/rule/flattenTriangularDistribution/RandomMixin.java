@@ -32,12 +32,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-@Mixin(Random.class)
+@Mixin(RandomSource.class)
 public interface RandomMixin
 {
 	@Shadow double nextDouble();
 
-	@Inject(method = "nextTriangular*", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "triangle", at = @At("HEAD"), cancellable = true)
 	default void nextTriangular(double mode, double deviation, CallbackInfoReturnable<Double> cir)
 	{
 		if (CarpetTISAdditionSettings.flattenTriangularDistribution)

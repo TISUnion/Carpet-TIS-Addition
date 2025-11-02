@@ -124,7 +124,7 @@ public abstract class TrajectoryLogHelperMixin
 	private void projectileLoggerEnhance(
 			String option,
 			//#if MC >= 11900
-			//$$ CallbackInfoReturnable<Text[]> cir
+			//$$ CallbackInfoReturnable<Component[]> cir
 			//#else
 			CallbackInfoReturnable<BaseComponent[]> cir
 			//#endif
@@ -229,7 +229,7 @@ public abstract class TrajectoryLogHelperMixin
 		}
 		cir.setReturnValue(comp.toArray(
 				//#if MC >= 11900
-				//$$ new Text[0]
+				//$$ new Component[0]
 				//#else
 				new BaseComponent[0]
 				//#endif

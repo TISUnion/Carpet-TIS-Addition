@@ -38,9 +38,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 11900
-//#disable-remap
 //$$ import net.minecraft.util.RandomSource;
-//#enable-remap
 //#else
 import java.util.Random;
 //#endif
@@ -49,7 +47,9 @@ import java.util.Random;
 public abstract class CommandBlockMixin
 {
 	@Shadow public abstract void
-	//#if MC >= 11500
+	//#if MC >= 11900
+	//$$ tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random);
+	//#elseif MC >= 11500
 	tick(BlockState state, ServerLevel world, BlockPos pos, Random random);
 	//#else
 	//$$ tick(BlockState state, Level world, BlockPos pos, Random random);

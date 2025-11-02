@@ -20,7 +20,7 @@
 
 package carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced;
 
-import carpettisaddition.logging.loggers.microtiming.utils.InstantNeighborUpdater;
+import carpettisaddition.logging.loggers.microtiming.utils.ActualInstantNeighborUpdater;
 import carpettisaddition.mixins.rule.instantBlockUpdaterReintroduced.ChainRestrictedNeighborUpdaterAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * It should override all public methods of {@link CollectingNeighborUpdater} whose behavior differs from that of {@link InstantNeighborUpdater}
  */
-public class InstantChainRestrictedNeighborUpdater extends CollectingNeighborUpdater implements InstantNeighborUpdater
+public class InstantChainRestrictedNeighborUpdater extends CollectingNeighborUpdater implements ActualInstantNeighborUpdater
 {
 	private final InstantNeighborUpdater simpleNeighborUpdater;
 

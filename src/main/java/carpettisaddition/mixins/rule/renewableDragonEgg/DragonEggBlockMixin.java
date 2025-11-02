@@ -38,9 +38,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.List;
 
 //#if MC >= 11900
-//#disable-remap
 //$$ import net.minecraft.util.RandomSource;
-//#enable-remap
 //#else
 import java.util.Random;
 //#endif
@@ -65,7 +63,9 @@ public abstract class DragonEggBlockMixin extends Block
 	@SuppressWarnings("deprecation")
 	@Intrinsic
 	@Override
-	//#if MC >= 11500
+	//#if MC >= 11900
+	//$$ public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random)
+	//#elseif MC >= 11500
 	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random)
 	//#else
 	//$$ public void randomTick(BlockState state, Level world, BlockPos pos, Random random)
@@ -74,9 +74,14 @@ public abstract class DragonEggBlockMixin extends Block
 		renewableDragonEggImpl(state, world, pos, random);
 	}
 
-	//#disable-remap
-	private void renewableDragonEggImpl(BlockState state, Level world, BlockPos pos, Random random)
-	//#enable-remap
+	private void renewableDragonEggImpl(
+			BlockState state, Level world, BlockPos pos,
+			//#if MC >= 11900
+			//$$ RandomSource random
+			//#else
+			Random random
+			//#endif
+	)
 	{
 		if (CarpetTISAdditionSettings.renewableDragonEgg && random.nextInt(64) == 0)
 		{

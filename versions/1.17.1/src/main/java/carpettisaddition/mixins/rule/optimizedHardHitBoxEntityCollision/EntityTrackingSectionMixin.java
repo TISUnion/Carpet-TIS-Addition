@@ -112,12 +112,14 @@ public abstract class EntityTrackingSectionMixin<
 	 * -
 	 *   (<=1.17)         {@link EntitySection#getEntities(java.util.function.Predicate, java.util.function.Consumer)}
 	 *   (>=1.18 <1.19.3) {@link EntitySection#getEntities(net.minecraft.world.phys.AABB, java.util.function.Consumer)}
-	 *   (>=1.19.3)       {@link EntitySection#getEntities(AABB, net.minecraft.util.function.LazyIterationConsumer)}
+	 *   (>=1.19.3)       {@link EntitySection#getEntities(AABB, net.minecraft.util.AbortableIterationConsumer)}
 	 *
 	 * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	 */
 	@ModifyExpressionValue(
-			//#if MC >= 1.18.2
+			//#if MC >= 1.19.3
+			//$$ method = "getEntities(Lnet/minecraft/world/phys/AABB;Lnet/minecraft/util/AbortableIterationConsumer;)Lnet/minecraft/util/AbortableIterationConsumer$Continuation;",
+			//#elseif MC >= 1.18.2
 			//$$ method = "getEntities(Lnet/minecraft/world/phys/AABB;Ljava/util/function/Consumer;)V",
 			//#else
 			method = "getEntities(Ljava/util/function/Predicate;Ljava/util/function/Consumer;)V",

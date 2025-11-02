@@ -50,14 +50,14 @@ public class ParsedRuleMixin<T>
 {
 	@Inject(
 			//#if MC >= 11901
-			//$$ method = "set(Lnet/minecraft/server/command/ServerCommandSource;Ljava/lang/Object;Ljava/lang/String;)V",
+			//$$ method = "set(Lnet/minecraft/commands/CommandSourceStack;Ljava/lang/Object;Ljava/lang/String;)V",
 			//#else
 			method = "set(Lnet/minecraft/commands/CommandSourceStack;Ljava/lang/Object;Ljava/lang/String;)Lcarpet/settings/ParsedRule;",
 			//#endif
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					//#if MC >= 11901
-					//$$ target = "Lcarpet/api/settings/Validator;validate(Lnet/minecraft/server/command/ServerCommandSource;Lcarpet/api/settings/CarpetRule;Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;",
+					//$$ target = "Lcarpet/api/settings/Validator;validate(Lnet/minecraft/commands/CommandSourceStack;Lcarpet/api/settings/CarpetRule;Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;",
 					//#else
 					target = "Lcarpet/settings/Validator;validate(Lnet/minecraft/commands/CommandSourceStack;Lcarpet/settings/ParsedRule;Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;",
 					//#endif

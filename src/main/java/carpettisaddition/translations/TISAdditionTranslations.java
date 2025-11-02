@@ -124,7 +124,7 @@ public class TISAdditionTranslations
 		return forEachTISCMTranslationText(Messenger.copy(text), lang, (txt, msgKeyString) -> {
 
 			//#if MC >= 11900
-			//$$ TranslatableTextContent content = (TranslatableTextContent) txt.getContent();
+			//$$ TranslatableContents content = (TranslatableContents)txt.getContents();
 			//$$ String txtKey = content.getKey();
 			//$$ Object[] txtArgs = content.getArgs();
 			//#else
@@ -160,14 +160,14 @@ public class TISAdditionTranslations
 	{
 		if (
 				//#if MC >= 11900
-				//$$ text.getContent() instanceof TranslatableTextContent
+				//$$ text.getContents() instanceof TranslatableContents
 				//#else
 				text instanceof TranslatableComponent
 				//#endif
 		)
 		{
 			//#if MC >= 11900
-			//$$ TranslatableTextContent translatableText = (TranslatableTextContent)text.getContent();
+			//$$ TranslatableContents translatableText = (TranslatableContents)text.getContents();
 			//#else
 			TranslatableComponent translatableText = (TranslatableComponent)text;
 			//#endif
@@ -262,7 +262,7 @@ public class TISAdditionTranslations
 	{
 		BaseComponent apply(
 				//#if MC >= 11900
-				//$$ MutableText translatableText,
+				//$$ MutableComponent translatableText,
 				//#else
 				TranslatableComponent translatableText,
 				//#endif

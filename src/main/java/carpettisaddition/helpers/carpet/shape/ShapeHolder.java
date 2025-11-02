@@ -57,7 +57,7 @@ public class ShapeHolder<T extends ShapeDispatcher.ExpiringShape>
 		((ExpiringShapeInvoker)this.shape).callInit(
 				this.params
 				//#if MC >= 11903
-				//$$ , CarpetTISAdditionServer.minecraft_server.getRegistryManager()
+				//$$ , CarpetTISAdditionServer.minecraft_server.registryAccess()
 				//#endif
 		);
 	}

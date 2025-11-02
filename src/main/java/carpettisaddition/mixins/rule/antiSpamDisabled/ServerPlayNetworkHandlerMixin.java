@@ -41,7 +41,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 
 	@Inject(
 			//#if MC >= 11900
-			//$$ method = "checkForSpam",
+			//$$ method = "detectRateSpam",
 			//#elseif MC >= 11700
 			//$$ method = "handleChat(Lnet/minecraft/server/network/TextFilter$FilteredText;)V",
 			//#elseif MC >= 11600

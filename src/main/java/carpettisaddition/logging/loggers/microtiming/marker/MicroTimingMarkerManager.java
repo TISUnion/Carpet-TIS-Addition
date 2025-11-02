@@ -179,7 +179,7 @@ public class MicroTimingMarkerManager extends TranslationContext
 							flatMap(marker -> marker.getShapeDataList(display).stream()).
 							collect(Collectors.toList())
 					//#if MC >= 12005
-					//$$ , playerList.get(0).getRegistryManager()
+					//$$ , playerList.get(0).registryAccess()
 					//#endif
 			);
 		}

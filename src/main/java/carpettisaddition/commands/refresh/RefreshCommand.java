@@ -60,11 +60,12 @@ import static net.minecraft.commands.Commands.literal;
 //$$ import net.minecraft.core.SectionPos;
 //#endif
 
-//#if MC >= 11600
-//$$ import net.minecraft.network.protocol.game.ClientboundChatPacket;
-//#if MC < 11900
+//#if MC >= 11600 && MC < 11900
 //$$ import net.minecraft.Util;
 //#endif
+
+//#if MC >= 11901
+//$$ import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 //#else
 import net.minecraft.network.protocol.game.ClientboundChatPacket;
 //#endif
@@ -209,7 +210,7 @@ public class RefreshCommand extends AbstractCommand
 		player.connection.send(
 		//#endif
 				//#if MC >= 11901
-				//$$ new ClientboundChatPacket(message, false),
+				//$$ new ClientboundSystemChatPacket(message, false),
 				//#elseif MC >= 11600
 				//$$ new ClientboundChatPacket(message, ChatType.SYSTEM, Util.NIL_UUID),
 				//#else
@@ -217,7 +218,7 @@ public class RefreshCommand extends AbstractCommand
 				//#endif
 
 				//#if MC >= 11901
-				//$$ PacketSendListener.always(() -> {
+				//$$ PacketSendListener.thenRun(() -> {
 				//#else
 				future -> {
 				//#endif

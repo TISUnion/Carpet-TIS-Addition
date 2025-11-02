@@ -35,10 +35,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class PoweredRailBlockMixin
 {
 	@Inject(
-			method = "updateBlockState",
+			method = "updateState",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/level/Level;setBlockState(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/BlockState;I)Z",
+					target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
 					ordinal = 0
 			),
 			cancellable = true
@@ -52,7 +52,7 @@ public abstract class PoweredRailBlockMixin
 	{
 		if (UpdateSkippingSimulator.isActivated())
 		{
-			if (!newPoweredState && world.getBlockState(pos.down()).getBlock() == Blocks.DEEPSLATE_LAPIS_ORE)
+			if (!newPoweredState && world.getBlockState(pos.below()).getBlock() == Blocks.DEEPSLATE_LAPIS_ORE)
 			{
 				UpdateSkippingSimulator.kaboom(world, pos);
 				ci.cancel();

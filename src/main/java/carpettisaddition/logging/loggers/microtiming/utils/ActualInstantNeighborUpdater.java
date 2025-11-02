@@ -20,7 +20,7 @@
 
 package carpettisaddition.logging.loggers.microtiming.utils;
 
-public interface InstantNeighborUpdater
+public interface ActualInstantNeighborUpdater
 {
 	// impl in mc1.21.9+
 }

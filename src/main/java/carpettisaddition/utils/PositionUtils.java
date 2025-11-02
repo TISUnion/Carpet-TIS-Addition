@@ -29,7 +29,7 @@ public class PositionUtils
 	public static BlockPos flooredBlockPos(Vec3 vec3d)
 	{
 		//#if MC >= 11904
-		//$$ return BlockPos.ofFloored(vec3d);
+		//$$ return BlockPos.containing(vec3d);
 		//#else
 		return new BlockPos(vec3d);
 		//#endif

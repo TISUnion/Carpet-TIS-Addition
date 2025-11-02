@@ -33,7 +33,7 @@ public abstract class CarvedPumpkinBlockMixin
 {
 	@ModifyArg(
 			//#if MC >= 11903
-			//$$ method = "spawnEntity",
+			//$$ method = "spawnGolemInWorld",
 			//#else
 			method = "trySpawnGolem",
 			//#endif

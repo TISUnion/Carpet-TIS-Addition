@@ -32,11 +32,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 // used in 1.19 <= mc < 1.20.2
-@Mixin(targets = "net.minecraft.world.block.ChainRestrictedNeighborUpdater$SixWayEntry")
+@Mixin(targets = "net.minecraft.world.level.redstone.CollectingNeighborUpdater$MultiNeighborUpdate")
 public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
 {
 	@WrapOperation(
-			method = "update",
+			method = "runNext",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/state/BlockState;neighborChanged(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;Z)V"

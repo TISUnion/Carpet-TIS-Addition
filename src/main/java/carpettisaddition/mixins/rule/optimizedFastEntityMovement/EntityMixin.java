@@ -66,7 +66,7 @@ public abstract class EntityMixin
 	//$$ private static final ThreadLocal<Boolean> movementOk = ThreadLocal.withInitial(() -> false);
 	//$$
 	//$$ @ModifyVariable(
-	//$$ 		method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/level/Level;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
+	//$$ 		method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/level/Level;Ljava/util/List;)Lnet/minecraft/world/phys/Vec3;",
 	//$$ 		at = @At("HEAD"),
 	//$$ 		argsOnly = true
 	//$$ )

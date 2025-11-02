@@ -201,7 +201,8 @@ public class OptionParser
 					//#if MC >= 11904
 					//$$ if (catalogue == null || catalogue.equals(IdentifierUtils.ofVanilla("damage_type")))
 					//$$ {
-					//$$ 	if (identifier != null && Objects.equals(source.getTypeRegistryEntry().getKey().map(k -> k.getValue()).orElse(null), identifier))
+					//$$ 	var sourceId = source.typeHolder().unwrapKey().map(k -> k.location()).orElse(null);
+					//$$ 	if (identifier != null && Objects.equals(sourceId, identifier))
 					//$$ 	{
 					//$$ 		return true;
 					//$$ 	}

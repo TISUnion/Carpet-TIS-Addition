@@ -50,11 +50,11 @@ public abstract class PlayerCommandMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12003
-					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;Z)Z"
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/world/phys/Vec3;DDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;Z)Z"
 					//#elseif MC >= 12002
-					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;ZLjava/lang/Runnable;)V"
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/world/phys/Vec3;DDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;ZLjava/lang/Runnable;)V"
 					//#elseif MC >= 12000
-					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;Z)Lcarpet/patches/EntityPlayerMPFake;"
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/world/phys/Vec3;DDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;Z)Lcarpet/patches/EntityPlayerMPFake;"
 					//#elseif MC >= 11600
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;DDDDDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;Z)Lcarpet/patches/EntityPlayerMPFake;"
 					//#else

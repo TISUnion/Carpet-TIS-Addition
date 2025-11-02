@@ -27,12 +27,12 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(CollectingNeighborUpdater.class)
 public interface ChainRestrictedNeighborUpdaterAccessor
 {
-	@Accessor("maxChainDepth")
+	@Accessor("maxChainedNeighborUpdates")
 	int getMaxChainDepth$TISCM();
 
-	@Accessor("depth")
+	@Accessor("count")
 	int getDepth$TISCM();
 
-	@Accessor("depth")
+	@Accessor("count")
 	void setDepth$TISCM(int depth);
 }

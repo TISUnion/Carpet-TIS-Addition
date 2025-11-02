@@ -109,7 +109,7 @@ public class TISCMServerPacketHandler
 			//#endif
 					packetId.packet(payloadBuilder),
 					//#if MC >= 11900
-					//$$ net.minecraft.network.PacketCallbacks.always(doneCallback::run)
+					//$$ net.minecraft.network.PacketSendListener.thenRun(doneCallback::run)
 					//#else
 					f -> doneCallback.run()
 					//#endif

@@ -36,7 +36,9 @@ public interface WorldAccessor
 {
 	@Mutable
 	@Accessor
-	//#disable-remap
+	//#if MC >= 11900
+	//$$ void setRandom(RandomSource random);
+	//#else
 	void setRandom(Random random);
-	//#enable-remap
+	//#endif
 }

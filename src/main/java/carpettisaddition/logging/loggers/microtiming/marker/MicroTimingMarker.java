@@ -197,7 +197,7 @@ public class MicroTimingMarker
 				MicroTimingUtil.getSubscribedPlayers(),
 				this.getShapeDataList(true)
 				//#if MC >= 12005
-				//$$ , this.serverWorld.getRegistryManager()
+				//$$ , this.serverWorld.registryAccess()
 				//#endif
 		);
 	}
@@ -208,7 +208,7 @@ public class MicroTimingMarker
 				MicroTimingUtil.getSubscribedPlayers(),
 				this.getShapeDataList(false)
 				//#if MC >= 12005
-				//$$ , this.serverWorld.getRegistryManager()
+				//$$ , this.serverWorld.registryAccess()
 				//#endif
 		);
 	}

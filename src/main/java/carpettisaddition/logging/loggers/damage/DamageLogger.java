@@ -111,7 +111,7 @@ public class DamageLogger extends AbstractLogger
 			// to avoid spamming
 			boolean isFire =
 					//#if MC >= 11904
-					//$$ this.damageSource.isIn(DamageTypeTags.IS_FIRE);
+					//$$ this.damageSource.is(DamageTypeTags.IS_FIRE);
 					//#else
 					this.damageSource.isFire();
 					//#endif
@@ -175,7 +175,7 @@ public class DamageLogger extends AbstractLogger
 						//$$ sourceHoverTextList.add(Messenger.c(
 						//$$ 		tr("type"),
 						//$$ 		"w : ",
-						//$$ 		Messenger.s(this.damageSource.getTypeRegistryEntry().getKey().map(key -> key.getValue().toString()).orElse("[unregistered]"))
+						//$$ 		Messenger.s(this.damageSource.typeHolder().unwrapKey().map(key -> key.location().toString()).orElse("[unregistered]"))
 						//$$ ));
 						//#endif
 						if (source != null)

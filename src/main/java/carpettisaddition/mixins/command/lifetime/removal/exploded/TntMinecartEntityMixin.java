@@ -32,9 +32,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class TntMinecartEntityMixin
 {
 	@Inject(
-
 			//#if MC >= 11903
-			//$$ method = "explode(Lnet/minecraft/entity/damage/DamageSource;D)V",
+			//$$ method = "explode(Lnet/minecraft/world/damagesource/DamageSource;D)V",
 			//#else
 			method = "explode",
 			//#endif

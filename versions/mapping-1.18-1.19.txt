@@ -6,6 +6,5 @@ carpet.settings.RuleCategory carpet.api.settings.RuleCategory
 carpet.settings.SettingsManager carpet.api.settings.SettingsManager
 carpet.settings.Validator carpet.api.settings.Validator
 
-net.minecraft.text.BaseText net.minecraft.text.MutableText
-net.minecraft.util.registry.Registry net.minecraft.registry.Registries
-net.minecraft.world.dimension.DimensionType isUltrawarm() ultrawarm()
+net.minecraft.network.chat.BaseComponent net.minecraft.network.chat.MutableComponent
+net.minecraft.core.Registry net.minecraft.core.registries.BuiltInRegistries

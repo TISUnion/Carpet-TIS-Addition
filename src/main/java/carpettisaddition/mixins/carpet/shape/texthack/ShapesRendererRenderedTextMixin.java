@@ -118,13 +118,13 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	)
 	private
 	//#if MC >= 11904
-	//$$ Font.TextLayerType
+	//$$ Font.DisplayMode
 	//#else
 	boolean
 	//#endif
 	seeThroughWhenNecessary(
 			//#if MC >= 11904
-			//$$ Font.TextLayerType value
+			//$$ Font.DisplayMode value
 			//#else
 			boolean value
 			//#endif
@@ -132,7 +132,7 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	{
 		return this.isMicroTimingMarkerText() ?
 				//#if MC >= 11904
-				//$$ Font.TextLayerType.SEE_THROUGH :
+				//$$ Font.DisplayMode.SEE_THROUGH :
 				//#else
 				true :
 				//#endif

@@ -48,7 +48,7 @@ public abstract class FillCommandMixin
 	//$$ private static CommandBuildContext currentCommandBuildContext$TISCM = null;
  //$$
 	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
-	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandBuildContext commandBuildContext, CallbackInfo ci)
+	//$$ private static void storeCommandBuildContext(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext, CallbackInfo ci)
 	//$$ {
 	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
 	//$$ }

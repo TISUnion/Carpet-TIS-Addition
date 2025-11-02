@@ -92,7 +92,7 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 			//#endif
 
 			//#if MC >= 11900
-			//$$ CallbackInfoReturnable<Text[]> cir
+			//$$ CallbackInfoReturnable<Component[]> cir
 			//#else
 			CallbackInfoReturnable<BaseComponent[]> cir
 			//#endif

@@ -49,7 +49,7 @@ public abstract class InfoCommandMixin
 	private static LiteralArgumentBuilder<CommandSourceStack> extendsInfoCommand(
 			LiteralArgumentBuilder<CommandSourceStack> builder
 			//#if MC >= 11900
-			//$$ , CommandDispatcher<ServerCommandSource> dispatcher, CommandBuildContext commandBuildContext
+			//$$ , CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext
 			//#endif
 	)
 	{

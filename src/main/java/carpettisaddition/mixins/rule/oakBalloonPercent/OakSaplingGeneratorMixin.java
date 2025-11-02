@@ -51,7 +51,12 @@ public abstract class OakSaplingGeneratorMixin
 			)
 	)
 	private int oakBalloonPercent_modifyRandomResult(
-			int randomResult, Random random
+			int randomResult,
+			//#if MC >= 11900
+			//$$ RandomSource random
+			//#else
+			Random random
+			//#endif
 			//#if MC >= 11500
 			, boolean bee
 			//#endif

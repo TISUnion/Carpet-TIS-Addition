@@ -20,9 +20,9 @@
 
 package carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced;
 
-import carpettisaddition.logging.loggers.microtiming.utils.InstantNeighborUpdater;
+import carpettisaddition.logging.loggers.microtiming.utils.ActualInstantNeighborUpdater;
 
-public class InstantChainRestrictedNeighborUpdater implements InstantNeighborUpdater
+public class InstantChainRestrictedNeighborUpdater implements ActualInstantNeighborUpdater
 {
 	// impl in mc1.21.9+
 }

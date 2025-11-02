@@ -36,8 +36,8 @@ public abstract class ServerPlayNetworkHandlerMixin
 {
 	@WrapWithCondition(
 			method = {
-					"checkForSpam",
-					"onCreativeInventoryAction",
+					"detectRateSpam",
+					"handleSetCreativeModeSlot",
 			},
 			at = @At(
 					value = "INVOKE",
