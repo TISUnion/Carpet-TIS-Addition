@@ -23,8 +23,8 @@ package carpettisaddition.helpers.rule.updateSkippingSimulator;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.mixins.rule.updateSkippingSimulator.ChainRestrictedNeighborUpdaterAccessor;
 import carpettisaddition.mixins.rule.updateSkippingSimulator.WorldAccessor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class UpdateSkippingSimulator
 {
@@ -33,7 +33,7 @@ public class UpdateSkippingSimulator
 		return CarpetTISAdditionSettings.updateSkippingSimulator;
 	}
 
-	public static void kaboom(World world, BlockPos pos)
+	public static void kaboom(Level world, BlockPos pos)
 	{
 		var neighborUpdater = ((WorldAccessor)world).getNeighborUpdater$TISCM();
 		if (neighborUpdater instanceof ChainRestrictedNeighborUpdaterAccessor accessor)

@@ -36,8 +36,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11600
-//$$ import net.minecraft.util.registry.RegistryKey;
-//$$ import net.minecraft.world.World;
+//$$ import net.minecraft.resources.ResourceKey;
+//$$ import net.minecraft.world.level.Level;
 //#else
 import net.minecraft.world.level.dimension.DimensionType;
 //#endif
@@ -50,13 +50,13 @@ public abstract class PlayerCommandMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12003
-					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/registry/RegistryKey;Lnet/minecraft/world/GameMode;Z)Z"
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;Z)Z"
 					//#elseif MC >= 12002
-					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/registry/RegistryKey;Lnet/minecraft/world/GameMode;ZLjava/lang/Runnable;)V"
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;ZLjava/lang/Runnable;)V"
 					//#elseif MC >= 12000
-					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/registry/RegistryKey;Lnet/minecraft/world/GameMode;Z)Lcarpet/patches/EntityPlayerMPFake;"
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/util/math/Vec3d;DDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;Z)Lcarpet/patches/EntityPlayerMPFake;"
 					//#elseif MC >= 11600
-					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;DDDDDLnet/minecraft/util/registry/RegistryKey;Lnet/minecraft/world/GameMode;Z)Lcarpet/patches/EntityPlayerMPFake;"
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;DDDDDLnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/GameType;Z)Lcarpet/patches/EntityPlayerMPFake;"
 					//#else
 					target = "Lcarpet/patches/EntityPlayerMPFake;createFake(Ljava/lang/String;Lnet/minecraft/server/MinecraftServer;DDDDDLnet/minecraft/world/level/dimension/DimensionType;Lnet/minecraft/world/level/GameType;)Lcarpet/patches/EntityPlayerMPFake;"
 					//#endif
@@ -68,7 +68,7 @@ public abstract class PlayerCommandMixin
 			@Local(ordinal = 0) CommandSourceStack source,
 			@Local(ordinal = 0) Vec3 botPos,
 			//#if MC >= 11600
-			//$$ @Local(ordinal = 0) RegistryKey<World> dim
+			//$$ @Local(ordinal = 0) ResourceKey<Level> dim
 			//#else
 			@Local(ordinal = 0) DimensionType dim
 			//#endif

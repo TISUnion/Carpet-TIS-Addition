@@ -33,7 +33,7 @@ import net.minecraft.util.FrameTimer;
 import java.util.Set;
 
 //#if MC >= 12005
-//$$ import net.minecraft.util.profiler.MultiValueDebugSampleLogImpl;
+//$$ import net.minecraft.util.debugchart.LocalSampleLogger;
 //#endif
 
 public class ServerMsptMetricsDataSyncer
@@ -43,7 +43,7 @@ public class ServerMsptMetricsDataSyncer
 	private static final long M = 1_000_000;
 
 	//#if MC >= 12005
-	//$$ private MultiValueDebugSampleLogImpl
+	//$$ private LocalSampleLogger
 	//#else
 	private FrameTimer
 	//#endif
@@ -121,7 +121,7 @@ public class ServerMsptMetricsDataSyncer
 
 	public
 	//#if MC >= 12005
-	//$$ MultiValueDebugSampleLogImpl
+	//$$ LocalSampleLogger
 	//#else
 	FrameTimer
 	//#endif
@@ -134,7 +134,7 @@ public class ServerMsptMetricsDataSyncer
 	{
 		this.metricsData =
 				//#if MC >= 12005
-				//$$ new MultiValueDebugSampleLogImpl
+				//$$ new LocalSampleLogger
 				//#else
 				new FrameTimer
 				//#endif

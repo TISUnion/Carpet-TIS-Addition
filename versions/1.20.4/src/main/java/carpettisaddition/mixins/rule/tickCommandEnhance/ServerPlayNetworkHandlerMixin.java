@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.tickCommandEnhance;
 
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import com.mojang.brigadier.suggestion.Suggestions;
-import net.minecraft.network.packet.c2s.play.RequestCommandCompletionsC2SPacket;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.network.protocol.game.ServerboundCommandSuggestionPacket;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.List;
 
-@Mixin(ServerPlayNetworkHandler.class)
+@Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ServerPlayNetworkHandlerMixin
 {
 	/**
@@ -55,7 +55,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 	 * The node "status" does not exist on the client-side command tree,
 	 * because the server filters it out before sending it to the client, which is expected
 	 * <li>
-	 * The node "duration" will request a remote command completion, using {@link RequestCommandCompletionsC2SPacket}
+	 * The node "duration" will request a remote command completion, using {@link ServerboundCommandSuggestionPacket}
 	 * to send the current command "/tick sprint " to the server
 	 * <p>
 	 * Now, the server will try to generate a list of suggestion, using the serverside command tree which contains the "status" node.
@@ -70,7 +70,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 	 * So here's comes a working but stupid fix XD
 	 */
 	@ModifyVariable(method = "method_14365", at = @At("HEAD"), argsOnly = true)
-	private Suggestions removeTickSprintStatusSuggestionIfNotEnabled(Suggestions suggestions, RequestCommandCompletionsC2SPacket packet, Suggestions suggestions_)
+	private Suggestions removeTickSprintStatusSuggestionIfNotEnabled(Suggestions suggestions, ServerboundCommandSuggestionPacket packet, Suggestions suggestions_)
 	{
 		String command = packet.getPartialCommand();
 		if (command.startsWith("/"))

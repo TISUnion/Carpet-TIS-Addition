@@ -33,8 +33,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import java.lang.reflect.Field;
 
 //#if MC >= 12102
-//$$ import net.minecraft.util.math.BlockPos;
-//$$ import net.minecraft.world.explosion.ExplosionImpl;
+//$$ import net.minecraft.core.BlockPos;
+//$$ import net.minecraft.world.level.ServerExplosion;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //$$ import java.util.List;
 //#else
@@ -42,8 +42,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.world.explosion.EntityExplosionBehavior;
-//$$ import net.minecraft.world.explosion.ExplosionBehavior;
+//$$ import net.minecraft.world.level.EntityBasedExplosionDamageCalculator;
+//$$ import net.minecraft.world.level.ExplosionDamageCalculator;
 //$$ import org.spongepowered.asm.mixin.Final;
 //$$ import org.spongepowered.asm.mixin.Shadow;
 //#endif
@@ -61,7 +61,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(
 		//#if MC >= 12102
-		//$$ value = ExplosionImpl.class,
+		//$$ value = ServerExplosion.class,
 		//#else
 		value = Explosion.class,
 		//#endif
@@ -74,7 +74,7 @@ public abstract class ExplosionMixin
 
 	//#if MC >= 11600
 	//$$ @Shadow @Final
-	//$$ private ExplosionBehavior behavior;
+	//$$ private ExplosionDamageCalculator damageCalculator;
 	//#endif
 
 	static
@@ -121,9 +121,9 @@ public abstract class ExplosionMixin
 		{
 			//#if MC >= 11500
 			//#if MC >= 11600
-			//$$ if (this.behavior.getClass() != ExplosionBehavior.class && this.behavior.getClass() != EntityExplosionBehavior.class)
+			//$$ if (this.damageCalculator.getClass() != ExplosionDamageCalculator.class && this.damageCalculator.getClass() != EntityBasedExplosionDamageCalculator.class)
 			//$$ {
-			//$$ 	// carpet's optimizedTNT cannot handle those non-classic explosion behavior
+			//$$ 	// carpet's optimizedTNT cannot handle those non-classic explosion damageCalculator
 			//$$ 	return;
 			//$$ }
 			//#endif

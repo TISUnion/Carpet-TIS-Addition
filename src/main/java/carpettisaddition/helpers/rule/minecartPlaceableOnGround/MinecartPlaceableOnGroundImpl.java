@@ -30,16 +30,16 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
 
 //#if MC >= 12102
-//$$ import net.minecraft.entity.EntityType;
+//$$ import net.minecraft.world.entity.EntityType;
 //$$ import net.minecraft.entity.SpawnReason;
 //#endif
 
 //#if MC >= 12004
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#endif
 
 //#if MC >= 11700
-//$$ import net.minecraft.world.event.GameEvent;
+//$$ import net.minecraft.world.level.gameevent.GameEvent;
 //#endif
 
 public class MinecartPlaceableOnGroundImpl
@@ -63,7 +63,7 @@ public class MinecartPlaceableOnGroundImpl
 
 		if (
 				//#if MC >= 12004
-				//$$ world instanceof ServerWorld serverWorld
+				//$$ world instanceof ServerLevel serverWorld
 				//#else
 				!world.isClientSide()
 				//#endif
@@ -103,7 +103,7 @@ public class MinecartPlaceableOnGroundImpl
 		}
 		else
 		{
-			// For proper client swing-hand animation. AbstractMinecartEntity.create() needs ServerWorld in mc1.20.4+, we can't use it on the clientside
+			// For proper client swing-hand animation. AbstractMinecartEntity.create() needs ServerLevel in mc1.20.4+, we can't use it on the clientside
 			// Assumption: The simply-initialized minecart entity has the same size of the serverside-created one,
 			// i.e., no nbt scaling tricks, modded new minecart variant
 
@@ -124,7 +124,7 @@ public class MinecartPlaceableOnGroundImpl
 		//#if MC >= 12102
 		//$$ return world.isClient() ? ActionResult.SUCCESS : ActionResult.SUCCESS_SERVER;
 		//#elseif MC >= 11600
-		//$$ return ActionResult.success(world.isClient());
+		//$$ return InteractionResult.sidedSuccess(world.isClientSide());
 		//#else
 		return InteractionResult.SUCCESS;
 		//#endif

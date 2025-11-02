@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11600
-//$$ import net.minecraft.block.AbstractBlock;
+//$$ import net.minecraft.world.level.block.state.BlockBehaviour;
 //#else
 import net.minecraft.world.level.block.state.BlockState;
 //#endif
@@ -42,7 +42,7 @@ import net.minecraft.world.InteractionResult;
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ AbstractBlock.AbstractBlockState.class
+		//$$ BlockBehaviour.BlockStateBase.class
 		//#else
 		BlockState.class
 		//#endif

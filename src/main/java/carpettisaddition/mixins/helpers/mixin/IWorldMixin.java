@@ -36,7 +36,7 @@ import java.util.stream.Stream;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.world.RegistryWorldView;
+//$$ import net.minecraft.world.level.CommonLevelAccessor;
 //#else
 import net.minecraft.world.level.LevelAccessor;
 //#endif
@@ -51,7 +51,7 @@ import java.util.Set;
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ value = RegistryWorldView.class,
+		//$$ value = CommonLevelAccessor.class,
 		//#else
 		value = LevelAccessor.class,
 		//#endif
@@ -67,13 +67,13 @@ public interface IWorldMixin extends EntityGetter
 	 */
 	@Overwrite
 	//#if MC >= 11800
-	//$$ default List<VoxelShape> getEntityCollisions(@Nullable Entity entity, Box box)
+	//$$ default List<VoxelShape> getEntityCollisions(@Nullable Entity entity, AABB box)
 	//#elseif MC >= 11600
-	//$$ default Stream<VoxelShape> getEntityCollisions(Entity entity, Box box, Predicate<Entity> predicate)
+	//$$ default Stream<VoxelShape> getEntityCollisions(Entity entity, AABB box, Predicate<Entity> predicate)
 	//#elseif MC >= 11500
 	default Stream<VoxelShape> getEntityCollisions(Entity entity, AABB box, Set<Entity> excluded)
 	//#else
-	//$$ default Stream<VoxelShape> method_20743(Entity entity, Box box, Set<Entity> excluded)
+	//$$ default Stream<VoxelShape> method_20743(Entity entity, AABB box, Set<Entity> excluded)
 	//#endif
 	{
 		IWorldOverrides.getEntityCollisionsPre(entity, box);

@@ -158,7 +158,7 @@ public class MicroTimingLoggerManager
 	 */
 
 	//#if MC >= 11600
-	//$$ public static void dispatchScarpetEvent(World world, BlockPos pos, Supplier<BaseEvent> supplier)
+	//$$ public static void dispatchScarpetEvent(Level world, BlockPos pos, Supplier<BaseEvent> supplier)
 	//$$ {
 	//$$ 	if (CarpetTISAdditionSettings.microTiming)
 	//$$ 	{

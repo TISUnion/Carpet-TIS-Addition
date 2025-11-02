@@ -29,7 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Map;
 
 //#if MC >= 12100
-//$$ import net.minecraft.registry.entry.RegistryEntry;
+//$$ import net.minecraft.core.Holder;
 //#endif
 
 /**
@@ -81,7 +81,7 @@ public class EntityInfoUtil
 			{
 				int level = enchants.get(e);
 				//#if MC >= 12100
-				//$$ String enstring = Enchantment.getName(RegistryEntry.of(e), level).getString();
+				//$$ String enstring = Enchantment.getName(Holder.of(e), level).getString();
 				//#else
 				String enstring = e.getFullname(level).getString();
 				//#endif

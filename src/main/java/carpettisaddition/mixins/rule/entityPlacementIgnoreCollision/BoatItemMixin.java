@@ -38,7 +38,7 @@ public abstract class BoatItemMixin
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/world/World;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;",
+					//$$ target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;",
 					//#else
 					target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;",
 					//#endif
@@ -58,11 +58,7 @@ public abstract class BoatItemMixin
 			method = "use",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Z"
-					//#else
 					target = "Lnet/minecraft/world/level/Level;noCollision(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Z"
-					//#endif
 			)
 	)
 	private boolean entityPlacementIgnoreCollision_skipCollisionCheck(boolean notCollided)

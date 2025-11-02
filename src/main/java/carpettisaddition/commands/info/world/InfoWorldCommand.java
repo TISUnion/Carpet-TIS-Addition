@@ -36,7 +36,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 //#if MC >= 11600
-//$$ import net.minecraft.world.level.ServerWorldProperties;
+//$$ import net.minecraft.world.level.storage.ServerLevelData;
 //#else
 import net.minecraft.world.level.storage.LevelData;
 //#endif
@@ -89,7 +89,7 @@ public class InfoWorldCommand extends InfoSubcommand
 		ServerLevel world = source.getLevel();
 
 		//#if MC >= 11600
-		//$$ ServerWorldProperties worldInfo = (ServerWorldProperties)world.getLevelProperties();
+		//$$ ServerLevelData worldInfo = (ServerLevelData)world.getLevelData();
 		//#else
 		LevelData worldInfo = world.getLevelData();
 		//#endif

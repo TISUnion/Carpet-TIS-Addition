@@ -63,11 +63,7 @@ public abstract class ServerWorldMixin
 	}
 
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
-			//#else
 			method = "doBlockEvent",
-			//#endif
 			at = @At(
 					value = "HEAD",
 					shift = At.Shift.AFTER
@@ -79,11 +75,7 @@ public abstract class ServerWorldMixin
 	}
 
 	@ModifyExpressionValue(
-			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
-			//#else
 			method = "doBlockEvent",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/server/level/ServerLevel;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
@@ -96,18 +88,10 @@ public abstract class ServerWorldMixin
 	}
 
 	@ModifyExpressionValue(
-			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
-			//#else
 			method = "doBlockEvent",
-			//#endif
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/block/BlockState;onSyncedBlockEvent(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;II)Z"
-					//#else
 					target = "Lnet/minecraft/world/level/block/state/BlockState;triggerEvent(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;II)Z"
-					//#endif
 			)
 	)
 	private boolean recordOnBlockActionReturnValue(boolean ret, @Share("retStore") LocalRef<Boolean> retStore)
@@ -117,11 +101,7 @@ public abstract class ServerWorldMixin
 	}
 
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
-			//#else
 			method = "doBlockEvent",
-			//#endif
 			at = @At("RETURN")
 	)
 	private void afterBlockEventExecuted_storeEvent(

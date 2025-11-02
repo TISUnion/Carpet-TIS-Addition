@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 //#if MC < 11500
-//$$ import net.minecraft.world.World;
+//$$ import net.minecraft.world.level.Level;
 //#endif
 
 @Mixin(SpawnReporter.class)
@@ -57,7 +57,7 @@ public abstract class SpawnReporterMixin
 			//#if MC >= 11500
 			ServerLevel world,
 			//#else
-			//$$ World world,
+			//$$ Level world,
 			//#endif
 			@Local List<BaseComponent> rep,
 			@Local(ordinal = 0) int x,

@@ -23,7 +23,7 @@ package carpettisaddition.mixins.command.info.entity;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -31,6 +31,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(Entity.class)
 public interface EntityAccessor
 {
-	@Accessor
+	@Accessor("portalCooldown")
 	int getNetherPortalCooldown();
 }

@@ -25,14 +25,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 11600
-//$$ import net.minecraft.block.AbstractBlock;
+//$$ import net.minecraft.world.level.block.state.BlockBehaviour;
 //#else
 import net.minecraft.world.level.block.Block;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ AbstractBlock.class
+		//$$ BlockBehaviour.class
 		//#else
 		Block.class
 		//#endif

@@ -31,8 +31,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
 
 //#if MC >= 11700
-//$$ import net.minecraft.block.Blocks;
-//$$ import net.minecraft.world.biome.Biome;
+//$$ import net.minecraft.world.level.block.Blocks;
+//$$ import net.minecraft.world.level.biome.Biome;
 //#endif
 
 class BlockManipulatorImplExecute extends TranslationContext
@@ -46,12 +46,7 @@ class BlockManipulatorImplExecute extends TranslationContext
 	{
 		ServerLevel world = source.getLevel();
 		BlockState blockState = world.getBlockState(blockPos);
-		//#if MC >= 11600
-		//$$ blockState.onSyncedBlockEvent
-		//#else
-		blockState.triggerEvent
-				//#endif
-						(world, blockPos, type, data);
+		blockState.triggerEvent(world, blockPos, type, data);
 		source.getServer().getPlayerList().broadcast(
 				null,
 				blockPos.getX(),
@@ -59,7 +54,7 @@ class BlockManipulatorImplExecute extends TranslationContext
 				blockPos.getZ(),
 				CarpetTISAdditionSettings.blockEventPacketRange,
 				//#if MC >= 11600
-				//$$ world.getRegistryKey(),
+				//$$ world.dimension(),
 				//#else
 				world.getDimension().getType(),
 				//#endif

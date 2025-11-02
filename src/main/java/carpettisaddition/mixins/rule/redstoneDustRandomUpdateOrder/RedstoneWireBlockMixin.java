@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.*;
 
 //#if MC >= 12102
-//$$ import net.minecraft.world.DefaultRedstoneController;
+//$$ import net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator;
 //#endif
 
 //#if MC >= 11600
@@ -46,7 +46,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(
 		//#if MC >= 12102
-		//$$ DefaultRedstoneController.class
+		//$$ DefaultRedstoneWireEvaluator.class
 		//#else
 		RedStoneWireBlock.class
 		//#endif
@@ -57,7 +57,7 @@ public abstract class RedstoneWireBlockMixin
 
 	//#if MC >= 11600
 	//$$ @ModifyVariable(
-	//$$ 		method = "update",
+	//$$ 		method = "updatePowerStrength",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
 	//$$ 				target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"

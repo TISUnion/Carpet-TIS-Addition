@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 12102
-//$$ import net.minecraft.entity.EntityType;
+//$$ import net.minecraft.world.entity.EntityType;
 //#endif
 
 @Mixin(MinecartItem.class)

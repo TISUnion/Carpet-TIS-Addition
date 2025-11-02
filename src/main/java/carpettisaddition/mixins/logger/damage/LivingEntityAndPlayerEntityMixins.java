@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Optional;
 
 //#if MC >= 12102
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#endif
 
 // some same mixins
@@ -67,7 +67,7 @@ public abstract class LivingEntityAndPlayerEntityMixins
 		private void onDamageApplyDone(
 				CallbackInfo ci, @Local(argsOnly = true) DamageSource source, @Local(argsOnly = true) float amount
 				//#if MC >= 12102
-				//$$ , @Local(argsOnly = true) ServerWorld serverWorld
+				//$$ , @Local(argsOnly = true) ServerLevel serverWorld
 				//#endif
 		)
 		{

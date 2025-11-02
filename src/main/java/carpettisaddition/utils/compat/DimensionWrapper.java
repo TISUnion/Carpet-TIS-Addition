@@ -28,7 +28,7 @@ import net.minecraft.world.level.Level;
 import java.util.Objects;
 
 //#if MC >= 11600
-//$$ import net.minecraft.util.registry.RegistryKey;
+//$$ import net.minecraft.resources.ResourceKey;
 //#else
 import net.minecraft.world.level.dimension.DimensionType;
 //#endif
@@ -36,34 +36,34 @@ import net.minecraft.world.level.dimension.DimensionType;
 /*
  * A wrapper class to deal with dimension type class differences between minecraft version:
  * - DimensionType in 1.15-
- * - RegistryKey<World> in 1.16+
+ * - ResourceKey<Level> in 1.16+
  */
 public class DimensionWrapper
 {
 	public static final DimensionWrapper OVERWORLD = of(
 			//#if MC >= 11600
-			//$$ World.OVERWORLD
+			//$$ Level.OVERWORLD
 			//#else
 			DimensionType.OVERWORLD
 			//#endif
 	);
 	public static final DimensionWrapper THE_NETHER = of(
 			//#if MC >= 11600
-			//$$ World.NETHER
+			//$$ Level.NETHER
 			//#else
 			DimensionType.NETHER
 			//#endif
 	);
 	public static final DimensionWrapper THE_END = of(
 			//#if MC >= 11600
-			//$$ World.END
+			//$$ Level.END
 			//#else
 			DimensionType.THE_END
 			//#endif
 	);
 
 	//#if MC >= 11600
-	//$$ private final RegistryKey<World>
+	//$$ private final ResourceKey<Level>
 	//#else
 	private final DimensionType
 	//#endif
@@ -71,7 +71,7 @@ public class DimensionWrapper
 
 	private DimensionWrapper(
 			//#if MC >= 11600
-			//$$ RegistryKey<World> dimensionType
+			//$$ ResourceKey<Level> dimensionType
 			//#else
 			DimensionType dimensionType
 			//#endif
@@ -85,7 +85,7 @@ public class DimensionWrapper
 	 */
 	public static DimensionWrapper of(
 			//#if MC >= 11600
-			//$$ RegistryKey<World> dimensionType
+			//$$ ResourceKey<Level> dimensionType
 			//#else
 			DimensionType dimensionType
 			//#endif
@@ -98,7 +98,7 @@ public class DimensionWrapper
 	{
 		return new DimensionWrapper(
 				//#if MC >= 11600
-				//$$ world.getRegistryKey()
+				//$$ world.dimension()
 				//#else
 				world.getDimension().getType()
 				//#endif
@@ -114,7 +114,7 @@ public class DimensionWrapper
 	 * Warning: mc version dependent
 	 */
 	//#if MC >= 11600
-	//$$ public RegistryKey<World> getValue()
+	//$$ public ResourceKey<Level> getValue()
 	//#else
 	public DimensionType getValue()
 	//#endif
@@ -125,7 +125,7 @@ public class DimensionWrapper
 	public ResourceLocation getIdentifier()
 	{
 		//#if MC >= 11600
-		//$$ return this.dimensionType.getValue();
+		//$$ return this.dimensionType.location();
 		//#else
 		return DimensionType.getName(this.dimensionType);
 		//#endif

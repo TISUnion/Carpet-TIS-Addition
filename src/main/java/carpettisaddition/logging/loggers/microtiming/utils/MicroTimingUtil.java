@@ -72,7 +72,7 @@ import java.util.stream.Collectors;
 
 //#if MC >= 11800
 //$$ import carpettisaddition.mixins.logger.microtiming.tickstages.ServerWorldAccessor;
-//$$ import net.minecraft.util.math.ChunkPos;
+//$$ import net.minecraft.world.level.ChunkPos;
 //#endif
 
 public class MicroTimingUtil

@@ -51,10 +51,10 @@ import static net.minecraft.commands.Commands.literal;
 //#if MC >= 11800
 //$$ import carpettisaddition.mixins.command.info.ChunkTickSchedulerAccessor;
 //$$ import carpettisaddition.mixins.command.info.WorldTickSchedulerAccessor;
-//$$ import net.minecraft.util.math.ChunkPos;
-//$$ import net.minecraft.world.tick.ChunkTickScheduler;
-//$$ import net.minecraft.world.tick.OrderedTick;
-//$$ import net.minecraft.world.tick.WorldTickScheduler;
+//$$ import net.minecraft.world.level.ChunkPos;
+//$$ import net.minecraft.world.ticks.LevelChunkTicks;
+//$$ import net.minecraft.world.ticks.ScheduledTick;
+//$$ import net.minecraft.world.ticks.LevelTicks;
 //$$ import java.util.Queue;
 //#else
 import net.minecraft.world.level.ServerTickList;
@@ -135,15 +135,15 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 
 	//#if MC >= 11800
 	//$$ @SuppressWarnings("unchecked")
-	//$$ private <T> List<OrderedTick<T>> getTileTicksAt(WorldTickScheduler<T> wts, BlockPos pos)
+	//$$ private <T> List<ScheduledTick<T>> getTileTicksAt(LevelTicks<T> wts, BlockPos pos)
 	//$$ {
-	//$$ 	ChunkTickScheduler<T> cts = ((WorldTickSchedulerAccessor<T>)wts).getChunkTickSchedulers().get(ChunkPos.toLong(pos));
+	//$$ 	LevelChunkTicks<T> cts = ((WorldTickSchedulerAccessor<T>)wts).getChunkTickSchedulers().get(ChunkPos.toLong(pos));
 	//$$ 	if (cts != null)
 	//$$ 	{
-	//$$ 		Queue<OrderedTick<T>> queue = ((QueueAccessibleChunkTickScheduler<T>)cts).getTickQueue$TISCM();
+	//$$ 		Queue<ScheduledTick<T>> queue = ((QueueAccessibleChunkTickScheduler<T>)cts).getTickQueue$TISCM();
 	//$$ 		if (queue != null)
 	//$$ 		{
-	//$$ 			return queue.stream().filter(t -> t.pos().equals(pos)).sorted(OrderedTick.TRIGGER_TICK_COMPARATOR).collect(Collectors.toList());
+	//$$ 			return queue.stream().filter(t -> t.pos().equals(pos)).sorted(ScheduledTick.TRIGGER_TICK_COMPARATOR).collect(Collectors.toList());
 	//$$ 		}
 	//$$ 	}
 	//$$ 	return Collections.emptyList();
@@ -159,8 +159,8 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 		List<BaseComponent> result = Lists.newArrayList();
 
 		//#if MC >= 11800
-		//$$ List<OrderedTick<Block>> blockTileTicks = this.getTileTicksAt((WorldTickScheduler<Block>)world.getBlockTickScheduler(), pos);
-		//$$ List<OrderedTick<Fluid>> liquidTileTicks = this.getTileTicksAt((WorldTickScheduler<Fluid>)world.getFluidTickScheduler(), pos);
+		//$$ List<ScheduledTick<Block>> blockTileTicks = this.getTileTicksAt((LevelTicks<Block>)world.getBlockTickScheduler(), pos);
+		//$$ List<ScheduledTick<Fluid>> liquidTileTicks = this.getTileTicksAt((LevelTicks<Fluid>)world.getFluidTickScheduler(), pos);
 		//#else
 		BoundingBox bound =
 				//#if MC >= 11700

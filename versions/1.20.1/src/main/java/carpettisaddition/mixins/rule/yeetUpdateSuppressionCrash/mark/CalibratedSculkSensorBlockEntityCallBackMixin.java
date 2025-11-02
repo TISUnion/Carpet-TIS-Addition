@@ -25,11 +25,11 @@ import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressi
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.CalibratedSculkSensorBlockEntity;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.CalibratedSculkSensorBlockEntity;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class CalibratedSculkSensorBlockEntityCallBackMixin
 {
 	@WrapOperation(
-			method = "getCalibrationFrequency",
+			method = "getBackSignal",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/block/BlockState;get(Lnet/minecraft/state/property/Property;)Ljava/lang/Comparable;"
@@ -45,7 +45,7 @@ public abstract class CalibratedSculkSensorBlockEntityCallBackMixin
 	)
 	private <T extends Comparable<T>> T yeetUpdateSuppressionCrash_wrapSoundSuppression(
 			BlockState instance, Property<T> property, Operation<T> original,
-			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true) Level world,
 			@Local(argsOnly = true) BlockPos pos
 	) throws Throwable
 	{

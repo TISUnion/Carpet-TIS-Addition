@@ -38,9 +38,9 @@ public abstract class ServerWorldMixin
 					//#if MC >= 11600
 					//$$ value = "FIELD",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;entityList:Lnet/minecraft/world/EntityList;",
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;entityTickList:Lnet/minecraft/world/level/entity/EntityTickList;",
 					//#else
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;inEntityTick:Z",
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;tickingEntities:Z",
 					//#endif
 					//$$ ordinal = 0
 					//#else

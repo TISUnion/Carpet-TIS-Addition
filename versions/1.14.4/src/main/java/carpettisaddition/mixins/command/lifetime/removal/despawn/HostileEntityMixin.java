@@ -25,14 +25,14 @@ import carpettisaddition.commands.lifetime.removal.LiteralRemovalReason;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.world.entity.monster.Monster;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.15"))
-@Mixin(HostileEntity.class)
+@Mixin(Monster.class)
 public abstract class HostileEntityMixin
 {
 	// peaceful despawn thing for mc 1.14.4

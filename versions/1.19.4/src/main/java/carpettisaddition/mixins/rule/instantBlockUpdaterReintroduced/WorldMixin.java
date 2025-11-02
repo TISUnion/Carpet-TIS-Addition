@@ -24,15 +24,15 @@ import carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced.NeighborUp
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.World;
-import net.minecraft.world.block.NeighborUpdater;
-import net.minecraft.world.block.SimpleNeighborUpdater;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.redstone.NeighborUpdater;
+import net.minecraft.world.level.redstone.InstantNeighborUpdater;
 import org.spongepowered.asm.mixin.*;
 
 import java.util.Objects;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19 <1.21.9-"))
-@Mixin(World.class)
+@Mixin(Level.class)
 public abstract class WorldMixin implements NeighborUpdaterChangeableWorld
 {
 	@Mutable @Shadow @Final protected NeighborUpdater neighborUpdater;
@@ -50,7 +50,7 @@ public abstract class WorldMixin implements NeighborUpdaterChangeableWorld
 		if (useInstant)
 		{
 			this.previousNeighborUpdater$TISCM = this.neighborUpdater;
-			this.neighborUpdater = new SimpleNeighborUpdater((World)(Object)this);
+			this.neighborUpdater = new InstantNeighborUpdater((Level)(Object)this);
 		}
 		else
 		{

@@ -50,9 +50,9 @@ public abstract class ServerChunkManagerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;Lnet/minecraft/world/SpawnHelper$ChunkSource;Lnet/minecraft/world/SpawnDensityCapper;)Lnet/minecraft/world/SpawnHelper$Info;"
+					//$$ target = "Lnet/minecraft/world/level/NaturalSpawner;createState(ILjava/lang/Iterable;Lnet/minecraft/world/level/NaturalSpawner$ChunkGetter;Lnet/minecraft/world/level/LocalMobCapCalculator;)Lnet/minecraft/world/level/NaturalSpawner$SpawnState;"
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;Lnet/minecraft/world/SpawnHelper$ChunkSource;)Lnet/minecraft/world/SpawnHelper$Info;"
+					//$$ target = "Lnet/minecraft/world/level/NaturalSpawner;createState(ILjava/lang/Iterable;Lnet/minecraft/world/level/NaturalSpawner$ChunkGetter;)Lnet/minecraft/world/level/NaturalSpawner$SpawnState;"
 					//#else
 					target = "Lnet/minecraft/server/level/ServerLevel;getMobCategoryCounts()Lit/unimi/dsi/fastutil/objects/Object2IntMap;"
 					//#endif

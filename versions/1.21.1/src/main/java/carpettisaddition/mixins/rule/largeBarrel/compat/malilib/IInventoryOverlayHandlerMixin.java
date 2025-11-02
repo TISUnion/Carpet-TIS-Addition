@@ -30,9 +30,9 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -63,7 +63,7 @@ public interface IInventoryOverlayHandlerMixin
 	)
 	private BlockState requestTheOtherSideOfTheLargeBarrel(
 			BlockState state,
-			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true) Level world,
 			@Local(argsOnly = true) BlockPos pos
 	)
 	{

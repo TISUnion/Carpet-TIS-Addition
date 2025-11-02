@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.tickProfilerCommandsReintroduced;
 
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.TickCommand;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.commands.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,8 +33,8 @@ import static carpet.commands.ProfileCommand.healthEntities;
 import static carpet.commands.ProfileCommand.healthReport;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
@@ -47,7 +47,7 @@ public abstract class TickCommandMixin
 					remap = false
 			)
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> addCarpetProfileCommandNodes(LiteralArgumentBuilder<ServerCommandSource> rootNode)
+	private static LiteralArgumentBuilder<CommandSourceStack> addCarpetProfileCommandNodes(LiteralArgumentBuilder<CommandSourceStack> rootNode)
 	{
 		addTickProfileCommandsAliases(rootNode);
 		return rootNode;
@@ -57,7 +57,7 @@ public abstract class TickCommandMixin
 	 * Reference: {@link carpet.commands.ProfileCommand#register}
 	 */
 	@Unique
-	private static void addTickProfileCommandsAliases(LiteralArgumentBuilder<ServerCommandSource> rootNode)
+	private static void addTickProfileCommandsAliases(LiteralArgumentBuilder<CommandSourceStack> rootNode)
 	{
 		rootNode.
 				then(literal("health").

@@ -22,23 +22,23 @@ package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.GameMode;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.GameType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ServerPlayNetworkHandler.class)
+@Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ServerPlayNetworkHandlerMixin
 {
 	@WrapWithCondition(
 			method = "onChangeGameMode",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/command/GameModeCommand;execute(Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/world/GameMode;)V"
+					target = "Lnet/minecraft/server/commands/GameModeCommand;setGameMode(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/level/GameType;)V"
 			)
 	)
-	private boolean checkIfAllowCheating_gameModeSwitcherScreenPacket(ServerPlayerEntity serverPlayerEntity, GameMode gameMode)
+	private boolean checkIfAllowCheating_gameModeSwitcherScreenPacket(ServerPlayer serverPlayerEntity, GameType gameMode)
 	{
 		return OpPlayerNoCheatHelper.canCheat(serverPlayerEntity);
 	}

@@ -136,7 +136,7 @@ public abstract class PistonBlockMixin
 					from = @At(
 							value = "FIELD",
 							//#if MC >= 11600
-							//$$ target = "Lnet/minecraft/block/PistonBlock;sticky:Z"
+							//$$ target = "Lnet/minecraft/world/level/block/piston/PistonBaseBlock;isSticky:Z"
 							//#else
 							target = "Lnet/minecraft/world/level/block/piston/PistonBaseBlock;isSticky:Z"
 							//#endif

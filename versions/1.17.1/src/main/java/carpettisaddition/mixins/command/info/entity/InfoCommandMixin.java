@@ -27,14 +27,14 @@ import carpettisaddition.utils.ModIds;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 //#if MC >= 11900
 //$$ import com.mojang.brigadier.CommandDispatcher;
-//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import net.minecraft.commands.CommandBuildContext;
 //#endif
 
 /**
@@ -54,10 +54,10 @@ public abstract class InfoCommandMixin
 			ordinal = 0,
 			remap = false
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> registerInfoEntity(
-			LiteralArgumentBuilder<ServerCommandSource> builder
+	private static LiteralArgumentBuilder<CommandSourceStack> registerInfoEntity(
+			LiteralArgumentBuilder<CommandSourceStack> builder
 			//#if MC >= 11900
-			//$$ , CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext
+			//$$ , CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext
 			//#endif
 	)
 	{

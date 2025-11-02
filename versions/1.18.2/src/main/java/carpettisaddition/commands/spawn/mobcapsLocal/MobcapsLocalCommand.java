@@ -28,13 +28,13 @@ import carpettisaddition.mixins.command.mobcapsLocal.SpawnCommandAccessor;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
 
-import static net.minecraft.command.argument.EntityArgumentType.getPlayer;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.arguments.EntityArgument.getPlayer;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class MobcapsLocalCommand extends AbstractCommand implements CommandExtender
 {
@@ -55,13 +55,13 @@ public class MobcapsLocalCommand extends AbstractCommand implements CommandExten
 	{
 		context.node.then(literal("mobcapsLocal").
 				executes(c -> showLocalMobcaps(c.getSource(), c.getSource().getPlayer())).
-				then(argument("player", EntityArgumentType.player()).
+				then(argument("player", EntityArgument.player()).
 						executes(c -> showLocalMobcaps(c.getSource(), getPlayer(c, "player")))
 				)
 		);
 	}
 
-	private int showLocalMobcaps(ServerCommandSource source, ServerPlayerEntity targetPlayer) throws CommandSyntaxException
+	private int showLocalMobcaps(CommandSourceStack source, ServerPlayer targetPlayer) throws CommandSyntaxException
 	{
 		int[] ret = new int[1];
 		MobcapsLocalLogger.getInstance().withLocalMobcapContext(

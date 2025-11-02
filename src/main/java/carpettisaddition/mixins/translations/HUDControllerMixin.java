@@ -29,8 +29,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 //#if MC >= 11900
-//$$ import net.minecraft.text.MutableText;
-//$$ import net.minecraft.text.Text;
+//$$ import net.minecraft.network.chat.MutableComponent;
+//$$ import net.minecraft.network.chat.Component;
 //#else
 import net.minecraft.network.chat.BaseComponent;
 //#endif
@@ -44,13 +44,13 @@ public abstract class HUDControllerMixin
 	@ModifyVariable(method = "addMessage", at = @At("HEAD"), argsOnly = true, remap = false)
 	private static
 	//#if MC >= 11900
-	//$$ Text
+	//$$ Component
 	//#else
 	BaseComponent
 	//#endif
 	applyTISCarpetTranslationToHudLoggerMessage(
 			//#if MC >= 11900
-			//$$ Text hudMessage,
+			//$$ Component hudMessage,
 			//#else
 			BaseComponent hudMessage,
 			//#endif
@@ -58,13 +58,13 @@ public abstract class HUDControllerMixin
 			/* ----- parent method parameters vvv -----*/
 
 			//#if MC >= 11600
-			//$$ ServerPlayerEntity player,
+			//$$ ServerPlayer player,
 			//#else
 			Player player,
 			//#endif
 
 			//#if MC >= 11900
-			//$$ Text hudMessage_
+			//$$ Component hudMessage_
 			//#else
 			BaseComponent hudMessage_
 			//#endif
@@ -74,7 +74,7 @@ public abstract class HUDControllerMixin
 		{
 			hudMessage = TISAdditionTranslations.translate(
 					//#if MC >= 11900
-					//$$ (MutableText)hudMessage,
+					//$$ (MutableComponent)hudMessage,
 					//#else
 					hudMessage,
 					//#endif

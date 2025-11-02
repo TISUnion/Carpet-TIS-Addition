@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.*;
 //$$ import carpet.utils.Messenger;
 //$$ import com.mojang.brigadier.arguments.StringArgumentType;
 //$$ import com.mojang.brigadier.context.CommandContext;
-//$$ import net.minecraft.server.command.ServerCommandSource;
+//$$ import net.minecraft.commands.CommandSourceStack;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
 
@@ -106,7 +106,7 @@ public abstract class PlayerCommandMixin
 	//$$ 		remap = false,
 	//$$ 		cancellable = true
 	//$$ )
-	//$$ private static void checkNameLengthLimit(CommandContext<ServerCommandSource> context, CallbackInfoReturnable<Integer> cir)
+	//$$ private static void checkNameLengthLimit(CommandContext<CommandSourceStack> context, CallbackInfoReturnable<Integer> cir)
 	//$$ {
 	//$$ 	String playerName = getDecoratedPlayerName(StringArgumentType.getString(context, "player"));
 	//$$ 	if (playerName.length() > 16)

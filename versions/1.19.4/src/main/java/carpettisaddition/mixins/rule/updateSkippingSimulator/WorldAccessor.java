@@ -23,23 +23,23 @@ package carpettisaddition.mixins.rule.updateSkippingSimulator;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 1.21.9
-//$$ import net.minecraft.world.block.ChainRestrictedNeighborUpdater;
+//$$ import net.minecraft.world.level.redstone.CollectingNeighborUpdater;
 //#else
-import net.minecraft.world.block.NeighborUpdater;
+import net.minecraft.world.level.redstone.NeighborUpdater;
 //#endif
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-@Mixin(World.class)
+@Mixin(Level.class)
 public interface WorldAccessor
 {
 	@Accessor("neighborUpdater")
 	//#if MC >= 1.21.9
-	//$$ ChainRestrictedNeighborUpdater getNeighborUpdater$TISCM();
+	//$$ CollectingNeighborUpdater getNeighborUpdater$TISCM();
 	//#else
 	NeighborUpdater getNeighborUpdater$TISCM();
 	//#endif

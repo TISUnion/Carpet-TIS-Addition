@@ -57,15 +57,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 //#if MC >= 11904
-//$$ import net.minecraft.util.function.LazyIterationConsumer;
+//$$ import net.minecraft.util.AbortableIterationConsumer;
 //#endif
 
 //#if MC >= 11800
 //$$ import carpettisaddition.mixins.command.manipulate.chunk.ChunkTickSchedulerAccessor;
 //$$ import carpettisaddition.mixins.command.manipulate.chunk.WorldTickSchedulerAccessor;
-//$$ import net.minecraft.block.Blocks;
-//$$ import net.minecraft.world.tick.ChunkTickScheduler;
-//$$ import net.minecraft.world.tick.WorldTickScheduler;
+//$$ import net.minecraft.world.level.block.Blocks;
+//$$ import net.minecraft.world.ticks.LevelChunkTicks;
+//$$ import net.minecraft.world.ticks.LevelTicks;
 //$$ import java.util.function.Consumer;
 //#endif
 
@@ -223,8 +223,8 @@ public class ChunkEraser extends TranslationContext
 
 		// tile ticks
 		//#if MC >= 11800
-		//$$ Consumer<WorldTickScheduler<?>> eraseTileTicks = scheduler -> {
-		//$$ 	ChunkTickScheduler<?> chunkTickScheduler = ((WorldTickSchedulerAccessor<?>)scheduler).getChunkTickSchedulers().get(chunk.getPos().toLong());
+		//$$ Consumer<LevelTicks<?>> eraseTileTicks = scheduler -> {
+		//$$ 	LevelChunkTicks<?> chunkTickScheduler = ((WorldTickSchedulerAccessor<?>)scheduler).getChunkTickSchedulers().get(chunk.getPos().toLong());
 		//$$ 	if (chunkTickScheduler != null)
 		//$$ 	{
 		//$$ 		ChunkTickSchedulerAccessor<?> ctsAccess = (ChunkTickSchedulerAccessor<?>)chunkTickScheduler;

@@ -35,11 +35,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 //#if MC >= 12100
-//$$ import net.minecraft.resource.featuretoggle.FeatureSet;
+//$$ import net.minecraft.world.flag.FeatureFlagSet;
 //#endif
 
 //#if MC >= 11700
-//$$ import net.minecraft.util.TypeFilter;
+//$$ import net.minecraft.world.level.entity.EntityTypeTest;
 //#else
 import net.minecraft.world.entity.EntityType;
 //#endif
@@ -71,7 +71,7 @@ public interface EntitySelectorAccessor extends IEntitySelector
 	@Nullable
 	@Accessor("type")
 	//#if MC >= 11700
-	//$$ TypeFilter<Entity, ?> getEntityFilter();
+	//$$ EntityTypeTest<Entity, ?> getEntityFilter();
 	//#else
 	EntityType<?> getType();
 	//#endif
@@ -80,7 +80,7 @@ public interface EntitySelectorAccessor extends IEntitySelector
 	Predicate<Entity> invokeGetPositionPredicate(
 			Vec3 vec3d
 			//#if MC >= 12100
-			//$$ , @Nullable Box box, @Nullable FeatureSet enabledFeatures
+			//$$ , @Nullable Box box, @Nullable FeatureFlagSet enabledFeatures
 			//#endif
 	);
 }

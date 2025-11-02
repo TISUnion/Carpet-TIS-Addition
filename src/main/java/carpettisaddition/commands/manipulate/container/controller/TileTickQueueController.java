@@ -43,7 +43,7 @@ import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 11800
-//$$ import net.minecraft.world.tick.WorldTickScheduler;
+//$$ import net.minecraft.world.ticks.LevelTicks;
 //#else
 import net.minecraft.world.level.ServerTickList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class TileTickQueueController extends AbstractContainerController
 
 	private int remove(
 			//#if MC >= 11800
-			//$$ WorldTickScheduler<?> tickScheduler,
+			//$$ LevelTicks<?> tickScheduler,
 			//#else
 			ServerTickList<?> serverTickScheduler,
 			//#endif

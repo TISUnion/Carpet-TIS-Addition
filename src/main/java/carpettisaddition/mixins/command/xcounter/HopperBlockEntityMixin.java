@@ -42,7 +42,7 @@ public abstract class HopperBlockEntityMixin
 					//#if MC >= 11500
 					target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;isEmpty()Z",
 					//#else
-					//$$ target = "Lnet/minecraft/block/entity/HopperBlockEntity;isEmpty()Z",
+					//$$ target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;inventoryEmpty()Z",
 					//#endif
 					ordinal = 0
 			)

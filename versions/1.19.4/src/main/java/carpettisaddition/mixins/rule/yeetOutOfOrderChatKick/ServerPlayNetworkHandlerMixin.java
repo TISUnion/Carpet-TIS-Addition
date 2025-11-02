@@ -22,16 +22,16 @@ package carpettisaddition.mixins.rule.yeetOutOfOrderChatKick;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 // impl in mc [1.19, 1.20.4)
-@Mixin(ServerPlayNetworkHandler.class)
+@Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ServerPlayNetworkHandlerMixin
 {
 	@ModifyExpressionValue(
-			method = "isInProperOrder",
+			method = "updateChatOrder",
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/time/Instant;isBefore(Ljava/time/Instant;)Z",

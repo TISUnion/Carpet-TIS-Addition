@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 11900
 //#disable-remap
-//$$ import net.minecraft.util.math.random.Random;
+//$$ import net.minecraft.util.RandomSource;
 //#enable-remap
 //#else
 import java.util.Random;

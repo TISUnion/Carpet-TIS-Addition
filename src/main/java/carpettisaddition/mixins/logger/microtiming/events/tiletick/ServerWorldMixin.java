@@ -45,7 +45,7 @@ public abstract class ServerWorldMixin
 					//#if MC >= 11500
 					target = "Lnet/minecraft/world/level/block/state/BlockState;tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Ljava/util/Random;)V"
 					//#else
-					//$$ target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V"
+					//$$ target = "Lnet/minecraft/world/level/block/state/BlockState;tick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Ljava/util/Random;)V"
 					//#endif
 			)
 	)
@@ -61,7 +61,7 @@ public abstract class ServerWorldMixin
 					//#if MC >= 11500
 					target = "Lnet/minecraft/world/level/block/state/BlockState;tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Ljava/util/Random;)V",
 					//#else
-					//$$ target = "Lnet/minecraft/block/BlockState;scheduledTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V",
+					//$$ target = "Lnet/minecraft/world/level/block/state/BlockState;tick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Ljava/util/Random;)V",
 					//#endif
 					shift = At.Shift.AFTER
 			)

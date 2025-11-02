@@ -39,7 +39,7 @@ public abstract class MobEntityMixin
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "equipLootStack",
+			//$$ method = "setItemSlotAndDropWhenKilled",
 			//#else
 			method = "pickUpItem",
 			//#endif

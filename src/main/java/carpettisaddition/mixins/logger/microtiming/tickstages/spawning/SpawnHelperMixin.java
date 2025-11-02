@@ -30,24 +30,20 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 //#if MC >= 11500
 import net.minecraft.server.level.ServerLevel;
 //#else
-//$$ import net.minecraft.world.World;
+//$$ import net.minecraft.world.level.Level;
 //#endif
 
 @Mixin(NaturalSpawner.class)
 public abstract class SpawnHelperMixin
 {
 	@ModifyVariable(
-			//#if MC >= 11600
-			//$$ method = "spawn",
-			//#else
 			method = "spawnCategoryForChunk",
-			//#endif
 			at = @At("HEAD"), argsOnly = true
 	)
 	//#if MC >= 11500
 	private static ServerLevel enterStageSpawn(ServerLevel world)
 	//#else
-	//$$ private static World enterStageSpawn(World world)
+	//$$ private static Level enterStageSpawn(Level world)
 	//#endif
 	{
 		MicroTimingLoggerManager.setTickStage(world, TickStage.SPAWNING);
@@ -55,18 +51,14 @@ public abstract class SpawnHelperMixin
 	}
 
 	@ModifyVariable(
-			//#if MC >= 11600
-			//$$ method = "spawn",
-			//#else
 			method = "spawnCategoryForChunk",
-			//#endif
 			at = @At("TAIL"),
 			argsOnly = true
 	)
 	//#if MC >= 11500
 	private static ServerLevel exitStageSpawn(ServerLevel world)
 	//#else
-	//$$ private static World exitStageSpawn(World world)
+	//$$ private static Level exitStageSpawn(Level world)
 	//#endif
 	{
 		MicroTimingLoggerManager.setTickStage(world, TickStage.UNKNOWN);

@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.tickFreezeCommandToggleable;
 
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.server.ServerTickManager;
-import net.minecraft.server.command.TickCommand;
+import net.minecraft.server.ServerTickRateManager;
+import net.minecraft.server.commands.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -32,16 +32,16 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class TickCommandMixin
 {
 	@ModifyVariable(
-			method = "executeFreeze",
+			method = "setFreeze",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/server/MinecraftServer;getTickManager()Lnet/minecraft/server/ServerTickManager;",
+					target = "Lnet/minecraft/server/MinecraftServer;tickRateManager()Lnet/minecraft/server/ServerTickRateManager;",
 					ordinal = 0,
 					shift = At.Shift.AFTER
 			),
 			argsOnly = true
 	)
-	private static boolean tickFreezeCommandToggleable_unfreezeIfAlreadyFrozen(boolean frozen, @Local ServerTickManager serverTickManager)
+	private static boolean tickFreezeCommandToggleable_unfreezeIfAlreadyFrozen(boolean frozen, @Local ServerTickRateManager serverTickManager)
 	{
 		if (TickCommandCarpetfiedRules.tickFreezeCommandToggleable())
 		{

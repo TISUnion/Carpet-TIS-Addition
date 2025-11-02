@@ -48,7 +48,7 @@ public abstract class VillagerEntityMixin extends AbstractVillager
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V"
 					//#else
 					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif

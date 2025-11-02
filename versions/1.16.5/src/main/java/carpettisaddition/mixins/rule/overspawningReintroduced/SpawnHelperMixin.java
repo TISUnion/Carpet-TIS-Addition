@@ -21,22 +21,22 @@
 package carpettisaddition.mixins.rule.overspawningReintroduced;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.world.SpawnHelper;
+import net.minecraft.world.level.NaturalSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(SpawnHelper.class)
+@Mixin(NaturalSpawner.class)
 public abstract class SpawnHelperMixin
 {
 	@ModifyArg(
-			method = "spawn",
+			method = "spawnForChunk",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/SpawnHelper;spawnEntitiesInChunk(Lnet/minecraft/entity/SpawnGroup;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/world/chunk/WorldChunk;Lnet/minecraft/world/SpawnHelper$Checker;Lnet/minecraft/world/SpawnHelper$Runner;)V"
+					target = "Lnet/minecraft/world/level/NaturalSpawner;spawnCategoryForChunk(Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/LevelChunk;Lnet/minecraft/world/level/NaturalSpawner$SpawnPredicate;Lnet/minecraft/world/level/NaturalSpawner$AfterSpawnCallback;)V"
 			)
 	)
-	private static SpawnHelper.Runner overspawningReintroduced_ReplaceWithAnEmptyOne(SpawnHelper.Runner runner)
+	private static NaturalSpawner.AfterSpawnCallback overspawningReintroduced_ReplaceWithAnEmptyOne(NaturalSpawner.AfterSpawnCallback runner)
 	{
 		if (CarpetTISAdditionSettings.overspawningReintroduced)
 		{

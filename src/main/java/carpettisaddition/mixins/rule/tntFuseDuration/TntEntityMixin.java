@@ -58,7 +58,7 @@ public abstract class TntEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12005
-					//$$ target = "Lnet/minecraft/entity/data/DataTracker$Builder;add(Lnet/minecraft/entity/data/TrackedData;Ljava/lang/Object;)Lnet/minecraft/entity/data/DataTracker$Builder;",
+					//$$ target = "Lnet/minecraft/network/syncher/SynchedEntityData$Builder;define(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)Lnet/minecraft/network/syncher/SynchedEntityData$Builder;",
 					//#else
 					target = "Lnet/minecraft/network/syncher/SynchedEntityData;define(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V",
 					//#endif

@@ -28,14 +28,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 11600
-//$$ import net.minecraft.state.State;
+//$$ import net.minecraft.world.level.block.state.StateHolder;
 //#else
 import net.minecraft.world.level.block.state.AbstractStateHolder;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ State.class
+		//$$ StateHolder.class
 		//#else
 		AbstractStateHolder.class
 		//#endif

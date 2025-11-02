@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.rule.vaultBlacklistDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.vault.VaultServerData;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.level.block.entity.vault.VaultServerData;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,8 +32,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(VaultServerData.class)
 public abstract class VaultServerDataMixin
 {
-	@Inject(method = "markPlayerAsRewarded", at = @At("HEAD"), cancellable = true)
-	private void vaultBlacklistDisabled_dontAddPlayerToTheBlackList(PlayerEntity player, CallbackInfo ci)
+	@Inject(method = "addToRewardedPlayers", at = @At("HEAD"), cancellable = true)
+	private void vaultBlacklistDisabled_dontAddPlayerToTheBlackList(Player player, CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.vaultBlacklistDisabled)
 		{

@@ -22,11 +22,11 @@ package carpettisaddition.mixins.rule.undeadDontBurnInSunlight;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.world.entity.Mob;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(MobEntity.class)
+@Mixin(Mob.class)
 public abstract class MobEntityMixin
 {
 	@SuppressWarnings("RedundantIfStatement")
@@ -37,7 +37,7 @@ public abstract class MobEntityMixin
 					target = "Lnet/minecraft/entity/mob/MobEntity;setOnFireFor(F)V"
 			)
 	)
-	private boolean undeadDontBurnInSunlight_skeleton(MobEntity instance, float duration)
+	private boolean undeadDontBurnInSunlight_skeleton(Mob instance, float duration)
 	{
 		if (CarpetTISAdditionSettings.undeadDontBurnInSunlight)
 		{

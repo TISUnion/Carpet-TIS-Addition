@@ -25,9 +25,9 @@ import carpettisaddition.commands.fill.modeenhance.FillSoftReplaceCommand;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.server.command.FillCommand;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.server.commands.FillCommand;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -38,10 +38,10 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(FillCommand.class)
 public abstract class FillCommandMixin
 {
-	@ModifyReturnValue(method = "buildModeTree", at = @At("TAIL"))
-	private static ArgumentBuilder<ServerCommandSource, ?> registerSoftReplaceFillMode(
-			ArgumentBuilder<ServerCommandSource, ?> node,
-			@Local(argsOnly = true) CommandRegistryAccess currentCommandBuildContext
+	@ModifyReturnValue(method = "wrapWithMode", at = @At("TAIL"))
+	private static ArgumentBuilder<CommandSourceStack, ?> registerSoftReplaceFillMode(
+			ArgumentBuilder<CommandSourceStack, ?> node,
+			@Local(argsOnly = true) CommandBuildContext currentCommandBuildContext
 	)
 	{
 		FillSoftReplaceCommand.getInstance().extendCommand(CommandTreeContext.of(node, currentCommandBuildContext));

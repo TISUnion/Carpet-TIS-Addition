@@ -26,15 +26,15 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.collection.TypeFilterableList;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.EntityView;
-import net.minecraft.world.World;
-import net.minecraft.world.entity.EntityTrackingSection;
-import net.minecraft.world.entity.EntityTrackingStatus;
-import net.minecraft.world.entity.SectionedEntityCache;
-import net.minecraft.world.entity.SimpleEntityLookup;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.util.ClassInstanceMultiMap;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.level.EntityGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.entity.EntitySection;
+import net.minecraft.world.level.entity.Visibility;
+import net.minecraft.world.level.entity.EntitySectionStorage;
+import net.minecraft.world.level.entity.LevelEntityGetterAdapter;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -46,7 +46,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.function.Predicate;
 
 //#if MC >= 11800
-//$$ import net.minecraft.world.entity.EntityLike;
+//$$ import net.minecraft.world.level.entity.EntityAccess;
 //#endif
 
 /**
@@ -56,18 +56,18 @@ import java.util.function.Predicate;
 		require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"),
 		conflict = @Condition(ModIds.async)
 )
-@Mixin(EntityTrackingSection.class)
+@Mixin(EntitySection.class)
 public abstract class EntityTrackingSectionMixin<
 		T
 		//#if MC >= 11800
-		//$$ extends EntityLike
+		//$$ extends EntityAccess
 		//#endif
 >
 {
 	// just like WorldChunk#entitySections in 1.16- but it's per chunk section and it uses genericity
-	@Shadow @Final private TypeFilterableList<T> collection;
+	@Shadow @Final private ClassInstanceMultiMap<T> collection;
 
-	private TypeFilterableList<T> hardHitBoxEntitySections;
+	private ClassInstanceMultiMap<T> hardHitBoxEntitySections;
 	private boolean optimizedHHBECEnabled;  // optimizedHardHitBoxEntityCollisionEnabled
 
 	/**
@@ -78,9 +78,9 @@ public abstract class EntityTrackingSectionMixin<
 			method = "<init>",
 			at = @At("TAIL")
 	)
-	private void onConstruct(Class<T> entityClass, EntityTrackingStatus status, CallbackInfo ci)
+	private void onConstruct(Class<T> entityClass, Visibility status, CallbackInfo ci)
 	{
-		this.hardHitBoxEntitySections = new TypeFilterableList<>(entityClass);
+		this.hardHitBoxEntitySections = new ClassInstanceMultiMap<>(entityClass);
 		this.optimizedHHBECEnabled = CarpetTISAdditionSettings.optimizedHardHitBoxEntityCollision && entityClass == Entity.class;
 	}
 
@@ -107,32 +107,32 @@ public abstract class EntityTrackingSectionMixin<
 
 	/**
 	 * Invoke path:
-	 * - {@link EntityView#getEntityCollisions}
-	 * - {@link World#getOtherEntities(Entity, Box, Predicate)}
-	 * - {@link SimpleEntityLookup#forEachIntersects(net.minecraft.util.math.Box, java.util.function.Consumer)}
-	 * - {@link SectionedEntityCache#forEachIntersects(net.minecraft.util.math.Box, java.util.function.Consumer)}
+	 * - {@link EntityGetter#getEntityCollisions}
+	 * - {@link Level#getOtherEntities(Entity, AABB, Predicate)}
+	 * - {@link LevelEntityGetterAdapter#forEachIntersects(net.minecraft.util.math.AABB, java.util.function.Consumer)}
+	 * - {@link EntitySectionStorage#forEachIntersects(net.minecraft.util.math.AABB, java.util.function.Consumer)}
 	 * -
-	 *   (<=1.17)         {@link EntityTrackingSection#forEach(java.util.function.Predicate, java.util.function.Consumer)}
-	 *   (>=1.18 <1.19.3) {@link EntityTrackingSection#forEach(net.minecraft.util.math.Box, java.util.function.Consumer)}
-	 *   (>=1.19.3)       {@link EntityTrackingSection#forEach(Box, net.minecraft.util.function.LazyIterationConsumer)}
+	 *   (<=1.17)         {@link EntitySection#forEach(java.util.function.Predicate, java.util.function.Consumer)}
+	 *   (>=1.18 <1.19.3) {@link EntitySection#forEach(net.minecraft.util.math.AABB, java.util.function.Consumer)}
+	 *   (>=1.19.3)       {@link EntitySection#forEach(AABB, net.minecraft.util.function.LazyIterationConsumer)}
 	 *
 	 * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	 */
 	@ModifyExpressionValue(
 			//#if MC >= 11903
-			//$$ method = "forEach(Lnet/minecraft/util/math/Box;Lnet/minecraft/util/function/LazyIterationConsumer;)Lnet/minecraft/util/function/LazyIterationConsumer$NextIteration;",
+			//$$ method = "getEntities",
 			//#elseif MC >= 11800
-			//$$ method = "forEach(Lnet/minecraft/util/math/Box;Ljava/util/function/Consumer;)V",
+			//$$ method = "getEntities",
 			//#else
-			method = "forEach(Ljava/util/function/Predicate;Ljava/util/function/Consumer;)V",
+			method = "getEntities",
 			//#endif
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/world/entity/EntityTrackingSection;collection:Lnet/minecraft/util/collection/TypeFilterableList;"
+					target = "Lnet/minecraft/world/level/entity/EntitySection;storage:Lnet/minecraft/util/ClassInstanceMultiMap;"
 			),
 			require = 1
 	)
-	private TypeFilterableList<T> redirectEntitySections(TypeFilterableList<T> collection)
+	private ClassInstanceMultiMap<T> redirectEntitySections(ClassInstanceMultiMap<T> collection)
 	{
 		if (this.optimizedHHBECEnabled && OptimizedHardHitBoxEntityCollisionHelper.checkHardHitBoxEntityOnly.get())
 		{

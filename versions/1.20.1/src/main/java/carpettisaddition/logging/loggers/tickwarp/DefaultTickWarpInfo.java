@@ -22,7 +22,7 @@ package carpettisaddition.logging.loggers.tickwarp;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.mixins.logger.tickwarp.ServerTickRateManagerAccessor;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -38,17 +38,17 @@ import carpet.fakes.MinecraftServerInterface;
  */
 public class DefaultTickWarpInfo implements TickWarpInfo
 {
-	private ServerCommandSource timeAdvancer;
+	private CommandSourceStack timeAdvancer;
 
 	@Override
 	@Nullable
-	public ServerCommandSource getTimeAdvancer()
+	public CommandSourceStack getTimeAdvancer()
 	{
 		return this.timeAdvancer;
 	}
 
 	@Override
-	public void setTimeAdvancer(@Nullable ServerCommandSource timeAdvancer)
+	public void setTimeAdvancer(@Nullable CommandSourceStack timeAdvancer)
 	{
 		this.timeAdvancer = timeAdvancer;
 	}

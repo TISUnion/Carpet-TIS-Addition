@@ -35,9 +35,9 @@ import java.util.Objects;
 
 //#if MC >= 12005
 //$$ import carpettisaddition.mixins.command.speedtest.PacketCodecDispatcherAccessor;
-//$$ import net.minecraft.network.RegistryByteBuf;
-//$$ import net.minecraft.network.packet.CommonPackets;
-//$$ import net.minecraft.network.state.PlayStateFactories;
+//$$ import net.minecraft.network.RegistryFriendlyByteBuf;
+//$$ import net.minecraft.network.protocol.common.CommonPacketTypes;
+//$$ import net.minecraft.network.protocol.game.GameProtocols;
 //#endif
 
 public class SpeedTestCompressionSkipper
@@ -81,14 +81,14 @@ public class SpeedTestCompressionSkipper
 			//$$ //#if MC >= 12105
 			//$$ //$$ var codec = switch (side)
 			//$$ //$$ {
-			//$$ //$$ 	case SERVERBOUND -> PlayStateFactories.C2S.bind(buf -> new RegistryByteBuf(buf, null), () -> true).codec();
-			//$$ //$$ 	case CLIENTBOUND -> PlayStateFactories.S2C.bind(buf -> new RegistryByteBuf(buf, null)).codec();
+			//$$ //$$ 	case SERVERBOUND -> GameProtocols.C2S.bind(buf -> new RegistryFriendlyByteBuf(buf, null), () -> true).codec();
+			//$$ //$$ 	case CLIENTBOUND -> GameProtocols.S2C.bind(buf -> new RegistryFriendlyByteBuf(buf, null)).codec();
 			//$$ //$$ };
 			//$$ //#else
-			//$$ var factory = side == NetworkSide.SERVERBOUND ? PlayStateFactories.C2S : PlayStateFactories.S2C;
-			//$$ var codec = factory.bind(buf -> new RegistryByteBuf(buf, null)).codec();
+			//$$ var factory = side == NetworkSide.SERVERBOUND ? GameProtocols.C2S : GameProtocols.S2C;
+			//$$ var codec = factory.bind(buf -> new RegistryFriendlyByteBuf(buf, null)).codec();
 			//$$ //#endif
-			//$$ var type = side == NetworkSide.SERVERBOUND ? CommonPackets.CUSTOM_PAYLOAD_C2S : CommonPackets.CUSTOM_PAYLOAD_S2C;
+			//$$ var type = side == NetworkSide.SERVERBOUND ? CommonPacketTypes.CUSTOM_PAYLOAD_C2S : CommonPacketTypes.CUSTOM_PAYLOAD_S2C;
 			//$$ if (codec instanceof PacketCodecDispatcherAccessor<?> packetCodecDispatcher)
 			//$$ {
 			//$$ 	var packetId = packetCodecDispatcher.getTypeToIndex().getOrDefault(type, -1);

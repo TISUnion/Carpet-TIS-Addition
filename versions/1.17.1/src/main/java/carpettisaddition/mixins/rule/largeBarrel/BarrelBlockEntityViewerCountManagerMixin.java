@@ -24,10 +24,10 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.DoubleInventory;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.CompoundContainer;
+import net.minecraft.world.Container;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -46,17 +46,17 @@ public abstract class BarrelBlockEntityViewerCountManagerMixin
 			method = "isPlayerViewing(Lnet/minecraft/entity/player/PlayerEntity;)Z",
 			at = @At(
 					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/screen/GenericContainerScreenHandler;getInventory()Lnet/minecraft/inventory/Inventory;"
+					target = "Lnet/minecraft/world/inventory/ChestMenu;getContainer()Lnet/minecraft/world/Container;"
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private void correctLargeBarrelLogic(PlayerEntity player, CallbackInfoReturnable<Boolean> cir, Inventory inventory)
+	private void correctLargeBarrelLogic(Player player, CallbackInfoReturnable<Boolean> cir, Container inventory)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			//  reference: the lambda ViewerCountManager subclass inside ChestBlockEntity
-			boolean openingLargeBarrel = inventory instanceof DoubleInventory && ((DoubleInventory)inventory).isPart(this.field_27208);
+			boolean openingLargeBarrel = inventory instanceof CompoundContainer && ((CompoundContainer)inventory).isPart(this.field_27208);
 			if (openingLargeBarrel)
 			{
 				cir.setReturnValue(true);

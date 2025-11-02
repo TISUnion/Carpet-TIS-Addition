@@ -23,9 +23,9 @@ package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.block.NeighborUpdater;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.redstone.NeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -39,15 +39,15 @@ public interface NeighborUpdaterMixin
 	 */
 	@SuppressWarnings("ConstantConditions")
 	@ModifyArg(
-			method = "tryNeighborUpdate",
+			method = "executeUpdate",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/crash/CrashReport;create(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/util/crash/CrashReport;"
+					target = "Lnet/minecraft/CrashReport;forThrowable(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/CrashReport;"
 			)
 	)
 	private static Throwable yeetUpdateSuppressionCrash_wrapStackOverflow(
 			Throwable throwable,
-			@Local(ordinal = 0, argsOnly = true) World world,
+			@Local(ordinal = 0, argsOnly = true) Level world,
 			@Local(ordinal = 0, argsOnly = true) BlockPos neighborPos,
 			@Local LocalRef<Throwable> ref
 	)

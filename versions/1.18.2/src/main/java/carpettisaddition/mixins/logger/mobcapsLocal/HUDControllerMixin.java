@@ -28,7 +28,7 @@ import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -49,7 +49,7 @@ public abstract class HUDControllerMixin
 			),
 			remap = false
 	)
-	private static void updateMobCapsLocalLogger(MinecraftServer packetData, List<ServerPlayerEntity> packet, CallbackInfo ci)
+	private static void updateMobCapsLocalLogger(MinecraftServer packetData, List<ServerPlayer> packet, CallbackInfo ci)
 	{
 		TISAdditionHUDController.doHudLogging(TISAdditionLoggerRegistry.__mobcapsLocal, MobcapsLocalLogger.NAME, MobcapsLocalLogger.getInstance());
 	}

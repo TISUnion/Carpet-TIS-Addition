@@ -23,19 +23,19 @@ package carpettisaddition.mixins.command.refresh;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.network.ChunkDataSender;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.server.network.PlayerChunkSender;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.20.2-alpha.0"))
-@Mixin(ChunkDataSender.class)
+@Mixin(PlayerChunkSender.class)
 public interface ChunkDataSenderAccessor
 {
 	@Invoker("sendChunkData")
-	static void invokeSendChunkPacket(ServerPlayNetworkHandler serverPlayNetworkHandler, ServerWorld serverWorld, WorldChunk worldChunk)
+	static void invokeSendChunkPacket(ServerGamePacketListenerImpl serverPlayNetworkHandler, ServerLevel serverWorld, LevelChunk worldChunk)
 	{
 	}
 }

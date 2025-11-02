@@ -24,8 +24,8 @@ import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoCli
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.AbstractPressurePlateBlock;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.level.block.BasePressurePlateBlock;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -36,7 +36,7 @@ import java.util.function.Predicate;
  * mc1.20+ replacement for {@link PressurePlateBlockMixin} and {@link WeightedPressurePlateBlockMixin}
  */
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.20"))
-@Mixin(AbstractPressurePlateBlock.class)
+@Mixin(BasePressurePlateBlock.class)
 public abstract class AbstractPressurePlateBlockMixin
 {
 	@ModifyArg(

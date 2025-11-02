@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 12102
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#endif
 
 @Mixin(WitherBoss.class)
@@ -42,7 +42,7 @@ public abstract class WitherEntityMixin
 					//#if MC >= 12102
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;syncGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/world/World;syncGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+					//$$ target = "Lnet/minecraft/world/level/Level;globalLevelEvent(ILnet/minecraft/core/BlockPos;I)V"
 					//#else
 					target = "Lnet/minecraft/world/level/Level;globalLevelEvent(ILnet/minecraft/core/BlockPos;I)V"
 					//#endif
@@ -50,7 +50,7 @@ public abstract class WitherEntityMixin
 	)
 	private boolean witherSpawnedSoundDisabled_conditionCheck(
 			//#if MC >= 12102
-			//$$ ServerWorld instance,
+			//$$ ServerLevel instance,
 			//#else
 			Level instance,
 			//#endif

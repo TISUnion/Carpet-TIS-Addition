@@ -39,14 +39,14 @@ import java.util.List;
 
 //#if MC >= 11900
 //#disable-remap
-//$$ import net.minecraft.util.math.random.Random;
+//$$ import net.minecraft.util.RandomSource;
 //#enable-remap
 //#else
 import java.util.Random;
 //#endif
 
 //#if MC < 11500
-//$$ import net.minecraft.world.World;
+//$$ import net.minecraft.world.level.Level;
 //#endif
 
 @Mixin(DragonEggBlock.class)
@@ -70,7 +70,7 @@ public abstract class DragonEggBlockMixin extends Block
 	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random)
 	//#enable-remap
 	//#else
-	//$$ public void onRandomTick(BlockState state, World world, BlockPos pos, Random random)
+	//$$ public void onRandomTick(BlockState state, Level world, BlockPos pos, Random random)
 	//#endif
 	{
 		renewableDragonEggImpl(state, world, pos, random);
@@ -89,13 +89,7 @@ public abstract class DragonEggBlockMixin extends Block
 					new AABB
 					//#endif
 							(pos, pos.offset(1, 1, 1));
-			List<AreaEffectCloud> list =
-					//#if MC >= 11600
-					//$$ world.getEntitiesByClass
-					//#else
-					world.getEntitiesOfClass
-					//#endif
-							(AreaEffectCloud.class, box, (entity) -> {return entity != null && entity.isAlive();});
+			List<AreaEffectCloud> list = world.getEntitiesOfClass(AreaEffectCloud.class, box, (entity) -> {return entity != null && entity.isAlive();});
 			List<AreaEffectCloud> dragonBreath = Lists.newArrayList();
 			for (AreaEffectCloud areaEffectCloudEntity : list)
 				if (areaEffectCloudEntity.getParticle() == ParticleTypes.DRAGON_BREATH)

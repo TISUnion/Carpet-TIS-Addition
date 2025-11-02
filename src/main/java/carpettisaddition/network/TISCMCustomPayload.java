@@ -21,23 +21,23 @@
 package carpettisaddition.network;
 
 import carpettisaddition.utils.NetworkUtils;
-import carpettisaddition.utils.compat.CustomPayload;
+import carpettisaddition.utils.compat.CustomPacketPayload;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.FriendlyByteBuf;
 
 //#if MC >= 12005
-//$$ import net.minecraft.network.codec.PacketCodec;
-//$$ import net.minecraft.network.packet.CustomPayload;
+//$$ import net.minecraft.network.codec.StreamCodec;
+//$$ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 //#endif
 
-public class TISCMCustomPayload implements CustomPayload
+public class TISCMCustomPayload implements CustomPacketPayload
 {
 	public static final ResourceLocation ID = TISCMProtocol.CHANNEL;
 
 	//#if MC >= 12005
-	//$$ public static final CustomPayload.Id<TISCMCustomPayload> KEY = new CustomPayload.Id<>(ID);
-	//$$ public static final PacketCodec<PacketByteBuf, TISCMCustomPayload> CODEC = CustomPayload.codecOf(TISCMCustomPayload::write, TISCMCustomPayload::new);
+	//$$ public static final CustomPacketPayload.Id<TISCMCustomPayload> KEY = new CustomPacketPayload.Id<>(ID);
+	//$$ public static final StreamCodec<PacketByteBuf, TISCMCustomPayload> CODEC = CustomPacketPayload.codecOf(TISCMCustomPayload::write, TISCMCustomPayload::new);
 	//#endif
 
 	private final String packetId;
@@ -80,7 +80,7 @@ public class TISCMCustomPayload implements CustomPayload
 
 	//#if MC >= 12005
 	//$$ @Override
-	//$$ public Id<? extends CustomPayload> getId()
+	//$$ public Id<? extends CustomPacketPayload> getId()
 	//$$ {
 	//$$ 	return KEY;
 	//$$ }

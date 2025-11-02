@@ -37,7 +37,7 @@ public abstract class EndCrystalItemMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/entity/decoration/EndCrystalEntity;setShowBottom(Z)V"
+					//$$ target = "Lnet/minecraft/world/entity/boss/enderdragon/EndCrystal;setShowBottom(Z)V"
 					//#else
 					target = "Lnet/minecraft/world/entity/boss/enderdragon/EndCrystal;setShowBottom(Z)V"
 					//#endif

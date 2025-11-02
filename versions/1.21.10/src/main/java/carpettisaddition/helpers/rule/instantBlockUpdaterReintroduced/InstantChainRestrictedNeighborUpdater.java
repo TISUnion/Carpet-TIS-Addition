@@ -22,29 +22,29 @@ package carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced;
 
 import carpettisaddition.logging.loggers.microtiming.utils.InstantNeighborUpdater;
 import carpettisaddition.mixins.rule.instantBlockUpdaterReintroduced.ChainRestrictedNeighborUpdaterAccessor;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.block.ChainRestrictedNeighborUpdater;
-import net.minecraft.world.block.SimpleNeighborUpdater;
-import net.minecraft.world.block.WireOrientation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.redstone.CollectingNeighborUpdater;
+import net.minecraft.world.level.redstone.InstantNeighborUpdater;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A class that appears as {@link ChainRestrictedNeighborUpdater} but is actually implemented as {@link SimpleNeighborUpdater}
+ * A class that appears as {@link CollectingNeighborUpdater} but is actually implemented as {@link InstantNeighborUpdater}
  * <p>
- * It should override all public methods of {@link ChainRestrictedNeighborUpdater} whose behavior differs from that of {@link SimpleNeighborUpdater}
+ * It should override all public methods of {@link CollectingNeighborUpdater} whose behavior differs from that of {@link InstantNeighborUpdater}
  */
-public class InstantChainRestrictedNeighborUpdater extends ChainRestrictedNeighborUpdater implements InstantNeighborUpdater
+public class InstantChainRestrictedNeighborUpdater extends CollectingNeighborUpdater implements InstantNeighborUpdater
 {
-	private final SimpleNeighborUpdater simpleNeighborUpdater;
+	private final InstantNeighborUpdater simpleNeighborUpdater;
 
-	public InstantChainRestrictedNeighborUpdater(World world, int maxChainDepth)
+	public InstantChainRestrictedNeighborUpdater(Level world, int maxChainDepth)
 	{
 		super(world, maxChainDepth);
-		this.simpleNeighborUpdater = new SimpleNeighborUpdater(world);
+		this.simpleNeighborUpdater = new InstantNeighborUpdater(world);
 	}
 
 	private void onBlockUpdate(BlockPos blockPos)
@@ -64,21 +64,21 @@ public class InstantChainRestrictedNeighborUpdater extends ChainRestrictedNeighb
 	}
 
 	@Override
-	public void updateNeighbor(BlockPos pos, Block sourceBlock, @Nullable WireOrientation orientation)
+	public void updateNeighbor(BlockPos pos, Block sourceBlock, @Nullable Orientation orientation)
 	{
 		this.onBlockUpdate(pos);
 		this.simpleNeighborUpdater.updateNeighbor(pos, sourceBlock, orientation);
 	}
 
 	@Override
-	public void updateNeighbor(BlockState state, BlockPos pos, Block sourceBlock, @Nullable WireOrientation orientation, boolean notify)
+	public void updateNeighbor(BlockState state, BlockPos pos, Block sourceBlock, @Nullable Orientation orientation, boolean notify)
 	{
 		this.onBlockUpdate(pos);
 		this.simpleNeighborUpdater.updateNeighbor(state, pos, sourceBlock, orientation, notify);
 	}
 
 	@Override
-	public void updateNeighbors(BlockPos pos, Block sourceBlock, @Nullable Direction except, @Nullable WireOrientation orientation)
+	public void updateNeighbors(BlockPos pos, Block sourceBlock, @Nullable Direction except, @Nullable Orientation orientation)
 	{
 		for (Direction direction : UPDATE_ORDER)
 		{

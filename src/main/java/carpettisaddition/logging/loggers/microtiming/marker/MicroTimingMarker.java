@@ -84,7 +84,7 @@ public class MicroTimingMarker
 
 		Function<BlockPos, Vec3> fv =
 				//#if MC >= 11600
-				//$$ Vec3d::of;
+				//$$ Vec3::atLowerCornerOf;
 				//#else
 				Vec3::new;
 				//#endif

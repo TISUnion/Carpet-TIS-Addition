@@ -22,11 +22,11 @@ package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.DebugHud;
-import net.minecraft.client.gui.hud.debug.TickChart;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.DebugScreenOverlay;
+import net.minecraft.client.gui.components.debugchart.TpsDebugChart;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -36,25 +36,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 12005
-//$$ import net.minecraft.util.profiler.MultiValueDebugSampleLogImpl;
+//$$ import net.minecraft.util.debugchart.LocalSampleLogger;
 //#endif
 
 /**
  * mc1.14 ~ mc1.20.1: subproject 1.15.2 (main project)
  * mc1.20.2+        : subproject 1.20.2        <--------
  */
-@Mixin(DebugHud.class)
+@Mixin(DebugScreenOverlay.class)
 public abstract class DebugHudMixin
 {
-	@Shadow @Final private TextRenderer textRenderer;
-	@Shadow @Final private MinecraftClient client;
+	@Shadow @Final private Font textRenderer;
+	@Shadow @Final private Minecraft client;
 
 	//#if MC >= 12003
-	//$$ @Shadow @Final private TickChart tickChart;
+	//$$ @Shadow @Final private TpsDebugChart tickChart;
 	//#endif
 
 	//#if MC >= 12005
-	//$$ @Shadow @Final private MultiValueDebugSampleLogImpl tickNanosLog;
+	//$$ @Shadow @Final private LocalSampleLogger tickNanosLog;
 	//#endif
 
 	@Inject(
@@ -68,12 +68,12 @@ public abstract class DebugHudMixin
 					//#if MC >= 12005
 					//$$ target = "Lnet/minecraft/util/profiler/MultiValueDebugSampleLogImpl;getLength()I"
 					//#else
-					target = "Lnet/minecraft/client/MinecraftClient;getServer()Lnet/minecraft/server/integrated/IntegratedServer;"
+					target = "Lnet/minecraft/client/Minecraft;getSingleplayerServer()Lnet/minecraft/client/server/IntegratedServer;"
 					//#endif
 			)
 	)
 	private void syncServerMsptMetricsData_drawIfPossible(
-			DrawContext drawContext, CallbackInfo ci,
+			GuiGraphics drawContext, CallbackInfo ci,
 			@Local(ordinal = 0) int windowWidth,
 			@Local(ordinal = 1) int centerX
 	)
@@ -96,7 +96,7 @@ public abstract class DebugHudMixin
 				//$$ }
 				//#endif
 
-				var chart = new TickChart(
+				var chart = new TpsDebugChart(
 						this.textRenderer, data
 						//#if MC >= 12003
 						//$$ , ((TickChartAccessor)this.tickChart).getMillisPerTickSupplier()

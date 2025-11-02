@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 12002
-//$$ import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
+//$$ import net.minecraft.server.level.ClientInformation;
 //#else
 import net.minecraft.network.protocol.game.ServerboundClientInformationPacket;
 //#endif
@@ -52,7 +52,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	)
 	private void recordClientLanguage(
 			//#if MC >= 12002
-			//$$ SyncedClientOptions settings,
+			//$$ ClientInformation settings,
 			//#else
 			ServerboundClientInformationPacket packet,
 			//#endif
@@ -82,11 +82,11 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 					//#if MC >= 11901
 					//$$ "sendMessageToClient",
 					//#elseif MC >= 11600
-					//$$ "sendMessage(Lnet/minecraft/text/Text;Z)V",
-					//$$ "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V",
+					//$$ "displayClientMessage",
+					//$$ "sendMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V",
 					//#else
 					"displayClientMessage",
-					"sendMessage",
+					"sendMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType;)V",
 					//#endif
 			},
 			at = @At("HEAD"),

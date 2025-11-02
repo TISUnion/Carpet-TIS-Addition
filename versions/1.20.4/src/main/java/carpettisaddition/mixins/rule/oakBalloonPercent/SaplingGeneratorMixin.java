@@ -25,27 +25,27 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.SaplingGenerator;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">1.20.2"))
-@Mixin(SaplingGenerator.class)
+@Mixin(TreeGrower.class)
 public abstract class SaplingGeneratorMixin
 {
 	@ModifyExpressionValue(
-			method = "getSmallTreeFeature",
+			method = "getConfiguredFeature",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/block/SaplingGenerator;rareChance:F"
+					target = "Lnet/minecraft/world/level/block/grower/TreeGrower;secondaryChance:F"
 			)
 	)
 	private float oakBalloonPercent_modifyChance(float chance)
 	{
 		if (CarpetTISAdditionSettings.oakBalloonPercent > 0)
 		{
-			SaplingGenerator self = (SaplingGenerator)(Object)this;
-			if (self == SaplingGenerator.OAK)
+			TreeGrower self = (TreeGrower)(Object)this;
+			if (self == TreeGrower.OAK)
 			{
 				chance = CarpetTISAdditionSettings.oakBalloonPercent / 100.0f;
 			}

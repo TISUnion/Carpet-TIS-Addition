@@ -26,8 +26,8 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.substages.TileEnt
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -45,7 +45,7 @@ public abstract class DirectBlockEntityTickInvokerMixin<T extends BlockEntity>
 	private void startTileEntitySection(CallbackInfo ci)
 	{
 		BlockEntity blockEntity = this.blockEntity;
-		World world = blockEntity.getWorld();
+		Level world = blockEntity.getWorld();
 		if (world != null)
 		{
 			int counter = ((IWorldTileEntity)world).getTileEntityOrderCounter();

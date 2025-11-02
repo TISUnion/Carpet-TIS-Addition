@@ -29,12 +29,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 12102
-//$$ import net.minecraft.world.explosion.ExplosionImpl;
+//$$ import net.minecraft.world.level.ServerExplosion;
 //#endif
 
 @Mixin(
 		//#if MC >= 12102
-		//$$ ExplosionImpl.class
+		//$$ ServerExplosion.class
 		//#else
 		Explosion.class
 		//#endif
@@ -50,7 +50,7 @@ public abstract class ExplosionMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12004
-					//$$ target = "Lnet/minecraft/entity/Entity;isImmuneToExplosion(Lnet/minecraft/world/explosion/Explosion;)Z"
+					//$$ target = "Lnet/minecraft/world/entity/Entity;ignoreExplosion(Lnet/minecraft/world/level/Explosion;)Z"
 					//#else
 					target = "Lnet/minecraft/world/entity/Entity;ignoreExplosion()Z"
 					//#endif

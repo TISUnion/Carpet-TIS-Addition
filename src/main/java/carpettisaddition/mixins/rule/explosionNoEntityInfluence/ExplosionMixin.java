@@ -30,14 +30,14 @@ import java.util.Collections;
 import java.util.List;
 
 //#if MC >= 12102
-//$$ import net.minecraft.world.explosion.ExplosionImpl;
+//$$ import net.minecraft.world.level.ServerExplosion;
 //#else
 import net.minecraft.world.level.Explosion;
 //#endif
 
 @Mixin(
 		//#if MC >= 12102
-		//$$ ExplosionImpl.class
+		//$$ ServerExplosion.class
 		//#else
 		Explosion.class
 		//#endif

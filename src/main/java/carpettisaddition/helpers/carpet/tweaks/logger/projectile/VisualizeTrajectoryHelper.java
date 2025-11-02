@@ -35,8 +35,8 @@ import java.util.Map;
 import java.util.UUID;
 
 //#if MC >= 12102
-//$$ import net.minecraft.item.ItemStack;
-//$$ import net.minecraft.item.Items;
+//$$ import net.minecraft.world.item.ItemStack;
+//$$ import net.minecraft.world.item.Items;
 //#endif
 
 public class VisualizeTrajectoryHelper

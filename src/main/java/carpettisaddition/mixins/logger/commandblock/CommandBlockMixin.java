@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 12102
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#endif
 
 @Mixin(CommandBlock.class)
@@ -53,7 +53,7 @@ public abstract class CommandBlockMixin
 	private void onCommandBlockExecutedCommandBlockLogger(
 			BlockState state,
 			//#if MC >= 12102
-			//$$ ServerWorld world,
+			//$$ ServerLevel world,
 			//#else
 			Level world,
 			//#endif

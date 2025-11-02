@@ -34,11 +34,11 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 //#if MC >= 11900
-//$$ import net.minecraft.world.block.NeighborUpdater;
+//$$ import net.minecraft.world.level.redstone.NeighborUpdater;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.block.AbstractBlock;
+//$$ import net.minecraft.world.level.block.state.BlockBehaviour;
 //#else
 import net.minecraft.world.level.block.Block;
 //#endif
@@ -114,7 +114,7 @@ public enum BlockUpdateType
 
 		/**
 		 * (<=1.15) See {@link Block#updateNeighborStates}
-		 * (>=1.16) See {@link AbstractBlock.AbstractBlockState#updateNeighbors}
+		 * (>=1.16) See {@link BlockBehaviour.BlockStateBase#updateNeighbors}
 		 */
 		private static final Direction[] STATE_UPDATE_ORDER = BlockAccessor.getFACINGS();
 

@@ -123,7 +123,7 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif
@@ -146,7 +146,7 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif
@@ -170,7 +170,7 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif
@@ -188,7 +188,7 @@ public abstract class RaidMixin implements IRaid
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11600
-							//$$ target = "Lnet/minecraft/village/raid/Raid;playRaidHorn(Lnet/minecraft/util/math/BlockPos;)V"
+							//$$ target = "Lnet/minecraft/world/entity/raid/Raid;playSound(Lnet/minecraft/core/BlockPos;)V"
 							//#else
 							target = "Lnet/minecraft/world/entity/raid/Raid;playSound(Lnet/minecraft/core/BlockPos;)V"
 							//#endif
@@ -197,7 +197,7 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif
@@ -220,7 +220,7 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif

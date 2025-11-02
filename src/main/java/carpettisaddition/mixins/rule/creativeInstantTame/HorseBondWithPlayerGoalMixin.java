@@ -53,7 +53,7 @@ public abstract class HorseBondWithPlayerGoalMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
-					//$$ target = "Lnet/minecraft/util/math/random/Random;nextInt(I)I",
+					//$$ target = "Lnet/minecraft/util/RandomSource;nextInt(I)I",
 					//#else
 					target = "Ljava/util/Random;nextInt(I)I",
 					//#endif
@@ -74,7 +74,7 @@ public abstract class HorseBondWithPlayerGoalMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
-					//$$ target = "Lnet/minecraft/util/math/random/Random;nextInt(I)I",
+					//$$ target = "Lnet/minecraft/util/RandomSource;nextInt(I)I",
 					//#else
 					target = "Ljava/util/Random;nextInt(I)I",
 					//#endif

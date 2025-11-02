@@ -34,7 +34,7 @@ public abstract class ZombieEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/entity/mob/ZombieEntity$ZombieData;<init>(ZZ)V"
+					//$$ target = "Lnet/minecraft/world/entity/monster/Zombie$ZombieGroupData;<init>(ZZ)V"
 					//#else
 					target = "Lnet/minecraft/world/entity/monster/Zombie$ZombieGroupData;<init>(Lnet/minecraft/world/entity/monster/Zombie;ZLnet/minecraft/world/entity/monster/Zombie$1;)V"
 					//#endif

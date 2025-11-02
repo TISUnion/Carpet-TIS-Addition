@@ -26,7 +26,7 @@ import net.minecraft.network.FriendlyByteBuf;
 /**
  * Backported from mc1.20.2, for easier networking coding
  */
-public interface CustomPayload
+public interface CustomPacketPayload
 {
 	void write(FriendlyByteBuf buf);
 

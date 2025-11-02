@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 //#if 11900 <= MC && MC < 12003
 //$$ import com.mojang.brigadier.CommandDispatcher;
-//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import net.minecraft.commands.CommandBuildContext;
 //$$ import org.spongepowered.asm.mixin.injection.Inject;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
@@ -40,10 +40,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class TickCommandMixin
 {
 	//#if 11900 <= MC && MC < 12003
-	//$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
+	//$$ private static CommandBuildContext currentCommandBuildContext$TISCM = null;
  //$$
 	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
-	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext, CallbackInfo ci)
+	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandBuildContext commandBuildContext, CallbackInfo ci)
 	//$$ {
 	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
 	//$$ }

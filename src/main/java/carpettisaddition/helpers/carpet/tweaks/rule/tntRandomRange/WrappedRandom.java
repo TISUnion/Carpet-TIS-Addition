@@ -27,8 +27,8 @@ import carpettisaddition.utils.GameUtils;
 //#disable-remap
 
 //#if MC >= 11900
-//$$ import net.minecraft.util.math.random.Random;
-//$$ import net.minecraft.util.math.random.RandomSplitter;
+//$$ import net.minecraft.util.RandomSource;
+//$$ import net.minecraft.world.level.levelgen.PositionalRandomFactory;
 //#else
 import java.util.Random;
 //#endif
@@ -77,7 +77,7 @@ public class WrappedRandom
 
 	//#if MC >= 11900
 	//$$ @Override public Random split() {return this.random.split();}
-	//$$ @Override public RandomSplitter nextSplitter() {return this.random.nextSplitter();}
+	//$$ @Override public PositionalRandomFactory nextSplitter() {return this.random.nextSplitter();}
 	//$$ @Override public void setSeed(long seed) {this.random.setSeed(seed);}
 	//$$ @Override public int nextInt() {return this.random.nextInt();}
 	//$$ @Override public int nextInt(int bound) {return this.random.nextInt(bound);}

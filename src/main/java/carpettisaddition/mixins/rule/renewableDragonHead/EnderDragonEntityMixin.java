@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 12102
 //$$ import carpettisaddition.utils.EntityUtils;
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#endif
 
 @Mixin(EnderDragon.class)
@@ -78,7 +78,7 @@ public abstract class EnderDragonEntityMixin extends Mob implements Enemy
 	private void dropHead(CallbackInfo ci)
 	{
 		//#if MC >= 12102
-		//$$ if (this.flagDropHead$TISCM && EntityUtils.getEntityWorld(this) instanceof ServerWorld serverWorld)
+		//$$ if (this.flagDropHead$TISCM && EntityUtils.getEntityWorld(this) instanceof ServerLevel serverWorld)
 		//$$ {
 		//$$ 	this.dropStack(serverWorld, new ItemStack(Items.DRAGON_HEAD));
 		//$$ }

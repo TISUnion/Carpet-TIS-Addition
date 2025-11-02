@@ -36,7 +36,7 @@ public abstract class ChatMessageC2SPacketMixin
 	//$$ 		method = "write",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
-	//$$ 				target = "Lnet/minecraft/network/PacketByteBuf;writeString(Ljava/lang/String;I)Lnet/minecraft/network/PacketByteBuf;"
+	//$$ 				target = "Lnet/minecraft/network/FriendlyByteBuf;writeUtf(Ljava/lang/String;I)Lnet/minecraft/network/FriendlyByteBuf;"
 	//$$ 		)
 	//$$ )
 	//#else

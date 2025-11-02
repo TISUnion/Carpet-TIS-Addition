@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 //#if MC >= 11904
-//$$ import net.minecraft.registry.tag.DamageTypeTags;
+//$$ import net.minecraft.tags.DamageTypeTags;
 //#endif
 
 public class DamageLogger extends AbstractLogger

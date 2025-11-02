@@ -42,7 +42,7 @@ public abstract class OptimizedExplosionMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12004
-					//$$ target = "Lnet/minecraft/entity/Entity;isImmuneToExplosion(Lnet/minecraft/world/explosion/Explosion;)Z"
+					//$$ target = "Lnet/minecraft/world/entity/Entity;ignoreExplosion(Lnet/minecraft/world/level/Explosion;)Z"
 					//#else
 					target = "Lnet/minecraft/world/entity/Entity;ignoreExplosion()Z"
 					//#endif

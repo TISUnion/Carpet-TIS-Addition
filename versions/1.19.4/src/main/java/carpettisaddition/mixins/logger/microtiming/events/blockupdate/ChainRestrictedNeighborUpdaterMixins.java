@@ -26,11 +26,11 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -51,13 +51,13 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 		@Shadow @Final private BlockPos pos;
 
 		@Inject(method = "update", at = @At("HEAD"))
-		private void startBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
+		private void startBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
 		}
 
 		@Inject(method = "update", at = @At("TAIL"))
-		private void endBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
+		private void endBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
 		}
@@ -71,13 +71,13 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 		@Shadow @Final private BlockPos pos;
 
 		@Inject(method = "update", at = @At("HEAD"))
-		private void startBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
+		private void startBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START);
 		}
 
 		@Inject(method = "update", at = @At("TAIL"))
-		private void endBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
+		private void endBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.pos, this.sourceBlock, BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END);
 		}
@@ -94,7 +94,7 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 		private boolean hasTriggeredStartEvent$TISCM = false;
 
 		@Inject(method = "update", at = @At("HEAD"))
-		private void startBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
+		private void startBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			if (!this.hasTriggeredStartEvent$TISCM)
 			{
@@ -111,7 +111,7 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 		}
 
 		@Inject(method = "update", at = @At("TAIL"))
-		private void endBlockUpdate(World world, CallbackInfoReturnable<Boolean> cir)
+		private void endBlockUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			if (!cir.getReturnValue())  // it's finished, returning false
 			{
@@ -135,13 +135,13 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 		@Shadow @Final private BlockPos neighborPos;
 
 		@Inject(method = "update", at = @At("HEAD"))
-		private void startStateUpdate(World world, CallbackInfoReturnable<Boolean> cir)
+		private void startStateUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.neighborState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START);
 		}
 
 		@Inject(method = "update", at = @At("TAIL"))
-		private void endStateUpdate(World world, CallbackInfoReturnable<Boolean> cir)
+		private void endStateUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
 			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.neighborState.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END);
 		}

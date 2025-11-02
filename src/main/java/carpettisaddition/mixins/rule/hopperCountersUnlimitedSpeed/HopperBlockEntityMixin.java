@@ -38,8 +38,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11700
-//$$ import net.minecraft.block.BlockState;
-//$$ import net.minecraft.world.World;
+//$$ import net.minecraft.world.level.block.state.BlockState;
+//$$ import net.minecraft.world.level.Level;
 //$$ import java.util.function.BooleanSupplier;
 //#else
 import java.util.function.Supplier;
@@ -65,9 +65,9 @@ public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockE
 	//#if MC >= 11700
 	//$$ @Shadow
 	//$$ //#if MC >= 12005
-	//$$ //$$ private static boolean insert(World world, BlockPos blockPos, HopperBlockEntity hopper)
+	//$$ //$$ private static boolean insert(Level world, BlockPos blockPos, HopperBlockEntity hopper)
 	//$$ //#else
-	//$$ private static boolean insert(World world, BlockPos blockPos, BlockState blockState, Inventory inventory)
+	//$$ private static boolean insert(Level world, BlockPos blockPos, BlockState blockState, Inventory inventory)
 	//$$ //#endif
 	//$$ {
 	//$$ 	return false;
@@ -83,7 +83,7 @@ public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockE
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/block/entity/HopperBlockEntity;setTransferCooldown(I)V",
+					//$$ target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;setCooldown(I)V",
 					//#else
 					target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;setCooldown(I)V",
 					//#endif
@@ -91,7 +91,7 @@ public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockE
 			)
 	)
 	//#if MC >= 11700
-	//$$ private static void hopperCountersUnlimitedSpeed_impl(World world, BlockPos blockPos, BlockState blockState, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
+	//$$ private static void hopperCountersUnlimitedSpeed_impl(Level world, BlockPos blockPos, BlockState blockState, HopperBlockEntity hopperBlockEntity, BooleanSupplier booleanSupplier, CallbackInfoReturnable<Boolean> cir)
 	//#else
 	private void hopperCountersUnlimitedSpeed_impl(Supplier<Boolean> extractMethod, CallbackInfoReturnable<Boolean> cir)
 	//#endif

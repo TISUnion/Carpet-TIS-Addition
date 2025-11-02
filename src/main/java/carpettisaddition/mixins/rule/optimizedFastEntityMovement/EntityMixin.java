@@ -85,10 +85,8 @@ public abstract class EntityMixin
 			//$$ method = "findCollisionsForMovement",
 			//#elseif MC >= 11800
 			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
-			//#elseif MC >= 11600
-			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Lnet/minecraft/block/ShapeContext;Lnet/minecraft/util/collection/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
 			//#else
-			method = "collideBoundingBoxHeuristically(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/phys/shapes/CollisionContext;Lnet/minecraft/util/RewindableStream;)Lnet/minecraft/world/phys/Vec3;",
+			method = "collideBoundingBoxHeuristically",
 			//#endif
 			at = @At(
 					value = "INVOKE",
@@ -166,17 +164,13 @@ public abstract class EntityMixin
 	@ModifyArgs(
 			//#if MC >= 11800
 			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
-			//#elseif MC >= 11600
-			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/util/collection/ReusableStream;)Lnet/minecraft/util/math/Vec3d;",
-			//#elseif MC >= 11500
-			method = "collideBoundingBoxLegacy(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Lnet/minecraft/util/RewindableStream;)Lnet/minecraft/world/phys/Vec3;",
 			//#else
-			//$$ method = "method_20737",
+			method = "collideBoundingBoxLegacy",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/util/shape/VoxelShapes;calculateMaxOffset(Lnet/minecraft/util/math/Direction$Axis;Lnet/minecraft/util/math/Box;Ljava/lang/Iterable;D)D"
+					//$$ target = "Lnet/minecraft/world/phys/shapes/Shapes;collide(Lnet/minecraft/core/Direction$Axis;Lnet/minecraft/world/phys/AABB;Ljava/lang/Iterable;D)D"
 					//#else
 					target = "Lnet/minecraft/world/phys/shapes/Shapes;collide(Lnet/minecraft/core/Direction$Axis;Lnet/minecraft/world/phys/AABB;Ljava/util/stream/Stream;D)D"
 					//#endif

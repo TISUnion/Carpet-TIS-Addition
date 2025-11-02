@@ -40,7 +40,7 @@ public abstract class FakePlayerTickerMixin
 					//#if MC >= 11500
 					target = "Lnet/minecraft/server/level/ServerPlayer;doTick()V"
 					//#else
-					//$$ target = "Lnet/minecraft/server/network/ServerPlayerEntity;method_14226()V"
+					//$$ target = "Lnet/minecraft/server/level/ServerPlayer;doTick()V"
 					//#endif
 			)
 	)

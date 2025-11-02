@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 
 //#if MC >= 11900
 //$$ import com.mojang.brigadier.CommandDispatcher;
-//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import net.minecraft.commands.CommandBuildContext;
 //$$ import org.spongepowered.asm.mixin.injection.Inject;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
@@ -45,10 +45,10 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public abstract class FillCommandMixin
 {
 	//#if MC >= 11900
-	//$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
+	//$$ private static CommandBuildContext currentCommandBuildContext$TISCM = null;
  //$$
 	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
-	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext, CallbackInfo ci)
+	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandBuildContext commandBuildContext, CallbackInfo ci)
 	//$$ {
 	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
 	//$$ }

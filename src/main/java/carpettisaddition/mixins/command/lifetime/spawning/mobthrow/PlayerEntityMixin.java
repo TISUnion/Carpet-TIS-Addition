@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 12105
-//$$ import net.minecraft.entity.LivingEntity;
+//$$ import net.minecraft.world.entity.LivingEntity;
 //#else
 import net.minecraft.world.entity.player.Player;
 //#endif

@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MinecraftServerMixin
 {
 	//#if MC >= 12102
-	//$$ @Inject(method = "runAutosave", at = @At(value = "HEAD"))
+	//$$ @Inject(method = "autoSave", at = @At(value = "HEAD"))
 	//#else
 	@Inject(
 			method = "tickServer",
@@ -48,7 +48,7 @@ public abstract class MinecraftServerMixin
 	}
 
 	//#if MC >= 12102
-	//$$ @Inject(method = "runAutosave", at = @At(value = "TAIL"))
+	//$$ @Inject(method = "autoSave", at = @At(value = "TAIL"))
 	//#else
 	@Inject(
 			method = "tickServer",

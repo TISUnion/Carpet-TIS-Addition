@@ -43,8 +43,6 @@ public abstract class EntityMixin
 			//$$ method = "teleportCrossDimension",
 			//#elseif MC >= 12100
 			//$$ method = "teleportTo",
-			//#elseif MC >= 11600
-			//$$ method = "moveToWorld",
 			//#else
 			method = "changeDimension",
 			//#endif

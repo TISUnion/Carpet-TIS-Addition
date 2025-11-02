@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.rule.opPlayerNoCheat;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.TeleportCommand;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.commands.TeleportCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -48,7 +48,7 @@ public abstract class TeleportCommandMixin
 			require = 2,
 			allow = 2
 	)
-	private static Predicate<ServerCommandSource> checkIfAllowCheating_teleportCommand(Predicate<ServerCommandSource> predicate)
+	private static Predicate<CommandSourceStack> checkIfAllowCheating_teleportCommand(Predicate<CommandSourceStack> predicate)
 	{
 		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
 	}

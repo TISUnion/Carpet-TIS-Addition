@@ -39,7 +39,7 @@ public abstract class HopperBlockEntityMixin
 					//#if MC >= 12002
 					//$$ // record before being set to EMPTY
 					//$$ value = "FIELD",
-					//$$ target = "Lnet/minecraft/item/ItemStack;EMPTY:Lnet/minecraft/item/ItemStack;"
+					//$$ target = "Lnet/minecraft/world/item/ItemStack;EMPTY:Lnet/minecraft/world/item/ItemStack;"
 					//#else
 
 					value = "INVOKE",

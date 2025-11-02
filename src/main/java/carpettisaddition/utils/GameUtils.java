@@ -34,8 +34,8 @@ import java.util.Objects;
 //#if MC >= 11700
 //$$ import carpettisaddition.mixins.utils.DirectBlockEntityTickInvokerAccessor;
 //$$ import carpettisaddition.mixins.utils.WrappedBlockEntityTickInvokerAccessor;
-//$$ import net.minecraft.block.entity.BlockEntity;
-//$$ import net.minecraft.world.chunk.BlockEntityTickInvoker;
+//$$ import net.minecraft.world.level.block.entity.BlockEntity;
+//$$ import net.minecraft.world.level.block.entity.TickingBlockEntity;
 //#endif
 
 //#if MC < 11600
@@ -48,7 +48,7 @@ public class GameUtils
 	public static Level getOverworld(MinecraftServer server)
 	{
 		//#if MC >= 11600
-		//$$ return server.getWorld(World.OVERWORLD);
+		//$$ return server.getLevel(Level.OVERWORLD);
 		//#else
 		return server.getLevel(DimensionType.OVERWORLD);
 		//#endif
@@ -103,7 +103,7 @@ public class GameUtils
 	//$$  * for mc 1.17+
 	//$$  */
 	//$$ @Nullable
-	//$$ public static BlockEntity getBlockEntityFromTickInvoker(BlockEntityTickInvoker blockEntityTickInvoker)
+	//$$ public static BlockEntity getBlockEntityFromTickInvoker(TickingBlockEntity blockEntityTickInvoker)
 	//$$ {
 	//$$ 	if (blockEntityTickInvoker instanceof DirectBlockEntityTickInvokerAccessor)
 	//$$ 	{

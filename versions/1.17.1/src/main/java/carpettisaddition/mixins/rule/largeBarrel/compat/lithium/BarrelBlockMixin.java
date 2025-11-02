@@ -27,22 +27,22 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity;
 import me.jellysquid.mods.lithium.common.world.blockentity.BlockEntityGetter;
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 //#if MC >= 12105
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#endif
 
 @Restriction(require = {
@@ -50,7 +50,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 		@Condition(ModIds.lithium)
 })
 @Mixin(value = BarrelBlock.class, priority = 2000)
-public abstract class BarrelBlockMixin extends BlockWithEntity
+public abstract class BarrelBlockMixin extends BaseEntityBlock
 {
 	protected BarrelBlockMixin(Settings settings)
 	{
@@ -68,7 +68,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean moved)
+	public void onBlockAdded(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean moved)
 	{
 		super.onBlockAdded(state, world, pos, oldState, moved);
 		if (CarpetTISAdditionSettings.largeBarrel)
@@ -83,11 +83,11 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 			argsOnly = true
 	)
 	//#if MC >= 12105
-	//$$ public ServerWorld resetLithiumHopperCacheForLargeBarrel(
-	//$$ ServerWorld world,
+	//$$ public ServerLevel resetLithiumHopperCacheForLargeBarrel(
+	//$$ ServerLevel world,
 	//#else
-	public World resetLithiumHopperCacheForLargeBarrel(
-			World world,
+	public Level resetLithiumHopperCacheForLargeBarrel(
+			Level world,
 	//#endif
 			@Local(argsOnly = true, ordinal = 0) BlockState state,
 			@Local(argsOnly = true)  BlockPos pos
@@ -101,7 +101,7 @@ public abstract class BarrelBlockMixin extends BlockWithEntity
 	}
 
 	@Unique
-	private static void resetLithiumHopperCache(WorldAccess world, BlockPos changedBarrelPos, BlockState changedBarrelState)
+	private static void resetLithiumHopperCache(LevelAccessor world, BlockPos changedBarrelPos, BlockState changedBarrelState)
 	{
 		if (LITHIUM_HOPPER_OPTIMIZATION_LOADED && !world.isClient())
 		{

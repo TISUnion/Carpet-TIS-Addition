@@ -41,7 +41,7 @@ public abstract class ZombieEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
-					//$$ target = "Lnet/minecraft/util/math/random/Random;nextFloat()F",
+					//$$ target = "Lnet/minecraft/util/RandomSource;nextFloat()F",
 					//#else
 					target = "Ljava/util/Random;nextFloat()F",
 					//#endif

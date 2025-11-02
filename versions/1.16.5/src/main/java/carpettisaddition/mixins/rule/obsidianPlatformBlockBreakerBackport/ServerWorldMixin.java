@@ -23,29 +23,29 @@ package carpettisaddition.mixins.rule.obsidianPlatformBlockBreakerBackport;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.obsidianPlatformBlockBreakerBackport.ObsidianPlatformBlockBreakerBackportHelper;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BlockState;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 // impl in mc [1.16, 1.21)
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin
 {
 	@ModifyArg(
-			// lambda methods in createEndSpawnPlatform
+			// lambda methods in createEndPlatform
 			method = {
 					"method_29201",
 					"method_29204",
 			},
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"
+					target = "Lnet/minecraft/server/level/ServerLevel;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"
 			)
 	)
-	private static BlockPos obsidianPlatformBlockBreakerBackport_tweakForNormalEntity(BlockPos pos, BlockState state, @Local(argsOnly = true) ServerWorld world)
+	private static BlockPos obsidianPlatformBlockBreakerBackport_tweakForNormalEntity(BlockPos pos, BlockState state, @Local(argsOnly = true) ServerLevel world)
 	{
 		if (CarpetTISAdditionSettings.obsidianPlatformBlockBreakerBackport)
 		{

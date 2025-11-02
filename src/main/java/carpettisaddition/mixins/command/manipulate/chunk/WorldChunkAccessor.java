@@ -28,14 +28,14 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.Map;
 
 //#if MC >= 11800
-//$$ import net.minecraft.world.chunk.Chunk;
+//$$ import net.minecraft.world.level.chunk.ChunkAccess;
 //#else
 import net.minecraft.world.level.chunk.LevelChunk;
 //#endif
 
 @Mixin(
 		//#if MC >= 11800
-		//$$ Chunk.class
+		//$$ ChunkAccess.class
 		//#else
 		LevelChunk.class
 		//#endif

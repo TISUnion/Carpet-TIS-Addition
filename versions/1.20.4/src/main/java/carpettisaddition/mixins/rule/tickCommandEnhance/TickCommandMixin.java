@@ -24,8 +24,8 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.TickCommand;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.commands.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -46,11 +46,11 @@ public abstract class TickCommandMixin
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/command/CommandManager;literal(Ljava/lang/String;)Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;",
+					target = "Lnet/minecraft/commands/Commands;literal(Ljava/lang/String;)Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;",
 					ordinal = 0
 			)
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> registerTickSprintInfoCommand(LiteralArgumentBuilder<ServerCommandSource> sprintNode)
+	private static LiteralArgumentBuilder<CommandSourceStack> registerTickSprintInfoCommand(LiteralArgumentBuilder<CommandSourceStack> sprintNode)
 	{
 		TickWarpHUDLogger.getInstance().extendCommand(CommandTreeContext.ofNonContext(sprintNode));
 		return sprintNode;

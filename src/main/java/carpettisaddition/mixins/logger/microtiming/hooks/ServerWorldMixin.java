@@ -30,9 +30,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 11800
 //$$ import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
-//$$ import net.minecraft.block.Block;
-//$$ import net.minecraft.fluid.Fluid;
-//$$ import net.minecraft.world.tick.WorldTickScheduler;
+//$$ import net.minecraft.world.level.block.Block;
+//$$ import net.minecraft.world.level.material.Fluid;
+//$$ import net.minecraft.world.ticks.LevelTicks;
 //$$ import org.spongepowered.asm.mixin.Final;
 //$$ import org.spongepowered.asm.mixin.Shadow;
 //#endif
@@ -43,8 +43,8 @@ public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogg
 	private MicroTimingLogger microTimingLogger;
 
 	//#if MC >= 11800
-	//$$ @Shadow @Final private WorldTickScheduler<Block> blockTickScheduler;
-	//$$ @Shadow @Final private WorldTickScheduler<Fluid> fluidTickScheduler;
+	//$$ @Shadow @Final private LevelTicks<Block> blockTickScheduler;
+	//$$ @Shadow @Final private LevelTicks<Fluid> fluidTickScheduler;
 	//#endif
 
 	@Inject(

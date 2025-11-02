@@ -40,7 +40,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
 //#if MC >= 11904
-//$$ import net.minecraft.client.font.TextRenderer;
+//$$ import net.minecraft.client.gui.Font;
 //#endif
 
 //#if MC < 11904
@@ -75,7 +75,7 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/client/util/math/MatrixStack;scale(FFF)V",
+					//$$ target = "Lcom/mojang/blaze3d/vertex/PoseStack;scale(FFF)V",
 					//#else
 					target = "Lcom/mojang/blaze3d/systems/RenderSystem;scalef(FFF)V",
 					//#endif
@@ -101,13 +101,13 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12106
-					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/font/TextRenderer$TextLayerType;II)V",
+					//$$ target = "Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)V",
 					//#elseif MC >= 11904
-					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/font/TextRenderer$TextLayerType;II)I",
+					//$$ target = "Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)I",
 					//#elseif MC >= 11903
 					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLnet/minecraft/util/math/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;ZII)I",
+					//$$ target = "Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLcom/mojang/math/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;ZII)I",
 					//#else
 					target = "Lnet/minecraft/client/gui/Font;drawInBatch(Ljava/lang/String;FFIZLcom/mojang/math/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;ZII)I",
 					//#endif
@@ -118,13 +118,13 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	)
 	private
 	//#if MC >= 11904
-	//$$ TextRenderer.TextLayerType
+	//$$ Font.TextLayerType
 	//#else
 	boolean
 	//#endif
 	seeThroughWhenNecessary(
 			//#if MC >= 11904
-			//$$ TextRenderer.TextLayerType value
+			//$$ Font.TextLayerType value
 			//#else
 			boolean value
 			//#endif
@@ -132,7 +132,7 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	{
 		return this.isMicroTimingMarkerText() ?
 				//#if MC >= 11904
-				//$$ TextRenderer.TextLayerType.SEE_THROUGH :
+				//$$ Font.TextLayerType.SEE_THROUGH :
 				//#else
 				true :
 				//#endif
@@ -145,7 +145,7 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/client/util/math/MatrixStack;pop()V",
+					//$$ target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V",
 					//#else
 					target = "Lcom/mojang/blaze3d/systems/RenderSystem;popMatrix()V",
 					//#endif

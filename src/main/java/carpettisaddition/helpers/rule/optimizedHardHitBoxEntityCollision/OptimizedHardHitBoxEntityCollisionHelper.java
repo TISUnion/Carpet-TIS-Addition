@@ -25,7 +25,7 @@ import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.entity.vehicle.Boat;
 
 //#if MC >= 12106
-//$$ import net.minecraft.entity.passive.HappyGhastEntity;
+//$$ import net.minecraft.world.entity.animal.HappyGhast;
 //#elseif MC >= 11600
 //#else
 import net.minecraft.world.entity.monster.Shulker;
@@ -57,14 +57,14 @@ public class OptimizedHardHitBoxEntityCollisionHelper
 	 * Might not work with other mods since they might have dynamic Entity#getCollisionBox result
 	 *
 	 * ----- ^ doc for <= 1.15.2 -----
-	 * In 1.16 there's a method called {@link Entity#isCollidable}, which handles this logic well, so just use it
+	 * In 1.16 there's a method called {@link Entity#canBeCollidedWith}, which handles this logic well, so just use it
 	 */
 	public static boolean hasHardHitBox(Entity entity)
 	{
 		//#if MC >= 12106
-		//$$ return entity.isCollidable(null) || entity instanceof HappyGhastEntity;
+		//$$ return entity.canBeCollidedWith(null) || entity instanceof HappyGhast;
 		//#elseif MC >= 11600
-		//$$ return entity.isCollidable();
+		//$$ return entity.canBeCollidedWith();
 		//#else
 		return entity.getCollideBox() != null || entity instanceof Shulker;
 		//#endif

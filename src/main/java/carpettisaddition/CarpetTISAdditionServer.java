@@ -62,7 +62,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 //#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import net.minecraft.commands.CommandBuildContext;
 //#endif
 
 //#if MC >= 11600
@@ -166,7 +166,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	public void registerCommands(
 			CommandDispatcher<CommandSourceStack> dispatcher
 			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
+			//$$ , CommandBuildContext commandBuildContext
 			//#endif
 	)
 	{

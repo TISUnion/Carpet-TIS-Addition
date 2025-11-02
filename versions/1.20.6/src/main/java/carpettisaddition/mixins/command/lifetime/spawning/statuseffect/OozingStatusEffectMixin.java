@@ -22,13 +22,13 @@ package carpettisaddition.mixins.command.lifetime.spawning.statuseffect;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.StatusEffectSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.effect.MobEffect;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(targets = "net.minecraft.entity.effect.OozingStatusEffect")
+@Mixin(targets = "net.minecraft.world.effect.OozingMobEffect")
 public abstract class OozingStatusEffectMixin
 {
 	@ModifyArg(
@@ -40,7 +40,7 @@ public abstract class OozingStatusEffectMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_statusEffect_oozing(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(new StatusEffectSpawningReason((StatusEffect)(Object)this));
+		((LifetimeTrackerTarget)entity).recordSpawning(new StatusEffectSpawningReason((MobEffect)(Object)this));
 		return entity;
 	}
 }

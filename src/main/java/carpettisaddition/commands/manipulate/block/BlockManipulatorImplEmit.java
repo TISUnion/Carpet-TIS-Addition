@@ -59,8 +59,8 @@ class BlockManipulatorImplEmit extends TranslationContext
 		int flags = 2;
 		//#if MC >= 11600
 		//$$ int maxUpdateDepth = 512;
-		//$$ blockState.updateNeighbors(world, blockPos, flags, maxUpdateDepth);
-		//$$ blockState.prepare(world, blockPos, flags , maxUpdateDepth);
+		//$$ blockState.updateNeighbourShapes(world, blockPos, flags, maxUpdateDepth);
+		//$$ blockState.updateIndirectNeighbourShapes(world, blockPos, flags , maxUpdateDepth);
 		//#else
 		blockState.updateNeighbourShapes(world, blockPos, flags);
 		blockState.updateIndirectNeighbourShapes(world, blockPos, flags);

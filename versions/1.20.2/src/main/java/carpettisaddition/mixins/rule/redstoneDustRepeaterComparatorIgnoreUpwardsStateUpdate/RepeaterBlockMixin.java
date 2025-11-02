@@ -23,7 +23,7 @@ package carpettisaddition.mixins.rule.redstoneDustRepeaterComparatorIgnoreUpward
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.compat.DummyClass;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.block.RepeaterBlock;
+import net.minecraft.world.level.block.RepeaterBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 

@@ -20,11 +20,11 @@
 
 package carpettisaddition.commands.info;
 
-import net.minecraft.world.tick.OrderedTick;
+import net.minecraft.world.ticks.ScheduledTick;
 
 import java.util.Queue;
 
 public interface QueueAccessibleChunkTickScheduler<T>
 {
-	Queue<OrderedTick<T>> getTickQueue$TISCM();
+	Queue<ScheduledTick<T>> getTickQueue$TISCM();
 }

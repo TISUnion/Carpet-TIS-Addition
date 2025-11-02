@@ -23,8 +23,8 @@ package carpettisaddition.mixins.rule.tickCommandPermission;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import carpettisaddition.utils.CarpetModUtil;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.TickCommand;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.commands.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,8 +42,8 @@ public abstract class TickCommandMixin
 	 * the lambda in the {@link com.mojang.brigadier.builder.ArgumentBuilder#requires} methods
 	 * for the node builder in the {@link TickCommand#register} method
 	 */
-	@Inject(method = "method_54709", at = @At("HEAD"), cancellable = true)
-	private static void overrideTickCommandPermission(ServerCommandSource source, CallbackInfoReturnable<Boolean> cir)
+	@Inject(method = "lambda$register$0", at = @At("HEAD"), cancellable = true)
+	private static void overrideTickCommandPermission(CommandSourceStack source, CallbackInfoReturnable<Boolean> cir)
 	{
 		var ruleValue = TickCommandCarpetfiedRules.tickCommandPermission();
 		if (!CarpetTISAdditionSettings.VANILLA_TICK_COMMAND_PERMISSION.equals(ruleValue))

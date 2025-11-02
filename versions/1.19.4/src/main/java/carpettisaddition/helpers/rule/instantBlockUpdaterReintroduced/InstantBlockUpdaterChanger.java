@@ -23,7 +23,7 @@ package carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 public class InstantBlockUpdaterChanger
 {
@@ -33,7 +33,7 @@ public class InstantBlockUpdaterChanger
 		if (server != null)
 		{
 			server.execute(() -> {
-				for (ServerWorld world : server.getWorlds())
+				for (ServerLevel world : server.getWorlds())
 				{
 					((NeighborUpdaterChangeableWorld)world).setUseInstantNeighborUpdater$TISCM(useInstant);
 				}

@@ -26,8 +26,8 @@ import carpettisaddition.helpers.carpet.protocol.CarpetNetworkProtocolVersion;
 import carpettisaddition.utils.NetworkUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -40,7 +40,7 @@ public abstract class CarpetPayloadMixin
 			at = @At("HEAD"),
 			argsOnly = true
 	)
-	private static PacketByteBuf carpetProtocolCompatibilityFix_fixIncomingPacket(PacketByteBuf buf)
+	private static FriendlyByteBuf carpetProtocolCompatibilityFix_fixIncomingPacket(FriendlyByteBuf buf)
 	{
 		return CarpetNetworkProtocolRewriter.rewrite(
 				buf,
@@ -52,10 +52,10 @@ public abstract class CarpetPayloadMixin
 			method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/network/PacketByteBuf;readNbt()Lnet/minecraft/nbt/NbtCompound;"
+					target = "Lnet/minecraft/network/FriendlyByteBuf;readNbt()Lnet/minecraft/nbt/CompoundTag;"
 			)
 	)
-	private static NbtCompound carpetProtocolCompatibilityFix_fixIncomingNbtRead(PacketByteBuf buf, Operation<NbtCompound> original)
+	private static CompoundTag carpetProtocolCompatibilityFix_fixIncomingNbtRead(FriendlyByteBuf buf, Operation<CompoundTag> original)
 	{
 		return NetworkUtils.readNbt(buf);
 	}

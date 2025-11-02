@@ -42,7 +42,7 @@ import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 //$$ import net.minecraft.command.permission.Permission;
 //$$ import net.minecraft.command.permission.PermissionCheck;
 //$$ import net.minecraft.command.permission.PermissionLevel;
-//$$ import net.minecraft.server.command.CommandManager;
+//$$ import net.minecraft.commands.Commands;
 //#endif
 
 public class CommandUtils
@@ -99,7 +99,7 @@ public class CommandUtils
 		//$$ 		//#if MC >= 1.21.9
 		//$$ 		//$$ map(player -> server.isHost(player.getPlayerConfigEntry())).
 		//$$ 		//#else
-		//$$ 		map(player -> server.isHost(player.getGameProfile())).
+		//$$ 		map(player -> server.isSingleplayerOwner(player.getGameProfile())).
 		//$$ 		//#endif
 		//$$ 		orElse(false);
 		//#else

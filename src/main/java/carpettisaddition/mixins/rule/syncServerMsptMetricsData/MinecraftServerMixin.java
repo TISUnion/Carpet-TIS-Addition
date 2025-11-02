@@ -42,7 +42,7 @@ public abstract class MinecraftServerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12002
-					//$$ target = "Lnet/minecraft/server/MinecraftServer;tickTickLog(J)V"
+					//$$ target = "Lnet/minecraft/server/MinecraftServer;logTickTime(J)V"
 					//#else
 					target = "Lnet/minecraft/util/FrameTimer;logFrameDuration(J)V"
 					//#endif

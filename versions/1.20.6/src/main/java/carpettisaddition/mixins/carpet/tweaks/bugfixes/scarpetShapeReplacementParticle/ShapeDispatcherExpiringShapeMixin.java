@@ -24,9 +24,9 @@ import carpet.script.utils.ShapeDispatcher;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.RegistryAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -64,10 +64,10 @@ public abstract class ShapeDispatcherExpiringShapeMixin
 			at = @At("HEAD"),
 			cancellable = true
 	)
-	private void dontUseCommandArgumentParsingWithOutdatedInputOrItWillCrash(DynamicRegistryManager regs, CallbackInfoReturnable<ParticleEffect> cir)
+	private void dontUseCommandArgumentParsingWithOutdatedInputOrItWillCrash(RegistryAccess regs, CallbackInfoReturnable<ParticleOptions> cir)
 	{
 		boolean bg = fa == 0;
-		cir.setReturnValue(new DustParticleEffect(
+		cir.setReturnValue(new DustParticleOptions(
 				//#if MC >= 12102
 				//$$ ColorHelper.fromFloats(1.0f, bg ? r : fr, bg ? r : fr, bg ? r : fr),
 				//#else

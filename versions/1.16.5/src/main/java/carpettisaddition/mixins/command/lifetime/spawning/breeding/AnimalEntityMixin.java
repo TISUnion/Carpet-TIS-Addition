@@ -25,25 +25,21 @@ import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.Animal;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
-@Mixin(AnimalEntity.class)
+@Mixin(Animal.class)
 public abstract class AnimalEntityMixin
 {
 	@ModifyArg(
-			//#if MC >= 12002
-			//$$ method = "breed(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/passive/AnimalEntity;)V",
-			//#else
-			method = "breed",
-			//#endif
+			method = "spawnChildFromBreeding",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V",
+					target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V",
 					ordinal = 0
 			)
 	)

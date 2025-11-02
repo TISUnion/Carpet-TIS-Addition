@@ -35,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#else
 import net.minecraft.world.level.dimension.DimensionType;
 //#endif
@@ -48,8 +48,6 @@ public abstract class EntityMixin
 			//$$ method = "teleportCrossDimension",
 			//#elseif MC >= 12100
 			//$$ method = "teleportTo",
-			//#elseif MC >= 11600
-			//$$ method = "moveToWorld",
 			//#else
 			method = "changeDimension",
 			//#endif
@@ -62,7 +60,7 @@ public abstract class EntityMixin
 							//#if MC >= 11500
 							target = "Lnet/minecraft/server/level/ServerLevel;addFromAnotherDimension(Lnet/minecraft/world/entity/Entity;)V"
 							//#else
-							//$$ target = "Lnet/minecraft/server/world/ServerWorld;method_18769(Lnet/minecraft/entity/Entity;)V"
+							//$$ target = "Lnet/minecraft/server/level/ServerLevel;addFromAnotherDimension(Lnet/minecraft/world/entity/Entity;)V"
 							//#endif
 					)
 			),
@@ -72,9 +70,9 @@ public abstract class EntityMixin
 					//#if MC >= 11600
 					//$$ value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/Entity;removeFromDimension()V"
+					//$$ target = "Lnet/minecraft/world/entity/Entity;removeAfterChangingDimensions()V"
 					//#else
-					//$$ target = "Lnet/minecraft/entity/Entity;method_30076()V"
+					//$$ target = "Lnet/minecraft/world/entity/Entity;removeAfterChangingDimensions()V"
 					//#endif
 					//#else
 					value = "FIELD",
@@ -85,7 +83,7 @@ public abstract class EntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_transDimension(
 			//#if 11600 <= MC && MC < 12100
-			//$$ ServerWorld destination,
+			//$$ ServerLevel destination,
 			//#elseif MC < 11600
 			DimensionType destination,
 			//#endif
@@ -93,11 +91,11 @@ public abstract class EntityMixin
 			CallbackInfoReturnable<Entity> cir
 
 			//#if MC >= 12106
-			//$$ , @Local(argsOnly = true, ordinal = 1) ServerWorld destination
+			//$$ , @Local(argsOnly = true, ordinal = 1) ServerLevel destination
 			//#elseif MC >= 12102
-			//$$ , @Local(argsOnly = true) ServerWorld destination
+			//$$ , @Local(argsOnly = true) ServerLevel destination
 			//#elseif MC >= 12100
-			//$$ , @Local(ordinal = 1) ServerWorld destination
+			//$$ , @Local(ordinal = 1) ServerLevel destination
 			//#endif
 	)
 	{

@@ -50,7 +50,7 @@ public abstract class MooshroomEntityMixin extends Entity
 
 	@Inject(
 			//#if MC >= 11600
-			//$$ method = "sheared",
+			//$$ method = "shear",
 			//#else
 			method = "mobInteract",
 			//#endif

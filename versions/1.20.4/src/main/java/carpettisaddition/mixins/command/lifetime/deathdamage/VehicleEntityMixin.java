@@ -24,8 +24,8 @@ import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.vehicle.VehicleEntity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.vehicle.VehicleEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -59,9 +59,9 @@ public abstract class VehicleEntityMixin implements DamageableEntity
 			at =@At(
 					value = "INVOKE",
 					//#if MC >= 12102
-					//$$ target = "Lnet/minecraft/entity/vehicle/VehicleEntity;killAndDropSelf(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;)V"
+					//$$ target = "Lnet/minecraft/world/entity/vehicle/VehicleEntity;destroy(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)V"
 					//#else
-					target = "Lnet/minecraft/entity/vehicle/VehicleEntity;killAndDropSelf(Lnet/minecraft/entity/damage/DamageSource;)V"
+					target = "Lnet/minecraft/world/entity/vehicle/VehicleEntity;destroy(Lnet/minecraft/world/damagesource/DamageSource;)V"
 					//#endif
 			),
 			argsOnly = true

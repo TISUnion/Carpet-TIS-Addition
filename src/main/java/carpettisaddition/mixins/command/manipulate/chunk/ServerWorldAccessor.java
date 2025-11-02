@@ -27,8 +27,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 11700
-//$$ import net.minecraft.entity.Entity;
-//$$ import net.minecraft.server.world.ServerEntityManager;
+//$$ import net.minecraft.world.entity.Entity;
+//$$ import net.minecraft.world.level.entity.PersistentEntitySectionManager;
 //#endif
 
 @Mixin(ServerLevel.class)
@@ -39,6 +39,6 @@ public interface ServerWorldAccessor
 
 	//#if MC >= 11700
 	//$$ @Accessor
-	//$$ ServerEntityManager<Entity> getEntityManager();
+	//$$ PersistentEntitySectionManager<Entity> getEntityManager();
 	//#endif
 }

@@ -26,14 +26,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 11600
-//$$ import net.minecraft.world.dimension.AreaHelper;
+//$$ import net.minecraft.world.level.portal.PortalShape;
 //#else
 import net.minecraft.world.level.block.NetherPortalBlock;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ AreaHelper.class
+		//$$ PortalShape.class
 		//#else
 		NetherPortalBlock.PortalShape.class
 		//#endif
@@ -47,12 +47,12 @@ public abstract class NetherPortalBlockAreaHelperMixin
 					//$$ //$$ "getValidatedWidth",
 					//$$ //$$ "getWidth",
 					//$$ //#else
-					//$$ "method_30495",
-					//$$ "method_30493",
+					//$$ "calculateWidth",
+					//$$ "getDistanceUntilEdgeAboveFrame",
 					//$$ //#endif
-					//$$ "method_30492",
-					//$$ "method_30496",
-					//$$ "method_30490",
+					//$$ "calculateBottomLeft",
+					//$$ "calculateHeight",
+					//$$ "getDistanceUntilTop",
 					//#else
 					"<init>",
 					"calculatePortalHeight",

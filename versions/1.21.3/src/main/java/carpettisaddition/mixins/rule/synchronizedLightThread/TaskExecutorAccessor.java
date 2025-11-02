@@ -20,8 +20,8 @@
 
 package carpettisaddition.mixins.rule.synchronizedLightThread;
 
-import net.minecraft.util.thread.ConsecutiveExecutor;
-import net.minecraft.util.thread.TaskQueue;
+import net.minecraft.util.thread.AbstractConsecutiveExecutor;
+import net.minecraft.util.thread.StrictQueue;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -29,9 +29,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
  * mc1.14 ~ mc1.21.1: subproject 1.15.2 (main project)
  * mc1.21.2+        : subproject 1.21.3        <--------
  */
-@Mixin(ConsecutiveExecutor.class)
+@Mixin(AbstractConsecutiveExecutor.class)
 public interface TaskExecutorAccessor<T extends Runnable>
 {
 	@Accessor
-	TaskQueue<T> getQueue();
+	StrictQueue<T> getQueue();
 }

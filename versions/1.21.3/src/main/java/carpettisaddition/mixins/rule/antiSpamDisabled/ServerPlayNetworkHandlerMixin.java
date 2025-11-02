@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.antiSpamDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.util.Cooldown;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.util.TickThrottler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
  * mc1.14 ~ mc1.21.1: subproject 1.15.2 (main project)
  * mc1.21.2+        : subproject 1.21.3        <--------
  */
-@Mixin(ServerPlayNetworkHandler.class)
+@Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ServerPlayNetworkHandlerMixin
 {
 	@WrapWithCondition(
@@ -41,10 +41,10 @@ public abstract class ServerPlayNetworkHandlerMixin
 			},
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/Cooldown;increment()V"
+					target = "Lnet/minecraft/util/TickThrottler;increment()V"
 			)
 	)
-	private boolean resetCreativeItemDropThreshold(Cooldown cooldown)
+	private boolean resetCreativeItemDropThreshold(TickThrottler cooldown)
 	{
 		if (CarpetTISAdditionSettings.antiSpamDisabled)
 		{

@@ -20,15 +20,15 @@
 
 package carpettisaddition.mixins.command.manipulate.chunk;
 
-import net.minecraft.server.world.ServerEntityManager;
-import net.minecraft.world.entity.EntityLike;
-import net.minecraft.world.entity.SectionedEntityCache;
+import net.minecraft.world.level.entity.PersistentEntitySectionManager;
+import net.minecraft.world.level.entity.EntityAccess;
+import net.minecraft.world.level.entity.EntitySectionStorage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(ServerEntityManager.class)
-public interface ServerEntityManagerAccessor<T extends EntityLike>
+@Mixin(PersistentEntitySectionManager.class)
+public interface ServerEntityManagerAccessor<T extends EntityAccess>
 {
 	@Accessor
-	SectionedEntityCache<T> getCache();
+	EntitySectionStorage<T> getCache();
 }

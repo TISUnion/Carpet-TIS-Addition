@@ -25,16 +25,16 @@ import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressi
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.SculkSensorBlockEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 11900
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#else
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 //#endif
 
 @Mixin(
@@ -50,18 +50,18 @@ public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 			method = {"accepts", "accept"},
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/SculkSensorBlock;isInactive(Lnet/minecraft/block/BlockState;)Z"
+					target = "Lnet/minecraft/world/level/block/SculkSensorBlock;canActivate(Lnet/minecraft/world/level/block/state/BlockState;)Z"
 			)
 	)
 	private boolean yeetUpdateSuppressionCrash_wrapSoundSuppression(
 			BlockState instance, Operation<Boolean> original,
 			//#if MC >= 12000
-			//$$ @Local(argsOnly = true) ServerWorld world,
+			//$$ @Local(argsOnly = true) ServerLevel world,
 			//$$ @Local(argsOnly = true) BlockPos pos
 			//#elseif MC >= 11900
-			//$$ @Local(argsOnly = true) ServerWorld world
+			//$$ @Local(argsOnly = true) ServerLevel world
 			//#else
-			@Local(argsOnly = true) World world
+			@Local(argsOnly = true) Level world
 			//#endif
 	) throws Throwable
 	{

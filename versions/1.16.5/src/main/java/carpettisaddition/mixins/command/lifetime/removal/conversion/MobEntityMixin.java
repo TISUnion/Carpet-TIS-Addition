@@ -25,38 +25,38 @@ import carpettisaddition.commands.lifetime.removal.MobConversionRemovalReason;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
-@Mixin(MobEntity.class)
+@Mixin(Mob.class)
 public abstract class MobEntityMixin extends LivingEntity
 {
-	protected MobEntityMixin(EntityType<? extends LivingEntity> entityType, World world)
+	protected MobEntityMixin(EntityType<? extends LivingEntity> entityType, Level world)
 	{
 		super(entityType, world);
 	}
 
 	@ModifyArg(
 			//#if MC >= 12102
-			//$$ method = "convertTo(Lnet/minecraft/entity/EntityType;Lnet/minecraft/entity/conversion/EntityConversionContext;Lnet/minecraft/entity/SpawnReason;Lnet/minecraft/entity/conversion/EntityConversionContext$Finalizer;)Lnet/minecraft/entity/mob/MobEntity;",
+			//$$ method = "convertTo",
 			//#elseif MC >= 11700
 			//$$ method = "convertTo",
 			//#else
-			method = "method_29243",  // convertTo
+			method = "convertTo",  // convertTo
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12102
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
 					//#else
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif
 			)
 	)

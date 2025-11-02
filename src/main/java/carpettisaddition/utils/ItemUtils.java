@@ -28,7 +28,7 @@ import java.util.Map;
 
 //#if MC >= 12005
 //$$ import com.google.common.collect.Maps;
-//$$ import net.minecraft.component.DataComponentTypes;
+//$$ import net.minecraft.core.component.DataComponents;
 //#endif
 
 public class ItemUtils
@@ -36,7 +36,7 @@ public class ItemUtils
 	public static boolean hasCustomName(ItemStack itemStack)
 	{
 		//#if MC >= 12005
-		//$$ return itemStack.get(DataComponentTypes.CUSTOM_NAME) != null;
+		//$$ return itemStack.get(DataComponents.CUSTOM_NAME) != null;
 		//#else
 		return itemStack.hasCustomHoverName();
 		//#endif
@@ -46,7 +46,7 @@ public class ItemUtils
 	{
 		//#if MC >= 12005
 		//$$ Map<Enchantment, Integer> enchantments = Maps.newHashMap();
-		//$$ var component = itemStack.get(DataComponentTypes.ENCHANTMENTS);
+		//$$ var component = itemStack.get(DataComponents.ENCHANTMENTS);
 		//$$ if (component != null)
 		//$$ {
 		//$$ 	component.getEnchantmentsMap().forEach(entry -> {

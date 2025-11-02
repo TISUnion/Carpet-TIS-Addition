@@ -26,8 +26,8 @@ import carpettisaddition.utils.ReflectionUtils;
 import carpettisaddition.utils.mixin.testers.LithiumEntityWorldTickSchedulerTester;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.tick.ChunkTickScheduler;
-import net.minecraft.world.tick.OrderedTick;
+import net.minecraft.world.ticks.LevelChunkTicks;
+import net.minecraft.world.ticks.ScheduledTick;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Queue;
@@ -36,13 +36,13 @@ import java.util.Queue;
 		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"),
 		@Condition(type = Condition.Type.TESTER, tester = LithiumEntityWorldTickSchedulerTester.class)
 })
-@Mixin(ChunkTickScheduler.class)
+@Mixin(LevelChunkTicks.class)
 public abstract class ChunkTickSchedulerMixin<T> implements QueueAccessibleChunkTickScheduler<T>
 {
 	@SuppressWarnings("unchecked")
 	@Override
-	public Queue<OrderedTick<T>> getTickQueue$TISCM()
+	public Queue<ScheduledTick<T>> getTickQueue$TISCM()
 	{
-		return (Queue<OrderedTick<T>>)ReflectionUtils.getField(this, "nextTickQueue").orElse(null);
+		return (Queue<ScheduledTick<T>>)ReflectionUtils.getField(this, "nextTickQueue").orElse(null);
 	}
 }

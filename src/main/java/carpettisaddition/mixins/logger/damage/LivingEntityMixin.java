@@ -50,12 +50,12 @@ import java.util.Optional;
 
 //#if MC >= 12100
 //$$ import carpettisaddition.utils.EntityUtils;
-//$$ import net.minecraft.server.world.ServerWorld;
-//$$ import net.minecraft.world.World;
+//$$ import net.minecraft.server.level.ServerLevel;
+//$$ import net.minecraft.world.level.Level;
 //#endif
 
 //#if MC >= 12005
-//$$ import net.minecraft.registry.entry.RegistryEntry;
+//$$ import net.minecraft.core.Holder;
 //#endif
 
 @Mixin(LivingEntity.class)
@@ -70,7 +70,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 
 	@Shadow public abstract MobEffectInstance getEffect(
 			//#if MC >= 12005
-			//$$ RegistryEntry<StatusEffect> effect
+			//$$ Holder<StatusEffect> effect
 			//#else
 			MobEffect effect
 			//#endif
@@ -129,7 +129,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	//$$ 		method = "hurt",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
-	//$$ 				target = "Lnet/minecraft/entity/LivingEntity;getDamageBlockedAmount(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)F"
+	//$$ 				target = "Lnet/minecraft/world/entity/LivingEntity;applyItemBlocking(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)F"
 	//$$ 		)
 	//$$ )
 	//$$ private float onShieldReducedDamage(float damageBlockedAmount, @Local(argsOnly = true) float amount)
@@ -154,7 +154,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 			at = @At(
 					//#if MC >= 11904
 					//$$ value = "FIELD",
-					//$$ target = "Lnet/minecraft/registry/tag/DamageTypeTags;IS_PROJECTILE:Lnet/minecraft/registry/tag/TagKey;",
+					//$$ target = "Lnet/minecraft/tags/DamageTypeTags;IS_PROJECTILE:Lnet/minecraft/tags/TagKey;",
 					//#else
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/damagesource/DamageSource;isProjectile()Z",
@@ -177,7 +177,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 					//#if MC >= 11500
 					target = "Lnet/minecraft/world/entity/LivingEntity;lastHurt:F",
 					//#else
-					//$$ target = "Lnet/minecraft/entity/LivingEntity;field_6253:F",
+					//$$ target = "Lnet/minecraft/world/entity/LivingEntity;lastHurt:F",
 					//#endif
 					ordinal = 0
 			)
@@ -230,8 +230,8 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 		this.getDamageTracker().ifPresent(tracker -> {
 			//#if MC >= 12100
 			//$$ LivingEntity self = (LivingEntity)(Object)this;
-			//$$ World world = EntityUtils.getEntityWorld(self);
-			//$$ if (world instanceof ServerWorld serverWorld)
+			//$$ Level world = EntityUtils.getEntityWorld(self);
+			//$$ if (world instanceof ServerLevel serverWorld)
 			//#endif
 			{
 				// vanilla copy

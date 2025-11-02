@@ -24,7 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.profiler.ServerTickType;
+import net.minecraft.util.debugchart.TpsDebugDimensions;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,42 +40,42 @@ public abstract class MinecraftServerMixin
 	@Shadow private int ticks;
 
 	@ModifyArg(
-			method = "pushTickLog",
+			method = "logTickMethodTime",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(JI)V"
+					target = "Lnet/minecraft/util/debugchart/SampleLogger;logPartialSample(JI)V"
 			)
 	)
 	private long sendServerTpsMetricsData_broadcastTickServer(long nanosecond)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, ServerTickType.TICK_SERVER_METHOD);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, TpsDebugDimensions.TICK_SERVER_METHOD);
 		}
 		return nanosecond;
 	}
 
 	@ModifyArg(
-			method = "pushFullTickLog",
+			method = "logFullTickTime",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(J)V"
+					target = "Lnet/minecraft/util/debugchart/SampleLogger;logSample(J)V"
 			)
 	)
 	private long sendServerTpsMetricsData_broadcastFullTick(long nanosecond)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, ServerTickType.FULL_TICK);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, TpsDebugDimensions.FULL_TICK);
 		}
 		return nanosecond;
 	}
 
 	@ModifyArg(
-			method = "pushPerformanceLogs",
+			method = "finishMeasuringTaskExecutionTime",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(JI)V",
+					target = "Lnet/minecraft/util/debugchart/SampleLogger;logPartialSample(JI)V",
 					ordinal = 0
 			)
 	)
@@ -83,16 +83,16 @@ public abstract class MinecraftServerMixin
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, ServerTickType.SCHEDULED_TASKS);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, TpsDebugDimensions.SCHEDULED_TASKS);
 		}
 		return nanosecond;
 	}
 
 	@ModifyArg(
-			method = "pushPerformanceLogs",
+			method = "finishMeasuringTaskExecutionTime",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/profiler/log/DebugSampleLog;push(JI)V",
+					target = "Lnet/minecraft/util/debugchart/SampleLogger;logPartialSample(JI)V",
 					ordinal = 1
 			)
 	)
@@ -100,7 +100,7 @@ public abstract class MinecraftServerMixin
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, ServerTickType.IDLE);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, TpsDebugDimensions.IDLE);
 		}
 		return nanosecond;
 	}

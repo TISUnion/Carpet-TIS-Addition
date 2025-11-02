@@ -69,11 +69,7 @@ public abstract class ServerWorldMixin
 	}
 
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
-			//#else
 			method = "doBlockEvent",
-			//#endif
 			at = @At("HEAD")
 	)
 	private void beforeBlockEventExecuted_updateTickPhase(BlockEventData blockAction, CallbackInfoReturnable<Boolean> cir)
@@ -83,11 +79,7 @@ public abstract class ServerWorldMixin
 	}
 
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "processBlockEvent",
-			//#else
 			method = "doBlockEvent",
-			//#endif
 			at = @At("RETURN")
 	)
 	private void afterBlockEventExecuted_updateTickPhase(BlockEventData blockAction, CallbackInfoReturnable<Boolean> cir)

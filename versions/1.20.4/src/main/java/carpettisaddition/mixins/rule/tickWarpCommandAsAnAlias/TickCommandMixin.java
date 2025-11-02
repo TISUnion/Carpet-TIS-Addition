@@ -23,20 +23,20 @@ package carpettisaddition.mixins.rule.tickWarpCommandAsAnAlias;
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.TickCommand;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.commands.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
-	private static LiteralArgumentBuilder<ServerCommandSource> sprintNode$TISCM = null;
+	private static LiteralArgumentBuilder<CommandSourceStack> sprintNode$TISCM = null;
 
 	@ModifyExpressionValue(
 			method = "register",
@@ -48,11 +48,11 @@ public abstract class TickCommandMixin
 			),
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/command/CommandManager;literal(Ljava/lang/String;)Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;",
+					target = "Lnet/minecraft/commands/Commands;literal(Ljava/lang/String;)Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;",
 					ordinal = 0
 			)
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> storeTheSprintNode(LiteralArgumentBuilder<ServerCommandSource> sprintNode)
+	private static LiteralArgumentBuilder<CommandSourceStack> storeTheSprintNode(LiteralArgumentBuilder<CommandSourceStack> sprintNode)
 	{
 		sprintNode$TISCM = sprintNode;
 		return sprintNode;
@@ -66,14 +66,14 @@ public abstract class TickCommandMixin
 					remap = false
 			)
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> addTickWarpNode(LiteralArgumentBuilder<ServerCommandSource> rootNode)
+	private static LiteralArgumentBuilder<CommandSourceStack> addTickWarpNode(LiteralArgumentBuilder<CommandSourceStack> rootNode)
 	{
 		addTickWarpAlias(rootNode);
 		return rootNode;
 	}
 
 	@Unique
-	private static void addTickWarpAlias(LiteralArgumentBuilder<ServerCommandSource> rootNode)
+	private static void addTickWarpAlias(LiteralArgumentBuilder<CommandSourceStack> rootNode)
 	{
 		rootNode.then(
 				literal("warp").

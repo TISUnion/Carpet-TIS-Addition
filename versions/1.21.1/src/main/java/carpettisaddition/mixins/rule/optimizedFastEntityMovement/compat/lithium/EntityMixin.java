@@ -33,12 +33,12 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.caffeinemc.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper;
 import net.caffeinemc.mods.lithium.common.util.collections.LazyList;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
@@ -81,9 +81,9 @@ public abstract class EntityMixin
 	private static LazyList<VoxelShape> dontUseThatLargeBlockCollisions(
 			LazyList<VoxelShape> originalList,
 			/* parent method parameters -> */
-			@Local(argsOnly = true) World world,
+			@Local(argsOnly = true) Level world,
 			@Local(argsOnly = true) @Nullable Entity entity,
-			@Local(argsOnly = true) Vec3d movement,
+			@Local(argsOnly = true) Vec3 movement,
 			@Share("OFEMContext") LocalRef<OFEMContext> context
 	)
 	{
@@ -102,7 +102,7 @@ public abstract class EntityMixin
 			method = "lithium$CollideMovement",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/shape/VoxelShapes;calculateMaxOffset(Lnet/minecraft/util/math/Direction$Axis;Lnet/minecraft/util/math/Box;Ljava/lang/Iterable;D)D",
+					target = "Lnet/minecraft/world/phys/shapes/Shapes;collide(Lnet/minecraft/core/Direction$Axis;Lnet/minecraft/world/phys/AABB;Ljava/lang/Iterable;D)D",
 					remap = true
 			),
 			remap = false
@@ -116,7 +116,7 @@ public abstract class EntityMixin
 		}
 
 		Direction.Axis axis = args.get(0);
-		Box entityBoundingBox = args.get(1);
+		AABB entityBoundingBox = args.get(1);
 		Iterable<VoxelShape> blockCollisions = args.get(2);
 		double maxDist = args.get(3);
 

@@ -22,8 +22,8 @@ package carpettisaddition.mixins.command.lifetime.spawning.spawner;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.MobSpawnerLogic;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.BaseSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * 1.15- mixin is handled in the version-specified class
  */
-@Mixin(MobSpawnerLogic.class)
+@Mixin(BaseSpawner.class)
 public abstract class MobSpawnerLogicMixin
 {
 	private Entity spawnedEntity$lifeTimeTracker;
@@ -42,14 +42,14 @@ public abstract class MobSpawnerLogicMixin
 			//#if MC >= 11700
 			//$$ method = "serverTick",
 			//#else
-			method = "update",
+			method = "tick",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnNewEntityAndPassengers(Lnet/minecraft/entity/Entity;)Z"
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;tryAddFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)Z"
 					//#else
-					target = "Lnet/minecraft/server/world/ServerWorld;shouldCreateNewEntityWithPassenger(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/level/ServerLevel;tryAddFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif
 			),
 			index = 0
@@ -64,14 +64,14 @@ public abstract class MobSpawnerLogicMixin
 			//#if MC >= 11700
 			//$$ method = "serverTick",
 			//#else
-			method = "update",
+			method = "tick",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
 					//$$ target = "Lnet/minecraft/server/world/ServerWorld;syncWorldEvent(ILnet/minecraft/util/math/BlockPos;I)V"
 					//#else
-					target = "Lnet/minecraft/world/World;syncWorldEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+					target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V"
 					//#endif
 			)
 	)

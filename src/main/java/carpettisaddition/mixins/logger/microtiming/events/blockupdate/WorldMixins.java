@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 11900
-//$$ import net.minecraft.block.BlockState;
+//$$ import net.minecraft.world.level.block.state.BlockState;
 //#endif
 
 @SuppressWarnings("ConstantConditions")
@@ -157,11 +157,7 @@ public abstract class WorldMixins
 	public static class ComparatorUpdateMixin
 	{
 		@Inject(
-				//#if MC >= 11600
-				//$$ method = "updateComparators",
-				//#else
 				method = "updateNeighbourForOutputSignal",
-				//#endif
 				at = @At("HEAD")
 		)
 		private void startUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)
@@ -183,11 +179,7 @@ public abstract class WorldMixins
 		}
 
 		@Inject(
-				//#if MC >= 11600
-				//$$ method = "updateComparators",
-				//#else
 				method = "updateNeighbourForOutputSignal",
-				//#endif
 				at = @At("RETURN")
 		)
 		private void endUpdateComparator(BlockPos pos, Block block, CallbackInfo ci)

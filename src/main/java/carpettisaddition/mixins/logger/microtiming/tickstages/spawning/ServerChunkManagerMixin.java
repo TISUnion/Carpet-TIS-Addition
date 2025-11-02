@@ -51,9 +51,9 @@ public abstract class ServerChunkManagerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12109
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;tickSpawners(Z)V"
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;tickCustomSpawners(Z)V"
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;tickSpawners(ZZ)V"
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;tickCustomSpawners(ZZ)V"
 					//#else
 					target = "Lnet/minecraft/world/level/chunk/ChunkGenerator;tickCustomSpawners(Lnet/minecraft/server/level/ServerLevel;ZZ)V"
 					//#endif
@@ -75,9 +75,9 @@ public abstract class ServerChunkManagerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12109
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;tickSpawners(Z)V",
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;tickCustomSpawners(Z)V",
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;tickSpawners(ZZ)V",
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;tickCustomSpawners(ZZ)V",
 					//#else
 					target = "Lnet/minecraft/world/level/chunk/ChunkGenerator;tickCustomSpawners(Lnet/minecraft/server/level/ServerLevel;ZZ)V",
 					//#endif

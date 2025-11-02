@@ -32,15 +32,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 12002
-//$$ import net.minecraft.client.network.ClientCommonNetworkHandler;
-//$$ import net.minecraft.client.MinecraftClient;
+//$$ import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
+//$$ import net.minecraft.client.Minecraft;
 //$$ import org.spongepowered.asm.mixin.Final;
 //$$ import org.spongepowered.asm.mixin.Shadow;
 //#endif
 
 @Mixin(
 		//#if MC >= 12002
-		//$$ ClientCommonNetworkHandler.class
+		//$$ ClientCommonPacketListenerImpl.class
 		//#else
 		ClientPacketListener.class
 		//#endif

@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // prevent ProjectileEntity(1.15) from being remapped into PersistentProjectileEntity(1.16)
 //#if MC >= 11600
-//$$ import net.minecraft.entity.projectile.ProjectileEntity;
+//$$ import net.minecraft.world.entity.projectile.Projectile;
 //#else
 import net.minecraft.world.entity.projectile.AbstractArrow;
 //#endif
@@ -40,7 +40,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 // smaller priority to make this execute before carpet's logger creation
 @Mixin(
 		//#if MC >= 11600
-		//$$ value = ProjectileEntity.class,
+		//$$ value = Projectile.class,
 		//#else
 		value = AbstractArrow.class,
 		//#endif
@@ -58,11 +58,7 @@ public abstract class ProjectileEntityMixin implements ProjectileLoggerTarget
 	}
 
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "onCollision(Lnet/minecraft/util/hit/HitResult;)V",
-			//#else
 			method = "onHit(Lnet/minecraft/world/phys/HitResult;)V",
-			//#endif
 			at = @At("HEAD")
 	)
 	private void recordHitPoint(HitResult hitResult, CallbackInfo ci)

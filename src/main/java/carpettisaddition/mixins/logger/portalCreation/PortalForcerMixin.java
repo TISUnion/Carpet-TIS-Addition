@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 //#if MC > 1.16.0
-//$$ import net.minecraft.util.math.Vec3i;
+//$$ import net.minecraft.core.Vec3i;
 //$$ import org.spongepowered.asm.mixin.injection.ModifyArg;
 //#else
 import com.llamalad7.mixinextras.sugar.Local;
@@ -53,11 +53,7 @@ public abstract class PortalForcerMixin
 	private ServerLevel level;
 
 	@Inject(
-			//#if 1.16.0 <= MC && MC < 1.17.0
-			//$$ method = "method_30482",
-			//#else
 			method = "createPortal",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/util/Mth;clamp(III)I"
@@ -74,11 +70,7 @@ public abstract class PortalForcerMixin
 	// Trick to capture portal x,y,z / blockPos in mc < 1.16: use the parameters of the last `mutable.set`'s first call
 	@ModifyArgs(
 	//#endif
-			//#if 1.16.0 <= MC && MC < 1.17.0
-			//$$ method = "method_30482",
-			//#else
 			method = "createPortal",
-			//#endif
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
@@ -88,7 +80,7 @@ public abstract class PortalForcerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.16.0
-					//$$ target = "Lnet/minecraft/util/math/BlockPos$Mutable;set(Lnet/minecraft/util/math/Vec3i;III)Lnet/minecraft/util/math/BlockPos$Mutable;",
+					//$$ target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;setWithOffset(Lnet/minecraft/core/Vec3i;III)Lnet/minecraft/core/BlockPos$MutableBlockPos;",
 					//#else
 					target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;",
 					//#endif

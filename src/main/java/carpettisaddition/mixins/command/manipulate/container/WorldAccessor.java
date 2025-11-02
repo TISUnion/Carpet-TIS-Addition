@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 11700
-//$$ import net.minecraft.world.chunk.BlockEntityTickInvoker;
+//$$ import net.minecraft.world.level.block.entity.TickingBlockEntity;
 //$$ import java.util.List;
 //#endif
 
@@ -37,6 +37,6 @@ public interface WorldAccessor
 
 	//#if MC >= 11700
 	//$$ @Accessor
-	//$$ List<BlockEntityTickInvoker> getBlockEntityTickers();
+	//$$ List<TickingBlockEntity> getBlockEntityTickers();
 	//#endif
 }

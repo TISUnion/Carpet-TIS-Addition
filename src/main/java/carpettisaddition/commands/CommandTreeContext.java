@@ -25,13 +25,13 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 
 //#if MC >= 11900
-//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import net.minecraft.commands.CommandBuildContext;
 //#endif
 
 public abstract class CommandTreeContext
 {
 	//#if MC >= 11900
-	//$$ public final CommandRegistryAccess commandBuildContext;
+	//$$ public final CommandBuildContext commandBuildContext;
 	//#endif
 
 	/*
@@ -42,7 +42,7 @@ public abstract class CommandTreeContext
 
 	protected CommandTreeContext(
 			//#if MC >= 11900
-			//$$ CommandRegistryAccess commandBuildContext
+			//$$ CommandBuildContext commandBuildContext
 			//#endif
 	)
 	{
@@ -54,7 +54,7 @@ public abstract class CommandTreeContext
 	public static Register of(
 			CommandDispatcher<CommandSourceStack> dispatcher
 			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
+			//$$ , CommandBuildContext commandBuildContext
 			//#endif
 	)
 	{
@@ -69,7 +69,7 @@ public abstract class CommandTreeContext
 	public static Node of(
 			ArgumentBuilder<CommandSourceStack, ?> node
 			//#if MC >= 11900
-			//$$ , CommandRegistryAccess commandBuildContext
+			//$$ , CommandBuildContext commandBuildContext
 			//#endif
 	)
 	{
@@ -124,7 +124,7 @@ public abstract class CommandTreeContext
 		private Register(
 				CommandDispatcher<CommandSourceStack> dispatcher
 				//#if MC >= 11900
-				//$$ , CommandRegistryAccess commandBuildContext
+				//$$ , CommandBuildContext commandBuildContext
 				//#endif
 		)
 		{
@@ -150,7 +150,7 @@ public abstract class CommandTreeContext
 		private Node(
 				ArgumentBuilder<CommandSourceStack, ?> node
 				//#if MC >= 11900
-				//$$ , CommandRegistryAccess commandBuildContext
+				//$$ , CommandBuildContext commandBuildContext
 				//#endif
 		)
 		{

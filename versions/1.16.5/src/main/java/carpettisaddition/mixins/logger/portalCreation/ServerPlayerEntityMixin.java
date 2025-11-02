@@ -24,28 +24,28 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.portalCreation.PortalCreationLogger;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 // used in mc [1.16, 1.21)
-@Mixin(ServerPlayerEntity.class)
+@Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin
 {
 	@Inject(
 			//#if MC >= 1.17.0
 			//$$ method = "getPortalRect",
 			//#else
-			method = "method_30330",
+			method = "getExitPortal",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.17.0
-					//$$ target = "Lnet/minecraft/world/PortalForcer;createPortal(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction$Axis;)Ljava/util/Optional;"
+					//$$ target = "Lnet/minecraft/world/level/portal/PortalForcer;createPortal(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction$Axis;)Ljava/util/Optional;"
 					//#else
-					target = "Lnet/minecraft/world/PortalForcer;method_30482(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction$Axis;)Ljava/util/Optional;"
+					target = "Lnet/minecraft/world/level/portal/PortalForcer;createPortal(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction$Axis;)Ljava/util/Optional;"
 					//#endif
 			)
 	)
@@ -54,7 +54,7 @@ public abstract class ServerPlayerEntityMixin
 		if (TISAdditionLoggerRegistry.__portalCreation)
 		{
 			needReset.set(true);
-			PortalCreationLogger.entityThatCreatesThePortal.set((ServerPlayerEntity)(Object)this);
+			PortalCreationLogger.entityThatCreatesThePortal.set((ServerPlayer)(Object)this);
 		}
 	}
 
@@ -62,14 +62,14 @@ public abstract class ServerPlayerEntityMixin
 			//#if MC >= 1.17.0
 			//$$ method = "getPortalRect",
 			//#else
-			method = "method_30330",
+			method = "getExitPortal",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.17.0
-					//$$ target = "Lnet/minecraft/world/PortalForcer;createPortal(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction$Axis;)Ljava/util/Optional;",
+					//$$ target = "Lnet/minecraft/world/level/portal/PortalForcer;createPortal(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction$Axis;)Ljava/util/Optional;",
 					//#else
-					target = "Lnet/minecraft/world/PortalForcer;method_30482(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction$Axis;)Ljava/util/Optional;",
+					target = "Lnet/minecraft/world/level/portal/PortalForcer;createPortal(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction$Axis;)Ljava/util/Optional;",
 					//#endif
 					shift = At.Shift.AFTER
 			)

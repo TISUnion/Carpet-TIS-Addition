@@ -41,7 +41,7 @@ public abstract class ServerPlayerEntityMixin
 {
 	@ModifyArg(
 			//#if MC >= 11600
-			//$$ method = "createEndSpawnPlatform",
+			//$$ method = "createEndPlatform",
 			//#else
 			method = "changeDimension",
 			slice = @Slice(

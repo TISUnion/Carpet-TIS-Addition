@@ -25,14 +25,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 12002
-//$$ import net.minecraft.client.network.ClientCommonNetworkHandler;
+//$$ import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
 //#else
 import net.minecraft.client.multiplayer.ClientPacketListener;
 //#endif
 
 @Mixin(
 		//#if MC >= 12002
-		//$$ ClientCommonNetworkHandler.class
+		//$$ ClientCommonPacketListenerImpl.class
 		//#else
 		ClientPacketListener.class
 		//#endif

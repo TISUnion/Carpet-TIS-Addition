@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 1.21.9
-//$$ import net.minecraft.network.PacketApplyBatcher;
+//$$ import net.minecraft.network.PacketProcessor;
 //#else
 import net.minecraft.util.thread.BlockableEventLoop;
 //#endif
@@ -56,7 +56,7 @@ public abstract class NetworkThreadUtilsMixin<T>
 	private static <T extends PacketListener> void startProcessPacket(
 			Packet<T> packet, T listener,
 			//#if MC >= 1.21.9
-			//$$ PacketApplyBatcher engine,
+			//$$ PacketProcessor engine,
 			//#else
 			BlockableEventLoop<?> engine,
 			//#endif

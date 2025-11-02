@@ -27,7 +27,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.SpawnGroup;
+import net.minecraft.world.entity.MobCategory;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -43,7 +43,7 @@ public abstract class SpawnReporterMixin
 	@Shadow(remap = false) @Final public static int MAGIC_NUMBER;
 
 	@Unique
-	private static SpawnGroup currentSpawnGroup$TISCM = null;
+	private static MobCategory currentSpawnGroup$TISCM = null;
 
 	@ModifyVariable(
 			method = "printMobcapsForDimension",
@@ -57,7 +57,7 @@ public abstract class SpawnReporterMixin
 	)
 	private static int applyMobcapsLocalLoggerValueOverrideForMaxMobLimit(int chunkcount)
 	{
-		Object2IntMap<SpawnGroup> mobcapsMap = MobcapsLocalLogger.getInstance().getMobcapsMap();
+		Object2IntMap<MobCategory> mobcapsMap = MobcapsLocalLogger.getInstance().getMobcapsMap();
 		if (mobcapsMap != null && currentSpawnGroup$TISCM != null)
 		{
 			chunkcount = MAGIC_NUMBER;
@@ -77,9 +77,9 @@ public abstract class SpawnReporterMixin
 	)
 	private static Object storeCurrentSpawnGroup(Object spawnGroup)
 	{
-		if (spawnGroup instanceof SpawnGroup)
+		if (spawnGroup instanceof MobCategory)
 		{
-			currentSpawnGroup$TISCM = (SpawnGroup)spawnGroup;
+			currentSpawnGroup$TISCM = (MobCategory)spawnGroup;
 		}
 		return spawnGroup;
 	}
@@ -95,7 +95,7 @@ public abstract class SpawnReporterMixin
 	)
 	private static int applyMobcapsLocalLoggerValueOverrideForCurrentMobCount(int cur)
 	{
-		Object2IntMap<SpawnGroup> mobcapsMap = MobcapsLocalLogger.getInstance().getMobcapsMap();
+		Object2IntMap<MobCategory> mobcapsMap = MobcapsLocalLogger.getInstance().getMobcapsMap();
 		if (mobcapsMap != null && currentSpawnGroup$TISCM != null)
 		{
 			cur = mobcapsMap.getOrDefault(currentSpawnGroup$TISCM, -1);

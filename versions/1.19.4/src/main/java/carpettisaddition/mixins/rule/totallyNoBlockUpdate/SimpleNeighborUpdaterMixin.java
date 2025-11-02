@@ -24,14 +24,14 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.block.SimpleNeighborUpdater;
+import net.minecraft.world.level.redstone.InstantNeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
-@Mixin(SimpleNeighborUpdater.class)
+@Mixin(InstantNeighborUpdater.class)
 public abstract class SimpleNeighborUpdaterMixin
 {
 	@Inject(

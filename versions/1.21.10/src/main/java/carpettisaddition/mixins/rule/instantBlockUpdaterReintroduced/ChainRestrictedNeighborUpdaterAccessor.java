@@ -20,14 +20,14 @@
 
 package carpettisaddition.mixins.rule.instantBlockUpdaterReintroduced;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.block.ChainRestrictedNeighborUpdater;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.redstone.CollectingNeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.function.Consumer;
 
-@Mixin(ChainRestrictedNeighborUpdater.class)
+@Mixin(CollectingNeighborUpdater.class)
 public interface ChainRestrictedNeighborUpdaterAccessor
 {
 	@Accessor("maxChainDepth")

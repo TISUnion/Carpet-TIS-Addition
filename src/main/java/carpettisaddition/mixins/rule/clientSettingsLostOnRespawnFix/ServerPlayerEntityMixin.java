@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 12002
-//$$ import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
+//$$ import net.minecraft.server.level.ClientInformation;
 //#else
 import net.minecraft.network.protocol.game.ServerboundClientInformationPacket;
 //#endif
@@ -40,14 +40,14 @@ public abstract class ServerPlayerEntityMixin
 {
 	@Shadow public abstract void
 			//#if MC >= 12002
-			//$$ setClientOptions(SyncedClientOptions settings);
+			//$$ setClientOptions(ClientInformation settings);
 			//#else
 			updateOptions(ServerboundClientInformationPacket settings);
 			//#endif
 
 	@Nullable
 	//#if MC >= 12002
-	//$$ private SyncedClientOptions lastClientSettings$TISCM = null;
+	//$$ private ClientInformation lastClientSettings$TISCM = null;
 	//#else
 	private ServerboundClientInformationPacket lastClientSettings$TISCM = null;
 	//#endif
@@ -62,7 +62,7 @@ public abstract class ServerPlayerEntityMixin
 	)
 	private void storeClientSettingsC2SPacket(
 			//#if MC >= 12002
-			//$$ SyncedClientOptions settings,
+			//$$ ClientInformation settings,
 			//#else
 			ServerboundClientInformationPacket settings,
 			//#endif

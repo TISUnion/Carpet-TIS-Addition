@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 //#if MC >= 12102
-//$$ import net.minecraft.item.MinecartItem;
+//$$ import net.minecraft.world.item.MinecartItem;
 //#endif
 
 @Mixin(

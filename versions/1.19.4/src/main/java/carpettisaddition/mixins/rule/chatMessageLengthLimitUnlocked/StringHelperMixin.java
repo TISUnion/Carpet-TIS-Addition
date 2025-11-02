@@ -22,19 +22,19 @@ package carpettisaddition.mixins.rule.chatMessageLengthLimitUnlocked;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.chatMessageLengthLimitUnlocked.ChatMessageLengthLimitUnlockedHelper;
-import net.minecraft.util.StringHelper;
+import net.minecraft.util.StringUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(StringHelper.class)
+@Mixin(StringUtil.class)
 public abstract class StringHelperMixin
 {
 	@ModifyArg(
-			method = "truncateChat",
+			method = "trimChatMessage",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/StringHelper;truncate(Ljava/lang/String;IZ)Ljava/lang/String;"
+					target = "Lnet/minecraft/util/StringUtil;truncateStringIfNecessary(Ljava/lang/String;IZ)Ljava/lang/String;"
 			)
 	)
 	private static int	chatMessageLengthLimitUnlocked_tweakTruncateChat(int limit)

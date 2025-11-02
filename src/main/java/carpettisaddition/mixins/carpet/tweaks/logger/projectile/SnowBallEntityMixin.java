@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 //#if MC >= 12003
 //#disable-remap
-//$$ import net.minecraft.world.explosion.Explosion;
+//$$ import net.minecraft.world.level.Explosion;
 //#enable-remap
 //#endif
 

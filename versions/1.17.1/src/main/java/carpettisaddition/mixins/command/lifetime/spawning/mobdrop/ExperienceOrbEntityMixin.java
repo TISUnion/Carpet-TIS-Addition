@@ -25,8 +25,8 @@ import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ExperienceOrb;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,12 +34,12 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
-@Mixin(ExperienceOrbEntity.class)
+@Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin
 {
 	@ModifyArg(
 			//#if MC >= 12106
-			//$$ method = "spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;I)V",
+			//$$ method = "awardWithDirection",
 			//#else
 			method = "spawn",
 			//#endif
@@ -61,7 +61,7 @@ public abstract class ExperienceOrbEntityMixin
 
 	@Inject(
 			//#if MC >= 12106
-			//$$ method = "spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;I)V",
+			//$$ method = "awardWithDirection",
 			//#else
 			method = "spawn",
 			//#endif

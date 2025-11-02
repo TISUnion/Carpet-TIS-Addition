@@ -29,17 +29,17 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 12102
-//$$ import net.minecraft.entity.vehicle.AbstractChestBoatEntity;
+//$$ import net.minecraft.world.entity.vehicle.AbstractChestBoat;
 //#else
-import net.minecraft.entity.vehicle.ChestBoatEntity;
+import net.minecraft.world.entity.vehicle.ChestBoat;
 //#endif
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.19"))
 @Mixin(
 		//#if MC >= 12102
-		//$$ AbstractChestBoatEntity.class
+		//$$ AbstractChestBoat.class
 		//#else
-		ChestBoatEntity.class
+		ChestBoat.class
 		//#endif
 )
 public abstract class ChestBoatEntityMixin implements EntityToBeCleanlyRemoved
@@ -56,7 +56,7 @@ public abstract class ChestBoatEntityMixin implements EntityToBeCleanlyRemoved
 			method = "remove",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/Entity$RemovalReason;shouldDestroy()Z"
+					target = "Lnet/minecraft/world/entity/Entity$RemovalReason;shouldDestroy()Z"
 			)
 	)
 	private boolean dontDropContentsIfIsRemovedByRemoveEntityCommand(boolean willDropContents)

@@ -219,9 +219,9 @@ public class TISAdditionTranslations
 				//$$ }
 				//#elseif MC >= 11600
 				//$$ Object hoverEventValue = hoverEvent.getValue(hoverEvent.getAction());
-				//$$ if (hoverEvent.getAction() == HoverEvent.Action.SHOW_TEXT && hoverEventValue instanceof BaseText)
+				//$$ if (hoverEvent.getAction() == HoverEvent.Action.SHOW_TEXT && hoverEventValue instanceof BaseComponent)
 				//$$ {
-				//$$ 	 return (BaseText)hoverEventValue;
+				//$$ 	 return (BaseComponent)hoverEventValue;
 				//$$ }
 				//#else
 				Component hoverEventText = hoverEvent.getValue();

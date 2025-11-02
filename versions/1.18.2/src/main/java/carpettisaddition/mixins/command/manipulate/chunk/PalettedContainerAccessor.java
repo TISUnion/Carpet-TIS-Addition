@@ -20,7 +20,7 @@
 
 package carpettisaddition.mixins.command.manipulate.chunk;
 
-import net.minecraft.world.chunk.PalettedContainer;
+import net.minecraft.world.level.chunk.PalettedContainer;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;

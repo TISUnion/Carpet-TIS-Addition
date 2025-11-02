@@ -29,9 +29,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
 //#if MC >= 12102
-//$$ import net.minecraft.server.world.ServerWorld;
-//$$ import net.minecraft.world.explosion.ExplosionImpl;
-//$$ import net.minecraft.util.math.BlockPos;
+//$$ import net.minecraft.server.level.ServerLevel;
+//$$ import net.minecraft.world.level.ServerExplosion;
+//$$ import net.minecraft.core.BlockPos;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //$$ import java.util.List;
 //#else
@@ -43,7 +43,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 // increase priority to make the wrapWorldRandom injection be in front of other cancellable injections
 @Mixin(
 		//#if MC >= 12102
-		//$$ value = ExplosionImpl.class,
+		//$$ value = ServerExplosion.class,
 		//#else
 		value = Explosion.class,
 		//#endif
@@ -53,7 +53,7 @@ public class ExplosionMixin
 {
 	@Shadow @Final
 	//#if MC >= 12102
-	//$$ private ServerWorld world;
+	//$$ private ServerLevel world;
 	//#else
 	private Level level;
 	//#endif

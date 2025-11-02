@@ -98,23 +98,15 @@ public abstract class WorldChunkMixin
 	}
 
 	/**
-	 * this method is used in
-	 *   (>=1.16) {@link Level#getOtherEntities(Entity, AABB, Predicate)}
-	 *   (<=1.15) {@link Level#getEntities(Entity, AABB, Predicate)}
-	 * which will be invoked in
-	 *   (>=1.15) {@link EntityGetter#getEntityCollisions}
-	 *   (<=1.14) {@link EntityGetter#method_20743}
+	 * this method is used in {@link Level#getEntities(Entity, AABB, Predicate)}
+	 * which will be invoked in {@link EntityGetter#getEntityCollisions}
 	 */
 	@ModifyExpressionValue(
-			//#if MC >= 11600
-			//$$ method = "collectOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/List;Ljava/util/function/Predicate;)V",
-			//#else
 			method = "getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;Ljava/util/List;Ljava/util/function/Predicate;)V",
-			//#endif
 			at = @At(
 					value = "FIELD",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/world/chunk/WorldChunk;entitySections:[Lnet/minecraft/util/collection/TypeFilterableList;"
+					//$$ target = "Lnet/minecraft/world/level/chunk/LevelChunk;entitySections:[Lnet/minecraft/util/ClassInstanceMultiMap;"
 					//#else
 					target = "Lnet/minecraft/world/level/chunk/LevelChunk;entitySections:[Lnet/minecraft/util/ClassInstanceMultiMap;"
 					//#endif

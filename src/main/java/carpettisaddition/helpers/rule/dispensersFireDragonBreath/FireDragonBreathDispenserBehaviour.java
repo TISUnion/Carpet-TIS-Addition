@@ -33,7 +33,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 
 //#if MC >= 12109
-//$$ import net.minecraft.particle.DragonBreathParticleEffect;
+//$$ import net.minecraft.core.particles.PowerParticleOption;
 //#endif
 
 //#if MC >= 12104
@@ -41,8 +41,8 @@ import net.minecraft.world.level.Level;
 //#endif
 
 //#if MC >= 12005
-//$$ import net.minecraft.potion.Potions;
-//$$ import net.minecraft.component.type.PotionContentsComponent;
+//$$ import net.minecraft.world.item.alchemy.Potions;
+//$$ import net.minecraft.world.item.alchemy.PotionContents;
 //#endif
 
 public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehavior
@@ -61,7 +61,7 @@ public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehav
 		areaEffectCloudEntity.setOwner(null);  // it doesn't have an entity owner
 		areaEffectCloudEntity.setParticle(
 				//#if MC >= 1.21.9
-				//$$ DragonBreathParticleEffect.of(ParticleTypes.DRAGON_BREATH, 1.0F)
+				//$$ PowerParticleOption.of(ParticleTypes.DRAGON_BREATH, 1.0F)
 				//#else
 				ParticleTypes.DRAGON_BREATH
 				//#endif
@@ -75,9 +75,9 @@ public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehav
 		world.levelEvent(
 				2007, blockpos,
 				//#if MC >= 12104
-				//$$ PotionContentsComponent.mixColors(Collections.singleton(statusEffectInstance)).orElse(0xFF385DC6)  // see also PotionContentsComponent.getColor
+				//$$ PotionContents.mixColors(Collections.singleton(statusEffectInstance)).orElse(0xFF385DC6)  // see also PotionContents.getColor
 				//#elseif MC >= 12005
-				//$$ PotionContentsComponent.getColor(Potions.HARMING)
+				//$$ PotionContents.getColor(Potions.HARMING)
 				//#else
 				areaEffectCloudEntity.getColor()
 				//#endif

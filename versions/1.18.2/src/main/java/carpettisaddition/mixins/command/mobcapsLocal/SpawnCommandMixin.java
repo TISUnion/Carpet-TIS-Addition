@@ -27,14 +27,14 @@ import carpettisaddition.utils.ModIds;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 //#if MC >= 11900
 //$$ import com.mojang.brigadier.CommandDispatcher;
-//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import net.minecraft.commands.CommandBuildContext;
 //$$ import org.spongepowered.asm.mixin.injection.Inject;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
@@ -44,10 +44,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class SpawnCommandMixin
 {
 	//#if MC >= 11900
-	//$$ private static CommandRegistryAccess currentCommandBuildContext$TISCM = null;
+	//$$ private static CommandBuildContext currentCommandBuildContext$TISCM = null;
  //$$
 	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
-	//$$ private static void storeCommandBuildContext(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext, CallbackInfo ci)
+	//$$ private static void storeCommandBuildContext(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext, CallbackInfo ci)
 	//$$ {
 	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
 	//$$ }
@@ -62,7 +62,7 @@ public abstract class SpawnCommandMixin
 			index = 0,
 			remap = false
 	)
-	private static LiteralArgumentBuilder<ServerCommandSource> appendLocalArgumentOnSpawnMobcaps(LiteralArgumentBuilder<ServerCommandSource> rootNode)
+	private static LiteralArgumentBuilder<CommandSourceStack> appendLocalArgumentOnSpawnMobcaps(LiteralArgumentBuilder<CommandSourceStack> rootNode)
 	{
 		MobcapsLocalCommand.getInstance().extendCommand(
 				CommandTreeContext.of(

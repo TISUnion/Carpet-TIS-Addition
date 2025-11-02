@@ -55,7 +55,7 @@ public abstract class BarrelBlockMixin extends BaseEntityBlock
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/entity/player/PlayerEntity;openHandledScreen(Lnet/minecraft/screen/NamedScreenHandlerFactory;)Ljava/util/OptionalInt;"
+					//$$ target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;"
 					//#else
 					target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;"
 					//#endif
@@ -68,13 +68,7 @@ public abstract class BarrelBlockMixin extends BaseEntityBlock
 			if (nameableContainerFactory instanceof BarrelBlockEntity)
 			{
 				BarrelBlockEntity barrelBlockEntity = (BarrelBlockEntity) nameableContainerFactory;
-				return this.
-						//#if MC >= 11600
-						//$$ createScreenHandlerFactory
-						//#else
-						getMenuProvider
-						//#endif
-								(barrelBlockEntity.getBlockState(), barrelBlockEntity.getLevel(), barrelBlockEntity.getBlockPos());
+				return this.getMenuProvider(barrelBlockEntity.getBlockState(), barrelBlockEntity.getLevel(), barrelBlockEntity.getBlockPos());
 			}
 		}
 		// vanilla
@@ -82,26 +76,13 @@ public abstract class BarrelBlockMixin extends BaseEntityBlock
 	}
 
 	/**
-	 * (<=1.15) Just like {@link net.minecraft.world.level.block.ChestBlock#createContainerFactory}
-	 * (>=1.16) Just like {@link net.minecraft.world.level.block.ChestBlock#createScreenHandlerFactory}
+	 * Just like {@link net.minecraft.world.level.block.ChestBlock#getMenuProvider}
 	 */
 	@Nullable
 	@Override
-	public MenuProvider
-	//#if MC >= 11600
-	//$$ createScreenHandlerFactory
-	//#else
-	getMenuProvider
-	//#endif
-	(BlockState state, Level world, BlockPos pos)
+	public MenuProvider getMenuProvider (BlockState state, Level world, BlockPos pos)
 	{
-		MenuProvider vanillaResult = super.
-				//#if MC >= 11600
-				//$$ createScreenHandlerFactory
-				//#else
-				getMenuProvider
-				//#endif
-						(state, world, pos);
+		MenuProvider vanillaResult = super.getMenuProvider(state, world, pos);
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			return LargeBarrelHelper.getBlockEntitySource(state, world, pos).apply(LargeBarrelHelper.NAME_RETRIEVER).orElse(vanillaResult);

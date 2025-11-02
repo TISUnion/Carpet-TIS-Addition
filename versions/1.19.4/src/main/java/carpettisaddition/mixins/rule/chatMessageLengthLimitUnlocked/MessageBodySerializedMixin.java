@@ -22,19 +22,19 @@ package carpettisaddition.mixins.rule.chatMessageLengthLimitUnlocked;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.chatMessageLengthLimitUnlocked.ChatMessageLengthLimitUnlockedHelper;
-import net.minecraft.network.message.MessageBody;
+import net.minecraft.network.chat.SignedMessageBody;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(MessageBody.Serialized.class)
+@Mixin(SignedMessageBody.Serialized.class)
 public abstract class MessageBodySerializedMixin
 {
 	@ModifyArg(
 			method = "write",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/network/PacketByteBuf;writeString(Ljava/lang/String;I)Lnet/minecraft/network/PacketByteBuf;"
+					target = "Lnet/minecraft/network/FriendlyByteBuf;writeUtf(Ljava/lang/String;I)Lnet/minecraft/network/FriendlyByteBuf;"
 			)
 	)
 	private int chatMessageLengthLimitUnlocked_tweakS2CChatPacketWrite(int limit)
@@ -47,10 +47,10 @@ public abstract class MessageBodySerializedMixin
 	}
 
 	@ModifyArg(
-			method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
+			method = "<init>",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/network/PacketByteBuf;readString(I)Ljava/lang/String;"
+					target = "Lnet/minecraft/network/FriendlyByteBuf;readUtf(I)Ljava/lang/String;"
 			)
 	)
 	private static int chatMessageLengthLimitUnlocked_tweakS2CChatPacketRead(int limit)

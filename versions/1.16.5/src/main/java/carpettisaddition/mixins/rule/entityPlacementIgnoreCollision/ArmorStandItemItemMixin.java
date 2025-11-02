@@ -22,7 +22,7 @@ package carpettisaddition.mixins.rule.entityPlacementIgnoreCollision;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.item.ArmorStandItem;
+import net.minecraft.world.item.ArmorStandItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -39,13 +39,13 @@ public abstract class ArmorStandItemItemMixin
 	 *                ^ modifying this
 	 */
 	@ModifyExpressionValue(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
 					//$$ target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Z"
 					//#else
-					target = "Lnet/minecraft/world/World;isSpaceEmpty(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Z"
+					target = "Lnet/minecraft/world/level/Level;noCollision(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Z"
 					//#endif
 			)
 	)
@@ -64,7 +64,7 @@ public abstract class ArmorStandItemItemMixin
 	 *                                                               ^ modifying this
 	 */
 	@ModifyExpressionValue(
-			method = "useOnBlock",
+			method = "useOn",
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/List;isEmpty()Z",

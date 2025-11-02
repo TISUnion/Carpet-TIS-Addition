@@ -48,7 +48,7 @@ public abstract class CauldronBlockMixin
 			//$$ slice = @Slice(
 			//$$ 		from = @At(
 			//$$ 				value = "FIELD",
-			//$$ 				target = "Lnet/minecraft/stat/Stats;CLEAN_SHULKER_BOX:Lnet/minecraft/util/Identifier;"
+			//$$ 				target = "Lnet/minecraft/stats/Stats;CLEAN_SHULKER_BOX:Lnet/minecraft/resources/ResourceLocation;"
 			//$$ 		)
 			//$$ ),
 			//#endif

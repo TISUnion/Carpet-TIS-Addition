@@ -26,12 +26,12 @@ import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.hopper.HopperHelper;
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.Container;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -56,14 +56,14 @@ public abstract class HopperHelperMixin
 			cancellable = true,
 			remap = false
 	)
-	private static void useLargeBarrelInventoryMaybe(World world, BlockPos blockPos, CallbackInfoReturnable<Inventory> cir, Inventory inventory, BlockState blockState, Block block)
+	private static void useLargeBarrelInventoryMaybe(Level world, BlockPos blockPos, CallbackInfoReturnable<Container> cir, Container inventory, BlockState blockState, Block block)
 	{
 		// note: inventory is always null
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			if (block instanceof BarrelBlock)
 			{
-				Inventory largeBarrel = LargeBarrelHelper.getInventory(blockState, world, blockPos);
+				Container largeBarrel = LargeBarrelHelper.getInventory(blockState, world, blockPos);
 				if (largeBarrel != null)
 				{
 					cir.setReturnValue(largeBarrel);

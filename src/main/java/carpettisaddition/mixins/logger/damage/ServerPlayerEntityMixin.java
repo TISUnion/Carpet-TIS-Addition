@@ -36,34 +36,34 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 11900
-//$$ import net.minecraft.network.encryption.PlayerPublicKey;
+//$$ import net.minecraft.world.entity.player.ProfilePublicKey;
 //$$ import org.jetbrains.annotations.Nullable;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.util.math.BlockPos;
+//$$ import net.minecraft.core.BlockPos;
 //#endif
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin extends Player
 {
 	//#if MC >= 12106
-	//$$ public ServerPlayerEntityMixin(World world, GameProfile gameProfile)
+	//$$ public ServerPlayerEntityMixin(Level world, GameProfile gameProfile)
 	//$$ {
 	//$$ 	super(world, gameProfile);
 	//$$ }
 	//#elseif MC >= 11903
-	//$$ public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile)
+	//$$ public ServerPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile)
 	//$$ {
 	//$$ 	super(world, pos, yaw, gameProfile);
 	//$$ }
 	//#elseif MC >= 11900
-	//$$ public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile, @Nullable PlayerPublicKey playerPublicKey)
+	//$$ public ServerPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile profile, @Nullable ProfilePublicKey playerPublicKey)
 	//$$ {
 	//$$ 	super(world, pos, yaw, profile, playerPublicKey);
 	//$$ }
 	//#elseif MC >= 11600
-	//$$ public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile)
+	//$$ public ServerPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile profile)
 	//$$ {
 	//$$ 	super(world, pos, yaw, profile);
 	//$$ }
@@ -82,7 +82,7 @@ public abstract class ServerPlayerEntityMixin extends Player
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12104
-					//$$ target = "Lnet/minecraft/entity/damage/DamageSource;getAttacker()Lnet/minecraft/entity/Entity;"
+					//$$ target = "Lnet/minecraft/world/damagesource/DamageSource;getEntity()Lnet/minecraft/world/entity/Entity;"
 					//#else
 					target = "Lnet/minecraft/server/MinecraftServer;isDedicatedServer()Z"
 					//#endif
@@ -102,7 +102,7 @@ public abstract class ServerPlayerEntityMixin extends Player
 					from = @At(
 							//#if MC >= 11900
 							//$$ value = "FIELD",
-							//$$ target = "Lnet/minecraft/registry/tag/DamageTypeTags;IS_FALL:Lnet/minecraft/registry/tag/TagKey;"
+							//$$ target = "Lnet/minecraft/tags/DamageTypeTags;IS_FALL:Lnet/minecraft/tags/TagKey;"
 							//#else
 							value = "CONSTANT",
 							args = "stringValue=fall"

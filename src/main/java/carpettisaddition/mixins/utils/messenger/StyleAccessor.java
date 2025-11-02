@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 11600
-//$$ import net.minecraft.text.TextColor;
+//$$ import net.minecraft.network.chat.TextColor;
 //#else
 import net.minecraft.ChatFormatting;
 //#endif

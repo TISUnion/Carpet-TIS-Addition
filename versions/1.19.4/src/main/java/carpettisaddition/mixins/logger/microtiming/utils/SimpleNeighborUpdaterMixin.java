@@ -21,10 +21,10 @@
 package carpettisaddition.mixins.logger.microtiming.utils;
 
 import carpettisaddition.logging.loggers.microtiming.utils.InstantNeighborUpdater;
-import net.minecraft.world.block.SimpleNeighborUpdater;
+import net.minecraft.world.level.redstone.InstantNeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(SimpleNeighborUpdater.class)
+@Mixin(InstantNeighborUpdater.class)
 public abstract class SimpleNeighborUpdaterMixin implements InstantNeighborUpdater
 {
 }

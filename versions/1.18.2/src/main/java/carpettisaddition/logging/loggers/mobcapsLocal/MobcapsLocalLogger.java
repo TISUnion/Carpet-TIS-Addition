@@ -31,19 +31,19 @@ import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.SpawnDensityCapper;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.level.LocalMobCapCalculator;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
 
 //#if MC >= 11900
-//$$ import net.minecraft.text.Text;
+//$$ import net.minecraft.network.chat.Component;
 //#endif
 
 public class MobcapsLocalLogger extends AbstractHUDLogger
@@ -51,8 +51,8 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	public static final String NAME = "mobcapsLocal";
 	private static final MobcapsLocalLogger INSTANCE = new MobcapsLocalLogger();
 
-	private final Map<DimensionWrapper, SpawnDensityCapper> capperMap = Maps.newHashMap();
-	private final ThreadLocal<@Nullable Object2IntMap<SpawnGroup>> mobcapsMap = ThreadLocal.withInitial(() -> null);
+	private final Map<DimensionWrapper, LocalMobCapCalculator> capperMap = Maps.newHashMap();
+	private final ThreadLocal<@Nullable Object2IntMap<MobCategory>> mobcapsMap = ThreadLocal.withInitial(() -> null);
 
 	private MobcapsLocalLogger()
 	{
@@ -65,31 +65,31 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	}
 
 	@Override
-	public BaseText[] onHudUpdate(String option, PlayerEntity playerEntity)
+	public BaseComponent[] onHudUpdate(String option, Player playerEntity)
 	{
 		if (option != null)
 		{
-			ServerPlayerEntity specifiedPlayer = CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayer(option);
+			ServerPlayer specifiedPlayer = CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayer(option);
 			if (specifiedPlayer != null)
 			{
 				playerEntity = specifiedPlayer;
 			}
 			else
 			{
-				return new BaseText[]{Messenger.formatting(tr("player_not_found", option), Formatting.GRAY)};
+				return new BaseComponent[]{Messenger.formatting(tr("player_not_found", option), ChatFormatting.GRAY)};
 			}
 		}
-		if (playerEntity instanceof ServerPlayerEntity)
+		if (playerEntity instanceof ServerPlayer)
 		{
-			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)playerEntity;
-			final BaseText result = Messenger.c("g [", Messenger.formatting(tr("local"), "g"), "g ] ");
+			ServerPlayer serverPlayerEntity = (ServerPlayer)playerEntity;
+			final BaseComponent result = Messenger.c("g [", Messenger.formatting(tr("local"), "g"), "g ] ");
 			this.withLocalMobcapContext(
 					serverPlayerEntity,
 					() -> {
 						//#if MC >= 11900
-						//$$ List<Text> lines =
+						//$$ List<Component> lines =
 						//#else
-						List<BaseText> lines =
+						List<BaseComponent> lines =
 						//#endif
 								SpawnReporter.printMobcapsForDimension(serverPlayerEntity.getWorld(), false);
 
@@ -103,9 +103,9 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 						result.append("-- Not available --");
 					}
 			);
-			return new BaseText[]{result};
+			return new BaseComponent[]{result};
 		}
-		return new BaseText[]{Messenger.s("-- Not ServerPlayerEntity --")};
+		return new BaseComponent[]{Messenger.s("-- Not ServerPlayerEntity --")};
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 		};
 	}
 
-	public void setCapper(DimensionWrapper dim, SpawnDensityCapper capper)
+	public void setCapper(DimensionWrapper dim, LocalMobCapCalculator capper)
 	{
 		this.capperMap.put(dim, capper);
 	}
@@ -131,17 +131,17 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	}
 
 	@Nullable
-	public Object2IntMap<SpawnGroup> getMobcapsMap()
+	public Object2IntMap<MobCategory> getMobcapsMap()
 	{
 		return mobcapsMap.get();
 	}
 
-	public void withLocalMobcapContext(ServerPlayerEntity player, Runnable runnable, Runnable failureCallback)
+	public void withLocalMobcapContext(ServerPlayer player, Runnable runnable, Runnable failureCallback)
 	{
-		SpawnDensityCapper capper = this.capperMap.get(DimensionWrapper.of(player));
+		LocalMobCapCalculator capper = this.capperMap.get(DimensionWrapper.of(player));
 		if (capper != null)
 		{
-			SpawnDensityCapper.DensityCap cap = ((SpawnDensityCapperAccessor)capper).getPlayersToDensityCap().getOrDefault(player, SpawnDensityCapperDensityCapAccessor.invokeConstructor());
+			LocalMobCapCalculator.DensityCap cap = ((SpawnDensityCapperAccessor)capper).getPlayersToDensityCap().getOrDefault(player, SpawnDensityCapperDensityCapAccessor.invokeConstructor());
 			this.mobcapsMap.set(((SpawnDensityCapperDensityCapAccessor) cap).getSpawnGroupsToDensity());
 			try
 			{

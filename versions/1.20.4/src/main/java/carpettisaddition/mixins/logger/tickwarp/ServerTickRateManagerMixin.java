@@ -21,16 +21,16 @@
 package carpettisaddition.mixins.logger.tickwarp;
 
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
-import net.minecraft.server.ServerTickManager;
+import net.minecraft.server.ServerTickRateManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerTickManager.class)
+@Mixin(ServerTickRateManager.class)
 public abstract class ServerTickRateManagerMixin
 {
-	@Inject(method = "finishSprinting", at = @At("HEAD"))
+	@Inject(method = "finishTickSprint", at = @At("HEAD"))
 	private void recordTickWarpResult(CallbackInfo ci)
 	{
 		TickWarpHUDLogger.getInstance().recordTickWarpResult();

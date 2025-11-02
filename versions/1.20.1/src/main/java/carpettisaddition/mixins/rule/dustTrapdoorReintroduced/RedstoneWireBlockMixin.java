@@ -22,21 +22,21 @@ package carpettisaddition.mixins.rule.dustTrapdoorReintroduced;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.RedstoneWireBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RedStoneWireBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(RedstoneWireBlock.class)
+@Mixin(RedStoneWireBlock.class)
 public abstract class RedstoneWireBlockMixin
 {
 	// This changed is introduced in 1.20-pre2, let's revert it
 	@ModifyExpressionValue(
-			method = "getRenderConnectionType(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;Z)Lnet/minecraft/block/enums/WireConnection;",
+			method = "getConnectingSide",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;",
+					target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;",
 					ordinal = 0
 			)
 	)
@@ -56,7 +56,7 @@ public abstract class RedstoneWireBlockMixin
 	//$$ 		method = "getStateForNeighborUpdate",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
-	//$$ 				target = "Lnet/minecraft/block/RedstoneWireBlock;canRunOnTop(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"
+	//$$ 				target = "Lnet/minecraft/world/level/block/RedStoneWireBlock;canSurviveOn(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"
 	//$$ 		),
 	//$$ 		allow = 1
 	//$$ )

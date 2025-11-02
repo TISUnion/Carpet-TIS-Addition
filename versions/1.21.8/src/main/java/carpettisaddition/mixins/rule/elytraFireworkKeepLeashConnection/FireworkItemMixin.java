@@ -26,8 +26,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FireworkRocketItem;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.FireworkRocketItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -42,7 +42,7 @@ public abstract class FireworkItemMixin
 					target = "Lnet/minecraft/entity/player/PlayerEntity;detachAllHeldLeashes(Lnet/minecraft/entity/player/PlayerEntity;)Z"
 			)
 	)
-	private boolean elytraFireworkKeepLeashConnection_doneDetach(PlayerEntity user, PlayerEntity arg, Operation<Boolean> original)
+	private boolean elytraFireworkKeepLeashConnection_doneDetach(Player user, Player arg, Operation<Boolean> original)
 	{
 		if (CarpetTISAdditionSettings.elytraFireworkKeepLeashConnection)
 		{

@@ -28,7 +28,7 @@ import net.minecraft.network.chat.BaseComponent;
 import java.util.List;
 
 //#if MC >= 12005
-//$$ import net.minecraft.registry.entry.RegistryEntry;
+//$$ import net.minecraft.core.Holder;
 //#endif
 
 public class StatusEffectModifyReason extends ModifyReason
@@ -47,11 +47,11 @@ public class StatusEffectModifyReason extends ModifyReason
 		this(statusEffect, null);
 	}
 	//#if MC >= 12005
-	//$$ public StatusEffectModifyReason(RegistryEntry<StatusEffect> statusEffect, Integer amplifier)
+	//$$ public StatusEffectModifyReason(Holder<StatusEffect> statusEffect, Integer amplifier)
 	//$$ {
 	//$$ 	this(statusEffect.value(), amplifier);
 	//$$ }
-	//$$ public StatusEffectModifyReason(RegistryEntry<StatusEffect> statusEffect)
+	//$$ public StatusEffectModifyReason(Holder<StatusEffect> statusEffect)
 	//$$ {
 	//$$ 	this(statusEffect.value());
 	//$$ }

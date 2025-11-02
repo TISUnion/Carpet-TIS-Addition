@@ -46,7 +46,7 @@ import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 11700
 //$$ import carpettisaddition.utils.GameUtils;
-//$$ import net.minecraft.world.chunk.BlockEntityTickInvoker;
+//$$ import net.minecraft.world.level.block.entity.TickingBlockEntity;
 //#endif
 
 public class TileEntityListController extends AbstractEntityListController
@@ -68,7 +68,7 @@ public class TileEntityListController extends AbstractEntityListController
 	protected int processWholeList(ServerLevel world, Consumer<List<?>> collectionOperator)
 	{
 		//#if MC >= 11700
-		//$$ List<BlockEntityTickInvoker> blockEntityTickers = ((WorldAccessor)world).getBlockEntityTickers();
+		//$$ List<TickingBlockEntity> blockEntityTickers = ((WorldAccessor)world).getBlockEntityTickers();
 		//$$ collectionOperator.accept(blockEntityTickers);
 		//$$ return blockEntityTickers.size();
 		//#else
@@ -78,7 +78,7 @@ public class TileEntityListController extends AbstractEntityListController
 	}
 
 	//#if MC >= 11700
-	//$$ private static List<BlockEntity> extractFromTicker(Collection<BlockEntityTickInvoker> tickers)
+	//$$ private static List<BlockEntity> extractFromTicker(Collection<TickingBlockEntity> tickers)
 	//$$ {
 	//$$ 	return tickers.stream().
 	//$$ 			map(GameUtils::getBlockEntityFromTickInvoker).

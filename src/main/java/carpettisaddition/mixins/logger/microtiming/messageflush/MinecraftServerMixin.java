@@ -34,7 +34,7 @@ public abstract class MinecraftServerMixin
 {
 	@Inject(
 			//#if MC >= 11700
-			//$$ method = "runTasksTillTickEnd",
+			//$$ method = "waitUntilNextTick",
 			//#else
 			method = "waitUntilNextTick",
 			//#endif

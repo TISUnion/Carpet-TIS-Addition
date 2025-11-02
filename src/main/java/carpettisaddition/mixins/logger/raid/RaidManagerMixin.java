@@ -44,7 +44,7 @@ public abstract class RaidManagerMixin
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11600
-							//$$ target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$Key;)Z"
+							//$$ target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
 							//#else
 							target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
 							//#endif
@@ -53,7 +53,7 @@ public abstract class RaidManagerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/village/raid/Raid;invalidate()V",
+					//$$ target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/raid/Raid;stop()V",
 					//#endif

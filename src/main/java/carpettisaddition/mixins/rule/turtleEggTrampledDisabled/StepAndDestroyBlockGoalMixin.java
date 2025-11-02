@@ -40,7 +40,7 @@ public abstract class StepAndDestroyBlockGoalMixin
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11600
-							//$$ target = "Lnet/minecraft/entity/ai/goal/StepAndDestroyBlockGoal;tickStepping(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;)V"
+							//$$ target = "Lnet/minecraft/world/entity/ai/goal/RemoveBlockGoal;playDestroyProgressSound(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)V"
 							//#else
 							target = "Lnet/minecraft/world/entity/ai/goal/RemoveBlockGoal;playDestroyProgressSound(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)V"
 							//#endif

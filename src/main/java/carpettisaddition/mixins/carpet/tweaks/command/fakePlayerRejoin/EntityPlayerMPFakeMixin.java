@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.At;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#else
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -145,7 +145,7 @@ public abstract class EntityPlayerMPFakeMixin
 					//#if MC >= 12102
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleport(Lnet/minecraft/server/world/ServerWorld;DDDLjava/util/Set;FFZ)Z"
 					//#elseif MC >= 11600
-					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V"
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDFF)V"
 					//#else
 					target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;teleport(DDDFF)V"
 					//#endif
@@ -153,9 +153,9 @@ public abstract class EntityPlayerMPFakeMixin
 	)
 	private static boolean fakePlayerRejoin_dontRequestTeleport(
 			//#if MC >= 12102
-			//$$ EntityPlayerMPFake instance, ServerWorld serverWorld, double x, double y, double z, java.util.Set<?> set, float yaw, float pitch, boolean resetCamera
+			//$$ EntityPlayerMPFake instance, ServerLevel serverWorld, double x, double y, double z, java.util.Set<?> set, float yaw, float pitch, boolean resetCamera
 			//#elseif MC >= 11600
-			//$$ EntityPlayerMPFake instance, ServerWorld serverWorld, double x, double y, double z, float yaw, float pitch
+			//$$ EntityPlayerMPFake instance, ServerLevel serverWorld, double x, double y, double z, float yaw, float pitch
 			//#else
 			ServerGamePacketListenerImpl instance, double x, double y, double z, float yaw, float pitch
 			//#endif

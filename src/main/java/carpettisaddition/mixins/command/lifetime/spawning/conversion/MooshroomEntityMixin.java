@@ -45,7 +45,7 @@ public abstract class MooshroomEntityMixin extends Entity
 
 	@ModifyArg(
 			//#if MC >= 11600
-			//$$ method = "sheared",
+			//$$ method = "shear",
 			//#else
 			method = "mobInteract",
 			slice = @Slice(

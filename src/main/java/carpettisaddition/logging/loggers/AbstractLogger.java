@@ -35,7 +35,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 //#if MC >= 11900
-//$$ import net.minecraft.text.Text;
+//$$ import net.minecraft.network.chat.Component;
 //#endif
 
 //#if MC >= 11600
@@ -112,7 +112,7 @@ public abstract class AbstractLogger extends TranslationContext
 
 	public void log(
 			//#if MC >= 11900
-			//$$ Supplier<Text[]> messagePromise
+			//$$ Supplier<Component[]> messagePromise
 			//#else
 			Supplier<BaseComponent[]> messagePromise
 			//#endif

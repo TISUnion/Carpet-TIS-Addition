@@ -69,16 +69,16 @@ import java.util.function.Consumer;
 //#endif
 
 //#if MC >= 12005
-//$$ import net.minecraft.registry.entry.RegistryEntry;
+//$$ import net.minecraft.core.Holder;
 //#endif
 
 //#if MC >= 11600 && MC < 11900
-//$$ import net.minecraft.util.Util;
+//$$ import net.minecraft.Util;
 //#endif
 
 //#if MC >= 11600
 //$$ import carpettisaddition.mixins.utils.DyeColorAccessor;
-//$$ import net.minecraft.text.TextColor;
+//$$ import net.minecraft.network.chat.TextColor;
 //#endif
 
 //#if MC < 11500
@@ -337,14 +337,14 @@ public class Messenger
 										//#if MC >= 11900
 										//$$ Text
 										//#else
-										//$$ BaseText
+										//$$ BaseComponent
 										//#endif
 					//$$ 			)
 					//$$ 			{
 									//#if MC >= 11900
 									//$$ return (Text)stringVisitable;
 									//#else
-									//$$ return (BaseText)stringVisitable;
+									//$$ return (BaseComponent)stringVisitable;
 									//#endif
 					//$$ 			}
 					//$$ 			return Messenger.s(stringVisitable.getString());
@@ -439,14 +439,14 @@ public class Messenger
 	{
 		return tr(
 				//#if MC >= 11600
-				//$$ attribute.getTranslationKey()
+				//$$ attribute.getDescriptionId()
 				//#else
 				"attribute.name." + attribute.getName()
 				//#endif
 		);
 	}
 	//#if MC >= 12005
-	//$$ public static MutableText attribute(RegistryEntry<EntityAttribute> attribute)
+	//$$ public static MutableText attribute(Holder<EntityAttribute> attribute)
 	//$$ {
 	//$$ 	return attribute(attribute.value());
 	//$$ }
@@ -655,23 +655,23 @@ public class Messenger
 		//#if MC >= 11900
 		//$$ copied = text.copy();
 		//#elseif MC >= 11600
-		//$$ copied = (BaseText)text.shallowCopy();
+		//$$ copied = (BaseComponent)text.copy();
 		//#else
 		copied = (BaseComponent)text.deepCopy();
 		//#endif
 
-		// mc1.16+ doesn't make a copy of args of a TranslatableText,
+		// mc1.16+ doesn't make a copy of args of a TranslatableComponent,
 		// so we need to copy that by ourselves
 		//#if MC >= 11600
-		//$$ if (getTextContent(copied) instanceof TranslatableText)
+		//$$ if (getTextContent(copied) instanceof TranslatableComponent)
 		//$$ {
-		//$$ 	TranslatableText translatableText = (TranslatableText)getTextContent(copied);
+		//$$ 	TranslatableComponent translatableText = (TranslatableComponent)getTextContent(copied);
 		//$$ 	Object[] args = translatableText.getArgs().clone();
 		//$$ 	for (int i = 0; i < args.length; i++)
 		//$$ 	{
-		//$$ 		if (args[i] instanceof BaseText)
+		//$$ 		if (args[i] instanceof BaseComponent)
 		//$$ 		{
-		//$$ 			args[i] = copy((BaseText)args[i]);
+		//$$ 			args[i] = copy((BaseComponent)args[i]);
 		//$$ 		}
 		//$$ 	}
 		//$$ 	((TranslatableTextAccessor)translatableText).setArgs(args);
@@ -747,12 +747,7 @@ public class Messenger
 	public static void reminder(Player player, BaseComponent text)
 	{
 		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
-		//#if MC >= 11600
-		//$$ player.sendMessage
-		//#else
-		player.displayClientMessage
-		//#endif
-				(text, true);
+		player.displayClientMessage(text, true);
 	}
 
 	public static void sendToConsole(BaseComponent text)
@@ -762,7 +757,7 @@ public class Messenger
 			//#if MC >= 11900
 			//$$ CarpetTISAdditionServer.minecraft_server.sendMessage(text);
 			//#elseif MC >= 11600
-			//$$ CarpetTISAdditionServer.minecraft_server.sendSystemMessage(text, Util.NIL_UUID);
+			//$$ CarpetTISAdditionServer.minecraft_server.sendMessage(text, Util.NIL_UUID);
 			//#else
 			CarpetTISAdditionServer.minecraft_server.sendMessage(text);
 			//#endif

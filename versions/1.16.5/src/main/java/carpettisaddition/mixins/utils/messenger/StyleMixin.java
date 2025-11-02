@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.utils.messenger;
 
 import carpettisaddition.utils.StyleExt;
-import net.minecraft.text.Style;
-import net.minecraft.text.TextColor;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

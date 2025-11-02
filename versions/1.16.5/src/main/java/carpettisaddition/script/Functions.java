@@ -26,7 +26,7 @@ import carpet.script.value.ListValue;
 import carpet.script.value.Value;
 import carpet.script.value.ValueConversions;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import java.util.List;
 import java.util.stream.Collectors;
 

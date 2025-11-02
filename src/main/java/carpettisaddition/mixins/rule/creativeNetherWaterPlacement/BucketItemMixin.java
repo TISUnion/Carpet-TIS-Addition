@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 12105
-//$$ import net.minecraft.entity.LivingEntity;
+//$$ import net.minecraft.world.entity.LivingEntity;
 //#endif
 
 @Mixin(BucketItem.class)
@@ -44,7 +44,7 @@ public abstract class BucketItemMixin
 					//$$ target = "Lnet/minecraft/world/attribute/WorldEnvironmentAttributeAccess;getAttributeValue(Lnet/minecraft/world/attribute/EnvironmentAttribute;Lnet/minecraft/util/math/BlockPos;)Ljava/lang/Object;",
 					//$$ ordinal = 0
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/world/dimension/DimensionType;isUltrawarm()Z"
+					//$$ target = "Lnet/minecraft/world/level/dimension/DimensionType;ultraWarm()Z"
 					//#else
 					target = "Lnet/minecraft/world/level/dimension/Dimension;isUltraWarm()Z"
 					//#endif

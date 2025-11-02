@@ -33,9 +33,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 12000
-//$$ import net.minecraft.client.gui.DrawContext;
+//$$ import net.minecraft.client.gui.GuiGraphics;
 //#elseif MC >= 11600
-//$$ import net.minecraft.client.util.math.MatrixStack;
+//$$ import com.mojang.blaze3d.vertex.PoseStack;
 //#endif
 
 /**
@@ -47,9 +47,9 @@ public abstract class DebugHudMixin
 {
 	@Shadow protected abstract void drawChart(
 			//#if MC >= 12000
-			//$$ DrawContext ctx,
+			//$$ GuiGraphics ctx,
 			//#elseif MC >= 11600
-			//$$ MatrixStack matrixStack,
+			//$$ PoseStack matrixStack,
 			//#endif
 			FrameTimer metricsData, int startY, int firstSample, boolean isClient
 	);
@@ -70,9 +70,9 @@ public abstract class DebugHudMixin
 	)
 	private void syncServerMsptMetricsData_drawIfPossible(
 			//#if MC >= 12000
-			//$$ DrawContext arg0,
+			//$$ GuiGraphics arg0,
 			//#elseif MC >= 11600
-			//$$ MatrixStack arg0,
+			//$$ PoseStack arg0,
 			//#endif
 			CallbackInfo ci,
 			//#if MC < 12000

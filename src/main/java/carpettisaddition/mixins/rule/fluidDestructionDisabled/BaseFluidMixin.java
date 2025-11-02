@@ -27,14 +27,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 11600
-//$$ import net.minecraft.fluid.FlowableFluid;
+//$$ import net.minecraft.world.level.material.FlowingFluid;
 //#else
 import net.minecraft.world.level.material.FlowingFluid;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ FlowableFluid.class
+		//$$ FlowingFluid.class
 		//#else
 		FlowingFluid.class
 		//#endif
@@ -46,7 +46,7 @@ public class BaseFluidMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/fluid/FlowableFluid;beforeBreakingBlock(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V"
+					//$$ target = "Lnet/minecraft/world/level/material/FlowingFluid;beforeDestroyingBlock(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V"
 					//#else
 					target = "Lnet/minecraft/world/level/material/FlowingFluid;beforeDestroyingBlock(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V"
 					//#endif

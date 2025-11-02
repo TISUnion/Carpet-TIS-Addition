@@ -43,7 +43,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 12102
-//$$ import net.minecraft.world.DefaultRedstoneController;
+//$$ import net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator;
 //#endif
 
 //#if MC >= 11600
@@ -212,7 +212,7 @@ public abstract class EmitBlockUpdateMixins
 	 */
 	@Mixin(
 			//#if MC >= 12102
-			//$$ value = DefaultRedstoneController.class,
+			//$$ value = DefaultRedstoneWireEvaluator.class,
 			//#else
 			value = RedStoneWireBlock.class,
 			//#endif
@@ -266,7 +266,7 @@ public abstract class EmitBlockUpdateMixins
 		//$$ )
 		//$$ private void endEmitBlockUpdate(
 		//$$ 		CallbackInfo ci,
-		//$$ 		@Local(argsOnly = true) World world,
+		//$$ 		@Local(argsOnly = true) Level world,
 		//$$ 		@Local(argsOnly = true) BlockPos pos,
 		//$$ 		//#if MC >= 12102
 		//$$ 		//$$ @Local(argsOnly = true) BlockState state,
@@ -281,7 +281,7 @@ public abstract class EmitBlockUpdateMixins
 		//$$ 				//#if MC >= 12102
 		//$$ 				//$$ state.getBlock(),
 		//$$ 				//#else
-		//$$ 				(RedstoneWireBlock)(Object)this,
+		//$$ 				(RedStoneWireBlock)(Object)this,
 		//$$ 				//#endif
 		//$$ 				pos, EventType.ACTION_END, "update", null
 		//$$ 		);

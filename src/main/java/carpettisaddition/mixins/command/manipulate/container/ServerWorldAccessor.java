@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 11700
-//$$ import net.minecraft.world.EntityList;
+//$$ import net.minecraft.world.level.entity.EntityTickList;
 //#else
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.world.entity.Entity;
@@ -38,7 +38,7 @@ public interface ServerWorldAccessor
 {
 	//#if MC >= 11700
 	//$$ @Accessor
-	//$$ EntityList getEntityList();
+	//$$ EntityTickList getEntityList();
 	//#endif
 
 	//#if MC < 11700

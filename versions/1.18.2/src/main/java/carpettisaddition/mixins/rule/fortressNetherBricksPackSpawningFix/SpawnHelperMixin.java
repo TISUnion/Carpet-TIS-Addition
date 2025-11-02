@@ -26,8 +26,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.SpawnHelper;
-import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.level.NaturalSpawner;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,23 +36,23 @@ import java.util.List;
 import java.util.Objects;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18.2 <1.21.5"))
-@Mixin(SpawnHelper.class)
+@Mixin(NaturalSpawner.class)
 public abstract class SpawnHelperMixin
 {
 	@WrapOperation(
-			method = "containsSpawnEntry",
+			method = "canSpawnMobAt",
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/List;contains(Ljava/lang/Object;)Z"
 			)
 	)
-	private static boolean fortressNetherBricksPackSpawningFix_dontJustCallContains(List<SpawnSettings.SpawnEntry> entries, Object value, Operation<Boolean> original)
+	private static boolean fortressNetherBricksPackSpawningFix_dontJustCallContains(List<MobSpawnSettings.SpawnEntry> entries, Object value, Operation<Boolean> original)
 	{
 		if (CarpetTISAdditionSettings.fortressNetherBricksPackSpawningFix)
 		{
-			if (value instanceof SpawnSettings.SpawnEntry toTestEntry)
+			if (value instanceof MobSpawnSettings.SpawnEntry toTestEntry)
 			{
-				for (SpawnSettings.SpawnEntry entry : entries)
+				for (MobSpawnSettings.SpawnEntry entry : entries)
 				{
 					if (spawnEntryEquals(entry, toTestEntry))
 					{
@@ -68,7 +68,7 @@ public abstract class SpawnHelperMixin
 	}
 
 	@Unique
-	private static boolean spawnEntryEquals(SpawnSettings.SpawnEntry a, SpawnSettings.SpawnEntry b)
+	private static boolean spawnEntryEquals(MobSpawnSettings.SpawnEntry a, MobSpawnSettings.SpawnEntry b)
 	{
 		if (a == b) return true;
 		if (a == null || b == null) return false;

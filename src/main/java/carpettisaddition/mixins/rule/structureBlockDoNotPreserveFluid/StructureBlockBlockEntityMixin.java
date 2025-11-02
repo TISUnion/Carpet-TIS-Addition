@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 //#if MC >= 12100
-//$$ import net.minecraft.structure.StructureLiquidSettings;
+//$$ import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 //#endif
 
 @Mixin(StructureBlockEntity.class)
@@ -37,6 +37,8 @@ public abstract class StructureBlockBlockEntityMixin
 	@ModifyArg(
 			//#if MC >= 12003
 			//$$ method = "loadAndPlaceStructure(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/structure/StructureTemplate;)V",
+			//#elseif MC >= 11600
+			//$$ method = "loadStructure(Lnet/minecraft/server/level/ServerLevel;ZLnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;)Z",
 			//#elseif MC >= 11500
 			method = "loadStructure(ZLnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;)Z",
 			//#else
@@ -45,11 +47,11 @@ public abstract class StructureBlockBlockEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
-					//$$ target = "Lnet/minecraft/structure/StructureTemplate;place(Lnet/minecraft/world/ServerWorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/structure/StructurePlacementData;Lnet/minecraft/util/math/random/Random;I)Z"
+					//$$ target = "Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;placeInWorld(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings;Lnet/minecraft/util/RandomSource;I)Z"
 					//#elseif MC >= 11700
-					//$$ target = "Lnet/minecraft/structure/Structure;place(Lnet/minecraft/world/ServerWorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/structure/StructurePlacementData;Ljava/util/Random;I)Z"
+					//$$ target = "Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;placeInWorld(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings;Ljava/util/Random;I)Z"
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/structure/Structure;place(Lnet/minecraft/world/ServerWorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/structure/StructurePlacementData;Ljava/util/Random;)V"
+					//$$ target = "Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;placeInWorldChunk(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings;Ljava/util/Random;)V"
 					//#else
 					target = "Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;placeInWorldChunk(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings;)V"
 					//#endif
@@ -60,7 +62,7 @@ public abstract class StructureBlockBlockEntityMixin
 		if (CarpetTISAdditionSettings.structureBlockDoNotPreserveFluid)
 		{
 			//#if MC >= 12100
-			//$$ structurePlacementData.setLiquidSettings(StructureLiquidSettings.IGNORE_WATERLOGGING);
+			//$$ structurePlacementData.setLiquidSettings(LiquidSettings.IGNORE_WATERLOGGING);
 			//#elseif MC >= 11700
 			//$$ structurePlacementData.setPlaceFluids(false);
 			//#else

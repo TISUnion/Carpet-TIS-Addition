@@ -23,14 +23,14 @@ package carpettisaddition.mixins.network;
 import carpettisaddition.network.TISCMCustomPayload;
 import com.google.common.collect.ImmutableMap;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(CustomPayloadC2SPacket.class)
+@Mixin(ServerboundCustomPayloadPacket.class)
 public abstract class CustomPayloadC2SPacketMixin
 {
 	@ModifyExpressionValue(
@@ -43,7 +43,7 @@ public abstract class CustomPayloadC2SPacketMixin
 			),
 			remap = true
 	)
-	private static ImmutableMap.Builder<Identifier, PacketByteBuf.PacketReader<? extends CustomPayload>> registerTISCMC2SPackets(ImmutableMap.Builder<Identifier, PacketByteBuf.PacketReader<? extends CustomPayload>> builder)
+	private static ImmutableMap.Builder<ResourceLocation, FriendlyByteBuf.PacketReader<? extends CustomPacketPayload>> registerTISCMC2SPackets(ImmutableMap.Builder<ResourceLocation, FriendlyByteBuf.PacketReader<? extends CustomPacketPayload>> builder)
 	{
 		builder.put(TISCMCustomPayload.ID, TISCMCustomPayload::new);
 		return builder;

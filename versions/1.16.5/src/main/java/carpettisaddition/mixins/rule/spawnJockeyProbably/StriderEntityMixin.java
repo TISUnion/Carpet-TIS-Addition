@@ -25,11 +25,11 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.minecraft.entity.passive.StriderEntity;
+import net.minecraft.world.entity.monster.Strider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(StriderEntity.class)
+@Mixin(Strider.class)
 public abstract class StriderEntityMixin
 {
 	/*
@@ -43,11 +43,11 @@ public abstract class StriderEntityMixin
 	 */
 
 	@ModifyExpressionValue(
-			method = "initialize",
+			method = "finalizeSpawn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
-					//$$ target = "Lnet/minecraft/util/math/random/Random;nextInt(I)I"
+					//$$ target = "Lnet/minecraft/util/RandomSource;nextInt(I)I"
 					//#else
 					target = "Ljava/util/Random;nextInt(I)I"
 					//#endif

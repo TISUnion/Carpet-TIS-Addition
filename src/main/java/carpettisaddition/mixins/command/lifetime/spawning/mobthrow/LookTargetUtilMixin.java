@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 //#if MC >= 11600
-//$$ import net.minecraft.util.math.Vec3d;
+//$$ import net.minecraft.world.phys.Vec3;
 //#endif
 
 @Mixin(BehaviorUtils.class)
@@ -51,7 +51,7 @@ public abstract class LookTargetUtilMixin
 	private static ItemEntity lifetimeTracker_recordSpawning_mobThrow_common(
 			ItemEntity itemEntity, LivingEntity entity, ItemStack stack,
 			//#if MC >= 11600
-			//$$ Vec3d targetLocation
+			//$$ Vec3 targetLocation
 			//#else
 			LivingEntity target
 			//#endif

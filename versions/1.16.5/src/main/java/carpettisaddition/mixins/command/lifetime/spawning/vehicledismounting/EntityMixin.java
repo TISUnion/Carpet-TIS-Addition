@@ -25,8 +25,8 @@ import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -38,13 +38,13 @@ public abstract class EntityMixin
 {
 	@Inject(
 			//#if MC >= 11700
-			//$$ method = "dismountVehicle",
+			//$$ method = "removeVehicle",
 			//#else
-			method = "method_29239",
+			method = "removeVehicle",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/Entity;removePassenger(Lnet/minecraft/entity/Entity;)V",
+					target = "Lnet/minecraft/world/entity/Entity;removePassenger(Lnet/minecraft/world/entity/Entity;)V",
 					shift = At.Shift.AFTER
 			)
 	)

@@ -22,7 +22,7 @@ package carpettisaddition.mixins.rule.vaultBlacklistDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.block.vault.VaultSharedData;
+import net.minecraft.world.level.block.entity.vault.VaultSharedData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -34,7 +34,7 @@ public abstract class VaultSharedDataMixin
 	 * mods who invokes getRewardedPlayers can still get the unmodified result
 	 */
 	@ModifyExpressionValue(
-			method = "method_56791",  // lambda method in updateConnectedPlayers
+			method = "lambda$updateConnectedPlayersWithinRange$4",  // lambda method in updateConnectedPlayers
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/Set;contains(Ljava/lang/Object;)Z",

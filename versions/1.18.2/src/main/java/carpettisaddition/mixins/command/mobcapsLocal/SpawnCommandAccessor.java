@@ -24,7 +24,7 @@ import carpet.commands.SpawnCommand;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface SpawnCommandAccessor
 {
 	@Invoker
-	static int invokeGeneralMobcaps(ServerCommandSource source)
+	static int invokeGeneralMobcaps(CommandSourceStack source)
 	{
 		throw new RuntimeException();
 	}

@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.command.raid;
 
 import carpettisaddition.commands.raid.RaidWithIdAndWorld;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.village.raid.Raid;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.raid.Raid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.Unique;
 public abstract class RaidWithIdAndWorldMixin implements RaidWithIdAndWorld
 {
 	@Unique private int id$TISCM;
-	@Unique private ServerWorld world$TISCM;
+	@Unique private ServerLevel world$TISCM;
 
 	@Override
 	public int getRaidId$TISCM()
@@ -49,13 +49,13 @@ public abstract class RaidWithIdAndWorldMixin implements RaidWithIdAndWorld
 	}
 
 	@Override
-	public ServerWorld getRaidWorld$TISCM()
+	public ServerLevel getRaidWorld$TISCM()
 	{
 		return this.world$TISCM;
 	}
 
 	@Override
-	public void setRaidWorld$TISCM(ServerWorld world)
+	public void setRaidWorld$TISCM(ServerLevel world)
 	{
 		this.world$TISCM = world;
 	}

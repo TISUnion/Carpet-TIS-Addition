@@ -34,7 +34,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 
 //#if MC >= 11800
 //$$ import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
-//$$ import net.minecraft.util.math.ChunkSectionPos;
+//$$ import net.minecraft.core.SectionPos;
 //$$ import org.apache.commons.lang3.mutable.MutableObject;
 //#endif
 

@@ -21,21 +21,21 @@
 package carpettisaddition.mixins.rule.zombifiedPiglinDropLootIfAngryReintroduced;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.mob.ZombifiedPiglinEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ZombifiedPiglinEntity.class)
-public class ZombifiedPiglinEntityMixin extends ZombieEntity
+@Mixin(ZombifiedPiglin.class)
+public class ZombifiedPiglinEntityMixin extends Zombie
 {
-	public ZombifiedPiglinEntityMixin(EntityType<? extends ZombieEntity> entityType, World world)
+	public ZombifiedPiglinEntityMixin(EntityType<? extends Zombie> entityType, Level world)
 	{
 		super(entityType, world);
 	}
@@ -68,7 +68,7 @@ public class ZombifiedPiglinEntityMixin extends ZombieEntity
 	{
 		if (CarpetTISAdditionSettings.zombifiedPiglinDropLootIfAngryReintroduced)
 		{
-			if (target instanceof PlayerEntity player)
+			if (target instanceof Player player)
 			{
 				this.setAttacking(player, ZPDIAR_PLAYER_HURT_EXPERIENCE_TIME);
 			}

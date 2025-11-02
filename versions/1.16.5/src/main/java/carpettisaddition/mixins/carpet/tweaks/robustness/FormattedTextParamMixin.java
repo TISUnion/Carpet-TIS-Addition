@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 12005
-//$$ import net.minecraft.registry.DynamicRegistryManager;
+//$$ import net.minecraft.core.RegistryAccess;
 //#endif
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
@@ -65,7 +65,7 @@ public abstract class FormattedTextParamMixin
 	public FormattedTextValue makeItFailsafe(
 			String str,
 			//#if MC >= 12005
-			//$$ DynamicRegistryManager regs,
+			//$$ RegistryAccess regs,
 			//#endif
 			Operation<FormattedTextValue> original
 	)

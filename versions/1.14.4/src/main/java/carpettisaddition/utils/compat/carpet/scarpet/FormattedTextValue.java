@@ -26,8 +26,8 @@ import carpet.script.value.Value;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.Component;
 
 /**
  * Copied from fabric-carpet 1.16
@@ -35,18 +35,18 @@ import net.minecraft.text.Text;
  */
 public class FormattedTextValue extends StringValue
 {
-	Text text;
-	public FormattedTextValue(Text text)
+	Component text;
+	public FormattedTextValue(Component text)
 	{
 		super(null);
 		this.text = text;
 	}
 
 	public static Value combine(Value left, Value right) {
-		BaseText text;
+		BaseComponent text;
 		if (left instanceof FormattedTextValue)
 		{
-			text = Messenger.copy((BaseText)((FormattedTextValue) left).getText());
+			text = Messenger.copy((BaseComponent)((FormattedTextValue) left).getText());
 		}
 		else
 		{
@@ -57,7 +57,7 @@ public class FormattedTextValue extends StringValue
 
 		if (right instanceof FormattedTextValue)
 		{
-			text.append(Messenger.copy((BaseText)((FormattedTextValue) right).getText()));
+			text.append(Messenger.copy((BaseComponent)((FormattedTextValue) right).getText()));
 			return new FormattedTextValue(text);
 		}
 		else
@@ -91,7 +91,7 @@ public class FormattedTextValue extends StringValue
 		return "text";
 	}
 
-	public Text getText()
+	public Component getText()
 	{
 		return text;
 	}
@@ -99,7 +99,7 @@ public class FormattedTextValue extends StringValue
 	public Tag toTag(boolean force)
 	{
 		if (!force) throw new RuntimeException(String.valueOf(this));
-		String s = Text.Serializer.toJson(text);
+		String s = Component.Serializer.toJson(text);
 
 		return new StringTag(s);
 	}
@@ -111,11 +111,11 @@ public class FormattedTextValue extends StringValue
 
 	public String serialize()
 	{
-		return Text.Serializer.toJson(text);
+		return Component.Serializer.toJson(text);
 	}
 
 	public static FormattedTextValue deserialize(String serialized)
 	{
-		return new FormattedTextValue(Text.Serializer.fromJson(serialized));
+		return new FormattedTextValue(Component.Serializer.fromJson(serialized));
 	}
 }

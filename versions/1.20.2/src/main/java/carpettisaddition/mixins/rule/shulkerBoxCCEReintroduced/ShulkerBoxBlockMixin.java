@@ -23,10 +23,10 @@ package carpettisaddition.mixins.rule.shulkerBoxCCEReintroduced;
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.screen.ScreenHandler;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -37,14 +37,14 @@ public abstract class ShulkerBoxBlockMixin
 			method = "getComparatorOutput",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/screen/ScreenHandler;calculateComparatorOutput(Lnet/minecraft/block/entity/BlockEntity;)I"
+					target = "Lnet/minecraft/world/inventory/AbstractContainerMenu;getRedstoneSignalFromBlockEntity(Lnet/minecraft/world/level/block/entity/BlockEntity;)I"
 			)
 	)
 	private int shulkerBoxCCEReintroduced_castIt(BlockEntity blockEntity, Operation<Integer> original)
 	{
 		if (CarpetTISAdditionSettings.shulkerBoxCCEReintroduced)
 		{
-			return ScreenHandler.calculateComparatorOutput((Inventory)blockEntity);
+			return AbstractContainerMenu.calculateComparatorOutput((Container)blockEntity);
 		}
 		return original.call(blockEntity);
 	}

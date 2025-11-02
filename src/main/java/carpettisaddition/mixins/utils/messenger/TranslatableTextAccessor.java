@@ -33,7 +33,7 @@ import java.util.List;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.text.StringVisitable;
+//$$ import net.minecraft.network.chat.FormattedText;
 //#else
 import net.minecraft.network.chat.Component;
 //#endif
@@ -49,7 +49,7 @@ public interface TranslatableTextAccessor
 
 	@Accessor("decomposedParts")
 	//#if MC >= 11600
-	//$$ List<StringVisitable> getTranslations();
+	//$$ List<FormattedText> getTranslations();
 	//#else
 	List<Component> getTranslations();
 	//#endif
@@ -59,7 +59,7 @@ public interface TranslatableTextAccessor
 
 	@Invoker("decomposeTemplate")
 	//#if MC >= 11800
-	//$$ void invokeForEachPart(String translation, Consumer<StringVisitable> partsConsumer);
+	//$$ void invokeForEachPart(String translation, Consumer<FormattedText> partsConsumer);
 	//#else
 	void invokeSetTranslation(String translation);
 	//#endif

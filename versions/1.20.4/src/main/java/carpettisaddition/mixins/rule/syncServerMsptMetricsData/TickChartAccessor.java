@@ -23,14 +23,14 @@ package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.client.gui.hud.debug.TickChart;
+import net.minecraft.client.gui.components.debugchart.TpsDebugChart;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.function.Supplier;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.20.3"))
-@Mixin(TickChart.class)
+@Mixin(TpsDebugChart.class)
 public interface TickChartAccessor
 {
 	@Accessor

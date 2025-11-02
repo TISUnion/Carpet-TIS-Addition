@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
 //#if MC >= 11800
-//$$ import net.minecraft.world.tick.WorldTickScheduler;
+//$$ import net.minecraft.world.ticks.LevelTicks;
 //#else
 import carpettisaddition.utils.compat.DummyClass;
 //#endif
@@ -37,7 +37,7 @@ import carpettisaddition.utils.compat.DummyClass;
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"))
 @Mixin(
 		//#if MC >= 11800
-		//$$ WorldTickScheduler.class
+		//$$ LevelTicks.class
 		//#else
 		DummyClass.class
 		//#endif

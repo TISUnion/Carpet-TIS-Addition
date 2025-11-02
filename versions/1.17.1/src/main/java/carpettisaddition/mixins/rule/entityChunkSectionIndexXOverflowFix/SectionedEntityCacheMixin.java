@@ -25,11 +25,11 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import it.unimi.dsi.fastutil.longs.LongAVLTreeSet;
 import it.unimi.dsi.fastutil.longs.LongSortedSet;
-import net.minecraft.world.entity.SectionedEntityCache;
+import net.minecraft.world.level.entity.EntitySectionStorage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(SectionedEntityCache.class)
+@Mixin(EntitySectionStorage.class)
 public abstract class SectionedEntityCacheMixin
 {
 	@WrapOperation(

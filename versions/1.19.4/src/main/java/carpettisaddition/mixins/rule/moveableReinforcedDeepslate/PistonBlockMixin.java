@@ -22,20 +22,20 @@ package carpettisaddition.mixins.rule.moveableReinforcedDeepslate;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PistonBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(PistonBlock.class)
+@Mixin(PistonBaseBlock.class)
 public abstract class PistonBlockMixin
 {
 	@ModifyExpressionValue(
-			method = "isMovable",
+			method = "isPushable",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/block/Blocks;REINFORCED_DEEPSLATE:Lnet/minecraft/block/Block;"
+					target = "Lnet/minecraft/world/level/block/Blocks;REINFORCED_DEEPSLATE:Lnet/minecraft/world/level/block/Block;"
 			)
 	)
 	private static Block moveableReinforcedDeepslate_makeTheEqualCheckFailed(Block block)

@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 //#if MC >= 12000
-//$$ import net.minecraft.server.network.ServerPlayerEntity;
+//$$ import net.minecraft.server.level.ServerPlayer;
 //#else
 import net.minecraft.world.entity.player.Player;
 //#endif
@@ -67,7 +67,7 @@ public abstract class PhantomSpawnerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12102
-					//$$ target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/world/World;Lnet/minecraft/entity/SpawnReason;)Lnet/minecraft/entity/Entity;"
+					//$$ target = "Lnet/minecraft/world/entity/EntityType;create(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;)Lnet/minecraft/world/entity/Entity;"
 					//#else
 					target = "Lnet/minecraft/world/entity/EntityType;create(Lnet/minecraft/world/level/Level;)Lnet/minecraft/world/entity/Entity;"
 					//#endif
@@ -78,7 +78,7 @@ public abstract class PhantomSpawnerMixin
 			int amount,
 			@Share("once") LocalBooleanRef hasLogged,
 			//#if MC >= 12000
-			//$$ @Local ServerPlayerEntity player
+			//$$ @Local ServerPlayer player
 			//#else
 			@Local Player player
 			//#endif

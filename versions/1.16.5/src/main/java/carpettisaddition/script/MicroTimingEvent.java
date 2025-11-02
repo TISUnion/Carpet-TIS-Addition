@@ -25,9 +25,9 @@ import carpet.script.value.ListValue;
 import carpet.script.value.StringValue;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.loggers.microtiming.events.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
 import java.util.Arrays;
 
 public class MicroTimingEvent extends Event
@@ -42,39 +42,39 @@ public class MicroTimingEvent extends Event
 		super(name, reqArgs, isGlobalOnly);
 	}
 
-	public static void determineBlockEvent(BaseEvent event, World world, BlockPos pos)
+	public static void determineBlockEvent(BaseEvent event, Level world, BlockPos pos)
 	{
 		if (event instanceof DetectBlockUpdateEvent)
 		{
-			MICRO_TIMING_EVENT.onMicroTimingEvent("detected_block_update", pos, world.getDimension());
+			MICRO_TIMING_EVENT.onMicroTimingEvent("detected_block_update", pos, world.dimensionType());
 		}
 		if (event instanceof BlockStateChangeEvent)
 		{
-			MICRO_TIMING_EVENT.onMicroTimingEvent("block_state_changed", pos, world.getDimension());
+			MICRO_TIMING_EVENT.onMicroTimingEvent("block_state_changed", pos, world.dimensionType());
 		}
 		if (event instanceof ExecuteBlockEventEvent)
 		{
-			MICRO_TIMING_EVENT.onMicroTimingEvent("executed_block_event", pos, world.getDimension());
+			MICRO_TIMING_EVENT.onMicroTimingEvent("executed_block_event", pos, world.dimensionType());
 		}
 		if (event instanceof ExecuteTileTickEvent)
 		{
-			MICRO_TIMING_EVENT.onMicroTimingEvent("executed_tile_tick", pos, world.getDimension());
+			MICRO_TIMING_EVENT.onMicroTimingEvent("executed_tile_tick", pos, world.dimensionType());
 		}
 		if (event instanceof EmitBlockUpdateEvent)
 		{
-			MICRO_TIMING_EVENT.onMicroTimingEvent("emitted_block_update", pos, world.getDimension());
+			MICRO_TIMING_EVENT.onMicroTimingEvent("emitted_block_update", pos, world.dimensionType());
 		}
 		if (event instanceof EmitBlockUpdateRedstoneDustEvent)
 		{
-			MICRO_TIMING_EVENT.onMicroTimingEvent("emitted_block_update_redstone_dust", pos, world.getDimension());
+			MICRO_TIMING_EVENT.onMicroTimingEvent("emitted_block_update_redstone_dust", pos, world.dimensionType());
 		}
 		if (event instanceof ScheduleBlockEventEvent)
 		{
-			MICRO_TIMING_EVENT.onMicroTimingEvent("scheduled_block_event", pos, world.getDimension());
+			MICRO_TIMING_EVENT.onMicroTimingEvent("scheduled_block_event", pos, world.dimensionType());
 		}
 		if (event instanceof ScheduleTileTickEvent)
 		{
-			MICRO_TIMING_EVENT.onMicroTimingEvent("scheduled_tile_tick", pos, world.getDimension());
+			MICRO_TIMING_EVENT.onMicroTimingEvent("scheduled_tile_tick", pos, world.dimensionType());
 		}
 	}
 
@@ -93,7 +93,7 @@ public class MicroTimingEvent extends Event
 							ListValue.fromTriple(pos.getX(), pos.getY(), pos.getZ()),
 							StringValue.of(dimension.toString())
 					),
-					() -> CarpetTISAdditionServer.minecraft_server.getCommandSource()
+					() -> CarpetTISAdditionServer.minecraft_server.createCommandSourceStack()
 			);
 		}
 	};

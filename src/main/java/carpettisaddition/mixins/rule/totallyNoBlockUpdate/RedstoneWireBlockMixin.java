@@ -36,11 +36,7 @@ public abstract class RedstoneWireBlockMixin
 {
 	// method to update wire connection
 	@Inject(
-			//#if MC >= 11600
-			//$$ method = "prepare",
-			//#else
 			method = "updateIndirectNeighbourShapes",
-			//#endif
 			at = @At("HEAD"),
 			cancellable = true
 	)

@@ -32,17 +32,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class CatSpawnerMixin
 {
 	@ModifyArg(
-			//#if MC >= 12105
-			//$$ method = "spawn(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/server/world/ServerWorld;Z)V",
-			//#elseif MC >= 11600
-			//$$ method = "spawn(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/server/world/ServerWorld;)I",
-			//#else
-			method = "spawnCat(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Level;)I",
-			//#endif
+			method = "spawnCat",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V"
 					//#else
 					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif

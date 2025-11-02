@@ -44,9 +44,9 @@ public abstract class ThrownExperienceBottleEntityMixin
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
 	//$$ 				//#if MC >= 12106
-	//$$ 				//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;I)V"
+	//$$ 				//$$ target = "Lnet/minecraft/world/entity/ExperienceOrb;awardWithDirection(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;I)V"
 	//$$ 				//#else
-	//$$ 				target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"
+	//$$ 				target = "Lnet/minecraft/world/entity/ExperienceOrb;award(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/phys/Vec3;I)V"
 	//$$ 				//#endif
 	//$$ 		)
 	//$$ )

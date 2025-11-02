@@ -26,19 +26,19 @@ import io.netty.buffer.Unpooled;
 import junit.framework.TestCase;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 public class NetworkUtilsTest extends TestCase
 {
-	private static PacketByteBuf newBuffer()
+	private static FriendlyByteBuf newBuffer()
 	{
-		return new PacketByteBuf(Unpooled.buffer());
+		return new FriendlyByteBuf(Unpooled.buffer());
 	}
 
-	private static void assertStyle(PacketByteBuf buf, NetworkUtils.NbtStyle expectedStyle)
+	private static void assertStyle(FriendlyByteBuf buf, NetworkUtils.NbtStyle expectedStyle)
 	{
 		NetworkUtils.NbtStyle nbtStyle = NetworkUtils.guessNbtStyle(buf);
 		assertEquals(expectedStyle, nbtStyle);
@@ -46,7 +46,7 @@ public class NetworkUtilsTest extends TestCase
 
 	private static void assertStyle(CompoundTag nbt, NetworkUtils.NbtStyle expectedStyle)
 	{
-		PacketByteBuf buf = newBuffer();
+		FriendlyByteBuf buf = newBuffer();
 		buf.writeCompoundTag(nbt);
 		NetworkUtils.NbtStyle nbtStyle = NetworkUtils.guessNbtStyle(buf);
 		assertEquals(expectedStyle, nbtStyle);
@@ -111,7 +111,7 @@ public class NetworkUtilsTest extends TestCase
 		// buffer too small
 		for (int i = 0; i < 2; i++)
 		{
-			PacketByteBuf buf = newBuffer();
+			FriendlyByteBuf buf = newBuffer();
 			buf.writeBytes(new byte[i]);
 			assertStyle(buf, NetworkUtils.NbtStyle.UNKNOWN);
 		}
@@ -121,12 +121,12 @@ public class NetworkUtilsTest extends TestCase
 			nbt.putString("foo", "abc");
 			nbt.putInt("bar", 0);
 
-			PacketByteBuf buf = newBuffer();
+			FriendlyByteBuf buf = newBuffer();
 			buf.writeCompoundTag(nbt);
 			assertTrue(buf.readableBytes() >= 1);
 			assertEquals(0x0A, buf.readByte());
 
-			PacketByteBuf bufBad = newBuffer();
+			FriendlyByteBuf bufBad = newBuffer();
 			bufBad.writeByte(0x0B);  // not 0x0A
 			bufBad.writeBytes(buf);
 

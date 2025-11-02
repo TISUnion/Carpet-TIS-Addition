@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 //#if MC >= 12102
-//$$ import net.minecraft.util.thread.SimpleConsecutiveExecutor;
+//$$ import net.minecraft.util.thread.ConsecutiveExecutor;
 //#else
 import net.minecraft.util.thread.ProcessorMailbox;
 //#endif
@@ -35,7 +35,7 @@ public interface ServerLightingProviderAccessor
 {
 	@Accessor("taskMailbox")
 	//#if MC >= 12102
-	//$$ SimpleConsecutiveExecutor
+	//$$ ConsecutiveExecutor
 	//#else
 	ProcessorMailbox<Runnable>
 	//#endif

@@ -27,8 +27,8 @@ import carpet.utils.Messenger;
 import carpettisaddition.CarpetTISAdditionServer;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.nbt.Tag;
+import net.minecraft.core.RegistryAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -51,7 +51,7 @@ public abstract class FormattedTextParamMixin
 					target = "Lcarpet/script/value/FormattedTextValue;deserialize(Lnet/minecraft/nbt/NbtElement;Lnet/minecraft/registry/DynamicRegistryManager;)Lcarpet/script/value/FormattedTextValue;"
 			)
 	)
-	public FormattedTextValue makeItFailsafe(NbtElement nbtElement, DynamicRegistryManager regs, Operation<FormattedTextValue> original)
+	public FormattedTextValue makeItFailsafe(Tag nbtElement, RegistryAccess regs, Operation<FormattedTextValue> original)
 	{
 		try
 		{

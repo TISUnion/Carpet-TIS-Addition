@@ -42,7 +42,7 @@ public abstract class StorageMinecartEntityMixin implements EntityToBeCleanlyRem
 			at = @At(
 					//#if MC >= 11700
 					//$$ value = "INVOKE",
-					//$$ target = "Lnet/minecraft/entity/Entity$RemovalReason;shouldDestroy()Z"
+					//$$ target = "Lnet/minecraft/world/entity/Entity$RemovalReason;shouldDestroy()Z"
 					//#else
 					value = "FIELD",
 					target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecartContainer;dropEquipment:Z"

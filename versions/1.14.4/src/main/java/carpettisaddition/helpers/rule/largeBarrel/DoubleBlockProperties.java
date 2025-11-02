@@ -21,15 +21,15 @@
 package carpettisaddition.helpers.rule.largeBarrel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 
 import java.util.function.BiPredicate;
 import java.util.function.Function;
@@ -42,19 +42,19 @@ public class DoubleBlockProperties {
 	 * Stolen from 1.15.2 net.minecraft.block.entity.BlockEntityType#get
 	 */
 	@SuppressWarnings("unchecked")
-	private static <S extends BlockEntity> S getBlockEntity(BlockEntityType<S> blockEntityType, BlockView world, BlockPos pos) {
+	private static <S extends BlockEntity> S getBlockEntity(BlockEntityType<S> blockEntityType, BlockGetter world, BlockPos pos) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (CarpetTISAdditionSettings.largeBarrel && LargeBarrelHelper.enabledOffThreadBlockEntityAccess.get())
 		{
-			if (world instanceof World)
+			if (world instanceof Level)
 			{
-				blockEntity = ((World)world).getChunk(pos).getBlockEntity(pos);
+				blockEntity = ((Level)world).getChunk(pos).getBlockEntity(pos);
 			}
 		}
 		return blockEntity != null && blockEntity.getType() == blockEntityType ? (S)blockEntity : null;
 	}
 
-	public static <S extends BlockEntity> DoubleBlockProperties.PropertySource<S> toPropertySource(BlockEntityType<S> blockEntityType, Function<BlockState, DoubleBlockProperties.Type> typeMapper, Function<BlockState, Direction> function, DirectionProperty directionProperty, BlockState state, IWorld world, BlockPos pos, BiPredicate<IWorld, BlockPos> fallbackTester) {
+	public static <S extends BlockEntity> DoubleBlockProperties.PropertySource<S> toPropertySource(BlockEntityType<S> blockEntityType, Function<BlockState, DoubleBlockProperties.Type> typeMapper, Function<BlockState, Direction> function, DirectionProperty directionProperty, BlockState state, LevelAccessor world, BlockPos pos, BiPredicate<LevelAccessor, BlockPos> fallbackTester) {
 		S blockEntity = getBlockEntity(blockEntityType, world, pos);
 		if (blockEntity == null) {
 			return DoubleBlockProperties.PropertyRetriever::getFallback;

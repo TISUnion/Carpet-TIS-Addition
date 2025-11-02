@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 //#if MC >= 11900
 //$$ import com.mojang.brigadier.CommandDispatcher;
-//$$ import net.minecraft.command.CommandRegistryAccess;
+//$$ import net.minecraft.commands.CommandBuildContext;
 //#endif
 
 @Mixin(InfoCommand.class)
@@ -49,7 +49,7 @@ public abstract class InfoCommandMixin
 	private static LiteralArgumentBuilder<CommandSourceStack> extendsInfoCommand(
 			LiteralArgumentBuilder<CommandSourceStack> builder
 			//#if MC >= 11900
-			//$$ , CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext
+			//$$ , CommandDispatcher<ServerCommandSource> dispatcher, CommandBuildContext commandBuildContext
 			//#endif
 	)
 	{

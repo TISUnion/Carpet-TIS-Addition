@@ -43,7 +43,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 			//#if MC >= 11900
 			//$$ method = "checkForSpam",
 			//#elseif MC >= 11600
-			//$$ method = "onGameMessage",
+			//$$ method = "handleChat(Ljava/lang/String;)V",
 			//#else
 			method = "handleChat",
 			//#endif

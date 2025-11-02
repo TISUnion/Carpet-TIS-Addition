@@ -26,13 +26,13 @@ import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">1.21.1"))
-@Mixin(ServerPlayerEntity.class)
+@Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin
 {
 	@ModifyReturnValue(

@@ -39,7 +39,7 @@ public abstract class SpawnReporterMixin
 					//#if MC >= 12002
 					//$$ target = "Lcarpet/utils/SpawnReporter;cachedMobCategories()[Lnet/minecraft/entity/SpawnGroup;"
 					//#elseif MC >= 11600
-					//$$ target = "Lnet/minecraft/entity/SpawnGroup;values()[Lnet/minecraft/entity/SpawnGroup;"
+					//$$ target = "Lnet/minecraft/world/entity/MobCategory;values()[Lnet/minecraft/world/entity/MobCategory;"
 					//#else
 					target = "Lnet/minecraft/world/entity/MobCategory;values()[Lnet/minecraft/world/entity/MobCategory;"
 					//#endif

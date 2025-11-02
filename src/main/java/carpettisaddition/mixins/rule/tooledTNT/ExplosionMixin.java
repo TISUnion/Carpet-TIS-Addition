@@ -29,12 +29,12 @@ import org.spongepowered.asm.mixin.injection.At;
 
 //#if MC >= 12003
 //$$ import com.llamalad7.mixinextras.sugar.Local;
-//$$ import net.minecraft.block.AbstractBlock;
+//$$ import net.minecraft.world.level.block.state.BlockBehaviour;
 //#endif
 
 @Mixin(
 		//#if MC >= 12003
-		//$$ AbstractBlock.class
+		//$$ BlockBehaviour.class
 		//#else
 		Explosion.class
 		//#endif

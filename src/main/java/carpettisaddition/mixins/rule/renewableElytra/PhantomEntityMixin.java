@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
 
 //#if MC >= 12102
-//$$ import net.minecraft.server.world.ServerWorld;
+//$$ import net.minecraft.server.level.ServerLevel;
 //#endif
 
 @Mixin(Phantom.class)
@@ -48,7 +48,7 @@ public abstract class PhantomEntityMixin extends Mob
 	@Override
 	protected void dropFromLootTable(
 			//#if MC >= 12102
-			//$$ ServerWorld world,
+			//$$ ServerLevel world,
 			//#endif
 			DamageSource source, boolean causedByPlayer
 	)

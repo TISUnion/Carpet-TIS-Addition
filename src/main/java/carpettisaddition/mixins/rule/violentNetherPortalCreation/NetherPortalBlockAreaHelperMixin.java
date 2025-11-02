@@ -33,14 +33,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 11600
-//$$ import net.minecraft.world.dimension.AreaHelper;
+//$$ import net.minecraft.world.level.portal.PortalShape;
 //#else
 import net.minecraft.world.level.block.NetherPortalBlock;
 //#endif
 
 @Mixin(
 		//#if MC >= 11600
-		//$$ AreaHelper.class
+		//$$ PortalShape.class
 		//#else
 		NetherPortalBlock.PortalShape.class
 		//#endif

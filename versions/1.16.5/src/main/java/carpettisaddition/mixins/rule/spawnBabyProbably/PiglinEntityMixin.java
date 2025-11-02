@@ -22,19 +22,19 @@ package carpettisaddition.mixins.rule.spawnBabyProbably;
 
 import carpettisaddition.helpers.rule.spawnBabyProbably.SpawnBabyProbablyHelper;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.entity.mob.PiglinEntity;
+import net.minecraft.world.entity.monster.piglin.Piglin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(PiglinEntity.class)
+@Mixin(Piglin.class)
 public abstract class PiglinEntityMixin
 {
 	@ModifyExpressionValue(
-			method = "initialize",
+			method = "finalizeSpawn",
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
-					//$$ target = "Lnet/minecraft/util/math/random/Random;nextFloat()F"
+					//$$ target = "Lnet/minecraft/util/RandomSource;nextFloat()F"
 					//#else
 					target = "Ljava/util/Random;nextFloat()F"
 					//#endif

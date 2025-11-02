@@ -22,18 +22,18 @@ package carpettisaddition.mixins.rule.yeetOutOfOrderChatKick;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.network.message.MessageVerifier;
+import net.minecraft.network.chat.SignedMessageValidator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(MessageVerifier.Impl.class)
+@Mixin(SignedMessageValidator.Impl.class)
 public abstract class MessageVerifierImplMixin
 {
 	@ModifyExpressionValue(
-			method = "verifyPrecedingSignature",
+			method = "validateChain",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/network/message/MessageLink;linksTo(Lnet/minecraft/network/message/MessageLink;)Z"
+					target = "Lnet/minecraft/network/chat/SignedMessageLink;isDescendantOf(Lnet/minecraft/network/chat/SignedMessageLink;)Z"
 			)
 	)
 	private boolean yeetOutOfOrderChatKick_impl(boolean linksTo)

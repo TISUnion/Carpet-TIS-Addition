@@ -32,12 +32,12 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.entity.LithiumEntityCollisions;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
@@ -85,19 +85,19 @@ public abstract class EntityMixin
 			remap = false
 	)
 	private static List<VoxelShape> dontUseThatLargeBlockCollisions(
-			// lithium 0.11.1 changed the world param type from CollisionView to World
+			// lithium 0.11.1 changed the world param type from CollisionView to Level
 			//#if MC >= 11900
-			//$$ World world,
+			//$$ Level world,
 			//#else
 			CollisionView world,
 			//#endif
-			Entity entity, Box box, Operation<List<VoxelShape>> original,
+			Entity entity, AABB box, Operation<List<VoxelShape>> original,
 			/* parent method parameters -> */
-			@Nullable Entity entityParam, Vec3d movement, Box entityBoundingBox, World worldParam,
+			@Nullable Entity entityParam, Vec3 movement, AABB entityBoundingBox, Level worldParam,
 			@Share("OFEMContext") LocalRef<OFEMContext> context
 	)
 	{
-		OFEMContext ctx = OFEMUtil.checkAndCreateContext((World)world, entity, movement);
+		OFEMContext ctx = OFEMUtil.checkAndCreateContext((Level)world, entity, movement);
 		context.set(ctx);
 		if (ctx != null)
 		{
@@ -112,7 +112,7 @@ public abstract class EntityMixin
 			method = "lithiumCollideMultiAxisMovement",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/shape/VoxelShapes;calculateMaxOffset(Lnet/minecraft/util/math/Direction$Axis;Lnet/minecraft/util/math/Box;Ljava/lang/Iterable;D)D",
+					target = "Lnet/minecraft/world/phys/shapes/Shapes;collide(Lnet/minecraft/core/Direction$Axis;Lnet/minecraft/world/phys/AABB;Ljava/lang/Iterable;D)D",
 					remap = true
 			),
 			remap = false
@@ -126,7 +126,7 @@ public abstract class EntityMixin
 		}
 
 		Direction.Axis axis = args.get(0);
-		Box entityBoundingBox = args.get(1);
+		AABB entityBoundingBox = args.get(1);
 		Iterable<VoxelShape> blockCollisions = args.get(2);
 		double maxDist = args.get(3);
 

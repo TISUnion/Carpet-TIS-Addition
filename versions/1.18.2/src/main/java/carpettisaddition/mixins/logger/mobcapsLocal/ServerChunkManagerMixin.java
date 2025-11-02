@@ -25,9 +25,9 @@ import carpettisaddition.utils.ModIds;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.world.ServerChunkManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.SpawnDensityCapper;
+import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.LocalMobCapCalculator;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,29 +35,29 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"))
-@Mixin(ServerChunkManager.class)
+@Mixin(ServerChunkCache.class)
 public abstract class ServerChunkManagerMixin
 {
 	@Shadow @Final
 	//#if MC >= 12105
 	//$$ private
 	//#endif
-	ServerWorld world;
+	ServerLevel world;
 
 	@ModifyArg(
 			//#if MC >= 12105
-			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;J)V",
+			//$$ method = "tickChunks",
 			//#elseif MC >= 12102
-			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
+			//$$ method = "tickChunks",
 			//#else
 			method = "tickChunks",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/SpawnHelper;setupSpawn(ILjava/lang/Iterable;Lnet/minecraft/world/SpawnHelper$ChunkSource;Lnet/minecraft/world/SpawnDensityCapper;)Lnet/minecraft/world/SpawnHelper$Info;"
+					target = "Lnet/minecraft/world/level/NaturalSpawner;createState(ILjava/lang/Iterable;Lnet/minecraft/world/level/NaturalSpawner$ChunkGetter;Lnet/minecraft/world/level/LocalMobCapCalculator;)Lnet/minecraft/world/level/NaturalSpawner$SpawnState;"
 			)
 	)
-	private SpawnDensityCapper mobcapsLocalLoggerRecordsCapper(SpawnDensityCapper capper)
+	private LocalMobCapCalculator mobcapsLocalLoggerRecordsCapper(LocalMobCapCalculator capper)
 	{
 		MobcapsLocalLogger.getInstance().setCapper(DimensionWrapper.of(this.world), capper);
 		return capper;

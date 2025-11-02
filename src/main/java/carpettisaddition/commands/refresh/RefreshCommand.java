@@ -53,17 +53,17 @@ import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 11901
-//$$ import net.minecraft.network.PacketCallbacks;
+//$$ import net.minecraft.network.PacketSendListener;
 //#endif
 
 //#if MC >= 11800
-//$$ import net.minecraft.util.math.ChunkSectionPos;
+//$$ import net.minecraft.core.SectionPos;
 //#endif
 
 //#if MC >= 11600
-//$$ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+//$$ import net.minecraft.network.protocol.game.ClientboundChatPacket;
 //#if MC < 11900
-//$$ import net.minecraft.util.Util;
+//$$ import net.minecraft.Util;
 //#endif
 //#else
 import net.minecraft.network.protocol.game.ClientboundChatPacket;
@@ -209,15 +209,15 @@ public class RefreshCommand extends AbstractCommand
 		player.connection.send(
 		//#endif
 				//#if MC >= 11901
-				//$$ new GameMessageS2CPacket(message, false),
+				//$$ new ClientboundChatPacket(message, false),
 				//#elseif MC >= 11600
-				//$$ new GameMessageS2CPacket(message, MessageType.SYSTEM, Util.NIL_UUID),
+				//$$ new ClientboundChatPacket(message, ChatType.SYSTEM, Util.NIL_UUID),
 				//#else
 				new ClientboundChatPacket(message, ChatType.SYSTEM),
 				//#endif
 
 				//#if MC >= 11901
-				//$$ PacketCallbacks.always(() -> {
+				//$$ PacketSendListener.always(() -> {
 				//#else
 				future -> {
 				//#endif
@@ -245,7 +245,13 @@ public class RefreshCommand extends AbstractCommand
 
 	private int refreshCurrentChunk(CommandSourceStack source, ServerPlayer player) throws CommandSyntaxException
 	{
-		return this.refreshSingleChunk(source, new ChunkPos(player.getCommandSenderBlockPosition()));
+		return this.refreshSingleChunk(source, new ChunkPos(
+				//#if MC >= 1.16.0
+				//$$ player.blockPosition()
+				//#else
+				player.getCommandSenderBlockPosition()
+				//#endif
+		));
 	}
 
 	private int refreshSelectedChunk(CommandSourceStack source, int x, int z) throws CommandSyntaxException
@@ -262,7 +268,7 @@ public class RefreshCommand extends AbstractCommand
 	private static boolean isChunkInsideRange(ChunkPos chunkPos, ServerPlayer player, int distance)
 	{
 		//#if MC >= 11800
-		//$$ ChunkSectionPos watchedSection = player.getWatchedSection();
+		//$$ SectionPos watchedSection = player.getWatchedSection();
 		//$$ return EuclideanDistanceHelper.isWithinDistance(chunkPos.x, chunkPos.z, watchedSection.getSectionX(), watchedSection.getSectionZ(), distance);
 		//#else
 		return ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(chunkPos, player, true) <= distance;

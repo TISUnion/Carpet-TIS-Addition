@@ -21,11 +21,11 @@
 package carpettisaddition.mixins.command.speedtest;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.minecraft.network.handler.PacketCodecDispatcher;
+import net.minecraft.network.codec.IdDispatchCodec;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(PacketCodecDispatcher.class)
+@Mixin(IdDispatchCodec.class)
 public interface PacketCodecDispatcherAccessor<T>
 {
 	@Accessor
