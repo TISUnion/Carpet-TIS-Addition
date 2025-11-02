@@ -67,7 +67,7 @@ public class EntityInfoUtil
 		if (item.isDamaged())
 		{
 			//#if MC >= 12100
-			//$$ int maxUseTime = item.getMaxUseTime(owner);
+			//$$ int maxUseTime = item.getUseDuration(owner);
 			//#else
 			int maxUseTime = item.getUseDuration();
 			//#endif
@@ -81,7 +81,7 @@ public class EntityInfoUtil
 			{
 				int level = enchants.get(e);
 				//#if MC >= 12100
-				//$$ String enstring = Enchantment.getName(Holder.of(e), level).getString();
+				//$$ String enstring = Enchantment.getFullname(Holder.direct(e), level).getString();
 				//#else
 				String enstring = e.getFullname(level).getString();
 				//#endif

@@ -46,8 +46,6 @@ public abstract class EntityMixin
 	@Inject(
 			//#if MC >= 12102
 			//$$ method = "teleportCrossDimension",
-			//#elseif MC >= 12100
-			//$$ method = "teleportTo",
 			//#else
 			method = "changeDimension",
 			//#endif

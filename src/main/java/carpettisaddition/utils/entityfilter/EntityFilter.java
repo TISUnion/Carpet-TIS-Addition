@@ -121,7 +121,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 		Predicate<Entity> predicate = this.entitySelector.invokeGetPositionPredicate(
 				anchorPos
 				//#if MC >= 12100
-				//$$ , offsetBox, this.serverCommandSource.getEnabledFeatures()
+				//$$ , offsetBox, this.serverCommandSource.enabledFeatures()
 				//#endif
 		);
 		if (this.entitySelector.getSenderOnly() && testEntity != this.serverCommandSource.getEntity())

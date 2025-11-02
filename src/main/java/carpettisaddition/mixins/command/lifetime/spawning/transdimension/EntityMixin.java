@@ -41,8 +41,6 @@ public abstract class EntityMixin
 	@ModifyReturnValue(
 			//#if MC >= 12102
 			//$$ method = "teleportCrossDimension",
-			//#elseif MC >= 12100
-			//$$ method = "teleportTo",
 			//#else
 			method = "changeDimension",
 			//#endif

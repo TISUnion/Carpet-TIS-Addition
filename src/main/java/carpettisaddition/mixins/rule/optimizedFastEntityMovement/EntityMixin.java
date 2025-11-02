@@ -66,11 +66,11 @@ public abstract class EntityMixin
 	//$$ private static final ThreadLocal<Boolean> movementOk = ThreadLocal.withInitial(() -> false);
 	//$$
 	//$$ @ModifyVariable(
-	//$$ 		method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/level/Level;Ljava/util/List;)Lnet/minecraft/world/phys/Vec3;",
+	//$$ 		method = "collideBoundingBox",
 	//$$ 		at = @At("HEAD"),
 	//$$ 		argsOnly = true
 	//$$ )
-	//$$ private static Vec3d optimizedFastEntityMovement_checkMovement(Vec3d movement)
+	//$$ private static Vec3 optimizedFastEntityMovement_checkMovement(Vec3 movement)
 	//$$ {
 	//$$ 	if (CarpetTISAdditionSettings.optimizedFastEntityMovement)
 	//$$ 	{
@@ -82,7 +82,7 @@ public abstract class EntityMixin
 
 	@WrapOperation(
 			//#if MC >= 12100
-			//$$ method = "findCollisionsForMovement",
+			//$$ method = "collectColliders",
 			//#elseif MC >= 11800
 			//$$ method = "collideBoundingBox",
 			//#else

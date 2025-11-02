@@ -34,7 +34,7 @@ public abstract class AbstractSkeletonEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12100
-					//$$ target = "Lnet/minecraft/entity/mob/AbstractSkeletonEntity;setOnFireFor(F)V"
+					//$$ target = "Lnet/minecraft/world/entity/monster/AbstractSkeleton;igniteForSeconds(F)V"
 					//#else
 					target = "Lnet/minecraft/world/entity/monster/AbstractSkeleton;setSecondsOnFire(I)V"
 					//#endif

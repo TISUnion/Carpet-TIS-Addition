@@ -34,7 +34,7 @@ public abstract class ZombieEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12100
-					//$$ target = "Lnet/minecraft/entity/mob/ZombieEntity;setOnFireFor(F)V"
+					//$$ target = "Lnet/minecraft/world/entity/monster/Zombie;igniteForSeconds(F)V"
 					//#else
 					target = "Lnet/minecraft/world/entity/monster/Zombie;setSecondsOnFire(I)V"
 					//#endif

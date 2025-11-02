@@ -34,7 +34,7 @@ public abstract class PhantomEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12100
-					//$$ target = "Lnet/minecraft/entity/mob/PhantomEntity;setOnFireFor(F)V"
+					//$$ target = "Lnet/minecraft/world/entity/monster/Phantom;igniteForSeconds(F)V"
 					//#else
 					target = "Lnet/minecraft/world/entity/monster/Phantom;setSecondsOnFire(I)V"
 					//#endif
