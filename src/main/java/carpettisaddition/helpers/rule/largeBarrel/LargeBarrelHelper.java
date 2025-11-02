@@ -88,7 +88,7 @@ public class LargeBarrelHelper
 	}
 
 	/**
-	 * Just like {@link net.minecraft.world.level.block.ChestBlock#getInventory}
+	 * Just like {@link net.minecraft.world.level.block.ChestBlock#getContainer}
 	 */
 	@Nullable
 	public static Container getInventory(BlockState state, Level world, BlockPos pos)

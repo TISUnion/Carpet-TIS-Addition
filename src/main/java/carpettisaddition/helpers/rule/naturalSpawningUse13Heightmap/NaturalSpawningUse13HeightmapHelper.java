@@ -81,7 +81,7 @@ public class NaturalSpawningUse13HeightmapHelper
 	}
 
 	/**
-	 * {@link net.minecraft.world.level.lighting.LayerLightEngine#getStateForLighting}
+	 * {@link net.minecraft.world.level.lighting.LayerLightEngine#getStateAndOpacity}
 	 */
 	private static boolean isIgnoredByHeightmap(Level world, BlockPos pos, BlockState blockState)
 	{

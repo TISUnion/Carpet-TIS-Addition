@@ -25,7 +25,7 @@ import carpettisaddition.network.TISCMClientPacketHandler;
 import carpettisaddition.network.TISCMProtocol;
 import carpettisaddition.network.TISCMServerPacketHandler;
 import carpettisaddition.utils.NbtUtils;
-import carpettisaddition.utils.compat.ServerTickType;
+import carpettisaddition.utils.compat.TpsDebugDimensions;
 import com.google.common.collect.Sets;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.FrameTimer;
@@ -39,7 +39,7 @@ import java.util.Set;
 public class ServerMsptMetricsDataSyncer
 {
 	private static final ServerMsptMetricsDataSyncer INSTANCE = new ServerMsptMetricsDataSyncer();
-	private static final ServerTickType SERVER_TICK_TYPE_FALLBACK = ServerTickType.TICK_SERVER_METHOD;
+	private static final TpsDebugDimensions SERVER_TICK_TYPE_FALLBACK = TpsDebugDimensions.TICK_SERVER_METHOD;
 	private static final long M = 1_000_000;
 
 	//#if MC >= 12005
@@ -49,7 +49,7 @@ public class ServerMsptMetricsDataSyncer
 	//#endif
 			metricsData;
 
-	private final Set<ServerTickType> sentTypesThisTick = Sets.newHashSet();
+	private final Set<TpsDebugDimensions> sentTypesThisTick = Sets.newHashSet();
 	private long tickCounterThisTick = -1;
 
 	private ServerMsptMetricsDataSyncer()
@@ -62,7 +62,7 @@ public class ServerMsptMetricsDataSyncer
 		return INSTANCE;
 	}
 
-	public void broadcastSample(long tickCounter, long nanosecond, ServerTickType serverTickType)
+	public void broadcastSample(long tickCounter, long nanosecond, TpsDebugDimensions serverTickType)
 	{
 		if (tickCounter != this.tickCounterThisTick)
 		{
@@ -95,10 +95,10 @@ public class ServerMsptMetricsDataSyncer
 			nanosecond = NbtUtils.getLongOrZero(nbt, "nanosecond");
 		}
 
-		ServerTickType type;
+		TpsDebugDimensions type;
 		try
 		{
-			type = ServerTickType.valueOf(NbtUtils.getStringOrEmpty(nbt, "type").toUpperCase());
+			type = TpsDebugDimensions.valueOf(NbtUtils.getStringOrEmpty(nbt, "type").toUpperCase());
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -140,7 +140,7 @@ public class ServerMsptMetricsDataSyncer
 				//#endif
 				(
 						//#if MC >= 12005
-						//$$ ServerTickType.values().length
+						//$$ TpsDebugDimensions.values().length
 						//#endif
 				);
 	}

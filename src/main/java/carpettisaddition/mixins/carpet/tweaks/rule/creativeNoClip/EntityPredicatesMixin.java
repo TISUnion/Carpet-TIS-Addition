@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class EntityPredicatesMixin
 {
 	/**
-	 * The lambda method with the declaration of {@link EntitySelector#EXCEPT_SPECTATOR}
+	 * The lambda method with the declaration of {@link EntitySelector#NO_SPECTATORS}
 	 *
 	 * Modify its return value to modify the result of {@link net.minecraft.world.level.EntityGetter#getEntities(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB)}
 	 */

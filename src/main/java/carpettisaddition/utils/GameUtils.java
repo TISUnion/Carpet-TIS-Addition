@@ -71,8 +71,8 @@ public class GameUtils
 
 	/**
 	 * See the exit point for the looping in
-	 *   (>=1.16) {@link net.minecraft.world.level.NaturalSpawner#setupSpawn}
-	 *   (<=1.15) {@link net.minecraft.server.level.ServerLevel#getMobCountsByCategory}
+	 *   (>=1.16) {@link net.minecraft.world.level.NaturalSpawner#createState}
+	 *   (<=1.15) {@link net.minecraft.server.level.ServerLevel#getMobCategoryCounts}
 	 */
 	public static boolean countsTowardsMobcap(Entity entity)
 	{

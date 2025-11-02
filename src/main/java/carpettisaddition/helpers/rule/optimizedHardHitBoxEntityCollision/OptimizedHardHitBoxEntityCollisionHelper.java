@@ -36,8 +36,8 @@ public class OptimizedHardHitBoxEntityCollisionHelper
 	public static final ThreadLocal<Boolean> checkHardHitBoxEntityOnly = ThreadLocal.withInitial(() -> false);
 
 	/**
-	 * (<=1.15) Check if the given entity may have {@link Entity#getHardCollisionBox} return not null
-	 * (>=1.16) Check if the given entity may have {@link Entity#collidesWith} return true if other entity has {@link Entity#isCollidable} returns false
+	 * (<=1.15) Check if the given entity may have {@link Entity#getCollideAgainstBox} return not null
+	 * (>=1.16) Check if the given entity may have {@link Entity#canCollideWith} return true if other entity has {@link Entity#canBeCollidedWith} returns false
 	 * In vanilla only boat and minecart do that
 	 *
 	 * Doesn't work with other mods that add new type of entities

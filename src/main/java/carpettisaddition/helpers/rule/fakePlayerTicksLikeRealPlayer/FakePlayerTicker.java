@@ -74,7 +74,7 @@ public class FakePlayerTicker
 
 	/**
 	 * References:
-	 * - {@link net.minecraft.server.network.ServerGamePacketListenerImpl#tick} for where {@link ServerPlayer#playerTick} is invoked
+	 * - {@link net.minecraft.server.network.ServerGamePacketListenerImpl#tick} for where {@link ServerPlayer#doTick} is invoked
 	 * - {@link net.minecraft.server.network.ServerConnectionListener#tick} for exception handling
 	 */
 	public void networkPhaseTick()
@@ -104,7 +104,7 @@ public class FakePlayerTicker
 	 * since tasks submitted there are not guaranteed to be executed at the next async task phase,
 	 * especially when tick warping
 	 * <p>
-	 * See also: {@link net.minecraft.server.MinecraftServer#canExecute}. There may be up to a 4-tick delay
+	 * See also: {@link net.minecraft.server.MinecraftServer#shouldRun}. There may be up to a 4-tick delay
 	 */
 	public void asyncTaskPhaseTick()
 	{

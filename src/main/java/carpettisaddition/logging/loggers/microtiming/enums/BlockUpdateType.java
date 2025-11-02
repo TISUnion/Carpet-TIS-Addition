@@ -103,7 +103,7 @@ public enum BlockUpdateType
 	private static class Constants
 	{
 		/**
-		 * See {@link Level#updateNeighborsAlways} and {@link Level#updateNeighborsExcept}
+		 * See {@link Level#updateNeighborsAt} and {@link Level#updateNeighborsAtExceptFromFacing}
 		 */
 		private static final Direction[] BLOCK_UPDATE_ORDER =
 				//#if MC >= 11900
@@ -114,13 +114,12 @@ public enum BlockUpdateType
 
 		/**
 		 * (<=1.15) See {@link Block#updateNeighbourShapes}
-		 * (>=1.16) See {@link BlockBehaviour.BlockStateBase#updateNeighbors}
+		 * (>=1.16) See {@link BlockBehaviour.BlockStateBase#updateNeighbourShapes}
 		 */
 		private static final Direction[] STATE_UPDATE_ORDER = BlockAccessor.getFACINGS();
 
 		/**
-		 * (<=1.15) See {@link Level#updateHorizontalAdjacent}
-		 * (>=1.16) See {@link Level#updateComparators}
+		 * See {@link Level#updateNeighbourForOutputSignal}
 		 */
 		private static final Direction[] COMPARATOR_UPDATE_ORDER = Lists.newArrayList(Direction.Plane.HORIZONTAL.iterator()).toArray(new Direction[0]);
 	}

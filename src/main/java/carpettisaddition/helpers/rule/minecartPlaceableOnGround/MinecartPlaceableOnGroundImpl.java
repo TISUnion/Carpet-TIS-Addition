@@ -45,7 +45,7 @@ import net.minecraft.world.level.Level;
 public class MinecartPlaceableOnGroundImpl
 {
 	/**
-	 * Reference: {@link net.minecraft.world.item.MinecartItem#useOnBlock}
+	 * Reference: {@link net.minecraft.world.item.MinecartItem#useOn}
 	 */
 	public static InteractionResult placeMinecartOnGround(
 			UseOnContext context,

@@ -21,9 +21,9 @@
 package carpettisaddition.utils.compat;
 
 /**
- * Backported from {@link net.minecraft.util.profiler.ServerTickType} from mc1.20.5+
+ * Backported from {@link net.minecraft.util.debugchart.TpsDebugDimensions} from mc1.20.5+
  */
-public enum ServerTickType
+public enum TpsDebugDimensions
 {
 	FULL_TICK,
 	TICK_SERVER_METHOD,

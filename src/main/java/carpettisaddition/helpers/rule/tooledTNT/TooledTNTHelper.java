@@ -37,7 +37,7 @@ public class TooledTNTHelper
 	/**
 	 * Attach the causing entity's main hand item onto the loot table builder
 	 *
-	 * See also {@link net.minecraft.world.level.block.Block#getDroppedStacks(BlockState, ServerLevel, BlockPos, BlockEntity, Entity, ItemStack)}
+	 * See also {@link net.minecraft.world.level.block.Block#getDrops(BlockState, ServerLevel, BlockPos, BlockEntity, Entity, ItemStack)}
 	 * for loot table building for regular entity block mining
 	 */
 	public static Optional<ItemStack> getMainHandItemOfCausingEntity(Explosion explosion)

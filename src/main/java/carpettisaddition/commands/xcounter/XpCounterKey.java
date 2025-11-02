@@ -52,7 +52,7 @@ public class XpCounterKey implements DyeCounterKey
 	}
 
 	/**
-	 * Reference: {@link net.minecraft.world.entity.ExperienceOrb#getOrbSize}
+	 * Reference: {@link net.minecraft.world.entity.ExperienceOrb#getIcon}
 	 */
 	private int getOrbSize()
 	{
