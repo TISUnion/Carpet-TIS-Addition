@@ -1,1 +1,1 @@
-net.minecraft.block.entity.LootableContainerBlockEntity checkLootInteraction() net.minecraft.inventory.LootableInventory generateLoot()
+net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity unpackLootTable() net.minecraft.world.RandomizableContainer unpackLootTable()

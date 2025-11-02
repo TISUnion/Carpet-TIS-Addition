@@ -72,7 +72,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 	@ModifyVariable(method = "method_14365", at = @At("HEAD"), argsOnly = true)
 	private Suggestions removeTickSprintStatusSuggestionIfNotEnabled(Suggestions suggestions, ServerboundCommandSuggestionPacket packet, Suggestions suggestions_)
 	{
-		String command = packet.getPartialCommand();
+		String command = packet.getCommand();
 		if (command.startsWith("/"))
 		{
 			command = command.substring(1);

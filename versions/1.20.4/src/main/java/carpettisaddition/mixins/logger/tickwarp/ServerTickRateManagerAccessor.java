@@ -27,12 +27,12 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(ServerTickRateManager.class)
 public interface ServerTickRateManagerAccessor
 {
-	@Accessor(value = "sprintTicks")
+	@Accessor("remainingSprintTicks")
 	long getRemainingWarpTicks();
 
-	@Accessor(value = "sprintTime")
+	@Accessor(value = "sprintTimeSpend")
 	long getTickWarpElapsedTime();
 
-	@Accessor(value = "scheduledSprintTicks")
+	@Accessor(value = "scheduledCurrentSprintTicks")
 	long getScheduledCurrentWarpTicks();
 }

@@ -87,7 +87,7 @@ public abstract class DragonEggBlockMixin extends Block
 		{
 			AABB box =
 					//#if MC >= 12003
-					//$$ Box.enclosing
+					//$$ AABB.encapsulatingFullBlocks
 					//#else
 					new AABB
 					//#endif

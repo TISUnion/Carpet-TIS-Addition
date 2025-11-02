@@ -36,7 +36,7 @@ public abstract class StructureBlockBlockEntityMixin
 {
 	@ModifyArg(
 			//#if MC >= 12003
-			//$$ method = "loadAndPlaceStructure(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/structure/StructureTemplate;)V",
+			//$$ method = "placeStructure(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;)V",
 			//#elseif MC >= 11600
 			//$$ method = "loadStructure(Lnet/minecraft/server/level/ServerLevel;ZLnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;)Z",
 			//#elseif MC >= 11500

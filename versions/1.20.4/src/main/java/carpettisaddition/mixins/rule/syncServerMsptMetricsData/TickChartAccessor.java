@@ -33,6 +33,6 @@ import java.util.function.Supplier;
 @Mixin(TpsDebugChart.class)
 public interface TickChartAccessor
 {
-	@Accessor
+	@Accessor("msptSupplier")
 	Supplier<Float> getMillisPerTickSupplier();
 }

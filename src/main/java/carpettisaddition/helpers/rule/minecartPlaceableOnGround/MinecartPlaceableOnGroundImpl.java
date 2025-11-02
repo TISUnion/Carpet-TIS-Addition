@@ -50,7 +50,7 @@ public class MinecartPlaceableOnGroundImpl
 	public static InteractionResult placeMinecartOnGround(
 			UseOnContext context,
 			//#if MC >= 12102
-			//$$ EntityType<? extends AbstractMinecartEntity> minecartType
+			//$$ EntityType<? extends AbstractMinecart> minecartType
 			//#else
 			AbstractMinecart.Type minecartType
 			//#endif
@@ -70,9 +70,9 @@ public class MinecartPlaceableOnGroundImpl
 		)
 		{
 			//#if MC >= 12102
-			//$$ AbstractMinecartEntity minecartEntity = AbstractMinecartEntity.create(serverWorld, vec3d.getX(), vec3d.getY(), vec3d.getZ(), minecartType, SpawnReason.DISPENSER, itemStack, player);
+			//$$ AbstractMinecart minecartEntity = AbstractMinecart.createMinecart(serverWorld, vec3d.x(), vec3d.y(), vec3d.z(), minecartType, SpawnReason.DISPENSER, itemStack, player);
 			//#elseif MC >= 12004
-			//$$ AbstractMinecartEntity minecartEntity = AbstractMinecartEntity.create(serverWorld, vec3d.getX(), vec3d.getY(), vec3d.getZ(), minecartType, itemStack, player);
+			//$$ AbstractMinecart minecartEntity = AbstractMinecart.createMinecart(serverWorld, vec3d.x(), vec3d.y(), vec3d.z(), minecartType, itemStack, player);
 			//#else
 			AbstractMinecart minecartEntity = AbstractMinecart.createMinecart(world, vec3d.x(), vec3d.y(), vec3d.z(), minecartType);
 			if (itemStack.hasCustomHoverName())
@@ -103,7 +103,7 @@ public class MinecartPlaceableOnGroundImpl
 		}
 		else
 		{
-			// For proper client swing-hand animation. AbstractMinecartEntity.create() needs ServerLevel in mc1.20.4+, we can't use it on the clientside
+			// For proper client swing-hand animation. AbstractMinecart.create() needs ServerLevel in mc1.20.4+, we can't use it on the clientside
 			// Assumption: The simply-initialized minecart entity has the same size of the serverside-created one,
 			// i.e., no nbt scaling tricks, modded new minecart variant
 

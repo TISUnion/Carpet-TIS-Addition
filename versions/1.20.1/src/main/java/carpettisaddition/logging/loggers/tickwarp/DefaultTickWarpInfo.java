@@ -57,7 +57,7 @@ public class DefaultTickWarpInfo implements TickWarpInfo
 	{
 		return Optional.ofNullable(CarpetTISAdditionServer.minecraft_server).
 				//#if MC >= 12003
-				//$$ map(MinecraftServer::getTickManager).
+				//$$ map(MinecraftServer::tickRateManager).
 				//#else
 				filter(svr -> svr instanceof MinecraftServerInterface).
 				map(svr -> ((MinecraftServerInterface)svr).getTickRateManager()).

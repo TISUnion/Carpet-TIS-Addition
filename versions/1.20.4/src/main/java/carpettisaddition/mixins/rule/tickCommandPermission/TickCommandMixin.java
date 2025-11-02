@@ -42,7 +42,7 @@ public abstract class TickCommandMixin
 	 * the lambda in the {@link com.mojang.brigadier.builder.ArgumentBuilder#requires} methods
 	 * for the node builder in the {@link TickCommand#register} method
 	 */
-	@Inject(method = "lambda$register$0", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "method_54709", at = @At("HEAD"), cancellable = true)
 	private static void overrideTickCommandPermission(CommandSourceStack source, CallbackInfoReturnable<Boolean> cir)
 	{
 		var ruleValue = TickCommandCarpetfiedRules.tickCommandPermission();

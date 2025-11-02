@@ -49,7 +49,7 @@ public abstract class DebugHudMixin
 	@Shadow @Final private Minecraft minecraft;
 
 	//#if MC >= 12003
-	//$$ @Shadow @Final private TpsDebugChart tickChart;
+	//$$ @Shadow @Final private TpsDebugChart tpsChart;
 	//#endif
 
 	//#if MC >= 12005
@@ -98,7 +98,7 @@ public abstract class DebugHudMixin
 				var chart = new TpsDebugChart(
 						this.font, data
 						//#if MC >= 12003
-						//$$ , ((TickChartAccessor)this.tickChart).getMillisPerTickSupplier()
+						//$$ , ((TickChartAccessor)this.tpsChart).getMillisPerTickSupplier()
 						//#endif
 				);
 

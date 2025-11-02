@@ -26,7 +26,7 @@ import net.minecraft.network.chat.SignedMessageValidator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(SignedMessageValidator.Impl.class)
+@Mixin(SignedMessageValidator.KeyBased.class)
 public abstract class MessageVerifierImplMixin
 {
 	@ModifyExpressionValue(
