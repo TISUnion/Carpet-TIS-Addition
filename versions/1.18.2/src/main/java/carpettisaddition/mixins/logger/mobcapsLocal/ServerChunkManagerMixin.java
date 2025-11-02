@@ -42,7 +42,7 @@ public abstract class ServerChunkManagerMixin
 	//#if MC >= 12105
 	//$$ private
 	//#endif
-	ServerLevel world;
+	ServerLevel level;
 
 	@ModifyArg(
 			//#if MC >= 12105
@@ -59,7 +59,7 @@ public abstract class ServerChunkManagerMixin
 	)
 	private LocalMobCapCalculator mobcapsLocalLoggerRecordsCapper(LocalMobCapCalculator capper)
 	{
-		MobcapsLocalLogger.getInstance().setCapper(DimensionWrapper.of(this.world), capper);
+		MobcapsLocalLogger.getInstance().setCapper(DimensionWrapper.of(this.level), capper);
 		return capper;
 	}
 }

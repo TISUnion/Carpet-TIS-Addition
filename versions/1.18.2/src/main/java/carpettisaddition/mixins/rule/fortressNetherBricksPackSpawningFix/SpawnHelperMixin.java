@@ -46,13 +46,13 @@ public abstract class SpawnHelperMixin
 					target = "Ljava/util/List;contains(Ljava/lang/Object;)Z"
 			)
 	)
-	private static boolean fortressNetherBricksPackSpawningFix_dontJustCallContains(List<MobSpawnSettings.SpawnEntry> entries, Object value, Operation<Boolean> original)
+	private static boolean fortressNetherBricksPackSpawningFix_dontJustCallContains(List<MobSpawnSettings.SpawnerData> entries, Object value, Operation<Boolean> original)
 	{
 		if (CarpetTISAdditionSettings.fortressNetherBricksPackSpawningFix)
 		{
-			if (value instanceof MobSpawnSettings.SpawnEntry toTestEntry)
+			if (value instanceof MobSpawnSettings.SpawnerData toTestEntry)
 			{
-				for (MobSpawnSettings.SpawnEntry entry : entries)
+				for (MobSpawnSettings.SpawnerData entry : entries)
 				{
 					if (spawnEntryEquals(entry, toTestEntry))
 					{
@@ -68,16 +68,16 @@ public abstract class SpawnHelperMixin
 	}
 
 	@Unique
-	private static boolean spawnEntryEquals(MobSpawnSettings.SpawnEntry a, MobSpawnSettings.SpawnEntry b)
+	private static boolean spawnEntryEquals(MobSpawnSettings.SpawnerData a, MobSpawnSettings.SpawnerData b)
 	{
 		if (a == b) return true;
 		if (a == null || b == null) return false;
 
 		//#if MC >= 12105
 		//$$ // XXX: check if vanilla has already fixed this issue, since now it's a record class
-		//$$ return Objects.equals(a.type(), b.type()) && a.minGroupSize() == b.maxGroupSize() && a.maxGroupSize() == b.maxGroupSize();
+		//$$ return Objects.equals(a.type(), b.type()) && a.minCount() == b.minCount() && a.maxCount() == b.maxCount();
 		//#else
-		return Objects.equals(a.type, b.type) && a.minGroupSize == b.minGroupSize && a.maxGroupSize == b.maxGroupSize;
+		return Objects.equals(a.type, b.type) && a.minCount == b.minCount && a.maxCount == b.maxCount;
 		//#endif
 	}
 }

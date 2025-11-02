@@ -54,7 +54,7 @@ public class MobcapsLocalCommand extends AbstractCommand implements CommandExten
 	public void extendCommand(CommandTreeContext.Node context)
 	{
 		context.node.then(literal("mobcapsLocal").
-				executes(c -> showLocalMobcaps(c.getSource(), c.getSource().getPlayer())).
+				executes(c -> showLocalMobcaps(c.getSource(), c.getSource().getPlayerOrException())).
 				then(argument("player", EntityArgument.player()).
 						executes(c -> showLocalMobcaps(c.getSource(), getPlayer(c, "player")))
 				)

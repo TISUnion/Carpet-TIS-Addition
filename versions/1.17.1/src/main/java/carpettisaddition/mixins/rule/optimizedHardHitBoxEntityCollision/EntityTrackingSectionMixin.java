@@ -117,7 +117,11 @@ public abstract class EntityTrackingSectionMixin<
 	 * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	 */
 	@ModifyExpressionValue(
+			//#if MC >= 1.18.2
+			//$$ method = "getEntities(Lnet/minecraft/world/phys/AABB;Ljava/util/function/Consumer;)V",
+			//#else
 			method = "getEntities(Ljava/util/function/Predicate;Ljava/util/function/Consumer;)V",
+			//#endif
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/world/level/entity/EntitySection;storage:Lnet/minecraft/util/ClassInstanceMultiMap;"

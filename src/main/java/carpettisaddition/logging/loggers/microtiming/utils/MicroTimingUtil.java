@@ -160,7 +160,7 @@ public class MicroTimingUtil
 	{
 		return world instanceof ServerLevel &&
 				//#if MC >= 11800
-				//$$ ((ServerWorldAccessor)world).invokeIsTickingFutureReady(ChunkPos.toLong(pos));
+				//$$ ((ServerWorldAccessor)world).invokeIsTickingFutureReady(ChunkPos.asLong(pos));
 				//#elseif MC >= 11700
 				//$$ ((ServerLevel)world).isPositionTickingWithEntitiesLoaded(pos);
 				//#else

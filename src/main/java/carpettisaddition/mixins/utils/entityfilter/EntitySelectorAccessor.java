@@ -80,7 +80,7 @@ public interface EntitySelectorAccessor extends IEntitySelector
 	Predicate<Entity> invokeGetPositionPredicate(
 			Vec3 vec3d
 			//#if MC >= 12100
-			//$$ , @Nullable Box box, @Nullable FeatureFlagSet enabledFeatures
+			//$$ , @Nullable AABB box, @Nullable FeatureFlagSet enabledFeatures
 			//#endif
 	);
 }

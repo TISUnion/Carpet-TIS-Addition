@@ -34,6 +34,6 @@ import java.util.Map;
 @Mixin(LocalMobCapCalculator.class)
 public interface SpawnDensityCapperAccessor
 {
-	@Accessor
-	Map<ServerPlayer, LocalMobCapCalculator.DensityCap> getPlayersToDensityCap();
+	@Accessor("playerMobCounts")
+	Map<ServerPlayer, LocalMobCapCalculator.MobCounts> getPlayersToDensityCap();
 }

@@ -84,14 +84,14 @@ public abstract class EntityMixin
 			//#if MC >= 12100
 			//$$ method = "findCollisionsForMovement",
 			//#elseif MC >= 11800
-			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/level/Level;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
+			//$$ method = "collideBoundingBox",
 			//#else
 			method = "collideBoundingBoxHeuristically",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/world/level/Level;getBlockCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/lang/Iterable;"
+					//$$ target = "Lnet/minecraft/world/level/Level;getBlockCollisions(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/lang/Iterable;"
 					//#else
 					target = "Lnet/minecraft/world/level/Level;getBlockCollisions(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/stream/Stream;"
 					//#endif
@@ -142,7 +142,7 @@ public abstract class EntityMixin
 
 	//#if MC >= 11800
 	//$$ @ModifyExpressionValue(
-	//$$ 		method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
+	//$$ 		method = "collideWithShapes",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
 	//$$ 				target = "Ljava/util/List;isEmpty()Z",
@@ -161,7 +161,7 @@ public abstract class EntityMixin
 
 	@ModifyArgs(
 			//#if MC >= 11800
-			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
+			//$$ method = "collideWithShapes",
 			//#else
 			method = "collideBoundingBoxLegacy",
 			//#endif
@@ -182,7 +182,7 @@ public abstract class EntityMixin
 		OFEMContext ctx = ofemContext.get();
 		if (ctx != null)
 		{
-			// Direction.Axis axis, Box box, (Iterable<VoxelShape> | Stream<VoxelShape>) shapes, double maxDist
+			// Direction.Axis axis, AABB box, (Iterable<VoxelShape> | Stream<VoxelShape>) shapes, double maxDist
 			Direction.Axis axis = args.get(0);
 			AABB entityBoundingBox = args.get(1);
 			//#if MC >= 11800

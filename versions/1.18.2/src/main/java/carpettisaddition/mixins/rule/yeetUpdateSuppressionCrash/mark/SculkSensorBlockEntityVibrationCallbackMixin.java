@@ -47,7 +47,7 @@ import net.minecraft.world.level.Level;
 public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 {
 	@WrapOperation(
-			method = {"accepts", "accept"},
+			method = {"shouldListen", "onSignalReceive"},
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/SculkSensorBlock;canActivate(Lnet/minecraft/world/level/block/state/BlockState;)Z"
@@ -74,7 +74,7 @@ public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 			catch (Throwable throwable)
 			{
 				//#if MC < 12000
-				BlockPos pos = ((SculkSensorBlockEntity)(Object)this).getPos();
+				BlockPos pos = ((SculkSensorBlockEntity)(Object)this).getBlockPos();
 				//#endif
 				throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
 			}

@@ -33,7 +33,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 //#endif
 
 //#if MC >= 11800
-//$$ import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
+//$$ import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
 //$$ import net.minecraft.core.SectionPos;
 //$$ import org.apache.commons.lang3.mutable.MutableObject;
 //#endif
@@ -43,7 +43,7 @@ public class ChunkRefresher
 	private final LevelChunk chunk;
 
 	//#if MC >= 11800
-	//$$ private final MutableObject<ChunkDataS2CPacket> packetCache = new MutableObject<>();
+	//$$ private final MutableObject<ClientboundLevelChunkWithLightPacket> packetCache = new MutableObject<>();
 	//#else
 	private final Packet<?>[] packetCache = new Packet[2];
 	//#endif

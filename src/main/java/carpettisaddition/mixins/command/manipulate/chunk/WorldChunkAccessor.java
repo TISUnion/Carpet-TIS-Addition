@@ -42,10 +42,6 @@ import net.minecraft.world.level.chunk.LevelChunk;
 )
 public interface WorldChunkAccessor
 {
-	//#if MC >= 11800
-	//$$ @Accessor("blockEntityNbts")
-	//#else
 	@Accessor("pendingBlockEntities")
-	//#endif
 	Map<BlockPos, CompoundTag> getPendingBlockEntityTags();
 }

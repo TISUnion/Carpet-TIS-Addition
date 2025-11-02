@@ -37,9 +37,9 @@ public interface ChunkTickSchedulerAccessor<T>
 	@Accessor
 	Queue<ScheduledTick<T>> getTickQueue();
 
-	@Accessor
+	@Accessor("pendingTicks")
 	void setTicks(@Nullable List<SavedTick<T>> ticks);
 
-	@Accessor
+	@Accessor("ticksPerPosition")
 	Set<ScheduledTick<?>> getQueuedTicks();
 }

@@ -49,7 +49,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import java.util.List;
 
 //#if MC < 11900
-import net.minecraft.world.CollisionView;
+import net.minecraft.world.level.CollisionGetter;
 //#endif
 
 /**
@@ -76,9 +76,9 @@ public abstract class EntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
-					//$$ target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/level/Level;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
+					//$$ target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;",
 					//#else
-					target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/CollisionView;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
+					target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/level/CollisionGetter;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;",
 					//#endif
 					remap = true
 			),
@@ -89,7 +89,7 @@ public abstract class EntityMixin
 			//#if MC >= 11900
 			//$$ Level world,
 			//#else
-			CollisionView world,
+			CollisionGetter world,
 			//#endif
 			Entity entity, AABB box, Operation<List<VoxelShape>> original,
 			/* parent method parameters -> */

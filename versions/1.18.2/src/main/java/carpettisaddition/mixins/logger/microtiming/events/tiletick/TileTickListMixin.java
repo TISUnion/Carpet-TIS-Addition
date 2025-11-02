@@ -41,23 +41,23 @@ public abstract class TileTickListMixin<T>
 	private int oldListSize;
 
 	@Inject(
-			method = "scheduleTick",
+			method = "schedule",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/tick/ChunkTickScheduler;scheduleTick(Lnet/minecraft/world/tick/OrderedTick;)V"
+					target = "Lnet/minecraft/world/ticks/LevelChunkTicks;schedule(Lnet/minecraft/world/ticks/ScheduledTick;)V"
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	private void startScheduleTileTickEvent(ScheduledTick<T> orderedTick, CallbackInfo ci, long l, LevelChunkTicks<T> chunkTickScheduler)
 	{
-		this.oldListSize = chunkTickScheduler.getTickCount();
+		this.oldListSize = chunkTickScheduler.count();
 	}
 
 	@Inject(
-			method = "scheduleTick",
+			method = "schedule",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/tick/ChunkTickScheduler;scheduleTick(Lnet/minecraft/world/tick/OrderedTick;)V",
+					target = "Lnet/minecraft/world/ticks/LevelChunkTicks;schedule(Lnet/minecraft/world/ticks/ScheduledTick;)V",
 					shift = At.Shift.AFTER
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD
@@ -68,7 +68,7 @@ public abstract class TileTickListMixin<T>
 		if (serverWorld != null)
 		{
 			int delay = (int)(tt.triggerTick() - WorldUtils.getWorldTime(serverWorld));
-			MicroTimingLoggerManager.onScheduleTileTickEvent(serverWorld, tt.type(), tt.pos(), delay, tt.priority(), chunkTickScheduler.getTickCount() > this.oldListSize);
+			MicroTimingLoggerManager.onScheduleTileTickEvent(serverWorld, tt.type(), tt.pos(), delay, tt.priority(), chunkTickScheduler.count() > this.oldListSize);
 		}
 	}
 	

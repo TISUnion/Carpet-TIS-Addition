@@ -31,6 +31,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(ServerLevel.class)
 public interface ServerWorldAccessor
 {
-	@Invoker
+	@Invoker("isPositionTickingWithEntitiesLoaded")
 	boolean invokeIsTickingFutureReady(long l);
 }

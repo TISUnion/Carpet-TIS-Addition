@@ -268,8 +268,8 @@ public class RefreshCommand extends AbstractCommand
 	private static boolean isChunkInsideRange(ChunkPos chunkPos, ServerPlayer player, int distance)
 	{
 		//#if MC >= 11800
-		//$$ SectionPos watchedSection = player.getWatchedSection();
-		//$$ return EuclideanDistanceHelper.isWithinDistance(chunkPos.x, chunkPos.z, watchedSection.getSectionX(), watchedSection.getSectionZ(), distance);
+		//$$ SectionPos watchedSection = player.getLastSectionPos();
+		//$$ return EuclideanDistanceHelper.isWithinDistance(chunkPos.x, chunkPos.z, watchedSection.x(), watchedSection.z(), distance);
 		//#else
 		return ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(chunkPos, player, true) <= distance;
 		//#endif

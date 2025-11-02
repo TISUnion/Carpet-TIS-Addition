@@ -63,7 +63,7 @@ public abstract class WorldTickScheduler_TileTickDetailMixin
 		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld();
 		if (serverWorld != null)
 		{
-			MicroTimingLoggerManager.setTickStageDetail(serverWorld, String.valueOf(orderedTick.priority().getIndex()));
+			MicroTimingLoggerManager.setTickStageDetail(serverWorld, String.valueOf(orderedTick.priority().getValue()));
 			MicroTimingLoggerManager.setSubTickStage(serverWorld, new TileTickSubStage(serverWorld, orderedTick, this.tileTickOrderCounter++));
 		}
 	}

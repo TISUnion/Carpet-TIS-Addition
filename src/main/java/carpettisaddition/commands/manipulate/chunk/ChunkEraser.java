@@ -228,14 +228,14 @@ public class ChunkEraser extends TranslationContext
 		//$$ 	if (chunkTickScheduler != null)
 		//$$ 	{
 		//$$ 		ChunkTickSchedulerAccessor<?> ctsAccess = (ChunkTickSchedulerAccessor<?>)chunkTickScheduler;
-		//$$ 		this.stats.tileTick += chunkTickScheduler.getTickCount();
+		//$$ 		this.stats.tileTick += chunkTickScheduler.count();
 		//$$ 		clearCollection(ctsAccess.getQueuedTicks());
 		//$$ 		clearCollection(ctsAccess.getTickQueue());
 		//$$ 		ctsAccess.setTicks(null);  // the list might be immutable and we can't clear() it
 		//$$ 	}
 		//$$ };
-		//$$ eraseTileTicks.accept(this.world.getBlockTickScheduler());
-		//$$ eraseTileTicks.accept(this.world.getFluidTickScheduler());
+		//$$ eraseTileTicks.accept(this.world.getBlockTicks());
+		//$$ eraseTileTicks.accept(this.world.getFluidTicks());
 		//#else
 		this.stats.tileTick += this.world.getBlockTicks().fetchTicksInChunk(chunk.getPos(), true, true).size();
 		this.stats.tileTick += this.world.getLiquidTicks().fetchTicksInChunk(chunk.getPos(), true, true).size();
@@ -300,8 +300,8 @@ public class ChunkEraser extends TranslationContext
 		container.acquire();
 		//#if MC >= 11800
 		//$$ PalettedContainer.Data<BlockState> data = accessor.invokeGetCompatibleData(null, 0);
-		//$$ data.palette().index(
-		//$$ 		Blocks.AIR.getDefaultState()
+		//$$ data.palette().idFor(
+		//$$ 		Blocks.AIR.defaultBlockState()
 		//$$ 		//#if MC >= 1.21.9
 		//$$ 		//$$ , container
 		//$$ 		//#endif

@@ -48,7 +48,7 @@ public class IWorldOverrides
 	}
 
 	//#if MC >= 11800
-	//$$ public static List<VoxelShape> getEntityCollisionsModifyResult(@Nullable Entity entity, Box box, List<VoxelShape> result)
+	//$$ public static List<VoxelShape> getEntityCollisionsModifyResult(@Nullable Entity entity, AABB box, List<VoxelShape> result)
 	//#else
 	public static Stream<VoxelShape> getEntityCollisionsModifyResult(@Nullable Entity entity, AABB box, Stream<VoxelShape> result)
 	//#endif

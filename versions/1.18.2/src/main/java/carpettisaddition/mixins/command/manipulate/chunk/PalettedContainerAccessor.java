@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(PalettedContainer.class)
 public interface PalettedContainerAccessor<T>
 {
-	@Invoker
+	@Invoker("createOrReuseData")
 	PalettedContainer.Data<T> invokeGetCompatibleData(@Nullable PalettedContainer.Data<T> previousData, int bits);
 
 	@Accessor("data")

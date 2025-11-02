@@ -41,14 +41,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.network.chat.TranslatableFormatException;
+import net.minecraft.network.chat.*;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
@@ -78,7 +71,6 @@ import java.util.function.Consumer;
 
 //#if MC >= 11600
 //$$ import carpettisaddition.mixins.utils.DyeColorAccessor;
-//$$ import net.minecraft.network.chat.TextColor;
 //#endif
 
 //#if MC < 11500
@@ -318,7 +310,7 @@ public class Messenger
 		try
 		{
 			//#if MC >= 11800
-			//$$ List<StringVisitable> segments = Lists.newArrayList();
+			//$$ List<FormattedText> segments = Lists.newArrayList();
 			//$$ dummy.invokeForEachPart(formatter, segments::add);
 			//#else
 			dummy.getTranslations().clear();

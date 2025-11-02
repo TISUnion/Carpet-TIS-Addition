@@ -137,13 +137,13 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 	//$$ @SuppressWarnings("unchecked")
 	//$$ private <T> List<ScheduledTick<T>> getTileTicksAt(LevelTicks<T> wts, BlockPos pos)
 	//$$ {
-	//$$ 	LevelChunkTicks<T> cts = ((WorldTickSchedulerAccessor<T>)wts).getChunkTickSchedulers().get(ChunkPos.toLong(pos));
+	//$$ 	LevelChunkTicks<T> cts = ((WorldTickSchedulerAccessor<T>)wts).getChunkTickSchedulers().get(ChunkPos.asLong(pos));
 	//$$ 	if (cts != null)
 	//$$ 	{
 	//$$ 		Queue<ScheduledTick<T>> queue = ((QueueAccessibleChunkTickScheduler<T>)cts).getTickQueue$TISCM();
 	//$$ 		if (queue != null)
 	//$$ 		{
-	//$$ 			return queue.stream().filter(t -> t.pos().equals(pos)).sorted(ScheduledTick.TRIGGER_TICK_COMPARATOR).collect(Collectors.toList());
+	//$$ 			return queue.stream().filter(t -> t.pos().equals(pos)).sorted(ScheduledTick.DRAIN_ORDER).collect(Collectors.toList());
 	//$$ 		}
 	//$$ 	}
 	//$$ 	return Collections.emptyList();
@@ -159,8 +159,8 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 		List<BaseComponent> result = Lists.newArrayList();
 
 		//#if MC >= 11800
-		//$$ List<ScheduledTick<Block>> blockTileTicks = this.getTileTicksAt((LevelTicks<Block>)world.getBlockTickScheduler(), pos);
-		//$$ List<ScheduledTick<Fluid>> liquidTileTicks = this.getTileTicksAt((LevelTicks<Fluid>)world.getFluidTickScheduler(), pos);
+		//$$ List<ScheduledTick<Block>> blockTileTicks = this.getTileTicksAt((LevelTicks<Block>)world.getBlockTicks(), pos);
+		//$$ List<ScheduledTick<Fluid>> liquidTileTicks = this.getTileTicksAt((LevelTicks<Fluid>)world.getFluidTicks(), pos);
 		//#else
 		BoundingBox bound =
 				//#if MC >= 11700

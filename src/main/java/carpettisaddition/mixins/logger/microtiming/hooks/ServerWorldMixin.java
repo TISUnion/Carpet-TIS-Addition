@@ -43,8 +43,8 @@ public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogg
 	private MicroTimingLogger microTimingLogger;
 
 	//#if MC >= 11800
-	//$$ @Shadow @Final private LevelTicks<Block> blockTickScheduler;
-	//$$ @Shadow @Final private LevelTicks<Fluid> fluidTickScheduler;
+	//$$ @Shadow @Final private LevelTicks<Block> blockTicks;
+	//$$ @Shadow @Final private LevelTicks<Fluid> fluidTicks;
 	//#endif
 
 	@Inject(
@@ -56,8 +56,8 @@ public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogg
 		this.microTimingLogger = new MicroTimingLogger((ServerLevel)(Object)this);
 
 		//#if MC >= 11800
-		//$$ ((ITileTickListWithServerWorld)this.blockTickScheduler).setServerWorld((ServerLevel)(Object)this);
-		//$$ ((ITileTickListWithServerWorld)this.fluidTickScheduler).setServerWorld((ServerLevel)(Object)this);
+		//$$ ((ITileTickListWithServerWorld)this.blockTicks).setServerWorld((ServerLevel)(Object)this);
+		//$$ ((ITileTickListWithServerWorld)this.fluidTicks).setServerWorld((ServerLevel)(Object)this);
 		//#endif
 	}
 

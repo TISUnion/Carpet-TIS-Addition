@@ -31,15 +31,15 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"))
-@Mixin(LocalMobCapCalculator.DensityCap.class)
+@Mixin(LocalMobCapCalculator.MobCounts.class)
 public interface SpawnDensityCapperDensityCapAccessor
 {
 	@Invoker("<init>")
-	static LocalMobCapCalculator.DensityCap invokeConstructor()
+	static LocalMobCapCalculator.MobCounts invokeConstructor()
 	{
 		throw new AssertionError();
 	}
 
-	@Accessor
+	@Accessor("counts")
 	Object2IntMap<MobCategory> getSpawnGroupsToDensity();
 }

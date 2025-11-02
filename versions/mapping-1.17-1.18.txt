@@ -1,9 +1,9 @@
-net.minecraft.world.ScheduledTick net.minecraft.world.tick.OrderedTick
-net.minecraft.world.ScheduledTick getObject() net.minecraft.world.tick.OrderedTick type()
-net.minecraft.server.world.BlockEvent getBlock() block()
-net.minecraft.server.world.BlockEvent getData() data()
-net.minecraft.server.world.BlockEvent getPos() pos()
-net.minecraft.server.world.BlockEvent getType() type()
+net.minecraft.world.level.TickNextTickData net.minecraft.world.ticks.ScheduledTick
+net.minecraft.world.level.TickNextTickData getType() net.minecraft.world.ticks.ScheduledTick type()
+net.minecraft.world.level.BlockEventData getPos() pos()
+net.minecraft.world.level.BlockEventData getBlock() block()
+net.minecraft.world.level.BlockEventData getParamA() paramA()
+net.minecraft.world.level.BlockEventData getParamB() paramB()
 
 me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity me.jellysquid.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeEmitter
 me.jellysquid.mods.lithium.common.hopper.RemovableBlockEntity increaseRemoveCounter() me.jellysquid.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeEmitter emitRemoved()

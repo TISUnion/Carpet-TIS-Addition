@@ -73,9 +73,9 @@ public class TileTickQueueController extends AbstractContainerController
 						(blockPos, blockPos.offset(1, 1, 1));
 
 		//#if MC >= 11800
-		//$$ int sizeBefore = tickScheduler.getTickCount();
-		//$$ tickScheduler.clearNextTicks(blockBox);
-		//$$ int sizeAfter = tickScheduler.getTickCount();
+		//$$ int sizeBefore = tickScheduler.count();
+		//$$ tickScheduler.clearArea(blockBox);
+		//$$ int sizeAfter = tickScheduler.count();
 		//$$ return sizeBefore - sizeAfter;
 		//#else
 		List<?> removed = serverTickScheduler.fetchTicksInArea(blockBox, true, false);
@@ -110,7 +110,7 @@ public class TileTickQueueController extends AbstractContainerController
 
 		source.getLevel().
 				//#if MC >= 11800
-				//$$ createAndScheduleBlockTick
+				//$$ scheduleTick
 				//#else
 				getBlockTicks().scheduleTick
 				//#endif

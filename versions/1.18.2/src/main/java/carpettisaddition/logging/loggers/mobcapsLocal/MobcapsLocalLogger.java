@@ -69,7 +69,7 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 	{
 		if (option != null)
 		{
-			ServerPlayer specifiedPlayer = CarpetTISAdditionServer.minecraft_server.getPlayerManager().getPlayer(option);
+			ServerPlayer specifiedPlayer = CarpetTISAdditionServer.minecraft_server.getPlayerList().getPlayerByName(option);
 			if (specifiedPlayer != null)
 			{
 				playerEntity = specifiedPlayer;
@@ -91,7 +91,7 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 						//#else
 						List<BaseComponent> lines =
 						//#endif
-								SpawnReporter.printMobcapsForDimension(serverPlayerEntity.getWorld(), false);
+								SpawnReporter.printMobcapsForDimension(serverPlayerEntity.getLevel(), false);
 
 						result.append(lines.get(0));
 						if (option != null)
@@ -141,7 +141,7 @@ public class MobcapsLocalLogger extends AbstractHUDLogger
 		LocalMobCapCalculator capper = this.capperMap.get(DimensionWrapper.of(player));
 		if (capper != null)
 		{
-			LocalMobCapCalculator.DensityCap cap = ((SpawnDensityCapperAccessor)capper).getPlayersToDensityCap().getOrDefault(player, SpawnDensityCapperDensityCapAccessor.invokeConstructor());
+			LocalMobCapCalculator.MobCounts cap = ((SpawnDensityCapperAccessor)capper).getPlayersToDensityCap().getOrDefault(player, SpawnDensityCapperDensityCapAccessor.invokeConstructor());
 			this.mobcapsMap.set(((SpawnDensityCapperDensityCapAccessor) cap).getSpawnGroupsToDensity());
 			try
 			{

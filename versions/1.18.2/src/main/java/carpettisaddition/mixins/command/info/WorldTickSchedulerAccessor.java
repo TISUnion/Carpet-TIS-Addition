@@ -33,6 +33,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(LevelTicks.class)
 public interface WorldTickSchedulerAccessor<T>
 {
-	@Accessor
+	@Accessor("allContainers")
 	Long2ObjectMap<LevelChunkTicks<T>> getChunkTickSchedulers();
 }

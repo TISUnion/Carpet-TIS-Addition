@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 //#if MC >= 11800
-//$$ import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
+//$$ import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
 //$$ import org.apache.commons.lang3.mutable.MutableObject;
 //#else
 import net.minecraft.network.protocol.Packet;
@@ -47,7 +47,7 @@ public interface ThreadedAnvilChunkStorageAccessor
 
 	//#if MC >= 11800 && MC < 12002
 	//$$ // isChunkWithinEuclideanDistanceRange or whatever
-	//$$ @Invoker("isWithinDistance")
+	//$$ @Invoker("isChunkInRange")
 	//$$ static boolean invokeIsChunkWithinEuclideanDistanceRange(int chunkX, int chunkZ, int playerSectionX, int playerSectionZ, int distance)
 	//$$ {
 	//$$ 	return false;
@@ -67,7 +67,7 @@ public interface ThreadedAnvilChunkStorageAccessor
 	void invokeSendWatchPackets(
 			ServerPlayer player, ChunkPos pos,
 			//#if MC >= 11800
-			//$$ MutableObject<ChunkDataS2CPacket> mutableObject,
+			//$$ MutableObject<ClientboundLevelChunkWithLightPacket> mutableObject,
 			//#else
 			Packet<?>[] packets,
 			//#endif
