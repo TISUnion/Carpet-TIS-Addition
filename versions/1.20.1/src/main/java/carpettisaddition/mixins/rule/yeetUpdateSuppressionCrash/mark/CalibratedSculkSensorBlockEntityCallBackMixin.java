@@ -33,14 +33,14 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(CalibratedSculkSensorBlockEntity.Callback.class)
+@Mixin(CalibratedSculkSensorBlockEntity.VibrationUser.class)
 public abstract class CalibratedSculkSensorBlockEntityCallBackMixin
 {
 	@WrapOperation(
 			method = "getBackSignal",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/BlockState;get(Lnet/minecraft/state/property/Property;)Ljava/lang/Comparable;"
+					target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;"
 			)
 	)
 	private <T extends Comparable<T>> T yeetUpdateSuppressionCrash_wrapSoundSuppression(

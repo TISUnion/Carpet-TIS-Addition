@@ -1,1 +1,2 @@
-net.minecraft.server.network.ServerPlayerEntity getWorld() getServerWorld()
+net.minecraft.server.level.ServerPlayer getLevel() serverLevel()
+net.minecraft.core.Direction fromNormal() fromDelta()

@@ -39,7 +39,7 @@ import net.minecraft.world.level.Level;
 
 @Mixin(
 		//#if MC >= 12000
-		//$$ SculkSensorBlockEntity.VibrationCallback.class
+		//$$ SculkSensorBlockEntity.VibrationUser.class
 		//#else
 		SculkSensorBlockEntity.class
 		//#endif
@@ -47,7 +47,11 @@ import net.minecraft.world.level.Level;
 public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 {
 	@WrapOperation(
+			//#if MC >= 12000
+			//$$ method = {"canReceiveVibration", "onReceiveVibration"},
+			//#else
 			method = {"shouldListen", "onSignalReceive"},
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/SculkSensorBlock;canActivate(Lnet/minecraft/world/level/block/state/BlockState;)Z"

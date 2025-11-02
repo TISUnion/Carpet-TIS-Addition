@@ -33,7 +33,7 @@ public abstract class RedstoneWireBlockMixin
 {
 	// This changed is introduced in 1.20-pre2, let's revert it
 	@ModifyExpressionValue(
-			method = "getConnectingSide",
+			method = "getConnectingSide(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Z)Lnet/minecraft/world/level/block/state/properties/RedstoneSide;",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;",

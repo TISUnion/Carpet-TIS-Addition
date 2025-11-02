@@ -27,7 +27,7 @@ public class BlockUtils
 	public static boolean isReplaceable(BlockState state)
 	{
 		//#if MC >= 12000
-		//$$ return state.isReplaceable();
+		//$$ return state.canBeReplaced();
 		//#else
 		return state.getMaterial().isReplaceable();
 		//#endif
