@@ -34,11 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MinecraftServerMixin
 {
 	@Inject(
-			//#if MC >= 11700
-			//$$ method = "waitUntilNextTick",
-			//#else
 			method = "waitUntilNextTick",
-			//#endif
 			at = @At("HEAD")
 	)
 	private void enterStageAsyncTask(CallbackInfo ci)
@@ -47,11 +43,7 @@ public abstract class MinecraftServerMixin
 	}
 
 	@Inject(
-			//#if MC >= 11700
-			//$$ method = "waitUntilNextTick",
-			//#else
 			method = "waitUntilNextTick",
-			//#endif
 			at = @At("TAIL")
 	)
 	private void exitStageAsyncTask(CallbackInfo ci)

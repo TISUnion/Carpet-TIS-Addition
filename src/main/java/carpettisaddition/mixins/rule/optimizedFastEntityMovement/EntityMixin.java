@@ -66,7 +66,7 @@ public abstract class EntityMixin
 	//$$ private static final ThreadLocal<Boolean> movementOk = ThreadLocal.withInitial(() -> false);
 	//$$
 	//$$ @ModifyVariable(
-	//$$ 		method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
+	//$$ 		method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/level/Level;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
 	//$$ 		at = @At("HEAD"),
 	//$$ 		argsOnly = true
 	//$$ )
@@ -84,14 +84,14 @@ public abstract class EntityMixin
 			//#if MC >= 12100
 			//$$ method = "findCollisionsForMovement",
 			//#elseif MC >= 11800
-			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
+			//$$ method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/level/Level;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;",
 			//#else
 			method = "collideBoundingBoxHeuristically",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/world/World;getBlockCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/lang/Iterable;"
+					//$$ target = "Lnet/minecraft/world/level/Level;getBlockCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/lang/Iterable;"
 					//#else
 					target = "Lnet/minecraft/world/level/Level;getBlockCollisions(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/stream/Stream;"
 					//#endif

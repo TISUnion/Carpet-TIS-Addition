@@ -47,7 +47,7 @@ public abstract class WorldMixins
 {
 	@Mixin(
 			//#if MC >= 11900
-			//$$ ServerWorld.class
+			//$$ ServerLevel.class
 			//#else
 			Level.class
 			//#endif
@@ -56,7 +56,7 @@ public abstract class WorldMixins
 	{
 		@Inject(
 				//#if MC >= 12102
-				//$$ method = "updateNeighborsAlways(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//$$ method = "updateNeighborsAlways(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
 				method = "updateNeighborsAt",
 				//#endif
@@ -82,7 +82,7 @@ public abstract class WorldMixins
 
 		@Inject(
 				//#if MC >= 12102
-				//$$ method = "updateNeighborsAlways(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//$$ method = "updateNeighborsAlways(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
 				method = "updateNeighborsAt",
 				//#endif
@@ -102,7 +102,7 @@ public abstract class WorldMixins
 
 	@Mixin(
 			//#if MC >= 11900
-			//$$ ServerWorld.class
+			//$$ ServerLevel.class
 			//#else
 			Level.class
 			//#endif
@@ -196,7 +196,7 @@ public abstract class WorldMixins
 
 	@Mixin(
 			//#if MC >= 11900
-			//$$ ServerWorld.class
+			//$$ ServerLevel.class
 			//#else
 			Level.class
 			//#endif
@@ -205,7 +205,7 @@ public abstract class WorldMixins
 	{
 		@Inject(
 				//#if MC >= 12102
-				//$$ method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//$$ method = "updateNeighbor(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
 				method = "neighborChanged",
 				//#endif
@@ -231,7 +231,7 @@ public abstract class WorldMixins
 
 		@Inject(
 				//#if MC >= 12102
-				//$$ method = "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//$$ method = "updateNeighbor(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
 				//#else
 				method = "neighborChanged",
 				//#endif
@@ -256,9 +256,9 @@ public abstract class WorldMixins
 		//#if MC >= 11900
 		//$$ @Inject(
 		//$$ 		//#if MC >= 12102
-		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
+		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
 		//$$ 		//#else
-		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V",
+		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/core/BlockPos;Z)V",
 		//$$ 		//#endif
 		//$$ 		at = @At("HEAD")
 		//$$ )
@@ -268,17 +268,17 @@ public abstract class WorldMixins
 		//$$ 		@Local(argsOnly = true) Block block
 		//$$ )
 		//$$ {
-		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
+		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((Level)(Object)this))
 		//$$ 	{
 		//$$ 		MicroTimingLoggerManager.onBlockUpdate(
-		//$$ 				(World)(Object)this, blockPos, block,
+		//$$ 				(Level)(Object)this, blockPos, block,
 		//$$ 				BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_START
 		//$$ 		);
 		//$$ 	}
 		//$$ 	else
 		//$$ 	{
 		//$$ 		MicroTimingLoggerManager.onScheduleBlockUpdate(
-		//$$ 				(World)(Object)this, blockPos, block,
+		//$$ 				(Level)(Object)this, blockPos, block,
 		//$$ 				BlockUpdateType.SINGLE_BLOCK_UPDATE, null
 		//$$ 		);
 		//$$ 	}
@@ -286,9 +286,9 @@ public abstract class WorldMixins
   //$$
 		//$$ @Inject(
 		//$$ 		//#if MC >= 12102
-		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
+		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
 		//$$ 		//#else
-		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V",
+		//$$ 		method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/core/BlockPos;Z)V",
 		//$$ 		//#endif
 		//$$ 		at = @At("TAIL")
 		//$$ )
@@ -298,10 +298,10 @@ public abstract class WorldMixins
 		//$$ 		@Local(argsOnly = true) Block block
 		//$$ )
 		//$$ {
-		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
+		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((Level)(Object)this))
 		//$$ 	{
 		//$$ 		MicroTimingLoggerManager.onBlockUpdate(
-		//$$ 				(World)(Object)this, blockPos, block,
+		//$$ 				(Level)(Object)this, blockPos, block,
 		//$$ 				BlockUpdateType.SINGLE_BLOCK_UPDATE, null, EventType.ACTION_END
 		//$$ 		);
 		//$$ 	}
@@ -321,17 +321,17 @@ public abstract class WorldMixins
 		//$$ 		@Local(argsOnly = true, ordinal = 1) BlockPos sourcePos
 		//$$ )
 		//$$ {
-		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
+		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((Level)(Object)this))
 		//$$ 	{
 		//$$ 		MicroTimingLoggerManager.onBlockUpdate(
-		//$$ 				(World)(Object)this, sourcePos, blockState.getBlock(),
+		//$$ 				(Level)(Object)this, sourcePos, blockState.getBlock(),
 		//$$ 				BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START
 		//$$ 		);
 		//$$ 	}
 		//$$ 	else
 		//$$ 	{
 		//$$ 		MicroTimingLoggerManager.onScheduleBlockUpdate(
-		//$$ 				(World)(Object)this, sourcePos, blockState.getBlock(),
+		//$$ 				(Level)(Object)this, sourcePos, blockState.getBlock(),
 		//$$ 				BlockUpdateType.SINGLE_STATE_UPDATE, null
 		//$$ 		);
 		//$$ 	}
@@ -343,10 +343,10 @@ public abstract class WorldMixins
 		//$$ 		@Local(argsOnly = true, ordinal = 1) BlockPos sourcePos
 		//$$ )
 		//$$ {
-		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((World)(Object)this))
+		//$$ 	if (MicroTimingUtil.isBlockUpdateInstant((Level)(Object)this))
 		//$$ 	{
 		//$$ 		MicroTimingLoggerManager.onBlockUpdate(
-		//$$ 				(World)(Object)this, sourcePos, blockState.getBlock(),
+		//$$ 				(Level)(Object)this, sourcePos, blockState.getBlock(),
 		//$$ 				BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END
 		//$$ 		);
 		//$$ 	}

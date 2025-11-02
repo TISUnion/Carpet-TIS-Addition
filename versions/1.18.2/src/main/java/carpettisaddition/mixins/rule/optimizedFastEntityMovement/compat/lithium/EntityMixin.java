@@ -76,7 +76,7 @@ public abstract class EntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900
-					//$$ target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
+					//$$ target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/level/Level;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
 					//#else
 					target = "Lme/jellysquid/mods/lithium/common/entity/LithiumEntityCollisions;getBlockCollisions(Lnet/minecraft/world/CollisionView;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;",
 					//#endif

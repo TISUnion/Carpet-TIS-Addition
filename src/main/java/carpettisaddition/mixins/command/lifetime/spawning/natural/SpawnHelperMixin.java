@@ -36,7 +36,7 @@ public abstract class SpawnHelperMixin
 	// don't try to capture locals, WAY too many
 	@ModifyArg(
 			//#if MC >= 11600
-			//$$ method = "spawnCategoryForPosition",
+			//$$ method = "spawnCategoryForPosition(Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/NaturalSpawner$SpawnPredicate;Lnet/minecraft/world/level/NaturalSpawner$AfterSpawnCallback;)V",
 			//#else
 			method = "spawnCategoryForChunk",
 			//#endif

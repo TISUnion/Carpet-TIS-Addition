@@ -36,7 +36,7 @@ public abstract class ItemEntityMixin
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11700
-							//$$ target = "Lnet/minecraft/entity/ItemEntity;getId()I"
+							//$$ target = "Lnet/minecraft/world/entity/item/ItemEntity;getId()I"
 							//#else
 							target = "Lnet/minecraft/world/entity/item/ItemEntity;getId()I"
 							//#endif

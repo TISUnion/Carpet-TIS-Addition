@@ -33,7 +33,7 @@ public abstract class ExperienceOrbEntityMixin
 			//#if MC >= 12105
 			//$$ method = "moveTowardsPlayer",
 			//#elseif MC >= 11700
-			//$$ method = {"tick", "expensiveUpdate"}, require = 1,
+			//$$ method = {"tick", "scanForEntities"}, require = 1,
 			//#else
 			method = "tick", require = 3,
 			//#endif
@@ -51,7 +51,7 @@ public abstract class ExperienceOrbEntityMixin
 			//#if MC >= 12105
 			//$$ method = "moveTowardsPlayer",
 			//#elseif MC >= 11700
-			//$$ method = {"tick", "expensiveUpdate"}, require = 1,
+			//$$ method = {"tick", "scanForEntities"}, require = 1,
 			//#else
 			method = "tick", require = 2,
 			//#endif

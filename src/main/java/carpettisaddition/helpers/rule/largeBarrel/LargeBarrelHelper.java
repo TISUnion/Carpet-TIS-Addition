@@ -58,7 +58,7 @@ public class LargeBarrelHelper
 	public static final ThreadLocal<Boolean> applyAxisOnlyDirectionTesting = ThreadLocal.withInitial(() -> false);
 
 	/**
-	 * World.getBlockEntity does not support off-server-thread accessing
+	 * Level.getBlockEntity does not support off-server-thread accessing
 	 * When we want to get the large barrel inventory in single player via the integrated server world
 	 * on client Render thread, we need to somehow disable the off-thread testing
 	 *

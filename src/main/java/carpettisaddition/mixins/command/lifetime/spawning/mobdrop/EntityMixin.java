@@ -37,7 +37,7 @@ public abstract class EntityMixin
 
 	@ModifyReturnValue(
 			//#if MC >= 12102
-			//$$ method = "dropStack(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/item/ItemStack;F)Lnet/minecraft/entity/ItemEntity;",
+			//$$ method = "dropStack(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/item/ItemStack;F)Lnet/minecraft/world/entity/item/ItemEntity;",
 			//#else
 			method = "spawnAtLocation(Lnet/minecraft/world/item/ItemStack;F)Lnet/minecraft/world/entity/item/ItemEntity;",
 			//#endif

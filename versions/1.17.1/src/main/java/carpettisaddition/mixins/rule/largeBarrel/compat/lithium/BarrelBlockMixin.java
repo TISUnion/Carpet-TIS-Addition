@@ -52,9 +52,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(value = BarrelBlock.class, priority = 2000)
 public abstract class BarrelBlockMixin extends BaseEntityBlock
 {
-	protected BarrelBlockMixin(Settings settings)
+	protected BarrelBlockMixin(Properties properties)
 	{
-		super(settings);
+		super(properties);
 	}
 
 	/**
@@ -68,9 +68,9 @@ public abstract class BarrelBlockMixin extends BaseEntityBlock
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onBlockAdded(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean moved)
+	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean moved)
 	{
-		super.onBlockAdded(state, world, pos, oldState, moved);
+		super.onPlace(state, world, pos, oldState, moved);
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			resetLithiumHopperCache(world, pos, state);
@@ -78,7 +78,7 @@ public abstract class BarrelBlockMixin extends BaseEntityBlock
 	}
 
 	@ModifyVariable(
-			method = "onStateReplaced",
+			method = "onRemove",
 			at = @At("TAIL"),
 			argsOnly = true
 	)
@@ -103,12 +103,12 @@ public abstract class BarrelBlockMixin extends BaseEntityBlock
 	@Unique
 	private static void resetLithiumHopperCache(LevelAccessor world, BlockPos changedBarrelPos, BlockState changedBarrelState)
 	{
-		if (LITHIUM_HOPPER_OPTIMIZATION_LOADED && !world.isClient())
+		if (LITHIUM_HOPPER_OPTIMIZATION_LOADED && !world.isClientSide())
 		{
-			Direction changedBarrelDirection = changedBarrelState.get(BarrelBlock.FACING);
-			BlockPos affectedBarrelPos = changedBarrelPos.offset(changedBarrelDirection.getOpposite());
+			Direction changedBarrelDirection = changedBarrelState.getValue(BarrelBlock.FACING);
+			BlockPos affectedBarrelPos = changedBarrelPos.relative(changedBarrelDirection.getOpposite());
 			BlockState affectedBarrelState = world.getBlockState(affectedBarrelPos);
-			if (affectedBarrelState.getBlock() instanceof BarrelBlock && affectedBarrelState.get(BarrelBlock.FACING) == changedBarrelDirection.getOpposite())
+			if (affectedBarrelState.getBlock() instanceof BarrelBlock && affectedBarrelState.getValue(BarrelBlock.FACING) == changedBarrelDirection.getOpposite())
 			{
 				BlockEntity barrelBlockEntity = ((BlockEntityGetter)world).getLoadedExistingBlockEntity(affectedBarrelPos);
 				if (barrelBlockEntity instanceof BarrelBlockEntity)

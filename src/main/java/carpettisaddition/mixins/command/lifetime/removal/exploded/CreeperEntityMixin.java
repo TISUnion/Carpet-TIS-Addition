@@ -36,7 +36,7 @@ public abstract class CreeperEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/mob/CreeperEntity;discard()V"
+					//$$ target = "Lnet/minecraft/world/entity/monster/Creeper;discard()V"
 					//#else
 					target = "Lnet/minecraft/world/entity/monster/Creeper;remove()V"
 					//#endif

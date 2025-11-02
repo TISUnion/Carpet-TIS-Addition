@@ -47,7 +47,7 @@ public class XPOrbLogger extends EntityLogger<ExperienceOrb>
 	protected BaseComponent getNameTextHoverText(ExperienceOrb xp)
 	{
 		//#if MC >= 11700
-		//$$ int amount = xp.getExperienceAmount();
+		//$$ int amount = xp.getValue();
 		//$$ int count = EntityUtils.getXpOrbPickingCount(xp);
 		//$$ long total = (long)amount * count;
 		//$$ String amountStr = String.format("w : %dxp * %d = %d", amount, count, total);

@@ -46,7 +46,7 @@ public class ZombifiedPiglinEntityMixin extends Zombie
 			method = "mobTick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/mob/ZombieEntity;mobTick(Lnet/minecraft/server/world/ServerWorld;)V"
+					target = "Lnet/minecraft/entity/mob/ZombieEntity;mobTick(Lnet/minecraft/server/level/ServerLevel;)V"
 			)
 	)
 	private void zombifiedPiglinDropLootIfAngryReintroduced_updatePlayerHitTimer(CallbackInfo ci)

@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class EntityMixin
 {
 	@ModifyExpressionValue(
-			method = "attemptTickInVoid",
+			method = "checkOutOfWorld",
 			at = @At(
 					value = "CONSTANT",
 					args = "intValue=64"

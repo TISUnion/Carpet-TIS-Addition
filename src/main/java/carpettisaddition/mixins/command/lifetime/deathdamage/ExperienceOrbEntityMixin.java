@@ -41,7 +41,7 @@ public abstract class ExperienceOrbEntityMixin implements DamageableEntity
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/ExperienceOrbEntity;discard()V"
+					//$$ target = "Lnet/minecraft/world/entity/ExperienceOrb;discard()V"
 					//#else
 					target = "Lnet/minecraft/world/entity/ExperienceOrb;remove()V"
 					//#endif

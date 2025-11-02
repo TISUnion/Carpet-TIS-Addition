@@ -22,6 +22,7 @@ package carpettisaddition.mixins.rule.largeBarrel;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.world.level.block.entity.BarrelBlockEntity;
@@ -34,29 +35,27 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
-@Mixin(targets = "net.minecraft.block.entity.BarrelBlockEntity$1")
+@Mixin(targets = "net.minecraft.world.level.block.entity.BarrelBlockEntity$1")
 public abstract class BarrelBlockEntityViewerCountManagerMixin
 {
 	@Shadow @Final BarrelBlockEntity field_27208;  // BarrelBlockEntity.this
 
 	@Inject(
-			method = "isPlayerViewing(Lnet/minecraft/entity/player/PlayerEntity;)Z",
+			method = "isOwnContainer(Lnet/minecraft/world/entity/player/Player;)Z",
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					target = "Lnet/minecraft/world/inventory/ChestMenu;getContainer()Lnet/minecraft/world/Container;"
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private void correctLargeBarrelLogic(Player player, CallbackInfoReturnable<Boolean> cir, Container inventory)
+	private void correctLargeBarrelLogic(Player player, CallbackInfoReturnable<Boolean> cir, @Local Container inventory)
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
 			//  reference: the lambda ViewerCountManager subclass inside ChestBlockEntity
-			boolean openingLargeBarrel = inventory instanceof CompoundContainer && ((CompoundContainer)inventory).isPart(this.field_27208);
+			boolean openingLargeBarrel = inventory instanceof CompoundContainer && ((CompoundContainer)inventory).contains(this.field_27208);
 			if (openingLargeBarrel)
 			{
 				cir.setReturnValue(true);

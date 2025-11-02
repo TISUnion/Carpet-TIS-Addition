@@ -162,7 +162,7 @@ public class MicroTimingUtil
 				//#if MC >= 11800
 				//$$ ((ServerWorldAccessor)world).invokeIsTickingFutureReady(ChunkPos.toLong(pos));
 				//#elseif MC >= 11700
-				//$$ ((ServerWorld)world).method_37117(pos);
+				//$$ ((ServerLevel)world).isPositionTickingWithEntitiesLoaded(pos);
 				//#else
 				world.getChunkSource().isTickingChunk(pos);
 				//#endif

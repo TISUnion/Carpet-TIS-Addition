@@ -35,11 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ServerPlayerEntityMixin
 {
 	@Inject(
-			//#if MC >= 1.17.0
-			//$$ method = "getPortalRect",
-			//#else
 			method = "getExitPortal",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.17.0
@@ -59,11 +55,7 @@ public abstract class ServerPlayerEntityMixin
 	}
 
 	@Inject(
-			//#if MC >= 1.17.0
-			//$$ method = "getPortalRect",
-			//#else
 			method = "getExitPortal",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.17.0

@@ -36,7 +36,7 @@ public class BoatDispenserBehaviorMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12004
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#else
 					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif

@@ -94,7 +94,7 @@ public class ChunkRelighter extends TranslationContext
 		int endZ = chunkPos.getMaxBlockZ();
 
 		//#if MC >= 11904
-		//$$ int startY = chunk.getBottomY();
+		//$$ int startY = chunk.getMinBuildHeight();
 		//#else
 		int startY = 0;
 		//#endif

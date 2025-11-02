@@ -56,8 +56,8 @@ public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogg
 		this.microTimingLogger = new MicroTimingLogger((ServerLevel)(Object)this);
 
 		//#if MC >= 11800
-		//$$ ((ITileTickListWithServerWorld)this.blockTickScheduler).setServerWorld((ServerWorld)(Object)this);
-		//$$ ((ITileTickListWithServerWorld)this.fluidTickScheduler).setServerWorld((ServerWorld)(Object)this);
+		//$$ ((ITileTickListWithServerWorld)this.blockTickScheduler).setServerWorld((ServerLevel)(Object)this);
+		//$$ ((ITileTickListWithServerWorld)this.fluidTickScheduler).setServerWorld((ServerLevel)(Object)this);
 		//#endif
 	}
 

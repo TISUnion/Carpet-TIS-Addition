@@ -82,7 +82,7 @@ public class EntityUtils
 	public static float getYaw(@NotNull Entity entity)
 	{
 		//#if MC >= 11700
-		//$$ return entity.getYaw();
+		//$$ return entity.getYRot();
 		//#else
 		return entity.yRot;
 		//#endif
@@ -91,7 +91,7 @@ public class EntityUtils
 	public static float getPitch(@NotNull Entity entity)
 	{
 		//#if MC >= 11700
-		//$$ return entity.getPitch();
+		//$$ return entity.getXRot();
 		//#else
 		return entity.xRot;
 		//#endif

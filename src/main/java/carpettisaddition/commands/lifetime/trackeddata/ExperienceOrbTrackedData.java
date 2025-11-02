@@ -38,7 +38,7 @@ public class ExperienceOrbTrackedData extends ExtraCountTrackedData
 			return
 					((ExperienceOrb)entity).getValue()
 					//#if MC >= 11700
-					//$$ * EntityUtils.getXpOrbPickingCount(((ExperienceOrbEntity)entity))
+					//$$ * (long)EntityUtils.getXpOrbPickingCount(((ExperienceOrb)entity))
 					//#endif
 					;
 		}

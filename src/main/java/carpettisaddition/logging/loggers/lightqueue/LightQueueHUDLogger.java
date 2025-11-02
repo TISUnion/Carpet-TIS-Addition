@@ -104,7 +104,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 		Level playerWorld = EntityUtils.getEntityWorld(playerEntity);
 		if (!(playerWorld instanceof ServerLevel))
 		{
-			return new BaseComponent[]{Messenger.s("not ServerWorld")};
+			return new BaseComponent[]{Messenger.s("not ServerLevel")};
 		}
 		ResourceLocation optionId = ResourceLocation.tryParse(option);
 		ServerLevel serverWorld = this.nameToWorldMap.getOrDefault(optionId, (ServerLevel)playerWorld);

@@ -63,7 +63,7 @@ public abstract class LivingEntityMixin extends Entity
 	}
 
 	//#if MC >= 11700
-	//$$ @Inject(method = "dropXp", at = @At("HEAD"))
+	//$$ @Inject(method = "dropExperience", at = @At("HEAD"))
 	//$$ private void lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrbHook(CallbackInfo ci)
 	//$$ {
 	//$$ 	LifetimeMixinUtil.xpOrbSpawningReason.set(new MobDropSpawningReason(this.getType()));

@@ -37,8 +37,8 @@ import java.util.List;
 public abstract class BlockInfoMixin
 {
 	/**
-	 * in mc < 1.14, the world arg is a World,
-	 *in mc >= 1.15, the world arg is a ServerWorld,
+	 * in mc < 1.14, the world arg is a Level,
+	 *in mc >= 1.15, the world arg is a ServerLevel,
 	 * so we use a @Coerce for simplest compatibility
 	 **/
 	@Inject(method = "blockInfo", at = @At("TAIL"), remap = false)

@@ -65,9 +65,9 @@ public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockE
 	//#if MC >= 11700
 	//$$ @Shadow
 	//$$ //#if MC >= 12005
-	//$$ //$$ private static boolean insert(Level world, BlockPos blockPos, HopperBlockEntity hopper)
+	//$$ //$$ private static boolean ejectItems(Level world, BlockPos blockPos, HopperBlockEntity hopper)
 	//$$ //#else
-	//$$ private static boolean insert(Level world, BlockPos blockPos, BlockState blockState, Inventory inventory)
+	//$$ private static boolean ejectItems(Level world, BlockPos blockPos, BlockState blockState, Container inventory)
 	//$$ //#endif
 	//$$ {
 	//$$ 	return false;
@@ -126,9 +126,9 @@ public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockE
 				//$$ if (!hopperBlockEntity.isEmpty())
 				//$$ {
 				//$$ 	//#if MC >= 12005
-				//$$ 	//$$ flag = insert(world, blockPos, hopperBlockEntity);
+				//$$ 	//$$ flag = ejectItems(world, blockPos, hopperBlockEntity);
 				//$$ 	//#else
-				//$$ 	flag = insert(world, blockPos, blockState, hopperBlockEntity);
+				//$$ 	flag = ejectItems(world, blockPos, blockState, hopperBlockEntity);
 				//$$ 	//#endif
 				//$$ }
 				//$$ if (!((HopperBlockEntityAccessor)hopperBlockEntity).invokeIsFull())

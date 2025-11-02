@@ -35,7 +35,7 @@ public abstract class CommandBlockMinecartEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.21.11
-					//$$ target = "Lnet/minecraft/world/CommandBlockExecutor;execute(Lnet/minecraft/server/world/ServerWorld;)Z",
+					//$$ target = "Lnet/minecraft/world/CommandBlockExecutor;execute(Lnet/minecraft/server/level/ServerLevel;)Z",
 					//#else
 					target = "Lnet/minecraft/world/level/BaseCommandBlock;performCommand(Lnet/minecraft/world/level/Level;)Z",
 					//#endif

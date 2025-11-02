@@ -34,8 +34,8 @@ public abstract class SectionedEntityCacheMixin
 {
 	@WrapOperation(
 			method = {
-					"forEachInBox",
-					"getSections(II)Lit/unimi/dsi/fastutil/longs/LongSortedSet;"
+					"forEachAccessibleSection",
+					"getChunkSections(II)Lit/unimi/dsi/fastutil/longs/LongSortedSet;"
 			},
 			at = @At(
 					value = "INVOKE",

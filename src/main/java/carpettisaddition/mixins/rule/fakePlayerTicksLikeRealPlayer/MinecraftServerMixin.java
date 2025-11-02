@@ -35,11 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MinecraftServerMixin
 {
 	@Inject(
-			//#if MC >= 11700
-			//$$ method = "runTasksTillTickEnd",
-			//#else
 			method = "waitUntilNextTick",
-			//#endif
 			at = @At("HEAD")
 	)
 	private void fakePlayerTicksLikeRealPlayer_hereIsWherePlayerActionPackTickingHappens(CallbackInfo ci)

@@ -29,6 +29,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(PersistentEntitySectionManager.class)
 public interface ServerEntityManagerAccessor<T extends EntityAccess>
 {
-	@Accessor
+	@Accessor("sectionStorage")
 	EntitySectionStorage<T> getCache();
 }

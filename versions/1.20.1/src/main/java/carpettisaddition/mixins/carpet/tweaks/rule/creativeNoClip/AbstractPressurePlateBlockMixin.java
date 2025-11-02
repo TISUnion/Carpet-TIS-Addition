@@ -43,7 +43,7 @@ public abstract class AbstractPressurePlateBlockMixin
 			method = "getEntityCount",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getEntitiesByClass(Ljava/lang/Class;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;"
+					target = "Lnet/minecraft/world/level/Level;getEntitiesByClass(Ljava/lang/Class;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;"
 			)
 	)
 	private static Predicate<Entity> dontDetectCreativeNoClipPlayers_pressurePlate(Predicate<Entity> predicate)

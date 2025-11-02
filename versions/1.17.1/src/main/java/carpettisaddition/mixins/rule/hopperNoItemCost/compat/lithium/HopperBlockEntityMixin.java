@@ -62,7 +62,7 @@ public abstract class HopperBlockEntityMixin
 	{
 		if (CarpetTISAdditionSettings.hopperNoItemCost)
 		{
-			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, pos.offset(Direction.UP));
+			DyeColor wool_color = WoolTool.getWoolColorAtPosition(world, pos.relative(Direction.UP));
 			if (wool_color != null)
 			{
 				if (hopperBlockEntity instanceof LithiumInventory)

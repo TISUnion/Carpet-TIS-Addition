@@ -40,11 +40,7 @@ import java.util.Random;
 public abstract class OakSaplingGeneratorMixin
 {
 	@ModifyExpressionValue(
-			//#if MC >= 11700
-			//$$ method = "getTreeFeature",
-			//#else
 			method = "getConfiguredFeature",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11900

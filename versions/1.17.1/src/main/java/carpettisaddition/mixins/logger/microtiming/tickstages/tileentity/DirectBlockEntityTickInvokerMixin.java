@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
-@Mixin(targets = "net.minecraft.world.chunk.WorldChunk$DirectBlockEntityTickInvoker")
+@Mixin(targets = "net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity")
 public abstract class DirectBlockEntityTickInvokerMixin<T extends BlockEntity>
 {
 	@Shadow @Final private T blockEntity;
@@ -45,7 +45,7 @@ public abstract class DirectBlockEntityTickInvokerMixin<T extends BlockEntity>
 	private void startTileEntitySection(CallbackInfo ci)
 	{
 		BlockEntity blockEntity = this.blockEntity;
-		Level world = blockEntity.getWorld();
+		Level world = blockEntity.getLevel();
 		if (world != null)
 		{
 			int counter = ((IWorldTileEntity)world).getTileEntityOrderCounter();

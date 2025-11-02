@@ -64,7 +64,7 @@ public abstract class CommandBlockMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11800
-					//$$ target = "Lnet/minecraft/world/World;createAndScheduleBlockTick(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;I)V"
+					//$$ target = "Lnet/minecraft/world/level/Level;createAndScheduleBlockTick(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;I)V"
 					//#else
 					target = "Lnet/minecraft/world/level/TickList;scheduleTick(Lnet/minecraft/core/BlockPos;Ljava/lang/Object;I)V"
 					//#endif

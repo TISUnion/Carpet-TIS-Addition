@@ -40,7 +40,7 @@ public abstract class ServerWorldMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12003
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;calculateAmbientDarkness()V",
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;calculateAmbientDarkness()V",
 					//$$ shift = At.Shift.AFTER
 					//#else
 					target = "Lnet/minecraft/server/level/ServerLevel;tickTime()V"

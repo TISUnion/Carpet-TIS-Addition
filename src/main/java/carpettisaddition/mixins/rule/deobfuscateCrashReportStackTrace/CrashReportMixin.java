@@ -36,7 +36,7 @@ public abstract class CrashReportMixin
 	@Shadow private StackTraceElement[] uncategorizedStackTrace;
 
 	@Inject(
-			method = "getDetails",
+			method = "getDetails(Ljava/lang/StringBuilder;)V",
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/lang/StringBuilder;append(Ljava/lang/String;)Ljava/lang/StringBuilder;",

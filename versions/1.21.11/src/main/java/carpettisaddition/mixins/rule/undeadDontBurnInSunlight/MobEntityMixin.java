@@ -34,7 +34,7 @@ public abstract class MobEntityMixin
 			method = "tickBurnInDaylight",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/mob/MobEntity;setOnFireFor(F)V"
+					target = "Lnet/minecraft/world/entity/Mob;setOnFireFor(F)V"
 			)
 	)
 	private boolean undeadDontBurnInSunlight_skeleton(Mob instance, float duration)

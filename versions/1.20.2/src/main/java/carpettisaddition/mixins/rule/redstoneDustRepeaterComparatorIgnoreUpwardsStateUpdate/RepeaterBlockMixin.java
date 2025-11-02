@@ -34,7 +34,7 @@ public abstract class RepeaterBlockMixin
 			method = "getStateForNeighborUpdate",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/RepeaterBlock;canPlaceAbove(Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"
+					target = "Lnet/minecraft/block/RepeaterBlock;canPlaceAbove(Lnet/minecraft/world/WorldView;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/BlockState;)Z"
 			),
 			allow = 1
 	)

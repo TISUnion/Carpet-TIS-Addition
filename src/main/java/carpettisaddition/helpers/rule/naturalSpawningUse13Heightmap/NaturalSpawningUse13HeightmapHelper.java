@@ -41,7 +41,7 @@ public class NaturalSpawningUse13HeightmapHelper
 		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
 		//#if MC >= 11700
-		//$$ final int minY = world.getBottomY();
+		//$$ final int minY = world.getMinBuildHeight();
 		//#else
 		final int minY = 0;
 		//#endif

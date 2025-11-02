@@ -35,7 +35,7 @@ public abstract class RaidMixin implements RaidWithIdAndWorld
 {
 	@Inject(
 			//#if MC >= 12105
-			//$$ method = "<init>(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/Difficulty;)V",
+			//$$ method = "<init>(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/Difficulty;)V",
 			//#else
 			method = "<init>(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)V",
 			//#endif

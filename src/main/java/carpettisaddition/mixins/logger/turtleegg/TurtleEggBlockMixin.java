@@ -51,7 +51,7 @@ public abstract class TurtleEggBlockMixin
 	@Inject(method = "destroyEgg", at = @At("HEAD"))
 	private void recordEntityTurtleEggLogger(
 			//#if MC >= 11700
-			//$$ World world, BlockState blockState, BlockPos blockPos, Entity entity, int i,
+			//$$ Level world, BlockState blockState, BlockPos blockPos, Entity entity, int i,
 			//#else
 			Level world, BlockPos pos, Entity entity, int inverseChance,
 			//#endif

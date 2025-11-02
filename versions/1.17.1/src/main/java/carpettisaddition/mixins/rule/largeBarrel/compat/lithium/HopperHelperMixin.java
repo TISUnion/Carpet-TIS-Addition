@@ -49,7 +49,7 @@ public abstract class HopperHelperMixin
 			method = "vanillaGetBlockInventory",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getBlockEntity(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/entity/BlockEntity;",
+					target = "Lnet/minecraft/world/level/Level;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;",
 					remap = true
 			),
 			locals = LocalCapture.CAPTURE_FAILHARD,

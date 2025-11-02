@@ -37,7 +37,7 @@ import net.minecraft.world.entity.Entity;
 public interface ServerWorldAccessor
 {
 	//#if MC >= 11700
-	//$$ @Accessor
+	//$$ @Accessor("entityTickList")
 	//$$ EntityTickList getEntityList();
 	//#endif
 

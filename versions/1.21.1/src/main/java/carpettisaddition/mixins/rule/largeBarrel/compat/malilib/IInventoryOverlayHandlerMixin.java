@@ -55,10 +55,10 @@ public interface IInventoryOverlayHandlerMixin
 {
 	@SuppressWarnings("UnresolvedMixinReference")
 	@ModifyExpressionValue(
-			method = "requestBlockEntityAt(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lorg/apache/commons/lang3/tuple/Pair;",
+			method = "requestBlockEntityAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lorg/apache/commons/lang3/tuple/Pair;",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;getBlockState(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;"
+					target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/block/BlockState;"
 			)
 	)
 	private BlockState requestTheOtherSideOfTheLargeBarrel(

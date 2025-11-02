@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class CarpetPayloadMixin
 {
 	@ModifyVariable(
-			method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
+			method = "<init>(Lnet/minecraft/network/FriendlyByteBuf;)V",
 			at = @At("HEAD"),
 			argsOnly = true
 	)
@@ -49,7 +49,7 @@ public abstract class CarpetPayloadMixin
 	}
 
 	@WrapOperation(
-			method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
+			method = "<init>(Lnet/minecraft/network/FriendlyByteBuf;)V",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/network/FriendlyByteBuf;readNbt()Lnet/minecraft/nbt/CompoundTag;"

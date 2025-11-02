@@ -44,7 +44,7 @@ public abstract class HopperBlockEntityMixin
 
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					//$$ target = "Lnet/minecraft/world/entity/item/ItemEntity;discard()V"
 					//#else
 					target = "Lnet/minecraft/world/entity/item/ItemEntity;remove()V"
 					//#endif

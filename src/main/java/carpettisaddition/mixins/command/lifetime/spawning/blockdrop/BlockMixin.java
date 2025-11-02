@@ -33,7 +33,7 @@ public abstract class BlockMixin
 {
 	@ModifyArg(
 			//#if MC >= 11700
-			//$$ method = "dropStack(Lnet/minecraft/world/World;Ljava/util/function/Supplier;Lnet/minecraft/item/ItemStack;)V",
+			//$$ method = "popResource(Lnet/minecraft/world/level/Level;Ljava/util/function/Supplier;Lnet/minecraft/world/item/ItemStack;)V",
 			//#else
 			method = "popResource",
 			//#endif

@@ -204,8 +204,8 @@ public class ChunkEraser extends TranslationContext
 		//$$ // Directly access the tracking sections, to make sure we can access all entities in any tracking status
 		//$$ List<Entity> entities = Lists.newArrayList();
 		//$$ ((ServerEntityManagerAccessor<Entity>)((ServerWorldAccessor)this.world).getEntityManager()).
-		//$$ 		getCache().getTrackingSections(chunkPos.toLong()).
-		//$$ 		forEach(section -> section.stream().filter(entity -> !(entity instanceof PlayerEntity)).forEach(entities::add));
+		//$$ 		getCache().getExistingSectionsInChunk(chunkPos.toLong()).
+		//$$ 		forEach(section -> section.getEntities().filter(entity -> !(entity instanceof Player)).forEach(entities::add));
 		//$$ entities.forEach(Entity::discard);
 		//#else
 		List<Entity> entities = Arrays.stream(chunk.getEntitySections()).
@@ -268,7 +268,7 @@ public class ChunkEraser extends TranslationContext
 		// heightmap
 		chunk.getHeightmaps().stream().map(Map.Entry::getValue).forEach(heightmap -> {
 			//#if MC >= 11700
-			//$$ int bottomY = chunk.getBottomY();
+			//$$ int bottomY = chunk.getMinBuildHeight();
 			//#else
 			int bottomY = 0;
 			//#endif
@@ -361,8 +361,8 @@ public class ChunkEraser extends TranslationContext
 
 		// reference: net.minecraft.server.world.ServerLightingProvider#updateChunkStatus
 		//#if MC >= 11700
-		//$$ int minY = lightingProvider.getBottomY();
-		//$$ int maxY = lightingProvider.getTopY();
+		//$$ int minY = lightingProvider.getMinLightSection();
+		//$$ int maxY = lightingProvider.getMaxLightSection();
 		//#else
 		int minY = -1;
 		int maxY = 17;

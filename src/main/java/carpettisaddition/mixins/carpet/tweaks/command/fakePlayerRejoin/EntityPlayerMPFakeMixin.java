@@ -143,7 +143,7 @@ public abstract class EntityPlayerMPFakeMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12102
-					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleport(Lnet/minecraft/server/world/ServerWorld;DDDLjava/util/Set;FFZ)Z"
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleport(Lnet/minecraft/server/level/ServerLevel;DDDLjava/util/Set;FFZ)Z"
 					//#elseif MC >= 11600
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDFF)V"
 					//#else

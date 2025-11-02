@@ -43,7 +43,7 @@ public interface InventoryOwnerMixin
 			method = "pickUpItem",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/ItemEntity;discard()V"
+					target = "Lnet/minecraft/world/entity/item/ItemEntity;discard()V"
 			)
 	)
 	private static void lifetimeTracker_recordRemoval_mobPickup_inventoryOwnerItem(CallbackInfo ci, @Local(argsOnly = true) Mob mobEntity, @Local(argsOnly = true) ItemEntity itemEntity)

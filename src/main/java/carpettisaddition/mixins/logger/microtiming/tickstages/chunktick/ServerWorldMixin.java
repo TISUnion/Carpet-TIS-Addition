@@ -47,13 +47,13 @@ public abstract class ServerWorldMixin
 	//$$ @Inject(method = "tickThunder", at = @At("HEAD"))
 	//$$ private void enterStageDetailThunder(CallbackInfo ci)
 	//$$ {
-	//$$ 	MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, "Thunder");
+	//$$ 	MicroTimingLoggerManager.setTickStageDetail((ServerLevel)(Object)this, "Thunder");
 	//$$ }
 	//$$
 	//$$ @Inject(method = "tickThunder", at = @At("TAIL"))
 	//$$ private void exitStageDetailThunder(CallbackInfo ci)
 	//$$ {
-	//$$ 	MicroTimingLoggerManager.setTickStageDetail((ServerWorld)(Object)this, null);
+	//$$ 	MicroTimingLoggerManager.setTickStageDetail((ServerLevel)(Object)this, null);
 	//$$ }
 	//#else
 	@Inject(

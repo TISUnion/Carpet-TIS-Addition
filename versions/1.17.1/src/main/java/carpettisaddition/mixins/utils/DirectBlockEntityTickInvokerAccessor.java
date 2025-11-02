@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"))
-@Mixin(targets = "net.minecraft.world.chunk.WorldChunk$DirectBlockEntityTickInvoker")
+@Mixin(targets = "net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity")
 public interface DirectBlockEntityTickInvokerAccessor<T extends BlockEntity>
 {
 	@Accessor

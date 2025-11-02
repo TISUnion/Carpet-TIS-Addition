@@ -42,7 +42,7 @@ class BlockManipulatorImplEmit extends TranslationContext
 		BlockState blockState = world.getBlockState(blockPos);
 		Block block = blockState.getBlock();
 
-		// ref: net.minecraft.world.World#setBlockState
+		// ref: net.minecraft.world.level.Level#setBlockState
 		world.blockUpdated(blockPos, block);
 		if (blockState.hasAnalogOutputSignal())
 		{
@@ -55,7 +55,7 @@ class BlockManipulatorImplEmit extends TranslationContext
 		ServerLevel world = source.getLevel();
 		BlockState blockState = world.getBlockState(blockPos);
 
-		// ref: net.minecraft.world.World#setBlockState
+		// ref: net.minecraft.world.level.Level#setBlockState
 		int flags = 2;
 		//#if MC >= 11600
 		//$$ int maxUpdateDepth = 512;

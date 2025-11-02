@@ -33,11 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MinecraftServerMixin
 {
 	@Inject(
-			//#if MC >= 11700
-			//$$ method = "waitUntilNextTick",
-			//#else
 			method = "waitUntilNextTick",
-			//#endif
 			at = @At("HEAD")
 	)
 	private void flushMessageOnPlayerAction(CallbackInfo ci)

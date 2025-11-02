@@ -66,7 +66,7 @@ public class TileTickQueueController extends AbstractContainerController
 	{
 		BoundingBox blockBox =
 				//#if MC >= 11700
-				//$$ BlockBox.create
+				//$$ BoundingBox.fromCorners
 				//#else
 				new BoundingBox
 				//#endif

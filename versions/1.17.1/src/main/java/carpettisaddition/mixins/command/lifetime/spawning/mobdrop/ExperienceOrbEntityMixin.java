@@ -41,11 +41,11 @@ public abstract class ExperienceOrbEntityMixin
 			//#if MC >= 12106
 			//$$ method = "awardWithDirection",
 			//#else
-			method = "spawn",
+			method = "award",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			),
 			index = 0,
 			allow = 1
@@ -63,7 +63,7 @@ public abstract class ExperienceOrbEntityMixin
 			//#if MC >= 12106
 			//$$ method = "awardWithDirection",
 			//#else
-			method = "spawn",
+			method = "award",
 			//#endif
 			at = @At("TAIL")
 	)

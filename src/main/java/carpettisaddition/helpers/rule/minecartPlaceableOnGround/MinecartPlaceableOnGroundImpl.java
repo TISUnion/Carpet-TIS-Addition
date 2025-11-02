@@ -84,7 +84,7 @@ public class MinecartPlaceableOnGroundImpl
 			if (player != null)
 			{
 				//#if MC >= 11700
-				//$$ minecartEntity.setYaw(player.getYaw());
+				//$$ minecartEntity.setYRot(player.getYRot());
 				//#else
 				minecartEntity.yRot = player.yRot;
 				//#endif
@@ -98,7 +98,7 @@ public class MinecartPlaceableOnGroundImpl
 
 			world.addFreshEntity(minecartEntity);
 			//#if MC >= 11700
-			//$$ world.emitGameEvent(context.getPlayer(), net.minecraft.world.event.GameEvent.ENTITY_PLACE, context.getBlockPos());
+			//$$ world.gameEvent(context.getPlayer(), net.minecraft.world.level.gameevent.GameEvent.ENTITY_PLACE, context.getClickedPos());
 			//#endif
 		}
 		else

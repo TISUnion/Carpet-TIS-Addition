@@ -47,7 +47,7 @@ public abstract class RaidManagerMixin
 	private void enterStageRaid(
 			CallbackInfo ci
 			//#if MC >= 12105
-			//$$ , @Local ServerWorld world
+			//$$ , @Local ServerLevel world
 			//#endif
 	)
 	{
@@ -61,7 +61,7 @@ public abstract class RaidManagerMixin
 	private void exitStageRaid(
 			CallbackInfo ci
 			//#if MC >= 12105
-			//$$ , @Local ServerWorld world
+			//$$ , @Local ServerLevel world
 			//#endif
 	)
 	{

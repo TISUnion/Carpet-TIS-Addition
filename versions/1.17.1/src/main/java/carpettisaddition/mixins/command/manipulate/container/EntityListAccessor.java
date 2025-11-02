@@ -34,9 +34,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(EntityTickList.class)
 public interface EntityListAccessor
 {
-	@Invoker
+	@Invoker("ensureActiveIsNotIterated")
 	void invokeEnsureSafe();
 
-	@Accessor
+	@Accessor("active")
 	Int2ObjectMap<Entity> getEntities();
 }

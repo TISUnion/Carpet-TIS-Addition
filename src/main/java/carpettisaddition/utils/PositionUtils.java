@@ -38,7 +38,7 @@ public class PositionUtils
 	public static BoundingBox createBlockBox(BlockPos pos1, BlockPos pos2)
 	{
 		//#if MC >= 11700
-		//$$ return BlockBox.create(pos1, pos2);
+		//$$ return BoundingBox.fromCorners(pos1, pos2);
 		//#else
 		return new BoundingBox(pos1, pos2);
 		//#endif

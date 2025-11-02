@@ -71,7 +71,7 @@ public class XpCounterHopperTicker
 
 		//#if MC >= 12006
 		//$$ var box = hopper.getInputAreaShape().offset(hopper.getHopperX() - 0.5, hopper.getHopperY() - 0.5, hopper.getHopperZ() - 0.5);
-		//$$ return world.getEntitiesByClass(ExperienceOrbEntity.class, box, EntityPredicates.VALID_ENTITY);
+		//$$ return world.getEntitiesByClass(ExperienceOrb.class, box, EntityPredicates.VALID_ENTITY);
 		//#else
 		return hopper.getSuckShape()
 				.toAabbs()

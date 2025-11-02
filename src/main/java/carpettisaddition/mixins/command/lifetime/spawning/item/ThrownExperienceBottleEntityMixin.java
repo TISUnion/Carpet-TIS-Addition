@@ -40,7 +40,7 @@ public abstract class ThrownExperienceBottleEntityMixin
 {
 	//#if MC >= 11700
 	//$$ @Inject(
-	//$$ 		method = "onCollision",
+	//$$ 		method = "onHit",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
 	//$$ 				//#if MC >= 12106

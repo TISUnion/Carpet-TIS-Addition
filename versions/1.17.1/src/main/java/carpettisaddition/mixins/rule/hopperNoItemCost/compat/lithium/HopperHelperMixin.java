@@ -46,7 +46,7 @@ public abstract class HopperHelperMixin
 			//#if MC >= 12101
 			//$$ method = "tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/SidedInventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z",
 			//#else
-			method = "tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/SidedInventory;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z",
+			method = "tryMoveSingleItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/WorldlyContainer;Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/core/Direction;)Z",
 			//#endif
 			at = @At(value = "HEAD"),
 			argsOnly = true,
@@ -66,7 +66,7 @@ public abstract class HopperHelperMixin
 			//#if MC >= 12101
 			//$$ method = "tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/SidedInventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z",
 			//#else
-			method = "tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/SidedInventory;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z",
+			method = "tryMoveSingleItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/WorldlyContainer;Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/core/Direction;)Z",
 			//#endif
 			at = @At(value = "RETURN"),
 			argsOnly = true,

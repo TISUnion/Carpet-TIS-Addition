@@ -66,7 +66,7 @@ public abstract class PistonBlockMixin
 					from = @At(
 							value = "INVOKE",
 							//#if MC >= 11700
-							//$$ target = "Lnet/minecraft/block/BlockState;hasBlockEntity()Z"
+							//$$ target = "Lnet/minecraft/world/level/block/state/BlockState;hasBlockEntity()Z"
 							//#else
 							target = "Lnet/minecraft/world/level/block/Block;isEntityBlock()Z"
 							//#endif

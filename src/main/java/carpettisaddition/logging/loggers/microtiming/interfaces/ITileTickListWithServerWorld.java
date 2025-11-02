@@ -25,7 +25,7 @@ import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Used in mc 1.18+, where the game's tiletick list class doesn't store related ServerWorld object
+ * Used in mc 1.18+, where the game's tiletick list class doesn't store related ServerLevel object
  */
 public interface ITileTickListWithServerWorld
 {

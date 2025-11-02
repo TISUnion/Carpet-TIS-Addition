@@ -57,7 +57,7 @@ public abstract class MooshroomEntityMixin extends Entity
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/passive/MooshroomEntity;discard()V",
+					//$$ target = "Lnet/minecraft/world/entity/animal/MushroomCow;discard()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/animal/MushroomCow;remove()V",
 					//#endif

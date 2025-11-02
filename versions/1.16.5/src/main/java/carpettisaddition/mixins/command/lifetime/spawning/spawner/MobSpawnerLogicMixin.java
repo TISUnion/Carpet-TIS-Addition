@@ -69,7 +69,7 @@ public abstract class MobSpawnerLogicMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/server/world/ServerWorld;syncWorldEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;levelEvent(ILnet/minecraft/core/BlockPos;I)V"
 					//#else
 					target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V"
 					//#endif

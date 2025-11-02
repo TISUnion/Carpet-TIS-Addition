@@ -32,11 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EntityMixin
 {
 	@Inject(
-			//#if MC >= 11700
-			//$$ method = "tickInVoid",
-			//#else
 			method = "outOfWorld",
-			//#endif
 			at = @At("HEAD")
 	)
 	private void lifetimeTracker_recordRemoval_void(CallbackInfo ci)

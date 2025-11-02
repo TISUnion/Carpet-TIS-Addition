@@ -164,7 +164,7 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 		//#else
 		BoundingBox bound =
 				//#if MC >= 11700
-				//$$ BlockBox.create
+				//$$ BoundingBox.fromCorners
 				//#else
 				new BoundingBox
 				//#endif

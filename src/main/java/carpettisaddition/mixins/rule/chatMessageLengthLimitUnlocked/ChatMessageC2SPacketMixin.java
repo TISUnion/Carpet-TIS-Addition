@@ -60,7 +60,7 @@ public abstract class ChatMessageC2SPacketMixin
 
 	@ModifyArg(
 			//#if MC >= 11700
-			//$$ method = "<init>(Lnet/minecraft/network/PacketByteBuf;)V",
+			//$$ method = "<init>(Lnet/minecraft/network/FriendlyByteBuf;)V",
 			//#else
 			method = "read",
 			//#endif

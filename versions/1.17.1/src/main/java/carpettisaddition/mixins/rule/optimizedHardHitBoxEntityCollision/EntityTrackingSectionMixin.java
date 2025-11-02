@@ -43,6 +43,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 //#if MC >= 11800
@@ -64,15 +65,12 @@ public abstract class EntityTrackingSectionMixin<
 		//#endif
 >
 {
-	// just like WorldChunk#entitySections in 1.16- but it's per chunk section and it uses genericity
-	@Shadow @Final private ClassInstanceMultiMap<T> collection;
-
 	private ClassInstanceMultiMap<T> hardHitBoxEntitySections;
 	private boolean optimizedHHBECEnabled;  // optimizedHardHitBoxEntityCollisionEnabled
 
 	/**
 	 * Enable only if {@param entityClass} is Entity.class
-	 * See the return type of ServerWorld#getEntityLookup() for the reason of using Entity.class as judgement
+	 * See the return type of ServerLevel#getEntityLookup() for the reason of using Entity.class as judgement
 	 */
 	@Inject(
 			method = "<init>",
@@ -108,24 +106,18 @@ public abstract class EntityTrackingSectionMixin<
 	/**
 	 * Invoke path:
 	 * - {@link EntityGetter#getEntityCollisions}
-	 * - {@link Level#getOtherEntities(Entity, AABB, Predicate)}
-	 * - {@link LevelEntityGetterAdapter#forEachIntersects(net.minecraft.util.math.AABB, java.util.function.Consumer)}
-	 * - {@link EntitySectionStorage#forEachIntersects(net.minecraft.util.math.AABB, java.util.function.Consumer)}
+	 * - {@link Level#getEntities(Entity, AABB, Predicate)}
+	 * - {@link LevelEntityGetterAdapter#get(net.minecraft.world.phys.AABB, java.util.function.Consumer)}
+	 * - {@link EntitySectionStorage#getEntities(net.minecraft.world.phys.AABB, java.util.function.Consumer)}
 	 * -
-	 *   (<=1.17)         {@link EntitySection#forEach(java.util.function.Predicate, java.util.function.Consumer)}
-	 *   (>=1.18 <1.19.3) {@link EntitySection#forEach(net.minecraft.util.math.AABB, java.util.function.Consumer)}
-	 *   (>=1.19.3)       {@link EntitySection#forEach(AABB, net.minecraft.util.function.LazyIterationConsumer)}
+	 *   (<=1.17)         {@link EntitySection#getEntities(java.util.function.Predicate, java.util.function.Consumer)}
+	 *   (>=1.18 <1.19.3) {@link EntitySection#getEntities(net.minecraft.world.phys.AABB, java.util.function.Consumer)}
+	 *   (>=1.19.3)       {@link EntitySection#getEntities(AABB, net.minecraft.util.function.LazyIterationConsumer)}
 	 *
 	 * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	 */
 	@ModifyExpressionValue(
-			//#if MC >= 11903
-			//$$ method = "getEntities",
-			//#elseif MC >= 11800
-			//$$ method = "getEntities",
-			//#else
-			method = "getEntities",
-			//#endif
+			method = "getEntities(Ljava/util/function/Predicate;Ljava/util/function/Consumer;)V",
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/world/level/entity/EntitySection;storage:Lnet/minecraft/util/ClassInstanceMultiMap;"

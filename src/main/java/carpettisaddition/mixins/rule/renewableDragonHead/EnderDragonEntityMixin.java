@@ -69,7 +69,7 @@ public abstract class EnderDragonEntityMixin extends Mob implements Enemy
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;remove(Lnet/minecraft/entity/Entity$RemovalReason;)V"
+					//$$ target = "Lnet/minecraft/world/entity/boss/enderdragon/EnderDragon;remove(Lnet/minecraft/world/entity/Entity$RemovalReason;)V"
 					//#else
 					target = "Lnet/minecraft/world/entity/boss/enderdragon/EnderDragon;remove()V"
 					//#endif

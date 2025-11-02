@@ -38,11 +38,11 @@ public abstract class SimpleNeighborUpdaterMixin
 			method = {
 					"replaceWithStateForNeighborUpdate",
 					//#if MC >= 12102
-					//$$ "updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
-					//$$ "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
+					//$$ "updateNeighbor(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+					//$$ "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
 					//#else
-					"updateNeighbor(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V",
-					"updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V",
+					"updateNeighbor(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/core/BlockPos;)V",
+					"updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/core/BlockPos;Z)V",
 					//#endif
 			},
 			at = @At("HEAD"),

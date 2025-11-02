@@ -50,7 +50,7 @@ public class OnlineMappingProvider
 	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
 	public static final String MINECRAFT_VERSION = Util.make(() -> {
 		//#if MC >= 1.17.1
-		//$$ SharedConstants.createGameVersion();
+		//$$ SharedConstants.tryDetectVersion();
 		//#endif
 		return SharedConstants.getCurrentVersion().getId();
 	});

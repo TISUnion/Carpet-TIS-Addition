@@ -89,7 +89,7 @@ public class FillSoftReplaceCommand extends AbstractCommand implements CommandEx
 			return FillCommandAccessor.invokeExecute(
 					context.getSource(),
 					//#if MC >= 11700
-					//$$ BlockBox.create
+					//$$ BoundingBox.fromCorners
 					//#else
 					new BoundingBox
 					//#endif

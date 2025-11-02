@@ -34,11 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class WanderingTraderManagerMixin
 {
 	@Inject(
-			//#if MC >= 11700
-			//$$ method = "trySpawn",
-			//#else
 			method = "spawn",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/entity/npc/WanderingTrader;setDespawnDelay(I)V"

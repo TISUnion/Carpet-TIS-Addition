@@ -73,11 +73,11 @@ public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockE
 	void hopperNoItemCost_hopperOutputHook(
 			CallbackInfoReturnable<Boolean> cir,
 			//#if MC >= 11700
-			//$$ @Local(argsOnly = true) World world, @Local(argsOnly = true) BlockPos pos,
+			//$$ @Local(argsOnly = true) Level world, @Local(argsOnly = true) BlockPos pos,
 			//$$ //#if MC >= 12005
 			//$$ //$$ @Local(argsOnly = true) HopperBlockEntity hopperInventory,
 			//$$ //#else
-			//$$ @Local(argsOnly = true) Inventory hopperInventory,
+			//$$ @Local(argsOnly = true) Container hopperInventory,
 			//$$ //#endif
 			//#endif
 			@Local(ordinal = 0) int index, @Local(ordinal = 0) ItemStack itemStack

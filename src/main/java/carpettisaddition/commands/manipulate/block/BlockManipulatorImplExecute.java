@@ -83,7 +83,7 @@ class BlockManipulatorImplExecute extends TranslationContext
 		BlockState blockState = world.getBlockState(blockPos);
 		FluidState fluidState = world.getFluidState(blockPos);
 
-		// ref: net.minecraft.server.world.ServerWorld#tickChunk
+		// ref: net.minecraft.server.level.ServerLevel#tickChunk
 		blockState.randomTick(world, blockPos, world.getRandom());
 		fluidState.randomTick(world, blockPos, world.getRandom());
 	}
@@ -93,12 +93,12 @@ class BlockManipulatorImplExecute extends TranslationContext
 		ServerLevel world = source.getLevel();
 		BlockState blockState = world.getBlockState(blockPos);
 
-		// ref: net.minecraft.server.world.ServerWorld#tickChunk
+		// ref: net.minecraft.server.level.ServerLevel#tickChunk
 		//#if MC >= 11700
 		//$$ //#if MC >= 11800
-		//$$ //$$ Biome biome = world.getBiome(blockPos.up()).value();
+		//$$ //$$ Biome biome = world.getBiome(blockPos.above()).value();
 		//$$ //#else
-		//$$ Biome biome = world.getBiome(blockPos.up());
+		//$$ Biome biome = world.getBiome(blockPos.above());
 		//$$ //#endif
 		//$$
 		//$$ Biome.Precipitation precipitation = biome.getPrecipitation(
@@ -113,14 +113,14 @@ class BlockManipulatorImplExecute extends TranslationContext
 		//$$ //#if MC >= 11900
 		//$$ //$$ if (precipitation != Biome.Precipitation.NONE)
 		//$$ //$$ {
-		//$$ //$$ 	blockState.getBlock().precipitationTick(blockState, world, blockPos, precipitation);
+		//$$ //$$ 	blockState.getBlock().handlePrecipitation(blockState, world, blockPos, precipitation);
 		//$$ //$$ }
 		//$$ //#else
-		//$$ if (precipitation == Biome.Precipitation.RAIN && biome.isCold(blockPos))
+		//$$ if (precipitation == Biome.Precipitation.RAIN && biome.isColdEnoughToSnow(blockPos))
 		//$$ {
 		//$$ 	precipitation = Biome.Precipitation.SNOW;
 		//$$ }
-		//$$ blockState.getBlock().precipitationTick(blockState, world, blockPos, precipitation);
+		//$$ blockState.getBlock().handlePrecipitation(blockState, world, blockPos, precipitation);
 		//$$ //#endif
 		//#else
 		blockState.getBlock().handleRain(world, blockPos);

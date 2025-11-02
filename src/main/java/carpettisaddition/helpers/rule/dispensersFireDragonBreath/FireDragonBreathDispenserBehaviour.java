@@ -56,7 +56,7 @@ public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehav
 		Level world = source.getLevel();
 		BlockPos blockpos = source.getPos().relative(sourceFace);
 
-		// Vanilla copy of DragonFireballEntity#onCollision
+		// Vanilla copy of DragonFireballEntity#onHit
 		AreaEffectCloud areaEffectCloudEntity = new AreaEffectCloud(world, blockpos.getX() + 0.5, blockpos.getY() + 0.5, blockpos.getZ() + 0.5);
 		areaEffectCloudEntity.setOwner(null);  // it doesn't have an entity owner
 		areaEffectCloudEntity.setParticle(
@@ -71,7 +71,7 @@ public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehav
 		areaEffectCloudEntity.setRadiusPerTick((7.0F - areaEffectCloudEntity.getRadius()) / (float)areaEffectCloudEntity.getDuration());
 		MobEffectInstance statusEffectInstance = new MobEffectInstance(MobEffects.HARM, 1, 1);
 		areaEffectCloudEntity.addEffect(statusEffectInstance);
-		// use event 2007 from ThrownPotionEntity.java#onCollision instead of event 2006 from DragonFireballEntity#onCollision
+		// use event 2007 from ThrownPotionEntity.java#onHit instead of event 2006 from DragonFireballEntity#onHit
 		world.levelEvent(
 				2007, blockpos,
 				//#if MC >= 12104

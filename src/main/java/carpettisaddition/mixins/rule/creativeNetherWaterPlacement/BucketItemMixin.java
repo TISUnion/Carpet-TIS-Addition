@@ -37,11 +37,15 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class BucketItemMixin
 {
 	@ModifyExpressionValue(
+			//#if MC >= 1.17.0
+			//$$ method = "emptyContents",
+			//#else
 			method = "emptyBucket",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12111
-					//$$ target = "Lnet/minecraft/world/attribute/WorldEnvironmentAttributeAccess;getAttributeValue(Lnet/minecraft/world/attribute/EnvironmentAttribute;Lnet/minecraft/util/math/BlockPos;)Ljava/lang/Object;",
+					//$$ target = "Lnet/minecraft/world/attribute/WorldEnvironmentAttributeAccess;getAttributeValue(Lnet/minecraft/world/attribute/EnvironmentAttribute;Lnet/minecraft/core/BlockPos;)Ljava/lang/Object;",
 					//$$ ordinal = 0
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/world/level/dimension/DimensionType;ultraWarm()Z"

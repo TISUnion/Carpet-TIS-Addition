@@ -41,7 +41,7 @@ public abstract class MobEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
+					//$$ target = "Lnet/minecraft/world/entity/Mob;discard()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/Mob;remove()V",
 					//#endif
@@ -67,7 +67,7 @@ public abstract class MobEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
+					//$$ target = "Lnet/minecraft/world/entity/Mob;discard()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/Mob;remove()V",
 					//#endif
@@ -95,7 +95,7 @@ public abstract class MobEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700
-					//$$ target = "Lnet/minecraft/entity/mob/MobEntity;discard()V",
+					//$$ target = "Lnet/minecraft/world/entity/Mob;discard()V",
 					//#else
 					target = "Lnet/minecraft/world/entity/Mob;remove()V",
 					//#endif
