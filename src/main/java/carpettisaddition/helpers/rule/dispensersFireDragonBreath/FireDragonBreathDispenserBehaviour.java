@@ -75,7 +75,7 @@ public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehav
 		world.levelEvent(
 				2007, blockpos,
 				//#if MC >= 12104
-				//$$ PotionContents.mixColors(Collections.singleton(statusEffectInstance)).orElse(0xFF385DC6)  // see also PotionContents.getColor
+				//$$ PotionContents.getColorOptional(Collections.singleton(statusEffectInstance)).orElse(0xFF385DC6)  // see also PotionContents.getColor
 				//#elseif MC >= 12005
 				//$$ PotionContents.getColor(Potions.HARMING)
 				//#else
