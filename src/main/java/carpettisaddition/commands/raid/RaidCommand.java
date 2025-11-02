@@ -101,7 +101,7 @@ public class RaidCommand extends AbstractCommand
 				int currentWave = raidAccessor.getWavesSpawned();
 				String status = raidAccessor.getStatus()
 						//#if MC >= 12105
-						//$$ .asString();
+						//$$ .getSerializedName();
 						//#else
 						.getName();
 						//#endif

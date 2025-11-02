@@ -31,7 +31,7 @@ public abstract class ExperienceOrbEntityMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 12105
-			//$$ method = "moveTowardsPlayer",
+			//$$ method = "followNearbyPlayer",
 			//#elseif MC >= 11700
 			//$$ method = {"tick", "scanForEntities"}, require = 1,
 			//#else
@@ -49,7 +49,7 @@ public abstract class ExperienceOrbEntityMixin
 
 	@ModifyExpressionValue(
 			//#if MC >= 12105
-			//$$ method = "moveTowardsPlayer",
+			//$$ method = "followNearbyPlayer",
 			//#elseif MC >= 11700
 			//$$ method = {"tick", "scanForEntities"}, require = 1,
 			//#else
@@ -67,7 +67,7 @@ public abstract class ExperienceOrbEntityMixin
 
 	@ModifyExpressionValue(
 			//#if MC >= 12105
-			//$$ method = "moveTowardsPlayer",
+			//$$ method = "followNearbyPlayer",
 			//#else
 			method = "tick",
 			//#endif

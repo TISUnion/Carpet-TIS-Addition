@@ -20,22 +20,29 @@
 
 package carpettisaddition.mixins.logger.ticket;
 
-import carpettisaddition.logging.loggers.ticket.TicketManagerWithServerWorld;
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
+import carpettisaddition.logging.loggers.ticket.TicketManagerWithServerWorld;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.server.level.Ticket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.Ticket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-// don't remap ChunkTicketManager to ChunkLevelManager in mc1.21.5+
-//#disable-remap
+//#if MC >= 1.21.5
+//$$ import net.minecraft.world.level.TicketStorage;
+//#else
 import net.minecraft.server.level.DistanceManager;
+//#endif
 
-@Mixin(DistanceManager.class)
-//#enable-remap
+@Mixin(
+		//#if MC >= 1.21.5
+		//$$ TicketStorage.class
+		//#else
+		DistanceManager.class
+		//#endif
+)
 public abstract class ChunkTicketManagerMixin implements TicketManagerWithServerWorld
 {
 	@Unique
@@ -50,7 +57,7 @@ public abstract class ChunkTicketManagerMixin implements TicketManagerWithServer
 	@SuppressWarnings("rawtypes")  // ChunkTicket is no longer a generic in mc1.21.5+
 	@ModifyVariable(
 			//#if MC >= 12105
-			//$$ method = "addTicket(JLnet/minecraft/server/world/ChunkTicket;)Z",
+			//$$ method = "addTicket(JLnet/minecraft/server/level/Ticket;)Z",
 			//#else
 			method = "addTicket(JLnet/minecraft/server/level/Ticket;)V",
 			//#endif
@@ -69,7 +76,7 @@ public abstract class ChunkTicketManagerMixin implements TicketManagerWithServer
 	@SuppressWarnings("rawtypes")  // ChunkTicket is no longer a generic in mc1.21.5+
 	@ModifyVariable(
 			//#if MC >= 12105
-			//$$ method = "removeTicket(JLnet/minecraft/server/world/ChunkTicket;)Z",
+			//$$ method = "removeTicket(JLnet/minecraft/server/level/Ticket;)Z",
 			//#else
 			method = "removeTicket(JLnet/minecraft/server/level/Ticket;)V",
 			//#endif

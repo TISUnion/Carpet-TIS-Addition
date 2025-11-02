@@ -78,7 +78,11 @@ public abstract class BarrelBlockMixin extends BaseEntityBlock
 	}
 
 	@ModifyVariable(
+			//#if MC >= 12105
+			//$$ method = "affectNeighborsAfterRemoval",
+			//#else
 			method = "onRemove",
+			//#endif
 			at = @At("TAIL"),
 			argsOnly = true
 	)

@@ -25,27 +25,22 @@ import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.SharedMonsterAttributes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.decoration.Painting;
-import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.monster.SharedMonsterAttributes;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.monster.ZombieVillager;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.AgableMob;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
 import java.util.Collection;
@@ -181,9 +176,9 @@ public class EntityInfoPorting
 			//#if MC >= 12105
 			//$$ for (EquipmentSlot equipmentSlot : EquipmentSlot.values())
 			//$$ {
-			//$$ 	if (equipmentSlot.isArmorSlot())
+			//$$ 	if (equipmentSlot.isArmor())
 			//$$ 	{
-			//$$ 		ItemStack armourpiece = elb.getEquippedStack(equipmentSlot);
+			//$$ 		ItemStack armourpiece = elb.getItemBySlot(equipmentSlot);
 			//$$ 		if (!(armourpiece.isEmpty()))
 			//$$ 		{
 			//$$ 			armour += String.format("\n   * %s", EntityInfoUtil.display_item(elb, armourpiece));

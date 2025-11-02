@@ -81,8 +81,8 @@ public class SpeedTestCompressionSkipper
 			//$$ //#if MC >= 12105
 			//$$ //$$ var codec = switch (side)
 			//$$ //$$ {
-			//$$ //$$ 	case SERVERBOUND -> GameProtocols.C2S.bind(buf -> new RegistryFriendlyByteBuf(buf, null), () -> true).codec();
-			//$$ //$$ 	case CLIENTBOUND -> GameProtocols.S2C.bind(buf -> new RegistryFriendlyByteBuf(buf, null)).codec();
+			//$$ //$$ 	case SERVERBOUND -> GameProtocols.SERVERBOUND_TEMPLATE.bind(buf -> new RegistryFriendlyByteBuf(buf, null), () -> true).codec();
+			//$$ //$$ 	case CLIENTBOUND -> GameProtocols.CLIENTBOUND_TEMPLATE.bind(buf -> new RegistryFriendlyByteBuf(buf, null)).codec();
 			//$$ //$$ };
 			//$$ //#else
 			//$$ var factory = side == PacketFlow.SERVERBOUND ? GameProtocols.SERVERBOUND : GameProtocols.CLIENTBOUND;

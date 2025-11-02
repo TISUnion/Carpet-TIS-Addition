@@ -80,7 +80,7 @@ public class TicketLogger extends AbstractLogger
 		suggestions.add(createCompoundOption(
 				TicketType.PORTAL.toString(),
 				//#if MC >= 12105
-				//$$ ChunkTicketType.PLAYER_SIMULATION.toString()
+				//$$ TicketType.PLAYER_SIMULATION.toString()
 				//#else
 				TicketType.PLAYER.toString()
 				//#endif

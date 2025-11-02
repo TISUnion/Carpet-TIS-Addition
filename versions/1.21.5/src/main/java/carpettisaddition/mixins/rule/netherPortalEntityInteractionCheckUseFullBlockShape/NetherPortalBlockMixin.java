@@ -34,13 +34,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(NetherPortalBlock.class)
 public abstract class NetherPortalBlockMixin extends Block
 {
-	public NetherPortalBlockMixin(Settings settings)
+	public NetherPortalBlockMixin(Properties properties)
 	{
-		super(settings);
+		super(properties);
 	}
 
 	@Inject(
-			method = "getInsideCollisionShape",
+			method = "getEntityInsideCollisionShape",
 			at = @At("HEAD"),
 			cancellable = true
 	)
@@ -48,7 +48,7 @@ public abstract class NetherPortalBlockMixin extends Block
 	{
 		if (CarpetTISAdditionSettings.netherPortalEntityInteractionCheckUseFullBlockShape)
 		{
-			cir.setReturnValue(Shapes.fullCube());
+			cir.setReturnValue(Shapes.block());
 		}
 	}
 }

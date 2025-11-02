@@ -125,7 +125,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 
 	//#if MC >= 12105
 	//$$ @ModifyExpressionValue(
-	//$$ 		method = "hurt",
+	//$$ 		method = "hurtServer",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
 	//$$ 				target = "Lnet/minecraft/world/entity/LivingEntity;applyItemBlocking(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)F"

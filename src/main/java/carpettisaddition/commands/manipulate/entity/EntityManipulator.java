@@ -43,7 +43,6 @@ import static com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg;
 import static com.mojang.brigadier.arguments.DoubleArgumentType.getDouble;
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
-import static net.minecraft.commands.arguments.ComponentArgument.getComponent;
 import static net.minecraft.commands.arguments.ComponentArgument.textComponent;
 import static net.minecraft.commands.arguments.EntityArgument.entities;
 import static net.minecraft.commands.arguments.EntityArgument.entity;
@@ -51,6 +50,12 @@ import static net.minecraft.commands.arguments.EntityArgument.getEntities;
 import static net.minecraft.commands.arguments.EntityArgument.getEntity;
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
+
+//#if MC >= 1.21.5
+//$$ import static net.minecraft.commands.arguments.ComponentArgument.getResolvedComponent;
+//#else
+import static net.minecraft.commands.arguments.ComponentArgument.getComponent;
+//#endif
 
 public class EntityManipulator extends AbstractManipulator
 {
@@ -73,7 +78,15 @@ public class EntityManipulator extends AbstractManipulator
 												//$$ context.commandBuildContext
 												//#endif
 										)).
-										executes(c -> rename(c.getSource(), getEntities(c, "target"), getComponent(c, "name")))
+										executes(c -> rename(
+												c.getSource(),
+												getEntities(c, "target"),
+												//#if MC >= 1.21.5
+												//$$ getResolvedComponent(c, "name")
+												//#else
+												getComponent(c, "name")
+												//#endif
+										))
 								)
 						).
 						then(literal("persistent").

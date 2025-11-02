@@ -32,7 +32,7 @@ public abstract class ServerWorldMixin
 {
 	@Inject(
 			//#if MC >= 12105
-			//$$ method = "onBlockStateChanged",
+			//$$ method = "updatePOIOnBlockStateChange",
 			//#else
 			method = "onBlockStateChange",
 			//#endif

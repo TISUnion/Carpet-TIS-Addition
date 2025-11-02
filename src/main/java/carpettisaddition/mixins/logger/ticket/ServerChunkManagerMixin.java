@@ -30,15 +30,20 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-// don't remap ChunkTicketManager to ChunkLevelManager in mc1.21.5+
+//#if MC >= 1.21.5
+//$$ import net.minecraft.world.level.TicketStorage;
+//#else
 import net.minecraft.server.level.DistanceManager;
+//#endif
 
 @Mixin(ServerChunkCache.class)
 public abstract class ServerChunkManagerMixin
 {
-	//#disable-remap
+	//#if MC >= 1.21.5
+	//$$ @Shadow @Final private TicketStorage ticketStorage;
+	//#else
 	@Shadow @Final private DistanceManager distanceManager;
-	//#enable-remap
+	//#endif
 
 	@Shadow @Final
 	//#if MC < 11700 || MC >= 12103
@@ -49,8 +54,10 @@ public abstract class ServerChunkManagerMixin
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void ticketLogger_attachServerWorldToTicketManager(CallbackInfo ci)
 	{
-		//#disable-remap
+		//#if MC >= 1.21.5
+		//$$ ((TicketManagerWithServerWorld)this.ticketStorage).setServerWorld$TISCM(this.level);
+		//#else
 		((TicketManagerWithServerWorld)this.distanceManager).setServerWorld$TISCM(this.level);
-		//#enable-remap
+		//#endif
 	}
 }

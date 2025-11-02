@@ -213,9 +213,9 @@ public class TISAdditionTranslations
 		{
 			BaseComponent oldHoverText = Util.make(() -> {
 				//#if MC >= 12105
-				//$$ if (hoverEvent instanceof HoverEvent.ShowText(Text hoverEventText) && hoverEventText instanceof MutableText)
+				//$$ if (hoverEvent instanceof HoverEvent.ShowText(Component hoverEventText) && hoverEventText instanceof MutableComponent)
 				//$$ {
-				//$$ 	return (MutableText)hoverEventText;
+				//$$ 	return (MutableComponent)hoverEventText;
 				//$$ }
 				//#elseif MC >= 11600
 				//$$ Object hoverEventValue = hoverEvent.getValue(hoverEvent.getAction());

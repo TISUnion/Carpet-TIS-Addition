@@ -187,8 +187,8 @@ public abstract class RaidMixin implements IRaid
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							//#if MC >= 11600
-							//$$ target = "Lnet/minecraft/world/entity/raid/Raid;playSound(Lnet/minecraft/core/BlockPos;)V"
+							//#if MC >= 12105
+							//$$ target = "Lnet/minecraft/world/entity/raid/Raid;playSound(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)V"
 							//#else
 							target = "Lnet/minecraft/world/entity/raid/Raid;playSound(Lnet/minecraft/core/BlockPos;)V"
 							//#endif

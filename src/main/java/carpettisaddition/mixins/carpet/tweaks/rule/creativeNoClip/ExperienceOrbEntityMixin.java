@@ -44,7 +44,7 @@ public abstract class ExperienceOrbEntityMixin
 
 	@Inject(
 			//#if MC >= 12105
-			//$$ method = "moveTowardsPlayer",
+			//$$ method = "followNearbyPlayer",
 			//#elseif MC >= 11700
 			//$$ method = "scanForEntities",
 			//#else
@@ -65,7 +65,7 @@ public abstract class ExperienceOrbEntityMixin
 
 	@Inject(
 			//#if MC >= 12105
-			//$$ method = "moveTowardsPlayer",
+			//$$ method = "followNearbyPlayer",
 			//#elseif MC >= 11700
 			//$$ method = "scanForEntities",
 			//#else
@@ -87,7 +87,7 @@ public abstract class ExperienceOrbEntityMixin
 
 	@ModifyExpressionValue(
 			//#if MC >= 12105
-			//$$ method = "moveTowardsPlayer",
+			//$$ method = "followNearbyPlayer",
 			//#else
 			method = "tick",
 			//#endif

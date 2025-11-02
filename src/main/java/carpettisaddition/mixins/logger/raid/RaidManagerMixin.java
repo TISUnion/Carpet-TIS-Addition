@@ -72,7 +72,7 @@ public abstract class RaidManagerMixin
 	//$$  * to make sure `getRaidId$TISCM()` and `getRaidWorld$TISCM()` can be used
 	//$$  */
 	//$$ @Inject(
-	//$$ 		method = "startRaid",
+	//$$ 		method = "createOrExtendRaid",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
 	//$$ 				target = "Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;put(ILjava/lang/Object;)Ljava/lang/Object;",
