@@ -75,7 +75,7 @@ public class ChunkRefresher
 		}
 
 		//#if MC >= 12002
-		//$$ ChunkDataSenderAccessor.invokeSendChunkPacket(player.networkHandler, world, chunk);
+		//$$ ChunkDataSenderAccessor.invokeSendChunkPacket(player.connection, world, chunk);
 		//#else
 		((ThreadedAnvilChunkStorageAccessor)world.getChunkSource().chunkMap).invokeSendWatchPackets(
 				player, this.chunk.getPos(),

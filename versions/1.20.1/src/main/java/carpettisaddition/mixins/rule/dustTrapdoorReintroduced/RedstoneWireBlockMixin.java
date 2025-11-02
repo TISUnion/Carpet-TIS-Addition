@@ -53,7 +53,7 @@ public abstract class RedstoneWireBlockMixin
 	//#if MC >= 12002
 	//$$ // This changed is introduced in 23w35a (1.20.2 snapshot), let's revert it
 	//$$ @ModifyExpressionValue(
-	//$$ 		method = "getStateForNeighborUpdate",
+	//$$ 		method = "updateShape",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
 	//$$ 				target = "Lnet/minecraft/world/level/block/RedStoneWireBlock;canSurviveOn(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"

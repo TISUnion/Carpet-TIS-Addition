@@ -31,10 +31,10 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class RepeaterBlockMixin
 {
 	@ModifyExpressionValue(
-			method = "getStateForNeighborUpdate",
+			method = "updateShape",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/block/RepeaterBlock;canPlaceAbove(Lnet/minecraft/world/WorldView;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/BlockState;)Z"
+					target = "Lnet/minecraft/world/level/block/RepeaterBlock;canSurviveOn(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"
 			),
 			allow = 1
 	)

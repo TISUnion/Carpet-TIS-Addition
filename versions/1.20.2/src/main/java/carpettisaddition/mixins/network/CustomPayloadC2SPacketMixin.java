@@ -43,7 +43,7 @@ public abstract class CustomPayloadC2SPacketMixin
 			),
 			remap = true
 	)
-	private static ImmutableMap.Builder<ResourceLocation, FriendlyByteBuf.PacketReader<? extends CustomPacketPayload>> registerTISCMC2SPackets(ImmutableMap.Builder<ResourceLocation, FriendlyByteBuf.PacketReader<? extends CustomPacketPayload>> builder)
+	private static ImmutableMap.Builder<ResourceLocation, FriendlyByteBuf.Reader<? extends CustomPacketPayload>> registerTISCMC2SPackets(ImmutableMap.Builder<ResourceLocation, FriendlyByteBuf.Reader<? extends CustomPacketPayload>> builder)
 	{
 		builder.put(TISCMCustomPayload.ID, TISCMCustomPayload::new);
 		return builder;

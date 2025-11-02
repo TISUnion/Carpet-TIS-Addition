@@ -37,7 +37,7 @@ public abstract class SpawnReporterMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12002
-					//$$ target = "Lcarpet/utils/SpawnReporter;cachedMobCategories()[Lnet/minecraft/entity/SpawnGroup;"
+					//$$ target = "Lcarpet/utils/SpawnReporter;cachedMobCategories()[Lnet/minecraft/world/entity/MobCategory;"
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/world/entity/MobCategory;values()[Lnet/minecraft/world/entity/MobCategory;"
 					//#else

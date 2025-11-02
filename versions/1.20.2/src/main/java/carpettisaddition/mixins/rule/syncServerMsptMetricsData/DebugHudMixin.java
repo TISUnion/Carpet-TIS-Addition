@@ -33,7 +33,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 12005
 //$$ import net.minecraft.util.debugchart.LocalSampleLogger;
@@ -46,8 +45,8 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(DebugScreenOverlay.class)
 public abstract class DebugHudMixin
 {
-	@Shadow @Final private Font textRenderer;
-	@Shadow @Final private Minecraft client;
+	@Shadow @Final private Font font;
+	@Shadow @Final private Minecraft minecraft;
 
 	//#if MC >= 12003
 	//$$ @Shadow @Final private TpsDebugChart tickChart;
@@ -82,7 +81,7 @@ public abstract class DebugHudMixin
 				//#if MC >= 12005
 				//$$ this.tickNanosLog.getLength() > 0;
 				//#else
-				this.client.getServer() != null;
+				this.minecraft.getSingleplayerServer() != null;
 				//#endif
 		if (!shouldVanillaChartDraw)
 		{
@@ -97,7 +96,7 @@ public abstract class DebugHudMixin
 				//#endif
 
 				var chart = new TpsDebugChart(
-						this.textRenderer, data
+						this.font, data
 						//#if MC >= 12003
 						//$$ , ((TickChartAccessor)this.tickChart).getMillisPerTickSupplier()
 						//#endif
@@ -105,7 +104,7 @@ public abstract class DebugHudMixin
 
 				// vanilla copy
 				int width = chart.getWidth(centerX);
-				chart.render(drawContext, windowWidth - width, width);
+				chart.drawChart(drawContext, windowWidth - width, width);
 			}
 		}
 	}

@@ -43,11 +43,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 	private String clientLanguage$TISCM = "en_US";
 
 	@Inject(
-			//#if MC >= 12002
-			//$$ method = "setClientOptions",
-			//#else
 			method = "updateOptions",
-			//#endif
 			at = @At("HEAD")
 	)
 	private void recordClientLanguage(

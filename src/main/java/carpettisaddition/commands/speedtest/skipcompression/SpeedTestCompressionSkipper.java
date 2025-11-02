@@ -103,7 +103,7 @@ public class SpeedTestCompressionSkipper
 			//$$ 	throw new RuntimeException("codec is not a PacketCodecDispatcherAccessor");
 			//$$ }
 			//#elseif MC >= 12002
-			//$$ return NetworkState.PLAY.getHandler(side).getId(packet);
+			//$$ return ConnectionProtocol.PLAY.codec(side).packetId(packet);
 			//#else
 			return Objects.requireNonNull(ConnectionProtocol.PLAY.getPacketId(side, packet));
 			//#endif

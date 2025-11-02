@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class RedstoneWireBlockMixin
 {
 	@ModifyExpressionValue(
-			method = "getStateForNeighborUpdate",
+			method = "updateShape",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/RedStoneWireBlock;canSurviveOn(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"

@@ -49,7 +49,7 @@ public abstract class ClientPlayNetworkHandlerMixin
 {
 	@Inject(
 			//#if MC >= 12002
-			//$$ method = "onCustomPayload(Lnet/minecraft/network/packet/s2c/common/CustomPayloadS2CPacket;)V",
+			//$$ method = "handleCustomPayload(Lnet/minecraft/network/protocol/common/ClientboundCustomPayloadPacket;)V",
 			//#else
 			method = "handleCustomPayload",
 			//#endif
@@ -59,7 +59,7 @@ public abstract class ClientPlayNetworkHandlerMixin
 	private void onCustomPayload$TISCM(ClientboundCustomPayloadPacket packet, CallbackInfo ci)
 	{
 		//#if MC >= 12002
-		//$$ if (packet.payload() instanceof TISCMCustomPayload tiscmCustomPayload && (Object)this instanceof ClientPlayNetworkHandler self)
+		//$$ if (packet.payload() instanceof TISCMCustomPayload tiscmCustomPayload && (Object)this instanceof ClientPacketListener self)
 		//$$ {
 		//$$ 	TISCMClientPacketHandler.getInstance().dispatch(self, tiscmCustomPayload);
 		//$$ 	ci.cancel();

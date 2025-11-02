@@ -40,7 +40,7 @@ public abstract class ServerPlayerEntityMixin
 {
 	@Shadow public abstract void
 			//#if MC >= 12002
-			//$$ setClientOptions(ClientInformation settings);
+			//$$ updateOptions(ClientInformation settings);
 			//#else
 			updateOptions(ServerboundClientInformationPacket settings);
 			//#endif
@@ -53,11 +53,7 @@ public abstract class ServerPlayerEntityMixin
 	//#endif
 
 	@Inject(
-			//#if MC >= 12002
-			//$$ method = "setClientOptions",
-			//#else
 			method = "updateOptions",
-			//#endif
 			at = @At("TAIL")
 	)
 	private void storeClientSettingsC2SPacket(
@@ -87,11 +83,7 @@ public abstract class ServerPlayerEntityMixin
 					settings = ((ServerPlayerEntityMixin)(Object)oldPlayer).lastClientSettings$TISCM;
 			if (settings != null)
 			{
-				//#if MC >= 12002
-				//$$ this.setClientOptions(settings);
-				//#else
 				this.updateOptions(settings);
-				//#endif
 			}
 		}
 	}

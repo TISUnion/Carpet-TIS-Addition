@@ -53,7 +53,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 		}
 
 		//#if MC >= 12002
-		//$$ if (packet.payload() instanceof TISCMCustomPayload tiscmCustomPayload && (Object)this instanceof ServerPlayNetworkHandler self)
+		//$$ if (packet.payload() instanceof TISCMCustomPayload tiscmCustomPayload && (Object)this instanceof ServerGamePacketListenerImpl self)
 		//$$ {
 		//$$ 	TISCMServerPacketHandler.getInstance().dispatch(self, tiscmCustomPayload);
 		//$$ 	ci.cancel();

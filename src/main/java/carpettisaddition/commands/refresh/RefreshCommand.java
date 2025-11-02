@@ -204,11 +204,7 @@ public class RefreshCommand extends AbstractCommand
 		}
 		BaseComponent message = TISAdditionTranslations.translate(tr("chunk.done", counter.intValue()), player);
 
-		//#if MC >= 12002
-		//$$ player.networkHandler.send(
-		//#else
 		player.connection.send(
-		//#endif
 				//#if MC >= 11901
 				//$$ new ClientboundSystemChatPacket(message, false),
 				//#elseif MC >= 11600

@@ -1,8 +1,9 @@
-net.minecraft.util.MetricsData net.minecraft.util.profiler.PerformanceLog
-net.minecraft.util.MetricsData pushSample() net.minecraft.util.profiler.PerformanceLog push()
+net.minecraft.util.FrameTimer net.minecraft.util.SampleLogger
+net.minecraft.util.FrameTimer logFrameDuration() net.minecraft.util.SampleLogger logSample()
 
-net.minecraft.util.math.BlockPointer getBlockState() state()
-net.minecraft.util.math.BlockPointer getWorld() world()
-net.minecraft.util.math.BlockPointer getPos() pos()
+net.minecraft.core.BlockSource net.minecraft.core.dispenser.BlockSource
+net.minecraft.core.BlockSource getBlockState() net.minecraft.core.dispenser.BlockSource state()
+net.minecraft.core.BlockSource getLevel() net.minecraft.core.dispenser.BlockSource level()
+net.minecraft.core.BlockSource getPos() net.minecraft.core.dispenser.BlockSource pos()
 
-carpettisaddition.utils.compat.CustomPayload net.minecraft.network.packet.CustomPayload
+carpettisaddition.utils.compat.CustomPacketPayload net.minecraft.network.protocol.common.custom.CustomPacketPayload

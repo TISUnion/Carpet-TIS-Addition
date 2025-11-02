@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class ShulkerBoxBlockMixin
 {
 	@WrapOperation(
-			method = "getComparatorOutput",
+			method = "getAnalogOutputSignal",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/inventory/AbstractContainerMenu;getRedstoneSignalFromBlockEntity(Lnet/minecraft/world/level/block/entity/BlockEntity;)I"
@@ -44,7 +44,7 @@ public abstract class ShulkerBoxBlockMixin
 	{
 		if (CarpetTISAdditionSettings.shulkerBoxCCEReintroduced)
 		{
-			return AbstractContainerMenu.calculateComparatorOutput((Container)blockEntity);
+			return AbstractContainerMenu.getRedstoneSignalFromContainer((Container)blockEntity);
 		}
 		return original.call(blockEntity);
 	}
