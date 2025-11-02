@@ -31,7 +31,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.util.thread.ProcessorMailbox;
 import net.minecraft.util.thread.StrictQueue;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 
@@ -39,6 +38,8 @@ import java.util.List;
 
 //#if MC >= 12102
 //$$ import net.minecraft.util.profiling.Profiler;
+//#else
+import net.minecraft.util.thread.ProcessorMailbox;
 //#endif
 
 public class LightThreadSynchronizer
@@ -73,10 +74,16 @@ public class LightThreadSynchronizer
 
 		if (lightingProvider != null)
 		{
-			ProcessorMailbox<?> processor = ((ServerLightingProviderAccessor) lightingProvider).getProcessor();
+			//#if MC >= 12102
+			//$$ var
+			//#else
+			ProcessorMailbox<?>
+			//#endif
+					processor = ((ServerLightingProviderAccessor) lightingProvider).getProcessor();
+
 			// the task queue of the executor of the light thread
 			//#if MC >= 12102
-			//$$ TaskQueue<?> queue
+			//$$ StrictQueue<?> queue
 			//#else
 			StrictQueue<?, ?> queue
 			//#endif

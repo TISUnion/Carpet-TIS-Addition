@@ -33,6 +33,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.MicroTimingTarget;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.chat.BaseComponent;
@@ -87,7 +88,7 @@ public class MicroTimingStandardCarpetLogger extends
 			{
 				if (CarpetTISAdditionSettings.microTimingTarget != MicroTimingTarget.MARKER_ONLY)
 				{
-					MicroTimingTarget.deprecatedWarning(player.createCommandSourceStack());
+					MicroTimingTarget.deprecatedWarning(CommandUtils.getPlayerCommandSource(player));
 				}
 			}
 			else

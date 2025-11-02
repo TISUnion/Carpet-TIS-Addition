@@ -37,8 +37,8 @@ public interface RandomMixin
 {
 	@Shadow double nextDouble();
 
-	@Inject(method = "triangle", at = @At("HEAD"), cancellable = true)
-	default void nextTriangular(double mode, double deviation, CallbackInfoReturnable<Double> cir)
+	@Inject(method = "triangle(DD)D", at = @At("HEAD"), cancellable = true)
+	default void nextTriangular_double(double mode, double deviation, CallbackInfoReturnable<Double> cir)
 	{
 		if (CarpetTISAdditionSettings.flattenTriangularDistribution)
 		{
@@ -46,4 +46,18 @@ public interface RandomMixin
 			cir.setReturnValue(mode + deviation * (-1 + this.nextDouble() * 2));
 		}
 	}
+
+	//#if MC >= 1.21.2
+	//$$ @Shadow float nextFloat();
+	//$$
+	//$$ @Inject(method = "triangle(FF)F", at = @At("HEAD"), cancellable = true)
+	//$$ default void nextTriangular_float(float mode, float deviation, CallbackInfoReturnable<Float> cir)
+	//$$ {
+	//$$ 	if (CarpetTISAdditionSettings.flattenTriangularDistribution)
+	//$$ 	{
+	//$$ 		this.nextFloat();
+	//$$ 		cir.setReturnValue(mode + deviation * (-1 + this.nextFloat() * 2));
+	//$$ 	}
+	//$$ }
+	//#endif
 }

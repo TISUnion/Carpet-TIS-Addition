@@ -57,7 +57,7 @@ public abstract class CommandBlockMixin
 
 	@Inject(
 			//#if MC >= 12102
-			//$$ method = "update",
+			//$$ method = "setPoweredAndUpdate",
 			//#else
 			method = "neighborChanged",
 			//#endif

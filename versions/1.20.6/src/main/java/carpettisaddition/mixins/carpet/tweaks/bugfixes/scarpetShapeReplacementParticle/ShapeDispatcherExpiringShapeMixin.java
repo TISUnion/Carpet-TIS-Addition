@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //#if MC >= 12102
-//$$ import net.minecraft.util.math.ColorHelper;
+//$$ import net.minecraft.util.ARGB;
 //#else
 import org.joml.Vector3f;
 //#endif
@@ -69,7 +69,7 @@ public abstract class ShapeDispatcherExpiringShapeMixin
 		boolean bg = fa == 0;
 		cir.setReturnValue(new DustParticleOptions(
 				//#if MC >= 12102
-				//$$ ColorHelper.fromFloats(1.0f, bg ? r : fr, bg ? r : fr, bg ? r : fr),
+				//$$ ARGB.colorFromFloat(1.0f, bg ? r : fr, bg ? r : fr, bg ? r : fr),
 				//#else
 				new Vector3f(bg ? r : fr, bg ? r : fr, bg ? r : fr),
 				//#endif

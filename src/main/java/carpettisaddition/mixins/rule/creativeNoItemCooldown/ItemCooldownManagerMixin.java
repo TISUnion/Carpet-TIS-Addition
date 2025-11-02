@@ -43,8 +43,15 @@ public abstract class ItemCooldownManagerMixin implements ItemCooldownManagerWit
 		this.player$TISCM = player$TISCM;
 	}
 
-	// TODO: yarn uses `method = "set*"`, check if that matches multiple functions in mc > 1.15
-	@Inject(method = "addCooldown", at = @At("HEAD"), cancellable = true)
+	@Inject(
+			//#if MC >= 1.21.2
+			//$$ method = "addCooldown(Lnet/minecraft/resources/ResourceLocation;I)V",
+			//#else
+			method = "addCooldown",
+			//#endif
+			at = @At("HEAD"),
+			cancellable = true
+	)
 	private void creativeNoItemCooldown_preventSettingCooldown(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.creativeNoItemCooldown)

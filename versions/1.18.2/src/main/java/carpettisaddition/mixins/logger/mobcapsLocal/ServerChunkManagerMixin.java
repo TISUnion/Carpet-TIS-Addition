@@ -48,7 +48,7 @@ public abstract class ServerChunkManagerMixin
 			//#if MC >= 12105
 			//$$ method = "tickChunks",
 			//#elseif MC >= 12102
-			//$$ method = "tickChunks",
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiling/ProfilerFiller;JLjava/util/List;)V",
 			//#else
 			method = "tickChunks",
 			//#endif

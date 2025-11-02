@@ -45,7 +45,7 @@ public class ItemLogger extends EntityLogger<ItemEntity>
 		BaseComponent text = super.getNameText(item);
 		text.append("(").append(
 				//#if MC >= 12102
-				//$$ item.getStack().getItemName()
+				//$$ item.getItem().getItemName()
 				//#else
 				Messenger.tr(item.getItem().getDescriptionId())
 				//#endif

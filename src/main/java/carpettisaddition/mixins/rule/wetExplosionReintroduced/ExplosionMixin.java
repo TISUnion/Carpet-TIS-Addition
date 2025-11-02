@@ -43,7 +43,7 @@ public abstract class ExplosionMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 12102
-			//$$ method = "damageEntities",
+			//$$ method = "hurtEntities",
 			//#else
 			method = "explode",
 			//#endif

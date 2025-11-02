@@ -45,9 +45,11 @@ public abstract class PlayerEntityMixin extends LivingEntity
 
 	// at the start of player damage calculation
 	@Inject(
-			//#disable-remap
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
-			//#enable-remap
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/entity/player/Player;removeEntitiesOnShoulder()V"
@@ -59,9 +61,11 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	}
 
 	@Inject(
-			//#disable-remap
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
-			//#enable-remap
+			//#endif
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
@@ -80,9 +84,11 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	}
 
 	@Inject(
-			//#disable-remap
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
-			//#enable-remap
+			//#endif
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",

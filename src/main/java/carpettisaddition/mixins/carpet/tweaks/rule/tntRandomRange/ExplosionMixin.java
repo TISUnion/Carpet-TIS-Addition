@@ -53,7 +53,7 @@ public class ExplosionMixin
 {
 	@Shadow @Final
 	//#if MC >= 12102
-	//$$ private ServerLevel world;
+	//$$ private ServerLevel level;
 	//#else
 	private Level level;
 	//#endif
@@ -68,7 +68,7 @@ public class ExplosionMixin
 
 	@Inject(
 			//#if MC >= 12102
-			//$$ method = "getBlocksToDestroy",
+			//$$ method = "calculateExplodedPositions",
 			//#else
 			method = "explode",
 			//#endif
@@ -95,7 +95,7 @@ public class ExplosionMixin
 
 	@Inject(
 			//#if MC >= 12102
-			//$$ method = "getBlocksToDestroy",
+			//$$ method = "calculateExplodedPositions",
 			//#else
 			method = "explode",
 			//#endif

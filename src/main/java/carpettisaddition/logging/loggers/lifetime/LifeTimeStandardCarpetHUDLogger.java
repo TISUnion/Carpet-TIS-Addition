@@ -29,6 +29,7 @@ import carpet.logging.HUDLogger;
 import carpettisaddition.commands.lifetime.LifeTimeTracker;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
+import carpettisaddition.utils.CommandUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -58,7 +59,7 @@ public class LifeTimeStandardCarpetHUDLogger extends
 		{
 			if (!LifeTimeTrackerUtil.getEntityTypeFromName(option).isPresent())
 			{
-				LifeTimeTracker.getInstance().sendUnknownEntity(player.createCommandSourceStack(), option);
+				LifeTimeTracker.getInstance().sendUnknownEntity(CommandUtils.getPlayerCommandSource(player), option);
 			}
 		}
 	}

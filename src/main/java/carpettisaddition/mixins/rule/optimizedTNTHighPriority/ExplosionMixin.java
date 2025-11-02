@@ -102,7 +102,7 @@ public abstract class ExplosionMixin
 	@SuppressWarnings("ConstantConditions")
 	@Inject(
 			//#if MC >= 12102
-			//$$ method = "getBlocksToDestroy",
+			//$$ method = "calculateExplodedPositions",
 			//#else
 			method = "explode",
 			//#endif

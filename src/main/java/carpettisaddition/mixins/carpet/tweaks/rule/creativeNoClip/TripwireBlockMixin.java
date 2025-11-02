@@ -41,7 +41,7 @@ public abstract class TripwireBlockMixin
 {
 	@ModifyVariable(
 			//#if MC >= 12102
-			//$$ method = "updatePowered(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Ljava/util/List;)V",
+			//$$ method = "checkPressed(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Ljava/util/List;)V",
 			//$$ at = @At("HEAD"),
 			//$$ argsOnly = true
 			//#else

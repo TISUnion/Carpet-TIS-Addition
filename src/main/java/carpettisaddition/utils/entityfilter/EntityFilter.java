@@ -59,7 +59,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 
 	public static EntityFilter create(ServerPlayer player, String filterDescriptor) throws CommandSyntaxException
 	{
-		CommandSourceStack source = player.createCommandSourceStack();
+		CommandSourceStack source = CommandUtils.getPlayerCommandSource(player);
 		EntitySelectorParser reader = new EntitySelectorParser(new StringReader(filterDescriptor), CommandUtils.hasPermissionLevel(source, 2));
 		return new EntityFilter(source, reader.parse());
 	}

@@ -92,9 +92,11 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 
 	// at the start of general damage calculation
 	@Inject(
-			//#disable-remap
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
-			//#enable-remap
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/entity/LivingEntity;isSleeping()Z"
@@ -106,9 +108,11 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	}
 
 	@Inject(
-			//#disable-remap
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
-			//#enable-remap
+			//#endif
 			at = @At(
 					value = "CONSTANT",
 					args = "floatValue=0.75F"
@@ -137,9 +141,11 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	//$$ }
 	//#else
 	@Inject(
-			//#disable-remap
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
-			//#enable-remap
+			//#endif
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
@@ -164,9 +170,11 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	//#endif
 
 	@Inject(
-			//#disable-remap
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
-			//#enable-remap
+			//#endif
 			at = @At(
 					value = "FIELD",
 					//#if MC >= 11500

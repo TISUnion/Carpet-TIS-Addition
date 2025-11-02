@@ -58,12 +58,11 @@ public class EmitBlockUpdateRedstoneDustEvent extends EmitBlockUpdateEvent
 				list.add("w \n");
 				BlockPos target = this.updateOrder.get(i);
 				Vec3i vec = target.subtract(this.pos);
-				Direction direction = Direction.fromNormal(
-						vec.getX(), vec.getY(), vec.getZ()
-						//#if MC >= 12102
-						//$$ , null
-						//#endif
-				);
+				//#if MC >= 12102
+				//$$ Direction direction = Direction.getNearest(vec.getX(), vec.getY(), vec.getZ(), null);
+				//#else
+				Direction direction = Direction.fromNormal(vec.getX(), vec.getY(), vec.getZ());
+				//#endif
 				list.add(String.format("w %d. ", i + 1));
 				list.add(Messenger.coord("w", target));
 				BaseComponent extra = null;

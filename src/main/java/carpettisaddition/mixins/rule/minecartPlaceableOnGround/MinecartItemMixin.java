@@ -42,7 +42,7 @@ public abstract class MinecartItemMixin
 {
 	@Shadow @Final
 	//#if MC >= 12102
-	//$$ private EntityType<? extends AbstractMinecartEntity>
+	//$$ private EntityType<? extends AbstractMinecart>
 	//#else
 	private AbstractMinecart.Type
 	//#endif

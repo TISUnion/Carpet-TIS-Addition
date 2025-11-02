@@ -46,14 +46,14 @@ public abstract class ExplosionMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 12102
-			//$$ method = "damageEntities",
+			//$$ method = "hurtEntities",
 			//#else
 			method = "explode",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12102
-					//$$ target = "Lnet/minecraft/server/level/ServerLevel;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
 					//#else
 					target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
 					//#endif

@@ -47,6 +47,14 @@ import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 
 public class CommandUtils
 {
+	public static CommandSourceStack getPlayerCommandSource(ServerPlayer serverPlayer)
+	{
+		// remap loves to remap createCommandSourceStack() to createCommandSourceStackForNameResolution() from mc1.21.1 to mc1.21.3, very stupid
+		//#disable-remap
+		return serverPlayer.createCommandSourceStack();
+		//#enable-remap
+	}
+
 	public static boolean isConsoleCommandSource(CommandSourceStack commandSource)
 	{
 		if (commandSource != null)

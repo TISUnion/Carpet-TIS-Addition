@@ -56,7 +56,7 @@ public abstract class WorldMixins
 	{
 		@Inject(
 				//#if MC >= 12102
-				//$$ method = "updateNeighborsAlways(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//$$ method = "updateNeighborsAt(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;)V",
 				//#else
 				method = "updateNeighborsAt",
 				//#endif
@@ -82,7 +82,7 @@ public abstract class WorldMixins
 
 		@Inject(
 				//#if MC >= 12102
-				//$$ method = "updateNeighborsAlways(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//$$ method = "updateNeighborsAt(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;)V",
 				//#else
 				method = "updateNeighborsAt",
 				//#endif
@@ -205,7 +205,7 @@ public abstract class WorldMixins
 	{
 		@Inject(
 				//#if MC >= 12102
-				//$$ method = "updateNeighbor(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//$$ method = "neighborChanged(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;)V",
 				//#else
 				method = "neighborChanged(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;)V",
 				//#endif
@@ -231,7 +231,7 @@ public abstract class WorldMixins
 
 		@Inject(
 				//#if MC >= 12102
-				//$$ method = "updateNeighbor(Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;)V",
+				//$$ method = "neighborChanged(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;)V",
 				//#else
 				method = "neighborChanged(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;)V",
 				//#endif
@@ -256,7 +256,7 @@ public abstract class WorldMixins
 		//#if MC >= 11900
 		//$$ @Inject(
 		//$$ 		//#if MC >= 12102
-		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
+		//$$ 		//$$ method = "neighborChanged(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;Z)V",
 		//$$ 		//#else
 		//$$ 		method = "neighborChanged(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;Z)V",
 		//$$ 		//#endif
@@ -286,7 +286,7 @@ public abstract class WorldMixins
   //$$
 		//$$ @Inject(
 		//$$ 		//#if MC >= 12102
-		//$$ 		//$$ method = "updateNeighbor(Lnet/minecraft/block/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/world/block/WireOrientation;Z)V",
+		//$$ 		//$$ method = "neighborChanged(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;Z)V",
 		//$$ 		//#else
 		//$$ 		method = "neighborChanged(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;Z)V",
 		//$$ 		//#endif

@@ -31,7 +31,7 @@ import net.minecraft.world.level.Level;
 
 //#if MC >= 12102
 //$$ import net.minecraft.world.entity.EntityType;
-//$$ import net.minecraft.entity.SpawnReason;
+//$$ import net.minecraft.world.entity.EntitySpawnReason;
 //#endif
 
 //#if MC >= 12004
@@ -70,7 +70,7 @@ public class MinecartPlaceableOnGroundImpl
 		)
 		{
 			//#if MC >= 12102
-			//$$ AbstractMinecart minecartEntity = AbstractMinecart.createMinecart(serverWorld, vec3d.x(), vec3d.y(), vec3d.z(), minecartType, SpawnReason.DISPENSER, itemStack, player);
+			//$$ AbstractMinecart minecartEntity = AbstractMinecart.createMinecart(serverWorld, vec3d.x(), vec3d.y(), vec3d.z(), minecartType, EntitySpawnReason.DISPENSER, itemStack, player);
 			//#elseif MC >= 12004
 			//$$ AbstractMinecart minecartEntity = AbstractMinecart.createMinecart(serverWorld, vec3d.x(), vec3d.y(), vec3d.z(), minecartType, itemStack, player);
 			//#else
@@ -108,8 +108,8 @@ public class MinecartPlaceableOnGroundImpl
 			// i.e., no nbt scaling tricks, modded new minecart variant
 
 			//#if MC >= 12102
-			//$$ MinecartEntity minecartEntity = new MinecartEntity(minecartType, world);
-			//$$ minecartEntity.setPos(vec3d.getX(), vec3d.getY(), vec3d.getZ());
+			//$$ Minecart minecartEntity = new Minecart(minecartType, world);
+			//$$ minecartEntity.setPos(vec3d.x(), vec3d.y(), vec3d.z());
 			//$$ if (!isMinecartPositionValid(world, minecartEntity))
 			//#else
 			if (!isMinecartPositionValid(world, new Minecart(world, vec3d.x(), vec3d.y(), vec3d.z())))
@@ -122,7 +122,7 @@ public class MinecartPlaceableOnGroundImpl
 		itemStack.shrink(1);
 
 		//#if MC >= 12102
-		//$$ return world.isClient() ? ActionResult.SUCCESS : ActionResult.SUCCESS_SERVER;
+		//$$ return world.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
 		//#elseif MC >= 11600
 		//$$ return InteractionResult.sidedSuccess(world.isClientSide());
 		//#else

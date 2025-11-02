@@ -41,9 +41,9 @@ public abstract class ServerChunkManagerMixin
 
 	@Inject(
 			//#if MC >= 12105
-			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;J)V",
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiling/ProfilerFiller;J)V",
 			//#elseif MC >= 12102
-			//$$ method = "tickChunks(Lnet/minecraft/util/profiler/Profiler;JLjava/util/List;)V",
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiling/ProfilerFiller;JLjava/util/List;)V",
 			//#else
 			method = "tickChunks",
 			//#endif

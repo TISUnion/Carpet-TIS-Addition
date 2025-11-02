@@ -33,10 +33,11 @@ import net.minecraft.util.thread.ProcessorMailbox;
 @Mixin(ThreadedLevelLightEngine.class)
 public interface ServerLightingProviderAccessor
 {
-	@Accessor("taskMailbox")
 	//#if MC >= 12102
+	//$$ @Accessor("consecutiveExecutor")
 	//$$ ConsecutiveExecutor
 	//#else
+	@Accessor("taskMailbox")
 	ProcessorMailbox<Runnable>
 	//#endif
 	getProcessor();

@@ -131,19 +131,35 @@ public abstract class ChainRestrictedNeighborUpdaterMixins
 	@Mixin(targets = "net.minecraft.world.level.redstone.CollectingNeighborUpdater$ShapeUpdate")
 	public static class StateReplacementEntryMixin
 	{
-		@Shadow @Final private BlockState state;
+		@Shadow @Final private BlockState
+				//#if MC >= 1.21.2
+				//$$ neighborState;
+				//#else
+				state;
+				//#endif
+
 		@Shadow @Final private BlockPos neighborPos;
 
 		@Inject(method = "runNext", at = @At("HEAD"))
 		private void startStateUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.state.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START);
+			//#if MC >= 1.21.2
+			//$$ Block sourceBlock = this.neighborState.getBlock();
+			//#else
+			Block sourceBlock = this.state.getBlock();
+			//#endif
+			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, sourceBlock, BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_START);
 		}
 
 		@Inject(method = "runNext", at = @At("TAIL"))
 		private void endStateUpdate(Level world, CallbackInfoReturnable<Boolean> cir)
 		{
-			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, this.state.getBlock(), BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END);
+			//#if MC >= 1.21.2
+			//$$ Block sourceBlock = this.neighborState.getBlock();
+			//#else
+			Block sourceBlock = this.state.getBlock();
+			//#endif
+			MicroTimingLoggerManager.onBlockUpdate(world, this.neighborPos, sourceBlock, BlockUpdateType.SINGLE_STATE_UPDATE, null, EventType.ACTION_END);
 		}
 	}
 }

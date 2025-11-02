@@ -40,7 +40,7 @@ public abstract class WitherEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12102
-					//$$ target = "Lnet/minecraft/server/level/ServerLevel;syncGlobalEvent(ILnet/minecraft/util/math/BlockPos;I)V"
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;globalLevelEvent(ILnet/minecraft/core/BlockPos;I)V"
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/world/level/Level;globalLevelEvent(ILnet/minecraft/core/BlockPos;I)V"
 					//#else

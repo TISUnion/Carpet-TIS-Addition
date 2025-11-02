@@ -24,6 +24,7 @@ import carpet.logging.Logger;
 import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
@@ -60,7 +61,7 @@ public class CarpetLoggerRestriction
 			}
 
 			ServerPlayer serverPlayer = (ServerPlayer)player;  // for mc1.21.2+, where getCommandSource requires being on the server-side
-			if (CarpetModUtil.canUseCarpetCommand(serverPlayer.createCommandSourceStack()))
+			if (CarpetModUtil.canUseCarpetCommand(CommandUtils.getPlayerCommandSource(serverPlayer)))
 			{
 				Messenger.click(
 						message,
@@ -68,7 +69,7 @@ public class CarpetLoggerRestriction
 				);
 			}
 			return RestrictionCheckResult.bool(
-					CarpetModUtil.canUseCommand(serverPlayer.createCommandSourceStack(), ruleValueProvider.get()),
+					CarpetModUtil.canUseCommand(CommandUtils.getPlayerCommandSource(serverPlayer), ruleValueProvider.get()),
 					message
 			);
 		});

@@ -284,7 +284,7 @@ public class ChunkEraser extends TranslationContext
 
 		// done
 		//#if MC >= 12102
-		//$$ chunk.markNeedsSaving();
+		//$$ chunk.markUnsaved();
 		//#else
 		chunk.setUnsaved(true);
 		//#endif

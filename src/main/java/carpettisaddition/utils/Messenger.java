@@ -713,7 +713,7 @@ public class Messenger
 		if (player instanceof ServerPlayer)
 		{
 			ServerPlayer serverPlayer = (ServerPlayer)player;  // for mc1.21.2+, where getCommandSource requires being on the server-side
-			tell(serverPlayer.createCommandSourceStack(), text, broadcastToOps);
+			tell(CommandUtils.getPlayerCommandSource(serverPlayer), text, broadcastToOps);
 		}
 	}
 	public static void tell(CommandSourceStack source, BaseComponent text)

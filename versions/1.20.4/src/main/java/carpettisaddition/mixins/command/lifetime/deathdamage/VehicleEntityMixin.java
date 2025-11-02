@@ -37,8 +37,12 @@ public abstract class VehicleEntityMixin implements DamageableEntity
 	private DamageSource deathDamageSource;
 
 	@ModifyVariable(
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
-			at =@At(
+			//#endif
+			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/entity/vehicle/VehicleEntity;discard()V"
 			),
@@ -51,7 +55,11 @@ public abstract class VehicleEntityMixin implements DamageableEntity
 	}
 
 	@ModifyVariable(
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12102

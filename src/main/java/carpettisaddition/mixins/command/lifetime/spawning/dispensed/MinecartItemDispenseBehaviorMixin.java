@@ -42,7 +42,7 @@ public abstract class MinecartItemDispenseBehaviorMixin
 {
 	@ModifyArg(
 			//#if MC >= 12102
-			//$$ method = "useOnBlock",
+			//$$ method = "useOn",
 			//#else
 			method = "execute",
 			//#endif

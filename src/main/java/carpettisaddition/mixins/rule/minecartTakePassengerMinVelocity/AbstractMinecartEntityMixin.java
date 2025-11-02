@@ -42,7 +42,7 @@ public abstract class AbstractMinecartEntityMixin
 {
 	@ModifyExpressionValue(
 			//#if MC >= 1.21.2
-			//$$ method = "handleCollision",
+			//$$ method = "pushAndPickupEntities",
 			//#else
 			method = "tick",
 			//#endif

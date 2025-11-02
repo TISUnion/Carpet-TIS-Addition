@@ -80,7 +80,7 @@ public abstract class EnderDragonEntityMixin extends Mob implements Enemy
 		//#if MC >= 12102
 		//$$ if (this.flagDropHead$TISCM && EntityUtils.getEntityWorld(this) instanceof ServerLevel serverWorld)
 		//$$ {
-		//$$ 	this.dropStack(serverWorld, new ItemStack(Items.DRAGON_HEAD));
+		//$$ 	this.spawnAtLocation(serverWorld, new ItemStack(Items.DRAGON_HEAD));
 		//$$ }
 		//#else
 		if (this.flagDropHead$TISCM)
@@ -91,7 +91,11 @@ public abstract class EnderDragonEntityMixin extends Mob implements Enemy
 	}
 
 	@Inject(
+			//#if MC >= 12102
+			//$$ method = "hurt(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/boss/EnderDragonPart;Lnet/minecraft/world/damagesource/DamageSource;F)Z",
+			//#else
 			method = "hurt(Lnet/minecraft/world/entity/boss/EnderDragonPart;Lnet/minecraft/world/damagesource/DamageSource;F)Z",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/entity/boss/enderdragon/EnderDragon;setHealth(F)V"

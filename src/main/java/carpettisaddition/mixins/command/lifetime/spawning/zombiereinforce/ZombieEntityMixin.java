@@ -32,9 +32,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class ZombieEntityMixin
 {
 	@ModifyArg(
-			//#disable-remap
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
 			method = "hurt",
-			//#enable-remap
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600

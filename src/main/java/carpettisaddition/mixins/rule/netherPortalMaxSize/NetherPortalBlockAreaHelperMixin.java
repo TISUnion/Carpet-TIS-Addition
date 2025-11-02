@@ -43,13 +43,8 @@ public abstract class NetherPortalBlockAreaHelperMixin
 	@ModifyExpressionValue(
 			method = {
 					//#if MC >= 11600
-					//$$ //#if MC >= 12103
-					//$$ //$$ "getValidatedWidth",
-					//$$ //$$ "getWidth",
-					//$$ //#else
 					//$$ "calculateWidth",
 					//$$ "getDistanceUntilEdgeAboveFrame",
-					//$$ //#endif
 					//$$ "calculateBottomLeft",
 					//$$ "calculateHeight",
 					//$$ "getDistanceUntilTop",

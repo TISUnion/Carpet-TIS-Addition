@@ -95,9 +95,11 @@ public abstract class LivingEntityAndPlayerEntityMixins
 	public static class DamageMixin
 	{
 		@Inject(
-				//#disable-remap
+				//#if MC >= 1.21.2
+				//$$ method = "hurtServer",
+				//#else
 				method = "hurt",
-				//#enable-remap
+				//#endif
 				at = @At(value = "RETURN")
 		)
 		private void onDamageEnded(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
