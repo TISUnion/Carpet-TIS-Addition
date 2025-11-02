@@ -47,11 +47,11 @@ public class StatusEffectModifyReason extends ModifyReason
 		this(statusEffect, null);
 	}
 	//#if MC >= 12005
-	//$$ public StatusEffectModifyReason(Holder<StatusEffect> statusEffect, Integer amplifier)
+	//$$ public StatusEffectModifyReason(Holder<MobEffect> statusEffect, Integer amplifier)
 	//$$ {
 	//$$ 	this(statusEffect.value(), amplifier);
 	//$$ }
-	//$$ public StatusEffectModifyReason(Holder<StatusEffect> statusEffect)
+	//$$ public StatusEffectModifyReason(Holder<MobEffect> statusEffect)
 	//$$ {
 	//$$ 	this(statusEffect.value());
 	//$$ }

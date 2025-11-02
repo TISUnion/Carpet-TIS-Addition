@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(DedicatedServer.class)
 public abstract class MinecraftDedicatedServerMixin
 {
-	@ModifyReturnValue(method = "shouldPushTickTimeLog", at = @At("TAIL"))
+	@ModifyReturnValue(method = "isTickTimeLoggingEnabled", at = @At("TAIL"))
 	private boolean sendServerTpsMetricsData_alwaysPushTickTimeLog(boolean ret)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)

@@ -32,7 +32,11 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class EnderChestBlockMixin
 {
 	@ModifyExpressionValue(
+			//#if MC >= 12005
+			//$$ method = "useWithoutItem",
+			//#else
 			method = "use",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/state/BlockState;isRedstoneConductor(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z"

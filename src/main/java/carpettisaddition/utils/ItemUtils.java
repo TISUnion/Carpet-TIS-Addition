@@ -49,7 +49,7 @@ public class ItemUtils
 		//$$ var component = itemStack.get(DataComponents.ENCHANTMENTS);
 		//$$ if (component != null)
 		//$$ {
-		//$$ 	component.getEnchantmentsMap().forEach(entry -> {
+		//$$ 	component.entrySet().forEach(entry -> {
 		//$$ 		enchantments.put(entry.getKey().value(), entry.getIntValue());
 		//$$ 	});
 		//$$ }

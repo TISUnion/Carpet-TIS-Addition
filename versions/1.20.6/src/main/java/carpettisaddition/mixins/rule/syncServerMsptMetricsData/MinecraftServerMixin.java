@@ -22,7 +22,6 @@ package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.debugchart.TpsDebugDimensions;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
-	@Shadow private int ticks;
+	@Shadow private int tickCount;
 
 	@ModifyArg(
 			method = "logTickMethodTime",
@@ -50,7 +49,7 @@ public abstract class MinecraftServerMixin
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, TpsDebugDimensions.TICK_SERVER_METHOD);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.tickCount, nanosecond, TpsDebugDimensions.TICK_SERVER_METHOD);
 		}
 		return nanosecond;
 	}
@@ -66,7 +65,7 @@ public abstract class MinecraftServerMixin
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, TpsDebugDimensions.FULL_TICK);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.tickCount, nanosecond, TpsDebugDimensions.FULL_TICK);
 		}
 		return nanosecond;
 	}
@@ -83,7 +82,7 @@ public abstract class MinecraftServerMixin
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, TpsDebugDimensions.SCHEDULED_TASKS);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.tickCount, nanosecond, TpsDebugDimensions.SCHEDULED_TASKS);
 		}
 		return nanosecond;
 	}
@@ -100,7 +99,7 @@ public abstract class MinecraftServerMixin
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.ticks, nanosecond, TpsDebugDimensions.IDLE);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSample(this.tickCount, nanosecond, TpsDebugDimensions.IDLE);
 		}
 		return nanosecond;
 	}

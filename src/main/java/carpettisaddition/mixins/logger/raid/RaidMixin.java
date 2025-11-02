@@ -67,7 +67,7 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12005
-					//$$ target = "Lnet/minecraft/server/network/ServerPlayerEntity;getStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Lnet/minecraft/entity/effect/StatusEffectInstance;"
+					//$$ target = "Lnet/minecraft/server/level/ServerPlayer;getEffect(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/effect/MobEffectInstance;"
 					//#else
 					target = "Lnet/minecraft/world/entity/player/Player;getEffect(Lnet/minecraft/world/effect/MobEffect;)Lnet/minecraft/world/effect/MobEffectInstance;"
 					//#endif

@@ -37,11 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class DispenserBlockMixin
 {
 	@Inject(
-			//#if MC >= 12006
-			//$$ method = "getBehaviorForItem(Lnet/minecraft/world/level/Level;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/block/dispenser/DispenserBehavior;",
-			//#else
-			method = "getDispenseMethod(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/core/dispenser/DispenseItemBehavior;",
-			//#endif
+			method = "getDispenseMethod",
 			at = @At("HEAD"),
 			cancellable = true
 	)

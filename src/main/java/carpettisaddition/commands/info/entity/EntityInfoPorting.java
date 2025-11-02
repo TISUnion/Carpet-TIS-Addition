@@ -289,7 +289,7 @@ public class EntityInfoPorting
 
 							double strength =
 									//#if MC >= 12005
-									//$$ ah.getAttributeValue(EntityAttributes.GENERIC_JUMP_STRENGTH);
+									//$$ ah.getAttributeValue(Attributes.JUMP_STRENGTH);
 									//#else
 									ah.getCustomJump();
 									//#endif

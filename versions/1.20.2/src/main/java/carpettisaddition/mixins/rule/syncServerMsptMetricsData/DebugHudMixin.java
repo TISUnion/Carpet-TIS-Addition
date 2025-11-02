@@ -53,7 +53,7 @@ public abstract class DebugHudMixin
 	//#endif
 
 	//#if MC >= 12005
-	//$$ @Shadow @Final private LocalSampleLogger tickNanosLog;
+	//$$ @Shadow @Final private LocalSampleLogger tickTimeLogger;
 	//#endif
 
 	@Inject(
@@ -65,7 +65,7 @@ public abstract class DebugHudMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12005
-					//$$ target = "Lnet/minecraft/util/profiler/MultiValueDebugSampleLogImpl;getLength()I"
+					//$$ target = "Lnet/minecraft/util/debugchart/LocalSampleLogger;size()I"
 					//#else
 					target = "Lnet/minecraft/client/Minecraft;getSingleplayerServer()Lnet/minecraft/client/server/IntegratedServer;"
 					//#endif
@@ -79,7 +79,7 @@ public abstract class DebugHudMixin
 	{
 		boolean shouldVanillaChartDraw =
 				//#if MC >= 12005
-				//$$ this.tickNanosLog.getLength() > 0;
+				//$$ this.tickTimeLogger.size() > 0;
 				//#else
 				this.minecraft.getSingleplayerServer() != null;
 				//#endif
@@ -89,7 +89,7 @@ public abstract class DebugHudMixin
 			{
 				var data = ServerMsptMetricsDataSyncer.getInstance().getMetricsData();
 				//#if MC >= 12005
-				//$$ if (data.getLength() <= 0)
+				//$$ if (data.size() <= 0)
 				//$$ {
 				//$$ 	return;
 				//$$ }

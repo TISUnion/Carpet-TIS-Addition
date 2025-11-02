@@ -50,7 +50,11 @@ import net.minecraft.world.InteractionResult;
 public abstract class BlockStateMixin
 {
 	@Inject(
+			//#if MC >= 12005
+			//$$ method = "useWithoutItem",
+			//#else
 			method = "use",
+			//#endif
 			at = @At("HEAD"),
 			cancellable = true
 	)
@@ -69,7 +73,7 @@ public abstract class BlockStateMixin
 	{
 		//#if MC >= 12005
 		//$$ // It's always the main hand
-		//$$ var hand = Hand.MAIN_HAND;
+		//$$ var hand = InteractionHand.MAIN_HAND;
 		//#endif
 
 		// client side is allowed here so the client wont desync

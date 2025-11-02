@@ -38,7 +38,7 @@ public abstract class MinecraftClientMixin
 
 	@Inject(
 			//#if MC >= 12005
-			//$$ method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;Z)V",
+			//$$ method = "disconnect(Lnet/minecraft/client/gui/screens/Screen;Z)V",
 			//#else
 			method = "clearLevel(Lnet/minecraft/client/gui/screens/Screen;)V",
 			//#endif

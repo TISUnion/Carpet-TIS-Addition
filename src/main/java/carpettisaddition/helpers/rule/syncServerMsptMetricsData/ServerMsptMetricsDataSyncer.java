@@ -108,11 +108,11 @@ public class ServerMsptMetricsDataSyncer
 		//#if MC >= 12005
 		//$$ if (type.ordinal() == 0)  // FULL_TICK
 		//$$ {
-		//$$ 	this.metricsData.push(nanosecond);
+		//$$ 	this.metricsData.logSample(nanosecond);
 		//$$ }
 		//$$ else
 		//$$ {
-		//$$ 	this.metricsData.push(nanosecond, type.ordinal());
+		//$$ 	this.metricsData.logPartialSample(nanosecond, type.ordinal());
 		//$$ }
 		//#else
 		this.metricsData.logFrameDuration(nanosecond / M);

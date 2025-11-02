@@ -41,10 +41,10 @@ public abstract class CustomPayloadC2SPacketMixin
 					target = "Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;codec(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload$FallbackProvider;Ljava/util/List;)Lnet/minecraft/network/codec/StreamCodec;"
 			)
 	)
-	private static List<?> registerTISCMPayload_c2s(List<CustomPacketPayload.Type<?, ?>> types)
+	private static List<?> registerTISCMPayload_c2s(List<CustomPacketPayload.TypeAndCodec<?, ?>> types)
 	{
 		types = new ArrayList<>(types);
-		types.add(new CustomPacketPayload.Type<>(TISCMCustomPayload.KEY, TISCMCustomPayload.CODEC));
+		types.add(new CustomPacketPayload.TypeAndCodec<>(TISCMCustomPayload.KEY, TISCMCustomPayload.CODEC));
 		return Collections.unmodifiableList(types);
 	}
 }

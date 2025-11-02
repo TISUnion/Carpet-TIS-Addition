@@ -43,7 +43,7 @@ public abstract class HopperBlockEntityMixin
 	//#endif
 	@Inject(
 			//#if MC >= 12005
-			//$$ method = "getBlockInventoryAt",
+			//$$ method = "getBlockContainer",
 			//#else
 			method = "getContainerAt(Lnet/minecraft/world/level/Level;DDD)Lnet/minecraft/world/Container;",
 			//#endif

@@ -28,6 +28,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(IdDispatchCodec.class)
 public interface PacketCodecDispatcherAccessor<T>
 {
-	@Accessor
+	@Accessor("toId")
 	Object2IntMap<T> getTypeToIndex();
 }

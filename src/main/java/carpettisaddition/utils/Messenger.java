@@ -443,7 +443,7 @@ public class Messenger
 		);
 	}
 	//#if MC >= 12005
-	//$$ public static MutableText attribute(Holder<EntityAttribute> attribute)
+	//$$ public static MutableComponent attribute(Holder<Attribute> attribute)
 	//$$ {
 	//$$ 	return attribute(attribute.value());
 	//$$ }

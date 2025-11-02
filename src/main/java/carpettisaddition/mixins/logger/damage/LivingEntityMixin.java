@@ -65,7 +65,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 
 	@Shadow public abstract MobEffectInstance getEffect(
 			//#if MC >= 12005
-			//$$ Holder<StatusEffect> effect
+			//$$ Holder<MobEffect> effect
 			//#else
 			MobEffect effect
 			//#endif

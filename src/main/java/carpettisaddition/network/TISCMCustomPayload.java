@@ -36,8 +36,8 @@ public class TISCMCustomPayload implements CustomPacketPayload
 	public static final ResourceLocation ID = TISCMProtocol.CHANNEL;
 
 	//#if MC >= 12005
-	//$$ public static final CustomPacketPayload.Id<TISCMCustomPayload> KEY = new CustomPacketPayload.Id<>(ID);
-	//$$ public static final StreamCodec<PacketByteBuf, TISCMCustomPayload> CODEC = CustomPacketPayload.codecOf(TISCMCustomPayload::write, TISCMCustomPayload::new);
+	//$$ public static final CustomPacketPayload.Type<TISCMCustomPayload> KEY = new CustomPacketPayload.Type<>(ID);
+	//$$ public static final StreamCodec<FriendlyByteBuf, TISCMCustomPayload> CODEC = CustomPacketPayload.codec(TISCMCustomPayload::write, TISCMCustomPayload::new);
 	//#endif
 
 	private final String packetId;
@@ -80,7 +80,7 @@ public class TISCMCustomPayload implements CustomPacketPayload
 
 	//#if MC >= 12005
 	//$$ @Override
-	//$$ public Id<? extends CustomPacketPayload> getId()
+	//$$ public Type<? extends CustomPacketPayload> type()
 	//$$ {
 	//$$ 	return KEY;
 	//$$ }

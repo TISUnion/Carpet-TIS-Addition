@@ -30,11 +30,11 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class VaultSharedDataMixin
 {
 	/**
-	 * By hooking here instead of {@link net.minecraft.block.vault.VaultServerData#getRewardedPlayers},
+	 * By hooking here instead of {@link net.minecraft.world.level.block.entity.vault.VaultServerData#getRewardedPlayers},
 	 * mods who invokes getRewardedPlayers can still get the unmodified result
 	 */
 	@ModifyExpressionValue(
-			method = "lambda$updateConnectedPlayersWithinRange$4",  // lambda method in updateConnectedPlayers
+			method = "method_56791",  // lambda method in updateConnectedPlayersWithinRange
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/Set;contains(Ljava/lang/Object;)Z",

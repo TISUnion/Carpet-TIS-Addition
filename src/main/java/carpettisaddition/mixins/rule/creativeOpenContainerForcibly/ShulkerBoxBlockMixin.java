@@ -32,7 +32,11 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class ShulkerBoxBlockMixin
 {
 	@ModifyExpressionValue(
+			//#if MC >= 12005
+			//$$ method = "useWithoutItem",
+			//#else
 			method = "use",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11700

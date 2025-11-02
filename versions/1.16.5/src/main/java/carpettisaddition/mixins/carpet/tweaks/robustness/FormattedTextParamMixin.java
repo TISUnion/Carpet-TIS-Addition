@@ -55,7 +55,7 @@ public abstract class FormattedTextParamMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12005
-					//$$ target = "Lcarpet/script/value/FormattedTextValue;deserialize(Ljava/lang/String;Lnet/minecraft/registry/DynamicRegistryManager;)Lcarpet/script/value/FormattedTextValue;"
+					//$$ target = "Lcarpet/script/value/FormattedTextValue;deserialize(Ljava/lang/String;Lnet/minecraft/core/RegistryAccess;)Lcarpet/script/value/FormattedTextValue;"
 					//#else
 					target = "Lcarpet/script/value/FormattedTextValue;deserialize(Ljava/lang/String;)Lcarpet/script/value/FormattedTextValue;",
 					remap = false
