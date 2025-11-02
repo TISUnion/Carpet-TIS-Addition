@@ -50,11 +50,9 @@ public abstract class CommandBlockMixin
 {
 	@Shadow public abstract void
 	//#if MC >= 11500
-	//#disable-remap
 	tick(BlockState state, ServerLevel world, BlockPos pos, Random random);
-	//#enable-remap
 	//#else
-	//$$ onScheduledTick(BlockState state, World world, BlockPos pos, Random random);
+	//$$ tick(BlockState state, Level world, BlockPos pos, Random random);
 	//#endif
 
 	@Inject(
@@ -107,12 +105,7 @@ public abstract class CommandBlockMixin
 					ICommandBlockExecutor icbe = (ICommandBlockExecutor)commandBlockBlockEntity.getCommandBlock();
 					icbe.setIgnoreWorldTimeCheck(true);
 
-					//#if MC >= 11500
-					this.tick
-					//#else
-					//$$ this.onScheduledTick
-					//#endif
-							(state, serverWorld, pos, serverWorld.getRandom());
+					this.tick(state, serverWorld, pos, serverWorld.getRandom());
 
 					icbe.setIgnoreWorldTimeCheck(false);
 					ci.cancel();

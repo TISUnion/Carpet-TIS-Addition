@@ -68,7 +68,7 @@ public class LightThreadSynchronizer
 				//#if MC >= 11500
 				serverWorld.getLightEngine();
 				//#else
-				//$$ serverWorld.getChunkManager().getLightingProvider();
+				//$$ serverWorld.getChunkSource().getLightEngine();
 				//#endif
 
 		if (lightingProvider != null)

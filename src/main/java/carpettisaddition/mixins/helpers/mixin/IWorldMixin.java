@@ -70,10 +70,8 @@ public interface IWorldMixin extends EntityGetter
 	//$$ default List<VoxelShape> getEntityCollisions(@Nullable Entity entity, AABB box)
 	//#elseif MC >= 11600
 	//$$ default Stream<VoxelShape> getEntityCollisions(Entity entity, AABB box, Predicate<Entity> predicate)
-	//#elseif MC >= 11500
-	default Stream<VoxelShape> getEntityCollisions(Entity entity, AABB box, Set<Entity> excluded)
 	//#else
-	//$$ default Stream<VoxelShape> method_20743(Entity entity, AABB box, Set<Entity> excluded)
+	default Stream<VoxelShape> getEntityCollisions(Entity entity, AABB box, Set<Entity> excluded)
 	//#endif
 	{
 		IWorldOverrides.getEntityCollisionsPre(entity, box);
@@ -87,10 +85,8 @@ public interface IWorldMixin extends EntityGetter
 							//$$ getEntityCollisions(entity, box)
 							//#elseif MC >= 11600
 							//$$ getEntityCollisions(entity, box, predicate)
-							//#elseif MC >= 11500
-							getEntityCollisions(entity, box, excluded)
 							//#else
-							//$$ method_20743(entity, box, excluded)
+							getEntityCollisions(entity, box, excluded)
 							//#endif
 			);
 		}

@@ -34,10 +34,8 @@ public abstract class NetherPortalBlockMixin
 	@ModifyVariable(
 			//#if MC >= 11600
 			//$$ method = "randomTick",
-			//#elseif MC >= 11500
-			method = "tick",
 			//#else
-			//$$ method = "onScheduledTick",
+			method = "tick",
 			//#endif
 			at = @At(
 					value = "STORE",

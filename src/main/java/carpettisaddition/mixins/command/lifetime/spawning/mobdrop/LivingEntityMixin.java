@@ -49,7 +49,7 @@ public abstract class LivingEntityMixin extends Entity
 			//#if MC >= 11500
 			method = "createWitherRose",
 			//#else
-			//$$ method = "onDeath",
+			//$$ method = "die",
 			//#endif
 			at = @At(
 					value = "INVOKE",
@@ -73,7 +73,7 @@ public abstract class LivingEntityMixin extends Entity
 			//#if MC >= 11500
 			method = "dropExperience",
 			//#else
-			//$$ method = "updatePostDeath",
+			//$$ method = "tickDeath",
 			//#endif
 			at = @At(
 					value = "INVOKE",

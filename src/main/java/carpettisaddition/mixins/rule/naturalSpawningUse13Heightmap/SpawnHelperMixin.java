@@ -34,11 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class SpawnHelperMixin
 {
 	@ModifyExpressionValue(
-			//#if MC >= 11500
 			method = "getRandomPosWithin",
-			//#else
-			//$$ method = "method_8657",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/chunk/LevelChunk;getHeight(Lnet/minecraft/world/level/levelgen/Heightmap$Types;II)I"

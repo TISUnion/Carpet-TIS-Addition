@@ -56,14 +56,7 @@ public class StatusEffectSpawningReason extends SpawningReason
 	@Override
 	public BaseComponent toText()
 	{
-		return tr(
-				"status_effect",
-				//#if MC >= 11500
-				this.effect.getDisplayName()
-				//#else
-				//$$ this.effect.method_5560()
-				//#endif
-		);
+		return tr("status_effect", this.effect.getDisplayName());
 	}
 
 	@Override

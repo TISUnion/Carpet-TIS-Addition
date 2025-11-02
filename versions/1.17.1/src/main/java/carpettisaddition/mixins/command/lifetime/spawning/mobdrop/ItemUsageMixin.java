@@ -40,13 +40,11 @@ public abstract class ItemUsageMixin
 	 * Currently only used in onItemEntityDestroyed for bundle item and shulker box item
 	 */
 	@ModifyArg(
-			method = "lambda$onContainerDestroyed$0",  // lambda method in spawnItemContents
+			method = "method_33265",  // lambda method in onContainerDestroyed
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
-					remap = true
-			),
-			remap = false
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
+			)
 	)
 	private static Entity lifetimeTracker_recordSpawning_mobDrop_onItemEntityDestroyed(Entity itemEntity)
 	{

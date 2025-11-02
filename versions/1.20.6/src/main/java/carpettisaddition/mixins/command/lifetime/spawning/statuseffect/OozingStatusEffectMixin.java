@@ -32,10 +32,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class OozingStatusEffectMixin
 {
 	@ModifyArg(
-			method = "spawnSlime",
+			method = "spawnSlimeOffspring",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
 	private Entity lifetimeTracker_recordSpawning_statusEffect_oozing(Entity entity)

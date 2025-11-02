@@ -36,11 +36,7 @@ public abstract class ChestBlockMixin
 	private static final ThreadLocal<Boolean> ignoreChestBlockedCheck = ThreadLocal.withInitial(() -> false);
 
 	@ModifyVariable(
-			//#if MC >= 11500
 			method = "use",
-			//#else
-			//$$ method = "activate",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
@@ -58,11 +54,7 @@ public abstract class ChestBlockMixin
 	}
 
 	@Inject(
-			//#if MC >= 11500
 			method = "use",
-			//#else
-			//$$ method = "activate",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600

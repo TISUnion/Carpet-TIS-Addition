@@ -23,7 +23,7 @@ package carpettisaddition.helpers.rule.largeBarrel;
 /**
  * Totally stolen from 1.15.2 for easier porting to 1.14.4
  */
-public class DoubleBlockProperties
+public class DoubleBlockCombiner
 {
 	// impl in mc1.14.4 subproject
 }

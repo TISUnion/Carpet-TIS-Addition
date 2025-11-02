@@ -90,11 +90,7 @@ public class FakePlayerTicker
 		{
 			try
 			{
-				//#if MC >= 11500
 				player.doTick();
-				//#else
-				//$$ player.method_14226();
-				//#endif
 			}
 			catch (Exception e)
 			{

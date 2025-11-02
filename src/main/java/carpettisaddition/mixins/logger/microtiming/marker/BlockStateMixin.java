@@ -50,11 +50,7 @@ import net.minecraft.world.InteractionResult;
 public abstract class BlockStateMixin
 {
 	@Inject(
-			//#if MC >= 11500
 			method = "use",
-			//#else
-			//$$ method = "activate",
-			//#endif
 			at = @At("HEAD"),
 			cancellable = true
 	)

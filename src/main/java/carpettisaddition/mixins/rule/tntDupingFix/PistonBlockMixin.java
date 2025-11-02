@@ -202,7 +202,7 @@ public abstract class PistonBlockMixin
 			//$$ for (BlockPos blockPos1 : set)
 			//$$ {
 			//$$ 	BlockState blockState1 = stateMap.get(blockPos1);
-			//$$ 	blockState1.updateNeighborStates(world, blockPos1, 68 & -2);
+			//$$ 	blockState1.updateNeighbourShapes(world, blockPos1, 68 & -2);
 			//$$ }
 			//#endif
 		}

@@ -67,7 +67,7 @@ public class StatusEffectModifyReason extends ModifyReason
 				//#if MC >= 11500
 				this.statusEffect.getDisplayName()
 				//#else
-				//$$ Messenger.tr(this.statusEffect.getTranslationKey())
+				//$$ Messenger.tr(this.statusEffect.getDescriptionId())
 				//#endif
 		);
 		if (this.amplifier != null)

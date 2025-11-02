@@ -47,11 +47,7 @@ public abstract class BarrelBlockMixin extends BaseEntityBlock
 	}
 
 	@ModifyArg(
-			//#if MC >= 11500
 			method = "use",
-			//#else
-			//$$ method = "activate",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600

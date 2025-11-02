@@ -61,12 +61,7 @@ import java.util.Optional;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin implements DamageLoggerTarget
 {
-	@Shadow protected float
-			//#if MC >= 11500
-			lastHurt;
-			//#else
-			//$$ field_6253;
-			//#endif
+	@Shadow protected float lastHurt;
 
 	@Shadow public abstract MobEffectInstance getEffect(
 			//#if MC >= 12005
@@ -184,12 +179,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	)
 	private void onRecentHintReducedDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 	{
-		final float last =
-				//#if MC >= 11500
-				this.lastHurt;
-				//#else
-				//$$ this.field_6253;
-				//#endif
+		final float last = this.lastHurt;
 
 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
 				Math.max(amount - last, 0.0F), ModifyReason.RECENTLY_HIT

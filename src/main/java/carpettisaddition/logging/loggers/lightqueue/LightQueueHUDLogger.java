@@ -78,7 +78,7 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 					//#if MC >= 11500
 					world.getLightEngine();
 					//#else
-					//$$ world.getChunkManager().getLightingProvider();
+					//$$ world.getChunkSource().getLightEngine();
 					//#endif
 
 			if (lightingProvider instanceof IServerLightingProvider)

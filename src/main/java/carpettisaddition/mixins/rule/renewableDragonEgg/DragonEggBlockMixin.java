@@ -66,11 +66,9 @@ public abstract class DragonEggBlockMixin extends Block
 	@Intrinsic
 	@Override
 	//#if MC >= 11500
-	//#disable-remap
 	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random)
-	//#enable-remap
 	//#else
-	//$$ public void onRandomTick(BlockState state, Level world, BlockPos pos, Random random)
+	//$$ public void randomTick(BlockState state, Level world, BlockPos pos, Random random)
 	//#endif
 	{
 		renewableDragonEggImpl(state, world, pos, random);

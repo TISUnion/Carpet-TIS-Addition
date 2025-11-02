@@ -33,11 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class ServerPlayerEntityMixin
 {
 	@Inject(
-			//#if MC >= 11500
 			method = "doTick",
-			//#else
-			//$$ method = "method_14226",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/CrashReport;forThrowable(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/CrashReport;"

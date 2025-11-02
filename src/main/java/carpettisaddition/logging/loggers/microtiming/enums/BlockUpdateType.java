@@ -113,7 +113,7 @@ public enum BlockUpdateType
 				//#endif
 
 		/**
-		 * (<=1.15) See {@link Block#updateNeighborStates}
+		 * (<=1.15) See {@link Block#updateNeighbourShapes}
 		 * (>=1.16) See {@link BlockBehaviour.BlockStateBase#updateNeighbors}
 		 */
 		private static final Direction[] STATE_UPDATE_ORDER = BlockAccessor.getFACINGS();

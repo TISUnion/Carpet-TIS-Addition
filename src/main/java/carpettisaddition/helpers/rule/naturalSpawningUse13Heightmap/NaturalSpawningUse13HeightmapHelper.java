@@ -100,11 +100,7 @@ public class NaturalSpawningUse13HeightmapHelper
 					//#endif
 					Direction.DOWN
 			);
-			//#if MC >= 11500
 			return !Shapes.faceShapeOccludes(voxelUp, voxelDown);
-			//#else
-			//$$ return !VoxelShapes.method_20713(voxelUp, voxelDown);
-			//#endif
 		}
 		else
 		{

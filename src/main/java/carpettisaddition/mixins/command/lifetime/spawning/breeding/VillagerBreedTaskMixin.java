@@ -32,25 +32,15 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class VillagerBreedTaskMixin
 {
 	@ModifyArg(
-			//#if MC >= 11500
 			method = "breed",
-			//#else
-			//$$ method = "method_18970",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11600
 					//$$ target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V"
-					//#elseif MC >= 11500
-					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#else
-					//$$ target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z",
-					//$$ remap = true
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif
 			)
-			//#if MC < 11500
-			//$$ , remap = false
-			//#endif
 	)
 	private Entity lifetimeTracker_recordSpawning_breeding_villager(Entity entity)
 	{

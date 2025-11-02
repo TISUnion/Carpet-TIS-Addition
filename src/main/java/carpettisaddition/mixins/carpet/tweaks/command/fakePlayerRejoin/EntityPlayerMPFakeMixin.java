@@ -117,7 +117,7 @@ public abstract class EntityPlayerMPFakeMixin
 	//$$ 		method = "createFake",
 	//$$ 		at = @At(
 	//$$ 				value = "FIELD",
-	//$$ 				target = "Lcarpet/patches/EntityPlayerMPFake;dimension:Lnet/minecraft/world/dimension/DimensionType;",
+	//$$ 				target = "Lcarpet/patches/EntityPlayerMPFake;dimension:Lnet/minecraft/world/level/dimension/DimensionType;",
 	//$$ 				ordinal = 0
 	//$$ 		)
 	//$$ )

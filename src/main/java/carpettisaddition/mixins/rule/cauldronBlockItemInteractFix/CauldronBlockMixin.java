@@ -41,10 +41,8 @@ import net.minecraft.world.InteractionResult;
 public abstract class CauldronBlockMixin
 {
 	@Inject(
-			//#if MC >= 11500
 			method = "use",
-			//#else
-			//$$ method = "activate",
+			//#if MC < 11500
 			//$$ slice = @Slice(
 			//$$ 		from = @At(
 			//$$ 				value = "FIELD",

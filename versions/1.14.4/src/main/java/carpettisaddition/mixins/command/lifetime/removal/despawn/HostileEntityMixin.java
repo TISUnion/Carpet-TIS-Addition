@@ -40,7 +40,7 @@ public abstract class HostileEntityMixin
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/mob/HostileEntity;remove()V"
+					target = "Lnet/minecraft/world/entity/monster/Monster;remove()V"
 			)
 	)
 	private void lifetimeTracker_recordRemoval_despawnDifficulty_hostileEntity(CallbackInfo ci)

@@ -84,13 +84,7 @@ class BlockManipulatorImplExecute extends TranslationContext
 		FluidState fluidState = world.getFluidState(blockPos);
 
 		// ref: net.minecraft.server.world.ServerWorld#tickChunk
-		//#if MC >= 11500
-		blockState.randomTick
-				//#else
-				//$$ blockState.onRandomTick
-				//#endif
-						(world, blockPos, world.getRandom());
-
+		blockState.randomTick(world, blockPos, world.getRandom());
 		fluidState.randomTick(world, blockPos, world.getRandom());
 	}
 

@@ -34,17 +34,15 @@ public abstract class TurtleEggBlockMixin
 	@ModifyArg(
 			//#if MC >= 11600
 			//$$ method = "randomTick",
-			//#elseif MC >= 11500
-			method = "tick",
 			//#else
-			//$$ method = "onScheduledTick",
+			method = "tick",
 			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 11500
 					target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#else
-					//$$ target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
+					//$$ target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif
 			)
 	)

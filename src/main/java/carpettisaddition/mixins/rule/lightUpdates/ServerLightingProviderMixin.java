@@ -42,11 +42,7 @@ public abstract class ServerLightingProviderMixin
 	}
 
 	@Inject(
-			//#if MC >= 11500
 			method = "addTask(IILjava/util/function/IntSupplier;Lnet/minecraft/server/level/ThreadedLevelLightEngine$TaskType;Ljava/lang/Runnable;)V",
-			//#else
-			//$$ method = "enqueue(IILjava/util/function/IntSupplier;Lnet/minecraft/server/world/ServerLightingProvider$class_3901;Ljava/lang/Runnable;)V",
-			//#endif
 			at = @At(value = "HEAD"),
 			cancellable = true
 	)

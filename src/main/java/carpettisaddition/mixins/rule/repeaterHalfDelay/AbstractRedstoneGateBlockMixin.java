@@ -36,11 +36,7 @@ import org.spongepowered.asm.mixin.injection.Coerce;
 public abstract class AbstractRedstoneGateBlockMixin
 {
 	@ModifyExpressionValue(
-			//#if MC >= 11500
 			method = "tick",
-			//#else
-			//$$ method = "onScheduledTick",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/DiodeBlock;getDelay(Lnet/minecraft/world/level/block/state/BlockState;)I"
