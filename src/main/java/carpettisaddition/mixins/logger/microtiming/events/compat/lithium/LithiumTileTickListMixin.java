@@ -72,7 +72,7 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 		);
 	}
 
-	@Inject(method = "scheduleTick", at = @At("HEAD"))
+	@Inject(method = "scheduleTick(Lnet/minecraft/core/BlockPos;Ljava/lang/Object;ILnet/minecraft/world/level/TickPriority;)V", at = @At("HEAD"))
 	private void startScheduleTileTickEvent(CallbackInfo ci)
 	{
 		this.scheduleSuccess = false;
@@ -80,7 +80,7 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 
 	@Inject(
 			//#if MC >= 11700
-			//$$ method = "scheduleTick",
+			//$$ method = "scheduleTick(Lnet/minecraft/core/BlockPos;Ljava/lang/Object;JLnet/minecraft/world/level/TickPriority;)V",
 			//$$ at = @At(
 			//$$ 		value = "INVOKE_ASSIGN",
 			//$$ 		target = "Lit/unimi/dsi/fastutil/objects/ObjectOpenHashSet;add(Ljava/lang/Object;)Z",
@@ -114,7 +114,7 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 				//#endif
 	}
 
-	@Inject(method = "scheduleTick", at = @At("RETURN"))
+	@Inject(method = "scheduleTick(Lnet/minecraft/core/BlockPos;Ljava/lang/Object;ILnet/minecraft/world/level/TickPriority;)V", at = @At("RETURN"))
 	private void endScheduleTileTickEvent(BlockPos pos, T object, int delay, TickPriority priority, CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduleSuccess);

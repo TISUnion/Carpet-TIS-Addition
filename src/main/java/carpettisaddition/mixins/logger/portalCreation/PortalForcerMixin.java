@@ -74,7 +74,11 @@ public abstract class PortalForcerMixin
 			slice = @Slice(
 					from = @At(
 							value = "FIELD",
+							//#if MC >= 1.15.2
 							target = "Lnet/minecraft/world/level/block/Blocks;NETHER_PORTAL:Lnet/minecraft/world/level/block/Block;"
+							//#else
+							//$$ target = "Lnet/minecraft/world/level/PortalForcer;PORTAL_BLOCK:Lnet/minecraft/world/level/block/NetherPortalBlock;"
+							//#endif
 					)
 			),
 			at = @At(
