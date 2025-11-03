@@ -1,9 +1,8 @@
-net.minecraft.util.FrameTimer net.minecraft.util.SampleLogger
-net.minecraft.util.FrameTimer logFrameDuration() net.minecraft.util.SampleLogger logSample()
-
-net.minecraft.core.BlockSource net.minecraft.core.dispenser.BlockSource
 net.minecraft.core.BlockSource getBlockState() net.minecraft.core.dispenser.BlockSource state()
 net.minecraft.core.BlockSource getLevel() net.minecraft.core.dispenser.BlockSource level()
 net.minecraft.core.BlockSource getPos() net.minecraft.core.dispenser.BlockSource pos()
+net.minecraft.core.BlockSource net.minecraft.core.dispenser.BlockSource
+net.minecraft.util.FrameTimer logFrameDuration() net.minecraft.util.SampleLogger logSample()
+net.minecraft.util.FrameTimer net.minecraft.util.SampleLogger
 
 carpettisaddition.utils.compat.CustomPacketPayload net.minecraft.network.protocol.common.custom.CustomPacketPayload

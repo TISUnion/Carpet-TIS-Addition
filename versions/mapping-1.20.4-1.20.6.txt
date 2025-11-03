@@ -1,4 +1,4 @@
 carpettisaddition.utils.compat.TpsDebugDimensions net.minecraft.util.debugchart.TpsDebugDimensions
 
-me.jellysquid.mods.lithium.common.world.blockentity.BlockEntityGetter getLoadedExistingBlockEntity() lithium$getLoadedExistingBlockEntity()
 me.jellysquid.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeEmitter emitRemoved() lithium$emitRemoved()
+me.jellysquid.mods.lithium.common.world.blockentity.BlockEntityGetter getLoadedExistingBlockEntity() lithium$getLoadedExistingBlockEntity()
