@@ -39,7 +39,7 @@ public abstract class FireworkItemMixin
 			method = "use",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/player/PlayerEntity;detachAllHeldLeashes(Lnet/minecraft/entity/player/PlayerEntity;)Z"
+					target = "Lnet/minecraft/world/entity/player/Player;dropAllLeashConnections(Lnet/minecraft/world/entity/player/Player;)Z"
 			)
 	)
 	private boolean elytraFireworkKeepLeashConnection_doneDetach(Player user, Player arg, Operation<Boolean> original)

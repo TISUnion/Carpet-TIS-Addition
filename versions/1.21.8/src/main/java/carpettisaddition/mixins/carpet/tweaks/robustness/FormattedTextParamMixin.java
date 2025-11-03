@@ -48,7 +48,7 @@ public abstract class FormattedTextParamMixin
 			method = "decode",
 			at = @At(
 					value = "INVOKE",
-					target = "Lcarpet/script/value/FormattedTextValue;deserialize(Lnet/minecraft/nbt/NbtElement;Lnet/minecraft/registry/DynamicRegistryManager;)Lcarpet/script/value/FormattedTextValue;"
+					target = "Lcarpet/script/value/FormattedTextValue;deserialize(Lnet/minecraft/nbt/Tag;Lnet/minecraft/core/RegistryAccess;)Lcarpet/script/value/FormattedTextValue;"
 			)
 	)
 	public FormattedTextValue makeItFailsafe(Tag nbtElement, RegistryAccess regs, Operation<FormattedTextValue> original)

@@ -1,1 +1,1 @@
-net.minecraft.GameVersion getId() id()
+net.minecraft.WorldVersion getId() id()

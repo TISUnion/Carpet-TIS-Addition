@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class ServerPlayNetworkHandlerMixin
 {
 	@WrapWithCondition(
-			method = "onChangeGameMode",
+			method = "handleChangeGameMode",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/server/commands/GameModeCommand;setGameMode(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/level/GameType;)V"
