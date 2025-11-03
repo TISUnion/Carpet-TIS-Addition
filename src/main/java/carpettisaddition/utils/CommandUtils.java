@@ -105,7 +105,7 @@ public class CommandUtils
 		//#if MC >= 1.16.0
 		//$$ return getPlayer(source).
 		//$$ 		//#if MC >= 1.21.9
-		//$$ 		//$$ map(player -> server.isHost(player.getPlayerConfigEntry())).
+		//$$ 		//$$ map(player -> server.isSingleplayerOwner(player.nameAndId())).
 		//$$ 		//#else
 		//$$ 		map(player -> server.isSingleplayerOwner(player.getGameProfile())).
 		//$$ 		//#endif

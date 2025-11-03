@@ -36,7 +36,7 @@ public abstract class EntityMixin
 
 	@Inject(
 			//#if MC >= 1.21.9
-			//$$ method = "startRiding",
+			//$$ method = "startRiding(Lnet/minecraft/world/entity/Entity;ZZ)Z",
 			//#else
 			method = "startRiding(Lnet/minecraft/world/entity/Entity;Z)Z",
 			//#endif

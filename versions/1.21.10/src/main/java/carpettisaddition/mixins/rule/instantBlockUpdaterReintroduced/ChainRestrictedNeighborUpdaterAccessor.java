@@ -30,9 +30,9 @@ import java.util.function.Consumer;
 @Mixin(CollectingNeighborUpdater.class)
 public interface ChainRestrictedNeighborUpdaterAccessor
 {
-	@Accessor("maxChainDepth")
+	@Accessor("maxChainedNeighborUpdates")
 	int getMaxChainDepth$TISCM();
 
-	@Accessor("neighborUpdateCallback")
+	@Accessor("debugListener")
 	Consumer<BlockPos> getNeighborUpdateCallback$TISCM();
 }

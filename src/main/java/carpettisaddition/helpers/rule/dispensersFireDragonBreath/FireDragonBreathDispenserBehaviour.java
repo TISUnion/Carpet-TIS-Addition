@@ -61,7 +61,7 @@ public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehav
 		areaEffectCloudEntity.setOwner(null);  // it doesn't have an entity owner
 		areaEffectCloudEntity.setParticle(
 				//#if MC >= 1.21.9
-				//$$ PowerParticleOption.of(ParticleTypes.DRAGON_BREATH, 1.0F)
+				//$$ PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1.0F)
 				//#else
 				ParticleTypes.DRAGON_BREATH
 				//#endif

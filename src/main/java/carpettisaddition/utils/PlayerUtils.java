@@ -31,7 +31,7 @@ public class PlayerUtils
 	{
 		return server.getPlayerList().isOp(
 				//#if MC >= 1.21.9
-				//$$ player.getPlayerConfigEntry()
+				//$$ player.nameAndId()
 				//#else
 				player.getGameProfile()
 				//#endif
@@ -41,10 +41,6 @@ public class PlayerUtils
 	@NotNull
 	public static MinecraftServer getServerFromPlayer(ServerPlayer player)
 	{
-		//#if MC >= 1.21.9
-		//$$ return player.getEntityWorld().getServer();
-		//#else
 		return player.getLevel().getServer();
-		//#endif
 	}
 }

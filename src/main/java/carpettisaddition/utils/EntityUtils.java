@@ -43,7 +43,7 @@ public class EntityUtils
 {
 	public static Level getEntityWorld(@NotNull Entity entity)
 	{
-		//#if 1.21.6 <= MC && MC < 1.21.9
+		//#if MC >= 1.21.6
 		//$$ return entity.level();
 		//#else
 		return entity.getCommandSenderWorld();

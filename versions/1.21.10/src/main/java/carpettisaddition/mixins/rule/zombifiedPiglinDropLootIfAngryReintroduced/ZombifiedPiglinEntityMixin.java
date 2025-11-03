@@ -43,17 +43,17 @@ public class ZombifiedPiglinEntityMixin extends Zombie
 	private static final int ZPDIAR_PLAYER_HURT_EXPERIENCE_TIME = 100;
 
 	@Inject(
-			method = "mobTick",
+			method = "customServerAiStep",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/mob/ZombieEntity;mobTick(Lnet/minecraft/server/level/ServerLevel;)V"
+					target = "Lnet/minecraft/world/entity/monster/Zombie;customServerAiStep(Lnet/minecraft/server/level/ServerLevel;)V"
 			)
 	)
 	private void zombifiedPiglinDropLootIfAngryReintroduced_updatePlayerHitTimer(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.zombifiedPiglinDropLootIfAngryReintroduced)
 		{
-			this.playerHitTimer = ZPDIAR_PLAYER_HURT_EXPERIENCE_TIME;
+			this.lastHurtByPlayerMemoryTime = ZPDIAR_PLAYER_HURT_EXPERIENCE_TIME;
 		}
 	}
 
@@ -61,7 +61,7 @@ public class ZombifiedPiglinEntityMixin extends Zombie
 			method = "setTarget",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/entity/mob/ZombieEntity;setTarget(Lnet/minecraft/entity/LivingEntity;)V"
+					target = "Lnet/minecraft/world/entity/monster/Zombie;setTarget(Lnet/minecraft/world/entity/LivingEntity;)V"
 			)
 	)
 	private void zombifiedPiglinDropLootIfAngryReintroduced_setAttackingIfTargetIsPlayer(LivingEntity target, CallbackInfo ci)
@@ -70,7 +70,7 @@ public class ZombifiedPiglinEntityMixin extends Zombie
 		{
 			if (target instanceof Player player)
 			{
-				this.setAttacking(player, ZPDIAR_PLAYER_HURT_EXPERIENCE_TIME);
+				this.setLastHurtByPlayer(player, ZPDIAR_PLAYER_HURT_EXPERIENCE_TIME);
 			}
 		}
 	}

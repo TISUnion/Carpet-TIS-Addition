@@ -37,7 +37,7 @@ public abstract class SpiderEntityMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.21.9
-					//$$ target = "Lnet/minecraft/entity/mob/SkeletonEntity;startRiding(Lnet/minecraft/entity/Entity;ZZ)Z"
+					//$$ target = "Lnet/minecraft/world/entity/monster/Skeleton;startRiding(Lnet/minecraft/world/entity/Entity;ZZ)Z"
 					//#else
 					target = "Lnet/minecraft/world/entity/monster/Skeleton;startRiding(Lnet/minecraft/world/entity/Entity;)Z"
 					//#endif

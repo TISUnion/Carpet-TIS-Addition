@@ -57,36 +57,36 @@ public class InstantChainRestrictedNeighborUpdater extends CollectingNeighborUpd
 	}
 
 	@Override
-	public void replaceWithStateForNeighborUpdate(Direction direction, BlockState neighborState, BlockPos pos, BlockPos neighborPos, int flags, int maxUpdateDepth)
+	public void shapeUpdate(Direction direction, BlockState neighborState, BlockPos pos, BlockPos neighborPos, int flags, int maxUpdateDepth)
 	{
 		this.onBlockUpdate(pos);
-		this.simpleNeighborUpdater.replaceWithStateForNeighborUpdate(direction, neighborState, pos, neighborPos, flags, maxUpdateDepth);
+		this.simpleNeighborUpdater.shapeUpdate(direction, neighborState, pos, neighborPos, flags, maxUpdateDepth);
 	}
 
 	@Override
-	public void updateNeighbor(BlockPos pos, Block sourceBlock, @Nullable Orientation orientation)
+	public void neighborChanged(BlockPos pos, Block sourceBlock, @Nullable Orientation orientation)
 	{
 		this.onBlockUpdate(pos);
-		this.simpleNeighborUpdater.updateNeighbor(pos, sourceBlock, orientation);
+		this.simpleNeighborUpdater.neighborChanged(pos, sourceBlock, orientation);
 	}
 
 	@Override
-	public void updateNeighbor(BlockState state, BlockPos pos, Block sourceBlock, @Nullable Orientation orientation, boolean notify)
+	public void neighborChanged(BlockState state, BlockPos pos, Block sourceBlock, @Nullable Orientation orientation, boolean notify)
 	{
 		this.onBlockUpdate(pos);
-		this.simpleNeighborUpdater.updateNeighbor(state, pos, sourceBlock, orientation, notify);
+		this.simpleNeighborUpdater.neighborChanged(state, pos, sourceBlock, orientation, notify);
 	}
 
 	@Override
-	public void updateNeighbors(BlockPos pos, Block sourceBlock, @Nullable Direction except, @Nullable Orientation orientation)
+	public void updateNeighborsAtExceptFromFacing(BlockPos pos, Block sourceBlock, @Nullable Direction except, @Nullable Orientation orientation)
 	{
 		for (Direction direction : UPDATE_ORDER)
 		{
 			if (direction != except)
 			{
-				this.onBlockUpdate(pos.offset(direction));
+				this.onBlockUpdate(pos.relative(direction));
 			}
 		}
-		this.simpleNeighborUpdater.updateNeighbors(pos, sourceBlock, except, orientation);
+		this.simpleNeighborUpdater.updateNeighborsAtExceptFromFacing(pos, sourceBlock, except, orientation);
 	}
 }
