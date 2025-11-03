@@ -37,7 +37,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 1.21.11
-					//$$ target = "Lnet/minecraft/command/permission/PermissionPredicate;hasPermission(Lnet/minecraft/command/permission/Permission;)Z"
+					//$$ target = "Lnet/minecraft/server/permissions/PermissionSet;hasPermission(Lnet/minecraft/server/permissions/Permission;)Z"
 					//#else
 					target = "Lnet/minecraft/server/level/ServerPlayer;hasPermissions(I)Z"
 					//#endif

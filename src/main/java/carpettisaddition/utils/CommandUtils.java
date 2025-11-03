@@ -39,10 +39,9 @@ import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 
 //#if MC >= 1.21.11
-//$$ import net.minecraft.command.permission.Permission;
-//$$ import net.minecraft.command.permission.PermissionCheck;
-//$$ import net.minecraft.command.permission.PermissionLevel;
-//$$ import net.minecraft.commands.Commands;
+//$$ import net.minecraft.server.permissions.Permission;
+//$$ import net.minecraft.server.permissions.PermissionCheck;
+//$$ import net.minecraft.server.permissions.PermissionLevel;
 //#endif
 
 public class CommandUtils
@@ -128,8 +127,8 @@ public class CommandUtils
 	public static boolean hasPermissionLevel(CommandSourceStack source, int level)
 	{
 		//#if MC >= 1.21.11
-		//$$ var permission = new Permission.Level(PermissionLevel.fromLevel(level));
-		//$$ return new PermissionCheck.Require(permission).allows(source.getPermissions());
+		//$$ var permission = new Permission.HasCommandLevel(PermissionLevel.byId(level));
+		//$$ return new PermissionCheck.Require(permission).check(source.permissions());
 		//#else
 		return source.hasPermission(level);
 		//#endif

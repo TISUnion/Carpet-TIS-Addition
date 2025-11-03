@@ -31,10 +31,10 @@ public abstract class MobEntityMixin
 {
 	@SuppressWarnings("RedundantIfStatement")
 	@WrapWithCondition(
-			method = "tickBurnInDaylight",
+			method = "burnUndead",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/entity/Mob;setOnFireFor(F)V"
+					target = "Lnet/minecraft/world/entity/Mob;igniteForSeconds(F)V"
 			)
 	)
 	private boolean undeadDontBurnInSunlight_skeleton(Mob instance, float duration)

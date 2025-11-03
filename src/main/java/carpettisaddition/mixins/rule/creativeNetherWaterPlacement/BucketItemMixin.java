@@ -45,7 +45,7 @@ public abstract class BucketItemMixin
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12111
-					//$$ target = "Lnet/minecraft/world/attribute/WorldEnvironmentAttributeAccess;getAttributeValue(Lnet/minecraft/world/attribute/EnvironmentAttribute;Lnet/minecraft/core/BlockPos;)Ljava/lang/Object;",
+					//$$ target = "Lnet/minecraft/world/attribute/EnvironmentAttributeSystem;getValue(Lnet/minecraft/world/attribute/EnvironmentAttribute;Lnet/minecraft/core/BlockPos;)Ljava/lang/Object;",
 					//$$ ordinal = 0
 					//#elseif MC >= 11600
 					//$$ target = "Lnet/minecraft/world/level/dimension/DimensionType;ultraWarm()Z"

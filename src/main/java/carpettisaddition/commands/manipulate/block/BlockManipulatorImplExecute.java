@@ -101,7 +101,7 @@ class BlockManipulatorImplExecute extends TranslationContext
 		//$$ Biome biome = world.getBiome(blockPos.above());
 		//$$ //#endif
 		//$$
-		//$$ Biome.Precipitation precipitation = biome.getPrecipitationAt(
+		//$$ Biome.Precipitation precipitation = biome.getPrecipitation(
 		//$$ 		//#if MC >= 11900
 		//$$ 		//$$ blockPos
 		//$$ 		//#endif

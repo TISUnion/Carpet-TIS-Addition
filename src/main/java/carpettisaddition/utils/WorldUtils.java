@@ -27,7 +27,7 @@ public class WorldUtils
 	public static long getWorldTime(Level world)
 	{
 		//#if MC >= 1.21.11
-		//$$ return world.getLevelProperties().getTime();
+		//$$ return world.getLevelData().getGameTime();
 		//#else
 		return world.getGameTime();
 		//#endif

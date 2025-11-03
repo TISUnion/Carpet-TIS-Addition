@@ -43,8 +43,8 @@ public abstract class RaidManagerMixin
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
-							//#if MC >= 11600
-							//$$ target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
+							//#if MC >= 12111
+							//$$ target = "Lnet/minecraft/world/level/gamerules/GameRules;get(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/Object;"
 							//#else
 							target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
 							//#endif
