@@ -47,7 +47,7 @@ public class NetworkUtilsTest extends TestCase
 	private static void assertStyle(CompoundTag nbt, NetworkUtils.NbtStyle expectedStyle)
 	{
 		FriendlyByteBuf buf = newBuffer();
-		buf.writeCompoundTag(nbt);
+		buf.writeNbt(nbt);
 		NetworkUtils.NbtStyle nbtStyle = NetworkUtils.guessNbtStyle(buf);
 		assertEquals(expectedStyle, nbtStyle);
 	}
@@ -122,7 +122,7 @@ public class NetworkUtilsTest extends TestCase
 			nbt.putInt("bar", 0);
 
 			FriendlyByteBuf buf = newBuffer();
-			buf.writeCompoundTag(nbt);
+			buf.writeNbt(nbt);
 			assertTrue(buf.readableBytes() >= 1);
 			assertEquals(0x0A, buf.readByte());
 

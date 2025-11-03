@@ -8,3 +8,4 @@ carpet.settings.Validator carpet.api.settings.Validator
 
 net.minecraft.network.chat.BaseComponent net.minecraft.network.chat.MutableComponent
 net.minecraft.core.Registry net.minecraft.core.registries.BuiltInRegistries
+net.minecraft.world.level.biome.Biome getPrecipitation() getPrecipitationAt()
