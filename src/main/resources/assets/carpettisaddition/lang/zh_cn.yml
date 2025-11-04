@@ -833,7 +833,7 @@ carpettisaddition:
         desc: 反混淆崩溃报告中输出的堆栈追踪
       dispenserNoItemCost:
         name: 发射器不消耗物品
-        desc: 开启后，发射器发射不再消耗物品
+        desc: 开启后，发射器和投掷器被激活时不再消耗物品
         extra:
           '0': 无论投掷物品还是使用物品都如此，但是投掷器传输物品仍会消耗物品
       dispensersFireDragonBreath:
