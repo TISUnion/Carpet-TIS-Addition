@@ -36,6 +36,7 @@ import static net.minecraft.commands.Commands.literal;
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
+	@Unique
 	private static LiteralArgumentBuilder<CommandSourceStack> sprintNode$TISCM = null;
 
 	@ModifyExpressionValue(

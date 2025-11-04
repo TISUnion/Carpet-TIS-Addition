@@ -24,6 +24,7 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 import carpettisaddition.logging.loggers.microtiming.interfaces.ServerWorldWithMicroTimingLogger;
 import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -40,7 +41,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogger
 {
-	private MicroTimingLogger microTimingLogger;
+	@Unique
+	private MicroTimingLogger microTimingLogger$TISCM;
 
 	//#if MC >= 11800
 	//$$ @Shadow @Final private LevelTicks<Block> blockTicks;
@@ -53,17 +55,17 @@ public abstract class ServerWorldMixin implements ServerWorldWithMicroTimingLogg
 	)
 	private void onConstruct_microTimingLogger(CallbackInfo ci)
 	{
-		this.microTimingLogger = new MicroTimingLogger((ServerLevel)(Object)this);
+		this.microTimingLogger$TISCM = new MicroTimingLogger((ServerLevel)(Object)this);
 
 		//#if MC >= 11800
-		//$$ ((ITileTickListWithServerWorld)this.blockTicks).setServerWorld((ServerLevel)(Object)this);
-		//$$ ((ITileTickListWithServerWorld)this.fluidTicks).setServerWorld((ServerLevel)(Object)this);
+		//$$ ((ITileTickListWithServerWorld)this.blockTicks).setServerWorld$TISCM((ServerLevel)(Object)this);
+		//$$ ((ITileTickListWithServerWorld)this.fluidTicks).setServerWorld$TISCM((ServerLevel)(Object)this);
 		//#endif
 	}
 
 	@Override
-	public MicroTimingLogger getMicroTimingLogger()
+	public MicroTimingLogger getMicroTimingLogger$TISCM()
 	{
-		return this.microTimingLogger;
+		return this.microTimingLogger$TISCM;
 	}
 }

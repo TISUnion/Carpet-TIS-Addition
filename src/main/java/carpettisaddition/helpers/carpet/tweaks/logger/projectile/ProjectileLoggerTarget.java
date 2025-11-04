@@ -24,5 +24,5 @@ import net.minecraft.world.phys.HitResult;
 
 public interface ProjectileLoggerTarget
 {
-	HitResult getHitResult();
+	HitResult getHitResult$TISCM();
 }

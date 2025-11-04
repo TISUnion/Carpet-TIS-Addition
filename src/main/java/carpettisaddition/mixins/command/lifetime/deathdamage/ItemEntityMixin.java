@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ItemEntityMixin implements DamageableEntity
 {
 	@Unique
-	private DamageSource deathDamageSource;
+	private DamageSource deathDamageSource$TISCM;
 
 	@Inject(
 			//#if MC >= 1.21.2
@@ -53,12 +53,12 @@ public abstract class ItemEntityMixin implements DamageableEntity
 	)
 	private void lifetimeTracker_recordDeathDamageSource_item(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source)
 	{
-		this.deathDamageSource = source;
+		this.deathDamageSource$TISCM = source;
 	}
 
 	@Override
-	public DamageSource getDeathDamageSource()
+	public DamageSource getDeathDamageSource$TISCM()
 	{
-		return this.deathDamageSource;
+		return this.deathDamageSource$TISCM;
 	}
 }

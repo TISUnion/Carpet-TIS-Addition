@@ -60,10 +60,10 @@ public class LifeTimeStatistic extends TranslationContext
 
 	public void update(Entity entity)
 	{
-		long time = ((LifetimeTrackerTarget)entity).getLifeTime();
+		long time = ((LifetimeTrackerTarget)entity).getLifeTime$TISCM();
 		this.count++;
 		this.timeSum += time;
-		StatisticElement element = new StatisticElement(time, DimensionWrapper.of(entity), ((LifetimeTrackerTarget)entity).getSpawningPosition(), ((LifetimeTrackerTarget)entity).getRemovalPosition());
+		StatisticElement element = new StatisticElement(time, DimensionWrapper.of(entity), ((LifetimeTrackerTarget)entity).getSpawningPosition$TISCM(), ((LifetimeTrackerTarget)entity).getRemovalPosition$TISCM());
 		if (time < this.minTimeElement.time)
 		{
 			this.minTimeElement = element;

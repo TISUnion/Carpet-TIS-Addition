@@ -55,7 +55,7 @@ public abstract class SpawnHelperMixin
 	)
 	private static Entity lifetimeTracker_recordSpawning_natualSpawning_natualSpawner(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.NATURAL);
+		((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.NATURAL);
 		return entity;
 	}
 }

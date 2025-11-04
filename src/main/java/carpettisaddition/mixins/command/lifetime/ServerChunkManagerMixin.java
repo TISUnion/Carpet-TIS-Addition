@@ -60,6 +60,6 @@ public abstract class ServerChunkManagerMixin
 	)
 	private void onCountingMobcapLifeTimeTracker(CallbackInfo ci)
 	{
-		((ServerWorldWithLifeTimeTracker)this.level).getLifeTimeWorldTracker().increaseSpawnStageCounter();
+		((ServerWorldWithLifeTimeTracker)this.level).getLifeTimeWorldTracker$TISCM().increaseSpawnStageCounter();
 	}
 }

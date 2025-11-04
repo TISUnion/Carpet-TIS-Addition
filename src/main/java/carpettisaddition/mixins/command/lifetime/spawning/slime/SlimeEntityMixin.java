@@ -47,7 +47,7 @@ public abstract class SlimeEntityMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_slimDivision(Entity slimeEntity)
 	{
-		((LifetimeTrackerTarget)slimeEntity).recordSpawning(LiteralSpawningReason.SLIME);
+		((LifetimeTrackerTarget)slimeEntity).recordSpawning$TISCM(LiteralSpawningReason.SLIME);
 		return slimeEntity;
 	}
 }

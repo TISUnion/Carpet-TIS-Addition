@@ -65,7 +65,7 @@ public abstract class ThrownExperienceBottleEntityMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_item_xpBottle(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.ITEM);
+		((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.ITEM);
 		return entity;
 	}
 	//#endif

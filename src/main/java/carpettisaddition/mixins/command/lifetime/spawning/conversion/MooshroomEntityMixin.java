@@ -67,7 +67,7 @@ public abstract class MooshroomEntityMixin extends Entity
 	)
 	private Entity lifetimeTracker_recordSpawning_conversion_cowFromMooshroom(Entity cow)
 	{
-		((LifetimeTrackerTarget)cow).recordSpawning(new MobConversionSpawningReason(this.getType()));
+		((LifetimeTrackerTarget)cow).recordSpawning$TISCM(new MobConversionSpawningReason(this.getType()));
 		return cow;
 	}
 }

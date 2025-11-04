@@ -48,6 +48,6 @@ public interface InventoryOwnerMixin
 	)
 	private static void lifetimeTracker_recordRemoval_mobPickup_inventoryOwnerItem(CallbackInfo ci, @Local(argsOnly = true) Mob mobEntity, @Local(argsOnly = true) ItemEntity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordRemoval(new MobPickupRemovalReason(mobEntity.getType()));
+		((LifetimeTrackerTarget)itemEntity).recordRemoval$TISCM(new MobPickupRemovalReason(mobEntity.getType()));
 	}
 }

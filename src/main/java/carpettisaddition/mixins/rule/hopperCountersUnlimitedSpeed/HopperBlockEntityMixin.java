@@ -33,6 +33,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -48,6 +49,7 @@ import java.util.function.Supplier;
 @Mixin(HopperBlockEntity.class)
 public abstract class HopperBlockEntityMixin extends RandomizableContainerBlockEntity
 {
+	@Unique
 	private static final int OPERATION_LIMIT = Short.MAX_VALUE;
 
 	//#if MC >= 11700

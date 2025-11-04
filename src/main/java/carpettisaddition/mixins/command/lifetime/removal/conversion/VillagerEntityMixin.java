@@ -48,7 +48,7 @@ public abstract class VillagerEntityMixin
 	)
 	private Entity lifetimeTracker_recordRemoval_conversion_villagerToWitch(Entity witch)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(witch.getType()));
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(new MobConversionRemovalReason(witch.getType()));
 		return witch;
 	}
 }

@@ -31,6 +31,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.ChatFormatting;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -71,6 +72,7 @@ public abstract class SettingsManagerMixin
 		return carpetRule;
 	}
 
+	@Unique
 	private static Optional<List<BaseComponent>> getTiscmRuleDisableMessage(TISCMRule tiscmRule)
 	{
 		List<BaseComponent> lines = Lists.newArrayList();

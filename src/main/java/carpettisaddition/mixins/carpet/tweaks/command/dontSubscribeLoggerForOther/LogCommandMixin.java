@@ -29,6 +29,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -58,6 +59,7 @@ public abstract class LogCommandMixin
 		dontSubscribeLoggerForOtherImpl(source, player_name, cir);
 	}
 
+	@Unique
 	private static void dontSubscribeLoggerForOtherImpl(CommandSourceStack source, String playerName, CallbackInfoReturnable<Integer> cir)
 	{
 		MinecraftServer server = source.getServer();

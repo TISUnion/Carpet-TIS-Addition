@@ -25,6 +25,7 @@ import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BaseSpawner;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -36,6 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BaseSpawner.class)
 public abstract class MobSpawnerLogicMixin
 {
+	@Unique
 	private Entity spawnedEntity$lifeTimeTracker;
 
 	@ModifyArg(
@@ -79,7 +81,7 @@ public abstract class MobSpawnerLogicMixin
 	{
 		if (this.spawnedEntity$lifeTimeTracker != null)
 		{
-			((LifetimeTrackerTarget)this.spawnedEntity$lifeTimeTracker).recordSpawning(LiteralSpawningReason.SPAWNER);
+			((LifetimeTrackerTarget)this.spawnedEntity$lifeTimeTracker).recordSpawning$TISCM(LiteralSpawningReason.SPAWNER);
 		}
 	}
 }

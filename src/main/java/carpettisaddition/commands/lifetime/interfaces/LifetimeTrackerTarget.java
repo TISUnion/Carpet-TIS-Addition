@@ -26,15 +26,15 @@ import net.minecraft.world.phys.Vec3;
 
 public interface LifetimeTrackerTarget
 {
-	int getTrackId();
+	int getTrackId$TISCM();
 
-	long getLifeTime();
+	long getLifeTime$TISCM();
 
-	Vec3 getSpawningPosition();
+	Vec3 getSpawningPosition$TISCM();
 
-	Vec3 getRemovalPosition();
+	Vec3 getRemovalPosition$TISCM();
 
-	void recordSpawning(SpawningReason reason);
+	void recordSpawning$TISCM(SpawningReason reason);
 
-	void recordRemoval(RemovalReason reason);
+	void recordRemoval$TISCM(RemovalReason reason);
 }

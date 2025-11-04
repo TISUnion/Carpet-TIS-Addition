@@ -28,6 +28,7 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -43,17 +44,18 @@ public abstract class EntityMixin implements MovementLoggerTarget
 {
 	// ============= Interface Implementations =============
 
+	@Unique
 	@Nullable
 	private MovementLogger.Tracker movementTracker$TISCM = null;
 
 	@Override
-	public Optional<MovementLogger.Tracker> getMovementTracker()
+	public Optional<MovementLogger.Tracker> getMovementTracker$TISCM()
 	{
 		return Optional.ofNullable(this.movementTracker$TISCM);
 	}
 
 	@Override
-	public void setMovementTracker(MovementLogger.@Nullable Tracker tracker)
+	public void setMovementTracker$TISCM(MovementLogger.@Nullable Tracker tracker)
 	{
 		this.movementTracker$TISCM = tracker;
 	}
@@ -84,7 +86,7 @@ public abstract class EntityMixin implements MovementLoggerTarget
 	)
 	private void onMovementModified_piston(MoverType type, Vec3 movement, CallbackInfo ci)
 	{
-		this.getMovementTracker().ifPresent(tracker -> tracker.recordModification(MovementModification.PISTON, movement));
+		this.getMovementTracker$TISCM().ifPresent(tracker -> tracker.recordModification(MovementModification.PISTON, movement));
 	}
 
 	@Inject(
@@ -97,7 +99,7 @@ public abstract class EntityMixin implements MovementLoggerTarget
 	)
 	private void onMovementModified_sneaking(MoverType type, Vec3 movement, CallbackInfo ci)
 	{
-		this.getMovementTracker().ifPresent(tracker -> tracker.recordModification(MovementModification.SNEAKING, movement));
+		this.getMovementTracker$TISCM().ifPresent(tracker -> tracker.recordModification(MovementModification.SNEAKING, movement));
 	}
 
 	@ModifyVariable(
@@ -111,7 +113,7 @@ public abstract class EntityMixin implements MovementLoggerTarget
 	)
 	private Vec3 onMovementModified_collision(Vec3 movement)
 	{
-		this.getMovementTracker().ifPresent(tracker -> tracker.recordModification(MovementModification.COLLISION, movement));
+		this.getMovementTracker$TISCM().ifPresent(tracker -> tracker.recordModification(MovementModification.COLLISION, movement));
 		return movement;
 	}
 }

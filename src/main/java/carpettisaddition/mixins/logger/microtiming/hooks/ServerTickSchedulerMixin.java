@@ -22,6 +22,7 @@ package carpettisaddition.mixins.logger.microtiming.hooks;
 
 import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
 import carpettisaddition.utils.ModIds;
+import org.spongepowered.asm.mixin.Unique;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.level.ServerLevel;
@@ -44,17 +45,18 @@ import carpettisaddition.utils.compat.DummyClass;
 )
 public abstract class ServerTickSchedulerMixin implements ITileTickListWithServerWorld
 {
+	@Unique
 	private ServerLevel serverWorld$TISCM;
 
 	@Override
 	@Nullable
-	public ServerLevel getServerWorld()
+	public ServerLevel getServerWorld$TISCM()
 	{
 		return this.serverWorld$TISCM;
 	}
 
 	@Override
-	public void setServerWorld(ServerLevel serverWorld$TISCM)
+	public void setServerWorld$TISCM(ServerLevel serverWorld$TISCM)
 	{
 		this.serverWorld$TISCM = serverWorld$TISCM;
 	}

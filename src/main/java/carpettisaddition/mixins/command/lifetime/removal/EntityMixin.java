@@ -39,13 +39,13 @@ public abstract class EntityMixin
 	{
 		if (this instanceof DamageableEntity)
 		{
-			DamageSource damageSource = ((DamageableEntity)this).getDeathDamageSource();
+			DamageSource damageSource = ((DamageableEntity)this).getDeathDamageSource$TISCM();
 			if (damageSource != null)
 			{
-				((LifetimeTrackerTarget)this).recordRemoval(new DeathRemovalReason(damageSource));
+				((LifetimeTrackerTarget)this).recordRemoval$TISCM(new DeathRemovalReason(damageSource));
 				return;
 			}
 		}
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.OTHER);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.OTHER);
 	}
 }

@@ -22,5 +22,5 @@ package carpettisaddition.logging.loggers.microtiming.interfaces;
 
 public interface WorldWithEntityTickingOrder
 {
-	void setEntityOrderCounter(int value);
+	void setEntityOrderCounter$TISCM(int value);
 }

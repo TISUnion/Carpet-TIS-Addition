@@ -20,26 +20,27 @@
 
 package carpettisaddition.mixins.logger.microtiming.events.compat.lithium;
 
+import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import org.spongepowered.asm.mixin.Mixin;
-
-import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import me.jellysquid.mods.lithium.common.world.scheduler.LithiumServerTickScheduler;
 import me.jellysquid.mods.lithium.common.world.scheduler.TickEntry;
-import net.minecraft.world.level.ServerTickList;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ServerTickList;
 import net.minecraft.world.level.TickNextTickData;
 import net.minecraft.world.level.TickPriority;
 import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -53,7 +54,8 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 {
 	@Shadow(remap = false) @Final private ServerLevel world;
 
-	private boolean scheduleSuccess;
+	@Unique
+	private boolean scheduleSuccess$TISCM;
 
 	public LithiumTileTickListMixin(
 			ServerLevel world, Predicate<T> invalidObjPredicate, Function<T, ResourceLocation> idToName,
@@ -75,7 +77,7 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 	@Inject(method = "scheduleTick(Lnet/minecraft/core/BlockPos;Ljava/lang/Object;ILnet/minecraft/world/level/TickPriority;)V", at = @At("HEAD"))
 	private void startScheduleTileTickEvent(CallbackInfo ci)
 	{
-		this.scheduleSuccess = false;
+		this.scheduleSuccess$TISCM = false;
 	}
 
 	@Inject(
@@ -95,18 +97,17 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 					ordinal = 0
 			),
 			//#endif
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			remap = false
 	)
 	private void checkScheduledState(
 			//#if MC >= 11700
-			//$$ BlockPos pos, Object object, long time, TickPriority priority, CallbackInfo ci, TickEntry<T> tick, boolean added
+			//$$ BlockPos pos, Object object, long time, TickPriority priority, CallbackInfo ci, @Local boolean added
 			//#else
-			TickNextTickData<T> tick, CallbackInfo ci, TickEntry<T> entry
+			TickNextTickData<T> tick, CallbackInfo ci, @Local TickEntry<T> entry
 			//#endif
 	)
 	{
-		this.scheduleSuccess =
+		this.scheduleSuccess$TISCM =
 				//#if MC >= 11700
 				//$$ added;
 				//#else
@@ -117,6 +118,6 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 	@Inject(method = "scheduleTick(Lnet/minecraft/core/BlockPos;Ljava/lang/Object;ILnet/minecraft/world/level/TickPriority;)V", at = @At("RETURN"))
 	private void endScheduleTileTickEvent(BlockPos pos, T object, int delay, TickPriority priority, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduleSuccess);
+		MicroTimingLoggerManager.onScheduleTileTickEvent(this.world, object, pos, delay, priority, this.scheduleSuccess$TISCM);
 	}
 }

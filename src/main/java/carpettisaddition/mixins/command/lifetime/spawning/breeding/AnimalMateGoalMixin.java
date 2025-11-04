@@ -47,7 +47,7 @@ public abstract class AnimalMateGoalMixin
 	{
 		if (entity != null)
 		{
-			((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.BREEDING);
+			((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.BREEDING);
 		}
 		return entity;
 	}

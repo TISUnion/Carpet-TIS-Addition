@@ -48,6 +48,6 @@ public abstract class TntMinecartEntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_exploded_tntMinecart(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.EXPLODED);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.EXPLODED);
 	}
 }

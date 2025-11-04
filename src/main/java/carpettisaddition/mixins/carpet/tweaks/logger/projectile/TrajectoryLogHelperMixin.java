@@ -33,7 +33,6 @@ import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -61,13 +60,11 @@ public abstract class TrajectoryLogHelperMixin
 	@Shadow(remap = false) @Final private static int MAX_TICKS_PER_LINE;
 
 	// visualize logging
-	@Unique
-	private Level world;
-	@Unique
-	private Entity entity;
-	private boolean doVisualizeLogging;
-	private boolean hasCreatedVisualizer;
-	private final Translator translator = new Translator("logger.projectiles.visualized");
+	@Unique private Level world;
+	@Unique private Entity entity;
+	@Unique private boolean doVisualizeLogging;
+	@Unique private boolean hasCreatedVisualizer;
+	@Unique private final Translator translator = new Translator("logger.projectiles.visualized");
 
 	@Inject(method = "<init>", at = @At("TAIL"), remap = false)
 	private void initTISCMStuffs(String logName, CallbackInfo ci)
@@ -108,11 +105,12 @@ public abstract class TrajectoryLogHelperMixin
 		}
 	}
 
+	@Unique
 	private Optional<HitResult> getHitResult()
 	{
 		if (this.entity instanceof ProjectileLoggerTarget)
 		{
-			return Optional.ofNullable(((ProjectileLoggerTarget)this.entity).getHitResult());
+			return Optional.ofNullable(((ProjectileLoggerTarget)this.entity).getHitResult$TISCM());
 		}
 		return Optional.empty();
 	}

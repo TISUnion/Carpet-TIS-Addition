@@ -45,6 +45,6 @@ public abstract class LivingEntityMixin
 	)
 	private void lifetimeTracker_recordSpawning_vehicleDismounting_livingEntity(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordSpawning(LiteralSpawningReason.VEHICLE_DISMOUNTING);
+		((LifetimeTrackerTarget)this).recordSpawning$TISCM(LiteralSpawningReason.VEHICLE_DISMOUNTING);
 	}
 }

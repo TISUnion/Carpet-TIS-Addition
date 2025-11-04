@@ -44,7 +44,7 @@ public abstract class PhantomSpawnerMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_natualSpawning_phantom(Entity phantom)
 	{
-		((LifetimeTrackerTarget)phantom).recordSpawning(LiteralSpawningReason.NATURAL);
+		((LifetimeTrackerTarget)phantom).recordSpawning$TISCM(LiteralSpawningReason.NATURAL);
 		return phantom;
 	}
 }

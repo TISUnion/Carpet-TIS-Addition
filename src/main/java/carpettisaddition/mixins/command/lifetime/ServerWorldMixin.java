@@ -24,6 +24,7 @@ import carpettisaddition.commands.lifetime.LifeTimeWorldTracker;
 import carpettisaddition.commands.lifetime.interfaces.ServerWorldWithLifeTimeTracker;
 import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -31,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin implements ServerWorldWithLifeTimeTracker
 {
+	@Unique
 	private LifeTimeWorldTracker lifeTimeWorldTracker;
 
 	@Inject(method = "<init>", at = @At(value = "RETURN"))
@@ -40,7 +42,7 @@ public abstract class ServerWorldMixin implements ServerWorldWithLifeTimeTracker
 	}
 
 	@Override
-	public LifeTimeWorldTracker getLifeTimeWorldTracker()
+	public LifeTimeWorldTracker getLifeTimeWorldTracker$TISCM()
 	{
 		return this.lifeTimeWorldTracker;
 	}

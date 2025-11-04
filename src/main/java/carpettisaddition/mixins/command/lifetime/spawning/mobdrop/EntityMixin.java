@@ -47,7 +47,7 @@ public abstract class EntityMixin
 	{
 		if (itemEntity != null)
 		{
-			((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
+			((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(new MobDropSpawningReason(this.getType()));
 		}
 		return itemEntity;
 	}

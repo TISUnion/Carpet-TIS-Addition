@@ -21,16 +21,18 @@
 package carpettisaddition.mixins.rule.dispenserNoItemCost;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.world.level.block.DropperBlock;
-import net.minecraft.world.level.block.entity.DispenserBlockEntity;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.DropperBlock;
+import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(DropperBlock.class)
 public abstract class DropperBlockMixin
@@ -51,19 +53,16 @@ public abstract class DropperBlockMixin
 		return stack;
 	}
 
-	private boolean currentDispenseIsItemDispense$TISCM = false;
-
-	@ModifyVariable(
+	@ModifyExpressionValue(
 			method = "dispenseFrom",
 			at = @At(
-					value = "INVOKE_ASSIGN",
-					target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;getContainerAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/Container;",
-					shift = At.Shift.AFTER
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;getContainerAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/Container;"
 			)
 	)
-	private Container dispenserNoItemCost_checkIfInventoryIsNullToDetermineLogic(Container inventory)
+	private Container dispenserNoItemCost_checkIfInventoryIsNullToDetermineLogic(Container inventory, @Share("currentDispenseIsItemDispense") LocalBooleanRef currentDispenseIsItemDispense)
 	{
-		this.currentDispenseIsItemDispense$TISCM = inventory == null;
+		currentDispenseIsItemDispense.set(inventory == null);
 		return inventory;
 	}
 
@@ -74,9 +73,11 @@ public abstract class DropperBlockMixin
 					target = "Lnet/minecraft/world/level/block/entity/DispenserBlockEntity;setItem(ILnet/minecraft/world/item/ItemStack;)V"
 			)
 	)
-	private void dispenserNoItemCost_dontSetBackTheConsumedStack(DispenserBlockEntity blockEntity, int slot, ItemStack stack, Operation<Void> original)
+	private void dispenserNoItemCost_dontSetBackTheConsumedStack(
+			DispenserBlockEntity blockEntity, int slot, ItemStack stack, Operation<Void> original,
+			@Share("currentDispenseIsItemDispense") LocalBooleanRef currentDispenseIsItemDispense)
 	{
-		if (CarpetTISAdditionSettings.dispenserNoItemCost && this.currentDispenseIsItemDispense$TISCM)  // not transfer mode
+		if (CarpetTISAdditionSettings.dispenserNoItemCost && currentDispenseIsItemDispense.get())  // not transfer mode
 		{
 			return;
 		}

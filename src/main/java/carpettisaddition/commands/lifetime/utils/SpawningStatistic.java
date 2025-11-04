@@ -47,6 +47,6 @@ public class SpawningStatistic extends TranslationContext
 	{
 		this.count++;
 		this.dimensionSample = DimensionWrapper.of(entity);
-		this.spawningPosSample = ((LifetimeTrackerTarget)entity).getSpawningPosition();
+		this.spawningPosSample = ((LifetimeTrackerTarget)entity).getSpawningPosition$TISCM();
 	}
 }

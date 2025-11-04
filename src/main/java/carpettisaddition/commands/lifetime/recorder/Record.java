@@ -86,7 +86,7 @@ public class Record
 
 		r.eventId = eventId;
 		r.eventType = eventType.name().toLowerCase();
-		r.eventPosition = eventType == EventType.SPAWNING ? ltt.getSpawningPosition() : ltt.getRemovalPosition();
+		r.eventPosition = eventType == EventType.SPAWNING ? ltt.getSpawningPosition$TISCM() : ltt.getRemovalPosition$TISCM();
 		r.eventData = eventData;
 
 		r.entityType = EntityType.getKey(entity.getType());
@@ -98,7 +98,7 @@ public class Record
 		r.entityUuid = entity.getUUID();
 		r.entityPosition = entity.position();
 		r.entityDimension = DimensionWrapper.of(entity).getIdentifier();
-		r.entityLifetime = eventType == EventType.SPAWNING ? 0 : ltt.getLifeTime();
+		r.entityLifetime = eventType == EventType.SPAWNING ? 0 : ltt.getLifeTime$TISCM();
 		return r;
 	}
 

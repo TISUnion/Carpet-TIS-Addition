@@ -43,7 +43,7 @@ public abstract class SummonVexGoalMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_summon_evokerVexSpell(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON);
+		((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.SUMMON);
 		return entity;
 	}
 }

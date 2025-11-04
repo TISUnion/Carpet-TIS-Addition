@@ -44,7 +44,7 @@ public abstract class BlockMixin
 	)
 	private static Entity lifetimeTracker_recordSpawning_blockDrop_common(Entity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.BLOCK_DROP);
+		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(LiteralSpawningReason.BLOCK_DROP);
 		return itemEntity;
 	}
 }

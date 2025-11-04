@@ -44,7 +44,7 @@ public abstract class CatSpawnerMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_natualSpawning_cat(Entity cat)
 	{
-		((LifetimeTrackerTarget)cat).recordSpawning(LiteralSpawningReason.NATURAL);
+		((LifetimeTrackerTarget)cat).recordSpawning$TISCM(LiteralSpawningReason.NATURAL);
 		return cat;
 	}
 }

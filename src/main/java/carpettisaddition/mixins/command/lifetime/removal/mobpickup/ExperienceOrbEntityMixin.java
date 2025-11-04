@@ -41,6 +41,6 @@ public abstract class ExperienceOrbEntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_mobPickup_xpOrb(Player player, CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(new MobPickupRemovalReason(player.getType()));
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(new MobPickupRemovalReason(player.getType()));
 	}
 }

@@ -36,6 +36,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -54,8 +55,8 @@ public abstract class WorldChunkMixin
 {
 	@Shadow @Final private ClassInstanceMultiMap<Entity>[] entitySections;
 
-	private ClassInstanceMultiMap<Entity>[] hardHitBoxEntitySections;
-	private boolean optimizedHHBECEnabled;  // optimizedHardHitBoxEntityCollisionEnabled
+	@Unique private ClassInstanceMultiMap<Entity>[] hardHitBoxEntitySections;
+	@Unique private boolean optimizedHHBECEnabled;  // optimizedHardHitBoxEntityCollisionEnabled
 
 	@SuppressWarnings("unchecked")
 	@Inject(

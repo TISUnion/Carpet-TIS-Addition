@@ -44,6 +44,6 @@ public abstract class CreeperEntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_exploded_creeper(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.EXPLODED);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.EXPLODED);
 	}
 }

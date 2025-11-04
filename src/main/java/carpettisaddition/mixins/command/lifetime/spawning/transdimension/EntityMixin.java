@@ -50,7 +50,7 @@ public abstract class EntityMixin
 	{
 		if (entity != null)
 		{
-			((LifetimeTrackerTarget)entity).recordSpawning(new TransDimensionSpawningReason(DimensionWrapper.of(this.level)));
+			((LifetimeTrackerTarget)entity).recordSpawning$TISCM(new TransDimensionSpawningReason(DimensionWrapper.of(this.level)));
 		}
 		return entity;
 	}

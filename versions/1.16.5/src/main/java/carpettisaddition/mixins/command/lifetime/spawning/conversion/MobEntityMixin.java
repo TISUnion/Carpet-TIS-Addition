@@ -75,11 +75,11 @@ public abstract class MobEntityMixin extends LivingEntity
 		//#if MC >= 12102
 		//$$ switch (context.type())
 		//$$ {
-		//$$ 	case SINGLE -> ltt.recordSpawning(new MobConversionSpawningReason(this.getType()));
-		//$$ 	case SPLIT_ON_DEATH -> ltt.recordSpawning(LiteralSpawningReason.SLIME);
+		//$$ 	case SINGLE -> ltt.recordSpawning$TISCM(new MobConversionSpawningReason(this.getType()));
+		//$$ 	case SPLIT_ON_DEATH -> ltt.recordSpawning$TISCM(LiteralSpawningReason.SLIME);
 		//$$ }
 		//#else
-		ltt.recordSpawning(new MobConversionSpawningReason(this.getType()));
+		ltt.recordSpawning$TISCM(new MobConversionSpawningReason(this.getType()));
 		//#endif
 		return targetEntity;
 	}

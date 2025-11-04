@@ -28,6 +28,7 @@ import carpettisaddition.utils.ModIds;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -38,10 +39,12 @@ import java.util.Map;
 //$$ import org.spongepowered.asm.mixin.injection.Coerce;
 //#endif
 
+@SuppressWarnings("AddedMixinMembersNamePattern")
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.15"))
 @Mixin(ShapeDispatcher.Text.class)
 public abstract class ShapeDispatcherTextMixin implements IShapeDispatcherText
 {
+	@Unique
 	private boolean isMicroTimingMarkerText = false;
 
 	@Override

@@ -49,7 +49,7 @@ public abstract class PlayerEntityMixin
 		if (itemEntity != null)
 		{
 			Entity self = (Entity)(Object)this;
-			((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobThrowSpawningReason(self.getType()));
+			((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(new MobThrowSpawningReason(self.getType()));
 		}
 		return itemEntity;
 	}

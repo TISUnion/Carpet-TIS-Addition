@@ -27,6 +27,7 @@ import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -37,8 +38,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = PrimedTnt.class, priority = 2000)
 public abstract class TntEntityMixin extends Entity implements ITntEntity
 {
-	private Vec3 initializedVelocity;
-	private Vec3 initializedPosition;
+	@Unique private Vec3 initializedVelocity;
+	@Unique private Vec3 initializedPosition;
 
 	public TntEntityMixin(EntityType<?> type, Level world)
 	{
@@ -56,19 +57,19 @@ public abstract class TntEntityMixin extends Entity implements ITntEntity
 	}
 
 	@Override
-	public boolean dataRecorded()
+	public boolean dataRecorded$TISCM()
 	{
-		return this.getInitializedVelocity() != null && this.getInitializedPosition() != null;
+		return this.getInitializedVelocity$TISCM() != null && this.getInitializedPosition$TISCM() != null;
 	}
 
 	@Override
-	public Vec3 getInitializedVelocity()
+	public Vec3 getInitializedVelocity$TISCM()
 	{
 		return this.initializedVelocity;
 	}
 
 	@Override
-	public Vec3 getInitializedPosition()
+	public Vec3 getInitializedPosition$TISCM()
 	{
 		return this.initializedPosition;
 	}

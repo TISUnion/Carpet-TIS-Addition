@@ -23,6 +23,7 @@ package carpettisaddition.mixins.logger.lightqueue;
 import carpettisaddition.logging.loggers.lightqueue.IServerLightingProvider;
 import net.minecraft.server.level.ThreadedLevelLightEngine;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -32,9 +33,9 @@ import java.util.concurrent.atomic.AtomicLong;
 @Mixin(ThreadedLevelLightEngine.class)
 public abstract class ServerLightingProviderMixin implements IServerLightingProvider
 {
-	private final AtomicLong enqueuedTaskCount = new AtomicLong();
-	private final AtomicLong executedTaskCount = new AtomicLong();
-	private final AtomicLong queueSize = new AtomicLong();
+	@Unique private final AtomicLong enqueuedTaskCount = new AtomicLong();
+	@Unique private final AtomicLong executedTaskCount = new AtomicLong();
+	@Unique private final AtomicLong queueSize = new AtomicLong();
 
 	@Inject(
 			method = "addTask(IILjava/util/function/IntSupplier;Lnet/minecraft/server/level/ThreadedLevelLightEngine$TaskType;Ljava/lang/Runnable;)V",
@@ -47,7 +48,7 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 	}
 
 	@Override
-	public void onExecutedLightUpdates()
+	public void onExecutedLightUpdates$TISCM()
 	{
 		this.executedTaskCount.getAndIncrement();
 		this.queueSize.getAndDecrement();
@@ -63,23 +64,23 @@ public abstract class ServerLightingProviderMixin implements IServerLightingProv
 	)
 	private void onExecutedLightUpdates(CallbackInfo ci)
 	{
-		this.onExecutedLightUpdates();
+		this.onExecutedLightUpdates$TISCM();
 	}
 
 	@Override
-	public long getEnqueuedTaskCountAndClean()
+	public long getEnqueuedTaskCountAndClean$TISCM()
 	{
 		return this.enqueuedTaskCount.getAndSet(0);
 	}
 
 	@Override
-	public long getExecutedTaskCountAndClean()
+	public long getExecutedTaskCountAndClean$TISCM()
 	{
 		return this.executedTaskCount.getAndSet(0);
 	}
 
 	@Override
-	public long getQueueSize()
+	public long getQueueSize$TISCM()
 	{
 		return this.queueSize.get();
 	}

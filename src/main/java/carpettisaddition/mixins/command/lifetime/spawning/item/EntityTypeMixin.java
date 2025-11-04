@@ -47,7 +47,7 @@ public abstract class EntityTypeMixin
 		Entity entity = cir.getReturnValue();
 		if (entity != null)
 		{
-			((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.ITEM);
+			((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.ITEM);
 		}
 	}
 }

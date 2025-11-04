@@ -24,18 +24,20 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.persistentLoggerSubscription.LoggerSubscriptionStorage;
 import carpettisaddition.utils.GameUtils;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 // improves priority due to @ModifyVariable into locals
 @Mixin(value = LoggerRegistry.class, priority = 500)
 public abstract class LoggerRegistryMixin
 {
+	@Unique
 	private static final ThreadLocal<Boolean> appliedPersistentLoggerSubscription = ThreadLocal.withInitial(() -> false);
 
 	@Inject(
@@ -45,10 +47,9 @@ public abstract class LoggerRegistryMixin
 					target = "Lcarpet/logging/LoggerRegistry;loggerRegistry:Ljava/util/Map;",
 					remap = false
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			remap = false
 	)
-	private static void tweaksLoggingOptions(Player player, CallbackInfo ci, boolean firstTime)
+	private static void tweaksLoggingOptions(Player player, CallbackInfo ci, @Local boolean firstTime)
 	{
 		if (CarpetTISAdditionSettings.persistentLoggerSubscription && firstTime)
 		{

@@ -36,7 +36,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -151,7 +150,7 @@ public class EntityFilter extends TranslationContext implements Predicate<Entity
 
 	public BaseComponent toText()
 	{
-		String inputText = this.entitySelector.getInputText();
+		String inputText = this.entitySelector.getInputText$TISCM();
 		return Messenger.fancy(
 				"y",
 				Messenger.s(inputText),

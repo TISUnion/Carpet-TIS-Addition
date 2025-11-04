@@ -24,11 +24,13 @@ import carpettisaddition.commands.removeentity.EntityToBeCleanlyRemoved;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.world.entity.vehicle.AbstractMinecartContainer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(AbstractMinecartContainer.class)
 public abstract class StorageMinecartEntityMixin implements EntityToBeCleanlyRemoved
 {
+	@Unique
 	private boolean toBeCleanlyRemoved$TISCM = false;
 
 	@Override

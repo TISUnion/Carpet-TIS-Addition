@@ -72,6 +72,6 @@ public abstract class MooshroomEntityMixin extends Entity
 			//#endif
 	)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(EntityType.COW));
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(new MobConversionRemovalReason(EntityType.COW));
 	}
 }

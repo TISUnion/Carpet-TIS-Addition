@@ -20,22 +20,20 @@
 
 package carpettisaddition.mixins.settings;
 
+import carpet.settings.Validator;
+import carpettisaddition.settings.validator.AbstractValidator;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.commands.CommandSourceStack;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+
 //#if MC >= 11901
 //$$ import carpet.api.settings.InvalidRuleValueException;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#else
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
-
-import carpet.settings.Validator;
-import carpettisaddition.settings.validator.AbstractValidator;
-import net.minecraft.commands.CommandSourceStack;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.Iterator;
 
 //#if MC >= 11901
 //$$ @SuppressWarnings({"deprecation", "removal"})
@@ -62,8 +60,7 @@ public class ParsedRuleMixin<T>
 					target = "Lcarpet/settings/Validator;validate(Lnet/minecraft/commands/CommandSourceStack;Lcarpet/settings/ParsedRule;Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;",
 					//#endif
 					shift = At.Shift.AFTER
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 			//#if MC < 11901
 			, cancellable = true
 			//#endif
@@ -75,7 +72,7 @@ public class ParsedRuleMixin<T>
 			//#else
 			CallbackInfoReturnable<?> cir,
 			//#endif
-			Iterator<?> iterator, Validator<T> validator
+			@Local Validator<T> validator
 	)
 	//#if MC >= 11901
 	//$$ throws InvalidRuleValueException

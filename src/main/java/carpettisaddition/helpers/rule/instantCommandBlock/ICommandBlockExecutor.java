@@ -22,5 +22,5 @@ package carpettisaddition.helpers.rule.instantCommandBlock;
 
 public interface ICommandBlockExecutor
 {
-	void setIgnoreWorldTimeCheck(boolean ignoreWorldTimeCheck);
+	void setIgnoreWorldTimeCheck$TISCM(boolean ignoreWorldTimeCheck);
 }

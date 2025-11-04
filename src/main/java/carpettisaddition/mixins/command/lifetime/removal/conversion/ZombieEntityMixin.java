@@ -58,7 +58,7 @@ public abstract class ZombieEntityMixin extends Monster
 	)
 	private Entity lifetimeTracker_recordRemoval_conversion_zombieToVariant(Entity zombieVariant)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(zombieVariant.getType()));
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(new MobConversionRemovalReason(zombieVariant.getType()));
 		return zombieVariant;
 	}
 
@@ -75,6 +75,6 @@ public abstract class ZombieEntityMixin extends Monster
 			@Local ZombieVillager zombieVillagerEntity
 	)
 	{
-		((LifetimeTrackerTarget)villagerEntity).recordRemoval(new MobConversionRemovalReason(zombieVillagerEntity.getType()));
+		((LifetimeTrackerTarget)villagerEntity).recordRemoval$TISCM(new MobConversionRemovalReason(zombieVillagerEntity.getType()));
 	}
 }

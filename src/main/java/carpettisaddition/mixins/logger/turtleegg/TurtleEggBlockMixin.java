@@ -30,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -37,6 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(TurtleEggBlock.class)
 public abstract class TurtleEggBlockMixin
 {
+	@Unique
 	private final ThreadLocal<Entity> eggBreakingEntity = ThreadLocal.withInitial(() -> null);
 
 	@Inject(method = "decreaseEggs", at = @At("HEAD"))

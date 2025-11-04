@@ -57,7 +57,7 @@ public abstract class LivingEntityAndPlayerEntityMixins
 		)
 		private void onAbsorptionReducedDamage(CallbackInfo ci, @Local(argsOnly = true) float amount)
 		{
-			((DamageLoggerTarget) this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
+			((DamageLoggerTarget) this).getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(
 					amount, new StatusEffectModifyReason(MobEffects.ABSORPTION)
 			));
 		}
@@ -74,7 +74,7 @@ public abstract class LivingEntityAndPlayerEntityMixins
 			if (DamageLogger.isLoggerActivated())
 			{
 				LivingEntity entity = (LivingEntity) (Object) this;
-				Optional<DamageLogger.Tracker> logger = ((DamageLoggerTarget) this).getDamageTracker();
+				Optional<DamageLogger.Tracker> logger = ((DamageLoggerTarget) this).getDamageTracker$TISCM();
 				if (entity.isInvulnerableTo(
 						//#if MC >= 12102
 						//$$ serverWorld,
@@ -111,9 +111,9 @@ public abstract class LivingEntityAndPlayerEntityMixins
 				{
 					// return false means actually received no damage for some reason,
 					// logger.flush after regular damage calculation might not be called so here's a backup call
-					((DamageLoggerTarget) this).getDamageTracker().ifPresent(tracker -> tracker.flush(0.0F, entity.getHealth()));
+					((DamageLoggerTarget) this).getDamageTracker$TISCM().ifPresent(tracker -> tracker.flush(0.0F, entity.getHealth()));
 				}
-				((DamageLoggerTarget) this).setDamageTracker(null);
+				((DamageLoggerTarget) this).setDamageTracker$TISCM(null);
 			}
 		}
 	}

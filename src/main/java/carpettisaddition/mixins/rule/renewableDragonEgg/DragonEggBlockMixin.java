@@ -34,6 +34,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Intrinsic;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.List;
 
@@ -74,6 +75,7 @@ public abstract class DragonEggBlockMixin extends Block
 		renewableDragonEggImpl(state, world, pos, random);
 	}
 
+	@Unique
 	private void renewableDragonEggImpl(
 			BlockState state, Level world, BlockPos pos,
 			//#if MC >= 11900

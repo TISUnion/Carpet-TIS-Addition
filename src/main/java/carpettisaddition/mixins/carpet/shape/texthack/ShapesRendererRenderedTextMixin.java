@@ -29,6 +29,7 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -55,6 +56,7 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 		super(client, shape);
 	}
 
+	@Unique
 	private boolean isMicroTimingMarkerText()
 	{
 		return ((IShapeDispatcherText)this.shape).isMicroTimingMarkerText();

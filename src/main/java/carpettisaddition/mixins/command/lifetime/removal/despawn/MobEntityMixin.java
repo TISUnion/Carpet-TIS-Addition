@@ -50,7 +50,7 @@ public abstract class MobEntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_despawnDifficulty_mobEntity(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.DESPAWN_DIFFICULTY);
 	}
 	//#endif
 
@@ -79,9 +79,9 @@ public abstract class MobEntityMixin
 		DamageSource damageSource = null;
 		if (this instanceof DamageableEntity)
 		{
-			damageSource = ((DamageableEntity)this).getDeathDamageSource();
+			damageSource = ((DamageableEntity)this).getDeathDamageSource$TISCM();
 		}
-		((LifetimeTrackerTarget)this).recordRemoval(new DespawnImmediatelyRemovalReason(damageSource));
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(new DespawnImmediatelyRemovalReason(damageSource));
 	}
 
 	@Inject(
@@ -104,6 +104,6 @@ public abstract class MobEntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_despawnRandomly(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_RANDOMLY);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.DESPAWN_RANDOMLY);
 	}
 }

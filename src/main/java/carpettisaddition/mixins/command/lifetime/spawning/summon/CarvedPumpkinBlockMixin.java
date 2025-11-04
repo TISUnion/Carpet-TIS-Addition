@@ -50,7 +50,7 @@ public abstract class CarvedPumpkinBlockMixin
 	//#endif
 	private Entity lifetimeTracker_recordSpawning_summon_pumpkinGolem(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON);
+		((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.SUMMON);
 		return entity;
 	}
 }

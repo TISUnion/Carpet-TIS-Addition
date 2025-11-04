@@ -21,8 +21,8 @@
 package carpettisaddition.mixins.rule.syncServerMsptMetricsData;
 
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.components.DebugScreenOverlay;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.util.FrameTimer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +30,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 //#if MC >= 12000
 //$$ import net.minecraft.client.gui.GuiGraphics;
@@ -65,8 +64,7 @@ public abstract class DebugHudMixin
 					value = "INVOKE_ASSIGN",
 					target = "Lnet/minecraft/client/Minecraft;getSingleplayerServer()Lnet/minecraft/client/server/IntegratedServer;",
 					shift = At.Shift.AFTER
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
 	private void syncServerMsptMetricsData_drawIfPossible(
 			//#if MC >= 12000
@@ -75,10 +73,8 @@ public abstract class DebugHudMixin
 			//$$ PoseStack arg0,
 			//#endif
 			CallbackInfo ci,
-			//#if MC < 12000
-			Entity entity,
-			//#endif
-			int i, IntegratedServer integratedServer
+			@Local int i,
+			@Local IntegratedServer integratedServer
 	)
 	{
 		if (integratedServer == null)

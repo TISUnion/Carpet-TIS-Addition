@@ -24,6 +24,7 @@ import carpettisaddition.commands.lifetime.interfaces.DamageableEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.damagesource.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -31,7 +32,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin implements DamageableEntity
 {
-	private DamageSource deathDamageSource;
+	@Unique
+	private DamageSource deathDamageSource$TISCM;
 
 	@Inject(
 			method = "die",
@@ -42,12 +44,12 @@ public abstract class LivingEntityMixin implements DamageableEntity
 	)
 	private void lifetimeTracker_recordDeathDamageSource_livingEntity(DamageSource source, CallbackInfo ci)
 	{
-		this.deathDamageSource = source;
+		this.deathDamageSource$TISCM = source;
 	}
 
 	@Override
-	public DamageSource getDeathDamageSource()
+	public DamageSource getDeathDamageSource$TISCM()
 	{
-		return this.deathDamageSource;
+		return this.deathDamageSource$TISCM;
 	}
 }

@@ -40,7 +40,7 @@ public abstract class ShulkerBoxBlockMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_blockDrop_shulkerBox(Entity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.BLOCK_DROP);
+		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(LiteralSpawningReason.BLOCK_DROP);
 		return itemEntity;
 	}
 }

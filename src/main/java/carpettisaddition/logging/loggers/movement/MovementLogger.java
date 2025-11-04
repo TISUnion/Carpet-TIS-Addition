@@ -71,9 +71,9 @@ public class MovementLogger extends AbstractLogger
 		if (isLoggerActivated() && EntityUtils.getEntityWorld(entity) instanceof ServerLevel)
 		{
 			MovementLoggerTarget target = (MovementLoggerTarget)entity;
-			if (!target.getMovementTracker().isPresent())
+			if (!target.getMovementTracker$TISCM().isPresent())
 			{
-				target.setMovementTracker(new Tracker(entity, movementType, originalMovement));
+				target.setMovementTracker$TISCM(new Tracker(entity, movementType, originalMovement));
 			}
 		}
 	}
@@ -83,8 +83,8 @@ public class MovementLogger extends AbstractLogger
 		if (isLoggerActivated())
 		{
 			MovementLoggerTarget target = (MovementLoggerTarget) entity;
-			target.getMovementTracker().ifPresent(Tracker::report);
-			target.setMovementTracker(null);
+			target.getMovementTracker$TISCM().ifPresent(Tracker::report);
+			target.setMovementTracker$TISCM(null);
 		}
 	}
 

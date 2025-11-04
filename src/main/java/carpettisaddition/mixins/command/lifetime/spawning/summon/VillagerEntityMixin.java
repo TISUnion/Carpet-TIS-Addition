@@ -41,7 +41,7 @@ public abstract class VillagerEntityMixin
 	{
 		if (cir.getReturnValue() != null)
 		{
-			((LifetimeTrackerTarget)cir.getReturnValue()).recordSpawning(LiteralSpawningReason.SUMMON);
+			((LifetimeTrackerTarget)cir.getReturnValue()).recordSpawning$TISCM(LiteralSpawningReason.SUMMON);
 		}
 	}
 }

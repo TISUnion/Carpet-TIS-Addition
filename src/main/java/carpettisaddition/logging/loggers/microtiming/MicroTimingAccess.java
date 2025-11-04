@@ -30,7 +30,7 @@ public class MicroTimingAccess
 {
 	public static TickPhase getTickPhase(@NotNull ServerLevel world)
 	{
-		return ((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger().getTickPhase();
+		return ((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger$TISCM().getTickPhase();
 	}
 
 	public static TickPhase getTickPhase(@NotNull Level world)

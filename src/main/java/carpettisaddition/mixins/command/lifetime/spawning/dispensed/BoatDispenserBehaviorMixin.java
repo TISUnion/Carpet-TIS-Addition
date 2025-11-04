@@ -44,7 +44,7 @@ public class BoatDispenserBehaviorMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_dispensed_boat(Entity boatEntity)
 	{
-		((LifetimeTrackerTarget)boatEntity).recordSpawning(LiteralSpawningReason.DISPENSED);
+		((LifetimeTrackerTarget)boatEntity).recordSpawning$TISCM(LiteralSpawningReason.DISPENSED);
 		return boatEntity;
 	}
 }

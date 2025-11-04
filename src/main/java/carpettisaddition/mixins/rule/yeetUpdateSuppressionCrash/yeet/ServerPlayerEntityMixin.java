@@ -22,12 +22,12 @@ package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.yeet;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin
@@ -38,10 +38,9 @@ public abstract class ServerPlayerEntityMixin
 					value = "INVOKE",
 					target = "Lnet/minecraft/CrashReport;forThrowable(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/CrashReport;"
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private void yeetUpdateSuppressionCrash_implForPlayerEntityTicking(CallbackInfo ci, Throwable throwable)
+	private void yeetUpdateSuppressionCrash_implForPlayerEntityTicking(CallbackInfo ci, @Local Throwable throwable)
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{

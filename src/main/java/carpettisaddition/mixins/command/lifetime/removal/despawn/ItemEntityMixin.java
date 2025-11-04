@@ -51,6 +51,6 @@ public abstract class ItemEntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_despawnTimeout_item(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_TIMEOUT);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.DESPAWN_TIMEOUT);
 	}
 }

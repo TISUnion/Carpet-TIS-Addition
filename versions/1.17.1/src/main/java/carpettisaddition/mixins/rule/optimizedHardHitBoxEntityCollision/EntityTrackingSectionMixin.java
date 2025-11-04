@@ -38,6 +38,7 @@ import net.minecraft.world.level.entity.LevelEntityGetterAdapter;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -65,8 +66,8 @@ public abstract class EntityTrackingSectionMixin<
 		//#endif
 >
 {
-	private ClassInstanceMultiMap<T> hardHitBoxEntitySections;
-	private boolean optimizedHHBECEnabled;  // optimizedHardHitBoxEntityCollisionEnabled
+	@Unique private ClassInstanceMultiMap<T> hardHitBoxEntitySections;
+	@Unique private boolean optimizedHHBECEnabled;  // optimizedHardHitBoxEntityCollisionEnabled
 
 	/**
 	 * Enable only if {@param entityClass} is Entity.class

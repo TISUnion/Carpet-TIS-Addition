@@ -45,6 +45,6 @@ public abstract class HostileEntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_despawnDifficulty_hostileEntity(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.DESPAWN_DIFFICULTY);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.DESPAWN_DIFFICULTY);
 	}
 }

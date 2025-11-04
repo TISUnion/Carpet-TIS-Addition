@@ -61,7 +61,7 @@ public abstract class HopperBlockEntityMixin
 				//#endif
 		)
 		{
-			((LifetimeTrackerTarget)itemEntity).recordRemoval(LiteralRemovalReason.HOPPER);
+			((LifetimeTrackerTarget)itemEntity).recordRemoval$TISCM(LiteralRemovalReason.HOPPER);
 		}
 	}
 }

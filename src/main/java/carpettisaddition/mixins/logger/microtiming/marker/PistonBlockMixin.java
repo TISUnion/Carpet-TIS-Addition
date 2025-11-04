@@ -21,9 +21,8 @@
 package carpettisaddition.mixins.logger.microtiming.marker;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
-import net.minecraft.world.level.block.state.BlockState;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
-import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -32,15 +31,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.List;
-
-//#if MC >= 11500
-import java.util.Map;
-//#else
-//$$ import java.util.Set;
-//#endif
 
 @Mixin(PistonBaseBlock.class)
 public abstract class PistonBlockMixin
@@ -67,19 +57,13 @@ public abstract class PistonBlockMixin
 					//#endif
 					shift = At.Shift.AFTER,
 					ordinal = 0
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
 	private void moveMicroTimingMarkerAsWell(
 			Level world, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir,
-			//#if MC >= 11600
-			//$$ BlockPos blockPos, PistonStructureResolver pistonHandler, Map map, List list, List list2, List list3, BlockState[] blockStates, Direction direction, int j, int l, BlockPos blockPos4, BlockState blockState3
-			//#elseif MC >= 11500
-			BlockPos blockPos, PistonStructureResolver pistonHandler, Map map, List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction, int l, BlockPos blockPos4, BlockState blockState3
-			//#else
-			//$$ BlockPos blockPos, PistonStructureResolver pistonHandler, List list, List list2, List list3, int j, BlockState[] blockStates, Direction direction, Set set, int l, BlockPos blockPos4, BlockState blockState2
-			//#endif
+			@Local(ordinal = 1) Direction direction,
+			@Local(ordinal = 2) BlockPos blockPos4
 	)
 	{
 		MicroTimingLoggerManager.moveMarker(world, blockPos4.relative(direction.getOpposite()), direction);

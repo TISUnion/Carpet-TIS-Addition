@@ -27,6 +27,7 @@ import net.minecraft.commands.arguments.blocks.BlockInput;
 import net.minecraft.server.commands.FillCommand;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Collection;
 import java.util.Set;
@@ -43,6 +44,7 @@ public class FillCommandModeMixin
 		fillSoftReplaceModeHijack();
 	}
 
+	@Unique
 	private static <T extends Comparable<T>> void fillSoftReplaceModeHijack()
 	{
 		FillCommand.Mode replaceMode = FillCommand.Mode.REPLACE;

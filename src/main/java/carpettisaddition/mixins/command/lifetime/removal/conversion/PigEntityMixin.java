@@ -56,7 +56,7 @@ public abstract class PigEntityMixin extends Animal
 	)
 	private Entity lifetimeTracker_recordRemoval_conversion_pigToPigman(Entity zombiePigman)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(zombiePigman.getType()));
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(new MobConversionRemovalReason(zombiePigman.getType()));
 		return zombiePigman;
 	}
 }

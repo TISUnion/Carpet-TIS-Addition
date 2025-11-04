@@ -22,7 +22,7 @@ package carpettisaddition.utils.entityfilter;
 
 public interface IEntitySelector
 {
-	void setInputText(String inputText);
+	void setInputText$TISCM(String inputText);
 
-	String getInputText();
+	String getInputText$TISCM();
 }

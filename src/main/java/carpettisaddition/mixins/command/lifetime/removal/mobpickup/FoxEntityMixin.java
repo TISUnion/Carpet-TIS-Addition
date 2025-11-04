@@ -50,6 +50,6 @@ public abstract class FoxEntityMixin extends Entity
 	)
 	private void lifetimeTracker_recordRemoval_mobPickup_foxPickupItem(CallbackInfo ci, @Local(argsOnly = true) ItemEntity item)
 	{
-		((LifetimeTrackerTarget)item).recordRemoval(new MobPickupRemovalReason(this.getType()));
+		((LifetimeTrackerTarget)item).recordRemoval$TISCM(new MobPickupRemovalReason(this.getType()));
 	}
 }

@@ -75,7 +75,7 @@ public class LifeTimeTracker extends AbstractTracker
 		INSTANCE.trackers.clear();
 		for (ServerLevel world : minecraftServer.getAllLevels())
 		{
-			INSTANCE.trackers.put(world, ((ServerWorldWithLifeTimeTracker)world).getLifeTimeWorldTracker());
+			INSTANCE.trackers.put(world, ((ServerWorldWithLifeTimeTracker)world).getLifeTimeWorldTracker$TISCM());
 		}
 		LifetimeRecorder.getInstance();  // ensure config loaded
 	}
@@ -94,7 +94,7 @@ public class LifeTimeTracker extends AbstractTracker
 	public boolean willTrackEntity(Entity entity, boolean checkTrackId)
 	{
 		return isActivated() &&
-				(!checkTrackId || ((LifetimeTrackerTarget)entity).getTrackId() == this.getCurrentTrackId()) &&
+				(!checkTrackId || ((LifetimeTrackerTarget)entity).getTrackId$TISCM() == this.getCurrentTrackId()) &&
 				LifeTimeTrackerUtil.isTrackedEntityClass(entity);
 	}
 

@@ -29,6 +29,7 @@ import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -41,10 +42,10 @@ public abstract class ServerWorldMixin
 	@Final
 	private ObjectLinkedOpenHashSet<BlockEventData> blockEvents;
 
-	private int blockEventOrderCounter;
-	private int blockEventDepth;
-	private int blockEventCurrentDepthCounter;
-	private int blockEventCurrentDepthSize;
+	@Unique private int blockEventOrderCounter;
+	@Unique private int blockEventDepth;
+	@Unique private int blockEventCurrentDepthCounter;
+	@Unique private int blockEventCurrentDepthSize;
 
 	@Inject(
 			method = "runBlockEvents",

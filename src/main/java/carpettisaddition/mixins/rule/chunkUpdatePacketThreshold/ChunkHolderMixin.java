@@ -29,10 +29,7 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.world.level.chunk.LevelChunk;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -49,10 +46,11 @@ public abstract class ChunkHolderMixin
 	@Shadow private int changes;
 
 	// CUPT = chunkUpdatePacketThreshold
-	private boolean ruleEnabled$CUPT;
-	private int ruleValue$CUPT;
-	private final Set<Short> blockUpdatePositionsSet$CUPT = Sets.newLinkedHashSet();
+	@Unique private boolean ruleEnabled$CUPT;
+	@Unique private int ruleValue$CUPT;
+	@Unique private final Set<Short> blockUpdatePositionsSet$CUPT = Sets.newLinkedHashSet();
 
+	@Unique
 	private void updateRuleStatus$CUPT()
 	{
 		this.ruleValue$CUPT = CarpetTISAdditionSettings.chunkUpdatePacketThreshold;

@@ -57,7 +57,7 @@ public abstract class LookTargetUtilMixin
 			//#endif
 	)
 	{
-		((LifetimeTrackerTarget) itemEntity).recordSpawning(new MobThrowSpawningReason(entity.getType()));
+		((LifetimeTrackerTarget) itemEntity).recordSpawning$TISCM(new MobThrowSpawningReason(entity.getType()));
 		return itemEntity;
 	}
 }

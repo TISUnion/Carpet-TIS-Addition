@@ -58,7 +58,7 @@ public abstract class LivingEntityMixin extends Entity
 	)
 	private Entity lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_item(Entity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobDropSpawningReason(this.getType()));
+		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(new MobDropSpawningReason(this.getType()));
 		return itemEntity;
 	}
 
@@ -83,7 +83,7 @@ public abstract class LivingEntityMixin extends Entity
 	)
 	private Entity lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrb(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(new MobDropSpawningReason(this.getType()));
+		((LifetimeTrackerTarget)entity).recordSpawning$TISCM(new MobDropSpawningReason(this.getType()));
 		return entity;
 	}
 	//#endif

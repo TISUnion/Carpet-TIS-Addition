@@ -44,7 +44,7 @@ public abstract class MinecartItemMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_item_minecart(Entity minecartEntity)
 	{
-		((LifetimeTrackerTarget)minecartEntity).recordSpawning(LiteralSpawningReason.ITEM);
+		((LifetimeTrackerTarget)minecartEntity).recordSpawning$TISCM(LiteralSpawningReason.ITEM);
 		return minecartEntity;
 	}
 }

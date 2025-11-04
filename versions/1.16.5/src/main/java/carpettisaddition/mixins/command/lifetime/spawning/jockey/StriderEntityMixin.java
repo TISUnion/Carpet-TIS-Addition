@@ -42,7 +42,7 @@ public abstract class StriderEntityMixin
 	)
 	private Mob lifetimeTracker_recordSpawning_jockey_strider(Mob striderRider)
 	{
-		((LifetimeTrackerTarget)striderRider).recordSpawning(LiteralSpawningReason.JOCKEY);
+		((LifetimeTrackerTarget)striderRider).recordSpawning$TISCM(LiteralSpawningReason.JOCKEY);
 		return striderRider;
 	}
 }

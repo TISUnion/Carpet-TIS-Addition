@@ -24,13 +24,12 @@ import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import carpettisaddition.logging.compat.IExtensionLogger;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.lang.reflect.Field;
 /**
@@ -40,14 +39,6 @@ import java.lang.reflect.Field;
 @Mixin(LoggerRegistry.class)
 public abstract class LoggerRegistryMixin
 {
-	private static Logger currentProcessingLogger;
-
-	@Inject(method = "setAccess", at = @At("HEAD"), remap = false)
-	private static void youCanUseMyField(Logger logger, CallbackInfo ci)
-	{
-		currentProcessingLogger = logger;
-	}
-
 	@Redirect(
 			method = "setAccess",
 			at = @At(
@@ -56,11 +47,11 @@ public abstract class LoggerRegistryMixin
 			),
 			remap = false
 	)
-	private static Field maybeDontUseYourOwnGetDeclaredField(Class<?> aClass, String name) throws NoSuchFieldException
+	private static Field maybeDontUseYourOwnGetDeclaredField(Class<?> aClass, String name, @Local(argsOnly = true) Logger logger) throws NoSuchFieldException
 	{
-		if (currentProcessingLogger instanceof IExtensionLogger)
+		if (logger instanceof IExtensionLogger)
 		{
-			return ((IExtensionLogger)currentProcessingLogger).getAcceleratorField();
+			return ((IExtensionLogger)logger).getAcceleratorField();
 		}
 		return aClass.getDeclaredField(name);
 	}

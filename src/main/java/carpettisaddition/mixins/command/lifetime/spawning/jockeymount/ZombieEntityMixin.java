@@ -44,7 +44,7 @@ public abstract class ZombieEntityMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_jockeyMount_chickenForZombie(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.JOCKEY_MOUNT);
+		((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.JOCKEY_MOUNT);
 		return entity;
 	}
 }

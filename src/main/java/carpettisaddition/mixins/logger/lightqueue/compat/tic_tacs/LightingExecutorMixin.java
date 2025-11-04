@@ -70,7 +70,7 @@ public abstract class LightingExecutorMixin
 	{
 		if (this.lightingProvider instanceof IServerLightingProvider)
 		{
-			((IServerLightingProvider)this.lightingProvider).onExecutedLightUpdates();
+			((IServerLightingProvider)this.lightingProvider).onExecutedLightUpdates$TISCM();
 		}
 	}
 }

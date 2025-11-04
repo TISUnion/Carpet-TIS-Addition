@@ -48,8 +48,8 @@ public abstract class DirectBlockEntityTickInvokerMixin<T extends BlockEntity>
 		Level world = blockEntity.getLevel();
 		if (world != null)
 		{
-			int counter = ((IWorldTileEntity)world).getTileEntityOrderCounter();
-			((IWorldTileEntity) world).setTileEntityOrderCounter(counter + 1);
+			int counter = ((IWorldTileEntity)world).getTileEntityOrderCounter$TISCM();
+			((IWorldTileEntity) world).setTileEntityOrderCounter$TISCM(counter + 1);
 			MicroTimingLoggerManager.setSubTickStage(world, new TileEntitySubStage(blockEntity, counter));
 		}
 	}

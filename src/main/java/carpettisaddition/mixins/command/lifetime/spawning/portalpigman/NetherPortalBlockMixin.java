@@ -52,7 +52,7 @@ public abstract class NetherPortalBlockMixin
 	{
 		if (entity != null)
 		{
-			((LifetimeTrackerTarget) entity).recordSpawning(LiteralSpawningReason.PORTAL_PIGMAN);
+			((LifetimeTrackerTarget) entity).recordSpawning$TISCM(LiteralSpawningReason.PORTAL_PIGMAN);
 		}
 		return entity;
 	}

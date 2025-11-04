@@ -22,11 +22,11 @@ package carpettisaddition.logging.loggers.lightqueue;
 
 public interface IServerLightingProvider
 {
-	long getEnqueuedTaskCountAndClean();
+	long getEnqueuedTaskCountAndClean$TISCM();
 
-	long getExecutedTaskCountAndClean();
+	long getExecutedTaskCountAndClean$TISCM();
 
-	long getQueueSize();
+	long getQueueSize$TISCM();
 
-	void onExecutedLightUpdates();
+	void onExecutedLightUpdates$TISCM();
 }

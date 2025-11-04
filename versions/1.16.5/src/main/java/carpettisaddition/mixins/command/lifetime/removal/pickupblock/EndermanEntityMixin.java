@@ -41,7 +41,7 @@ public abstract class EndermanEntityMixin
 	{
 		if (state != null)
 		{
-			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PICKUP_BLOCK);
+			((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.PICKUP_BLOCK);
 		}
 	}
 }

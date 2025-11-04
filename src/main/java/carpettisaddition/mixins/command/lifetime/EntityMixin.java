@@ -27,6 +27,7 @@ import carpettisaddition.commands.lifetime.spawning.SpawningReason;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -34,6 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Entity.class)
 public abstract class EntityMixin implements LifetimeTrackerTarget
 {
+	@Unique
 	private LifetimeTrackerTargetImpl lifeTimeTrackerHook$TISCM;
 
 	@Inject(method = "<init>", at = @At("TAIL"))
@@ -43,38 +45,38 @@ public abstract class EntityMixin implements LifetimeTrackerTarget
 	}
 
 	@Override
-	public int getTrackId()
+	public int getTrackId$TISCM()
 	{
-		return this.lifeTimeTrackerHook$TISCM.getTrackId();
+		return this.lifeTimeTrackerHook$TISCM.getTrackId$TISCM();
 	}
 
 	@Override
-	public long getLifeTime()
+	public long getLifeTime$TISCM()
 	{
-		return this.lifeTimeTrackerHook$TISCM.getLifeTime();
+		return this.lifeTimeTrackerHook$TISCM.getLifeTime$TISCM();
 	}
 
 	@Override
-	public Vec3 getSpawningPosition()
+	public Vec3 getSpawningPosition$TISCM()
 	{
-		return this.lifeTimeTrackerHook$TISCM.getSpawningPosition();
+		return this.lifeTimeTrackerHook$TISCM.getSpawningPosition$TISCM();
 	}
 
 	@Override
-	public Vec3 getRemovalPosition()
+	public Vec3 getRemovalPosition$TISCM()
 	{
-		return this.lifeTimeTrackerHook$TISCM.getRemovalPosition();
+		return this.lifeTimeTrackerHook$TISCM.getRemovalPosition$TISCM();
 	}
 
 	@Override
-	public void recordSpawning(SpawningReason reason)
+	public void recordSpawning$TISCM(SpawningReason reason)
 	{
-		this.lifeTimeTrackerHook$TISCM.recordSpawning(reason);
+		this.lifeTimeTrackerHook$TISCM.recordSpawning$TISCM(reason);
 	}
 
 	@Override
-	public void recordRemoval(RemovalReason reason)
+	public void recordRemoval$TISCM(RemovalReason reason)
 	{
-		this.lifeTimeTrackerHook$TISCM.recordRemoval(reason);
+		this.lifeTimeTrackerHook$TISCM.recordRemoval$TISCM(reason);
 	}
 }

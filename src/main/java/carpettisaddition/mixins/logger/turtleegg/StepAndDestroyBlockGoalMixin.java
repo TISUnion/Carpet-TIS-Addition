@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.logger.turtleegg;
 
 import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.entity.ai.goal.RemoveBlockGoal;
@@ -33,7 +34,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(RemoveBlockGoal.class)
 public abstract class StepAndDestroyBlockGoalMixin
@@ -45,10 +45,9 @@ public abstract class StepAndDestroyBlockGoalMixin
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/Level;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void dontBreakTheEgg(CallbackInfo ci, Level world, BlockPos blockPos, BlockPos blockPos2)
+	private void dontBreakTheEgg(CallbackInfo ci, @Local Level world, @Local(ordinal = 1) BlockPos blockPos2)
 	{
 		if (TurtleEggLogger.getInstance().isActivated())
 		{

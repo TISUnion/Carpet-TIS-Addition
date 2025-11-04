@@ -40,7 +40,7 @@ public abstract class MinecartPlaceableOnGroundImplMixin
 	)
 	private static Entity lifetimeTracker_recordSpawning_item_minecart_tiscm(Entity minecartEntity)
 	{
-		((LifetimeTrackerTarget)minecartEntity).recordSpawning(LiteralSpawningReason.ITEM);
+		((LifetimeTrackerTarget)minecartEntity).recordSpawning$TISCM(LiteralSpawningReason.ITEM);
 		return minecartEntity;
 	}
 }

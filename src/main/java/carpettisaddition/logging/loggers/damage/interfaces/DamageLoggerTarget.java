@@ -27,7 +27,7 @@ import java.util.Optional;
 
 public interface DamageLoggerTarget
 {
-	Optional<DamageLogger.Tracker> getDamageTracker();
+	Optional<DamageLogger.Tracker> getDamageTracker$TISCM();
 
-	void setDamageTracker(@Nullable DamageLogger.Tracker tracker);
+	void setDamageTracker$TISCM(@Nullable DamageLogger.Tracker tracker);
 }

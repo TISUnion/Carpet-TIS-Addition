@@ -40,7 +40,7 @@ public abstract class OozingStatusEffectMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_statusEffect_oozing(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(new StatusEffectSpawningReason((MobEffect)(Object)this));
+		((LifetimeTrackerTarget)entity).recordSpawning$TISCM(new StatusEffectSpawningReason((MobEffect)(Object)this));
 		return entity;
 	}
 }

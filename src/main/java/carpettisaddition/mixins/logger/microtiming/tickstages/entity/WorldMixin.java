@@ -26,6 +26,7 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.substages.EntityS
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -35,17 +36,18 @@ import java.util.function.Consumer;
 @Mixin(Level.class)
 public abstract class WorldMixin implements WorldWithEntityTickingOrder
 {
-	private int entityOrderCounter;
+	@Unique
+	private int entityOrderCounter$TISCM;
 
-	public void setEntityOrderCounter(int value)
+	public void setEntityOrderCounter$TISCM(int value)
 	{
-		this.entityOrderCounter = value;
+		this.entityOrderCounter$TISCM = value;
 	}
 
 	@Inject(method = "guardEntityTick", at = @At("HEAD"))
 	private void beforeTickEntity(Consumer<Entity> consumer, Entity entity, CallbackInfo ci)
 	{
-		MicroTimingLoggerManager.setSubTickStage((Level)(Object)this, new EntitySubStage(entity, this.entityOrderCounter++));
+		MicroTimingLoggerManager.setSubTickStage((Level)(Object)this, new EntitySubStage(entity, this.entityOrderCounter$TISCM++));
 	}
 
 	@Inject(method = "guardEntityTick", at = @At("RETURN"))

@@ -25,7 +25,7 @@ package carpettisaddition.logging.loggers.microtiming.interfaces;
  */
 public interface IWorldTileEntity
 {
-	int getTileEntityOrderCounter();
+	int getTileEntityOrderCounter$TISCM();
 
-	void setTileEntityOrderCounter(int tileEntityOrderCounter);
+	void setTileEntityOrderCounter$TISCM(int tileEntityOrderCounter$TISCM);
 }

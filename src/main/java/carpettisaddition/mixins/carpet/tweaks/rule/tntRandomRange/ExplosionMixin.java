@@ -25,6 +25,7 @@ import carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange.WrappedRandom
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
@@ -58,6 +59,7 @@ public class ExplosionMixin
 	private Level level;
 	//#endif
 
+	@Unique
 	private void tryUnWrapWorldRandom()
 	{
 		if (this.level.random instanceof WrappedRandom)

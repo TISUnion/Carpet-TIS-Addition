@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.*;
@@ -53,6 +54,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 )
 public abstract class RedstoneWireBlockMixin
 {
+	@Unique
 	private final Random random$TISCM = new Random();
 
 	//#if MC >= 11600

@@ -84,11 +84,11 @@ public class LightQueueHUDLogger extends AbstractHUDLogger
 			if (lightingProvider instanceof IServerLightingProvider)
 			{
 				IServerLightingProvider iProvider = (IServerLightingProvider)lightingProvider;
-				long enqueuedCount = iProvider.getEnqueuedTaskCountAndClean();
-				long executedCount = iProvider.getExecutedTaskCountAndClean();
+				long enqueuedCount = iProvider.getEnqueuedTaskCountAndClean$TISCM();
+				long executedCount = iProvider.getExecutedTaskCountAndClean$TISCM();
 				if (TISAdditionLoggerRegistry.__lightQueue)
 				{
-					this.dataMap.get(world).add(new RecordedData(enqueuedCount, executedCount, iProvider.getQueueSize()));
+					this.dataMap.get(world).add(new RecordedData(enqueuedCount, executedCount, iProvider.getQueueSize$TISCM()));
 				}
 				else
 				{

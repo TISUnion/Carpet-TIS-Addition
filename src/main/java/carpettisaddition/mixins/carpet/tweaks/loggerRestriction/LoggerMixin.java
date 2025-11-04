@@ -28,12 +28,15 @@ import com.google.common.collect.Lists;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.List;
 
+@SuppressWarnings("AddedMixinMembersNamePattern")
 @Mixin(Logger.class)
 public abstract class LoggerMixin implements RestrictiveLogger
 {
+	@Unique
 	private final List<SubscriptionChecker> subscriptionCheckers = Lists.newArrayList();
 
 	public void addSubscriptionRestriction(SubscriptionChecker subscriptionChecker)

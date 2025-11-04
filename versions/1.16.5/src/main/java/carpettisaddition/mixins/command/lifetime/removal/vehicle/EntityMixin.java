@@ -46,7 +46,7 @@ public abstract class EntityMixin
 	{
 		if (this.isPassenger())
 		{
-			((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.VEHICLE_MOUNTING);
+			((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.VEHICLE_MOUNTING);
 		}
 	}
 }

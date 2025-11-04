@@ -51,7 +51,7 @@ public abstract class FoxEntityMixin extends Entity
 	)
 	private ItemEntity lifetimeTracker_recordSpawning_mobThrow_fox(ItemEntity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobThrowSpawningReason(this.getType()));
+		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(new MobThrowSpawningReason(this.getType()));
 		return itemEntity;
 	}
 }

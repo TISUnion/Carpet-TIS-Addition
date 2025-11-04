@@ -24,17 +24,18 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.TileTickSubStage;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.ticks.ScheduledTick;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ticks.LevelTicks;
+import net.minecraft.world.ticks.ScheduledTick;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.function.BiConsumer;
 
@@ -42,12 +43,13 @@ import java.util.function.BiConsumer;
 @Mixin(LevelTicks.class)
 public abstract class WorldTickScheduler_TileTickDetailMixin
 {
-	private int tileTickOrderCounter;
+	@Unique
+	private int tileTickOrderCounter$TISCM;
 
 	@Inject(method = "runCollectedTicks", at = @At("HEAD"))
 	private void startExecutingTileTickEvents(CallbackInfo ci)
 	{
-		this.tileTickOrderCounter = 0;
+		this.tileTickOrderCounter$TISCM = 0;
 	}
 
 	@Inject(
@@ -55,16 +57,15 @@ public abstract class WorldTickScheduler_TileTickDetailMixin
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/function/BiConsumer;accept(Ljava/lang/Object;Ljava/lang/Object;)V"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void beforeExecuteTileTickEvent(BiConsumer<BlockPos, ?> biConsumer, CallbackInfo ci, ScheduledTick<?> orderedTick)
+	private void beforeExecuteTileTickEvent(BiConsumer<BlockPos, ?> biConsumer, CallbackInfo ci, @Local ScheduledTick<?> orderedTick)
 	{
-		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld();
+		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld$TISCM();
 		if (serverWorld != null)
 		{
 			MicroTimingLoggerManager.setTickStageDetail(serverWorld, String.valueOf(orderedTick.priority().getValue()));
-			MicroTimingLoggerManager.setSubTickStage(serverWorld, new TileTickSubStage(serverWorld, orderedTick, this.tileTickOrderCounter++));
+			MicroTimingLoggerManager.setSubTickStage(serverWorld, new TileTickSubStage(serverWorld, orderedTick, this.tileTickOrderCounter$TISCM++));
 		}
 	}
 
@@ -78,7 +79,7 @@ public abstract class WorldTickScheduler_TileTickDetailMixin
 	)
 	private void afterExecuteTileTickEvent(BiConsumer<BlockPos, ?> biConsumer, CallbackInfo ci)
 	{
-		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld();
+		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld$TISCM();
 		if (serverWorld != null)
 		{
 			MicroTimingLoggerManager.setTickStageDetail(serverWorld, null);

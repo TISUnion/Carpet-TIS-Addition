@@ -34,7 +34,7 @@ public abstract class MobEntityMixin
 	@Inject(method = "setPersistenceRequired", at = @At("HEAD"))
 	private void lifetimeTracker_recordRemoval_persistent_common(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.PERSISTENT);
 	}
 
 	@Inject(
@@ -50,6 +50,6 @@ public abstract class MobEntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_persistent_equipLoot(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.PERSISTENT);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.PERSISTENT);
 	}
 }

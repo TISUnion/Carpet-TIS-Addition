@@ -52,7 +52,7 @@ public abstract class SummonCommandMixin
 	{
 		if (entity != null)
 		{
-			((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.COMMAND);
+			((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.COMMAND);
 		}
 		return entity;
 	}

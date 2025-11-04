@@ -26,7 +26,7 @@ import java.util.Optional;
 
 public interface MovementLoggerTarget
 {
-	Optional<MovementLogger.Tracker> getMovementTracker();
+	Optional<MovementLogger.Tracker> getMovementTracker$TISCM();
 
-	void setMovementTracker(@Nullable MovementLogger.Tracker tracker);
+	void setMovementTracker$TISCM(@Nullable MovementLogger.Tracker tracker);
 }

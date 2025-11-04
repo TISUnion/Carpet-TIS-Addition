@@ -55,7 +55,7 @@ public abstract class EntityMixin
 		//noinspection ConstantConditions
 		if (!((Entity)(Object)this instanceof LivingEntity))
 		{
-			((LifetimeTrackerTarget)this).recordSpawning(LiteralSpawningReason.VEHICLE_DISMOUNTING);
+			((LifetimeTrackerTarget)this).recordSpawning$TISCM(LiteralSpawningReason.VEHICLE_DISMOUNTING);
 		}
 	}
 }

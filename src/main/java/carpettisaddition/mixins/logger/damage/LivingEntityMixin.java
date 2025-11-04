@@ -37,6 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -75,17 +76,18 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	@Shadow public abstract Iterable<ItemStack> getArmorSlots();
 	//#endif
 
+	@Unique
 	@Nullable
 	private DamageLogger.Tracker damageTracker$TISCM = null;
 
 	@Override
-	public Optional<DamageLogger.Tracker> getDamageTracker()
+	public Optional<DamageLogger.Tracker> getDamageTracker$TISCM()
 	{
 		return Optional.ofNullable(this.damageTracker$TISCM);
 	}
 
 	@Override
-	public void setDamageTracker(@Nullable DamageLogger.Tracker tracker)
+	public void setDamageTracker$TISCM(@Nullable DamageLogger.Tracker tracker)
 	{
 		this.damageTracker$TISCM = tracker;
 	}
@@ -120,7 +122,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	)
 	private void onHelmetReducedAnvilDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 	{
-		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount * 0.75F, ModifyReason.HELMET));
+		this.getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(amount * 0.75F, ModifyReason.HELMET));
 	}
 
 	//#if MC >= 12105
@@ -135,7 +137,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	//$$ {
 	//$$ 	if (damageBlockedAmount > 0)
 	//$$ 	{
-	//$$ 		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount - damageBlockedAmount, ModifyReason.SHIELD));
+	//$$ 		this.getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(amount - damageBlockedAmount, ModifyReason.SHIELD));
 	//$$ 	}
 	//$$ 	return damageBlockedAmount;
 	//$$ }
@@ -165,7 +167,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	)
 	private void onShieldReducedDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 	{
-		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount, ModifyReason.SHIELD));
+		this.getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(amount, ModifyReason.SHIELD));
 	}
 	//#endif
 
@@ -189,7 +191,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	{
 		final float last = this.lastHurt;
 
-		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
+		this.getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(
 				Math.max(amount - last, 0.0F), ModifyReason.RECENTLY_HIT
 		));
 	}
@@ -197,7 +199,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	@Inject(method = "getDamageAfterArmorAbsorb", at = @At("RETURN"))
 	private void onArmorReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
 	{
-		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
+		this.getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(
 				amount, new ArmorModifyReason((LivingEntity)(Object)this)
 		));
 	}
@@ -211,7 +213,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	)
 	private void onResistanceReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
 	{
-		this.getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
+		this.getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(
 				amount, new StatusEffectModifyReason(MobEffects.DAMAGE_RESISTANCE, this.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier())
 		));
 	}
@@ -225,7 +227,7 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	)
 	private void onEnchantmentReducedDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir)
 	{
-		this.getDamageTracker().ifPresent(tracker -> {
+		this.getDamageTracker$TISCM().ifPresent(tracker -> {
 			//#if MC >= 12100
 			//$$ LivingEntity self = (LivingEntity)(Object)this;
 			//$$ Level world = EntityUtils.getEntityWorld(self);

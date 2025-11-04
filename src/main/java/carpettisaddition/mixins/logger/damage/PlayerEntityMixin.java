@@ -80,7 +80,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	)
 	private void onInvulnerableAbilityCancelledDamage(CallbackInfoReturnable<Boolean> cir)
 	{
-		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(0.0F, ModifyReason.INVULNERABLE));
+		((DamageLoggerTarget)this).getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(0.0F, ModifyReason.INVULNERABLE));
 	}
 
 	@Inject(
@@ -103,6 +103,6 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	)
 	private void onDifficultyModifiedDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) float amount)
 	{
-		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(amount, ModifyReason.DIFFICULTY));
+		((DamageLoggerTarget)this).getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(amount, ModifyReason.DIFFICULTY));
 	}
 }

@@ -44,7 +44,7 @@ public abstract class ZombieSiegeManagerMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_natualSpawning_zombieSiege(Entity zombie)
 	{
-		((LifetimeTrackerTarget)zombie).recordSpawning(LiteralSpawningReason.NATURAL);
+		((LifetimeTrackerTarget)zombie).recordSpawning$TISCM(LiteralSpawningReason.NATURAL);
 		return zombie;
 	}
 }

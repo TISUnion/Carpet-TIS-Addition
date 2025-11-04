@@ -24,5 +24,5 @@ import net.minecraft.world.damagesource.DamageSource;
 
 public interface DamageableEntity
 {
-	DamageSource getDeathDamageSource();
+	DamageSource getDeathDamageSource$TISCM();
 }

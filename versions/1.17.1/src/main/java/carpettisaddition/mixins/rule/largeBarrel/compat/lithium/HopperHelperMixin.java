@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.largeBarrel.compat.lithium;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.largeBarrel.LargeBarrelHelper;
 import carpettisaddition.utils.ModIds;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.jellysquid.mods.lithium.common.hopper.HopperHelper;
@@ -36,7 +37,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Restriction(require = {
 		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.17 <1.20.5"),
@@ -52,11 +52,14 @@ public abstract class HopperHelperMixin
 					target = "Lnet/minecraft/world/level/Level;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;",
 					remap = true
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true,
 			remap = false
 	)
-	private static void useLargeBarrelInventoryMaybe(Level world, BlockPos blockPos, CallbackInfoReturnable<Container> cir, Container inventory, BlockState blockState, Block block)
+	private static void useLargeBarrelInventoryMaybe(
+			Level world, BlockPos blockPos, CallbackInfoReturnable<Container> cir,
+			@Local BlockState blockState,
+			@Local Block block
+	)
 	{
 		// note: inventory is always null
 		if (CarpetTISAdditionSettings.largeBarrel)

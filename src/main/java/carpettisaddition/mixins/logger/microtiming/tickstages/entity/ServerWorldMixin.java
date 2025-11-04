@@ -52,7 +52,7 @@ public abstract class ServerWorldMixin
 	private void enterStageEntities(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((ServerLevel)(Object)this, TickStage.ENTITY);
-		((WorldWithEntityTickingOrder)this).setEntityOrderCounter(0);
+		((WorldWithEntityTickingOrder)this).setEntityOrderCounter$TISCM(0);
 	}
 
 	@Inject(

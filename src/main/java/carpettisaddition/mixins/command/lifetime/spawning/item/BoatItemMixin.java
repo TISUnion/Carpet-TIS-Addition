@@ -40,7 +40,7 @@ public abstract class BoatItemMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_item_boat(Entity boatEntity)
 	{
-		((LifetimeTrackerTarget)boatEntity).recordSpawning(LiteralSpawningReason.ITEM);
+		((LifetimeTrackerTarget)boatEntity).recordSpawning$TISCM(LiteralSpawningReason.ITEM);
 		return boatEntity;
 	}
 }

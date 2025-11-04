@@ -30,6 +30,7 @@ import me.jellysquid.mods.lithium.common.hopper.HopperHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.DyeColor;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -40,6 +41,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(HopperHelper.class)
 public abstract class HopperHelperMixin
 {
+	@Unique
 	private static ItemStack originalTransferStack$TISCM = null;
 
 	@ModifyVariable(

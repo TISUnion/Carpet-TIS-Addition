@@ -44,7 +44,7 @@ public abstract class PillagerSpawnerMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_natualSpawning_pillager(Entity pillager)
 	{
-		((LifetimeTrackerTarget)pillager).recordSpawning(LiteralSpawningReason.NATURAL);
+		((LifetimeTrackerTarget)pillager).recordSpawning$TISCM(LiteralSpawningReason.NATURAL);
 		return pillager;
 	}
 }

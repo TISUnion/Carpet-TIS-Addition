@@ -57,7 +57,7 @@ public abstract class MinecartItemDispenseBehaviorMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_dispensed_minecart(Entity minecartEntity)
 	{
-		((LifetimeTrackerTarget)minecartEntity).recordSpawning(LiteralSpawningReason.DISPENSED);
+		((LifetimeTrackerTarget)minecartEntity).recordSpawning$TISCM(LiteralSpawningReason.DISPENSED);
 		return minecartEntity;
 	}
 }

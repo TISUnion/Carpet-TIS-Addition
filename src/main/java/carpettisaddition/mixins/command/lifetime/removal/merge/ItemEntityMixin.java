@@ -46,6 +46,6 @@ public abstract class ItemEntityMixin
 	private static void lifetimeTracker_recordRemoval_merge_item(ItemEntity targetEntity, ItemStack targetStack, ItemEntity sourceEntity, ItemStack sourceStack, CallbackInfo ci)
 	{
 		// the recorded item stack count will be 0, it should be fine
-		((LifetimeTrackerTarget)sourceEntity).recordRemoval(LiteralRemovalReason.MERGE);
+		((LifetimeTrackerTarget)sourceEntity).recordRemoval$TISCM(LiteralRemovalReason.MERGE);
 	}
 }

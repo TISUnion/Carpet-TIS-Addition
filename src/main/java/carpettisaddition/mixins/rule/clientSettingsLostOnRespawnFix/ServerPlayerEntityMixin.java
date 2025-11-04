@@ -25,6 +25,7 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -45,6 +46,7 @@ public abstract class ServerPlayerEntityMixin
 			updateOptions(ServerboundClientInformationPacket settings);
 			//#endif
 
+	@Unique
 	@Nullable
 	//#if MC >= 12002
 	//$$ private ClientInformation lastClientSettings$TISCM = null;

@@ -23,20 +23,22 @@ package carpettisaddition.mixins.utils.entityfilter;
 import carpettisaddition.utils.entityfilter.IEntitySelector;
 import net.minecraft.commands.arguments.selector.EntitySelector;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(EntitySelector.class)
 public abstract class EntitySelectorMixin implements IEntitySelector
 {
+	@Unique
 	private String inputText$TISCM;
 
 	@Override
-	public void setInputText(String inputText)
+	public void setInputText$TISCM(String inputText)
 	{
 		this.inputText$TISCM = inputText;
 	}
 
 	@Override
-	public String getInputText()
+	public String getInputText$TISCM()
 	{
 		return this.inputText$TISCM;
 	}

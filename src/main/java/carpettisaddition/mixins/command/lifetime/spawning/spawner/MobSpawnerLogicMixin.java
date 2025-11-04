@@ -44,7 +44,7 @@ public abstract class MobSpawnerLogicMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_spawner(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SPAWNER);
+		((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.SPAWNER);
 		return entity;
 	}
 }

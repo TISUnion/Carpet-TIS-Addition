@@ -24,5 +24,5 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLogger;
 
 public interface ServerWorldWithMicroTimingLogger
 {
-	MicroTimingLogger getMicroTimingLogger();
+	MicroTimingLogger getMicroTimingLogger$TISCM();
 }

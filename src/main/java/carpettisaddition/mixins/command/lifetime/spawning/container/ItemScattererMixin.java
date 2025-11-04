@@ -40,7 +40,7 @@ public abstract class ItemScattererMixin
 	)
 	private static Entity lifetimeTracker_recordSpawning_container(Entity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.CONTAINER);
+		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(LiteralSpawningReason.CONTAINER);
 		return itemEntity;
 	}
 }

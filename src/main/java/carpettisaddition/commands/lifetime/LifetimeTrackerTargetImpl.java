@@ -63,7 +63,7 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 		{
 			// In case the entity is loaded when the world is being constructed
 			// Not sure if it's possible in vanilla, at least it happens in #29
-			LifeTimeWorldTracker tracker = ((ServerWorldWithLifeTimeTracker)world).getLifeTimeWorldTracker();
+			LifeTimeWorldTracker tracker = ((ServerWorldWithLifeTimeTracker)world).getLifeTimeWorldTracker$TISCM();
 			if (tracker != null)
 			{
 				// do track
@@ -94,13 +94,13 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 	}
 
 	@Override
-	public int getTrackId()
+	public int getTrackId$TISCM()
 	{
 		return this.trackId;
 	}
 
 	@Override
-	public long getLifeTime()
+	public long getLifeTime$TISCM()
 	{
 		if (this.recordedSpawning && this.recordedRemoval)
 		{
@@ -111,19 +111,19 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 	}
 
 	@Override
-	public Vec3 getSpawningPosition()
+	public Vec3 getSpawningPosition$TISCM()
 	{
 		return Objects.requireNonNull(this.spawningPos, "Spawning is not recorded");
 	}
 
 	@Override
-	public Vec3 getRemovalPosition()
+	public Vec3 getRemovalPosition$TISCM()
 	{
 		return Objects.requireNonNull(this.removalPos, "Removal is not recorded");
 	}
 
 	@Override
-	public void recordSpawning(SpawningReason reason)
+	public void recordSpawning$TISCM(SpawningReason reason)
 	{
 		if (!this.doLifeTimeTracking)
 		{
@@ -157,7 +157,7 @@ public class LifetimeTrackerTargetImpl implements LifetimeTrackerTarget
 	}
 
 	@Override
-	public void recordRemoval(RemovalReason reason)
+	public void recordRemoval$TISCM(RemovalReason reason)
 	{
 		if (this.doLifeTimeTracking && this.recordedSpawning && this.spawningPos != null && !this.recordedRemoval)
 		{

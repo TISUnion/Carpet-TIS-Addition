@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.RepeaterBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;
 
@@ -44,7 +45,7 @@ public abstract class AbstractRedstoneGateBlockMixin
 	)
 	private int modifyRepeaterDelay_tileTickEvent(int delay, BlockState state, @Coerce Level world, BlockPos pos, @Coerce Object random)
 	{
-		return this.getModifiedDelay(delay, (DiodeBlock)(Object)this, world, pos, state);
+		return this.modifyRepeaterDelay_getModifiedDelay(delay, (DiodeBlock)(Object)this, world, pos, state);
 	}
 
 	@ModifyExpressionValue(
@@ -56,10 +57,11 @@ public abstract class AbstractRedstoneGateBlockMixin
 	)
 	private int modifyRepeaterDelay_updatePowered(int delay, Level world, BlockPos pos, BlockState state)
 	{
-		return this.getModifiedDelay(delay, (DiodeBlock)(Object)this, world, pos, state);
+		return this.modifyRepeaterDelay_getModifiedDelay(delay, (DiodeBlock)(Object)this, world, pos, state);
 	}
 
-	private int getModifiedDelay(int delay, DiodeBlock abstractRedstoneGateBlock, Level world, BlockPos pos, BlockState state)
+	@Unique
+	private int modifyRepeaterDelay_getModifiedDelay(int delay, DiodeBlock abstractRedstoneGateBlock, Level world, BlockPos pos, BlockState state)
 	{
 		if (CarpetTISAdditionSettings.repeaterHalfDelay)
 		{

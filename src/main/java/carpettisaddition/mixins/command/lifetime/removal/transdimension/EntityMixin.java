@@ -97,6 +97,6 @@ public abstract class EntityMixin
 			//#endif
 	)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(new TransDimensionRemovalReason(DimensionWrapper.of(destination)));
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(new TransDimensionRemovalReason(DimensionWrapper.of(destination)));
 	}
 }

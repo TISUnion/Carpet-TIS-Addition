@@ -21,6 +21,8 @@
 package carpettisaddition.mixins.logger.microtiming.events.tiletick;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.world.level.ServerTickList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
@@ -41,17 +43,15 @@ public abstract class TileTickListMixin<T>
 	@Shadow @Final private ServerLevel level;
 	@Shadow @Final private Set<TickNextTickData<T>> tickNextTickSet;
 
-	private int oldListSize;
-
 	@Inject(method = "scheduleTick", at = @At("HEAD"))
-	private void startScheduleTileTickEvent(CallbackInfo ci)
+	private void startScheduleTileTickEvent(CallbackInfo ci, @Share("oldListSize") LocalIntRef oldListSize)
 	{
-		this.oldListSize = this.tickNextTickSet.size();
+		oldListSize.set(this.tickNextTickSet.size());
 	}
 
 	@Inject(method = "scheduleTick", at = @At("RETURN"))
-	private void endScheduleTileTickEvent(BlockPos pos, T object, int delay, TickPriority priority, CallbackInfo ci)
+	private void endScheduleTileTickEvent(BlockPos pos, T object, int delay, TickPriority priority, CallbackInfo ci, @Share("oldListSize") LocalIntRef oldListSize)
 	{
-		MicroTimingLoggerManager.onScheduleTileTickEvent(this.level, object, pos, delay, priority, this.tickNextTickSet.size() > this.oldListSize);
+		MicroTimingLoggerManager.onScheduleTileTickEvent(this.level, object, pos, delay, priority, this.tickNextTickSet.size() > oldListSize.get());
 	}
 }

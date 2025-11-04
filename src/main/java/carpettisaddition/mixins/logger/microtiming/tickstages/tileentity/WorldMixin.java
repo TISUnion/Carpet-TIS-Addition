@@ -24,39 +24,38 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.TickStage;
 import carpettisaddition.logging.loggers.microtiming.interfaces.IWorldTileEntity;
 import carpettisaddition.logging.loggers.microtiming.tickphase.substages.TileEntitySubStage;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.Iterator;
 
 @Mixin(Level.class)
 public abstract class WorldMixin implements IWorldTileEntity
 {
-	private int tileEntityOrderCounter;
+	@Unique
+	private int tileEntityOrderCounter$TISCM;
 
 	@Override
-	public int getTileEntityOrderCounter()
+	public int getTileEntityOrderCounter$TISCM()
 	{
-		return this.tileEntityOrderCounter;
+		return this.tileEntityOrderCounter$TISCM;
 	}
 
 	@Override
-	public void setTileEntityOrderCounter(int tileEntityOrderCounter)
+	public void setTileEntityOrderCounter$TISCM(int tileEntityOrderCounter$TISCM)
 	{
-		this.tileEntityOrderCounter = tileEntityOrderCounter;
+		this.tileEntityOrderCounter$TISCM = tileEntityOrderCounter$TISCM;
 	}
 
 	@Inject(method = "tickBlockEntities", at = @At("HEAD"))
 	private void enterStageTileEntity(CallbackInfo ci)
 	{
 		MicroTimingLoggerManager.setTickStage((Level)(Object)this, TickStage.TILE_ENTITY);
-		this.tileEntityOrderCounter = 0;
+		this.tileEntityOrderCounter$TISCM = 0;
 	}
 
 	@Inject(method = "tickBlockEntities", at = @At("TAIL"))
@@ -71,12 +70,11 @@ public abstract class WorldMixin implements IWorldTileEntity
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/entity/TickableBlockEntity;tick()V"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void onTickTileEntity(CallbackInfo ci, ProfilerFiller profiler, Iterator<?> iterator, BlockEntity blockEntity)
+	private void onTickTileEntity(CallbackInfo ci, @Local BlockEntity blockEntity)
 	{
-		MicroTimingLoggerManager.setSubTickStage((Level)(Object)this, new TileEntitySubStage(blockEntity, this.tileEntityOrderCounter++));  // TISCM Micro Tick logger
+		MicroTimingLoggerManager.setSubTickStage((Level)(Object)this, new TileEntitySubStage(blockEntity, this.tileEntityOrderCounter$TISCM++));  // TISCM Micro Tick logger
 	}
 	//#endif
 }

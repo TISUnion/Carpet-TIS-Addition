@@ -40,7 +40,7 @@ public abstract class ItemDispenserBehaviorMixin
 	)
 	private static Entity lifetimeTracker_recordSpawning_dispensed_item(Entity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordSpawning(LiteralSpawningReason.DISPENSED);
+		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(LiteralSpawningReason.DISPENSED);
 		return itemEntity;
 	}
 }

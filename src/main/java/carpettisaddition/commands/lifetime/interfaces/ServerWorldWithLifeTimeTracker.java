@@ -24,5 +24,5 @@ import carpettisaddition.commands.lifetime.LifeTimeWorldTracker;
 
 public interface ServerWorldWithLifeTimeTracker
 {
-	LifeTimeWorldTracker getLifeTimeWorldTracker();
+	LifeTimeWorldTracker getLifeTimeWorldTracker$TISCM();
 }

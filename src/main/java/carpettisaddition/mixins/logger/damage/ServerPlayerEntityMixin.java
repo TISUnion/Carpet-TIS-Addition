@@ -117,7 +117,7 @@ public abstract class ServerPlayerEntityMixin extends Player
 	)
 	private void onRespawnProtectionCancelledDamage(CallbackInfoReturnable<Boolean> cir)
 	{
-		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
+		((DamageLoggerTarget)this).getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(
 				0.0F, ModifyReason.RESPAWN_PROTECTION
 		));
 	}
@@ -144,7 +144,7 @@ public abstract class ServerPlayerEntityMixin extends Player
 	)
 	private void onPVPDisabledCancelledDamage(CallbackInfoReturnable<Boolean> cir)
 	{
-		((DamageLoggerTarget)this).getDamageTracker().ifPresent(tracker -> tracker.modifyDamage(
+		((DamageLoggerTarget)this).getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(
 				0.0F, ModifyReason.PVP_DISABLED
 		));
 	}

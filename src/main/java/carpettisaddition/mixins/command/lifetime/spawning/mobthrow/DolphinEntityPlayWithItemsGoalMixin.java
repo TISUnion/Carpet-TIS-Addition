@@ -46,7 +46,7 @@ public abstract class DolphinEntityPlayWithItemsGoalMixin
 	)
 	private ItemEntity lifetimeTracker_recordSpawning_mobThrow_dolphin(ItemEntity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordSpawning(new MobThrowSpawningReason(this.field_6757.getType()));
+		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(new MobThrowSpawningReason(this.field_6757.getType()));
 		return itemEntity;
 	}
 }

@@ -44,7 +44,7 @@ public abstract class RaidMixin
 	)
 	private Entity lifetimeTracker_recordSpawning_raid(Entity raiderEntity)
 	{
-		((LifetimeTrackerTarget)raiderEntity).recordSpawning(LiteralSpawningReason.RAID);
+		((LifetimeTrackerTarget)raiderEntity).recordSpawning$TISCM(LiteralSpawningReason.RAID);
 		return raiderEntity;
 	}
 }

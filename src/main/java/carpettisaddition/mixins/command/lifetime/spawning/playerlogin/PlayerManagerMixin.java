@@ -44,7 +44,7 @@ public abstract class PlayerManagerMixin
 	{
 		if (entity != null)
 		{
-			((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.PLAYER_LOGIN);
+			((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.PLAYER_LOGIN);
 		}
 		return entity;
 	}

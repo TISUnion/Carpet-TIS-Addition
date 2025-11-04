@@ -55,6 +55,6 @@ public abstract class ZombieVillagerEntityMixin extends Zombie
 	)
 	private void lifetimeTracker_recordConversionRemoval_zombieVillagerCure(ServerLevel world, CallbackInfo ci, @Local Villager villager)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(new MobConversionRemovalReason(villager.getType()));
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(new MobConversionRemovalReason(villager.getType()));
 	}
 }

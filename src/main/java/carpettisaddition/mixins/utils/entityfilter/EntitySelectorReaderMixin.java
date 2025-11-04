@@ -42,6 +42,6 @@ public abstract class EntitySelectorReaderMixin
 	private void storeReadString(CallbackInfoReturnable<EntitySelector> cir)
 	{
 		int currentCursor = this.reader.getCursor();
-		((IEntitySelector)cir.getReturnValue()).setInputText(this.reader.getString().substring(this.startPosition, currentCursor));
+		((IEntitySelector)cir.getReturnValue()).setInputText$TISCM(this.reader.getString().substring(this.startPosition, currentCursor));
 	}
 }

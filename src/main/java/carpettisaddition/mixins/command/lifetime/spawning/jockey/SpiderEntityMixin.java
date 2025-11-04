@@ -50,7 +50,7 @@ public abstract class SpiderEntityMixin
 			//#endif
 	)
 	{
-		((LifetimeTrackerTarget)skeleton).recordSpawning(LiteralSpawningReason.JOCKEY);
+		((LifetimeTrackerTarget)skeleton).recordSpawning$TISCM(LiteralSpawningReason.JOCKEY);
 		return skeleton;
 	}
 }

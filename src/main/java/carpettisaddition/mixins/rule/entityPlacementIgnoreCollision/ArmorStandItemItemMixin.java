@@ -30,6 +30,7 @@ import net.minecraft.world.item.BlockPlaceContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -101,6 +102,7 @@ public abstract class ArmorStandItemItemMixin
 		return entities;
 	}
 
+	@Unique
 	private static final ThreadLocal<BlockPlaceContext> currentContext$TISCM = ThreadLocal.withInitial(() -> null);
 
 	@ModifyVariable(

@@ -24,9 +24,9 @@ import net.minecraft.world.phys.Vec3;
 
 public interface ITntEntity
 {
-	boolean dataRecorded();
+	boolean dataRecorded$TISCM();
 
-	Vec3 getInitializedVelocity();
+	Vec3 getInitializedVelocity$TISCM();
 
-	Vec3 getInitializedPosition();
+	Vec3 getInitializedPosition$TISCM();
 }

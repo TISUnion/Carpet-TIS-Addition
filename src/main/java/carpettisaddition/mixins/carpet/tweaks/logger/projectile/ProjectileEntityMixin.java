@@ -67,7 +67,7 @@ public abstract class ProjectileEntityMixin implements ProjectileLoggerTarget
 	}
 
 	@Override
-	public HitResult getHitResult()
+	public HitResult getHitResult$TISCM()
 	{
 		return this.hitResult;
 	}

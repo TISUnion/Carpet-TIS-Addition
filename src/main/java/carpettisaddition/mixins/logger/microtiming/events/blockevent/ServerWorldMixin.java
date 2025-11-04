@@ -25,6 +25,7 @@ import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.events.ExecuteBlockEventEvent;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.world.level.block.Block;
@@ -48,18 +49,22 @@ public abstract class ServerWorldMixin
 {
 	@Shadow @Final private ObjectLinkedOpenHashSet<BlockEventData> blockEvents;
 
-	private int oldBlockActionQueueSize;
-
 	@Inject(method = "blockEvent", at = @At("HEAD"))
-	private void startScheduleBlockEvent_storeEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
+	private void startScheduleBlockEvent_storeEvent(
+			BlockPos pos, Block block, int type, int data, CallbackInfo ci,
+			@Share("oldBlockActionQueueSize") LocalIntRef oldBlockActionQueueSize
+	)
 	{
-		this.oldBlockActionQueueSize = this.blockEvents.size();
+		oldBlockActionQueueSize.set(this.blockEvents.size());
 	}
 
 	@Inject(method = "blockEvent", at = @At("RETURN"))
-	private void endScheduleBlockEvent_storeEvent(BlockPos pos, Block block, int type, int data, CallbackInfo ci)
+	private void endScheduleBlockEvent_storeEvent(
+			BlockPos pos, Block block, int type, int data, CallbackInfo ci,
+			@Share("oldBlockActionQueueSize") LocalIntRef oldBlockActionQueueSize
+	)
 	{
-		MicroTimingLoggerManager.onScheduleBlockEvent((ServerLevel)(Object)this, new BlockEventData(pos, block, type, data), this.blockEvents.size() > this.oldBlockActionQueueSize);
+		MicroTimingLoggerManager.onScheduleBlockEvent((ServerLevel)(Object)this, new BlockEventData(pos, block, type, data), this.blockEvents.size() > oldBlockActionQueueSize.get());
 	}
 
 	@Inject(

@@ -41,6 +41,6 @@ public abstract class LargeEntitySpawnHelperMixin
 	@Inject(method = "trySpawnMob", at= @At("RETURN"))
 	private static <T extends Mob> void lifetimeTracker_recordSpawning_summon_largeEntitySpawnHelper(CallbackInfoReturnable<Optional<T>> cir)
 	{
-		cir.getReturnValue().ifPresent(entity -> ((LifetimeTrackerTarget)entity).recordSpawning(LiteralSpawningReason.SUMMON));
+		cir.getReturnValue().ifPresent(entity -> ((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.SUMMON));
 	}
 }

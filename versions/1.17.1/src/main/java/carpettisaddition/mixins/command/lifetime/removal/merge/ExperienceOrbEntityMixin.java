@@ -36,7 +36,7 @@ public abstract class ExperienceOrbEntityMixin
 	{
 		int amountBackup = ((ExperienceOrbEntityAccessor)other).getAmount$TISCM();
 		((ExperienceOrbEntityAccessor)other).setAmount$TISCM(0);
-		((LifetimeTrackerTarget)other).recordRemoval(LiteralRemovalReason.MERGE);
+		((LifetimeTrackerTarget)other).recordRemoval$TISCM(LiteralRemovalReason.MERGE);
 		((ExperienceOrbEntityAccessor)other).setAmount$TISCM(amountBackup);
 	}
 }

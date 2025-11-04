@@ -103,11 +103,11 @@ public abstract class CommandBlockMixin
 				if (blockBelow == Blocks.REDSTONE_ORE)
 				{
 					ICommandBlockExecutor icbe = (ICommandBlockExecutor)commandBlockBlockEntity.getCommandBlock();
-					icbe.setIgnoreWorldTimeCheck(true);
+					icbe.setIgnoreWorldTimeCheck$TISCM(true);
 
 					this.tick(state, serverWorld, pos, serverWorld.getRandom());
 
-					icbe.setIgnoreWorldTimeCheck(false);
+					icbe.setIgnoreWorldTimeCheck$TISCM(false);
 					ci.cancel();
 				}
 			}

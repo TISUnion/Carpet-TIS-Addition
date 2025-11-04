@@ -24,33 +24,36 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
 import carpettisaddition.logging.loggers.microtiming.interfaces.ITileTickListWithServerWorld;
 import carpettisaddition.utils.WorldUtils;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ticks.LevelChunkTicks;
-import net.minecraft.world.ticks.ScheduledTick;
 import net.minecraft.world.ticks.LevelTicks;
+import net.minecraft.world.ticks.ScheduledTick;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(LevelTicks.class)
 public abstract class TileTickListMixin<T>
 {
-	private int oldListSize;
-
 	@Inject(
 			method = "schedule",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/ticks/LevelChunkTicks;schedule(Lnet/minecraft/world/ticks/ScheduledTick;)V"
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void startScheduleTileTickEvent(ScheduledTick<T> orderedTick, CallbackInfo ci, long l, LevelChunkTicks<T> chunkTickScheduler)
+	private void startScheduleTileTickEvent(
+			ScheduledTick<T> orderedTick, CallbackInfo ci,
+			@Local LevelChunkTicks<T> chunkTickScheduler,
+			@Share("oldListSize") LocalIntRef oldListSize
+	)
 	{
-		this.oldListSize = chunkTickScheduler.count();
+		oldListSize.set(chunkTickScheduler.count());
 	}
 
 	@Inject(
@@ -59,16 +62,19 @@ public abstract class TileTickListMixin<T>
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/ticks/LevelChunkTicks;schedule(Lnet/minecraft/world/ticks/ScheduledTick;)V",
 					shift = At.Shift.AFTER
-			),
-			locals = LocalCapture.CAPTURE_FAILHARD
+			)
 	)
-	private void endScheduleTileTickEvent(ScheduledTick<T> tt, CallbackInfo ci, long l, LevelChunkTicks<T> chunkTickScheduler)
+	private void endScheduleTileTickEvent(
+			ScheduledTick<T> tt, CallbackInfo ci,
+			@Local LevelChunkTicks<T> chunkTickScheduler,
+			@Share("oldListSize") LocalIntRef oldListSize
+	)
 	{
-		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld();
+		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld$TISCM();
 		if (serverWorld != null)
 		{
 			int delay = (int)(tt.triggerTick() - WorldUtils.getWorldTime(serverWorld));
-			MicroTimingLoggerManager.onScheduleTileTickEvent(serverWorld, tt.type(), tt.pos(), delay, tt.priority(), chunkTickScheduler.count() > this.oldListSize);
+			MicroTimingLoggerManager.onScheduleTileTickEvent(serverWorld, tt.type(), tt.pos(), delay, tt.priority(), chunkTickScheduler.count() > oldListSize.get());
 		}
 	}
 	
@@ -84,7 +90,7 @@ public abstract class TileTickListMixin<T>
 	)
 	private ScheduledTick<T> preExecuteBlockTileTickEvent(ScheduledTick<T> event)
 	{
-		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld();
+		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld$TISCM();
 		if (serverWorld != null)
 		{
 			MicroTimingLoggerManager.onExecuteTileTickEvent(serverWorld, event, EventType.ACTION_START);
@@ -103,7 +109,7 @@ public abstract class TileTickListMixin<T>
 	)
 	private ScheduledTick<T> postExecuteBlockTileTickEvent(ScheduledTick<T> event)
 	{
-		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld();
+		ServerLevel serverWorld = ((ITileTickListWithServerWorld)this).getServerWorld$TISCM();
 		if (serverWorld != null)
 		{
 			MicroTimingLoggerManager.onExecuteTileTickEvent(serverWorld, event, EventType.ACTION_END);

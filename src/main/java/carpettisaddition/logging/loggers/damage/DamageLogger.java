@@ -74,9 +74,9 @@ public class DamageLogger extends AbstractLogger
 		if (isLoggerActivated())
 		{
 			DamageLoggerTarget damageLoggerTarget = (DamageLoggerTarget)entity;
-			if (!damageLoggerTarget.getDamageTracker().isPresent())
+			if (!damageLoggerTarget.getDamageTracker$TISCM().isPresent())
 			{
-				damageLoggerTarget.setDamageTracker(getInstance().new Tracker(entity, source, amount));
+				damageLoggerTarget.setDamageTracker$TISCM(getInstance().new Tracker(entity, source, amount));
 			}
 		}
 	}

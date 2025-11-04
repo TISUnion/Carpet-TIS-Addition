@@ -57,7 +57,7 @@ public abstract class PlayerManagerMixin
 	//#endif
 	Entity lifetimeTracker_recordRemoval_playerLogout(Entity entity)
 	{
-		((LifetimeTrackerTarget)entity).recordRemoval(LiteralRemovalReason.PLAYER_LOGOUT);
+		((LifetimeTrackerTarget)entity).recordRemoval$TISCM(LiteralRemovalReason.PLAYER_LOGOUT);
 		return entity;
 	}
 }

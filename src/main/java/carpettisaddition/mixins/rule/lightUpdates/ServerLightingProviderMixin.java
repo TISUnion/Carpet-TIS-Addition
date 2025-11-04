@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.lightUpdates;
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.server.level.ThreadedLevelLightEngine;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -30,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = ThreadedLevelLightEngine.class, priority = 1500)
 public abstract class ServerLightingProviderMixin
 {
+	@Unique
 	private final ThreadLocal<Boolean> enqueueNotImportant = ThreadLocal.withInitial(() -> false);
 
 	/**

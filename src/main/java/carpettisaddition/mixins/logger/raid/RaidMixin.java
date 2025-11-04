@@ -23,6 +23,8 @@ package carpettisaddition.mixins.logger.raid;
 import carpettisaddition.commands.raid.RaidTracker;
 import carpettisaddition.logging.loggers.raid.IRaid;
 import carpettisaddition.logging.loggers.raid.RaidLogger;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
@@ -42,8 +44,6 @@ public abstract class RaidMixin implements IRaid
 	@Shadow private int badOmenLevel;
 
 	@Shadow public abstract boolean isVictory();
-
-	private int previousBadOmenLevel;
 
 	//#if MC >= 12105
 	//$$ // `onRaidCreated` is called in {@link RaidManagerMixin#raidLogger_onRaidAddToManager}
@@ -75,13 +75,14 @@ public abstract class RaidMixin implements IRaid
 	)
 	private void raidLogger_onStartBeforeCalculated(
 			//#if MC >= 12005
-			//$$ CallbackInfoReturnable<Boolean> cir
+			//$$ CallbackInfoReturnable<Boolean> cir,
 			//#else
-			CallbackInfo ci
+			CallbackInfo ci,
 			//#endif
+			@Share("previousBadOmenLevel") LocalIntRef previousBadOmenLevel
 	)
 	{
-		this.previousBadOmenLevel = this.badOmenLevel;
+		previousBadOmenLevel.set(this.badOmenLevel);
 	}
 
 	@Inject(
@@ -94,13 +95,14 @@ public abstract class RaidMixin implements IRaid
 	)
 	private void raidLogger_onStartedAfterCalculated(
 			//#if MC >= 12005
-			//$$ CallbackInfoReturnable<Boolean> cir
+			//$$ CallbackInfoReturnable<Boolean> cir,
 			//#else
-			CallbackInfo ci
+			CallbackInfo ci,
 			//#endif
+			@Share("previousBadOmenLevel") LocalIntRef previousBadOmenLevel
 	)
 	{
-		if (this.badOmenLevel > 1 && this.badOmenLevel > this.previousBadOmenLevel)
+		if (this.badOmenLevel > 1 && this.badOmenLevel > previousBadOmenLevel.get())
 		{
 			RaidLogger.getInstance().onBadOmenLevelIncreased((Raid)(Object)this, this.badOmenLevel);
 		}

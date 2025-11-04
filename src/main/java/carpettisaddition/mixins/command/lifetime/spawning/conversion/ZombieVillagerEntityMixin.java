@@ -52,7 +52,7 @@ public abstract class ZombieVillagerEntityMixin extends Zombie
 	)
 	private Entity lifetimeTracker_recordSpawning_conversion_zombieVillagerCure(Entity villager)
 	{
-		((LifetimeTrackerTarget)villager).recordSpawning(new MobConversionSpawningReason(this.getType()));
+		((LifetimeTrackerTarget)villager).recordSpawning$TISCM(new MobConversionSpawningReason(this.getType()));
 		return villager;
 	}
 }

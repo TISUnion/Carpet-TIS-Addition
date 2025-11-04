@@ -27,6 +27,7 @@ import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -34,7 +35,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(VehicleEntity.class)
 public abstract class VehicleEntityMixin implements DamageableEntity
 {
-	private DamageSource deathDamageSource;
+	@Unique
+	private DamageSource deathDamageSource$TISCM;
 
 	@ModifyVariable(
 			//#if MC >= 1.21.2
@@ -50,7 +52,7 @@ public abstract class VehicleEntityMixin implements DamageableEntity
 	)
 	private DamageSource lifetimeTracker_recordDeathDamageSource_vehicle1(DamageSource source)
 	{
-		this.deathDamageSource = source;
+		this.deathDamageSource$TISCM = source;
 		return source;
 	}
 
@@ -72,13 +74,13 @@ public abstract class VehicleEntityMixin implements DamageableEntity
 	)
 	private DamageSource lifetimeTracker_recordDeathDamageSource_vehicle2(DamageSource source)
 	{
-		this.deathDamageSource = source;
+		this.deathDamageSource$TISCM = source;
 		return source;
 	}
 
 	@Override
-	public DamageSource getDeathDamageSource()
+	public DamageSource getDeathDamageSource$TISCM()
 	{
-		return this.deathDamageSource;
+		return this.deathDamageSource$TISCM;
 	}
 }

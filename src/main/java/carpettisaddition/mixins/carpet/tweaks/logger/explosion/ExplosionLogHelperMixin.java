@@ -32,6 +32,7 @@ import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -43,6 +44,7 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 {
 	// fabric carpet 1.4.84 removes the entity fields, but we need that
 	// so here's comes another one
+	@Unique
 	private Entity entity$TISCM = null;
 
 	@Override
@@ -55,6 +57,7 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 	 * velocity -> angle in [0, 2pi)
 	 * for carpet rule hardcodeTNTangle
 	 */
+	@Unique
 	private double calculateAngle(Vec3 velocity)
 	{
 		double vx = velocity.x(), vz = velocity.z();
@@ -101,7 +104,7 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 		if (this.entity$TISCM instanceof PrimedTnt)
 		{
 			ITntEntity iTntEntity = (ITntEntity)this.entity$TISCM;
-			if (iTntEntity.dataRecorded())
+			if (iTntEntity.dataRecorded$TISCM())
 			{
 				List<BaseComponent> messages = Lists.newArrayList();
 				for (Component text : cir.getReturnValue())
@@ -114,8 +117,8 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 					}
 				}
 
-				String angleString = String.valueOf(this.calculateAngle(iTntEntity.getInitializedVelocity()));
-				String posString = TextUtils.coord(iTntEntity.getInitializedPosition());
+				String angleString = String.valueOf(this.calculateAngle(iTntEntity.getInitializedVelocity$TISCM()));
+				String posString = TextUtils.coord(iTntEntity.getInitializedPosition$TISCM());
 				BaseComponent tntText = Messenger.fancy(
 						"r",
 						Messenger.s("[TNT]"),

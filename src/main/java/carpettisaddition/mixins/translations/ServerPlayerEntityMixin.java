@@ -26,6 +26,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -40,6 +41,7 @@ import net.minecraft.network.protocol.game.ServerboundClientInformationPacket;
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithClientLanguage
 {
+	@Unique
 	private String clientLanguage$TISCM = "en_US";
 
 	@Inject(

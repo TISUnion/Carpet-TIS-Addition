@@ -22,18 +22,16 @@ package carpettisaddition.mixins.logger.microtiming.events.blockstatechange;
 
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.enums.EventType;
-import net.minecraft.world.level.block.state.BlockState;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 /*
  * BlockState Change starts
@@ -42,8 +40,6 @@ import java.util.Deque;
 public abstract class WorldMixin
 {
 	@Shadow public abstract BlockState getBlockState(BlockPos pos);
-
-	private final ThreadLocal<Deque<BlockState>> previousBlockState = ThreadLocal.withInitial(ArrayDeque::new);
 
 	@Inject(
 			//#if MC >= 11600
@@ -58,13 +54,14 @@ public abstract class WorldMixin
 			//#if MC >= 11600
 			//$$ int maxUpdateDepth,
 			//#endif
-			CallbackInfoReturnable<Boolean> cir
-	)
+			CallbackInfoReturnable<Boolean> cir,
+			@Share("previousBlockState") LocalRef<BlockState> previousBlockState
+			)
 	{
 		if (MicroTimingLoggerManager.isLoggerActivated())
 		{
 			BlockState oldState = this.getBlockState(pos);
-			this.previousBlockState.get().push(oldState);
+			previousBlockState.set(oldState);
 			MicroTimingLoggerManager.onSetBlockState((Level)(Object)this, pos, oldState, newState, null, flags, EventType.ACTION_START);
 		}
 	}
@@ -82,27 +79,14 @@ public abstract class WorldMixin
 			//#if MC >= 11600
 			//$$ int maxUpdateDepth,
 			//#endif
-			CallbackInfoReturnable<Boolean> cir
+			CallbackInfoReturnable<Boolean> cir,
+			@Share("previousBlockState") LocalRef<BlockState> previousBlockState
 	)
 	{
-		if (MicroTimingLoggerManager.isLoggerActivated() && !this.previousBlockState.get().isEmpty())
+		if (MicroTimingLoggerManager.isLoggerActivated() && previousBlockState.get() != null)
 		{
-			BlockState oldState = this.previousBlockState.get().pop();
+			BlockState oldState = previousBlockState.get();
 			MicroTimingLoggerManager.onSetBlockState((Level)(Object)this, pos, oldState, newState, cir.getReturnValue(), flags, EventType.ACTION_END);
 		}
-	}
-
-	// To avoid leaking memory after update suppression or whatever thing
-	@Inject(
-			//#if MC >= 11600
-			//$$ method = "tickBlockEntities",
-			//#else
-			method = "tickTime",
-			//#endif
-			at = @At("HEAD")
-	)
-	private void cleanStack(CallbackInfo ci)
-	{
-		this.previousBlockState.get().clear();
 	}
 }

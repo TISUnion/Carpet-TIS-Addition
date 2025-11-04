@@ -37,6 +37,6 @@ public abstract class EntityMixin
 	)
 	private void lifetimeTracker_recordRemoval_void(CallbackInfo ci)
 	{
-		((LifetimeTrackerTarget)this).recordRemoval(LiteralRemovalReason.VOID);
+		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.VOID);
 	}
 }

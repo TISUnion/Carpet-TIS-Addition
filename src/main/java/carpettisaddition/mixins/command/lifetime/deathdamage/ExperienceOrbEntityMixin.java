@@ -25,6 +25,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.damagesource.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -32,7 +33,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin implements DamageableEntity
 {
-	private DamageSource deathDamageSource;
+	@Unique
+	private DamageSource deathDamageSource$TISCM;
 
 	@Inject(
 			//#if MC >= 1.21.2
@@ -51,12 +53,12 @@ public abstract class ExperienceOrbEntityMixin implements DamageableEntity
 	)
 	private	void lifetimeTracker_recordDeathDamageSource_xpOrb(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource source)
 	{
-		this.deathDamageSource = source;
+		this.deathDamageSource$TISCM = source;
 	}
 
 	@Override
-	public DamageSource getDeathDamageSource()
+	public DamageSource getDeathDamageSource$TISCM()
 	{
-		return this.deathDamageSource;
+		return this.deathDamageSource$TISCM;
 	}
 }

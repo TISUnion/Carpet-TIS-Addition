@@ -54,7 +54,7 @@ public abstract class ExperienceOrbEntityMixin
 	{
 		if (LifetimeMixinUtil.xpOrbSpawningReason.get() != null)
 		{
-			((LifetimeTrackerTarget)entity).recordSpawning(LifetimeMixinUtil.xpOrbSpawningReason.get());
+			((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LifetimeMixinUtil.xpOrbSpawningReason.get());
 		}
 		return entity;
 	}

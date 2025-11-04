@@ -26,13 +26,14 @@ import carpet.logging.LoggerRegistry;
 import carpettisaddition.helpers.carpet.loggerRestriction.CarpetLoggerRestriction;
 import carpettisaddition.helpers.carpet.loggerRestriction.RestrictionCheckResult;
 import carpettisaddition.utils.Messenger;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Objects;
 
@@ -46,10 +47,9 @@ public abstract class LogCommandMixin
 					target = "Lcarpet/logging/LoggerRegistry;togglePlayerSubscription(Ljava/lang/String;Ljava/lang/String;)Z",
 					remap = false
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private static void switchableLogger_toggleCommand(CommandSourceStack source, String player_name, String logName, CallbackInfoReturnable<Integer> cir, Player player)
+	private static void switchableLogger_toggleCommand(CommandSourceStack source, String player_name, String logName, CallbackInfoReturnable<Integer> cir, @Local Player player)
 	{
 		checkLoggerRestriction(source, LoggerRegistry.getLogger(logName), player, null, cir);
 	}
@@ -61,14 +61,14 @@ public abstract class LogCommandMixin
 					target = "Lcarpet/logging/LoggerRegistry;subscribePlayer(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
 					remap = false
 			),
-			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true
 	)
-	private static void switchableLogger_subscribeCommand(CommandSourceStack source, String player_name, String logName, String option, CallbackInfoReturnable<Integer> cir, Player player)
+	private static void switchableLogger_subscribeCommand(CommandSourceStack source, String player_name, String logName, String option, CallbackInfoReturnable<Integer> cir, @Local Player player)
 	{
 		checkLoggerRestriction(source, LoggerRegistry.getLogger(logName), player, option, cir);
 	}
 
+	@Unique
 	private static void checkLoggerRestriction(CommandSourceStack source, Logger logger, Player player, String option, CallbackInfoReturnable<Integer> cir)
 	{
 		if (logger == null)

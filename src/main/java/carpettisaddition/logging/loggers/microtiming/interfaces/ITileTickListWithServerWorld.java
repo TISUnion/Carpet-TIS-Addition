@@ -34,7 +34,7 @@ public interface ITileTickListWithServerWorld
 	 * Since only value in vanilla ServerTickScheduler (block, fluid) has been assigned in {@link ServerWorldMixin}
 	 */
 	@Nullable
-	ServerLevel getServerWorld();
+	ServerLevel getServerWorld$TISCM();
 
-	void setServerWorld(ServerLevel serverWorld);
+	void setServerWorld$TISCM(ServerLevel serverWorld);
 }

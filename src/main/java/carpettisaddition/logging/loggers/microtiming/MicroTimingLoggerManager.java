@@ -95,7 +95,7 @@ public class MicroTimingLoggerManager
 	{
 		for (ServerLevel world : minecraftServer.getAllLevels())
 		{
-			this.loggers.put(world, ((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger());
+			this.loggers.put(world, ((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger$TISCM());
 		}
 	}
 
@@ -146,7 +146,7 @@ public class MicroTimingLoggerManager
 	{
 		if (instance != null && world instanceof ServerLevel)
 		{
-			return Optional.of(((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger());
+			return Optional.of(((ServerWorldWithMicroTimingLogger)world).getMicroTimingLogger$TISCM());
 		}
 		return Optional.empty();
 	}

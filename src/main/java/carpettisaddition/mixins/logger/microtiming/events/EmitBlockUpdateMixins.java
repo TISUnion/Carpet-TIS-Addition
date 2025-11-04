@@ -106,10 +106,13 @@ public abstract class EmitBlockUpdateMixins
 
 		@Inject(
 				method = "updateState",
-				at = @At("RETURN"),
-				locals = LocalCapture.CAPTURE_FAILHARD
+				at = @At("RETURN")
 		)
-		private void endEmitBlockUpdate(BlockState state, Level world, BlockPos pos, Block neighbor, CallbackInfo ci, boolean bl, boolean bl2)
+		private void endEmitBlockUpdate(
+				BlockState state, Level world, BlockPos pos, Block neighbor, CallbackInfo ci,
+				@Local(ordinal = 0) boolean bl,
+				@Local(ordinal = 1) boolean bl2
+		)
 		{
 			if (bl2 != bl)  // vanilla copy, if power state should be changed
 			{
