@@ -1,0 +1,1 @@
+net.minecraft.world.entity.Entity hasImpulse needsSync
