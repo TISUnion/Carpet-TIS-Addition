@@ -123,6 +123,11 @@ loom {
 			ideConfigGenerated false
 		}
 	}
+
+	mixin {
+		// suppress "Cannot remap xxx because it does not exists in any of the targets" warning. It does not respect `remap = false` :(
+		useLegacyMixinAp = true
+	}
 }
 
 shadowJar {
