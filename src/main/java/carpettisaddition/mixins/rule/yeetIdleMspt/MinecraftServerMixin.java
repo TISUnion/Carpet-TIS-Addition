@@ -32,7 +32,9 @@ import java.util.function.BooleanSupplier;
 public abstract class MinecraftServerMixin
 {
 	@ModifyArg(
-			//#if MC >= 11600
+			//#if MC >= 12111
+			//$$ method = "processPacketsAndTick",
+			//#elseif MC >= 11600
 			//$$ method = "runServer",
 			//#else
 			method = "run",
