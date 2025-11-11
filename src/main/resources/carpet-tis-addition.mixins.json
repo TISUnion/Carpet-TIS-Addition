@@ -49,6 +49,7 @@
     "carpet.tweaks.loggerRestriction.ParsedRuleMixin",
     "carpet.tweaks.messenger.MessengerMixin",
     "carpet.tweaks.robustness.FormattedTextParamMixin",
+    "carpet.tweaks.robustness.SpawnReporterMixin",
     "carpet.tweaks.robustness.network.CarpetPayloadMixin",
     "carpet.tweaks.robustness.network.ServerNetworkHandlerMixin",
     "carpet.tweaks.rule.creativeNoClip.AbstractPressurePlateBlockMixin",
