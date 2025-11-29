@@ -56,7 +56,7 @@ dependencies {
 	} else {
 		modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
 	}
-	if (enableLithiumInRuntime && 11500 <= mcVersion) {
+	if (enableLithiumInRuntime && 11500 <= mcVersion && mcVersion < 12111) {
 		modImplementation(project.lithium_dependency) {
 			exclude group: 'com.github.astei', module: 'lazydfu'
 		}

@@ -29,7 +29,13 @@ import net.minecraft.world.level.entity.EntitySectionStorage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(EntitySectionStorage.class)
+/**
+ * In Lithium < 0.7.8 (where MC <= 1.18.1), Lithium overrides (priority = 1000) the forEachAccessibleSection method entirely.
+ * To ensure the mixin does not fail, we need to increase the mixin priority a bit.
+ * Don't worry about having "minxin target not found" runtime error, since the targeted getChunkSections method always work
+ * See also: <a href="https://github.com/CaffeineMC/lithium/commit/883376fe926910323c31586fc28a6675d3de06b3">here</a>
+ */
+@Mixin(value = EntitySectionStorage.class, priority = 2000)
 public abstract class SectionedEntityCacheMixin
 {
 	@WrapOperation(
