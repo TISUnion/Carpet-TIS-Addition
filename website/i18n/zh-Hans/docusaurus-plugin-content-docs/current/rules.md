@@ -1815,7 +1815,7 @@ TISCM网络协议的开关
 
 ## 重新引入僵尸猪灵在愤怒时掉落战利品 (zombifiedPiglinDropLootIfAngryReintroduced)
 
-**本规则仅在 Minecraft >= 1.21.9 中存在**
+**本规则仅在 Minecraft >= 1.21.5 中存在**
 
 开启后，僵尸猪灵在愤怒、设置玩家为攻击目标的100gt内死亡，将可掉落如被玩家击杀一样的掉落物和经验球
 

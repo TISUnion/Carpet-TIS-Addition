@@ -1815,7 +1815,7 @@ Prevent players being kicked with message "Out-of-order chat packet received..."
 
 ## zombifiedPiglinDropLootIfAngryReintroduced
 
-**Minecraft >= 1.21.9 only**
+**Minecraft >= 1.21.5 only**
 
 When enabled, zombified piglins that die within 100 game ticks of becoming angry or targeting a player will drop loot and xp orbs as if killed by a player
 
