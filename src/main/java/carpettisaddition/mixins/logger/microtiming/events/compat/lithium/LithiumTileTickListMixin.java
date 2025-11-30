@@ -88,7 +88,7 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 			//$$ 		target = "Lit/unimi/dsi/fastutil/objects/ObjectOpenHashSet;add(Ljava/lang/Object;)Z",
 			//$$ 		ordinal = 0,
 			//$$ 		remap = false
-			//$$ ),
+			//$$ )
 			//#else
 			method = "addScheduledTick",
 			at = @At(
@@ -96,8 +96,8 @@ public abstract class LithiumTileTickListMixin<T> extends ServerTickList<T>
 					target = "Lme/jellysquid/mods/lithium/common/world/scheduler/TickEntry;scheduled:Z",
 					ordinal = 0
 			),
-			//#endif
 			remap = false
+			//#endif
 	)
 	private void checkScheduledState(
 			//#if MC >= 11700
