@@ -148,8 +148,8 @@ shadowJar {
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 tasks.withType(ShadowJar).configureEach {
-	enableRelocation true
-	relocationPrefix 'carpettisaddition.libs'
+	enableRelocation = true
+	relocationPrefix = 'carpettisaddition.libs'
 }
 
 remapJar {
@@ -197,29 +197,18 @@ version = fullProjectVersion
 processResources {
 	from "carpet-tis-addition.accesswidener"
 
-	inputs.property "id", project.mod_id
-	inputs.property "name", project.mod_name
-	inputs.property "version", fullModVersion
-	inputs.property "minecraft_dependency", project.minecraft_dependency
+	def modProperties = [
+			"id"                  : project.mod_id,
+			"name"                : project.mod_name,
+			"version"             : fullModVersion,
+			"carpet_dependency"   : project.carpet_dependency,
+			"minecraft_dependency": project.minecraft_dependency,
+			"lithium_confliction" : project.findProperty("lithium_confliction") ?: "<0.0.0",
+	]
+	inputs.properties(modProperties)
 
 	filesMatching("fabric.mod.json") {
-		def valueMap = [
-				"id": project.mod_id,
-				"name": project.mod_name,
-				"version": fullModVersion,
-				"carpet_dependency": project.carpet_dependency,
-				"minecraft_dependency": project.minecraft_dependency,
-		]
-
-		String lc = project.getProperties().getOrDefault('lithium_confliction', '<0.0.0')
-		if (lc.contains(',')) {
-			def arr = '[' + lc.split(',').collect { s -> '"' + s + '"'}.join(', ') + ']'
-			filter { s -> s.replace('"${lithium_confliction}"', arr) }
-		} else {
-			valueMap.put('lithium_confliction', lc)
-		}
-
-		expand valueMap
+		expand modProperties
 	}
 
 	filesMatching(MIXIN_CONFIG_PATH) {
