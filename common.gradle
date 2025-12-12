@@ -21,7 +21,7 @@ repositories {
 		url = 'https://maven.fallenbreath.me/jitpack'
 	}
 	maven {
-        url = 'https://www.cursemaven.com'
+		url = 'https://www.cursemaven.com'
 	}
 	maven {
 		url = 'https://api.modrinth.com/maven'
@@ -219,7 +219,7 @@ processResources {
 // https://github.com/Fallen-Breath/yamlang
 yamlang {
 	targetSourceSets = [sourceSets.main]
-    inputDir = LANG_DIR
+	inputDir = LANG_DIR
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
@@ -290,7 +290,7 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			from components.java
-            artifactId = base.archivesName.get()
+			artifactId = base.archivesName.get()
 			version = fullArtifactVersion
 		}
 	}
