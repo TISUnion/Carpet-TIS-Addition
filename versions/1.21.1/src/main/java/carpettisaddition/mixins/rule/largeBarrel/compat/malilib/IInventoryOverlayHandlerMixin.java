@@ -58,7 +58,7 @@ public interface IInventoryOverlayHandlerMixin
 			method = "requestBlockEntityAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lorg/apache/commons/lang3/tuple/Pair;",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/block/BlockState;"
+					target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
 			)
 	)
 	private BlockState requestTheOtherSideOfTheLargeBarrel(
