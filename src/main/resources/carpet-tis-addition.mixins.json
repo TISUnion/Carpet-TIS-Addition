@@ -528,6 +528,7 @@
     "rule.yeetUpdateSuppressionCrash.mark.SculkSensorBlockEntityVibrationCallbackMixin",
     "rule.yeetUpdateSuppressionCrash.mark.WorldMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.MinecraftServerMixin",
+    "rule.yeetUpdateSuppressionCrash.yeet.PacketProcessorListenerAndPacketMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.ReentrantThreadExecutorMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.ServerPlayerEntityMixin",
     "rule.zombifiedPiglinDropLootIfAngryReintroduced.ZombifiedPiglinEntityMixin",
