@@ -1843,9 +1843,11 @@ It reverts the behavior back to mc < 25w02a (1.21.5 snapshot) and unfixes [MC-56
 
 ## yeetUpdateSuppressionCrash
 
-Prevent the server from crashing due to `StackOverflowError`, `OutOfMemoryError` or `ClassCastException`
+Prevent the server from crashing due to `StackOverflowError`, `OutOfMemoryError`, `ClassCastException` or `IllegalArgumentSuppression`
 
 Do the same thing as fabric carpet's `updateSuppressionCrashFix` rule, but with more information
+
+**NOTE**: It only handles exception from update suppression methods (e.g. rail stack-overflower, sound suppression, shulker box CCE, ...). It's **NOT** a universal try-catch on all exceptions
 
 - Source: 
   - rule `updateSuppressionCrashFix` from fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50)

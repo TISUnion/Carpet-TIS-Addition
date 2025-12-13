@@ -1843,9 +1843,11 @@ TISCM网络协议的开关
 
 ## 阻止更新抑制崩溃 (yeetUpdateSuppressionCrash)
 
-阻止服务端因 `StackOverflowError`、`OutOfMemoryError` 或 `ClassCastException` 异常而造成的服务器崩溃
+阻止服务端因更新抑制造成的 `StackOverflowError`、`OutOfMemoryError`、`ClassCastException` 或 `IllegalArgumentSuppression` 异常而导致的服务器崩溃
 
 具体功能实现类似 carpet 的 `updateSuppressionCrashFix` 规则，但包含更多信息
+
+**注意**: 此规则仅处理因更新抑制手段（如铁轨栈溢出、声音移植、魔法盒子等）引发的异常。它 **不是** 一个任意情况的通用异常 try-catch 装置
 
 - 移植自：
   - fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50) 的规则 `updateSuppressionCrashFix`

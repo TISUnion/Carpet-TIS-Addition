@@ -1463,9 +1463,10 @@ carpettisaddition:
         desc: Prevent players being kicked with message "Out-of-order chat packet received..." caused by whatever reason
       yeetUpdateSuppressionCrash:
         name: yeetUpdateSuppressionCrash
-        desc: Prevent the server from crashing due to StackOverflowError, OutOfMemoryError or ClassCastException
+        desc: Prevent the server from crashing due to update suppression from StackOverflowError, OutOfMemoryError, ClassCastException or IllegalArgumentSuppression
         extra:
           '0': Do the same thing as fabric carpet's updateSuppressionCrashFix rule, but with more information
+          '1': "NOTE: It only handles exception from update suppression methods (e.g. rail stack-overflower, sound suppression, shulker box CCE, ...). It's NOT a universal try-catch on all exceptions"
       zombifiedPiglinDropLootIfAngryReintroduced:
         name: zombifiedPiglinDropLootIfAngryReintroduced
         desc: When enabled, zombified piglins that die within 100 game ticks of becoming angry or targeting a player will drop loot and xp orbs as if killed by a player
