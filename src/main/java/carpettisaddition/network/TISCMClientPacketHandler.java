@@ -134,8 +134,8 @@ public class TISCMClientPacketHandler
 	{
 		this.serverSupportedPackets.clear();
 		sendPacket(TISCMProtocol.C2S.HI, nbt -> {
-			nbt.putString("platform_name", TISCMProtocol.PLATFORM_NAME);
-			nbt.putString("platform_version", TISCMProtocol.PLATFORM_VERSION);
+			nbt.putString("platform_name", TISCMProtocol.getPlatformName());
+			nbt.putString("platform_version", TISCMProtocol.getPlatformVersion());
 		});
 	}
 

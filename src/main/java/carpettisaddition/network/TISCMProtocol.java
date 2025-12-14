@@ -42,9 +42,17 @@ import java.util.function.Consumer;
 public class TISCMProtocol
 {
 	public static final String ID = "tiscm";
-	public static final String PLATFORM_NAME = CarpetTISAdditionMod.MOD_NAME;
-	public static final String PLATFORM_VERSION = CarpetTISAdditionMod.getVersion();
 	public static final ResourceLocation CHANNEL = IdentifierUtils.of(ID, "network/v1");
+
+	public static String getPlatformName()
+	{
+		return CarpetTISAdditionMod.MOD_NAME;
+	}
+
+	public static String getPlatformVersion()
+	{
+		return CarpetTISAdditionMod.getVersion();
+	}
 
 	public enum C2S implements PacketId
 	{

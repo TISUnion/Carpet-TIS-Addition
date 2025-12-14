@@ -143,8 +143,8 @@ public class TISCMServerPacketHandler
 		LOGGER.info("Player {} connected with TISCM protocol support ({} @ {})", ctx.playerName, platformName, platformVersion);
 
 		ctx.send(TISCMProtocol.S2C.HELLO, nbt -> {
-			nbt.putString("platform_name", TISCMProtocol.PLATFORM_NAME);
-			nbt.putString("platform_version", TISCMProtocol.PLATFORM_VERSION);
+			nbt.putString("platform_name", TISCMProtocol.getPlatformName());
+			nbt.putString("platform_version", TISCMProtocol.getPlatformVersion());
 		});
 
 		List<String> ids = Lists.newArrayList(TISCMProtocol.C2S.ID_MAP.keySet());
