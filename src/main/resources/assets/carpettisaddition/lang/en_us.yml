@@ -999,6 +999,7 @@ carpettisaddition:
         extra:
           '0': With that update suppression is doable in 1.19+ again
           '1': It also provides a better logging results with more clear logic for microTiming logger, as clean as versions before 1.19
+          '2': 'WARNING: The 1.19+ vanilla block update logic does not behave exactly the same as the pre-1.19 instant block update logic. Be careful as this may cause redstone breakage. See issues #156 and #236 in TISUnion/Carpet-TIS-Addition'
       itemEntitySkipMovementDisabled:
         name: itemEntitySkipMovementDisabled
         desc: Removed the movement skipping mechanism when ticking of item entity

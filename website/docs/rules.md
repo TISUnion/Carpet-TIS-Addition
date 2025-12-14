@@ -692,6 +692,9 @@ With that update suppression is doable in 1.19+ again
 
 It also provides a better logging results with more clear logic for [microTiming logger](./loggers.md#microtiming), as clean as versions before 1.19
 
+**WARNING**: The 1.19+ vanilla block update logic does not behave exactly the same as the pre-1.19 instant block update logic. Be careful as this may cause redstone breakage.
+See issues [#156](https://github.com/TISUnion/Carpet-TIS-Addition/issues/156) and [#236](https://github.com/TISUnion/Carpet-TIS-Addition/issues/236) in TISUnion/Carpet-TIS-Addition'
+
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`

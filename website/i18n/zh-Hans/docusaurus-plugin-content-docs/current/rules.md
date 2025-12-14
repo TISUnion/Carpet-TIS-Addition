@@ -692,6 +692,9 @@ sidebar_position: 1
 
 它还可以让[微时序记录器](loggers#微时序-microtiming)的记录结果更加清晰具有逻辑，如 1.19 以前的版本一样的清晰
 
+**警告**：1.19+ 原版的方块更新逻辑的表现，与 1.19 以前的瞬时方块更新逻辑，并非完全一致。请小心可能导致的红石装置损坏。
+参见 TISUnion/Carpet-TIS-Addition 的 issue [#156](https://github.com/TISUnion/Carpet-TIS-Addition/issues/156) 和 [#236](https://github.com/TISUnion/Carpet-TIS-Addition/issues/236)
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`

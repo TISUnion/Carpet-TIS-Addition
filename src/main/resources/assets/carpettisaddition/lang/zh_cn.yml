@@ -999,6 +999,7 @@ carpettisaddition:
         extra:
           '0': 本规则让更新抑制在1.19+中再次可行
           '1': 它还可以让微时序记录器的记录结果更加清晰具有逻辑，如1.19以前的版本一样的清晰
+          '2': '警告：1.19+原版的方块更新逻辑的表现，与1.19以前的瞬时方块更新逻辑，并非完全一致。请小心可能导致的红石装置损坏。参见TISUnion/Carpet-TIS-Addition的issue #156和#236'
       itemEntitySkipMovementDisabled:
         name: 禁用物品实体跳过移动运算
         desc: 移除物品实体跳过移动运算的机制
