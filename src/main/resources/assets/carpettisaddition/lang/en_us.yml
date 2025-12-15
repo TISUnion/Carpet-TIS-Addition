@@ -1467,7 +1467,8 @@ carpettisaddition:
         desc: Prevent the server from crashing due to update suppression from StackOverflowError, OutOfMemoryError, ClassCastException or IllegalArgumentSuppression
         extra:
           '0': Do the same thing as fabric carpet's updateSuppressionCrashFix rule, but with more information
-          '1': "NOTE: It only handles exception from update suppression methods (e.g. rail stack-overflower, sound suppression, shulker box CCE, ...). It's NOT a universal try-catch on all exceptions"
+          '1': In fabric carpet >= 1.4.49, in order to receive the suppression-crash-prevented message broadcast in game, you need to subscribe to the updateSuppressedCrashes logger
+          '2': "NOTE: It only handles exception from update suppression methods (e.g. rail stack-overflower, sound suppression, shulker box CCE, ...). It's NOT a universal try-catch on all exceptions"
       zombifiedPiglinDropLootIfAngryReintroduced:
         name: zombifiedPiglinDropLootIfAngryReintroduced
         desc: When enabled, zombified piglins that die within 100 game ticks of becoming angry or targeting a player will drop loot and xp orbs as if killed by a player

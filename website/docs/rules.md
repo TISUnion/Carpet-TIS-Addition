@@ -1850,6 +1850,8 @@ Prevent the server from crashing due to `StackOverflowError`, `OutOfMemoryError`
 
 Do the same thing as fabric carpet's `updateSuppressionCrashFix` rule, but with more information
 
+In fabric carpet >= 1.4.49, in order to receive the suppression-crash-prevented message broadcast in game, you need to subscribe to the `updateSuppressedCrashes` logger
+
 **NOTE**: It only handles exception from update suppression methods (e.g. rail stack-overflower, sound suppression, shulker box CCE, ...). It's **NOT** a universal try-catch on all exceptions
 
 - Source: 

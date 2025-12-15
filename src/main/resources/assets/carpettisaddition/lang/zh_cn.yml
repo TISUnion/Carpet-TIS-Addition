@@ -1467,7 +1467,8 @@ carpettisaddition:
         desc: 阻止服务端因更新抑制造成的StackOverflowError、OutOfMemoryError、ClassCastException或IllegalArgumentSuppression异常而导致的服务器崩溃
         extra:
           '0': 具体功能实现类似carpet的updateSuppressionCrashFix规则，但包含更多信息
-          '1': "注意: 此规则仅处理因更新抑制手段（如铁轨栈溢出、声音移植、魔法盒子等）引发的异常。它不是一个任意情况的通用异常try-catch装置"
+          '1': 在carpet >= 1.4.49的版本中，如需在游戏中接受此规则防崩触发时的消息广播，你需要订阅updateSuppressedCrashes记录器
+          '2': "注意: 此规则仅处理因更新抑制手段（如铁轨栈溢出、声音移植、魔法盒子等）引发的异常。它不是一个任意情况的通用异常try-catch装置"
       zombifiedPiglinDropLootIfAngryReintroduced:
         name: 重新引入僵尸猪灵在愤怒时掉落战利品
         desc: 开启后，僵尸猪灵在愤怒、设置玩家为攻击目标的100gt内死亡，将可掉落如被玩家击杀一样的掉落物和经验球

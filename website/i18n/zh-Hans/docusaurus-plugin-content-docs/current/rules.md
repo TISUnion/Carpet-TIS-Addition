@@ -1850,6 +1850,8 @@ TISCM网络协议的开关
 
 具体功能实现类似 carpet 的 `updateSuppressionCrashFix` 规则，但包含更多信息
 
+在 carpet >= 1.4.49 的版本中，如需在游戏中接受此规则防崩触发时的消息广播，你需要订阅 `updateSuppressedCrashes` 记录器
+
 **注意**: 此规则仅处理因更新抑制手段（如铁轨栈溢出、声音移植、魔法盒子等）引发的异常。它 **不是** 一个任意情况的通用异常 try-catch 装置
 
 - 移植自：
