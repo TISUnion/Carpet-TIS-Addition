@@ -36,6 +36,13 @@ import java.util.Optional;
 @Mixin(ReentrantBlockableEventLoop.class)
 public abstract class ReentrantThreadExecutorMixin<R extends Runnable>
 {
+	 /**
+	  * The exception caught in {@link net.minecraft.util.thread.BlockableEventLoop#doRunTask} will re-throw if:
+	  * - The Minecraft version is a snapshot / pre-release, or whatever non-stable versions that makes {@link net.minecraft.SharedConstants#CRASH_EAGERLY} true
+	  * - (MC >= 1.21.2-rc1) The exception is marked as {@link net.minecraft.util.thread.BlockableEventLoop#isNonRecoverable}
+	  * - It's actually not an {@link Exception}, but an {@link Error} (e.g. {@link OutOfMemoryError}) or whatever else. This try-catch only catches {@link Exception}
+	  * Whatever, here's the outer crash yeeter for it
+	 */
 	@SuppressWarnings("ConstantValue")
 	@WrapOperation(
 			method = "doRunTask",
