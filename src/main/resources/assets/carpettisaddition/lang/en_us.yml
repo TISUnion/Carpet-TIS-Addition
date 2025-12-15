@@ -8,8 +8,17 @@ carpettisaddition:
         '1': "Rule modification has been cancelled to prevent infinite waiting in lighting synchronization"
         '2': "Related rule values to be set:"
     yeetUpdateSuppressionCrash:
-      exception_detail: 'Update Suppression in %1$s at %2$s'
+      exception_detail:
+        body: 'Update Suppression in %1$s at %2$s'
+        catch_location: 'Exception catch location: %s'
+        name_and_message: 'Exception name: %s, message:'
       report_message: 'You just caused a server crash: %1$s'
+      catch_location:
+        world_ticking: World Ticking
+        server_async_task: Server Async Task
+        player_entity_ticking: Player Ticking
+        player_removal: Player Removal
+        packet_handling: Packet Handler
 
   validator:
     # common validators

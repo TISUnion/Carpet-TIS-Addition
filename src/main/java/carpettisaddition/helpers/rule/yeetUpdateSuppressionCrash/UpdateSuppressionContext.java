@@ -40,43 +40,41 @@ import java.util.function.Supplier;
 public class UpdateSuppressionContext
 {
 	private static final Translator tr = new Translator("rule.yeetUpdateSuppressionCrash");
-	private final Supplier<BaseComponent> textHolder;
 	private final Throwable cause;
+	private final @Nullable DimensionWrapper dimension;
+	private final TickPhase tickPhase;
+	private final BlockPos pos;
 
 	public UpdateSuppressionContext(Throwable cause, @Nullable Level world, BlockPos pos)
 	{
 		this.cause = cause;
-		DimensionWrapper dimension = world != null ? DimensionWrapper.of(world) : null;
-		TickPhase tickPhase = world != null ? MicroTimingAccess.getTickPhase(world) : MicroTimingAccess.getTickPhase();
-		this.textHolder = Suppliers.memoize(() -> {
-			String hover = cause.getClass().getSimpleName() + ": " + cause.getMessage();
-			return Messenger.fancy(
-					tr.tr("exception_detail",
-							dimension != null ? Messenger.coord(pos, dimension) : Messenger.coord(pos),
-							tickPhase.toText()
-					),
-					Messenger.s(hover),
-					//#if MC >= 11500
-					Messenger.ClickEvents.copyToClipBoard(hover)
-					//#else
-					//$$ null
-					//#endif
-			);
-		});
+		this.dimension = world != null ? DimensionWrapper.of(world) : null;
+		this.tickPhase = world != null ? MicroTimingAccess.getTickPhase(world) : MicroTimingAccess.getTickPhase();
+		this.pos = pos;
 	}
 
 	public static void noop()
 	{
 	}
 
-	public BaseComponent getMessageText()
+	private BaseComponent createMessageText(ExceptionCatchLocation catchLocation)
 	{
-		return this.textHolder.get();
-	}
-
-	public String getMessage()
-	{
-		return this.getMessageText().getString();
+		return Messenger.fancy(
+				tr.tr("exception_detail.body",
+						dimension != null ? Messenger.coord(this.pos, this.dimension) : Messenger.coord(this.pos),
+						this.tickPhase.toText()
+				),
+				Messenger.c(
+						tr.tr("exception_detail.catch_location", catchLocation.toText()), Messenger.newLine(),
+						tr.tr("exception_detail.name_and_message", this.cause.getClass().getSimpleName()), Messenger.newLine(),
+						Messenger.s(this.cause.getMessage())
+				),
+				//#if MC >= 11500
+				Messenger.ClickEvents.copyToClipBoard(this.cause.getClass().getSimpleName() + ": " + this.cause.getMessage())
+				//#else
+				//$$ null
+				//#endif
+		);
 	}
 
 	public Throwable getCause()
@@ -84,10 +82,10 @@ public class UpdateSuppressionContext
 		return this.cause;
 	}
 
-	public void report()
+	public void report(ExceptionCatchLocation catchLocation)
 	{
 		BaseComponent message = Messenger.formatting(
-				tr.tr("report_message", this.getMessageText()),
+				tr.tr("report_message", this.createMessageText(catchLocation)),
 				ChatFormatting.RED, ChatFormatting.ITALIC
 		);
 

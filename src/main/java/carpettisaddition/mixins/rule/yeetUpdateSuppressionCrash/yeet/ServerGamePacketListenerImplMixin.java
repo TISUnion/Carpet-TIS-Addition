@@ -21,12 +21,14 @@
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.yeet;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.ExceptionCatchLocation;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.players.PlayerList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -36,26 +38,30 @@ import java.util.Optional;
 public abstract class ServerGamePacketListenerImplMixin
 {
 	@WrapOperation(
+			//#if MC >= 1.20.2
+			//$$ method = "removePlayerFromWorld",
+			//#else
 			method = "onDisconnect",
+			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/level/ServerPlayer;disconnect()V"
+					target = "Lnet/minecraft/server/players/PlayerList;remove(Lnet/minecraft/server/level/ServerPlayer;)V"
 			)
 	)
-	private void yeetUpdateSuppressionCrash_implForPlayerDisconnecting(ServerPlayer obj, Operation<Void> original)
+	private void yeetUpdateSuppressionCrash_implForPlayerRemoval(PlayerList obj, ServerPlayer player, Operation<Void> original)
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
 			try
 			{
-				original.call(obj);
+				original.call(obj, player);
 			}
 			catch (Throwable throwable)
 			{
 				Optional<UpdateSuppressionException> opt = UpdateSuppressionYeeter.extractInCauses(throwable);
 				if (opt.isPresent())
 				{
-					opt.get().getSuppressionContext().report();
+					opt.get().getSuppressionContext().report(ExceptionCatchLocation.PLAYER_REMOVAL);
 				}
 				else
 				{
@@ -66,7 +72,7 @@ public abstract class ServerGamePacketListenerImplMixin
 		else
 		{
 			// vanilla
-			original.call(obj);
+			original.call(obj, player);
 		}
 	}
 }

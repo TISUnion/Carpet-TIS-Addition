@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.yeet;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.ExceptionCatchLocation;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,7 +46,7 @@ public abstract class ServerPlayerEntityMixin
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
 			UpdateSuppressionYeeter.extractInCauses(throwable).ifPresent(use -> {
-				use.getSuppressionContext().report();
+				use.getSuppressionContext().report(ExceptionCatchLocation.PLAYER_ENTITY_TICKING);
 				ci.cancel();
 			});
 		}

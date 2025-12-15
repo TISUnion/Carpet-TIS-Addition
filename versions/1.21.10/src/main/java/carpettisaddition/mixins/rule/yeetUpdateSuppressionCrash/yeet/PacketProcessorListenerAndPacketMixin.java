@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.yeet;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.ExceptionCatchLocation;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import org.spongepowered.asm.mixin.Mixin;
@@ -54,7 +55,7 @@ public abstract class PacketProcessorListenerAndPacketMixin
 			var use = UpdateSuppressionYeeter.extractInCauses(reportedExceptionCause);
 			if (use.isPresent())
 			{
-				use.get().getSuppressionContext().report();
+				use.get().getSuppressionContext().report(ExceptionCatchLocation.PACKET_HANDLING);
 				reportedExceptionCause = new Exception("not an OutOfMemoryError");
 			}
 		}

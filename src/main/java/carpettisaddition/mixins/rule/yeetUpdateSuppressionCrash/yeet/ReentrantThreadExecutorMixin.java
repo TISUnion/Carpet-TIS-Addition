@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.yeet;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.ExceptionCatchLocation;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -56,7 +57,7 @@ public abstract class ReentrantThreadExecutorMixin<R extends Runnable>
 				Optional<UpdateSuppressionException> opt = UpdateSuppressionYeeter.extractInCauses(throwable);
 				if (opt.isPresent())
 				{
-					opt.get().getSuppressionContext().report();
+					opt.get().getSuppressionContext().report(ExceptionCatchLocation.SERVER_ASYNC_TASK);
 				}
 				else
 				{
