@@ -530,6 +530,7 @@
     "rule.yeetUpdateSuppressionCrash.yeet.MinecraftServerMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.PacketProcessorListenerAndPacketMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.ReentrantThreadExecutorMixin",
+    "rule.yeetUpdateSuppressionCrash.yeet.ServerGamePacketListenerImplMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.ServerPlayerEntityMixin",
     "rule.zombifiedPiglinDropLootIfAngryReintroduced.ZombifiedPiglinEntityMixin",
     "settings.ParsedRuleAccessor",
