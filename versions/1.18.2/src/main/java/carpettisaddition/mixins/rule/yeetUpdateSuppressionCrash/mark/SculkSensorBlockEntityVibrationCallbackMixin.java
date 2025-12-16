@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -77,10 +78,17 @@ public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 			}
 			catch (Throwable throwable)
 			{
-				//#if MC < 12000
-				BlockPos pos = ((SculkSensorBlockEntity)(Object)this).getBlockPos();
-				//#endif
-				throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
+				if (throwable instanceof UpdateSuppressionException || throwable instanceof IllegalArgumentException)
+				{
+					//#if MC < 12000
+					BlockPos pos = ((SculkSensorBlockEntity)(Object)this).getBlockPos();
+					//#endif
+					throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
+				}
+				else
+				{
+					throw throwable;
+				}
 			}
 		}
 		else

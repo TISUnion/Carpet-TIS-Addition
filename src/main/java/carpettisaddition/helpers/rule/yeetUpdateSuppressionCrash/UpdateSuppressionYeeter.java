@@ -41,7 +41,7 @@ public class UpdateSuppressionYeeter
 	@NotNull
 	public static Throwable tryReplaceWithWrapper(@NotNull Throwable throwable, @Nullable Level world, BlockPos pos)
 	{
-		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
+		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash && !(throwable instanceof UpdateSuppressionException))
 		{
 			// no UpdateSuppressionException, try to wrap it
 			if (!extractInCauses(throwable).isPresent())

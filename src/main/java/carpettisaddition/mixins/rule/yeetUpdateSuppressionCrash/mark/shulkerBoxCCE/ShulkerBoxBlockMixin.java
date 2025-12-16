@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2025  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,58 +18,63 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark.shulkerBoxCCE;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-// used in 1.19 <= mc < 1.20.2
-@Mixin(targets = "net.minecraft.world.level.redstone.CollectingNeighborUpdater$MultiNeighborUpdate")
-public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
+//#if MC >= 11600
+//$$ import net.minecraft.world.level.block.state.BlockBehaviour;
+//#else
+import net.minecraft.world.level.block.state.BlockState;
+//#endif
+
+@Mixin(
+		//#if MC >= 11600
+		//$$ BlockBehaviour.BlockStateBase.class
+		//#else
+		BlockState.class
+		//#endif
+)
+public abstract class ShulkerBoxBlockMixin
 {
 	@WrapOperation(
-			method = "runNext",
+			method = "getAnalogOutputSignal",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/level/block/state/BlockState;neighborChanged(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;Z)V"
+					target = "Lnet/minecraft/world/level/block/Block;getAnalogOutputSignal(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)I"
 			)
 	)
-	private void yeetUpdateSuppressionCrash_implOnSixWayEntryUpdate(
-			BlockState instance, Level world, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean notify,
-			Operation<Void> original
-	) throws Throwable
+	private int yeetUpdateSuppressionCrash_wrapShulkerBoxClassCastException(Block instance, BlockState blockState, Level level, BlockPos blockPos, Operation<Integer> original) throws Throwable
 	{
-		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
+		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash && instance instanceof ShulkerBoxBlock)
 		{
 			try
 			{
-				original.call(instance, world, pos, neighborBlock, neighborPos, notify);
+				return original.call(instance, blockState, level, blockPos);
 			}
 			catch (Throwable throwable)
 			{
-				if (throwable instanceof UpdateSuppressionException || throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError)
+				if (throwable instanceof UpdateSuppressionException || throwable instanceof ClassCastException)
 				{
-					throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
+					throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, level, blockPos);
 				}
-				else
-				{
-					throw throwable;
-				}
+				throw throwable;
 			}
 		}
 		else
 		{
 			// vanilla
-			original.call(instance, world, pos, neighborBlock, neighborPos, notify);
+			return  original.call(instance, blockState, level, blockPos);
 		}
 	}
 }

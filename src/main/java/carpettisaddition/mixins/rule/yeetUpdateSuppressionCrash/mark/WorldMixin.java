@@ -20,6 +20,7 @@
 
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
@@ -52,8 +53,11 @@ public abstract class WorldMixin
 			@Local LocalRef<Throwable> ref
 	)
 	{
-		throwable = UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, (Level)(Object)this, neighborPos);
-		ref.set(throwable);
+		if (throwable instanceof UpdateSuppressionException || throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError)
+		{
+			throwable = UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, (Level)(Object)this, neighborPos);
+			ref.set(throwable);
+		}
 		return throwable;
 	}
 }

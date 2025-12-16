@@ -527,6 +527,7 @@
     "rule.yeetUpdateSuppressionCrash.mark.NeighborUpdaterMixin",
     "rule.yeetUpdateSuppressionCrash.mark.SculkSensorBlockEntityVibrationCallbackMixin",
     "rule.yeetUpdateSuppressionCrash.mark.WorldMixin",
+    "rule.yeetUpdateSuppressionCrash.mark.shulkerBoxCCE.ShulkerBoxBlockMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.MinecraftServerMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.PacketProcessorListenerAndPacketMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.ReentrantThreadExecutorMixin",

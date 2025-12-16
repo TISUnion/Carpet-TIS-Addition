@@ -33,6 +33,8 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+import java.net.UnknownServiceException;
+
 @Mixin(CalibratedSculkSensorBlockEntity.VibrationUser.class)
 public abstract class CalibratedSculkSensorBlockEntityCallBackMixin
 {
@@ -57,7 +59,14 @@ public abstract class CalibratedSculkSensorBlockEntityCallBackMixin
 			}
 			catch (Throwable throwable)
 			{
-				throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
+				if (throwable instanceof UnknownServiceException || throwable instanceof IllegalArgumentException)
+				{
+					throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
+				}
+				else
+				{
+					throw throwable;
+				}
 			}
 		}
 		else

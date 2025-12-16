@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -66,7 +67,14 @@ public abstract class BlockStateMixin
 			}
 			catch (Throwable throwable)
 			{
-				throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, iWorld.getLevel(), pos);
+				if (throwable instanceof UpdateSuppressionException || throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError)
+				{
+					throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, iWorld.getLevel(), pos);
+				}
+				else
+				{
+					throw throwable;
+				}
 			}
 		}
 		else
