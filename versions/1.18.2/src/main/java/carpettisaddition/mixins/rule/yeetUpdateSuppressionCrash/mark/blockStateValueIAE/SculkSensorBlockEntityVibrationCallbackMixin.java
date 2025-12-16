@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark.blockStateValueIAE;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;

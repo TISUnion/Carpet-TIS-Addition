@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,47 +18,58 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark.blockUpdateStackOverflow;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
+import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-// used in 1.19 <= mc < 1.20.2
-@Mixin(targets = "net.minecraft.world.level.redstone.CollectingNeighborUpdater$MultiNeighborUpdate")
-public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
+/**
+ * In versions of Minecraft prior to 1.16, stack overflow errors caused purely by state update chains
+ * would not convert {@link StackOverflowError} into {@link net.minecraft.ReportedException}.
+ * This meant that the catch in TaskExecutor could not capture this stack overflow exception,
+ * leading to a server crash.
+ * <p>
+ * Here is a fix for this specific scenario
+ * <p>
+ * Starting from Minecraft 1.16, a maxUpdates mechanism was introduced for pure state update chain
+ * to control the maximum recursion depth, so this issue is unlikely to occur anymore (hopefully)
+ */
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.16"))
+@Mixin(BlockState.class)
+public abstract class BlockStateMixin
 {
 	@WrapOperation(
-			method = "runNext",
+			method = "updateNeighbourShapes",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/level/block/state/BlockState;neighborChanged(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;Z)V"
+					target = "Lnet/minecraft/world/level/block/Block;updateNeighbourShapes(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;I)V"
 			)
 	)
-	private void yeetUpdateSuppressionCrash_implOnSixWayEntryUpdate(
-			BlockState instance, Level world, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean notify,
-			Operation<Void> original
-	) throws Throwable
+	private void yeetUpdateSuppressionCrash_wrapStackOverflow_stateUpdate(Block instance, BlockState blockState, LevelAccessor iWorld, BlockPos pos, int flags, Operation<Void> original) throws Throwable
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash)
 		{
 			try
 			{
-				original.call(instance, world, pos, neighborBlock, neighborPos, notify);
+				original.call(instance, blockState, iWorld, pos, flags);
 			}
 			catch (Throwable throwable)
 			{
 				if (throwable instanceof UpdateSuppressionException || throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError)
 				{
-					throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
+					throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, iWorld.getLevel(), pos);
 				}
 				else
 				{
@@ -69,7 +80,7 @@ public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
 		else
 		{
 			// vanilla
-			original.call(instance, world, pos, neighborBlock, neighborPos, notify);
+			original.call(instance, blockState, iWorld, pos, flags);
 		}
 	}
 }

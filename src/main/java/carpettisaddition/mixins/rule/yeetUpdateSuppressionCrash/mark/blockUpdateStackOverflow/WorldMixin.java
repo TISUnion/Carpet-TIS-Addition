@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark.blockUpdateStackOverflow;
 
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
@@ -26,36 +26,36 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.redstone.NeighborUpdater;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(NeighborUpdater.class)
-public interface NeighborUpdaterMixin
+@Mixin(Level.class)
+public abstract class WorldMixin
 {
+	// use in < mc1.19
+
 	/**
 	 * ModifyVariable applies too late, so we need to use ModifyArg.
 	 * We still modify the local var, in case other mod wants to use it
 	 */
 	@SuppressWarnings("ConstantConditions")
 	@ModifyArg(
-			method = "executeUpdate",
+			method = "neighborChanged",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/CrashReport;forThrowable(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/CrashReport;"
 			)
 	)
-	private static Throwable yeetUpdateSuppressionCrash_wrapStackOverflow(
+	private Throwable yeetUpdateSuppressionCrash_wrapSoundSuppression(
 			Throwable throwable,
-			@Local(ordinal = 0, argsOnly = true) Level world,
-			@Local(ordinal = 0, argsOnly = true) BlockPos neighborPos,
+			@Local(ordinal = 1, argsOnly = true) BlockPos neighborPos,
 			@Local LocalRef<Throwable> ref
 	)
 	{
 		if (throwable instanceof UpdateSuppressionException || throwable instanceof StackOverflowError || throwable instanceof OutOfMemoryError)
 		{
-			throwable = UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, neighborPos);
+			throwable = UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, (Level)(Object)this, neighborPos);
 			ref.set(throwable);
 		}
 		return throwable;

@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2024  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,13 +18,13 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark.blockStateValueIAE;
 
 import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(DummyClass.class)
-public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
+public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 {
-	// used in 1.19 <= mc < 1.20.2
+	// impl in mc1.18.2 subproject
 }

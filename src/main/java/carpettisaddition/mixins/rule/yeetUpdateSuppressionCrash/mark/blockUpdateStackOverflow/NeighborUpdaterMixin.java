@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark;
+package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark.blockUpdateStackOverflow;
 
 import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
