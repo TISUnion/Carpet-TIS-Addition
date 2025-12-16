@@ -29,17 +29,20 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-//#if MC >= 11600
+//#if MC >= 1.21.10
+//$$ import net.minecraft.core.Direction;
+//#endif
+
+//#if MC >= 1.16
 //$$ import net.minecraft.world.level.block.state.BlockBehaviour;
-//#else
-import net.minecraft.world.level.block.state.BlockState;
 //#endif
 
 @Mixin(
-		//#if MC >= 11600
+		//#if MC >= 1.16
 		//$$ BlockBehaviour.BlockStateBase.class
 		//#else
 		BlockState.class
@@ -51,16 +54,31 @@ public abstract class ShulkerBoxBlockMixin
 			method = "getAnalogOutputSignal",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 1.21.10
+					//$$ target = "Lnet/minecraft/world/level/block/Block;getAnalogOutputSignal(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)I"
+					//#else
 					target = "Lnet/minecraft/world/level/block/Block;getAnalogOutputSignal(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)I"
+					//#endif
 			)
 	)
-	private int yeetUpdateSuppressionCrash_wrapShulkerBoxClassCastException(Block instance, BlockState blockState, Level level, BlockPos blockPos, Operation<Integer> original) throws Throwable
+	private int yeetUpdateSuppressionCrash_wrapShulkerBoxClassCastException(
+			Block instance, BlockState blockState, Level level, BlockPos blockPos,
+			//#if MC >= 1.21.10
+			//$$ Direction direction,
+			//#endif
+			Operation<Integer> original
+	) throws Throwable
 	{
 		if (CarpetTISAdditionSettings.yeetUpdateSuppressionCrash && instance instanceof ShulkerBoxBlock)
 		{
 			try
 			{
-				return original.call(instance, blockState, level, blockPos);
+				return original.call(
+						instance, blockState, level, blockPos
+						//#if MC >= 1.21.10
+						//$$ , direction
+						//#endif
+				);
 			}
 			catch (Throwable throwable)
 			{
@@ -74,7 +92,12 @@ public abstract class ShulkerBoxBlockMixin
 		else
 		{
 			// vanilla
-			return  original.call(instance, blockState, level, blockPos);
+			return  original.call(
+					instance, blockState, level, blockPos
+					//#if MC >= 1.21.10
+					//$$ , direction
+					//#endif
+			);
 		}
 	}
 }
