@@ -157,7 +157,15 @@ tasks.withType(ShadowJar).configureEach {
 	relocationPrefix = 'carpettisaddition.libs'
 }
 
-if (!unobfuscated) {
+if (unobfuscated) {
+	shadowJar {
+		archiveClassifier.set('')
+	}
+	jar {
+		archiveClassifier.set('dev')  // not shadowed version
+	}
+	assemble.dependsOn(shadowJar)
+} else {
 	remapJar {
 		dependsOn(shadowJar)
 		mustRunAfter(shadowJar)
@@ -251,10 +259,12 @@ java {
 	withSourcesJar()
 }
 
-jar {
-	inputs.property "archives_base_name", project.archives_base_name
-	from(rootProject.file('LICENSE')) {
-		rename { "${it}_${inputs.properties.archives_base_name}" }
+[jar, shadowJar].each { Jar task ->
+	task.configure {
+		inputs.property "archives_base_name", project.archives_base_name
+		from(rootProject.file('LICENSE')) {
+			rename { "${it}_${project.archives_base_name}" }
+		}
 	}
 }
 
