@@ -33,7 +33,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class StopCommandMixin
 {
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "lambda$register$0",
+			//#else
 			method = "method_13676",
+			//#endif
 			at = @At("HEAD"),
 			cancellable = true,
 			remap = false

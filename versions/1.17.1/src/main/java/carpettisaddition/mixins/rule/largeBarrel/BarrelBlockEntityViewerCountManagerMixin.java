@@ -40,8 +40,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "net.minecraft.world.level.block.entity.BarrelBlockEntity$1")
 public abstract class BarrelBlockEntityViewerCountManagerMixin
 {
-	@Shadow @Final BarrelBlockEntity field_27208;  // BarrelBlockEntity.this
+	// remap mapping `net.minecraft.world.level.block.entity.BarrelBlockEntity$1 field_27208 this$0` does not work here, idk why
+	@Shadow @Final
+	BarrelBlockEntity
+			//#if MC >= 26.1
+			//$$ this$0;
+			//#else
+			field_27208;
+			//#endif
 
+	/**
+	 * reference: the lambda {@link net.minecraft.world.level.block.entity.ContainerOpenersCounter} subclass
+	 * inside {@link net.minecraft.world.level.block.entity.ChestBlockEntity}
+	 */
 	@Inject(
 			method = "isOwnContainer(Lnet/minecraft/world/entity/player/Player;)Z",
 			at = @At(
@@ -54,8 +65,13 @@ public abstract class BarrelBlockEntityViewerCountManagerMixin
 	{
 		if (CarpetTISAdditionSettings.largeBarrel)
 		{
-			//  reference: the lambda ViewerCountManager subclass inside ChestBlockEntity
-			boolean openingLargeBarrel = inventory instanceof CompoundContainer && ((CompoundContainer)inventory).contains(this.field_27208);
+			boolean openingLargeBarrel = inventory instanceof CompoundContainer && ((CompoundContainer)inventory).contains(
+					//#if MC >= 26.1
+					//$$ this.this$0
+					//#else
+					this.field_27208
+					//#endif
+			);
 			if (openingLargeBarrel)
 			{
 				cir.setReturnValue(true);

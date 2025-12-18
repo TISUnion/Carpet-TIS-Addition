@@ -34,7 +34,11 @@ public abstract class VaultSharedDataMixin
 	 * mods who invokes getRewardedPlayers can still get the unmodified result
 	 */
 	@ModifyExpressionValue(
+			//#if MC >= 26.1
+			//$$ method = "lambda$updateConnectedPlayersWithinRange$0",
+			//#else
 			method = "method_56791",  // lambda method in updateConnectedPlayersWithinRange
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Ljava/util/Set;contains(Ljava/lang/Object;)Z",

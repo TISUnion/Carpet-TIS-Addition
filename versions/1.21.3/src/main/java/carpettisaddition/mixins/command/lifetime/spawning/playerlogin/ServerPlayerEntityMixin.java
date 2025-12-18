@@ -38,10 +38,14 @@ public abstract class ServerPlayerEntityMixin
 	@ModifyReturnValue(
 			// The lambda function argument for EntityType.loadEntityWithPassengers
 			method = {
-					"method_64132",  // in method readRootVehicle
-					//#if MC >= 12105
+					//#if MC >= 26.1
+					//$$ "lambda$loadAndSpawnParentVehicle$0",
+					//$$ "lambda$loadAndSpawnEnderPearl$0"
+					//#elseif MC >= 12105
+					//$$ "method_64132",  // in method readRootVehicle
 					//$$ "method_68174"  // in method method_68175 (probably another readEnderPearls)
 					//#else
+					"method_64132",  // in method readRootVehicle
 					"method_64129"  // in method readEnderPearls
 					//#endif
 			},

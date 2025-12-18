@@ -40,7 +40,11 @@ public abstract class ItemUsageMixin
 	 * Currently only used in onItemEntityDestroyed for bundle item and shulker box item
 	 */
 	@ModifyArg(
+			//#if MC >= 26.1
+			//$$ method = "lambda$onContainerDestroyed$0",
+			//#else
 			method = "method_33265",  // lambda method in onContainerDestroyed
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"

@@ -44,7 +44,9 @@ public abstract class EntityPredicatesMixin
 	 */
 	@Dynamic
 	@ModifyReturnValue(
-			//#if MC >= 11700
+			//#if MC >= 26.1
+			//$$ method = "lambda$static$4",
+			//#elseif MC >= 11700
 			//$$ method = "method_24517",
 			//#else
 			method = "method_5907",

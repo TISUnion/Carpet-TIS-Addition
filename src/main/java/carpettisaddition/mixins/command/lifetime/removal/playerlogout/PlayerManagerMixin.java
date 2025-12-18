@@ -38,7 +38,11 @@ public abstract class PlayerManagerMixin
 {
 	//#if MC >= 11700
 	//$$ @ModifyVariable(
+	//$$ 		//#if MC >= 26.1
+	//$$ 		//$$ method = "lambda$remove$0",
+	//$$ 		//#else
 	//$$ 		method = "method_31441",  // lambda method in remove
+	//$$ 		//#endif
 	//$$ 		at = @At("HEAD"),
 	//$$ 		argsOnly = true
 	//$$ )

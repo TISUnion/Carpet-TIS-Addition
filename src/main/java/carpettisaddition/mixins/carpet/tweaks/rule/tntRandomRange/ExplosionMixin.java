@@ -62,9 +62,10 @@ public class ExplosionMixin
 	@Unique
 	private void tryUnWrapWorldRandom()
 	{
-		if (this.level.random instanceof WrappedRandom)
+		Object random = this.level.getRandom();
+		if (random instanceof WrappedRandom)
 		{
-			((WorldAccessor)this.level).setRandom(((WrappedRandom)this.level.random).unwrap());
+			((WorldAccessor)this.level).setRandom(((WrappedRandom)random).unwrap());
 		}
 	}
 
@@ -90,7 +91,7 @@ public class ExplosionMixin
 			this.tryUnWrapWorldRandom();
 			if (CarpetSettings.tntRandomRange >= 0)
 			{
-				((WorldAccessor) this.level).setRandom(WrappedRandom.wrap(this.level.random));
+				((WorldAccessor) this.level).setRandom(WrappedRandom.wrap(this.level.getRandom()));
 			}
 		}
 	}

@@ -48,7 +48,9 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 public abstract class EntityPlayerMPFakeMixin
 {
 	@WrapWithCondition(
-			//#if MC >= 12002
+			//#if MC >= 26.1
+			//$$ method = "lambda$createFake$0",
+			//#elseif MC >= 12002
 			//$$ method = "lambda$createFake$2",
 			//#else
 			method = "createFake",
@@ -135,7 +137,9 @@ public abstract class EntityPlayerMPFakeMixin
 	//#endif
 
 	@WrapWithCondition(
-			//#if MC >= 12002
+			//#if MC >= 26.1
+			//$$ method = "lambda$createFake$0",
+			//#elseif MC >= 12002
 			//$$ method = "lambda$createFake$2",
 			//#else
 			method = "createFake",

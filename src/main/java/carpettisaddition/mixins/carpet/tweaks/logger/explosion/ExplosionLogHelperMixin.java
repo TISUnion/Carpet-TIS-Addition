@@ -82,7 +82,11 @@ public abstract class ExplosionLogHelperMixin implements ExplosionLogHelperWithE
 	}
 
 	@Inject(
+			//#if MC >= 26.1
+			//$$ method = "lambda$onExplosionDone$0",
+			//#else
 			method = "lambda$onExplosionDone$1",
+			//#endif
 			at = @At("RETURN"),
 			remap = false,
 			cancellable = true

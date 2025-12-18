@@ -41,7 +41,11 @@ public abstract class ServerWorldMixin
 	 */
 	@WrapOperation(
 			//#if MC >= 11700
+			//$$ //#if MC >= 26.1
+			//$$ //$$ method = "lambda$tick$0",
+			//$$ //#else
 			//$$ method = "method_31420",  // lambda method in method ServerLevel#tick
+			//$$ //#endif
 			//$$ at = @At(
 			//$$ 		value = "INVOKE",
 			//$$ 		target = "Lnet/minecraft/world/entity/Entity;checkDespawn()V",

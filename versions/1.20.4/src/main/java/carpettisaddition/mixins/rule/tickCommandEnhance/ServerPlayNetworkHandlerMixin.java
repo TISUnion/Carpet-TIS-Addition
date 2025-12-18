@@ -69,7 +69,15 @@ public abstract class ServerPlayNetworkHandlerMixin
 	 * which is part of the brigadier library. Doable with modern mixin, but I don't like that.
 	 * So here's comes a working but stupid fix XD
 	 */
-	@ModifyVariable(method = "method_14365", at = @At("HEAD"), argsOnly = true)
+	@ModifyVariable(
+			//#if MC >= 26.1
+			//$$ method = "lambda$handleCustomCommandSuggestions$0",
+			//#else
+			method = "method_14365",
+			//#endif
+			at = @At("HEAD"),
+			argsOnly = true
+	)
 	private Suggestions removeTickSprintStatusSuggestionIfNotEnabled(Suggestions suggestions, ServerboundCommandSuggestionPacket packet, Suggestions suggestions_)
 	{
 		String command = packet.getCommand();
