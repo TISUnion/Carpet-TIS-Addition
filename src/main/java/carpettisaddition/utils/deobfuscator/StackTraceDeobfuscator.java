@@ -81,6 +81,7 @@ public class StackTraceDeobfuscator
 		List<StackTraceElement> list = Lists.newArrayList();
 		for (StackTraceElement element : stackTraceElements)
 		{
+			// it's harmless if MAPPING is empty (when mapping is not fetched, or under unobfuscated version)
 			String remappedClass = MAPPING.get(element.getClassName());
 			String remappedMethod = MAPPING.get(element.getMethodName());
 			StackTraceElement newElement = new StackTraceElement(

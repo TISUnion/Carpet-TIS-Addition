@@ -686,6 +686,8 @@ carpettisaddition:
     language:
       space: ''
     stack_trace:
+      stack_trace: 堆栈跟踪
+      stack_trace_hover: 堆栈跟踪（点击复制详情）
       deobfuscated_stack_trace: 反混淆后的堆栈跟踪
       deobfuscated_stack_trace_hover: 反混淆后的堆栈跟踪（点击复制详情）
       n_more_lines: '...等%1$s行'

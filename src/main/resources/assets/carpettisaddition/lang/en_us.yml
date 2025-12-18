@@ -686,6 +686,8 @@ carpettisaddition:
     language:
       space: ' '
     stack_trace:
+      stack_trace: Stack trace
+      stack_trace_hover: Stack trace (click to copy details)
       deobfuscated_stack_trace: Deobfuscated stack trace
       deobfuscated_stack_trace_hover: Deobfuscated stack trace (click to copy details)
       n_more_lines: '... %1$s more lines'

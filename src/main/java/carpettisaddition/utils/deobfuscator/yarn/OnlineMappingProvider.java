@@ -23,14 +23,13 @@ package carpettisaddition.utils.deobfuscator.yarn;
 import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.utils.FileUtils;
+import carpettisaddition.utils.EnvironmentUtils;
 import carpettisaddition.utils.MiscUtils;
 import carpettisaddition.utils.deobfuscator.StackTraceDeobfuscator;
 import com.google.common.collect.Lists;
 import com.google.common.net.UrlEscapers;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.SharedConstants;
-import net.minecraft.Util;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
@@ -48,12 +47,7 @@ import java.util.stream.Stream;
 public class OnlineMappingProvider
 {
 	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
-	public static final String MINECRAFT_VERSION = Util.make(() -> {
-		//#if MC >= 1.17.1
-		//$$ SharedConstants.tryDetectVersion();
-		//#endif
-		return SharedConstants.getCurrentVersion().getId();
-	});
+	public static final String MINECRAFT_VERSION = EnvironmentUtils.getMinecraftVersionId();
 	public static final String YARN_META_URL = "https://meta.fabricmc.net/v2/versions/yarn/" + MINECRAFT_VERSION;
 	public static final String YARN_MAPPING_URL_BASE = "https://maven.fabricmc.net/net/fabricmc/yarn/";
 	public static final String MAPPINGS_JAR_LOCATION = "mappings/mappings.tiny";
@@ -259,6 +253,9 @@ public class OnlineMappingProvider
 	 */
 	public static void getMapping()
 	{
-		MiscUtils.startThread("TISCM Mapping", OnlineMappingProvider::getMappingThreaded);
+		if (EnvironmentUtils.isMinecraftObfuscated())
+		{
+			MiscUtils.startThread("TISCM Mapping", OnlineMappingProvider::getMappingThreaded);
+		}
 	}
 }

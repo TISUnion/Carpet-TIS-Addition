@@ -21,11 +21,15 @@
 package carpettisaddition.utils.deobfuscator;
 
 import carpettisaddition.translations.Translator;
+import carpettisaddition.utils.EnvironmentUtils;
 import carpettisaddition.utils.Messenger;
+import com.google.common.base.Joiner;
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import org.spongepowered.include.com.google.common.collect.Lists;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import static java.lang.Integer.min;
@@ -76,24 +80,28 @@ public class StackTracePrinter
 	{
 		int num = min(this.stackTrace.length, MAX_COPY_STACK_TRACE_SIZE);
 
-		StringBuilder builder = new StringBuilder();
-		builder.append(translator.tr("deobfuscated_stack_trace").getString());
-		builder.append(String.format(" (%s)", StackTraceDeobfuscator.MAPPING_VERSION));
+		List<String> lines = Lists.newArrayList();
+		if (EnvironmentUtils.isMinecraftObfuscated())
+		{
+			lines.add(String.format("%s (%s)", translator.tr("deobfuscated_stack_trace").getString(), StackTraceDeobfuscator.MAPPING_VERSION));
+		}
+		else
+		{
+			lines.add(translator.tr("stack_trace").getString());
+		}
 
 		for (int i = 0; i < num; i++)
 		{
-			builder.append("\n");
-			builder.append(this.stackTrace[i].toString());
+			lines.add(this.stackTrace[i].toString());
 		}
 
 		int restLineCount = this.stackTrace.length - num;
 		if (restLineCount > 0)
 		{
-			builder.append("\n");
-			builder.append(translator.tr("n_more_lines", restLineCount).getString());
+			lines.add(translator.tr("n_more_lines", restLineCount).getString());
 		}
 
-		return builder.toString();
+		return Joiner.on("\n").join(lines);
 	}
 
 	private static final Pattern MIXIN_METHOD_NAME_UID_PATTERN = Pattern.compile("^[a-z]{3}[0-9a-f]{3}$");
@@ -109,7 +117,7 @@ public class StackTracePrinter
 
 	private BaseComponent createHoverText()
 	{
-		BaseComponent text = translator.tr("deobfuscated_stack_trace_hover");
+		BaseComponent text = translator.tr(EnvironmentUtils.isMinecraftObfuscated() ? "deobfuscated_stack_trace_hover" : "stack_trace_hover");
 		int num = min(this.stackTrace.length, MAX_HOVER_STACK_TRACE_SIZE);
 
 		for (int i = 0; i < num; i++)

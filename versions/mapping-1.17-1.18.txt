@@ -1,3 +1,5 @@
+com.mojang.bridge.game.GameVersion net.minecraft.WorldVersion
+
 net.minecraft.world.level.BlockEventData getBlock() block()
 net.minecraft.world.level.BlockEventData getParamA() paramA()
 net.minecraft.world.level.BlockEventData getParamB() paramB()
