@@ -2,11 +2,12 @@ plugins {
 	id 'maven-publish'
 	id 'com.github.hierynomus.license' version '0.16.1' apply false
 	id 'com.gradleup.shadow' version '8.3.9' apply false
-    id 'fabric-loom' version '1.14-SNAPSHOT' apply false
+    id 'net.fabricmc.fabric-loom' version '1.14-SNAPSHOT' apply false
+    id 'net.fabricmc.fabric-loom-remap' version '1.14-SNAPSHOT' apply false
 
 	// https://github.com/ReplayMod/preprocessor
 	// https://github.com/Fallen-Breath/preprocessor
-	id 'com.replaymod.preprocess' version 'd452ef7612'
+	id 'com.replaymod.preprocess' version 'c5abb4fb12'
 
 	// https://github.com/Fallen-Breath/yamlang
 	id 'me.fallenbreath.yamlang' version '1.5.0' apply false
@@ -32,6 +33,7 @@ preprocess {
 	def mc1218 = createNode('1.21.8', 1_21_08, '')
 	def mc12110 = createNode('1.21.10', 1_21_10, '')
 	def mc12111 = createNode('1.21.11', 1_21_11, '')
+	def mc260100 = createNode('26.1', 26_01_00, '')
 
 	mc115 .link(mc114 , file('versions/mapping-1.15-1.14.txt'))
 	mc115 .link(mc116 , file('versions/mapping-1.15-1.16.txt'))
@@ -49,9 +51,12 @@ preprocess {
 	mc1215.link(mc1218, file('versions/mapping-1.21.5-1.21.8.txt'))
 	mc1218.link(mc12110, file('versions/mapping-1.21.8-1.21.10.txt'))
 	mc12110.link(mc12111, file('versions/mapping-1.21.10-1.21.11.txt'))
+    mc12111.link(mc260100, file('versions/mapping-1.21.11-26.1.txt'))
 
-//	def mc115m = createNode('1.15.2-mojmap', 1_15_02, '')
-//	mc115.link(mc115m, null)
+	// See https://github.com/Fallen-Breath/fabric-mod-template/blob/1d72d77a1c5ce0bf060c2501270298a12adab679/build.gradle#L55-L63
+    for (final def node in getNodes()) {
+        findProject(node.project).ext.mcVersion = node.mcVersion
+    }
 }
 
 tasks.register('buildAndGather') {

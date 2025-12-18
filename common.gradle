@@ -1,11 +1,12 @@
+final int mcVersion = project.mcVersion
+final boolean unobfuscated = mcVersion >= 26_00_00
+
 apply plugin: 'maven-publish'
 apply plugin: 'com.github.hierynomus.license'
 apply plugin: 'com.gradleup.shadow'
-apply plugin: 'fabric-loom'
+apply plugin: unobfuscated ? 'net.fabricmc.fabric-loom' : 'net.fabricmc.fabric-loom-remap'
 apply plugin: 'com.replaymod.preprocess'
 apply plugin: 'me.fallenbreath.yamlang'
-
-int mcVersion = project.mcVersion
 
 repositories {
 	maven {
@@ -28,56 +29,58 @@ repositories {
 	}
 }
 
-// https://github.com/FabricMC/fabric-loader/issues/783
-configurations {
-	modRuntimeOnly.exclude group: 'net.fabricmc', module: 'fabric-loader'
-}
-configurations {
-	modCompileOnly.exclude group: 'com.github.2No2Name', module: 'McTester'
-	modImplementation.exclude group: 'com.github.2No2Name', module: 'McTester'
-}
-
 final enableLithiumInRuntime = false
 
 dependencies {
+	def processDependency = { dep ->
+		// https://github.com/FabricMC/fabric-loader/issues/783
+		if (dep instanceof ModuleDependency && !(dep.group == 'net.fabricmc' && dep.name == 'fabric-loader')) {
+			dep.exclude group: 'net.fabricmc', module: 'fabric-loader'
+			dep.exclude group: 'com.github.astei', module: 'lazydfu'
+			dep.exclude group: 'com.github.2No2Name', module: 'McTester'
+		}
+		return dep
+	}
+	def autoImplementation = { Object... args -> processDependency(unobfuscated ? implementation(*args) : modImplementation(*args)) }
+	def autoRuntimeOnly = { Object... args -> processDependency(unobfuscated ? runtimeOnly(*args) : modRuntimeOnly(*args)) }
+	def autoCompileOnly = { Object... args -> processDependency(unobfuscated ? compileOnly(*args) : modCompileOnly(*args)) }
+
 	// loom
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.layered() {
-		officialMojangMappings()
-		if (project.parchment_version.size() > 0) {
-			parchment("org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_version}@zip")
+	if (!unobfuscated) {
+		mappings loom.layered() {
+			officialMojangMappings()
+			if (project.parchment_version.size() > 0) {
+				parchment("org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_version}@zip")
+			}
 		}
 	}
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	autoImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// mods
 	if (project.carpet_core_version.matches('^com.github.[a-zA-Z0-9_-]+:fabric-carpet:[a-z0-9]+$')) {
-		modImplementation project.carpet_core_version  // jitpack
+        autoImplementation project.carpet_core_version  // jitpack
 	} else {
-		modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
+        autoImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
 	}
 	if (enableLithiumInRuntime && 11500 <= mcVersion && mcVersion < 12111) {
-		modImplementation(project.lithium_dependency) {
-			exclude group: 'com.github.astei', module: 'lazydfu'
-		}
+        autoImplementation(project.lithium_dependency)
 		if (11500 <= mcVersion && mcVersion < 11600) {
 			// https://github.com/CaffeineMC/lithium-fabric/blob/1.15.x/fabric/build.gradle#L50
-			runtimeOnly "com.moandjiezana.toml:toml4j:0.7.2"
-			runtimeOnly "com.github.Fallen-Breath:Fabric-ASM:v2.0.1"  // v2.0 build fails
+            autoRuntimeOnly "com.moandjiezana.toml:toml4j:0.7.2"
+            autoRuntimeOnly "com.github.Fallen-Breath:Fabric-ASM:v2.0.1"  // v2.0 build fails
 		}
 	} else {
-		modCompileOnly(project.lithium_dependency) {
-			exclude group: 'com.github.astei', module: 'lazydfu'
-		}
+        autoCompileOnly(project.lithium_dependency)
 	}
 
 	// runtime mods
 	if (mcVersion < 11904) {
-		modRuntimeOnly("com.github.Fallen-Breath:lazydfu:${mcVersion < 11900 ? "0.1.2" : "a7cfc44c0c"}")
+        autoRuntimeOnly("com.github.Fallen-Breath:lazydfu:${mcVersion < 11900 ? "0.1.2" : "a7cfc44c0c"}")
 	}
 
 	// library mods
-	include(modImplementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
+	include(autoImplementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
 	if (mcVersion < 12005) {
 		include("io.github.llamalad7:mixinextras-fabric:${project.mixinextras_version}")
 	}
@@ -90,7 +93,9 @@ dependencies {
 String MIXIN_CONFIG_PATH = 'carpet-tis-addition.mixins.json'
 String LANG_DIR = 'assets/carpettisaddition/lang'
 JavaVersion JAVA_COMPATIBILITY
-if (mcVersion >= 12005) {
+if (mcVersion >= 260000) {
+	JAVA_COMPATIBILITY = JavaVersion.VERSION_25
+} else if (mcVersion >= 12005) {
 	JAVA_COMPATIBILITY = JavaVersion.VERSION_21
 } else if (mcVersion >= 11800) {
 	JAVA_COMPATIBILITY = JavaVersion.VERSION_17
@@ -136,7 +141,7 @@ loom {
 
 	mixin {
 		// suppress "Cannot remap xxx because it does not exists in any of the targets" warning. It does not respect `remap = false` :(
-		useLegacyMixinAp = true
+		useLegacyMixinAp = !unobfuscated
 	}
 }
 
@@ -152,10 +157,12 @@ tasks.withType(ShadowJar).configureEach {
 	relocationPrefix = 'carpettisaddition.libs'
 }
 
-remapJar {
-	dependsOn(shadowJar)
-	mustRunAfter(shadowJar)
-	inputFile = shadowJar.archiveFile
+if (!unobfuscated) {
+	remapJar {
+		dependsOn(shadowJar)
+		mustRunAfter(shadowJar)
+		inputFile = shadowJar.archiveFile
+	}
 }
 
 String modVersionSuffix = ''
@@ -245,8 +252,9 @@ java {
 }
 
 jar {
+	inputs.property "archives_base_name", project.archives_base_name
 	from(rootProject.file('LICENSE')) {
-		rename { "${it}_${project.archives_base_name}" }
+		rename { "${it}_${inputs.properties.archives_base_name}" }
 	}
 }
 

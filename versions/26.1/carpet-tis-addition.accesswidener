@@ -1,0 +1,13 @@
+accessWidener	v1	official
+
+accessible  class   net/minecraft/world/entity/raid/Raid$RaidStatus
+accessible  class   net/minecraft/server/commands/FillCommand$Mode
+accessible  class   net/minecraft/server/level/ThreadedLevelLightEngine$TaskType
+accessible  class   net/minecraft/world/level/LocalMobCapCalculator$MobCounts
+accessible  class   net/minecraft/world/level/redstone/CollectingNeighborUpdater$NeighborUpdates
+accessible  class   net/minecraft/world/level/chunk/PalettedContainer$Data
+
+# XXX: If without and use `targets = "xxxx"` instead, mixin will complain about "Mixin target xxxx is public and should be specified in value",
+# even if they are actually protected classes
+accessible  class   net/minecraft/world/level/block/entity/CalibratedSculkSensorBlockEntity$VibrationUser
+accessible  class   net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
