@@ -158,13 +158,12 @@ tasks.withType(ShadowJar).configureEach {
 }
 
 if (unobfuscated) {
-	shadowJar {
-		archiveClassifier.set('')
-	}
 	jar {
-		archiveClassifier.set('dev')  // not shadowed version
+		dependsOn(shadowJar)
+		mustRunAfter(shadowJar)
+		from zipTree(shadowJar.archiveFile)
+		duplicatesStrategy = DuplicatesStrategy.INCLUDE
 	}
-	assemble.dependsOn(shadowJar)
 } else {
 	remapJar {
 		dependsOn(shadowJar)
