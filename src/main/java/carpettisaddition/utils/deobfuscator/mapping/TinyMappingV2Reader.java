@@ -30,6 +30,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Implemented in obfuscated version only (cuz that's where yarn and intermediary mapping exists).
+ * In unobfuscated versions, this reader reads nothing
+ */
 public class TinyMappingV2Reader implements MappingReader
 {
 	@Override

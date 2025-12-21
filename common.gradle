@@ -86,7 +86,11 @@ dependencies {
 	}
 
 	// libraries
-	shadow(implementation("net.fabricmc:tiny-mappings-parser:0.3.0+build.17"))  // not included in fabric loader 0.15.0+, so we need to shadow it
+	if (!unobfuscated) {
+		// not included in fabric loader 0.15.0+, so we need to shadow it
+		// unused in unobfuscated versions, so don't add it in those
+		shadow(implementation("net.fabricmc:tiny-mappings-parser:0.3.0+build.17"))
+	}
 	testImplementation "junit:junit:${project.junit_version}"
 }
 
