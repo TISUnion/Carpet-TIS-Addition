@@ -22,30 +22,17 @@ package carpettisaddition.mixins.carpet.tweaks.command.fakePlayerRejoin;
 
 import carpet.patches.EntityPlayerMPFake;
 import carpettisaddition.helpers.carpet.tweaks.command.fakePlayerRejoin.FakePlayerRejoinHelper;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-//#if MC >= 12104
-//$$ import java.util.function.BiConsumer;
-//#endif
-
-//#if MC >= 12002
-//$$ import org.spongepowered.asm.mixin.injection.ModifyArg;
-//$$ import java.util.function.Consumer;
-//#endif
-
 //#if MC >= 11600
 //$$ import net.minecraft.server.level.ServerLevel;
-//#else
-import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 //#endif
 
 @Mixin(EntityPlayerMPFake.class)
-public abstract class EntityPlayerMPFakeMixin
+public abstract class EntityPlayerMPFake_DisableTeleportMixin
 {
 	@WrapWithCondition(
 			//#if MC >= 26.1
@@ -65,76 +52,6 @@ public abstract class EntityPlayerMPFakeMixin
 	{
 		return !FakePlayerRejoinHelper.isRejoin.get();
 	}
-
-	//#if MC >= 12002
-	//$$ @ModifyArg(
-	//$$ 		method = "createFake",
-	//$$ 		at = @At(
-	//$$ 				value = "INVOKE",
-	//$$ 				//#if MC >= 12104
-	//$$ 				//$$ target = "Ljava/util/concurrent/CompletableFuture;whenCompleteAsync(Ljava/util/function/BiConsumer;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
-	//$$ 				//#elseif MC >= 12005
-	//$$ 				//$$ target = "Ljava/util/concurrent/CompletableFuture;thenAcceptAsync(Ljava/util/function/Consumer;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
-	//$$ 				//#else
-	//$$ 				target = "Ljava/util/concurrent/CompletableFuture;thenAccept(Ljava/util/function/Consumer;)Ljava/util/concurrent/CompletableFuture;",
-	//$$ 				//#endif
-	//$$ 				remap = false
-	//$$ 		),
-	//$$ 		remap = true
-	//$$ )
-	//$$ //#if MC >= 12104
-	//$$ //$$ private static <T> BiConsumer<? super T, ? super Throwable> fakePlayerRejoin_forwardTheFlag(BiConsumer<? super T, ? super Throwable> action)
-	//$$ //#else
-	//$$ private static <T> Consumer<? super T> fakePlayerRejoin_forwardTheFlag(Consumer<? super T> action)
-	//$$ //#endif
-	//$$ {
-	//$$ 	boolean isRejoin = FakePlayerRejoinHelper.isRejoin.get();
-	//$$ 	//#if MC >= 12104
-	//$$ 	//$$ return (value, t) -> {
-	//$$ 	//#else
-	//$$ 	return value -> {
-	//$$ 	//#endif
-	//$$ 		if (isRejoin)
-	//$$ 		{
-	//$$ 			FakePlayerRejoinHelper.isRejoin.set(true);
-	//$$ 		}
-	//$$ 		try
-	//$$ 		{
-	//$$ 			//#if MC >= 12104
-	//$$ 			//$$ action.accept(value, t);
-	//$$ 			//#else
-	//$$ 			action.accept(value);
-	//$$ 			//#endif
-	//$$ 		}
-	//$$ 		finally
-	//$$ 		{
-	//$$ 			FakePlayerRejoinHelper.isRejoin.remove();
-	//$$ 		}
-	//$$ 	};
-	//$$ }
-	//#endif
-
-	//#if MC <= 11500
-	//$$ @ModifyExpressionValue(
-	//$$ 		method = "createFake",
-	//$$ 		at = @At(
-	//$$ 				value = "FIELD",
-	//$$ 				target = "Lcarpet/patches/EntityPlayerMPFake;dimension:Lnet/minecraft/world/level/dimension/DimensionType;",
-	//$$ 				ordinal = 0
-	//$$ 		)
-	//$$ )
-	//$$ private static DimensionType fakePlayerRejoin_dontDoTransdimensionTeleport(
-	//$$ 		DimensionType playerDimension,
-	//$$ 		@Local(argsOnly = true) DimensionType targetDimension
-	//$$ )
-	//$$ {
-	//$$ 	if (FakePlayerRejoinHelper.isRejoin.get())
-	//$$ 	{
-	//$$ 		playerDimension = targetDimension;
-	//$$ 	}
-	//$$ 	return playerDimension;
-	//$$ }
-	//#endif
 
 	@WrapWithCondition(
 			//#if MC >= 26.1
