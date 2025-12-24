@@ -22,39 +22,99 @@ package carpettisaddition.mixins.carpet.tweaks.command.fakePlayerRejoin;
 
 import carpet.patches.EntityPlayerMPFake;
 import carpettisaddition.helpers.carpet.tweaks.command.fakePlayerRejoin.FakePlayerRejoinHelper;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 
-//#if MC <= 11500
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+//#if MC >= 1.20.2
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//#else
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//#endif
+
+//#if MC >= 1.16
+//$$ import net.minecraft.resources.ResourceKey;
+//$$ import net.minecraft.world.level.Level;
+//#else
 import net.minecraft.world.level.dimension.DimensionType;
 //#endif
 
+/**
+ * mc1.14 ~ mc1.21.5: subproject 1.15.2 (main project)        <--------
+ * mc1.21.9+        : subproject 1.21.10
+ */
 @Mixin(EntityPlayerMPFake.class)
 public abstract class EntityPlayerMPFake_FixDimensionMixin
 {
-	//#if MC <= 11500
-	@ModifyExpressionValue(
+	/**
+	 * In mc <= 1.21.9, a {@link net.minecraft.server.level.ServerPlayer} is firstly constructed with any dimension,
+	 * and then its NBT data will be loaded and its real dimension will be properly set inside:
+	 *   - (mc < 1.16): during calling {@link net.minecraft.server.players.PlayerList#load} inside  {@link net.minecraft.server.players.PlayerList#placeNewPlayer}
+	 *   - (1.16 <= mc < 1.21.9): read directly from NBT in  {@link net.minecraft.server.players.PlayerList#placeNewPlayer}
+	 * <p>
+	 * In MC >= 25w31a (1.21.9 snapshot), a player's data is loaded properly inside {@link net.minecraft.server.network.config.PrepareSpawnTask#start},
+	 * and carpet mimic that with {@link carpet.patches.EntityPlayerMPFake#loadPlayerData} (requiring fabric-carpet >= 1.21.10-1.4.188+v251016).
+	 * Also see the mixin {@link #fakePlayerRejoin_setDimensionFromLoadedData} below
+	 * <p>
+	 * Anyway, we just need to use the loaded player's dimension to replace all dimension / world variables in the createFake function
+	 */
+	@Inject(
+			//#if MC >= 1.20.2
+			//$$ method = "lambda$createFake$2",
+			//#else
 			method = "createFake",
+			//#endif
 			at = @At(
-					value = "FIELD",
-					target = "Lcarpet/patches/EntityPlayerMPFake;dimension:Lnet/minecraft/world/level/dimension/DimensionType;",
-					ordinal = 0
+					value = "INVOKE",
+					//#if MC >= 1.21.10
+					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;loadPlayerData(Lcarpet/patches/EntityPlayerMPFake;)V",
+					//$$ remap = false,
+					//#elseif MC >= 1.20.2
+					//$$ target = "Lnet/minecraft/server/players/PlayerList;placeNewPlayer(Lnet/minecraft/network/Connection;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/network/CommonListenerCookie;)V",
+					//#else
+					target = "Lnet/minecraft/server/players/PlayerList;placeNewPlayer(Lnet/minecraft/network/Connection;Lnet/minecraft/server/level/ServerPlayer;)V",
+					//#endif
+					shift = At.Shift.AFTER
 			)
 	)
-	private static DimensionType fakePlayerRejoin_dontDoTransdimensionTeleport(
-			DimensionType playerDimension,
-			@Local(argsOnly = true) DimensionType targetDimension
+	private static void fakePlayerRejoin_adjustDimension(
+			//#if MC >= 1.20.2
+			//$$ CallbackInfo ci,
+			//#else
+			CallbackInfoReturnable<EntityPlayerMPFake> cir,
+			//#endif
+
+			@Local EntityPlayerMPFake player,
+			@Local(argsOnly = true) MinecraftServer server,
+
+			//#if MC >= 1.16
+			//$$ @Local(argsOnly = true) LocalRef<ResourceKey<Level>> targetDimension,
+			//#else
+			@Local(argsOnly = true) LocalRef<DimensionType> targetDimension,
+			//#endif
+
+			//#if MC >= 1.20.2
+			//$$ @Local(argsOnly = true) LocalRef<ServerLevel> targetWorld
+			//#else
+			@Local LocalRef<ServerLevel> targetWorld
+			//#endif
 	)
 	{
 		if (FakePlayerRejoinHelper.isRejoin.get())
 		{
-			playerDimension = targetDimension;
-		}
-		return playerDimension;
-	}
-	//#endif
+			//#if MC >= 1.16
+			//$$ ResourceKey<Level> playerDimension = DimensionWrapper.of(player).getValue();
+			//#else
+			DimensionType playerDimension = DimensionWrapper.of(player).getValue();
+			//#endif
 
-	// TODO
+			targetDimension.set(playerDimension);
+			targetWorld.set(server.getLevel(playerDimension));
+		}
+	}
 }

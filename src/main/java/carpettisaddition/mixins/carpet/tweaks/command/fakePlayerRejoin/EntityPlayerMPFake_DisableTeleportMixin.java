@@ -27,7 +27,7 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-//#if MC >= 11600
+//#if MC >= 1.16
 //$$ import net.minecraft.server.level.ServerLevel;
 //#endif
 
@@ -48,7 +48,7 @@ public abstract class EntityPlayerMPFake_DisableTeleportMixin
 					remap = false
 			)
 	)
-	private static boolean fakePlayerRejoin_disableFixerOnRejoin(EntityPlayerMPFake instance, Runnable newValue)
+	private static boolean fakePlayerRejoin_disableCarpetsLocationFixerOnRejoin(EntityPlayerMPFake instance, Runnable newValue)
 	{
 		return !FakePlayerRejoinHelper.isRejoin.get();
 	}
@@ -56,7 +56,7 @@ public abstract class EntityPlayerMPFake_DisableTeleportMixin
 	@WrapWithCondition(
 			//#if MC >= 26.1
 			//$$ method = "lambda$createFake$0",
-			//#elseif MC >= 12002
+			//#elseif MC >= 1.20.2
 			//$$ method = "lambda$createFake$2",
 			//#else
 			method = "createFake",
@@ -65,7 +65,7 @@ public abstract class EntityPlayerMPFake_DisableTeleportMixin
 					value = "INVOKE",
 					//#if MC >= 12102
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDLjava/util/Set;FFZ)Z"
-					//#elseif MC >= 11600
+					//#elseif MC >= 1.16
 					//$$ target = "Lcarpet/patches/EntityPlayerMPFake;teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDFF)V"
 					//#else
 					target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;teleport(DDDFF)V"
@@ -75,7 +75,7 @@ public abstract class EntityPlayerMPFake_DisableTeleportMixin
 	private static boolean fakePlayerRejoin_dontRequestTeleport(
 			//#if MC >= 12102
 			//$$ EntityPlayerMPFake instance, ServerLevel serverWorld, double x, double y, double z, java.util.Set<?> set, float yaw, float pitch, boolean resetCamera
-			//#elseif MC >= 11600
+			//#elseif MC >= 1.16
 			//$$ EntityPlayerMPFake instance, ServerLevel serverWorld, double x, double y, double z, float yaw, float pitch
 			//#else
 			ServerGamePacketListenerImpl instance, double x, double y, double z, float yaw, float pitch
