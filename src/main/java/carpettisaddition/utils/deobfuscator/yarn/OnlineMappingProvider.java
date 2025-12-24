@@ -30,7 +30,6 @@ import com.google.common.collect.Lists;
 import com.google.common.net.UrlEscapers;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
-import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.URI;
@@ -44,9 +43,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+//#if MC >= 1.18.2
+//$$ import com.mojang.logging.LogUtils;
+//$$ import org.slf4j.Logger;
+//#else
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+//#endif
+
 public class OnlineMappingProvider
 {
-	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
+	private static final Logger LOGGER =
+			//#if MC >= 11802
+			//$$ LogUtils.getLogger();
+			//#else
+			LogManager.getLogger();
+			//#endif
+
 	public static final String MINECRAFT_VERSION = EnvironmentUtils.getMinecraftVersionId();
 	public static final String YARN_META_URL = "https://meta.fabricmc.net/v2/versions/yarn/" + MINECRAFT_VERSION;
 	public static final String YARN_MAPPING_URL_BASE = "https://maven.fabricmc.net/net/fabricmc/yarn/";

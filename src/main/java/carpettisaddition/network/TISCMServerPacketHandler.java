@@ -20,7 +20,6 @@
 
 package carpettisaddition.network;
 
-import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.commands.speedtest.SpeedTestCommand;
 import carpettisaddition.utils.NbtUtils;
 import com.google.common.collect.Lists;
@@ -28,15 +27,28 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+//#if MC >= 1.18.2
+//$$ import com.mojang.logging.LogUtils;
+//$$ import org.slf4j.Logger;
+//#else
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+//#endif
+
 public class TISCMServerPacketHandler
 {
-	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
+	private static final Logger LOGGER =
+			//#if MC >= 11802
+			//$$ LogUtils.getLogger();
+			//#else
+			LogManager.getLogger();
+			//#endif
+
 	private static final TISCMServerPacketHandler INSTANCE = new TISCMServerPacketHandler();
 
 	private final Map<TISCMProtocol.C2S, Consumer<HandlerContext.C2S>> handlers = new EnumMap<>(TISCMProtocol.C2S.class);

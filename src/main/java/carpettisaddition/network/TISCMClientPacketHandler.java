@@ -20,7 +20,6 @@
 
 package carpettisaddition.network;
 
-import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.commands.speedtest.SpeedTestCommand;
 import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetricsDataSyncer;
 import carpettisaddition.utils.NbtUtils;
@@ -31,14 +30,27 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.nbt.CompoundTag;
-import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.function.Consumer;
 
+//#if MC >= 1.18.2
+//$$ import com.mojang.logging.LogUtils;
+//$$ import org.slf4j.Logger;
+//#else
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+//#endif
+
 public class TISCMClientPacketHandler
 {
-	private static final Logger LOGGER = CarpetTISAdditionServer.LOGGER;
+	private static final Logger LOGGER =
+			//#if MC >= 11802
+			//$$ LogUtils.getLogger();
+			//#else
+			LogManager.getLogger();
+			//#endif
+
 	private static final TISCMClientPacketHandler INSTANCE = new TISCMClientPacketHandler();
 
 	private final Map<TISCMProtocol.S2C, Consumer<HandlerContext.S2C>> handlers = new EnumMap<>(TISCMProtocol.S2C.class);

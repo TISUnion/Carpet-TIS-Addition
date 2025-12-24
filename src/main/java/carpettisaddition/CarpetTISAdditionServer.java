@@ -57,12 +57,19 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
 //#if MC >= 11900
 //$$ import net.minecraft.commands.CommandBuildContext;
+//#endif
+
+//#if MC >= 1.18.2
+//$$ import com.mojang.logging.LogUtils;
+//$$ import org.slf4j.Logger;
+//#else
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 //#endif
 
 //#if MC >= 11600
@@ -73,9 +80,15 @@ import java.util.Map;
 
 public class CarpetTISAdditionServer implements CarpetExtension
 {
+	public static final Logger LOGGER =
+			//#if MC >= 11802
+			//$$ LogUtils.getLogger();
+			//#else
+			LogManager.getLogger();
+			//#endif
+
 	private static final CarpetTISAdditionServer INSTANCE = new CarpetTISAdditionServer();
 	public static final String compactName = CarpetTISAdditionMod.COMPACT_NAME;
-	public static final Logger LOGGER = CarpetTISAdditionMod.LOGGER;
 	public static MinecraftServer minecraft_server;
 
 	@Override
