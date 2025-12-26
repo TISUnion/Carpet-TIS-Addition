@@ -79,7 +79,7 @@ public class MicroTimingLoggerManager
 	private final Map<ServerLevel, MicroTimingLogger> loggers = new Reference2ObjectArrayMap<>();
 	public static final Translator TRANSLATOR = (new AbstractLogger(MicroTimingLogger.NAME, false){}).getTranslator();
 	private TickPhase offWorldTickPhase = new TickPhase(TickStage.UNKNOWN, null);
-	public ThreadLocal<ServerLevel> currentWorld = ThreadLocal.withInitial(() -> null);
+	private final ThreadLocal<ServerLevel> currentWorld = ThreadLocal.withInitial(() -> null);
 
 	//#if MC >= 11600
 	//$$ // for scarpet event
@@ -140,6 +140,11 @@ public class MicroTimingLoggerManager
 			throw new RuntimeException("MicroTimingLoggerManager not attached");
 		}
 		return instance;
+	}
+
+	public static Optional<MicroTimingLoggerManager> getInstanceOptional()
+	{
+		return Optional.ofNullable(instance);
 	}
 
 	private static Optional<MicroTimingLogger> getWorldLogger(Level world)
@@ -423,19 +428,19 @@ public class MicroTimingLoggerManager
 
 	public static void setCurrentWorld(ServerLevel world)
 	{
-		getInstance().currentWorld.set(world);
+		getInstanceOptional().ifPresent(mgr -> mgr.currentWorld.set(world));
 	}
 
 	@Nullable
 	public static ServerLevel getCurrentWorld()
 	{
-		return getInstance().currentWorld.get();
+		return getInstanceOptional().map(mgr -> mgr.currentWorld.get()).orElse(null);
 	}
 
 	@Nullable
 	public static TickPhase getOffWorldTickPhase()
 	{
-		return getInstance().offWorldTickPhase;
+		return getInstanceOptional().map(mgr -> mgr.offWorldTickPhase).orElse(null);
 	}
 
 	/**
