@@ -9,6 +9,7 @@ pluginManagement {
 		maven {
 			name = 'Jitpack'
 			url = 'https://maven.fallenbreath.me/jitpack'
+            content { includeGroupAndSubgroups('com.github') }
 		}
 		mavenCentral()
 		gradlePluginPortal()
@@ -16,7 +17,7 @@ pluginManagement {
 	resolutionStrategy {
 		eachPlugin {
 			switch (requested.id.id) {
-				case "com.replaymod.preprocess": {
+				case 'com.replaymod.preprocess': {
 					useModule("com.github.Fallen-Breath:preprocessor:${requested.version}")
 					break
 				}
@@ -31,5 +32,5 @@ for (String version : settings.versions) {
 
 	def proj = project(":$version")
 	proj.projectDir = file("versions/$version")
-	proj.buildFileName = "../../common.gradle"
+	proj.buildFileName = '../../common.gradle'
 }

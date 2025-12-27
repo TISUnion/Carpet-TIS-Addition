@@ -11,21 +11,27 @@ apply plugin: 'me.fallenbreath.yamlang'
 repositories {
 	maven {
 		url = 'https://maven.parchmentmc.org'
+		content { includeGroup('org.parchmentmc.data') }
 	}
 	maven {
 		url = 'https://masa.dy.fi/maven'
+		content { includeModule('carpet', 'fabric-carpet') }
 	}
 	maven {
 		url = 'https://maven.fallenbreath.me/releases'
+		content { includeGroup('me.fallenbreath') }
 	}
 	maven {
 		url = 'https://maven.fallenbreath.me/jitpack'
+        content { includeGroupAndSubgroups('com.github') }
 	}
 	maven {
 		url = 'https://www.cursemaven.com'
+		content { includeGroup('curse.maven') }
 	}
 	maven {
 		url = 'https://api.modrinth.com/maven'
+		content { includeGroup('maven.modrinth') }
 	}
 }
 
