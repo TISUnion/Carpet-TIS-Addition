@@ -96,7 +96,6 @@ public abstract class PlayerCommandMixin
 				).
 				then(literal("perTick").
 						then(argument(perTick, integer(1, 64)).
-								requires(CarpetModUtil::canUseCarpetCommand).
 								executes(
 										c -> handlePerTick$TISCM(c, type, getInteger(c, perTick))
 								)
@@ -109,7 +108,11 @@ public abstract class PlayerCommandMixin
 	{
 		if (!CarpetModUtil.canUseCommand(context.getSource(), CarpetTISAdditionSettings.commandPlayerActionPerTick))
 		{
-			Messenger.tell(context.getSource(), Messenger.formatting(Messenger.tr("carpettisaddition.command.player.action.perTick.disabled"), ChatFormatting.GOLD));
+			boolean isDisabled = CarpetModUtil.isCanUseCommandAlwaysFalse(CarpetTISAdditionSettings.commandPlayerActionPerTick);
+			Messenger.tell(context.getSource(), Messenger.formatting(
+					Messenger.tr("carpettisaddition.command.player.action.perTick." + (isDisabled ? "disabled" : "permission_not_enough")),
+					ChatFormatting.GOLD
+			));
 			return 0;
 		}
 

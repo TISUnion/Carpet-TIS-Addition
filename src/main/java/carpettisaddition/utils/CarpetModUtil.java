@@ -20,8 +20,11 @@
 
 package carpettisaddition.utils;
 
-import carpet.CarpetSettings;
 import net.minecraft.commands.CommandSourceStack;
+
+//#if MC >= 11700
+import carpet.CarpetSettings;
+//#endif
 
 public class CarpetModUtil
 {
@@ -54,6 +57,15 @@ public class CarpetModUtil
 		}
 		return false;
 		//#endif
+	}
+
+	/**
+	 * @return if {@link #canUseCommand} will always return false, i.e. command completely disabled
+	 */
+	public static boolean isCanUseCommandAlwaysFalse(Object commandLevel)
+	{
+		if (commandLevel instanceof Boolean) return !((Boolean)commandLevel);
+		return commandLevel.toString().equals("false");
 	}
 
 	// alias of canUseCommand
