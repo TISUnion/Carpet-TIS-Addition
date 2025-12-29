@@ -30,10 +30,12 @@ import java.util.Optional;
 
 public class UpdateSuppressionYeeter
 {
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static void noop()
 	{
 		// load the classes in advance
 		// to prevent NoClassDefFoundError due to stack overflow again when loading this class
+		ExceptionCatchLocation.values();
 		UpdateSuppressionContext.noop();
 		UpdateSuppressionExceptions.noop();
 	}
