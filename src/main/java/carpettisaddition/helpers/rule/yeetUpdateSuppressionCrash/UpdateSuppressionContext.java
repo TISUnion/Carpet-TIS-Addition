@@ -27,15 +27,13 @@ import carpettisaddition.logging.loggers.microtiming.tickphase.TickPhase;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.compat.DimensionWrapper;
-import com.google.common.base.Suppliers;
-import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Supplier;
+import java.util.Objects;
 
 public class UpdateSuppressionContext
 {
@@ -59,6 +57,7 @@ public class UpdateSuppressionContext
 
 	private BaseComponent createMessageText(ExceptionCatchLocation catchLocation)
 	{
+		String causeMessage = Objects.toString(this.cause.getMessage());
 		return Messenger.fancy(
 				tr.tr("exception_detail.body",
 						dimension != null ? Messenger.coord(this.pos, this.dimension) : Messenger.coord(this.pos),
@@ -67,10 +66,10 @@ public class UpdateSuppressionContext
 				Messenger.c(
 						tr.tr("exception_detail.catch_location", catchLocation.toText()), Messenger.newLine(),
 						tr.tr("exception_detail.name_and_message", this.cause.getClass().getSimpleName()), Messenger.newLine(),
-						Messenger.s(this.cause.getMessage())
+						Messenger.s(causeMessage)
 				),
 				//#if MC >= 11500
-				Messenger.ClickEvents.copyToClipBoard(this.cause.getClass().getSimpleName() + ": " + this.cause.getMessage())
+				Messenger.ClickEvents.copyToClipBoard(this.cause.getClass().getSimpleName() + ": " + causeMessage)
 				//#else
 				//$$ null
 				//#endif
