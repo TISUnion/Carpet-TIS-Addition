@@ -22,8 +22,8 @@ package carpettisaddition.network;
 
 import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.utils.IdentifierUtils;
+import carpettisaddition.utils.NetworkUtils;
 import com.google.common.collect.Maps;
-import io.netty.buffer.Unpooled;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket;
 import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
@@ -146,7 +146,7 @@ public class TISCMProtocol
 		//#if MC >= 12002
 		//$$ return packetConstructor.apply(new TISCMCustomPayload(packetId.getId(), nbt));
 		//#else
-		FriendlyByteBuf packetByteBuf = new FriendlyByteBuf(Unpooled.buffer());
+		FriendlyByteBuf packetByteBuf = NetworkUtils.newFriendlyByteBuf();
 		packetByteBuf.writeUtf(packetId.getId());
 		packetByteBuf.writeNbt(nbt);
 		return packetConstructor.apply(TISCMProtocol.CHANNEL, packetByteBuf);

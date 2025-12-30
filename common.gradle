@@ -119,7 +119,10 @@ JavaVersion MIXIN_COMPATIBILITY_LEVEL = JAVA_COMPATIBILITY
 loom {
 	accessWidenerPath = file("carpet-tis-addition.accesswidener")
 
-	def commonVmArgs = ['-Dmixin.debug.export=true']
+	def commonVmArgs = [
+			'--sun-misc-unsafe-memory-access=allow',  // suppress https://github.com/netty/netty/issues/14942
+			'-Dmixin.debug.export=true',
+	]
 	if (mcVersion < 11904 && !(enableLithiumInRuntime && 11700 <= mcVersion && mcVersion < 12006)) {
 		// Carpet 1.4.100+v230314 for mc1.19.4 and above
 		// fail to pass the check on at MinecraftServer_pingPlayerSampleLimit#modifyPlayerSampleLimit
@@ -275,6 +278,11 @@ java {
 			rename { "${it}_${project.archives_base_name}" }
 		}
 	}
+}
+
+test {
+	// suppress https://github.com/netty/netty/issues/14942
+	jvmArgs += ['--sun-misc-unsafe-memory-access=allow']
 }
 
 // https://github.com/hierynomus/license-gradle-plugin

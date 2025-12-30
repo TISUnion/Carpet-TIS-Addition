@@ -21,7 +21,7 @@
 package carpettisaddition.helpers.carpet.protocol;
 
 import carpettisaddition.CarpetTISAdditionMod;
-import io.netty.buffer.Unpooled;
+import carpettisaddition.utils.NetworkUtils;
 import net.minecraft.network.FriendlyByteBuf;
 
 public class CarpetNetworkProtocolRewriter
@@ -48,7 +48,7 @@ public class CarpetNetworkProtocolRewriter
 
 		drain(buf);
 
-		FriendlyByteBuf heapBuf = new FriendlyByteBuf(Unpooled.buffer());
+		FriendlyByteBuf heapBuf = NetworkUtils.newFriendlyByteBuf();
 		payload.writeTo(heapBuf, targetVersion);
 		return heapBuf;
 	}

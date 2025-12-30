@@ -22,8 +22,8 @@ package carpettisaddition.commands.speedtest.skipcompression;
 
 import carpettisaddition.commands.speedtest.SpeedTestPacketUtils;
 import carpettisaddition.network.TISCMProtocol;
+import carpettisaddition.utils.NetworkUtils;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraft.network.protocol.Packet;
@@ -61,7 +61,7 @@ public class SpeedTestCompressionSkipper
 
 	private static byte[] makeBytes(int mcPacketId, String tiscmPacketId)
 	{
-		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+		FriendlyByteBuf buf = NetworkUtils.newFriendlyByteBuf();
 		buf.writeVarInt(mcPacketId);
 		buf.writeResourceLocation(TISCMProtocol.CHANNEL);
 		buf.writeUtf(tiscmPacketId);

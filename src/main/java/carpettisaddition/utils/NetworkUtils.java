@@ -27,6 +27,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class NetworkUtils
 {
+	public static FriendlyByteBuf newFriendlyByteBuf()
+	{
+		return new FriendlyByteBuf(Unpooled.buffer());
+	}
+
 	/**
 	 * See <a href="https://wiki.vg/NBT">https://wiki.vg/NBT</a>
 	 * for the nbt changes between mc < 1.20.2 and mc >= 1.20.2
@@ -116,7 +121,7 @@ public class NetworkUtils
 
 			//#if MC < 12002
 			int prevReaderIndex = buf.readerIndex();
-			FriendlyByteBuf tweakedBuf = new FriendlyByteBuf(Unpooled.buffer());
+			FriendlyByteBuf tweakedBuf = NetworkUtils.newFriendlyByteBuf();
 			tweakedBuf.writeByte(buf.readByte());  // 0x0A, tag type
 			tweakedBuf.writeByte(0).writeByte(0);  // 2* 0x00
 			tweakedBuf.writeBytes(buf);
@@ -135,7 +140,7 @@ public class NetworkUtils
 			// I'm >= mc1.20.2 (NEW), trying to read a nbt in OLD style
 
 			int prevReaderIndex = buf.readerIndex();
-			FriendlyByteBuf tweakedBuf = new FriendlyByteBuf(Unpooled.buffer());
+			FriendlyByteBuf tweakedBuf = NetworkUtils.newFriendlyByteBuf();
 			tweakedBuf.writeByte(buf.readByte());  // 0x0A, tag type
 			buf.readBytes(2);  // consume the 2* 0x00
 			tweakedBuf.writeBytes(buf);

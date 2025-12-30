@@ -22,7 +22,6 @@ package carpettisaddition.tests;
 
 import carpettisaddition.utils.NetworkUtils;
 import com.google.common.collect.Lists;
-import io.netty.buffer.Unpooled;
 import junit.framework.TestCase;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -35,7 +34,7 @@ public class NetworkUtilsTest extends TestCase
 {
 	private static FriendlyByteBuf newBuffer()
 	{
-		return new FriendlyByteBuf(Unpooled.buffer());
+		return NetworkUtils.newFriendlyByteBuf();
 	}
 
 	private static void assertStyle(FriendlyByteBuf buf, NetworkUtils.NbtStyle expectedStyle)
