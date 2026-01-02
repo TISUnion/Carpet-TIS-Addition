@@ -32,14 +32,19 @@ import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-//#if MC >= 11900
+//#if MC >= 1.20
+//$$ import org.spongepowered.asm.mixin.Final;
+//$$ import org.spongepowered.asm.mixin.Shadow;
+//#endif
+
+//#if MC >= 1.19
 //$$ import net.minecraft.server.level.ServerLevel;
 //#else
 import net.minecraft.world.level.Level;
 //#endif
 
 @Mixin(
-		//#if MC >= 12000
+		//#if MC >= 1.20
 		//$$ SculkSensorBlockEntity.VibrationUser.class
 		//#else
 		SculkSensorBlockEntity.class
@@ -47,8 +52,12 @@ import net.minecraft.world.level.Level;
 )
 public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 {
+	//#if MC >= 1.20
+	//$$ @Shadow @Final protected BlockPos blockPos;
+	//#endif
+
 	@WrapOperation(
-			//#if MC >= 12000
+			//#if MC >= 1.20
 			//$$ method = {"canReceiveVibration", "onReceiveVibration"},
 			//#else
 			method = {"shouldListen", "onSignalReceive"},
@@ -60,10 +69,7 @@ public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 	)
 	private boolean yeetUpdateSuppressionCrash_wrapSoundSuppression(
 			BlockState instance, Operation<Boolean> original,
-			//#if MC >= 12000
-			//$$ @Local(argsOnly = true) ServerLevel world,
-			//$$ @Local(argsOnly = true) BlockPos pos
-			//#elseif MC >= 11900
+			//#if MC >= 1.19
 			//$$ @Local(argsOnly = true) ServerLevel world
 			//#else
 			@Local(argsOnly = true) Level world
@@ -80,7 +86,9 @@ public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 			{
 				if (throwable instanceof UpdateSuppressionException || throwable instanceof IllegalArgumentException)
 				{
-					//#if MC < 12000
+					//#if MC >= 1.20
+					//$$ BlockPos pos = this.blockPos;
+					//#else
 					BlockPos pos = ((SculkSensorBlockEntity)(Object)this).getBlockPos();
 					//#endif
 					throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
