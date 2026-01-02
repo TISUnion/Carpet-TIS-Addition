@@ -21,19 +21,18 @@
 package carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark.blockStateValueIAE;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.entity.CalibratedSculkSensorBlockEntity;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.CalibratedSculkSensorBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-
-import java.net.UnknownServiceException;
 
 @Mixin(CalibratedSculkSensorBlockEntity.VibrationUser.class)
 public abstract class CalibratedSculkSensorBlockEntityCallBackMixin
@@ -59,7 +58,7 @@ public abstract class CalibratedSculkSensorBlockEntityCallBackMixin
 			}
 			catch (Throwable throwable)
 			{
-				if (throwable instanceof UnknownServiceException || throwable instanceof IllegalArgumentException)
+				if (throwable instanceof UpdateSuppressionException || throwable instanceof IllegalArgumentException)
 				{
 					throw UpdateSuppressionYeeter.tryReplaceWithWrapper(throwable, world, pos);
 				}
