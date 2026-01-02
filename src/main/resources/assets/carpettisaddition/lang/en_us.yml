@@ -1409,7 +1409,7 @@ carpettisaddition:
         name: updateSuppressionSimulator
         desc: Activator / Powered rail on a lapis ore simulates an update suppressor
         extra:
-          '0': Right before a powered activator / powered rail on a lapis ore sets its powered state to false, throw the given JVM throwable
+          '0': Throw the given JVM throwable right before a powered activator / powered rail on a lapis ore sets its powered state to false
           '1': 'false: rule disabled; true: rule enable and use StackOverflowError; others: feature enable and use given throwable'
       vaultBlacklistDisabled:
         name: vaultBlacklistDisabled

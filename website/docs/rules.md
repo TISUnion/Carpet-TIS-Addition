@@ -1647,7 +1647,7 @@ set the updater counter to its maximum value to trigger update skipping and canc
 
 Activator / Powered rail on a lapis ore simulates an update suppressor
 
-Right before a powered activator / powered rail on a lapis ore sets its powered state to false, throw the given JVM throwable
+Throw the given JVM throwable right before a powered activator / powered rail on a lapis ore sets its powered state to false
 
 `false`: rule disabled; `true`: rule enable and use `StackOverflowError`; others: feature enable and use given throwable
 
