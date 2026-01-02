@@ -67,7 +67,7 @@ public abstract class SculkSensorBlockEntityVibrationCallbackMixin
 					target = "Lnet/minecraft/world/level/block/SculkSensorBlock;canActivate(Lnet/minecraft/world/level/block/state/BlockState;)Z"
 			)
 	)
-	private boolean yeetUpdateSuppressionCrash_wrapSoundSuppression(
+	private boolean yeetUpdateSuppressionCrash_wrapSoundSuppression_sculkSensor(
 			BlockState instance, Operation<Boolean> original,
 			//#if MC >= 1.19
 			//$$ @Local(argsOnly = true) ServerLevel world

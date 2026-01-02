@@ -44,7 +44,7 @@ public abstract class CalibratedSculkSensorBlockEntityCallBackMixin
 					target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;"
 			)
 	)
-	private <T extends Comparable<T>> T yeetUpdateSuppressionCrash_wrapSoundSuppression(
+	private <T extends Comparable<T>> T yeetUpdateSuppressionCrash_wrapSoundSuppression_calibratedSculkSensor(
 			BlockState instance, Property<T> property, Operation<T> original,
 			@Local(argsOnly = true) Level world,
 			@Local(argsOnly = true) BlockPos pos

@@ -43,7 +43,7 @@ public abstract class ChainRestrictedNeighborUpdaterSixWayEntryMixin
 					target = "Lnet/minecraft/world/level/block/state/BlockState;neighborChanged(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/BlockPos;Z)V"
 			)
 	)
-	private void yeetUpdateSuppressionCrash_implOnSixWayEntryUpdate(
+	private void yeetUpdateSuppressionCrash_wrapStackOverflow_blockUpdateExcept(
 			BlockState instance, Level world, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean notify,
 			Operation<Void> original
 	) throws Throwable

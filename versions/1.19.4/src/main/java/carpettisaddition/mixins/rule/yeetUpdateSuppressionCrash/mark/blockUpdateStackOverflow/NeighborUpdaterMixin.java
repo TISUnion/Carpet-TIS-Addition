@@ -46,7 +46,7 @@ public interface NeighborUpdaterMixin
 					target = "Lnet/minecraft/CrashReport;forThrowable(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/CrashReport;"
 			)
 	)
-	private static Throwable yeetUpdateSuppressionCrash_wrapStackOverflow(
+	private static Throwable yeetUpdateSuppressionCrash_wrapStackOverflow_blockUpdate(
 			Throwable throwable,
 			@Local(ordinal = 0, argsOnly = true) Level world,
 			@Local(ordinal = 0, argsOnly = true) BlockPos neighborPos,

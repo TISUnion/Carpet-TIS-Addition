@@ -61,7 +61,7 @@ public abstract class ShulkerBoxBlockMixin
 					//#endif
 			)
 	)
-	private int yeetUpdateSuppressionCrash_wrapShulkerBoxClassCastException(
+	private int yeetUpdateSuppressionCrash_wrapClassCastException_magicShulkerBox(
 			Block instance, BlockState blockState, Level level, BlockPos blockPos,
 			//#if MC >= 1.21.10
 			//$$ Direction direction,
