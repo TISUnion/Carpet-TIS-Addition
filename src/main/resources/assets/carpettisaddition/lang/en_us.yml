@@ -1267,6 +1267,11 @@ carpettisaddition:
           '1': Set it to 0 to melt all annoying snow on your builds
           '2': Set it to the same level as the minimum light level for snow to not fall on block (light level 10) to easily test if your build is snow-proof with light or not
           '3': You can modify gamerule randomTickSpeed to speed up the melting progress, or modify carpet rule chunkTickSpeed to speed up the snowfall progress
+      soundSuppressionSimulator:
+        name: soundSuppressionSimulator
+        desc: Sculk sensor / Calibrated sculk sensor on a lapis ore simulates a sound suppressor
+        extra:
+          '0': Throw an IllegalArgumentException right before a (calibrated) sculk sensor block entity on a lapis ore querying its "sculk_sensor_phase" block state on receiving vibration
       spawnBabyProbably:
         name: spawnBabyProbably
         desc: When spawning mobs, if baby variant exists, spawn the baby variant with given probably

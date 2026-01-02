@@ -458,6 +458,7 @@
     "rule.shulkerBoxCCEReintroduced.ShulkerBoxBlockMixin",
     "rule.shulkerBoxContentDropBackport.ItemEntityMixin",
     "rule.snowMeltMinLightLevel.SnowBlockMixin",
+    "rule.soundSuppressionSimulator.SculkSensorBlockEntityVibrationCallbackMixin",
     "rule.spawnBabyProbably.HoglinEntityMixin",
     "rule.spawnBabyProbably.PassiveEntityMixin",
     "rule.spawnBabyProbably.PiglinEntityMixin",

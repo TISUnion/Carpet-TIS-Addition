@@ -1267,6 +1267,11 @@ carpettisaddition:
           '1': 将其设为0以将所有位于你建筑上的烦人的雪片融化
           '2': 将其设为与防止降雪的最小亮度等级(12)来方便地测试你的建筑是否能借助亮度来防降雪
           '3': 你可以修改游戏规则randomTickSpeed来加速雪的融化，也可以修改地毯规则chunkTickSpeed来加速降雪的过程
+      soundSuppressionSimulator:
+        name: 声音抑制模拟器
+        desc: 青金石矿石上方的幽匿感测体/校频幽匿感测体可模拟声音抑制器
+        extra:
+          '0': 在青金石矿石上幽匿感测体方块实体收到震动信号且准备查询其方块状态的sculk_sensor_phase属性时，抛出IllegalArgumentException异常
       spawnBabyProbably:
         name: 生成幼年生物概率
         desc: 调整刷怪时生成幼年生物变种的概率
@@ -1480,7 +1485,7 @@ carpettisaddition:
         extra:
           '0': 具体功能实现类似carpet的updateSuppressionCrashFix规则，但包含更多信息
           '1': 在carpet >= 1.4.49的版本中，如需在游戏中接受此规则防崩触发时的消息广播，你需要订阅updateSuppressedCrashes记录器
-          '2': "注意: 此规则仅处理因更新抑制手段（如铁轨栈溢出、声音移植、魔法盒子等）引发的异常。它不是一个任意情况的通用异常try-catch装置"
+          '2': "注意: 此规则仅处理因更新抑制手段（如铁轨栈溢出、声音抑制、魔法盒子等）引发的异常。它不是一个任意情况的通用异常try-catch装置"
       zombifiedPiglinDropLootIfAngryReintroduced:
         name: 重新引入僵尸猪灵在愤怒时掉落战利品
         desc: 开启后，僵尸猪灵在愤怒、设置玩家为攻击目标的100gt内死亡，将可掉落如被玩家击杀一样的掉落物和经验球

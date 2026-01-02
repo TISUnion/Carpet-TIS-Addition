@@ -597,6 +597,11 @@ public class CarpetTISAdditionSettings
 	)
 	public static int snowMeltMinLightLevel = VANILLA_SNOW_MELT_MIN_LIGHT_LEVEL;
 
+	//#if MC >= 1.18.0
+	//$$ @Rule(categories = {TIS, CREATIVE})
+	//$$ public static boolean soundSuppressionSimulator = false;
+	//#endif
+
 	@Rule(
 			categories = {TIS, CREATIVE},
 			validators = OptionalProbablyValidator.class,

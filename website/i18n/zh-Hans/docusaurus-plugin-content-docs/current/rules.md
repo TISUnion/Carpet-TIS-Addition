@@ -1312,6 +1312,18 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 声音抑制模拟器 (soundSuppressionSimulator)
+
+青金石矿石上方的幽匿感测体/校频幽匿感测体可模拟声音抑制器
+
+在青金石矿石上幽匿感测体方块实体收到震动信号且准备查询其方块状态的 `sculk_sensor_phase` 属性时，抛出 `IllegalArgumentException` 异常
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 生成幼年生物概率 (spawnBabyProbably)
 
 调整刷怪时生成幼年生物变种的概率
@@ -1852,7 +1864,7 @@ TISCM网络协议的开关
 
 在 carpet >= 1.4.49 的版本中，如需在游戏中接受此规则防崩触发时的消息广播，你需要订阅 `updateSuppressedCrashes` 记录器
 
-**注意**: 此规则仅处理因更新抑制手段（如铁轨栈溢出、声音移植、魔法盒子等）引发的异常。它 **不是** 一个任意情况的通用异常 try-catch 装置
+**注意**: 此规则仅处理因更新抑制手段（如铁轨栈溢出、声音抑制、魔法盒子等）引发的异常。它 **不是** 一个任意情况的通用异常 try-catch 装置
 
 - 移植自：
   - fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50) 的规则 `updateSuppressionCrashFix`

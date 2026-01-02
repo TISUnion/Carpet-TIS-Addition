@@ -1312,6 +1312,18 @@ You can modify gamerule `randomTickSpeed` to speed up the melting progress, or m
 - Categories: `TIS`, `CREATIVE`
 
 
+## soundSuppressionSimulator
+
+Sculk sensor / Calibrated sculk sensor on a lapis ore simulates a sound suppressor
+
+Throw an `IllegalArgumentException` right before a (calibrated) sculk sensor block entity on a lapis ore querying its "sculk_sensor_phase" block state on receiving vibration
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## spawnBabyProbably
 
 When spawning mobs, if baby variant exists, spawn the baby variant with given probably
