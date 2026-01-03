@@ -185,7 +185,7 @@ public abstract class AbstractTracker extends TranslationContext
 		return this.doWhenTracking(source, () -> this.printTrackingResult(source, realtime));
 	}
 
-	public LiteralArgumentBuilder<CommandSourceStack> getTrackingArgumentBuilder()
+	public LiteralArgumentBuilder<CommandSourceStack> createTrackingArgumentBuilder()
 	{
 		return literal("tracking").
 				executes(c -> this.reportTracking(c.getSource(), false)).

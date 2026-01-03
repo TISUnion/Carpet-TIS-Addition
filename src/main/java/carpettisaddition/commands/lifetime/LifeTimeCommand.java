@@ -146,7 +146,7 @@ public class LifeTimeCommand extends AbstractCommand
 				executes(c -> LifeTimeTracker.getInstance().showHelp(c.getSource())).
 				// lifetime tracking [general tracker stuffs here]
 				then(
-						LifeTimeTracker.getInstance().getTrackingArgumentBuilder()
+						LifeTimeTracker.getInstance().createTrackingArgumentBuilder()
 				).
 				// lifetime filter
 				then(

@@ -68,7 +68,7 @@ public class RaidCommand extends AbstractCommand
 							.executes((c) -> listRaid(c.getSource(), true))
 					)
 			)
-			.then(RaidTracker.getInstance().getTrackingArgumentBuilder());
+			.then(RaidTracker.getInstance().createTrackingArgumentBuilder());
 		context.dispatcher.register(builder);
 	}
 
