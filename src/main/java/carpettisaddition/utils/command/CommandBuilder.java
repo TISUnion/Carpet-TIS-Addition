@@ -44,7 +44,17 @@ public interface CommandBuilder<S>
 
 	List<ArgumentBuilder<S, ?>> build();
 
-	void cleanCache();
+	default ArgumentBuilder<S, ?> buildExactlyOne()
+	{
+		List<ArgumentBuilder<S, ?>> nodes = build();
+		if (nodes.size() != 1)
+		{
+			throw new IllegalArgumentException(String.format("Got multiple node output (%d), expect exactly 1", nodes.size()));
+		}
+		return nodes.get(0);
+	}
 
-	void addChildrenFor(ArgumentBuilder<S, ?> parent);
+	void addAsChildren(ArgumentBuilder<S, ?> parent);
+
+	void clearCache();
 }

@@ -21,6 +21,7 @@
 package carpettisaddition.utils.command;
 
 import carpettisaddition.commands.CommandTreeContext;
+import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 
@@ -39,5 +40,20 @@ public class SimpleCommandBuilder extends BrigadierCommandBuilder<CommandSourceS
 				throw new IllegalArgumentException(String.format("Not-literal root node %s is not supported", builder));
 			}
 		});
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public LiteralArgumentBuilder<CommandSourceStack> buildExactlyOne()
+	{
+		ArgumentBuilder<CommandSourceStack, ?> node = super.buildExactlyOne();
+		if (node instanceof LiteralArgumentBuilder)
+		{
+			return (LiteralArgumentBuilder<CommandSourceStack>)node;
+		}
+		else
+		{
+			throw new IllegalArgumentException(String.format("Got not-literal node %s ", node));
+		}
 	}
 }

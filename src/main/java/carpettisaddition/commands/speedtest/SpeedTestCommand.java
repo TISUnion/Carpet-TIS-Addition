@@ -36,12 +36,13 @@ import carpettisaddition.network.TISCMServerPacketHandler;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.NbtUtils;
+import carpettisaddition.utils.command.SimpleCommandBuilder;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -50,8 +51,6 @@ import static com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg;
 import static com.mojang.brigadier.arguments.DoubleArgumentType.getDouble;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.commands.Commands.argument;
-import static net.minecraft.commands.Commands.literal;
 
 public class SpeedTestCommand extends AbstractCommand
 {
@@ -76,35 +75,21 @@ public class SpeedTestCommand extends AbstractCommand
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{
-		context.dispatcher.register(
-				literal(NAME).
-						requires(s -> CarpetModUtil.canUseCommand(s, CarpetTISAdditionSettings.commandSpeedTest)).
-						executes(c -> showHelp(c.getSource())).
-						then(literal("download").
-								executes(c -> testDownload(c.getSource(), Math.min(10, CarpetTISAdditionSettings.speedTestCommandMaxTestSize))).
-								then(argument("size_mib", integer(1)).
-										executes(c -> testDownload(c.getSource(), getInteger(c, "size_mib")))
-								)
-						).
-						then(literal("upload").
-								executes(c -> testUpload(c.getSource(), Math.min(10, CarpetTISAdditionSettings.speedTestCommandMaxTestSize))).
-								then(argument("size_mib", integer(1)).
-										executes(c -> testUpload(c.getSource(), getInteger(c, "size_mib")))
-								)
-						).
-						then(literal("ping").
-								executes(c -> testPing(c.getSource(), 3, 1)).
-								then(argument("count", integer(1)).
-										executes(c -> testPing(c.getSource(), getInteger(c, "count"), 1)).
-										then(argument("interval", doubleArg(0, 10)).
-												executes(c -> testPing(c.getSource(), getInteger(c, "count"), getDouble(c, "interval")))
-										)
-								)
-						).
-						then(literal("abort").
-								executes(c -> abortTest(c.getSource()))
-						)
-		);
+		SimpleCommandBuilder builder = new SimpleCommandBuilder();
+		builder.command(NAME, c -> showHelp(c.getSource()));
+		builder.command(NAME + " download", c -> testDownload(c.getSource(), Math.min(10, CarpetTISAdditionSettings.speedTestCommandMaxTestSize)));
+		builder.command(NAME + " download <size_mib>", c -> testDownload(c.getSource(), getInteger(c, "size_mib")));
+		builder.command(NAME + " upload", c -> testUpload(c.getSource(), Math.min(10, CarpetTISAdditionSettings.speedTestCommandMaxTestSize)));
+		builder.command(NAME + " upload <size_mib>", c -> testUpload(c.getSource(), getInteger(c, "size_mib")));
+		builder.command(NAME + " ping", c -> testPing(c.getSource(), 3, 1));
+		builder.command(NAME + " ping <count>", c -> testPing(c.getSource(), getInteger(c, "count"), 1));
+		builder.command(NAME + " ping <count> <interval>", c -> testPing(c.getSource(), getInteger(c, "count"), getDouble(c, "interval")));
+		builder.command(NAME + " abort", c -> abortTest(c.getSource()));
+		builder.literal(NAME).requires(s -> CarpetModUtil.canUseCommand(s, CarpetTISAdditionSettings.commandSpeedTest));
+		builder.argument("<size_mib>", integer(1));
+		builder.argument("<count>", integer(1));
+		builder.argument("<interval>", doubleArg(0, 10));
+		builder.registerCommand(context);
 	}
 
 	public void onServerClosed()

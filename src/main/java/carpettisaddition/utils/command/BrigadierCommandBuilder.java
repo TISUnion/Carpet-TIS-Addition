@@ -102,7 +102,7 @@ public class BrigadierCommandBuilder<S> implements CommandBuilder<S>
 	{
 		BuilderDefinition<S, RequiredArgumentBuilder<S, V>> definition = new BuilderDefinition<>(builderFactory);
 		this.arguments.put(stripArg(argument), (BuilderDefinition)definition);
-		this.cleanCache();
+		this.clearCache();
 		return definition;
 	}
 
@@ -118,7 +118,7 @@ public class BrigadierCommandBuilder<S> implements CommandBuilder<S>
 	{
 		BuilderDefinition<S, LiteralArgumentBuilder<S>> definition = new BuilderDefinition<>(LiteralArgumentBuilder::literal);
 		this.literals.put(argument, definition);
-		this.cleanCache();
+		this.clearCache();
 		return definition;
 	}
 
@@ -225,14 +225,14 @@ public class BrigadierCommandBuilder<S> implements CommandBuilder<S>
 	}
 
 	@Override
-	public void cleanCache()
+	public void addAsChildren(ArgumentBuilder<S, ?> parent)
 	{
-		this.buildCache = null;
+		this.build().forEach(parent::then);
 	}
 
 	@Override
-	public void addChildrenFor(ArgumentBuilder<S, ?> parent)
+	public void clearCache()
 	{
-		this.build().forEach(parent::then);
+		this.buildCache = null;
 	}
 }

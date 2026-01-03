@@ -25,8 +25,8 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.command.SimpleCommandBuilder;
 import com.google.common.collect.Maps;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.world.item.DyeColor;
@@ -39,8 +39,6 @@ import java.util.stream.Collectors;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
-import static net.minecraft.commands.Commands.argument;
-import static net.minecraft.commands.Commands.literal;
 import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 
 public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter extends DyeCounter<Key>> extends AbstractCommand implements DyeCounterProvider<Key, DyeCounter<Key>>
@@ -99,23 +97,16 @@ public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter exten
 	@Override
 	public void registerCommand(CommandTreeContext.Register context)
 	{
-		LiteralArgumentBuilder<CommandSourceStack> root = literal(this.commandPrefix).
-				requires(s -> CarpetModUtil.canUseCommand(s, this.getRuleValue())).
-				executes(c -> reportAll(c.getSource())).
-				then(literal("reset").
-						executes(c -> resetAll(c.getSource()))
-				).
-				then(argument("color", word()).
-						suggests((c, b) -> suggest(COLORS, b)).
-						executes(c -> report(c.getSource(), getString(c, "color"), false)).
-						then(literal("realtime").
-								executes(c -> report(c.getSource(), getString(c, "color"), true))
-						).
-						then(literal("reset").
-								executes(c -> resetSingle(c.getSource(), getString(c, "color")))
-						)
-				);
-		context.dispatcher.register(root);
+		final String NAME = this.commandPrefix;
+		SimpleCommandBuilder builder = new SimpleCommandBuilder();
+		builder.command(NAME, c -> reportAll(c.getSource()));
+		builder.command(NAME + " reset", c -> resetAll(c.getSource()));
+		builder.command(NAME + " <color>", c -> report(c.getSource(), getString(c, "color"), false));
+		builder.command(NAME + " <color> realtime", c -> report(c.getSource(), getString(c, "color"), true));
+		builder.command(NAME + " <color> reset", c -> resetSingle(c.getSource(), getString(c, "color")));
+		builder.literal(NAME).requires(s -> CarpetModUtil.canUseCommand(s, this.getRuleValue()));
+		builder.argument("<color>", word()).suggests((c, b) -> suggest(COLORS, b));
+		builder.registerCommand(context);
 	}
 
 	private int report(CommandSourceStack source, String color, boolean realtime)
