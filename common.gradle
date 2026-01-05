@@ -64,7 +64,7 @@ dependencies {
 	autoImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// mods
-	if (project.carpet_core_version.matches('^com.github.[a-zA-Z0-9_-]+:fabric-carpet:[a-z0-9]+$')) {
+	if (project.carpet_core_version.matches('^com.github.[a-zA-Z0-9_-]+:fabric-carpet:[a-z0-9._+-]+$')) {
         autoImplementation project.carpet_core_version  // jitpack
 	} else {
         autoImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
