@@ -77,7 +77,7 @@ public abstract class EntityPlayerMPFake_ForwardFlagMixin
 			}
 			catch (Throwable e)
 			{
-				CarpetTISAdditionMod.LOGGER.error("csm err", e);
+				CarpetTISAdditionMod.LOGGER.error("createFake delayed task error", e);
 				throw e;
 			}
 			finally
