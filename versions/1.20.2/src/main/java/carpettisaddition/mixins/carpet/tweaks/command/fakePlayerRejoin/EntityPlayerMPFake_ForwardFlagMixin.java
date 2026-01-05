@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.carpet.tweaks.command.fakePlayerRejoin;
 
 import carpet.patches.EntityPlayerMPFake;
+import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.helpers.carpet.tweaks.command.fakePlayerRejoin.FakePlayerRejoinHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -73,6 +74,11 @@ public abstract class EntityPlayerMPFake_ForwardFlagMixin
 				//#else
 				action.accept(value);
 				//#endif
+			}
+			catch (Throwable e)
+			{
+				CarpetTISAdditionMod.LOGGER.error("csm err", e);
+				throw e;
 			}
 			finally
 			{

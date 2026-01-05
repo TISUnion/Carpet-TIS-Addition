@@ -23,7 +23,6 @@ package carpettisaddition.mixins.carpet.tweaks.command.fakePlayerRejoin;
 import carpet.patches.EntityPlayerMPFake;
 import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.helpers.carpet.tweaks.command.fakePlayerRejoin.FakePlayerRejoinHelper;
-import carpettisaddition.helpers.carpet.tweaks.command.fakePlayerRejoin.ValueInputHolder;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -31,6 +30,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.authlib.GameProfile;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -40,7 +40,6 @@ import net.minecraft.server.players.PlayerList;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.TagValueInput;
-import net.minecraft.world.level.storage.ValueInput;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -65,7 +64,7 @@ public abstract class EntityPlayerMPFake_FixDimensionMixin
 	 */
 	@Unique
 	@Nullable
-	private static ValueInputHolder loadedPlayerData$TISCM = null;
+	private static CompoundTag loadedFakePlayerNbtData$TISCM = null;
 
 	/**
 	 * In MC >= 25w31a (1.21.9 snapshot), a player's data is loaded properly inside {@link net.minecraft.server.network.config.PrepareSpawnTask#start},
@@ -107,16 +106,14 @@ public abstract class EntityPlayerMPFake_FixDimensionMixin
 		{
 			var server = playerWorld.getServer();
 
-			ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(CarpetTISAdditionMod.LOGGER);
-			boolean needClose = true;
-			try
+			try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(CarpetTISAdditionMod.LOGGER))
 			{
-				var valueInputOptional = server.getPlayerList().
-						loadPlayerData(new NameAndId(current)).
-						map(nbt -> TagValueInput.create(scopedCollector, server.registryAccess(), nbt));
-				if (valueInputOptional.isPresent())
+				var playerNbt = server.getPlayerList().loadPlayerData(new NameAndId(current));
+				if (playerNbt.isPresent())
 				{
-					var savedPosition = valueInputOptional.flatMap(valueInput -> valueInput.read(ServerPlayer.SavedPosition.MAP_CODEC));
+					var savedPosition = playerNbt.
+							map(nbt -> TagValueInput.create(scopedCollector, server.registryAccess(), nbt)).
+							flatMap(valueInput -> valueInput.read(ServerPlayer.SavedPosition.MAP_CODEC));
 					var loadedPosition = savedPosition.flatMap(ServerPlayer.SavedPosition::position);
 					var loadedRotation = savedPosition.flatMap(ServerPlayer.SavedPosition::rotation);
 					var loadedWorld = savedPosition.
@@ -125,17 +122,9 @@ public abstract class EntityPlayerMPFake_FixDimensionMixin
 					if (loadedPosition.isPresent() && loadedRotation.isPresent() && loadedWorld.isPresent())
 					{
 						playerWorld = loadedWorld.get();
-						loadedPlayerData$TISCM = new ValueInputHolder(valueInputOptional.get(), scopedCollector);
+						loadedFakePlayerNbtData$TISCM = playerNbt.get();
 						rejoinSnapperRef.set(epf -> epf.snapTo(loadedPosition.get(), loadedRotation.get().x, loadedRotation.get().y));
-						needClose = false;
 					}
-				}
-			}
-			finally
-			{
-				if (needClose)
-				{
-					scopedCollector.close();
 				}
 			}
 		}
@@ -184,33 +173,12 @@ public abstract class EntityPlayerMPFake_FixDimensionMixin
 					target = "Lnet/minecraft/server/players/PlayerList;loadPlayerData(Lnet/minecraft/server/players/NameAndId;)Ljava/util/Optional;"
 			)
 	)
-	private static Optional<ValueInput> fakePlayerRejoin_useOutValueInput(PlayerList instance, NameAndId nameAndId, Operation<Optional<ValueInput>> original)
+	private static Optional<CompoundTag> fakePlayerRejoin_useOutValueInput(PlayerList instance, NameAndId nameAndId, Operation<Optional<CompoundTag>> original)
 	{
-		if (loadedPlayerData$TISCM != null)
+		if (loadedFakePlayerNbtData$TISCM != null)
 		{
-			return Optional.of(loadedPlayerData$TISCM.valueInput());
+			return Optional.of(loadedFakePlayerNbtData$TISCM);
 		}
 		return original.call(instance, nameAndId);
-	}
-
-	@Inject(
-			//#if MC >= 26.1
-			//$$ method = "lambda$createFake$0",
-			//#elseif MC >= 1.20.2
-			method = "lambda$createFake$2",
-			//#endif
-			at = @At(
-					value = "INVOKE",
-					target = "Lcarpet/patches/EntityPlayerMPFake;loadPlayerData(Lcarpet/patches/EntityPlayerMPFake;)V",
-					shift = At.Shift.AFTER
-			)
-	)
-	private static void fakePlayerRejoin_closeValueOutputCloser(CallbackInfo ci) throws Exception
-	{
-		if (loadedPlayerData$TISCM != null)
-		{
-			loadedPlayerData$TISCM.close();
-			loadedPlayerData$TISCM = null;
-		}
 	}
 }
