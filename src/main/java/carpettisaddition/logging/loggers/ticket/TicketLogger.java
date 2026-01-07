@@ -29,6 +29,7 @@ import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.PositionUtils;
 import carpettisaddition.utils.WorldUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import carpettisaddition.utils.deobfuscator.StackTracePrinter;
@@ -128,7 +129,7 @@ public class TicketLogger extends AbstractLogger
 			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicketType.toString()))
 			{
 				long expiryTicks = chunkTicketType.timeout();
-				ChunkPos pos = new ChunkPos(position);
+				ChunkPos pos = PositionUtils.unpackChunkPos(position);
 				int level = chunkTicket.getTicketLevel();
 
 				return new BaseComponent[]{Messenger.c(

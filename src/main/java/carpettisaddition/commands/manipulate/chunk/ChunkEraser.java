@@ -28,6 +28,7 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.NanoTimer;
+import carpettisaddition.utils.PositionUtils;
 import carpettisaddition.utils.StringUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -115,7 +116,7 @@ public class ChunkEraser extends TranslationContext
 		TimeCosts timeCosts = new TimeCosts();
 		for (ChunkPos chunkPos : this.chunkPosList)
 		{
-			this.chunks.put(chunkPos, this.world.getChunk(chunkPos.x, chunkPos.z));
+			this.chunks.put(chunkPos, this.world.getChunk(PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos)));
 		}
 		timeCosts.loading = timer.getElapsedSecRestart();
 		this.reportChunkLoadingStats(timeCosts);
@@ -322,7 +323,7 @@ public class ChunkEraser extends TranslationContext
 		for (ObjectListIterator<BlockEventData> iterator = blockEventQueue.iterator(); iterator.hasNext(); )
 		{
 			BlockEventData blockAction = iterator.next();
-			if (this.chunks.containsKey(new ChunkPos(blockAction.getPos())))
+			if (this.chunks.containsKey(PositionUtils.flooredChunkPos(blockAction.getPos())))
 			{
 				this.stats.blockEvent++;
 				iterator.remove();

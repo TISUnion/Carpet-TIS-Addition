@@ -28,6 +28,7 @@ import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.PositionUtils;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.network.chat.ChatType;
@@ -184,7 +185,7 @@ public class RefreshCommand extends AbstractCommand
 		{
 			if (inPlayerViewDistance.test(chunkPos))
 			{
-				chunkRefresher.accept(world.getChunk(chunkPos.x, chunkPos.z));
+				chunkRefresher.accept(world.getChunk(PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos)));
 			}
 			else
 			{
@@ -242,7 +243,7 @@ public class RefreshCommand extends AbstractCommand
 
 	private int refreshCurrentChunk(CommandSourceStack source, ServerPlayer player) throws CommandSyntaxException
 	{
-		return this.refreshSingleChunk(source, new ChunkPos(
+		return this.refreshSingleChunk(source, PositionUtils.flooredChunkPos(
 				//#if MC >= 1.16.0
 				//$$ player.blockPosition()
 				//#else
@@ -266,7 +267,7 @@ public class RefreshCommand extends AbstractCommand
 	{
 		//#if MC >= 11800
 		//$$ SectionPos watchedSection = player.getLastSectionPos();
-		//$$ return EuclideanDistanceHelper.isWithinDistance(chunkPos.x, chunkPos.z, watchedSection.x(), watchedSection.z(), distance);
+		//$$ return EuclideanDistanceHelper.isWithinDistance(PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos), watchedSection.x(), watchedSection.z(), distance);
 		//#else
 		return ThreadedAnvilChunkStorageAccessor.invokeGetChebyshevDistance(chunkPos, player, true) <= distance;
 		//#endif

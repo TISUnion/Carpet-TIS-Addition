@@ -23,6 +23,7 @@ package carpettisaddition.commands.manipulate.chunk;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.PositionUtils;
 import carpettisaddition.utils.StringUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.commands.CommandSourceStack;
@@ -56,7 +57,7 @@ public class ChunkRelighter extends TranslationContext
 		long startTime = System.currentTimeMillis();
 		for (ChunkPos chunkPos : this.chunkPosList)
 		{
-			this.chunks.add(this.world.getChunk(chunkPos.x, chunkPos.z));
+			this.chunks.add(this.world.getChunk(PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos)));
 		}
 
 		List<CompletableFuture<Void>> relightFutures = Lists.newArrayList();

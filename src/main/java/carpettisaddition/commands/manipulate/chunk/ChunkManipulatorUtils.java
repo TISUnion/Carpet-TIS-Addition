@@ -22,6 +22,7 @@ package carpettisaddition.commands.manipulate.chunk;
 
 import carpettisaddition.commands.refresh.ChunkRefresher;
 import carpettisaddition.mixins.command.manipulate.chunk.ServerLightingProviderAccessor;
+import carpettisaddition.utils.PositionUtils;
 import net.minecraft.network.protocol.game.ClientboundLightUpdatePacket;
 import net.minecraft.server.level.ThreadedLevelLightEngine;
 import net.minecraft.server.level.ServerLevel;
@@ -63,7 +64,8 @@ public class ChunkManipulatorUtils
 	{
 		CompletableFuture<Void> future = new CompletableFuture<>();
 		((ServerLightingProviderAccessor)lightingProvider).invokeEnqueue(
-				chunkPos.x, chunkPos.z, ThreadedLevelLightEngine.TaskType.POST_UPDATE,
+				PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos),
+				ThreadedLevelLightEngine.TaskType.POST_UPDATE,
 				() -> future.complete(null)
 		);
 		return future;

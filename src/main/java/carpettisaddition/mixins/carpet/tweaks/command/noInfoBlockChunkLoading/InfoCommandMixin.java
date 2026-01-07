@@ -22,6 +22,7 @@ package carpettisaddition.mixins.carpet.tweaks.command.noInfoBlockChunkLoading;
 
 import carpet.commands.InfoCommand;
 import carpettisaddition.utils.CommandUtils;
+import carpettisaddition.utils.PositionUtils;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.commands.CommandSourceStack;
@@ -42,8 +43,8 @@ public abstract class InfoCommandMixin
 		{
 			return;
 		}
-		ChunkPos chunkPos = new ChunkPos(pos);
-		if (!source.getLevel().hasChunk(chunkPos.x, chunkPos.z))
+		ChunkPos chunkPos = PositionUtils.flooredChunkPos(pos);
+		if (!source.getLevel().hasChunk(PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos)))
 		{
 			throw BlockPosArgument.ERROR_NOT_LOADED.create();
 		}

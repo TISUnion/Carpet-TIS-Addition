@@ -72,7 +72,7 @@ class ThrottledOperator extends TranslationContext
 
 	public int operateAt(CommandSourceStack source, ChunkPos chunkPos) throws CommandSyntaxException
 	{
-		if (!source.getLevel().hasChunk(chunkPos.x, chunkPos.z))
+		if (!source.getLevel().hasChunk(PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos)))
 		{
 			throw BlockPosArgument.ERROR_NOT_LOADED.create();
 		}
@@ -81,16 +81,20 @@ class ThrottledOperator extends TranslationContext
 
 	public int operateInSquare(CommandSourceStack source, int radius)
 	{
-		ChunkPos center = new ChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
+		ChunkPos center = PositionUtils.flooredChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
 		List<ChunkPos> chunkPosList = ChunkPos.rangeClosed(center, radius).collect(Collectors.toList());
 		return this.operate(source, chunkPosList);
 	}
 
 	public int operateInCircle(CommandSourceStack source, int radius)
 	{
-		ChunkPos center = new ChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
+		ChunkPos center = PositionUtils.flooredChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
 		List<ChunkPos> chunkPosList = ChunkPos.rangeClosed(center, radius).
-				filter(chunkPos -> (chunkPos.x - center.x) * (chunkPos.x - center.x) + (chunkPos.z - center.z) * (chunkPos.z - center.z) <= radius * radius).
+				filter(chunkPos -> {
+					int dx2 = (PositionUtils.chunkPosX(chunkPos) - PositionUtils.chunkPosX(center)) * (PositionUtils.chunkPosX(chunkPos) - PositionUtils.chunkPosX(center));
+					int dz2 = (PositionUtils.chunkPosZ(chunkPos) - PositionUtils.chunkPosZ(center)) * (PositionUtils.chunkPosZ(chunkPos) - PositionUtils.chunkPosZ(center));
+					return dx2 + dz2 <= radius * radius;
+				}).
 				collect(Collectors.toList());
 		return this.operate(source, chunkPosList);
 	}

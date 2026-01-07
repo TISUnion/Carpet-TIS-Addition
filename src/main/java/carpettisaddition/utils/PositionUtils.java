@@ -20,6 +20,7 @@
 
 package carpettisaddition.utils;
 
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
@@ -41,6 +42,42 @@ public class PositionUtils
 		//$$ return BoundingBox.fromCorners(pos1, pos2);
 		//#else
 		return new BoundingBox(pos1, pos2);
+		//#endif
+	}
+
+	public static ChunkPos flooredChunkPos(BlockPos pos)
+	{
+		//#if MC >= 26.1
+		//$$ return ChunkPos.containing(pos);
+		//#else
+		return new ChunkPos(pos);
+		//#endif
+	}
+
+	public static ChunkPos unpackChunkPos(long data)
+	{
+		//#if MC >= 26.1
+		//$$ return ChunkPos.unpack(data);
+		//#else
+		return new ChunkPos(data);
+		//#endif
+	}
+
+	public static int chunkPosX(ChunkPos chunkPos)
+	{
+		//#if MC >= 26.1
+		//$$ return chunkPos.x();
+		//#else
+		return chunkPos.x;
+		//#endif
+	}
+
+	public static int chunkPosZ(ChunkPos chunkPos)
+	{
+		//#if MC >= 26.1
+		//$$ return chunkPos.z();
+		//#else
+		return chunkPos.z;
 		//#endif
 	}
 }
