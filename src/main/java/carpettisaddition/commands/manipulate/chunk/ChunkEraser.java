@@ -205,7 +205,7 @@ public class ChunkEraser extends TranslationContext
 		//$$ // Directly access the tracking sections, to make sure we can access all entities in any tracking status
 		//$$ List<Entity> entities = Lists.newArrayList();
 		//$$ ((ServerEntityManagerAccessor<Entity>)((ServerWorldAccessor)this.world).getEntityManager()).
-		//$$ 		getCache().getExistingSectionsInChunk(chunkPos.toLong()).
+		//$$ 		getCache().getExistingSectionsInChunk(PositionUtils.packChunkPos(chunkPos)).
 		//$$ 		forEach(section -> section.getEntities().filter(entity -> !(entity instanceof Player)).forEach(entities::add));
 		//$$ entities.forEach(Entity::discard);
 		//#else
@@ -225,7 +225,7 @@ public class ChunkEraser extends TranslationContext
 		// tile ticks
 		//#if MC >= 11800
 		//$$ Consumer<LevelTicks<?>> eraseTileTicks = scheduler -> {
-		//$$ 	LevelChunkTicks<?> chunkTickScheduler = ((WorldTickSchedulerAccessor<?>)scheduler).getChunkTickSchedulers().get(chunk.getPos().toLong());
+		//$$ 	LevelChunkTicks<?> chunkTickScheduler = ((WorldTickSchedulerAccessor<?>)scheduler).getChunkTickSchedulers().get(PositionUtils.packChunkPos(chunk.getPos()));
 		//$$ 	if (chunkTickScheduler != null)
 		//$$ 	{
 		//$$ 		ChunkTickSchedulerAccessor<?> ctsAccess = (ChunkTickSchedulerAccessor<?>)chunkTickScheduler;

@@ -51,6 +51,7 @@ import static net.minecraft.commands.Commands.literal;
 //#if MC >= 11800
 //$$ import carpettisaddition.mixins.command.info.ChunkTickSchedulerAccessor;
 //$$ import carpettisaddition.mixins.command.info.WorldTickSchedulerAccessor;
+//$$ import carpettisaddition.utils.PositionUtils;
 //$$ import net.minecraft.world.level.ChunkPos;
 //$$ import net.minecraft.world.ticks.LevelChunkTicks;
 //$$ import net.minecraft.world.ticks.ScheduledTick;
@@ -137,7 +138,7 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 	//$$ @SuppressWarnings("unchecked")
 	//$$ private <T> List<ScheduledTick<T>> getTileTicksAt(LevelTicks<T> wts, BlockPos pos)
 	//$$ {
-	//$$ 	LevelChunkTicks<T> cts = ((WorldTickSchedulerAccessor<T>)wts).getChunkTickSchedulers().get(ChunkPos.asLong(pos));
+	//$$ 	LevelChunkTicks<T> cts = ((WorldTickSchedulerAccessor<T>)wts).getChunkTickSchedulers().get(PositionUtils.packChunkPos(pos));
 	//$$ 	if (cts != null)
 	//$$ 	{
 	//$$ 		Queue<ScheduledTick<T>> queue = ((QueueAccessibleChunkTickScheduler<T>)cts).getTickQueue$TISCM();

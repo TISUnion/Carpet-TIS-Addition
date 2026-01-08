@@ -72,6 +72,7 @@ import java.util.stream.Collectors;
 
 //#if MC >= 11800
 //$$ import carpettisaddition.mixins.logger.microtiming.tickstages.ServerWorldAccessor;
+//$$ import carpettisaddition.utils.PositionUtils;
 //$$ import net.minecraft.world.level.ChunkPos;
 //#endif
 
@@ -160,7 +161,7 @@ public class MicroTimingUtil
 	{
 		return world instanceof ServerLevel &&
 				//#if MC >= 11800
-				//$$ ((ServerWorldAccessor)world).invokeIsTickingFutureReady(ChunkPos.asLong(pos));
+				//$$ ((ServerWorldAccessor)world).invokeIsTickingFutureReady(PositionUtils.packChunkPos(pos));
 				//#elseif MC >= 11700
 				//$$ ((ServerLevel)world).isPositionTickingWithEntitiesLoaded(pos);
 				//#else

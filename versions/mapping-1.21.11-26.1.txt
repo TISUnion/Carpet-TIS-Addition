@@ -1,4 +1,2 @@
 net.minecraft.world.entity.Entity getTags() entityTags()
 net.minecraft.world.entity.animal.dolphin.Dolphin$PlayWithItemsGoal field_6757 this$0
-net.minecraft.world.level.ChunkPos asLong() pack()
-net.minecraft.world.level.ChunkPos toLong() pack()

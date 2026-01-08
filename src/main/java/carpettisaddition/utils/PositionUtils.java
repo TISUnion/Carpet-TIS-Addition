@@ -54,6 +54,35 @@ public class PositionUtils
 		//#endif
 	}
 
+	public static long packChunkPos(ChunkPos chunkPos)
+	{
+		//#if MC >= 26.1
+		//$$ return chunkPos.pack();
+		//#else
+		return chunkPos.toLong();
+		//#endif
+	}
+
+	//#if MC >= 1.18
+	//$$ public static long packChunkPos(BlockPos blockPos)
+	//$$ {
+	//$$ 	//#if MC >= 26.1
+	//$$ 	//$$ return ChunkPos.pack(blockPos);
+	//$$ 	//#else
+	//$$ 	return ChunkPos.asLong(blockPos);
+	//$$ 	//#endif
+	//$$ }
+	//#endif
+
+	public static long packChunkPos(int x, int z)
+	{
+		//#if MC >= 26.1
+		//$$ return ChunkPos.pack(x, z);
+		//#else
+		return ChunkPos.asLong(x, z);
+		//#endif
+	}
+
 	public static ChunkPos unpackChunkPos(long data)
 	{
 		//#if MC >= 26.1
