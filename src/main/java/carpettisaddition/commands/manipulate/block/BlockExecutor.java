@@ -78,8 +78,9 @@ public class BlockExecutor extends TranslationContext
 		BlockPos from = getLoadedBlockPos(ctx, "from");
 		BlockPos to = getLoadedBlockPos(ctx, "to");
 		BoundingBox box = PositionUtils.createBlockBox(from, to);
-		long blockCount = (long)box.getXSpan() * box.getXSpan() * box.getZSpan();
-		if (blockCount > this.limit)
+		long blockCountF = (long)box.getXSpan() * box.getYSpan();
+		long blockCount = (long)box.getXSpan() * box.getYSpan() * box.getZSpan();
+		if (blockCountF > this.limit || blockCount > this.limit)
 		{
 			throw FillCommandAccessor.getTooBigException().create(this.limit, blockCount);
 		}
