@@ -23,7 +23,7 @@ package carpettisaddition.utils;
 import net.minecraft.commands.CommandSourceStack;
 
 //#if MC >= 11700
-import carpet.CarpetSettings;
+//$$ import carpet.CarpetSettings;
 //#endif
 
 public class CarpetModUtil
