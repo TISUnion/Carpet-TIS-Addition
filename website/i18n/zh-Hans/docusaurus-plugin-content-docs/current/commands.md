@@ -18,6 +18,18 @@ sidebar_position: 3
 
 显示当前的世界中天气相关变量的数据，并将其整理成一份天气预报
 
+### server entity_id_counter
+
+`/info server entity_id_counter`
+
+显示当前服务器的实体 ID 计数器 (`net.minecraft.world.entity.Entity#ENTITY_COUNTER`) 的取值
+
+### server server_tick_counter
+
+`/info server server_tick_counter`
+
+显示当前服务器的 tick 计数器 (`net.minecraft.server.MinecraftServer#getTickCount`) 的取值
+
 
 ## 存活时间 (lifetime)
 

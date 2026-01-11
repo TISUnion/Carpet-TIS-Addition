@@ -88,6 +88,7 @@
     "command.info.entity.SimpleInventoryAccessor",
     "command.info.entity.SlimeEntityAccessor",
     "command.info.entity.ZombieVillagerEntityAccessor",
+    "command.info.server.EntityAccessor",
     "command.lifetime.EntityMixin",
     "command.lifetime.ServerChunkManagerMixin",
     "command.lifetime.ServerWorldMixin",

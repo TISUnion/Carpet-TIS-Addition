@@ -47,6 +47,11 @@ public class InfoWorldCommand extends InfoSubcommand
 {
 	private static final InfoWorldCommand INSTANCE = new InfoWorldCommand();
 
+	protected InfoWorldCommand()
+	{
+		super("world");
+	}
+
 	public static InfoWorldCommand getInstance()
 	{
 		return INSTANCE;

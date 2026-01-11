@@ -16,7 +16,19 @@ Show the ticking order of current dimensions in the game
 
 `/info world weather`
 
-Show weather properties of the world, and organize it into a nice weather forecast
+Show weather properties of the world and organize it into a nice weather forecast
+
+### server entity_id_counter
+
+`/info server entity_id_counter`
+
+Show the current value of the entity ID counter (`net.minecraft.world.entity.Entity#ENTITY_COUNTER`) of the server
+
+### server server_tick_counter
+
+`/info server server_tick_counter`
+
+Show the current value of the server tick counter (`net.minecraft.server.MinecraftServer#getTickCount`) of the server
 
 
 ## lifetime

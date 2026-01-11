@@ -299,33 +299,37 @@ carpettisaddition:
         realtime: real time
         reset: reset
     info:
-      ticking_order: "Ticking order of %1$s dimensions in the game:"
-      weather:
-        data:
-          title: Weather Telemetry Data
-          clearWeatherTime: clearWeatherTime
-          rainTime: rainTime
-          raining: raining
-          thunderTime: thunderTime
-          thundering: thundering
-        forecast:
-          title: Weather Forecast
-          current: 'Current weather: %1$s'
-          clear_sky_duration: Clear sky duration
-          rain_duration: Rain duration
-          thunder_duration: Thunderstorm duration
-          thunder_in: Thunderstorm in %1$s
-          no_thunder: No thunderstorm during this rain
-          rain_in:
-            .: Rain in %1$s
-            with_thunder: It will be a thunderstorm which will last up to %1$s
-            thunder_unknown: Thunderstorm forecast unavailable, you can retry in %1$s
-            no_thunder_for_now: No thunderstorm for at least %1$s
-            maybe_thunder: Potential thunderstorm. Retry in %1$s for further data
-        weathers:
-          clear_sky: Clear sky
-          raining: Raining
-          thundering: Thunderstorm
+      world:
+        ticking_order: "Ticking order of %1$s dimensions in the game:"
+        weather:
+          data:
+            title: Weather Telemetry Data
+            clearWeatherTime: clearWeatherTime
+            rainTime: rainTime
+            raining: raining
+            thunderTime: thunderTime
+            thundering: thundering
+          forecast:
+            title: Weather Forecast
+            current: 'Current weather: %1$s'
+            clear_sky_duration: Clear sky duration
+            rain_duration: Rain duration
+            thunder_duration: Thunderstorm duration
+            thunder_in: Thunderstorm in %1$s
+            no_thunder: No thunderstorm during this rain
+            rain_in:
+              .: Rain in %1$s
+              with_thunder: It will be a thunderstorm which will last up to %1$s
+              thunder_unknown: Thunderstorm forecast unavailable, you can retry in %1$s
+              no_thunder_for_now: No thunderstorm for at least %1$s
+              maybe_thunder: Potential thunderstorm. Retry in %1$s for further data
+          weathers:
+            clear_sky: Clear sky
+            raining: Raining
+            thundering: Thunderstorm
+      server:
+        entity_id_counter: 'Entity ID counter: %1$s'
+        server_tick_counter: 'Server tick counter: %1$s'
     manipulate:
       block:
         emit:

@@ -23,6 +23,7 @@ package carpettisaddition.commands.info;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.commands.CommandTreeContext;
+import carpettisaddition.commands.info.server.InfoServerCommand;
 import carpettisaddition.commands.info.world.InfoWorldCommand;
 import carpettisaddition.mixins.command.info.ServerWorldAccessor;
 import carpettisaddition.utils.Messenger;
@@ -81,10 +82,11 @@ public class InfoCommandExtension extends AbstractCommand implements CommandExte
 	public void extendCommand(CommandTreeContext.Node context)
 	{
 		BiConsumer<String, InfoSubcommand> extend = (name, subcommand) -> {
-			LiteralArgumentBuilder<CommandSourceStack> worldNode = literal(name);
-			subcommand.extendCommand(context.node(worldNode));
-			context.node.then(worldNode);
+			LiteralArgumentBuilder<CommandSourceStack> childNode = literal(name);
+			subcommand.extendCommand(context.node(childNode));
+			context.node.then(childNode);
 		};
+		extend.accept("server", InfoServerCommand.getInstance());
 		extend.accept("world", InfoWorldCommand.getInstance());
 	}
 

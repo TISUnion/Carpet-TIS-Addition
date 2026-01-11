@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2026  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,15 +18,20 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.commands.info;
+package carpettisaddition.mixins.command.info.server;
 
-import carpettisaddition.commands.CommandExtender;
-import carpettisaddition.translations.TranslationContext;
+import net.minecraft.world.entity.Entity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-public abstract class InfoSubcommand extends TranslationContext implements CommandExtender
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Mixin(Entity.class)
+public interface EntityAccessor
 {
-	protected InfoSubcommand(String derivedName)
+	@Accessor("ENTITY_COUNTER")
+	static AtomicInteger getEntityIdCounter$TISCM()
 	{
-		super(InfoCommandExtension.getInstance().getTranslator().getDerivedTranslator(derivedName));
+		throw new AssertionError();
 	}
 }
