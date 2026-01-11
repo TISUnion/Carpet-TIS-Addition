@@ -102,6 +102,7 @@ public abstract class EntityPlayerMPFake_FixDimensionMixin
 			@Share("rejoinSnapper") LocalRef<Consumer<EntityPlayerMPFake>> rejoinSnapperRef
 	)
 	{
+		loadedFakePlayerNbtData$TISCM = null;
 		if (FakePlayerRejoinHelper.isRejoin.get())
 		{
 			var server = playerWorld.getServer();
