@@ -378,6 +378,8 @@
     "rule.flattenTriangularDistribution.RandomMixin",
     "rule.fluidDestructionDisabled.BaseFluidMixin",
     "rule.fortressNetherBricksPackSpawningFix.SpawnHelperMixin",
+    "rule.gazeDisguiseEquipmentExtended.EnderManMixin",
+    "rule.gazeDisguiseEquipmentExtended.LivingEntityMixin",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityAccessor",
     "rule.hopperCountersUnlimitedSpeed.HopperBlockEntityMixin",
     "rule.hopperNoItemCost.HopperBlockEntityMixin",

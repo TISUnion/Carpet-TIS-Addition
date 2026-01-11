@@ -977,8 +977,13 @@ carpettisaddition:
         name: fluidDestructionDisabled
         desc: Disable block destruction by fluid flowing
         extra:
-          '0': Fluid will just simple stopped at the state before destroying the block
+          '0': Fluid will just simply stop at the state before destroying the block
           '1': It's useful to prevent liquid from accidentally flooding your redstone wiring in creative
+      gazeDisguiseEquipmentExtended:
+        name: gazeDisguiseEquipmentExtended
+        desc: Allows players to wear Dragon Heads, Player Heads, or Mob Heads to disguise their gaze from other mobs
+        extra:
+          '0': Wearing these items will provide the same effect as wearing a carved pumpkin, i.e. won't anger enderman and cannot freeze creaking from moving
       hopperCountersUnlimitedSpeed:
         name: hopperCountersUnlimitedSpeed
         desc: Make hopper pointing towards wool has infinity speed to suck in or transfer items with no cooldown

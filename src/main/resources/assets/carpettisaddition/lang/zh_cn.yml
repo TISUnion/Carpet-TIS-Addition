@@ -979,6 +979,11 @@ carpettisaddition:
         extra:
           '0': 流体会简单的停留在即将破坏方块时的状态
           '1': 这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路
+      gazeDisguiseEquipmentExtended:
+        name: 凝视伪装装备拓展
+        desc: 允许玩家通过佩戴龙头、玩家头颅或怪物头颅来伪装自己的对其他生物的凝视
+        extra:
+          '0': 佩戴这些物品将提供与佩戴南瓜头相同的效果，即不会惹怒末影人，也无法阻止嘎枝的移动
       hopperCountersUnlimitedSpeed:
         name: 漏斗计数器无限速度
         desc: 当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度，且无冷却时间

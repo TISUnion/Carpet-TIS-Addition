@@ -630,6 +630,18 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 凝视伪装装备拓展 (gazeDisguiseEquipmentExtended)
+
+允许玩家通过佩戴龙头、玩家头颅或怪物头颅来伪装自己的对其他生物的凝视
+
+佩戴这些物品将提供与佩戴南瓜头相同的效果，即不会惹怒末影人，也无法阻止嘎枝的移动
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`
+
+
 ## 漏斗计数器无限速度 (hopperCountersUnlimitedSpeed)
 
 当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度，且无冷却时间

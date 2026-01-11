@@ -280,6 +280,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean fluidDestructionDisabled = false;
 
+	@Rule(categories = {TIS, FEATURE})
+	public static boolean gazeDisguiseEquipmentExtended = false;
+
 	@Rule(categories = {TIS, CREATIVE, CARPET_MOD})
 	public static boolean hopperCountersUnlimitedSpeed = false;
 

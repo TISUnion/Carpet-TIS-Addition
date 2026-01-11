@@ -618,9 +618,9 @@ With that edge cases are more likely to happen
 
 ## fluidDestructionDisabled
 
-Disable block destruction by liquid flowing
+Disable block destruction by fluid flowing
 
-Fluid will just simple stopped at the state before destroying the block
+Fluid will just simply stop at the state before destroying the block
 
 It's useful to prevent liquid from accidentally flooding your redstone wiring in creative
 
@@ -628,6 +628,18 @@ It's useful to prevent liquid from accidentally flooding your redstone wiring in
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `CREATIVE`
+
+
+## gazeDisguiseEquipmentExtended
+
+Allows players to wear Dragon Heads, Player Heads, or Mob Heads to disguise their gaze from other mobs
+
+Wearing these items will provide the same effect as wearing a carved pumpkin, i.e. won't anger enderman and cannot freeze creaking from moving
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`
 
 
 ## hopperCountersUnlimitedSpeed
