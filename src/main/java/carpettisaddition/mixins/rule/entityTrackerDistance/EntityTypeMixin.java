@@ -21,21 +21,27 @@
 package carpettisaddition.mixins.rule.entityTrackerDistance;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.world.entity.EntityType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityType.class)
 public abstract class EntityTypeMixin
 {
-	@Inject(method = "chunkRange", at = @At("HEAD"), cancellable = true)
-	private void overrideEntityTrackerDistance(CallbackInfoReturnable<Integer> cir)
+	@ModifyReturnValue(method = "chunkRange", at = @At("TAIL"))
+	private int overrideEntityTrackerDistance(int clientTrackingRange)
 	{
 		if (CarpetTISAdditionSettings.entityTrackerDistance > 0)
 		{
-			cir.setReturnValue(CarpetTISAdditionSettings.entityTrackerDistance);
+			// Not-trackable entity types (e.g., markers) have their clientTrackingRange set to 0.
+			// For these entity types, keep the return value unchanged
+			// https://github.com/TISUnion/Carpet-TIS-Addition/issues/252
+			if (clientTrackingRange > 0)
+			{
+				clientTrackingRange = CarpetTISAdditionSettings.entityTrackerDistance;
+			}
 		}
+		return clientTrackingRange;
 	}
 }
