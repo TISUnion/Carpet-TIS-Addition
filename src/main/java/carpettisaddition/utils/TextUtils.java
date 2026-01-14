@@ -38,7 +38,7 @@ public class TextUtils
 {
 	public static String tp(Vec3 pos) {return String.format("/tp %s %s %s", StringUtils.dts(pos.x()), StringUtils.dts(pos.y()), StringUtils.dts(pos.z()));}
 	public static String tp(Vec3i pos) {return String.format("/tp %d %d %d", pos.getX(), pos.getY(), pos.getZ());}
-	public static String tp(ChunkPos pos) {return String.format("/tp %d ~ %d", PositionUtils.chunkPosX(pos) * 16 + 8, PositionUtils.chunkPosX(pos) * 16 + 8);}
+	public static String tp(ChunkPos pos) {return String.format("/tp %d ~ %d", PositionUtils.chunkPosX(pos) * 16 + 8, PositionUtils.chunkPosZ(pos) * 16 + 8);}
 	public static String tp(Vec3 pos, DimensionWrapper dimensionType) {return String.format("/execute in %s run", dimensionType) + tp(pos).replace('/', ' ');}
 	public static String tp(Vec3i pos, DimensionWrapper dimensionType) {return String.format("/execute in %s run", dimensionType) + tp(pos).replace('/', ' ');}
 	public static String tp(ChunkPos pos, DimensionWrapper dimensionType) {return String.format("/execute in %s run", dimensionType) + tp(pos).replace('/', ' ');}
@@ -56,7 +56,7 @@ public class TextUtils
 
 	public static String coord(Vec3 pos) {return String.format("[%.1f, %.1f, %.1f]", pos.x(), pos.y(), pos.z());}
 	public static String coord(Vec3i pos) {return String.format("[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());}
-	public static String coord(ChunkPos pos) {return String.format("[%d, %d]", PositionUtils.chunkPosX(pos), PositionUtils.chunkPosX(pos));}
+	public static String coord(ChunkPos pos) {return String.format("[%d, %d]", PositionUtils.chunkPosX(pos), PositionUtils.chunkPosZ(pos));}
 
 	public static String vector(Vec3 vec, int digits)
 	{
