@@ -876,6 +876,12 @@ carpettisaddition:
       enchantCommandNoRestriction:
         name: enchant指令约束移除
         desc: 移除/enchant指令中所有对目标附魔的约束
+      endPortalChunkLoadingBackport:
+        name: 末地门传送区块加载移植
+        desc: 启用后，实体从主世界进入末地门时，会加载黑曜石平台附近的区块
+        extra:
+          '0': 用于加载区块的加载票的类型为 PORTAL，半径为 3，与地狱门的一致
+          '1': 本规则仅在 Minecraft < 1.20.5 中存在，因为此机制已于原版 24w03a (1.20.5 快照) 中引入
       endPortalOpenedSoundDisabled:
         name: 禁用末地门开启音效
         desc: 禁用末地门开启时发出的音效

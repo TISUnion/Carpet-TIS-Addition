@@ -366,6 +366,22 @@ Remove all enchantment restriction checks inside `/enchant` command
 - Categories: `TIS`, `CREATIVE`
 
 
+## endPortalChunkLoadingBackport
+
+**Minecraft < 1.20.5 only**
+
+When enabled, entity entering the end portal from the overworld can load chunks around the obsidian platform
+
+The ticket used to load chunks is a PORTAL ticket with radius set to 3, matching the behavior of nether portal
+
+This rule only exists in Minecraft < 1.20.5, since the feature was introduced to vanilla in 24w03a (mc1.20.5 snapshot)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `PORTING`
+
+
 ## endPortalOpenedSoundDisabled
 
 Disable the sound emitted when opening an end portal

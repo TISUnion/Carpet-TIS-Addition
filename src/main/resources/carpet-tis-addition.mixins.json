@@ -351,6 +351,7 @@
     "rule.elytraFireworkBoostOnBlockBackport.FireworkItemMixin",
     "rule.elytraFireworkKeepLeashConnection.FireworkItemMixin",
     "rule.enchantCommandNoRestriction.EnchantCommandMixin",
+    "rule.endPortalChunkLoadingBackport.EntityMixin",
     "rule.endPortalOpenedSoundDisabled.witherSpawnedSoundDisabled.EnderEyeItemMixin",
     "rule.entityBrainMemoryUnfreedFix.BrainAccessor",
     "rule.entityBrainMemoryUnfreedFix.EntityMixin",

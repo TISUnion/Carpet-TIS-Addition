@@ -189,6 +189,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean enchantCommandNoRestriction = false;
 
+	//#if MC < 1.20.5
+	@Rule(categories = {TIS, PORTING})
+	public static boolean endPortalChunkLoadingBackport = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean endPortalOpenedSoundDisabled = false;
 
