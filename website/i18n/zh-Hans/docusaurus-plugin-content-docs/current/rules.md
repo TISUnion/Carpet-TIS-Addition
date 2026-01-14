@@ -348,7 +348,7 @@ sidebar_position: 1
 
 注意：该规则不会阻止因相对距离过远而导致的栓绳断开
 
-本规则仅在 Minecraft >= 1.21.6 中有效
+本规则仅在 Minecraft >= 1.21.6 中存在
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -396,7 +396,7 @@ sidebar_position: 1
 
 修复在尝试调用 `getEntities` 时，若查询范围与满足 `(chunkX + 1) % (2 ^ 22) == 2 ^ 21` 的任意区块相交，则会抛出IllegalArgumentException的bug
 
-本规则仅在 Minecraft >= 1.17 中有效，因为此 bug 是在 1.17 中引入的
+本规则仅在 Minecraft >= 1.17 中存在，因为此 bug 是在 1.17 中引入的
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -924,7 +924,7 @@ sidebar_position: 1
 
 移植 Minecraft 1.19+ 版本中的特性：矿车实体在被破坏时会掉落完整的矿车物品
 
-本规则仅在 Minecraft \< 1.19 中有效
+本规则仅在 Minecraft \< 1.19 中存在
 
 - 类型: `boolean`
 - 默认值: `false`

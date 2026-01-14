@@ -866,13 +866,13 @@ carpettisaddition:
         name: 鞘翅状态对方块使用烟花可推进移植
         desc: 移植 Minecraft 1.21.6+ 版本中的特性：在鞘翅飞行状态下，对着方块使用烟花火箭物品时，会推进玩家而非发射烟花
         extra:
-          '0': 本规则仅在 Minecraft < 1.21.6 中有效
+          '0': 本规则仅在 Minecraft < 1.21.6 中存在
       elytraFireworkKeepLeashConnection:
         name: 鞘翅烟花加速别断栓绳
         desc: 启用时，鞘翅飞行中使用烟花不再会断开已有的栓绳连接，即还原mc1.21.6前的表现
         extra:
           '0': 注意：该规则不会阻止因相对距离过远而导致的栓绳断开
-          '1': 本规则仅在 Minecraft >= 1.21.6 中有效
+          '1': 本规则仅在 Minecraft >= 1.21.6 中存在
       enchantCommandNoRestriction:
         name: enchant指令约束移除
         desc: 移除/enchant指令中所有对目标附魔的约束
@@ -889,7 +889,7 @@ carpettisaddition:
         name: 实体范围查询区段索引X上溢修复
         desc: 修复在范围查询实体时，若查询范围与满足 `(chunkX + 1) % (2 ^ 22) == 2 ^ 21` 的任意区块相交，则会抛出IllegalArgumentException的bug
         extra:
-          '0': 本规则仅在 Minecraft >= 1.17 中有效，因为此 bug 是在 1.17 中引入的
+          '0': 本规则仅在 Minecraft >= 1.17 中存在，因为此 bug 是在 1.17 中引入的
       entityInstantDeathRemoval:
         name: 生物死亡立即移除
         desc: 移除生物实体死亡前的20gt等待时间
@@ -1112,7 +1112,7 @@ carpettisaddition:
         name: 矿车完整掉落移植
         desc: 移植 Minecraft 1.19+ 版本中的特性：矿车实体在被破坏时会掉落完整的矿车物品
         extra:
-          '0': 本规则仅在 Minecraft < 1.19 中有效
+          '0': 本规则仅在 Minecraft < 1.19 中存在
       minecartPlaceableOnGround:
         name: 矿车可在地面放置
         desc: 让矿车可以被放置在非铁轨的普通地面上，就像船一样

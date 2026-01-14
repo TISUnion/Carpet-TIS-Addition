@@ -348,7 +348,7 @@ When enabled, using fireworks during elytra flight will no longer break existing
 
 Note: This rule does not prevent leash disconnection caused by excessive distance
 
-Only works in Minecraft >= 1.21.6
+This rule only exists in Minecraft >= 1.21.6
 
 - Type: `boolean`
 - Default value: `false`
@@ -396,7 +396,7 @@ Fixed [MC-260605](https://bugs.mojang.com/browse/MC-260605), using the same fix 
 
 Fix a bug where IllegalArgumentException will be thrown during entity range queries if the query range intersects any chunk satisfying `(chunkX + 1) % (2 ^ 22) == 2 ^ 21`
 
-Only works in Minecraft >= 1.17, since the bug was introduced in 1.17
+This rule only exists in Minecraft >= 1.17, since the bug was introduced in 1.17
 
 - Type: `boolean`
 - Default value: `false`
@@ -924,7 +924,7 @@ Determine the way to divide game ticks
 
 Backport the feature from Minecraft 1.19+ that minecart entity drops the full cart item on destroy
 
-Only works in Minecraft \< 1.19
+This rule only exists in Minecraft \< 1.19
 
 - Type: `boolean`
 - Default value: `false`

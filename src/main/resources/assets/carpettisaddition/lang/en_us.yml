@@ -866,13 +866,13 @@ carpettisaddition:
         name: elytraFireworkBoostOnBlockBackport
         desc: Backport the feature from Minecraft 1.21.6+ where using a firework item on a block while in elytra state will boost the player, instead of launching a firework
         extra:
-          '0': Only works in Minecraft < 1.21.6
+          '0': This rule only exists in Minecraft < 1.21.6
       elytraFireworkKeepLeashConnection:
         name: elytraFireworkKeepLeashConnection
         desc: When enabled, using fireworks during elytra flight will no longer break existing leash connections, restoring the behavior from before mc1.21.6
         extra:
           '0': 'Note: This rule does not prevent leash disconnection caused by excessive distance'
-          '1': Only works in Minecraft >= 1.21.6
+          '1': This rule only exists in Minecraft >= 1.21.6
       enchantCommandNoRestriction:
         name: enchantCommandNoRestriction
         desc: Remove all enchantment restriction checks inside /enchant command
@@ -889,7 +889,7 @@ carpettisaddition:
         name: entityChunkSectionIndexXOverflowFix
         desc: Fix a bug where IllegalArgumentException will be thrown during entity range queries if the query range intersects any chunk satisfying `(chunkX + 1) % (2 ^ 22) == 2 ^ 21`
         extra:
-          '0': Only works in Minecraft >= 1.17, since the bug was introduced in 1.17
+          '0': This rule only exists in Minecraft >= 1.17, since the bug was introduced in 1.17
       entityInstantDeathRemoval:
         name: entityInstantDeathRemoval
         desc: Remove the 20gt delay before living entity removal after death
@@ -1112,7 +1112,7 @@ carpettisaddition:
         name: minecartFullDropBackport
         desc: Backport the feature from Minecraft 1.19+ that minecart entity drops the full cart item on destroy
         extra:
-          '0': Only works in Minecraft < 1.19
+          '0': This rule only exists in Minecraft < 1.19
       minecartPlaceableOnGround:
         name: minecartPlaceableOnGround
         desc: Make minecart being able to be placed directly on ground without rails, like boat
