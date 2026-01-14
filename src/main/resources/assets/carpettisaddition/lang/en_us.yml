@@ -876,12 +876,20 @@ carpettisaddition:
       enchantCommandNoRestriction:
         name: enchantCommandNoRestriction
         desc: Remove all enchantment restriction checks inside /enchant command
+      endGatewayChunkLoadingBackport:
+        name: endGatewayChunkLoadingBackport
+        desc: When enabled, entity entering the end gateway can load chunks around the exit portal
+        extra:
+          '0': The ticket used to load chunks is a PORTAL ticket with radius set to 3, matching the behavior of nether portal
+          '1': This rule only exists in Minecraft < 1.21, since the feature was introduced to vanilla in 1.21-pre1
+          '2': 'See also: rule endPortalChunkLoadingBackport'
       endPortalChunkLoadingBackport:
         name: endPortalChunkLoadingBackport
         desc: When enabled, entity entering the overworld from the end dimension can load chunks around the obsidian platform
         extra:
           '0': The ticket used to load chunks is a PORTAL ticket with radius set to 3, matching the behavior of nether portal
           '1': This rule only exists in Minecraft < 1.20.5, since the feature was introduced to vanilla in 24w03a (mc1.20.5 snapshot)
+          '2': 'See also: rule endGatewayChunkLoadingBackport'
       endPortalOpenedSoundDisabled:
         name: endPortalOpenedSoundDisabled
         desc: Disable the sound emitted when opening an end portal

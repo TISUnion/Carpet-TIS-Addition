@@ -366,6 +366,24 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 末地折跃门区块加载移植 (endGatewayChunkLoadingBackport)
+
+**本规则仅在 Minecraft < 1.20.5 中存在**
+
+启用后，实体进入末地折跃门时，会出口折跃门附近的区块
+
+用于加载区块的加载票的类型为 PORTAL，半径为 3，与地狱门的一致
+
+本规则仅在 Minecraft < 1.21 中存在，因为此机制已于原版 1.21-pre1 中引入
+
+另见：规则 [endPortalChunkLoadingBackport](#末地门传送区块加载移植-endportalchunkloadingbackport)
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `PORTING`
+
+
 ## 末地门传送区块加载移植 (endPortalChunkLoadingBackport)
 
 **本规则仅在 Minecraft < 1.20.5 中存在**
@@ -375,6 +393,8 @@ sidebar_position: 1
 用于加载区块的加载票的类型为 PORTAL，半径为 3，与地狱门的一致
 
 本规则仅在 Minecraft < 1.20.5 中存在，因为此机制已于原版 24w03a (1.20.5 快照) 中引入
+
+另见：规则 [endGatewayChunkLoadingBackport](#末地折跃门区块加载移植-endgatewaychunkloadingbackport)
 
 - 类型: `boolean`
 - 默认值: `false`

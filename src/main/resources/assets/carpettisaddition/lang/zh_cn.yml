@@ -876,12 +876,20 @@ carpettisaddition:
       enchantCommandNoRestriction:
         name: enchant指令约束移除
         desc: 移除/enchant指令中所有对目标附魔的约束
+      endGatewayChunkLoadingBackport:
+        name: 末地折跃门区块加载移植
+        desc: 启用后，实体进入末地折跃门时，会出口折跃门附近的区块
+        extra:
+          '0': 用于加载区块的加载票的类型为 PORTAL，半径为 3，与地狱门的一致
+          '1': 本规则仅在 Minecraft < 1.21 中存在，因为此机制已于原版 1.21-pre1 中引入
+          '2': 另见：规则 endPortalChunkLoadingBackport
       endPortalChunkLoadingBackport:
         name: 末地门传送区块加载移植
         desc: 启用后，实体从主世界进入末地门时，会加载黑曜石平台附近的区块
         extra:
           '0': 用于加载区块的加载票的类型为 PORTAL，半径为 3，与地狱门的一致
           '1': 本规则仅在 Minecraft < 1.20.5 中存在，因为此机制已于原版 24w03a (1.20.5 快照) 中引入
+          '2': 另见：规则 endGatewayChunkLoadingBackport
       endPortalOpenedSoundDisabled:
         name: 禁用末地门开启音效
         desc: 禁用末地门开启时发出的音效
@@ -1143,7 +1151,7 @@ carpettisaddition:
         extra:
           '0': 基本上，本规则将自然刷怪中对高度图（heightmap）的使用，还原回了1.13及之前的版本
           '1': 注意：这将增加少许刷怪阶段的卡顿
-          '2': 另见：规则naturalSpawningUse13HeightmapExtra
+          '2': 另见：规则 naturalSpawningUse13HeightmapExtra
       naturalSpawningUse13HeightmapExtra:
         name: 自然刷怪使用1.13风格的高度图-额外选项
         desc: 在计算规则naturalSpawningUse13Heightmap中的修改版高度图时，忽略活塞、粘液块、蜂蜜块

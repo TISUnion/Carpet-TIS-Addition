@@ -366,6 +366,24 @@ Remove all enchantment restriction checks inside `/enchant` command
 - Categories: `TIS`, `CREATIVE`
 
 
+## endGatewayChunkLoadingBackport
+
+**Minecraft < 1.21 only**
+
+When enabled, entity entering the end gateway can load chunks around the exit portal
+
+The ticket used to load chunks is a PORTAL ticket with radius set to 3, matching the behavior of nether portal
+
+This rule only exists in Minecraft < 1.21, since the feature was introduced to vanilla in 1.21-pre1
+
+See also: rule [endPortalChunkLoadingBackport](#endPortalChunkLoadingBackport)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `PORTING`
+
+
 ## endPortalChunkLoadingBackport
 
 **Minecraft < 1.20.5 only**
@@ -375,6 +393,8 @@ When enabled, entity entering the end portal from the overworld can load chunks 
 The ticket used to load chunks is a PORTAL ticket with radius set to 3, matching the behavior of nether portal
 
 This rule only exists in Minecraft < 1.20.5, since the feature was introduced to vanilla in 24w03a (mc1.20.5 snapshot)
+
+See also: rule [endGatewayChunkLoadingBackport](#endGatewayChunkLoadingBackport)
 
 - Type: `boolean`
 - Default value: `false`
