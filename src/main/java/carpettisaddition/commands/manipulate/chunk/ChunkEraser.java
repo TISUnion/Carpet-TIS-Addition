@@ -24,7 +24,6 @@ import carpettisaddition.mixins.command.manipulate.chunk.HeightmapAccessor;
 import carpettisaddition.mixins.command.manipulate.chunk.PalettedContainerAccessor;
 import carpettisaddition.mixins.command.manipulate.chunk.ServerWorldAccessor;
 import carpettisaddition.mixins.command.manipulate.chunk.WorldChunkAccessor;
-import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.NanoTimer;
@@ -35,13 +34,13 @@ import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import it.unimi.dsi.fastutil.shorts.ShortList;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.level.BlockEventData;
 import net.minecraft.server.level.ThreadedLevelLightEngine;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
@@ -55,6 +54,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 //#if MC >= 11904
@@ -74,21 +74,15 @@ import java.util.stream.Collectors;
 //$$ import carpettisaddition.mixins.command.manipulate.chunk.ServerEntityManagerAccessor;
 //#endif
 
-public class ChunkEraser extends TranslationContext
+public class ChunkEraser extends AbstractChunkOperator
 {
-	private final List<ChunkPos> chunkPosList;
 	private final Map<ChunkPos, LevelChunk> chunks;
-	private final CommandSourceStack source;
-	private final ServerLevel world;
 	private final Stats stats;
 
 	protected ChunkEraser(Translator translator, List<ChunkPos> chunkPosList, CommandSourceStack source)
 	{
-		super(translator);
+		super(translator, chunkPosList, source);
 		this.chunks = Maps.newLinkedHashMap();
-		this.chunkPosList = chunkPosList;
-		this.source = source;
-		this.world = source.getLevel();
 		this.stats = new Stats();
 	}
 
@@ -108,6 +102,7 @@ public class ChunkEraser extends TranslationContext
 		public int tileTick = 0;
 		public int blockEvent = 0;
 		public int chunkSection = 0;
+		public AtomicInteger eraseLightDoneCount = new AtomicInteger();
 	}
 
 	public CompletableFuture<Void> erase()
@@ -136,6 +131,13 @@ public class ChunkEraser extends TranslationContext
 		);
 	}
 
+	@Override
+	public void abort(CommandSourceStack source)
+	{
+		Messenger.tell(source, this.tr("aborting"));
+		super.abort(source);
+	}
+
 	private void reportChunkLoadingStats(TimeCosts timeCosts)
 	{
 		if (timeCosts.loading >= 1)
@@ -158,13 +160,23 @@ public class ChunkEraser extends TranslationContext
 
 	private void reportLightStats(TimeCosts timeCosts)
 	{
-		Messenger.tell(this.source, tr("light_summary", StringUtils.fractionDigit(timeCosts.eraseLight, 1)));
+		String cost = StringUtils.fractionDigit(timeCosts.eraseLight, 1);
+		int doneCnt = this.stats.eraseLightDoneCount.get();
+		int totalCnt = this.chunks.size();
+		if (doneCnt != totalCnt)
+		{
+			Messenger.tell(this.source,  Messenger.formatting(tr("light_summary_aborted", doneCnt, totalCnt, cost), ChatFormatting.GOLD));
+		}
+		else
+		{
+			Messenger.tell(this.source,  Messenger.formatting(tr("light_summary", cost), ChatFormatting.GREEN));
+		}
 	}
 
 	private void reportFinalStats(TimeCosts timeCosts)
 	{
 		Messenger.tell(this.source, Messenger.hover(
-				tr("all_done", StringUtils.fractionDigit(timeCosts.total, 1)),
+				Messenger.formatting(tr("all_done", StringUtils.fractionDigit(timeCosts.total, 1)), ChatFormatting.GREEN),
 				tr(
 						"all_done_hover",
 						StringUtils.fractionDigit(timeCosts.loading, 2),
@@ -352,6 +364,11 @@ public class ChunkEraser extends TranslationContext
 
 	private CompletableFuture<Void> relightChunk(ThreadedLevelLightEngine lightingProvider, LevelChunk chunk)
 	{
+		if (this.aborted.get())
+		{
+			return CompletableFuture.completedFuture(null);
+		}
+
 		ChunkPos chunkPos = chunk.getPos();
 
 		// Empty ChunkNibbleArray will not be saved to the disk during chunk serialization
@@ -391,6 +408,6 @@ public class ChunkEraser extends TranslationContext
 		return ChunkManipulatorUtils.enqueueDummyLightingTask(lightingProvider, chunkPos).thenRunAsync(
 				() -> ChunkManipulatorUtils.refreshChunkLight(this.world, chunk),
 				this.world.getServer()
-		);
+		).thenRun(this.stats.eraseLightDoneCount::incrementAndGet);
 	}
 }

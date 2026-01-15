@@ -352,20 +352,27 @@ carpettisaddition:
             at <chunkX> <chunkZ>: Manipulate chunk at given position. The chunk must be loaded
         common:
           throttled: Please wait until the ongoing operation finishes
+          nothing_to_abort: There is no ongoing operation to abort
         erase:
           loading_summary: Loaded %s chunks for erasing, cost %ss
           matter_summary: Erased %s chunks, cost %ss, removed %s entities, %s tile entities, %s tile ticks, %s block events, %s chunk sections
           erase_light: Resetting lights within erased chunks, this might take a while
-          light_summary: 'Light reset done, cost: %1$ss'
-          all_done: 'Chunk erase manipulation done. Total cost: %1$ss'
+          light_summary: 'Light reset done, cost: %ss'
+          light_summary_aborted: 'Light reset aborted, processed %s/%s chunks, cost: %ss'
+          aborting: Aborting task, please wait for the lighting engine to finish remaining tasks
+          all_done: 'Chunk erase manipulation done. Total cost: %ss'
           all_done_hover: |-
             Time cost stats:
             Chunk loading: %ss
             Content erasing: %ss
             Light resetting: %ss
         relight:
-          relighting: Relighting %1$s chunks, please wait for the lighting engine to process these updates
-          done: 'Relighted %1$s chunks. Total cost: %2$ss'
+          relight_start: Relighting %s chunks, please wait for the lighting engine to process these updates
+          relight_progress: Relighted %s/%s chunks, speed %s chunk/s, ETA %ss
+          relight_progress_hover: You can use %s command to abort this task
+          aborting: Aborting task, please wait for the lighting engine to finish remaining tasks
+          done: 'Relighted %s chunks. Total cost: %ss'
+          done_aborted: 'Relight aborted, processed %s/%s chunks, cost: %ss'
           hint: You can use command "/refresh chunk" to refresh lighting updates outside of those given chunks
       container:
         help: Manipulate %1$s

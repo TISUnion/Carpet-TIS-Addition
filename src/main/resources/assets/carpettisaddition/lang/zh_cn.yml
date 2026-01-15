@@ -352,20 +352,27 @@ carpettisaddition:
             at <chunkX> <chunkZ>: 操作指定位置的区块。该区块必须已加载
         common:
           throttled: 请等待当前操作完成
+          nothing_to_abort: 当前没有正在进行的操作可被中止
         erase:
           loading_summary: 已加载%s个将被擦除的区块，耗时%ss
           matter_summary: 已擦除%s个区块，耗时%ss。共移除 %s个实体、%s个方块实体、%s个计划刻、%s个方块事件、%s个区段
           erase_light: 正在重置被擦除区块的光照，这可能需要花费一定时间
           light_summary: 光照更新重置完成，耗时%ss
-          all_done: '区块擦除操作结束。总耗时: %1$ss'
+          light_summary_aborted: 光照更新重置已中断，共完成%s/%s个区块，耗时%ss
+          aborting: 正在中断任务，请等待光照引擎完成目前剩余的任务
+          all_done: '区块擦除操作结束。总耗时: %ss'
           all_done_hover: |-
             耗时统计
             区块加载：%ss
             内容擦除：%ss
             光照重置：%ss
         relight:
-          relighting: 正在重新计算%1$s个区块的光照，请等待光照引擎完成这些光照更新
-          done: '已重新计算%1$s个区块的光照。总耗时: %2$ss'
+          relight_start: 正在重新计算%s个区块的光照，请等待光照引擎完成这些光照更新
+          relight_progress: '已重新计算%s/%s个区块的光照，速度: %s区块/s，预估剩余时间: %ss'
+          relight_progress_hover: 可使用 %s 命令来中断此任务
+          aborting: 正在中断任务，请等待光照引擎完成目前剩余的任务
+          done: '已重新计算%s个区块的光照。总耗时: %ss'
+          done_aborted: '区块光照重新计算已中断，共处理%s/%s个区块的光照。总耗时: %ss'
           hint: 可以使用"/refresh chunk"指令来同步那些给定区块之外的客户端光照
       container:
         help: 操控%1$s

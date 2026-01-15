@@ -24,8 +24,8 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.AbstractManipulator;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.level.ChunkPos;
 
 import java.util.List;
@@ -45,10 +45,9 @@ public class ChunkManipulator extends AbstractManipulator
 
 	// ============================== Command ==============================
 
-	private LiteralArgumentBuilder<CommandSourceStack> makeBatchOperationNode(String subcommand, int maxRangeRadius, ThrottledOperator.OperateImpl operateImpl)
+	@SuppressWarnings("SameParameterValue")
+	private LiteralArgumentBuilder<CommandSourceStack> makeBatchOperationNode(ThrottledOperator operator, String subcommand, int maxRangeRadius)
 	{
-		ThrottledOperator operator = new ThrottledOperator(this, operateImpl);
-
 		BiFunction<String, BiFunction<CommandSourceStack, Integer, Integer>, LiteralArgumentBuilder<CommandSourceStack>> makeRadiusNode = (name, func) ->
 				literal(name).
 						then(argument("radius", integer(0, maxRangeRadius)).
@@ -82,25 +81,30 @@ public class ChunkManipulator extends AbstractManipulator
 	@Override
 	public void buildSubCommand(CommandTreeContext.Node context)
 	{
-		// TODO copy relight to block manipulator for block box impl
+		ThrottledOperator eraseOperator = new ThrottledOperator(this, this::doEraseChunks);
+		ThrottledOperator relightOperator = new ThrottledOperator(this, this::doRelightChunks);
+
+		// TODO copy "relight" to "block manipulator" for block box impl
 		context.node.
-				then(makeBatchOperationNode("erase", 32, this::doEraseChunks)).
-				then(makeBatchOperationNode("relight", 2, this::doRelightChunks));
+				then(makeBatchOperationNode(eraseOperator, "erase", 32)).
+				then(makeBatchOperationNode(relightOperator, "relight", 32).
+						then(literal("abort").executes(c -> relightOperator.abort(c.getSource())))
+				);
 	}
 
 	// ============================== Impl ==============================
 
-	private int doEraseChunks(CommandSourceStack source, List<ChunkPos> chunkPosList, Runnable doneCallback)
+	private AbortableOperation doEraseChunks(CommandSourceStack source, List<ChunkPos> chunkPosList, Runnable doneCallback)
 	{
 		ChunkEraser chunkEraser = new ChunkEraser(this.getTranslator().getDerivedTranslator("erase"), chunkPosList, source);
 		chunkEraser.erase().thenRun(doneCallback);
-		return chunkPosList.size();
+		return chunkEraser;
 	}
 
-	private int doRelightChunks(CommandSourceStack source, List<ChunkPos> chunkPosList, Runnable doneCallback)
+	private AbortableOperation doRelightChunks(CommandSourceStack source, List<ChunkPos> chunkPosList, Runnable doneCallback)
 	{
 		ChunkRelighter chunkRelighter = new ChunkRelighter(this.getTranslator().getDerivedTranslator("relight"), chunkPosList, source);
 		chunkRelighter.relight().thenRun(doneCallback);
-		return chunkPosList.size();
+		return chunkRelighter;
 	}
 }

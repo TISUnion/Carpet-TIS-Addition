@@ -25,24 +25,26 @@ import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.PositionUtils;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.world.level.ChunkPos;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 class ThrottledOperator extends TranslationContext
 {
 	private final Semaphore semaphore = new Semaphore(1);
+	private final AtomicReference<AbortableOperation> currentOperation = new AtomicReference<>(null);
 	private final OperateImpl operateImpl;
 
 	@FunctionalInterface
-	public interface OperateImpl
+	interface OperateImpl
 	{
-		int call(CommandSourceStack source, List<ChunkPos> chunkPosList, Runnable doneCallback);
+		AbortableOperation createAndRun(CommandSourceStack source, List<ChunkPos> chunkPosList, Runnable doneCallback);
 	}
 
 	public ThrottledOperator(ChunkManipulator chunkManipulator, OperateImpl operateImpl)
@@ -60,13 +62,33 @@ class ThrottledOperator extends TranslationContext
 		}
 		try
 		{
-			return this.operateImpl.call(source, chunkPosList, this.semaphore::release);
+			AbortableOperation operation = this.operateImpl.createAndRun(source, chunkPosList, () -> {
+				this.currentOperation.set(null);
+				this.semaphore.release();
+			});
+			this.currentOperation.set(operation);
+			return chunkPosList.size();
 		}
 		catch (Throwable e)
 		{
 			CarpetTISAdditionMod.LOGGER.error("Manipulation error", e);
 			this.semaphore.release();
 			throw e;
+		}
+	}
+
+	public int abort(CommandSourceStack source)
+	{
+		AbortableOperation operation = currentOperation.get();
+		if (operation == null)
+		{
+			Messenger.tell(source, this.tr("common.nothing_to_abort"));
+			return 0;
+		}
+		else
+		{
+			operation.abort(source);
+			return 1;
 		}
 	}
 

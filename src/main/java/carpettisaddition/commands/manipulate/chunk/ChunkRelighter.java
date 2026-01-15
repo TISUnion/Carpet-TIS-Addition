@@ -20,35 +20,32 @@
 
 package carpettisaddition.commands.manipulate.chunk;
 
-import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.PositionUtils;
 import carpettisaddition.utils.StringUtils;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.server.level.ThreadedLevelLightEngine;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ThreadedLevelLightEngine;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.LevelChunk;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
-public class ChunkRelighter extends TranslationContext
+public class ChunkRelighter extends AbstractChunkOperator
 {
-	private final ServerLevel world;
-	private final List<ChunkPos> chunkPosList;
-	private final CommandSourceStack source;
 	private final List<LevelChunk> chunks;
 
 	protected ChunkRelighter(Translator translator, List<ChunkPos> chunkPosList, CommandSourceStack source)
 	{
-		super(translator);
-		this.world = source.getLevel();
-		this.chunkPosList = chunkPosList;
-		this.source = source;
+		super(translator, chunkPosList, source);
 		this.chunks = Lists.newArrayList();
 	}
 
@@ -60,33 +57,87 @@ public class ChunkRelighter extends TranslationContext
 			this.chunks.add(this.world.getChunk(PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos)));
 		}
 
-		List<CompletableFuture<Void>> relightFutures = Lists.newArrayList();
-		for (LevelChunk chunk : chunks)
-		{
-			relightFutures.add(this.relightOneChunk(chunk));
-		}
+		AtomicLong lastReportMs = new AtomicLong(System.currentTimeMillis());
+		Set<ChunkPos> doneChunkPosSet = Sets.newConcurrentHashSet();
+		AsyncBatchProcessor<LevelChunk> processor = new AsyncBatchProcessor<>(
+				this.chunks,
+				chunk -> this.relightOneChunk(chunk).thenApply(done -> {
+					if (!done)
+					{
+						return null;
+					}
+					doneChunkPosSet.add(chunk.getPos());
+					long nowMs = System.currentTimeMillis();
+					if (nowMs - lastReportMs.get() >= 3000)  // every 3s
+					{
+						lastReportMs.set(Long.MAX_VALUE);
+						final int doneCnt = doneChunkPosSet.size();
+						final double chunkPerSec = doneCnt / ((nowMs - startTime) / 1000.0);
+						final double etaSec = (this.chunkPosList.size() - doneCnt) / chunkPerSec;
+						this.source.getServer().submit(() -> {
+							lastReportMs.set(System.currentTimeMillis());
+							String abortCmd = "/manipulate chunk relight abort";
+							Messenger.tell(this.source, Messenger.fancy(
+									tr(
+											"relight_progress",
+											doneCnt, this.chunkPosList.size(),
+											StringUtils.fractionDigit(chunkPerSec, 1),
+											StringUtils.fractionDigit(etaSec, 1)
+									),
+									tr("relight_progress_hover", Messenger.s(abortCmd, ChatFormatting.GRAY)),
+									Messenger.ClickEvents.suggestCommand(abortCmd)
+							));
+						});
+					}
+					return null;
+				}),
+				5
+		);
 
-		Messenger.tell(this.source, tr("relighting", chunkPosList.size()));
-		return CompletableFuture.allOf(relightFutures.toArray(new CompletableFuture[0])).thenRunAsync(
+		Messenger.tell(this.source, tr("relight_start", chunkPosList.size()));
+		return processor.start().thenRunAsync(
 				() -> {
-					double costSec = (System.currentTimeMillis() - startTime) / 1000.0;
+					int doneCnt = doneChunkPosSet.size();
 					for (ChunkPos chunkPos : this.chunkPosList)
 					{
-						this.refreshChunkLight(chunkPos);
+						if (doneChunkPosSet.contains(chunkPos))
+						{
+							this.refreshChunkLight(chunkPos);
+						}
 					}
-					Messenger.tell(this.source, tr("done", chunkPosList.size(), StringUtils.fractionDigit(costSec, 1)));
+					String costSec = StringUtils.fractionDigit((System.currentTimeMillis() - startTime) / 1000.0, 1);
+					if (doneCnt != this.chunkPosList.size())
+					{
+						Messenger.tell(this.source, Messenger.formatting(tr("done_aborted", doneCnt, this.chunkPosList.size(), costSec), ChatFormatting.GOLD));
+					}
+					else
+					{
+						Messenger.tell(this.source,  Messenger.formatting(tr("done", doneCnt, costSec), ChatFormatting.GREEN));
+					}
 					Messenger.tell(this.source, tr("hint"));
 				},
 				this.source.getServer()
 		);
 	}
 
+	@Override
+	public void abort(CommandSourceStack source)
+	{
+		Messenger.tell(source, this.tr("aborting"));
+		super.abort(source);
+	}
+
 	//#if MC >= 12000
 	//$$ // idk why mojang deprecates this, whatever, who care xd
 	//$$ @SuppressWarnings("removal")
 	//#endif
-	public CompletableFuture<Void> relightOneChunk(LevelChunk chunk)
+	private CompletableFuture<Boolean> relightOneChunk(LevelChunk chunk)
 	{
+		if (this.aborted.get())
+		{
+			return CompletableFuture.completedFuture(false);
+		}
+
 		ThreadedLevelLightEngine lightingProvider = this.world.getChunkSource().getLightEngine();
 		ChunkPos chunkPos = chunk.getPos();
 		int startX = chunkPos.getMinBlockX();
@@ -114,7 +165,7 @@ public class ChunkRelighter extends TranslationContext
 		return ChunkManipulatorUtils.enqueueDummyLightingTask(lightingProvider, chunkPos).thenRunAsync(
 				() -> refreshChunkLight(chunkPos),
 				this.world.getServer()
-		);
+		).thenApply(v -> true);
 	}
 
 	// ============================== Chunk Light Refresher ==============================
