@@ -7,6 +7,9 @@ carpettisaddition:
         '0': 检测到规则synchronizedLightThread和规则lightUpdates间的危险组合
         '1': 对规则的修改已被取消，以防止在同步光照时无限等待
         '2': '相关规则将要修改为的值:'
+    tickFreezeDeepCommand:
+      wrapper: '%s (%s)'
+      deep_freeze: 深度冻结
     yeetUpdateSuppressionCrash:
       exception_detail:
         body: '在%2$s阶段触发于%1$s的更新抑制'
@@ -1358,8 +1361,9 @@ carpettisaddition:
           '1': '- tickCommandEnhance = true'
           '2': '- tickCommandPermission = 2'
           '3': '- tickFreezeCommandToggleable = true'
-          '4': '- tickProfilerCommandsReintroduced = true'
-          '5': '- tickWarpCommandAsAnAlias = true'
+          '4': '- tickFreezeDeepCommand = true'
+          '5': '- tickProfilerCommandsReintroduced = true'
+          '6': '- tickWarpCommandAsAnAlias = true'
       tickCommandEnhance:
         name: tick指令增强
         desc: 重新启用那些mc1.20.3前，用于增强carpet模组"/tick"指令功能的特性
@@ -1377,6 +1381,11 @@ carpettisaddition:
         desc: 让"/tick freeze"像以前的carpet模组一样，切换式地设置游戏的冻结状态
         extra:
           '0': 也就是说，若游戏运行已冻结，则再次输入"/tick freeze"将解除冻结状态
+      tickFreezeDeepCommand:
+        name: 重新引入tickFreezeDeep指令
+        desc: 带回carpet模组的"/tick freeze deep"子命令
+        extra:
+          '0': 与普通的"/tick freeze"相比，它额外新增了冻结加载票过期计算的功能
       tickProfilerCommandsReintroduced:
         name: 重新引入tick性能分析指令
         desc: 带回carpet模组的"/tick health"、"/tick entities"这两个子命令

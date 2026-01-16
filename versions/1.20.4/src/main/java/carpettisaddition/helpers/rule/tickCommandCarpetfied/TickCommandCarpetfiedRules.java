@@ -43,6 +43,11 @@ public class TickCommandCarpetfiedRules
 		return CarpetTISAdditionSettings.tickCommandCarpetfied || CarpetTISAdditionSettings.tickFreezeCommandToggleable;
 	}
 
+	public static boolean tickFreezeDeepCommand()
+	{
+		return CarpetTISAdditionSettings.tickCommandCarpetfied || CarpetTISAdditionSettings.tickFreezeDeepCommand;
+	}
+
 	public static boolean tickProfilerCommandsReintroduced()
 	{
 		return CarpetTISAdditionSettings.tickCommandCarpetfied || CarpetTISAdditionSettings.tickProfilerCommandsReintroduced;

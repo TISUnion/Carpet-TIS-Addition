@@ -1485,6 +1485,7 @@ Enabling this rule equals to setting the following rules to the following values
 - [tickCommandEnhance](#tickcommandenhance) = `true`
 - [tickCommandPermission](#tickcommandpermission) = `2`
 - [tickFreezeCommandToggleable](#tickfreezecommandtoggleable) = `true`
+- [tickFreezeDeepCommand](#tickFreezeDeepCommand) = `true`
 - [tickProfilerCommandsReintroduced](#tickprofilercommandsreintroduced) = `true`
 - [tickWarpCommandAsAnAlias](#tickwarpcommandasanalias) = `true`
 
@@ -1533,6 +1534,20 @@ It's useful if you want to execute the `/tick` command in e.g. command blocks
 Make the `/tick freeze` command toggleable again, just like how carpet mode behaved before
 
 i.e. Make the `/tick freeze` command unfreeze the game if the game is already frozen
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
+
+
+## tickFreezeDeepCommand
+
+**Minecraft >= 1.20.3 only**
+
+Bring back the `/tick freeze deep` subcommand from carpet mod
+
+Compared to the regular `/tick freeze`, it additionally adds the ability to freeze ticket expiration ticking
 
 - Type: `boolean`
 - Default value: `false`

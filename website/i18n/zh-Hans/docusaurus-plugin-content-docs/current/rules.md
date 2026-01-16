@@ -1485,6 +1485,7 @@ sidebar_position: 1
 - [tickCommandEnhance](#tick指令增强-tickcommandenhance) = `true`
 - [tickCommandPermission](#tick指令权限-tickcommandpermission) = `2`
 - [tickFreezeCommandToggleable](#切换式tickfreeze指令-tickfreezecommandtoggleable) = `true`
+- [tickFreezeDeepCommand](#重新引入tickfreezedeep指令-tickfreezedeepcommand) = `true`
 - [tickProfilerCommandsReintroduced](#重新引入tick性能分析指令-tickprofilercommandsreintroduced) = `true`
 - [tickWarpCommandAsAnAlias](#tickwarp指令别名重现-tickwarpcommandasanalias) = `true`
 
@@ -1533,6 +1534,20 @@ sidebar_position: 1
 让 `/tick freeze` 像以前的 carpet 模组一样，切换式地设置游戏的冻结状态
 
 也就是说，若游戏运行已冻结，则再次输入 `/tick freeze` 将解除冻结状态
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
+
+
+## 重新引入tickFreezeDeep指令 (tickFreezeDeepCommand)
+
+**本规则仅在 Minecraft >= 1.20.3 中存在**
+
+带回 carpet 模组的 `/tick freeze deep` 子命令
+
+与普通的 `/tick freeze` 相比，它额外增加了冻结加载票过期计算的功能
 
 - 类型: `boolean`
 - 默认值: `false`

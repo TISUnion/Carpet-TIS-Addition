@@ -51,6 +51,18 @@ For Carpet TIS Addition v1.55.0, you can manually configure the rules below to a
 - **Behavior in vanilla after mc1.20.4**: The `/tick freeze` command does one thing only: freeze the game. The command to unfreeze the game is now split to `/tick unfreeze`
 - **Usage scenario**: Like in previous versions, use only the `/tick freeze` command to enter / exit the freeze state
 
+## [tickFreezeDeepCommand](/docs/rules#tickfreezedeepcommand)
+
+Requires Carpet TIS Addition v1.75.0 or higher
+
+```
+/carpet tickFreezeDeepCommand true
+```
+
+- **Behavior before mc1.20.3 in carpet**：`/tick freeze deep` further freezes the server beyond the regular `/tick freeze`, preventing ticket expiration ticking
+- **Behavior in vanilla after mc1.20.4**：`/tick freeze deep` command does not exist
+- **Usage scenario**：Like in previous versions, continue using the `/tick freeze deep` command for deep freezing
+
 ## [tickProfilerCommandsReintroduced](/docs/rules#tickprofilercommandsreintroduced)
 
 ```

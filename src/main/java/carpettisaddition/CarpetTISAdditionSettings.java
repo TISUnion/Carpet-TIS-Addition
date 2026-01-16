@@ -711,6 +711,9 @@ public class CarpetTISAdditionSettings
 	//$$ public static boolean tickFreezeCommandToggleable = false;
 	//$$
 	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND, PORTING})
+	//$$ public static boolean tickFreezeDeepCommand = false;
+	//$$
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND, PORTING})
 	//$$ public static boolean tickProfilerCommandsReintroduced = false;
 	//$$
 	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND, PORTING})

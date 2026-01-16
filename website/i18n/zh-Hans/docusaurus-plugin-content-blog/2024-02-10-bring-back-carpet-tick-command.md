@@ -51,6 +51,18 @@ slug: bring-back-carpet-tick-command
 - **"mc1.20.4 及以后原版表现**：`/tick freeze` 这条指令只能让游戏进入冻结状态。让游戏恢复正常运行的指令被单独放到了 `/tick unfreeze` 指令里
 - **使用场景**：像旧版本那样，只用一条 `/tick freeze` 指令就能进入或退出冻结状态
 
+## [tickFreezeDeepCommand](/docs/rules#重新引入tickfreezedeep指令-tickfreezedeepcommand)
+
+依赖 Carpet TIS Addition v1.75.0 或更高版本
+
+```
+/carpet tickFreezeDeepCommand true
+```
+
+- **mc1.20.3 前 carpet 表现**：`/tick freeze deep` 可在普通的 `/tick freeze` 的基础上进一步深度冻结服务器运行，阻止加载票超时计算
+- **"mc1.20.4 及以后原版表现**：`/tick freeze deep` 不再存在
+- **使用场景**：像旧版本那样，继续使用 `/tick freeze deep` 提供的深度冻结功能
+
 ## [tickProfilerCommandsReintroduced](/docs/rules#重新引入tick性能分析指令-tickprofilercommandsreintroduced)
 
 ```

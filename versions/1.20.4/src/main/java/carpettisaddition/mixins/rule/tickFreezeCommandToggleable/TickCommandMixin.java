@@ -21,7 +21,9 @@
 package carpettisaddition.mixins.rule.tickFreezeCommandToggleable;
 
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.server.ServerTickRateManager;
 import net.minecraft.server.commands.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,25 +33,26 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
-	@ModifyVariable(
+	@ModifyExpressionValue(
 			method = "setFreeze",
 			at = @At(
-					value = "INVOKE_ASSIGN",
+					value = "INVOKE",
 					target = "Lnet/minecraft/server/MinecraftServer;tickRateManager()Lnet/minecraft/server/ServerTickRateManager;",
-					ordinal = 0,
-					shift = At.Shift.AFTER
-			),
-			argsOnly = true
+					ordinal = 0
+			)
 	)
-	private static boolean tickFreezeCommandToggleable_unfreezeIfAlreadyFrozen(boolean frozen, @Local ServerTickRateManager serverTickManager)
+	private static ServerTickRateManager tickFreezeCommandToggleable_unfreezeIfAlreadyFrozen(
+			ServerTickRateManager serverTickManager,
+			@Local(argsOnly = true) LocalBooleanRef frozen
+	)
 	{
 		if (TickCommandCarpetfiedRules.tickFreezeCommandToggleable())
 		{
-			if (frozen && serverTickManager.isFrozen())
+			if (frozen.get() && serverTickManager.isFrozen())
 			{
-				frozen = false;
+				frozen.set(false);
 			}
 		}
-		return frozen;
+		return serverTickManager;
 	}
 }

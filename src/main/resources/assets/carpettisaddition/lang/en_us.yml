@@ -7,6 +7,9 @@ carpettisaddition:
         '0': "Dangerous combination between rule synchronizedLightThread and rule lightUpdates detected"
         '1': "Rule modification has been cancelled to prevent infinite waiting in lighting synchronization"
         '2': "Related rule values to be set:"
+    tickFreezeDeepCommand:
+      wrapper: '%s (%s)'
+      deep_freeze: deeply frozen
     yeetUpdateSuppressionCrash:
       exception_detail:
         body: 'Update Suppression in %1$s at %2$s'
@@ -1358,8 +1361,9 @@ carpettisaddition:
           '1': '- tickCommandEnhance = true'
           '2': '- tickCommandPermission = 2'
           '3': '- tickFreezeCommandToggleable = true'
-          '4': '- tickProfilerCommandsReintroduced = true'
-          '5': '- tickWarpCommandAsAnAlias = true'
+          '4': '- tickFreezeDeepCommand = true'
+          '5': '- tickProfilerCommandsReintroduced = true'
+          '6': '- tickWarpCommandAsAnAlias = true'
       tickCommandEnhance:
         name: tickCommandEnhance
         desc: Enable the enhancements for the /tick command from carpet mod before mc1.20.3
@@ -1377,6 +1381,11 @@ carpettisaddition:
         desc: Make the "/tick freeze" command toggleable again, just like how carpet mode behaved before
         extra:
           '0': i.e. Make the "/tick freeze" command unfreeze the game if the game is already frozen
+      tickFreezeDeepCommand:
+        name: tickFreezeDeepCommand
+        desc: Bring back the "/tick freeze deep" subcommand from carpet mod
+        extra:
+          '0': Compared to the regular "/tick freeze", it additionally adds the ability to freeze ticket expiration ticking
       tickProfilerCommandsReintroduced:
         name: tickProfilerCommandsReintroduced
         desc: Bring back the "/tick health" and "/tick entities" subcommands from carpet mod
