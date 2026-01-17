@@ -80,8 +80,12 @@ jobs:
           path: mod-jars/*.jar
 
       - name: Publish with gradle
-        if: inputs.release || github.ref == 'refs/heads/dev'
+        if: ${{ inputs.release || github.ref == 'refs/heads/dev' }}
         run: |
+          if [ -z "$FALLENS_MAVEN_TOKEN" ]; then
+              echo "No token found, skipping publish"
+              exit 0
+          fi
           if [ -z "${{ inputs.target_subproject }}" ]; then
               echo "Publishing all subprojects"
               ./gradlew publish
@@ -106,6 +110,18 @@ jobs:
         with:
           python-version: 3.14
 
+      - name: List artifacts
+        uses: actions/github-script@v8
+        id: artifacts
+        with:
+          script: |
+            const result = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            })
+            return result.data
+
       - name: Download build artifacts
         uses: actions/download-artifact@v7
         with:
@@ -118,3 +134,4 @@ jobs:
           python .github/workflows/scripts/summary.py
         env:
           TARGET_SUBPROJECT: ${{ inputs.target_subproject }}
+          WORKFLOW_ARTIFACTS: ${{ steps.artifacts.outputs.result }}
