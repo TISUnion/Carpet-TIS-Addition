@@ -160,14 +160,10 @@ loom {
 
 shadowJar {
 	configurations = [project.configurations.shadow]
-	archiveClassifier.set('shadow')
-}
-
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-tasks.withType(ShadowJar).configureEach {
+	exclude("META-INF")
 	enableAutoRelocation = true
 	relocationPrefix = 'carpettisaddition.libs'
-	exclude('META-INF/MANIFEST.MF')
+	archiveClassifier.set('shadow')
 }
 
 if (unobfuscated) {
