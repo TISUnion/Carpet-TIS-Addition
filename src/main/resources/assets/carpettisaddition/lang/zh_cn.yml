@@ -195,6 +195,23 @@ carpettisaddition:
           ended: 结束
           priority: 优先级
           tiletick_event: 计划刻事件
+        piston_compute_push_structure:
+          computed: 计算推动结构
+          to_push: '要推动的方块数量: %s'
+          to_destroy: '要摧毁的方块数量: %s'
+          push: 推出
+          pull: 拉回
+          info:
+            piston_pos: '活塞位置: %s'
+            piston_direction: '活塞朝向: %s'
+            push_type: '推动类型: %s'
+            push_direction: '推动方向: %s'
+            push_start_pos: '推动开始位置: %s'
+          failure_reason:
+            push_limit_exceeded: '超出推动上限'
+            got_immovable_block: '遇到不可移动的方块'
+          failure_pos: '位置: %s'
+          failure_block: '方块: %s'
         schedule_block_event:
           scheduled: 添加
           blockevent: 方块事件

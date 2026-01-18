@@ -35,9 +35,11 @@ import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingContext;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.ItemUtils;
+import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeItem;
@@ -364,6 +366,18 @@ public class MicroTimingLoggerManager
 		onEvent(MicroTimingContext.create().
 				withWorld(world).withBlockPos(pos).
 				withEvent(new EmitBlockUpdateRedstoneDustEvent(eventType, block, methodName, pos, updateOrder))
+		);
+	}
+
+	public static void onPistonComputePushStructureEvent(Level world, BlockPos pos, Block block, boolean success, PistonStructureResolver resolver)
+	{
+		if (!isLoggerActivated())
+		{
+			return;
+		}
+		onEvent(MicroTimingContext.create().
+				withWorld(world).withBlockPos(pos).
+				withEvent(new PistonComputePushStructureEvent(DimensionWrapper.of(world), block, PistonComputePushStructureEvent.Result.from(success, resolver)))
 		);
 	}
 

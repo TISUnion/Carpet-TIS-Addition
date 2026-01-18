@@ -195,6 +195,23 @@ carpettisaddition:
           ended: ended
           priority: Priority
           tiletick_event: TileTick Event
+        piston_compute_push_structure:
+          computed: Computed push structure
+          to_push: 'Blocks to push num: %s'
+          to_destroy: 'Blocks to destroy num: %s'
+          push: Push
+          pull: Pull
+          info:
+            piston_pos: 'Piston position: %s'
+            piston_direction: 'Piston direction: %s'
+            push_type: 'Push type: %s'
+            push_direction: 'Push direction: %s'
+            push_start_pos: 'Push start position: %s'
+          failure_reason:
+            push_limit_exceeded: 'Push limit exceeded'
+            got_immovable_block: 'Got immovable block'
+          failure_pos: 'Position: %s'
+          failure_block: 'Block: %s'
         schedule_block_event:
           scheduled: Scheduled
           blockevent: BlockEvent

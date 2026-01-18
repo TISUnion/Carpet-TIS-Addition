@@ -122,6 +122,11 @@ public class MicroTimingUtil
 		return COLOR_STYLE.getOrDefault(color, "w");
 	}
 
+	public static Translator getUtilTranslator()
+	{
+		return TRANSLATOR;
+	}
+
 	private static BaseComponent tr(String key, Object... args)
 	{
 		return TRANSLATOR.tr(key, args);
