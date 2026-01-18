@@ -330,11 +330,17 @@ sidebar_position: 2
 
 `/log wanderingTrader`
 
-在玩家召唤出了（事实上这是基于随机玩家的特殊刷怪）流浪商人时，输出记录信息
+输出流浪商人刷新的相关信息
+
+可用的事件列表:
+- `spawn`: 在玩家召唤出了（事实上这是基于随机玩家的特殊刷怪）流浪商人时，输出记录信息
+- `fail`: 在玩家尝试召唤流浪商人但失败时，输出记录信息
+- `time`: (HUD) 显示下一个流浪商人刷新尝试的倒计时，即尝试成功的概率
+- `all`: 输出上述所有事件
 
 属性:
-- 默认选项: N/A
-- 参考选项: N/A
+- 默认选项: `spawn`
+- 参考选项: `all`, `spawn`, `fail`, `time`
 
 ![wanderingTrader](images/logger/wanderingTrader.png)
 

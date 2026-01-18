@@ -27,6 +27,7 @@ import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.memory.MemoryHUDLogger;
 import carpettisaddition.logging.loggers.scounter.SupplierCounterHUDLogger;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
+import carpettisaddition.logging.loggers.wanderingTrader.WanderingTraderLogger;
 import carpettisaddition.logging.loggers.xcounter.XpCounterHUDLogger;
 import net.minecraft.server.MinecraftServer;
 
@@ -40,6 +41,7 @@ public class TISAdditionHUDController
 		// mobcapsLocal logger has its own injection to make sure it will be updated right after the mobcaps logger
 		doHudLogging(TISAdditionLoggerRegistry.__scounter, SupplierCounterHUDLogger.NAME, SupplierCounterHUDLogger.getInstance());
 		doHudLogging(TISAdditionLoggerRegistry.__tickWarp, TickWarpHUDLogger.NAME, TickWarpHUDLogger.getInstance());
+		doHudLogging(TISAdditionLoggerRegistry.__wanderingTrader, WanderingTraderLogger.NAME, WanderingTraderLogger.getInstance());
 		doHudLogging(TISAdditionLoggerRegistry.__xcounter, XpCounterHUDLogger.NAME, XpCounterHUDLogger.getInstance());
 	}
 

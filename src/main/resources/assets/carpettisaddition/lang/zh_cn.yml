@@ -287,6 +287,9 @@ carpettisaddition:
     wanderingTrader:
       header_hover: 流浪商人记录器
       summon: '%1$s召唤了%2$s，位置：%3$s'
+      summon_failed: '%1$s召唤%2$s失败: %3$s'
+      no_spawnable_pos_nearby: 未在玩家附近找到可生成的位置
+      bad_spawn_pos: '%1$s无法生成%2$s'
     xporb:
       xp_amount: 经验值
 

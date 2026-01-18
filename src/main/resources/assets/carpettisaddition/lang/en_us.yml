@@ -287,6 +287,9 @@ carpettisaddition:
     wanderingTrader:
       header_hover: Wandering Trader Logger
       summon: '%1$s summoned %2$s at %3$s'
+      summon_failed: '%1$s failed to summon %2$s: %3$s'
+      no_spawnable_pos_nearby: fail to locate spawnable position near the player
+      bad_spawn_pos: '%1$s is not a valid spawn position for %2$s'
     xporb:
       xp_amount: XP amount
 

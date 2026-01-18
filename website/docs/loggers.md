@@ -330,11 +330,17 @@ Attributes:
 
 `/log wanderingTrader`
 
-Logs when someone summon (actually, it's a special natural spawning based on randomly chosen player) a wandering trader
+Logs information about wandering trader spawning
+
+Available events:
+- `spawn`: Logs when someone summons (actually, it's a special natural spawning based on randomly chosen player) a wandering trader
+- `fail`: Logs when someone fails to summon a wandering trader
+- `time`: (HUD) Logs the time remaining until the next wandering trader spawning attempt and its probability (i.e. 2.5% / 5% / 7.5%)
+- `all`: Logs all events above
 
 Attributes:
-- Default option: N/A
-- Suggested options: N/A
+- Default option: `spawn`
+- Suggested options: `all`, `spawn`, `fail`, `time`
 
 ![wanderingTrader](images/logger/wanderingTrader.png)
 

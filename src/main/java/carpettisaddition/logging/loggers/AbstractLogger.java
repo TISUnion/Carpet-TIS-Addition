@@ -131,6 +131,28 @@ public abstract class AbstractLogger extends TranslationContext
 		actionWithLogger(logger -> logger.log(messagePromise));
 	}
 
+	// Forcibly log to chat even if it's a hud logger
+	public void logToChat(Logger.lMessageIgnorePlayer messagePromise)
+	{
+		actionWithLogger(logger -> {
+			try
+			{
+				if (logger instanceof HUDLoggerButCanLogToChat)
+				{
+					((HUDLoggerButCanLogToChat)logger).setShouldLogToChat$TISCM(true);
+				}
+				logger.log(messagePromise);
+			}
+			finally
+			{
+				if (logger instanceof HUDLoggerButCanLogToChat)
+				{
+					((HUDLoggerButCanLogToChat)logger).setShouldLogToChat$TISCM(false);
+				}
+			}
+		});
+	}
+
 	// Utils
 
 	/**
