@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://carpet.tis.world/posts</id>
+    <title>Carpet TIS Addition Blog</title>
+    <updated>2024-02-10T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://carpet.tis.world/posts"/>
+    <subtitle>Carpet TIS Addition Blog</subtitle>
+    <icon>https://carpet.tis.world/img/icon.png</icon>
+    <entry>
+        <title type="html"><![CDATA[Bring back carpet /tick command to vanilla 1.20.3+]]></title>
+        <id>https://carpet.tis.world/posts/bring-back-carpet-tick-command</id>
+        <link href="https://carpet.tis.world/posts/bring-back-carpet-tick-command"/>
+        <updated>2024-02-10T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[tl;dr, just enter the following command to enable the tickCommandCarpetfied rule:]]></summary>
+        <content type="html"><![CDATA[<p>tl;dr, just enter the following command to enable the <a href="https://carpet.tis.world/docs/rules#tickcommandcarpetfied">tickCommandCarpetfied</a> rule:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/carpet tickCommandCarpetfied true</span><br></span></code></pre></div></div>
+<p>or</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/carpet setDefault tickCommandCarpetfied true</span><br></span></code></pre></div></div>
+<p>Requires Carpet TIS Addition v1.56.0 or higher to enable this rule</p>
+<p>For Carpet TIS Addition v1.55.0, you can manually configure the rules below to achieve the same result</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tickcommandenhance"><a href="https://carpet.tis.world/docs/rules#tickcommandenhance">tickCommandEnhance</a><a href="https://carpet.tis.world/posts/bring-back-carpet-tick-command#tickcommandenhance" class="hash-link" aria-label="Direct link to tickcommandenhance" title="Direct link to tickcommandenhance" translate="no">​</a></h2>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/carpet tickCommandEnhance true</span><br></span></code></pre></div></div>
+<ul>
+<li><strong>Behavior before mc1.20.3 in carpet</strong>: Carpet TIS Addition automatically adds the <code>/tick warp status</code> command</li>
+<li><strong>Behavior in vanilla after mc1.20.4</strong>: To ensure vanilla behavior under default conditions, this rule needs to be enabled to activate the <code>/tick sprint status</code> command from Carpet TIS Addition</li>
+<li><strong>Usage scenario</strong>: Use the <code>/tick warp status</code> command to show the progress of tick warping</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tickcommandpermission"><a href="https://carpet.tis.world/docs/rules#tickcommandpermission">tickCommandPermission</a><a href="https://carpet.tis.world/posts/bring-back-carpet-tick-command#tickcommandpermission" class="hash-link" aria-label="Direct link to tickcommandpermission" title="Direct link to tickcommandpermission" translate="no">​</a></h2>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/carpet tickCommandPermission 2</span><br></span></code></pre></div></div>
+<ul>
+<li><strong>Behavior before mc1.20.3 in carpet</strong>: The <code>/tick</code> command requires permission level <code>2</code> by default</li>
+<li><strong>Behavior in vanilla after mc1.20.4</strong>: The <code>/tick</code> command requires permission level <code>3</code></li>
+<li><strong>Usage scenario</strong>: Use the <code>/tick</code> command in scenarios like command blocks where its permission level is less than <code>3</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tickfreezecommandtoggleable"><a href="https://carpet.tis.world/docs/rules#tickfreezecommandtoggleable">tickFreezeCommandToggleable</a><a href="https://carpet.tis.world/posts/bring-back-carpet-tick-command#tickfreezecommandtoggleable" class="hash-link" aria-label="Direct link to tickfreezecommandtoggleable" title="Direct link to tickfreezecommandtoggleable" translate="no">​</a></h2>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/carpet tickFreezeCommandToggleable true</span><br></span></code></pre></div></div>
+<ul>
+<li><strong>Behavior before mc1.20.3 in carpet</strong>: The <code>/tick freeze</code> command does two things: freeze the game if it's not frozen, unfreeze the game if it's frozen</li>
+<li><strong>Behavior in vanilla after mc1.20.4</strong>: The <code>/tick freeze</code> command does one thing only: freeze the game. The command to unfreeze the game is now split to <code>/tick unfreeze</code></li>
+<li><strong>Usage scenario</strong>: Like in previous versions, use only the <code>/tick freeze</code> command to enter / exit the freeze state</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tickfreezedeepcommand"><a href="https://carpet.tis.world/docs/rules#tickfreezedeepcommand">tickFreezeDeepCommand</a><a href="https://carpet.tis.world/posts/bring-back-carpet-tick-command#tickfreezedeepcommand" class="hash-link" aria-label="Direct link to tickfreezedeepcommand" title="Direct link to tickfreezedeepcommand" translate="no">​</a></h2>
+<p>Requires Carpet TIS Addition v1.75.0 or higher</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/carpet tickFreezeDeepCommand true</span><br></span></code></pre></div></div>
+<ul>
+<li><strong>Behavior before mc1.20.3 in carpet</strong>：<code>/tick freeze deep</code> further freezes the server beyond the regular <code>/tick freeze</code>, preventing ticket expiration ticking</li>
+<li><strong>Behavior in vanilla after mc1.20.4</strong>：<code>/tick freeze deep</code> command does not exist</li>
+<li><strong>Usage scenario</strong>：Like in previous versions, continue using the <code>/tick freeze deep</code> command for deep freezing</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tickprofilercommandsreintroduced"><a href="https://carpet.tis.world/docs/rules#tickprofilercommandsreintroduced">tickProfilerCommandsReintroduced</a><a href="https://carpet.tis.world/posts/bring-back-carpet-tick-command#tickprofilercommandsreintroduced" class="hash-link" aria-label="Direct link to tickprofilercommandsreintroduced" title="Direct link to tickprofilercommandsreintroduced" translate="no">​</a></h2>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/carpet tickProfilerCommandsReintroduced true</span><br></span></code></pre></div></div>
+<ul>
+<li><strong>Behavior before mc1.20.3 in carpet</strong>: The <code>/tick health</code> and <code>/tick entities</code> commands will trigger the carpet profiler to analyze server tick costs</li>
+<li><strong>Behavior in vanilla after mc1.20.4</strong>: The <code>/tick health</code> and <code>/tick entities</code> commands no longer exist, and <code>/profile health</code> and <code>/profile entities</code> are the only way to trigger the carpet profiler</li>
+<li><strong>Usage scenario</strong>: Like in previous versions, continue using <code>/tick health</code> and <code>/tick entities</code> to trigger the carpet profiler</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tickwarpcommandasanalias"><a href="https://carpet.tis.world/docs/rules#tickwarpcommandasanalias">tickWarpCommandAsAnAlias</a><a href="https://carpet.tis.world/posts/bring-back-carpet-tick-command#tickwarpcommandasanalias" class="hash-link" aria-label="Direct link to tickwarpcommandasanalias" title="Direct link to tickwarpcommandasanalias" translate="no">​</a></h2>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/carpet tickWarpCommandAsAnAlias true</span><br></span></code></pre></div></div>
+<ul>
+<li><strong>Behavior before mc1.20.3 in carpet</strong>: The command prefix is <code>/tick warp</code></li>
+<li><strong>Behavior in vanilla after mc1.20.4</strong>: The command prefix is <code>/tick sprint</code></li>
+<li><strong>Usage scenario</strong>: Like in previous versions, use <code>/tick warp</code> to execute related commands</li>
+</ul>]]></content>
+    </entry>
+</feed>
