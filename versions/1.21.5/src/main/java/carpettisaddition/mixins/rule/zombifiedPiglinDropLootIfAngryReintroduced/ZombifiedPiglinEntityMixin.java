@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.zombifiedPiglinDropLootIfAngryReintroduced
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ZombifiedPiglin.class)
-public class ZombifiedPiglinEntityMixin extends Zombie
+public abstract class ZombifiedPiglinEntityMixin extends Zombie implements NeutralMob
 {
 	public ZombifiedPiglinEntityMixin(EntityType<? extends Zombie> entityType, Level world)
 	{
@@ -55,7 +56,10 @@ public class ZombifiedPiglinEntityMixin extends Zombie
 	{
 		if (CarpetTISAdditionSettings.zombifiedPiglinDropLootIfAngryReintroduced)
 		{
-			this.lastHurtByPlayerMemoryTime = ZPDIAR_PLAYER_HURT_EXPERIENCE_TIME;
+			if (this.isAngry())
+			{
+				this.lastHurtByPlayerMemoryTime = ZPDIAR_PLAYER_HURT_EXPERIENCE_TIME;
+			}
 		}
 	}
 
