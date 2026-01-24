@@ -32,27 +32,15 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-//#if MC >= 11900
-//$$ import com.mojang.brigadier.CommandDispatcher;
+//#if MC >= 1.19
+//$$ import com.llamalad7.mixinextras.sugar.Local;
 //$$ import net.minecraft.commands.CommandBuildContext;
-//$$ import org.spongepowered.asm.mixin.injection.Inject;
-//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"))
 @Mixin(SpawnCommand.class)
 public abstract class SpawnCommandMixin
 {
-	//#if MC >= 11900
-	//$$ private static CommandBuildContext currentCommandBuildContext$TISCM = null;
- //$$
-	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
-	//$$ private static void storeCommandBuildContext(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext, CallbackInfo ci)
-	//$$ {
-	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
-	//$$ }
-	//#endif
-
 	@ModifyArg(
 			method = "register",
 			at = @At(
@@ -62,13 +50,18 @@ public abstract class SpawnCommandMixin
 			index = 0,
 			remap = false
 	)
-	private static LiteralArgumentBuilder<CommandSourceStack> appendLocalArgumentOnSpawnMobcaps(LiteralArgumentBuilder<CommandSourceStack> rootNode)
+	private static LiteralArgumentBuilder<CommandSourceStack> addMobcapsLocalCommand(
+			LiteralArgumentBuilder<CommandSourceStack> rootNode
+			//#if MC >= 1.19
+			//$$ , @Local(argsOnly = true) CommandBuildContext commandBuildContext
+			//#endif
+	)
 	{
 		SpawnMobcapsLocalCommand.getInstance().extendCommand(
 				CommandTreeContext.of(
 						rootNode
-						//#if MC >= 11900
-						//$$ , currentCommandBuildContext$TISCM
+						//#if MC >= 1.19
+						//$$ , commandBuildContext
 						//#endif
 				)
 		);

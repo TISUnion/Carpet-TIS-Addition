@@ -23,32 +23,24 @@ package carpettisaddition.mixins.command.tick.warp;
 import carpet.commands.TickCommand;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.tickwarp.TickWarpHUDLogger;
+import carpettisaddition.utils.ModIds;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-//#if 11900 <= MC && MC < 12003
-//$$ import com.mojang.brigadier.CommandDispatcher;
+//#if MC >= 1.19
+//$$ import com.llamalad7.mixinextras.sugar.Local;
 //$$ import net.minecraft.commands.CommandBuildContext;
-//$$ import org.spongepowered.asm.mixin.injection.Inject;
-//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20.3"))
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
-	//#if 11900 <= MC && MC < 12003
-	//$$ private static CommandBuildContext currentCommandBuildContext$TISCM = null;
- //$$
-	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
-	//$$ private static void storeCommandBuildContext(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext, CallbackInfo ci)
-	//$$ {
-	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
-	//$$ }
-	//#endif
-
 	@ModifyArg(
 			method = "register",
 			at = @At(
@@ -58,13 +50,18 @@ public abstract class TickCommandMixin
 			index = 0,
 			remap = false
 	)
-	private static LiteralArgumentBuilder<CommandSourceStack> registerTickWarpInfo(LiteralArgumentBuilder<CommandSourceStack> builder)
+	private static LiteralArgumentBuilder<CommandSourceStack> registerTickWarpInfo(
+			LiteralArgumentBuilder<CommandSourceStack> builder
+			//#if MC >= 1.19
+			//$$ , @Local(argsOnly = true) CommandBuildContext commandBuildContext
+			//#endif
+	)
 	{
 		TickWarpHUDLogger.getInstance().extendCommand(
 				CommandTreeContext.of(
 						builder
-						//#if MC >= 11900
-						//$$ , currentCommandBuildContext$TISCM
+						//#if MC >= 1.19
+						//$$ , commandBuildContext
 						//#endif
 				)
 		);

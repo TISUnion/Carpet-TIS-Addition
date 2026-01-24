@@ -30,11 +30,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-//#if MC >= 11900
-//$$ import com.mojang.brigadier.CommandDispatcher;
+//#if MC >= 1.19
+//$$ import com.llamalad7.mixinextras.sugar.Local;
 //$$ import net.minecraft.commands.CommandBuildContext;
-//$$ import org.spongepowered.asm.mixin.injection.Inject;
-//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
 /**
@@ -44,16 +42,6 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(FillCommand.class)
 public abstract class FillCommandMixin
 {
-	//#if MC >= 11900
-	//$$ private static CommandBuildContext currentCommandBuildContext$TISCM = null;
- //$$
-	//$$ @Inject(method = "register", at = @At("HEAD"), remap = false)
-	//$$ private static void storeCommandBuildContext(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext, CallbackInfo ci)
-	//$$ {
-	//$$ 	currentCommandBuildContext$TISCM = commandBuildContext;
-	//$$ }
-	//#endif
-
 	@ModifyArg(
 			method = "register",
 			slice = @Slice(
@@ -70,13 +58,18 @@ public abstract class FillCommandMixin
 					ordinal = 1
 			)
 	)
-	private static ArgumentBuilder<CommandSourceStack, ?> registerSoftReplaceFillMode(ArgumentBuilder<CommandSourceStack, ?> node)
+	private static ArgumentBuilder<CommandSourceStack, ?> registerSoftReplaceFillMode(
+			ArgumentBuilder<CommandSourceStack, ?> node
+			//#if MC >= 1.19
+			//$$ , @Local(argsOnly = true) CommandBuildContext commandBuildContext
+			//#endif
+	)
 	{
 		FillSoftReplaceCommand.getInstance().extendCommand(
 				CommandTreeContext.of(
 						node
-						//#if MC >= 11900
-						//$$ , currentCommandBuildContext$TISCM
+						//#if MC >= 1.19
+						//$$ , commandBuildContext
 						//#endif
 				)
 		);
