@@ -18,16 +18,29 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.mobcapsLocal;
+package carpettisaddition.commands.spawn.mobcapsLocal;
 
-import carpettisaddition.utils.ModIds;
-import carpettisaddition.utils.compat.DummyClass;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import org.spongepowered.asm.mixin.Mixin;
+import carpettisaddition.commands.AbstractCommand;
+import carpettisaddition.commands.CommandExtender;
+import carpettisaddition.commands.CommandTreeContext;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.18"))
-@Mixin(DummyClass.class)
-public abstract class SpawnCommandMixin
+// a placeholder class, its implementation is in 1.18+
+public class SpawnMobcapsLocalCommand extends AbstractCommand implements CommandExtender
 {
+	private static final SpawnMobcapsLocalCommand INSTANCE = new SpawnMobcapsLocalCommand();
+
+	private SpawnMobcapsLocalCommand()
+	{
+		super("spawn.mobcapsLocal");
+	}
+
+	public static SpawnMobcapsLocalCommand getInstance()
+	{
+		return INSTANCE;
+	}
+
+	@Override
+	public void extendCommand(CommandTreeContext.Node context)
+	{
+	}
 }

@@ -24,8 +24,7 @@ import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.logging.loggers.mobcapsLocal.MobcapsLocalLogger;
-import carpettisaddition.mixins.command.mobcapsLocal.SpawnCommandAccessor;
-import carpettisaddition.translations.TranslationContext;
+import carpettisaddition.mixins.command.spawn.mobcapsLocal.SpawnCommandAccessor;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -36,16 +35,16 @@ import static net.minecraft.commands.arguments.EntityArgument.getPlayer;
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
 
-public class MobcapsLocalCommand extends AbstractCommand implements CommandExtender
+public class SpawnMobcapsLocalCommand extends AbstractCommand implements CommandExtender
 {
-	private static final MobcapsLocalCommand INSTANCE = new MobcapsLocalCommand();
+	private static final SpawnMobcapsLocalCommand INSTANCE = new SpawnMobcapsLocalCommand();
 
-	private MobcapsLocalCommand()
+	private SpawnMobcapsLocalCommand()
 	{
 		super("spawn.mobcapsLocal");
 	}
 
-	public static MobcapsLocalCommand getInstance()
+	public static SpawnMobcapsLocalCommand getInstance()
 	{
 		return INSTANCE;
 	}

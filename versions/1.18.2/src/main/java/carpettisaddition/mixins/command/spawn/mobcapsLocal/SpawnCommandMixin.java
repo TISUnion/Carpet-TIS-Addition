@@ -18,11 +18,11 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.mobcapsLocal;
+package carpettisaddition.mixins.command.spawn.mobcapsLocal;
 
 import carpet.commands.SpawnCommand;
 import carpettisaddition.commands.CommandTreeContext;
-import carpettisaddition.commands.spawn.mobcapsLocal.MobcapsLocalCommand;
+import carpettisaddition.commands.spawn.mobcapsLocal.SpawnMobcapsLocalCommand;
 import carpettisaddition.utils.ModIds;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
@@ -64,7 +64,7 @@ public abstract class SpawnCommandMixin
 	)
 	private static LiteralArgumentBuilder<CommandSourceStack> appendLocalArgumentOnSpawnMobcaps(LiteralArgumentBuilder<CommandSourceStack> rootNode)
 	{
-		MobcapsLocalCommand.getInstance().extendCommand(
+		SpawnMobcapsLocalCommand.getInstance().extendCommand(
 				CommandTreeContext.of(
 						rootNode
 						//#if MC >= 11900
