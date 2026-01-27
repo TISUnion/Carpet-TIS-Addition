@@ -67,6 +67,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+//#if MC >= 26.1
+//$$ import net.minecraft.core.component.DataComponents;
+//#endif
+
 //#if MC >= 11600
 //$$ import carpettisaddition.script.MicroTimingEvent;
 //$$ import com.google.common.collect.Sets;
@@ -487,8 +491,16 @@ public class MicroTimingLoggerManager
 				{
 					name = (BaseComponent)itemStack.getHoverName();
 				}
-				// server-side check will be in addMarker
-				MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, ((DyeItem)holdingItem).getDyeColor(), name);
+				//#if MC >= 26.1
+				//$$ DyeColor dyeColor = itemStack.get(DataComponents.DYE);
+				//#else
+				DyeColor dyeColor = ((DyeItem)holdingItem).getDyeColor();
+				//#endif
+				if (dyeColor != null)
+				{
+					// the server-side-only check will be in addMarker
+					MicroTimingMarkerManager.getInstance().addMarker(playerEntity, blockPos, dyeColor, name);
+				}
 				return true;
 			}
 			if (holdingItem == Items.SLIME_BALL)
