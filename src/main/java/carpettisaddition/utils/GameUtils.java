@@ -21,6 +21,10 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.utils.compat.DimensionWrapper;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -29,6 +33,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Objects;
 
 //#if MC >= 11700
@@ -57,6 +62,30 @@ public class GameUtils
 	public static Level getOverworld()
 	{
 		return getOverworld(CarpetTISAdditionServer.minecraft_server);
+	}
+
+	private static final List<DimensionWrapper> COMMON_DIMENSIONS = ImmutableList.of(DimensionWrapper.OVERWORLD, DimensionWrapper.THE_NETHER, DimensionWrapper.THE_END);
+
+	// list worlds in a nice and consistent order: overworld, the nether, the end
+	public static List<ServerLevel> listWorlds(MinecraftServer server)
+	{
+		List<ServerLevel> levels = Lists.newArrayList();
+		for (DimensionWrapper dimension : COMMON_DIMENSIONS)
+		{
+			ServerLevel level = server.getLevel(dimension.getValue());
+			if (level != null)
+			{
+				levels.add(level);
+			}
+		}
+		for (ServerLevel level : server.getAllLevels())
+		{
+			if (!COMMON_DIMENSIONS.contains(DimensionWrapper.of(level)))
+			{
+				levels.add(level);
+			}
+		}
+		return levels;
 	}
 
 	public static long getGameTime()

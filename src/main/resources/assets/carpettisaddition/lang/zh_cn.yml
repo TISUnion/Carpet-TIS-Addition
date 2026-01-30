@@ -565,6 +565,34 @@ carpettisaddition:
     spawn:
       mobcapsLocal:
         info: '玩家%1$s的局部怪物容量:'
+      natualSpawning:
+        unknown_enum.mob_catalogue: 未知的生物分类 %1$s
+        condition:
+          dimension_only: '维度: %s'
+          catalogue_only: '生物分类: %s'
+          dimension_and_catalogue: '维度: %s, 生物分类: %s'
+        show:
+          show: 正在列出自然刷怪开关状态%s
+          enabled: 启用
+          disabled: 禁用
+          all_dimension: 全维度
+          single.enabled: |-
+            当前状态: %s
+            点击以在%s中为%s分类禁用自然刷怪
+          single.disabled: |-
+            当前状态: %s
+            点击以在%s中为%s分类启用自然刷怪
+          catalogue.enabled: 点击以在所有维度中为%s分类禁用自然刷怪
+          catalogue.disabled: 点击以在所有维度中为%s分类启用自然刷怪
+          dimension.enabled: 点击以在%s中为所有生物分类禁用自然刷怪
+          dimension.disabled: 点击以在%s中为所有生物分类启用自然刷怪
+          all.enabled: 点击以在所有维度中为所有生物分类禁用自然刷怪
+          all.disabled: 点击以在所有维度中为所有生物分类启用自然刷怪
+        set:
+          done: 共修改了%2$s个自然刷怪开关状态，涉及%1$s个维度
+          show_after_set: 正在列出更新后的自然刷怪开关状态
+        resetAll:
+          done: 已重置所有自然刷怪开关状态，它们现在均已恢复正常 -- 自然刷怪已完全开启
     supplier_counter:
       counter_name: 供给计数器
       key_name: 物品
@@ -746,6 +774,15 @@ carpettisaddition:
       green: 绿色
       red: 红色
       black: 黑色
+    mob_category:
+      monster: 怪物
+      creature: 生物
+      ambient: 环境
+      axolotls: 美西螈
+      underground_water_creature: 地下水生生物
+      water_creature: 水生生物
+      water_ambient: 水生环境生物
+      misc: 其他
 
   misc:
     player_mount_anything_permission_denied: 只有OP玩家才被允许骑乘任意实体

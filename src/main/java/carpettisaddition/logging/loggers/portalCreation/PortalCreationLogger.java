@@ -82,7 +82,7 @@ public class PortalCreationLogger extends AbstractLogger
 			lines.add(pack(tr(
 					"created",
 					Messenger.formatting(Messenger.entity(entity), ChatFormatting.BOLD),
-					Messenger.dimensionColored(Messenger.coord(portalPos, DimensionWrapper.of(world)), DimensionWrapper.of(world)),
+					Messenger.setDimensionColor(Messenger.coord(portalPos, DimensionWrapper.of(world)), DimensionWrapper.of(world)),
 					Messenger.c(
 							Messenger.s(GameUtils.getGameTime(), "q"),
 							Messenger.s(" ", ChatFormatting.DARK_GRAY),

@@ -22,9 +22,13 @@ package carpettisaddition.utils;
 
 import carpettisaddition.mixins.utils.ServerCommandSourceAccessor;
 import carpettisaddition.utils.command.BuilderFactory;
+import carpettisaddition.utils.command.CommandSourceStackWithExtraContextArguments;
+import com.mojang.brigadier.SingleRedirectModifier;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.context.ParsedArgument;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.datafixers.util.Either;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
@@ -134,6 +138,23 @@ public class CommandUtils
 		//#endif
 	}
 
+	public static SingleRedirectModifier<CommandSourceStack> preservingRedirect()
+	{
+		return ctx -> {
+			CommandSourceStackWithExtraContextArguments sourceExtra = (CommandSourceStackWithExtraContextArguments)ctx.getSource();
+			return sourceExtra.createMerge$TISCM(ctx.getSource(), ctx);
+		};
+	}
+
+	public static SingleRedirectModifier<CommandSourceStack> preservingRedirectWithArg(String name, Object value)
+	{
+		return ctx -> {
+			CommandSourceStackWithExtraContextArguments sourceExtra = (CommandSourceStackWithExtraContextArguments)ctx.getSource();
+			sourceExtra.putExtraContextArgument$TISCM(name, new ParsedArgument<>(0, 0, value));
+			return sourceExtra.createMerge$TISCM(ctx.getSource(), ctx);
+		};
+	}
+
 	@FunctionalInterface
 	public interface ArgumentGetter<T>
 	{
@@ -175,16 +196,16 @@ public class CommandUtils
 	 * @return the corresponding enum, or Optional.empty() on invalid enum
 	 * @throws IllegalArgumentException on arg not found
 	 */
-	public static <T extends Enum<T>> Optional<T> getEnum(CommandContext<?> context, String argName, Class<T> enumClass)
+	public static <T extends Enum<T>> Either<T, String> getEnum(CommandContext<?> context, String argName, Class<T> enumClass)
 	{
 		String enumString = getString(context, argName);
 		try
 		{
-			return Optional.of(Enum.valueOf(enumClass, enumString.toUpperCase()));
+			return Either.left(Enum.valueOf(enumClass, enumString.toUpperCase()));
 		}
 		catch (IllegalArgumentException e)
 		{
-			return Optional.empty();
+			return Either.right(enumString);
 		}
 	}
 }

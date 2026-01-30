@@ -565,6 +565,34 @@ carpettisaddition:
     spawn:
       mobcapsLocal:
         info: 'Local mobcaps of player %1$s:'
+      natualSpawning:
+        unknown_enum.mob_catalogue: Unknown mob catalogue %1$s
+        condition:
+          dimension_only: 'Dimension: %s'
+          catalogue_only: 'Mob catalogue: %s'
+          dimension_and_catalogue: 'Dimension: %s, Mob catalogue: %s'
+        show:
+          show: Listing natual mob spawning states%s
+          enabled: Enabled
+          disabled: Disabled
+          all_dimension: All
+          single.enabled: |-
+            Current state: %s
+            Click to to disable natural spawning in %s for %s
+          single.disabled: |-
+            Current state: %s
+            Click to to enable natural spawning in %s for %s
+          catalogue.enabled: Click to disable natural spawning for %s in all dimensions
+          catalogue.disabled: Click to enable natural spawning for %s in all dimensions
+          dimension.enabled: Click to disable natural spawning for all mob catalogues in %s
+          dimension.disabled: Click to enable natural spawning for all mob catalogues in %s
+          all.enabled: Click to disable natural spawning for all mob catalogues in all dimensions
+          all.disabled: Click to enable natural spawning for all mob catalogues in all dimensions
+        set:
+          done: Changed %1$s mob spawning states in %2$s dimensions in total
+          show_after_set: Listing new natual mob spawning states
+        resetAll:
+          done: Reset all natual spawning states and they are now back to normal -- natual spawning enabled for all
     supplier_counter:
       counter_name: supplier counter
       key_name: item
@@ -746,6 +774,15 @@ carpettisaddition:
       green: green
       red: red
       black: black
+    mob_category:
+      monster: monster
+      creature: creature
+      ambient: ambient
+      axolotls: axolotls
+      underground_water_creature: underground water creature
+      water_creature: water creature
+      water_ambient: water ambient
+      misc: misc
 
   misc:
     player_mount_anything_permission_denied: Only OP players are allowed to mount anything

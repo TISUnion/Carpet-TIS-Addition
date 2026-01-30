@@ -23,11 +23,13 @@ package carpettisaddition.utils;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.mixins.utils.messenger.StyleAccessor;
 import carpettisaddition.mixins.utils.messenger.TranslatableTextAccessor;
+import carpettisaddition.translations.TISAdditionTranslations;
 import carpettisaddition.translations.Translator;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -56,6 +58,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+
+import static carpettisaddition.translations.TranslationConstants.DEFAULT_LANGUAGE;
 
 //#if MC >= 12105
 //$$ import java.net.URI;
@@ -461,18 +465,23 @@ public class Messenger
 			DimensionWrapper.THE_END, tr("advancements.end.root.title")
 	);
 
-	public static BaseComponent dimension(DimensionWrapper dim)
+	public static BaseComponent dimension(@NotNull DimensionWrapper dim)
 	{
 		BaseComponent dimText = DIMENSION_NAME.get(dim);
 		return dimText != null ? copy(dimText) : Messenger.s(dim.getIdentifierString());
 	}
 
-	public static BaseComponent dimensionColored(BaseComponent text, DimensionWrapper dimensionType)
+	public static BaseComponent dimensionColored(@NotNull DimensionWrapper dimensionType)
+	{
+		return formatting(dimension(dimensionType), getDimensionColor(dimensionType));
+	}
+
+	public static BaseComponent setDimensionColor(BaseComponent text, @NotNull DimensionWrapper dimensionType)
 	{
 		return formatting(text, getDimensionColor(dimensionType));
 	}
 	
-	public static ChatFormatting getDimensionColor(DimensionWrapper dimensionType)
+	public static ChatFormatting getDimensionColor(@NotNull DimensionWrapper dimensionType)
 	{
 		if (dimensionType.equals(DimensionWrapper.OVERWORLD))
 		{
@@ -569,6 +578,23 @@ public class Messenger
 	public static BaseComponent color(DyeColor color)
 	{
 		return translator.tr("color." + color.getName().toLowerCase());
+	}
+
+	public static BaseComponent mobCategory(MobCategory category)
+	{
+		//#if MC >= 1.19
+		//$$ MutableComponent text = translator.tr("mob_category." + category.getName().toLowerCase());
+		//$$ boolean hasTranslation = TISAdditionTranslations.getTranslationString(DEFAULT_LANGUAGE, ((TranslatableContents)text.getContents()).getKey()) != null;
+		//#else
+		TranslatableComponent text = (TranslatableComponent)translator.tr("mob_category." + category.getName().toLowerCase());
+		boolean hasTranslation = TISAdditionTranslations.getTranslationString(DEFAULT_LANGUAGE, text.getKey()) != null;
+		//#endif
+		return hasTranslation ? hover(text, s(category.getName())) : s(category.getName());
+	}
+
+	public static BaseComponent mobCategoryColored(MobCategory category)
+	{
+		return formatting(mobCategory(category), carpet.utils.Messenger.creatureTypeColor(category));
 	}
 
 	/*
