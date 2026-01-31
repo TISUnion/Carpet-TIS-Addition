@@ -93,8 +93,8 @@ public class SpawnNatualSpawningCommand extends AbstractCommand implements Comma
 
 		Command<CommandSourceStack> showCmd = c -> showNatualSpawningState(c.getSource(), new NatualSpawningUintCondition(c));
 		Command<CommandSourceStack> showCurrentCmd = c -> showNatualSpawningState(c.getSource(), new NatualSpawningUintCondition(c, DimensionWrapper.of(c.getSource().getLevel())));
-		Command<CommandSourceStack> setCmd = c -> setNatualSpawningState(c.getSource(), new NatualSpawningUintCondition(c), getBool(c, "shouldSpawn"), true);
-		Command<CommandSourceStack> setAndShowCmd = c -> setNatualSpawningState(c.getSource(), new NatualSpawningUintCondition(c), getBool(c, "shouldSpawn"), false);
+		Command<CommandSourceStack> setCmd = c -> setNatualSpawningState(c.getSource(), new NatualSpawningUintCondition(c), getBool(c, "shouldSpawn"), false);
+		Command<CommandSourceStack> setAndShowCmd = c -> setNatualSpawningState(c.getSource(), new NatualSpawningUintCondition(c), getBool(c, "shouldSpawn"), true);
 
 		LiteralCommandNode<CommandSourceStack> subcommandRoot = literal(NAME).build();
 		context.node.then(subcommandRoot);
@@ -262,7 +262,7 @@ public class SpawnNatualSpawningCommand extends AbstractCommand implements Comma
 				continue;
 			}
 
-			BaseComponent mct = Messenger.mobCategory(mobCategory);
+			BaseComponent mct = Messenger.mobCategoryShort(mobCategory);
 
 			boolean spawnEnableForThis = dimension != null
 					? this.shouldSpawn(dimension, mobCategory)

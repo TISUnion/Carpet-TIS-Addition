@@ -783,6 +783,15 @@ carpettisaddition:
       water_creature: 水生生物
       water_ambient: 水生环境生物
       misc: 其他
+    mob_category_short:
+      monster: 怪物
+      creature: 生物
+      ambient: 环境
+      axolotls: 美西螈
+      underground_water_creature: 地下水生生物
+      water_creature: 水生生物
+      water_ambient: 水生环境生物
+      misc: 其他
 
   misc:
     player_mount_anything_permission_denied: 只有OP玩家才被允许骑乘任意实体

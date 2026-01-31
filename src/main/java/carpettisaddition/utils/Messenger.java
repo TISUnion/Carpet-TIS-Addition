@@ -582,19 +582,26 @@ public class Messenger
 
 	public static BaseComponent mobCategory(MobCategory category)
 	{
-		//#if MC >= 1.19
-		//$$ MutableComponent text = translator.tr("mob_category." + category.getName().toLowerCase());
-		//$$ boolean hasTranslation = TISAdditionTranslations.getTranslationString(DEFAULT_LANGUAGE, ((TranslatableContents)text.getContents()).getKey()) != null;
-		//#else
-		TranslatableComponent text = (TranslatableComponent)translator.tr("mob_category." + category.getName().toLowerCase());
-		boolean hasTranslation = TISAdditionTranslations.getTranslationString(DEFAULT_LANGUAGE, text.getKey()) != null;
-		//#endif
+		BaseComponent text = translator.tr("mob_category." + category.getName().toLowerCase());
+		boolean hasTranslation = TISAdditionTranslations.hasTranslation(text);
 		return hasTranslation ? hover(text, s(category.getName())) : s(category.getName());
 	}
 
 	public static BaseComponent mobCategoryColored(MobCategory category)
 	{
 		return formatting(mobCategory(category), carpet.utils.Messenger.creatureTypeColor(category));
+	}
+
+	public static BaseComponent mobCategoryShort(MobCategory category)
+	{
+		BaseComponent text = translator.tr("mob_category_short." + category.getName().toLowerCase());
+		boolean hasTranslation = TISAdditionTranslations.hasTranslation(text);
+		return hasTranslation ? hover(text, s(category.getName())) : s(category.getName());
+	}
+
+	public static BaseComponent mobCategoryShortColored(MobCategory category)
+	{
+		return formatting(mobCategoryShort(category), carpet.utils.Messenger.creatureTypeColor(category));
 	}
 
 	/*

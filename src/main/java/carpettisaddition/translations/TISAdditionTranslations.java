@@ -88,6 +88,21 @@ public class TISAdditionTranslations
 		return getTranslations(lang.toLowerCase()).get(key);
 	}
 
+	public static boolean hasTranslation(String key)
+	{
+		return getTranslationString(DEFAULT_LANGUAGE, key) != null;
+	}
+
+	// please ensure that this text is a TranslatableComponent
+	public static boolean hasTranslation(BaseComponent text)
+	{
+		//#if MC >= 1.19
+		//$$ return hasTranslation(((TranslatableContents)text.getContents()).getKey());
+		//#else
+		return hasTranslation(((TranslatableComponent)text).getKey());
+		//#endif
+	}
+
 	public static BaseComponent translate(BaseComponent text, String lang)
 	{
 		return translateText(text, lang);

@@ -783,6 +783,15 @@ carpettisaddition:
       water_creature: water creature
       water_ambient: water ambient
       misc: misc
+    mob_category_short:
+      monster: monster
+      creature: creature
+      ambient: ambient
+      axolotls: axolotls
+      underground_water_creature: uw_creature
+      water_creature: w_creature
+      water_ambient: w_ambient
+      misc: misc
 
   misc:
     player_mount_anything_permission_denied: Only OP players are allowed to mount anything
