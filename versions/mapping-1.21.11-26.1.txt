@@ -1,3 +1,4 @@
 net.minecraft.world.entity.Entity getTags() entityTags()
 net.minecraft.world.entity.animal.dolphin.Dolphin$PlayWithItemsGoal field_6757 this$0
 net.minecraft.world.level.block.FarmBlock net.minecraft.world.level.block.FarmlandBlock
+net.minecraft.world.level.dimension.end.EndDragonFight net.minecraft.world.level.dimension.end.EnderDragonFight

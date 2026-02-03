@@ -24,15 +24,24 @@ import net.minecraft.world.entity.npc.WanderingTraderSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
+//#if MC >= 26.1
+//$$ import net.minecraft.world.level.saveddata.WanderingTraderData;
+//#endif
+
 @Mixin(WanderingTraderSpawner.class)
 public interface WanderingTraderSpawnerAccessor
 {
 	@Accessor("tickDelay")
 	int getTickDelay$TISCM();
 
+	//#if MC >= 26.1
+	//$$ @Accessor("traderData")
+	//$$ WanderingTraderData getTraderDataDirectly$TISCM();
+	//#else
 	@Accessor("spawnDelay")
 	int getSpawnDelay$TISCM();
 
 	@Accessor("spawnChance")
 	int getSpawnChance$TISCM();
+	//#endif
 }

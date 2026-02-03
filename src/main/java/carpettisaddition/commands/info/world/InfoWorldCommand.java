@@ -93,7 +93,9 @@ public class InfoWorldCommand extends InfoSubcommand
 	{
 		ServerLevel world = source.getLevel();
 
-		//#if MC >= 11600
+		//#if MC >= 26.1
+		//$$ var worldInfo = world.getWeatherData();
+		//#elseif MC >= 1.16
 		//$$ ServerLevelData worldInfo = (ServerLevelData)world.getLevelData();
 		//#else
 		LevelData worldInfo = world.getLevelData();

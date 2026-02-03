@@ -41,6 +41,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
+//#if MC >= 26.1
+//$$ import net.minecraft.world.level.saveddata.WanderingTraderData;
+//$$ import java.util.Optional;
+//#endif
+
 public class WanderingTraderLogger extends AbstractHUDLogger
 {
 	public static final String NAME = "wanderingTrader";
@@ -111,8 +116,13 @@ public class WanderingTraderLogger extends AbstractHUDLogger
 		WanderingTraderSpawnerAccessor accessor = (WanderingTraderSpawnerAccessor)spawner;
 
 		final int tickDelay = accessor.getTickDelay$TISCM();
+		//#if MC >= 26.1
+		//$$ final int spawnDelay = Optional.ofNullable(accessor.getTraderDataDirectly$TISCM()).map(WanderingTraderData::spawnDelay).orElse(0);
+		//$$ final int spawnChance = Optional.ofNullable(accessor.getTraderDataDirectly$TISCM()).map(WanderingTraderData::spawnChance).orElse(0);
+		//#else
 		final int spawnDelay = accessor.getSpawnDelay$TISCM();
 		final int spawnChance = accessor.getSpawnChance$TISCM();
+		//#endif
 
 		final int TICK_CYCLE = 24000;
 		int ticksUntilSpawn = spawnDelay - (1200 - tickDelay);
