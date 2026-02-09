@@ -31,7 +31,6 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.caffeinemc.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper;
 import net.caffeinemc.mods.lithium.common.util.collections.LazyList;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
@@ -48,6 +47,12 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.util.Collections;
+
+//#if MC >= 1.21.11
+//$$ import net.caffeinemc.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeperVoxelShape;
+//#else
+import net.caffeinemc.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper;
+//#endif
 
 /**
  * mc1.14 ~ mc1.17.x: subproject 1.15.2 (main project)
@@ -131,7 +136,12 @@ public abstract class EntityMixin
 			var newList = OFEMUtil.getAxisOnlyBlockCollision(ctx, (world, entity, box) -> {
 				// ref: me.jellysquid.mods.lithium.mixin.entity.collisions.movement.EntityMixin#lithium$CollideMovement
 				// Don't need hide the last collision here, cuz the collision order with rule on is already not that vanilla XD
-				var blockCollisionSweeper = new ChunkAwareBlockCollisionSweeper(world, entity, box, false);
+				var blockCollisionSweeper =
+						//#if MC >= 1.21.11
+						//$$ new ChunkAwareBlockCollisionSweeperVoxelShape(world, entity, box, false);
+						//#else
+						new ChunkAwareBlockCollisionSweeper(world, entity, box, false);
+						//#endif
 				return new LazyList<>(Lists.newArrayList(), blockCollisionSweeper);
 			});
 			args.set(2, newList);
