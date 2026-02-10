@@ -540,6 +540,10 @@ Statistics are grouped by the XP amount of XP orbs
 `/scounter <color> reset`: Reset specified supplier counter
 
 
+---
+
+The commands below are extended from fabric-carpet's own commands
+
 ## spawn
 
 ### mobcapsLocal
@@ -553,6 +557,43 @@ Display the local mobcap of the specified player in format like carpet's `/spawn
 If no player is specified, it will display the local mobcap of the command source
 
 See also: [tickWarp logger](loggers.md#mobcapslocal)
+
+
+### natualSpawning
+
+Switch on / off the natural mob spawning with dimension / mob catalogue grained control
+
+- natural spawning enabled: mob will spawn
+- natural spawning disabled: mob will not spawn
+
+```
+/spawn natualSpawning [at <dimension>] [for <catalogue>] [show] [set <value> [--show]] [resetAll]
+```
+
+![spawnNaturalSpawning](images/command/spawnNaturalSpawning.png)
+
+Commands:
+
+- `show`: Show the current natural spawning status. You can click the printed states to toggle it
+- `set <value> [--show]`: Set the natural spawning status to the given value. `value` can be `true` or `false`, respectively representing enabling and disabling.
+  With `--show`, the new status will be shown after setting
+- `resetAll`: Reset all natural spawning status to default state – enabled
+
+Optional condition arguments:
+
+- `at <dimension>`: Specify the dimension to change the natural spawning state. Available options:
+  - `current`: The dimension of the command source
+  - `minecraft:overworld`: The Overworld
+  - `minecraft:the_nether`: The Nether
+  - `minecraft:the_end`: The End
+- `for <catalogue>`: Specify the mob catalogue change the natural spawning state. Possible options:
+  - `monster`: Monster
+  - `creature`: Creature
+  - `ambient`: Ambient creature (bat)
+  - `axolotls`: Axolotls
+  - `underground_water_creature`: Underground water creature (glow squid)
+  - `water_creature`: Water creature
+  - `water_ambient`: Water ambient creature (fish)
 
 
 ## tick

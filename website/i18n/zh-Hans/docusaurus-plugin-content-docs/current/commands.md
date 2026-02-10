@@ -540,6 +540,10 @@ json 字段说明如下：
 `/xcounter <color> reset`: 重置指定经验计数器
 
 
+---
+
+下面的命令均为对 fabric-carpet 新增命令的额外拓展
+
 ## spawn
 
 ### mobcapsLocal
@@ -553,6 +557,43 @@ json 字段说明如下：
 若未指定玩家，则它将显示指令源的局部怪物容量
 
 另见: [mobcapslocal记录器](loggers.md#局部怪物容量-mobcapslocal)
+
+
+### natualSpawning
+
+控制开关自然刷怪状态，支持以以维度/生物分类为粒度进行操控
+
+- 自然刷怪开启：生物会生成
+- 自然刷怪关闭：生物不会生成，也即伪和平开启
+
+```
+/spawn natualSpawning [at <dimension>] [for <catalogue>] [show] [set <value> [--show]] [resetAll]
+```
+
+![spawnNaturalSpawning](images/command/spawnNaturalSpawning.png)
+
+命令：
+
+- `show`: 显示当前的自然刷怪开关状态。可通过点击输出的内容来切换其状态
+- `set <value> [--show]`: 将自然刷怪的开关状态设置为给定值，`value` 可为 `true` 或 `false`，分别代表开启和关闭。
+  带 `--show` 参数时，会再设置后显示新的状态
+- `resetAll`: 将所有自然刷怪的开关状态重置为默认状态 – 启用自然刷怪
+
+可选条件参数：
+
+- `at <dimension>`: 指定要设置自然刷怪开关状态的维度。可选取值如下：
+  - `current`：命令源所在维度
+  - `minecraft:overworld`：主世界
+  - `minecraft:the_nether`：地狱
+  - `minecraft:the_end`：末地
+- `for <catalogue>`: 指定要设置自然刷怪开关状态的生物分类。可能的取值如下：
+  - `monster`：怪物
+  - `creature`：动物
+  - `ambient`：环境生物（蝙蝠）
+  - `axolotls`：美西螈
+  - `underground_water_creature`：地下水生生物（发光鱿鱼）
+  - `water_creature`：水生生物
+  - `water_ambient`：水生环境生物（各种小鱼）
 
 
 ## tick
