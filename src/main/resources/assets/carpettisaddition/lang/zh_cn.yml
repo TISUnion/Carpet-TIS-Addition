@@ -589,7 +589,7 @@ carpettisaddition:
           all.enabled: 点击以在所有维度中为所有生物分类禁用自然刷怪
           all.disabled: 点击以在所有维度中为所有生物分类启用自然刷怪
         set:
-          done: 共修改了%2$s个自然刷怪开关状态，涉及%1$s个维度
+          done: 共修改了%1$s个自然刷怪开关状态，涉及%2$s个维度
           show_after_set: 正在列出更新后的自然刷怪开关状态
         resetAll:
           done: 已重置所有自然刷怪开关状态，它们现在均已恢复正常 -- 自然刷怪已完全开启

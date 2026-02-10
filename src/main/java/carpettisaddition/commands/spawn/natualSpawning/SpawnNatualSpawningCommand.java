@@ -381,7 +381,8 @@ public class SpawnNatualSpawningCommand extends AbstractCommand implements Comma
 			{
 				continue;
 			}
-			affectedDimensionCount++;
+
+			boolean dimensionAffected = false;
 
 			for (MobCategory mobCategory : SPAWNING_MOB_CATEGORIES)
 			{
@@ -400,18 +401,31 @@ public class SpawnNatualSpawningCommand extends AbstractCommand implements Comma
 					this.natualSpawningDisabled.add(unit);
 				}
 
-				affectedategoryCount++;
-				valueChanges.add(Messenger.format(
-						"%s %s: %s -> %s",
-						Messenger.dimension(dimension),
-						Messenger.mobCategoryColored(mobCategory),
-						Messenger.bool(wasSpawningEnabled),
-						Messenger.bool(shouldSpawn)
-				));
+				if (shouldSpawn != wasSpawningEnabled)
+				{
+					dimensionAffected = true;
+					affectedategoryCount++;
+					valueChanges.add(Messenger.format(
+							"%s %s: %s -> %s",
+							Messenger.dimension(dimension),
+							Messenger.mobCategoryColored(mobCategory),
+							Messenger.bool(wasSpawningEnabled),
+							Messenger.bool(shouldSpawn)
+					));
+				}
+			}
+
+			if (dimensionAffected)
+			{
+				affectedDimensionCount++;
 			}
 		}
 		Messenger.tell(source, Messenger.s(""));
-		Messenger.tell(source, tr("set.done", Messenger.s(affectedDimensionCount, ChatFormatting.GOLD), Messenger.s(affectedategoryCount, ChatFormatting.YELLOW)));
+		Messenger.tell(source, tr(
+				"set.done",
+				Messenger.s(affectedategoryCount, ChatFormatting.YELLOW),
+				Messenger.s(affectedDimensionCount, ChatFormatting.GOLD)
+		));
 		for (BaseComponent text : valueChanges)
 		{
 			Messenger.tell(source, Messenger.c(Messenger.s("- ", ChatFormatting.DARK_GRAY), text));
