@@ -1,0 +1,1461 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-rules" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.1">
+<title data-rh="true">规则 | Carpet TIS Addition</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://carpet.tis.world/zh-Hans/docs/rules"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="规则 | Carpet TIS Addition"><meta data-rh="true" name="description" content="禁用反刷屏监测 (antiSpamDisabled)"><meta data-rh="true" property="og:description" content="禁用反刷屏监测 (antiSpamDisabled)"><link data-rh="true" rel="icon" href="/zh-Hans/img/icon.png"><link data-rh="true" rel="canonical" href="https://carpet.tis.world/zh-Hans/docs/rules"><link data-rh="true" rel="alternate" href="https://carpet.tis.world/docs/rules" hreflang="en"><link data-rh="true" rel="alternate" href="https://carpet.tis.world/zh-Hans/docs/rules" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://carpet.tis.world/docs/rules" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://QTOCT8J8BF-dsn.algolia.net" crossorigin="anonymous"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"规则","item":"https://carpet.tis.world/zh-Hans/docs/rules"}]}</script><link rel="alternate" type="application/rss+xml" href="/zh-Hans/posts/rss.xml" title="Carpet TIS Addition RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/zh-Hans/posts/atom.xml" title="Carpet TIS Addition Atom Feed">
+
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" title="Carpet TIS Addition" href="/zh-Hans/opensearch.xml">
+<link rel="preconnect" href="https://umami.fallenbreath.me">
+<script async defer="defer" src="https://umami.fallenbreath.me/script.js" data-website-id="8f313322-46d9-411f-8435-fedd3cfec0b8" data-auto-track="true" data-do-not-track="false" data-cache="false" data-domains="carpet.tis.world" data-exclude-search="false" data-exclude-hash="false"></script><link rel="stylesheet" href="/zh-Hans/assets/css/styles.0fdcc107.css">
+<script src="/zh-Hans/assets/js/runtime~main.8e0298fd.js" defer="defer"></script>
+<script src="/zh-Hans/assets/js/main.5133b214.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/zh-Hans/"><div class="navbar__logo"><img src="/zh-Hans/img/icon.png" alt="Carpet TIS Addition Icon" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/zh-Hans/img/icon.png" alt="Carpet TIS Addition Icon" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Carpet TIS Addition</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/zh-Hans/docs">文档</a><a class="navbar__item navbar__link" href="/zh-Hans/posts">文章</a><a class="navbar__item navbar__link" href="/zh-Hans/eol">EOL</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbarSearchContainer_Bca1"><button type="button" class="DocSearch DocSearch-Button" aria-label="搜索 (Meta+k)" aria-keyshortcuts="Meta+k"><span class="DocSearch-Button-Container"><svg width="20" height="20" class="DocSearch-Search-Icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8" stroke="currentColor" fill="none" stroke-width="1.4"></circle><path d="m21 21-4.3-4.3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="DocSearch-Button-Placeholder">搜索</span></span><span class="DocSearch-Button-Keys"></span></button></div><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" class="iconLanguage_nlXk"><path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"></path></svg>简体中文</a><ul class="dropdown__menu"><li><a href="/docs/rules" target="_self" rel="noopener noreferrer" class="dropdown__link" lang="en">English</a></li><li><a href="/zh-Hans/docs/rules" target="_self" rel="noopener noreferrer" class="dropdown__link dropdown__link--active" lang="zh-Hans">简体中文</a></li></ul></div><a href="https://github.com/TISUnion/Carpet-TIS-Addition" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link header-github-link" aria-label="GitHub repository"></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh-Hans/docs"><span title="介绍" class="linkLabel_WmDU">介绍</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/zh-Hans/docs/rules"><span title="规则" class="linkLabel_WmDU">规则</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh-Hans/docs/loggers"><span title="记录器" class="linkLabel_WmDU">记录器</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh-Hans/docs/commands"><span title="指令" class="linkLabel_WmDU">指令</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh-Hans/docs/misc"><span title="杂项" class="linkLabel_WmDU">杂项</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh-Hans/docs/development"><span title="开发" class="linkLabel_WmDU">开发</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/zh-Hans/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">规则</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>规则</h1></header>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用反刷屏监测-antispamdisabled">禁用反刷屏监测 (antiSpamDisabled)<a href="#禁用反刷屏监测-antispamdisabled" class="hash-link" aria-label="禁用反刷屏监测 (antiSpamDisabled)的直接链接" title="禁用反刷屏监测 (antiSpamDisabled)的直接链接" translate="no">​</a></h2>
+<p>禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code>, <code>SURVIVAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="方块事件广播范围-blockeventpacketrange">方块事件广播范围 (blockEventPacketRange)<a href="#方块事件广播范围-blockeventpacketrange" class="hash-link" aria-label="方块事件广播范围 (blockEventPacketRange)的直接链接" title="方块事件广播范围 (blockEventPacketRange)的直接链接" translate="no">​</a></h2>
+<p>设置会在方块事件成功执行后收到数据包的玩家范围</p>
+<p>对于活塞而言，这一个数据包用于显示活塞的运动。把这个值调小以减小客户端卡顿</p>
+<ul>
+<li>类型: <code>double</code></li>
+<li>默认值: <code>64</code></li>
+<li>参考选项: <code>0</code>, <code>16</code>, <code>64</code>, <code>128</code></li>
+<li>分类: <code>TIS</code>, <code>OPTIMIZATION</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="方块放置忽略实体-blockplacementignoreentity">方块放置忽略实体 (blockPlacementIgnoreEntity)<a href="#方块放置忽略实体-blockplacementignoreentity" class="hash-link" aria-label="方块放置忽略实体 (blockPlacementIgnoreEntity)的直接链接" title="方块放置忽略实体 (blockPlacementIgnoreEntity)的直接链接" translate="no">​</a></h2>
+<p>方块可放置时无视实体碰撞检测，也就是你可以将方块放在实体内</p>
+<p>仅对创造模式玩家有效</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用繁殖冷却-breedingcooldowndisabled">禁用繁殖冷却 (breedingCooldownDisabled)<a href="#禁用繁殖冷却-breedingcooldowndisabled" class="hash-link" aria-label="禁用繁殖冷却 (breedingCooldownDisabled)的直接链接" title="禁用繁殖冷却 (breedingCooldownDisabled)的直接链接" translate="no">​</a></h2>
+<p>移除所有生物的繁殖冷却时间</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="炼药锅方块类物品交互修复-cauldronblockiteminteractfix">炼药锅方块类物品交互修复 (cauldronBlockItemInteractFix)<a href="#炼药锅方块类物品交互修复-cauldronblockiteminteractfix" class="hash-link" aria-label="炼药锅方块类物品交互修复 (cauldronBlockItemInteractFix)的直接链接" title="炼药锅方块类物品交互修复 (cauldronBlockItemInteractFix)的直接链接" translate="no">​</a></h2>
+<p>让玩家可以对着填充有水的炼药锅放置方块</p>
+<p>仅对 Minecraft &lt;= 1.16.x 有效。这个烦人的机制已经在 1.17+ 中被修复了</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="聊天信息长度上限解锁-chatmessagelengthlimitunlocked">聊天信息长度上限解锁 (chatMessageLengthLimitUnlocked)<a href="#聊天信息长度上限解锁-chatmessagelengthlimitunlocked" class="hash-link" aria-label="聊天信息长度上限解锁 (chatMessageLengthLimitUnlocked)的直接链接" title="聊天信息长度上限解锁 (chatMessageLengthLimitUnlocked)的直接链接" translate="no">​</a></h2>
+<p>解锁在聊天信息 / 聊天栏指令串的长度限制</p>
+<p>长度限制将从 <code>256</code> 提升至 <code>32000</code></p>
+<p>需要在客户端中安装 Carpet TIS Addition 模组</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CLIENT</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="区块更新数据包阈值-chunkupdatepacketthreshold">区块更新数据包阈值 (chunkUpdatePacketThreshold)<a href="#区块更新数据包阈值-chunkupdatepacketthreshold" class="hash-link" aria-label="区块更新数据包阈值 (chunkUpdatePacketThreshold)的直接链接" title="区块更新数据包阈值 (chunkUpdatePacketThreshold)的直接链接" translate="no">​</a></h2>
+<p>如果方块变化的数量大于这个阈值，则游戏将仅发送区块更新数据包而非若干个方块变更数据包</p>
+<p>增加该数值或许可以减小网络带宽用量，并在子区段同时存在不少方块实体与方块变化时提升客户端的帧数</p>
+<p>将其设为非常高以模拟1.16+的表现，也就是不存在区块更新数据包，仅有多个方块变更数据包</p>
+<p>该规则仅于1.16前的版本有效</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>64</code></li>
+<li>参考选项: <code>64</code>, <code>4096</code>, <code>65536</code></li>
+<li>分类: <code>TIS</code>, <code>OPTIMIZATION</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="区块刻速度-chunktickspeed">区块刻速度 (chunkTickSpeed)<a href="#区块刻速度-chunktickspeed" class="hash-link" aria-label="区块刻速度 (chunkTickSpeed)的直接链接" title="区块刻速度 (chunkTickSpeed)的直接链接" translate="no">​</a></h2>
+<p>修改每游戏刻每区块的区块刻运算的频率</p>
+<p>默认值为 <code>1</code>。将其设为 <code>0</code> 以禁用区块刻</p>
+<p>受影响的游戏阶段：</p>
+<ul>
+<li>雷电</li>
+<li>结冰与积雪</li>
+<li>随机刻</li>
+</ul>
+<p>在值为 <code>n</code> 时，每游戏刻每区块，气候相关的阶段会发生 <code>n</code> 次，而随机刻会在每区段中发生 <code>n</code> * <code>randomTickSpeed</code> 次</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>1</code></li>
+<li>参考选项: <code>0</code>, <code>1</code>, <code>10</code>, <code>100</code>, <code>1000</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="玩家重生丢失客户端设置数据修复-clientsettingslostonrespawnfix">玩家重生丢失客户端设置数据修复 (clientSettingsLostOnRespawnFix)<a href="#玩家重生丢失客户端设置数据修复-clientsettingslostonrespawnfix" class="hash-link" aria-label="玩家重生丢失客户端设置数据修复 (clientSettingsLostOnRespawnFix)的直接链接" title="玩家重生丢失客户端设置数据修复 (clientSettingsLostOnRespawnFix)的直接链接" translate="no">​</a></h2>
+<p>修复在玩家重生或从末地进入末地门时，新创建的玩家实体未迁移旧玩家实体中储存着的客户端设置的问题</p>
+<p>因此依赖客户端设置数据的模组总能正常的工作，如本模组以及worldedit模组的服务端翻译</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>BUGFIX</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="存活时间追踪器-commandlifetime">存活时间追踪器 (commandLifeTime)<a href="#存活时间追踪器-commandlifetime" class="hash-link" aria-label="存活时间追踪器 (commandLifeTime)的直接链接" title="存活时间追踪器 (commandLifeTime)的直接链接" translate="no">​</a></h2>
+<p>启用 <code>/lifetime</code> 命令用于追踪生物存活时间等信息</p>
+<p>可助于调试刷怪塔等</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选  项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="世界控制命令开关-commandmanipulate">世界控制命令开关 (commandManipulate)<a href="#世界控制命令开关-commandmanipulate" class="hash-link" aria-label="世界控制命令开关 (commandManipulate)的直接链接" title="世界控制命令开关 (commandManipulate)的直接链接" translate="no">​</a></h2>
+<p>启用 <code>/manipulate</code> 命令用于控制世界</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="玩家动作包pertick模式开关-commandplayeractionpertick">玩家动作包perTick模式开关 (commandPlayerActionPerTick)<a href="#玩家动作包pertick模式开关-commandplayeractionpertick" class="hash-link" aria-label="玩家动作包perTick模式开关 (commandPlayerActionPerTick)的直接链接" title="玩家动作包perTick模式开关 (commandPlayerActionPerTick)的直接链接" translate="no">​</a></h2>
+<p>启用 <code>/player &lt;name&gt; &lt;action&gt;</code> 命令的“perTick”动作模式</p>
+<p>该规则默认关闭，因为“perTick”的表现已经超出了原版可能的范畴：原版客户端无法在单游戏刻内执行多个动作输入</p>
+<p>不过你仍可以通过该选项启用“perTick”动作模式，或限制其仅允许管理员玩家使用</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="袭击追踪器-commandraid">袭击追踪器 (commandRaid)<a href="#袭击追踪器-commandraid" class="hash-link" aria-label="袭击追踪器 (commandRaid)的直接链接" title="袭击追踪器 (commandRaid)的直接链接" translate="no">​</a></h2>
+<p>启用 <code>/raid</code> 命令用于列出或追踪袭击信息</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="刷新命令开关-commandrefresh">刷新命令开关 (commandRefresh)<a href="#刷新命令开关-commandrefresh" class="hash-link" aria-label="刷新命令开关 (commandRefresh)的直接链接" title="刷新命令开关 (commandRefresh)的直接链接" translate="no">​</a></h2>
+<p>启用 <code>/refresh</code> 命令让你的客户端与服务端保持同步</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="射线追踪命令开关-commandraycast">射线追踪命令开关 (commandRaycast)<a href="#射线追踪命令开关-commandraycast" class="hash-link" aria-label="射线追踪命令开关 (commandRaycast)的直接链接" title="射线追踪命令开关 (commandRaycast)的直接链接" translate="no">​</a></h2>
+<p>启用 <code>/raycast</code> 命令用于分析射线追踪</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>ops</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="移除实体命令开关-commandremoveentity">移除实体命令开关 (commandRemoveEntity)<a href="#移除实体命令开关-commandremoveentity" class="hash-link" aria-label="移除实体命令开关 (commandRemoveEntity)的直接链接" title="移除实体命令开关 (commandRemoveEntity)的直接链接" translate="no">​</a></h2>
+<p>启用 <code>/removeentity</code> 命令用于直接在世界中抹除目标实体</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>ops</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="睡眠命令开关-commandsleep">睡眠命令开关 (commandSleep)<a href="#睡眠命令开关-commandsleep" class="hash-link" aria-label="睡眠命令开关 (commandSleep)的直接链接" title="睡眠命令开关 (commandSleep)的直接链接" translate="no">​</a></h2>
+<p>启用 <code>/sleep</code> 命令用于制造卡顿</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>ops</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="网络测速指令开关-commandspeedtest">网络测速指令开关 (commandSpeedTest)<a href="#网络测速指令开关-commandspeedtest" class="hash-link" aria-label="网络测速指令开关 (commandSpeedTest)的直接链接" title="网络测速指令开关 (commandSpeedTest)的直接链  接" translate="no">​</a></h2>
+<p>启用 <code>/speedtest</code> 命令用于网络速度测试</p>
+<p>可以使用选项 <a href="#%E6%B5%8B%E9%80%9F%E6%8C%87%E4%BB%A4%E6%9C%80%E5%A4%A7%E6%B5%8B%E8%AF%95%E5%A4%A7%E5%B0%8F-speedtestcommandmaxtestsize">speedTestCommandMaxTestSize</a> 来调整最大允许的测试大小</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>ops</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code>, <code>TISCM_PROTOCOL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="创造模式瞬间驯服动物-creativeinstanttame">创造模式瞬间驯服动物 (creativeInstantTame)<a href="#创造模式瞬间驯服动物-creativeinstanttame" class="hash-link" aria-label="创造模式瞬间驯服动物 (creativeInstantTame)的直接链接" title="创造模式瞬间驯服动物 (creativeInstantTame)的直接链接" translate="no">​</a></h2>
+<p>让创造模式的玩家可以瞬间驯服各种动物</p>
+<p>影响范围：猫、狼、鹦鹉、驯服行为类似马的所有动物</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="创造玩家地狱放水-creativenetherwaterplacement">创造玩家地狱放水 (creativeNetherWaterPlacement)<a href="#创造玩家地狱放水-creativenetherwaterplacement" class="hash-link" aria-label="创造玩家地狱放水 (creativeNetherWaterPlacement)的直接链接" title="创造玩家地狱放水 (creativeNetherWaterPlacement)的直接链接" translate="no">​</a></h2>
+<p>允许创造模式的玩家在地狱通过水桶放出水</p>
+<p>技术上来讲，本条规则对所有 ultrawarm 的维度都生效</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li> 默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="创造玩家无物品冷却-creativenoitemcooldown">创造玩家无物品冷却 (creativeNoItemCooldown)<a href="#创造玩家无物品冷却-creativenoitemcooldown" class="hash-link" aria-label="创造玩家无物品冷却 (creativeNoItemCooldown)的直接链接" title="创造玩家无物品冷却 (creativeNoItemCooldown)的直接链接" translate="no">​</a></h2>
+<p>取消创造模式玩家的任何物品使用冷却</p>
+<p>例如使用末影珍珠的 20gt 冷却</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="创造玩家强制打开容器-creativeopencontainerforcibly">创造玩家强制打开容器 (creativeOpenContainerForcibly)<a href="#创造玩家强制打开容器-creativeopencontainerforcibly" class="hash-link" aria-label="创造玩家强制打开容器 (creativeOpenContainerForcibly)的直接链接" title="创造玩家强制打开容器 (creativeOpenContainerForcibly)的直接链接" translate="no">​</a></h2>
+<p>允许创造模式的玩家打开被阻挡的容器，如潜影盒</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="nbt调试拉取请求无需权限-debugnbtquerynopermission">NBT调试拉取请求无需权限 (debugNbtQueryNoPermission)<a href="#nbt调试拉取请求无需权限-debugnbtquerynopermission" class="hash-link" aria-label="NBT调试拉取请求无需权限 (debugNbtQueryNoPermission)的直接链接" title="NBT调试拉取请求无需权限 (debugNbtQueryNoPermission)的直接链接" translate="no">​</a></h2>
+<p>让客户端 F3 + I 操作所触发的调试请求无需任何权限等级需求</p>
+<p>在原版中，该操作需要权限等级至少为 2</p>
+<p>需要在客户端中安装 Carpet TIS Addition 模组</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CLIENT</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="反混淆崩溃报告堆栈追踪-deobfuscatecrashreportstacktrace">反混淆崩溃报告堆栈追踪 (deobfuscateCrashReportStackTrace)<a href="#反混淆崩溃报告堆栈追踪-deobfuscatecrashreportstacktrace" class="hash-link" aria-label="反混淆崩溃报告堆栈追踪 (deobfuscateCrashReportStackTrace)的直接链接" title="反混淆崩溃报告堆栈追踪 (deobfuscateCrashReportStackTrace)的直接链接" translate="no">​</a></h2>
+<p>反混淆崩溃报告中输出的堆栈追踪</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="发射器不消耗物品-dispensernoitemcost">发射器不消耗物品 (dispenserNoItemCost)<a href="#发射器不消耗物品-dispensernoitemcost" class="hash-link" aria-label="发射器不消耗物品 (dispenserNoItemCost)的直接链接" title="发射器不消耗物品 (dispenserNoItemCost)的直接链接" translate="no">​</a></h2>
+<p>开启后，发射器和投掷器被激活时不再消耗物品</p>
+<p>无论投掷物品还是使用物品都如此，但是投掷器传输物品仍会消耗物品</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>DISPENSER</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="发射器发射龙息-dispensersfiredragonbreath">发射器发射龙息 (dispensersFireDragonBreath)<a href="#发射器发射龙息-dispensersfiredragonbreath" class="hash-link" aria-label="发射器发射龙息 (dispensersFireDragonBreath)的直接链接" title="发射器发射龙息 (dispensersFireDragonBreath)的直接链接" translate="no">​</a></h2>
+<p>发射器可使用龙息瓶创造出龙息效果云</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>DISPENSER</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="重新引入粉板瞬时更新循环-dusttrapdoorreintroduced">重新引入粉板瞬时更新循环 (dustTrapdoorReintroduced)<a href="#重新引入粉板瞬时更新循环-dusttrapdoorreintroduced" class="hash-link" aria-label="重新引入粉板瞬时更新循环 (dustTrapdoorReintroduced)的直接链接" title="重新引入粉板瞬时更新循环 (dustTrapdoorReintroduced)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20 中存在</strong></p>
+<p>重新引入由红石粉 + 活板门组成的瞬时更新循环结构</p>
+<p>该规则实际上做了如下2件事情：</p>
+<ol>
+<li>让打开的活板门无法重定向红石粉的朝向（还原 mc1.20 前的表现）</li>
+<li>让红石粉忽略来自下方的状态更新（还原 mc1.20.3 前的表现）</li>
+</ol>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="鞘翅状态对方块使用烟花可推进移植-elytrafireworkboostonblockbackport">鞘翅状态对方块使用烟花可推进移植 (elytraFireworkBoostOnBlockBackport)<a href="#鞘翅状态对方块使用烟花可推进移  植-elytrafireworkboostonblockbackport" class="hash-link" aria-label="鞘翅状态对方块使用烟花可推进移植 (elytraFireworkBoostOnBlockBackport)的直接链接" title="鞘翅状态对方块使用烟花可推进移植 (elytraFireworkBoostOnBlockBackport)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &lt; 1.21.6 中存在</strong></p>
+<p>移植 Minecraft 1.21.6+ 版本中的特性：在鞘翅飞行状态下，对着方块使用烟花火箭物品时，会推进玩家而非发射烟花</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="鞘翅烟花加速别断栓绳-elytrafireworkkeepleashconnection">鞘翅烟花加速别断栓绳 (elytraFireworkKeepLeashConnection)<a href="#鞘翅烟花加速别断栓绳-elytrafireworkkeepleashconnection" class="hash-link" aria-label="鞘翅烟花加速别断栓绳 (elytraFireworkKeepLeashConnection)的直接链接" title="鞘翅烟花加速别断栓绳 (elytraFireworkKeepLeashConnection)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.21.6 中存在</strong></p>
+<p>启用时，鞘翅飞行中使用烟花不再会断开已有的栓绳连接，即还原mc1.21.6前的表现</p>
+<p>注意：该规则不会阻止因相对距离过远而导致的栓绳断开</p>
+<p>本规则仅在 Minecraft &gt;= 1.21.6 中存在</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="enchant指令约束移除-enchantcommandnorestriction">enchant指令约束移除 (enchantCommandNoRestriction)<a href="#enchant指令约束移除-enchantcommandnorestriction" class="hash-link" aria-label="enchant指令约束移除 (enchantCommandNoRestriction)的直接链接" title="enchant指令约束移除 (enchantCommandNoRestriction)的直接链接" translate="no">​</a></h2>
+<p>移除 <code>/enchant</code> 指令中所有对目标附魔的约束</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="末地折跃门区块加载移植-endgatewaychunkloadingbackport">末地折跃门区块加载移植 (endGatewayChunkLoadingBackport)<a href="#末地折跃门区块加载移植-endgatewaychunkloadingbackport" class="hash-link" aria-label="末地折跃门区块加载移植 (endGatewayChunkLoadingBackport)的直接链接" title="末地折跃门区块加载移植 (endGatewayChunkLoadingBackport)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &lt; 1.20.5 中存在</strong></p>
+<p>启用后，实体进入末地折跃门时，会出口折跃门附近的区块</p>
+<p>用于加载区块的加载票的类型为 PORTAL，半径为 3，与地狱门的一致</p>
+<p>本规则仅在 Minecraft &lt; 1.21 中存在，因为此机制已于原版 1.21-pre1 中引入</p>
+<p>另见：规则 <a href="#%E6%9C%AB%E5%9C%B0%E9%97%A8%E4%BC%A0%E9%80%81%E5%8C%BA%E5%9D%97%E5%8A%A0%E8%BD%BD%E7%A7%BB%E6%A4%8D-endportalchunkloadingbackport">endPortalChunkLoadingBackport</a></p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="末地门传送区块加载移植-endportalchunkloadingbackport">末地门传送区块加载移植 (endPortalChunkLoadingBackport)<a href="#末地门传送区块加载移植-endportalchunkloadingbackport" class="hash-link" aria-label="末地门传送区块加载移植 (endPortalChunkLoadingBackport)的直接链接" title="末地门传送区块加载移植 (endPortalChunkLoadingBackport)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &lt; 1.20.5 中存在</strong></p>
+<p>启用后，实体从主世界进入末地门时，会加载黑曜石平台附近的区块</p>
+<p>用于加载区块的加载票的类型为 PORTAL，半径为 3，与地狱门的一致</p>
+<p>本规则仅在 Minecraft &lt; 1.20.5 中存在，因为此机制已于原版 24w03a (1.20.5 快照) 中引入</p>
+<p>另见：规则 <a href="#%E6%9C%AB%E5%9C%B0%E6%8A%98%E8%B7%83%E9%97%A8%E5%8C%BA%E5%9D%97%E5%8A%A0%E8%BD%BD%E7%A7%BB%E6%A4%8D-endgatewaychunkloadingbackport">endGatewayChunkLoadingBackport</a></p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用末地门开启音效-endportalopenedsounddisabled">禁用末地门开启音效 (endPortalOpenedSoundDisabled)<a href="#禁用末地门开启音效-endportalopenedsounddisabled" class="hash-link" aria-label="禁用末地门开启音效 (endPortalOpenedSoundDisabled)的直接链接" title="禁用末地门开启音效 (endPortalOpenedSoundDisabled)的直接链接" translate="no">​</a></h2>
+<p>禁用末地门开启时发出的音效</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="实体大脑记忆未释放修复-entitybrainmemoryunfreedfix">实体大脑记忆未释放修复 (entityBrainMemoryUnfreedFix)<a href="#实体大脑记忆未释放修复-entitybrainmemoryunfreedfix" class="hash-link" aria-label="实体大脑记忆未释放修复 (entityBrainMemoryUnfreedFix)的直接链接" title="实体大脑记忆未释放修复 (entityBrainMemoryUnfreedFix)的直接链接" translate="no">​</a></h2>
+<p>修 复了生物实体被移除出世界后，其大脑记忆依然未被释放的bug</p>
+<p>如果有一个接连不断生物流，其中的生物在被移除前记住其他先被移除的生物，那么就有可能创建出无限长的大脑记忆链，并导致游戏出现内存泄漏</p>
+<p>修复了 <a href="https://bugs.mojang.com/browse/MC-260605" target="_blank" rel="noopener noreferrer">MC-260605</a>。本规则使用了 Mojang 在 1.19.4-pre3 中采取的同款修复方式</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>BUGFIX</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="实体范围查询区段索引x上溢修复-entitychunksectionindexxoverflowfix">实体范围查询区段索引X上溢修复 (entityChunkSectionIndexXOverflowFix)<a href="#实体范围查询区段索引x上溢修复-entitychunksectionindexxoverflowfix" class="hash-link" aria-label="实体范围查询区段索引X上溢修复 (entityChunkSectionIndexXOverflowFix)的直接链接" title="实体范围查询区段索引X上溢修复 (entityChunkSectionIndexXOverflowFix)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.17 中存在</strong></p>
+<p>修复在尝试调用 <code>getEntities</code> 时，若查询范围与满足 <code>(chunkX + 1) % (2 ^ 22) == 2 ^ 21</code> 的任意区块相交，则会抛出IllegalArgumentException的bug</p>
+<p>本规则仅在 Minecraft &gt;= 1.17 中存在，因为此 bug 是在 1.17 中引入的</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>BUGFIX</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="生物死亡立即移除-entityinstantdeathremoval">生物死亡立即移除 (entityInstantDeathRemoval)<a href="#生物死亡立即移除-entityinstantdeathremoval" class="hash-link" aria-label="生物死亡立即移除 (entityInstantDeathRemoval)的直接链接" title="生物死亡立即移除 (entityInstantDeathRemoval)的直接链接" translate="no">​</a></h2>
+<p>移除生物实体死亡前的 20gt 等待时间</p>
+<p>启用时，生物实体将在死亡后立即消失</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="实体速度丢失-entitymomentumloss">实体速度丢失 (entityMomentumLoss)<a href="#实体速度丢失-entitymomentumloss" class="hash-link" aria-label="实体速度丢失 (entityMomentumLoss)的直接链接" title="实体速度丢失 (entityMomentumLoss)的直接链接" translate="no">​</a></h2>
+<p>将其设为 <code>false</code> 以关闭从磁盘载入时实体超过10m/gt部分的沿轴速度的丢失</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="实体放置无视碰撞-entityplacementignorecollision">实体放置无视碰撞 (entityPlacementIgnoreCollision)<a href="#实体放置无视碰撞-entityplacementignorecollision" class="hash-link" aria-label="实体放置无视碰撞 (entityPlacementIgnoreCollision)的直接链接" title="实体放置无视碰撞 (entityPlacementIgnoreCollision)的直接链接" translate="no">​</a></h2>
+<p>在使用物品放置实体时禁用相关的方块与实体的碰撞检测</p>
+<p>受影响的物品：盔甲架、末影水晶、所有种类的船</p>
+<p>刷怪蛋物品不在作用范围内</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="实体同步距离-entitytrackerdistance">实体同步距离 (entityTrackerDistance)<a href="#实体同步距离-entitytrackerdistance" class="hash-link" aria-label="实体同步距离 (entityTrackerDistance)的直接链接" title="实体同步距离 (entityTrackerDistance)的直接链接" translate="no">​</a></h2>
+<p>服务器同步实体信息至客户端的最大水平切比雪夫距离（单位: 区块）</p>
+<p>基本上这就是服务端的“实体渲染视距”，不过这个距离依旧会被服务端视距所约束</p>
+<p>将其设为一个不小于服务端视距的数值，就能令服务端将玩家视距内的所有实体都同步至客户端</p>
+<p>将其设为一个非正值以使用原版逻辑</p>
+<p>需要重新加载区块以将新的规则数值应用到实体上</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>-1</code></li>
+<li>参考选项: <code>0</code>, <code>16</code>, <code>64</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="实体同步间隔-entitytrackerinterval">实体同步间隔 (entityTrackerInterval)<a href="#实体同步间隔-entitytrackerinterval" class="hash-link" aria-label="实体同步间隔 (entityTrackerInterval)的直接链接" title="实体同步间隔 (entityTrackerInterval)的直接链接" translate="no">​</a></h2>
+<p>服务器同步实体信息至客户端的时间间隔（单位: gt）</p>
+<p>如果设为一个较小的数值，如 1，服务器将每 1gt 都同步实体信息至客户端，这能减小客户端发生实体不同步现象的概率</p>
+<p>将其设为一个非正值以使用原版逻辑</p>
+<p>需要重新加载区块以将新的规则数值应用到实体上</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>-1</code></li>
+<li>参考选项: <code>0</code>, <code>1</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="爆炸不影响实体-explosionnoentityinfluence">爆炸不影响实体 (explosionNoEntityInfluence)<a href="#爆炸不影响实体-explosionnoentityinfluence" class="hash-link" aria-label="爆炸不影响实体 (explosionNoEntityInfluence)的直接链接" title="爆炸不影响实体 (explosionNoEntityInfluence)的直接链接" translate="no">​</a></h2>
+<p>爆炸不会影响任何实体</p>
+<p>这里的影响包括伤害、加速等效果</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="爆炸数据包广播范围-explosionpacketrange">爆炸数据包广播范围 (explosionPacketRange)<a href="#爆炸数据包广播范围-explosionpacketrange" class="hash-link" aria-label="爆炸数据包广播范围 (explosionPacketRange)的直接链接" title="爆炸数据包广播范围 (explosionPacketRange)的直接链接" translate="no">​</a></h2>
+<p>设置在爆炸发生时，爆炸数据包对玩家的广播范围</p>
+<ul>
+<li>类型: <code>double</code></li>
+<li>默认值: <code>64</code></li>
+<li>参考选项: <code>0</code>, <code>16</code>, <code>64</code>, <code>128</code>, <code>2048</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="方块状态解析忽略失败-failsoftblockstateparsing">方块状态解析忽略失败 (failSoftBlockStateParsing)<a href="#方块状态解析忽略失败-failsoftblockstateparsing" class="hash-link" aria-label="方块状态解析忽略失败 (failSoftBlockStateParsing)的直接链接" title="方块状态解析忽略失败 (failSoftBlockStateParsing)的直接链接" translate="no">​</a></h2>
+<p>忽略在 <code>/setblock</code> 等指令的方块状态参数中出现的无效键/值参数</p>
+<p>在原版中这些无效的键/值会导致指令解析出错。这个规则抑制了这一出错</p>
+<p>有助于跨版本粘贴 litematica 原理图等</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="假人名称前缀-fakeplayernameprefix">假人名称前缀 (fakePlayerNamePrefix)<a href="#假人名称前缀-fakeplayernameprefix" class="hash-link" aria-label="假人名称前缀 (fakePlayerNamePrefix)的直接链接" title="假人名称前缀 (fakePlayerNamePrefix)的直接链接" translate="no">​</a></h2>
+<p>为 <code>/player</code> 指令召唤出来的假人名称添加指定前缀</p>
+<p>将其设置为 <code>#none</code> 以阻止添加前缀</p>
+<p>这可阻止玩家召唤奇怪名字的假人，还能让玩家列表变得更整洁</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>#none</code></li>
+<li>参考选项: <code>#none</code>, <code>bot_</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="假人名称后缀-fakeplayernamesuffix">假人名称后缀 (fakePlayerNameSuffix)<a href="#假人名称后缀-fakeplayernamesuffix" class="hash-link" aria-label="假人名称后缀 (fakePlayerNameSuffix)的直接链接" title="假人名称后缀 (fakePlayerNameSuffix)的直接链接" translate="no">​</a></h2>
+<p>为 <code>/player</code> 指令召唤出来的假人名称添加指定后缀</p>
+<p>将其设置为 <code>#none</code> 以阻止添加后缀</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>#none</code></li>
+<li>参考选项: <code>#none</code>, <code>_fake</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="假人像真人一样运算-fakeplayertickslikerealplayer">假人像真人一样运算 (fakePlayerTicksLikeRealPlayer)<a href="#假人像真人一样运算-fakeplayertickslikerealplayer" class="hash-link" aria-label="假人像真人一样运算 (fakePlayerTicksLikeRealPlayer)的直接链接" title="假人像真人一样运算 (fakePlayerTicksLikeRealPlayer)的直接链接" translate="no">​</a></h2>
+<p>调整 carpet 执行假人运算和 <code>/player</code> 动作所位于的游戏阶段，
+使它们的表现尽可能与真实玩家一致</p>
+<p>调整前的 carpet 逻辑 -&gt; 调整后的逻辑:</p>
+<ol>
+<li>假人的实体相关运算: 实体阶段 -&gt; 网络阶段逻辑</li>
+<li><code>/player</code> 指令的玩家动作包: 实体阶段 -&gt; 异步任务阶段</li>
+</ol>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="假人远程召唤-fakeplayerremotespawning">假人远程召唤 (fakePlayerRemoteSpawning)<a href="#假人远程召唤-fakeplayerremotespawning" class="hash-link" aria-label="假人远程召唤 (fakePlayerRemoteSpawning)的直接链接" title="假人远程召唤 (fakePlayerRemoteSpawning)的直接链接" translate="no">​</a></h2>
+<p>使用/player指令远程召唤假人的权限需求</p>
+<p>在这里，“远程”指的是被召唤的假人位于16m以外，或另一个维度</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用耕地被踩踏-farmlandtrampleddisabled">禁用耕地被踩踏 (farmlandTrampledDisabled)<a href="#禁用耕地被踩踏-farmlandtrampleddisabled" class="hash-link" aria-label="禁用耕地被踩踏 (farmlandTrampledDisabled)的直接链接" title="禁用耕地被  踩踏 (farmlandTrampledDisabled)的直接链接" translate="no">​</a></h2>
+<p>阻止耕地被生物踩成泥土</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="fill指令模式增强-fillcommandmodeenhance">fill指令模式增强 (fillCommandModeEnhance)<a href="#fill指令模式增强-fillcommandmodeenhance" class="hash-link" aria-label="fill指令模式增强 (fillCommandModeEnhance)的直接链接" title="fill指令模式增强 (fillCommandModeEnhance)的直接链接" translate="no">​</a></h2>
+<p>增加 <code>/fill</code> 指令中各种模式的功能</p>
+<p>增加 <code>softreplace</code> 模式: 尽可能地保留原方块的方块状态，可用于替换楼梯/半砖的材质等</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="地狱堡垒地狱砖刷怪游走修复-fortressnetherbrickspackspawningfix">地狱堡垒地狱砖刷怪游走修复 (fortressNetherBricksPackSpawningFix)<a href="#地狱堡垒地狱砖刷怪游走修复-fortressnetherbrickspackspawningfix" class="hash-link" aria-label="地狱堡垒地狱砖刷怪游走修复 (fortressNetherBricksPackSpawningFix)的直接链接" title="地狱堡垒地狱砖刷怪游走修复 (fortressNetherBricksPackSpawningFix)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft [1.18.2, 1.21.5) 中存在</strong></p>
+<p>修复 [1.18.2, 1.21.5) 里，地狱堡垒怪物在地狱砖/非地狱砖上的游走出现隔离性的问题</p>
+<p>该问题引入自 1.18.2-pre1。对于首次游走结束后位于地狱砖上的成群生成，游走至内结构非地狱砖上后无法刷出怪物，反之亦然</p>
+<p>问题影 响例子：带基岩天花板的凋灵玫瑰凋灵骷髅塔的效率，在增加了地狱砖游走地板延伸后，效率有可能会不升反降</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>BUGFIX</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="拍扁三角形分布-flattentriangulardistribution">拍扁三角形分布 (flattenTriangularDistribution)<a href="#拍扁三角形分布-flattentriangulardistribution" class="hash-link" aria-label="拍扁三角形分布 (flattenTriangularDistribution)的直接链接" title="拍扁三角形分布 (flattenTriangularDistribution)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.19 中存在</strong></p>
+<p>把 Minecraft 随机数发生器的三角形分布改为均匀分布</p>
+<p>借此，边界情况就更有可能发生了</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用流体破坏-fluiddestructiondisabled">禁用流体破坏 (fluidDestructionDisabled)<a href="#禁用流体破坏-fluiddestructiondisabled" class="hash-link" aria-label="禁用流体破坏 (fluidDestructionDisabled)的直接链接" title="禁用流体破坏 (fluidDestructionDisabled)的直接链接" translate="no">​</a></h2>
+<p>禁用流体流动造成的方块破坏</p>
+<p>流体会简单的停留在即将破坏方块时的状态</p>
+<p>这个规则可以用于在创造模式中防止流体意外地冲坏你的红石电路</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="凝视伪装装备拓展-gazedisguiseequipmentextended">凝视伪装装备拓展 (gazeDisguiseEquipmentExtended)<a href="#凝视伪装装备拓展-gazedisguiseequipmentextended" class="hash-link" aria-label="凝视伪装装备拓展 (gazeDisguiseEquipmentExtended)的直接链接" title="凝视伪装装备拓展 (gazeDisguiseEquipmentExtended)的直接链接" translate="no">​</a></h2>
+<p>允许玩家通过佩戴龙头、玩家头颅或怪物头颅来伪装自己的对其他生物的凝视</p>
+<p>佩戴这些物品将提供与佩戴南瓜头相同的效果，即不会惹怒末影人，也无法阻止嘎枝的移动</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="漏斗计数器无限速度-hoppercountersunlimitedspeed">漏斗计数器无限速度 (hopperCountersUnlimitedSpeed)<a href="#漏斗计数器无限速度-hoppercountersunlimitedspeed" class="hash-link" aria-label="漏斗计数器无限速度 (hopperCountersUnlimitedSpeed)的直接链接" title="漏斗计数器无限速度 (hopperCountersUnlimitedSpeed)的直接链接" translate="no">​</a></h2>
+<p>当漏斗指向羊毛方块时，漏斗将拥有无限的物品吸取以及传输速度，且无冷却时间</p>
+<p>仅当 Carpet Mod 中的 hopperCounters 开启时有效</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code>, <code>CARPET_MOD</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="漏斗不消耗物品-hoppernoitemcost">漏斗不消耗物品 (hopperNoItemCost)<a href="#漏斗不消耗物品-hoppernoitemcost" class="hash-link" aria-label="漏斗不消耗物品 (hopperNoItemCost)的直接链接" title="漏斗不消耗物品 (hopperNoItemCost)的直接链接" translate="no">​</a></h2>
+<p>上  方放有羊毛方块的漏斗可不消耗物品地无限输出储存的物品</p>
+<p>你可以使用 <a href="/zh-Hans/docs/commands#%E4%BE%9B%E7%BB%99%E8%AE%A1%E6%95%B0%E5%99%A8-scounter"><code>/scounter</code> 指令</a>，或者订阅 <a href="/zh-Hans/docs/loggers#%E4%BE%9B%E7%BB%99%E8%AE%A1%E6%95%B0%E5%99%A8-scounter"><code>scounter</code> 记录器</a>，来追踪这类漏斗的物品输出数量</p>
+<p>该规则同时是 <a href="/zh-Hans/docs/commands#%E4%BE%9B%E7%BB%99%E8%AE%A1%E6%95%B0%E5%99%A8-scounter"><code>/scounter</code> 指令</a> 的开关</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="漏斗经验计数器-hopperxpcounters">漏斗经验计数器 (hopperXpCounters)<a href="#漏斗经验计数器-hopperxpcounters" class="hash-link" aria-label="漏斗经验计数器 (hopperXpCounters)的直接链接" title="漏斗经验计数器 (hopperXpCounters)的直接链接" translate="no">​</a></h2>
+<p>使漏斗计数器能够统计经验球中的经验值</p>
+<p>启用后，漏斗计数器将可以“吸收”经验球并统计它们的经验值</p>
+<p>你可以使用 <a href="/zh-Hans/docs/commands#%E7%BB%8F%E9%AA%8C%E8%AE%A1%E6%95%B0%E5%99%A8-xcounter"><code>/xcounter</code> 指令</a>，或者订阅 <a href="/zh-Hans/docs/loggers#%E7%BB%8F%E9%AA%8C%E8%AE%A1%E6%95%B0%E5%99%A8-xcounter"><code>xcounter</code> 记录器</a>，来查看经验计数器的统计结果</p>
+<p>该规则同时也是 <a href="/zh-Hans/docs/commands#%E7%BB%8F%E9%AA%8C%E8%AE%A1%E6%95%B0%E5%99%A8-xcounter"><code>/xcounter</code> 指令</a> 指令的开关</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hud记录器更新间隔-hudloggerupdateinterval">HUD记录器更新间隔 (HUDLoggerUpdateInterval)<a href="#hud记录器更新间隔-hudloggerupdateinterval" class="hash-link" aria-label="HUD记录器更新间隔 (HUDLoggerUpdateInterval)的直接链接" title="HUD记录器更新间隔 (HUDLoggerUpdateInterval)的直接链接" translate="no">​</a></h2>
+<p>覆写Carpet Mod HUD记录器的更新间隔，单位为gametick</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>20</code></li>
+<li>参考选项: <code>1</code>, <code>5</code>, <code>20</code>, <code>100</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="重新引入瞬时方块更新逻辑-instantblockupdaterreintroduced">重新引入瞬时方块更新逻辑 (instantBlockUpdaterReintroduced)<a href="#重新引入瞬时方块更新逻辑-instantblockupdaterreintroduced" class="hash-link" aria-label="重新引入瞬时方块更新逻辑 (instantBlockUpdaterReintroduced)的直接链接" title="重新引入瞬时方块更新逻辑 (instantBlockUpdaterReintroduced)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.19 中存在</strong></p>
+<p>重新引入 1.19 以前的瞬时方块更新逻辑</p>
+<p>本规则让更新抑制在 1.19+ 中再次可行</p>
+<p>它还可以让<a href="/zh-Hans/docs/loggers#%E5%BE%AE%E6%97%B6%E5%BA%8F-microtiming">微时序记录器</a>的记录结果更加清晰具有逻辑，如 1.19 以前的版本一样的清晰</p>
+<p><strong>警告</strong>：1.19+ 原版的方块更新逻辑的表现，与 1.19 以前的瞬时方块更新逻辑，并非完全一致。请小心可能导致的红石装置损坏。
+参见 TISUnion/Carpet-TIS-Addition 的 issue <a href="https://github.com/TISUnion/Carpet-TIS-Addition/issues/156" target="_blank" rel="noopener noreferrer">#156</a> 和 <a href="https://github.com/TISUnion/Carpet-TIS-Addition/issues/236" target="_blank" rel="noopener noreferrer">#236</a></p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="瞬时命令方块-instantcommandblock">瞬时命令方块 (instantCommandBlock)<a href="#瞬时命令方块-instantcommandblock" class="hash-link" aria-label="瞬时命令方块 (instantCommandBlock)的直接链接" title="瞬时命令方块 (instantCommandBlock)的直接链接" translate="no">​</a></h2>
+<p>令位于红石矿上的命令方块瞬间执行命令，而不是添加一个1gt的计划刻事件用于执行</p>
+<p>仅影响普通命令方块</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用物品实体跳过移动运算-itementityskipmovementdisabled">禁用物品实体跳过移动运算 (itemEntitySkipMovementDisabled)<a href="#禁用物品实体跳过移动运算-itementityskipmovementdisabled" class="hash-link" aria-label="禁用物品实体跳过移动运算 (itemEntitySkipMovementDisabled)的直接链接" title="禁用物品实体跳过移动运算 (itemEntitySkipMovementDisabled)的直接链接" translate="no">​</a></h2>
+<p>移除物品实体跳过移动运算的机制</p>
+<p>改回为 1.13 及以前的物品实体机制，也就是低速着地的物品实体依然会每gt都运算移动，而非每4gt</p>
+<p>当你需要精准使用物品实体运动逻辑时有用</p>
+<p>会导致利用了相关机制的机器无法工作，如 2no2name 的无线红石</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="保持弱加载区块的怪物-keepmobinlazychunks">保持弱加载区块的怪物 (keepMobInLazyChunks)<a href="#保持弱加载区块的怪物-keepmobinlazychunks" class="hash-link" aria-label="保持弱加载区块的怪物 (keepMobInLazyChunks)的直接链接" title="保持弱加载区块的怪物 (keepMobInLazyChunks)的直接链接" translate="no">​</a></h2>
+<p>弱加载区块的怪物不再会被刷新掉，就像 1.15 之前版本似的</p>
+<p>此选项仅对 1.15 至 1.16 间的版本有效</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="大木桶-largebarrel">大木桶 (largeBarrel)<a href="#大木桶-largebarrel" class="hash-link" aria-label="大木桶 (largeBarrel)的直接链接" title="大木桶 (largeBarrel)的直接链接" translate="no">​</a></h2>
+<p>史上最棒的物品仓储方块: 大木桶</p>
+<p>两个相邻的底部相连木桶可以组成一个大木桶</p>
+<p>大木桶的行为逻辑跟大箱子相近</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap">存活时间追踪器考虑怪物容量 (lifeTimeTrackerConsidersMobcap)<a href="#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap" class="hash-link" aria-label="存活时间追踪器考虑怪物容量 (lifeTimeTrackerConsidersMobcap)的直接链接" title="存活时间追踪器考虑怪物容量 (lifeTimeTrackerConsidersMobcap)的直接链接" translate="no">​</a></h2>
+<p>存活时间追踪器对不占怪物容量的生物的策略</p>
+<p><code>true</code>: 不追踪不占用怪物容量的生物，并与生物不影响怪物容量的时刻将其标记为已移除，如当它们捡起物品时。便于设计刷怪塔</p>
+<p><code>false</code>: 追踪所有可追踪的生物，在生物确实被删除时将其标记为已移除。便于设计袭击农场或非刷怪塔的机器</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="光照队列记录器采样时长-lightqueueloggersamplingduration">光照队列记录器采样时长 (lightQueueLoggerSamplingDuration)<a href="#光照队列记录器采样时长-lightqueueloggersamplingduration" class="hash-link" aria-label="光照队列记录器采样时长 (lightQueueLoggerSamplingDuration)的直接链接" title="光照队列记录器采样时长 (lightQueueLoggerSamplingDuration)的直接链接" translate="no">​</a></h2>
+<p>光照队列记录器的采样时长，单位为游戏刻</p>
+<p>影响记录器中显示的，除队列大小外的所有数据</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>60</code></li>
+<li>参考选项: <code>1</code>, <code>20</code>, <code>60</code>, <code>100</code>, <code>6000</code></li>
+<li>分类: <code>TIS</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="光照更新-lightupdates">光照更新 (lightUpdates)<a href="#光照更新-lightupdates" class="hash-link" aria-label="光照更新 (lightUpdates)的直接链接" title="光照更新 (lightUpdates)的直接链接" translate="no">​</a></h2>
+<p>暂停或者禁止光照更新</p>
+<p>若被设为抑制(suppressed)，光照更新不会被执行，这可用于模拟光照抑制器</p>
+<p>若被设为忽略(ignored)，光照更新不会被计划，这常用于在创造模式中制造光照错误</p>
+<p>若被设为关闭(off)，光照更新不会被计划或被执行</p>
+<p><strong>【警 告】</strong>：若被设为抑制或关闭，新的区块将无法被加载。如果此时玩家等原因尝试加载新的区块，服务端将进入无法跳出的死循环</p>
+<ul>
+<li>类型: <code>enum</code></li>
+<li>默认值: <code>on</code></li>
+<li>参考选项: <code>on</code>, <code>suppressed</code>, <code>ignored</code>, <code>off</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="移动记录器-loggermovement">移动记录器 (loggerMovement)<a href="#移动记录器-loggermovement" class="hash-link" aria-label="移动记录器 (loggerMovement)的直接链接" title="移动记录器 (loggerMovement)的直接链接" translate="no">​</a></h2>
+<p>移动记录器的开关 / 权限等级需求</p>
+<ul>
+<li>类型: <code>string</code></li>
+<li>默认值: <code>ops</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>LOGGER</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="操纵方块指令数量上限-manipulateblocklimit">操纵方块指令数量上限 (manipulateBlockLimit)<a href="#操纵方块指令数量上限-manipulateblocklimit" class="hash-link" aria-label="操纵方块指令数量上限 (manipulateBlockLimit)的直接链接" title="操纵方块指令数量上限 (manipulateBlockLimit)的直接链接" translate="no">​</a></h2>
+<p><code>/manipulate block</code> 系列指令可操作的方块数量上限</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>1000000</code></li>
+<li>参考选项:<code>1000</code>, <code>1000000</code>, <code>1000000000</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="微时序-microtiming">微时  序 (microTiming)<a href="#微时序-microtiming" class="hash-link" aria-label="微时序 (microTiming)的直接链接" title="微时序 (microTiming)的直接链接" translate="no">​</a></h2>
+<p>启用<a href="/zh-Hans/docs/loggers#%E5%BE%AE%E6%97%B6%E5%BA%8F-microtiming">微时序记录器</a>的功能</p>
+<p>使用染料物品来标记并输出红石元件的动作、方块更新与堆栈跟踪</p>
+<p>使用 <code>/log microTiming</code> 来开始监视</p>
+<p>开启时服务端性能将受到一定影响</p>
+<p>见规则 <a href="#%E5%BE%AE%E6%97%B6%E5%BA%8F%E6%9F%93%E6%96%99%E8%AE%B0%E5%8F%B7-microtimingdyemarker">microTimingDyeMarker</a> 的介绍以获得有关染料记号的使用指令</p>
+<p><strong>下述内容已弃用，将于未来被移除</strong></p>
+<p>用羊毛方块以及末地烛来标记需记录的方块</p>
+<p>末地烛会检测方块更新，红石元件会输出它们的动作</p>
+<table><thead><tr><th>方块类型</th><th>如何记录</th></tr></thead><tbody><tr><td>侦测器、活塞、末地烛</td><td>指向羊毛块</td></tr><tr><td>中继器、比较器、红石火把、红石粉、铁轨、按钮、拉杆、压力板、拌线勾</td><td>放置/依附在羊毛块上</td></tr></tbody></table>
+<p>除此之外，一种通用的记录方块动作的手段是使用羊毛块上的末地烛指向需记录的方块</p>
+<p>可通过操控规则 <a href="#%E5%BE%AE%E6%97%B6%E5%BA%8F%E7%9B%AE%E6%A0%87-microtimingtarget">微时序目标</a> 以切换记录方法</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="微时序染料记号-microtimingdyemarker">微时序染料记号 (microTimingDyeMarker)<a href="#微时序染料记号-microtimingdyemarker" class="hash-link" aria-label="微时序染料记号 (microTimingDyeMarker)的直接链接" title="微时序染料记号 (microTimingDyeMarker)的直接链接" translate="no">​</a></h2>
+<p>允许玩家手持染料右击方块来将其标记为微时序记录器的目标</p>
+<p>你需要订阅微时序记录器才能标记并渲染方块</p>
+<p>使用相同颜色的染料再次右击以切换至末地烛模式，此时记录器将会额外地记录标记位置处的方块更新。再次右击则会移除颜色记号</p>
+<p>使用粘液球物品右击标记可将其设为可移动。当标记依附的方块被活塞移动时，它会自动的移动到对应的新位置</p>
+<p>使用指令 <code>/carpet microTimingDyeMarker clear</code> 以移除所有记号</p>
+<p>你可以使用命名的染料物品来创建一个命名的记号。记号的名称同时将会在记录器的输出信息中展示</p>
+<p>如果客户端拥有 fabric-carpet mod，被标记的方块将会显示出一个边框。如果客户端还带有carpet-tis-addition，则记号的名称还可透过方块查看</p>
+<p><em>由于 fabric carpet 对 scarpet 形状渲染及 carpet 网络通讯协议支持的缺乏，视觉渲染相关功能无法在 1.14.4 分支中使用</em></p>
+<ul>
+<li>类型: <code>string</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>false</code>, <code>true</code>, <code>clear</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="微时序目标-microtimingtarget">微时序目标 (microTimingTarget)<a href="#微时序目标-microtimingtarget" class="hash-link" aria-label="微时序目标 (microTimingTarget)的直接链接" title="微时序目标 (microTimingTarget)的直接链接" translate="no">​</a></h2>
+<p>设置指定微时序记录器记录目标的方法。被染料记号标记的方块总会被记录</p>
+<p><code>labelled</code>: 记录被羊毛块标记的事件。<strong>已弃用</strong></p>
+<p><code>in_range</code>: 记录离任意玩家 32m 内的事件。<strong>已弃用</strong></p>
+<p><code>all</code>: 记录所有事件。<strong>谨慎使用</strong>。<strong>已弃用</strong></p>
+<p><code>marker_only</code>: 仅记录被染料记号标记的方块。将其与规则 <a href="#%E5%BE%AE%E6%97%B6%E5%BA%8F%E6%9F%93%E6%96%99%E8%AE%B0%E5%8F%B7-microtimingdyemarker">microTimingDyeMarker（微时序染料记号）</a> 一起使用</p>
+<ul>
+<li>类型: <code>enum</code></li>
+<li>默认值: <code>marker_only</code></li>
+<li>参考选项: <code>labelled</code>, <code>in_range</code>, <code>all</code>, <code>marker_only</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="微时序游戏刻划分-microtimingtickdivision">微时序游戏刻划分 (microTimingTickDivision)<a href="#微时序游戏刻划分-microtimingtickdivision" class="hash-link" aria-label="微时序游戏刻划分 (microTimingTickDivision)的直接链接" title="微时序游戏刻划分 (microTimingTickDivision)的直接链接" translate="no">​</a></h2>
+<p>设置指定微时序记录器划分两个游戏刻的方法</p>
+<p><code>world_timer</code>: 划分于世界计时器自增时</p>
+<p><code>player_action</code>: 划分于玩家操作阶段开始前</p>
+<ul>
+<li>类型: <code>enum</code></li>
+<li>默认值: <code>world_timer</code></li>
+<li>参考选项: <code>world_timer</code>, <code>player_action</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="矿车完整掉落移植-minecartfulldropbackport">矿车完整掉落移植 (minecartFullDropBackport)<a href="#矿车完整掉落移植-minecartfulldropbackport" class="hash-link" aria-label="矿车完整掉落移植 (minecartFullDropBackport)的直接链接" title="矿车完整掉落移植 (minecartFullDropBackport)的直接链接" translate="no">​</a></h2>
+<p>移植 Minecraft 1.19+ 版本中的特性：矿车实体在被破坏时会掉落完整的矿车物品</p>
+<p>本规则仅在 Minecraft &lt; 1.19 中存在</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="矿车可在地面放置-minecartplaceableonground">矿车可在地面放置 (minecartPlaceableOnGround)<a href="#矿车可在地面放置-minecartplaceableonground" class="hash-link" aria-label="矿车可在地面放置 (minecartPlaceableOnGround)的直接链接" title="矿车可在地面放置 (minecartPlaceableOnGround)的直接链接" translate="no">​</a></h2>
+<p>让矿车可以被放置在非铁轨的普通地面上，就像船一样</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code>, <code>FEATURE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="矿车搭载乘客最小速度-minecarttakepassengerminvelocity">矿车搭载乘客最小速度 (minecartTakePassengerMinVelocity)<a href="#矿车搭载乘客最小速度-minecarttakepassengerminvelocity" class="hash-link" aria-label="矿车搭载乘客最小速度 (minecartTakePassengerMinVelocity)的直接链接" title="矿车搭载乘客最小速度 (minecartTakePassengerMinVelocity)的直接链接" translate="no">​</a></h2>
+<p>决定矿车将其附近实体作为乘客搭载上车所需的最低水平方向速度（m/gt）</p>
+<p>将其设为 0 以让矿车忽略速度，像船一样总能将附件实体载上车</p>
+<p>将其设为 NaN 以让矿车永远不能把实体载上车</p>
+<ul>
+<li>类型: <code>double</code></li>
+<li>默认值: <code>0.1</code></li>
+<li>参考选项: <code>0</code>, <code>0.1</code>, <code>NaN</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="怪物容量显示忽略杂项-mobcapsdisplayignoremisc">怪物容量显示忽略杂项 (mobcapsDisplayIgnoreMisc)<a href="#怪物容量显示忽略杂项-mobcapsdisplayignoremisc" class="hash-link" aria-label="怪物容量显示忽略杂项 (mobcapsDisplayIgnoreMisc)的直接链接" title="怪物容量显示忽略杂项 (mobcapsDisplayIgnoreMisc)的直接链接" translate="no">​</a></h2>
+<p>在 carpet 怪物容量显示中忽略杂项 (misc) 这一生物类型</p>
+<p>因为它既占空间还没用：杂项生物类型不参与刷怪循环，在统计怪物容量时也被游戏忽略</p>
+<p>影响 mobcaps 记录器以及 <code>/spawn mobcaps</code> 指令</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="可移动强化深板岩-moveablereinforceddeepslate">可移动强化深板岩 (moveableReinforcedDeepslate)<a href="#可移动强化深板岩-moveablereinforceddeepslate" class="hash-link" aria-label="可移动强化深板岩 (moveableReinforcedDeepslate)的直接链接" title="可移动强化深板岩 (moveableReinforcedDeepslate)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.19 中存在</strong></p>
+<p>令强化深板岩可被活塞移动</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="自然刷怪使用113风格的高度图-naturalspawninguse13heightmap">自然刷怪使用1.13风格的高度图 (naturalSpawningUse13Heightmap)<a href="#自然刷怪使用113风格的高度图-naturalspawninguse13heightmap" class="hash-link" aria-label="自然刷怪使用1.13风格的高度图 (naturalSpawningUse13Heightmap)的直接链接" title="自然刷怪使用1.13风格的高度图 (naturalSpawningUse13Heightmap)的直接链接" translate="no">​</a></h2>
+<p>令自然刷怪中初始坐标选取时Y值上限变  为该XZ最高的遮光方块</p>
+<p>基本上，本规则将自然刷怪中对高度图（heightmap）的使用，还原回了1.13及之前的版本</p>
+<p>注意：这将增加少许刷怪阶段的卡顿</p>
+<p>另见：规则 <a href="#%E8%87%AA%E7%84%B6%E5%88%B7%E6%80%AA%E4%BD%BF%E7%94%A8113%E9%A3%8E%E6%A0%BC%E7%9A%84%E9%AB%98%E5%BA%A6%E5%9B%BE-%E9%A2%9D%E5%A4%96%E9%80%89%E9%A1%B9-naturalSpawningUse13Heightmapextra">naturalSpawningUse13HeightmapExtra</a></p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="自然刷怪使用113风格的高度图-额外选项-naturalspawninguse13heightmapextra">自然刷怪使用1.13风格的高度图-额外选项 (naturalSpawningUse13HeightmapExtra)<a href="#自然刷怪使用113风格的高度图-额外选项-naturalspawninguse13heightmapextra" class="hash-link" aria-label="自然刷怪使用1.13风格的高度图-额外选项 (naturalSpawningUse13HeightmapExtra)的直接链接" title="自然刷怪使用1.13风格的高度图-额外选项 (naturalSpawningUse13HeightmapExtra)的直接链接" translate="no">​</a></h2>
+<p>在计算规则 <a href="#%E8%87%AA%E7%84%B6%E5%88%B7%E6%80%AA%E4%BD%BF%E7%94%A8113%E9%A3%8E%E6%A0%BC%E7%9A%84%E9%AB%98%E5%BA%A6%E5%9B%BE-naturalSpawningUse13Heightmap">naturalSpawningUse13Heightmap</a> 中的修改版高度图时，忽略活塞、粘液块、蜂蜜块</p>
+<p>本规则的目的是确保与 1.13 前表现的一致性，但可能会导致一些非预期的机制滥用行为</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="地狱门实体交互检测使用完整方块形状-netherportalentityinteractioncheckusefullblockshape">地狱门实体交互检测使用完整方块形状 (netherPortalEntityInteractionCheckUseFullBlockShape)<a href="#地狱门实体交互检测使用完整方块形状-netherportalentityinteractioncheckusefullblockshape" class="hash-link" aria-label="地狱门实体交互检测使用完整方块形状 (netherPortalEntityInteractionCheckUseFullBlockShape)的直接链接" title="地狱门实体交互检测使用完整方块形状 (netherPortalEntityInteractionCheckUseFullBlockShape)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft [1.21.5, 1.21.6) 中存在</strong></p>
+<p>将地狱门方块在实体移动交互检测中使用的形状修改为完整方块</p>
+<p>基本上，这条规则会将下界传送门的传送范围从传送门轮廓框改为一个完整的立方体</p>
+<p>它将相关表现还原回了 MC &lt; 25w04a（1.21.5 的快照）的表现，撤销了 <a href="https://bugs.mojang.com/browse/MC-101556" target="_blank" rel="noopener noreferrer">MC-101556</a> 的修复</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="地狱门最大尺寸-netherportalmaxsize">地狱门最大尺寸 (netherPortalMaxSize)<a href="#地狱门最大尺寸-netherportalmaxsize" class="hash-link" aria-label="地狱门最大尺寸 (netherPortalMaxSize)的直接链接" title="地狱门最大尺寸 (netherPortalMaxSize)的直接链接" translate="no">​</a></h2>
+<p>修改地狱门的最大尺寸限制</p>
+<p>如果将其设置为了一个较大值，请小心使用</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>21</code></li>
+<li>参考选项: <code>21</code>, <code>64</code>, <code>128</code>, <code>384</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="橡树长成鸡腿树百分率-oakballoonpercent">橡树长成鸡腿树百分率 (oakBalloonPercent)<a href="#橡树长成鸡腿树百分率-oakballoonpercent" class="hash-link" aria-label="橡树长成鸡腿树百分率 (oakBalloonPercent)的直接链接" title="橡树长成鸡腿树百分率 (oakBalloonPercent)的直接链接" translate="no">​</a></h2>
+<p>橡树树苗长成鸡腿树（fancy_oak）的概率，使用百分率作为值</p>
+<p>如，0 代表没有鸡腿树，50 代表有 50% 的概率长成鸡腿树，100 代表总长成鸡腿树</p>
+<p>将其设为 -1 以禁用本规则并使用原版逻辑（10% 概率长成鸡腿树）</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>-1</code></li>
+<li>参考选项: <code>-1</code>, <code>0</code>, <code>50</code>, <code>100</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用侦测器检测功能-observernodetection">禁用侦测器检测功能 (observerNoDetection)<a href="#禁用侦测器检测功能-observernodetection" class="hash-link" aria-label="禁用侦测器检测功能 (observerNoDetection)的直接链接" title="禁用侦测器检测功能 (observerNoDetection)的直接链接" translate="no">​</a></h2>
+<p>不准侦测器在受状态更新时添加计划刻事件</p>
+<p>可以认为这条规则禁用了观察者的检测功能</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="黑曜石平台方块破坏器移植-obsidianplatformblockbreakerbackport">黑曜石平台方块破坏器移植 (obsidianPlatformBlockBreakerBackport)<a href="#黑曜石平台方块破坏器移植-obsidianplatformblockbreakerbackport" class="hash-link" aria-label="黑曜石平台方块破坏器移植 (obsidianPlatformBlockBreakerBackport)的直接链接" title="黑曜石平台方块破坏器移植 (obsidianPlatformBlockBreakerBackport)的直接链接" translate="no">​</a></h2>
+<p>移植 Minecraft 1.21+ 版本中的特性：末地黑曜石平台的生成可以破坏已存在的方块</p>
+<p>值得注意，在原版 MC [1.16, 1.21) 里，普通实体创建黑曜石平台时的方块遍历顺序，和原版 mc1.21+ 的顺序，是不一样的</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="op玩家不准作弊-opplayernocheat">op玩家不准作弊 (opPlayerNoCheat)<a href="#op玩家不准作弊-opplayernocheat" class="hash-link" aria-label="op玩家不准作弊 (opPlayerNoCheat)的直接链接" title="op玩家不准作弊 (opPlayerNoCheat)的直接链接" translate="no">​</a></h2>
+<p>禁用部分指令以避免op玩家意外地作弊</p>
+<p>影响的指令列表：<code>/gamemode</code>, <code>/tp</code>, <code>/teleport</code>, <code>/give</code>, <code>/setblock</code>, <code>/summon</code></p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>SURVIVAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="优化高速实体移动-optimizedfastentitymovement">优化高速实体移动 (optimizedFastEntityMovement)<a href="#优化高速实体移动-optimizedfastentitymovement" class="hash-link" aria-label="优化高速实体移动 (optimizedFastEntityMovement)的直接链接" title="优化高速实体移动 (optimizedFastEntityMovement)的直接链接" translate="no">​</a></h2>
+<p>通过仅检测沿轴移动方向的方块碰撞来优化高速实体的移动</p>
+<p>受 <a href="https://github.com/gnembon/carpetmod112" target="_blank" rel="noopener noreferrer">carpetmod112</a> 的规则 <code>fastMovingEntityOptimization</code> 启发</p>
+<p>同规则 <code>optimizedTNT</code> 一起使用可大幅度提升炮的性能表现</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>OPTIMIZATION</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="优化硬碰撞箱实体碰撞-optimizedhardhitboxentitycollision">优化硬碰撞箱实体碰撞 (optimizedHardHitBoxEntityCollision)<a href="#优化硬碰撞箱实体碰撞-optimizedhardhitboxentitycollision" class="hash-link" aria-label="优化硬碰撞箱实体碰撞 (optimizedHardHitBoxEntityCollision)的直接链接" title="优化硬碰撞箱实体碰撞 (optimizedHardHitBoxEntityCollision)的直接链接" translate="no">​</a></h2>
+<p>优化实体与硬碰撞箱实体的碰撞</p>
+<p>它使用了一个额外的独立的列表在区块中储存带有硬碰撞箱的实体，包括船和潜影贝</p>
+<p>它能在实体移动并搜索路径上的带有硬碰撞箱的实体时减少大量无用的运算，因为世界里船和潜影贝的数量总是少数</p>
+<p>在加载区块前开启它以使其工作，在地狱门刷怪塔中有~20%的性能提升</p>
+<p>与添加了新实体的 mod 可能不兼容</p>
+<p>已知不兼容的 mod: <a href="https://modrinth.com/mod/async" target="_blank" rel="noopener noreferrer">async</a></p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>OPTIMIZATION</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tnt优化高优先级-optimizedtnthighpriority">TNT优化高优先级 (optimizedTNTHighPriority)<a href="#tnt优化高优先级-optimizedtnthighpriority" class="hash-link" aria-label="TNT优化高优先级 (optimizedTNTHighPriority)的直接链接" title="TNT优化高优先级 (optimizedTNTHighPriority)的直接链接" translate="no">​</a></h2>
+<p>用带有更高优先级的 Mixin 注入来实现 carpet 规则 <code>optimizedTNT</code></p>
+<p>因此规则 <code>optimizedTNT</code> 可以覆盖 lithium 的爆炸优化</p>
+<p>当然，它需要规则 <code>optimizedTNT</code> 开启才能工作</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>OPTIMIZATION</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="poi更新开关-poiupdates">POI更新开关 (poiUpdates)<a href="#poi更新开关-poiupdates" class="hash-link" aria-label="POI更新开关 (poiUpdates)的直接链接" title="POI更新开关 (poiUpdates)的直接链接" translate="no">​</a></h2>
+<p>方块变化时是否会更新 POI</p>
+<p>将其设为 <code>false</code> 以禁用 POI 更新</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="持久性记录器订阅-persistentloggersubscription">持久性记录器订阅 (persistentLoggerSubscription)<a href="#持久性记录器订阅-persistentloggersubscription" class="hash-link" aria-label="持久性记录器订阅 (persistentLoggerSubscription)的直接链接" title="持久性记录器订阅 (persistentLoggerSubscription)的直接链接" translate="no">​</a></h2>
+<p>在服务器重启后依然记忆着玩家订阅的记录器及记录器选项</p>
+<p>仅在玩家首次登录时应用 carpet 的 <code>defaultLoggers</code> 规则</p>
+<p>记录器订阅储存于 <code>config/carpettisaddition/logger_subscriptions.json</code> 中</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="精准实体放置-preciseentityplacement">精准实体放置 (preciseEntityPlacement)<a href="#精准实体放置-preciseentityplacement" class="hash-link" aria-label="精准实体放置 (preciseEntityPlacement)的直接链接" title="精准实体放置 (preciseEntityPlacement)的直接链接" translate="no">​</a></h2>
+<p>当使用物品放置/召唤实体时，将实体准确地放置在玩家指针指向的坐标点</p>
+<p>受影响的物品：刷怪蛋、盔甲架、末影水晶</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="刷铁轨机修复-raildupingfix">刷铁轨机修复 (railDupingFix)<a href="#刷铁轨机修复-raildupingfix" class="hash-link" aria-label="刷铁轨机修复 (railDupingFix)的直接链接" title="刷铁轨机修复 (railDupingFix)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &lt; 1.16.2 中存在</strong></p>
+<p>禁用老式的移动点亮的充能或激活铁轨的刷铁轨机</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>BUGFIX</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="红石粉随机更新顺序-redstonedustrandomupdateorder">红石粉随机更新顺序 (redstoneDustRandomUpdateOrder)<a href="#红石粉随机更新顺序-redstonedustrandomupdateorder" class="hash-link" aria-label="红石粉随机更新顺序 (redstoneDustRandomUpdateOrder)的直接链接" title="红石粉随机更新顺序 (redstoneDustRandomUpdateOrder)的直接链接" translate="no">​</a></h2>
+<p>随机化红石粉发出方块更新的顺序</p>
+<p>有助于测试你的装置是否依赖于位置</p>
+<p>在规则 <code>fastRedstoneDust</code> 启用时无效</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="红石粉中继器比较器-redstonedustrepeatercomparatorignoreupwardsstateupdate">红石粉中继器比较器 (redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate)<a href="#红石粉中继器比较器-redstonedustrepeatercomparatorignoreupwardsstateupdate" class="hash-link" aria-label="红石粉中继器比较器 (redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate)的直接链接" title="红石粉中继器比较器 (redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20.2 only 中存在</strong></p>
+<p>让红石粉、红石中继器和红石比较器忽略来自下方的状态更新</p>
+<p>这将撤销在 23w35a (1.20.2 快照) 中引入的更改。这一规则可帮你再次轻松地创建浮空比较器</p>
+<p>备注：规则 <code>dustTrapdoorReintroduced</code> 对红石粉方块实现了同款更改撤销</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="可再生龙蛋-renewabledragonegg">可再生龙蛋 (renewableDragonEgg)<a href="#可再生龙蛋-renewabledragonegg" class="hash-link" aria-label="可再生龙蛋 (renewableDragonEgg)的直接链接" title="可再生龙蛋 (renewableDragonEgg)的直接链接" translate="no">​</a></h2>
+<p>让龙蛋变得可再生</p>
+<p>当龙蛋处于龙息效果云内时，龙蛋有一定概率吸收龙息并“召唤”出一个新的龙蛋</p>
+<p>可与选项 <a href="#%E5%8F%91%E5%B0%84%E5%99%A8%E5%8F%91%E5%B0%84%E9%BE%99%E6%81%AF-dispensersfiredragonbreath">dispensersFireDragonBreath</a> 联动</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="可再生龙首-renewabledragonhead">可再生龙首 (renewableDragonHead)<a href="#可再生龙首-renewabledragonhead" class="hash-link" aria-label="可再生龙首 (renewableDragonHead)的直接链接" title="可再生龙首 (renewableDragonHead)的直接链接" translate="no">​</a></h2>
+<p>被高压爬行者杀死的末影龙将会掉落一个龙首</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="可再生鞘翅-renewableelytra">可再生鞘翅 (renewableElytra)<a href="#可再生鞘翅-renewableelytra" class="hash-link" aria-label="可再生鞘翅 (renewableElytra)的直接链接" title="可再生鞘翅 (renewableElytra)的直接链接" translate="no">​</a></h2>
+<p>当幻翼被潜影贝杀死时有给定概率掉落鞘翅</p>
+<p>设置为0以禁用</p>
+<ul>
+<li>类型: <code>double</code></li>
+<li>默认值: <code>0</code></li>
+<li>参考选项: <code>0</code>, <code>0.2</code>, <code>1</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="中继器延迟折半-repeaterhalfdelay">中继器延迟折半 (repeaterHalfDelay)<a href="#中继器延迟折半-repeaterhalfdelay" class="hash-link" aria-label="中继器延迟折半 (repeaterHalfDelay)的直接链接" title="中继器延迟折半 (repeaterHalfDelay)的直接链接" translate="no">​</a></h2>
+<p>当红石中继器位于红石矿上方时，红石中继器的延迟将减半</p>
+<p>延迟将会由 2, 4, 6, 8 游戏刻变为 1, 2, 3, 4 游戏刻</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="刷沙机修复-sanddupingfix">刷沙机修复 (sandDupingFix)<a href="#刷沙机修复-sanddupingfix" class="hash-link" aria-label="刷沙机修复 (sandDupingFix)的直接链接" title="刷沙机修复 (sandDupingFix)的直接链接" translate="no">​</a></h2>
+<p>禁用使用末地门的刷沙机以及刷重力方块机</p>
+<p>重力方块包括沙子、铁砧、龙蛋等</p>
+<p>在开启后刷沙机的沙子将会仅被传送至另一个纬度</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>BUGFIX</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="重新引入潜影盒cce抑制器-shulkerboxccereintroduced">重新引入潜影盒CCE抑制器 (shulkerBoxCCEReintroduced)<a href="#重新引入潜影盒cce抑制器-shulkerboxccereintroduced" class="hash-link" aria-label="重新引入潜影盒CCE抑制器 (shulkerBoxCCEReintroduced)的直接链接" title="重新引入潜影盒CCE抑制器 (shulkerBoxCCEReintroduced)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20.2 中存在</strong></p>
+<p>重新引入使用比较器读取带有非 <code>Inventory</code> 类方块实体的潜影盒方块而触发的 <code>ClassCastException</code> 更新抑制器</p>
+<p>愿虚空的魔法盒永存！</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="潜影盒内容物掉落移植-shulkerboxcontentdropbackport">潜影盒内容物掉落移植 (shulkerBoxContentDropBackport)<a href="#潜  影盒内容物掉落移植-shulkerboxcontentdropbackport" class="hash-link" aria-label="潜影盒内容物掉落移植 (shulkerBoxContentDropBackport)的直接链接" title="潜影盒内容物掉落移植 (shulkerBoxContentDropBackport)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &lt; 1.17 中存在</strong></p>
+<p>移植潜影盒物品在被伤害摧毁后掉落其内含的全部物品的特性</p>
+<p>该特性引入于 Minecraft 1.17</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="融雪最小亮度-snowmeltminlightlevel">融雪最小亮度 (snowMeltMinLightLevel)<a href="#融雪最小亮度-snowmeltminlightlevel" class="hash-link" aria-label="融雪最小亮度 (snowMeltMinLightLevel)的直接链接" title="融雪最小亮度 (snowMeltMinLightLevel)的直接链接" translate="no">​</a></h2>
+<p>雪片融化所需的最小亮度等级</p>
+<p>在原版里这个值为12，意味着雪片将在亮度等级&gt;=12时于随机刻中融化</p>
+<p>将其设为0以将所有位于你建筑上的烦人的雪片融化</p>
+<p>将其设为与防止降雪的最小亮度等级 (12) 来方便地测试你的建筑是否能借助亮度来防降雪</p>
+<p>你可以修改游戏规则 <code>randomTickSpeed</code> 来加速雪的融化，也可以修改地毯规则 <code>chunkTickSpeed</code> 来加速降雪的过程</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>12</code></li>
+<li>参考选项: <code>0</code>, <code>10</code>, <code>12</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="声音抑制模拟器-soundsuppressionsimulator">声音抑制模拟器 (soundSuppressionSimulator)<a href="#声音抑制模拟器-soundsuppressionsimulator" class="hash-link" aria-label="声 音抑制模拟器 (soundSuppressionSimulator)的直接链接" title="声音抑制模拟器 (soundSuppressionSimulator)的直接链接" translate="no">​</a></h2>
+<p>青金石矿石上方的幽匿感测体/校频幽匿感测体可模拟声音抑制器</p>
+<p>在青金石矿石上幽匿感测体方块实体收到震动信号且准备查询其方块状态的 <code>sculk_sensor_phase</code> 属性时，抛出 <code>IllegalArgumentException</code> 异常</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="生成幼年生物概率-spawnbabyprobably">生成幼年生物概率 (spawnBabyProbably)<a href="#生成幼年生物概率-spawnbabyprobably" class="hash-link" aria-label="生成幼年生物概率 (spawnBabyProbably)的直接链接" title="生成幼年生物概率 (spawnBabyProbably)的直接链接" translate="no">​</a></h2>
+<p>调整刷怪时生成幼年生物变种的概率</p>
+<p>将其设为 <code>-1</code> 以禁用本规则并使用原版逻辑</p>
+<ul>
+<li>类型: <code>double</code></li>
+<li>默认值: <code>-1</code></li>
+<li>参考选项: <code>-1</code>, <code>0</code>, <code>0.5</code>, <code>1</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="生成骑手概率-spawnjockeyprobably">生成骑手概率 (spawnJockeyProbably)<a href="#生成骑手概率-spawnjockeyprobably" class="hash-link" aria-label="生成骑手概率 (spawnJockeyProbably)的直接链接" title="生成骑手概率 (spawnJockeyProbably)的直接链接" translate="no">​</a></h2>
+<p>调整刷怪时生成骑手变种的概率</p>
+<p>影响的骑手类型: 鸡骑士、蜘蛛骑士、炽足兽骑手</p>
+<p>对于炽足兽，生成僵尸猪灵、幼年炽足兽的概率比将保持 1:3</p>
+<p>将其设为 <code>-1</code> 以禁用本规则并使用原版逻  辑</p>
+<ul>
+<li>类型: <code>double</code></li>
+<li>默认值: <code>-1</code></li>
+<li>参考选项: <code>-1</code>, <code>0</code>, <code>0.5</code>, <code>1</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="测速指令最大测试大小-speedtestcommandmaxtestsize">测速指令最大测试大小 (speedTestCommandMaxTestSize)<a href="#测速指令最大测试大小-speedtestcommandmaxtestsize" class="hash-link" aria-label="测速指令最大测试大小 (speedTestCommandMaxTestSize)的直接链接" title="测速指令最大测试大小 (speedTestCommandMaxTestSize)的直接链接" translate="no">​</a></h2>
+<p>在使用 <code>/speedtest</code> 测速指令进行网络速度测试时，最大的测试数据大小，单位 MiB</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>10</code></li>
+<li>参考选项: <code>10</code>, <code>100</code>, <code>1024</code>, <code>10240</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="stop指令两步确认-stopcommanddoubleconfirmation">stop指令两步确认 (stopCommandDoubleConfirmation)<a href="#stop指令两步确认-stopcommanddoubleconfirmation" class="hash-link" aria-label="stop指令两步确认 (stopCommandDoubleConfirmation)的直接链接" title="stop指令两步确认 (stopCommandDoubleConfirmation)的直接链接" translate="no">​</a></h2>
+<p>为 <code>/stop</code> 指令添加两步确认机制，以防止误触导致意外地关掉了服务器</p>
+<p>你需要在1分钟内输入两次 <code>/stop</code> 指令来关闭服务器</p>
+<p>该确认机制仅对玩家有效</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="结构方块不保留流体-structureblockdonotpreservefluid">结构方块不保留流体 (structureBlockDoNotPreserveFluid)<a href="#结构方块不保留流体-structureblockdonotpreservefluid" class="hash-link" aria-label="结构方块不保留流体 (structureBlockDoNotPreserveFluid)的直接链接" title="结构方块不保留流体 (structureBlockDoNotPreserveFluid)的直接链接" translate="no">​</a></h2>
+<p>结构方块在放置含水方块时，不保留已存在的流体</p>
+<p>同时有着抑制 <a href="https://bugs.mojang.com/browse/MC-130584" target="_blank" rel="noopener noreferrer">MC-130584</a> 发生的副作用</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code>, <code>BUGFIX</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="结构方块范围限制-structureblocklimit">结构方块范围限制 (structureBlockLimit)<a href="#结构方块范围限制-structureblocklimit" class="hash-link" aria-label="结构方块范围限制 (structureBlockLimit)的直接链接" title="结构方块范围限制 (structureBlockLimit)的直接链接" translate="no">​</a></h2>
+<p>覆写结构方块的范围限制</p>
+<p>当相对位置的值大于32时客户端里结构的位置可能会错误地显示</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>32</code></li>
+<li>参考选项: <code>32</code>, <code>64</code>, <code>96</code>, <code>127</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="同步光照线程-synchronizedlightthread">同步光照线程 (synchronizedLightThread)<a href="#同步光照线程-synchronizedlightthread" class="hash-link" aria-label="同步光照线程 (synchronizedLightThread)的直接链接" title="同步光照线程 (synchronizedLightThread)的直接链接" translate="no">​</a></h2>
+<p>将光照线程与主线程同步，这样光照线程就不会于落后主线程而失去同步</p>
+<p>服务器将会在每个世界开始运算时等待光照线程的任务完成</p>
+<p>你可以借此安全地 <code>/tick warp</code> 而不用担心潜在的光照抑制或光照不同步</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="同步服务端mspt指标数据-syncservermsptmetricsdata">同步服务端mspt指标数据 (syncServerMsptMetricsData)<a href="#同步服务端mspt指标数据-syncservermsptmetricsdata" class="hash-link" aria-label="同步服务端mspt指标数据 (syncServerMsptMetricsData)的直接链接" title="同步服务端mspt指标数据 (syncServerMsptMetricsData)的直接链接" translate="no">​</a></h2>
+<p>向客户端同步服务端的 mspt 指标数据，借此，玩家可使用 F3 + ALT 在调试界面中看到这一服务端的指标</p>
+<p>需要在客户端中安装 Carpet TIS Addition 模组</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>TISCM_PROTOCOL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tick指令carpet化-tickcommandcarpetfied">tick指令carpet化 (tickCommandCarpetfied)<a href="#tick指令carpet化-tickcommandcarpetfied" class="hash-link" aria-label="tick指令carpet化 (tickCommandCarpetfied)的直接链接" title="tick指令carpet化 (tickCommandCarpetfied)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20.3 中存在</strong></p>
+<p>只需这一条规则，即可将地毯模组中的 <code>/tick</code> 命令恢复到 mc1.20.3 之前的版本</p>
+<p>启用这条规则相当于将以下规则设置为以下值:</p>
+<ul>
+<li>
+<p><a href="#tick%E6%8C%87%E4%BB%A4%E5%A2%9E%E5%BC%BA-tickcommandenhance">tickCommandEnhance</a> = <code>true</code></p>
+</li>
+<li>
+<p><a href="#tick%E6%8C%87%E4%BB%A4%E6%9D%83%E9%99%90-tickcommandpermission">tickCommandPermission</a> = <code>2</code></p>
+</li>
+<li>
+<p><a href="#%E5%88%87%E6%8D%A2%E5%BC%8Ftickfreeze%E6%8C%87%E4%BB%A4-tickfreezecommandtoggleable">tickFreezeCommandToggleable</a> = <code>true</code></p>
+</li>
+<li>
+<p><a href="#%E9%87%8D%E6%96%B0%E5%BC%95%E5%85%A5tickfreezedeep%E6%8C%87%E4%BB%A4-tickfreezedeepcommand">tickFreezeDeepCommand</a> = <code>true</code></p>
+</li>
+<li>
+<p><a href="#%E9%87%8D%E6%96%B0%E5%BC%95%E5%85%A5tick%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E6%8C%87%E4%BB%A4-tickprofilercommandsreintroduced">tickProfilerCommandsReintroduced</a> = <code>true</code></p>
+</li>
+<li>
+<p><a href="#tickwarp%E6%8C%87%E4%BB%A4%E5%88%AB%E5%90%8D%E9%87%8D%E7%8E%B0-tickwarpcommandasanalias">tickWarpCommandAsAnAlias</a> = <code>true</code></p>
+</li>
+<li>
+<p>类型: <code>boolean</code></p>
+</li>
+<li>
+<p>默认值: <code>false</code></p>
+</li>
+<li>
+<p>参考选项: <code>false</code>, <code>true</code></p>
+</li>
+<li>
+<p>分类: <code>TIS</code>, <code>CARPET_MOD</code>, <code>COMMAND</code>, <code>PORTING</code></p>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tick指令增强-tickcommandenhance">tick指令增强 (tickCommandEnhance)<a href="#tick指令增强-tickcommandenhance" class="hash-link" aria-label="tick指令增强 (tickCommandEnhance)的直接链接" title="tick指令增强 (tickCommandEnhance)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20.3 中存在</strong></p>
+<p>重新启用那些 mc1.20.3 前，用于增强 carpet 模组 <code>/tick</code> 指令功能的特性</p>
+<p>启用的增强功能：</p>
+<ol>
+<li>启用 <code>/tick sprint status</code> 指令（即以前的 <code>/tick warp status</code> 指令）</li>
+</ol>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tick指令权限-tickcommandpermission">tick指令权限 (tickCommandPermission)<a href="#tick指令权限-tickcommandpermission" class="hash-link" aria-label="tick指令权限 (tickCommandPermission)的直接链接" title="tick指令权限 (tickCommandPermission)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20.3 中存在</strong></p>
+<p>覆盖原版 <code>/tick</code> 指令的权限等级需求</p>
+<p>将其设为 <code>2</code> 或 <code>ops</code> 以还原 carpet 模组在 mc1.20.3 之前的默认表现</p>
+<p>如果你想在例如命令方块中执行 <code>/tick</code> 命令，本规则将会很有用</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>3</code></li>
+<li>参考选项: <code>true</code>, <code>false</code>, <code>ops</code>, <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code>, <code>COMMAND</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="切换式tickfreeze指令-tickfreezecommandtoggleable">切换式tickFreeze指令 (tickFreezeCommandToggleable)<a href="#切换式tickfreeze指令-tickfreezecommandtoggleable" class="hash-link" aria-label="切换式tickFreeze指令 (tickFreezeCommandToggleable)的直接链接" title="切换式tickFreeze指令 (tickFreezeCommandToggleable)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20.3 中存在</strong></p>
+<p>让 <code>/tick freeze</code> 像以前的 carpet 模组一样，切换式地设置游戏的冻结状态</p>
+<p>也就是说，若游戏运行已冻结，则再次输入 <code>/tick freeze</code> 将解除冻结状态</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code>, <code>COMMAND</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="重新引入tickfreezedeep指令-tickfreezedeepcommand">重新引入tickFreezeDeep指令 (tickFreezeDeepCommand)<a href="#重新引入tickfreezedeep指令-tickfreezedeepcommand" class="hash-link" aria-label="重新引入tickFreezeDeep指令 (tickFreezeDeepCommand)的直接链接" title="重新引入tickFreezeDeep指令 (tickFreezeDeepCommand)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20.3 中存在</strong></p>
+<p>带回 carpet 模组的 <code>/tick freeze deep</code> 子命令</p>
+<p>与普通的 <code>/tick freeze</code> 相比，它额外增加了冻结加载票过期计算的功能</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code>, <code>COMMAND</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="重新引入tick性能分析指令-tickprofilercommandsreintroduced">重新引入tick性能分析指令 (tickProfilerCommandsReintroduced)<a href="#重新引入tick性能分析指令-tickprofilercommandsreintroduced" class="hash-link" aria-label="重新引入tick性能分析指令 (tickProfilerCommandsReintroduced)的直接链接" title="重新引入tick性能分析指令 (tickProfilerCommandsReintroduced)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20.3 中存在</strong></p>
+<p>带回 carpet 模组的 <code>/tick health</code>、<code>/tick entities</code> 这两个子命令</p>
+<p>与以前的 carpet 模组一样，这两个指令的功能将与 carpet 模组的 <code>/profile [health|entities]</code> 子命令一致</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code>, <code>COMMAND</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tickwarp指令别名重现-tickwarpcommandasanalias">tickWarp指令别名重现 (tickWarpCommandAsAnAlias)<a href="#tickwarp指令别名重现-tickwarpcommandasanalias" class="hash-link" aria-label="tickWarp指令别名重现 (tickWarpCommandAsAnAlias)的直接链接" title="tickWarp指令别名重现 (tickWarpCommandAsAnAlias)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.20.3 中存在</strong></p>
+<p>带回 <code>/tick warp</code> 子命令，让它变成原版 <code>/tick sprint</code> 指令的一个别名</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CARPET_MOD</code>, <code>COMMAND</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="计划刻上限-tileticklimit">计划刻上限 (tileTickLimit)<a href="#计划刻上限-tileticklimit" class="hash-link" aria-label="计划刻上限 (tileTickLimit)的直接链接" title="计划刻上限 (tileTickLimit)的直接链接" translate="no">​</a></h2>
+<p>修改每游戏刻中计划刻事件的执行次数上限</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>65536</code></li>
+<li>参考选项: <code>1024</code>, <code>65536</code>, <code>2147483647</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tiscm网络协议-tiscmnetworkprotocol">TISCM网络协议 (tiscmNetworkProtocol)<a href="#tiscm网络协议-tiscmnetworkprotocol" class="hash-link" aria-label="TISCM网络协议 (tiscmNetworkProtocol)的直接链接" title="TISCM网络协议 (tiscmNetworkProtocol)的直接链接" translate="no">​</a></h2>
+<p>TISCM网络协议的开关</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>TISCM_PROTOCOL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tnt复制修复-tntdupingfix">TNT复制修复 (tntDupingFix)<a href="#tnt复制修复-tntdupingfix" class="hash-link" aria-label="TNT复制修复 (tntDupingFix)的直接链接" title="TNT复制修复 (tntDupingFix)的直接链接" translate="no">​</a></h2>
+<p>禁用TNT、地毯以及部分铁轨的复制机</p>
+<p>基于依附性方块的复制机会无法复制，基于红石原件更新的复制机会无法保留被复制的方块</p>
+<p><del>Dupe bad dig good</del></p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>BUGFIX</code>, <code>EXPERIMENTAL</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tnt引信时长-tntfuseduration">TNT引信时长 (tntFuseDuration)<a href="#tnt引信时长-tntfuseduration" class="hash-link" aria-label="TNT引信时长 (tntFuseDuration)的直接链接" title="TNT引信时长 (tntFuseDuration)的直接链接" translate="no">​</a></h2>
+<p>覆盖 TNT 的默认引信时长</p>
+<p>这也会影响被爆炸点燃的 TNT 的引信时长</p>
+<ul>
+<li>类型: <code>int</code></li>
+<li>默认值: <code>80</code></li>
+<li>参考选项: <code>0</code>, <code>80</code>, <code>32767</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tnt忽略红石信号-tntignoreredstonesignal">TNT忽略红石信号 (tntIgnoreRedstoneSignal)<a href="#tnt忽略红石信号-tntignoreredstonesignal" class="hash-link" aria-label="TNT忽略红石信号 (tntIgnoreRedstoneSignal)的直接链接" title="TNT忽略红石信号 (tntIgnoreRedstoneSignal)的直接链接" translate="no">​</a></h2>
+<p>阻止 TNT 被红石信号点燃</p>
+<p>你仍可以使用爆炸等方式点燃TNT</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>true</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="工具化tnt-tooledtnt">工具化TNT (tooledTNT)<a href="#工具化tnt-tooledtnt" class="hash-link" aria-label="工具化TNT (tooledTNT)的直接链接" title="工具化TNT (tooledTNT)的直接链接" translate="no">​</a></h2>
+<p>由玩家引发的爆炸破坏并掉落物品时会应用玩家手上的工具</p>
+<p>因此你可以点燃TNT以采集需要特定工具或者附魔的方块，只要你在爆炸时拿着正确的工具</p>
+<p>比如，你可以拿着精准采集镐子来采集冰，或者拿着剪刀来采集草</p>
+<p>此规则同样适用于玩家以外的生物</p>
+<p>技术上来讲，此规则将来源生物主手上的物品应用在了爆炸里战利品表的创建中</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="完全没有方块更新-totallynoblockupdate">完全没有方块更新 (totallyNoBlockUpdate)<a href="#完全没有方块更新-totallynoblockupdate" class="hash-link" aria-label="完全没有方块更新 (totallyNoBlockUpdate)的直接链接" title="完全没有方块更新 (totallyNoBlockUpdate)的直接链接" translate="no">​</a></h2>
+<p>禁用所有方块更新以及状态更新的执行</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="坚韧的凋零玫瑰-toughwitherrose">坚韧的凋零玫瑰 (toughWitherRose)<a href="#坚韧的凋零玫瑰-toughwitherrose" class="hash-link" aria-label="坚韧的凋零玫瑰 (toughWitherRose)的直接链接" title="坚韧的凋零玫瑰 (toughWitherRose)的直接链接" translate="no">​</a></h2>
+<p>由死而生，凋零玫瑰非常坚韧，能在任意表面上种植</p>
+<p>该规则移除了凋零玫瑰所有的放置约束，这意味着你可以将零玫瑰种植在任何地方</p>
+<p>在你想用更新抑制的凋零玫瑰做凋灵骷髅塔时，这条规则可以帮你一把</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用海龟蛋被践踏-turtleeggtrampleddisabled">禁用海龟蛋被践踏 (turtleEggTrampledDisabled)<a href="#禁用海龟蛋被践踏-turtleeggtrampleddisabled" class="hash-link" aria-label="禁用海龟蛋被践踏 (turtleEggTrampledDisabled)的直接链接" title="禁用海龟蛋被践踏 (turtleEggTrampledDisabled)的直接链接" translate="no">​</a></h2>
+<p>阻止海龟蛋因实体踩踏而破坏</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="亡灵生物别在阳光下着火-undeaddontburninsunlight">亡灵生物别在阳光下着火 (undeadDontBurnInSunlight)<a href="#亡灵生物别在阳光下着火-undeaddontburninsunlight" class="hash-link" aria-label="亡灵生物别在阳光下着火 (undeadDontBurnInSunlight)的直接链接" title="亡灵生物别在阳光下着火 (undeadDontBurnInSunlight)的直接链接" translate="no">​</a></h2>
+<p>阻止亡灵生物在阳光下着火</p>
+<p>不过他们的头盔依然会在阳光下损失耐久</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="更新跳略模拟器-updateskippingsimulator">更新跳略模拟器 (updateSkippingSimulator)<a href="#更新跳略模拟器-updateskippingsimulator" class="hash-link" aria-label="更新跳略模拟器 (updateSkippingSimulator)的直接链接" title="更新跳略模拟器 (updateSkippingSimulator)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.19 中存在</strong></p>
+<p>深层青金石矿石上方的激活 / 充能铁轨可模拟跳略模拟器</p>
+<p>在深层青金石矿石上已亮起的激活/充能铁轨将要熄灭时，
+将当前更新链的更新计数器设置为单次更新链的最大值，触发更新跳略并取消本次铁轨熄灭操作</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="更新抑制模拟器-updatesuppressionsimulator">更新抑制模拟器 (updateSuppressionSimulator)<a href="#更新抑制模拟器-updatesuppressionsimulator" class="hash-link" aria-label="更新抑制模拟器 (updateSuppressionSimulator)的直接链接" title="更新抑制模拟器 (updateSuppressionSimulator)的直接链接" translate="no">​</a></h2>
+<p>青金石矿石上方的激活 / 充能铁轨可模拟更新抑制器</p>
+<p>在青金石矿石上已亮起的激活 / 充能铁轨将要熄灭时，抛出所提供的 JVM 异常</p>
+<p><code>false</code>: 关闭规则; <code>true</code>: 启用规则并使用 <code>StackOverflowError</code>; 其他: 启用规则并使用所给异常</p>
+<ul>
+<li>类型: <code>String</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code>, <code>StackOverflowError</code>, <code>OutOfMemoryError</code>, <code>ClassCastException</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用宝库黑名单-vaultblacklistdisabled">禁用宝库黑名单 (vaultBlacklistDisabled)<a href="#禁用宝库 黑名单-vaultblacklistdisabled" class="hash-link" aria-label="禁用宝库黑名单 (vaultBlacklistDisabled)的直接链接" title="禁用宝库黑名单 (vaultBlacklistDisabled)的直接链接" translate="no">​</a></h2>
+<p>禁用宝库方块实体中储存的玩家黑名单的相关功能</p>
+<p>在本规则启用后：</p>
+<ol>
+<li>玩家开启宝库后，玩家的 UUID 不会被添加到宝库黑名单中</li>
+<li>无论玩家是否位于宝库黑名单中，玩家均可激活、开启宝库</li>
+</ol>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="可视化投掷物记录器-visualizeprojectileloggerenabled">可视化投掷物记录器 (visualizeProjectileLoggerEnabled)<a href="#可视化投掷物记录器-visualizeprojectileloggerenabled" class="hash-link" aria-label="可视化投掷物记录器 (visualizeProjectileLoggerEnabled)的直接链接" title="可视化投掷物记录器 (visualizeProjectileLoggerEnabled)的直接链接" translate="no">​</a></h2>
+<p>启用可视化投掷物记录器</p>
+<p>试试 <code>/log projectiles visualize</code> 吧</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="大力地狱门创建-violentnetherportalcreation">大力地狱门创建 (violentNetherPortalCreation)<a href="#大力地狱门创建-violentnetherportalcreation" class="hash-link" aria-label="大力地狱门创建 (violentNetherPortalCreation)的直接链接" title="大力地狱门创建 (violentNetherPortalCreation)的直接链接" translate="no">​</a></h2>
+<p>允许地狱门创建时无视门框内已存在的方块，直接强制开启地狱门</p>
+<p><code>false</code>：关闭此规则，原版表现</p>
+<p><code>replaceable</code>：仅允许无视那些可替换的方块（如流体、草）</p>
+<p><code>all</code>：允许无视任何方块，除了黑曜石。黑曜石因涉及门框计算逻辑，不能被无视</p>
+<p>注意: 强制开门过程中的方块替换不会造成方块更新，与原版的表现一致</p>
+<ul>
+<li>类型: <code>enum</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>replaceable</code>, <code>all</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="虚空伤害数值-voiddamageamount">虚空伤害数值 (voidDamageAmount)<a href="#虚空伤害数值-voiddamageamount" class="hash-link" aria-label="虚空伤害数值 (voidDamageAmount)的直接链接" title="虚空伤害数值 (voidDamageAmount)的直接链接" translate="no">​</a></h2>
+<p>修改虚空伤害的数值</p>
+<ul>
+<li>类型: <code>double</code></li>
+<li>默认值: <code>4</code></li>
+<li>参考选项: <code>0</code>, <code>4</code>, <code>1000</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="虚空伤害忽略玩家-voiddamageignoreplayer">虚空伤害忽略玩家 (voidDamageIgnorePlayer)<a href="#虚空伤害忽略玩家-voiddamageignoreplayer" class="hash-link" aria-label="虚空伤害忽略玩家 (voidDamageIgnorePlayer)的直接链接" title="虚空伤害忽略玩家 (voidDamageIgnorePlayer)的直接链接" translate="no">​</a></h2>
+<p>阻止玩家受到任何虚空伤害</p>
+<p>对玩家完全无害的虚空，好耶！</p>
+<p>如果规则的值被设置为了一个 <code>,</code> 分隔的游戏模式列表，则只有游戏模式位于该列表中的玩家能免疫虚空伤害</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="虚空相对海拔高度-voidrelatedaltitude">虚空相对海拔高度 (voidRelatedAltitude)<a href="#虚空相对海拔高度-voidrelatedaltitude" class="hash-link" aria-label="虚空相对海拔高度 (voidRelatedAltitude)的直接链接" title="虚空相对海拔高度 (voidRelatedAltitude)的直接链接" translate="no">​</a></h2>
+<p>修改虚空相对世界底部的海拔高度，此处的虚空指实体会受到虚空伤害的区域</p>
+<ul>
+<li>类型: <code>double</code></li>
+<li>默认值: <code>-64</code></li>
+<li>参考选项: <code>-64</code>, <code>-512</code>, <code>-4096</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="重新引入水爆-wetexplosionreintroduced">重新引入水爆 (wetExplosionReintroduced)<a href="#重新引入水爆-wetexplosionreintroduced" class="hash-link" aria-label="重新引入水爆 (wetExplosionReintroduced)的直接链接" title="重新引入水爆 (wetExplosionReintroduced)的直接链接" translate="no">​</a></h2>
+<p>重新引入了 MC 版本 1.21.2 ~ 1.21.5 中的“水爆”机制</p>
+<p>如果一个爆炸由实体产生（例如点燃的 TNT），并且该实体正与水接触，那么该爆炸将不会对物品实体、盔甲架实体以及所有装饰性实体造成伤害</p>
+<p>该规则在 MC 1.21.2 ~ 1.21.5 中无任何效果</p>
+<p>另见：<a href="https://bugs.mojang.com/browse/MC-3697" target="_blank" rel="noopener noreferrer">MC-3697</a></p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="禁用凋灵生成音效-witherspawnedsounddisabled">禁用凋灵生成音效 (witherSpawnedSoundDisabled)<a href="#禁用凋灵生成音效-witherspawnedsounddisabled" class="hash-link" aria-label="禁用凋灵生成音效 (witherSpawnedSoundDisabled)的直接链接" title="禁用凋灵生成音效 (witherSpawnedSoundDisabled)的直接链接" translate="no">​</a></h2>
+<p>禁用凋灵在召唤后生命值回满时发出的世界中所有玩家都能听到的音效</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="经验球追踪距离-xptrackingdistance">经验球追踪距离 (xpTrackingDistance)<a href="#经验球追踪距离-xptrackingdistance" class="hash-link" aria-label="经验球追踪距离 (xpTrackingDistance)的直接链接" title="经验球追踪距离 (xpTrackingDistance)的直接链接" translate="no">​</a></h2>
+<p>修改经验球检测并追踪玩家的距离</p>
+<p>将其调至 0 以禁用追踪</p>
+<ul>
+<li>类型: <code>double</code></li>
+<li>默认值: <code>8</code></li>
+<li>参考选项: <code>0</code>, <code>1</code>, <code>8</code>, <code>32</code></li>
+<li>分类: <code>TIS</code>, <code>CREATIVE</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="去除异步任务执行延迟-yeetasynctaskexecutiondelay">去除异步任务执行延迟 (yeetAsyncTaskExecutionDelay)<a href="#去除异步任务执行延迟-yeetasynctaskexecutiondelay" class="hash-link" aria-label="去除异步任务执行延迟 (yeetAsyncTaskExecutionDelay)的直接链接" title="去除异步任务执行延迟 (yeetAsyncTaskExecutionDelay)的直接链接" translate="no">​</a></h2>
+<p>让 MinecraftServer 的异步任务不被延迟，尽早执行</p>
+<p>在原版中，当服务器进行 tick warp 时，异步任务的执行最多可能被延迟 4 tick</p>
+<p>此规则开启后，可确保异步任务总会在最近的异步任务阶段被执行</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="抑制空闲mspt-yeetidlemspt">抑制空闲mspt (yeetIdleMspt)<a href="#抑制空闲mspt-yeetidlemspt" class="hash-link" aria-label="抑制空闲mspt (yeetIdleMspt)的直接链接" title="抑制空闲mspt (yeetIdleMspt)的直接链接" translate="no">​</a></h2>
+<p>抑制空闲 mspt 的出现</p>
+<p>一些操作，比如区块卸载和兴趣点保存，可能会造成空闲 mspt 开销</p>
+<p>只有当前 gt 的耗时尚未达到掉刻极限时（mspt 还没到50，同时没在 tick warp），空闲mspt才会出现</p>
+<p>当启用此规则时，空闲 mspt 将被抑制。若服务器未掉刻也未 tick warp，其 mspt 可能会有所降低</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="阻止乱序聊天数据包踢出-yeetoutoforderchatkick">阻止乱序聊天数据包踢出 (yeetOutOfOrderChatKick)<a href="#阻止乱序聊天数据包踢出-yeetoutoforderchatkick" class="hash-link" aria-label="阻止乱序聊天数据包踢出 (yeetOutOfOrderChatKick)的直接链接" title="阻止乱序聊天数据包踢出 (yeetOutOfOrderChatKick)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.19 中存在</strong></p>
+<p>阻止玩家被服务器以“接收到了乱序的聊天数据包...”为由踢出游戏</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="重新引入僵尸猪灵在愤怒时掉落战利品-zombifiedpiglindroplootifangryreintroduced">重新引入僵尸猪灵在愤怒时掉落战利品 (zombifiedPiglinDropLootIfAngryReintroduced)<a href="#重新引入僵尸猪灵在愤怒时掉落战利品-zombifiedpiglindroplootifangryreintroduced" class="hash-link" aria-label="重新引入僵尸猪灵在愤怒时掉落战利品 (zombifiedPiglinDropLootIfAngryReintroduced)的直接链接" title="重新引入僵尸猪灵在愤怒时掉落战利品 (zombifiedPiglinDropLootIfAngryReintroduced)的直接链接" translate="no">​</a></h2>
+<p><strong>本规则仅在 Minecraft &gt;= 1.21.5 中存在</strong></p>
+<p>开启后，僵尸猪灵在愤怒、设置玩家为攻击目标的100gt内死亡，将可掉落如被玩家击杀一样的掉落物和经验球</p>
+<p>它将相关表现还原回了 MC &lt; 25w02a（1.21.5 的快照）的表现，撤销了 <a href="https://bugs.mojang.com/browse/MC-56653" target="_blank" rel="noopener noreferrer">MC-56653</a> 的修复</p>
+<ul>
+<li>类型: <code>boolean</code></li>
+<li>默认值: <code>false</code></li>
+<li>参考选项: <code>false</code>, <code>true</code></li>
+<li>分类: <code>TIS</code>, <code>FEATURE</code>, <code>PORTING</code></li>
+</ul>
+<hr>
+<h1>移植的规则列表</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="光照引擎最大任务组数-lightenginemaxbatchsize">光照引擎最大任务组数 (lightEngineMaxBatchSize)<a href="#光照引擎最大任务组数-lightenginemaxbatchsize" class="hash-link" aria-label="光照引擎最大任务组数 (lightEngineMaxBatchSize)的直接链接" title="光照引擎最大任务组数 (lightEngineMaxBatchSize)的直接链接" translate="no">​</a></h2>
+<ul>
+<li>移植自：fabric carpet <a href="https://github.com/gnembon/fabric-carpet/releases/tag/1.4.23" target="_blank" rel="noopener noreferrer">1.4.23</a></li>
+<li>移植的分支：1.14.4, 1.15.2</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="结构方块轮廓距离-structureblockoutlinedistance">结构方块轮廓距离 (structureBlockOutlineDistance)<a href="#结构方块轮廓距离-structureblockoutlinedistance" class="hash-link" aria-label="结构方块轮廓距离 (structureBlockOutlineDistance)的直接链接" title="结构方块轮廓距离 (structureBlockOutlineDistance)的直接链接" translate="no">​</a></h2>
+<ul>
+<li>移植自：fabric carpet <a href="https://github.com/gnembon/fabric-carpet/releases/tag/1.4.25" target="_blank" rel="noopener noreferrer">1.4.25</a></li>
+<li>移植的分支：1.14.4, 1.15.2</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="阻止更新抑制崩溃-yeetupdatesuppressioncrash">阻止更新抑制崩溃 (yeetUpdateSuppressionCrash)<a href="#阻止更新抑制崩溃-yeetupdatesuppressioncrash" class="hash-link" aria-label="阻止更新抑制崩溃 (yeetUpdateSuppressionCrash)的直接链接" title="阻止更新抑制崩溃 (yeetUpdateSuppressionCrash)的直接链接" translate="no">​</a></h2>
+<p>阻止服务端因更新抑制造成的 <code>StackOverflowError</code>、<code>OutOfMemoryError</code>、<code>ClassCastException</code> 或 <code>IllegalArgumentSuppression</code> 异常而导致的服务器崩溃</p>
+<p>具体功能实现类似 carpet 的 <code>updateSuppressionCrashFix</code> 规则，但包含更多信息</p>
+<p>在 carpet &gt;= 1.4.49 的版本中，如需在游戏中接受此规则防崩触发时的消息广播，你需要订阅 <code>updateSuppressedCrashes</code> 记录器</p>
+<p><strong>注意</strong>: 此规则仅处理因更新抑制手段（如铁轨栈溢出、声音抑制、魔法盒子等）引发的异常。它 <strong>不是</strong> 一个任意情况的通用异常 try-catch 装置</p>
+<ul>
+<li>移植自：<!-- -->
+<ul>
+<li>fabric carpet <a href="https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50" target="_blank" rel="noopener noreferrer">1.4.50</a> 的规则 <code>updateSuppressionCrashFix</code></li>
+<li>TISCarpet13 <a href="https://github.com/TISUnion/TISCarpet113/releases/tag/build238" target="_blank" rel="noopener noreferrer">build238</a> 的规则 <code>yeetUpdateSuppressionCrash</code></li>
+</ul>
+</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/TISUnion/Carpet-TIS-Addition/tree/master/website/docs/rules.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/zh-Hans/docs"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">介绍</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/zh-Hans/docs/loggers"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">记录器</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#禁用反刷屏监测-antispamdisabled" class="table-of-contents__link toc-highlight">禁用反刷屏监测 (antiSpamDisabled)</a></li><li><a href="#方块事件广播范围-blockeventpacketrange" class="table-of-contents__link toc-highlight">方块事件广播范围 (blockEventPacketRange)</a></li><li><a href="#方块放置忽略实体-blockplacementignoreentity" class="table-of-contents__link toc-highlight">方块放置忽略实体 (blockPlacementIgnoreEntity)</a></li><li><a href="#禁用繁殖冷却-breedingcooldowndisabled" class="table-of-contents__link toc-highlight">禁用繁殖冷却 (breedingCooldownDisabled)</a></li><li><a href="#炼药锅方块类物品交互修复-cauldronblockiteminteractfix" class="table-of-contents__link toc-highlight">炼药锅方块类物品交互修复 (cauldronBlockItemInteractFix)</a></li><li><a href="#聊天信息长度上限解锁-chatmessagelengthlimitunlocked" class="table-of-contents__link toc-highlight">聊天信息长度上限解锁 (chatMessageLengthLimitUnlocked)</a></li><li><a href="#区块更新数据包阈值-chunkupdatepacketthreshold" class="table-of-contents__link toc-highlight">区块更新数据包阈值 (chunkUpdatePacketThreshold)</a></li><li><a href="#区块刻速度-chunktickspeed" class="table-of-contents__link toc-highlight">区块刻速度 (chunkTickSpeed)</a></li><li><a href="#玩家重生丢失客户端设置数据修复-clientsettingslostonrespawnfix" class="table-of-contents__link toc-highlight">玩家重生丢失客户端设置数据修复 (clientSettingsLostOnRespawnFix)</a></li><li><a href="#存活时间追踪器-commandlifetime" class="table-of-contents__link toc-highlight">存活时间追踪器 (commandLifeTime)</a></li><li><a href="#世界控制命令开关-commandmanipulate" class="table-of-contents__link toc-highlight">世界控制命令开关 (commandManipulate)</a></li><li><a href="#玩家动作包pertick模式开关-commandplayeractionpertick" class="table-of-contents__link toc-highlight">玩家动作包perTick模式开关 (commandPlayerActionPerTick)</a></li><li><a href="#袭击追踪器-commandraid" class="table-of-contents__link toc-highlight">袭击追踪器 (commandRaid)</a></li><li><a href="#刷新命令开关-commandrefresh" class="table-of-contents__link toc-highlight">刷新命令开关 (commandRefresh)</a></li><li><a href="#射线追踪命令开关-commandraycast" class="table-of-contents__link toc-highlight">射线追踪命令开关 (commandRaycast)</a></li><li><a href="#移除实体命令开关-commandremoveentity" class="table-of-contents__link toc-highlight">移除实体命令开关 (commandRemoveEntity)</a></li><li><a href="#睡眠命令开关-commandsleep" class="table-of-contents__link toc-highlight">睡眠命令开关 (commandSleep)</a></li><li><a href="#网络测速指令开关-commandspeedtest" class="table-of-contents__link toc-highlight">网络测速指令开关 (commandSpeedTest)</a></li><li><a href="#创造模式瞬间驯服动物-creativeinstanttame" class="table-of-contents__link toc-highlight">创造模式瞬间驯服动物 (creativeInstantTame)</a></li><li><a href="#创造玩家地狱放水-creativenetherwaterplacement" class="table-of-contents__link toc-highlight">创造玩家地狱放水 (creativeNetherWaterPlacement)</a></li><li><a href="#创造玩家无物品冷却-creativenoitemcooldown" class="table-of-contents__link toc-highlight">创造玩家无物品冷却 (creativeNoItemCooldown)</a></li><li><a href="#创造玩家强制打开容器-creativeopencontainerforcibly" class="table-of-contents__link toc-highlight">创造玩家强制打开容器 (creativeOpenContainerForcibly)</a></li><li><a href="#nbt调试拉取请求无需权限-debugnbtquerynopermission" class="table-of-contents__link toc-highlight">NBT调试拉取请求无需权限 (debugNbtQueryNoPermission)</a></li><li><a href="#反混淆崩溃报告堆栈追踪-deobfuscatecrashreportstacktrace" class="table-of-contents__link toc-highlight">反混淆崩溃报告堆栈追踪 (deobfuscateCrashReportStackTrace)</a></li><li><a href="#发射器不消耗物品-dispensernoitemcost" class="table-of-contents__link toc-highlight">发射器不消耗物品 (dispenserNoItemCost)</a></li><li><a href="#发射器发射龙息-dispensersfiredragonbreath" class="table-of-contents__link toc-highlight">发射器发射龙息 (dispensersFireDragonBreath)</a></li><li><a href="#重新引入粉板瞬时更新循环-dusttrapdoorreintroduced" class="table-of-contents__link toc-highlight">重新引入粉板瞬时更新循环 (dustTrapdoorReintroduced)</a></li><li><a href="#鞘翅状态对方块使用烟花可推进移植-elytrafireworkboostonblockbackport" class="table-of-contents__link toc-highlight">鞘翅状态对方块使用烟花可推进移植 (elytraFireworkBoostOnBlockBackport)</a></li><li><a href="#鞘翅烟花加速别断栓绳-elytrafireworkkeepleashconnection" class="table-of-contents__link toc-highlight">鞘翅烟花加速别断栓绳 (elytraFireworkKeepLeashConnection)</a></li><li><a href="#enchant指令约束移除-enchantcommandnorestriction" class="table-of-contents__link toc-highlight">enchant指令约束移除 (enchantCommandNoRestriction)</a></li><li><a href="#末地折跃门区块加载移植-endgatewaychunkloadingbackport" class="table-of-contents__link toc-highlight">末地折跃门区块加载移植 (endGatewayChunkLoadingBackport)</a></li><li><a href="#末地门传送区块加载移植-endportalchunkloadingbackport" class="table-of-contents__link toc-highlight">末地门传送区块加载移植 (endPortalChunkLoadingBackport)</a></li><li><a href="#禁用末地门开启音效-endportalopenedsounddisabled" class="table-of-contents__link toc-highlight">禁用末地门开启音效 (endPortalOpenedSoundDisabled)</a></li><li><a href="#实体大脑记忆未释放修复-entitybrainmemoryunfreedfix" class="table-of-contents__link toc-highlight">实体大脑记忆未释放修复 (entityBrainMemoryUnfreedFix)</a></li><li><a href="#实体范围查询区段索引x上溢修复-entitychunksectionindexxoverflowfix" class="table-of-contents__link toc-highlight">实体范围查询区段索引X上溢修复 (entityChunkSectionIndexXOverflowFix)</a></li><li><a href="#生物死亡立即移除-entityinstantdeathremoval" class="table-of-contents__link toc-highlight">生物死亡立即移除 (entityInstantDeathRemoval)</a></li><li><a href="#实体速度丢失-entitymomentumloss" class="table-of-contents__link toc-highlight">实体速度丢失 (entityMomentumLoss)</a></li><li><a href="#实体放置无视碰撞-entityplacementignorecollision" class="table-of-contents__link toc-highlight">实体放置无视碰撞 (entityPlacementIgnoreCollision)</a></li><li><a href="#实体同步距离-entitytrackerdistance" class="table-of-contents__link toc-highlight">实体同步距离 (entityTrackerDistance)</a></li><li><a href="#实体同步间隔-entitytrackerinterval" class="table-of-contents__link toc-highlight">实体同步间隔 (entityTrackerInterval)</a></li><li><a href="#爆炸不影响实体-explosionnoentityinfluence" class="table-of-contents__link toc-highlight">爆炸不影响实体 (explosionNoEntityInfluence)</a></li><li><a href="#爆炸数据包广播范围-explosionpacketrange" class="table-of-contents__link toc-highlight">爆炸数据包广播范围 (explosionPacketRange)</a></li><li><a href="#方块状态解析忽略失败-failsoftblockstateparsing" class="table-of-contents__link toc-highlight">方块状态解析忽略失败 (failSoftBlockStateParsing)</a></li><li><a href="#假人名称前缀-fakeplayernameprefix" class="table-of-contents__link toc-highlight">假人名称前缀 (fakePlayerNamePrefix)</a></li><li><a href="#假人名称后缀-fakeplayernamesuffix" class="table-of-contents__link toc-highlight">假人名称后缀 (fakePlayerNameSuffix)</a></li><li><a href="#假人像真人一样运算-fakeplayertickslikerealplayer" class="table-of-contents__link toc-highlight">假人像真人一样运算 (fakePlayerTicksLikeRealPlayer)</a></li><li><a href="#假人远程召唤-fakeplayerremotespawning" class="table-of-contents__link toc-highlight">假人远程召唤 (fakePlayerRemoteSpawning)</a></li><li><a href="#禁用耕地被踩踏-farmlandtrampleddisabled" class="table-of-contents__link toc-highlight">禁用耕地被踩踏 (farmlandTrampledDisabled)</a></li><li><a href="#fill指令模式增强-fillcommandmodeenhance" class="table-of-contents__link toc-highlight">fill指令模式增强 (fillCommandModeEnhance)</a></li><li><a href="#地狱堡垒地狱砖刷怪游走修复-fortressnetherbrickspackspawningfix" class="table-of-contents__link toc-highlight">地狱堡垒地狱砖刷怪游走修复 (fortressNetherBricksPackSpawningFix)</a></li><li><a href="#拍扁三角形分布-flattentriangulardistribution" class="table-of-contents__link toc-highlight">拍扁三角形分布 (flattenTriangularDistribution)</a></li><li><a href="#禁用流体破坏-fluiddestructiondisabled" class="table-of-contents__link toc-highlight">禁用流体破坏 (fluidDestructionDisabled)</a></li><li><a href="#凝视伪装装备拓展-gazedisguiseequipmentextended" class="table-of-contents__link toc-highlight">凝视伪装装备拓展 (gazeDisguiseEquipmentExtended)</a></li><li><a href="#漏斗计数器无限速度-hoppercountersunlimitedspeed" class="table-of-contents__link toc-highlight">漏斗计数器无限速度 (hopperCountersUnlimitedSpeed)</a></li><li><a href="#漏斗不消耗物品-hoppernoitemcost" class="table-of-contents__link toc-highlight">漏斗不消耗物品 (hopperNoItemCost)</a></li><li><a href="#漏斗经验计数器-hopperxpcounters" class="table-of-contents__link toc-highlight">漏斗经验计数器 (hopperXpCounters)</a></li><li><a href="#hud记录器更新间隔-hudloggerupdateinterval" class="table-of-contents__link toc-highlight">HUD记录器更新间隔 (HUDLoggerUpdateInterval)</a></li><li><a href="#重新引入瞬时方块更新逻辑-instantblockupdaterreintroduced" class="table-of-contents__link toc-highlight">重新引入瞬时方块更新逻辑 (instantBlockUpdaterReintroduced)</a></li><li><a href="#瞬时命令方块-instantcommandblock" class="table-of-contents__link toc-highlight">瞬时命令方块 (instantCommandBlock)</a></li><li><a href="#禁用物品实体跳过移动运算-itementityskipmovementdisabled" class="table-of-contents__link toc-highlight">禁用物品实体跳过移动运算 (itemEntitySkipMovementDisabled)</a></li><li><a href="#保持弱加载区块的怪物-keepmobinlazychunks" class="table-of-contents__link toc-highlight">保持弱加载区块的怪物 (keepMobInLazyChunks)</a></li><li><a href="#大木桶-largebarrel" class="table-of-contents__link toc-highlight">大木桶 (largeBarrel)</a></li><li><a href="#存活时间追踪器考虑怪物容量-lifetimetrackerconsidersmobcap" class="table-of-contents__link toc-highlight">存活时间追踪器考虑怪物容量 (lifeTimeTrackerConsidersMobcap)</a></li><li><a href="#光照队列记录器采样时长-lightqueueloggersamplingduration" class="table-of-contents__link toc-highlight">光照队列记录器采样时长 (lightQueueLoggerSamplingDuration)</a></li><li><a href="#光照更新-lightupdates" class="table-of-contents__link toc-highlight">光照更新 (lightUpdates)</a></li><li><a href="#移动记录器-loggermovement" class="table-of-contents__link toc-highlight">移动记录器 (loggerMovement)</a></li><li><a href="#操纵方块指令数量上限-manipulateblocklimit" class="table-of-contents__link toc-highlight">操纵方块指令数量上限 (manipulateBlockLimit)</a></li><li><a href="#微时序-microtiming" class="table-of-contents__link toc-highlight">微时序 (microTiming)</a></li><li><a href="#微时序染料记号-microtimingdyemarker" class="table-of-contents__link toc-highlight">微时序染料记号 (microTimingDyeMarker)</a></li><li><a href="#微时序目标-microtimingtarget" class="table-of-contents__link toc-highlight">微时序目标 (microTimingTarget)</a></li><li><a href="#微时序游戏刻划分-microtimingtickdivision" class="table-of-contents__link toc-highlight">微时序游戏刻划分 (microTimingTickDivision)</a></li><li><a href="#矿车完整掉落移植-minecartfulldropbackport" class="table-of-contents__link toc-highlight">矿车完整掉落移植 (minecartFullDropBackport)</a></li><li><a href="#矿车可在地面放置-minecartplaceableonground" class="table-of-contents__link toc-highlight">矿车可在地面放置 (minecartPlaceableOnGround)</a></li><li><a href="#矿车搭载乘客最小速度-minecarttakepassengerminvelocity" class="table-of-contents__link toc-highlight">矿车搭载乘客最小速度 (minecartTakePassengerMinVelocity)</a></li><li><a href="#怪物容量显示忽略杂项-mobcapsdisplayignoremisc" class="table-of-contents__link toc-highlight">怪物容量显示忽略杂项 (mobcapsDisplayIgnoreMisc)</a></li><li><a href="#可移动强化深板岩-moveablereinforceddeepslate" class="table-of-contents__link toc-highlight">可移动强化深板岩 (moveableReinforcedDeepslate)</a></li><li><a href="#自然刷怪使用113风格的高度图-naturalspawninguse13heightmap" class="table-of-contents__link toc-highlight">自然  刷怪使用1.13风格的高度图 (naturalSpawningUse13Heightmap)</a></li><li><a href="#自然刷怪使用113风格的高度图-额外选项-naturalspawninguse13heightmapextra" class="table-of-contents__link toc-highlight">自然刷怪使用1.13风格的高度图-额外选项 (naturalSpawningUse13HeightmapExtra)</a></li><li><a href="#地狱门实体交互检测使用完整方块形状-netherportalentityinteractioncheckusefullblockshape" class="table-of-contents__link toc-highlight">地狱门实体交互检测使用完整方块形状 (netherPortalEntityInteractionCheckUseFullBlockShape)</a></li><li><a href="#地狱门最大尺寸-netherportalmaxsize" class="table-of-contents__link toc-highlight">地狱门最大尺寸 (netherPortalMaxSize)</a></li><li><a href="#橡树长成鸡腿树百分率-oakballoonpercent" class="table-of-contents__link toc-highlight">橡树长成鸡腿树百分率 (oakBalloonPercent)</a></li><li><a href="#禁用侦测器检测功能-observernodetection" class="table-of-contents__link toc-highlight">禁用侦测器检测功能 (observerNoDetection)</a></li><li><a href="#黑曜石平台方块破坏器移植-obsidianplatformblockbreakerbackport" class="table-of-contents__link toc-highlight">黑曜石平台方块破坏器移植 (obsidianPlatformBlockBreakerBackport)</a></li><li><a href="#op玩家不准作弊-opplayernocheat" class="table-of-contents__link toc-highlight">op玩家不准作弊 (opPlayerNoCheat)</a></li><li><a href="#优化高速实体移动-optimizedfastentitymovement" class="table-of-contents__link toc-highlight">优化高速实体移动 (optimizedFastEntityMovement)</a></li><li><a href="#优化硬碰撞箱实体碰撞-optimizedhardhitboxentitycollision" class="table-of-contents__link toc-highlight">优化硬碰撞箱实体碰撞 (optimizedHardHitBoxEntityCollision)</a></li><li><a href="#tnt优化高优先级-optimizedtnthighpriority" class="table-of-contents__link toc-highlight">TNT优化高优先级 (optimizedTNTHighPriority)</a></li><li><a href="#poi更新开关-poiupdates" class="table-of-contents__link toc-highlight">POI更新开关 (poiUpdates)</a></li><li><a href="#持久性记录器订阅-persistentloggersubscription" class="table-of-contents__link toc-highlight">持久性记录器订阅 (persistentLoggerSubscription)</a></li><li><a href="#精准实体放置-preciseentityplacement" class="table-of-contents__link toc-highlight">精准实体放置 (preciseEntityPlacement)</a></li><li><a href="#刷铁轨机修复-raildupingfix" class="table-of-contents__link toc-highlight">刷铁轨机修复 (railDupingFix)</a></li><li><a href="#红石粉随机更新顺序-redstonedustrandomupdateorder" class="table-of-contents__link toc-highlight">红石粉随机更新顺序 (redstoneDustRandomUpdateOrder)</a></li><li><a href="#红石粉中继器比较器-redstonedustrepeatercomparatorignoreupwardsstateupdate" class="table-of-contents__link toc-highlight">红石粉中继器比较器 (redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate)</a></li><li><a href="#可再生龙蛋-renewabledragonegg" class="table-of-contents__link toc-highlight">可再生龙蛋 (renewableDragonEgg)</a></li><li><a href="#可再生龙首-renewabledragonhead" class="table-of-contents__link toc-highlight">可再生龙首 (renewableDragonHead)</a></li><li><a href="#可再生鞘翅-renewableelytra" class="table-of-contents__link toc-highlight">可再生鞘翅 (renewableElytra)</a></li><li><a href="#中继器延迟折半-repeaterhalfdelay" class="table-of-contents__link toc-highlight">中继器延迟折半 (repeaterHalfDelay)</a></li><li><a href="#刷沙机修复-sanddupingfix" class="table-of-contents__link toc-highlight">刷沙机修复 (sandDupingFix)</a></li><li><a href="#重新引入潜影盒cce抑制器-shulkerboxccereintroduced" class="table-of-contents__link toc-highlight">重新引入潜影盒CCE抑制器 (shulkerBoxCCEReintroduced)</a></li><li><a href="#潜影盒内容物掉落移植-shulkerboxcontentdropbackport" class="table-of-contents__link toc-highlight">潜影盒内容物掉落移植 (shulkerBoxContentDropBackport)</a></li><li><a href="#融雪最小亮度-snowmeltminlightlevel" class="table-of-contents__link toc-highlight">融雪最小亮度 (snowMeltMinLightLevel)</a></li><li><a href="#声音抑制模拟器-soundsuppressionsimulator" class="table-of-contents__link toc-highlight">声音抑制模拟器 (soundSuppressionSimulator)</a></li><li><a href="#生成幼年生物概率-spawnbabyprobably" class="table-of-contents__link toc-highlight">生成幼年生物概率 (spawnBabyProbably)</a></li><li><a href="#生成骑手概率-spawnjockeyprobably" class="table-of-contents__link toc-highlight">生成骑手概率 (spawnJockeyProbably)</a></li><li><a href="#测速指令最大测试大小-speedtestcommandmaxtestsize" class="table-of-contents__link toc-highlight">测速指令最大测试大小 (speedTestCommandMaxTestSize)</a></li><li><a href="#stop指令两步确认-stopcommanddoubleconfirmation" class="table-of-contents__link toc-highlight">stop指令两步确认 (stopCommandDoubleConfirmation)</a></li><li><a href="#结构方块不保留流体-structureblockdonotpreservefluid" class="table-of-contents__link toc-highlight">结构方块不保留流体 (structureBlockDoNotPreserveFluid)</a></li><li><a href="#结构方块范围限制-structureblocklimit" class="table-of-contents__link toc-highlight">结构方块范围限制 (structureBlockLimit)</a></li><li><a href="#同步光照线程-synchronizedlightthread" class="table-of-contents__link toc-highlight">同步光照线程 (synchronizedLightThread)</a></li><li><a href="#同步服务端mspt指标数据-syncservermsptmetricsdata" class="table-of-contents__link toc-highlight">同步服务端mspt指标数据 (syncServerMsptMetricsData)</a></li><li><a href="#tick指令carpet化-tickcommandcarpetfied" class="table-of-contents__link toc-highlight">tick指令carpet化 (tickCommandCarpetfied)</a></li><li><a href="#tick指令增强-tickcommandenhance" class="table-of-contents__link toc-highlight">tick指令增强 (tickCommandEnhance)</a></li><li><a href="#tick指令权限-tickcommandpermission" class="table-of-contents__link toc-highlight">tick指令权限 (tickCommandPermission)</a></li><li><a href="#切换式tickfreeze指令-tickfreezecommandtoggleable" class="table-of-contents__link toc-highlight">切换式tickFreeze指令 (tickFreezeCommandToggleable)</a></li><li><a href="#重新引入tickfreezedeep指令-tickfreezedeepcommand" class="table-of-contents__link toc-highlight">重新引入tickFreezeDeep指令 (tickFreezeDeepCommand)</a></li><li><a href="#重新引入tick性能分析指令-tickprofilercommandsreintroduced" class="table-of-contents__link toc-highlight">重新引入tick性能分析指令 (tickProfilerCommandsReintroduced)</a></li><li><a href="#tickwarp指令别名重现-tickwarpcommandasanalias" class="table-of-contents__link toc-highlight">tickWarp指令别名重现 (tickWarpCommandAsAnAlias)</a></li><li><a href="#计划刻上限-tileticklimit" class="table-of-contents__link toc-highlight">计划刻上限 (tileTickLimit)</a></li><li><a href="#tiscm网络协议-tiscmnetworkprotocol" class="table-of-contents__link toc-highlight">TISCM网络协议 (tiscmNetworkProtocol)</a></li><li><a href="#tnt复制修复-tntdupingfix" class="table-of-contents__link toc-highlight">TNT复制修复 (tntDupingFix)</a></li><li><a href="#tnt引信时长-tntfuseduration" class="table-of-contents__link toc-highlight">TNT引信时长 (tntFuseDuration)</a></li><li><a href="#tnt忽略红石信号-tntignoreredstonesignal" class="table-of-contents__link toc-highlight">TNT忽略红石信号 (tntIgnoreRedstoneSignal)</a></li><li><a href="#工具化tnt-tooledtnt" class="table-of-contents__link toc-highlight">工具化TNT (tooledTNT)</a></li><li><a href="#完全没有方块更新-totallynoblockupdate" class="table-of-contents__link toc-highlight">完全没有方块更新 (totallyNoBlockUpdate)</a></li><li><a href="#坚韧的凋零玫瑰-toughwitherrose" class="table-of-contents__link toc-highlight">坚韧的凋零玫瑰 (toughWitherRose)</a></li><li><a href="#禁用海龟蛋被践踏-turtleeggtrampleddisabled" class="table-of-contents__link toc-highlight">禁用海龟蛋被践踏 (turtleEggTrampledDisabled)</a></li><li><a href="#亡灵生物别在阳光下着火-undeaddontburninsunlight" class="table-of-contents__link toc-highlight">亡灵生物别在阳光下着火 (undeadDontBurnInSunlight)</a></li><li><a href="#更新跳略模拟器-updateskippingsimulator" class="table-of-contents__link toc-highlight">更新跳略模拟器 (updateSkippingSimulator)</a></li><li><a href="#更新抑制模拟器-updatesuppressionsimulator" class="table-of-contents__link toc-highlight">更新抑制模拟器 (updateSuppressionSimulator)</a></li><li><a href="#禁用宝库黑名单-vaultblacklistdisabled" class="table-of-contents__link toc-highlight">禁用宝库黑名单 (vaultBlacklistDisabled)</a></li><li><a href="#可视化投掷物记录器-visualizeprojectileloggerenabled" class="table-of-contents__link toc-highlight">可视化投掷物记录器 (visualizeProjectileLoggerEnabled)</a></li><li><a href="#大力地狱门创建-violentnetherportalcreation" class="table-of-contents__link toc-highlight">大力地狱门创建 (violentNetherPortalCreation)</a></li><li><a href="#虚空伤害数值-voiddamageamount" class="table-of-contents__link toc-highlight">虚空伤害数值 (voidDamageAmount)</a></li><li><a href="#虚空伤害忽略玩家-voiddamageignoreplayer" class="table-of-contents__link toc-highlight">虚空伤害忽略玩家 (voidDamageIgnorePlayer)</a></li><li><a href="#虚空相对海拔高度-voidrelatedaltitude" class="table-of-contents__link toc-highlight">虚空相对海拔高度 (voidRelatedAltitude)</a></li><li><a href="#重新引入水爆-wetexplosionreintroduced" class="table-of-contents__link toc-highlight">重新引入水爆 (wetExplosionReintroduced)</a></li><li><a href="#禁用凋灵生成音效-witherspawnedsounddisabled" class="table-of-contents__link toc-highlight">禁用凋灵生成音效 (witherSpawnedSoundDisabled)</a></li><li><a href="#经验球追踪距离-xptrackingdistance" class="table-of-contents__link toc-highlight">经验球追踪距离 (xpTrackingDistance)</a></li><li><a href="#去除异步任务执行延迟-yeetasynctaskexecutiondelay" class="table-of-contents__link toc-highlight">去除异步任务执行延迟 (yeetAsyncTaskExecutionDelay)</a></li><li><a href="#抑制空闲mspt-yeetidlemspt" class="table-of-contents__link toc-highlight">抑制空闲mspt (yeetIdleMspt)</a></li><li><a href="#阻止乱序聊天数据包踢出-yeetoutoforderchatkick" class="table-of-contents__link toc-highlight">阻止乱序聊天数据包踢出 (yeetOutOfOrderChatKick)</a></li><li><a href="#重新引入僵尸猪灵在愤怒时掉落战利品-zombifiedpiglindroplootifangryreintroduced" class="table-of-contents__link toc-highlight">重新引入僵尸猪灵在愤怒时掉落战利品 (zombifiedPiglinDropLootIfAngryReintroduced)</a></li><li><a href="#光照引擎最大任务组数-lightenginemaxbatchsize" class="table-of-contents__link toc-highlight">光照引擎最大任务组数 (lightEngineMaxBatchSize)</a></li><li><a href="#结构方块轮廓距离-structureblockoutlinedistance" class="table-of-contents__link toc-highlight">结构方块轮廓距离 (structureBlockOutlineDistance)</a></li><li><a href="#阻止更新抑制崩溃-yeetupdatesuppressioncrash" class="table-of-contents__link toc-highlight">阻止更新抑制崩溃 (yeetUpdateSuppressionCrash)</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">下载</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/TISUnion/Carpet-TIS-Addition/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Releases<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://legacy.curseforge.com/minecraft/mc-mods/carpet-tis-addition/files" target="_blank" rel="noopener noreferrer" class="footer__link-item">CurseForge<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://modrinth.com/mod/carpet-tis-addition/versions" target="_blank" rel="noopener noreferrer" class="footer__link-item">Modrinth<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">联系</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/TISUnion/Carpet-TIS-Addition" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Repository<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://discord.gg/gn99m4QRY4" target="_blank" rel="noopener noreferrer" class="footer__link-item">Carpet Mod Discord<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">相关项目</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/TISUnion/TISCarpet113" target="_blank" rel="noopener noreferrer" class="footer__link-item">TIS Carpet for 1.13.2<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/gnembon/fabric-carpet" target="_blank" rel="noopener noreferrer" class="footer__link-item">Fabric Carpet<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Carpet TIS Addition. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
