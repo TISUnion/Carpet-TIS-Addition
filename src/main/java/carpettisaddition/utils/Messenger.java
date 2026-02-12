@@ -777,7 +777,11 @@ public class Messenger
 	public static void reminder(Player player, BaseComponent text)
 	{
 		// translation logic is handled in carpettisaddition.mixins.translations.ServerPlayerEntityMixin
+		//#if MC >= 26.1
+		//$$ player.sendOverlayMessage(text);
+		//#else
 		player.displayClientMessage(text, true);
+		//#endif
 	}
 
 	public static void sendToConsole(BaseComponent text)
