@@ -42,7 +42,6 @@ import net.minecraft.world.level.ChunkPos;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Math.max;
 
@@ -58,7 +57,7 @@ public class TicketLogger extends AbstractLogger
 	public static final String NAME = "ticket";
 	private static final TicketLogger INSTANCE = new TicketLogger();
 
-	private final List<TicketType> tickTypes = Lists.newArrayList();
+	private final List<String> tickTypes = Lists.newArrayList();
 
 	public TicketLogger()
 	{
@@ -70,23 +69,32 @@ public class TicketLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
-	public void addTicketType(TicketType ticketType)
+	public void addTicketType(String ticketType)
 	{
 		this.tickTypes.add(ticketType);
 	}
 
+	private String nameOf(TicketType type)
+	{
+		//#if MC < 12105
+		return type.toString();
+		//#else
+		//$$ return net.minecraft.Util.getRegisteredName(net.minecraft.core.registries.BuiltInRegistries.TICKET_TYPE, type);
+		//#endif
+	}
+
 	private String[] getLoggingSuggestions()
 	{
-		List<String> suggestions = this.tickTypes.stream().map(TicketType::toString).collect(Collectors.toList());
+		List<String> suggestions = Lists.newArrayList(tickTypes);
 		suggestions.add(createCompoundOption(
-				TicketType.PORTAL.toString(),
+				nameOf(TicketType.PORTAL),
 				//#if MC >= 12105
-				//$$ TicketType.PLAYER_SIMULATION.toString()
+				//$$ nameOf(TicketType.PLAYER_SIMULATION)
 				//#else
-				TicketType.PLAYER.toString()
+				nameOf(TicketType.PLAYER)
 				//#endif
 		));
-		suggestions.add(createCompoundOption(TicketType.PORTAL.toString(), TicketType.DRAGON.toString()));
+		suggestions.add(createCompoundOption(nameOf(TicketType.PORTAL), nameOf(TicketType.DRAGON)));
 		return wrapOptions(suggestions.toArray(new String[0]));
 	}
 
@@ -100,7 +108,7 @@ public class TicketLogger extends AbstractLogger
 				Logger
 				//#endif
 				(
-						TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, TicketType.PORTAL.toString(), null
+						TISAdditionLoggerRegistry.getLoggerField(NAME), NAME, nameOf(TicketType.PORTAL), null
 						//#if MC >= 11700
 						//$$ , false
 						//#endif
@@ -126,7 +134,7 @@ public class TicketLogger extends AbstractLogger
 		this.log((option) ->
 		{
 			TicketType chunkTicketType = chunkTicket.getType();
-			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(chunkTicketType.toString()))
+			if (Arrays.asList(option.split(MULTI_OPTION_SEP_REG)).contains(nameOf(chunkTicketType)))
 			{
 				long expiryTicks = chunkTicketType.timeout();
 				ChunkPos pos = PositionUtils.unpackChunkPos(position);
@@ -140,7 +148,7 @@ public class TicketLogger extends AbstractLogger
 						),
 						tr("message",
 								Messenger.fancy(
-										Messenger.s(chunkTicketType.toString(), "d"),
+										Messenger.s(nameOf(chunkTicketType), "d"),
 										tr(
 												"ticket_detail",
 												chunkTicket.getTicketLevel(), expiryTicks > 0 ? Messenger.s(expiryTicks + " gt") : tr("permanent"),
