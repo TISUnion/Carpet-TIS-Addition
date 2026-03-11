@@ -24,7 +24,6 @@ import carpettisaddition.helpers.rule.syncServerMsptMetricsData.ServerMsptMetric
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.DebugScreenOverlay;
 import net.minecraft.client.gui.components.debugchart.TpsDebugChart;
 import org.spongepowered.asm.mixin.Final;
@@ -33,6 +32,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+//#if MC >= 26.1
+//$$ import net.minecraft.client.gui.GuiGraphicsExtractor;
+//#else
+import net.minecraft.client.gui.GuiGraphics;
+//#endif
 
 //#if MC >= 12005
 //$$ import net.minecraft.util.debugchart.LocalSampleLogger;
@@ -57,7 +62,9 @@ public abstract class DebugHudMixin
 	//#endif
 
 	@Inject(
-			//#if MC >= 12102
+			//#if MC >= 26.1
+			//$$ method = "extractRenderState",
+			//#elseif MC >= 12102
 			//$$ method = "render",
 			//#else
 			method = "method_51746",  // lambda method in render()
@@ -72,7 +79,12 @@ public abstract class DebugHudMixin
 			)
 	)
 	private void syncServerMsptMetricsData_drawIfPossible(
-			GuiGraphics drawContext, CallbackInfo ci,
+			//#if MC >= 26.1
+			//$$ GuiGraphicsExtractor drawContext,
+			//#else
+			GuiGraphics drawContext,
+			//#endif
+			CallbackInfo ci,
 			@Local(ordinal = 0) int windowWidth,
 			@Local(ordinal = 1) int centerX
 	)
@@ -104,7 +116,12 @@ public abstract class DebugHudMixin
 
 				// vanilla copy
 				int width = chart.getWidth(centerX);
+
+				//#if MC >= 21.6
+				//$$ chart.extractRenderState(drawContext, windowWidth - width, width);
+				//#else
 				chart.drawChart(drawContext, windowWidth - width, width);
+				//#endif
 			}
 		}
 	}

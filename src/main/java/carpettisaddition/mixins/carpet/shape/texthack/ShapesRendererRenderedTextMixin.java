@@ -102,7 +102,9 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 			method = "renderLines",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12106
+					//#if MC >= 26.1
+					//$$ target = "Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4fc;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)V",
+					//#elseif MC >= 12106
 					//$$ target = "Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)V",
 					//#elseif MC >= 11904
 					//$$ target = "Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)I",
