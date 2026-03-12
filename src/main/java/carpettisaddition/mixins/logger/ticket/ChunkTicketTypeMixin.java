@@ -21,19 +21,29 @@
 package carpettisaddition.mixins.logger.ticket;
 
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.level.TicketType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+//#if MC < 12105
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//#else
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//#endif
 
 @Mixin(TicketType.class)
-public abstract class ChunkTicketTypeMixin<T>
+public abstract class ChunkTicketTypeMixin
 {
-	@SuppressWarnings({"ConstantConditions", "rawtypes"})  // ChunkTicket is not a generic in mc1.21.5+
-	@Inject(method = "<init>", at = @At("TAIL"))
-	private void recordTicketType(CallbackInfo ci)
-	{
-		TicketLogger.getInstance().addTicketType((TicketType)(Object)this);
-	}
+    //#if MC < 12105
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void recordTicketType(CallbackInfo ci,
+    //#else
+    //$$ @Inject(method = "register", at = @At("TAIL"))
+    //$$ private static void recordTicketType(CallbackInfoReturnable<TicketType> cir,
+    //#endif
+                                  @Local(argsOnly = true) String name)
+    {
+        TicketLogger.getInstance().addTicketType(name);
+    }
 }
