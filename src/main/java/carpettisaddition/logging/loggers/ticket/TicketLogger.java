@@ -45,6 +45,10 @@ import java.util.List;
 
 import static java.lang.Math.max;
 
+//#if MC >= 12105
+//$$ import net.minecraft.core.registries.BuiltInRegistries;
+//#endif
+
 /**
  * Raw type {@link TicketType} usages here are to make the version compatibility earlier
  * Since in MC 1.21.5+, {@link TicketType} are no longer generic
@@ -57,7 +61,8 @@ public class TicketLogger extends AbstractLogger
 	public static final String NAME = "ticket";
 	private static final TicketLogger INSTANCE = new TicketLogger();
 
-	private final List<String> tickTypes = Lists.newArrayList();
+	// "portal", "dragon", "my_namespace:foo_ticket"
+	private final List<String> allTicketNames = Lists.newArrayList();
 
 	public TicketLogger()
 	{
@@ -69,23 +74,32 @@ public class TicketLogger extends AbstractLogger
 		return INSTANCE;
 	}
 
-	public void addTicketType(String ticketType)
+	public void addVanillaTicketName(String ticketName)
 	{
-		this.tickTypes.add(ticketType);
+		this.allTicketNames.add(ticketName);
 	}
 
 	private String nameOf(TicketType type)
 	{
-		//#if MC < 12105
-		return type.toString();
+		//#if MC >= 12105
+		//$$ var id = BuiltInRegistries.TICKET_TYPE.getKey(type);
+		//$$ if (id == null)
+		//$$ {
+		//$$ 	return "[unregistered]";  // the same as net.minecraft.Util#getRegisteredName
+		//$$ }
+		//$$ if (id.getNamespace().equals("minecraft"))
+		//$$ {
+		//$$ 	return id.getPath();
+		//$$ }
+		//$$ return id.toString();
 		//#else
-		//$$ return net.minecraft.Util.getRegisteredName(net.minecraft.core.registries.BuiltInRegistries.TICKET_TYPE, type);
+		return type.toString();
 		//#endif
 	}
 
 	private String[] getLoggingSuggestions()
 	{
-		List<String> suggestions = Lists.newArrayList(tickTypes);
+		List<String> suggestions = Lists.newArrayList(allTicketNames);
 		suggestions.add(createCompoundOption(
 				nameOf(TicketType.PORTAL),
 				//#if MC >= 12105

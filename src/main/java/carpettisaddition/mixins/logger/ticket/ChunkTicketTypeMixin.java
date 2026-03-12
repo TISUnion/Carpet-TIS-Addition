@@ -21,29 +21,30 @@
 package carpettisaddition.mixins.logger.ticket;
 
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.level.TicketType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-//#if MC < 12105
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-//#else
-//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-//#endif
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(TicketType.class)
 public abstract class ChunkTicketTypeMixin
 {
-    //#if MC < 12105
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void recordTicketType(CallbackInfo ci,
-    //#else
-    //$$ @Inject(method = "register", at = @At("TAIL"))
-    //$$ private static void recordTicketType(CallbackInfoReturnable<TicketType> cir,
+	@ModifyVariable(
+			//#if MC >= 12105
+			//$$ method = "register",
+			//#else
+			method = "<init>",
+			//#endif
+			at = @At("TAIL"),
+			argsOnly = true
+	)
+	private
+    //#if MC >= 12105
+    //$$ static
     //#endif
-                                  @Local(argsOnly = true) String name)
-    {
-        TicketLogger.getInstance().addTicketType(name);
-    }
+    String ticketLogger_registerTicketType(String name)
+	{
+		TicketLogger.getInstance().addVanillaTicketName(name);
+		return name;
+	}
 }
