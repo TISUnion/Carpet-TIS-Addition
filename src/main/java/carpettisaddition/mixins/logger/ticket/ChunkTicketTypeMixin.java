@@ -21,28 +21,28 @@
 package carpettisaddition.mixins.logger.ticket;
 
 import carpettisaddition.logging.loggers.ticket.TicketLogger;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.level.TicketType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 //#if MC < 12105
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Comparator;
 //#else
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
 
 @Mixin(TicketType.class)
-public abstract class ChunkTicketTypeMixin<T>
+public abstract class ChunkTicketTypeMixin
 {
     //#if MC < 12105
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void recordTicketType(String name, Comparator<T> comparator, long l, CallbackInfo ci)
+    private void recordTicketType(CallbackInfo ci,
     //#else
     //$$ @Inject(method = "register", at = @At("TAIL"))
-    //$$ private static void recordTicketType(String name, long timeout, boolean persist, TicketType.TicketUse use, CallbackInfoReturnable<TicketType> cir)
+    //$$ private static void recordTicketType(CallbackInfoReturnable<TicketType> cir,
     //#endif
+                                  @Local(argsOnly = true) String name)
     {
         TicketLogger.getInstance().addTicketType(name);
     }
