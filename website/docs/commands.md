@@ -356,6 +356,22 @@ Target entities velocity logic control. `nan` and `inf` can be used as the veloc
 /manipulate entity <target> velocity [add|set] <x> <y> <z>
 ```
 
+### server
+
+Manipulate the server
+
+#### entity_id_counter
+
+Manipulate the entity ID counter
+
+| Command                                               | Effect                                                  |
+|-------------------------------------------------------|---------------------------------------------------------|
+| `/manipulate server entity_id_counter`                | The same as `/manipulate server entity_id_counter show` |
+| `/manipulate server entity_id_counter query <entity>` | Show the entity ID of the given entity                  |
+| `/manipulate server entity_id_counter show`           | Show the current value of the entity ID counter         |
+| `/manipulate server entity_id_counter set <value>`    | Set the entity ID counter to the given value            |
+| `/manipulate server entity_id_counter add <delta>`    | Add given delta to the entity ID counter                |
+
 
 ## speedtest
 

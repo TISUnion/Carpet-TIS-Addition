@@ -356,6 +356,22 @@ json 字段说明如下：
 /manipulate entity <目标> velocity [add|set] <x> <y> <z>
 ```
 
+### server
+
+操控服务端
+
+#### entity_id_counter
+
+操控实体 ID 计数器
+
+| 指令                                                    | 效果                                               |
+|-------------------------------------------------------|--------------------------------------------------|
+| `/manipulate server entity_id_counter`                | 与 `/manipulate server entity_id_counter show` 一致 |
+| `/manipulate server entity_id_counter query <entity>` | 展示指定实体的实体 ID                                     |
+| `/manipulate server entity_id_counter show`           | 展示当前实体 ID 计数器的取值                                 |
+| `/manipulate server entity_id_counter set <value>`    | 将设置实体 ID 计数器的值设为 `<value>`                       |
+| `/manipulate server entity_id_counter add <delta>`    | 将实体 ID 计数器的值增加 `<delta>`                         |
+
 
 ## 网络测速
 

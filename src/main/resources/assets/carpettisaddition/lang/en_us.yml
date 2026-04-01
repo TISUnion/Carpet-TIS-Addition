@@ -443,6 +443,14 @@ carpettisaddition:
           title: 'Velocity vectors:'
           added: Added velocity of %1$s with %2$s
           set: Set velocity of %1$s to %2$s
+      server:
+        entity_id_counter:
+          set: Set entity ID counter to %1$s
+          add: 'Added %1$s to entity ID counter, current value: %2$s'
+          show: 'Current entity ID counter value: %1$s'
+          query: 'Entity ID of %1$s is %2$s'
+          progress_of_overflow_to_negative: 'Progress of overflow to negative: %1$s'
+          progress_of_overflow_to_0: 'Progress of overflow to 0: %1$s'
     player:
       action:
         perTick:

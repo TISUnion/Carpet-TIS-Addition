@@ -27,6 +27,7 @@ import carpettisaddition.commands.manipulate.block.BlockManipulator;
 import carpettisaddition.commands.manipulate.chunk.ChunkManipulator;
 import carpettisaddition.commands.manipulate.container.ContainerManipulator;
 import carpettisaddition.commands.manipulate.entity.EntityManipulator;
+import carpettisaddition.commands.manipulate.server.ServerManipulator;
 import carpettisaddition.utils.CarpetModUtil;
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -45,7 +46,8 @@ public class ManipulateCommand extends AbstractCommand
 			BlockManipulator.getInstance(),
 			new ChunkManipulator(),
 			ContainerManipulator.getInstance(),
-			new EntityManipulator()
+			new EntityManipulator(),
+			new ServerManipulator()
 	);
 
 	public ManipulateCommand()
