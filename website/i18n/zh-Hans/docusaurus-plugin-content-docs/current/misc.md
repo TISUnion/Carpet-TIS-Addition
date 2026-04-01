@@ -100,5 +100,6 @@ sidebar_position: 4
 ## Carpet 相关其他修改
 
 - 取消玩家动作包（由 `/player` 指令触发的 PlayerActionPack）在 `/tick freeze` 时的更新
-- 修复地毯假人不响应玩家近战攻击的击退的 bug ([gnembon/fabric-carpet#745](https://github.com/gnembon/fabric-carpet/issues/745))。此问题已在 fabric-carpet v1.4.33 中得以修复
+- 修复了地毯假人不响应玩家近战攻击的击退的 bug ([gnembon/fabric-carpet#745](https://github.com/gnembon/fabric-carpet/issues/745))。此问题已在 fabric-carpet v1.4.33 中得以修复
+- 修复了地毯假人潜在的出流量网络包内存泄漏的 bug ([gnembon/fabric-carpet#2169](https://github.com/gnembon/fabric-carpet/issues/2169))，影响 MC 1.17 ~ 1.21.11。此问题已在 fabric-carpet v26.1 中得以修复 [848f06c](https://github.com/gnembon/fabric-carpet/commit/848f06cb1c4f20b3a06e83559fe029dddd2d5be7)
 - 修复了在使用粒子效果这一替代方案来将 scarpet shape 发送给非 carpet 客户端时，服务端发生的 `unknown_particle` 崩溃，影响 MC 1.20.5 ~ 1.21.4。此问题已在 fabric-carpet v1.4.169 中的提交 [da5b937](https://github.com/gnembon/fabric-carpet/commit/da5b937e78c949ecea743cf607fb3d31249b48e6) 中修复
