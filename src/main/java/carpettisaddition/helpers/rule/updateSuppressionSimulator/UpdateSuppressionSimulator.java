@@ -42,6 +42,9 @@ public class UpdateSuppressionSimulator
 			},
 			"IllegalArgumentException", () -> {
 				throw new IllegalArgumentException(ERROR_MESSAGE);
+			},
+			"IllegalStateException", () -> {
+				throw new IllegalStateException(ERROR_MESSAGE);
 			}
 	);
 
