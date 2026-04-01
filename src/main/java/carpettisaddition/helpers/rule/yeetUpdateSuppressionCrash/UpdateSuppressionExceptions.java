@@ -37,6 +37,10 @@ public class UpdateSuppressionExceptions
 		{
 			return new IllegalArgumentSuppression(cause, world, pos);
 		}
+		if (cause instanceof IllegalStateException)
+		{
+			return new IllegalStateSuppression(cause, world, pos);
+		}
 
 		// StackOverflowError or OutOfMemoryError could get wrapped when Minecraft is handling it after being firstly thrown
 		for (; cause != null; cause = cause.getCause())
@@ -61,6 +65,7 @@ public class UpdateSuppressionExceptions
 		ClassCastSuppression.class.getClass();
 		OutOfMemorySuppression.class.getClass();
 		IllegalArgumentSuppression.class.getClass();
+		IllegalStateSuppression.class.getClass();
 	}
 
 	public static class StackOverflowSuppression extends StackOverflowError implements UpdateSuppressionException
@@ -134,6 +139,29 @@ public class UpdateSuppressionExceptions
 		private final UpdateSuppressionContext context;
 
 		public IllegalArgumentSuppression(Throwable cause, @Nullable Level world, BlockPos pos)
+		{
+			super(cause);
+			this.context = new UpdateSuppressionContext(cause, world, pos);
+		}
+
+		@Override
+		public synchronized Throwable getCause()
+		{
+			return this.context.getCause();
+		}
+
+		@Override
+		public UpdateSuppressionContext getSuppressionContext()
+		{
+			return this.context;
+		}
+	}
+
+	public static class IllegalStateSuppression extends IllegalStateException implements UpdateSuppressionException
+	{
+		private final UpdateSuppressionContext context;
+
+		public IllegalStateSuppression(Throwable cause, @Nullable Level world, BlockPos pos)
 		{
 			super(cause);
 			this.context = new UpdateSuppressionContext(cause, world, pos);
