@@ -31,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 //#if MC >= 11700
+//$$ import carpettisaddition.commands.lifetime.LifeTimeTracker;
 //$$ import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
 //$$ import org.spongepowered.asm.mixin.injection.Inject;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -66,13 +67,13 @@ public abstract class LivingEntityMixin extends Entity
 	//$$ @Inject(method = "dropExperience", at = @At("HEAD"))
 	//$$ private void lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrbHook(CallbackInfo ci)
 	//$$ {
-	//$$ 	LifetimeMixinUtil.xpOrbSpawningReason.set(new MobDropSpawningReason(this.getType()));
+	//$$ 	if (LifeTimeTracker.isActivated()) LifetimeMixinUtil.xpOrbSpawningReason.set(new MobDropSpawningReason(this.getType()));
 	//$$ }
 	//$$
 	//$$ @Inject(method = "dropExperience", at = @At("TAIL"))
 	//$$ private void lifetimeTracker_recordSpawning_mobDrop_livingEntityDeathDrop_xpOrbHookCleanup(CallbackInfo ci)
 	//$$ {
-	//$$ 	LifetimeMixinUtil.xpOrbSpawningReason.remove();
+	//$$ 	if (LifeTimeTracker.isActivated()) LifetimeMixinUtil.xpOrbSpawningReason.remove();
 	//$$ }
 	//#else
 	@ModifyArg(

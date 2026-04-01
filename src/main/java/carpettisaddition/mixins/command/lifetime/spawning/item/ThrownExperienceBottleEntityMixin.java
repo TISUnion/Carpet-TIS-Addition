@@ -27,6 +27,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 //#if MC >= 11700
+//$$ import carpettisaddition.commands.lifetime.LifeTimeTracker;
 //$$ import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //$$ import org.spongepowered.asm.mixin.injection.Inject;
@@ -52,7 +53,7 @@ public abstract class ThrownExperienceBottleEntityMixin
 	//$$ )
 	//$$ private void lifetimeTracker_recordSpawning_item_xpBottle(CallbackInfo ci)
 	//$$ {
-	//$$ 	LifetimeMixinUtil.xpOrbSpawningReason.set(LiteralSpawningReason.ITEM);
+	//$$ 	if (LifeTimeTracker.isActivated()) LifetimeMixinUtil.xpOrbSpawningReason.set(LiteralSpawningReason.ITEM);
 	//$$ }
 	//#else
 	@ModifyArg(

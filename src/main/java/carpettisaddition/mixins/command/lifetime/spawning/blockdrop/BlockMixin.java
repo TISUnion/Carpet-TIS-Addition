@@ -28,6 +28,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+//#if MC >= 11700
+//$$ import carpettisaddition.commands.lifetime.LifeTimeTracker;
+//$$ import carpettisaddition.commands.lifetime.utils.LifetimeMixinUtil;
+//$$ import org.spongepowered.asm.mixin.injection.Inject;
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//#endif
+
 @Mixin(Block.class)
 public abstract class BlockMixin
 {
@@ -42,9 +49,40 @@ public abstract class BlockMixin
 					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
 			)
 	)
-	private static Entity lifetimeTracker_recordSpawning_blockDrop_common(Entity itemEntity)
+	private static Entity lifetimeTracker_recordSpawning_blockDrop_commonItem(Entity itemEntity)
 	{
 		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(LiteralSpawningReason.BLOCK_DROP);
 		return itemEntity;
 	}
+
+	//#if MC >= 11700
+	//$$ @Inject(method = "popExperience", at = @At("HEAD"))
+	//$$ private void lifetimeTracker_recordSpawning_blockDrop_commonXpOrbStart(CallbackInfo ci)
+	//$$ {
+	//$$ 	if (LifeTimeTracker.isActivated()) LifetimeMixinUtil.xpOrbSpawningReason.set(LiteralSpawningReason.BLOCK_DROP);
+	//$$ }
+	//$$
+	//$$ @Inject(method = "popExperience", at = @At("TAIL"))
+	//$$ private void lifetimeTracker_recordSpawning_blockDrop_commonXpOrbEnd(CallbackInfo ci)
+	//$$ {
+	//$$ 	if (LifeTimeTracker.isActivated()) LifetimeMixinUtil.xpOrbSpawningReason.remove();
+	//$$ }
+	//#else
+	@ModifyArg(
+			method = "popExperience",
+			at = @At(
+					value = "INVOKE",
+					//#if MC >= 1.16
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
+					//#else
+					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
+					//#endif
+			)
+	)
+	private static Entity lifetimeTracker_recordSpawning_blockDrop_commonXpOrb(Entity xpEntity)
+	{
+		((LifetimeTrackerTarget)xpEntity).recordSpawning$TISCM(LiteralSpawningReason.BLOCK_DROP);
+		return xpEntity;
+	}
+	//#endif
 }
