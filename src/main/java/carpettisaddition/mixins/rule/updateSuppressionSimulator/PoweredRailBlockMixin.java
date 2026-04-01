@@ -49,7 +49,7 @@ public abstract class PoweredRailBlockMixin
 		{
 			if (!newPoweredState && world.getBlockState(pos.below()).getBlock() == Blocks.LAPIS_ORE)
 			{
-				UpdateSuppressionSimulator.kaboom();
+				UpdateSuppressionSimulator.kaboom(world, pos);
 			}
 		}
 		return newPoweredState;

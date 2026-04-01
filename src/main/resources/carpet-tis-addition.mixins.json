@@ -549,6 +549,7 @@
     "rule.yeetUpdateSuppressionCrash.mark.blockUpdateStackOverflow.WorldMixin",
     "rule.yeetUpdateSuppressionCrash.mark.entityIdISE.ChunkMapMixin",
     "rule.yeetUpdateSuppressionCrash.mark.shulkerBoxCCE.ShulkerBoxBlockMixin",
+    "rule.yeetUpdateSuppressionCrash.mark.updateSuppressionSimulator.UpdateSuppressionSimulatorMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.MinecraftServerMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.PacketProcessorListenerAndPacketMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.ReentrantThreadExecutorMixin",

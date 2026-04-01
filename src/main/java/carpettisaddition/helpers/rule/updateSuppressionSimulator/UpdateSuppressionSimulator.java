@@ -21,6 +21,8 @@
 package carpettisaddition.helpers.rule.updateSuppressionSimulator;
 
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 import java.util.Map;
 import java.util.Optional;
@@ -51,7 +53,10 @@ public class UpdateSuppressionSimulator
 		return nuke != DUMMY;
 	}
 
-	public static void kaboom()
+	/**
+	 * Note: Mixin-ed by {@link carpettisaddition.mixins.rule.yeetUpdateSuppressionCrash.mark.updateSuppressionSimulator.UpdateSuppressionSimulatorMixin}
+	 */
+	public static void kaboom(Level world, BlockPos pos)
 	{
 		nuke.run();
 	}
