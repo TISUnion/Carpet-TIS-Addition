@@ -22,6 +22,7 @@ package carpettisaddition.commands.manipulate.server;
 
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.AbstractManipulator;
+import carpettisaddition.logging.loggers.entityIdCounter.EntityIdCounterUtils;
 import carpettisaddition.mixins.command.info.server.EntityAccessor;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.commands.CommandSourceStack;
@@ -77,9 +78,8 @@ public class ServerManipulator extends AbstractManipulator
 
 	private BaseComponent prettyEidCounter(int value)
 	{
-		long distanceUntil0 = value > 0 ? ((1L << 32) - value) : -1L * value;
-		double overflowTo0Percent = 100.0 * ((1L << 32) - distanceUntil0) / (1L << 32);
-		double overflowToNegativePercent = value >= 0 ? 100.0 * value / Integer.MAX_VALUE : 100;
+		double overflowTo0Percent = EntityIdCounterUtils.getPercentOfOverflowToZero(value);
+		double overflowToNegativePercent = EntityIdCounterUtils.getPercentOfOverflowToNegative(value);
 		return Messenger.hover(
 				Messenger.s(value),
 				Messenger.c(

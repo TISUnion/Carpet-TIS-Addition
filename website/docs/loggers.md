@@ -79,6 +79,17 @@ Attributes:
 ![damage](images/logger/damage.png)
 
 
+## entityIdCounter
+
+`/log entityIdCounter`
+
+Display the current value of the entity ID counter and the percentage of overflowing back to 0
+
+Attributes:
+- Default option: N/A
+- Suggested options: N/A
+
+
 ## item
 
 `/log item <events>`

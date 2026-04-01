@@ -79,6 +79,17 @@ sidebar_position: 2
 ![damage](images/logger/damage.png)
 
 
+## 实体 ID 计数器 (entityIdCounter)
+
+`/log entityIdCounter`
+
+于 tab 栏中显示服务端的实体 ID 计数器的取值，及其溢出回 0 的进度百分比
+
+属性:
+- 默认选项: N/A
+- 参考选项: N/A
+
+
 ## 掉落物 (item)
 
 `/log item <事件>`
