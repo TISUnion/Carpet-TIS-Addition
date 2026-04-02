@@ -59,6 +59,7 @@ public class EntityInfoPorting
 		List<BaseComponent> lst = Lists.newArrayList();
 		Level world = EntityUtils.getEntityWorld(e);
 		lst.add(Messenger.c("w " + EntityInfoUtil.entity_short_string(e)));
+		lst.add(Messenger.c("w  - ID: ", "wb "+e.getId()));
 		if (e.isPassenger()) { lst.add(Messenger.c("w  - Rides: ", "wb "+e.getVehicle().getDisplayName().getString())); }
 		if (e.isVehicle())
 		{
