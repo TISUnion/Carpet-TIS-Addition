@@ -851,13 +851,6 @@ carpettisaddition:
         extra:
           '0': The limit will be raised from 256 to 32000
           '1': Carpet TIS Addition is required to be installed on the client
-      chunkUpdatePacketThreshold:
-        name: chunkUpdatePacketThreshold
-        desc: The threshold which the game will just send an chunk data packet if the amount of block changes is more than it
-        extra:
-          '0': Increasing this value might reduce network bandwidth usage, and boost client's fps if there are lots of tile entities in a chunk section with a lot of block changes
-          '1': Set it to really high to simulate 1.16+ behavior, which is no chunk packet but only multiple block change packet
-          '2': This rule is only available in <1.16
       chunkTickInEntityTickingChunksBackport:
         name: chunkTickInEntityTickingChunksBackport
         desc: Backport the feature from Minecraft 1.20.5+ that chunk ticks are performed in all entity ticking chunks, without requiring nearby players to be present
@@ -870,6 +863,13 @@ carpettisaddition:
           '0': The default value is 1. Set it to 0 to disables chunk ticks
           '1': 'Affected game phases: thunder, ice and snow, randomtick'
           '2': With a value of n, in every chunk every game tick, climate things will tick n times, and randomtick will tick n * randomTickSpeed times per chunk section
+      chunkUpdatePacketThreshold:
+        name: chunkUpdatePacketThreshold
+        desc: The threshold which the game will just send an chunk data packet if the amount of block changes is more than it
+        extra:
+          '0': Increasing this value might reduce network bandwidth usage, and boost client's fps if there are lots of tile entities in a chunk section with a lot of block changes
+          '1': Set it to really high to simulate 1.16+ behavior, which is no chunk packet but only multiple block change packet
+          '2': This rule is only available in <1.16
       clientSettingsLostOnRespawnFix:
         name: clientSettingsLostOnRespawnFix
         desc: Fixed stored client settings are not migrated from the old player entity during player respawn or entering end portal in the end

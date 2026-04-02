@@ -74,22 +74,6 @@ Carpet TIS Addition is required to be installed on the client
 - Categories: `TIS`, `CLIENT`
 
 
-## chunkUpdatePacketThreshold
-
-The threshold which the game will just send an chunk data packet if the amount of block changes is more than it
-
-Increasing this value might reduce network bandwidth usage, and boost client's fps if there are lots of tile entities in a chunk section with a lot of block changes
-
-Set it to really high to simulate 1.16+ behavior, which is no chunk packet but only multiple block change packet
-
-This rule is only available in \<1.16
-
-- Type: `int`
-- Default value: `64`
-- Suggested options: `64`, `4096`, `65536`
-- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
-
-
 ## chunkTickInEntityTickingChunksBackport
 
 **Minecraft < 1.20.5 only**
@@ -121,6 +105,22 @@ With a value of `n`, in every chunk every game tick, climate things will tick `n
 - Default value: `1`
 - Suggested options: `0`, `1`, `10`, `100`, `1000`
 - Categories: `TIS`, `CREATIVE`
+
+
+## chunkUpdatePacketThreshold
+
+The threshold which the game will just send an chunk data packet if the amount of block changes is more than it
+
+Increasing this value might reduce network bandwidth usage, and boost client's fps if there are lots of tile entities in a chunk section with a lot of block changes
+
+Set it to really high to simulate 1.16+ behavior, which is no chunk packet but only multiple block change packet
+
+This rule is only available in \<1.16
+
+- Type: `int`
+- Default value: `64`
+- Suggested options: `64`, `4096`, `65536`
+- Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
 ## clientSettingsLostOnRespawnFix
