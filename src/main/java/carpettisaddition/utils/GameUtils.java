@@ -21,10 +21,16 @@
 package carpettisaddition.utils;
 
 import carpettisaddition.CarpetTISAdditionServer;
+import carpettisaddition.mixins.utils.BlockableEventLoopAccessor;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.thread.BlockableEventLoop;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -98,6 +104,28 @@ public class GameUtils
 		return CarpetTISAdditionServer.minecraft_server != null && CarpetTISAdditionServer.minecraft_server.isSameThread();
 	}
 
+	public static boolean isOnClientThread()
+	{
+		return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT && MinecraftClientAccess.isOnClientThread();
+	}
+
+	//#if MC < 1.21.3
+	@SuppressWarnings("unchecked")
+	//#endif
+	private static <R extends Runnable> void scheduleOnBlockableEventLoop(BlockableEventLoop<R> eventLoop, Runnable runnable)
+	{
+		//#if MC >= 1.21.3
+		//$$ eventLoop.schedule(eventLoop.wrapRunnable(runnable));
+		//#else
+		eventLoop.tell(((BlockableEventLoopAccessor<R>)eventLoop).invokeWrapRunnable$TISCM(runnable));
+		//#endif
+	}
+
+	public static void scheduleOnServerThread(MinecraftServer server, Runnable runnable)
+	{
+		scheduleOnBlockableEventLoop(server, runnable);
+	}
+
 	/**
 	 * See the exit point for the looping in
 	 *   (>=1.16) {@link net.minecraft.world.level.NaturalSpawner#createState}
@@ -145,4 +173,12 @@ public class GameUtils
 	//$$ 	return null;
 	//$$ }
 	//#endif
+
+	private static class MinecraftClientAccess
+	{
+		public static boolean isOnClientThread()
+		{
+			return Minecraft.getInstance().isSameThread();
+		}
+	}
 }

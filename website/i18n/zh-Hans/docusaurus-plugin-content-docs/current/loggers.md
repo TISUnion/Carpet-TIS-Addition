@@ -81,13 +81,18 @@ sidebar_position: 2
 
 ## 实体 ID 计数器 (entityIdCounter)
 
-`/log entityIdCounter`
+`/log entityIdCounter <类型>`
 
-于 tab 栏中显示服务端的实体 ID 计数器的取值，及其溢出回 0 的进度百分比
+可用的类型选项:
+- `all`: 输出下述所有
+- `hud`: (HUD 记录器) 于 tab 栏中显示服务端的实体 ID 计数器的取值，及其溢出回 0 的进度百分比。注：实体 ID 计数器的值等于上一个被创建的实体的 ID
+- `increment`: 在一个 `Entity` 对象被实例化而增加了实体 ID 计数器时，输出信息
 
 属性:
-- 默认选项: N/A
-- 参考选项: N/A
+- 默认选项: `hud`
+- 参考选项: `hud`, `increment`, `all`
+
+![entityIdCounter](images/logger/entityIdCounter.png)
 
 
 ## 掉落物 (item)

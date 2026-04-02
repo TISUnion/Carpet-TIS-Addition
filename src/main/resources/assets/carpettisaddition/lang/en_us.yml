@@ -77,6 +77,14 @@ carpettisaddition:
       created: '%1$s created'
       despawned: '%1$s despawned'
       damage_amount: Damage amount
+    entityIdCounter:
+      header_hover: Entity ID Counter Logger
+      increment: 'Entity %1$s with ID %2$s was instantiated on %3$s'
+      thread_name:
+        server: server thread
+        client: client thread
+        worker: worker thread
+        unknown: unknown thread
     item:
       item_stack_size: Item stack size
     microTiming:

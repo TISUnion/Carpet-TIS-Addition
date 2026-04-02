@@ -50,8 +50,12 @@ public class TextUtils
 			String name = ((Player)entity).getGameProfile().getName();
 			return String.format("/tp %s", name);
 		}
-		String uuid = entity.getUUID().toString();
-		return String.format("/tp %s", uuid);
+		return tpUuid(entity);
+	}
+
+	public static String tpUuid(Entity entity)
+	{
+		return String.format("/tp %s", entity.getStringUUID());
 	}
 
 	public static String coord(Vec3 pos) {return String.format("[%.1f, %.1f, %.1f]", pos.x(), pos.y(), pos.z());}

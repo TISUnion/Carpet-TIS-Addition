@@ -81,13 +81,18 @@ Attributes:
 
 ## entityIdCounter
 
-`/log entityIdCounter`
+`/log entityIdCounter <options>`
 
-Display the current value of the entity ID counter and the percentage of overflowing back to 0
+Available options:
+- `all`: Log everything below
+- `hud`: (HUD logger) Display the current value of the entity ID counter and the percentage of overflowing back to 0. Notes: the value of the counter equals to the latest created entity's ID
+- `increment`: Log when an `Entity` object gets instantiated and increases the entity ID counter
 
 Attributes:
-- Default option: N/A
-- Suggested options: N/A
+- Default option: `hud`
+- Suggested options: `hud`, `increment`, `all`
+
+![entityIdCounter](images/logger/entityIdCounter.png)
 
 
 ## item

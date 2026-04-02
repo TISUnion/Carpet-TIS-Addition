@@ -77,6 +77,14 @@ carpettisaddition:
       created: '%1$s被创建了'
       despawned: '%1$s消失了'
       damage_amount: 伤害值
+    entityIdCounter:
+      header_hover: 实体ID计数器记录器
+      increment: '实体 %1$s (ID %2$s) 在%3$s被实例化'
+      thread_name:
+        server: 服务端线程
+        client: 客户端线程
+        worker: 工作线程
+        unknown: 未知线程
     item:
       item_stack_size: 物品数
     microTiming:
