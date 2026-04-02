@@ -1138,6 +1138,22 @@ sidebar_position: 1
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
+## 重新引入实体寻路超时检测使用现实时间 (entityPathNavigationStuckDetectionUseRealTimeReintroduced)
+
+**本规则仅在 Minecraft >= 1.19.3 中存在**
+
+重新引入 mc1.19.3 以前的，实体寻路超时检测使用现实时间的机制
+
+该规则让寻路超时计算再次使用现实时间而非游戏时间，带回了借助此机制实现卡顿检测器的可能性
+
+它将相关表现还原回了 MC < 22w42a（1.19.3 的快照）的表现
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `PORTING`
+
+
 ## 优化硬碰撞箱实体碰撞 (optimizedHardHitBoxEntityCollision)
 
 优化实体与硬碰撞箱实体的碰撞

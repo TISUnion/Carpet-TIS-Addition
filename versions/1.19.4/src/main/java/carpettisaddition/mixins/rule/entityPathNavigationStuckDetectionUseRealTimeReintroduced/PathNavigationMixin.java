@@ -1,0 +1,64 @@
+/*
+ * This file is part of the Carpet TIS Addition project, licensed under the
+ * GNU Lesser General Public License v3.0
+ *
+ * Copyright (C) 2026  Fallen_Breath and contributors
+ *
+ * Carpet TIS Addition is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Carpet TIS Addition is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+package carpettisaddition.mixins.rule.entityPathNavigationStuckDetectionUseRealTimeReintroduced;
+
+import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.minecraft.Util;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+@Mixin(PathNavigation.class)
+public abstract class PathNavigationMixin
+{
+	@ModifyExpressionValue(
+			method = "doStuckDetection",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/level/Level;getGameTime()J"
+			)
+	)
+	private long entityPathNavigationStuckDetectionUseRealtimeReintroduced_modifyTimeUnit(long gameTime)
+	{
+		if (CarpetTISAdditionSettings.entityPathNavigationStuckDetectionUseRealTimeReintroduced)
+		{
+			return Util.getMillis();
+		}
+		return gameTime;
+	}
+
+	@ModifyExpressionValue(
+			method = "doStuckDetection",
+			at = @At(
+					value = "CONSTANT",
+					args = "doubleValue=20.0"
+			)
+	)
+	private double entityPathNavigationStuckDetectionUseRealtimeReintroduced_modifyUnitPerSecond(double unitPerSecond)
+	{
+		if (CarpetTISAdditionSettings.entityPathNavigationStuckDetectionUseRealTimeReintroduced)
+		{
+			unitPerSecond = 1000;  // 1000ms per second
+		}
+		return unitPerSecond;
+	}
+}

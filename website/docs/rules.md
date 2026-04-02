@@ -462,6 +462,22 @@ Set it to `false` to disable entity axis momentum cancellation if it's above 10m
 - Categories: `TIS`, `EXPERIMENTAL`
 
 
+## entityPathNavigationStuckDetectionUseRealTimeReintroduced
+
+**Minecraft >= 1.19.3 only**
+
+Reintroduce the realtime stuck detection logic for entity path navigation back to mc < 1.19.3
+
+This rule make the stuck detection uses real time instead of the game time again, making it possible to detect lag or tick rate with redstone contraptions
+
+It reverts the behavior back to mc < 22w42a (1.19.3 snapshot)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `PORTING`
+
+
 ## entityPlacementIgnoreCollision
 
 Disable block and entity collision check during entity placement with items

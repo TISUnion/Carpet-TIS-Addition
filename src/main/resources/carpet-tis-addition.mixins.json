@@ -368,6 +368,7 @@
     "rule.entityChunkSectionIndexXOverflowFix.SectionedEntityCacheMixin",
     "rule.entityInstantDeathRemoval.LivingEntityMixin",
     "rule.entityMomentumLoss.EntityMixin",
+    "rule.entityPathNavigationStuckDetectionUseRealTimeReintroduced.PathNavigationMixin",
     "rule.entityPlacementIgnoreCollision.ArmorStandItemItemMixin",
     "rule.entityPlacementIgnoreCollision.BoatItemMixin",
     "rule.entityPlacementIgnoreCollision.EndCrystalItemMixin",

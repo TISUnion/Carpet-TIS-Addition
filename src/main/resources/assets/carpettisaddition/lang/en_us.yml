@@ -996,6 +996,12 @@ carpettisaddition:
       entityMomentumLoss:
         name: entityMomentumLoss
         desc: Set it to false to disable entity axis momentum cancellation if it's above 10m/gt when being loaded from disk
+      entityPathNavigationStuckDetectionUseRealTimeReintroduced:
+        name: entityPathNavigationStuckDetectionUseRealTimeReintroduced
+        desc: Reintroduce the realtime stuck detection logic for entity path navigation back to mc < 1.19.3
+        extra:
+          '0': This rule make the stuck detection uses real time instead of the game time again, making it possible to detect lag or tick rate with redstone contraptions
+          '1': It reverts the behavior back to mc < 22w42a (1.19.3 snapshot)
       entityPlacementIgnoreCollision:
         name: entityPlacementIgnoreCollision
         desc: Disable block and entity collision check during entity placement with items

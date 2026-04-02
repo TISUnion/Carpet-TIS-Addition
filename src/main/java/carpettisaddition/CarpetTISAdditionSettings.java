@@ -216,6 +216,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, EXPERIMENTAL})
 	public static boolean entityMomentumLoss = true;
 
+	//#if MC >= 1.19.3
+	//$$ @Rule(categories = {TIS, FEATURE, PORTING})
+	//$$ public static boolean entityPathNavigationStuckDetectionUseRealTimeReintroduced = true;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean entityPlacementIgnoreCollision = false;
 
