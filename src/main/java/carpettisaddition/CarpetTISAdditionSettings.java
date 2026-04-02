@@ -109,6 +109,11 @@ public class CarpetTISAdditionSettings
 		}
 	}
 
+	//#if MC < 1.21.5
+	@Rule(categories = {TIS, FEATURE, PORTING})
+	public static boolean chunkTickInEntityTickingChunksBackport = false;
+	//#endif
+
 	@Rule(
 			options = {"0", "1", "10", "100", "1000"},
 			validators = Validators.NonNegativeNumber.class,

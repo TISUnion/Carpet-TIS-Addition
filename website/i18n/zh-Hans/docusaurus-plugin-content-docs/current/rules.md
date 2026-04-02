@@ -90,6 +90,20 @@ sidebar_position: 1
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
+## 区块刻执行于强加载区块移植 (chunkTickInEntityTickingChunksBackport)
+
+**本规则仅在 Minecraft < 1.20.5 中存在**
+
+移植 Minecraft 1.20.5+ 版本中的特性：区块刻可在任何强加载区块中执行，无需区块附近存在玩家
+
+本规则仅在 Minecraft < 1.20.5 中存在
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `PORTING`
+
+
 ## 区块刻速度 (chunkTickSpeed)
 
 修改每游戏刻每区块的区块刻运算的频率

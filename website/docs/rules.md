@@ -90,6 +90,20 @@ This rule is only available in \<1.16
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
+## chunkTickInEntityTickingChunksBackport
+
+**Minecraft < 1.20.5 only**
+
+Backport the feature from Minecraft 1.20.5+ that chunk ticks are performed in all entity ticking chunks, without requiring nearby players to be present
+
+This rule only exists in Minecraft < 1.20.5
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `PORTING`
+
+
 ## chunkTickSpeed
 
 Modify how often the chunk tick occurs per chunk per game tick
@@ -337,7 +351,7 @@ Backport the feature from Minecraft 1.21.6+ where using a firework item on a blo
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `TIS`
+- Categories: `TIS`, `PORTING`
 
 
 ## elytraFireworkKeepLeashConnection

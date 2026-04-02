@@ -858,6 +858,11 @@ carpettisaddition:
           '0': 增加该数值或许可以减小网络带宽用量，并在子区段同时存在不少方块实体与方块变化时提升客户端的帧数
           '1': 将其设为非常高以模拟1.16+的表现，也就是不存在区块更新数据包，仅有多个方块变更数据包
           '2': 该规则仅于1.16前的版本有效
+      chunkTickInEntityTickingChunksBackport:
+        name: 区块刻执行于强加载区块移植
+        desc: 移植 Minecraft 1.20.5+ 版本中的特性：区块刻可在任何强加载区块中执行，无需区块附近存在玩家
+        extra:
+          '0': 本规则仅在 Minecraft < 1.20.5 中存在
       chunkTickSpeed:
         name: 区块刻速度
         desc: 修改每游戏刻每区块的区块刻运算的频率
