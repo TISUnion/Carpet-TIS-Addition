@@ -72,6 +72,12 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityWithC
 		return this.clientLanguage$TISCM;
 	}
 
+	@Override
+	public void setClientLanguage$TISCM(String clientLanguage)
+	{
+		this.clientLanguage$TISCM = clientLanguage;
+	}
+
 	/**
 	 * This handle all TISCM translation on chat messages
 	 */

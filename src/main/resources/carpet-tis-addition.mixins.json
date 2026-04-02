@@ -566,6 +566,7 @@
     "settings.SettingsManagerAccessor",
     "translations.ClientSettingsC2SPacketAccessor",
     "translations.HUDControllerMixin",
+    "translations.PlayerListMixin",
     "translations.ServerPlayerEntityMixin",
     "translations.StyleAccessor",
     "translations.TranslatableTextMixin",

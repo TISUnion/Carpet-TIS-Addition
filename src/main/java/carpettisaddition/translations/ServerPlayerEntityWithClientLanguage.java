@@ -23,4 +23,6 @@ package carpettisaddition.translations;
 public interface ServerPlayerEntityWithClientLanguage
 {
 	String getClientLanguage$TISCM();
+
+	void setClientLanguage$TISCM(String clientLanguage);
 }
