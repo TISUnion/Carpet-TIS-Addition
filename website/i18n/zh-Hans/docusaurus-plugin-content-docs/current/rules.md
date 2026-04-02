@@ -1172,6 +1172,22 @@ sidebar_position: 1
 - 分类: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
+## 重新引入过量生成 (overspawningReintroduced)
+
+**本规则仅在 Minecraft >= 1.16 中存在**
+
+重新为 mc1.16+ 引入过量生成机制
+
+在过量生成开启时，游戏仅在自然刷怪阶段的开始时检查怪物容量/刷怪势能
+
+这给刷怪塔带回了在忽略刷怪上限等限制因素的同时，完整利用单游戏刻内所有刷怪尝试的可能性，让高速的被动生物农场再次成为可能
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `FEATURE`, `PORTING`
+
+
 ## POI更新开关 (poiUpdates)
 
 方块变化时是否会更新 POI

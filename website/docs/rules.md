@@ -1172,6 +1172,22 @@ Of course rule optimizedTNT needs to be on for it to work
 - Categories: `TIS`, `OPTIMIZATION`, `EXPERIMENTAL`
 
 
+## overspawningReintroduced
+
+**Minecraft >= 1.16 only**
+
+Reintroduce the overspawning mechanism back to mc1.16+
+
+With overspawning on, the game only checks for mobcap / spawn potential at the beginning of the natural spawning phase
+
+This brings back the possibility for mob farms to utilize all spawning attempts with mobcap ignored in a single game tick, making fast passive mob farms possible again
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `FEATURE`, `PORTING`
+
+
 ## poiUpdates
 
 Whether block changes will cause POI to updates or not
