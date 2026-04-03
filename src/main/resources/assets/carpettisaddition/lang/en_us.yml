@@ -861,9 +861,9 @@ carpettisaddition:
           '1': Carpet TIS Addition is required to be installed on the client
       chunkTickInEntityTickingChunksBackport:
         name: chunkTickInEntityTickingChunksBackport
-        desc: Backport the feature from Minecraft 1.20.5+ that chunk ticks are performed in all entity ticking chunks, without requiring nearby players to be present
+        desc: Backport the feature from Minecraft 1.21.5+ that chunk ticks are performed in all entity ticking chunks, without requiring nearby players to be present
         extra:
-          '0': This rule only exists in Minecraft < 1.20.5
+          '0': This rule only exists in Minecraft < 1.21.5
       chunkTickSpeed:
         name: chunkTickSpeed
         desc: Modify how often the chunk tick occurs per chunk per game tick

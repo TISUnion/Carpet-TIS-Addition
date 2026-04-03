@@ -861,9 +861,9 @@ carpettisaddition:
           '1': 需要在客户端中安装Carpet TIS Addition模组
       chunkTickInEntityTickingChunksBackport:
         name: 区块刻执行于强加载区块移植
-        desc: 移植 Minecraft 1.20.5+ 版本中的特性：区块刻可在任何强加载区块中执行，无需区块附近存在玩家
+        desc: 移植 Minecraft 1.21.5+ 版本中的特性：区块刻可在任何强加载区块中执行，无需区块附近存在玩家
         extra:
-          '0': 本规则仅在 Minecraft < 1.20.5 中存在
+          '0': 本规则仅在 Minecraft < 1.21.5 中存在
       chunkTickSpeed:
         name: 区块刻速度
         desc: 修改每游戏刻每区块的区块刻运算的频率

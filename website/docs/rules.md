@@ -76,11 +76,11 @@ Carpet TIS Addition is required to be installed on the client
 
 ## chunkTickInEntityTickingChunksBackport
 
-**Minecraft < 1.20.5 only**
+**Minecraft < 1.21.5 only**
 
-Backport the feature from Minecraft 1.20.5+ that chunk ticks are performed in all entity ticking chunks, without requiring nearby players to be present
+Backport the feature from Minecraft 1.21.5+ that chunk ticks are performed in all entity ticking chunks, without requiring nearby players to be present
 
-This rule only exists in Minecraft < 1.20.5
+This rule only exists in Minecraft < 1.21.5
 
 - Type: `boolean`
 - Default value: `false`
