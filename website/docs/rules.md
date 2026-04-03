@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # Rules
 
+make good use of the search feature~
+
 ## antiSpamDisabled
 
 Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown

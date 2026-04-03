@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # 规则
 
+善用搜索功能~
+
 ## 禁用反刷屏监测 (antiSpamDisabled)
 
 禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却
