@@ -223,7 +223,7 @@ public class CarpetTISAdditionSettings
 
 	//#if MC >= 1.19.3
 	//$$ @Rule(categories = {TIS, FEATURE, PORTING})
-	//$$ public static boolean entityPathNavigationStuckDetectionUseRealTimeReintroduced = true;
+	//$$ public static boolean entityPathNavigationStuckDetectionUseRealTimeReintroduced = false;
 	//#endif
 
 	@Rule(categories = {TIS, CREATIVE})
