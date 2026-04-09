@@ -90,12 +90,12 @@ public class EntityIdCounterHUDLogger extends AbstractHUDLogger
 		if (ratePerGtOpt.isPresent())
 		{
 			double speedPerSec = ratePerGtOpt.getAsDouble() * 20;
-			double hours = (1L << 32) / (speedPerSec * 3600);  // hours to overflow a complete 2^32
+			double hours = (1L << 32) / Math.max(0.123, speedPerSec * 3600);  // hours to overflow a complete 2^32
 			incrementSpeed = Messenger.s(
 					speedPerSec < 10 ? String.format("%.1f/s", speedPerSec) : String.format("%.0f/s", speedPerSec),
 					hours < 24 ? ChatFormatting.GOLD :
-							hours < 24 * 7 ? ChatFormatting.WHITE :
-							hours < 24 * 30 ? ChatFormatting.GRAY :
+							hours < 24 * 30 ? ChatFormatting.WHITE :
+							speedPerSec >= 1e-6 ? ChatFormatting.GRAY :
 							ChatFormatting.DARK_GRAY
 			);
 		}
