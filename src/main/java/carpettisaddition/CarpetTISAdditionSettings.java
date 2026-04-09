@@ -215,6 +215,14 @@ public class CarpetTISAdditionSettings
 	//$$ public static boolean entityChunkSectionIndexXOverflowFix = false;
 	//#endif
 
+	@Rule(
+			validators = Validators.PositiveNumber.class,
+			options = {"20", "60", "100", "300", "1200"},
+			strict = false,
+			categories = {TIS}
+	)
+	public static int entityIdCounterLoggerSamplingDuration = 100;
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean entityInstantDeathRemoval = false;
 

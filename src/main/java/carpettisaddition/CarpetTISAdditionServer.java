@@ -40,6 +40,7 @@ import carpettisaddition.helpers.rule.instantBlockUpdaterReintroduced.InstantBlo
 import carpettisaddition.helpers.rule.lightEngineMaxBatchSize.LightBatchSizeChanger;
 import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionYeeter;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
+import carpettisaddition.logging.loggers.entityIdCounter.EntityIdCounterHUDLogger;
 import carpettisaddition.logging.loggers.lightqueue.LightQueueHUDLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.marker.MicroTimingMarkerManager;
@@ -165,6 +166,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	@Override
 	public void onTick(MinecraftServer server)
 	{
+		EntityIdCounterHUDLogger.getInstance().tick();
 		LightQueueHUDLogger.getInstance().tick();
 		MicroTimingMarkerManager.getInstance().tick();
 		PhantomLogger.getInstance().tick();

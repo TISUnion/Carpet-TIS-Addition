@@ -20,8 +20,15 @@
 
 package carpettisaddition.logging.loggers.entityIdCounter;
 
+import carpettisaddition.mixins.command.info.server.EntityAccessor;
+
 public class EntityIdCounterUtils
 {
+	public static int getCurrentEntityIdCounterValue()
+	{
+		return EntityAccessor.getEntityIdCounter$TISCM().get();
+	}
+
 	public static double getPercentOfOverflowToZero(int value)
 	{
 		long distanceUntil0 = value > 0 ? ((1L << 32) - value) : -1L * value;

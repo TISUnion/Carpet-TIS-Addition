@@ -456,6 +456,16 @@ sidebar_position: 1
 - 分类: `TIS`, `BUGFIX`
 
 
+## 实体ID计数器记录器采样时长 (entityIdCounterLoggerSamplingDuration)
+
+用于计算实体 ID 计数器增长速度的采样窗口长度，单位为游戏刻
+
+- 类型: `int`
+- 默认值: `100`
+- 参考选项: `20`, `60`, `100`, `300`, `1200`
+- 分类: `TIS`
+
+
 ## 生物死亡立即移除 (entityInstantDeathRemoval)
 
 移除生物实体死亡前的 20gt 等待时间

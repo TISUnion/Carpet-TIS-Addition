@@ -85,12 +85,16 @@ sidebar_position: 2
 
 可用的类型选项:
 - `all`: 输出下述所有
-- `hud`: (HUD 记录器) 于 tab 栏中显示服务端的实体 ID 计数器的取值，及其溢出回 0 的进度百分比。注：实体 ID 计数器的值等于上一个被创建的实体的 ID
+- `hud`: (HUD 记录器) 于 tab 栏中显示服务端的实体 ID 计数器的取值、其溢出回 0 的进度百分比，以及计数器增长速度
+  - 格式：`EID <当前值> <百分比>% <增长速度>/s`
+  - 注：实体 ID 计数器的值等于上一个被创建的实体的 ID
 - `increment`: 在一个 `Entity` 对象被实例化而增加了实体 ID 计数器时，输出信息
 
 属性:
 - 默认选项: `hud`
 - 参考选项: `hud`, `increment`, `all`
+
+计算增长速度的采样窗口长度可通过规则 [entityIdCounterLoggerSamplingDuration](rules.md#实体id计数器记录器采样时长-entityidcounterloggersamplingduration) 指定，默认值为 100gt（5s）
 
 ![entityIdCounter](images/logger/entityIdCounter.png)
 

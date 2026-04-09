@@ -85,12 +85,16 @@ Attributes:
 
 Available options:
 - `all`: Log everything below
-- `hud`: (HUD logger) Display the current value of the entity ID counter and the percentage of overflowing back to 0. Notes: the value of the counter equals to the latest created entity's ID
+- `hud`: (HUD logger) Display the current value of the entity ID counter, the percentage of overflowing back to 0, and the increment speed per second
+  - Format: `EID <current value> <percentage>% <increment speed>/s`
+  - Notes: the value of the counter equals to the latest created entity's ID
 - `increment`: Log when an `Entity` object gets instantiated and increases the entity ID counter
 
 Attributes:
 - Default option: `hud`
 - Suggested options: `hud`, `increment`, `all`
+
+The sampling window length for calculating the increment speed can be specified with rule [entityIdCounterLoggerSamplingDuration](rules.md#entityidcounterloggersamplingduration), default 100gt (5s)
 
 ![entityIdCounter](images/logger/entityIdCounter.png)
 

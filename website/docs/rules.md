@@ -456,6 +456,16 @@ This rule only exists in Minecraft >= 1.17, since the bug was introduced in 1.17
 - Categories: `TIS`, `BUGFIX`
 
 
+## entityIdCounterLoggerSamplingDuration
+
+The sampling window length for calculating the entity ID counter increment speed, in game tick
+
+- Type: `int`
+- Default value: `100`
+- Suggested options: `20`, `60`, `100`, `300`, `1200`
+- Categories: `TIS`
+
+
 ## entityInstantDeathRemoval
 
 Remove the 20gt delay before living entity removal after death

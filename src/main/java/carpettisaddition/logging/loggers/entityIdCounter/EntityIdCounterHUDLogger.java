@@ -23,7 +23,6 @@ package carpettisaddition.logging.loggers.entityIdCounter;
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractHUDLogger;
-import carpettisaddition.mixins.command.info.server.EntityAccessor;
 import carpettisaddition.utils.GameUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
@@ -36,6 +35,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.Arrays;
+import java.util.OptionalDouble;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinWorkerThread;
@@ -49,6 +49,7 @@ public class EntityIdCounterHUDLogger extends AbstractHUDLogger
 	public static final String NAME = "entityIdCounter";
 
 	private static final EntityIdCounterHUDLogger INSTANCE = new EntityIdCounterHUDLogger();
+	private final EntityIdCounterSampler entityIdCounterSampler = new EntityIdCounterSampler();
 
 	private EntityIdCounterHUDLogger()
 	{
@@ -80,18 +81,40 @@ public class EntityIdCounterHUDLogger extends AbstractHUDLogger
 			return null;
 		}
 
-		int value = EntityAccessor.getEntityIdCounter$TISCM().get();
+		int value = EntityIdCounterUtils.getCurrentEntityIdCounterValue();
 		double overflowTo0Percent = EntityIdCounterUtils.getPercentOfOverflowToZero(value);
 		ChatFormatting percentColor = overflowTo0Percent > 99.99 ? ChatFormatting.RED : (overflowTo0Percent > 99.9 ? ChatFormatting.YELLOW : ChatFormatting.GRAY);
+
+		BaseComponent incrementSpeed = Messenger.s("-", ChatFormatting.DARK_GRAY);
+		OptionalDouble ratePerGtOpt = this.entityIdCounterSampler.getRatePerGt();
+		if (ratePerGtOpt.isPresent())
+		{
+			double speedPerSec = ratePerGtOpt.getAsDouble() * 20;
+			double hours = (1L << 32) / (speedPerSec * 3600);  // hours to overflow a complete 2^32
+			incrementSpeed = Messenger.s(
+					speedPerSec < 10 ? String.format("%.1f/s", speedPerSec) : String.format("%.0f/s", speedPerSec),
+					hours < 24 ? ChatFormatting.GOLD :
+							hours < 24 * 7 ? ChatFormatting.WHITE :
+							hours < 24 * 30 ? ChatFormatting.GRAY :
+							ChatFormatting.DARK_GRAY
+			);
+		}
 
 		return new BaseComponent[]{
 				Messenger.join(
 						Messenger.s(" "),
 						Messenger.s("EID", ChatFormatting.BLUE),
 						Messenger.s(value, ChatFormatting.GRAY),
-						Messenger.s(String.format("%.2f%%", overflowTo0Percent), percentColor)
+						Messenger.s(String.format("%.2f%%", overflowTo0Percent), percentColor),
+						incrementSpeed
 				)
 		};
+	}
+
+	public void tick()
+	{
+		int value = EntityIdCounterUtils.getCurrentEntityIdCounterValue();
+		this.entityIdCounterSampler.recordForOneTick(value);
 	}
 
 	private BaseComponent pack(BaseComponent message)
