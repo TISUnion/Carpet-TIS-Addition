@@ -39,6 +39,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//#if MC >= 26.2
+//$$ import net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhase;
+//$$ import net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhaseManager;
+//$$ import org.spongepowered.asm.mixin.Final;
+//$$ import org.spongepowered.asm.mixin.Shadow;
+//#endif
+
 //#if MC >= 12102
 //$$ import carpettisaddition.utils.EntityUtils;
 //$$ import net.minecraft.server.level.ServerLevel;
@@ -47,6 +54,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EnderDragon.class)
 public abstract class EnderDragonEntityMixin extends Mob implements Enemy
 {
+	//#if MC >= 26.2
+	//$$ @Shadow @Final
+	//$$ private EnderDragonPhaseManager phaseManager;
+	//#endif
+
 	@Unique
 	private boolean flagDropHead$TISCM;
 
@@ -98,13 +110,25 @@ public abstract class EnderDragonEntityMixin extends Mob implements Enemy
 			//#endif
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 26.2
+					//$$ target = "Lnet/minecraft/world/entity/boss/enderdragon/EnderDragon;reallyHurt(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)V",
+					//$$ shift = At.Shift.AFTER
+					//#else
 					target = "Lnet/minecraft/world/entity/boss/enderdragon/EnderDragon;setHealth(F)V"
+					//#endif
 			)
 	)
 	private void onTakingDeathDamage(CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) DamageSource damageSource)
 	{
 		if (CarpetTISAdditionSettings.renewableDragonHead)
 		{
+			//#if MC >= 26.2
+			//$$ if (this.phaseManager.getCurrentPhase().getPhase() != EnderDragonPhase.DYING)
+			//$$ {
+			//$$ 	return;
+			//$$ }
+			//#endif
+
 			Entity entity = damageSource.getEntity();
 			if (entity instanceof Creeper)
 			{

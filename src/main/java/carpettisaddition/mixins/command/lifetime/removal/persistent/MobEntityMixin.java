@@ -28,6 +28,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 26.2
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//#endif
+
 @Mixin(Mob.class)
 public abstract class MobEntityMixin
 {
@@ -38,7 +42,9 @@ public abstract class MobEntityMixin
 	}
 
 	@Inject(
-			//#if MC >= 11600
+			//#if MC >= 26.2
+			//$$ method = "equipItemIfPossible",
+			//#elseif MC >= 11600
 			//$$ method = "setItemSlotAndDropWhenKilled",
 			//#else
 			method = "pickUpItem",
@@ -48,7 +54,13 @@ public abstract class MobEntityMixin
 					target = "Lnet/minecraft/world/entity/Mob;persistenceRequired:Z"
 			)
 	)
-	private void lifetimeTracker_recordRemoval_persistent_equipLoot(CallbackInfo ci)
+	private void lifetimeTracker_recordRemoval_persistent_equipLoot(
+			//#if MC >= 26.2
+			//$$ CallbackInfoReturnable<?> ci
+			//#else
+			CallbackInfo ci
+			//#endif
+	)
 	{
 		((LifetimeTrackerTarget)this).recordRemoval$TISCM(LiteralRemovalReason.PERSISTENT);
 	}

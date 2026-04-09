@@ -40,11 +40,21 @@ public class RaycastSimulator
 {
 	private static final BlockState AIR = Blocks.AIR.defaultBlockState();
 	private static final BlockState FLOOR = Blocks.SMOOTH_STONE.defaultBlockState();
-	private static final BlockState FLOOR2 = Blocks.WHITE_CONCRETE.defaultBlockState();
+	private static final BlockState FLOOR2 =
+			//#if MC >= 26.2
+			//$$ Blocks.CONCRETE.white().defaultBlockState();
+			//#else
+			Blocks.WHITE_CONCRETE.defaultBlockState();
+			//#endif
 	private static final BlockState MELON = Blocks.MELON.defaultBlockState();
 	private static final BlockState CENTER = Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR);
 	private static final BlockState BARRIER = Blocks.POLISHED_GRANITE.defaultBlockState();
-	private static final BlockState PARTIAL = Blocks.RED_CARPET.defaultBlockState();
+	private static final BlockState PARTIAL =
+			//#if MC >= 26.2
+			//$$ Blocks.CARPET.red().defaultBlockState();
+			//#else
+			Blocks.RED_CARPET.defaultBlockState();
+			//#endif
 	private final Level world;
 	private final Entity entity;
 

@@ -20,11 +20,22 @@
 
 package carpettisaddition.mixins.command.info.entity;
 
-import net.minecraft.world.entity.monster.Slime;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(Slime.class)
+//#if MC >= 26.2
+//$$ import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
+//#else
+import net.minecraft.world.entity.monster.Slime;
+//#endif
+
+@Mixin(
+		//#if MC >= 26.2
+		//$$ AbstractCubeMob.class
+		//#else
+		Slime.class
+		//#endif
+)
 public interface SlimeEntityAccessor
 {
 	@Invoker("getAttackDamage")
