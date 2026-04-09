@@ -93,7 +93,7 @@ public class MicroTimingMarker
 				fv.apply(blockPos),
 				fv.apply(blockPos.offset(1, 1, 1)),
 				DimensionWrapper.of(serverWorld),
-				((long)((DyeColorAccessor)(Object)this.color).getTextColor() << 8) | 0xAF
+				((long)((DyeColorAccessor)(Object)this.color).getTextColor$TISCM() << 8) | 0xAF
 		);
 		if (this.markerName != null)
 		{

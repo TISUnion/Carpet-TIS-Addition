@@ -27,6 +27,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(ItemEntity.class)
 public interface ItemEntityAccessor
 {
-	@Accessor
-	int getAge();
+	@Accessor("age")
+	int getAge$TISCM();
 }

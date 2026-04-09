@@ -51,7 +51,7 @@ public abstract class EntityMixin
 			if ((Object)this instanceof LivingEntity)
 			{
 				LivingEntity self = (LivingEntity)(Object)this;
-				Map<MemoryModuleType<?>, Optional<?>> memories = ((BrainAccessor)self.getBrain()).getMemories();
+				Map<MemoryModuleType<?>, Optional<?>> memories = ((BrainAccessor)self.getBrain()).getMemories$TISCM();
 				memories.keySet().forEach(lvt1 -> memories.put(lvt1, Optional.empty()));
 			}
 		}

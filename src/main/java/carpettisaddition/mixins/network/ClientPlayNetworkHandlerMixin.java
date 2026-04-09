@@ -65,10 +65,10 @@ public abstract class ClientPlayNetworkHandlerMixin
 		//$$ 	ci.cancel();
 		//$$ }
 		//#else
-		ResourceLocation channel = ((CustomPayloadS2CPacketAccessor) packet).getChannel();
+		ResourceLocation channel = ((CustomPayloadS2CPacketAccessor) packet).getChannel$TISCM();
 		if (TISCMCustomPayload.ID.equals(channel))
 		{
-			FriendlyByteBuf packetByteBuf = ((CustomPayloadS2CPacketAccessor)packet).getData();
+			FriendlyByteBuf packetByteBuf = ((CustomPayloadS2CPacketAccessor)packet).getData$TISCM();
 			try
 			{
 				TISCMCustomPayload tiscmCustomPayload = new TISCMCustomPayload(packetByteBuf);

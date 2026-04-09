@@ -27,6 +27,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(DyeColor.class)
 public interface DyeColorAccessor
 {
-	@Accessor
-	int getTextColor();
+	@Accessor("textColor")
+	int getTextColor$TISCM();
 }

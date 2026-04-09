@@ -34,8 +34,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface CustomPayloadS2CPacketAccessor
 {
 	@Accessor("identifier")
-	ResourceLocation getChannel();
+	ResourceLocation getChannel$TISCM();
 
-	@Accessor
-	FriendlyByteBuf getData();
+	@Accessor("data")
+	FriendlyByteBuf getData$TISCM();
 }

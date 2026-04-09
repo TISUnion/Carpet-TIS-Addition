@@ -107,7 +107,7 @@ public class EntityInfoPorting
 			ItemStack stack = ei.getItem();// getEntityItem();
 			String stackname = stack.getCount()>1?String.format("%dx%s",stack.getCount(), stack.getHoverName().getString()):stack.getHoverName().getString();
 			lst.add(Messenger.c("w  - Content: ", "wb "+stackname));
-			lst.add(Messenger.c("w  - Despawn Timer: ", "wb " + EntityInfoUtil.makeTime(((ItemEntityAccessor)ei).getAge())));
+			lst.add(Messenger.c("w  - Despawn Timer: ", "wb " + EntityInfoUtil.makeTime(((ItemEntityAccessor)ei).getAge$TISCM())));
 		}
 		if (e instanceof ExperienceOrb)
 		{

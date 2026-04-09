@@ -59,10 +59,10 @@ public abstract class ServerPlayNetworkHandlerMixin
 		//$$ 	ci.cancel();
 		//$$ }
 		//#else
-		ResourceLocation channel = ((CustomPayloadC2SPacketAccessor)packet).getChannel();
+		ResourceLocation channel = ((CustomPayloadC2SPacketAccessor)packet).getChannel$TISCM();
 		if (TISCMCustomPayload.ID.equals(channel))
 		{
-			TISCMCustomPayload tiscmCustomPayload = new TISCMCustomPayload(((CustomPayloadC2SPacketAccessor)packet).getData());
+			TISCMCustomPayload tiscmCustomPayload = new TISCMCustomPayload(((CustomPayloadC2SPacketAccessor)packet).getData$TISCM());
 			TISCMServerPacketHandler.getInstance().dispatch((ServerGamePacketListenerImpl)(Object)this, tiscmCustomPayload);
 			ci.cancel();
 		}

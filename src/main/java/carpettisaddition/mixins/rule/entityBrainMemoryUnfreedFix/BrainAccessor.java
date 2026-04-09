@@ -35,6 +35,6 @@ import java.util.Optional;
 @Mixin(Brain.class)
 public interface BrainAccessor
 {
-	@Accessor
-	Map<MemoryModuleType<?>, Optional<?>> getMemories();
+	@Accessor("memories")
+	Map<MemoryModuleType<?>, Optional<?>> getMemories$TISCM();
 }
