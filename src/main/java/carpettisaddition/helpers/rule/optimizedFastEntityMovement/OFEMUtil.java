@@ -22,10 +22,12 @@ package carpettisaddition.helpers.rule.optimizedFastEntityMovement;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.level.CollisionGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
@@ -36,22 +38,22 @@ public class OFEMUtil
 	// set it to 0 or enable rule ultraSecretSetting to test vanilla behavior if you want
 	private static final double OPTIMIZE_THRESHOLD = 4.0D;
 
-	public static boolean checkMovement(Vec3 movement)
+	public static boolean checkMovement(@NotNull Vec3 movement)
 	{
 		return movement.lengthSqr() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD || CarpetTISAdditionSettings.ultraSecretSetting.equals("optimizedFastEntityMovement");
 	}
 
-	public static OFEMContext createContext(Level world, Entity entity)
+	public static OFEMContext createContext(Level world, Entity entity, AABB originEntityAabb, Vec3 movement)
 	{
-		return new OFEMContext(world, entity);
+		return new OFEMContext(world, entity, originEntityAabb, movement);
 	}
 
 	@Nullable
-	public static OFEMContext checkAndCreateContext(Level world, Entity entity, Vec3 movement)
+	public static OFEMContext checkAndCreateContext(Level world, Entity entity, AABB originEntityAabb, Vec3 movement)
 	{
 		if (CarpetTISAdditionSettings.optimizedFastEntityMovement && checkMovement(movement))
 		{
-			return createContext(world, entity);
+			return createContext(world, entity, originEntityAabb, movement);
 		}
 		return null;
 	}
@@ -77,7 +79,19 @@ public class OFEMUtil
 				axisOnlyMovement = new Vec3(0.0D, 0.0D, context.movementOnAxis);
 				break;
 		}
-		return collisionBoxGetter.get(context.world, context.entity, context.entityBoundingBox.expandTowards(axisOnlyMovement));
+
+		AABB searchBox = context.entityBoundingBox.expandTowards(axisOnlyMovement);
+		if (searchBox.minY - 1 >= context.vanillaSearchBox.minY)
+		{
+			// Ensure that it doesn't miss those >1m +y oversized blocks that are still in the vanilla search box
+			// e.g. downwards moving fence b36 at gt0 (oversized for 1.5m on +y)
+			//
+			// Hopefully there are no >2m +y oversized blocks, or even >1m oversized block on +-x / +-z / -y
+			// If so, we need to expand the search box on those axes too
+			searchBox = searchBox.expandTowards(0, -1, 0);
+		}
+
+		return collisionBoxGetter.get(context.world, context.entity, searchBox);
 	}
 
 	public static

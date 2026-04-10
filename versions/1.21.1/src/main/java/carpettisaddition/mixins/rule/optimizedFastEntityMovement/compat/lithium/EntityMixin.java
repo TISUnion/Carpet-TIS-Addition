@@ -89,10 +89,11 @@ public abstract class EntityMixin
 			@Local(argsOnly = true) Level world,
 			@Local(argsOnly = true) @Nullable Entity entity,
 			@Local(argsOnly = true) Vec3 movement,
+			@Local(argsOnly = true) AABB entityBoundingBox,
 			@Share("OFEMContext") LocalRef<OFEMContext> context
 	)
 	{
-		OFEMContext ctx = OFEMUtil.checkAndCreateContext(world, entity, movement);
+		OFEMContext ctx = OFEMUtil.checkAndCreateContext(world, entity, entityBoundingBox, movement);
 		context.set(ctx);
 		if (ctx != null)
 		{

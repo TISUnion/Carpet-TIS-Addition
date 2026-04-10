@@ -97,7 +97,7 @@ public abstract class EntityMixin
 			@Share("OFEMContext") LocalRef<OFEMContext> context
 	)
 	{
-		OFEMContext ctx = OFEMUtil.checkAndCreateContext((Level)world, entity, movement);
+		OFEMContext ctx = OFEMUtil.checkAndCreateContext((Level)world, entity, entityBoundingBox, movement);
 		context.set(ctx);
 		if (ctx != null)
 		{

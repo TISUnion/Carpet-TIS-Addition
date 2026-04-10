@@ -63,7 +63,7 @@ public abstract class EntityMixin
 
 	//#if MC >= 12100
 	//$$ @Unique
-	//$$ private static final ThreadLocal<Boolean> movementOk = ThreadLocal.withInitial(() -> false);
+	//$$ private static final ThreadLocal<Vec3> ofemCurrentMovement = ThreadLocal.withInitial(() -> null);
 	//$$
 	//$$ @ModifyVariable(
 	//$$ 		method = "collideBoundingBox",
@@ -74,7 +74,7 @@ public abstract class EntityMixin
 	//$$ {
 	//$$ 	if (CarpetTISAdditionSettings.optimizedFastEntityMovement)
 	//$$ 	{
-	//$$ 		movementOk.set(OFEMUtil.checkMovement(movement));
+	//$$ 		ofemCurrentMovement.set(movement);
 	//$$ 	}
 	//$$ 	return movement;
 	//$$ }
@@ -120,13 +120,12 @@ public abstract class EntityMixin
 		if (CarpetTISAdditionSettings.optimizedFastEntityMovement)
 		{
 			//#if MC >= 12100
-			//$$ boolean ok = movementOk.get();
-			//#else
-			boolean ok = OFEMUtil.checkMovement(movement);
+			//$$ Vec3 movement = ofemCurrentMovement.get();
 			//#endif
+			boolean ok = movement != null && OFEMUtil.checkMovement(movement);
 			if (ok)
 			{
-				ofemContext.set(OFEMUtil.createContext(world, entity));
+				ofemContext.set(OFEMUtil.createContext(world, entity, box, movement));
 				//#if MC >= 11800
 				//$$ return Collections.emptyList();
 				//#else
