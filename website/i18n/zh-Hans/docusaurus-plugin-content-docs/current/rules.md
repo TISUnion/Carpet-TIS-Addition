@@ -235,6 +235,20 @@ sidebar_position: 1
 - 分类: `TIS`, `COMMAND`, `TISCM_PROTOCOL`
 
 
+## 创造玩家攻击移除实体 (creativeHitRemoveEntity)
+
+允许创造模式玩家通过攻击来直接移除实体
+
+当持剑且可横扫攻击时，横扫范围内的实体也会被同时移除
+
+移除实体的具体效果与 [`/removeentity`](commands.md#移除实体-removeentity) 命令相同
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 创造模式瞬间驯服动物 (creativeInstantTame)
 
 让创造模式的玩家可以瞬间驯服各种动物

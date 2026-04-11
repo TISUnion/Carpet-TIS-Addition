@@ -511,6 +511,8 @@ Notes that for storage vehicle entities, they won't drop the containing items
 
 This command does not affect players at all
 
+See also: rule [creativeHitRemoveEntity](rules.md#creativehitremoveentity)
+
 
 ## scounter
 

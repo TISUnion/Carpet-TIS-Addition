@@ -344,6 +344,7 @@
     "rule.chunkTickSpeed.ServerWorldMixin",
     "rule.chunkUpdatePacketThreshold.ChunkHolderMixin",
     "rule.clientSettingsLostOnRespawnFix.ServerPlayerEntityMixin",
+    "rule.creativeHitRemoveEntity.ServerPlayerMixin",
     "rule.creativeInstantTame.CatEntityMixin",
     "rule.creativeInstantTame.HorseBondWithPlayerGoalMixin",
     "rule.creativeInstantTame.ParrotEntityMixin",

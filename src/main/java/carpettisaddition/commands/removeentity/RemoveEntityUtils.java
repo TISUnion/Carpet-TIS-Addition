@@ -32,13 +32,21 @@ import java.util.Queue;
 
 public class RemoveEntityUtils
 {
+	public static boolean canRemove(Entity entity)
+	{
+		return !(entity instanceof Player) && EntitySelector.NO_SPECTATORS.test(entity);
+	}
+
+	public static int removeEntity(Entity entity)
+	{
+		return removeEntities(Collections.singleton(entity));
+	}
+
 	public static int removeEntities(Collection<? extends Entity> entities)
 	{
 		Queue<Entity> toRemoveQueue = Queues.newArrayDeque();
 
-		entities.stream().
-				filter(entity -> !(entity instanceof Player) && EntitySelector.NO_SPECTATORS.test(entity)).
-				forEach(toRemoveQueue::add);
+		entities.stream().filter(RemoveEntityUtils::canRemove).forEach(toRemoveQueue::add);
 
 		int count = 0;
 		while (!toRemoveQueue.isEmpty())

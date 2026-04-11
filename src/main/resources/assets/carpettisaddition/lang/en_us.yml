@@ -917,6 +917,12 @@ carpettisaddition:
         desc: Enables /speedtest command for network speed test
         extra:
           '0': You can change the maximum allowed test size with rule speedTestCommandMaxTestSize
+      creativeHitRemoveEntity:
+        name: creativeHitRemoveEntity
+        desc: Allow creative players to directly remove entities by attacking them
+        extra:
+          '0': When holding a sword and can perform a sweeping attack, entities within the sweep attack range are also removed
+          '1': The entity removal method is the same as the /removeentity command
       creativeInstantTame:
         name: creativeInstantTame
         desc: Let create player tame animals instantly

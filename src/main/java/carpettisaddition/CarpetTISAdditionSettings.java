@@ -153,6 +153,9 @@ public class CarpetTISAdditionSettings
 	public static String commandSpeedTest = "false";
 
 	@Rule(categories = {TIS, CREATIVE})
+	public static boolean creativeHitRemoveEntity = false;
+
+	@Rule(categories = {TIS, CREATIVE})
 	public static boolean creativeInstantTame = false;
 
 	@Rule(categories = {TIS, CREATIVE})

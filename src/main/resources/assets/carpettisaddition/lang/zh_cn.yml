@@ -917,6 +917,12 @@ carpettisaddition:
         desc: 启用/speedtest命令用于网络速度测试
         extra:
           '0': 可以使用选项speedTestCommandMaxTestSize来调整最大允许的测试大小
+      creativeHitRemoveEntity:
+        name: 创造玩家攻击移除实体
+        desc: 允许创造模式玩家通过攻击来直接移除实体
+        extra:
+          '0': 当持剑且可横扫攻击时，横扫范围内的实体也会被同时移除
+          '1': 移除实体的具体效果与 /removeentity 命令相同
       creativeInstantTame:
         name: 创造模式瞬间驯服动物
         desc: 让创造模式的玩家可以瞬间驯服各种动物

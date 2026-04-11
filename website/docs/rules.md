@@ -235,6 +235,20 @@ You can change the maximum allowed test size with rule [speedTestCommandMaxTestS
 - Categories: `TIS`, `COMMAND`, `TISCM_PROTOCOL`
 
 
+## creativeHitRemoveEntity
+
+Allow creative players to directly remove entities by attacking them
+
+When holding a sword and can perform a sweeping attack, entities within the sweep attack range are also removed
+
+The entity removal method is the same as the [`/removeentity`](commands.md#removeentity) command
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## creativeInstantTame
 
 Let create player tame animals instantly

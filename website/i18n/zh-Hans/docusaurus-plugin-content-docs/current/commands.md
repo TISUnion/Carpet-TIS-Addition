@@ -511,6 +511,8 @@ json 字段说明如下：
 
 该指令对玩家无效
 
+另见: 规则 [创造玩家攻击移除实体](rules.md#创造玩家攻击移除实体-creativehitremoveentity)
+
 
 ## 供给计数器 (scounter)
 
