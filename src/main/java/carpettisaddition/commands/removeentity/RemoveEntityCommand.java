@@ -26,18 +26,15 @@ import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.entity.Entity;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import static net.minecraft.commands.arguments.EntityArgument.entities;
-import static net.minecraft.commands.arguments.EntityArgument.getEntities;
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
+import static net.minecraft.commands.arguments.EntityArgument.entities;
+import static net.minecraft.commands.arguments.EntityArgument.getEntities;
 
 public class RemoveEntityCommand extends AbstractCommand
 {
@@ -70,21 +67,8 @@ public class RemoveEntityCommand extends AbstractCommand
 
 	private int removeEntities(CommandSourceStack source, Collection<? extends Entity> entities)
 	{
-		List<? extends Entity> nonPlayerEntities = entities.stream().
-				filter(entity -> !(entity instanceof Player)).
-				collect(Collectors.toList());
-		nonPlayerEntities.forEach(entity -> {
-			if (entity instanceof EntityToBeCleanlyRemoved)
-			{
-				((EntityToBeCleanlyRemoved)entity).setToBeCleanlyRemoved$TISCM();
-			}
-			//#if MC >= 11700
-			//$$ entity.discard();
-			//#else
-			entity.remove();
-			//#endif
-		});
-		Messenger.tell(source, tr("success", nonPlayerEntities.size()), true);
-		return nonPlayerEntities.size();
+		int num = RemoveEntityUtils.removeEntities(entities);
+		Messenger.tell(source, tr("success", num), true);
+		return num;
 	}
 }

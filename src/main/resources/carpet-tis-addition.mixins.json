@@ -207,6 +207,7 @@
     "command.refresh.ChunkDataSenderAccessor",
     "command.refresh.ThreadedAnvilChunkStorageAccessor",
     "command.removeentity.ChestBoatEntityMixin",
+    "command.removeentity.SlimeEntityMixin",
     "command.removeentity.StorageMinecartEntityMixin",
     "command.spawn.mobcapsLocal.SpawnCommandAccessor",
     "command.spawn.mobcapsLocal.SpawnCommandMixin",
