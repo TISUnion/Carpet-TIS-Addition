@@ -31,7 +31,6 @@ public class OFEMContext
 	// basic info
 	public final Level world;
 	public final Entity entity;
-	public final AABB originEntityAabb;  // at the origin position
 	public final AABB vanillaSearchBox;
 	public final Vec3 movement;
 
@@ -44,8 +43,7 @@ public class OFEMContext
 	{
 		this.world = world;
 		this.entity = entity;
-		this.originEntityAabb = originEntityAabb;
-		this.vanillaSearchBox = this.originEntityAabb.expandTowards(movement);
+		this.vanillaSearchBox = originEntityAabb.expandTowards(movement);
 		this.movement = movement;
 	}
 }

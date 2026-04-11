@@ -34,13 +34,18 @@ import java.util.stream.Stream;
 
 public class OFEMUtil
 {
-	// minimum velocity to trigger the optimization
-	// set it to 0 or enable rule ultraSecretSetting to test vanilla behavior if you want
-	private static final double OPTIMIZE_THRESHOLD = 4.0D;
+	private static final double OPTIMIZE_MOVEMENT_THRESHOLD = 10.0D;
+	private static final double OPTIMIZE_MOVEMENT_THRESHOLD_SQR = OPTIMIZE_MOVEMENT_THRESHOLD * OPTIMIZE_MOVEMENT_THRESHOLD;
+
+	// overhead due to search box expansion for possible >1m oversized blocks
+	private static final double OVERSIZED_OVERHEAD_FACTOR = 12;
 
 	public static boolean checkMovement(@NotNull Vec3 movement)
 	{
-		return movement.lengthSqr() >= OPTIMIZE_THRESHOLD * OPTIMIZE_THRESHOLD || CarpetTISAdditionSettings.ultraSecretSetting.equals("optimizedFastEntityMovement");
+		boolean movementOk =
+				movement.lengthSqr() >= OPTIMIZE_MOVEMENT_THRESHOLD_SQR &&  // basic requirement
+				movement.x * movement.y * movement.z > (movement.x + movement.y + movement.z) * OVERSIZED_OVERHEAD_FACTOR;
+		return movementOk || CarpetTISAdditionSettings.ultraSecretSetting.equals("optimizedFastEntityMovement");
 	}
 
 	public static OFEMContext createContext(Level world, Entity entity, AABB originEntityAabb, Vec3 movement)
@@ -80,16 +85,14 @@ public class OFEMUtil
 				break;
 		}
 
-		AABB searchBox = context.entityBoundingBox.expandTowards(axisOnlyMovement);
-		if (searchBox.minY - 1 >= context.vanillaSearchBox.minY)
-		{
-			// Ensure that it doesn't miss those >1m +y oversized blocks that are still in the vanilla search box
-			// e.g. downwards moving fence b36 at gt0 (oversized for 1.5m on +y)
-			//
-			// Hopefully there are no >2m +y oversized blocks, or even >1m oversized block on +-x / +-z / -y
-			// If so, we need to expand the search box on those axes too
-			searchBox = searchBox.expandTowards(0, -1, 0);
-		}
+		AABB movementBox = context.entityBoundingBox.expandTowards(axisOnlyMovement);
+
+		// Ensure that it doesn't miss those >1m oversized blocks that are still in the vanilla search box
+		// Examples:
+		// - Downwards moving fence b36 at gt0 (oversized for 1.5m on +y)
+		// - Moving piston head with short=false (or just mc < 1.16) at gt0 (oversized for 1.25m on the opposite axis of the move direction)
+		// Hopefully there are no >2m +y oversized blocks
+		AABB searchBox = movementBox.inflate(1, 1, 1).intersect(context.vanillaSearchBox);
 
 		return collisionBoxGetter.get(context.world, context.entity, searchBox);
 	}
