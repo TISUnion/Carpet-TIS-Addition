@@ -92,6 +92,7 @@ public class OFEMUtil
 		// - Downwards moving fence b36 at gt0 (oversized for 1.5m on +y)
 		// - Moving piston head with short=false (or just mc < 1.16) at gt0 (oversized for 1.25m on the opposite axis of the move direction)
 		// Hopefully there are no >2m +y oversized blocks
+		// See also: https://github.com/TISUnion/Carpet-TIS-Addition/issues/267
 		AABB searchBox = movementBox.inflate(1, 1, 1).intersect(context.vanillaSearchBox);
 
 		return collisionBoxGetter.get(context.world, context.entity, searchBox);
