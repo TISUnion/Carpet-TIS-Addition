@@ -1354,7 +1354,7 @@ carpettisaddition:
           '0': 有助于测试你的装置是否依赖于位置
           '1': 在规则fastRedstoneDust启用时无效
       redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate:
-        name: 红石粉中继器比较器
+        name: 红石粉中继器比较器忽略向上状态更新
         desc: 让红石粉、红石中继器和红石比较器忽略来自下方的状态更新
         extra:
           '0': 这将撤销在23w35a (1.20.2快照)中引入的更改。这一规则可帮你再次轻松地创建浮空比较器

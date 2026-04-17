@@ -1308,7 +1308,7 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
-## 红石粉中继器比较器 (redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate)
+## 红石粉中继器比较器忽略向上状态更新 (redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate)
 
 **本规则仅在 Minecraft >= 1.20.2 only 中存在**
 
