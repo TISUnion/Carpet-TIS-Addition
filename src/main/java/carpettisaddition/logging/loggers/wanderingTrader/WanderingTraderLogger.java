@@ -28,11 +28,11 @@ import carpettisaddition.utils.EntityUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.StringUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
+import carpettisaddition.utils.compat.RegistryTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.npc.WanderingTraderSpawner;
 import net.minecraft.world.entity.player.Player;
@@ -50,7 +50,7 @@ public class WanderingTraderLogger extends AbstractHUDLogger
 {
 	public static final String NAME = "wanderingTrader";
 	private static final WanderingTraderLogger INSTANCE = new WanderingTraderLogger();
-	private static final BaseComponent WANDERING_TRADER_NAME = Messenger.entityType(EntityType.WANDERING_TRADER);
+	private static final BaseComponent WANDERING_TRADER_NAME = Messenger.entityType(RegistryTypes.Entity.WANDERING_TRADER);
 
 	private WanderingTraderLogger()
 	{

@@ -25,14 +25,14 @@ import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.CounterUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.StringUtils;
+import carpettisaddition.utils.compat.RegistryTypes;
 import com.google.common.collect.Lists;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.ServerStatsCounter;
 import net.minecraft.stats.Stats;
-import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -45,7 +45,7 @@ public class PhantomLogger extends AbstractLogger
 	private static final PhantomLogger INSTANCE = new PhantomLogger();
 	private static final int PHANTOM_SPAWNING_TIME = 72000;
 	private static final List<Integer> REMINDER_TICKS = Lists.newArrayList(PHANTOM_SPAWNING_TIME * 3 / 4, PHANTOM_SPAWNING_TIME);
-	private static final BaseComponent PHANTOM_NAME = Messenger.entityType(EntityType.PHANTOM);
+	private static final BaseComponent PHANTOM_NAME = Messenger.entityType(RegistryTypes.Entity.PHANTOM);
 
 	private PhantomLogger()
 	{

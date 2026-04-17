@@ -23,10 +23,10 @@ package carpettisaddition.mixins.command.lifetime.spawning.mobdrop;
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.MobDropSpawningReason;
 import carpettisaddition.utils.ModIds;
+import carpettisaddition.utils.compat.RegistryTypes;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -52,7 +52,7 @@ public abstract class ItemUsageMixin
 	)
 	private static Entity lifetimeTracker_recordSpawning_mobDrop_onItemEntityDestroyed(Entity itemEntity)
 	{
-		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(new MobDropSpawningReason(EntityType.ITEM));
+		((LifetimeTrackerTarget)itemEntity).recordSpawning$TISCM(new MobDropSpawningReason(RegistryTypes.Entity.ITEM));
 		return itemEntity;
 	}
 }

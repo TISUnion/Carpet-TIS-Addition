@@ -21,10 +21,10 @@
 package carpettisaddition.helpers.rule.largeBarrel;
 
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.compat.RegistryTypes;
 import net.minecraft.world.level.block.BarrelBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.entity.BarrelBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.MenuProvider;
@@ -72,7 +72,7 @@ public class LargeBarrelHelper
 		try
 		{
 			return DoubleBlockCombiner.combineWithNeigbour(
-					BlockEntityType.BARREL,
+					RegistryTypes.BlockEntity.BARREL,
 					state -> state.getValue(BarrelBlock.FACING).getAxisDirection() == Direction.AxisDirection.NEGATIVE ? DoubleBlockCombiner.BlockType.FIRST : DoubleBlockCombiner.BlockType.SECOND,
 					state -> state.getValue(BarrelBlock.FACING).getOpposite(),
 					BarrelBlock.FACING,
