@@ -658,6 +658,14 @@ public class CarpetTISAdditionSettings
 	public static double spawnJockeyProbably = -1;
 
 	@Rule(
+			categories = {TIS, CREATIVE},
+			validators = OptionalProbablyValidator.class,
+			options = {"-1", "0", "0.5", "1"},
+			strict = false
+	)
+	public static double spawnLeaderZombieProbably = -1;
+
+	@Rule(
 			options = {"10", "100", "1024", "10240"},
 			strict = false,
 			validators = Validators.PositiveNumber.class,

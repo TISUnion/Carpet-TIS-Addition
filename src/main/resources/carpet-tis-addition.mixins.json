@@ -488,6 +488,7 @@
     "rule.spawnJockeyProbably.SpiderEntityMixin",
     "rule.spawnJockeyProbably.StriderEntityMixin",
     "rule.spawnJockeyProbably.ZombieEntityMixin",
+    "rule.spawnLeaderZombieProbably.ZombieMixin",
     "rule.structureBlockDoNotPreserveFluid.StructureBlockBlockEntityMixin",
     "rule.structureBlockDoNotPreserveFluid.StructurePlacementDataAccessor",
     "rule.structureBlockLimit.StructureBlockBlockEntityMixin",

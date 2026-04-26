@@ -1486,6 +1486,20 @@ sidebar_position: 1
 - 分类: `TIS`, `CREATIVE`
 
 
+## 生成领头僵尸概率 (spawnLeaderZombieProbably)
+
+调整刷怪时生成领头僵尸的概率
+
+领头僵尸是那种能召唤援军、血量上限更高且能拆门的僵尸
+
+将其设为 `-1` 以禁用本规则并使用原版逻辑
+
+- 类型: `double`
+- 默认值: `-1`
+- 参考选项: `-1`, `0`, `0.5`, `1`
+- 分类: `TIS`, `CREATIVE`
+
+
 ## 测速指令最大测试大小 (speedTestCommandMaxTestSize)
 
 在使用 `/speedtest` 测速指令进行网络速度测试时，最大的测试数据大小，单位 MiB

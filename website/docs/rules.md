@@ -1486,6 +1486,20 @@ Set it to `-1` to disable the rule and use vanilla logic
 - Categories: `TIS`, `CREATIVE`
 
 
+## spawnLeaderZombieProbably
+
+When spawning zombies, override the probability of spawning a leader zombie
+
+A leader zombie can call for reinforcements, has higher max health, and can break doors
+
+Set it to `-1` to disable the rule and use vanilla logic
+
+- Type: `double`
+- Default value: `-1`
+- Suggested options: `-1`, `0`, `0.5`, `1`
+- Categories: `TIS`, `CREATIVE`
+
+
 ## speedTestCommandMaxTestSize
 
 The max test size in MiB when using the `/speedtest` command for network speed test

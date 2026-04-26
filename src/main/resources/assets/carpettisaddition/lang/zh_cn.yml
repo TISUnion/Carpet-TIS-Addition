@@ -1424,6 +1424,12 @@ carpettisaddition:
           '0': '影响的骑手类型: 鸡骑士、蜘蛛骑士、炽足兽骑手'
           '1': '对于炽足兽，生成僵尸猪灵、幼年炽足兽的概率比将保持1:3'
           '2': 将其设为-1以禁用本规则并使用原版逻辑
+      spawnLeaderZombieProbably:
+        name: 生成领头僵尸概率
+        desc: 调整刷怪时生成领头僵尸的概率
+        extra:
+          '0': 领头僵尸是那种能召唤援军、血量上限更高且能拆门的僵尸
+          '1': 将其设为-1以禁用本规则并使用原版逻辑
       speedTestCommandMaxTestSize:
         name: 测速指令最大测试大小
         desc: 在使用/speedtest测速指令进行网络速度测试时，最大的测试数据大小，单位MiB
