@@ -25,7 +25,8 @@ import net.minecraft.util.StringRepresentable;
 
 public enum DummyPropertyEnum implements StringRepresentable
 {
-	;
+	DUMMY;
+
 	public static final String NAME = "$TISCM$DUMMY$";
 	public static final EnumProperty<DummyPropertyEnum> DUMMY_PROPERTY = EnumProperty.create(NAME, DummyPropertyEnum.class);
 

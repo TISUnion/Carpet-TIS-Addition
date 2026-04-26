@@ -52,10 +52,9 @@ public abstract class BlockArgumentParserMixin
 	}
 
 	/**
-	 * Replace the property field with our DUMMY_PROPERTY so the following parsing is able to continue
-	 * DUMMY_PROPERTY has no possible values (since it's an enum property with 0 enum value),
-	 * so it will fail in {@link BlockStateParser#setValue} which will be suppressed
-	 * in our @Inject above
+	 * Replace the property field with our DUMMY_PROPERTY so the following parsing is able to continue.
+	 * The call of {@link BlockStateParser#setValue} which will be suppressed in the @Inject above,
+	 * so the DUMMY_PROPERTY won't be actually used
 	 */
 	@ModifyExpressionValue(
 			method = "readProperties",
