@@ -427,6 +427,7 @@
     "rule.largeBarrel.compat.malilib.IInventoryOverlayHandlerMixin",
     "rule.largeBarrel.compat.malilib.InventoryUtilsMixin",
     "rule.largeBarrel.compat.minihud.EntitiesDataManagerMixin",
+    "rule.leaderZombieSpawnWithMaxHealthDisabled.ZombieEntityMixin",
     "rule.lightEngineMaxBatchSize.MinecraftServerMixin",
     "rule.lightEngineMaxBatchSize.ServerLightingProviderMixin",
     "rule.lightUpdates.ServerLightingProviderMixin",

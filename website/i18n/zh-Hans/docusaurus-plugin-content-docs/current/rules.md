@@ -843,6 +843,20 @@ sidebar_position: 1
 - 分类: `TIS`, `FEATURE`, `EXPERIMENTAL`
 
 
+## 禁用领头僵尸以最大生命值生成 (leaderZombieSpawnWithMaxHealthDisabled)
+
+**本规则仅在 Minecraft >= 26.1 中存在**
+
+开启后，领头僵尸将以默认生命值（20）生成，而非被增加的最大生命值
+
+它将相关表现还原回了 MC < 26.1 的表现，即领头僵尸虽然最大生命值很高，但生成时的血量仍为默认的 20
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `PORTING`
+
+
 ## 存活时间追踪器考虑怪物容量 (lifeTimeTrackerConsidersMobcap)
 
 存活时间追踪器对不占怪物容量的生物的策略

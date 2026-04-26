@@ -859,6 +859,20 @@ The behavior and logic of large barrel is just like large chest
 - Categories: `TIS`, `FEATURE`, `EXPERIMENTAL`
 
 
+## leaderZombieSpawnWithMaxHealthDisabled
+
+**Minecraft >= 26.1 only**
+
+When enabled, leader zombies will spawn with default health (20) instead of their boosted max health
+
+It reverts the behavior back to mc < 26.1, where leader zombies had a high max health but still spawned with 20 HP
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `PORTING`
+
+
 ## lifeTimeTrackerConsidersMobcap
 
 Strategy for lifetime tracker to deal with mob that doesn't count towards mobcap

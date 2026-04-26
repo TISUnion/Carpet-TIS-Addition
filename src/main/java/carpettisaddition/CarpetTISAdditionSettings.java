@@ -358,6 +358,11 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, FEATURE, EXPERIMENTAL})
 	public static boolean largeBarrel = false;
 
+	//#if MC >= 26.1
+	//$$ @Rule(categories = {TIS, PORTING})
+	//$$ public static boolean leaderZombieSpawnWithMaxHealthDisabled = false;
+	//#endif
+
 	@Rule(categories = {TIS, CREATIVE})
 	public static boolean lifeTimeTrackerConsidersMobcap = true;
 

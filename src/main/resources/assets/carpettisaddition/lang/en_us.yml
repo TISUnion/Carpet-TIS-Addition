@@ -1165,6 +1165,11 @@ carpettisaddition:
         extra:
           '0': Two adjacent barrel blocks with their bottom side facing towards each other create a large barrel
           '1': The behavior and logic of large barrel is just like large chest
+      leaderZombieSpawnWithMaxHealthDisabled:
+        name: leaderZombieSpawnWithMaxHealthDisabled
+        desc: When enabled, leader zombies will spawn with default health (20) instead of their boosted max health
+        extra:
+          '0': It reverts the behavior back to mc < 26.1, where leader zombies had a high max health but still spawned with 20 HP
       lifeTimeTrackerConsidersMobcap:
         name: lifeTimeTrackerConsidersMobcap
         desc: Strategy for lifetime tracker to deal with mob that doesn't count towards mobcap

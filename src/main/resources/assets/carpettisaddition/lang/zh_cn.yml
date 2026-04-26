@@ -1165,6 +1165,11 @@ carpettisaddition:
         extra:
           '0': 两个相邻的底部相连木桶可以组成一个大木桶
           '1': 大木桶的行为逻辑跟大箱子相近
+      leaderZombieSpawnWithMaxHealthDisabled:
+        name: 禁用领头僵尸以最大生命值生成
+        desc: 开启后，领头僵尸将以默认生命值（20）生成，而非被增加的最大生命值
+        extra:
+          '0': 它将相关表现还原回了 MC < 26.1 的表现，即领头僵尸虽然最大生命值很高，但生成时的血量仍为默认的 20
       lifeTimeTrackerConsidersMobcap:
         name: 存活时间追踪器考虑怪物容量
         desc: 存活时间追踪器对不占怪物容量的生物的策略
