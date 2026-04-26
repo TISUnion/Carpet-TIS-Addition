@@ -716,7 +716,7 @@ carpettisaddition:
       filter:
         global: 全局
         unsupported:
-          '0': 不支持的实体筛选器
+          '0': 不支持的实体筛选器（第%1$s个）
           '1': 请输入一个@e类型的实体选择器
         filter_set: '%1$s的筛选器已设置为%2$s'
         filter_removed: '%1$s的筛选器已移除'
@@ -724,6 +724,7 @@ carpettisaddition:
         display_total: 共有%1$s个激活的筛选器
         none: 无
         click_to_clear: 点击以清除筛选器
+        or: 或
       recorder:
         enabled: 存活时间数据记录器已启用
         already_enabled: 存活时间数据记录器已经处于启用状态了

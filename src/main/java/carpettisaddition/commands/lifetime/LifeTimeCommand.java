@@ -28,15 +28,19 @@ import carpettisaddition.commands.lifetime.recorder.LifetimeRecorder;
 import carpettisaddition.commands.lifetime.utils.LifeTimeTrackerUtil;
 import carpettisaddition.commands.lifetime.utils.SpecificDetailMode;
 import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.CommandUtils;
+import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.commands.arguments.selector.EntitySelector;
-import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.selector.EntitySelector;
+import net.minecraft.world.entity.EntityType;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -89,10 +93,10 @@ public class LifeTimeCommand extends AbstractCommand
 		return 1;
 	}
 
-	private int setEntityFilter(CommandSourceStack source, @Nullable String entityTypeName, EntitySelector selector)
+	private int setEntityFilter(CommandSourceStack source, @Nullable String entityTypeName, List<EntitySelector> selectors)
 	{
 		return checkEntityTypeThen(source, entityTypeName, entityType ->
-				EntityFilterManager.getInstance().setEntityFilter(source, entityType, selector)
+				EntityFilterManager.getInstance().setEntityFilter(source, entityType, selectors)
 		);
 	}
 
@@ -109,14 +113,38 @@ public class LifeTimeCommand extends AbstractCommand
 	 * ------------------
 	 */
 
+	private static final int MAX_FILTER_NUM = 16;
+
+	private static String makeFilterNodeName(int idx)
+	{
+		return idx > 1 ? ("filter" + idx) : "filter";
+	}
+
 	private ArgumentBuilder<CommandSourceStack, ?> createFilterNode(ArgumentBuilder<CommandSourceStack, ?> node, Function<CommandContext<CommandSourceStack>, @Nullable String> entityTypeNameSupplier)
 	{
+		ArgumentBuilder<CommandSourceStack, ?> prevFilter = null;
+		for (int i = MAX_FILTER_NUM; i >= 1; i--)  // 16 filters should be enough
+		{
+			ArgumentBuilder<CommandSourceStack, ?> currentFilter = argument(makeFilterNodeName(i), EntityArgument.entities()).
+					executes(c -> {
+						List<EntitySelector> selectors = Lists.newArrayList();
+						for (int j = 1; j <= MAX_FILTER_NUM; j++)
+						{
+							final int finalJ = j;
+							CommandUtils.getOptArg(() -> c.getArgument(makeFilterNodeName(finalJ), EntitySelector.class)).ifPresent(selectors::add);
+						}
+						return setEntityFilter(c.getSource(), entityTypeNameSupplier.apply(c), selectors);
+					});
+			if (prevFilter != null)
+			{
+				currentFilter.then(prevFilter);
+			}
+			prevFilter = currentFilter;
+		}
+
 		return node.
 				executes(c -> printEntityFilter(c.getSource(), entityTypeNameSupplier.apply(c))).
-				then(literal("set").then(
-						argument("filter", EntityArgument.entities()).
-						executes(c -> setEntityFilter(c.getSource(), entityTypeNameSupplier.apply(c), c.getArgument("filter", EntitySelector.class)))
-				)).
+				then(literal("set").then(Objects.requireNonNull(prevFilter))).
 				then(literal("clear").executes(c -> setEntityFilter(c.getSource(), entityTypeNameSupplier.apply(c), null)));
 	}
 

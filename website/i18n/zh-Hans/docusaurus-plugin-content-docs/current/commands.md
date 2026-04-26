@@ -116,6 +116,7 @@ sidebar_position: 3
 
 ```
 /lifetime filter <实体类型> set <实体选择器>
+/lifetime filter <实体类型> set <实体选择器> [<实体选择器2> [<实体选择器3> [<实体选择器4> ...]]]
 /lifetime filter <实体类型> clear
 ```
 
@@ -124,6 +125,9 @@ sidebar_position: 3
 实体需要被对应的筛选器所接受才可被存活时间追踪器进行追踪
 
 使用 `@e` 类型的 Minecraft 实体选择器来输入实体筛选器，如：`@e[distance=..100,nbt={Item:{id:"minecraft:oak_sapling"}}]`
+
+支持传入多个 `<实体选择器>` 参数（最多 16 个）。实体只要满足任一实体选择器的条件，即可通过筛选。
+也即多个实体选择器之间是 **或** 的关系
 
 使用 `/lifetime filter` 来显示激活的实体筛选器
 

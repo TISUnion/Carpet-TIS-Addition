@@ -716,7 +716,7 @@ carpettisaddition:
       filter:
         global: Global
         unsupported:
-          '0': "Unsupported entity filter"
+          '0': "Unsupported entity filter (no. %1$s)"
           '1': "Please enter a @e style entity selector"
         filter_set: 'Entity filter of %1$s is set to %2$s'
         filter_removed: 'Entity filter of %1$s removed'
@@ -724,6 +724,7 @@ carpettisaddition:
         display_total: "There are %1$s activated filters"
         none: None
         click_to_clear: "Click to clear filter"
+        or: or
       recorder:
         enabled: Lifetime data recorder enabled
         already_enabled: Lifetime data recorder is already enabled

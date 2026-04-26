@@ -116,6 +116,7 @@ For example, `/lifetime creeper` shows all statistic of creeper in detail, and `
 
 ```
 /lifetime filter <entity_type> set <entity_selector>
+/lifetime filter <entity_type> set <entity_selector> [<entity_selector2> [<entity_selector3> [<entity_selector4> ...]]]
 /lifetime filter <entity_type> clear
 ```
 
@@ -124,6 +125,9 @@ Set an entity filter for given entity type. Use `global` as the `<entity_type>` 
 Entities need to be accepted by the related filter to be record by the lifetime tracker
 
 Filter is input as an `@e` style Minecraft entity selector. e.g. `@e[distance=..100,nbt={Item:{id:"minecraft:oak_sapling"}}]`
+
+Supports passing multiple `<entity_selector>` parameters (up to 16). An entity passes the filter if it matches any entity selector.
+In other words, the relationship between multiple entity selectors is OR
 
 Use `/lifetime filter` to display current activated filters
 

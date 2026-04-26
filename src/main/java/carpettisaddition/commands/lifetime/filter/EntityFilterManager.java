@@ -26,15 +26,18 @@ import carpettisaddition.mixins.utils.entityfilter.EntitySelectorAccessor;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.entityfilter.EntityFilter;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.arguments.selector.EntitySelector;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.ClickEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -44,7 +47,7 @@ public class EntityFilterManager extends TranslationContext
 	private static final Predicate<Entity> DEFAULT_FILTER = entity -> true;
 
 	// key null is for global filter
-	private final Map<EntityType<?>, Predicate<Entity>> entityFilter = Maps.newLinkedHashMap();
+	private final Map<EntityType<?>, Predicate<Entity>> entityFilters = Maps.newLinkedHashMap();
 
 	public EntityFilterManager()
 	{
@@ -56,9 +59,10 @@ public class EntityFilterManager extends TranslationContext
 		return INSTANCE;
 	}
 
+	@NotNull
 	public Predicate<Entity> getFilter(@Nullable EntityType<?> entityType)
 	{
-		return this.entityFilter.getOrDefault(entityType, DEFAULT_FILTER);
+		return this.entityFilters.getOrDefault(entityType, DEFAULT_FILTER);
 	}
 
 	/**
@@ -71,30 +75,35 @@ public class EntityFilterManager extends TranslationContext
 		return this.getFilter(null).test(entity) && this.getFilter(entity.getType()).test(entity);
 	}
 
-	public void setEntityFilter(CommandSourceStack source, @Nullable EntityType<?> entityType, @Nullable EntitySelector entitySelector)
+	public void setEntityFilter(CommandSourceStack source, @Nullable EntityType<?> entityType, @Nullable List<EntitySelector> selectors)
 	{
 		BaseComponent typeName = this.getEntityTypeText(entityType);
-		if (entitySelector != null)
+		if (selectors != null && !selectors.isEmpty())
 		{
-			if (!entitySelector.includesEntities() || ((EntitySelectorAccessor)entitySelector).getPlayerName() != null)
+			List<EntityFilter> entityFilters = Lists.newArrayList();
+			for (int i = 0; i < selectors.size(); i++)
 			{
-				Messenger.tell(source, tr("unsupported.0"));
-				Messenger.tell(source, tr("unsupported.1"));
+				EntitySelector entitySelector = selectors.get(i);
+				if (!entitySelector.includesEntities() || ((EntitySelectorAccessor)entitySelector).getPlayerName() != null)
+				{
+					Messenger.tell(source, tr("unsupported.0", i + 1));
+					Messenger.tell(source, tr("unsupported.1"));
+					return;
+				}
+				entityFilters.add(new EntityFilter(source, entitySelector));
 			}
-			else
-			{
-				EntityFilter entityFilter = new EntityFilter(source, entitySelector);
-				this.entityFilter.put(entityType, entityFilter);
-				Messenger.tell(source, tr(
-						"filter_set",
-						typeName,
-						entityFilter.toText()
-				));
-			}
+
+			LifetimeEntityFilter entityFilter = new LifetimeEntityFilter(entityFilters);
+			this.entityFilters.put(entityType, entityFilter);
+			Messenger.tell(source, tr(
+					"filter_set",
+					typeName,
+					entityFilter.toText()
+			));
 		}
 		else
 		{
-			this.entityFilter.remove(entityType);
+			this.entityFilters.remove(entityType);
 			Messenger.tell(source, tr(
 					"filter_removed",
 					typeName
@@ -105,7 +114,23 @@ public class EntityFilterManager extends TranslationContext
 	public BaseComponent getEntityFilterText(@Nullable EntityType<?> entityType)
 	{
 		Predicate<Entity> entityPredicate = this.getFilter(entityType);
-		return entityPredicate instanceof EntityFilter ? ((EntityFilter)entityPredicate).toText() : tr("none");
+		if (entityPredicate == DEFAULT_FILTER)
+		{
+			return tr("none");
+		}
+		else if (entityPredicate instanceof EntityFilter)
+		{
+			return ((EntityFilter)entityPredicate).toText();
+		}
+		else if (entityPredicate instanceof LifetimeEntityFilter)
+		{
+			return ((LifetimeEntityFilter)entityPredicate).toText();
+		}
+		// unexpected predicate type
+		return Messenger.hover(
+				Messenger.s("?", ChatFormatting.RED),
+				Messenger.s(entityPredicate.getClass().getSimpleName())
+		);
 	}
 
 	public BaseComponent getEntityTypeText(@Nullable EntityType<?> entityType)
@@ -124,8 +149,8 @@ public class EntityFilterManager extends TranslationContext
 
 	public int displayAllFilters(CommandSourceStack source)
 	{
-		Messenger.tell(source, tr("display_total", this.entityFilter.size()));
-		this.entityFilter.keySet().forEach(entityType -> Messenger.tell(
+		Messenger.tell(source, tr("display_total", this.entityFilters.size()));
+		this.entityFilters.keySet().forEach(entityType -> Messenger.tell(
 				source,
 				Messenger.c(
 						"f - ",
