@@ -22,16 +22,16 @@ package carpettisaddition.mixins.rule.failSoftBlockStateParsing;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.failSoftBlockStateParsing.DummyPropertyEnum;
+import carpettisaddition.utils.GameUtils;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-// improves priority due to @ModifyVariable into locals
-@Mixin(value = BlockStateParser.class, priority = 500)
+@Mixin(BlockStateParser.class)
 public abstract class BlockArgumentParserMixin
 {
 	@Inject(
@@ -45,7 +45,7 @@ public abstract class BlockArgumentParserMixin
 	)
 	private void failSoftBlockStateParsing(CallbackInfo ci)
 	{
-		if (CarpetTISAdditionSettings.failSoftBlockStateParsing)
+		if (CarpetTISAdditionSettings.failSoftBlockStateParsing && !GameUtils.isOnClientThread())
 		{
 			ci.cancel();
 		}
@@ -53,21 +53,20 @@ public abstract class BlockArgumentParserMixin
 
 	/**
 	 * Replace the property field with our DUMMY_PROPERTY so the following parsing is able to continue
-	 * DUMMY_PROPERTY has no possible values (since it's an enum property with 0 enum value) so it doesn't provide
-	 * any suggestion, and it will fail in BlockArgumentParser#parsePropertyValue which will be suppressed
+	 * DUMMY_PROPERTY has no possible values (since it's an enum property with 0 enum value),
+	 * so it will fail in {@link BlockStateParser#setValue} which will be suppressed
 	 * in our @Inject above
 	 */
-	@ModifyVariable(
+	@ModifyExpressionValue(
 			method = "readProperties",
 			at = @At(
-					value = "INVOKE_ASSIGN",
+					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/block/state/StateDefinition;getProperty(Ljava/lang/String;)Lnet/minecraft/world/level/block/state/properties/Property;"
-			),
-			index = 3
+			)
 	)
-	private Property<?> failSoftBlockStateParsing(Property<?> value)
+	private Property<?> failSoftBlockStateParsing_replaceFailedProperty(Property<?> value)
 	{
-		if (CarpetTISAdditionSettings.failSoftBlockStateParsing)
+		if (CarpetTISAdditionSettings.failSoftBlockStateParsing && !GameUtils.isOnClientThread())
 		{
 			if (value == null)
 			{
