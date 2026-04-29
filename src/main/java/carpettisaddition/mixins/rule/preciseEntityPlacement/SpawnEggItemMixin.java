@@ -39,7 +39,9 @@ public abstract class SpawnEggItemMixin
 			method = "useOn",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12109
+					//#if MC >= 26.2
+					//$$ target = "Lnet/minecraft/world/item/SpawnEggItem;spawnMob(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;ZZ)Lnet/minecraft/world/InteractionResult;"
+					//#elseif MC >= 12109
 					//$$ target = "Lnet/minecraft/world/item/SpawnEggItem;spawnMob(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;ZZ)Lnet/minecraft/world/InteractionResult;"
 					//#elseif MC >= 12105
 					//$$ target = "Lnet/minecraft/world/entity/EntityType;spawn(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntitySpawnReason;ZZ)Lnet/minecraft/world/entity/Entity;"

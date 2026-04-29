@@ -32,7 +32,9 @@ public abstract class TntBlockMixin
 			method = "wasExploded",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11900
+					//#if MC >= 26.2
+					//$$ target = "Lnet/minecraft/world/entity/item/PrimedTnt;getRandomShortFuse(ILnet/minecraft/util/RandomSource;)I"
+					//#elseif MC >= 11900
 					//$$ target = "Lnet/minecraft/util/RandomSource;nextInt(I)I"
 					//#else
 					target = "Ljava/util/Random;nextInt(I)I",
@@ -41,8 +43,13 @@ public abstract class TntBlockMixin
 			),
 			index = 0
 	)
-	private int makeSureItIsPositive(int bound)
+	private int tntFuseDuration_makeSureItIsNotTooSmall(int value)
 	{
-		return Math.max(bound, 1);
+		//#if MC >= 26.2
+		//$$ // see `net.minecraft.world.entity.item.PrimedTnt#getRandomShortFuse`, where a `random.nextInt(fuse / 4)` will be called
+		//$$ return Math.max(value, 4);
+		//#else
+		return Math.max(value, 1);
+		//#endif
 	}
 }

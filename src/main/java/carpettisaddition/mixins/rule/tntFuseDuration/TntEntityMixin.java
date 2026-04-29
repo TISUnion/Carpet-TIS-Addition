@@ -66,7 +66,7 @@ public abstract class TntEntityMixin
 			),
 			index = 1
 	)
-	private Object getCustomFuseTimer_tntFuseDuration(Object oldValue)
+	private Object tntFuseDuration_getCustomFuseTimer(Object oldValue)
 	{
 		if (oldValue instanceof Integer)
 		{
@@ -78,7 +78,7 @@ public abstract class TntEntityMixin
 		}
 		else
 		{
-			throw new RuntimeException(String.format("getCustomFuseTimer_tntFuseDuration is modifying a wrong argument, oldValue = %s (%s). Please report this bug to Carpet TIS Addition", oldValue, oldValue.getClass()));
+			throw new RuntimeException(String.format("tntFuseDuration_getCustomFuseTimer is modifying a wrong argument, oldValue = %s (%s). Please report this bug to Carpet TIS Addition", oldValue, oldValue.getClass()));
 		}
 	}
 }
