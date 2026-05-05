@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.AgableMob;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -31,12 +32,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(AgableMob.class)
 public abstract class PassiveEntityMixin
 {
+	@Shadow
+	protected int age;
+
 	@Inject(method = "setAge", at = @At("HEAD"), cancellable = true)
-	private void breedingCooldownDisabled_cancelIfValueIsGreaterThanZero(CallbackInfo ci, @Local(argsOnly = true) int age)
+	private void breedingCooldownDisabled_cancelIfValueIsGreaterThanZero(CallbackInfo ci, @Local(argsOnly = true) int newAge)
 	{
 		if (CarpetTISAdditionSettings.breedingCooldownDisabled)
 		{
-			if (age > 0)
+			// age >= 0: adult, value is breeding cooldown
+			// age < 0: baby, value is age
+			if (this.age == 0 && newAge > 0)  // adult, setting breeding cooldown from none to *newAge*
 			{
 				ci.cancel();
 			}
