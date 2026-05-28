@@ -18,10 +18,23 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.helpers.carpet.shape;
+package carpettisaddition.mixins.logger.entityIdCounter;
 
-// used in mc 26.2+
-public interface IShapesRendererRenderedTextGlyphVisitor
+import net.minecraft.world.entity.Entity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * Used in mc < 26.2 only
+ */
+@Mixin(Entity.class)
+public interface EntityAccessor
 {
-	void setIsMicroTimingMarkerText$TISCM();
+	@Accessor("ENTITY_COUNTER")
+	static AtomicInteger getEntityIdCounter$TISCM()
+	{
+		throw new AssertionError();
+	}
 }

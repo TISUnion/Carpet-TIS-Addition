@@ -20,13 +20,28 @@
 
 package carpettisaddition.logging.loggers.entityIdCounter;
 
-import carpettisaddition.mixins.command.info.server.EntityAccessor;
+import java.util.concurrent.atomic.AtomicInteger;
+
+//#if MC >= 26.2
+//$$ import carpettisaddition.mixins.logger.entityIdCounter.ServerLevelAccessor;
+//#else
+import carpettisaddition.mixins.logger.entityIdCounter.EntityAccessor;
+//#endif
 
 public class EntityIdCounterUtils
 {
+	public static AtomicInteger getCurrentEntityIdCounter()
+	{
+		//#if MC >= 26.2
+		//$$ return ServerLevelAccessor.getEntityIdCounter$TISCM();
+		//#else
+		return EntityAccessor.getEntityIdCounter$TISCM();
+		//#endif
+	}
+
 	public static int getCurrentEntityIdCounterValue()
 	{
-		return EntityAccessor.getEntityIdCounter$TISCM().get();
+		return getCurrentEntityIdCounter().get();
 	}
 
 	public static double getPercentOfOverflowToZero(int value)

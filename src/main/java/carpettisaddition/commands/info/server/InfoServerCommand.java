@@ -22,7 +22,7 @@ package carpettisaddition.commands.info.server;
 
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.info.InfoSubcommand;
-import carpettisaddition.mixins.command.info.server.EntityAccessor;
+import carpettisaddition.logging.loggers.entityIdCounter.EntityIdCounterUtils;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.commands.CommandSourceStack;
 
@@ -61,7 +61,7 @@ public class InfoServerCommand extends InfoSubcommand
 
 	private int showEntityIdCounter(CommandSourceStack source)
 	{
-		int value = EntityAccessor.getEntityIdCounter$TISCM().get();
+		int value = EntityIdCounterUtils.getCurrentEntityIdCounterValue();
 		Messenger.tell(source, tr(
 				"entity_id_counter",
 				Messenger.hover(Messenger.s(value), Messenger.s(computeToIntMaxPercent(value)))

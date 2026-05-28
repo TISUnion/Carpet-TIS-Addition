@@ -23,7 +23,6 @@ package carpettisaddition.commands.manipulate.server;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.commands.manipulate.AbstractManipulator;
 import carpettisaddition.logging.loggers.entityIdCounter.EntityIdCounterUtils;
-import carpettisaddition.mixins.command.info.server.EntityAccessor;
 import carpettisaddition.utils.Messenger;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.BaseComponent;
@@ -73,7 +72,7 @@ public class ServerManipulator extends AbstractManipulator
 
 	private static AtomicInteger getEntityIdCounter()
 	{
-		return EntityAccessor.getEntityIdCounter$TISCM();
+		return EntityIdCounterUtils.getCurrentEntityIdCounter();
 	}
 
 	private BaseComponent prettyEidCounter(int value)

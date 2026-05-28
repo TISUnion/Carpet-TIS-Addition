@@ -18,20 +18,16 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.command.info.server;
+package carpettisaddition.mixins.logger.entityIdCounter;
 
-import net.minecraft.world.entity.Entity;
+import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
-@Mixin(Entity.class)
+/**
+ * Used in mc < 26.2 only,
+ * See {@link ServerLevelAccessor} for usages in current MC version
+ */
+@Mixin(DummyClass.class)
 public interface EntityAccessor
 {
-	@Accessor("ENTITY_COUNTER")
-	static AtomicInteger getEntityIdCounter$TISCM()
-	{
-		throw new AssertionError();
-	}
 }

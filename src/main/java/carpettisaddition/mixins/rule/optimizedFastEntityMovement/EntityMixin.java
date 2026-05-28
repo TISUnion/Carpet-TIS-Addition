@@ -66,7 +66,11 @@ public abstract class EntityMixin
 	//$$ private static final ThreadLocal<Vec3> ofemCurrentMovement = ThreadLocal.withInitial(() -> null);
 	//$$
 	//$$ @ModifyVariable(
+	//$$ 		//#if MC >= 26.2
+	//$$ 		//$$ method = "collideBoundingBox(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Lnet/minecraft/world/level/Level;Ljava/util/List;)Lnet/minecraft/world/phys/Vec3;",
+	//$$ 		//#else
 	//$$ 		method = "collideBoundingBox",
+	//$$ 		//#endif
 	//$$ 		at = @At("HEAD"),
 	//$$ 		argsOnly = true
 	//$$ )
@@ -81,7 +85,9 @@ public abstract class EntityMixin
 	//#endif
 
 	@WrapOperation(
-			//#if MC >= 12100
+			//#if MC >= 26.2
+			//$$ method = "collectCollidersIgnoringWorldBorder(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Ljava/util/List;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;",
+			//#elseif MC >= 12100
 			//$$ method = "collectColliders",
 			//#elseif MC >= 11800
 			//$$ method = "collideBoundingBox",

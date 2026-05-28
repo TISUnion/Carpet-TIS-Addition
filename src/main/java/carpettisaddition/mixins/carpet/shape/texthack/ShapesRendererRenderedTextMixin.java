@@ -36,11 +36,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//#if MC >= 26.2
-//$$ import carpettisaddition.helpers.carpet.shape.IShapesRendererRenderedTextGlyphVisitor;
-//$$ import net.minecraft.client.gui.Font;
-//#endif
-
 //#if MC >= 12105
 //$$ import com.mojang.blaze3d.opengl.GlStateManager;
 //#endif
@@ -104,21 +99,8 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	}
 
 	//#if MC >= 26.2
-	//$$ @ModifyArg(
-	//$$ 		method = "renderLines",
-	//$$ 		at = @At(
-	//$$ 				value = "INVOKE",
-	//$$ 				target = "Lnet/minecraft/client/gui/Font$PreparedText;visit(Lnet/minecraft/client/gui/Font$GlyphVisitor;)V"
-	//$$ 		)
-	//$$ )
-	//$$ private Font.GlyphVisitor seeThroughWhenNecessary_markGlyphVisitor(Font.GlyphVisitor visitor)
-	//$$ {
-	//$$ 	if (this.isMicroTimingMarkerText())
-	//$$ 	{
-	//$$ 		((IShapesRendererRenderedTextGlyphVisitor)visitor).setIsMicroTimingMarkerText$TISCM();
-	//$$ 	}
-	//$$ 	return visitor;
-	//$$ }
+	//$$ // TODO: fabric-carpet's `RenderedText#renderLines` code still seems to be incompleted yet,
+	//$$ // cuz its `preparedText` var is still unused. 2026.5.29, mc 26.2-pre-1
 	//#else
 	@ModifyArg(
 			method = "renderLines",
