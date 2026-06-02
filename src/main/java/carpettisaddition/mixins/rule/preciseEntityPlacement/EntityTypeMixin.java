@@ -32,7 +32,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class EntityTypeMixin<T extends Entity>
 {
 	@ModifyVariable(
-			//#if MC >= 12005
+			//#if MC >= 26.2
+			//$$ method = "create(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/PostSpawnProcessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntitySpawnReason;ZZ)Lnet/minecraft/world/entity/Entity;",
+			//#elseif MC >= 12005
 			//$$ method = "create(Lnet/minecraft/server/level/ServerLevel;Ljava/util/function/Consumer;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/MobSpawnType;ZZ)Lnet/minecraft/world/entity/Entity;",
 			//#elseif MC >= 11903
 			//$$ method = "create(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/nbt/CompoundTag;Ljava/util/function/Consumer;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/MobSpawnType;ZZ)Lnet/minecraft/world/entity/Entity;",
