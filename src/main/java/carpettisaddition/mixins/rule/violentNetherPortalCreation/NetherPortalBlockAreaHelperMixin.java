@@ -32,6 +32,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 1.21.2
+//$$ import org.spongepowered.asm.mixin.Final;
+//$$ import org.spongepowered.asm.mixin.Mutable;
+//#endif
+
 //#if MC >= 11600
 //$$ import net.minecraft.world.level.portal.PortalShape;
 //#else
@@ -47,6 +52,9 @@ import net.minecraft.world.level.block.NetherPortalBlock;
 )
 public abstract class NetherPortalBlockAreaHelperMixin
 {
+	//#if MC >= 1.21.2
+	//$$ @Final @Mutable
+	//#endif
 	@Shadow private int numPortalBlocks;
 
 	@ModifyReturnValue(method = "isEmpty", at = @At("TAIL"))
