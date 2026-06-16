@@ -160,6 +160,18 @@ loom {
 	}
 }
 
+// hack fix for a gradle 9.5 implicit_dependency issue
+afterEvaluate {
+	tasks.matching { it.name.startsWith('runClient') }.configureEach { runTask ->
+		parent.subprojects.findAll { it != project }.each { otherProject ->
+			def downloadAssets = otherProject.tasks.findByName('downloadAssets')
+			if (downloadAssets != null) {
+				runTask.mustRunAfter(downloadAssets)
+			}
+		}
+	}
+}
+
 shadowJar {
 	configurations = [project.configurations.shadow]
 	exclude("META-INF")

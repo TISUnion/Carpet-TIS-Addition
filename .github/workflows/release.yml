@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get github release information
-        uses: cardinalby/git-get-release-action@1.2.5
+        uses: cardinalby/git-get-release-action@1.2.6
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -95,7 +95,7 @@ jobs:
 
       - name: Get github release information
         id: get_release
-        uses: cardinalby/git-get-release-action@1.2.5
+        uses: cardinalby/git-get-release-action@1.2.6
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
