@@ -32,18 +32,30 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = {
+@Restriction(
 		// Added in malilib (sakura-ryoko's fork) version:
 		//   1.21-0.21.6
 		//   1.21.3-0.22.4
 		//   1.21.4-0.23.1
-		@Condition(value = ModIds.malilib, versionPredicates = {
-				">=0.21.6 <0.22",
-				">=0.22.4 <0.23",
-				">=0.23.1",
-		}),
-		@Condition(value = ModIds.minecraft, versionPredicates = ">=1.21")
-})
+		//
+		// No more needed after these malilib versions:
+		//   1.21.11-0.27.14
+		//   26.1.2-0.28.8
+		//   26.2-0.29.2
+		require = {
+				@Condition(value = ModIds.malilib, versionPredicates = {
+						">=0.21.6 <0.22",
+						">=0.22.4 <0.23",
+						">=0.23.1",
+				}),
+				@Condition(value = ModIds.minecraft, versionPredicates = ">=1.21")
+		},
+		conflict = {
+				@Condition(value = ModIds.malilib, versionPredicates = ">=0.27.14 <0.28"),
+				@Condition(value = ModIds.malilib, versionPredicates = ">=0.28.8 <0.29"),
+				@Condition(value = ModIds.malilib, versionPredicates = ">=0.29.2")
+		}
+)
 @Pseudo
 @Mixin(targets = "fi.dy.masa.malilib.interfaces.IDataSyncer")
 public interface IDataSyncerMixin
