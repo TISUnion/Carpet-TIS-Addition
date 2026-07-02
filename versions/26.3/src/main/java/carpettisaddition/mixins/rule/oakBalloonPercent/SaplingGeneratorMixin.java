@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2026  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -23,13 +23,20 @@ package carpettisaddition.mixins.rule.oakBalloonPercent;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.data.worldgen.features.TreeFeatures;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.grower.TreeGrower;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">1.20.2 <26.3"))
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">26.3"))
 @Mixin(TreeGrower.class)
 public abstract class SaplingGeneratorMixin
 {
@@ -37,19 +44,30 @@ public abstract class SaplingGeneratorMixin
 			method = "getConfiguredFeature",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/world/level/block/grower/TreeGrower;secondaryChance:F"
+					target = "Lnet/minecraft/world/level/block/grower/TreeGrower;trees:Lnet/minecraft/util/random/WeightedList;",
+					opcode = Opcodes.GETFIELD
 			)
 	)
-	private float oakBalloonPercent_modifyChance(float chance)
+	private WeightedList<ResourceKey<Feature>> oakBalloonPercent_modifyWeightList(
+			WeightedList<ResourceKey<Feature>> original,
+			@Local(argsOnly = true) RandomSource random
+	)
 	{
 		if (CarpetTISAdditionSettings.oakBalloonPercent > 0)
 		{
 			TreeGrower self = (TreeGrower)(Object)this;
 			if (self == TreeGrower.OAK)
 			{
-				chance = CarpetTISAdditionSettings.oakBalloonPercent / 100.0f;
+				if (CarpetTISAdditionSettings.oakBalloonPercent / 100.0f > random.nextFloat())
+				{
+					return WeightedList.of(TreeFeatures.FANCY_OAK);
+				}
+				else
+				{
+					return WeightedList.of(TreeFeatures.OAK);
+				}
 			}
 		}
-		return chance;
+		return original;
 	}
 }

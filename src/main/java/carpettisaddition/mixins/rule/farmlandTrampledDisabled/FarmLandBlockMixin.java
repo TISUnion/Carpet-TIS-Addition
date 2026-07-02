@@ -40,7 +40,9 @@ public abstract class FarmLandBlockMixin
 			method = "fallOn",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 11900
+					//#if MC >= 26.3
+					//$$ target = "Lnet/minecraft/world/level/block/FarmlandBlock;turnToBaseBlock(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
+					//#elseif MC >= 11900
 					//$$ target = "Lnet/minecraft/world/level/block/FarmBlock;turnToDirt(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
 					//#else
 					target = "Lnet/minecraft/world/level/block/FarmBlock;turnToDirt(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
@@ -48,6 +50,9 @@ public abstract class FarmLandBlockMixin
 			)
 	)
 	private boolean farmlandTrampledDisabled_cancel(
+			//#if MC >= 26.3
+			//$$ FarmlandBlock instance,
+			//#endif
 			//#if MC >= 11900
 			//$$ Entity entity,
 			//#endif

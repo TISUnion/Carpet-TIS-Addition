@@ -124,7 +124,7 @@ public abstract class PortalForcerMixin
 		//#endif
 		{
 			//#if MC >= 1.16.0
-			//$$ BlockPos portalPos = new BlockPos(arg0);
+			//$$ BlockPos portalPos = new BlockPos(arg0.getX(), arg0.getY(), arg0.getZ());
 			//#else
 			BlockPos portalPos = new BlockPos(args.get(0), args.get(1), args.get(2));
 			//#endif

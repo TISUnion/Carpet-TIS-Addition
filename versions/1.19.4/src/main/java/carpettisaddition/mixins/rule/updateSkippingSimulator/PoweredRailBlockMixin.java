@@ -38,7 +38,11 @@ public abstract class PoweredRailBlockMixin
 			method = "updateState",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 26.3
+					//$$ target = "Lnet/minecraft/world/level/Level;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z",
+					//#else
 					target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
+					//#endif
 					ordinal = 0
 			),
 			cancellable = true

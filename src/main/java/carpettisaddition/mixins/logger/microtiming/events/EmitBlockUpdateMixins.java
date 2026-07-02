@@ -96,7 +96,11 @@ public abstract class EmitBlockUpdateMixins
 				at = @At(
 						value = "INVOKE",
 						shift = At.Shift.AFTER,
+						//#if MC >= 26.3
+						//$$ target = "Lnet/minecraft/world/level/Level;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"
+						//#else
 						target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+						//#endif
 				)
 		)
 		private void startEmitBlockUpdate(BlockState state, Level world, BlockPos pos, Block neighbor, CallbackInfo ci)

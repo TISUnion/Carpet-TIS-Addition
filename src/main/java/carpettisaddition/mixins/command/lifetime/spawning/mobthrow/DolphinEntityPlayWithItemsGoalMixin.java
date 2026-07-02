@@ -30,7 +30,13 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(targets = "net.minecraft.world.entity.animal.Dolphin$PlayWithItemsGoal")
+@Mixin(
+		//#if MC >= 26.3
+		//$$ targets = "net.minecraft.world.entity.animal.dolphin.Dolphin$ItemGoal"
+		//#else
+		targets = "net.minecraft.world.entity.animal.Dolphin$PlayWithItemsGoal"
+		//#endif
+)
 public abstract class DolphinEntityPlayWithItemsGoalMixin
 {
 	@SuppressWarnings("target")
