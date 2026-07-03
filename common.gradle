@@ -184,8 +184,10 @@ if (unobfuscated) {
 	jar {
 		dependsOn(shadowJar)
 		mustRunAfter(shadowJar)
-		from zipTree(shadowJar.archiveFile)
-		duplicatesStrategy = DuplicatesStrategy.INCLUDE
+		from(zipTree(shadowJar.archiveFile)) {
+			exclude('META-INF/MANIFEST.MF')
+		}
+		duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 	}
 } else {
 	remapJar {
