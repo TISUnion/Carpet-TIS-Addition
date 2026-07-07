@@ -405,6 +405,12 @@ carpettisaddition:
           done: 'Relighted %s chunks. Total cost: %ss'
           done_aborted: 'Relight aborted, processed %s/%s chunks, cost: %ss'
           hint: You can use command "/refresh chunk" to refresh lighting updates outside of those given chunks
+        inhabitedTime:
+          set_done: Set inhabited time of %s chunks to %s
+          add_done: Added inhabited time of %s chunks by %s
+          add_summary: 'New inhabited time of these %s chunks: min %s, max %s, avg %s'
+          query_no_chunk: No chunk to query
+          query_summary: 'Inhabited time of %s chunks: min %s, max %s, avg %s'
       container:
         help: Manipulate %1$s
         cannot_manipulate: '%1$s cannot be manipulate now, you may try executing this command in another game phase'

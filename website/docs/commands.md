@@ -300,6 +300,27 @@ Currently, this command is achieved by checking lighting at all block positions 
 | `/manipulate chunk relight circle\|euclidean  <radius>` | Relight chunks in the given range (euclidean distance)               |
 | `/manipulate chunk relight at <chunkX> <chunkZ>`        | Relight the chunk at given position, the given chunk needs be loaded |
 
+#### inhabitedTime
+
+Query or modify the inhabited time of the given chunks, in game ticks.
+
+`<ticks>` must be a non-negative integer. `<deltaTicks>` can be positive or negative. `query` reports the minimum, maximum, and average value of the selected chunks, while `add` also reports the updated statistics after applying the delta.
+
+| Command                                                     | Effect                                                          |
+|-------------------------------------------------------------|-----------------------------------------------------------------|
+| `/manipulate chunk inhabitedTime query <target>`            | Query the inhabited time of the target chunks                   |
+| `/manipulate chunk inhabitedTime set <ticks> <target>`      | Set the inhabited time of the target chunks                     |
+| `/manipulate chunk inhabitedTime add <deltaTicks> <target>` | Add to or subtract from the inhabited time of the target chunks |
+
+`<target>` can be one of:
+
+| Target                       | Effect                                                                  |
+|------------------------------|-------------------------------------------------------------------------|
+| `current`                    | The current chunk you are in                                            |
+| `square\|chebyshev <radius>` | Chunks in the given range (chebyshev distance), radius from 0 to 32     |
+| `circle\|euclidean <radius>` | Chunks in the given range (euclidean distance), radius from 0 to 32     |
+| `at <chunkX> <chunkZ>`       | The chunk at the given position, the given chunk needs to be loaded     |
+
 
 ### container
 

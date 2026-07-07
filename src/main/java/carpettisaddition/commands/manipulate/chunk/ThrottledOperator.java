@@ -24,6 +24,7 @@ import carpettisaddition.CarpetTISAdditionMod;
 import carpettisaddition.translations.TranslationContext;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.PositionUtils;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
@@ -35,7 +36,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-class ThrottledOperator extends TranslationContext
+class ThrottledOperator extends TranslationContext implements Operator
 {
 	private final Semaphore semaphore = new Semaphore(1);
 	private final AtomicReference<AbortableOperation> currentOperation = new AtomicReference<>(null);
@@ -53,16 +54,16 @@ class ThrottledOperator extends TranslationContext
 		this.operateImpl = operateImpl;
 	}
 
-	public int operate(CommandSourceStack source, List<ChunkPos> chunkPosList)
+	public int operate(CommandContext<CommandSourceStack> ctx, List<ChunkPos> chunkPosList)
 	{
 		if (!this.semaphore.tryAcquire())
 		{
-			Messenger.tell(source, this.tr("common.throttled"));
+			Messenger.tell(ctx.getSource(), this.tr("common.throttled"));
 			return 0;
 		}
 		try
 		{
-			AbortableOperation operation = this.operateImpl.createAndRun(source, chunkPosList, () -> {
+			AbortableOperation operation = this.operateImpl.createAndRun(ctx.getSource(), chunkPosList, () -> {
 				this.currentOperation.set(null);
 				this.semaphore.release();
 			});
@@ -90,39 +91,5 @@ class ThrottledOperator extends TranslationContext
 			operation.abort(source);
 			return 1;
 		}
-	}
-
-	public int operateAt(CommandSourceStack source, ChunkPos chunkPos) throws CommandSyntaxException
-	{
-		if (!source.getLevel().hasChunk(PositionUtils.chunkPosX(chunkPos), PositionUtils.chunkPosZ(chunkPos)))
-		{
-			throw BlockPosArgument.ERROR_NOT_LOADED.create();
-		}
-		return this.operate(source, Collections.singletonList(chunkPos));
-	}
-
-	public int operateInSquare(CommandSourceStack source, int radius)
-	{
-		ChunkPos center = PositionUtils.flooredChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
-		List<ChunkPos> chunkPosList = ChunkPos.rangeClosed(center, radius).collect(Collectors.toList());
-		return this.operate(source, chunkPosList);
-	}
-
-	public int operateInCircle(CommandSourceStack source, int radius)
-	{
-		ChunkPos center = PositionUtils.flooredChunkPos(PositionUtils.flooredBlockPos(source.getPosition()));
-		List<ChunkPos> chunkPosList = ChunkPos.rangeClosed(center, radius).
-				filter(chunkPos -> {
-					int dx2 = (PositionUtils.chunkPosX(chunkPos) - PositionUtils.chunkPosX(center)) * (PositionUtils.chunkPosX(chunkPos) - PositionUtils.chunkPosX(center));
-					int dz2 = (PositionUtils.chunkPosZ(chunkPos) - PositionUtils.chunkPosZ(center)) * (PositionUtils.chunkPosZ(chunkPos) - PositionUtils.chunkPosZ(center));
-					return dx2 + dz2 <= radius * radius;
-				}).
-				collect(Collectors.toList());
-		return this.operate(source, chunkPosList);
-	}
-
-	public int operateCurrent(CommandSourceStack source)
-	{
-		return this.operateInCircle(source, 0);
 	}
 }
