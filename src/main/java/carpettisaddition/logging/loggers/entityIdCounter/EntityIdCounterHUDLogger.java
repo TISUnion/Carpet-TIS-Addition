@@ -40,6 +40,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinWorkerThread;
 
+//#if MC >= 26.2
+//$$ import carpettisaddition.utils.EntityUtils;
+//$$ import net.minecraft.server.level.ServerLevel;
+//#endif
+
 //#if MC >= 1.21.2
 //$$ import net.minecraft.TracingExecutor;
 //#endif
@@ -136,6 +141,14 @@ public class EntityIdCounterHUDLogger extends AbstractHUDLogger
 		{
 			return;
 		}
+
+		//#if MC >= 26.2
+		//$$ // in mc26.2+, only server-side entity's IDs are assigned from the counter
+		//$$ if (!(EntityUtils.getEntityWorld(entity) instanceof ServerLevel))
+		//$$ {
+		//$$ 	return;
+		//$$ }
+		//#endif
 
 		Thread currentThread = Thread.currentThread();
 		BaseComponent threadName = Messenger.hover(
