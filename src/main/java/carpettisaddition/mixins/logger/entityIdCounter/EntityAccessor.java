@@ -27,7 +27,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Used in mc < 26.2 only
+ * mc1.14 ~ mc26.1: subproject 1.15.2 (main project)        <--------
+ * mc26.2+        : subproject 26.2
  */
 @Mixin(Entity.class)
 public interface EntityAccessor

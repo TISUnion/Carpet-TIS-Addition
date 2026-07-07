@@ -112,7 +112,7 @@ public class ServerManipulator extends AbstractManipulator
 
 	private int queryEntityIdCounter(CommandSourceStack source, Entity entity)
 	{
-		int value = entity.getId();
+		int value = EntityIdCounterUtils.getEntityId(entity);
 		Messenger.tell(source, tr("entity_id_counter.query", Messenger.entity(entity), this.prettyEidCounter(value)));
 		return 0;
 	}

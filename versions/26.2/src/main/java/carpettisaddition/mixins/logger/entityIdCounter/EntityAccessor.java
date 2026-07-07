@@ -20,14 +20,18 @@
 
 package carpettisaddition.mixins.logger.entityIdCounter;
 
-import carpettisaddition.utils.compat.DummyClass;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
 /**
- * Used in mc < 26.2 only,
- * See {@link ServerLevelAccessor} for usages in current MC version
+ * mc1.14 ~ mc26.1: subproject 1.15.2 (main project)
+ * mc26.2+        : subproject 26.2        <--------
  */
-@Mixin(DummyClass.class)
+@Mixin(Entity.class)
 public interface EntityAccessor
 {
+	// net.minecraft.world.entity.Entity#getId has a crash-if-zero check which is bad
+	@Accessor("id")
+	int getIdField$TISCM();
 }

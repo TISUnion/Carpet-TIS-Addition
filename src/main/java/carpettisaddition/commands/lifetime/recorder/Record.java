@@ -90,11 +90,7 @@ public class Record
 		r.eventData = eventData;
 
 		r.entityType = EntityType.getKey(entity.getType());
-		//#if MC >= 1.17.0
-		//$$ r.entityId = entity.getId();
-		//#else
 		r.entityId = entity.getId();
-		//#endif
 		r.entityUuid = entity.getUUID();
 		r.entityPosition = entity.position();
 		r.entityDimension = DimensionWrapper.of(entity).getIdentifier();

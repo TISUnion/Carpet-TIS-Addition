@@ -178,7 +178,7 @@ public class EntityIdCounterHUDLogger extends AbstractHUDLogger
 				Messenger.s(entity.getStringUUID()),
 				Messenger.ClickEvents.suggestCommand(TextUtils.tpUuid(entity))
 		);
-		BaseComponent entityId = Messenger.s(entity.getId(), ChatFormatting.YELLOW);
+		BaseComponent entityId = Messenger.s( EntityIdCounterUtils.getEntityId(entity), ChatFormatting.YELLOW);
 		BaseComponent stackTraceSymbol = StackTracePrinter.makeSymbol(this.getClass());
 
 		Runnable doLog = () -> this.logToChat(option -> {

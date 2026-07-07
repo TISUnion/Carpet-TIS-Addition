@@ -20,12 +20,13 @@
 
 package carpettisaddition.logging.loggers.entityIdCounter;
 
+import carpettisaddition.mixins.logger.entityIdCounter.EntityAccessor;
+import net.minecraft.world.entity.Entity;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 //#if MC >= 26.2
 //$$ import carpettisaddition.mixins.logger.entityIdCounter.ServerLevelAccessor;
-//#else
-import carpettisaddition.mixins.logger.entityIdCounter.EntityAccessor;
 //#endif
 
 public class EntityIdCounterUtils
@@ -36,6 +37,15 @@ public class EntityIdCounterUtils
 		//$$ return ServerLevelAccessor.getEntityIdCounter$TISCM();
 		//#else
 		return EntityAccessor.getEntityIdCounter$TISCM();
+		//#endif
+	}
+
+	public static int getEntityId(Entity entity)
+	{
+		//#if MC >= 26.2
+		//$$ return ((EntityAccessor)entity).getIdField$TISCM();
+		//#else
+		return entity.getId();
 		//#endif
 	}
 
