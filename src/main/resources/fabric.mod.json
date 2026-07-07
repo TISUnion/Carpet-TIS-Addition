@@ -32,7 +32,8 @@
 
   "accessWidener": "carpet-tis-addition.accesswidener",
   "breaks": {
-    "lithium": "${lithium_confliction}"
+    "lithium": "${lithium_confliction}",
+    "litematica": "${litematica_confliction}"
   },
   "depends": {
     "fabricloader": ">=0.14.25",
