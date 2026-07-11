@@ -237,13 +237,14 @@ processResources {
 	from "carpet-tis-addition.accesswidener"
 
 	def modProperties = [
-			"id"                  : project.mod_id,
-			"name"                : project.mod_name,
-			"version"             : fullModVersion,
-			"carpet_dependency"   : project.carpet_dependency,
-			"minecraft_dependency": project.minecraft_dependency,
-			"lithium_confliction" : project.findProperty("lithium_confliction") ?: "<0.0.0",
-			"litematica_confliction" : project.findProperty("litematica_confliction") ?: "<0.0.0",
+			"id"                    : project.mod_id,
+			"name"                  : project.mod_name,
+			"version"               : fullModVersion,
+			"carpet_dependency"     : project.carpet_dependency,
+			"minecraft_dependency"  : project.minecraft_dependency,
+			"lithium_confliction"   : project.findProperty("lithium_confliction") ?: "<0.0.0",
+			"litematica_confliction": project.findProperty("litematica_confliction") ?: "<0.0.0",
+			"servux_confliction"    : project.findProperty("servux_confliction") ?: "<0.0.0",
 	]
 	inputs.properties(modProperties)
 
