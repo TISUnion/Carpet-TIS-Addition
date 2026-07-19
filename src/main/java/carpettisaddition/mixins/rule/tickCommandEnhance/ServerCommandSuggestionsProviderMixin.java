@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2026  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,7 +24,7 @@ import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(DummyClass.class)
-public abstract class ServerPlayNetworkHandlerMixin
+public abstract class ServerCommandSuggestionsProviderMixin
 {
-	// impl in mc [1.20.4, 26.3)
+	// impl in mc26.3
 }

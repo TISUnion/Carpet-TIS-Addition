@@ -500,6 +500,7 @@
     "rule.synchronizedLightThread.TaskExecutorAccessor",
     "rule.syncServerMsptMetricsData.MinecraftDedicatedServerMixin",
     "rule.syncServerMsptMetricsData.MinecraftServerMixin",
+    "rule.tickCommandEnhance.ServerCommandSuggestionsProviderMixin",
     "rule.tickCommandEnhance.ServerPlayNetworkHandlerMixin",
     "rule.tickCommandEnhance.TickCommandMixin",
     "rule.tickCommandPermission.TickCommandMixin",

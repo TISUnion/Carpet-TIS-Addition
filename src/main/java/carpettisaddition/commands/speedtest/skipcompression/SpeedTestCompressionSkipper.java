@@ -81,7 +81,21 @@ public class SpeedTestCompressionSkipper
 			//$$ //#if MC >= 12105
 			//$$ //$$ var codec = switch (side)
 			//$$ //$$ {
-			//$$ //$$ 	case SERVERBOUND -> GameProtocols.SERVERBOUND_TEMPLATE.bind(buf -> new RegistryFriendlyByteBuf(buf, null), () -> true).codec();
+			//$$ //$$ 	case SERVERBOUND -> GameProtocols.SERVERBOUND_TEMPLATE.bind(buf -> new RegistryFriendlyByteBuf(buf, null), new GameProtocols.Context() {
+			//$$ //$$ 		@Override
+			//$$ //$$ 		public boolean hasInfiniteMaterials()
+			//$$ //$$ 		{
+			//$$ //$$ 			return true;
+			//$$ //$$ 		}
+			//$$ //$$
+			//$$ //$$ //#if MC >= 26.3
+			//$$ //$$ //$$ 	@Override
+			//$$ //$$ //$$ 	public boolean canUseCommandBlocks()
+			//$$ //$$ //$$ 	{
+			//$$ //$$ //$$ 		return true;
+			//$$ //$$ //$$ 	}
+			//$$ //$$ //#endif
+			//$$ //$$ 	}).codec();
 			//$$ //$$ 	case CLIENTBOUND -> GameProtocols.CLIENTBOUND_TEMPLATE.bind(buf -> new RegistryFriendlyByteBuf(buf, null)).codec();
 			//$$ //$$ };
 			//$$ //#else

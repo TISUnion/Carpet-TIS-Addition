@@ -85,8 +85,15 @@ public abstract class DebugHudMixin
 			GuiGraphics drawContext,
 			//#endif
 			CallbackInfo ci,
-			@Local(ordinal = 0) int windowWidth,
+
+			//#if MC >= 26.3
+			//$$ @Local(name = "scaledScreenWidth") int scaledScreenWidth,
+			//$$ @Local(name = "scaledScreenHeight") int scaledScreenHeight,
+			//$$ @Local(name = "maxWidth") int centerX
+			//#else
+			@Local(ordinal = 0) int scaledScreenWidth,
 			@Local(ordinal = 1) int centerX
+			//#endif
 	)
 	{
 		boolean shouldVanillaChartDraw =
@@ -117,10 +124,12 @@ public abstract class DebugHudMixin
 				// vanilla copy
 				int width = chart.getWidth(centerX);
 
-				//#if MC >= 21.6
-				//$$ chart.extractRenderState(drawContext, windowWidth - width, width);
+				//#if MC >= 26.3
+				//$$ chart.extractRenderState(drawContext, scaledScreenWidth - width, width, scaledScreenHeight);
+				//#elseif MC >= 26.1
+				//$$ chart.extractRenderState(drawContext, scaledScreenWidth - width, width);
 				//#else
-				chart.drawChart(drawContext, windowWidth - width, width);
+				chart.drawChart(drawContext, scaledScreenWidth - width, width);
 				//#endif
 			}
 		}

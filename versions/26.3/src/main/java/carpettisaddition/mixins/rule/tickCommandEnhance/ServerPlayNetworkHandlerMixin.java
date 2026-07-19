@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2026  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,8 +21,12 @@
 package carpettisaddition.mixins.rule.tickCommandEnhance;
 
 import carpettisaddition.utils.compat.DummyClass;
+import net.minecraft.server.network.ServerCommandSuggestionsProvider;
 import org.spongepowered.asm.mixin.Mixin;
 
+/**
+ * see impl in {@link ServerCommandSuggestionsProviderMixin}
+ */
 @Mixin(DummyClass.class)
 public abstract class ServerPlayNetworkHandlerMixin
 {
