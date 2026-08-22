@@ -43,7 +43,14 @@ import net.minecraft.world.entity.player.Player;
 )
 public abstract class PlayerEntityMixin
 {
-	@ModifyReturnValue(method = "drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;", at = @At("RETURN"))
+	@ModifyReturnValue(
+			//#if MC >= 26.3
+			//$$ method = "drop(Lnet/minecraft/world/item/ItemStack;ZLnet/minecraft/util/Prediction;)Lnet/minecraft/world/entity/item/ItemEntity;",
+			//#else
+			method = "drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;",
+			//#endif
+			at = @At("RETURN")
+	)
 	private ItemEntity lifetimeTracker_recordSpawning_mobThrow_player(ItemEntity itemEntity)
 	{
 		if (itemEntity != null)

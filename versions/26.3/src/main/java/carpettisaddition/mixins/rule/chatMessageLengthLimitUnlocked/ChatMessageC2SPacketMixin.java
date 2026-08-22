@@ -1,0 +1,45 @@
+/*
+ * This file is part of the Carpet TIS Addition project, licensed under the
+ * GNU Lesser General Public License v3.0
+ *
+ * Copyright (C) 2024  Fallen_Breath and contributors
+ *
+ * Carpet TIS Addition is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Carpet TIS Addition is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+package carpettisaddition.mixins.rule.chatMessageLengthLimitUnlocked;
+
+import carpettisaddition.helpers.rule.chatMessageLengthLimitUnlocked.ChatMessageLengthLimitUnlockedHelper;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.game.ServerboundChatPacket;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+@Mixin(ServerboundChatPacket.class)
+public abstract class ChatMessageC2SPacketMixin
+{
+	@ModifyExpressionValue(
+			method = "<clinit>",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/network/codec/ByteBufCodecs;stringUtf8(I)Lnet/minecraft/network/codec/StreamCodec;"
+			)
+	)
+	private static StreamCodec<ByteBuf, String> chatMessageLengthLimitUnlocked_tweakChatPacketWrite(StreamCodec<ByteBuf, String> original)
+	{
+		return ChatMessageLengthLimitUnlockedHelper.dynamicStringUtf8(original);
+	}
+}

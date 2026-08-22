@@ -21,19 +21,23 @@
 package carpettisaddition.mixins.logger.turtleegg;
 
 import carpettisaddition.logging.loggers.turtleegg.TurtleEggLogger;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.TurtleEggBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.TurtleEggBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+//#if MC >= 26.3
+//$$ import net.minecraft.server.level.ServerPlayer;
+//#else
+import net.minecraft.world.entity.player.Player;
+//#endif
 
 @Mixin(TurtleEggBlock.class)
 public abstract class TurtleEggBlockMixin
@@ -51,14 +55,7 @@ public abstract class TurtleEggBlockMixin
 	}
 
 	@Inject(method = "destroyEgg", at = @At("HEAD"))
-	private void recordEntityTurtleEggLogger(
-			//#if MC >= 11700
-			//$$ Level world, BlockState blockState, BlockPos blockPos, Entity entity, int i,
-			//#else
-			Level world, BlockPos pos, Entity entity, int inverseChance,
-			//#endif
-			CallbackInfo ci
-	)
+	private void recordEntityTurtleEggLogger(CallbackInfo ci, @Local(argsOnly = true) Entity entity)
 	{
 		if (TurtleEggLogger.getInstance().isActivated())
 		{
@@ -67,7 +64,14 @@ public abstract class TurtleEggBlockMixin
 	}
 
 	@Inject(method = "playerDestroy", at = @At("HEAD"))
-	private void recordEntityTurtleEggLogger(Level world, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo ci)
+	private void recordEntityTurtleEggLogger(
+			CallbackInfo ci,
+			//#if MC >= 26.3
+			//$$ @Local(argsOnly = true) ServerPlayer player
+			//#else
+			@Local(argsOnly = true) Player player
+			//#endif
+	)
 	{
 		if (TurtleEggLogger.getInstance().isActivated())
 		{
