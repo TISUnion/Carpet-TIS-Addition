@@ -79,7 +79,7 @@ jobs:
       max-parallel: 4
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Display context
         run: |
@@ -88,7 +88,7 @@ jobs:
           echo target_release_tag = ${{ github.event.inputs.target_release_tag }}
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: build-artifacts
           path: build-artifacts
@@ -150,7 +150,7 @@ jobs:
           cat $GITHUB_OUTPUT
 
       - name: Prepare changelog
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         id: changelog
         with:
           script: return process.env.CHANGELOG
@@ -168,7 +168,7 @@ jobs:
             - Built from: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Publish Minecraft Mods
-        uses: Kira-NT/mc-publish@v3.3
+        uses: Kira-NT/mc-publish@v3.3.1
         with:
           modrinth-id: jE0SjGuf  # https://modrinth.com/mod/carpet-tis-addition
           modrinth-token: ${{ secrets.MODRINTH_API_TOKEN }}
