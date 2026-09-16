@@ -45,7 +45,9 @@ public abstract class ServerChunkManagerMixin
 	ServerLevel level;
 
 	@ModifyArg(
-			//#if MC >= 12105
+			//#if MC >= 26.3
+			//$$ method = "tickChunks(Lnet/minecraft/util/profiling/ProfilerFiller;)V",
+			//#elseif MC >= 12105
 			//$$ method = "tickChunks(Lnet/minecraft/util/profiling/ProfilerFiller;J)V",
 			//#elseif MC >= 12102
 			//$$ method = "tickChunks(Lnet/minecraft/util/profiling/ProfilerFiller;JLjava/util/List;)V",
