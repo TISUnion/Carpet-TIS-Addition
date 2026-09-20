@@ -55,7 +55,7 @@ import java.util.function.Predicate;
  * See {@link WorldChunkMixin} for impl for mc < 1.17
  */
 @Restriction(
-		require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.17"),
+		require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.17"),
 		conflict = @Condition(ModIds.async)
 )
 @Mixin(EntitySection.class)
@@ -118,7 +118,9 @@ public abstract class EntityTrackingSectionMixin<
 	 * For 1.17: looks like this is the method to collect objects in this chunk section based storage
 	 */
 	@ModifyExpressionValue(
-			//#if MC >= 1.19.3
+			//#if MC >= 26.3
+			//$$ method = "getEntities(Lnet/minecraft/world/phys/AABB;Lnet/minecraft/util/AbortableIterationConsumer;)Lnet/minecraft/util/Continuation;",
+			//#elseif MC >= 1.19.3
 			//$$ method = "getEntities(Lnet/minecraft/world/phys/AABB;Lnet/minecraft/util/AbortableIterationConsumer;)Lnet/minecraft/util/AbortableIterationConsumer$Continuation;",
 			//#elseif MC >= 1.18.2
 			//$$ method = "getEntities(Lnet/minecraft/world/phys/AABB;Ljava/util/function/Consumer;)V",

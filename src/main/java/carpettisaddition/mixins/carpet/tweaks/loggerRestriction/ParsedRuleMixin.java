@@ -70,7 +70,9 @@ public abstract class ParsedRuleMixin<T>
 
 	@SuppressWarnings("unchecked")
 	@Inject(
+			//#disable-remap
 			method = "<init>",
+			//#enable-remap
 			slice = @Slice(
 					from = @At(
 							value = "INVOKE",
