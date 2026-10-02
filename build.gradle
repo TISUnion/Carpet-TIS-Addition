@@ -36,6 +36,7 @@ preprocess {
 	def mc2601 = createNode('26.1.2', 26_01_02, null)
 	def mc2602 = createNode('26.2', 26_02_00, null)
 	def mc2603 = createNode('26.3', 26_03_00, null)
+	def mc2604 = createNode('26.4', 26_04_00, null)
 
 	mc115 .link(mc114 , file('versions/mapping-1.15-1.14.txt'))
 	mc115 .link(mc116 , file('versions/mapping-1.15-1.16.txt'))
@@ -56,6 +57,7 @@ preprocess {
 	mc12111.link(mc2601, file('versions/mapping-1.21.11-26.1.2.txt'))
 	mc2601.link(mc2602, file('versions/mapping-26.1.2-26.2.txt'))
 	mc2602.link(mc2603, file('versions/mapping-26.2-26.3.txt'))
+	mc2603.link(mc2604, file('versions/mapping-26.3-26.4.txt'))
 
 	// See https://github.com/Fallen-Breath/fabric-mod-template/blob/1d72d77a1c5ce0bf060c2501270298a12adab679/build.gradle#L55-L63
 	for (final def node in getNodes()) {
