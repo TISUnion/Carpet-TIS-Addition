@@ -272,7 +272,6 @@
     "logger.microtiming.hooks.ServerTickSchedulerMixin",
     "logger.microtiming.hooks.ServerWorldMixin",
     "logger.microtiming.marker.BlockStateMixin",
-    "logger.microtiming.marker.DyeColorAccessor",
     "logger.microtiming.marker.PistonBlockMixin",
     "logger.microtiming.messageflush.MinecraftServerMixin",
     "logger.microtiming.messageflush.ServerWorldMixin",

@@ -78,10 +78,6 @@ import static carpettisaddition.translations.TranslationConstants.DEFAULT_LANGUA
 //$$ import net.minecraft.Util;
 //#endif
 
-//#if MC >= 11600
-//$$ import carpettisaddition.mixins.utils.DyeColorAccessor;
-//#endif
-
 //#if MC < 11500
 //$$ import carpettisaddition.mixins.carpet.access.MessengerInvoker;
 //#endif
@@ -188,7 +184,7 @@ public class Messenger
 		//$$ Arrays.stream(DyeColor.values())
 		//$$ 		.filter(dyeColor -> !map.containsKey(dyeColor))
 		//$$ 		.forEach(dyeColor -> builder.put(dyeColor, text -> {
-		//$$ 				TextColor color = TextColor.fromRgb(((DyeColorAccessor)(Object)dyeColor).getSignColor$TISCM());
+		//$$ 				TextColor color = TextColor.fromRgb(ColorUtils.getTextColor(dyeColor));
 		//$$ 				text.setStyle(text.getStyle().withColor(color));
 		//$$ 		}));
 		//#endif

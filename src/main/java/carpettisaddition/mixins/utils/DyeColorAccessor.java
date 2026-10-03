@@ -24,9 +24,13 @@ import net.minecraft.world.item.DyeColor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
+/**
+ * mc >= 26.4: subproject 26.4
+ * mc <  26.4: subproject 1.15.2 (main project)  <--------
+ */
 @Mixin(DyeColor.class)
 public interface DyeColorAccessor
 {
 	@Accessor("textColor")
-	int getSignColor$TISCM();
+	int getTextColor$TISCM();
 }

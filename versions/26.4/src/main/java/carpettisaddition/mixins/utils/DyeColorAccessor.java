@@ -2,7 +2,7 @@
  * This file is part of the Carpet TIS Addition project, licensed under the
  * GNU Lesser General Public License v3.0
  *
- * Copyright (C) 2023  Fallen_Breath and contributors
+ * Copyright (C) 2026  Fallen_Breath and contributors
  *
  * Carpet TIS Addition is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,15 +18,16 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.logger.microtiming.marker;
+package carpettisaddition.mixins.utils;
 
-import net.minecraft.world.item.DyeColor;
+import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(DyeColor.class)
-public interface DyeColorAccessor
+/**
+ * mc >= 26.4: subproject 26.4  <--------
+ * mc <  26.4: subproject 1.15.2 (main project)
+ */
+@Mixin(DummyClass.class)
+public class DyeColorAccessor
 {
-	@Accessor("textColor")
-	int getTextColor$TISCM();
 }

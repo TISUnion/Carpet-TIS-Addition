@@ -31,7 +31,7 @@ import carpet.script.value.Value;
 import carpettisaddition.helpers.carpet.shape.ShapeHolder;
 import carpettisaddition.helpers.carpet.shape.ShapeUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
-import carpettisaddition.mixins.logger.microtiming.marker.DyeColorAccessor;
+import carpettisaddition.utils.ColorUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
@@ -93,7 +93,7 @@ public class MicroTimingMarker
 				fv.apply(blockPos),
 				fv.apply(blockPos.offset(1, 1, 1)),
 				DimensionWrapper.of(serverWorld),
-				((long)((DyeColorAccessor)(Object)this.color).getTextColor$TISCM() << 8) | 0xAF
+				((long)ColorUtils.getTextColor(this.color) << 8) | 0xAF
 		);
 		if (this.markerName != null)
 		{

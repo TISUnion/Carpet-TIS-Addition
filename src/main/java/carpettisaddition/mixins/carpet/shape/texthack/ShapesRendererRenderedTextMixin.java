@@ -90,7 +90,9 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	{
 		if (this.isMicroTimingMarkerText())
 		{
-			//#if MC >= 12105
+			//#if MC >= 26.4
+			//$$ // FIXME
+			//#elseif MC >= 12105
 			//$$ GlStateManager._disableDepthTest();
 			//#else
 			RenderSystem.disableDepthTest();
@@ -167,7 +169,9 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	{
 		if (this.isMicroTimingMarkerText())
 		{
-			//#if MC >= 12105
+			//#if MC >= 26.4
+			//$$ // FIXME
+			//#elseif MC >= 12105
 			//$$ GlStateManager._enableDepthTest();
 			//#else
 			RenderSystem.enableDepthTest();
