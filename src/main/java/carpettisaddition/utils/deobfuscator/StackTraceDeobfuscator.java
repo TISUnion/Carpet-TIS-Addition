@@ -22,7 +22,6 @@ package carpettisaddition.utils.deobfuscator;
 
 import carpettisaddition.CarpetTISAdditionServer;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.AutoMixinAuditExecutor;
 import carpettisaddition.utils.deobfuscator.mapping.MappingReader;
 import carpettisaddition.utils.deobfuscator.mapping.TinyMappingV2Reader;
 import carpettisaddition.utils.deobfuscator.yarn.OnlineMappingProvider;
@@ -45,11 +44,6 @@ public class StackTraceDeobfuscator
 
 	public static synchronized void fetchMapping()
 	{
-		if (AutoMixinAuditExecutor.isEnabled())
-		{
-			CarpetTISAdditionServer.LOGGER.info("Disabled online mapping fetching since mixin audit executor is armed");
-			return;
-		}
 		if (!fetchedMapping)
 		{
 			OnlineMappingProvider.getMapping();

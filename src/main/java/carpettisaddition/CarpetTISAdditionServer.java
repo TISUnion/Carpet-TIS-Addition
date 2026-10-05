@@ -106,7 +106,6 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	public static void init()
 	{
 		CarpetServer.manageExtension(INSTANCE);
-		StackTraceDeobfuscator.fetchMapping();
 		TISAdditionTranslations.loadTranslations();
 
 		UpdateSuppressionYeeter.noop();
@@ -116,6 +115,8 @@ public class CarpetTISAdditionServer implements CarpetExtension
 	@Override
 	public void onGameStarted()
 	{
+		StackTraceDeobfuscator.fetchMapping();
+
 		// rule description & extras depend on translation
 		CarpetRuleRegistrar.register(CarpetServer.settingsManager, CarpetTISAdditionSettings.class);
 

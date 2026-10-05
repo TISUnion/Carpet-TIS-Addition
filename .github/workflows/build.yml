@@ -13,6 +13,7 @@ on:
         required: false
         default: ''
       mixin_audit:
+        description: run mixin audit for Minecraft after build
         type: boolean
         required: false
         default: false
@@ -49,12 +50,12 @@ jobs:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
 
-      - name: Run Mixin Audit Check
+      - name: Run mixin audit check for Minecraft client
         if: ${{ inputs.mixin_audit }}
         timeout-minutes: 10
         run: |
           mkdir -p ./run
-          echo eula=true > ./run/eula.txt
+          echo eula=true > ./run/eula.txt  # server needs this
           ./gradlew runClientMixinAudit
 
       - name: Upload artifacts

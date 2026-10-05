@@ -51,6 +51,7 @@ dependencies {
 	}
 	def autoImplementation = { Object... args -> processDependency(unobfuscated ? implementation(*args) : modImplementation(*args)) }
 	def autoRuntimeOnly = { Object... args -> processDependency(unobfuscated ? runtimeOnly(*args) : modRuntimeOnly(*args)) }
+	def autoLocalRuntime = { Object... args -> processDependency(unobfuscated ? localRuntime(*args) : modLocalRuntime(*args)) }
 	def autoCompileOnly = { Object... args -> processDependency(unobfuscated ? compileOnly(*args) : modCompileOnly(*args)) }
 
 	// loom
@@ -86,6 +87,7 @@ dependencies {
 	if (mcVersion < 11904) {
         autoRuntimeOnly("com.github.Fallen-Breath:lazydfu:${mcVersion < 11900 ? "0.1.2" : "a7cfc44c0c"}")
 	}
+	autoLocalRuntime "me.fallenbreath:mixin-auditor:0.3.0-${unobfuscated ? 'u' : 'o'}"
 
 	// library mods
 	include(autoImplementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
@@ -141,7 +143,7 @@ loom {
 	}
 
 	runs {
-		def auditVmArgs = [*commonVmArgs, '-Dcarpettisaddition.mixin_audit=true']
+		def auditVmArgs = [*commonVmArgs, '-DmixinAuditor.audit=true']
 		serverMixinAudit {
 			server()
 			vmArgs auditVmArgs
