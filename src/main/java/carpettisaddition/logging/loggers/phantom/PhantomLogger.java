@@ -23,6 +23,7 @@ package carpettisaddition.logging.loggers.phantom;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.utils.CounterUtils;
+import carpettisaddition.utils.MathUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.StringUtils;
 import carpettisaddition.utils.compat.RegistryTypes;
@@ -110,7 +111,7 @@ public class PhantomLogger extends AbstractLogger
 			if (LoggingOption.REMINDER.isContainedIn(option))
 			{
 				ServerStatsCounter serverStatHandler = ((ServerPlayer)player).getStats();
-				int timeSinceRest = Mth.clamp(serverStatHandler.getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_REST)), 1, Integer.MAX_VALUE);
+				int timeSinceRest = MathUtils.clamp(serverStatHandler.getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_REST)), 1, Integer.MAX_VALUE);
 				if (REMINDER_TICKS.contains(timeSinceRest))
 				{
 					int timeUntilSpawn = PHANTOM_SPAWNING_TIME - timeSinceRest;

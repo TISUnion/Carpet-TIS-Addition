@@ -90,7 +90,11 @@ public abstract class RaidMixin implements IRaid
 			at = @At(
 					value = "INVOKE_ASSIGN",
 					shift = At.Shift.AFTER,
+					//#if MC >= 26.4
+					//$$ target = "Ljava/lang/Math;clamp(JII)I"
+					//#else
 					target = "Lnet/minecraft/util/Mth;clamp(III)I"
+					//#endif
 			)
 	)
 	private void raidLogger_onStartedAfterCalculated(

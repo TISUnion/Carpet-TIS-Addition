@@ -56,7 +56,11 @@ public abstract class PortalForcerMixin
 			method = "createPortal",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 26.4
+					//$$ target = "Ljava/lang/Math;clamp(JII)I"
+					//#else
 					target = "Lnet/minecraft/util/Mth;clamp(III)I"
+					//#endif
 			)
 	)
 	private void portalCreationLogger_recordIsFloatingPlatform(CallbackInfoReturnable<Boolean> cir, @Share("isFloatingPlatform") LocalBooleanRef isFloatingPlatform)

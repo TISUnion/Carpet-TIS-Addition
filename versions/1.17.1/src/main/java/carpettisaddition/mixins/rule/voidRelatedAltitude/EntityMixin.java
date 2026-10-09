@@ -21,9 +21,9 @@
 package carpettisaddition.mixins.rule.voidRelatedAltitude;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.MathUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -44,6 +44,6 @@ public abstract class EntityMixin
 	)
 	private int modifyVoidRelatedAltitude(int value)
 	{
-		return (int)Mth.clamp(Math.round(-CarpetTISAdditionSettings.voidRelatedAltitude), 0, Integer.MAX_VALUE);
+		return (int)MathUtils.clamp(Math.round(-CarpetTISAdditionSettings.voidRelatedAltitude), 0, Integer.MAX_VALUE);
 	}
 }

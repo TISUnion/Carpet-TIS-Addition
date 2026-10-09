@@ -23,13 +23,12 @@ package carpettisaddition.commands.speedtest;
 import carpettisaddition.commands.speedtest.session.SpeedTestSessionMessenger;
 import carpettisaddition.commands.speedtest.session.SpeedTestSessionMessengerImpl;
 import carpettisaddition.translations.TranslationContext;
+import carpettisaddition.utils.MathUtils;
 import carpettisaddition.utils.Messenger;
 import com.google.common.collect.Lists;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.ChatFormatting;
-import net.minecraft.util.Mth;
 
 import java.util.List;
 
@@ -82,7 +81,7 @@ public class SpeedTestReporter extends TranslationContext implements SpeedTestSe
 	 */
 	public void reportProgress(long timeCostNs, long processedBytes, long totalBytes)
 	{
-		double percent = Mth.clamp(100.0 * processedBytes / totalBytes, 0.0, 100.0);
+		double percent = MathUtils.clamp(100.0 * processedBytes / totalBytes, 0.0, 100.0);
 
 		List<Object> list = Lists.newArrayList();
 		for (int i = 1; i <= BAR_WIDTH; i++)

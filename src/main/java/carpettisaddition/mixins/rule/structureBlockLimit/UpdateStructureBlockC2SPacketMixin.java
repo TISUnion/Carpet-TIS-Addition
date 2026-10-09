@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.structureBlockLimit;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.MathUtils;
 import carpettisaddition.utils.ModIds;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
@@ -28,7 +29,6 @@ import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.network.protocol.game.ServerboundSetStructureBlockPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -81,14 +81,14 @@ public abstract class UpdateStructureBlockC2SPacketMixin
 		if (buf.readableBytes() == 6 * 4)
 		{
 			this.offset = new BlockPos(
-					Mth.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
-					Mth.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
-					Mth.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit)
+					MathUtils.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
+					MathUtils.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit),
+					MathUtils.clamp(buf.readInt(), -CarpetTISAdditionSettings.structureBlockLimit, CarpetTISAdditionSettings.structureBlockLimit)
 			);
 			this.size = new BlockPos(
-					Mth.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
-					Mth.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
-					Mth.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit)
+					MathUtils.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
+					MathUtils.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit),
+					MathUtils.clamp(buf.readInt(), 0, CarpetTISAdditionSettings.structureBlockLimit)
 			);
 		}
 	}
