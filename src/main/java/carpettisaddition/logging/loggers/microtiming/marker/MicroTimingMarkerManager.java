@@ -20,13 +20,8 @@
 
 package carpettisaddition.logging.loggers.microtiming.marker;
 
-//#if MC >= 11500
-import carpet.script.utils.ShapeDispatcher;
-//#else
-//$$ import carpettisaddition.utils.compat.carpet.scarpet.ShapeDispatcher;
-//#endif
-
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.carpet.shape.ShapeSender;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.translations.TranslationContext;
@@ -48,7 +43,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class MicroTimingMarkerManager extends TranslationContext
 {
@@ -173,15 +167,16 @@ public class MicroTimingMarkerManager extends TranslationContext
 	{
 		if (!playerList.isEmpty() && !this.markers.isEmpty())
 		{
-			ShapeDispatcher.sendShape(
-					playerList,
-					this.markers.values().stream().filter(markerPredicate).
-							flatMap(marker -> marker.getShapeDataList(display).stream()).
-							collect(Collectors.toList())
-					//#if MC >= 12005
-					//$$ , playerList.get(0).registryAccess()
-					//#endif
-			);
+			ShapeSender sender = ShapeSender.create().players(playerList).allowVanilla();
+			this.markers.values().stream().filter(markerPredicate).forEach(marker -> sender.shapes(marker.getShapes()));
+			if (display)
+			{
+				sender.send();
+			}
+			else
+			{
+				sender.clear();
+			}
 		}
 	}
 

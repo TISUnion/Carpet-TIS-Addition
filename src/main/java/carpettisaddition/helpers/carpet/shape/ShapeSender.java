@@ -112,6 +112,16 @@ public class ShapeSender
 
 	public void send()
 	{
+		this.sendShapes(true);
+	}
+
+	public void clear()
+	{
+		this.sendShapes(false);
+	}
+
+	private void sendShapes(boolean display)
+	{
 		List<ServerPlayer> recipients = Lists.newArrayList();
 		for (ServerPlayer player : this.resolvePlayers())
 		{
@@ -141,7 +151,7 @@ public class ShapeSender
 				> shapeData = Lists.newArrayList();
 		for (ShapeHolder<?> shape : this.shapes)
 		{
-			shapeData.add(shape.toPair(true));
+			shapeData.add(shape.toPair(display));
 		}
 		ShapeDispatcher.sendShape(recipients, shapeData
 				//#if MC >= 1.20.5

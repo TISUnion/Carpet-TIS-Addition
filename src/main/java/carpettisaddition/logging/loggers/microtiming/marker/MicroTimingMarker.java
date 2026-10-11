@@ -27,8 +27,8 @@ import carpet.script.utils.ShapeDispatcher;
 //#endif
 
 import carpet.script.value.NumericValue;
-import carpet.script.value.Value;
 import carpettisaddition.helpers.carpet.shape.ShapeHolder;
+import carpettisaddition.helpers.carpet.shape.ShapeSender;
 import carpettisaddition.helpers.carpet.shape.ShapeUtil;
 import carpettisaddition.logging.loggers.microtiming.utils.MicroTimingUtil;
 import carpettisaddition.utils.ColorUtils;
@@ -46,12 +46,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
-
-//#if MC < 11700
-import org.apache.commons.lang3.tuple.Pair;
-//#endif
 
 public class MicroTimingMarker
 {
@@ -168,49 +163,34 @@ public class MicroTimingMarker
 		return hasNext;
 	}
 
-	public
-	//#if MC >= 11700
-	//$$ List<ShapeDispatcher.ShapeWithConfig>
-	//#else
-	List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>>
-	//#endif
-	getShapeDataList(boolean display)
+	public List<ShapeHolder<?>> getShapes()
 	{
-		//#if MC >= 11700
-		//$$ List<ShapeDispatcher.ShapeWithConfig>
-		//#else
-		List<Pair<ShapeDispatcher.ExpiringShape, Map<String, Value>>>
-		//#endif
-				result = Lists.newArrayList();
+		List<ShapeHolder<?>> result = Lists.newArrayList();
 
-		result.add(this.box.toPair(display));
+		result.add(this.box);
 		if (this.text != null)
 		{
-			result.add(this.text.toPair(display));
+			result.add(this.text);
 		}
 		return result;
 	}
 
 	public void sendShapeToAll()
 	{
-		ShapeDispatcher.sendShape(
-				MicroTimingUtil.getSubscribedPlayers(),
-				this.getShapeDataList(true)
-				//#if MC >= 12005
-				//$$ , this.serverWorld.registryAccess()
-				//#endif
-		);
+		ShapeSender.create().
+				players(MicroTimingUtil.getSubscribedPlayers()).
+				allowVanilla().
+				shapes(this.getShapes()).
+				send();
 	}
 
 	public void cleanShapeToAll()
 	{
-		ShapeDispatcher.sendShape(
-				MicroTimingUtil.getSubscribedPlayers(),
-				this.getShapeDataList(false)
-				//#if MC >= 12005
-				//$$ , this.serverWorld.registryAccess()
-				//#endif
-		);
+		ShapeSender.create().
+				players(MicroTimingUtil.getSubscribedPlayers()).
+				allowVanilla().
+				shapes(this.getShapes()).
+				clear();
 	}
 
 	public StorageKey getStorageKey()
