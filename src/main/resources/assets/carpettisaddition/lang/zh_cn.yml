@@ -842,6 +842,8 @@ carpettisaddition:
       antiSpamDisabled:
         name: 禁用反刷屏监测
         desc: 禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却
+        extra:
+          '0': Minecraft 1.21.2 及以上版本需要客户端也安装本模组，才能取消创造模式扔物品冷却
       blockEventPacketRange:
         name: 方块事件广播范围
         desc: 设置会在方块事件成功执行后收到数据包的玩家范围
@@ -959,12 +961,19 @@ carpettisaddition:
         desc: 反混淆崩溃报告中输出的堆栈追踪
       dispenserNoItemCost:
         name: 发射器不消耗物品
-        desc: 开启后，发射器和投掷器被激活时不再消耗物品
+        desc: 开启后，发射器被激活时不再消耗物品
         extra:
-          '0': 无论投掷物品还是使用物品都如此，但是投掷器传输物品仍会消耗物品
+          '0': 无论投掷物品还是使用物品都如此
+          '1': 如果希望投掷器也不消耗物品，详见规则 dropperNoItemCost
       dispensersFireDragonBreath:
         name: 发射器发射龙息
         desc: 发射器可使用龙息瓶创造出龙息效果云
+      dropperNoItemCost:
+        name: 投掷器不消耗物品
+        desc: 开启后，投掷器投掷物品时不再消耗物品
+        extra:
+          '0': 向容器传输物品仍会消耗物品
+          '1': 如果希望发射器也不消耗物品，详见规则 dispenserNoItemCost
       dustTrapdoorReintroduced:
         name: 重新引入粉板瞬时更新循环
         desc: 重新引入由红石粉+活板门组成的瞬时更新循环结构

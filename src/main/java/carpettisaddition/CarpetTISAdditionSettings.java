@@ -179,6 +179,9 @@ public class CarpetTISAdditionSettings
 	@Rule(categories = {TIS, FEATURE, DISPENSER})
 	public static boolean dispensersFireDragonBreath = false;
 
+	@Rule(categories = {TIS, DISPENSER, CREATIVE})
+	public static boolean dropperNoItemCost = false;
+
 	//#if MC >= 12000
 	//$$ @Rule(categories = {TIS, FEATURE, PORTING})
 	//$$ public static boolean dustTrapdoorReintroduced = false;

@@ -51,7 +51,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 			//#endif
 			at = @At("TAIL")
 	)
-	private void resetMessageCooldown(CallbackInfo ci)
+	private void antiSpamDisabled_resetChatSpamCount(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.antiSpamDisabled)
 		{
@@ -60,7 +60,7 @@ public abstract class ServerPlayNetworkHandlerMixin
 	}
 
 	@Inject(method = "handleSetCreativeModeSlot", at = @At("TAIL"))
-	private void resetCreativeItemDropThreshold(CallbackInfo ci)
+	private void antiSpamDisabled_resetDropSpamCount(CallbackInfo ci)
 	{
 		if (CarpetTISAdditionSettings.antiSpamDisabled)
 		{

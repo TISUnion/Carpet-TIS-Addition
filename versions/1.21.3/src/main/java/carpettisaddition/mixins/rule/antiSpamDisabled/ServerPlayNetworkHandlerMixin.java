@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.antiSpamDisabled;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.util.TickThrottler;
@@ -44,12 +45,23 @@ public abstract class ServerPlayNetworkHandlerMixin
 					target = "Lnet/minecraft/util/TickThrottler;increment()V"
 			)
 	)
-	private boolean resetCreativeItemDropThreshold(TickThrottler cooldown)
+	private boolean antiSpamDisabled_skipSpamCountIncrement(TickThrottler throttler)
 	{
-		if (CarpetTISAdditionSettings.antiSpamDisabled)
-		{
-			return false;
-		}
-		return true;
+		return !CarpetTISAdditionSettings.antiSpamDisabled;
+	}
+
+	@ModifyExpressionValue(
+			method = {
+					"detectRateSpam",
+					"handleSetCreativeModeSlot",
+			},
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/util/TickThrottler;isUnderThreshold()Z"
+			)
+	)
+	private boolean antiSpamDisabled_bypassSpamThreshold(boolean original)
+	{
+		return original || CarpetTISAdditionSettings.antiSpamDisabled;
 	}
 }

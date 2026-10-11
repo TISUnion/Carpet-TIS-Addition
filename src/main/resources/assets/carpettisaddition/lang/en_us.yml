@@ -842,6 +842,8 @@ carpettisaddition:
       antiSpamDisabled:
         name: antiSpamDisabled
         desc: 'Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown'
+        extra:
+          '0': For Minecraft 1.21.2+, this mod must also be installed on the client to disable the creative item drop cooldown
       blockEventPacketRange:
         name: blockEventPacketRange
         desc: Set the range where player will receive a block event packet after a block event fires successfully
@@ -959,12 +961,19 @@ carpettisaddition:
         desc: Deobfuscate stack traces in crash report
       dispenserNoItemCost:
         name: dispenserNoItemCost
-        desc: Dispensers and droppers execute without having the itemstack inside decreased
+        desc: Dispensers do not consume items when activated
         extra:
-          '0': Either dropping and using items do not cost, but dropper transferring item still costs
+          '0': Applies to both dropping and using items
+          '1': To give droppers the same behavior, see rule dropperNoItemCost
       dispensersFireDragonBreath:
         name: dispensersFireDragonBreath
         desc: Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
+      dropperNoItemCost:
+        name: dropperNoItemCost
+        desc: Droppers do not consume items when dropping them into the world
+        extra:
+          '0': Transferring items into containers still consumes items
+          '1': To give dispensers the same behavior, see rule dispenserNoItemCost
       dustTrapdoorReintroduced:
         name: dustTrapdoorReintroduced
         desc: Reintroduced the dust-trapdoor instant update looper

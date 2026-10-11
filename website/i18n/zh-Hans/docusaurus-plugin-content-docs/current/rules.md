@@ -10,6 +10,8 @@ sidebar_position: 1
 
 禁用玩家身上的刷屏检测，包括：聊天信息发送冷却、创造模式扔物品冷却
 
+Minecraft 1.21.2 及以上版本需要客户端也安装本模组，才能取消创造模式扔物品冷却
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
@@ -321,9 +323,11 @@ sidebar_position: 1
 
 ## 发射器不消耗物品 (dispenserNoItemCost)
 
-开启后，发射器和投掷器被激活时不再消耗物品
+开启后，发射器被激活时不再消耗物品
 
-无论投掷物品还是使用物品都如此，但是投掷器传输物品仍会消耗物品
+无论投掷物品还是使用物品都如此
+
+如果希望投掷器也不消耗物品，详见规则 [dropperNoItemCost](#投掷器不消耗物品-droppernoitemcost)
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -339,6 +343,20 @@ sidebar_position: 1
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `TIS`, `FEATURE`, `DISPENSER`
+
+
+## 投掷器不消耗物品 (dropperNoItemCost)
+
+开启后，投掷器投掷物品时不再消耗物品
+
+向容器传输物品仍会消耗物品
+
+如果希望发射器也不消耗物品，详见规则 [dispenserNoItemCost](#发射器不消耗物品-dispensernoitemcost)
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `DISPENSER`, `CREATIVE`
 
 
 ## 重新引入粉板瞬时更新循环 (dustTrapdoorReintroduced)

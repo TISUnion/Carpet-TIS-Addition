@@ -10,6 +10,8 @@ make good use of the search feature~
 
 Disable spamming checks on players, including: chat message cooldown, creative item drop cooldown
 
+For Minecraft 1.21.2+, this mod must also be installed on the client to disable the creative item drop cooldown
+
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
@@ -321,9 +323,11 @@ Deobfuscate stack traces in crash report
 
 ## dispenserNoItemCost
 
-Dispensers and droppers execute without having the itemstack inside decreased
+Dispensers do not consume items when activated
 
-Either dropping and using items do not cost, but dropper transferring item still costs
+Applies to both dropping and using items
+
+To give droppers the same behavior, see rule [dropperNoItemCost](#droppernoitemcost)
 
 - Type: `boolean`
 - Default value: `false`
@@ -339,6 +343,20 @@ Dispenser can fire dragon breath bottle to create a dragon breath effect cloud
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `TIS`, `FEATURE`, `DISPENSER`
+
+
+## dropperNoItemCost
+
+Droppers do not consume items when dropping them into the world
+
+Transferring items into containers still consumes items
+
+To give dispensers the same behavior, see rule [dispenserNoItemCost](#dispensernoitemcost)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `DISPENSER`, `CREATIVE`
 
 
 ## dustTrapdoorReintroduced

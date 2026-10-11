@@ -18,7 +18,7 @@
  * along with Carpet TIS Addition.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package carpettisaddition.mixins.rule.dispenserNoItemCost;
+package carpettisaddition.mixins.rule.dropperNoItemCost;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
@@ -44,9 +44,9 @@ public abstract class DropperBlockMixin
 					target = "Lnet/minecraft/core/dispenser/DispenseItemBehavior;dispense(Lnet/minecraft/core/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"
 			)
 	)
-	private ItemStack dispenserNoItemCost_useACopySoItCostNothing(ItemStack stack)
+	private ItemStack dropperNoItemCost_useACopySoItCostNothing(ItemStack stack)
 	{
-		if (CarpetTISAdditionSettings.dispenserNoItemCost)
+		if (CarpetTISAdditionSettings.dropperNoItemCost)
 		{
 			stack = stack.copy();
 		}
@@ -60,7 +60,7 @@ public abstract class DropperBlockMixin
 					target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;getContainerAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/Container;"
 			)
 	)
-	private Container dispenserNoItemCost_checkIfInventoryIsNullToDetermineLogic(Container inventory, @Share("currentDispenseIsItemDispense") LocalBooleanRef currentDispenseIsItemDispense)
+	private Container dropperNoItemCost_checkIfInventoryIsNullToDetermineLogic(Container inventory, @Share("currentDispenseIsItemDispense") LocalBooleanRef currentDispenseIsItemDispense)
 	{
 		currentDispenseIsItemDispense.set(inventory == null);
 		return inventory;
@@ -73,11 +73,11 @@ public abstract class DropperBlockMixin
 					target = "Lnet/minecraft/world/level/block/entity/DispenserBlockEntity;setItem(ILnet/minecraft/world/item/ItemStack;)V"
 			)
 	)
-	private void dispenserNoItemCost_dontSetBackTheConsumedStack(
+	private void dropperNoItemCost_dontSetBackTheConsumedStack(
 			DispenserBlockEntity blockEntity, int slot, ItemStack stack, Operation<Void> original,
 			@Share("currentDispenseIsItemDispense") LocalBooleanRef currentDispenseIsItemDispense)
 	{
-		if (CarpetTISAdditionSettings.dispenserNoItemCost && currentDispenseIsItemDispense.get())  // not transfer mode
+		if (CarpetTISAdditionSettings.dropperNoItemCost && currentDispenseIsItemDispense.get())  // not transfer mode
 		{
 			return;
 		}
