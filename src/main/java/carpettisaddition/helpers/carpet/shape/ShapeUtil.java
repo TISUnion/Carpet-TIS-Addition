@@ -28,9 +28,14 @@ import carpet.script.utils.ShapeDispatcher;
 import carpet.script.value.*;
 import carpettisaddition.mixins.carpet.shape.ShapeDispatcherLineAccessor;
 import carpettisaddition.mixins.carpet.shape.ShapeDispatcherSphereAccessor;
+import carpettisaddition.network.TISCMFeature;
+import carpettisaddition.network.TISCMServerPacketHandler;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Maps;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -90,5 +95,32 @@ public class ShapeUtil
 	private static ListValue posToList(Vec3 vec3d)
 	{
 		return ListValue.of(new NumericValue(vec3d.x()), new NumericValue(vec3d.y()), new NumericValue(vec3d.z()));
+	}
+
+	public static boolean supportsPreciseShapes(ServerPlayer player)
+	{
+		return TISCMServerPacketHandler.getInstance().getClientFeatureOrDefault(player.connection, TISCMFeature.PRECISE_SCARPET_SHAPES, 0) >= 1;
+	}
+
+	public static ListTag prepareShapesForPlayer(ServerPlayer player, ListTag shapes)
+	{
+		if (ShapeUtil.supportsPreciseShapes(player))
+		{
+			return shapes;
+		}
+		ListTag copy = null;
+		for (int i = 0; i < shapes.size(); i++)
+		{
+			CompoundTag shape = (CompoundTag)shapes.get(i);
+			if (shape.contains(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY))
+			{
+				if (copy == null)
+				{
+					copy = shapes.copy();
+				}
+				((CompoundTag)copy.get(i)).remove(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY);
+			}
+		}
+		return copy != null ? copy : shapes;
 	}
 }

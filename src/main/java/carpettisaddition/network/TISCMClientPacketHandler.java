@@ -173,6 +173,12 @@ public class TISCMClientPacketHandler
 		List<String> ids = Lists.newArrayList(TISCMProtocol.S2C.ID_MAP.keySet());
 		ctx.send(TISCMProtocol.C2S.SUPPORTED_S2C_PACKETS, nbt -> {
 			nbt.put("supported_s2c_packets", NbtUtils.stringList2Nbt(ids));
+
+			CompoundTag features = new CompoundTag();
+			//#if MC >= 1.15
+			features.putInt(TISCMFeature.PRECISE_SCARPET_SHAPES.getId(), 1);
+			//#endif
+			nbt.put("supported_features", features);
 		});
 	}
 

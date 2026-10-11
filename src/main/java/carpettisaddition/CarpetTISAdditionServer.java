@@ -162,6 +162,7 @@ public class CarpetTISAdditionServer implements CarpetExtension
 		RaidTracker.getInstance().stop();
 		SpeedTestCommand.getInstance().onServerClosed();
 		MobcapsLocalLogger.getInstance().onServerClosed();
+		TISCMServerPacketHandler.getInstance().onServerClosed();
 	}
 
 	@Override

@@ -85,4 +85,12 @@ public class ShapeHolder<T extends ShapeDispatcher.ExpiringShape>
 		this.emptyParams.put(key, value);
 		this.updateShape();
 	}
+
+	public ShapeHolder<T> setPrecise(boolean precise)
+	{
+		//#if MC >= 1.15
+		((ShapeDispatcherPreciseExpiringShape)this.shape).setPrecise$TISCM(precise);
+		//#endif
+		return this;
+	}
 }

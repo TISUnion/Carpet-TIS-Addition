@@ -26,6 +26,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
 import java.util.*;
@@ -53,6 +54,7 @@ public class TISCMServerPacketHandler
 
 	private final Map<TISCMProtocol.C2S, Consumer<HandlerContext.C2S>> handlers = new EnumMap<>(TISCMProtocol.C2S.class);
 	private final Map<TISCMProtocol.C2S, Consumer<HandlerContext.C2S>> asyncHandlers = new EnumMap<>(TISCMProtocol.C2S.class);
+	private final Map<ServerGamePacketListenerImpl, Map<TISCMFeature, Integer>> clientSupportedFeaturesMap = Maps.newLinkedHashMap();
 	private final Map<ServerGamePacketListenerImpl, Set<TISCMProtocol.S2C>> clientSupportedPacketsMap = Maps.newLinkedHashMap();
 
 	private TISCMServerPacketHandler()
@@ -93,6 +95,13 @@ public class TISCMServerPacketHandler
 	public void onPlayerDisconnected(ServerGamePacketListenerImpl networkHandler)
 	{
 		this.clientSupportedPacketsMap.remove(networkHandler);
+		this.clientSupportedFeaturesMap.remove(networkHandler);
+	}
+
+	public void onServerClosed()
+	{
+		this.clientSupportedPacketsMap.clear();
+		this.clientSupportedFeaturesMap.clear();
 	}
 
 	public boolean doesClientSupport(ServerGamePacketListenerImpl networkHandler, TISCMProtocol.S2C packetId)
@@ -103,6 +112,12 @@ public class TISCMServerPacketHandler
 		}
 		Set<TISCMProtocol.S2C> packetIds = this.clientSupportedPacketsMap.get(networkHandler);
 		return packetIds != null && packetIds.contains(packetId);
+	}
+
+	public int getClientFeatureOrDefault(ServerGamePacketListenerImpl networkHandler, TISCMFeature feature, int defaultValue)
+	{
+		Map<TISCMFeature, Integer> features = this.clientSupportedFeaturesMap.get(networkHandler);
+		return features == null ? defaultValue : features.getOrDefault(feature, defaultValue);
 	}
 
 	public void sendPacket(ServerGamePacketListenerImpl networkHandler, TISCMProtocol.S2C packetId, Consumer<CompoundTag> payloadBuilder)
@@ -150,6 +165,8 @@ public class TISCMServerPacketHandler
 
 	public void handleHi(HandlerContext.C2S ctx)
 	{
+		this.clientSupportedPacketsMap.remove(ctx.networkHandler);
+		this.clientSupportedFeaturesMap.remove(ctx.networkHandler);
 		String platformName = NbtUtils.getStringOrEmpty(ctx.payload, "platform_name");
 		String platformVersion = NbtUtils.getStringOrEmpty(ctx.payload, "platform_version");
 		LOGGER.info("Player {} connected with TISCM protocol support ({} @ {})", ctx.playerName, platformName, platformVersion);
@@ -175,5 +192,17 @@ public class TISCMServerPacketHandler
 				map(Optional::get).
 				collect(Collectors.toSet());
 		this.clientSupportedPacketsMap.put(ctx.networkHandler, packetIds);
+
+		CompoundTag featureNbt = NbtUtils.getNbtOrEmpty(ctx.payload, "supported_features");
+		Map<TISCMFeature, Integer> features = Maps.newEnumMap(TISCMFeature.class);
+		for (TISCMFeature feature : TISCMFeature.values())
+		{
+			if (featureNbt.get(feature.getId()) instanceof IntTag)
+			{
+				features.put(feature, NbtUtils.getIntOrZero(featureNbt, feature.getId()));
+			}
+		}
+		this.clientSupportedFeaturesMap.put(ctx.networkHandler, features);
+		LOGGER.debug("Player {} clientside supported TISCM features: {}", ctx.playerName, features);
 	}
 }
