@@ -41,9 +41,6 @@ import carpet.network.ServerNetworkHandler;
 import org.apache.commons.lang3.tuple.Pair;
 //#endif
 
-/**
- * Selects recipients for a batch independently of each shape's precision flag.
- */
 public class ShapeSender
 {
 	private final Set<ServerPlayer> players = Sets.newLinkedHashSet();
