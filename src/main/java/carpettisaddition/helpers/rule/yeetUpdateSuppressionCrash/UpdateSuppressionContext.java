@@ -58,6 +58,7 @@ public class UpdateSuppressionContext
 	private BaseComponent createMessageText(ExceptionCatchLocation catchLocation)
 	{
 		String causeMessage = Objects.toString(this.cause.getMessage());
+		causeMessage = causeMessage.substring(0, Math.min(causeMessage.length(), 256));
 		return Messenger.fancy(
 				tr.tr("exception_detail.body",
 						dimension != null ? Messenger.coord(this.pos, this.dimension) : Messenger.coord(this.pos),

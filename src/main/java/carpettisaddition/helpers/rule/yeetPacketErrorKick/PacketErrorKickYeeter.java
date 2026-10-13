@@ -35,11 +35,13 @@ public class PacketErrorKickYeeter
 
 	public static void report(ServerPlayer player, String packetType, Exception exception)
 	{
+		String exceptionMessage = Objects.toString(exception.getMessage());
+		exceptionMessage = exceptionMessage.substring(0, Math.min(exceptionMessage.length(), 256));
 		BaseComponent details = Messenger.joinLines(
 				translator.tr("exception_detail.kick_prevented", Messenger.s("yeetPacketErrorKick")),
 				translator.tr("exception_detail.packet_type", Messenger.s(packetType)),
 				translator.tr("exception_detail.exception_type", Messenger.s(exception.getClass().getSimpleName())),
-				translator.tr("exception_detail.exception_message", Messenger.s(Objects.toString(exception.getMessage())))
+				translator.tr("exception_detail.exception_message", Messenger.s(exceptionMessage))
 		);
 		BaseComponent message = Messenger.hover(
 				Messenger.formatting(translator.tr("report_message"), ChatFormatting.RED, ChatFormatting.ITALIC),
