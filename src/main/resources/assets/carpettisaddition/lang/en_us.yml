@@ -10,6 +10,13 @@ carpettisaddition:
     tickFreezeDeepCommand:
       wrapper: '%s (%s)'
       deep_freeze: deeply frozen
+    yeetPacketErrorKick:
+      exception_detail:
+        kick_prevented: 'Rule %s prevented you from being kicked from the server'
+        packet_type: 'Packet type: %s'
+        exception_type: 'Exception type: %s'
+        exception_message: 'Exception message: %s'
+      report_message: 'The server encountered an error while processing your packet'
     yeetUpdateSuppressionCrash:
       exception_detail:
         body: 'Update Suppression in %1$s at %2$s'
@@ -1648,6 +1655,9 @@ carpettisaddition:
       yeetOutOfOrderChatKick:
         name: yeetOutOfOrderChatKick
         desc: Prevent players being kicked with message "Out-of-order chat packet received..." caused by whatever reason
+      yeetPacketErrorKick:
+        name: yeetPacketErrorKick
+        desc: Prevent players from being kicked due to packet handling exceptions
       yeetUpdateSuppressionCrash:
         name: yeetUpdateSuppressionCrash
         desc: Prevent the server from crashing due to update suppression from StackOverflowError, OutOfMemoryError, ClassCastException or IllegalArgumentSuppression

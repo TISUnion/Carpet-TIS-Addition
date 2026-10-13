@@ -10,6 +10,13 @@ carpettisaddition:
     tickFreezeDeepCommand:
       wrapper: '%s (%s)'
       deep_freeze: 深度冻结
+    yeetPacketErrorKick:
+      exception_detail:
+        kick_prevented: '规则 %s 阻止了你被踢出服务器'
+        packet_type: '数据包类型：%s'
+        exception_type: '异常类型：%s'
+        exception_message: '异常消息：%s'
+      report_message: '服务器在处理你的数据包时遇到了异常'
     yeetUpdateSuppressionCrash:
       exception_detail:
         body: '在%2$s阶段触发于%1$s的更新抑制'
@@ -1648,6 +1655,9 @@ carpettisaddition:
       yeetOutOfOrderChatKick:
         name: 阻止乱序聊天数据包踢出
         desc: 阻止玩家被服务器以“接收到了乱序的聊天数据包...”为由踢出游戏
+      yeetPacketErrorKick:
+        name: 阻止数据包异常踢出
+        desc: 阻止玩家因数据包处理异常被踢出游戏
       yeetUpdateSuppressionCrash:
         name: 阻止更新抑制崩溃
         desc: 阻止服务端因更新抑制造成的StackOverflowError、OutOfMemoryError、ClassCastException或IllegalArgumentSuppression异常而导致的服务器崩溃

@@ -43,14 +43,24 @@ public class StackTracePrinter
 	private StackTraceElement[] stackTrace;
 	private String ignorePackagePath;
 
-	private StackTracePrinter()
+	private StackTracePrinter(StackTraceElement[] stackTrace)
 	{
-		this.stackTrace = Thread.currentThread().getStackTrace();
+		this.stackTrace = stackTrace.clone();
 	}
 
 	public static StackTracePrinter create()
 	{
-		return new StackTracePrinter();
+		return create(Thread.currentThread().getStackTrace());
+	}
+
+	public static StackTracePrinter create(StackTraceElement[] stackTrace)
+	{
+		return new StackTracePrinter(stackTrace);
+	}
+
+	public static StackTracePrinter create(Throwable exception)
+	{
+		return create(exception.getStackTrace());
 	}
 
 	public static BaseComponent makeSymbol(Class<?> ignoreClass)

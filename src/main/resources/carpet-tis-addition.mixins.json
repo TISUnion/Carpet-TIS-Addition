@@ -561,6 +561,7 @@
     "rule.yeetIdleMspt.MinecraftServerMixin",
     "rule.yeetOutOfOrderChatKick.MessageVerifierImplMixin",
     "rule.yeetOutOfOrderChatKick.ServerPlayNetworkHandlerMixin",
+    "rule.yeetPacketErrorKick.ServerCommonPacketListenerImplMixin",
     "rule.yeetUpdateSuppressionCrash.mark.blockStateValueIAE.CalibratedSculkSensorBlockEntityCallBackMixin",
     "rule.yeetUpdateSuppressionCrash.mark.blockStateValueIAE.SculkSensorBlockEntityVibrationCallbackMixin",
     "rule.yeetUpdateSuppressionCrash.mark.blockUpdateStackOverflow.BlockStateMixin",

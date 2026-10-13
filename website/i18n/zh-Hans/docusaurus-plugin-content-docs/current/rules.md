@@ -2009,6 +2009,18 @@ TISCM网络协议的开关
 - 分类: `TIS`
 
 
+## 阻止数据包异常踢出 (yeetPacketErrorKick)
+
+**本规则仅在 Minecraft >= 26.4 中存在**
+
+阻止玩家因数据包处理异常被踢出游戏
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`
+
+
 ## 重新引入僵尸猪灵在愤怒时掉落战利品 (zombifiedPiglinDropLootIfAngryReintroduced)
 
 **本规则仅在 Minecraft >= 1.21.5 中存在**

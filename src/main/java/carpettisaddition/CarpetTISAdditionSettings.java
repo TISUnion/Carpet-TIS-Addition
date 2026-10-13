@@ -954,6 +954,11 @@ public class CarpetTISAdditionSettings
 	//$$ public static boolean yeetOutOfOrderChatKick = false;
 	//#endif
 
+	//#if MC >= 26.4
+	//$$ @Rule(categories = {TIS})
+	//$$ public static boolean yeetPacketErrorKick = false;
+	//#endif
+
 	@Rule(categories = {TIS, BUGFIX})
 	public static boolean yeetUpdateSuppressionCrash = false;
 

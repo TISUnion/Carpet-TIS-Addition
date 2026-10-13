@@ -2009,6 +2009,18 @@ Prevent players being kicked with message "Out-of-order chat packet received..."
 - Categories: `TIS`
 
 
+## yeetPacketErrorKick
+
+**Minecraft >= 26.4 only**
+
+Prevent players from being kicked due to packet handling exceptions
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`
+
+
 ## zombifiedPiglinDropLootIfAngryReintroduced
 
 **Minecraft >= 1.21.5 only**
