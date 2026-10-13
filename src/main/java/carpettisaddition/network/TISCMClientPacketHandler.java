@@ -145,9 +145,15 @@ public class TISCMClientPacketHandler
 	public void onConnectedToNewServer()
 	{
 		this.serverSupportedPackets.clear();
-		sendPacket(TISCMProtocol.C2S.HI, nbt -> {
+		this.sendPacket(TISCMProtocol.C2S.HI, nbt -> {
 			nbt.putString("platform_name", TISCMProtocol.getPlatformName());
 			nbt.putString("platform_version", TISCMProtocol.getPlatformVersion());
+
+			CompoundTag features = new CompoundTag();
+			//#if MC >= 1.15
+			features.putInt(TISCMFeature.PRECISE_SCARPET_SHAPES.getId(), 1);
+			//#endif
+			nbt.put("supported_features", features);
 		});
 	}
 
@@ -159,7 +165,7 @@ public class TISCMClientPacketHandler
 
 	/*
 	 * Handshake process:
-	 * 1. client --hi--> server
+	 * 1. client --hi,client_features--> server
 	 * 2. client <-hello,packet_ids-- server
 	 * 3. client --packet_ids-> server
 	 */
@@ -173,12 +179,6 @@ public class TISCMClientPacketHandler
 		List<String> ids = Lists.newArrayList(TISCMProtocol.S2C.ID_MAP.keySet());
 		ctx.send(TISCMProtocol.C2S.SUPPORTED_S2C_PACKETS, nbt -> {
 			nbt.put("supported_s2c_packets", NbtUtils.stringList2Nbt(ids));
-
-			CompoundTag features = new CompoundTag();
-			//#if MC >= 1.15
-			features.putInt(TISCMFeature.PRECISE_SCARPET_SHAPES.getId(), 1);
-			//#endif
-			nbt.put("supported_features", features);
 		});
 	}
 

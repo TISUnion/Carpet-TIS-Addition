@@ -79,6 +79,13 @@ public class ShapeHolder<T extends ShapeDispatcher.ExpiringShape>
 						(this.shape, display ? this.params : this.emptyParams);
 	}
 
+	public ShapeHolder<T> setDuration(int duration)
+	{
+		this.params.put("duration", new NumericValue(duration));
+		this.updateShape();
+		return this;
+	}
+
 	public void setValue(String key, Value value)
 	{
 		this.params.put(key, value);

@@ -20,6 +20,7 @@
 
 package carpettisaddition.network;
 
+import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.speedtest.SpeedTestCommand;
 import carpettisaddition.utils.NbtUtils;
 import com.google.common.collect.Lists;
@@ -85,8 +86,12 @@ public class TISCMServerPacketHandler
 	 */
 	public void dispatch(ServerGamePacketListenerImpl networkHandler, TISCMCustomPayload tiscmCustomPayload)
 	{
-		HandlerContext.C2S ctx = new HandlerContext.C2S(networkHandler, tiscmCustomPayload.getNbt());
 		Optional<TISCMProtocol.C2S> packetId = TISCMProtocol.C2S.fromId(tiscmCustomPayload.getPacketId());
+		if (!CarpetTISAdditionSettings.tiscmNetworkProtocol && packetId.orElse(null) != TISCMProtocol.C2S.HI)
+		{
+			return;
+		}
+		HandlerContext.C2S ctx = new HandlerContext.C2S(networkHandler, tiscmCustomPayload.getNbt());
 
 		packetId.map(this.asyncHandlers::get).ifPresent(handler -> handler.accept(ctx));
 		ctx.runSynced(() -> packetId.map(this.handlers::get).ifPresent(handler -> handler.accept(ctx)));
@@ -166,7 +171,22 @@ public class TISCMServerPacketHandler
 	public void handleHi(HandlerContext.C2S ctx)
 	{
 		this.clientSupportedPacketsMap.remove(ctx.networkHandler);
-		this.clientSupportedFeaturesMap.remove(ctx.networkHandler);
+		CompoundTag featureNbt = NbtUtils.getNbtOrEmpty(ctx.payload, "supported_features");
+		Map<TISCMFeature, Integer> features = Maps.newEnumMap(TISCMFeature.class);
+		for (TISCMFeature feature : TISCMFeature.values())
+		{
+			if (featureNbt.get(feature.getId()) instanceof IntTag)
+			{
+				features.put(feature, NbtUtils.getIntOrZero(featureNbt, feature.getId()));
+			}
+		}
+		this.clientSupportedFeaturesMap.put(ctx.networkHandler, features);
+		LOGGER.debug("Player {} clientside supported TISCM features: {}", ctx.playerName, features);
+
+		if (!CarpetTISAdditionSettings.tiscmNetworkProtocol)
+		{
+			return;
+		}
 		String platformName = NbtUtils.getStringOrEmpty(ctx.payload, "platform_name");
 		String platformVersion = NbtUtils.getStringOrEmpty(ctx.payload, "platform_version");
 		LOGGER.info("Player {} connected with TISCM protocol support ({} @ {})", ctx.playerName, platformName, platformVersion);
@@ -192,17 +212,5 @@ public class TISCMServerPacketHandler
 				map(Optional::get).
 				collect(Collectors.toSet());
 		this.clientSupportedPacketsMap.put(ctx.networkHandler, packetIds);
-
-		CompoundTag featureNbt = NbtUtils.getNbtOrEmpty(ctx.payload, "supported_features");
-		Map<TISCMFeature, Integer> features = Maps.newEnumMap(TISCMFeature.class);
-		for (TISCMFeature feature : TISCMFeature.values())
-		{
-			if (featureNbt.get(feature.getId()) instanceof IntTag)
-			{
-				features.put(feature, NbtUtils.getIntOrZero(featureNbt, feature.getId()));
-			}
-		}
-		this.clientSupportedFeaturesMap.put(ctx.networkHandler, features);
-		LOGGER.debug("Player {} clientside supported TISCM features: {}", ctx.playerName, features);
 	}
 }

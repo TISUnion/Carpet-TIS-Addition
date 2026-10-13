@@ -217,19 +217,34 @@ Attributes:
 
 ## movement
 
-`/log movement <target>`
+`/log movement <option>`
 
 Switch: rule [loggerMovement](rules.md#loggermovement)
 
-Inform when a living entity tries to move and display how the actual movement gets calculated
+Record an entity's movement attempts and how the movement vector gets calculated
 
-`<target>` is an entity selector. Make sure you have selector the necessary targets or expect log spam (`@` selector requires permission level 2)
+The option format is `[chat:|shape:|both:][non_zero:]<target>`. Parts in square brackets are optional; join the parts without spaces
 
-Additionally, appending `non_zero:` as the prefix in the `<target>` string will filter out those logs whose final movement vector is 0
+Available prefixes:
+
+- `chat:`: Output chat logs, the default mode
+- `shape:`: Draw movement shapes in the world
+- `both:`: Output chat logs and draw movement shapes
+- `non_zero:`: Filter out records whose final movement vector is zero
+
+`<target>` is an entity selector or player name. Select only the entities you need to avoid log spam (`@` selectors require permission level 2)
+
+Examples:
+
+- `/log movement "@s"`: Log your own movement in chat
+- `/log movement "both:non_zero:@s"`: Log your own movement in chat and draw shapes, filtering out zero movement
+
+Shape output requires Minecraft 1.15+ and a compatible Carpet TIS Addition client. Shapes remain visible for 100gt (5s)
 
 Attributes:
+
 - Default option: `non_zero:@a[distance=..10]`
-- Suggested options: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`
+- Suggested options: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`, `shape:non_zero:@s`, `both:non_zero:@s`
 
 ![movement](images/logger/movement.png)
 

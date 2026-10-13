@@ -313,6 +313,7 @@
     "logger.mobcapsLocal.SpawnDensityCapperDensityCapAccessor",
     "logger.mobcapsLocal.SpawnReporterMixin",
     "logger.movement.EntityMixin",
+    "logger.movement.LogCommandMixin",
     "logger.phantom.PhantomSpawnerMixin",
     "logger.portalCreation.NetherPortalBlockMixin",
     "logger.portalCreation.PortalForcerMixin",

@@ -20,6 +20,8 @@
 
 package carpettisaddition.logging.loggers.movement;
 
+import carpettisaddition.helpers.carpet.shape.ShapeSender;
+import carpettisaddition.helpers.carpet.shape.ShapeUtil;
 import carpettisaddition.logging.TISAdditionLoggerRegistry;
 import carpettisaddition.logging.loggers.AbstractLogger;
 import carpettisaddition.logging.loggers.microtiming.MicroTimingAccess;
@@ -33,7 +35,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,7 +62,16 @@ public class MovementLogger extends AbstractLogger
 	@Override
 	public @Nullable String[] getSuggestedLoggingOption()
 	{
-		return new String[]{NON_ZERO_HEADER + "@a[distance=..10]", "@s", NON_ZERO_HEADER + "@e[type=creeper,distance=..5]", "Steve"};
+		return new String[]{NON_ZERO_HEADER + "@a[distance=..10]", "@s", NON_ZERO_HEADER + "@e[type=creeper,distance=..5]", "Steve", "shape:non_zero:@s", "both:non_zero:@s"};
+	}
+
+	public void warnUnsupportedShapes(ServerPlayer player, String option)
+	{
+		LoggingOption parsed = new LoggingOption(option);
+		if (parsed.showShapes && !ShapeUtil.supportsPreciseShapes(player))
+		{
+			Messenger.tell(player, Messenger.formatting(this.tr("unsupported_shapes"), "y"));
+		}
 	}
 
 	public static boolean isLoggerActivated()
@@ -94,6 +107,7 @@ public class MovementLogger extends AbstractLogger
 
 		private final Entity entity;
 		private final Vec3 originalPos;
+		private final AABB originalBox;
 		private final ServerLevel world;
 		private final MoverType movementType;
 		private final Vec3 originalMovement;
@@ -104,6 +118,7 @@ public class MovementLogger extends AbstractLogger
 		{
 			this.entity = entity;
 			this.originalPos = entity.position();
+			this.originalBox = entity.getBoundingBox();
 			this.world = (ServerLevel)EntityUtils.getEntityWorld(entity);
 			this.movementType = movementType;
 			this.originalMovement = originalMovement;
@@ -120,21 +135,21 @@ public class MovementLogger extends AbstractLogger
 		}
 
 		@SuppressWarnings("ConstantConditions")
-		public boolean shouldReportFor(Player player, String option)
+		private boolean shouldReportFor(Player player, LoggingOption option)
 		{
-			if (option.isEmpty())
+			String target = option.target;
+			if (target.isEmpty() && !option.nonZero)
 			{
 				// by default (option string is empty), log the subscriber itself only
-				option = player.getGameProfile().getName();
+				target = player.getGameProfile().getName();
 			}
 
 			boolean ok = true;
-			if (option.startsWith(NON_ZERO_HEADER))
+			if (option.nonZero)
 			{
 				ok &= this.currentMovement.lengthSqr() > 0;
-				option = option.substring(NON_ZERO_HEADER.length());
 			}
-			ok &= EntityFilter.createOptional(player, option).
+			ok &= EntityFilter.createOptional(player, target).
 					map(filter -> filter.test(this.entity)).
 					orElse(false);
 			return ok;
@@ -142,8 +157,20 @@ public class MovementLogger extends AbstractLogger
 
 		public void report()
 		{
+			Vec3 finalPos = this.entity.position();
+			AABB finalBox = this.entity.getBoundingBox();
+			List<ServerPlayer> shapePlayers = Lists.newArrayList();
 			MovementLogger.this.log((option, player) -> {
-				if (!this.shouldReportFor(player, option))
+				LoggingOption parsed = new LoggingOption(option);
+				if (!this.shouldReportFor(player, parsed))
+				{
+					return null;
+				}
+				if (parsed.showShapes && player instanceof ServerPlayer && ShapeUtil.supportsPreciseShapes((ServerPlayer)player))
+				{
+					shapePlayers.add((ServerPlayer)player);
+				}
+				if (!parsed.showChat)
 				{
 					return null;
 				}
@@ -192,6 +219,50 @@ public class MovementLogger extends AbstractLogger
 
 				return lines.toArray(new BaseComponent[0]);
 			});
+			if (!shapePlayers.isEmpty())
+			{
+				List<Vec3> movements = Lists.newArrayList(this.originalMovement);
+				for (ModificationRecord record : this.modifications)
+				{
+					movements.add(record.newMovement);
+				}
+				ShapeSender.create().players(shapePlayers).preciseOnly().shapes(
+						MovementVisualizer.createShapes(this.originalPos, this.originalBox, movements, finalPos, finalBox, DimensionWrapper.of(this.world), this.movementType)
+				).send();
+			}
+		}
+	}
+
+	private static class LoggingOption
+	{
+		public final boolean showChat;
+		public final boolean showShapes;
+		public final boolean nonZero;
+		public final String target;
+
+		public LoggingOption(String option)
+		{
+			boolean chat = true;
+			boolean shapes = false;
+			if (option.startsWith("shape:"))
+			{
+				chat = false;
+				shapes = true;
+				option = option.substring("shape:".length());
+			}
+			else if (option.startsWith("both:"))
+			{
+				shapes = true;
+				option = option.substring("both:".length());
+			}
+			else if (option.startsWith("chat:"))
+			{
+				option = option.substring("chat:".length());
+			}
+			this.showChat = chat;
+			this.showShapes = shapes;
+			this.nonZero = option.startsWith(MovementLogger.NON_ZERO_HEADER);
+			this.target = this.nonZero ? option.substring(MovementLogger.NON_ZERO_HEADER.length()) : option;
 		}
 	}
 

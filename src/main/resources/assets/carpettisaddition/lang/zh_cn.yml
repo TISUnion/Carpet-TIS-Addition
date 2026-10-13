@@ -254,6 +254,7 @@ carpettisaddition:
       delta: 差值
       due_to: ', 原因: %1$s'
       footer: '%1$s实际移动了%2$s'
+      unsupported_shapes: 你的客户端未安装 Carpet TIS Addition 或版本过低，无法显示 movement 可视化图形
       movement_type:
         self: 自身逻辑
         player: 玩家操作

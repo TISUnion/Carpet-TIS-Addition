@@ -20,7 +20,6 @@
 
 package carpettisaddition.mixins.network;
 
-import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.network.TISCMCustomPayload;
 import carpettisaddition.network.TISCMServerPacketHandler;
 import net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket;
@@ -47,11 +46,6 @@ public abstract class ServerPlayNetworkHandlerMixin
 	@Inject(method = "handleCustomPayload", at = @At("HEAD"), cancellable = true)
 	private void onCustomPayload$TISCM(ServerboundCustomPayloadPacket packet, CallbackInfo ci)
 	{
-		if (!CarpetTISAdditionSettings.tiscmNetworkProtocol)
-		{
-			return;
-		}
-
 		//#if MC >= 12002
 		//$$ if (packet.payload() instanceof TISCMCustomPayload tiscmCustomPayload && (Object)this instanceof ServerGamePacketListenerImpl self)
 		//$$ {

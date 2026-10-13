@@ -217,19 +217,34 @@ sidebar_position: 2
 
 ## 移动 (movement)
 
-`/log movement <目标>`
+`/log movement <选项>`
 
 开关：规则 [移动记录器](rules.md#移动记录器-loggermovement)
 
 记录实体的移动尝试，以及计算最终移动矢量的具体流程
 
-`<目标>` 是一个实体选择器。请确保你仅选中了那些你关注的实体，否则刷屏预警（`@` 选择器需要权限等级 2）
+选项格式为 `[chat:|shape:|both:][non_zero:]<目标>`，方括号内的部分可省略，各部分按此顺序直接拼接，不加空格
 
-此外，你可以在 `<目标>` 字符串中添加一个 `non_zero:` 前缀，从而让那些最终移动矢量为 0 的记录被筛去并不显示
+可用的前缀:
+
+- `chat:`: 输出聊天日志，默认模式
+- `shape:`: 绘制世界内的移动图形
+- `both:`: 同时输出聊天日志和世界内图形
+- `non_zero:`: 筛去最终移动矢量为 0 的记录
+
+`<目标>` 是一个实体选择器或玩家名。请确保你仅选中了那些你关注的实体，否则刷屏预警（`@` 选择器需要权限等级 2）
+
+示例:
+
+- `/log movement "@s"`: 在聊天框记录自己的移动
+- `/log movement "both:non_zero:@s"`: 在聊天框和世界内图形中记录自己的移动，筛去零移动记录
+
+图形输出需要 Minecraft 1.15+ 及支持此功能的 Carpet TIS Addition 客户端，图形保留 100gt（5 秒）
 
 属性:
+
 - 默认选项: `non_zero:@a[distance=..10]`
-- 参考选项: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`
+- 参考选项: `non_zero:@a[distance=..10]`, `@s`, `non_zero:@e[type=creeper,distance=..5]`, `Steve`, `shape:non_zero:@s`, `both:non_zero:@s`
 
 ![movement](images/logger/movement.png)
 

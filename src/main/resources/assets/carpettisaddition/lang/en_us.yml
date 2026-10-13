@@ -254,6 +254,7 @@ carpettisaddition:
       delta: delta
       due_to: ' due to %1$s'
       footer: '%1$s actually moved for %2$s'
+      unsupported_shapes: 'Carpet TIS Addition is missing or outdated on your client, so movement shapes cannot be displayed. Please install or update Carpet TIS Addition on your client.'
       movement_type:
         self: Self logic
         player: Player action
