@@ -130,7 +130,7 @@ public class NetworkUtils
 			CompoundTag nbt = tweakedBuf.readNbt();
 
 			int n = tweakedBuf.readerIndex();
-			buf.readBytes(Math.max(0, n - 2));
+			buf.skipBytes(Math.max(0, n - 2));
 
 			return nbt;
 			//#endif
@@ -142,14 +142,14 @@ public class NetworkUtils
 			int prevReaderIndex = buf.readerIndex();
 			FriendlyByteBuf tweakedBuf = NetworkUtils.newFriendlyByteBuf();
 			tweakedBuf.writeByte(buf.readByte());  // 0x0A, tag type
-			buf.readBytes(2);  // consume the 2* 0x00
+			buf.skipBytes(2);  // consume the 2* 0x00
 			tweakedBuf.writeBytes(buf);
 			buf.readerIndex(prevReaderIndex);
 
 			CompoundTag nbt = tweakedBuf.readNbt();
 
 			int n = tweakedBuf.readerIndex();
-			buf.readBytes(Math.max(0, n > 1 ? n + 2 : n));
+			buf.skipBytes(Math.max(0, n > 1 ? n + 2 : n));
 			return nbt;
 		}
 
