@@ -22,6 +22,7 @@ package carpettisaddition.mixins.carpet.shape;
 
 import carpet.script.utils.ShapeDispatcher;
 import carpet.script.value.Value;
+import carpettisaddition.helpers.carpet.shape.ShapeDispatcherForceSeeThroughExpiringShape;
 import carpettisaddition.helpers.carpet.shape.ShapeDispatcherPreciseExpiringShape;
 import carpettisaddition.helpers.carpet.shape.ShapeUtil;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
@@ -52,34 +53,41 @@ import org.apache.commons.lang3.tuple.Pair;
 //#endif
 
 /**
- * mc >= 1.15: subproject 1.15.2 (main project)  <--------
  * mc <  1.15: subproject 1.14.4
+ * mc >= 1.15: subproject 1.15.2 (main project)  <--------
  */
 @Mixin(ShapeDispatcher.class)
 public abstract class ShapeDispatcherMixin
 {
 	@Inject(method = "fromTag", at = @At("HEAD"), remap = false)
-	private static void readPrecision(
+	private static void shapeProperties_readFromTag(
 			CallbackInfoReturnable<ShapeDispatcher.ExpiringShape> cir,
 			@Local(argsOnly = true) LocalRef<CompoundTag> tag,
+			@Share("forceSeeThrough") LocalBooleanRef forceSeeThrough,
 			@Share("precise") LocalBooleanRef precise
 	)
 	{
 		CompoundTag originalTag = tag.get();
-		if (originalTag.contains(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY))
+		if (originalTag.contains(ShapeDispatcherForceSeeThroughExpiringShape.FORCE_SEE_THROUGH_NBT_KEY) || originalTag.contains(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY))
 		{
+			forceSeeThrough.set(ByteTag.valueOf(true).equals(originalTag.get(ShapeDispatcherForceSeeThroughExpiringShape.FORCE_SEE_THROUGH_NBT_KEY)));
 			precise.set(ByteTag.valueOf(true).equals(originalTag.get(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY)));
 			CompoundTag copy = originalTag.copy();
+			copy.remove(ShapeDispatcherForceSeeThroughExpiringShape.FORCE_SEE_THROUGH_NBT_KEY);
 			copy.remove(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY);
 			tag.set(copy);
 		}
 	}
 
 	@ModifyReturnValue(method = "fromTag", at = @At("RETURN"), remap = false)
-	private static ShapeDispatcher.ExpiringShape applyPrecision(ShapeDispatcher.ExpiringShape shape, @Share("precise") LocalBooleanRef precise)
+	private static ShapeDispatcher.ExpiringShape shapeProperties_applyToShape(
+			ShapeDispatcher.ExpiringShape shape,
+			@Share("forceSeeThrough") LocalBooleanRef forceSeeThrough, @Share("precise") LocalBooleanRef precise
+	)
 	{
 		if (shape != null)
 		{
+			((ShapeDispatcherForceSeeThroughExpiringShape)shape).setForceSeeThrough$TISCM(forceSeeThrough.get());
 			((ShapeDispatcherPreciseExpiringShape)shape).setPrecise$TISCM(precise.get());
 		}
 		return shape;
@@ -96,7 +104,8 @@ public abstract class ShapeDispatcherMixin
 					//#endif
 			)
 	)
-	private static CompoundTag writePrecision(Map<String, Value> params,
+	private static CompoundTag shapeProperties_writeToTag(
+			Map<String, Value> params,
 			//#if MC >= 1.20.5
 			//$$ RegistryAccess registryAccess,
 			//#endif
@@ -119,6 +128,10 @@ public abstract class ShapeDispatcherMixin
 				//#else
 				shape.getLeft();
 				//#endif
+		if (((ShapeDispatcherForceSeeThroughExpiringShape)expiringShape).isForceSeeThrough$TISCM())
+		{
+			tag.putBoolean(ShapeDispatcherForceSeeThroughExpiringShape.FORCE_SEE_THROUGH_NBT_KEY, true);
+		}
 		if (((ShapeDispatcherPreciseExpiringShape)expiringShape).isPrecise$TISCM())
 		{
 			tag.putBoolean(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY, true);
@@ -127,15 +140,14 @@ public abstract class ShapeDispatcherMixin
 	}
 
 	//#if MC < 1.19.4
-	// Match the shape send lambdas without depending on compiler-generated names.
 	@WrapOperation(
-			method = "*",
+			method = {"lambda$sendShape$1", "lambda$sendShape$2"},
 			at = @At(
 					value = "INVOKE",
 					target = "Lcarpet/network/ServerNetworkHandler;sendCustomCommand(Lnet/minecraft/server/level/ServerPlayer;Ljava/lang/String;Lnet/minecraft/nbt/Tag;)V"
 			)
 	)
-	private static void prepareShapesForPlayer(ServerPlayer player, String command, Tag data, Operation<Void> original)
+	private static void shapeProperties_stripUnsupportedFields(ServerPlayer player, String command, Tag data, Operation<Void> original)
 	{
 		original.call(player, command, ShapeUtil.prepareShapesForPlayer(player, (ListTag)data));
 	}

@@ -604,8 +604,13 @@
   ],
   "client": [
     "carpet.hooks.onServerLoadedWorlds.IntegratedServerMixin",
+    "carpet.shape.RenderSetupAccessor",
+    "carpet.shape.RenderTypeAccessor",
+    "carpet.shape.RenderTypeInvoker",
+    "carpet.shape.ShapesRendererForceSeeThroughMixin",
     "carpet.shape.ShapesRendererRenderedShapeAccessor",
     "carpet.shape.ShapesRendererRenderedShapeMixin",
+    "carpet.shape.ShapesRendererRenderedTextForceSeeThroughMixin",
     "carpet.shape.texthack.ShapesRendererRenderedTextMixin",
     "carpet.tweaks.robustness.network.ClientNetworkHandlerMixin",
     "core.client.MinecraftClientMixin",

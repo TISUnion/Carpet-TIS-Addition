@@ -22,6 +22,7 @@ package carpettisaddition.network;
 
 public enum TISCMFeature
 {
+	FORCE_SEE_THROUGH_SCARPET_SHAPES,
 	PRECISE_SCARPET_SHAPES,
 	;
 

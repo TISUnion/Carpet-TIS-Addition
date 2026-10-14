@@ -97,6 +97,11 @@ public class ShapeUtil
 		return ListValue.of(new NumericValue(vec3d.x()), new NumericValue(vec3d.y()), new NumericValue(vec3d.z()));
 	}
 
+	public static boolean supportsForceSeeThroughShapes(ServerPlayer player)
+	{
+		return TISCMServerPacketHandler.getInstance().getClientFeatureOrDefault(player.connection, TISCMFeature.FORCE_SEE_THROUGH_SCARPET_SHAPES, 0) >= 1;
+	}
+
 	public static boolean supportsPreciseShapes(ServerPlayer player)
 	{
 		return TISCMServerPacketHandler.getInstance().getClientFeatureOrDefault(player.connection, TISCMFeature.PRECISE_SCARPET_SHAPES, 0) >= 1;
@@ -104,7 +109,9 @@ public class ShapeUtil
 
 	public static ListTag prepareShapesForPlayer(ServerPlayer player, ListTag shapes)
 	{
-		if (ShapeUtil.supportsPreciseShapes(player))
+		boolean supportsForceSeeThrough = ShapeUtil.supportsForceSeeThroughShapes(player);
+		boolean supportsPrecise = ShapeUtil.supportsPreciseShapes(player);
+		if (supportsForceSeeThrough && supportsPrecise)
 		{
 			return shapes;
 		}
@@ -112,13 +119,23 @@ public class ShapeUtil
 		for (int i = 0; i < shapes.size(); i++)
 		{
 			CompoundTag shape = (CompoundTag)shapes.get(i);
-			if (shape.contains(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY))
+			boolean removeForceSeeThrough = !supportsForceSeeThrough && shape.contains(ShapeDispatcherForceSeeThroughExpiringShape.FORCE_SEE_THROUGH_NBT_KEY);
+			boolean removePrecise = !supportsPrecise && shape.contains(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY);
+			if (removeForceSeeThrough || removePrecise)
 			{
 				if (copy == null)
 				{
 					copy = shapes.copy();
 				}
-				((CompoundTag)copy.get(i)).remove(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY);
+				CompoundTag copiedShape = (CompoundTag)copy.get(i);
+				if (removeForceSeeThrough)
+				{
+					copiedShape.remove(ShapeDispatcherForceSeeThroughExpiringShape.FORCE_SEE_THROUGH_NBT_KEY);
+				}
+				if (removePrecise)
+				{
+					copiedShape.remove(ShapeDispatcherPreciseExpiringShape.PRECISE_NBT_KEY);
+				}
 			}
 		}
 		return copy != null ? copy : shapes;

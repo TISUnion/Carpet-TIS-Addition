@@ -24,8 +24,8 @@ import carpettisaddition.utils.compat.DummyClass;
 import org.spongepowered.asm.mixin.Mixin;
 
 /**
- * mc >= 1.15: subproject 1.15.2 (main project)
  * mc <  1.15: subproject 1.14.4                 <--------
+ * mc >= 1.15: subproject 1.15.2 (main project)
  */
 @Mixin(DummyClass.class)
 public abstract class ShapeDispatcherExpiringShapeMixin

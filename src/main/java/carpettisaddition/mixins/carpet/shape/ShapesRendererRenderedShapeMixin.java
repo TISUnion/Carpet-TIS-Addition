@@ -22,6 +22,7 @@ package carpettisaddition.mixins.carpet.shape;
 
 import carpet.script.utils.ShapeDispatcher;
 import carpet.script.utils.ShapesRenderer;
+import carpettisaddition.helpers.carpet.shape.ShapeDispatcherForceSeeThroughExpiringShape;
 import carpettisaddition.helpers.carpet.shape.ShapeDispatcherPreciseExpiringShape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,8 +31,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * mc >= 1.15: subproject 1.15.2 (main project)  <--------
  * mc <  1.15: subproject 1.14.4
+ * mc >= 1.15: subproject 1.15.2 (main project)  <--------
  */
 @Mixin(ShapesRenderer.RenderedShape.class)
 public abstract class ShapesRendererRenderedShapeMixin
@@ -49,9 +50,10 @@ public abstract class ShapesRendererRenderedShapeMixin
 	}
 
 	@Inject(method = "promoteWith", at = @At("TAIL"), remap = false)
-	private void updatePrecision(ShapesRenderer.RenderedShape<?> renderedShape, CallbackInfo ci)
+	private void shapeProperties_updateOnPromotion(ShapesRenderer.RenderedShape<?> renderedShape, CallbackInfo ci)
 	{
 		ShapesRendererRenderedShapeAccessor accessor = (ShapesRendererRenderedShapeAccessor)renderedShape;
+		((ShapeDispatcherForceSeeThroughExpiringShape)this.shape).setForceSeeThrough$TISCM(((ShapeDispatcherForceSeeThroughExpiringShape)accessor.getShape$TISCM()).isForceSeeThrough$TISCM());
 		((ShapeDispatcherPreciseExpiringShape)this.shape).setPrecise$TISCM(((ShapeDispatcherPreciseExpiringShape)accessor.getShape$TISCM()).isPrecise$TISCM());
 		this.renderEpsilon = accessor.getRenderEpsilon$TISCM();
 	}

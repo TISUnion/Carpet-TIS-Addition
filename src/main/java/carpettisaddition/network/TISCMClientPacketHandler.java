@@ -150,6 +150,9 @@ public class TISCMClientPacketHandler
 			nbt.putString("platform_version", TISCMProtocol.getPlatformVersion());
 
 			CompoundTag features = new CompoundTag();
+			//#if MC >= 1.15 && MC < 26.2
+			features.putInt(TISCMFeature.FORCE_SEE_THROUGH_SCARPET_SHAPES.getId(), 1);
+			//#endif
 			//#if MC >= 1.15
 			features.putInt(TISCMFeature.PRECISE_SCARPET_SHAPES.getId(), 1);
 			//#endif

@@ -93,6 +93,14 @@ public class ShapeHolder<T extends ShapeDispatcher.ExpiringShape>
 		this.updateShape();
 	}
 
+	public ShapeHolder<T> setForceSeeThrough(boolean forceSeeThrough)
+	{
+		//#if MC >= 1.15
+		((ShapeDispatcherForceSeeThroughExpiringShape)this.shape).setForceSeeThrough$TISCM(forceSeeThrough);
+		//#endif
+		return this;
+	}
+
 	public ShapeHolder<T> setPrecise(boolean precise)
 	{
 		//#if MC >= 1.15

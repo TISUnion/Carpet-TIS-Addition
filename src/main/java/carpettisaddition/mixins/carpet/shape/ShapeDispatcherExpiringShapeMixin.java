@@ -21,19 +21,35 @@
 package carpettisaddition.mixins.carpet.shape;
 
 import carpet.script.utils.ShapeDispatcher;
+import carpettisaddition.helpers.carpet.shape.ShapeDispatcherForceSeeThroughExpiringShape;
 import carpettisaddition.helpers.carpet.shape.ShapeDispatcherPreciseExpiringShape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 /**
- * mc >= 1.15: subproject 1.15.2 (main project)  <--------
  * mc <  1.15: subproject 1.14.4
+ * mc >= 1.15: subproject 1.15.2 (main project)  <--------
  */
 @Mixin(ShapeDispatcher.ExpiringShape.class)
-public abstract class ShapeDispatcherExpiringShapeMixin implements ShapeDispatcherPreciseExpiringShape
+public abstract class ShapeDispatcherExpiringShapeMixin implements ShapeDispatcherForceSeeThroughExpiringShape, ShapeDispatcherPreciseExpiringShape
 {
 	@Unique
+	private boolean forceSeeThrough$TISCM;
+
+	@Unique
 	private boolean precise$TISCM;
+
+	@Override
+	public boolean isForceSeeThrough$TISCM()
+	{
+		return this.forceSeeThrough$TISCM;
+	}
+
+	@Override
+	public void setForceSeeThrough$TISCM(boolean forceSeeThrough)
+	{
+		this.forceSeeThrough$TISCM = forceSeeThrough;
+	}
 
 	@Override
 	public boolean isPrecise$TISCM()
