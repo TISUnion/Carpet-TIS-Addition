@@ -24,7 +24,6 @@ import carpet.script.utils.ShapeDispatcher;
 import carpet.script.utils.ShapesRenderer;
 import carpettisaddition.helpers.carpet.shape.IShapeDispatcherText;
 import carpettisaddition.utils.ModIds;
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.client.Minecraft;
@@ -36,8 +35,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//#if MC >= 12105
+//#if MC >= 12105 && MC < 26.4
 //$$ import com.mojang.blaze3d.opengl.GlStateManager;
+//#elseif MC < 12105
+import com.mojang.blaze3d.systems.RenderSystem;
 //#endif
 
 //#if MC >= 11904
@@ -62,6 +63,7 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 		return ((IShapeDispatcherText)this.shape).isMicroTimingMarkerText();
 	}
 
+	//#if MC < 26.4
 	@Inject(
 			method = "renderLines",
 			slice = @Slice(
@@ -90,25 +92,28 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	{
 		if (this.isMicroTimingMarkerText())
 		{
-			//#if MC >= 26.4
-			//$$ // FIXME
-			//#elseif MC >= 12105
+			//#if MC >= 12105
 			//$$ GlStateManager._disableDepthTest();
 			//#else
 			RenderSystem.disableDepthTest();
 			//#endif
 		}
 	}
+	//#endif
 
-	//#if MC >= 26.2
+	//#if MC >= 26.2 && MC < 26.4
 	//$$ // TODO: fabric-carpet's `RenderedText#renderLines` code still seems to be incompleted yet,
 	//$$ // cuz its `preparedText` var is still unused. 2026.5.29, mc 26.2-pre-1
-	//#else
+	//#endif
+
+	//#if MC >= 26.4 || MC < 26.2
 	@ModifyArg(
 			method = "renderLines",
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 26.1
+					//#if MC >= 26.4
+					//$$ target = "Lnet/minecraft/client/renderer/SubmitNodeStorage;submitText(Lcom/mojang/blaze3d/vertex/PoseStack;FFLnet/minecraft/util/FormattedCharSequence;ZLnet/minecraft/client/gui/Font$DisplayMode;IIII)V",
+					//#elseif MC >= 26.1
 					//$$ target = "Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4fc;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)V",
 					//#elseif MC >= 12106
 					//$$ target = "Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)V",
@@ -123,7 +128,11 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 					//#endif
 					remap = true
 			),
+			//#if MC >= 26.4
+			//$$ index = 5,
+			//#else
 			index = 7,
+			//#endif
 			remap = false
 	)
 	private
@@ -148,9 +157,10 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 				//#endif
 				value;
 	}
-	//#endif  // end //#if MC >= 26.2 -- else
+	//#endif
 
 
+	//#if MC < 26.4
 	@Inject(
 			method = "renderLines",
 			at = @At(
@@ -169,13 +179,12 @@ public abstract class ShapesRendererRenderedTextMixin<T> extends ShapesRenderer.
 	{
 		if (this.isMicroTimingMarkerText())
 		{
-			//#if MC >= 26.4
-			//$$ // FIXME
-			//#elseif MC >= 12105
+			//#if MC >= 12105
 			//$$ GlStateManager._enableDepthTest();
 			//#else
 			RenderSystem.enableDepthTest();
 			//#endif
 		}
 	}
+	//#endif
 }

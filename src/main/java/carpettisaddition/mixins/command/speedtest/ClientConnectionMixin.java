@@ -36,7 +36,11 @@ public abstract class ClientConnectionMixin
 	@Shadow @Final private PacketFlow receiving;
 
 	@ModifyExpressionValue(
+			//#if MC >= 26.4
+			//$$ method = "setupOutboundCompression",
+			//#else
 			method = "setupCompression",
+			//#endif
 			at = @At(
 					value = "NEW",
 					target = "(I)Lnet/minecraft/network/CompressionEncoder;"
