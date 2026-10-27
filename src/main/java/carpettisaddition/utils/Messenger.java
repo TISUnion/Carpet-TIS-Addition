@@ -344,7 +344,11 @@ public class Messenger
 									//$$ return (BaseComponent)stringVisitable;
 									//#endif
 					//$$ 			}
+					//$$ 			//#if MC >= 26.4
+					//$$ 			//$$ return Messenger.s(stringVisitable.getString(Component.STRING_SIZE_LIMIT));
+					//$$ 			//#else
 					//$$ 			return Messenger.s(stringVisitable.getString());
+					//$$ 			//#endif
 					//$$ 		}).toArray()
 					//#else
 					dummy.getTranslations().toArray(new Object[0])
