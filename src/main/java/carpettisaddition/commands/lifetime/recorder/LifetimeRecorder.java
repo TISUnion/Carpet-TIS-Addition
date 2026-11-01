@@ -244,20 +244,20 @@ public class LifetimeRecorder extends TranslationContext
 			return;
 		}
 
-		if (recordingConfig.maxTotalOutputFileBytes > 0)
+		if (recordingConfig.maxTotalOutputFileCount > 0 || recordingConfig.maxTotalOutputFileBytes > 0)
 		{
 			Optional<Pair<Integer, Long>> st = this.getOutputFilesStats(Paths.get(recordingConfig.outputDirectory));
 			CarpetTISAdditionMod.LOGGER.debug("output file size stats: {}", st);
 			if (st.isPresent())
 			{
 				int count = st.get().getFirst();
-				if (count >= recordingConfig.maxTotalOutputFileCount)
+				if (recordingConfig.maxTotalOutputFileCount > 0 && count >= recordingConfig.maxTotalOutputFileCount)
 				{
 					Messenger.tell(source, Messenger.formatting(tr("total_output_count_too_many", count, recordingConfig.maxTotalOutputFileCount), ChatFormatting.RED));
 					return;
 				}
 				long sizeTotal = st.get().getSecond();
-				if (sizeTotal >= recordingConfig.maxTotalOutputFileBytes)
+				if (recordingConfig.maxTotalOutputFileBytes > 0 && sizeTotal >= recordingConfig.maxTotalOutputFileBytes)
 				{
 					Messenger.tell(source, Messenger.formatting(tr("total_output_size_too_large", TextUtils.byteSizeSi(sizeTotal), TextUtils.byteSizeSi(recordingConfig.maxTotalOutputFileBytes)), ChatFormatting.RED));
 					return;
