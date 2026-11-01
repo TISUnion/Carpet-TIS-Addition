@@ -170,10 +170,10 @@ Default config with explanations:
   
   // Recording output settings
   "outputDirectory": "config/carpettisaddition/lifetime/records",  // Output folder
-  "maxOutputRecordCount": -1,       // Max record count per file. Recording pauses once exceeded
-  "maxOutputFileBytes": 104857600,  // Max size per file (bytes). Recording pauses once exceeded
-  "maxTotalOutputFileCount": 500,         // Max number of record files in the folder. No new records once exceeded
-  "maxTotalOutputFileBytes": 1073741824,  // Max total size of record files in the folder. No new records once exceeded
+  "maxOutputRecordCount": -1,       // Max record count per file. Recording pauses once exceeded. <=0 means unlimited
+  "maxOutputFileBytes": 104857600,  // Max size per file (bytes). Recording pauses once exceeded. <=0 means unlimited
+  "maxTotalOutputFileCount": 500,         // Max number of record files in the folder. No new records once exceeded. <=0 means unlimited
+  "maxTotalOutputFileBytes": 1073741824,  // Max total size of record files in the folder. No new records once exceeded. <=0 means unlimited
   
   // Recording detail settings
   "sampleRate": 1.0  // Sampling rate, a real number between 0 and 1

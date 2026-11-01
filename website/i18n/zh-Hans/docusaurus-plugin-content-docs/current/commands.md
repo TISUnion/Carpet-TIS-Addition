@@ -170,10 +170,10 @@ sidebar_position: 3
   
   // 数据记录输出相关配置
   "outputDirectory": "config/carpettisaddition/lifetime/records",  // 输出文件夹
-  "maxOutputRecordCount": -1,       // 单个记录文件最大记录数。超出限制后本次记录将暂停
-  "maxOutputFileBytes": 104857600,  // 单个记录文件最大字节数。超出限制后本次记录将暂停
-  "maxTotalOutputFileCount": 500,         // 输出文件夹里记录文件的数量限制。超出后将不再触发新的记录
-  "maxTotalOutputFileBytes": 1073741824,  // 输出文件夹里记录文件的总大小限制。超出后将不再触发新的记录
+  "maxOutputRecordCount": -1,       // 单个记录文件最大记录数。超出限制后本次记录将暂停。<=0 表示无限
+  "maxOutputFileBytes": 104857600,  // 单个记录文件最大字节数。超出限制后本次记录将暂停。<=0 表示无限
+  "maxTotalOutputFileCount": 500,         // 输出文件夹里记录文件的数量限制。超出后将不再触发新的记录。<=0 表示无限
+  "maxTotalOutputFileBytes": 1073741824,  // 输出文件夹里记录文件的总大小限制。超出后将不再触发新的记录。<=0 表示无限
   
   // 数据记录相关
   "sampleRate": 1.0  // 采样率，一个 0~1 的实数

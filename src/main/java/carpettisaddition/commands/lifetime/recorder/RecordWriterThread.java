@@ -107,8 +107,8 @@ class RecordWriterThread implements AutoCloseable
 					{
 						CarpetTISAdditionMod.LOGGER.info(
 								"File limit exceeded (cnt {} / {}, size {} / {}), recording stopped",
-								this.config.maxOutputRecordCount, this.recordWritten.get(),
-								this.config.maxOutputFileBytes, this.bytesWritten.get()
+								this.recordWritten.get(), this.config.maxOutputRecordCount,
+								this.bytesWritten.get(), this.config.maxOutputFileBytes
 						);
 						break;
 					}
