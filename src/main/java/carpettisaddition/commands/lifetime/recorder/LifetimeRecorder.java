@@ -97,15 +97,12 @@ public class LifetimeRecorder extends TranslationContext
 			return;
 		}
 
-		if (this.config.maxOutputRecordCount > 0 && rwt.getRecordWritten() >= this.config.maxOutputRecordCount)
+		if (rwt.isFileLimitExceeded())
 		{
 			return;
 		}
-		if (this.config.maxOutputFileBytes > 0 && rwt.getBytesWritten() >= this.config.maxOutputFileBytes)
-		{
-			return;
-		}
-		if (this.config.sampleRate < 1 && this.random.nextFloat() >= this.config.sampleRate)
+		double sampleRate = rwt.getConfig().sampleRate;
+		if (sampleRate < 1 && this.random.nextFloat() >= sampleRate)
 		{
 			return;
 		}
@@ -165,9 +162,10 @@ public class LifetimeRecorder extends TranslationContext
 		{
 			Messenger.tell(source, tr("status.output_file", Messenger.hover(Messenger.s(rwt.getOutputFile().getFileName(), ChatFormatting.DARK_AQUA), Messenger.s(rwt.getOutputFile().toString()))));
 		}
-		Messenger.tell(source, ctf("status.record_written", rwt != null ? rwt.getRecordWritten() : 0, this.config.maxOutputRecordCount, n -> Messenger.s(n, ChatFormatting.YELLOW)));
-		Messenger.tell(source, ctf("status.bytes_written", rwt != null ? rwt.getBytesWritten() : 0, this.config.maxOutputFileBytes, n -> Messenger.s(TextUtils.byteSizeSi(n), ChatFormatting.GREEN)));
-		Messenger.tell(source, tr("status.sample_rate", Messenger.s(String.format("%.1f%%", this.config.sampleRate * 100), this.config.sampleRate < 1 ? ChatFormatting.GOLD : ChatFormatting.DARK_GREEN)));
+		LifetimeRecorderConfigSnapshot recordingConfig = rwt != null ? rwt.getConfig() : new LifetimeRecorderConfigSnapshot(this.config);
+		Messenger.tell(source, ctf("status.record_written", rwt != null ? rwt.getRecordWritten() : 0, recordingConfig.maxOutputRecordCount, n -> Messenger.s(n, ChatFormatting.YELLOW)));
+		Messenger.tell(source, ctf("status.bytes_written", rwt != null ? rwt.getBytesWritten() : 0, recordingConfig.maxOutputFileBytes, n -> Messenger.s(TextUtils.byteSizeSi(n), ChatFormatting.GREEN)));
+		Messenger.tell(source, tr("status.sample_rate", Messenger.s(String.format("%.1f%%", recordingConfig.sampleRate * 100), recordingConfig.sampleRate < 1 ? ChatFormatting.GOLD : ChatFormatting.DARK_GREEN)));
 		return 0;
 	}
 
@@ -240,27 +238,28 @@ public class LifetimeRecorder extends TranslationContext
 	{
 		this.stop(source);
 
-		if (!this.config.enabled)
+		LifetimeRecorderConfigSnapshot recordingConfig = new LifetimeRecorderConfigSnapshot(this.config);
+		if (!recordingConfig.enabled)
 		{
 			return;
 		}
 
-		if (this.config.maxTotalOutputFileBytes > 0)
+		if (recordingConfig.maxTotalOutputFileBytes > 0)
 		{
-			Optional<Pair<Integer, Long>> st = this.getOutputFilesStats();
+			Optional<Pair<Integer, Long>> st = this.getOutputFilesStats(Paths.get(recordingConfig.outputDirectory));
 			CarpetTISAdditionMod.LOGGER.debug("output file size stats: {}", st);
 			if (st.isPresent())
 			{
 				int count = st.get().getFirst();
-				if (count >= this.config.maxTotalOutputFileCount)
+				if (count >= recordingConfig.maxTotalOutputFileCount)
 				{
-					Messenger.tell(source, Messenger.formatting(tr("total_output_count_too_many", count, this.config.maxTotalOutputFileCount), ChatFormatting.RED));
+					Messenger.tell(source, Messenger.formatting(tr("total_output_count_too_many", count, recordingConfig.maxTotalOutputFileCount), ChatFormatting.RED));
 					return;
 				}
 				long sizeTotal = st.get().getSecond();
-				if (sizeTotal >= this.config.maxTotalOutputFileBytes)
+				if (sizeTotal >= recordingConfig.maxTotalOutputFileBytes)
 				{
-					Messenger.tell(source, Messenger.formatting(tr("total_output_size_too_large", TextUtils.byteSizeSi(sizeTotal), TextUtils.byteSizeSi(this.config.maxTotalOutputFileBytes)), ChatFormatting.RED));
+					Messenger.tell(source, Messenger.formatting(tr("total_output_size_too_large", TextUtils.byteSizeSi(sizeTotal), TextUtils.byteSizeSi(recordingConfig.maxTotalOutputFileBytes)), ChatFormatting.RED));
 					return;
 				}
 			}
@@ -272,10 +271,10 @@ public class LifetimeRecorder extends TranslationContext
 		}
 
 		String fileName = String.format("rec_%s_%d.jsonl", new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()), currentTrackId);
-		Path outputFile = Paths.get(this.config.outputDirectory, fileName);
+		Path outputFile = Paths.get(recordingConfig.outputDirectory, fileName);
 
 		RecordWriterThread newRwt = new RecordWriterThread(
-				outputFile, this.config.maxOutputRecordCount, this.config.maxOutputFileBytes,
+				outputFile, recordingConfig,
 				(rwt) -> {
 					synchronized (this.lock)
 					{
@@ -322,9 +321,8 @@ public class LifetimeRecorder extends TranslationContext
 	}
 
 	// count,sizeSum
-	private Optional<Pair<Integer, Long>> getOutputFilesStats()
+	private Optional<Pair<Integer, Long>> getOutputFilesStats(Path path)
 	{
-		Path path = Paths.get(this.config.outputDirectory);
 		if (Files.notExists(path))
 		{
 			return Optional.of(Pair.of(0, 0L));

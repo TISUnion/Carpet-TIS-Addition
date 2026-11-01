@@ -39,8 +39,7 @@ class RecordWriterThread implements AutoCloseable
 	private static final byte[] SYSTEM_LINE_SEP = System.lineSeparator().getBytes(StandardCharsets.UTF_8);
 
 	private final Path outputFile;
-	private final long maxOutputRecordCount;
-	private final long maxOutputFileBytes;
+	private final LifetimeRecorderConfigSnapshot config;
 	private final StopCallback stopCallback;
 	private final Thread thread;
 	private final BlockingQueue<Record> writeQueue = new LinkedBlockingQueue<>(10000);
@@ -54,11 +53,10 @@ class RecordWriterThread implements AutoCloseable
 		void onStop(RecordWriterThread wrt);
 	}
 
-	public RecordWriterThread(Path outputFile, long maxOutputRecordCount, long maxOutputFileBytes, StopCallback stopCallback)
+	public RecordWriterThread(Path outputFile, LifetimeRecorderConfigSnapshot config, StopCallback stopCallback)
 	{
 		this.outputFile = outputFile;
-		this.maxOutputRecordCount = maxOutputRecordCount;
-		this.maxOutputFileBytes = maxOutputFileBytes;
+		this.config = config;
 		this.stopCallback = stopCallback;
 		this.thread = new Thread(this::writerThreadImpl);
 		this.thread.setName("tiscm-lifetime-record-writer-" + counter.getAndIncrement());
@@ -76,8 +74,8 @@ class RecordWriterThread implements AutoCloseable
 
 	public boolean isFileLimitExceeded()
 	{
-		return this.maxOutputRecordCount > 0 && this.getRecordWritten() >= this.maxOutputRecordCount ||
-				this.maxOutputFileBytes > 0 && this.getBytesWritten() >= this.maxOutputFileBytes;
+		return this.config.maxOutputRecordCount > 0 && this.getRecordWritten() >= this.config.maxOutputRecordCount ||
+				this.config.maxOutputFileBytes > 0 && this.getBytesWritten() >= this.config.maxOutputFileBytes;
 	}
 
 	private void writerThreadImpl()
@@ -109,8 +107,8 @@ class RecordWriterThread implements AutoCloseable
 					{
 						CarpetTISAdditionMod.LOGGER.info(
 								"File limit exceeded (cnt {} / {}, size {} / {}), recording stopped",
-								this.maxOutputRecordCount, this.recordWritten.get(),
-								this.maxOutputFileBytes, this.bytesWritten.get()
+								this.config.maxOutputRecordCount, this.recordWritten.get(),
+								this.config.maxOutputFileBytes, this.bytesWritten.get()
 						);
 						break;
 					}
@@ -152,6 +150,11 @@ class RecordWriterThread implements AutoCloseable
 		{
 			Thread.currentThread().interrupt();
 		}
+	}
+
+	public LifetimeRecorderConfigSnapshot getConfig()
+	{
+		return this.config;
 	}
 
 	public Path getOutputFile()

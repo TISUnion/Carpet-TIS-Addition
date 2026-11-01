@@ -135,15 +135,15 @@ Use `/lifetime filter` to display current activated filters
 
 Lifetime Data Recorder: writes spawn/removal events of every entity into files for later statistical analysis
 
-| Command                      | Effect                                          |
-|------------------------------|-------------------------------------------------|
-| `/lifetime recorder`         | Shows the status of the data recorder           |
-| `/lifetime recorder status`  | Same as above                                   |
-| `/lifetime recorder reload`  | Reload the recorder configuration file          |
-| `/lifetime recorder enable`  | Enable the data recorder and update the config  |
-| `/lifetime recorder disable` | Disable the data recorder and update the config |
+| Command                      | Effect                                                                                                       |
+|------------------------------|--------------------------------------------------------------------------------------------------------------|
+| `/lifetime recorder`         | Shows the status of the data recorder                                                                        |
+| `/lifetime recorder status`  | Same as above                                                                                                |
+| `/lifetime recorder reload`  | Reload the recorder configuration file. Recording-related settings take effect after restarting the recorder |
+| `/lifetime recorder enable`  | Enable the data recorder and update the config                                                               |
+| `/lifetime recorder disable` | Disable the data recorder and update the config                                                              |
 
-If the data recorder is enabled, recording will start the next time lifetime tracking (`/lifetime tracking`) begins
+Once the data recorder is enabled, recording will only begin the next time lifetime tracking (`/lifetime tracking`) starts
 
 Recording stops when lifetime tracking is stopped or when the data recorder is disabled
 
@@ -168,14 +168,14 @@ Default config with explanations:
   "requiredPermissionLevel": 4,  // Minimum permission level required
   "consoleOrSinglePlayerOwnerOnly": true,  // If true, only the server console or singleplayer owner can use it
   
-  // Output settings
+  // Recording output settings
   "outputDirectory": "config/carpettisaddition/lifetime/records",  // Output folder
   "maxOutputRecordCount": -1,       // Max record count per file. Recording pauses once exceeded
   "maxOutputFileBytes": 104857600,  // Max size per file (bytes). Recording pauses once exceeded
   "maxTotalOutputFileCount": 500,         // Max number of record files in the folder. No new records once exceeded
   "maxTotalOutputFileBytes": 1073741824,  // Max total size of record files in the folder. No new records once exceeded
   
-  // Recording details
+  // Recording detail settings
   "sampleRate": 1.0  // Sampling rate, a real number between 0 and 1
 }
 ```

@@ -135,15 +135,15 @@ sidebar_position: 3
 
 存活时间数据记录器：将每个实体的生成/移除流水事件写入文件，以供后续统计分析
 
-| 指令                           | 效果               |
-|------------------------------|------------------|
-| `/lifetime recorder`         | 展示数据记录器的状态       |
-| `/lifetime recorder status`  | 同上               |
-| `/lifetime recorder reload`  | 重新加载数据记录器的配置文件   |
-| `/lifetime recorder enable`  | 启用数据记录器，并更新配置文件。 |
-| `/lifetime recorder disable` | 禁用数据记录器，并更新配置文件。 |
+| 指令                         | 效果                                                               |
+|------------------------------|--------------------------------------------------------------------|
+| `/lifetime recorder`         | 展示数据记录器的状态                                               |
+| `/lifetime recorder status`  | 同上                                                               |
+| `/lifetime recorder reload`  | 重新加载数据记录器的配置文件。数据记录相关配置需重启记录器后才生效 |
+| `/lifetime recorder enable`  | 启用数据记录器，并更新配置文件。                                   |
+| `/lifetime recorder disable` | 禁用数据记录器，并更新配置文件。                                   |
 
-若数据记录器已启动，下一次存活时间记录器（`/lifetime tracking`）开始时，将开始记录数据
+若数据记录器已启动，需等到下一次存活时间记录器（`/lifetime tracking`）开始时，才将开始记录数据
 
 在存活时间记录器停止，或数据记录器被禁用时，本次数据记录过程将被停止
 
