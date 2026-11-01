@@ -90,14 +90,18 @@ public class LifeTimeWorldTracker extends TranslationContext
 
 	public void onEntitySpawn(Entity entity, SpawningReason reason)
 	{
-		this.getTrackedData(entity).ifPresent(data -> data.updateSpawning(entity, reason));
-		LifetimeRecorder.getInstance().addRecord(entity, reason);
+		this.getTrackedData(entity).ifPresent(data -> {
+			data.updateSpawning(entity, reason);
+			LifetimeRecorder.getInstance().addRecord(entity, reason);
+		});
 	}
 
 	public void onEntityRemove(Entity entity, RemovalReason reason)
 	{
-		this.getTrackedData(entity).ifPresent(data -> data.updateRemoval(entity, reason));
-		LifetimeRecorder.getInstance().addRecord(entity, reason);
+		this.getTrackedData(entity).ifPresent(data -> {
+			data.updateRemoval(entity, reason);
+			LifetimeRecorder.getInstance().addRecord(entity, reason);
+		});
 	}
 
 	public void increaseSpawnStageCounter()
