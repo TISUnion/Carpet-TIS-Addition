@@ -36,6 +36,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -157,7 +158,7 @@ public abstract class EntityLogger<T extends Entity> extends AbstractLogger
 
 		public String getName()
 		{
-			return this.name().toLowerCase();
+			return this.name().toLowerCase(Locale.ROOT);
 		}
 
 		public boolean isContainedIn(String option)

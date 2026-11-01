@@ -35,6 +35,7 @@ import net.minecraft.util.thread.StrictQueue;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 
 import java.util.List;
+import java.util.Locale;
 
 //#if MC >= 12102
 //$$ import net.minecraft.util.profiling.Profiler;
@@ -117,7 +118,7 @@ public class LightThreadSynchronizer
 			list.add(Messenger.formatting(translator.tr("safety_warning.1"), "r"));
 			list.add(Messenger.formatting(translator.tr("safety_warning.2"), "r"));
 			list.add(Messenger.s("  - synchronizedLightThread: " + synchronizedLightThread, "r"));
-			list.add(Messenger.s("  - lightUpdates: " + lightUpdates.toString().toLowerCase(), "r"));
+			list.add(Messenger.s("  - lightUpdates: " + lightUpdates.toString().toLowerCase(Locale.ROOT), "r"));
 			Messenger.tell(source, list);
 		}
 		return false;

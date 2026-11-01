@@ -23,6 +23,8 @@ package carpettisaddition.commands.speedtest;
 import carpettisaddition.translations.Translator;
 import net.minecraft.network.chat.BaseComponent;
 
+import java.util.Locale;
+
 public enum TestType
 {
 	DOWNLOAD,
@@ -33,6 +35,6 @@ public enum TestType
 
 	public BaseComponent getNameText()
 	{
-		return translator.tr("test_type." + this.name().toLowerCase());
+		return translator.tr("test_type." + this.name().toLowerCase(Locale.ROOT));
 	}
 }

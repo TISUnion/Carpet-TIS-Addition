@@ -42,6 +42,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+import java.util.Locale;
 
 //#if MC < 11700
 import com.google.common.collect.ImmutableList;
@@ -113,7 +114,7 @@ public abstract class ParsedRuleMixin<T>
 			}
 			String ruleNameRemaining = this.name.substring(SUFFIX.length());
 			String loggerName = !ruleNameRemaining.isEmpty() ?
-					ruleNameRemaining.substring(0, 1).toLowerCase() + ruleNameRemaining.substring(1) :
+					ruleNameRemaining.substring(0, 1).toLowerCase(Locale.ROOT) + ruleNameRemaining.substring(1) :
 					ruleNameRemaining;
 
 			this.isStrict = false;

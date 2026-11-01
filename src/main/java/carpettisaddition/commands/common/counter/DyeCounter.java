@@ -34,6 +34,7 @@ import net.minecraft.world.item.DyeColor;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationContext
 {
@@ -102,7 +103,7 @@ public abstract class DyeCounter<Key extends DyeCounterKey> extends TranslationC
 
 	private String getSelfCommandBase()
 	{
-		return String.format("/%s %s", this.commandPrefix, this.color.getName().toLowerCase());
+		return String.format("/%s %s", this.commandPrefix, this.color.getName().toLowerCase(Locale.ROOT));
 	}
 
 	private long getTotal()

@@ -43,7 +43,7 @@ import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 
 public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter extends DyeCounter<Key>> extends AbstractCommand implements DyeCounterProvider<Key, DyeCounter<Key>>
 {
-	public static final List<String> COLORS = Arrays.stream(DyeColor.values()).map(cl -> cl.getName().toLowerCase()).collect(Collectors.toList());
+	public static final List<String> COLORS = Arrays.stream(DyeColor.values()).map(cl -> cl.getName().toLowerCase(Locale.ROOT)).collect(Collectors.toList());
 
 	protected final Map<DyeColor, Counter> counter = Maps.newEnumMap(DyeColor.class);
 	protected final String commandPrefix;
@@ -74,7 +74,7 @@ public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter exten
 		DyeColor dyeColor;
 		try
 		{
-			dyeColor = DyeColor.valueOf(color.toUpperCase());
+			dyeColor = DyeColor.valueOf(color.toUpperCase(Locale.ROOT));
 		}
 		catch (IllegalArgumentException e)
 		{

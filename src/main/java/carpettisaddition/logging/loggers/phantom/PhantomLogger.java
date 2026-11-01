@@ -38,6 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class PhantomLogger extends AbstractLogger
@@ -136,7 +137,7 @@ public class PhantomLogger extends AbstractLogger
 
 		public String getName()
 		{
-			return this.name().toLowerCase();
+			return this.name().toLowerCase(Locale.ROOT);
 		}
 
 		public static String[] getSuggestions()

@@ -24,6 +24,8 @@ import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
+
 public interface DyeCounterProvider<Key extends DyeCounterKey, Counter extends DyeCounter<Key>>
 {
 	@NotNull
@@ -35,7 +37,7 @@ public interface DyeCounterProvider<Key extends DyeCounterKey, Counter extends D
 		DyeColor dyeColor;
 		try
 		{
-			dyeColor = DyeColor.valueOf(color.toUpperCase());
+			dyeColor = DyeColor.valueOf(color.toUpperCase(Locale.ROOT));
 		}
 		catch (IllegalArgumentException e)
 		{

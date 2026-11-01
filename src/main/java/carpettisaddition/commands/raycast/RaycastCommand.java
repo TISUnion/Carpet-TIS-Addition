@@ -40,6 +40,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.ClipContext;
 
+import java.util.Locale;
 import java.util.function.Function;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
@@ -121,7 +122,7 @@ public class RaycastCommand extends AbstractCommand
 		}
 		try
 		{
-			return (T)Enum.valueOf(def.getClass(), enumString.toUpperCase());
+			return (T)Enum.valueOf(def.getClass(), enumString.toUpperCase(Locale.ROOT));
 		}
 		catch (IllegalArgumentException e)
 		{

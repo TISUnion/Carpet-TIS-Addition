@@ -21,6 +21,7 @@
 package carpettisaddition.commands.lifetime.utils;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public enum SpecificDetailMode
 {
@@ -38,11 +39,11 @@ public enum SpecificDetailMode
 	@Override
 	public String toString()
 	{
-		return super.toString().toLowerCase();
+		return super.toString().toLowerCase(Locale.ROOT);
 	}
 
 	public static SpecificDetailMode fromString(String str)
 	{
-		return valueOf(str.toUpperCase());
+		return valueOf(str.toUpperCase(Locale.ROOT));
 	}
 }

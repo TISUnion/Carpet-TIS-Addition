@@ -24,6 +24,8 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.translations.Translator;
 import net.minecraft.network.chat.BaseComponent;
 
+import java.util.Locale;
+
 public enum PistonBlockEventType
 {
 	PUSH,
@@ -37,7 +39,7 @@ public enum PistonBlockEventType
 
 	PistonBlockEventType()
 	{
-		this.translationKey = this.name().toLowerCase();
+		this.translationKey = this.name().toLowerCase(Locale.ROOT);
 	}
 
 	public BaseComponent toText()

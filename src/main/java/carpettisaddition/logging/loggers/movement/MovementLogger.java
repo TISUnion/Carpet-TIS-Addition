@@ -42,6 +42,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MovementLogger extends AbstractLogger
 {
@@ -186,7 +187,7 @@ public class MovementLogger extends AbstractLogger
 				));
 				lines.add(tr(
 						"header_details",
-						Messenger.formatting(tr("movement_type." + this.movementType.name().toLowerCase(), ""), "c"),
+						Messenger.formatting(tr("movement_type." + this.movementType.name().toLowerCase(Locale.ROOT), ""), "c"),
 						Messenger.c(
 								Messenger.s(WorldUtils.getWorldTime(this.world), "q"),
 								"w  ",

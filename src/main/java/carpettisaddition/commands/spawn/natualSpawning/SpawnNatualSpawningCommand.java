@@ -48,6 +48,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -231,7 +232,7 @@ public class SpawnNatualSpawningCommand extends AbstractCommand implements Comma
 		}
 		if (mobCategory != null)
 		{
-			builder.append(" for ").append(mobCategory.getName().toLowerCase());
+			builder.append(" for ").append(mobCategory.getName().toLowerCase(Locale.ROOT));
 		}
 		builder.append(" set ").append(value);
 		builder.append(" --show");

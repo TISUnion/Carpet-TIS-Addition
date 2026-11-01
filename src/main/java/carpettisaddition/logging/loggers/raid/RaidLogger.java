@@ -30,6 +30,7 @@ import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.core.BlockPos;
 
+import java.util.Locale;
 
 public class RaidLogger extends AbstractLogger
 {
@@ -114,7 +115,7 @@ public class RaidLogger extends AbstractLogger
 
 		public String getName()
 		{
-			return this.name().toLowerCase();
+			return this.name().toLowerCase(Locale.ROOT);
 		}
 
 		public BaseComponent toText()

@@ -222,7 +222,7 @@ public class MicroTimingLogger extends AbstractLogger
 			LoggingOption loggingOption;
 			try
 			{
-				loggingOption = LoggingOption.valueOf(option.toUpperCase());
+				loggingOption = LoggingOption.valueOf(option.toUpperCase(Locale.ROOT));
 			}
 			catch (IllegalArgumentException e)
 			{

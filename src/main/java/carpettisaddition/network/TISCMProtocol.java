@@ -30,6 +30,7 @@ import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.FriendlyByteBuf;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -128,7 +129,7 @@ public class TISCMProtocol
 	public interface PacketId
 	{
 		String name();  // implemented in enum
-		default String getId() { return this.name().toLowerCase(); }
+		default String getId() { return this.name().toLowerCase(Locale.ROOT); }
 	}
 
 	private static <T> T makePacket(

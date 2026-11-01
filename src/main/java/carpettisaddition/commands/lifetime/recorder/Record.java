@@ -37,6 +37,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Locale;
 import java.util.UUID;
 
 public class Record
@@ -85,7 +86,7 @@ public class Record
 		r.gameTime = GameUtils.getGameTime();
 
 		r.eventId = eventId;
-		r.eventType = eventType.name().toLowerCase();
+		r.eventType = eventType.name().toLowerCase(Locale.ROOT);
 		r.eventPosition = eventType == EventType.SPAWNING ? ltt.getSpawningPosition$TISCM() : ltt.getRemovalPosition$TISCM();
 		r.eventData = eventData;
 

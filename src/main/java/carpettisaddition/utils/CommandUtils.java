@@ -35,6 +35,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Optional;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
@@ -182,7 +183,7 @@ public class CommandUtils
 		return argument(name, word()).
 				suggests((c, b) -> suggest(
 						Arrays.stream(enumClass.getEnumConstants()).
-								map(e -> e.name().toLowerCase()),
+								map(e -> e.name().toLowerCase(Locale.ROOT)),
 						b)
 				);
 	}
@@ -201,7 +202,7 @@ public class CommandUtils
 		String enumString = getString(context, argName);
 		try
 		{
-			return Either.left(Enum.valueOf(enumClass, enumString.toUpperCase()));
+			return Either.left(Enum.valueOf(enumClass, enumString.toUpperCase(Locale.ROOT)));
 		}
 		catch (IllegalArgumentException e)
 		{

@@ -34,6 +34,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -139,7 +140,7 @@ public class EntityManipulator extends AbstractManipulator
 
 	private static double s2d(String s) throws CommandSyntaxException
 	{
-		switch (s.toLowerCase())
+		switch (s.toLowerCase(Locale.ROOT))
 		{
 			case "nan":
 				s = "NaN";

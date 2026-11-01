@@ -40,6 +40,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 //#if MC >= 26.1
 //$$ import net.minecraft.world.level.saveddata.WanderingTraderData;
@@ -200,7 +201,7 @@ public class WanderingTraderLogger extends AbstractHUDLogger
 
 		public String getName()
 		{
-			return this.name().toLowerCase();
+			return this.name().toLowerCase(Locale.ROOT);
 		}
 
 		@SuppressWarnings("BooleanMethodIsAlwaysInverted")

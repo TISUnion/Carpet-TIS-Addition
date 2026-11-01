@@ -56,6 +56,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -518,7 +519,7 @@ public class Messenger
 		}
 		else
 		{
-			String id = dimensionType.getIdentifierString().toUpperCase();
+			String id = dimensionType.getIdentifierString().toUpperCase(Locale.ROOT);
 			if (!id.isEmpty())
 			{
 				symbol = id.substring(0, 1);
@@ -577,12 +578,12 @@ public class Messenger
 
 	public static BaseComponent color(DyeColor color)
 	{
-		return translator.tr("color." + color.getName().toLowerCase());
+		return translator.tr("color." + color.getName().toLowerCase(Locale.ROOT));
 	}
 
 	public static BaseComponent mobCategory(MobCategory category)
 	{
-		BaseComponent text = translator.tr("mob_category." + category.getName().toLowerCase());
+		BaseComponent text = translator.tr("mob_category." + category.getName().toLowerCase(Locale.ROOT));
 		boolean hasTranslation = TISAdditionTranslations.hasTranslation(text);
 		return hasTranslation ? hover(text, s(category.getName())) : s(category.getName());
 	}
@@ -594,7 +595,7 @@ public class Messenger
 
 	public static BaseComponent mobCategoryShort(MobCategory category)
 	{
-		BaseComponent text = translator.tr("mob_category_short." + category.getName().toLowerCase());
+		BaseComponent text = translator.tr("mob_category_short." + category.getName().toLowerCase(Locale.ROOT));
 		boolean hasTranslation = TISAdditionTranslations.hasTranslation(text);
 		return hasTranslation ? hover(text, s(category.getName())) : s(category.getName());
 	}

@@ -32,6 +32,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+import java.util.Locale;
 
 //#if MC >= 11900
 //$$ import net.minecraft.world.level.redstone.NeighborUpdater;
@@ -66,7 +67,7 @@ public enum BlockUpdateType
 
 	public BaseComponent toText()
 	{
-		return translator.tr(this.name.toLowerCase().replace(' ', '_'));
+		return translator.tr(this.name.toLowerCase(Locale.ROOT).replace(' ', '_'));
 	}
 
 	public BaseComponent getUpdateOrderList(Direction skipSide)

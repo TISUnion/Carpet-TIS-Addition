@@ -32,6 +32,8 @@ import net.minecraft.ChatFormatting;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
+
 import static net.minecraft.commands.Commands.literal;
 
 public abstract class AbstractTracker extends TranslationContext
@@ -44,7 +46,7 @@ public abstract class AbstractTracker extends TranslationContext
 
 	public AbstractTracker(String name)
 	{
-		super("tracker." + name.toLowerCase());
+		super("tracker." + name.toLowerCase(Locale.ROOT));
 		this.name = name;
 	}
 
@@ -61,7 +63,7 @@ public abstract class AbstractTracker extends TranslationContext
 
 	public String getCommandPrefix()
 	{
-		return this.name.toLowerCase();
+		return this.name.toLowerCase(Locale.ROOT);
 	}
 
 	// Xxx

@@ -30,6 +30,7 @@ import net.minecraft.network.chat.BaseComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class TickPhase
@@ -89,7 +90,7 @@ public class TickPhase
 			}
 			catch (NumberFormatException e)
 			{
-				detailText = tr("stage_detail." + this.stageDetail.toLowerCase());
+				detailText = tr("stage_detail." + this.stageDetail.toLowerCase(Locale.ROOT));
 			}
 			stageText.add(detailText);
 		}

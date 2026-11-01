@@ -35,6 +35,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.OptionalDouble;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
@@ -227,7 +228,7 @@ public class EntityIdCounterHUDLogger extends AbstractHUDLogger
 
 		public String getName()
 		{
-			return this.name().toLowerCase();
+			return this.name().toLowerCase(Locale.ROOT);
 		}
 
 		@SuppressWarnings("BooleanMethodIsAlwaysInverted")

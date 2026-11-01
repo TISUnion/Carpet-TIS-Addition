@@ -22,6 +22,8 @@ package carpettisaddition.settings.validator;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.Locale;
+
 public class PermissionLevelValidator extends AbstractCheckerValidator<String>
 {
 	public static final ImmutableList<String> OPTIONS = ImmutableList.of("true", "false", "ops", "0", "1", "2", "3", "4");
@@ -29,6 +31,6 @@ public class PermissionLevelValidator extends AbstractCheckerValidator<String>
 	@Override
 	protected boolean validateValue(String value)
 	{
-		return OPTIONS.contains(value.toLowerCase());
+		return OPTIONS.contains(value.toLowerCase(Locale.ROOT));
 	}
 }

@@ -133,7 +133,7 @@ public class RaidCommand extends AbstractCommand
 						}
 						else
 						{
-							BaseComponent x = Messenger.s(String.format("[%s] ", IdentifierUtils.id(raider.getType()).getPath().substring(0, 1).toUpperCase()));
+							BaseComponent x = Messenger.s(String.format("[%s] ", IdentifierUtils.id(raider.getType()).getPath().substring(0, 1).toUpperCase(Locale.ROOT)));
 							x.setStyle(
 									//#if MC >= 11600
 									//$$ raiderName.getStyle()

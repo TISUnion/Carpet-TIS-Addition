@@ -40,6 +40,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -138,7 +139,7 @@ public class PistonComputePushStructureEvent extends BaseEvent
 							Messenger.c(
 									Messenger.formatting(MicroTimingUtil.getUtilTranslator().tr("failed"), ChatFormatting.RED),
 									Messenger.s(": ", ChatFormatting.GRAY),
-									tr("failure_reason." + this.result.failureReason.name().toLowerCase())
+									tr("failure_reason." + this.result.failureReason.name().toLowerCase(Locale.ROOT))
 							),
 							tr("failure_pos", Messenger.coord(this.result.failureBlock.getFirst())),
 							tr("failure_block", Messenger.block(this.result.failureBlock.getSecond().getBlock()))

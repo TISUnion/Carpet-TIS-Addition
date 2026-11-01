@@ -31,12 +31,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public abstract class DyeCounterHudLogger extends AbstractHUDLogger
 {
 	protected static final List<String> COLORS = Arrays.stream(DyeColor.values()).
-			map(cl -> cl.getName().toLowerCase()).
+			map(cl -> cl.getName().toLowerCase(Locale.ROOT)).
 			collect(Collectors.toList());
 
 	public DyeCounterHudLogger(String name)
@@ -49,7 +50,7 @@ public abstract class DyeCounterHudLogger extends AbstractHUDLogger
 	@Override
 	public @Nullable String getDefaultLoggingOption()
 	{
-		return DyeColor.WHITE.getName().toLowerCase();
+		return DyeColor.WHITE.getName().toLowerCase(Locale.ROOT);
 	}
 
 	@Override

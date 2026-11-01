@@ -43,6 +43,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static carpettisaddition.translations.TranslationConstants.*;
@@ -85,7 +86,7 @@ public class TISAdditionTranslations
 	@Nullable
 	public static String getTranslationString(String lang, String key)
 	{
-		return getTranslations(lang.toLowerCase()).get(key);
+		return getTranslations(lang.toLowerCase(Locale.ROOT)).get(key);
 	}
 
 	public static boolean hasTranslation(String key)

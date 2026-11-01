@@ -24,6 +24,8 @@ import carpettisaddition.logging.loggers.microtiming.MicroTimingLoggerManager;
 import carpettisaddition.translations.Translator;
 import net.minecraft.network.chat.BaseComponent;
 
+import java.util.Locale;
+
 public enum TickStage
 {
 	UNKNOWN(false),
@@ -52,7 +54,7 @@ public enum TickStage
 
 	TickStage(boolean insideWorld)
 	{
-		this.translationKey = this.name().toLowerCase();
+		this.translationKey = this.name().toLowerCase(Locale.ROOT);
 		this.insideWorld = insideWorld;
 	}
 

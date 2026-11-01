@@ -23,6 +23,8 @@ package carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash;
 import carpettisaddition.translations.Translator;
 import net.minecraft.network.chat.BaseComponent;
 
+import java.util.Locale;
+
 public enum ExceptionCatchLocation
 {
 	WORLD_TICKING,
@@ -35,6 +37,6 @@ public enum ExceptionCatchLocation
 
 	public BaseComponent toText()
 	{
-		return translator.tr(this.name().toLowerCase());
+		return translator.tr(this.name().toLowerCase(Locale.ROOT));
 	}
 }

@@ -30,6 +30,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.FrameTimer;
 
+import java.util.Locale;
 import java.util.Set;
 
 //#if MC >= 12005
@@ -78,7 +79,7 @@ public class ServerMsptMetricsDataSyncer
 			nbt.putInt("version", 2);
 			nbt.putLong("millisecond", nanosecond / M);  // old tiscm (<=1.55) only uses the millisecond
 			nbt.putLong("nanosecond", nanosecond);
-			nbt.putString("type", serverTickType.toString().toLowerCase());
+			nbt.putString("type", serverTickType.toString().toLowerCase(Locale.ROOT));
 		});
 	}
 
@@ -98,7 +99,7 @@ public class ServerMsptMetricsDataSyncer
 		TpsDebugDimensions type;
 		try
 		{
-			type = TpsDebugDimensions.valueOf(NbtUtils.getStringOrEmpty(nbt, "type").toUpperCase());
+			type = TpsDebugDimensions.valueOf(NbtUtils.getStringOrEmpty(nbt, "type").toUpperCase(Locale.ROOT));
 		}
 		catch (IllegalArgumentException e)
 		{

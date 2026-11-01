@@ -20,6 +20,8 @@
 
 package carpettisaddition.network;
 
+import java.util.Locale;
+
 public enum TISCMFeature
 {
 	PRECISE_SCARPET_SHAPES,
@@ -27,6 +29,6 @@ public enum TISCMFeature
 
 	public String getId()
 	{
-		return this.name().toLowerCase();
+		return this.name().toLowerCase(Locale.ROOT);
 	}
 }
