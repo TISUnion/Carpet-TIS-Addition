@@ -105,7 +105,7 @@ public class LifetimeRecorder extends TranslationContext
 		{
 			return;
 		}
-		if (this.config.sampleRate < 1 && this.random.nextFloat() < this.config.sampleRate)
+		if (this.config.sampleRate < 1 && this.random.nextFloat() >= this.config.sampleRate)
 		{
 			return;
 		}
