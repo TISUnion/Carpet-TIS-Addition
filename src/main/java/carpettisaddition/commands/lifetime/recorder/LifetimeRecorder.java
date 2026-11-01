@@ -325,6 +325,10 @@ public class LifetimeRecorder extends TranslationContext
 	private Optional<Pair<Integer, Long>> getOutputFilesStats()
 	{
 		Path path = Paths.get(this.config.outputDirectory);
+		if (Files.notExists(path))
+		{
+			return Optional.of(Pair.of(0, 0L));
+		}
 		try (Stream<Path> fileStream = Files.list(path))
 		{
 			List<Path> files = fileStream.
