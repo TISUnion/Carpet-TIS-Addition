@@ -73,6 +73,18 @@ jobs:
           done
           ls -l mod-jars
 
+      - uses: actions/setup-python@v7
+        if: ${{ inputs.mixin_audit }}
+        with:
+          python-version: 3.14
+
+      - name: Generate server mixin audit matrix
+        if: ${{ inputs.mixin_audit }}
+        id: server_audit_matrix
+        run: |
+          pip install jproperties
+          python .github/workflows/scripts/server_mixin_audit.py matrix
+
       # This is the artifact recommended for users to download
       - name: Upload mod jars
         uses: actions/upload-artifact@v7
@@ -99,6 +111,53 @@ jobs:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
           FALLENS_MAVEN_TOKEN: ${{ secrets.FALLENS_MAVEN_TOKEN }}
+
+    outputs:
+      server_audit_matrix: ${{ steps.server_audit_matrix.outputs.matrix }}
+      server_audit_has_targets: ${{ steps.server_audit_matrix.outputs.has_targets }}
+
+  server_mixin_audit:
+    name: Server mixin audit (${{ matrix.minecraft_version }})
+    needs:
+      - build
+    if: ${{ inputs.mixin_audit && needs.build.outputs.server_audit_has_targets == 'true' }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: ${{ fromJson(needs.build.outputs.server_audit_matrix) }}
+      max-parallel: 6
+
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: 3.14
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: build-artifacts
+          path: build-artifacts
+
+      - name: Prepare server
+        id: prepare
+        run: |
+          pip install jproperties
+          python .github/workflows/scripts/server_mixin_audit.py prepare --subproject "$SUBPROJECT" --jar "$MOD_JAR"
+        env:
+          SUBPROJECT: ${{ matrix.subproject }}
+          MOD_JAR: build-artifacts/${{ matrix.jar }}
+
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: ${{ steps.prepare.outputs.java_version }}
+
+      - name: Run mixin audit check for production server
+        timeout-minutes: 10
+        working-directory: server-mixin-audit
+        run: java -Xmx2G -DmixinAuditor.audit=true -jar fabric-server-launch.jar nogui
 
   summary:
     runs-on: ubuntu-latest
