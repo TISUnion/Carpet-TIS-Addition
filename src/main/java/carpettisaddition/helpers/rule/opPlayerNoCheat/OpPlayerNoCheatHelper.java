@@ -21,8 +21,11 @@
 package carpettisaddition.helpers.rule.opPlayerNoCheat;
 
 import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
+
+import java.util.function.Predicate;
 
 public class OpPlayerNoCheatHelper
 {
@@ -46,5 +49,10 @@ public class OpPlayerNoCheatHelper
 			return false;
 		}
 		return true;
+	}
+
+	public static Predicate<CommandSourceStack> requireCheatingAllowed(Predicate<CommandSourceStack> requirement)
+	{
+		return CommandNodeUtils.requireSource(source -> requirement.test(source) && canCheat(source));
 	}
 }

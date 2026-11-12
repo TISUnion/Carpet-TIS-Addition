@@ -75,7 +75,7 @@ public class EntityManipulator extends AbstractManipulator
 										executes(c -> clearRename(c.getSource(), getEntities(c, "target")))
 								).
 								then(argument("name", textComponent(
-												//#if MC >= 12005
+												//#if MC >= 1.20.5 && MC < 26.4
 												//$$ context.commandBuildContext
 												//#endif
 										)).

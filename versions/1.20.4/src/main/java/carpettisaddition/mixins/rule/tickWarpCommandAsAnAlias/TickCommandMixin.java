@@ -21,44 +21,20 @@
 package carpettisaddition.mixins.rule.tickWarpCommandAsAnAlias;
 
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.commands.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.Slice;
 
 import static net.minecraft.commands.Commands.literal;
 
 @Mixin(TickCommand.class)
 public abstract class TickCommandMixin
 {
-	@Unique
-	private static LiteralArgumentBuilder<CommandSourceStack> sprintNode$TISCM = null;
-
-	@ModifyExpressionValue(
-			method = "register",
-			slice = @Slice(
-					from = @At(
-							value = "CONSTANT",
-							args = "stringValue=sprint"
-					)
-			),
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/commands/Commands;literal(Ljava/lang/String;)Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;",
-					ordinal = 0
-			)
-	)
-	private static LiteralArgumentBuilder<CommandSourceStack> storeTheSprintNode(LiteralArgumentBuilder<CommandSourceStack> sprintNode)
-	{
-		sprintNode$TISCM = sprintNode;
-		return sprintNode;
-	}
-
 	@ModifyArg(
 			method = "register",
 			at = @At(
@@ -69,17 +45,15 @@ public abstract class TickCommandMixin
 	)
 	private static LiteralArgumentBuilder<CommandSourceStack> addTickWarpNode(LiteralArgumentBuilder<CommandSourceStack> rootNode)
 	{
-		addTickWarpAlias(rootNode);
-		return rootNode;
-	}
-
-	@Unique
-	private static void addTickWarpAlias(LiteralArgumentBuilder<CommandSourceStack> rootNode)
-	{
+		// Redirect to the node already attached to the command tree.
+		CommandNode<CommandSourceStack> sprintNode = rootNode.getArguments().stream().
+				filter(node -> node.getName().equals("sprint")).
+				findFirst().orElseThrow(() -> new IllegalStateException("Missing /tick sprint command node"));
 		rootNode.then(
 				literal("warp").
-				requires(s -> TickCommandCarpetfiedRules.tickWarpCommandAsAnAlias()).
-				redirect(sprintNode$TISCM.build())
+				requires(CommandNodeUtils.requireCondition(TickCommandCarpetfiedRules::tickWarpCommandAsAnAlias)).
+				redirect(sprintNode)
 		);
+		return rootNode;
 	}
 }

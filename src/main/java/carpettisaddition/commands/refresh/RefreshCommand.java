@@ -25,10 +25,9 @@ import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.mixins.command.refresh.ThreadedAnvilChunkStorageAccessor;
 import carpettisaddition.translations.TISAdditionTranslations;
-import carpettisaddition.utils.CarpetModUtil;
-import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.PositionUtils;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.network.chat.ChatType;
@@ -96,13 +95,13 @@ public class RefreshCommand extends AbstractCommand
 	public void registerCommand(CommandTreeContext.Register context)
 	{
 		LiteralArgumentBuilder<CommandSourceStack> builder = literal(NAME).
-				requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRefresh)).
+				requires(CommandNodeUtils.commandPermission(() -> CarpetTISAdditionSettings.commandRefresh)).
 				then(
 						literal("inventory").
 						executes(c -> refreshSelfInventory(c.getSource())).
 						then(
 								argument("players", players()).
-								requires(s -> CommandUtils.hasPermissionLevel(s, 2)).
+								requires(CommandNodeUtils.requireLevel(2)).
 								executes(c -> refreshSelectedPlayerInventory(c.getSource(), getPlayers(c, "players")))
 						)
 				).

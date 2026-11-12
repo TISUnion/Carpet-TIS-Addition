@@ -21,6 +21,7 @@
 package carpettisaddition.mixins.rule.tickProfilerCommandsReintroduced;
 
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.commands.TickCommand;
@@ -61,14 +62,14 @@ public abstract class TickCommandMixin
 	{
 		rootNode.
 				then(literal("health").
-						requires(s -> TickCommandCarpetfiedRules.tickProfilerCommandsReintroduced()).
+						requires(CommandNodeUtils.requireCondition(TickCommandCarpetfiedRules::tickProfilerCommandsReintroduced)).
 						executes(c -> healthReport(c.getSource(), 100)).
 						then(argument("ticks", integer(20, 24000)).
 								executes((c) -> healthReport(c.getSource(), getInteger(c, "ticks")))
 						)
 				).
 				then(literal("entities").
-						requires(s -> TickCommandCarpetfiedRules.tickProfilerCommandsReintroduced()).
+						requires(CommandNodeUtils.requireCondition(TickCommandCarpetfiedRules::tickProfilerCommandsReintroduced)).
 						executes(c -> healthEntities(c.getSource(), 100)).
 						then(argument("ticks", integer(20, 24000)).
 								executes(c -> healthEntities(c.getSource(), getInteger(c, "ticks")))

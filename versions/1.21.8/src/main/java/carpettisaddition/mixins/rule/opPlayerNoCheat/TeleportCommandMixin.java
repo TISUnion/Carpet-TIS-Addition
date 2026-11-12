@@ -50,6 +50,6 @@ public abstract class TeleportCommandMixin
 	)
 	private static Predicate<CommandSourceStack> checkIfAllowCheating_teleportCommand(Predicate<CommandSourceStack> predicate)
 	{
-		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
+		return OpPlayerNoCheatHelper.requireCheatingAllowed(predicate);
 	}
 }

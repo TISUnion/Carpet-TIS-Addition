@@ -25,7 +25,7 @@ import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandExtender;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.mixins.command.fill.modeenhance.FillCommandAccessor;
-import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
@@ -60,10 +60,10 @@ public class FillSoftReplaceCommand extends AbstractCommand implements CommandEx
 	public void extendCommand(CommandTreeContext.Node context)
 	{
 		context.node.then(literal("softreplace").
-				requires(s -> CarpetModUtil.canUseCommand(s, CarpetTISAdditionSettings.fillCommandModeEnhance)).
+				requires(CommandNodeUtils.commandPermission(() -> CarpetTISAdditionSettings.fillCommandModeEnhance)).
 				executes(this::softReplace).
 				then(argument("filter", blockPredicate(
-						//#if MC >= 11900
+						//#if MC >= 1.19 && MC < 26.4
 						//$$ context.commandBuildContext
 						//#endif
 						)).

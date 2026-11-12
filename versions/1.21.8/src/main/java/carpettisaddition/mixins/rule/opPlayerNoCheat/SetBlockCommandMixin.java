@@ -50,6 +50,6 @@ public abstract class SetBlockCommandMixin
 	)
 	private static Predicate<CommandSourceStack> checkIfAllowCheating_setblockCommand(Predicate<CommandSourceStack> predicate)
 	{
-		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
+		return OpPlayerNoCheatHelper.requireCheatingAllowed(predicate);
 	}
 }

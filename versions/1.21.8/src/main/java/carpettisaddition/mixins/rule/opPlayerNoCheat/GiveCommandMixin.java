@@ -50,6 +50,6 @@ public abstract class GiveCommandMixin
 	)
 	private static Predicate<CommandSourceStack> checkIfAllowCheating_giveCommand(Predicate<CommandSourceStack> predicate)
 	{
-		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
+		return OpPlayerNoCheatHelper.requireCheatingAllowed(predicate);
 	}
 }

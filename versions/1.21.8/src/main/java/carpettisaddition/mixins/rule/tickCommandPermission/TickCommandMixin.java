@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.tickCommandPermission;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.commands.TickCommand;
 import org.spongepowered.asm.mixin.Mixin;
@@ -52,7 +53,7 @@ public abstract class TickCommandMixin
 	)
 	private static Predicate<CommandSourceStack> overrideTickCommandPermission(Predicate<CommandSourceStack> predicate)
 	{
-		return source -> {
+		return CommandNodeUtils.requireSource(source -> {
 			var ruleValue = TickCommandCarpetfiedRules.tickCommandPermission();
 			if (!CarpetTISAdditionSettings.VANILLA_TICK_COMMAND_PERMISSION.equals(ruleValue))
 			{
@@ -61,6 +62,6 @@ public abstract class TickCommandMixin
 
 			// vanilla
 			return predicate.test(source);
-		};
+		});
 	}
 }

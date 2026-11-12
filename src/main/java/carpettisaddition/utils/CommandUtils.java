@@ -22,6 +22,7 @@ package carpettisaddition.utils;
 
 import carpettisaddition.mixins.utils.ServerCommandSourceAccessor;
 import carpettisaddition.utils.command.BuilderFactory;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import carpettisaddition.utils.command.CommandSourceStackWithExtraContextArguments;
 import com.mojang.brigadier.SingleRedirectModifier;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -41,7 +42,6 @@ import java.util.Optional;
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
 import static net.minecraft.commands.Commands.argument;
-import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 
 //#if MC >= 1.21.11
 //$$ import net.minecraft.server.permissions.Permission;
@@ -181,11 +181,7 @@ public class CommandUtils
 	public static RequiredArgumentBuilder<CommandSourceStack, String> enumArg(String name, Class<? extends Enum<?>> enumClass)
 	{
 		return argument(name, word()).
-				suggests((c, b) -> suggest(
-						Arrays.stream(enumClass.getEnumConstants()).
-								map(e -> e.name().toLowerCase(Locale.ROOT)),
-						b)
-				);
+				suggests(CommandNodeUtils.suggestStrings(() -> Arrays.stream(enumClass.getEnumConstants()).map(e -> e.name().toLowerCase(Locale.ROOT))));
 	}
 
 	public static BuilderFactory<RequiredArgumentBuilder<CommandSourceStack, String>> enumArg(Class<? extends Enum<?>> enumClass)

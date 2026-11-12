@@ -23,9 +23,9 @@ package carpettisaddition.commands.raycast;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
-import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.CommandUtils;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -73,9 +73,9 @@ public class RaycastCommand extends AbstractCommand
 	{
 		context.dispatcher.register(
 				literal(NAME).
-				requires(s -> CarpetModUtil.canUseCommand(s, CarpetTISAdditionSettings.commandRaycast)).
+				requires(CommandNodeUtils.commandPermission(() -> CarpetTISAdditionSettings.commandRaycast)).
 				then(literal("emsim").
-						requires(s -> CarpetTISAdditionSettings.ultraSecretSetting.equals("endermelon")).
+						requires(CommandNodeUtils.requireCondition(() -> CarpetTISAdditionSettings.ultraSecretSetting.equals("endermelon"))).
 						then(argument("pos", blockPos()).
 								then(argument("max_r", integer()).
 										executes(c -> endermenlonSimulate(

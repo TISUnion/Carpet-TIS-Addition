@@ -23,8 +23,8 @@ package carpettisaddition.commands.removeentity;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
-import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.entity.Entity;
@@ -55,9 +55,7 @@ public class RemoveEntityCommand extends AbstractCommand
 	public void registerCommand(CommandTreeContext.Register context)
 	{
 		LiteralArgumentBuilder<CommandSourceStack> node = literal(NAME).
-				requires(
-						player -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRemoveEntity)
-				).
+				requires(CommandNodeUtils.commandPermission(() -> CarpetTISAdditionSettings.commandRemoveEntity)).
 				then(argument("target", entities()).
 						executes(c -> removeEntities(c.getSource(), getEntities(c, "target")))
 				);

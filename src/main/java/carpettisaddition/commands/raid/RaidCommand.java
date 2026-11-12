@@ -26,10 +26,10 @@ import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.mixins.command.raid.RaidAccessor;
 import carpettisaddition.mixins.command.raid.RaidManagerAccessor;
-import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.IdentifierUtils;
 import carpettisaddition.utils.Messenger;
 import carpettisaddition.utils.TextUtils;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import carpettisaddition.utils.compat.DimensionWrapper;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -61,7 +61,7 @@ public class RaidCommand extends AbstractCommand
 	public void registerCommand(CommandTreeContext.Register context)
 	{
 		LiteralArgumentBuilder<CommandSourceStack> builder = literal("raid")
-			.requires((player) -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandRaid))
+			.requires(CommandNodeUtils.commandPermission(() -> CarpetTISAdditionSettings.commandRaid))
 			.then(literal("list")
 					.executes((c) -> listRaid(c.getSource(), false))
 					.then(literal("full")

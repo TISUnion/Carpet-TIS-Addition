@@ -58,7 +58,11 @@ public abstract class PlayerCommandMixin
 			method = "spawn",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 26.4
+					//$$ target = "Lnet/minecraft/commands/arguments/StringArgument;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
+					//#else
 					target = "Lcom/mojang/brigadier/arguments/StringArgumentType;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
+					//#endif
 			),
 			//#if MC < 11700
 			require = 2,
@@ -74,7 +78,11 @@ public abstract class PlayerCommandMixin
 			method = "cantSpawn",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 26.4
+					//$$ target = "Lnet/minecraft/commands/arguments/StringArgument;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
+					//#else
 					target = "Lcom/mojang/brigadier/arguments/StringArgumentType;getString(Lcom/mojang/brigadier/context/CommandContext;Ljava/lang/String;)Ljava/lang/String;"
+					//#endif
 			),
 			require = 1,
 			remap = false

@@ -98,7 +98,7 @@ public class BlockEventQueueController extends AbstractContainerController
 				then(literal("add").
 						then(argument("pos", blockPos()).
 								then(argument("block", block(
-												//#if MC >= 11900
+												//#if MC >= 1.19 && MC < 26.4
 												//$$ context.commandBuildContext
 												//#endif
 										)).

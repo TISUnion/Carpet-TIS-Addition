@@ -23,8 +23,8 @@ package carpettisaddition.commands.sleep;
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
-import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.BaseComponent;
@@ -65,7 +65,7 @@ public class SleepCommand extends AbstractCommand
 
 		context.dispatcher.register(
 				literal(NAME).
-				requires(s -> CarpetModUtil.canUseCommand(s, CarpetTISAdditionSettings.commandSleep)).
+				requires(CommandNodeUtils.commandPermission(() -> CarpetTISAdditionSettings.commandSleep)).
 				executes(c -> showHelp(c.getSource())).
 				then(durationNode)
 		);

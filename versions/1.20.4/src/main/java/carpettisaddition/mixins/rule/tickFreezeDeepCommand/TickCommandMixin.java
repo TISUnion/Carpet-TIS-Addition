@@ -23,6 +23,7 @@ package carpettisaddition.mixins.rule.tickFreezeDeepCommand;
 import carpettisaddition.helpers.rule.tickCommandCarpetfied.TickCommandCarpetfiedRules;
 import carpettisaddition.helpers.rule.tickFreezeDeepCommand.DeepFreezableServerTickRateManager;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -73,7 +74,7 @@ public abstract class TickCommandMixin
 	private static LiteralArgumentBuilder<CommandSourceStack> tickFreezeDeepCommand_addCommand(LiteralArgumentBuilder<CommandSourceStack> freezeNode)
 	{
 		return freezeNode.then(literal("deep").
-				requires(s -> TickCommandCarpetfiedRules.tickFreezeDeepCommand()).
+				requires(CommandNodeUtils.requireCondition(TickCommandCarpetfiedRules::tickFreezeDeepCommand)).
 				executes(c -> {
 					currentFreezeIsDeepFreeze$TISCM = true;
 					try

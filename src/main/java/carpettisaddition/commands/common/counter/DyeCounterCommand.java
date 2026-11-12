@@ -23,8 +23,8 @@ package carpettisaddition.commands.common.counter;
 import carpettisaddition.commands.AbstractCommand;
 import carpettisaddition.commands.CommandTreeContext;
 import carpettisaddition.translations.Translator;
-import carpettisaddition.utils.CarpetModUtil;
 import carpettisaddition.utils.Messenger;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import carpettisaddition.utils.command.SimpleCommandBuilder;
 import com.google.common.collect.Maps;
 import net.minecraft.commands.CommandSourceStack;
@@ -39,7 +39,6 @@ import java.util.stream.Collectors;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
-import static net.minecraft.commands.SharedSuggestionProvider.suggest;
 
 public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter extends DyeCounter<Key>> extends AbstractCommand implements DyeCounterProvider<Key, DyeCounter<Key>>
 {
@@ -104,8 +103,8 @@ public abstract class DyeCounterCommand<Key extends DyeCounterKey, Counter exten
 		builder.command(NAME + " <color>", c -> report(c.getSource(), getString(c, "color"), false));
 		builder.command(NAME + " <color> realtime", c -> report(c.getSource(), getString(c, "color"), true));
 		builder.command(NAME + " <color> reset", c -> resetSingle(c.getSource(), getString(c, "color")));
-		builder.literal(NAME).requires(s -> CarpetModUtil.canUseCommand(s, this.getRuleValue()));
-		builder.argument("<color>", word()).suggests((c, b) -> suggest(COLORS, b));
+		builder.literal(NAME).requires(CommandNodeUtils.commandPermission(() -> this.getRuleValue()));
+		builder.argument("<color>", word()).suggests(CommandNodeUtils.suggestStrings(COLORS::stream));
 		builder.registerCommand(context);
 	}
 

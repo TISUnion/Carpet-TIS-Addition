@@ -28,7 +28,7 @@ import carpettisaddition.commands.manipulate.chunk.ChunkManipulator;
 import carpettisaddition.commands.manipulate.container.ContainerManipulator;
 import carpettisaddition.commands.manipulate.entity.EntityManipulator;
 import carpettisaddition.commands.manipulate.server.ServerManipulator;
-import carpettisaddition.utils.CarpetModUtil;
+import carpettisaddition.utils.command.CommandNodeUtils;
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
@@ -64,7 +64,7 @@ public class ManipulateCommand extends AbstractCommand
 	public void registerCommand(CommandTreeContext.Register context)
 	{
 		LiteralArgumentBuilder<CommandSourceStack> root = literal(NAME).
-			requires(player -> CarpetModUtil.canUseCommand(player, CarpetTISAdditionSettings.commandManipulate));
+			requires(CommandNodeUtils.commandPermission(() -> CarpetTISAdditionSettings.commandManipulate));
 
 		MANIPULATORS.forEach(m -> {
 			LiteralArgumentBuilder<CommandSourceStack> child = literal(m.getName());

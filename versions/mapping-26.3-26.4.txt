@@ -1,0 +1,7 @@
+com.mojang.brigadier.arguments.BoolArgumentType net.minecraft.commands.arguments.BooleanArgument
+com.mojang.brigadier.arguments.DoubleArgumentType net.minecraft.commands.arguments.DoubleArgument
+com.mojang.brigadier.arguments.IntegerArgumentType net.minecraft.commands.arguments.IntegerArgument
+com.mojang.brigadier.arguments.LongArgumentType net.minecraft.commands.arguments.LongArgument
+com.mojang.brigadier.arguments.StringArgumentType net.minecraft.commands.arguments.StringArgument
+
+net.minecraft.commands.SharedSuggestionProvider net.minecraft.commands.suggestions.SuggestionContext

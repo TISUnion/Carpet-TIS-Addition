@@ -50,6 +50,6 @@ public abstract class SummonCommandMixin
 	)
 	private static Predicate<CommandSourceStack> checkIfAllowCheating_summonCommand(Predicate<CommandSourceStack> predicate)
 	{
-		return source -> predicate.test(source) && OpPlayerNoCheatHelper.canCheat(source);
+		return OpPlayerNoCheatHelper.requireCheatingAllowed(predicate);
 	}
 }
