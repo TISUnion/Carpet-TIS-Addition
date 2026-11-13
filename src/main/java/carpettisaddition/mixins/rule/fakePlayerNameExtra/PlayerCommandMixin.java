@@ -56,6 +56,17 @@ public abstract class PlayerCommandMixin
 
 	@ModifyExpressionValue(
 			method = "spawn",
+			//#if MC >= 11700 && MC < 12001
+			//$$ slice = @Slice(
+			//$$ 		from = @At(
+			//$$ 				value = "CONSTANT",
+			//$$ 				args = "stringValue=player",
+			//$$ 				ordinal = 0
+			//$$ 		)
+			//$$ ),
+			//$$ require = 2,
+			//$$ allow = 2,
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 26.4
