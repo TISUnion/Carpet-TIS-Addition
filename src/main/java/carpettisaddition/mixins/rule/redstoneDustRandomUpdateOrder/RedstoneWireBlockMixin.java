@@ -60,9 +60,10 @@ public abstract class RedstoneWireBlockMixin
 	//#if MC >= 11600
 	//$$ @ModifyVariable(
 	//$$ 		method = "updatePowerStrength",
+	//$$ 		ordinal = 0,
 	//$$ 		at = @At(
-	//$$ 				value = "INVOKE",
-	//$$ 				target = "Ljava/util/Set;iterator()Ljava/util/Iterator;"
+	//$$ 				value = "LOAD",
+	//$$ 				ordinal = 2
 	//$$ 		)
 	//$$ )
 	//$$ private Set<BlockPos> letsMakeTheOrderUnpredictable(Set<BlockPos> set)
