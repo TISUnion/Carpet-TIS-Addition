@@ -2051,13 +2051,13 @@ It reverts the behavior back to mc < 25w02a (1.21.5 snapshot) and unfixes [MC-56
 
 ## yeetUpdateSuppressionCrash
 
-Prevent the server from crashing due to `StackOverflowError`, `OutOfMemoryError`, `ClassCastException` or `IllegalArgumentSuppression`
+Prevent the server from crashing due to `StackOverflowError`, `OutOfMemoryError`, `ClassCastException`, `IllegalArgumentException` or `IllegalStateException` caused by update suppression
 
 Do the same thing as fabric carpet's `updateSuppressionCrashFix` rule, but with more information
 
 In fabric carpet >= 1.4.49, in order to receive the suppression-crash-prevented message broadcast in game, you need to subscribe to the `updateSuppressedCrashes` logger
 
-**NOTE**: It only handles exception from update suppression methods (e.g. rail stack-overflower, sound suppression, shulker box CCE, ...). It's **NOT** a universal try-catch on all exceptions
+**NOTE**: It only handles exception from update suppression methods (e.g. rail stack-overflower, sound suppression, shulker box CCE, experimental redstone wire ISE, ...). It's **NOT** a universal try-catch on all exceptions
 
 - Source: 
   - rule `updateSuppressionCrashFix` from fabric carpet [1.4.50](https://github.com/gnembon/fabric-carpet/releases/tag/1.4.50)

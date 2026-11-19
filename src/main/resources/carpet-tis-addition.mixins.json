@@ -571,6 +571,7 @@
     "rule.yeetUpdateSuppressionCrash.mark.blockUpdateStackOverflow.NeighborUpdaterMixin",
     "rule.yeetUpdateSuppressionCrash.mark.blockUpdateStackOverflow.WorldMixin",
     "rule.yeetUpdateSuppressionCrash.mark.entityIdISE.ChunkMapMixin",
+    "rule.yeetUpdateSuppressionCrash.mark.experimentalRedstoneWireISE.ExperimentalRedstoneWireEvaluatorMixin",
     "rule.yeetUpdateSuppressionCrash.mark.shulkerBoxCCE.ShulkerBoxBlockMixin",
     "rule.yeetUpdateSuppressionCrash.mark.updateSuppressionSimulator.UpdateSuppressionSimulatorMixin",
     "rule.yeetUpdateSuppressionCrash.yeet.MinecraftServerMixin",
