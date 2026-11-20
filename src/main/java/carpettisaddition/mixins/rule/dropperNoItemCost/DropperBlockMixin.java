@@ -34,6 +34,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+/**
+ * mc >= 26.4: subproject 26.4
+ * mc <  26.4: subproject 1.15.2 (main project)  <--------
+ */
 @Mixin(DropperBlock.class)
 public abstract class DropperBlockMixin
 {

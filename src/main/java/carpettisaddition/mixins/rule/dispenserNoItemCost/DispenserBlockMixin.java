@@ -27,22 +27,42 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+
+//#if MC >= 26.4
+//$$ import net.minecraft.world.level.block.DropperBlock;
+//#endif
 
 @Mixin(DispenserBlock.class)
 public abstract class DispenserBlockMixin
 {
+	@Unique
+	private boolean shouldDispenseWithoutCost$TISCM()
+	{
+		//#if MC >= 26.4
+		//$$ // Droppers now inherit dispenseFrom and have their own rule.
+		//$$ return CarpetTISAdditionSettings.dispenserNoItemCost && !((Object)this instanceof DropperBlock);
+		//#else
+		return CarpetTISAdditionSettings.dispenserNoItemCost;
+		//#endif
+	}
+
 	@ModifyArg(
 			method = "dispenseFrom",
 			at = @At(
 					value = "INVOKE",
+					//#if MC >= 26.4
+					//$$ target = "Lnet/minecraft/core/dispenser/DispenseBehavior;dispense(Ljava/lang/Iterable;Lnet/minecraft/core/dispenser/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"
+					//#else
 					target = "Lnet/minecraft/core/dispenser/DispenseItemBehavior;dispense(Lnet/minecraft/core/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"
+					//#endif
 			)
 	)
 	private ItemStack dispenserNoItemCost_useACopySoItCostNothing(ItemStack stack)
 	{
-		if (CarpetTISAdditionSettings.dispenserNoItemCost)
+		if (this.shouldDispenseWithoutCost$TISCM())
 		{
 			stack = stack.copy();
 		}
@@ -58,7 +78,7 @@ public abstract class DispenserBlockMixin
 	)
 	private void dispenserNoItemCost_dontSetBackTheConsumedStack(DispenserBlockEntity blockEntity, int slot, ItemStack stack, Operation<Void> original)
 	{
-		if (CarpetTISAdditionSettings.dispenserNoItemCost)
+		if (this.shouldDispenseWithoutCost$TISCM())
 		{
 			return;
 		}

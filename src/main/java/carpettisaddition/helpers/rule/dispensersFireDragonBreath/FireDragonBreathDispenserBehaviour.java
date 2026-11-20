@@ -21,7 +21,6 @@
 package carpettisaddition.helpers.rule.dispensersFireDragonBreath;
 
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -31,6 +30,13 @@ import net.minecraft.core.BlockSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+
+//#if MC >= 26.4
+//$$ import com.mojang.serialization.MapCodec;
+//$$ import net.minecraft.core.dispenser.DispenseBehavior;
+//#else
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+//#endif
 
 //#if MC >= 12109
 //$$ import net.minecraft.core.particles.PowerParticleOption;
@@ -45,12 +51,30 @@ import net.minecraft.world.level.Level;
 //$$ import net.minecraft.world.item.alchemy.PotionContents;
 //#endif
 
+//#if MC >= 26.4
+//$$ public class FireDragonBreathDispenserBehaviour implements DispenseBehavior
+//#else
 public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehavior
+//#endif
 {
 	public static final FireDragonBreathDispenserBehaviour INSTANCE = new FireDragonBreathDispenserBehaviour();
 
+	//#if MC >= 26.4
+	//$$ private static final MapCodec<FireDragonBreathDispenserBehaviour> CODEC = MapCodec.unit(INSTANCE);
+	//$$
+	//$$ @Override
+	//$$ public MapCodec<FireDragonBreathDispenserBehaviour> codec()
+	//$$ {
+	//$$ 	return CODEC;
+	//$$ }
+	//#endif
+
 	@Override
+	//#if MC >= 26.4
+	//$$ public DispenseResult execute(BlockSource source, ItemStack stack)
+	//#else
 	protected ItemStack execute(BlockSource source, ItemStack stack)
+	//#endif
 	{
 		Direction sourceFace = source.getBlockState().getValue(DispenserBlock.FACING);
 		Level world = source.getLevel();
@@ -86,6 +110,11 @@ public class FireDragonBreathDispenserBehaviour extends DefaultDispenseItemBehav
 		// Vanilla copy ends
 
 		stack.shrink(1);
+
+		//#if MC >= 26.4
+		//$$ return DispenseResult.success(stack);
+		//#else
 		return stack;
+		//#endif
 	}
 }

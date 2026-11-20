@@ -40,6 +40,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(MinecartItem.class)
 public abstract class MinecartItemMixin
 {
+	//#if MC < 26.4
 	@Shadow @Final
 	//#if MC >= 12102
 	//$$ private EntityType<? extends AbstractMinecart>
@@ -47,6 +48,7 @@ public abstract class MinecartItemMixin
 	private AbstractMinecart.Type
 	//#endif
 			type;
+	//#endif
 
 	@ModifyReturnValue(
 			method = "useOn",
@@ -66,7 +68,11 @@ public abstract class MinecartItemMixin
 			// if not, in case other mod is doing their thing, then cancel the rule impl for safety
 			if (actionResult == InteractionResult.FAIL)
 			{
+				//#if MC >= 26.4
+				//$$ actionResult = MinecartPlaceableOnGroundImpl.placeMinecartOnGround(context);
+				//#else
 				actionResult = MinecartPlaceableOnGroundImpl.placeMinecartOnGround(context, this.type);
+				//#endif
 			}
 		}
 		return actionResult;

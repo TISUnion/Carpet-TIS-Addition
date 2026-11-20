@@ -130,16 +130,29 @@ public abstract class LivingEntityMixin implements DamageLoggerTarget
 	//$$ 		method = "hurtServer",
 	//$$ 		at = @At(
 	//$$ 				value = "INVOKE",
+	//$$ 				//#if MC >= 26.4
+	//$$ 				//$$ target = "Lnet/minecraft/world/entity/LivingEntity;applyItemBlocking(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Ljava/util/Optional;"
+	//$$ 				//#else
 	//$$ 				target = "Lnet/minecraft/world/entity/LivingEntity;applyItemBlocking(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)F"
+	//$$ 				//#endif
 	//$$ 		)
 	//$$ )
-	//$$ private float onShieldReducedDamage(float damageBlockedAmount, @Local(argsOnly = true) float amount)
+	//$$ //#if MC >= 26.4
+	//$$ //$$ private Optional<Float> onShieldReducedDamage(Optional<Float> original, @Local(argsOnly = true) float amount)
+	//$$ //#else
+	//$$ private float onShieldReducedDamage(float original, @Local(argsOnly = true) float amount)
+	//$$ //#endif
 	//$$ {
+	//$$ 	//#if MC >= 26.4
+	//$$ 	//$$ float damageBlockedAmount = original.orElse(0.0F);
+	//$$ 	//#else
+	//$$ 	float damageBlockedAmount = original;
+	//$$ 	//#endif
 	//$$ 	if (damageBlockedAmount > 0)
 	//$$ 	{
 	//$$ 		this.getDamageTracker$TISCM().ifPresent(tracker -> tracker.modifyDamage(amount - damageBlockedAmount, ModifyReason.SHIELD));
 	//$$ 	}
-	//$$ 	return damageBlockedAmount;
+	//$$ 	return original;
 	//$$ }
 	//#else
 	@Inject(

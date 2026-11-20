@@ -27,18 +27,26 @@ import carpet.CarpetSettings;
 //#endif
 
 import carpettisaddition.helpers.carpet.tweaks.rule.creativeNoClip.CreativeNoClipHelper;
-import net.minecraft.core.dispenser.ShulkerBoxDispenseBehavior;
-import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//#if MC >= 26.4
+//$$ import net.minecraft.core.dispenser.PlaceBlockDispenseBehavior;
+//#else
+import net.minecraft.core.dispenser.ShulkerBoxDispenseBehavior;
+//#endif
+
+//#if MC >= 26.4
+//$$ @Mixin(PlaceBlockDispenseBehavior.class)
+//#else
 @Mixin(ShulkerBoxDispenseBehavior.class)
+//#endif
 public abstract class BlockPlacementDispenserBehaviorMixin
 {
 	@Inject(method = "execute", at = @At("HEAD"))
-	private void creativeNoClipEnhancement_dispenserBlockPlacement_enter(CallbackInfoReturnable<ItemStack> cir)
+	private void creativeNoClipEnhancement_dispenserBlockPlacement_enter(CallbackInfoReturnable<?> cir)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{
@@ -46,8 +54,8 @@ public abstract class BlockPlacementDispenserBehaviorMixin
 		}
 	}
 
-	@Inject(method = "execute", at = @At("TAIL"))
-	private void creativeNoClipEnhancement_dispenserBlockPlacement_exit(CallbackInfoReturnable<ItemStack> cir)
+	@Inject(method = "execute", at = @At("RETURN"))
+	private void creativeNoClipEnhancement_dispenserBlockPlacement_exit(CallbackInfoReturnable<?> cir)
 	{
 		if (CarpetSettings.creativeNoClip)
 		{

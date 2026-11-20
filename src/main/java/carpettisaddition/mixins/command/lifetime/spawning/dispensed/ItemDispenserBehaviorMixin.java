@@ -22,17 +22,30 @@ package carpettisaddition.mixins.command.lifetime.spawning.dispensed;
 
 import carpettisaddition.commands.lifetime.interfaces.LifetimeTrackerTarget;
 import carpettisaddition.commands.lifetime.spawning.LiteralSpawningReason;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+//#if MC >= 26.4
+//$$ import net.minecraft.core.dispenser.DropItemDispenseBehavior;
+//#else
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+//#endif
+
+//#if MC >= 26.4
+//$$ @Mixin(DropItemDispenseBehavior.class)
+//#else
 @Mixin(DefaultDispenseItemBehavior.class)
+//#endif
 public abstract class ItemDispenserBehaviorMixin
 {
 	@ModifyArg(
+			//#if MC >= 26.4
+			//$$ method = "spawnItem(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/core/Direction;Lnet/minecraft/core/Position;)V",
+			//#else
 			method = "spawnItem",
+			//#endif
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"

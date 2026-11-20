@@ -42,6 +42,10 @@ import net.minecraft.world.level.Level;
 //$$ import net.minecraft.world.level.gameevent.GameEvent;
 //#endif
 
+/**
+ * mc >= 26.4: subproject 26.4
+ * mc <  26.4: subproject 1.15.2 (main project)  <--------
+ */
 public class MinecartPlaceableOnGroundImpl
 {
 	/**

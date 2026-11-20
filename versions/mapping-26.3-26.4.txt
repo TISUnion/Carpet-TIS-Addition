@@ -5,3 +5,4 @@ com.mojang.brigadier.arguments.LongArgumentType net.minecraft.commands.arguments
 com.mojang.brigadier.arguments.StringArgumentType net.minecraft.commands.arguments.StringArgument
 
 net.minecraft.commands.SharedSuggestionProvider net.minecraft.commands.suggestions.SuggestionContext
+net.minecraft.core.dispenser.BoatDispenseItemBehavior net.minecraft.core.dispenser.PlaceBoatDispenseBehavior
