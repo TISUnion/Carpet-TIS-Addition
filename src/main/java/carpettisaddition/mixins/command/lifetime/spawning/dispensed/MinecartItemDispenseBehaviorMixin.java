@@ -30,14 +30,14 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 //#if MC >= 26.4
 //$$ import net.minecraft.core.dispenser.PlaceMinecartDispenseBehavior;
 //#elseif MC >= 12102
-//$$ import net.minecraft.world.item.MinecartItem;
+//$$ import net.minecraft.core.dispenser.MinecartDispenseItemBehavior;
 //#endif
 
 @Mixin(
 		//#if MC >= 26.4
 		//$$ PlaceMinecartDispenseBehavior.class
 		//#elseif MC >= 12102
-		//$$ MinecartItem.class
+		//$$ MinecartDispenseItemBehavior.class
 		//#else
 		targets = "net.minecraft.world.item.MinecartItem$1"
 		//#endif
@@ -45,11 +45,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class MinecartItemDispenseBehaviorMixin
 {
 	@ModifyArg(
-			//#if MC >= 12102 && MC < 26.4
-			//$$ method = "useOn",
-			//#else
 			method = "execute",
-			//#endif
 			at = @At(
 					value = "INVOKE",
 					//#if MC >= 12004
