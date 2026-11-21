@@ -73,6 +73,18 @@ slug: bring-back-carpet-tick-command
 - **"mc1.20.4 及以后原版表现**：`/tick health`、`/tick entities` 这两个指令不再存在，需使用 `/profile health`、`/profile entities` 命令来触发 carpet 的性能分析器
 - **使用场景**：像旧版本那样，继续用 `/tick health`、`/tick entities` 来触发 carpet 的性能分析器
 
+## [tickSprintZeroMeansStop](/docs/rules#零刻停止tick加速-ticksprintzeromeansstop)
+
+依赖 Carpet TIS Addition v1.84.0 或更高版本
+
+```
+/carpet tickSprintZeroMeansStop true
+```
+
+- **mc1.20.3 前 carpet 表现**：`/tick warp`、`/tick warp 0` 可以停止正在进行的 tick warp
+- **mc1.20.3 及以后原版表现**：`/tick sprint`、`/tick sprint 0` 均为无效指令，需使用 `/tick sprint stop` 来停止加速
+- **使用场景**：用 `/tick sprint` 或 `/tick sprint 0` 停止正在进行的加速。同时启用下方的 warp 别名后，也可以像旧版本那样用 `/tick warp` 或 `/tick warp 0` 停止加速
+
 ## [tickWarpCommandAsAnAlias](/docs/rules#tickwarp指令别名重现-tickwarpcommandasanalias)
 
 ```

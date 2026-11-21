@@ -754,6 +754,9 @@ public class CarpetTISAdditionSettings
 	//$$ public static boolean tickProfilerCommandsReintroduced = false;
 	//$$
 	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND, PORTING})
+	//$$ public static boolean tickSprintZeroMeansStop = false;
+	//$$
+	//$$ @Rule(categories = {TIS, CARPET_MOD, COMMAND, PORTING})
 	//$$ public static boolean tickWarpCommandAsAnAlias = false;
 	//#endif
 

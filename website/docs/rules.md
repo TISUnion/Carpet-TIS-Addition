@@ -1605,6 +1605,7 @@ Enabling this rule equals to setting the following rules to the following values
 - [tickFreezeCommandToggleable](#tickfreezecommandtoggleable) = `true`
 - [tickFreezeDeepCommand](#tickFreezeDeepCommand) = `true`
 - [tickProfilerCommandsReintroduced](#tickprofilercommandsreintroduced) = `true`
+- [tickSprintZeroMeansStop](#ticksprintzeromeansstop) = `true`
 - [tickWarpCommandAsAnAlias](#tickwarpcommandasanalias) = `true`
 
 - Type: `boolean`
@@ -1680,6 +1681,20 @@ Compared to the regular `/tick freeze`, it additionally adds the ability to free
 Bring back the `/tick health` and `/tick entities` subcommands from carpet mod
 
 Just like the previous carpet mod, these 2 subcommands have the same behavior as `/profile [health|entities]` subcommands
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
+
+
+## tickSprintZeroMeansStop
+
+**Minecraft >= 1.20.3 only**
+
+Make `/tick sprint` run `/tick sprint stop` when the duration is omitted or rounds to zero ticks (e.g. `/tick sprint 0` or `/tick sprint 0t`)
+
+With [tickWarpCommandAsAnAlias](#tickwarpcommandasanalias) enabled, `/tick warp` and `/tick warp 0` also stop the sprint
 
 - Type: `boolean`
 - Default value: `false`

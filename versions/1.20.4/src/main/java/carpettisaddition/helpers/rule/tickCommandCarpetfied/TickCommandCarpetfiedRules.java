@@ -53,6 +53,11 @@ public class TickCommandCarpetfiedRules
 		return CarpetTISAdditionSettings.tickCommandCarpetfied || CarpetTISAdditionSettings.tickProfilerCommandsReintroduced;
 	}
 
+	public static boolean tickSprintZeroMeansStop()
+	{
+		return CarpetTISAdditionSettings.tickCommandCarpetfied || CarpetTISAdditionSettings.tickSprintZeroMeansStop;
+	}
+
 	public static boolean tickWarpCommandAsAnAlias()
 	{
 		return CarpetTISAdditionSettings.tickCommandCarpetfied || CarpetTISAdditionSettings.tickWarpCommandAsAnAlias;

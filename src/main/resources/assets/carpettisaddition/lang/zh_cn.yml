@@ -1500,7 +1500,8 @@ carpettisaddition:
           '3': '- tickFreezeCommandToggleable = true'
           '4': '- tickFreezeDeepCommand = true'
           '5': '- tickProfilerCommandsReintroduced = true'
-          '6': '- tickWarpCommandAsAnAlias = true'
+          '6': '- tickSprintZeroMeansStop = true'
+          '7': '- tickWarpCommandAsAnAlias = true'
       tickCommandEnhance:
         name: tick指令增强
         desc: 重新启用那些mc1.20.3前，用于增强carpet模组"/tick"指令功能的特性
@@ -1528,6 +1529,11 @@ carpettisaddition:
         desc: 带回carpet模组的"/tick health"、"/tick entities"这两个子命令
         extra:
           '0': 与以前的carpet模组一样，这两个指令的功能将与carpet模组的"/profile [health|entities]"子命令一致
+      tickSprintZeroMeansStop:
+        name: 零刻停止tick加速
+        desc: 让 "/tick sprint" 在省略时长或时长取整为零刻时停止当前加速
+        extra:
+          '0': 同时启用 tickWarpCommandAsAnAlias 时，"/tick warp" 和 "/tick warp 0" 也能停止加速
       tickWarpCommandAsAnAlias:
         name: tickWarp指令别名重现
         desc: 带回"/tick warp"子命令，让它变成原版"/tick sprint"指令的一个别名

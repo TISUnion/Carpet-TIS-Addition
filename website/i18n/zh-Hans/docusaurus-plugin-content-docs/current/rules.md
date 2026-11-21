@@ -1605,6 +1605,7 @@ Minecraft 1.21.2 及以上版本需要客户端也安装本模组，才能取消
 - [tickFreezeCommandToggleable](#切换式tickfreeze指令-tickfreezecommandtoggleable) = `true`
 - [tickFreezeDeepCommand](#重新引入tickfreezedeep指令-tickfreezedeepcommand) = `true`
 - [tickProfilerCommandsReintroduced](#重新引入tick性能分析指令-tickprofilercommandsreintroduced) = `true`
+- [tickSprintZeroMeansStop](#零刻停止tick加速-ticksprintzeromeansstop) = `true`
 - [tickWarpCommandAsAnAlias](#tickwarp指令别名重现-tickwarpcommandasanalias) = `true`
 
 - 类型: `boolean`
@@ -1680,6 +1681,20 @@ Minecraft 1.21.2 及以上版本需要客户端也安装本模组，才能取消
 带回 carpet 模组的 `/tick health`、`/tick entities` 这两个子命令
 
 与以前的 carpet 模组一样，这两个指令的功能将与 carpet 模组的 `/profile [health|entities]` 子命令一致
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `TIS`, `CARPET_MOD`, `COMMAND`, `PORTING`
+
+
+## 零刻停止tick加速 (tickSprintZeroMeansStop)
+
+**本规则仅在 Minecraft >= 1.20.3 中存在**
+
+让 `/tick sprint` 在省略时长或时长取整为零刻时执行 `/tick sprint stop`，例如 `/tick sprint 0` 或 `/tick sprint 0t`
+
+同时启用 [tickWarpCommandAsAnAlias](#tickwarp指令别名重现-tickwarpcommandasanalias) 时，`/tick warp` 和 `/tick warp 0` 也能停止加速
 
 - 类型: `boolean`
 - 默认值: `false`

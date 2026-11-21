@@ -73,6 +73,18 @@ Requires Carpet TIS Addition v1.75.0 or higher
 - **Behavior in vanilla after mc1.20.4**: The `/tick health` and `/tick entities` commands no longer exist, and `/profile health` and `/profile entities` are the only way to trigger the carpet profiler
 - **Usage scenario**: Like in previous versions, continue using `/tick health` and `/tick entities` to trigger the carpet profiler
 
+## [tickSprintZeroMeansStop](/docs/rules#ticksprintzeromeansstop)
+
+Requires Carpet TIS Addition v1.84.0 or higher
+
+```
+/carpet tickSprintZeroMeansStop true
+```
+
+- **Behavior before mc1.20.3 in carpet**: `/tick warp` and `/tick warp 0` can be used to interrupt an ongoing tick warp
+- **Behavior in vanilla since mc1.20.3**: `/tick sprint` and `/tick sprint 0` are invalid commands. Use `/tick sprint stop` to interrupt a sprint
+- **Usage scenario**: Use `/tick sprint` or `/tick sprint 0` to interrupt a sprint. With the warp alias below enabled, the old Carpet commands `/tick warp` and `/tick warp 0` work as well
+
 ## [tickWarpCommandAsAnAlias](/docs/rules#tickwarpcommandasanalias)
 
 ```

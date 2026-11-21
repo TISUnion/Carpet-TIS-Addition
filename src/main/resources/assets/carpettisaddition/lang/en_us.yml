@@ -1500,7 +1500,8 @@ carpettisaddition:
           '3': '- tickFreezeCommandToggleable = true'
           '4': '- tickFreezeDeepCommand = true'
           '5': '- tickProfilerCommandsReintroduced = true'
-          '6': '- tickWarpCommandAsAnAlias = true'
+          '6': '- tickSprintZeroMeansStop = true'
+          '7': '- tickWarpCommandAsAnAlias = true'
       tickCommandEnhance:
         name: tickCommandEnhance
         desc: Enable the enhancements for the /tick command from carpet mod before mc1.20.3
@@ -1528,6 +1529,11 @@ carpettisaddition:
         desc: Bring back the "/tick health" and "/tick entities" subcommands from carpet mod
         extra:
           '0': Just like the previous carpet mod, these 2 subcommands have the same behavior as "/profile [health|entities]" subcommands
+      tickSprintZeroMeansStop:
+        name: tickSprintZeroMeansStop
+        desc: Make "/tick sprint" stop the current sprint when the duration is omitted or rounds to zero ticks
+        extra:
+          '0': With tickWarpCommandAsAnAlias enabled, "/tick warp" and "/tick warp 0" also stop the sprint
       tickWarpCommandAsAnAlias:
         name: tickWarpCommandAsAnAlias
         desc: Bring back the "/tick warp" subcommand, as an alias of the vanilla "/tick sprint" command
