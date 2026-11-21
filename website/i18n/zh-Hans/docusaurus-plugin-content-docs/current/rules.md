@@ -1332,11 +1332,15 @@ Minecraft 1.21.2 及以上版本需要客户端也安装本模组，才能取消
 
 有助于测试你的装置是否依赖于位置
 
-在规则 `fastRedstoneDust` 启用时无效
+- `false` 或 `none` 保留原版顺序。
+- `true` 或 `shuffle` 随机打乱更新目标的顺序。
+- `random_pos` 在每次红石粉更新时独立随机抽取一个坐标，并使用此坐标的红石粉更新顺序。
 
-- 类型: `boolean`
+启用 `fastRedstoneDust` 或“红石实验性内容”数据包时，此规则无效。
+
+- 类型: `String`
 - 默认值: `false`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `none`, `shuffle`, `random_pos`
 - 分类: `TIS`, `CREATIVE`
 
 

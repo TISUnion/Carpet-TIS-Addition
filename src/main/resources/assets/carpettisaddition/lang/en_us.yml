@@ -1381,7 +1381,9 @@ carpettisaddition:
         desc: Randomize the order for redstone dust to emit block updates
         extra:
           '0': It's useful to test if your contraption is locational or not
-          '1': Does not work with rule fastRedstoneDust
+          '1': false or none keeps the vanilla order. true or shuffle shuffles the update targets
+          '2': random_pos independently picks a random position for each redstone dust update and uses the update order that redstone dust would have at that position
+          '3': Has no effect when fastRedstoneDust or the Redstone Experiments data pack is enabled
       redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate:
         name: redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate
         desc: Make redstone dust, redstone repeater and redstone comparator ignore state updates from below

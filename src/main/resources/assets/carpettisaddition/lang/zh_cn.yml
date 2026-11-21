@@ -1381,7 +1381,9 @@ carpettisaddition:
         desc: 随机化红石粉发出方块更新的顺序
         extra:
           '0': 有助于测试你的装置是否依赖于位置
-          '1': 在规则fastRedstoneDust启用时无效
+          '1': false 或 none 保留原版顺序。true 或 shuffle 随机打乱更新目标的顺序
+          '2': random_pos 在每次红石粉更新时独立随机抽取一个坐标，并使用此坐标的红石粉更新顺序
+          '3': 启用 fastRedstoneDust 或“红石实验性内容”数据包时，此规则无效
       redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdate:
         name: 红石粉中继器比较器忽略向上状态更新
         desc: 让红石粉、红石中继器和红石比较器忽略来自下方的状态更新

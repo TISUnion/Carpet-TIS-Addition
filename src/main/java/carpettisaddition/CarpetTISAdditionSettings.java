@@ -22,6 +22,7 @@ package carpettisaddition;
 
 import carpettisaddition.commands.xcounter.HopperXpCountersRuleListener;
 import carpettisaddition.helpers.rule.fakePlayerNameExtra.FakePlayerNameExtraValidator;
+import carpettisaddition.helpers.rule.redstoneDustRandomUpdateOrder.RedstoneDustRandomUpdateOrderRuleListener;
 import carpettisaddition.helpers.rule.synchronizedLightThread.LightThreadSynchronizer;
 import carpettisaddition.helpers.rule.updateSuppressionSimulator.UpdateSuppressionSimulator;
 import carpettisaddition.helpers.rule.voidDamageIgnorePlayer.VoidDamageIgnorePlayerValidator;
@@ -592,8 +593,13 @@ public class CarpetTISAdditionSettings
 	public static boolean railDupingFix = false;
 	//#endif
 
-	@Rule(categories = {TIS, CREATIVE})
-	public static boolean redstoneDustRandomUpdateOrder = false;
+	@Rule(
+			options = {"false", "true", "none", "shuffle", "random_pos"},
+			strict = false,
+			validators = RedstoneDustRandomUpdateOrderRuleListener.class,
+			categories = {TIS, CREATIVE}
+	)
+	public static String redstoneDustRandomUpdateOrder = "false";
 
 	//#if MC >= 12002
 	//$$ @Rule(categories = {TIS, FEATURE, PORTING})

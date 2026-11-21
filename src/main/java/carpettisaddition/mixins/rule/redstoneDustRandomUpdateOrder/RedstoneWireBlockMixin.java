@@ -20,14 +20,15 @@
 
 package carpettisaddition.mixins.rule.redstoneDustRandomUpdateOrder;
 
-import carpettisaddition.CarpetTISAdditionSettings;
+import carpettisaddition.helpers.rule.redstoneDustRandomUpdateOrder.RedstoneDustUpdateOrderRandomizer;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
-import java.util.*;
+import java.util.List;
 
 //#if MC >= 12102
 //$$ import net.minecraft.world.level.redstone.DefaultRedstoneWireEvaluator;
@@ -37,10 +38,9 @@ import java.util.*;
 //$$ import com.google.common.collect.Lists;
 //$$ import com.google.common.collect.Sets;
 //$$ import org.spongepowered.asm.mixin.injection.ModifyVariable;
+//$$ import java.util.Set;
 //#else
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
@@ -54,9 +54,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 )
 public abstract class RedstoneWireBlockMixin
 {
-	@Unique
-	private final Random random$TISCM = new Random();
-
 	//#if MC >= 11600
 	//$$ @ModifyVariable(
 	//$$ 		method = "updatePowerStrength",
@@ -66,12 +63,12 @@ public abstract class RedstoneWireBlockMixin
 	//$$ 				ordinal = 2
 	//$$ 		)
 	//$$ )
-	//$$ private Set<BlockPos> letsMakeTheOrderUnpredictable(Set<BlockPos> set)
+	//$$ private Set<BlockPos> letsMakeTheOrderUnpredictable(Set<BlockPos> set, @Local(argsOnly = true) Level world, @Local(argsOnly = true) BlockPos pos)
 	//$$ {
-	//$$ 	if (CarpetTISAdditionSettings.redstoneDustRandomUpdateOrder)
+	//$$ 	if (RedstoneDustUpdateOrderRandomizer.isRuleEnabled())
 	//$$ 	{
 	//$$ 		List<BlockPos> list = Lists.newArrayList(set);
-	//$$ 		Collections.shuffle(list, this.random$TISCM);
+	//$$ 		RedstoneDustUpdateOrderRandomizer.shuffle(list, pos, world);
 	//$$ 		set = Sets.newLinkedHashSet(list);
 	//$$ 	}
 	//$$ 	return set;
@@ -86,9 +83,9 @@ public abstract class RedstoneWireBlockMixin
 	)
 	private void letsMakeTheOrderUnpredictable(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir, @Local List<BlockPos> list)
 	{
-		if (CarpetTISAdditionSettings.redstoneDustRandomUpdateOrder)
+		if (RedstoneDustUpdateOrderRandomizer.isRuleEnabled())
 		{
-			Collections.shuffle(list, random$TISCM);
+			RedstoneDustUpdateOrderRandomizer.shuffle(list, pos, world);
 		}
 	}
 	//#endif

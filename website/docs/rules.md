@@ -1332,11 +1332,15 @@ Randomize the order for redstone dust to emit block updates
 
 It's useful to test if your contraption is locational or not
 
-Does not work with rule `fastRedstoneDust`
+- `false` or `none` keeps the vanilla order.
+- `true` or `shuffle` shuffles the update targets.
+- `random_pos` independently picks a random position for each redstone dust update and uses the update order that redstone dust would have at that position.
 
-- Type: `boolean`
+Has no effect when `fastRedstoneDust` or the Redstone Experiments data pack is enabled.
+
+- Type: `String`
 - Default value: `false`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `none`, `shuffle`, `random_pos`
 - Categories: `TIS`, `CREATIVE`
 
 
