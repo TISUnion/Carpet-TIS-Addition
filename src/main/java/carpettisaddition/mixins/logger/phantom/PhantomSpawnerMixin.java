@@ -23,72 +23,81 @@ package carpettisaddition.mixins.logger.phantom;
 import carpettisaddition.logging.loggers.phantom.PhantomLogger;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import net.minecraft.server.level.ServerLevel;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.levelgen.PhantomSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.Inject;
 
-//#if MC >= 12000
+//#if MC >= 1.20
 //$$ import net.minecraft.server.level.ServerPlayer;
+//#endif
+//#if MC >= 1.21.5
+//$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#else
-import net.minecraft.world.entity.player.Player;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //#endif
 
 @Mixin(PhantomSpawner.class)
 public abstract class PhantomSpawnerMixin
 {
-	@ModifyVariable(
+	@Inject(
 			method = "tick",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/DifficultyInstance;getDifficulty()Lnet/minecraft/world/Difficulty;",
-					ordinal = 0
-			),
-			argsOnly = true
+					//#if MC >= 1.16
+					//$$ target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V",
+					//#else
+					target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z",
+					//#endif
+					shift = At.Shift.AFTER
+			)
 	)
-	private ServerLevel resetFlag_phantomLogger(ServerLevel serverWorld, @Share("once") LocalBooleanRef hasLogged)
+	private void phantomLogger_countSpawnedPhantom(
+			//#if MC >= 1.21.5
+			//$$ CallbackInfo ci,
+			//#else
+			CallbackInfoReturnable<Integer> cir,
+			//#endif
+			//#if MC >= 1.20
+			//$$ @Local ServerPlayer player,
+			//#else
+			@Local Player player,
+			//#endif
+			@Share("spawnerPlayer") LocalRef<Player> spawnerPlayer,
+			@Share("spawnedCount") LocalIntRef spawnedCount
+	)
 	{
-		hasLogged.set(false);
-		return serverWorld;
+		spawnerPlayer.set(player);
+		spawnedCount.set(spawnedCount.get() + 1);
 	}
 
-	@ModifyVariable(
+	// The player iterator is checked again after every batch, including the last one.
+	@Inject(
 			method = "tick",
-			slice = @Slice(
-					from = @At(
-							value = "INVOKE",
-							target = "Lnet/minecraft/world/DifficultyInstance;getDifficulty()Lnet/minecraft/world/Difficulty;",
-							ordinal = 0
-					)
-			),
 			at = @At(
 					value = "INVOKE",
-					//#if MC >= 12102
-					//$$ target = "Lnet/minecraft/world/entity/EntityType;create(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;)Lnet/minecraft/world/entity/Entity;"
-					//#else
-					target = "Lnet/minecraft/world/entity/EntityType;create(Lnet/minecraft/world/level/Level;)Lnet/minecraft/world/entity/Entity;"
-					//#endif
-			),
-			ordinal = 3
+					target = "Ljava/util/Iterator;hasNext()Z",
+					remap = false
+			)
 	)
-	private int doLog_phantomLogger(
-			int amount,
-			@Share("once") LocalBooleanRef hasLogged,
-			//#if MC >= 12000
-			//$$ @Local ServerPlayer player
+	private void phantomLogger_logSpawns(
+			//#if MC >= 1.21.5
+			//$$ CallbackInfo ci,
 			//#else
-			@Local Player player
+			CallbackInfoReturnable<Integer> cir,
 			//#endif
+			@Share("spawnerPlayer") LocalRef<Player> spawnerPlayer,
+			@Share("spawnedCount") LocalIntRef spawnedCount
 	)
 	{
-		if (!hasLogged.get())
+		int count = spawnedCount.get();
+		if (count > 0)
 		{
-			PhantomLogger.getInstance().onPhantomSpawn(player, amount);
-			hasLogged.set(true);
+			PhantomLogger.getInstance().onPhantomSpawn(spawnerPlayer.get(), count);
+			spawnedCount.set(0);
 		}
-		return amount;
 	}
 }
