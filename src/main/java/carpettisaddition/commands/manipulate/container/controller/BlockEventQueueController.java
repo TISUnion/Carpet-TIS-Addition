@@ -64,7 +64,7 @@ public class BlockEventQueueController extends AbstractContainerController
 				counter++;
 			}
 		}
-		Messenger.tell(source, Messenger.tr("removed", counter), true);
+		Messenger.tell(source, tr("removed", counter), true);
 		return counter;
 	}
 
