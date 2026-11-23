@@ -38,7 +38,17 @@ public abstract class ItemEntityMixin
 	@Unique private boolean flagDied = false;
 	@Unique private boolean flagDespawned = false;
 
-	@Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V", at = @At("TAIL"))
+	@Inject(
+			method = {
+					//#if MC >= 26.1 || MC < 1.17
+					"<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V",
+					//#endif
+					//#if MC >= 1.17
+					//$$ "<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;DDD)V",
+					//#endif
+			},
+			at = @At("TAIL")
+	)
 	private void itemLogger_onCreated(CallbackInfo ci)
 	{
 		ItemLogger.getInstance().onEntityCreated((ItemEntity)(Object)this);

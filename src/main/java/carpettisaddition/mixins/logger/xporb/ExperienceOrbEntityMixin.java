@@ -38,7 +38,14 @@ public abstract class ExperienceOrbEntityMixin
 	@Unique private boolean flagDied = false;
 	@Unique private boolean flagDespawned = false;
 
-	@Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDI)V", at = @At("TAIL"))
+	@Inject(
+			//#if MC >= 1.21.6
+			//$$ method = "<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;I)V",
+			//#else
+			method = "<init>(Lnet/minecraft/world/level/Level;DDDI)V",
+			//#endif
+			at = @At("TAIL")
+	)
 	private void xpOrbLogger_onCreated(CallbackInfo ci)
 	{
 		XPOrbLogger.getInstance().onEntityCreated((ExperienceOrb)(Object)this);
