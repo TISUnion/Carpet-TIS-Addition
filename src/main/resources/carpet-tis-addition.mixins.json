@@ -194,6 +194,7 @@
     "command.lifetime.spawning.summon.LargeEntitySpawnHelperMixin",
     "command.lifetime.spawning.summon.SummonVexGoalMixin",
     "command.lifetime.spawning.summon.VillagerEntityMixin",
+    "command.lifetime.spawning.transdimension.TeleportCommandMixin",
     "command.lifetime.spawning.transdimension.EntityMixin",
     "command.lifetime.spawning.vehicledismounting.EntityMixin",
     "command.lifetime.spawning.vehicledismounting.LivingEntityMixin",
