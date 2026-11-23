@@ -82,7 +82,7 @@ public class MicroTimingEvent extends Event
 	{
 	}
 
-	public static MicroTimingEvent MICRO_TIMING_EVENT = new MicroTimingEvent("microtiming_event", 2, true)
+	public static MicroTimingEvent MICRO_TIMING_EVENT = new MicroTimingEvent("microtiming_event", 3, true)
 	{
 		@Override
 		public void onMicroTimingEvent(String type, BlockPos pos, DimensionType dimension)
