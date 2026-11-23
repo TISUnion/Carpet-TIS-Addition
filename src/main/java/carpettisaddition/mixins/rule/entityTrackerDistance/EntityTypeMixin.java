@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(EntityType.class)
 public abstract class EntityTypeMixin
 {
-	@ModifyReturnValue(method = "chunkRange", at = @At("TAIL"))
+	@ModifyReturnValue(method = "chunkRange", at = @At("RETURN"))
 	private int overrideEntityTrackerDistance(int clientTrackingRange)
 	{
 		if (CarpetTISAdditionSettings.entityTrackerDistance > 0)
