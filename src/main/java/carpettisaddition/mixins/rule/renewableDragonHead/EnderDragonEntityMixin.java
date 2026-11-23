@@ -132,15 +132,16 @@ public abstract class EnderDragonEntityMixin extends Mob implements Enemy
 			Entity entity = damageSource.getEntity();
 			if (entity instanceof Creeper)
 			{
+				Creeper creeperEntity = (Creeper)entity;
 				//#if MC >= 1.21.9
-				//$$ CreeperEntityAccessor creeperEntity = (CreeperEntityAccessor)entity;
-				//$$ if (!creeperEntity.getHeadsDropped$TISCM())
+				//$$ CreeperEntityAccessor creeperAccessor = (CreeperEntityAccessor)creeperEntity;
+				//$$ // Match the charge and skull quota checks in {@link net.minecraft.world.entity.monster.Creeper#killedEntity}
+				//$$ if (creeperEntity.isPowered() && !creeperAccessor.getHeadsDropped$TISCM())
 				//$$ {
-				//$$ 	creeperEntity.setHeadsDropped$TISCM(true);
+				//$$ 	creeperAccessor.setHeadsDropped$TISCM(true);
 				//$$ 	this.flagDropHead$TISCM = true;
 				//$$ }
 				//#else
-				Creeper creeperEntity = (Creeper)entity;
 				if (creeperEntity.canDropMobsSkull())
 				{
 					creeperEntity.increaseDroppedSkulls();
