@@ -28,6 +28,7 @@ public class SettingsMigration
 {
 	private static final Map<String, String> RULE_RENAMES = ImmutableMap.<String, String>builder()
 			.put("natualSpawningUse13Heightmap", "naturalSpawningUse13Heightmap")  // v1.65.0
+			.put("natualSpawningUse13HeightmapExtra", "naturalSpawningUse13HeightmapExtra")  // v1.65.0
 			.build();
 
 	public static void migrate(String[] fields)
