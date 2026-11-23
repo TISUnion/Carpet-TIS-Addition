@@ -27,8 +27,13 @@ import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.core.Registry;
+
+//#if MC >= 1.21.2
+//$$ import net.minecraft.world.entity.vehicle.AbstractBoat;
+//#else
+import net.minecraft.world.entity.vehicle.Boat;
+//#endif
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -37,7 +42,15 @@ public class LifeTimeTrackerUtil
 {
 	public static boolean isTrackedEntityClass(Entity entity)
 	{
-		return entity instanceof Mob || entity instanceof ItemEntity || entity instanceof ExperienceOrb || entity instanceof AbstractMinecart || entity instanceof Boat;
+		return entity instanceof Mob ||
+				entity instanceof ItemEntity ||
+				entity instanceof ExperienceOrb ||
+				entity instanceof AbstractMinecart ||
+				//#if MC >= 1.21.2
+				//$$ entity instanceof AbstractBoat;
+				//#else
+				entity instanceof Boat;
+				//#endif
 	}
 
 	public static String getEntityTypeDescriptor(EntityType<?> entityType)
