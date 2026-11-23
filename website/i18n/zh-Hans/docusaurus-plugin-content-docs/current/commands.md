@@ -106,7 +106,7 @@ sidebar_position: 3
 
 ### \<实体类型\>
 
-`/lifetime <实体类型> [<life_time|removal|spawning>]`
+`/lifetime <实体类型> [<lifetime|removal|spawning>]`
 
 显示指定实体类型的详细统计信息。你可以指定输出哪一部分统计信息
 
@@ -365,7 +365,7 @@ json 字段说明如下：
 
 ```
 /manipulate entity <目标> persistent
-/manipulate entity <目标> persistent set <持久标签状态>
+/manipulate entity <目标> persistent <持久标签状态>
 ```
 
 目标实体载具逻辑控制
@@ -451,13 +451,13 @@ json 字段说明如下：
 
 参数：
 
-- `count`：ping 测试轮次的数量。默认值：4
+- `count`：ping 测试轮次的数量。默认值：3
 - `interval`：两次 ping 之间的最小间隔。单位：秒。默认值：1
 
 ### 中止测试
 
 ```
-/speedtest abort [<size_mib>]
+/speedtest abort
 ```
 
 中止当前正在进行的测试（下载、上传或 ping）
@@ -491,7 +491,7 @@ json 字段说明如下：
 - `collider`（默认值）
 - `outline`
 - `visual`（mc1.16+）
-- `falldamage_resetting`（mc1.18.2+）
+- `falldamage_resetting`（mc1.18.2 ~ 26.3）
 
 流体模式（见 `net.minecraft.world.RaycastContext.FluidHandling`）：
 

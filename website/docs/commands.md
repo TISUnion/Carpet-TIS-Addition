@@ -106,7 +106,7 @@ Statistics are sorted by the proportion of the amount
 
 ### \<entity_type\>
 
-`/lifetime <entity_type> [<life_time|removal|spawning>]`
+`/lifetime <entity_type> [<lifetime|removal|spawning>]`
 
 Show the detail statistic of specific entity type. You can specify which part of the statistic will be output
 
@@ -365,7 +365,7 @@ Query / Set target entities persistent tag state
 
 ```
 /manipulate entity <target> persistent
-/manipulate entity <target> persistent set <state>
+/manipulate entity <target> persistent <state>
 ```
 
 Target entities vehicle logic control
@@ -451,13 +451,13 @@ Then the ping for this round is the time interval between the server sending pin
 
 Arguments:
 
-- `count`: The amount of ping test rounds. Default: 4
+- `count`: The amount of ping test rounds. Default: 3
 - `interval`: The minimum interval between 2 pings. Unit: second. Default: 1
 
 ### abort
 
 ```
-/speedtest abort [<size_mib>]
+/speedtest abort
 ```
 
 Abort the current ongoing test (download, upload or ping)
@@ -491,7 +491,7 @@ Shape mode (see `net.minecraft.world.RaycastContext.ShapeType`):
 - `collider` (default value)
 - `outline`
 - `visual` (mc1.16+)
-- `falldamage_resetting` (mc1.18.2+)
+- `falldamage_resetting` (mc1.18.2 ~ 26.3)
 
 Fluid mode (see `net.minecraft.world.RaycastContext.FluidHandling`):
 
@@ -573,14 +573,14 @@ Available time units:
 
 Similar to carpet's `/counter` command for its hopper counter, this command is used for showing xp statistic xp counters created by rule [hopperXpCounters](rules.md#hopperxpcounters)
 
-`/xcounter`: View statistics for all supplier counters
+`/xcounter`: View statistics for all xp counters
 
-`/xcounter reset`: Reset all supplier counters
+`/xcounter reset`: Reset all xp counters
 
-`/xcounter <color> [realtime]`: View statistics for specified supplier counter. Append suffix ` realtime` to display the rate using real time.
+`/xcounter <color> [realtime]`: View statistics for specified xp counter. Append suffix ` realtime` to display the rate using real time.
 Statistics are grouped by the XP amount of XP orbs
 
-`/scounter <color> reset`: Reset specified supplier counter
+`/xcounter <color> reset`: Reset specified xp counter
 
 
 ---
