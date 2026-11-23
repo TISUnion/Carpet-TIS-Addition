@@ -39,7 +39,6 @@ import net.minecraft.world.level.block.DiodeBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EndRodBlock;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.ObserverBlock;
@@ -193,7 +192,7 @@ public class MicroTimingUtil
 		Block block = state.getBlock();
 		BlockPos woolPos;
 
-		if (block instanceof ObserverBlock || block instanceof EndRodBlock ||
+		if (block instanceof ObserverBlock || block == Blocks.END_ROD ||
 				block instanceof PistonBaseBlock || block instanceof MovingPistonBlock)
 		{
 			woolPos = pos.relative(state.getValue(BlockStateProperties.FACING).getOpposite());
