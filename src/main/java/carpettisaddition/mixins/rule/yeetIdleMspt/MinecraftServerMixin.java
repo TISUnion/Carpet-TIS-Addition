@@ -26,30 +26,52 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+//#if MC >= 1.20 && MC < 1.20.3
+//$$ import carpet.fakes.MinecraftServerInterface;
+//#elseif MC < 1.20
+import carpet.helpers.TickSpeed;
+//#endif
+
 import java.util.function.BooleanSupplier;
 
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin
 {
 	@ModifyArg(
-			//#if MC >= 12111
+			//#if MC >= 1.21.11
 			//$$ method = "processPacketsAndTick",
-			//#elseif MC >= 11600
+			//#elseif MC >= 1.20.3
 			//$$ method = "runServer",
 			//#else
-			method = "run",
+			// it's hard to mixin into `carpet$modifiedRunLoop`, we choose it as the alternate
+			method = "tickServer",
 			//#endif
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/MinecraftServer;tickServer(Ljava/util/function/BooleanSupplier;)V"
+					//#if MC >= 1.20.3
+					//$$ target = "Lnet/minecraft/server/MinecraftServer;tickServer(Ljava/util/function/BooleanSupplier;)V"
+					//#else
+					target = "Lnet/minecraft/server/MinecraftServer;tickChildren(Ljava/util/function/BooleanSupplier;)V"
+					//#endif
 			)
 	)
 	private BooleanSupplier yeetIdleMspt_thereNoRemainingTime(BooleanSupplier shouldKeepTicking)
 	{
-		if (CarpetTISAdditionSettings.yeetIdleMspt)
+		if (!CarpetTISAdditionSettings.yeetIdleMspt)
 		{
-			shouldKeepTicking = () -> false;
+			return shouldKeepTicking;
 		}
-		return shouldKeepTicking;
+		//#if MC < 1.20.3
+		// Match Carpet's warp check even when the final warp tick has already been counted.
+		//#if MC >= 1.20
+		//$$ if (((MinecraftServerInterface)this).getTickRateManager().isInWarpSpeed())
+		//#else
+		if (TickSpeed.time_warp_start_time != 0)
+		//#endif
+		{
+			return shouldKeepTicking;
+		}
+		//#endif
+		return () -> false;
 	}
 }
