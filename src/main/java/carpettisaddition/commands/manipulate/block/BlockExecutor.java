@@ -41,22 +41,15 @@ import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.getL
 public class BlockExecutor extends TranslationContext
 {
 	private final ExecuteImpl impl;
-	private final int limit;
 	private final String messageKey;
 	private final MessageExtraArgsGetter messageExtraArgsGetter;
 
-	public BlockExecutor(ExecuteImpl impl, int limit, String messageKey, MessageExtraArgsGetter messageExtraArgsGetter)
+	public BlockExecutor(ExecuteImpl impl, String messageKey, MessageExtraArgsGetter messageExtraArgsGetter)
 	{
 		super(BlockManipulator.getInstance().getTranslator());
 		this.impl = impl;
-		this.limit = limit;
 		this.messageKey = messageKey;
 		this.messageExtraArgsGetter = messageExtraArgsGetter;
-	}
-
-	public BlockExecutor(ExecuteImpl impl, String messageKey, MessageExtraArgsGetter messageExtraArgsGetter)
-	{
-		this(impl, CarpetTISAdditionSettings.manipulateBlockLimit, messageKey, messageExtraArgsGetter);
 	}
 
 	@FunctionalInterface
@@ -85,9 +78,10 @@ public class BlockExecutor extends TranslationContext
 		long blockCount = (long)box.getXSpan() * box.getYSpan() * box.getZSpan();
 		//#enable-remap
 
-		if (blockCountF > this.limit || blockCount > this.limit)
+		int limit = CarpetTISAdditionSettings.manipulateBlockLimit;
+		if (blockCountF > limit || blockCount > limit)
 		{
-			throw FillCommandAccessor.getTooBigException().create(this.limit, blockCount);
+			throw FillCommandAccessor.getTooBigException().create(limit, blockCount);
 		}
 
 		BlockPos.betweenClosedStream(from, to).forEach(blockPos -> this.impl.executeAt(ctx, blockPos));
