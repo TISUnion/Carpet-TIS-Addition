@@ -97,7 +97,7 @@ public abstract class DragonEggBlockMixin extends Block
 			List<AreaEffectCloud> list = world.getEntitiesOfClass(AreaEffectCloud.class, box, (entity) -> {return entity != null && entity.isAlive();});
 			List<AreaEffectCloud> dragonBreath = Lists.newArrayList();
 			for (AreaEffectCloud areaEffectCloudEntity : list)
-				if (areaEffectCloudEntity.getParticle() == ParticleTypes.DRAGON_BREATH)
+				if (areaEffectCloudEntity.getParticle().getType() == ParticleTypes.DRAGON_BREATH)
 					dragonBreath.add(areaEffectCloudEntity);
 			if (!dragonBreath.isEmpty())
 			{
