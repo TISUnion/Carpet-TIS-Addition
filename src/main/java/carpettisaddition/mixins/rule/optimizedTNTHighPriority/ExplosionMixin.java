@@ -56,7 +56,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  *     ,
  *     priority = default value = 1000
  * )
- * - more than 800 ({@link carpettisaddition.mixins.carpet.tweaks.rule.tntRandomRange.ExplosionMixin}, priority = 800)
+ * - more than 800 ({@link carpettisaddition.mixins.carpet.tweaks.rule.tntRandomRange.ExplosionMixin.WrapWorldRandom}, priority = 800)
  * so it injects after wrapping world.random but before lithium explosion optimization
  */
 @Mixin(

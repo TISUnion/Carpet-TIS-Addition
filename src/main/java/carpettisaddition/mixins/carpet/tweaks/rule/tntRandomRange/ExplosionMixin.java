@@ -21,11 +21,11 @@
 package carpettisaddition.mixins.carpet.tweaks.rule.tntRandomRange;
 
 import carpet.CarpetSettings;
+import carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange.TntRandomRangeHelper;
 import carpettisaddition.helpers.carpet.tweaks.rule.tntRandomRange.WrappedRandom;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
@@ -41,77 +41,88 @@ import net.minecraft.world.level.Explosion;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
 
-// increase priority to make the wrapWorldRandom injection be in front of other cancellable injections
-@Mixin(
-		//#if MC >= 12102
-		//$$ value = ServerExplosion.class,
-		//#else
-		value = Explosion.class,
-		//#endif
-		priority = 800
-)
-public class ExplosionMixin
+public abstract class ExplosionMixin
 {
-	@Shadow @Final
-	//#if MC >= 12102
-	//$$ private ServerLevel level;
-	//#else
-	private Level level;
-	//#endif
-
-	@Unique
-	private void tryUnWrapWorldRandom()
-	{
-		Object random = this.level.getRandom();
-		if (random instanceof WrappedRandom)
-		{
-			((WorldAccessor)this.level).setRandom(((WrappedRandom)random).unwrap());
-		}
-	}
-
-	@Inject(
+	// Wrap before cancellable HEAD injections can run the explosion calculation.
+	@Mixin(
 			//#if MC >= 12102
-			//$$ method = "calculateExplodedPositions",
+			//$$ value = ServerExplosion.class,
 			//#else
-			method = "explode",
+			value = Explosion.class,
 			//#endif
-			at = @At("HEAD")
+			priority = 800
 	)
-	private void wrapWorldRandom(
-			//#if MC >= 12102
-			//$$ CallbackInfoReturnable<List<BlockPos>> cir
-			//#else
-			CallbackInfo ci
-			//#endif
-	)
+	public static abstract class WrapWorldRandom
 	{
-		// Do wrapping thing server side only
-		if (!this.level.isClientSide())
+		@Shadow @Final
+		//#if MC >= 12102
+		//$$ private ServerLevel level;
+		//#else
+		private Level level;
+		//#endif
+
+		@Inject(
+				//#if MC >= 12102
+				//$$ method = "calculateExplodedPositions",
+				//#else
+				method = "explode",
+				//#endif
+				at = @At("HEAD")
+		)
+		private void wrapWorldRandom(
+				//#if MC >= 12102
+				//$$ CallbackInfoReturnable<List<BlockPos>> cir
+				//#else
+				CallbackInfo ci
+				//#endif
+		)
 		{
-			this.tryUnWrapWorldRandom();
-			if (CarpetSettings.tntRandomRange >= 0)
+			if (!this.level.isClientSide())
 			{
-				((WorldAccessor) this.level).setRandom(WrappedRandom.wrap(this.level.getRandom()));
+				TntRandomRangeHelper.restoreWorldRandom(this.level);
+				if (CarpetSettings.tntRandomRange >= 0)
+				{
+					((WorldAccessor)this.level).setRandom(WrappedRandom.wrap(this.level.getRandom()));
+				}
 			}
 		}
 	}
 
-	@Inject(
+	// Restore after Lithium's block raycast, which runs at RETURN with priority 1000.
+	@Mixin(
 			//#if MC >= 12102
-			//$$ method = "calculateExplodedPositions",
+			//$$ value = ServerExplosion.class,
 			//#else
-			method = "explode",
+			value = Explosion.class,
 			//#endif
-			at = @At("RETURN")
+			priority = 1100
 	)
-	private void unwrapWorldRandom(
-			//#if MC >= 12102
-			//$$ CallbackInfoReturnable<List<BlockPos>> cir
-			//#else
-			CallbackInfo ci
-			//#endif
-	)
+	public static abstract class RestoreWorldRandom
 	{
-		this.tryUnWrapWorldRandom();
+		@Shadow @Final
+		//#if MC >= 12102
+		//$$ private ServerLevel level;
+		//#else
+		private Level level;
+		//#endif
+
+		@Inject(
+				//#if MC >= 12102
+				//$$ method = "calculateExplodedPositions",
+				//#else
+				method = "explode",
+				//#endif
+				at = @At("RETURN")
+		)
+		private void restoreWorldRandom(
+				//#if MC >= 12102
+				//$$ CallbackInfoReturnable<List<BlockPos>> cir
+				//#else
+				CallbackInfo ci
+				//#endif
+		)
+		{
+			TntRandomRangeHelper.restoreWorldRandom(this.level);
+		}
 	}
 }
