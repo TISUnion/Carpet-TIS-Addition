@@ -22,8 +22,8 @@ package carpettisaddition.mixins.rule.oakBalloonPercent;
 
 import carpettisaddition.CarpetTISAdditionSettings;
 import carpettisaddition.utils.ModIds;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -32,42 +32,48 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">26.3"))
+import java.util.Optional;
+
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=26.3"))
 @Mixin(TreeGrower.class)
 public abstract class SaplingGeneratorMixin
 {
-	@ModifyExpressionValue(
+	@Shadow @Final private WeightedList<ResourceKey<Feature>> flowerTrees;
+
+	@WrapOperation(
 			method = "getConfiguredFeature",
 			at = @At(
-					value = "FIELD",
-					target = "Lnet/minecraft/world/level/block/grower/TreeGrower;trees:Lnet/minecraft/util/random/WeightedList;",
-					opcode = Opcodes.GETFIELD
-			)
+					value = "INVOKE",
+					target = "Lnet/minecraft/util/random/WeightedList;getRandom(Lnet/minecraft/util/RandomSource;)Ljava/util/Optional;"
+			),
+			require = 2
 	)
-	private WeightedList<ResourceKey<Feature>> oakBalloonPercent_modifyWeightList(
-			WeightedList<ResourceKey<Feature>> original,
-			@Local(argsOnly = true) RandomSource random
+	private Optional<ResourceKey<Feature>> oakBalloonPercent_pickTree(
+			WeightedList<ResourceKey<Feature>> trees,
+			RandomSource random,
+			Operation<Optional<ResourceKey<Feature>>> original
 	)
 	{
-		if (CarpetTISAdditionSettings.oakBalloonPercent > 0)
+		int percent = CarpetTISAdditionSettings.oakBalloonPercent;
+		if (percent >= 0 && (Object)this == TreeGrower.OAK)
 		{
-			TreeGrower self = (TreeGrower)(Object)this;
-			if (self == TreeGrower.OAK)
+			boolean fancy = random.nextFloat() < percent / 100.0f;
+			ResourceKey<Feature> tree;
+			if (trees == this.flowerTrees)
 			{
-				if (CarpetTISAdditionSettings.oakBalloonPercent / 100.0f > random.nextFloat())
-				{
-					return WeightedList.of(TreeFeatures.FANCY_OAK);
-				}
-				else
-				{
-					return WeightedList.of(TreeFeatures.OAK);
-				}
+				tree = fancy ? TreeFeatures.FANCY_OAK_BEES_005 : TreeFeatures.OAK_BEES_005;
 			}
+			else
+			{
+				tree = fancy ? TreeFeatures.FANCY_OAK : TreeFeatures.OAK;
+			}
+			trees = WeightedList.of(tree);
 		}
-		return original;
+		return original.call(trees, random);
 	}
 }

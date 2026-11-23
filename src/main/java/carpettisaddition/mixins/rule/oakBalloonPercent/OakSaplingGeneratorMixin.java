@@ -62,7 +62,7 @@ public abstract class OakSaplingGeneratorMixin
 			//#endif
 	)
 	{
-		if (CarpetTISAdditionSettings.oakBalloonPercent > 0)
+		if (CarpetTISAdditionSettings.oakBalloonPercent >= 0)
 		{
 			boolean balloon = random.nextInt(100) < CarpetTISAdditionSettings.oakBalloonPercent;
 			randomResult = balloon ? 0 : 1;

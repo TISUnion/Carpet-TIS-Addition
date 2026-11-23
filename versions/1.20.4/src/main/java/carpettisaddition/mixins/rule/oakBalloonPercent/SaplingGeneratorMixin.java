@@ -42,7 +42,7 @@ public abstract class SaplingGeneratorMixin
 	)
 	private float oakBalloonPercent_modifyChance(float chance)
 	{
-		if (CarpetTISAdditionSettings.oakBalloonPercent > 0)
+		if (CarpetTISAdditionSettings.oakBalloonPercent >= 0)
 		{
 			TreeGrower self = (TreeGrower)(Object)this;
 			if (self == TreeGrower.OAK)
