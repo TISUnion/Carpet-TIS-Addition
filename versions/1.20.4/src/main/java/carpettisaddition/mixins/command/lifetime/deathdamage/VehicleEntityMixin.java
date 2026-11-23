@@ -29,9 +29,11 @@ import net.minecraft.world.entity.vehicle.VehicleEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = "<1.20.4"))
+@Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.20.4"))
 @Mixin(VehicleEntity.class)
 public abstract class VehicleEntityMixin implements DamageableEntity
 {
@@ -76,6 +78,20 @@ public abstract class VehicleEntityMixin implements DamageableEntity
 	{
 		this.deathDamageSource$TISCM = source;
 		return source;
+	}
+
+	@Inject(
+			//#if MC >= 1.21.2
+			//$$ method = "hurtServer",
+			//#else
+			method = "hurt",
+			//#endif
+			at = @At("RETURN")
+	)
+	private void lifetimeTracker_clearDeathDamageSource_vehicle(CallbackInfoReturnable<Boolean> cir)
+	{
+		// MinecartTNT#destroy can prime the fuse and leave the minecart alive.
+		this.deathDamageSource$TISCM = null;
 	}
 
 	@Override
