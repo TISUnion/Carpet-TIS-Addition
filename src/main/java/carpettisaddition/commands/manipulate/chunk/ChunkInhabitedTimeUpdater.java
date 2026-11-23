@@ -49,12 +49,22 @@ public class ChunkInhabitedTimeUpdater extends AbstractChunkOperator
 		return chunks;
 	}
 
+	private static void setInhabitedTime(LevelChunk chunk, long ticks)
+	{
+		chunk.setInhabitedTime(ticks);
+		//#if MC >= 12102
+		//$$ chunk.markUnsaved();
+		//#else
+		chunk.setUnsaved(true);
+		//#endif
+	}
+
 	public int set(long ticks)
 	{
 		List<LevelChunk> chunks = getChunks();
 		for (LevelChunk chunk : chunks)
 		{
-			chunk.setInhabitedTime(ticks);
+			setInhabitedTime(chunk, ticks);
 		}
 		Messenger.tell(this.source, tr(
 				"set_done",
@@ -69,7 +79,7 @@ public class ChunkInhabitedTimeUpdater extends AbstractChunkOperator
 		List<LevelChunk> chunks = getChunks();
 		for (LevelChunk chunk : chunks)
 		{
-			chunk.setInhabitedTime(Math.max(0L, chunk.getInhabitedTime() + delta));
+			setInhabitedTime(chunk, Math.max(0L, chunk.getInhabitedTime() + delta));
 		}
 		Messenger.tell(this.source, tr(
 				"add_done",
