@@ -48,12 +48,12 @@ public abstract class MinecraftServerMixin
 					//#endif
 			)
 	)
-	private long sendServerTpsMetricsData_broadcastTickServer(long msThisTick)
+	private long sendServerTpsMetricsData_broadcastTickServer(long nanosecond)
 	{
 		if (CarpetTISAdditionSettings.syncServerMsptMetricsData)
 		{
-			ServerMsptMetricsDataSyncer.getInstance().broadcastSampleLegacy(this.tickCount, msThisTick);
+			ServerMsptMetricsDataSyncer.getInstance().broadcastSampleLegacy(this.tickCount, nanosecond);
 		}
-		return msThisTick;
+		return nanosecond;
 	}
 }

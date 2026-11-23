@@ -65,6 +65,16 @@ public class ServerMsptMetricsDataSyncer
 
 	public void broadcastSample(long tickCounter, long nanosecond, TpsDebugDimensions serverTickType)
 	{
+		this.broadcastSample(tickCounter, nanosecond, serverTickType, false);
+	}
+
+	public void broadcastSampleLegacy(long tickCounter, long nanosecond)
+	{
+		this.broadcastSample(tickCounter, nanosecond, SERVER_TICK_TYPE_FALLBACK, true);
+	}
+
+	private void broadcastSample(long tickCounter, long nanosecond, TpsDebugDimensions serverTickType, boolean useLegacyEncoding)
+	{
 		if (tickCounter != this.tickCounterThisTick)
 		{
 			this.sentTypesThisTick.clear();
@@ -77,15 +87,16 @@ public class ServerMsptMetricsDataSyncer
 
 		TISCMServerPacketHandler.getInstance().broadcast(TISCMProtocol.S2C.MSPT_METRICS_SAMPLE, nbt -> {
 			nbt.putInt("version", 2);
-			nbt.putLong("millisecond", nanosecond / M);  // old tiscm (<=1.55) only uses the millisecond
-			nbt.putLong("nanosecond", nanosecond);
+			// Preserve the historical values expected by older clients -- they divide nanoseconds by 1e6.
+			long wireNanosecond = useLegacyEncoding ? nanosecond * M : nanosecond;
+			nbt.putLong("millisecond", wireNanosecond / M);
+			nbt.putLong("nanosecond", wireNanosecond);
+			if (useLegacyEncoding)
+			{
+				nbt.putLong("duration_ns", nanosecond);
+			}
 			nbt.putString("type", serverTickType.toString().toLowerCase(Locale.ROOT));
 		});
-	}
-
-	public void broadcastSampleLegacy(long tickCounter, long millisecond)
-	{
-		broadcastSample(tickCounter, millisecond * M, SERVER_TICK_TYPE_FALLBACK);
 	}
 
 	public void receiveMetricData(CompoundTag nbt)
@@ -116,7 +127,8 @@ public class ServerMsptMetricsDataSyncer
 		//$$ 	this.metricsData.logPartialSample(nanosecond, type.ordinal());
 		//$$ }
 		//#else
-		this.metricsData.logFrameDuration(nanosecond / M);
+		long durationNs = nbt.contains("duration_ns") ? NbtUtils.getLongOrZero(nbt, "duration_ns") : nanosecond / M;
+		this.metricsData.logFrameDuration(durationNs);
 		//#endif
 	}
 
