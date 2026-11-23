@@ -54,10 +54,16 @@ public abstract class AbstractMinecartEntityMixin
 	)
 	private double minecartTakePassengerMinVelocity_impl(double squaredThreshold)
 	{
-		if (CarpetTISAdditionSettings.minecartTakePassengerMinVelocity != CarpetTISAdditionSettings.VANILLA_MINECART_TAKE_PASSENGER_MIN_VELOCITY)
+		double minVelocity = CarpetTISAdditionSettings.minecartTakePassengerMinVelocity;
+		if (minVelocity != CarpetTISAdditionSettings.VANILLA_MINECART_TAKE_PASSENGER_MIN_VELOCITY)
 		{
+			minVelocity = Math.max(0.0D, minVelocity);
+			squaredThreshold = minVelocity * minVelocity;
+
+			//#if MC < 1.21.2
 			// since the operator is <, but what we want is <=, here comes a Math.nextDown trick
-			squaredThreshold = Math.nextDown(CarpetTISAdditionSettings.minecartTakePassengerMinVelocity);
+			squaredThreshold = Math.nextDown(squaredThreshold);
+			//#endif
 		}
 		return squaredThreshold;
 	}
