@@ -30,6 +30,7 @@ import carpettisaddition.utils.PositionUtils;
 import carpettisaddition.utils.command.CommandNodeUtils;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.core.SectionPos;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.CompressionEncoder;
 import net.minecraft.commands.CommandSourceStack;
@@ -54,10 +55,6 @@ import static net.minecraft.commands.Commands.literal;
 
 //#if MC >= 11901
 //$$ import net.minecraft.network.PacketSendListener;
-//#endif
-
-//#if MC >= 11800
-//$$ import net.minecraft.core.SectionPos;
 //#endif
 
 //#if MC >= 11600 && MC < 11900
@@ -111,7 +108,7 @@ public class RefreshCommand extends AbstractCommand
 						then(literal("current").executes(c -> refreshCurrentChunk(c.getSource(), c.getSource().getPlayerOrException()))).
 						then(literal("all").executes(c -> refreshAllChunks(c.getSource()))).
 						then(literal("inrange").then(
-								argument("chebyshevDistance", integer()).
+								argument("chebyshevDistance", integer(0)).
 								executes(c -> refreshChunksInRange(c.getSource(), getInteger(c, "chebyshevDistance")))
 						)).
 						then(literal("at").
@@ -259,7 +256,16 @@ public class RefreshCommand extends AbstractCommand
 	private int refreshChunksInRange(CommandSourceStack source, int distance) throws CommandSyntaxException
 	{
 		ServerPlayer player = source.getPlayerOrException();
-		return this.refreshChunks(source, null, chunkPos -> isChunkInsideRange(chunkPos, player, distance));
+		return this.refreshChunks(source, null, chunkPos -> isChunkInsideChebyshevDistance(chunkPos, player, distance));
+	}
+
+	// vanilla's chunk tracking range checks are not chebyshev distance in mc1.18+, so here's a self-implemented one
+	private static boolean isChunkInsideChebyshevDistance(ChunkPos chunkPos, ServerPlayer player, int distance)
+	{
+		SectionPos playerSection = player.getLastSectionPos();
+		int dx = PositionUtils.chunkPosX(chunkPos) - playerSection.x();
+		int dz = PositionUtils.chunkPosZ(chunkPos) - playerSection.z();
+		return Math.max(Math.abs(dx), Math.abs(dz)) <= distance;
 	}
 
 	private static boolean isChunkInsideRange(ChunkPos chunkPos, ServerPlayer player, int distance)
