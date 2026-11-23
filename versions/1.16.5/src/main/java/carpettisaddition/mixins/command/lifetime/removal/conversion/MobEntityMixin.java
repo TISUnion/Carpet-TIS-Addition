@@ -34,6 +34,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+//#if MC >= 12102
+//$$ import com.llamalad7.mixinextras.sugar.Local;
+//$$ import net.minecraft.world.entity.ConversionParams;
+//#endif
+
 @Restriction(require = @Condition(value = ModIds.minecraft, versionPredicates = ">=1.16"))
 @Mixin(Mob.class)
 public abstract class MobEntityMixin extends LivingEntity
@@ -59,8 +64,20 @@ public abstract class MobEntityMixin extends LivingEntity
 			)
 	)
 
-	private Entity lifetimeTracker_recordRemoval_conversion_mobEntityCommon(Entity targetEntity)
+	private Entity lifetimeTracker_recordRemoval_conversion_mobEntityCommon(
+			Entity targetEntity
+			//#if MC >= 12102
+			//$$ , @Local(argsOnly = true) ConversionParams context
+			//#endif
+	)
 	{
+		//#if MC >= 12102
+		//$$ // Mob#convertTo discards the original mob only when the conversion type requests it.
+		//$$ if (!context.type().shouldDiscardAfterConversion())
+		//$$ {
+		//$$ 	return targetEntity;
+		//$$ }
+		//#endif
 		((LifetimeTrackerTarget)this).recordRemoval$TISCM(new MobConversionRemovalReason(targetEntity.getType()));
 		return targetEntity;
 	}
