@@ -34,7 +34,10 @@ public abstract class SkeletonHorseTrapTriggerGoalMixin
 	@ModifyReturnValue(method = "createSkeleton", at = @At("TAIL"))
 	private Skeleton lifetimeTracker_recordSpawning_jockey_skeletonHorse(Skeleton entity)
 	{
-		((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.JOCKEY);
+		if (entity != null)
+		{
+			((LifetimeTrackerTarget)entity).recordSpawning$TISCM(LiteralSpawningReason.JOCKEY);
+		}
 		return entity;
 	}
 }
