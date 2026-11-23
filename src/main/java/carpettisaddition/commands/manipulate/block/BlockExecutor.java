@@ -78,8 +78,13 @@ public class BlockExecutor extends TranslationContext
 		BlockPos from = getLoadedBlockPos(ctx, "from");
 		BlockPos to = getLoadedBlockPos(ctx, "to");
 		BoundingBox box = PositionUtils.createBlockBox(from, to);
+
+		// The span getters keep their Mojang names, but their Intermediary IDs shift in 1.17
+		//#disable-remap
 		long blockCountF = (long)box.getXSpan() * box.getYSpan();
 		long blockCount = (long)box.getXSpan() * box.getYSpan() * box.getZSpan();
+		//#enable-remap
+
 		if (blockCountF > this.limit || blockCount > this.limit)
 		{
 			throw FillCommandAccessor.getTooBigException().create(this.limit, blockCount);
