@@ -57,7 +57,7 @@ public class EntityIdCounterSampler
 		this.windowSum += item;
 		this.window.addLast(item);
 
-		if (this.window.size() > CarpetTISAdditionSettings.entityIdCounterLoggerSamplingDuration)
+		while (this.window.size() > CarpetTISAdditionSettings.entityIdCounterLoggerSamplingDuration)
 		{
 			this.windowSum -= this.window.removeFirst();
 		}
