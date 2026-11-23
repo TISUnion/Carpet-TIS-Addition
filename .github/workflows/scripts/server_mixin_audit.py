@@ -104,6 +104,8 @@ def prepare_server(subproject: str, jar: Path):
 	print(f'{version_url=}')
 	version_info = download_json(version_url)
 	java_version = version_info.get('javaVersion', {}).get('majorVersion', 25)
+	if java_version == 16:
+		java_version = 17
 	print(f'{java_version=}')
 
 	installers = download_json('https://meta.fabricmc.net/v2/versions/installer')
