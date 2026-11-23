@@ -111,7 +111,7 @@ public class SleepCommand extends AbstractCommand
 	{
 		SECOND("s", duration -> Thread.sleep(duration * 1000L)),
 		MILLI_SECOND("ms", duration -> Thread.sleep(duration)),
-		MICRO_SECOND("us", duration -> Thread.sleep(duration / 1000, (int)(duration % 1000)));
+		MICRO_SECOND("us", duration -> Thread.sleep(duration / 1000, (int)(duration % 1000) * 1000));
 
 		public final String name;
 		public final SleepAction action;
