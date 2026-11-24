@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkcarpet_tis_addition_website=globalThis.webpackChunkcarpet_tis_addition_website||[]).push([[903],{1912(s){s.exports=JSON.parse('{"blogBasePath":"/zh-Hans/posts","blogTitle":"\u6587\u7ae0 | Carpet TIS Addition","authorsListPath":"/zh-Hans/posts/authors"}')}}]);
